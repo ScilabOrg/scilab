@@ -25,19 +25,18 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_labels_font_size_property( sciPointObj * pobj )
+int get_labels_font_size_property(sciPointObj * pobj)
 {
-  if (   sciGetEntityType (pobj) == SCI_SUBWIN
-       || sciGetEntityType (pobj) == SCI_FIGURE
-       || sciGetEntityType (pobj) == SCI_AXES)
-  {
-    return sciReturnDouble( sciGetFontSize(pobj) ) ; /* F.Leray 08.04.04 */
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"labels_font_size");
-    return -1;
-  }
+    if (sciGetEntityType(pobj) == SCI_SUBWIN || sciGetEntityType(pobj) == SCI_FIGURE || sciGetEntityType(pobj) == SCI_AXES)
+    {
+        return sciReturnDouble(sciGetFontSize(pobj));   /* F.Leray 08.04.04 */
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "labels_font_size");
+        return -1;
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

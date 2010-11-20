@@ -14,21 +14,22 @@
 #include "gw_localization.h"
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
-/*--------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[]=
-{
-	{sci_setlanguage,"setlanguage"},
-	{sci_getlanguage,"getlanguage"},
-	{sci_getdefaultlanguage,"getdefaultlanguage"},
-	{sci_gettext,"gettext"},
-	{sci_dgettext,"dgettext"},
-	{sci_setdefaultlanguage,"setdefaultlanguage"}
+/*--------------------------------------------------------------------------*/
+static gw_generic_table Tab[] = {
+    {sci_setlanguage, "setlanguage"},
+    {sci_getlanguage, "getlanguage"},
+    {sci_getdefaultlanguage, "getdefaultlanguage"},
+    {sci_gettext, "gettext"},
+    {sci_dgettext, "dgettext"},
+    {sci_setdefaultlanguage, "setdefaultlanguage"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_localization(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

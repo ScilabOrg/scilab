@@ -27,40 +27,41 @@
 #include "HandleManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int get_children_property( sciPointObj * pobj )
+int get_children_property(sciPointObj * pobj)
 {
-  sciSons * curSon = NULL ;
-  int nbChildren = sciGetNbAccessibleChildren( pobj ) ;
+    sciSons *curSon = NULL;
+    int nbChildren = sciGetNbAccessibleChildren(pobj);
 
-  if ( nbChildren == 0 )
-  {
-    return sciReturnEmptyMatrix() ;
-  }
-  else
-  {
-    int index_  =  0 ;
-    int status = -1 ;
-    long * children = NULL ;
-    
-    children = MALLOC( nbChildren * sizeof(long) ) ;
-    if ( children == NULL )
+    if (nbChildren == 0)
     {
-			Scierror(999, _("%s: No more memory.\n"),"get_children_property");
-			return -1 ;
+        return sciReturnEmptyMatrix();
     }
-
-    curSon = sciGetFirstAccessibleSon( pobj ) ;
-    while ( curSon != NULL && curSon->pointobj != NULL )
+    else
     {
-      children[index_] = sciGetHandle( curSon->pointobj ) ;
-      index_++ ;
-      curSon = sciGetNextAccessibleSon( curSon ) ;
+        int index_ = 0;
+        int status = -1;
+        long *children = NULL;
+
+        children = MALLOC(nbChildren * sizeof(long));
+        if (children == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), "get_children_property");
+            return -1;
+        }
+
+        curSon = sciGetFirstAccessibleSon(pobj);
+        while (curSon != NULL && curSon->pointobj != NULL)
+        {
+            children[index_] = sciGetHandle(curSon->pointobj);
+            index_++;
+            curSon = sciGetNextAccessibleSon(curSon);
+        }
+        status = sciReturnColHandleVector(children, nbChildren);
+
+        FREE(children);
+
+        return status;
     }
-    status = sciReturnColHandleVector( children, nbChildren ) ;
-
-    FREE( children ) ;
-
-    return status ;
-  }
 }
+
 /*--------------------------------------------------------------------------*/

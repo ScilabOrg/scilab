@@ -11,173 +11,172 @@
  *
  */
 
-
 #include "CallJuigetfile.hxx"
 #include "Juigetfile.hxx"
 #include "BOOL.h"
 
 using namespace org_scilab_modules_gui_filechooser;
 
-void CallJuigetfile(char ** mask, char ** description, int maskSize, char * initialDirectory, char * titleBox, bool multipleSelection)
+void CallJuigetfile(char **mask, char **description, int maskSize, char *initialDirectory, char *titleBox, bool multipleSelection)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox, multipleSelection);
-	}
-	else
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox, multipleSelection);
-	}
+    if (description == NULL)
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox, multipleSelection);
+    }
+    else
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox, multipleSelection);
+    }
 }
 
 void CallJuigetfileWithoutInput()
 {
-	Juigetfile::uigetfile(getScilabJavaVM());
+    Juigetfile::uigetfile(getScilabJavaVM());
 }
 
-void CallJuigetfileOnlyWithMask(char ** mask, char ** description, int maskSize)
+void CallJuigetfileOnlyWithMask(char **mask, char **description, int maskSize)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0);
-	}
-	else
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize);
-	}  
+    if (description == NULL)
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0);
+    }
+    else
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize);
+    }
 }
 
-void CallJuigetfileWithMaskAndInitialdirectory(char ** mask, char ** description, int maskSize, char * initialDirectory)
+void CallJuigetfileWithMaskAndInitialdirectory(char **mask, char **description, int maskSize, char *initialDirectory)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory);
-	}
-	else
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory);
-	}
+    if (description == NULL)
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory);
+    }
+    else
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory);
+    }
 }
 
-void CallJuigetfileWithoutMultipleSelection(char ** mask, char ** description, int maskSize, char * initialDirectory, char * titleBox)
+void CallJuigetfileWithoutMultipleSelection(char **mask, char **description, int maskSize, char *initialDirectory, char *titleBox)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox);
-	}
-	else
-	{
-		Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox);
-	}
+    if (description == NULL)
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox);
+    }
+    else
+    {
+        Juigetfile::uigetfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox);
+    }
 }
 
 void CallJuiputfileWithoutInput()
 {
-	Juigetfile::uiputfile(getScilabJavaVM());
+    Juigetfile::uiputfile(getScilabJavaVM());
 }
 
-void CallJuiputfileOnlyWithMask(char ** mask, char ** description, int maskSize)
+void CallJuiputfileOnlyWithMask(char **mask, char **description, int maskSize)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0);
-	}
-	else
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize);
-	}  
+    if (description == NULL)
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0);
+    }
+    else
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize);
+    }
 }
 
-void CallJuiputfileWithMaskAndInitialdirectory(char ** mask, char ** description, int maskSize, char * initialDirectory)
+void CallJuiputfileWithMaskAndInitialdirectory(char **mask, char **description, int maskSize, char *initialDirectory)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory);
-	}
-	else
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory);
-	}
+    if (description == NULL)
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory);
+    }
+    else
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory);
+    }
 }
 
-void CallJuiputfileWithoutMultipleSelection(char ** mask, char ** description, int maskSize, char * initialDirectory, char * titleBox)
+void CallJuiputfileWithoutMultipleSelection(char **mask, char **description, int maskSize, char *initialDirectory, char *titleBox)
 {
-	if (description == NULL)
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox);
-	}
-	else
-	{
-		Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox);
-	}
+    if (description == NULL)
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, NULL, 0, initialDirectory, titleBox);
+    }
+    else
+    {
+        Juigetfile::uiputfile(getScilabJavaVM(), mask, maskSize, description, maskSize, initialDirectory, titleBox);
+    }
 }
 
-char * getJuigetfileTitleBox()
+char *getJuigetfileTitleBox()
 {
-  return Juigetfile::getTitleBox(getScilabJavaVM());
+    return Juigetfile::getTitleBox(getScilabJavaVM());
 }
 
-char ** getJuigetfileMask()
+char **getJuigetfileMask()
 {
-  return Juigetfile::getMask(getScilabJavaVM());
+    return Juigetfile::getMask(getScilabJavaVM());
 }
 
-char * getJuigetfileInitialDirectory()
+char *getJuigetfileInitialDirectory()
 {
-  return Juigetfile::getInitialDirectory(getScilabJavaVM());
+    return Juigetfile::getInitialDirectory(getScilabJavaVM());
 }
 
 int getJuigetfileSelectionSize()
 {
-  return Juigetfile::getSelectionSize(getScilabJavaVM());
+    return Juigetfile::getSelectionSize(getScilabJavaVM());
 }
 
-char ** getJuigetfileSelection()
+char **getJuigetfileSelection()
 {
-  return Juigetfile::getSelection(getScilabJavaVM());
+    return Juigetfile::getSelection(getScilabJavaVM());
 }
 
-char ** getJuigetfileSelectionFileNames()
+char **getJuigetfileSelectionFileNames()
 {
-  return Juigetfile::getSelectionFileNames(getScilabJavaVM());
+    return Juigetfile::getSelectionFileNames(getScilabJavaVM());
 }
 
 bool getJuigetfileMultipleSelection()
 {
-  return Juigetfile::isMultipleSelection(getScilabJavaVM());
+    return Juigetfile::isMultipleSelection(getScilabJavaVM());
 }
 
-char * getJuigetfileSelectionPathName()
+char *getJuigetfileSelectionPathName()
 {
-  return Juigetfile::getSelectionPathName(getScilabJavaVM());
+    return Juigetfile::getSelectionPathName(getScilabJavaVM());
 }
 
 int getJuigetfileFilterIndex()
 {
-  return Juigetfile::getFilterIndex(getScilabJavaVM());
+    return Juigetfile::getFilterIndex(getScilabJavaVM());
 }
 
-char * getJuigetfileMenuCallback()
+char *getJuigetfileMenuCallback()
 {
-  return Juigetfile::getMenuCallback(getScilabJavaVM());
+    return Juigetfile::getMenuCallback(getScilabJavaVM());
 }
 
-void deleteMenuCallBack(char * menuCallBack)
+void deleteMenuCallBack(char *menuCallBack)
 {
-  delete[] menuCallBack;
+    delete[]menuCallBack;
 }
 
 void CallJuigetfileForDirectoryWithoutInput()
 {
-	Juigetfile::uigetdir(getScilabJavaVM());
+    Juigetfile::uigetdir(getScilabJavaVM());
 }
 
 void CallJuigetfileForDirectoryWithInitialdirectory(char *initialDirectory)
 {
-  Juigetfile::uigetdir(getScilabJavaVM(), initialDirectory);
+    Juigetfile::uigetdir(getScilabJavaVM(), initialDirectory);
 }
 
 void CallJuigetfileForDirectoryWithInitialdirectoryAndTitle(char *initialDirectory, char *title)
 {
-  Juigetfile::uigetdir(getScilabJavaVM(), initialDirectory, title);
+    Juigetfile::uigetdir(getScilabJavaVM(), initialDirectory, title);
 }

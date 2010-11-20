@@ -39,34 +39,38 @@ Type *DR;\
    	   ky = ky + iy;}}\
 }
 
-
-int C2F(genkron)(int *typ,int *dx,int *incx,int *mx,int *nx,int *dy,int *incy,int *my,int *ny,int *dr,int *incr)
+int C2F(genkron) (int *typ, int *dx, int *incx, int *mx, int *nx, int *dy, int *incy, int *my, int *ny, int *dr, int *incr)
 {
-  static int i, ix, iy, ir, jx, jy, l, kk1, kx1, kk, kx, ky;
-  ix = *incx;
-  iy = *incy;
-  ir = *incr;
+    static int i, ix, iy, ir, jx, jy, l, kk1, kx1, kk, kx, ky;
 
-  switch (*typ) {
-  case 1:
-    KRON(integer1);
-    break;
-  case 2:
-    KRON(integer2);
-    break;
-  case 4:
-    KRON(int) ;
-    break;
-  case 11:
-    KRON(unsigned char);
-    break;
-  case 12:
-    KRON(unsigned short);
-    break;
-  case 14:
-    KRON(unsigned int);
-    break;
-  }
-  return 0;
+    ix = *incx;
+    iy = *incy;
+    ir = *incr;
+
+    switch (*typ)
+    {
+    case 1:
+        KRON(integer1);
+        break;
+    case 2:
+        KRON(integer2);
+        break;
+    case 4:
+        KRON(int);
+
+        break;
+    case 11:
+        KRON(unsigned char);
+
+        break;
+    case 12:
+        KRON(unsigned short);
+
+        break;
+    case 14:
+        KRON(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

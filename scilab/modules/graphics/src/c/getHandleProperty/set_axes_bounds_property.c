@@ -31,27 +31,28 @@
 //#include "PloEch.h"
 
 /*------------------------------------------------------------------------*/
-int set_axes_bounds_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_axes_bounds_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "axes_bounds");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "axes_bounds");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_bounds") ;
-    return SET_PROPERTY_ERROR ;
-  }
-  if ( nbRow * nbCol != 4 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "axes_bounds", 4);
-    return SET_PROPERTY_ERROR ;
-  }
-  
-  copyDoubleVectorFromStack( stackPointer, pSUBWIN_FEATURE (pobj)->WRect, 4 ) ;
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_bounds");
+        return SET_PROPERTY_ERROR;
+    }
+    if (nbRow * nbCol != 4)
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "axes_bounds", 4);
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_SUCCEED ;
+    copyDoubleVectorFromStack(stackPointer, pSUBWIN_FEATURE(pobj)->WRect, 4);
+
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

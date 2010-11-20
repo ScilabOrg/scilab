@@ -27,25 +27,26 @@
 #include "SetPropertyStatus.h"
 #include "GetProperty.h"
 /*------------------------------------------------------------------------*/
-int set_callback_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_callback_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if (sciGetEntityType(pobj) == SCI_UIMENU || sciGetEntityType(pobj) == SCI_UICONTROL)
+    if (sciGetEntityType(pobj) == SCI_UIMENU || sciGetEntityType(pobj) == SCI_UICONTROL)
     {
-      if ( (!isParameterStringMatrix( valueType )) && (valueType != sci_list) )
+        if ((!isParameterStringMatrix(valueType)) && (valueType != sci_list))
         {
-          Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "callback");
-          return SET_PROPERTY_ERROR ;
+            Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "callback");
+            return SET_PROPERTY_ERROR;
         }
-      return SetUiobjectCallback(pobj, stackPointer, valueType, nbRow, nbCol);
+        return SetUiobjectCallback(pobj, stackPointer, valueType, nbRow, nbCol);
     }
-  else
+    else
     {
-      if ( !isParameterStringMatrix( valueType ) )
+        if (!isParameterStringMatrix(valueType))
         {
-          Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "callback");
-          return SET_PROPERTY_ERROR ;
+            Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "callback");
+            return SET_PROPERTY_ERROR;
         }
-     return sciAddCallback( pobj, getStringFromStack( stackPointer ), nbRow * nbCol, 1 ) ;
+        return sciAddCallback(pobj, getStringFromStack(stackPointer), nbRow * nbCol, 1);
     }
 }
+
 /*------------------------------------------------------------------------*/

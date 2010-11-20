@@ -12,11 +12,13 @@
 #include "gw_symbolic.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scimulf)(char *fname,unsigned long fname_len);
+extern int C2F(scimulf) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_mulf(char *fname,unsigned long fname_len)
+int sci_mulf(char *fname, unsigned long fname_len)
 {
-	C2F(scimulf)(fname,fname_len);
-	return 0;
+    C2F(scimulf) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

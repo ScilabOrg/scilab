@@ -14,27 +14,29 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_probe 
  ******************************************/
-int sci_pvm_probe(char *fname,unsigned long fname_len)
+int sci_pvm_probe(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,m2,n2,l2,un=1;
-  int res;
-  CheckRhs(2,2);
-  CheckLhs(1,1);
-  GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);/*  tid */ 
-  CheckScalar(1,m1,n1);
-  GetRhsVar(2,MATRIX_OF_INTEGER_DATATYPE,&m2,&n2,&l2);/* msgtag */ 
-  CheckScalar(2,m2,n2);
-  CreateVar(Rhs+3,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&res);
-  *istk(res) = pvm_probe(*istk(l1),*istk(l2));
-  LhsVar(1)= Rhs+3; 
-  C2F(putlhsvar)();
-  return 0;
+    int m1, n1, l1, m2, n2, l2, un = 1;
+    int res;
+
+    CheckRhs(2, 2);
+    CheckLhs(1, 1);
+    GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);    /*  tid */
+    CheckScalar(1, m1, n1);
+    GetRhsVar(2, MATRIX_OF_INTEGER_DATATYPE, &m2, &n2, &l2);    /* msgtag */
+    CheckScalar(2, m2, n2);
+    CreateVar(Rhs + 3, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &res);
+    *istk(res) = pvm_probe(*istk(l1), *istk(l2));
+    LhsVar(1) = Rhs + 3;
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

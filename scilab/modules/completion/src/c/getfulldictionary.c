@@ -21,52 +21,53 @@
 /*--------------------------------------------------------------------------*/
 char **getfulldictionary(int *sizearray)
 {
-	int sizedictionary = 0;
-	char **dictionary = NULL;
-	
-	int sizevariablesdictionary = 0;
-	char **variablesdictionary = getVariablesName(&sizevariablesdictionary,TRUE);
-	
-	int sizecommandsdictionary = 0;
-	char **commandsdictionary = getcommandkeywords(&sizecommandsdictionary);
-	
-	int sizefunctionsdictionary = 0;
-	char **functionsdictionary = GetFunctionsList(&sizefunctionsdictionary);
-	
-	int sizemacrosdictionary = 0;
-	char **macrosdictionary = getmacrosdictionary(&sizemacrosdictionary);
+    int sizedictionary = 0;
+    char **dictionary = NULL;
 
-	int sizeHandleGraphicsGetPropertiesDictionary = 0;
-	char **HandleGraphicsGetPropertiesDictionary = getDictionaryGetProperties(&sizeHandleGraphicsGetPropertiesDictionary);
+    int sizevariablesdictionary = 0;
+    char **variablesdictionary = getVariablesName(&sizevariablesdictionary, TRUE);
 
-	int sizeHandleGraphicsSetPropertiesDictionary = 0;
-	char **HandleGraphicsSetPropertiesDictionary = getDictionarySetProperties(&sizeHandleGraphicsSetPropertiesDictionary);
-	
-	sizedictionary = sizevariablesdictionary + sizecommandsdictionary + sizefunctionsdictionary
-					+ sizemacrosdictionary + sizeHandleGraphicsGetPropertiesDictionary
-					+ sizeHandleGraphicsSetPropertiesDictionary;
+    int sizecommandsdictionary = 0;
+    char **commandsdictionary = getcommandkeywords(&sizecommandsdictionary);
 
-	if (sizedictionary > 0) dictionary = (char**)MALLOC(sizeof(char*)*sizedictionary);
+    int sizefunctionsdictionary = 0;
+    char **functionsdictionary = GetFunctionsList(&sizefunctionsdictionary);
 
-	if (dictionary)
-	{
-		int i = 0;
+    int sizemacrosdictionary = 0;
+    char **macrosdictionary = getmacrosdictionary(&sizemacrosdictionary);
 
-		appendDictionary(&dictionary,&i,&variablesdictionary,&sizevariablesdictionary);
-		appendDictionary(&dictionary,&i,&commandsdictionary,&sizecommandsdictionary);
-		appendDictionary(&dictionary,&i,&functionsdictionary,&sizefunctionsdictionary);
-		appendDictionary(&dictionary,&i,&macrosdictionary,&sizemacrosdictionary);
-		appendDictionary(&dictionary,&i,&HandleGraphicsGetPropertiesDictionary,&sizeHandleGraphicsGetPropertiesDictionary);
-		appendDictionary(&dictionary,&i,&HandleGraphicsSetPropertiesDictionary,&sizeHandleGraphicsSetPropertiesDictionary);
+    int sizeHandleGraphicsGetPropertiesDictionary = 0;
+    char **HandleGraphicsGetPropertiesDictionary = getDictionaryGetProperties(&sizeHandleGraphicsGetPropertiesDictionary);
 
-		dictionary = RemoveDuplicateDictionary(dictionary,&i);
+    int sizeHandleGraphicsSetPropertiesDictionary = 0;
+    char **HandleGraphicsSetPropertiesDictionary = getDictionarySetProperties(&sizeHandleGraphicsSetPropertiesDictionary);
 
-		*sizearray = i;
-	}
-	else
-	{
-		*sizearray = 0;
-	}
-	return dictionary;
+    sizedictionary = sizevariablesdictionary + sizecommandsdictionary + sizefunctionsdictionary
+        + sizemacrosdictionary + sizeHandleGraphicsGetPropertiesDictionary + sizeHandleGraphicsSetPropertiesDictionary;
+
+    if (sizedictionary > 0)
+        dictionary = (char **)MALLOC(sizeof(char *) * sizedictionary);
+
+    if (dictionary)
+    {
+        int i = 0;
+
+        appendDictionary(&dictionary, &i, &variablesdictionary, &sizevariablesdictionary);
+        appendDictionary(&dictionary, &i, &commandsdictionary, &sizecommandsdictionary);
+        appendDictionary(&dictionary, &i, &functionsdictionary, &sizefunctionsdictionary);
+        appendDictionary(&dictionary, &i, &macrosdictionary, &sizemacrosdictionary);
+        appendDictionary(&dictionary, &i, &HandleGraphicsGetPropertiesDictionary, &sizeHandleGraphicsGetPropertiesDictionary);
+        appendDictionary(&dictionary, &i, &HandleGraphicsSetPropertiesDictionary, &sizeHandleGraphicsSetPropertiesDictionary);
+
+        dictionary = RemoveDuplicateDictionary(dictionary, &i);
+
+        *sizearray = i;
+    }
+    else
+    {
+        *sizearray = 0;
+    }
+    return dictionary;
 }
+
 /*--------------------------------------------------------------------------*/

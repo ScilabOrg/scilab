@@ -31,8 +31,9 @@ extern "C"
 #endif
 }
 using namespace org_scilab_modules_ui_data;
+
 /*--------------------------------------------------------------------------*/
-int sci_browsevar(char *fname,unsigned long fname_len)
+int sci_browsevar(char *fname, unsigned long fname_len)
 {
     int iGlobalVariablesUsed = 0;
     int iGlobalVariablesTotal = 0;
@@ -41,22 +42,22 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     int i = 0;
 
     CheckRhs(0, 0);
-    CheckLhs(0, 1);	
+    CheckLhs(0, 1);
 
     // First get how many global / local variable we have.
-    C2F(getvariablesinfo)(&iLocalVariablesTotal, &iLocalVariablesUsed);
-    C2F(getgvariablesinfo)(&iGlobalVariablesTotal, &iGlobalVariablesUsed);
+    C2F(getvariablesinfo) (&iLocalVariablesTotal, &iLocalVariablesUsed);
+    C2F(getgvariablesinfo) (&iGlobalVariablesTotal, &iGlobalVariablesUsed);
 
-    char ** pstAllVariableNames = (char **) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
-    char ** pstAllVariableVisibility = (char **) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
-    int * piAllVariableBytes = (int *) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
-    int * piAllVariableTypes = (int *) MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
+    char **pstAllVariableNames = (char **)MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
+    char **pstAllVariableVisibility = (char **)MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(char *));
+    int *piAllVariableBytes = (int *)MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
+    int *piAllVariableTypes = (int *)MALLOC((iLocalVariablesUsed + iGlobalVariablesUsed) * sizeof(int));
 
     // for each local variable get informations
-    for (i = 0 ; i < iLocalVariablesUsed ; ++i)
+    for (i = 0; i < iLocalVariablesUsed; ++i)
     {
         // name
-        pstAllVariableNames[i] = getLocalNamefromId(i+1);
+        pstAllVariableNames[i] = getLocalNamefromId(i + 1);
         // type
         getNamedVarType(pvApiCtx, pstAllVariableNames[i], &piAllVariableTypes[i]);
         // Bytes used
@@ -66,7 +67,7 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     }
 
     // for each global variable get informations
-    for (int j = 0 ; j < iGlobalVariablesUsed ; ++j, ++i)
+    for (int j = 0; j < iGlobalVariablesUsed; ++j, ++i)
     {
         // name
         pstAllVariableNames[i] = getGlobalNamefromId(j);
@@ -81,8 +82,8 @@ int sci_browsevar(char *fname,unsigned long fname_len)
         pstAllVariableVisibility[i] = strdup("global");
     }
 
-    char *pstColumnNames[] = {_("Icon"), 
-        _("Name"), 
+    char *pstColumnNames[] = { _("Icon"),
+        _("Name"),
         //_("Value"),
         //_("Size"),
         _("Bytes"),
@@ -99,13 +100,12 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     };
 
     // Launch Java Variable Browser through JNI
-    BrowseVar::openVariableBrowser(getScilabJavaVM(), 
-        pstColumnNames, 5,
-        pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
-        piAllVariableBytes, iLocalVariablesUsed + iGlobalVariablesUsed,
-        piAllVariableTypes, iLocalVariablesUsed + iGlobalVariablesUsed,
-        pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed
-        );
+    BrowseVar::openVariableBrowser(getScilabJavaVM(),
+                                   pstColumnNames, 5,
+                                   pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   piAllVariableBytes, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   piAllVariableTypes, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed);
 
     freeArrayOfString(pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed);
     freeArrayOfString(pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed);
@@ -125,4 +125,5 @@ int sci_browsevar(char *fname,unsigned long fname_len)
     PutLhsVar();
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

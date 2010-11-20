@@ -10,7 +10,6 @@
  *
  */
 
-
 /*------------------------------------------------------------------------*/
 /* file: get_color_range_property.c                                       */
 /* desc : function to retrieve in Scilab the color_range field of         */
@@ -24,18 +23,20 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_color_range_property( sciPointObj * pobj )
+int get_color_range_property(sciPointObj * pobj)
 {
-  int range[2];
-  if (sciGetEntityType (pobj) != SCI_FEC)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"color_range") ;
-    return -1 ;
-  }
+    int range[2];
 
-	sciGetColorRange(pobj, range);
+    if (sciGetEntityType(pobj) != SCI_FEC)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "color_range");
+        return -1;
+    }
 
-  return sciReturnRowVectorFromInt( range, 2 ) ;
+    sciGetColorRange(pobj, range);
+
+    return sciReturnRowVectorFromInt(range, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

@@ -14,51 +14,53 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
 #include "MALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "freeArrayOfString.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_config, fin = 9
  ******************************************/
-int sci_pvm_config(char *fname,unsigned long fname_len)
+int sci_pvm_config(char *fname, unsigned long fname_len)
 {
-  int un=1;
-  int nhost,narch,*pdtid,*pspeed,ne3,info,*work;
-  char  **pname,**parch;
-  CheckRhs(0,0);
-  CheckLhs(1,1);
-  C2F(scipvmconfig)(&nhost,&narch,&pdtid,&pname,&parch,&pspeed,&ne3,&info);
-  /* Creation of output list of length 7*/
-  if (info != 0 ) 
+    int un = 1;
+    int nhost, narch, *pdtid, *pspeed, ne3, info, *work;
+    char **pname, **parch;
+
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
+    C2F(scipvmconfig) (&nhost, &narch, &pdtid, &pname, &parch, &pspeed, &ne3, &info);
+    /* Creation of output list of length 7 */
+    if (info != 0)
     {
-      Scierror(999,_("%s: An error occurred: %s\n"),fname,scipvm_error_msg(info));
-      return 0;
+        Scierror(999, _("%s: An error occurred: %s\n"), fname, scipvm_error_msg(info));
+        return 0;
     }
-  Createlist(1,7);
-  CreateListVarFromPtr(1,1,MATRIX_OF_INTEGER_DATATYPE,&un,&un,(work=&nhost,&work));
-  CreateListVarFromPtr(1,2,MATRIX_OF_INTEGER_DATATYPE,&un,&un,(work=&narch,&work));
-  CreateListVarFromPtr(1,3,MATRIX_OF_INTEGER_DATATYPE,&un,&ne3,&pdtid);
-  FREE(pdtid);
+    Createlist(1, 7);
+    CreateListVarFromPtr(1, 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, (work = &nhost, &work));
+    CreateListVarFromPtr(1, 2, MATRIX_OF_INTEGER_DATATYPE, &un, &un, (work = &narch, &work));
+    CreateListVarFromPtr(1, 3, MATRIX_OF_INTEGER_DATATYPE, &un, &ne3, &pdtid);
+    FREE(pdtid);
 
-  CreateListVarFromPtr(1,4,MATRIX_OF_STRING_DATATYPE,&ne3,&un,pname);
-  freeArrayOfString(pname, ne3);
+    CreateListVarFromPtr(1, 4, MATRIX_OF_STRING_DATATYPE, &ne3, &un, pname);
+    freeArrayOfString(pname, ne3);
 
-  CreateListVarFromPtr(1,5,MATRIX_OF_STRING_DATATYPE,&ne3,&un,parch);
-  freeArrayOfString(parch, ne3);
+    CreateListVarFromPtr(1, 5, MATRIX_OF_STRING_DATATYPE, &ne3, &un, parch);
+    freeArrayOfString(parch, ne3);
 
-  CreateListVarFromPtr(1,6,MATRIX_OF_INTEGER_DATATYPE,&un,&ne3,&pspeed);
-  FREE(pspeed);
-  CreateListVarFromPtr(1,7,MATRIX_OF_INTEGER_DATATYPE,&un,&un,(work=&info,&work));
-  LhsVar(1)= 1;
-  
-  pvm_error_check(fname,info,fname_len);
+    CreateListVarFromPtr(1, 6, MATRIX_OF_INTEGER_DATATYPE, &un, &ne3, &pspeed);
+    FREE(pspeed);
+    CreateListVarFromPtr(1, 7, MATRIX_OF_INTEGER_DATATYPE, &un, &un, (work = &info, &work));
+    LhsVar(1) = 1;
 
-  C2F(putlhsvar)();
-  return 0;
+    pvm_error_check(fname, info, fname_len);
+
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

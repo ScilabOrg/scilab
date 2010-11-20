@@ -13,25 +13,29 @@
 #include "funcprot.h"
 /*--------------------------------------------------------------------------*/
 extern MPROT_struct C2F(mprot);
+
 /*--------------------------------------------------------------------------*/
-int C2F(initfuncprot)()
+int C2F(initfuncprot) ()
 {
-	C2F(mprot).macprt = 1;
-	return 0;
+    C2F(mprot).macprt = 1;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int getfuncprot(void)
 {
-	return C2F(mprot).macprt;
+    return C2F(mprot).macprt;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL setfuncprot(int level)
 {
-	if ( (level == 0) || (level == 1) || (level == 2) )
-	{
-		C2F(mprot).macprt = level;
-		return TRUE;
-	}
-	return FALSE;
+    if ((level == 0) || (level == 1) || (level == 2))
+    {
+        C2F(mprot).macprt = level;
+        return TRUE;
+    }
+    return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -11,7 +11,7 @@
 */
 /*--------------------------------------------------------------------------*/
 #if defined(__linux__)
-#define _GNU_SOURCE /* Bug 5673 fix: avoid dependency on GLIBC_2.7 */
+#define _GNU_SOURCE             /* Bug 5673 fix: avoid dependency on GLIBC_2.7 */
 #endif
 /*--------------------------------------------------------------------------*/
 #include <stdio.h>
@@ -40,31 +40,24 @@
 #define READ_ONLY_TEXT_MODE "r"
 #endif
 /*--------------------------------------------------------------------------*/
-#define NB_FORMAT_SUPPORTED 7 
-static char *supportedFormat[NB_FORMAT_SUPPORTED] = 
-{"lf", "lg", "d", "i", "e", "f", "g"};
+#define NB_FORMAT_SUPPORTED 7
+static char *supportedFormat[NB_FORMAT_SUPPORTED] = { "lf", "lg", "d", "i", "e", "f", "g" };
+
 /*--------------------------------------------------------------------------*/
 static BOOL itCanBeMatrixLine(char *line, char *format, char *separator);
 static int getNbColumnsInLine(char *line, char *format, char *separator);
-static int getNumbersColumnsInLines(char **lines, int sizelines, 
-                                    int nbLinesText,
-                                    char *format, char *separator);
-static int getNumbersLinesOfText(char **lines, int sizelines,
-                                 char *format, char *separator);
+static int getNumbersColumnsInLines(char **lines, int sizelines, int nbLinesText, char *format, char *separator);
+static int getNumbersLinesOfText(char **lines, int sizelines, char *format, char *separator);
 static char **splitLine(char *str, char *sep, int *toks, char meta);
-static double *getDoubleValuesFromLines(char **lines, int sizelines, 
-                                        int nbLinesText,
-                                        char *format, char *separator,
-                                        int m, int n);
-static double *getDoubleValuesInLine(char *line,
-                                     char *format, char *separator, 
-                                     int nbColumnsMax);
+static double *getDoubleValuesFromLines(char **lines, int sizelines, int nbLinesText, char *format, char *separator, int m, int n);
+static double *getDoubleValuesInLine(char *line, char *format, char *separator, int nbColumnsMax);
 static double returnINF(BOOL bPositive);
 static double returnNAN(void);
 static BOOL checkFscanfMatFormat(char *format);
 static char *getCleanedFormat(char *format);
 static char **removeEmptyLinesAtTheEnd(char **lines, int *sizelines);
 static BOOL isValidLineWithOnlyOneNumber(char *line);
+
 /*--------------------------------------------------------------------------*/
 fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL asDouble)
 {
@@ -79,7 +72,6 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
     int nbColumns = 0;
     int nbRows = 0;
 
-
     fscanfMatResult *resultFscanfMat = NULL;
     char **lines = NULL;
     int nblines = 0;
@@ -90,9 +82,9 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
         return NULL;
     }
 
-    if (!checkFscanfMatFormat(format)) 
+    if (!checkFscanfMatFormat(format))
     {
-        resultFscanfMat = (fscanfMatResult*)(MALLOC(sizeof(fscanfMatResult)));
+        resultFscanfMat = (fscanfMatResult *) (MALLOC(sizeof(fscanfMatResult)));
         if (resultFscanfMat)
         {
             resultFscanfMat->err = FSCANFMAT_FORMAT_ERROR;
@@ -105,10 +97,10 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
         return resultFscanfMat;
     }
 
-    C2F(mopen)(&fd, filename, READ_ONLY_TEXT_MODE, &f_swap, &res, &errMOPEN);
+    C2F(mopen) (&fd, filename, READ_ONLY_TEXT_MODE, &f_swap, &res, &errMOPEN);
     if (errMOPEN != MOPEN_NO_ERROR)
     {
-        resultFscanfMat = (fscanfMatResult*)(MALLOC(sizeof(fscanfMatResult)));
+        resultFscanfMat = (fscanfMatResult *) (MALLOC(sizeof(fscanfMatResult)));
         if (resultFscanfMat)
         {
             resultFscanfMat->err = FSCANFMAT_MOPEN_ERROR;
@@ -122,10 +114,10 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
     }
 
     lines = mgetl(fd, -1, &nblines, &errMGETL);
-    C2F(mclose)(&fd, &dErrClose);
+    C2F(mclose) (&fd, &dErrClose);
     if (errMGETL != MGETL_NO_ERROR)
     {
-        resultFscanfMat = (fscanfMatResult*)(MALLOC(sizeof(fscanfMatResult)));
+        resultFscanfMat = (fscanfMatResult *) (MALLOC(sizeof(fscanfMatResult)));
         if (resultFscanfMat)
         {
             resultFscanfMat->err = FSCANFMAT_READLINES_ERROR;
@@ -144,13 +136,10 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
     nbRows = nblines - nbLinesTextDetected;
     nbColumns = getNumbersColumnsInLines(lines, nblines, nbLinesTextDetected, format, separator);
 
-    dValues = getDoubleValuesFromLines(lines, nblines,
-        nbLinesTextDetected,
-        format, separator,
-        nbColumns, nbRows);
+    dValues = getDoubleValuesFromLines(lines, nblines, nbLinesTextDetected, format, separator, nbColumns, nbRows);
     if (dValues)
     {
-        resultFscanfMat = (fscanfMatResult*)(MALLOC(sizeof(fscanfMatResult)));
+        resultFscanfMat = (fscanfMatResult *) (MALLOC(sizeof(fscanfMatResult)));
         if (resultFscanfMat)
         {
             if (nbLinesTextDetected > 0)
@@ -189,7 +178,7 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
         freeArrayOfString(lines, nblines);
         if (nbColumns == 0 || nbRows == 0)
         {
-            resultFscanfMat = (fscanfMatResult*)(MALLOC(sizeof(fscanfMatResult)));
+            resultFscanfMat = (fscanfMatResult *) (MALLOC(sizeof(fscanfMatResult)));
             if (resultFscanfMat)
             {
                 resultFscanfMat->err = FSCANFMAT_READLINES_ERROR;
@@ -203,8 +192,9 @@ fscanfMatResult *fscanfMat(char *filename, char *format, char *separator, BOOL a
     }
     return resultFscanfMat;
 }
+
 /*--------------------------------------------------------------------------*/
-void freeFscanfMatResult(fscanfMatResult *resultStruct)
+void freeFscanfMatResult(fscanfMatResult * resultStruct)
 {
     if (resultStruct)
     {
@@ -229,10 +219,11 @@ void freeFscanfMatResult(fscanfMatResult *resultStruct)
         resultStruct = NULL;
     }
 }
+
 /*--------------------------------------------------------------------------*/
 static BOOL itCanBeMatrixLine(char *line, char *format, char *separator)
 {
-#define SIZEKEYWORD 4 /* -Inf */
+#define SIZEKEYWORD 4           /* -Inf */
     char str[SIZEKEYWORD];
     double dValue = 0.;
     int ierr = 0;
@@ -245,9 +236,12 @@ static BOOL itCanBeMatrixLine(char *line, char *format, char *separator)
             ierr = sscanf(line, "%4s", str);
             if ((ierr != 0) && (ierr != EOF))
             {
-                if (strncmp(str, NanString, (int)strlen(NanString)) == 0) return TRUE;
-                if (strncmp(str, NegInfString, (int)strlen(NegInfString)) == 0) return TRUE;
-                if (strncmp(str, InfString, (int)strlen(InfString)) == 0) return TRUE;
+                if (strncmp(str, NanString, (int)strlen(NanString)) == 0)
+                    return TRUE;
+                if (strncmp(str, NegInfString, (int)strlen(NegInfString)) == 0)
+                    return TRUE;
+                if (strncmp(str, InfString, (int)strlen(InfString)) == 0)
+                    return TRUE;
             }
         }
         else
@@ -257,15 +251,17 @@ static BOOL itCanBeMatrixLine(char *line, char *format, char *separator)
     }
     return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/
-static int getNumbersLinesOfText(char **lines, int sizelines,
-                                 char *format, char *separator)
+static int getNumbersLinesOfText(char **lines, int sizelines, char *format, char *separator)
 {
     int numberOfLines = 0;
+
     if (lines)
     {
         int i = 0;
-        for(i = 0; i < sizelines; i++)
+
+        for (i = 0; i < sizelines; i++)
         {
             if (!itCanBeMatrixLine(lines[i], format, separator))
             {
@@ -279,18 +275,19 @@ static int getNumbersLinesOfText(char **lines, int sizelines,
     }
     return numberOfLines;
 }
+
 /*--------------------------------------------------------------------------*/
-static int getNumbersColumnsInLines(char **lines, int sizelines, 
-                                    int nbLinesText,
-                                    char *format, char *separator)
+static int getNumbersColumnsInLines(char **lines, int sizelines, int nbLinesText, char *format, char *separator)
 {
     int previousNbColumns = 0;
     int NbColumns = 0;
     BOOL firstLine = TRUE;
+
     if (lines)
     {
         int i = 0;
         int firstLinesMatrix = nbLinesText;
+
         for (i = firstLinesMatrix; i < sizelines; i++)
         {
             NbColumns = getNbColumnsInLine(lines[i], format, separator);
@@ -310,6 +307,7 @@ static int getNumbersColumnsInLines(char **lines, int sizelines,
     }
     return NbColumns;
 }
+
 /*--------------------------------------------------------------------------*/
 static int getNbColumnsInLine(char *line, char *format, char *separator)
 {
@@ -320,6 +318,7 @@ static int getNbColumnsInLine(char *line, char *format, char *separator)
         int i = 0;
         int nbTokens = 0;
         char **splittedStr = splitLine(line, separator, &nbTokens, 0);
+
         if (nbTokens == 0)
         {
             freeArrayOfString(splittedStr, nbTokens);
@@ -327,25 +326,25 @@ static int getNbColumnsInLine(char *line, char *format, char *separator)
         }
         if (splittedStr)
         {
-            for(i = 0; i < nbTokens;i++)
+            for (i = 0; i < nbTokens; i++)
             {
                 double dValue = 0.;
                 int ierr = sscanf(splittedStr[i], format, &dValue);
+
                 if ((ierr != 0) && (ierr != EOF))
                 {
                     nbColums++;
                 }
                 else
                 {
-#define SIZEKEYWORD 4 /* -Inf */
+#define SIZEKEYWORD 4           /* -Inf */
                     char str[SIZEKEYWORD];
+
                     strcpy(str, "");
                     ierr = sscanf(splittedStr[i], "%4s", str);
                     if ((ierr != 0) && (ierr != EOF))
                     {
-                        if ( (strcmp(str, NanString) == 0) ||
-                            (strcmp(str, NegInfString) == 0) ||
-                            (strcmp(str, InfString) == 0) )
+                        if ((strcmp(str, NanString) == 0) || (strcmp(str, NegInfString) == 0) || (strcmp(str, InfString) == 0))
                         {
                             nbColums++;
                         }
@@ -353,7 +352,8 @@ static int getNbColumnsInLine(char *line, char *format, char *separator)
                         {
                             freeArrayOfString(splittedStr, nbTokens);
                             /* bug 6889 */
-                            if (nbColums) nbColums--;
+                            if (nbColums)
+                                nbColums--;
                             return nbColums;
                         }
                     }
@@ -369,6 +369,7 @@ static int getNbColumnsInLine(char *line, char *format, char *separator)
     }
     return nbColums;
 }
+
 /*--------------------------------------------------------------------------*/
 static char **splitLine(char *str, char *sep, int *toks, char meta)
 {
@@ -400,7 +401,7 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
         {
             if (isValidLineWithOnlyOneNumber(str))
             {
-                retstr = (char **) MALLOC(sizeof(char *));
+                retstr = (char **)MALLOC(sizeof(char *));
                 if (retstr)
                 {
                     retstr[0] = strdup(str);
@@ -411,26 +412,26 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
         return retstr;
     }
 
-    retstr = (char **) MALLOC((sizeof(char *) * (int)strlen(str)));
+    retstr = (char **)MALLOC((sizeof(char *) * (int)strlen(str)));
     if (retstr == NULL)
     {
         *toks = 0;
         return NULL;
     }
 
-    while(idx < end)
+    while (idx < end)
     {
-        while(sep_idx < sep_end)
+        while (sep_idx < sep_end)
         {
-            if((*idx == *sep_idx) && (last_char != meta))
+            if ((*idx == *sep_idx) && (last_char != meta))
             {
-                if(len > 0)
+                if (len > 0)
                 {
-                    if(curr_str < (int)strlen(str))
+                    if (curr_str < (int)strlen(str))
                     {
-                        retstr[curr_str] = (char *) MALLOC((sizeof(char) * len) + 1);
+                        retstr[curr_str] = (char *)MALLOC((sizeof(char) * len) + 1);
 
-                        if(retstr[curr_str] == NULL)
+                        if (retstr[curr_str] == NULL)
                         {
                             *toks = 0;
                             return NULL;
@@ -443,7 +444,7 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
                         idx++;
                     }
 
-                    if(curr_str >= (int)strlen(str))
+                    if (curr_str >= (int)strlen(str))
                     {
                         *toks = curr_str + 1;
                         return retstr;
@@ -469,11 +470,11 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
         idx++;
     }
 
-    if(len > 0)
+    if (len > 0)
     {
-        retstr[curr_str] = (char *) MALLOC((sizeof(char) * len) + 1);
+        retstr[curr_str] = (char *)MALLOC((sizeof(char) * len) + 1);
 
-        if(retstr[curr_str] == NULL) 
+        if (retstr[curr_str] == NULL)
         {
             *toks = 0;
             return NULL;
@@ -486,30 +487,32 @@ static char **splitLine(char *str, char *sep, int *toks, char meta)
     }
     return retstr;
 }
+
 /*--------------------------------------------------------------------------*/
-static double *getDoubleValuesFromLines(char **lines, int sizelines,
-                                        int nbLinesText,
-                                        char *format, char *separator,
-                                        int m, int n)
+static double *getDoubleValuesFromLines(char **lines, int sizelines, int nbLinesText, char *format, char *separator, int m, int n)
 {
     double *dValues = NULL;
 
-    if (m == 0 || n == 0) return NULL;
+    if (m == 0 || n == 0)
+        return NULL;
 
-    dValues = (double*) MALLOC(sizeof(double) * (m * n));
+    dValues = (double *)MALLOC(sizeof(double) * (m * n));
     if (dValues)
     {
         int i = 0;
         int firstLinesMatrix = nbLinesText;
+
         for (i = firstLinesMatrix; i < sizelines; i++)
         {
             double *dValsTmp = getDoubleValuesInLine(lines[i], format, separator, m);
+
             if (dValsTmp)
             {
                 int j = 0;
+
                 for (j = 0; j < m; j++)
                 {
-                    dValues[(i-firstLinesMatrix) + n * j] = dValsTmp[j];
+                    dValues[(i - firstLinesMatrix) + n * j] = dValsTmp[j];
                 }
                 FREE(dValsTmp);
                 dValsTmp = NULL;
@@ -518,10 +521,9 @@ static double *getDoubleValuesFromLines(char **lines, int sizelines,
     }
     return dValues;
 }
+
 /*--------------------------------------------------------------------------*/
-static double *getDoubleValuesInLine(char *line,
-                                     char *format, char *separator,
-                                     int nbColumnsMax)
+static double *getDoubleValuesInLine(char *line, char *format, char *separator, int nbColumnsMax)
 {
     double *dValues = NULL;
 
@@ -529,29 +531,31 @@ static double *getDoubleValuesInLine(char *line,
     {
         int nbTokens = 0;
         char **splittedStr = splitLine(line, separator, &nbTokens, 0);
+
         if (splittedStr)
         {
             int i = 0;
-            dValues = (double*)MALLOC(sizeof(double) * nbColumnsMax);
+
+            dValues = (double *)MALLOC(sizeof(double) * nbColumnsMax);
             for (i = 0; i < nbColumnsMax; i++)
             {
                 double dValue = 0.;
                 int ierr = sscanf(splittedStr[i], format, &dValue);
+
                 if ((ierr != 0) && (ierr != EOF))
                 {
                     dValues[i] = dValue;
                 }
                 else
                 {
-#define SIZEKEYWORD 4 /* -Inf */
+#define SIZEKEYWORD 4           /* -Inf */
                     char str[SIZEKEYWORD];
+
                     strcpy(str, "");
                     ierr = sscanf(splittedStr[i], "%4s", str);
                     if ((ierr != 0) && (ierr != EOF))
                     {
-                        if ( (strcmp(str, NanString) == 0) ||
-                            (strcmp(str, NegInfString) == 0) ||
-                            (strcmp(str, InfString) == 0) )
+                        if ((strcmp(str, NanString) == 0) || (strcmp(str, NegInfString) == 0) || (strcmp(str, InfString) == 0))
                         {
                             if (strcmp(str, NanString) == 0)
                             {
@@ -571,14 +575,16 @@ static double *getDoubleValuesInLine(char *line,
                         else
                         {
                             freeArrayOfString(splittedStr, nbTokens);
-                            FREE(dValues); dValues = NULL;
+                            FREE(dValues);
+                            dValues = NULL;
                             return NULL;
                         }
                     }
                     else
                     {
                         freeArrayOfString(splittedStr, nbTokens);
-                        FREE(dValues); dValues = NULL;
+                        FREE(dValues);
+                        dValues = NULL;
                         return NULL;
                     }
                 }
@@ -589,27 +595,32 @@ static double *getDoubleValuesInLine(char *line,
 
     return dValues;
 }
+
 /*--------------------------------------------------------------------------*/
 static double returnINF(BOOL bPositive)
 {
     double v = 0;
     double p = 10;
-    if (!bPositive) p = -10;
-    return (double) p / (double)v;
+
+    if (!bPositive)
+        p = -10;
+    return (double)p / (double)v;
 }
+
 /*--------------------------------------------------------------------------*/
 static double returnNAN(void)
 {
     static int first = 1;
     static double nan = 1.0;
 
-    if ( first )
+    if (first)
     {
-        nan = (nan - (double) first)/(nan - (double) first);
+        nan = (nan - (double)first) / (nan - (double)first);
         first = 0;
     }
     return (nan);
 }
+
 /*--------------------------------------------------------------------------*/
 static BOOL checkFscanfMatFormat(char *format)
 {
@@ -617,9 +628,11 @@ static BOOL checkFscanfMatFormat(char *format)
     {
         char *tokenPercent1 = strchr(format, '%');
         char *tokenPercent2 = strrchr(format, '%');
+
         if ((tokenPercent2 && tokenPercent1) && (tokenPercent1 == tokenPercent2))
         {
             char *cleanedFormat = getCleanedFormat(format);
+
             if (cleanedFormat)
             {
                 FREE(cleanedFormat);
@@ -630,27 +643,32 @@ static BOOL checkFscanfMatFormat(char *format)
     }
     return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/
 static char *getCleanedFormat(char *format)
 {
     char *cleanedFormat = NULL;
+
     if (format)
     {
         char *percent = strchr(format, '%');
+
         if (percent)
         {
             int i = 0;
-            for(i = 0; i < NB_FORMAT_SUPPORTED; i++)
+
+            for (i = 0; i < NB_FORMAT_SUPPORTED; i++)
             {
                 char *token = strstr(percent, supportedFormat[i]);
+
                 if (token)
                 {
-                    int nbcharacters = strlen(percent) - strlen(token);          
+                    int nbcharacters = strlen(percent) - strlen(token);
+
                     cleanedFormat = strdup(percent);
                     cleanedFormat[nbcharacters] = 0;
-                    if ( (nbcharacters - 1 > 0) && (isdigit(cleanedFormat[nbcharacters-1]) ||
-                        (cleanedFormat[nbcharacters-1]) == '.') ||
-                        (cleanedFormat[nbcharacters-1]) == '%')
+                    if ((nbcharacters - 1 > 0) && (isdigit(cleanedFormat[nbcharacters - 1]) ||
+                                                   (cleanedFormat[nbcharacters - 1]) == '.') || (cleanedFormat[nbcharacters - 1]) == '%')
                     {
                         strcat(cleanedFormat, supportedFormat[i]);
                         return cleanedFormat;
@@ -666,18 +684,20 @@ static char *getCleanedFormat(char *format)
     }
     return cleanedFormat;
 }
+
 /*--------------------------------------------------------------------------*/
 static char **removeEmptyLinesAtTheEnd(char **lines, int *sizelines)
 {
     int i = 0;
     int nbLinesToRemove = 0;
+
     if (lines)
     {
         for (i = *sizelines - 1; i >= 0; i--)
         {
             if (lines[i])
             {
-                if (strcmp(lines[i], "") == 0) 
+                if (strcmp(lines[i], "") == 0)
                 {
                     FREE(lines[i]);
                     lines[i] = NULL;
@@ -692,7 +712,7 @@ static char **removeEmptyLinesAtTheEnd(char **lines, int *sizelines)
 
         if (nbLinesToRemove > 0)
         {
-            lines = (char**)REALLOC(lines, sizeof(char*) * (*sizelines - nbLinesToRemove));
+            lines = (char **)REALLOC(lines, sizeof(char *) * (*sizelines - nbLinesToRemove));
             *sizelines = *sizelines - nbLinesToRemove;
         }
     }
@@ -702,6 +722,7 @@ static char **removeEmptyLinesAtTheEnd(char **lines, int *sizelines)
     }
     return lines;
 }
+
 /*--------------------------------------------------------------------------*/
 static BOOL isValidLineWithOnlyOneNumber(char *line)
 {
@@ -709,6 +730,7 @@ static BOOL isValidLineWithOnlyOneNumber(char *line)
     {
         char *pEnd = NULL;
         double dValue = strtod(line, &pEnd);
+
         if ((pEnd) && ((int)strlen(pEnd) == 0))
         {
             return TRUE;
@@ -716,8 +738,7 @@ static BOOL isValidLineWithOnlyOneNumber(char *line)
         else
         {
             if ((strncmp(line, NanString, (int)strlen(NanString)) == 0) ||
-            (strncmp(line, NegInfString, (int)strlen(NegInfString)) == 0) ||
-            (strncmp(line, InfString, (int)strlen(InfString)) == 0))
+                (strncmp(line, NegInfString, (int)strlen(NegInfString)) == 0) || (strncmp(line, InfString, (int)strlen(InfString)) == 0))
             {
                 return TRUE;
             }
@@ -725,5 +746,5 @@ static BOOL isValidLineWithOnlyOneNumber(char *line)
     }
     return FALSE;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

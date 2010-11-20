@@ -17,34 +17,41 @@
 #include "createdirectory.h"
 #include "isdir.h"
 /*--------------------------------------------------------------------------*/
-int MoveFileFunction(wchar_t *DestinationFilename, wchar_t *SourceFilename)
+int MoveFileFunction(wchar_t * DestinationFilename, wchar_t * SourceFilename)
 {
-	int ierr = 0;
-	ierr = CopyFileFunction(DestinationFilename, SourceFilename);
-	if (ierr == 0)
-	{
-		if (deleteafileW(SourceFilename)) return 0;
-		else return 1;
-	}
-	return 0;
+    int ierr = 0;
+
+    ierr = CopyFileFunction(DestinationFilename, SourceFilename);
+    if (ierr == 0)
+    {
+        if (deleteafileW(SourceFilename))
+            return 0;
+        else
+            return 1;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int MoveDirectoryFunction(wchar_t *DestinationDirectory, wchar_t *SourceDirectory)
+int MoveDirectoryFunction(wchar_t * DestinationDirectory, wchar_t * SourceDirectory)
 {
-	int ierr = 0;
+    int ierr = 0;
 
-	if ( !isdirW(DestinationDirectory)  )
-	{
-		createdirectoryW(DestinationDirectory);
-	}
+    if (!isdirW(DestinationDirectory))
+    {
+        createdirectoryW(DestinationDirectory);
+    }
 
-	ierr = CopyDirectoryFunction(DestinationDirectory, SourceDirectory);
-	if (ierr == 0)
-	{
-		if (removedirW(SourceDirectory)) return 0;
-		else return 1;
-	}
-	return 0;
+    ierr = CopyDirectoryFunction(DestinationDirectory, SourceDirectory);
+    if (ierr == 0)
+    {
+        if (removedirW(SourceDirectory))
+            return 0;
+        else
+            return 1;
+    }
+    return 0;
 
 }
+
 /*--------------------------------------------------------------------------*/

@@ -13,17 +13,19 @@
 #include <windows.h>
 #include "FileExist.h"
 /*--------------------------------------------------------------------------*/
-BOOL FileExist(wchar_t  *wcfilename)
+BOOL FileExist(wchar_t * wcfilename)
 {
-	BOOL exist = FALSE;	
+    BOOL exist = FALSE;
 
-	WIN32_FIND_DATAW FindFileData;
-	HANDLE handle = FindFirstFileW (wcfilename, &FindFileData);
-	if (handle != INVALID_HANDLE_VALUE)
-	{
-		FindClose (handle);
-		return TRUE;
-	}
-	return FALSE;
+    WIN32_FIND_DATAW FindFileData;
+    HANDLE handle = FindFirstFileW(wcfilename, &FindFileData);
+
+    if (handle != INVALID_HANDLE_VALUE)
+    {
+        FindClose(handle);
+        return TRUE;
+    }
+    return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/

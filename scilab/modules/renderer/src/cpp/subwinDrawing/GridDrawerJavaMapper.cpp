@@ -11,7 +11,6 @@
  *
  */
 
-
 #include "GridDrawerJavaMapper.hxx"
 
 extern "C"
@@ -23,61 +22,58 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-GridDrawerJavaMapper::GridDrawerJavaMapper(void)
-  : DrawableObjectJavaMapper()
-{
-  m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::GridDrawerGL(getScilabJavaVM());
-}
+    GridDrawerJavaMapper::GridDrawerJavaMapper(void):DrawableObjectJavaMapper()
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::GridDrawerGL(getScilabJavaVM());
+    }
 /*--------------------------------------------------------------------------*/
-GridDrawerJavaMapper::~GridDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::destroy(int parentFigureIndex)
-{
-  m_pJavaObject->destroy(parentFigureIndex);
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::drawGrid(const double firstAxisStart[3], const double firstAxisEnd[3],
-                                    const double secondAxisStart[3], const double secondAxisEnd[3],
-                                    const double thirdAxisStart[3], const double thirdAxisEnd[3],
-                                    const double relativeTicksPositions[], int nbTicks)
-{
-  m_pJavaObject->drawGrid((double *) firstAxisStart, 3,
-                          (double *) firstAxisEnd, 3,
-                          (double *) secondAxisStart, 3,
-                          (double *) secondAxisEnd, 3,
-                          (double *) thirdAxisStart, 3,
-                          (double *) thirdAxisEnd, 3,
-                          (double *) relativeTicksPositions, nbTicks);
-}
-/*--------------------------------------------------------------------------*/
-void GridDrawerJavaMapper::setGridParameters(int gridColor, float gridThickness, bool drawFront)
-{
-  m_pJavaObject->setGridParameters(gridColor, gridThickness, drawFront);
-}
-/*--------------------------------------------------------------------------*/
-}
+    GridDrawerJavaMapper::~GridDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
 
+        m_pJavaObject = NULL;
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::destroy(int parentFigureIndex)
+    {
+        m_pJavaObject->destroy(parentFigureIndex);
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::drawGrid(const double firstAxisStart[3], const double firstAxisEnd[3],
+                                        const double secondAxisStart[3], const double secondAxisEnd[3],
+                                        const double thirdAxisStart[3], const double thirdAxisEnd[3],
+                                        const double relativeTicksPositions[], int nbTicks)
+    {
+        m_pJavaObject->drawGrid((double *)firstAxisStart, 3,
+                                (double *)firstAxisEnd, 3,
+                                (double *)secondAxisStart, 3,
+                                (double *)secondAxisEnd, 3,
+                                (double *)thirdAxisStart, 3, (double *)thirdAxisEnd, 3, (double *)relativeTicksPositions, nbTicks);
+    }
+/*--------------------------------------------------------------------------*/
+    void GridDrawerJavaMapper::setGridParameters(int gridColor, float gridThickness, bool drawFront)
+    {
+        m_pJavaObject->setGridParameters(gridColor, gridThickness, drawFront);
+    }
+/*--------------------------------------------------------------------------*/
+}

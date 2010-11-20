@@ -18,13 +18,14 @@
  ******************************************/
 
 int ext5c(double *b, double *c)
-{ 
-  static double a[3];
-  static int k, m, n;
-  ReadMatrix("Amatrix",&m, &n, a);
+{
+    static double a[3];
+    static int k, m, n;
+
+    ReadMatrix("Amatrix", &m, &n, a);
   /*******************************/
-  /* [m,n]=size(Amatrix)  here m=1 n=3, a=Amatrix which must exist in Scilab*/
-  for (k = 0; k < n; ++k) 
-    c[k] = a[k] + b[k] * 2.;
-  return(0);
+    /* [m,n]=size(Amatrix)  here m=1 n=3, a=Amatrix which must exist in Scilab */
+    for (k = 0; k < n; ++k)
+        c[k] = a[k] + b[k] * 2.;
+    return (0);
 }

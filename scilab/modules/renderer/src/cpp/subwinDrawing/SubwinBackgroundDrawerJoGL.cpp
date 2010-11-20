@@ -22,36 +22,35 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-SubwinBackgroundDrawerJoGL::SubwinBackgroundDrawerJoGL(DrawableSubwin * subwin)
-  : DrawAxesBoxStrategy(), DrawableObjectJoGL(subwin)
-{
-  setJavaMapper(new SubwinBackgroundDrawerJavaMapper());
-}
+    SubwinBackgroundDrawerJoGL::SubwinBackgroundDrawerJoGL(DrawableSubwin * subwin):DrawAxesBoxStrategy(), DrawableObjectJoGL(subwin)
+    {
+        setJavaMapper(new SubwinBackgroundDrawerJavaMapper());
+    }
 /*--------------------------------------------------------------------------*/
-SubwinBackgroundDrawerJoGL::~SubwinBackgroundDrawerJoGL(void)
-{
-  
-}
-/*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJoGL::drawAxesBox(int concealedCornerIndex)
-{
-  sciPointObj * pSubwin = m_pDrawer->getDrawedObject();
-  initializeDrawing();
+    SubwinBackgroundDrawerJoGL::~SubwinBackgroundDrawerJoGL(void)
+    {
 
-  getSubwinBackgroundDrawerJavaMapper()->setBoxParameters(sciGetGraphicContext(pSubwin)->backgroundcolor);
-
-  // get displayed bounds
-  double bounds[6];
-  sciGetRealDataBounds(pSubwin, bounds);
-  getSubwinBackgroundDrawerJavaMapper()->drawBox(bounds[0], bounds[1], bounds[2],
-                                                 bounds[3], bounds[4], bounds[5],
-                                                 concealedCornerIndex);
-  endDrawing();
-}
+    }
 /*--------------------------------------------------------------------------*/
-SubwinBackgroundDrawerJavaMapper * SubwinBackgroundDrawerJoGL::getSubwinBackgroundDrawerJavaMapper(void)
-{
-  return dynamic_cast<SubwinBackgroundDrawerJavaMapper *>(getJavaMapper());
-}
+    void SubwinBackgroundDrawerJoGL::drawAxesBox(int concealedCornerIndex)
+    {
+        sciPointObj *pSubwin = m_pDrawer->getDrawedObject();
+
+        initializeDrawing();
+
+        getSubwinBackgroundDrawerJavaMapper()->setBoxParameters(sciGetGraphicContext(pSubwin)->backgroundcolor);
+
+        // get displayed bounds
+        double bounds[6];
+
+        sciGetRealDataBounds(pSubwin, bounds);
+        getSubwinBackgroundDrawerJavaMapper()->drawBox(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5], concealedCornerIndex);
+        endDrawing();
+    }
+/*--------------------------------------------------------------------------*/
+    SubwinBackgroundDrawerJavaMapper *SubwinBackgroundDrawerJoGL::getSubwinBackgroundDrawerJavaMapper(void)
+    {
+        return dynamic_cast < SubwinBackgroundDrawerJavaMapper * >(getJavaMapper());
+    }
 /*--------------------------------------------------------------------------*/
 }

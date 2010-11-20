@@ -27,26 +27,27 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_rotation_angles_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_rotation_angles_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  double * values = getDoubleMatrixFromStack( stackPointer ) ;
+    double *values = getDoubleMatrixFromStack(stackPointer);
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "rotation_angles");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "rotation_angles");
+        return SET_PROPERTY_ERROR;
+    }
 
-  /* DJ.A 2003 */
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"rotation_angles") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    /* DJ.A 2003 */
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "rotation_angles");
+        return SET_PROPERTY_ERROR;
+    }
 
-  Obj_RedrawNewAngle( pobj, values[0], values[1] ) ;
+    Obj_RedrawNewAngle(pobj, values[0], values[1]);
 
-  return SET_PROPERTY_SUCCEED ;
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

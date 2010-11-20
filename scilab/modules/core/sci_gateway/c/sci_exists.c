@@ -12,12 +12,15 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intexists)(int *val);
+extern int C2F(intexists) (int *val);
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_exists)(char *fname,unsigned long fname_len)
+int C2F(sci_exists) (char *fname, unsigned long fname_len)
 {
-	int val=0;
-	C2F(intexists)(&val);
-	return 0;
+    int val = 0;
+
+    C2F(intexists) (&val);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

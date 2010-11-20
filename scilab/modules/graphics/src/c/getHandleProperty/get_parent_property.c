@@ -23,17 +23,19 @@
 #include "returnProperty.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_parent_property( sciPointObj * pobj )
+int get_parent_property(sciPointObj * pobj)
 {
-	sciPointObj * parent = sciGetParent( pobj );
-	if (parent == NULL)
-	{
-		/* No parent for this object */
-		return sciReturnEmptyMatrix();
-	}
-	else
-	{
-		return sciReturnHandle(sciGetHandle(parent)) ;
-	}
+    sciPointObj *parent = sciGetParent(pobj);
+
+    if (parent == NULL)
+    {
+        /* No parent for this object */
+        return sciReturnEmptyMatrix();
+    }
+    else
+    {
+        return sciReturnHandle(sciGetHandle(parent));
+    }
 }
+
 /*------------------------------------------------------------------------*/

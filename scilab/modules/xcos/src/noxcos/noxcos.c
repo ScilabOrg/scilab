@@ -16,7 +16,8 @@
 /*--------------------------------------------------------------------------*/
 int gw_xcos(void)
 {
-	Scierror(999,_("Scilab '%s' module not installed.\n"), "xcos");
-	return 0;
+    Scierror(999, _("Scilab '%s' module not installed.\n"), "xcos");
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

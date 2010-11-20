@@ -22,25 +22,29 @@
 /*--------------------------------------------------------------------------*/
 BOOL winopen(char *scilabfilename)
 {
-	BOOL bOK = FALSE;
-	char *filename = NULL;
-	wchar_t *wcfilename = NULL;
-	int out_n = 0;
-	long int lout = 0;
-	HINSTANCE error = NULL;
+    BOOL bOK = FALSE;
+    char *filename = NULL;
+    wchar_t *wcfilename = NULL;
+    int out_n = 0;
+    long int lout = 0;
+    HINSTANCE error = NULL;
 
-	filename = expandPathVariable(scilabfilename);
-	if (filename)
-	{
-		wcfilename = to_wide_string(filename);
-		FREE(filename); filename = NULL;
-		if (wcfilename)
-		{
-			error = ShellExecuteW(NULL, L"open", wcfilename, NULL, NULL, SW_SHOWNORMAL);
-			if ( error <= (HINSTANCE)32) bOK = FALSE;
-			else bOK = TRUE;
-		}
-	}
-	return bOK;
+    filename = expandPathVariable(scilabfilename);
+    if (filename)
+    {
+        wcfilename = to_wide_string(filename);
+        FREE(filename);
+        filename = NULL;
+        if (wcfilename)
+        {
+            error = ShellExecuteW(NULL, L"open", wcfilename, NULL, NULL, SW_SHOWNORMAL);
+            if (error <= (HINSTANCE) 32)
+                bOK = FALSE;
+            else
+                bOK = TRUE;
+        }
+    }
+    return bOK;
 }
+
 /*--------------------------------------------------------------------------*/

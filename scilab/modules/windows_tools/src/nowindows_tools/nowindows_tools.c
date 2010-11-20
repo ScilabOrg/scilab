@@ -7,14 +7,14 @@
 // you should have received as part of this distribution.  The terms
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_windows_tools.h"
 #include "Scierror.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 int gw_windows_tools(void)
 {
-	Scierror(999,"Scilab windows_tools module not installed.\n");
-	return 0;
+    Scierror(999, "Scilab windows_tools module not installed.\n");
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
-	
+
+/*--------------------------------------------------------------------------*/

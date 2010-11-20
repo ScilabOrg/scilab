@@ -17,11 +17,11 @@
 #endif
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> /* getenv ! */
+#include <stdlib.h>             /* getenv ! */
 #include "getenvc.h"
 #include "FileExist.h"
 #include "localization.h"
-#include "core_math.h" 
+#include "core_math.h"
 #include "setgetSCIpath.h"
 #include "MALLOC.h"
 #include "inisci-c.h"
@@ -36,127 +36,145 @@
  */
 int SetSci(void)
 {
-	int ierr,iflag=0;
-	int lbuf=PATH_MAX;
-	char *buf = (char*)MALLOC(PATH_MAX*sizeof(char));
-	if (buf)
-	{
-		C2F(getenvc)(&ierr,"SCI",buf,&lbuf,&iflag);
+    int ierr, iflag = 0;
+    int lbuf = PATH_MAX;
+    char *buf = (char *)MALLOC(PATH_MAX * sizeof(char));
 
-		if ( ierr== 1) 
-		{
-		#ifdef  _MSC_VER
-		MessageBox(NULL,gettext("SCI environment variable not defined.\n"),gettext("Warning"),MB_ICONWARNING);
-		#else
-		fprintf(stderr, "%s", _("SCI environment variable not defined.\n"));
-		#endif
-		exit(1);
-		}
-		setSCIpath(buf);
-		FREE(buf);
-		buf = NULL;
-	}
-	
-	return 0;
+    if (buf)
+    {
+        C2F(getenvc) (&ierr, "SCI", buf, &lbuf, &iflag);
+
+        if (ierr == 1)
+        {
+#ifdef  _MSC_VER
+            MessageBox(NULL, gettext("SCI environment variable not defined.\n"), gettext("Warning"), MB_ICONWARNING);
+#else
+            fprintf(stderr, "%s", _("SCI environment variable not defined.\n"));
+#endif
+            exit(1);
+        }
+        setSCIpath(buf);
+        FREE(buf);
+        buf = NULL;
+    }
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 /**
  * Get the SCI path and initialize the scilab environment path
  *
  */
-int C2F(getsci)(char *buf,int *nbuf,long int lbuf)
+int C2F(getsci) (char *buf, int *nbuf, long int lbuf)
 {
-	char *pathtmp = NULL;
+    char *pathtmp = NULL;
 
-	SetSci();
+    SetSci();
 
-	pathtmp = getSCIpath();
-	if (pathtmp)
-	{
-		strcpy(buf,pathtmp);
-		*nbuf = (int)strlen(buf);
-		FREE(pathtmp);
-		pathtmp = NULL;
-	}
-	else
-	{
-		*buf = NULL;
-		*nbuf = 0;
-	}
-	return 0;
+    pathtmp = getSCIpath();
+    if (pathtmp)
+    {
+        strcpy(buf, pathtmp);
+        *nbuf = (int)strlen(buf);
+        FREE(pathtmp);
+        pathtmp = NULL;
+    }
+    else
+    {
+        *buf = NULL;
+        *nbuf = 0;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 /**
 * Get the SCIHOME path and initialize the scilab environment path
 *
 */
-int C2F(getscihome)(char *buf,int *nbuf,long int lbuf)
+int C2F(getscihome) (char *buf, int *nbuf, long int lbuf)
 {
-	char *pathtmp=NULL;
-	char *SCIHOME = getSCIHOME();
-	if (strcmp(SCIHOME,"empty_SCIHOME")==0)
-	{
-		if (!setSCIHOME())
-		{
-			#ifdef  _MSC_VER
-				MessageBox(NULL,gettext("SCIHOME not defined.\n"),gettext("Warning"),MB_ICONWARNING);
-			#else
-				fprintf(stderr,"%s",_("SCIHOME not defined.\n"));
-			#endif
-			exit(1);
-		}
-		else
-		{
-			if (SCIHOME) {FREE(SCIHOME);SCIHOME=NULL;}
-		}
-	}
+    char *pathtmp = NULL;
+    char *SCIHOME = getSCIHOME();
 
-	pathtmp = getSCIHOME();
-	if (pathtmp)
-	{
-		strcpy(buf,pathtmp);
-		*nbuf = (int)strlen(buf);
-		FREE(pathtmp);
-		pathtmp = NULL;
-	}
-
-	if (SCIHOME) {FREE(SCIHOME);SCIHOME=NULL;}
-
-	return 0;
-}
-/*--------------------------------------------------------------------------*/
-int C2F(gettmpdir)(char *buf,int *nbuf,long int lbuf)
-{
-	int ierr,iflag=0,l1buf=lbuf;
-	C2F(getenvc)(&ierr,"TMPDIR",buf,&l1buf,&iflag);
-	if ( ierr== 1) 
-	{
+    if (strcmp(SCIHOME, "empty_SCIHOME") == 0)
+    {
+        if (!setSCIHOME())
+        {
 #ifdef  _MSC_VER
-		MessageBox(NULL,gettext("TMPDIR not defined.\n"),gettext("Warning"),MB_ICONWARNING);
+            MessageBox(NULL, gettext("SCIHOME not defined.\n"), gettext("Warning"), MB_ICONWARNING);
 #else
-		fprintf(stderr,"%s",_("TMPDIR not defined.\n"));
+            fprintf(stderr, "%s", _("SCIHOME not defined.\n"));
 #endif
-		exit(1);
-	}
-	*nbuf = (int)strlen(buf);
-	return 0;
+            exit(1);
+        }
+        else
+        {
+            if (SCIHOME)
+            {
+                FREE(SCIHOME);
+                SCIHOME = NULL;
+            }
+        }
+    }
+
+    pathtmp = getSCIHOME();
+    if (pathtmp)
+    {
+        strcpy(buf, pathtmp);
+        *nbuf = (int)strlen(buf);
+        FREE(pathtmp);
+        pathtmp = NULL;
+    }
+
+    if (SCIHOME)
+    {
+        FREE(SCIHOME);
+        SCIHOME = NULL;
+    }
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(withgui)(int *rep)
-{ 
-	*rep = (getScilabMode() != SCILAB_NWNI); 
-	return 0;
-}
-/*--------------------------------------------------------------------------*/
-int C2F(getdefaultgstacksize)(int *defaultsize)
+int C2F(gettmpdir) (char *buf, int *nbuf, long int lbuf)
 {
-	*defaultsize = DEFAULTGSTACKSIZE;
-	return 0;
+    int ierr, iflag = 0, l1buf = lbuf;
+
+    C2F(getenvc) (&ierr, "TMPDIR", buf, &l1buf, &iflag);
+    if (ierr == 1)
+    {
+#ifdef  _MSC_VER
+        MessageBox(NULL, gettext("TMPDIR not defined.\n"), gettext("Warning"), MB_ICONWARNING);
+#else
+        fprintf(stderr, "%s", _("TMPDIR not defined.\n"));
+#endif
+        exit(1);
+    }
+    *nbuf = (int)strlen(buf);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(getdefaultstacksize)(int *defaultsize)
+int C2F(withgui) (int *rep)
 {
-	*defaultsize = DEFAULTSTACKSIZE;
-	return 0;
+    *rep = (getScilabMode() != SCILAB_NWNI);
+    return 0;
 }
+
+/*--------------------------------------------------------------------------*/
+int C2F(getdefaultgstacksize) (int *defaultsize)
+{
+    *defaultsize = DEFAULTGSTACKSIZE;
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/
+int C2F(getdefaultstacksize) (int *defaultsize)
+{
+    *defaultsize = DEFAULTSTACKSIZE;
+    return 0;
+}
+
 /*--------------------------------------------------------------------------*/

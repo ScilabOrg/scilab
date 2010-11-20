@@ -20,7 +20,8 @@
 #include "Scierror.h"
 #include "dynamic_parallel.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(adjustgstacksize)(unsigned long*, unsigned long *, int*);
+extern int C2F(adjustgstacksize) (unsigned long *, unsigned long *, int *);
+
 /*--------------------------------------------------------------------------*/
 #define MIN_GSTACKSIZE 11000
 #define PARAM_MAX_STR "max"
@@ -55,11 +56,11 @@ static unsigned long getCurrentGStacksize(void);
 static unsigned long getUsedGStacksize(void);
 
 /*--------------------------------------------------------------------------*/
-int C2F(sci_gstacksize)(char *fname,unsigned long fname_len)
+int C2F(sci_gstacksize) (char *fname, unsigned long fname_len)
 {
-    Rhs = Max(0,Rhs);
-    CheckRhs(0,1);
-    CheckLhs(0,1);
+    Rhs = Max(0, Rhs);
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
     if (Rhs == 0)
     {
@@ -68,10 +69,11 @@ int C2F(sci_gstacksize)(char *fname,unsigned long fname_len)
     else
     {
         /* setting the stack size moves the memory, which is not allowed in concurernt context */
-        return dynParallelConcurrency() ? dynParallelForbidden(fname) : sci_gstacksizeOneRhs(fname);
+        return dynParallelConcurrency()? dynParallelForbidden(fname) : sci_gstacksizeOneRhs(fname);
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int sci_gstacksizeNoRhs(char *fname)
 {
@@ -79,10 +81,12 @@ static int sci_gstacksizeNoRhs(char *fname)
     int *paramoutINT = NULL;
     int total = 0;
     int used = 0;
-    paramoutINT = (int*)MALLOC(sizeof(int)*2);
 
-    C2F(getgstackinfo)(&total, &used);
-    if (total == (MIN_GSTACKSIZE-1)) total = MIN_GSTACKSIZE;
+    paramoutINT = (int *)MALLOC(sizeof(int) * 2);
+
+    C2F(getgstackinfo) (&total, &used);
+    if (total == (MIN_GSTACKSIZE - 1))
+        total = MIN_GSTACKSIZE;
     paramoutINT[0] = total;
     paramoutINT[1] = used;
 
@@ -91,27 +95,32 @@ static int sci_gstacksizeNoRhs(char *fname)
     CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &n1, &m1, &paramoutINT);
 
     LhsVar(1) = Rhs + 1;
-    C2F(putlhsvar)();
+    C2F(putlhsvar) ();
 
-    if (paramoutINT) {FREE(paramoutINT); paramoutINT = NULL;}
+    if (paramoutINT)
+    {
+        FREE(paramoutINT);
+        paramoutINT = NULL;
+    }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int sci_gstacksizeOneRhs(char *fname)
 {
     int l1 = 0, n1 = 0, m1 = 0;
 
-    if ( GetType(1) == sci_matrix )
+    if (GetType(1) == sci_matrix)
     {
-        GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1 ,&l1);
-        if ( (m1 == 1) && (n1 == 1) )
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+        if ((m1 == 1) && (n1 == 1))
         {
-            unsigned long NEWMEMSTACKSIZE = (unsigned long) * stk(l1);
+            unsigned long NEWMEMSTACKSIZE = (unsigned long)*stk(l1);
 
             /* add 1 for alignment problems */
-            if ( is_a_valid_size_for_scilab_stack(NEWMEMSTACKSIZE + 1) )
+            if (is_a_valid_size_for_scilab_stack(NEWMEMSTACKSIZE + 1))
             {
-                if ( (NEWMEMSTACKSIZE >= MIN_GSTACKSIZE) && (NEWMEMSTACKSIZE <= get_max_memory_for_scilab_stack()) )
+                if ((NEWMEMSTACKSIZE >= MIN_GSTACKSIZE) && (NEWMEMSTACKSIZE <= get_max_memory_for_scilab_stack()))
                 {
                     /* we backup previous size */
                     unsigned long backupSize = getCurrentGStacksize();
@@ -121,21 +130,21 @@ static int sci_gstacksizeOneRhs(char *fname)
                         if (setGStacksize(NEWMEMSTACKSIZE))
                         {
                             LhsVar(1) = 0;
-                            C2F(putlhsvar)();
+                            C2F(putlhsvar) ();
                             return 0;
                         }
                         else
                         {
                             /* restore previous size */
                             setGStacksize(backupSize);
-                            Scierror(999,_("%s: Cannot allocate memory.\n"), fname);
+                            Scierror(999, _("%s: Cannot allocate memory.\n"), fname);
                         }
                     }
                     else
                     {
                         /* restore previous size */
                         setGStacksize(backupSize);
-                        Scierror(999,_("%s: Cannot allocate memory.\n"), fname);
+                        Scierror(999, _("%s: Cannot allocate memory.\n"), fname);
                     }
 
                 }
@@ -154,7 +163,7 @@ static int sci_gstacksizeOneRhs(char *fname)
             Scierror(204, _("%s: Wrong size for input argument #%d: Scalar expected.\n"), fname, 1);
         }
     }
-    else if ( GetType(1) == sci_strings )
+    else if (GetType(1) == sci_strings)
     {
         char *param = NULL;
 
@@ -170,44 +179,47 @@ static int sci_gstacksizeOneRhs(char *fname)
         }
         else
         {
-            Scierror(204,_("%s: Wrong type for input argument #%d: Scalar, '%s' or '%s'.\n"),fname,1, "min","max");
+            Scierror(204, _("%s: Wrong type for input argument #%d: Scalar, '%s' or '%s'.\n"), fname, 1, "min", "max");
         }
     }
     else
     {
-        Scierror(204,_("%s: Wrong type for input argument #%d: Scalar, '%s' or '%s'.\n"),fname,1, "min","max");
+        Scierror(204, _("%s: Wrong type for input argument #%d: Scalar, '%s' or '%s'.\n"), fname, 1, "min", "max");
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int sci_gstacksizeMax(char *fname)
 {
     if (setGStacksizeMax(fname))
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        C2F(putlhsvar) ();
     }
     else
     {
-        Scierror(999,_("%s: Cannot allocate memory.\n"), fname);
+        Scierror(999, _("%s: Cannot allocate memory.\n"), fname);
     }
     return 0;
 
 }
+
 /*--------------------------------------------------------------------------*/
 static int sci_gstacksizeMin(char *fname)
 {
     if (setGStacksizeMin(fname))
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        C2F(putlhsvar) ();
     }
     else
     {
-        Scierror(999,_("%s: Cannot allocate memory.\n"), fname);
+        Scierror(999, _("%s: Cannot allocate memory.\n"), fname);
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int setGStacksizeMin(char *fname)
 {
@@ -226,11 +238,13 @@ static int setGStacksizeMin(char *fname)
 
     return setGStacksize(newminstack);
 }
+
 /*--------------------------------------------------------------------------*/
 static int setGStacksizeMax(char *fname)
 {
     /* we backup previous size */
     unsigned long backupSize = getCurrentGStacksize();
+
     /* Bug 5495 on Windows 2000 -- WONT FIX GetLargestFreeMemoryRegion */
     /* it works on XP, Vista, S7ven */
     /* GetLargestFreeMemoryRegion() returns a superior size to real value */
@@ -240,7 +254,7 @@ static int setGStacksizeMax(char *fname)
     if (maxmemfree <= backupSize)
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        C2F(putlhsvar) ();
         return 1;
     }
 
@@ -268,29 +282,30 @@ static int setGStacksizeMax(char *fname)
         /* stacksize('min') fails */
         /* restore previous size */
         setGStacksize(backupSize);
-        Scierror(999,_("%s: Cannot allocate memory.\n"), fname);
+        Scierror(999, _("%s: Cannot allocate memory.\n"), fname);
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int setGStacksize(unsigned long newsize)
 {
     if (newsize != getCurrentGStacksize())
     {
-        if ( (newsize >= MIN_GSTACKSIZE) && (newsize <= get_max_memory_for_scilab_stack()) )
+        if ((newsize >= MIN_GSTACKSIZE) && (newsize <= get_max_memory_for_scilab_stack()))
         {
             unsigned long ptr = 0;
             int l = 0;
 
-            C2F(scigmem)(&newsize, &ptr);
+            C2F(scigmem) (&newsize, &ptr);
             l = C2F(vstk).lstk[C2F(vstk).gtop] - C2F(vstk).lstk[C2F(vstk).isiz + 1];
 
             if (ptr)
             {
                 LhsVar(1) = 0;
-                C2F(putlhsvar)();
+                C2F(putlhsvar) ();
 
-                C2F(adjustgstacksize)(&newsize, &ptr, &l);
+                C2F(adjustgstacksize) (&newsize, &ptr, &l);
                 return 1;
             }
         }
@@ -298,24 +313,27 @@ static int setGStacksize(unsigned long newsize)
     }
     return 1;
 }
+
 /*--------------------------------------------------------------------------*/
 static unsigned long getCurrentGStacksize(void)
 {
     unsigned long memstacktotal = 0;
     unsigned long memstackused = 0;
 
-    C2F(getgstackinfo)(&memstacktotal, &memstackused);
+    C2F(getgstackinfo) (&memstacktotal, &memstackused);
 
     return memstacktotal;
 }
+
 /*--------------------------------------------------------------------------*/
 static unsigned long getUsedGStacksize(void)
 {
     unsigned long memstacktotal = 0;
     unsigned long memstackused = 0;
 
-    C2F(getgstackinfo)(&memstacktotal, &memstackused);
+    C2F(getgstackinfo) (&memstacktotal, &memstackused);
 
     return memstackused;
 }
+
 /*--------------------------------------------------------------------------*/

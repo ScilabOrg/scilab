@@ -28,54 +28,53 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int set_triangles_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_triangles_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "triangles");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if (sciGetEntityType (pobj) != SCI_FEC )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"triangles") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( nbCol != 5 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: Must have %d columns.\n"), "triangles", 5);
-    return SET_PROPERTY_ERROR ;
-  }
-
-  
-  
-  if ( nbRow != pFEC_FEATURE (pobj)->Ntr )
-  {
-    /* need to realocate */
-    double * pnoeud ;
-
-    pnoeud = createCopyDoubleVectorFromStack( stackPointer, nbRow * 5 ) ;
-
-    if ( pnoeud == NULL )
+    if (!isParameterDoubleMatrix(valueType))
     {
-      Scierror(999, _("%s: No more memory.\n"),"set_triangles_property");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "triangles");
+        return SET_PROPERTY_ERROR;
     }
 
-    /* allocation ok we can change the pnoeud */
-    FREE( pFEC_FEATURE(pobj)->pnoeud ) ;
-    
-    pFEC_FEATURE(pobj)->pnoeud = pnoeud;
+    if (sciGetEntityType(pobj) != SCI_FEC)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "triangles");
+        return SET_PROPERTY_ERROR;
+    }
 
-  }
-  else
-  {
-    copyDoubleVectorFromStack( stackPointer, pFEC_FEATURE(pobj)->pnoeud, nbRow * 5 ) ;
-  }
+    if (nbCol != 5)
+    {
+        Scierror(999, _("Wrong size for '%s' property: Must have %d columns.\n"), "triangles", 5);
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_SUCCEED ;
+    if (nbRow != pFEC_FEATURE(pobj)->Ntr)
+    {
+        /* need to realocate */
+        double *pnoeud;
+
+        pnoeud = createCopyDoubleVectorFromStack(stackPointer, nbRow * 5);
+
+        if (pnoeud == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), "set_triangles_property");
+            return SET_PROPERTY_ERROR;
+        }
+
+        /* allocation ok we can change the pnoeud */
+        FREE(pFEC_FEATURE(pobj)->pnoeud);
+
+        pFEC_FEATURE(pobj)->pnoeud = pnoeud;
+
+    }
+    else
+    {
+        copyDoubleVectorFromStack(stackPointer, pFEC_FEATURE(pobj)->pnoeud, nbRow * 5);
+    }
+
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

@@ -16,39 +16,40 @@
 #include "fftwlibname.h"
 #include "gw_fftw.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/ 
-int sci_loadfftwlibrary(char *fname,unsigned long fname_len)
+/*--------------------------------------------------------------------------*/
+int sci_loadfftwlibrary(char *fname, unsigned long fname_len)
 {
-	static int l1,n1,m1;
-	char *FFTWLibname=NULL;
+    static int l1, n1, m1;
+    char *FFTWLibname = NULL;
 
-	CheckRhs(1,1);
+    CheckRhs(1, 1);
 
-	if (GetType(1) == sci_strings)
-	{
-		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-		FFTWLibname=cstk(l1);
-		setfftwlibname(FFTWLibname);
+    if (GetType(1) == sci_strings)
+    {
+        GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+        FFTWLibname = cstk(l1);
+        setfftwlibname(FFTWLibname);
 
-		n1=1;
-		if ( LoadFFTWLibrary(FFTWLibname) )
-		{
-			CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-			*istk(l1)=(int)(TRUE);
-		}
-		else
-		{
-			CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-			*istk(l1)=(int)(FALSE);
-		}
+        n1 = 1;
+        if (LoadFFTWLibrary(FFTWLibname))
+        {
+            CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &l1);
+            *istk(l1) = (int)(TRUE);
+        }
+        else
+        {
+            CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &l1);
+            *istk(l1) = (int)(FALSE);
+        }
 
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		 Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"),fname,1);
-	}
-	return(0);
+        LhsVar(1) = Rhs + 1;
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+    }
+    return (0);
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

@@ -15,28 +15,49 @@
 int StringConvert(char *str)
 /* changes `\``n` --> `\n` idem for \t and \r */
 {
-	char *str1;
-	int count = 0;
-	str1 = str;
+    char *str1;
+    int count = 0;
 
-	while ( *str != 0)
-	{
-		if ( *str == '\\' )
-		{
-			switch ( *(str+1))
-			{
-			case 'n' : *str1 = '\n' ; str1++; str += 2;count++;break;
-			case 't' : *str1 = '\t' ; str1++; str += 2;break;
-			case 'r' : *str1 = '\r' ; str1++; str += 2;break;
-			default : *str1 = *str; str1++; str++;break;
-			}
-		}
-		else
-		{
-			*str1 = *str; str1++; str++;
-		}
-	}
-	*str1 = '\0';
-	return count;
+    str1 = str;
+
+    while (*str != 0)
+    {
+        if (*str == '\\')
+        {
+            switch (*(str + 1))
+            {
+            case 'n':
+                *str1 = '\n';
+                str1++;
+                str += 2;
+                count++;
+                break;
+            case 't':
+                *str1 = '\t';
+                str1++;
+                str += 2;
+                break;
+            case 'r':
+                *str1 = '\r';
+                str1++;
+                str += 2;
+                break;
+            default:
+                *str1 = *str;
+                str1++;
+                str++;
+                break;
+            }
+        }
+        else
+        {
+            *str1 = *str;
+            str1++;
+            str++;
+        }
+    }
+    *str1 = '\0';
+    return count;
 }
+
 /*--------------------------------------------------------------------------*/

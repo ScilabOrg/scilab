@@ -10,15 +10,17 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "gw_cacsd2.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scirtitr)(char *fname,unsigned long fname_len);
+extern int C2F(scirtitr) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_rtitr(char *fname,unsigned long fname_len)
+int sci_rtitr(char *fname, unsigned long fname_len)
 {
-	C2F(scirtitr)(fname,fname_len);
-	return 0;
+    C2F(scirtitr) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

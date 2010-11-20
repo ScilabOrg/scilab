@@ -9,18 +9,19 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "TerminateGui.h"
 #include "CallMainWindow.h"
 #include "scilabmode.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 BOOL TerminateGUI(void)
 {
-  if (getScilabMode() == SCILAB_STD)
+    if (getScilabMode() == SCILAB_STD)
     {
-      saveMainWindowSettings();
-      saveHelpWindowSettings();
+        saveMainWindowSettings();
+        saveHelpWindowSettings();
     }
-  return TRUE;
+    return TRUE;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

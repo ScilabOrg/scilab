@@ -22,26 +22,26 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------------------------*/
-ZGridDrawerJoGL::ZGridDrawerJoGL(DrawableSubwin * subwin)
-  : GridDrawerJoGL(subwin)
-{
+    ZGridDrawerJoGL::ZGridDrawerJoGL(DrawableSubwin * subwin):GridDrawerJoGL(subwin)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-ZGridDrawerJoGL::~ZGridDrawerJoGL(void)
-{
+    ZGridDrawerJoGL::~ZGridDrawerJoGL(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-int ZGridDrawerJoGL::getGridStyle(void)
-{
-  sciPointObj * pSubwin = getDrawer()->getDrawedObject();
+    int ZGridDrawerJoGL::getGridStyle(void)
+    {
+        sciPointObj *pSubwin = getDrawer()->getDrawedObject();
 
-  int zStyle;
-  sciGetGridStyle(pSubwin, NULL, NULL, &zStyle);
+        int zStyle;
 
-  return zStyle;
-}
+        sciGetGridStyle(pSubwin, NULL, NULL, &zStyle);
+
+        return zStyle;
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

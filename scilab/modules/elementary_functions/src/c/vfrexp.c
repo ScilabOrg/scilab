@@ -14,21 +14,24 @@
 #include "machine.h"
 #include "vfrexp.h"
 
-
-void C2F(vfrexp)(int *n, double *x, int *ix,double *y,int *iy,double *z, int *iz)
+void C2F(vfrexp) (int *n, double *x, int *ix, double *y, int *iy, double *z, int *iz)
 {
-    int ix1,iy1,iz1,i,j;
+    int ix1, iy1, iz1, i, j;
+
     ix1 = 0;
     iy1 = 0;
     iz1 = 0;
 
-    if (*ix<0) ix1=-(*n-1)*(*ix);
-    if (*iy<0) iy1=-(*n-1)*(*iy);
-    if (*iz<0) iz1=-(*n-1)*(*iz);
+    if (*ix < 0)
+        ix1 = -(*n - 1) * (*ix);
+    if (*iy < 0)
+        iy1 = -(*n - 1) * (*iy);
+    if (*iz < 0)
+        iz1 = -(*n - 1) * (*iz);
 
-    for (i = 0; i < *n; i++) 
+    for (i = 0; i < *n; i++)
     {
-        y[iy1] = frexp(x[ix1],&j);
+        y[iy1] = frexp(x[ix1], &j);
         z[iz1] = j;
         iy1 += *iy;
         ix1 += *ix;

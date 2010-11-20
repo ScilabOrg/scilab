@@ -28,53 +28,54 @@
 #include "HandleManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_unzoom(char *fname,unsigned long fname_len)
+int sci_unzoom(char *fname, unsigned long fname_len)
 {
-  CheckRhs(0,1) ;
-  CheckLhs(0,1) ;
-  if ( Rhs == 0 )
-  {
-    sciUnzoomAll();
-  }
-  else
-  {
-    int nbUnzoomedObjects = 0;
-    int m,n,i;
-    size_t stackPointer = 0;
-    sciPointObj ** zoomedObjects = NULL; /* array of object to unzoom */
-    GetRhsVar(1,GRAPHICAL_HANDLE_DATATYPE,&m,&n,&stackPointer);
-    
-    nbUnzoomedObjects = m * n;
-    zoomedObjects = MALLOC(nbUnzoomedObjects * sizeof(sciPointObj *));
-    if (zoomedObjects == NULL)
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
+    if (Rhs == 0)
     {
-      Scierror(999, _("%s: No more memory.\n"),fname);
-      return -1;
+        sciUnzoomAll();
     }
-
-    /* first pass, check that all the handles are subwindows or figures */
-    /* and copy them into an array of objects */
-    for ( i = 0 ; i < nbUnzoomedObjects ; i++ )
+    else
     {
-      zoomedObjects[i] = sciGetPointerFromHandle(getHandleFromStack(stackPointer + i));
-      if (sciGetEntityType(zoomedObjects[i]) != SCI_SUBWIN && sciGetEntityType(zoomedObjects[i]) != SCI_FIGURE)
-      {
+        int nbUnzoomedObjects = 0;
+        int m, n, i;
+        size_t stackPointer = 0;
+        sciPointObj **zoomedObjects = NULL; /* array of object to unzoom */
+
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &m, &n, &stackPointer);
+
+        nbUnzoomedObjects = m * n;
+        zoomedObjects = MALLOC(nbUnzoomedObjects * sizeof(sciPointObj *));
+        if (zoomedObjects == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), fname);
+            return -1;
+        }
+
+        /* first pass, check that all the handles are subwindows or figures */
+        /* and copy them into an array of objects */
+        for (i = 0; i < nbUnzoomedObjects; i++)
+        {
+            zoomedObjects[i] = sciGetPointerFromHandle(getHandleFromStack(stackPointer + i));
+            if (sciGetEntityType(zoomedObjects[i]) != SCI_SUBWIN && sciGetEntityType(zoomedObjects[i]) != SCI_FIGURE)
+            {
+                FREE(zoomedObjects);
+                Scierror(999, _("%s: Wrong type for input argument: Vector of Axes and Figure handles expected.\n"), fname);
+                return -1;
+            }
+        }
+
+        /* second pass draw the objects */
+        sciUnzoomArray(zoomedObjects, nbUnzoomedObjects);
+
         FREE(zoomedObjects);
-        Scierror(999, _("%s: Wrong type for input argument: Vector of Axes and Figure handles expected.\n"),fname);
-        return -1;
-      }
+
     }
 
-    /* second pass draw the objects */
-    sciUnzoomArray(zoomedObjects, nbUnzoomedObjects);
-
-    FREE(zoomedObjects);
-
-  }
-  
-
-  LhsVar(1)=0; 
-	C2F(putlhsvar)();
-  return 0;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -47,26 +47,26 @@
 #include "callFunctionFromGateway.h"
 #include "taucs_scilab.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] = 
-{
-  {sci_umfpack, "umfpack"      },
-  {sci_umf_lufact, "umf_lufact"   },
-  {sci_umf_lusolve, "umf_lusolve"  },
-  {sci_umf_ludel, "umf_ludel"    },
-  {sci_umf_luinfo, "umf_luinfo"   },
-  {sci_umf_luget, "umf_luget"    },
-  {sci_taucs_chfact, "taucs_chfact" },
-  {sci_taucs_chsolve, "taucs_chsolve"},
-  {sci_taucs_chdel, "taucs_chdel"  },
-  {sci_taucs_chinfo, "taucs_chinfo" },
-  {sci_taucs_chget, "taucs_chget"  },
-  {sci_res_with_prec, "res_with_prec"}
+static gw_generic_table Tab[] = {
+    {sci_umfpack, "umfpack"},
+    {sci_umf_lufact, "umf_lufact"},
+    {sci_umf_lusolve, "umf_lusolve"},
+    {sci_umf_ludel, "umf_ludel"},
+    {sci_umf_luinfo, "umf_luinfo"},
+    {sci_umf_luget, "umf_luget"},
+    {sci_taucs_chfact, "taucs_chfact"},
+    {sci_taucs_chsolve, "taucs_chsolve"},
+    {sci_taucs_chdel, "taucs_chdel"},
+    {sci_taucs_chinfo, "taucs_chinfo"},
+    {sci_taucs_chget, "taucs_chget"},
+    {sci_res_with_prec, "res_with_prec"}
 };
 
 /*--------------------------------------------------------------------------*/
 int gw_umfpack(void)
 {
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

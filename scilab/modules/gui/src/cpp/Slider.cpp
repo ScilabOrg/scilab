@@ -10,26 +10,25 @@
  *
  */
 
-
 #include "Slider.hxx"
 
 using namespace org_scilab_modules_gui_bridge;
 
-void createSlider(sciPointObj* sciObj)
+void createSlider(sciPointObj * sciObj)
 {
-  pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newSlider(getScilabJavaVM());
+    pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newSlider(getScilabJavaVM());
 }
 
-int setCurentFigureAsSliderParent(sciPointObj* sciObj)
+int setCurentFigureAsSliderParent(sciPointObj * sciObj)
 {
-  int parentFigureIndex = 0;
-  
-  // Scilab list of parent
-  sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
-  
-  // Java objects
-  parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-  CallScilabBridge::setSliderParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    int parentFigureIndex = 0;
 
-  return SET_PROPERTY_SUCCEED;
+    // Scilab list of parent
+    sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+
+    // Java objects
+    parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+    CallScilabBridge::setSliderParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+    return SET_PROPERTY_SUCCEED;
 }

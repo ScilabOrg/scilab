@@ -16,111 +16,113 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolBackgroundColor(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolBackgroundColor(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  /* Color can be [R, G, B] or "R|G|B" */
+    /* Color can be [R, G, B] or "R|G|B" */
 
-  int redInt = 0, greenInt = 0, blueInt = 0, nbvalues = 0;
+    int redInt = 0, greenInt = 0, blueInt = 0, nbvalues = 0;
 
-  double * allcolors = NULL;
+    double *allcolors = NULL;
 
-  double redDouble = 0.0, greenDouble = 0.0, blueDouble = 0.0;
+    double redDouble = 0.0, greenDouble = 0.0, blueDouble = 0.0;
 
-  /*
-  **  No backgroundcolor property except on UICONTROL
-  */
-  if(sciGetEntityType(sciObj) != SCI_UICONTROL)
+    /*
+     **  No backgroundcolor property except on UICONTROL
+     */
+    if (sciGetEntityType(sciObj) != SCI_UICONTROL)
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "BackgroundColor");
-      return SET_PROPERTY_ERROR;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "BackgroundColor");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (valueType == sci_strings)
+    if (valueType == sci_strings)
     {
-      if(nbCol != 1)
+        if (nbCol != 1)
         {
-          /* Wrong string size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")), "BackgroundColor");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")),
+                     "BackgroundColor");
+            return SET_PROPERTY_ERROR;
         }
 
-      nbvalues = sscanf(getStringFromStack(stackPointer), "%lf|%lf|%lf", &redDouble, &greenDouble, &blueDouble);
+        nbvalues = sscanf(getStringFromStack(stackPointer), "%lf|%lf|%lf", &redDouble, &greenDouble, &blueDouble);
 
-      if (nbvalues != 3)
+        if (nbvalues != 3)
         {
-          /* Wrong string format */
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")), "BackgroundColor");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string format */
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")),
+                     "BackgroundColor");
+            return SET_PROPERTY_ERROR;
         }
 
-      if (!checkColorRange(redDouble, greenDouble, blueDouble))
+        if (!checkColorRange(redDouble, greenDouble, blueDouble))
         {
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: Numbers between 0 and 1 expected.\n")), "BackgroundColor");
-          return SET_PROPERTY_ERROR;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: Numbers between 0 and 1 expected.\n")), "BackgroundColor");
+
+            return SET_PROPERTY_ERROR;
         }
 
-      redInt = (int) (redDouble * 255);
-      greenInt = (int) (greenDouble * 255);
-      blueInt = (int) (blueDouble * 255);
+        redInt = (int)(redDouble * 255);
+        greenInt = (int)(greenDouble * 255);
+        blueInt = (int)(blueDouble * 255);
 
-      /* Store the values in Scilab */
-      if (pUICONTROL_FEATURE(sciObj)->backgroundcolor == NULL)
+        /* Store the values in Scilab */
+        if (pUICONTROL_FEATURE(sciObj)->backgroundcolor == NULL)
         {
-          pUICONTROL_FEATURE(sciObj)->backgroundcolor = new double[3];
+            pUICONTROL_FEATURE(sciObj)->backgroundcolor = new double[3];
         }
-      pUICONTROL_FEATURE(sciObj)->backgroundcolor[0] = redDouble;
-      pUICONTROL_FEATURE(sciObj)->backgroundcolor[1] = greenDouble;
-      pUICONTROL_FEATURE(sciObj)->backgroundcolor[2] = blueDouble;
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[0] = redDouble;
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[1] = greenDouble;
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[2] = blueDouble;
     }
-  else if (valueType == sci_matrix)
+    else if (valueType == sci_matrix)
     {
-       if(nbCol != 3 || nbRow != 1)
+        if (nbCol != 3 || nbRow != 1)
         {
-          /* Wrong matrix size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")), "BackgroundColor");
-          return SET_PROPERTY_ERROR;
+            /* Wrong matrix size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")),
+                     "BackgroundColor");
+            return SET_PROPERTY_ERROR;
         }
 
-       allcolors = getDoubleMatrixFromStack(stackPointer);
+        allcolors = getDoubleMatrixFromStack(stackPointer);
 
-       if (!checkColorRange(allcolors[0], allcolors[1], allcolors[2]))
-	 {
-	   Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: Numbers between 0 and 1 expected.\n")), "BackgroundColor");
-	   return SET_PROPERTY_ERROR;
-	 }
+        if (!checkColorRange(allcolors[0], allcolors[1], allcolors[2]))
+        {
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: Numbers between 0 and 1 expected.\n")), "BackgroundColor");
 
-       redInt = (int) (allcolors[0] * 255);
-       greenInt = (int) (allcolors[1] * 255);
-       blueInt = (int) (allcolors[2] * 255);
+            return SET_PROPERTY_ERROR;
+        }
 
-       /* Store the values in Scilab */
-       if (pUICONTROL_FEATURE(sciObj)->backgroundcolor == NULL)
-         {
-           pUICONTROL_FEATURE(sciObj)->backgroundcolor = new double[3];
-         }
-       pUICONTROL_FEATURE(sciObj)->backgroundcolor[0] = allcolors[0];
-       pUICONTROL_FEATURE(sciObj)->backgroundcolor[1] = allcolors[1];
-       pUICONTROL_FEATURE(sciObj)->backgroundcolor[2] = allcolors[2];
+        redInt = (int)(allcolors[0] * 255);
+        greenInt = (int)(allcolors[1] * 255);
+        blueInt = (int)(allcolors[2] * 255);
+
+        /* Store the values in Scilab */
+        if (pUICONTROL_FEATURE(sciObj)->backgroundcolor == NULL)
+        {
+            pUICONTROL_FEATURE(sciObj)->backgroundcolor = new double[3];
+        }
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[0] = allcolors[0];
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[1] = allcolors[1];
+        pUICONTROL_FEATURE(sciObj)->backgroundcolor[2] = allcolors[2];
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")), "BackgroundColor");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: 1 x 3 real vector or a 'R|G|B' string expected.\n")), "BackgroundColor");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+    if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
     {
-      CallScilabBridge::setFrameBackgroundColor(getScilabJavaVM(),
-                                                 pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                 redInt, greenInt, blueInt);
+        CallScilabBridge::setFrameBackgroundColor(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, redInt, greenInt, blueInt);
     }
-  else /* All other uicontrol styles */
+    else                        /* All other uicontrol styles */
     {
-      CallScilabBridge::setWidgetBackgroundColor(getScilabJavaVM(),
-                                                 pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                 redInt, greenInt, blueInt);
+        CallScilabBridge::setWidgetBackgroundColor(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, redInt, greenInt, blueInt);
     }
-  return SET_PROPERTY_SUCCEED;
+    return SET_PROPERTY_SUCCEED;
 }
-

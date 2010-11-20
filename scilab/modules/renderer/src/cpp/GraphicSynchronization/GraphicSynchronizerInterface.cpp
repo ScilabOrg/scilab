@@ -26,107 +26,123 @@ using namespace sciGraphics;
 /*---------------------------------------------------------------------------------*/
 void startFigureDataWriting(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->startWriting();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->startWriting();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void endFigureDataWriting(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->endWritting();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->endWritting();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void startFigureDataReading(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->startReading();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->startReading();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void endFigureDataReading(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->endReading();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->endReading();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void startFigureDataDisplaying(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->startDisplaying();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->startDisplaying();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void endFigureDataDisplaying(sciPointObj * pFigure)
 {
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->endDisplaying();
-  }
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->endDisplaying();
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
-void startGraphicDataWriting( void )
+void startGraphicDataWriting(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->startWriting();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->startWriting();
 }
+
 /*---------------------------------------------------------------------------------*/
-void endGraphicDataWriting( void )
+void endGraphicDataWriting(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->endWritting();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->endWritting();
 }
+
 /*---------------------------------------------------------------------------------*/
-void startGraphicDataReading( void )
+void startGraphicDataReading(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->startReading();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->startReading();
 }
+
 /*---------------------------------------------------------------------------------*/
-void endGraphicDataReading( void )
+void endGraphicDataReading(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->endReading();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->endReading();
 }
+
 /*---------------------------------------------------------------------------------*/
-void startGraphicDataDisplaying( void )
+void startGraphicDataDisplaying(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->startDisplaying();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->startDisplaying();
 }
+
 /*---------------------------------------------------------------------------------*/
-void endGraphicDataDisplaying( void )
+void endGraphicDataDisplaying(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->endDisplaying();
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->endDisplaying();
 }
+
 /*---------------------------------------------------------------------------------*/
 void enableFigureSynchronization(sciPointObj * pFigure)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->setEnable(true);
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->setEnable(true);
-  }
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->setEnable(true);
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->setEnable(true);
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
 void disableFigureSynchronization(sciPointObj * pFigure)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer()->setEnable(false);
-  if (!isFigureModel(pFigure))
-  {
-    getFigureDrawer(pFigure)->getSynchronizer()->setEnable(false);
-  }
+    GraphicSynchronizerFactory::getGlobalSynchronizer()->setEnable(false);
+    if (!isFigureModel(pFigure))
+    {
+        getFigureDrawer(pFigure)->getSynchronizer()->setEnable(false);
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
-void createGraphicSynchronizer( void )
+void createGraphicSynchronizer(void)
 {
-  GraphicSynchronizerFactory::getGlobalSynchronizer();
+    GraphicSynchronizerFactory::getGlobalSynchronizer();
 }
+
 /*---------------------------------------------------------------------------------*/
-void destroyGraphicSynchronizer( void )
+void destroyGraphicSynchronizer(void)
 {
-  GraphicSynchronizerFactory::destroyGlobalSynchronizer();
+    GraphicSynchronizerFactory::destroyGlobalSynchronizer();
 }
+
 /*---------------------------------------------------------------------------------*/

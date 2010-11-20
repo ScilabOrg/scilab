@@ -12,7 +12,6 @@
 
 #include "gentriu.h"
 
-
 #define TRIU(Type) {\
 Type *DX;\
     DX=(Type *)dx;\
@@ -37,30 +36,34 @@ Type *DX;\
     }\
  }
 
-int C2F(gentriu)(int *typ,int *m,int *n,int *k,int *dx) 
+int C2F(gentriu) (int *typ, int *m, int *n, int *k, int *dx)
 {
-  static int kk, l, ls, ll, j, i, nn;
+    static int kk, l, ls, ll, j, i, nn;
 
-  switch (*typ) {
-  case 1:
-    TRIU(integer1);
-    break;
-  case 2:
-    TRIU(integer2);
-    break;
-  case 4:
-    TRIU(int) ;
-    break;
-  case 11:
-    TRIU(unsigned char);
-    break;
-  case 12:
-    TRIU(unsigned short);
-    break;
-  case 14:
-    TRIU(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        TRIU(integer1);
+        break;
+    case 2:
+        TRIU(integer2);
+        break;
+    case 4:
+        TRIU(int);
+
+        break;
+    case 11:
+        TRIU(unsigned char);
+
+        break;
+    case 12:
+        TRIU(unsigned short);
+
+        break;
+    case 14:
+        TRIU(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

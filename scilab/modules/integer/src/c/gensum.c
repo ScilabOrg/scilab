@@ -25,67 +25,81 @@ Typein *DX;\
  }\
 }
 
-int C2F(gensum)(int *typ, int *n, void *dx, int *incx)
+int C2F(gensum) (int *typ, int *n, void *dx, int *incx)
 {
-    int  i1, i2;
+    int i1, i2;
     static int i, dtemp;
 
-
     dtemp = 0;
-    if (*n <= 0) return dtemp;
+    if (*n <= 0)
+        return dtemp;
 
-    switch (*typ) {
+    switch (*typ)
+    {
     case 1:
-      SUM(char, int);
-      break;
+        SUM(char, int);
+
+        break;
     case 2:
-      SUM(short, int);
-      break;
+        SUM(short, int);
+
+        break;
     case 4:
-      SUM(int, int) ;
-      break;
+        SUM(int, int);
+
+        break;
     case 11:
-      SUM(unsigned char, int);
-      break;
+        SUM(unsigned char, int);
+
+        break;
     case 12:
-      SUM(unsigned short, int);
-      break;
+        SUM(unsigned short, int);
+
+        break;
     case 14:
-      SUM(unsigned int, int);
-      break;
+        SUM(unsigned int, int);
+
+        break;
     }
     return dtemp;
 }
 
-double C2F(gensumasdouble)(int *typ, int *n, void *dx, int *incx)
+double C2F(gensumasdouble) (int *typ, int *n, void *dx, int *incx)
 {
-    int  i1, i2;
+    int i1, i2;
     static int i;
     static double dtemp;
 
-
     dtemp = 0.0;
-    if (*n <= 0) return dtemp;
+    if (*n <= 0)
+        return dtemp;
 
-    switch (*typ) {
+    switch (*typ)
+    {
     case 1:
-      SUM(char, double);
-      break;
+        SUM(char, double);
+
+        break;
     case 2:
-      SUM(short, double);
-      break;
+        SUM(short, double);
+
+        break;
     case 4:
-      SUM(int, double) ;
-      break;
+        SUM(int, double);
+
+        break;
     case 11:
-      SUM(unsigned char, double);
-      break;
+        SUM(unsigned char, double);
+
+        break;
     case 12:
-      SUM(unsigned short, double);
-      break;
+        SUM(unsigned short, double);
+
+        break;
     case 14:
-      SUM(unsigned int, double);
-      break;
+        SUM(unsigned int, double);
+
+        break;
     }
     return dtemp;
 }

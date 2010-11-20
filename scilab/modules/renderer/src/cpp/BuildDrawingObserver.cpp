@@ -15,33 +15,36 @@
 #include "HandleDrawingObserver.h"
 #include "HandleObserverManagement.h"
 
-using namespace sciGraphics ;
+using namespace sciGraphics;
 
 /*---------------------------------------------------------------------------------*/
-void createDrawingObserver( sciPointObj * pObj )
+void createDrawingObserver(sciPointObj * pObj)
 {
-  HandleDrawingObserver * obs = new HandleDrawingObserver( pObj ) ;
-  attachObserver( pObj, obs ) ;
+    HandleDrawingObserver *obs = new HandleDrawingObserver(pObj);
+
+    attachObserver(pObj, obs);
 
 }
-/*---------------------------------------------------------------------------------*/
-void deleteObservers( sciPointObj * pObj )
-{
-  DoublyLinkedList * iterator = pObj->pObservers ;
-  
-  while ( iterator != NULL )
-  {
-    delete ((Observer *)List_data(iterator)) ;
-    iterator = List_next(pObj->pObservers, iterator) ;
-  }
 
-  List_free( pObj->pObservers ) ;
-  pObj->pObservers = NULL ;
-}
 /*---------------------------------------------------------------------------------*/
-void notifyObservers( sciPointObj * pObj )
+void deleteObservers(sciPointObj * pObj)
 {
-  notifyAllObservers( pObj ) ;
-}
-/*---------------------------------------------------------------------------------*/
+    DoublyLinkedList *iterator = pObj->pObservers;
 
+    while (iterator != NULL)
+    {
+        delete((Observer *) List_data(iterator));
+        iterator = List_next(pObj->pObservers, iterator);
+    }
+
+    List_free(pObj->pObservers);
+    pObj->pObservers = NULL;
+}
+
+/*---------------------------------------------------------------------------------*/
+void notifyObservers(sciPointObj * pObj)
+{
+    notifyAllObservers(pObj);
+}
+
+/*---------------------------------------------------------------------------------*/

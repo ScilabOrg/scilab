@@ -24,16 +24,18 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_gui_bridge;
+
 /*--------------------------------------------------------------------------*/
-int sci_about( char * fname, unsigned long fname_len )
+int sci_about(char *fname, unsigned long fname_len)
 {
-  
-  CallScilabBridge::scilabAboutBox(getScilabJavaVM());
-  
-  LhsVar(1) = 0;
-  PutLhsVar();
-  
-  return TRUE;
- 
+
+    CallScilabBridge::scilabAboutBox(getScilabJavaVM());
+
+    LhsVar(1) = 0;
+    PutLhsVar();
+
+    return TRUE;
+
 }
+
 /*--------------------------------------------------------------------------*/

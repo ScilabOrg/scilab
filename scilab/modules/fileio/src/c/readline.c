@@ -15,7 +15,7 @@
 #include <string.h>
 #include "readline.h"
 #include "mgetl.h"
-#include "stack-def.h" /* bsiz */
+#include "stack-def.h"          /* bsiz */
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
 #define EMPTYSTR ""
@@ -28,13 +28,14 @@ int LineRead(int fd, char buf[], int n, int *cnt, int *nr)
     int mgetIerr = MGETL_ERROR;
 
     char **lines = mgetl(fd, nbLinesToRead, &nbLinesReaded, &mgetIerr);
+
     *cnt = 0;
     *nr = 0;
 
     memset(buf, 0, n);
     strcpy(buf, EMPTYSTR);
 
-    switch(mgetIerr)
+    switch (mgetIerr)
     {
     case MGETL_NO_ERROR:
         {
@@ -103,15 +104,17 @@ int LineRead(int fd, char buf[], int n, int *cnt, int *nr)
 
     if (lines)
     {
-            freeArrayOfString(lines, nbLinesReaded);
-            lines = NULL;
+        freeArrayOfString(lines, nbLinesReaded);
+        lines = NULL;
     }
 
     return returnedInfo;
 }
+
 /*--------------------------------------------------------------------------*/
-void C2F(readnextline)(int *fd, char buf[], int *n, int *count, int *nr, int *ierr)
+void C2F(readnextline) (int *fd, char buf[], int *n, int *count, int *nr, int *ierr)
 {
     *ierr = LineRead(*fd, buf, *n, count, nr);
 }
+
 /*--------------------------------------------------------------------------*/

@@ -17,7 +17,6 @@
  *  SolveComplexTransposedMatrix
  */
 
-
 /*
  *  Revision and copyright information.
  *
@@ -33,7 +32,6 @@
  *  software for any purpose.  It is provided `as is', without express
  *  or implied warranty.
  */
-
 
 /*
  *  IMPORTS
@@ -51,10 +49,8 @@
 #include "spmatrix.h"
 #include "spDefs.h"
 
-
-static void SolveComplexMatrix( MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS );
-static void SolveComplexTransposedMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS );
-
+static void SolveComplexMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS);
+static void SolveComplexTransposedMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS);
 
 /*
  *  SOLVE MATRIX EQUATION
@@ -118,23 +114,22 @@ static void SolveComplexTransposedMatrix(MatrixPtr Matrix, RealVector RHS, RealV
 
 /*VARARGS3*/
 
-
-void
-spSolve(char *eMatrix,RealVector  RHS,RealVector  Solution IMAG_VECTORS )
+void spSolve(char *eMatrix, RealVector RHS, RealVector Solution IMAG_VECTORS)
 {
-MatrixPtr  Matrix = (MatrixPtr)eMatrix;
-register  ElementPtr  pElement;
-register  RealVector  Intermediate;
-register  RealNumber  Temp;
-register  int  I, *pExtOrder, Size;
-ElementPtr  pPivot;
+    MatrixPtr Matrix = (MatrixPtr) eMatrix;
+    register ElementPtr pElement;
+    register RealVector Intermediate;
+    register RealNumber Temp;
+    register int I, *pExtOrder, Size;
+    ElementPtr pPivot;
 
 /* Begin `spSolve'. */
-    ASSERT( IS_VALID(Matrix) AND IS_FACTORED(Matrix) );
+    ASSERT(IS_VALID(Matrix) AND IS_FACTORED(Matrix));
 
 #if spCOMPLEX
     if (Matrix->Complex)
-    {   SolveComplexMatrix( Matrix, RHS, Solution IMAG_VECTORS );
+    {
+        SolveComplexMatrix(Matrix, RHS, Solution IMAG_VECTORS);
         return;
     }
 #endif
@@ -156,47 +151,50 @@ ElementPtr  pPivot;
 
 /* Forward elimination. Solves Lc = b.*/
     for (I = 1; I <= Size; I++)
-    {   
-      
+    {
+
 /* This step of the elimination is skipped if Temp equals zero. */
         if ((Temp = Intermediate[I]) != 0.0)
-        {   
-	  pPivot = Matrix->Diag[I];
-	  if ( pPivot != 0 && ELEMENT_MAG(pPivot) >  Matrix->AbsThreshold )
-	    {
-	      /*jpc    Intermediate[I] = (Temp *= pPivot->Real);*/
-	      Intermediate[I] = (Temp /= pPivot->Real);
-	      
-	      pElement = pPivot->NextInCol;
-	      while (pElement != NULL)
-		{   Intermediate[pElement->Row] -= Temp * pElement->Real;
-		    pElement = pElement->NextInCol;
-		  }
-	    }
-	  else
-	    Intermediate[I]= 0.0;
+        {
+            pPivot = Matrix->Diag[I];
+            if (pPivot != 0 && ELEMENT_MAG(pPivot) > Matrix->AbsThreshold)
+            {
+                /*jpc    Intermediate[I] = (Temp *= pPivot->Real); */
+                Intermediate[I] = (Temp /= pPivot->Real);
+
+                pElement = pPivot->NextInCol;
+                while (pElement != NULL)
+                {
+                    Intermediate[pElement->Row] -= Temp * pElement->Real;
+                    pElement = pElement->NextInCol;
+                }
+            }
+            else
+                Intermediate[I] = 0.0;
         }
-      }
+    }
 
 /* Backward Substitution. Solves Ux = c.*/
 /* modification for singular matrix a diagonal element can be a null pointer */
 
-    for (I = Size ; I > 0; I--)
-    {   Temp = Intermediate[I];
-	if ( Matrix->Diag[I] == 0) /* test for nul pointer */
-	  {
-	    Intermediate[I]=0.0;
-	  }
-	else 
-	  {
-	    pElement = Matrix->Diag[I]->NextInRow;
-	    while (pElement != NULL)
-	      {   Temp -= pElement->Real * Intermediate[pElement->Col];
-		  pElement = pElement->NextInRow;
-		}
-	    Intermediate[I] = Temp;
-	  }
-      }
+    for (I = Size; I > 0; I--)
+    {
+        Temp = Intermediate[I];
+        if (Matrix->Diag[I] == 0)   /* test for nul pointer */
+        {
+            Intermediate[I] = 0.0;
+        }
+        else
+        {
+            pElement = Matrix->Diag[I]->NextInRow;
+            while (pElement != NULL)
+            {
+                Temp -= pElement->Real * Intermediate[pElement->Col];
+                pElement = pElement->NextInRow;
+            }
+            Intermediate[I] = Temp;
+        }
+    }
 
 /* Unscramble Intermediate vector while placing data in to Solution vector. */
     pExtOrder = &Matrix->IntToExtColMap[Size];
@@ -206,16 +204,6 @@ ElementPtr  pPivot;
     return;
 #endif /* REAL */
 }
-
-
-
-
-
-
-
-
-
-
 
 #if spCOMPLEX
 /*
@@ -279,28 +267,30 @@ ElementPtr  pPivot;
  *      without a trace.
  */
 
-static void
-SolveComplexMatrix( MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS )
+static void SolveComplexMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS)
 {
-register  ElementPtr  pElement;
-register  ComplexVector  Intermediate;
-register  int  I, *pExtOrder, Size;
-ElementPtr  pPivot;
-register ComplexVector  ExtVector;
-ComplexNumber  Temp;
+    register ElementPtr pElement;
+    register ComplexVector Intermediate;
+    register int I, *pExtOrder, Size;
+    ElementPtr pPivot;
+    register ComplexVector ExtVector;
+    ComplexNumber Temp;
 
 /* Begin `SolveComplexMatrix'. */
 
     Size = Matrix->Size;
-    Intermediate = (ComplexVector)Matrix->Intermediate;
+    Intermediate = (ComplexVector) Matrix->Intermediate;
 
 /* Correct array pointers for ARRAY_OFFSET. */
 #if NOT ARRAY_OFFSET
 #if spSEPARATED_COMPLEX_VECTORS
-    --RHS;      --iRHS;
-    --Solution; --iSolution;
+    --RHS;
+    --iRHS;
+    --Solution;
+    --iSolution;
 #else
-    RHS -= 2; Solution -= 2;
+    RHS -= 2;
+    Solution -= 2;
 #endif
 #endif
 
@@ -309,22 +299,25 @@ ComplexNumber  Temp;
 
 #if spSEPARATED_COMPLEX_VECTORS
     for (I = Size; I > 0; I--)
-    {   Intermediate[I].Real = RHS[*(pExtOrder)];
+    {
+        Intermediate[I].Real = RHS[*(pExtOrder)];
         Intermediate[I].Imag = iRHS[*(pExtOrder--)];
     }
 #else
-    ExtVector = (ComplexVector)RHS;
+    ExtVector = (ComplexVector) RHS;
     for (I = Size; I > 0; I--)
         Intermediate[I] = ExtVector[*(pExtOrder--)];
 #endif
 
 /* Forward substitution. Solves Lc = b.*/
     for (I = 1; I <= Size; I++)
-    {   Temp = Intermediate[I];
+    {
+        Temp = Intermediate[I];
 
 /* This step of the substitution is skipped if Temp equals zero. */
-        if ((Temp.Real != 0.0) OR (Temp.Imag != 0.0))
-        {   pPivot = Matrix->Diag[I];
+        if ((Temp.Real != 0.0) OR(Temp.Imag != 0.0))
+        {
+            pPivot = Matrix->Diag[I];
 /* Cmplx expr: Temp *= (1.0 / Pivot). */
             CMPLX_MULT_ASSIGN(Temp, *pPivot);
             Intermediate[I] = Temp;
@@ -332,8 +325,7 @@ ComplexNumber  Temp;
             while (pElement != NULL)
             {
 /* Cmplx expr: Intermediate[Element->Row] -= Temp * *Element. */
-                CMPLX_MULT_SUBT_ASSIGN(Intermediate[pElement->Row],
-                                       Temp, *pElement);
+                CMPLX_MULT_SUBT_ASSIGN(Intermediate[pElement->Row], Temp, *pElement);
                 pElement = pElement->NextInCol;
             }
         }
@@ -341,13 +333,14 @@ ComplexNumber  Temp;
 
 /* Backward Substitution. Solves Ux = c.*/
     for (I = Size; I > 0; I--)
-    {   Temp = Intermediate[I];
+    {
+        Temp = Intermediate[I];
         pElement = Matrix->Diag[I]->NextInRow;
 
         while (pElement != NULL)
         {
 /* Cmplx expr: Temp -= *Element * Intermediate[Element->Col]. */
-            CMPLX_MULT_SUBT_ASSIGN(Temp, *pElement,Intermediate[pElement->Col]);
+            CMPLX_MULT_SUBT_ASSIGN(Temp, *pElement, Intermediate[pElement->Col]);
             pElement = pElement->NextInRow;
         }
         Intermediate[I] = Temp;
@@ -358,11 +351,12 @@ ComplexNumber  Temp;
 
 #if spSEPARATED_COMPLEX_VECTORS
     for (I = Size; I > 0; I--)
-    {   Solution[*(pExtOrder)] = Intermediate[I].Real;
+    {
+        Solution[*(pExtOrder)] = Intermediate[I].Real;
         iSolution[*(pExtOrder--)] = Intermediate[I].Imag;
     }
 #else
-    ExtVector = (ComplexVector)Solution;
+    ExtVector = (ComplexVector) Solution;
     for (I = Size; I > 0; I--)
         ExtVector[*(pExtOrder--)] = Intermediate[I];
 #endif
@@ -370,19 +364,6 @@ ComplexNumber  Temp;
     return;
 }
 #endif /* spCOMPLEX */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #if TRANSPOSE
 /*
@@ -447,23 +428,22 @@ ComplexNumber  Temp;
 
 /*VARARGS3*/
 
-void
-spSolveTransposed( char *eMatrix, RealVector  RHS, RealVector  Solution IMAG_VECTORS )
+void spSolveTransposed(char *eMatrix, RealVector RHS, RealVector Solution IMAG_VECTORS)
 {
-MatrixPtr  Matrix = (MatrixPtr)eMatrix;
-register  ElementPtr  pElement;
-register  RealVector  Intermediate;
-register  int  I, *pExtOrder, Size;
-ElementPtr  pPivot;
-RealNumber  Temp;
-
+    MatrixPtr Matrix = (MatrixPtr) eMatrix;
+    register ElementPtr pElement;
+    register RealVector Intermediate;
+    register int I, *pExtOrder, Size;
+    ElementPtr pPivot;
+    RealNumber Temp;
 
 /* Begin `spSolveTransposed'. */
-    ASSERT( IS_VALID(Matrix) AND IS_FACTORED(Matrix) );
+    ASSERT(IS_VALID(Matrix) AND IS_FACTORED(Matrix));
 
 #if spCOMPLEX
     if (Matrix->Complex)
-    {   SolveComplexTransposedMatrix( Matrix, RHS, Solution IMAG_VECTORS );
+    {
+        SolveComplexTransposedMatrix(Matrix, RHS, Solution IMAG_VECTORS);
         return;
     }
 #endif
@@ -485,12 +465,14 @@ RealNumber  Temp;
 
 /* Forward elimination. */
     for (I = 1; I <= Size; I++)
-    {   
+    {
 /* This step of the elimination is skipped if Temp equals zero. */
         if ((Temp = Intermediate[I]) != 0.0)
-        {   pElement = Matrix->Diag[I]->NextInRow;
+        {
+            pElement = Matrix->Diag[I]->NextInRow;
             while (pElement != NULL)
-            {   Intermediate[pElement->Col] -= Temp * pElement->Real;
+            {
+                Intermediate[pElement->Col] -= Temp * pElement->Real;
                 pElement = pElement->NextInRow;
             }
 
@@ -499,11 +481,13 @@ RealNumber  Temp;
 
 /* Backward Substitution. */
     for (I = Size; I > 0; I--)
-    {   pPivot = Matrix->Diag[I];
+    {
+        pPivot = Matrix->Diag[I];
         Temp = Intermediate[I];
         pElement = pPivot->NextInCol;
         while (pElement != NULL)
-        {   Temp -= pElement->Real * Intermediate[pElement->Row];
+        {
+            Temp -= pElement->Real * Intermediate[pElement->Row];
             pElement = pElement->NextInCol;
         }
         Intermediate[I] = Temp * pPivot->Real;
@@ -518,15 +502,6 @@ RealNumber  Temp;
 #endif /* REAL */
 }
 #endif /* TRANSPOSE */
-
-
-
-
-
-
-
-
-
 
 #if TRANSPOSE AND spCOMPLEX
 /*
@@ -593,28 +568,30 @@ RealNumber  Temp;
  *      without a trace.
  */
 
-static void
-SolveComplexTransposedMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS )
+static void SolveComplexTransposedMatrix(MatrixPtr Matrix, RealVector RHS, RealVector Solution IMAG_VECTORS)
 {
-register  ElementPtr  pElement;
-register  ComplexVector  Intermediate;
-register  int  I, *pExtOrder, Size;
-register  ComplexVector  ExtVector;
-ElementPtr  pPivot;
-ComplexNumber  Temp;
+    register ElementPtr pElement;
+    register ComplexVector Intermediate;
+    register int I, *pExtOrder, Size;
+    register ComplexVector ExtVector;
+    ElementPtr pPivot;
+    ComplexNumber Temp;
 
 /* Begin `SolveComplexTransposedMatrix'. */
 
     Size = Matrix->Size;
-    Intermediate = (ComplexVector)Matrix->Intermediate;
+    Intermediate = (ComplexVector) Matrix->Intermediate;
 
 /* Correct array pointers for ARRAY_OFFSET. */
 #if NOT ARRAY_OFFSET
 #if spSEPARATED_COMPLEX_VECTORS
-    --RHS;      --iRHS;
-    --Solution; --iSolution;
+    --RHS;
+    --iRHS;
+    --Solution;
+    --iSolution;
 #else
-    RHS -= 2;   Solution -= 2;
+    RHS -= 2;
+    Solution -= 2;
 #endif
 #endif
 
@@ -623,27 +600,29 @@ ComplexNumber  Temp;
 
 #if spSEPARATED_COMPLEX_VECTORS
     for (I = Size; I > 0; I--)
-    {   Intermediate[I].Real = RHS[*(pExtOrder)];
+    {
+        Intermediate[I].Real = RHS[*(pExtOrder)];
         Intermediate[I].Imag = iRHS[*(pExtOrder--)];
     }
 #else
-    ExtVector = (ComplexVector)RHS;
+    ExtVector = (ComplexVector) RHS;
     for (I = Size; I > 0; I--)
         Intermediate[I] = ExtVector[*(pExtOrder--)];
 #endif
 
 /* Forward elimination. */
     for (I = 1; I <= Size; I++)
-    {   Temp = Intermediate[I];
+    {
+        Temp = Intermediate[I];
 
 /* This step of the elimination is skipped if Temp equals zero. */
-        if ((Temp.Real != 0.0) OR (Temp.Imag != 0.0))
-        {   pElement = Matrix->Diag[I]->NextInRow;
+        if ((Temp.Real != 0.0) OR(Temp.Imag != 0.0))
+        {
+            pElement = Matrix->Diag[I]->NextInRow;
             while (pElement != NULL)
             {
 /* Cmplx expr: Intermediate[Element->Col] -= Temp * *Element. */
-                CMPLX_MULT_SUBT_ASSIGN( Intermediate[pElement->Col],
-                                        Temp, *pElement);
+                CMPLX_MULT_SUBT_ASSIGN(Intermediate[pElement->Col], Temp, *pElement);
                 pElement = pElement->NextInRow;
             }
         }
@@ -651,14 +630,15 @@ ComplexNumber  Temp;
 
 /* Backward Substitution. */
     for (I = Size; I > 0; I--)
-    {   pPivot = Matrix->Diag[I];
+    {
+        pPivot = Matrix->Diag[I];
         Temp = Intermediate[I];
         pElement = pPivot->NextInCol;
 
         while (pElement != NULL)
         {
 /* Cmplx expr: Temp -= Intermediate[Element->Row] * *Element. */
-            CMPLX_MULT_SUBT_ASSIGN(Temp,Intermediate[pElement->Row],*pElement);
+            CMPLX_MULT_SUBT_ASSIGN(Temp, Intermediate[pElement->Row], *pElement);
 
             pElement = pElement->NextInCol;
         }
@@ -671,11 +651,12 @@ ComplexNumber  Temp;
 
 #if spSEPARATED_COMPLEX_VECTORS
     for (I = Size; I > 0; I--)
-    {   Solution[*(pExtOrder)] = Intermediate[I].Real;
+    {
+        Solution[*(pExtOrder)] = Intermediate[I].Real;
         iSolution[*(pExtOrder--)] = Intermediate[I].Imag;
     }
 #else
-    ExtVector = (ComplexVector)Solution;
+    ExtVector = (ComplexVector) Solution;
     for (I = Size; I > 0; I--)
         ExtVector[*(pExtOrder--)] = Intermediate[I];
 #endif

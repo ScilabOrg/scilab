@@ -14,7 +14,7 @@
  * This is the implementation file for a generic package of dense
  * matrix operations.
  * -----------------------------------------------------------------
- */ 
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,74 +29,78 @@
 
 DenseMat DenseAllocMat(long int M, long int N)
 {
-  DenseMat A;
+    DenseMat A;
 
-  /* Note that M and N are tested in denalloc */
+    /* Note that M and N are tested in denalloc */
 
-  A = NULL;
-  A = (DenseMat) malloc(sizeof *A);
-  if (A==NULL) return (NULL);
-  
-  A->data = NULL;
-  A->data = denalloc(M, N);
-  if (A->data == NULL) {
-    free(A); A = NULL;
-    return(NULL);
-  }
+    A = NULL;
+    A = (DenseMat) malloc(sizeof *A);
+    if (A == NULL)
+        return (NULL);
 
-  A->M = M;
-  A->N = N;
+    A->data = NULL;
+    A->data = denalloc(M, N);
+    if (A->data == NULL)
+    {
+        free(A);
+        A = NULL;
+        return (NULL);
+    }
 
-  return(A);
+    A->M = M;
+    A->N = N;
+
+    return (A);
 }
 
 long int *DenseAllocPiv(long int N)
 {
-  return(denallocpiv(N));
+    return (denallocpiv(N));
 }
 
 long int DenseGETRF(DenseMat A, long int *p)
 {
-  return(denGETRF(A->data, A->M, A->N, p));
+    return (denGETRF(A->data, A->M, A->N, p));
 }
 
-void DenseGETRS(DenseMat A, long int *p, realtype *b)
+void DenseGETRS(DenseMat A, long int *p, realtype * b)
 {
-  denGETRS(A->data, A->N, p, b);
+    denGETRS(A->data, A->N, p, b);
 }
 
 void DenseZero(DenseMat A)
 {
-  denzero(A->data, A->M, A->N);
+    denzero(A->data, A->M, A->N);
 }
 
 void DenseCopy(DenseMat A, DenseMat B)
 {
-  dencopy(A->data, B->data, A->M, A->N);
+    dencopy(A->data, B->data, A->M, A->N);
 }
 
 void DenseScale(realtype c, DenseMat A)
 {
-  denscale(c, A->data, A->M, A->N);
+    denscale(c, A->data, A->M, A->N);
 }
 
 void DenseAddI(DenseMat A)
 {
-  denaddI(A->data, A->N);
+    denaddI(A->data, A->N);
 }
 
 void DenseFreeMat(DenseMat A)
 {
-  denfree(A->data);
-  free(A); A = NULL;
+    denfree(A->data);
+    free(A);
+    A = NULL;
 }
 
 void DenseFreePiv(long int *p)
-{  
-  denfreepiv(p);
+{
+    denfreepiv(p);
 }
 
 void DensePrint(DenseMat A)
 {
-  denprint(A->data, A->M, A->N);
+    denprint(A->data, A->M, A->N);
 }

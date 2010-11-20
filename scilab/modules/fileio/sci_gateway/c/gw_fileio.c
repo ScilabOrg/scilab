@@ -15,10 +15,10 @@
 #include "callFunctionFromGateway.h"
 #include "MALLOC.h"
 #include "stack-c.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /*  interface function */
-/*--------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[]={
+/*--------------------------------------------------------------------------*/
+static gw_generic_table Tab[] = {
     {sci_mopen, "mopen"},
     {sci_mputstr, "mputstr"},
     {sci_mclose, "mclose"},
@@ -29,55 +29,56 @@ static gw_generic_table Tab[]={
     {sci_mseek, "mseek"},
     {sci_mtell, "mtell"},
     {sci_mclearerr, "mclearerr"},
-    {sci_mfprintf,"mfprintf"},
-    {sci_scanf,"mscanf"},
-    {sci_fscanf,"mfscanf"},
-    {sci_sscanf,"msscanf"},
-    {sci_fscanfMat,"fscanfMat"},
-    {sci_fprintfMat,"fprintfMat"},
+    {sci_mfprintf, "mfprintf"},
+    {sci_scanf, "mscanf"},
+    {sci_fscanf, "mfscanf"},
+    {sci_sscanf, "msscanf"},
+    {sci_fscanfMat, "fscanfMat"},
+    {sci_fprintfMat, "fprintfMat"},
     {sci_merror, "merror"},
-    {sci_findfiles,"findfiles"},
-    {sci_maxfiles,"maxfiles"},
-    {sci_getdrives,"getdrives"},
-    {sci_fullpath,"fullpath"},
-    {sci_deletefile,"deletefile"},
-    {sci_pathsep,"pathsep"},
-    {sci_filesep,"filesep"},
-    {sci_getlongpathname,"getlongpathname"},
-    {sci_getshortpathname,"getshortpathname"},
-    {sci_fileext,"fileext"},
-    {sci_isdir,"isdir"},
-    {sci_removedir,"removedir"},
-    {sci_createdir,"createdir"},
-    {sci_pwd,"pwd"},
-    {sci_chdir,"chdir"},
-    {sci_fileinfo,"fileinfo"},
-    {sci_newest,"newest"},
-    {sci_getrelativefilename,"getrelativefilename"},
-    {sci_get_absolute_file_path,"get_absolute_file_path"},
-    {sci_copyfile,"copyfile"},
-    {sci_isfile,"isfile"},
-    {sci_fileparts,"fileparts"},
-    {sci_movefile,"movefile"},
-    {sci_basename,"basename"},
-    {sci_pathconvert,"pathconvert"},
-    {sci_chdir,"cd"},
-    {sci_mgetl,"mgetl"},
-    {sci_mputl,"mputl"}
+    {sci_findfiles, "findfiles"},
+    {sci_maxfiles, "maxfiles"},
+    {sci_getdrives, "getdrives"},
+    {sci_fullpath, "fullpath"},
+    {sci_deletefile, "deletefile"},
+    {sci_pathsep, "pathsep"},
+    {sci_filesep, "filesep"},
+    {sci_getlongpathname, "getlongpathname"},
+    {sci_getshortpathname, "getshortpathname"},
+    {sci_fileext, "fileext"},
+    {sci_isdir, "isdir"},
+    {sci_removedir, "removedir"},
+    {sci_createdir, "createdir"},
+    {sci_pwd, "pwd"},
+    {sci_chdir, "chdir"},
+    {sci_fileinfo, "fileinfo"},
+    {sci_newest, "newest"},
+    {sci_getrelativefilename, "getrelativefilename"},
+    {sci_get_absolute_file_path, "get_absolute_file_path"},
+    {sci_copyfile, "copyfile"},
+    {sci_isfile, "isfile"},
+    {sci_fileparts, "fileparts"},
+    {sci_movefile, "movefile"},
+    {sci_basename, "basename"},
+    {sci_pathconvert, "pathconvert"},
+    {sci_chdir, "cd"},
+    {sci_mgetl, "mgetl"},
+    {sci_mputl, "mputl"}
 };
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int gw_fileio(void)
 {
-    Rhs = Max(0,Rhs);
+    Rhs = Max(0, Rhs);
 
-    if(pvApiCtx == NULL)
+    if (pvApiCtx == NULL)
     {
-        pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
+        pvApiCtx = (StrCtx *) MALLOC(sizeof(StrCtx));
     }
 
-    pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+    pvApiCtx->pstName = (char *)Tab[Fin - 1].name;
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

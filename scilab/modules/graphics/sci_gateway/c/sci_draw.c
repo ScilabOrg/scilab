@@ -24,54 +24,57 @@
 #include "Scierror.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int sci_draw( char * fname, unsigned long fname_len )
-{ 
+int sci_draw(char *fname, unsigned long fname_len)
+{
 
-  CheckRhs(0,1) ;
-  CheckLhs(0,1) ;
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
-  if (Rhs == 0)
-  {
-    sciDrawSingleObj(sciGetCurrentObj()) ;
-  }
-  else
-  {
-    // Rhs = 1
-    sciPointObj ** drawnObjects = NULL;
-    int nbObjects = 0;
-    int nbRow;
-    int nbCol;
-    size_t stackPointer = 0;
-    int i;
-
-    GetRhsVar( 1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer ); 
-
-    nbObjects = nbRow * nbCol;
-
-    /* allocate array of objects */
-    drawnObjects = MALLOC(nbObjects * sizeof(sciPointObj *));
-
-    /* fill it */
-    for (i = 0; i < nbObjects; i++)
+    if (Rhs == 0)
     {
-      /* Convert handle to sciPointObj */
-      unsigned long hdl = (unsigned long) hstk(stackPointer)[i];
-      drawnObjects[i] = sciGetPointerFromHandle(hdl);
-
-      if (drawnObjects[i] == NULL) {
-        FREE(drawnObjects);
-        Scierror(999,_("%s: The handle is not or no more valid.\n"),fname);
-        return 0;
-      }
+        sciDrawSingleObj(sciGetCurrentObj());
     }
-      
-    sciDrawSetOfObj(drawnObjects, nbObjects);
+    else
+    {
+        // Rhs = 1
+        sciPointObj **drawnObjects = NULL;
+        int nbObjects = 0;
+        int nbRow;
+        int nbCol;
+        size_t stackPointer = 0;
+        int i;
 
-    FREE(drawnObjects);
-  }
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
 
-  LhsVar(1) = 0;
-  C2F(putlhsvar)();
-  return 0;
+        nbObjects = nbRow * nbCol;
+
+        /* allocate array of objects */
+        drawnObjects = MALLOC(nbObjects * sizeof(sciPointObj *));
+
+        /* fill it */
+        for (i = 0; i < nbObjects; i++)
+        {
+            /* Convert handle to sciPointObj */
+            unsigned long hdl = (unsigned long)hstk(stackPointer)[i];
+
+            drawnObjects[i] = sciGetPointerFromHandle(hdl);
+
+            if (drawnObjects[i] == NULL)
+            {
+                FREE(drawnObjects);
+                Scierror(999, _("%s: The handle is not or no more valid.\n"), fname);
+                return 0;
+            }
+        }
+
+        sciDrawSetOfObj(drawnObjects, nbObjects);
+
+        FREE(drawnObjects);
+    }
+
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

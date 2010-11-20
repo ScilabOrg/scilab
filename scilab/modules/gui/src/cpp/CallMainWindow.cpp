@@ -16,13 +16,10 @@ using namespace org_scilab_modules_gui_bridge;
 
 void saveMainWindowSettings()
 {
-  CallScilabBridge::saveMainWindowSettings(getScilabJavaVM());
+    CallScilabBridge::saveMainWindowSettings(getScilabJavaVM());
 }
 
 void saveHelpWindowSettings()
 {
-  CallScilabBridge::saveHelpWindowSettings(getScilabJavaVM());
+    CallScilabBridge::saveHelpWindowSettings(getScilabJavaVM());
 }
-
-
-

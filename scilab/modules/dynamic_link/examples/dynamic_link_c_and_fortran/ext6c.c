@@ -17,12 +17,13 @@
  ******************************************/
 
 int ext6c(char *aname, double *b, double *c)
-{   
-  double a[3];
-  int k, m, n;
-  ReadMatrix(aname, &m, &n, a);
-  /*     [m,n]=size(a)  here m=1 n=3  */
-  for (k = 0; k < n; ++k) 
-    c[k] = a[k] + b[k] * 2.;
-  return(0);
+{
+    double a[3];
+    int k, m, n;
+
+    ReadMatrix(aname, &m, &n, a);
+    /*     [m,n]=size(a)  here m=1 n=3  */
+    for (k = 0; k < n; ++k)
+        c[k] = a[k] + b[k] * 2.;
+    return (0);
 }

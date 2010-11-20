@@ -12,7 +12,6 @@
  *
  */
 
-
 #include "ConcreteDrawableText.hxx"
 #include "DrawingBridge.h"
 #include "getHandleDrawer.h"
@@ -27,109 +26,110 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableText::ConcreteDrawableText(sciPointObj * pObj) : DrawableText(pObj)
-{
-  m_pDrawingTextStrategy = NULL;
-}
+    ConcreteDrawableText::ConcreteDrawableText(sciPointObj * pObj):DrawableText(pObj)
+    {
+        m_pDrawingTextStrategy = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableText::~ConcreteDrawableText(void)
-{
-  setTextDrawingStrategy(NULL);
-}
+    ConcreteDrawableText::~ConcreteDrawableText(void)
+    {
+        setTextDrawingStrategy(NULL);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::getBoundingRectangle(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
-{
-  m_pDrawingTextStrategy->getBoundingRectangle(corner1, corner2, corner3, corner4);
-}
+    void ConcreteDrawableText::getBoundingRectangle(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
+    {
+        m_pDrawingTextStrategy->getBoundingRectangle(corner1, corner2, corner3, corner4);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::getScreenBoundingBox(int corner1[2], int corner2[2], int corner3[2], int corner4[2])
-{
-  double corners[4][3]; // more accurate corners
-	getScreenBoundingBox(corners[0], corners[1], corners[2], corners[3]);
+    void ConcreteDrawableText::getScreenBoundingBox(int corner1[2], int corner2[2], int corner3[2], int corner4[2])
+    {
+        double corners[4][3];   // more accurate corners
 
-	// convert them to int
-	for (int i = 0; i < 2; i++)
-	{
-		corner1[i] = (int) corners[0][i];
-		corner2[i] = (int) corners[1][i];
-		corner3[i] = (int) corners[2][i];
-		corner4[i] = (int) corners[3][i];
-	}
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::getScreenBoundingBox(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
-{
-	m_pDrawingTextStrategy->getScreenBoundingBox(corner1, corner2, corner3, corner4);
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::setTextDrawingStrategy(DrawTextContentStrategy * strategy)
-{
-  if (m_pDrawingTextStrategy != NULL)
-  {
-    delete m_pDrawingTextStrategy;
-  }
-  m_pDrawingTextStrategy = strategy;
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::drawTextContent(void)
-{
-  // draw text content and update bounding box
-  sciText * ppText = pTEXT_FEATURE(m_pDrawed);
-  m_pDrawingTextStrategy->drawTextContent(ppText->corners[0], ppText->corners[1],
-                                          ppText->corners[2], ppText->corners[3]);
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::redrawTextContent(void)
-{
-  // draw text content and update bounding box
-  sciText * ppText = pTEXT_FEATURE(m_pDrawed);
-  m_pDrawingTextStrategy->redrawTextContent(ppText->corners[0], ppText->corners[1],
-                                            ppText->corners[2], ppText->corners[3]);
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::showTextContent(void)
-{
-  m_pDrawingTextStrategy->showTextContent();
-}
-/*---------------------------------------------------------------------------------*/
-bool ConcreteDrawableText::isTextEmpty(void)
-{
-  return (sciisTextEmpty(m_pDrawed) == TRUE);
-}
-/*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::updateTextBox(void)
-{
-  if (!m_bNeedRedraw && !m_bNeedDraw)
-  {
-    // text already up to date
-    return;
-  }
-  // just update, no need to draw
+        getScreenBoundingBox(corners[0], corners[1], corners[2], corners[3]);
 
-	// update the inner structure if needed
-	update();
-
-  sciText * ppText = pTEXT_FEATURE(m_pDrawed);
-  getBoundingRectangle(ppText->corners[0], ppText->corners[1],
-                       ppText->corners[2], ppText->corners[3]);
-  
-}
+        // convert them to int
+        for (int i = 0; i < 2; i++)
+        {
+            corner1[i] = (int)corners[0][i];
+            corner2[i] = (int)corners[1][i];
+            corner3[i] = (int)corners[2][i];
+            corner4[i] = (int)corners[3][i];
+        }
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::hasChanged( void )
-{
-  DrawableObject::hasChanged();
-
-  // force parent subwin to sort text at next draw
-  getSubwinDrawer(sciGetParentSubwin(m_pDrawed))->textChanged();
-
-}
+    void ConcreteDrawableText::getScreenBoundingBox(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
+    {
+        m_pDrawingTextStrategy->getScreenBoundingBox(corner1, corner2, corner3, corner4);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableText::move(const double translation[3])
-{
-  DrawableObject::move(translation);
+    void ConcreteDrawableText::setTextDrawingStrategy(DrawTextContentStrategy * strategy)
+    {
+        if (m_pDrawingTextStrategy != NULL)
+        {
+            delete m_pDrawingTextStrategy;
+        }
+        m_pDrawingTextStrategy = strategy;
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::drawTextContent(void)
+    {
+        // draw text content and update bounding box
+        sciText *ppText = pTEXT_FEATURE(m_pDrawed);
 
-  // force parent subwin to sort text at next draw
-  getSubwinDrawer(sciGetParentSubwin(m_pDrawed))->textChanged();
-}
+        m_pDrawingTextStrategy->drawTextContent(ppText->corners[0], ppText->corners[1], ppText->corners[2], ppText->corners[3]);
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::redrawTextContent(void)
+    {
+        // draw text content and update bounding box
+        sciText *ppText = pTEXT_FEATURE(m_pDrawed);
+
+        m_pDrawingTextStrategy->redrawTextContent(ppText->corners[0], ppText->corners[1], ppText->corners[2], ppText->corners[3]);
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::showTextContent(void)
+    {
+        m_pDrawingTextStrategy->showTextContent();
+    }
+/*---------------------------------------------------------------------------------*/
+    bool ConcreteDrawableText::isTextEmpty(void)
+    {
+        return (sciisTextEmpty(m_pDrawed) == TRUE);
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::updateTextBox(void)
+    {
+        if (!m_bNeedRedraw && !m_bNeedDraw)
+        {
+            // text already up to date
+            return;
+        }
+        // just update, no need to draw
+
+        // update the inner structure if needed
+        update();
+
+        sciText *ppText = pTEXT_FEATURE(m_pDrawed);
+
+        getBoundingRectangle(ppText->corners[0], ppText->corners[1], ppText->corners[2], ppText->corners[3]);
+
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::hasChanged(void)
+    {
+        DrawableObject::hasChanged();
+
+        // force parent subwin to sort text at next draw
+        getSubwinDrawer(sciGetParentSubwin(m_pDrawed))->textChanged();
+
+    }
+/*---------------------------------------------------------------------------------*/
+    void ConcreteDrawableText::move(const double translation[3])
+    {
+        DrawableObject::move(translation);
+
+        // force parent subwin to sort text at next draw
+        getSubwinDrawer(sciGetParentSubwin(m_pDrawed))->textChanged();
+    }
 /*---------------------------------------------------------------------------------*/
 }

@@ -67,69 +67,69 @@
 #include "sci_pvm.h"
 #include "localization.h"
 
-
-void C2F(ccomplexf)(int *n, double **ip, double *op)
+void C2F(ccomplexf) (int *n, double **ip, double *op)
 {
-  memcpy(op, *ip, *n * sizeof(double));
+    memcpy(op, *ip, *n * sizeof(double));
 
-  /* int i */
-  /*   for (i = *n; --i >= 0; ) { */
-  /*     op[i] = (*ip)[i];*/		/* TODO: replace by memcpy */ 
-  /*   } */
-  
-  SET_TYPE_COMPLEX(op);		        /* type is complex */
-  SET_NB_ROW(op,  NB_ROW(op) / 2);	/* nb  row is halfed */
+    /* int i */
+    /*   for (i = *n; --i >= 0; ) { */
+    /*     op[i] = (*ip)[i]; *//* TODO: replace by memcpy */
+    /*   } */
 
-  free((char*) (*ip));
+    SET_TYPE_COMPLEX(op);       /* type is complex */
+    SET_NB_ROW(op, NB_ROW(op) / 2); /* nb  row is halfed */
+
+    free((char *)(*ip));
 }
-
-
 
 void SciToF77(double *ptr, int size, int lda)
 {
-  int i;
-  double *tab;
-  
-  if ((tab = (double *) MALLOC(size * sizeof(double))) == NULL) {
-    (void) fprintf(stderr, _("%s: No more memory.\n"),"SciToF77");
-    return;
-  }
+    int i;
+    double *tab;
 
-  /* for (i = size; --i >= 0; ) { */
-  /*     tab[i] = ptr[i]; */
-  /*   } */
-  
-  memcpy(tab, ptr, size * sizeof(double));
+    if ((tab = (double *)MALLOC(size * sizeof(double))) == NULL)
+    {
+        (void)fprintf(stderr, _("%s: No more memory.\n"), "SciToF77");
+        return;
+    }
 
-  for (i = 0; i < size; ++i) {
-    ptr[2*i] = tab[i];
-    ptr[2*i+1] = ptr[lda+i];
-  }
+    /* for (i = size; --i >= 0; ) { */
+    /*     tab[i] = ptr[i]; */
+    /*   } */
 
-  free(tab);
-} 
+    memcpy(tab, ptr, size * sizeof(double));
+
+    for (i = 0; i < size; ++i)
+    {
+        ptr[2 * i] = tab[i];
+        ptr[2 * i + 1] = ptr[lda + i];
+    }
+
+    free(tab);
+}
 
 void F77ToSci(double *ptr, int size, int lda)
 {
-  int i;
-  double *tab;
-  
-  if ((tab = (double *) MALLOC(size * sizeof(double))) == NULL) {
-    (void) fprintf(stderr, _("%s: No more memory.\n"),"F77ToSci");
-    return;
-  }
-  
-  for (i = 0; i < size; ++i) {
-    tab[i] = ptr[2*i+1];
-    ptr[i] = ptr[2*i];
-  }
+    int i;
+    double *tab;
 
-  memcpy(ptr + lda, tab, size * sizeof(double));
+    if ((tab = (double *)MALLOC(size * sizeof(double))) == NULL)
+    {
+        (void)fprintf(stderr, _("%s: No more memory.\n"), "F77ToSci");
+        return;
+    }
 
-  /*   for (i = size; --i >= 0; ) { */
-  /*     ptr[lda+i] = tab[i]; */
-  /*   } */
+    for (i = 0; i < size; ++i)
+    {
+        tab[i] = ptr[2 * i + 1];
+        ptr[i] = ptr[2 * i];
+    }
 
-  free(tab);
+    memcpy(ptr + lda, tab, size * sizeof(double));
+
+    /*   for (i = size; --i >= 0; ) { */
+    /*     ptr[lda+i] = tab[i]; */
+    /*   } */
+
+    free(tab);
 }
-

@@ -9,29 +9,34 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /*
  *  MACHINE CONSTANTS
  *  These numbers must be updated when the program is ported to a new machine.
  *  Using spConfig.h to get the largest int 
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #define spINSIDE_SPARSE
 #include "../../sparse/includes/spConfig.h"
 #include "ipmpar1.h"
-/*--------------------------------------------------------------------------*/ 
-int C2F(largestint)()
+/*--------------------------------------------------------------------------*/
+int C2F(largestint) ()
 {
-  static int first=0,large=0;
-  if ( first == 0) 
-  {
-      if (sizeof(int)==sizeof(long)) large = LARGEST_LONG_INTEGER ;
-      else if (sizeof(int)==sizeof(short)) large = LARGEST_SHORT_INTEGER;
-      else large = 2147483647 ; /** using default value **/
+    static int first = 0, large = 0;
 
-      first++;
-      return large ;
-  }
-  return large;
+    if (first == 0)
+    {
+        if (sizeof(int) == sizeof(long))
+            large = LARGEST_LONG_INTEGER;
+        else if (sizeof(int) == sizeof(short))
+            large = LARGEST_SHORT_INTEGER;
+        else
+            large = 2147483647; /** using default value **/
+
+        first++;
+        return large;
+    }
+    return large;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

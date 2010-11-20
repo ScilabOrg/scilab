@@ -39,605 +39,752 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_graphic_export {
+namespace org_scilab_modules_graphic_export
+{
 
 // Returns the current env
 
-JNIEnv * GL2PSToJOGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *GL2PSToJOGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-GL2PSToJOGL::~GL2PSToJOGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    GL2PSToJOGL::~GL2PSToJOGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-GL2PSToJOGL::GL2PSToJOGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    GL2PSToJOGL::GL2PSToJOGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voidglFeedbackBufferjintjintID=NULL; 
-jfloatArray_readFeedbackBufferjintID=NULL; 
-jbooleanglIsEnabledjintID=NULL; 
-voidglBeginjintID=NULL; 
-voidglVertex3fjfloatjfloatjfloatID=NULL; 
-voidglEndID=NULL; 
-jbooleanglGetCurrentRasterPositionValidID=NULL; 
-jintglRenderModejintID=NULL; 
-jintglGetLineStipplePatternID=NULL; 
-jintglGetLineStippleRepeatID=NULL; 
-jintglGetIndexClearValueID=NULL; 
-jintArray_glGetViewportID=NULL; 
-jintglGetBlendSrcID=NULL; 
-jintglGetBlendDstID=NULL; 
-jfloatArray_glGetColorClearValueID=NULL; 
-jfloatglGetPolygonOffsetFactorID=NULL; 
-jfloatglGetPolygonOffsetUnitsID=NULL; 
-jfloatArray_glGetCurrentRasterPositionID=NULL; 
-jfloatArray_glGetCurrentRasterColorID=NULL; 
-voidglPassThroughjfloatID=NULL; 
-
-
-}
-
-GL2PSToJOGL::GL2PSToJOGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voidglFeedbackBufferjintjintID = NULL;
+        jfloatArray_readFeedbackBufferjintID = NULL;
+        jbooleanglIsEnabledjintID = NULL;
+        voidglBeginjintID = NULL;
+        voidglVertex3fjfloatjfloatjfloatID = NULL;
+        voidglEndID = NULL;
+        jbooleanglGetCurrentRasterPositionValidID = NULL;
+        jintglRenderModejintID = NULL;
+        jintglGetLineStipplePatternID = NULL;
+        jintglGetLineStippleRepeatID = NULL;
+        jintglGetIndexClearValueID = NULL;
+        jintArray_glGetViewportID = NULL;
+        jintglGetBlendSrcID = NULL;
+        jintglGetBlendDstID = NULL;
+        jfloatArray_glGetColorClearValueID = NULL;
+        jfloatglGetPolygonOffsetFactorID = NULL;
+        jfloatglGetPolygonOffsetUnitsID = NULL;
+        jfloatArray_glGetCurrentRasterPositionID = NULL;
+        jfloatArray_glGetCurrentRasterColorID = NULL;
+        voidglPassThroughjfloatID = NULL;
+
+    }
+
+    GL2PSToJOGL::GL2PSToJOGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voidglFeedbackBufferjintjintID=NULL; 
-jfloatArray_readFeedbackBufferjintID=NULL; 
-jbooleanglIsEnabledjintID=NULL; 
-voidglBeginjintID=NULL; 
-voidglVertex3fjfloatjfloatjfloatID=NULL; 
-voidglEndID=NULL; 
-jbooleanglGetCurrentRasterPositionValidID=NULL; 
-jintglRenderModejintID=NULL; 
-jintglGetLineStipplePatternID=NULL; 
-jintglGetLineStippleRepeatID=NULL; 
-jintglGetIndexClearValueID=NULL; 
-jintArray_glGetViewportID=NULL; 
-jintglGetBlendSrcID=NULL; 
-jintglGetBlendDstID=NULL; 
-jfloatArray_glGetColorClearValueID=NULL; 
-jfloatglGetPolygonOffsetFactorID=NULL; 
-jfloatglGetPolygonOffsetUnitsID=NULL; 
-jfloatArray_glGetCurrentRasterPositionID=NULL; 
-jfloatArray_glGetCurrentRasterColorID=NULL; 
-voidglPassThroughjfloatID=NULL; 
+        voidglFeedbackBufferjintjintID = NULL;
+        jfloatArray_readFeedbackBufferjintID = NULL;
+        jbooleanglIsEnabledjintID = NULL;
+        voidglBeginjintID = NULL;
+        voidglVertex3fjfloatjfloatjfloatID = NULL;
+        voidglEndID = NULL;
+        jbooleanglGetCurrentRasterPositionValidID = NULL;
+        jintglRenderModejintID = NULL;
+        jintglGetLineStipplePatternID = NULL;
+        jintglGetLineStippleRepeatID = NULL;
+        jintglGetIndexClearValueID = NULL;
+        jintArray_glGetViewportID = NULL;
+        jintglGetBlendSrcID = NULL;
+        jintglGetBlendDstID = NULL;
+        jfloatArray_glGetColorClearValueID = NULL;
+        jfloatglGetPolygonOffsetFactorID = NULL;
+        jfloatglGetPolygonOffsetUnitsID = NULL;
+        jfloatArray_glGetCurrentRasterPositionID = NULL;
+        jfloatArray_glGetCurrentRasterColorID = NULL;
+        voidglPassThroughjfloatID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void GL2PSToJOGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GL2PSToJOGL");
-}
-}
+    void GL2PSToJOGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GL2PSToJOGL");
+        }
+    }
 
-void GL2PSToJOGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GL2PSToJOGL");
-}
-}
+    void GL2PSToJOGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GL2PSToJOGL");
+        }
+    }
 // Method(s)
 
-void GL2PSToJOGL::glFeedbackBuffer (JavaVM * jvm_, int arg0, int arg1){
+    void GL2PSToJOGL::glFeedbackBuffer(JavaVM * jvm_, int arg0, int arg1)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidglFeedbackBufferjintjintID = curEnv->GetStaticMethodID(cls, "glFeedbackBuffer", "(II)V" ) ;
-if (voidglFeedbackBufferjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glFeedbackBuffer");
-}
+        jmethodID voidglFeedbackBufferjintjintID = curEnv->GetStaticMethodID(cls, "glFeedbackBuffer", "(II)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidglFeedbackBufferjintjintID ,arg0, arg1);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidglFeedbackBufferjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glFeedbackBuffer");
+        }
 
-float* GL2PSToJOGL::readFeedbackBuffer (JavaVM * jvm_, int size){
+        curEnv->CallStaticVoidMethod(cls, voidglFeedbackBufferjintjintID, arg0, arg1);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    float *GL2PSToJOGL::readFeedbackBuffer(JavaVM * jvm_, int size)
+    {
 
-jmethodID jfloatArray_readFeedbackBufferjintID = curEnv->GetStaticMethodID(cls, "readFeedbackBuffer", "(I)[F" ) ;
-if (jfloatArray_readFeedbackBufferjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "readFeedbackBuffer");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jfloatArray res =  static_cast<jfloatArray>( curEnv->CallStaticObjectMethod(cls, jfloatArray_readFeedbackBufferjintID ,size));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jmethodID jfloatArray_readFeedbackBufferjintID = curEnv->GetStaticMethodID(cls, "readFeedbackBuffer", "(I)[F");
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jfloat *resultsArray = static_cast<jfloat *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-float* myArray= new float[ lenRow];
+        if (jfloatArray_readFeedbackBufferjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "readFeedbackBuffer");
+        }
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        jfloatArray res = static_cast < jfloatArray > (curEnv->CallStaticObjectMethod(cls, jfloatArray_readFeedbackBufferjintID, size));
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-}
-
-bool GL2PSToJOGL::glIsEnabled (JavaVM * jvm_, int arg0){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanglIsEnabledjintID = curEnv->GetStaticMethodID(cls, "glIsEnabled", "(I)Z" ) ;
-if (jbooleanglIsEnabledjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glIsEnabled");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanglIsEnabledjintID ,arg0));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-void GL2PSToJOGL::glBegin (JavaVM * jvm_, int arg0){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidglBeginjintID = curEnv->GetStaticMethodID(cls, "glBegin", "(I)V" ) ;
-if (voidglBeginjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glBegin");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidglBeginjintID ,arg0);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void GL2PSToJOGL::glVertex3f (JavaVM * jvm_, float arg0, float arg1, float arg2){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidglVertex3fjfloatjfloatjfloatID = curEnv->GetStaticMethodID(cls, "glVertex3f", "(FFF)V" ) ;
-if (voidglVertex3fjfloatjfloatjfloatID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glVertex3f");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidglVertex3fjfloatjfloatjfloatID ,arg0, arg1, arg2);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void GL2PSToJOGL::glEnd (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidglEndID = curEnv->GetStaticMethodID(cls, "glEnd", "()V" ) ;
-if (voidglEndID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glEnd");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidglEndID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-bool GL2PSToJOGL::glGetCurrentRasterPositionValid (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanglGetCurrentRasterPositionValidID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterPositionValid", "()Z" ) ;
-if (jbooleanglGetCurrentRasterPositionValidID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterPositionValid");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanglGetCurrentRasterPositionValidID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-int GL2PSToJOGL::glRenderMode (JavaVM * jvm_, int arg0){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintglRenderModejintID = curEnv->GetStaticMethodID(cls, "glRenderMode", "(I)I" ) ;
-if (jintglRenderModejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glRenderMode");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglRenderModejintID ,arg0));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-int GL2PSToJOGL::glGetLineStipplePattern (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintglGetLineStipplePatternID = curEnv->GetStaticMethodID(cls, "glGetLineStipplePattern", "()I" ) ;
-if (jintglGetLineStipplePatternID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetLineStipplePattern");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglGetLineStipplePatternID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-int GL2PSToJOGL::glGetLineStippleRepeat (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintglGetLineStippleRepeatID = curEnv->GetStaticMethodID(cls, "glGetLineStippleRepeat", "()I" ) ;
-if (jintglGetLineStippleRepeatID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetLineStippleRepeat");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglGetLineStippleRepeatID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-int GL2PSToJOGL::glGetIndexClearValue (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintglGetIndexClearValueID = curEnv->GetStaticMethodID(cls, "glGetIndexClearValue", "()I" ) ;
-if (jintglGetIndexClearValueID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetIndexClearValue");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglGetIndexClearValueID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-int* GL2PSToJOGL::glGetViewport (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintArray_glGetViewportID = curEnv->GetStaticMethodID(cls, "glGetViewport", "()[I" ) ;
-if (jintArray_glGetViewportID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetViewport");
-}
-
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_glGetViewportID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jfloat *resultsArray = static_cast < jfloat * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        float *myArray = new float[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-int GL2PSToJOGL::glGetBlendSrc (JavaVM * jvm_){
+    bool GL2PSToJOGL::glIsEnabled(JavaVM * jvm_, int arg0)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintglGetBlendSrcID = curEnv->GetStaticMethodID(cls, "glGetBlendSrc", "()I" ) ;
-if (jintglGetBlendSrcID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetBlendSrc");
-}
+        jmethodID jbooleanglIsEnabledjintID = curEnv->GetStaticMethodID(cls, "glIsEnabled", "(I)Z");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglGetBlendSrcID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jbooleanglIsEnabledjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glIsEnabled");
+        }
 
-}
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanglIsEnabledjintID, arg0));
 
-int GL2PSToJOGL::glGetBlendDst (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintglGetBlendDstID = curEnv->GetStaticMethodID(cls, "glGetBlendDst", "()I" ) ;
-if (jintglGetBlendDstID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetBlendDst");
-}
+    void GL2PSToJOGL::glBegin(JavaVM * jvm_, int arg0)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintglGetBlendDstID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID voidglBeginjintID = curEnv->GetStaticMethodID(cls, "glBegin", "(I)V");
 
-float* GL2PSToJOGL::glGetColorClearValue (JavaVM * jvm_){
+        if (voidglBeginjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glBegin");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidglBeginjintID, arg0);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID jfloatArray_glGetColorClearValueID = curEnv->GetStaticMethodID(cls, "glGetColorClearValue", "()[F" ) ;
-if (jfloatArray_glGetColorClearValueID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetColorClearValue");
-}
+    void GL2PSToJOGL::glVertex3f(JavaVM * jvm_, float arg0, float arg1, float arg2)
+    {
 
-                        jfloatArray res =  static_cast<jfloatArray>( curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetColorClearValueID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidglVertex3fjfloatjfloatjfloatID = curEnv->GetStaticMethodID(cls, "glVertex3f", "(FFF)V");
+
+        if (voidglVertex3fjfloatjfloatjfloatID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glVertex3f");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidglVertex3fjfloatjfloatjfloatID, arg0, arg1, arg2);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void GL2PSToJOGL::glEnd(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidglEndID = curEnv->GetStaticMethodID(cls, "glEnd", "()V");
+
+        if (voidglEndID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glEnd");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidglEndID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    bool GL2PSToJOGL::glGetCurrentRasterPositionValid(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanglGetCurrentRasterPositionValidID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterPositionValid", "()Z");
+
+        if (jbooleanglGetCurrentRasterPositionValidID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterPositionValid");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanglGetCurrentRasterPositionValidID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    int GL2PSToJOGL::glRenderMode(JavaVM * jvm_, int arg0)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintglRenderModejintID = curEnv->GetStaticMethodID(cls, "glRenderMode", "(I)I");
+
+        if (jintglRenderModejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glRenderMode");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglRenderModejintID, arg0));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int GL2PSToJOGL::glGetLineStipplePattern(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintglGetLineStipplePatternID = curEnv->GetStaticMethodID(cls, "glGetLineStipplePattern", "()I");
+
+        if (jintglGetLineStipplePatternID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetLineStipplePattern");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglGetLineStipplePatternID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int GL2PSToJOGL::glGetLineStippleRepeat(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintglGetLineStippleRepeatID = curEnv->GetStaticMethodID(cls, "glGetLineStippleRepeat", "()I");
+
+        if (jintglGetLineStippleRepeatID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetLineStippleRepeat");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglGetLineStippleRepeatID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int GL2PSToJOGL::glGetIndexClearValue(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintglGetIndexClearValueID = curEnv->GetStaticMethodID(cls, "glGetIndexClearValue", "()I");
+
+        if (jintglGetIndexClearValueID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetIndexClearValue");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglGetIndexClearValueID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int *GL2PSToJOGL::glGetViewport(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintArray_glGetViewportID = curEnv->GetStaticMethodID(cls, "glGetViewport", "()[I");
+
+        if (jintArray_glGetViewportID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetViewport");
+        }
+
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_glGetViewportID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jfloat *resultsArray = static_cast<jfloat *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-float* myArray= new float[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-float GL2PSToJOGL::glGetPolygonOffsetFactor (JavaVM * jvm_){
+    int GL2PSToJOGL::glGetBlendSrc(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jfloatglGetPolygonOffsetFactorID = curEnv->GetStaticMethodID(cls, "glGetPolygonOffsetFactor", "()F" ) ;
-if (jfloatglGetPolygonOffsetFactorID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetPolygonOffsetFactor");
-}
+        jmethodID jintglGetBlendSrcID = curEnv->GetStaticMethodID(cls, "glGetBlendSrc", "()I");
 
-                        jfloat res =  static_cast<jfloat>( curEnv->CallStaticFloatMethod(cls, jfloatglGetPolygonOffsetFactorID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintglGetBlendSrcID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetBlendSrc");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglGetBlendSrcID));
 
-float GL2PSToJOGL::glGetPolygonOffsetUnits (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jfloatglGetPolygonOffsetUnitsID = curEnv->GetStaticMethodID(cls, "glGetPolygonOffsetUnits", "()F" ) ;
-if (jfloatglGetPolygonOffsetUnitsID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetPolygonOffsetUnits");
-}
+    int GL2PSToJOGL::glGetBlendDst(JavaVM * jvm_)
+    {
 
-                        jfloat res =  static_cast<jfloat>( curEnv->CallStaticFloatMethod(cls, jfloatglGetPolygonOffsetUnitsID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintglGetBlendDstID = curEnv->GetStaticMethodID(cls, "glGetBlendDst", "()I");
 
-float* GL2PSToJOGL::glGetCurrentRasterPosition (JavaVM * jvm_){
+        if (jintglGetBlendDstID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetBlendDst");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintglGetBlendDstID));
 
-jmethodID jfloatArray_glGetCurrentRasterPositionID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterPosition", "()[F" ) ;
-if (jfloatArray_glGetCurrentRasterPositionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterPosition");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jfloatArray res =  static_cast<jfloatArray>( curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetCurrentRasterPositionID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+    }
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jfloat *resultsArray = static_cast<jfloat *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-float* myArray= new float[ lenRow];
+    float *GL2PSToJOGL::glGetColorClearValue(JavaVM * jvm_)
+    {
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        jmethodID jfloatArray_glGetColorClearValueID = curEnv->GetStaticMethodID(cls, "glGetColorClearValue", "()[F");
 
-}
+        if (jfloatArray_glGetColorClearValueID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetColorClearValue");
+        }
 
-float* GL2PSToJOGL::glGetCurrentRasterColor (JavaVM * jvm_){
+        jfloatArray res = static_cast < jfloatArray > (curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetColorClearValueID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-jmethodID jfloatArray_glGetCurrentRasterColorID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterColor", "()[F" ) ;
-if (jfloatArray_glGetCurrentRasterColorID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterColor");
-}
-
-                        jfloatArray res =  static_cast<jfloatArray>( curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetCurrentRasterColorID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jfloat *resultsArray = static_cast<jfloat *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-float* myArray= new float[ lenRow];
+        jfloat *resultsArray = static_cast < jfloat * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        float *myArray = new float[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void GL2PSToJOGL::glPassThrough (JavaVM * jvm_, float arg0){
+    float GL2PSToJOGL::glGetPolygonOffsetFactor(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidglPassThroughjfloatID = curEnv->GetStaticMethodID(cls, "glPassThrough", "(F)V" ) ;
-if (voidglPassThroughjfloatID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "glPassThrough");
-}
+        jmethodID jfloatglGetPolygonOffsetFactorID = curEnv->GetStaticMethodID(cls, "glGetPolygonOffsetFactor", "()F");
 
-                         curEnv->CallStaticVoidMethod(cls, voidglPassThroughjfloatID ,arg0);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (jfloatglGetPolygonOffsetFactorID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetPolygonOffsetFactor");
+        }
+
+        jfloat res = static_cast < jfloat > (curEnv->CallStaticFloatMethod(cls, jfloatglGetPolygonOffsetFactorID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    float GL2PSToJOGL::glGetPolygonOffsetUnits(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jfloatglGetPolygonOffsetUnitsID = curEnv->GetStaticMethodID(cls, "glGetPolygonOffsetUnits", "()F");
+
+        if (jfloatglGetPolygonOffsetUnitsID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetPolygonOffsetUnits");
+        }
+
+        jfloat res = static_cast < jfloat > (curEnv->CallStaticFloatMethod(cls, jfloatglGetPolygonOffsetUnitsID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    float *GL2PSToJOGL::glGetCurrentRasterPosition(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jfloatArray_glGetCurrentRasterPositionID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterPosition", "()[F");
+
+        if (jfloatArray_glGetCurrentRasterPositionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterPosition");
+        }
+
+        jfloatArray res = static_cast < jfloatArray > (curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetCurrentRasterPositionID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jfloat *resultsArray = static_cast < jfloat * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        float *myArray = new float[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    float *GL2PSToJOGL::glGetCurrentRasterColor(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jfloatArray_glGetCurrentRasterColorID = curEnv->GetStaticMethodID(cls, "glGetCurrentRasterColor", "()[F");
+
+        if (jfloatArray_glGetCurrentRasterColorID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glGetCurrentRasterColor");
+        }
+
+        jfloatArray res = static_cast < jfloatArray > (curEnv->CallStaticObjectMethod(cls, jfloatArray_glGetCurrentRasterColorID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jfloat *resultsArray = static_cast < jfloat * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        float *myArray = new float[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    void GL2PSToJOGL::glPassThrough(JavaVM * jvm_, float arg0)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidglPassThroughjfloatID = curEnv->GetStaticMethodID(cls, "glPassThrough", "(F)V");
+
+        if (voidglPassThroughjfloatID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "glPassThrough");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidglPassThroughjfloatID, arg0);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

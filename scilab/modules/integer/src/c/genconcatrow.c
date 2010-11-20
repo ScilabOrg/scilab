@@ -23,29 +23,34 @@ Type *X2;\
        for (i = 1; i <= (*m2)*(*n2); ++i) \
 	 X1[i] = X2[i];}
 
-
-int C2F(genconcatrow)(int *typ,int *x1,int *m1,int *n1,int *x2,int *m2,int *n2)
+int C2F(genconcatrow) (int *typ, int *x1, int *m1, int *n1, int *x2, int *m2, int *n2)
 {
-  static int i;
-  switch (*typ) {
-  case 1:
-    RCONC(integer1);
-    break;
-  case 2:
-    RCONC(integer2);
-    break;
-  case 4:
-    RCONC(int) ;
-    break;
-  case 11:
-    RCONC(unsigned char);
-    break;
-  case 12:
-    RCONC(unsigned short);
-    break;
-  case 14:
-    RCONC(unsigned int);
-    break;
-  }
-  return 0;
+    static int i;
+
+    switch (*typ)
+    {
+    case 1:
+        RCONC(integer1);
+        break;
+    case 2:
+        RCONC(integer2);
+        break;
+    case 4:
+        RCONC(int);
+
+        break;
+    case 11:
+        RCONC(unsigned char);
+
+        break;
+    case 12:
+        RCONC(unsigned short);
+
+        break;
+    case 14:
+        RCONC(unsigned int);
+
+        break;
+    }
+    return 0;
 }

@@ -15,26 +15,28 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolHorizontalAlignment(sciPointObj* sciObj)
+int GetUicontrolHorizontalAlignment(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      switch(pUICONTROL_FEATURE(sciObj)->horizontalAlignment)
+        switch (pUICONTROL_FEATURE(sciObj)->horizontalAlignment)
         {
         case LEFT_ALIGNMENT:
-          return sciReturnString("left");
+            return sciReturnString("left");
         case CENTER_ALIGNMENT:
-          return sciReturnString("center");
+            return sciReturnString("center");
         case RIGHT_ALIGNMENT:
-          return sciReturnString("right");
+            return sciReturnString("right");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "HorizontalAlignment", "left", "center", "right");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "HorizontalAlignment", "left",
+                     "center", "right");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "HorizontalAlignment");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "HorizontalAlignment");
+
+        return FALSE;
     }
 }

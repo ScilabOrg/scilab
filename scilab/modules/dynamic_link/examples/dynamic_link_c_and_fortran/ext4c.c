@@ -24,31 +24,30 @@
 
 int ext4c(int *n, double *a, double *b, double *c)
 {
-  int k;
-  char ch[MAXCH];
-  int lch=MAXCH;
+    int k;
+    char ch[MAXCH];
+    int lch = MAXCH;
 
-  /* We search a Scilab Object name YesOrNo 
-   * check that it is a string 
-   * and store the string in ch 
-   * lch is used on entry to give the maximum number 
-   * of characters which can be stored in ch 
-   * After the call lch contains the number of 
-   * copied characters
-   */
+    /* We search a Scilab Object name YesOrNo 
+     * check that it is a string 
+     * and store the string in ch 
+     * lch is used on entry to give the maximum number 
+     * of characters which can be stored in ch 
+     * After the call lch contains the number of 
+     * copied characters
+     */
 
-  ReadString("YesOrNo", &lch, ch);
+    ReadString("YesOrNo", &lch, ch);
   /******************************/
-  if (strcmp(ch, "yes") == 0) 
+    if (strcmp(ch, "yes") == 0)
     {
-      for (k = 0; k < *n; ++k) 
-	c[k] = sin(a[k]) + cos(b[k]);
-    } 
-  else 
-    {
-      for (k = 0; k < *n; ++k) 
-	c[k] = a[k] + b[k];
+        for (k = 0; k < *n; ++k)
+            c[k] = sin(a[k]) + cos(b[k]);
     }
-  return(0);
+    else
+    {
+        for (k = 0; k < *n; ++k)
+            c[k] = a[k] + b[k];
+    }
+    return (0);
 }
-

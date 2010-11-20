@@ -25,49 +25,44 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-SegsLineDrawerJoGL::SegsLineDrawerJoGL( DrawableSegs * segs )
-: DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
-{
-  setJavaMapper(new SegsLineDrawerJavaMapper());
-}
+    SegsLineDrawerJoGL::SegsLineDrawerJoGL(DrawableSegs * segs):DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
+    {
+        setJavaMapper(new SegsLineDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-SegsLineDrawerJoGL::~SegsLineDrawerJoGL(void)
-{
+    SegsLineDrawerJoGL::~SegsLineDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsLineDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
-                                  const double yStarts[], const double yEnds[],
-                                  const double zStarts[], const double zEnds[],
-                                  const int colors[], int nbSegment)
-{
-  sciPointObj * pSegs = m_pDrawed->getDrawedObject();
+    void SegsLineDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
+                                      const double yStarts[], const double yEnds[],
+                                      const double zStarts[], const double zEnds[], const int colors[], int nbSegment)
+    {
+        sciPointObj *pSegs = m_pDrawed->getDrawedObject();
 
-  initializeDrawing();
-  getLineDrawerJavaMapper()->setLineParameters((float)sciGetLineWidth(pSegs), sciGetLineStyle(pSegs));
-  try
-  {
-    getLineDrawerJavaMapper()->drawSegs(xStarts, xEnds,
-                                        yStarts, yEnds,
-                                        zStarts, zEnds,
-                                        colors, nbSegment);
-  }
-  catch (const std::exception & e)
-  {
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"SegsLineDrawerJoGL::drawSegs");
-  }
+        initializeDrawing();
+        getLineDrawerJavaMapper()->setLineParameters((float)sciGetLineWidth(pSegs), sciGetLineStyle(pSegs));
+        try
+        {
+            getLineDrawerJavaMapper()->drawSegs(xStarts, xEnds, yStarts, yEnds, zStarts, zEnds, colors, nbSegment);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "SegsLineDrawerJoGL::drawSegs");
+        }
 
-  endDrawing();
-}
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsLineDrawerJoGL::showSegs( void )
-{
-  show();
-}
+    void SegsLineDrawerJoGL::showSegs(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-SegsLineDrawerJavaMapper * SegsLineDrawerJoGL::getLineDrawerJavaMapper(void)
-{
-  return dynamic_cast<SegsLineDrawerJavaMapper *>(getJavaMapper());
-}
+    SegsLineDrawerJavaMapper *SegsLineDrawerJoGL::getLineDrawerJavaMapper(void)
+    {
+        return dynamic_cast < SegsLineDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

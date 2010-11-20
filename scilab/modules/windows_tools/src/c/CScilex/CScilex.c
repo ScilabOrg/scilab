@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "GetWindowsVersion.h"
-#include "win_mem_alloc.h" /* MALLOC */
+#include "win_mem_alloc.h"      /* MALLOC */
 /*--------------------------------------------------------------------------*/
 #define MSG_DETECT_2K_OR_MORE "Scilab requires Windows 2000 or more."
 #define MSG_DETECT_SSE_OR_MORE "Scilab requires SSE Instructions."
@@ -29,7 +29,8 @@
 #define ARG_NOGUI "-nogui"
 #define LENGTH_BUFFER_SECURITY 64
 /*--------------------------------------------------------------------------*/
-typedef int (*MYPROC1) (int , char **);
+typedef int (*MYPROC1) (int, char **);
+
 /*--------------------------------------------------------------------------*/
 /* BUG 6934 */
 /* http://bugzilla.scilab.org/show_bug.cgi?id=6934 */
@@ -38,14 +39,14 @@ typedef int (*MYPROC1) (int , char **);
 #pragma optimize("g", off)
 #endif
 /*--------------------------------------------------------------------------*/
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-    #define MAXCMDTOKENS 128
+#define MAXCMDTOKENS 128
     int iExitCode = 0;
     UINT LastErrorMode = 0;
-    HINSTANCE hinstLib = NULL; 
+    HINSTANCE hinstLib = NULL;
 
-    BOOL fFreeResult = FALSE, fRunTimeLinkSuccess = FALSE; 
+    BOOL fFreeResult = FALSE, fRunTimeLinkSuccess = FALSE;
 
     int argcbis = -1;
     LPSTR argvbis[MAXCMDTOKENS];
@@ -67,26 +68,30 @@ int main (int argc, char **argv)
 
     for (i = 0; i < argc; i++)
     {
-        if (_stricmp(argv[i], ARG_NW) == 0) FindNW = 1;
-        if (_stricmp(argv[i], ARG_NWNI) == 0 ) FindNW = 1;
-        if (_stricmp(argv[i], ARG_NOGUI) == 0 ) FindNW = 1;
+        if (_stricmp(argv[i], ARG_NW) == 0)
+            FindNW = 1;
+        if (_stricmp(argv[i], ARG_NWNI) == 0)
+            FindNW = 1;
+        if (_stricmp(argv[i], ARG_NOGUI) == 0)
+            FindNW = 1;
     }
 
-    if ( FindNW == 0 )
+    if (FindNW == 0)
     {
         /* -nw added as first argument and not last */
         char *nwparam = NULL;
-        nwparam = (char*)MALLOC((strlen(ARG_NW) + 1) * sizeof(char));
-        strcpy_s(nwparam,(strlen(ARG_NW) + 1), ARG_NW);
+
+        nwparam = (char *)MALLOC((strlen(ARG_NW) + 1) * sizeof(char));
+        strcpy_s(nwparam, (strlen(ARG_NW) + 1), ARG_NW);
 
         argvbis[0] = argv[0];
         argvbis[1] = nwparam;
 
-        for (i = 1; i<argc; i++)
+        for (i = 1; i < argc; i++)
         {
-            argvbis[i+1] = argv[i];
+            argvbis[i + 1] = argv[i];
         }
-        argcbis = argc+1;
+        argcbis = argc + 1;
     }
     else
     {
@@ -123,11 +128,11 @@ int main (int argc, char **argv)
             _try
             {
 #endif
-                iExitCode = (Console_Main)(argcbis, argvbis);
+                iExitCode = (Console_Main) (argcbis, argvbis);
 
 #ifndef _DEBUG
             }
-            _except (EXCEPTION_EXECUTE_HANDLER)
+            _except(EXCEPTION_EXECUTE_HANDLER)
             {
             }
 #endif
@@ -135,22 +140,21 @@ int main (int argc, char **argv)
         fFreeResult = FreeLibrary(hinstLib);
     }
 
-    if (! fRunTimeLinkSuccess) 
+    if (!fRunTimeLinkSuccess)
     {
-        #define BUFFER_SIZE 512
+#define BUFFER_SIZE 512
         char buffer[BUFFER_SIZE];
         char *OutputMsg = NULL;
         DWORD dw = GetLastError();
 
         if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL,
-            dw, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-            buffer, BUFFER_SIZE, NULL) == 0) 
+                          dw, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), buffer, BUFFER_SIZE, NULL) == 0)
         {
             StringCchPrintf(buffer, strlen("Unknown Error") + 1, "Unknown Error");
         }
 
         fprintf(stderr, "scilex can't launch scilab.\nError code : %lu\n", dw);
-        OutputMsg = (char*)MALLOC((strlen(buffer) + 1)*sizeof(char));
+        OutputMsg = (char *)MALLOC((strlen(buffer) + 1) * sizeof(char));
         if (OutputMsg)
         {
             CharToOem(buffer, OutputMsg);
@@ -161,4 +165,5 @@ int main (int argc, char **argv)
     }
     return iExitCode;
 }
+
 /*--------------------------------------------------------------------------*/

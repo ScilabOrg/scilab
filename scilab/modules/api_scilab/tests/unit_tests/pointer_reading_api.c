@@ -17,50 +17,53 @@
 #include "api_scilab.h"
 #include "MALLOC.h"
 
-int read_pointer(char *fname,unsigned long fname_len)
+int read_pointer(char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
-	CheckRhs(0,1);
-	CheckLhs(1,1);
-	if(Rhs == 0)
-	{//create mode
-		double* pdblData	= (double*)malloc(sizeof(double) * 2 * 2);
-		pdblData[0]			= 1;
-		pdblData[1]			= 3;
-		pdblData[2]			= 2;
-		pdblData[3]			= 4;
-		sciErr = createPointer(pvApiCtx, Rhs + 1, (void*)pdblData);
-	}
-	else if(Rhs == 1)
-	{//read mode
-		int iType			= 0;
-		int* piAddr			= NULL;
-		void* pvPtr			= NULL;
-		double* pdblData	= NULL;
-		sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
-		sciErr = getPointer(pvApiCtx, piAddr, &pvPtr);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
-		pdblData = (double*)pvPtr;
-		sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, 2, 2, pdblData);
-	}
-	else
-	{
-		return 0;
-	}
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
-	LhsVar(1) = Rhs + 1;
-	return 0;
+    SciErr sciErr;
+
+    CheckRhs(0, 1);
+    CheckLhs(1, 1);
+    if (Rhs == 0)
+    {                           //create mode
+        double *pdblData = (double *)malloc(sizeof(double) * 2 * 2);
+
+        pdblData[0] = 1;
+        pdblData[1] = 3;
+        pdblData[2] = 2;
+        pdblData[3] = 4;
+        sciErr = createPointer(pvApiCtx, Rhs + 1, (void *)pdblData);
+    }
+    else if (Rhs == 1)
+    {                           //read mode
+        int iType = 0;
+        int *piAddr = NULL;
+        void *pvPtr = NULL;
+        double *pdblData = NULL;
+
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        sciErr = getPointer(pvApiCtx, piAddr, &pvPtr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        pdblData = (double *)pvPtr;
+        sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, 2, 2, pdblData);
+    }
+    else
+    {
+        return 0;
+    }
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+    LhsVar(1) = Rhs + 1;
+    return 0;
 }

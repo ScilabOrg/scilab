@@ -33,36 +33,41 @@ Type *DY;\
     }\
 }
 
-
-int C2F(genvmul)(int *typ,int *n, integer1 *dx, int *incx, integer1 *dy, int *incy)
+int C2F(genvmul) (int *typ, int *n, integer1 * dx, int *incx, integer1 * dy, int *incy)
 {
-  int i1;
-  static int i, ix, iy;
+    int i1;
+    static int i, ix, iy;
 
-  i1 = *n;
+    i1 = *n;
 
-  if (i1 <= 0) {
+    if (i1 <= 0)
+    {
+        return 0;
+    }
+    switch (*typ)
+    {
+    case 1:
+        VMUL(integer1);
+        break;
+    case 2:
+        VMUL(integer2);
+        break;
+    case 4:
+        VMUL(int);
+
+        break;
+    case 11:
+        VMUL(unsigned char);
+
+        break;
+    case 12:
+        VMUL(unsigned short);
+
+        break;
+    case 14:
+        VMUL(unsigned int);
+
+        break;
+    }
     return 0;
-  }
-  switch (*typ) {
-  case 1:
-    VMUL(integer1);
-    break;
-  case 2:
-    VMUL(integer2);
-    break;
-  case 4:
-    VMUL(int) ;
-    break;
-  case 11:
-    VMUL(unsigned char);
-    break;
-  case 12:
-    VMUL(unsigned short);
-    break;
-  case 14:
-    VMUL(unsigned int);
-    break;
-  }
-  return 0;
 }

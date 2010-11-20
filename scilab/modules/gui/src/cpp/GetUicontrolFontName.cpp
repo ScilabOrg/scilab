@@ -15,34 +15,35 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolFontName(sciPointObj* sciObj)
+int GetUicontrolFontName(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the font name from Java
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+        // Get the font name from Java
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-		  int ret = 0;
-		  char *text = CallScilabBridge::getFrameFontName(getScilabJavaVM(),
-                                                                 pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            int ret = 0;
+            char *text = CallScilabBridge::getFrameFontName(getScilabJavaVM(),
+                                                            pUICONTROL_FEATURE(sciObj)->hashMapIndex);
 
-          ret = sciReturnString(text);
-		  delete [] text;
-		  return ret;
+            ret = sciReturnString(text);
+            delete[]text;
+            return ret;
         }
-      else/* All other uicontrol style */
+        else                    /* All other uicontrol style */
         {
-		  int ret = 0;
-		  char *text = CallScilabBridge::getWidgetFontName(getScilabJavaVM(),pUICONTROL_FEATURE(sciObj)->hashMapIndex);
-          ret = sciReturnString(text);
-		  delete [] text;
-		  return ret;
+            int ret = 0;
+            char *text = CallScilabBridge::getWidgetFontName(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+            ret = sciReturnString(text);
+            delete[]text;
+            return ret;
         }
-     }
-  else
+    }
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontName");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontName");
+
+        return FALSE;
     }
 }
-

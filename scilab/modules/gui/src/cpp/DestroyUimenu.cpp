@@ -15,8 +15,8 @@ extern "C"
 {
 #include "DestroyJavaUiobject.h"
 #include "DestroyUimenu.h"
-#include "MALLOC.h" /* MALLOC */
-#include "DestroyObjects.h" /* sciStandardDestroyOperations */
+#include "MALLOC.h"             /* MALLOC */
+#include "DestroyObjects.h"     /* sciStandardDestroyOperations */
 #include "GetProperty.h"
 #include "GraphicSynchronizerInterface.h"
 }
@@ -27,34 +27,34 @@ extern "C"
  * @param sciPointObj * pthis pointer to the object structure
  * @return execution status
  */
-int DestroyUimenu (sciPointObj * pthis)
+int DestroyUimenu(sciPointObj * pthis)
 {
-  /* Destroy Java object */
-  disableFigureSynchronization(sciGetParentFigure(pthis));
-  DestroyJavaUiobject(pthis);
-  enableFigureSynchronization(sciGetParentFigure(pthis));
+    /* Destroy Java object */
+    disableFigureSynchronization(sciGetParentFigure(pthis));
+    DestroyJavaUiobject(pthis);
+    enableFigureSynchronization(sciGetParentFigure(pthis));
 
-  if (pUIMENU_FEATURE (pthis)->foregroundcolor != NULL)
+    if (pUIMENU_FEATURE(pthis)->foregroundcolor != NULL)
     {
-      delete[] (pUIMENU_FEATURE (pthis)->foregroundcolor);
+        delete[](pUIMENU_FEATURE(pthis)->foregroundcolor);
     }
 
-  if (pUIMENU_FEATURE (pthis)->callback != NULL)
+    if (pUIMENU_FEATURE(pthis)->callback != NULL)
     {
-      delete[] (pUIMENU_FEATURE (pthis)->callback);
+        delete[](pUIMENU_FEATURE(pthis)->callback);
     }
 
-  if (pUIMENU_FEATURE (pthis)->tag != NULL)
+    if (pUIMENU_FEATURE(pthis)->tag != NULL)
     {
-      delete[] (pUIMENU_FEATURE (pthis)->tag);
+        delete[](pUIMENU_FEATURE(pthis)->tag);
     }
 
-  if (pUIMENU_FEATURE (pthis)->user_data != NULL)
+    if (pUIMENU_FEATURE(pthis)->user_data != NULL)
     {
-      FREE (pUIMENU_FEATURE (pthis)->user_data);
+        FREE(pUIMENU_FEATURE(pthis)->user_data);
     }
 
-  return sciStandardDestroyOperations(pthis) ;
+    return sciStandardDestroyOperations(pthis);
 }
-/*----------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------*/

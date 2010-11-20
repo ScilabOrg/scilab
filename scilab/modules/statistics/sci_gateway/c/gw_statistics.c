@@ -15,25 +15,26 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{ 
-	{cdfbetI, "cdfbet"},
-	{cdfbinI, "cdfbin"},
-	{cdfchiI, "cdfchi"},
-	{cdfchnI, "cdfchn"},
-	{cdffI, "cdff"},
-	{cdffncI, "cdffnc"},
-	{cdfgamI, "cdfgam"},
-	{cdfnbnI, "cdfnbn"},
-	{cdfnorI, "cdfnor"},
-	{cdfpoiI, "cdfpoi"},
-	{cdftI, "cdft"}
+static gw_generic_table Tab[] = {
+    {cdfbetI, "cdfbet"},
+    {cdfbinI, "cdfbin"},
+    {cdfchiI, "cdfchi"},
+    {cdfchnI, "cdfchn"},
+    {cdffI, "cdff"},
+    {cdffncI, "cdffnc"},
+    {cdfgamI, "cdfgam"},
+    {cdfnbnI, "cdfnbn"},
+    {cdfnorI, "cdfnor"},
+    {cdfpoiI, "cdfpoi"},
+    {cdftI, "cdft"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_statistics()
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

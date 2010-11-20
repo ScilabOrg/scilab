@@ -12,40 +12,45 @@
 #include <stdlib.h>
 #include "freeArrayOfString.h"
 #include "MALLOC.h"
-/*---------------------------------------------------------------------------*/ 
-BOOL freeArrayOfString(char **Str,int dim)
+/*---------------------------------------------------------------------------*/
+BOOL freeArrayOfString(char **Str, int dim)
 {
-	return freeArray((void**)Str, dim);
+    return freeArray((void **)Str, dim);
 }
-/*---------------------------------------------------------------------------*/ 
-BOOL freeArrayOfWideString(wchar_t **wcStr, int dim)
+
+/*---------------------------------------------------------------------------*/
+BOOL freeArrayOfWideString(wchar_t ** wcStr, int dim)
 {
-	return freeArray((void**)wcStr, dim);
+    return freeArray((void **)wcStr, dim);
 }
-/*---------------------------------------------------------------------------*/ 
+
+/*---------------------------------------------------------------------------*/
 BOOL freeArray(void **pArray, int dim)
 {
-	BOOL bRet = TRUE;
+    BOOL bRet = TRUE;
 
-	if (pArray)
-	{
-		int i = 0;
-		for (i = 0;i < dim; i++)
-		{
-			if (pArray[i])
-			{
-				FREE(pArray[i]);
-				pArray[i] = NULL;
-			}
-			else bRet = FALSE;
-		}
-		FREE(pArray);
-		pArray = NULL;
-		return bRet;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (pArray)
+    {
+        int i = 0;
+
+        for (i = 0; i < dim; i++)
+        {
+            if (pArray[i])
+            {
+                FREE(pArray[i]);
+                pArray[i] = NULL;
+            }
+            else
+                bRet = FALSE;
+        }
+        FREE(pArray);
+        pArray = NULL;
+        return bRet;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
-/*---------------------------------------------------------------------------*/ 
+
+/*---------------------------------------------------------------------------*/

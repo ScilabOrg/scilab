@@ -19,25 +19,24 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableSegsJoGL::DrawableSegsJoGL( DrawableSegs * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
-  
-}
+    DrawableSegsJoGL::DrawableSegsJoGL(DrawableSegs * drawer):DrawableClippedObjectJoGL(drawer)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSegsJoGL::~DrawableSegsJoGL( void )
-{
-  
-}
+    DrawableSegsJoGL::~DrawableSegsJoGL(void)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSegs * DrawableSegsJoGL::getSegsDrawer( void )
-{
-  return dynamic_cast<DrawableSegs *>(getDrawer()) ;
-}
+    DrawableSegs *DrawableSegsJoGL::getSegsDrawer(void)
+    {
+        return dynamic_cast < DrawableSegs * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSegsJavaMapper * DrawableSegsJoGL::getSegsJavaMapper(void)
-{
-  return dynamic_cast<DrawableSegsJavaMapper *>(getJavaMapper());
-}
+    DrawableSegsJavaMapper *DrawableSegsJoGL::getSegsJavaMapper(void)
+    {
+        return dynamic_cast < DrawableSegsJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

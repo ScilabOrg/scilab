@@ -29,109 +29,110 @@ extern "C"
 #include "GetProperty.h"
 }
 
-
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableSubwinFactory::create( void )
-{
-  ConcreteDrawableSubwin * newSubwin = new ConcreteDrawableSubwin( m_pDrawed ) ;
-  DrawableSubwinBridgeFactory imp;
-  imp.setDrawedSubwin(newSubwin);
-  newSubwin->setDrawableImp(imp.create());
+    DrawableObject *DrawableSubwinFactory::create(void)
+    {
+        ConcreteDrawableSubwin *newSubwin = new ConcreteDrawableSubwin(m_pDrawed);
+        DrawableSubwinBridgeFactory imp;
+          imp.setDrawedSubwin(newSubwin);
+          newSubwin->setDrawableImp(imp.create());
 
-  // create the camera
-  CameraFactory fact;
-  fact.setGraphicObj(m_pDrawed);
-  newSubwin->setCamera(fact.create());
+        // create the camera
+        CameraFactory fact;
+          fact.setGraphicObj(m_pDrawed);
+          newSubwin->setCamera(fact.create());
 
-  // set strategies
-  setStrategies(newSubwin);
+        // set strategies
+          setStrategies(newSubwin);
 
-
-  return newSubwin;
-}
+          return newSubwin;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinFactory::update( void )
-{
-  // update the camera
-  CameraFactory fact;
-  fact.setGraphicObj(m_pDrawed);
-  fact.update();
+    void DrawableSubwinFactory::update(void)
+    {
+        // update the camera
+        CameraFactory fact;
 
-  // update strategies
-  setStrategies(dynamic_cast<ConcreteDrawableSubwin *>(getSubwinDrawer(m_pDrawed)));
-  
-}
+        fact.setGraphicObj(m_pDrawed);
+        fact.update();
+
+        // update strategies
+        setStrategies(dynamic_cast < ConcreteDrawableSubwin * >(getSubwinDrawer(m_pDrawed)));
+
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinFactory::setStrategies(ConcreteDrawableSubwin * subwin)
-{
-  sciPointObj * pSubwin = subwin->getDrawedObject();
+    void DrawableSubwinFactory::setStrategies(ConcreteDrawableSubwin * subwin)
+    {
+        sciPointObj *pSubwin = subwin->getDrawedObject();
 
-  // bounds computation
-  char logFlags[3];
-  sciGetLogFlags(pSubwin, logFlags);
+        // bounds computation
+        char logFlags[3];
 
-  if (logFlags[0] == 'l')
-  {
-    subwin->setXBoundsStrategy(new LogarithmicBoundsComputer());
-  }
-  else
-  {
-    subwin->setXBoundsStrategy(new LinearBoundsComputer());
-  }
+        sciGetLogFlags(pSubwin, logFlags);
 
-  if (logFlags[1] == 'l')
-  {
-    subwin->setYBoundsStrategy(new LogarithmicBoundsComputer());
-  }
-  else
-  {
-    subwin->setYBoundsStrategy(new LinearBoundsComputer());
-  }
+        if (logFlags[0] == 'l')
+        {
+            subwin->setXBoundsStrategy(new LogarithmicBoundsComputer());
+        }
+        else
+        {
+            subwin->setXBoundsStrategy(new LinearBoundsComputer());
+        }
 
-  if (logFlags[2] == 'l')
-  {
-    subwin->setZBoundsStrategy(new LogarithmicBoundsComputer());
-  }
-  else
-  {
-    subwin->setZBoundsStrategy(new LinearBoundsComputer());
-  }
+        if (logFlags[1] == 'l')
+        {
+            subwin->setYBoundsStrategy(new LogarithmicBoundsComputer());
+        }
+        else
+        {
+            subwin->setYBoundsStrategy(new LinearBoundsComputer());
+        }
 
-  // box drawing
-  subwin->removeAxesBoxDrawers();
-  switch(sciGetBoxType(pSubwin))
-  {
-  case BT_HIDDEN_AXES:
-    subwin->addAxesBoxDrawer(new BackTrihedronDrawerJoGL(subwin));
-    break;
-  case BT_BACK_HALF:
-    subwin->addAxesBoxDrawer(new HalfBoxDrawerJoGL(subwin));
-    break;
-  case BT_ON:
-    subwin->addAxesBoxDrawer(new FullBoxDrawerJoGL(subwin));
-    break;
-  case BT_OFF:
-  default:
-    break;
-  }
+        if (logFlags[2] == 'l')
+        {
+            subwin->setZBoundsStrategy(new LogarithmicBoundsComputer());
+        }
+        else
+        {
+            subwin->setZBoundsStrategy(new LinearBoundsComputer());
+        }
 
-  if (sciGetIsFilled(pSubwin))
-  {
-    subwin->addAxesBoxDrawer(new SubwinBackgroundDrawerJoGL(subwin));
-  }
+        // box drawing
+        subwin->removeAxesBoxDrawers();
+        switch (sciGetBoxType(pSubwin))
+        {
+        case BT_HIDDEN_AXES:
+            subwin->addAxesBoxDrawer(new BackTrihedronDrawerJoGL(subwin));
+            break;
+        case BT_BACK_HALF:
+            subwin->addAxesBoxDrawer(new HalfBoxDrawerJoGL(subwin));
+            break;
+        case BT_ON:
+            subwin->addAxesBoxDrawer(new FullBoxDrawerJoGL(subwin));
+            break;
+        case BT_OFF:
+        default:
+            break;
+        }
 
-  // ticks computation
-  // update of data bounds needed
-  subwin->computeRealDataBounds();
-  TicksDrawerFactory tdf(subwin);
-  subwin->setXTicksDrawer(tdf.createXTicksDrawer());
-  subwin->setYTicksDrawer(tdf.createYTicksDrawer());
-  subwin->setZTicksDrawer(tdf.createZTicksDrawer());
+        if (sciGetIsFilled(pSubwin))
+        {
+            subwin->addAxesBoxDrawer(new SubwinBackgroundDrawerJoGL(subwin));
+        }
 
-}
+        // ticks computation
+        // update of data bounds needed
+        subwin->computeRealDataBounds();
+        TicksDrawerFactory tdf(subwin);
+
+        subwin->setXTicksDrawer(tdf.createXTicksDrawer());
+        subwin->setYTicksDrawer(tdf.createYTicksDrawer());
+        subwin->setZTicksDrawer(tdf.createZTicksDrawer());
+
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

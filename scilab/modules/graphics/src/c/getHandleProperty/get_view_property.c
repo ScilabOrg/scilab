@@ -25,22 +25,23 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_view_property( sciPointObj * pobj )
+int get_view_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"view") ;
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "view");
+        return -1;
+    }
 
-  if ( sciGetIs3d( pobj ) )
-  {
-    return sciReturnString( "3d" ) ;
-  }
-  else
-  {
-    return sciReturnString( "2d" ) ;
-  }
+    if (sciGetIs3d(pobj))
+    {
+        return sciReturnString("3d");
+    }
+    else
+    {
+        return sciReturnString("2d");
+    }
 }
+
 /*------------------------------------------------------------------------*/

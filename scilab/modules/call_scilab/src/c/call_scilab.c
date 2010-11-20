@@ -42,6 +42,7 @@
 #endif
 /*--------------------------------------------------------------------------*/
 static CALL_SCILAB_ENGINE_STATE csEngineState = CALL_SCILAB_ENGINE_STOP;
+
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 static void SetSciEnv(void)
@@ -52,12 +53,16 @@ static void SetSciEnv(void)
 
     if (ScilabDirectory == NULL)
     {
-        MessageBox (NULL, "getScilabDirectory()", "Error" , MB_ICONSTOP | MB_OK);
+        MessageBox(NULL, "getScilabDirectory()", "Error", MB_ICONSTOP | MB_OK);
         exit(1);
     }
     SetScilabEnvironmentVariables(ScilabDirectory);
 
-    if (ScilabDirectory){FREE(ScilabDirectory); ScilabDirectory = NULL;}
+    if (ScilabDirectory)
+    {
+        FREE(ScilabDirectory);
+        ScilabDirectory = NULL;
+    }
 
 }
 #endif
@@ -66,11 +71,13 @@ void DisableInteractiveMode(void)
 {
     setScilabMode(SCILAB_NWNI);
 }
+
 /*--------------------------------------------------------------------------*/
-BOOL StartScilab(char *SCIpath,char *ScilabStartup, int Stacksize)
+BOOL StartScilab(char *SCIpath, char *ScilabStartup, int Stacksize)
 {
-    return Call_ScilabOpen (SCIpath, TRUE, ScilabStartup, Stacksize) == 0;
+    return Call_ScilabOpen(SCIpath, TRUE, ScilabStartup, Stacksize) == 0;
 }
+
 /*--------------------------------------------------------------------------*/
 /**
 * Start Scilab engine
@@ -85,9 +92,9 @@ BOOL StartScilab(char *SCIpath,char *ScilabStartup, int Stacksize)
 * -3: No existing directory
 * Any other positive integer: A Scilab internal error
 */
-int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char *ScilabStartup, int Stacksize)
+int Call_ScilabOpen(char *SCIpath, BOOL advancedMode, char *ScilabStartup, int Stacksize)
 {
-    #define FORMAT_SCRIPT_STARTUP "exec(\"%s\",-1);quit;"
+#define FORMAT_SCRIPT_STARTUP "exec(\"%s\",-1);quit;"
     char *ScilabStartupUsed = NULL;
     char *InitStringToScilab = NULL;
     int StacksizeUsed = 0;
@@ -107,19 +114,20 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char *ScilabStartup, int S
         }
     }
 
-    if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED) return -1;
+    if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED)
+        return -1;
 
     SetFromCToON();
 
     InitializeLaunchScilabSignal();
 
-    if (SCIpath == NULL) /* No SCIpath provided... */
+    if (SCIpath == NULL)        /* No SCIpath provided... */
     {
 #ifdef _MSC_VER
-        SetSciEnv(); /* Windows has a way to detect it */
+        SetSciEnv();            /* Windows has a way to detect it */
 #else
         /* Other doesn't */
-        fprintf(stderr,"StartScilab: Could not find SCI\n");
+        fprintf(stderr, "StartScilab: Could not find SCI\n");
         return -2;
 #endif
     }
@@ -128,13 +136,14 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char *ScilabStartup, int S
         if (!isdir(SCIpath))
         {
             /* Check if the directory actually exists */
-            fprintf(stderr,"StartScilab: Could not find the directory %s\n", SCIpath);
+            fprintf(stderr, "StartScilab: Could not find the directory %s\n", SCIpath);
             return -3;
         }
         else
         {
 #ifdef _MSC_VER
             char env[2048];
+
             sprintf(env, "SCI=%s", SCIpath);
             _putenv(env);
 #else
@@ -163,25 +172,35 @@ int Call_ScilabOpen(char* SCIpath, BOOL advancedMode, char *ScilabStartup, int S
     }
 
     /* creates TMPDIR */
-    C2F(settmpdir)();
+    C2F(settmpdir) ();
 
     /* Scilab Initialization */
-    C2F(inisci)(&iflag, &StacksizeUsed, &ierr);
+    C2F(inisci) (&iflag, &StacksizeUsed, &ierr);
 
-    if ( ierr > 0 ) return ierr;
+    if (ierr > 0)
+        return ierr;
 
     lengthStringToScilab = (int)(strlen(FORMAT_SCRIPT_STARTUP) + strlen(ScilabStartupUsed + 1));
-    InitStringToScilab = (char*)MALLOC(lengthStringToScilab*sizeof(char));
+    InitStringToScilab = (char *)MALLOC(lengthStringToScilab * sizeof(char));
     sprintf(InitStringToScilab, FORMAT_SCRIPT_STARTUP, ScilabStartupUsed);
 
-    C2F(scirun)(InitStringToScilab, (long int)strlen(InitStringToScilab));
+    C2F(scirun) (InitStringToScilab, (long int)strlen(InitStringToScilab));
 
-    if (ScilabStartupUsed) {FREE(ScilabStartupUsed); ScilabStartupUsed = NULL;}
-    if (InitStringToScilab) {FREE(InitStringToScilab); InitStringToScilab = NULL;}
+    if (ScilabStartupUsed)
+    {
+        FREE(ScilabStartupUsed);
+        ScilabStartupUsed = NULL;
+    }
+    if (InitStringToScilab)
+    {
+        FREE(InitStringToScilab);
+        InitStringToScilab = NULL;
+    }
 
     setCallScilabEngineState(CALL_SCILAB_ENGINE_STARTED);
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL TerminateScilab(char *ScilabQuit)
 {
@@ -205,6 +224,7 @@ BOOL TerminateScilab(char *ScilabQuit)
     }
     return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/
 /**
 * function called javasci
@@ -213,12 +233,13 @@ void ScilabDoOneEvent(void)
 {
     if (getCallScilabEngineState() == CALL_SCILAB_ENGINE_STARTED)
     {
-        if ( getScilabMode() != SCILAB_NWNI )
+        if (getScilabMode() != SCILAB_NWNI)
         {
-            C2F(scirun)("quit;", (int)strlen("quit;"));
+            C2F(scirun) ("quit;", (int)strlen("quit;"));
         }
     }
 }
+
 /*--------------------------------------------------------------------------*/
 int ScilabHaveAGraph(void)
 {
@@ -228,33 +249,37 @@ int ScilabHaveAGraph(void)
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 CALL_SCILAB_ENGINE_STATE setCallScilabEngineState(CALL_SCILAB_ENGINE_STATE state)
 {
     csEngineState = state;
     return csEngineState;
 }
+
 /*--------------------------------------------------------------------------*/
 CALL_SCILAB_ENGINE_STATE getCallScilabEngineState(void)
 {
     return csEngineState;
 }
+
 /*--------------------------------------------------------------------------*/
-sci_types getVariableType(char *varName) 
+sci_types getVariableType(char *varName)
 {
     int iSciType = -1;
-    SciErr sciErr = getNamedVarType(pvApiCtx, (char*)varName, &iSciType);
-    if (sciErr.iErr == API_ERROR_NAMED_UNDEFINED_VAR) 
+    SciErr sciErr = getNamedVarType(pvApiCtx, (char *)varName, &iSciType);
+
+    if (sciErr.iErr == API_ERROR_NAMED_UNDEFINED_VAR)
     {
         return -2;
     }
 
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
     }
     return (sci_types) iSciType;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

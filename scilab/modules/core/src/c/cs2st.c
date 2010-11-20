@@ -12,11 +12,12 @@
 
 #include "cs2st.h"
 
-int C2F(cs2st)(int *i,int *ires)
+int C2F(cs2st) (int *i, int *ires)
 {
-  unsigned int ui;
-  ui = (unsigned int) *i;
-  ui = (ui/4)+1;
-  *ires = (ui/2)+1;
-  return 0;
+    unsigned int ui;
+
+    ui = (unsigned int)*i;
+    ui = (ui / 4) + 1;
+    *ires = (ui / 2) + 1;
+    return 0;
 }

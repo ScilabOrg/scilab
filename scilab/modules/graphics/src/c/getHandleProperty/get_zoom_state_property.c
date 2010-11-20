@@ -25,20 +25,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_zoom_state_property( sciPointObj * pobj )
+int get_zoom_state_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"zoom_state") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "zoom_state");
+        return -1;
+    }
 
-  if ( sciGetZooming( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetZooming(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

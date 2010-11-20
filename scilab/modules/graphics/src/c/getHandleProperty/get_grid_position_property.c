@@ -23,21 +23,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_grid_position_property( sciPointObj * pobj )
+int get_grid_position_property(sciPointObj * pobj)
 {
-	
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "grid_position");
-    return -1;
-  }
-  if ( sciGetGridFront(pobj) )
-  {
-    return sciReturnString( "foreground" ) ;
-  }
-  else
-  {
-    return sciReturnString( "background" ) ;
-  }
+
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "grid_position");
+        return -1;
+    }
+    if (sciGetGridFront(pobj))
+    {
+        return sciReturnString("foreground");
+    }
+    else
+    {
+        return sciReturnString("background");
+    }
 }
+
 /*------------------------------------------------------------------------*/

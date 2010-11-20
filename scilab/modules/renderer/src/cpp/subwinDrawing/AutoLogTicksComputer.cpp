@@ -27,85 +27,88 @@ namespace sciGraphics
 {
 
 /** Base to display for logarithmix axis */
-static const char LOG_BASE[] = "10";
+    static const char LOG_BASE[] = "10";
 
-static const int BUFFER_LENGTH = 64;
+    static const int BUFFER_LENGTH = 64;
 
 /*------------------------------------------------------------------------------------------*/
-AutoLogTicksComputer::AutoLogTicksComputer(DrawableSubwin * subwin)
-  : AutomaticTicksComputer(subwin)
-{
+      AutoLogTicksComputer::AutoLogTicksComputer(DrawableSubwin * subwin):AutomaticTicksComputer(subwin)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-AutoLogTicksComputer::~AutoLogTicksComputer(void)
-{
+    AutoLogTicksComputer::~AutoLogTicksComputer(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-int AutoLogTicksComputer::getNbTicks(void)
-{
-  if (m_iNbTicks < 0)
-  {
-		// ticks not already decimated
-		int nbTicks = 0;
-    double ticks[20];
-    GradLog(m_dMinBounds, m_dMaxBounds, ticks, &nbTicks, FALSE);
-		return nbTicks;
-  }
-	else
-	{
-		// ticks decimated, use the specified value
-		return m_iNbTicks;
-	}
-}
+    int AutoLogTicksComputer::getNbTicks(void)
+    {
+        if (m_iNbTicks < 0)
+        {
+            // ticks not already decimated
+            int nbTicks = 0;
+            double ticks[20];
+
+            GradLog(m_dMinBounds, m_dMaxBounds, ticks, &nbTicks, FALSE);
+            return nbTicks;
+        }
+        else
+        {
+            // ticks decimated, use the specified value
+            return m_iNbTicks;
+        }
+    }
 /*------------------------------------------------------------------------------------------*/
-void AutoLogTicksComputer::getTicksPosition(double positions[], char * labels[], char * labelsExponents[])
-{
+    void AutoLogTicksComputer::getTicksPosition(double positions[], char *labels[], char *labelsExponents[])
+    {
 
-	if (m_iNbTicks < 0)
-	{
-		GradLog(m_dMinBounds, m_dMaxBounds, positions, &m_iNbTicks, FALSE);
-	}
-	else
-	{
-		GradLog(m_dMinBounds, m_dMaxBounds, positions, &m_iNbTicks, TRUE);
-	}
+        if (m_iNbTicks < 0)
+        {
+            GradLog(m_dMinBounds, m_dMaxBounds, positions, &m_iNbTicks, FALSE);
+        }
+        else
+        {
+            GradLog(m_dMinBounds, m_dMaxBounds, positions, &m_iNbTicks, TRUE);
+        }
 
-  // ticks labels are 10^i
-  // i is computed by grad log
-  char labelsExponentFormat[5];
-  int lastIndex = Max( m_iNbTicks - 1, 0 ) ;
+        // ticks labels are 10^i
+        // i is computed by grad log
+        char labelsExponentFormat[5];
+        int lastIndex = Max(m_iNbTicks - 1, 0);
 
-  ChoixFormatE( labelsExponentFormat,
-                positions[0],
-                positions[lastIndex],
-                (positions[lastIndex] - positions[0]) / lastIndex ); /* Adding F.Leray 06.05.04 */
-  
-  // copy exponents
-  char buffer[BUFFER_LENGTH];
-  for (int i = 0; i < m_iNbTicks; i++)
-  {
-    // convert current position into a string
-    sprintf(buffer, labelsExponentFormat, positions[i]);
+        ChoixFormatE(labelsExponentFormat, positions[0], positions[lastIndex], (positions[lastIndex] - positions[0]) / lastIndex);  /* Adding F.Leray 06.05.04 */
 
-    // add the string to labels
-    if (labelsExponents[i] != NULL) {delete labelsExponents[i];}
+        // copy exponents
+        char buffer[BUFFER_LENGTH];
 
-    labelsExponents[i] = new char[strlen(buffer) + 1];
-    strcpy(labelsExponents[i], buffer);
+        for (int i = 0; i < m_iNbTicks; i++)
+        {
+            // convert current position into a string
+            sprintf(buffer, labelsExponentFormat, positions[i]);
 
-    // copy "10" in each labem
-    if  (labels[i] != NULL) {delete labels[i];}
+            // add the string to labels
+            if (labelsExponents[i] != NULL)
+            {
+                delete labelsExponents[i];
+            }
 
-    labels[i] = new char[strlen(LOG_BASE) + 1];
-    strcpy(labels[i], LOG_BASE);
-  }
+            labelsExponents[i] = new char[strlen(buffer) + 1];
 
+            strcpy(labelsExponents[i], buffer);
 
+            // copy "10" in each labem
+            if (labels[i] != NULL)
+            {
+                delete labels[i];
+            }
 
+            labels[i] = new char[strlen(LOG_BASE) + 1];
 
-}
+            strcpy(labels[i], LOG_BASE);
+        }
+
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

@@ -18,39 +18,40 @@
 #include "deleteafile.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-int sci_deletefile(char *fname,unsigned long fname_len)
+int sci_deletefile(char *fname, unsigned long fname_len)
 {
-	CheckRhs(1,1);
-	CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	if (GetType(1) == sci_strings)
-	{
-		int m1,n1,l1;
-		char *VarName=NULL;
+    if (GetType(1) == sci_strings)
+    {
+        int m1, n1, l1;
+        char *VarName = NULL;
 
-		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-		/* Bug 3089 */
-		VarName = cstk(l1);
+        GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+        /* Bug 3089 */
+        VarName = cstk(l1);
 
-		n1=1;
-		if ( deleteafile(VarName) )
-		{
-			CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-			*istk(l1)=(int)(TRUE);
-		}
-		else
-		{
-			CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-			*istk(l1)=(int)(FALSE);
-		}
+        n1 = 1;
+        if (deleteafile(VarName))
+        {
+            CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &l1);
+            *istk(l1) = (int)(TRUE);
+        }
+        else
+        {
+            CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &l1);
+            *istk(l1) = (int)(FALSE);
+        }
 
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input argument: A string expected.\n"),fname);
-	}
-	return 0;
+        LhsVar(1) = Rhs + 1;
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument: A string expected.\n"), fname);
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

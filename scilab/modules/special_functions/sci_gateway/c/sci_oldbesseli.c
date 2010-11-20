@@ -17,9 +17,10 @@
 #include "localization.h"
 #include "sciprint.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsbesseli)(char *id,unsigned long fname_len);
+extern int C2F(intsbesseli) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_oldbesseli(char *fname,unsigned long fname_len)
+int sci_oldbesseli(char *fname, unsigned long fname_len)
 {
     if (getWarningMode())
     {
@@ -34,7 +35,8 @@ int sci_oldbesseli(char *fname,unsigned long fname_len)
         sciprint("\n");
     }
 
-    C2F(intsbesseli)(fname,fname_len);
+    C2F(intsbesseli) (fname, fname_len);
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

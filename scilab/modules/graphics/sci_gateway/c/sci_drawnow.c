@@ -24,24 +24,26 @@
 #include "SetProperty.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_drawnow(char *fname,unsigned long fname_len)
-{ 
-	sciPointObj *pfigure = NULL;
-	CheckRhs(0,0);
-	CheckLhs(0,1); 
+int sci_drawnow(char *fname, unsigned long fname_len)
+{
+    sciPointObj *pfigure = NULL;
 
-	if (Rhs <= 0) 
-	{
-		startGraphicDataWriting();
-		pfigure = sciGetCurrentFigure() ;
-		sciSetImmediateDrawingMode(pfigure, TRUE);
-		endGraphicDataWriting();
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-		sciDrawObj(pfigure);
-	}
+    if (Rhs <= 0)
+    {
+        startGraphicDataWriting();
+        pfigure = sciGetCurrentFigure();
+        sciSetImmediateDrawingMode(pfigure, TRUE);
+        endGraphicDataWriting();
 
-	LhsVar(1) = 0;
-	C2F(putlhsvar)();
-	return 0;
+        sciDrawObj(pfigure);
+    }
+
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

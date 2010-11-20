@@ -21,32 +21,32 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int sci_swap_handles( char * fname, unsigned long fname_len )
+int sci_swap_handles(char *fname, unsigned long fname_len)
 {
-  int firstHdlCol  ;
-  int firstHdlRow  ;
-  int secondHdlCol ;
-  int secondHdlRow ;
-  int firstHdlStkIndex  ;
-  int secondHdlStkIndex ;
+    int firstHdlCol;
+    int firstHdlRow;
+    int secondHdlCol;
+    int secondHdlRow;
+    int firstHdlStkIndex;
+    int secondHdlStkIndex;
 
-  CheckRhs( 2, 2 ) ;
-  CheckLhs( 0, 1 ) ;
+    CheckRhs(2, 2);
+    CheckLhs(0, 1);
 
-  GetRhsVar( 1,GRAPHICAL_HANDLE_DATATYPE, &firstHdlRow, &firstHdlCol, &firstHdlStkIndex );
-  GetRhsVar( 2,GRAPHICAL_HANDLE_DATATYPE, &secondHdlRow, &secondHdlCol, &secondHdlStkIndex );
+    GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &firstHdlRow, &firstHdlCol, &firstHdlStkIndex);
+    GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &secondHdlRow, &secondHdlCol, &secondHdlStkIndex);
 
-  if ( firstHdlRow * firstHdlCol != 1 || secondHdlRow * secondHdlCol != 1 )
-  {
-    Scierror(999,_("%s: Routine can only swap two single handles.\n"),fname);
-    return 0 ;
-  }
+    if (firstHdlRow * firstHdlCol != 1 || secondHdlRow * secondHdlCol != 1)
+    {
+        Scierror(999, _("%s: Routine can only swap two single handles.\n"), fname);
+        return 0;
+    }
 
-  /* get the two handles and swap them */
-  swapHandles( (unsigned long) *hstk( firstHdlStkIndex  ),
-               (unsigned long) *hstk( secondHdlStkIndex ) ) ;
-  LhsVar(1) = 0 ;
-	C2F(putlhsvar)();
-  return 0 ;
+    /* get the two handles and swap them */
+    swapHandles((unsigned long)*hstk(firstHdlStkIndex), (unsigned long)*hstk(secondHdlStkIndex));
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

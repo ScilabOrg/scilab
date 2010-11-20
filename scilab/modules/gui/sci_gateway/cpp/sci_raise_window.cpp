@@ -22,20 +22,22 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_gui_bridge;
+
 /*--------------------------------------------------------------------------*/
-int sci_raise_window( char * fname, unsigned long fname_len )
+int sci_raise_window(char *fname, unsigned long fname_len)
 {
-  int m1 = 0, n1 = 0, l1 = 0;
+    int m1 = 0, n1 = 0, l1 = 0;
 
-  CheckLhs(1,1);
+    CheckLhs(1, 1);
 
-  GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
+    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
 
-  CallScilabBridge::raiseWindow(getScilabJavaVM(), (int) (*stk(l1)));
+    CallScilabBridge::raiseWindow(getScilabJavaVM(), (int)(*stk(l1)));
 
-  LhsVar(1)=0;
-  PutLhsVar();
+    LhsVar(1) = 0;
+    PutLhsVar();
 
-  return TRUE;
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

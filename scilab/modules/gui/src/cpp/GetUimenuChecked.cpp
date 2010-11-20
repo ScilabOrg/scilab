@@ -18,23 +18,23 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUimenuChecked(sciPointObj* sciObj)
+int GetUimenuChecked(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-      if (CallScilabBridge::isMenuChecked(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex))
+        if (CallScilabBridge::isMenuChecked(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex))
         {
-          return sciReturnString(strdup("on"));
+            return sciReturnString(strdup("on"));
         }
-      else
+        else
         {
-          return sciReturnString(strdup("off"));
+            return sciReturnString(strdup("off"));
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Checked");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Checked");
+
+        return FALSE;
     }
 }
-

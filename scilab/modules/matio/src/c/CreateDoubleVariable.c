@@ -21,55 +21,57 @@
       return 0;			     \
     }
 
-int CreateDoubleVariable(int iVar, matvar_t *matVariable, int * parent, int item_position)
+int CreateDoubleVariable(int iVar, matvar_t * matVariable, int *parent, int item_position)
 {
-  int nbRow = 0, nbCol = 0;
-  struct ComplexSplit *mat5ComplexData = NULL;
-  SciErr _SciErr;
+    int nbRow = 0, nbCol = 0;
+    struct ComplexSplit *mat5ComplexData = NULL;
+    SciErr _SciErr;
 
-  if(matVariable->rank==2) /* 2-D array */
+    if (matVariable->rank == 2) /* 2-D array */
     {
-      nbRow = matVariable->dims[0];
-      nbCol = matVariable->dims[1];
-      if (matVariable->isComplex == 0)
+        nbRow = matVariable->dims[0];
+        nbCol = matVariable->dims[1];
+        if (matVariable->isComplex == 0)
         {
-	  if (parent==NULL)
-	    {
-	      _SciErr = createMatrixOfDouble(pvApiCtx, iVar, nbRow, nbCol, matVariable->data); MATIO_ERROR;
-	    }
-	  else
-	    {
-	      _SciErr = createMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, nbRow, nbCol, matVariable->data); MATIO_ERROR;
-	    }
+            if (parent == NULL)
+            {
+                _SciErr = createMatrixOfDouble(pvApiCtx, iVar, nbRow, nbCol, matVariable->data);
+                MATIO_ERROR;
+            }
+            else
+            {
+                _SciErr = createMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, nbRow, nbCol, matVariable->data);
+                MATIO_ERROR;
+            }
         }
-      else
+        else
         {
-          /* Since MATIO 1.3.2 data is a ComplexSplit for MAT4 and MAT5 formats */
-          mat5ComplexData = matVariable->data;
-	  if (parent==NULL)
-	    {
-	      _SciErr = createComplexMatrixOfDouble(pvApiCtx, iVar, nbRow, nbCol, mat5ComplexData->Re, mat5ComplexData->Im);
-	    }
-	  else
-	    {
-	      _SciErr = createComplexMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, nbRow, nbCol, 
-							  mat5ComplexData->Re, mat5ComplexData->Im);
-	    }
+            /* Since MATIO 1.3.2 data is a ComplexSplit for MAT4 and MAT5 formats */
+            mat5ComplexData = matVariable->data;
+            if (parent == NULL)
+            {
+                _SciErr = createComplexMatrixOfDouble(pvApiCtx, iVar, nbRow, nbCol, mat5ComplexData->Re, mat5ComplexData->Im);
+            }
+            else
+            {
+                _SciErr = createComplexMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, nbRow, nbCol,
+                                                            mat5ComplexData->Re, mat5ComplexData->Im);
+            }
         }
     }
-  else /* Multi-dimension array -> Scilab HyperMatrix */
+    else                        /* Multi-dimension array -> Scilab HyperMatrix */
     {
-      if (matVariable->isComplex == 0)
+        if (matVariable->isComplex == 0)
         {
-          CreateHyperMatrixVariable(iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank, 
-				    matVariable->dims, matVariable->data, NULL, parent, item_position);
+            CreateHyperMatrixVariable(iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank,
+                                      matVariable->dims, matVariable->data, NULL, parent, item_position);
         }
-      else
+        else
         {
-          mat5ComplexData = matVariable->data;
-          CreateHyperMatrixVariable(iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank, 
-				    matVariable->dims, mat5ComplexData->Re, mat5ComplexData->Im, parent, item_position);
+            mat5ComplexData = matVariable->data;
+            CreateHyperMatrixVariable(iVar, MATRIX_OF_DOUBLE_DATATYPE, &matVariable->isComplex, &matVariable->rank,
+                                      matVariable->dims, mat5ComplexData->Re, mat5ComplexData->Im, parent, item_position);
         }
     }
-  return TRUE;
+    return TRUE;
 }

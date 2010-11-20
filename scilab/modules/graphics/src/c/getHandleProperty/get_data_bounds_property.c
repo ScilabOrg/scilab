@@ -25,35 +25,38 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_data_bounds_property( sciPointObj * pobj )
+int get_data_bounds_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType(pobj) == SCI_SUBWIN )
-  {
-		double bounds[6] ;
-		sciGetDataBounds(pobj, bounds) ;
-    /**DJ.Abdemouche 2003**/
-    if ( sciGetIs3d( pobj ) )
+    if (sciGetEntityType(pobj) == SCI_SUBWIN)
     {
-      return sciReturnMatrix( bounds, 2, 3 ) ;
+        double bounds[6];
+
+        sciGetDataBounds(pobj, bounds);
+    /**DJ.Abdemouche 2003**/
+        if (sciGetIs3d(pobj))
+        {
+            return sciReturnMatrix(bounds, 2, 3);
+        }
+        else
+        {
+            return sciReturnMatrix(bounds, 2, 2);
+        }
+    }
+    else if (sciGetEntityType(pobj) == SCI_SURFACE)
+    {
+        double bounds[6];
+
+        sciGetDataBounds(pobj, bounds);
+        /* used for what ? F.Leray 20.04.05 */
+        return sciReturnMatrix(bounds, 3, 2);
     }
     else
     {
-      return sciReturnMatrix( bounds, 2, 2 ) ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "data_bounds");
+        return -1;
     }
-  }
-  else if ( sciGetEntityType (pobj) == SCI_SURFACE )
-  {
-		double bounds[6] ;
-		sciGetDataBounds(pobj, bounds) ;
-    /* used for what ? F.Leray 20.04.05 */
-    return sciReturnMatrix( bounds, 3, 2 ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"data_bounds");
-    return -1;
-  }
 
 }
+
 /*------------------------------------------------------------------------*/

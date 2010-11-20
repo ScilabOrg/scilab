@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_style_property( sciPointObj * pobj )
+int get_font_style_property(sciPointObj * pobj)
 {
-  return sciReturnInt( sciGetFontStyle( pobj ) ) ;
+    return sciReturnInt(sciGetFontStyle(pobj));
 }
+
 /*------------------------------------------------------------------------*/

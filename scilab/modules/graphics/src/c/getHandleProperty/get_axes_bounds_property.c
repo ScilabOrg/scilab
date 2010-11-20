@@ -25,15 +25,16 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_axes_bounds_property( sciPointObj * pobj )
+int get_axes_bounds_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_bounds") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_bounds");
+        return -1;
+    }
 
-  return sciReturnRowVector( pSUBWIN_FEATURE (pobj)->WRect, 4 ) ;
+    return sciReturnRowVector(pSUBWIN_FEATURE(pobj)->WRect, 4);
 }
+
 /*------------------------------------------------------------------------*/

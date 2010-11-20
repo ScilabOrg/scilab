@@ -25,22 +25,24 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_color_property( sciPointObj * pobj )
+int get_tics_color_property(sciPointObj * pobj)
 {
-  if (sciGetEntityType (pobj) == SCI_AXES)
-  {
-    return sciReturnDouble( sciGetForegroundToDisplay(pobj) ) ;
-  }
-  else if (sciGetEntityType (pobj) == SCI_SUBWIN)
-  {
-    Scierror(999, _("Warning: %s use is deprecated and no more taken into account, use %s property to edit Axes color.\n"),"'tics_color'","'foreground'");
-    return sciReturnDouble( pSUBWIN_FEATURE(pobj)->axes.ticscolor ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"tics_color");
-    return -1;
-  }
+    if (sciGetEntityType(pobj) == SCI_AXES)
+    {
+        return sciReturnDouble(sciGetForegroundToDisplay(pobj));
+    }
+    else if (sciGetEntityType(pobj) == SCI_SUBWIN)
+    {
+        Scierror(999, _("Warning: %s use is deprecated and no more taken into account, use %s property to edit Axes color.\n"), "'tics_color'",
+                 "'foreground'");
+        return sciReturnDouble(pSUBWIN_FEATURE(pobj)->axes.ticscolor);
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_color");
+        return -1;
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

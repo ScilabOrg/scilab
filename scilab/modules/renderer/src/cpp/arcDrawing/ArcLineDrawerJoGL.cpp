@@ -21,60 +21,57 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-ArcLineDrawerJoGL::ArcLineDrawerJoGL( DrawableArc * arc )
-  : DrawArcStrategy(arc), DrawableObjectJoGL(arc)
-{
+    ArcLineDrawerJoGL::ArcLineDrawerJoGL(DrawableArc * arc):DrawArcStrategy(arc), DrawableObjectJoGL(arc)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-ArcLineDrawerJoGL::~ArcLineDrawerJoGL(void)
-{
-  
-}
+    ArcLineDrawerJoGL::~ArcLineDrawerJoGL(void)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-void ArcLineDrawerJoGL::drawArc( void )
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
-  initializeDrawing() ;
+    void ArcLineDrawerJoGL::drawArc(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  getLineDrawerJavaMapper()->setLineParameters(sciGetGraphicContext(pObj)->foregroundcolor,
-                                               (float)sciGetLineWidth(pObj),
-                                               sciGetLineStyle(pObj));
+        initializeDrawing();
 
-  // get the data of the arc
-  double center[3];
-  double semiMinorAxis[3];
-  double semiMajorAxis[3];
-  double startAngle;
-  double endAngle;
+        // set the line parameters
+        getLineDrawerJavaMapper()->setLineParameters(sciGetGraphicContext(pObj)->foregroundcolor,
+                                                     (float)sciGetLineWidth(pObj), sciGetLineStyle(pObj));
 
-  m_pDrawed->getArcRepresentation(center, semiMinorAxis, semiMajorAxis, startAngle, endAngle ) ;
+        // get the data of the arc
+        double center[3];
+        double semiMinorAxis[3];
+        double semiMajorAxis[3];
+        double startAngle;
+        double endAngle;
 
-  getLineDrawerJavaMapper()->setUseNurbs(sciGetUseNurbs(pObj) == TRUE);
+        m_pDrawed->getArcRepresentation(center, semiMinorAxis, semiMajorAxis, startAngle, endAngle);
 
-  // display the rectangle
-  getLineDrawerJavaMapper()->drawArc(center[0]       , center[1]       , center[2]       ,
-                                     semiMinorAxis[0], semiMinorAxis[1], semiMinorAxis[2],
-                                     semiMajorAxis[0], semiMajorAxis[1], semiMajorAxis[2],
-                                     startAngle      , endAngle);
-  endDrawing() ;
-}
+        getLineDrawerJavaMapper()->setUseNurbs(sciGetUseNurbs(pObj) == TRUE);
+
+        // display the rectangle
+        getLineDrawerJavaMapper()->drawArc(center[0], center[1], center[2],
+                                           semiMinorAxis[0], semiMinorAxis[1], semiMinorAxis[2],
+                                           semiMajorAxis[0], semiMajorAxis[1], semiMajorAxis[2], startAngle, endAngle);
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void ArcLineDrawerJoGL::redrawArc(void)
-{
-  getLineDrawerJavaMapper()->redrawArc();
-}
+    void ArcLineDrawerJoGL::redrawArc(void)
+    {
+        getLineDrawerJavaMapper()->redrawArc();
+    }
 /*---------------------------------------------------------------------------------*/
-void ArcLineDrawerJoGL::showArc( void )
-{
-  show();
-}
+    void ArcLineDrawerJoGL::showArc(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-ArcLineDrawerJavaMapper * ArcLineDrawerJoGL::getLineDrawerJavaMapper(void)
-{
-  return dynamic_cast<ArcLineDrawerJavaMapper *>(getJavaMapper());
-}
+    ArcLineDrawerJavaMapper *ArcLineDrawerJoGL::getLineDrawerJavaMapper(void)
+    {
+        return dynamic_cast < ArcLineDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }
-

@@ -25,79 +25,90 @@
 #endif
 
 /*----------------------------------------------------------------------------------*/
-StringMatrix * newFullStringMatrix( char ** textMat, int nbRow, int nbCol )
+StringMatrix *newFullStringMatrix(char **textMat, int nbRow, int nbCol)
 {
-  int i ;
-  /* create the matrix */
-  StringMatrix * newMat = newMatrix( nbRow, nbCol ) ;
+    int i;
 
-  /* copy each element */
-  for ( i = 0 ; i < nbRow * nbCol ; i++ )
-  {
-    /* +1 for the /0 last character */
-    newMat->data[i] = MALLOC( (strlen(textMat[i]) + 1) * sizeof(char) ) ;
-    strcpy( newMat->data[i], textMat[i] ) ;
-  }
+    /* create the matrix */
+    StringMatrix *newMat = newMatrix(nbRow, nbCol);
 
-  return newMat ;
-}
-/*----------------------------------------------------------------------------------*/
-StringMatrix * newEmptyStringMatrix(int nbRow, int nbCol)
-{
-  int i ;
-  /* create the matrix */
-  StringMatrix * newMat = newMatrix( nbRow, nbCol ) ;
+    /* copy each element */
+    for (i = 0; i < nbRow * nbCol; i++)
+    {
+        /* +1 for the /0 last character */
+        newMat->data[i] = MALLOC((strlen(textMat[i]) + 1) * sizeof(char));
+        strcpy(newMat->data[i], textMat[i]);
+    }
 
-  /* copy each element */
-  for ( i = 0 ; i < nbRow * nbCol ; i++ )
-  {
-    /* +1 for the /0 last character */
-    newMat->data[i] = MALLOC( (strlen("") + 1) * sizeof(char) ) ;
-    strcpy( newMat->data[i], "" ) ;
-  }
+    return newMat;
+}
 
-  return newMat ;
-}
 /*----------------------------------------------------------------------------------*/
-StringMatrix * copyStringMatrix( const StringMatrix * copyMat )
+StringMatrix *newEmptyStringMatrix(int nbRow, int nbCol)
 {
-  return newFullStringMatrix( (char **) copyMat->data, copyMat->nbRow, copyMat->nbCol ) ;
+    int i;
+
+    /* create the matrix */
+    StringMatrix *newMat = newMatrix(nbRow, nbCol);
+
+    /* copy each element */
+    for (i = 0; i < nbRow * nbCol; i++)
+    {
+        /* +1 for the /0 last character */
+        newMat->data[i] = MALLOC((strlen("") + 1) * sizeof(char));
+        strcpy(newMat->data[i], "");
+    }
+
+    return newMat;
 }
+
 /*----------------------------------------------------------------------------------*/
-char * getStrMatElement( const StringMatrix * mat, int row, int col )
+StringMatrix *copyStringMatrix(const StringMatrix * copyMat)
 {
-  return (char *) getMatElement( mat, row, col ) ;
+    return newFullStringMatrix((char **)copyMat->data, copyMat->nbRow, copyMat->nbCol);
 }
+
 /*----------------------------------------------------------------------------------*/
-char ** getStrMatData( const StringMatrix * mat )
+char *getStrMatElement(const StringMatrix * mat, int row, int col)
 {
-  return (char **) getMatData( mat ) ;
+    return (char *)getMatElement(mat, row, col);
 }
+
 /*----------------------------------------------------------------------------------*/
-void copyStrMatElement( StringMatrix * mat, int row, int col, const char * copyStr )
+char **getStrMatData(const StringMatrix * mat)
 {
-  char * changedString = (char *) mat->data[row + col * mat->nbRow] ; /* for speed */
-  if ( changedString != NULL )
-  {
-    FREE( changedString ) ;
-  }
-  changedString = strdup(copyStr);
-  mat->data[row + col * mat->nbRow] = changedString ;
+    return (char **)getMatData(mat);
 }
+
+/*----------------------------------------------------------------------------------*/
+void copyStrMatElement(StringMatrix * mat, int row, int col, const char *copyStr)
+{
+    char *changedString = (char *)mat->data[row + col * mat->nbRow];    /* for speed */
+
+    if (changedString != NULL)
+    {
+        FREE(changedString);
+    }
+    changedString = strdup(copyStr);
+    mat->data[row + col * mat->nbRow] = changedString;
+}
+
 /*----------------------------------------------------------------------------------*/
 void printStrMat(StringMatrix * mat)
 {
-  int i;
-  int j;
-  int nbRow = getMatNbRow(mat);
-  int nbCol = getMatNbCol(mat);
-  for (i = 0; i < nbRow; i++)
-  {
-    for (j = 0; j < nbCol; j++)
+    int i;
+    int j;
+    int nbRow = getMatNbRow(mat);
+    int nbCol = getMatNbCol(mat);
+
+    for (i = 0; i < nbRow; i++)
     {
-      printf("%s ", getStrMatElement(mat, i, j));
+        for (j = 0; j < nbCol; j++)
+        {
+            printf("%s ", getStrMatElement(mat, i, j));
+        }
+        printf("\n");
     }
-    printf("\n");
-  }
 }
+
 /*----------------------------------------------------------------------------------*/

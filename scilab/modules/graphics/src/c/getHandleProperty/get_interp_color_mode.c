@@ -25,22 +25,23 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_interp_color_mode_property( sciPointObj * pobj )
+int get_interp_color_mode_property(sciPointObj * pobj)
 {
 
-	if ( sciGetEntityType(pobj) != SCI_POLYLINE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"interp_color_mode") ;
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "interp_color_mode");
+        return -1;
+    }
 
-  if( pPOLYLINE_FEATURE(pobj)->isinterpshaded )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (pPOLYLINE_FEATURE(pobj)->isinterpshaded)
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

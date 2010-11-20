@@ -10,15 +10,17 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "gw_cacsd0.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intereduc)(char *fname,unsigned long fname_len);
+extern int C2F(intereduc) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_ereduc(char *fname,unsigned long fname_len)
+int sci_ereduc(char *fname, unsigned long fname_len)
 {
-	C2F(intereduc)(fname,fname_len);
-	return 0;
+    C2F(intereduc) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

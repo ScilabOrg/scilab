@@ -20,31 +20,31 @@
 #include "strdup_windows.h"
 #endif
 
-matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_position)
+matvar_t *GetCharVariable(int iVar, const char *name, int *parent, int item_position)
 {
-    char * dataAdr = NULL;
+    char *dataAdr = NULL;
     int rank = 0, i = 0, j = 0;
     int *dims = NULL;
     matvar_t *createdVar = NULL;
-    int* piLen = NULL;
-    char** pstData = NULL;
-    char* pstMatData = NULL;
-    int * piAddr = NULL;
-    int * item_addr = NULL;
+    int *piLen = NULL;
+    char **pstData = NULL;
+    char *pstMatData = NULL;
+    int *piAddr = NULL;
+    int *item_addr = NULL;
     int var_type;
-    int saveDim = 0; /* Used to save old dimension before restoring it */
+    int saveDim = 0;            /* Used to save old dimension before restoring it */
     SciErr sciErr;
 
-    if (parent==NULL)
+    if (parent == NULL)
     {
         sciErr = getVarAddressFromPosition(pvApiCtx, iVar, &piAddr);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return NULL;
         }
         sciErr = getVarType(pvApiCtx, piAddr, &var_type);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return NULL;
@@ -53,33 +53,33 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
     else
     {
         sciErr = getListItemAddress(pvApiCtx, parent, item_position, &item_addr);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return NULL;
         }
         sciErr = getVarType(pvApiCtx, item_addr, &var_type);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return NULL;
         }
     }
 
-    if(var_type == sci_strings) /* 2-D array */
+    if (var_type == sci_strings)    /* 2-D array */
     {
         rank = 2;
-        if ((dims = (int*)MALLOC(sizeof(int) * rank)) == NULL)
+        if ((dims = (int *)MALLOC(sizeof(int) * rank)) == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), "GetCharVariable");
             return NULL;
         }
 
-        if (parent==NULL)
+        if (parent == NULL)
         {
             // First call to retrieve dimensions
             sciErr = getMatrixOfString(pvApiCtx, piAddr, &dims[0], &dims[1], NULL, NULL);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
@@ -87,19 +87,19 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
             piLen = (int *)MALLOC(dims[0] * dims[1] * sizeof(int));
             // Second call to retrieve length of each string
             sciErr = getMatrixOfString(pvApiCtx, piAddr, &dims[0], &dims[1], piLen, NULL);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
             }
-            pstData = (char**)MALLOC(sizeof(char*) * dims[0] * dims[1]);
-            for(i = 0 ; i < dims[0] * dims[1] ; i++)
+            pstData = (char **)MALLOC(sizeof(char *) * dims[0] * dims[1]);
+            for (i = 0; i < dims[0] * dims[1]; i++)
             {
-                pstData[i] = (char*)MALLOC(sizeof(char) * (piLen[i] + 1)); //+ 1 for null termination
+                pstData[i] = (char *)MALLOC(sizeof(char) * (piLen[i] + 1)); //+ 1 for null termination
             }
             // Third call to retrieve data
             sciErr = getMatrixOfString(pvApiCtx, piAddr, &dims[0], &dims[1], piLen, pstData);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return 0;
@@ -109,8 +109,8 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
         else
         {
             // First call to retrieve dimensions
-            sciErr  = getMatrixOfStringInList(pvApiCtx, parent, item_position, &dims[0], &dims[1], NULL, NULL);
-            if(sciErr.iErr)
+            sciErr = getMatrixOfStringInList(pvApiCtx, parent, item_position, &dims[0], &dims[1], NULL, NULL);
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return NULL;
@@ -118,19 +118,19 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
             piLen = (int *)MALLOC(dims[0] * dims[1] * sizeof(int));
             // Second call to retrieve length of each string
             sciErr = getMatrixOfStringInList(pvApiCtx, parent, item_position, &dims[0], &dims[1], piLen, NULL);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return NULL;
             }
-            pstData = (char**)MALLOC(sizeof(char*) * dims[0] * dims[1]);
-            for(i = 0 ; i < dims[0] * dims[1] ; i++)
+            pstData = (char **)MALLOC(sizeof(char *) * dims[0] * dims[1]);
+            for (i = 0; i < dims[0] * dims[1]; i++)
             {
-                pstData[i] = (char*)MALLOC(sizeof(char) * (piLen[i] + 1)); //+ 1 for null termination
+                pstData[i] = (char *)MALLOC(sizeof(char) * (piLen[i] + 1)); //+ 1 for null termination
             }
             // Third call to retrieve data
             sciErr = getMatrixOfStringInList(pvApiCtx, parent, item_position, &dims[0], &dims[1], piLen, pstData);
-            if(sciErr.iErr)
+            if (sciErr.iErr)
             {
                 printError(&sciErr, 0);
                 return NULL;
@@ -138,24 +138,24 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
             dataAdr = strdup(pstData[0]);
         }
 
-        if (dims[0] == 0) /* Empty character string */
+        if (dims[0] == 0)       /* Empty character string */
         {
             createdVar = Mat_VarCreate(name, MAT_C_CHAR, MAT_T_UINT8, rank, dims, pstData[0], 0);
         }
-        else if (dims[0]*dims[1] == 1) /* Scalar character string */
+        else if (dims[0] * dims[1] == 1)    /* Scalar character string */
         {
             saveDim = dims[1];
             dims[1] = piLen[0];
             createdVar = Mat_VarCreate(name, MAT_C_CHAR, MAT_T_UINT8, rank, dims, pstData[0], 0);
             dims[1] = saveDim;
         }
-        else /* More than one character string -> save as a Cell */
+        else                    /* More than one character string -> save as a Cell */
         {
             if (dims[0] == 1)
             {
                 /* TODO: Should be saved as a cell */
                 Scierror(999, _("%s: Row array of strings saving is not implemented.\n"), "GetCharVariable");
-                freeArrayOfString(pstData, dims[0]*dims[1]);
+                freeArrayOfString(pstData, dims[0] * dims[1]);
                 FREE(dims);
                 FREE(dataAdr);
                 FREE(piLen);
@@ -164,13 +164,13 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
             else if (dims[1] == 1)
             {
                 /* Check that all strings have the same length */
-                for (i = 0 ; i < dims[0] ; i++)
+                for (i = 0; i < dims[0]; i++)
                 {
                     if (piLen[0] != piLen[i])
                     {
                         /* TODO: Should be saved as a cell */
                         Scierror(999, _("%s: Column array of strings with different lengths saving is not implemented.\n"), "GetCharVariable");
-                        freeArrayOfString(pstData, dims[0]*dims[1]);
+                        freeArrayOfString(pstData, dims[0] * dims[1]);
                         FREE(dims);
                         FREE(dataAdr);
                         FREE(piLen);
@@ -179,12 +179,12 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
                 }
 
                 /* Reorder characters */
-                pstMatData = (char*)MALLOC(sizeof(char) * dims[0] * piLen[0]);
-                for (i = 0 ; i < dims[0] ; i++)
+                pstMatData = (char *)MALLOC(sizeof(char) * dims[0] * piLen[0]);
+                for (i = 0; i < dims[0]; i++)
                 {
-                    for (j = 0 ; j < piLen[0] ; j++)
+                    for (j = 0; j < piLen[0]; j++)
                     {
-                        pstMatData[i+j*dims[0]] = pstData[i][j];
+                        pstMatData[i + j * dims[0]] = pstData[i][j];
                     }
                 }
 
@@ -194,7 +194,7 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
                 createdVar = Mat_VarCreate(name, MAT_C_CHAR, MAT_T_UINT8, rank, dims, pstMatData, 0);
                 dims[1] = saveDim;
 
-                freeArrayOfString(pstData, dims[0]*dims[1]); /* FREE now because dimensions are changed just below */
+                freeArrayOfString(pstData, dims[0] * dims[1]);  /* FREE now because dimensions are changed just below */
                 FREE(pstMatData);
                 FREE(dims);
                 FREE(dataAdr);
@@ -204,7 +204,7 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
             {
                 /* TODO: Should be saved as a cell */
                 Scierror(999, _("%s: 2D array of strings saving is not implemented.\n"), "GetCharVariable");
-                freeArrayOfString(pstData, dims[0]*dims[1]);
+                freeArrayOfString(pstData, dims[0] * dims[1]);
                 FREE(dims);
                 FREE(dataAdr);
                 FREE(piLen);
@@ -215,7 +215,7 @@ matvar_t *GetCharVariable(int iVar, const char *name, int * parent, int item_pos
     else
     {
         Scierror(999, _("%s: Wrong type for first input argument: String matrix expected.\n"), "GetCharVariable");
-        freeArrayOfString(pstData, dims[0]*dims[1]);
+        freeArrayOfString(pstData, dims[0] * dims[1]);
         FREE(dims);
         FREE(dataAdr);
         FREE(piLen);

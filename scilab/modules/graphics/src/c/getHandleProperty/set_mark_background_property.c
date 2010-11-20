@@ -26,18 +26,19 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_mark_background_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_mark_background_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "mark_background");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "mark_background");
+        return SET_PROPERTY_ERROR;
+    }
 
-  /*   sciSetIsMark((sciPointObj *) pobj, TRUE); */
-  /* F.Leray 27.01.05 commented because mark_size is automatically launched */
-  /* in tcl/tk editor (which causes marks appearance even when unwanted). */
-  return sciSetMarkBackground( pobj, (int) getDoubleFromStack( stackPointer ) ) ;
+    /*   sciSetIsMark((sciPointObj *) pobj, TRUE); */
+    /* F.Leray 27.01.05 commented because mark_size is automatically launched */
+    /* in tcl/tk editor (which causes marks appearance even when unwanted). */
+    return sciSetMarkBackground(pobj, (int)getDoubleFromStack(stackPointer));
 }
+
 /*------------------------------------------------------------------------*/

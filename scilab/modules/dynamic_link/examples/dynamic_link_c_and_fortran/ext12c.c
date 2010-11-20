@@ -22,10 +22,11 @@
 
 int ext12c(int *neq, double *t, double *y, double *ydot)
 {
-  static int m, n, lp;
-  GetMatrixptr("param", &m, &n, &lp);
-  ydot[0] = - (*stk(lp)) * y[0] + (*stk(lp+1)) * y[1] * y[2];
-  ydot[2] = (*stk(lp + 2)) * y[1] * y[1];
-  ydot[1] = -ydot[0] - ydot[2];
-  return 0;
+    static int m, n, lp;
+
+    GetMatrixptr("param", &m, &n, &lp);
+    ydot[0] = -(*stk(lp)) * y[0] + (*stk(lp + 1)) * y[1] * y[2];
+    ydot[2] = (*stk(lp + 2)) * y[1] * y[1];
+    ydot[1] = -ydot[0] - ydot[2];
+    return 0;
 }

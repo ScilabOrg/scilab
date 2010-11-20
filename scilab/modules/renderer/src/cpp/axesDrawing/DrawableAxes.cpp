@@ -17,34 +17,35 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableAxes::draw( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  drawAxes();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableAxes::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        drawAxes();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableAxes::show( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showAxes();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableAxes::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showAxes();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

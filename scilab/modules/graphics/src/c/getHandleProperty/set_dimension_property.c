@@ -27,22 +27,23 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_dimension_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_dimension_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  double * values = getDoubleMatrixFromStack( stackPointer ) ;
+    double *values = getDoubleMatrixFromStack(stackPointer);
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "dimension");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "dimension");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( nbRow * nbCol != 2 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"),"dimension",2) ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (nbRow * nbCol != 2)
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "dimension", 2);
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetDimension( pobj, (int)values[0], (int)values[1] ) ;
+    return sciSetDimension(pobj, (int)values[0], (int)values[1]);
 }
+
 /*------------------------------------------------------------------------*/

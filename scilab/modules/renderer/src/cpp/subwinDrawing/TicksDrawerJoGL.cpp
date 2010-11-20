@@ -23,78 +23,70 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------------------------*/
-TicksDrawerJoGL::TicksDrawerJoGL(DrawableObject * drawer)
-  : TicksDrawerBridge(), DrawableObjectJoGL(drawer)
-{
-  setJavaMapper(new TicksDrawerJavaMapper());
-}
+    TicksDrawerJoGL::TicksDrawerJoGL(DrawableObject * drawer):TicksDrawerBridge(), DrawableObjectJoGL(drawer)
+    {
+        setJavaMapper(new TicksDrawerJavaMapper());
+    }
 /*------------------------------------------------------------------------------------------*/
-TicksDrawerJoGL::~TicksDrawerJoGL(void)
-{
-  
-}
-/*------------------------------------------------------------------------------------------*/
-double TicksDrawerJoGL::drawTicks(double relativeTicksPositions[],
-                                  char * ticksLabels[],
-                                  char * labelsExponents[],
-                                  int nbTicks,
-                                  double relativeSubticksPositions[],
-                                  int nbSubtics,
-                                  double axisSegmentStart[3],
-                                  double axisSegmentEnd[3],
-                                  double ticksDirection[3])
-{
-  if (labelsExponents == NULL)
-  {
-    return getTicksDrawerJavaMapper()->drawTicks(relativeTicksPositions, ticksLabels, nbTicks,
-                                                 relativeSubticksPositions, nbSubtics,
-                                                 axisSegmentStart, axisSegmentEnd, ticksDirection);
-  }
-  else
-  {
-    return getTicksDrawerJavaMapper()->drawTicks(relativeTicksPositions, ticksLabels,
-                                                 labelsExponents, nbTicks,
-                                                 relativeSubticksPositions, nbSubtics,
-                                                 axisSegmentStart, axisSegmentEnd, ticksDirection);
-  }
-  
-}
-/*------------------------------------------------------------------------------------------*/
-double TicksDrawerJoGL::showTicks(void)
-{
-  return getTicksDrawerJavaMapper()->showTicks();
-}
-/*------------------------------------------------------------------------------------------*/
-void TicksDrawerJoGL::initializeDrawing(void)
-{
-  // initialize drawing as usual
-  DrawableObjectJoGL::initializeDrawing();
+    TicksDrawerJoGL::~TicksDrawerJoGL(void)
+    {
 
-  // also set axis drawing parameters
-  sciPointObj * pObj = getDrawer()->getDrawedObject();
-
-  // set other parameters
-  getTicksDrawerJavaMapper()->setAxisParamerters(sciGetLineStyle(pObj),
-                                                 (float) sciGetLineWidth(pObj),
-                                                 sciGetGraphicContext(pObj)->foregroundcolor,
-                                                 sciGetFontStyle(pObj),
-                                                 sciGetFontSize(pObj),
-                                                 sciGetFontContext(pObj)->foregroundcolor,
-                                                 sciGetIsUsingFractionalMetrics(pObj) == TRUE);
-
-  
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void TicksDrawerJoGL::setNeedTicksDecimation(bool needDecimation)
-{
-  // specify if we need to check wether ticks are concealing or not.
-  getTicksDrawerJavaMapper()->setNeedTicksDecimation(needDecimation);
-}
+    double TicksDrawerJoGL::drawTicks(double relativeTicksPositions[],
+                                      char *ticksLabels[],
+                                      char *labelsExponents[],
+                                      int nbTicks,
+                                      double relativeSubticksPositions[],
+                                      int nbSubtics, double axisSegmentStart[3], double axisSegmentEnd[3], double ticksDirection[3])
+    {
+        if (labelsExponents == NULL)
+        {
+            return getTicksDrawerJavaMapper()->drawTicks(relativeTicksPositions, ticksLabels, nbTicks,
+                                                         relativeSubticksPositions, nbSubtics, axisSegmentStart, axisSegmentEnd, ticksDirection);
+        }
+        else
+        {
+            return getTicksDrawerJavaMapper()->drawTicks(relativeTicksPositions, ticksLabels,
+                                                         labelsExponents, nbTicks,
+                                                         relativeSubticksPositions, nbSubtics, axisSegmentStart, axisSegmentEnd, ticksDirection);
+        }
+
+    }
 /*------------------------------------------------------------------------------------------*/
-TicksDrawerJavaMapper * TicksDrawerJoGL::getTicksDrawerJavaMapper(void)
-{
-  return dynamic_cast<TicksDrawerJavaMapper *>(getJavaMapper());
-}
+    double TicksDrawerJoGL::showTicks(void)
+    {
+        return getTicksDrawerJavaMapper()->showTicks();
+    }
+/*------------------------------------------------------------------------------------------*/
+    void TicksDrawerJoGL::initializeDrawing(void)
+    {
+        // initialize drawing as usual
+        DrawableObjectJoGL::initializeDrawing();
+
+        // also set axis drawing parameters
+        sciPointObj *pObj = getDrawer()->getDrawedObject();
+
+        // set other parameters
+        getTicksDrawerJavaMapper()->setAxisParamerters(sciGetLineStyle(pObj),
+                                                       (float)sciGetLineWidth(pObj),
+                                                       sciGetGraphicContext(pObj)->foregroundcolor,
+                                                       sciGetFontStyle(pObj),
+                                                       sciGetFontSize(pObj),
+                                                       sciGetFontContext(pObj)->foregroundcolor, sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+
+    }
+/*------------------------------------------------------------------------------------------*/
+    void TicksDrawerJoGL::setNeedTicksDecimation(bool needDecimation)
+    {
+        // specify if we need to check wether ticks are concealing or not.
+        getTicksDrawerJavaMapper()->setNeedTicksDecimation(needDecimation);
+    }
+/*------------------------------------------------------------------------------------------*/
+    TicksDrawerJavaMapper *TicksDrawerJoGL::getTicksDrawerJavaMapper(void)
+    {
+        return dynamic_cast < TicksDrawerJavaMapper * >(getJavaMapper());
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

@@ -16,61 +16,61 @@
 namespace sciGraphics
 {
 
-using namespace std;
+    using namespace std;
 
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableSurface::ConcreteDrawableSurface(sciPointObj * pSurface)
-  : DrawableSurface(pSurface)
-{
-  m_oDrawingStrategies.clear();
-}
+      ConcreteDrawableSurface::ConcreteDrawableSurface(sciPointObj * pSurface):DrawableSurface(pSurface)
+    {
+        m_oDrawingStrategies.clear();
+    }
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableSurface::~ConcreteDrawableSurface(void)
-{
-  removeDrawingStrategies();
-}
+    ConcreteDrawableSurface::~ConcreteDrawableSurface(void)
+    {
+        removeDrawingStrategies();
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableSurface::addDrawingStrategy(DrawSurfaceStrategy * strategy)
-{
-  m_oDrawingStrategies.push_back(strategy);
-}
+    void ConcreteDrawableSurface::addDrawingStrategy(DrawSurfaceStrategy * strategy)
+    {
+        m_oDrawingStrategies.push_back(strategy);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableSurface::removeDrawingStrategies(void)
-{
-  list<DrawSurfaceStrategy *>::iterator it = m_oDrawingStrategies.begin();
-  for( ; it != m_oDrawingStrategies.end(); it++ )
-  {
-    delete *it;
-    *it = NULL;
-  }
-  m_oDrawingStrategies.clear();
-}
+    void ConcreteDrawableSurface::removeDrawingStrategies(void)
+    {
+        list < DrawSurfaceStrategy * >::iterator it = m_oDrawingStrategies.begin();
+        for (; it != m_oDrawingStrategies.end(); it++)
+        {
+            delete *it;
+
+            *it = NULL;
+        }
+        m_oDrawingStrategies.clear();
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableSurface::drawSurface(void)
-{
-  list<DrawSurfaceStrategy *>::iterator it = m_oDrawingStrategies.begin();
-  for(; it != m_oDrawingStrategies.end(); it++)
-  {
-    (*it)->drawSurface();
-  }
-}
+    void ConcreteDrawableSurface::drawSurface(void)
+    {
+        list < DrawSurfaceStrategy * >::iterator it = m_oDrawingStrategies.begin();
+        for (; it != m_oDrawingStrategies.end(); it++)
+        {
+            (*it)->drawSurface();
+        }
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableSurface::showSurface(void)
-{
-  list<DrawSurfaceStrategy *>::iterator it = m_oDrawingStrategies.begin();
-  for(; it != m_oDrawingStrategies.end(); it++)
-  {
-    (*it)->showSurface();
-  }
-}
+    void ConcreteDrawableSurface::showSurface(void)
+    {
+        list < DrawSurfaceStrategy * >::iterator it = m_oDrawingStrategies.begin();
+        for (; it != m_oDrawingStrategies.end(); it++)
+        {
+            (*it)->showSurface();
+        }
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableSurface::redrawSurface(void)
-{
-  list<DrawSurfaceStrategy *>::iterator it = m_oDrawingStrategies.begin();
-  for(; it != m_oDrawingStrategies.end(); it++)
-  {
-    (*it)->redrawSurface();
-  }
-}
+    void ConcreteDrawableSurface::redrawSurface(void)
+    {
+        list < DrawSurfaceStrategy * >::iterator it = m_oDrawingStrategies.begin();
+        for (; it != m_oDrawingStrategies.end(); it++)
+        {
+            (*it)->redrawSurface();
+        }
+    }
 /*---------------------------------------------------------------------------------*/
 }

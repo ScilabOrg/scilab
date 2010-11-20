@@ -16,21 +16,20 @@ using namespace org_scilab_modules_gui_bridge;
 
 int createWaitBar()
 {
-  return CallScilabBridge::newWaitBar(getScilabJavaVM());
+    return CallScilabBridge::newWaitBar(getScilabJavaVM());
 }
 
 void setWaitBarValue(int ID, int value)
 {
-  CallScilabBridge::setWaitBarValue(getScilabJavaVM(), ID, value);
+    CallScilabBridge::setWaitBarValue(getScilabJavaVM(), ID, value);
 }
 
 void setWaitBarMessage(int ID, char **message, int nbLine)
 {
-  CallScilabBridge::setWaitBarMessage(getScilabJavaVM(), ID, message, nbLine);
+    CallScilabBridge::setWaitBarMessage(getScilabJavaVM(), ID, message, nbLine);
 }
 
 void setWaitBarIndeterminateMode(int ID, BOOL status)
 {
-  CallScilabBridge::setWaitBarIndeterminateMode(getScilabJavaVM(), ID, BOOLtobool(status));
+    CallScilabBridge::setWaitBarIndeterminateMode(getScilabJavaVM(), ID, BOOLtobool(status));
 }
-

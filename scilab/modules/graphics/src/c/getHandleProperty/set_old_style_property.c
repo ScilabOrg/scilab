@@ -25,19 +25,22 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_old_style_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_old_style_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "old_style");
-  if(b == NOT_A_BOOLEAN_VALUE) return SET_PROPERTY_ERROR;
+    int b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "old_style");
 
-  if(b)
-  {
-    Scierror(999, _("Old graphic mode is no longer available. Please refer to the set help page.\n")) ;
-    return SET_PROPERTY_ERROR ;
-  }
-  else
-  {
-    return SET_PROPERTY_UNCHANGED ;
-  }
+    if (b == NOT_A_BOOLEAN_VALUE)
+        return SET_PROPERTY_ERROR;
+
+    if (b)
+    {
+        Scierror(999, _("Old graphic mode is no longer available. Please refer to the set help page.\n"));
+        return SET_PROPERTY_ERROR;
+    }
+    else
+    {
+        return SET_PROPERTY_UNCHANGED;
+    }
 }
+
 /*------------------------------------------------------------------------*/

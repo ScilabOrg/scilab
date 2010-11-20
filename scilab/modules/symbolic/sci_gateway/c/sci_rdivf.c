@@ -12,11 +12,13 @@
 #include "gw_symbolic.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scirdivf)(char *fname,unsigned long fname_len);
+extern int C2F(scirdivf) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_rdivf(char *fname,unsigned long fname_len)
+int sci_rdivf(char *fname, unsigned long fname_len)
 {
-	C2F(scirdivf)(fname,fname_len);
-	return 0;
+    C2F(scirdivf) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -16,6 +16,7 @@
 /*--------------------------------------------------------------------------*/
 char **getmacrosdictionary(int *sizearray)
 {
-	return getmacroslist(sizearray);
+    return getmacroslist(sizearray);
 }
+
 /*--------------------------------------------------------------------------*/

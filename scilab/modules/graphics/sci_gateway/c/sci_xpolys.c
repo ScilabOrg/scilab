@@ -24,61 +24,60 @@
 #include "CurrentObjectsManagement.h"
 #include "GraphicSynchronizerInterface.h"
 
-
 /*--------------------------------------------------------------------------*/
-int sci_xpolys(char *fname,unsigned long fname_len)
+int sci_xpolys(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,m2,n2,l2,m3,n3,l3 ;
-  int i;
-  long hdl;
-  sciPointObj * pFigure = NULL;
+    int m1, n1, l1, m2, n2, l2, m3, n3, l3;
+    int i;
+    long hdl;
+    sciPointObj *pFigure = NULL;
 
-  CheckRhs(2,3);
+    CheckRhs(2, 3);
 
-  GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
-  GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m2,&n2,&l2);
-  CheckSameDims(1,2,m1,n1,m2,n2);
+    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+    GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
+    CheckSameDims(1, 2, m1, n1, m2, n2);
 
-  if ( m1 * n1 == 0 || m2 * n2 == 0 )
-  {
-    /* dimension 0, 0 polyline to draw */
-    LhsVar(1)=0 ;
-		C2F(putlhsvar)();
-    return 0 ;
-  }
-
-  pFigure = sciGetCurrentFigure();
-
-  startFigureDataWriting(pFigure);
-  if (Rhs == 3) 
-  {
-    GetRhsVar(3,MATRIX_OF_INTEGER_DATATYPE,&m3,&n3,&l3); CheckVector (3,m3,n3);
-    CheckDimProp(1,3,m3 * n3 < n1);
-    /* Construct the polylines */
-    for (i = 0; i < n1; ++i)
+    if (m1 * n1 == 0 || m2 * n2 == 0)
     {
-      Objpoly (stk(l1+(i*m1)),stk(l2+(i*m2)),m1,0,*istk(l3+i),&hdl);
+        /* dimension 0, 0 polyline to draw */
+        LhsVar(1) = 0;
+        C2F(putlhsvar) ();
+        return 0;
     }
-  }
-  else
-  {
-    for (i = 0; i < n1; ++i)
-    {
-      Objpoly (stk(l1+(i*m1)),stk(l2+(i*m2)),m1,0,1,&hdl);
-    }
-  } 
 
+    pFigure = sciGetCurrentFigure();
+
+    startFigureDataWriting(pFigure);
+    if (Rhs == 3)
+    {
+        GetRhsVar(3, MATRIX_OF_INTEGER_DATATYPE, &m3, &n3, &l3);
+        CheckVector(3, m3, n3);
+        CheckDimProp(1, 3, m3 * n3 < n1);
+        /* Construct the polylines */
+        for (i = 0; i < n1; ++i)
+        {
+            Objpoly(stk(l1 + (i * m1)), stk(l2 + (i * m2)), m1, 0, *istk(l3 + i), &hdl);
+        }
+    }
+    else
+    {
+        for (i = 0; i < n1; ++i)
+        {
+            Objpoly(stk(l1 + (i * m1)), stk(l2 + (i * m2)), m1, 0, 1, &hdl);
+        }
+    }
 
   /** construct Compound and make it current object**/
-  sciSetCurrentObj (ConstructCompoundSeq (n1));
+    sciSetCurrentObj(ConstructCompoundSeq(n1));
 
-  endFigureDataWriting(pFigure);
+    endFigureDataWriting(pFigure);
 
-  sciDrawObjIfRequired(sciGetCurrentObj ());
+    sciDrawObjIfRequired(sciGetCurrentObj());
 
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
-  return 0;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
 
 /*--------------------------------------------------------------------------*/

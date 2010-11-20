@@ -13,12 +13,14 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_data_structures1.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(rattyp)(); /* fortran */
-extern int C2F(mtlist)(); /* fortran */
+extern int C2F(rattyp) ();      /* fortran */
+extern int C2F(mtlist) ();      /* fortran */
+
 /*--------------------------------------------------------------------------*/
-int sci_rlist(char *fname,unsigned long fname_len)
+int sci_rlist(char *fname, unsigned long fname_len)
 {
-	C2F(mtlist)(C2F(rattyp));
-	return 0;
+    C2F(mtlist) (C2F(rattyp));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

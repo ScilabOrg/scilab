@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableSegsBridge * DrawableSegsBridgeFactory::create( void )
-{
-  DrawableSegsJoGL * imp = new DrawableSegsJoGL( m_pDrawable ) ;
-  imp->setJavaMapper(new DrawableSegsJavaMapper()) ;
-  return imp ;
-}
+    DrawableSegsBridge *DrawableSegsBridgeFactory::create(void)
+    {
+        DrawableSegsJoGL *imp = new DrawableSegsJoGL(m_pDrawable);
+          imp->setJavaMapper(new DrawableSegsJavaMapper());
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSegsBridgeFactory::setDrawedSegs( DrawableSegs * poly )
-{
-  m_pDrawable = poly ;
-}
+    void DrawableSegsBridgeFactory::setDrawedSegs(DrawableSegs * poly)
+    {
+        m_pDrawable = poly;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

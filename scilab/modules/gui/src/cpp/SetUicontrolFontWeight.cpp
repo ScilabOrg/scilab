@@ -15,72 +15,71 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolFontWeight(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolFontWeight(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  /* Font weight can be light, normal, demi or bold */
+    /* Font weight can be light, normal, demi or bold */
 
-  char * fontWeight = NULL; 
+    char *fontWeight = NULL;
 
-  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) != SCI_UICONTROL)
     {
-		Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontWeight");
-      return SET_PROPERTY_ERROR;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontWeight");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (valueType == sci_strings)
+    if (valueType == sci_strings)
     {
-      if(nbCol != 1)
+        if (nbCol != 1)
         {
-          /* Wrong string size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light", "normal", "demi", "bold");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light",
+                     "normal", "demi", "bold");
+            return SET_PROPERTY_ERROR;
         }
-      
-      fontWeight = getStringFromStack(stackPointer);
 
-      if (strcmp(fontWeight, "light") == 0)
+        fontWeight = getStringFromStack(stackPointer);
+
+        if (strcmp(fontWeight, "light") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontWeight = LIGHT_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontWeight = LIGHT_FONT;
         }
-      else if(strcmp(fontWeight, "normal") == 0)
+        else if (strcmp(fontWeight, "normal") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontWeight = NORMAL_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontWeight = NORMAL_FONT;
         }
-      else if(strcmp(fontWeight, "demi") == 0)
+        else if (strcmp(fontWeight, "demi") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontWeight = DEMI_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontWeight = DEMI_FONT;
         }
-      else if(strcmp(fontWeight, "bold") == 0)
+        else if (strcmp(fontWeight, "bold") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontWeight = BOLD_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontWeight = BOLD_FONT;
         }
-      else
+        else
         {
-          /* Wrong string format */
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light", "normal", "demi", "bold");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string format */
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light",
+                     "normal", "demi", "bold");
+            return SET_PROPERTY_ERROR;
         }
-      
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrols */
+
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrols */
         {
-           CallScilabBridge::setFrameFontWeight(getScilabJavaVM(), 
-                                                pUICONTROL_FEATURE(sciObj)->hashMapIndex, 
-                                                fontWeight);
-       }
-      else /* All other uicontrol styles */
-        {
-          CallScilabBridge::setWidgetFontWeight(getScilabJavaVM(), 
-                                                pUICONTROL_FEATURE(sciObj)->hashMapIndex, 
-                                                fontWeight);
+            CallScilabBridge::setFrameFontWeight(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontWeight);
         }
-      return SET_PROPERTY_SUCCEED;
+        else                    /* All other uicontrol styles */
+        {
+            CallScilabBridge::setWidgetFontWeight(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontWeight);
+        }
+        return SET_PROPERTY_SUCCEED;
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light", "normal", "demi", "bold");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: '%s', '%s', '%s' or '%s' expected.\n")), "FontWeight", "light", "normal",
+                 "demi", "bold");
+        return SET_PROPERTY_ERROR;
     }
 
 }
-

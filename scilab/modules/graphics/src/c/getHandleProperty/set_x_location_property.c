@@ -28,42 +28,43 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_x_location_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_x_location_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "x_location");
-    return SET_PROPERTY_ERROR ;
-  }
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_location") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "x_location");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "top" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.xdir = 'u' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "bottom" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.xdir = 'd' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "middle" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.xdir = 'c' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "origin" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.xdir = 'o' ;
-  }
-  else  
-  {
-    Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "x_location", "top, bottom, middle, origin");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_SUCCEED ;
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_location");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (isStringParamEqual(stackPointer, "top"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.xdir = 'u';
+    }
+    else if (isStringParamEqual(stackPointer, "bottom"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.xdir = 'd';
+    }
+    else if (isStringParamEqual(stackPointer, "middle"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.xdir = 'c';
+    }
+    else if (isStringParamEqual(stackPointer, "origin"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.xdir = 'o';
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "x_location", "top, bottom, middle, origin");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

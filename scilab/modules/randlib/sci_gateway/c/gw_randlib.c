@@ -10,7 +10,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
- 
+
 /*--------------------------------------------------------------------------*/
 /* INRIA 2006 */
 /* Allan CORNET */
@@ -20,14 +20,16 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]={ 
-	{sci_Rand, "Rand"}
+static gw_generic_table Tab[] = {
+    {sci_Rand, "Rand"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_randlib(void)
 {
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab,SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

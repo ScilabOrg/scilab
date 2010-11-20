@@ -39,439 +39,542 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_textDrawing {
+namespace org_scilab_modules_renderer_textDrawing
+{
 
 // Returns the current env
 
-JNIEnv * CenteredTextDrawerGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *CenteredTextDrawerGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-CenteredTextDrawerGL::~CenteredTextDrawerGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    CenteredTextDrawerGL::~CenteredTextDrawerGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-curEnv->DeleteGlobalRef(this->stringArrayClass);}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+        curEnv->DeleteGlobalRef(this->stringArrayClass);
+    }
 // Constructors
-CenteredTextDrawerGL::CenteredTextDrawerGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    CenteredTextDrawerGL::CenteredTextDrawerGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetTextParametersjintjintjintjdoublejdoublejbooleanID=NULL; 
-voidsetBoxDrawingParametersjbooleanjbooleanjintjintID=NULL; 
-voidsetTextContentjobjectArray_jintjintID=NULL; 
-
-jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
-stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
-curEnv->DeleteLocalRef(localStringArrayClass);
-voidsetCenterPositionjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_drawTextContentID=NULL; 
-voidsetFilledBoxSizejdoublejdoubleID=NULL; 
-jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_updateParentFigurejintID=NULL; 
-
-
-}
-
-CenteredTextDrawerGL::CenteredTextDrawerGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetTextParametersjintjintjintjdoublejdoublejbooleanID = NULL;
+        voidsetBoxDrawingParametersjbooleanjbooleanjintjintID = NULL;
+        voidsetTextContentjobjectArray_jintjintID = NULL;
+
+        jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
+
+        stringArrayClass = static_cast < jclass > (curEnv->NewGlobalRef(localStringArrayClass));
+        curEnv->DeleteLocalRef(localStringArrayClass);
+        voidsetCenterPositionjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_drawTextContentID = NULL;
+        voidsetFilledBoxSizejdoublejdoubleID = NULL;
+        jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_updateParentFigurejintID = NULL;
+
+    }
+
+    CenteredTextDrawerGL::CenteredTextDrawerGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetTextParametersjintjintjintjdoublejdoublejbooleanID=NULL; 
-voidsetBoxDrawingParametersjbooleanjbooleanjintjintID=NULL; 
-voidsetTextContentjobjectArray_jintjintID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetTextParametersjintjintjintjdoublejdoublejbooleanID = NULL;
+        voidsetBoxDrawingParametersjbooleanjbooleanjintjintID = NULL;
+        voidsetTextContentjobjectArray_jintjintID = NULL;
 
-jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
-stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
-curEnv->DeleteLocalRef(localStringArrayClass);
-voidsetCenterPositionjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_drawTextContentID=NULL; 
-voidsetFilledBoxSizejdoublejdoubleID=NULL; 
-jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_updateParentFigurejintID=NULL; 
+        jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
 
+        stringArrayClass = static_cast < jclass > (curEnv->NewGlobalRef(localStringArrayClass));
+        curEnv->DeleteLocalRef(localStringArrayClass);
+        voidsetCenterPositionjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_drawTextContentID = NULL;
+        voidsetFilledBoxSizejdoublejdoubleID = NULL;
+        jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_updateParentFigurejintID = NULL;
 
-}
+    }
 
 // Generic methods
 
-void CenteredTextDrawerGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "CenteredTextDrawerGL");
-}
-}
+    void CenteredTextDrawerGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "CenteredTextDrawerGL");
+        }
+    }
 
-void CenteredTextDrawerGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "CenteredTextDrawerGL");
-}
-}
+    void CenteredTextDrawerGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "CenteredTextDrawerGL");
+        }
+    }
 // Method(s)
 
-void CenteredTextDrawerGL::display (){
+    void CenteredTextDrawerGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::initializeDrawing (int figureIndex){
+    void CenteredTextDrawerGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::endDrawing (){
+    void CenteredTextDrawerGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::show (int figureIndex){
+    void CenteredTextDrawerGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::destroy (int parentFigureIndex){
+    void CenteredTextDrawerGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::setTextParameters (int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle, bool useFractionalMetrics){
+    void CenteredTextDrawerGL::setTextParameters(int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle,
+                                                 bool useFractionalMetrics)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID==NULL) { /* Use the cache */
- voidsetTextParametersjintjintjintjdoublejdoublejbooleanID = curEnv->GetMethodID(this->instanceClass, "setTextParameters", "(IIIDDZ)V" ) ;
-if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setTextParameters");
-}
-}
-jboolean useFractionalMetrics_ = (static_cast<bool>(useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetTextParametersjintjintjintjdoublejdoublejbooleanID = curEnv->GetMethodID(this->instanceClass, "setTextParameters", "(IIIDDZ)V");
+            if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setTextParameters");
+            }
+        }
+        jboolean useFractionalMetrics_ = (static_cast < bool > (useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetTextParametersjintjintjintjdoublejdoublejbooleanID ,textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetTextParametersjintjintjintjdoublejdoublejbooleanID, textAlignment, color, fontStyle, fontSize,
+                               rotationAngle, useFractionalMetrics_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::setBoxDrawingParameters (bool drawBoxLine, bool drawBoxBackground, int lineColor, int backgroundColor){
+    void CenteredTextDrawerGL::setBoxDrawingParameters(bool drawBoxLine, bool drawBoxBackground, int lineColor, int backgroundColor)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetBoxDrawingParametersjbooleanjbooleanjintjintID==NULL) { /* Use the cache */
- voidsetBoxDrawingParametersjbooleanjbooleanjintjintID = curEnv->GetMethodID(this->instanceClass, "setBoxDrawingParameters", "(ZZII)V" ) ;
-if (voidsetBoxDrawingParametersjbooleanjbooleanjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setBoxDrawingParameters");
-}
-}
-jboolean drawBoxLine_ = (static_cast<bool>(drawBoxLine) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetBoxDrawingParametersjbooleanjbooleanjintjintID == NULL)
+        {                       /* Use the cache */
+            voidsetBoxDrawingParametersjbooleanjbooleanjintjintID = curEnv->GetMethodID(this->instanceClass, "setBoxDrawingParameters", "(ZZII)V");
+            if (voidsetBoxDrawingParametersjbooleanjbooleanjintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setBoxDrawingParameters");
+            }
+        }
+        jboolean drawBoxLine_ = (static_cast < bool > (drawBoxLine) ? JNI_TRUE : JNI_FALSE);
 
-jboolean drawBoxBackground_ = (static_cast<bool>(drawBoxBackground) ? JNI_TRUE : JNI_FALSE);
+        jboolean drawBoxBackground_ = (static_cast < bool > (drawBoxBackground) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetBoxDrawingParametersjbooleanjbooleanjintjintID ,drawBoxLine_, drawBoxBackground_, lineColor, backgroundColor);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetBoxDrawingParametersjbooleanjbooleanjintjintID, drawBoxLine_, drawBoxBackground_, lineColor,
+                               backgroundColor);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::setTextContent (char ** text, int textSize, int nbRow, int nbCol){
+    void CenteredTextDrawerGL::setTextContent(char **text, int textSize, int nbRow, int nbCol)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetTextContentjobjectArray_jintjintID==NULL) { /* Use the cache */
- voidsetTextContentjobjectArray_jintjintID = curEnv->GetMethodID(this->instanceClass, "setTextContent", "([Ljava/lang/String;II)V" ) ;
-if (voidsetTextContentjobjectArray_jintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setTextContent");
-}
-}jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        if (voidsetTextContentjobjectArray_jintjintID == NULL)
+        {                       /* Use the cache */
+            voidsetTextContentjobjectArray_jintjintID = curEnv->GetMethodID(this->instanceClass, "setTextContent", "([Ljava/lang/String;II)V");
+            if (voidsetTextContentjobjectArray_jintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setTextContent");
+            }
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray text_ = curEnv->NewObjectArray( textSize, stringArrayClass, NULL);
-if (text_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray text_ = curEnv->NewObjectArray(textSize, stringArrayClass, NULL);
+
+        if (text_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < textSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( text[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < textSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(text[i]);
 
-curEnv->SetObjectArrayElement( text_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(text_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetTextContentjobjectArray_jintjintID ,text_, nbRow, nbCol);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(text_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetTextContentjobjectArray_jintjintID, text_, nbRow, nbCol);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CenteredTextDrawerGL::setCenterPosition (double centerX, double centerY, double centerZ){
+    void CenteredTextDrawerGL::setCenterPosition(double centerX, double centerY, double centerZ)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetCenterPositionjdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetCenterPositionjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setCenterPosition", "(DDD)V" ) ;
-if (voidsetCenterPositionjdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setCenterPosition");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetCenterPositionjdoublejdoublejdoubleID ,centerX, centerY, centerZ);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetCenterPositionjdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetCenterPositionjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setCenterPosition", "(DDD)V");
+            if (voidsetCenterPositionjdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setCenterPosition");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetCenterPositionjdoublejdoublejdoubleID, centerX, centerY, centerZ);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-double* CenteredTextDrawerGL::drawTextContent (){
+    double *CenteredTextDrawerGL::drawTextContent()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubleArray_drawTextContentID==NULL) { /* Use the cache */
- jdoubleArray_drawTextContentID = curEnv->GetMethodID(this->instanceClass, "drawTextContent", "()[D" ) ;
-if (jdoubleArray_drawTextContentID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawTextContent");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_drawTextContentID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (jdoubleArray_drawTextContentID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_drawTextContentID = curEnv->GetMethodID(this->instanceClass, "drawTextContent", "()[D");
+            if (jdoubleArray_drawTextContentID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawTextContent");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_drawTextContentID));
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-void CenteredTextDrawerGL::setFilledBoxSize (double boxWidth, double boxHeight){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (voidsetFilledBoxSizejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetFilledBoxSizejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setFilledBoxSize", "(DD)V" ) ;
-if (voidsetFilledBoxSizejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFilledBoxSize");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetFilledBoxSizejdoublejdoubleID ,boxWidth, boxHeight);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-double* CenteredTextDrawerGL::getScreenBoundingBox (double centerPixX, double centerPixY, double centerPixZ){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID==NULL) { /* Use the cache */
- jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "getScreenBoundingBox", "(DDD)[D" ) ;
-if (jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenBoundingBox");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID ,centerPixX, centerPixY, centerPixZ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-double* CenteredTextDrawerGL::updateParentFigure (int parentFigureIndex){
+    void CenteredTextDrawerGL::setFilledBoxSize(double boxWidth, double boxHeight)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubleArray_updateParentFigurejintID==NULL) { /* Use the cache */
- jdoubleArray_updateParentFigurejintID = curEnv->GetMethodID(this->instanceClass, "updateParentFigure", "(I)[D" ) ;
-if (jdoubleArray_updateParentFigurejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "updateParentFigure");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_updateParentFigurejintID ,parentFigureIndex));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (voidsetFilledBoxSizejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetFilledBoxSizejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setFilledBoxSize", "(DD)V");
+            if (voidsetFilledBoxSizejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setFilledBoxSize");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetFilledBoxSizejdoublejdoubleID, boxWidth, boxHeight);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    double *CenteredTextDrawerGL::getScreenBoundingBox(double centerPixX, double centerPixY, double centerPixZ)
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "getScreenBoundingBox", "(DDD)[D");
+            if (jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenBoundingBox");
+            }
+        }
+        jdoubleArray res =
+            static_cast < jdoubleArray >
+            (curEnv->CallObjectMethod(this->instance, jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID, centerPixX, centerPixY, centerPixZ));
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
+
+    double *CenteredTextDrawerGL::updateParentFigure(int parentFigureIndex)
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jdoubleArray_updateParentFigurejintID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_updateParentFigurejintID = curEnv->GetMethodID(this->instanceClass, "updateParentFigure", "(I)[D");
+            if (jdoubleArray_updateParentFigurejintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "updateParentFigure");
+            }
+        }
+        jdoubleArray res =
+            static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_updateParentFigurejintID, parentFigureIndex));
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
 
 }

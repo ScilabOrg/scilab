@@ -26,32 +26,32 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_info_message_property( sciPointObj * pobj )
+int get_info_message_property(sciPointObj * pobj)
 {
-	char * infoMessage = NULL;
-	int infoMessageLength;
-	int res = -1;
+    char *infoMessage = NULL;
+    int infoMessageLength;
+    int res = -1;
 
-	if ( sciGetEntityType(pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"info_message") ;
-    return -1;
-  }
-  
-	infoMessageLength = sciGetInfoMessageLength(pobj);
-	infoMessage = MALLOC((infoMessageLength + 1) * sizeof(char));
-	if (infoMessage == NULL)
-	{
-		return sciReturnString("");
-	}
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "info_message");
+        return -1;
+    }
 
-	sciGetInfoMessage(pobj, infoMessage);
-	
-	
-	res = sciReturnString( infoMessage ) ;
+    infoMessageLength = sciGetInfoMessageLength(pobj);
+    infoMessage = MALLOC((infoMessageLength + 1) * sizeof(char));
+    if (infoMessage == NULL)
+    {
+        return sciReturnString("");
+    }
 
-	FREE(infoMessage);
+    sciGetInfoMessage(pobj, infoMessage);
 
-	return res;
+    res = sciReturnString(infoMessage);
+
+    FREE(infoMessage);
+
+    return res;
 }
+
 /*------------------------------------------------------------------------*/

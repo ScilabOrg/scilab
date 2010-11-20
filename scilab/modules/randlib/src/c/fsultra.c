@@ -23,7 +23,7 @@ See Also:	README		for a brief description
 		ULTRA.DOC	for a detailed description
 
 -----------------------------------------------------------------------
-*/ 
+*/
 /*
    File: ULTRA.C
 
@@ -58,19 +58,19 @@ See Also:	README		for a brief description
    4/ add routine to set/get the state
 
 */
-#include <math.h>             /* to use floor    */
+#include <math.h>               /* to use floor    */
 #include "others_generators.h"
 #include "sciprint.h"
 #include "localization.h"
 
-#define N  37           /* size of table        */
-#define N2 24           /* The shorter lag      */
+#define N  37                   /* size of table        */
+#define N2 24                   /* The shorter lag      */
 
-static int is_init=0;  
-static long swb_state[N];          /* state of the swb generator */
-static int swb_index=N;            /* an index on the swb state */
-static int swb_flag;		   /* the carry flag for the SWB generator */
-static unsigned long cong_state;   /* state of the congruential generator */
+static int is_init = 0;
+static long swb_state[N];       /* state of the swb generator */
+static int swb_index = N;       /* an index on the swb state */
+static int swb_flag;            /* the carry flag for the SWB generator */
+static unsigned long cong_state;    /* state of the congruential generator */
 
 /* for this generator the state seems completly defined by:
       swb_state, swb_index, swb_flag (which define the state of the swb generator)
@@ -78,10 +78,7 @@ static unsigned long cong_state;   /* state of the congruential generator */
 */
 
 /* those are the default for the simple initialisation routine */
-static  double DEFAULT_SEED1= 1234567.0, DEFAULT_SEED2=7654321.0; 
-
-
-
+static double DEFAULT_SEED1 = 1234567.0, DEFAULT_SEED2 = 7654321.0;
 
 /* SWB is the subtract-with-borrow operation which should be one line
    in assembler code. This should be done by using the hardware s-w-b
@@ -103,18 +100,19 @@ static  double DEFAULT_SEED1= 1234567.0, DEFAULT_SEED2=7654321.0;
 #define SWB(c,x,y,z) c = (y<0) ? (((z=x-y-c) < 0) || (x>=0)) : (((z=x-y-c) < 0) && (x>=0));
 
 static void advance_state_swb()
-{ 
-  int i;
-  /*
-   *  The following are the heart of the system and should be
-   *  written is assembler to be as fast as possible. It may even make sense
-   *  to unravel the loop and simply wirte 37 consecutive SWB operations!
-   */
-  for (i=0;  i<N2; i++) 
-    SWB(swb_flag,swb_state[i+N-N2],swb_state[i],swb_state[i]);
-  for (i=N2; i<N;  i++) 
-    SWB(swb_flag,swb_state[i  -N2],swb_state[i],swb_state[i]);
-  swb_index = 0;
+{
+    int i;
+
+    /*
+     *  The following are the heart of the system and should be
+     *  written is assembler to be as fast as possible. It may even make sense
+     *  to unravel the loop and simply wirte 37 consecutive SWB operations!
+     */
+    for (i = 0; i < N2; i++)
+        SWB(swb_flag, swb_state[i + N - N2], swb_state[i], swb_state[i]);
+    for (i = N2; i < N; i++)
+        SWB(swb_flag, swb_state[i - N2], swb_state[i], swb_state[i]);
+    swb_index = 0;
 }
 
 /* set_state_fsultra_simple initializes the state from 2 integers  
@@ -134,100 +132,98 @@ static void advance_state_swb()
 */
 
 int set_state_fsultra_simple(double s1, double s2)
-{ 
-  unsigned long shrgx, tidbits=0;
-  int i, j;
+{
+    unsigned long shrgx, tidbits = 0;
+    int i, j;
 
-  if (    (s1 == floor(s1) && 0.0 <= s1 && s1 <= 4294967295.0)
-       && (s2 == floor(s2) && 0.0 <= s2 && s2 <= 4294967295.0) )
+    if ((s1 == floor(s1) && 0.0 <= s1 && s1 <= 4294967295.0) && (s2 == floor(s2) && 0.0 <= s2 && s2 <= 4294967295.0))
     {
-      cong_state = ((unsigned long) s1)*2 + 1;
-      shrgx = (unsigned long) s2;
-      for ( i=0 ; i<N ; i++)
-	{
-	  for ( j=32 ; j>0 ; j--)
-	    { 
-	      cong_state = cong_state * 69069;
-	      shrgx = shrgx ^ (shrgx >> 15);
-	      shrgx = shrgx ^ (shrgx << 17);
-	      tidbits = (tidbits>>1) | (0x80000000 & (cong_state^shrgx));
-	    }
-	  swb_state[i] = tidbits;
-	}
-      swb_index = 0;
-      swb_flag = 0;
-      advance_state_swb();  /* pour retrouver la même séquence que ds scilab V3.0 */
-      is_init = 1;
-      return 1;
+        cong_state = ((unsigned long)s1) * 2 + 1;
+        shrgx = (unsigned long)s2;
+        for (i = 0; i < N; i++)
+        {
+            for (j = 32; j > 0; j--)
+            {
+                cong_state = cong_state * 69069;
+                shrgx = shrgx ^ (shrgx >> 15);
+                shrgx = shrgx ^ (shrgx << 17);
+                tidbits = (tidbits >> 1) | (0x80000000 & (cong_state ^ shrgx));
+            }
+            swb_state[i] = tidbits;
+        }
+        swb_index = 0;
+        swb_flag = 0;
+        advance_state_swb();    /* pour retrouver la même séquence que ds scilab V3.0 */
+        is_init = 1;
+        return 1;
     }
-  else
+    else
     {
-      sciprint(_("\nBad seed for fsultra, must be integers in [0, 2^32-1]\n"));
-      return 0;
+        sciprint(_("\nBad seed for fsultra, must be integers in [0, 2^32-1]\n"));
+        return 0;
     }
 }
 
 int set_state_fsultra(double *s)
-{ 
-  double try;
-  int i;
+{
+    double try;
+    int i;
 
-  try = s[0];
-  if ( floor(try) != try || try < 0.0  ||  try > (double) N)
+    try = s[0];
+    if (floor(try) != try || try < 0.0 || try > (double)N)
     {
-      sciprint(_("\nThe first component of the fsultra state, must be an int in [0, %d]\n"),N);
-      return 0;
+        sciprint(_("\nThe first component of the fsultra state, must be an int in [0, %d]\n"), N);
+        return 0;
     }
-  swb_index = (int) try;
+    swb_index = (int)try;
 
-  try = s[1];
-  if ( try != 0.0  &&  try != 1.0)
+    try = s[1];
+    if (try != 0.0 && try != 1.0)
     {
-      sciprint(_("\nThe second component of the fsultra state, must be 0 or 1\n"));
-      return 0;
+        sciprint(_("\nThe second component of the fsultra state, must be 0 or 1\n"));
+        return 0;
     }
-  swb_flag = (int) try;
+    swb_flag = (int)try;
 
-  try = s[2];
-  if ( floor(try) != try  ||  try <= 0 ||  try > 4294967295.0 )
+    try = s[2];
+    if (floor(try) != try || try <= 0 || try > 4294967295.0)
     {
-      sciprint(_("\nThe third component of the fsultra state, must be an int in [1, 2^32-1]\n"));
-      return 0;
+        sciprint(_("\nThe third component of the fsultra state, must be an int in [1, 2^32-1]\n"));
+        return 0;
     }
-  cong_state = (unsigned long) try;
- 
-  /* no verif here ... */
-  for (i = 0 ; i < N ; i++) 
-    swb_state[i] = (long) (((unsigned long) s[i+3]) & 0xffffffff);
+    cong_state = (unsigned long)try;
 
-  is_init = 1;
-  return 1;
+    /* no verif here ... */
+    for (i = 0; i < N; i++)
+        swb_state[i] = (long)(((unsigned long)s[i + 3]) & 0xffffffff);
+
+    is_init = 1;
+    return 1;
 }
-
 
 /*  to return the state at the scilab level  */
 void get_state_fsultra(double s[])
 {
-  int i;
+    int i;
 
-  if ( ! is_init )
-    set_state_fsultra_simple(DEFAULT_SEED1, DEFAULT_SEED2);
+    if (!is_init)
+        set_state_fsultra_simple(DEFAULT_SEED1, DEFAULT_SEED2);
 
-  s[0] = (double)  swb_index;
-  s[1] = (double)  swb_flag;
-  s[2] = (double)  cong_state;
-  for (i = 0 ; i < N ; i++) 
-    s[i+3] = (double) (unsigned long) swb_state[i];
+    s[0] = (double)swb_index;
+    s[1] = (double)swb_flag;
+    s[2] = (double)cong_state;
+    for (i = 0; i < N; i++)
+        s[i + 3] = (double)(unsigned long)swb_state[i];
 }
 
 unsigned long fsultra()
 {
-  if (swb_index >= N)  /* generate N words at one time */
-    { 
-      if ( ! is_init )
-	set_state_fsultra_simple(DEFAULT_SEED1, DEFAULT_SEED2);
-      else
-	advance_state_swb();
+    if (swb_index >= N)         /* generate N words at one time */
+    {
+        if (!is_init)
+            set_state_fsultra_simple(DEFAULT_SEED1, DEFAULT_SEED2);
+        else
+            advance_state_swb();
     }
-  return (swb_state[swb_index++] ^ (cong_state = cong_state * 69069));
+    return (swb_state[swb_index++] ^ (cong_state = cong_state * 69069));
 }

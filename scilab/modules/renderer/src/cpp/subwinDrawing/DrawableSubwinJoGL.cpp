@@ -12,7 +12,6 @@
  *
  */
 
-
 #include "DrawableSubwinJoGL.h"
 #include "DrawableSubwin.h"
 #include "DrawableObjectJoGL.h"
@@ -28,48 +27,47 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableSubwinJoGL::DrawableSubwinJoGL( DrawableSubwin * drawer )
-  : DrawableObjectJoGL(drawer)
-{
+    DrawableSubwinJoGL::DrawableSubwinJoGL(DrawableSubwin * drawer):DrawableObjectJoGL(drawer)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSubwinJoGL::~DrawableSubwinJoGL( void )
-{
+    DrawableSubwinJoGL::~DrawableSubwinJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinJoGL::initializeDrawing( void )
-{
-  sciPointObj * pSubwin = getSubwinDrawer()->getDrawedObject();
-  DrawableObjectJoGL::initializeDrawing();
-  getSubwinJavaMapper()->setSubwinParameters(sciGetSubwinIndex(pSubwin),
-                                             sciGetIs3d(pSubwin) == FALSE);
-}
+    void DrawableSubwinJoGL::initializeDrawing(void)
+    {
+        sciPointObj *pSubwin = getSubwinDrawer()->getDrawedObject();
+
+        DrawableObjectJoGL::initializeDrawing();
+        getSubwinJavaMapper()->setSubwinParameters(sciGetSubwinIndex(pSubwin), sciGetIs3d(pSubwin) == FALSE);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinJoGL::interactiveRotation(void)
-{
-	getSubwinJavaMapper()->interactiveRotation(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
-}
+    void DrawableSubwinJoGL::interactiveRotation(void)
+    {
+        getSubwinJavaMapper()->interactiveRotation(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinJoGL::interactiveZoom(void)
-{
-	getSubwinJavaMapper()->interactiveZoom(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
-}
+    void DrawableSubwinJoGL::interactiveZoom(void)
+    {
+        getSubwinJavaMapper()->interactiveZoom(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSubwinJoGL::unzoom(void)
-{
-	getSubwinJavaMapper()->unzoom(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
-}
+    void DrawableSubwinJoGL::unzoom(void)
+    {
+        getSubwinJavaMapper()->unzoom(sciGetHandle(getSubwinDrawer()->getDrawedObject()));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSubwin * DrawableSubwinJoGL::getSubwinDrawer( void )
-{
-  return dynamic_cast<DrawableSubwin *>(getDrawer()) ;
-}
+    DrawableSubwin *DrawableSubwinJoGL::getSubwinDrawer(void)
+    {
+        return dynamic_cast < DrawableSubwin * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSubwinJavaMapper * DrawableSubwinJoGL::getSubwinJavaMapper(void)
-{
-  return dynamic_cast<DrawableSubwinJavaMapper *>(getJavaMapper());
-}
+    DrawableSubwinJavaMapper *DrawableSubwinJoGL::getSubwinJavaMapper(void)
+    {
+        return dynamic_cast < DrawableSubwinJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

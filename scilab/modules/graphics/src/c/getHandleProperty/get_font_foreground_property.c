@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_foreground_property( sciPointObj * pobj )
+int get_font_foreground_property(sciPointObj * pobj)
 {
-  return sciReturnInt( sciGetFontForegroundToDisplay( pobj ) ) ;
+    return sciReturnInt(sciGetFontForegroundToDisplay(pobj));
 }
+
 /*------------------------------------------------------------------------*/

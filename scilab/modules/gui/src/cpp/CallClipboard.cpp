@@ -16,32 +16,30 @@ using namespace org_scilab_modules_gui_bridge;
 
 char *getClipboardContents(void)
 {
-  return CallScilabBridge::getClipboardContents(getScilabJavaVM());
+    return CallScilabBridge::getClipboardContents(getScilabJavaVM());
 }
 
 void pasteClipboardIntoConsole(void)
 {
-  CallScilabBridge::pasteClipboardIntoConsole(getScilabJavaVM());
+    CallScilabBridge::pasteClipboardIntoConsole(getScilabJavaVM());
 }
 
 void copyConsoleSelection(void)
 {
-  CallScilabBridge::copyConsoleSelection(getScilabJavaVM());
+    CallScilabBridge::copyConsoleSelection(getScilabJavaVM());
 }
 
 void emptyClipboard(void)
 {
-  CallScilabBridge::emptyClipboard(getScilabJavaVM());
+    CallScilabBridge::emptyClipboard(getScilabJavaVM());
 }
 
 void setClipboardContents(char *text)
 {
-  CallScilabBridge::setClipboardContents(getScilabJavaVM(), text);
+    CallScilabBridge::setClipboardContents(getScilabJavaVM(), text);
 }
 
 void copyFigureToClipBoard(int figID)
 {
-  CallScilabBridge::copyFigureToClipBoard(getScilabJavaVM(), figID);
+    CallScilabBridge::copyFigureToClipBoard(getScilabJavaVM(), figID);
 }
-
-

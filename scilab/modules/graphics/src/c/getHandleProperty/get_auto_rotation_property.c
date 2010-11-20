@@ -25,21 +25,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_auto_rotation_property( sciPointObj * pobj )
+int get_auto_rotation_property(sciPointObj * pobj)
 {
-  if( sciGetEntityType(pobj) != SCI_LABEL )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "auto_rotation") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_LABEL)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "auto_rotation");
+        return -1;
+    }
 
-  if ( sciGetAutoRotation(pobj) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetAutoRotation(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

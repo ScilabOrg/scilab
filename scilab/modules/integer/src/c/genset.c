@@ -25,35 +25,38 @@ Type *DY;\
 	DY[iy] = *DX;iy += *incy;}\
 }
 
-
-
-
-int C2F(genset)(int *typ, int *n, int *dx, int *dy, int *incy)
+int C2F(genset) (int *typ, int *n, int *dx, int *dy, int *incy)
 {
-  static int i, iy;
-  switch (*typ) {
-  case 0:
-    SET(double);
-    break;
-  case 1:
-    SET(integer1);
-    break;
-  case 2:
-    SET(integer2);
-    break;
-  case 4:
-    SET(int) ;
-    break;
-  case 11:
-    SET(unsigned char);
-    break;
-  case 12:
-    SET(unsigned short);
-    break;
-  case 14:
-    SET(unsigned int);
-    break;
-  }
-  return 0;
-}
+    static int i, iy;
 
+    switch (*typ)
+    {
+    case 0:
+        SET(double);
+
+        break;
+    case 1:
+        SET(integer1);
+        break;
+    case 2:
+        SET(integer2);
+        break;
+    case 4:
+        SET(int);
+
+        break;
+    case 11:
+        SET(unsigned char);
+
+        break;
+    case 12:
+        SET(unsigned short);
+
+        break;
+    case 14:
+        SET(unsigned int);
+
+        break;
+    }
+    return 0;
+}

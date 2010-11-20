@@ -16,40 +16,44 @@
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_with_module)(char *fname,unsigned long fname_len)
+int C2F(sci_with_module) (char *fname, unsigned long fname_len)
 {
-	static int l1,n1,m1;
-	int *Status=NULL;
+    static int l1, n1, m1;
+    int *Status = NULL;
 
-	CheckRhs(1,1);
-	CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	if (GetType(1) == sci_strings)
-	{
-		char *VarName=NULL;
+    if (GetType(1) == sci_strings)
+    {
+        char *VarName = NULL;
 
-		GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-		VarName=cstk(l1);
+        GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+        VarName = cstk(l1);
 
-		Status=(int*)MALLOC(sizeof(int));
-		*Status=with_module(VarName);
+        Status = (int *)MALLOC(sizeof(int));
+        *Status = with_module(VarName);
 
-		m1=1;n1=1;
-		CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &Status);
-		LhsVar(1)=Rhs+1;
+        m1 = 1;
+        n1 = 1;
+        CreateVarFromPtr(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &Status);
+        LhsVar(1) = Rhs + 1;
 
-		C2F(putlhsvar)();
+        C2F(putlhsvar) ();
 
-		if (Status) {FREE(Status);Status=NULL;}
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"), fname,1);
-		return 0;
-	}
+        if (Status)
+        {
+            FREE(Status);
+            Status = NULL;
+        }
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+        return 0;
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-
-

@@ -17,55 +17,55 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawablePolylineBridge * DrawablePolyline::getPolylineImp( void )
-{
-  return dynamic_cast<DrawablePolylineBridge *>(m_pImp) ;
-}
+    DrawablePolylineBridge *DrawablePolyline::getPolylineImp(void)
+    {
+        return dynamic_cast < DrawablePolylineBridge * >(m_pImp);
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawablePolyline::draw( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing() ;
-  clip();
-  reinitMove();
-  drawPolyline() ;
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawablePolyline::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        reinitMove();
+        drawPolyline();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawablePolyline::show( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showPolyline();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawablePolyline::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showPolyline();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawablePolyline::redraw( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  translate();
-  redrawPolyline();
-  endTranslate();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawablePolyline::redraw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        translate();
+        redrawPolyline();
+        endTranslate();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

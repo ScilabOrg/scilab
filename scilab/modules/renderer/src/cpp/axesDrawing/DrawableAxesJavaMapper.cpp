@@ -22,71 +22,72 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableAxesJavaMapper::DrawableAxesJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_axesDrawing::DrawableAxesGL(getScilabJavaVM());
-}
+    DrawableAxesJavaMapper::DrawableAxesJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_axesDrawing::DrawableAxesGL(getScilabJavaVM());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableAxesJavaMapper::~DrawableAxesJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    DrawableAxesJavaMapper::~DrawableAxesJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void DrawableAxesJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void DrawableAxesJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void DrawableAxesJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void DrawableAxesJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::destroy(int figureIndex)
-{
-  m_pJavaObject->destroy(figureIndex);
-}
+    void DrawableAxesJavaMapper::destroy(int figureIndex)
+    {
+        m_pJavaObject->destroy(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::translate(const double translation[3])
-{
-  m_pJavaObject->translate(translation[0], translation[1], translation[2]);
-}
+    void DrawableAxesJavaMapper::translate(const double translation[3])
+    {
+        m_pJavaObject->translate(translation[0], translation[1], translation[2]);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::endTranslate(void)
-{
-  m_pJavaObject->endTranslate();
-}
+    void DrawableAxesJavaMapper::endTranslate(void)
+    {
+        m_pJavaObject->endTranslate();
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::clipX(double xMin, double xMax)
-{
-  m_pJavaObject->clipX(xMin, xMax);
-}
+    void DrawableAxesJavaMapper::clipX(double xMin, double xMax)
+    {
+        m_pJavaObject->clipX(xMin, xMax);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::clipY(double yMin, double yMax)
-{
-  m_pJavaObject->clipY(yMin, yMax);
-}
+    void DrawableAxesJavaMapper::clipY(double yMin, double yMax)
+    {
+        m_pJavaObject->clipY(yMin, yMax);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::clipZ(double zMin, double zMax)
-{
-  m_pJavaObject->clipZ(zMin, zMax);
-}
+    void DrawableAxesJavaMapper::clipZ(double zMin, double zMax)
+    {
+        m_pJavaObject->clipZ(zMin, zMax);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesJavaMapper::unClip(void)
-{
-  m_pJavaObject->unClip();
-}
+    void DrawableAxesJavaMapper::unClip(void)
+    {
+        m_pJavaObject->unClip();
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

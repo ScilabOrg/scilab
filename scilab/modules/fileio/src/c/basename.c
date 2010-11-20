@@ -16,33 +16,47 @@
 #include "splitpath.h"
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
-wchar_t *basenameW(wchar_t *wcfullfilename, BOOL bExpand)
+wchar_t *basenameW(wchar_t * wcfullfilename, BOOL bExpand)
 {
-	wchar_t *basename_str = NULL;
-	if (wcfullfilename)
-	{
-		wchar_t *expandedPath = expandPathVariableW(wcfullfilename);
-		if (expandedPath)
-		{
-			wchar_t *wcdrv = MALLOC(sizeof(wchar_t*) * ((int)wcslen(expandedPath) + 1));
-			wchar_t* wcdir = MALLOC(sizeof(wchar_t*) * ((int)wcslen(expandedPath) + 1));
-			wchar_t* wcname = MALLOC(sizeof(wchar_t*) * ((int)wcslen(expandedPath) + 1));
-			wchar_t* wcext = MALLOC(sizeof(wchar_t*) * ((int)wcslen(expandedPath) + 1));
+    wchar_t *basename_str = NULL;
 
-			splitpathW(expandedPath, bExpand, wcdrv, wcdir, wcname, wcext);
+    if (wcfullfilename)
+    {
+        wchar_t *expandedPath = expandPathVariableW(wcfullfilename);
 
-			if (wcname)
-			{
-				basename_str = wcname;
-			}
+        if (expandedPath)
+        {
+            wchar_t *wcdrv = MALLOC(sizeof(wchar_t *) * ((int)wcslen(expandedPath) + 1));
+            wchar_t *wcdir = MALLOC(sizeof(wchar_t *) * ((int)wcslen(expandedPath) + 1));
+            wchar_t *wcname = MALLOC(sizeof(wchar_t *) * ((int)wcslen(expandedPath) + 1));
+            wchar_t *wcext = MALLOC(sizeof(wchar_t *) * ((int)wcslen(expandedPath) + 1));
 
-			if (wcdrv) {FREE(wcdrv); wcdrv = NULL;}
-			if (wcdir) {FREE(wcdir); wcdir = NULL;}
-			if (wcext) {FREE(wcext); wcext = NULL;}
+            splitpathW(expandedPath, bExpand, wcdrv, wcdir, wcname, wcext);
 
-			FREE(expandedPath);
-			expandedPath = NULL;
-		}
-	}
-	return basename_str;
+            if (wcname)
+            {
+                basename_str = wcname;
+            }
+
+            if (wcdrv)
+            {
+                FREE(wcdrv);
+                wcdrv = NULL;
+            }
+            if (wcdir)
+            {
+                FREE(wcdir);
+                wcdir = NULL;
+            }
+            if (wcext)
+            {
+                FREE(wcext);
+                wcext = NULL;
+            }
+
+            FREE(expandedPath);
+            expandedPath = NULL;
+        }
+    }
+    return basename_str;
 }

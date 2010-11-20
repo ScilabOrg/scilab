@@ -10,40 +10,44 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <jni.h>
 #include "addToLibrarypath.h"
 #include "getScilabJNIEnv.h"
 #include "isdir.h"
 #include "fromjava.h"
 #
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 BOOL addToLibrarypath(char *librarypathstring)
 {
 
     if (librarypathstring)
     {
-        if ( isdir(librarypathstring) )
+        if (isdir(librarypathstring))
         {
-            JNIEnv * currentENV = getScilabJNIEnv();
+            JNIEnv *currentENV = getScilabJNIEnv();
+
             if (currentENV)
             {
-                jclass cls=NULL;
+                jclass cls = NULL;
+
                 /* Boot loader for scilab and javasci
-                *  We rely on the fact that the javasci jar has an explicit
-                * dependency on the jvm module. Class-Path in the manifest
-                */
+                 *  We rely on the fact that the javasci jar has an explicit
+                 * dependency on the jvm module. Class-Path in the manifest
+                 */
                 cls = (*currentENV)->FindClass(currentENV, "org/scilab/modules/jvm/LibraryPath");
-                
+
                 if (cls)
                 {
-                    jmethodID mid=NULL;
-                    mid = (*currentENV)->GetStaticMethodID(currentENV, cls,"addPath","(Ljava/lang/String;)V");
+                    jmethodID mid = NULL;
+
+                    mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "addPath", "(Ljava/lang/String;)V");
                     if (mid)
                     {
                         jstring jstr;
-                        jstr = (*currentENV)->NewStringUTF(currentENV,librarypathstring);
-                        (*currentENV)->CallStaticObjectMethod(currentENV,cls, mid,jstr);
+
+                        jstr = (*currentENV)->NewStringUTF(currentENV, librarypathstring);
+                        (*currentENV)->CallStaticObjectMethod(currentENV, cls, mid, jstr);
                         return TRUE;
                     }
                 }
@@ -52,4 +56,5 @@ BOOL addToLibrarypath(char *librarypathstring)
     }
     return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

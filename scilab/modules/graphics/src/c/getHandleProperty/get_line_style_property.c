@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_line_style_property( sciPointObj * pobj )
+int get_line_style_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetLineStyle( pobj ) ) ;
+    return sciReturnDouble(sciGetLineStyle(pobj));
 }
+
 /*------------------------------------------------------------------------*/

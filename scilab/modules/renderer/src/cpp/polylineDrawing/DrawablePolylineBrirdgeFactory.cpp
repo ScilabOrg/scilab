@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawablePolylineBridge * DrawablePolylineBridgeFactory::create( void )
-{
-  DrawablePolylineJoGL * imp = new DrawablePolylineJoGL( m_pDrawable ) ;
-  imp->setJavaMapper(new DrawablePolylineJavaMapper()) ;
-  return imp ;
-}
+    DrawablePolylineBridge *DrawablePolylineBridgeFactory::create(void)
+    {
+        DrawablePolylineJoGL *imp = new DrawablePolylineJoGL(m_pDrawable);
+          imp->setJavaMapper(new DrawablePolylineJavaMapper());
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawablePolylineBridgeFactory::setDrawedPolyline( DrawablePolyline * poly )
-{
-  m_pDrawable = poly ;
-}
+    void DrawablePolylineBridgeFactory::setDrawedPolyline(DrawablePolyline * poly)
+    {
+        m_pDrawable = poly;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

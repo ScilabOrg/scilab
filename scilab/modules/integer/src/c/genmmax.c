@@ -41,35 +41,38 @@ Type *DY;\
 	      DY[1] = DX[l+kk];DK[1] = l + kk;}}}}\
 }
 
-
-int C2F(genmmax)(int *typ, int *job, int *m, int *n, int *dx, int *incx, int *dy, int *dk, int *incy)
+int C2F(genmmax) (int *typ, int *job, int *m, int *n, int *dx, int *incx, int *dy, int *dk, int *incy)
 {
-  static int ix, iy, l, k, kk, *DK;
+    static int ix, iy, l, k, kk, *DK;
 
-  DK=--dk;
-  ix = *incx;
-  iy = *incy;
+    DK = --dk;
+    ix = *incx;
+    iy = *incy;
 
-  switch (*typ) {
-  case 1:
-    MMAX(integer1);
-    break;
-  case 2:
-    MMAX(integer2);
-    break;
-  case 4:
-    MMAX(int) ;
-    break;
-  case 11:
-    MMAX(unsigned char);
-    break;
-  case 12:
-    MMAX(unsigned short);
-    break;
-  case 14:
-    MMAX(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        MMAX(integer1);
+        break;
+    case 2:
+        MMAX(integer2);
+        break;
+    case 4:
+        MMAX(int);
+
+        break;
+    case 11:
+        MMAX(unsigned char);
+
+        break;
+    case 12:
+        MMAX(unsigned short);
+
+        break;
+    case 14:
+        MMAX(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

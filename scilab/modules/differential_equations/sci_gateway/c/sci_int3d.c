@@ -10,15 +10,17 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_differential_equations4.h"
 #include "machine.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(int3d)(char *fname,unsigned long fname_len);
+extern int C2F(int3d) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_int3d(char *fname,unsigned long fname_len)
+int sci_int3d(char *fname, unsigned long fname_len)
 {
-	C2F(int3d)(fname,fname_len);
-	return 0;
+    C2F(int3d) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

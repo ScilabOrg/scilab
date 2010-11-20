@@ -13,36 +13,38 @@
 #include <string.h>
 #include <stdio.h>
 #include "Scierror.h"
-#include "stack-def.h" /* bsiz */
+#include "stack-def.h"          /* bsiz */
 #include "error_internal.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-	#define vsnprintf _vsnprintf
+#define vsnprintf _vsnprintf
 #endif
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* Scilab Error at C level */
-/*--------------------------------------------------------------------------*/ 
-int  Scierror(int iv,const char *fmt,...)
+/*--------------------------------------------------------------------------*/
+int Scierror(int iv, const char *fmt, ...)
 {
-	int retval = 0;
-	int lstr = 0;
-	char s_buf[bsiz];
-	va_list ap;
-	
-	va_start(ap,fmt);
+    int retval = 0;
+    int lstr = 0;
+    char s_buf[bsiz];
+    va_list ap;
+
+    va_start(ap, fmt);
 
 #if defined (vsnprintf) || defined (linux)
-	retval = vsnprintf(s_buf,bsiz-1, fmt, ap );
+    retval = vsnprintf(s_buf, bsiz - 1, fmt, ap);
 #else
-	retval = vsprintf(s_buf,fmt, ap );
+    retval = vsprintf(s_buf, fmt, ap);
 #endif
-	if (retval < 0) s_buf[bsiz-1]='\0';
+    if (retval < 0)
+        s_buf[bsiz - 1] = '\0';
 
-	lstr = (int) strlen(s_buf);
-	va_end(ap);
+    lstr = (int)strlen(s_buf);
+    va_end(ap);
 
-	error_internal(&iv,s_buf,ERROR_FROM_C);
+    error_internal(&iv, s_buf, ERROR_FROM_C);
 
-	return retval;
+    return retval;
 }
+
 /*--------------------------------------------------------------------------*/

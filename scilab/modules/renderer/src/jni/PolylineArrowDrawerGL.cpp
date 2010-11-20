@@ -39,308 +39,358 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_polylineDrawing {
+namespace org_scilab_modules_renderer_polylineDrawing
+{
 
 // Returns the current env
 
-JNIEnv * PolylineArrowDrawerGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *PolylineArrowDrawerGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-PolylineArrowDrawerGL::~PolylineArrowDrawerGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    PolylineArrowDrawerGL::~PolylineArrowDrawerGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-PolylineArrowDrawerGL::PolylineArrowDrawerGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    PolylineArrowDrawerGL::PolylineArrowDrawerGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetArrowParametersjintjdoubleID=NULL; 
-voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID=NULL; 
-voiddrawPolylineID=NULL; 
-
-
-}
-
-PolylineArrowDrawerGL::PolylineArrowDrawerGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetArrowParametersjintjdoubleID = NULL;
+        voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID = NULL;
+        voiddrawPolylineID = NULL;
+
+    }
+
+    PolylineArrowDrawerGL::PolylineArrowDrawerGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetArrowParametersjintjdoubleID=NULL; 
-voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID=NULL; 
-voiddrawPolylineID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetArrowParametersjintjdoubleID = NULL;
+        voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID = NULL;
+        voiddrawPolylineID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void PolylineArrowDrawerGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "PolylineArrowDrawerGL");
-}
-}
+    void PolylineArrowDrawerGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "PolylineArrowDrawerGL");
+        }
+    }
 
-void PolylineArrowDrawerGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "PolylineArrowDrawerGL");
-}
-}
+    void PolylineArrowDrawerGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "PolylineArrowDrawerGL");
+        }
+    }
 // Method(s)
 
-void PolylineArrowDrawerGL::display (){
+    void PolylineArrowDrawerGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::initializeDrawing (int figureIndex){
+    void PolylineArrowDrawerGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::endDrawing (){
+    void PolylineArrowDrawerGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::show (int figureIndex){
+    void PolylineArrowDrawerGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::destroy (int parentFigureIndex){
+    void PolylineArrowDrawerGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::setArrowParameters (int colorIndex, double size){
+    void PolylineArrowDrawerGL::setArrowParameters(int colorIndex, double size)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetArrowParametersjintjdoubleID==NULL) { /* Use the cache */
- voidsetArrowParametersjintjdoubleID = curEnv->GetMethodID(this->instanceClass, "setArrowParameters", "(ID)V" ) ;
-if (voidsetArrowParametersjintjdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setArrowParameters");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetArrowParametersjintjdoubleID ,colorIndex, size);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetArrowParametersjintjdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetArrowParametersjintjdoubleID = curEnv->GetMethodID(this->instanceClass, "setArrowParameters", "(ID)V");
+            if (voidsetArrowParametersjintjdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setArrowParameters");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetArrowParametersjintjdoubleID, colorIndex, size);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::setAxesBounds (double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
+    void PolylineArrowDrawerGL::setAxesBounds(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setAxesBounds", "(DDDDDD)V" ) ;
-if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesBounds");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID ,xMin, xMax, yMin, yMax, zMin, zMax);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setAxesBounds", "(DDDDDD)V");
+            if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesBounds");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID, xMin, xMax, yMin, yMax, zMin, zMax);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void PolylineArrowDrawerGL::drawPolyline (double* xCoords, int xCoordsSize, double* yCoords, int yCoordsSize, double* zCoords, int zCoordsSize){
+    void PolylineArrowDrawerGL::drawPolyline(double *xCoords, int xCoordsSize, double *yCoords, int yCoordsSize, double *zCoords, int zCoordsSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID==NULL) { /* Use the cache */
- voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID = curEnv->GetMethodID(this->instanceClass, "drawPolyline", "([D[D[D)V" ) ;
-if (voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawPolyline");
-}
-}
-jdoubleArray xCoords_ = curEnv->NewDoubleArray( xCoordsSize ) ;
+        if (voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID == NULL)
+        {                       /* Use the cache */
+            voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID = curEnv->GetMethodID(this->instanceClass, "drawPolyline", "([D[D[D)V");
+            if (voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawPolyline");
+            }
+        }
+        jdoubleArray xCoords_ = curEnv->NewDoubleArray(xCoordsSize);
 
-if (xCoords_ == NULL)
-{
+        if (xCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( xCoords_, 0, xCoordsSize, (jdouble*)(xCoords) ) ;
+        curEnv->SetDoubleArrayRegion(xCoords_, 0, xCoordsSize, (jdouble *) (xCoords));
 
+        jdoubleArray yCoords_ = curEnv->NewDoubleArray(yCoordsSize);
 
-jdoubleArray yCoords_ = curEnv->NewDoubleArray( yCoordsSize ) ;
-
-if (yCoords_ == NULL)
-{
+        if (yCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( yCoords_, 0, yCoordsSize, (jdouble*)(yCoords) ) ;
+        curEnv->SetDoubleArrayRegion(yCoords_, 0, yCoordsSize, (jdouble *) (yCoords));
 
+        jdoubleArray zCoords_ = curEnv->NewDoubleArray(zCoordsSize);
 
-jdoubleArray zCoords_ = curEnv->NewDoubleArray( zCoordsSize ) ;
-
-if (zCoords_ == NULL)
-{
+        if (zCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( zCoords_, 0, zCoordsSize, (jdouble*)(zCoords) ) ;
+        curEnv->SetDoubleArrayRegion(zCoords_, 0, zCoordsSize, (jdouble *) (zCoords));
 
+        curEnv->CallVoidMethod(this->instance, voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID, xCoords_, yCoords_, zCoords_);
+        curEnv->DeleteLocalRef(xCoords_);
+        curEnv->DeleteLocalRef(yCoords_);
+        curEnv->DeleteLocalRef(zCoords_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallVoidMethod( this->instance, voiddrawPolylinejdoubleArray_jdoubleArray_jdoubleArray_ID ,xCoords_, yCoords_, zCoords_);
-                        curEnv->DeleteLocalRef(xCoords_);
-curEnv->DeleteLocalRef(yCoords_);
-curEnv->DeleteLocalRef(zCoords_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    void PolylineArrowDrawerGL::drawPolyline()
+    {
 
-void PolylineArrowDrawerGL::drawPolyline (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
-
-if (voiddrawPolylineID==NULL) { /* Use the cache */
- voiddrawPolylineID = curEnv->GetMethodID(this->instanceClass, "drawPolyline", "()V" ) ;
-if (voiddrawPolylineID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawPolyline");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddrawPolylineID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddrawPolylineID == NULL)
+        {                       /* Use the cache */
+            voiddrawPolylineID = curEnv->GetMethodID(this->instanceClass, "drawPolyline", "()V");
+            if (voiddrawPolylineID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawPolyline");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddrawPolylineID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

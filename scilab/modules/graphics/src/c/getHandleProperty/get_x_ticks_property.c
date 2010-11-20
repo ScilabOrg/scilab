@@ -27,41 +27,43 @@
 #include "BasicAlgos.h"
 
 /*------------------------------------------------------------------------*/
-int get_x_ticks_property( sciPointObj * pobj )
+int get_x_ticks_property(sciPointObj * pobj)
 {
 
-  int nbTicks;
+    int nbTicks;
 
-  if ( sciGetEntityType( pobj ) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_ticks");
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_ticks");
+        return -1;
+    }
 
-  /* retrieve number of ticks */
-  nbTicks = sciGetNbXTicks(pobj);
-  if (nbTicks == 0)
-  {
-    /* return empty matrices */
-    buildTListForTicks( NULL, NULL, 0) ;
-  }
-  else
-  {
-    char ** labels;
-    double * positions;
-    /* allocate arrays */
-    positions = MALLOC(nbTicks * sizeof(double));
-    labels = createStringArray(nbTicks);
+    /* retrieve number of ticks */
+    nbTicks = sciGetNbXTicks(pobj);
+    if (nbTicks == 0)
+    {
+        /* return empty matrices */
+        buildTListForTicks(NULL, NULL, 0);
+    }
+    else
+    {
+        char **labels;
+        double *positions;
 
-    sciGetXTicksPos(pobj, positions, labels);
+        /* allocate arrays */
+        positions = MALLOC(nbTicks * sizeof(double));
+        labels = createStringArray(nbTicks);
 
-    buildTListForTicks( positions, labels, nbTicks ) ;
+        sciGetXTicksPos(pobj, positions, labels);
 
-    /* free arrays */
-    destroyStringArray(labels, nbTicks);
-    FREE(positions);
-  }
+        buildTListForTicks(positions, labels, nbTicks);
 
-  return 0;
+        /* free arrays */
+        destroyStringArray(labels, nbTicks);
+        FREE(positions);
+    }
+
+    return 0;
 }
+
 /*------------------------------------------------------------------------*/

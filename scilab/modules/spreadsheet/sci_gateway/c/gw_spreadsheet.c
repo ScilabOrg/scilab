@@ -15,17 +15,18 @@
 #include "gw_spreadsheet.h"
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
-/*--------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[] = 
-{
-	{sci_xls_open,"xls_open"},
-	{sci_xls_read,"xls_read"}
+/*--------------------------------------------------------------------------*/
+static gw_generic_table Tab[] = {
+    {sci_xls_open, "xls_open"},
+    {sci_xls_read, "xls_read"}
 };
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int gw_spreadsheet(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

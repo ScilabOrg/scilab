@@ -12,11 +12,11 @@
  *
  */
 
-#include <stdio.h> 
-#include <string.h> 
+#include <stdio.h>
+#include <string.h>
 /*--------------------------------------------------------------------------*/
 #include "gw_gui.h"
-#include "MALLOC.h" /* MALLOC */
+#include "MALLOC.h"             /* MALLOC */
 #include "gw_gui.h"
 #include "localization.h"
 #include "stack-c.h"
@@ -26,39 +26,40 @@
 #include "getPropertyAssignedValue.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int sci_mpopup(char *fname,unsigned long fname_len)
+int sci_mpopup(char *fname, unsigned long fname_len)
 {
-  int nbRow = 0, nbCol = 0;
+    int nbRow = 0, nbCol = 0;
 
-  char * res = NULL;
-  char **menuAdr = NULL;
-  int resAdr = 0;
+    char *res = NULL;
+    char **menuAdr = NULL;
+    int resAdr = 0;
 
-  CheckRhs(1,1);
-  CheckLhs(0,1);
-  
-  if (VarType(1) == sci_strings)
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
+
+    if (VarType(1) == sci_strings)
     {
-      GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, &menuAdr);
+        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, &menuAdr);
     }
-  else
+    else
     {
-      Scierror(999,_("%s: Wrong type for input argument #%d: A string vector expected.\n"),fname, 1);
-      return FALSE;
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string vector expected.\n"), fname, 1);
+        return FALSE;
     }
 
-  //res = createContextMenu(getStringMatrixFromStack(menuAdr), nbRow*nbCol);
+    //res = createContextMenu(getStringMatrixFromStack(menuAdr), nbRow*nbCol);
 
-  nbRow = 1;
-  nbCol = (int)strlen(res);
+    nbRow = 1;
+    nbCol = (int)strlen(res);
 
-  CreateVar(Rhs+1,STRING_DATATYPE,&nbRow,&nbCol,&resAdr);
-  strncpy(cstk(resAdr), res, nbCol);
+    CreateVar(Rhs + 1, STRING_DATATYPE, &nbRow, &nbCol, &resAdr);
+    strncpy(cstk(resAdr), res, nbCol);
 
-  LhsVar(1)=Rhs+1;
+    LhsVar(1) = Rhs + 1;
 
-  C2F(putlhsvar)();
+    C2F(putlhsvar) ();
 
-  return TRUE;
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

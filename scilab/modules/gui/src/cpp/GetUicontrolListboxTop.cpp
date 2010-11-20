@@ -17,30 +17,30 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolListboxTop(sciPointObj* sciObj)
+int GetUicontrolListboxTop(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      if (pUICONTROL_FEATURE(sciObj)->listboxTop == NULL)
+        if (pUICONTROL_FEATURE(sciObj)->listboxTop == NULL)
         {
-          return sciReturnEmptyMatrix();
+            return sciReturnEmptyMatrix();
         }
-      else
+        else
         {
-            switch(pUICONTROL_FEATURE(sciObj)->style)
+            switch (pUICONTROL_FEATURE(sciObj)->style)
             {
             case SCI_LISTBOX:
-                return sciReturnInt(CallScilabBridge::getListBoxListBoxTop(getScilabJavaVM(), 
-                                                       pUICONTROL_FEATURE(sciObj)->hashMapIndex));
+                return sciReturnInt(CallScilabBridge::getListBoxListBoxTop(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex));
             default:
                 /* No Java attribute to set or method to call */
                 return sciReturnRowVectorFromInt(pUICONTROL_FEATURE(sciObj)->listboxTop, 1);
             }
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "ListboxTop");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "ListboxTop");
+
+        return FALSE;
     }
 }

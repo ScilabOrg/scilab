@@ -39,320 +39,362 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_segsDrawing {
+namespace org_scilab_modules_renderer_segsDrawing
+{
 
 // Returns the current env
 
-JNIEnv * SegsLineDrawerGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *SegsLineDrawerGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-SegsLineDrawerGL::~SegsLineDrawerGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    SegsLineDrawerGL::~SegsLineDrawerGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-SegsLineDrawerGL::SegsLineDrawerGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    SegsLineDrawerGL::SegsLineDrawerGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetLineParametersjfloatjintID=NULL; 
-voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID=NULL; 
-
-
-}
-
-SegsLineDrawerGL::SegsLineDrawerGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetLineParametersjfloatjintID = NULL;
+        voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID = NULL;
+
+    }
+
+    SegsLineDrawerGL::SegsLineDrawerGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetLineParametersjfloatjintID=NULL; 
-voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetLineParametersjfloatjintID = NULL;
+        voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void SegsLineDrawerGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "SegsLineDrawerGL");
-}
-}
+    void SegsLineDrawerGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "SegsLineDrawerGL");
+        }
+    }
 
-void SegsLineDrawerGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "SegsLineDrawerGL");
-}
-}
+    void SegsLineDrawerGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "SegsLineDrawerGL");
+        }
+    }
 // Method(s)
 
-void SegsLineDrawerGL::display (){
+    void SegsLineDrawerGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::initializeDrawing (int figureIndex){
+    void SegsLineDrawerGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::endDrawing (){
+    void SegsLineDrawerGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::show (int figureIndex){
+    void SegsLineDrawerGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::destroy (int parentFigureIndex){
+    void SegsLineDrawerGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::setLineParameters (float thickness, int lineStyle){
+    void SegsLineDrawerGL::setLineParameters(float thickness, int lineStyle)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetLineParametersjfloatjintID==NULL) { /* Use the cache */
- voidsetLineParametersjfloatjintID = curEnv->GetMethodID(this->instanceClass, "setLineParameters", "(FI)V" ) ;
-if (voidsetLineParametersjfloatjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setLineParameters");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetLineParametersjfloatjintID ,thickness, lineStyle);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetLineParametersjfloatjintID == NULL)
+        {                       /* Use the cache */
+            voidsetLineParametersjfloatjintID = curEnv->GetMethodID(this->instanceClass, "setLineParameters", "(FI)V");
+            if (voidsetLineParametersjfloatjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setLineParameters");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetLineParametersjfloatjintID, thickness, lineStyle);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void SegsLineDrawerGL::drawSegs (double* startXCoords, int startXCoordsSize, double* endXCoords, int endXCoordsSize, double* startYCoords, int startYCoordsSize, double* endYCoords, int endYCoordsSize, double* startZCoords, int startZCoordsSize, double* endZCoords, int endZCoordsSize, int* colors, int colorsSize){
+    void SegsLineDrawerGL::drawSegs(double *startXCoords, int startXCoordsSize, double *endXCoords, int endXCoordsSize, double *startYCoords,
+                                    int startYCoordsSize, double *endYCoords, int endYCoordsSize, double *startZCoords, int startZCoordsSize,
+                                    double *endZCoords, int endZCoordsSize, int *colors, int colorsSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID==NULL) { /* Use the cache */
- voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID = curEnv->GetMethodID(this->instanceClass, "drawSegs", "([D[D[D[D[D[D[I)V" ) ;
-if (voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawSegs");
-}
-}
-jdoubleArray startXCoords_ = curEnv->NewDoubleArray( startXCoordsSize ) ;
+        if (voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID == NULL)
+        {                       /* Use the cache */
+            voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID =
+                curEnv->GetMethodID(this->instanceClass, "drawSegs", "([D[D[D[D[D[D[I)V");
+            if (voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawSegs");
+            }
+        }
+        jdoubleArray startXCoords_ = curEnv->NewDoubleArray(startXCoordsSize);
 
-if (startXCoords_ == NULL)
-{
+        if (startXCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( startXCoords_, 0, startXCoordsSize, (jdouble*)(startXCoords) ) ;
+        curEnv->SetDoubleArrayRegion(startXCoords_, 0, startXCoordsSize, (jdouble *) (startXCoords));
 
+        jdoubleArray endXCoords_ = curEnv->NewDoubleArray(endXCoordsSize);
 
-jdoubleArray endXCoords_ = curEnv->NewDoubleArray( endXCoordsSize ) ;
-
-if (endXCoords_ == NULL)
-{
+        if (endXCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( endXCoords_, 0, endXCoordsSize, (jdouble*)(endXCoords) ) ;
+        curEnv->SetDoubleArrayRegion(endXCoords_, 0, endXCoordsSize, (jdouble *) (endXCoords));
 
+        jdoubleArray startYCoords_ = curEnv->NewDoubleArray(startYCoordsSize);
 
-jdoubleArray startYCoords_ = curEnv->NewDoubleArray( startYCoordsSize ) ;
-
-if (startYCoords_ == NULL)
-{
+        if (startYCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( startYCoords_, 0, startYCoordsSize, (jdouble*)(startYCoords) ) ;
+        curEnv->SetDoubleArrayRegion(startYCoords_, 0, startYCoordsSize, (jdouble *) (startYCoords));
 
+        jdoubleArray endYCoords_ = curEnv->NewDoubleArray(endYCoordsSize);
 
-jdoubleArray endYCoords_ = curEnv->NewDoubleArray( endYCoordsSize ) ;
-
-if (endYCoords_ == NULL)
-{
+        if (endYCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( endYCoords_, 0, endYCoordsSize, (jdouble*)(endYCoords) ) ;
+        curEnv->SetDoubleArrayRegion(endYCoords_, 0, endYCoordsSize, (jdouble *) (endYCoords));
 
+        jdoubleArray startZCoords_ = curEnv->NewDoubleArray(startZCoordsSize);
 
-jdoubleArray startZCoords_ = curEnv->NewDoubleArray( startZCoordsSize ) ;
-
-if (startZCoords_ == NULL)
-{
+        if (startZCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( startZCoords_, 0, startZCoordsSize, (jdouble*)(startZCoords) ) ;
+        curEnv->SetDoubleArrayRegion(startZCoords_, 0, startZCoordsSize, (jdouble *) (startZCoords));
 
+        jdoubleArray endZCoords_ = curEnv->NewDoubleArray(endZCoordsSize);
 
-jdoubleArray endZCoords_ = curEnv->NewDoubleArray( endZCoordsSize ) ;
-
-if (endZCoords_ == NULL)
-{
+        if (endZCoords_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( endZCoords_, 0, endZCoordsSize, (jdouble*)(endZCoords) ) ;
+        curEnv->SetDoubleArrayRegion(endZCoords_, 0, endZCoordsSize, (jdouble *) (endZCoords));
 
+        jintArray colors_ = curEnv->NewIntArray(colorsSize);
 
-jintArray colors_ = curEnv->NewIntArray( colorsSize ) ;
-
-if (colors_ == NULL)
-{
+        if (colors_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetIntArrayRegion( colors_, 0, colorsSize, (jint*)(colors) ) ;
+        curEnv->SetIntArrayRegion(colors_, 0, colorsSize, (jint *) (colors));
 
-
-                         curEnv->CallVoidMethod( this->instance, voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID ,startXCoords_, endXCoords_, startYCoords_, endYCoords_, startZCoords_, endZCoords_, colors_);
-                        curEnv->DeleteLocalRef(startXCoords_);
-curEnv->DeleteLocalRef(endXCoords_);
-curEnv->DeleteLocalRef(startYCoords_);
-curEnv->DeleteLocalRef(endYCoords_);
-curEnv->DeleteLocalRef(startZCoords_);
-curEnv->DeleteLocalRef(endZCoords_);
-curEnv->DeleteLocalRef(colors_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voiddrawSegsjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jintArray_ID,
+                               startXCoords_, endXCoords_, startYCoords_, endYCoords_, startZCoords_, endZCoords_, colors_);
+        curEnv->DeleteLocalRef(startXCoords_);
+        curEnv->DeleteLocalRef(endXCoords_);
+        curEnv->DeleteLocalRef(startYCoords_);
+        curEnv->DeleteLocalRef(endYCoords_);
+        curEnv->DeleteLocalRef(startZCoords_);
+        curEnv->DeleteLocalRef(endZCoords_);
+        curEnv->DeleteLocalRef(colors_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

@@ -15,12 +15,15 @@
 #include "stack-c.h"
 #include "gw_polynomials.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intpdiv)(int *id);
+extern int C2F(intpdiv) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_pppdiv(char *fname,unsigned long fname_len)
+int sci_pppdiv(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intpdiv)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intpdiv) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

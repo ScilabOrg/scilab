@@ -26,23 +26,28 @@ static char *dataStrings[] = {
     "exec('SCI/etc/scilab.start',-1);",
     /* demos instructions file */
     /* exit instructions file */
-    "exec('SCI/etc/scilab.quit',-1);quit;"	 ,
+    "exec('SCI/etc/scilab.quit',-1);quit;",
     /* on exit , we try to catch errors */
     /* workaround to not have scilab "zombie" */
     /* bug 3672 */
-    "exec('SCI/etc/scilab.quit','errcatch',-1);quit;"	 
+    "exec('SCI/etc/scilab.quit','errcatch',-1);quit;"
 };
+
 /*--------------------------------------------------------------------------*/
 static char stringCommand[bsiz] = "";
+
 /*--------------------------------------------------------------------------*/
 static BOOL haveTooManyVariables(void);
+
 /*--------------------------------------------------------------------------*/
-void C2F(inffic)(int *iopt, char *name, int *nc)
+void C2F(inffic) (int *iopt, char *name, int *nc)
 {
     char *returnedLine = get_sci_data_strings(*iopt);
-    *nc = (int) strlen(returnedLine);
+
+    *nc = (int)strlen(returnedLine);
     strcpy(name, returnedLine);
 }
+
 /*--------------------------------------------------------------------------*/
 char *get_sci_data_strings(int n)
 {
@@ -50,8 +55,8 @@ char *get_sci_data_strings(int n)
     {
         /* bug 8079 */
         /* if there are too many variables, we force to do a clear
-           before to do scilab.quit
-        */
+         * before to do scilab.quit
+         */
         strcpy(stringCommand, "clear;");
         strcat(stringCommand, dataStrings[Max(Min(n, MAX_ID), 0)]);
     }
@@ -61,16 +66,18 @@ char *get_sci_data_strings(int n)
     }
     return stringCommand;
 }
+
 /*--------------------------------------------------------------------------*/
 static BOOL haveTooManyVariables(void)
 {
     /* nb variables used by scilab.quit 10 */
-    #define NB_VARIABLES_SECURITY 10*2
+#define NB_VARIABLES_SECURITY 10*2
     int nbVarTotal = 0;
     int nbVarUsed = 0;
 
-    C2F(getvariablesinfo)(&nbVarTotal, &nbVarUsed);
+    C2F(getvariablesinfo) (&nbVarTotal, &nbVarUsed);
 
-    return (BOOL)(nbVarTotal - nbVarUsed <= NB_VARIABLES_SECURITY);
+    return (BOOL) (nbVarTotal - nbVarUsed <= NB_VARIABLES_SECURITY);
 }
+
 /*--------------------------------------------------------------------------*/

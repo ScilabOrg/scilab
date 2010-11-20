@@ -13,7 +13,7 @@
 #include "GetFunctionByName.h"
 #include "dynlib_differential_equations.h"
 #include "arnol.h"
-	/***********************************
+    /***********************************
 	* ode   (fydot and fjac )
 	***********************************/
 
@@ -21,45 +21,44 @@
  ** @TODO : Wow !! Lot of things to kick out..
  **/
 
-
-typedef void (*fydotf)(int*,double *,double *,double *);
+typedef void (*fydotf) (int *, double *, double *, double *);
 
 #define ARGS_fjac int*,double *,double *,int*,int*,double*,int*
-typedef void (*fjacf)(ARGS_fjac);
+typedef void (*fjacf) (ARGS_fjac);
 
 /**************** fydot ***************/
-extern void C2F(fex)(int*,double *,double *,double *);
-extern void C2F(fex2)(int*,double *,double *,double *);
-extern void C2F(fex3)(int*,double *,double *,double *);
-extern void C2F(fexab)(int*,double *,double *,double *);
-extern void C2F(loren)(int*,double *,double *,double *);
-extern void C2F(bcomp)(int*,double *,double *,double *);
-extern void C2F(lcomp)(int*,double *,double *,double *);
+extern void C2F(fex) (int *, double *, double *, double *);
+extern void C2F(fex2) (int *, double *, double *, double *);
+extern void C2F(fex3) (int *, double *, double *, double *);
+extern void C2F(fexab) (int *, double *, double *, double *);
+extern void C2F(loren) (int *, double *, double *, double *);
+extern void C2F(bcomp) (int *, double *, double *, double *);
+extern void C2F(lcomp) (int *, double *, double *, double *);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fydot)(int*,double *,double *,double *);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfydot)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fydot) (int *, double *, double *, double *);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfydot) (char *name, int *rep);
 
-FTAB FTab_fydot[] ={
-	{"arnol", (voidf)  C2F(arnol)},
-	{"bcomp", (voidf)  C2F(bcomp)},
-	{"fex", (voidf)  C2F(fex)},
-	{"fex2", (voidf)  C2F(fex2)},
-	{"fex3", (voidf)  C2F(fex3)},
-	{"fexab", (voidf)  C2F(fexab)},
-	{"lcomp", (voidf)  C2F(lcomp)},
-	{"loren", (voidf)  C2F(loren)},
-	{(char *) 0, (voidf) 0}};
+FTAB FTab_fydot[] = {
+    {"arnol", (voidf) C2F(arnol)},
+    {"bcomp", (voidf) C2F(bcomp)},
+    {"fex", (voidf) C2F(fex)},
+    {"fex2", (voidf) C2F(fex2)},
+    {"fex3", (voidf) C2F(fex3)},
+    {"fexab", (voidf) C2F(fexab)},
+    {"lcomp", (voidf) C2F(lcomp)},
+    {"loren", (voidf) C2F(loren)},
+    {(char *)0, (voidf) 0}
+};
 
 /**************** fjac ***************/
-extern void C2F(jex)(ARGS_fjac);
+extern void C2F(jex) (ARGS_fjac);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fjac)(ARGS_fjac);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfjac)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fjac) (ARGS_fjac);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfjac) (char *name, int *rep);
 
-FTAB FTab_fjac[] =
-{
-	{"jex", (voidf)  C2F(jex)},
-	{(char *) 0, (voidf) 0}
+FTAB FTab_fjac[] = {
+    {"jex", (voidf) C2F(jex)},
+    {(char *)0, (voidf) 0}
 };
 
 /***********************************
@@ -68,37 +67,36 @@ FTAB FTab_fjac[] =
 
 /** the current function fixed by setfydot **/
 
-static fydotf fydotfonc ;
+static fydotf fydotfonc;
 
 /** function call **/
 
-void C2F(fydot)(int *n, double *t, double *y, double *ydot)
+void C2F(fydot) (int *n, double *t, double *y, double *ydot)
 {
-	(*fydotfonc)(n,t,y,ydot);
+    (*fydotfonc) (n, t, y, ydot);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfydot)(char *name, int *rep)
+void C2F(setfydot) (char *name, int *rep)
 {
-	fydotfonc = (fydotf) GetFunctionByName(name,rep,FTab_fydot);
+    fydotfonc = (fydotf) GetFunctionByName(name, rep, FTab_fydot);
 }
-
 
 /** the current function fixed by setfjac **/
 
-static fjacf fjacfonc ;
+static fjacf fjacfonc;
 
 /** function call **/
 
-void C2F(fjac)(int *neq, double *t, double *y, int *ml, int *mu, double *pd, int *nrpd)
+void C2F(fjac) (int *neq, double *t, double *y, int *ml, int *mu, double *pd, int *nrpd)
 {
-	(*fjacfonc)(neq, t, y, ml, mu, pd, nrpd);
+    (*fjacfonc) (neq, t, y, ml, mu, pd, nrpd);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfjac)(char *name, int *rep)
+void C2F(setfjac) (char *name, int *rep)
 {
-	fjacfonc = (fjacf) GetFunctionByName(name,rep,FTab_fjac);
+    fjacfonc = (fjacf) GetFunctionByName(name, rep, FTab_fjac);
 }

@@ -15,23 +15,28 @@
 /* fake methods for nogui mode */
 /* configure --without-gui */
 /*------------------------------------------------------------------------*/
-void CommandHistoryAppendLine (char * lineToAppend)
+void CommandHistoryAppendLine(char *lineToAppend)
 {
 }
+
 /*------------------------------------------------------------------------*/
-void CommandHistoryLoadFromFile (void)
+void CommandHistoryLoadFromFile(void)
 {
 }
+
 /*------------------------------------------------------------------------*/
-void CommandHistoryInitialize (void)
+void CommandHistoryInitialize(void)
 {
 }
+
 /*------------------------------------------------------------------------*/
 void CommandHistoryReset(void)
 {
 }
+
 /*------------------------------------------------------------------------*/
 void CommandHistoryDeleteLine(int lineNumber)
 {
 }
+
 /*------------------------------------------------------------------------*/

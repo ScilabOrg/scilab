@@ -18,30 +18,29 @@
 ***********************************/
 
 #define ARGS_lsqrsolvf int*,int*,double *,double*,int*
-typedef void (*lsqrsolvff)(ARGS_lsqrsolvf);
+typedef void (*lsqrsolvff) (ARGS_lsqrsolvf);
 
 #define ARGS_lsqrsolvj int*,int*,double*,double*,int*,int*
-typedef void (*lsqrsolvjf)(ARGS_lsqrsolvj);
+typedef void (*lsqrsolvjf) (ARGS_lsqrsolvj);
 
 /**************** lsqrsolvf ***************/
-extern void C2F(lsqrsol1)(ARGS_lsqrsolvf);
-OPTIMIZATION_IMPEXP void C2F(lsqrsolvf)(ARGS_lsqrsolvf);
-OPTIMIZATION_IMPEXP void C2F(setlsqrsolvf)(char *name, int *rep);
+extern void C2F(lsqrsol1) (ARGS_lsqrsolvf);
+OPTIMIZATION_IMPEXP void C2F(lsqrsolvf) (ARGS_lsqrsolvf);
+OPTIMIZATION_IMPEXP void C2F(setlsqrsolvf) (char *name, int *rep);
 
-
-FTAB FTab_lsqrsolvf[] =
-{
-{"lsqrsol1", (voidf)  C2F(lsqrsol1)},
-{(char *) 0, (voidf) 0}
+FTAB FTab_lsqrsolvf[] = {
+    {"lsqrsol1", (voidf) C2F(lsqrsol1)},
+    {(char *)0, (voidf) 0}
 };
-/**************** lsqrsolvj ***************/
-extern void C2F(lsqrsolj1)(ARGS_lsqrsolvj);
-OPTIMIZATION_IMPEXP void C2F(lsqrsolvj)(ARGS_lsqrsolvj);
-OPTIMIZATION_IMPEXP void C2F(setlsqrsolvj)(char *name, int *rep);
 
-FTAB FTab_lsqrsolvj[] ={
-{"lsqrsolj1", (voidf)  C2F(lsqrsolj1)},
-{(char *) 0, (voidf) 0}
+/**************** lsqrsolvj ***************/
+extern void C2F(lsqrsolj1) (ARGS_lsqrsolvj);
+OPTIMIZATION_IMPEXP void C2F(lsqrsolvj) (ARGS_lsqrsolvj);
+OPTIMIZATION_IMPEXP void C2F(setlsqrsolvj) (char *name, int *rep);
+
+FTAB FTab_lsqrsolvj[] = {
+    {"lsqrsolj1", (voidf) C2F(lsqrsolj1)},
+    {(char *)0, (voidf) 0}
 };
 
 /***********************************
@@ -51,36 +50,36 @@ FTAB FTab_lsqrsolvj[] ={
 
 /** the current function fixed by setsolvf **/
 
-static lsqrsolvff lsqrsolvffonc ;
+static lsqrsolvff lsqrsolvffonc;
 
 /** function call : lsqrsolvf  **/
 
-void C2F(lsqrsolvf)(int *m, int *n, double *x, double *fvec, int *iflag)
+void C2F(lsqrsolvf) (int *m, int *n, double *x, double *fvec, int *iflag)
 {
-	(*lsqrsolvffonc)(m,n,x,fvec,iflag);
+    (*lsqrsolvffonc) (m, n, x, fvec, iflag);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setlsqrsolvf)(char *name, int *rep)
+void C2F(setlsqrsolvf) (char *name, int *rep)
 {
-	lsqrsolvffonc = (lsqrsolvff) GetFunctionByName(name,rep,FTab_lsqrsolvf);
+    lsqrsolvffonc = (lsqrsolvff) GetFunctionByName(name, rep, FTab_lsqrsolvf);
 }
 
 /** the current function fixed by setfsolvj **/
 
-static lsqrsolvjf lsqrsolvjfonc ;
+static lsqrsolvjf lsqrsolvjfonc;
 
 /** function call   **/
 
-void C2F(lsqrsolvj)(int *m, int *n, double *x, double *fjac, int *ldfjac, int *iflag)
+void C2F(lsqrsolvj) (int *m, int *n, double *x, double *fjac, int *ldfjac, int *iflag)
 {
-	(*lsqrsolvjfonc)(m,n,x,fjac,ldfjac,iflag);
+    (*lsqrsolvjfonc) (m, n, x, fjac, ldfjac, iflag);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setlsqrsolvj)(char *name, int *rep)
+void C2F(setlsqrsolvj) (char *name, int *rep)
 {
-	lsqrsolvjfonc = (lsqrsolvjf) GetFunctionByName(name,rep,FTab_lsqrsolvj);
+    lsqrsolvjfonc = (lsqrsolvjf) GetFunctionByName(name, rep, FTab_lsqrsolvj);
 }

@@ -12,11 +12,13 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intiserror)();
+extern int C2F(intiserror) ();
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_iserror)(char *fname,unsigned long fname_len)
+int C2F(sci_iserror) (char *fname, unsigned long fname_len)
 {
- 	C2F(intiserror)();
-	return 0;
+    C2F(intiserror) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

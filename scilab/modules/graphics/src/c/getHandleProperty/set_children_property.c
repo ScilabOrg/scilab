@@ -24,9 +24,10 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_children_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_children_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  Scierror(999, _("Children property can not be modified directly.\n"));
-  return SET_PROPERTY_ERROR ;
+    Scierror(999, _("Children property can not be modified directly.\n"));
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

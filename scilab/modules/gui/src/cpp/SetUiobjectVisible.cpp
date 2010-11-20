@@ -15,62 +15,60 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUiobjectVisible(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUiobjectVisible(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  char *status = NULL;
+    char *status = NULL;
 
-  // Label must be only one character string
-  if (valueType == sci_strings)
+    // Label must be only one character string
+    if (valueType == sci_strings)
     {
-      if (nbCol != 1) {
-		  Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
+        if (nbCol != 1)
+        {
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
+
+            return SET_PROPERTY_ERROR;
+        }
+
+        status = getStringFromStack(stackPointer);
+
+        if (stricmp(status, "on") != 0 && stricmp(status, "off") != 0)
+        {
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
+
+            return SET_PROPERTY_ERROR;
+
+        }
+    }
+    else
+    {
+        Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
+
         return SET_PROPERTY_ERROR;
-      }
+    }
 
-      status = getStringFromStack(stackPointer);
-      
-      if (stricmp(status, "on")!=0 && stricmp(status, "off")!=0)
+    // Send the value to Java
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
+    {
+        CallScilabBridge::setWidgetVisible(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex, stricmp(status, "on") == 0);
+        return SET_PROPERTY_SUCCEED;
+    }
+    else if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    {
+        // Send the callback to Java
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrols */
         {
-			Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
+            CallScilabBridge::setFrameVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, stricmp(status, "on") == 0);
+        }
+        else                    /* All other uicontrol styles */
+        {
+            CallScilabBridge::setWidgetVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, stricmp(status, "on") == 0);
+        }
+        return SET_PROPERTY_SUCCEED;
+    }
+    else
+    {
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Visible");
+
         return SET_PROPERTY_ERROR;
-
-        }
-    }
-  else
-    {
-		Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s' or '%s' expected.\n")), "Visible", "on", "off");
-      return SET_PROPERTY_ERROR;
-    }
-  
-  // Send the value to Java
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
-    {
-      CallScilabBridge::setWidgetVisible(getScilabJavaVM(),
-                                          pUIMENU_FEATURE(sciObj)->hashMapIndex,
-                                          stricmp(status, "on")==0);
-      return SET_PROPERTY_SUCCEED;
-    }
-  else if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
-    {
-      // Send the callback to Java
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrols */
-        {
-          CallScilabBridge::setFrameVisible(getScilabJavaVM(),
-                                            pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                            stricmp(status, "on")==0);
-        }
-      else /* All other uicontrol styles */
-        {
-          CallScilabBridge::setWidgetVisible(getScilabJavaVM(),
-                                            pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                            stricmp(status, "on")==0);
-        }
-      return SET_PROPERTY_SUCCEED;
-    }
-  else
-    {
-		Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Visible");
-      return SET_PROPERTY_ERROR;
     }
 }
-

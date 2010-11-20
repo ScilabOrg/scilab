@@ -19,126 +19,128 @@
 #include "Scierror.h"
 #include "cluni0.h"
 /*--------------------------------------------------------------------------*/
-int sci_uigetdir(char *fname,unsigned long l)
+int sci_uigetdir(char *fname, unsigned long l)
 {
-  int fileChooserID = 0;
+    int fileChooserID = 0;
 
-  int nbRow = 0, nbCol = 0;
+    int nbRow = 0, nbCol = 0;
 
+    int voidSelectionAdr = 0;
 
-  int voidSelectionAdr = 0;
+    int titleAdr = 0;
+    int initialDirectoryAdr = 0;
 
-  int titleAdr = 0;
-  int initialDirectoryAdr = 0;
+    char *title = NULL, *initialDirectory = NULL;
 
-  char *title = NULL, *initialDirectory = NULL;
+    CheckRhs(0, 2);
+    CheckLhs(1, 1);
 
-  CheckRhs(0,2);
-  CheckLhs(1,1);
-
-  if (Rhs==1)
+    if (Rhs == 1)
     {
-      if (VarType(1) == sci_strings)
+        if (VarType(1) == sci_strings)
         {
-          GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &initialDirectoryAdr);
-          if (nbCol !=1)
+            GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &initialDirectoryAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname,1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                return FALSE;
             }
-          initialDirectory = cstk(initialDirectoryAdr);
+            initialDirectory = cstk(initialDirectoryAdr);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            return FALSE;
         }
     }
-  else if (Rhs==2)
+    else if (Rhs == 2)
     {
-      /* First argument is initial directory */
-      if (VarType(1) == sci_strings)
+        /* First argument is initial directory */
+        if (VarType(1) == sci_strings)
         {
-          GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &initialDirectoryAdr);
-          if (nbCol !=1)
+            GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &initialDirectoryAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                return FALSE;
             }
-          initialDirectory = cstk(initialDirectoryAdr);
+            initialDirectory = cstk(initialDirectoryAdr);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            return FALSE;
         }
 
-      /* Second argument is title */
-      if (VarType(2) == sci_strings)
+        /* Second argument is title */
+        if (VarType(2) == sci_strings)
         {
-          GetRhsVar(2, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
-          if (nbCol !=1)
+            GetRhsVar(2, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+                return FALSE;
             }
-          title = cstk(titleAdr);
+            title = cstk(titleAdr);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            return FALSE;
         }
     }
 
-  /* Create the Java Object */
-  fileChooserID = createFileChooser();
+    /* Create the Java Object */
+    fileChooserID = createFileChooser();
 
-  /* Set options */
-  if (title != NULL)
+    /* Set options */
+    if (title != NULL)
     {
-      setFileChooserTitle(fileChooserID, title);
+        setFileChooserTitle(fileChooserID, title);
     }
 
-  if (initialDirectory != NULL)
+    if (initialDirectory != NULL)
     {
-		char expandedpath[PATH_MAX+1];
-		int out_n = 0;
-		C2F(cluni0)(initialDirectory ,expandedpath, &out_n,(int)strlen(initialDirectory),PATH_MAX);
-		setFileChooserInitialDirectory(fileChooserID, expandedpath);
+        char expandedpath[PATH_MAX + 1];
+        int out_n = 0;
+
+        C2F(cluni0) (initialDirectory, expandedpath, &out_n, (int)strlen(initialDirectory), PATH_MAX);
+        setFileChooserInitialDirectory(fileChooserID, expandedpath);
     }
 
-  setFileChooserDirectorySelectionOnly(fileChooserID);
+    setFileChooserDirectorySelectionOnly(fileChooserID);
 
-  /* Display it and wait for a user input */
-  fileChooserDisplayAndWait(fileChooserID);
+    /* Display it and wait for a user input */
+    fileChooserDisplayAndWait(fileChooserID);
 
-  /* Read the size of the selection, if 0 then no file selected */
-  nbRow = getFileChooserSelectionSize(fileChooserID);
+    /* Read the size of the selection, if 0 then no file selected */
+    nbRow = getFileChooserSelectionSize(fileChooserID);
 
-  if (nbRow !=0 )
+    if (nbRow != 0)
     {
-	  char **userSelection = NULL;
-      /* The user selected a file --> returns the files names */
-      nbCol = 1;
+        char **userSelection = NULL;
 
-      userSelection = getFileChooserSelection(fileChooserID);
-      CreateVarFromPtr(Rhs+1, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, userSelection);
-      /* TO DO a delete [] userSelection */
+        /* The user selected a file --> returns the files names */
+        nbCol = 1;
+
+        userSelection = getFileChooserSelection(fileChooserID);
+        CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, userSelection);
+        /* TO DO a delete [] userSelection */
 
     }
-  else
+    else
     {
-      /* The user canceled the selection --> returns an empty matrix */
-      nbRow = 0;
-      nbCol = 0;
+        /* The user canceled the selection --> returns an empty matrix */
+        nbRow = 0;
+        nbCol = 0;
 
-      CreateVar(Rhs+1, STRING_DATATYPE, &nbRow, &nbCol, &voidSelectionAdr);
+        CreateVar(Rhs + 1, STRING_DATATYPE, &nbRow, &nbCol, &voidSelectionAdr);
     }
 
-  LhsVar(1)=Rhs+1;
-  C2F(putlhsvar)();
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
 
-  return TRUE;
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

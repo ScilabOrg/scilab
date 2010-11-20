@@ -17,24 +17,26 @@
 /*--------------------------------------------------------------------------*/
 #include "CallScilabBridge.hxx"
 #include "stack-def.h"
-extern "C" {
+extern "C"
+{
 #include "getScilabJavaVM.h"
 #include "stack-def.h"
 }
 
-using namespace  org_scilab_modules_gui_bridge;
+using namespace org_scilab_modules_gui_bridge;
 
 int ConsolePrintf(char *line)
 {
-	JavaVM *vm = getScilabJavaVM();
-	if (vm == NULL) 
-	{ /* Java not yet or badly initialized */
-		printf("%s",line);
-	}
-	else
-	{
-		CallScilabBridge::display(vm, line);
-	}
+    JavaVM *vm = getScilabJavaVM();
 
-	return 0;
+    if (vm == NULL)
+    {                           /* Java not yet or badly initialized */
+        printf("%s", line);
+    }
+    else
+    {
+        CallScilabBridge::display(vm, line);
+    }
+
+    return 0;
 }

@@ -37,6 +37,7 @@
 /*------------------------------------------------------------------------------*/
 static void zoomSubwin(sciPointObj * pSubwin, int posX, int posY, int width, int height);
 static void zoomFigure(sciPointObj * pFigure, int posX, int posY, int width, int height);
+
 /*------------------------------------------------------------------------------*/
 /**
  * Specify new zoom box for a subwin object.
@@ -44,18 +45,19 @@ static void zoomFigure(sciPointObj * pFigure, int posX, int posY, int width, int
  */
 int sciZoom2D(sciPointObj * subwin, const double zoomRect[4])
 {
-  double zoomBox[6];
+    double zoomBox[6];
 
-  // add Z scale to data bounds.
-  sciGetDataBounds(subwin, zoomBox);
-  zoomBox[0] = zoomRect[0];
-  zoomBox[1] = zoomRect[1];
-  zoomBox[2] = zoomRect[2];
-  zoomBox[3] = zoomRect[3];
+    // add Z scale to data bounds.
+    sciGetDataBounds(subwin, zoomBox);
+    zoomBox[0] = zoomRect[0];
+    zoomBox[1] = zoomRect[1];
+    zoomBox[2] = zoomRect[2];
+    zoomBox[3] = zoomRect[3];
 
-  return sciZoom3D(subwin, zoomBox);
+    return sciZoom3D(subwin, zoomBox);
 
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Specify a new zoom box for a subwin object
@@ -63,27 +65,28 @@ int sciZoom2D(sciPointObj * subwin, const double zoomRect[4])
  */
 int sciZoom3D(sciPointObj * subwin, const double zoomBox[6])
 {
-  // convert zoomBox to [xMin, xMax, yMin, yMax, zMin, zMax]
-  double zoomBox3D[6];
-  zoomBox3D[0] = zoomBox[0];
-  zoomBox3D[1] = zoomBox[2];
-  zoomBox3D[2] = zoomBox[1];
-  zoomBox3D[3] = zoomBox[3];
-  zoomBox3D[4] = zoomBox[4];
-  zoomBox3D[5] = zoomBox[5];
+    // convert zoomBox to [xMin, xMax, yMin, yMax, zMin, zMax]
+    double zoomBox3D[6];
 
-  if (!checkDataBounds(subwin, zoomBox3D[0], zoomBox3D[1], zoomBox3D[2],
-                       zoomBox3D[3], zoomBox3D[4], zoomBox3D[5]))
-  {
-    return SET_PROPERTY_ERROR;
-  }
+    zoomBox3D[0] = zoomBox[0];
+    zoomBox3D[1] = zoomBox[2];
+    zoomBox3D[2] = zoomBox[1];
+    zoomBox3D[3] = zoomBox[3];
+    zoomBox3D[4] = zoomBox[4];
+    zoomBox3D[5] = zoomBox[5];
 
-  sciSetZoomBox(subwin, zoomBox3D);
+    if (!checkDataBounds(subwin, zoomBox3D[0], zoomBox3D[1], zoomBox3D[2], zoomBox3D[3], zoomBox3D[4], zoomBox3D[5]))
+    {
+        return SET_PROPERTY_ERROR;
+    }
 
-  sciSetZooming(subwin, TRUE);
+    sciSetZoomBox(subwin, zoomBox3D);
 
-  return SET_PROPERTY_SUCCEED;
+    sciSetZooming(subwin, TRUE);
+
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * get the zoom box to dispplay in Scilab for a sunwin object
@@ -91,130 +94,144 @@ int sciZoom3D(sciPointObj * subwin, const double zoomBox[6])
  */
 void sciGetZoom3D(sciPointObj * pObj, double zoomBox[6])
 {
-  double temp;
+    double temp;
 
-  // here we get [xMin, xMax, yMin, yMax, zMin, zMax]
-  // we need to switch xMax and yMin
-  sciGetZoomBox(pObj, zoomBox);
-  temp = zoomBox[1];
-  zoomBox[1] = zoomBox[2];
-  zoomBox[2] = temp;
+    // here we get [xMin, xMax, yMin, yMax, zMin, zMax]
+    // we need to switch xMax and yMin
+    sciGetZoomBox(pObj, zoomBox);
+    temp = zoomBox[1];
+    zoomBox[1] = zoomBox[2];
+    zoomBox[2] = temp;
 }
+
 /*------------------------------------------------------------------------------*/
 int sciZoomRect(sciPointObj * pObj, const double zoomRect[4])
 {
-  int status = SET_PROPERTY_ERROR;
-  if (sciGetEntityType(pObj) == SCI_FIGURE)
-  {
-    status = sciFigureZoom2D(pObj, zoomRect);
-  }
-  else if (sciGetEntityType(pObj) == SCI_SUBWIN)
-  {
-    status = sciZoom2D(pObj, zoomRect);
-  }
+    int status = SET_PROPERTY_ERROR;
 
-  /* redraw everything */
-  if (status == SET_PROPERTY_SUCCEED)
-  {
-    sciDrawObj(pObj);
-  }
+    if (sciGetEntityType(pObj) == SCI_FIGURE)
+    {
+        status = sciFigureZoom2D(pObj, zoomRect);
+    }
+    else if (sciGetEntityType(pObj) == SCI_SUBWIN)
+    {
+        status = sciZoom2D(pObj, zoomRect);
+    }
 
-  return status;
+    /* redraw everything */
+    if (status == SET_PROPERTY_SUCCEED)
+    {
+        sciDrawObj(pObj);
+    }
+
+    return status;
 }
+
 /*------------------------------------------------------------------------------*/
 int sciDefaultZoom2D(const double zoomRect[4])
 {
-  sciPointObj * curFigure = NULL;
-  startGraphicDataWriting();
-  curFigure = sciGetCurrentFigure();
-  endGraphicDataWriting();
+    sciPointObj *curFigure = NULL;
 
-  return sciZoomRect(curFigure, zoomRect);
+    startGraphicDataWriting();
+    curFigure = sciGetCurrentFigure();
+    endGraphicDataWriting();
+
+    return sciZoomRect(curFigure, zoomRect);
 }
+
 /*------------------------------------------------------------------------------*/
 int sciFigureZoom2D(sciPointObj * figure, const double zoomRect[4])
 {
-  /* try to zoom on all the subwindows */
-  sciSons * pSons = sciGetSons(figure);
-  while (pSons != NULL)
-  {
-    sciPointObj * curObj = pSons->pointobj;
-    if (sciGetEntityType(curObj) == SCI_SUBWIN)
-    {
-      int status = sciZoom2D(curObj, zoomRect);
-      if (status == SET_PROPERTY_SUCCEED)
-      {
-        forceRedraw(curObj);
-      }
-      else
-      {
-        return SET_PROPERTY_ERROR;
-      }
-    }
-    pSons = pSons->pnext;
-  }
+    /* try to zoom on all the subwindows */
+    sciSons *pSons = sciGetSons(figure);
 
-  return SET_PROPERTY_SUCCEED;
+    while (pSons != NULL)
+    {
+        sciPointObj *curObj = pSons->pointobj;
+
+        if (sciGetEntityType(curObj) == SCI_SUBWIN)
+        {
+            int status = sciZoom2D(curObj, zoomRect);
+
+            if (status == SET_PROPERTY_SUCCEED)
+            {
+                forceRedraw(curObj);
+            }
+            else
+            {
+                return SET_PROPERTY_ERROR;
+            }
+        }
+        pSons = pSons->pnext;
+    }
+
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Try to zoom on a single subwindow using a selection area
  */
 static void zoomSubwin(sciPointObj * pSubwin, int posX, int posY, int width, int height)
 {
-  if (sciJavaZoomRect(pSubwin, posX, posY, width, height))
-  {
-    /* subwindow has been zoomed */
-    /* force zooming */
-    sciSetZooming(pSubwin, TRUE);
+    if (sciJavaZoomRect(pSubwin, posX, posY, width, height))
+    {
+        /* subwindow has been zoomed */
+        /* force zooming */
+        sciSetZooming(pSubwin, TRUE);
 
-    // window has changed
-    forceRedraw(pSubwin);
-  }
+        // window has changed
+        forceRedraw(pSubwin);
+    }
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Zoom a figure using an already computed selection area
  */
 static void zoomFigure(sciPointObj * pFigure, int posX, int posY, int width, int height)
 {
-  /* try to zoom on all the subwindows */
-  sciSons * pSons = sciGetSons(pFigure);
-  while (pSons != NULL)
-  {
-    sciPointObj * curObj = pSons->pointobj;
-    if (sciGetEntityType(curObj) == SCI_SUBWIN)
+    /* try to zoom on all the subwindows */
+    sciSons *pSons = sciGetSons(pFigure);
+
+    while (pSons != NULL)
     {
-      zoomSubwin(curObj, posX, posY, width, height);
+        sciPointObj *curObj = pSons->pointobj;
+
+        if (sciGetEntityType(curObj) == SCI_SUBWIN)
+        {
+            zoomSubwin(curObj, posX, posY, width, height);
+        }
+        pSons = pSons->pnext;
     }
-    pSons = pSons->pnext;
-  }
 }
+
 /*------------------------------------------------------------------------------*/
 void sciZoomObject(sciPointObj * pObj, int x1, int y1, int x2, int y2)
 {
-	/* convert found data to [x,y,w,h] */
-  int x = Min(x1, x2);
-  int y = Min(y1, y2);
-  int w = Abs(x1 - x2);
-  int h = Abs(y1 - y2);
+    /* convert found data to [x,y,w,h] */
+    int x = Min(x1, x2);
+    int y = Min(y1, y2);
+    int w = Abs(x1 - x2);
+    int h = Abs(y1 - y2);
 
-	if (w == 0 || h == 0)
-	{
-		/* Zoom is not possible */
-		return;
-	}
+    if (w == 0 || h == 0)
+    {
+        /* Zoom is not possible */
+        return;
+    }
 
-	if (sciGetEntityType(pObj) == SCI_FIGURE)
-	{
-		zoomFigure(pObj, x, y, w, h);
-	}
-	else if (sciGetEntityType(pObj) == SCI_SUBWIN)
-	{
-		zoomSubwin(pObj, x, y, w, h);
-	}
+    if (sciGetEntityType(pObj) == SCI_FIGURE)
+    {
+        zoomFigure(pObj, x, y, w, h);
+    }
+    else if (sciGetEntityType(pObj) == SCI_SUBWIN)
+    {
+        zoomSubwin(pObj, x, y, w, h);
+    }
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Perform an interactive zoom (rectangular selection +  zoom)
@@ -224,133 +241,137 @@ void sciZoomObject(sciPointObj * pObj, int x1, int y1, int x2, int y2)
  */
 void sciInteractiveZoom(sciPointObj * pObj)
 {
-	interactiveZoom(pObj);
+    interactiveZoom(pObj);
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Perform a zoom rect (rectangular selection + zoom) on the current figure
  */
 void sciDefaultInteractiveZoom(void)
 {
-  sciPointObj * curFigure;
+    sciPointObj *curFigure;
 
-  startGraphicDataWriting();
-  curFigure = sciGetCurrentFigure();
-  endGraphicDataWriting();
+    startGraphicDataWriting();
+    curFigure = sciGetCurrentFigure();
+    endGraphicDataWriting();
 
- 
-  /* zoom current figure */
-  interactiveZoom(curFigure);
+    /* zoom current figure */
+    interactiveZoom(curFigure);
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Check if the follawing data bounds can be used as new data bounds for the subwin object
  * @return TRUE if values can be used, false otherwise
  */
-BOOL checkDataBounds(sciPointObj * pObj, double xMin, double xMax,
-                     double yMin, double yMax, double zMin, double zMax)
+BOOL checkDataBounds(sciPointObj * pObj, double xMin, double xMax, double yMin, double yMax, double zMin, double zMax)
 {
-  char logFlags[3];
-  sciGetLogFlags(pObj, logFlags);
+    char logFlags[3];
 
-  /* check if there is not an inf within the values */
-  /* since this has not any meaning */
-  if (    !finite(xMin) || !finite(xMax)
-       || !finite(yMin) || !finite(yMax)
-       || !finite(zMin) || !finite(zMax) )
-  {
-    Scierror(999, "Error : data bounds values must be finite.");
-    return FALSE ;
-  }
+    sciGetLogFlags(pObj, logFlags);
 
+    /* check if there is not an inf within the values */
+    /* since this has not any meaning */
+    if (!finite(xMin) || !finite(xMax) || !finite(yMin) || !finite(yMax) || !finite(zMin) || !finite(zMax))
+    {
+        Scierror(999, "Error : data bounds values must be finite.");
+        return FALSE;
+    }
 
-  /* check if the bounds are corrects */
-  /* allows equality with bounds since it is working */
-  if ( xMin > xMax || yMin > yMax || zMin > zMax )
-  {
-    Scierror(999, "Error : Min and Max values for one axis do not verify Min <= Max.\n");
-    return FALSE ;
-  }
+    /* check if the bounds are corrects */
+    /* allows equality with bounds since it is working */
+    if (xMin > xMax || yMin > yMax || zMin > zMax)
+    {
+        Scierror(999, "Error : Min and Max values for one axis do not verify Min <= Max.\n");
+        return FALSE;
+    }
 
-  /* check for logflags that values are greater than 0 */
-  if (   ( logFlags[0] == 'l' && xMin <= 0.0 )
-      || ( logFlags[1] == 'l' && yMin <= 0.0 )
-      || ( logFlags[2] == 'l' && zMin <= 0.0 ) )
-  {
-    Scierror(999, "Error: Bounds on axis must be strictly positive to use logarithmic mode.\n" ) ;
-    return FALSE ;
-  }
+    /* check for logflags that values are greater than 0 */
+    if ((logFlags[0] == 'l' && xMin <= 0.0) || (logFlags[1] == 'l' && yMin <= 0.0) || (logFlags[2] == 'l' && zMin <= 0.0))
+    {
+        Scierror(999, "Error: Bounds on axis must be strictly positive to use logarithmic mode.\n");
+        return FALSE;
+    }
 
-  return TRUE;
+    return TRUE;
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Unzoom a single subwindow
  */
 void sciUnzoomSubwin(sciPointObj * pSubwin)
 {
-  // We directly do a call to unzoomSubwin instead off path through the java code
-  // See bug 4979
-  // javaUnzoomSubwin(pSubwin);
+    // We directly do a call to unzoomSubwin instead off path through the java code
+    // See bug 4979
+    // javaUnzoomSubwin(pSubwin);
 
-  sciPointObj * parentFigure = sciGetParentFigure(pSubwin);
+    sciPointObj *parentFigure = sciGetParentFigure(pSubwin);
 
-  if( pSubwin == NULL || parentFigure == NULL )
-  {
-    return;
-  }
+    if (pSubwin == NULL || parentFigure == NULL)
+    {
+        return;
+    }
 
-  startFigureDataWriting(parentFigure);
+    startFigureDataWriting(parentFigure);
     unzoomSubwin(pSubwin);
-  endFigureDataWriting(parentFigure);
+    endFigureDataWriting(parentFigure);
 
 }
+
 /*------------------------------------------------------------------------------*/
 void unzoomSubwin(sciPointObj * pSubwin)
 {
-	int currentStatus;
-  currentStatus = sciSetZooming(pSubwin, FALSE);
-  if (currentStatus == 0)
-  {
-    /* redraw only if needed */
-    forceRedraw(pSubwin);
-  }
+    int currentStatus;
+
+    currentStatus = sciSetZooming(pSubwin, FALSE);
+    if (currentStatus == 0)
+    {
+        /* redraw only if needed */
+        forceRedraw(pSubwin);
+    }
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Unzoom all the subwindows contained in a figure
  */
 void sciUnzoomFigure(sciPointObj * figure)
 {
-  /* Copy subwins into the array */ 
-  sciSons * pSons = sciGetSons(figure);
-  while (pSons != NULL)
-  {
-    sciPointObj * curObj = pSons->pointobj;
-    if (sciGetEntityType(curObj) == SCI_SUBWIN)
+    /* Copy subwins into the array */
+    sciSons *pSons = sciGetSons(figure);
+
+    while (pSons != NULL)
     {
-      sciUnzoomSubwin(curObj);
+        sciPointObj *curObj = pSons->pointobj;
+
+        if (sciGetEntityType(curObj) == SCI_SUBWIN)
+        {
+            sciUnzoomSubwin(curObj);
+        }
+        pSons = pSons->pnext;
     }
-    pSons = pSons->pnext;
-  }
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Un zoom all the subwindow of a figure
  */
 void sciUnzoomAll(void)
 {
-  sciPointObj * pFigure = NULL;
+    sciPointObj *pFigure = NULL;
 
-  startGraphicDataWriting();
-  pFigure = sciGetCurrentFigure();
-  endGraphicDataWriting();
+    startGraphicDataWriting();
+    pFigure = sciGetCurrentFigure();
+    endGraphicDataWriting();
 
-  /* unzoom current figure */
-  sciUnzoomFigure(pFigure);
+    /* unzoom current figure */
+    sciUnzoomFigure(pFigure);
 
-  sciDrawObj(pFigure);
+    sciDrawObj(pFigure);
 }
+
 /*------------------------------------------------------------------------------*/
 /**
  * Unzoom a set of subwindows and figures
@@ -358,53 +379,59 @@ void sciUnzoomAll(void)
  */
 void sciUnzoomArray(sciPointObj * zoomedObjects[], int nbObjects)
 {
-  int i;
-  /* list of parent figure to redraw */
-  DoublyLinkedList * redrawnFigures = DoublyLinkedList_new();
-  for (i = 0; i < nbObjects; i++)
-  {
-    sciPointObj * parentFigure = sciGetParentFigure(zoomedObjects[i]);
+    int i;
 
-    if (sciGetEntityType(zoomedObjects[i]) == SCI_FIGURE)
-    {
-      /* Unzoom all subwindows of the figure */
-      sciUnzoomFigure(zoomedObjects[i]);
-    }
-    else if (sciGetEntityType(zoomedObjects[i]) == SCI_SUBWIN)
-    {
-      /* Unzoom only figure */
-      sciUnzoomSubwin(zoomedObjects[i]);
-    }
-    
-    if (List_find(redrawnFigures, parentFigure) == NULL)
-    {
-      /* figure not already added for redraw */
-      redrawnFigures = List_push(redrawnFigures, parentFigure);
-    }
-  }
+    /* list of parent figure to redraw */
+    DoublyLinkedList *redrawnFigures = DoublyLinkedList_new();
 
-  /* redraw only needed figures */
-  while (!List_is_empty(redrawnFigures))
-  {
-    sciPointObj * curFigure = NULL;
-    redrawnFigures = List_pop(redrawnFigures, (void**)&curFigure);
-    sciDrawObj(curFigure);
-  }
+    for (i = 0; i < nbObjects; i++)
+    {
+        sciPointObj *parentFigure = sciGetParentFigure(zoomedObjects[i]);
 
-  List_free(redrawnFigures);
+        if (sciGetEntityType(zoomedObjects[i]) == SCI_FIGURE)
+        {
+            /* Unzoom all subwindows of the figure */
+            sciUnzoomFigure(zoomedObjects[i]);
+        }
+        else if (sciGetEntityType(zoomedObjects[i]) == SCI_SUBWIN)
+        {
+            /* Unzoom only figure */
+            sciUnzoomSubwin(zoomedObjects[i]);
+        }
+
+        if (List_find(redrawnFigures, parentFigure) == NULL)
+        {
+            /* figure not already added for redraw */
+            redrawnFigures = List_push(redrawnFigures, parentFigure);
+        }
+    }
+
+    /* redraw only needed figures */
+    while (!List_is_empty(redrawnFigures))
+    {
+        sciPointObj *curFigure = NULL;
+
+        redrawnFigures = List_pop(redrawnFigures, (void **)&curFigure);
+        sciDrawObj(curFigure);
+    }
+
+    List_free(redrawnFigures);
 }
+
 /*--------------------------------------------------------------------------------*/
 void updateSubwinScale(sciPointObj * pSubwin)
 {
-  sciJavaUpdateSubwinScale(pSubwin);
+    sciJavaUpdateSubwinScale(pSubwin);
 }
+
 /*------------------------------------------------------------------------------*/
 void updateTextBounds(sciPointObj * pText)
 {
-  /* update coordinates transformation if needed */
-  updateSubwinScale(sciGetParentSubwin(pText));
+    /* update coordinates transformation if needed */
+    updateSubwinScale(sciGetParentSubwin(pText));
 
-  /* compute the boundign box of the text */
-  sciJavaUpdateTextBoundingBox(pText);
+    /* compute the boundign box of the text */
+    sciJavaUpdateTextBoundingBox(pText);
 }
+
 /*------------------------------------------------------------------------------*/

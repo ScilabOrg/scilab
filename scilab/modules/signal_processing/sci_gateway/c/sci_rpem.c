@@ -14,11 +14,13 @@
 #include "gw_signal.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scirpem)(char *id,unsigned long fname_len);
+extern int C2F(scirpem) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_rpem)(char *fname,unsigned long fname_len)
+int C2F(sci_rpem) (char *fname, unsigned long fname_len)
 {
-	C2F(scirpem)(fname,fname_len);
-	return 0;
+    C2F(scirpem) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

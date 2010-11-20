@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_type_property( sciPointObj * pobj )
+int get_type_property(sciPointObj * pobj)
 {
-  return sciReturnString( sciGetCharEntityType( pobj ) ) ;
+    return sciReturnString(sciGetCharEntityType(pobj));
 }
+
 /*------------------------------------------------------------------------*/

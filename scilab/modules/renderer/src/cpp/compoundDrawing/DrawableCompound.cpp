@@ -11,27 +11,27 @@
  *
  */
 
-
 #include "DrawableCompound.h"
 
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableCompound::draw( void )
-{
-  if ( !checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  displayChildren();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableCompound::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        displayChildren();
+
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableCompound::show( void )
-{
-  return draw() ;
-}
+    DrawableObject::EDisplayStatus DrawableCompound::show(void)
+    {
+        return draw();
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

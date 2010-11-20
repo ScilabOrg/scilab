@@ -15,200 +15,202 @@
 #include "javasci_SciComplexArray.h"
 #include "api_scilab.h"
 /*--------------------------------------------------------------------------*/
-JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetRealPartElement(JNIEnv *env , jobject obj_this,jint indrarg, jint indcarg);
-JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetImaginaryPartElement(JNIEnv *env , jobject obj_this,jint indrarg, jint indcarg);
+JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetRealPartElement(JNIEnv * env, jobject obj_this, jint indrarg, jint indcarg);
+JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetImaginaryPartElement(JNIEnv * env, jobject obj_this, jint indrarg, jint indcarg);
+
 /*--------------------------------------------------------------------------*/
-JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetRealPartElement(JNIEnv *env , jobject obj_this,jint indrarg, jint indcarg)
+JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetRealPartElement(JNIEnv * env, jobject obj_this, jint indrarg, jint indcarg)
 {
-	SciErr sciErr;
-	double Value = 0.0;
+    SciErr sciErr;
+    double Value = 0.0;
 
-	jclass class_Mine = (*env)->GetObjectClass(env, obj_this);
-	jfieldID id_name =  (*env)->GetFieldID(env, class_Mine, "name","Ljava/lang/String;");
-	jfieldID id_m = (*env)->GetFieldID(env, class_Mine, "m", "I");
-	jfieldID id_n = (*env)->GetFieldID(env, class_Mine, "n", "I");
+    jclass class_Mine = (*env)->GetObjectClass(env, obj_this);
+    jfieldID id_name = (*env)->GetFieldID(env, class_Mine, "name", "Ljava/lang/String;");
+    jfieldID id_m = (*env)->GetFieldID(env, class_Mine, "m", "I");
+    jfieldID id_n = (*env)->GetFieldID(env, class_Mine, "n", "I");
 
-	jstring jname = (jstring) (*env)->GetObjectField(env, obj_this, id_name);
-	jint jm = (*env)->GetIntField(env, obj_this, id_m);
-	jint jn = (*env)->GetIntField(env, obj_this, id_n);
-	const char *cname = (*env)->GetStringUTFChars(env, jname, NULL);
+    jstring jname = (jstring) (*env)->GetObjectField(env, obj_this, id_name);
+    jint jm = (*env)->GetIntField(env, obj_this, id_m);
+    jint jn = (*env)->GetIntField(env, obj_this, id_n);
+    const char *cname = (*env)->GetStringUTFChars(env, jname, NULL);
 
-	jfieldID id_x;
-	jdoubleArray jx;
-	double *cx = NULL;
+    jfieldID id_x;
+    jdoubleArray jx;
+    double *cx = NULL;
 
-	jfieldID id_y;
-	jdoubleArray jy;
-	double *cy = NULL;
+    jfieldID id_y;
+    jdoubleArray jy;
+    double *cy = NULL;
 
-	int dimension[2];
+    int dimension[2];
 
-	int cm = 0, cn = 0;
+    int cm = 0, cn = 0;
 
-	sciErr = getNamedVarDimension(pvApiCtx, (char*)cname, &dimension[0], &dimension[1]);
-	if(sciErr.iErr)
-	{
-		fprintf(stderr,"%s", getErrorMessage(sciErr));
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (1).\n");
-		return Value;
-	}
+    sciErr = getNamedVarDimension(pvApiCtx, (char *)cname, &dimension[0], &dimension[1]);
+    if (sciErr.iErr)
+    {
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (1).\n");
+        return Value;
+    }
 
-	if (dimension[0] != jm)
-	{
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (2).\n");
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    if (dimension[0] != jm)
+    {
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (2).\n");
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	if (dimension[1] != jn)
-	{
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (3).\n");
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    if (dimension[1] != jn)
+    {
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (3).\n");
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	id_x = (*env)->GetFieldID(env, class_Mine, "x", "[D");
-	jx = (*env)->GetObjectField(env, obj_this, id_x);
-	cx = (*env)->GetDoubleArrayElements(env, jx, NULL);
+    id_x = (*env)->GetFieldID(env, class_Mine, "x", "[D");
+    jx = (*env)->GetObjectField(env, obj_this, id_x);
+    cx = (*env)->GetDoubleArrayElements(env, jx, NULL);
 
-	id_y = (*env)->GetFieldID(env, class_Mine, "y", "[D");
-	jy = (*env)->GetObjectField(env, obj_this, id_y);
-	cy = (*env)->GetDoubleArrayElements(env, jy, NULL);
+    id_y = (*env)->GetFieldID(env, class_Mine, "y", "[D");
+    jy = (*env)->GetObjectField(env, obj_this, id_y);
+    cy = (*env)->GetDoubleArrayElements(env, jy, NULL);
 
-	sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, (char*)cname, &cm, &cn, cx, cy);
-	if(sciErr.iErr)
-	{
-		fprintf(stderr,"%s", getErrorMessage(sciErr));
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (4).\n");
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, (char *)cname, &cm, &cn, cx, cy);
+    if (sciErr.iErr)
+    {
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (4).\n");
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	if ( (indrarg <= 0) || (indcarg <= 0) )
-	{
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error with int indr & int indc must be >0.\n");
-		return Value;
-	}
+    if ((indrarg <= 0) || (indcarg <= 0))
+    {
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error with int indr & int indc must be >0.\n");
+        return Value;
+    }
 
-	if ( (indrarg > jm) || (indcarg > jn) )
-	{
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error with int indr & int indc.\n");
-		return Value;
-	}
+    if ((indrarg > jm) || (indcarg > jn))
+    {
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error with int indr & int indc.\n");
+        return Value;
+    }
 
-	Value = cx[(indcarg - 1) * cm + (indrarg - 1)];
+    Value = cx[(indcarg - 1) * cm + (indrarg - 1)];
 
-	(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-	(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-	(*env)->ReleaseStringUTFChars(env, jname , cname);
+    (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+    (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+    (*env)->ReleaseStringUTFChars(env, jname, cname);
 
-	return Value;
+    return Value;
 }
+
 /*--------------------------------------------------------------------------*/
 /*! public native double GetImaginaryPartElement(int indr,int indc); */
-JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetImaginaryPartElement(JNIEnv *env , jobject obj_this,jint indrarg, jint indcarg)
+JNIEXPORT jdouble JNICALL Java_javasci_SciComplexArray_GetImaginaryPartElement(JNIEnv * env, jobject obj_this, jint indrarg, jint indcarg)
 {
-	SciErr sciErr;
-	double Value = 0.0;
+    SciErr sciErr;
+    double Value = 0.0;
 
-	jclass class_Mine = (*env)->GetObjectClass(env, obj_this);
-	jfieldID id_name =  (*env)->GetFieldID(env, class_Mine, "name","Ljava/lang/String;");
-	jfieldID id_m = (*env)->GetFieldID(env, class_Mine, "m", "I");
-	jfieldID id_n = (*env)->GetFieldID(env, class_Mine, "n", "I");
+    jclass class_Mine = (*env)->GetObjectClass(env, obj_this);
+    jfieldID id_name = (*env)->GetFieldID(env, class_Mine, "name", "Ljava/lang/String;");
+    jfieldID id_m = (*env)->GetFieldID(env, class_Mine, "m", "I");
+    jfieldID id_n = (*env)->GetFieldID(env, class_Mine, "n", "I");
 
-	jstring jname = (jstring) (*env)->GetObjectField(env, obj_this, id_name);
-	jint jm = (*env)->GetIntField(env, obj_this, id_m);
-	jint jn = (*env)->GetIntField(env, obj_this, id_n);
-	const char *cname = (*env)->GetStringUTFChars(env, jname, NULL);
+    jstring jname = (jstring) (*env)->GetObjectField(env, obj_this, id_name);
+    jint jm = (*env)->GetIntField(env, obj_this, id_m);
+    jint jn = (*env)->GetIntField(env, obj_this, id_n);
+    const char *cname = (*env)->GetStringUTFChars(env, jname, NULL);
 
-	jfieldID id_x;
-	jdoubleArray jx;
-	double *cx = NULL;
+    jfieldID id_x;
+    jdoubleArray jx;
+    double *cx = NULL;
 
-	jfieldID id_y;
-	jdoubleArray jy;
-	double *cy = NULL;
+    jfieldID id_y;
+    jdoubleArray jy;
+    double *cy = NULL;
 
-	int dimension[2];
+    int dimension[2];
 
-	int cm = 0, cn = 0;
+    int cm = 0, cn = 0;
 
-	sciErr = getNamedVarDimension(pvApiCtx, (char*)cname, &dimension[0], &dimension[1]);
-	if(sciErr.iErr)
-	{
-		fprintf(stderr,"%s", getErrorMessage(sciErr));
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (1).\n");
-		return Value;
-	}
+    sciErr = getNamedVarDimension(pvApiCtx, (char *)cname, &dimension[0], &dimension[1]);
+    if (sciErr.iErr)
+    {
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (1).\n");
+        return Value;
+    }
 
-	if (dimension[0] != jm)
-	{
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (2).\n");
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    if (dimension[0] != jm)
+    {
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (2).\n");
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	if (dimension[1] != jn)
-	{
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (3).\n");
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    if (dimension[1] != jn)
+    {
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (3).\n");
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	id_x = (*env)->GetFieldID(env, class_Mine, "x", "[D");
-	jx = (*env)->GetObjectField(env, obj_this, id_x);
-	cx = (*env)->GetDoubleArrayElements(env, jx, NULL);
+    id_x = (*env)->GetFieldID(env, class_Mine, "x", "[D");
+    jx = (*env)->GetObjectField(env, obj_this, id_x);
+    cx = (*env)->GetDoubleArrayElements(env, jx, NULL);
 
-	id_y = (*env)->GetFieldID(env, class_Mine, "y", "[D");
-	jy = (*env)->GetObjectField(env, obj_this, id_y);
-	cy = (*env)->GetDoubleArrayElements(env, jy, NULL);
+    id_y = (*env)->GetFieldID(env, class_Mine, "y", "[D");
+    jy = (*env)->GetObjectField(env, obj_this, id_y);
+    cy = (*env)->GetDoubleArrayElements(env, jy, NULL);
 
-	sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, (char*)cname, &cm, &cn, cx, cy);
-	if(sciErr.iErr)
-	{
-		fprintf(stderr,"%s", getErrorMessage(sciErr));
-		fprintf(stderr,"Error in Java_javasci_SciComplexArray_GetRealPartElement (4).\n");
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		return Value;
-	}
+    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, (char *)cname, &cm, &cn, cx, cy);
+    if (sciErr.iErr)
+    {
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
+        fprintf(stderr, "Error in Java_javasci_SciComplexArray_GetRealPartElement (4).\n");
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        return Value;
+    }
 
-	if ( (indrarg <= 0) || (indcarg <= 0) )
-	{
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error with int indr & int indc must be >0.\n");
-		return Value;
-	}
+    if ((indrarg <= 0) || (indcarg <= 0))
+    {
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error with int indr & int indc must be >0.\n");
+        return Value;
+    }
 
-	if ( (indrarg > jm) || (indcarg > jn) )
-	{
-		(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-		(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-		(*env)->ReleaseStringUTFChars(env, jname , cname);
-		fprintf(stderr,"Error with int indr & int indc.\n");
-		return Value;
-	}
+    if ((indrarg > jm) || (indcarg > jn))
+    {
+        (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+        (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+        (*env)->ReleaseStringUTFChars(env, jname, cname);
+        fprintf(stderr, "Error with int indr & int indc.\n");
+        return Value;
+    }
 
-	Value = cy[(indcarg - 1) * cm + (indrarg - 1)];
+    Value = cy[(indcarg - 1) * cm + (indrarg - 1)];
 
-	(*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
-	(*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
-	(*env)->ReleaseStringUTFChars(env, jname , cname);
+    (*env)->ReleaseDoubleArrayElements(env, jx, cx, 0);
+    (*env)->ReleaseDoubleArrayElements(env, jy, cy, 0);
+    (*env)->ReleaseStringUTFChars(env, jname, cname);
 
-	return Value;
+    return Value;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

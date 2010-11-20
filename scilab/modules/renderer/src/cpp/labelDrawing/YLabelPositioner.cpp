@@ -23,38 +23,39 @@ extern "C"
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-YLabelPositioner::YLabelPositioner(DrawableLabel * label)
-  : LabelPositioner(label)
-{
-  
-}
+    YLabelPositioner::YLabelPositioner(DrawableLabel * label):LabelPositioner(label)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-YLabelPositioner::~YLabelPositioner(void)
-{
-  
-}
+    YLabelPositioner::~YLabelPositioner(void)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-bool YLabelPositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
-{
-  sciPointObj * parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
-  return getSubwinDrawer(parentSubwin)->getYAxisPosition(axisStart, axisEnd, ticksDir);
-}
+    bool YLabelPositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
+    {
+        sciPointObj *parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
+
+        return getSubwinDrawer(parentSubwin)->getYAxisPosition(axisStart, axisEnd, ticksDir);
+    }
 /*------------------------------------------------------------------------------------------*/
-double YLabelPositioner::getAutoOrientation(void)
-{
-  // special case for 2D, Y labels is drawn vertically insttead of horizontally
-  sciPointObj * parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
-  if (sciGetIs3d(sciGetParentSubwin(parentSubwin)))
-  {
-    // horizontal
-    return 0.0;
-  }
-  else
-  {
-    // vertical
-    return 3.0 * M_PI / 2.0;
-  }
-}
+    double YLabelPositioner::getAutoOrientation(void)
+    {
+        // special case for 2D, Y labels is drawn vertically insttead of horizontally
+        sciPointObj *parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
+
+        if (sciGetIs3d(sciGetParentSubwin(parentSubwin)))
+        {
+            // horizontal
+            return 0.0;
+        }
+        else
+        {
+            // vertical
+            return 3.0 * M_PI / 2.0;
+        }
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

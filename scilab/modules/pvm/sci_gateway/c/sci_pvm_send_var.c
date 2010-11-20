@@ -14,36 +14,38 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_send_var, fin = 25
  ******************************************/
-int sci_pvm_send_var(char *fname,unsigned long fname_len)
+int sci_pvm_send_var(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,mn1,m2,n2,l2,m3,n3,l3,un=1,l4;
-  CheckRhs(3,3);
-  CheckLhs(1,1);
-  /*  checking variable tids */
-  GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-  CheckRow(1,m1,n1);
-  mn1=m1*n1;
-  /*  checking variable buff */
-  GetRhsVar(2,STRING_DATATYPE,&m2,&n2,&l2);
-  /*  checking variable tag */
-  GetRhsVar(3,MATRIX_OF_INTEGER_DATATYPE,&m3,&n3,&l3);
-  CheckScalar(3,m3,n3);
-  /* cross variable size checking */
-  CreateVar(Rhs+4,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l4);/* named: res */
-  C2F(scipvmsendvar)(istk(l1),&n1,cstk(l2),istk(l3),istk(l4));
-  LhsVar(1)= Rhs+4;
+    int m1, n1, l1, mn1, m2, n2, l2, m3, n3, l3, un = 1, l4;
 
-  pvm_error_check(fname,*istk(l4),fname_len);
+    CheckRhs(3, 3);
+    CheckLhs(1, 1);
+    /*  checking variable tids */
+    GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+    CheckRow(1, m1, n1);
+    mn1 = m1 * n1;
+    /*  checking variable buff */
+    GetRhsVar(2, STRING_DATATYPE, &m2, &n2, &l2);
+    /*  checking variable tag */
+    GetRhsVar(3, MATRIX_OF_INTEGER_DATATYPE, &m3, &n3, &l3);
+    CheckScalar(3, m3, n3);
+    /* cross variable size checking */
+    CreateVar(Rhs + 4, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l4);  /* named: res */
+    C2F(scipvmsendvar) (istk(l1), &n1, cstk(l2), istk(l3), istk(l4));
+    LhsVar(1) = Rhs + 4;
 
-  C2F(putlhsvar)();
+    pvm_error_check(fname, *istk(l4), fname_len);
 
-  return 0;
+    C2F(putlhsvar) ();
+
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

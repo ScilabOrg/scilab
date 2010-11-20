@@ -10,9 +10,9 @@
 *
 */
 
-#include "elementary_functions.h" 
-#include "stack-c.h" 
-extern int C2F(dlaset)();
+#include "elementary_functions.h"
+#include "stack-c.h"
+extern int C2F(dlaset) ();
 
 //
 // assembleEigenvectorsSourceToTarget --
@@ -45,46 +45,45 @@ extern int C2F(dlaset)();
 //   But in Scilab, the eigenvectors must be order in a more natural order,
 //   and this is why a conversion must be performed.
 //
-int assembleEigenvectorsSourceToTarget(int iRows, double * eigenvaluesImg, 
-									   double * EVRealSource, 
-									   double * EVRealTarget, double * EVImgTarget)
-{	
+int assembleEigenvectorsSourceToTarget(int iRows, double *eigenvaluesImg, double *EVRealSource, double *EVRealTarget, double *EVImgTarget)
+{
 
-	double ZERO = 0;
-	int i;
-	int ij;
-	int ij1;
-	int j;
+    double ZERO = 0;
+    int i;
+    int ij;
+    int ij1;
+    int j;
 
-	j = 0;
-	while (j<iRows)
-	{
-		if (eigenvaluesImg[j]==ZERO)
-		{
-			for(i = 0 ; i < iRows ; i++)
-			{
-				ij = i + j * iRows;
-				EVRealTarget[ij] = EVRealSource[ij];
-				EVImgTarget[ij] = ZERO;
-			}
-			j = j + 1;
-		}
-		else
-		{
-			for(i = 0 ; i < iRows ; i++)
-			{
-				ij = i + j * iRows;
-				ij1 = i + (j + 1) * iRows;
-				EVRealTarget[ij] = EVRealSource[ij];
-				EVImgTarget[ij] = EVRealSource[ij1];
-				EVRealTarget[ij1] = EVRealSource[ij];
-				EVImgTarget[ij1] = -EVRealSource[ij1];
-			}
-			j = j + 2;
-		}
-	}
-	return 0;
+    j = 0;
+    while (j < iRows)
+    {
+        if (eigenvaluesImg[j] == ZERO)
+        {
+            for (i = 0; i < iRows; i++)
+            {
+                ij = i + j * iRows;
+                EVRealTarget[ij] = EVRealSource[ij];
+                EVImgTarget[ij] = ZERO;
+            }
+            j = j + 1;
+        }
+        else
+        {
+            for (i = 0; i < iRows; i++)
+            {
+                ij = i + j * iRows;
+                ij1 = i + (j + 1) * iRows;
+                EVRealTarget[ij] = EVRealSource[ij];
+                EVImgTarget[ij] = EVRealSource[ij1];
+                EVRealTarget[ij1] = EVRealSource[ij];
+                EVImgTarget[ij1] = -EVRealSource[ij1];
+            }
+            j = j + 2;
+        }
+    }
+    return 0;
 }
+
 //
 // assembleEigenvectorsInPlace --
 //   Assemble conjugated eigenvectors from the real part into real and imaginary parts.
@@ -100,46 +99,47 @@ int assembleEigenvectorsSourceToTarget(int iRows, double * eigenvaluesImg,
 //   EVReal, input/output : real part of the eigenvectors
 //   EVImg, output : imaginary part of the eigenvectors
 //
-int assembleEigenvectorsInPlace(int iRows, double * eigenvaluesImg, 
-								double * EVReal, double * EVImg)
-{	
+int assembleEigenvectorsInPlace(int iRows, double *eigenvaluesImg, double *EVReal, double *EVImg)
+{
 
-	double ZERO = 0;
-	int j;
-	int INCY;
-	int totalsize;
+    double ZERO = 0;
+    int j;
+    int INCY;
+    int totalsize;
 
-	totalsize = iRows * iRows;
+    totalsize = iRows * iRows;
 
-	INCY = 1;
-	C2F(dset)(&totalsize,&ZERO,EVImg,&INCY);
+    INCY = 1;
+    C2F(dset) (&totalsize, &ZERO, EVImg, &INCY);
 
-	j = 0;
-	INCY = 1;
-	while (j<iRows)
-	{
-		if (eigenvaluesImg[j]==ZERO)
-		{
-			j = j + 1;
-		}
-		else
-		{
-			int i;
-			int ij;
-			int ij1;
-			for(i = 0 ; i < iRows ; i++)
-			{
-				ij = i + j * iRows;
-				ij1 = i + (j + 1) * iRows;
-				EVImg[ij]   =   EVReal[ij1];
-				EVImg[ij1]  = - EVReal[ij1];
-				EVReal[ij1] =   EVReal[ij];
-			}
-			j = j + 2;
-		}
-	}
-	return 0;
+    j = 0;
+    INCY = 1;
+    while (j < iRows)
+    {
+        if (eigenvaluesImg[j] == ZERO)
+        {
+            j = j + 1;
+        }
+        else
+        {
+            int i;
+            int ij;
+            int ij1;
+
+            for (i = 0; i < iRows; i++)
+            {
+                ij = i + j * iRows;
+                ij1 = i + (j + 1) * iRows;
+                EVImg[ij] = EVReal[ij1];
+                EVImg[ij1] = -EVReal[ij1];
+                EVReal[ij1] = EVReal[ij];
+            }
+            j = j + 2;
+        }
+    }
+    return 0;
 }
+
 //
 // assembleComplexEigenvaluesFromDoublePointer --
 //   Assemble the source complex eigenvalues array into the target complex eigenvalues diagonal matrix.
@@ -150,26 +150,26 @@ int assembleEigenvectorsInPlace(int iRows, double * eigenvaluesImg,
 //   EVRealTarget, output : the real parts of target eigenvalues matrix, with size iRows x iRows
 //   EVImgTarget, output : the imaginary parts of target eigenvalues matrix, with size iRows x iRows
 //
-int assembleComplexEigenvaluesFromDoublePointer(int iRows, double * EVRealSource, double * EVImgSource, 
-							  double * EVRealTarget, double * EVImgTarget)
+int assembleComplexEigenvaluesFromDoublePointer(int iRows, double *EVRealSource, double *EVImgSource, double *EVRealTarget, double *EVImgTarget)
 {
-	int INCY = 1;
-	int i;
-	int ii;
-	int totalsize;
-	double ZERO = 0;
-	totalsize = iRows * iRows;
+    int INCY = 1;
+    int i;
+    int ii;
+    int totalsize;
+    double ZERO = 0;
 
-	C2F(dset)(&totalsize,&ZERO,EVRealTarget,&INCY);
-	C2F(dset)(&totalsize,&ZERO,EVImgTarget,&INCY);
+    totalsize = iRows * iRows;
 
-	for(i = 0 ; i < iRows ; i++)
-	{
-		ii = i + i * iRows;
-		EVRealTarget[ii] = EVRealSource[i];
-		EVImgTarget[ii] = EVImgSource[i];
-	}
-	return 0;
+    C2F(dset) (&totalsize, &ZERO, EVRealTarget, &INCY);
+    C2F(dset) (&totalsize, &ZERO, EVImgTarget, &INCY);
+
+    for (i = 0; i < iRows; i++)
+    {
+        ii = i + i * iRows;
+        EVRealTarget[ii] = EVRealSource[i];
+        EVImgTarget[ii] = EVImgSource[i];
+    }
+    return 0;
 }
 
 //
@@ -181,25 +181,26 @@ int assembleComplexEigenvaluesFromDoublePointer(int iRows, double * EVRealSource
 //   EVRealTarget, output : the real parts of target eigenvalues matrix, with size iRows x iRows
 //   EVImgTarget, output : the imaginary parts of target eigenvalues matrix, with size iRows x iRows
 //
-int assembleComplexEigenvaluesFromDoubleComplexPointer(int iRows, doublecomplex * EVSource, 
-										 double * EVRealTarget, double * EVImgTarget)
+int assembleComplexEigenvaluesFromDoubleComplexPointer(int iRows, doublecomplex * EVSource, double *EVRealTarget, double *EVImgTarget)
 {
-	// Transfert eigenvalues
-	char UPLO = 'F';
-	double ZERO = 0;
-	int icol;
-	int ii;
-	C2F(dlaset)( &UPLO, &iRows, &iRows, &ZERO, &ZERO, EVRealTarget, &iRows );
-	C2F(dlaset)( &UPLO, &iRows, &iRows, &ZERO, &ZERO, EVImgTarget, &iRows );
-	//     SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA )
-	for(icol = 0 ; icol < iRows ; icol++)
-	{
-		ii = icol+icol * iRows;
-		EVRealTarget[ii] = EVSource[icol].r;
-		EVImgTarget[ii] = EVSource[icol].i;
-	}
-	return 0;
+    // Transfert eigenvalues
+    char UPLO = 'F';
+    double ZERO = 0;
+    int icol;
+    int ii;
+
+    C2F(dlaset) (&UPLO, &iRows, &iRows, &ZERO, &ZERO, EVRealTarget, &iRows);
+    C2F(dlaset) (&UPLO, &iRows, &iRows, &ZERO, &ZERO, EVImgTarget, &iRows);
+    //     SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA )
+    for (icol = 0; icol < iRows; icol++)
+    {
+        ii = icol + icol * iRows;
+        EVRealTarget[ii] = EVSource[icol].r;
+        EVImgTarget[ii] = EVSource[icol].i;
+    }
+    return 0;
 }
+
 //
 // assembleEigenvaluesFromDoublePointer --
 //   Assemble the source real eigenvalues array into the target real eigenvalues diagonal matrix.
@@ -208,19 +209,20 @@ int assembleComplexEigenvaluesFromDoubleComplexPointer(int iRows, doublecomplex 
 //   EVSource, input : the source eigenvalues array, with size iRows
 //   EVTarget, output : the target eigenvalues matrix, with size iRows x iRows
 //
-int assembleEigenvaluesFromDoublePointer(int iRows, double * EVSource, double * EVTarget)
+int assembleEigenvaluesFromDoublePointer(int iRows, double *EVSource, double *EVTarget)
 {
-	int icol = 0;
-	int ii;
-	char UPLO = 'F';
-	double ZERO = 0;
-	C2F(dlaset)( &UPLO, &iRows, &iRows, &ZERO, &ZERO, EVTarget, &iRows );
-	//     SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA )
+    int icol = 0;
+    int ii;
+    char UPLO = 'F';
+    double ZERO = 0;
 
-	for(icol = 0 ; icol < iRows ; icol++)
-	{
-		ii = icol+icol * iRows;
-		EVTarget[ii] = EVSource[icol];
-	}
-	return 0;
+    C2F(dlaset) (&UPLO, &iRows, &iRows, &ZERO, &ZERO, EVTarget, &iRows);
+    //     SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA )
+
+    for (icol = 0; icol < iRows; icol++)
+    {
+        ii = icol + icol * iRows;
+        EVTarget[ii] = EVSource[icol];
+    }
+    return 0;
 }

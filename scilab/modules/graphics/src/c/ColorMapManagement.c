@@ -21,58 +21,64 @@
 #include "MALLOC.h"
 #include "localization.h"
 /*------------------------------------------------------------------------*/
-int LinearScaling2Colormap( sciPointObj * pobj );
+int LinearScaling2Colormap(sciPointObj * pobj);
+
 /*------------------------------------------------------------------------*/
-int LinearScaling2Colormap( sciPointObj * pobj )
+int LinearScaling2Colormap(sciPointObj * pobj)
 {
-  int i;
-  int nbcol =  sciGetNumColors (pobj);	/* the number of the colors inside the current colormap */
-  sciSurface * psurf = pSURFACE_FEATURE (pobj);
+    int i;
+    int nbcol = sciGetNumColors(pobj);  /* the number of the colors inside the current colormap */
+    sciSurface *psurf = pSURFACE_FEATURE(pobj);
 
-  double min,max;
+    double min, max;
 
-  double indexmin = 1.;
-  double indexmax = (double) nbcol;
+    double indexmin = 1.;
+    double indexmax = (double)nbcol;
 
-  int nc = psurf->nc; /* the number of colors contained inside zcol matrix */
+    int nc = psurf->nc;         /* the number of colors contained inside zcol matrix */
 
+    if (psurf->zcol == NULL)
+    {
+        Scierror(999, _("Color matrix is NULL: Can not build color scaled linearly into the current colormap"));
+        return SET_PROPERTY_ERROR;
+    }
 
-  if(psurf->zcol == NULL){
-    Scierror(999, _("Color matrix is NULL: Can not build color scaled linearly into the current colormap"));
-    return SET_PROPERTY_ERROR ;
-  }
+    if (((psurf->color = MALLOC(nc * sizeof(double))) == NULL))
+    {
+        Scierror(999, _("%s: No more memory.\n"), "LinearScaling2Colormap");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if (((psurf->color = MALLOC (nc * sizeof (double))) == NULL)){
-	  Scierror(999, _("%s: No more memory.\n"),"LinearScaling2Colormap");
-	  return SET_PROPERTY_ERROR ;
-  }
+    /* get the min inside zcol */
+    min = psurf->zcol[0];
+    for (i = 0; i < nc; i++)
+        if (min > psurf->zcol[i])
+            min = psurf->zcol[i];
 
-  /* get the min inside zcol */
-  min = psurf->zcol[0];
-  for(i=0;i<nc;i++)
-    if(min > psurf->zcol[i]) min = psurf->zcol[i];
+    /* get the max inside zcol */
+    max = psurf->zcol[0];
+    for (i = 0; i < nc; i++)
+        if (max < psurf->zcol[i])
+            max = psurf->zcol[i];
 
-  /* get the max inside zcol */
-  max = psurf->zcol[0];
-  for(i=0;i<nc;i++)
-    if(max < psurf->zcol[i]) max = psurf->zcol[i];
+    if (min != max)
+    {
+        /* linear interpolation */
+        double A = (indexmin - indexmax) / (min - max);
+        double B = (min * indexmax - indexmin * max) / (min - max);
 
-  if(min != max)
-  {
-    /* linear interpolation */
-    double A = (indexmin-indexmax)/(min-max); 
-    double B = (min*indexmax-indexmin*max)/(min-max);
-    for(i=0;i<nc;i++)
-      psurf->color[i] = A*psurf->zcol[i] + B + 0.1;
-  }
-  else
-  {
-    double C = (indexmin+indexmax)/2;
-    for(i=0;i<nc;i++)
-      psurf->color[i] = C;
-  }
+        for (i = 0; i < nc; i++)
+            psurf->color[i] = A * psurf->zcol[i] + B + 0.1;
+    }
+    else
+    {
+        double C = (indexmin + indexmax) / 2;
 
-  return SET_PROPERTY_SUCCEED ;
+        for (i = 0; i < nc; i++)
+            psurf->color[i] = C;
+    }
+
+    return SET_PROPERTY_SUCCEED;
 }
-/*------------------------------------------------------------------------*/
 
+/*------------------------------------------------------------------------*/

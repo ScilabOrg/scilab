@@ -12,7 +12,6 @@
 
 #include "genconcatcol.h"
 
-
 #define COLCONC(Type) {\
 Type *X1;\
 Type *X2;\
@@ -33,32 +32,36 @@ Type *XR;\
      }\
 }
 
-
-int C2F(genconcatcol)(int *typ,int *x1,int *m1,int *n1,int *x2,int *m2,int *n2,int *xr)
+int C2F(genconcatcol) (int *typ, int *x1, int *m1, int *n1, int *x2, int *m2, int *n2, int *xr)
 {
-static int i, j, i1, i2, ir1, ir2;
-int m;
+    static int i, j, i1, i2, ir1, ir2;
+    int m;
 
-m=(*m1)+(*m2);
-  switch (*typ) {
-  case 1:
-    COLCONC(integer1);
-    break;
-  case 2:
-    COLCONC(integer2);
-    break;
-  case 4:
-    COLCONC(int) ;
-    break;
-  case 11:
-    COLCONC(unsigned char);
-    break;
-  case 12:
-    COLCONC(unsigned short);
-    break;
-  case 14:
-    COLCONC(unsigned int);
-    break;
-  }
-  return 0;
+    m = (*m1) + (*m2);
+    switch (*typ)
+    {
+    case 1:
+        COLCONC(integer1);
+        break;
+    case 2:
+        COLCONC(integer2);
+        break;
+    case 4:
+        COLCONC(int);
+
+        break;
+    case 11:
+        COLCONC(unsigned char);
+
+        break;
+    case 12:
+        COLCONC(unsigned short);
+
+        break;
+    case 14:
+        COLCONC(unsigned int);
+
+        break;
+    }
+    return 0;
 }

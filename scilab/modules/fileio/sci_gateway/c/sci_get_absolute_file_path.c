@@ -26,104 +26,109 @@
 #include "localization.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int sci_get_absolute_file_path(char *fname,unsigned long fname_len)
+int sci_get_absolute_file_path(char *fname, unsigned long fname_len)
 {
-	CheckRhs(1,1);
-	CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	if (GetType(1) != sci_strings)
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: A string.\n"),fname,1);
-		return 0;
-	}
-	else
-	{
-		int n1,m1;
-		char **parametersIN = NULL;
+    if (GetType(1) != sci_strings)
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string.\n"), fname, 1);
+        return 0;
+    }
+    else
+    {
+        int n1, m1;
+        char **parametersIN = NULL;
 
-		GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&parametersIN);
+        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &parametersIN);
 
-		if ( (m1 == 1) && (n1 == 1) )
-		{
-			if ( strcmp(parametersIN[0],"") == 0 ) /* */
-			{
-				Scierror(999,_("%s: Wrong value for input argument: no empty string expected.\n"),fname);
-				freeArrayOfString(parametersIN,m1*n1);
-				return 0;
-			}
-			else
-			{
-				int i = 0;
-				int fdmax = 0;
-				char fileNameFormList[PATH_MAX];
-				char *absolute_file_path = NULL;
-				char *filename = parametersIN[0];
+        if ((m1 == 1) && (n1 == 1))
+        {
+            if (strcmp(parametersIN[0], "") == 0)   /* */
+            {
+                Scierror(999, _("%s: Wrong value for input argument: no empty string expected.\n"), fname);
+                freeArrayOfString(parametersIN, m1 * n1);
+                return 0;
+            }
+            else
+            {
+                int i = 0;
+                int fdmax = 0;
+                char fileNameFormList[PATH_MAX];
+                char *absolute_file_path = NULL;
+                char *filename = parametersIN[0];
 
-				C2F(getfiledesc)(&fdmax);
-				for(i=fdmax-1;i>=0;i--)
-				{
-					FILE fa;
-					int swap2 = 0;
-					int type = 0;
-					int mode = 0;
+                C2F(getfiledesc) (&fdmax);
+                for (i = fdmax - 1; i >= 0; i--)
+                {
+                    FILE fa;
+                    int swap2 = 0;
+                    int type = 0;
+                    int mode = 0;
 
-					int lf = 0;
-					int ierr = 0;
+                    int lf = 0;
+                    int ierr = 0;
 
-					int posBeginFileName = 0;
+                    int posBeginFileName = 0;
 
-					C2F(getfileinfo)(&i, &fa, &swap2,&type,&mode,fileNameFormList,&lf,&ierr);
-					if (ierr == 0)
-					{
-						posBeginFileName = (int)(strlen(fileNameFormList)-strlen(filename));
+                    C2F(getfileinfo) (&i, &fa, &swap2, &type, &mode, fileNameFormList, &lf, &ierr);
+                    if (ierr == 0)
+                    {
+                        posBeginFileName = (int)(strlen(fileNameFormList) - strlen(filename));
 
-						if ( posBeginFileName > 0 )
-						{
-							char *cmptmp = NULL;
-							cmptmp = &fileNameFormList[posBeginFileName];
+                        if (posBeginFileName > 0)
+                        {
+                            char *cmptmp = NULL;
+
+                            cmptmp = &fileNameFormList[posBeginFileName];
 #if _MSC_VER
-							// path on windows are not really case sensitive
-							if ( _stricmp(cmptmp,filename) == 0 )
+                            // path on windows are not really case sensitive
+                            if (_stricmp(cmptmp, filename) == 0)
 #else
-							if ( strcmp(cmptmp,filename) == 0 )
+                            if (strcmp(cmptmp, filename) == 0)
 #endif
-							{	
-								absolute_file_path=(char *)MALLOC(sizeof(char)*(strlen(fileNameFormList)+1));
-								if (absolute_file_path)
-								{
-									strncpy(absolute_file_path,fileNameFormList,posBeginFileName);
-									absolute_file_path[posBeginFileName]='\0';
-									break;
-								}
-							}
-						}
-					}
-				}
+                            {
+                                absolute_file_path = (char *)MALLOC(sizeof(char) * (strlen(fileNameFormList) + 1));
+                                if (absolute_file_path)
+                                {
+                                    strncpy(absolute_file_path, fileNameFormList, posBeginFileName);
+                                    absolute_file_path[posBeginFileName] = '\0';
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
 
-				if (!absolute_file_path) /* file not found in list of files opened by scilab */
-				{
-					Scierror(999,_("%s: The file %s is not opened in scilab.\n"),fname,filename);
-					freeArrayOfString(parametersIN,m1*n1);
-					return 0;
-				}
+                if (!absolute_file_path)    /* file not found in list of files opened by scilab */
+                {
+                    Scierror(999, _("%s: The file %s is not opened in scilab.\n"), fname, filename);
+                    freeArrayOfString(parametersIN, m1 * n1);
+                    return 0;
+                }
 
-				freeArrayOfString(parametersIN,m1*n1);
+                freeArrayOfString(parametersIN, m1 * n1);
 
-				n1=1;
-				CreateVarFromPtr( Rhs+1,STRING_DATATYPE,(m1=(int)strlen(absolute_file_path), &m1),&n1,&absolute_file_path);
-				LhsVar(1)=Rhs+1;
-				C2F(putlhsvar)();
+                n1 = 1;
+                CreateVarFromPtr(Rhs + 1, STRING_DATATYPE, (m1 = (int)strlen(absolute_file_path), &m1), &n1, &absolute_file_path);
+                LhsVar(1) = Rhs + 1;
+                C2F(putlhsvar) ();
 
-				if (absolute_file_path){FREE(absolute_file_path);absolute_file_path=NULL;}
-			}
-		}
-		else
-		{
-			freeArrayOfString(parametersIN,m1*n1);
-			Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"),fname,1);
-		}
-	}
-	return 0;
+                if (absolute_file_path)
+                {
+                    FREE(absolute_file_path);
+                    absolute_file_path = NULL;
+                }
+            }
+        }
+        else
+        {
+            freeArrayOfString(parametersIN, m1 * n1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        }
+    }
+    return 0;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

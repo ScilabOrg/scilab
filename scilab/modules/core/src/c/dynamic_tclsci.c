@@ -21,61 +21,61 @@
 #define TCLSCI_MODULE_NAME "tclsci"
 static DynLibHandle hTclsciLib = NULL;
 static PROC_GATEWAY ptr_gw_tclsci = NULL;
-static char* dynlibname_tclsci = NULL;
-static char* gatewayname_tclsci = NULL;
+static char *dynlibname_tclsci = NULL;
+static char *gatewayname_tclsci = NULL;
+
 /*--------------------------------------------------------------------------*/
 #define SETENVTCL_NAME "setenvtcl"
 typedef int (*PROC_SETENVTCL) (char *, char *);
 static PROC_SETENVTCL ptr_setenvtcl = NULL;
+
 /*--------------------------------------------------------------------------*/
 #define TERMINATETCLTK_NAME "TerminateTclTk"
-typedef BOOL (*PROC_TERMINATETCLTK) (void);
+typedef BOOL(*PROC_TERMINATETCLTK) (void);
 static PROC_TERMINATETCLTK ptr_TerminatTclTk = NULL;
+
 /*--------------------------------------------------------------------------*/
 int gw_dynamic_tclsci(void)
 {
-    return gw_dynamic_generic(TCLSCI_MODULE_NAME,
-        &dynlibname_tclsci,
-        &gatewayname_tclsci,
-        &hTclsciLib,
-        &ptr_gw_tclsci);
+    return gw_dynamic_generic(TCLSCI_MODULE_NAME, &dynlibname_tclsci, &gatewayname_tclsci, &hTclsciLib, &ptr_gw_tclsci);
 }
+
 /*--------------------------------------------------------------------------*/
-int dynamic_setenvtcl(char *string,char *value)
+int dynamic_setenvtcl(char *string, char *value)
 {
     if (hTclsciLib)
     {
         if (ptr_setenvtcl == NULL)
         {
-            ptr_setenvtcl = (PROC_SETENVTCL) GetDynLibFuncPtr(hTclsciLib, 
-                SETENVTCL_NAME);
-            if (ptr_setenvtcl == NULL) return 0;
+            ptr_setenvtcl = (PROC_SETENVTCL) GetDynLibFuncPtr(hTclsciLib, SETENVTCL_NAME);
+            if (ptr_setenvtcl == NULL)
+                return 0;
         }
-        return (ptr_setenvtcl)(string , value);
+        return (ptr_setenvtcl) (string, value);
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL dynamic_TerminateTclTk(void)
 {
     if (hTclsciLib)
     {
         BOOL bResult = FALSE;
+
         if (ptr_TerminatTclTk == NULL)
         {
-            ptr_TerminatTclTk = (PROC_TERMINATETCLTK) GetDynLibFuncPtr(hTclsciLib, 
-                TERMINATETCLTK_NAME);
-            if (ptr_TerminatTclTk == NULL) return FALSE;
+            ptr_TerminatTclTk = (PROC_TERMINATETCLTK) GetDynLibFuncPtr(hTclsciLib, TERMINATETCLTK_NAME);
+            if (ptr_TerminatTclTk == NULL)
+                return FALSE;
         }
-        bResult = (ptr_TerminatTclTk)();
+        bResult = (ptr_TerminatTclTk) ();
 
-        freeDynamicGateway(&dynlibname_tclsci,
-            &gatewayname_tclsci,
-            &hTclsciLib,
-            &ptr_gw_tclsci);
+        freeDynamicGateway(&dynlibname_tclsci, &gatewayname_tclsci, &hTclsciLib, &ptr_gw_tclsci);
 
         return bResult;
     }
     return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/

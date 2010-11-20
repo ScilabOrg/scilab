@@ -25,39 +25,41 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_surface_color_property( sciPointObj * pobj )
+int get_surface_color_property(sciPointObj * pobj)
 {
-  sciSurface * ppSurface = NULL ;
-  if ( sciGetEntityType (pobj) != SCI_SURFACE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"surface_color") ;
-    return -1 ;
-  }
+    sciSurface *ppSurface = NULL;
 
-  ppSurface = pSURFACE_FEATURE (pobj) ;
-
-  if ( ppSurface->typeof3d == SCI_PARAM3D1 )
-  {
-    return sciReturnRowVector( ppSurface->zcol, ppSurface->dimzy ) ;
-  }
-  else if ( ppSurface->typeof3d == SCI_FAC3D)
-  {
-    if ( ppSurface->flagcolor == 2 || ppSurface->flagcolor == 4 )
+    if (sciGetEntityType(pobj) != SCI_SURFACE)
     {
-      return sciReturnRowVector( ppSurface->zcol, ppSurface->dimzy ) ;
-    }
-    else if ( ppSurface->flagcolor == 3 )
-    {
-     return sciReturnMatrix( ppSurface->zcol, ppSurface->dimzx, ppSurface->dimzy ) ;
-    }
-    else
-    {
-     return sciReturnEmptyMatrix() ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "surface_color");
+        return -1;
     }
 
-  }
+    ppSurface = pSURFACE_FEATURE(pobj);
 
-  return -1 ;
+    if (ppSurface->typeof3d == SCI_PARAM3D1)
+    {
+        return sciReturnRowVector(ppSurface->zcol, ppSurface->dimzy);
+    }
+    else if (ppSurface->typeof3d == SCI_FAC3D)
+    {
+        if (ppSurface->flagcolor == 2 || ppSurface->flagcolor == 4)
+        {
+            return sciReturnRowVector(ppSurface->zcol, ppSurface->dimzy);
+        }
+        else if (ppSurface->flagcolor == 3)
+        {
+            return sciReturnMatrix(ppSurface->zcol, ppSurface->dimzx, ppSurface->dimzy);
+        }
+        else
+        {
+            return sciReturnEmptyMatrix();
+        }
+
+    }
+
+    return -1;
 
 }
+
 /*------------------------------------------------------------------------*/

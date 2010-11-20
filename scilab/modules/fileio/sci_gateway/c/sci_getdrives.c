@@ -18,37 +18,40 @@
 #include "getdrives.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int sci_getdrives(char *fname,unsigned long l)
+int sci_getdrives(char *fname, unsigned long l)
 {
-	static int l1=0,n1=0,m1=0;
-	char **Drives=NULL;
-	int nbDrives=0;
-	int i=0;
+    static int l1 = 0, n1 = 0, m1 = 0;
+    char **Drives = NULL;
+    int nbDrives = 0;
+    int i = 0;
 
-	Rhs=Max(Rhs,0);
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    Rhs = Max(Rhs, 0);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	Drives=getdrives(&nbDrives);
+    Drives = getdrives(&nbDrives);
 
-	if (Drives)
-	{
-		m1=1;
-		n1=nbDrives;
-		CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &m1, &n1,Drives);
-	}
-	else
-	{
-		m1=0; n1=0; l1=0;
-		/* returns a [] */
-		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-	}
+    if (Drives)
+    {
+        m1 = 1;
+        n1 = nbDrives;
+        CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, Drives);
+    }
+    else
+    {
+        m1 = 0;
+        n1 = 0;
+        l1 = 0;
+        /* returns a [] */
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+    }
 
-	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
 
-	freeArrayOfString(Drives, nbDrives);
-	nbDrives = 0;
-	return 0;
+    freeArrayOfString(Drives, nbDrives);
+    nbDrives = 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

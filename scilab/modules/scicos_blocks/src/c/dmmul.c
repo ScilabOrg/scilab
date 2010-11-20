@@ -18,8 +18,8 @@
 *
 * See the file ./license.txt
 */
-/*--------------------------------------------------------------------------*/ 
-#include <stdio.h> /* printf */
+/*--------------------------------------------------------------------------*/
+#include <stdio.h>              /* printf */
 #include <string.h>
 #ifdef UNIX
 #include <unistd.h>
@@ -27,19 +27,19 @@
 #endif
 #include "scicos_math.h"
 #include "dynlib_scicos_blocks.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* Table of constant values */
 static double c_b4 = 1.;
 static double c_b5 = 0.;
-/*--------------------------------------------------------------------------*/ 
-static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double *alpha, 
-                      double *a, int *lda, double *b, int *ldb,double *beta, double *c, 
-                      int *ldc);
+
+/*--------------------------------------------------------------------------*/
+static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double *alpha,
+                      double *a, int *lda, double *b, int *ldb, double *beta, double *c, int *ldc);
 static long int dmmulLsame(char *ca, char *cb);
 static int dmmulXerbla(char *srname, int *info);
-/*--------------------------------------------------------------------------*/ 
-SCICOS_BLOCKS_IMPEXP int dmmul(double *a, int *na, double *b, int *nb, double *c__, 
-                               int *nc, int *l, int *m, int *n)
+
+/*--------------------------------------------------------------------------*/
+SCICOS_BLOCKS_IMPEXP int dmmul(double *a, int *na, double *b, int *nb, double *c__, int *nc, int *l, int *m, int *n)
 {
     int a_dim1 = 0, a_offset = 0, b_dim1 = 0, b_offset = 0, c_dim1 = 0, c_offset = 0;
 
@@ -75,24 +75,23 @@ SCICOS_BLOCKS_IMPEXP int dmmul(double *a, int *na, double *b, int *nb, double *c
     b -= b_offset;
 
     /* Function Body */
-    dmmulDgemm("n", "n", l, n, m, &c_b4, &a[a_offset], na, &b[b_offset], nb, &
-        c_b5, &c__[c_offset], nc);
+    dmmulDgemm("n", "n", l, n, m, &c_b4, &a[a_offset], na, &b[b_offset], nb, &c_b5, &c__[c_offset], nc);
     return 0;
-} /* dmmul */
-/*--------------------------------------------------------------------------*/ 
-static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double *alpha, 
-                      double *a, int *lda, double *b, int *ldb,double *beta, double *c, 
-                      int *ldc)
+}                               /* dmmul */
+
+/*--------------------------------------------------------------------------*/
+static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double *alpha,
+                      double *a, int *lda, double *b, int *ldb, double *beta, double *c, int *ldc)
 {
     /* System generated locals */
     int i__1, i__2, i__3;
+
     /* Local variables */
     static int info = 0;
     static long int nota = 0, notb = 0;
     static double temp = 0.;
     static int i = 0, j = 0, l = 0, ncola = 0;
-    static int nrowa = 0, nrowb = 0;  
-
+    static int nrowa = 0, nrowb = 0;
 
     /*     .. Scalar Arguments .. */
     /*     .. Array Arguments .. */
@@ -208,7 +207,6 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
     /*           max( 1, m ). */
     /*           Unchanged on exit. */
 
-
     /*  Level 3 Blas routine. */
 
     /*  -- Written on 8-February-1989. */
@@ -216,7 +214,6 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
     /*     Iain Duff, AERE Harwell. */
     /*     Jeremy Du Croz, Numerical Algorithms Group Ltd. */
     /*     Sven Hammarling, Numerical Algorithms Group Ltd. */
-
 
     /*     .. External Functions .. */
     /*     .. External Subroutines .. */
@@ -236,69 +233,100 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
 
     nota = dmmulLsame(transa, "N");
     notb = dmmulLsame(transb, "N");
-    if (nota) {
+    if (nota)
+    {
         nrowa = *m;
         ncola = *k;
-    } else {
+    }
+    else
+    {
         nrowa = *k;
         ncola = *m;
     }
-    if (notb) {
+    if (notb)
+    {
         nrowb = *k;
-    } else {
+    }
+    else
+    {
         nrowb = *n;
     }
 
     /*     Test the input parameters. */
 
     info = 0;
-    if (! nota && ! dmmulLsame(transa, "C") && ! dmmulLsame(transa, "T")) {
+    if (!nota && !dmmulLsame(transa, "C") && !dmmulLsame(transa, "T"))
+    {
         info = 1;
-    } else if (! notb && ! dmmulLsame(transb, "C") && ! dmmulLsame(transb,"T")) {
+    }
+    else if (!notb && !dmmulLsame(transb, "C") && !dmmulLsame(transb, "T"))
+    {
         info = 2;
-    } else if (*m < 0) {
+    }
+    else if (*m < 0)
+    {
         info = 3;
-    } else if (*n < 0) {
+    }
+    else if (*n < 0)
+    {
         info = 4;
-    } else if (*k < 0) {
+    }
+    else if (*k < 0)
+    {
         info = 5;
-    } else if (*lda < max(1,nrowa)) {
+    }
+    else if (*lda < max(1, nrowa))
+    {
         info = 8;
-    } else if (*ldb < max(1,nrowb)) {
+    }
+    else if (*ldb < max(1, nrowb))
+    {
         info = 10;
-    } else if (*ldc < max(1,*m)) {
+    }
+    else if (*ldc < max(1, *m))
+    {
         info = 13;
     }
-    if (info != 0) {
+    if (info != 0)
+    {
         dmmulXerbla("DGEMM ", &info);
         return 0;
     }
 
     /*     Quick return if possible. */
 
-    if (*m == 0 || *n == 0 || (*alpha == 0. || *k == 0) && *beta == 1.) {
+    if (*m == 0 || *n == 0 || (*alpha == 0. || *k == 0) && *beta == 1.)
+    {
         return 0;
     }
 
     /*     And if  alpha.eq.zero. */
 
-    if (*alpha == 0.) {
-        if (*beta == 0.) {
+    if (*alpha == 0.)
+    {
+        if (*beta == 0.)
+        {
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
+            for (j = 1; j <= *n; ++j)
+            {
                 i__2 = *m;
-                for (i = 1; i <= *m; ++i) {
-                    C(i,j) = 0.;
+                for (i = 1; i <= *m; ++i)
+                {
+                    C(i, j) = 0.;
                     /* L10: */
                 }
                 /* L20: */
             }
-        } else {
+        }
+        else
+        {
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
+            for (j = 1; j <= *n; ++j)
+            {
                 i__2 = *m;
-                for (i = 1; i <= *m; ++i) {
-                    C(i,j) = *beta * C(i,j);
+                for (i = 1; i <= *m; ++i)
+                {
+                    C(i, j) = *beta * C(i, j);
                     /* L30: */
                 }
                 /* L40: */
@@ -309,33 +337,44 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
 
     /*     Start the operations. */
 
-    if (notb) {
-        if (nota) {
+    if (notb)
+    {
+        if (nota)
+        {
 
             /*           Form  C := alpha*A*B + beta*C. */
 
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
-                if (*beta == 0.) {
+            for (j = 1; j <= *n; ++j)
+            {
+                if (*beta == 0.)
+                {
                     i__2 = *m;
-                    for (i = 1; i <= *m; ++i) {
-                        C(i,j) = 0.;
+                    for (i = 1; i <= *m; ++i)
+                    {
+                        C(i, j) = 0.;
                         /* L50: */
                     }
-                } else if (*beta != 1.) {
+                }
+                else if (*beta != 1.)
+                {
                     i__2 = *m;
-                    for (i = 1; i <= *m; ++i) {
-                        C(i,j) = *beta * C(i,j);
+                    for (i = 1; i <= *m; ++i)
+                    {
+                        C(i, j) = *beta * C(i, j);
                         /* L60: */
                     }
                 }
                 i__2 = *k;
-                for (l = 1; l <= *k; ++l) {
-                    if (B(l,j) != 0.) {
-                        temp = *alpha * B(l,j);
+                for (l = 1; l <= *k; ++l)
+                {
+                    if (B(l, j) != 0.)
+                    {
+                        temp = *alpha * B(l, j);
                         i__3 = *m;
-                        for (i = 1; i <= *m; ++i) {
-                            C(i,j) += temp * A(i,l);
+                        for (i = 1; i <= *m; ++i)
+                        {
+                            C(i, j) += temp * A(i, l);
                             /* L70: */
                         }
                     }
@@ -343,57 +382,77 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
                 }
                 /* L90: */
             }
-        } else {
+        }
+        else
+        {
 
             /*           Form  C := alpha*A'*B + beta*C */
 
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
+            for (j = 1; j <= *n; ++j)
+            {
                 i__2 = *m;
-                for (i = 1; i <= *m; ++i) {
+                for (i = 1; i <= *m; ++i)
+                {
                     temp = 0.;
                     i__3 = *k;
-                    for (l = 1; l <= *k; ++l) {
-                        temp += A(l,i) * B(l,j);
+                    for (l = 1; l <= *k; ++l)
+                    {
+                        temp += A(l, i) * B(l, j);
                         /* L100: */
                     }
-                    if (*beta == 0.) {
-                        C(i,j) = *alpha * temp;
-                    } else {
-                        C(i,j) = *alpha * temp + *beta * C(i,j);
+                    if (*beta == 0.)
+                    {
+                        C(i, j) = *alpha * temp;
+                    }
+                    else
+                    {
+                        C(i, j) = *alpha * temp + *beta * C(i, j);
                     }
                     /* L110: */
                 }
                 /* L120: */
             }
         }
-    } else {
-        if (nota) {
+    }
+    else
+    {
+        if (nota)
+        {
 
             /*           Form  C := alpha*A*B' + beta*C */
 
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
-                if (*beta == 0.) {
+            for (j = 1; j <= *n; ++j)
+            {
+                if (*beta == 0.)
+                {
                     i__2 = *m;
-                    for (i = 1; i <= *m; ++i) {
-                        C(i,j) = 0.;
+                    for (i = 1; i <= *m; ++i)
+                    {
+                        C(i, j) = 0.;
                         /* L130: */
                     }
-                } else if (*beta != 1.) {
+                }
+                else if (*beta != 1.)
+                {
                     i__2 = *m;
-                    for (i = 1; i <= *m; ++i) {
-                        C(i,j) = *beta * C(i,j);
+                    for (i = 1; i <= *m; ++i)
+                    {
+                        C(i, j) = *beta * C(i, j);
                         /* L140: */
                     }
                 }
                 i__2 = *k;
-                for (l = 1; l <= *k; ++l) {
-                    if (B(j,l) != 0.) {
-                        temp = *alpha * B(j,l);
+                for (l = 1; l <= *k; ++l)
+                {
+                    if (B(j, l) != 0.)
+                    {
+                        temp = *alpha * B(j, l);
                         i__3 = *m;
-                        for (i = 1; i <= *m; ++i) {
-                            C(i,j) += temp * A(i,l);
+                        for (i = 1; i <= *m; ++i)
+                        {
+                            C(i, j) += temp * A(i, l);
                             /* L150: */
                         }
                     }
@@ -401,24 +460,32 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
                 }
                 /* L170: */
             }
-        } else {
+        }
+        else
+        {
 
             /*           Form  C := alpha*A'*B' + beta*C */
 
             i__1 = *n;
-            for (j = 1; j <= *n; ++j) {
+            for (j = 1; j <= *n; ++j)
+            {
                 i__2 = *m;
-                for (i = 1; i <= *m; ++i) {
+                for (i = 1; i <= *m; ++i)
+                {
                     temp = 0.;
                     i__3 = *k;
-                    for (l = 1; l <= *k; ++l) {
-                        temp += A(l,i) * B(j,l);
+                    for (l = 1; l <= *k; ++l)
+                    {
+                        temp += A(l, i) * B(j, l);
                         /* L180: */
                     }
-                    if (*beta == 0.) {
-                        C(i,j) = *alpha * temp;
-                    } else {
-                        C(i,j) = *alpha * temp + *beta * C(i,j);
+                    if (*beta == 0.)
+                    {
+                        C(i, j) = *alpha * temp;
+                    }
+                    else
+                    {
+                        C(i, j) = *alpha * temp + *beta * C(i, j);
                     }
                     /* L190: */
                 }
@@ -431,8 +498,9 @@ static int dmmulDgemm(char *transa, char *transb, int *m, int *n, int *k, double
 
     /*     End of DGEMM . */
 
-} /* dgemm */
-/*--------------------------------------------------------------------------*/ 
+}                               /* dgemm */
+
+/*--------------------------------------------------------------------------*/
 static long int dmmulLsame(char *ca, char *cb)
 {
     /* System generated locals */
@@ -440,7 +508,6 @@ static long int dmmulLsame(char *ca, char *cb)
 
     /* Local variables */
     static int inta = 0, intb = 0, zcode = 0;
-
 
     /*  -- LAPACK auxiliary routine (version 2.0) -- */
     /*     Univ. of Tennessee, Univ. of California Berkeley, NAG Ltd., */
@@ -474,7 +541,8 @@ static long int dmmulLsame(char *ca, char *cb)
     /*     Test if the characters are equal */
 
     ret_val = *(unsigned char *)ca == *(unsigned char *)cb;
-    if (ret_val) {
+    if (ret_val)
+    {
         return ret_val;
     }
 
@@ -490,41 +558,50 @@ static long int dmmulLsame(char *ca, char *cb)
     inta = *(unsigned char *)ca;
     intb = *(unsigned char *)cb;
 
-    if (zcode == 90 || zcode == 122) {
+    if (zcode == 90 || zcode == 122)
+    {
 
         /*        ASCII is assumed - ZCODE is the ASCII code of either lower or */
         /*        upper case 'Z'. */
 
-        if (inta >= 97 && inta <= 122) {
+        if (inta >= 97 && inta <= 122)
+        {
             inta += -32;
         }
-        if (intb >= 97 && intb <= 122) {
+        if (intb >= 97 && intb <= 122)
+        {
             intb += -32;
         }
 
-    } else if (zcode == 233 || zcode == 169) {
+    }
+    else if (zcode == 233 || zcode == 169)
+    {
 
         /*        EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or */
         /*        upper case 'Z'. */
 
-        if (inta >= 129 && inta <= 137 || inta >= 145 && inta <= 153 || inta 
-            >= 162 && inta <= 169) {
-                inta += 64;
+        if (inta >= 129 && inta <= 137 || inta >= 145 && inta <= 153 || inta >= 162 && inta <= 169)
+        {
+            inta += 64;
         }
-        if (intb >= 129 && intb <= 137 || intb >= 145 && intb <= 153 || intb 
-            >= 162 && intb <= 169) {
-                intb += 64;
+        if (intb >= 129 && intb <= 137 || intb >= 145 && intb <= 153 || intb >= 162 && intb <= 169)
+        {
+            intb += 64;
         }
 
-    } else if (zcode == 218 || zcode == 250) {
+    }
+    else if (zcode == 218 || zcode == 250)
+    {
 
         /*        ASCII is assumed, on Prime machines - ZCODE is the ASCII code */
         /*        plus 128 of either lower or upper case 'Z'. */
 
-        if (inta >= 225 && inta <= 250) {
+        if (inta >= 225 && inta <= 250)
+        {
             inta += -32;
         }
-        if (intb >= 225 && intb <= 250) {
+        if (intb >= 225 && intb <= 250)
+        {
             intb += -32;
         }
     }
@@ -535,8 +612,9 @@ static long int dmmulLsame(char *ca, char *cb)
     /*     End of LSAME */
 
     return ret_val;
-} /* lsame */
-/*--------------------------------------------------------------------------*/ 
+}                               /* lsame */
+
+/*--------------------------------------------------------------------------*/
 static int dmmulXerbla(char *srname, int *info)
 {
 
@@ -570,11 +648,10 @@ static int dmmulXerbla(char *srname, int *info)
 
     /* ===================================================================== */
 
-    printf("** On entry to %6s, parameter number %2i had an illegal value\n",
-        srname, *info);
-
+    printf("** On entry to %6s, parameter number %2i had an illegal value\n", srname, *info);
 
     /*     End of XERBLA */
-    return 0; 
-} /* xerbla */
-/*--------------------------------------------------------------------------*/ 
+    return 0;
+}                               /* xerbla */
+
+/*--------------------------------------------------------------------------*/

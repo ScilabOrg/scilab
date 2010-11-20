@@ -15,12 +15,15 @@
 #include "stack-c.h"
 #include "gw_polynomials.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsimpmd)(int *id);
+extern int C2F(intsimpmd) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_simp_mode(char *fname,unsigned long fname_len)
+int sci_simp_mode(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intsimpmd)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intsimpmd) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

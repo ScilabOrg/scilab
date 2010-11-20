@@ -23,44 +23,44 @@
 #include "getPropertyAssignedValue.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_is_handle_valid(char *fname,unsigned long fname_len)
+int sci_is_handle_valid(char *fname, unsigned long fname_len)
 {
-  
-  /* Call isValid = is_handle_valid(h) with h a matrix of handle */
-  /* and isValid a matrix of boolean */
 
-  int nbCol;
-  int nbRow;
-  int nbHandle;
-  int handleStackPointer;
-  int resultStackPointer;
-  int i;
+    /* Call isValid = is_handle_valid(h) with h a matrix of handle */
+    /* and isValid a matrix of boolean */
 
-  CheckRhs(1,1);
-  CheckLhs(0,1);
+    int nbCol;
+    int nbRow;
+    int nbHandle;
+    int handleStackPointer;
+    int resultStackPointer;
+    int i;
 
-  /* Get handles matrix */
-  if (VarType(1) != sci_handles)
-  {
-    Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of handle expected.\n"), fname,1);
-    return  -1;
-  }
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-  GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleStackPointer);
-  nbHandle = nbRow * nbCol;
+    /* Get handles matrix */
+    if (VarType(1) != sci_handles)
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of handle expected.\n"), fname, 1);
+        return -1;
+    }
 
-  /* create output matrix */
-  CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &nbRow, &nbCol, &resultStackPointer)
-  
-  /* Check each handle */
-  for (i = 0; i < nbHandle; i++)
-  {
-    *istk(resultStackPointer + i) = (int) isHandleValid(getHandleFromStack(handleStackPointer + i));
-  }
+    GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleStackPointer);
+    nbHandle = nbRow * nbCol;
 
-  LhsVar(1) = Rhs + 1;
-  C2F(putlhsvar)();
+    /* create output matrix */
+    CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &nbRow, &nbCol, &resultStackPointer)
+        /* Check each handle */
+        for (i = 0; i < nbHandle; i++)
+    {
+        *istk(resultStackPointer + i) = (int)isHandleValid(getHandleFromStack(handleStackPointer + i));
+    }
 
-  return 0;
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

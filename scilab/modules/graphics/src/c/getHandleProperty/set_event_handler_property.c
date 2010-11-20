@@ -26,22 +26,23 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_event_handler_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_event_handler_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "event_handler");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "event_handler");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType( pobj ) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"event_handler");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "event_handler");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetNoRedrawStatus((SetPropertyStatus) sciSetEventHandler( pobj, getStringFromStack( stackPointer ) )) ;
+    return sciSetNoRedrawStatus((SetPropertyStatus) sciSetEventHandler(pobj, getStringFromStack(stackPointer)));
 
 }
+
 /*------------------------------------------------------------------------*/

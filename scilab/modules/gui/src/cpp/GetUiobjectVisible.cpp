@@ -19,49 +19,49 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUiobjectVisible(sciPointObj* sciObj)
+int GetUiobjectVisible(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-      if (CallScilabBridge::isWidgetVisible(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex))
+        if (CallScilabBridge::isWidgetVisible(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex))
         {
-          return sciReturnString(strdup("on"));
+            return sciReturnString(strdup("on"));
         }
-      else
+        else
         {
-          return sciReturnString(strdup("off"));
+            return sciReturnString(strdup("off"));
         }
     }
-  else if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    else if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)
         {
-          if (CallScilabBridge::isFrameVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
+            if (CallScilabBridge::isFrameVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
             {
-              return sciReturnString(strdup("on"));
+                return sciReturnString(strdup("on"));
             }
-          else
+            else
             {
-              return sciReturnString(strdup("off"));
+                return sciReturnString(strdup("off"));
             }
         }
-      else
+        else
         {
-          if (CallScilabBridge::isWidgetVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
+            if (CallScilabBridge::isWidgetVisible(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
             {
-              return sciReturnString(strdup("on"));
+                return sciReturnString(strdup("on"));
             }
-          else
+            else
             {
-              return sciReturnString(strdup("off"));
+                return sciReturnString(strdup("off"));
             }
         }
 
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Visible");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Visible");
+
+        return FALSE;
     }
 }
-

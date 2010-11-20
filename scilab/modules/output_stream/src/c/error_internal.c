@@ -20,14 +20,14 @@
 #include "errmsg.h"
 #include "errmds.h"
 #include "lasterror.h"
-/*--------------------------------------------------------------------------*/ 
-extern int C2F(errloc)(int *n); /* fortran */
-extern int C2F(errmgr)(); /* fortran */
-extern int C2F(errcontext)(); /* fortran */
-extern int C2F(whatln)(int *lpt1,int *lpt2,int *lpt6,int *nct,int *idebut,int *ifin); /* fortran */
+/*--------------------------------------------------------------------------*/
+extern int C2F(errloc) (int *n);    /* fortran */
+extern int C2F(errmgr) ();      /* fortran */
+extern int C2F(errcontext) ();  /* fortran */
+extern int C2F(whatln) (int *lpt1, int *lpt2, int *lpt6, int *nct, int *idebut, int *ifin); /* fortran */
 
-/*--------------------------------------------------------------------------*/ 
-int error_internal(int *n,char *buffer,int mode)
+/*--------------------------------------------------------------------------*/
+int error_internal(int *n, char *buffer, int mode)
 {
     int num = 0;
     int lct1 = 0;
@@ -36,7 +36,7 @@ int error_internal(int *n,char *buffer,int mode)
     int errtyp = 0;
 
     /* extract error modes out of errct variable */
-    C2F(errmds)(&num, &imess, &imode);
+    C2F(errmds) (&num, &imess, &imode);
 
     /* de-activate output control */
     lct1 = C2F(iop).lct[0];
@@ -45,13 +45,14 @@ int error_internal(int *n,char *buffer,int mode)
     /* errors are recoverable */
     errtyp = 0;
 
-    if (C2F(errgst).err1 == 0) 
+    if (C2F(errgst).err1 == 0)
     {
-        BOOL trace = ! ((num < 0 || num == *n) && imess != 0);
+        BOOL trace = !((num < 0 || num == *n) && imess != 0);
+
         /* locate the error in the current statement */
-        if (trace) 
+        if (trace)
         {
-            C2F(errloc)(n);
+            C2F(errloc) (n);
         }
         else
         {
@@ -59,8 +60,9 @@ int error_internal(int *n,char *buffer,int mode)
             int nlc = 0;
             int l1 = 0;
             int ifin = 0;
-            C2F(whatln)(C2F(iop).lpt,C2F(iop).lpt+1,C2F(iop).lpt+5,&nlc,&l1,&ifin);
-            C2F(iop).lct[7] = C2F(iop).lct[7]-nlc;
+
+            C2F(whatln) (C2F(iop).lpt, C2F(iop).lpt + 1, C2F(iop).lpt + 5, &nlc, &l1, &ifin);
+            C2F(iop).lct[7] = C2F(iop).lct[7] - nlc;
             /* disable error display */
             C2F(iop).lct[0] = -1;
         }
@@ -68,11 +70,11 @@ int error_internal(int *n,char *buffer,int mode)
         if (mode == ERROR_FROM_FORTRAN)
         {
             /* output and store error message */
-            C2F(errmsg)(n, &errtyp);
+            C2F(errmsg) (n, &errtyp);
         }
-        else /* ERROR_FROM_C */
+        else                    /* ERROR_FROM_C */
         {
-            int len = (int) strlen(buffer);
+            int len = (int)strlen(buffer);
 
             /* free message table */
             clearLastError();
@@ -81,20 +83,22 @@ int error_internal(int *n,char *buffer,int mode)
             setLastErrorValue(*n);
 
             /* store message */
-            C2F(msgstore)(buffer,&len);
+            C2F(msgstore) (buffer, &len);
 
             /* display error */
-            if (C2F(iop).lct[0] != -1) sciprint(buffer);
+            if (C2F(iop).lct[0] != -1)
+                sciprint(buffer);
         }
         C2F(iop).lct[0] = 0;
     }
-    C2F(errcontext)(); 
+    C2F(errcontext) ();
     /* handle the error */
-    C2F(errmgr)(n, &errtyp);
+    C2F(errmgr) (n, &errtyp);
 
     /* re-activate output control */
     C2F(iop).lct[0] = lct1;
 
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

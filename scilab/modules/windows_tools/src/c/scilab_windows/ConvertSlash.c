@@ -17,47 +17,54 @@
 #define UNIX_SEPATATOR '/'
 #define WINDOWS_SEPATATOR '\\'
 /*--------------------------------------------------------------------------*/
-static BOOL convertSlash(char *path_in,char *path_out,BOOL slashToAntislash);
-/*--------------------------------------------------------------------------*/
-SCILAB_WINDOWS_IMPEXP BOOL slashToAntislash(char *pathunix,char *pathwindows)
-{
-	return convertSlash(pathunix,pathwindows,TRUE);
-}
-/*--------------------------------------------------------------------------*/
-SCILAB_WINDOWS_IMPEXP BOOL AntislashToSlash(char *pathwindows,char *pathunix)
-{
-	return convertSlash(pathwindows,pathunix,FALSE);
-}
-/*--------------------------------------------------------------------------*/
-static BOOL convertSlash(char *path_in,char *path_out,BOOL slashToAntislash)
-{
-	BOOL bOK = FALSE;
-	if ( (path_in) && (path_out) )
-	{
-		int i=0;
-		strcpy(path_out,path_in);
-		for (i=0;i<(int)strlen(path_out);i++)
-		{
-			if ( slashToAntislash )
-			{
-				if (path_in[i] == UNIX_SEPATATOR) 
-				{
-					path_out[i] = WINDOWS_SEPATATOR;
-					bOK = TRUE;
-				}
-			}
-			else
-			{
-				if (path_in[i] == WINDOWS_SEPATATOR) 
-				{
-					path_out[i] = UNIX_SEPATATOR;
-					bOK = TRUE;
-				}
-			}
-		}
-	}
-	else bOK = FALSE;
+static BOOL convertSlash(char *path_in, char *path_out, BOOL slashToAntislash);
 
-	return bOK;
+/*--------------------------------------------------------------------------*/
+SCILAB_WINDOWS_IMPEXP BOOL slashToAntislash(char *pathunix, char *pathwindows)
+{
+    return convertSlash(pathunix, pathwindows, TRUE);
 }
+
+/*--------------------------------------------------------------------------*/
+SCILAB_WINDOWS_IMPEXP BOOL AntislashToSlash(char *pathwindows, char *pathunix)
+{
+    return convertSlash(pathwindows, pathunix, FALSE);
+}
+
+/*--------------------------------------------------------------------------*/
+static BOOL convertSlash(char *path_in, char *path_out, BOOL slashToAntislash)
+{
+    BOOL bOK = FALSE;
+
+    if ((path_in) && (path_out))
+    {
+        int i = 0;
+
+        strcpy(path_out, path_in);
+        for (i = 0; i < (int)strlen(path_out); i++)
+        {
+            if (slashToAntislash)
+            {
+                if (path_in[i] == UNIX_SEPATATOR)
+                {
+                    path_out[i] = WINDOWS_SEPATATOR;
+                    bOK = TRUE;
+                }
+            }
+            else
+            {
+                if (path_in[i] == WINDOWS_SEPATATOR)
+                {
+                    path_out[i] = UNIX_SEPATATOR;
+                    bOK = TRUE;
+                }
+            }
+        }
+    }
+    else
+        bOK = FALSE;
+
+    return bOK;
+}
+
 /*--------------------------------------------------------------------------*/

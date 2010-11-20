@@ -18,11 +18,11 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_errclear)(char *fname,unsigned long fname_len)
+int C2F(sci_errclear) (char *fname, unsigned long fname_len)
 {
-    Rhs = Max(0,Rhs);
-    CheckRhs(0,2);
-    CheckLhs(1,1);
+    Rhs = Max(0, Rhs);
+    CheckRhs(0, 2);
+    CheckLhs(1, 1);
 
     if (Rhs == 1)
     {
@@ -30,7 +30,7 @@ int C2F(sci_errclear)(char *fname,unsigned long fname_len)
         int *piAddressVarOne = NULL;
 
         sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return 0;
@@ -44,31 +44,31 @@ int C2F(sci_errclear)(char *fname,unsigned long fname_len)
 
             if (!isScalar(pvApiCtx, piAddressVarOne))
             {
-                Scierror(999,_("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
                 return 0;
             }
 
-             getScalarDouble(pvApiCtx, piAddressVarOne, &dValue);
-             iValue = (int)dValue;
+            getScalarDouble(pvApiCtx, piAddressVarOne, &dValue);
+            iValue = (int)dValue;
 
-             if ((double)iValue != dValue)
-             {
-                 Scierror(999,_("%s: Wrong value for input argument #%d: A integer value expected.\n"), fname, 1);
-                 return 0;
-             }
+            if ((double)iValue != dValue)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: A integer value expected.\n"), fname, 1);
+                return 0;
+            }
 
-             if ((iValue == iLastErrorValue) || (iValue <= 0))
-             {
+            if ((iValue == iLastErrorValue) || (iValue <= 0))
+            {
                 /* clear fortran common error */
                 C2F(errgst).err2 = 0;
 
                 /* clear last error buffer (C) */
                 clearLastError();
-             }
+            }
         }
         else
         {
-            Scierror(999,_("%s: Wrong type for input argument #%d: An integer value expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: An integer value expected.\n"), fname, 1);
             return 0;
         }
     }
@@ -81,7 +81,8 @@ int C2F(sci_errclear)(char *fname,unsigned long fname_len)
         clearLastError();
     }
     LhsVar(1) = 0;
-    C2F(putlhsvar)();
-	return 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

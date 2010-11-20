@@ -12,23 +12,26 @@
  */
 
 #include "do_error_number.h"
-#include "MALLOC.h" /* NULL*/
+#include "MALLOC.h"             /* NULL */
 #include "error_internal.h"
 #include "msgstore.h"
 #include "lasterror.h"
-/*--------------------------------------------------------------------------*/ 
-int C2F(error)(int *n)
+/*--------------------------------------------------------------------------*/
+int C2F(error) (int *n)
 {
-    return error_internal(n,NULL,ERROR_FROM_FORTRAN);
-} 
-/*--------------------------------------------------------------------------*/ 
+    return error_internal(n, NULL, ERROR_FROM_FORTRAN);
+}
+
+/*--------------------------------------------------------------------------*/
 void SciError(int n)
 {
-    C2F(error)(&n);
+    C2F(error) (&n);
 }
+
 /*--------------------------------------------------------------------------*/
 void SciStoreError(int n)
 {
     setLastErrorValue(n);
 }
+
 /*--------------------------------------------------------------------------*/

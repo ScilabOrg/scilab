@@ -25,21 +25,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_handle_visible_property( sciPointObj * pobj )
+int get_handle_visible_property(sciPointObj * pobj)
 {
-  if (sciGetEntityType (pobj) != SCI_UIMENU)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"handle_visible");
-    return -1;
-  }
-  if ( GetHandleVisibilityOnUimenu( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else 
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetEntityType(pobj) != SCI_UIMENU)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "handle_visible");
+        return -1;
+    }
+    if (GetHandleVisibilityOnUimenu(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

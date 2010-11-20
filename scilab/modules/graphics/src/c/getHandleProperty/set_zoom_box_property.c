@@ -28,39 +28,40 @@
 #include "axesScale.h"
 
 /*------------------------------------------------------------------------*/
-int set_zoom_box_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_zoom_box_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "zoom_box");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "zoom_box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"zoom_box") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "zoom_box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  /* We must have a 4x1 matrix */
-  if ( nbRow * nbCol == 6 )
-  {
-    return sciZoom3D(pobj, getDoubleMatrixFromStack(stackPointer));
-  }
-  else if( nbRow * nbCol == 4)
-  {
-    return sciZoom2D(pobj, getDoubleMatrixFromStack(stackPointer));
-  }
-  else if ( nbCol * nbRow == 0 )
-  {
-    sciUnzoomSubwin(pobj);
-  }
-  else
-  {
-    Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "zoom_box", "0x0, 2x2, 2x3");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_SUCCEED ;
+    /* We must have a 4x1 matrix */
+    if (nbRow * nbCol == 6)
+    {
+        return sciZoom3D(pobj, getDoubleMatrixFromStack(stackPointer));
+    }
+    else if (nbRow * nbCol == 4)
+    {
+        return sciZoom2D(pobj, getDoubleMatrixFromStack(stackPointer));
+    }
+    else if (nbCol * nbRow == 0)
+    {
+        sciUnzoomSubwin(pobj);
+    }
+    else
+    {
+        Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "zoom_box", "0x0, 2x2, 2x3");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

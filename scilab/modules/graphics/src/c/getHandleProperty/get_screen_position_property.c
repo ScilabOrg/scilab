@@ -24,8 +24,9 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_screen_position_property( sciPointObj * pobj )
+int get_screen_position_property(sciPointObj * pobj)
 {
-	return get_figure_position_property(pobj);
+    return get_figure_position_property(pobj);
 }
+
 /*------------------------------------------------------------------------*/

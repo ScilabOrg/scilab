@@ -17,41 +17,45 @@
 #include "api_scilab.h"
 #include "lasterror.h"
 
-BOOL isComplexVar(char *variableName) {
+BOOL isComplexVar(char *variableName)
+{
     int iComplex = isNamedVarComplex(pvApiCtx, variableName);
 
-    return iComplex != 0; /* 0 = not complex */
+    return iComplex != 0;       /* 0 = not complex */
 }
 
-sci_int_types getIntegerPrecision(char* variableName) {
+sci_int_types getIntegerPrecision(char *variableName)
+{
     SciErr sciErr;
 
     int iPrec;
 
     sciErr = getNamedMatrixOfIntegerPrecision(pvApiCtx, variableName, &iPrec);
-    if(sciErr.iErr)
-        {
-            printError(&sciErr, 0);
-            return sciErr.iErr;
-        }
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return sciErr.iErr;
+    }
     return iPrec;
 }
 
-double * getDouble(char* variableName, int *nbRow, int *nbCol) {
+double *getDouble(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    double * matrixOfDouble = NULL;
-    sciErr = readNamedMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    double *matrixOfDouble = NULL;
+
+    sciErr = readNamedMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfDouble=(double*)malloc(((*nbRow)*(*nbCol))*sizeof(double));
+    matrixOfDouble = (double *)malloc(((*nbRow) * (*nbCol)) * sizeof(double));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, matrixOfDouble);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -60,11 +64,12 @@ double * getDouble(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putDouble(char* variableName, double *variable, int nbRow, int nbCol) {
+int putDouble(char *variableName, double *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
-    sciErr = createNamedMatrixOfDouble(pvApiCtx,variableName,nbRow,nbCol, variable);
-    if(sciErr.iErr)
+
+    sciErr = createNamedMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, variable);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -72,24 +77,25 @@ int putDouble(char* variableName, double *variable, int nbRow, int nbCol) {
     return 0;
 }
 
-
-double * getDoubleComplexReal(char* variableName, int *nbRow, int *nbCol) {
+double *getDoubleComplexReal(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    double * matrixOfDoubleComplexReal = NULL;
-    double * matrixOfDoubleComplexImg = NULL;
-    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol , NULL, NULL);
-    if(sciErr.iErr)
+    double *matrixOfDoubleComplexReal = NULL;
+    double *matrixOfDoubleComplexImg = NULL;
+
+    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, NULL, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfDoubleComplexReal=(double*)malloc(((*nbRow)*(*nbCol))*sizeof(double));
-    matrixOfDoubleComplexImg=(double*)malloc(((*nbRow)*(*nbCol))*sizeof(double));
+    matrixOfDoubleComplexReal = (double *)malloc(((*nbRow) * (*nbCol)) * sizeof(double));
+    matrixOfDoubleComplexImg = (double *)malloc(((*nbRow) * (*nbCol)) * sizeof(double));
 
     /* Load the matrix */
     sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, matrixOfDoubleComplexReal, matrixOfDoubleComplexImg);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -97,23 +103,25 @@ double * getDoubleComplexReal(char* variableName, int *nbRow, int *nbCol) {
     return matrixOfDoubleComplexReal;
 }
 
-double * getDoubleComplexImg(char* variableName, int *nbRow, int *nbCol) {
+double *getDoubleComplexImg(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    double * matrixOfDoubleComplexReal = NULL;
-    double * matrixOfDoubleComplexImg = NULL;
-    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol , NULL, NULL);
-    if(sciErr.iErr)
+    double *matrixOfDoubleComplexReal = NULL;
+    double *matrixOfDoubleComplexImg = NULL;
+
+    sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, NULL, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfDoubleComplexReal=(double*)malloc(((*nbRow)*(*nbCol))*sizeof(double));
-    matrixOfDoubleComplexImg=(double*)malloc(((*nbRow)*(*nbCol))*sizeof(double));
+    matrixOfDoubleComplexReal = (double *)malloc(((*nbRow) * (*nbCol)) * sizeof(double));
+    matrixOfDoubleComplexImg = (double *)malloc(((*nbRow) * (*nbCol)) * sizeof(double));
 
     /* Load the matrix */
     sciErr = readNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, matrixOfDoubleComplexReal, matrixOfDoubleComplexImg);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -122,11 +130,13 @@ double * getDoubleComplexImg(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-int putDoubleComplex(char* variableName, double *variable, int nbRow, int nbCol) {
+int putDoubleComplex(char *variableName, double *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
-    double *variableImg=variable+((nbRow)*(nbCol));
-    sciErr = createNamedComplexMatrixOfDouble(pvApiCtx,variableName,nbRow,nbCol, variable, variableImg);
-    if(sciErr.iErr)
+    double *variableImg = variable + ((nbRow) * (nbCol));
+
+    sciErr = createNamedComplexMatrixOfDouble(pvApiCtx, variableName, nbRow, nbCol, variable, variableImg);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -134,23 +144,24 @@ int putDoubleComplex(char* variableName, double *variable, int nbRow, int nbCol)
     return 0;
 }
 
-
-BOOL * getBoolean(char* variableName, int *nbRow, int *nbCol) {
+BOOL *getBoolean(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    BOOL * matrixOfBoolean = NULL;
-    sciErr = readNamedMatrixOfBoolean(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    BOOL *matrixOfBoolean = NULL;
+
+    sciErr = readNamedMatrixOfBoolean(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfBoolean=(BOOL*)malloc(((*nbRow)*(*nbCol))*sizeof(BOOL));
+    matrixOfBoolean = (BOOL *) malloc(((*nbRow) * (*nbCol)) * sizeof(BOOL));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfBoolean(pvApiCtx, variableName, nbRow, nbCol, matrixOfBoolean);
 
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -159,38 +170,38 @@ BOOL * getBoolean(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putBoolean(char* variableName, BOOL *variable, int nbRow, int nbCol) {
+int putBoolean(char *variableName, BOOL * variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
-    sciErr = createNamedMatrixOfBoolean(pvApiCtx,variableName,nbRow,nbCol, variable);
-    if(sciErr.iErr)
+
+    sciErr = createNamedMatrixOfBoolean(pvApiCtx, variableName, nbRow, nbCol, variable);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
     }
     return 0;
 
-
 }
 
-
-
 ///////////////////// byte / int8
-byte * getByte(char* variableName, int *nbRow, int *nbCol) {
+byte *getByte(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    byte * matrixOfByte = NULL;
-    sciErr = readNamedMatrixOfInteger8(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    byte *matrixOfByte = NULL;
+
+    sciErr = readNamedMatrixOfInteger8(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfByte=(byte*)malloc(((*nbRow)*(*nbCol))*sizeof(byte));
+    matrixOfByte = (byte *) malloc(((*nbRow) * (*nbCol)) * sizeof(byte));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfInteger8(pvApiCtx, variableName, nbRow, nbCol, matrixOfByte);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -199,11 +210,12 @@ byte * getByte(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putByte(char* variableName, byte *variable, int nbRow, int nbCol) {
+int putByte(char *variableName, byte * variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfInteger8(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -211,22 +223,23 @@ int putByte(char* variableName, byte *variable, int nbRow, int nbCol) {
     return 0;
 }
 
-
-byte * getUnsignedByte(char* variableName, int *nbRow, int *nbCol) {
+byte *getUnsignedByte(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    byte * matrixOfByte = NULL;
-    sciErr = readNamedMatrixOfUnsignedInteger8(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    byte *matrixOfByte = NULL;
+
+    sciErr = readNamedMatrixOfUnsignedInteger8(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfByte=(byte*)malloc(((*nbRow)*(*nbCol))*sizeof(byte));
+    matrixOfByte = (byte *) malloc(((*nbRow) * (*nbCol)) * sizeof(byte));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfUnsignedInteger8(pvApiCtx, variableName, nbRow, nbCol, matrixOfByte);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -235,36 +248,38 @@ byte * getUnsignedByte(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putUnsignedByte(char* variableName, byte *variable, int nbRow, int nbCol) {
+int putUnsignedByte(char *variableName, byte * variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfUnsignedInteger8(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
     }
     return 0;
 }
-
 
 //////////////////////////// short / int16
 
-short * getShort(char* variableName, int *nbRow, int *nbCol) {
+short *getShort(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    short * matrixOfShort = NULL;
-    sciErr = readNamedMatrixOfInteger16(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    short *matrixOfShort = NULL;
+
+    sciErr = readNamedMatrixOfInteger16(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfShort=(short*)malloc(((*nbRow)*(*nbCol))*sizeof(short));
+    matrixOfShort = (short *)malloc(((*nbRow) * (*nbCol)) * sizeof(short));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfInteger16(pvApiCtx, variableName, nbRow, nbCol, matrixOfShort);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -273,11 +288,12 @@ short * getShort(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putShort(char* variableName, short *variable, int nbRow, int nbCol) {
+int putShort(char *variableName, short *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfInteger16(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -285,23 +301,23 @@ int putShort(char* variableName, short *variable, int nbRow, int nbCol) {
     return 0;
 }
 
-
-unsigned short * getUnsignedShort(char* variableName, int *nbRow, int *nbCol) {
+unsigned short *getUnsignedShort(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    unsigned short * matrixOfShort = NULL;
+    unsigned short *matrixOfShort = NULL;
 
-    sciErr = readNamedMatrixOfUnsignedInteger16(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    sciErr = readNamedMatrixOfUnsignedInteger16(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfShort=(unsigned short*)malloc(((*nbRow)*(*nbCol))*sizeof(unsigned short));
+    matrixOfShort = (unsigned short *)malloc(((*nbRow) * (*nbCol)) * sizeof(unsigned short));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfUnsignedInteger16(pvApiCtx, variableName, nbRow, nbCol, matrixOfShort);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -310,36 +326,38 @@ unsigned short * getUnsignedShort(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putUnsignedShort(char* variableName, unsigned short *variable, int nbRow, int nbCol) {
+int putUnsignedShort(char *variableName, unsigned short *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfUnsignedInteger16(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
     }
     return 0;
 }
-
 
 ////////////////////// int / int32
 
-int * getInt(char* variableName, int *nbRow, int *nbCol) {
+int *getInt(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    int * matrixOfInt = NULL;
-    sciErr = readNamedMatrixOfInteger32(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    int *matrixOfInt = NULL;
+
+    sciErr = readNamedMatrixOfInteger32(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfInt=(int*)malloc(((*nbRow)*(*nbCol))*sizeof(int));
+    matrixOfInt = (int *)malloc(((*nbRow) * (*nbCol)) * sizeof(int));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfInteger32(pvApiCtx, variableName, nbRow, nbCol, matrixOfInt);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -348,11 +366,12 @@ int * getInt(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putInt(char* variableName, int *variable, int nbRow, int nbCol) {
+int putInt(char *variableName, int *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfInteger32(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -360,22 +379,23 @@ int putInt(char* variableName, int *variable, int nbRow, int nbCol) {
     return 0;
 }
 
-
-unsigned int * getUnsignedInt(char* variableName, int *nbRow, int *nbCol) {
+unsigned int *getUnsignedInt(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    int * matrixOfInt = NULL;
-    sciErr = readNamedMatrixOfUnsignedInteger32(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    int *matrixOfInt = NULL;
+
+    sciErr = readNamedMatrixOfUnsignedInteger32(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfInt=(int*)malloc(((*nbRow)*(*nbCol))*sizeof(int));
+    matrixOfInt = (int *)malloc(((*nbRow) * (*nbCol)) * sizeof(int));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfUnsignedInteger32(pvApiCtx, variableName, nbRow, nbCol, matrixOfInt);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -384,37 +404,39 @@ unsigned int * getUnsignedInt(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putUnsignedInt(char* variableName, unsigned int *variable, int nbRow, int nbCol) {
+int putUnsignedInt(char *variableName, unsigned int *variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfUnsignedInteger32(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
     }
     return 0;
 }
-
 
 ////////////////////// long / int64
 #ifdef __SCILAB_INT64__
 
-long * getLong(char* variableName, int *nbRow, int *nbCol) {
+long *getLong(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    long * matrixOfLong = NULL;
-    sciErr = readNamedMatrixOfInteger64(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    long *matrixOfLong = NULL;
+
+    sciErr = readNamedMatrixOfInteger64(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfLong=(long*)malloc(((*nbRow)*(*nbCol))*sizeof(long));
+    matrixOfLong = (long *)malloc(((*nbRow) * (*nbCol)) * sizeof(long));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfInteger64(pvApiCtx, variableName, nbRow, nbCol, matrixOfLong);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -423,11 +445,12 @@ long * getLong(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putLong(char* variableName, long *variable, int *nbRow, int *nbCol) {
+int putLong(char *variableName, long *variable, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfInteger64(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -435,22 +458,23 @@ int putLong(char* variableName, long *variable, int *nbRow, int *nbCol) {
     return 0;
 }
 
-
-unsigned long * getUnsignedLong(char* variableName, int *nbRow, int *nbCol) {
+unsigned long *getUnsignedLong(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
-    long * matrixOfLong = NULL;
-    sciErr = readNamedMatrixOfUnsignedInteger64(pvApiCtx, variableName, nbRow, nbCol , NULL);
-    if(sciErr.iErr)
+    long *matrixOfLong = NULL;
+
+    sciErr = readNamedMatrixOfUnsignedInteger64(pvApiCtx, variableName, nbRow, nbCol, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
     /* Alloc the memory */
-    matrixOfLong=(long*)malloc(((*nbRow)*(*nbCol))*sizeof(long));
+    matrixOfLong = (long *)malloc(((*nbRow) * (*nbCol)) * sizeof(long));
 
     /* Load the matrix */
     sciErr = readNamedMatrixOfUnsignedInteger64(pvApiCtx, variableName, nbRow, nbCol, matrixOfLong);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -459,11 +483,12 @@ unsigned long * getUnsignedLong(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putUnsignedLong(char* variableName, unsigned long *variable, int *nbRow, int *nbCol) {
+int putUnsignedLong(char *variableName, unsigned long *variable, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
+
     sciErr = createNamedMatrixOfUnsignedInteger64(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -471,67 +496,65 @@ int putUnsignedLong(char* variableName, unsigned long *variable, int *nbRow, int
     return 0;
 }
 
-
 #endif
-
 
 /**
  * Call the Scilab function getLastErrorMessage
  * Take the result (a matrix of string) and concatenate into a single string
  * This is way easier to manage in swig.
 */
-char* getLastErrorMessageSingle(void) {
-    int iNbLines, i, nbChar=0;
+char *getLastErrorMessageSingle(void)
+{
+    int iNbLines, i, nbChar = 0;
     const char **msgs = getLastErrorMessage(&iNbLines);
     char *concat;
 
-    for (i=0; i<iNbLines; i++)
+    for (i = 0; i < iNbLines; i++)
     {
         nbChar += strlen(msgs[i]);
     }
-    concat = (char*)malloc((nbChar+1)*sizeof(char));
-    strcpy(concat,"");
-    for (i=0; i<iNbLines; i++)
+    concat = (char *)malloc((nbChar + 1) * sizeof(char));
+    strcpy(concat, "");
+    for (i = 0; i < iNbLines; i++)
     {
         strcat(concat, msgs[i]);
     }
     return concat;
 }
 
-
-
-char ** getString(char* variableName, int *nbRow, int *nbCol) {
+char **getString(char *variableName, int *nbRow, int *nbCol)
+{
     SciErr sciErr;
     int i = 0;
 
-    int* piLen      = NULL;
-    char** pstData  = NULL;
+    int *piLen = NULL;
+    char **pstData = NULL;
 
     //fisrt call to retrieve dimensions
-    sciErr = readNamedMatrixOfString(pvApiCtx,variableName,nbRow, nbCol, NULL, NULL);
-    if(sciErr.iErr)
+    sciErr = readNamedMatrixOfString(pvApiCtx, variableName, nbRow, nbCol, NULL, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
-    piLen = (int*)malloc(sizeof(int) * (*nbRow)*(*nbCol));
+    piLen = (int *)malloc(sizeof(int) * (*nbRow) * (*nbCol));
 
     //second call to retrieve length of each string
-    sciErr = readNamedMatrixOfString(pvApiCtx,variableName, nbRow, nbCol, piLen, NULL);
-    if(sciErr.iErr)
+    sciErr = readNamedMatrixOfString(pvApiCtx, variableName, nbRow, nbCol, piLen, NULL);
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
 
-    pstData = (char**)malloc(sizeof(char*) * (*nbRow) * (*nbCol));
+    pstData = (char **)malloc(sizeof(char *) * (*nbRow) * (*nbCol));
 
-    for(i = 0 ; i < (*nbRow) * (*nbCol) ; i++)
+    for (i = 0; i < (*nbRow) * (*nbCol); i++)
     {
-        pstData[i] = (char*)malloc(sizeof(char) * (piLen[i] + 1));//+ 1 for null termination
+        pstData[i] = (char *)malloc(sizeof(char) * (piLen[i] + 1)); //+ 1 for null termination
     }
     //third call to retrieve data
     sciErr = readNamedMatrixOfString(pvApiCtx, variableName, nbRow, nbCol, piLen, pstData);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
     }
@@ -540,12 +563,12 @@ char ** getString(char* variableName, int *nbRow, int *nbCol) {
 
 }
 
-
-int putString(char* variableName, char **variable, int nbRow, int nbCol) {
+int putString(char *variableName, char **variable, int nbRow, int nbCol)
+{
     SciErr sciErr;
 
     sciErr = createNamedMatrixOfString(pvApiCtx, variableName, nbRow, nbCol, variable);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return -1;
@@ -553,8 +576,9 @@ int putString(char* variableName, char **variable, int nbRow, int nbCol) {
     return 0;
 }
 
-BOOL isExistingVariable(char* variableName) {
+BOOL isExistingVariable(char *variableName)
+{
     int iExisting = isNamedVarExist(pvApiCtx, variableName);
 
-    return iExisting != 0; /* 0 = not existing variable */
+    return iExisting != 0;      /* 0 = not existing variable */
 }

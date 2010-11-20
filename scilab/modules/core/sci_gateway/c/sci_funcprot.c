@@ -19,92 +19,94 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_funcprot)(char *fname,unsigned long fname_len)
+int C2F(sci_funcprot) (char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
-	CheckLhs(1,1);
-	CheckRhs(0,1);
+    SciErr sciErr;
 
-	if (Rhs == 0)
-	{
-		int m_out = 0, n_out = 0;
-		double dOut = (double) getfuncprot();
+    CheckLhs(1, 1);
+    CheckRhs(0, 1);
 
-		m_out = 1;  n_out = 1;
-		sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, m_out, n_out, &dOut);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+    if (Rhs == 0)
+    {
+        int m_out = 0, n_out = 0;
+        double dOut = (double)getfuncprot();
 
-		LhsVar(1) = Rhs + 1; 
-		C2F(putlhsvar)();
-	}
-	else if (Rhs == 1)
-	{
-		int ilevel = 0;
-		int m1 = 0, n1 = 0;
-		int iType1						= 0;
-		int *piAddressVarOne	= NULL;
-		double *pdVarOne			= NULL;
+        m_out = 1;
+        n_out = 1;
+        sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, m_out, n_out, &dOut);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		/* get Address of inputs */
-		sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        LhsVar(1) = Rhs + 1;
+        C2F(putlhsvar) ();
+    }
+    else if (Rhs == 1)
+    {
+        int ilevel = 0;
+        int m1 = 0, n1 = 0;
+        int iType1 = 0;
+        int *piAddressVarOne = NULL;
+        double *pdVarOne = NULL;
 
-		sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        /* get Address of inputs */
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		/* check input type */
-		if ( iType1 != sci_matrix )
-		{
-			Scierror(999,_("%s: Wrong type for input argument #%d: A scalar expected.\n"),fname,1);
-			return 0;
-		}
+        sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarOne,&m1,&n1,&pdVarOne);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        /* check input type */
+        if (iType1 != sci_matrix)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), fname, 1);
+            return 0;
+        }
 
-		//if ((m1 > 0) && (n1>0))
-		//if ( (m1 != n1) && (n1 != 1) ) 
-		if( n1 != 1 || m1 != 1)
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: A scalar expected.\n"),fname,1);
-			return 0;
-		}
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarOne, &m1, &n1, &pdVarOne);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
+        //if ((m1 > 0) && (n1>0))
+        //if ( (m1 != n1) && (n1 != 1) ) 
+        if (n1 != 1 || m1 != 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+            return 0;
+        }
 
-		ilevel = (int) *pdVarOne;
+        ilevel = (int)*pdVarOne;
 
-		if (*pdVarOne != (double)ilevel)
-		{
-			Scierror(999,_("%s: Wrong value for input argument #%d: 1,2 or 3 expected.\n"),fname,1);
-			return 0;
-		}
+        if (*pdVarOne != (double)ilevel)
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: 1,2 or 3 expected.\n"), fname, 1);
+            return 0;
+        }
 
-		if ( !setfuncprot(ilevel) )
-		{
-			Scierror(999,_("%s: Wrong value for input argument #%d: 1,2 or 3 expected.\n"),fname,1);
-		}
-		else
-		{
-			LhsVar(1) = 0; 
-			C2F(putlhsvar)();
-		}
-	}
-	return 0;
+        if (!setfuncprot(ilevel))
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: 1,2 or 3 expected.\n"), fname, 1);
+        }
+        else
+        {
+            LhsVar(1) = 0;
+            C2F(putlhsvar) ();
+        }
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

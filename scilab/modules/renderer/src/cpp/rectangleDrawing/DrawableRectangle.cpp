@@ -11,73 +11,71 @@
  *
  */
 
-
-
 #include "DrawableRectangle.h"
 
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableRectangle::DrawableRectangle( sciPointObj * pObj ) : DrawableClippedObject( pObj )
-{
+    DrawableRectangle::DrawableRectangle(sciPointObj * pObj):DrawableClippedObject(pObj)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangle::~DrawableRectangle( void )
-{
+    DrawableRectangle::~DrawableRectangle(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableRectangle::draw( void )
-{
-  
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing() ;
-  clip();
-  reinitMove();
-  drawRectangle() ;
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableRectangle::draw(void)
+    {
+
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        reinitMove();
+        drawRectangle();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableRectangle::show( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showRectangle();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableRectangle::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showRectangle();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableRectangle::redraw(void)
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  translate();
-  redrawRectangle();
-  endTranslate();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableRectangle::redraw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        translate();
+        redrawRectangle();
+        endTranslate();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangleBridge * DrawableRectangle::getRectangleImp( void )
-{
-  return dynamic_cast<DrawableRectangleBridge *>(m_pImp) ;
-}
+    DrawableRectangleBridge *DrawableRectangle::getRectangleImp(void)
+    {
+        return dynamic_cast < DrawableRectangleBridge * >(m_pImp);
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

@@ -10,7 +10,6 @@
  *
  */
 
-
 /*------------------------------------------------------------------------*/
 /* file: get_outside_colors_property.c                                    */
 /* desc : function to retrieve in Scilab the outside_colors field of      */
@@ -24,18 +23,20 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_outside_colors_property( sciPointObj * pobj )
+int get_outside_colors_property(sciPointObj * pobj)
 {
-  int colors[2];
-  if (sciGetEntityType (pobj) != SCI_FEC)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"outside_colors") ;
-    return -1 ;
-  }
+    int colors[2];
 
-	sciGetOutsideColor(pobj, colors);
+    if (sciGetEntityType(pobj) != SCI_FEC)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "outside_colors");
+        return -1;
+    }
 
-  return sciReturnRowVectorFromInt( colors, 2 ) ;
+    sciGetOutsideColor(pobj, colors);
+
+    return sciReturnRowVectorFromInt(colors, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

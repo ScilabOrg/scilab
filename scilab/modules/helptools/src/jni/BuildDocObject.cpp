@@ -39,205 +39,243 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_helptools {
+namespace org_scilab_modules_helptools
+{
 
 // Returns the current env
 
-JNIEnv * BuildDocObject::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *BuildDocObject::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-BuildDocObject::~BuildDocObject() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    BuildDocObject::~BuildDocObject()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-BuildDocObject::BuildDocObject(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    BuildDocObject::BuildDocObject(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-jbooleansetOutputDirectoryjstringID=NULL; 
-voidsetWorkingLanguagejstringID=NULL; 
-voidsetExportFormatjstringID=NULL; 
-jstringprocessjstringjstringID=NULL; 
-
-
-}
-
-BuildDocObject::BuildDocObject(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        jbooleansetOutputDirectoryjstringID = NULL;
+        voidsetWorkingLanguagejstringID = NULL;
+        voidsetExportFormatjstringID = NULL;
+        jstringprocessjstringjstringID = NULL;
+
+    }
+
+    BuildDocObject::BuildDocObject(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        jbooleansetOutputDirectoryjstringID=NULL; 
-voidsetWorkingLanguagejstringID=NULL; 
-voidsetExportFormatjstringID=NULL; 
-jstringprocessjstringjstringID=NULL; 
+        jbooleansetOutputDirectoryjstringID = NULL;
+        voidsetWorkingLanguagejstringID = NULL;
+        voidsetExportFormatjstringID = NULL;
+        jstringprocessjstringjstringID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void BuildDocObject::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "BuildDocObject");
-}
-}
+    void BuildDocObject::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "BuildDocObject");
+        }
+    }
 
-void BuildDocObject::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "BuildDocObject");
-}
-}
+    void BuildDocObject::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "BuildDocObject");
+        }
+    }
 // Method(s)
 
-bool BuildDocObject::setOutputDirectory (char * directory){
+    bool BuildDocObject::setOutputDirectory(char *directory)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jbooleansetOutputDirectoryjstringID==NULL) { /* Use the cache */
- jbooleansetOutputDirectoryjstringID = curEnv->GetMethodID(this->instanceClass, "setOutputDirectory", "(Ljava/lang/String;)Z" ) ;
-if (jbooleansetOutputDirectoryjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setOutputDirectory");
-}
-}
-jstring directory_ = curEnv->NewStringUTF( directory );
+        if (jbooleansetOutputDirectoryjstringID == NULL)
+        {                       /* Use the cache */
+            jbooleansetOutputDirectoryjstringID = curEnv->GetMethodID(this->instanceClass, "setOutputDirectory", "(Ljava/lang/String;)Z");
+            if (jbooleansetOutputDirectoryjstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setOutputDirectory");
+            }
+        }
+        jstring directory_ = curEnv->NewStringUTF(directory);
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallBooleanMethod( this->instance, jbooleansetOutputDirectoryjstringID ,directory_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        jboolean res = static_cast < jboolean > (curEnv->CallBooleanMethod(this->instance, jbooleansetOutputDirectoryjstringID, directory_));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-void BuildDocObject::setWorkingLanguage (char * language){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    void BuildDocObject::setWorkingLanguage(char *language)
+    {
 
-if (voidsetWorkingLanguagejstringID==NULL) { /* Use the cache */
- voidsetWorkingLanguagejstringID = curEnv->GetMethodID(this->instanceClass, "setWorkingLanguage", "(Ljava/lang/String;)V" ) ;
-if (voidsetWorkingLanguagejstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWorkingLanguage");
-}
-}
-jstring language_ = curEnv->NewStringUTF( language );
+        JNIEnv *curEnv = getCurrentEnv();
 
-                         curEnv->CallVoidMethod( this->instance, voidsetWorkingLanguagejstringID ,language_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetWorkingLanguagejstringID == NULL)
+        {                       /* Use the cache */
+            voidsetWorkingLanguagejstringID = curEnv->GetMethodID(this->instanceClass, "setWorkingLanguage", "(Ljava/lang/String;)V");
+            if (voidsetWorkingLanguagejstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setWorkingLanguage");
+            }
+        }
+        jstring language_ = curEnv->NewStringUTF(language);
 
-void BuildDocObject::setExportFormat (char * format){
+        curEnv->CallVoidMethod(this->instance, voidsetWorkingLanguagejstringID, language_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    void BuildDocObject::setExportFormat(char *format)
+    {
 
-if (voidsetExportFormatjstringID==NULL) { /* Use the cache */
- voidsetExportFormatjstringID = curEnv->GetMethodID(this->instanceClass, "setExportFormat", "(Ljava/lang/String;)V" ) ;
-if (voidsetExportFormatjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setExportFormat");
-}
-}
-jstring format_ = curEnv->NewStringUTF( format );
+        JNIEnv *curEnv = getCurrentEnv();
 
-                         curEnv->CallVoidMethod( this->instance, voidsetExportFormatjstringID ,format_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetExportFormatjstringID == NULL)
+        {                       /* Use the cache */
+            voidsetExportFormatjstringID = curEnv->GetMethodID(this->instanceClass, "setExportFormat", "(Ljava/lang/String;)V");
+            if (voidsetExportFormatjstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setExportFormat");
+            }
+        }
+        jstring format_ = curEnv->NewStringUTF(format);
 
-char * BuildDocObject::process (char * sourceDoc, char * styleSheet){
+        curEnv->CallVoidMethod(this->instance, voidsetExportFormatjstringID, format_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    char *BuildDocObject::process(char *sourceDoc, char *styleSheet)
+    {
 
-if (jstringprocessjstringjstringID==NULL) { /* Use the cache */
- jstringprocessjstringjstringID = curEnv->GetMethodID(this->instanceClass, "process", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" ) ;
-if (jstringprocessjstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "process");
-}
-}
-jstring sourceDoc_ = curEnv->NewStringUTF( sourceDoc );
+        JNIEnv *curEnv = getCurrentEnv();
 
-jstring styleSheet_ = curEnv->NewStringUTF( styleSheet );
+        if (jstringprocessjstringjstringID == NULL)
+        {                       /* Use the cache */
+            jstringprocessjstringjstringID =
+                curEnv->GetMethodID(this->instanceClass, "process", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
+            if (jstringprocessjstringjstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "process");
+            }
+        }
+        jstring sourceDoc_ = curEnv->NewStringUTF(sourceDoc);
 
-                        jstring res =  static_cast<jstring>( curEnv->CallObjectMethod( this->instance, jstringprocessjstringjstringID ,sourceDoc_, styleSheet_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
+        jstring styleSheet_ = curEnv->NewStringUTF(styleSheet);
 
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
+        jstring res = static_cast < jstring > (curEnv->CallObjectMethod(this->instance, jstringprocessjstringjstringID, sourceDoc_, styleSheet_));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
 
 }

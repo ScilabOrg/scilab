@@ -29,22 +29,27 @@ extern "C"
 #include "scilabDefaults.h"
 #include "charEncoding.h"
 };
+
 /*------------------------------------------------------------------------*/
 HistoryFile::HistoryFile()
 {
     my_history_filename.erase();
 }
+
 /*------------------------------------------------------------------------*/
 HistoryFile::~HistoryFile()
 {
     this->reset();
 }
+
 /*------------------------------------------------------------------------*/
 std::string HistoryFile::getFilename(void)
 {
-    if (this->my_history_filename.empty()) this->setDefaultFilename();
+    if (this->my_history_filename.empty())
+        this->setDefaultFilename();
     return this->my_history_filename;
 }
+
 /*------------------------------------------------------------------------*/
 void HistoryFile::setFilename(std::string filename)
 {
@@ -58,11 +63,13 @@ void HistoryFile::setFilename(std::string filename)
         this->setDefaultFilename();
     }
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::setDefaultFilename(void)
 {
     BOOL bOK = FALSE;
     char *SCIHOME = getSCIHOME();
+
     std::string defaultfilename;
     std::string defautlhistoryfile;
 
@@ -94,31 +101,35 @@ BOOL HistoryFile::setDefaultFilename(void)
 
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::writeToFile(std::string filename)
 {
     BOOL bOK = FALSE;
 
-    if (this->Commands.empty()) return bOK;
+    if (this->Commands.empty())
+        return bOK;
     else
     {
         FILE *pFile = NULL;
 
-        if (filename.empty())  return bOK;
+        if (filename.empty())
+            return bOK;
 
-        wcfopen(pFile , (char*)filename.c_str(), "wt");
+        wcfopen(pFile, (char *)filename.c_str(), "wt");
 
         if (pFile)
         {
             char *commentendsession = NULL;
-            list<CommandLine>::iterator it_commands;
-            for(it_commands=this->Commands.begin(); it_commands != this->Commands.end(); ++it_commands)
+
+            list < CommandLine >::iterator it_commands;
+            for (it_commands = this->Commands.begin(); it_commands != this->Commands.end(); ++it_commands)
             {
                 std::string line = (*it_commands).get();
                 if (!line.empty())
                 {
-                    fputs(line.c_str(),pFile);
-                    fputs("\n",pFile);
+                    fputs(line.c_str(), pFile);
+                    fputs("\n", pFile);
                 }
             }
             fclose(pFile);
@@ -127,31 +138,37 @@ BOOL HistoryFile::writeToFile(std::string filename)
     }
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::writeToFile(void)
 {
     BOOL bOK = FALSE;
-    if (!this->my_history_filename.empty()) bOK = this->writeToFile(my_history_filename);
+
+    if (!this->my_history_filename.empty())
+        bOK = this->writeToFile(my_history_filename);
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::loadFromFile(std::string filename)
 {
 #define SECURITY_BUFFER 1000
     BOOL bOK = FALSE;
-    char  line[PATH_MAX+1];
-    FILE * pFile = NULL;
+    char line[PATH_MAX + 1];
+    FILE *pFile = NULL;
 
-    if (filename.empty()) return bOK;
+    if (filename.empty())
+        return bOK;
 
-    wcfopen(pFile , (char*)filename.c_str(), "rt");
+    wcfopen(pFile, (char *)filename.c_str(), "rt");
 
     if (pFile)
     {
-        while(fgets (line,sizeof(line),pFile) != NULL)
+        while (fgets(line, sizeof(line), pFile) != NULL)
         {
-            line[strlen(line)-1]='\0'; /* remove carriage return */
+            line[strlen(line) - 1] = '\0';  /* remove carriage return */
             CommandLine Line(line);
+
             this->Commands.push_back(Line);
         }
         fclose(pFile);
@@ -159,43 +176,52 @@ BOOL HistoryFile::loadFromFile(std::string filename)
     }
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::loadFromFile(void)
 {
     BOOL bOK = FALSE;
-    if (!this->my_history_filename.empty()) bOK = this->loadFromFile(my_history_filename);
+
+    if (!this->my_history_filename.empty())
+        bOK = this->loadFromFile(my_history_filename);
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
-list<CommandLine> HistoryFile::getHistory(void)
+list < CommandLine > HistoryFile::getHistory(void)
 {
-    list <CommandLine> lines(Commands);
+    list < CommandLine > lines(Commands);
     return lines;
 }
+
 /*------------------------------------------------------------------------*/
-BOOL HistoryFile::setHistory(list<CommandLine> commands)
+BOOL HistoryFile::setHistory(list < CommandLine > commands)
 {
     BOOL bOK = FALSE;
-    list<CommandLine>::iterator it_commands;
 
-    if (!this->Commands.empty()) this->Commands.clear();
+    list < CommandLine >::iterator it_commands;
 
-    for(it_commands=commands.begin(); it_commands != commands.end(); ++it_commands)
+    if (!this->Commands.empty())
+        this->Commands.clear();
+
+    for (it_commands = commands.begin(); it_commands != commands.end(); ++it_commands)
     {
         std::string line = (*it_commands).get();
         if (!line.empty())
         {
             CommandLine Line(line);
+
             this->Commands.push_back(Line);
         }
     }
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::reset(void)
 {
     BOOL bOK = FALSE;
-    BOOL check1 = FALSE,check2 = FALSE;
+    BOOL check1 = FALSE, check2 = FALSE;
 
     if (!this->Commands.empty())
     {
@@ -209,8 +235,10 @@ BOOL HistoryFile::reset(void)
         check2 = TRUE;
     }
 
-    if (check1 && check2) bOK = TRUE;
+    if (check1 && check2)
+        bOK = TRUE;
 
     return bOK;
 }
+
 /*------------------------------------------------------------------------*/

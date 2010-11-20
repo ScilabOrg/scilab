@@ -33,33 +33,38 @@ Type *DY;\
     }\
 }
 
-int C2F(genadd1)(int *typ, int *n, int *dx, int *incx, int *dy, int *incy)
+int C2F(genadd1) (int *typ, int *n, int *dx, int *incx, int *dy, int *incy)
 {
-  static int i, ix, iy, nv;
-  nv=*n;
-  if (nv <= 0) return 0;
+    static int i, ix, iy, nv;
 
+    nv = *n;
+    if (nv <= 0)
+        return 0;
 
-  switch (*typ) {
-  case 1:
-    ADD(integer1);
-    break;
-  case 2:
-    ADD(integer2);
-    break;
-  case 4:
-    ADD(int) ;
-    break;
-  case 11:
-    ADD(unsigned char);
-    break;
-  case 12:
-    ADD(unsigned short);
-    break;
-  case 14:
-    ADD(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        ADD(integer1);
+        break;
+    case 2:
+        ADD(integer2);
+        break;
+    case 4:
+        ADD(int);
+
+        break;
+    case 11:
+        ADD(unsigned char);
+
+        break;
+    case 12:
+        ADD(unsigned short);
+
+        break;
+    case 14:
+        ADD(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

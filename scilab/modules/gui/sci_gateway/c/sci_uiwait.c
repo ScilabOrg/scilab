@@ -11,11 +11,11 @@
  *
  */
 
-#include <stdio.h> 
-#include <string.h> 
+#include <stdio.h>
+#include <string.h>
 /*--------------------------------------------------------------------------*/
 #include "gw_gui.h"
-#include "MALLOC.h" /* MALLOC */
+#include "MALLOC.h"             /* MALLOC */
 #include "ObjectStructure.h"
 #include "BuildObjects.h"
 #include "gw_gui.h"
@@ -31,56 +31,57 @@
 #include "ContextMenu.h"
 #include "HandleManagement.h"
 /*--------------------------------------------------------------------------*/
-int sci_uiwait( char *fname,unsigned long fname_len )
+int sci_uiwait(char *fname, unsigned long fname_len)
 {
-  int nbRow = 0, nbCol = 0, stkAdr = 0;
+    int nbRow = 0, nbCol = 0, stkAdr = 0;
 
-  char * result = NULL;
+    char *result = NULL;
 
-  long hdl = 0;
+    long hdl = 0;
 
-  sciPointObj *pObj = NULL;
+    sciPointObj *pObj = NULL;
 
-  CheckRhs(1,1);
-  CheckLhs(0,1);
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-  if (VarType(1) == sci_handles)
+    if (VarType(1) == sci_handles)
     {
-      GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-      if (nbRow * nbCol !=1)
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
+        if (nbRow * nbCol != 1)
         {
-          Scierror(999, _("%s: Wrong size for input argument #%d: A graphic handle expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong size for input argument #%d: A graphic handle expected.\n"), fname, 1);
+            return FALSE;
         }
-      hdl = (unsigned long)*hstk(stkAdr);
-      pObj = sciGetPointerFromHandle(hdl);
+        hdl = (unsigned long)*hstk(stkAdr);
+        pObj = sciGetPointerFromHandle(hdl);
 
-      if (sciGetEntityType(pObj) == SCI_UICONTEXTMENU)
+        if (sciGetEntityType(pObj) == SCI_UICONTEXTMENU)
         {
-          result = uiWaitContextMenu(pObj);
+            result = uiWaitContextMenu(pObj);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Uicontextmenu");
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 1, "Uicontextmenu");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, _("%s: Wrong type for input argument #%d: A graphic handle expected.\n"), fname, 1);
-      return FALSE;
+        Scierror(999, _("%s: Wrong type for input argument #%d: A graphic handle expected.\n"), fname, 1);
+        return FALSE;
     }
- 
-  /* Create return variable */
-  nbRow = (int)strlen(result);
-  nbCol = 1;
-  CreateVar(Rhs+1, STRING_DATATYPE, &nbRow, &nbCol, &stkAdr);
-  strcpy(cstk(stkAdr), result);
 
-  LhsVar(1)=Rhs+1;
+    /* Create return variable */
+    nbRow = (int)strlen(result);
+    nbCol = 1;
+    CreateVar(Rhs + 1, STRING_DATATYPE, &nbRow, &nbCol, &stkAdr);
+    strcpy(cstk(stkAdr), result);
 
-  C2F(putlhsvar)();
+    LhsVar(1) = Rhs + 1;
 
-  return TRUE;
+    C2F(putlhsvar) ();
+
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

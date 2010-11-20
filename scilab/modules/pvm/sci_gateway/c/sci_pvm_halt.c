@@ -14,24 +14,26 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_halt 
  ******************************************/
-int sci_pvm_halt(char *fname,unsigned long fname_len)
+int sci_pvm_halt(char *fname, unsigned long fname_len)
 {
-  int res,un=1;
-  CheckRhs(0,0);
-  CheckLhs(1,1);
-  CreateVar(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&res);
-  C2F(scipvmhalt)(istk(res));
-  LhsVar(1)=Rhs+1;
+    int res, un = 1;
 
-  pvm_error_check(fname,*istk(res),fname_len);
-  C2F(putlhsvar)();
-  return 0;
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
+    CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &res);
+    C2F(scipvmhalt) (istk(res));
+    LhsVar(1) = Rhs + 1;
+
+    pvm_error_check(fname, *istk(res), fname_len);
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

@@ -26,49 +26,51 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_axes_reverse_property( sciPointObj * pobj )
+int get_axes_reverse_property(sciPointObj * pobj)
 {
 
-  char * axes_reverse[3]  = { NULL, NULL, NULL } ;
-  int i ;
-  int status = -1 ;
+    char *axes_reverse[3] = { NULL, NULL, NULL };
+    int i;
+    int status = -1;
 
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_reverse") ;
-    return -1 ;
-  }
-
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    axes_reverse[i] = MALLOC( 4 * sizeof(char) ) ;
-    if ( axes_reverse[i] == NULL )
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
     {
-      int j ;
-      for ( j = 0 ; j < i ; j++ )
-      {
-        FREE( axes_reverse[j] ) ;
-				Scierror(999, _("%s: No more memory.\n"),"get_axes_reverse_property");
-        return -1 ;
-      }
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_reverse");
+        return -1;
     }
-    if ( pSUBWIN_FEATURE (pobj)->axes.reverse[i] )
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( axes_reverse[i], "on" ) ;
+        axes_reverse[i] = MALLOC(4 * sizeof(char));
+        if (axes_reverse[i] == NULL)
+        {
+            int j;
+
+            for (j = 0; j < i; j++)
+            {
+                FREE(axes_reverse[j]);
+                Scierror(999, _("%s: No more memory.\n"), "get_axes_reverse_property");
+                return -1;
+            }
+        }
+        if (pSUBWIN_FEATURE(pobj)->axes.reverse[i])
+        {
+            strcpy(axes_reverse[i], "on");
+        }
+        else
+        {
+            strcpy(axes_reverse[i], "off");
+        }
     }
-    else
+
+    status = sciReturnRowStringVector(axes_reverse, 3);
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( axes_reverse[i], "off" ) ;
+        FREE(axes_reverse[i]);
     }
-  }
 
-  status = sciReturnRowStringVector( axes_reverse, 3 ) ;
-
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    FREE( axes_reverse[i] ) ;
-  }
-
-  return status ;
+    return status;
 }
+
 /*------------------------------------------------------------------------*/

@@ -24,7 +24,7 @@
 #pragma comment(lib, "../../bin/lapack.lib")
 #pragma comment(lib, "../../libs/core_f.lib")
 /*-----------------------------------------------------------------------------------*/
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
     switch (reason)
     {
@@ -39,6 +39,7 @@ int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
     }
     return 1;
 }
+
 /*-----------------------------------------------------------------------------------*/
 BOOL BuildWithVS8ExpressF2C(void)
 {
@@ -48,4 +49,5 @@ BOOL BuildWithVS8ExpressF2C(void)
     return FALSE;
 #endif
 }
+
 /*-----------------------------------------------------------------------------------*/

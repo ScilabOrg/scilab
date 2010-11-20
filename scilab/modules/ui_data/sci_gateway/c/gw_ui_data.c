@@ -21,22 +21,23 @@
 #include "loadOnUseClassPath.h"
 /*--------------------------------------------------------------------------*/
 static BOOL loadedDep = FALSE;
+
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]=
-{
+static gw_generic_table Tab[] = {
     {sci_editvar, "editvar"},
     {sci_browsevar, "browsevar"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_ui_data(void)
 {
-	Rhs = Max(0, Rhs);
+    Rhs = Max(0, Rhs);
 
-	if ( getScilabMode() == SCILAB_NWNI)
-	{
-		Scierror(999,_("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "ui_data");
-		return 0;
-	}
+    if (getScilabMode() == SCILAB_NWNI)
+    {
+        Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "ui_data");
+        return 0;
+    }
 
 /*	if (!loadedDep)
 	{
@@ -44,7 +45,8 @@ int gw_ui_data(void)
 		loadedDep = TRUE;
 	}
 */
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -23,16 +23,18 @@
 /* INRIA 2008 */
 /* Allan CORNET */
 /*--------------------------------------------------------------------------*/
-#include "machine.h" /* C2F */
+#include "machine.h"            /* C2F */
 #include "gw_scicos.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scicosdebug) (char *fname,unsigned long fname_len); /* fortran */
+extern int C2F(scicosdebug) (char *fname, unsigned long fname_len); /* fortran */
+
 /*--------------------------------------------------------------------------*/
-int sci_scicos_debug(char *fname,unsigned long fname_len)
+int sci_scicos_debug(char *fname, unsigned long fname_len)
 {
-	C2F(scicosdebug)(fname,fname_len);
-	C2F(putlhsvar)();
-	return 0;
+    C2F(scicosdebug) (fname, fname_len);
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -25,74 +25,67 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-SegsArrowDrawerJoGL::SegsArrowDrawerJoGL( DrawableSegs * segs )
-  : DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
-{
-  setJavaMapper(new SegsArrowDrawerJavaMapper());
-}
+    SegsArrowDrawerJoGL::SegsArrowDrawerJoGL(DrawableSegs * segs):DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
+    {
+        setJavaMapper(new SegsArrowDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-SegsArrowDrawerJoGL::~SegsArrowDrawerJoGL(void)
-{
+    SegsArrowDrawerJoGL::~SegsArrowDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsArrowDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
-                                   const double yStarts[], const double yEnds[],
-                                   const double zStarts[], const double zEnds[],
-                                   const int colors[], int nbSegment)
-{
-  sciPointObj * pSegs = m_pDrawed->getDrawedObject();
-  sciSegs * ppSegs = pSEGS_FEATURE(pSegs);
+    void SegsArrowDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
+                                       const double yStarts[], const double yEnds[],
+                                       const double zStarts[], const double zEnds[], const int colors[], int nbSegment)
+    {
+        sciPointObj *pSegs = m_pDrawed->getDrawedObject();
+        sciSegs *ppSegs = pSEGS_FEATURE(pSegs);
 
-  initializeDrawing();
-  double bounds[6];
-  sciGetRealDataBounds(sciGetParentSubwin(pSegs), bounds);
-  getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1],
-                                            bounds[2], bounds[3],
-                                            bounds[4], bounds[5]);
+        initializeDrawing();
+        double bounds[6];
 
-  // 0 for segs, 1 for champ
-  getArrowDrawerJavaMapper()->setIsSegs(ppSegs->ptype == 0);
+        sciGetRealDataBounds(sciGetParentSubwin(pSegs), bounds);
+        getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 
-  getArrowDrawerJavaMapper()->setArrowSize(sciGetLineWidth(pSegs) * sciGetArrowSize(pSegs));
+        // 0 for segs, 1 for champ
+        getArrowDrawerJavaMapper()->setIsSegs(ppSegs->ptype == 0);
 
-  try
-  {
-    getArrowDrawerJavaMapper()->drawSegs(xStarts, xEnds,
-                                         yStarts, yEnds,
-                                         zStarts, zEnds,
-                                         colors, nbSegment);
-  }
-  catch (const std::exception & e)
-  {
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"SegsArrowDrawerJoGL::drawSegs");
-  }
+        getArrowDrawerJavaMapper()->setArrowSize(sciGetLineWidth(pSegs) * sciGetArrowSize(pSegs));
 
-  endDrawing();
-}
+        try
+        {
+            getArrowDrawerJavaMapper()->drawSegs(xStarts, xEnds, yStarts, yEnds, zStarts, zEnds, colors, nbSegment);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "SegsArrowDrawerJoGL::drawSegs");
+        }
+
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsArrowDrawerJoGL::showSegs( void )
-{
-  show();
-}
+    void SegsArrowDrawerJoGL::showSegs(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsArrowDrawerJoGL::redrawSegs( void )
-{
-  initializeDrawing();
+    void SegsArrowDrawerJoGL::redrawSegs(void)
+    {
+        initializeDrawing();
 
-  // update bounds, they may have changed
-  double bounds[6];
-  sciGetRealDataBounds(sciGetParentSubwin(m_pDrawed->getDrawedObject()), bounds);
-  getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1],
-                                            bounds[2], bounds[3],
-                                            bounds[4], bounds[5]);
-  getArrowDrawerJavaMapper()->drawSegs();
-  endDrawing();
-}
+        // update bounds, they may have changed
+        double bounds[6];
+
+        sciGetRealDataBounds(sciGetParentSubwin(m_pDrawed->getDrawedObject()), bounds);
+        getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+        getArrowDrawerJavaMapper()->drawSegs();
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-SegsArrowDrawerJavaMapper * SegsArrowDrawerJoGL::getArrowDrawerJavaMapper(void)
-{
-  return dynamic_cast<SegsArrowDrawerJavaMapper *>(getJavaMapper());
-}
+    SegsArrowDrawerJavaMapper *SegsArrowDrawerJoGL::getArrowDrawerJavaMapper(void)
+    {
+        return dynamic_cast < SegsArrowDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

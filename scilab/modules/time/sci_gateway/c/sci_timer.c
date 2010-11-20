@@ -18,31 +18,32 @@
 #include "Scierror.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-int sci_timer(char *fname,unsigned long fname_len)
+int sci_timer(char *fname, unsigned long fname_len)
 {
-	double timerval = 0;
+    double timerval = 0;
 
-	Rhs = Max(0, Rhs);
-	CheckLhs(0,1);
-	CheckRhs(0,0);
+    Rhs = Max(0, Rhs);
+    CheckLhs(0, 1);
+    CheckRhs(0, 0);
 
-	timerval = scilab_timer();
+    timerval = scilab_timer();
 
-	if (timerval >= 0.)
-	{
-		int l1 = 0, n1 = 1;
+    if (timerval >= 0.)
+    {
+        int l1 = 0, n1 = 1;
 
-		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE, &n1, &n1,&l1);
-		*stk(l1) = (double)timerval;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &n1, &n1, &l1);
+        *stk(l1) = (double)timerval;
 
-		LhsVar(1) = Rhs+1;
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		Scierror(999,_("%s: An error occurred.\n"), fname);
-	}
+        LhsVar(1) = Rhs + 1;
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        Scierror(999, _("%s: An error occurred.\n"), fname);
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

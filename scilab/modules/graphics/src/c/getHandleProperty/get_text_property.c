@@ -26,19 +26,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_text_property( sciPointObj * pobj )
+int get_text_property(sciPointObj * pobj)
 {
-  int nbRow = 0 ;
-  int nbCol = 0 ;
-  /* get the size of the text matrix */
-  sciGetTextSize( pobj , &nbRow, &nbCol ) ;
+    int nbRow = 0;
+    int nbCol = 0;
 
-  if ( nbRow < 0 || nbCol < 0 )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"text") ;
-    return -1;
-  }
+    /* get the size of the text matrix */
+    sciGetTextSize(pobj, &nbRow, &nbCol);
 
-  return sciReturnStringMatrix( getStrMatData( sciGetText( pobj ) ), nbRow, nbCol ) ;
+    if (nbRow < 0 || nbCol < 0)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "text");
+        return -1;
+    }
+
+    return sciReturnStringMatrix(getStrMatData(sciGetText(pobj)), nbRow, nbCol);
 }
+
 /*------------------------------------------------------------------------*/

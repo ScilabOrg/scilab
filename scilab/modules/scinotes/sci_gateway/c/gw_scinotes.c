@@ -21,24 +21,25 @@
 #include "loadOnUseClassPath.h"
 /*--------------------------------------------------------------------------*/
 static BOOL loadedDep = FALSE;
+
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]=
-{
+static gw_generic_table Tab[] = {
     {sci_scinotes, "editor"},
     {sci_closeSciNotesFromScilab, "closeEditor"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_scinotes(void)
 {
     Rhs = Max(0, Rhs);
 
-    if ( getScilabMode() == SCILAB_NWNI)
+    if (getScilabMode() == SCILAB_NWNI)
     {
-        Scierror(999,_("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "scinotes");
+        Scierror(999, _("Scilab '%s' module disabled in -nogui or -nwni mode.\n"), "scinotes");
         return 0;
     }
 
-    if (!loadedDep) 
+    if (!loadedDep)
     {
         loadOnUseClassPath("SciNotes");
         loadedDep = TRUE;
@@ -46,4 +47,5 @@ int gw_scinotes(void)
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -14,26 +14,18 @@
 #include "exportToFile.hxx"
 #include "FileExporter.hxx"
 
-
 extern "C"
 {
 #include "getScilabJavaVM.h"
 #include "GetProperty.h"
 }
 
-
-
 /*---------------------------------------------------------------------------------*/
-int exportToFile(sciPointObj * pFigure,
-                 const char * fileName,
-                 ExportFileType fileType,
-                 ExportOrientation orientation)
+int exportToFile(sciPointObj * pFigure, const char *fileName, ExportFileType fileType, ExportOrientation orientation)
 {
 
-  return org_scilab_modules_graphic_export::FileExporter::fileExport(getScilabJavaVM(),
-								     sciGetNum(pFigure),
-								     (char *)fileName,
-								     fileType,
-                                                                     orientation);
+    return org_scilab_modules_graphic_export::FileExporter::fileExport(getScilabJavaVM(),
+                                                                       sciGetNum(pFigure), (char *)fileName, fileType, orientation);
 }
+
 /*---------------------------------------------------------------------------------*/

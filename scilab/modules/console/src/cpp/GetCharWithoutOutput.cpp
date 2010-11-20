@@ -13,7 +13,8 @@
 /*--------------------------------------------------------------------------*/
 #include <stdlib.h>
 #include <jni.h>
-extern "C" {
+extern "C"
+{
 #include "./../../jvm/includes/getScilabObject.h"
 #include "../../../jvm/includes/getScilabJNIEnv.h"
 }
@@ -21,8 +22,8 @@ extern "C" {
 #include "GetCharWithoutOutput.hxx"
 /*--------------------------------------------------------------------------*/
 #include "CallScilabBridge.hxx"
-using namespace  org_scilab_modules_gui_bridge;
+using namespace org_scilab_modules_gui_bridge;
 int GetCharWithoutOutput(void)
 {
-  return CallScilabBridge::getCharWithoutOutput(getScilabJavaVM());
+    return CallScilabBridge::getCharWithoutOutput(getScilabJavaVM());
 }

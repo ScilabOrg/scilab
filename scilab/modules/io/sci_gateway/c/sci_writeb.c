@@ -12,11 +12,13 @@
 
 #include "gw_io.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intwritb)(); /* fortran subroutine */
+extern int C2F(intwritb) ();    /* fortran subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_writb(char *fname,unsigned long fname_len)
+int sci_writb(char *fname, unsigned long fname_len)
 {
-	C2F(intwritb)();
-	return 0;
+    C2F(intwritb) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

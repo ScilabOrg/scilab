@@ -12,7 +12,6 @@
  *
  */
 
-
 #include "DrawableTextJoGL.hxx"
 #include "DrawableText.h"
 
@@ -20,25 +19,24 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableTextJoGL::DrawableTextJoGL( DrawableText * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
+    DrawableTextJoGL::DrawableTextJoGL(DrawableText * drawer):DrawableClippedObjectJoGL(drawer)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableTextJoGL::~DrawableTextJoGL( void )
-{
+    DrawableTextJoGL::~DrawableTextJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableText * DrawableTextJoGL::getTextDrawer( void )
-{
-  return dynamic_cast<DrawableText *>(getDrawer()) ;
-}
+    DrawableText *DrawableTextJoGL::getTextDrawer(void)
+    {
+        return dynamic_cast < DrawableText * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableTextJavaMapper * DrawableTextJoGL::getTextJavaMapper(void)
-{
-  return dynamic_cast<DrawableTextJavaMapper *>(getJavaMapper());
-}
+    DrawableTextJavaMapper *DrawableTextJoGL::getTextJavaMapper(void)
+    {
+        return dynamic_cast < DrawableTextJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

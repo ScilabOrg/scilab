@@ -11,23 +11,29 @@
  */
 #include "warningmode.h"
 /*--------------------------------------------------------------------------*/
-static BOOL WARNINGMODEON=TRUE;
+static BOOL WARNINGMODEON = TRUE;
+
 /*--------------------------------------------------------------------------*/
 BOOL setWarningMode(BOOL ON)
 {
-	WARNINGMODEON = ON;
-	return WARNINGMODEON;
+    WARNINGMODEON = ON;
+    return WARNINGMODEON;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL getWarningMode(void)
 {
-	return WARNINGMODEON;
+    return WARNINGMODEON;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(iswarningon)(int *rep)
+int C2F(iswarningon) (int *rep)
 {
-	if (WARNINGMODEON) *rep=1;
-	else *rep=0;
-	return 0;
+    if (WARNINGMODEON)
+        *rep = 1;
+    else
+        *rep = 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -11,33 +11,37 @@
  *
  */
 /*--------------------------------------------------------------------------*/
-#include <string.h> /* strlen */
+#include <string.h>             /* strlen */
 #include "getfileinfo.h"
 #include "filesmanagement.h"
 /*--------------------------------------------------------------------------*/
-void C2F(getfileinfo)(int *fd, FILE *fa, int *swap2, int *type, int *mode, char *filename, int *lf, int *ierr)
+void C2F(getfileinfo) (int *fd, FILE * fa, int *swap2, int *type, int *mode, char *filename, int *lf, int *ierr)
 {
-	char *filenamefromfd = NULL;
-	if (*fd<0 || *fd>=GetMaximumFileOpenedInScilab() ) 
-	{
-		*ierr=1;
-		return;
-	}
-	if ( GetFileTypeOpenedInScilab(*fd) == 0 ) 
-	{
-		*ierr=2;
-		return;
-	}
-	fa = GetFileOpenedInScilab(*fd);
+    char *filenamefromfd = NULL;
 
-	*swap2 = GetSwapStatus(*fd);
-	*type = GetFileTypeOpenedInScilab(*fd);
-	*mode = GetFileModeOpenedInScilab(*fd);
-	filenamefromfd = GetFileNameOpenedInScilab(*fd);
-	if (filenamefromfd) strcpy(filename,GetFileNameOpenedInScilab(*fd));
-	else strcpy(filename,"");
+    if (*fd < 0 || *fd >= GetMaximumFileOpenedInScilab())
+    {
+        *ierr = 1;
+        return;
+    }
+    if (GetFileTypeOpenedInScilab(*fd) == 0)
+    {
+        *ierr = 2;
+        return;
+    }
+    fa = GetFileOpenedInScilab(*fd);
 
-	*lf=(int)strlen(filename);
-	*ierr=0;
+    *swap2 = GetSwapStatus(*fd);
+    *type = GetFileTypeOpenedInScilab(*fd);
+    *mode = GetFileModeOpenedInScilab(*fd);
+    filenamefromfd = GetFileNameOpenedInScilab(*fd);
+    if (filenamefromfd)
+        strcpy(filename, GetFileNameOpenedInScilab(*fd));
+    else
+        strcpy(filename, "");
+
+    *lf = (int)strlen(filename);
+    *ierr = 0;
 }
+
 /*--------------------------------------------------------------------------*/

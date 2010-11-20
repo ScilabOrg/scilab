@@ -39,627 +39,793 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_subwinDrawing {
+namespace org_scilab_modules_renderer_subwinDrawing
+{
 
 // Returns the current env
 
-JNIEnv * IsometricCameraGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *IsometricCameraGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-IsometricCameraGL::~IsometricCameraGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    IsometricCameraGL::~IsometricCameraGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-IsometricCameraGL::IsometricCameraGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    IsometricCameraGL::IsometricCameraGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetViewingAreajdoublejdoublejdoublejdoubleID=NULL; 
-voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voidsetFittingScalejdoublejdoublejdoubleID=NULL; 
-voidplaceCameraID=NULL; 
-voidredrawCameraID=NULL; 
-voidreplaceCameraID=NULL; 
-voidsetAxesReversejbooleanjbooleanjbooleanID=NULL; 
-jintArray_getPixelCoordinatesjdoublejdoublejdoubleID=NULL; 
-jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_getProjectionMatrixID=NULL; 
-jdoubleArray_getUnprojectMatrixID=NULL; 
-jdoubleArray_get2dViewProjectionMatrixID=NULL; 
-jdoubleArray_get2dViewUnprojectMatrixID=NULL; 
-jdoubleArray_getViewPortID=NULL; 
-voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
-
-
-}
-
-IsometricCameraGL::IsometricCameraGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetViewingAreajdoublejdoublejdoublejdoubleID = NULL;
+        voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voidsetFittingScalejdoublejdoublejdoubleID = NULL;
+        voidplaceCameraID = NULL;
+        voidredrawCameraID = NULL;
+        voidreplaceCameraID = NULL;
+        voidsetAxesReversejbooleanjbooleanjbooleanID = NULL;
+        jintArray_getPixelCoordinatesjdoublejdoublejdoubleID = NULL;
+        jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_getProjectionMatrixID = NULL;
+        jdoubleArray_getUnprojectMatrixID = NULL;
+        jdoubleArray_get2dViewProjectionMatrixID = NULL;
+        jdoubleArray_get2dViewUnprojectMatrixID = NULL;
+        jdoubleArray_getViewPortID = NULL;
+        voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
+
+    }
+
+    IsometricCameraGL::IsometricCameraGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetViewingAreajdoublejdoublejdoublejdoubleID=NULL; 
-voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID=NULL; 
-voidsetFittingScalejdoublejdoublejdoubleID=NULL; 
-voidplaceCameraID=NULL; 
-voidredrawCameraID=NULL; 
-voidreplaceCameraID=NULL; 
-voidsetAxesReversejbooleanjbooleanjbooleanID=NULL; 
-jintArray_getPixelCoordinatesjdoublejdoublejdoubleID=NULL; 
-jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_getProjectionMatrixID=NULL; 
-jdoubleArray_getUnprojectMatrixID=NULL; 
-jdoubleArray_get2dViewProjectionMatrixID=NULL; 
-jdoubleArray_get2dViewUnprojectMatrixID=NULL; 
-jdoubleArray_getViewPortID=NULL; 
-voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetViewingAreajdoublejdoublejdoublejdoubleID = NULL;
+        voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID = NULL;
+        voidsetFittingScalejdoublejdoublejdoubleID = NULL;
+        voidplaceCameraID = NULL;
+        voidredrawCameraID = NULL;
+        voidreplaceCameraID = NULL;
+        voidsetAxesReversejbooleanjbooleanjbooleanID = NULL;
+        jintArray_getPixelCoordinatesjdoublejdoublejdoubleID = NULL;
+        jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID = NULL;
+        jdoubleArray_getProjectionMatrixID = NULL;
+        jdoubleArray_getUnprojectMatrixID = NULL;
+        jdoubleArray_get2dViewProjectionMatrixID = NULL;
+        jdoubleArray_get2dViewUnprojectMatrixID = NULL;
+        jdoubleArray_getViewPortID = NULL;
+        voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void IsometricCameraGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "IsometricCameraGL");
-}
-}
+    void IsometricCameraGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "IsometricCameraGL");
+        }
+    }
 
-void IsometricCameraGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "IsometricCameraGL");
-}
-}
+    void IsometricCameraGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "IsometricCameraGL");
+        }
+    }
 // Method(s)
 
-void IsometricCameraGL::display (){
+    void IsometricCameraGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::initializeDrawing (int figureIndex){
+    void IsometricCameraGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::endDrawing (){
+    void IsometricCameraGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::show (int figureIndex){
+    void IsometricCameraGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::destroy (int parentFigureIndex){
+    void IsometricCameraGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::setViewingArea (double transX, double transY, double scaleX, double scaleY){
+    void IsometricCameraGL::setViewingArea(double transX, double transY, double scaleX, double scaleY)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetViewingAreajdoublejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetViewingAreajdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setViewingArea", "(DDDD)V" ) ;
-if (voidsetViewingAreajdoublejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setViewingArea");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetViewingAreajdoublejdoublejdoublejdoubleID ,transX, transY, scaleX, scaleY);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetViewingAreajdoublejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetViewingAreajdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setViewingArea", "(DDDD)V");
+            if (voidsetViewingAreajdoublejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setViewingArea");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetViewingAreajdoublejdoublejdoublejdoubleID, transX, transY, scaleX, scaleY);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::setNormalizationParameters (double normalizeScaleX, double normalizeScaleY, double normalizeScaleZ, double transX, double transY, double transZ){
+    void IsometricCameraGL::setNormalizationParameters(double normalizeScaleX, double normalizeScaleY, double normalizeScaleZ, double transX,
+                                                       double transY, double transZ)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setNormalizationParameters", "(DDDDDD)V" ) ;
-if (voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setNormalizationParameters");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID ,normalizeScaleX, normalizeScaleY, normalizeScaleZ, transX, transY, transZ);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID =
+                curEnv->GetMethodID(this->instanceClass, "setNormalizationParameters", "(DDDDDD)V");
+            if (voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setNormalizationParameters");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetNormalizationParametersjdoublejdoublejdoublejdoublejdoublejdoubleID, normalizeScaleX,
+                               normalizeScaleY, normalizeScaleZ, transX, transY, transZ);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::setAxesRotationParameters (double centerX, double centerY, double centerZ, double alpha, double theta){
+    void IsometricCameraGL::setAxesRotationParameters(double centerX, double centerY, double centerZ, double alpha, double theta)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setAxesRotationParameters", "(DDDDD)V" ) ;
-if (voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesRotationParameters");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID ,centerX, centerY, centerZ, alpha, theta);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID =
+                curEnv->GetMethodID(this->instanceClass, "setAxesRotationParameters", "(DDDDD)V");
+            if (voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesRotationParameters");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetAxesRotationParametersjdoublejdoublejdoublejdoublejdoubleID, centerX, centerY, centerZ, alpha,
+                               theta);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::setFittingScale (double scaleX, double scaleY, double scaleZ){
+    void IsometricCameraGL::setFittingScale(double scaleX, double scaleY, double scaleZ)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetFittingScalejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetFittingScalejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setFittingScale", "(DDD)V" ) ;
-if (voidsetFittingScalejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFittingScale");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetFittingScalejdoublejdoublejdoubleID ,scaleX, scaleY, scaleZ);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetFittingScalejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetFittingScalejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setFittingScale", "(DDD)V");
+            if (voidsetFittingScalejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setFittingScale");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetFittingScalejdoublejdoublejdoubleID, scaleX, scaleY, scaleZ);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::placeCamera (){
+    void IsometricCameraGL::placeCamera()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidplaceCameraID==NULL) { /* Use the cache */
- voidplaceCameraID = curEnv->GetMethodID(this->instanceClass, "placeCamera", "()V" ) ;
-if (voidplaceCameraID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "placeCamera");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidplaceCameraID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidplaceCameraID == NULL)
+        {                       /* Use the cache */
+            voidplaceCameraID = curEnv->GetMethodID(this->instanceClass, "placeCamera", "()V");
+            if (voidplaceCameraID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "placeCamera");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidplaceCameraID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::redrawCamera (){
+    void IsometricCameraGL::redrawCamera()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidredrawCameraID==NULL) { /* Use the cache */
- voidredrawCameraID = curEnv->GetMethodID(this->instanceClass, "redrawCamera", "()V" ) ;
-if (voidredrawCameraID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "redrawCamera");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidredrawCameraID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidredrawCameraID == NULL)
+        {                       /* Use the cache */
+            voidredrawCameraID = curEnv->GetMethodID(this->instanceClass, "redrawCamera", "()V");
+            if (voidredrawCameraID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "redrawCamera");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidredrawCameraID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::replaceCamera (){
+    void IsometricCameraGL::replaceCamera()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidreplaceCameraID==NULL) { /* Use the cache */
- voidreplaceCameraID = curEnv->GetMethodID(this->instanceClass, "replaceCamera", "()V" ) ;
-if (voidreplaceCameraID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "replaceCamera");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidreplaceCameraID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidreplaceCameraID == NULL)
+        {                       /* Use the cache */
+            voidreplaceCameraID = curEnv->GetMethodID(this->instanceClass, "replaceCamera", "()V");
+            if (voidreplaceCameraID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "replaceCamera");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidreplaceCameraID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void IsometricCameraGL::setAxesReverse (bool xAxisRevert, bool yAxisRevert, bool zAxisRevert){
+    void IsometricCameraGL::setAxesReverse(bool xAxisRevert, bool yAxisRevert, bool zAxisRevert)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetAxesReversejbooleanjbooleanjbooleanID==NULL) { /* Use the cache */
- voidsetAxesReversejbooleanjbooleanjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxesReverse", "(ZZZ)V" ) ;
-if (voidsetAxesReversejbooleanjbooleanjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesReverse");
-}
-}
-jboolean xAxisRevert_ = (static_cast<bool>(xAxisRevert) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetAxesReversejbooleanjbooleanjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetAxesReversejbooleanjbooleanjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxesReverse", "(ZZZ)V");
+            if (voidsetAxesReversejbooleanjbooleanjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesReverse");
+            }
+        }
+        jboolean xAxisRevert_ = (static_cast < bool > (xAxisRevert) ? JNI_TRUE : JNI_FALSE);
 
-jboolean yAxisRevert_ = (static_cast<bool>(yAxisRevert) ? JNI_TRUE : JNI_FALSE);
+        jboolean yAxisRevert_ = (static_cast < bool > (yAxisRevert) ? JNI_TRUE : JNI_FALSE);
 
-jboolean zAxisRevert_ = (static_cast<bool>(zAxisRevert) ? JNI_TRUE : JNI_FALSE);
+        jboolean zAxisRevert_ = (static_cast < bool > (zAxisRevert) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetAxesReversejbooleanjbooleanjbooleanID ,xAxisRevert_, yAxisRevert_, zAxisRevert_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetAxesReversejbooleanjbooleanjbooleanID, xAxisRevert_, yAxisRevert_, zAxisRevert_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int* IsometricCameraGL::getPixelCoordinates (double userCoordX, double userCoordY, double userCoordZ){
+    int *IsometricCameraGL::getPixelCoordinates(double userCoordX, double userCoordY, double userCoordZ)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintArray_getPixelCoordinatesjdoublejdoublejdoubleID==NULL) { /* Use the cache */
- jintArray_getPixelCoordinatesjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "getPixelCoordinates", "(DDD)[I" ) ;
-if (jintArray_getPixelCoordinatesjdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getPixelCoordinates");
-}
-}
-                        jintArray res =  static_cast<jintArray>( curEnv->CallObjectMethod( this->instance, jintArray_getPixelCoordinatesjdoublejdoublejdoubleID ,userCoordX, userCoordY, userCoordZ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (jintArray_getPixelCoordinatesjdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            jintArray_getPixelCoordinatesjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "getPixelCoordinates", "(DDD)[I");
+            if (jintArray_getPixelCoordinatesjdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getPixelCoordinates");
+            }
+        }
+        jintArray res =
+            static_cast < jintArray >
+            (curEnv->CallObjectMethod(this->instance, jintArray_getPixelCoordinatesjdoublejdoublejdoubleID, userCoordX, userCoordY, userCoordZ));
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-int* IsometricCameraGL::get2dViewPixelCoordinates (double userCoordX, double userCoordY, double userCoordZ){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID==NULL) { /* Use the cache */
- jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "get2dViewPixelCoordinates", "(DDD)[I" ) ;
-if (jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewPixelCoordinates");
-}
-}
-                        jintArray res =  static_cast<jintArray>( curEnv->CallObjectMethod( this->instance, jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID ,userCoordX, userCoordY, userCoordZ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
-
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-double* IsometricCameraGL::getProjectionMatrix (){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (jdoubleArray_getProjectionMatrixID==NULL) { /* Use the cache */
- jdoubleArray_getProjectionMatrixID = curEnv->GetMethodID(this->instanceClass, "getProjectionMatrix", "()[D" ) ;
-if (jdoubleArray_getProjectionMatrixID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getProjectionMatrix");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_getProjectionMatrixID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-double* IsometricCameraGL::getUnprojectMatrix (){
+    int *IsometricCameraGL::get2dViewPixelCoordinates(double userCoordX, double userCoordY, double userCoordZ)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubleArray_getUnprojectMatrixID==NULL) { /* Use the cache */
- jdoubleArray_getUnprojectMatrixID = curEnv->GetMethodID(this->instanceClass, "getUnprojectMatrix", "()[D" ) ;
-if (jdoubleArray_getUnprojectMatrixID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getUnprojectMatrix");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_getUnprojectMatrixID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID =
+                curEnv->GetMethodID(this->instanceClass, "get2dViewPixelCoordinates", "(DDD)[I");
+            if (jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewPixelCoordinates");
+            }
+        }
+        jintArray res =
+            static_cast < jintArray >
+            (curEnv->
+             CallObjectMethod(this->instance, jintArray_get2dViewPixelCoordinatesjdoublejdoublejdoubleID, userCoordX, userCoordY, userCoordZ));
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-double* IsometricCameraGL::get2dViewProjectionMatrix (){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (jdoubleArray_get2dViewProjectionMatrixID==NULL) { /* Use the cache */
- jdoubleArray_get2dViewProjectionMatrixID = curEnv->GetMethodID(this->instanceClass, "get2dViewProjectionMatrix", "()[D" ) ;
-if (jdoubleArray_get2dViewProjectionMatrixID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewProjectionMatrix");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_get2dViewProjectionMatrixID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-double* IsometricCameraGL::get2dViewUnprojectMatrix (){
+    double *IsometricCameraGL::getProjectionMatrix()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubleArray_get2dViewUnprojectMatrixID==NULL) { /* Use the cache */
- jdoubleArray_get2dViewUnprojectMatrixID = curEnv->GetMethodID(this->instanceClass, "get2dViewUnprojectMatrix", "()[D" ) ;
-if (jdoubleArray_get2dViewUnprojectMatrixID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewUnprojectMatrix");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_get2dViewUnprojectMatrixID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (jdoubleArray_getProjectionMatrixID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_getProjectionMatrixID = curEnv->GetMethodID(this->instanceClass, "getProjectionMatrix", "()[D");
+            if (jdoubleArray_getProjectionMatrixID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getProjectionMatrix");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_getProjectionMatrixID));
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-double* IsometricCameraGL::getViewPort (){
-
-JNIEnv * curEnv = getCurrentEnv();
-
-if (jdoubleArray_getViewPortID==NULL) { /* Use the cache */
- jdoubleArray_getViewPortID = curEnv->GetMethodID(this->instanceClass, "getViewPort", "()[D" ) ;
-if (jdoubleArray_getViewPortID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getViewPort");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_getViewPortID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void IsometricCameraGL::setAxesBounds (double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
+    double *IsometricCameraGL::getUnprojectMatrix()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setAxesBounds", "(DDDDDD)V" ) ;
-if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesBounds");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID ,xMin, xMax, yMin, yMax, zMin, zMax);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (jdoubleArray_getUnprojectMatrixID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_getUnprojectMatrixID = curEnv->GetMethodID(this->instanceClass, "getUnprojectMatrix", "()[D");
+            if (jdoubleArray_getUnprojectMatrixID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getUnprojectMatrix");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_getUnprojectMatrixID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    double *IsometricCameraGL::get2dViewProjectionMatrix()
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jdoubleArray_get2dViewProjectionMatrixID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_get2dViewProjectionMatrixID = curEnv->GetMethodID(this->instanceClass, "get2dViewProjectionMatrix", "()[D");
+            if (jdoubleArray_get2dViewProjectionMatrixID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewProjectionMatrix");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_get2dViewProjectionMatrixID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    double *IsometricCameraGL::get2dViewUnprojectMatrix()
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jdoubleArray_get2dViewUnprojectMatrixID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_get2dViewUnprojectMatrixID = curEnv->GetMethodID(this->instanceClass, "get2dViewUnprojectMatrix", "()[D");
+            if (jdoubleArray_get2dViewUnprojectMatrixID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "get2dViewUnprojectMatrix");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_get2dViewUnprojectMatrixID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    double *IsometricCameraGL::getViewPort()
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jdoubleArray_getViewPortID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_getViewPortID = curEnv->GetMethodID(this->instanceClass, "getViewPort", "()[D");
+            if (jdoubleArray_getViewPortID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getViewPort");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_getViewPortID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
+
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    void IsometricCameraGL::setAxesBounds(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax)
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "setAxesBounds", "(DDDDDD)V");
+            if (voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxesBounds");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetAxesBoundsjdoublejdoublejdoublejdoublejdoublejdoubleID, xMin, xMax, yMin, yMax, zMin, zMax);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

@@ -30,24 +30,20 @@
 #define TWO          RCONST(2.0)
 
 /* KINDENSE linit, lsetup, lsolve, and lfree routines */
- 
+
 static int KINDenseInit(KINMem kin_mem);
 
 static int KINDenseSetup(KINMem kin_mem);
 
-static int KINDenseSolve(KINMem kin_mem, N_Vector x, N_Vector b,
-                         realtype *res_norm);
+static int KINDenseSolve(KINMem kin_mem, N_Vector x, N_Vector b, realtype * res_norm);
 
 static void KINDenseFree(KINMem kin_mem);
 
 /* KINDENSE DQJac routine */
 
-static int KINDenseDQJac(long int n, DenseMat J,
-                         N_Vector u, N_Vector fu, void *jac_data,
-                         N_Vector tmp1, N_Vector tmp2);
+static int KINDenseDQJac(long int n, DenseMat J, N_Vector u, N_Vector fu, void *jac_data, N_Vector tmp1, N_Vector tmp2);
 
 /* Readability Replacements */
-
 
 #define lrw1           (kin_mem->kin_lrw1)
 #define liw1           (kin_mem->kin_liw1)
@@ -86,7 +82,7 @@ static int KINDenseDQJac(long int n, DenseMat J,
 #define nfeD      (kindense_mem->d_nfeD)
 #define J_data    (kindense_mem->d_J_data)
 #define last_flag (kindense_mem->d_last_flag)
-                  
+
 /*
  * -----------------------------------------------------------------
  * KINDense
@@ -113,75 +109,82 @@ static int KINDenseDQJac(long int n, DenseMat J,
 
 int KINDense(void *kinmem, long int N)
 {
-  KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDense", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDense", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  /* Test if the NVECTOR package is compatible with the DENSE solver */
-  if (vec_tmpl->ops->nvgetarraypointer == NULL ||
-      vec_tmpl->ops->nvsetarraypointer == NULL) {
-    KINProcessError(kin_mem, KINDENSE_ILL_INPUT, "KINDENSE", "KINDense", MSGDS_BAD_NVECTOR);
-    return(KINDENSE_ILL_INPUT);
-  }
+    /* Test if the NVECTOR package is compatible with the DENSE solver */
+    if (vec_tmpl->ops->nvgetarraypointer == NULL || vec_tmpl->ops->nvsetarraypointer == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_ILL_INPUT, "KINDENSE", "KINDense", MSGDS_BAD_NVECTOR);
+        return (KINDENSE_ILL_INPUT);
+    }
 
-  if (lfree !=NULL) lfree(kin_mem);
+    if (lfree != NULL)
+        lfree(kin_mem);
 
-  /* Set four main function fields in kin_mem */
-  linit  = KINDenseInit;
-  lsetup = KINDenseSetup;
-  lsolve = KINDenseSolve;
-  lfree  = KINDenseFree;
+    /* Set four main function fields in kin_mem */
+    linit = KINDenseInit;
+    lsetup = KINDenseSetup;
+    lsolve = KINDenseSolve;
+    lfree = KINDenseFree;
 
-  /* Get memory for KINDenseMemRec */
-  kindense_mem = NULL;
-  kindense_mem = (KINDenseMem) malloc(sizeof(KINDenseMemRec));
-  if (kindense_mem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
-    return(KINDENSE_MEM_FAIL);
-  }
+    /* Get memory for KINDenseMemRec */
+    kindense_mem = NULL;
+    kindense_mem = (KINDenseMem) malloc(sizeof(KINDenseMemRec));
+    if (kindense_mem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
+        return (KINDENSE_MEM_FAIL);
+    }
 
-  /* Set default Jacobian routine and Jacobian data */
-  jac = KINDenseDQJac;
-  J_data = kin_mem;
-  last_flag = KINDENSE_SUCCESS;
+    /* Set default Jacobian routine and Jacobian data */
+    jac = KINDenseDQJac;
+    J_data = kin_mem;
+    last_flag = KINDENSE_SUCCESS;
 
-  setupNonNull = TRUE;
+    setupNonNull = TRUE;
 
-  /* Set problem dimension */
-  n = N;
+    /* Set problem dimension */
+    n = N;
 
-  /* Allocate memory for J and pivot array */
-  
-  J = NULL;
-  J = DenseAllocMat(N, N);
-  if (J == NULL) {
-    KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
-    free(kindense_mem); kindense_mem = NULL;
-    return(KINDENSE_MEM_FAIL);
-  }
+    /* Allocate memory for J and pivot array */
 
-  pivots = NULL;
-  pivots = DenseAllocPiv(N);
-  if (pivots == NULL) {
-    KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
-    DenseFreeMat(J);
-    free(kindense_mem); kindense_mem = NULL;
-    return(KINDENSE_MEM_FAIL);
-  }
+    J = NULL;
+    J = DenseAllocMat(N, N);
+    if (J == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
+        free(kindense_mem);
+        kindense_mem = NULL;
+        return (KINDENSE_MEM_FAIL);
+    }
 
-  /* This is a direct linear solver */
-  inexact_ls = FALSE;
+    pivots = NULL;
+    pivots = DenseAllocPiv(N);
+    if (pivots == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_MEM_FAIL, "KINDENSE", "KINDense", MSGDS_MEM_FAIL);
+        DenseFreeMat(J);
+        free(kindense_mem);
+        kindense_mem = NULL;
+        return (KINDENSE_MEM_FAIL);
+    }
 
-  /* Attach linear solver memory to integrator memory */
-  lmem = kindense_mem;
+    /* This is a direct linear solver */
+    inexact_ls = FALSE;
 
-  return(KINDENSE_SUCCESS);
+    /* Attach linear solver memory to integrator memory */
+    lmem = kindense_mem;
+
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -192,26 +195,29 @@ int KINDense(void *kinmem, long int N)
 
 int KINDenseSetJacFn(void *kinmem, KINDenseJacFn djac, void *jac_data)
 {
-  KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseSetJacFn", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseSetJacFn", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  if (lmem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseSetJacFn", MSGDS_LMEM_NULL);
-    return(KINDENSE_LMEM_NULL);
-  }
-  kindense_mem = (KINDenseMem) lmem;
+    if (lmem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseSetJacFn", MSGDS_LMEM_NULL);
+        return (KINDENSE_LMEM_NULL);
+    }
+    kindense_mem = (KINDenseMem) lmem;
 
-  jac = djac;
-  if (djac != NULL) J_data = jac_data;
+    jac = djac;
+    if (djac != NULL)
+        J_data = jac_data;
 
-  return(KINDENSE_SUCCESS);
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -222,26 +228,28 @@ int KINDenseSetJacFn(void *kinmem, KINDenseJacFn djac, void *jac_data)
 
 int KINDenseGetWorkSpace(void *kinmem, long int *lenrwD, long int *leniwD)
 {
-  KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetWorkSpace", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetWorkSpace", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  if (lmem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetWorkSpace", MSGDS_LMEM_NULL);
-    return(KINDENSE_LMEM_NULL);
-  }
-  kindense_mem = (KINDenseMem) lmem;
+    if (lmem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetWorkSpace", MSGDS_LMEM_NULL);
+        return (KINDENSE_LMEM_NULL);
+    }
+    kindense_mem = (KINDenseMem) lmem;
 
-  *lenrwD = 2*n*n;
-  *leniwD = n;
+    *lenrwD = 2 * n * n;
+    *leniwD = n;
 
-  return(KINDENSE_SUCCESS);
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -252,25 +260,27 @@ int KINDenseGetWorkSpace(void *kinmem, long int *lenrwD, long int *leniwD)
 
 int KINDenseGetNumJacEvals(void *kinmem, long int *njevalsD)
 {
-  KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetNumJacEvals", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetNumJacEvals", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  if (lmem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetNumJacEvals", MSGDS_LMEM_NULL);
-    return(KINDENSE_LMEM_NULL);
-  }
-  kindense_mem = (KINDenseMem) lmem;
+    if (lmem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetNumJacEvals", MSGDS_LMEM_NULL);
+        return (KINDENSE_LMEM_NULL);
+    }
+    kindense_mem = (KINDenseMem) lmem;
 
-  *njevalsD = nje;
+    *njevalsD = nje;
 
-  return(KINDENSE_SUCCESS);
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -281,25 +291,27 @@ int KINDenseGetNumJacEvals(void *kinmem, long int *njevalsD)
 
 int KINDenseGetNumFuncEvals(void *kinmem, long int *nfevalsD)
 {
-  KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetNumFuncEvals", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetNumFuncEvals", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  if (lmem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetNumFuncEvals", MSGDS_LMEM_NULL);
-    return(KINDENSE_LMEM_NULL);
-  }
-  kindense_mem = (KINDenseMem) lmem;
+    if (lmem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetNumFuncEvals", MSGDS_LMEM_NULL);
+        return (KINDENSE_LMEM_NULL);
+    }
+    kindense_mem = (KINDenseMem) lmem;
 
-  *nfevalsD = nfeD;
+    *nfevalsD = nfeD;
 
-  return(KINDENSE_SUCCESS);
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -310,25 +322,27 @@ int KINDenseGetNumFuncEvals(void *kinmem, long int *nfevalsD)
 
 int KINDenseGetLastFlag(void *kinmem, int *flag)
 {
-   KINMem kin_mem;
-  KINDenseMem kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* Return immediately if kinmem is NULL */
-  if (kinmem == NULL) {
-    KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetLastFlag", MSGDS_KINMEM_NULL);
-    return(KINDENSE_MEM_NULL);
-  }
-  kin_mem = (KINMem) kinmem;
+    /* Return immediately if kinmem is NULL */
+    if (kinmem == NULL)
+    {
+        KINProcessError(NULL, KINDENSE_MEM_NULL, "KINDENSE", "KINDenseGetLastFlag", MSGDS_KINMEM_NULL);
+        return (KINDENSE_MEM_NULL);
+    }
+    kin_mem = (KINMem) kinmem;
 
-  if (lmem == NULL) {
-    KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetLastFlag", MSGDS_LMEM_NULL);
-    return(KINDENSE_LMEM_NULL);
-  }
-  kindense_mem = (KINDenseMem) lmem;
+    if (lmem == NULL)
+    {
+        KINProcessError(kin_mem, KINDENSE_LMEM_NULL, "KINDENSE", "KINDenseGetLastFlag", MSGDS_LMEM_NULL);
+        return (KINDENSE_LMEM_NULL);
+    }
+    kindense_mem = (KINDenseMem) lmem;
 
-  *flag = last_flag;
+    *flag = last_flag;
 
-  return(KINDENSE_SUCCESS);
+    return (KINDENSE_SUCCESS);
 }
 
 /*
@@ -339,31 +353,32 @@ int KINDenseGetLastFlag(void *kinmem, int *flag)
 
 char *KINDenseGetReturnFlagName(int flag)
 {
-  char *name;
+    char *name;
 
-  name = (char *)malloc(30*sizeof(char));
+    name = (char *)malloc(30 * sizeof(char));
 
-  switch(flag) {
-  case KINDENSE_SUCCESS:
-    sprintf(name, "KINDENSE_SUCCESS");
-    break;
-  case KINDENSE_MEM_NULL:
-    sprintf(name, "KINDENSE_MEM_NULL");
-    break;
-  case KINDENSE_LMEM_NULL:
-    sprintf(name, "KINDENSE_LMEM_NULL");
-    break;
-  case KINDENSE_ILL_INPUT:
-    sprintf(name, "KINDENSE_ILL_INPUT");
-    break;
-  case KINDENSE_MEM_FAIL:
-    sprintf(name, "KINDENSE_MEM_FAIL");
-    break;
-  default:
-    sprintf(name, "NONE");
-  }
+    switch (flag)
+    {
+    case KINDENSE_SUCCESS:
+        sprintf(name, "KINDENSE_SUCCESS");
+        break;
+    case KINDENSE_MEM_NULL:
+        sprintf(name, "KINDENSE_MEM_NULL");
+        break;
+    case KINDENSE_LMEM_NULL:
+        sprintf(name, "KINDENSE_LMEM_NULL");
+        break;
+    case KINDENSE_ILL_INPUT:
+        sprintf(name, "KINDENSE_ILL_INPUT");
+        break;
+    case KINDENSE_MEM_FAIL:
+        sprintf(name, "KINDENSE_MEM_FAIL");
+        break;
+    default:
+        sprintf(name, "NONE");
+    }
 
-  return(name);
+    return (name);
 }
 
 /*
@@ -377,20 +392,21 @@ char *KINDenseGetReturnFlagName(int flag)
 
 static int KINDenseInit(KINMem kin_mem)
 {
-  KINDenseMem kindense_mem;
+    KINDenseMem kindense_mem;
 
-  kindense_mem = (KINDenseMem) lmem;
-  
-  nje   = 0;
-  nfeD  = 0;
-  
-  if (jac == NULL) {
-    jac = KINDenseDQJac;
-    J_data = kin_mem;
-  }
+    kindense_mem = (KINDenseMem) lmem;
 
-  last_flag = KINDENSE_SUCCESS;
-  return(0);
+    nje = 0;
+    nfeD = 0;
+
+    if (jac == NULL)
+    {
+        jac = KINDenseDQJac;
+        J_data = kin_mem;
+    }
+
+    last_flag = KINDENSE_SUCCESS;
+    return (0);
 }
 
 /*
@@ -404,28 +420,30 @@ static int KINDenseInit(KINMem kin_mem)
 
 static int KINDenseSetup(KINMem kin_mem)
 {
-  KINDenseMem kindense_mem;
-  long int ier;
-  int retval;
+    KINDenseMem kindense_mem;
+    long int ier;
+    int retval;
 
-  kindense_mem = (KINDenseMem) lmem;
- 
-  nje++;
-  DenseZero(J); 
-  retval = jac(n, J, uu, fval, J_data, vtemp1, vtemp2);
-  if (retval != 0) {
-    last_flag = -1;
-    return(-1);
-  }
+    kindense_mem = (KINDenseMem) lmem;
 
-  /* Do LU factorization of J */
-  ier = DenseGETRF(J, pivots); 
+    nje++;
+    DenseZero(J);
+    retval = jac(n, J, uu, fval, J_data, vtemp1, vtemp2);
+    if (retval != 0)
+    {
+        last_flag = -1;
+        return (-1);
+    }
 
-  /* Return 0 if the LU was complete; otherwise return -1 */
-  last_flag = ier;
-  if (ier > 0) return(-1);
+    /* Do LU factorization of J */
+    ier = DenseGETRF(J, pivots);
 
-  return(0);
+    /* Return 0 if the LU was complete; otherwise return -1 */
+    last_flag = ier;
+    if (ier > 0)
+        return (-1);
+
+    return (0);
 }
 
 /*
@@ -437,41 +455,41 @@ static int KINDenseSetup(KINMem kin_mem)
  * -----------------------------------------------------------------
  */
 
-static int KINDenseSolve(KINMem kin_mem, N_Vector x, N_Vector b, realtype *res_norm)
+static int KINDenseSolve(KINMem kin_mem, N_Vector x, N_Vector b, realtype * res_norm)
 {
-  KINDenseMem kindense_mem;
-  realtype *xd;
+    KINDenseMem kindense_mem;
+    realtype *xd;
 
-  kindense_mem = (KINDenseMem) lmem;
+    kindense_mem = (KINDenseMem) lmem;
 
-  /* Copy the right-hand side into x */
+    /* Copy the right-hand side into x */
 
-  N_VScale(ONE, b, x);
-  
-  xd = N_VGetArrayPointer(x);
+    N_VScale(ONE, b, x);
 
-  /* Back-solve and get solution in x */
-  
-  DenseGETRS(J, pivots, xd);
+    xd = N_VGetArrayPointer(x);
 
-  /* Compute the terms Jpnorm and sfdotJp for use in the global strategy
-     routines and in KINForcingTerm. Both of these terms are subsequently
-     corrected if the step is reduced by constraints or the line search.
+    /* Back-solve and get solution in x */
 
-     sJpnorm is the norm of the scaled product (scaled by fscale) of
-     the current Jacobian matrix J and the step vector p.
+    DenseGETRS(J, pivots, xd);
 
-     sfdotJp is the dot product of the scaled f vector and the scaled
-     vector J*p, where the scaling uses fscale. */
+    /* Compute the terms Jpnorm and sfdotJp for use in the global strategy
+     * routines and in KINForcingTerm. Both of these terms are subsequently
+     * corrected if the step is reduced by constraints or the line search.
+     * 
+     * sJpnorm is the norm of the scaled product (scaled by fscale) of
+     * the current Jacobian matrix J and the step vector p.
+     * 
+     * sfdotJp is the dot product of the scaled f vector and the scaled
+     * vector J*p, where the scaling uses fscale. */
 
-  sJpnorm = N_VWL2Norm(b,fscale);
-  N_VProd(b, fscale, b);
-  N_VProd(b, fscale, b);
-  sfdotJp = N_VDotProd(fval, b);
+    sJpnorm = N_VWL2Norm(b, fscale);
+    N_VProd(b, fscale, b);
+    N_VProd(b, fscale, b);
+    sfdotJp = N_VDotProd(fval, b);
 
-  last_flag = KINDENSE_SUCCESS;
+    last_flag = KINDENSE_SUCCESS;
 
-  return(0);
+    return (0);
 }
 
 /*
@@ -484,13 +502,14 @@ static int KINDenseSolve(KINMem kin_mem, N_Vector x, N_Vector b, realtype *res_n
 
 static void KINDenseFree(KINMem kin_mem)
 {
-  KINDenseMem  kindense_mem;
+    KINDenseMem kindense_mem;
 
-  kindense_mem = (KINDenseMem) lmem;
-  
-  DenseFreeMat(J);
-  DenseFreePiv(pivots);
-  free(kindense_mem); kindense_mem = NULL;
+    kindense_mem = (KINDenseMem) lmem;
+
+    DenseFreeMat(J);
+    DenseFreePiv(pivots);
+    free(kindense_mem);
+    kindense_mem = NULL;
 }
 
 /*
@@ -521,64 +540,64 @@ static void KINDenseFree(KINMem kin_mem)
 
 #undef n
 #undef J
- 
-static int KINDenseDQJac(long int n, DenseMat J,
-                         N_Vector u, N_Vector fu, void *jac_data,
-                         N_Vector tmp1, N_Vector tmp2)
+
+static int KINDenseDQJac(long int n, DenseMat J, N_Vector u, N_Vector fu, void *jac_data, N_Vector tmp1, N_Vector tmp2)
 {
-  realtype inc, inc_inv, ujsaved, ujscale, sign;
-  realtype *tmp2_data, *u_data, *uscale_data;
-  N_Vector ftemp, jthCol;
-  long int j;
-  int retval;
+    realtype inc, inc_inv, ujsaved, ujscale, sign;
+    realtype *tmp2_data, *u_data, *uscale_data;
+    N_Vector ftemp, jthCol;
+    long int j;
+    int retval;
 
-  KINMem kin_mem;
-  KINDenseMem  kindense_mem;
+    KINMem kin_mem;
+    KINDenseMem kindense_mem;
 
-  /* jac_data points to kin_mem */
-  kin_mem = (KINMem) jac_data;
-  kindense_mem = (KINDenseMem) lmem;
+    /* jac_data points to kin_mem */
+    kin_mem = (KINMem) jac_data;
+    kindense_mem = (KINDenseMem) lmem;
 
-  /* Save pointer to the array in tmp2 */
-  tmp2_data = N_VGetArrayPointer(tmp2);
+    /* Save pointer to the array in tmp2 */
+    tmp2_data = N_VGetArrayPointer(tmp2);
 
-  /* Rename work vectors for readibility */
-  ftemp = tmp1; 
-  jthCol = tmp2;
+    /* Rename work vectors for readibility */
+    ftemp = tmp1;
+    jthCol = tmp2;
 
-  /* Obtain pointers to the data for u and uscale */
-  u_data   = N_VGetArrayPointer(u);
-  uscale_data = N_VGetArrayPointer(uscale);
+    /* Obtain pointers to the data for u and uscale */
+    u_data = N_VGetArrayPointer(u);
+    uscale_data = N_VGetArrayPointer(uscale);
 
-  /* This is the only for loop for 0..N-1 in KINSOL */
+    /* This is the only for loop for 0..N-1 in KINSOL */
 
-  for (j = 0; j < n; j++) {
+    for (j = 0; j < n; j++)
+    {
 
-    /* Generate the jth col of J(u) */
+        /* Generate the jth col of J(u) */
 
-    N_VSetArrayPointer(DENSE_COL(J,j), jthCol);
+        N_VSetArrayPointer(DENSE_COL(J, j), jthCol);
 
-    ujsaved = u_data[j];
-    ujscale = ONE/uscale_data[j];
-    sign = (ujsaved >= ZERO) ? ONE : -ONE;
-    inc = sqrt_relfunc*MAX(ABS(ujsaved), ujscale)*sign;
-    u_data[j] += inc;
+        ujsaved = u_data[j];
+        ujscale = ONE / uscale_data[j];
+        sign = (ujsaved >= ZERO) ? ONE : -ONE;
+        inc = sqrt_relfunc * MAX(ABS(ujsaved), ujscale) * sign;
+        u_data[j] += inc;
 
-    retval = func(u, ftemp, f_data);
-    if (retval != 0) return(-1); 
+        retval = func(u, ftemp, f_data);
+        if (retval != 0)
+            return (-1);
 
-    u_data[j] = ujsaved;
+        u_data[j] = ujsaved;
 
-    inc_inv = ONE/inc;
-    N_VLinearSum(inc_inv, ftemp, -inc_inv, fu, jthCol);
+        inc_inv = ONE / inc;
+        N_VLinearSum(inc_inv, ftemp, -inc_inv, fu, jthCol);
 
-  }
+    }
 
-  /* Restore original array pointer in tmp2 */
-  N_VSetArrayPointer(tmp2_data, tmp2);
+    /* Restore original array pointer in tmp2 */
+    N_VSetArrayPointer(tmp2_data, tmp2);
 
-  /* Increment counter nfeD */
-  nfeD += n;
+    /* Increment counter nfeD */
+    nfeD += n;
 
-  return(0);
+    return (0);
 }

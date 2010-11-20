@@ -12,10 +12,12 @@
 
 #include "gw_boolean.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_find)(char *fname,unsigned long fname_len)
+int C2F(sci_find) (char *fname, unsigned long fname_len)
 {
-	extern int C2F(intfind)();
-	C2F(intfind)();
-	return 0;
+    extern int C2F(intfind) ();
+
+    C2F(intfind) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

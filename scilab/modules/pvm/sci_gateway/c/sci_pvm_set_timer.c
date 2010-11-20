@@ -14,24 +14,25 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_set_timer, fin = 14
  ******************************************/
-int sci_pvm_set_timer(char *fname,unsigned long fname_len)
+int sci_pvm_set_timer(char *fname, unsigned long fname_len)
 {
-  int un=1,l1;
-  CheckRhs(0,0);
-  CheckLhs(1,1);
-  /* cross variable size checking */
-  CreateVar(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l1);/* named: res */
-  C2F(scipvmsettimer)(istk(l1));
-  LhsVar(1)= Rhs+1;
-  C2F(putlhsvar)();
-  return 0;
-}
-/*--------------------------------------------------------------------------*/ 
+    int un = 1, l1;
 
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
+    /* cross variable size checking */
+    CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l1);  /* named: res */
+    C2F(scipvmsettimer) (istk(l1));
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/

@@ -9,16 +9,19 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <string.h>
 #include "gw_elementary_functions.h"
 /*--------------------------------------------------------------------------*/
-int C2F(intisequalvar)(char * fname, int *job, long int fl); /* the gateway */
+int C2F(intisequalvar) (char *fname, int *job, long int fl);    /* the gateway */
+
 /*--------------------------------------------------------------------------*/
-int sci_isequalbitwise(char *fname,unsigned long fname_len)
+int sci_isequalbitwise(char *fname, unsigned long fname_len)
 {
-	int job= 0;
-	C2F(intisequalvar)(fname, (job=0,&job),(unsigned long)strlen(fname) );
-	return 0;
+    int job = 0;
+
+    C2F(intisequalvar) (fname, (job = 0, &job), (unsigned long)strlen(fname));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

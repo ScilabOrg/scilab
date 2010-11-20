@@ -14,17 +14,19 @@
 #include "getfiledesc.h"
 #include "filesmanagement.h"
 /*--------------------------------------------------------------------------*/
-void C2F(getfiledesc)(int *fd) 
+void C2F(getfiledesc) (int *fd)
 {
-	int i ;
-	for ( i = 1 ; i < GetMaximumFileOpenedInScilab() ; i++) 
-	{
-		if ( GetFileTypeOpenedInScilab(i) == 0 ) 
-		{
-			*fd = i;
-			return ;
-		}
-	}
-	*fd = -1;
+    int i;
+
+    for (i = 1; i < GetMaximumFileOpenedInScilab(); i++)
+    {
+        if (GetFileTypeOpenedInScilab(i) == 0)
+        {
+            *fd = i;
+            return;
+        }
+    }
+    *fd = -1;
 }
+
 /*--------------------------------------------------------------------------*/

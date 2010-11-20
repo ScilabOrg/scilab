@@ -12,12 +12,13 @@
 
 #include <string.h>
 
-extern void C2F(out)();
+extern void C2F(out) ();
 
 void Cout(str)
-char *str;
+     char *str;
 {
-  int l;
-  l = strlen(str) + 1;
-  C2F(out)(str,l);
+    int l;
+
+    l = strlen(str) + 1;
+    C2F(out) (str, l);
 }

@@ -39,539 +39,627 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_subwinDrawing {
+namespace org_scilab_modules_renderer_subwinDrawing
+{
 
 // Returns the current env
 
-JNIEnv * TicksDrawerGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *TicksDrawerGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-TicksDrawerGL::~TicksDrawerGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    TicksDrawerGL::~TicksDrawerGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-curEnv->DeleteGlobalRef(this->stringArrayClass);}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+        curEnv->DeleteGlobalRef(this->stringArrayClass);
+    }
 // Constructors
-TicksDrawerGL::TicksDrawerGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    TicksDrawerGL::TicksDrawerGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID=NULL; 
-
-jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
-stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
-curEnv->DeleteLocalRef(localStringArrayClass);
-jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID=NULL; 
-voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID=NULL; 
-jdoubleshowTicksID=NULL; 
-jdoubledrawTicksID=NULL; 
-voidsetAxisLineDrawingjbooleanID=NULL; 
-voidsetNeedTicksDecimationjbooleanID=NULL; 
-
-
-}
-
-TicksDrawerGL::TicksDrawerGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID = NULL;
+
+        jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
+
+        stringArrayClass = static_cast < jclass > (curEnv->NewGlobalRef(localStringArrayClass));
+        curEnv->DeleteLocalRef(localStringArrayClass);
+        jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID = NULL;
+        voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID = NULL;
+        jdoubleshowTicksID = NULL;
+        jdoubledrawTicksID = NULL;
+        voidsetAxisLineDrawingjbooleanID = NULL;
+        voidsetNeedTicksDecimationjbooleanID = NULL;
+
+    }
+
+    TicksDrawerGL::TicksDrawerGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID = NULL;
 
-jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
-stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
-curEnv->DeleteLocalRef(localStringArrayClass);
-jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID=NULL; 
-voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID=NULL; 
-jdoubleshowTicksID=NULL; 
-jdoubledrawTicksID=NULL; 
-voidsetAxisLineDrawingjbooleanID=NULL; 
-voidsetNeedTicksDecimationjbooleanID=NULL; 
+        jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
 
+        stringArrayClass = static_cast < jclass > (curEnv->NewGlobalRef(localStringArrayClass));
+        curEnv->DeleteLocalRef(localStringArrayClass);
+        jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID = NULL;
+        voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID = NULL;
+        jdoubleshowTicksID = NULL;
+        jdoubledrawTicksID = NULL;
+        voidsetAxisLineDrawingjbooleanID = NULL;
+        voidsetNeedTicksDecimationjbooleanID = NULL;
 
-}
+    }
 
 // Generic methods
 
-void TicksDrawerGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "TicksDrawerGL");
-}
-}
+    void TicksDrawerGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "TicksDrawerGL");
+        }
+    }
 
-void TicksDrawerGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "TicksDrawerGL");
-}
-}
+    void TicksDrawerGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "TicksDrawerGL");
+        }
+    }
 // Method(s)
 
-void TicksDrawerGL::display (){
+    void TicksDrawerGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void TicksDrawerGL::initializeDrawing (int figureIndex){
+    void TicksDrawerGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void TicksDrawerGL::endDrawing (){
+    void TicksDrawerGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void TicksDrawerGL::show (int figureIndex){
+    void TicksDrawerGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void TicksDrawerGL::destroy (int figureIndex){
+    void TicksDrawerGL::destroy(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-double TicksDrawerGL::drawTicks (double* axisSegmentStart, int axisSegmentStartSize, double* axisSegmentEnd, int axisSegmentEndSize, double* ticksDir, int ticksDirSize, double* relativeTicksPos, int relativeTicksPosSize, double* relativeSubticksPos, int relativeSubticksPosSize, char ** ticksLabels, int ticksLabelsSize){
+    double TicksDrawerGL::drawTicks(double *axisSegmentStart, int axisSegmentStartSize, double *axisSegmentEnd, int axisSegmentEndSize,
+                                    double *ticksDir, int ticksDirSize, double *relativeTicksPos, int relativeTicksPosSize,
+                                    double *relativeSubticksPos, int relativeSubticksPosSize, char **ticksLabels, int ticksLabelsSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID==NULL) { /* Use the cache */
- jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID = curEnv->GetMethodID(this->instanceClass, "drawTicks", "([D[D[D[D[D[Ljava/lang/String;)D" ) ;
-if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
-}
-}
-jdoubleArray axisSegmentStart_ = curEnv->NewDoubleArray( axisSegmentStartSize ) ;
+        if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID == NULL)
+        {                       /* Use the cache */
+            jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID =
+                curEnv->GetMethodID(this->instanceClass, "drawTicks", "([D[D[D[D[D[Ljava/lang/String;)D");
+            if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
+            }
+        }
+        jdoubleArray axisSegmentStart_ = curEnv->NewDoubleArray(axisSegmentStartSize);
 
-if (axisSegmentStart_ == NULL)
-{
+        if (axisSegmentStart_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( axisSegmentStart_, 0, axisSegmentStartSize, (jdouble*)(axisSegmentStart) ) ;
+        curEnv->SetDoubleArrayRegion(axisSegmentStart_, 0, axisSegmentStartSize, (jdouble *) (axisSegmentStart));
 
+        jdoubleArray axisSegmentEnd_ = curEnv->NewDoubleArray(axisSegmentEndSize);
 
-jdoubleArray axisSegmentEnd_ = curEnv->NewDoubleArray( axisSegmentEndSize ) ;
-
-if (axisSegmentEnd_ == NULL)
-{
+        if (axisSegmentEnd_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( axisSegmentEnd_, 0, axisSegmentEndSize, (jdouble*)(axisSegmentEnd) ) ;
+        curEnv->SetDoubleArrayRegion(axisSegmentEnd_, 0, axisSegmentEndSize, (jdouble *) (axisSegmentEnd));
 
+        jdoubleArray ticksDir_ = curEnv->NewDoubleArray(ticksDirSize);
 
-jdoubleArray ticksDir_ = curEnv->NewDoubleArray( ticksDirSize ) ;
-
-if (ticksDir_ == NULL)
-{
+        if (ticksDir_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( ticksDir_, 0, ticksDirSize, (jdouble*)(ticksDir) ) ;
+        curEnv->SetDoubleArrayRegion(ticksDir_, 0, ticksDirSize, (jdouble *) (ticksDir));
 
+        jdoubleArray relativeTicksPos_ = curEnv->NewDoubleArray(relativeTicksPosSize);
 
-jdoubleArray relativeTicksPos_ = curEnv->NewDoubleArray( relativeTicksPosSize ) ;
-
-if (relativeTicksPos_ == NULL)
-{
+        if (relativeTicksPos_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( relativeTicksPos_, 0, relativeTicksPosSize, (jdouble*)(relativeTicksPos) ) ;
+        curEnv->SetDoubleArrayRegion(relativeTicksPos_, 0, relativeTicksPosSize, (jdouble *) (relativeTicksPos));
 
+        jdoubleArray relativeSubticksPos_ = curEnv->NewDoubleArray(relativeSubticksPosSize);
 
-jdoubleArray relativeSubticksPos_ = curEnv->NewDoubleArray( relativeSubticksPosSize ) ;
-
-if (relativeSubticksPos_ == NULL)
-{
+        if (relativeSubticksPos_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( relativeSubticksPos_, 0, relativeSubticksPosSize, (jdouble*)(relativeSubticksPos) ) ;
+        curEnv->SetDoubleArrayRegion(relativeSubticksPos_, 0, relativeSubticksPosSize, (jdouble *) (relativeSubticksPos));
 
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray ticksLabels_ = curEnv->NewObjectArray( ticksLabelsSize, stringArrayClass, NULL);
-if (ticksLabels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray ticksLabels_ = curEnv->NewObjectArray(ticksLabelsSize, stringArrayClass, NULL);
+
+        if (ticksLabels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < ticksLabelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( ticksLabels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < ticksLabelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(ticksLabels[i]);
 
-curEnv->SetObjectArrayElement( ticksLabels_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(ticksLabels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                        jdouble res =  static_cast<jdouble>( curEnv->CallDoubleMethod( this->instance, jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID ,axisSegmentStart_, axisSegmentEnd_, ticksDir_, relativeTicksPos_, relativeSubticksPos_, ticksLabels_));
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(axisSegmentStart_);
-curEnv->DeleteLocalRef(axisSegmentEnd_);
-curEnv->DeleteLocalRef(ticksDir_);
-curEnv->DeleteLocalRef(relativeTicksPos_);
-curEnv->DeleteLocalRef(relativeSubticksPos_);
-curEnv->DeleteLocalRef(ticksLabels_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jdouble res =
+            static_cast < jdouble >
+            (curEnv->
+             CallDoubleMethod(this->instance, jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID,
+                              axisSegmentStart_, axisSegmentEnd_, ticksDir_, relativeTicksPos_, relativeSubticksPos_, ticksLabels_));
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(axisSegmentStart_);
+        curEnv->DeleteLocalRef(axisSegmentEnd_);
+        curEnv->DeleteLocalRef(ticksDir_);
+        curEnv->DeleteLocalRef(relativeTicksPos_);
+        curEnv->DeleteLocalRef(relativeSubticksPos_);
+        curEnv->DeleteLocalRef(ticksLabels_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-double TicksDrawerGL::drawTicks (double* axisSegmentStart, int axisSegmentStartSize, double* axisSegmentEnd, int axisSegmentEndSize, double* ticksDir, int ticksDirSize, double* relativeTicksPos, int relativeTicksPosSize, double* relativeSubticksPos, int relativeSubticksPosSize, char ** ticksLabels, int ticksLabelsSize, char ** labelsExponents, int labelsExponentsSize){
+    double TicksDrawerGL::drawTicks(double *axisSegmentStart, int axisSegmentStartSize, double *axisSegmentEnd, int axisSegmentEndSize,
+                                    double *ticksDir, int ticksDirSize, double *relativeTicksPos, int relativeTicksPosSize,
+                                    double *relativeSubticksPos, int relativeSubticksPosSize, char **ticksLabels, int ticksLabelsSize,
+                                    char **labelsExponents, int labelsExponentsSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID==NULL) { /* Use the cache */
- jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID = curEnv->GetMethodID(this->instanceClass, "drawTicks", "([D[D[D[D[D[Ljava/lang/String;[Ljava/lang/String;)D" ) ;
-if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
-}
-}
-jdoubleArray axisSegmentStart_ = curEnv->NewDoubleArray( axisSegmentStartSize ) ;
+        if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID == NULL)
+        {                       /* Use the cache */
+            jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID =
+                curEnv->GetMethodID(this->instanceClass, "drawTicks", "([D[D[D[D[D[Ljava/lang/String;[Ljava/lang/String;)D");
+            if (jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
+            }
+        }
+        jdoubleArray axisSegmentStart_ = curEnv->NewDoubleArray(axisSegmentStartSize);
 
-if (axisSegmentStart_ == NULL)
-{
+        if (axisSegmentStart_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( axisSegmentStart_, 0, axisSegmentStartSize, (jdouble*)(axisSegmentStart) ) ;
+        curEnv->SetDoubleArrayRegion(axisSegmentStart_, 0, axisSegmentStartSize, (jdouble *) (axisSegmentStart));
 
+        jdoubleArray axisSegmentEnd_ = curEnv->NewDoubleArray(axisSegmentEndSize);
 
-jdoubleArray axisSegmentEnd_ = curEnv->NewDoubleArray( axisSegmentEndSize ) ;
-
-if (axisSegmentEnd_ == NULL)
-{
+        if (axisSegmentEnd_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( axisSegmentEnd_, 0, axisSegmentEndSize, (jdouble*)(axisSegmentEnd) ) ;
+        curEnv->SetDoubleArrayRegion(axisSegmentEnd_, 0, axisSegmentEndSize, (jdouble *) (axisSegmentEnd));
 
+        jdoubleArray ticksDir_ = curEnv->NewDoubleArray(ticksDirSize);
 
-jdoubleArray ticksDir_ = curEnv->NewDoubleArray( ticksDirSize ) ;
-
-if (ticksDir_ == NULL)
-{
+        if (ticksDir_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( ticksDir_, 0, ticksDirSize, (jdouble*)(ticksDir) ) ;
+        curEnv->SetDoubleArrayRegion(ticksDir_, 0, ticksDirSize, (jdouble *) (ticksDir));
 
+        jdoubleArray relativeTicksPos_ = curEnv->NewDoubleArray(relativeTicksPosSize);
 
-jdoubleArray relativeTicksPos_ = curEnv->NewDoubleArray( relativeTicksPosSize ) ;
-
-if (relativeTicksPos_ == NULL)
-{
+        if (relativeTicksPos_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( relativeTicksPos_, 0, relativeTicksPosSize, (jdouble*)(relativeTicksPos) ) ;
+        curEnv->SetDoubleArrayRegion(relativeTicksPos_, 0, relativeTicksPosSize, (jdouble *) (relativeTicksPos));
 
+        jdoubleArray relativeSubticksPos_ = curEnv->NewDoubleArray(relativeSubticksPosSize);
 
-jdoubleArray relativeSubticksPos_ = curEnv->NewDoubleArray( relativeSubticksPosSize ) ;
-
-if (relativeSubticksPos_ == NULL)
-{
+        if (relativeSubticksPos_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( relativeSubticksPos_, 0, relativeSubticksPosSize, (jdouble*)(relativeSubticksPos) ) ;
+        curEnv->SetDoubleArrayRegion(relativeSubticksPos_, 0, relativeSubticksPosSize, (jdouble *) (relativeSubticksPos));
 
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray ticksLabels_ = curEnv->NewObjectArray( ticksLabelsSize, stringArrayClass, NULL);
-if (ticksLabels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray ticksLabels_ = curEnv->NewObjectArray(ticksLabelsSize, stringArrayClass, NULL);
+
+        if (ticksLabels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < ticksLabelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( ticksLabels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < ticksLabelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(ticksLabels[i]);
 
-curEnv->SetObjectArrayElement( ticksLabels_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(ticksLabels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray labelsExponents_ = curEnv->NewObjectArray( labelsExponentsSize, stringArrayClass, NULL);
-if (labelsExponents_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray labelsExponents_ = curEnv->NewObjectArray(labelsExponentsSize, stringArrayClass, NULL);
+
+        if (labelsExponents_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < labelsExponentsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( labelsExponents[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < labelsExponentsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(labelsExponents[i]);
 
-curEnv->SetObjectArrayElement( labelsExponents_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(labelsExponents_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                        jdouble res =  static_cast<jdouble>( curEnv->CallDoubleMethod( this->instance, jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID ,axisSegmentStart_, axisSegmentEnd_, ticksDir_, relativeTicksPos_, relativeSubticksPos_, ticksLabels_, labelsExponents_));
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(axisSegmentStart_);
-curEnv->DeleteLocalRef(axisSegmentEnd_);
-curEnv->DeleteLocalRef(ticksDir_);
-curEnv->DeleteLocalRef(relativeTicksPos_);
-curEnv->DeleteLocalRef(relativeSubticksPos_);
-curEnv->DeleteLocalRef(ticksLabels_);
-curEnv->DeleteLocalRef(labelsExponents_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jdouble res =
+            static_cast < jdouble >
+            (curEnv->
+             CallDoubleMethod(this->instance,
+                              jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID,
+                              axisSegmentStart_, axisSegmentEnd_, ticksDir_, relativeTicksPos_, relativeSubticksPos_, ticksLabels_,
+                              labelsExponents_));
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(axisSegmentStart_);
+        curEnv->DeleteLocalRef(axisSegmentEnd_);
+        curEnv->DeleteLocalRef(ticksDir_);
+        curEnv->DeleteLocalRef(relativeTicksPos_);
+        curEnv->DeleteLocalRef(relativeSubticksPos_);
+        curEnv->DeleteLocalRef(ticksLabels_);
+        curEnv->DeleteLocalRef(labelsExponents_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-void TicksDrawerGL::setAxisParameters (int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor, bool useFractionalMetrics){
+    void TicksDrawerGL::setAxisParameters(int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor,
+                                          bool useFractionalMetrics)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID==NULL) { /* Use the cache */
- voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxisParameters", "(IFIIDIZ)V" ) ;
-if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxisParameters");
-}
-}
-jboolean useFractionalMetrics_ = (static_cast<bool>(useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID =
+                curEnv->GetMethodID(this->instanceClass, "setAxisParameters", "(IFIIDIZ)V");
+            if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxisParameters");
+            }
+        }
+        jboolean useFractionalMetrics_ = (static_cast < bool > (useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID ,lineStyle, lineWidth, lineColor, fontType, fontSize, fontColor, useFractionalMetrics_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID, lineStyle, lineWidth, lineColor,
+                               fontType, fontSize, fontColor, useFractionalMetrics_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-double TicksDrawerGL::showTicks (){
+    double TicksDrawerGL::showTicks()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jdoubleshowTicksID==NULL) { /* Use the cache */
- jdoubleshowTicksID = curEnv->GetMethodID(this->instanceClass, "showTicks", "()D" ) ;
-if (jdoubleshowTicksID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "showTicks");
-}
-}
-                        jdouble res =  static_cast<jdouble>( curEnv->CallDoubleMethod( this->instance, jdoubleshowTicksID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jdoubleshowTicksID == NULL)
+        {                       /* Use the cache */
+            jdoubleshowTicksID = curEnv->GetMethodID(this->instanceClass, "showTicks", "()D");
+            if (jdoubleshowTicksID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "showTicks");
+            }
+        }
+        jdouble res = static_cast < jdouble > (curEnv->CallDoubleMethod(this->instance, jdoubleshowTicksID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-double TicksDrawerGL::drawTicks (){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    double TicksDrawerGL::drawTicks()
+    {
 
-if (jdoubledrawTicksID==NULL) { /* Use the cache */
- jdoubledrawTicksID = curEnv->GetMethodID(this->instanceClass, "drawTicks", "()D" ) ;
-if (jdoubledrawTicksID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
-}
-}
-                        jdouble res =  static_cast<jdouble>( curEnv->CallDoubleMethod( this->instance, jdoubledrawTicksID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = getCurrentEnv();
 
-}
+        if (jdoubledrawTicksID == NULL)
+        {                       /* Use the cache */
+            jdoubledrawTicksID = curEnv->GetMethodID(this->instanceClass, "drawTicks", "()D");
+            if (jdoubledrawTicksID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawTicks");
+            }
+        }
+        jdouble res = static_cast < jdouble > (curEnv->CallDoubleMethod(this->instance, jdoubledrawTicksID));
 
-void TicksDrawerGL::setAxisLineDrawing (bool drawAxisLine){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = getCurrentEnv();
+    }
 
-if (voidsetAxisLineDrawingjbooleanID==NULL) { /* Use the cache */
- voidsetAxisLineDrawingjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxisLineDrawing", "(Z)V" ) ;
-if (voidsetAxisLineDrawingjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAxisLineDrawing");
-}
-}
-jboolean drawAxisLine_ = (static_cast<bool>(drawAxisLine) ? JNI_TRUE : JNI_FALSE);
+    void TicksDrawerGL::setAxisLineDrawing(bool drawAxisLine)
+    {
 
-                         curEnv->CallVoidMethod( this->instance, voidsetAxisLineDrawingjbooleanID ,drawAxisLine_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-void TicksDrawerGL::setNeedTicksDecimation (bool needTicksDecimation){
+        if (voidsetAxisLineDrawingjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetAxisLineDrawingjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxisLineDrawing", "(Z)V");
+            if (voidsetAxisLineDrawingjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAxisLineDrawing");
+            }
+        }
+        jboolean drawAxisLine_ = (static_cast < bool > (drawAxisLine) ? JNI_TRUE : JNI_FALSE);
 
-JNIEnv * curEnv = getCurrentEnv();
+        curEnv->CallVoidMethod(this->instance, voidsetAxisLineDrawingjbooleanID, drawAxisLine_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-if (voidsetNeedTicksDecimationjbooleanID==NULL) { /* Use the cache */
- voidsetNeedTicksDecimationjbooleanID = curEnv->GetMethodID(this->instanceClass, "setNeedTicksDecimation", "(Z)V" ) ;
-if (voidsetNeedTicksDecimationjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setNeedTicksDecimation");
-}
-}
-jboolean needTicksDecimation_ = (static_cast<bool>(needTicksDecimation) ? JNI_TRUE : JNI_FALSE);
+    void TicksDrawerGL::setNeedTicksDecimation(bool needTicksDecimation)
+    {
 
-                         curEnv->CallVoidMethod( this->instance, voidsetNeedTicksDecimationjbooleanID ,needTicksDecimation_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (voidsetNeedTicksDecimationjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetNeedTicksDecimationjbooleanID = curEnv->GetMethodID(this->instanceClass, "setNeedTicksDecimation", "(Z)V");
+            if (voidsetNeedTicksDecimationjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setNeedTicksDecimation");
+            }
+        }
+        jboolean needTicksDecimation_ = (static_cast < bool > (needTicksDecimation) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallVoidMethod(this->instance, voidsetNeedTicksDecimationjbooleanID, needTicksDecimation_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

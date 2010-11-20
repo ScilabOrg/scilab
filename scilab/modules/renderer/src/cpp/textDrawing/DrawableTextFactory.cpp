@@ -29,45 +29,45 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableTextFactory::create( void )
-{
-  ConcreteDrawableText * newText = new ConcreteDrawableText( m_pDrawed ) ;
-  DrawableTextBridgeFactory fact;
-  fact.setDrawedText(newText);
-  newText->setDrawableImp(fact.create());
-  setStrategies(newText);
-
-  return newText;
-}
-/*---------------------------------------------------------------------------------*/
-void DrawableTextFactory::update( void )
-{
-  setStrategies(dynamic_cast<ConcreteDrawableText *>(getTextDrawer(m_pDrawed)));
-}
-/*---------------------------------------------------------------------------------*/
-void DrawableTextFactory::setStrategies(ConcreteDrawableText * text)
-{
-
-  sciPointObj * pText = text->getDrawedObject();
-
-  // set the text box strategy
-  if ( sciGetAutoSize( pText ) )
-  {
-    if ( sciGetCenterPos( pText ) )
+    DrawableObject *DrawableTextFactory::create(void)
     {
-      text->setTextDrawingStrategy(new CenteredTextDrawerJoGL(text));
-    }
-    else
-    {
-      text->setTextDrawingStrategy(new StandardTextDrawerJoGL(text));
-    }
-  }
-  else
-  {
-    text->setTextDrawingStrategy(new FilledTextDrawerJoGL(text));
-  }
+        ConcreteDrawableText *newText = new ConcreteDrawableText(m_pDrawed);
+        DrawableTextBridgeFactory fact;
+          fact.setDrawedText(newText);
+          newText->setDrawableImp(fact.create());
+          setStrategies(newText);
 
-}
+          return newText;
+    }
+/*---------------------------------------------------------------------------------*/
+    void DrawableTextFactory::update(void)
+    {
+        setStrategies(dynamic_cast < ConcreteDrawableText * >(getTextDrawer(m_pDrawed)));
+    }
+/*---------------------------------------------------------------------------------*/
+    void DrawableTextFactory::setStrategies(ConcreteDrawableText * text)
+    {
+
+        sciPointObj *pText = text->getDrawedObject();
+
+        // set the text box strategy
+        if (sciGetAutoSize(pText))
+        {
+            if (sciGetCenterPos(pText))
+            {
+                text->setTextDrawingStrategy(new CenteredTextDrawerJoGL(text));
+            }
+            else
+            {
+                text->setTextDrawingStrategy(new StandardTextDrawerJoGL(text));
+            }
+        }
+        else
+        {
+            text->setTextDrawingStrategy(new FilledTextDrawerJoGL(text));
+        }
+
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

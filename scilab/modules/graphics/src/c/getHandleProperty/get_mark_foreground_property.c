@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_mark_foreground_property( sciPointObj * pobj )
+int get_mark_foreground_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetMarkForegroundToDisplay( pobj ) ) ;
+    return sciReturnDouble(sciGetMarkForegroundToDisplay(pobj));
 }
+
 /*------------------------------------------------------------------------*/

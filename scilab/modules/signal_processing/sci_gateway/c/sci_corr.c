@@ -14,11 +14,13 @@
 #include "gw_signal.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scicorr)(char *id,unsigned long fname_len );
+extern int C2F(scicorr) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_corr)(char *fname,unsigned long fname_len)
+int C2F(sci_corr) (char *fname, unsigned long fname_len)
 {
-	C2F(scicorr)(fname,fname_len);
-	return 0;
+    C2F(scicorr) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

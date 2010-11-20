@@ -31,13 +31,14 @@
 static int sci_emptystr_no_rhs(void);
 static int sci_emptystr_one_rhs(char *fname);
 static int sci_emptystr_two_rhs(char *fname);
+
 /*--------------------------------------------------------------------------*/
-int sci_emptystr(char *fname,unsigned long fname_len)
+int sci_emptystr(char *fname, unsigned long fname_len)
 {
     Rhs = Max(0, Rhs);
 
-    CheckRhs(0,2);
-    CheckLhs(1,1);
+    CheckRhs(0, 2);
+    CheckLhs(1, 1);
 
     if (Rhs < 1)
     {
@@ -53,26 +54,28 @@ int sci_emptystr(char *fname,unsigned long fname_len)
     }
     return 0;
 }
-/*--------------------------------------------------------------------------*/       
+
+/*--------------------------------------------------------------------------*/
 static int sci_emptystr_no_rhs(void)
 {
     /* With no input argument returns a zero length character string */
     int m1 = 0, n1 = 0, l1 = 0;
 
-    CreateVar(Rhs+1,STRING_DATATYPE,  &m1, &n1, &l1);
-    LhsVar(1)=Rhs+1;
-    C2F(putlhsvar)();
+    CreateVar(Rhs + 1, STRING_DATATYPE, &m1, &n1, &l1);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
     return 0;
 }
-/*--------------------------------------------------------------------------*/       
+
+/*--------------------------------------------------------------------------*/
 static int sci_emptystr_one_rhs(char *fname)
 {
-    int m1 = 0,n1 = 0; /* m1 is the number of row ; n1 is the number of col*/
+    int m1 = 0, n1 = 0;         /* m1 is the number of row ; n1 is the number of col */
 
     /*With a matrix for input argument returns a zero length character strings matrix of the same size */
     int Type = VarType(1);
 
-    if (Type == sci_matrix) 
+    if (Type == sci_matrix)
     {
         char **Input_StringMatrix_One = NULL;
 
@@ -80,9 +83,10 @@ static int sci_emptystr_one_rhs(char *fname)
         if ((m1 == 0) && (n1 == 0)) /* emptystr([]) */
         {
             int l = 0;
+
             CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l);
-            LhsVar(1) = Rhs + 1 ;
-            C2F(putlhsvar)();
+            LhsVar(1) = Rhs + 1;
+            C2F(putlhsvar) ();
             return 0;
         }
     }
@@ -92,7 +96,8 @@ static int sci_emptystr_one_rhs(char *fname)
         {
             /* compatibility with 4.1.2 */
             int lw = 1 + Top - Rhs;
-            C2F(overload)(&lw, fname, (int)strlen(fname));
+
+            C2F(overload) (&lw, fname, (int)strlen(fname));
             return 0;
         }
         else
@@ -101,28 +106,31 @@ static int sci_emptystr_one_rhs(char *fname)
             int l1 = 0;
             int il = 0;
             int lw = RHSPOS + Top - Rhs;
+
             l1 = *Lstk(lw);
             il = iadr(l1);
 
-            if (*istk(il ) < 0) il = iadr(*istk(il + 1));
+            if (*istk(il) < 0)
+                il = iadr(*istk(il + 1));
 
             /* get dimensions */
-            m1 = getNumberOfLines(il); /* row */
-            n1 = getNumberOfColumns(il); /* col */
+            m1 = getNumberOfLines(il);  /* row */
+            n1 = getNumberOfColumns(il);    /* col */
         }
     }
 
-    /* m1 is the number of row ; n1 is the number of col*/
-    CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, NULL);   
+    /* m1 is the number of row ; n1 is the number of col */
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, NULL);
     LhsVar(1) = Rhs + 1;
-    C2F(putlhsvar)();
+    C2F(putlhsvar) ();
 
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 static int sci_emptystr_two_rhs(char *fname)
 {
-    /*value_param_pos_1 is the number of row ; value_param_pos_2 is the number of col*/
+    /*value_param_pos_1 is the number of row ; value_param_pos_2 is the number of col */
 
     int Type_One = GetType(1);
     int Type_Two = GetType(2);
@@ -135,6 +143,7 @@ static int sci_emptystr_two_rhs(char *fname)
 
         int m1 = 0, n1 = 0, l1 = 0;
         int m2 = 0, n2 = 0, l2 = 0;
+
         GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
         GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
 
@@ -147,7 +156,8 @@ static int sci_emptystr_two_rhs(char *fname)
         {
             int m = (int)value_param_pos_1;
             int n = (int)value_param_pos_2;
-            CreateVarFromPtr(Rhs + 1,MATRIX_OF_STRING_DATATYPE, &m, &n, NULL);
+
+            CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m, &n, NULL);
         }
         else
         {
@@ -155,23 +165,25 @@ static int sci_emptystr_two_rhs(char *fname)
             int l = 0;
             int m = 0;
             int n = 0;
-            CreateVar(Rhs + 1,MATRIX_OF_DOUBLE_DATATYPE,&m, &n,&l);
+
+            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m, &n, &l);
         }
         LhsVar(1) = Rhs + 1;
 
-        C2F(putlhsvar)();
+        C2F(putlhsvar) ();
     }
     else
     {
         if (Type_One != sci_matrix)
         {
-            Scierror(999,_("%s: Wrong type for input argument #%d: Matrix of integers expected.\n"),fname,1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of integers expected.\n"), fname, 1);
         }
-        else /* Type_Two */
+        else                    /* Type_Two */
         {
-            Scierror(999,_("%s: Wrong type for input argument #%d: Matrix of integers expected.\n"),fname,2);
+            Scierror(999, _("%s: Wrong type for input argument #%d: Matrix of integers expected.\n"), fname, 2);
         }
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

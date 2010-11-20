@@ -12,7 +12,6 @@
  *
  */
 
-
 #include "AutomaticTicksComputer.hxx"
 
 extern "C"
@@ -27,122 +26,122 @@ extern "C"
 namespace sciGraphics
 {
 
-static const int BUFFER_LENGTH = 64;
+    static const int BUFFER_LENGTH = 64;
 
 /*------------------------------------------------------------------------------------------*/
-AutomaticTicksComputer::AutomaticTicksComputer(DrawableSubwin * subwin)
-  : ComputeTicksStrategy(subwin)
-{
-  m_dMinBounds = 0.0;
-  m_dMinBounds = 0.0;
-  m_iNbTicks = -1; /* ie unitialized */
-}
+      AutomaticTicksComputer::AutomaticTicksComputer(DrawableSubwin * subwin):ComputeTicksStrategy(subwin)
+    {
+        m_dMinBounds = 0.0;
+        m_dMinBounds = 0.0;
+        m_iNbTicks = -1;        /* ie unitialized */
+    }
 /*------------------------------------------------------------------------------------------*/
-AutomaticTicksComputer::~AutomaticTicksComputer(void)
-{
-  
-}
+    AutomaticTicksComputer::~AutomaticTicksComputer(void)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-void AutomaticTicksComputer::reinit(void)
-{
-  m_iNbTicks = -1;
-}
+    void AutomaticTicksComputer::reinit(void)
+    {
+        m_iNbTicks = -1;
+    }
 /*------------------------------------------------------------------------------------------*/
-int AutomaticTicksComputer::getNbTicks(void)
-{
+    int AutomaticTicksComputer::getNbTicks(void)
+    {
 
-  if (m_iNbTicks < 0)
-  {
-		// ticks not already decimated
-		int nbTicks = 0;
-    double ticks[20];
-    TheTicks(&m_dMinBounds, &m_dMaxBounds, ticks, &nbTicks, FALSE);
-		return nbTicks;
-  }
-	else
-	{
-		// ticks decimated, use the specified value
-		return m_iNbTicks;
-	}
-}
+        if (m_iNbTicks < 0)
+        {
+            // ticks not already decimated
+            int nbTicks = 0;
+            double ticks[20];
+
+            TheTicks(&m_dMinBounds, &m_dMaxBounds, ticks, &nbTicks, FALSE);
+            return nbTicks;
+        }
+        else
+        {
+            // ticks decimated, use the specified value
+            return m_iNbTicks;
+        }
+    }
 /*------------------------------------------------------------------------------------------*/
-void AutomaticTicksComputer::getTicksPosition(double positions[], char * labels[], char * labelsExponents[])
-{
+    void AutomaticTicksComputer::getTicksPosition(double positions[], char *labels[], char *labelsExponents[])
+    {
 
-	if (m_iNbTicks < 0)
-	{
-		// TheTicks gives different results if 
-  	// number of ticks computation is on or off, so we need to compute number of
-	  // ticks again.
-		TheTicks(&m_dMinBounds, &m_dMaxBounds, positions, &m_iNbTicks, FALSE);
-	}
-	else
-	{
-		TheTicks(&m_dMinBounds, &m_dMaxBounds, positions, &m_iNbTicks, TRUE);
-	}
+        if (m_iNbTicks < 0)
+        {
+            // TheTicks gives different results if 
+            // number of ticks computation is on or off, so we need to compute number of
+            // ticks again.
+            TheTicks(&m_dMinBounds, &m_dMaxBounds, positions, &m_iNbTicks, FALSE);
+        }
+        else
+        {
+            TheTicks(&m_dMinBounds, &m_dMaxBounds, positions, &m_iNbTicks, TRUE);
+        }
 
-  // now convert ticks positions in strings for labels
-  // find ticks format
-  char labelsFormat[5];
-  int lastIndex = Max( m_iNbTicks - 1, 0 ) ;
+        // now convert ticks positions in strings for labels
+        // find ticks format
+        char labelsFormat[5];
+        int lastIndex = Max(m_iNbTicks - 1, 0);
 
-  ChoixFormatE( labelsFormat,
-                positions[0],
-                positions[lastIndex],
-                (positions[lastIndex] - positions[0]) / lastIndex ); /* Adding F.Leray 06.05.04 */
+        ChoixFormatE(labelsFormat, positions[0], positions[lastIndex], (positions[lastIndex] - positions[0]) / lastIndex);  /* Adding F.Leray 06.05.04 */
 
-  char buffer[BUFFER_LENGTH];
-  for (int i = 0; i < m_iNbTicks; i++)
-  {
-    // convert current position into a string
-    sprintf(buffer, labelsFormat, positions[i]);
+        char buffer[BUFFER_LENGTH];
 
-    // add the string to labels
-    if (labels[i] != NULL) {delete[] labels[i];}
+        for (int i = 0; i < m_iNbTicks; i++)
+        {
+            // convert current position into a string
+            sprintf(buffer, labelsFormat, positions[i]);
 
-    labels[i] = new char[strlen(buffer) + 1];
-    strcpy(labels[i], buffer);
-  }
-  
+            // add the string to labels
+            if (labels[i] != NULL)
+            {
+                delete[]labels[i];
+            }
 
+            labels[i] = new char[strlen(buffer) + 1];
 
-}
+            strcpy(labels[i], buffer);
+        }
+
+    }
 /*------------------------------------------------------------------------------------------*/
-void AutomaticTicksComputer::reduceTicksNumber(void)
-{
-  m_iNbTicks = reduceTicksNumber(m_iNbTicks);
-}
+    void AutomaticTicksComputer::reduceTicksNumber(void)
+    {
+        m_iNbTicks = reduceTicksNumber(m_iNbTicks);
+    }
 /*------------------------------------------------------------------------------------------*/
-int AutomaticTicksComputer::reduceTicksNumber(int numberOfTicks)
-{
-  return ((numberOfTicks +1) / 2);
-}
+    int AutomaticTicksComputer::reduceTicksNumber(int numberOfTicks)
+    {
+        return ((numberOfTicks + 1) / 2);
+    }
 /*------------------------------------------------------------------------------------------*/
-int AutomaticTicksComputer::computeMaxNumberOfDecimationIterations(void)
-{
-  int nbIterations = 0;
-  int numberOfTicks = m_iNbTicks;
+    int AutomaticTicksComputer::computeMaxNumberOfDecimationIterations(void)
+    {
+        int nbIterations = 0;
+        int numberOfTicks = m_iNbTicks;
 
-  // No iterations are performed since decimation requires
-  // more than one tick
-  if (numberOfTicks <= 1)
-  {
-    return 0;
-  }
+        // No iterations are performed since decimation requires
+        // more than one tick
+        if (numberOfTicks <= 1)
+        {
+            return 0;
+        }
 
-  while(numberOfTicks > 1)
-  {
-    numberOfTicks = reduceTicksNumber(numberOfTicks);
-    nbIterations++;
-  }
+        while (numberOfTicks > 1)
+        {
+            numberOfTicks = reduceTicksNumber(numberOfTicks);
+            nbIterations++;
+        }
 
-  return nbIterations;
-}
+        return nbIterations;
+    }
 /*------------------------------------------------------------------------------------------*/
-void AutomaticTicksComputer::setAxisBounds(double min, double max)
-{
-  m_dMinBounds = min;
-  m_dMaxBounds = max;
-}
+    void AutomaticTicksComputer::setAxisBounds(double min, double max)
+    {
+        m_dMinBounds = min;
+        m_dMaxBounds = max;
+    }
 /*------------------------------------------------------------------------------------------*/
 }

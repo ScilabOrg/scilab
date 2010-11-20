@@ -22,34 +22,40 @@ Type *DX;\
     }\
 }
 
-int C2F(genabs)(int *typ, int *n, int *dx, int *incx)
+int C2F(genabs) (int *typ, int *n, int *dx, int *incx)
 {
-  static int i, i1, i2, nincx;
-  if (*n <= 0 || *incx <= 0) return 0;
-  nincx = *n * (*incx);
-  i1 = nincx;
-  i2 = *incx;
+    static int i, i1, i2, nincx;
 
-  switch (*typ) {
-  case 1:
-    ABS(integer1);
-    break;
-  case 2:
-    ABS(integer2);
-    break;
-  case 4:
-    ABS(int) ;
-    break;
-  case 11:
-    ABS(unsigned char);
-    break;
-  case 12:
-    ABS(unsigned short);
-    break;
-  case 14:
-    ABS(unsigned int);
-    break;
-  }
-  return 1; /* Warning missing return statement at end of non-void */
+    if (*n <= 0 || *incx <= 0)
+        return 0;
+    nincx = *n * (*incx);
+    i1 = nincx;
+    i2 = *incx;
+
+    switch (*typ)
+    {
+    case 1:
+        ABS(integer1);
+        break;
+    case 2:
+        ABS(integer2);
+        break;
+    case 4:
+        ABS(int);
+
+        break;
+    case 11:
+        ABS(unsigned char);
+
+        break;
+    case 12:
+        ABS(unsigned short);
+
+        break;
+    case 14:
+        ABS(unsigned int);
+
+        break;
+    }
+    return 1;                   /* Warning missing return statement at end of non-void */
 }
-

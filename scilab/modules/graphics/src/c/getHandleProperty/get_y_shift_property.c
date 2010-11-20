@@ -25,25 +25,26 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_y_shift_property( sciPointObj * pobj )
+int get_y_shift_property(sciPointObj * pobj)
 {
-  if (sciGetEntityType (pobj) == SCI_POLYLINE )
-  {
-    sciPolyline *  ppolyline = pPOLYLINE_FEATURE (pobj);
-
-    if( ppolyline->y_shift ==  NULL )
+    if (sciGetEntityType(pobj) == SCI_POLYLINE)
     {
-      return sciReturnEmptyMatrix() ;
+        sciPolyline *ppolyline = pPOLYLINE_FEATURE(pobj);
+
+        if (ppolyline->y_shift == NULL)
+        {
+            return sciReturnEmptyMatrix();
+        }
+        else
+        {
+            return sciReturnRowVector(ppolyline->y_shift, ppolyline->n1);
+        }
     }
     else
     {
-      return sciReturnRowVector( ppolyline->y_shift, ppolyline->n1 ) ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_shift");
+        return -1;
     }
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"y_shift") ;
-    return -1 ;
-  }
 }
+
 /*------------------------------------------------------------------------*/

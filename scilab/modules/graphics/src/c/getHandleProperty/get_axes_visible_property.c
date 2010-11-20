@@ -26,49 +26,51 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_axes_visible_property( sciPointObj * pobj )
+int get_axes_visible_property(sciPointObj * pobj)
 {
 
-  char * axes_visible[3]  = { NULL, NULL, NULL } ;
-  int i ;
-  int status = -1 ;
+    char *axes_visible[3] = { NULL, NULL, NULL };
+    int i;
+    int status = -1;
 
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_visible") ;
-    return -1 ;
-  }
-
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    axes_visible[i] = MALLOC( 4 * sizeof(char) ) ;
-    if ( axes_visible[i] == NULL )
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
     {
-      int j ;
-      for ( j = 0 ; j < i ; j++ )
-      {
-        FREE( axes_visible[j] ) ;
-				Scierror(999, _("%s: No more memory.\n"),"get_axes_visible_property");
-        return -1 ;
-      }
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_visible");
+        return -1;
     }
-    if ( pSUBWIN_FEATURE (pobj)->axes.axes_visible[i] )
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( axes_visible[i], "on" ) ;
+        axes_visible[i] = MALLOC(4 * sizeof(char));
+        if (axes_visible[i] == NULL)
+        {
+            int j;
+
+            for (j = 0; j < i; j++)
+            {
+                FREE(axes_visible[j]);
+                Scierror(999, _("%s: No more memory.\n"), "get_axes_visible_property");
+                return -1;
+            }
+        }
+        if (pSUBWIN_FEATURE(pobj)->axes.axes_visible[i])
+        {
+            strcpy(axes_visible[i], "on");
+        }
+        else
+        {
+            strcpy(axes_visible[i], "off");
+        }
     }
-    else
+
+    status = sciReturnRowStringVector(axes_visible, 3);
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( axes_visible[i], "off" ) ;
+        FREE(axes_visible[i]);
     }
-  }
 
-  status = sciReturnRowStringVector( axes_visible, 3 ) ;
-
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    FREE( axes_visible[i] ) ;
-  }
-
-  return status ;
+    return status;
 }
+
 /*------------------------------------------------------------------------*/

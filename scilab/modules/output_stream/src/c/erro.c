@@ -13,9 +13,10 @@
 #include "erro.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int C2F(erro)(char *str,unsigned int str_len)
+int C2F(erro) (char *str, unsigned int str_len)
 {
-  Scierror(9999,str);
-  return 0;
+    Scierror(9999, str);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

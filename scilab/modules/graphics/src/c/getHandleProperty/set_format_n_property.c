@@ -29,47 +29,48 @@
 #include "MALLOC.h"
 #include "string.h"
 
-
 /*------------------------------------------------------------------------*/
-int set_format_n_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_format_n_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  char* format;
-  int formatLength;
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "format_n");
-    return SET_PROPERTY_ERROR ;
-  }
+    char *format;
+    int formatLength;
 
-  if ( sciGetEntityType(pobj) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"format_n") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "format_n");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if(pAXES_FEATURE(pobj)->format != NULL)
-    FREE(pAXES_FEATURE(pobj)->format);
+    if (sciGetEntityType(pobj) != SCI_AXES)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "format_n");
+        return SET_PROPERTY_ERROR;
+    }
 
-  format = getStringFromStack(stackPointer);
-  formatLength = (int)strlen(format);
+    if (pAXES_FEATURE(pobj)->format != NULL)
+        FREE(pAXES_FEATURE(pobj)->format);
 
-  if(formatLength <= 1)
-  {
-    pAXES_FEATURE(pobj)->format = NULL;
+    format = getStringFromStack(stackPointer);
+    formatLength = (int)strlen(format);
+
+    if (formatLength <= 1)
+    {
+        pAXES_FEATURE(pobj)->format = NULL;
+        return SET_PROPERTY_SUCCEED;
+    }
+
+    pAXES_FEATURE(pobj)->format = MALLOC((formatLength + 1) * sizeof(char));
+    if (pAXES_FEATURE(pobj)->format != NULL)
+    {
+        strcpy(pAXES_FEATURE(pobj)->format, format);
+        return SET_PROPERTY_SUCCEED;
+    }
+    else
+    {
+        Scierror(999, _("%s: No more memory.\n"), "set_format_n_property");
+        return SET_PROPERTY_ERROR;
+    }
     return SET_PROPERTY_SUCCEED;
-  }
-
-  pAXES_FEATURE(pobj)->format = MALLOC((formatLength + 1) * sizeof(char));
-  if(pAXES_FEATURE(pobj)->format != NULL)
-  {
-    strcpy(pAXES_FEATURE(pobj)->format, format);
-    return SET_PROPERTY_SUCCEED ;
-  }
-  else
-  {
-    Scierror(999, _("%s: No more memory.\n"),"set_format_n_property");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_SUCCEED ;
 }
+
 /*------------------------------------------------------------------------*/

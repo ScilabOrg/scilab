@@ -25,36 +25,39 @@ Type *DX;\
  }\
 }
 
-int C2F(genisany)(int *typ, int *n, int *dx, int *incx)
+int C2F(genisany) (int *typ, int *n, int *dx, int *incx)
 {
-    int  i1, i2;
+    int i1, i2;
     static int i, dtemp;
 
-
     dtemp = 0;
-    if (*n <= 0) return dtemp;
+    if (*n <= 0)
+        return dtemp;
 
-    switch (*typ) {
+    switch (*typ)
+    {
     case 1:
-      ISANY(integer1);
-      break;
+        ISANY(integer1);
+        break;
     case 2:
-      ISANY(integer2);
-      break;
+        ISANY(integer2);
+        break;
     case 4:
-      ISANY(int) ;
-      break;
+        ISANY(int);
+
+        break;
     case 11:
-      ISANY(unsigned char);
-      break;
+        ISANY(unsigned char);
+
+        break;
     case 12:
-      ISANY(unsigned short);
-      break;
+        ISANY(unsigned short);
+
+        break;
     case 14:
-      ISANY(unsigned int);
-      break;
+        ISANY(unsigned int);
+
+        break;
     }
     return dtemp;
 }
-
-

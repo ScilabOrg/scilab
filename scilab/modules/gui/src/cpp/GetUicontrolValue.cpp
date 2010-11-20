@@ -15,85 +15,82 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolValue(sciPointObj* sciObj)
+int GetUicontrolValue(sciPointObj * sciObj)
 {
-  int * value = NULL;
+    int *value = NULL;
 
-  int singleValue = 0;
+    int singleValue = 0;
 
-  int valueSize = 0;
+    int valueSize = 0;
 
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      switch(pUICONTROL_FEATURE(sciObj)->style)
+        switch (pUICONTROL_FEATURE(sciObj)->style)
         {
         case SCI_LISTBOX:
-		      /* DO A DELETE @ end on value returned by getListBoxSelectedIndices */
-          value = (int*) CallScilabBridge::getListBoxSelectedIndices(getScilabJavaVM(), 
-                                                              pUICONTROL_FEATURE(sciObj)->hashMapIndex);
-          valueSize = CallScilabBridge::getListBoxSelectionSize(getScilabJavaVM(), 
-                                                              pUICONTROL_FEATURE(sciObj)->hashMapIndex);
-          if (valueSize==0 || value[0] == -1)
+            /* DO A DELETE @ end on value returned by getListBoxSelectedIndices */
+            value = (int *)CallScilabBridge::getListBoxSelectedIndices(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            valueSize = CallScilabBridge::getListBoxSelectionSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            if (valueSize == 0 || value[0] == -1)
             {
-              return sciReturnEmptyMatrix();
+                return sciReturnEmptyMatrix();
             }
-          else
+            else
             {
-              if (valueSize == 1)
+                if (valueSize == 1)
                 {
-                  return sciReturnInt(value[0]);
+                    return sciReturnInt(value[0]);
                 }
-              else
+                else
                 {
-                  return sciReturnRowVectorFromInt(value, valueSize);
+                    return sciReturnRowVectorFromInt(value, valueSize);
                 }
             }
         case SCI_POPUPMENU:
-          singleValue = (int) CallScilabBridge::getPopupMenuSelectedIndex(getScilabJavaVM(), 
-                                                          pUICONTROL_FEATURE(sciObj)->hashMapIndex);
-          if (singleValue == -1)
+            singleValue = (int)CallScilabBridge::getPopupMenuSelectedIndex(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            if (singleValue == -1)
             {
-              return sciReturnEmptyMatrix();
+                return sciReturnEmptyMatrix();
             }
-          else
+            else
             {
-              return sciReturnInt(singleValue); /* Only one value returned */
+                return sciReturnInt(singleValue);   /* Only one value returned */
             }
         case SCI_SLIDER:
-          return sciReturnInt(CallScilabBridge::getSliderValue(getScilabJavaVM(), 
-                                                               pUICONTROL_FEATURE(sciObj)->hashMapIndex)); /* Only one value returned */
+            return sciReturnInt(CallScilabBridge::getSliderValue(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex)); /* Only one value returned */
         case SCI_CHECKBOX:
-          if (CallScilabBridge::isCheckBoxChecked(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
+            if (CallScilabBridge::isCheckBoxChecked(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
             {
-              return sciReturnInt(pUICONTROL_FEATURE(sciObj)->max); /* Only one value returned */
+                return sciReturnInt(pUICONTROL_FEATURE(sciObj)->max);   /* Only one value returned */
             }
-          else
+            else
             {
-              return sciReturnInt(pUICONTROL_FEATURE(sciObj)->min); /* Only one value returned */
+                return sciReturnInt(pUICONTROL_FEATURE(sciObj)->min);   /* Only one value returned */
             }
         case SCI_RADIOBUTTON:
-          if (CallScilabBridge::isRadioButtonChecked(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
+            if (CallScilabBridge::isRadioButtonChecked(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex))
             {
-              return sciReturnInt(pUICONTROL_FEATURE(sciObj)->max); /* Only one value returned */
+                return sciReturnInt(pUICONTROL_FEATURE(sciObj)->max);   /* Only one value returned */
             }
-          else
+            else
             {
-              return sciReturnInt(pUICONTROL_FEATURE(sciObj)->min); /* Only one value returned */
+                return sciReturnInt(pUICONTROL_FEATURE(sciObj)->min);   /* Only one value returned */
             }
         default:
-          if (pUICONTROL_FEATURE(sciObj)->valueSize == 0)
+            if (pUICONTROL_FEATURE(sciObj)->valueSize == 0)
             {
-              return sciReturnEmptyMatrix();
+                return sciReturnEmptyMatrix();
             }
-          else
+            else
             {
-              return sciReturnRowVectorFromInt(pUICONTROL_FEATURE(sciObj)->value, pUICONTROL_FEATURE(sciObj)->valueSize);
+                return sciReturnRowVectorFromInt(pUICONTROL_FEATURE(sciObj)->value, pUICONTROL_FEATURE(sciObj)->valueSize);
             }
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Value");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Value");
+
+        return FALSE;
     }
 }

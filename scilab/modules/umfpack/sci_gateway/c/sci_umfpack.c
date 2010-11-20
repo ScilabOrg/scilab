@@ -71,203 +71,215 @@
 #include "common_umfpack.h"
 #include "localization.h"
 
-int sci_umfpack(char* fname,unsigned long l)
+int sci_umfpack(char *fname, unsigned long l)
 {
-	int mA, nA, mb, nb, lrb, lib, itb, ms, ns, ls, itx, lrx, lix, i;
-	int num_A, num_b, one=1;
-	int mW, lW, lWi;
-	int Case, LastNum, stat;
-	double *br, *bi, *xr, *xi;
-	SciSparse AA;
-	CcsSparse A;
+    int mA, nA, mb, nb, lrb, lib, itb, ms, ns, ls, itx, lrx, lix, i;
+    int num_A, num_b, one = 1;
+    int mW, lW, lWi;
+    int Case, LastNum, stat;
+    double *br, *bi, *xr, *xi;
+    SciSparse AA;
+    CcsSparse A;
 
-	/* umfpack stuff */
-	double *Control = (double *) NULL; //, *Info = (double *) NULL;
-	double Info[UMFPACK_INFO];
-	void *Symbolic, *Numeric;
-	int *Wi;
-	double *W;
+    /* umfpack stuff */
+    double *Control = (double *)NULL;   //, *Info = (double *) NULL;
+    double Info[UMFPACK_INFO];
+    void *Symbolic, *Numeric;
+    int *Wi;
+    double *W;
 
-  
-	/* Check numbers of input/output arguments */
-	CheckRhs(3,3); CheckLhs(1,1);
+    /* Check numbers of input/output arguments */
+    CheckRhs(3, 3);
+    CheckLhs(1, 1);
 
-	/* First get arg #2 : a string of length 1 */
-	GetRhsVar(2,STRING_DATATYPE, &ms, &ns, &ls);
+    /* First get arg #2 : a string of length 1 */
+    GetRhsVar(2, STRING_DATATYPE, &ms, &ns, &ls);
 
-	/* select Case 1 or 2 depending (of the first char of) the string ... */ 
-	if (*cstk(ls) == '\\')
-	{
-		Case = 1; num_A = 1; num_b = 3;
-	}
-	else if (*cstk(ls) == '/')
-	{
-		Case = 2; num_A = 3; num_b = 1;
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong input argument #%d: '%s' or '%s' expected.\n"),fname,2,"\\","/");
-		return 0;
-	}
+    /* select Case 1 or 2 depending (of the first char of) the string ... */
+    if (*cstk(ls) == '\\')
+    {
+        Case = 1;
+        num_A = 1;
+        num_b = 3;
+    }
+    else if (*cstk(ls) == '/')
+    {
+        Case = 2;
+        num_A = 3;
+        num_b = 1;
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong input argument #%d: '%s' or '%s' expected.\n"), fname, 2, "\\", "/");
+        return 0;
+    }
 
-	GetRhsVar(num_A,SPARSE_MATRIX_DATATYPE,&mA,&nA,&AA);
-	if ( mA != nA || mA < 1 )
-	{
-		Scierror(999,_("%s: Wrong size for input argument #%d.\n"), fname, num_A);
-		return 0;
-	};
- 
-	GetRhsCVar(num_b,MATRIX_OF_DOUBLE_DATATYPE,&itb,&mb,&nb,&lrb,&lib);
-	if ( (Case==1 && ( mb != mA || nb < 1 )) || (Case==2 && ( nb != mA || mb < 1 )) )
-	{
-		Scierror(999,_("%s: Wrong size for input argument #%d.\n"),fname, num_b);
-		return 0;
-	};
+    GetRhsVar(num_A, SPARSE_MATRIX_DATATYPE, &mA, &nA, &AA);
+    if (mA != nA || mA < 1)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d.\n"), fname, num_A);
+        return 0;
+    };
 
-	SciSparseToCcsSparse(4, &AA, &A);
+    GetRhsCVar(num_b, MATRIX_OF_DOUBLE_DATATYPE, &itb, &mb, &nb, &lrb, &lib);
+    if ((Case == 1 && (mb != mA || nb < 1)) || (Case == 2 && (nb != mA || mb < 1)))
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d.\n"), fname, num_b);
+        return 0;
+    };
 
-	/* allocate memory for the solution x */
-	if ( A.it == 1  ||  itb == 1 ) itx = 1; else itx = 0;     
-	CreateCVar(5,MATRIX_OF_DOUBLE_DATATYPE, &itx, &mb, &nb, &lrx, &lix);
-	xr = stk(lrx); xi = stk(lix);
+    SciSparseToCcsSparse(4, &AA, &A);
 
-	/* allocate memory for umfpack_di_wsolve usage or umfpack_zi_wsolve usage*/
-	CreateVar(6, MATRIX_OF_INTEGER_DATATYPE, &mA, &one, &lWi); Wi = istk(lWi);
-	if (A.it == 1) mW = 10*mA; else mW = 5*mA;
-	CreateVar(7, MATRIX_OF_DOUBLE_DATATYPE, &mW, &one, &lW); W  = stk(lW);
+    /* allocate memory for the solution x */
+    if (A.it == 1 || itb == 1)
+        itx = 1;
+    else
+        itx = 0;
+    CreateCVar(5, MATRIX_OF_DOUBLE_DATATYPE, &itx, &mb, &nb, &lrx, &lix);
+    xr = stk(lrx);
+    xi = stk(lix);
 
-	/* get the pointer for b */
-	br = stk(lrb); bi = stk(lib);
-	if ( A.it == 1  &&  itb == 0 )
-	{
-		CreateVar(8,MATRIX_OF_DOUBLE_DATATYPE, &mb, &nb, &lib); LastNum = 8;
-		bi = stk(lib);
-		for ( i = 0 ; i < mb*nb ; i++ ) bi[i] = 0.0;
-	}
-	else LastNum = 7;
+    /* allocate memory for umfpack_di_wsolve usage or umfpack_zi_wsolve usage */
+    CreateVar(6, MATRIX_OF_INTEGER_DATATYPE, &mA, &one, &lWi);
+    Wi = istk(lWi);
+    if (A.it == 1)
+        mW = 10 * mA;
+    else
+        mW = 5 * mA;
+    CreateVar(7, MATRIX_OF_DOUBLE_DATATYPE, &mW, &one, &lW);
+    W = stk(lW);
 
-	/* Now calling umfpack routines */
-	if (A.it == 1)
-	{
-		stat = umfpack_zi_symbolic(mA, nA, A.p, A.irow, A.R, A.I, &Symbolic, Control, Info);
-	}
-	else
-	{
-		stat = umfpack_di_symbolic(mA, nA, A.p, A.irow, A.R, &Symbolic, Control, Info);
-	}
-	if ( stat  != UMFPACK_OK ) 
-	{
-		Scierror(999,_("%s: An error occurred: %s: %s\n"),fname,_("symbolic factorization"),UmfErrorMes(stat));
-		return 0;
-	};
+    /* get the pointer for b */
+    br = stk(lrb);
+    bi = stk(lib);
+    if (A.it == 1 && itb == 0)
+    {
+        CreateVar(8, MATRIX_OF_DOUBLE_DATATYPE, &mb, &nb, &lib);
+        LastNum = 8;
+        bi = stk(lib);
+        for (i = 0; i < mb * nb; i++)
+            bi[i] = 0.0;
+    }
+    else
+        LastNum = 7;
 
-	if (A.it == 1)
-	{
-		stat = umfpack_zi_numeric(A.p, A.irow, A.R, A.I, Symbolic, &Numeric, Control, Info);
-	}
-	else
-	{
-		stat = umfpack_di_numeric(A.p, A.irow, A.R, Symbolic, &Numeric, Control, Info);
-	}
+    /* Now calling umfpack routines */
+    if (A.it == 1)
+    {
+        stat = umfpack_zi_symbolic(mA, nA, A.p, A.irow, A.R, A.I, &Symbolic, Control, Info);
+    }
+    else
+    {
+        stat = umfpack_di_symbolic(mA, nA, A.p, A.irow, A.R, &Symbolic, Control, Info);
+    }
+    if (stat != UMFPACK_OK)
+    {
+        Scierror(999, _("%s: An error occurred: %s: %s\n"), fname, _("symbolic factorization"), UmfErrorMes(stat));
+        return 0;
+    };
 
-	if (A.it == 1) 
-	{
-		umfpack_zi_free_symbolic(&Symbolic); 
-	}
-	else
-	{
-		umfpack_di_free_symbolic(&Symbolic);
-	}
+    if (A.it == 1)
+    {
+        stat = umfpack_zi_numeric(A.p, A.irow, A.R, A.I, Symbolic, &Numeric, Control, Info);
+    }
+    else
+    {
+        stat = umfpack_di_numeric(A.p, A.irow, A.R, Symbolic, &Numeric, Control, Info);
+    }
 
-	if ( stat  != UMFPACK_OK ) 
-	{
-		if (A.it == 1)
-		{
-			umfpack_zi_free_numeric(&Numeric); 
-		}
-		else
-		{
-			umfpack_di_free_numeric(&Numeric); 
-		}
-		Scierror(999,_("%s: An error occurred: %s: %s\n"),fname,_("numeric factorization"),UmfErrorMes(stat));
-		return 0;
-	};
+    if (A.it == 1)
+    {
+        umfpack_zi_free_symbolic(&Symbolic);
+    }
+    else
+    {
+        umfpack_di_free_symbolic(&Symbolic);
+    }
 
+    if (stat != UMFPACK_OK)
+    {
+        if (A.it == 1)
+        {
+            umfpack_zi_free_numeric(&Numeric);
+        }
+        else
+        {
+            umfpack_di_free_numeric(&Numeric);
+        }
+        Scierror(999, _("%s: An error occurred: %s: %s\n"), fname, _("numeric factorization"), UmfErrorMes(stat));
+        return 0;
+    };
 
-	if ( Case == 1 )   /*  x = A\b  <=> Ax = b */
-	{  
-		if (A.it == 0)
-		{
-			for ( i = 0 ; i < nb ; i++ )
-			{
-				umfpack_di_wsolve(UMFPACK_A, A.p, A.irow, A.R, &xr[i*mb], &br[i*mb],
-								  Numeric, Control, Info, Wi, W);
-			}
-			if (itb == 1)
-			{
-				for ( i = 0 ; i < nb ; i++ )
-				{
-					umfpack_di_wsolve(UMFPACK_A, A.p, A.irow, A.R, &xi[i*mb], &bi[i*mb],
-									  Numeric, Control, Info, Wi, W);
-				}
-			}
-		}
-		else /*  A.it == 1  */
-		{
-			for ( i = 0 ; i < nb ; i++ )
-			{
-				umfpack_zi_wsolve(UMFPACK_A, A.p, A.irow, A.R, A.I, &xr[i*mb], &xi[i*mb], 
-								  &br[i*mb], &bi[i*mb], Numeric, Control, Info, Wi, W);
-			}
-		}
-	}
-	else  /* Case == 2,   x = b/A  <=> x A = b <=> A.'x.' = b.' */
-	{
-		if (A.it == 0)
-		{
-			TransposeMatrix(br, mb, nb, xr);    /* put b in x (with transposition) */
-			for ( i=0 ; i < mb ; i++ )
-			{
-				umfpack_di_wsolve(UMFPACK_At, A.p, A.irow, A.R, &br[i*nb], &xr[i*nb],
-								  Numeric, Control, Info, Wi, W);      /* the solutions are in br */
-			}
-			TransposeMatrix(br, nb, mb, xr);         /* put now br in xr with transposition */
-			if (itb == 1)
-			{
-				TransposeMatrix(bi, mb, nb, xi);    /* put b in x (with transposition) */
-				for ( i=0 ; i < mb ; i++ )
-				{
-					umfpack_di_wsolve(UMFPACK_At, A.p, A.irow, A.R, &bi[i*nb], &xi[i*nb], 
-									  Numeric, Control, Info, Wi, W);      /* the solutions are in bi */
-				}
-				TransposeMatrix(bi, nb, mb, xi);         /* put now bi in xi with transposition */
-			}
-		}
-		else /*  A.it==1  */
-		{
-			TransposeMatrix(br, mb, nb, xr);
-			TransposeMatrix(bi, mb, nb, xi);
-			for ( i=0 ; i < mb ; i++ )
-			{
-				umfpack_zi_wsolve(UMFPACK_Aat, A.p, A.irow, A.R, A.I, &br[i*nb], &bi[i*nb],
-								  &xr[i*nb], &xi[i*nb], Numeric, Control, Info, Wi, W);
-			}
-			TransposeMatrix(br, nb, mb, xr);
-			TransposeMatrix(bi, nb, mb, xi);
-		}
-	}
+    if (Case == 1)              /*  x = A\b  <=> Ax = b */
+    {
+        if (A.it == 0)
+        {
+            for (i = 0; i < nb; i++)
+            {
+                umfpack_di_wsolve(UMFPACK_A, A.p, A.irow, A.R, &xr[i * mb], &br[i * mb], Numeric, Control, Info, Wi, W);
+            }
+            if (itb == 1)
+            {
+                for (i = 0; i < nb; i++)
+                {
+                    umfpack_di_wsolve(UMFPACK_A, A.p, A.irow, A.R, &xi[i * mb], &bi[i * mb], Numeric, Control, Info, Wi, W);
+                }
+            }
+        }
+        else                    /*  A.it == 1  */
+        {
+            for (i = 0; i < nb; i++)
+            {
+                umfpack_zi_wsolve(UMFPACK_A, A.p, A.irow, A.R, A.I, &xr[i * mb], &xi[i * mb],
+                                  &br[i * mb], &bi[i * mb], Numeric, Control, Info, Wi, W);
+            }
+        }
+    }
+    else                        /* Case == 2,   x = b/A  <=> x A = b <=> A.'x.' = b.' */
+    {
+        if (A.it == 0)
+        {
+            TransposeMatrix(br, mb, nb, xr);    /* put b in x (with transposition) */
+            for (i = 0; i < mb; i++)
+            {
+                umfpack_di_wsolve(UMFPACK_At, A.p, A.irow, A.R, &br[i * nb], &xr[i * nb], Numeric, Control, Info, Wi, W);   /* the solutions are in br */
+            }
+            TransposeMatrix(br, nb, mb, xr);    /* put now br in xr with transposition */
+            if (itb == 1)
+            {
+                TransposeMatrix(bi, mb, nb, xi);    /* put b in x (with transposition) */
+                for (i = 0; i < mb; i++)
+                {
+                    umfpack_di_wsolve(UMFPACK_At, A.p, A.irow, A.R, &bi[i * nb], &xi[i * nb], Numeric, Control, Info, Wi, W);   /* the solutions are in bi */
+                }
+                TransposeMatrix(bi, nb, mb, xi);    /* put now bi in xi with transposition */
+            }
+        }
+        else                    /*  A.it==1  */
+        {
+            TransposeMatrix(br, mb, nb, xr);
+            TransposeMatrix(bi, mb, nb, xi);
+            for (i = 0; i < mb; i++)
+            {
+                umfpack_zi_wsolve(UMFPACK_Aat, A.p, A.irow, A.R, A.I, &br[i * nb], &bi[i * nb],
+                                  &xr[i * nb], &xi[i * nb], Numeric, Control, Info, Wi, W);
+            }
+            TransposeMatrix(br, nb, mb, xr);
+            TransposeMatrix(bi, nb, mb, xi);
+        }
+    }
 
-	if (A.it == 1)
-	{
-		umfpack_zi_free_numeric(&Numeric);
-	}
-	else
-	{
-		umfpack_di_free_numeric(&Numeric);
-	}
+    if (A.it == 1)
+    {
+        umfpack_zi_free_numeric(&Numeric);
+    }
+    else
+    {
+        umfpack_di_free_numeric(&Numeric);
+    }
 
-	LhsVar(1) = 5;
-	C2F(putlhsvar)();
+    LhsVar(1) = 5;
+    C2F(putlhsvar) ();
 
-	return 0;
+    return 0;
 }

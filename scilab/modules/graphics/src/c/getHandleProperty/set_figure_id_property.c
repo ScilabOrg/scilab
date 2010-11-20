@@ -29,32 +29,33 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_figure_id_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_figure_id_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int id; 
+    int id;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "figure_id");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "figure_id");
+        return SET_PROPERTY_ERROR;
+    }
 
-	id = (int) getDoubleFromStack( stackPointer ) ;
+    id = (int)getDoubleFromStack(stackPointer);
 
-  if ( sciGetEntityType(pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"figure_id");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "figure_id");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( pobj != getFigureModel() )
-  {
-    return sciInitUsedWindow( id ) ;
-  }
-  else
-  {
-    return sciSetNum( getFigureModel(), id ) ;
-  }
-  return SET_PROPERTY_ERROR ;
+    if (pobj != getFigureModel())
+    {
+        return sciInitUsedWindow(id);
+    }
+    else
+    {
+        return sciSetNum(getFigureModel(), id);
+    }
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

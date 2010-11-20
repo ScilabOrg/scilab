@@ -22,89 +22,98 @@
 #include "PloEch.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xsetech(char* fname,unsigned long fname_len)
-{ 
-  double * wrect   = NULL ; 
-  double * frect   = NULL ;
-  double * arect   = NULL ;
-  char   * logflag = NULL ;
-  static char logflag_def[]="nn";
+int sci_xsetech(char *fname, unsigned long fname_len)
+{
+    double *wrect = NULL;
+    double *frect = NULL;
+    double *arect = NULL;
+    char *logflag = NULL;
+    static char logflag_def[] = "nn";
+
   /** optional names must be stored in alphabetical order in opts **/
-  static rhs_opts opts[]= { 
-    {-1,"arect","d",0,0,0},
-    {-1,"frect","d",0,0,0},
-    {-1,"logflag","c",0,0,0},
-    {-1,"wrect","d",0,0,0},
-    {-1,NULL,NULL,0,0}
-  };
-  int minrhs = 1,maxrhs = 0,minlhs=0,maxlhs=1,nopt;
+    static rhs_opts opts[] = {
+        {-1, "arect", "d", 0, 0, 0},
+        {-1, "frect", "d", 0, 0, 0},
+        {-1, "logflag", "c", 0, 0, 0},
+        {-1, "wrect", "d", 0, 0, 0},
+        {-1, NULL, NULL, 0, 0}
+    };
+    int minrhs = 1, maxrhs = 0, minlhs = 0, maxlhs = 1, nopt;
 
-  nopt = NumOpt();
+    nopt = NumOpt();
 
-  if ( nopt == 0) 
-  {
+    if (nopt == 0)
+    {
     /** compatibility with old version **/
 
-    int m1,n1,l1,m2,n2,l2,m3,n3,l3;
-    minrhs = 1,maxrhs = 3,minlhs=0,maxlhs=1;
-    CheckRhs(minrhs,maxrhs) ;
-    CheckLhs(minlhs,maxlhs) ;
+        int m1, n1, l1, m2, n2, l2, m3, n3, l3;
 
-    GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-    CheckDims(1,m1,n1,1,4);
-    wrect = stk(l1);
+        minrhs = 1, maxrhs = 3, minlhs = 0, maxlhs = 1;
+        CheckRhs(minrhs, maxrhs);
+        CheckLhs(minlhs, maxlhs);
 
-    if (Rhs >= 2) {
-			GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
-			CheckDims(2,m2,n2,1,4);
-			frect=stk(l2);
-		} 
-    if (Rhs >= 3) {
-			GetRhsVar(3,STRING_DATATYPE, &m3, &n3, &l3);
-			CheckLength(3,m3,2);
-			logflag = cstk(l3);
-		}
-		else {
-      logflag = logflag_def ; /* compatibility with old version */
-		}
-  }
-  else 
-  {
-    CheckRhs(minrhs,maxrhs+nopt) ;
-    CheckLhs(minlhs,maxlhs) ;
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+        CheckDims(1, m1, n1, 1, 4);
+        wrect = stk(l1);
 
-    if ( get_optionals(fname,opts) == 0) 
-	{ 
-		/* error */
-		return 0; 
-	}
-
-    if ( opts[0].position != -1 )
-    {
-      arect = stk(opts[0].l);	CheckLength(opts[0].position,opts[0].m*opts[0].n,4);
+        if (Rhs >= 2)
+        {
+            GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
+            CheckDims(2, m2, n2, 1, 4);
+            frect = stk(l2);
+        }
+        if (Rhs >= 3)
+        {
+            GetRhsVar(3, STRING_DATATYPE, &m3, &n3, &l3);
+            CheckLength(3, m3, 2);
+            logflag = cstk(l3);
+        }
+        else
+        {
+            logflag = logflag_def;  /* compatibility with old version */
+        }
     }
-    if ( opts[1].position != -1 )
-    {
-      frect = stk(opts[1].l);	CheckLength(opts[1].position,opts[1].m*opts[1].n,4);
-    } 
-    if ( opts[2].position != -1 )
-    {
-      logflag = cstk(opts[2].l);CheckLength(opts[2].position,opts[2].m*opts[2].n,2);
-    } 
     else
     {
-      logflag = logflag_def ;
+        CheckRhs(minrhs, maxrhs + nopt);
+        CheckLhs(minlhs, maxlhs);
+
+        if (get_optionals(fname, opts) == 0)
+        {
+            /* error */
+            return 0;
+        }
+
+        if (opts[0].position != -1)
+        {
+            arect = stk(opts[0].l);
+            CheckLength(opts[0].position, opts[0].m * opts[0].n, 4);
+        }
+        if (opts[1].position != -1)
+        {
+            frect = stk(opts[1].l);
+            CheckLength(opts[1].position, opts[1].m * opts[1].n, 4);
+        }
+        if (opts[2].position != -1)
+        {
+            logflag = cstk(opts[2].l);
+            CheckLength(opts[2].position, opts[2].m * opts[2].n, 2);
+        }
+        else
+        {
+            logflag = logflag_def;
+        }
+        if (opts[3].position != -1)
+        {
+            wrect = stk(opts[3].l);
+            CheckLength(opts[3].position, opts[3].m * opts[3].n, 4);
+        }
     }
-    if ( opts[3].position != -1 )
-    {
-      wrect = stk(opts[3].l);
-			CheckLength(opts[3].position,opts[3].m*opts[3].n,4);
-    } 
-  }
-  setscale2d(wrect,arect,frect,logflag);
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
-  return 0;
+    setscale2d(wrect, arect, frect, logflag);
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 
 }
+
 /*--------------------------------------------------------------------------*/

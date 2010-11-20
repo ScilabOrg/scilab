@@ -23,23 +23,24 @@
 #include "SetProperty.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_drawlater( char * fname, unsigned long fname_len )
+int sci_drawlater(char *fname, unsigned long fname_len)
 {
-	sciPointObj *pfigure = NULL;
+    sciPointObj *pfigure = NULL;
 
-	CheckRhs(0,0);
-	CheckLhs(0,1); 
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	if (Rhs <= 0) 
-	{
-		startGraphicDataWriting();
-		pfigure = sciGetCurrentFigure ();
-		sciSetImmediateDrawingMode(pfigure, FALSE);
-		endGraphicDataWriting();
-	}
+    if (Rhs <= 0)
+    {
+        startGraphicDataWriting();
+        pfigure = sciGetCurrentFigure();
+        sciSetImmediateDrawingMode(pfigure, FALSE);
+        endGraphicDataWriting();
+    }
 
-	LhsVar(1) = 0;
-	C2F(putlhsvar)();
-	return 0;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

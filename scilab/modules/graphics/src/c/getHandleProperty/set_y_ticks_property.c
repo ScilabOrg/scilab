@@ -35,89 +35,90 @@
 
 /*------------------------------------------------------------------------*/
 /* @TODO: remove stackPointer, nbRow, nbCol which are used */
-int set_y_ticks_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_y_ticks_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  AssignedList * tlist     = NULL ;
-  sciSubWindow * ppSubWin  = NULL ;
-  int            nbTicsRow = 0    ;
-  int            nbTicsCol = 0    ;
-  char        ** labels    = NULL ; 
+    AssignedList *tlist = NULL;
+    sciSubWindow *ppSubWin = NULL;
+    int nbTicsRow = 0;
+    int nbTicsCol = 0;
+    char **labels = NULL;
 
-  if ( !isParameterTlist( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Typed list expected.\n"), "y_ticks");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"y_ticks") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  ppSubWin = pSUBWIN_FEATURE(pobj) ;
-
-  tlist = createTlistForTicks() ;
-
-  if ( tlist == NULL )
-  {
-    return SET_PROPERTY_ERROR ;
-  }
-
-  /* locations */
-  FREE( ppSubWin->axes.u_ygrads ) ;
-  ppSubWin->axes.u_ygrads = NULL ;
-
-  destroyStringArray( ppSubWin->axes.u_ylabels, ppSubWin->axes.u_nygrads ) ;
-  ppSubWin->axes.u_ylabels = NULL ;
-
-  ppSubWin->axes.u_nygrads = 0 ;
-
-  ppSubWin->axes.u_ygrads = createCopyDoubleMatrixFromList( tlist, &nbTicsRow, &nbTicsCol ) ;
-
-  if ( ppSubWin->axes.u_ygrads == NULL && nbTicsRow == -1 )
-  {
-      Scierror(999, _("%s: No more memory.\n"),"set_y_ticks_property");
-      return SET_PROPERTY_ERROR ;
-  }
-
-  if ( ppSubWin->logflags[1] == 'l' )
-  {
-    int  i ;
-    for ( i = 0 ; i < nbTicsRow * nbTicsCol ; i++ )
+    if (!isParameterTlist(valueType))
     {
-      ppSubWin->axes.u_ygrads[i] = log10( ppSubWin->axes.u_ygrads[i] ) ;
+        Scierror(999, _("Wrong type for '%s' property: Typed list expected.\n"), "y_ticks");
+        return SET_PROPERTY_ERROR;
     }
-  }
-  else
-  {
-    /* Nb of subtics computation and storage */ /* F.Leray 07.10.04 */
-    ppSubWin->axes.nbsubtics[1] = ComputeNbSubTics( pobj,ppSubWin->axes.u_nygrads,'n',NULL,ppSubWin->axes.nbsubtics[1] ) ;
-  }
 
-  /*  labels */
-  // Here we check the size of "locations" instead of "labels", but they have the same size.
-  // We need to check the size to not be 0 because an empty matrix is a matrix of double
-  // and 'getCurrentStringMatrixFromList' expect a matrix of string (see bug 5148).
-  // P.Lando
-  if( nbTicsCol * nbTicsRow )
-  {
-    ppSubWin->axes.u_ylabels = getCurrentStringMatrixFromList( tlist, &nbTicsRow, &nbTicsCol );
-    /* Check if we should load LaTex / MathML Java libraries */
-    loadTextRenderingAPI(ppSubWin->axes.u_ylabels, nbTicsCol, nbTicsRow);
-  }
-  else
-  {
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_ticks");
+        return SET_PROPERTY_ERROR;
+    }
+
+    ppSubWin = pSUBWIN_FEATURE(pobj);
+
+    tlist = createTlistForTicks();
+
+    if (tlist == NULL)
+    {
+        return SET_PROPERTY_ERROR;
+    }
+
+    /* locations */
+    FREE(ppSubWin->axes.u_ygrads);
+    ppSubWin->axes.u_ygrads = NULL;
+
+    destroyStringArray(ppSubWin->axes.u_ylabels, ppSubWin->axes.u_nygrads);
     ppSubWin->axes.u_ylabels = NULL;
-  }
 
+    ppSubWin->axes.u_nygrads = 0;
 
-  ppSubWin->axes.u_nygrads = nbTicsRow * nbTicsCol ;
-  ppSubWin->axes.auto_ticks[1] = FALSE ;
+    ppSubWin->axes.u_ygrads = createCopyDoubleMatrixFromList(tlist, &nbTicsRow, &nbTicsCol);
 
-  destroyAssignedList( tlist ) ;
+    if (ppSubWin->axes.u_ygrads == NULL && nbTicsRow == -1)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "set_y_ticks_property");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_SUCCEED ;
+    if (ppSubWin->logflags[1] == 'l')
+    {
+        int i;
+
+        for (i = 0; i < nbTicsRow * nbTicsCol; i++)
+        {
+            ppSubWin->axes.u_ygrads[i] = log10(ppSubWin->axes.u_ygrads[i]);
+        }
+    }
+    else
+    {
+        /* Nb of subtics computation and storage *//* F.Leray 07.10.04 */
+        ppSubWin->axes.nbsubtics[1] = ComputeNbSubTics(pobj, ppSubWin->axes.u_nygrads, 'n', NULL, ppSubWin->axes.nbsubtics[1]);
+    }
+
+    /*  labels */
+    // Here we check the size of "locations" instead of "labels", but they have the same size.
+    // We need to check the size to not be 0 because an empty matrix is a matrix of double
+    // and 'getCurrentStringMatrixFromList' expect a matrix of string (see bug 5148).
+    // P.Lando
+    if (nbTicsCol * nbTicsRow)
+    {
+        ppSubWin->axes.u_ylabels = getCurrentStringMatrixFromList(tlist, &nbTicsRow, &nbTicsCol);
+        /* Check if we should load LaTex / MathML Java libraries */
+        loadTextRenderingAPI(ppSubWin->axes.u_ylabels, nbTicsCol, nbTicsRow);
+    }
+    else
+    {
+        ppSubWin->axes.u_ylabels = NULL;
+    }
+
+    ppSubWin->axes.u_nygrads = nbTicsRow * nbTicsCol;
+    ppSubWin->axes.auto_ticks[1] = FALSE;
+
+    destroyAssignedList(tlist);
+
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

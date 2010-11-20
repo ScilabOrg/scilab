@@ -26,32 +26,33 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_x_location_property( sciPointObj * pobj )
+int get_x_location_property(sciPointObj * pobj)
 {
-  if (sciGetEntityType (pobj) != SCI_SUBWIN)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_location");
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_location");
+        return -1;
+    }
 
-  switch ( pSUBWIN_FEATURE (pobj)->axes.xdir )
-  {
-  case 'u': 
-    return sciReturnString( "top" ) ; 
-    break;
-  case 'd': 
-    return sciReturnString( "bottom" ) ;
-    break;
-  case 'c': 
-    return sciReturnString( "middle" ) ;
-    break;
-  case 'o': 
-    return sciReturnString( "origin" ) ;
-    break;
-  default : 
-    Scierror(999, _("Wrong value for '%s' property.\n"),"x_location");
-    break;
-  }
-  return -1 ;
+    switch (pSUBWIN_FEATURE(pobj)->axes.xdir)
+    {
+    case 'u':
+        return sciReturnString("top");
+        break;
+    case 'd':
+        return sciReturnString("bottom");
+        break;
+    case 'c':
+        return sciReturnString("middle");
+        break;
+    case 'o':
+        return sciReturnString("origin");
+        break;
+    default:
+        Scierror(999, _("Wrong value for '%s' property.\n"), "x_location");
+        break;
+    }
+    return -1;
 }
+
 /*------------------------------------------------------------------------*/

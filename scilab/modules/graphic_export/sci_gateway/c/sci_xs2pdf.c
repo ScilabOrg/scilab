@@ -15,8 +15,9 @@
 #include "xs2file.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xs2pdf( char * fname, unsigned long fname_len )
+int sci_xs2pdf(char *fname, unsigned long fname_len)
 {
-  return xs2file( fname, PDF_EXPORT ) ;
+    return xs2file(fname, PDF_EXPORT);
 }
+
 /*--------------------------------------------------------------------------*/

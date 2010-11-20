@@ -17,33 +17,34 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-{sci_winopen,"winopen"},
-{sci_winqueryreg,"winqueryreg"},
-{sci_findfileassociation,"findfileassociation"},
-{sci_dos,"dos"},
-{sci_mcisendstring,"mcisendstring"},
-{sci_oemtochar,"oemtochar"},
-{sci_chartooem,"chartooem"},
-{sci_consolebox,"consolebox"},
-{sci_win64,"win64"},
-{sci_istssession,"istssession"},
-{sci_getsystemmetrics,"getsystemmetrics"},
-{sci_createGUID,"createGUID"}
+static gw_generic_table Tab[] = {
+    {sci_winopen, "winopen"},
+    {sci_winqueryreg, "winqueryreg"},
+    {sci_findfileassociation, "findfileassociation"},
+    {sci_dos, "dos"},
+    {sci_mcisendstring, "mcisendstring"},
+    {sci_oemtochar, "oemtochar"},
+    {sci_chartooem, "chartooem"},
+    {sci_consolebox, "consolebox"},
+    {sci_win64, "win64"},
+    {sci_istssession, "istssession"},
+    {sci_getsystemmetrics, "getsystemmetrics"},
+    {sci_createGUID, "createGUID"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_windows_tools(void)
-{  
-	Rhs = Max(0, Rhs);
+{
+    Rhs = Max(0, Rhs);
 
-	if(pvApiCtx == NULL)
-	{
-		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
-	}
+    if (pvApiCtx == NULL)
+    {
+        pvApiCtx = (StrCtx *) MALLOC(sizeof(StrCtx));
+    }
 
-	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    pvApiCtx->pstName = (char *)Tab[Fin - 1].name;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

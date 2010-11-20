@@ -18,32 +18,38 @@
 #endif
 #include "BOOL.h"
 #include "getshortpathname.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 char *GetXmlFileEncoding(const char *filename)
 {
-	#define DEFAULT_ENCODING "UTF-8"
-	char *encoding = NULL;
-	xmlDocPtr doc = NULL;
-	BOOL bConvert = FALSE;
-	char *shortfilename = getshortpathname((char*)filename,&bConvert);
+#define DEFAULT_ENCODING "UTF-8"
+    char *encoding = NULL;
+    xmlDocPtr doc = NULL;
+    BOOL bConvert = FALSE;
+    char *shortfilename = getshortpathname((char *)filename, &bConvert);
 
-	/* default */
-	encoding = strdup(DEFAULT_ENCODING);
+    /* default */
+    encoding = strdup(DEFAULT_ENCODING);
 
-	if (shortfilename)
-	{
-		doc = xmlParseFile (filename);
-		FREE(shortfilename); shortfilename = NULL;
-		if (doc) 
-		{
-			if (doc->encoding)
-			{
-				if (encoding) {FREE(encoding);encoding=NULL;}
-				encoding = strdup((char*)doc->encoding);
-			}
-		}
-		xmlFreeDoc (doc);
-	}
-	return encoding;
+    if (shortfilename)
+    {
+        doc = xmlParseFile(filename);
+        FREE(shortfilename);
+        shortfilename = NULL;
+        if (doc)
+        {
+            if (doc->encoding)
+            {
+                if (encoding)
+                {
+                    FREE(encoding);
+                    encoding = NULL;
+                }
+                encoding = strdup((char *)doc->encoding);
+            }
+        }
+        xmlFreeDoc(doc);
+    }
+    return encoding;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

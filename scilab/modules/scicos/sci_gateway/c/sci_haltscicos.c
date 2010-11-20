@@ -27,21 +27,24 @@
 #include <stdio.h>
 #include "stack-c.h"
 
-typedef struct {
-  int halt;
-}  COSHLT_struct;
-extern COSHLT_struct  C2F(coshlt);
+typedef struct
+{
+    int halt;
+} COSHLT_struct;
+extern COSHLT_struct C2F(coshlt);
+
 /*--------------------------------------------------------------------------*/
-int sci_haltscicos(char *fname,unsigned long fname_len)
+int sci_haltscicos(char *fname, unsigned long fname_len)
 {
 
-  CheckLhs(0,1);
-  CheckRhs(0,0);
-  LhsVar(1)=0;
-  C2F(putlhsvar)();
+    CheckLhs(0, 1);
+    CheckRhs(0, 0);
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-  C2F(coshlt).halt = 1;
+    C2F(coshlt).halt = 1;
 
-  return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

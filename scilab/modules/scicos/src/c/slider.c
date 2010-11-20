@@ -25,27 +25,32 @@
 #include "machine.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(getgeom)(double *);
+extern int C2F(getgeom) (double *);
+
 /*--------------------------------------------------------------------------*/
 /*----------------------------------------------------
  * changes the current window to win 
  * returns the old current window number 
- *----------------------------------------------------*/ 
-static int set_block_win( int win)
+ *----------------------------------------------------*/
+static int set_block_win(int win)
 {
-  static int cur = 0;
-  return cur ;
+    static int cur = 0;
+
+    return cur;
 }
+
 /*--------------------------------------------------------------------------*/
 /*----------------------------------------------------
  * changes the current color to color 
  * returns the old color
- *----------------------------------------------------*/ 
-static int set_slider_color( int color)
+ *----------------------------------------------------*/
+static int set_slider_color(int color)
 {
-  static int cur = 0;
-  return cur ;
+    static int cur = 0;
+
+    return cur;
 }
+
 /*--------------------------------------------------------------------------*/
 /*----------------------------------------------------
  * follow an input value with a graphic slider 
@@ -56,87 +61,90 @@ static int set_slider_color( int color)
  *----------------------------------------------------*/
 
 void slider(int *flag, int *nevprt, double *t, double *xd,
-	    double *x, int *nx, double *z, int *nz,
-	    double *tvec, int *ntvec, double *rpar,
-	    int *nrpar, int *ipar, int *nipar,
-	    double * u, int *nu, double * y, int *ny) 
+            double *x, int *nx, double *z, int *nz,
+            double *tvec, int *ntvec, double *rpar, int *nrpar, int *ipar, int *nipar, double *u, int *nu, double *y, int *ny)
 {
-  
-  int wid, idb = 0 ; /* XXX remettre idb avec son common */
-  int cur; 
-  static double th=2 ; /* border thickness */
-  static double t3d = 4.0 ; /* 3d look thickness */
-  int curcolor;
-  if ( idb == 1 ) 
-    sciprint(_("Slider t=%10.3f, flag=%d \n"),*t,*flag);
 
-  switch ( *flag ) {
-  case 2 : 
-    /* standard case */ 
-    wid= (int) z[1];
-    if( wid < 0) return;
-    cur = set_block_win(wid) ; 
-    {
-      double val = Min(rpar[1],Max(rpar[0],u[0]));
-      double percent = (val - rpar[0])/(rpar[1]-rpar[0]);
-      if ( Abs(z[0] - percent) > 0.01 ) /* a mettre en parametre XXXXX */
-	{
-	  curcolor=set_slider_color(ipar[1]);
-	  switch (ipar[0]) 
-	    {
-	    case 1 : 
-//	      block_draw_rect_1(z+2,z[0]);
-//	      block_draw_rect_1(z+2,percent);
-	      break;
-	    case 2 :
-//	      block_draw_rect_2(z+2,z[0]);
-//	      block_draw_rect_2(z+2,percent);
-	      break;
-	    case 3 :
-//	      block_draw_rect_3(z+2,z[0]);
-//	      block_draw_rect_3(z+2,percent);
-	      break;
-	    }
-	  curcolor=set_slider_color(curcolor);
-	  z[0] = percent;
-	}
-    }
-    set_block_win(cur);
-    break;
-  case 4 : 
-    /* initial case */ 
-    z[0]= 0.0;
-    C2F(getgeom)(z+1);
-    z[2] = z[2]+ t3d +th ; 
-    z[4] -= t3d + 2*th  ;
-    z[3] = z[3] + z[5] ;
-    z[5] -= t3d  ;
-    wid= (int) z[1];
-    if( wid < 0) return;
-    cur = set_block_win(wid) ; 
-    {
-      curcolor=set_slider_color(ipar[1]);
-	  /*
-      C2F(dr1)("xclea","v",PI0,PI0,PI0,PI0,PI0,PI0,z+2,z+3,z+4,z+5,0L,0L);
-	  */
-      switch (ipar[0]) 
-	{
-	case 1 : 
-//	  block_draw_rect_1(z+2,z[0]);
-	  break;
-	case 2 :
-//	  block_draw_rect_2(z+2,z[0]);
-	  break;
-	case 3 :
-//	  block_draw_rect_3(z+2,z[0]);
-	  break;
+    int wid, idb = 0;           /* XXX remettre idb avec son common */
+    int cur;
+    static double th = 2;       /* border thickness */
+    static double t3d = 4.0;    /* 3d look thickness */
+    int curcolor;
 
-	}
-      curcolor=set_slider_color(curcolor);
+    if (idb == 1)
+        sciprint(_("Slider t=%10.3f, flag=%d \n"), *t, *flag);
+
+    switch (*flag)
+    {
+    case 2:
+        /* standard case */
+        wid = (int)z[1];
+        if (wid < 0)
+            return;
+        cur = set_block_win(wid);
+        {
+            double val = Min(rpar[1], Max(rpar[0], u[0]));
+            double percent = (val - rpar[0]) / (rpar[1] - rpar[0]);
+
+            if (Abs(z[0] - percent) > 0.01) /* a mettre en parametre XXXXX */
+            {
+                curcolor = set_slider_color(ipar[1]);
+                switch (ipar[0])
+                {
+                case 1:
+//        block_draw_rect_1(z+2,z[0]);
+//        block_draw_rect_1(z+2,percent);
+                    break;
+                case 2:
+//        block_draw_rect_2(z+2,z[0]);
+//        block_draw_rect_2(z+2,percent);
+                    break;
+                case 3:
+//        block_draw_rect_3(z+2,z[0]);
+//        block_draw_rect_3(z+2,percent);
+                    break;
+                }
+                curcolor = set_slider_color(curcolor);
+                z[0] = percent;
+            }
+        }
+        set_block_win(cur);
+        break;
+    case 4:
+        /* initial case */
+        z[0] = 0.0;
+        C2F(getgeom) (z + 1);
+        z[2] = z[2] + t3d + th;
+        z[4] -= t3d + 2 * th;
+        z[3] = z[3] + z[5];
+        z[5] -= t3d;
+        wid = (int)z[1];
+        if (wid < 0)
+            return;
+        cur = set_block_win(wid);
+        {
+            curcolor = set_slider_color(ipar[1]);
+            /*
+             * C2F(dr1)("xclea","v",PI0,PI0,PI0,PI0,PI0,PI0,z+2,z+3,z+4,z+5,0L,0L);
+             */
+            switch (ipar[0])
+            {
+            case 1:
+//    block_draw_rect_1(z+2,z[0]);
+                break;
+            case 2:
+//    block_draw_rect_2(z+2,z[0]);
+                break;
+            case 3:
+//    block_draw_rect_3(z+2,z[0]);
+                break;
+
+            }
+            curcolor = set_slider_color(curcolor);
+        }
+        set_block_win(cur);
+        break;
     }
-    set_block_win(cur);
-    break;
-  }
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

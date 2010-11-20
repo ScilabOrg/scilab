@@ -15,25 +15,27 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolSliderStep(sciPointObj* sciObj)
+int GetUicontrolSliderStep(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL) /* No user defined value */
+        if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL) /* No user defined value */
         {
-          double sliderStep[2];
-          sliderStep[0] = 0.01 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min);
-          sliderStep[1] = 0.1 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min);
-          return sciReturnMatrix(sliderStep, 1, 2);
+            double sliderStep[2];
+
+            sliderStep[0] = 0.01 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min);
+            sliderStep[1] = 0.1 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min);
+            return sciReturnMatrix(sliderStep, 1, 2);
         }
-      else
+        else
         {
-          return sciReturnMatrix(pUICONTROL_FEATURE(sciObj)->sliderStep, 1, 2);
+            return sciReturnMatrix(pUICONTROL_FEATURE(sciObj)->sliderStep, 1, 2);
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "SliderStep");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "SliderStep");
+
+        return FALSE;
     }
 }

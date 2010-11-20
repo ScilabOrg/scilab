@@ -32,35 +32,39 @@ Type *C;\
     }\
 }
 
-int C2F(genmmul)(int *typ, int *a, int *na, int *b, int *nb, int *c, int *nc, int *l, int *m, int *n)
+int C2F(genmmul) (int *typ, int *a, int *na, int *b, int *nb, int *c, int *nc, int *l, int *m, int *n)
 {
-  static int i1, i2;
-  static int i, j, ib, ic;
-  ib = 1;
-  ic = 0;
-  i1 = *n;
+    static int i1, i2;
+    static int i, j, ib, ic;
 
+    ib = 1;
+    ic = 0;
+    i1 = *n;
 
-  switch (*typ) {
-  case 1:
-    MMUL(integer1);
-    break;
-  case 2:
-    MMUL(integer2);
-    break;
-  case 4:
-    MMUL(int) ;
-    break;
-  case 11:
-    MMUL(unsigned char);
-    break;
-  case 12:
-    MMUL(unsigned short);
-    break;
-  case 14:
-    MMUL(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        MMUL(integer1);
+        break;
+    case 2:
+        MMUL(integer2);
+        break;
+    case 4:
+        MMUL(int);
+
+        break;
+    case 11:
+        MMUL(unsigned char);
+
+        break;
+    case 12:
+        MMUL(unsigned short);
+
+        break;
+    case 14:
+        MMUL(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

@@ -18,7 +18,7 @@
 *
 * See the file ./license.txt
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /**
    \file bouncexy.c
    \author Benoit Bayol
@@ -41,166 +41,168 @@
 #include "scicos_free.h"
 #include "MALLOC.h"
 #include "dynlib_scicos_blocks.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /** \fn bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
 SCICOS_BLOCKS_IMPEXP void bouncexy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
-  scoGraphicalObject pAxes;
-  scoGraphicalObject pTemp;
-  double * z = NULL;
-  double *rpar = NULL;
-  int *ipar = NULL, nipar = 0;  
-  int i = 0,j = 0;
-  int dimension = 0;
-  double ymin = 0., ymax = 0., xmin = 0., xmax = 0.;
-  int win = 0;
-  int number_of_subwin = 0;
-  int number_of_curves_by_subwin = 0;
-  int * colors = NULL;
-  int imode = 0;
-  double * size_balls = NULL;
-  double radius_max;
+    scoGraphicalObject pAxes;
+    scoGraphicalObject pTemp;
+    double *z = NULL;
+    double *rpar = NULL;
+    int *ipar = NULL, nipar = 0;
+    int i = 0, j = 0;
+    int dimension = 0;
+    double ymin = 0., ymax = 0., xmin = 0., xmax = 0.;
+    int win = 0;
+    int number_of_subwin = 0;
+    int number_of_curves_by_subwin = 0;
+    int *colors = NULL;
+    int imode = 0;
+    double *size_balls = NULL;
+    double radius_max;
 
-  /*Retrieving Parameters*/
-  rpar = GetRparPtrs(block);
-  ipar = GetIparPtrs(block);
-  nipar = GetNipar(block);
-  win = ipar[0];
-  if (win == -1)
+    /*Retrieving Parameters */
+    rpar = GetRparPtrs(block);
+    ipar = GetIparPtrs(block);
+    nipar = GetNipar(block);
+    win = ipar[0];
+    if (win == -1)
     {
-      win = 20000 + get_block_number() ; 
+        win = 20000 + get_block_number();
     }
-  dimension = 2;
-  imode = ipar[1];
-  number_of_curves_by_subwin = GetInPortRows(block,1);
-  radius_max = 0;
-  size_balls = (double*)scicos_malloc(number_of_curves_by_subwin*sizeof(double));
-  z = GetDstate(block);
-  for(i = 0 ; i < number_of_curves_by_subwin ; i++)
+    dimension = 2;
+    imode = ipar[1];
+    number_of_curves_by_subwin = GetInPortRows(block, 1);
+    radius_max = 0;
+    size_balls = (double *)scicos_malloc(number_of_curves_by_subwin * sizeof(double));
+    z = GetDstate(block);
+    for (i = 0; i < number_of_curves_by_subwin; i++)
     {
-      size_balls[i] = z[6*i+2];
-      if(radius_max < size_balls[i])
-	{
-	  radius_max = size_balls[i];
-	}
+        size_balls[i] = z[6 * i + 2];
+        if (radius_max < size_balls[i])
+        {
+            radius_max = size_balls[i];
+        }
     }
-  number_of_subwin = 1;
-  xmin = rpar[0];
-  xmax = rpar[1];
-  ymin = rpar[2];
-  ymax = rpar[3];
-  colors = (int*)scicos_malloc(number_of_curves_by_subwin*sizeof(int));
-  for(i = 0 ; i < number_of_curves_by_subwin ; i++)
+    number_of_subwin = 1;
+    xmin = rpar[0];
+    xmax = rpar[1];
+    ymin = rpar[2];
+    ymax = rpar[3];
+    colors = (int *)scicos_malloc(number_of_curves_by_subwin * sizeof(int));
+    for (i = 0; i < number_of_curves_by_subwin; i++)
     {
-      colors[i] = ipar[i+2];
+        colors[i] = ipar[i + 2];
     }
-  if(firstdraw == 1)
+    if (firstdraw == 1)
     {
-      /*Allocating memory*/
-      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+        /*Allocating memory */
+        scoInitScopeMemory(block->work, pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
     }
-  /*Creating the Scope*/
-  scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    /*Creating the Scope */
+    scoInitOfWindow(*pScopeMemory, dimension, win, NULL, NULL, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+    if (scoGetScopeActivation(*pScopeMemory) == 1)
     {
-  pTemp = scoGetPointerScopeWindow(*pScopeMemory);
-  pAxes = scoGetPointerAxes(*pScopeMemory,0);
+        pTemp = scoGetPointerScopeWindow(*pScopeMemory);
+        pAxes = scoGetPointerAxes(*pScopeMemory, 0);
 
-  pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
+        pSUBWIN_FEATURE(pAxes)->isoview = TRUE;
 
-  (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[0] = FALSE;
-  (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[1] = FALSE;
+        (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[0] = FALSE;
+        (pSUBWIN_FEATURE(pAxes)->axes).axes_visible[1] = FALSE;
 
-  //** sciSetIsBoxed(pAxes, FALSE); //** obsolete in Scilab 5
-  sciSetBoxType(pAxes,BT_ON);
+        //** sciSetIsBoxed(pAxes, FALSE); //** obsolete in Scilab 5
+        sciSetBoxType(pAxes, BT_ON);
 
-
-  for(j = 0 ; j < number_of_curves_by_subwin ; j++)
-    {
-      scoAddSphereForShortDraw(*pScopeMemory, 0, j, size_balls[j], colors[j]);
+        for (j = 0; j < number_of_curves_by_subwin; j++)
+        {
+            scoAddSphereForShortDraw(*pScopeMemory, 0, j, size_balls[j], colors[j]);
+        }
+        scoAddRectangleForLongDraw(*pScopeMemory, 0, 0, xmin, (ymax - fabs(ymin)), fabs(xmax - xmin), fabs(ymax - ymin));
+        sciDrawObj(scoGetPointerLongDraw(*pScopeMemory, 0, 0));
     }
-  scoAddRectangleForLongDraw(*pScopeMemory,0,0,xmin,(ymax-fabs(ymin)),fabs(xmax-xmin),fabs(ymax-ymin));
-  sciDrawObj(scoGetPointerLongDraw(*pScopeMemory,0,0));
-    }
-  scicos_free(colors);
-  scicos_free(size_balls);
+    scicos_free(colors);
+    scicos_free(size_balls);
 
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 /** \fn void bouncexy(scicos_block * block,int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
     \param flag An int which indicates the state of the block (init, update, ending)
 */
-SCICOS_BLOCKS_IMPEXP void bouncexy(scicos_block * block,int flag)
+SCICOS_BLOCKS_IMPEXP void bouncexy(scicos_block * block, int flag)
 {
-  ScopeMemory * pScopeMemory = NULL;
-  scoGraphicalObject pShortDraw;
-  double * z = NULL;
-  double t = 0.;
-  int i = 0;
-  double * u1 = NULL, *u2 = NULL;
-  double * size_balls = NULL;
-  switch(flag) 
+    ScopeMemory *pScopeMemory = NULL;
+    scoGraphicalObject pShortDraw;
+    double *z = NULL;
+    double t = 0.;
+    int i = 0;
+    double *u1 = NULL, *u2 = NULL;
+    double *size_balls = NULL;
+
+    switch (flag)
     {
     case Initialization:
-      {
-	bouncexy_draw(block,&pScopeMemory,1);
-	break;
-      }
+        {
+            bouncexy_draw(block, &pScopeMemory, 1);
+            break;
+        }
     case StateUpdate:
-      {
-	/*Retreiving Scope in the block->work*/
-	scoRetrieveScopeMemory(block->work,&pScopeMemory);
-	if(scoGetScopeActivation(pScopeMemory) == 1)
-	  {
-	    t = get_scicos_time();
-	/*If window has been destroyed we recreate it*/
-	if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
-	  {
-	    bouncexy_draw(block,&pScopeMemory,0);
-	  }
+        {
+            /*Retreiving Scope in the block->work */
+            scoRetrieveScopeMemory(block->work, &pScopeMemory);
+            if (scoGetScopeActivation(pScopeMemory) == 1)
+            {
+                t = get_scicos_time();
+                /*If window has been destroyed we recreate it */
+                if (scoGetPointerScopeWindow(pScopeMemory) == NULL)
+                {
+                    bouncexy_draw(block, &pScopeMemory, 0);
+                }
 
-	//Cannot be factorized depends of the scope
-	size_balls = (double*)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory,0)*sizeof(double));
-	z = GetDstate(block);
-	for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-	  {
-	    size_balls[i] = z[6*i+2];
-	  }
-	u1 = GetRealInPortPtrs(block,1);
-	u2 = GetRealInPortPtrs(block,2);
-	for (i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-	  {
-	    pShortDraw  = scoGetPointerShortDraw(pScopeMemory,0,i);
-	    //** pLongDraw  = scoGetPointerLongDraw(pScopeMemory,0,i);
-	    pARC_FEATURE(pShortDraw)->x = u1[i]-size_balls[i]/2;
-	    pARC_FEATURE(pShortDraw)->y = u2[i]+size_balls[i]/2;
-            forceRedraw(pShortDraw); //** force the redraw of each ball
-	  }
+                //Cannot be factorized depends of the scope
+                size_balls = (double *)scicos_malloc(scoGetNumberOfCurvesBySubwin(pScopeMemory, 0) * sizeof(double));
+                z = GetDstate(block);
+                for (i = 0; i < scoGetNumberOfCurvesBySubwin(pScopeMemory, 0); i++)
+                {
+                    size_balls[i] = z[6 * i + 2];
+                }
+                u1 = GetRealInPortPtrs(block, 1);
+                u2 = GetRealInPortPtrs(block, 2);
+                for (i = 0; i < scoGetNumberOfCurvesBySubwin(pScopeMemory, 0); i++)
+                {
+                    pShortDraw = scoGetPointerShortDraw(pScopeMemory, 0, i);
+                    //** pLongDraw  = scoGetPointerLongDraw(pScopeMemory,0,i);
+                    pARC_FEATURE(pShortDraw)->x = u1[i] - size_balls[i] / 2;
+                    pARC_FEATURE(pShortDraw)->y = u2[i] + size_balls[i] / 2;
+                    forceRedraw(pShortDraw);    //** force the redraw of each ball
+                }
 
-	sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
-        scicos_free(size_balls);
-	  }
-	break;
-      }
+                sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+                sciDrawObj(scoGetPointerScopeWindow(pScopeMemory));
+                scicos_free(size_balls);
+            }
+            break;
+        }
 
     case Ending:
-      {
-	scoRetrieveScopeMemory(block->work, &pScopeMemory);
-	if(scoGetScopeActivation(pScopeMemory) == 1)
-	  {
-	    sciSetUsedWindow(scoGetWindowID(pScopeMemory));
-	    pShortDraw = sciGetCurrentFigure();
-	    pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
-	    pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
-	  }
-	scoFreeScopeMemory(block->work, &pScopeMemory);
-	break;  
-      }
+        {
+            scoRetrieveScopeMemory(block->work, &pScopeMemory);
+            if (scoGetScopeActivation(pScopeMemory) == 1)
+            {
+                sciSetUsedWindow(scoGetWindowID(pScopeMemory));
+                pShortDraw = sciGetCurrentFigure();
+                pFIGURE_FEATURE(pShortDraw)->user_data = NULL;
+                pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0;
+            }
+            scoFreeScopeMemory(block->work, &pScopeMemory);
+            break;
+        }
     }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

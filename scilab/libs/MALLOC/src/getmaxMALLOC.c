@@ -10,30 +10,30 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-    #include <Windows.h>
+#include <Windows.h>
 #else
-    #include <sys/resource.h>
-    #include "machine.h"
-    #include "getmemory.h"
+#include <sys/resource.h>
+#include "machine.h"
+#include "getmemory.h"
 
-    #ifdef HAVE_LIMITS_H
-        #include <limits.h>
-    #elif !defined(LONG_MAX)
-        #define LONG_MAX 2147483647L 
-    #endif
+#ifdef HAVE_LIMITS_H
+#include <limits.h>
+#elif !defined(LONG_MAX)
+#define LONG_MAX 2147483647L
+#endif
 
-    #ifdef USE_DYNAMIC_STACK
-        #ifndef MAXLONG32
-            #define MAXLONG32 2147483647L 
-        #endif
-    #endif
+#ifdef USE_DYNAMIC_STACK
+#ifndef MAXLONG32
+#define MAXLONG32 2147483647L
+#endif
+#endif
 
 #endif
 
 #include "../includes/getmaxMALLOC.h"
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 IMPORT_EXPORT_MALLOC_DLL unsigned long GetLargestFreeMemoryRegion(void)
 {
@@ -50,31 +50,34 @@ IMPORT_EXPORT_MALLOC_DLL unsigned long GetLargestFreeMemoryRegion(void)
 
     GetSystemInfo(&systemInfo);
 
-    while(p < systemInfo.lpMaximumApplicationAddress)
+    while (p < systemInfo.lpMaximumApplicationAddress)
     {
         SIZE_T dwRet = VirtualQuery(p, &mbi, sizeof(mbi));
+
         if (dwRet > 0)
         {
             if (mbi.State == MEM_FREE)
             {
                 if (largestSize < mbi.RegionSize)
                 {
-                    largestSize = (unsigned long) mbi.RegionSize;
+                    largestSize = (unsigned long)mbi.RegionSize;
                 }
             }
-            p = (void*) (((char*)p) + mbi.RegionSize);
+            p = (void *)(((char *)p) + mbi.RegionSize);
         }
         else
         {
-            p = (void*) (((char*)p) + systemInfo.dwPageSize);
+            p = (void *)(((char *)p) + systemInfo.dwPageSize);
         }
     }
     /* We remove a security size to be sure that MALLOC doesn't fails */
-    if (largestSize > SECURITY_FREE_MEMORY) largestSize = largestSize - SECURITY_FREE_MEMORY;
+    if (largestSize > SECURITY_FREE_MEMORY)
+        largestSize = largestSize - SECURITY_FREE_MEMORY;
 
     return largestSize;
 #endif
 }
+
 /*-----------------------------------------------------------------------------------*/
 #else
 IMPORT_EXPORT_MALLOC_DLL unsigned long GetLargestFreeMemoryRegion(void)
@@ -88,14 +91,14 @@ IMPORT_EXPORT_MALLOC_DLL unsigned long GetLargestFreeMemoryRegion(void)
 
     /* HP-UX Use RLIMIT_AIO_MEM instead of RLIMIT_MEMLOCK */
     /* FIXME -- this should be an autoconf test to see which RLIMIT_foo is defined */
-    #ifdef solaris
-    getrlimit(RLIMIT_VMEM,&rlim);
-    #elif defined(__NetBSD__) || defined(__DragonFly__)
-    getrlimit(RLIMIT_RSS,&rlim);
-    #else	
+#ifdef solaris
+    getrlimit(RLIMIT_VMEM, &rlim);
+#elif defined(__NetBSD__) || defined(__DragonFly__)
+    getrlimit(RLIMIT_RSS, &rlim);
+#else
     getrlimit(RLIMIT_AS, &rlim);
-    #endif
-    if(rlim.rlim_max == RLIM_INFINITY)
+#endif
+    if (rlim.rlim_max == RLIM_INFINITY)
     {
         largestSize = LONG_MAX;
     }
@@ -104,8 +107,8 @@ IMPORT_EXPORT_MALLOC_DLL unsigned long GetLargestFreeMemoryRegion(void)
         largestSize = rlim.rlim_max;
     }
 
-    freeMem = getfreememory()*1024;
-    if(freeMem < largestSize)
+    freeMem = getfreememory() * 1024;
+    if (freeMem < largestSize)
     {
         return freeMem;
     }

@@ -23,15 +23,16 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_fill_mode_property( sciPointObj * pobj )
+int get_fill_mode_property(sciPointObj * pobj)
 {
-  if ( sciGetIsFilled( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetIsFilled(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

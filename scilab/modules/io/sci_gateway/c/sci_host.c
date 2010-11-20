@@ -17,44 +17,45 @@
 #include "localization.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int sci_host(char *fname,unsigned long fname_len)
+int sci_host(char *fname, unsigned long fname_len)
 {
-	CheckRhs(1,1);
-	CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	if (VarType(1) == sci_strings)
-	{
-		int m1 = 0, n1 = 0;
-		char **Str=NULL;
+    if (VarType(1) == sci_strings)
+    {
+        int m1 = 0, n1 = 0;
+        char **Str = NULL;
 
-		GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&Str);
+        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &Str);
 
-		if ( (m1 != 1) && (n1 != 1) )
-		{
-			freeArrayOfString(Str,m1*n1);
-			Scierror(89,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
-			return 0;
-		}
-		else
-		{
-			int stat = 0;
-			int one = 1;
-			int l1 = 0;
+        if ((m1 != 1) && (n1 != 1))
+        {
+            freeArrayOfString(Str, m1 * n1);
+            Scierror(89, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+            return 0;
+        }
+        else
+        {
+            int stat = 0;
+            int one = 1;
+            int l1 = 0;
 
-			C2F(systemc)(Str[0], &stat);
-			CreateVar(Rhs+1,MATRIX_OF_INTEGER_DATATYPE, &one,&one, &l1);
-			*istk(l1) = (int) stat;
+            C2F(systemc) (Str[0], &stat);
+            CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &one, &one, &l1);
+            *istk(l1) = (int)stat;
 
-			LhsVar(1)= Rhs+1;
-			C2F(putlhsvar)();
-			freeArrayOfString(Str,m1*n1);
-		}
-	}
-	else
-	{
-		Scierror(55,_("%s: Wrong type for input argument #%d: String expected.\n"),fname,1);
-	}
+            LhsVar(1) = Rhs + 1;
+            C2F(putlhsvar) ();
+            freeArrayOfString(Str, m1 * n1);
+        }
+    }
+    else
+    {
+        Scierror(55, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

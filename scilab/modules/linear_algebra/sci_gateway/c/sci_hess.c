@@ -18,36 +18,37 @@
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intdgehrd)(char *fname, unsigned long fname_len);
-extern int C2F(intzgehrd)(char *fname, unsigned long fname_len);
-/*--------------------------------------------------------------------------*/
-int C2F(inthess)(char *fname,unsigned long fname_len)
-{
-	int *header1;
-	int CmplxA;
-	int ret;
+extern int C2F(intdgehrd) (char *fname, unsigned long fname_len);
+extern int C2F(intzgehrd) (char *fname, unsigned long fname_len);
 
-	/*   hess(A)  */
-	if (GetType(1)!=sci_matrix) 
-	{
-		OverLoad(1);
-		return 0;
-	}
-	header1 = (int *) GetData(1);
-	CmplxA = header1[3];
-	switch (CmplxA) 
-	{
-		case REAL:
-			ret = C2F(intdgehrd)("hess",4L);
-		break;
-		case COMPLEX:
-			ret = C2F(intzgehrd)("hess",4L);
-		break;
-		default:
-			Scierror(999,_("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"),
-					fname,1);
-		break;
-	}
-	return 0;
+/*--------------------------------------------------------------------------*/
+int C2F(inthess) (char *fname, unsigned long fname_len)
+{
+    int *header1;
+    int CmplxA;
+    int ret;
+
+    /*   hess(A)  */
+    if (GetType(1) != sci_matrix)
+    {
+        OverLoad(1);
+        return 0;
+    }
+    header1 = (int *)GetData(1);
+    CmplxA = header1[3];
+    switch (CmplxA)
+    {
+    case REAL:
+        ret = C2F(intdgehrd) ("hess", 4L);
+        break;
+    case COMPLEX:
+        ret = C2F(intzgehrd) ("hess", 4L);
+        break;
+    default:
+        Scierror(999, _("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"), fname, 1);
+        break;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

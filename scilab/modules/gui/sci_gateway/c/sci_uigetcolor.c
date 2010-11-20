@@ -17,252 +17,254 @@
 #include "CallColorChooser.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_uigetcolor(char *fname,unsigned long fname_len)
+int sci_uigetcolor(char *fname, unsigned long fname_len)
 {
-  int colorChooserID = 0;
-  int firstColorIndex = 0;
+    int colorChooserID = 0;
+    int firstColorIndex = 0;
 
-  int nbRow = 0, nbCol = 0;
+    int nbRow = 0, nbCol = 0;
 
-  int redAdr = 0;
-  int greenAdr = 0;
-  int blueAdr = 0;
-  int titleAdr = 0;
+    int redAdr = 0;
+    int greenAdr = 0;
+    int blueAdr = 0;
+    int titleAdr = 0;
 
-  double *selectedRGB = NULL;
+    double *selectedRGB = NULL;
 
-  CheckRhs(0, 4);
+    CheckRhs(0, 4);
 
-  if ((Lhs!=1) && (Lhs!=3)) /* Bad use */
+    if ((Lhs != 1) && (Lhs != 3))   /* Bad use */
     {
-      Scierror(999, _("%s: Wrong number of output arguments: %d or %d expected.\n"), fname, 1, 3);
-      return FALSE;
+        Scierror(999, _("%s: Wrong number of output arguments: %d or %d expected.\n"), fname, 1, 3);
+        return FALSE;
     }
-  
-  /* Rhs==1: title or [R, G, B] given */
-  if (Rhs==1)
+
+    /* Rhs==1: title or [R, G, B] given */
+    if (Rhs == 1)
     {
-      if (VarType(1) == sci_matrix)
+        if (VarType(1) == sci_matrix)
         {
-          GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
-          if ((nbRow != 1) || (nbCol != 3))
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            if ((nbRow != 1) || (nbCol != 3))
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 1, 3);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 1, 3);
+                return FALSE;
             }
         }
-      else if (VarType(1) == sci_strings)
+        else if (VarType(1) == sci_strings)
         {
-          GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
-          if (nbCol != 1)
+            GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
+            return FALSE;
         }
     }
 
-  /* Title and [R, G, B] given */
-  if (Rhs==2)
+    /* Title and [R, G, B] given */
+    if (Rhs == 2)
     {
-      /* Title */
-      if (VarType(1) == sci_strings)
+        /* Title */
+        if (VarType(1) == sci_strings)
         {
-          GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
-          if (nbCol != 1)
+            GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+            return FALSE;
         }
 
-      /* [R, G, B] */
-      if (VarType(2) == sci_matrix)
+        /* [R, G, B] */
+        if (VarType(2) == sci_matrix)
         {
-          GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
-          if (nbRow*nbCol != 3)
+            GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            if (nbRow * nbCol != 3)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 2, 3);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 2, 3);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 2, 3);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A 1 x %d real row vector expected.\n"), fname, 2, 3);
+            return FALSE;
         }
     }
 
-  /* No title given but colors given with separate values */
-  if (Rhs==3)
+    /* No title given but colors given with separate values */
+    if (Rhs == 3)
     {
-      firstColorIndex = 1;
+        firstColorIndex = 1;
     }
 
-  /* Title and colors given with separate values */
-  if (Rhs==4)
+    /* Title and colors given with separate values */
+    if (Rhs == 4)
     {
-      firstColorIndex = 2;
-      
-      /* Title */
-      if (VarType(1) == sci_strings)
+        firstColorIndex = 2;
+
+        /* Title */
+        if (VarType(1) == sci_strings)
         {
-          GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
-          if (nbCol != 1)
+            GetRhsVar(1, STRING_DATATYPE, &nbRow, &nbCol, &titleAdr);
+            if (nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
+            return FALSE;
         }
     }
 
-  /* R, G, B given */
-  if (Rhs>=3)
+    /* R, G, B given */
+    if (Rhs >= 3)
     {
-      /* Default red value */
-      if (VarType(firstColorIndex) == sci_matrix)
+        /* Default red value */
+        if (VarType(firstColorIndex) == sci_matrix)
         {
-          GetRhsVar(firstColorIndex, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(firstColorIndex, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex);
+            return FALSE;
         }
-      
-      /* Default green value */
-      if (VarType(firstColorIndex + 1) == sci_matrix)
+
+        /* Default green value */
+        if (VarType(firstColorIndex + 1) == sci_matrix)
         {
-          GetRhsVar(firstColorIndex + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(firstColorIndex + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex + 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex + 1);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex + 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex + 1);
+            return FALSE;
         }
-      
-      /* Default blue value */
-      if (VarType(firstColorIndex + 2) == sci_matrix)
+
+        /* Default blue value */
+        if (VarType(firstColorIndex + 2) == sci_matrix)
         {
-          GetRhsVar(firstColorIndex + 2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(firstColorIndex + 2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex + 2);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, firstColorIndex + 2);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex + 2);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, firstColorIndex + 2);
+            return FALSE;
         }
     }
-  
-  /* Create the Java Object */
-  colorChooserID = createColorChooser();
 
-  /* Title */
-  if (titleAdr != 0)
+    /* Create the Java Object */
+    colorChooserID = createColorChooser();
+
+    /* Title */
+    if (titleAdr != 0)
     {
-      setColorChooserTitle(colorChooserID, cstk(titleAdr));
+        setColorChooserTitle(colorChooserID, cstk(titleAdr));
     }
 
-  /* Default red value */
-  if (redAdr != 0)
+    /* Default red value */
+    if (redAdr != 0)
     {
-      if (greenAdr !=0 ) /* All values given in first input argument */
+        if (greenAdr != 0)      /* All values given in first input argument */
         {
-          setColorChooserDefaultRGBSeparateValues(colorChooserID, (int)stk(redAdr)[0], (int)stk(greenAdr)[0], (int)stk(blueAdr)[0]);
+            setColorChooserDefaultRGBSeparateValues(colorChooserID, (int)stk(redAdr)[0], (int)stk(greenAdr)[0], (int)stk(blueAdr)[0]);
         }
-      else
+        else
         {
-          setColorChooserDefaultRGB(colorChooserID, stk(redAdr));
+            setColorChooserDefaultRGB(colorChooserID, stk(redAdr));
         }
     }
 
-  /* Display it and wait for a user input */
-  colorChooserDisplayAndWait(colorChooserID);
+    /* Display it and wait for a user input */
+    colorChooserDisplayAndWait(colorChooserID);
 
-  /* Return the selected color */
+    /* Return the selected color */
 
-  /* Read the user answer */
-  selectedRGB = getColorChooserSelectedRGB(colorChooserID);
+    /* Read the user answer */
+    selectedRGB = getColorChooserSelectedRGB(colorChooserID);
 
-  if (selectedRGB[0] >= 0) /* The user selected a color */
+    if (selectedRGB[0] >= 0)    /* The user selected a color */
     {
 
-      nbRow = 1;
-      if (Lhs==1)
+        nbRow = 1;
+        if (Lhs == 1)
         {
-          nbCol = 3;
-          CreateVarFromPtr(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &selectedRGB);
-          LhsVar(1) = Rhs+1;
+            nbCol = 3;
+            CreateVarFromPtr(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &selectedRGB);
+            LhsVar(1) = Rhs + 1;
         }
 
-      if (Lhs>=2)
+        if (Lhs >= 2)
         {
-          nbCol = 1;
-          CreateVar(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
-          *stk(redAdr) = selectedRGB[0];
-          CreateVar(Rhs+2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
-          *stk(greenAdr) = selectedRGB[1];
-          CreateVar(Rhs+3, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
-          *stk(blueAdr) = selectedRGB[2];
+            nbCol = 1;
+            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            *stk(redAdr) = selectedRGB[0];
+            CreateVar(Rhs + 2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
+            *stk(greenAdr) = selectedRGB[1];
+            CreateVar(Rhs + 3, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
+            *stk(blueAdr) = selectedRGB[2];
 
-          LhsVar(1) = Rhs+1;
-          LhsVar(2) = Rhs+2;
-          LhsVar(3) = Rhs+3;
+            LhsVar(1) = Rhs + 1;
+            LhsVar(2) = Rhs + 2;
+            LhsVar(3) = Rhs + 3;
         }
     }
-  else /* The user canceled */
+    else                        /* The user canceled */
     {
-      nbRow = 0; nbCol = 0;
-      if (Lhs==1)
+        nbRow = 0;
+        nbCol = 0;
+        if (Lhs == 1)
         {
-          /* Return [] */
-          CreateVar(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            /* Return [] */
+            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
 
-          LhsVar(1) = Rhs+1;
+            LhsVar(1) = Rhs + 1;
         }
 
-      if (Lhs>=2)
+        if (Lhs >= 2)
         {
-          CreateVar(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
-          CreateVar(Rhs+2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
-          CreateVar(Rhs+3, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
+            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &redAdr);
+            CreateVar(Rhs + 2, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &greenAdr);
+            CreateVar(Rhs + 3, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &blueAdr);
 
-          LhsVar(1) = Rhs+1;
-          LhsVar(2) = Rhs+2;
-          LhsVar(3) = Rhs+3;
+            LhsVar(1) = Rhs + 1;
+            LhsVar(2) = Rhs + 2;
+            LhsVar(3) = Rhs + 3;
         }
     }
 
-  C2F(putlhsvar)();
-  return TRUE;
+    C2F(putlhsvar) ();
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_callbackmevent_property( sciPointObj * pobj )
+int get_callbackmevent_property(sciPointObj * pobj)
 {
-  return sciReturnInt( sciGetCallbackMouseEvent( pobj ) ) ;
+    return sciReturnInt(sciGetCallbackMouseEvent(pobj));
 }
+
 /*------------------------------------------------------------------------*/

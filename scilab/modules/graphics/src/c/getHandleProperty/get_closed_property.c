@@ -25,21 +25,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_closed_property( sciPointObj * pobj )
+int get_closed_property(sciPointObj * pobj)
 {
-  if(sciGetEntityType(pobj) != SCI_POLYLINE)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"closed") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "closed");
+        return -1;
+    }
 
-  if ( pPOLYLINE_FEATURE(pobj)->closed == 1 )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (pPOLYLINE_FEATURE(pobj)->closed == 1)
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

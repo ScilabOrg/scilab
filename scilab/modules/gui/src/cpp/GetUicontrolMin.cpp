@@ -15,15 +15,16 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolMin(sciPointObj* sciObj)
+int GetUicontrolMin(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      return sciReturnDouble(pUICONTROL_FEATURE(sciObj)->min);
+        return sciReturnDouble(pUICONTROL_FEATURE(sciObj)->min);
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Min");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Min");
+
+        return FALSE;
     }
 }

@@ -17,19 +17,20 @@
 #include "callFunctionFromGateway.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]=
-{
-    {NULL, ""}, /* not used */
+static gw_generic_table Tab[] = {
+    {NULL, ""},                 /* not used */
     {sci_ppol, "ppol"},
     {sci_tzer, "tzer"},
     {sci_freq, "freq"},
     {sci_ltitr, "ltitr"},
     {sci_rtitr, "rtitr"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_cacsd2(void)
-{  
+{
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

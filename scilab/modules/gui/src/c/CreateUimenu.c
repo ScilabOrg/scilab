@@ -18,39 +18,40 @@
  * This function creates Uimenu structure.
  * @return pointer sciPointObj if ok , NULL if not
  */
-sciPointObj * CreateUimenu (void)
+sciPointObj *CreateUimenu(void)
 {
-  sciPointObj *pobj = (sciPointObj *) NULL;
+    sciPointObj *pobj = (sciPointObj *) NULL;
 
-  if ((pobj = MALLOC (sizeof (sciPointObj))) == NULL)	return (sciPointObj *) NULL;
+    if ((pobj = MALLOC(sizeof(sciPointObj))) == NULL)
+        return (sciPointObj *) NULL;
 
-  sciSetEntityType (pobj, SCI_UIMENU);
+    sciSetEntityType(pobj, SCI_UIMENU);
 
-  if ((pobj->pfeatures = MALLOC ((sizeof (sciUimenu)))) == NULL)
+    if ((pobj->pfeatures = MALLOC((sizeof(sciUimenu)))) == NULL)
     {
-      FREE(pobj);
-      return (sciPointObj *) NULL;
+        FREE(pobj);
+        return (sciPointObj *) NULL;
     }
 
-  /* Color property */
-  pUIMENU_FEATURE (pobj)->foregroundcolor = NULL;
+    /* Color property */
+    pUIMENU_FEATURE(pobj)->foregroundcolor = NULL;
 
-  /* Callback property */
-  /* Callback getter returns "" if callback is NULL */
-  pUIMENU_FEATURE (pobj)->callback = NULL;
-  pUIMENU_FEATURE (pobj)->callbackType=0;
+    /* Callback property */
+    /* Callback getter returns "" if callback is NULL */
+    pUIMENU_FEATURE(pobj)->callback = NULL;
+    pUIMENU_FEATURE(pobj)->callbackType = 0;
 
-  pUIMENU_FEATURE (pobj)->handle_visible=TRUE;
+    pUIMENU_FEATURE(pobj)->handle_visible = TRUE;
 
-  /* Initialize the tag */
-  /* NULL value is displayed as "" in tag getter */
-  pUIMENU_FEATURE (pobj)->tag = NULL;
+    /* Initialize the tag */
+    /* NULL value is displayed as "" in tag getter */
+    pUIMENU_FEATURE(pobj)->tag = NULL;
 
-  sciStandardBuildOperations(pobj, NULL);
+    sciStandardBuildOperations(pobj, NULL);
 
-  sciInitSelectedSons(pobj);
-    
-  InitUIMenu((sciPointObj *) pobj);
-      
-  return (sciPointObj *) pobj;
+    sciInitSelectedSons(pobj);
+
+    InitUIMenu((sciPointObj *) pobj);
+
+    return (sciPointObj *) pobj;
 }

@@ -13,20 +13,21 @@
 #ifdef _MSC_VER
 #include <Windows.h>
 #else
-	#include <stdlib.h>
-	#include <sys/types.h>
-	#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 #include "getpidc.h"
 /*--------------------------------------------------------------------------*/
-int C2F(getpidc)(int *id1)
+int C2F(getpidc) (int *id1)
 {
-	#if _MSC_VER
-		*id1=GetCurrentProcessId();
-	#else
-		*id1=getpid();
-	#endif
-	
-	return(0) ;
+#if _MSC_VER
+    *id1 = GetCurrentProcessId();
+#else
+    *id1 = getpid();
+#endif
+
+    return (0);
 }
+
 /*--------------------------------------------------------------------------*/

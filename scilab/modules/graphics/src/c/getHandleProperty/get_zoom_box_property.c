@@ -26,23 +26,25 @@
 #include "axesScale.h"
 
 /*------------------------------------------------------------------------*/
-int get_zoom_box_property( sciPointObj * pobj )
+int get_zoom_box_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"zoom_box") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "zoom_box");
+        return -1;
+    }
 
-  if ( sciGetZooming( pobj ) )
-  {
-    double zoomBox[6];
-    sciGetZoom3D(pobj, zoomBox);
-    return sciReturnRowVector( zoomBox, 6 ) ;
-  }
-  else
-  {
-    return sciReturnEmptyMatrix() ;
-  }
+    if (sciGetZooming(pobj))
+    {
+        double zoomBox[6];
+
+        sciGetZoom3D(pobj, zoomBox);
+        return sciReturnRowVector(zoomBox, 6);
+    }
+    else
+    {
+        return sciReturnEmptyMatrix();
+    }
 }
+
 /*------------------------------------------------------------------------*/

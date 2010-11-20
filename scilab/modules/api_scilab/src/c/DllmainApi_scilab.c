@@ -9,27 +9,27 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-/*--------------------------------------------------------------------------*/ 
-#include <stdio.h> 
-#include <windows.h> 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
+#include <stdio.h>
+#include <windows.h>
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+/*--------------------------------------------------------------------------*/
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
 
-	switch (reason) 
-	{
-	case DLL_PROCESS_ATTACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	}
-	return 1;
+    switch (reason)
+    {
+    case DLL_PROCESS_ATTACH:
+        break;
+    case DLL_PROCESS_DETACH:
+        break;
+    case DLL_THREAD_ATTACH:
+        break;
+    case DLL_THREAD_DETACH:
+        break;
+    }
+    return 1;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

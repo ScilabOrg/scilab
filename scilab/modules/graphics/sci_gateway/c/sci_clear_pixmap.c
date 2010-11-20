@@ -21,18 +21,19 @@
 #include "CurrentObjectsManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_clear_pixmap(char *fname, unsigned long fname_len )
+int sci_clear_pixmap(char *fname, unsigned long fname_len)
 {
-  /* call show_pixmap */
+    /* call show_pixmap */
 
-  CheckRhs(0,0);
-  CheckLhs(0,1);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-  /* call show_pixmap function */
-  clearPixmap(sciGetCurrentFigure());
+    /* call show_pixmap function */
+    clearPixmap(sciGetCurrentFigure());
 
-  LhsVar(1)=0;
-  C2F(putlhsvar)();
-  return 0;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

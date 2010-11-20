@@ -23,25 +23,24 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_fractional_font_property( sciPointObj * pobj )
+int get_fractional_font_property(sciPointObj * pobj)
 {
-  if (   sciGetEntityType(pobj) != SCI_SUBWIN
-      && sciGetEntityType(pobj) != SCI_TEXT
-      && sciGetEntityType(pobj) != SCI_LABEL
-      && sciGetEntityType(pobj) != SCI_AXES
-      && sciGetEntityType(pobj) != SCI_LEGEND)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "fractional_font") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN
+        && sciGetEntityType(pobj) != SCI_TEXT
+        && sciGetEntityType(pobj) != SCI_LABEL && sciGetEntityType(pobj) != SCI_AXES && sciGetEntityType(pobj) != SCI_LEGEND)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "fractional_font");
+        return -1;
+    }
 
-  if ( sciGetIsUsingFractionalMetrics(pobj) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetIsUsingFractionalMetrics(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

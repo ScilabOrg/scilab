@@ -17,17 +17,18 @@
 #include "filesmanagement.h"
 /*--------------------------------------------------------------------------*/
 void C2F(merror) (int *fd, int *res)
-{       
-	FILE *fa= GetFileOpenedInScilab(*fd);
-	if (fa)
-	{
+{
+    FILE *fa = GetFileOpenedInScilab(*fd);
 
-		*res = ferror(fa);
-	}
-	else
-	{
-		*res = EINVAL;
-	}
+    if (fa)
+    {
+
+        *res = ferror(fa);
+    }
+    else
+    {
+        *res = EINVAL;
+    }
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

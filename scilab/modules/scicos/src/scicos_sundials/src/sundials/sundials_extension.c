@@ -11,11 +11,11 @@ BOOL bsundialsExtended = FALSE;
 
 BOOL is_sundials_with_extension(void)
 {
-	return bsundialsExtended;
+    return bsundialsExtended;
 }
 
 BOOL set_sundials_with_extension(BOOL _mode)
 {
-	bsundialsExtended = _mode;
-	return bsundialsExtended;
+    bsundialsExtended = _mode;
+    return bsundialsExtended;
 }

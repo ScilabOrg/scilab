@@ -28,97 +28,99 @@
 #include "Interaction.h"
 #include "WindowList.h"
 /*--------------------------------------------------------------------------*/
-int sci_show_window( char *fname,unsigned long fname_len )
+int sci_show_window(char *fname, unsigned long fname_len)
 {
-	sciPointObj * shownFigure = NULL;
+    sciPointObj *shownFigure = NULL;
 
-	CheckRhs(0,1);
-	CheckLhs(0,1);
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
-	if ( Rhs == 1 )
-	{
-		/* the window to show is specified */
-		int paramType    = VarType(1);
-		int nbRow        = 0 ;
-		int nbCol        = 0 ;
-		size_t stackPointer = 0 ;
+    if (Rhs == 1)
+    {
+        /* the window to show is specified */
+        int paramType = VarType(1);
+        int nbRow = 0;
+        int nbCol = 0;
+        size_t stackPointer = 0;
 
-		if ( isParameterHandle( paramType ) )
-		{
-			/* by tis handle */
-			GetRhsVar( 1,GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer );
+        if (isParameterHandle(paramType))
+        {
+            /* by tis handle */
+            GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
 
-			if ( nbRow * nbCol != 1 )
-			{
-				Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle or a real scalar expected.\n"),fname, 1, "Figure");
-				return -1 ;
-			}
+            if (nbRow * nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle or a real scalar expected.\n"), fname, 1, "Figure");
+                return -1;
+            }
 
-			shownFigure = sciGetPointerFromHandle( getHandleFromStack(stackPointer) );
-	
-			if (shownFigure == NULL)
-			{
-				Scierror(999, _("%s: Handle does not or no longer exists.\n"),fname);
-				return -1 ;
-			}
+            shownFigure = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
 
-			if (sciGetEntityType(shownFigure) != SCI_FIGURE)
-			{
-				Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle or a real scalar expected.\n"),fname, 1, "Figure");
-				return -1 ;
-			}
+            if (shownFigure == NULL)
+            {
+                Scierror(999, _("%s: Handle does not or no longer exists.\n"), fname);
+                return -1;
+            }
 
-	}
-	else if ( isParameterDoubleMatrix( paramType ) )
-	{
-		/* by its number */
-		int winNum;
-		GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer );
-		if ( nbRow * nbCol != 1 )
-		{
-			Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle or a real scalar expected.\n"),fname, 1, "Figure");
-			return -1 ;
-		}
-		winNum = (int) getDoubleFromStack(stackPointer);
-		shownFigure = getFigureFromIndex(winNum);
+            if (sciGetEntityType(shownFigure) != SCI_FIGURE)
+            {
+                Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle or a real scalar expected.\n"), fname, 1, "Figure");
+                return -1;
+            }
 
-		if (shownFigure == NULL)
-		{
-			/* No window with this number, create one */
-			if(sciSetUsedWindow(winNum) < 0)
-			{
-				Scierror(999, _("%s: Unable to create requested figure: No more memory.\n"), fname);
-				return -1;
-			}
-			shownFigure = sciGetCurrentFigure();
-		}
-	}
-	else
-	{
-		Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle or a real scalar expected.\n"),fname,1, "Figure");
-		return -1;
-	}
-	}
-	else
-	{
-		/* Rhs == 0 */
-		/* raise current figure */
-		shownFigure = sciGetCurrentFigure();
-	}
+        }
+        else if (isParameterDoubleMatrix(paramType))
+        {
+            /* by its number */
+            int winNum;
 
-	/* Check that the requested figure really exists */
-	if ( shownFigure == NULL )
-	{
-		Scierror(999, _("%s: '%s' handle does not or no longer exists.\n"),fname,"Figure");
-		return -1 ;
-	}
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+            if (nbRow * nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle or a real scalar expected.\n"), fname, 1, "Figure");
+                return -1;
+            }
+            winNum = (int)getDoubleFromStack(stackPointer);
+            shownFigure = getFigureFromIndex(winNum);
 
-	/* Actually show the window */
-	showWindow(shownFigure);
+            if (shownFigure == NULL)
+            {
+                /* No window with this number, create one */
+                if (sciSetUsedWindow(winNum) < 0)
+                {
+                    Scierror(999, _("%s: Unable to create requested figure: No more memory.\n"), fname);
+                    return -1;
+                }
+                shownFigure = sciGetCurrentFigure();
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle or a real scalar expected.\n"), fname, 1, "Figure");
+            return -1;
+        }
+    }
+    else
+    {
+        /* Rhs == 0 */
+        /* raise current figure */
+        shownFigure = sciGetCurrentFigure();
+    }
 
-	LhsVar(1) = 0;
-	C2F(putlhsvar)();
+    /* Check that the requested figure really exists */
+    if (shownFigure == NULL)
+    {
+        Scierror(999, _("%s: '%s' handle does not or no longer exists.\n"), fname, "Figure");
+        return -1;
+    }
 
-	return 0;
+    /* Actually show the window */
+    showWindow(shownFigure);
+
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

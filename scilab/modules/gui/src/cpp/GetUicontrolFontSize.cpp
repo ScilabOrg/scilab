@@ -15,29 +15,28 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolFontSize(sciPointObj* sciObj)
+int GetUicontrolFontSize(sciPointObj * sciObj)
 {
-  int fontSize = 0;
+    int fontSize = 0;
 
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the font size from Scilab object
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+        // Get the font size from Scilab object
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-          fontSize = CallScilabBridge::getFrameFontSize(getScilabJavaVM(), 
-                                                                 pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            fontSize = CallScilabBridge::getFrameFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
-      else /* All other uicontrol styles */
+        else                    /* All other uicontrol styles */
         {
-          fontSize = CallScilabBridge::getWidgetFontSize(getScilabJavaVM(), 
-                                                                 pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            fontSize = CallScilabBridge::getWidgetFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
 
-      return sciReturnDouble(ConvertFromPoint(fontSize, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj, FALSE));
+        return sciReturnDouble(ConvertFromPoint(fontSize, pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj, FALSE));
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontSize");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontSize");
+
+        return FALSE;
     }
 }

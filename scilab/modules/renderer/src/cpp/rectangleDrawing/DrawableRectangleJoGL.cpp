@@ -17,29 +17,27 @@
 #include "DrawableRectangle.h"
 #include "DrawableRectangleJoGL.h"
 
-
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableRectangleJoGL::DrawableRectangleJoGL( DrawableRectangle * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
+    DrawableRectangleJoGL::DrawableRectangleJoGL(DrawableRectangle * drawer):DrawableClippedObjectJoGL(drawer)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangleJoGL::~DrawableRectangleJoGL( void )
-{
+    DrawableRectangleJoGL::~DrawableRectangleJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangle * DrawableRectangleJoGL::getRectangleDrawer( void )
-{
-  return dynamic_cast<DrawableRectangle *>(getDrawer()) ;
-}
+    DrawableRectangle *DrawableRectangleJoGL::getRectangleDrawer(void)
+    {
+        return dynamic_cast < DrawableRectangle * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangleJavaMapper * DrawableRectangleJoGL::getRectangleJavaMapper(void)
-{
-  return dynamic_cast<DrawableRectangleJavaMapper *>(getJavaMapper());
-}
+    DrawableRectangleJavaMapper *DrawableRectangleJoGL::getRectangleJavaMapper(void)
+    {
+        return dynamic_cast < DrawableRectangleJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

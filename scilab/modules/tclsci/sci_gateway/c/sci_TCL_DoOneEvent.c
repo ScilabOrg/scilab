@@ -14,17 +14,18 @@
 #include "TCL_Global.h"
 #include "gw_tclsci.h"
 /*--------------------------------------------------------------------------*/
-int sci_TCL_DoOneEvent (char *fname,unsigned long l)
+int sci_TCL_DoOneEvent(char *fname, unsigned long l)
 {
-	CheckRhs(0,0);
-	CheckLhs(1,1);
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
 
-	/* wait for events and invoke event handlers */
-	Tcl_DoOneEvent(TCL_ALL_EVENTS | TCL_DONT_WAIT);
+    /* wait for events and invoke event handlers */
+    Tcl_DoOneEvent(TCL_ALL_EVENTS | TCL_DONT_WAIT);
 
-	LhsVar(1) = 0;
-	C2F(putlhsvar)();
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

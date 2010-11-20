@@ -16,51 +16,57 @@
 #include "scilabmode.h"
 /*--------------------------------------------------------------------------*/
 /* local function used to flush with sprintf */
-static int voidflush(FILE *fp);
+static int voidflush(FILE * fp);
+
 /* local function used to call scivprint */
-static int local_sciprint (int iv, char *fmt,...);
+static int local_sciprint(int iv, char *fmt, ...);
+
 /*--------------------------------------------------------------------------*/
 extern char sprintf_buffer[MAX_SPRINTF_SIZE];
-/*--------------------------------------------------------------------------*/
-void set_xxprintf(FILE *fp,XXPRINTF *xxprintf,FLUSH *flush,char **target)
-{
-	if (fp == (FILE *) 0)
-	{
-		/* sprintf */
-		*target = sprintf_buffer;
-		*flush = voidflush;
-		*xxprintf = (XXPRINTF) sprintf;
-	}
-	else if ( fp == stdout )
-	{
-		/* sciprint2 */
-		*target =  (char *) 0;
-		*flush = fflush;
-		*xxprintf = (XXPRINTF) local_sciprint;
-	}
-	else
-	{
-		/* fprintf */
-		*target = (char *) fp;
-		*flush = fflush;
-		*xxprintf = (XXPRINTF) fprintf;
-	}
-}
-/*--------------------------------------------------------------------------*/
-static int voidflush(FILE *fp)
-{
-	return 0;
-}
-/*--------------------------------------------------------------------------*/
-static int local_sciprint (int iv, char *fmt,...)
-{
-	int count = 0;
-	va_list ap;
 
-	va_start(ap,fmt);
-	count = scivprint(fmt, ap);
-	va_end (ap);
-
-	return count;
+/*--------------------------------------------------------------------------*/
+void set_xxprintf(FILE * fp, XXPRINTF * xxprintf, FLUSH * flush, char **target)
+{
+    if (fp == (FILE *) 0)
+    {
+        /* sprintf */
+        *target = sprintf_buffer;
+        *flush = voidflush;
+        *xxprintf = (XXPRINTF) sprintf;
+    }
+    else if (fp == stdout)
+    {
+        /* sciprint2 */
+        *target = (char *)0;
+        *flush = fflush;
+        *xxprintf = (XXPRINTF) local_sciprint;
+    }
+    else
+    {
+        /* fprintf */
+        *target = (char *)fp;
+        *flush = fflush;
+        *xxprintf = (XXPRINTF) fprintf;
+    }
 }
+
+/*--------------------------------------------------------------------------*/
+static int voidflush(FILE * fp)
+{
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/
+static int local_sciprint(int iv, char *fmt, ...)
+{
+    int count = 0;
+    va_list ap;
+
+    va_start(ap, fmt);
+    count = scivprint(fmt, ap);
+    va_end(ap);
+
+    return count;
+}
+
 /*--------------------------------------------------------------------------*/

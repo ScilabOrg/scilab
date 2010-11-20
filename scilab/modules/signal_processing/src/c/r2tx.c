@@ -9,27 +9,25 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
- 
+
 #include "gw_signal.h"
 
-void r2tx ( int _iDimen , double* _pdblReal, double* _pdblImag )
+void r2tx(int _iDimen, double *_pdblReal, double *_pdblImag)
 {
-   double dblTemp ;
+    double dblTemp;
 
+    int i = 0;
 
-   int i = 0 ;
+    for (i = 0; i < _iDimen; i += 2)
+    {
+        /*for real part */
+        dblTemp = _pdblReal[i] + _pdblReal[i + 1];
+        _pdblReal[i + 1] = _pdblReal[i] - _pdblReal[i + 1];
+        _pdblReal[i + 0] = dblTemp;
+        /*for imaginary one */
+        dblTemp = _pdblImag[i] + _pdblImag[i + 1];
+        _pdblImag[i + 1] = _pdblImag[i] - _pdblImag[i + 1];
+        _pdblImag[i] = dblTemp;
 
-   for ( i = 0 ; i < _iDimen ;  i += 2 )
-      {
-         /*for real part */
-         dblTemp        = _pdblReal[i] + _pdblReal[i+1] ;
-         _pdblReal[i+1] = _pdblReal[i] - _pdblReal[i+1] ;
-         _pdblReal[i+0] = dblTemp ;
-         /*for imaginary one */
-         dblTemp         = _pdblImag[i] + _pdblImag[i+1] ;
-         _pdblImag[i+1] = _pdblImag[i] - _pdblImag[i+1] ;
-         _pdblImag[i]   = dblTemp ;
-
-
-      }
+    }
 }

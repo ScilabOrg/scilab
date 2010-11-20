@@ -26,110 +26,112 @@
 /*--------------------------------------------------------------------------*/
 #define PREVIOUS_FILE_DESCRIPTOR -1
 /*--------------------------------------------------------------------------*/
-int sci_merror(char *fname,unsigned long fname_len)
+int sci_merror(char *fname, unsigned long fname_len)
 {
-	int m1 = 0, n1 = 0, l1 = 0;
-	int one = 1, lr = 0;
-	int fd = PREVIOUS_FILE_DESCRIPTOR;
+    int m1 = 0, n1 = 0, l1 = 0;
+    int one = 1, lr = 0;
+    int fd = PREVIOUS_FILE_DESCRIPTOR;
 
-	Nbvars = 0;
-	CheckRhs(0,1);
-	CheckLhs(1,2);
+    Nbvars = 0;
+    CheckRhs(0, 1);
+    CheckLhs(1, 2);
 
-	if (Rhs == 0)
-	{
-		char *errmsg = NULL;
+    if (Rhs == 0)
+    {
+        char *errmsg = NULL;
 
-		int ierr = 0;
+        int ierr = 0;
 
-		C2F(merror)(&fd, &ierr);
+        C2F(merror) (&fd, &ierr);
 
-		CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&lr);
-		*stk(lr) = (double)ierr;
-		LhsVar(1) = Rhs + 1;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &lr);
+        *stk(lr) = (double)ierr;
+        LhsVar(1) = Rhs + 1;
 
-		if (Lhs == 2)
-		{
-			if (ierr == 0)
-			{
-				errmsg = strdup("");
-			}
-			else
-			{
-				errmsg = strdup(strerror(ierr));
-			}
-			if (errmsg)
-			{
-				n1 = 1;
-				CreateVarFromPtr(Rhs + 2,STRING_DATATYPE,(m1 = (int)strlen(errmsg), &m1),&n1,&errmsg);
-				LhsVar(2) = Rhs + 2;
-				FREE(errmsg);
-				errmsg = NULL;
-			}
-		}
+        if (Lhs == 2)
+        {
+            if (ierr == 0)
+            {
+                errmsg = strdup("");
+            }
+            else
+            {
+                errmsg = strdup(strerror(ierr));
+            }
+            if (errmsg)
+            {
+                n1 = 1;
+                CreateVarFromPtr(Rhs + 2, STRING_DATATYPE, (m1 = (int)strlen(errmsg), &m1), &n1, &errmsg);
+                LhsVar(2) = Rhs + 2;
+                FREE(errmsg);
+                errmsg = NULL;
+            }
+        }
 
-		C2F(putlhsvar)();
-		return 0;
-	}
+        C2F(putlhsvar) ();
+        return 0;
+    }
 
-	if (GetType(1) == sci_matrix)
-	{
-		if (Rhs == 1)
-		{
-			GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-			if (m1*n1 == 1)
-			{
-				fd  = *istk(l1);
+    if (GetType(1) == sci_matrix)
+    {
+        if (Rhs == 1)
+        {
+            GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+            if (m1 * n1 == 1)
+            {
+                fd = *istk(l1);
 
-				if ( GetFileOpenedInScilab(fd) )
-				{
-					int ierr = 0;
-					C2F(merror)(&fd, &ierr);
+                if (GetFileOpenedInScilab(fd))
+                {
+                    int ierr = 0;
 
-					CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&lr);
-					*stk(lr) = (double)ierr;
-					LhsVar(1) = Rhs + 1;
+                    C2F(merror) (&fd, &ierr);
 
-					if (Lhs == 2)
-					{
-						char *errmsg = NULL;
+                    CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &lr);
+                    *stk(lr) = (double)ierr;
+                    LhsVar(1) = Rhs + 1;
 
-						if (ierr == 0)
-						{
-							errmsg = strdup("");
-						}
-						else
-						{
-							errmsg = strdup(strerror(ierr));
-						}
+                    if (Lhs == 2)
+                    {
+                        char *errmsg = NULL;
 
-						if (errmsg)
-						{
-							n1 = 1;
-							CreateVarFromPtr(Rhs + 2,STRING_DATATYPE,(m1 = (int)strlen(errmsg), &m1),&n1,&errmsg);
-							LhsVar(2) = Rhs + 2;
+                        if (ierr == 0)
+                        {
+                            errmsg = strdup("");
+                        }
+                        else
+                        {
+                            errmsg = strdup(strerror(ierr));
+                        }
 
-							FREE(errmsg);
-							errmsg = NULL;
-						}
-					}
-					C2F(putlhsvar)();
-				}
-				else
-				{
-					Scierror(999,_("%s: Cannot read file whose descriptor is %d: File is not active.\n"),fname,fd);
-				}
-			}
-			else
-			{
-				Scierror(999, _("%s: Wrong size for input argument #%d: A integer expected.\n"), fname,1);
-			}
-		}
-	}
-	else
-	{
-		Scierror(999, _("%s: Wrong type for input argument #%d: A integer expected.\n"), fname,1);
-	}
-	return 0;
+                        if (errmsg)
+                        {
+                            n1 = 1;
+                            CreateVarFromPtr(Rhs + 2, STRING_DATATYPE, (m1 = (int)strlen(errmsg), &m1), &n1, &errmsg);
+                            LhsVar(2) = Rhs + 2;
+
+                            FREE(errmsg);
+                            errmsg = NULL;
+                        }
+                    }
+                    C2F(putlhsvar) ();
+                }
+                else
+                {
+                    Scierror(999, _("%s: Cannot read file whose descriptor is %d: File is not active.\n"), fname, fd);
+                }
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A integer expected.\n"), fname, 1);
+            }
+        }
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A integer expected.\n"), fname, 1);
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

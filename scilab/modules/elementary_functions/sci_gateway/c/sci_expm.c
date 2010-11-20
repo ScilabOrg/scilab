@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_elementary_functions.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
@@ -17,21 +17,26 @@
 /* BUG 3863 */
 /* forces to define C2F(dcoeff) only once */
 
-typedef struct {
-	double c[41];
-	int ndng;
+typedef struct
+{
+    double c[41];
+    int ndng;
 } DCOEFF_struct;
 
-__declspec(dllexport) DCOEFF_struct C2F(dcoeff);
+__declspec(dllexport)
+     DCOEFF_struct C2F(dcoeff);
 
 #endif
 
-extern int C2F(intexpm)(int *id);
+     extern int C2F(intexpm) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_expm(char *fname,unsigned long fname_len)
+     int sci_expm(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intexpm)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intexpm) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -27,55 +27,56 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_tics_direction_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_tics_direction_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "tics_direction");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"tics_direction");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( pAXES_FEATURE (pobj)->ny == 1 )
-  { 
-    if( isStringParamEqual( stackPointer, "top" ) )
+    if (!isParameterStringMatrix(valueType))
     {
-      pAXES_FEATURE (pobj)->dir = 'u' ;
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "tics_direction");
+        return SET_PROPERTY_ERROR;
     }
-    else if ( isStringParamEqual( stackPointer, "bottom" ) )
+
+    if (sciGetEntityType(pobj) != SCI_AXES)
     {
-      pAXES_FEATURE (pobj)->dir = 'd' ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_direction");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (pAXES_FEATURE(pobj)->ny == 1)
+    {
+        if (isStringParamEqual(stackPointer, "top"))
+        {
+            pAXES_FEATURE(pobj)->dir = 'u';
+        }
+        else if (isStringParamEqual(stackPointer, "bottom"))
+        {
+            pAXES_FEATURE(pobj)->dir = 'd';
+        }
+        else
+        {
+            Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "tics_direction", "'top'", "'bottom'");
+            return SET_PROPERTY_ERROR;
+        }
+        return SET_PROPERTY_SUCCEED;
     }
     else
     {
-      Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "tics_direction", "'top'", "'bottom'");
-      return SET_PROPERTY_ERROR ;
+        if (isStringParamEqual(stackPointer, "right"))
+        {
+            pAXES_FEATURE(pobj)->dir = 'r';
+        }
+        else if (isStringParamEqual(stackPointer, "left"))
+        {
+            pAXES_FEATURE(pobj)->dir = 'l';
+        }
+        else
+        {
+            Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "tics_direction", "'left'", "'right'");
+            return SET_PROPERTY_ERROR;
+        }
+        return SET_PROPERTY_SUCCEED;
     }
-    return SET_PROPERTY_SUCCEED ;
-  } 
-  else
-  {
-    if( isStringParamEqual( stackPointer, "right" ) )
-    {
-      pAXES_FEATURE (pobj)->dir = 'r' ;
-    }
-    else if ( isStringParamEqual( stackPointer, "left" ) )
-    {
-      pAXES_FEATURE (pobj)->dir = 'l' ;
-    }
-    else
-    {
-      Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "tics_direction", "'left'", "'right'");
-      return SET_PROPERTY_ERROR ;
-    }
-    return SET_PROPERTY_SUCCEED ;
-  }
-  return SET_PROPERTY_ERROR ;
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

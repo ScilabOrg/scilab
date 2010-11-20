@@ -15,17 +15,18 @@
 #include "gw_boolean.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{C2F(sci_find),"find"},
-	{C2F(sci_bool2s),"bool2s"},
-	{C2F(intor),"or"},
-	{C2F(intand),"and"}
+static gw_generic_table Tab[] = {
+    {C2F(sci_find), "find"},
+    {C2F(sci_bool2s), "bool2s"},
+    {C2F(intor), "or"},
+    {C2F(intand), "and"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_boolean(void)
-{  
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

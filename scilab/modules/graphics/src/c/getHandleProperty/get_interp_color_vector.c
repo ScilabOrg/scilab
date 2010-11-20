@@ -25,22 +25,24 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int get_interp_color_vector_property( sciPointObj * pobj )
+int get_interp_color_vector_property(sciPointObj * pobj)
 {
-  int * interpVector = NULL ;
-  if( sciGetEntityType(pobj) != SCI_POLYLINE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"interp_color_vector") ;
-    return -1 ;
-  }
-  interpVector = sciGetInterpVector( pobj ) ;
-  if( interpVector != NULL )
-  {
-    return sciReturnRowVectorFromInt( interpVector, pPOLYLINE_FEATURE(pobj)->n1 ) ;
-  }
-  else
-  {
-    return sciReturnEmptyMatrix() ;
-  }
+    int *interpVector = NULL;
+
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "interp_color_vector");
+        return -1;
+    }
+    interpVector = sciGetInterpVector(pobj);
+    if (interpVector != NULL)
+    {
+        return sciReturnRowVectorFromInt(interpVector, pPOLYLINE_FEATURE(pobj)->n1);
+    }
+    else
+    {
+        return sciReturnEmptyMatrix();
+    }
 }
+
 /*--------------------------------------------------------------------------*/

@@ -14,30 +14,35 @@
 #include "MALLOC.h"
 #include "fromjava.h"
 /*--------------------------------------------------------------------------*/
-int sci_fromjava(char *fname,unsigned long fname_len)
+int sci_fromjava(char *fname, unsigned long fname_len)
 {
-	static int n1;
-	int *paramoutINT=(int*)MALLOC(sizeof(int)+1);
+    static int n1;
+    int *paramoutINT = (int *)MALLOC(sizeof(int) + 1);
 
-	Rhs = Max(0, Rhs);
-	CheckRhs(0,0);
-	CheckLhs(1,1);
+    Rhs = Max(0, Rhs);
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
 
-	if ( IsFromJava() )
-	{
-		*paramoutINT=(int)(TRUE);
-	}
-	else
-	{
-		*paramoutINT=(int)(FALSE);
-	}
+    if (IsFromJava())
+    {
+        *paramoutINT = (int)(TRUE);
+    }
+    else
+    {
+        *paramoutINT = (int)(FALSE);
+    }
 
-	n1=1;
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
-	LhsVar(1)=Rhs+1;
-	C2F(putlhsvar)();
-	if (paramoutINT) {FREE(paramoutINT);paramoutINT=NULL;}
+    n1 = 1;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    if (paramoutINT)
+    {
+        FREE(paramoutINT);
+        paramoutINT = NULL;
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

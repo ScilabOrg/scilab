@@ -55,51 +55,52 @@
 
 extern CellAdr *ListNumeric;
 
-int sci_umf_ludel(char* fname, unsigned long l)
+int sci_umf_ludel(char *fname, unsigned long l)
 {
 
-  int mLU_ptr, nLU_ptr, lLU_ptr, it_flag;
-  void * Numeric;
-  CellAdr *Cell;
-  
-  /* Check numbers of input/output arguments */
-  CheckRhs(0,1); CheckLhs(1,1);
+    int mLU_ptr, nLU_ptr, lLU_ptr, it_flag;
+    void *Numeric;
+    CellAdr *Cell;
 
-  if (Rhs == 0)      /* destroy all */ 
-    while ( ListNumeric )
-      {
-	Cell = ListNumeric;
-	ListNumeric = ListNumeric->next;
-	if (Cell->it == 0) 
-	  umfpack_di_free_numeric(&(Cell->adr));
-	else
-	  umfpack_zi_free_numeric(&(Cell->adr));
-	FREE(Cell);
-      }
-  else
+    /* Check numbers of input/output arguments */
+    CheckRhs(0, 1);
+    CheckLhs(1, 1);
+
+    if (Rhs == 0)               /* destroy all */
+        while (ListNumeric)
+        {
+            Cell = ListNumeric;
+            ListNumeric = ListNumeric->next;
+            if (Cell->it == 0)
+                umfpack_di_free_numeric(&(Cell->adr));
+            else
+                umfpack_zi_free_numeric(&(Cell->adr));
+            FREE(Cell);
+        }
+    else
     {
-      /* get the pointer to the LU factors */
-      GetRhsVar(1,SCILAB_POINTER_DATATYPE, &mLU_ptr, &nLU_ptr, &lLU_ptr);
-      Numeric = (void *) ((unsigned long int) *stk(lLU_ptr));
-      
-      /* Check if the pointer is a valid ref to ... */
-      if (RetrieveAdrFromList(Numeric, &ListNumeric, &it_flag)) 
-	  {
-		  /* free the memory of the numeric object */
-		  if ( it_flag == 0 )
-		  {
-			umfpack_di_free_numeric(&Numeric);
-		  }
-		  else
-		  {
-			umfpack_zi_free_numeric(&Numeric);
-		  }
-	  }
-	  else
-	  {
-		  Scierror(999,_("%s: Wrong value for input argument #%d: Must be a valid reference to (umf) LU factors.\n"),fname,1);
-	  }
+        /* get the pointer to the LU factors */
+        GetRhsVar(1, SCILAB_POINTER_DATATYPE, &mLU_ptr, &nLU_ptr, &lLU_ptr);
+        Numeric = (void *)((unsigned long int)*stk(lLU_ptr));
+
+        /* Check if the pointer is a valid ref to ... */
+        if (RetrieveAdrFromList(Numeric, &ListNumeric, &it_flag))
+        {
+            /* free the memory of the numeric object */
+            if (it_flag == 0)
+            {
+                umfpack_di_free_numeric(&Numeric);
+            }
+            else
+            {
+                umfpack_zi_free_numeric(&Numeric);
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: Must be a valid reference to (umf) LU factors.\n"), fname, 1);
+        }
     }
-  
-  return 0;
+
+    return 0;
 }

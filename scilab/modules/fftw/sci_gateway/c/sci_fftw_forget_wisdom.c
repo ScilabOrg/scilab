@@ -18,6 +18,7 @@
 /*--------------------------------------------------------------------------*/
 extern FFTW_Plan_struct Sci_Forward_Plan;
 extern FFTW_Plan_struct Sci_Backward_Plan;
+
 /*--------------------------------------------------------------------------*/
 
 /* Reset fftw wisdom
@@ -30,17 +31,18 @@ extern FFTW_Plan_struct Sci_Backward_Plan;
  * Output : Nothing
  *
  */
-int sci_fftw_forget_wisdom(char *fname,unsigned long fname_len)
+int sci_fftw_forget_wisdom(char *fname, unsigned long fname_len)
 {
- CheckRhs(0,0);
+    CheckRhs(0, 0);
 
- FreeFFTWPlan(&Sci_Backward_Plan);
- FreeFFTWPlan(&Sci_Forward_Plan);
+    FreeFFTWPlan(&Sci_Backward_Plan);
+    FreeFFTWPlan(&Sci_Forward_Plan);
 
- call_fftw_forget_wisdom();
+    call_fftw_forget_wisdom();
 
- PutLhsVar();
+    PutLhsVar();
 
- return(0);
+    return (0);
 }
+
 /*--------------------------------------------------------------------------*/

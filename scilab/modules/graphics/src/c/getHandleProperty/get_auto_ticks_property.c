@@ -26,50 +26,52 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_auto_ticks_property( sciPointObj * pobj )
+int get_auto_ticks_property(sciPointObj * pobj)
 {
 
-  char * auto_ticks[3]  = { NULL, NULL, NULL } ;
-  int i ;
-  int status = -1 ;
+    char *auto_ticks[3] = { NULL, NULL, NULL };
+    int i;
+    int status = -1;
 
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"auto_ticks") ;
-    return -1 ;
-  }
-
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    auto_ticks[i] = MALLOC( 4 * sizeof(char) ) ;
-    if ( auto_ticks[i] == NULL )
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
     {
-      int j ;
-      for ( j = 0 ; j < i ; j++ )
-      {
-        FREE( auto_ticks[j] ) ;
-				Scierror(999, _("%s: No more memory.\n"),"get_auto_ticks_property");
-        return -1 ;
-      }
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "auto_ticks");
+        return -1;
     }
-    if ( pSUBWIN_FEATURE (pobj)->axes.auto_ticks[i] )
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( auto_ticks[i], "on" ) ;
+        auto_ticks[i] = MALLOC(4 * sizeof(char));
+        if (auto_ticks[i] == NULL)
+        {
+            int j;
+
+            for (j = 0; j < i; j++)
+            {
+                FREE(auto_ticks[j]);
+                Scierror(999, _("%s: No more memory.\n"), "get_auto_ticks_property");
+                return -1;
+            }
+        }
+        if (pSUBWIN_FEATURE(pobj)->axes.auto_ticks[i])
+        {
+            strcpy(auto_ticks[i], "on");
+        }
+        else
+        {
+            strcpy(auto_ticks[i], "off");
+        }
     }
-    else
+
+    status = sciReturnRowStringVector(auto_ticks, 3);
+
+    for (i = 0; i < 3; i++)
     {
-      strcpy( auto_ticks[i], "off" ) ;
+        FREE(auto_ticks[i]);
     }
-  }
 
-  status = sciReturnRowStringVector( auto_ticks, 3 ) ;
+    return status;
 
-  for ( i = 0 ; i < 3 ; i++ )
-  {
-    FREE( auto_ticks[i] ) ;
-  }
-
-  return status ;
-    
 }
+
 /*------------------------------------------------------------------------*/

@@ -17,34 +17,36 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableFec::draw( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  EDisplayStatus status = drawFec();
-  unClip();
-  endDrawing();
-  return status;
-}
+    DrawableObject::EDisplayStatus DrawableFec::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        EDisplayStatus status = drawFec();
+
+        unClip();
+        endDrawing();
+        return status;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableFec::show( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showFec();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableFec::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showFec();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

@@ -12,11 +12,13 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intdelbpt)(void);
+extern int C2F(intdelbpt) (void);
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_delbpt)(char *fname,unsigned long fname_len)
+int C2F(sci_delbpt) (char *fname, unsigned long fname_len)
 {
-	C2F(intdelbpt)();
-	return 0;
+    C2F(intdelbpt) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

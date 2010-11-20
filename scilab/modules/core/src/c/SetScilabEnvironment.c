@@ -15,26 +15,27 @@
 #include <stdio.h>
 #include "SetScilabEnvironment.h"
 #include "SCIHOME.h"
-#include "inisci-c.h" /* SetSci */
+#include "inisci-c.h"           /* SetSci */
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-	extern void SciEnvForWindows(void);
+extern void SciEnvForWindows(void);
 #endif
 /*--------------------------------------------------------------------------*/
 /**
 * Define SCI and some others Environments variables 
 */
-void SetScilabEnvironment(void) 
+void SetScilabEnvironment(void)
 {
 #ifdef _MSC_VER
-	SciEnvForWindows(); 
+    SciEnvForWindows();
 #else
-	SetSci();
+    SetSci();
 #endif
-	if (!setSCIHOME())
-	{
-		fprintf(stderr,_("Error: Impossible to define %s environment variable.\n"),"SCIHOME");
-	}
+    if (!setSCIHOME())
+    {
+        fprintf(stderr, _("Error: Impossible to define %s environment variable.\n"), "SCIHOME");
+    }
 }
+
 /*--------------------------------------------------------------------------*/

@@ -27,73 +27,73 @@
 #include "CurrentObjectsManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_rotate_axes(char *fname,unsigned long fname_len)
-{ 
-  /* call rotate_axes(handle) where handle */
-  /* is a figure or subwin handle */
+int sci_rotate_axes(char *fname, unsigned long fname_len)
+{
+    /* call rotate_axes(handle) where handle */
+    /* is a figure or subwin handle */
 
-  sciPointObj * rotatedObject = NULL;
+    sciPointObj *rotatedObject = NULL;
 
+    int nbRow;
+    int nbCol;
+    size_t stackPointer = 0;
 
-  int nbRow;
-  int nbCol;
-  size_t stackPointer = 0;
+    /* check size of input and output */
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
-  /* check size of input and output */
-  CheckRhs(0,1);
-  CheckLhs(0,1);
-
-  if (Rhs == 0)
-  {
-    /* rotate current figure */
-    interactiveRotation(sciGetCurrentFigure());
-  }
-  else
-  {
-    /* Get figure or subwin handle */
-    if (GetType(1) != sci_handles)
+    if (Rhs == 0)
     {
-      Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
-      LhsVar(1) = 0;
-	  C2F(putlhsvar)();
-      return -1;
-    }
-
-    GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
-
-    if (nbRow * nbCol != 1)
-    {
-      Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
-      LhsVar(1) = 0;
-	  C2F(putlhsvar)();
-      return -1;
-    }
-
-    rotatedObject = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
-
-	if (rotatedObject == NULL)
-	{
-		Scierror(999,_("%s: The handle is not or no more valid.\n"),fname);
-        return -1;
-	}
-    else if (sciGetEntityType(rotatedObject) == SCI_FIGURE)
-    {
-      interactiveRotation(rotatedObject);
-    }
-    else if (sciGetEntityType(rotatedObject) == SCI_SUBWIN)
-    {
-      interactiveSubwinRotation(rotatedObject);
+        /* rotate current figure */
+        interactiveRotation(sciGetCurrentFigure());
     }
     else
     {
-      Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
-      return -1;
+        /* Get figure or subwin handle */
+        if (GetType(1) != sci_handles)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
+            LhsVar(1) = 0;
+            C2F(putlhsvar) ();
+            return -1;
+        }
+
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+
+        if (nbRow * nbCol != 1)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
+            LhsVar(1) = 0;
+            C2F(putlhsvar) ();
+            return -1;
+        }
+
+        rotatedObject = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
+
+        if (rotatedObject == NULL)
+        {
+            Scierror(999, _("%s: The handle is not or no more valid.\n"), fname);
+            return -1;
+        }
+        else if (sciGetEntityType(rotatedObject) == SCI_FIGURE)
+        {
+            interactiveRotation(rotatedObject);
+        }
+        else if (sciGetEntityType(rotatedObject) == SCI_SUBWIN)
+        {
+            interactiveSubwinRotation(rotatedObject);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
+            return -1;
+        }
     }
-  }
 
-  LhsVar(1) = 0;
-  C2F(putlhsvar)();
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-  return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

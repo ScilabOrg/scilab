@@ -39,308 +39,369 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_rectangleDrawing {
+namespace org_scilab_modules_renderer_rectangleDrawing
+{
 
 // Returns the current env
 
-JNIEnv * DrawableRectangleGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *DrawableRectangleGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-DrawableRectangleGL::~DrawableRectangleGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    DrawableRectangleGL::~DrawableRectangleGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-DrawableRectangleGL::DrawableRectangleGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    DrawableRectangleGL::DrawableRectangleGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidtranslatejdoublejdoublejdoubleID=NULL; 
-voidendTranslateID=NULL; 
-voidclipXjdoublejdoubleID=NULL; 
-voidclipYjdoublejdoubleID=NULL; 
-voidclipZjdoublejdoubleID=NULL; 
-voidunClipID=NULL; 
-
-
-}
-
-DrawableRectangleGL::DrawableRectangleGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidtranslatejdoublejdoublejdoubleID = NULL;
+        voidendTranslateID = NULL;
+        voidclipXjdoublejdoubleID = NULL;
+        voidclipYjdoublejdoubleID = NULL;
+        voidclipZjdoublejdoubleID = NULL;
+        voidunClipID = NULL;
+
+    }
+
+    DrawableRectangleGL::DrawableRectangleGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidtranslatejdoublejdoublejdoubleID=NULL; 
-voidendTranslateID=NULL; 
-voidclipXjdoublejdoubleID=NULL; 
-voidclipYjdoublejdoubleID=NULL; 
-voidclipZjdoublejdoubleID=NULL; 
-voidunClipID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidtranslatejdoublejdoublejdoubleID = NULL;
+        voidendTranslateID = NULL;
+        voidclipXjdoublejdoubleID = NULL;
+        voidclipYjdoublejdoubleID = NULL;
+        voidclipZjdoublejdoubleID = NULL;
+        voidunClipID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void DrawableRectangleGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableRectangleGL");
-}
-}
+    void DrawableRectangleGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableRectangleGL");
+        }
+    }
 
-void DrawableRectangleGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableRectangleGL");
-}
-}
+    void DrawableRectangleGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableRectangleGL");
+        }
+    }
 // Method(s)
 
-void DrawableRectangleGL::display (){
+    void DrawableRectangleGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::initializeDrawing (int figureIndex){
+    void DrawableRectangleGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::endDrawing (){
+    void DrawableRectangleGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::show (int figureIndex){
+    void DrawableRectangleGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::destroy (int parentFigureIndex){
+    void DrawableRectangleGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::translate (double tx, double ty, double tz){
+    void DrawableRectangleGL::translate(double tx, double ty, double tz)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidtranslatejdoublejdoublejdoubleID==NULL) { /* Use the cache */
- voidtranslatejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "translate", "(DDD)V" ) ;
-if (voidtranslatejdoublejdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "translate");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidtranslatejdoublejdoublejdoubleID ,tx, ty, tz);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidtranslatejdoublejdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidtranslatejdoublejdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "translate", "(DDD)V");
+            if (voidtranslatejdoublejdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "translate");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidtranslatejdoublejdoublejdoubleID, tx, ty, tz);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::endTranslate (){
+    void DrawableRectangleGL::endTranslate()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendTranslateID==NULL) { /* Use the cache */
- voidendTranslateID = curEnv->GetMethodID(this->instanceClass, "endTranslate", "()V" ) ;
-if (voidendTranslateID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endTranslate");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendTranslateID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendTranslateID == NULL)
+        {                       /* Use the cache */
+            voidendTranslateID = curEnv->GetMethodID(this->instanceClass, "endTranslate", "()V");
+            if (voidendTranslateID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endTranslate");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendTranslateID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::clipX (double xMin, double xMax){
+    void DrawableRectangleGL::clipX(double xMin, double xMax)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidclipXjdoublejdoubleID==NULL) { /* Use the cache */
- voidclipXjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipX", "(DD)V" ) ;
-if (voidclipXjdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "clipX");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidclipXjdoublejdoubleID ,xMin, xMax);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidclipXjdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidclipXjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipX", "(DD)V");
+            if (voidclipXjdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "clipX");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidclipXjdoublejdoubleID, xMin, xMax);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::clipY (double yMin, double yMax){
+    void DrawableRectangleGL::clipY(double yMin, double yMax)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidclipYjdoublejdoubleID==NULL) { /* Use the cache */
- voidclipYjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipY", "(DD)V" ) ;
-if (voidclipYjdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "clipY");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidclipYjdoublejdoubleID ,yMin, yMax);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidclipYjdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidclipYjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipY", "(DD)V");
+            if (voidclipYjdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "clipY");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidclipYjdoublejdoubleID, yMin, yMax);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::clipZ (double zMin, double zMax){
+    void DrawableRectangleGL::clipZ(double zMin, double zMax)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidclipZjdoublejdoubleID==NULL) { /* Use the cache */
- voidclipZjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipZ", "(DD)V" ) ;
-if (voidclipZjdoublejdoubleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "clipZ");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidclipZjdoublejdoubleID ,zMin, zMax);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidclipZjdoublejdoubleID == NULL)
+        {                       /* Use the cache */
+            voidclipZjdoublejdoubleID = curEnv->GetMethodID(this->instanceClass, "clipZ", "(DD)V");
+            if (voidclipZjdoublejdoubleID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "clipZ");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidclipZjdoublejdoubleID, zMin, zMax);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableRectangleGL::unClip (){
+    void DrawableRectangleGL::unClip()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidunClipID==NULL) { /* Use the cache */
- voidunClipID = curEnv->GetMethodID(this->instanceClass, "unClip", "()V" ) ;
-if (voidunClipID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "unClip");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidunClipID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidunClipID == NULL)
+        {                       /* Use the cache */
+            voidunClipID = curEnv->GetMethodID(this->instanceClass, "unClip", "()V");
+            if (voidunClipID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "unClip");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidunClipID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

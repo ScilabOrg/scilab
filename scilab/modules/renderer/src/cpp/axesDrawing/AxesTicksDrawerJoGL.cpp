@@ -21,27 +21,26 @@ extern "C"
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-AxesTicksDrawerJoGL::AxesTicksDrawerJoGL(DrawableAxes * axes)
-  : TicksDrawerJoGL(axes)
-{
+    AxesTicksDrawerJoGL::AxesTicksDrawerJoGL(DrawableAxes * axes):TicksDrawerJoGL(axes)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-AxesTicksDrawerJoGL::~AxesTicksDrawerJoGL(void)
-{
+    AxesTicksDrawerJoGL::~AxesTicksDrawerJoGL(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void AxesTicksDrawerJoGL::initializeDrawing(void)
-{
-  TicksDrawerJoGL::initializeDrawing();
+    void AxesTicksDrawerJoGL::initializeDrawing(void)
+    {
+        TicksDrawerJoGL::initializeDrawing();
 
-  sciPointObj * pAxes = getDrawer()->getDrawedObject();
-  sciAxes * ppAxes = pAXES_FEATURE(pAxes);
+        sciPointObj *pAxes = getDrawer()->getDrawedObject();
+        sciAxes *ppAxes = pAXES_FEATURE(pAxes);
 
-  // specify if the axes line should be drawn or not
-  getTicksDrawerJavaMapper()->setAxisLineDrawing(ppAxes->seg == 1);
+        // specify if the axes line should be drawn or not
+        getTicksDrawerJavaMapper()->setAxisLineDrawing(ppAxes->seg == 1);
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
 }

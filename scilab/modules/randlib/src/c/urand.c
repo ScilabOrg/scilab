@@ -17,8 +17,7 @@
  * 
  */
 
-
-#include <math.h>             /* to use floor    */
+#include <math.h>               /* to use floor    */
 #include "sciprint.h"
 #include "others_generators.h"
 #include "localization.h"
@@ -27,32 +26,30 @@ static unsigned long s = 0;
 
 unsigned long urandc()
 {
-  s = 843314861ul * s + 453816693ul;  /* => on obtient ici un resultat modulo 2^32 */
+    s = 843314861ul * s + 453816693ul;  /* => on obtient ici un resultat modulo 2^32 */
 
-  /* il suffit du test suivant pour obtenir le modulo 2^31 */
-  if (s >= 2147483648ul) s -= 2147483648ul;
+    /* il suffit du test suivant pour obtenir le modulo 2^31 */
+    if (s >= 2147483648ul)
+        s -= 2147483648ul;
 
-  return ( s );
+    return (s);
 }
 
 int set_state_urand(double g)
 {
-  if ( g == floor(g) &&  0 <= g && g <= 2147483647 )
+    if (g == floor(g) && 0 <= g && g <= 2147483647)
     {
-      s = (unsigned long) g;
-      return ( 1 );
+        s = (unsigned long)g;
+        return (1);
     }
-  else
+    else
     {
-      sciprint(_("\nBad seed for urand, must be an int in [0,  2147483647]\n"));
-      return ( 0 );
+        sciprint(_("\nBad seed for urand, must be an int in [0,  2147483647]\n"));
+        return (0);
     }
 }
 
 void get_state_urand(double g[])
 {
-  g[0] = (double) s;
+    g[0] = (double)s;
 }
-
-
-  

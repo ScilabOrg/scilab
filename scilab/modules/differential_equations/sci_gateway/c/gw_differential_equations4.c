@@ -15,17 +15,18 @@
 #include "gw_differential_equations4.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{sci_intg,"intg"},
-	{sci_int2d,"int2d"},
-	{sci_int3d,"int3d"},
-	{sci_feval,"feval"}
+static gw_generic_table Tab[] = {
+    {sci_intg, "intg"},
+    {sci_int2d, "int2d"},
+    {sci_int3d, "int3d"},
+    {sci_feval, "feval"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_differential_equations4(void)
-{  
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

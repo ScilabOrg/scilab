@@ -9,23 +9,27 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_optimization.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 /* bug 3161 (F2C)*/
 /* common need to be defined and exported from C */
-__declspec (dllexport) struct {
-    char namef[25], namej[25];
-} C2F(clsqrsolve);
+__declspec(dllexport)
+     struct
+     {
+         char namef[25], namej[25];
+     } C2F(clsqrsolve);
 #endif
 /*--------------------------------------------------------------------------*/
-extern int C2F(intlsqrsolve)(); /* FORTRAN subroutine */
+     extern int C2F(intlsqrsolve) ();   /* FORTRAN subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_sqrsolve(char *fname,unsigned long fname_len)
+     int sci_sqrsolve(char *fname, unsigned long fname_len)
 {
-	C2F(intlsqrsolve)(fname,fname_len);
-	return 0;
+    C2F(intlsqrsolve) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

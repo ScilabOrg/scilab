@@ -15,39 +15,38 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUiobjectCallback(sciPointObj* sciObj)
+int GetUiobjectCallback(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-      /* Do not read from Java because can be diffucult to get back the callback */
+        /* Do not read from Java because can be diffucult to get back the callback */
 
-      if (pUIMENU_FEATURE(sciObj)->callback == NULL) /* Callback not set */
+        if (pUIMENU_FEATURE(sciObj)->callback == NULL)  /* Callback not set */
         {
-          return sciReturnString("");
+            return sciReturnString("");
         }
-      else /* Callback has been set */
+        else                    /* Callback has been set */
         {
-          return sciReturnString(pUIMENU_FEATURE(sciObj)->callback);
+            return sciReturnString(pUIMENU_FEATURE(sciObj)->callback);
         }
     }
-  else if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    else if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      /* Do not read from Java because can be diffucult to get back the callback */
+        /* Do not read from Java because can be diffucult to get back the callback */
 
-      if (pUICONTROL_FEATURE(sciObj)->callback == NULL) /* Callback not set */
+        if (pUICONTROL_FEATURE(sciObj)->callback == NULL)   /* Callback not set */
         {
-          return sciReturnString("");
+            return sciReturnString("");
         }
-      else /* Callback has been set */
+        else                    /* Callback has been set */
         {
-          return sciReturnString(pUICONTROL_FEATURE(sciObj)->callback);
+            return sciReturnString(pUICONTROL_FEATURE(sciObj)->callback);
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")),
- "Callback");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Callback");
+
+        return FALSE;
     }
 }
-

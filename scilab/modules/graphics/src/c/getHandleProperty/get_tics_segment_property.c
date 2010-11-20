@@ -25,23 +25,24 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_segment_property( sciPointObj * pobj )
+int get_tics_segment_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType( pobj ) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_segment") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_AXES)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_segment");
+        return -1;
+    }
 
-  if ( pAXES_FEATURE(pobj)->seg == 1 )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {	
-    return sciReturnString( "off" ) ;
-  }
+    if (pAXES_FEATURE(pobj)->seg == 1)
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

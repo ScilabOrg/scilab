@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_mark_style_property( sciPointObj * pobj )
+int get_mark_style_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetMarkStyle( pobj ) ) ;
+    return sciReturnDouble(sciGetMarkStyle(pobj));
 }
+
 /*------------------------------------------------------------------------*/

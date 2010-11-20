@@ -9,18 +9,18 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
- 
+
 #include "gw_signal.h"
 
-void dfft2 ( double* a , double* b , int nseg , int n , int nspn , int isn , int ierr, int* iw , int lw )
+void dfft2(double *a, double *b, int nseg, int n, int nspn, int isn, int ierr, int *iw, int lw)
 {
-   iw[0] = 0 ;
-   iw[1] = 10 ;
-   iw[2] = 10 ;
-   iw[3] = lw ;
-   iw[4] = 10 ;
+    iw[0] = 0;
+    iw[1] = 10;
+    iw[2] = 10;
+    iw[3] = lw;
+    iw[4] = 10;
 
-   dfftbi ( a , b , nseg , n , nspn , isn , ierr , iw[0], iw[1], iw[2], iw[3], iw[4], iw, iw);
+    dfftbi(a, b, nseg, n, nspn, isn, ierr, iw[0], iw[1], iw[2], iw[3], iw[4], iw, iw);
 
-   return ;
+    return;
 }

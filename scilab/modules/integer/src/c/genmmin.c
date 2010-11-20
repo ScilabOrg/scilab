@@ -10,7 +10,6 @@
 *
 */
 
-
 #include "genmmin.h"
 
 /* NEED COMMENTS !!!! */
@@ -43,35 +42,38 @@ Type *DY;\
 	      DY[1] = DX[l+kk];DK[1] = l + kk;}}}}\
 }
 
-
-int C2F(genmmin)(int *typ, int *job, int *m, int *n, int *dx, int *incx, int *dy, int *dk, int *incy)
+int C2F(genmmin) (int *typ, int *job, int *m, int *n, int *dx, int *incx, int *dy, int *dk, int *incy)
 {
-  static int ix, iy, l, k, kk, *DK;
+    static int ix, iy, l, k, kk, *DK;
 
-  DK=--dk;
-  ix = *incx;
-  iy = *incy;
+    DK = --dk;
+    ix = *incx;
+    iy = *incy;
 
-  switch (*typ) {
-  case 1:
-    MMIN(integer1);
-    break;
-  case 2:
-    MMIN(integer2);
-    break;
-  case 4:
-    MMIN(int) ;
-    break;
-  case 11:
-    MMIN(unsigned char);
-    break;
-  case 12:
-    MMIN(unsigned short);
-    break;
-  case 14:
-    MMIN(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        MMIN(integer1);
+        break;
+    case 2:
+        MMIN(integer2);
+        break;
+    case 4:
+        MMIN(int);
+
+        break;
+    case 11:
+        MMIN(unsigned char);
+
+        break;
+    case 12:
+        MMIN(unsigned short);
+
+        break;
+    case 14:
+        MMIN(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

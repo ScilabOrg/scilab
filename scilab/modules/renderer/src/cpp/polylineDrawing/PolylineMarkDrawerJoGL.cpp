@@ -28,106 +28,114 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-PolylineMarkDrawerJoGL::PolylineMarkDrawerJoGL( DrawablePolyline * polyline )
-  : DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
-{
-  setJavaMapper(new PolylineMarkDrawerJavaMapper());
-}
+    PolylineMarkDrawerJoGL::PolylineMarkDrawerJoGL(DrawablePolyline * polyline):DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
+    {
+        setJavaMapper(new PolylineMarkDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineMarkDrawerJoGL::~PolylineMarkDrawerJoGL(void)
-{
+    PolylineMarkDrawerJoGL::~PolylineMarkDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineMarkDrawerJoGL::drawPolyline( void )
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
-  initializeDrawing() ;
+    void PolylineMarkDrawerJoGL::drawPolyline(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pObj)->markbackground,
-                                               sciGetGraphicContext(pObj)->markforeground,
-                                               sciGetMarkSizeUnit(pObj),
-                                               sciGetMarkSize(pObj),
-                                               sciGetMarkStyle(pObj));
+        initializeDrawing();
 
-  // get the data of the polyline
-  int      nbVertices = 0   ;
-  double * xCoords    = NULL;
-  double * yCoords    = NULL;
-  double * zCoords    = NULL;
+        // set the line parameters
+        getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pObj)->markbackground,
+                                                     sciGetGraphicContext(pObj)->markforeground,
+                                                     sciGetMarkSizeUnit(pObj), sciGetMarkSize(pObj), sciGetMarkStyle(pObj));
 
-  // special case for bar plot
-  BarDecomposition barPoltDecomposer(m_pDrawed);
+        // get the data of the polyline
+        int nbVertices = 0;
+        double *xCoords = NULL;
+        double *yCoords = NULL;
+        double *zCoords = NULL;
 
-  if (sciGetPolylineStyle(pObj) == 3)
-  {
-    // bar plot also draw marks on y = 0 plane
-    nbVertices = barPoltDecomposer.getBarPlotMarkVerticesLength();
-  }
-  else
-  {
-    nbVertices = m_pDrawed->getDrawnVerticesLength();
-  }
+        // special case for bar plot
+        BarDecomposition barPoltDecomposer(m_pDrawed);
 
-  try
-  {
-    xCoords = new double[nbVertices];
-    yCoords = new double[nbVertices];
-    zCoords = new double[nbVertices];
-  }
-  catch (const std::exception& e)
-  {
-    // allocation failed
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineMarkDrawerJoGL::drawPolyline");
-    if(xCoords != NULL) { delete[] xCoords; }
-    if(yCoords != NULL) { delete[] yCoords; }
-    if(zCoords != NULL) { delete[] zCoords; }
-    endDrawing();
-    return;
-  }
+        if (sciGetPolylineStyle(pObj) == 3)
+        {
+            // bar plot also draw marks on y = 0 plane
+            nbVertices = barPoltDecomposer.getBarPlotMarkVerticesLength();
+        }
+        else
+        {
+            nbVertices = m_pDrawed->getDrawnVerticesLength();
+        }
 
-  if (sciGetPolylineStyle(pObj) == 3)
-  {
-    barPoltDecomposer.getBarPlotMarkVertices(xCoords, yCoords, zCoords);
-  }
-  else
-  {
-    m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
-  }
+        try
+        {
+            xCoords = new double[nbVertices];
+            yCoords = new double[nbVertices];
+            zCoords = new double[nbVertices];
+        }
+        catch(const std::exception & e)
+        {
+            // allocation failed
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineMarkDrawerJoGL::drawPolyline");
 
-  // display the rectangle
-  try
-  {
-    getMarkDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
-  }
-  catch (const std::exception& e)
-  {
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineMarkDrawerJoGL::drawPolyline");
-  }
+            if (xCoords != NULL)
+            {
+                delete[]xCoords;
+            }
+            if (yCoords != NULL)
+            {
+                delete[]yCoords;
+            }
+            if (zCoords != NULL)
+            {
+                delete[]zCoords;
+            }
+            endDrawing();
+            return;
+        }
 
-  delete[] xCoords;
-  delete[] yCoords;
-  delete[] zCoords;
-  endDrawing() ;
-}
+        if (sciGetPolylineStyle(pObj) == 3)
+        {
+            barPoltDecomposer.getBarPlotMarkVertices(xCoords, yCoords, zCoords);
+        }
+        else
+        {
+            m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
+        }
+
+        // display the rectangle
+        try
+        {
+            getMarkDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineMarkDrawerJoGL::drawPolyline");
+        }
+
+        delete[]xCoords;
+        delete[]yCoords;
+        delete[]zCoords;
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineMarkDrawerJoGL::showPolyline( void )
-{
-  show();
-}
+    void PolylineMarkDrawerJoGL::showPolyline(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineMarkDrawerJoGL::redrawPolyline( void )
-{
-  initializeDrawing() ;
-  getMarkDrawerJavaMapper()->drawPolyline();
-  endDrawing();
-}
+    void PolylineMarkDrawerJoGL::redrawPolyline(void)
+    {
+        initializeDrawing();
+        getMarkDrawerJavaMapper()->drawPolyline();
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineMarkDrawerJavaMapper * PolylineMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
-{
-  return dynamic_cast<PolylineMarkDrawerJavaMapper *>(getJavaMapper());
-}
+    PolylineMarkDrawerJavaMapper *PolylineMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
+    {
+        return dynamic_cast < PolylineMarkDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

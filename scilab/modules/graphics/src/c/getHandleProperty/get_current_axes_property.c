@@ -26,15 +26,16 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_current_axes_property( sciPointObj * pobj )
+int get_current_axes_property(sciPointObj * pobj)
 {
-	if (pobj != NULL)
-	{
-		/* This property should not be called on an handle */
-		Scierror(999, _("'%s' property does not exist for this handle.\n"), "current_axes");
-		return -1;
-	}
+    if (pobj != NULL)
+    {
+        /* This property should not be called on an handle */
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "current_axes");
+        return -1;
+    }
 
-  return sciReturnHandle( sciGetHandle( sciGetCurrentSubWin() ) ) ;
+    return sciReturnHandle(sciGetHandle(sciGetCurrentSubWin()));
 }
+
 /*------------------------------------------------------------------------*/

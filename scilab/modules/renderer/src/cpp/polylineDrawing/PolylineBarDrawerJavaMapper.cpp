@@ -11,7 +11,6 @@
  *
  */
 
-
 #include "PolylineBarDrawerJavaMapper.hxx"
 
 extern "C"
@@ -22,60 +21,54 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-PolylineBarDrawerJavaMapper::PolylineBarDrawerJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_polylineDrawing::PolylineBarDrawerGL(getScilabJavaVM());
-}
+    PolylineBarDrawerJavaMapper::PolylineBarDrawerJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_polylineDrawing::PolylineBarDrawerGL(getScilabJavaVM());
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineBarDrawerJavaMapper::~PolylineBarDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    PolylineBarDrawerJavaMapper::~PolylineBarDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void PolylineBarDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void PolylineBarDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void PolylineBarDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void PolylineBarDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::destroy(int figureIndex)
-{
-  m_pJavaObject->destroy(figureIndex);
-}
+    void PolylineBarDrawerJavaMapper::destroy(int figureIndex)
+    {
+        m_pJavaObject->destroy(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::setBarParameters(int background, int foreground, float thickness,
-                                                   int lineStyle)
-{
-  m_pJavaObject->setBarParameters(background, foreground, thickness, lineStyle);
-}
+    void PolylineBarDrawerJavaMapper::setBarParameters(int background, int foreground, float thickness, int lineStyle)
+    {
+        m_pJavaObject->setBarParameters(background, foreground, thickness, lineStyle);
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineBarDrawerJavaMapper::drawPolyline(const double left[],
-                                               const double right[],
-                                               const double bottom[],
-                                               const double top[],
-                                               const double zCoord[],
-                                               int nbCoords)
-{
-  m_pJavaObject->drawPolyline((double *)left, nbCoords,
-                              (double *)right, nbCoords,
-                              (double *)bottom, nbCoords,
-                              (double *)top, nbCoords,
-                              (double *)zCoord, nbCoords); 
-}
+    void PolylineBarDrawerJavaMapper::drawPolyline(const double left[],
+                                                   const double right[],
+                                                   const double bottom[], const double top[], const double zCoord[], int nbCoords)
+    {
+        m_pJavaObject->drawPolyline((double *)left, nbCoords,
+                                    (double *)right, nbCoords, (double *)bottom, nbCoords, (double *)top, nbCoords, (double *)zCoord, nbCoords);
+    }
 /*---------------------------------------------------------------------------------*/
 }

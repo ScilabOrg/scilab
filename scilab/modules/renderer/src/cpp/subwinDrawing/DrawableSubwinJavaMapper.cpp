@@ -22,60 +22,61 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-DrawableSubwinJavaMapper::DrawableSubwinJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::DrawableSubwinGL(getScilabJavaVM());
-}
+    DrawableSubwinJavaMapper::DrawableSubwinJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::DrawableSubwinGL(getScilabJavaVM());
+    }
 /*--------------------------------------------------------------------------*/
-DrawableSubwinJavaMapper::~DrawableSubwinJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    DrawableSubwinJavaMapper::~DrawableSubwinJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void DrawableSubwinJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void DrawableSubwinJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void DrawableSubwinJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void DrawableSubwinJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::destroy(int parentFigureIndex)
-{
-  m_pJavaObject->destroy(parentFigureIndex);
-}
+    void DrawableSubwinJavaMapper::destroy(int parentFigureIndex)
+    {
+        m_pJavaObject->destroy(parentFigureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::setSubwinParameters(int subwinIndex, bool is2d)
-{
-  m_pJavaObject->setSubwinParameters(subwinIndex, is2d);
-}
+    void DrawableSubwinJavaMapper::setSubwinParameters(int subwinIndex, bool is2d)
+    {
+        m_pJavaObject->setSubwinParameters(subwinIndex, is2d);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::interactiveRotation(long subwinIndex)
-{
-	m_pJavaObject->interactiveRotation(subwinIndex);
-}
+    void DrawableSubwinJavaMapper::interactiveRotation(long subwinIndex)
+    {
+        m_pJavaObject->interactiveRotation(subwinIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::interactiveZoom(long subwinIndex)
-{
-	m_pJavaObject->interactiveZoom(subwinIndex);
-}
+    void DrawableSubwinJavaMapper::interactiveZoom(long subwinIndex)
+    {
+        m_pJavaObject->interactiveZoom(subwinIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void DrawableSubwinJavaMapper::unzoom(long subwinHandle)
-{
-	m_pJavaObject->unzoom((long long) subwinHandle);
-}
+    void DrawableSubwinJavaMapper::unzoom(long subwinHandle)
+    {
+        m_pJavaObject->unzoom((long long)subwinHandle);
+    }
 /*--------------------------------------------------------------------------*/
 }

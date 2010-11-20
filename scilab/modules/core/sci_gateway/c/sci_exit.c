@@ -18,77 +18,78 @@
 #include "Scierror.h"
 #include "exitCodeValue.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_exit)(char *fname,unsigned long fname_len)
+int C2F(sci_exit) (char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
+    SciErr sciErr;
 
-	CheckLhs(1,1);
-	CheckRhs(0,1);
+    CheckLhs(1, 1);
+    CheckRhs(0, 1);
 
-	if (Rhs == 0)
-	{
-		setExitCodeValue(0);
-	}
-	else
-	{
-		int iExit = 0;
-		int m1 = 0, n1 = 0;
-		int iType1 = 0;
-		int *piAddressVarOne = NULL;
-		double *pdVarOne = NULL;
+    if (Rhs == 0)
+    {
+        setExitCodeValue(0);
+    }
+    else
+    {
+        int iExit = 0;
+        int m1 = 0, n1 = 0;
+        int iType1 = 0;
+        int *piAddressVarOne = NULL;
+        double *pdVarOne = NULL;
 
-		/* get Address of inputs */
-		sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        /* get Address of inputs */
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		/* check input type */
-		if ( iType1 != sci_matrix )
-		{
-			Scierror(999,_("%s: Wrong type for input argument #%d: A scalar expected.\n"),fname,1);
-			return 0;
-		}
+        /* check input type */
+        if (iType1 != sci_matrix)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A scalar expected.\n"), fname, 1);
+            return 0;
+        }
 
-		sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarOne,&m1,&n1,&pdVarOne);
-		if(sciErr.iErr)
-		{
-			printError(&sciErr, 0);
-			return 0;
-		}
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarOne, &m1, &n1, &pdVarOne);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
-		if( n1 != 1 || m1 != 1)
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: A scalar expected.\n"),fname,1);
-			return 0;
-		}
+        if (n1 != 1 || m1 != 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+            return 0;
+        }
 
-		iExit = (int) *pdVarOne;
+        iExit = (int)*pdVarOne;
 
-		if (*pdVarOne != (double)iExit)
-		{
-			Scierror(999,_("%s: Wrong value for input argument #%d: A integer expected.\n"),fname,1);
-			return 0;
-		}
+        if (*pdVarOne != (double)iExit)
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: A integer expected.\n"), fname, 1);
+            return 0;
+        }
 
-		setExitCodeValue(iExit);
-	}
+        setExitCodeValue(iExit);
+    }
 
-	// this value do quit in scirun
-	C2F(com).fun = -999;
+    // this value do quit in scirun
+    C2F(com).fun = -999;
 
-	LhsVar(1) = 0; 
-	C2F(putlhsvar)();
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

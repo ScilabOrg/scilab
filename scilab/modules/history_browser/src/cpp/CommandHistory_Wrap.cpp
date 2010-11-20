@@ -19,27 +19,31 @@ extern "C"
 #include "BOOL.h"
 #include "scilabmode.h"
 };
+
 /*------------------------------------------------------------------------*/
 using namespace org_scilab_modules_history_browser;
 static BOOL alreadyLoadedJava = FALSE;
+
 /*------------------------------------------------------------------------*/
-void CommandHistoryAppendLine (char * lineToAppend)
+void CommandHistoryAppendLine(char *lineToAppend)
 {
     if (getScilabMode() == SCILAB_STD)
     {
         CommandHistory::appendLine(getScilabJavaVM(), lineToAppend);
     }
 }
+
 /*------------------------------------------------------------------------*/
-void CommandHistoryLoadFromFile (void)
+void CommandHistoryLoadFromFile(void)
 {
     if (getScilabMode() == SCILAB_STD)
     {
         CommandHistory::loadFromFile(getScilabJavaVM());
     }
 }
+
 /*------------------------------------------------------------------------*/
-void CommandHistoryInitialize (void)
+void CommandHistoryInitialize(void)
 {
     if (!alreadyLoadedJava && (getScilabMode() == SCILAB_STD))
     {
@@ -52,6 +56,7 @@ void CommandHistoryInitialize (void)
         CommandHistory::initialize(getScilabJavaVM());
     }
 }
+
 /*------------------------------------------------------------------------*/
 void CommandHistoryReset(void)
 {
@@ -60,6 +65,7 @@ void CommandHistoryReset(void)
         CommandHistory::reset(getScilabJavaVM());
     }
 }
+
 /*------------------------------------------------------------------------*/
 void CommandHistoryDeleteLine(int lineNumber)
 {
@@ -68,4 +74,5 @@ void CommandHistoryDeleteLine(int lineNumber)
         CommandHistory::deleteLine(getScilabJavaVM(), lineNumber);
     }
 }
+
 /*------------------------------------------------------------------------*/

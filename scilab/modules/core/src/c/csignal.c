@@ -15,16 +15,18 @@
 #include "csignal.h"
 #include "sigbas.h"
 
-void controlC_handler (int sig)
+void controlC_handler(int sig)
 {
-  int j = SIGINT;
-  C2F(sigbas)(&j);
+    int j = SIGINT;
+
+    C2F(sigbas) (&j);
 }
 
-int C2F(csignal)(void)
+int C2F(csignal) (void)
 {
-	if (signal (SIGINT, controlC_handler) == SIG_ERR) {
-		fprintf(stderr,"Could not set the signal SIGINT to the handler.\n");
-	}
-	return(0);
+    if (signal(SIGINT, controlC_handler) == SIG_ERR)
+    {
+        fprintf(stderr, "Could not set the signal SIGINT to the handler.\n");
+    }
+    return (0);
 }

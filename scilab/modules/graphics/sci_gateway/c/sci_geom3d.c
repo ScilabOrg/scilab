@@ -20,53 +20,54 @@
 #include "GetProperty.h"
 #include "CurrentObjectsManagement.h"
 
-int geom3d(double *x, double *y, double *z, int n) ;
+int geom3d(double *x, double *y, double *z, int n);
 
 /*--------------------------------------------------------------------------*/
 int geom3d(double *x, double *y, double *z, int n)
 {
-  int i;
-  double userCoords2d[2];
+    int i;
+    double userCoords2d[2];
 
-  sciPointObj * psubwin = sciGetCurrentSubWin();
-  
-  for (i = 0; i < n; i++)
-  {
-    double userCoords[3] = {x[i], y[i], z[i]};
-    sciGet2dViewCoordinate(psubwin, userCoords, userCoords2d);
-    x[i] = userCoords2d[0];
-    y[i] = userCoords2d[1];
-  }
+    sciPointObj *psubwin = sciGetCurrentSubWin();
 
-  return 0;
+    for (i = 0; i < n; i++)
+    {
+        double userCoords[3] = { x[i], y[i], z[i] };
+        sciGet2dViewCoordinate(psubwin, userCoords, userCoords2d);
+        x[i] = userCoords2d[0];
+        y[i] = userCoords2d[1];
+    }
+
+    return 0;
 }
 
 /*--------------------------------------------------------------------------*/
-int sci_geom3d( char * fname, unsigned long fname_len )
+int sci_geom3d(char *fname, unsigned long fname_len)
 {
-  int ix1, m1, n1, l1, m2, n2, l2, m3, n3, l3;
+    int ix1, m1, n1, l1, m2, n2, l2, m3, n3, l3;
 
-  CheckRhs(3,3);
-  CheckLhs(2,3);
+    CheckRhs(3, 3);
+    CheckLhs(2, 3);
 
-  GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-  GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
-  GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE, &m3, &n3, &l3);
-  CheckSameDims(1,2,m1,n1,m2,n2);
-  CheckSameDims(2,3,m2,n2,m3,n3);
-  if (m1 * n1 == 0)  
-  { 
-	  LhsVar(1) = 0;
-	  C2F(putlhsvar)();
-	  return 0;
-  }
+    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+    GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
+    GetRhsVar(3, MATRIX_OF_DOUBLE_DATATYPE, &m3, &n3, &l3);
+    CheckSameDims(1, 2, m1, n1, m2, n2);
+    CheckSameDims(2, 3, m2, n2, m3, n3);
+    if (m1 * n1 == 0)
+    {
+        LhsVar(1) = 0;
+        C2F(putlhsvar) ();
+        return 0;
+    }
 
-  ix1 = m1 * n1;
-  geom3d(stk(l1), stk(l2), stk(l3), ix1);
+    ix1 = m1 * n1;
+    geom3d(stk(l1), stk(l2), stk(l3), ix1);
 
-  LhsVar(1) = 1;
-  LhsVar(2) = 2;
-  C2F(putlhsvar)();
-  return 0;
+    LhsVar(1) = 1;
+    LhsVar(2) = 2;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

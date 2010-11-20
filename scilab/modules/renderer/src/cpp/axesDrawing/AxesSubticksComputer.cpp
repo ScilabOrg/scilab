@@ -23,48 +23,49 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------------------------*/
-AxesSubticksComputer::AxesSubticksComputer(DrawableAxes * axes)
-  : ComputeSubticksStrategy(getSubwinDrawer(sciGetParentSubwin(axes->getDrawedObject())))
-{
-  m_pAxes = axes;
-}
-/*------------------------------------------------------------------------------------------*/
-AxesSubticksComputer::~AxesSubticksComputer(void)
-{
-  m_pAxes = NULL;
-}
-/*------------------------------------------------------------------------------------------*/
-int AxesSubticksComputer::getNbSubticks(double ticksPositions[], int nbTicks)
-{
-  sciPointObj * pAxes = m_pAxes->getDrawedObject();
-  sciAxes * ppAxes = pAXES_FEATURE(pAxes);
-  return Max(0, (ppAxes->subint - 1) * (nbTicks - 1));
-}
-/*------------------------------------------------------------------------------------------*/
-void AxesSubticksComputer::getSubticksPosition(const double ticksPositions[], int nbTicks,
-                                                    double subTickspositions[])
-{
-  sciPointObj * pAxes = m_pAxes->getDrawedObject();
-  sciAxes * ppAxes = pAXES_FEATURE(pAxes);
-  // compute number of subtics per ticks interval
-  int nbSubtics = ppAxes->subint - 1;
-
-  /*    |              |              |    */
-  /* ___|____|____|____|____|____|____|___ */
-  /*   t0             t1             t2   */
-
-  // draw only between two ticks, so skip last one
-  for (int i = 0; i < nbTicks - 1; i++)
-  {
-    // decompose interval in nbsubtics parts
-    double prevTick = ticksPositions[i];
-    double nextTick = ticksPositions[i + 1];
-    for (int j = 0; j < nbSubtics; j++)
+    AxesSubticksComputer::AxesSubticksComputer(DrawableAxes *
+                                               axes):ComputeSubticksStrategy(getSubwinDrawer(sciGetParentSubwin(axes->getDrawedObject())))
     {
-      subTickspositions[j + nbSubtics * i]
-        =  prevTick + (nextTick - prevTick) * (j + 1.0) / (nbSubtics + 1.0); 
+        m_pAxes = axes;
     }
-  }
-}
+/*------------------------------------------------------------------------------------------*/
+    AxesSubticksComputer::~AxesSubticksComputer(void)
+    {
+        m_pAxes = NULL;
+    }
+/*------------------------------------------------------------------------------------------*/
+    int AxesSubticksComputer::getNbSubticks(double ticksPositions[], int nbTicks)
+    {
+        sciPointObj *pAxes = m_pAxes->getDrawedObject();
+        sciAxes *ppAxes = pAXES_FEATURE(pAxes);
+
+        return Max(0, (ppAxes->subint - 1) * (nbTicks - 1));
+    }
+/*------------------------------------------------------------------------------------------*/
+    void AxesSubticksComputer::getSubticksPosition(const double ticksPositions[], int nbTicks, double subTickspositions[])
+    {
+        sciPointObj *pAxes = m_pAxes->getDrawedObject();
+        sciAxes *ppAxes = pAXES_FEATURE(pAxes);
+
+        // compute number of subtics per ticks interval
+        int nbSubtics = ppAxes->subint - 1;
+
+        /*    |              |              |    */
+        /* ___|____|____|____|____|____|____|___ */
+        /*   t0             t1             t2   */
+
+        // draw only between two ticks, so skip last one
+        for (int i = 0; i < nbTicks - 1; i++)
+        {
+            // decompose interval in nbsubtics parts
+            double prevTick = ticksPositions[i];
+            double nextTick = ticksPositions[i + 1];
+
+            for (int j = 0; j < nbSubtics; j++)
+            {
+                subTickspositions[j + nbSubtics * i] = prevTick + (nextTick - prevTick) * (j + 1.0) / (nbSubtics + 1.0);
+            }
+        }
+    }
 /*------------------------------------------------------------------------------------------*/
 }

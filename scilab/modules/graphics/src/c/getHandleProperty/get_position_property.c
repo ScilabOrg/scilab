@@ -25,44 +25,46 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_position_property( sciPointObj * pobj )
+int get_position_property(sciPointObj * pobj)
 {
-  
 
-  if (sciGetEntityType(pobj) == SCI_UIMENU )
+    if (sciGetEntityType(pobj) == SCI_UIMENU)
     {
-      return sciReturnDouble( pUIMENU_FEATURE(pobj)->MenuPosition ) ;
+        return sciReturnDouble(pUIMENU_FEATURE(pobj)->MenuPosition);
     }
-  else if (sciGetEntityType(pobj) == SCI_UICONTROL)
+    else if (sciGetEntityType(pobj) == SCI_UICONTROL)
     {
-      return  GetUicontrolPosition(pobj);
+        return GetUicontrolPosition(pobj);
     }
-  else if (sciGetEntityType(pobj) == SCI_FIGURE) // Uicontrol figure
+    else if (sciGetEntityType(pobj) == SCI_FIGURE)  // Uicontrol figure
     {
-      double position[4];
-      int posX = 0, posY = 0;
+        double position[4];
+        int posX = 0, posY = 0;
 
-      sciGetScreenPosition(pobj, &posX, &posY) ;
-      position[0] = (double) posX; 
-      position[1] = (double) posY;
-      position[2] = sciGetWindowWidth(pobj);
-      position[3] = sciGetWindowHeight(pobj);
-      
-      return sciReturnRowVector(position, 4) ;
+        sciGetScreenPosition(pobj, &posX, &posY);
+        position[0] = (double)posX;
+        position[1] = (double)posY;
+        position[2] = sciGetWindowWidth(pobj);
+        position[3] = sciGetWindowHeight(pobj);
+
+        return sciReturnRowVector(position, 4);
     }
-  else if ( sciGetEntityType(pobj) == SCI_LABEL )
+    else if (sciGetEntityType(pobj) == SCI_LABEL)
     {
-      double position[3] ;
-      sciGetTextPos( pobj, position ) ;
-      return sciReturnRowVector( position, 2 ) ;
+        double position[3];
+
+        sciGetTextPos(pobj, position);
+        return sciReturnRowVector(position, 2);
     }
-  else if ( sciGetEntityType(pobj) == SCI_LEGEND )
+    else if (sciGetEntityType(pobj) == SCI_LEGEND)
     {
-      double position[2] ;
-      sciGetLegendPos( pobj, position ) ;
-      return sciReturnRowVector( position, 2 ) ;
+        double position[2];
+
+        sciGetLegendPos(pobj, position);
+        return sciReturnRowVector(position, 2);
     }
-  Scierror(999, _("'%s' property does not exist for this handle.\n"), "position") ;
-  return -1;
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "position");
+    return -1;
 }
-/*------------------------------------------------------------------------*/ 
+
+/*------------------------------------------------------------------------*/

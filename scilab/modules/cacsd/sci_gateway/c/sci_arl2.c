@@ -11,16 +11,18 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <string.h>
 #include "gw_cacsd3.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(sciarl2)(char *fname,unsigned long fname_len);
+extern int C2F(sciarl2) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_arl2(char *fname,unsigned long fname_len)
+int sci_arl2(char *fname, unsigned long fname_len)
 {
-	C2F(sciarl2)(fname,fname_len);
-	return 0;
+    C2F(sciarl2) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

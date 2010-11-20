@@ -21,209 +21,210 @@
 
 #include "InitWaitBar.h"
 /*--------------------------------------------------------------------------*/
-int sci_waitbar(char *fname,unsigned long fname_len)
+int sci_waitbar(char *fname, unsigned long fname_len)
 {
-  int waitbarID = 0;
-  
-  int nbRow = 0, nbCol = 0;
-  int nbRowMessage = 0, nbColMessage = 0;
+    int waitbarID = 0;
 
-  int fractionAdr = 0;
-  char **messageAdr = NULL;
-  int handleAdr = 0;
-  int stkAdr = 0;
+    int nbRow = 0, nbCol = 0;
+    int nbRowMessage = 0, nbColMessage = 0;
 
-  sciPointObj * pObj = NULL;
-  unsigned long GraphicHandle = 0;
+    int fractionAdr = 0;
+    char **messageAdr = NULL;
+    int handleAdr = 0;
+    int stkAdr = 0;
 
-  CheckRhs(1,3);
-  CheckLhs(1,1);
+    sciPointObj *pObj = NULL;
+    unsigned long GraphicHandle = 0;
 
-  if (Rhs == 1)
+    CheckRhs(1, 3);
+    CheckLhs(1, 1);
+
+    if (Rhs == 1)
     {
-      if (VarType(1) == sci_matrix) /* Fraction to display */
+        if (VarType(1) == sci_matrix)   /* Fraction to display */
         {
-          GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+                return FALSE;
             }
         }
-      else if (VarType(1) == sci_strings) /* Message to display */
+        else if (VarType(1) == sci_strings) /* Message to display */
         {
-          GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
+            GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real or a string expected.\n"), fname, 1);
+            return FALSE;
         }
 
-      /* Create a new waitbar */
-      pObj = InitWaitBar();
+        /* Create a new waitbar */
+        pObj = InitWaitBar();
 
-      GraphicHandle=sciGetHandle(pObj);
+        GraphicHandle = sciGetHandle(pObj);
 
-      waitbarID = createWaitBar();
-      pWAITBAR_FEATURE(pObj)->hashMapIndex = waitbarID;
-      setWaitBarIndeterminateMode(waitbarID, FALSE);
+        waitbarID = createWaitBar();
+        pWAITBAR_FEATURE(pObj)->hashMapIndex = waitbarID;
+        setWaitBarIndeterminateMode(waitbarID, FALSE);
 
-      if (fractionAdr !=0)
+        if (fractionAdr != 0)
         {
-          setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
+            setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
         }
-      else if (messageAdr != 0)
+        else if (messageAdr != 0)
         {
-          setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t)messageAdr), nbColMessage*nbRowMessage);
-          freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
+            setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t) messageAdr), nbColMessage * nbRowMessage);
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
         }
     }
-  else if (Rhs==2)
+    else if (Rhs == 2)
     {
-      if (VarType(1) == sci_matrix && VarType(2) == sci_strings) /* waitbar(x,mes) */
+        if (VarType(1) == sci_matrix && VarType(2) == sci_strings)  /* waitbar(x,mes) */
         {
-          GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+                return FALSE;
             }
-          GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
+            GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
 
-          pObj = InitWaitBar();
-          GraphicHandle=sciGetHandle(pObj);
-          waitbarID = createWaitBar();
-          pWAITBAR_FEATURE(pObj)->hashMapIndex = waitbarID;
-          setWaitBarIndeterminateMode(waitbarID, FALSE);
+            pObj = InitWaitBar();
+            GraphicHandle = sciGetHandle(pObj);
+            waitbarID = createWaitBar();
+            pWAITBAR_FEATURE(pObj)->hashMapIndex = waitbarID;
+            setWaitBarIndeterminateMode(waitbarID, FALSE);
 
-          setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
-          setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t)messageAdr), nbColMessage*nbRowMessage);
-          freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
-       }
-      else if (VarType(1) == sci_matrix && VarType(2) == sci_handles) /* waitbar(x,winId) */
-        {
-          GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
-          if (nbRow*nbCol != 1)
-            {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
-              return FALSE;
-            }
-
-          GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
-          if (nbRow*nbCol != 1)
-            {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 2, "Waitbar");
-              return FALSE;
-            }
-
-          GraphicHandle = (unsigned long)*hstk(handleAdr);
-          pObj = sciGetPointerFromHandle(GraphicHandle);
-
-          waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
-          setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
-      }
-      else if (VarType(1) == sci_strings && VarType(2) == sci_handles) /* waitbar(mes,winId) */
-        {
-          GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
-
-          GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
-          if (nbRow*nbCol != 1)
-            {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 2, "Waitbar");
-              return FALSE;
-            }
-
-          GraphicHandle = (unsigned long)*hstk(handleAdr);
-          pObj = sciGetPointerFromHandle(GraphicHandle);
-
-          waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
-          setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t)messageAdr), nbColMessage*nbRowMessage);
-          freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
+            setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
+            setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t) messageAdr), nbColMessage * nbRowMessage);
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
         }
-      else
+        else if (VarType(1) == sci_matrix && VarType(2) == sci_handles) /* waitbar(x,winId) */
         {
-          Scierror(999, _("%s: Wrong input arguments: '%s', '%s' or '%s' expected.\n"), fname,"(x, mes)", "(x, winId)", "(mes, winId)");
-          return FALSE;
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
+            if (nbRow * nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+                return FALSE;
+            }
+
+            GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
+            if (nbRow * nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 2, "Waitbar");
+                return FALSE;
+            }
+
+            GraphicHandle = (unsigned long)*hstk(handleAdr);
+            pObj = sciGetPointerFromHandle(GraphicHandle);
+
+            waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
+            setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
+        }
+        else if (VarType(1) == sci_strings && VarType(2) == sci_handles)    /* waitbar(mes,winId) */
+        {
+            GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
+
+            GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
+            if (nbRow * nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 2, "Waitbar");
+                return FALSE;
+            }
+
+            GraphicHandle = (unsigned long)*hstk(handleAdr);
+            pObj = sciGetPointerFromHandle(GraphicHandle);
+
+            waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
+            setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t) messageAdr), nbColMessage * nbRowMessage);
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong input arguments: '%s', '%s' or '%s' expected.\n"), fname, "(x, mes)", "(x, winId)", "(mes, winId)");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      if (VarType(1) == sci_matrix) /* Fraction */
+        if (VarType(1) == sci_matrix)   /* Fraction */
         {
-          GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &fractionAdr);
+            if (nbRow * nbCol != 1)
             {
-              Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
-              return FALSE;
+                Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+                return FALSE;
             }
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, 1);
+            return FALSE;
         }
 
-      if (VarType(2) == sci_strings) /* Message */
+        if (VarType(2) == sci_strings)  /* Message */
         {
-          GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
+            GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRowMessage, &nbColMessage, &messageAdr);
         }
-      else
+        else
         {
-          Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
-          return FALSE;
+            Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+            return FALSE;
         }
 
-      if (VarType(3) == sci_handles) /* Handle */
+        if (VarType(3) == sci_handles)  /* Handle */
         {
-          GetRhsVar(3, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
-          if (nbRow*nbCol != 1)
+            GetRhsVar(3, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &handleAdr);
+            if (nbRow * nbCol != 1)
             {
-              freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
-              Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 3, "Waitbar");
-              return FALSE;
+                freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
+                Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' handle expected.\n"), fname, 3, "Waitbar");
+                return FALSE;
             }
         }
-      else
+        else
         {
-          freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
-          Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 3, "Waitbar");
-          return FALSE;
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
+            Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle expected.\n"), fname, 3, "Waitbar");
+            return FALSE;
         }
 
-      GraphicHandle = (unsigned long)*hstk(handleAdr);
-      pObj = sciGetPointerFromHandle(GraphicHandle);
-	  if (pObj)
-	  {
-		waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
-		setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
-		setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t)messageAdr), nbColMessage*nbRowMessage);
-		freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
-	  }
-	  else
-	  {
-		  freeArrayOfString(messageAdr, nbColMessage*nbRowMessage);
-		  Scierror(999, _("%s: Wrong value for input argument #%d: A valid '%s' handle expected.\n"), fname, 3,  "Waitbar");
-		  return 0;
-	  }
+        GraphicHandle = (unsigned long)*hstk(handleAdr);
+        pObj = sciGetPointerFromHandle(GraphicHandle);
+        if (pObj)
+        {
+            waitbarID = pWAITBAR_FEATURE(pObj)->hashMapIndex;
+            setWaitBarValue(waitbarID, (int)(getDoubleFromStack(fractionAdr) * 100));
+            setWaitBarMessage(waitbarID, getStringMatrixFromStack((size_t) messageAdr), nbColMessage * nbRowMessage);
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
+        }
+        else
+        {
+            freeArrayOfString(messageAdr, nbColMessage * nbRowMessage);
+            Scierror(999, _("%s: Wrong value for input argument #%d: A valid '%s' handle expected.\n"), fname, 3, "Waitbar");
+            return 0;
+        }
     }
 
-  if (Lhs == 1)
+    if (Lhs == 1)
     {
-      nbRow = 1;
-      nbCol = 1;
-      CreateVar(Rhs+1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-      *hstk(stkAdr) = GraphicHandle;
-      LhsVar(1) = Rhs+1;
+        nbRow = 1;
+        nbCol = 1;
+        CreateVar(Rhs + 1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
+        *hstk(stkAdr) = GraphicHandle;
+        LhsVar(1) = Rhs + 1;
     }
-  else
+    else
     {
-      LhsVar(1) = 0;
+        LhsVar(1) = 0;
     }
-  
-  PutLhsVar();
 
-  return TRUE;
+    PutLhsVar();
+
+    return TRUE;
 
 }
+
 /*--------------------------------------------------------------------------*/

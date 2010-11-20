@@ -18,30 +18,35 @@
 #include "isalphanum.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-BOOL *isalphanumW(wchar_t *input_string, int *returnedSize)
+BOOL *isalphanumW(wchar_t * input_string, int *returnedSize)
 {
-	BOOL *returnedValues = NULL;
-	*returnedSize = 0;
+    BOOL *returnedValues = NULL;
 
-	if (input_string)
-	{
-		int i = 0;
-		int length_input_string = (int)wcslen(input_string);
-		*returnedSize= length_input_string;
+    *returnedSize = 0;
 
-		if (length_input_string > 0)
-		{
-			returnedValues = (BOOL*)MALLOC(sizeof(BOOL)*length_input_string);
-			if (returnedValues)
-			{
-				for (i = 0;i < length_input_string; i++)
-				{
-					if ( iswalnum(input_string[i]) ) returnedValues[i] = TRUE;
-					else returnedValues[i] = FALSE;
-				}
-			}
-		}
-	}
-	return returnedValues;
+    if (input_string)
+    {
+        int i = 0;
+        int length_input_string = (int)wcslen(input_string);
+
+        *returnedSize = length_input_string;
+
+        if (length_input_string > 0)
+        {
+            returnedValues = (BOOL *) MALLOC(sizeof(BOOL) * length_input_string);
+            if (returnedValues)
+            {
+                for (i = 0; i < length_input_string; i++)
+                {
+                    if (iswalnum(input_string[i]))
+                        returnedValues[i] = TRUE;
+                    else
+                        returnedValues[i] = FALSE;
+                }
+            }
+        }
+    }
+    return returnedValues;
 }
+
 /*--------------------------------------------------------------------------*/

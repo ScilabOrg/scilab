@@ -16,15 +16,17 @@
 /*--------------------------------------------------------------------------*/
 void killScilabProcess(int exitCode)
 {
-	HANDLE hProcess;
+    HANDLE hProcess;
 
-	/* Ouverture de ce Process avec droit pour le tuer */
-	hProcess=OpenProcess(PROCESS_TERMINATE,FALSE,GetCurrentProcessId());
-	if (hProcess)
-	{
-		/* Tue ce Process */
-		TerminateProcess(hProcess,exitCode);
-	}
-	else MessageBox(NULL,"Don't Find Scilab Process","Warning",MB_ICONWARNING);
+    /* Ouverture de ce Process avec droit pour le tuer */
+    hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, GetCurrentProcessId());
+    if (hProcess)
+    {
+        /* Tue ce Process */
+        TerminateProcess(hProcess, exitCode);
+    }
+    else
+        MessageBox(NULL, "Don't Find Scilab Process", "Warning", MB_ICONWARNING);
 }
+
 /*--------------------------------------------------------------------------*/

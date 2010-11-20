@@ -14,34 +14,36 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_sci2f77
  ******************************************/
-int sci_pvm_sci2f77(char *fname,unsigned long fname_len)
+int sci_pvm_sci2f77(char *fname, unsigned long fname_len)
 {
-  int *header;
-  CheckRhs(1,1);
-  CheckLhs(0,1);
-  /*  checking variable func */
-  header = GetData(1);
-  C2F(scipvmscitof77)(&Top);
-  if ( IsRef(1) ) 
-    { 
-      /* arg is a reference it is changed */
-      LhsVar(1)=0;
-    }
-  else 
+    int *header;
+
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
+    /*  checking variable func */
+    header = GetData(1);
+    C2F(scipvmscitof77) (&Top);
+    if (IsRef(1))
     {
-      /* arg is not a reference we must return 
-       * the changed argument 
-       */
-      LhsVar(1)=1;
+        /* arg is a reference it is changed */
+        LhsVar(1) = 0;
     }
-  C2F(putlhsvar)();
-  return 0;
+    else
+    {
+        /* arg is not a reference we must return 
+         * the changed argument 
+         */
+        LhsVar(1) = 1;
+    }
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

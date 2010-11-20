@@ -5,7 +5,6 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-
 /************************************
  *     (very) simple example 1 
  *     -->link('ext1c.o','ext1c','C'); 
@@ -14,13 +13,13 @@
  *     c=a+b 
  ************************************/
 
-int ext1c(int *n, double *a, double *b,  double *c)
-{   
-  int k;
-  for (k = 0; k < *n; ++k) 
-    {
-      c[k] = a[k] + b[k];
-    }
-  return(0);
-}
+int ext1c(int *n, double *a, double *b, double *c)
+{
+    int k;
 
+    for (k = 0; k < *n; ++k)
+    {
+        c[k] = a[k] + b[k];
+    }
+    return (0);
+}

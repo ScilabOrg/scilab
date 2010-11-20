@@ -23,8 +23,9 @@
 #include "GetProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_hidden_color_property( sciPointObj * pobj )
+int get_hidden_color_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetHiddenColor( pobj ) ) ;
+    return sciReturnDouble(sciGetHiddenColor(pobj));
 }
+
 /*------------------------------------------------------------------------*/

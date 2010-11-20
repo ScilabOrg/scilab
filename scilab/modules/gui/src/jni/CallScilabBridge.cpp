@@ -39,4480 +39,5423 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_gui_bridge {
+namespace org_scilab_modules_gui_bridge
+{
 
 // Returns the current env
 
-JNIEnv * CallScilabBridge::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *CallScilabBridge::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-CallScilabBridge::~CallScilabBridge() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    CallScilabBridge::~CallScilabBridge()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-curEnv->DeleteGlobalRef(this->stringArrayClass);}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+        curEnv->DeleteGlobalRef(this->stringArrayClass);
+    }
 // Constructors
-CallScilabBridge::CallScilabBridge(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    CallScilabBridge::CallScilabBridge(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-jintnewWindowID=NULL; 
-jintnewMenuBarID=NULL; 
-jintnewMenuID=NULL; 
-jintnewPushButtonID=NULL; 
-jintnewEditBoxID=NULL; 
-jintnewLabelID=NULL; 
-jintnewCheckBoxID=NULL; 
-jintnewRadioButtonID=NULL; 
-jintnewSliderID=NULL; 
-jintnewPopupMenuID=NULL; 
-jintnewListBoxID=NULL; 
-jintnewFrameID=NULL; 
-jstringnewContextMenujobjectArray_ID=NULL; 
-jintnewContextMenuID=NULL; 
-voiddestroyWidgetjintID=NULL; 
-voiddestroyFramejintID=NULL; 
-jintnewWindowjintID=NULL; 
-voidsetFigureAsParentjintjintID=NULL; 
-voidsetMenuAsParentjintjintID=NULL; 
-voidsetRootAsParentjintID=NULL; 
-voidsetParentjintjintID=NULL; 
-voidsetPushButtonParentjintjintID=NULL; 
-voidremovePushButtonFromParentjintjintID=NULL; 
-voidsetEditBoxParentjintjintID=NULL; 
-voidremoveEditBoxFromParentjintjintID=NULL; 
-voidsetLabelParentjintjintID=NULL; 
-voidremoveLabelFromParentjintjintID=NULL; 
-voidsetCheckBoxParentjintjintID=NULL; 
-voidremoveCheckBoxFromParentjintjintID=NULL; 
-voidsetRadioButtonParentjintjintID=NULL; 
-voidremoveRadioButtonFromParentjintjintID=NULL; 
-voidsetSliderParentjintjintID=NULL; 
-voidremoveSliderFromParentjintjintID=NULL; 
-voidsetPopupMenuParentjintjintID=NULL; 
-voidremovePopupMenuFromParentjintjintID=NULL; 
-voidsetListBoxParentjintjintID=NULL; 
-voidremoveListBoxFromParentjintjintID=NULL; 
-voidsetFrameParentjintjintID=NULL; 
-voidremoveFrameFromParentjintjintID=NULL; 
-voidsetWidgetTextjintjstringID=NULL; 
-jstringgetWidgetTextjintID=NULL; 
-voidsetFrameTextjintjstringID=NULL; 
-jstringgetFrameTextjintID=NULL; 
-voidsetWidgetBackgroundColorjintjintjintjintID=NULL; 
-jintArray_getWidgetBackgroundColorjintID=NULL; 
-voidsetWidgetForegroundColorjintjintjintjintID=NULL; 
-jintArray_getWidgetForegroundColorjintID=NULL; 
-voidsetFrameBackgroundColorjintjintjintjintID=NULL; 
-jintArray_getFrameBackgroundColorjintID=NULL; 
-voidsetFrameForegroundColorjintjintjintjintID=NULL; 
-jintArray_getFrameForegroundColorjintID=NULL; 
-voidsetWidgetFontNamejintjstringID=NULL; 
-jstringgetWidgetFontNamejintID=NULL; 
-voidsetWidgetFontWeightjintjstringID=NULL; 
-voidsetWidgetFontSizejintjintID=NULL; 
-jintgetWidgetFontSizejintID=NULL; 
-voidsetWidgetFontAnglejintjstringID=NULL; 
-voidsetFrameFontNamejintjstringID=NULL; 
-jstringgetFrameFontNamejintID=NULL; 
-voidsetFrameFontWeightjintjstringID=NULL; 
-voidsetFrameFontSizejintjintID=NULL; 
-jintgetFrameFontSizejintID=NULL; 
-voidsetFrameFontAnglejintjstringID=NULL; 
-voidsetWidgetPositionjintjintjintjintjintID=NULL; 
-jintArray_getWidgetPositionjintID=NULL; 
-voidsetFramePositionjintjintjintjintjintID=NULL; 
-jintArray_getFramePositionjintID=NULL; 
-voidsetWidgetCallbackjintjstringjintID=NULL; 
-voidsetFrameCallbackjintjstringjintID=NULL; 
-voidsetWidgetHorizontalAlignmentjintjstringID=NULL; 
-voidsetWidgetVerticalAlignmentjintjstringID=NULL; 
-voidsetSliderMinorTickSpacingjintjintID=NULL; 
-voidsetSliderMajorTickSpacingjintjintID=NULL; 
-voidsetListBoxSelectedIndicesjintjintArray_ID=NULL; 
-jintArray_getListBoxSelectedIndicesjintID=NULL; 
-jintgetListBoxSelectionSizejintID=NULL; 
-voidsetPopupMenuSelectedIndexjintjintID=NULL; 
-jintgetPopupMenuSelectedIndexjintID=NULL; 
-voidsetSliderValuejintjintID=NULL; 
-jintgetSliderValuejintID=NULL; 
-voidsetRadioButtonCheckedjintjbooleanID=NULL; 
-jbooleanisRadioButtonCheckedjintID=NULL; 
-voidsetCheckBoxCheckedjintjbooleanID=NULL; 
-jbooleanisCheckBoxCheckedjintID=NULL; 
-voidsetSliderMinValuejintjintID=NULL; 
-voidsetSliderMaxValuejintjintID=NULL; 
-voidsetSliderVerticaljintID=NULL; 
-voidsetSliderHorizontaljintID=NULL; 
-voidsetListBoxMultipleSelectionEnabledjintjbooleanID=NULL; 
-jobjectArray_getListBoxAllItemsTextjintID=NULL; 
-jintgetListBoxNumberOfItemsjintID=NULL; 
-voidsetListBoxTextjintjobjectArray_ID=NULL; 
-voidsetListBoxListBoxTopjintjintID=NULL; 
-jintgetListBoxListBoxTopjintID=NULL; 
-jobjectArray_getPopupMenuAllItemsTextjintID=NULL; 
-jintgetPopupMenuNumberOfItemsjintID=NULL; 
-voidsetPopupMenuTextjintjobjectArray_ID=NULL; 
-voidsetWidgetReliefjintjstringID=NULL; 
-voidsetFrameReliefjintjstringID=NULL; 
-voidsetRootMenuEnabledjstringjbooleanID=NULL; 
-voidsetRootSubMenuEnabledjstringjintjbooleanID=NULL; 
-voidsetFigureMenuEnabledjintjstringjbooleanID=NULL; 
-voidsetFigureSubMenuEnabledjintjstringjintjbooleanID=NULL; 
-voidsetWidgetEnablejintjbooleanID=NULL; 
-voidsetFrameEnablejintjbooleanID=NULL; 
-jbooleanisWidgetEnablejintID=NULL; 
-jbooleanisFrameEnablejintID=NULL; 
-voidsetMenuCheckedjintjbooleanID=NULL; 
-jbooleanisMenuCheckedjintID=NULL; 
-voidremoveRootMenujstringID=NULL; 
-voidremoveFigureMenujintjstringID=NULL; 
-jstringdisplayAndWaitContextMenujintID=NULL; 
-jintnewMessageBoxID=NULL; 
-voidsetMessageBoxTitlejintjstringID=NULL; 
-voidsetMessageBoxMessagejintjstringID=NULL; 
-voidsetMessageBoxMessagejintjobjectArray_ID=NULL; 
-voidmessageBoxDisplayAndWaitjintID=NULL; 
-jintgetMessageBoxSelectedButtonjintID=NULL; 
-voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID=NULL; 
-jintArray_getMessageBoxUserSelectedButtonsjintID=NULL; 
-voidsetMessageBoxButtonsLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxInitialValuejintjobjectArray_ID=NULL; 
-jobjectArray_getMessageBoxValuejintID=NULL; 
-jintgetMessageBoxValueSizejintID=NULL; 
-voidsetMessageBoxListBoxItemsjintjobjectArray_ID=NULL; 
-jintgetMessageBoxSelectedItemjintID=NULL; 
-voidsetMessageBoxLineLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxColumnLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxDefaultInputjintjobjectArray_ID=NULL; 
-voidsetMessageBoxModaljintjbooleanID=NULL; 
-voidsetMessageBoxIconjintjstringID=NULL; 
-jbooleanisToolbarVisiblejintID=NULL; 
-voidsetToolbarVisiblejintjbooleanID=NULL; 
-voidsetEventHandlerjintjstringID=NULL; 
-voidsetEventHandlerEnabledjintjbooleanID=NULL; 
-jintnewWaitBarID=NULL; 
-voidsetWaitBarMessagejintjobjectArray_ID=NULL; 
-voidsetWaitBarValuejintjintID=NULL; 
-voiddestroyWaitBarjintID=NULL; 
-voidsetWaitBarIndeterminateModejintjbooleanID=NULL; 
-voidlaunchHelpBrowserjobjectArray_jstringID=NULL; 
-voidsearchKeywordjobjectArray_jstringjstringjbooleanID=NULL; 
-voidsaveMainWindowSettingsID=NULL; 
-voidsaveHelpWindowSettingsID=NULL; 
-jintnewExportFileChooserjintID=NULL; 
-jintnewFontChooserID=NULL; 
-voidfontChooserDisplayAndWaitjintID=NULL; 
-voidsetFontChooserFontNamejintjstringID=NULL; 
-voidsetFontChooserFontSizejintjintID=NULL; 
-voidsetFontChooserBoldjintjbooleanID=NULL; 
-voidsetFontChooserItalicjintjbooleanID=NULL; 
-jstringgetFontChooserFontNamejintID=NULL; 
-jintgetFontChooserFontSizejintID=NULL; 
-jbooleangetFontChooserBoldjintID=NULL; 
-jbooleangetFontChooserItalicjintID=NULL; 
-jintnewColorChooserID=NULL; 
-voidcolorChooserDisplayAndWaitjintID=NULL; 
-voidsetColorChooserDefaultColorjintjintArray_ID=NULL; 
-jintArray_getColorChooserSelectedColorjintID=NULL; 
-voidsetColorChooserTitlejintjstringID=NULL; 
-voidsetWidgetVisiblejintjbooleanID=NULL; 
-voidsetFrameVisiblejintjbooleanID=NULL; 
-jbooleanisWidgetVisiblejintID=NULL; 
-jbooleanisFrameVisiblejintID=NULL; 
-jstringgetClipboardContentsID=NULL; 
-voidpasteClipboardIntoConsoleID=NULL; 
-voidcopyConsoleSelectionID=NULL; 
-voidemptyClipboardID=NULL; 
-voidsetClipboardContentsjstringID=NULL; 
-voidcopyFigureToClipBoardjintID=NULL; 
-jintgetScreenResolutionID=NULL; 
-jdoublegetScreenWidthID=NULL; 
-jdoublegetScreenHeightID=NULL; 
-jintgetScreenDepthID=NULL; 
-jbooleanprintFigurejintjbooleanjbooleanID=NULL; 
-jbooleanprintFilejstringID=NULL; 
-jbooleanprintStringjstringjstringID=NULL; 
-jbooleanpageSetupID=NULL; 
-voidrequestWidgetFocusjintID=NULL; 
-voidrequestFrameFocusjintID=NULL; 
-voidraiseWindowjintID=NULL; 
-voiduseCanvasForDisplayjbooleanID=NULL; 
-jbooleanuseCanvasForDisplayID=NULL; 
-voidscilabAboutBoxID=NULL; 
-
-
-}
-
-CallScilabBridge::CallScilabBridge(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        jintnewWindowID = NULL;
+        jintnewMenuBarID = NULL;
+        jintnewMenuID = NULL;
+        jintnewPushButtonID = NULL;
+        jintnewEditBoxID = NULL;
+        jintnewLabelID = NULL;
+        jintnewCheckBoxID = NULL;
+        jintnewRadioButtonID = NULL;
+        jintnewSliderID = NULL;
+        jintnewPopupMenuID = NULL;
+        jintnewListBoxID = NULL;
+        jintnewFrameID = NULL;
+        jstringnewContextMenujobjectArray_ID = NULL;
+        jintnewContextMenuID = NULL;
+        voiddestroyWidgetjintID = NULL;
+        voiddestroyFramejintID = NULL;
+        jintnewWindowjintID = NULL;
+        voidsetFigureAsParentjintjintID = NULL;
+        voidsetMenuAsParentjintjintID = NULL;
+        voidsetRootAsParentjintID = NULL;
+        voidsetParentjintjintID = NULL;
+        voidsetPushButtonParentjintjintID = NULL;
+        voidremovePushButtonFromParentjintjintID = NULL;
+        voidsetEditBoxParentjintjintID = NULL;
+        voidremoveEditBoxFromParentjintjintID = NULL;
+        voidsetLabelParentjintjintID = NULL;
+        voidremoveLabelFromParentjintjintID = NULL;
+        voidsetCheckBoxParentjintjintID = NULL;
+        voidremoveCheckBoxFromParentjintjintID = NULL;
+        voidsetRadioButtonParentjintjintID = NULL;
+        voidremoveRadioButtonFromParentjintjintID = NULL;
+        voidsetSliderParentjintjintID = NULL;
+        voidremoveSliderFromParentjintjintID = NULL;
+        voidsetPopupMenuParentjintjintID = NULL;
+        voidremovePopupMenuFromParentjintjintID = NULL;
+        voidsetListBoxParentjintjintID = NULL;
+        voidremoveListBoxFromParentjintjintID = NULL;
+        voidsetFrameParentjintjintID = NULL;
+        voidremoveFrameFromParentjintjintID = NULL;
+        voidsetWidgetTextjintjstringID = NULL;
+        jstringgetWidgetTextjintID = NULL;
+        voidsetFrameTextjintjstringID = NULL;
+        jstringgetFrameTextjintID = NULL;
+        voidsetWidgetBackgroundColorjintjintjintjintID = NULL;
+        jintArray_getWidgetBackgroundColorjintID = NULL;
+        voidsetWidgetForegroundColorjintjintjintjintID = NULL;
+        jintArray_getWidgetForegroundColorjintID = NULL;
+        voidsetFrameBackgroundColorjintjintjintjintID = NULL;
+        jintArray_getFrameBackgroundColorjintID = NULL;
+        voidsetFrameForegroundColorjintjintjintjintID = NULL;
+        jintArray_getFrameForegroundColorjintID = NULL;
+        voidsetWidgetFontNamejintjstringID = NULL;
+        jstringgetWidgetFontNamejintID = NULL;
+        voidsetWidgetFontWeightjintjstringID = NULL;
+        voidsetWidgetFontSizejintjintID = NULL;
+        jintgetWidgetFontSizejintID = NULL;
+        voidsetWidgetFontAnglejintjstringID = NULL;
+        voidsetFrameFontNamejintjstringID = NULL;
+        jstringgetFrameFontNamejintID = NULL;
+        voidsetFrameFontWeightjintjstringID = NULL;
+        voidsetFrameFontSizejintjintID = NULL;
+        jintgetFrameFontSizejintID = NULL;
+        voidsetFrameFontAnglejintjstringID = NULL;
+        voidsetWidgetPositionjintjintjintjintjintID = NULL;
+        jintArray_getWidgetPositionjintID = NULL;
+        voidsetFramePositionjintjintjintjintjintID = NULL;
+        jintArray_getFramePositionjintID = NULL;
+        voidsetWidgetCallbackjintjstringjintID = NULL;
+        voidsetFrameCallbackjintjstringjintID = NULL;
+        voidsetWidgetHorizontalAlignmentjintjstringID = NULL;
+        voidsetWidgetVerticalAlignmentjintjstringID = NULL;
+        voidsetSliderMinorTickSpacingjintjintID = NULL;
+        voidsetSliderMajorTickSpacingjintjintID = NULL;
+        voidsetListBoxSelectedIndicesjintjintArray_ID = NULL;
+        jintArray_getListBoxSelectedIndicesjintID = NULL;
+        jintgetListBoxSelectionSizejintID = NULL;
+        voidsetPopupMenuSelectedIndexjintjintID = NULL;
+        jintgetPopupMenuSelectedIndexjintID = NULL;
+        voidsetSliderValuejintjintID = NULL;
+        jintgetSliderValuejintID = NULL;
+        voidsetRadioButtonCheckedjintjbooleanID = NULL;
+        jbooleanisRadioButtonCheckedjintID = NULL;
+        voidsetCheckBoxCheckedjintjbooleanID = NULL;
+        jbooleanisCheckBoxCheckedjintID = NULL;
+        voidsetSliderMinValuejintjintID = NULL;
+        voidsetSliderMaxValuejintjintID = NULL;
+        voidsetSliderVerticaljintID = NULL;
+        voidsetSliderHorizontaljintID = NULL;
+        voidsetListBoxMultipleSelectionEnabledjintjbooleanID = NULL;
+        jobjectArray_getListBoxAllItemsTextjintID = NULL;
+        jintgetListBoxNumberOfItemsjintID = NULL;
+        voidsetListBoxTextjintjobjectArray_ID = NULL;
+        voidsetListBoxListBoxTopjintjintID = NULL;
+        jintgetListBoxListBoxTopjintID = NULL;
+        jobjectArray_getPopupMenuAllItemsTextjintID = NULL;
+        jintgetPopupMenuNumberOfItemsjintID = NULL;
+        voidsetPopupMenuTextjintjobjectArray_ID = NULL;
+        voidsetWidgetReliefjintjstringID = NULL;
+        voidsetFrameReliefjintjstringID = NULL;
+        voidsetRootMenuEnabledjstringjbooleanID = NULL;
+        voidsetRootSubMenuEnabledjstringjintjbooleanID = NULL;
+        voidsetFigureMenuEnabledjintjstringjbooleanID = NULL;
+        voidsetFigureSubMenuEnabledjintjstringjintjbooleanID = NULL;
+        voidsetWidgetEnablejintjbooleanID = NULL;
+        voidsetFrameEnablejintjbooleanID = NULL;
+        jbooleanisWidgetEnablejintID = NULL;
+        jbooleanisFrameEnablejintID = NULL;
+        voidsetMenuCheckedjintjbooleanID = NULL;
+        jbooleanisMenuCheckedjintID = NULL;
+        voidremoveRootMenujstringID = NULL;
+        voidremoveFigureMenujintjstringID = NULL;
+        jstringdisplayAndWaitContextMenujintID = NULL;
+        jintnewMessageBoxID = NULL;
+        voidsetMessageBoxTitlejintjstringID = NULL;
+        voidsetMessageBoxMessagejintjstringID = NULL;
+        voidsetMessageBoxMessagejintjobjectArray_ID = NULL;
+        voidmessageBoxDisplayAndWaitjintID = NULL;
+        jintgetMessageBoxSelectedButtonjintID = NULL;
+        voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID = NULL;
+        jintArray_getMessageBoxUserSelectedButtonsjintID = NULL;
+        voidsetMessageBoxButtonsLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxInitialValuejintjobjectArray_ID = NULL;
+        jobjectArray_getMessageBoxValuejintID = NULL;
+        jintgetMessageBoxValueSizejintID = NULL;
+        voidsetMessageBoxListBoxItemsjintjobjectArray_ID = NULL;
+        jintgetMessageBoxSelectedItemjintID = NULL;
+        voidsetMessageBoxLineLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxColumnLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxDefaultInputjintjobjectArray_ID = NULL;
+        voidsetMessageBoxModaljintjbooleanID = NULL;
+        voidsetMessageBoxIconjintjstringID = NULL;
+        jbooleanisToolbarVisiblejintID = NULL;
+        voidsetToolbarVisiblejintjbooleanID = NULL;
+        voidsetEventHandlerjintjstringID = NULL;
+        voidsetEventHandlerEnabledjintjbooleanID = NULL;
+        jintnewWaitBarID = NULL;
+        voidsetWaitBarMessagejintjobjectArray_ID = NULL;
+        voidsetWaitBarValuejintjintID = NULL;
+        voiddestroyWaitBarjintID = NULL;
+        voidsetWaitBarIndeterminateModejintjbooleanID = NULL;
+        voidlaunchHelpBrowserjobjectArray_jstringID = NULL;
+        voidsearchKeywordjobjectArray_jstringjstringjbooleanID = NULL;
+        voidsaveMainWindowSettingsID = NULL;
+        voidsaveHelpWindowSettingsID = NULL;
+        jintnewExportFileChooserjintID = NULL;
+        jintnewFontChooserID = NULL;
+        voidfontChooserDisplayAndWaitjintID = NULL;
+        voidsetFontChooserFontNamejintjstringID = NULL;
+        voidsetFontChooserFontSizejintjintID = NULL;
+        voidsetFontChooserBoldjintjbooleanID = NULL;
+        voidsetFontChooserItalicjintjbooleanID = NULL;
+        jstringgetFontChooserFontNamejintID = NULL;
+        jintgetFontChooserFontSizejintID = NULL;
+        jbooleangetFontChooserBoldjintID = NULL;
+        jbooleangetFontChooserItalicjintID = NULL;
+        jintnewColorChooserID = NULL;
+        voidcolorChooserDisplayAndWaitjintID = NULL;
+        voidsetColorChooserDefaultColorjintjintArray_ID = NULL;
+        jintArray_getColorChooserSelectedColorjintID = NULL;
+        voidsetColorChooserTitlejintjstringID = NULL;
+        voidsetWidgetVisiblejintjbooleanID = NULL;
+        voidsetFrameVisiblejintjbooleanID = NULL;
+        jbooleanisWidgetVisiblejintID = NULL;
+        jbooleanisFrameVisiblejintID = NULL;
+        jstringgetClipboardContentsID = NULL;
+        voidpasteClipboardIntoConsoleID = NULL;
+        voidcopyConsoleSelectionID = NULL;
+        voidemptyClipboardID = NULL;
+        voidsetClipboardContentsjstringID = NULL;
+        voidcopyFigureToClipBoardjintID = NULL;
+        jintgetScreenResolutionID = NULL;
+        jdoublegetScreenWidthID = NULL;
+        jdoublegetScreenHeightID = NULL;
+        jintgetScreenDepthID = NULL;
+        jbooleanprintFigurejintjbooleanjbooleanID = NULL;
+        jbooleanprintFilejstringID = NULL;
+        jbooleanprintStringjstringjstringID = NULL;
+        jbooleanpageSetupID = NULL;
+        voidrequestWidgetFocusjintID = NULL;
+        voidrequestFrameFocusjintID = NULL;
+        voidraiseWindowjintID = NULL;
+        voiduseCanvasForDisplayjbooleanID = NULL;
+        jbooleanuseCanvasForDisplayID = NULL;
+        voidscilabAboutBoxID = NULL;
+
+    }
+
+    CallScilabBridge::CallScilabBridge(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        jintnewWindowID=NULL; 
-jintnewMenuBarID=NULL; 
-jintnewMenuID=NULL; 
-jintnewPushButtonID=NULL; 
-jintnewEditBoxID=NULL; 
-jintnewLabelID=NULL; 
-jintnewCheckBoxID=NULL; 
-jintnewRadioButtonID=NULL; 
-jintnewSliderID=NULL; 
-jintnewPopupMenuID=NULL; 
-jintnewListBoxID=NULL; 
-jintnewFrameID=NULL; 
-jstringnewContextMenujobjectArray_ID=NULL; 
-jintnewContextMenuID=NULL; 
-voiddestroyWidgetjintID=NULL; 
-voiddestroyFramejintID=NULL; 
-jintnewWindowjintID=NULL; 
-voidsetFigureAsParentjintjintID=NULL; 
-voidsetMenuAsParentjintjintID=NULL; 
-voidsetRootAsParentjintID=NULL; 
-voidsetParentjintjintID=NULL; 
-voidsetPushButtonParentjintjintID=NULL; 
-voidremovePushButtonFromParentjintjintID=NULL; 
-voidsetEditBoxParentjintjintID=NULL; 
-voidremoveEditBoxFromParentjintjintID=NULL; 
-voidsetLabelParentjintjintID=NULL; 
-voidremoveLabelFromParentjintjintID=NULL; 
-voidsetCheckBoxParentjintjintID=NULL; 
-voidremoveCheckBoxFromParentjintjintID=NULL; 
-voidsetRadioButtonParentjintjintID=NULL; 
-voidremoveRadioButtonFromParentjintjintID=NULL; 
-voidsetSliderParentjintjintID=NULL; 
-voidremoveSliderFromParentjintjintID=NULL; 
-voidsetPopupMenuParentjintjintID=NULL; 
-voidremovePopupMenuFromParentjintjintID=NULL; 
-voidsetListBoxParentjintjintID=NULL; 
-voidremoveListBoxFromParentjintjintID=NULL; 
-voidsetFrameParentjintjintID=NULL; 
-voidremoveFrameFromParentjintjintID=NULL; 
-voidsetWidgetTextjintjstringID=NULL; 
-jstringgetWidgetTextjintID=NULL; 
-voidsetFrameTextjintjstringID=NULL; 
-jstringgetFrameTextjintID=NULL; 
-voidsetWidgetBackgroundColorjintjintjintjintID=NULL; 
-jintArray_getWidgetBackgroundColorjintID=NULL; 
-voidsetWidgetForegroundColorjintjintjintjintID=NULL; 
-jintArray_getWidgetForegroundColorjintID=NULL; 
-voidsetFrameBackgroundColorjintjintjintjintID=NULL; 
-jintArray_getFrameBackgroundColorjintID=NULL; 
-voidsetFrameForegroundColorjintjintjintjintID=NULL; 
-jintArray_getFrameForegroundColorjintID=NULL; 
-voidsetWidgetFontNamejintjstringID=NULL; 
-jstringgetWidgetFontNamejintID=NULL; 
-voidsetWidgetFontWeightjintjstringID=NULL; 
-voidsetWidgetFontSizejintjintID=NULL; 
-jintgetWidgetFontSizejintID=NULL; 
-voidsetWidgetFontAnglejintjstringID=NULL; 
-voidsetFrameFontNamejintjstringID=NULL; 
-jstringgetFrameFontNamejintID=NULL; 
-voidsetFrameFontWeightjintjstringID=NULL; 
-voidsetFrameFontSizejintjintID=NULL; 
-jintgetFrameFontSizejintID=NULL; 
-voidsetFrameFontAnglejintjstringID=NULL; 
-voidsetWidgetPositionjintjintjintjintjintID=NULL; 
-jintArray_getWidgetPositionjintID=NULL; 
-voidsetFramePositionjintjintjintjintjintID=NULL; 
-jintArray_getFramePositionjintID=NULL; 
-voidsetWidgetCallbackjintjstringjintID=NULL; 
-voidsetFrameCallbackjintjstringjintID=NULL; 
-voidsetWidgetHorizontalAlignmentjintjstringID=NULL; 
-voidsetWidgetVerticalAlignmentjintjstringID=NULL; 
-voidsetSliderMinorTickSpacingjintjintID=NULL; 
-voidsetSliderMajorTickSpacingjintjintID=NULL; 
-voidsetListBoxSelectedIndicesjintjintArray_ID=NULL; 
-jintArray_getListBoxSelectedIndicesjintID=NULL; 
-jintgetListBoxSelectionSizejintID=NULL; 
-voidsetPopupMenuSelectedIndexjintjintID=NULL; 
-jintgetPopupMenuSelectedIndexjintID=NULL; 
-voidsetSliderValuejintjintID=NULL; 
-jintgetSliderValuejintID=NULL; 
-voidsetRadioButtonCheckedjintjbooleanID=NULL; 
-jbooleanisRadioButtonCheckedjintID=NULL; 
-voidsetCheckBoxCheckedjintjbooleanID=NULL; 
-jbooleanisCheckBoxCheckedjintID=NULL; 
-voidsetSliderMinValuejintjintID=NULL; 
-voidsetSliderMaxValuejintjintID=NULL; 
-voidsetSliderVerticaljintID=NULL; 
-voidsetSliderHorizontaljintID=NULL; 
-voidsetListBoxMultipleSelectionEnabledjintjbooleanID=NULL; 
-jobjectArray_getListBoxAllItemsTextjintID=NULL; 
-jintgetListBoxNumberOfItemsjintID=NULL; 
-voidsetListBoxTextjintjobjectArray_ID=NULL; 
-voidsetListBoxListBoxTopjintjintID=NULL; 
-jintgetListBoxListBoxTopjintID=NULL; 
-jobjectArray_getPopupMenuAllItemsTextjintID=NULL; 
-jintgetPopupMenuNumberOfItemsjintID=NULL; 
-voidsetPopupMenuTextjintjobjectArray_ID=NULL; 
-voidsetWidgetReliefjintjstringID=NULL; 
-voidsetFrameReliefjintjstringID=NULL; 
-voidsetRootMenuEnabledjstringjbooleanID=NULL; 
-voidsetRootSubMenuEnabledjstringjintjbooleanID=NULL; 
-voidsetFigureMenuEnabledjintjstringjbooleanID=NULL; 
-voidsetFigureSubMenuEnabledjintjstringjintjbooleanID=NULL; 
-voidsetWidgetEnablejintjbooleanID=NULL; 
-voidsetFrameEnablejintjbooleanID=NULL; 
-jbooleanisWidgetEnablejintID=NULL; 
-jbooleanisFrameEnablejintID=NULL; 
-voidsetMenuCheckedjintjbooleanID=NULL; 
-jbooleanisMenuCheckedjintID=NULL; 
-voidremoveRootMenujstringID=NULL; 
-voidremoveFigureMenujintjstringID=NULL; 
-jstringdisplayAndWaitContextMenujintID=NULL; 
-jintnewMessageBoxID=NULL; 
-voidsetMessageBoxTitlejintjstringID=NULL; 
-voidsetMessageBoxMessagejintjstringID=NULL; 
-voidsetMessageBoxMessagejintjobjectArray_ID=NULL; 
-voidmessageBoxDisplayAndWaitjintID=NULL; 
-jintgetMessageBoxSelectedButtonjintID=NULL; 
-voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID=NULL; 
-jintArray_getMessageBoxUserSelectedButtonsjintID=NULL; 
-voidsetMessageBoxButtonsLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxInitialValuejintjobjectArray_ID=NULL; 
-jobjectArray_getMessageBoxValuejintID=NULL; 
-jintgetMessageBoxValueSizejintID=NULL; 
-voidsetMessageBoxListBoxItemsjintjobjectArray_ID=NULL; 
-jintgetMessageBoxSelectedItemjintID=NULL; 
-voidsetMessageBoxLineLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxColumnLabelsjintjobjectArray_ID=NULL; 
-voidsetMessageBoxDefaultInputjintjobjectArray_ID=NULL; 
-voidsetMessageBoxModaljintjbooleanID=NULL; 
-voidsetMessageBoxIconjintjstringID=NULL; 
-jbooleanisToolbarVisiblejintID=NULL; 
-voidsetToolbarVisiblejintjbooleanID=NULL; 
-voidsetEventHandlerjintjstringID=NULL; 
-voidsetEventHandlerEnabledjintjbooleanID=NULL; 
-jintnewWaitBarID=NULL; 
-voidsetWaitBarMessagejintjobjectArray_ID=NULL; 
-voidsetWaitBarValuejintjintID=NULL; 
-voiddestroyWaitBarjintID=NULL; 
-voidsetWaitBarIndeterminateModejintjbooleanID=NULL; 
-voidlaunchHelpBrowserjobjectArray_jstringID=NULL; 
-voidsearchKeywordjobjectArray_jstringjstringjbooleanID=NULL; 
-voidsaveMainWindowSettingsID=NULL; 
-voidsaveHelpWindowSettingsID=NULL; 
-jintnewExportFileChooserjintID=NULL; 
-jintnewFontChooserID=NULL; 
-voidfontChooserDisplayAndWaitjintID=NULL; 
-voidsetFontChooserFontNamejintjstringID=NULL; 
-voidsetFontChooserFontSizejintjintID=NULL; 
-voidsetFontChooserBoldjintjbooleanID=NULL; 
-voidsetFontChooserItalicjintjbooleanID=NULL; 
-jstringgetFontChooserFontNamejintID=NULL; 
-jintgetFontChooserFontSizejintID=NULL; 
-jbooleangetFontChooserBoldjintID=NULL; 
-jbooleangetFontChooserItalicjintID=NULL; 
-jintnewColorChooserID=NULL; 
-voidcolorChooserDisplayAndWaitjintID=NULL; 
-voidsetColorChooserDefaultColorjintjintArray_ID=NULL; 
-jintArray_getColorChooserSelectedColorjintID=NULL; 
-voidsetColorChooserTitlejintjstringID=NULL; 
-voidsetWidgetVisiblejintjbooleanID=NULL; 
-voidsetFrameVisiblejintjbooleanID=NULL; 
-jbooleanisWidgetVisiblejintID=NULL; 
-jbooleanisFrameVisiblejintID=NULL; 
-jstringgetClipboardContentsID=NULL; 
-voidpasteClipboardIntoConsoleID=NULL; 
-voidcopyConsoleSelectionID=NULL; 
-voidemptyClipboardID=NULL; 
-voidsetClipboardContentsjstringID=NULL; 
-voidcopyFigureToClipBoardjintID=NULL; 
-jintgetScreenResolutionID=NULL; 
-jdoublegetScreenWidthID=NULL; 
-jdoublegetScreenHeightID=NULL; 
-jintgetScreenDepthID=NULL; 
-jbooleanprintFigurejintjbooleanjbooleanID=NULL; 
-jbooleanprintFilejstringID=NULL; 
-jbooleanprintStringjstringjstringID=NULL; 
-jbooleanpageSetupID=NULL; 
-voidrequestWidgetFocusjintID=NULL; 
-voidrequestFrameFocusjintID=NULL; 
-voidraiseWindowjintID=NULL; 
-voiduseCanvasForDisplayjbooleanID=NULL; 
-jbooleanuseCanvasForDisplayID=NULL; 
-voidscilabAboutBoxID=NULL; 
+        jintnewWindowID = NULL;
+        jintnewMenuBarID = NULL;
+        jintnewMenuID = NULL;
+        jintnewPushButtonID = NULL;
+        jintnewEditBoxID = NULL;
+        jintnewLabelID = NULL;
+        jintnewCheckBoxID = NULL;
+        jintnewRadioButtonID = NULL;
+        jintnewSliderID = NULL;
+        jintnewPopupMenuID = NULL;
+        jintnewListBoxID = NULL;
+        jintnewFrameID = NULL;
+        jstringnewContextMenujobjectArray_ID = NULL;
+        jintnewContextMenuID = NULL;
+        voiddestroyWidgetjintID = NULL;
+        voiddestroyFramejintID = NULL;
+        jintnewWindowjintID = NULL;
+        voidsetFigureAsParentjintjintID = NULL;
+        voidsetMenuAsParentjintjintID = NULL;
+        voidsetRootAsParentjintID = NULL;
+        voidsetParentjintjintID = NULL;
+        voidsetPushButtonParentjintjintID = NULL;
+        voidremovePushButtonFromParentjintjintID = NULL;
+        voidsetEditBoxParentjintjintID = NULL;
+        voidremoveEditBoxFromParentjintjintID = NULL;
+        voidsetLabelParentjintjintID = NULL;
+        voidremoveLabelFromParentjintjintID = NULL;
+        voidsetCheckBoxParentjintjintID = NULL;
+        voidremoveCheckBoxFromParentjintjintID = NULL;
+        voidsetRadioButtonParentjintjintID = NULL;
+        voidremoveRadioButtonFromParentjintjintID = NULL;
+        voidsetSliderParentjintjintID = NULL;
+        voidremoveSliderFromParentjintjintID = NULL;
+        voidsetPopupMenuParentjintjintID = NULL;
+        voidremovePopupMenuFromParentjintjintID = NULL;
+        voidsetListBoxParentjintjintID = NULL;
+        voidremoveListBoxFromParentjintjintID = NULL;
+        voidsetFrameParentjintjintID = NULL;
+        voidremoveFrameFromParentjintjintID = NULL;
+        voidsetWidgetTextjintjstringID = NULL;
+        jstringgetWidgetTextjintID = NULL;
+        voidsetFrameTextjintjstringID = NULL;
+        jstringgetFrameTextjintID = NULL;
+        voidsetWidgetBackgroundColorjintjintjintjintID = NULL;
+        jintArray_getWidgetBackgroundColorjintID = NULL;
+        voidsetWidgetForegroundColorjintjintjintjintID = NULL;
+        jintArray_getWidgetForegroundColorjintID = NULL;
+        voidsetFrameBackgroundColorjintjintjintjintID = NULL;
+        jintArray_getFrameBackgroundColorjintID = NULL;
+        voidsetFrameForegroundColorjintjintjintjintID = NULL;
+        jintArray_getFrameForegroundColorjintID = NULL;
+        voidsetWidgetFontNamejintjstringID = NULL;
+        jstringgetWidgetFontNamejintID = NULL;
+        voidsetWidgetFontWeightjintjstringID = NULL;
+        voidsetWidgetFontSizejintjintID = NULL;
+        jintgetWidgetFontSizejintID = NULL;
+        voidsetWidgetFontAnglejintjstringID = NULL;
+        voidsetFrameFontNamejintjstringID = NULL;
+        jstringgetFrameFontNamejintID = NULL;
+        voidsetFrameFontWeightjintjstringID = NULL;
+        voidsetFrameFontSizejintjintID = NULL;
+        jintgetFrameFontSizejintID = NULL;
+        voidsetFrameFontAnglejintjstringID = NULL;
+        voidsetWidgetPositionjintjintjintjintjintID = NULL;
+        jintArray_getWidgetPositionjintID = NULL;
+        voidsetFramePositionjintjintjintjintjintID = NULL;
+        jintArray_getFramePositionjintID = NULL;
+        voidsetWidgetCallbackjintjstringjintID = NULL;
+        voidsetFrameCallbackjintjstringjintID = NULL;
+        voidsetWidgetHorizontalAlignmentjintjstringID = NULL;
+        voidsetWidgetVerticalAlignmentjintjstringID = NULL;
+        voidsetSliderMinorTickSpacingjintjintID = NULL;
+        voidsetSliderMajorTickSpacingjintjintID = NULL;
+        voidsetListBoxSelectedIndicesjintjintArray_ID = NULL;
+        jintArray_getListBoxSelectedIndicesjintID = NULL;
+        jintgetListBoxSelectionSizejintID = NULL;
+        voidsetPopupMenuSelectedIndexjintjintID = NULL;
+        jintgetPopupMenuSelectedIndexjintID = NULL;
+        voidsetSliderValuejintjintID = NULL;
+        jintgetSliderValuejintID = NULL;
+        voidsetRadioButtonCheckedjintjbooleanID = NULL;
+        jbooleanisRadioButtonCheckedjintID = NULL;
+        voidsetCheckBoxCheckedjintjbooleanID = NULL;
+        jbooleanisCheckBoxCheckedjintID = NULL;
+        voidsetSliderMinValuejintjintID = NULL;
+        voidsetSliderMaxValuejintjintID = NULL;
+        voidsetSliderVerticaljintID = NULL;
+        voidsetSliderHorizontaljintID = NULL;
+        voidsetListBoxMultipleSelectionEnabledjintjbooleanID = NULL;
+        jobjectArray_getListBoxAllItemsTextjintID = NULL;
+        jintgetListBoxNumberOfItemsjintID = NULL;
+        voidsetListBoxTextjintjobjectArray_ID = NULL;
+        voidsetListBoxListBoxTopjintjintID = NULL;
+        jintgetListBoxListBoxTopjintID = NULL;
+        jobjectArray_getPopupMenuAllItemsTextjintID = NULL;
+        jintgetPopupMenuNumberOfItemsjintID = NULL;
+        voidsetPopupMenuTextjintjobjectArray_ID = NULL;
+        voidsetWidgetReliefjintjstringID = NULL;
+        voidsetFrameReliefjintjstringID = NULL;
+        voidsetRootMenuEnabledjstringjbooleanID = NULL;
+        voidsetRootSubMenuEnabledjstringjintjbooleanID = NULL;
+        voidsetFigureMenuEnabledjintjstringjbooleanID = NULL;
+        voidsetFigureSubMenuEnabledjintjstringjintjbooleanID = NULL;
+        voidsetWidgetEnablejintjbooleanID = NULL;
+        voidsetFrameEnablejintjbooleanID = NULL;
+        jbooleanisWidgetEnablejintID = NULL;
+        jbooleanisFrameEnablejintID = NULL;
+        voidsetMenuCheckedjintjbooleanID = NULL;
+        jbooleanisMenuCheckedjintID = NULL;
+        voidremoveRootMenujstringID = NULL;
+        voidremoveFigureMenujintjstringID = NULL;
+        jstringdisplayAndWaitContextMenujintID = NULL;
+        jintnewMessageBoxID = NULL;
+        voidsetMessageBoxTitlejintjstringID = NULL;
+        voidsetMessageBoxMessagejintjstringID = NULL;
+        voidsetMessageBoxMessagejintjobjectArray_ID = NULL;
+        voidmessageBoxDisplayAndWaitjintID = NULL;
+        jintgetMessageBoxSelectedButtonjintID = NULL;
+        voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID = NULL;
+        jintArray_getMessageBoxUserSelectedButtonsjintID = NULL;
+        voidsetMessageBoxButtonsLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxInitialValuejintjobjectArray_ID = NULL;
+        jobjectArray_getMessageBoxValuejintID = NULL;
+        jintgetMessageBoxValueSizejintID = NULL;
+        voidsetMessageBoxListBoxItemsjintjobjectArray_ID = NULL;
+        jintgetMessageBoxSelectedItemjintID = NULL;
+        voidsetMessageBoxLineLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxColumnLabelsjintjobjectArray_ID = NULL;
+        voidsetMessageBoxDefaultInputjintjobjectArray_ID = NULL;
+        voidsetMessageBoxModaljintjbooleanID = NULL;
+        voidsetMessageBoxIconjintjstringID = NULL;
+        jbooleanisToolbarVisiblejintID = NULL;
+        voidsetToolbarVisiblejintjbooleanID = NULL;
+        voidsetEventHandlerjintjstringID = NULL;
+        voidsetEventHandlerEnabledjintjbooleanID = NULL;
+        jintnewWaitBarID = NULL;
+        voidsetWaitBarMessagejintjobjectArray_ID = NULL;
+        voidsetWaitBarValuejintjintID = NULL;
+        voiddestroyWaitBarjintID = NULL;
+        voidsetWaitBarIndeterminateModejintjbooleanID = NULL;
+        voidlaunchHelpBrowserjobjectArray_jstringID = NULL;
+        voidsearchKeywordjobjectArray_jstringjstringjbooleanID = NULL;
+        voidsaveMainWindowSettingsID = NULL;
+        voidsaveHelpWindowSettingsID = NULL;
+        jintnewExportFileChooserjintID = NULL;
+        jintnewFontChooserID = NULL;
+        voidfontChooserDisplayAndWaitjintID = NULL;
+        voidsetFontChooserFontNamejintjstringID = NULL;
+        voidsetFontChooserFontSizejintjintID = NULL;
+        voidsetFontChooserBoldjintjbooleanID = NULL;
+        voidsetFontChooserItalicjintjbooleanID = NULL;
+        jstringgetFontChooserFontNamejintID = NULL;
+        jintgetFontChooserFontSizejintID = NULL;
+        jbooleangetFontChooserBoldjintID = NULL;
+        jbooleangetFontChooserItalicjintID = NULL;
+        jintnewColorChooserID = NULL;
+        voidcolorChooserDisplayAndWaitjintID = NULL;
+        voidsetColorChooserDefaultColorjintjintArray_ID = NULL;
+        jintArray_getColorChooserSelectedColorjintID = NULL;
+        voidsetColorChooserTitlejintjstringID = NULL;
+        voidsetWidgetVisiblejintjbooleanID = NULL;
+        voidsetFrameVisiblejintjbooleanID = NULL;
+        jbooleanisWidgetVisiblejintID = NULL;
+        jbooleanisFrameVisiblejintID = NULL;
+        jstringgetClipboardContentsID = NULL;
+        voidpasteClipboardIntoConsoleID = NULL;
+        voidcopyConsoleSelectionID = NULL;
+        voidemptyClipboardID = NULL;
+        voidsetClipboardContentsjstringID = NULL;
+        voidcopyFigureToClipBoardjintID = NULL;
+        jintgetScreenResolutionID = NULL;
+        jdoublegetScreenWidthID = NULL;
+        jdoublegetScreenHeightID = NULL;
+        jintgetScreenDepthID = NULL;
+        jbooleanprintFigurejintjbooleanjbooleanID = NULL;
+        jbooleanprintFilejstringID = NULL;
+        jbooleanprintStringjstringjstringID = NULL;
+        jbooleanpageSetupID = NULL;
+        voidrequestWidgetFocusjintID = NULL;
+        voidrequestFrameFocusjintID = NULL;
+        voidraiseWindowjintID = NULL;
+        voiduseCanvasForDisplayjbooleanID = NULL;
+        jbooleanuseCanvasForDisplayID = NULL;
+        voidscilabAboutBoxID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void CallScilabBridge::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "CallScilabBridge");
-}
-}
+    void CallScilabBridge::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "CallScilabBridge");
+        }
+    }
 
-void CallScilabBridge::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "CallScilabBridge");
-}
-}
+    void CallScilabBridge::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "CallScilabBridge");
+        }
+    }
 // Method(s)
 
-int CallScilabBridge::newWindow (JavaVM * jvm_){
+    int CallScilabBridge::newWindow(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintnewWindowID = curEnv->GetStaticMethodID(cls, "newWindow", "()I" ) ;
-if (jintnewWindowID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newWindow");
-}
+        jmethodID jintnewWindowID = curEnv->GetStaticMethodID(cls, "newWindow", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewWindowID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintnewWindowID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newWindow");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewWindowID));
 
-int CallScilabBridge::newMenuBar (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintnewMenuBarID = curEnv->GetStaticMethodID(cls, "newMenuBar", "()I" ) ;
-if (jintnewMenuBarID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newMenuBar");
-}
+    int CallScilabBridge::newMenuBar(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewMenuBarID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintnewMenuBarID = curEnv->GetStaticMethodID(cls, "newMenuBar", "()I");
 
-int CallScilabBridge::newMenu (JavaVM * jvm_){
+        if (jintnewMenuBarID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newMenuBar");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewMenuBarID));
 
-jmethodID jintnewMenuID = curEnv->GetStaticMethodID(cls, "newMenu", "()I" ) ;
-if (jintnewMenuID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newMenu");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewMenuID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int CallScilabBridge::newMenu(JavaVM * jvm_)
+    {
 
-int CallScilabBridge::newPushButton (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintnewMenuID = curEnv->GetStaticMethodID(cls, "newMenu", "()I");
 
-jmethodID jintnewPushButtonID = curEnv->GetStaticMethodID(cls, "newPushButton", "()I" ) ;
-if (jintnewPushButtonID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newPushButton");
-}
+        if (jintnewMenuID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newMenu");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewPushButtonID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewMenuID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int CallScilabBridge::newEditBox (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int CallScilabBridge::newPushButton(JavaVM * jvm_)
+    {
 
-jmethodID jintnewEditBoxID = curEnv->GetStaticMethodID(cls, "newEditBox", "()I" ) ;
-if (jintnewEditBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newEditBox");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewEditBoxID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintnewPushButtonID = curEnv->GetStaticMethodID(cls, "newPushButton", "()I");
 
-}
+        if (jintnewPushButtonID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newPushButton");
+        }
 
-int CallScilabBridge::newLabel (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewPushButtonID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintnewLabelID = curEnv->GetStaticMethodID(cls, "newLabel", "()I" ) ;
-if (jintnewLabelID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newLabel");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewLabelID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int CallScilabBridge::newEditBox(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int CallScilabBridge::newCheckBox (JavaVM * jvm_){
+        jmethodID jintnewEditBoxID = curEnv->GetStaticMethodID(cls, "newEditBox", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintnewEditBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newEditBox");
+        }
 
-jmethodID jintnewCheckBoxID = curEnv->GetStaticMethodID(cls, "newCheckBox", "()I" ) ;
-if (jintnewCheckBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newCheckBox");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewEditBoxID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewCheckBoxID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int CallScilabBridge::newRadioButton (JavaVM * jvm_){
+    int CallScilabBridge::newLabel(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintnewRadioButtonID = curEnv->GetStaticMethodID(cls, "newRadioButton", "()I" ) ;
-if (jintnewRadioButtonID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newRadioButton");
-}
+        jmethodID jintnewLabelID = curEnv->GetStaticMethodID(cls, "newLabel", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewRadioButtonID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintnewLabelID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newLabel");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewLabelID));
 
-int CallScilabBridge::newSlider (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintnewSliderID = curEnv->GetStaticMethodID(cls, "newSlider", "()I" ) ;
-if (jintnewSliderID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newSlider");
-}
+    int CallScilabBridge::newCheckBox(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewSliderID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintnewCheckBoxID = curEnv->GetStaticMethodID(cls, "newCheckBox", "()I");
 
-int CallScilabBridge::newPopupMenu (JavaVM * jvm_){
+        if (jintnewCheckBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newCheckBox");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewCheckBoxID));
 
-jmethodID jintnewPopupMenuID = curEnv->GetStaticMethodID(cls, "newPopupMenu", "()I" ) ;
-if (jintnewPopupMenuID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newPopupMenu");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewPopupMenuID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int CallScilabBridge::newRadioButton(JavaVM * jvm_)
+    {
 
-int CallScilabBridge::newListBox (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintnewRadioButtonID = curEnv->GetStaticMethodID(cls, "newRadioButton", "()I");
 
-jmethodID jintnewListBoxID = curEnv->GetStaticMethodID(cls, "newListBox", "()I" ) ;
-if (jintnewListBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newListBox");
-}
+        if (jintnewRadioButtonID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newRadioButton");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewListBoxID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewRadioButtonID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int CallScilabBridge::newFrame (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int CallScilabBridge::newSlider(JavaVM * jvm_)
+    {
 
-jmethodID jintnewFrameID = curEnv->GetStaticMethodID(cls, "newFrame", "()I" ) ;
-if (jintnewFrameID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newFrame");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewFrameID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintnewSliderID = curEnv->GetStaticMethodID(cls, "newSlider", "()I");
 
-}
+        if (jintnewSliderID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newSlider");
+        }
 
-char * CallScilabBridge::newContextMenu (JavaVM * jvm_, char ** menuLabels, int menuLabelsSize){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewSliderID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jstringnewContextMenujobjectArray_ID = curEnv->GetStaticMethodID(cls, "newContextMenu", "([Ljava/lang/String;)Ljava/lang/String;" ) ;
-if (jstringnewContextMenujobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newContextMenu");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+    }
+
+    int CallScilabBridge::newPopupMenu(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewPopupMenuID = curEnv->GetStaticMethodID(cls, "newPopupMenu", "()I");
+
+        if (jintnewPopupMenuID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newPopupMenu");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewPopupMenuID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int CallScilabBridge::newListBox(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewListBoxID = curEnv->GetStaticMethodID(cls, "newListBox", "()I");
+
+        if (jintnewListBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newListBox");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewListBoxID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int CallScilabBridge::newFrame(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewFrameID = curEnv->GetStaticMethodID(cls, "newFrame", "()I");
+
+        if (jintnewFrameID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newFrame");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewFrameID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    char *CallScilabBridge::newContextMenu(JavaVM * jvm_, char **menuLabels, int menuLabelsSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringnewContextMenujobjectArray_ID = curEnv->GetStaticMethodID(cls, "newContextMenu", "([Ljava/lang/String;)Ljava/lang/String;");
+
+        if (jstringnewContextMenujobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newContextMenu");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray menuLabels_ = curEnv->NewObjectArray( menuLabelsSize, stringArrayClass, NULL);
-if (menuLabels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray menuLabels_ = curEnv->NewObjectArray(menuLabelsSize, stringArrayClass, NULL);
+
+        if (menuLabels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < menuLabelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( menuLabels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < menuLabelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(menuLabels[i]);
 
-curEnv->SetObjectArrayElement( menuLabels_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(menuLabels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringnewContextMenujobjectArray_ID ,menuLabels_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(menuLabels_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-int CallScilabBridge::newContextMenu (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintnewContextMenuID = curEnv->GetStaticMethodID(cls, "newContextMenu", "()I" ) ;
-if (jintnewContextMenuID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newContextMenu");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewContextMenuID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::destroyWidget (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiddestroyWidgetjintID = curEnv->GetStaticMethodID(cls, "destroyWidget", "(I)V" ) ;
-if (voiddestroyWidgetjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroyWidget");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voiddestroyWidgetjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::destroyFrame (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiddestroyFramejintID = curEnv->GetStaticMethodID(cls, "destroyFrame", "(I)V" ) ;
-if (voiddestroyFramejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroyFrame");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voiddestroyFramejintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int CallScilabBridge::newWindow (JavaVM * jvm_, int figureIndex){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintnewWindowjintID = curEnv->GetStaticMethodID(cls, "newWindow", "(I)I" ) ;
-if (jintnewWindowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newWindow");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewWindowjintID ,figureIndex));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setFigureAsParent (JavaVM * jvm_, int figureID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFigureAsParentjintjintID = curEnv->GetStaticMethodID(cls, "setFigureAsParent", "(II)V" ) ;
-if (voidsetFigureAsParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureAsParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFigureAsParentjintjintID ,figureID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setMenuAsParent (JavaVM * jvm_, int menuID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetMenuAsParentjintjintID = curEnv->GetStaticMethodID(cls, "setMenuAsParent", "(II)V" ) ;
-if (voidsetMenuAsParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMenuAsParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetMenuAsParentjintjintID ,menuID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setRootAsParent (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetRootAsParentjintID = curEnv->GetStaticMethodID(cls, "setRootAsParent", "(I)V" ) ;
-if (voidsetRootAsParentjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setRootAsParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetRootAsParentjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetParentjintjintID = curEnv->GetStaticMethodID(cls, "setParent", "(II)V" ) ;
-if (voidsetParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setPushButtonParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetPushButtonParentjintjintID = curEnv->GetStaticMethodID(cls, "setPushButtonParent", "(II)V" ) ;
-if (voidsetPushButtonParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setPushButtonParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetPushButtonParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removePushButtonFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremovePushButtonFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removePushButtonFromParent", "(II)V" ) ;
-if (voidremovePushButtonFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removePushButtonFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremovePushButtonFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setEditBoxParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetEditBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setEditBoxParent", "(II)V" ) ;
-if (voidsetEditBoxParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setEditBoxParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetEditBoxParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeEditBoxFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveEditBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeEditBoxFromParent", "(II)V" ) ;
-if (voidremoveEditBoxFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeEditBoxFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveEditBoxFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setLabelParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetLabelParentjintjintID = curEnv->GetStaticMethodID(cls, "setLabelParent", "(II)V" ) ;
-if (voidsetLabelParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setLabelParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetLabelParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeLabelFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveLabelFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeLabelFromParent", "(II)V" ) ;
-if (voidremoveLabelFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeLabelFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveLabelFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setCheckBoxParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetCheckBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setCheckBoxParent", "(II)V" ) ;
-if (voidsetCheckBoxParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setCheckBoxParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetCheckBoxParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeCheckBoxFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveCheckBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeCheckBoxFromParent", "(II)V" ) ;
-if (voidremoveCheckBoxFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeCheckBoxFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveCheckBoxFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setRadioButtonParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetRadioButtonParentjintjintID = curEnv->GetStaticMethodID(cls, "setRadioButtonParent", "(II)V" ) ;
-if (voidsetRadioButtonParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setRadioButtonParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetRadioButtonParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeRadioButtonFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveRadioButtonFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeRadioButtonFromParent", "(II)V" ) ;
-if (voidremoveRadioButtonFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeRadioButtonFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveRadioButtonFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setSliderParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetSliderParentjintjintID = curEnv->GetStaticMethodID(cls, "setSliderParent", "(II)V" ) ;
-if (voidsetSliderParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeSliderFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveSliderFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeSliderFromParent", "(II)V" ) ;
-if (voidremoveSliderFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeSliderFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveSliderFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setPopupMenuParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetPopupMenuParentjintjintID = curEnv->GetStaticMethodID(cls, "setPopupMenuParent", "(II)V" ) ;
-if (voidsetPopupMenuParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removePopupMenuFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremovePopupMenuFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removePopupMenuFromParent", "(II)V" ) ;
-if (voidremovePopupMenuFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removePopupMenuFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremovePopupMenuFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setListBoxParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetListBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setListBoxParent", "(II)V" ) ;
-if (voidsetListBoxParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetListBoxParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeListBoxFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveListBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeListBoxFromParent", "(II)V" ) ;
-if (voidremoveListBoxFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeListBoxFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveListBoxFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFrameParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameParentjintjintID = curEnv->GetStaticMethodID(cls, "setFrameParent", "(II)V" ) ;
-if (voidsetFrameParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::removeFrameFromParent (JavaVM * jvm_, int parentID, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidremoveFrameFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeFrameFromParent", "(II)V" ) ;
-if (voidremoveFrameFromParentjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeFrameFromParent");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidremoveFrameFromParentjintjintID ,parentID, objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setWidgetText (JavaVM * jvm_, int objID, char * text){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetTextjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetText", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetTextjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetText");
-}
-
-jstring text_ = curEnv->NewStringUTF( text );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetTextjintjstringID ,objID, text_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * CallScilabBridge::getWidgetText (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetWidgetTextjintID = curEnv->GetStaticMethodID(cls, "getWidgetText", "(I)Ljava/lang/String;" ) ;
-if (jstringgetWidgetTextjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetText");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetWidgetTextjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void CallScilabBridge::setFrameText (JavaVM * jvm_, int objID, char * text){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameTextjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameText", "(ILjava/lang/String;)V" ) ;
-if (voidsetFrameTextjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameText");
-}
-
-jstring text_ = curEnv->NewStringUTF( text );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameTextjintjstringID ,objID, text_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * CallScilabBridge::getFrameText (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetFrameTextjintID = curEnv->GetStaticMethodID(cls, "getFrameText", "(I)Ljava/lang/String;" ) ;
-if (jstringgetFrameTextjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameText");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetFrameTextjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void CallScilabBridge::setWidgetBackgroundColor (JavaVM * jvm_, int objID, int red, int green, int blue){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetBackgroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetBackgroundColor", "(IIII)V" ) ;
-if (voidsetWidgetBackgroundColorjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetBackgroundColor");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetBackgroundColorjintjintjintjintID ,objID, red, green, blue);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int* CallScilabBridge::getWidgetBackgroundColor (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintArray_getWidgetBackgroundColorjintID = curEnv->GetStaticMethodID(cls, "getWidgetBackgroundColor", "(I)[I" ) ;
-if (jintArray_getWidgetBackgroundColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetBackgroundColor");
-}
-
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetBackgroundColorjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringnewContextMenujobjectArray_ID, menuLabels_));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(menuLabels_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    int CallScilabBridge::newContextMenu(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewContextMenuID = curEnv->GetStaticMethodID(cls, "newContextMenu", "()I");
+
+        if (jintnewContextMenuID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newContextMenu");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewContextMenuID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::destroyWidget(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiddestroyWidgetjintID = curEnv->GetStaticMethodID(cls, "destroyWidget", "(I)V");
+
+        if (voiddestroyWidgetjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "destroyWidget");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voiddestroyWidgetjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::destroyFrame(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiddestroyFramejintID = curEnv->GetStaticMethodID(cls, "destroyFrame", "(I)V");
+
+        if (voiddestroyFramejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "destroyFrame");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voiddestroyFramejintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int CallScilabBridge::newWindow(JavaVM * jvm_, int figureIndex)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewWindowjintID = curEnv->GetStaticMethodID(cls, "newWindow", "(I)I");
+
+        if (jintnewWindowjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newWindow");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewWindowjintID, figureIndex));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setFigureAsParent(JavaVM * jvm_, int figureID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFigureAsParentjintjintID = curEnv->GetStaticMethodID(cls, "setFigureAsParent", "(II)V");
+
+        if (voidsetFigureAsParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureAsParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFigureAsParentjintjintID, figureID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setMenuAsParent(JavaVM * jvm_, int menuID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMenuAsParentjintjintID = curEnv->GetStaticMethodID(cls, "setMenuAsParent", "(II)V");
+
+        if (voidsetMenuAsParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMenuAsParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetMenuAsParentjintjintID, menuID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setRootAsParent(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetRootAsParentjintID = curEnv->GetStaticMethodID(cls, "setRootAsParent", "(I)V");
+
+        if (voidsetRootAsParentjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setRootAsParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetRootAsParentjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetParentjintjintID = curEnv->GetStaticMethodID(cls, "setParent", "(II)V");
+
+        if (voidsetParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setPushButtonParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetPushButtonParentjintjintID = curEnv->GetStaticMethodID(cls, "setPushButtonParent", "(II)V");
+
+        if (voidsetPushButtonParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setPushButtonParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetPushButtonParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removePushButtonFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremovePushButtonFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removePushButtonFromParent", "(II)V");
+
+        if (voidremovePushButtonFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removePushButtonFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremovePushButtonFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setEditBoxParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetEditBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setEditBoxParent", "(II)V");
+
+        if (voidsetEditBoxParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setEditBoxParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetEditBoxParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeEditBoxFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveEditBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeEditBoxFromParent", "(II)V");
+
+        if (voidremoveEditBoxFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeEditBoxFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveEditBoxFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setLabelParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetLabelParentjintjintID = curEnv->GetStaticMethodID(cls, "setLabelParent", "(II)V");
+
+        if (voidsetLabelParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setLabelParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetLabelParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeLabelFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveLabelFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeLabelFromParent", "(II)V");
+
+        if (voidremoveLabelFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeLabelFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveLabelFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setCheckBoxParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetCheckBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setCheckBoxParent", "(II)V");
+
+        if (voidsetCheckBoxParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setCheckBoxParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetCheckBoxParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeCheckBoxFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveCheckBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeCheckBoxFromParent", "(II)V");
+
+        if (voidremoveCheckBoxFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeCheckBoxFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveCheckBoxFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setRadioButtonParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetRadioButtonParentjintjintID = curEnv->GetStaticMethodID(cls, "setRadioButtonParent", "(II)V");
+
+        if (voidsetRadioButtonParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setRadioButtonParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetRadioButtonParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeRadioButtonFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveRadioButtonFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeRadioButtonFromParent", "(II)V");
+
+        if (voidremoveRadioButtonFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeRadioButtonFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveRadioButtonFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderParentjintjintID = curEnv->GetStaticMethodID(cls, "setSliderParent", "(II)V");
+
+        if (voidsetSliderParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeSliderFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveSliderFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeSliderFromParent", "(II)V");
+
+        if (voidremoveSliderFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeSliderFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveSliderFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setPopupMenuParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetPopupMenuParentjintjintID = curEnv->GetStaticMethodID(cls, "setPopupMenuParent", "(II)V");
+
+        if (voidsetPopupMenuParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removePopupMenuFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremovePopupMenuFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removePopupMenuFromParent", "(II)V");
+
+        if (voidremovePopupMenuFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removePopupMenuFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremovePopupMenuFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setListBoxParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetListBoxParentjintjintID = curEnv->GetStaticMethodID(cls, "setListBoxParent", "(II)V");
+
+        if (voidsetListBoxParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetListBoxParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeListBoxFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveListBoxFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeListBoxFromParent", "(II)V");
+
+        if (voidremoveListBoxFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeListBoxFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveListBoxFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setFrameParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameParentjintjintID = curEnv->GetStaticMethodID(cls, "setFrameParent", "(II)V");
+
+        if (voidsetFrameParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::removeFrameFromParent(JavaVM * jvm_, int parentID, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidremoveFrameFromParentjintjintID = curEnv->GetStaticMethodID(cls, "removeFrameFromParent", "(II)V");
+
+        if (voidremoveFrameFromParentjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeFrameFromParent");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidremoveFrameFromParentjintjintID, parentID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setWidgetText(JavaVM * jvm_, int objID, char *text)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetTextjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetText", "(ILjava/lang/String;)V");
+
+        if (voidsetWidgetTextjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetText");
+        }
+
+        jstring text_ = curEnv->NewStringUTF(text);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetTextjintjstringID, objID, text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    char *CallScilabBridge::getWidgetText(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetWidgetTextjintID = curEnv->GetStaticMethodID(cls, "getWidgetText", "(I)Ljava/lang/String;");
+
+        if (jstringgetWidgetTextjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetText");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetWidgetTextjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    void CallScilabBridge::setFrameText(JavaVM * jvm_, int objID, char *text)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameTextjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameText", "(ILjava/lang/String;)V");
+
+        if (voidsetFrameTextjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameText");
+        }
+
+        jstring text_ = curEnv->NewStringUTF(text);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameTextjintjstringID, objID, text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    char *CallScilabBridge::getFrameText(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetFrameTextjintID = curEnv->GetStaticMethodID(cls, "getFrameText", "(I)Ljava/lang/String;");
+
+        if (jstringgetFrameTextjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameText");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetFrameTextjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    void CallScilabBridge::setWidgetBackgroundColor(JavaVM * jvm_, int objID, int red, int green, int blue)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetBackgroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetBackgroundColor", "(IIII)V");
+
+        if (voidsetWidgetBackgroundColorjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetBackgroundColor");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetBackgroundColorjintjintjintjintID, objID, red, green, blue);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int *CallScilabBridge::getWidgetBackgroundColor(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintArray_getWidgetBackgroundColorjintID = curEnv->GetStaticMethodID(cls, "getWidgetBackgroundColor", "(I)[I");
+
+        if (jintArray_getWidgetBackgroundColorjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetBackgroundColor");
+        }
+
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetBackgroundColorjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setWidgetForegroundColor (JavaVM * jvm_, int objID, int red, int green, int blue){
+    void CallScilabBridge::setWidgetForegroundColor(JavaVM * jvm_, int objID, int red, int green, int blue)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetWidgetForegroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetForegroundColor", "(IIII)V" ) ;
-if (voidsetWidgetForegroundColorjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetForegroundColor");
-}
+        jmethodID voidsetWidgetForegroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetForegroundColor", "(IIII)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetForegroundColorjintjintjintjintID ,objID, red, green, blue);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetWidgetForegroundColorjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetForegroundColor");
+        }
 
-int* CallScilabBridge::getWidgetForegroundColor (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetForegroundColorjintjintjintjintID, objID, red, green, blue);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int *CallScilabBridge::getWidgetForegroundColor(JavaVM * jvm_, int objID)
+    {
 
-jmethodID jintArray_getWidgetForegroundColorjintID = curEnv->GetStaticMethodID(cls, "getWidgetForegroundColor", "(I)[I" ) ;
-if (jintArray_getWidgetForegroundColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetForegroundColor");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetForegroundColorjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jmethodID jintArray_getWidgetForegroundColorjintID = curEnv->GetStaticMethodID(cls, "getWidgetForegroundColor", "(I)[I");
 
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        if (jintArray_getWidgetForegroundColorjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetForegroundColor");
+        }
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetForegroundColorjintID, objID));
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-}
-
-void CallScilabBridge::setFrameBackgroundColor (JavaVM * jvm_, int objID, int red, int green, int blue){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameBackgroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFrameBackgroundColor", "(IIII)V" ) ;
-if (voidsetFrameBackgroundColorjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameBackgroundColor");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameBackgroundColorjintjintjintjintID ,objID, red, green, blue);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int* CallScilabBridge::getFrameBackgroundColor (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintArray_getFrameBackgroundColorjintID = curEnv->GetStaticMethodID(cls, "getFrameBackgroundColor", "(I)[I" ) ;
-if (jintArray_getFrameBackgroundColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameBackgroundColor");
-}
-
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getFrameBackgroundColorjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setFrameForegroundColor (JavaVM * jvm_, int objID, int red, int green, int blue){
+    void CallScilabBridge::setFrameBackgroundColor(JavaVM * jvm_, int objID, int red, int green, int blue)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetFrameForegroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFrameForegroundColor", "(IIII)V" ) ;
-if (voidsetFrameForegroundColorjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameForegroundColor");
-}
+        jmethodID voidsetFrameBackgroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFrameBackgroundColor", "(IIII)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameForegroundColorjintjintjintjintID ,objID, red, green, blue);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetFrameBackgroundColorjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameBackgroundColor");
+        }
 
-int* CallScilabBridge::getFrameForegroundColor (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameBackgroundColorjintjintjintjintID, objID, red, green, blue);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int *CallScilabBridge::getFrameBackgroundColor(JavaVM * jvm_, int objID)
+    {
 
-jmethodID jintArray_getFrameForegroundColorjintID = curEnv->GetStaticMethodID(cls, "getFrameForegroundColor", "(I)[I" ) ;
-if (jintArray_getFrameForegroundColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameForegroundColor");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getFrameForegroundColorjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jmethodID jintArray_getFrameBackgroundColorjintID = curEnv->GetStaticMethodID(cls, "getFrameBackgroundColor", "(I)[I");
+
+        if (jintArray_getFrameBackgroundColorjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameBackgroundColor");
+        }
+
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getFrameBackgroundColorjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
-}
-
-void CallScilabBridge::setWidgetFontName (JavaVM * jvm_, int objID, char * name){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontName", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetFontNamejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontName");
-}
-
-jstring name_ = curEnv->NewStringUTF( name );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontNamejintjstringID ,objID, name_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * CallScilabBridge::getWidgetFontName (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetWidgetFontNamejintID = curEnv->GetStaticMethodID(cls, "getWidgetFontName", "(I)Ljava/lang/String;" ) ;
-if (jstringgetWidgetFontNamejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetFontName");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetWidgetFontNamejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void CallScilabBridge::setWidgetFontWeight (JavaVM * jvm_, int objID, char * weight){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetFontWeightjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontWeight", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetFontWeightjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontWeight");
-}
-
-jstring weight_ = curEnv->NewStringUTF( weight );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontWeightjintjstringID ,objID, weight_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setWidgetFontSize (JavaVM * jvm_, int objID, int size){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setWidgetFontSize", "(II)V" ) ;
-if (voidsetWidgetFontSizejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontSize");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontSizejintjintID ,objID, size);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int CallScilabBridge::getWidgetFontSize (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetWidgetFontSizejintID = curEnv->GetStaticMethodID(cls, "getWidgetFontSize", "(I)I" ) ;
-if (jintgetWidgetFontSizejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetFontSize");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetWidgetFontSizejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setWidgetFontAngle (JavaVM * jvm_, int objID, char * angle){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetFontAnglejintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontAngle", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetFontAnglejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontAngle");
-}
-
-jstring angle_ = curEnv->NewStringUTF( angle );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontAnglejintjstringID ,objID, angle_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFrameFontName (JavaVM * jvm_, int objID, char * name){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontName", "(ILjava/lang/String;)V" ) ;
-if (voidsetFrameFontNamejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontName");
-}
-
-jstring name_ = curEnv->NewStringUTF( name );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameFontNamejintjstringID ,objID, name_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * CallScilabBridge::getFrameFontName (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetFrameFontNamejintID = curEnv->GetStaticMethodID(cls, "getFrameFontName", "(I)Ljava/lang/String;" ) ;
-if (jstringgetFrameFontNamejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameFontName");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetFrameFontNamejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void CallScilabBridge::setFrameFontWeight (JavaVM * jvm_, int objID, char * weight){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameFontWeightjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontWeight", "(ILjava/lang/String;)V" ) ;
-if (voidsetFrameFontWeightjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontWeight");
-}
-
-jstring weight_ = curEnv->NewStringUTF( weight );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameFontWeightjintjstringID ,objID, weight_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFrameFontSize (JavaVM * jvm_, int objID, int size){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setFrameFontSize", "(II)V" ) ;
-if (voidsetFrameFontSizejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontSize");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameFontSizejintjintID ,objID, size);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int CallScilabBridge::getFrameFontSize (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetFrameFontSizejintID = curEnv->GetStaticMethodID(cls, "getFrameFontSize", "(I)I" ) ;
-if (jintgetFrameFontSizejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameFontSize");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetFrameFontSizejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setFrameFontAngle (JavaVM * jvm_, int objID, char * angle){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFrameFontAnglejintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontAngle", "(ILjava/lang/String;)V" ) ;
-if (voidsetFrameFontAnglejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontAngle");
-}
-
-jstring angle_ = curEnv->NewStringUTF( angle );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameFontAnglejintjstringID ,objID, angle_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setWidgetPosition (JavaVM * jvm_, int objID, int x, int y, int width, int height){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWidgetPositionjintjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetPosition", "(IIIII)V" ) ;
-if (voidsetWidgetPositionjintjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetPosition");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetPositionjintjintjintjintjintID ,objID, x, y, width, height);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int* CallScilabBridge::getWidgetPosition (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintArray_getWidgetPositionjintID = curEnv->GetStaticMethodID(cls, "getWidgetPosition", "(I)[I" ) ;
-if (jintArray_getWidgetPositionjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetPosition");
-}
-
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetPositionjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
+
+    }
+
+    void CallScilabBridge::setFrameForegroundColor(JavaVM * jvm_, int objID, int red, int green, int blue)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameForegroundColorjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFrameForegroundColor", "(IIII)V");
+
+        if (voidsetFrameForegroundColorjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameForegroundColor");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameForegroundColorjintjintjintjintID, objID, red, green, blue);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int *CallScilabBridge::getFrameForegroundColor(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintArray_getFrameForegroundColorjintID = curEnv->GetStaticMethodID(cls, "getFrameForegroundColor", "(I)[I");
+
+        if (jintArray_getFrameForegroundColorjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameForegroundColor");
+        }
+
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getFrameForegroundColorjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setFramePosition (JavaVM * jvm_, int objID, int x, int y, int width, int height){
+    void CallScilabBridge::setWidgetFontName(JavaVM * jvm_, int objID, char *name)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetFramePositionjintjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFramePosition", "(IIIII)V" ) ;
-if (voidsetFramePositionjintjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFramePosition");
-}
+        jmethodID voidsetWidgetFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontName", "(ILjava/lang/String;)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFramePositionjintjintjintjintjintID ,objID, x, y, width, height);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetWidgetFontNamejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontName");
+        }
 
-int* CallScilabBridge::getFramePosition (JavaVM * jvm_, int objID){
+        jstring name_ = curEnv->NewStringUTF(name);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontNamejintjstringID, objID, name_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID jintArray_getFramePositionjintID = curEnv->GetStaticMethodID(cls, "getFramePosition", "(I)[I" ) ;
-if (jintArray_getFramePositionjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFramePosition");
-}
+    char *CallScilabBridge::getWidgetFontName(JavaVM * jvm_, int objID)
+    {
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getFramePositionjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetWidgetFontNamejintID = curEnv->GetStaticMethodID(cls, "getWidgetFontName", "(I)Ljava/lang/String;");
+
+        if (jstringgetWidgetFontNamejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetFontName");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetWidgetFontNamejintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    void CallScilabBridge::setWidgetFontWeight(JavaVM * jvm_, int objID, char *weight)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetFontWeightjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontWeight", "(ILjava/lang/String;)V");
+
+        if (voidsetWidgetFontWeightjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontWeight");
+        }
+
+        jstring weight_ = curEnv->NewStringUTF(weight);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontWeightjintjstringID, objID, weight_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setWidgetFontSize(JavaVM * jvm_, int objID, int size)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setWidgetFontSize", "(II)V");
+
+        if (voidsetWidgetFontSizejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontSize");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontSizejintjintID, objID, size);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int CallScilabBridge::getWidgetFontSize(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetWidgetFontSizejintID = curEnv->GetStaticMethodID(cls, "getWidgetFontSize", "(I)I");
+
+        if (jintgetWidgetFontSizejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetFontSize");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetWidgetFontSizejintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setWidgetFontAngle(JavaVM * jvm_, int objID, char *angle)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetFontAnglejintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetFontAngle", "(ILjava/lang/String;)V");
+
+        if (voidsetWidgetFontAnglejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetFontAngle");
+        }
+
+        jstring angle_ = curEnv->NewStringUTF(angle);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetFontAnglejintjstringID, objID, angle_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setFrameFontName(JavaVM * jvm_, int objID, char *name)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontName", "(ILjava/lang/String;)V");
+
+        if (voidsetFrameFontNamejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontName");
+        }
+
+        jstring name_ = curEnv->NewStringUTF(name);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameFontNamejintjstringID, objID, name_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    char *CallScilabBridge::getFrameFontName(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetFrameFontNamejintID = curEnv->GetStaticMethodID(cls, "getFrameFontName", "(I)Ljava/lang/String;");
+
+        if (jstringgetFrameFontNamejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameFontName");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetFrameFontNamejintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    void CallScilabBridge::setFrameFontWeight(JavaVM * jvm_, int objID, char *weight)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameFontWeightjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontWeight", "(ILjava/lang/String;)V");
+
+        if (voidsetFrameFontWeightjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontWeight");
+        }
+
+        jstring weight_ = curEnv->NewStringUTF(weight);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameFontWeightjintjstringID, objID, weight_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setFrameFontSize(JavaVM * jvm_, int objID, int size)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setFrameFontSize", "(II)V");
+
+        if (voidsetFrameFontSizejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontSize");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameFontSizejintjintID, objID, size);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int CallScilabBridge::getFrameFontSize(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetFrameFontSizejintID = curEnv->GetStaticMethodID(cls, "getFrameFontSize", "(I)I");
+
+        if (jintgetFrameFontSizejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFrameFontSize");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetFrameFontSizejintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setFrameFontAngle(JavaVM * jvm_, int objID, char *angle)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetFrameFontAnglejintjstringID = curEnv->GetStaticMethodID(cls, "setFrameFontAngle", "(ILjava/lang/String;)V");
+
+        if (voidsetFrameFontAnglejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameFontAngle");
+        }
+
+        jstring angle_ = curEnv->NewStringUTF(angle);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameFontAnglejintjstringID, objID, angle_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setWidgetPosition(JavaVM * jvm_, int objID, int x, int y, int width, int height)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetPositionjintjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setWidgetPosition", "(IIIII)V");
+
+        if (voidsetWidgetPositionjintjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetPosition");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetPositionjintjintjintjintjintID, objID, x, y, width, height);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int *CallScilabBridge::getWidgetPosition(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintArray_getWidgetPositionjintID = curEnv->GetStaticMethodID(cls, "getWidgetPosition", "(I)[I");
+
+        if (jintArray_getWidgetPositionjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getWidgetPosition");
+        }
+
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getWidgetPositionjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setWidgetCallback (JavaVM * jvm_, int objID, char * text, int type){
+    void CallScilabBridge::setFramePosition(JavaVM * jvm_, int objID, int x, int y, int width, int height)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetWidgetCallbackjintjstringjintID = curEnv->GetStaticMethodID(cls, "setWidgetCallback", "(ILjava/lang/String;I)V" ) ;
-if (voidsetWidgetCallbackjintjstringjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetCallback");
-}
+        jmethodID voidsetFramePositionjintjintjintjintjintID = curEnv->GetStaticMethodID(cls, "setFramePosition", "(IIIII)V");
 
-jstring text_ = curEnv->NewStringUTF( text );
+        if (voidsetFramePositionjintjintjintjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFramePosition");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetCallbackjintjstringjintID ,objID, text_, type);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFramePositionjintjintjintjintjintID, objID, x, y, width, height);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setFrameCallback (JavaVM * jvm_, int objID, char * text, int type){
+    int *CallScilabBridge::getFramePosition(JavaVM * jvm_, int objID)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetFrameCallbackjintjstringjintID = curEnv->GetStaticMethodID(cls, "setFrameCallback", "(ILjava/lang/String;I)V" ) ;
-if (voidsetFrameCallbackjintjstringjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameCallback");
-}
+        jmethodID jintArray_getFramePositionjintID = curEnv->GetStaticMethodID(cls, "getFramePosition", "(I)[I");
 
-jstring text_ = curEnv->NewStringUTF( text );
+        if (jintArray_getFramePositionjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFramePosition");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameCallbackjintjstringjintID ,objID, text_, type);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getFramePositionjintID, objID));
 
-void CallScilabBridge::setWidgetHorizontalAlignment (JavaVM * jvm_, int objID, char * alignment){
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
-jmethodID voidsetWidgetHorizontalAlignmentjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetHorizontalAlignment", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetHorizontalAlignmentjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetHorizontalAlignment");
-}
+/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-jstring alignment_ = curEnv->NewStringUTF( alignment );
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetHorizontalAlignmentjintjstringID ,objID, alignment_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-void CallScilabBridge::setWidgetVerticalAlignment (JavaVM * jvm_, int objID, char * alignment){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::setWidgetCallback(JavaVM * jvm_, int objID, char *text, int type)
+    {
 
-jmethodID voidsetWidgetVerticalAlignmentjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetVerticalAlignment", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetVerticalAlignmentjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetVerticalAlignment");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring alignment_ = curEnv->NewStringUTF( alignment );
+        jmethodID voidsetWidgetCallbackjintjstringjintID = curEnv->GetStaticMethodID(cls, "setWidgetCallback", "(ILjava/lang/String;I)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetVerticalAlignmentjintjstringID ,objID, alignment_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetWidgetCallbackjintjstringjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetCallback");
+        }
 
-void CallScilabBridge::setSliderMinorTickSpacing (JavaVM * jvm_, int objID, int space){
+        jstring text_ = curEnv->NewStringUTF(text);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetCallbackjintjstringjintID, objID, text_, type);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voidsetSliderMinorTickSpacingjintjintID = curEnv->GetStaticMethodID(cls, "setSliderMinorTickSpacing", "(II)V" ) ;
-if (voidsetSliderMinorTickSpacingjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMinorTickSpacing");
-}
+    void CallScilabBridge::setFrameCallback(JavaVM * jvm_, int objID, char *text, int type)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderMinorTickSpacingjintjintID ,objID, space);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setSliderMajorTickSpacing (JavaVM * jvm_, int objID, int space){
+        jmethodID voidsetFrameCallbackjintjstringjintID = curEnv->GetStaticMethodID(cls, "setFrameCallback", "(ILjava/lang/String;I)V");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (voidsetFrameCallbackjintjstringjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameCallback");
+        }
 
-jmethodID voidsetSliderMajorTickSpacingjintjintID = curEnv->GetStaticMethodID(cls, "setSliderMajorTickSpacing", "(II)V" ) ;
-if (voidsetSliderMajorTickSpacingjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMajorTickSpacing");
-}
+        jstring text_ = curEnv->NewStringUTF(text);
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderMajorTickSpacingjintjintID ,objID, space);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameCallbackjintjstringjintID, objID, text_, type);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setListBoxSelectedIndices (JavaVM * jvm_, int objID, int* indices, int indicesSize){
+    void CallScilabBridge::setWidgetHorizontalAlignment(JavaVM * jvm_, int objID, char *alignment)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetListBoxSelectedIndicesjintjintArray_ID = curEnv->GetStaticMethodID(cls, "setListBoxSelectedIndices", "(I[I)V" ) ;
-if (voidsetListBoxSelectedIndicesjintjintArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxSelectedIndices");
-}
+        jmethodID voidsetWidgetHorizontalAlignmentjintjstringID =
+            curEnv->GetStaticMethodID(cls, "setWidgetHorizontalAlignment", "(ILjava/lang/String;)V");
+        if (voidsetWidgetHorizontalAlignmentjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetHorizontalAlignment");
+        }
 
-jintArray indices_ = curEnv->NewIntArray( indicesSize ) ;
+        jstring alignment_ = curEnv->NewStringUTF(alignment);
 
-if (indices_ == NULL)
-{
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetHorizontalAlignmentjintjstringID, objID, alignment_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setWidgetVerticalAlignment(JavaVM * jvm_, int objID, char *alignment)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWidgetVerticalAlignmentjintjstringID =
+            curEnv->GetStaticMethodID(cls, "setWidgetVerticalAlignment", "(ILjava/lang/String;)V");
+        if (voidsetWidgetVerticalAlignmentjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetVerticalAlignment");
+        }
+
+        jstring alignment_ = curEnv->NewStringUTF(alignment);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetVerticalAlignmentjintjstringID, objID, alignment_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderMinorTickSpacing(JavaVM * jvm_, int objID, int space)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderMinorTickSpacingjintjintID = curEnv->GetStaticMethodID(cls, "setSliderMinorTickSpacing", "(II)V");
+
+        if (voidsetSliderMinorTickSpacingjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMinorTickSpacing");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderMinorTickSpacingjintjintID, objID, space);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderMajorTickSpacing(JavaVM * jvm_, int objID, int space)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderMajorTickSpacingjintjintID = curEnv->GetStaticMethodID(cls, "setSliderMajorTickSpacing", "(II)V");
+
+        if (voidsetSliderMajorTickSpacingjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMajorTickSpacing");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderMajorTickSpacingjintjintID, objID, space);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setListBoxSelectedIndices(JavaVM * jvm_, int objID, int *indices, int indicesSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetListBoxSelectedIndicesjintjintArray_ID = curEnv->GetStaticMethodID(cls, "setListBoxSelectedIndices", "(I[I)V");
+
+        if (voidsetListBoxSelectedIndicesjintjintArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxSelectedIndices");
+        }
+
+        jintArray indices_ = curEnv->NewIntArray(indicesSize);
+
+        if (indices_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetIntArrayRegion( indices_, 0, indicesSize, (jint*)(indices) ) ;
+        curEnv->SetIntArrayRegion(indices_, 0, indicesSize, (jint *) (indices));
 
+        curEnv->CallStaticVoidMethod(cls, voidsetListBoxSelectedIndicesjintjintArray_ID, objID, indices_);
+        curEnv->DeleteLocalRef(indices_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetListBoxSelectedIndicesjintjintArray_ID ,objID, indices_);
-                        curEnv->DeleteLocalRef(indices_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    int *CallScilabBridge::getListBoxSelectedIndices(JavaVM * jvm_, int objID)
+    {
 
-int* CallScilabBridge::getListBoxSelectedIndices (JavaVM * jvm_, int objID){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintArray_getListBoxSelectedIndicesjintID = curEnv->GetStaticMethodID(cls, "getListBoxSelectedIndices", "(I)[I");
 
-jmethodID jintArray_getListBoxSelectedIndicesjintID = curEnv->GetStaticMethodID(cls, "getListBoxSelectedIndices", "(I)[I" ) ;
-if (jintArray_getListBoxSelectedIndicesjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxSelectedIndices");
-}
+        if (jintArray_getListBoxSelectedIndicesjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxSelectedIndices");
+        }
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getListBoxSelectedIndicesjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getListBoxSelectedIndicesjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-}
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-int CallScilabBridge::getListBoxSelectionSize (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintgetListBoxSelectionSizejintID = curEnv->GetStaticMethodID(cls, "getListBoxSelectionSize", "(I)I" ) ;
-if (jintgetListBoxSelectionSizejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxSelectionSize");
-}
+    int CallScilabBridge::getListBoxSelectionSize(JavaVM * jvm_, int objID)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetListBoxSelectionSizejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintgetListBoxSelectionSizejintID = curEnv->GetStaticMethodID(cls, "getListBoxSelectionSize", "(I)I");
 
-void CallScilabBridge::setPopupMenuSelectedIndex (JavaVM * jvm_, int objID, int index){
+        if (jintgetListBoxSelectionSizejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxSelectionSize");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetListBoxSelectionSizejintID, objID));
 
-jmethodID voidsetPopupMenuSelectedIndexjintjintID = curEnv->GetStaticMethodID(cls, "setPopupMenuSelectedIndex", "(II)V" ) ;
-if (voidsetPopupMenuSelectedIndexjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuSelectedIndex");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuSelectedIndexjintjintID ,objID, index);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    }
 
-int CallScilabBridge::getPopupMenuSelectedIndex (JavaVM * jvm_, int objID){
+    void CallScilabBridge::setPopupMenuSelectedIndex(JavaVM * jvm_, int objID, int index)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintgetPopupMenuSelectedIndexjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuSelectedIndex", "(I)I" ) ;
-if (jintgetPopupMenuSelectedIndexjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuSelectedIndex");
-}
+        jmethodID voidsetPopupMenuSelectedIndexjintjintID = curEnv->GetStaticMethodID(cls, "setPopupMenuSelectedIndex", "(II)V");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetPopupMenuSelectedIndexjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (voidsetPopupMenuSelectedIndexjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuSelectedIndex");
+        }
 
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuSelectedIndexjintjintID, objID, index);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setSliderValue (JavaVM * jvm_, int objID, int index){
+    int CallScilabBridge::getPopupMenuSelectedIndex(JavaVM * jvm_, int objID)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetSliderValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderValue", "(II)V" ) ;
-if (voidsetSliderValuejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderValue");
-}
+        jmethodID jintgetPopupMenuSelectedIndexjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuSelectedIndex", "(I)I");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderValuejintjintID ,objID, index);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (jintgetPopupMenuSelectedIndexjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuSelectedIndex");
+        }
 
-int CallScilabBridge::getSliderValue (JavaVM * jvm_, int objID){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetPopupMenuSelectedIndexjintID, objID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintgetSliderValuejintID = curEnv->GetStaticMethodID(cls, "getSliderValue", "(I)I" ) ;
-if (jintgetSliderValuejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getSliderValue");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetSliderValuejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    void CallScilabBridge::setSliderValue(JavaVM * jvm_, int objID, int index)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setRadioButtonChecked (JavaVM * jvm_, int objID, bool status){
+        jmethodID voidsetSliderValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderValue", "(II)V");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (voidsetSliderValuejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderValue");
+        }
 
-jmethodID voidsetRadioButtonCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setRadioButtonChecked", "(IZ)V" ) ;
-if (voidsetRadioButtonCheckedjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setRadioButtonChecked");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderValuejintjintID, objID, index);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+    int CallScilabBridge::getSliderValue(JavaVM * jvm_, int objID)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetRadioButtonCheckedjintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-bool CallScilabBridge::isRadioButtonChecked (JavaVM * jvm_, int objID){
+        jmethodID jintgetSliderValuejintID = curEnv->GetStaticMethodID(cls, "getSliderValue", "(I)I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintgetSliderValuejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getSliderValue");
+        }
 
-jmethodID jbooleanisRadioButtonCheckedjintID = curEnv->GetStaticMethodID(cls, "isRadioButtonChecked", "(I)Z" ) ;
-if (jbooleanisRadioButtonCheckedjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isRadioButtonChecked");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetSliderValuejintID, objID));
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisRadioButtonCheckedjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-void CallScilabBridge::setCheckBoxChecked (JavaVM * jvm_, int objID, bool status){
+    void CallScilabBridge::setRadioButtonChecked(JavaVM * jvm_, int objID, bool status)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetCheckBoxCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setCheckBoxChecked", "(IZ)V" ) ;
-if (voidsetCheckBoxCheckedjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setCheckBoxChecked");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        jmethodID voidsetRadioButtonCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setRadioButtonChecked", "(IZ)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetCheckBoxCheckedjintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetRadioButtonCheckedjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setRadioButtonChecked");
+        }
 
-bool CallScilabBridge::isCheckBoxChecked (JavaVM * jvm_, int objID){
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanisCheckBoxCheckedjintID = curEnv->GetStaticMethodID(cls, "isCheckBoxChecked", "(I)Z" ) ;
-if (jbooleanisCheckBoxCheckedjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isCheckBoxChecked");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetRadioButtonCheckedjintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisCheckBoxCheckedjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+    bool CallScilabBridge::isRadioButtonChecked(JavaVM * jvm_, int objID)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setSliderMinValue (JavaVM * jvm_, int objID, int value){
+        jmethodID jbooleanisRadioButtonCheckedjintID = curEnv->GetStaticMethodID(cls, "isRadioButtonChecked", "(I)Z");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jbooleanisRadioButtonCheckedjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isRadioButtonChecked");
+        }
 
-jmethodID voidsetSliderMinValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderMinValue", "(II)V" ) ;
-if (voidsetSliderMinValuejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMinValue");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderMinValuejintjintID ,objID, value);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setSliderMaxValue (JavaVM * jvm_, int objID, int value){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetSliderMaxValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderMaxValue", "(II)V" ) ;
-if (voidsetSliderMaxValuejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMaxValue");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderMaxValuejintjintID ,objID, value);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setSliderVertical (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetSliderVerticaljintID = curEnv->GetStaticMethodID(cls, "setSliderVertical", "(I)V" ) ;
-if (voidsetSliderVerticaljintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderVertical");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderVerticaljintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setSliderHorizontal (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetSliderHorizontaljintID = curEnv->GetStaticMethodID(cls, "setSliderHorizontal", "(I)V" ) ;
-if (voidsetSliderHorizontaljintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderHorizontal");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetSliderHorizontaljintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setListBoxMultipleSelectionEnabled (JavaVM * jvm_, int objID, bool status){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetListBoxMultipleSelectionEnabledjintjbooleanID = curEnv->GetStaticMethodID(cls, "setListBoxMultipleSelectionEnabled", "(IZ)V" ) ;
-if (voidsetListBoxMultipleSelectionEnabledjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxMultipleSelectionEnabled");
-}
-
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetListBoxMultipleSelectionEnabledjintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char ** CallScilabBridge::getListBoxAllItemsText (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jobjectArray_getListBoxAllItemsTextjintID = curEnv->GetStaticMethodID(cls, "getListBoxAllItemsText", "(I)[Ljava/lang/String;" ) ;
-if (jobjectArray_getListBoxAllItemsTextjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxAllItemsText");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getListBoxAllItemsTextjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-int CallScilabBridge::getListBoxNumberOfItems (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetListBoxNumberOfItemsjintID = curEnv->GetStaticMethodID(cls, "getListBoxNumberOfItems", "(I)I" ) ;
-if (jintgetListBoxNumberOfItemsjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxNumberOfItems");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetListBoxNumberOfItemsjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setListBoxText (JavaVM * jvm_, int objID, char ** text, int textSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetListBoxTextjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setListBoxText", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetListBoxTextjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxText");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisRadioButtonCheckedjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    void CallScilabBridge::setCheckBoxChecked(JavaVM * jvm_, int objID, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetCheckBoxCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setCheckBoxChecked", "(IZ)V");
+
+        if (voidsetCheckBoxCheckedjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setCheckBoxChecked");
+        }
+
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetCheckBoxCheckedjintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    bool CallScilabBridge::isCheckBoxChecked(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanisCheckBoxCheckedjintID = curEnv->GetStaticMethodID(cls, "isCheckBoxChecked", "(I)Z");
+
+        if (jbooleanisCheckBoxCheckedjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isCheckBoxChecked");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisCheckBoxCheckedjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    void CallScilabBridge::setSliderMinValue(JavaVM * jvm_, int objID, int value)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderMinValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderMinValue", "(II)V");
+
+        if (voidsetSliderMinValuejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMinValue");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderMinValuejintjintID, objID, value);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderMaxValue(JavaVM * jvm_, int objID, int value)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderMaxValuejintjintID = curEnv->GetStaticMethodID(cls, "setSliderMaxValue", "(II)V");
+
+        if (voidsetSliderMaxValuejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderMaxValue");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderMaxValuejintjintID, objID, value);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderVertical(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderVerticaljintID = curEnv->GetStaticMethodID(cls, "setSliderVertical", "(I)V");
+
+        if (voidsetSliderVerticaljintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderVertical");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderVerticaljintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setSliderHorizontal(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetSliderHorizontaljintID = curEnv->GetStaticMethodID(cls, "setSliderHorizontal", "(I)V");
+
+        if (voidsetSliderHorizontaljintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setSliderHorizontal");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetSliderHorizontaljintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setListBoxMultipleSelectionEnabled(JavaVM * jvm_, int objID, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetListBoxMultipleSelectionEnabledjintjbooleanID =
+            curEnv->GetStaticMethodID(cls, "setListBoxMultipleSelectionEnabled", "(IZ)V");
+        if (voidsetListBoxMultipleSelectionEnabledjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxMultipleSelectionEnabled");
+        }
+
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetListBoxMultipleSelectionEnabledjintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    char **CallScilabBridge::getListBoxAllItemsText(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jobjectArray_getListBoxAllItemsTextjintID = curEnv->GetStaticMethodID(cls, "getListBoxAllItemsText", "(I)[Ljava/lang/String;");
+
+        if (jobjectArray_getListBoxAllItemsTextjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxAllItemsText");
+        }
+
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getListBoxAllItemsTextjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    int CallScilabBridge::getListBoxNumberOfItems(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetListBoxNumberOfItemsjintID = curEnv->GetStaticMethodID(cls, "getListBoxNumberOfItems", "(I)I");
+
+        if (jintgetListBoxNumberOfItemsjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxNumberOfItems");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetListBoxNumberOfItemsjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setListBoxText(JavaVM * jvm_, int objID, char **text, int textSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetListBoxTextjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setListBoxText", "(I[Ljava/lang/String;)V");
+
+        if (voidsetListBoxTextjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxText");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray text_ = curEnv->NewObjectArray( textSize, stringArrayClass, NULL);
-if (text_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray text_ = curEnv->NewObjectArray(textSize, stringArrayClass, NULL);
+
+        if (text_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < textSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( text[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < textSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(text[i]);
 
-curEnv->SetObjectArrayElement( text_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(text_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetListBoxTextjintjobjectArray_ID ,objID, text_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(text_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetListBoxTextjintjobjectArray_ID, objID, text_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setListBoxListBoxTop (JavaVM * jvm_, int objID, int index){
+    void CallScilabBridge::setListBoxListBoxTop(JavaVM * jvm_, int objID, int index)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetListBoxListBoxTopjintjintID = curEnv->GetStaticMethodID(cls, "setListBoxListBoxTop", "(II)V" ) ;
-if (voidsetListBoxListBoxTopjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxListBoxTop");
-}
+        jmethodID voidsetListBoxListBoxTopjintjintID = curEnv->GetStaticMethodID(cls, "setListBoxListBoxTop", "(II)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetListBoxListBoxTopjintjintID ,objID, index);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetListBoxListBoxTopjintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setListBoxListBoxTop");
+        }
 
-int CallScilabBridge::getListBoxListBoxTop (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetListBoxListBoxTopjintjintID, objID, index);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int CallScilabBridge::getListBoxListBoxTop(JavaVM * jvm_, int objID)
+    {
 
-jmethodID jintgetListBoxListBoxTopjintID = curEnv->GetStaticMethodID(cls, "getListBoxListBoxTop", "(I)I" ) ;
-if (jintgetListBoxListBoxTopjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxListBoxTop");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetListBoxListBoxTopjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintgetListBoxListBoxTopjintID = curEnv->GetStaticMethodID(cls, "getListBoxListBoxTop", "(I)I");
 
-}
+        if (jintgetListBoxListBoxTopjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getListBoxListBoxTop");
+        }
 
-char ** CallScilabBridge::getPopupMenuAllItemsText (JavaVM * jvm_, int objID){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetListBoxListBoxTopjintID, objID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jobjectArray_getPopupMenuAllItemsTextjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuAllItemsText", "(I)[Ljava/lang/String;" ) ;
-if (jobjectArray_getPopupMenuAllItemsTextjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuAllItemsText");
-}
+    }
 
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getPopupMenuAllItemsTextjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
+    char **CallScilabBridge::getPopupMenuAllItemsText(JavaVM * jvm_, int objID)
+    {
 
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
+        jmethodID jobjectArray_getPopupMenuAllItemsTextjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuAllItemsText", "(I)[Ljava/lang/String;");
 
-}
+        if (jobjectArray_getPopupMenuAllItemsTextjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuAllItemsText");
+        }
 
-int CallScilabBridge::getPopupMenuNumberOfItems (JavaVM * jvm_, int objID){
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getPopupMenuAllItemsTextjintID, objID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-jmethodID jintgetPopupMenuNumberOfItemsjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuNumberOfItems", "(I)I" ) ;
-if (jintgetPopupMenuNumberOfItemsjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuNumberOfItems");
-}
+        lenRow = curEnv->GetArrayLength(res);
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetPopupMenuNumberOfItemsjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
 
-}
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
 
-void CallScilabBridge::setPopupMenuText (JavaVM * jvm_, int objID, char ** text, int textSize){
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID voidsetPopupMenuTextjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setPopupMenuText", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetPopupMenuTextjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuText");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+    int CallScilabBridge::getPopupMenuNumberOfItems(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetPopupMenuNumberOfItemsjintID = curEnv->GetStaticMethodID(cls, "getPopupMenuNumberOfItems", "(I)I");
+
+        if (jintgetPopupMenuNumberOfItemsjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getPopupMenuNumberOfItems");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetPopupMenuNumberOfItemsjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setPopupMenuText(JavaVM * jvm_, int objID, char **text, int textSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetPopupMenuTextjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setPopupMenuText", "(I[Ljava/lang/String;)V");
+
+        if (voidsetPopupMenuTextjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setPopupMenuText");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray text_ = curEnv->NewObjectArray( textSize, stringArrayClass, NULL);
-if (text_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray text_ = curEnv->NewObjectArray(textSize, stringArrayClass, NULL);
+
+        if (text_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < textSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( text[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < textSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(text[i]);
 
-curEnv->SetObjectArrayElement( text_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(text_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuTextjintjobjectArray_ID ,objID, text_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(text_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetPopupMenuTextjintjobjectArray_ID, objID, text_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setWidgetRelief (JavaVM * jvm_, int objID, char * reliefType){
+    void CallScilabBridge::setWidgetRelief(JavaVM * jvm_, int objID, char *reliefType)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidsetWidgetReliefjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetRelief", "(ILjava/lang/String;)V");
 
-jmethodID voidsetWidgetReliefjintjstringID = curEnv->GetStaticMethodID(cls, "setWidgetRelief", "(ILjava/lang/String;)V" ) ;
-if (voidsetWidgetReliefjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetRelief");
-}
+        if (voidsetWidgetReliefjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetRelief");
+        }
 
-jstring reliefType_ = curEnv->NewStringUTF( reliefType );
+        jstring reliefType_ = curEnv->NewStringUTF(reliefType);
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetReliefjintjstringID ,objID, reliefType_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetReliefjintjstringID, objID, reliefType_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setFrameRelief (JavaVM * jvm_, int objID, char * reliefType){
+    void CallScilabBridge::setFrameRelief(JavaVM * jvm_, int objID, char *reliefType)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetFrameReliefjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameRelief", "(ILjava/lang/String;)V" ) ;
-if (voidsetFrameReliefjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameRelief");
-}
+        jmethodID voidsetFrameReliefjintjstringID = curEnv->GetStaticMethodID(cls, "setFrameRelief", "(ILjava/lang/String;)V");
 
-jstring reliefType_ = curEnv->NewStringUTF( reliefType );
+        if (voidsetFrameReliefjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameRelief");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameReliefjintjstringID ,objID, reliefType_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jstring reliefType_ = curEnv->NewStringUTF(reliefType);
 
-void CallScilabBridge::setRootMenuEnabled (JavaVM * jvm_, char * menuName, bool status){
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameReliefjintjstringID, objID, reliefType_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::setRootMenuEnabled(JavaVM * jvm_, char *menuName, bool status)
+    {
 
-jmethodID voidsetRootMenuEnabledjstringjbooleanID = curEnv->GetStaticMethodID(cls, "setRootMenuEnabled", "(Ljava/lang/String;Z)V" ) ;
-if (voidsetRootMenuEnabledjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setRootMenuEnabled");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+        jmethodID voidsetRootMenuEnabledjstringjbooleanID = curEnv->GetStaticMethodID(cls, "setRootMenuEnabled", "(Ljava/lang/String;Z)V");
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetRootMenuEnabledjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setRootMenuEnabled");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetRootMenuEnabledjstringjbooleanID ,menuName_, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-void CallScilabBridge::setRootSubMenuEnabled (JavaVM * jvm_, char * menuName, int position, bool status){
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidsetRootMenuEnabledjstringjbooleanID, menuName_, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voidsetRootSubMenuEnabledjstringjintjbooleanID = curEnv->GetStaticMethodID(cls, "setRootSubMenuEnabled", "(Ljava/lang/String;IZ)V" ) ;
-if (voidsetRootSubMenuEnabledjstringjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setRootSubMenuEnabled");
-}
+    void CallScilabBridge::setRootSubMenuEnabled(JavaVM * jvm_, char *menuName, int position, bool status)
+    {
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        jmethodID voidsetRootSubMenuEnabledjstringjintjbooleanID = curEnv->GetStaticMethodID(cls, "setRootSubMenuEnabled", "(Ljava/lang/String;IZ)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetRootSubMenuEnabledjstringjintjbooleanID ,menuName_, position, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetRootSubMenuEnabledjstringjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setRootSubMenuEnabled");
+        }
 
-void CallScilabBridge::setFigureMenuEnabled (JavaVM * jvm_, int figureID, char * menuName, bool status){
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-jmethodID voidsetFigureMenuEnabledjintjstringjbooleanID = curEnv->GetStaticMethodID(cls, "setFigureMenuEnabled", "(ILjava/lang/String;Z)V" ) ;
-if (voidsetFigureMenuEnabledjintjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureMenuEnabled");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetRootSubMenuEnabledjstringjintjbooleanID, menuName_, position, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+    void CallScilabBridge::setFigureMenuEnabled(JavaVM * jvm_, int figureID, char *menuName, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        jmethodID voidsetFigureMenuEnabledjintjstringjbooleanID = curEnv->GetStaticMethodID(cls, "setFigureMenuEnabled", "(ILjava/lang/String;Z)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFigureMenuEnabledjintjstringjbooleanID ,figureID, menuName_, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetFigureMenuEnabledjintjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureMenuEnabled");
+        }
 
-void CallScilabBridge::setFigureSubMenuEnabled (JavaVM * jvm_, int figureID, char * menuName, int position, bool status){
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-jmethodID voidsetFigureSubMenuEnabledjintjstringjintjbooleanID = curEnv->GetStaticMethodID(cls, "setFigureSubMenuEnabled", "(ILjava/lang/String;IZ)V" ) ;
-if (voidsetFigureSubMenuEnabledjintjstringjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureSubMenuEnabled");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFigureMenuEnabledjintjstringjbooleanID, figureID, menuName_, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+    void CallScilabBridge::setFigureSubMenuEnabled(JavaVM * jvm_, int figureID, char *menuName, int position, bool status)
+    {
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFigureSubMenuEnabledjintjstringjintjbooleanID ,figureID, menuName_, position, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jmethodID voidsetFigureSubMenuEnabledjintjstringjintjbooleanID =
+            curEnv->GetStaticMethodID(cls, "setFigureSubMenuEnabled", "(ILjava/lang/String;IZ)V");
+        if (voidsetFigureSubMenuEnabledjintjstringjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureSubMenuEnabled");
+        }
 
-void CallScilabBridge::setWidgetEnable (JavaVM * jvm_, int objID, bool status){
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-jmethodID voidsetWidgetEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWidgetEnable", "(IZ)V" ) ;
-if (voidsetWidgetEnablejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetEnable");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFigureSubMenuEnabledjintjstringjintjbooleanID, figureID, menuName_, position, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+    void CallScilabBridge::setWidgetEnable(JavaVM * jvm_, int objID, bool status)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetEnablejintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setFrameEnable (JavaVM * jvm_, int objID, bool status){
+        jmethodID voidsetWidgetEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWidgetEnable", "(IZ)V");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (voidsetWidgetEnablejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetEnable");
+        }
 
-jmethodID voidsetFrameEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setFrameEnable", "(IZ)V" ) ;
-if (voidsetFrameEnablejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameEnable");
-}
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetEnablejintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameEnablejintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    void CallScilabBridge::setFrameEnable(JavaVM * jvm_, int objID, bool status)
+    {
 
-bool CallScilabBridge::isWidgetEnable (JavaVM * jvm_, int objID){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidsetFrameEnablejintjbooleanID = curEnv->GetStaticMethodID(cls, "setFrameEnable", "(IZ)V");
 
-jmethodID jbooleanisWidgetEnablejintID = curEnv->GetStaticMethodID(cls, "isWidgetEnable", "(I)Z" ) ;
-if (jbooleanisWidgetEnablejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isWidgetEnable");
-}
+        if (voidsetFrameEnablejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameEnable");
+        }
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisWidgetEnablejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameEnablejintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-bool CallScilabBridge::isFrameEnable (JavaVM * jvm_, int objID){
+    bool CallScilabBridge::isWidgetEnable(JavaVM * jvm_, int objID)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jbooleanisFrameEnablejintID = curEnv->GetStaticMethodID(cls, "isFrameEnable", "(I)Z" ) ;
-if (jbooleanisFrameEnablejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isFrameEnable");
-}
+        jmethodID jbooleanisWidgetEnablejintID = curEnv->GetStaticMethodID(cls, "isWidgetEnable", "(I)Z");
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisFrameEnablejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        if (jbooleanisWidgetEnablejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isWidgetEnable");
+        }
 
-}
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisWidgetEnablejintID, objID));
 
-void CallScilabBridge::setMenuChecked (JavaVM * jvm_, int objID, bool status){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID voidsetMenuCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setMenuChecked", "(IZ)V" ) ;
-if (voidsetMenuCheckedjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMenuChecked");
-}
+    bool CallScilabBridge::isFrameEnable(JavaVM * jvm_, int objID)
+    {
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetMenuCheckedjintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jmethodID jbooleanisFrameEnablejintID = curEnv->GetStaticMethodID(cls, "isFrameEnable", "(I)Z");
 
-bool CallScilabBridge::isMenuChecked (JavaVM * jvm_, int objID){
+        if (jbooleanisFrameEnablejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isFrameEnable");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisFrameEnablejintID, objID));
 
-jmethodID jbooleanisMenuCheckedjintID = curEnv->GetStaticMethodID(cls, "isMenuChecked", "(I)Z" ) ;
-if (jbooleanisMenuCheckedjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isMenuChecked");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisMenuCheckedjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+    }
 
-}
+    void CallScilabBridge::setMenuChecked(JavaVM * jvm_, int objID, bool status)
+    {
 
-void CallScilabBridge::removeRootMenu (JavaVM * jvm_, char * menuName){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidsetMenuCheckedjintjbooleanID = curEnv->GetStaticMethodID(cls, "setMenuChecked", "(IZ)V");
 
-jmethodID voidremoveRootMenujstringID = curEnv->GetStaticMethodID(cls, "removeRootMenu", "(Ljava/lang/String;)V" ) ;
-if (voidremoveRootMenujstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeRootMenu");
-}
+        if (voidsetMenuCheckedjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMenuChecked");
+        }
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallStaticVoidMethod(cls, voidremoveRootMenujstringID ,menuName_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetMenuCheckedjintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::removeFigureMenu (JavaVM * jvm_, int figureID, char * menuName){
+    bool CallScilabBridge::isMenuChecked(JavaVM * jvm_, int objID)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidremoveFigureMenujintjstringID = curEnv->GetStaticMethodID(cls, "removeFigureMenu", "(ILjava/lang/String;)V" ) ;
-if (voidremoveFigureMenujintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "removeFigureMenu");
-}
+        jmethodID jbooleanisMenuCheckedjintID = curEnv->GetStaticMethodID(cls, "isMenuChecked", "(I)Z");
 
-jstring menuName_ = curEnv->NewStringUTF( menuName );
+        if (jbooleanisMenuCheckedjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isMenuChecked");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidremoveFigureMenujintjstringID ,figureID, menuName_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisMenuCheckedjintID, objID));
 
-char * CallScilabBridge::displayAndWaitContextMenu (JavaVM * jvm_, int ID){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jstringdisplayAndWaitContextMenujintID = curEnv->GetStaticMethodID(cls, "displayAndWaitContextMenu", "(I)Ljava/lang/String;" ) ;
-if (jstringdisplayAndWaitContextMenujintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "displayAndWaitContextMenu");
-}
+    void CallScilabBridge::removeRootMenu(JavaVM * jvm_, char *menuName)
+    {
 
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringdisplayAndWaitContextMenujintID ,ID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
+        jmethodID voidremoveRootMenujstringID = curEnv->GetStaticMethodID(cls, "removeRootMenu", "(Ljava/lang/String;)V");
 
-}
+        if (voidremoveRootMenujstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeRootMenu");
+        }
 
-int CallScilabBridge::newMessageBox (JavaVM * jvm_){
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidremoveRootMenujstringID, menuName_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID jintnewMessageBoxID = curEnv->GetStaticMethodID(cls, "newMessageBox", "()I" ) ;
-if (jintnewMessageBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newMessageBox");
-}
+    void CallScilabBridge::removeFigureMenu(JavaVM * jvm_, int figureID, char *menuName)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewMessageBoxID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID voidremoveFigureMenujintjstringID = curEnv->GetStaticMethodID(cls, "removeFigureMenu", "(ILjava/lang/String;)V");
 
-void CallScilabBridge::setMessageBoxTitle (JavaVM * jvm_, int id, char * title){
+        if (voidremoveFigureMenujintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "removeFigureMenu");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jstring menuName_ = curEnv->NewStringUTF(menuName);
 
-jmethodID voidsetMessageBoxTitlejintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxTitle", "(ILjava/lang/String;)V" ) ;
-if (voidsetMessageBoxTitlejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxTitle");
-}
+        curEnv->CallStaticVoidMethod(cls, voidremoveFigureMenujintjstringID, figureID, menuName_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jstring title_ = curEnv->NewStringUTF( title );
+    char *CallScilabBridge::displayAndWaitContextMenu(JavaVM * jvm_, int ID)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxTitlejintjstringID ,id, title_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setMessageBoxMessage (JavaVM * jvm_, int id, char * message){
+        jmethodID jstringdisplayAndWaitContextMenujintID = curEnv->GetStaticMethodID(cls, "displayAndWaitContextMenu", "(I)Ljava/lang/String;");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jstringdisplayAndWaitContextMenujintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "displayAndWaitContextMenu");
+        }
 
-jmethodID voidsetMessageBoxMessagejintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxMessage", "(ILjava/lang/String;)V" ) ;
-if (voidsetMessageBoxMessagejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxMessage");
-}
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringdisplayAndWaitContextMenujintID, ID));
 
-jstring message_ = curEnv->NewStringUTF( message );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxMessagejintjstringID ,id, message_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
 
-void CallScilabBridge::setMessageBoxMessage (JavaVM * jvm_, int id, char ** message, int messageSize){
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID voidsetMessageBoxMessagejintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxMessage", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxMessagejintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxMessage");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+    int CallScilabBridge::newMessageBox(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewMessageBoxID = curEnv->GetStaticMethodID(cls, "newMessageBox", "()I");
+
+        if (jintnewMessageBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newMessageBox");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewMessageBoxID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setMessageBoxTitle(JavaVM * jvm_, int id, char *title)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxTitlejintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxTitle", "(ILjava/lang/String;)V");
+
+        if (voidsetMessageBoxTitlejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxTitle");
+        }
+
+        jstring title_ = curEnv->NewStringUTF(title);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxTitlejintjstringID, id, title_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setMessageBoxMessage(JavaVM * jvm_, int id, char *message)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxMessagejintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxMessage", "(ILjava/lang/String;)V");
+
+        if (voidsetMessageBoxMessagejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxMessage");
+        }
+
+        jstring message_ = curEnv->NewStringUTF(message);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxMessagejintjstringID, id, message_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setMessageBoxMessage(JavaVM * jvm_, int id, char **message, int messageSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxMessagejintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxMessage", "(I[Ljava/lang/String;)V");
+
+        if (voidsetMessageBoxMessagejintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxMessage");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray message_ = curEnv->NewObjectArray( messageSize, stringArrayClass, NULL);
-if (message_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray message_ = curEnv->NewObjectArray(messageSize, stringArrayClass, NULL);
+
+        if (message_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < messageSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( message[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < messageSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(message[i]);
 
-curEnv->SetObjectArrayElement( message_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(message_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxMessagejintjobjectArray_ID ,id, message_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(message_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxMessagejintjobjectArray_ID, id, message_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(message_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::messageBoxDisplayAndWait (JavaVM * jvm_, int id){
+    void CallScilabBridge::messageBoxDisplayAndWait(JavaVM * jvm_, int id)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidmessageBoxDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "messageBoxDisplayAndWait", "(I)V" ) ;
-if (voidmessageBoxDisplayAndWaitjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "messageBoxDisplayAndWait");
-}
+        jmethodID voidmessageBoxDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "messageBoxDisplayAndWait", "(I)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidmessageBoxDisplayAndWaitjintID ,id);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidmessageBoxDisplayAndWaitjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "messageBoxDisplayAndWait");
+        }
 
-int CallScilabBridge::getMessageBoxSelectedButton (JavaVM * jvm_, int id){
+        curEnv->CallStaticVoidMethod(cls, voidmessageBoxDisplayAndWaitjintID, id);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int CallScilabBridge::getMessageBoxSelectedButton(JavaVM * jvm_, int id)
+    {
 
-jmethodID jintgetMessageBoxSelectedButtonjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxSelectedButton", "(I)I" ) ;
-if (jintgetMessageBoxSelectedButtonjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxSelectedButton");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetMessageBoxSelectedButtonjintID ,id));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintgetMessageBoxSelectedButtonjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxSelectedButton", "(I)I");
 
-}
+        if (jintgetMessageBoxSelectedButtonjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxSelectedButton");
+        }
 
-void CallScilabBridge::setMessageBoxDefaultSelectedButtons (JavaVM * jvm_, int id, int* index, int indexSize){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetMessageBoxSelectedButtonjintID, id));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxDefaultSelectedButtons", "(I[I)V" ) ;
-if (voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxDefaultSelectedButtons");
-}
+    }
 
-jintArray index_ = curEnv->NewIntArray( indexSize ) ;
+    void CallScilabBridge::setMessageBoxDefaultSelectedButtons(JavaVM * jvm_, int id, int *index, int indexSize)
+    {
 
-if (index_ == NULL)
-{
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxDefaultSelectedButtons", "(I[I)V");
+        if (voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxDefaultSelectedButtons");
+        }
+
+        jintArray index_ = curEnv->NewIntArray(indexSize);
+
+        if (index_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetIntArrayRegion( index_, 0, indexSize, (jint*)(index) ) ;
+        curEnv->SetIntArrayRegion(index_, 0, indexSize, (jint *) (index));
 
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID, id, index_);
+        curEnv->DeleteLocalRef(index_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxDefaultSelectedButtonsjintjintArray_ID ,id, index_);
-                        curEnv->DeleteLocalRef(index_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    int *CallScilabBridge::getMessageBoxUserSelectedButtons(JavaVM * jvm_, int id)
+    {
 
-int* CallScilabBridge::getMessageBoxUserSelectedButtons (JavaVM * jvm_, int id){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintArray_getMessageBoxUserSelectedButtonsjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxUserSelectedButtons", "(I)[I");
 
-jmethodID jintArray_getMessageBoxUserSelectedButtonsjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxUserSelectedButtons", "(I)[I" ) ;
-if (jintArray_getMessageBoxUserSelectedButtonsjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxUserSelectedButtons");
-}
+        if (jintArray_getMessageBoxUserSelectedButtonsjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxUserSelectedButtons");
+        }
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getMessageBoxUserSelectedButtonsjintID ,id));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getMessageBoxUserSelectedButtonsjintID, id));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setMessageBoxButtonsLabels (JavaVM * jvm_, int id, char ** labels, int labelsSize){
+    void CallScilabBridge::setMessageBoxButtonsLabels(JavaVM * jvm_, int id, char **labels, int labelsSize)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetMessageBoxButtonsLabelsjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxButtonsLabels", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxButtonsLabelsjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxButtonsLabels");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
-
-// create java array of strings.
-jobjectArray labels_ = curEnv->NewObjectArray( labelsSize, stringArrayClass, NULL);
-if (labels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
-// convert each char * to java strings and fill the java array.
-for ( int i = 0; i < labelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( labels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
-curEnv->SetObjectArrayElement( labels_, i, TempString);
-
-// avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxButtonsLabelsjintjobjectArray_ID ,id, labels_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(labels_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setMessageBoxInitialValue (JavaVM * jvm_, int id, char ** value, int valueSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetMessageBoxInitialValuejintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxInitialValue", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxInitialValuejintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxInitialValue");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID voidsetMessageBoxButtonsLabelsjintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxButtonsLabels", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxButtonsLabelsjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxButtonsLabels");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray value_ = curEnv->NewObjectArray( valueSize, stringArrayClass, NULL);
-if (value_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray labels_ = curEnv->NewObjectArray(labelsSize, stringArrayClass, NULL);
+
+        if (labels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < valueSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( value[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < labelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(labels[i]);
 
-curEnv->SetObjectArrayElement( value_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(labels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxInitialValuejintjobjectArray_ID ,id, value_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(value_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxButtonsLabelsjintjobjectArray_ID, id, labels_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(labels_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-char ** CallScilabBridge::getMessageBoxValue (JavaVM * jvm_, int id){
+    void CallScilabBridge::setMessageBoxInitialValue(JavaVM * jvm_, int id, char **value, int valueSize)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jobjectArray_getMessageBoxValuejintID = curEnv->GetStaticMethodID(cls, "getMessageBoxValue", "(I)[Ljava/lang/String;" ) ;
-if (jobjectArray_getMessageBoxValuejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxValue");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getMessageBoxValuejintID ,id));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-int CallScilabBridge::getMessageBoxValueSize (JavaVM * jvm_, int id){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetMessageBoxValueSizejintID = curEnv->GetStaticMethodID(cls, "getMessageBoxValueSize", "(I)I" ) ;
-if (jintgetMessageBoxValueSizejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxValueSize");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetMessageBoxValueSizejintID ,id));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setMessageBoxListBoxItems (JavaVM * jvm_, int id, char ** items, int itemsSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetMessageBoxListBoxItemsjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxListBoxItems", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxListBoxItemsjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxListBoxItems");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID voidsetMessageBoxInitialValuejintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxInitialValue", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxInitialValuejintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxInitialValue");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray items_ = curEnv->NewObjectArray( itemsSize, stringArrayClass, NULL);
-if (items_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray value_ = curEnv->NewObjectArray(valueSize, stringArrayClass, NULL);
+
+        if (value_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < itemsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( items[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < valueSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(value[i]);
 
-curEnv->SetObjectArrayElement( items_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(value_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxListBoxItemsjintjobjectArray_ID ,id, items_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(items_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxInitialValuejintjobjectArray_ID, id, value_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(value_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int CallScilabBridge::getMessageBoxSelectedItem (JavaVM * jvm_, int id){
+    char **CallScilabBridge::getMessageBoxValue(JavaVM * jvm_, int id)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintgetMessageBoxSelectedItemjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxSelectedItem", "(I)I" ) ;
-if (jintgetMessageBoxSelectedItemjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxSelectedItem");
-}
+        jmethodID jobjectArray_getMessageBoxValuejintID = curEnv->GetStaticMethodID(cls, "getMessageBoxValue", "(I)[Ljava/lang/String;");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetMessageBoxSelectedItemjintID ,id));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jobjectArray_getMessageBoxValuejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxValue");
+        }
 
-}
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getMessageBoxValuejintID, id));
 
-void CallScilabBridge::setMessageBoxLineLabels (JavaVM * jvm_, int id, char ** labels, int labelsSize){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        lenRow = curEnv->GetArrayLength(res);
 
-jmethodID voidsetMessageBoxLineLabelsjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxLineLabels", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxLineLabelsjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxLineLabels");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    int CallScilabBridge::getMessageBoxValueSize(JavaVM * jvm_, int id)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetMessageBoxValueSizejintID = curEnv->GetStaticMethodID(cls, "getMessageBoxValueSize", "(I)I");
+
+        if (jintgetMessageBoxValueSizejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxValueSize");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetMessageBoxValueSizejintID, id));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setMessageBoxListBoxItems(JavaVM * jvm_, int id, char **items, int itemsSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxListBoxItemsjintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxListBoxItems", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxListBoxItemsjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxListBoxItems");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray labels_ = curEnv->NewObjectArray( labelsSize, stringArrayClass, NULL);
-if (labels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray items_ = curEnv->NewObjectArray(itemsSize, stringArrayClass, NULL);
+
+        if (items_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < labelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( labels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < itemsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(items[i]);
 
-curEnv->SetObjectArrayElement( labels_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(items_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxLineLabelsjintjobjectArray_ID ,id, labels_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(labels_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxListBoxItemsjintjobjectArray_ID, id, items_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(items_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setMessageBoxColumnLabels (JavaVM * jvm_, int id, char ** labels, int labelsSize){
+    int CallScilabBridge::getMessageBoxSelectedItem(JavaVM * jvm_, int id)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetMessageBoxColumnLabelsjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxColumnLabels", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxColumnLabelsjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxColumnLabels");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID jintgetMessageBoxSelectedItemjintID = curEnv->GetStaticMethodID(cls, "getMessageBoxSelectedItem", "(I)I");
+
+        if (jintgetMessageBoxSelectedItemjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMessageBoxSelectedItem");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetMessageBoxSelectedItemjintID, id));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setMessageBoxLineLabels(JavaVM * jvm_, int id, char **labels, int labelsSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetMessageBoxLineLabelsjintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxLineLabels", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxLineLabelsjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxLineLabels");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray labels_ = curEnv->NewObjectArray( labelsSize, stringArrayClass, NULL);
-if (labels_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray labels_ = curEnv->NewObjectArray(labelsSize, stringArrayClass, NULL);
+
+        if (labels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < labelsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( labels[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < labelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(labels[i]);
 
-curEnv->SetObjectArrayElement( labels_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(labels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxColumnLabelsjintjobjectArray_ID ,id, labels_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(labels_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxLineLabelsjintjobjectArray_ID, id, labels_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(labels_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setMessageBoxDefaultInput (JavaVM * jvm_, int id, char ** values, int valuesSize){
+    void CallScilabBridge::setMessageBoxColumnLabels(JavaVM * jvm_, int id, char **labels, int labelsSize)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetMessageBoxDefaultInputjintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setMessageBoxDefaultInput", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetMessageBoxDefaultInputjintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxDefaultInput");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID voidsetMessageBoxColumnLabelsjintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxColumnLabels", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxColumnLabelsjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxColumnLabels");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray values_ = curEnv->NewObjectArray( valuesSize, stringArrayClass, NULL);
-if (values_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray labels_ = curEnv->NewObjectArray(labelsSize, stringArrayClass, NULL);
+
+        if (labels_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < valuesSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( values[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < labelsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(labels[i]);
 
-curEnv->SetObjectArrayElement( values_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(labels_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxDefaultInputjintjobjectArray_ID ,id, values_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(values_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxColumnLabelsjintjobjectArray_ID, id, labels_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(labels_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setMessageBoxModal (JavaVM * jvm_, int id, bool status){
+    void CallScilabBridge::setMessageBoxDefaultInput(JavaVM * jvm_, int id, char **values, int valuesSize)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetMessageBoxModaljintjbooleanID = curEnv->GetStaticMethodID(cls, "setMessageBoxModal", "(IZ)V" ) ;
-if (voidsetMessageBoxModaljintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxModal");
-}
-
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxModaljintjbooleanID ,id, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setMessageBoxIcon (JavaVM * jvm_, int id, char * name){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetMessageBoxIconjintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxIcon", "(ILjava/lang/String;)V" ) ;
-if (voidsetMessageBoxIconjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxIcon");
-}
-
-jstring name_ = curEnv->NewStringUTF( name );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxIconjintjstringID ,id, name_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-bool CallScilabBridge::isToolbarVisible (JavaVM * jvm_, int figNum){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanisToolbarVisiblejintID = curEnv->GetStaticMethodID(cls, "isToolbarVisible", "(I)Z" ) ;
-if (jbooleanisToolbarVisiblejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isToolbarVisible");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisToolbarVisiblejintID ,figNum));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-void CallScilabBridge::setToolbarVisible (JavaVM * jvm_, int figNum, bool status){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetToolbarVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setToolbarVisible", "(IZ)V" ) ;
-if (voidsetToolbarVisiblejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setToolbarVisible");
-}
-
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetToolbarVisiblejintjbooleanID ,figNum, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setEventHandler (JavaVM * jvm_, int figNum, char * command){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetEventHandlerjintjstringID = curEnv->GetStaticMethodID(cls, "setEventHandler", "(ILjava/lang/String;)V" ) ;
-if (voidsetEventHandlerjintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setEventHandler");
-}
-
-jstring command_ = curEnv->NewStringUTF( command );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetEventHandlerjintjstringID ,figNum, command_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setEventHandlerEnabled (JavaVM * jvm_, int figNum, bool status){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetEventHandlerEnabledjintjbooleanID = curEnv->GetStaticMethodID(cls, "setEventHandlerEnabled", "(IZ)V" ) ;
-if (voidsetEventHandlerEnabledjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setEventHandlerEnabled");
-}
-
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetEventHandlerEnabledjintjbooleanID ,figNum, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int CallScilabBridge::newWaitBar (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintnewWaitBarID = curEnv->GetStaticMethodID(cls, "newWaitBar", "()I" ) ;
-if (jintnewWaitBarID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newWaitBar");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewWaitBarID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-void CallScilabBridge::setWaitBarMessage (JavaVM * jvm_, int id, char ** message, int messageSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetWaitBarMessagejintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setWaitBarMessage", "(I[Ljava/lang/String;)V" ) ;
-if (voidsetWaitBarMessagejintjobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarMessage");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID voidsetMessageBoxDefaultInputjintjobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "setMessageBoxDefaultInput", "(I[Ljava/lang/String;)V");
+        if (voidsetMessageBoxDefaultInputjintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxDefaultInput");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray message_ = curEnv->NewObjectArray( messageSize, stringArrayClass, NULL);
-if (message_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray values_ = curEnv->NewObjectArray(valuesSize, stringArrayClass, NULL);
+
+        if (values_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < messageSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( message[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < valuesSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(values[i]);
 
-curEnv->SetObjectArrayElement( message_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(values_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetWaitBarMessagejintjobjectArray_ID ,id, message_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(message_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxDefaultInputjintjobjectArray_ID, id, values_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(values_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void CallScilabBridge::setWaitBarValue (JavaVM * jvm_, int id, int value){
+    void CallScilabBridge::setMessageBoxModal(JavaVM * jvm_, int id, bool status)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetWaitBarValuejintjintID = curEnv->GetStaticMethodID(cls, "setWaitBarValue", "(II)V" ) ;
-if (voidsetWaitBarValuejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarValue");
-}
+        jmethodID voidsetMessageBoxModaljintjbooleanID = curEnv->GetStaticMethodID(cls, "setMessageBoxModal", "(IZ)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWaitBarValuejintjintID ,id, value);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetMessageBoxModaljintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxModal");
+        }
 
-void CallScilabBridge::destroyWaitBar (JavaVM * jvm_, int objID){
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxModaljintjbooleanID, id, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voiddestroyWaitBarjintID = curEnv->GetStaticMethodID(cls, "destroyWaitBar", "(I)V" ) ;
-if (voiddestroyWaitBarjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroyWaitBar");
-}
+    void CallScilabBridge::setMessageBoxIcon(JavaVM * jvm_, int id, char *name)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voiddestroyWaitBarjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::setWaitBarIndeterminateMode (JavaVM * jvm_, int objID, bool status){
+        jmethodID voidsetMessageBoxIconjintjstringID = curEnv->GetStaticMethodID(cls, "setMessageBoxIcon", "(ILjava/lang/String;)V");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (voidsetMessageBoxIconjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setMessageBoxIcon");
+        }
 
-jmethodID voidsetWaitBarIndeterminateModejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWaitBarIndeterminateMode", "(IZ)V" ) ;
-if (voidsetWaitBarIndeterminateModejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarIndeterminateMode");
-}
+        jstring name_ = curEnv->NewStringUTF(name);
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+        curEnv->CallStaticVoidMethod(cls, voidsetMessageBoxIconjintjstringID, id, name_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWaitBarIndeterminateModejintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    bool CallScilabBridge::isToolbarVisible(JavaVM * jvm_, int figNum)
+    {
 
-void CallScilabBridge::launchHelpBrowser (JavaVM * jvm_, char ** helps, int helpsSize, char * language){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jbooleanisToolbarVisiblejintID = curEnv->GetStaticMethodID(cls, "isToolbarVisible", "(I)Z");
 
-jmethodID voidlaunchHelpBrowserjobjectArray_jstringID = curEnv->GetStaticMethodID(cls, "launchHelpBrowser", "([Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voidlaunchHelpBrowserjobjectArray_jstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "launchHelpBrowser");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        if (jbooleanisToolbarVisiblejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isToolbarVisible");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisToolbarVisiblejintID, figNum));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    void CallScilabBridge::setToolbarVisible(JavaVM * jvm_, int figNum, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetToolbarVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setToolbarVisible", "(IZ)V");
+
+        if (voidsetToolbarVisiblejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setToolbarVisible");
+        }
+
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetToolbarVisiblejintjbooleanID, figNum, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setEventHandler(JavaVM * jvm_, int figNum, char *command)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetEventHandlerjintjstringID = curEnv->GetStaticMethodID(cls, "setEventHandler", "(ILjava/lang/String;)V");
+
+        if (voidsetEventHandlerjintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setEventHandler");
+        }
+
+        jstring command_ = curEnv->NewStringUTF(command);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetEventHandlerjintjstringID, figNum, command_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setEventHandlerEnabled(JavaVM * jvm_, int figNum, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetEventHandlerEnabledjintjbooleanID = curEnv->GetStaticMethodID(cls, "setEventHandlerEnabled", "(IZ)V");
+
+        if (voidsetEventHandlerEnabledjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setEventHandlerEnabled");
+        }
+
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetEventHandlerEnabledjintjbooleanID, figNum, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    int CallScilabBridge::newWaitBar(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewWaitBarID = curEnv->GetStaticMethodID(cls, "newWaitBar", "()I");
+
+        if (jintnewWaitBarID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newWaitBar");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewWaitBarID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::setWaitBarMessage(JavaVM * jvm_, int id, char **message, int messageSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWaitBarMessagejintjobjectArray_ID = curEnv->GetStaticMethodID(cls, "setWaitBarMessage", "(I[Ljava/lang/String;)V");
+
+        if (voidsetWaitBarMessagejintjobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarMessage");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray helps_ = curEnv->NewObjectArray( helpsSize, stringArrayClass, NULL);
-if (helps_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray message_ = curEnv->NewObjectArray(messageSize, stringArrayClass, NULL);
+
+        if (message_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < helpsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( helps[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < messageSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(message[i]);
 
-curEnv->SetObjectArrayElement( helps_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(message_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring language_ = curEnv->NewStringUTF( language );
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetWaitBarMessagejintjobjectArray_ID, id, message_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(message_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidlaunchHelpBrowserjobjectArray_jstringID ,helps_, language_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(helps_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    void CallScilabBridge::setWaitBarValue(JavaVM * jvm_, int id, int value)
+    {
 
-void CallScilabBridge::searchKeyword (JavaVM * jvm_, char ** helps, int helpsSize, char * keyword, char * language, bool fullText){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidsetWaitBarValuejintjintID = curEnv->GetStaticMethodID(cls, "setWaitBarValue", "(II)V");
 
-jmethodID voidsearchKeywordjobjectArray_jstringjstringjbooleanID = curEnv->GetStaticMethodID(cls, "searchKeyword", "([Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V" ) ;
-if (voidsearchKeywordjobjectArray_jstringjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "searchKeyword");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        if (voidsetWaitBarValuejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarValue");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWaitBarValuejintjintID, id, value);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::destroyWaitBar(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiddestroyWaitBarjintID = curEnv->GetStaticMethodID(cls, "destroyWaitBar", "(I)V");
+
+        if (voiddestroyWaitBarjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "destroyWaitBar");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voiddestroyWaitBarjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setWaitBarIndeterminateMode(JavaVM * jvm_, int objID, bool status)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetWaitBarIndeterminateModejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWaitBarIndeterminateMode", "(IZ)V");
+
+        if (voidsetWaitBarIndeterminateModejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWaitBarIndeterminateMode");
+        }
+
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsetWaitBarIndeterminateModejintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::launchHelpBrowser(JavaVM * jvm_, char **helps, int helpsSize, char *language)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidlaunchHelpBrowserjobjectArray_jstringID =
+            curEnv->GetStaticMethodID(cls, "launchHelpBrowser", "([Ljava/lang/String;Ljava/lang/String;)V");
+        if (voidlaunchHelpBrowserjobjectArray_jstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "launchHelpBrowser");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray helps_ = curEnv->NewObjectArray( helpsSize, stringArrayClass, NULL);
-if (helps_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray helps_ = curEnv->NewObjectArray(helpsSize, stringArrayClass, NULL);
+
+        if (helps_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < helpsSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( helps[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < helpsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(helps[i]);
 
-curEnv->SetObjectArrayElement( helps_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(helps_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring keyword_ = curEnv->NewStringUTF( keyword );
-
-jstring language_ = curEnv->NewStringUTF( language );
-
-jboolean fullText_ = (static_cast<bool>(fullText) ? JNI_TRUE : JNI_FALSE);
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring language_ = curEnv->NewStringUTF(language);
+
+        curEnv->CallStaticVoidMethod(cls, voidlaunchHelpBrowserjobjectArray_jstringID, helps_, language_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(helps_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::searchKeyword(JavaVM * jvm_, char **helps, int helpsSize, char *keyword, char *language, bool fullText)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsearchKeywordjobjectArray_jstringjstringjbooleanID =
+            curEnv->GetStaticMethodID(cls, "searchKeyword", "([Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
+        if (voidsearchKeywordjobjectArray_jstringjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "searchKeyword");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+
+// create java array of strings.
+        jobjectArray helps_ = curEnv->NewObjectArray(helpsSize, stringArrayClass, NULL);
+
+        if (helps_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
+
+// convert each char * to java strings and fill the java array.
+        for (int i = 0; i < helpsSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(helps[i]);
+
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(helps_, i, TempString);
+
+// avoid keeping reference on to many strings
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring keyword_ = curEnv->NewStringUTF(keyword);
+
+        jstring language_ = curEnv->NewStringUTF(language);
+
+        jboolean fullText_ = (static_cast < bool > (fullText) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voidsearchKeywordjobjectArray_jstringjstringjbooleanID, helps_, keyword_, language_, fullText_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(helps_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::saveMainWindowSettings(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsaveMainWindowSettingsID = curEnv->GetStaticMethodID(cls, "saveMainWindowSettings", "()V");
+
+        if (voidsaveMainWindowSettingsID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "saveMainWindowSettings");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsaveMainWindowSettingsID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::saveHelpWindowSettings(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsaveHelpWindowSettingsID = curEnv->GetStaticMethodID(cls, "saveHelpWindowSettings", "()V");
+
+        if (voidsaveHelpWindowSettingsID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "saveHelpWindowSettings");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidsaveHelpWindowSettingsID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsearchKeywordjobjectArray_jstringjstringjbooleanID ,helps_, keyword_, language_, fullText_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(helps_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::saveMainWindowSettings (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsaveMainWindowSettingsID = curEnv->GetStaticMethodID(cls, "saveMainWindowSettings", "()V" ) ;
-if (voidsaveMainWindowSettingsID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "saveMainWindowSettings");
-}
+    int CallScilabBridge::newExportFileChooser(JavaVM * jvm_, int figureId)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsaveMainWindowSettingsID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::saveHelpWindowSettings (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsaveHelpWindowSettingsID = curEnv->GetStaticMethodID(cls, "saveHelpWindowSettings", "()V" ) ;
-if (voidsaveHelpWindowSettingsID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "saveHelpWindowSettings");
-}
+        jmethodID jintnewExportFileChooserjintID = curEnv->GetStaticMethodID(cls, "newExportFileChooser", "(I)I");
 
-                         curEnv->CallStaticVoidMethod(cls, voidsaveHelpWindowSettingsID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-int CallScilabBridge::newExportFileChooser (JavaVM * jvm_, int figureId){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintnewExportFileChooserjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newExportFileChooser");
+        }
 
-jmethodID jintnewExportFileChooserjintID = curEnv->GetStaticMethodID(cls, "newExportFileChooser", "(I)I" ) ;
-if (jintnewExportFileChooserjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newExportFileChooser");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewExportFileChooserjintID, figureId));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewExportFileChooserjintID ,figureId));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int CallScilabBridge::newFontChooser (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int CallScilabBridge::newFontChooser(JavaVM * jvm_)
+    {
 
-jmethodID jintnewFontChooserID = curEnv->GetStaticMethodID(cls, "newFontChooser", "()I" ) ;
-if (jintnewFontChooserID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newFontChooser");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewFontChooserID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintnewFontChooserID = curEnv->GetStaticMethodID(cls, "newFontChooser", "()I");
 
-}
+        if (jintnewFontChooserID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newFontChooser");
+        }
 
-void CallScilabBridge::fontChooserDisplayAndWait (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidfontChooserDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "fontChooserDisplayAndWait", "(I)V" ) ;
-if (voidfontChooserDisplayAndWaitjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "fontChooserDisplayAndWait");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidfontChooserDisplayAndWaitjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFontChooserFontName (JavaVM * jvm_, int objID, char * fontName){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFontChooserFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setFontChooserFontName", "(ILjava/lang/String;)V" ) ;
-if (voidsetFontChooserFontNamejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserFontName");
-}
-
-jstring fontName_ = curEnv->NewStringUTF( fontName );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFontChooserFontNamejintjstringID ,objID, fontName_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFontChooserFontSize (JavaVM * jvm_, int objID, int fontSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFontChooserFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setFontChooserFontSize", "(II)V" ) ;
-if (voidsetFontChooserFontSizejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserFontSize");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFontChooserFontSizejintjintID ,objID, fontSize);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFontChooserBold (JavaVM * jvm_, int objID, bool bold){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFontChooserBoldjintjbooleanID = curEnv->GetStaticMethodID(cls, "setFontChooserBold", "(IZ)V" ) ;
-if (voidsetFontChooserBoldjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserBold");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewFontChooserID));
 
-jboolean bold_ = (static_cast<bool>(bold) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFontChooserBoldjintjbooleanID ,objID, bold_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFontChooserItalic (JavaVM * jvm_, int objID, bool italic){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetFontChooserItalicjintjbooleanID = curEnv->GetStaticMethodID(cls, "setFontChooserItalic", "(IZ)V" ) ;
-if (voidsetFontChooserItalicjintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserItalic");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jboolean italic_ = (static_cast<bool>(italic) ? JNI_TRUE : JNI_FALSE);
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetFontChooserItalicjintjbooleanID ,objID, italic_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * CallScilabBridge::getFontChooserFontName (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::fontChooserDisplayAndWait(JavaVM * jvm_, int objID)
+    {
 
-jmethodID jstringgetFontChooserFontNamejintID = curEnv->GetStaticMethodID(cls, "getFontChooserFontName", "(I)Ljava/lang/String;" ) ;
-if (jstringgetFontChooserFontNamejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserFontName");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetFontChooserFontNamejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
+        jmethodID voidfontChooserDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "fontChooserDisplayAndWait", "(I)V");
 
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
+        if (voidfontChooserDisplayAndWaitjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "fontChooserDisplayAndWait");
+        }
 
-}
+        curEnv->CallStaticVoidMethod(cls, voidfontChooserDisplayAndWaitjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int CallScilabBridge::getFontChooserFontSize (JavaVM * jvm_, int objID){
+    void CallScilabBridge::setFontChooserFontName(JavaVM * jvm_, int objID, char *fontName)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintgetFontChooserFontSizejintID = curEnv->GetStaticMethodID(cls, "getFontChooserFontSize", "(I)I" ) ;
-if (jintgetFontChooserFontSizejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserFontSize");
-}
+        jmethodID voidsetFontChooserFontNamejintjstringID = curEnv->GetStaticMethodID(cls, "setFontChooserFontName", "(ILjava/lang/String;)V");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetFontChooserFontSizejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (voidsetFontChooserFontNamejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserFontName");
+        }
 
-}
+        jstring fontName_ = curEnv->NewStringUTF(fontName);
 
-bool CallScilabBridge::getFontChooserBold (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetFontChooserFontNamejintjstringID, objID, fontName_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::setFontChooserFontSize(JavaVM * jvm_, int objID, int fontSize)
+    {
 
-jmethodID jbooleangetFontChooserBoldjintID = curEnv->GetStaticMethodID(cls, "getFontChooserBold", "(I)Z" ) ;
-if (jbooleangetFontChooserBoldjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserBold");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleangetFontChooserBoldjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        jmethodID voidsetFontChooserFontSizejintjintID = curEnv->GetStaticMethodID(cls, "setFontChooserFontSize", "(II)V");
 
-}
+        if (voidsetFontChooserFontSizejintjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserFontSize");
+        }
 
-bool CallScilabBridge::getFontChooserItalic (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetFontChooserFontSizejintjintID, objID, fontSize);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::setFontChooserBold(JavaVM * jvm_, int objID, bool bold)
+    {
 
-jmethodID jbooleangetFontChooserItalicjintID = curEnv->GetStaticMethodID(cls, "getFontChooserItalic", "(I)Z" ) ;
-if (jbooleangetFontChooserItalicjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserItalic");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleangetFontChooserItalicjintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        jmethodID voidsetFontChooserBoldjintjbooleanID = curEnv->GetStaticMethodID(cls, "setFontChooserBold", "(IZ)V");
 
-}
+        if (voidsetFontChooserBoldjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserBold");
+        }
 
-int CallScilabBridge::newColorChooser (JavaVM * jvm_){
+        jboolean bold_ = (static_cast < bool > (bold) ? JNI_TRUE : JNI_FALSE);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidsetFontChooserBoldjintjbooleanID, objID, bold_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID jintnewColorChooserID = curEnv->GetStaticMethodID(cls, "newColorChooser", "()I" ) ;
-if (jintnewColorChooserID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "newColorChooser");
-}
+    void CallScilabBridge::setFontChooserItalic(JavaVM * jvm_, int objID, bool italic)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintnewColorChooserID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID voidsetFontChooserItalicjintjbooleanID = curEnv->GetStaticMethodID(cls, "setFontChooserItalic", "(IZ)V");
 
-void CallScilabBridge::colorChooserDisplayAndWait (JavaVM * jvm_, int objID){
+        if (voidsetFontChooserItalicjintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFontChooserItalic");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean italic_ = (static_cast < bool > (italic) ? JNI_TRUE : JNI_FALSE);
 
-jmethodID voidcolorChooserDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "colorChooserDisplayAndWait", "(I)V" ) ;
-if (voidcolorChooserDisplayAndWaitjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "colorChooserDisplayAndWait");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetFontChooserItalicjintjbooleanID, objID, italic_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidcolorChooserDisplayAndWaitjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    char *CallScilabBridge::getFontChooserFontName(JavaVM * jvm_, int objID)
+    {
 
-void CallScilabBridge::setColorChooserDefaultColor (JavaVM * jvm_, int objID, int* rgb, int rgbSize){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jstringgetFontChooserFontNamejintID = curEnv->GetStaticMethodID(cls, "getFontChooserFontName", "(I)Ljava/lang/String;");
 
-jmethodID voidsetColorChooserDefaultColorjintjintArray_ID = curEnv->GetStaticMethodID(cls, "setColorChooserDefaultColor", "(I[I)V" ) ;
-if (voidsetColorChooserDefaultColorjintjintArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setColorChooserDefaultColor");
-}
+        if (jstringgetFontChooserFontNamejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserFontName");
+        }
 
-jintArray rgb_ = curEnv->NewIntArray( rgbSize ) ;
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetFontChooserFontNamejintID, objID));
 
-if (rgb_ == NULL)
-{
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    int CallScilabBridge::getFontChooserFontSize(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetFontChooserFontSizejintID = curEnv->GetStaticMethodID(cls, "getFontChooserFontSize", "(I)I");
+
+        if (jintgetFontChooserFontSizejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserFontSize");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetFontChooserFontSizejintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    bool CallScilabBridge::getFontChooserBold(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleangetFontChooserBoldjintID = curEnv->GetStaticMethodID(cls, "getFontChooserBold", "(I)Z");
+
+        if (jbooleangetFontChooserBoldjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserBold");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleangetFontChooserBoldjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    bool CallScilabBridge::getFontChooserItalic(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleangetFontChooserItalicjintID = curEnv->GetStaticMethodID(cls, "getFontChooserItalic", "(I)Z");
+
+        if (jbooleangetFontChooserItalicjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFontChooserItalic");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleangetFontChooserItalicjintID, objID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    int CallScilabBridge::newColorChooser(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintnewColorChooserID = curEnv->GetStaticMethodID(cls, "newColorChooser", "()I");
+
+        if (jintnewColorChooserID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "newColorChooser");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintnewColorChooserID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    void CallScilabBridge::colorChooserDisplayAndWait(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidcolorChooserDisplayAndWaitjintID = curEnv->GetStaticMethodID(cls, "colorChooserDisplayAndWait", "(I)V");
+
+        if (voidcolorChooserDisplayAndWaitjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "colorChooserDisplayAndWait");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidcolorChooserDisplayAndWaitjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::setColorChooserDefaultColor(JavaVM * jvm_, int objID, int *rgb, int rgbSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidsetColorChooserDefaultColorjintjintArray_ID = curEnv->GetStaticMethodID(cls, "setColorChooserDefaultColor", "(I[I)V");
+
+        if (voidsetColorChooserDefaultColorjintjintArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setColorChooserDefaultColor");
+        }
+
+        jintArray rgb_ = curEnv->NewIntArray(rgbSize);
+
+        if (rgb_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetIntArrayRegion( rgb_, 0, rgbSize, (jint*)(rgb) ) ;
+        curEnv->SetIntArrayRegion(rgb_, 0, rgbSize, (jint *) (rgb));
 
+        curEnv->CallStaticVoidMethod(cls, voidsetColorChooserDefaultColorjintjintArray_ID, objID, rgb_);
+        curEnv->DeleteLocalRef(rgb_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetColorChooserDefaultColorjintjintArray_ID ,objID, rgb_);
-                        curEnv->DeleteLocalRef(rgb_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    int *CallScilabBridge::getColorChooserSelectedColor(JavaVM * jvm_, int objID)
+    {
 
-int* CallScilabBridge::getColorChooserSelectedColor (JavaVM * jvm_, int objID){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintArray_getColorChooserSelectedColorjintID = curEnv->GetStaticMethodID(cls, "getColorChooserSelectedColor", "(I)[I");
 
-jmethodID jintArray_getColorChooserSelectedColorjintID = curEnv->GetStaticMethodID(cls, "getColorChooserSelectedColor", "(I)[I" ) ;
-if (jintArray_getColorChooserSelectedColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getColorChooserSelectedColor");
-}
+        if (jintArray_getColorChooserSelectedColorjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getColorChooserSelectedColor");
+        }
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallStaticObjectMethod(cls, jintArray_getColorChooserSelectedColorjintID ,objID));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        jintArray res = static_cast < jintArray > (curEnv->CallStaticObjectMethod(cls, jintArray_getColorChooserSelectedColorjintID, objID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void CallScilabBridge::setColorChooserTitle (JavaVM * jvm_, int objID, char * title){
+    void CallScilabBridge::setColorChooserTitle(JavaVM * jvm_, int objID, char *title)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetColorChooserTitlejintjstringID = curEnv->GetStaticMethodID(cls, "setColorChooserTitle", "(ILjava/lang/String;)V" ) ;
-if (voidsetColorChooserTitlejintjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setColorChooserTitle");
-}
+        jmethodID voidsetColorChooserTitlejintjstringID = curEnv->GetStaticMethodID(cls, "setColorChooserTitle", "(ILjava/lang/String;)V");
 
-jstring title_ = curEnv->NewStringUTF( title );
+        if (voidsetColorChooserTitlejintjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setColorChooserTitle");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetColorChooserTitlejintjstringID ,objID, title_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setWidgetVisible (JavaVM * jvm_, int objID, bool status){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jstring title_ = curEnv->NewStringUTF(title);
 
-jmethodID voidsetWidgetVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWidgetVisible", "(IZ)V" ) ;
-if (voidsetWidgetVisiblejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetVisible");
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetColorChooserTitlejintjstringID, objID, title_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
+    void CallScilabBridge::setWidgetVisible(JavaVM * jvm_, int objID, bool status)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidsetWidgetVisiblejintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setFrameVisible (JavaVM * jvm_, int objID, bool status){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetFrameVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setFrameVisible", "(IZ)V" ) ;
-if (voidsetFrameVisiblejintjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameVisible");
-}
+        jmethodID voidsetWidgetVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setWidgetVisible", "(IZ)V");
 
-jboolean status_ = (static_cast<bool>(status) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetFrameVisiblejintjbooleanID ,objID, status_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-bool CallScilabBridge::isWidgetVisible (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanisWidgetVisiblejintID = curEnv->GetStaticMethodID(cls, "isWidgetVisible", "(I)Z" ) ;
-if (jbooleanisWidgetVisiblejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isWidgetVisible");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisWidgetVisiblejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-bool CallScilabBridge::isFrameVisible (JavaVM * jvm_, int objID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanisFrameVisiblejintID = curEnv->GetStaticMethodID(cls, "isFrameVisible", "(I)Z" ) ;
-if (jbooleanisFrameVisiblejintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isFrameVisible");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisFrameVisiblejintID ,objID));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-char * CallScilabBridge::getClipboardContents (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetClipboardContentsID = curEnv->GetStaticMethodID(cls, "getClipboardContents", "()Ljava/lang/String;" ) ;
-if (jstringgetClipboardContentsID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getClipboardContents");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetClipboardContentsID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void CallScilabBridge::pasteClipboardIntoConsole (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidpasteClipboardIntoConsoleID = curEnv->GetStaticMethodID(cls, "pasteClipboardIntoConsole", "()V" ) ;
-if (voidpasteClipboardIntoConsoleID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "pasteClipboardIntoConsole");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidpasteClipboardIntoConsoleID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::copyConsoleSelection (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidcopyConsoleSelectionID = curEnv->GetStaticMethodID(cls, "copyConsoleSelection", "()V" ) ;
-if (voidcopyConsoleSelectionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "copyConsoleSelection");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidcopyConsoleSelectionID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::emptyClipboard (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidemptyClipboardID = curEnv->GetStaticMethodID(cls, "emptyClipboard", "()V" ) ;
-if (voidemptyClipboardID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "emptyClipboard");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voidemptyClipboardID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void CallScilabBridge::setClipboardContents (JavaVM * jvm_, char * text){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidsetClipboardContentsjstringID = curEnv->GetStaticMethodID(cls, "setClipboardContents", "(Ljava/lang/String;)V" ) ;
-if (voidsetClipboardContentsjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setClipboardContents");
-}
-
-jstring text_ = curEnv->NewStringUTF( text );
-
-                         curEnv->CallStaticVoidMethod(cls, voidsetClipboardContentsjstringID ,text_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetWidgetVisiblejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setWidgetVisible");
+        }
 
-void CallScilabBridge::copyFigureToClipBoard (JavaVM * jvm_, int figID){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voidcopyFigureToClipBoardjintID = curEnv->GetStaticMethodID(cls, "copyFigureToClipBoard", "(I)V" ) ;
-if (voidcopyFigureToClipBoardjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "copyFigureToClipBoard");
-}
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallStaticVoidMethod(cls, voidcopyFigureToClipBoardjintID ,figID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidsetWidgetVisiblejintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int CallScilabBridge::getScreenResolution (JavaVM * jvm_){
+    void CallScilabBridge::setFrameVisible(JavaVM * jvm_, int objID, bool status)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintgetScreenResolutionID = curEnv->GetStaticMethodID(cls, "getScreenResolution", "()I" ) ;
-if (jintgetScreenResolutionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenResolution");
-}
+        jmethodID voidsetFrameVisiblejintjbooleanID = curEnv->GetStaticMethodID(cls, "setFrameVisible", "(IZ)V");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetScreenResolutionID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (voidsetFrameVisiblejintjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setFrameVisible");
+        }
 
-}
+        jboolean status_ = (static_cast < bool > (status) ? JNI_TRUE : JNI_FALSE);
 
-double CallScilabBridge::getScreenWidth (JavaVM * jvm_){
+        curEnv->CallStaticVoidMethod(cls, voidsetFrameVisiblejintjbooleanID, objID, status_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    bool CallScilabBridge::isWidgetVisible(JavaVM * jvm_, int objID)
+    {
 
-jmethodID jdoublegetScreenWidthID = curEnv->GetStaticMethodID(cls, "getScreenWidth", "()D" ) ;
-if (jdoublegetScreenWidthID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenWidth");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jdouble res =  static_cast<jdouble>( curEnv->CallStaticDoubleMethod(cls, jdoublegetScreenWidthID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jbooleanisWidgetVisiblejintID = curEnv->GetStaticMethodID(cls, "isWidgetVisible", "(I)Z");
 
-}
+        if (jbooleanisWidgetVisiblejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isWidgetVisible");
+        }
 
-double CallScilabBridge::getScreenHeight (JavaVM * jvm_){
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisWidgetVisiblejintID, objID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-jmethodID jdoublegetScreenHeightID = curEnv->GetStaticMethodID(cls, "getScreenHeight", "()D" ) ;
-if (jdoublegetScreenHeightID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenHeight");
-}
+    }
 
-                        jdouble res =  static_cast<jdouble>( curEnv->CallStaticDoubleMethod(cls, jdoublegetScreenHeightID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    bool CallScilabBridge::isFrameVisible(JavaVM * jvm_, int objID)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int CallScilabBridge::getScreenDepth (JavaVM * jvm_){
+        jmethodID jbooleanisFrameVisiblejintID = curEnv->GetStaticMethodID(cls, "isFrameVisible", "(I)Z");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jbooleanisFrameVisiblejintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isFrameVisible");
+        }
 
-jmethodID jintgetScreenDepthID = curEnv->GetStaticMethodID(cls, "getScreenDepth", "()I" ) ;
-if (jintgetScreenDepthID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenDepth");
-}
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisFrameVisiblejintID, objID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetScreenDepthID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
 
-}
+    }
 
-bool CallScilabBridge::printFigure (JavaVM * jvm_, int figID, bool postScript, bool displayDialog){
+    char *CallScilabBridge::getClipboardContents(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jbooleanprintFigurejintjbooleanjbooleanID = curEnv->GetStaticMethodID(cls, "printFigure", "(IZZ)Z" ) ;
-if (jbooleanprintFigurejintjbooleanjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "printFigure");
-}
+        jmethodID jstringgetClipboardContentsID = curEnv->GetStaticMethodID(cls, "getClipboardContents", "()Ljava/lang/String;");
 
-jboolean postScript_ = (static_cast<bool>(postScript) ? JNI_TRUE : JNI_FALSE);
+        if (jstringgetClipboardContentsID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getClipboardContents");
+        }
 
-jboolean displayDialog_ = (static_cast<bool>(displayDialog) ? JNI_TRUE : JNI_FALSE);
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetClipboardContentsID));
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanprintFigurejintjbooleanjbooleanID ,figID, postScript_, displayDialog_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
 
-}
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
 
-bool CallScilabBridge::printFile (JavaVM * jvm_, char * fileName){
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jbooleanprintFilejstringID = curEnv->GetStaticMethodID(cls, "printFile", "(Ljava/lang/String;)Z" ) ;
-if (jbooleanprintFilejstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "printFile");
-}
+    void CallScilabBridge::pasteClipboardIntoConsole(JavaVM * jvm_)
+    {
 
-jstring fileName_ = curEnv->NewStringUTF( fileName );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanprintFilejstringID ,fileName_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        jmethodID voidpasteClipboardIntoConsoleID = curEnv->GetStaticMethodID(cls, "pasteClipboardIntoConsole", "()V");
 
-}
+        if (voidpasteClipboardIntoConsoleID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "pasteClipboardIntoConsole");
+        }
 
-bool CallScilabBridge::printString (JavaVM * jvm_, char * theString, char * pageHeader){
+        curEnv->CallStaticVoidMethod(cls, voidpasteClipboardIntoConsoleID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::copyConsoleSelection(JavaVM * jvm_)
+    {
 
-jmethodID jbooleanprintStringjstringjstringID = curEnv->GetStaticMethodID(cls, "printString", "(Ljava/lang/String;Ljava/lang/String;)Z" ) ;
-if (jbooleanprintStringjstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "printString");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring theString_ = curEnv->NewStringUTF( theString );
+        jmethodID voidcopyConsoleSelectionID = curEnv->GetStaticMethodID(cls, "copyConsoleSelection", "()V");
 
-jstring pageHeader_ = curEnv->NewStringUTF( pageHeader );
+        if (voidcopyConsoleSelectionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "copyConsoleSelection");
+        }
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanprintStringjstringjstringID ,theString_, pageHeader_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        curEnv->CallStaticVoidMethod(cls, voidcopyConsoleSelectionID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-}
+    void CallScilabBridge::emptyClipboard(JavaVM * jvm_)
+    {
 
-bool CallScilabBridge::pageSetup (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidemptyClipboardID = curEnv->GetStaticMethodID(cls, "emptyClipboard", "()V");
 
-jmethodID jbooleanpageSetupID = curEnv->GetStaticMethodID(cls, "pageSetup", "()Z" ) ;
-if (jbooleanpageSetupID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "pageSetup");
-}
+        if (voidemptyClipboardID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "emptyClipboard");
+        }
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanpageSetupID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        curEnv->CallStaticVoidMethod(cls, voidemptyClipboardID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-}
+    void CallScilabBridge::setClipboardContents(JavaVM * jvm_, char *text)
+    {
 
-void CallScilabBridge::requestWidgetFocus (JavaVM * jvm_, int objID){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidsetClipboardContentsjstringID = curEnv->GetStaticMethodID(cls, "setClipboardContents", "(Ljava/lang/String;)V");
 
-jmethodID voidrequestWidgetFocusjintID = curEnv->GetStaticMethodID(cls, "requestWidgetFocus", "(I)V" ) ;
-if (voidrequestWidgetFocusjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "requestWidgetFocus");
-}
+        if (voidsetClipboardContentsjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setClipboardContents");
+        }
 
-                         curEnv->CallStaticVoidMethod(cls, voidrequestWidgetFocusjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jstring text_ = curEnv->NewStringUTF(text);
 
-void CallScilabBridge::requestFrameFocus (JavaVM * jvm_, int objID){
+        curEnv->CallStaticVoidMethod(cls, voidsetClipboardContentsjstringID, text_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void CallScilabBridge::copyFigureToClipBoard(JavaVM * jvm_, int figID)
+    {
 
-jmethodID voidrequestFrameFocusjintID = curEnv->GetStaticMethodID(cls, "requestFrameFocus", "(I)V" ) ;
-if (voidrequestFrameFocusjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "requestFrameFocus");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                         curEnv->CallStaticVoidMethod(cls, voidrequestFrameFocusjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jmethodID voidcopyFigureToClipBoardjintID = curEnv->GetStaticMethodID(cls, "copyFigureToClipBoard", "(I)V");
 
-void CallScilabBridge::raiseWindow (JavaVM * jvm_, int objID){
+        if (voidcopyFigureToClipBoardjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "copyFigureToClipBoard");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidcopyFigureToClipBoardjintID, figID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voidraiseWindowjintID = curEnv->GetStaticMethodID(cls, "raiseWindow", "(I)V" ) ;
-if (voidraiseWindowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "raiseWindow");
-}
+    int CallScilabBridge::getScreenResolution(JavaVM * jvm_)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidraiseWindowjintID ,objID);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void CallScilabBridge::useCanvasForDisplay (JavaVM * jvm_, bool onOrOff){
+        jmethodID jintgetScreenResolutionID = curEnv->GetStaticMethodID(cls, "getScreenResolution", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintgetScreenResolutionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenResolution");
+        }
 
-jmethodID voiduseCanvasForDisplayjbooleanID = curEnv->GetStaticMethodID(cls, "useCanvasForDisplay", "(Z)V" ) ;
-if (voiduseCanvasForDisplayjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "useCanvasForDisplay");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetScreenResolutionID));
 
-jboolean onOrOff_ = (static_cast<bool>(onOrOff) ? JNI_TRUE : JNI_FALSE);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                         curEnv->CallStaticVoidMethod(cls, voiduseCanvasForDisplayjbooleanID ,onOrOff_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    }
 
-bool CallScilabBridge::useCanvasForDisplay (JavaVM * jvm_){
+    double CallScilabBridge::getScreenWidth(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jbooleanuseCanvasForDisplayID = curEnv->GetStaticMethodID(cls, "useCanvasForDisplay", "()Z" ) ;
-if (jbooleanuseCanvasForDisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "useCanvasForDisplay");
-}
+        jmethodID jdoublegetScreenWidthID = curEnv->GetStaticMethodID(cls, "getScreenWidth", "()D");
 
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanuseCanvasForDisplayID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        if (jdoublegetScreenWidthID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenWidth");
+        }
 
-}
+        jdouble res = static_cast < jdouble > (curEnv->CallStaticDoubleMethod(cls, jdoublegetScreenWidthID));
 
-void CallScilabBridge::scilabAboutBox (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID voidscilabAboutBoxID = curEnv->GetStaticMethodID(cls, "scilabAboutBox", "()V" ) ;
-if (voidscilabAboutBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "scilabAboutBox");
-}
+    double CallScilabBridge::getScreenHeight(JavaVM * jvm_)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidscilabAboutBoxID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jdoublegetScreenHeightID = curEnv->GetStaticMethodID(cls, "getScreenHeight", "()D");
+
+        if (jdoublegetScreenHeightID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenHeight");
+        }
+
+        jdouble res = static_cast < jdouble > (curEnv->CallStaticDoubleMethod(cls, jdoublegetScreenHeightID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int CallScilabBridge::getScreenDepth(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetScreenDepthID = curEnv->GetStaticMethodID(cls, "getScreenDepth", "()I");
+
+        if (jintgetScreenDepthID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getScreenDepth");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetScreenDepthID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    bool CallScilabBridge::printFigure(JavaVM * jvm_, int figID, bool postScript, bool displayDialog)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanprintFigurejintjbooleanjbooleanID = curEnv->GetStaticMethodID(cls, "printFigure", "(IZZ)Z");
+
+        if (jbooleanprintFigurejintjbooleanjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "printFigure");
+        }
+
+        jboolean postScript_ = (static_cast < bool > (postScript) ? JNI_TRUE : JNI_FALSE);
+
+        jboolean displayDialog_ = (static_cast < bool > (displayDialog) ? JNI_TRUE : JNI_FALSE);
+
+        jboolean res =
+            static_cast < jboolean >
+            (curEnv->CallStaticBooleanMethod(cls, jbooleanprintFigurejintjbooleanjbooleanID, figID, postScript_, displayDialog_));
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    bool CallScilabBridge::printFile(JavaVM * jvm_, char *fileName)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanprintFilejstringID = curEnv->GetStaticMethodID(cls, "printFile", "(Ljava/lang/String;)Z");
+
+        if (jbooleanprintFilejstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "printFile");
+        }
+
+        jstring fileName_ = curEnv->NewStringUTF(fileName);
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanprintFilejstringID, fileName_));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    bool CallScilabBridge::printString(JavaVM * jvm_, char *theString, char *pageHeader)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanprintStringjstringjstringID = curEnv->GetStaticMethodID(cls, "printString", "(Ljava/lang/String;Ljava/lang/String;)Z");
+
+        if (jbooleanprintStringjstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "printString");
+        }
+
+        jstring theString_ = curEnv->NewStringUTF(theString);
+
+        jstring pageHeader_ = curEnv->NewStringUTF(pageHeader);
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanprintStringjstringjstringID, theString_, pageHeader_));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    bool CallScilabBridge::pageSetup(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanpageSetupID = curEnv->GetStaticMethodID(cls, "pageSetup", "()Z");
+
+        if (jbooleanpageSetupID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "pageSetup");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanpageSetupID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    void CallScilabBridge::requestWidgetFocus(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidrequestWidgetFocusjintID = curEnv->GetStaticMethodID(cls, "requestWidgetFocus", "(I)V");
+
+        if (voidrequestWidgetFocusjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "requestWidgetFocus");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidrequestWidgetFocusjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::requestFrameFocus(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidrequestFrameFocusjintID = curEnv->GetStaticMethodID(cls, "requestFrameFocus", "(I)V");
+
+        if (voidrequestFrameFocusjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "requestFrameFocus");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidrequestFrameFocusjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::raiseWindow(JavaVM * jvm_, int objID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidraiseWindowjintID = curEnv->GetStaticMethodID(cls, "raiseWindow", "(I)V");
+
+        if (voidraiseWindowjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "raiseWindow");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidraiseWindowjintID, objID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void CallScilabBridge::useCanvasForDisplay(JavaVM * jvm_, bool onOrOff)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduseCanvasForDisplayjbooleanID = curEnv->GetStaticMethodID(cls, "useCanvasForDisplay", "(Z)V");
+
+        if (voiduseCanvasForDisplayjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "useCanvasForDisplay");
+        }
+
+        jboolean onOrOff_ = (static_cast < bool > (onOrOff) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voiduseCanvasForDisplayjbooleanID, onOrOff_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    bool CallScilabBridge::useCanvasForDisplay(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanuseCanvasForDisplayID = curEnv->GetStaticMethodID(cls, "useCanvasForDisplay", "()Z");
+
+        if (jbooleanuseCanvasForDisplayID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "useCanvasForDisplay");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanuseCanvasForDisplayID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    void CallScilabBridge::scilabAboutBox(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidscilabAboutBoxID = curEnv->GetStaticMethodID(cls, "scilabAboutBox", "()V");
+
+        if (voidscilabAboutBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "scilabAboutBox");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidscilabAboutBoxID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

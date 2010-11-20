@@ -25,20 +25,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_figure_size_property( sciPointObj * pobj )
+int get_figure_size_property(sciPointObj * pobj)
 {
-  double figureSize[2] ;
+    double figureSize[2];
 
-  if ( sciGetEntityType (pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"figure_size");
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "figure_size");
+        return -1;
+    }
 
-  figureSize[0] = sciGetWindowWidth(pobj) ;
-  figureSize[1] = sciGetWindowHeight(pobj) ;
+    figureSize[0] = sciGetWindowWidth(pobj);
+    figureSize[1] = sciGetWindowHeight(pobj);
 
-  return sciReturnRowVector( figureSize, 2 ) ;
+    return sciReturnRowVector(figureSize, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

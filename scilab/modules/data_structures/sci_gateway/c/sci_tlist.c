@@ -13,11 +13,13 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_data_structures1.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scilist)();
+extern int C2F(scilist) ();
+
 /*--------------------------------------------------------------------------*/
-int sci_scitlist(char *fname,unsigned long fname_len)
+int sci_scitlist(char *fname, unsigned long fname_len)
 {
-	C2F(scilist)(fname,fname_len);
-	return 0;
+    C2F(scilist) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

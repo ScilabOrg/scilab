@@ -9,15 +9,17 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_optimization.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scisemidef)(); /* FORTRAN subroutine */
+extern int C2F(scisemidef) ();  /* FORTRAN subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_semidef(char *fname,unsigned long fname_len)
+int sci_semidef(char *fname, unsigned long fname_len)
 {
-	C2F(scisemidef)(fname,fname_len);
-	return 0;
+    C2F(scisemidef) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

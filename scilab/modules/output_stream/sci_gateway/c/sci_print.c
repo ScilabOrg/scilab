@@ -11,13 +11,15 @@
  */
 /*--------------------------------------------------------------------------*/
 #include "gw_output_stream.h"
-#include "machine.h" /* C2F */
+#include "machine.h"            /* C2F */
 /*--------------------------------------------------------------------------*/
-extern int C2F(intprint)(); /* fortran subroutine */
+extern int C2F(intprint) ();    /* fortran subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_print(char *fname,unsigned long fname_len)
+int sci_print(char *fname, unsigned long fname_len)
 {
-	C2F(intprint)();
-	return 0;
+    C2F(intprint) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

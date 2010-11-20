@@ -10,30 +10,31 @@
  *
  */
 
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 #include <math.h>
 #include <string.h>
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 #include "gw_matio.h"
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 int gw_matio(void);
-/*-----------------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[] =
-{
-  {sci_matfile_open,"matfile_open"},
-  {sci_matfile_close,"matfile_close"},
-  {sci_matfile_listvar,"matfile_listvar"},
-  {sci_matfile_varreadnext,"matfile_varreadnext"},
-  {sci_matfile_varwrite,"matfile_varwrite"}
+
+/*-----------------------------------------------------------------------------------*/
+static gw_generic_table Tab[] = {
+    {sci_matfile_open, "matfile_open"},
+    {sci_matfile_close, "matfile_close"},
+    {sci_matfile_listvar, "matfile_listvar"},
+    {sci_matfile_varreadnext, "matfile_varreadnext"},
+    {sci_matfile_varwrite, "matfile_varwrite"}
 };
-/*-----------------------------------------------------------------------------------*/  
+
+/*-----------------------------------------------------------------------------------*/
 int gw_matio(void)
 {
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
-/*-----------------------------------------------------------------------------------*/ 
 
+/*-----------------------------------------------------------------------------------*/

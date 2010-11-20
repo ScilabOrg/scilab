@@ -24,71 +24,74 @@
 #include "Scierror.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int sci_code2str(char *fname,unsigned long fname_len)
+int sci_code2str(char *fname, unsigned long fname_len)
 {
-	char **Output_Matrix = NULL;
-	int Row_Num = 0,Col_Num = 0;
-	int *Input_Matrix = NULL; /* Input matrix */
+    char **Output_Matrix = NULL;
+    int Row_Num = 0, Col_Num = 0;
+    int *Input_Matrix = NULL;   /* Input matrix */
 
-	int numRow = 1;
-	int numCol = 0;
-	int outIndex = 0 ;
+    int numRow = 1;
+    int numCol = 0;
+    int outIndex = 0;
 
-	CheckRhs(1,1);
-	CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	if (VarType(1) == sci_matrix)
-	{
-		int Stack_position = 0;
-		GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&Row_Num,&Col_Num,&Stack_position);
-		Input_Matrix=istk(Stack_position); /* Input*/
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: Real matrix expected.\n"),fname,1);
-		return 0;
-	}
+    if (VarType(1) == sci_matrix)
+    {
+        int Stack_position = 0;
 
-	numCol   = Row_Num*Col_Num ;
+        GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &Row_Num, &Col_Num, &Stack_position);
+        Input_Matrix = istk(Stack_position);    /* Input */
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: Real matrix expected.\n"), fname, 1);
+        return 0;
+    }
 
-	/* Allocation output matrix */
-	Output_Matrix = (char**)MALLOC(sizeof(char*)); 
+    numCol = Row_Num * Col_Num;
 
-	if (Output_Matrix == NULL)
-	{
-		Scierror(999,_("%s: No more memory.\n"),fname);
-		return 0;
-	}
+    /* Allocation output matrix */
+    Output_Matrix = (char **)MALLOC(sizeof(char *));
 
-	if (numCol != 0) 
-	{
-		Output_Matrix[0]=(char*)MALLOC(sizeof(char*)*(numCol));
-	}
-	else Output_Matrix[0]=(char*)MALLOC(sizeof(char*));
+    if (Output_Matrix == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        return 0;
+    }
 
-	if (Output_Matrix[0] == NULL)
-	{
-		FREE(Output_Matrix);
-		Output_Matrix = NULL;
-		Scierror(999,_("%s: No more memory.\n"),fname);
-		return 0;
-	}
+    if (numCol != 0)
+    {
+        Output_Matrix[0] = (char *)MALLOC(sizeof(char *) * (numCol));
+    }
+    else
+        Output_Matrix[0] = (char *)MALLOC(sizeof(char *));
 
-	/* code2str algorithm */
+    if (Output_Matrix[0] == NULL)
+    {
+        FREE(Output_Matrix);
+        Output_Matrix = NULL;
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        return 0;
+    }
 
-	code2str(Output_Matrix,Input_Matrix,Row_Num*Col_Num);
+    /* code2str algorithm */
 
-	/* put on scilab stack */
-	numRow   = 1 ; /*Output number row */
-	outIndex = 0 ;
-	CreateVar(Rhs+1,STRING_DATATYPE,&numRow,&numCol,&outIndex);
-	strncpy(cstk(outIndex), &Output_Matrix[0][0] ,numCol ) ;
-	LhsVar(1) = Rhs+1 ;
-	C2F(putlhsvar)();
+    code2str(Output_Matrix, Input_Matrix, Row_Num * Col_Num);
 
-	/* free pointers */
-	freeArrayOfString(Output_Matrix, 1);
+    /* put on scilab stack */
+    numRow = 1;                 /*Output number row */
+    outIndex = 0;
+    CreateVar(Rhs + 1, STRING_DATATYPE, &numRow, &numCol, &outIndex);
+    strncpy(cstk(outIndex), &Output_Matrix[0][0], numCol);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
 
-	return 0;
+    /* free pointers */
+    freeArrayOfString(Output_Matrix, 1);
+
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

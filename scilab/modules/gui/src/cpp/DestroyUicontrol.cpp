@@ -16,7 +16,7 @@ extern "C"
 #include "DestroyJavaUiobject.h"
 #include "DestroyUicontrol.h"
 #include "DestroyObjects.h"
-#include "MALLOC.h" /* MALLOC */
+#include "MALLOC.h"             /* MALLOC */
 #include "GetProperty.h"
 #include "GraphicSynchronizerInterface.h"
 }
@@ -26,49 +26,49 @@ extern "C"
  * @param sciPointObj * pthis pointer to the object structure
  * @return execution status
  */
-int  DestroyUicontrol (sciPointObj * pthis)
+int DestroyUicontrol(sciPointObj * pthis)
 {
-  /* Destroy Java object */
-  disableFigureSynchronization(sciGetParentFigure(pthis));
-  DestroyJavaUiobject(pthis);
-  enableFigureSynchronization(sciGetParentFigure(pthis));
+    /* Destroy Java object */
+    disableFigureSynchronization(sciGetParentFigure(pthis));
+    DestroyJavaUiobject(pthis);
+    enableFigureSynchronization(sciGetParentFigure(pthis));
 
-  if  (pUICONTROL_FEATURE (pthis)->backgroundcolor != NULL)
+    if (pUICONTROL_FEATURE(pthis)->backgroundcolor != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->backgroundcolor);
+        delete[](pUICONTROL_FEATURE(pthis)->backgroundcolor);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->foregroundcolor != NULL)
+    if (pUICONTROL_FEATURE(pthis)->foregroundcolor != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->foregroundcolor);
+        delete[](pUICONTROL_FEATURE(pthis)->foregroundcolor);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->callback != NULL)
+    if (pUICONTROL_FEATURE(pthis)->callback != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->callback);
+        delete[](pUICONTROL_FEATURE(pthis)->callback);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->tag != NULL)
+    if (pUICONTROL_FEATURE(pthis)->tag != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->tag);
+        delete[](pUICONTROL_FEATURE(pthis)->tag);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->value != NULL)
+    if (pUICONTROL_FEATURE(pthis)->value != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->value);
+        delete[](pUICONTROL_FEATURE(pthis)->value);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->listboxTop != NULL)
+    if (pUICONTROL_FEATURE(pthis)->listboxTop != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->listboxTop);
+        delete[](pUICONTROL_FEATURE(pthis)->listboxTop);
     }
 
-  if (pUICONTROL_FEATURE (pthis)->sliderStep != NULL)
+    if (pUICONTROL_FEATURE(pthis)->sliderStep != NULL)
     {
-      delete[] (pUICONTROL_FEATURE (pthis)->sliderStep);
+        delete[](pUICONTROL_FEATURE(pthis)->sliderStep);
     }
 
-  return sciStandardDestroyOperations(pthis) ;
+    return sciStandardDestroyOperations(pthis);
 }
-/*----------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------*/

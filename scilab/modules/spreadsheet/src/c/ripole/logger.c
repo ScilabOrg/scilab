@@ -21,7 +21,7 @@
 
 #ifndef _MSC_VER
 static int _LOGGER_mode = _LOGGER_SYSLOG;
-static int _LOGGER_syslog_mode = LOG_MAIL|LOG_INFO;
+static int _LOGGER_syslog_mode = LOG_MAIL | LOG_INFO;
 #else
 static int _LOGGER_mode = _LOGGER_STDERR;
 static int _LOGGER_syslog_mode = 0;
@@ -29,18 +29,19 @@ static int _LOGGER_syslog_mode = 0;
 
 static FILE *_LOGGER_outf;
 
-struct LOGGER_globals {
-	int wrap;
-	int wraplength;
+struct LOGGER_globals
+{
+    int wrap;
+    int wraplength;
 };
 
 /* Create and Initialise the global structure for LOGGER,*/
 /*		we init it to have NO wrapping.*/
 
-static struct LOGGER_globals LOGGER_glb={ 0, 0 };
+static struct LOGGER_globals LOGGER_glb = { 0, 0 };
 
 #ifdef _MSC_VER
-	#define vsnprintf _vsnprintf
+#define vsnprintf _vsnprintf
 #endif
 
 /*------------------------------------------------------------------------
@@ -50,11 +51,10 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-FILE *LOGGER_get_file( void )
+FILE *LOGGER_get_file(void)
 {
-	return _LOGGER_outf;
+    return _LOGGER_outf;
 }
-
 
 /*------------------------------------------------------------------------
 Procedure:     LOGGER_set_output_mode ID:1
@@ -64,10 +64,10 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_output_mode( int modechoice )
+int LOGGER_set_output_mode(int modechoice)
 {
-	_LOGGER_mode = modechoice;
-	return 0;
+    _LOGGER_mode = modechoice;
+    return 0;
 }
 
 /*------------------------------------------------------------------------
@@ -78,10 +78,10 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_output_file( FILE *f )
+int LOGGER_set_output_file(FILE * f)
 {
-	_LOGGER_outf = f;
-	return 0;
+    _LOGGER_outf = f;
+    return 0;
 }
 
 /*------------------------------------------------------------------------
@@ -92,14 +92,11 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_syslog_mode( int syslogmode )
+int LOGGER_set_syslog_mode(int syslogmode)
 {
-	_LOGGER_syslog_mode = syslogmode;
-	return 0;
+    _LOGGER_syslog_mode = syslogmode;
+    return 0;
 }
-
-
-
 
 /*------------------------------------------------------------------------
 Procedure:     LOGGER_set_logfile ID:1
@@ -109,25 +106,23 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_logfile( char *lfname )
+int LOGGER_set_logfile(char *lfname)
 {
-	int result = 0;
+    int result = 0;
 
-	wcfopen(_LOGGER_outf, lfname, "a");
-	if (!_LOGGER_outf)
-	{
+    wcfopen(_LOGGER_outf, lfname, "a");
+    if (!_LOGGER_outf)
+    {
 #if !defined(_MSC_VER) && defined(SYSLOG_ENABLE)
-		syslog(1,_("LOGGER_set_logfile: ERROR - Cannot open logfile '%s' (%s)"),lfname,strerror(errno));
+        syslog(1, _("LOGGER_set_logfile: ERROR - Cannot open logfile '%s' (%s)"), lfname, strerror(errno));
 #else
-		fprintf(stderr, _("LOGGER_set_logfile: ERROR - Cannot open logfile '%s' (%s)\n"), lfname, strerror(errno));
+        fprintf(stderr, _("LOGGER_set_logfile: ERROR - Cannot open logfile '%s' (%s)\n"), lfname, strerror(errno));
 #endif
-		result = -1;
-	}
+        result = -1;
+    }
 
-	return result;
+    return result;
 }
-
-
 
 /*------------------------------------------------------------------------
 Procedure:     LOGGER_set_wraplength ID:1
@@ -136,14 +131,14 @@ Input:         int length: Positive int indicating number of chracters at which 
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_wraplength( int length )
+int LOGGER_set_wraplength(int length)
 {
-	if ( length >= 0 )
-	{
-		LOGGER_glb.wraplength = length;
-	}
+    if (length >= 0)
+    {
+        LOGGER_glb.wraplength = length;
+    }
 
-	return LOGGER_glb.wraplength;
+    return LOGGER_glb.wraplength;
 }
 
 /*------------------------------------------------------------------------
@@ -153,17 +148,15 @@ Input:         int level: 0 = no wrap, > 0 = wrap.
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_set_wrap( int level )
+int LOGGER_set_wrap(int level)
 {
-	if ( level >= 0 )
-	{
-		LOGGER_glb.wrap = level;
-	}
+    if (level >= 0)
+    {
+        LOGGER_glb.wrap = level;
+    }
 
-	return LOGGER_glb.wrap;
+    return LOGGER_glb.wrap;
 }
-
-
 
 /*------------------------------------------------------------------------
 Procedure:     LOGGER_close_logfile ID:1
@@ -172,16 +165,15 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_close_logfile( void )
+int LOGGER_close_logfile(void)
 {
-	int result = 0;
+    int result = 0;
 
-	if (_LOGGER_outf) fclose(_LOGGER_outf);
+    if (_LOGGER_outf)
+        fclose(_LOGGER_outf);
 
-	return result;
+    return result;
 }
-
-
 
 /*------------------------------------------------------------------------
 Procedure:     LOGGER_clean_output ID:1
@@ -193,95 +185,98 @@ int maxsize: Maximum available buffer size for this string to expand to
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_clean_output( char *string, char **buffer )
+int LOGGER_clean_output(char *string, char **buffer)
 {
-	char *newstr;
-	char *p, *q;
-	char *next_space;
+    char *newstr;
+    char *p, *q;
+    char *next_space;
 
-	int pc;
-	int slen = (int)strlen( string );
-	int line_size;
-	int maxsize = slen *2;
+    int pc;
+    int slen = (int)strlen(string);
+    int line_size;
+    int maxsize = slen * 2;
 
-	/* First up, allocate maxsize bytes for a temporary new string.*/
-	newstr = MALLOC(slen *2 +1); 
-	if ( newstr == NULL )
-	{
-	  /* FIXME - Report an error here ... to -somewhere-*/
-		return -1;
-	}
+    /* First up, allocate maxsize bytes for a temporary new string. */
+    newstr = MALLOC(slen * 2 + 1);
+    if (newstr == NULL)
+    {
+        /* FIXME - Report an error here ... to -somewhere- */
+        return -1;
+    }
 
-	p = newstr;
-	q = string;
-	pc = 0;
-	line_size = 0;
+    p = newstr;
+    q = string;
+    pc = 0;
+    line_size = 0;
 
-	while (slen--)
-	{
+    while (slen--)
+    {
 
-	  /* Do we need to apply any wrapping to the output? If so then we*/
-	  /*		shall embark on a journey of strange space and distance*/
-	  /*		evaluations to determine if we should wrap now or later*/
+        /* Do we need to apply any wrapping to the output? If so then we */
+        /*        shall embark on a journey of strange space and distance */
+        /*        evaluations to determine if we should wrap now or later */
 
-		if ( LOGGER_glb.wrap > 0 )
-		{
-			if (isspace((int)*q))
-			{
-				next_space = strpbrk( (q+1), "\t\n\v " );
-				if (next_space != NULL)
-				{
-					if ((line_size +(next_space -q)) >= LOGGER_glb.wraplength)
-					{
-						*p = '\n';
-						p++;
-						pc++;
-						line_size = 0;
-					}
-				}
-			}
+        if (LOGGER_glb.wrap > 0)
+        {
+            if (isspace((int)*q))
+            {
+                next_space = strpbrk((q + 1), "\t\n\v ");
+                if (next_space != NULL)
+                {
+                    if ((line_size + (next_space - q)) >= LOGGER_glb.wraplength)
+                    {
+                        *p = '\n';
+                        p++;
+                        pc++;
+                        line_size = 0;
+                    }
+                }
+            }
 
-			if ( line_size >= LOGGER_glb.wraplength )
-			{
-				*p = '\n';
-				p++;
-				pc++;
-				line_size = 0;
-			}
-		}
+            if (line_size >= LOGGER_glb.wraplength)
+            {
+                *p = '\n';
+                p++;
+                pc++;
+                line_size = 0;
+            }
+        }
 
-		/* If the string has a % in it, then we need to encode it as*/
-		/*	a DOUBLE % symbol.*/
+        /* If the string has a % in it, then we need to encode it as */
+        /*  a DOUBLE % symbol. */
 
-		if (*q == '%') {
-		  /*			if (strchr("fdlsxXn",*(q+1)))*/
-		  /*			{*/
-				*p = '%';
-				p++;
-				pc++;
-				/*			}*/
-		}
+        if (*q == '%')
+        {
+            /*            if (strchr("fdlsxXn",*(q+1))) */
+            /*            { */
+            *p = '%';
+            p++;
+            pc++;
+            /*          } */
+        }
 
-		/* Copy the character of the string in*/
-		*p = *q;
+        /* Copy the character of the string in */
+        *p = *q;
 
-		/* Move everything along.*/
-		q++;
-		p++;
-		pc++;
-		line_size++;
+        /* Move everything along. */
+        q++;
+        p++;
+        pc++;
+        line_size++;
 
-		if ( pc > (maxsize -1) ) {
-			break;
-		}
-	}
+        if (pc > (maxsize - 1))
+        {
+            break;
+        }
+    }
 
-	*p = '\0';
+    *p = '\0';
 
-	/* This will have to be deallocated later!*/
-	if (newstr) *buffer = newstr;
+    /* This will have to be deallocated later! */
+    if (newstr)
+        *buffer = newstr;
 
-	return 0;
+    return 0;
 }
 
 /*------------------------------------------------------------------------
@@ -292,66 +287,71 @@ Input:
 Output:
 Errors:
 ------------------------------------------------------------------------*/
-int LOGGER_log( char *format, ...)
+int LOGGER_log(char *format, ...)
 {
-	va_list ptr;
-	char tmpoutput[10240];
-	char linebreak[]="\n";
-	char nolinebreak[]="";
-	char *lineend;
-	char *output;
+    va_list ptr;
+    char tmpoutput[10240];
+    char linebreak[] = "\n";
+    char nolinebreak[] = "";
+    char *lineend;
+    char *output;
 
+    /* get our variable arguments */
+    va_start(ptr, format);
 
-	/* get our variable arguments*/
-	va_start(ptr,format);
-
-	/* produce output, and spit to the log file*/
+    /* produce output, and spit to the log file */
 #ifdef NO_SNPRINTF
-	vsprintf(tmpoutput, format, ptr);
+    vsprintf(tmpoutput, format, ptr);
 #else
-	vsnprintf(tmpoutput,10240,format,ptr);
+    vsnprintf(tmpoutput, 10240, format, ptr);
 #endif
 
-	LOGGER_clean_output( tmpoutput, &output );
+    LOGGER_clean_output(tmpoutput, &output);
 
-	if ( output[strlen(output)-1] == '\n' ) {
-		lineend = nolinebreak;
-	}
-	else {
-		lineend = linebreak;
-	}
+    if (output[strlen(output) - 1] == '\n')
+    {
+        lineend = nolinebreak;
+    }
+    else
+    {
+        lineend = linebreak;
+    }
 
-	if ( output[strlen(output)-1] == '\n' ) { lineend = nolinebreak; } else { lineend = linebreak; }
+    if (output[strlen(output) - 1] == '\n')
+    {
+        lineend = nolinebreak;
+    }
+    else
+    {
+        lineend = linebreak;
+    }
 
-	/* Send the output to the appropriate output destination*/
-	switch (_LOGGER_mode) {
-		case _LOGGER_SYSLOG:
+    /* Send the output to the appropriate output destination */
+    switch (_LOGGER_mode)
+    {
+    case _LOGGER_SYSLOG:
 #if !defined(_MSC_VER) && defined(SYSLOG_ENABLE)
-			syslog(_LOGGER_syslog_mode,"%s",output);
-			break;
+        syslog(_LOGGER_syslog_mode, "%s", output);
+        break;
 #endif
-		case _LOGGER_STDERR:
-			fprintf(stderr,"%s%s",output, lineend );
-			break;
+    case _LOGGER_STDERR:
+        fprintf(stderr, "%s%s", output, lineend);
+        break;
 
-		case _LOGGER_STDOUT:
-			fprintf(stdout,"%s%s",output, lineend);
-			fflush(stdout);
-			break;
-		case _LOGGER_FILE:
-			fprintf(_LOGGER_outf,"%s%s",output,lineend);
-			fflush(_LOGGER_outf);
-			break;
-		default:
-			fprintf(stdout,_("LOGGER-Default: %s%s"),output,lineend);
-	}
+    case _LOGGER_STDOUT:
+        fprintf(stdout, "%s%s", output, lineend);
+        fflush(stdout);
+        break;
+    case _LOGGER_FILE:
+        fprintf(_LOGGER_outf, "%s%s", output, lineend);
+        fflush(_LOGGER_outf);
+        break;
+    default:
+        fprintf(stdout, _("LOGGER-Default: %s%s"), output, lineend);
+    }
 
+    if (output)
+        FREE(output);
 
-	if (output) FREE(output);
-
-	return 0;
+    return 0;
 }
-
-
-
-

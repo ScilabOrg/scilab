@@ -15,33 +15,37 @@
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int sci_librarieslist(char *fname,unsigned long fname_len)
+int sci_librarieslist(char *fname, unsigned long fname_len)
 {
-	char **libraries = NULL;
-	int sizelibraries = 0;
+    char **libraries = NULL;
+    int sizelibraries = 0;
 
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	libraries = getlibrarieslist(&sizelibraries);
-	
-	if (libraries)
-	{
-		int m = 0, n = 0;
-		m = sizelibraries; n = 1;
-		CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &m, &n, libraries);
-	}
-	else
-	{
-		int m = 0, n = 0, l = 0;
-		CreateVarFromPtr(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&n,&m,&l);
-	}
+    libraries = getlibrarieslist(&sizelibraries);
 
-	LhsVar(1) = Rhs+1;
+    if (libraries)
+    {
+        int m = 0, n = 0;
 
-	freeArrayOfString(libraries, sizelibraries);
-	
-	C2F(putlhsvar)();
-	return 0;
+        m = sizelibraries;
+        n = 1;
+        CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &m, &n, libraries);
+    }
+    else
+    {
+        int m = 0, n = 0, l = 0;
+
+        CreateVarFromPtr(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &n, &m, &l);
+    }
+
+    LhsVar(1) = Rhs + 1;
+
+    freeArrayOfString(libraries, sizelibraries);
+
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

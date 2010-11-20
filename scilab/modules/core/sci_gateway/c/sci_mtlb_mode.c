@@ -12,11 +12,13 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intmtlbmode)();
+extern int C2F(intmtlbmode) ();
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_mtlb_mode)(char *fname,unsigned long fname_len)
+int C2F(sci_mtlb_mode) (char *fname, unsigned long fname_len)
 {
- 	C2F(intmtlbmode)();
-	return 0;
+    C2F(intmtlbmode) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -15,14 +15,15 @@
 #include "gw_differential_equations3.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{sci_odc,"odedc"}
+static gw_generic_table Tab[] = {
+    {sci_odc, "odedc"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_differential_equations3(void)
-{  
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -13,24 +13,26 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_getmemory) (char *fname,unsigned long fname_len)
+int C2F(sci_getmemory) (char *fname, unsigned long fname_len)
 {
-	static int l1,one=1;
+    static int l1, one = 1;
 
-	Rhs=Max(Rhs,0);
-	CheckRhs(0,0) ;
-	CheckLhs(1,2);
+    Rhs = Max(Rhs, 0);
+    CheckRhs(0, 0);
+    CheckLhs(1, 2);
 
-	CreateVar(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&one,&one,&l1);
-	*istk(l1) = getfreememory();
-	LhsVar(1) = Rhs+1;
-	if (Lhs == 2) {
-		CreateVar(Rhs+2,MATRIX_OF_INTEGER_DATATYPE,&one,&one,&l1);
-		*istk(l1) = getmemorysize();
-		LhsVar(2) = Rhs+2;
-	}
+    CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &one, &one, &l1);
+    *istk(l1) = getfreememory();
+    LhsVar(1) = Rhs + 1;
+    if (Lhs == 2)
+    {
+        CreateVar(Rhs + 2, MATRIX_OF_INTEGER_DATATYPE, &one, &one, &l1);
+        *istk(l1) = getmemorysize();
+        LhsVar(2) = Rhs + 2;
+    }
 
-	C2F(putlhsvar)();
-	return 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

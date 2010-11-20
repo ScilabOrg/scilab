@@ -5,7 +5,6 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-
 #include "stack-c.h"
 
 /****************************************
@@ -20,9 +19,10 @@ int ext11c(int *neq, double *t, double *y, double *ydot)
 {
     static int m, n;
     static double param[3];
+
     ReadMatrix("param", &m, &n, param);
     ydot[0] = -param[0] * y[0] + param[1] * y[1] * y[2];
     ydot[2] = param[2] * y[1] * y[1];
     ydot[1] = -ydot[0] - ydot[2];
-    return(0);
+    return (0);
 }

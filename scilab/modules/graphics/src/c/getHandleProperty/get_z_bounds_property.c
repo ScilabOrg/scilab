@@ -12,7 +12,6 @@
  *
  */
 
-
 /*------------------------------------------------------------------------*/
 /* file: get_z_bounds_property.c                                          */
 /* desc : function to retrieve in Scilab the z_bounds field of            */
@@ -26,18 +25,20 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_z_bounds_property( sciPointObj * pobj )
+int get_z_bounds_property(sciPointObj * pobj)
 {
-  double zBounds[2];
-  if (sciGetEntityType (pobj) != SCI_FEC)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"z_bounds") ;
-    return -1 ;
-  }
+    double zBounds[2];
 
-	sciGetZBounds(pobj, zBounds);
+    if (sciGetEntityType(pobj) != SCI_FEC)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "z_bounds");
+        return -1;
+    }
 
-  return sciReturnRowVector( zBounds, 2 ) ;
+    sciGetZBounds(pobj, zBounds);
+
+    return sciReturnRowVector(zBounds, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

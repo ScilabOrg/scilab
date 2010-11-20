@@ -25,20 +25,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_rotation_style_property( sciPointObj * pobj )
+int get_rotation_style_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType (pobj) != SCI_FIGURE )
-  {	
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"rotation_style");
-    return -1;
-  }
-  if ( pFIGURE_FEATURE(pobj)->rotstyle == 0 )
-  {
-    return sciReturnString( "unary" ) ;
-  }
-  else
-  {
-    return sciReturnString( "multiple" ) ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "rotation_style");
+        return -1;
+    }
+    if (pFIGURE_FEATURE(pobj)->rotstyle == 0)
+    {
+        return sciReturnString("unary");
+    }
+    else
+    {
+        return sciReturnString("multiple");
+    }
 }
+
 /*------------------------------------------------------------------------*/

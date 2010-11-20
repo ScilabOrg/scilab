@@ -13,12 +13,12 @@
 /* ONLY used by F2C with scilab_f2c.sln on Windows */
 /* this modification removes some warning about no defined or redefined COMMON */
 /* We force definition of COMMON only used in current dynamic library */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* see fortran code for definition of this COMMON */
 #ifdef _MSC_VER
-struct 
+struct
 {
     long int new_call__;
 } info_hermite__;
 #endif
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

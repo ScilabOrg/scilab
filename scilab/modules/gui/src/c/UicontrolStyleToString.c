@@ -14,29 +14,29 @@
 #include "UicontrolStyleToString.h"
 #include "ObjectStructure.h"
 
-char * UicontrolStyleToString(int style)
+char *UicontrolStyleToString(int style)
 {
-  switch(style)
+    switch (style)
     {
     case SCI_PUSHBUTTON:
-      return "pushbutton";
+        return "pushbutton";
     case SCI_RADIOBUTTON:
-      return "radiobutton";
+        return "radiobutton";
     case SCI_CHECKBOX:
-      return "checkbox";
+        return "checkbox";
     case SCI_EDIT:
-      return "edit";
+        return "edit";
     case SCI_UITEXT:
-      return "text";
+        return "text";
     case SCI_SLIDER:
-      return "slider";
+        return "slider";
     case SCI_UIFRAME:
-      return "frame";
+        return "frame";
     case SCI_LISTBOX:
-      return "listbox";
+        return "listbox";
     case SCI_POPUPMENU:
-      return "popupmenu";
+        return "popupmenu";
     default:
-      return "Unknown";
+        return "Unknown";
     }
 }

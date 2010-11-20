@@ -13,11 +13,13 @@
 #include "gw_special_functions.h"
 #include "machine.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsdlgamma)(char *id,unsigned long fname_len);
+extern int C2F(intsdlgamma) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_dlgamma(char *fname,unsigned long fname_len)
+int sci_dlgamma(char *fname, unsigned long fname_len)
 {
-	C2F(intsdlgamma)(fname,fname_len);
-	return 0;
+    C2F(intsdlgamma) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

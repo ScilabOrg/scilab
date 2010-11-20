@@ -25,23 +25,25 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_callback_property( sciPointObj * pobj )
+int get_callback_property(sciPointObj * pobj)
 {
-  if(sciGetEntityType(pobj) == SCI_UIMENU || sciGetEntityType(pobj) == SCI_UICONTROL)
+    if (sciGetEntityType(pobj) == SCI_UIMENU || sciGetEntityType(pobj) == SCI_UICONTROL)
     {
-      return GetUiobjectCallback(pobj);
+        return GetUiobjectCallback(pobj);
     }
-  else
+    else
     {
-			char * callBack = sciGetCallback(pobj);
-			if (callBack == NULL)
-			{
-				return sciReturnString("");
-			}
-			else
-			{
-				return sciReturnString( sciGetCallback( pobj ) ) ;
-			}
+        char *callBack = sciGetCallback(pobj);
+
+        if (callBack == NULL)
+        {
+            return sciReturnString("");
+        }
+        else
+        {
+            return sciReturnString(sciGetCallback(pobj));
+        }
     }
 }
+
 /*------------------------------------------------------------------------*/

@@ -14,21 +14,21 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-void createCheckBox(sciPointObj* sciObj)
+void createCheckBox(sciPointObj * sciObj)
 {
-  pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newCheckBox(getScilabJavaVM());
+    pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newCheckBox(getScilabJavaVM());
 }
 
-int setCurentFigureAsCheckBoxParent(sciPointObj* sciObj)
+int setCurentFigureAsCheckBoxParent(sciPointObj * sciObj)
 {
-  int parentFigureIndex = 0;
-  
-  // Scilab list of parent
-  sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
-  
-  // Java objects
-  parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-  CallScilabBridge::setCheckBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    int parentFigureIndex = 0;
 
-  return SET_PROPERTY_SUCCEED;
+    // Scilab list of parent
+    sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+
+    // Java objects
+    parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+    CallScilabBridge::setCheckBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+    return SET_PROPERTY_SUCCEED;
 }

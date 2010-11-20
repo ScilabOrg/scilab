@@ -13,7 +13,7 @@
 
 /*--------------------------------------------------------------------------*/
 #include "CallScilabBridge.hxx"
-extern "C" 
+extern "C"
 {
 #include "MALLOC.h"
 #include "stack-c.h"
@@ -23,23 +23,25 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_gui_bridge;
+
 /*--------------------------------------------------------------------------*/
-int sci_printsetupbox(char *fname,unsigned long l)
+int sci_printsetupbox(char *fname, unsigned long l)
 {
-	static int n1;
-	int* paramoutINT=new int[1];
+    static int n1;
+    int *paramoutINT = new int[1];
 
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-        paramoutINT[0]=(int)CallScilabBridge::pageSetup(getScilabJavaVM());
+    paramoutINT[0] = (int)CallScilabBridge::pageSetup(getScilabJavaVM());
 
-	n1=1;
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1,&paramoutINT);
-	LhsVar(1)=Rhs+1;
-	delete[] paramoutINT;
-	C2F(putlhsvar)();
+    n1 = 1;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
+    LhsVar(1) = Rhs + 1;
+    delete[]paramoutINT;
+    C2F(putlhsvar) ();
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

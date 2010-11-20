@@ -15,47 +15,49 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolFontSize(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolFontSize(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  /* Font weight can be points, normalized, inches, centimeters or pixels */
+    /* Font weight can be points, normalized, inches, centimeters or pixels */
 
-  int fontSizeInt = 0; 
+    int fontSizeInt = 0;
 
-  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) != SCI_UICONTROL)
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontSize");
-      return SET_PROPERTY_ERROR;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontSize");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (valueType == sci_matrix)
+    if (valueType == sci_matrix)
     {
-      if(nbCol != 1 || nbRow != 1)
+        if (nbCol != 1 || nbRow != 1)
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: A real expected.\n")), "FontSize");
-          return SET_PROPERTY_ERROR;
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: A real expected.\n")), "FontSize");
+
+            return SET_PROPERTY_ERROR;
         }
 
-      fontSizeInt = ConvertToPoint(getDoubleFromStack(stackPointer), pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj, FALSE);
-      
-      /* Send the value to java */
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+        fontSizeInt = ConvertToPoint(getDoubleFromStack(stackPointer), pUICONTROL_FEATURE(sciObj)->fontUnits, sciObj, FALSE);
+
+        /* Send the value to java */
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-          CallScilabBridge::setFrameFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontSizeInt);
+            CallScilabBridge::setFrameFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontSizeInt);
         }
-      else /* All other uicontrol styles */
+        else                    /* All other uicontrol styles */
         {
-          CallScilabBridge::setWidgetFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontSizeInt);
+            CallScilabBridge::setWidgetFontSize(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontSizeInt);
         }
-      return SET_PROPERTY_SUCCEED;
+        return SET_PROPERTY_SUCCEED;
 
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: A real expected.\n")), "FontSize");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: A real expected.\n")), "FontSize");
+
+        return SET_PROPERTY_ERROR;
     }
 
 }
-

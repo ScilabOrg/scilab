@@ -55,48 +55,49 @@
 
 extern CellAdr *ListCholFactors;
 
-int sci_taucs_chdel(char* fname, unsigned long l)
+int sci_taucs_chdel(char *fname, unsigned long l)
 {
 
-	int mC_ptr, nC_ptr, lC_ptr, it_flag;
-	taucs_handle_factors * pC;
-	CellAdr * Cell;
-	int NbRhsVar;
+    int mC_ptr, nC_ptr, lC_ptr, it_flag;
+    taucs_handle_factors *pC;
+    CellAdr *Cell;
+    int NbRhsVar;
 
-	/* Check numbers of input/output arguments */
-	CheckRhs(0,1); CheckLhs(1,1);
+    /* Check numbers of input/output arguments */
+    CheckRhs(0, 1);
+    CheckLhs(1, 1);
 
-	NbRhsVar = Rhs;
+    NbRhsVar = Rhs;
 
-	if (NbRhsVar == 0)      /* destroy all */ 
-		while ( ListCholFactors )
-			{
-				Cell = ListCholFactors;
-				ListCholFactors = ListCholFactors->next;
-				pC = (taucs_handle_factors *) Cell->adr;
-				taucs_supernodal_factor_free(pC->C);  /* free the super nodal struct */
-				FREE(pC->p);                          /* free the permutation vector */
-				FREE(pC);                             /* free the handle             */
-				FREE(Cell);                           
-			}
-	else
-		{
-			/* get the pointer to the Cholesky factors */
-			GetRhsVar(1,SCILAB_POINTER_DATATYPE, &mC_ptr, &nC_ptr, &lC_ptr);
-			pC = (taucs_handle_factors *) ((unsigned long int) *stk(lC_ptr));
-      
-			/* Check if the pointer is a valid ref to ... */
-			if (RetrieveAdrFromList(pC, &ListCholFactors, &it_flag)) 
-				/* free the memory of the objects */
-				{
-					taucs_supernodal_factor_free(pC->C);
-					FREE(pC->p);
-					FREE(pC);
-				}
-			else
-			{
-				Scierror(999,_("%s: Wrong value for input argument #%d: not a valid reference to Cholesky factors.\n"),fname,1);
-			}
-		}
-	return 0;
+    if (NbRhsVar == 0)          /* destroy all */
+        while (ListCholFactors)
+        {
+            Cell = ListCholFactors;
+            ListCholFactors = ListCholFactors->next;
+            pC = (taucs_handle_factors *) Cell->adr;
+            taucs_supernodal_factor_free(pC->C);    /* free the super nodal struct */
+            FREE(pC->p);        /* free the permutation vector */
+            FREE(pC);           /* free the handle             */
+            FREE(Cell);
+        }
+    else
+    {
+        /* get the pointer to the Cholesky factors */
+        GetRhsVar(1, SCILAB_POINTER_DATATYPE, &mC_ptr, &nC_ptr, &lC_ptr);
+        pC = (taucs_handle_factors *) ((unsigned long int)*stk(lC_ptr));
+
+        /* Check if the pointer is a valid ref to ... */
+        if (RetrieveAdrFromList(pC, &ListCholFactors, &it_flag))
+            /* free the memory of the objects */
+        {
+            taucs_supernodal_factor_free(pC->C);
+            FREE(pC->p);
+            FREE(pC);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: not a valid reference to Cholesky factors.\n"), fname, 1);
+        }
+    }
+    return 0;
 }

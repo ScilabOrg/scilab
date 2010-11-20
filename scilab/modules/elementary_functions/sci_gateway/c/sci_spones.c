@@ -9,15 +9,18 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_elementary_functions.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intspones)(char *fname,int *id,unsigned long fname_len);
+extern int C2F(intspones) (char *fname, int *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_spones(char *fname,unsigned long fname_len)
+int sci_spones(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intspones)(fname,id,fname_len);
-	return 0;
+    static int id[6];
+
+    C2F(intspones) (fname, id, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

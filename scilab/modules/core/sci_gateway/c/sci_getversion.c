@@ -28,301 +28,310 @@
 static int getversion_no_rhs(char *fname);
 static int getversion_one_rhs(char *fname);
 static int getversion_two_rhs(char *fname);
+
 /*--------------------------------------------------------------------------*/
 int sci_getversion(char *fname, unsigned long fname_len)
 {
-	Rhs = Max(0,Rhs);
+    Rhs = Max(0, Rhs);
 
-	CheckRhs(0,2);
-	
-	if (Rhs == 0)
-	{
-		CheckLhs(1,2);
-		getversion_no_rhs(fname);
-	}
-	else if (Rhs == 1)
-	{
-		CheckLhs(1,1);
-		getversion_one_rhs(fname);
-	}
-	else /* Rhs == 2 */
-	{
-		CheckLhs(1,1);
-		getversion_two_rhs(fname);
-	}
-	return 0;
+    CheckRhs(0, 2);
+
+    if (Rhs == 0)
+    {
+        CheckLhs(1, 2);
+        getversion_no_rhs(fname);
+    }
+    else if (Rhs == 1)
+    {
+        CheckLhs(1, 1);
+        getversion_one_rhs(fname);
+    }
+    else                        /* Rhs == 2 */
+    {
+        CheckLhs(1, 1);
+        getversion_two_rhs(fname);
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int getversion_no_rhs(char *fname)
 {
-	char *version = getScilabVersionAsString();
-	if (version)
-	{
-		createSingleString(pvApiCtx, Rhs + 1, version);
-		LhsVar(1) = Rhs + 1;
-		FREE(version);
-		version = NULL;
-	}
-	else
-	{
-		Scierror(999,_("%s: Memory allocation error.\n"), fname);
-		return 0;
-	}
+    char *version = getScilabVersionAsString();
 
-	if (Lhs == 2)
-	{
-		int sizeOptions = 0;
-		char **ScilabOptions = getScilabVersionOptions(&sizeOptions);
+    if (version)
+    {
+        createSingleString(pvApiCtx, Rhs + 1, version);
+        LhsVar(1) = Rhs + 1;
+        FREE(version);
+        version = NULL;
+    }
+    else
+    {
+        Scierror(999, _("%s: Memory allocation error.\n"), fname);
+        return 0;
+    }
 
-		if (ScilabOptions)
-		{
-			SciErr sciErr;
-			int m = 1;
-			int n = sizeOptions;
-			sciErr = createMatrixOfString(pvApiCtx, Rhs + 2, m, n, ScilabOptions);
-			freeArrayOfString(ScilabOptions, sizeOptions);
+    if (Lhs == 2)
+    {
+        int sizeOptions = 0;
+        char **ScilabOptions = getScilabVersionOptions(&sizeOptions);
 
-			if(sciErr.iErr)
-			{
-				printError(&sciErr, 0);
-				return 0;
-			}
+        if (ScilabOptions)
+        {
+            SciErr sciErr;
+            int m = 1;
+            int n = sizeOptions;
 
-			LhsVar(2) = Rhs + 2;
-		}
-		else
-		{
-			Scierror(999,_("%s: Memory allocation error.\n"), fname);
-			return 0;
-		}
-	}
-	
-	C2F(putlhsvar)();
+            sciErr = createMatrixOfString(pvApiCtx, Rhs + 2, m, n, ScilabOptions);
+            freeArrayOfString(ScilabOptions, sizeOptions);
 
-	return 0;
+            if (sciErr.iErr)
+            {
+                printError(&sciErr, 0);
+                return 0;
+            }
+
+            LhsVar(2) = Rhs + 2;
+        }
+        else
+        {
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 0;
+        }
+    }
+
+    C2F(putlhsvar) ();
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int getversion_one_rhs(char *fname)
 {
-	SciErr sciErr;
-	int *piAddressVarOne = NULL;
+    SciErr sciErr;
+    int *piAddressVarOne = NULL;
 
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	if (isStringType(pvApiCtx, piAddressVarOne))
-	{
-		char *modulename = NULL;
+    if (isStringType(pvApiCtx, piAddressVarOne))
+    {
+        char *modulename = NULL;
 
-		if (!isScalar(pvApiCtx, piAddressVarOne))
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
-			return 0;
-		}
+        if (!isScalar(pvApiCtx, piAddressVarOne))
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+            return 0;
+        }
 
-		if (getAllocatedSingleString(pvApiCtx, piAddressVarOne, &modulename) == 0)
-		{
-			if (modulename)
-			{
-				if ( with_module(modulename) || (strcmp(modulename, "scilab") == 0) )
-				{
-					int versionSize = 0;
-					int *version = getModuleVersion(modulename, &versionSize);
+        if (getAllocatedSingleString(pvApiCtx, piAddressVarOne, &modulename) == 0)
+        {
+            if (modulename)
+            {
+                if (with_module(modulename) || (strcmp(modulename, "scilab") == 0))
+                {
+                    int versionSize = 0;
+                    int *version = getModuleVersion(modulename, &versionSize);
 
-					if (version)
-					{
-						int m = 1;
-						int n = versionSize;
-						double *versionAsDouble = (double*)MALLOC(sizeof(double) * versionSize);
-						if (versionAsDouble)
-						{
-							int i = 0;
-							for (i = 0; i < versionSize; i++)
-							{
-								versionAsDouble[i] = (double)version[i];
-							}
-							FREE(version);
-							version = NULL;
+                    if (version)
+                    {
+                        int m = 1;
+                        int n = versionSize;
+                        double *versionAsDouble = (double *)MALLOC(sizeof(double) * versionSize);
 
-							freeAllocatedSingleString(modulename);
-							modulename = NULL;
+                        if (versionAsDouble)
+                        {
+                            int i = 0;
 
-							sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, m, n, versionAsDouble);
-							FREE(versionAsDouble);
-							versionAsDouble = NULL;
+                            for (i = 0; i < versionSize; i++)
+                            {
+                                versionAsDouble[i] = (double)version[i];
+                            }
+                            FREE(version);
+                            version = NULL;
 
-							if(sciErr.iErr)
-							{
-								printError(&sciErr, 0);
-								return 0;
-							}
+                            freeAllocatedSingleString(modulename);
+                            modulename = NULL;
 
-							LhsVar(1) = Rhs + 1;
-							C2F(putlhsvar)();
-						}
-						else
-						{
-							Scierror(999,_("%s: Memory allocation error.\n"), fname);
-							return 0;
-						}
-					}
-					else
-					{
-						Scierror(999,_("%s: Wrong file version.xml %s.\n"), fname, modulename);
+                            sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, m, n, versionAsDouble);
+                            FREE(versionAsDouble);
+                            versionAsDouble = NULL;
 
-						freeAllocatedSingleString(modulename);
-						modulename = NULL;
+                            if (sciErr.iErr)
+                            {
+                                printError(&sciErr, 0);
+                                return 0;
+                            }
 
-						return 0;
-					}
-				}
-				else
-				{
-					Scierror(999,_("%s: Wrong module name %s.\n"), fname , modulename);
+                            LhsVar(1) = Rhs + 1;
+                            C2F(putlhsvar) ();
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        Scierror(999, _("%s: Wrong file version.xml %s.\n"), fname, modulename);
 
-					freeAllocatedSingleString(modulename);
-					modulename = NULL;
+                        freeAllocatedSingleString(modulename);
+                        modulename = NULL;
 
-					return 0;
-				}
-				freeAllocatedSingleString(modulename);
-				modulename = NULL;
-			}
-			else
-			{
-				Scierror(999,_("%s: Memory allocation error.\n"), fname);
-				return 0;
-			}
-		}
-		else
-		{
-			Scierror(999,_("%s: Memory allocation error.\n"), fname);
-			return 0;
-		}
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
-		return 0;
-	}
-	return 0;
+                        return 0;
+                    }
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong module name %s.\n"), fname, modulename);
+
+                    freeAllocatedSingleString(modulename);
+                    modulename = NULL;
+
+                    return 0;
+                }
+                freeAllocatedSingleString(modulename);
+                modulename = NULL;
+            }
+            else
+            {
+                Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                return 0;
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 0;
+        }
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+        return 0;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int getversion_two_rhs(char *fname)
 {
-	SciErr sciErr;
-	int *piAddressVarOne = NULL;
-	int *piAddressVarTwo = NULL;
+    SciErr sciErr;
+    int *piAddressVarOne = NULL;
+    int *piAddressVarTwo = NULL;
 
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	if (isStringType(pvApiCtx, piAddressVarOne) && isStringType(pvApiCtx, piAddressVarTwo))
-	{
-		char *modulename = NULL;
-		char *optionname = NULL;
+    if (isStringType(pvApiCtx, piAddressVarOne) && isStringType(pvApiCtx, piAddressVarTwo))
+    {
+        char *modulename = NULL;
+        char *optionname = NULL;
 
-		if (!isScalar(pvApiCtx, piAddressVarOne))
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
-			return 0;
-		}
+        if (!isScalar(pvApiCtx, piAddressVarOne))
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 1);
+            return 0;
+        }
 
-		if (!isScalar(pvApiCtx, piAddressVarTwo))
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: String expected.\n"), fname, 2);
-			return 0;
-		}
+        if (!isScalar(pvApiCtx, piAddressVarTwo))
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: String expected.\n"), fname, 2);
+            return 0;
+        }
 
-		if ( (getAllocatedSingleString(pvApiCtx, piAddressVarOne, &modulename) == 0) &&
-			(getAllocatedSingleString(pvApiCtx, piAddressVarTwo, &optionname) == 0) )
-		{
-			if ( (modulename) && (optionname) )
-			{
-				if ( with_module(modulename) || (strcmp(modulename, "scilab") == 0) )
-				{
-					if ( strcmp(optionname, VERSION_STRING) == 0)
-					{
-						char *versionInfo = getModuleVersionInfoAsString(modulename);
+        if ((getAllocatedSingleString(pvApiCtx, piAddressVarOne, &modulename) == 0) &&
+            (getAllocatedSingleString(pvApiCtx, piAddressVarTwo, &optionname) == 0))
+        {
+            if ((modulename) && (optionname))
+            {
+                if (with_module(modulename) || (strcmp(modulename, "scilab") == 0))
+                {
+                    if (strcmp(optionname, VERSION_STRING) == 0)
+                    {
+                        char *versionInfo = getModuleVersionInfoAsString(modulename);
 
-						if (versionInfo)
-						{
-							createSingleString(pvApiCtx, Rhs + 1, versionInfo);
-							
-							FREE(versionInfo);
-							versionInfo = NULL;
+                        if (versionInfo)
+                        {
+                            createSingleString(pvApiCtx, Rhs + 1, versionInfo);
 
-							LhsVar(1) = Rhs + 1;
-							C2F(putlhsvar)();
-						}
-						else
-						{
-							Scierror(999,_("%s: Wrong file version.xml %s.\n"), fname, modulename);
+                            FREE(versionInfo);
+                            versionInfo = NULL;
 
-							freeAllocatedSingleString(modulename);
-							modulename = NULL;
-							freeAllocatedSingleString(optionname);
-							optionname = NULL;
+                            LhsVar(1) = Rhs + 1;
+                            C2F(putlhsvar) ();
+                        }
+                        else
+                        {
+                            Scierror(999, _("%s: Wrong file version.xml %s.\n"), fname, modulename);
 
-							return 0;
-						}
-					}
-					else
-					{
-						freeAllocatedSingleString(modulename);
-						modulename = NULL;
-						freeAllocatedSingleString(optionname);
-						optionname = NULL;
+                            freeAllocatedSingleString(modulename);
+                            modulename = NULL;
+                            freeAllocatedSingleString(optionname);
+                            optionname = NULL;
 
-						Scierror(999,_("%s: Wrong value for input argument #%d: '%s' expected.\n"), fname, 2, VERSION_STRING);
-						return 0;
-					}
-				}
-				else
-				{
-					Scierror(999,_("%s: Wrong module name %s.\n"), fname , modulename);
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        freeAllocatedSingleString(modulename);
+                        modulename = NULL;
+                        freeAllocatedSingleString(optionname);
+                        optionname = NULL;
 
-					freeAllocatedSingleString(modulename);
-					modulename = NULL;
-					freeAllocatedSingleString(optionname);
-					optionname = NULL;
+                        Scierror(999, _("%s: Wrong value for input argument #%d: '%s' expected.\n"), fname, 2, VERSION_STRING);
+                        return 0;
+                    }
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong module name %s.\n"), fname, modulename);
 
-					return 0;
-				}
-			}
-			else
-			{
-				Scierror(999,_("%s: Memory allocation error.\n"), fname);
-				return 0;
-			}
-		}
-		else
-		{
-			Scierror(999,_("%s: Memory allocation error.\n"), fname);
-			return 0;
-		}
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input arguments #%d and #%d: Strings expected.\n"), fname, 1, 2);
-		return 0;
-	}
+                    freeAllocatedSingleString(modulename);
+                    modulename = NULL;
+                    freeAllocatedSingleString(optionname);
+                    optionname = NULL;
 
-	return 0;
+                    return 0;
+                }
+            }
+            else
+            {
+                Scierror(999, _("%s: Memory allocation error.\n"), fname);
+                return 0;
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Memory allocation error.\n"), fname);
+            return 0;
+        }
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input arguments #%d and #%d: Strings expected.\n"), fname, 1, 2);
+        return 0;
+    }
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

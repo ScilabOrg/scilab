@@ -24,82 +24,91 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableGrayplot::ConcreteDrawableGrayplot(sciPointObj * pObj)
-  : DrawableGrayplot(pObj)
-{
-  m_pDecomposer = NULL;
-}
+    ConcreteDrawableGrayplot::ConcreteDrawableGrayplot(sciPointObj * pObj):DrawableGrayplot(pObj)
+    {
+        m_pDecomposer = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableGrayplot::~ConcreteDrawableGrayplot(void)
-{
-  setDeccompositionStrategy(NULL);
-}
+    ConcreteDrawableGrayplot::~ConcreteDrawableGrayplot(void)
+    {
+        setDeccompositionStrategy(NULL);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableGrayplot::setDeccompositionStrategy(GrayplotDecompositionStrategy * strategy)
-{
-  if (m_pDecomposer != NULL)
-  {
-    delete m_pDecomposer;
-  }
-  m_pDecomposer = strategy;
-}
+    void ConcreteDrawableGrayplot::setDeccompositionStrategy(GrayplotDecompositionStrategy * strategy)
+    {
+        if (m_pDecomposer != NULL)
+        {
+            delete m_pDecomposer;
+        }
+        m_pDecomposer = strategy;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus ConcreteDrawableGrayplot::drawGrayplot(void)
-{
-  int nbRow = m_pDecomposer->getNbRow();
-  int nbCol = m_pDecomposer->getNbCol();
-  int nbColors = m_pDecomposer->getNbColors();
-  
-  // beware here the column are for X
-  // row on Y
-  double * xGrid = NULL;
-  double * yGrid = NULL;
-  int * colors = NULL;
+    DrawableObject::EDisplayStatus ConcreteDrawableGrayplot::drawGrayplot(void)
+    {
+        int nbRow = m_pDecomposer->getNbRow();
+        int nbCol = m_pDecomposer->getNbCol();
+        int nbColors = m_pDecomposer->getNbColors();
 
-  try
-  {
-    xGrid = new double[nbCol];
-    yGrid = new double[nbRow];
-    colors = new int[nbColors];
-  }
-  catch (const std::exception& e)
-  {
-    // allocation failed
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")), "ConcreteDrawableGrayplot::drawGrayplot");
-    if(xGrid != NULL) { delete[] xGrid; }
-    if(yGrid != NULL) { delete[] yGrid; }
-    if(colors != NULL) { delete[] colors; }
-    return FAILURE;
-  }
+        // beware here the column are for X
+        // row on Y
+        double *xGrid = NULL;
+        double *yGrid = NULL;
+        int *colors = NULL;
 
-  // compute the grid and the colors to display
-  m_pDecomposer->decomposeGrayplot(xGrid, yGrid, colors);
+        try
+        {
+            xGrid = new double[nbCol];
+            yGrid = new double[nbRow];
+            colors = new int[nbColors];
+        }
+        catch(const std::exception & e)
+        {
+            // allocation failed
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "ConcreteDrawableGrayplot::drawGrayplot");
 
-  EDisplayStatus status = SUCCESS;
+            if (xGrid != NULL)
+            {
+                delete[]xGrid;
+            }
+            if (yGrid != NULL)
+            {
+                delete[]yGrid;
+            }
+            if (colors != NULL)
+            {
+                delete[]colors;
+            }
+            return FAILURE;
+        }
 
-  // draw the grid on the screen
-  try {
-    getGrayplotImp()->drawGrayplot(xGrid, nbCol, yGrid, nbRow,
-                                   m_pDecomposer->getZCoordinate(),
-                                   colors, nbColors);
-  }
-  catch (const std::exception& e)
-  {
-    // some allocation failed
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")), "ConcreteDrawableGrayplot::drawGrayplot");
-    status = FAILURE;
-  }
+        // compute the grid and the colors to display
+        m_pDecomposer->decomposeGrayplot(xGrid, yGrid, colors);
 
-  delete[] xGrid;
-  delete[] yGrid;
-  delete[] colors;
+        EDisplayStatus status = SUCCESS;
 
-  return status;
-}
+        // draw the grid on the screen
+        try
+        {
+            getGrayplotImp()->drawGrayplot(xGrid, nbCol, yGrid, nbRow, m_pDecomposer->getZCoordinate(), colors, nbColors);
+        }
+        catch(const std::exception & e)
+        {
+            // some allocation failed
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "ConcreteDrawableGrayplot::drawGrayplot");
+
+            status = FAILURE;
+        }
+
+        delete[]xGrid;
+        delete[]yGrid;
+        delete[]colors;
+
+        return status;
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableGrayplot::showGrayplot(void)
-{
-  getDrawableImp()->show();
-}
+    void ConcreteDrawableGrayplot::showGrayplot(void)
+    {
+        getDrawableImp()->show();
+    }
 /*---------------------------------------------------------------------------------*/
 }

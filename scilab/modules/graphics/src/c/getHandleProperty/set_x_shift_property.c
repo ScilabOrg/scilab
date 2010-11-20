@@ -28,48 +28,49 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_x_shift_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_x_shift_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  int nbElement = nbRow * nbCol ;
+    int nbElement = nbRow * nbCol;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "x_shift");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_POLYLINE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_shift");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( nbRow > 1 && nbCol > 1 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "x_shift", "0x0, 1xn, nx1");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( nbElement != 0 && nbElement != pPOLYLINE_FEATURE (pobj)->n1 ) /* we can specify [] (null vector) to reset to default */
-  {
-    Scierror(999, _("Wrong size for '%s' property: %d or %d elements expected.\n"), "x_shift", 0, pPOLYLINE_FEATURE (pobj)->n1);
-    return SET_PROPERTY_ERROR ;
-  }
-
-  FREE( pPOLYLINE_FEATURE(pobj)->x_shift ) ;
-  pPOLYLINE_FEATURE(pobj)->x_shift = NULL;
-
-  if( nbElement != 0 )
-  {
-    pPOLYLINE_FEATURE(pobj)->x_shift = createCopyDoubleVectorFromStack( stackPointer, nbElement ) ;
-
-    if ( pPOLYLINE_FEATURE (pobj)->x_shift == NULL )
+    if (!isParameterDoubleMatrix(valueType))
     {
-      Scierror(999, _("%s: No more memory.\n"),"set_x_shift_property");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "x_shift");
+        return SET_PROPERTY_ERROR;
     }
-  }
-  return SET_PROPERTY_SUCCEED ;
+
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_shift");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (nbRow > 1 && nbCol > 1)
+    {
+        Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "x_shift", "0x0, 1xn, nx1");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (nbElement != 0 && nbElement != pPOLYLINE_FEATURE(pobj)->n1) /* we can specify [] (null vector) to reset to default */
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d or %d elements expected.\n"), "x_shift", 0, pPOLYLINE_FEATURE(pobj)->n1);
+        return SET_PROPERTY_ERROR;
+    }
+
+    FREE(pPOLYLINE_FEATURE(pobj)->x_shift);
+    pPOLYLINE_FEATURE(pobj)->x_shift = NULL;
+
+    if (nbElement != 0)
+    {
+        pPOLYLINE_FEATURE(pobj)->x_shift = createCopyDoubleVectorFromStack(stackPointer, nbElement);
+
+        if (pPOLYLINE_FEATURE(pobj)->x_shift == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), "set_x_shift_property");
+            return SET_PROPERTY_ERROR;
+        }
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

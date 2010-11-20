@@ -13,7 +13,7 @@
 
 #include "matfile_manager.h"
 #include "MALLOC.h"
-#include "stack-c.h" /* stack-def.h, stack1.h, stack2.h, stack3.h included */
+#include "stack-c.h"            /* stack-def.h, stack1.h, stack2.h, stack3.h included */
 #include "gw_matio.h"
 #include "localization.h"
 #include "Scierror.h"
@@ -30,132 +30,137 @@
    Interface for MATIO function called Mat_Open
    Scilab function name : matfile_open
 *******************************************************************************/
-int sci_matfile_open(char *fname,unsigned long fname_len)
+int sci_matfile_open(char *fname, unsigned long fname_len)
 {
-  int nbRow = 0, nbCol = 0;
-  mat_t *matfile;
-  int fileIndex = 0;
-  char * filename  = NULL;
-  char * optionStr = NULL;
-  int option = 0, var_type;
-  int * filename_addr = NULL, * option_addr = NULL;
-  SciErr _SciErr;
-  
-  CheckRhs(1, 2);
-  CheckLhs(1, 1);
-  
-  _SciErr = getVarAddressFromPosition(pvApiCtx, 1, &filename_addr); MATIO_ERROR;
-  _SciErr = getVarType(pvApiCtx, filename_addr, &var_type); MATIO_ERROR;
-  
-  if (var_type == sci_strings)
+    int nbRow = 0, nbCol = 0;
+    mat_t *matfile;
+    int fileIndex = 0;
+    char *filename = NULL;
+    char *optionStr = NULL;
+    int option = 0, var_type;
+    int *filename_addr = NULL, *option_addr = NULL;
+    SciErr _SciErr;
+
+    CheckRhs(1, 2);
+    CheckLhs(1, 1);
+
+    _SciErr = getVarAddressFromPosition(pvApiCtx, 1, &filename_addr);
+    MATIO_ERROR;
+    _SciErr = getVarType(pvApiCtx, filename_addr, &var_type);
+    MATIO_ERROR;
+
+    if (var_type == sci_strings)
     {
-      getAllocatedSingleString(pvApiCtx, filename_addr, &filename);
-      _SciErr = getVarDimension(pvApiCtx, filename_addr, &nbRow, &nbCol); 
-      MATIO_ERROR;
-      
-      if (nbCol != 1) 
-	{
-	  Scierror(999, _("%s: Wrong size for first input argument: Single string expected.\n"), fname);
-	  
-	  freeAllocatedSingleString(filename);
-	  
-	  return FALSE;
-	}
+        getAllocatedSingleString(pvApiCtx, filename_addr, &filename);
+        _SciErr = getVarDimension(pvApiCtx, filename_addr, &nbRow, &nbCol);
+        MATIO_ERROR;
+
+        if (nbCol != 1)
+        {
+            Scierror(999, _("%s: Wrong size for first input argument: Single string expected.\n"), fname);
+
+            freeAllocatedSingleString(filename);
+
+            return FALSE;
+        }
     }
-  else
+    else
     {
-      Scierror(999, _("%s: Wrong type for first input argument: Single string expected.\n"), fname);
-      
-      freeAllocatedSingleString(filename);
-      
-      return FALSE;
+        Scierror(999, _("%s: Wrong type for first input argument: Single string expected.\n"), fname);
+
+        freeAllocatedSingleString(filename);
+
+        return FALSE;
     }
-  
-  if (Rhs == 2)
+
+    if (Rhs == 2)
     {
-      _SciErr = getVarAddressFromPosition(pvApiCtx, 2, &option_addr); MATIO_ERROR;
-      
-      _SciErr = getVarType(pvApiCtx, option_addr, &var_type); MATIO_ERROR;
-      
-      if (var_type == sci_strings)
-	{
-	  getAllocatedSingleString(pvApiCtx, option_addr, &optionStr);
-	  _SciErr = getVarDimension(pvApiCtx, option_addr, &nbRow, &nbCol); MATIO_ERROR;
-	  
-	  if (nbCol != 1) 
-	    {
-	      Scierror(999, _("%s: Wrong size for second input argument: Single string expected.\n"), fname);
-	      
-	      freeAllocatedSingleString(filename);
-	      freeAllocatedSingleString(optionStr);
-	      
-	      return FALSE;
-	    }
-	  
-	  if (strcmp(optionStr, "r")==0)
-	    {
-	      option = MAT_ACC_RDONLY;
-	    }
-	  else if (strcmp(optionStr, "w")==0)
-	    {
-	      option = 0; // MAT_ACC_RDWR option will be used for append mode
-	    }
-	  else
-	    {
-	      Scierror(999, _("%s: Wrong value for second input argument: 'r' or 'w' expected.\n"), fname);
-	      
-	      freeAllocatedSingleString(filename);
-	      freeAllocatedSingleString(optionStr);
-	      
-	      return FALSE;
-	    }
-	}
-      else
-	{
-	  Scierror(999, _("%s: Wrong type for second input argument: Single string expected.\n"), fname);
-	  
-	  freeAllocatedSingleString(filename);
-	  freeAllocatedSingleString(optionStr);
-	  
-	  return FALSE;
-	}
+        _SciErr = getVarAddressFromPosition(pvApiCtx, 2, &option_addr);
+        MATIO_ERROR;
+
+        _SciErr = getVarType(pvApiCtx, option_addr, &var_type);
+        MATIO_ERROR;
+
+        if (var_type == sci_strings)
+        {
+            getAllocatedSingleString(pvApiCtx, option_addr, &optionStr);
+            _SciErr = getVarDimension(pvApiCtx, option_addr, &nbRow, &nbCol);
+            MATIO_ERROR;
+
+            if (nbCol != 1)
+            {
+                Scierror(999, _("%s: Wrong size for second input argument: Single string expected.\n"), fname);
+
+                freeAllocatedSingleString(filename);
+                freeAllocatedSingleString(optionStr);
+
+                return FALSE;
+            }
+
+            if (strcmp(optionStr, "r") == 0)
+            {
+                option = MAT_ACC_RDONLY;
+            }
+            else if (strcmp(optionStr, "w") == 0)
+            {
+                option = 0;     // MAT_ACC_RDWR option will be used for append mode
+            }
+            else
+            {
+                Scierror(999, _("%s: Wrong value for second input argument: 'r' or 'w' expected.\n"), fname);
+
+                freeAllocatedSingleString(filename);
+                freeAllocatedSingleString(optionStr);
+
+                return FALSE;
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for second input argument: Single string expected.\n"), fname);
+
+            freeAllocatedSingleString(filename);
+            freeAllocatedSingleString(optionStr);
+
+            return FALSE;
+        }
     }
-  else
+    else
     {
-      /* Default option value */
-      option = MAT_ACC_RDONLY;
+        /* Default option value */
+        option = MAT_ACC_RDONLY;
     }
-  
-  /* Try to open the file (as a Matlab 5 file) */
-  matfile = Mat_Open(filename, option);
-  
-  if(matfile==NULL) /* Opening failed */
+
+    /* Try to open the file (as a Matlab 5 file) */
+    matfile = Mat_Open(filename, option);
+
+    if (matfile == NULL)        /* Opening failed */
     {
-      /* Try to open the file (as a Matlab 4 file) */
-      matfile = Mat_Open(filename, option | MAT_FT_MAT4);
-      
-      if(matfile==NULL) /* Opening failed */
-	{
-	  /* Function returns -1 */
-	  fileIndex = -1;
-	}
+        /* Try to open the file (as a Matlab 4 file) */
+        matfile = Mat_Open(filename, option | MAT_FT_MAT4);
+
+        if (matfile == NULL)    /* Opening failed */
+        {
+            /* Function returns -1 */
+            fileIndex = -1;
+        }
     }
-  
-  if (matfile != NULL) /* Opening succeed */
+
+    if (matfile != NULL)        /* Opening succeed */
     {
-      /* Add the file to the manager */
-      matfile_manager(MATFILEMANAGER_ADDFILE, &fileIndex, &matfile);
+        /* Add the file to the manager */
+        matfile_manager(MATFILEMANAGER_ADDFILE, &fileIndex, &matfile);
     }
-  
-  /* Return the index */
-  createScalarDouble(pvApiCtx, Rhs+1, (double)fileIndex);
-  
-  LhsVar(1) = Rhs+1;
-  
-  PutLhsVar();
-  
-  freeAllocatedSingleString(filename);
-  freeAllocatedSingleString(optionStr);
-  
-  return TRUE;
+
+    /* Return the index */
+    createScalarDouble(pvApiCtx, Rhs + 1, (double)fileIndex);
+
+    LhsVar(1) = Rhs + 1;
+
+    PutLhsVar();
+
+    freeAllocatedSingleString(filename);
+    freeAllocatedSingleString(optionStr);
+
+    return TRUE;
 }

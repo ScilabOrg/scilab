@@ -28,35 +28,36 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_view_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_view_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "view");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "view");
+        return SET_PROPERTY_ERROR;
+    }
 
-  /* DJ.A 2003 */
-  if (sciGetEntityType (pobj) != SCI_SUBWIN)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"view");
-    return  SET_PROPERTY_ERROR ;
-  }
+    /* DJ.A 2003 */
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "view");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "2d" ) )
-  { 
-    return sciSetIs3d( pobj, FALSE ) ;
-  }
-  else if ( isStringParamEqual( stackPointer, "3d" ) )
-  {
-    return sciSetIs3d( pobj, TRUE ) ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "view", "'2d'", "'3d'");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_ERROR ;
+    if (isStringParamEqual(stackPointer, "2d"))
+    {
+        return sciSetIs3d(pobj, FALSE);
+    }
+    else if (isStringParamEqual(stackPointer, "3d"))
+    {
+        return sciSetIs3d(pobj, TRUE);
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "view", "'2d'", "'3d'");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

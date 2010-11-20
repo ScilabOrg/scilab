@@ -25,21 +25,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_rotation_angles_property( sciPointObj * pobj )
+int get_rotation_angles_property(sciPointObj * pobj)
 {
-  /* DJ.A 2003 */
-  double angles[2] ;
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"rotation_angle") ;
-    return -1 ;
-  }
+    /* DJ.A 2003 */
+    double angles[2];
 
-  angles[0] = pSUBWIN_FEATURE(pobj)->alpha ;
-  angles[1] = pSUBWIN_FEATURE(pobj)->theta ;
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "rotation_angle");
+        return -1;
+    }
 
-  return sciReturnRowVector( angles, 2 ) ;
+    angles[0] = pSUBWIN_FEATURE(pobj)->alpha;
+    angles[1] = pSUBWIN_FEATURE(pobj)->theta;
 
+    return sciReturnRowVector(angles, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

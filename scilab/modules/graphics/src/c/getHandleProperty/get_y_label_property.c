@@ -26,13 +26,14 @@
 #include "HandleManagement.h"
 
 /*------------------------------------------------------------------------*/
-int get_y_label_property( sciPointObj * pobj )
+int get_y_label_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"y_label");
-    return -1 ;
-  }
-  return sciReturnHandle( sciGetHandle( pSUBWIN_FEATURE(pobj)->mon_y_label ) ) ;
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_label");
+        return -1;
+    }
+    return sciReturnHandle(sciGetHandle(pSUBWIN_FEATURE(pobj)->mon_y_label));
 }
+
 /*------------------------------------------------------------------------*/

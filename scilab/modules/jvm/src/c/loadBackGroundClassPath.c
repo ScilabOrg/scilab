@@ -10,7 +10,7 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <jni.h>
 #include <stdio.h>
 #include "loadBackGroundClassPath.h"
@@ -18,26 +18,30 @@
 #include "getScilabJNIEnv.h"
 #include "fromjava.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 BOOL loadBackGroundClassPath(void)
 {
-	JNIEnv * currentENV = getScilabJNIEnv();
-	if (currentENV)
-		{
-			jclass cls=NULL;
-			cls = (*currentENV)->FindClass(currentENV, "org/scilab/modules/jvm/ClassPath");
+    JNIEnv *currentENV = getScilabJNIEnv();
 
-			if (cls)
-				{
-					jmethodID mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "loadBackGroundClassPath","()V");
-					if (mid)
-						{
-							(*currentENV)->CallStaticObjectMethod(currentENV,cls, mid);
-							return TRUE;
-						}
-				}
-		}
-	
-	return FALSE;
+    if (currentENV)
+    {
+        jclass cls = NULL;
+
+        cls = (*currentENV)->FindClass(currentENV, "org/scilab/modules/jvm/ClassPath");
+
+        if (cls)
+        {
+            jmethodID mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "loadBackGroundClassPath", "()V");
+
+            if (mid)
+            {
+                (*currentENV)->CallStaticObjectMethod(currentENV, cls, mid);
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

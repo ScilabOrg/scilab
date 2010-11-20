@@ -24,50 +24,52 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-CenteredTextDrawerJoGL::CenteredTextDrawerJoGL(DrawableText * text)
-  : TextContentDrawerJoGL(text)
-{
-  setJavaMapper(new CenteredTextDrawerJavaMapper());
-}
+    CenteredTextDrawerJoGL::CenteredTextDrawerJoGL(DrawableText * text):TextContentDrawerJoGL(text)
+    {
+        setJavaMapper(new CenteredTextDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-CenteredTextDrawerJoGL::~CenteredTextDrawerJoGL(void)
-{
+    CenteredTextDrawerJoGL::~CenteredTextDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJoGL::setDrawerParameters(void)
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
+    void CenteredTextDrawerJoGL::setDrawerParameters(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  getCenteredTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
-                                                       sciGetFontStyle(pObj), sciGetFontSize(pObj), sciGetFontOrientation(pObj),
-                                                       sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+        getCenteredTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
+                                                             sciGetFontStyle(pObj), sciGetFontSize(pObj), sciGetFontOrientation(pObj),
+                                                             sciGetIsUsingFractionalMetrics(pObj) == TRUE);
 
-  StringMatrix * textMatrix = sciGetText(pObj);
-  getCenteredTextDrawerJavaMapper()->setTextContent(getStrMatData(textMatrix), getMatNbRow(textMatrix), getMatNbCol(textMatrix));
+        StringMatrix *textMatrix = sciGetText(pObj);
 
-  // set box size
-  double boxWidth;
-  double boxHeight;
-  getUserSizePix(boxWidth, boxHeight);
-  getCenteredTextDrawerJavaMapper()->setFilledBoxSize(boxWidth, boxHeight);
-}
+        getCenteredTextDrawerJavaMapper()->setTextContent(getStrMatData(textMatrix), getMatNbRow(textMatrix), getMatNbCol(textMatrix));
+
+        // set box size
+        double boxWidth;
+        double boxHeight;
+
+        getUserSizePix(boxWidth, boxHeight);
+        getCenteredTextDrawerJavaMapper()->setFilledBoxSize(boxWidth, boxHeight);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJoGL::redrawTextContent(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
-{
-  // box size may have changed so update it
-  double boxWidth;
-  double boxHeight;
-  getUserSizePix(boxWidth, boxHeight);
-  getCenteredTextDrawerJavaMapper()->setFilledBoxSize(boxWidth, boxHeight);
+    void CenteredTextDrawerJoGL::redrawTextContent(double corner1[3], double corner2[3], double corner3[3], double corner4[3])
+    {
+        // box size may have changed so update it
+        double boxWidth;
+        double boxHeight;
 
-  TextContentDrawerJoGL::redrawTextContent(corner1, corner2, corner3, corner4);
-}
+        getUserSizePix(boxWidth, boxHeight);
+        getCenteredTextDrawerJavaMapper()->setFilledBoxSize(boxWidth, boxHeight);
+
+        TextContentDrawerJoGL::redrawTextContent(corner1, corner2, corner3, corner4);
+    }
 /*---------------------------------------------------------------------------------*/
-CenteredTextDrawerJavaMapper * CenteredTextDrawerJoGL::getCenteredTextDrawerJavaMapper(void)
-{
-  return dynamic_cast<CenteredTextDrawerJavaMapper *>(getJavaMapper());
-}
+    CenteredTextDrawerJavaMapper *CenteredTextDrawerJoGL::getCenteredTextDrawerJavaMapper(void)
+    {
+        return dynamic_cast < CenteredTextDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

@@ -22,92 +22,108 @@
 /**
  * list of all graphic windows
  */
-static FigureList * sciFigureList = DoublyLinkedList_new() ;
+static FigureList *sciFigureList = DoublyLinkedList_new();
 
 /**
  * Return true if the window has Id winNum
  * @param[in] figure actually a (sciPointObj *)
  * @param[in] figNum actually an int *.
  */
-static BOOL figureHasId(void * figure, void * figNum);
+static BOOL figureHasId(void *figure, void *figNum);
 
 /*---------------------------------------------------------------------------------*/
-BOOL sciHasFigures( void )
+BOOL sciHasFigures(void)
 {
-  return !List_is_empty(sciFigureList);
+    return !List_is_empty(sciFigureList);
 }
+
 /*---------------------------------------------------------------------------------*/
-FigureList * getScilabFigureList( void )
+FigureList *getScilabFigureList(void)
 {
-  return sciFigureList;
+    return sciFigureList;
 }
+
 /*---------------------------------------------------------------------------------*/
-sciPointObj * getFirstFigure( void )
+sciPointObj *getFirstFigure(void)
 {
-  return (sciPointObj *) List_data(sciFigureList);
+    return (sciPointObj *) List_data(sciFigureList);
 }
+
 /*---------------------------------------------------------------------------------*/
-void addNewFigureToList( sciPointObj * figure )
+void addNewFigureToList(sciPointObj * figure)
 {
-  sciFigureList = List_push(sciFigureList, figure);
+    sciFigureList = List_push(sciFigureList, figure);
 }
+
 /*---------------------------------------------------------------------------------*/
-void removeFigureFromList( sciPointObj * figure )
+void removeFigureFromList(sciPointObj * figure)
 {
-  sciFigureList = List_free_item(sciFigureList, figure);
+    sciFigureList = List_free_item(sciFigureList, figure);
 }
+
 /*---------------------------------------------------------------------------------*/
-static BOOL figureHasId(void * figure, void * figNum)
+static BOOL figureHasId(void *figure, void *figNum)
 {
-  return sciGetNum((sciPointObj *) figure) == *((int *) figNum);
+    return sciGetNum((sciPointObj *) figure) == *((int *)figNum);
 }
+
 /*---------------------------------------------------------------------------------*/
-sciPointObj * getFigureFromIndex(int figNum)
+sciPointObj *getFigureFromIndex(int figNum)
 {
-  return (sciPointObj *) List_data(List_find_full(sciFigureList, &figNum, figureHasId)) ;
+    return (sciPointObj *) List_data(List_find_full(sciFigureList, &figNum, figureHasId));
 }
+
 /*---------------------------------------------------------------------------------*/
 BOOL sciIsExistingFigure(int figNum)
 {
-  return (getFigureFromIndex(figNum) != NULL);
+    return (getFigureFromIndex(figNum) != NULL);
 }
+
 /*---------------------------------------------------------------------------------*/
 int sciGetNbFigure(void)
 {
-  return List_nb_item(sciFigureList);
+    return List_nb_item(sciFigureList);
 }
+
 /*---------------------------------------------------------------------------------*/
 void sciGetFiguresId(int ids[])
 {
-  FigureList * iterator = sciFigureList;
-  int i = 0;
+    FigureList *iterator = sciFigureList;
+    int i = 0;
 
-  while( !List_is_end(sciFigureList,iterator) )
-  {
-    ids[i] = sciGetNum((sciPointObj *) List_data(iterator));
-    i++;
-    iterator = List_next(sciFigureList, iterator);
-  }
+    while (!List_is_end(sciFigureList, iterator))
+    {
+        ids[i] = sciGetNum((sciPointObj *) List_data(iterator));
+        i++;
+        iterator = List_next(sciFigureList, iterator);
+    }
 }
+
 /*---------------------------------------------------------------------------------*/
-int sciGetFiguresMaxId( void )
+int sciGetFiguresMaxId(void)
 {
-  FigureList * iterator = sciFigureList;
-  int res = -1;
-  int i = 0;
+    FigureList *iterator = sciFigureList;
+    int res = -1;
+    int i = 0;
 
-  while( !List_is_end(sciFigureList,iterator) )
-  {
-    int curIndex = sciGetNum((sciPointObj *) List_data(iterator));
-    if (curIndex > res) { res = curIndex; }
-    i++;
-    iterator = List_next(sciFigureList, iterator);
-  }
-  return res;
+    while (!List_is_end(sciFigureList, iterator))
+    {
+        int curIndex = sciGetNum((sciPointObj *) List_data(iterator));
+
+        if (curIndex > res)
+        {
+            res = curIndex;
+        }
+        i++;
+        iterator = List_next(sciFigureList, iterator);
+    }
+    return res;
 }
+
 /*---------------------------------------------------------------------------------*/
 int getUnusedFigureIndex(void)
 {
-  return sciGetFiguresMaxId() + 1;
+    return sciGetFiguresMaxId() + 1;
 }
+
 /*---------------------------------------------------------------------------------*/

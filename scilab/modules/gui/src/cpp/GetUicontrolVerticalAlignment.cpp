@@ -15,26 +15,28 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolVerticalAlignment(sciPointObj* sciObj)
+int GetUicontrolVerticalAlignment(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      switch(pUICONTROL_FEATURE(sciObj)->verticalAlignment)
+        switch (pUICONTROL_FEATURE(sciObj)->verticalAlignment)
         {
         case TOP_ALIGNMENT:
-          return sciReturnString("top");
+            return sciReturnString("top");
         case MIDDLE_ALIGNMENT:
-          return sciReturnString("middle");
+            return sciReturnString("middle");
         case BOTTOM_ALIGNMENT:
-          return sciReturnString("bottom");
+            return sciReturnString("bottom");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s', or '%s' expected.\n")), "VerticalAlignment", "top", "middle", "bottom");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s', or '%s' expected.\n")), "VerticalAlignment", "top",
+                     "middle", "bottom");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "VerticalAlignment");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "VerticalAlignment");
+
+        return FALSE;
     }
 }

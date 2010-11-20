@@ -11,56 +11,56 @@
  *
  */
 
-
 #include "DrawableSurface.h"
 
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSurface::draw( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  drawSurface();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableSurface::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        drawSurface();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSurface::show( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showSurface();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableSurface::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showSurface();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSurface::redraw(void)
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  translate();
-  redrawSurface();
-  endTranslate();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableSurface::redraw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        translate();
+        redrawSurface();
+        endTranslate();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 }

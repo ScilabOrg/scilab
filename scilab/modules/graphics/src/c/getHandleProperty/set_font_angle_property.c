@@ -28,19 +28,20 @@
 #include "math_graphics.h"
 
 /*------------------------------------------------------------------------*/
-int set_font_angle_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_font_angle_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real expected.\n"), "font_angle");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real expected.\n"), "font_angle");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetAutoRotation( pobj ) )
-  {
-    sciSetAutoRotation( pobj, FALSE ) ;
-  }
-  return sciSetFontOrientation( pobj, DEG2RAD(getDoubleFromStack(stackPointer))  ) ;
+    if (sciGetAutoRotation(pobj))
+    {
+        sciSetAutoRotation(pobj, FALSE);
+    }
+    return sciSetFontOrientation(pobj, DEG2RAD(getDoubleFromStack(stackPointer)));
 
 }
+
 /*------------------------------------------------------------------------*/

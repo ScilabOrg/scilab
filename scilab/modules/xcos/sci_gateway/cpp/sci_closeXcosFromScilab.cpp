@@ -31,6 +31,7 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
+
 /*--------------------------------------------------------------------------*/
 int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
 {
@@ -43,11 +44,13 @@ int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
         try
         {
             Xcos::closeXcosFromScilab(getScilabJavaVM());
-        } catch (GiwsException::JniCallMethodException exception)
+        }
+        catch(GiwsException::JniCallMethodException exception)
         {
             Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
             return 0;
-        } catch (GiwsException::JniException exception)
+        }
+        catch(GiwsException::JniException exception)
         {
             Scierror(999, "%s: %s\n", fname, exception.what());
             return 0;
@@ -58,4 +61,5 @@ int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
     PutLhsVar();
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

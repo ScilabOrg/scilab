@@ -5,7 +5,6 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-
 /************************************
  *     simple example 2 (using sin and cos) 
  *     -->link('ext2c.o','ext2c','C'); 
@@ -19,8 +18,10 @@
 int ext2c(int *n, double *a, double *b, double *c)
 {
     static int k;
-    for (k = 0; k < *n; ++k) {
-	c[k] = sin(a[k]) + cos(b[k]);
+
+    for (k = 0; k < *n; ++k)
+    {
+        c[k] = sin(a[k]) + cos(b[k]);
     }
-    return(0);
-} 
+    return (0);
+}

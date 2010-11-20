@@ -25,22 +25,23 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_colored_property( sciPointObj * pobj )
+int get_colored_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType(pobj) != SCI_SEGS || pSEGS_FEATURE (pobj)->ptype == 0 )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"colored") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SEGS || pSEGS_FEATURE(pobj)->ptype == 0)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "colored");
+        return -1;
+    }
 
-  if ( pSEGS_FEATURE (pobj)->typeofchamp == 1 )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {	
-    return sciReturnString( "off" ) ; 
-  }
+    if (pSEGS_FEATURE(pobj)->typeofchamp == 1)
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

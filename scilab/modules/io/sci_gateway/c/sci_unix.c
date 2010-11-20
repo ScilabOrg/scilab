@@ -12,8 +12,9 @@
 
 #include "gw_io.h"
 /*--------------------------------------------------------------------------*/
-int sci_unix(char *fname,unsigned long fname_len)
+int sci_unix(char *fname, unsigned long fname_len)
 {
-	return sci_host (fname,fname_len);
+    return sci_host(fname, fname_len);
 }
+
 /*--------------------------------------------------------------------------*/

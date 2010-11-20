@@ -23,25 +23,28 @@
 #include "DrawingBridge.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xgrid(char *fname,unsigned long fname_len)
+int sci_xgrid(char *fname, unsigned long fname_len)
 {
-  int style = 0,m1,n1,l1;
-  int status = 0 ;
-  CheckRhs(-1,1);
-  if (Rhs == 1) {
-    GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
-    CheckScalar(1,m1,n1);
-    style = (int)  *stk(l1);
-  }
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
+    int style = 0, m1, n1, l1;
+    int status = 0;
 
-  status = sciSetGridStyle( sciGetCurrentSubWin(), style, style, style ) ;
-  if ( status == 0 )
-  {
-    sciDrawObj( sciGetCurrentSubWin() ) ;
-  }
+    CheckRhs(-1, 1);
+    if (Rhs == 1)
+    {
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+        CheckScalar(1, m1, n1);
+        style = (int)*stk(l1);
+    }
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-  return status ;
-} 
+    status = sciSetGridStyle(sciGetCurrentSubWin(), style, style, style);
+    if (status == 0)
+    {
+        sciDrawObj(sciGetCurrentSubWin());
+    }
+
+    return status;
+}
+
 /*--------------------------------------------------------------------------*/

@@ -27,36 +27,39 @@ Type *DY;\
        DY[i] = DX[ix+i*(*m+1)];\
  }
 
-
-int C2F(genmdiag)(int *typ,int *m,int *n,int *k,int *dx,int *dy) 
+int C2F(genmdiag) (int *typ, int *m, int *n, int *k, int *dx, int *dy)
 {
-  static int i, ix, mn;
+    static int i, ix, mn;
 
-  if (*k >= 0) 
-    mn=Max(0,Min(*m,*n-*k));
-  else
-    mn=Max(0,Min(*m+*k,*n));
+    if (*k >= 0)
+        mn = Max(0, Min(*m, *n - *k));
+    else
+        mn = Max(0, Min(*m + *k, *n));
 
-  switch (*typ) {
-  case 1:
-    MDIAG(integer1);
-    break;
-  case 2:
-    MDIAG(integer2);
-    break;
-  case 4:
-    MDIAG(int) ;
-    break;
-  case 11:
-    MDIAG(unsigned char);
-    break;
-  case 12:
-    MDIAG(unsigned short);
-    break;
-  case 14:
-    MDIAG(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        MDIAG(integer1);
+        break;
+    case 2:
+        MDIAG(integer2);
+        break;
+    case 4:
+        MDIAG(int);
+
+        break;
+    case 11:
+        MDIAG(unsigned char);
+
+        break;
+    case 12:
+        MDIAG(unsigned short);
+
+        break;
+    case 14:
+        MDIAG(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

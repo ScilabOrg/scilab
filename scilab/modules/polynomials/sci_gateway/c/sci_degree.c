@@ -15,12 +15,15 @@
 #include "gw_polynomials.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intdegree)(int *id);
+extern int C2F(intdegree) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_degree(char *fname,unsigned long fname_len)
+int sci_degree(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intdegree)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intdegree) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

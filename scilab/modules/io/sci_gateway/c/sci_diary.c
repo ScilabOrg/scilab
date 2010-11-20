@@ -22,96 +22,98 @@
 #include "cluni0.h"
 #include "PATH_MAX.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_diary)(char *fname,unsigned long fname_len)
+int C2F(sci_diary) (char *fname, unsigned long fname_len)
 {
 
-	int m1 = 0, n1 = 0, l1 = 0;
+    int m1 = 0, n1 = 0, l1 = 0;
 
-	CheckRhs(0,1);
-	CheckLhs(0,1);
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
-	if (Rhs == 0) /* This feature was not documented */
-	{
-		closeAllDiaries();
+    if (Rhs == 0)               /* This feature was not documented */
+    {
+        closeAllDiaries();
 
-		LhsVar(1) = 0;
-		C2F(putlhsvar)();
+        LhsVar(1) = 0;
+        C2F(putlhsvar) ();
 
-		return 0;
-	}
+        return 0;
+    }
 
-	if (GetType(1) == sci_strings)
-	{
-		char ** Inputstr = NULL;
-		
-		GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&Inputstr);
+    if (GetType(1) == sci_strings)
+    {
+        char **Inputstr = NULL;
 
-		if ( (m1 == n1) && (n1 == 1) )
-		{
-			int fd_diary = getdiary();
+        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &Inputstr);
 
-			int fd_newdiary = 0;
-			int swap = 1;
-			int ierr = 0;
-			double res = 0.;
+        if ((m1 == n1) && (n1 == 1))
+        {
+            int fd_diary = getdiary();
 
-			char filename[PATH_MAX + FILENAME_MAX];
-			long int lout  = PATH_MAX + FILENAME_MAX;
-			int out_n = 0;
+            int fd_newdiary = 0;
+            int swap = 1;
+            int ierr = 0;
+            double res = 0.;
 
-			C2F(cluni0)(Inputstr[0] , filename, &out_n,(int)strlen(Inputstr[0]),lout);
-			freeArrayOfString(Inputstr,m1 *n1);
+            char filename[PATH_MAX + FILENAME_MAX];
+            long int lout = PATH_MAX + FILENAME_MAX;
+            int out_n = 0;
 
-			C2F(mopen)(&fd_newdiary,filename,"wt",&swap,&res,&ierr);
+            C2F(cluni0) (Inputstr[0], filename, &out_n, (int)strlen(Inputstr[0]), lout);
+            freeArrayOfString(Inputstr, m1 * n1);
 
-			/* close previous diary */
-			if ( (fd_diary != 0) && (ierr == 0))
-			{
-				double res = 0.0;
-				C2F(mclose)(&fd_diary, &res);
-			}
+            C2F(mopen) (&fd_newdiary, filename, "wt", &swap, &res, &ierr);
 
-			setDiaryId(fd_newdiary);
+            /* close previous diary */
+            if ((fd_diary != 0) && (ierr == 0))
+            {
+                double res = 0.0;
 
-			LhsVar(1) = 0;
-			C2F(putlhsvar)();
-		}
-		else
-		{
-			freeArrayOfString(Inputstr,m1 *n1);
-			Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"), fname,1);
-			return 0;
-		}
-	}
-	else if (GetType(1) == sci_matrix)
-	{
-		GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-		if ( (m1 == n1) && (n1 == 1) )
-		{
-			double dzero = *stk(l1);
-			int zero = (int) dzero;
+                C2F(mclose) (&fd_diary, &res);
+            }
 
-			if (dzero != (double)zero)
-			{
-				Scierror(999,_("%s: Wrong value for input argument #%d: A int expected.\n"),fname,1);
-				return 0;
-			}
+            setDiaryId(fd_newdiary);
 
-			closeAllDiaries();
+            LhsVar(1) = 0;
+            C2F(putlhsvar) ();
+        }
+        else
+        {
+            freeArrayOfString(Inputstr, m1 * n1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, 1);
+            return 0;
+        }
+    }
+    else if (GetType(1) == sci_matrix)
+    {
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+        if ((m1 == n1) && (n1 == 1))
+        {
+            double dzero = *stk(l1);
+            int zero = (int)dzero;
 
-			LhsVar(1) = 0;
-			C2F(putlhsvar)();
-		}
-		else
-		{
-			Scierror(999,_("%s: Wrong size for input argument #%d: A scalar expected.\n"),fname,1);
-			return 0;
-		}
-	}
-	else
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: A int expected.\n"),fname,1);
-	}
-	return 0;
+            if (dzero != (double)zero)
+            {
+                Scierror(999, _("%s: Wrong value for input argument #%d: A int expected.\n"), fname, 1);
+                return 0;
+            }
+
+            closeAllDiaries();
+
+            LhsVar(1) = 0;
+            C2F(putlhsvar) ();
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
+            return 0;
+        }
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A int expected.\n"), fname, 1);
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

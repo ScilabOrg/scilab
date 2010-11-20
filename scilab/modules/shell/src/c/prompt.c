@@ -25,68 +25,74 @@
 static char Sci_Prompt[PROMPT_SIZE_MAX];
 static BOOL dispWarningLevelPrompt = TRUE;
 static char *temporaryPrompt = NULL;
+
 /*------------------------------------------------------------------------*/
 /* setprlev : set the current prompt string */
 /*------------------------------------------------------------------------*/
-void C2F(setprlev)( int *pause)
+void C2F(setprlev) (int *pause)
 {
-	if ( *pause == 0 ) 
-	{
-		sprintf(Sci_Prompt,SCIPROMPT);
-	}
-	else if ( *pause > 0 )
-	{
-		if (dispWarningLevelPrompt)
-		{
-			if (getWarningMode())
-			{
-				sciprint(_("Type '%s' or '%s' to return to standard level prompt.\n\n"),"resume","abort");
-				dispWarningLevelPrompt = FALSE;
-			}
-		}
-		sprintf(Sci_Prompt,SCIPROMPT_INTERRUPT,*pause);
-		// bug 5513
-		// when we change prompt to a pause level, we change also temp. prompt
-		SetTemporaryPrompt(Sci_Prompt);
-	}
-	else 
-	{
-		sprintf(Sci_Prompt,SCIPROMPT_PAUSE);
-		// bug 5513
-		// when we change prompt to halt level, we change also temp. prompt
-		SetTemporaryPrompt(Sci_Prompt);
-	}
+    if (*pause == 0)
+    {
+        sprintf(Sci_Prompt, SCIPROMPT);
+    }
+    else if (*pause > 0)
+    {
+        if (dispWarningLevelPrompt)
+        {
+            if (getWarningMode())
+            {
+                sciprint(_("Type '%s' or '%s' to return to standard level prompt.\n\n"), "resume", "abort");
+                dispWarningLevelPrompt = FALSE;
+            }
+        }
+        sprintf(Sci_Prompt, SCIPROMPT_INTERRUPT, *pause);
+        // bug 5513
+        // when we change prompt to a pause level, we change also temp. prompt
+        SetTemporaryPrompt(Sci_Prompt);
+    }
+    else
+    {
+        sprintf(Sci_Prompt, SCIPROMPT_PAUSE);
+        // bug 5513
+        // when we change prompt to halt level, we change also temp. prompt
+        SetTemporaryPrompt(Sci_Prompt);
+    }
 }
+
 /*------------------------------------------------------------------------*/
 void GetCurrentPrompt(char *CurrentPrompt)
 {
-	if (CurrentPrompt)
-	{
-		strcpy(CurrentPrompt,Sci_Prompt);
-	}
+    if (CurrentPrompt)
+    {
+        strcpy(CurrentPrompt, Sci_Prompt);
+    }
 }
+
 /*------------------------------------------------------------------------*/
 void SetTemporaryPrompt(char *tempPrompt)
 {
-	if (temporaryPrompt) 
-	{
-		FREE(temporaryPrompt);
-		temporaryPrompt = NULL;
-	}
-	temporaryPrompt = strdup(tempPrompt);
+    if (temporaryPrompt)
+    {
+        FREE(temporaryPrompt);
+        temporaryPrompt = NULL;
+    }
+    temporaryPrompt = strdup(tempPrompt);
 }
+
 /*------------------------------------------------------------------------*/
 char *GetTemporaryPrompt(void)
 {
-	return temporaryPrompt;
+    return temporaryPrompt;
 }
+
 /*------------------------------------------------------------------------*/
 void ClearTemporaryPrompt(void)
 {
-	if (temporaryPrompt)
-	{
-		FREE(temporaryPrompt);
-		temporaryPrompt = NULL;
-	}
+    if (temporaryPrompt)
+    {
+        FREE(temporaryPrompt);
+        temporaryPrompt = NULL;
+    }
 }
+
 /*------------------------------------------------------------------------*/

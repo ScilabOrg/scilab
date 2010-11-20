@@ -11,15 +11,17 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "gw_cacsd2.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scifreq)(char *fname,unsigned long fname_len);
+extern int C2F(scifreq) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_freq(char *fname,unsigned long fname_len)
+int sci_freq(char *fname, unsigned long fname_len)
 {
-	C2F(scifreq)(fname,fname_len);
-	return 0;
+    C2F(scifreq) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

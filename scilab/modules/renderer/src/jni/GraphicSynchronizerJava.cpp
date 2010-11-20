@@ -39,184 +39,218 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_utils_graphicSynchronization {
+namespace org_scilab_modules_renderer_utils_graphicSynchronization
+{
 
 // Returns the current env
 
-JNIEnv * GraphicSynchronizerJava::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *GraphicSynchronizerJava::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-GraphicSynchronizerJava::~GraphicSynchronizerJava() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    GraphicSynchronizerJava::~GraphicSynchronizerJava()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-GraphicSynchronizerJava::GraphicSynchronizerJava(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    GraphicSynchronizerJava::GraphicSynchronizerJava(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voidwaitID=NULL; 
-voidnotifyID=NULL; 
-voidnotifyAllID=NULL; 
-jintgetCurrentThreadIdID=NULL; 
-
-
-}
-
-GraphicSynchronizerJava::GraphicSynchronizerJava(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voidwaitID = NULL;
+        voidnotifyID = NULL;
+        voidnotifyAllID = NULL;
+        jintgetCurrentThreadIdID = NULL;
+
+    }
+
+    GraphicSynchronizerJava::GraphicSynchronizerJava(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voidwaitID=NULL; 
-voidnotifyID=NULL; 
-voidnotifyAllID=NULL; 
-jintgetCurrentThreadIdID=NULL; 
+        voidwaitID = NULL;
+        voidnotifyID = NULL;
+        voidnotifyAllID = NULL;
+        jintgetCurrentThreadIdID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void GraphicSynchronizerJava::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GraphicSynchronizerJava");
-}
-}
+    void GraphicSynchronizerJava::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GraphicSynchronizerJava");
+        }
+    }
 
-void GraphicSynchronizerJava::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GraphicSynchronizerJava");
-}
-}
+    void GraphicSynchronizerJava::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GraphicSynchronizerJava");
+        }
+    }
 // Method(s)
 
-void GraphicSynchronizerJava::wait (){
+    void GraphicSynchronizerJava::wait()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidwaitID==NULL) { /* Use the cache */
- voidwaitID = curEnv->GetMethodID(this->instanceClass, "wait", "()V" ) ;
-if (voidwaitID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "wait");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidwaitID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidwaitID == NULL)
+        {                       /* Use the cache */
+            voidwaitID = curEnv->GetMethodID(this->instanceClass, "wait", "()V");
+            if (voidwaitID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "wait");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidwaitID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GraphicSynchronizerJava::notify (){
+    void GraphicSynchronizerJava::notify()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidnotifyID==NULL) { /* Use the cache */
- voidnotifyID = curEnv->GetMethodID(this->instanceClass, "notify", "()V" ) ;
-if (voidnotifyID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "notify");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidnotifyID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidnotifyID == NULL)
+        {                       /* Use the cache */
+            voidnotifyID = curEnv->GetMethodID(this->instanceClass, "notify", "()V");
+            if (voidnotifyID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "notify");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidnotifyID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GraphicSynchronizerJava::notifyAll (){
+    void GraphicSynchronizerJava::notifyAll()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidnotifyAllID==NULL) { /* Use the cache */
- voidnotifyAllID = curEnv->GetMethodID(this->instanceClass, "notifyAll", "()V" ) ;
-if (voidnotifyAllID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "notifyAll");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidnotifyAllID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidnotifyAllID == NULL)
+        {                       /* Use the cache */
+            voidnotifyAllID = curEnv->GetMethodID(this->instanceClass, "notifyAll", "()V");
+            if (voidnotifyAllID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "notifyAll");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidnotifyAllID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int GraphicSynchronizerJava::getCurrentThreadId (){
+    int GraphicSynchronizerJava::getCurrentThreadId()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintgetCurrentThreadIdID==NULL) { /* Use the cache */
- jintgetCurrentThreadIdID = curEnv->GetMethodID(this->instanceClass, "getCurrentThreadId", "()I" ) ;
-if (jintgetCurrentThreadIdID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getCurrentThreadId");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetCurrentThreadIdID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintgetCurrentThreadIdID == NULL)
+        {                       /* Use the cache */
+            jintgetCurrentThreadIdID = curEnv->GetMethodID(this->instanceClass, "getCurrentThreadId", "()I");
+            if (jintgetCurrentThreadIdID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getCurrentThreadId");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetCurrentThreadIdID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
 
 }

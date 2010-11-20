@@ -25,65 +25,65 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableText::DrawableText( sciPointObj * pObj ) : DrawableClippedObject( pObj )
-{
-  m_dDefaultFontSize = DEFAULT_FONT_SIZE;
-}
+    DrawableText::DrawableText(sciPointObj * pObj):DrawableClippedObject(pObj)
+    {
+        m_dDefaultFontSize = DEFAULT_FONT_SIZE;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableText::~DrawableText( void )
-{
+    DrawableText::~DrawableText(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableText::draw( void )
-{ 
-  // update might be needed
-  if (!checkVisibility() || isTextEmpty() )
-  {
-    return UNCHANGED;
-  }
+    DrawableObject::EDisplayStatus DrawableText::draw(void)
+    {
+        // update might be needed
+        if (!checkVisibility() || isTextEmpty())
+        {
+            return UNCHANGED;
+        }
 
-  initializeDrawing() ;
-  
-  clip();
-  reinitMove();
-  drawTextContent();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        drawTextContent();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableText::show( void )
-{
-  // update might be needed
-  if (!checkVisibility() || isTextEmpty() )
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showTextContent();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableText::show(void)
+    {
+        // update might be needed
+        if (!checkVisibility() || isTextEmpty())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showTextContent();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableText::redraw(void)
-{
-  // force redrawing
-  // update might be needed
-  if (!checkVisibility() || isTextEmpty() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  drawTextContent();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableText::redraw(void)
+    {
+        // force redrawing
+        // update might be needed
+        if (!checkVisibility() || isTextEmpty())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        reinitMove();
+        drawTextContent();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 #undef DEFAULT_FONT_SIZE
 

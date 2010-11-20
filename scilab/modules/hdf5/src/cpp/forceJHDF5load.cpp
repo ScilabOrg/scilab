@@ -25,15 +25,17 @@ using namespace org_scilab_modules_hdf5;
 static BOOL alreadyLoadedJava = FALSE;
 static BOOL loadedDep = FALSE;
 
-void forceJHDF5load() {
+void forceJHDF5load()
+{
 /* On the first use of this function make sure we are calling the Java HDF5 
  * API. 
  * This a workaround for bug #5481
  */
-	if (!alreadyLoadedJava  && getScilabMode() != SCILAB_NWNI) {
-		loadOnUseClassPath("HDF5");
-		loadedDep = TRUE;
-		jhdf5load::forceLoad(getScilabJavaVM());
-		alreadyLoadedJava=TRUE;
-	}
+    if (!alreadyLoadedJava && getScilabMode() != SCILAB_NWNI)
+    {
+        loadOnUseClassPath("HDF5");
+        loadedDep = TRUE;
+        jhdf5load::forceLoad(getScilabJavaVM());
+        alreadyLoadedJava = TRUE;
+    }
 }

@@ -31,35 +31,36 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableAxesFactory::create( void )
-{
-  ConcreteDrawableAxes * newAxes = new ConcreteDrawableAxes( m_pDrawed ) ;
-  DrawableAxesBridgeFactory fact;
-  fact.setDrawedAxes(newAxes);
-  newAxes->setDrawableImp(fact.create());
-  setStrategies(newAxes);
+    DrawableObject *DrawableAxesFactory::create(void)
+    {
+        ConcreteDrawableAxes *newAxes = new ConcreteDrawableAxes(m_pDrawed);
+        DrawableAxesBridgeFactory fact;
+          fact.setDrawedAxes(newAxes);
+          newAxes->setDrawableImp(fact.create());
+          setStrategies(newAxes);
 
-  return newAxes;
-}
+          return newAxes;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesFactory::update( void )
-{
-  setStrategies(dynamic_cast<ConcreteDrawableAxes *>(getAxesDrawer(m_pDrawed)));
-}
+    void DrawableAxesFactory::update(void)
+    {
+        setStrategies(dynamic_cast < ConcreteDrawableAxes * >(getAxesDrawer(m_pDrawed)));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableAxesFactory::setStrategies( ConcreteDrawableAxes * axes )
-{
-  sciPointObj * pAxes = axes->getDrawedObject();
+    void DrawableAxesFactory::setStrategies(ConcreteDrawableAxes * axes)
+    {
+        sciPointObj *pAxes = axes->getDrawedObject();
 
-  // create ticksDrawer
-  TicksDrawer * ticksDrawer = new TicksDrawer();
-  ticksDrawer->setTicksDrawer(new AxesTicksDrawerJoGL(axes));
-  ticksDrawer->setTicksComputer(new AxesTicksComputer(axes));
-  ticksDrawer->setSubticksComputer(new AxesSubticksComputer(axes));
-  ticksDrawer->setAxisPositioner(new AxesPositioner(axes));
-  
-  axes->setTicksDrawer(ticksDrawer);
+        // create ticksDrawer
+        TicksDrawer *ticksDrawer = new TicksDrawer();
 
-}
+        ticksDrawer->setTicksDrawer(new AxesTicksDrawerJoGL(axes));
+        ticksDrawer->setTicksComputer(new AxesTicksComputer(axes));
+        ticksDrawer->setSubticksComputer(new AxesSubticksComputer(axes));
+        ticksDrawer->setAxisPositioner(new AxesPositioner(axes));
+
+        axes->setTicksDrawer(ticksDrawer);
+
+    }
 /*---------------------------------------------------------------------------------*/
 }

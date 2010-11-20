@@ -28,17 +28,20 @@
 #include "GetProperty.h"
 #include "BOOL.h"
 /*------------------------------------------------------------------------*/
-int set_visible_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_visible_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-	int b = (int)FALSE;
-	if ( (sciGetEntityType(pobj) == SCI_UIMENU) || (sciGetEntityType(pobj) == SCI_UICONTROL) )
-	{
-		return SetUiobjectVisible(pobj, stackPointer, valueType, nbRow, nbCol);
-	}
+    int b = (int)FALSE;
 
-	b =  tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "visible");
-	if(b == NOT_A_BOOLEAN_VALUE) return SET_PROPERTY_ERROR;
+    if ((sciGetEntityType(pobj) == SCI_UIMENU) || (sciGetEntityType(pobj) == SCI_UICONTROL))
+    {
+        return SetUiobjectVisible(pobj, stackPointer, valueType, nbRow, nbCol);
+    }
 
-	return sciSetVisibility(pobj, b);
+    b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "visible");
+    if (b == NOT_A_BOOLEAN_VALUE)
+        return SET_PROPERTY_ERROR;
+
+    return sciSetVisibility(pobj, b);
 }
+
 /*------------------------------------------------------------------------*/

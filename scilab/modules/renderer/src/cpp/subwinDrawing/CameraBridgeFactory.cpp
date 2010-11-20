@@ -26,39 +26,39 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------*/
-CameraBridge * CameraBridgeFactory::create( void )
-{
-  CameraJoGL * newBridge = new CameraJoGL(m_pCamera) ;
+    CameraBridge *CameraBridgeFactory::create(void)
+    {
+        CameraJoGL *newBridge = new CameraJoGL(m_pCamera);
 
-  setStrategies(newBridge);
-  
-  return newBridge;
-}
+          setStrategies(newBridge);
+
+          return newBridge;
+    }
 /*------------------------------------------------------------------------*/
-void CameraBridgeFactory::update(void)
-{
-  DrawableObjectBridge * curCameraBridge = getSubwinDrawer(m_pCamera->getDrawedObject())->getCamera()->getDrawableImp();
+    void CameraBridgeFactory::update(void)
+    {
+        DrawableObjectBridge *curCameraBridge = getSubwinDrawer(m_pCamera->getDrawedObject())->getCamera()->getDrawableImp();
 
-  setStrategies(dynamic_cast<CameraJoGL *>(curCameraBridge));
-}
+        setStrategies(dynamic_cast < CameraJoGL * >(curCameraBridge));
+    }
 /*------------------------------------------------------------------------*/
-void CameraBridgeFactory::setStrategies(CameraJoGL * cameraImp)
-{
-  sciPointObj * pSubwin = cameraImp->getDrawer()->getDrawedObject();
-  CameraJavaMapper * javaMapper = NULL;
+    void CameraBridgeFactory::setStrategies(CameraJoGL * cameraImp)
+    {
+        sciPointObj *pSubwin = cameraImp->getDrawer()->getDrawedObject();
+        CameraJavaMapper *javaMapper = NULL;
 
-  if (sciGetIsIsoView(pSubwin))
-  {
-    javaMapper = new IsoViewCameraJavaMapper() ;
-  }
-  else
-  {
-    javaMapper = new IsometricCameraJavaMapper() ;
-  }
+        if (sciGetIsIsoView(pSubwin))
+        {
+            javaMapper = new IsoViewCameraJavaMapper();
+        }
+        else
+        {
+            javaMapper = new IsometricCameraJavaMapper();
+        }
 
-  cameraImp->setJavaMapper(javaMapper);
+        cameraImp->setJavaMapper(javaMapper);
 
-}
+    }
 /*------------------------------------------------------------------------*/
 
 }

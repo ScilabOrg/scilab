@@ -39,156 +39,182 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_xcos_block {
+namespace org_scilab_modules_xcos_block
+{
 
 // Returns the current env
 
-JNIEnv * AfficheBlock::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-return curEnv;
-}
+    JNIEnv *AfficheBlock::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+          this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+          return curEnv;
+    }
 // Destructor
 
-AfficheBlock::~AfficheBlock() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    AfficheBlock::~AfficheBlock()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-curEnv->DeleteGlobalRef(this->stringArrayClass);}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+        curEnv->DeleteGlobalRef(this->stringArrayClass);
+    }
 // Constructors
 
-AfficheBlock::AfficheBlock(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    AfficheBlock::AfficheBlock(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voidsetValuejintjobjectArray__ID=NULL; 
-
-
-}
-
-AfficheBlock::AfficheBlock(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voidsetValuejintjobjectArray__ID = NULL;
+
+    }
+
+    AfficheBlock::AfficheBlock(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voidsetValuejintjobjectArray__ID=NULL; 
+        voidsetValuejintjobjectArray__ID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void AfficheBlock::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "AfficheBlock");
-}
-}
+    void AfficheBlock::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "AfficheBlock");
+        }
+    }
 
-void AfficheBlock::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "AfficheBlock");
-}
-}
+    void AfficheBlock::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "AfficheBlock");
+        }
+    }
 // Method(s)
 
-void AfficheBlock::setValue (JavaVM * jvm_, int id, char *** value, int valueSize, int valueSizeCol){
+    void AfficheBlock::setValue(JavaVM * jvm_, int id, char ***value, int valueSize, int valueSizeCol)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidsetValuejintjobjectArray__ID = curEnv->GetStaticMethodID(cls, "setValue", "(I[[Ljava/lang/String;)V" ) ;
-if (voidsetValuejintjobjectArray__ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setValue");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        jmethodID voidsetValuejintjobjectArray__ID = curEnv->GetStaticMethodID(cls, "setValue", "(I[[Ljava/lang/String;)V");
+
+        if (voidsetValuejintjobjectArray__ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "setValue");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+
 // create java array of array of strings.
-jobjectArray value_ = curEnv->NewObjectArray( valueSize, curEnv->FindClass("[Ljava/lang/String;"), NULL);
-if (value_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray value_ = curEnv->NewObjectArray(valueSize, curEnv->FindClass("[Ljava/lang/String;"), NULL);
 
-for ( int i = 0; i < valueSize; i++)
-{
-jobjectArray valueLocal = curEnv->NewObjectArray( valueSizeCol, stringArrayClass, NULL);
+        if (value_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
+
+        for (int i = 0; i < valueSize; i++)
+        {
+            jobjectArray valueLocal = curEnv->NewObjectArray(valueSizeCol, stringArrayClass, NULL);
+
 // convert each char * to java strings and fill the java array.
-for ( int j = 0; j < valueSizeCol; j++) {
-jstring TempString = curEnv->NewStringUTF( value[i][j] );
+            for (int j = 0; j < valueSizeCol; j++)
+            {
+                jstring TempString = curEnv->NewStringUTF(value[i][j]);
 
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+                if (TempString == NULL)
+                {
+                    throw GiwsException::JniBadAllocException(curEnv);
+                }
 
-curEnv->SetObjectArrayElement( valueLocal, j, TempString);
+                curEnv->SetObjectArrayElement(valueLocal, j, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-curEnv->SetObjectArrayElement(value_, i, valueLocal);
-curEnv->DeleteLocalRef(valueLocal);
+                curEnv->DeleteLocalRef(TempString);
+            }
+            curEnv->SetObjectArrayElement(value_, i, valueLocal);
+            curEnv->DeleteLocalRef(valueLocal);
 
-}
-                         curEnv->CallStaticVoidMethod(cls, voidsetValuejintjobjectArray__ID ,id, value_);curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(value_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        }
+        curEnv->CallStaticVoidMethod(cls, voidsetValuejintjobjectArray__ID, id, value_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(value_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

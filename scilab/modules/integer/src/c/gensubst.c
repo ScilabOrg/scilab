@@ -33,35 +33,38 @@ Type *DY;\
  }\
 }
 
-
-
-int C2F(gensubst)(int *typ, int *n, int *dx, int *incx, int *dy, int *incy)
+int C2F(gensubst) (int *typ, int *n, int *dx, int *incx, int *dy, int *incy)
 {
-  static int i, ix, iy, i1;
+    static int i, ix, iy, i1;
 
-  i1 = *n;
-  if (i1 <= 0) return 0;
+    i1 = *n;
+    if (i1 <= 0)
+        return 0;
 
-  switch (*typ) {
-  case 1:
-    SUBST(integer1);
-    break;
-  case 2:
-    SUBST(integer2);
-    break;
-  case 4:
-    SUBST(int) ;
-    break;
-  case 11:
-    SUBST(unsigned char);
-    break;
-  case 12:
-    SUBST(unsigned short);
-    break;
-  case 14:
-    SUBST(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        SUBST(integer1);
+        break;
+    case 2:
+        SUBST(integer2);
+        break;
+    case 4:
+        SUBST(int);
+
+        break;
+    case 11:
+        SUBST(unsigned char);
+
+        break;
+    case 12:
+        SUBST(unsigned short);
+
+        break;
+    case 14:
+        SUBST(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

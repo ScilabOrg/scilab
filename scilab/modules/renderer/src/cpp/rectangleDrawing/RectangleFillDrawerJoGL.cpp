@@ -21,46 +21,44 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-RectangleFillDrawerJoGL::RectangleFillDrawerJoGL( DrawableRectangle * drawer )
-  : DrawRectangleStrategy( drawer ), DrawableObjectJoGL(drawer)
-{
-  setJavaMapper(new RectangleFillDrawerJavaMapper());
-}
+    RectangleFillDrawerJoGL::RectangleFillDrawerJoGL(DrawableRectangle * drawer):DrawRectangleStrategy(drawer), DrawableObjectJoGL(drawer)
+    {
+        setJavaMapper(new RectangleFillDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-RectangleFillDrawerJoGL::~RectangleFillDrawerJoGL(void)
-{
+    RectangleFillDrawerJoGL::~RectangleFillDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleFillDrawerJoGL::drawRectangle( void )
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject() ;
-  initializeDrawing() ;
+    void RectangleFillDrawerJoGL::drawRectangle(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->backgroundcolor) ;
+        initializeDrawing();
 
-  // get the coordinates of the four corners of the rectangle.
-  double corner1[3] ;
-  double corner2[3] ;
-  double corner3[3] ;
-  double corner4[3] ;
+        // set the line parameters
+        getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->backgroundcolor);
 
-  m_pDrawed->getCornersCoordinates( corner1, corner2, corner3, corner4 ) ;
+        // get the coordinates of the four corners of the rectangle.
+        double corner1[3];
+        double corner2[3];
+        double corner3[3];
+        double corner4[3];
 
-  // display the rectangle
-  getFillDrawerJavaMapper()->drawRectangle(corner1[0], corner1[1], corner1[2],
-                                           corner2[0], corner2[1], corner2[2],
-                                           corner3[0], corner3[1], corner3[2],
-                                           corner4[0], corner4[1], corner4[2]);
+        m_pDrawed->getCornersCoordinates(corner1, corner2, corner3, corner4);
 
+        // display the rectangle
+        getFillDrawerJavaMapper()->drawRectangle(corner1[0], corner1[1], corner1[2],
+                                                 corner2[0], corner2[1], corner2[2],
+                                                 corner3[0], corner3[1], corner3[2], corner4[0], corner4[1], corner4[2]);
 
-  endDrawing() ;
-}
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-RectangleFillDrawerJavaMapper * RectangleFillDrawerJoGL::getFillDrawerJavaMapper(void)
-{
-  return dynamic_cast<RectangleFillDrawerJavaMapper *>(getJavaMapper());
-}
+    RectangleFillDrawerJavaMapper *RectangleFillDrawerJoGL::getFillDrawerJavaMapper(void)
+    {
+        return dynamic_cast < RectangleFillDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

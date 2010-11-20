@@ -14,16 +14,17 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]=
-{
-{sci_completion,"completion"}
+static gw_generic_table Tab[] = {
+    {sci_completion, "completion"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_completion(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

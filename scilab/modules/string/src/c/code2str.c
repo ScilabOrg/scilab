@@ -20,24 +20,27 @@
 #include "code2str.h"
 #include "getfastcode.h"
 /*--------------------------------------------------------------------------*/
-void code2str(char **Output_Matrix, int *Input_Matrix,int Dim_Input_Matrix)
+void code2str(char **Output_Matrix, int *Input_Matrix, int Dim_Input_Matrix)
 {
     int x = 0;
-	/* To look up in the table */
-	for ( x = 0;x < Dim_Input_Matrix; x++)                     
-	{
-		Output_Matrix[0][x] = convertScilabCodeToAsciiCode(Input_Matrix[x]);
-	}
-}
-/*--------------------------------------------------------------------------*/
-void str2code(int *Output_Matrix, const char * const * Input_String)
-{
-	int i = 0;
-	int nbOutput_Matrix = (int)strlen(Input_String[0]);
 
-	for (i = 0;i < nbOutput_Matrix ;i++)
+    /* To look up in the table */
+    for (x = 0; x < Dim_Input_Matrix; x++)
     {
-		Output_Matrix[i] = convertAsciiCodeToScilabCode(Input_String[0][i]);
+        Output_Matrix[0][x] = convertScilabCodeToAsciiCode(Input_Matrix[x]);
     }
 }
+
+/*--------------------------------------------------------------------------*/
+void str2code(int *Output_Matrix, const char *const *Input_String)
+{
+    int i = 0;
+    int nbOutput_Matrix = (int)strlen(Input_String[0]);
+
+    for (i = 0; i < nbOutput_Matrix; i++)
+    {
+        Output_Matrix[i] = convertAsciiCodeToScilabCode(Input_String[0][i]);
+    }
+}
+
 /*--------------------------------------------------------------------------*/

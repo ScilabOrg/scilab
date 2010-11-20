@@ -20,32 +20,34 @@
 #include "sciCall.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_matplot1( char * fname, unsigned long fname_len )
+int sci_matplot1(char *fname, unsigned long fname_len)
 {
-  int m1, n1, l1,m2,n2,l2;
-  if ( Rhs <= 0 )
-  {
-		sci_demo(fname, fname_len);
+    int m1, n1, l1, m2, n2, l2;
+
+    if (Rhs <= 0)
+    {
+        sci_demo(fname, fname_len);
+        return 0;
+    }
+
+    CheckRhs(2, 2);
+    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+    GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
+    CheckLength(2, m2 * n2, 4);
+    if (m1 * n1 == 0)
+    {
+        LhsVar(1) = 0;
+        C2F(putlhsvar) ();
+        return 0;
+    }
+
+    /* NG beg */
+
+    Objmatplot1(stk(l1), &m1, &n1, stk(l2));
+
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
     return 0;
-  }
+}
 
-  CheckRhs(2,2);
-  GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-  GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
-  CheckLength(2,m2*n2,4);
-  if ( m1 * n1 == 0 )
-  {
-    LhsVar(1) = 0 ;
-	C2F(putlhsvar)();
-    return 0 ;
-  } 
-
-  /* NG beg */
-
-  Objmatplot1 (stk(l1), &m1, &n1,stk(l2)) ;
-
-  LhsVar(1) = 0;
-  C2F(putlhsvar)();
-  return 0;
-} 
 /*--------------------------------------------------------------------------*/

@@ -14,7 +14,7 @@
 /*------------------------------------------------------------------------*/
 #include <time.h>
 #include <stdio.h>
-#include <string.h> /* strlen */
+#include <string.h>             /* strlen */
 #include "getCommentDateSession.h"
 #include "MALLOC.h"
 #include "localization.h"
@@ -25,39 +25,38 @@
 /*------------------------------------------------------------------------*/
 #define STRING_BEGIN_SESSION _("Begin Session : ")
 #define FORMAT_SESSION "%s%s%s%s"
-#define MAX_wday 7 /* number days in a week */
-#define MAX_mon 12 /* number of month in a year */
+#define MAX_wday 7              /* number days in a week */
+#define MAX_mon 12              /* number of month in a year */
 /*------------------------------------------------------------------------*/
 static char *ASCIItime(const struct tm *timeptr);
-static char** getDays(void);
-static char** getMonths(void);
+static char **getDays(void);
+static char **getMonths(void);
+
 /*------------------------------------------------------------------------*/
 char *getCommentDateSession(void)
 {
     char *line = NULL;
     char *time_str = NULL;
     time_t timer;
-    timer=time(NULL);
+
+    timer = time(NULL);
 
     time_str = ASCIItime(localtime(&timer));
 
     if (time_str)
     {
-        line = (char*)MALLOC(sizeof(char)*(strlen(SESSION_PRAGMA_BEGIN) + 
-                                           strlen(STRING_BEGIN_SESSION) + 
-                                           strlen(time_str) + 
-                                           strlen(FORMAT_SESSION) + 
-                                           strlen(SESSION_PRAGMA_END) + 1));
-        if (line) sprintf(line, FORMAT_SESSION, SESSION_PRAGMA_BEGIN,
-                                                STRING_BEGIN_SESSION, 
-                                                time_str,
-                                                SESSION_PRAGMA_END);
+        line = (char *)MALLOC(sizeof(char) * (strlen(SESSION_PRAGMA_BEGIN) +
+                                              strlen(STRING_BEGIN_SESSION) +
+                                              strlen(time_str) + strlen(FORMAT_SESSION) + strlen(SESSION_PRAGMA_END) + 1));
+        if (line)
+            sprintf(line, FORMAT_SESSION, SESSION_PRAGMA_BEGIN, STRING_BEGIN_SESSION, time_str, SESSION_PRAGMA_END);
         FREE(time_str);
         time_str = NULL;
     }
 
     return line;
 }
+
 /*------------------------------------------------------------------------*/
 static char *ASCIItime(const struct tm *timeptr)
 {
@@ -66,22 +65,17 @@ static char *ASCIItime(const struct tm *timeptr)
     char **mon_name = getMonths();
     char *result = NULL;
 
-    if ( (wday_name) && (mon_name) )
+    if ((wday_name) && (mon_name))
     {
-        #define FORMAT_TIME "%s %s%3d %.2d:%.2d:%.2d %d"
-        int len_result = (int) strlen(wday_name[timeptr->tm_wday]) +
-            (int) strlen(mon_name[timeptr->tm_mon]) +
-            (int) strlen(FORMAT_TIME);
+#define FORMAT_TIME "%s %s%3d %.2d:%.2d:%.2d %d"
+        int len_result = (int)strlen(wday_name[timeptr->tm_wday]) + (int)strlen(mon_name[timeptr->tm_mon]) + (int)strlen(FORMAT_TIME);
 
-        result = (char*)MALLOC(sizeof(char)*(len_result + 1));
+        result = (char *)MALLOC(sizeof(char) * (len_result + 1));
         if (result)
         {
             sprintf(result, FORMAT_TIME,
-                wday_name[timeptr->tm_wday],
-                mon_name[timeptr->tm_mon],
-                timeptr->tm_mday, timeptr->tm_hour,
-                timeptr->tm_min, timeptr->tm_sec,
-                1900 + timeptr->tm_year);
+                    wday_name[timeptr->tm_wday],
+                    mon_name[timeptr->tm_mon], timeptr->tm_mday, timeptr->tm_hour, timeptr->tm_min, timeptr->tm_sec, 1900 + timeptr->tm_year);
         }
     }
     else
@@ -95,11 +89,13 @@ static char *ASCIItime(const struct tm *timeptr)
 
     return result;
 }
+
 /*------------------------------------------------------------------------*/
-static char** getDays(void)
+static char **getDays(void)
 {
     char **days = NULL;
-    days = (char **)MALLOC(sizeof(char*)*MAX_wday);
+
+    days = (char **)MALLOC(sizeof(char *) * MAX_wday);
     if (days)
     {
         days[0] = strdup(_("Sun"));
@@ -112,14 +108,16 @@ static char** getDays(void)
     }
     return days;
 }
+
 /*------------------------------------------------------------------------*/
-static char** getMonths(void)
+static char **getMonths(void)
 {
     char **months = NULL;
-    months = (char **)MALLOC(sizeof(char*)*MAX_mon);
+
+    months = (char **)MALLOC(sizeof(char *) * MAX_mon);
     if (months)
     {
-        /* initialize month */ 
+        /* initialize month */
         months[0] = strdup(_("Jan"));
         months[1] = strdup(_("Feb"));
         months[2] = strdup(_("Mar"));
@@ -135,4 +133,5 @@ static char** getMonths(void)
     }
     return months;
 }
+
 /*------------------------------------------------------------------------*/

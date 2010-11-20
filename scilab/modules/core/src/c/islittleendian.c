@@ -13,14 +13,17 @@
 /*--------------------------------------------------------------------------*/
 int islittleendian(void)
 {
-	int	littlendian = 1;
-	char	*endptr;
-	endptr = (char *) &littlendian;
-	return (int) *endptr;
+    int littlendian = 1;
+    char *endptr;
+
+    endptr = (char *)&littlendian;
+    return (int)*endptr;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(getendian)(void)
+int C2F(getendian) (void)
 {
-	return islittleendian();
+    return islittleendian();
 }
+
 /*--------------------------------------------------------------------------*/

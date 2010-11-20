@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableArcBridge * DrawableArcBridgeFactory::create( void )
-{
-  DrawableArcJoGL * newBridge = new DrawableArcJoGL(m_pDrawable);
-  newBridge->setJavaMapper(new DrawableArcJavaMapper());
-  return newBridge;
-}
+    DrawableArcBridge *DrawableArcBridgeFactory::create(void)
+    {
+        DrawableArcJoGL *newBridge = new DrawableArcJoGL(m_pDrawable);
+          newBridge->setJavaMapper(new DrawableArcJavaMapper());
+          return newBridge;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableArcBridgeFactory::setDrawedArc( DrawableArc * arc )
-{
-  m_pDrawable = arc;
-}
+    void DrawableArcBridgeFactory::setDrawedArc(DrawableArc * arc)
+    {
+        m_pDrawable = arc;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

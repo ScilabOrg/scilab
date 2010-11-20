@@ -18,17 +18,18 @@
 #include "gw_cacsd0.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
+static gw_generic_table Tab[] = {
     {sci_gschur, "gschur"},
     {sci_gspec, "gspec"},
     {sci_ereduc, "ereduc"},
     {sci_fstair, "fstair"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_cacsd0(void)
-{  
+{
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

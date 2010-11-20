@@ -14,7 +14,6 @@
 #include "exportUserInterface.hxx"
 #include "CallScilabBridge.hxx"
 
-
 extern "C"
 {
 #include "getScilabJavaVM.h"
@@ -23,6 +22,7 @@ extern "C"
 /*---------------------------------------------------------------------------------*/
 int exportUserInterface(int figureId)
 {
-  return org_scilab_modules_gui_bridge::CallScilabBridge::newExportFileChooser(getScilabJavaVM(), figureId);
+    return org_scilab_modules_gui_bridge::CallScilabBridge::newExportFileChooser(getScilabJavaVM(), figureId);
 }
+
 /*---------------------------------------------------------------------------------*/

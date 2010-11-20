@@ -23,61 +23,56 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-RectangleMarkDrawerJoGL::RectangleMarkDrawerJoGL( DrawableRectangle* drawer )
-  : DrawRectangleStrategy( drawer ),
-    DrawableObjectJoGL(drawer)
-{
-  setJavaMapper(new RectangleMarkDrawerJavaMapper());
-}
+    RectangleMarkDrawerJoGL::RectangleMarkDrawerJoGL(DrawableRectangle * drawer):DrawRectangleStrategy(drawer), DrawableObjectJoGL(drawer)
+    {
+        setJavaMapper(new RectangleMarkDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-RectangleMarkDrawerJoGL::~RectangleMarkDrawerJoGL(void)
-{
+    RectangleMarkDrawerJoGL::~RectangleMarkDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJoGL::drawRectangle( void )
-{
+    void RectangleMarkDrawerJoGL::drawRectangle(void)
+    {
 
-  sciPointObj * pObj = m_pDrawed->getDrawedObject() ;
-  initializeDrawing() ;
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pObj)->markbackground,
-                                               sciGetGraphicContext(pObj)->markforeground,
-                                               sciGetMarkSizeUnit(pObj),
-                                               sciGetMarkSize(pObj),
-                                               sciGetMarkStyle(pObj));
+        initializeDrawing();
 
-  // get the coordinates of the four corners of the rectangle.
-  double corner1[3] ;
-  double corner2[3] ;
-  double corner3[3] ;
-  double corner4[3] ;
+        // set the line parameters
+        getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pObj)->markbackground,
+                                                     sciGetGraphicContext(pObj)->markforeground,
+                                                     sciGetMarkSizeUnit(pObj), sciGetMarkSize(pObj), sciGetMarkStyle(pObj));
 
-  m_pDrawed->getCornersCoordinates( corner1, corner2, corner3, corner4 ) ;
+        // get the coordinates of the four corners of the rectangle.
+        double corner1[3];
+        double corner2[3];
+        double corner3[3];
+        double corner4[3];
 
-  // display the rectangle
-  getMarkDrawerJavaMapper()->drawRectangle(corner1[0], corner1[1], corner1[2],
-                                           corner2[0], corner2[1], corner2[2],
-                                           corner3[0], corner3[1], corner3[2],
-                                           corner4[0], corner4[1], corner4[2] ) ;
+        m_pDrawed->getCornersCoordinates(corner1, corner2, corner3, corner4);
 
-  endDrawing() ;
-}
+        // display the rectangle
+        getMarkDrawerJavaMapper()->drawRectangle(corner1[0], corner1[1], corner1[2],
+                                                 corner2[0], corner2[1], corner2[2],
+                                                 corner3[0], corner3[1], corner3[2], corner4[0], corner4[1], corner4[2]);
+
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJoGL::redrawRectangle( void )
-{
-  initializeDrawing();
-  getMarkDrawerJavaMapper()->drawRectangle();
-  endDrawing();
+    void RectangleMarkDrawerJoGL::redrawRectangle(void)
+    {
+        initializeDrawing();
+        getMarkDrawerJavaMapper()->drawRectangle();
+        endDrawing();
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-RectangleMarkDrawerJavaMapper * RectangleMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
-{
-  return dynamic_cast<RectangleMarkDrawerJavaMapper *>(getJavaMapper());
-}
+    RectangleMarkDrawerJavaMapper *RectangleMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
+    {
+        return dynamic_cast < RectangleMarkDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }
-

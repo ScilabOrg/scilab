@@ -27,43 +27,51 @@
 #include "HandleManagement.h"
 
 /*------------------------------------------------------------------------*/
-int set_links_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_links_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int nblegends;
-  int i;
-  if ( sciGetEntityType(pobj) != SCI_LEGEND )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"links");
-    return SET_PROPERTY_ERROR ;
-  }
+    int nblegends;
+    int i;
 
-  if ( !isParameterHandle( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Graphic handle array expected.\n"), "links");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  nblegends=pLEGEND_FEATURE(pobj)->nblegends;
-  if (nbRow*nbCol != nblegends) {
-    Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "links", nblegends);
-    return SET_PROPERTY_ERROR ;
-  }
-
-  for (i=0; i<nblegends; i++) {
-    sciPointObj* polylineObject = sciGetPointerFromHandle( getHandleFromStack( stackPointer+i ) );
-    if (polylineObject->entitytype != SCI_POLYLINE) {
-      Scierror(999, _("%s: Input argument #%d must be a '%s' handle.\n"), "links", i, "polyline");
-      return SET_PROPERTY_ERROR ;
+    if (sciGetEntityType(pobj) != SCI_LEGEND)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "links");
+        return SET_PROPERTY_ERROR;
     }
-    if (sciGetParentSubwin(polylineObject) != sciGetParentSubwin(pobj)) {
-      Scierror(999, _("%s: Input argument and the legend must have the same parent axes.\n"), "links");
-      return SET_PROPERTY_ERROR ;
-    }
-  }
 
-  for (i=0; i<nblegends; i++) {
-    pLEGEND_FEATURE(pobj)->tabofhandles[i]=getHandleFromStack( stackPointer+i );
-  }
-  return SET_PROPERTY_SUCCEED ;
+    if (!isParameterHandle(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Graphic handle array expected.\n"), "links");
+        return SET_PROPERTY_ERROR;
+    }
+
+    nblegends = pLEGEND_FEATURE(pobj)->nblegends;
+    if (nbRow * nbCol != nblegends)
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "links", nblegends);
+        return SET_PROPERTY_ERROR;
+    }
+
+    for (i = 0; i < nblegends; i++)
+    {
+        sciPointObj *polylineObject = sciGetPointerFromHandle(getHandleFromStack(stackPointer + i));
+
+        if (polylineObject->entitytype != SCI_POLYLINE)
+        {
+            Scierror(999, _("%s: Input argument #%d must be a '%s' handle.\n"), "links", i, "polyline");
+            return SET_PROPERTY_ERROR;
+        }
+        if (sciGetParentSubwin(polylineObject) != sciGetParentSubwin(pobj))
+        {
+            Scierror(999, _("%s: Input argument and the legend must have the same parent axes.\n"), "links");
+            return SET_PROPERTY_ERROR;
+        }
+    }
+
+    for (i = 0; i < nblegends; i++)
+    {
+        pLEGEND_FEATURE(pobj)->tabofhandles[i] = getHandleFromStack(stackPointer + i);
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

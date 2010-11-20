@@ -19,28 +19,29 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------*/
-Camera * CameraFactory::create( void )
-{
-  CameraBridgeFactory bf ;
-  Camera * res = new Camera(m_pDrawed) ;
+    Camera *CameraFactory::create(void)
+    {
+        CameraBridgeFactory bf;
+        Camera *res = new Camera(m_pDrawed);
 
-  bf.setCorrespondingCamera( res ) ;
-  
-  res->setDrawableImp( bf.create() ) ;
+          bf.setCorrespondingCamera(res);
 
-  return res;
+          res->setDrawableImp(bf.create());
 
-}
+          return res;
+
+    }
 /*------------------------------------------------------------------------*/
-void CameraFactory::update( void )
-{
-  // replace the camera bridge
+    void CameraFactory::update(void)
+    {
+        // replace the camera bridge
 
-  // camera to update
-  Camera * cam = getSubwinDrawer(m_pDrawed)->getCamera();
-  CameraBridgeFactory bf ;
-  bf.setCorrespondingCamera( cam ) ;
-  bf.update();
-}
+        // camera to update
+        Camera *cam = getSubwinDrawer(m_pDrawed)->getCamera();
+        CameraBridgeFactory bf;
+
+        bf.setCorrespondingCamera(cam);
+        bf.update();
+    }
 /*------------------------------------------------------------------------*/
 }

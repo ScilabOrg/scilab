@@ -13,14 +13,17 @@
 #include "exitCodeValue.h"
 /*--------------------------------------------------------------------------*/
 static int exitCodeValue = 0;
+
 /*--------------------------------------------------------------------------*/
 void setExitCodeValue(int _exitcode)
 {
-	exitCodeValue = _exitcode;
+    exitCodeValue = _exitcode;
 }
+
 /*--------------------------------------------------------------------------*/
 int getExitCodeValue(void)
 {
-	return exitCodeValue;
+    return exitCodeValue;
 }
+
 /*--------------------------------------------------------------------------*/

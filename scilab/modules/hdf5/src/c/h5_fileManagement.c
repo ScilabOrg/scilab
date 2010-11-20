@@ -11,7 +11,7 @@
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 * 
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <hdf5.h>
 #include <string.h>
 #include "h5_fileManagement.h"
@@ -24,13 +24,14 @@
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static char *getPathFilename(char *fullfilename);
 static char *getFilenameWithExtension(char *fullfilename);
-/*--------------------------------------------------------------------------*/ 
-int createHDF5File(char *name) 
+
+/*--------------------------------------------------------------------------*/
+int createHDF5File(char *name)
 {
-    hid_t       file;
+    hid_t file;
     hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
     char *pathdest = getPathFilename(name);
     char *currentpath = NULL;
@@ -38,7 +39,7 @@ int createHDF5File(char *name)
     int ierr = 0;
 
     //H5Pset_fclose_degree(fapl, H5F_CLOSE_STRONG);
-    
+
     /* TO DO : remove when HDF5 will be fixed ... */
     /* HDF5 does not manage no ANSI characters */
     /* UGLY workaround :( */
@@ -48,39 +49,52 @@ int createHDF5File(char *name)
     currentpath = scigetcwd(&ierr);
 
     //prevent error msg to change directory to ""
-    if(strcmp(pathdest, "") != 0)
+    if (strcmp(pathdest, "") != 0)
     {
         scichdir(pathdest);
     }
 
-    /*bug 5629 : to prevent replace directory by file*/
-    if(isdir(filename))
+    /*bug 5629 : to prevent replace directory by file */
+    if (isdir(filename))
     {
         return -2;
     }
 
-    if(FileExist(filename))
+    if (FileExist(filename))
     {
         deleteafile(filename);
     }
     /*
-    * Create a new file using the default properties.
-    */
+     * Create a new file using the default properties.
+     */
 
     file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, fapl);
 
     scichdir(currentpath);
 
-    if (currentpath) {FREE(currentpath); currentpath = NULL;}
-    if (filename) {FREE(filename); filename = NULL;}
-    if (pathdest) {FREE(pathdest); pathdest = NULL;}
+    if (currentpath)
+    {
+        FREE(currentpath);
+        currentpath = NULL;
+    }
+    if (filename)
+    {
+        FREE(filename);
+        filename = NULL;
+    }
+    if (pathdest)
+    {
+        FREE(pathdest);
+        pathdest = NULL;
+    }
 
     return file;
 }
-/*--------------------------------------------------------------------------*/ 
-int openHDF5File(char *name) 
+
+/*--------------------------------------------------------------------------*/
+int openHDF5File(char *name)
 {
-    hid_t           file;
+    hid_t file;
     char *pathdest = getPathFilename(name);
     char *currentpath = NULL;
     char *filename = getFilenameWithExtension(name);
@@ -95,43 +109,58 @@ int openHDF5File(char *name)
     currentpath = scigetcwd(&ierr);
 
     //prevent error msg to change directory to ""
-    if(strcmp(pathdest, "") != 0)
+    if (strcmp(pathdest, "") != 0)
     {
         scichdir(pathdest);
     }
 
-    file = H5Fopen (filename, H5F_ACC_RDONLY, H5P_DEFAULT);
+    file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 
     scichdir(currentpath);
 
-    if (currentpath) {FREE(currentpath); currentpath = NULL;}
-    if (filename) {FREE(filename); filename = NULL;}
-    if (pathdest) {FREE(pathdest); pathdest = NULL;}
+    if (currentpath)
+    {
+        FREE(currentpath);
+        currentpath = NULL;
+    }
+    if (filename)
+    {
+        FREE(filename);
+        filename = NULL;
+    }
+    if (pathdest)
+    {
+        FREE(pathdest);
+        pathdest = NULL;
+    }
 
     return file;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 void closeHDF5File(int file)
 {
-    herr_t status					= 0;
+    herr_t status = 0;
 
-    //	H5Fflush(file, H5F_SCOPE_GLOBAL);
+    //  H5Fflush(file, H5F_SCOPE_GLOBAL);
     status = H5Fclose(file);
-    if(status < 0)
+    if (status < 0)
     {
         fprintf(stderr, "%s", "failed to close file");
     }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 static char *getPathFilename(char *fullfilename)
 {
     char *path = NULL;
+
     if (fullfilename)
     {
-        char* drv  = strdup(fullfilename);
-        char* dir  = strdup(fullfilename);
-        char* name = strdup(fullfilename);
-        char* ext  = strdup(fullfilename);
+        char *drv = strdup(fullfilename);
+        char *dir = strdup(fullfilename);
+        char *name = strdup(fullfilename);
+        char *ext = strdup(fullfilename);
 
         path = strdup(fullfilename);
 
@@ -150,23 +179,41 @@ static char *getPathFilename(char *fullfilename)
             }
         }
 
-        if (drv) {FREE(drv); drv = NULL;}
-        if (dir) {FREE(dir); dir = NULL;}
-        if (name) {FREE(name); name = NULL;}
-        if (ext) {FREE(ext); ext = NULL;}
+        if (drv)
+        {
+            FREE(drv);
+            drv = NULL;
+        }
+        if (dir)
+        {
+            FREE(dir);
+            dir = NULL;
+        }
+        if (name)
+        {
+            FREE(name);
+            name = NULL;
+        }
+        if (ext)
+        {
+            FREE(ext);
+            ext = NULL;
+        }
     }
     return path;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 static char *getFilenameWithExtension(char *fullfilename)
 {
     char *filename = NULL;
+
     if (fullfilename)
     {
-        char* drv  = strdup(fullfilename);
-        char* dir  = strdup(fullfilename);
-        char* name = strdup(fullfilename);
-        char* ext  = strdup(fullfilename);
+        char *drv = strdup(fullfilename);
+        char *dir = strdup(fullfilename);
+        char *name = strdup(fullfilename);
+        char *ext = strdup(fullfilename);
 
         filename = strdup(fullfilename);
 
@@ -185,12 +232,28 @@ static char *getFilenameWithExtension(char *fullfilename)
             }
         }
 
-        if (drv) {FREE(drv); drv = NULL;}
-        if (dir) {FREE(dir); dir = NULL;}
-        if (name) {FREE(name); name = NULL;}
-        if (ext) {FREE(ext); ext = NULL;}
+        if (drv)
+        {
+            FREE(drv);
+            drv = NULL;
+        }
+        if (dir)
+        {
+            FREE(dir);
+            dir = NULL;
+        }
+        if (name)
+        {
+            FREE(name);
+            name = NULL;
+        }
+        if (ext)
+        {
+            FREE(ext);
+            ext = NULL;
+        }
     }
     return filename;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

@@ -11,27 +11,28 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
-#include <windows.h> 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
+#include <windows.h>
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libumfpack.lib")
 #pragma comment(lib,"../../../../bin/blasplus.lib")
 #pragma comment(lib,"../../../../bin/lapack.lib")
 #pragma comment(lib,"../../../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+/*--------------------------------------------------------------------------*/
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-	switch (reason) 
-	{
-	case DLL_PROCESS_ATTACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	}
-	return 1;
+    switch (reason)
+    {
+    case DLL_PROCESS_ATTACH:
+        break;
+    case DLL_PROCESS_DETACH:
+        break;
+    case DLL_THREAD_ATTACH:
+        break;
+    case DLL_THREAD_DETACH:
+        break;
+    }
+    return 1;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

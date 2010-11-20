@@ -12,37 +12,43 @@
 
 /*--------------------------------------------------------------------------*/
 #include "TermCommand.h"
-#include "machine.h" /* C2F */
-#include "sigbas.h" /* C2F (sigbas) */
-#include "storeCommand.h" /* StoreCommand */
+#include "machine.h"            /* C2F */
+#include "sigbas.h"             /* C2F (sigbas) */
+#include "storeCommand.h"       /* StoreCommand */
 #include "clrscr_nw.h"
 #include "TermLine.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
 void ControlC_Command(void)
 {
-	int j = 2;
-	C2F (sigbas) (&j);
+    int j = 2;
+
+    C2F(sigbas) (&j);
 }
+
 /*--------------------------------------------------------------------------*/
 void ControlX_Command(void)
 {
-	ControlC_Command();
+    ControlC_Command();
 }
+
 /*--------------------------------------------------------------------------*/
 void F1_Command(void)
 {
-	StoreCommand("help");
+    StoreCommand("help");
 }
+
 /*--------------------------------------------------------------------------*/
 void F2_Command(void)
 {
-	clrscr_nw();
-	displayPrompt();
+    clrscr_nw();
+    displayPrompt();
 }
+
 /*--------------------------------------------------------------------------*/
 void ALTF4_Command(void)
 {
-	StoreCommand("quit");
+    StoreCommand("quit");
 }
+
 /*--------------------------------------------------------------------------*/

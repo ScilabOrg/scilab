@@ -26,14 +26,7 @@
  *******************************************************/
 #include "machine.h"
 
-int C2F(addmen)(int *win_num,
-				char *button_name,
-				int *entries,
-				int *ptrentries,
-				int *ne
-				,int *typ,
-				char *fname,
-				int *ierr)
+int C2F(addmen) (int *win_num, char *button_name, int *entries, int *ptrentries, int *ne, int *typ, char *fname, int *ierr)
 {
-	return 0;
+    return 0;
 }

@@ -20,29 +20,30 @@
 #include "localization.h"
 #include "sciprint.h"
 /*--------------------------------------------------------------------------*/
-int sci_iswaitingforinput(char *fname,unsigned long fname_len)
+int sci_iswaitingforinput(char *fname, unsigned long fname_len)
 {
-	BOOL res = FALSE;
-	int un = 1, outIndex = 0;
+    BOOL res = FALSE;
+    int un = 1, outIndex = 0;
 
-	Rhs = Max(Rhs,0);
-	CheckRhs(0,1);
-	CheckLhs(0,1);
+    Rhs = Max(Rhs, 0);
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
-	if (getScilabMode() == SCILAB_STD) 
-	{
-		res = ConsoleIsWaitingForInput();
-    } 
-	else 
-	{
-		sciprint(_("%s: Not implemented in this mode.\n"),fname);
-	}
+    if (getScilabMode() == SCILAB_STD)
+    {
+        res = ConsoleIsWaitingForInput();
+    }
+    else
+    {
+        sciprint(_("%s: Not implemented in this mode.\n"), fname);
+    }
 
-	CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE,&un,&un,&outIndex);
-	*istk(outIndex) = res;
-	
-	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
-	return 0;
+    CreateVar(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &un, &un, &outIndex);
+    *istk(outIndex) = res;
+
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

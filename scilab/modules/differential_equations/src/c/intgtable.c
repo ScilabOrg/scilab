@@ -16,20 +16,21 @@
 #define ARGS_fintg double *
 
 /**************** fintg ***************/
-extern void C2F(intgex)(ARGS_fintg);
+extern void C2F(intgex) (ARGS_fintg);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP double *C2F(fintg)(ARGS_fintg);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfintg)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP double *C2F(fintg) (ARGS_fintg);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfintg) (char *name, int *rep);
 
-FTAB FTab_fintg[] ={
-	{"intgex", (voidf)  C2F(intgex)},
-	{(char *) 0, (voidf) 0}};
+FTAB FTab_fintg[] = {
+    {"intgex", (voidf) C2F(intgex)},
+    {(char *)0, (voidf) 0}
+};
 
 /***********************************
 * Search Table for intg 
 ***********************************/
 
-typedef double * (*fintgf)(ARGS_fintg);
+typedef double *(*fintgf) (ARGS_fintg);
 
 /***********************************
 * Search Table for intg 
@@ -38,18 +39,18 @@ typedef double * (*fintgf)(ARGS_fintg);
 
 /** the current function fixed by setfintg **/
 
-static fintgf fintgfonc ;
+static fintgf fintgfonc;
 
 /** function call : WARNING fintg returns a double  **/
 
-double *C2F(fintg)(double *x)
+double *C2F(fintg) (double *x)
 {
-	return((*fintgfonc)(x));
+    return ((*fintgfonc) (x));
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfintg)(char *name, int *rep)
+void C2F(setfintg) (char *name, int *rep)
 {
-	fintgfonc = (fintgf) GetFunctionByName(name,rep,FTab_fintg);
+    fintgfonc = (fintgf) GetFunctionByName(name, rep, FTab_fintg);
 }

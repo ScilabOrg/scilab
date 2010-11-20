@@ -26,29 +26,31 @@
 #include "HandleManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_newaxes( char * fname,unsigned long fname_len )
-{ 
-  int minrhs = 0,maxrhs = 0,minlhs=0,maxlhs=1;
-  sciPointObj *masousfen;
-  int outindex,numrow   = 1,numcol   = 1;
-  CheckRhs(minrhs,maxrhs) ;
-  CheckLhs(minlhs,maxlhs) ;
+int sci_newaxes(char *fname, unsigned long fname_len)
+{
+    int minrhs = 0, maxrhs = 0, minlhs = 0, maxlhs = 1;
+    sciPointObj *masousfen;
+    int outindex, numrow = 1, numcol = 1;
 
-  if ((masousfen = ConstructSubWin (sciGetCurrentFigure())) != NULL)
-  {
-    sciSetCurrentObj(masousfen);
-    sciSetSelectedSubWin(masousfen);
-    CreateVar(Rhs+1,GRAPHICAL_HANDLE_DATATYPE,&numrow,&numcol,&outindex);
-    *hstk(outindex) = sciGetHandle(masousfen);
+    CheckRhs(minrhs, maxrhs);
+    CheckLhs(minlhs, maxlhs);
 
-    LhsVar(1) = 1;
-	C2F(putlhsvar)();
-  }
-  else 
-  {
-    Scierror(999,_("%s: No more memory.\n"),fname);
-  }
-  return 0;
+    if ((masousfen = ConstructSubWin(sciGetCurrentFigure())) != NULL)
+    {
+        sciSetCurrentObj(masousfen);
+        sciSetSelectedSubWin(masousfen);
+        CreateVar(Rhs + 1, GRAPHICAL_HANDLE_DATATYPE, &numrow, &numcol, &outindex);
+        *hstk(outindex) = sciGetHandle(masousfen);
+
+        LhsVar(1) = 1;
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+    }
+    return 0;
 
 }
+
 /*--------------------------------------------------------------------------*/

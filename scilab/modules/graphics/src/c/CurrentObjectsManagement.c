@@ -28,81 +28,94 @@
 /*----------------------------------------------------------------------------------*/
 /* root of the graphic hierarchy */
 /* singleton, there is only one screen */
-static sciPointObj * sciCurrentObject  = NULL ;
-static sciPointObj * sciCurrentFigure  = NULL ;
-/*----------------------------------------------------------------------------------*/
-static sciPointObj * getCurrentPointedFigure(void);
-/*----------------------------------------------------------------------------------*/
-static sciPointObj * getCurrentPointedFigure(void)
-{
-  return sciCurrentFigure;
-}
-/*----------------------------------------------------------------------------------*/
-sciPointObj * sciGetCurrentFigure( void )
-{
-  /* debug F.Leray 22.07.04 */
-  sciPointObj * pfigure = getCurrentPointedFigure();
+static sciPointObj *sciCurrentObject = NULL;
+static sciPointObj *sciCurrentFigure = NULL;
 
-  if( !sciHasFigures() )
-  {
-    /* it would mean that we have change the driver to GIF,Pos or PPM and perform a xinit F.Leray 22.07.04 */
-    /* for now, no higher entities than figure */
-    pfigure = createFullFigure(NULL);
-  }
+/*----------------------------------------------------------------------------------*/
+static sciPointObj *getCurrentPointedFigure(void);
 
-  return pfigure;
+/*----------------------------------------------------------------------------------*/
+static sciPointObj *getCurrentPointedFigure(void)
+{
+    return sciCurrentFigure;
 }
+
+/*----------------------------------------------------------------------------------*/
+sciPointObj *sciGetCurrentFigure(void)
+{
+    /* debug F.Leray 22.07.04 */
+    sciPointObj *pfigure = getCurrentPointedFigure();
+
+    if (!sciHasFigures())
+    {
+        /* it would mean that we have change the driver to GIF,Pos or PPM and perform a xinit F.Leray 22.07.04 */
+        /* for now, no higher entities than figure */
+        pfigure = createFullFigure(NULL);
+    }
+
+    return pfigure;
+}
+
 /*----------------------------------------------------------------------------------*/
 BOOL sciIsCurrentFigure(sciPointObj * pFigure)
 {
-  return (   pFigure != getFigureModel()
-          && sciHasFigures()
-          && (pFigure == sciGetCurrentFigure()));
+    return (pFigure != getFigureModel() && sciHasFigures() && (pFigure == sciGetCurrentFigure()));
 }
+
 /*----------------------------------------------------------------------------------*/
-int sciInitCurrentFigure( sciPointObj * mafigure )
+int sciInitCurrentFigure(sciPointObj * mafigure)
 {
-  sciCurrentFigure = mafigure ;
-  return 0 ;
+    sciCurrentFigure = mafigure;
+    return 0;
 }
+
 /*----------------------------------------------------------------------------------*/
-int sciSetCurrentFigure ( sciPointObj * mafigure )
+int sciSetCurrentFigure(sciPointObj * mafigure)
 {
-  if ( sciGetCurrentFigure() == mafigure )
-  {
-    /* nothing to do */
-    return 1 ;
-  }
-  return sciInitCurrentFigure( mafigure ) ;
+    if (sciGetCurrentFigure() == mafigure)
+    {
+        /* nothing to do */
+        return 1;
+    }
+    return sciInitCurrentFigure(mafigure);
 }
+
 /*----------------------------------------------------------------------------------*/
-sciPointObj * sciGetCurrentObj( void )
+sciPointObj *sciGetCurrentObj(void)
 {
-  return sciCurrentObject ;
+    return sciCurrentObject;
 }
+
 /*----------------------------------------------------------------------------------*/
-void sciSetCurrentObj( sciPointObj * pobj )
+void sciSetCurrentObj(sciPointObj * pobj)
 {
-  sciCurrentObject = pobj ;
+    sciCurrentObject = pobj;
 }
+
 /*----------------------------------------------------------------------------------*/
 BOOL sciIsCurrentObject(sciPointObj * pobj)
 {
-	return (pobj == sciGetCurrentObj());
+    return (pobj == sciGetCurrentObj());
 }
-/*----------------------------------------------------------------------------------*/
-long sciGetCurrentHandle( void )
-{
-  return sciGetHandle( sciGetCurrentObj() );
-}
-/*-----------------------------------------------------------------------------*/
-sciPointObj * sciGetCurrentSubWin( void )
-{
-  sciPointObj * currentFigure = sciGetCurrentFigure() ;
-  sciPointObj * currentSubwin = NULL; 
-  if ( currentFigure == NULL ) { return NULL ; }
-  currentSubwin = sciGetFirstTypedSelectedSon( currentFigure, SCI_SUBWIN ) ;
-  return currentSubwin;
-}
-/*-----------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------------*/
+long sciGetCurrentHandle(void)
+{
+    return sciGetHandle(sciGetCurrentObj());
+}
+
+/*-----------------------------------------------------------------------------*/
+sciPointObj *sciGetCurrentSubWin(void)
+{
+    sciPointObj *currentFigure = sciGetCurrentFigure();
+    sciPointObj *currentSubwin = NULL;
+
+    if (currentFigure == NULL)
+    {
+        return NULL;
+    }
+    currentSubwin = sciGetFirstTypedSelectedSon(currentFigure, SCI_SUBWIN);
+    return currentSubwin;
+}
+
+/*-----------------------------------------------------------------------------*/

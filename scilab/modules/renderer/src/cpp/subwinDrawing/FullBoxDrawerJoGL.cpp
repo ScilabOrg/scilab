@@ -23,39 +23,37 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-FullBoxDrawerJoGL::FullBoxDrawerJoGL(DrawableSubwin * subwin)
-  : DrawAxesBoxStrategy(), DrawableObjectJoGL(subwin)
-{
-  setJavaMapper(new FullBoxDrawerJavaMapper());
-}
+    FullBoxDrawerJoGL::FullBoxDrawerJoGL(DrawableSubwin * subwin):DrawAxesBoxStrategy(), DrawableObjectJoGL(subwin)
+    {
+        setJavaMapper(new FullBoxDrawerJavaMapper());
+    }
 /*--------------------------------------------------------------------------*/
-FullBoxDrawerJoGL::~FullBoxDrawerJoGL(void)
-{
+    FullBoxDrawerJoGL::~FullBoxDrawerJoGL(void)
+    {
 
-}
+    }
 /*--------------------------------------------------------------------------*/
-void FullBoxDrawerJoGL::drawAxesBox(int concealedCornerIndex)
-{
-  sciPointObj * pSubwin = m_pDrawer->getDrawedObject();
-  initializeDrawing();
+    void FullBoxDrawerJoGL::drawAxesBox(int concealedCornerIndex)
+    {
+        sciPointObj *pSubwin = m_pDrawer->getDrawedObject();
 
-  getFullBoxDrawerJavaMapper()->setBoxParameters(pSUBWIN_FEATURE(pSubwin)->axes.hiddenAxisColor,
-                                                 sciGetGraphicContext(pSubwin)->foregroundcolor,
-                                                 sciGetLineStyle(pSubwin),
-                                                 (float)sciGetLineWidth(pSubwin));
+        initializeDrawing();
 
-  // get displayed bounds
-  double bounds[6];
-  sciGetRealDataBounds(pSubwin, bounds);
-  getFullBoxDrawerJavaMapper()->drawBox(bounds[0], bounds[1], bounds[2],
-                                        bounds[3], bounds[4], bounds[5],
-                                        concealedCornerIndex);
-  endDrawing();
-}
+        getFullBoxDrawerJavaMapper()->setBoxParameters(pSUBWIN_FEATURE(pSubwin)->axes.hiddenAxisColor,
+                                                       sciGetGraphicContext(pSubwin)->foregroundcolor,
+                                                       sciGetLineStyle(pSubwin), (float)sciGetLineWidth(pSubwin));
+
+        // get displayed bounds
+        double bounds[6];
+
+        sciGetRealDataBounds(pSubwin, bounds);
+        getFullBoxDrawerJavaMapper()->drawBox(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5], concealedCornerIndex);
+        endDrawing();
+    }
 /*--------------------------------------------------------------------------*/
-FullBoxDrawerJavaMapper * FullBoxDrawerJoGL::getFullBoxDrawerJavaMapper(void)
-{
-  return dynamic_cast<FullBoxDrawerJavaMapper *>(getJavaMapper());
-}
+    FullBoxDrawerJavaMapper *FullBoxDrawerJoGL::getFullBoxDrawerJavaMapper(void)
+    {
+        return dynamic_cast < FullBoxDrawerJavaMapper * >(getJavaMapper());
+    }
 /*--------------------------------------------------------------------------*/
 }

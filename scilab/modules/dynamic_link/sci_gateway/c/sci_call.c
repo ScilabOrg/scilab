@@ -10,26 +10,30 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_dynamic_link.h"
 #include "stack-c.h"
-#include "machine.h" /* C2F */
+#include "machine.h"            /* C2F */
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intfort)(char *fname,unsigned long fname_len); /* fortran */
+extern int C2F(intfort) (char *fname, unsigned long fname_len); /* fortran */
+
 /*--------------------------------------------------------------------------*/
-int sci_fort(char *fname,unsigned long fname_len)
+int sci_fort(char *fname, unsigned long fname_len)
 {
-	return sci_call(fname, fname_len);
+    return sci_call(fname, fname_len);
 }
+
 /*--------------------------------------------------------------------------*/
-int sci_call(char *fname,unsigned long fname_len)
+int sci_call(char *fname, unsigned long fname_len)
 {
-	if (Rhs == 0)
-	{
-		SciError(39);
-	}
-	else C2F(intfort)(fname,fname_len);
-	return 0;
+    if (Rhs == 0)
+    {
+        SciError(39);
+    }
+    else
+        C2F(intfort) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -25,16 +25,17 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_event_handler_property( sciPointObj * pobj )
+int get_event_handler_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType(pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"event_handler") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "event_handler");
+        return -1;
+    }
 
-  return sciReturnString( sciGetEventHandler( pobj ) ) ;
+    return sciReturnString(sciGetEventHandler(pobj));
 
 }
+
 /*------------------------------------------------------------------------*/

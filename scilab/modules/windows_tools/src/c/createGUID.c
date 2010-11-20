@@ -19,14 +19,15 @@
 /*--------------------------------------------------------------------------*/
 char *createGUID(void)
 {
-	GUID guid;
-	WORD* wstrGUID[100];
-	char strGUID[100];
+    GUID guid;
+    WORD *wstrGUID[100];
+    char strGUID[100];
 
-    CoCreateGuid (&guid);
-    StringFromCLSID (&guid, wstrGUID);
-    WideCharToMultiByte (CP_ACP, 0, *wstrGUID, -1, strGUID, MAX_PATH, NULL, NULL);
-    strGUID[strlen(strGUID)-1] = '\0';
-    return strdup(strGUID+1);
+    CoCreateGuid(&guid);
+    StringFromCLSID(&guid, wstrGUID);
+    WideCharToMultiByte(CP_ACP, 0, *wstrGUID, -1, strGUID, MAX_PATH, NULL, NULL);
+    strGUID[strlen(strGUID) - 1] = '\0';
+    return strdup(strGUID + 1);
 }
+
 /*--------------------------------------------------------------------------*/

@@ -26,17 +26,17 @@
 #include "localization.h"
 /*------------------------------------------------------------------------*/
 
-int get_pixel_drawing_mode_property( sciPointObj * pobj )
+int get_pixel_drawing_mode_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType (pobj) == SCI_FIGURE )
-  {
-    return sciReturnString( getPixelMode( pFIGURE_FEATURE (pobj)->gmode.xormode ) ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"pixel_drawing_mode");
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) == SCI_FIGURE)
+    {
+        return sciReturnString(getPixelMode(pFIGURE_FEATURE(pobj)->gmode.xormode));
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "pixel_drawing_mode");
+        return -1;
+    }
 
 }
 

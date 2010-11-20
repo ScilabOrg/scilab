@@ -10,26 +10,25 @@
  *
  */
 
-
 #include "EditBox.hxx"
 
 using namespace org_scilab_modules_gui_bridge;
 
-void createEditBox(sciPointObj* sciObj)
+void createEditBox(sciPointObj * sciObj)
 {
-  pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newEditBox(getScilabJavaVM());
+    pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newEditBox(getScilabJavaVM());
 }
 
-int setCurentFigureAsEditBoxParent(sciPointObj* sciObj)
+int setCurentFigureAsEditBoxParent(sciPointObj * sciObj)
 {
-  int parentFigureIndex = 0;
-  
-  // Scilab list of parent
-  sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
-  
-  // Java objects
-  parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-  CallScilabBridge::setEditBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    int parentFigureIndex = 0;
 
-  return SET_PROPERTY_SUCCEED;
+    // Scilab list of parent
+    sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+
+    // Java objects
+    parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+    CallScilabBridge::setEditBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+    return SET_PROPERTY_SUCCEED;
 }

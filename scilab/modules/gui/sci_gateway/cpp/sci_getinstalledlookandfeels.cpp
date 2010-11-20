@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
- 
+
 #include "LookAndFeelManager.hxx"
 
 extern "C"
@@ -21,51 +21,50 @@ extern "C"
 #include "Scierror.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-int sci_getinstalledlookandfeels(char *fname,unsigned long fname_len)
-{
-	CheckRhs(0,0);
-	CheckLhs(1,1);
+    int sci_getinstalledlookandfeels(char *fname, unsigned long fname_len)
+    {
+        CheckRhs(0, 0);
+        CheckLhs(1, 1);
 
-	org_scilab_modules_gui_utils::LookAndFeelManager *lnf = new org_scilab_modules_gui_utils::LookAndFeelManager(getScilabJavaVM());
-	if (lnf)
-	{
-		char **lookandfeels = NULL;
-		int nbElems = 0;
-		int nbCol = 0;
+        org_scilab_modules_gui_utils::LookAndFeelManager * lnf = new org_scilab_modules_gui_utils::LookAndFeelManager(getScilabJavaVM());
+        if (lnf)
+        {
+            char **lookandfeels = NULL;
+            int nbElems = 0;
+            int nbCol = 0;
 
-		lookandfeels = lnf->getInstalledLookAndFeels();
-		nbElems = lnf->numbersOfInstalledLookAndFeels();
+              lookandfeels = lnf->getInstalledLookAndFeels();
+              nbElems = lnf->numbersOfInstalledLookAndFeels();
 
-		nbCol = 1;
-		CreateVarFromPtr( Rhs+1,MATRIX_OF_STRING_DATATYPE, &nbElems, &nbCol,lookandfeels );
+              nbCol = 1;
+              CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &nbElems, &nbCol, lookandfeels);
 
-		if (lookandfeels)
-		{
-			int i = 0;
-			for (i = 0;i<nbElems;i++)
-			{
-				if (lookandfeels[i])
-				{
-					delete [] lookandfeels[i];
-				}
-			}
-			delete [] lookandfeels;
-			lookandfeels = NULL;
-		}
-		delete lnf;
+            if (lookandfeels)
+            {
+                int i = 0;
+                for (i = 0; i < nbElems; i++)
+                {
+                    if (lookandfeels[i])
+                    {
+                        delete[]lookandfeels[i];
+                    }
+                }
+                delete[] lookandfeels;
+                lookandfeels = NULL;
+            }
+            delete lnf;
 
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		Scierror(999,_("%s: No more memory.\n"),fname);
-	}
-	return 0;
-}
+            LhsVar(1) = Rhs + 1;
+            C2F(putlhsvar) ();
+        }
+        else
+        {
+            Scierror(999, _("%s: No more memory.\n"), fname);
+        }
+        return 0;
+    }
 /*--------------------------------------------------------------------------*/
 }
+
 /* END OF extern "C" */
 /*--------------------------------------------------------------------------*/
-
-

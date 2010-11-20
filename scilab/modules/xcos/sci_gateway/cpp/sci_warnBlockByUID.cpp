@@ -27,112 +27,115 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
+
 /*--------------------------------------------------------------------------*/
-int sci_warnBlockByUID(char *fname,unsigned long fname_len)
+int sci_warnBlockByUID(char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
+    SciErr sciErr;
 
+    CheckRhs(2, 2);
+    CheckLhs(0, 1);
 
-	CheckRhs(2,2);
-	CheckLhs(0,1);
+    int m1 = 0, n1 = 0;
+    int *piAddressVarOne = NULL;
+    int m2 = 0, n2 = 0;
+    int *piAddressVarTwo = NULL;
 
-	int m1 = 0, n1 = 0;
-	int *piAddressVarOne = NULL;
-	int m2 = 0, n2 = 0;
-	int *piAddressVarTwo = NULL;
+    char *pStVarOne = NULL;
+    int lenStVarOne = 0;
 
-	char *pStVarOne = NULL;
-	int lenStVarOne = 0;
+    char *pStVarTwo = NULL;
+    int lenStVarTwo = 0;
 
-	char *pStVarTwo = NULL;
-	int lenStVarTwo = 0;
+    /** READ UID **/
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/** READ UID **/
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    /* get dimensions */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get dimensions */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    if (m1 * n1 != 1)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+        return 0;
+    }
 
-	if (m1 * n1 != 1) {
-		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
-		return 0;
-	}
+    /* get lengths */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get lengths */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    pStVarOne = (char *)MALLOC(sizeof(char *) * (lenStVarOne + 1));
 
-	pStVarOne = (char*)MALLOC(sizeof(char*) * (lenStVarOne + 1));
+    /* get strings */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
+    if (sciErr.iErr)
+    {
+        FREE(pStVarOne);
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get strings */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
-	if(sciErr.iErr)
-	{
-		FREE(pStVarOne);
-		printError(&sciErr, 0);
-		return 0;
-	}
+    /** READ MESSAGE **/
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/** READ MESSAGE **/
-	sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddressVarTwo);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    /* get dimensions */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get dimensions */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    if (m1 * n1 != 1)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 2);
+        return 0;
+    }
 
-	if (m1 * n1 != 1) {
-		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,2);
-		return 0;
-	}
+    /* get lengths */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get lengths */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    pStVarTwo = (char *)MALLOC(sizeof(char *) * (lenStVarTwo + 1));
 
-	pStVarTwo = (char*)MALLOC(sizeof(char*) * (lenStVarTwo + 1));
+    /* get strings */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, &pStVarTwo);
+    if (sciErr.iErr)
+    {
+        FREE(pStVarTwo);
+        printError(&sciErr, 0);
+        return 0;
+    }
+    Xcos::warnCellByUID(getScilabJavaVM(), pStVarOne, pStVarTwo);
 
-	/* get strings */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarTwo, &m1, &n1, &lenStVarTwo, &pStVarTwo);
-	if(sciErr.iErr)
-	{
-		FREE(pStVarTwo);
-		printError(&sciErr, 0);
-		return 0;
-	}
-	Xcos::warnCellByUID(getScilabJavaVM(), pStVarOne, pStVarTwo);
+    LhsVar(1) = 0;
+    PutLhsVar();
 
-	LhsVar(1) = 0;
-	PutLhsVar();
-
-	FREE(pStVarOne);
-	FREE(pStVarTwo);
-	return 0;
+    FREE(pStVarOne);
+    FREE(pStVarTwo);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
- 
+
 #include <string.h>
 #include "buildMainWindowTitle.h"
 #ifdef _MSC_VER
@@ -20,13 +20,14 @@
 /*--------------------------------------------------------------------------*/
 char *buildMainWindowTitle(void)
 {
-	char *retTitle = NULL;
+    char *retTitle = NULL;
 
-	#ifndef _MSC_VER
-	retTitle = strdup(SCI_VERSION_STRING);
-	#else
-	retTitle = buildMainWindowTitle_Windows();
-	#endif
-	return retTitle;
+#ifndef _MSC_VER
+    retTitle = strdup(SCI_VERSION_STRING);
+#else
+    retTitle = buildMainWindowTitle_Windows();
+#endif
+    return retTitle;
 }
+
 /*--------------------------------------------------------------------------*/

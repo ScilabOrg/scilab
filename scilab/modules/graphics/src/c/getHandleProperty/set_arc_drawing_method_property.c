@@ -26,35 +26,35 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_arc_drawing_method_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_arc_drawing_method_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( sciGetEntityType(pobj) != SCI_ARC && sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"arc_drawing_method") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_ARC && sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "arc_drawing_method");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "arc_drawing_method");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "arc_drawing_method");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "nurbs" ) )
-  {
-    return sciSetUseNurbs(pobj, TRUE) ;
-  }
-  else if ( isStringParamEqual( stackPointer, "lines" ) )
-  {
-    return sciSetUseNurbs(pobj, FALSE) ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "drawing_method", "nurbs", "lines");
-    return SET_PROPERTY_ERROR ;
-  }
-
+    if (isStringParamEqual(stackPointer, "nurbs"))
+    {
+        return sciSetUseNurbs(pobj, TRUE);
+    }
+    else if (isStringParamEqual(stackPointer, "lines"))
+    {
+        return sciSetUseNurbs(pobj, FALSE);
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "drawing_method", "nurbs", "lines");
+        return SET_PROPERTY_ERROR;
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

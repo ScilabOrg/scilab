@@ -13,34 +13,37 @@
 #include "dynamiclibrary_others.h"
 #include <stdlib.h>
 #include <stdio.h>
-/*---------------------------------------------------------------------------*/ 
+/*---------------------------------------------------------------------------*/
 #ifndef NULL
 #define NULL 0
 #endif
 /*---------------------------------------------------------------------------*/
 BOOL FreeDynLibrary(DynLibHandle hInstance)
 {
-	if (hInstance)
-		{
-			if (dlclose( hInstance)) return TRUE;
-		}
-	#ifndef NDEBUG
-	else 
-		{
-			printf("FreeDynLibrary: Cannot close a not-opened library.\n");
-			fflush(NULL);
-		}
-	#endif
+    if (hInstance)
+    {
+        if (dlclose(hInstance))
+            return TRUE;
+    }
+#ifndef NDEBUG
+    else
+    {
+        printf("FreeDynLibrary: Cannot close a not-opened library.\n");
+        fflush(NULL);
+    }
+#endif
 
-	return FALSE;
+    return FALSE;
 }
+
 /*---------------------------------------------------------------------------*/
-DynLibFuncPtr GetDynLibFuncPtr(DynLibHandle hInstance,char *funcName)
+DynLibFuncPtr GetDynLibFuncPtr(DynLibHandle hInstance, char *funcName)
 {
-	if (hInstance)
-	{
-		return dlsym(hInstance, funcName);
-	}
-	return NULL;
+    if (hInstance)
+    {
+        return dlsym(hInstance, funcName);
+    }
+    return NULL;
 }
+
 /*---------------------------------------------------------------------------*/

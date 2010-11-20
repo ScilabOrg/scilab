@@ -25,53 +25,50 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-FecLineDrawerJoGL::FecLineDrawerJoGL(DrawableFec * fec)
-: DrawFecStrategy(), DrawableObjectJoGL(fec)
-{
-  setJavaMapper(new FecLineDrawerJavaMapper());
-}
+    FecLineDrawerJoGL::FecLineDrawerJoGL(DrawableFec * fec):DrawFecStrategy(), DrawableObjectJoGL(fec)
+    {
+        setJavaMapper(new FecLineDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-FecLineDrawerJoGL::~FecLineDrawerJoGL(void)
-{
+    FecLineDrawerJoGL::~FecLineDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void FecLineDrawerJoGL::drawFec(const double xCoords[], const double yCoords[],
-                                const double values[], int nbNodes,
-                                const int firstPoints[], const int secondPoints[],
-                                const int thirdPoints[], int nbTriangles)
-{
-  sciPointObj * pFec = getDrawer()->getDrawedObject();
-  initializeDrawing();
-  getLineDrawerJavaMapper()->setLineParameters(sciGetGraphicContext(pFec)->foregroundcolor,
-                                               (float)sciGetLineWidth(pFec),
-                                               sciGetLineStyle(pFec));
+    void FecLineDrawerJoGL::drawFec(const double xCoords[], const double yCoords[],
+                                    const double values[], int nbNodes,
+                                    const int firstPoints[], const int secondPoints[], const int thirdPoints[], int nbTriangles)
+    {
+        sciPointObj *pFec = getDrawer()->getDrawedObject();
 
-  try
-  {
-  getLineDrawerJavaMapper()->drawFec(xCoords, yCoords, values, nbNodes,
-                                     firstPoints, secondPoints, thirdPoints, nbTriangles);
-  }
-  catch (const std::exception & e)
-  {
-     sciprint(const_cast<char*>(_("%s: No more memory.\n")), "FecLineDrawerJoGL::drawFec");
-  }
-  endDrawing();
-}
+        initializeDrawing();
+        getLineDrawerJavaMapper()->setLineParameters(sciGetGraphicContext(pFec)->foregroundcolor,
+                                                     (float)sciGetLineWidth(pFec), sciGetLineStyle(pFec));
+
+        try
+        {
+            getLineDrawerJavaMapper()->drawFec(xCoords, yCoords, values, nbNodes, firstPoints, secondPoints, thirdPoints, nbTriangles);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "FecLineDrawerJoGL::drawFec");
+        }
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void FecLineDrawerJoGL::showFec(void)
-{
-  show();
-}
+    void FecLineDrawerJoGL::showFec(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFec * FecLineDrawerJoGL::getFecDrawer(void)
-{
-  return dynamic_cast<DrawableFec *>(getDrawer());
-}
+    DrawableFec *FecLineDrawerJoGL::getFecDrawer(void)
+    {
+        return dynamic_cast < DrawableFec * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-FecLineDrawerJavaMapper * FecLineDrawerJoGL::getLineDrawerJavaMapper(void)
-{
-  return dynamic_cast<FecLineDrawerJavaMapper *>(getJavaMapper());
-}
+    FecLineDrawerJavaMapper *FecLineDrawerJoGL::getLineDrawerJavaMapper(void)
+    {
+        return dynamic_cast < FecLineDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

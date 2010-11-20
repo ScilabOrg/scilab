@@ -19,15 +19,15 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableCompoundFactory::create( void )
-{
-  return new DrawableCompound( m_pDrawed ) ;
-}
+    DrawableObject *DrawableCompoundFactory::create(void)
+    {
+        return new DrawableCompound(m_pDrawed);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableCompoundFactory::update( void )
-{
-  // nothing for now
-}
+    void DrawableCompoundFactory::update(void)
+    {
+        // nothing for now
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

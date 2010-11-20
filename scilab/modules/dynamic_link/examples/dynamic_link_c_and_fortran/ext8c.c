@@ -16,11 +16,13 @@
 
 int ext8c(double *y)
 {
-  static int m, n, lp,i;
-  GetMatrixptr("param", &m, &n, &lp);
-  /* param can be changed */
-  *stk(lp)=18.0;
-  /* param can be read */
-  for (i=0; i < m*n ; i++ ) y[i] = (*stk(lp+i));
-  return 0;
+    static int m, n, lp, i;
+
+    GetMatrixptr("param", &m, &n, &lp);
+    /* param can be changed */
+    *stk(lp) = 18.0;
+    /* param can be read */
+    for (i = 0; i < m * n; i++)
+        y[i] = (*stk(lp + i));
+    return 0;
 }

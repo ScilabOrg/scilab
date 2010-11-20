@@ -10,25 +10,25 @@
  *
  */
 
-#include <windows.h> 
+#include <windows.h>
 #include "dynlib_commons.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
-COMMONS_IMPEXP int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+/*--------------------------------------------------------------------------*/
+COMMONS_IMPEXP int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-  switch (reason) 
+    switch (reason)
     {
     case DLL_PROCESS_ATTACH:
-      break;
+        break;
     case DLL_PROCESS_DETACH:
-      break;
+        break;
     case DLL_THREAD_ATTACH:
-      break;
+        break;
     case DLL_THREAD_DETACH:
-      break;
+        break;
     }
-  return 1;
+    return 1;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

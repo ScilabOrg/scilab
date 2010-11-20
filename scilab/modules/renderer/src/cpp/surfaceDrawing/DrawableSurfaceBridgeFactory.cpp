@@ -19,16 +19,16 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableSurfaceBridge * DrawableSurfaceBridgeFactory::create( void )
-{
-  DrawableSurfaceJoGL * imp = new DrawableSurfaceJoGL( m_pDrawable ) ;
-  return imp ;
-}
+    DrawableSurfaceBridge *DrawableSurfaceBridgeFactory::create(void)
+    {
+        DrawableSurfaceJoGL *imp = new DrawableSurfaceJoGL(m_pDrawable);
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableSurfaceBridgeFactory::setDrawedSurface( DrawableSurface * poly )
-{
-  m_pDrawable = poly ;
-}
+    void DrawableSurfaceBridgeFactory::setDrawedSurface(DrawableSurface * poly)
+    {
+        m_pDrawable = poly;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

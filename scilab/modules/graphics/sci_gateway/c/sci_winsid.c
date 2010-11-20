@@ -23,32 +23,35 @@
 #include "returnProperty.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-int sci_winsid(char *fname,unsigned long fname_len)
+int sci_winsid(char *fname, unsigned long fname_len)
 {
-  int status = 0;
-  int nbFigure = sciGetNbFigure();
-  CheckRhs(-1,0);
+    int status = 0;
+    int nbFigure = sciGetNbFigure();
 
-  if (nbFigure <= 0)
-  {
-    /* There is no figure */
-    status = sciReturnEmptyMatrix();
-  }
-  else
-  {
-    int * ids = MALLOC(nbFigure * sizeof(int));
-    if (ids == NULL)
+    CheckRhs(-1, 0);
+
+    if (nbFigure <= 0)
     {
-      Scierror(999, _("%s: No more memory.\n"),fname);
-      return 0;
+        /* There is no figure */
+        status = sciReturnEmptyMatrix();
     }
-    sciGetFiguresId(ids);
+    else
+    {
+        int *ids = MALLOC(nbFigure * sizeof(int));
 
-    status = sciReturnRowIntVector(ids, nbFigure);
-    FREE(ids);
-  }
-  LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
-  return status;
+        if (ids == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), fname);
+            return 0;
+        }
+        sciGetFiguresId(ids);
+
+        status = sciReturnRowIntVector(ids, nbFigure);
+        FREE(ids);
+    }
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    return status;
 }
+
 /*--------------------------------------------------------------------------*/

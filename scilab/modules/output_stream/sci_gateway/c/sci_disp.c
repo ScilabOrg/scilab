@@ -13,11 +13,13 @@
 #include "machine.h"
 #include "gw_output_stream.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intdisp)(); /* fortran subroutine */
+extern int C2F(intdisp) ();     /* fortran subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_disp(char *fname,unsigned long fname_len)
+int sci_disp(char *fname, unsigned long fname_len)
 {
-	C2F(intdisp)();
-	return 0;
+    C2F(intdisp) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

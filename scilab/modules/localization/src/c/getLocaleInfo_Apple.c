@@ -15,12 +15,12 @@
 
 char *getLocaleUserInfo(void)
 {
-  char *cUserLanguage = NULL;
-  CFLocaleRef userLocaleRef = CFLocaleCopyCurrent();
-  CFStringRef userLanguage = CFLocaleGetIdentifier(userLocaleRef);
+    char *cUserLanguage = NULL;
+    CFLocaleRef userLocaleRef = CFLocaleCopyCurrent();
+    CFStringRef userLanguage = CFLocaleGetIdentifier(userLocaleRef);
 
-  cUserLanguage = (char *) malloc(((int) CFStringGetLength(userLanguage) + 1) * sizeof(char));
-  CFStringGetCString(userLanguage, cUserLanguage, ((int) CFStringGetLength(userLanguage)) + 1, kCFStringEncodingUTF8);
+    cUserLanguage = (char *)malloc(((int)CFStringGetLength(userLanguage) + 1) * sizeof(char));
+    CFStringGetCString(userLanguage, cUserLanguage, ((int)CFStringGetLength(userLanguage)) + 1, kCFStringEncodingUTF8);
 
-  return cUserLanguage;
+    return cUserLanguage;
 }

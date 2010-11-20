@@ -16,7 +16,8 @@
 /*--------------------------------------------------------------------------*/
 int gw_scinotes(void)
 {
-	Scierror(999,_("Scilab '%s' module not installed.\n"), "scinotes");
-	return 0;
+    Scierror(999, _("Scilab '%s' module not installed.\n"), "scinotes");
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -15,27 +15,27 @@
 #include "stack-c.h"
 #include "MALLOC.h"
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /*  interface function */
-/*--------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[] = 
-{
-	{sci_export_to_hdf5,"export_to_hdf5"},
-	{sci_import_from_hdf5,"import_from_hdf5"}
+/*--------------------------------------------------------------------------*/
+static gw_generic_table Tab[] = {
+    {sci_export_to_hdf5, "export_to_hdf5"},
+    {sci_import_from_hdf5, "import_from_hdf5"}
 };
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int gw_hdf5(void)
 {
-	Rhs = Max(0,Rhs);
+    Rhs = Max(0, Rhs);
 
-	if(pvApiCtx == NULL)
-	{
-		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
-	}
+    if (pvApiCtx == NULL)
+    {
+        pvApiCtx = (StrCtx *) MALLOC(sizeof(StrCtx));
+    }
 
-	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    pvApiCtx->pstName = (char *)Tab[Fin - 1].name;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

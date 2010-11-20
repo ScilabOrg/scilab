@@ -17,21 +17,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef _MSC_VER
-    #include "spawncommand.h"
+#include "spawncommand.h"
 #else
-    #include <sys/wait.h>
+#include <sys/wait.h>
 #endif
 #include "systemc.h"
 /*--------------------------------------------------------------------------*/
-int C2F(systemc)(char *command, int *stat)
+int C2F(systemc) (char *command, int *stat)
 {
 #ifdef _MSC_VER
     *stat = CallWindowsShell(command);
 #else
     int status = system(command);
+
     /* provide exit value of the child */
     *stat = WEXITSTATUS(status);
 #endif
-    return  0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

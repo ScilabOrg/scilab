@@ -28,16 +28,17 @@
 #include "BuildObjects.h"
 
 /*--------------------------------------------------------------------------*/
-int get_current_entity_property( sciPointObj * pobj )
+int get_current_entity_property(sciPointObj * pobj)
 {
-	if (pobj != NULL)
-	{
-		/* This property should not be called on an handle */
-		Scierror(999, _("'%s' property does not exist for this handle.\n"), "current_entity");
-		return -1;
-	}
-	/* To be sure that there is at least one opened figure */
-	SciWin();
-  return sciReturnHandle( sciGetHandle(sciGetCurrentObj()) ) ;
+    if (pobj != NULL)
+    {
+        /* This property should not be called on an handle */
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "current_entity");
+        return -1;
+    }
+    /* To be sure that there is at least one opened figure */
+    SciWin();
+    return sciReturnHandle(sciGetHandle(sciGetCurrentObj()));
 }
+
 /*--------------------------------------------------------------------------*/

@@ -14,17 +14,17 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-void setFigureEventHandler(int ID, char * command)
+void setFigureEventHandler(int ID, char *command)
 {
-   CallScilabBridge::setEventHandler(getScilabJavaVM(), ID, command);
+    CallScilabBridge::setEventHandler(getScilabJavaVM(), ID, command);
 }
 
 void setFigureEventHandlerEnabled(int ID, BOOL status)
 {
-   CallScilabBridge::setEventHandlerEnabled(getScilabJavaVM(), ID, BOOLtobool(status));
+    CallScilabBridge::setEventHandlerEnabled(getScilabJavaVM(), ID, BOOLtobool(status));
 }
 
 int newFigure(int ID)
 {
-	return CallScilabBridge::newWindow(getScilabJavaVM(), ID);
+    return CallScilabBridge::newWindow(getScilabJavaVM(), ID);
 }

@@ -17,21 +17,22 @@
 #include "prompt.h"
 #include "TermConsole.h"
 /*--------------------------------------------------------------------------*/
-char * TermReadAndProcess(void)
+char *TermReadAndProcess(void)
 {
-	char *line = NULL;
-	static char save_prompt[PROMPT_SIZE_MAX];
+    char *line = NULL;
+    static char save_prompt[PROMPT_SIZE_MAX];
 
-	if (GetTemporaryPrompt() != NULL) /* Input function is used */
-	{
-		line = TerminalGetString(GetTemporaryPrompt());
-	}
-	else
-	{
-		GetCurrentPrompt(save_prompt);
-		line = TerminalGetString(save_prompt);
-	}
-	strcpy(save_prompt,"");
-	return line;
+    if (GetTemporaryPrompt() != NULL)   /* Input function is used */
+    {
+        line = TerminalGetString(GetTemporaryPrompt());
+    }
+    else
+    {
+        GetCurrentPrompt(save_prompt);
+        line = TerminalGetString(save_prompt);
+    }
+    strcpy(save_prompt, "");
+    return line;
 }
+
 /*--------------------------------------------------------------------------*/

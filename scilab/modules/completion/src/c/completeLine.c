@@ -28,34 +28,34 @@
 *  @return Position in string where suffix of string and prefix of find does match
 *
 */
-static int findMatchingPrefixSuffix(const char* string, const char* find)
+static int findMatchingPrefixSuffix(const char *string, const char *find)
 {
-    char* pointerOnString = NULL;
-    char* pointerOnFindCopy = NULL;
-    char* movingPointerOnFindCopy = NULL;
+    char *pointerOnString = NULL;
+    char *pointerOnFindCopy = NULL;
+    char *movingPointerOnFindCopy = NULL;
     char lastchar;
     size_t stringLength = 0;
 
     //get a working copy of find
     pointerOnFindCopy = strdup(find);
     //last character of string
-    lastchar = *(string+strlen(string)-1);
+    lastchar = *(string + strlen(string) - 1);
     stringLength = strlen(string);
 
     //Tips : no infinite loop there, tmpfind string length is always reduced at each iteration
-    while( movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar) )
+    while (movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar))
     {
         //find the last occurence of last char of string in tmpfind
         movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar);
-        if(movingPointerOnFindCopy == NULL)
+        if (movingPointerOnFindCopy == NULL)
         {
             break;
         }
         // Cut tmpfind at this position
         movingPointerOnFindCopy[0] = '\0';
         //Check if the cutted tmpfind match with the suffix of string that has adequat length
-        pointerOnString = (char*)(string + stringLength - 1 - strlen(pointerOnFindCopy));
-        if( !strncmp(pointerOnFindCopy, pointerOnString, strlen(pointerOnFindCopy)) )
+        pointerOnString = (char *)(string + stringLength - 1 - strlen(pointerOnFindCopy));
+        if (!strncmp(pointerOnFindCopy, pointerOnString, strlen(pointerOnFindCopy)))
         {
             FREE(pointerOnFindCopy);
             pointerOnFindCopy = NULL;
@@ -68,9 +68,9 @@ static int findMatchingPrefixSuffix(const char* string, const char* find)
     pointerOnFindCopy = NULL;
     return stringLength;
 }
+
 /*--------------------------------------------------------------------------*/
-char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
-                   char *defaultPattern,BOOL stringToAddIsPath, char *postCaretLine)
+char *completeLine(char *currentline, char *stringToAdd, char *filePattern, char *defaultPattern, BOOL stringToAddIsPath, char *postCaretLine)
 {
     char *new_line = NULL;
     int lengthNewLine = 0;
@@ -86,9 +86,9 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
     int i = 0;
     int iposInsert = 0;
 
-    if (currentline == NULL) 
+    if (currentline == NULL)
     {
-        return  strdup("");
+        return strdup("");
     }
     lencurrentline = (int)strlen(currentline);
 
@@ -103,17 +103,21 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
         lenstringToAddAtTheEnd = (int)strlen(stringToAddAtTheEnd);
     }
 
-    if ( (stringToAdd == NULL)  || (strcmp(stringToAdd, "") == 0) )
+    if ((stringToAdd == NULL) || (strcmp(stringToAdd, "") == 0))
     {
         lengthNewLine = lencurrentline + lenstringToAddAtTheEnd;
-        new_line = (char*)MALLOC(sizeof(char) * (lengthNewLine + 1));
+        new_line = (char *)MALLOC(sizeof(char) * (lengthNewLine + 1));
         if (new_line)
         {
             strcpy(new_line, currentline);
             strcat(new_line, stringToAddAtTheEnd);
         }
 
-        if (stringToAddAtTheEnd) {FREE(stringToAddAtTheEnd); stringToAddAtTheEnd = NULL;}
+        if (stringToAddAtTheEnd)
+        {
+            FREE(stringToAddAtTheEnd);
+            stringToAddAtTheEnd = NULL;
+        }
 
         return new_line;
     }
@@ -135,12 +139,12 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 
         if (filePatternBuf)
         {
-            char* drv = (char*)MALLOC(sizeof(char)*(PATH_MAX+1));
-            char* dir = (char*)MALLOC(sizeof(char)*(PATH_MAX+1));
-            char* name = (char*)MALLOC(sizeof(char)*(PATH_MAX+1));
-            char* ext = (char*)MALLOC(sizeof(char)*(PATH_MAX+1));
+            char *drv = (char *)MALLOC(sizeof(char) * (PATH_MAX + 1));
+            char *dir = (char *)MALLOC(sizeof(char) * (PATH_MAX + 1));
+            char *name = (char *)MALLOC(sizeof(char) * (PATH_MAX + 1));
+            char *ext = (char *)MALLOC(sizeof(char) * (PATH_MAX + 1));
 
-            splitpath(filePatternBuf,TRUE, drv,dir, name, ext);
+            splitpath(filePatternBuf, TRUE, drv, dir, name, ext);
 
             if (bfilePatternBuf)
             {
@@ -149,33 +153,69 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
                 bfilePatternBuf = FALSE;
             }
 
-            if ( strcmp(drv,"") || strcmp(dir,"") )
+            if (strcmp(drv, "") || strcmp(dir, ""))
             {
                 /* bug 4365 */
                 /*cd SCI/modules/arnoldi/nonreg_tes */
 
-                if (drv) {FREE(drv); drv = NULL;}
-                if (dir) {FREE(dir); dir = NULL;}
-                if (name) {FREE(name); name = NULL;}
-                if (ext) {FREE(ext); ext = NULL;}
+                if (drv)
+                {
+                    FREE(drv);
+                    drv = NULL;
+                }
+                if (dir)
+                {
+                    FREE(dir);
+                    dir = NULL;
+                }
+                if (name)
+                {
+                    FREE(name);
+                    name = NULL;
+                }
+                if (ext)
+                {
+                    FREE(ext);
+                    ext = NULL;
+                }
 
                 lengthNewLine = lencurrentline + lenstringToAddAtTheEnd;
-                new_line = (char*)MALLOC(sizeof(char) * (lengthNewLine + 1));
+                new_line = (char *)MALLOC(sizeof(char) * (lengthNewLine + 1));
                 if (new_line)
                 {
                     strcpy(new_line, currentline);
                     strcat(new_line, stringToAddAtTheEnd);
                 }
 
-                if (stringToAddAtTheEnd) {FREE(stringToAddAtTheEnd); stringToAddAtTheEnd = NULL;}
+                if (stringToAddAtTheEnd)
+                {
+                    FREE(stringToAddAtTheEnd);
+                    stringToAddAtTheEnd = NULL;
+                }
 
                 return new_line;
             }
 
-            if (drv) {FREE(drv); drv = NULL;}
-            if (dir) {FREE(dir); dir = NULL;}
-            if (name) {FREE(name); name = NULL;}
-            if (ext) {FREE(ext); ext = NULL;}
+            if (drv)
+            {
+                FREE(drv);
+                drv = NULL;
+            }
+            if (dir)
+            {
+                FREE(dir);
+                dir = NULL;
+            }
+            if (name)
+            {
+                FREE(name);
+                name = NULL;
+            }
+            if (ext)
+            {
+                FREE(ext);
+                ext = NULL;
+            }
         }
     }
 
@@ -205,8 +245,8 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
         }
     }
 
-    lengthNewLine = (int)(strlen(currentline)+ strlen(stringToAdd) + lenstringToAddAtTheEnd);
-    new_line = (char*)MALLOC(sizeof(char)*(lengthNewLine + 1));
+    lengthNewLine = (int)(strlen(currentline) + strlen(stringToAdd) + lenstringToAddAtTheEnd);
+    new_line = (char *)MALLOC(sizeof(char) * (lengthNewLine + 1));
     if (new_line)
     {
         strcpy(new_line, currentline);
@@ -216,8 +256,13 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
         strcat(new_line, stringToAddAtTheEnd);
     }
 
-    if (stringToAddAtTheEnd) {FREE(stringToAddAtTheEnd); stringToAddAtTheEnd = NULL;}
+    if (stringToAddAtTheEnd)
+    {
+        FREE(stringToAddAtTheEnd);
+        stringToAddAtTheEnd = NULL;
+    }
 
     return new_line;
 }
+
 /*--------------------------------------------------------------------------*/

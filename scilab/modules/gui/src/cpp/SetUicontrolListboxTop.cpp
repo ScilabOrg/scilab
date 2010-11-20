@@ -17,71 +17,73 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolListboxTop(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolListboxTop(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int value = 0, nbValue = 0;
+    int value = 0, nbValue = 0;
 
-  if (valueType == sci_matrix)
+    if (valueType == sci_matrix)
     {
-      if(nbCol > 1 || nbRow > 1)
+        if (nbCol > 1 || nbRow > 1)
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: A real expected.\n")), "ListboxTop");
-          return SET_PROPERTY_ERROR;
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: A real expected.\n")), "ListboxTop");
+
+            return SET_PROPERTY_ERROR;
         }
 
-      value = (int) getDoubleFromStack(stackPointer);
+        value = (int)getDoubleFromStack(stackPointer);
     }
-  else if (valueType == sci_strings) // Ascendant compatibility
+    else if (valueType == sci_strings)  // Ascendant compatibility
     {
-      if(nbCol > 1 || nbRow > 1)
+        if (nbCol > 1 || nbRow > 1)
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: A real expected.\n")), "ListboxTop");
-          return SET_PROPERTY_ERROR;
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: A real expected.\n")), "ListboxTop");
+
+            return SET_PROPERTY_ERROR;
         }
 
-      nbValue = sscanf(getStringFromStack(stackPointer), "%d", &value);
+        nbValue = sscanf(getStringFromStack(stackPointer), "%d", &value);
 
-      if(nbValue != 1)
+        if (nbValue != 1)
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: A real expected.\n")), "ListboxTop");
-          return SET_PROPERTY_ERROR;
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: A real expected.\n")), "ListboxTop");
+
+            return SET_PROPERTY_ERROR;
         }
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: A real expected.\n")), "ListboxTop");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: A real expected.\n")), "ListboxTop");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  /* Store the value in Scilab */
-  if (nbCol == 0 || nbRow ==0) /* Empty matrix value */
+    /* Store the value in Scilab */
+    if (nbCol == 0 || nbRow == 0)   /* Empty matrix value */
     {
-      if(pUICONTROL_FEATURE(sciObj)->listboxTop != NULL)
+        if (pUICONTROL_FEATURE(sciObj)->listboxTop != NULL)
         {
-          delete [] pUICONTROL_FEATURE(sciObj)->listboxTop;
-          pUICONTROL_FEATURE(sciObj)->listboxTop = NULL;
+            delete[]pUICONTROL_FEATURE(sciObj)->listboxTop;
+            pUICONTROL_FEATURE(sciObj)->listboxTop = NULL;
         }
     }
-  else
+    else
     {
-      pUICONTROL_FEATURE(sciObj)->listboxTop = new int[1];
-      pUICONTROL_FEATURE(sciObj)->listboxTop[0] = value;
+        pUICONTROL_FEATURE(sciObj)->listboxTop = new int[1];
+
+        pUICONTROL_FEATURE(sciObj)->listboxTop[0] = value;
     }
-  
-  switch(pUICONTROL_FEATURE(sciObj)->style)
+
+    switch (pUICONTROL_FEATURE(sciObj)->style)
     {
     case SCI_LISTBOX:
-        CallScilabBridge::setListBoxListBoxTop(getScilabJavaVM(), 
-                                         pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                         value);
-      return SET_PROPERTY_SUCCEED;
+        CallScilabBridge::setListBoxListBoxTop(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, value);
+        return SET_PROPERTY_SUCCEED;
     default:
-      /* No Java attribute to set or method to call */
-      return SET_PROPERTY_SUCCEED;
+        /* No Java attribute to set or method to call */
+        return SET_PROPERTY_SUCCEED;
     }
 }
-

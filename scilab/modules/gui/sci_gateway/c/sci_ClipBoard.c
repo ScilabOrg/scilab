@@ -29,72 +29,71 @@
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/
-int sci_ClipBoard(char *fname,unsigned long l)
+int sci_ClipBoard(char *fname, unsigned long l)
 {
-    static int l1,n1,m1;
-    char *param1=NULL,*param2=NULL;
+    static int l1, n1, m1;
+    char *param1 = NULL, *param2 = NULL;
 
-    Rhs=Max(0,Rhs);
-    CheckRhs(0,2);
-    CheckLhs(0,1);
+    Rhs = Max(0, Rhs);
+    CheckRhs(0, 2);
+    CheckLhs(0, 1);
 
-    if ( getScilabMode() != SCILAB_NWNI )
+    if (getScilabMode() != SCILAB_NWNI)
     {
         /*--------------------*/
         /* clipboard("paste") */
         /*--------------------*/
         if (Rhs == 1)
         {
-            if (GetType(1)==sci_strings)
+            if (GetType(1) == sci_strings)
             {
-                GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-                param1=cstk(l1);
+                GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+                param1 = cstk(l1);
 
-                if ( ( strcmp(param1,"paste") == 0 ) || ( strcmp(param1,"pastespecial") == 0 ) )
+                if ((strcmp(param1, "paste") == 0) || (strcmp(param1, "pastespecial") == 0))
                 {
                     /* Use the Java clipboard (CallScilabBridge.java returns "" if clipbaord could not be read) */
                     char *output = getClipboardContents();
 
-
                     m1 = (int)strlen(output);
                     n1 = 1;
 
-                    CreateVarFromPtr(Rhs+ 1,STRING_DATATYPE, &m1, &n1, &output);
+                    CreateVarFromPtr(Rhs + 1, STRING_DATATYPE, &m1, &n1, &output);
                     /* TO DO a delete [] and not a FREE */
                     FREE(output);
-                    LhsVar(1)=Rhs+1;
+                    LhsVar(1) = Rhs + 1;
 
-                    C2F(putlhsvar)();	
+                    C2F(putlhsvar) ();
                     return TRUE;
                 }
                 else
                 {
-                    Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "paste", "pastespecial");
+                    Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "paste", "pastespecial");
                     return FALSE;
                 }
             }
             else
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
                 return FALSE;
             }
-        } 
+        }
 
         else if (Rhs == 2)
         {
-            if (GetType(1)==sci_strings)
+            if (GetType(1) == sci_strings)
             {
                 /* Get the first argument: should be "copy" or "do" */
-                GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-                param1=cstk(l1);
+                GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+                param1 = cstk(l1);
 
-                if (n1!=1)
+                if (n1 != 1)
                 {
-                    Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "do","copy");
+                    Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "do", "copy");
                     return FALSE;
                 }
 
-                if (GetType(2)==sci_strings)
+                if (GetType(2) == sci_strings)
                 {
 
                     /*-------------------------------------------*/
@@ -102,37 +101,38 @@ int sci_ClipBoard(char *fname,unsigned long l)
                     /*-------------------------------------------*/
 
                     /* @TODO : should be remplaced by an enum */
-                    if ( strcmp(param1,"do") == 0 )
+                    if (strcmp(param1, "do") == 0)
                     {
-                        GetRhsVar(2,STRING_DATATYPE,&m1,&n1,&l1);
-                        param2=cstk(l1);
+                        GetRhsVar(2, STRING_DATATYPE, &m1, &n1, &l1);
+                        param2 = cstk(l1);
 
-                        if ( strcmp(param2,"paste") == 0 )
+                        if (strcmp(param2, "paste") == 0)
                         {
                             /* Call Java to do the job */
                             pasteClipboardIntoConsole();
                         }
-                        else if ( strcmp(param2,"copy") == 0 )
+                        else if (strcmp(param2, "copy") == 0)
                         {
                             /* Call Java to do the job */
                             copyConsoleSelection();
                         }
-                        else if ( strcmp(param2,"empty") == 0 )
+                        else if (strcmp(param2, "empty") == 0)
                         {
                             /* Call Java to do the job */
                             emptyClipboard();
                         }
                         else
                         {
-                            Scierror(999,_("%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"), fname, 2, "copy","paste","empty");
+                            Scierror(999, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"), fname, 2, "copy", "paste",
+                                     "empty");
                             return FALSE;
                         }
 
-                        m1=0;
-                        n1=0;
-                        CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-                        LhsVar(1)=Rhs+1;
-                        C2F(putlhsvar)();	
+                        m1 = 0;
+                        n1 = 0;
+                        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+                        LhsVar(1) = Rhs + 1;
+                        C2F(putlhsvar) ();
                         return TRUE;
                     }
 
@@ -140,7 +140,7 @@ int sci_ClipBoard(char *fname,unsigned long l)
                     /* clipboard("copy", data) */
                     /*-------------------------*/
 
-                    else if ( strcmp(param1,"copy") == 0 )
+                    else if (strcmp(param1, "copy") == 0)
                     {
                         char *TextToPutInClipboard = NULL;
                         char **Str = NULL;
@@ -148,34 +148,36 @@ int sci_ClipBoard(char *fname,unsigned long l)
 
                         GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &m2, &n2, &Str);
 
-                        if (m2 * n2 == 1) /* Single line copy */
+                        if (m2 * n2 == 1)   /* Single line copy */
                         {
-                            TextToPutInClipboard=Str[0];
+                            TextToPutInClipboard = Str[0];
                             /* Call Java to do the job */
                             setClipboardContents(TextToPutInClipboard);
                         }
-                        else /* Multi-line copy */
+                        else    /* Multi-line copy */
                         {
                             int i = 0, j = 0, l2 = 0;
                             char *TextToSendInClipboard = NULL;
                             int SizeofTextToSendInClipboard = 0;
-                            char **buffer = (char**)MALLOC( (m2 * n2)*sizeof(char *) );
+                            char **buffer = (char **)MALLOC((m2 * n2) * sizeof(char *));
+
                             if (buffer == NULL)
                             {
                                 Scierror(999, _("%s: No more memory.\n"), fname);
                                 return FALSE;
                             }
 
-                            for (i=0; i<m2; i++) 
+                            for (i = 0; i < m2; i++)
                             {
-                                for (j=0; j<n2; j++) 
+                                for (j = 0; j < n2; j++)
                                 {
-                                    SizeofTextToSendInClipboard = SizeofTextToSendInClipboard + (int)strlen(Str[j*m2+i]) + (int)strlen("\n") + (int)strlen(" ");
-                                    buffer[i*n2+j] = strdup(Str[j*m2+i]);
+                                    SizeofTextToSendInClipboard =
+                                        SizeofTextToSendInClipboard + (int)strlen(Str[j * m2 + i]) + (int)strlen("\n") + (int)strlen(" ");
+                                    buffer[i * n2 + j] = strdup(Str[j * m2 + i]);
                                 }
                             }
 
-                            TextToSendInClipboard = (char*)MALLOC( (SizeofTextToSendInClipboard)*sizeof(char) );
+                            TextToSendInClipboard = (char *)MALLOC((SizeofTextToSendInClipboard) * sizeof(char));
                             if (TextToSendInClipboard == NULL)
                             {
                                 Scierror(999, _("%s: No more memory.\n"), fname);
@@ -185,47 +187,48 @@ int sci_ClipBoard(char *fname,unsigned long l)
 
                             for (i = 0; i < m2; i++)
                             {
-                                for (j = 0; j < n2; j++) 
+                                for (j = 0; j < n2; j++)
                                 {
                                     strcat(TextToSendInClipboard, buffer[l2++]);
-                                    strcat(TextToSendInClipboard," ");
+                                    strcat(TextToSendInClipboard, " ");
                                 }
-                                if ( i != (m2 - 1) ) strcat(TextToSendInClipboard, "\n");
+                                if (i != (m2 - 1))
+                                    strcat(TextToSendInClipboard, "\n");
                             }
 
                             /* Call Java to do the job */
                             setClipboardContents(TextToSendInClipboard);
 
-                            if (buffer) 
+                            if (buffer)
                             {
                                 FREE(buffer);
-                                buffer=NULL;
+                                buffer = NULL;
                             }
 
-                            if(TextToSendInClipboard) 
+                            if (TextToSendInClipboard)
                             {
                                 FREE(TextToSendInClipboard);
-                                TextToSendInClipboard=NULL;
+                                TextToSendInClipboard = NULL;
                             }
                         }
 
-                        freeArrayOfString(Str,m2*n2);
+                        freeArrayOfString(Str, m2 * n2);
                         m1 = 0;
                         n1 = 0;
-                        CreateVar(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
-                        LhsVar(1) = Rhs+1;
-                        C2F(putlhsvar)();	
+                        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+                        LhsVar(1) = Rhs + 1;
+                        C2F(putlhsvar) ();
                         return TRUE;
                     }
                     else
                     {
-                        Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "do","copy");
+                        Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 1, "do", "copy");
                         return FALSE;
                     }
                 }
                 else
                 {
-                    Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
                     return FALSE;
                 }
             }
@@ -234,31 +237,31 @@ int sci_ClipBoard(char *fname,unsigned long l)
             /* clipboard(fignum, {"EMF","DIB"}) */
             /*----------------------------------*/
 
-            else if (GetType(1)==sci_matrix)
+            else if (GetType(1) == sci_matrix)
             {
 
-                int num_win=-2;
+                int num_win = -2;
 
-                GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-                num_win=*istk(l1);
+                GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+                num_win = *istk(l1);
 
-                if (m1*n1!=1)
+                if (m1 * n1 != 1)
                 {
-                    Scierror(999,_("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+                    Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
                     return FALSE;
                 }
 
-                if (GetType(2)==sci_strings)
+                if (GetType(2) == sci_strings)
                 {
-                    GetRhsVar(2,STRING_DATATYPE,&m1,&n1,&l1);
-                    param2=cstk(l1);
+                    GetRhsVar(2, STRING_DATATYPE, &m1, &n1, &l1);
+                    param2 = cstk(l1);
 
-                    if ( ( strcmp(param2,"EMF") == 0 ) || ( strcmp(param2,"DIB") == 0 ) )
+                    if ((strcmp(param2, "EMF") == 0) || (strcmp(param2, "DIB") == 0))
                     {
-                        if (num_win>=0)
+                        if (num_win >= 0)
                         {
                             /* Call Java */
-                            if ( strcmp(param2,"EMF") == 0)
+                            if (strcmp(param2, "EMF") == 0)
                             {
                                 /* @TODO create EMF */
                                 copyFigureToClipBoard(num_win);
@@ -269,46 +272,47 @@ int sci_ClipBoard(char *fname,unsigned long l)
                                 copyFigureToClipBoard(num_win);
                             }
 
-                            m1=0;
-                            n1=0;
-                            CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-                            LhsVar(1)=Rhs+1;
-                            C2F(putlhsvar)();	
+                            m1 = 0;
+                            n1 = 0;
+                            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+                            LhsVar(1) = Rhs + 1;
+                            C2F(putlhsvar) ();
                             return TRUE;
                         }
                         else
                         {
-                            Scierror(999,_("%s: Wrong value for input argument #%d: Must be >= %d expected.\n"), fname, 1, 0);
+                            Scierror(999, _("%s: Wrong value for input argument #%d: Must be >= %d expected.\n"), fname, 1, 0);
                             return FALSE;
                         }
 
                     }
                     else
                     {
-                        Scierror(999,_("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 2, "EMF","DIB");
+                        Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"), fname, 2, "EMF", "DIB");
                         return FALSE;
                     }
 
                 }
                 else
                 {
-                    Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+                    Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
                     return FALSE;
                 }
             }
             else
             {
-                Scierror(999,_("%s: Wrong type for input argument #%d: A string or a real expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: A string or a real expected.\n"), fname, 1);
                 return FALSE;
             }
         }
     }
     else
     {
-        Scierror(999,_("%s: Function not available in NWNI mode.\n"), fname);
+        Scierror(999, _("%s: Function not available in NWNI mode.\n"), fname);
         return FALSE;
     }
 
     return FALSE;
 }
+
 /*--------------------------------------------------------------------------*/

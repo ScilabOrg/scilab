@@ -26,71 +26,73 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableObjectJoGL::DrawableObjectJoGL( DrawableObject * drawer )
-{
-  m_pDrawer = drawer ;
-  m_pJavaMapper = NULL;
-}
+    DrawableObjectJoGL::DrawableObjectJoGL(DrawableObject * drawer)
+    {
+        m_pDrawer = drawer;
+        m_pJavaMapper = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObjectJoGL::~DrawableObjectJoGL( void )
-{
-  destroy() ;
-}
+    DrawableObjectJoGL::~DrawableObjectJoGL(void)
+    {
+        destroy();
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::initializeDrawing( void )
-{
-  getJavaMapper()->initializeDrawing(sciGetNum(sciGetParentFigure(getDrawer()->getDrawedObject())) );
-}
+    void DrawableObjectJoGL::initializeDrawing(void)
+    {
+        getJavaMapper()->initializeDrawing(sciGetNum(sciGetParentFigure(getDrawer()->getDrawedObject())));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::endDrawing( void )
-{
-	try
-	{
-		getJavaMapper()->endDrawing();
-	}
-	catch (const std::exception & e)
-	{
-		sciprint(const_cast<char*>(_("%s: No more memory.\n")),"DrawableObjectJoGL::endDrawing");
-	}
-}
+    void DrawableObjectJoGL::endDrawing(void)
+    {
+        try
+        {
+            getJavaMapper()->endDrawing();
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "DrawableObjectJoGL::endDrawing");
+        }
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::translate(const double translation[3])
-{
-  getJavaMapper()->translate(translation);
-}
+    void DrawableObjectJoGL::translate(const double translation[3])
+    {
+        getJavaMapper()->translate(translation);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::endTranslate(void)
-{
-  getJavaMapper()->endTranslate();
-}
+    void DrawableObjectJoGL::endTranslate(void)
+    {
+        getJavaMapper()->endTranslate();
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::show( void )
-{
-  getJavaMapper()->show(sciGetNum(sciGetParentFigure(getDrawer()->getDrawedObject())));
-}
+    void DrawableObjectJoGL::show(void)
+    {
+        getJavaMapper()->show(sciGetNum(sciGetParentFigure(getDrawer()->getDrawedObject())));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::setJavaMapper( DrawableObjectJavaMapper * javaMapper )
-{
-  if (m_pJavaMapper != NULL)
-  {
-    destroy();
-  }
-  m_pJavaMapper = javaMapper;
-}
+    void DrawableObjectJoGL::setJavaMapper(DrawableObjectJavaMapper * javaMapper)
+    {
+        if (m_pJavaMapper != NULL)
+        {
+            destroy();
+        }
+        m_pJavaMapper = javaMapper;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectJoGL::destroy( void )
-{
-  if (m_pJavaMapper != NULL)
-  {
-    // bug on intel compiler
-    // it is not possible here to retrieve m_pDrawer using the function getDrawer()
-    // it may return invalid pointers.
-    DrawableObject * drawer = m_pDrawer;
-    sciPointObj * pObj = drawer->getDrawedObject();
-    getJavaMapper()->destroy(sciGetNum(sciGetParentFigure(pObj)));
-    delete getJavaMapper();
-    m_pJavaMapper = NULL;
-  }
-}
+    void DrawableObjectJoGL::destroy(void)
+    {
+        if (m_pJavaMapper != NULL)
+        {
+            // bug on intel compiler
+            // it is not possible here to retrieve m_pDrawer using the function getDrawer()
+            // it may return invalid pointers.
+            DrawableObject *drawer = m_pDrawer;
+            sciPointObj *pObj = drawer->getDrawedObject();
+
+            getJavaMapper()->destroy(sciGetNum(sciGetParentFigure(pObj)));
+            delete getJavaMapper();
+
+            m_pJavaMapper = NULL;
+        }
+    }
 /*---------------------------------------------------------------------------------*/
 }

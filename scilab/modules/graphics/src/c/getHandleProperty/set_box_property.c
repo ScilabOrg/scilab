@@ -29,64 +29,64 @@
 #include "sciprint.h"
 
 /*------------------------------------------------------------------------*/
-int set_box_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_box_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "box");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType( pobj ) == SCI_SUBWIN )
-  {
-    if ( isStringParamEqual( stackPointer, "off" ) )
+    if (sciGetEntityType(pobj) == SCI_SUBWIN)
     {
-      return sciSetBoxType( pobj, BT_OFF ) ;
+        if (isStringParamEqual(stackPointer, "off"))
+        {
+            return sciSetBoxType(pobj, BT_OFF);
+        }
+        else if (isStringParamEqual(stackPointer, "on"))
+        {
+            return sciSetBoxType(pobj, BT_ON);
+        }
+        else if (isStringParamEqual(stackPointer, "hidden_axes"))
+        {
+            return sciSetBoxType(pobj, BT_HIDDEN_AXES);
+        }
+        else if (isStringParamEqual(stackPointer, "hidden_axis"))
+        {
+            sciprint(_("WARNING !!!\nIn '%s' property: '%s' is deprecated use '%s' instead.\n"), "box", "hidden_axis", "hidden_axes");
+            return sciSetBoxType(pobj, BT_HIDDEN_AXES);
+        }
+        else if (isStringParamEqual(stackPointer, "back_half"))
+        {
+            return sciSetBoxType(pobj, BT_BACK_HALF);
+        }
+        else
+        {
+            Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "box", "on, off, hidden_axes, back_half");
+            return SET_PROPERTY_ERROR;
+        }
     }
-    else if ( isStringParamEqual( stackPointer, "on" ) )
+    else if (sciGetEntityType(pobj) == SCI_TEXT)
     {
-      return sciSetBoxType( pobj, BT_ON ) ;
+        if (isStringParamEqual(stackPointer, "on"))
+        {
+            return sciSetIsBoxed(pobj, TRUE);
+        }
+        else if (isStringParamEqual(stackPointer, "off"))
+        {
+            return sciSetIsBoxed(pobj, FALSE);
+        }
+        else
+        {
+            Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "box", "on", "off");
+            return SET_PROPERTY_SUCCEED;
+        }
     }
-    else if ( isStringParamEqual( stackPointer, "hidden_axes" ) )
-    {
-      return sciSetBoxType( pobj, BT_HIDDEN_AXES ) ;
-    }
-    else if ( isStringParamEqual( stackPointer, "hidden_axis" ) )
-    {
-      sciprint(_("WARNING !!!\nIn '%s' property: '%s' is deprecated use '%s' instead.\n"), "box", "hidden_axis", "hidden_axes");
-      return sciSetBoxType( pobj, BT_HIDDEN_AXES ) ;
-    }
-    else if ( isStringParamEqual( stackPointer, "back_half" ) )
-    {
-      return sciSetBoxType( pobj, BT_BACK_HALF ) ;
-    }
-    else
-    {
-      Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "box", "on, off, hidden_axes, back_half");
-      return SET_PROPERTY_ERROR ;
-    }
-  }
-  else if (sciGetEntityType( pobj ) == SCI_TEXT)
-  {
-    if ( isStringParamEqual( stackPointer, "on" ) )
-    {
-      return sciSetIsBoxed( pobj, TRUE ) ;
-    }
-    else if ( isStringParamEqual( stackPointer, "off" ) )
-    {
-      return sciSetIsBoxed( pobj, FALSE ) ;
-    }
-    else
-    {
-      Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "box", "on", "off");
-      return SET_PROPERTY_SUCCEED ;
-    }
-  }
-	
 
-	Scierror(999, _("'%s' property does not exist for this handle.\n"),"box") ;
-  return SET_PROPERTY_ERROR ;
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "box");
+    return SET_PROPERTY_ERROR;
 
 }
+
 /*------------------------------------------------------------------------*/

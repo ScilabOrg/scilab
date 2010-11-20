@@ -27,48 +27,51 @@
 #include "localization.h"
 #include "SetUicontrolPosition.h"
 /*------------------------------------------------------------------------*/
-int set_position_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_position_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if(sciGetEntityType(pobj) == SCI_UICONTROL || sciGetEntityType(pobj) == SCI_FIGURE)
-  {
-    SetUicontrolPosition(pobj, stackPointer, valueType, nbRow, nbCol);
-    return SET_PROPERTY_SUCCEED ;
-  }
-
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "position");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetAutoPosition( pobj ) )
-  {
-    sciSetAutoPosition( pobj, FALSE ) ;
-  }
-
-  if ( sciGetEntityType(pobj)== SCI_UIMENU )
-  {
-    pUIMENU_FEATURE(pobj)->MenuPosition = (int) getDoubleFromStack( stackPointer ) ;
-    return SET_PROPERTY_SUCCEED ;
-  }
-  else if( sciGetEntityType(pobj) == SCI_LABEL )
-  {
-    double * values = getDoubleMatrixFromStack( stackPointer ) ;
-    double curPos[3];
-    sciGetTextPos(pobj, curPos);
-    return sciSetTextPos( pobj, values[0], values[1], curPos[2] ) ;
-  }
-  else if ( sciGetEntityType(pobj) == SCI_LEGEND )
+    if (sciGetEntityType(pobj) == SCI_UICONTROL || sciGetEntityType(pobj) == SCI_FIGURE)
     {
-      double * values = getDoubleMatrixFromStack( stackPointer ) ;
-      return sciSetLegendPos( pobj, values ) ;
+        SetUicontrolPosition(pobj, stackPointer, valueType, nbRow, nbCol);
+        return SET_PROPERTY_SUCCEED;
     }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"position");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_ERROR ;
+
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "position");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (sciGetAutoPosition(pobj))
+    {
+        sciSetAutoPosition(pobj, FALSE);
+    }
+
+    if (sciGetEntityType(pobj) == SCI_UIMENU)
+    {
+        pUIMENU_FEATURE(pobj)->MenuPosition = (int)getDoubleFromStack(stackPointer);
+        return SET_PROPERTY_SUCCEED;
+    }
+    else if (sciGetEntityType(pobj) == SCI_LABEL)
+    {
+        double *values = getDoubleMatrixFromStack(stackPointer);
+        double curPos[3];
+
+        sciGetTextPos(pobj, curPos);
+        return sciSetTextPos(pobj, values[0], values[1], curPos[2]);
+    }
+    else if (sciGetEntityType(pobj) == SCI_LEGEND)
+    {
+        double *values = getDoubleMatrixFromStack(stackPointer);
+
+        return sciSetLegendPos(pobj, values);
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "position");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

@@ -25,85 +25,85 @@ extern "C"
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-TitlePositioner::TitlePositioner(DrawableLabel * label)
-  : LabelPositioner(label)
-{
-  m_aPreviousPosition[0] = -10.0;
-  m_aPreviousPosition[1] = -10.0;
-  m_aPreviousPosition[2] = -10.0;
-}
+    TitlePositioner::TitlePositioner(DrawableLabel * label):LabelPositioner(label)
+    {
+        m_aPreviousPosition[0] = -10.0;
+        m_aPreviousPosition[1] = -10.0;
+        m_aPreviousPosition[2] = -10.0;
+    }
 /*------------------------------------------------------------------------------------------*/
-TitlePositioner::~TitlePositioner(void)
-{
-  
-}
+    TitlePositioner::~TitlePositioner(void)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-bool TitlePositioner::getAutoPosition(double pos[3])
-{
-  sciPointObj * pLabel = m_pLabel->getDrawedObject();
-  sciPointObj * parentSubwin = sciGetParentSubwin(pLabel);
-  Camera * camera = getSubwinDrawer(parentSubwin)->getCamera();
+    bool TitlePositioner::getAutoPosition(double pos[3])
+    {
+        sciPointObj *pLabel = m_pLabel->getDrawedObject();
+        sciPointObj *parentSubwin = sciGetParentSubwin(pLabel);
+        Camera *camera = getSubwinDrawer(parentSubwin)->getCamera();
 
-  // get axis bounds
-  int xPos;
-  int yPos;
-  int width;
-  int height;
-  camera->getViewingArea(&xPos, &yPos, &width, &height);
+        // get axis bounds
+        int xPos;
+        int yPos;
+        int width;
+        int height;
 
-  // get height of the text
-  double corners[4][3];
-  getTextDrawer(pLABEL_FEATURE(pLabel)->text)->getScreenBoundingBox(corners[0], corners[1],
-                                                                    corners[2], corners[3]);
+        camera->getViewingArea(&xPos, &yPos, &width, &height);
 
-  double textHeight = Abs(corners[0][1] - corners[2][1]);
-  double textWidth = Abs(corners[0][0] - corners[2][0]);
+        // get height of the text
+        double corners[4][3];
 
-  double pixCoords[3];
-  pixCoords[0] = xPos + (width - textWidth) / 2.0;
-  pixCoords[1] = yPos - textHeight / 2.0;
-  pixCoords[2] = DEPTH_FRONT; // put it in front of depth buffer
+        getTextDrawer(pLABEL_FEATURE(pLabel)->text)->getScreenBoundingBox(corners[0], corners[1], corners[2], corners[3]);
 
-  // Title may flicker because its position is computed
-  // using several projections and truncation, it may move
-  // from one pixel to an other. Consequently, we move the title
-  // only if the displacement is 2 pixels or more.
-  double titleDisplacement[3];
-  vectSubstract3D(pixCoords, m_aPreviousPosition, titleDisplacement);
-  if (SQUARE_NORM_2D(titleDisplacement) >= 4.0)
-  {
-    // use new position
-    m_aPreviousPosition[0] = round(pixCoords[0]);
-    m_aPreviousPosition[1] = round(pixCoords[1]);
-    m_aPreviousPosition[2] = pixCoords[2];
-  }
-  else
-  {
-    pixCoords[0] = m_aPreviousPosition[0];
-    pixCoords[1] = m_aPreviousPosition[1];
-    pixCoords[2] = m_aPreviousPosition[2];
-  }
+        double textHeight = Abs(corners[0][1] - corners[2][1]);
+        double textWidth = Abs(corners[0][0] - corners[2][0]);
 
-  camera->getSceneCoordinates(pixCoords, pos);
-  
+        double pixCoords[3];
 
+        pixCoords[0] = xPos + (width - textWidth) / 2.0;
+        pixCoords[1] = yPos - textHeight / 2.0;
+        pixCoords[2] = DEPTH_FRONT; // put it in front of depth buffer
 
-  return true;
+        // Title may flicker because its position is computed
+        // using several projections and truncation, it may move
+        // from one pixel to an other. Consequently, we move the title
+        // only if the displacement is 2 pixels or more.
+        double titleDisplacement[3];
 
-}
+        vectSubstract3D(pixCoords, m_aPreviousPosition, titleDisplacement);
+        if (SQUARE_NORM_2D(titleDisplacement) >= 4.0)
+        {
+            // use new position
+            m_aPreviousPosition[0] = round(pixCoords[0]);
+            m_aPreviousPosition[1] = round(pixCoords[1]);
+            m_aPreviousPosition[2] = pixCoords[2];
+        }
+        else
+        {
+            pixCoords[0] = m_aPreviousPosition[0];
+            pixCoords[1] = m_aPreviousPosition[1];
+            pixCoords[2] = m_aPreviousPosition[2];
+        }
+
+        camera->getSceneCoordinates(pixCoords, pos);
+
+        return true;
+
+    }
 /*------------------------------------------------------------------------------------------*/
-bool TitlePositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
-{
-  // not used here
-  // we use directly getAutoPosition
-  return true;
-}
+    bool TitlePositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
+    {
+        // not used here
+        // we use directly getAutoPosition
+        return true;
+    }
 /*------------------------------------------------------------------------------------------*/
-double TitlePositioner::getAutoOrientation(void)
-{
-  // always horizontal
-  return 0.0;
-}
+    double TitlePositioner::getAutoOrientation(void)
+    {
+        // always horizontal
+        return 0.0;
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

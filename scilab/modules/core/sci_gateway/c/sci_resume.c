@@ -12,11 +12,13 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intresume)();
+extern int C2F(intresume) ();
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_resume)(char *fname,unsigned long fname_len)
+int C2F(sci_resume) (char *fname, unsigned long fname_len)
 {
-	C2F(intresume)();
-	return 0;
+    C2F(intresume) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

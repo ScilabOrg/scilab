@@ -15,8 +15,9 @@
 #include "xs2file.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xs2png( char * fname, unsigned long fname_len )
+int sci_xs2png(char *fname, unsigned long fname_len)
 {
-  return xs2file( fname, PNG_EXPORT ) ;
+    return xs2file(fname, PNG_EXPORT);
 }
+
 /*--------------------------------------------------------------------------*/

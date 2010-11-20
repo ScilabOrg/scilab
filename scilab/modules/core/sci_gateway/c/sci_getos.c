@@ -17,45 +17,54 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_getos)(char *fname,unsigned long fname_len)
+int C2F(sci_getos) (char *fname, unsigned long fname_len)
 {
-	static int n1 = 0, m1 = 0;
-	char *OperatingSystem = getOSFullName();
+    static int n1 = 0, m1 = 0;
+    char *OperatingSystem = getOSFullName();
 
-	Rhs = Max(0,Rhs);
-	CheckRhs(0,0);
-	CheckLhs(1,2);
+    Rhs = Max(0, Rhs);
+    CheckRhs(0, 0);
+    CheckLhs(1, 2);
 
-	if (OperatingSystem)
-	{
-		n1 = 1;
-		CreateVarFromPtr( Rhs+1,STRING_DATATYPE,(m1=(int)strlen(OperatingSystem), &m1),&n1,&OperatingSystem);
-		if (OperatingSystem) {FREE(OperatingSystem); OperatingSystem = NULL;}
-		LhsVar(1)=Rhs+1;
+    if (OperatingSystem)
+    {
+        n1 = 1;
+        CreateVarFromPtr(Rhs + 1, STRING_DATATYPE, (m1 = (int)strlen(OperatingSystem), &m1), &n1, &OperatingSystem);
+        if (OperatingSystem)
+        {
+            FREE(OperatingSystem);
+            OperatingSystem = NULL;
+        }
+        LhsVar(1) = Rhs + 1;
 
-		if (Lhs == 2)
-		{
-			char *Release = getOSRelease();
+        if (Lhs == 2)
+        {
+            char *Release = getOSRelease();
 
-			if (Release)
-			{
-				n1 = 1;
-				CreateVarFromPtr(Rhs+ 2,STRING_DATATYPE,(m1=(int)strlen(Release), &m1),&n1,&Release);
-				if (Release) {FREE(Release); Release = NULL;}
-				LhsVar(2) = Rhs + 2;
-			}
-			else
-			{
-				Scierror(999,_("%s: No more memory.\n"),fname);
-				return 0;
-			}
-		}
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		Scierror(999,_("%s: No more memory.\n"),fname);
-	}
-	return 0;
+            if (Release)
+            {
+                n1 = 1;
+                CreateVarFromPtr(Rhs + 2, STRING_DATATYPE, (m1 = (int)strlen(Release), &m1), &n1, &Release);
+                if (Release)
+                {
+                    FREE(Release);
+                    Release = NULL;
+                }
+                LhsVar(2) = Rhs + 2;
+            }
+            else
+            {
+                Scierror(999, _("%s: No more memory.\n"), fname);
+                return 0;
+            }
+        }
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -25,87 +25,95 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-PolylineFillDrawerJoGL::PolylineFillDrawerJoGL( DrawablePolyline * polyline )
-  : DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
-{
-  setJavaMapper(new PolylineFillDrawerJavaMapper());
-}
+    PolylineFillDrawerJoGL::PolylineFillDrawerJoGL(DrawablePolyline * polyline):DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
+    {
+        setJavaMapper(new PolylineFillDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineFillDrawerJoGL::~PolylineFillDrawerJoGL(void)
-{
+    PolylineFillDrawerJoGL::~PolylineFillDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineFillDrawerJoGL::drawPolyline( void )
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
-  initializeDrawing() ;
+    void PolylineFillDrawerJoGL::drawPolyline(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  if ( sciGetPolylineStyle(pObj) == 5)
-  {
-    // strange mode
-    getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->foregroundcolor) ;
-  }
-  else
-  {
-    // normal mode
-    getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->backgroundcolor) ;
-  }
-  
+        initializeDrawing();
 
-  // get the data of the polyline
-  int      nbVertices = 0   ;
-  double * xCoords    = NULL;
-  double * yCoords    = NULL;
-  double * zCoords    = NULL;
+        // set the line parameters
+        if (sciGetPolylineStyle(pObj) == 5)
+        {
+            // strange mode
+            getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->foregroundcolor);
+        }
+        else
+        {
+            // normal mode
+            getFillDrawerJavaMapper()->setBackColor(sciGetGraphicContext(pObj)->backgroundcolor);
+        }
 
-  nbVertices = m_pDrawed->getDrawnVerticesLength();
-  try
-  {
-    xCoords = new double[nbVertices];
-    yCoords = new double[nbVertices];
-    zCoords = new double[nbVertices];
-  }
-  catch (const std::exception& e)
-  {
-    // allocation failed
-	  sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineFillDrawerJoGL::drawPolyline");
-    if(xCoords != NULL) { delete[] xCoords; }
-    if(yCoords != NULL) { delete[] yCoords; }
-    if(zCoords != NULL) { delete[] zCoords; }
-    endDrawing();
-    return;
-  }
-  
+        // get the data of the polyline
+        int nbVertices = 0;
+        double *xCoords = NULL;
+        double *yCoords = NULL;
+        double *zCoords = NULL;
 
-  m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
+        nbVertices = m_pDrawed->getDrawnVerticesLength();
+        try
+        {
+            xCoords = new double[nbVertices];
+            yCoords = new double[nbVertices];
+            zCoords = new double[nbVertices];
+        }
+        catch(const std::exception & e)
+        {
+            // allocation failed
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineFillDrawerJoGL::drawPolyline");
 
-  // display the rectangle
-  try
-  {
-    getFillDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
-  }
-  catch (const std::exception & e)
-  {
-	  sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineFillDrawerJoGL::drawPolyline");
-  }
+            if (xCoords != NULL)
+            {
+                delete[]xCoords;
+            }
+            if (yCoords != NULL)
+            {
+                delete[]yCoords;
+            }
+            if (zCoords != NULL)
+            {
+                delete[]zCoords;
+            }
+            endDrawing();
+            return;
+        }
 
-  delete[] xCoords;
-  delete[] yCoords;
-  delete[] zCoords;
-  endDrawing() ;
-}
+        m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
+
+        // display the rectangle
+        try
+        {
+            getFillDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineFillDrawerJoGL::drawPolyline");
+        }
+
+        delete[]xCoords;
+        delete[]yCoords;
+        delete[]zCoords;
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineFillDrawerJoGL::showPolyline( void )
-{
-  show();
-}
+    void PolylineFillDrawerJoGL::showPolyline(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineFillDrawerJavaMapper * PolylineFillDrawerJoGL::getFillDrawerJavaMapper(void)
-{
-  return dynamic_cast<PolylineFillDrawerJavaMapper *>(getJavaMapper());
-}
+    PolylineFillDrawerJavaMapper *PolylineFillDrawerJoGL::getFillDrawerJavaMapper(void)
+    {
+        return dynamic_cast < PolylineFillDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

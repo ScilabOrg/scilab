@@ -18,23 +18,29 @@
 #include "HistoryManager.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int sci_historysize(char *fname,unsigned long fname_len)
+int sci_historysize(char *fname, unsigned long fname_len)
 {
-	int *paramoutINT=NULL;
-	int n = 1;
-	Rhs = Max(Rhs,0);
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    int *paramoutINT = NULL;
+    int n = 1;
 
-	paramoutINT=(int*)MALLOC(sizeof(int));
+    Rhs = Max(Rhs, 0);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	*paramoutINT = getSizeScilabHistory();
+    paramoutINT = (int *)MALLOC(sizeof(int));
 
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_INTEGER_DATATYPE, &n, &n, &paramoutINT);
-	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
+    *paramoutINT = getSizeScilabHistory();
 
-	if (paramoutINT) {FREE(paramoutINT);paramoutINT = NULL;}
-	return 0 ;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &n, &n, &paramoutINT);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+
+    if (paramoutINT)
+    {
+        FREE(paramoutINT);
+        paramoutINT = NULL;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

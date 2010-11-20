@@ -25,38 +25,39 @@
 #include "Scierror.h"
 #include "localization.h"
 /*------------------------------------------------------------------------*/
-int get_box_property( sciPointObj * pobj )
+int get_box_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType ( pobj ) == SCI_SUBWIN )
-  {
-    switch( sciGetBoxType( pobj ) )
+    if (sciGetEntityType(pobj) == SCI_SUBWIN)
     {
-    case BT_OFF:
-      return sciReturnString( "off" ) ;
-      break ;
-    case BT_ON:
-      return sciReturnString( "on" ) ;
-      break ;
-    case BT_HIDDEN_AXES:
-      return sciReturnString( "hidden_axes" ) ;
-      break ;
-    case BT_BACK_HALF:
-      return sciReturnString( "back_half" ) ;
-      break ;
+        switch (sciGetBoxType(pobj))
+        {
+        case BT_OFF:
+            return sciReturnString("off");
+            break;
+        case BT_ON:
+            return sciReturnString("on");
+            break;
+        case BT_HIDDEN_AXES:
+            return sciReturnString("hidden_axes");
+            break;
+        case BT_BACK_HALF:
+            return sciReturnString("back_half");
+            break;
+        }
     }
-  }
-  else if (sciGetEntityType( pobj ) == SCI_TEXT)
-  {
-    if ( sciGetIsBoxed(pobj) )
+    else if (sciGetEntityType(pobj) == SCI_TEXT)
     {
-      return sciReturnString( "on" ) ;
+        if (sciGetIsBoxed(pobj))
+        {
+            return sciReturnString("on");
+        }
+        else
+        {
+            return sciReturnString("off");
+        }
     }
-    else
-    {
-      return sciReturnString( "off" ) ;  
-    }
-  }
-	Scierror(999, _("'%s' property does not exist for this handle.\n"),"box") ;
-  return -1 ;
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "box");
+    return -1;
 }
+
 /*------------------------------------------------------------------------*/

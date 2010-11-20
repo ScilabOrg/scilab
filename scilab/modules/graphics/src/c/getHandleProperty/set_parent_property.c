@@ -28,36 +28,37 @@
 #include "SetUicontrolParent.h"
 
 /*------------------------------------------------------------------------*/
-int set_parent_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_parent_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if(sciGetEntityType( pobj ) == SCI_UIMENU)
+    if (sciGetEntityType(pobj) == SCI_UIMENU)
     {
-      if ((pobj == NULL) || (valueType!=sci_handles && valueType!=sci_matrix)) /* sci_matrix used for adding menus in console menu */
+        if ((pobj == NULL) || (valueType != sci_handles && valueType != sci_matrix))    /* sci_matrix used for adding menus in console menu */
         {
-          Scierror(999,_("Wrong type for '%s' property: '%s' handle or '%s' handle expected.\n"),"parent","Figure", "Uimenu");
-          return SET_PROPERTY_ERROR ;
+            Scierror(999, _("Wrong type for '%s' property: '%s' handle or '%s' handle expected.\n"), "parent", "Figure", "Uimenu");
+            return SET_PROPERTY_ERROR;
         }
-      else
+        else
         {
-          return setMenuParent(pobj, stackPointer, valueType, nbRow, nbCol);
+            return setMenuParent(pobj, stackPointer, valueType, nbRow, nbCol);
         }
     }
-  else if(sciGetEntityType(pobj) == SCI_UICONTROL)
+    else if (sciGetEntityType(pobj) == SCI_UICONTROL)
     {
-      if ((pobj == NULL) || (valueType!=sci_handles && valueType!=sci_matrix)) 
+        if ((pobj == NULL) || (valueType != sci_handles && valueType != sci_matrix))
         {
-          Scierror(999,_("Wrong type for '%s' property: '%s' handle or '%s' handle expected.\n"),"parent","Figure", "Uimenu");
-          return SET_PROPERTY_ERROR ;
+            Scierror(999, _("Wrong type for '%s' property: '%s' handle or '%s' handle expected.\n"), "parent", "Figure", "Uimenu");
+            return SET_PROPERTY_ERROR;
         }
-      else
+        else
         {
-          return SetUicontrolParent(pobj, stackPointer, valueType, nbRow, nbCol);
+            return SetUicontrolParent(pobj, stackPointer, valueType, nbRow, nbCol);
         }
     }
-  else
+    else
     {
-      Scierror(999, _("Parent property can not be modified directly.\n"));
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Parent property can not be modified directly.\n"));
+        return SET_PROPERTY_ERROR;
     }
 }
+
 /*------------------------------------------------------------------------*/

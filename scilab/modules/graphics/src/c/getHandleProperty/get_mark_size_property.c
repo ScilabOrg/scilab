@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_mark_size_property( sciPointObj * pobj )
+int get_mark_size_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetMarkSize( pobj ) ) ;
+    return sciReturnDouble(sciGetMarkSize(pobj));
 }
+
 /*------------------------------------------------------------------------*/

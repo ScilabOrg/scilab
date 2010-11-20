@@ -14,22 +14,19 @@
 #include <math.h>
 #include "isanan.h"
 
-
-#ifdef _MSC_VER 
-	#define _ISANAN
-	#include <float.h>
-#endif 
-
+#ifdef _MSC_VER
+#define _ISANAN
+#include <float.h>
+#endif
 
 /* testing Nan returns 1 if a Nan is found and 0 elsewhere */
 /* should be changed to use a libm isnan function when possible */
 
-int C2F(isanan)(double *x)
+int C2F(isanan) (double *x)
 {
 #ifdef _ISANAN
-  return(_isnan(*x)== 1);
+    return (_isnan(*x) == 1);
 #else
-  return((!( *x <= 1.0 )) && (!( *x >= 1.0 )));
+    return ((!(*x <= 1.0)) && (!(*x >= 1.0)));
 #endif
 }
-

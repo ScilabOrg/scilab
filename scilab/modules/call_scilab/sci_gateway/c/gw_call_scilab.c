@@ -14,15 +14,16 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-{sci_fromjava,"fromjava"},
-{sci_fromc,"fromc"}
+static gw_generic_table Tab[] = {
+    {sci_fromjava, "fromjava"},
+    {sci_fromc, "fromc"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_call_scilab(void)
-{  
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

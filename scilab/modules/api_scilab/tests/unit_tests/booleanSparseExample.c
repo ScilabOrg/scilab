@@ -17,42 +17,44 @@
 #include "api_scilab.h"
 #include "MALLOC.h"
 
-int booleanSparseExample(char *fname,unsigned long fname_len)
+int booleanSparseExample(char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
-	int* piAddr		= NULL;
-	int iType		= 0;
-	int iRet		= 0;
-	CheckRhs(1,1);
-	CheckLhs(0,1);
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
-	if(sciErr.iErr)
-	{
-			printError(&sciErr, 0);
-			return 0;
-	}
-	if(isBooleanSparseType(pvApiCtx, piAddr))
-	{
-		int iRows			= 0;
-		int iCols			= 0;
-		int iNbItem			= 0;
-		int* piNbItemRow	= NULL;
-		int* piColPos		= NULL;
-		iRet = getAllocatedBooleanSparseMatrix(pvApiCtx, piAddr, &iRows, &iCols, &iNbItem, &piNbItemRow, &piColPos);
-		if(iRet)
-		{
-			freeAllocatedBooleanSparse(piNbItemRow, piColPos);
-			return iRet;
-		}
-		sciErr = createBooleanSparseMatrix(pvApiCtx, Rhs + 1, iRows, iCols, iNbItem, piNbItemRow, piColPos);
-		if(sciErr.iErr)
-		{
-			freeAllocatedBooleanSparse(piNbItemRow, piColPos);
-			printError(&sciErr, 0);
-			return sciErr.iErr;
-		}
-		freeAllocatedBooleanSparse(piNbItemRow, piColPos);
-		LhsVar(1) = Rhs + 1;
-	}
-	return 0;
+    SciErr sciErr;
+    int *piAddr = NULL;
+    int iType = 0;
+    int iRet = 0;
+
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
+    if (isBooleanSparseType(pvApiCtx, piAddr))
+    {
+        int iRows = 0;
+        int iCols = 0;
+        int iNbItem = 0;
+        int *piNbItemRow = NULL;
+        int *piColPos = NULL;
+
+        iRet = getAllocatedBooleanSparseMatrix(pvApiCtx, piAddr, &iRows, &iCols, &iNbItem, &piNbItemRow, &piColPos);
+        if (iRet)
+        {
+            freeAllocatedBooleanSparse(piNbItemRow, piColPos);
+            return iRet;
+        }
+        sciErr = createBooleanSparseMatrix(pvApiCtx, Rhs + 1, iRows, iCols, iNbItem, piNbItemRow, piColPos);
+        if (sciErr.iErr)
+        {
+            freeAllocatedBooleanSparse(piNbItemRow, piColPos);
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+        freeAllocatedBooleanSparse(piNbItemRow, piColPos);
+        LhsVar(1) = Rhs + 1;
+    }
+    return 0;
 }

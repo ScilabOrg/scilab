@@ -16,22 +16,23 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{sci_getdynlibext,"getdynlibext"},
-	{sci_addinter,"addinter"},
-	{sci_fort,"fort"},
-	{sci_call,"call"},
-	{sci_link,"link"},
-	{sci_ulink,"ulink"},
-	{sci_c_link,"c_link"},
-	{sci_ilib_verbose,"ilib_verbose"}
+static gw_generic_table Tab[] = {
+    {sci_getdynlibext, "getdynlibext"},
+    {sci_addinter, "addinter"},
+    {sci_fort, "fort"},
+    {sci_call, "call"},
+    {sci_link, "link"},
+    {sci_ulink, "ulink"},
+    {sci_c_link, "c_link"},
+    {sci_ilib_verbose, "ilib_verbose"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_dynamic_link(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

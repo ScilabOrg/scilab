@@ -19,22 +19,24 @@
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
 void C2F(mgetstr1) (int *fd, char *start, int *n, int *ierr)
-{ 
-	int count=0;
-	FILE *fa=NULL;
-	fa = GetFileOpenedInScilab(*fd);
-	*ierr=0;
-	if (fa)
-	{ 
-		count=(int)fread(start,sizeof(char),*n,fa);
-		start[*n]='\0';
-		if ( count != *n ) 
-		{
-			*ierr = - count -1;
-		}
-		return;
-	}
-	sciprint(_("%s: No input file.\n"),"mgetstr");
-	*ierr=1;
+{
+    int count = 0;
+    FILE *fa = NULL;
+
+    fa = GetFileOpenedInScilab(*fd);
+    *ierr = 0;
+    if (fa)
+    {
+        count = (int)fread(start, sizeof(char), *n, fa);
+        start[*n] = '\0';
+        if (count != *n)
+        {
+            *ierr = -count - 1;
+        }
+        return;
+    }
+    sciprint(_("%s: No input file.\n"), "mgetstr");
+    *ierr = 1;
 }
+
 /*--------------------------------------------------------------------------*/

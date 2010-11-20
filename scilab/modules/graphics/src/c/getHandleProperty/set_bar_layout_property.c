@@ -28,35 +28,36 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_bar_layout_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_bar_layout_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "bar_layout");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "bar_layout");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_POLYLINE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"bar_layout") ;
-    return SET_PROPERTY_ERROR ;
-  }
-  
-  if( isStringParamEqual( stackPointer, "grouped" ) )
-  {
-    pPOLYLINE_FEATURE (pobj)->bar_layout = 0 ;
-  }
-  else if( isStringParamEqual( stackPointer, "stacked" ) )
-  {
-    pPOLYLINE_FEATURE (pobj)->bar_layout = 1 ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "bar_layout", "grouped", "stacked");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "bar_layout");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_SUCCEED ;
+    if (isStringParamEqual(stackPointer, "grouped"))
+    {
+        pPOLYLINE_FEATURE(pobj)->bar_layout = 0;
+    }
+    else if (isStringParamEqual(stackPointer, "stacked"))
+    {
+        pPOLYLINE_FEATURE(pobj)->bar_layout = 1;
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "bar_layout", "grouped", "stacked");
+        return SET_PROPERTY_ERROR;
+    }
+
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

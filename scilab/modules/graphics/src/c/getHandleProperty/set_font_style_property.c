@@ -27,27 +27,29 @@
 #include "RendererFontManager.h"
 
 /*------------------------------------------------------------------------*/
-int set_font_style_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_font_style_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int value;
-	/* number of fonts available */
-	int nbInstalledFonts = getNbInstalledFonts();
+    int value;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "font_style");
-    return SET_PROPERTY_ERROR ;
-  }
+    /* number of fonts available */
+    int nbInstalledFonts = getNbInstalledFonts();
 
-	value = (int) getDoubleFromStack( stackPointer ) ;
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "font_style");
+        return SET_PROPERTY_ERROR;
+    }
 
-	/* Check that the wanted value is a correct font */
-  if ( value >= nbInstalledFonts || value < 0 )
-  {
-    Scierror(999, _("Wrong value for '%s' property: An Integer between %d and %d expected.\n"), "font_style", 0, nbInstalledFonts - 1) ;
-    return SET_PROPERTY_ERROR ;
-  }
-  
-  return sciSetFontStyle( pobj, value ) ;
+    value = (int)getDoubleFromStack(stackPointer);
+
+    /* Check that the wanted value is a correct font */
+    if (value >= nbInstalledFonts || value < 0)
+    {
+        Scierror(999, _("Wrong value for '%s' property: An Integer between %d and %d expected.\n"), "font_style", 0, nbInstalledFonts - 1);
+        return SET_PROPERTY_ERROR;
+    }
+
+    return sciSetFontStyle(pobj, value);
 }
+
 /*------------------------------------------------------------------------*/

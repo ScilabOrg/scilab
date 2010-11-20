@@ -25,15 +25,16 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_triangles_property( sciPointObj * pobj )
+int get_triangles_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType (pobj) != SCI_FEC )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"triangles") ;
-    return -1;
-  }
-  
-  return sciReturnMatrix( pFEC_FEATURE (pobj)->pnoeud, pFEC_FEATURE (pobj)->Ntr, 5 ) ;
+    if (sciGetEntityType(pobj) != SCI_FEC)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "triangles");
+        return -1;
+    }
+
+    return sciReturnMatrix(pFEC_FEATURE(pobj)->pnoeud, pFEC_FEATURE(pobj)->Ntr, 5);
 
 }
+
 /*------------------------------------------------------------------------*/

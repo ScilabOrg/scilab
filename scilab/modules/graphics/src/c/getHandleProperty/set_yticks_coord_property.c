@@ -32,71 +32,71 @@
 
 /*------------------------------------------------------------------------*/
 /* @TODO: remove stackPointer, nbRow, nbCol which are used */
-int set_ytics_coord_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_ytics_coord_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  int N = 0;
-  double * vector = NULL;
-  char c_format[5];
+    int N = 0;
+    double *vector = NULL;
+    char c_format[5];
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "ytics_coord");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "ytics_coord");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"ytics_coord");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_AXES)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "ytics_coord");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( nbRow != 1 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: Row vector expected.\n"), "ytics_coord");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (nbRow != 1)
+    {
+        Scierror(999, _("Wrong size for '%s' property: Row vector expected.\n"), "ytics_coord");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( pAXES_FEATURE(pobj)->ny == 1 && nbCol != 1 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: Scalar expected.\n"), "ytics_coord");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (pAXES_FEATURE(pobj)->ny == 1 && nbCol != 1)
+    {
+        Scierror(999, _("Wrong size for '%s' property: Scalar expected.\n"), "ytics_coord");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if (  pAXES_FEATURE(pobj)->ny != 1 && nbCol == 1 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: At least %d elements expected.\n"), "ytics_coord", 2);
-    return SET_PROPERTY_ERROR ;
-  }
+    if (pAXES_FEATURE(pobj)->ny != 1 && nbCol == 1)
+    {
+        Scierror(999, _("Wrong size for '%s' property: At least %d elements expected.\n"), "ytics_coord", 2);
+        return SET_PROPERTY_ERROR;
+    }
 
-  /* what follows remains here as it was */
+    /* what follows remains here as it was */
 
-  FREE(pAXES_FEATURE(pobj)->vy); pAXES_FEATURE(pobj)->vy = NULL;
+    FREE(pAXES_FEATURE(pobj)->vy);
+    pAXES_FEATURE(pobj)->vy = NULL;
 
-  pAXES_FEATURE(pobj)->vy = createCopyDoubleVectorFromStack( stackPointer, nbCol ) ;
+    pAXES_FEATURE(pobj)->vy = createCopyDoubleVectorFromStack(stackPointer, nbCol);
 
+    ComputeXIntervals(pobj, pAXES_FEATURE(pobj)->tics, &vector, &N, 0);
+    ComputeC_format(pobj, c_format);
 
-  ComputeXIntervals( pobj, pAXES_FEATURE(pobj)->tics, &vector, &N, 0 ) ;
-  ComputeC_format( pobj, c_format ) ;
+    if (pAXES_FEATURE(pobj)->str != NULL)
+    {
+        destroyStringArray(pAXES_FEATURE(pobj)->str, pAXES_FEATURE(pobj)->nb_tics_labels);
+    }
 
-  if( pAXES_FEATURE(pobj)->str != NULL )
-  {
-    destroyStringArray( pAXES_FEATURE(pobj)->str, pAXES_FEATURE(pobj)->nb_tics_labels ) ;
-  }
+    pAXES_FEATURE(pobj)->nb_tics_labels = N;
+    pAXES_FEATURE(pobj)->str = copyFormatedArray(vector, N, c_format, 256);
 
-  pAXES_FEATURE (pobj)->nb_tics_labels = N;
-  pAXES_FEATURE(pobj)->str = copyFormatedArray( vector, N, c_format, 256 ) ;
+    FREE(vector);
 
+    if (pAXES_FEATURE(pobj)->str == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "set_ytics_coord_property");
+        return SET_PROPERTY_ERROR;
+    }
 
-  FREE( vector ) ;
-
-  if ( pAXES_FEATURE(pobj)->str == NULL )
-  {
-    Scierror(999, _("%s: No more memory.\n"),"set_ytics_coord_property");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  return SET_PROPERTY_SUCCEED ;
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

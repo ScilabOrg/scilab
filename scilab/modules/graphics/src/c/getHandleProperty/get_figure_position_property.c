@@ -25,25 +25,25 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_figure_position_property( sciPointObj * pobj )
+int get_figure_position_property(sciPointObj * pobj)
 {
-  int posX ;
-  int posY ;
-  double figurePos[2] ;
+    int posX;
+    int posY;
+    double figurePos[2];
 
-  if ( sciGetEntityType (pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"figure_position") ;
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "figure_position");
+        return -1;
+    }
 
-  sciGetScreenPosition( pobj, &posX, &posY ) ;
+    sciGetScreenPosition(pobj, &posX, &posY);
 
-  figurePos[0] = (double) posX ; 
-  figurePos[1] = (double) posY ;
+    figurePos[0] = (double)posX;
+    figurePos[1] = (double)posY;
 
-  
-  return sciReturnRowVector( figurePos, 2 ) ;
+    return sciReturnRowVector(figurePos, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

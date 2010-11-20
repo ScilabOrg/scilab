@@ -17,26 +17,26 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableLegend::draw( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  drawLegend();
-  return SUCCESS;
-}
-/*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableLegend::show( void )
-{
-  if (!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  showLegend();
-  return SUCCESS;
-}
-/*---------------------------------------------------------------------------------*/
+    DrawableObject::EDisplayStatus DrawableLegend::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        drawLegend();
 
+        return SUCCESS;
+    }
+/*---------------------------------------------------------------------------------*/
+    DrawableObject::EDisplayStatus DrawableLegend::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        showLegend();
+        return SUCCESS;
+    }
+/*---------------------------------------------------------------------------------*/
 
 }

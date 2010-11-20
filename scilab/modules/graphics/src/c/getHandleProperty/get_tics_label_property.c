@@ -26,38 +26,39 @@
 #include "Format.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_tics_labels_property( sciPointObj * pobj )
+int get_tics_labels_property(sciPointObj * pobj)
 {
 
-  if ( sciGetEntityType (pobj) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"tics_labels") ;
-    return -1 ;
-  }
-
-  if ( pAXES_FEATURE(pobj)->str == NULL )
-  {
-    int status = -1 ;
-
-    /* tics_labels is allocatred here */
-    StringMatrix * tics_labels = computeDefaultTicsLabels( pobj ) ; /* actually it is vector */
-
-    if ( tics_labels == NULL )
+    if (sciGetEntityType(pobj) != SCI_AXES)
     {
-      Scierror(999, _("%s: No more memory.\n"), "get_tics_labels_property") ;
-      return -1 ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_labels");
+        return -1;
     }
 
-    status = sciReturnRowStringVector( getStrMatData( tics_labels ), pAXES_FEATURE (pobj)->nb_tics_labels ) ;
+    if (pAXES_FEATURE(pobj)->str == NULL)
+    {
+        int status = -1;
 
-    deleteMatrix( tics_labels ) ;
+        /* tics_labels is allocatred here */
+        StringMatrix *tics_labels = computeDefaultTicsLabels(pobj); /* actually it is vector */
 
-    return status ;
-  }
-  else
-  {
-    /* str has been previously set once */
-    return sciReturnRowStringVector( pAXES_FEATURE(pobj)->str, pAXES_FEATURE (pobj)->nb_tics_labels ) ;
-  }
+        if (tics_labels == NULL)
+        {
+            Scierror(999, _("%s: No more memory.\n"), "get_tics_labels_property");
+            return -1;
+        }
+
+        status = sciReturnRowStringVector(getStrMatData(tics_labels), pAXES_FEATURE(pobj)->nb_tics_labels);
+
+        deleteMatrix(tics_labels);
+
+        return status;
+    }
+    else
+    {
+        /* str has been previously set once */
+        return sciReturnRowStringVector(pAXES_FEATURE(pobj)->str, pAXES_FEATURE(pobj)->nb_tics_labels);
+    }
 }
+
 /*------------------------------------------------------------------------*/

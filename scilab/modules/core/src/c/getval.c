@@ -154,222 +154,257 @@
 #define D 13
 #define E 14
 
-extern int C2F(fortrangetch)();
+extern int C2F(fortrangetch) ();
 
-
-int C2F(getval)(double *s, int *dotdet)
+int C2F(getval) (double *s, int *dotdet)
 {
-  /* Initialized constants */
-  static double toto = 0.;
-  static double c10 = 10.;
+    /* Initialized constants */
+    static double toto = 0.;
+    static double c10 = 10.;
 
-  /* Local variables */
-  static int expo;
-  static int code0;
-  static int i, k;
-  static int digit[25], ndgrec;
-  static int detdot;
-  static int ndgexp, expcor, sgnexp;
-  static char string[31];
-  static int ndg;
+    /* Local variables */
+    static int expo;
+    static int code0;
+    static int i, k;
+    static int digit[25], ndgrec;
+    static int detdot;
+    static int ndgexp, expcor, sgnexp;
+    static char string[31];
+    static int ndg;
 
-  /* System generated locals */
-  static double d1;
-  int i1;
+    /* System generated locals */
+    static double d1;
+    int i1;
 
-  Fin = 0;
-  /*     beginning of the code */
-  detdot = *dotdet;
-  ndg = 0;
-  ndgrec = 0;
-  if (! detdot) {
-    /*  1) got the int part of the mantissa of the pattern
-      1-a) may be there is some 0 at the beginning */
-    while(C2F(com).char1 == 0) {
-      C2F(fortrangetch)();
+    Fin = 0;
+    /*     beginning of the code */
+    detdot = *dotdet;
+    ndg = 0;
+    ndgrec = 0;
+    if (!detdot)
+    {
+        /*  1) got the int part of the mantissa of the pattern
+         * 1-a) may be there is some 0 at the beginning */
+        while (C2F(com).char1 == 0)
+        {
+            C2F(fortrangetch) ();
+        }
+        /* 1-b) now record the digits (inside the digit array) 
+         * (but we record a maximum of ndgmax digits) */
+        while (abs(C2F(com).char1) <= 9)
+        {
+            ++ndg;
+            if (ndgrec < 25)
+            {
+                ++ndgrec;
+                digit[ndgrec - 1] = C2F(com).char1;
+            }
+            C2F(fortrangetch) ();
+        }
+        /*1-c) at this point we have detected something which is not a digit 
+         * may be a point, may be a d,D,e,E, or something else 
+         * here we only test for the dot and let the others cases
+         * to be treated after ... */
+        if (abs(C2F(com).char1) == dot)
+        {
+            detdot = TRUE;
+            C2F(fortrangetch) ();
+        }
     }
-    /* 1-b) now record the digits (inside the digit array) 
-       (but we record a maximum of ndgmax digits)*/
-    while(abs(C2F(com).char1) <= 9) {
-      ++ndg;
-      if (ndgrec < 25) {
-	++ndgrec;
-	digit[ndgrec - 1] = C2F(com).char1;
-      }
-      C2F(fortrangetch)();
+    /*first correction for the (future) exponent : if the first part 
+     * of the string have more then ndgmax digits we have to add 
+     * ndg - ndgrec (else we have expcor=0) */
+    expcor = ndg - ndgrec;
+    if (detdot)
+    {
+        /*2) got the "fractionnal" part of the "mantissa" */
+        if (ndgrec == 0)
+        {
+            /*we have not passed throw the part 1) or only zeros have been met
+             * and may be the number start with .000xxx : so clean up those 0 */
+            while (C2F(com).char1 == 0)
+            {
+                --expcor;
+                C2F(fortrangetch) ();
+            }
+        }
+        /*now we begin to record the digits */
+        while (abs(C2F(com).char1) <= 9)
+        {
+            if (ndgrec < 25)
+            {
+                ++ndgrec;
+                --expcor;
+                digit[ndgrec - 1] = C2F(com).char1;
+            }
+            C2F(fortrangetch) ();
+        }
     }
-    /*1-c) at this point we have detected something which is not a digit 
-           may be a point, may be a d,D,e,E, or something else 
-           here we only test for the dot and let the others cases
-	   to be treated after ... */
-    if (abs(C2F(com).char1) == dot) {
-      detdot = TRUE;
-      C2F(fortrangetch)();
+    /*3) at this point the "mantissa" of the string decimal number
+     * must be recorded, now detect the exponent */
+    expo = 0;
+    ndgexp = 0;
+    sgnexp = plus;
+    if (abs(C2F(com).char1) == D || abs(C2F(com).char1) == E)
+    {
+        /*the string have an exponent part (which, in Scilab, may be empty or 
+         * may had only a sign ! => expo = 0) */
+        C2F(fortrangetch) ();
+        if (C2F(com).char1 == minus || C2F(com).char1 == plus)
+        {
+            sgnexp = C2F(com).char1;
+            C2F(fortrangetch) ();
+        }
+        else
+        {
+            sgnexp = plus;
+        }
+        /*may be the exponent start by some 0 */
+        while (C2F(com).char1 == 0)
+        {
+            C2F(fortrangetch) ();
+        }
+        /*now form the exponent : the var ndgexp is here
+         * to treat spurious int overflow ... */
+        while (abs(C2F(com).char1) <= 9)
+        {
+            expo = expo * 10 + C2F(com).char1;
+            ++ndgexp;
+            C2F(fortrangetch) ();
+        }
     }
-  }
-  /*first correction for the (future) exponent : if the first part 
-    of the string have more then ndgmax digits we have to add 
-    ndg - ndgrec (else we have expcor=0) */
-  expcor = ndg - ndgrec;
-  if (detdot) {
-    /*2) got the "fractionnal" part of the "mantissa" */
-    if (ndgrec == 0) {
-      /*we have not passed throw the part 1) or only zeros have been met
-      and may be the number start with .000xxx : so clean up those 0 */
-      while(C2F(com).char1 == 0) {
-	--expcor;
-	C2F(fortrangetch)();
-      }
+    /*4) Now we can form the double float number s
+     * 4-1/ only zeros in the mantissa */
+    if (ndgrec == 0)
+    {
+        /*no digits have been recorded : this is the case
+         * when the mantissa part is of the form [000][.][000] 
+         * the number is 0 */
+        *s = 0.;
+        return 0;
     }
-    /*now we begin to record the digits */
-    while(abs(C2F(com).char1) <= 9) {
-      if (ndgrec < 25) {
-	++ndgrec;
-	--expcor;
-	digit[ndgrec - 1] = C2F(com).char1;
-      }
-      C2F(fortrangetch)();
+    /*4-2/ ndgexp is to large => the exponent expo is perhaps badly 
+     * computed (int "overflow") or in all cases the 
+     * exponent is too large (positive or negative) such that it result 
+     * (for s) in a overflow or underflow depending the exponent sign */
+    if (ndgexp >= NDEMAX)
+    {
+        if (sgnexp == minus)
+        {                       /*underflow */
+            *s = 0.;
+        }
+        else
+        {                       /*overflow : got an inf ... */
+            *s = 1. / (toto - toto);
+        }
+        return 0;
     }
-  }
-  /*3) at this point the "mantissa" of the string decimal number
-    must be recorded, now detect the exponent */
-  expo = 0;
-  ndgexp = 0;
-  sgnexp = plus;
-  if (abs(C2F(com).char1) == D || abs(C2F(com).char1) == E) {
-    /*the string have an exponent part (which, in Scilab, may be empty or 
-      may had only a sign ! => expo = 0) */
-    C2F(fortrangetch)();
-    if (C2F(com).char1 == minus || C2F(com).char1 == plus) {
-      sgnexp = C2F(com).char1;
-      C2F(fortrangetch)();
-    } else {
-      sgnexp = plus;
+    /*4-3/ now build the final exponent */
+    if (sgnexp == plus)
+    {
+        expo += expcor;
     }
-    /*may be the exponent start by some 0 */
-    while(C2F(com).char1 == 0) {
-      C2F(fortrangetch)();
+    else
+    {
+        expo = -expo + expcor;
     }
-    /*now form the exponent : the var ndgexp is here
-      to treat spurious int overflow ... */
-    while(abs(C2F(com).char1) <= 9) {
-      expo = expo * 10 + C2F(com).char1;
-      ++ndgexp;
-      C2F(fortrangetch)();
+    /*4-4/ here some tests to avoid unnecessary call to  "strtod"
+     * Now we have a number s of the form  d_1 d_2 ... d_ndgrec 10^expo
+     * which is equal to d_1 . d_2 ... d_ndgrec 10^(expo + ndgrec - 1) 
+     * with d_1 .ne. 0 
+     * so it comes :  s >= 10^(expo + ndgrec - 1)
+     * s <= 10^(expo + ndgrec) 
+     * 
+     * Suppose given EXPMAX such that  10^EXPMAX > max positive float number 
+     * and EXPMIN such that  10^EXPMIN < min positive float number 
+     * 
+     * then if  expo + ndgrec - 1 >= EXPMAX then overflow occurs necessarily 
+     * and  if  expo + ndgrec <= EXPMIN then underflow occurs 
+     * 
+     * On IEEE 754 we have : max positive float num = (approx) 1.8E+308 
+     * min positive float num = (approx) 4.9EEXPMIN 
+     * (if denormalised number are used) 
+     * 
+     * So that EXPMAX = 309 
+     * and  EXPMIN = -324  are OK (but larger limits are possible to take 
+     * into account others f.p. arithmetics) 
+     * Note that after the test (with these values) the exponent have a 
+     * maximum of 3 (decimals) digits */
+    if (expo + ndgrec - 1 >= EXPMAX)
+    {                           /*overflow : got an inf ... */
+        *s = 1. / (toto - toto);
+        return 0;
     }
-  }
-  /*4) Now we can form the double float number s
-    4-1/ only zeros in the mantissa */
-  if (ndgrec == 0) {
-    /*no digits have been recorded : this is the case
-      when the mantissa part is of the form [000][.][000] 
-      the number is 0 */
-    *s = 0.;
-    return 0;
-  }
-  /*4-2/ ndgexp is to large => the exponent expo is perhaps badly 
-    computed (int "overflow") or in all cases the 
-    exponent is too large (positive or negative) such that it result 
-    (for s) in a overflow or underflow depending the exponent sign */
-  if (ndgexp >= NDEMAX) {
-    if (sgnexp == minus) {/*underflow */
-      *s = 0.;
-    } else {/*overflow : got an inf ... */
-      *s = 1. / (toto - toto);
+    if (expo + ndgrec <= EXPMIN)
+    {                           /*underflow : got an 0 */
+        *s = 0.;
+        return 0;
     }
-    return 0;
-  }
-  /*4-3/ now build the final exponent */
-  if (sgnexp == plus) {
-    expo += expcor;
-  } else {
-    expo = -expo + expcor;
-  }
-  /*4-4/ here some tests to avoid unnecessary call to  "strtod"
-    Now we have a number s of the form  d_1 d_2 ... d_ndgrec 10^expo
-    which is equal to d_1 . d_2 ... d_ndgrec 10^(expo + ndgrec - 1) 
-    with d_1 .ne. 0 
-    so it comes :  s >= 10^(expo + ndgrec - 1)
-    s <= 10^(expo + ndgrec) 
+    /*4-5/ Now the usual case where we can get the near floating point
+     * without any problem */
+    if (ndgrec <= DGLIM && abs(expo) <= EXPLIM)
+    {
+        *s = 0.;
+        i1 = ndgrec;
+        for (i = 1; i <= i1; ++i)
+        {
+            *s = *s * 10. + digit[i - 1];
+        }
+        if (expo < 0)
+        {
+            d1 = -expo;
+            *s /= pow(c10, d1);
+        }
+        else
+        {
+            d1 = expo;
+            *s *= pow(c10, d1);
+        }
+        return 0;
+    }
+    /*4-6/ The other easy case where we can compute s : 
+     * if expo = EXPLIM + k  but [int part]*10^k < max_int_coded_in_double 
+     * then it is OK (retrieve k in the exponent and multiply the int 
+     * part by 10^k and do the same job as previus) */
+    if (expo > EXPLIM && expo - EXPLIM + ndgrec <= DGLIM)
+    {
+        *s = 0.;
+        i1 = ndgrec;
+        for (i = 1; i <= i1; ++i)
+        {
+            *s = *s * 10. + digit[i - 1];
+        }
+        /*peut etre dangereux avec des options d'optimisation ? 
+         * (le compilo peut etre tente d'ecrire directement s = s*10**expo 
+         * ce qui detruit le truc ...) */
+        /*         s = s*10.d0**(expo-EXPLIM)
+         * s = s*10.d0**EXPLIM */
 
-    Suppose given EXPMAX such that  10^EXPMAX > max positive float number 
-    and EXPMIN such that  10^EXPMIN < min positive float number 
+        d1 = (double)(expo - EXPLIM);
+        *s *= pow(c10, d1);
+        d1 = (double)EXPLIM;
+        *s *= pow(c10, d1);
 
-    then if  expo + ndgrec - 1 >= EXPMAX then overflow occurs necessarily 
-    and  if  expo + ndgrec <= EXPMIN then underflow occurs 
-
-    On IEEE 754 we have : max positive float num = (approx) 1.8E+308 
-    min positive float num = (approx) 4.9EEXPMIN 
-    (if denormalised number are used) 
-
-    So that EXPMAX = 309 
-    and  EXPMIN = -324  are OK (but larger limits are possible to take 
-    into account others f.p. arithmetics) 
-    Note that after the test (with these values) the exponent have a 
-    maximum of 3 (decimals) digits */
-  if (expo + ndgrec - 1 >= EXPMAX) {/*overflow : got an inf ... */
-    *s = 1. / (toto - toto);
-    return 0;
-  }
-  if (expo + ndgrec <= EXPMIN) { /*underflow : got an 0 */
-    *s = 0.;
-    return 0;
-  }
-  /*4-5/ Now the usual case where we can get the near floating point
-    without any problem */
-  if (ndgrec <= DGLIM && abs(expo) <= EXPLIM) {
-    *s = 0.;
+        return 0;
+    }
+    /*4-7/ else use langage routines to do the job
+     * the overhead is a retranslation into a string... */
+    code0 = '0';
     i1 = ndgrec;
-    for (i = 1; i <= i1; ++i) {
-      *s = *s * 10. + digit[i - 1];
+    for (i = 1; i <= i1; ++i)
+    {
+        *(unsigned char *)&string[i - 1] = (char)(digit[i - 1] + code0);
     }
-    if (expo < 0) {
-      d1 = -expo;
-      *s /= pow(c10, d1);
-    } else {
-       d1 = expo;
-      *s *= pow(c10, d1);
-    }
-    return 0;
-  }
-  /*4-6/ The other easy case where we can compute s : 
-    if expo = EXPLIM + k  but [int part]*10^k < max_int_coded_in_double 
-    then it is OK (retrieve k in the exponent and multiply the int 
-    part by 10^k and do the same job as previus) */
-  if (expo > EXPLIM && expo - EXPLIM + ndgrec <= DGLIM) {
-    *s = 0.;
     i1 = ndgrec;
-    for (i = 1; i <= i1; ++i) {
-      *s = *s * 10. + digit[i - 1];
+    if (expo < 0)
+    {
+        sprintf(string + i1, ".e-%d", abs(expo));
     }
-    /*peut etre dangereux avec des options d'optimisation ? 
-      (le compilo peut etre tente d'ecrire directement s = s*10**expo 
-      ce qui detruit le truc ...) */
-    /*         s = s*10.d0**(expo-EXPLIM)
-	       s = s*10.d0**EXPLIM*/
-
-    d1 = (double)(expo - EXPLIM);
-    *s *= pow(c10,d1);
-    d1 = (double) EXPLIM;
-    *s *= pow(c10, d1);
-
+    else
+    {
+        sprintf(string + i1, ".e+%d", abs(expo));
+    }
+    k = ndgrec + 4;
+    *s = strtod(string, NULL);
     return 0;
-  }
-  /*4-7/ else use langage routines to do the job
-    the overhead is a retranslation into a string... */
-  code0 = '0';
-  i1 = ndgrec;
-  for (i = 1; i <= i1; ++i) {
-    *(unsigned char *)&string[i - 1] = (char) (digit[i - 1] + code0);
-  }
-  i1 = ndgrec;
-  if (expo < 0) {
-    sprintf(string+i1,".e-%d",abs(expo));
-  } else {
-    sprintf(string+i1,".e+%d",abs(expo));
-  }
-  k = ndgrec + 4;
-  *s=strtod(string,NULL);
-  return 0;
 }
-

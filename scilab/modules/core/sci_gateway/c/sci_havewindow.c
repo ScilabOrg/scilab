@@ -14,25 +14,31 @@
 #include "MALLOC.h"
 #include "scilabmode.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_havewindow)(char *fname,unsigned long fname_len)
+int C2F(sci_havewindow) (char *fname, unsigned long fname_len)
 {
-	static int n1,m1;
-	int *Status=NULL;
+    static int n1, m1;
+    int *Status = NULL;
 
-	CheckRhs(0,1);
-	CheckLhs(1,1);
+    CheckRhs(0, 1);
+    CheckLhs(1, 1);
 
-	Status=(int*)MALLOC(sizeof(int));
-	*Status = (int) ( getScilabMode() == SCILAB_STD );
+    Status = (int *)MALLOC(sizeof(int));
+    *Status = (int)(getScilabMode() == SCILAB_STD);
 
-	m1=1;n1=1;
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &Status);
-	LhsVar(1)=Rhs+1;
+    m1 = 1;
+    n1 = 1;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &Status);
+    LhsVar(1) = Rhs + 1;
 
-	C2F(putlhsvar)();
+    C2F(putlhsvar) ();
 
-	if (Status) {FREE(Status);Status=NULL;}
+    if (Status)
+    {
+        FREE(Status);
+        Status = NULL;
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

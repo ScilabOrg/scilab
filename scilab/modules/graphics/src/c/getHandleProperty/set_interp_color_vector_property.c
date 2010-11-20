@@ -28,37 +28,39 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_interp_color_vector_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_interp_color_vector_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if( sciGetEntityType(pobj) != SCI_POLYLINE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"interp_color_vector");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "interp_color_vector");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "interp_color_vector");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "interp_color_vector");
+        return SET_PROPERTY_ERROR;
+    }
 
+    if ((nbCol == 3 && sciGetNbPoints(pobj) == 3) || (nbCol == 4 && sciGetNbPoints(pobj) == 4))
+    {
+        int tmp[4];
 
+        getDoubleMatrixFromStack(stackPointer);
 
-  if( ( nbCol == 3 && sciGetNbPoints(pobj) == 3 ) || 
-      ( nbCol == 4 && sciGetNbPoints(pobj) == 4 ) )
-  {
-    int tmp[4] ;
-    getDoubleMatrixFromStack( stackPointer ) ;
+        copyDoubleVectorToIntFromStack(stackPointer, tmp, nbCol);
 
-    copyDoubleVectorToIntFromStack( stackPointer, tmp, nbCol ) ;
-
-    return sciSetInterpVector( pobj, nbCol, tmp ) ;
-  }
-  else
-  {
-    Scierror(999, _("Under interpolated color mode the column dimension of the color vector must match the number of points defining the line (which must be %d or %d).\n"),3,4);
-    return SET_PROPERTY_ERROR ;
-  }
+        return sciSetInterpVector(pobj, nbCol, tmp);
+    }
+    else
+    {
+        Scierror(999,
+                 _
+                 ("Under interpolated color mode the column dimension of the color vector must match the number of points defining the line (which must be %d or %d).\n"),
+                 3, 4);
+        return SET_PROPERTY_ERROR;
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

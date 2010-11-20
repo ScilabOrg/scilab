@@ -16,69 +16,68 @@
 namespace sciGraphics
 {
 
+/*---------------------------------------------------------------------------------*/
+    DrawableArc::DrawableArc(sciPointObj * pObj):DrawableClippedObject(pObj)
+    {
 
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableArc::DrawableArc( sciPointObj * pObj ) : DrawableClippedObject(pObj)
-{
-  
-}
+    DrawableArc::~DrawableArc(void)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableArc::~DrawableArc( void )
-{
-  
-}
+    DrawableObject::EDisplayStatus DrawableArc::draw(void)
+    {
+
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        reinitMove();
+        drawArc();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableArc::draw( void )
-{
-  
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing() ;
-  clip();
-  reinitMove();
-  drawArc() ;
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableArc::redraw(void)
+    {
+        // force redrawing
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        translate();
+        redrawArc();
+        endTranslate();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableArc::redraw(void)
-{
-  // force redrawing
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing() ;
-  clip();
-  translate();
-  redrawArc() ;
-  endTranslate();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableArc::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showArc();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableArc::show( void )
-{
-  if ( !checkVisibility() )
-  {
-    return UNCHANGED ;
-  }
-  clip();
-  translate();
-  showArc();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
-/*---------------------------------------------------------------------------------*/
-DrawableArcBridge * DrawableArc::getArcImp( void )
-{
-  return dynamic_cast<DrawableArcBridge *>(m_pImp);
-}
+    DrawableArcBridge *DrawableArc::getArcImp(void)
+    {
+        return dynamic_cast < DrawableArcBridge * >(m_pImp);
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

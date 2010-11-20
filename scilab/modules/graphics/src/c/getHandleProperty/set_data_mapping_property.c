@@ -30,34 +30,34 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_data_mapping_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_data_mapping_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "data_mapping");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "data_mapping");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_GRAYPLOT )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"data_mapping") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_GRAYPLOT)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "data_mapping");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "scaled") || isStringParamEqual( stackPointer, "direct") )
-  {
-     strcpy( pGRAYPLOT_FEATURE (pobj)->datamapping, getStringFromStack(stackPointer) ) ;
-     return SET_PROPERTY_SUCCEED ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "data_mapping", "'scaled'", "'direct'");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (isStringParamEqual(stackPointer, "scaled") || isStringParamEqual(stackPointer, "direct"))
+    {
+        strcpy(pGRAYPLOT_FEATURE(pobj)->datamapping, getStringFromStack(stackPointer));
+        return SET_PROPERTY_SUCCEED;
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "data_mapping", "'scaled'", "'direct'");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_ERROR ;
-
+    return SET_PROPERTY_ERROR;
 
 }
+
 /*------------------------------------------------------------------------*/

@@ -22,17 +22,19 @@
 #include "CurrentObjectsManagement.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xname(char *fname,unsigned long fname_len)
+int sci_xname(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1;
-  CheckRhs(1,1);
-  CheckLhs(1,1);
-  GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-  
-  sciSetName( sciGetCurrentFigure(), cstk(l1) ) ;
+    int m1, n1, l1;
 
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
-  return 0;
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
+    GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+
+    sciSetName(sciGetCurrentFigure(), cstk(l1));
+
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

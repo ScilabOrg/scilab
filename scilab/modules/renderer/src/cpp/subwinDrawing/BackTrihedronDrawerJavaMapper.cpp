@@ -10,7 +10,6 @@
  *
  */
 
-
 #include "BackTrihedronDrawerJavaMapper.hxx"
 
 extern "C"
@@ -22,52 +21,52 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-BackTrihedronDrawerJavaMapper::BackTrihedronDrawerJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::BackTrihedronDrawerGL(getScilabJavaVM());
-}
+    BackTrihedronDrawerJavaMapper::BackTrihedronDrawerJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::BackTrihedronDrawerGL(getScilabJavaVM());
+    }
 /*--------------------------------------------------------------------------*/
-BackTrihedronDrawerJavaMapper::~BackTrihedronDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    BackTrihedronDrawerJavaMapper::~BackTrihedronDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void BackTrihedronDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void BackTrihedronDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void BackTrihedronDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void BackTrihedronDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::destroy(int parentFigureIndex)
-{
-  m_pJavaObject->destroy(parentFigureIndex);
-}
+    void BackTrihedronDrawerJavaMapper::destroy(int parentFigureIndex)
+    {
+        m_pJavaObject->destroy(parentFigureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::setBoxParameters(int hiddenAxisColor, float thickness)
-{
-  m_pJavaObject->setBoxParameters(hiddenAxisColor, thickness);
-}
+    void BackTrihedronDrawerJavaMapper::setBoxParameters(int hiddenAxisColor, float thickness)
+    {
+        m_pJavaObject->setBoxParameters(hiddenAxisColor, thickness);
+    }
 /*--------------------------------------------------------------------------*/
-void BackTrihedronDrawerJavaMapper::drawBox(double xMin, double xMax, double yMin,
-                                            double yMax, double zMin, double zMax,
-                                            int concealedCornerIndex)
-{
-  m_pJavaObject->drawBox(xMin, xMax, yMin, yMax, zMin, zMax, concealedCornerIndex);
-}
+    void BackTrihedronDrawerJavaMapper::drawBox(double xMin, double xMax, double yMin,
+                                                double yMax, double zMin, double zMax, int concealedCornerIndex)
+    {
+        m_pJavaObject->drawBox(xMin, xMax, yMin, yMax, zMin, zMax, concealedCornerIndex);
+    }
 /*--------------------------------------------------------------------------*/
 }

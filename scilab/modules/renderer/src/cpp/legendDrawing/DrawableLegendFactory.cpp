@@ -19,15 +19,15 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableLegendFactory::create( void )
-{
-  return new ConcreteDrawableLegend( m_pDrawed ) ;
-}
+    DrawableObject *DrawableLegendFactory::create(void)
+    {
+        return new ConcreteDrawableLegend(m_pDrawed);
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableLegendFactory::update( void )
-{
-  // nothing for now
-}
+    void DrawableLegendFactory::update(void)
+    {
+        // nothing for now
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

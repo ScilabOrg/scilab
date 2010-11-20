@@ -17,17 +17,20 @@
 #include "version.h"
 /*--------------------------------------------------------------------------*/
 static HANDLE hMutexScilabID;
+
 /*--------------------------------------------------------------------------*/
 void createInnosetupMutex(void)
 {
-	/* http://www.vincenzo.net/isxkb/index.php?title=Application_considerations */
-	/* creates a named mutex used by Innosetup */
-	hMutexScilabID = CreateMutex (NULL, FALSE,SCI_VERSION_STRING );
+    /* http://www.vincenzo.net/isxkb/index.php?title=Application_considerations */
+    /* creates a named mutex used by Innosetup */
+    hMutexScilabID = CreateMutex(NULL, FALSE, SCI_VERSION_STRING);
 }
+
 /*--------------------------------------------------------------------------*/
 void closeInnosetupMutex(void)
 {
-	/* close named mutex */
-	CloseHandle(hMutexScilabID);
+    /* close named mutex */
+    CloseHandle(hMutexScilabID);
 }
+
 /*--------------------------------------------------------------------------*/

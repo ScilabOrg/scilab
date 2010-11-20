@@ -14,28 +14,33 @@
 #include "stack-c.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int sci_getio(char *fname,unsigned long fname_len)
+int sci_getio(char *fname, unsigned long fname_len)
 {
-	int one = 1;
-	int four = 4;
-	int *values = NULL;
+    int one = 1;
+    int four = 4;
+    int *values = NULL;
 
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	values = (int*)MALLOC(sizeof(int)*(one*four));
+    values = (int *)MALLOC(sizeof(int) * (one * four));
 
-	values[0] =  C2F(iop).rio;
-	values[1] =  C2F(iop).rte;
-	values[2] =  0;
-	values[3] =  C2F(iop).wte;
+    values[0] = C2F(iop).rio;
+    values[1] = C2F(iop).rte;
+    values[2] = 0;
+    values[3] = C2F(iop).wte;
 
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&one,&four,&values);
-	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &one, &four, &values);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
 
-	if (values) {FREE(values);values = NULL;}
+    if (values)
+    {
+        FREE(values);
+        values = NULL;
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

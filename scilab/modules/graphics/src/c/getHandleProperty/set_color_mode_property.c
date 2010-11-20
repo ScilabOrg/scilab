@@ -31,103 +31,101 @@
 #include "BasicAlgos.h"
 
 /*------------------------------------------------------------------------*/
-int set_color_mode_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_color_mode_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int flagcolor;
-  sciSurface * psurf = NULL ;
+    int flagcolor;
+    sciSurface *psurf = NULL;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "color_mode");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_SURFACE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"color_mode") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  psurf =  pSURFACE_FEATURE (pobj) ;
-
-  flagcolor = psurf->flagcolor;
-
-  psurf->flag[0]= (int)  getDoubleFromStack( stackPointer ) ;
-
-  if( flagcolor != 0 && flagcolor != 1 )
-  {
-    if( psurf->m3n * psurf->n3n == 0 )
+    if (!isParameterDoubleMatrix(valueType))
     {
-      /* There is not any color matrix/vect. in input : update the fake color one */
-      int j,nc;
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "color_mode");
+        return SET_PROPERTY_ERROR;
+    }
 
-      if( flagcolor == 2 || flagcolor == 4 )
-      {
-        nc = psurf->dimzy; /* remind: dimzy always equal n3*/
-      }
-      else
-      {
-        nc = psurf->dimzx * psurf->dimzy;
-      }
+    if (sciGetEntityType(pobj) != SCI_SURFACE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "color_mode");
+        return SET_PROPERTY_ERROR;
+    }
 
-      FREE(psurf->zcol);
+    psurf = pSURFACE_FEATURE(pobj);
 
+    flagcolor = psurf->flagcolor;
 
-      if ((psurf->zcol = MALLOC ( nc * sizeof (double))) == NULL)
-      {
-        Scierror(999, _("%s: No more memory.\n"),"set_color_mode_property");
-        return SET_PROPERTY_ERROR ;
-      }
+    psurf->flag[0] = (int)getDoubleFromStack(stackPointer);
 
-      for (j = 0;j < nc; j++)
-      {
-        /* nc value is dimzy*/
-        psurf->zcol[j]= psurf->flag[0];
-      }
-
-
-      if ( flagcolor != 0 && flagcolor != 1 )
-      { 
-        /* We need to rebuild ...->color matrix */
-        if ( psurf->cdatamapping == 0 )
+    if (flagcolor != 0 && flagcolor != 1)
+    {
+        if (psurf->m3n * psurf->n3n == 0)
         {
-          /* scaled */
-          FREE(psurf->color);
-          LinearScaling2Colormap(pobj);
-        }
-        else
-        {
-          int nc_ = psurf->nc;
+            /* There is not any color matrix/vect. in input : update the fake color one */
+            int j, nc;
 
-          FREE(psurf->color);
-          psurf->color = NULL ;
-          
-
-          if ( nc_ > 0 )
-          {
-            if ((psurf->color = MALLOC (nc_ * sizeof (double))) == NULL)
+            if (flagcolor == 2 || flagcolor == 4)
             {
-							Scierror(999, _("%s: No more memory\n"),"set_color_mode_property");
-							return SET_PROPERTY_ERROR ;
+                nc = psurf->dimzy;  /* remind: dimzy always equal n3 */
             }
-            doubleArrayCopy( psurf->color, psurf->zcol, nc_ ) ;
-          }
-          /* copy zcol that has just been freed and re-alloc + filled in */
+            else
+            {
+                nc = psurf->dimzx * psurf->dimzy;
+            }
+
+            FREE(psurf->zcol);
+
+            if ((psurf->zcol = MALLOC(nc * sizeof(double))) == NULL)
+            {
+                Scierror(999, _("%s: No more memory.\n"), "set_color_mode_property");
+                return SET_PROPERTY_ERROR;
+            }
+
+            for (j = 0; j < nc; j++)
+            {
+                /* nc value is dimzy */
+                psurf->zcol[j] = psurf->flag[0];
+            }
+
+            if (flagcolor != 0 && flagcolor != 1)
+            {
+                /* We need to rebuild ...->color matrix */
+                if (psurf->cdatamapping == 0)
+                {
+                    /* scaled */
+                    FREE(psurf->color);
+                    LinearScaling2Colormap(pobj);
+                }
+                else
+                {
+                    int nc_ = psurf->nc;
+
+                    FREE(psurf->color);
+                    psurf->color = NULL;
+
+                    if (nc_ > 0)
+                    {
+                        if ((psurf->color = MALLOC(nc_ * sizeof(double))) == NULL)
+                        {
+                            Scierror(999, _("%s: No more memory\n"), "set_color_mode_property");
+                            return SET_PROPERTY_ERROR;
+                        }
+                        doubleArrayCopy(psurf->color, psurf->zcol, nc_);
+                    }
+                    /* copy zcol that has just been freed and re-alloc + filled in */
+                }
+            }
         }
-      }
     }
-  }
 
-  if ( psurf->typeof3d == SCI_FAC3D )
-  {
-    /* we have to deal with colors... and may be update because we just changed  psurf->flag[0]*/
-    if( psurf->flagcolor == 0 )
+    if (psurf->typeof3d == SCI_FAC3D)
     {
-      pSURFACE_FEATURE (pobj)->izcol = 0;
+        /* we have to deal with colors... and may be update because we just changed  psurf->flag[0] */
+        if (psurf->flagcolor == 0)
+        {
+            pSURFACE_FEATURE(pobj)->izcol = 0;
+        }
     }
-  }
 
-  return SET_PROPERTY_SUCCEED ;
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

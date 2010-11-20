@@ -18,99 +18,120 @@
 /**
  * Singleton for the Scilab hashtable
  */
-static SciHandleTab * scilabHandleTab = NULL;
+static SciHandleTab *scilabHandleTab = NULL;
+
 /*--------------------------------------------------------------------------*/
 /**
  * Hash function used by the SciHashTable
  */
-static unsigned int sciHashTableHash(void * hash)
+static unsigned int sciHashTableHash(void *hash)
 {
-	/* normally its a long, here we use an int */
-	long * key = (long *) hash;
-	return (unsigned int) *key;
+    /* normally its a long, here we use an int */
+    long *key = (long *)hash;
+
+    return (unsigned int)*key;
 }
+
 /*--------------------------------------------------------------------------*/
 /**
  * Hash table equality
  */
-static int sciHashTableEqualsKeys(void * k1, void * k2)
+static int sciHashTableEqualsKeys(void *k1, void *k2)
 {
-	return (*((long *) k1) == *((long *) k2));
+    return (*((long *)k1) == *((long *)k2));
 }
+
 /*--------------------------------------------------------------------------*/
-SciHandleTab * createHandleTab(void)
+SciHandleTab *createHandleTab(void)
 {
-	unsigned int minsize = 16;
-	return create_hashtable(minsize, sciHashTableHash, sciHashTableEqualsKeys);
+    unsigned int minsize = 16;
+
+    return create_hashtable(minsize, sciHashTableHash, sciHashTableEqualsKeys);
 }
+
 /*--------------------------------------------------------------------------*/
 void destroyHandleTab(SciHandleTab * tab)
 {
-	hashtable_destroy(tab, 0) ;
+    hashtable_destroy(tab, 0);
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL addHandleObjectMapping(SciHandleTab * tab, long handle, sciPointObj * pObj)
 {
-	/* allocate a new key because the hashtable claims ownership */
-  /* and will free it when destroyed */
-	long * newKey = MALLOC(sizeof(long));
-	if (newKey == NULL) {return FALSE;}
-	*newKey = handle;
+    /* allocate a new key because the hashtable claims ownership */
+    /* and will free it when destroyed */
+    long *newKey = MALLOC(sizeof(long));
 
-	return hashtable_insert(tab, newKey, pObj);
+    if (newKey == NULL)
+    {
+        return FALSE;
+    }
+    *newKey = handle;
+
+    return hashtable_insert(tab, newKey, pObj);
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * removeHandleObjectMapping(SciHandleTab * tab, long handle)
+sciPointObj *removeHandleObjectMapping(SciHandleTab * tab, long handle)
 {
-	return (sciPointObj *) hashtable_remove(tab, &handle);
+    return (sciPointObj *) hashtable_remove(tab, &handle);
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * removeObjectMapping(SciHandleTab * tab, sciPointObj * pObj)
+sciPointObj *removeObjectMapping(SciHandleTab * tab, sciPointObj * pObj)
 {
-	return removeHandleObjectMapping(tab, sciGetHandle(pObj));
+    return removeHandleObjectMapping(tab, sciGetHandle(pObj));
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * getObjectFromHandle(SciHandleTab * tab, long handle)
+sciPointObj *getObjectFromHandle(SciHandleTab * tab, long handle)
 {
-	return (sciPointObj *) hashtable_search(tab, &handle);
+    return (sciPointObj *) hashtable_search(tab, &handle);
 }
+
 /*--------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------*/
-SciHandleTab * getScilabHandleTab(void)
+SciHandleTab *getScilabHandleTab(void)
 {
-	if (scilabHandleTab == NULL)
-	{
-		scilabHandleTab = createHandleTab();
-	}
-	return scilabHandleTab;
+    if (scilabHandleTab == NULL)
+    {
+        scilabHandleTab = createHandleTab();
+    }
+    return scilabHandleTab;
 }
+
 /*--------------------------------------------------------------------------*/
 void destroyScilabHandleTab(void)
 {
-	if (scilabHandleTab != NULL)
-	{
-		destroyHandleTab(scilabHandleTab);
-		scilabHandleTab = NULL;
-	}
+    if (scilabHandleTab != NULL)
+    {
+        destroyHandleTab(scilabHandleTab);
+        scilabHandleTab = NULL;
+    }
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL sciAddHandleObjectMapping(long handle, sciPointObj * pObj)
 {
-	return addHandleObjectMapping(scilabHandleTab, handle, pObj);
+    return addHandleObjectMapping(scilabHandleTab, handle, pObj);
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * sciRemoveHandleObjectMapping(long handle)
+sciPointObj *sciRemoveHandleObjectMapping(long handle)
 {
-	return removeHandleObjectMapping(scilabHandleTab, handle);
+    return removeHandleObjectMapping(scilabHandleTab, handle);
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * sciRemoveObjectMapping(sciPointObj * pObj)
+sciPointObj *sciRemoveObjectMapping(sciPointObj * pObj)
 {
-	return removeObjectMapping(scilabHandleTab, pObj);
+    return removeObjectMapping(scilabHandleTab, pObj);
 }
+
 /*--------------------------------------------------------------------------*/
-sciPointObj * sciGetObjectFromHandle(long handle)
+sciPointObj *sciGetObjectFromHandle(long handle)
 {
-	return getObjectFromHandle(scilabHandleTab, handle);
+    return getObjectFromHandle(scilabHandleTab, handle);
 }
+
 /*--------------------------------------------------------------------------*/

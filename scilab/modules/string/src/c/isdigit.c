@@ -18,30 +18,35 @@
 #include "MALLOC.h"
 #include "isdigit.h"
 /*--------------------------------------------------------------------------*/
-BOOL *IsDigitW(wchar_t *input_string, int *returnedSizeArray)
+BOOL *IsDigitW(wchar_t * input_string, int *returnedSizeArray)
 {
-	BOOL *returnedValues = NULL;
-	*returnedSizeArray = 0;
+    BOOL *returnedValues = NULL;
 
-	if (input_string)
-	{
-		int i = 0;
-		int length_input_string = (int)wcslen(input_string);
-		*returnedSizeArray = length_input_string;
+    *returnedSizeArray = 0;
 
-		if (length_input_string > 0)
-		{
-			returnedValues = (BOOL*)MALLOC(sizeof(BOOL)*length_input_string);
-			if (returnedValues)
-			{
-				for (i = 0;i < length_input_string; i++)
-				{
-					if ( iswdigit(input_string[i]) ) returnedValues[i] = TRUE;
-					else returnedValues[i] = FALSE;
-				}
-			}
-		}
-	}
-	return returnedValues;
+    if (input_string)
+    {
+        int i = 0;
+        int length_input_string = (int)wcslen(input_string);
+
+        *returnedSizeArray = length_input_string;
+
+        if (length_input_string > 0)
+        {
+            returnedValues = (BOOL *) MALLOC(sizeof(BOOL) * length_input_string);
+            if (returnedValues)
+            {
+                for (i = 0; i < length_input_string; i++)
+                {
+                    if (iswdigit(input_string[i]))
+                        returnedValues[i] = TRUE;
+                    else
+                        returnedValues[i] = FALSE;
+                }
+            }
+        }
+    }
+    return returnedValues;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -29,8 +29,9 @@
 #include "HandleManagement.h"
 
 /*--------------------------------------------------------------------------*/
-static sciPointObj * getZoomedObject(const char * fname);
-static BOOL getZoomRect(const char * fname, int attribPos, double rect[4]);
+static sciPointObj *getZoomedObject(const char *fname);
+static BOOL getZoomRect(const char *fname, int attribPos, double rect[4]);
+
 /*--------------------------------------------------------------------------*/
 /**
  * Get the [xmin, ymin, xmax, ymax] vector specified as input argument
@@ -39,37 +40,39 @@ static BOOL getZoomRect(const char * fname, int attribPos, double rect[4]);
  * @param[out] rect retrieved rectangle
  * @return TRUE if the rect could be retrieved, false otherwise
  */
-static BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
+static BOOL getZoomRect(const char *fname, int attribPos, double rect[4])
 {
-  int nbRow;
-  int nbCol;
-  size_t stackPointer = 0;
-  int i;
-  double * rectVect;
-  GetRhsVar(attribPos, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+    int nbRow;
+    int nbCol;
+    size_t stackPointer = 0;
+    int i;
+    double *rectVect;
 
-  if (nbRow * nbCol != 4)
-  {
-    if (attribPos == 1)
+    GetRhsVar(attribPos, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+
+    if (nbRow * nbCol != 4)
     {
-      Scierror(999, _("%s: Wrong size for input argument #%d: Vector of size %d expected.\n"), fname, 1, 4);
+        if (attribPos == 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: Vector of size %d expected.\n"), fname, 1, 4);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: Vector of size %d expected.\n"), fname, 2, 4);
+        }
+        return FALSE;
     }
-    else
+
+    rectVect = getDoubleMatrixFromStack(stackPointer);
+    for (i = 0; i < 4; i++)
     {
-      Scierror(999, _("%s: Wrong size for input argument #%d: Vector of size %d expected.\n"), fname, 2, 4);
+        rect[i] = rectVect[i];
     }
-    return FALSE;
-  }
 
-  rectVect = getDoubleMatrixFromStack(stackPointer);
-  for (i = 0; i < 4; i++)
-  {
-    rect[i] = rectVect[i];
-  }
-
-  return TRUE;
+    return TRUE;
 
 }
+
 /*--------------------------------------------------------------------------*/
 /**
  * Return the handle passed as input argument if one exists
@@ -77,115 +80,119 @@ static BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
  * @return NULL if the input argument is not correct,
  *              the object to zoom otherwise
  */
-static sciPointObj * getZoomedObject(const char * fname)
+static sciPointObj *getZoomedObject(const char *fname)
 {
-  int nbRow;
-  int nbCol;
-  size_t stackPointer = 0;
-  sciPointObj * res = NULL;
-  /* if a handle is specified it must be the first input argument */
-  GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+    int nbRow;
+    int nbCol;
+    size_t stackPointer = 0;
+    sciPointObj *res = NULL;
 
-  /* check that there is only a single Figre or subwin */
-  if (nbRow * nbCol != 1)
-  {
-    Scierror(999, _("%s: Wrong size for input argument #%d: Single handle expected.\n"), fname, 1);
-    return NULL;
-  }
+    /* if a handle is specified it must be the first input argument */
+    GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
 
-  res = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
+    /* check that there is only a single Figre or subwin */
+    if (nbRow * nbCol != 1)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: Single handle expected.\n"), fname, 1);
+        return NULL;
+    }
 
-  if (sciGetEntityType(res) != SCI_SUBWIN && sciGetEntityType(res) != SCI_FIGURE)
-  {
-    Scierror(999, _("%s: Wrong type for input argument #%d: Figure or Axes handle expected.\n"), fname, 1);
-    return NULL;
-  }
+    res = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
 
-  /* chack bounds */
+    if (sciGetEntityType(res) != SCI_SUBWIN && sciGetEntityType(res) != SCI_FIGURE)
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: Figure or Axes handle expected.\n"), fname, 1);
+        return NULL;
+    }
 
+    /* chack bounds */
 
-  return res;
-
+    return res;
 
 }
+
 /*--------------------------------------------------------------------------*/
-int sci_zoom_rect(char *fname,unsigned long fname_len)
+int sci_zoom_rect(char *fname, unsigned long fname_len)
 {
-  CheckRhs(0,2) ;
-  CheckLhs(0,1) ;
-  if (Rhs == 0) 
-  {
-    /* zoom_rect() */
-    sciDefaultInteractiveZoom();
-  }
-  else if (Rhs == 1)
-  {
-    /* zoom_rect([xmin,ymin,xmax,ymax]) or zoom_rect(handle) */
-    /* with handle a figure or subwindow */
-    if (GetType(1) == sci_handles)
+    CheckRhs(0, 2);
+    CheckLhs(0, 1);
+    if (Rhs == 0)
     {
-      sciPointObj * zoomedObject = getZoomedObject(fname);
-      if (zoomedObject == NULL)
-      {
-        return -1;
-      }
-      sciInteractiveZoom(zoomedObject);
+        /* zoom_rect() */
+        sciDefaultInteractiveZoom();
     }
-    else if (GetType(1) == sci_matrix)
+    else if (Rhs == 1)
     {
-      double rect[4];
-      if (getZoomRect(fname, 1, rect))
-      {
-        /* rectangle found */
-        int status = sciDefaultZoom2D(rect);
-        if (status == SET_PROPERTY_ERROR)
+        /* zoom_rect([xmin,ymin,xmax,ymax]) or zoom_rect(handle) */
+        /* with handle a figure or subwindow */
+        if (GetType(1) == sci_handles)
         {
-          /* error on rectangle bounds */
-          Scierror(999, _("%s: Wrong value for input argument #%d: Specified bounds are not correct.\n"), fname, 1);
-          return -1;
+            sciPointObj *zoomedObject = getZoomedObject(fname);
+
+            if (zoomedObject == NULL)
+            {
+                return -1;
+            }
+            sciInteractiveZoom(zoomedObject);
         }
-      }
-      else
-      {
-        /* error on rectagle definition */
-        return -1;
-      }
+        else if (GetType(1) == sci_matrix)
+        {
+            double rect[4];
+
+            if (getZoomRect(fname, 1, rect))
+            {
+                /* rectangle found */
+                int status = sciDefaultZoom2D(rect);
+
+                if (status == SET_PROPERTY_ERROR)
+                {
+                    /* error on rectangle bounds */
+                    Scierror(999, _("%s: Wrong value for input argument #%d: Specified bounds are not correct.\n"), fname, 1);
+                    return -1;
+                }
+            }
+            else
+            {
+                /* error on rectagle definition */
+                return -1;
+            }
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: Handle or vector of double expected.\n"), fname, 1);
+            return 0;
+        }
     }
-    else
+    else if (Rhs == 2)
     {
-      Scierror(999, _("%s: Wrong type for input argument #%d: Handle or vector of double expected.\n"), fname, 1);
-      return 0;
+        /* zoom_rect(handle, [xmin,ymin,xmax,ymax]) */
+
+        double rect[4];
+        sciPointObj *zoomedObject = NULL;
+
+        if (GetType(1) != sci_handles || GetType(2) != sci_matrix)
+        {
+            Scierror(999, _("%s: Wrong type for input arguments: Handle or vector of double expected.\n"), fname);
+            return -1;
+        }
+
+        zoomedObject = getZoomedObject(fname);
+        if (zoomedObject == NULL || !getZoomRect(fname, 2, rect))
+        {
+            return -1;
+        }
+
+        if (sciZoomRect(zoomedObject, rect) == SET_PROPERTY_ERROR)
+        {
+            /* error on rectangle bounds */
+            Scierror(999, _("%s: Error on input argument #%d: Specified bounds are not correct.\n"), fname, 1);
+            return -1;
+        }
     }
-  }
-  else if (Rhs == 2)
-  {
-    /* zoom_rect(handle, [xmin,ymin,xmax,ymax]) */
 
-    double rect[4];
-    sciPointObj * zoomedObject = NULL;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
+}
 
-    if (GetType(1) != sci_handles || GetType(2) != sci_matrix)
-    {
-      Scierror(999, _("%s: Wrong type for input arguments: Handle or vector of double expected.\n"), fname);
-      return -1;
-    }
-
-    zoomedObject = getZoomedObject(fname);
-    if (zoomedObject == NULL || !getZoomRect(fname, 2, rect))
-    {
-      return -1;
-    }
-
-    if (sciZoomRect(zoomedObject, rect) == SET_PROPERTY_ERROR)
-    {
-      /* error on rectangle bounds */
-      Scierror(999, _("%s: Error on input argument #%d: Specified bounds are not correct.\n"), fname, 1);
-      return -1;
-    }
-  }
-
-  LhsVar(1)=0; 
-	C2F(putlhsvar)();
-  return 0;
-} 
 /*--------------------------------------------------------------------------*/

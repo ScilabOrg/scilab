@@ -25,15 +25,16 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_data_mapping_property( sciPointObj * pobj )
+int get_data_mapping_property(sciPointObj * pobj)
 {
-  if (sciGetEntityType (pobj) != SCI_GRAYPLOT)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"data_mapping");
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_GRAYPLOT)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "data_mapping");
+        return -1;
+    }
 
-  return sciReturnString( pGRAYPLOT_FEATURE(pobj)->datamapping ) ;
+    return sciReturnString(pGRAYPLOT_FEATURE(pobj)->datamapping);
 
 }
+
 /*------------------------------------------------------------------------*/

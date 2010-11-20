@@ -31,22 +31,24 @@
 #include "scicos-def.h"
 /*--------------------------------------------------------------------------*/
 extern COSIM_struct C2F(cosim);
-/*--------------------------------------------------------------------------*/
-int sci_end_scicosim(char *fname,unsigned long fname_len)
-{
-	/* termine la simulation */
-	int isrun = C2F(cosim).isrun;
 
-	CheckRhs(-1,0);
-	if (!isrun) 
-	{
-		Scierror(999,_("%s: scicosim is not running.\n"),fname);
-	}
-	else 
-	{
-		end_scicos_sim();
-		C2F(putlhsvar)();
-	}
-	return 0;
+/*--------------------------------------------------------------------------*/
+int sci_end_scicosim(char *fname, unsigned long fname_len)
+{
+    /* termine la simulation */
+    int isrun = C2F(cosim).isrun;
+
+    CheckRhs(-1, 0);
+    if (!isrun)
+    {
+        Scierror(999, _("%s: scicosim is not running.\n"), fname);
+    }
+    else
+    {
+        end_scicos_sim();
+        C2F(putlhsvar) ();
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

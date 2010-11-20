@@ -15,17 +15,17 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUimenuLabel(sciPointObj* sciObj)
+int GetUimenuLabel(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-      // Get the label from Java
-      return sciReturnString(CallScilabBridge::getWidgetText(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex));
+        // Get the label from Java
+        return sciReturnString(CallScilabBridge::getWidgetText(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex));
     }
-  else
+    else
     {
-		Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Label");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Label");
+
+        return FALSE;
     }
 }
-

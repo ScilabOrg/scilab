@@ -16,8 +16,9 @@
 #include "xs2file.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xs2ps(char *fname,unsigned long fname_len)
+int sci_xs2ps(char *fname, unsigned long fname_len)
 {
-  return xs2file( fname, PS_EXPORT ) ;
+    return xs2file(fname, PS_EXPORT);
 }
+
 /*--------------------------------------------------------------------------*/

@@ -27,50 +27,52 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_sub_tics_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_sub_tics_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "sub_tics");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if (sciGetEntityType (pobj) == SCI_AXES)
-  {
-    pAXES_FEATURE(pobj)->subint= (int) getDoubleFromStack( stackPointer ) ;
-  }
-  else if ( sciGetEntityType(pobj) == SCI_SUBWIN ) 
-  {
-    int i ;
-    double * values = getDoubleMatrixFromStack( stackPointer ) ;
-    sciSubWindow * ppSubWin = pSUBWIN_FEATURE (pobj) ;
-    if ( (nbCol != 3 ) && (nbCol != 2) )
+    if (!isParameterDoubleMatrix(valueType))
     {
-      Scierror(999, _("Wrong size for '%s' property: %d or %d elements expected.\n"), "sub_tics", 2, 3);
-      return  SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "sub_tics");
+        return SET_PROPERTY_ERROR;
     }
-    ppSubWin->flagNax = TRUE;
-    for ( i = 0; i < nbCol ; i++ )
-    {
-      int  nbTicks ;
 
-      nbTicks = (int) values[i] ;
-      if( nbTicks >= 0 )
-      {
-        ppSubWin->axes.nbsubtics[i] = nbTicks ;
-      } 
-      else
-      {
-        ppSubWin->axes.nbsubtics[i] = 0 ;
-      }
+    if (sciGetEntityType(pobj) == SCI_AXES)
+    {
+        pAXES_FEATURE(pobj)->subint = (int)getDoubleFromStack(stackPointer);
     }
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"sub_ticks") ;
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_SUCCEED ;
+    else if (sciGetEntityType(pobj) == SCI_SUBWIN)
+    {
+        int i;
+        double *values = getDoubleMatrixFromStack(stackPointer);
+        sciSubWindow *ppSubWin = pSUBWIN_FEATURE(pobj);
+
+        if ((nbCol != 3) && (nbCol != 2))
+        {
+            Scierror(999, _("Wrong size for '%s' property: %d or %d elements expected.\n"), "sub_tics", 2, 3);
+            return SET_PROPERTY_ERROR;
+        }
+        ppSubWin->flagNax = TRUE;
+        for (i = 0; i < nbCol; i++)
+        {
+            int nbTicks;
+
+            nbTicks = (int)values[i];
+            if (nbTicks >= 0)
+            {
+                ppSubWin->axes.nbsubtics[i] = nbTicks;
+            }
+            else
+            {
+                ppSubWin->axes.nbsubtics[i] = 0;
+            }
+        }
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "sub_ticks");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

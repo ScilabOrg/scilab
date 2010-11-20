@@ -21,84 +21,82 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-CenteredTextDrawerJavaMapper::CenteredTextDrawerJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_textDrawing::CenteredTextDrawerGL(getScilabJavaVM());
-}
+    CenteredTextDrawerJavaMapper::CenteredTextDrawerJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_textDrawing::CenteredTextDrawerGL(getScilabJavaVM());
+    }
 /*---------------------------------------------------------------------------------*/
-CenteredTextDrawerJavaMapper::~CenteredTextDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    CenteredTextDrawerJavaMapper::~CenteredTextDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void CenteredTextDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void CenteredTextDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void CenteredTextDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void CenteredTextDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::destroy(int figureIndex)
-{
-  m_pJavaObject->destroy(figureIndex);
-}
+    void CenteredTextDrawerJavaMapper::destroy(int figureIndex)
+    {
+        m_pJavaObject->destroy(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::setTextParameters(int textAlignment, int color, int fontStyle,
-                                                     double fontSize, double rotationAngle, bool useFractionalMetrics)
-{
-  m_pJavaObject->setTextParameters(textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics);
-}
+    void CenteredTextDrawerJavaMapper::setTextParameters(int textAlignment, int color, int fontStyle,
+                                                         double fontSize, double rotationAngle, bool useFractionalMetrics)
+    {
+        m_pJavaObject->setTextParameters(textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::updateParentFigure(int parentFigureIndex)
-{
-  m_pJavaObject->updateParentFigure(parentFigureIndex);
-}
+    void CenteredTextDrawerJavaMapper::updateParentFigure(int parentFigureIndex)
+    {
+        m_pJavaObject->updateParentFigure(parentFigureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::setBoxDrawingParameters(bool drawBoxLine, bool drawBoxBackground,
-			                                   int lineColor, int backgroundColor)
-{
-  m_pJavaObject->setBoxDrawingParameters(drawBoxLine, drawBoxBackground, lineColor, backgroundColor);
-}
+    void CenteredTextDrawerJavaMapper::setBoxDrawingParameters(bool drawBoxLine, bool drawBoxBackground, int lineColor, int backgroundColor)
+    {
+        m_pJavaObject->setBoxDrawingParameters(drawBoxLine, drawBoxBackground, lineColor, backgroundColor);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::setTextContent(char ** text, int nbRow, int nbCol)
-{
-  m_pJavaObject->setTextContent(text, nbRow * nbCol, nbRow, nbCol);
-}
+    void CenteredTextDrawerJavaMapper::setTextContent(char **text, int nbRow, int nbCol)
+    {
+        m_pJavaObject->setTextContent(text, nbRow * nbCol, nbRow, nbCol);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::setCenterPosition(double centerX, double centerY, double centerZ)
-{
-  m_pJavaObject->setCenterPosition(centerX, centerY, centerZ);
-}
+    void CenteredTextDrawerJavaMapper::setCenterPosition(double centerX, double centerY, double centerZ)
+    {
+        m_pJavaObject->setCenterPosition(centerX, centerY, centerZ);
+    }
 /*---------------------------------------------------------------------------------*/
-double * CenteredTextDrawerJavaMapper::drawTextContent(void)
-{
-  return m_pJavaObject->drawTextContent();
-}
+    double *CenteredTextDrawerJavaMapper::drawTextContent(void)
+    {
+        return m_pJavaObject->drawTextContent();
+    }
 /*---------------------------------------------------------------------------------*/
-double * CenteredTextDrawerJavaMapper::getScreenBoundingBox(double centerPixX,
-                                                            double centerPixY,
-                                                            double centerPixZ)
-{
-  return m_pJavaObject->getScreenBoundingBox(centerPixX, centerPixY, centerPixZ);
-}
+    double *CenteredTextDrawerJavaMapper::getScreenBoundingBox(double centerPixX, double centerPixY, double centerPixZ)
+    {
+        return m_pJavaObject->getScreenBoundingBox(centerPixX, centerPixY, centerPixZ);
+    }
 /*---------------------------------------------------------------------------------*/
-void CenteredTextDrawerJavaMapper::setFilledBoxSize(double boxWidth, double boxHeight)
-{
-  m_pJavaObject->setFilledBoxSize(boxWidth, boxHeight);
-}
+    void CenteredTextDrawerJavaMapper::setFilledBoxSize(double boxWidth, double boxHeight)
+    {
+        m_pJavaObject->setFilledBoxSize(boxWidth, boxHeight);
+    }
 /*---------------------------------------------------------------------------------*/
 }

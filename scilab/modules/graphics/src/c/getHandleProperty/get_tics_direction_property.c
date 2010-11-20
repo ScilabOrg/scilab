@@ -25,33 +25,34 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_direction_property( sciPointObj * pobj )
+int get_tics_direction_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType( pobj ) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_direction") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_AXES)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_direction");
+        return -1;
+    }
 
-  switch ( pAXES_FEATURE (pobj)->dir )
-  {
-  case 'u': 
-    return sciReturnString( "top" ) ;
-    break;
-  case 'd': 
-    return sciReturnString( "bottom" ) ;
-    break;
-  case 'r': 
-    return sciReturnString( "right" ) ;
-    break;
-  case 'l': 
-    return sciReturnString( "left" ) ;
-    break;
-  default : 
-    Scierror(999, _("Wrong value for '%s' property.\n"),"tics_direction");
-    break;
-  }
-  return -1;
+    switch (pAXES_FEATURE(pobj)->dir)
+    {
+    case 'u':
+        return sciReturnString("top");
+        break;
+    case 'd':
+        return sciReturnString("bottom");
+        break;
+    case 'r':
+        return sciReturnString("right");
+        break;
+    case 'l':
+        return sciReturnString("left");
+        break;
+    default:
+        Scierror(999, _("Wrong value for '%s' property.\n"), "tics_direction");
+        break;
+    }
+    return -1;
 
 }
+
 /*------------------------------------------------------------------------*/

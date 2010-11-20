@@ -20,16 +20,18 @@
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/
-int C2F(linestore)(int *n)
+int C2F(linestore) (int *n)
 {
     setLastErrorLinePosition(*n);
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(funnamestore)(char *str, int *n, int lenstr)
+int C2F(funnamestore) (char *str, int *n, int lenstr)
 {
     char *functionName = strdup(str);
-    if ( (functionName) && (*n >= 0) )
+
+    if ((functionName) && (*n >= 0))
     {
         functionName[*n] = 0;
         setLastErrorFunctionName(functionName);
@@ -43,11 +45,13 @@ int C2F(funnamestore)(char *str, int *n, int lenstr)
 
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(msgstore)(char *str, int *n)
+int C2F(msgstore) (char *str, int *n)
 {
     int iRes = 0;
     char *msg = strdup(str);
+
     if (msg)
     {
         msg[*n] = 0;
@@ -62,10 +66,11 @@ int C2F(msgstore)(char *str, int *n)
 
     return iRes;
 }
+
 /*--------------------------------------------------------------------------*/
 int GetLastErrorCode(void)
 {
     return getLastErrorValue();
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

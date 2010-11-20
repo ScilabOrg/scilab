@@ -11,15 +11,17 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "gw_cacsd3.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scildiv)(char *fname,unsigned long fname_len);
+extern int C2F(scildiv) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_ldiv(char *fname,unsigned long fname_len)
+int sci_ldiv(char *fname, unsigned long fname_len)
 {
-	C2F(scildiv)(fname,fname_len);
-	return 0;
+    C2F(scildiv) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

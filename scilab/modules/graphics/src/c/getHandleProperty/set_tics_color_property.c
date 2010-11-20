@@ -28,29 +28,30 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_tics_color_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_tics_color_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "tics_color");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "tics_color");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) == SCI_AXES )
-  {
-    sciSetForeground(pobj, (int) getDoubleFromStack( stackPointer ));
-  }
-  else if ( sciGetEntityType(pobj) == SCI_SUBWIN )
-  {
-    sciprint("Warning: tics_color use is deprecated and no more taken into account, use foreground property to edit Axes color\n");
-    pSUBWIN_FEATURE (pobj)->axes.ticscolor = (int)getDoubleFromStack( stackPointer ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"tics_color") ;
-    return SET_PROPERTY_SUCCEED ;
-  }
-  return SET_PROPERTY_SUCCEED ;
+    if (sciGetEntityType(pobj) == SCI_AXES)
+    {
+        sciSetForeground(pobj, (int)getDoubleFromStack(stackPointer));
+    }
+    else if (sciGetEntityType(pobj) == SCI_SUBWIN)
+    {
+        sciprint("Warning: tics_color use is deprecated and no more taken into account, use foreground property to edit Axes color\n");
+        pSUBWIN_FEATURE(pobj)->axes.ticscolor = (int)getDoubleFromStack(stackPointer);
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_color");
+        return SET_PROPERTY_SUCCEED;
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

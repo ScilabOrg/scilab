@@ -10,49 +10,57 @@
  *
  */
 
-#include <windows.h> 
+#include <windows.h>
 #include "machine.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* We force fortran COMMON definitions */
 
-__declspec(dllexport) struct 
+__declspec(dllexport)
+     struct
+     {
+         int io, info, ll;
+     } C2F(sortie);
+
+__declspec(dllexport)
+     struct
+     {
+         int nall1;
+     } C2F(comall);
+
+__declspec(dllexport)
+     struct
+     {
+         double t;
+     } C2F(temps);
+
+__declspec(dllexport)
+     struct
+     {
+         double gnrm;
+     } C2F(no2f);
+
+__declspec(dllexport)
+     struct
+     {
+         int info, i1;
+     } C2F(arl2c);
+/*--------------------------------------------------------------------------*/
+     int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-    int io, info, ll;
-} C2F(sortie);
-
-__declspec(dllexport) struct 
-{
-    int nall1;
-} C2F(comall);
-
-__declspec(dllexport) struct {
-    double t;
-} C2F(temps);
-
-__declspec(dllexport) struct {
-    double gnrm;
-} C2F(no2f);
-
-__declspec(dllexport) struct {
-    int info, i1;
-} C2F(arl2c);
-/*--------------------------------------------------------------------------*/ 
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
-{
-  switch (reason) 
+    switch (reason)
     {
     case DLL_PROCESS_ATTACH:
-      break;
+        break;
     case DLL_PROCESS_DETACH:
-      break;
+        break;
     case DLL_THREAD_ATTACH:
-      break;
+        break;
     case DLL_THREAD_DETACH:
-      break;
+        break;
     }
-  return 1;
+    return 1;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

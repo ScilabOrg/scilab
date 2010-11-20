@@ -23,32 +23,35 @@ Type *TO;\
 	 TO[i] = FROM[indx[i]];\
 }
 
-
-
-int C2F(genextrac1)(int *typ,int *mi,int *indx,int *from,int *to)
+int C2F(genextrac1) (int *typ, int *mi, int *indx, int *from, int *to)
 {
-  static int i;
-  --indx;
-  switch (*typ) {
-  case 1:
-    EXTRAC1(integer1);
-    break;
-  case 2:
-    EXTRAC1(integer2);
-    break;
-  case 4:
-    EXTRAC1(int) ;
-    break;
-  case 11:
-    EXTRAC1(unsigned char);
-    break;
-  case 12:
-    EXTRAC1(unsigned short);
-    break;
-  case 14:
-    EXTRAC1(unsigned int);
-    break;
-  }
-  return 0;
-}
+    static int i;
 
+    --indx;
+    switch (*typ)
+    {
+    case 1:
+        EXTRAC1(integer1);
+        break;
+    case 2:
+        EXTRAC1(integer2);
+        break;
+    case 4:
+        EXTRAC1(int);
+
+        break;
+    case 11:
+        EXTRAC1(unsigned char);
+
+        break;
+    case 12:
+        EXTRAC1(unsigned short);
+
+        break;
+    case 14:
+        EXTRAC1(unsigned int);
+
+        break;
+    }
+    return 0;
+}

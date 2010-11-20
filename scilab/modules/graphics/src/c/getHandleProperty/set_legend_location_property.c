@@ -28,29 +28,32 @@
 #include "Axes.h"
 
 /*------------------------------------------------------------------------*/
-int set_legend_location_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_legend_location_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-	sciLegendPlace position;
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "legend_location");
-    return SET_PROPERTY_ERROR ;
-  }
+    sciLegendPlace position;
 
-  if ( sciGetEntityType(pobj) != SCI_LEGEND )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"legend_location") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "legend_location");
+        return SET_PROPERTY_ERROR;
+    }
 
-	position = propertyNameToLegendPlace(getStringFromStack(stackPointer));
+    if (sciGetEntityType(pobj) != SCI_LEGEND)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "legend_location");
+        return SET_PROPERTY_ERROR;
+    }
 
-	if (position == SCI_LEGEND_POSITION_UNSPECIFIED)
-	{
-    Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "legend_location", "in_upper_right, in_upper_left, in_lower_right, in_lower_left, out_upper_right, out_upper_left, out_lower_right, out_lower_left, upper_caption, lower_caption, by_coordinates");
-    return SET_PROPERTY_ERROR ;
-	}
+    position = propertyNameToLegendPlace(getStringFromStack(stackPointer));
 
-	return sciSetLegendLocation(pobj, position);
+    if (position == SCI_LEGEND_POSITION_UNSPECIFIED)
+    {
+        Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "legend_location",
+                 "in_upper_right, in_upper_left, in_lower_right, in_lower_left, out_upper_right, out_upper_left, out_lower_right, out_lower_left, upper_caption, lower_caption, by_coordinates");
+        return SET_PROPERTY_ERROR;
+    }
+
+    return sciSetLegendLocation(pobj, position);
 }
+
 /*------------------------------------------------------------------------*/

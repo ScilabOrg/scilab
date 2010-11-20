@@ -23,21 +23,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_viewport_property( sciPointObj * pobj )
+int get_viewport_property(sciPointObj * pobj)
 {
-  int viewport[4] ;
+    int viewport[4];
 
-  if( sciGetEntityType(pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "viewport") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "viewport");
+        return -1;
+    }
 
-  sciGetViewport( pobj, viewport ) ;
+    sciGetViewport(pobj, viewport);
 
-  /* For now we just give viewport position */
-  /* until we have a better management of tab sizes */
-  return sciReturnRowIntVector( viewport, 2 ) ;
+    /* For now we just give viewport position */
+    /* until we have a better management of tab sizes */
+    return sciReturnRowIntVector(viewport, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

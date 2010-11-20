@@ -28,53 +28,43 @@
 #include "SetProperty.h"
 
 /*-------------------------------------------------------------------------------*/
-void getTextBoundingBox(char ** text, int nbRow, int nbCol,
-                        double xPos, double yPos,
-                        double angle, int fontId, double fontSize,
-                        double corners[4][2])
+void getTextBoundingBox(char **text, int nbRow, int nbCol, double xPos, double yPos, double angle, int fontId, double fontSize, double corners[4][2])
 {
- 
-  /* first step, create at text object */
-  sciPointObj * parentFigure = sciGetCurrentFigure();
-  sciPointObj * parentSubwin = sciGetCurrentSubWin();
-  int defaultColor = 0; /* color does not matter */
-  sciPointObj * pText = NULL;
 
-  /* Update subwin scale if needed */
-  updateSubwinScale(parentSubwin);
+    /* first step, create at text object */
+    sciPointObj *parentFigure = sciGetCurrentFigure();
+    sciPointObj *parentSubwin = sciGetCurrentSubWin();
+    int defaultColor = 0;       /* color does not matter */
+    sciPointObj *pText = NULL;
 
-  startFigureDataWriting(parentFigure);
-  
-  pText = allocateText(parentSubwin,
-                       text, nbRow, nbCol,
-                       xPos, yPos,
-                       TRUE,
-                       NULL,
-                       FALSE,
-                       &defaultColor, &defaultColor,
-                       FALSE, FALSE, FALSE,
-                       ALIGN_LEFT);
+    /* Update subwin scale if needed */
+    updateSubwinScale(parentSubwin);
 
-  /* make it invisible to be sure */
-  sciSetVisibility(pText, FALSE);
+    startFigureDataWriting(parentFigure);
 
-  sciSetFontOrientation(pText, DEG2RAD(angle));
+    pText = allocateText(parentSubwin,
+                         text, nbRow, nbCol, xPos, yPos, TRUE, NULL, FALSE, &defaultColor, &defaultColor, FALSE, FALSE, FALSE, ALIGN_LEFT);
 
-  sciSetFontSize(pText, fontSize);
-  sciSetFontStyle(pText, fontId);
+    /* make it invisible to be sure */
+    sciSetVisibility(pText, FALSE);
 
-  /* Then get its bounding box */
-  /* update stringbox */
-  updateTextBounds(pText);
+    sciSetFontOrientation(pText, DEG2RAD(angle));
 
-  /* get the string box */
-  sciGet2dViewBoundingBox( pText, corners[0], corners[1], corners[2], corners[3]) ;
+    sciSetFontSize(pText, fontSize);
+    sciSetFontStyle(pText, fontId);
 
-  /* Finally destroy it */
-  deallocateText(pText);
+    /* Then get its bounding box */
+    /* update stringbox */
+    updateTextBounds(pText);
 
-  endFigureDataWriting(parentFigure);
+    /* get the string box */
+    sciGet2dViewBoundingBox(pText, corners[0], corners[1], corners[2], corners[3]);
+
+    /* Finally destroy it */
+    deallocateText(pText);
+
+    endFigureDataWriting(parentFigure);
 
 }
-/*-------------------------------------------------------------------------------*/
 
+/*-------------------------------------------------------------------------------*/

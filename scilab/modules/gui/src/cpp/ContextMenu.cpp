@@ -19,14 +19,13 @@ using namespace org_scilab_modules_gui_bridge;
 //   return CallScilabBridge::newContextMenu(getScilabJavaVM(), menuLabels, nbLabels);
 // }
 
-void createContextMenu(sciPointObj* sciObj)
+void createContextMenu(sciPointObj * sciObj)
 {
-  pUICONTEXTMENU_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newContextMenu(getScilabJavaVM());
+    pUICONTEXTMENU_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newContextMenu(getScilabJavaVM());
 }
 
-char* uiWaitContextMenu(sciPointObj* sciObj)
+char *uiWaitContextMenu(sciPointObj * sciObj)
 {
-  /* TO DO : create a copy or move sci_uiwait to cpp to do a delete */
-  return CallScilabBridge::displayAndWaitContextMenu(getScilabJavaVM(), pUICONTEXTMENU_FEATURE(sciObj)->hashMapIndex);
+    /* TO DO : create a copy or move sci_uiwait to cpp to do a delete */
+    return CallScilabBridge::displayAndWaitContextMenu(getScilabJavaVM(), pUICONTEXTMENU_FEATURE(sciObj)->hashMapIndex);
 }
-

@@ -18,7 +18,7 @@
 *
 * See the file ./license.txt
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /**
    \file cevscpe.c
    \author Benoit Bayol
@@ -27,7 +27,7 @@
    \brief CEVSCPE is a scope that indicates when the clocks is activated
    \see CEVENTSCOPE.sci in macros/scicos_blocks/Sinks/
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "CurrentObjectsManagement.h"
 #include "scicos.h"
 #include "scoMemoryScope.h"
@@ -42,79 +42,80 @@
 #include "scicos_free.h"
 #include "MALLOC.h"
 #include "dynlib_scicos_blocks.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /** \fn cscopxy_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
     \brief Function to draw or redraw the window
 */
 SCICOS_BLOCKS_IMPEXP void cevscpe_draw(scicos_block * block, ScopeMemory ** pScopeMemory, int firstdraw)
 {
-  /* Declarations */
+    /* Declarations */
 
-  int nipar = 0; //Number of elements in ipar vector
-  int i; //As usual
-  int * ipar = NULL;
-  double * rpar = NULL; //Integer Parameter
-  int nbr_colors = 0; //Number of colors and lines IS ALSO number of channels
-  int win = 0; //To give a name to the window
-  int color_flag = 0; //0/1 color flag -- NOT USED
-  int  * colors = NULL; //Begin at ipar[2] and has a measure of 8 max
-  int dimension = 2;
-  double period = 0.; //Refresh Period of the scope is a vector here
-  int number_of_subwin = 0;
-  int number_of_curves_by_subwin = 0;
-  double xmin = 0., xmax = 0., ymin = 0., ymax = 0;
-  int win_pos[2], win_dim[2];
-  char *label = NULL;
+    int nipar = 0;              //Number of elements in ipar vector
+    int i;                      //As usual
+    int *ipar = NULL;
+    double *rpar = NULL;        //Integer Parameter
+    int nbr_colors = 0;         //Number of colors and lines IS ALSO number of channels
+    int win = 0;                //To give a name to the window
+    int color_flag = 0;         //0/1 color flag -- NOT USED
+    int *colors = NULL;         //Begin at ipar[2] and has a measure of 8 max
+    int dimension = 2;
+    double period = 0.;         //Refresh Period of the scope is a vector here
+    int number_of_subwin = 0;
+    int number_of_curves_by_subwin = 0;
+    double xmin = 0., xmax = 0., ymin = 0., ymax = 0;
+    int win_pos[2], win_dim[2];
+    char *label = NULL;
 
-  /* Initialization */
-  ipar =  GetIparPtrs(block);
-  win = ipar[0];
-  color_flag = ipar[1]; /*not used*/
-  rpar = GetRparPtrs(block);
-  period = rpar[0];
-  nipar = GetNipar(block);
-  label = GetLabelPtrs(block);
-  nbr_colors = nipar-6;
-  colors=(int*)scicos_malloc(nbr_colors*sizeof(int));
-  for( i = 2 ; i < nbr_colors+2 ; i++)
+    /* Initialization */
+    ipar = GetIparPtrs(block);
+    win = ipar[0];
+    color_flag = ipar[1];       /*not used */
+    rpar = GetRparPtrs(block);
+    period = rpar[0];
+    nipar = GetNipar(block);
+    label = GetLabelPtrs(block);
+    nbr_colors = nipar - 6;
+    colors = (int *)scicos_malloc(nbr_colors * sizeof(int));
+    for (i = 2; i < nbr_colors + 2; i++)
     {
-      colors[i-2] = ipar[i];
+        colors[i - 2] = ipar[i];
     }
 
-  number_of_subwin = 1;
-  number_of_curves_by_subwin = nbr_colors;
+    number_of_subwin = 1;
+    number_of_curves_by_subwin = nbr_colors;
 
-  ymin = 0;
-  ymax = 1;
+    ymin = 0;
+    ymax = 1;
 
-  win_pos[0] = ipar[(nipar-1) - 3];
-  win_pos[1] = ipar[(nipar-1) - 2];
-  win_dim[0] = ipar[(nipar-1) - 1];
-  win_dim[1] = ipar[nipar-1];
+    win_pos[0] = ipar[(nipar - 1) - 3];
+    win_pos[1] = ipar[(nipar - 1) - 2];
+    win_dim[0] = ipar[(nipar - 1) - 1];
+    win_dim[1] = ipar[nipar - 1];
 
-  if(firstdraw == 1)
+    if (firstdraw == 1)
     {
-      scoInitScopeMemory(block->work,pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
-      scoSetLongDrawSize(*pScopeMemory,0,5000);
-      scoSetShortDrawSize(*pScopeMemory,0,1);
-      scoSetPeriod(*pScopeMemory,0,period);
+        scoInitScopeMemory(block->work, pScopeMemory, number_of_subwin, &number_of_curves_by_subwin);
+        scoSetLongDrawSize(*pScopeMemory, 0, 5000);
+        scoSetShortDrawSize(*pScopeMemory, 0, 1);
+        scoSetPeriod(*pScopeMemory, 0, period);
     }
 
-  xmin = period*scoGetPeriodCounter(*pScopeMemory,0);
-  xmax = period*(scoGetPeriodCounter(*pScopeMemory,0)+1);
+    xmin = period * scoGetPeriodCounter(*pScopeMemory, 0);
+    xmax = period * (scoGetPeriodCounter(*pScopeMemory, 0) + 1);
 
-  scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
-  if(scoGetScopeActivation(*pScopeMemory) == 1)
+    scoInitOfWindow(*pScopeMemory, dimension, win, win_pos, win_dim, &xmin, &xmax, &ymin, &ymax, NULL, NULL);
+    if (scoGetScopeActivation(*pScopeMemory) == 1)
     {
-      scoAddTitlesScope(*pScopeMemory,label,"t","y",NULL);
-      scoAddCoupleOfSegments(*pScopeMemory,colors);
+        scoAddTitlesScope(*pScopeMemory, label, "t", "y", NULL);
+        scoAddCoupleOfSegments(*pScopeMemory, colors);
     }
-  scicos_free(colors);
+    scicos_free(colors);
 
-	/* use only single buffering to be sure to draw on the screen */
-	sciSetJavaUseSingleBuffer(scoGetPointerScopeWindow(*pScopeMemory), TRUE);
+    /* use only single buffering to be sure to draw on the screen */
+    sciSetJavaUseSingleBuffer(scoGetPointerScopeWindow(*pScopeMemory), TRUE);
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 /** \fn void cevscpe(scicos_block * block, int flag)
     \brief the computational function
     \param block A pointer to a scicos_block
@@ -123,97 +124,97 @@ SCICOS_BLOCKS_IMPEXP void cevscpe_draw(scicos_block * block, ScopeMemory ** pSco
 SCICOS_BLOCKS_IMPEXP void cevscpe(scicos_block * block, int flag)
 {
 
-  ScopeMemory * pScopeMemory = NULL;
-  int nbseg = 0;
-  int tab[20];
-  scoGraphicalObject pShortDraw, pLongDraw;
-  int i = 0;
-  double t = 0;
+    ScopeMemory *pScopeMemory = NULL;
+    int nbseg = 0;
+    int tab[20];
+    scoGraphicalObject pShortDraw, pLongDraw;
+    int i = 0;
+    double t = 0;
 
-  switch(flag)
+    switch (flag)
     {
     case Initialization:
-      {
-	cevscpe_draw(block,&pScopeMemory,1);
-	break;
-      }
+        {
+            cevscpe_draw(block, &pScopeMemory, 1);
+            break;
+        }
 
     case StateUpdate:
-      {
+        {
 
-	/* Charging elements */
+            /* Charging elements */
 
-	scoRetrieveScopeMemory(block->work,&pScopeMemory);
+            scoRetrieveScopeMemory(block->work, &pScopeMemory);
 
-	if(scoGetScopeActivation(pScopeMemory) == 1)
-	  {
-	   
-	    t = get_scicos_time();
-	    if(scoGetPointerScopeWindow(pScopeMemory) == NULL)
-	      {
-		cevscpe_draw(block,&pScopeMemory,0);
-	      }
+            if (scoGetScopeActivation(pScopeMemory) == 1)
+            {
 
-	    scoRefreshDataBoundsX(pScopeMemory,t);
-	
-	    /*Not Factorize*/
+                t = get_scicos_time();
+                if (scoGetPointerScopeWindow(pScopeMemory) == NULL)
+                {
+                    cevscpe_draw(block, &pScopeMemory, 0);
+                }
 
-	    for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-	      {
-		if((GetNevIn(block)&(1<<i))==(1<<i))
-		  {
-		    tab[nbseg]=i;
-		    nbseg++;
-		  }
-	      }
+                scoRefreshDataBoundsX(pScopeMemory, t);
 
-	    for(i = 0 ; i < nbseg ; i++)
-	      {
-		pShortDraw = scoGetPointerShortDraw(pScopeMemory,0,tab[i]);
-		pSEGS_FEATURE(pShortDraw)->vx[0] = t;
-		pSEGS_FEATURE(pShortDraw)->vx[1] = t;
-		pSEGS_FEATURE(pShortDraw)->vy[0] = i*0.8/nbseg;
-		pSEGS_FEATURE(pShortDraw)->vy[1] = (i+1)*0.8/nbseg;
-		pSEGS_FEATURE(pShortDraw)->Nbr1 = 2;
-		pSEGS_FEATURE(pShortDraw)->Nbr2 = 2;
-	      }
-	    /*End of Not Factorize*/
-	    scoDrawScopeAmplitudeTimeStyle(pScopeMemory,t);
-	  }
-	break;
-      }
+                /*Not Factorize */
+
+                for (i = 0; i < scoGetNumberOfCurvesBySubwin(pScopeMemory, 0); i++)
+                {
+                    if ((GetNevIn(block) & (1 << i)) == (1 << i))
+                    {
+                        tab[nbseg] = i;
+                        nbseg++;
+                    }
+                }
+
+                for (i = 0; i < nbseg; i++)
+                {
+                    pShortDraw = scoGetPointerShortDraw(pScopeMemory, 0, tab[i]);
+                    pSEGS_FEATURE(pShortDraw)->vx[0] = t;
+                    pSEGS_FEATURE(pShortDraw)->vx[1] = t;
+                    pSEGS_FEATURE(pShortDraw)->vy[0] = i * 0.8 / nbseg;
+                    pSEGS_FEATURE(pShortDraw)->vy[1] = (i + 1) * 0.8 / nbseg;
+                    pSEGS_FEATURE(pShortDraw)->Nbr1 = 2;
+                    pSEGS_FEATURE(pShortDraw)->Nbr2 = 2;
+                }
+                /*End of Not Factorize */
+                scoDrawScopeAmplitudeTimeStyle(pScopeMemory, t);
+            }
+            break;
+        }
 
     case Ending:
-      {
+        {
 
-				scoRetrieveScopeMemory(block->work, &pScopeMemory);
-				if(scoGetScopeActivation(pScopeMemory) == 1)
-				{
-					/* sciSetUsedWindow(scoGetWindowID(pScopeMemory)); */
-					/* Check if figure is still opened, otherwise, don't try to destroy it again. */
-					if(scoGetPointerScopeWindow(pScopeMemory) != NULL)
-					{
-						for(i = 0 ; i < scoGetNumberOfCurvesBySubwin(pScopeMemory,0) ; i++)
-						{
-							/* maybe a bug here in the last argument of the following instruction (see tab[i]) */
-							pLongDraw = scoGetPointerLongDraw(pScopeMemory,0,i);
-							forceRedraw(pLongDraw);
-						}
-					
+            scoRetrieveScopeMemory(block->work, &pScopeMemory);
+            if (scoGetScopeActivation(pScopeMemory) == 1)
+            {
+                /* sciSetUsedWindow(scoGetWindowID(pScopeMemory)); */
+                /* Check if figure is still opened, otherwise, don't try to destroy it again. */
+                if (scoGetPointerScopeWindow(pScopeMemory) != NULL)
+                {
+                    for (i = 0; i < scoGetNumberOfCurvesBySubwin(pScopeMemory, 0); i++)
+                    {
+                        /* maybe a bug here in the last argument of the following instruction (see tab[i]) */
+                        pLongDraw = scoGetPointerLongDraw(pScopeMemory, 0, i);
+                        forceRedraw(pLongDraw);
+                    }
 
-						/* pShortDraw = sciGetCurrentFigure(); */
-						pShortDraw = scoGetPointerScopeWindow(pScopeMemory);
-						clearUserData(pShortDraw);
-						/* pFIGURE_FEATURE(pShortDraw)->user_data = NULL; */
-						/* pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0; */
-						/* restore double buffering */
-						sciSetJavaUseSingleBuffer(pShortDraw, FALSE);
-						scoDelCoupleOfSegments(pScopeMemory);
-					}
-				}
-				scoFreeScopeMemory(block->work,&pScopeMemory);
-				break;
-			}
-	}
+                    /* pShortDraw = sciGetCurrentFigure(); */
+                    pShortDraw = scoGetPointerScopeWindow(pScopeMemory);
+                    clearUserData(pShortDraw);
+                    /* pFIGURE_FEATURE(pShortDraw)->user_data = NULL; */
+                    /* pFIGURE_FEATURE(pShortDraw)->size_of_user_data = 0; */
+                    /* restore double buffering */
+                    sciSetJavaUseSingleBuffer(pShortDraw, FALSE);
+                    scoDelCoupleOfSegments(pScopeMemory);
+                }
+            }
+            scoFreeScopeMemory(block->work, &pScopeMemory);
+            break;
+        }
+    }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

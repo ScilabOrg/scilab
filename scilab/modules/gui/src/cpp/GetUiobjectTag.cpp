@@ -15,48 +15,48 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUiobjectTag(sciPointObj* sciObj)
+int GetUiobjectTag(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-      // Get the tag
-      if (pUIMENU_FEATURE(sciObj)->tag == NULL)
+        // Get the tag
+        if (pUIMENU_FEATURE(sciObj)->tag == NULL)
         {
-          return sciReturnString("");
+            return sciReturnString("");
         }
-      else
+        else
         {
-          return sciReturnString(pUIMENU_FEATURE(sciObj)->tag);
+            return sciReturnString(pUIMENU_FEATURE(sciObj)->tag);
         }
     }
-  else if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    else if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the tag from Scilab
-      if (pUICONTROL_FEATURE(sciObj)->tag == NULL)
+        // Get the tag from Scilab
+        if (pUICONTROL_FEATURE(sciObj)->tag == NULL)
         {
-          return sciReturnString("");
+            return sciReturnString("");
         }
-      else
+        else
         {
-          return sciReturnString(pUICONTROL_FEATURE(sciObj)->tag);
+            return sciReturnString(pUICONTROL_FEATURE(sciObj)->tag);
         }
     }
-  else if (sciGetEntityType( sciObj ) == SCI_FIGURE)
+    else if (sciGetEntityType(sciObj) == SCI_FIGURE)
     {
-      // Get the tag from Scilab
-      if (pFIGURE_FEATURE(sciObj)->tag == NULL)
+        // Get the tag from Scilab
+        if (pFIGURE_FEATURE(sciObj)->tag == NULL)
         {
-          return sciReturnString("");
+            return sciReturnString("");
         }
-      else
+        else
         {
-          return sciReturnString(pFIGURE_FEATURE(sciObj)->tag);
+            return sciReturnString(pFIGURE_FEATURE(sciObj)->tag);
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Tag");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Tag");
+
+        return FALSE;
     }
 }
-

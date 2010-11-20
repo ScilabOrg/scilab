@@ -26,40 +26,41 @@
 #include "SetScilabEnvironment.h"
 #include "../../../jvm/includes/loadBackGroundClassPath.h"
 /*--------------------------------------------------------------------------*/
-int C2F(initscilab)(void)
+int C2F(initscilab) (void)
 {
 
-	SetScilabEnvironment();
+    SetScilabEnvironment();
 
-	InitializeString();
+    InitializeString();
 
-	InitializeLocalization();
+    InitializeLocalization();
 
-	#ifdef _MSC_VER
-	InitializeWindows_tools();
-	#endif
+#ifdef _MSC_VER
+    InitializeWindows_tools();
+#endif
 
-	InitializeCore();
+    InitializeCore();
 
-	InitializeShell();
+    InitializeShell();
 
-	if ( getScilabMode() != SCILAB_NWNI ) 
-	{
-		InitializeJVM();
-		InitializeGUI();
-		
-		/* create needed data structure if not already created */
-		loadGraphicModule() ;
-                
-		/* Standard mode -> init Java Console */
-		if ( getScilabMode() == SCILAB_STD ) 
-		{
-			/* Initialize console: lines... */
-			InitializeConsole();
-		}
-		
-		loadBackGroundClassPath();
-	}
-	return 0;
+    if (getScilabMode() != SCILAB_NWNI)
+    {
+        InitializeJVM();
+        InitializeGUI();
+
+        /* create needed data structure if not already created */
+        loadGraphicModule();
+
+        /* Standard mode -> init Java Console */
+        if (getScilabMode() == SCILAB_STD)
+        {
+            /* Initialize console: lines... */
+            InitializeConsole();
+        }
+
+        loadBackGroundClassPath();
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

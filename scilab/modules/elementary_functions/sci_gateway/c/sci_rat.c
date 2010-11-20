@@ -13,11 +13,13 @@
 #include "gw_elementary_functions.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intrat)(); /* fortran subroutine */
+extern int C2F(intrat) ();      /* fortran subroutine */
+
 /*--------------------------------------------------------------------------*/
-int sci_rat(char *fname,unsigned long fname_len)
+int sci_rat(char *fname, unsigned long fname_len)
 {
-	C2F(intrat)();
-	return 0;
+    C2F(intrat) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

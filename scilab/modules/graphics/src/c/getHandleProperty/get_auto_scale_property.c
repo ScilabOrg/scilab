@@ -12,7 +12,6 @@
  *
  */
 
-
 /*------------------------------------------------------------------------*/
 /* file: get_auto_scale_property.c                                        */
 /* desc : function to retrieve in Scilab the auto_scale field of          */
@@ -25,22 +24,23 @@
 #include "localization.h"
 #include "Scierror.h"
 /*------------------------------------------------------------------------*/
-int get_auto_scale_property( sciPointObj * pobj )
+int get_auto_scale_property(sciPointObj * pobj)
 {
-	if (sciGetEntityType(pobj) != SCI_FIGURE && sciGetEntityType(pobj) != SCI_SUBWIN)
-	{
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"auto_scale");
-		return -1 ;
-	}
+    if (sciGetEntityType(pobj) != SCI_FIGURE && sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "auto_scale");
+        return -1;
+    }
 
-  if ( sciGetAutoScale( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetAutoScale(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

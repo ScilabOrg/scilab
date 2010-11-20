@@ -15,32 +15,34 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolRelief(sciPointObj* sciObj)
+int GetUicontrolRelief(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      switch(pUICONTROL_FEATURE(sciObj)->relief)
+        switch (pUICONTROL_FEATURE(sciObj)->relief)
         {
         case FLAT_RELIEF:
-          return sciReturnString("flat");
+            return sciReturnString("flat");
         case GROOVE_RELIEF:
-          return sciReturnString("groove");
+            return sciReturnString("groove");
         case RAISED_RELIEF:
-          return sciReturnString("raised");
+            return sciReturnString("raised");
         case RIDGE_RELIEF:
-          return sciReturnString("ridge");
+            return sciReturnString("ridge");
         case SOLID_RELIEF:
-          return sciReturnString("solid");
+            return sciReturnString("solid");
         case SUNKEN_RELIEF:
-          return sciReturnString("sunken");
+            return sciReturnString("sunken");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s', '%s', '%s', '%s' or '%s' expected.\n")), "Relief", "flat", "groove", "raised", "ridge", "solid", "sunken");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s', '%s', '%s', '%s' or '%s' expected.\n")), "Relief",
+                     "flat", "groove", "raised", "ridge", "solid", "sunken");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Relief");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Relief");
+
+        return FALSE;
     }
 }

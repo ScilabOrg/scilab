@@ -28,26 +28,27 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_clip_box_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_clip_box_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int status1 ;
-  int status2 ;
+    int status1;
+    int status2;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "clip_box");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "clip_box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  /* We must have 4 elements */
-  if ( nbRow * nbCol != 4 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "clip_box", 4);
-    return SET_PROPERTY_ERROR ;
-  }
-  status1 = sciSetClipping( pobj, getDoubleMatrixFromStack( stackPointer ) ) ;
-  status2 = sciSetIsClipping( pobj, 1 ) ;
-  return sciSetFinalStatus( (SetPropertyStatus)status1, (SetPropertyStatus)status2 ) ;
+    /* We must have 4 elements */
+    if (nbRow * nbCol != 4)
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "clip_box", 4);
+        return SET_PROPERTY_ERROR;
+    }
+    status1 = sciSetClipping(pobj, getDoubleMatrixFromStack(stackPointer));
+    status2 = sciSetIsClipping(pobj, 1);
+    return sciSetFinalStatus((SetPropertyStatus) status1, (SetPropertyStatus) status2);
 
 }
+
 /*------------------------------------------------------------------------*/

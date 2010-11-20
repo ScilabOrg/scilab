@@ -2,13 +2,11 @@
 #include "grand.h"
 #include "core_math.h"
 
-double C2F(sexpo)(void)
+double C2F(sexpo) (void)
 /*
 **********************************************************************
 
-
      (STANDARD-)  E X P O N E N T I A L   DISTRIBUTION
-
 
 **********************************************************************
 **********************************************************************
@@ -42,21 +40,21 @@ static double q[8] = {
 //0.6931472,0.9333737,0.9888778,0.9984959,0.9998293,0.9999833,0.9999986,0.9999999
 };
 */
-static double q[8] = {
- 0.69314718246459960938,
- 0.93337368965148925781,
- 0.98887777328491210938,
- 0.99849587678909301758,
- 0.99982929229736328125,
- 0.99998331069946289062,
- 0.99999862909317016602,
- 0.99999988079071044922
-};
-static int i;
-static double sexpo,a,u,ustar,umin;
+    static double q[8] = {
+        0.69314718246459960938,
+        0.93337368965148925781,
+        0.98887777328491210938,
+        0.99849587678909301758,
+        0.99982929229736328125,
+        0.99998331069946289062,
+        0.99999862909317016602,
+        0.99999988079071044922
+    };
+    static int i;
+    static double sexpo, a, u, ustar, umin;
 
     a = 0.0;
-    u = C2F(ranf)();
+    u = C2F(ranf) ();
     goto S30;
 S20:
     a += q[0];
@@ -65,20 +63,24 @@ S30:
 //  JJV changed the following to reflect the true algorithm and
 //  JJV prevent unpredictable behavior if U is initially 0.5.
 //  IF (u.LE.1.0) GO TO 20
-    if(u < 1.0) goto S20;
+    if (u < 1.0)
+        goto S20;
     u -= 1.0;
-    if(u > q[0]) goto S60;
-    sexpo = a+u;
+    if (u > q[0])
+        goto S60;
+    sexpo = a + u;
     return sexpo;
 S60:
     i = 1;
-    ustar = C2F(ranf)();
+    ustar = C2F(ranf) ();
     umin = ustar;
 S70:
-    ustar = C2F(ranf)();
-    if(ustar < umin) umin = ustar;
+    ustar = C2F(ranf) ();
+    if (ustar < umin)
+        umin = ustar;
     i += 1;
-    if(u > q[i-1]) goto S70;
-    sexpo = a+umin*q[0];
+    if (u > q[i - 1])
+        goto S70;
+    sexpo = a + umin * q[0];
     return sexpo;
 }

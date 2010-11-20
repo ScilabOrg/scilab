@@ -28,44 +28,44 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableLabelFactory::create( void )
-{
-  DrawableLabel * newLabel = new DrawableLabel( m_pDrawed ) ;
-  setPositionner(newLabel);
-  return newLabel;
-}
+    DrawableObject *DrawableLabelFactory::create(void)
+    {
+        DrawableLabel *newLabel = new DrawableLabel(m_pDrawed);
+          setPositionner(newLabel);
+          return newLabel;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableLabelFactory::update( void )
-{
-  // nothing for now, label type does not change
-}
+    void DrawableLabelFactory::update(void)
+    {
+        // nothing for now, label type does not change
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableLabelFactory::setPositionner(DrawableLabel * label)
-{
+    void DrawableLabelFactory::setPositionner(DrawableLabel * label)
+    {
 
-  switch (pLABEL_FEATURE(m_pDrawed)->ptype)
-  {
-  case 1:
-    // title
-    label->setLabelPositioner(new TitlePositioner(label));
-    break;
-  case 2:
-    // x label
-    label->setLabelPositioner(new XLabelPositioner(label));
-    break;
-  case 3:
-    // y label
-    label->setLabelPositioner(new YLabelPositioner(label));
-    break;
-  case 4:
-    // z label
-    label->setLabelPositioner(new ZLabelPositioner(label));
-    break;
-  default:
-    label->setLabelPositioner(NULL);
-    break;
-  }
+        switch (pLABEL_FEATURE(m_pDrawed)->ptype)
+        {
+        case 1:
+            // title
+            label->setLabelPositioner(new TitlePositioner(label));
+            break;
+        case 2:
+            // x label
+            label->setLabelPositioner(new XLabelPositioner(label));
+            break;
+        case 3:
+            // y label
+            label->setLabelPositioner(new YLabelPositioner(label));
+            break;
+        case 4:
+            // z label
+            label->setLabelPositioner(new ZLabelPositioner(label));
+            break;
+        default:
+            label->setLabelPositioner(NULL);
+            break;
+        }
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
 }

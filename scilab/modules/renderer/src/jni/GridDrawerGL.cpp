@@ -39,340 +39,388 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_subwinDrawing {
+namespace org_scilab_modules_renderer_subwinDrawing
+{
 
 // Returns the current env
 
-JNIEnv * GridDrawerGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *GridDrawerGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-GridDrawerGL::~GridDrawerGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    GridDrawerGL::~GridDrawerGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-GridDrawerGL::GridDrawerGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    GridDrawerGL::GridDrawerGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetGridParametersjintjfloatjbooleanID=NULL; 
-voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID=NULL; 
-voidshowGridID=NULL; 
-
-
-}
-
-GridDrawerGL::GridDrawerGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetGridParametersjintjfloatjbooleanID = NULL;
+        voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID = NULL;
+        voidshowGridID = NULL;
+
+    }
+
+    GridDrawerGL::GridDrawerGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetGridParametersjintjfloatjbooleanID=NULL; 
-voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID=NULL; 
-voidshowGridID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetGridParametersjintjfloatjbooleanID = NULL;
+        voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID = NULL;
+        voidshowGridID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void GridDrawerGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GridDrawerGL");
-}
-}
+    void GridDrawerGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GridDrawerGL");
+        }
+    }
 
-void GridDrawerGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "GridDrawerGL");
-}
-}
+    void GridDrawerGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "GridDrawerGL");
+        }
+    }
 // Method(s)
 
-void GridDrawerGL::display (){
+    void GridDrawerGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::initializeDrawing (int figureIndex){
+    void GridDrawerGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::endDrawing (){
+    void GridDrawerGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::show (int figureIndex){
+    void GridDrawerGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::destroy (int figureIndex){
+    void GridDrawerGL::destroy(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::setGridParameters (int gridColor, float gridThickness, bool drawFront){
+    void GridDrawerGL::setGridParameters(int gridColor, float gridThickness, bool drawFront)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetGridParametersjintjfloatjbooleanID==NULL) { /* Use the cache */
- voidsetGridParametersjintjfloatjbooleanID = curEnv->GetMethodID(this->instanceClass, "setGridParameters", "(IFZ)V" ) ;
-if (voidsetGridParametersjintjfloatjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setGridParameters");
-}
-}
-jboolean drawFront_ = (static_cast<bool>(drawFront) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetGridParametersjintjfloatjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetGridParametersjintjfloatjbooleanID = curEnv->GetMethodID(this->instanceClass, "setGridParameters", "(IFZ)V");
+            if (voidsetGridParametersjintjfloatjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setGridParameters");
+            }
+        }
+        jboolean drawFront_ = (static_cast < bool > (drawFront) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetGridParametersjintjfloatjbooleanID ,gridColor, gridThickness, drawFront_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetGridParametersjintjfloatjbooleanID, gridColor, gridThickness, drawFront_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void GridDrawerGL::drawGrid (double* firstAxisStart, int firstAxisStartSize, double* firstAxisEnd, int firstAxisEndSize, double* secondAxisStart, int secondAxisStartSize, double* secondAxisEnd, int secondAxisEndSize, double* thirdAxisStart, int thirdAxisStartSize, double* thirdAxisEnd, int thirdAxisEndSize, double* relativeTicksPositions, int relativeTicksPositionsSize){
+    void GridDrawerGL::drawGrid(double *firstAxisStart, int firstAxisStartSize, double *firstAxisEnd, int firstAxisEndSize, double *secondAxisStart,
+                                int secondAxisStartSize, double *secondAxisEnd, int secondAxisEndSize, double *thirdAxisStart, int thirdAxisStartSize,
+                                double *thirdAxisEnd, int thirdAxisEndSize, double *relativeTicksPositions, int relativeTicksPositionsSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID==NULL) { /* Use the cache */
- voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID = curEnv->GetMethodID(this->instanceClass, "drawGrid", "([D[D[D[D[D[D[D)V" ) ;
-if (voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawGrid");
-}
-}
-jdoubleArray firstAxisStart_ = curEnv->NewDoubleArray( firstAxisStartSize ) ;
+        if (voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID == NULL)
+        {                       /* Use the cache */
+            voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID =
+                curEnv->GetMethodID(this->instanceClass, "drawGrid", "([D[D[D[D[D[D[D)V");
+            if (voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawGrid");
+            }
+        }
+        jdoubleArray firstAxisStart_ = curEnv->NewDoubleArray(firstAxisStartSize);
 
-if (firstAxisStart_ == NULL)
-{
+        if (firstAxisStart_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( firstAxisStart_, 0, firstAxisStartSize, (jdouble*)(firstAxisStart) ) ;
+        curEnv->SetDoubleArrayRegion(firstAxisStart_, 0, firstAxisStartSize, (jdouble *) (firstAxisStart));
 
+        jdoubleArray firstAxisEnd_ = curEnv->NewDoubleArray(firstAxisEndSize);
 
-jdoubleArray firstAxisEnd_ = curEnv->NewDoubleArray( firstAxisEndSize ) ;
-
-if (firstAxisEnd_ == NULL)
-{
+        if (firstAxisEnd_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( firstAxisEnd_, 0, firstAxisEndSize, (jdouble*)(firstAxisEnd) ) ;
+        curEnv->SetDoubleArrayRegion(firstAxisEnd_, 0, firstAxisEndSize, (jdouble *) (firstAxisEnd));
 
+        jdoubleArray secondAxisStart_ = curEnv->NewDoubleArray(secondAxisStartSize);
 
-jdoubleArray secondAxisStart_ = curEnv->NewDoubleArray( secondAxisStartSize ) ;
-
-if (secondAxisStart_ == NULL)
-{
+        if (secondAxisStart_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( secondAxisStart_, 0, secondAxisStartSize, (jdouble*)(secondAxisStart) ) ;
+        curEnv->SetDoubleArrayRegion(secondAxisStart_, 0, secondAxisStartSize, (jdouble *) (secondAxisStart));
 
+        jdoubleArray secondAxisEnd_ = curEnv->NewDoubleArray(secondAxisEndSize);
 
-jdoubleArray secondAxisEnd_ = curEnv->NewDoubleArray( secondAxisEndSize ) ;
-
-if (secondAxisEnd_ == NULL)
-{
+        if (secondAxisEnd_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( secondAxisEnd_, 0, secondAxisEndSize, (jdouble*)(secondAxisEnd) ) ;
+        curEnv->SetDoubleArrayRegion(secondAxisEnd_, 0, secondAxisEndSize, (jdouble *) (secondAxisEnd));
 
+        jdoubleArray thirdAxisStart_ = curEnv->NewDoubleArray(thirdAxisStartSize);
 
-jdoubleArray thirdAxisStart_ = curEnv->NewDoubleArray( thirdAxisStartSize ) ;
-
-if (thirdAxisStart_ == NULL)
-{
+        if (thirdAxisStart_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( thirdAxisStart_, 0, thirdAxisStartSize, (jdouble*)(thirdAxisStart) ) ;
+        curEnv->SetDoubleArrayRegion(thirdAxisStart_, 0, thirdAxisStartSize, (jdouble *) (thirdAxisStart));
 
+        jdoubleArray thirdAxisEnd_ = curEnv->NewDoubleArray(thirdAxisEndSize);
 
-jdoubleArray thirdAxisEnd_ = curEnv->NewDoubleArray( thirdAxisEndSize ) ;
-
-if (thirdAxisEnd_ == NULL)
-{
+        if (thirdAxisEnd_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( thirdAxisEnd_, 0, thirdAxisEndSize, (jdouble*)(thirdAxisEnd) ) ;
+        curEnv->SetDoubleArrayRegion(thirdAxisEnd_, 0, thirdAxisEndSize, (jdouble *) (thirdAxisEnd));
 
+        jdoubleArray relativeTicksPositions_ = curEnv->NewDoubleArray(relativeTicksPositionsSize);
 
-jdoubleArray relativeTicksPositions_ = curEnv->NewDoubleArray( relativeTicksPositionsSize ) ;
-
-if (relativeTicksPositions_ == NULL)
-{
+        if (relativeTicksPositions_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( relativeTicksPositions_, 0, relativeTicksPositionsSize, (jdouble*)(relativeTicksPositions) ) ;
+        curEnv->SetDoubleArrayRegion(relativeTicksPositions_, 0, relativeTicksPositionsSize, (jdouble *) (relativeTicksPositions));
 
+        curEnv->CallVoidMethod(this->instance,
+                               voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID,
+                               firstAxisStart_, firstAxisEnd_, secondAxisStart_, secondAxisEnd_, thirdAxisStart_, thirdAxisEnd_,
+                               relativeTicksPositions_);
+        curEnv->DeleteLocalRef(firstAxisStart_);
+        curEnv->DeleteLocalRef(firstAxisEnd_);
+        curEnv->DeleteLocalRef(secondAxisStart_);
+        curEnv->DeleteLocalRef(secondAxisEnd_);
+        curEnv->DeleteLocalRef(thirdAxisStart_);
+        curEnv->DeleteLocalRef(thirdAxisEnd_);
+        curEnv->DeleteLocalRef(relativeTicksPositions_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallVoidMethod( this->instance, voiddrawGridjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_ID ,firstAxisStart_, firstAxisEnd_, secondAxisStart_, secondAxisEnd_, thirdAxisStart_, thirdAxisEnd_, relativeTicksPositions_);
-                        curEnv->DeleteLocalRef(firstAxisStart_);
-curEnv->DeleteLocalRef(firstAxisEnd_);
-curEnv->DeleteLocalRef(secondAxisStart_);
-curEnv->DeleteLocalRef(secondAxisEnd_);
-curEnv->DeleteLocalRef(thirdAxisStart_);
-curEnv->DeleteLocalRef(thirdAxisEnd_);
-curEnv->DeleteLocalRef(relativeTicksPositions_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    void GridDrawerGL::showGrid()
+    {
 
-void GridDrawerGL::showGrid (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
-
-if (voidshowGridID==NULL) { /* Use the cache */
- voidshowGridID = curEnv->GetMethodID(this->instanceClass, "showGrid", "()V" ) ;
-if (voidshowGridID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "showGrid");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowGridID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowGridID == NULL)
+        {                       /* Use the cache */
+            voidshowGridID = curEnv->GetMethodID(this->instanceClass, "showGrid", "()V");
+            if (voidshowGridID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "showGrid");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowGridID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

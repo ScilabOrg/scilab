@@ -27,46 +27,47 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_grid_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_grid_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int i ;
-  int gridStyles[3];
-  double * values = getDoubleMatrixFromStack( stackPointer ) ;
+    int i;
+    int gridStyles[3];
+    double *values = getDoubleMatrixFromStack(stackPointer);
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "grid");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"grid") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( nbRow != 1 || nbCol > 3 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "grid", "1x2, 1x3");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  sciGetGridStyle(pobj, &(gridStyles[0]), &(gridStyles[1]), &(gridStyles[2]));
-
-  for (  i = 0 ; i < nbCol ; i++ )
-  {
-    int curValue = (int) values[i];
-    if ( values[i] < -1 || !sciCheckColorIndex(pobj, curValue) )
+    if (!isParameterDoubleMatrix(valueType))
     {
-      Scierror(999, _("Wrong value for '%s' property: Must be -1 or a valid color index.\n"), "grid");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "grid");
+        return SET_PROPERTY_ERROR;
     }
-    gridStyles[i] = curValue ;
-  }
 
-  sciSetGridStyle(pobj, gridStyles[0], gridStyles[1], gridStyles[2]);
-  
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "grid");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return SET_PROPERTY_SUCCEED ;
+    if (nbRow != 1 || nbCol > 3)
+    {
+        Scierror(999, _("Wrong size for '%s' property: Must be in the set {%s}.\n"), "grid", "1x2, 1x3");
+        return SET_PROPERTY_ERROR;
+    }
+
+    sciGetGridStyle(pobj, &(gridStyles[0]), &(gridStyles[1]), &(gridStyles[2]));
+
+    for (i = 0; i < nbCol; i++)
+    {
+        int curValue = (int)values[i];
+
+        if (values[i] < -1 || !sciCheckColorIndex(pobj, curValue))
+        {
+            Scierror(999, _("Wrong value for '%s' property: Must be -1 or a valid color index.\n"), "grid");
+            return SET_PROPERTY_ERROR;
+        }
+        gridStyles[i] = curValue;
+    }
+
+    sciSetGridStyle(pobj, gridStyles[0], gridStyles[1], gridStyles[2]);
+
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

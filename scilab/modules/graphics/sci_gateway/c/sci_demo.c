@@ -18,9 +18,10 @@
 
 #include "stack2.h"
 
-int sci_demo( char * fname, int fname_len)
+int sci_demo(char *fname, int fname_len)
 {
-  int lw = 0;
-  C2F(overload)(&lw, fname, fname_len);
-  return 0;
+    int lw = 0;
+
+    C2F(overload) (&lw, fname, fname_len);
+    return 0;
 }

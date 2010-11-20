@@ -14,41 +14,48 @@
 #include "figureDrawing/DrawableFigure.h"
 #include "JavaInteraction.h"
 
-using namespace sciGraphics ;
+using namespace sciGraphics;
 
 /*---------------------------------------------------------------------------------*/
-void javaRubberBox(sciPointObj * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton)
+void javaRubberBox(sciPointObj * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int *usedButton)
 {
-  getFigureDrawer(pFigure)->rubberBox((isClick == TRUE), initialRect, endRect, usedButton);
+    getFigureDrawer(pFigure)->rubberBox((isClick == TRUE), initialRect, endRect, usedButton);
 }
+
 /*---------------------------------------------------------------------------------*/
 void interactiveJavaZoom(sciPointObj * pFigure)
 {
-	getFigureDrawer(pFigure)->interactiveZoom();
+    getFigureDrawer(pFigure)->interactiveZoom();
 }
+
 /*---------------------------------------------------------------------------------*/
 void interactiveJavaSubwinZoom(sciPointObj * pSubwin)
 {
-	getSubwinDrawer(pSubwin)->interactiveZoom();
+    getSubwinDrawer(pSubwin)->interactiveZoom();
 }
+
 /*---------------------------------------------------------------------------------*/
 void interactiveJavaRotation(sciPointObj * pFigure)
 {
-  getFigureDrawer(pFigure)->interactiveRotation();
+    getFigureDrawer(pFigure)->interactiveRotation();
 }
+
 /*---------------------------------------------------------------------------------*/
 void interactiveJavaSubwinRotation(sciPointObj * pSubwin)
 {
-  getSubwinDrawer(pSubwin)->interactiveRotation();
+    getSubwinDrawer(pSubwin)->interactiveRotation();
 }
+
 /*---------------------------------------------------------------------------------*/
 void javaUnzoomSubwin(sciPointObj * pSubwin)
 {
-	getSubwinDrawer(pSubwin)->unzoom();
+    getSubwinDrawer(pSubwin)->unzoom();
 }
+
 /*---------------------------------------------------------------------------------*/
 void javaShowWindow(sciPointObj * pFigure)
 {
-  getFigureDrawer(pFigure)->showWindow();
+    getFigureDrawer(pFigure)->showWindow();
 }
+
 /*---------------------------------------------------------------------------------*/

@@ -30,70 +30,72 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_axes_visible_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_axes_visible_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  char ** values = getStringMatrixFromStack( stackPointer ) ;
+    char **values = getStringMatrixFromStack(stackPointer);
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "axes_visible");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_visible") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if( nbCol == 1 )
-  {
-
-    if ( strcmp( values[0], "off") == 0 )
+    if (!isParameterStringMatrix(valueType))
     {
-      pSUBWIN_FEATURE (pobj)->axes.axes_visible[0] = FALSE ;
-      pSUBWIN_FEATURE (pobj)->axes.axes_visible[1] = FALSE ;
-      pSUBWIN_FEATURE (pobj)->axes.axes_visible[2] = FALSE ;
+        Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "axes_visible");
+        return SET_PROPERTY_ERROR;
     }
-    else if ( strcmp( values[0], "on") == 0 )
+
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
     {
-      pSUBWIN_FEATURE(pobj)->axes.axes_visible[0] = TRUE ;
-      pSUBWIN_FEATURE(pobj)->axes.axes_visible[1] = TRUE ;
-      pSUBWIN_FEATURE(pobj)->axes.axes_visible[2] = TRUE ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_visible");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (nbCol == 1)
+    {
+
+        if (strcmp(values[0], "off") == 0)
+        {
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[0] = FALSE;
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[1] = FALSE;
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[2] = FALSE;
+        }
+        else if (strcmp(values[0], "on") == 0)
+        {
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[0] = TRUE;
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[1] = TRUE;
+            pSUBWIN_FEATURE(pobj)->axes.axes_visible[2] = TRUE;
+        }
+        else
+        {
+            Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "axes_visible", "on", "off");
+            return SET_PROPERTY_ERROR;
+        }
+        return SET_PROPERTY_SUCCEED;
+    }
+    else if (nbCol == 2 || nbCol == 3)
+    {
+        int i;
+
+        for (i = 0; i < nbCol; i++)
+        {
+            if (strcmp(values[i], "off") == 0)
+            {
+                pSUBWIN_FEATURE(pobj)->axes.axes_visible[i] = FALSE;
+            }
+            else if (strcmp(values[i], "on") == 0)
+            {
+                pSUBWIN_FEATURE(pobj)->axes.axes_visible[i] = TRUE;
+            }
+            else
+            {
+                Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "axes_visible", "on", "off");
+                return SET_PROPERTY_ERROR;
+            }
+        }
+        return SET_PROPERTY_SUCCEED;
     }
     else
     {
-      Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "axes_visible", "on", "off");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong size for '%s' property: At most %d elements expected.\n"), "axes_visible", 3);
+        return SET_PROPERTY_ERROR;
     }
-    return SET_PROPERTY_SUCCEED ;
-  }
-  else if ( nbCol == 2 || nbCol == 3 )
-  {
-    int i ;
-    for ( i = 0; i < nbCol ; i++ )
-    {
-      if ( strcmp( values[i], "off" ) == 0)
-      {
-        pSUBWIN_FEATURE (pobj)->axes.axes_visible[i] = FALSE ;
-      }
-      else if ( strcmp( values[i], "on" ) == 0 )
-      {
-        pSUBWIN_FEATURE (pobj)->axes.axes_visible[i] = TRUE ;
-      }
-      else
-      {
-        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "axes_visible", "on", "off");
-        return SET_PROPERTY_ERROR ;
-      }
-    }
-    return SET_PROPERTY_SUCCEED ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong size for '%s' property: At most %d elements expected.\n"), "axes_visible", 3);
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_ERROR ;
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

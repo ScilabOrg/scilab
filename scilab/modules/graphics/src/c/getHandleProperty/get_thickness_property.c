@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_thickness_property( sciPointObj * pobj )
+int get_thickness_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetLineWidth( pobj ) ) ;
+    return sciReturnDouble(sciGetLineWidth(pobj));
 }
+
 /*------------------------------------------------------------------------*/

@@ -48,18 +48,18 @@ extern int   Sparse_contents(int);
 int ForceLink(void);
 int ForceLink(void)
 {
-	/*  
-	commented for test purpose by Sylvestre (no sure it is mandatory
-	Blas_contents(0);
-	Lapack_contents(0);
-	Calelm_contents(0);
-	Sun_contents(0);
-	System2_contents(0);
-	System_contents(0);
-	Intersci_contents(0);
-	Sparse_contents(0);
-	*/
-	return 0;
+    /*  
+     * commented for test purpose by Sylvestre (no sure it is mandatory
+     * Blas_contents(0);
+     * Lapack_contents(0);
+     * Calelm_contents(0);
+     * Sun_contents(0);
+     * System2_contents(0);
+     * System_contents(0);
+     * Intersci_contents(0);
+     * Sparse_contents(0);
+     */
+    return 0;
 }
 #endif
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

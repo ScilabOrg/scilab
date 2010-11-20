@@ -17,13 +17,15 @@
 #include "localization.h"
 #include "gw_cacsd2.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scitzer)(char *fname,unsigned long fname_len);
+extern int C2F(scitzer) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_tzer(char *fname,unsigned long fname_len)
+int sci_tzer(char *fname, unsigned long fname_len)
 {
-	CheckRhs(4,4);
-	CheckLhs(2,3);
-	C2F(scitzer)(fname,fname_len);
-	return 0;
+    CheckRhs(4, 4);
+    CheckLhs(2, 3);
+    C2F(scitzer) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

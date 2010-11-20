@@ -23,28 +23,29 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_alignment_property( sciPointObj * pobj )
+int get_alignment_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType( pobj ) == SCI_TEXT )
-  {
-    switch ( sciGetAlignment( pobj ) )
+    if (sciGetEntityType(pobj) == SCI_TEXT)
     {
-    case ALIGN_LEFT :
-      return sciReturnString("left") ;
-      break;
-    case ALIGN_RIGHT:
-      return sciReturnString("right") ;
-      break ;
-    case ALIGN_CENTER:
-      return sciReturnString("center");
-      break ;
-    default:
-      Scierror(999, _("Wrong value for '%s' property.\n"),"alignment");
-      return -1 ;
+        switch (sciGetAlignment(pobj))
+        {
+        case ALIGN_LEFT:
+            return sciReturnString("left");
+            break;
+        case ALIGN_RIGHT:
+            return sciReturnString("right");
+            break;
+        case ALIGN_CENTER:
+            return sciReturnString("center");
+            break;
+        default:
+            Scierror(999, _("Wrong value for '%s' property.\n"), "alignment");
+            return -1;
+        }
     }
-  }
-  Scierror(999, _("'%s' property does not exist for this handle.\n"),"alignment");
-  return -1 ;
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "alignment");
+    return -1;
 
 }
+
 /*------------------------------------------------------------------------*/

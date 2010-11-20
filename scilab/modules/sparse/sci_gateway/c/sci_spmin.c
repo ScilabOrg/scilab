@@ -12,13 +12,16 @@
 
 #include "gw_sparse.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intspmax)(char *minmax,int *id);
+extern int C2F(intspmax) (char *minmax, int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_spmin(char *fname,unsigned long fname_len)
+int sci_spmin(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	char job[]="min";
-	C2F(intspmax)(job,id);
-	return 0;
+    static int id[6];
+    char job[] = "min";
+
+    C2F(intspmax) (job, id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

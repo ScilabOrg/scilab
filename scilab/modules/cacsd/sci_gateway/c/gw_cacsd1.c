@@ -14,16 +14,17 @@
 #include "gw_cacsd1.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{C2F(scilyap),"lyap"},
-	{C2F(scisylv),"sylv"},
-	{C2F(intricc),"ricc"}
+static gw_generic_table Tab[] = {
+    {C2F(scilyap), "lyap"},
+    {C2F(scisylv), "sylv"},
+    {C2F(intricc), "ricc"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_cacsd1(void)
-{  
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

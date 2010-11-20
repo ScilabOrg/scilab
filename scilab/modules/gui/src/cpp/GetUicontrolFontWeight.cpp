@@ -15,29 +15,31 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolFontWeight(sciPointObj* sciObj)
+int GetUicontrolFontWeight(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the font weight from Scilab object
-      switch(pUICONTROL_FEATURE(sciObj)->fontWeight)
+        // Get the font weight from Scilab object
+        switch (pUICONTROL_FEATURE(sciObj)->fontWeight)
         {
         case LIGHT_FONT:
-          return sciReturnString("light");
+            return sciReturnString("light");
         case NORMAL_FONT:
-          return sciReturnString("normal");
+            return sciReturnString("normal");
         case DEMI_FONT:
-          return sciReturnString("demi");
+            return sciReturnString("demi");
         case BOLD_FONT:
-          return sciReturnString("bold");
+            return sciReturnString("bold");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: 'light', 'normal', 'demi' or 'bold' expected.\n")), "FontWeight");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: 'light', 'normal', 'demi' or 'bold' expected.\n")), "FontWeight");
+
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontWeight");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontWeight");
+
+        return FALSE;
     }
 }

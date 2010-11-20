@@ -39,934 +39,1142 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_renderer_figureDrawing {
+namespace org_scilab_modules_renderer_figureDrawing
+{
 
 // Returns the current env
 
-JNIEnv * DrawableFigureGL::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *DrawableFigureGL::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-DrawableFigureGL::~DrawableFigureGL() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    DrawableFigureGL::~DrawableFigureGL()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-DrawableFigureGL::DrawableFigureGL(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    DrawableFigureGL::DrawableFigureGL(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetFigureIndexjintID=NULL; 
-voiddrawCanvasID=NULL; 
-voiddrawBackgroundID=NULL; 
-voidsetBackgroundColorjintID=NULL; 
-voidsetLogicalOpjintID=NULL; 
-voidsetColorMapDatajdoubleArray_ID=NULL; 
-jdoubleArray_getColorMapDataID=NULL; 
-jintgetColorMapSizeID=NULL; 
-jintgetCanvasWidthID=NULL; 
-jintgetCanvasHeightID=NULL; 
-jintsetCanvasSizejintjintID=NULL; 
-jintgetWindowPosXID=NULL; 
-jintgetWindowPosYID=NULL; 
-voidsetWindowPositionjintjintID=NULL; 
-jintgetWindowWidthID=NULL; 
-jintgetWindowHeightID=NULL; 
-voidsetWindowSizejintjintID=NULL; 
-voidsetInfoMessagejstringID=NULL; 
-jstringgetInfoMessageID=NULL; 
-voidsetAutoResizeModejbooleanID=NULL; 
-jbooleangetAutoResizeModeID=NULL; 
-jintArray_getViewportID=NULL; 
-voidsetViewportjintjintjintjintID=NULL; 
-jintArray_rubberBoxjbooleanjintArray_ID=NULL; 
-voidinteractiveZoomjlongID=NULL; 
-voidsetTitlejstringID=NULL; 
-voidinteractiveRotationID=NULL; 
-voidshowWindowID=NULL; 
-voidsetNbSubwinsjintID=NULL; 
-voidopenGraphicCanvasID=NULL; 
-voidcloseGraphicCanvasID=NULL; 
-voidsetUseSingleBufferjbooleanID=NULL; 
-jintgetAntialiasingQualityID=NULL; 
-voidsetAntialiasingQualityjintID=NULL; 
-
-
-}
-
-DrawableFigureGL::DrawableFigureGL(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetFigureIndexjintID = NULL;
+        voiddrawCanvasID = NULL;
+        voiddrawBackgroundID = NULL;
+        voidsetBackgroundColorjintID = NULL;
+        voidsetLogicalOpjintID = NULL;
+        voidsetColorMapDatajdoubleArray_ID = NULL;
+        jdoubleArray_getColorMapDataID = NULL;
+        jintgetColorMapSizeID = NULL;
+        jintgetCanvasWidthID = NULL;
+        jintgetCanvasHeightID = NULL;
+        jintsetCanvasSizejintjintID = NULL;
+        jintgetWindowPosXID = NULL;
+        jintgetWindowPosYID = NULL;
+        voidsetWindowPositionjintjintID = NULL;
+        jintgetWindowWidthID = NULL;
+        jintgetWindowHeightID = NULL;
+        voidsetWindowSizejintjintID = NULL;
+        voidsetInfoMessagejstringID = NULL;
+        jstringgetInfoMessageID = NULL;
+        voidsetAutoResizeModejbooleanID = NULL;
+        jbooleangetAutoResizeModeID = NULL;
+        jintArray_getViewportID = NULL;
+        voidsetViewportjintjintjintjintID = NULL;
+        jintArray_rubberBoxjbooleanjintArray_ID = NULL;
+        voidinteractiveZoomjlongID = NULL;
+        voidsetTitlejstringID = NULL;
+        voidinteractiveRotationID = NULL;
+        voidshowWindowID = NULL;
+        voidsetNbSubwinsjintID = NULL;
+        voidopenGraphicCanvasID = NULL;
+        voidcloseGraphicCanvasID = NULL;
+        voidsetUseSingleBufferjbooleanID = NULL;
+        jintgetAntialiasingQualityID = NULL;
+        voidsetAntialiasingQualityjintID = NULL;
+
+    }
+
+    DrawableFigureGL::DrawableFigureGL(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiddisplayID=NULL; 
-voidinitializeDrawingjintID=NULL; 
-voidendDrawingID=NULL; 
-voidshowjintID=NULL; 
-voiddestroyjintID=NULL; 
-voidsetFigureIndexjintID=NULL; 
-voiddrawCanvasID=NULL; 
-voiddrawBackgroundID=NULL; 
-voidsetBackgroundColorjintID=NULL; 
-voidsetLogicalOpjintID=NULL; 
-voidsetColorMapDatajdoubleArray_ID=NULL; 
-jdoubleArray_getColorMapDataID=NULL; 
-jintgetColorMapSizeID=NULL; 
-jintgetCanvasWidthID=NULL; 
-jintgetCanvasHeightID=NULL; 
-jintsetCanvasSizejintjintID=NULL; 
-jintgetWindowPosXID=NULL; 
-jintgetWindowPosYID=NULL; 
-voidsetWindowPositionjintjintID=NULL; 
-jintgetWindowWidthID=NULL; 
-jintgetWindowHeightID=NULL; 
-voidsetWindowSizejintjintID=NULL; 
-voidsetInfoMessagejstringID=NULL; 
-jstringgetInfoMessageID=NULL; 
-voidsetAutoResizeModejbooleanID=NULL; 
-jbooleangetAutoResizeModeID=NULL; 
-jintArray_getViewportID=NULL; 
-voidsetViewportjintjintjintjintID=NULL; 
-jintArray_rubberBoxjbooleanjintArray_ID=NULL; 
-voidinteractiveZoomjlongID=NULL; 
-voidsetTitlejstringID=NULL; 
-voidinteractiveRotationID=NULL; 
-voidshowWindowID=NULL; 
-voidsetNbSubwinsjintID=NULL; 
-voidopenGraphicCanvasID=NULL; 
-voidcloseGraphicCanvasID=NULL; 
-voidsetUseSingleBufferjbooleanID=NULL; 
-jintgetAntialiasingQualityID=NULL; 
-voidsetAntialiasingQualityjintID=NULL; 
+        voiddisplayID = NULL;
+        voidinitializeDrawingjintID = NULL;
+        voidendDrawingID = NULL;
+        voidshowjintID = NULL;
+        voiddestroyjintID = NULL;
+        voidsetFigureIndexjintID = NULL;
+        voiddrawCanvasID = NULL;
+        voiddrawBackgroundID = NULL;
+        voidsetBackgroundColorjintID = NULL;
+        voidsetLogicalOpjintID = NULL;
+        voidsetColorMapDatajdoubleArray_ID = NULL;
+        jdoubleArray_getColorMapDataID = NULL;
+        jintgetColorMapSizeID = NULL;
+        jintgetCanvasWidthID = NULL;
+        jintgetCanvasHeightID = NULL;
+        jintsetCanvasSizejintjintID = NULL;
+        jintgetWindowPosXID = NULL;
+        jintgetWindowPosYID = NULL;
+        voidsetWindowPositionjintjintID = NULL;
+        jintgetWindowWidthID = NULL;
+        jintgetWindowHeightID = NULL;
+        voidsetWindowSizejintjintID = NULL;
+        voidsetInfoMessagejstringID = NULL;
+        jstringgetInfoMessageID = NULL;
+        voidsetAutoResizeModejbooleanID = NULL;
+        jbooleangetAutoResizeModeID = NULL;
+        jintArray_getViewportID = NULL;
+        voidsetViewportjintjintjintjintID = NULL;
+        jintArray_rubberBoxjbooleanjintArray_ID = NULL;
+        voidinteractiveZoomjlongID = NULL;
+        voidsetTitlejstringID = NULL;
+        voidinteractiveRotationID = NULL;
+        voidshowWindowID = NULL;
+        voidsetNbSubwinsjintID = NULL;
+        voidopenGraphicCanvasID = NULL;
+        voidcloseGraphicCanvasID = NULL;
+        voidsetUseSingleBufferjbooleanID = NULL;
+        jintgetAntialiasingQualityID = NULL;
+        voidsetAntialiasingQualityjintID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void DrawableFigureGL::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableFigureGL");
-}
-}
+    void DrawableFigureGL::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableFigureGL");
+        }
+    }
 
-void DrawableFigureGL::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableFigureGL");
-}
-}
+    void DrawableFigureGL::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "DrawableFigureGL");
+        }
+    }
 // Method(s)
 
-void DrawableFigureGL::display (){
+    void DrawableFigureGL::display()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddisplayID==NULL) { /* Use the cache */
- voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V" ) ;
-if (voiddisplayID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "display");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddisplayID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddisplayID == NULL)
+        {                       /* Use the cache */
+            voiddisplayID = curEnv->GetMethodID(this->instanceClass, "display", "()V");
+            if (voiddisplayID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "display");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddisplayID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::initializeDrawing (int figureIndex){
+    void DrawableFigureGL::initializeDrawing(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinitializeDrawingjintID==NULL) { /* Use the cache */
- voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V" ) ;
-if (voidinitializeDrawingjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinitializeDrawingjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinitializeDrawingjintID == NULL)
+        {                       /* Use the cache */
+            voidinitializeDrawingjintID = curEnv->GetMethodID(this->instanceClass, "initializeDrawing", "(I)V");
+            if (voidinitializeDrawingjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "initializeDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinitializeDrawingjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::endDrawing (){
+    void DrawableFigureGL::endDrawing()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidendDrawingID==NULL) { /* Use the cache */
- voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V" ) ;
-if (voidendDrawingID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidendDrawingID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidendDrawingID == NULL)
+        {                       /* Use the cache */
+            voidendDrawingID = curEnv->GetMethodID(this->instanceClass, "endDrawing", "()V");
+            if (voidendDrawingID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "endDrawing");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidendDrawingID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::show (int figureIndex){
+    void DrawableFigureGL::show(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowjintID==NULL) { /* Use the cache */
- voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V" ) ;
-if (voidshowjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "show");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowjintID == NULL)
+        {                       /* Use the cache */
+            voidshowjintID = curEnv->GetMethodID(this->instanceClass, "show", "(I)V");
+            if (voidshowjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "show");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::destroy (int parentFigureIndex){
+    void DrawableFigureGL::destroy(int parentFigureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddestroyjintID==NULL) { /* Use the cache */
- voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V" ) ;
-if (voiddestroyjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddestroyjintID ,parentFigureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddestroyjintID == NULL)
+        {                       /* Use the cache */
+            voiddestroyjintID = curEnv->GetMethodID(this->instanceClass, "destroy", "(I)V");
+            if (voiddestroyjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "destroy");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddestroyjintID, parentFigureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setFigureIndex (int figureIndex){
+    void DrawableFigureGL::setFigureIndex(int figureIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetFigureIndexjintID==NULL) { /* Use the cache */
- voidsetFigureIndexjintID = curEnv->GetMethodID(this->instanceClass, "setFigureIndex", "(I)V" ) ;
-if (voidsetFigureIndexjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureIndex");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetFigureIndexjintID ,figureIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetFigureIndexjintID == NULL)
+        {                       /* Use the cache */
+            voidsetFigureIndexjintID = curEnv->GetMethodID(this->instanceClass, "setFigureIndex", "(I)V");
+            if (voidsetFigureIndexjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setFigureIndex");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetFigureIndexjintID, figureIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::drawCanvas (){
+    void DrawableFigureGL::drawCanvas()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddrawCanvasID==NULL) { /* Use the cache */
- voiddrawCanvasID = curEnv->GetMethodID(this->instanceClass, "drawCanvas", "()V" ) ;
-if (voiddrawCanvasID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawCanvas");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddrawCanvasID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddrawCanvasID == NULL)
+        {                       /* Use the cache */
+            voiddrawCanvasID = curEnv->GetMethodID(this->instanceClass, "drawCanvas", "()V");
+            if (voiddrawCanvasID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawCanvas");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddrawCanvasID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::drawBackground (){
+    void DrawableFigureGL::drawBackground()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voiddrawBackgroundID==NULL) { /* Use the cache */
- voiddrawBackgroundID = curEnv->GetMethodID(this->instanceClass, "drawBackground", "()V" ) ;
-if (voiddrawBackgroundID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "drawBackground");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voiddrawBackgroundID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiddrawBackgroundID == NULL)
+        {                       /* Use the cache */
+            voiddrawBackgroundID = curEnv->GetMethodID(this->instanceClass, "drawBackground", "()V");
+            if (voiddrawBackgroundID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "drawBackground");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voiddrawBackgroundID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setBackgroundColor (int colorIndex){
+    void DrawableFigureGL::setBackgroundColor(int colorIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetBackgroundColorjintID==NULL) { /* Use the cache */
- voidsetBackgroundColorjintID = curEnv->GetMethodID(this->instanceClass, "setBackgroundColor", "(I)V" ) ;
-if (voidsetBackgroundColorjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setBackgroundColor");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetBackgroundColorjintID ,colorIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetBackgroundColorjintID == NULL)
+        {                       /* Use the cache */
+            voidsetBackgroundColorjintID = curEnv->GetMethodID(this->instanceClass, "setBackgroundColor", "(I)V");
+            if (voidsetBackgroundColorjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setBackgroundColor");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetBackgroundColorjintID, colorIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setLogicalOp (int logicOpIndex){
+    void DrawableFigureGL::setLogicalOp(int logicOpIndex)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetLogicalOpjintID==NULL) { /* Use the cache */
- voidsetLogicalOpjintID = curEnv->GetMethodID(this->instanceClass, "setLogicalOp", "(I)V" ) ;
-if (voidsetLogicalOpjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setLogicalOp");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetLogicalOpjintID ,logicOpIndex);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetLogicalOpjintID == NULL)
+        {                       /* Use the cache */
+            voidsetLogicalOpjintID = curEnv->GetMethodID(this->instanceClass, "setLogicalOp", "(I)V");
+            if (voidsetLogicalOpjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setLogicalOp");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetLogicalOpjintID, logicOpIndex);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setColorMapData (double* rgbmat, int rgbmatSize){
+    void DrawableFigureGL::setColorMapData(double *rgbmat, int rgbmatSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetColorMapDatajdoubleArray_ID==NULL) { /* Use the cache */
- voidsetColorMapDatajdoubleArray_ID = curEnv->GetMethodID(this->instanceClass, "setColorMapData", "([D)V" ) ;
-if (voidsetColorMapDatajdoubleArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setColorMapData");
-}
-}
-jdoubleArray rgbmat_ = curEnv->NewDoubleArray( rgbmatSize ) ;
+        if (voidsetColorMapDatajdoubleArray_ID == NULL)
+        {                       /* Use the cache */
+            voidsetColorMapDatajdoubleArray_ID = curEnv->GetMethodID(this->instanceClass, "setColorMapData", "([D)V");
+            if (voidsetColorMapDatajdoubleArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setColorMapData");
+            }
+        }
+        jdoubleArray rgbmat_ = curEnv->NewDoubleArray(rgbmatSize);
 
-if (rgbmat_ == NULL)
-{
+        if (rgbmat_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetDoubleArrayRegion( rgbmat_, 0, rgbmatSize, (jdouble*)(rgbmat) ) ;
+        curEnv->SetDoubleArrayRegion(rgbmat_, 0, rgbmatSize, (jdouble *) (rgbmat));
 
+        curEnv->CallVoidMethod(this->instance, voidsetColorMapDatajdoubleArray_ID, rgbmat_);
+        curEnv->DeleteLocalRef(rgbmat_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallVoidMethod( this->instance, voidsetColorMapDatajdoubleArray_ID ,rgbmat_);
-                        curEnv->DeleteLocalRef(rgbmat_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    double *DrawableFigureGL::getColorMapData()
+    {
 
-double* DrawableFigureGL::getColorMapData (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (jdoubleArray_getColorMapDataID == NULL)
+        {                       /* Use the cache */
+            jdoubleArray_getColorMapDataID = curEnv->GetMethodID(this->instanceClass, "getColorMapData", "()[D");
+            if (jdoubleArray_getColorMapDataID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getColorMapData");
+            }
+        }
+        jdoubleArray res = static_cast < jdoubleArray > (curEnv->CallObjectMethod(this->instance, jdoubleArray_getColorMapDataID));
 
-if (jdoubleArray_getColorMapDataID==NULL) { /* Use the cache */
- jdoubleArray_getColorMapDataID = curEnv->GetMethodID(this->instanceClass, "getColorMapData", "()[D" ) ;
-if (jdoubleArray_getColorMapDataID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getColorMapData");
-}
-}
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_getColorMapDataID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
+        jdouble *resultsArray = static_cast < jdouble * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        double *myArray = new double[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-int DrawableFigureGL::getColorMapSize (){
+    int DrawableFigureGL::getColorMapSize()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintgetColorMapSizeID==NULL) { /* Use the cache */
- jintgetColorMapSizeID = curEnv->GetMethodID(this->instanceClass, "getColorMapSize", "()I" ) ;
-if (jintgetColorMapSizeID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getColorMapSize");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetColorMapSizeID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintgetColorMapSizeID == NULL)
+        {                       /* Use the cache */
+            jintgetColorMapSizeID = curEnv->GetMethodID(this->instanceClass, "getColorMapSize", "()I");
+            if (jintgetColorMapSizeID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getColorMapSize");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetColorMapSizeID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int DrawableFigureGL::getCanvasWidth (){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    int DrawableFigureGL::getCanvasWidth()
+    {
 
-if (jintgetCanvasWidthID==NULL) { /* Use the cache */
- jintgetCanvasWidthID = curEnv->GetMethodID(this->instanceClass, "getCanvasWidth", "()I" ) ;
-if (jintgetCanvasWidthID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getCanvasWidth");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetCanvasWidthID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = getCurrentEnv();
 
-}
+        if (jintgetCanvasWidthID == NULL)
+        {                       /* Use the cache */
+            jintgetCanvasWidthID = curEnv->GetMethodID(this->instanceClass, "getCanvasWidth", "()I");
+            if (jintgetCanvasWidthID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getCanvasWidth");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetCanvasWidthID));
 
-int DrawableFigureGL::getCanvasHeight (){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = getCurrentEnv();
+    }
 
-if (jintgetCanvasHeightID==NULL) { /* Use the cache */
- jintgetCanvasHeightID = curEnv->GetMethodID(this->instanceClass, "getCanvasHeight", "()I" ) ;
-if (jintgetCanvasHeightID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getCanvasHeight");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetCanvasHeightID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int DrawableFigureGL::getCanvasHeight()
+    {
 
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-int DrawableFigureGL::setCanvasSize (int width, int height){
+        if (jintgetCanvasHeightID == NULL)
+        {                       /* Use the cache */
+            jintgetCanvasHeightID = curEnv->GetMethodID(this->instanceClass, "getCanvasHeight", "()I");
+            if (jintgetCanvasHeightID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getCanvasHeight");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetCanvasHeightID));
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-if (jintsetCanvasSizejintjintID==NULL) { /* Use the cache */
- jintsetCanvasSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setCanvasSize", "(II)I" ) ;
-if (jintsetCanvasSizejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setCanvasSize");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintsetCanvasSizejintjintID ,width, height));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int DrawableFigureGL::setCanvasSize(int width, int height)
+    {
 
-int DrawableFigureGL::getWindowPosX (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (jintsetCanvasSizejintjintID == NULL)
+        {                       /* Use the cache */
+            jintsetCanvasSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setCanvasSize", "(II)I");
+            if (jintsetCanvasSizejintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setCanvasSize");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintsetCanvasSizejintjintID, width, height));
 
-if (jintgetWindowPosXID==NULL) { /* Use the cache */
- jintgetWindowPosXID = curEnv->GetMethodID(this->instanceClass, "getWindowPosX", "()I" ) ;
-if (jintgetWindowPosXID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowPosX");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetWindowPosXID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int DrawableFigureGL::getWindowPosY (){
+    int DrawableFigureGL::getWindowPosX()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintgetWindowPosYID==NULL) { /* Use the cache */
- jintgetWindowPosYID = curEnv->GetMethodID(this->instanceClass, "getWindowPosY", "()I" ) ;
-if (jintgetWindowPosYID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowPosY");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetWindowPosYID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintgetWindowPosXID == NULL)
+        {                       /* Use the cache */
+            jintgetWindowPosXID = curEnv->GetMethodID(this->instanceClass, "getWindowPosX", "()I");
+            if (jintgetWindowPosXID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowPosX");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetWindowPosXID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-void DrawableFigureGL::setWindowPosition (int posX, int posY){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    int DrawableFigureGL::getWindowPosY()
+    {
 
-if (voidsetWindowPositionjintjintID==NULL) { /* Use the cache */
- voidsetWindowPositionjintjintID = curEnv->GetMethodID(this->instanceClass, "setWindowPosition", "(II)V" ) ;
-if (voidsetWindowPositionjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWindowPosition");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetWindowPositionjintjintID ,posX, posY);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-int DrawableFigureGL::getWindowWidth (){
+        if (jintgetWindowPosYID == NULL)
+        {                       /* Use the cache */
+            jintgetWindowPosYID = curEnv->GetMethodID(this->instanceClass, "getWindowPosY", "()I");
+            if (jintgetWindowPosYID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowPosY");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetWindowPosYID));
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-if (jintgetWindowWidthID==NULL) { /* Use the cache */
- jintgetWindowWidthID = curEnv->GetMethodID(this->instanceClass, "getWindowWidth", "()I" ) ;
-if (jintgetWindowWidthID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowWidth");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetWindowWidthID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    void DrawableFigureGL::setWindowPosition(int posX, int posY)
+    {
 
-int DrawableFigureGL::getWindowHeight (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (voidsetWindowPositionjintjintID == NULL)
+        {                       /* Use the cache */
+            voidsetWindowPositionjintjintID = curEnv->GetMethodID(this->instanceClass, "setWindowPosition", "(II)V");
+            if (voidsetWindowPositionjintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setWindowPosition");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetWindowPositionjintjintID, posX, posY);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-if (jintgetWindowHeightID==NULL) { /* Use the cache */
- jintgetWindowHeightID = curEnv->GetMethodID(this->instanceClass, "getWindowHeight", "()I" ) ;
-if (jintgetWindowHeightID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowHeight");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetWindowHeightID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int DrawableFigureGL::getWindowWidth()
+    {
 
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-void DrawableFigureGL::setWindowSize (int width, int height){
+        if (jintgetWindowWidthID == NULL)
+        {                       /* Use the cache */
+            jintgetWindowWidthID = curEnv->GetMethodID(this->instanceClass, "getWindowWidth", "()I");
+            if (jintgetWindowWidthID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowWidth");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetWindowWidthID));
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-if (voidsetWindowSizejintjintID==NULL) { /* Use the cache */
- voidsetWindowSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setWindowSize", "(II)V" ) ;
-if (voidsetWindowSizejintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setWindowSize");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetWindowSizejintjintID ,width, height);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    }
 
-void DrawableFigureGL::setInfoMessage (char * infoMessage){
+    int DrawableFigureGL::getWindowHeight()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetInfoMessagejstringID==NULL) { /* Use the cache */
- voidsetInfoMessagejstringID = curEnv->GetMethodID(this->instanceClass, "setInfoMessage", "(Ljava/lang/String;)V" ) ;
-if (voidsetInfoMessagejstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setInfoMessage");
-}
-}
-jstring infoMessage_ = curEnv->NewStringUTF( infoMessage );
+        if (jintgetWindowHeightID == NULL)
+        {                       /* Use the cache */
+            jintgetWindowHeightID = curEnv->GetMethodID(this->instanceClass, "getWindowHeight", "()I");
+            if (jintgetWindowHeightID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getWindowHeight");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetWindowHeightID));
 
-                         curEnv->CallVoidMethod( this->instance, voidsetInfoMessagejstringID ,infoMessage_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-char * DrawableFigureGL::getInfoMessage (){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    void DrawableFigureGL::setWindowSize(int width, int height)
+    {
 
-if (jstringgetInfoMessageID==NULL) { /* Use the cache */
- jstringgetInfoMessageID = curEnv->GetMethodID(this->instanceClass, "getInfoMessage", "()Ljava/lang/String;" ) ;
-if (jstringgetInfoMessageID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getInfoMessage");
-}
-}
-                        jstring res =  static_cast<jstring>( curEnv->CallObjectMethod( this->instance, jstringgetInfoMessageID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
+        if (voidsetWindowSizejintjintID == NULL)
+        {                       /* Use the cache */
+            voidsetWindowSizejintjintID = curEnv->GetMethodID(this->instanceClass, "setWindowSize", "(II)V");
+            if (voidsetWindowSizejintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setWindowSize");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetWindowSizejintjintID, width, height);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-}
+    void DrawableFigureGL::setInfoMessage(char *infoMessage)
+    {
 
-void DrawableFigureGL::setAutoResizeMode (bool onOrOff){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (voidsetInfoMessagejstringID == NULL)
+        {                       /* Use the cache */
+            voidsetInfoMessagejstringID = curEnv->GetMethodID(this->instanceClass, "setInfoMessage", "(Ljava/lang/String;)V");
+            if (voidsetInfoMessagejstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setInfoMessage");
+            }
+        }
+        jstring infoMessage_ = curEnv->NewStringUTF(infoMessage);
 
-if (voidsetAutoResizeModejbooleanID==NULL) { /* Use the cache */
- voidsetAutoResizeModejbooleanID = curEnv->GetMethodID(this->instanceClass, "setAutoResizeMode", "(Z)V" ) ;
-if (voidsetAutoResizeModejbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAutoResizeMode");
-}
-}
-jboolean onOrOff_ = (static_cast<bool>(onOrOff) ? JNI_TRUE : JNI_FALSE);
+        curEnv->CallVoidMethod(this->instance, voidsetInfoMessagejstringID, infoMessage_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallVoidMethod( this->instance, voidsetAutoResizeModejbooleanID ,onOrOff_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    char *DrawableFigureGL::getInfoMessage()
+    {
 
-bool DrawableFigureGL::getAutoResizeMode (){
+        JNIEnv *curEnv = getCurrentEnv();
 
-JNIEnv * curEnv = getCurrentEnv();
+        if (jstringgetInfoMessageID == NULL)
+        {                       /* Use the cache */
+            jstringgetInfoMessageID = curEnv->GetMethodID(this->instanceClass, "getInfoMessage", "()Ljava/lang/String;");
+            if (jstringgetInfoMessageID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getInfoMessage");
+            }
+        }
+        jstring res = static_cast < jstring > (curEnv->CallObjectMethod(this->instance, jstringgetInfoMessageID));
 
-if (jbooleangetAutoResizeModeID==NULL) { /* Use the cache */
- jbooleangetAutoResizeModeID = curEnv->GetMethodID(this->instanceClass, "getAutoResizeMode", "()Z" ) ;
-if (jbooleangetAutoResizeModeID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getAutoResizeMode");
-}
-}
-                        jboolean res =  static_cast<jboolean>( curEnv->CallBooleanMethod( this->instance, jbooleangetAutoResizeModeID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
 
-}
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
 
-int* DrawableFigureGL::getViewport (){
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
 
-JNIEnv * curEnv = getCurrentEnv();
+    }
 
-if (jintArray_getViewportID==NULL) { /* Use the cache */
- jintArray_getViewportID = curEnv->GetMethodID(this->instanceClass, "getViewport", "()[I" ) ;
-if (jintArray_getViewportID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getViewport");
-}
-}
-                        jintArray res =  static_cast<jintArray>( curEnv->CallObjectMethod( this->instance, jintArray_getViewportID ));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+    void DrawableFigureGL::setAutoResizeMode(bool onOrOff)
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (voidsetAutoResizeModejbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetAutoResizeModejbooleanID = curEnv->GetMethodID(this->instanceClass, "setAutoResizeMode", "(Z)V");
+            if (voidsetAutoResizeModejbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAutoResizeMode");
+            }
+        }
+        jboolean onOrOff_ = (static_cast < bool > (onOrOff) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallVoidMethod(this->instance, voidsetAutoResizeModejbooleanID, onOrOff_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    bool DrawableFigureGL::getAutoResizeMode()
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jbooleangetAutoResizeModeID == NULL)
+        {                       /* Use the cache */
+            jbooleangetAutoResizeModeID = curEnv->GetMethodID(this->instanceClass, "getAutoResizeMode", "()Z");
+            if (jbooleangetAutoResizeModeID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getAutoResizeMode");
+            }
+        }
+        jboolean res = static_cast < jboolean > (curEnv->CallBooleanMethod(this->instance, jbooleangetAutoResizeModeID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    int *DrawableFigureGL::getViewport()
+    {
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (jintArray_getViewportID == NULL)
+        {                       /* Use the cache */
+            jintArray_getViewportID = curEnv->GetMethodID(this->instanceClass, "getViewport", "()[I");
+            if (jintArray_getViewportID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getViewport");
+            }
+        }
+        jintArray res = static_cast < jintArray > (curEnv->CallObjectMethod(this->instance, jintArray_getViewportID));
+
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void DrawableFigureGL::setViewport (int posX, int posY, int width, int height){
+    void DrawableFigureGL::setViewport(int posX, int posY, int width, int height)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetViewportjintjintjintjintID==NULL) { /* Use the cache */
- voidsetViewportjintjintjintjintID = curEnv->GetMethodID(this->instanceClass, "setViewport", "(IIII)V" ) ;
-if (voidsetViewportjintjintjintjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setViewport");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetViewportjintjintjintjintID ,posX, posY, width, height);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetViewportjintjintjintjintID == NULL)
+        {                       /* Use the cache */
+            voidsetViewportjintjintjintjintID = curEnv->GetMethodID(this->instanceClass, "setViewport", "(IIII)V");
+            if (voidsetViewportjintjintjintjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setViewport");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetViewportjintjintjintjintID, posX, posY, width, height);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int* DrawableFigureGL::rubberBox (bool isClick, int* initialRect, int initialRectSize){
+    int *DrawableFigureGL::rubberBox(bool isClick, int *initialRect, int initialRectSize)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintArray_rubberBoxjbooleanjintArray_ID==NULL) { /* Use the cache */
- jintArray_rubberBoxjbooleanjintArray_ID = curEnv->GetMethodID(this->instanceClass, "rubberBox", "(Z[I)[I" ) ;
-if (jintArray_rubberBoxjbooleanjintArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "rubberBox");
-}
-}
-jboolean isClick_ = (static_cast<bool>(isClick) ? JNI_TRUE : JNI_FALSE);
+        if (jintArray_rubberBoxjbooleanjintArray_ID == NULL)
+        {                       /* Use the cache */
+            jintArray_rubberBoxjbooleanjintArray_ID = curEnv->GetMethodID(this->instanceClass, "rubberBox", "(Z[I)[I");
+            if (jintArray_rubberBoxjbooleanjintArray_ID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "rubberBox");
+            }
+        }
+        jboolean isClick_ = (static_cast < bool > (isClick) ? JNI_TRUE : JNI_FALSE);
 
-jintArray initialRect_ = curEnv->NewIntArray( initialRectSize ) ;
+        jintArray initialRect_ = curEnv->NewIntArray(initialRectSize);
 
-if (initialRect_ == NULL)
-{
+        if (initialRect_ == NULL)
+        {
 // check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
-curEnv->SetIntArrayRegion( initialRect_, 0, initialRectSize, (jint*)(initialRect) ) ;
+        curEnv->SetIntArrayRegion(initialRect_, 0, initialRectSize, (jint *) (initialRect));
 
+        jintArray res =
+            static_cast < jintArray > (curEnv->CallObjectMethod(this->instance, jintArray_rubberBoxjbooleanjintArray_ID, isClick_, initialRect_));
+        if (res == NULL)
+        {
+            return NULL;
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
 
-                        jintArray res =  static_cast<jintArray>( curEnv->CallObjectMethod( this->instance, jintArray_rubberBoxjbooleanjintArray_ID ,isClick_, initialRect_));
-                        if (res == NULL) { return NULL; }
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
+        lenRow = curEnv->GetArrayLength(res);
+        jboolean isCopy = JNI_FALSE;
 
 /* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jint *resultsArray = static_cast<jint *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-int* myArray= new int[ lenRow];
+        jint *resultsArray = static_cast < jint * >(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
+        int *myArray = new int[lenRow];
 
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
-}
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            myArray[i] = resultsArray[i];
+        }
+        curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
 
-                        curEnv->DeleteLocalRef(res);
-curEnv->DeleteLocalRef(initialRect_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
+        curEnv->DeleteLocalRef(res);
+        curEnv->DeleteLocalRef(initialRect_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myArray;
 
-}
+    }
 
-void DrawableFigureGL::interactiveZoom (long long objectHandle){
+    void DrawableFigureGL::interactiveZoom(long long objectHandle)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinteractiveZoomjlongID==NULL) { /* Use the cache */
- voidinteractiveZoomjlongID = curEnv->GetMethodID(this->instanceClass, "interactiveZoom", "(J)V" ) ;
-if (voidinteractiveZoomjlongID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "interactiveZoom");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinteractiveZoomjlongID ,objectHandle);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinteractiveZoomjlongID == NULL)
+        {                       /* Use the cache */
+            voidinteractiveZoomjlongID = curEnv->GetMethodID(this->instanceClass, "interactiveZoom", "(J)V");
+            if (voidinteractiveZoomjlongID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "interactiveZoom");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinteractiveZoomjlongID, objectHandle);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setTitle (char * title){
+    void DrawableFigureGL::setTitle(char *title)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetTitlejstringID==NULL) { /* Use the cache */
- voidsetTitlejstringID = curEnv->GetMethodID(this->instanceClass, "setTitle", "(Ljava/lang/String;)V" ) ;
-if (voidsetTitlejstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setTitle");
-}
-}
-jstring title_ = curEnv->NewStringUTF( title );
+        if (voidsetTitlejstringID == NULL)
+        {                       /* Use the cache */
+            voidsetTitlejstringID = curEnv->GetMethodID(this->instanceClass, "setTitle", "(Ljava/lang/String;)V");
+            if (voidsetTitlejstringID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setTitle");
+            }
+        }
+        jstring title_ = curEnv->NewStringUTF(title);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetTitlejstringID ,title_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetTitlejstringID, title_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::interactiveRotation (){
+    void DrawableFigureGL::interactiveRotation()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidinteractiveRotationID==NULL) { /* Use the cache */
- voidinteractiveRotationID = curEnv->GetMethodID(this->instanceClass, "interactiveRotation", "()V" ) ;
-if (voidinteractiveRotationID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "interactiveRotation");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidinteractiveRotationID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidinteractiveRotationID == NULL)
+        {                       /* Use the cache */
+            voidinteractiveRotationID = curEnv->GetMethodID(this->instanceClass, "interactiveRotation", "()V");
+            if (voidinteractiveRotationID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "interactiveRotation");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidinteractiveRotationID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::showWindow (){
+    void DrawableFigureGL::showWindow()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidshowWindowID==NULL) { /* Use the cache */
- voidshowWindowID = curEnv->GetMethodID(this->instanceClass, "showWindow", "()V" ) ;
-if (voidshowWindowID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "showWindow");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidshowWindowID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidshowWindowID == NULL)
+        {                       /* Use the cache */
+            voidshowWindowID = curEnv->GetMethodID(this->instanceClass, "showWindow", "()V");
+            if (voidshowWindowID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "showWindow");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidshowWindowID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setNbSubwins (int nbSubwins){
+    void DrawableFigureGL::setNbSubwins(int nbSubwins)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetNbSubwinsjintID==NULL) { /* Use the cache */
- voidsetNbSubwinsjintID = curEnv->GetMethodID(this->instanceClass, "setNbSubwins", "(I)V" ) ;
-if (voidsetNbSubwinsjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setNbSubwins");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetNbSubwinsjintID ,nbSubwins);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidsetNbSubwinsjintID == NULL)
+        {                       /* Use the cache */
+            voidsetNbSubwinsjintID = curEnv->GetMethodID(this->instanceClass, "setNbSubwins", "(I)V");
+            if (voidsetNbSubwinsjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setNbSubwins");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetNbSubwinsjintID, nbSubwins);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::openGraphicCanvas (){
+    void DrawableFigureGL::openGraphicCanvas()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidopenGraphicCanvasID==NULL) { /* Use the cache */
- voidopenGraphicCanvasID = curEnv->GetMethodID(this->instanceClass, "openGraphicCanvas", "()V" ) ;
-if (voidopenGraphicCanvasID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openGraphicCanvas");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidopenGraphicCanvasID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidopenGraphicCanvasID == NULL)
+        {                       /* Use the cache */
+            voidopenGraphicCanvasID = curEnv->GetMethodID(this->instanceClass, "openGraphicCanvas", "()V");
+            if (voidopenGraphicCanvasID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "openGraphicCanvas");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidopenGraphicCanvasID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::closeGraphicCanvas (){
+    void DrawableFigureGL::closeGraphicCanvas()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidcloseGraphicCanvasID==NULL) { /* Use the cache */
- voidcloseGraphicCanvasID = curEnv->GetMethodID(this->instanceClass, "closeGraphicCanvas", "()V" ) ;
-if (voidcloseGraphicCanvasID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "closeGraphicCanvas");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidcloseGraphicCanvasID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidcloseGraphicCanvasID == NULL)
+        {                       /* Use the cache */
+            voidcloseGraphicCanvasID = curEnv->GetMethodID(this->instanceClass, "closeGraphicCanvas", "()V");
+            if (voidcloseGraphicCanvasID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "closeGraphicCanvas");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidcloseGraphicCanvasID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-void DrawableFigureGL::setUseSingleBuffer (bool useSingleBuffer){
+    void DrawableFigureGL::setUseSingleBuffer(bool useSingleBuffer)
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (voidsetUseSingleBufferjbooleanID==NULL) { /* Use the cache */
- voidsetUseSingleBufferjbooleanID = curEnv->GetMethodID(this->instanceClass, "setUseSingleBuffer", "(Z)V" ) ;
-if (voidsetUseSingleBufferjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setUseSingleBuffer");
-}
-}
-jboolean useSingleBuffer_ = (static_cast<bool>(useSingleBuffer) ? JNI_TRUE : JNI_FALSE);
+        if (voidsetUseSingleBufferjbooleanID == NULL)
+        {                       /* Use the cache */
+            voidsetUseSingleBufferjbooleanID = curEnv->GetMethodID(this->instanceClass, "setUseSingleBuffer", "(Z)V");
+            if (voidsetUseSingleBufferjbooleanID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setUseSingleBuffer");
+            }
+        }
+        jboolean useSingleBuffer_ = (static_cast < bool > (useSingleBuffer) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetUseSingleBufferjbooleanID ,useSingleBuffer_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallVoidMethod(this->instance, voidsetUseSingleBufferjbooleanID, useSingleBuffer_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-int DrawableFigureGL::getAntialiasingQuality (){
+    int DrawableFigureGL::getAntialiasingQuality()
+    {
 
-JNIEnv * curEnv = getCurrentEnv();
+        JNIEnv *curEnv = getCurrentEnv();
 
-if (jintgetAntialiasingQualityID==NULL) { /* Use the cache */
- jintgetAntialiasingQualityID = curEnv->GetMethodID(this->instanceClass, "getAntialiasingQuality", "()I" ) ;
-if (jintgetAntialiasingQualityID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getAntialiasingQuality");
-}
-}
-                        jint res =  static_cast<jint>( curEnv->CallIntMethod( this->instance, jintgetAntialiasingQualityID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintgetAntialiasingQualityID == NULL)
+        {                       /* Use the cache */
+            jintgetAntialiasingQualityID = curEnv->GetMethodID(this->instanceClass, "getAntialiasingQuality", "()I");
+            if (jintgetAntialiasingQualityID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "getAntialiasingQuality");
+            }
+        }
+        jint res = static_cast < jint > (curEnv->CallIntMethod(this->instance, jintgetAntialiasingQualityID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-void DrawableFigureGL::setAntialiasingQuality (int quality){
+    }
 
-JNIEnv * curEnv = getCurrentEnv();
+    void DrawableFigureGL::setAntialiasingQuality(int quality)
+    {
 
-if (voidsetAntialiasingQualityjintID==NULL) { /* Use the cache */
- voidsetAntialiasingQualityjintID = curEnv->GetMethodID(this->instanceClass, "setAntialiasingQuality", "(I)V" ) ;
-if (voidsetAntialiasingQualityjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "setAntialiasingQuality");
-}
-}
-                         curEnv->CallVoidMethod( this->instance, voidsetAntialiasingQualityjintID ,quality);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = getCurrentEnv();
+
+        if (voidsetAntialiasingQualityjintID == NULL)
+        {                       /* Use the cache */
+            voidsetAntialiasingQualityjintID = curEnv->GetMethodID(this->instanceClass, "setAntialiasingQuality", "(I)V");
+            if (voidsetAntialiasingQualityjintID == NULL)
+            {
+                throw GiwsException::JniMethodNotFoundException(curEnv, "setAntialiasingQuality");
+            }
+        }
+        curEnv->CallVoidMethod(this->instance, voidsetAntialiasingQualityjintID, quality);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

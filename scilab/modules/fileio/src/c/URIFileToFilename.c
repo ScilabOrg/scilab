@@ -30,36 +30,40 @@
 /*--------------------------------------------------------------------------*/
 char *URIFileToFilename(char *uri)
 {
-	char *filename = NULL;
+    char *filename = NULL;
 
-	if (uri)
-	{
-		if (isURIFile(uri))
-		{
-			int pos = (int) strlen(URI_BEGIN);
-			filename = strdup(&uri[pos]);
-		}
-		else
-		{
-			filename = strdup(uri);
-		}
-	}
-	return filename;
+    if (uri)
+    {
+        if (isURIFile(uri))
+        {
+            int pos = (int)strlen(URI_BEGIN);
+
+            filename = strdup(&uri[pos]);
+        }
+        else
+        {
+            filename = strdup(uri);
+        }
+    }
+    return filename;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL isURIFile(char *uri)
 {
-	BOOL bOK = FALSE;
-	if (uri)
-	{
-		if (strlen(uri) > strlen(URI_BEGIN))
-		{
-			if ( strnicmp(uri,URI_BEGIN,strlen(URI_BEGIN)) == 0)
-			{
-				bOK = TRUE;
-			}
-		}
-	}
-	return bOK;
+    BOOL bOK = FALSE;
+
+    if (uri)
+    {
+        if (strlen(uri) > strlen(URI_BEGIN))
+        {
+            if (strnicmp(uri, URI_BEGIN, strlen(URI_BEGIN)) == 0)
+            {
+                bOK = TRUE;
+            }
+        }
+    }
+    return bOK;
 }
+
 /*--------------------------------------------------------------------------*/

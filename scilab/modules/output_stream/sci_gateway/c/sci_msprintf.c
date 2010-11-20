@@ -19,132 +19,135 @@
 #include "freeArrayOfString.h"
 #include "strsubst.h"
 /*--------------------------------------------------------------------------*/
-int sci_msprintf(char *fname,unsigned long fname_len)
+int sci_msprintf(char *fname, unsigned long fname_len)
 {
     char **lstr = NULL;
     static int l1 = 0, m1 = 0, n1 = 0, n2 = 0, lcount = 0, rval = 0, blk = 200;
     static int k = 0;
-    char ** strs = NULL;
+    char **strs = NULL;
     char *str = NULL, *str1 = NULL;
     int n = 0, nmax = 0, cat_to_last = 0, ll = 0;
 
-    char *ptrFormat   = NULL;
-    int i             = 0;
+    char *ptrFormat = NULL;
+    int i = 0;
     int NumberPercent = 0;
-    int NumberCols    = 0;
+    int NumberCols = 0;
 
     Nbvars = 0;
-    CheckRhs(1,1000);
-    CheckLhs(0,1);
+    CheckRhs(1, 1000);
+    CheckLhs(0, 1);
 
-    if ( Rhs < 1 )
+    if (Rhs < 1)
     {
-        Scierror(999,_("%s: Wrong number of input arguments: at least %d expected.\n"),fname,1);
+        Scierror(999, _("%s: Wrong number of input arguments: at least %d expected.\n"), fname, 1);
         return 0;
     }
 
-    for (k=2;k<=Rhs;k++)
+    for (k = 2; k <= Rhs; k++)
     {
-        if ( (VarType(k) != sci_matrix) && (VarType(k) != sci_strings) )
+        if ((VarType(k) != sci_matrix) && (VarType(k) != sci_strings))
         {
             OverLoad(k);
             return 0;
         }
     }
 
-    GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
+    GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
 
     ptrFormat = strsub(cstk(l1), "\\t", "\t");
 
-    for( i=0; i<(int)strlen(ptrFormat); i++)
+    for (i = 0; i < (int)strlen(ptrFormat); i++)
     {
-        if (ptrFormat[i]=='%')
+        if (ptrFormat[i] == '%')
         {
             NumberPercent++;
-            if (ptrFormat[i+1]=='%')
+            if (ptrFormat[i + 1] == '%')
             {
-                NumberPercent--;i++;
+                NumberPercent--;
+                i++;
             }
         }
     }
 
-    if ( (Rhs - 1) > NumberPercent )
+    if ((Rhs - 1) > NumberPercent)
     {
         if (ptrFormat)
         {
             FREE(ptrFormat);
             ptrFormat = NULL;
         }
-        Scierror(999,_("%s: Wrong number of input arguments: at most %d expected.\n"),fname,NumberPercent);
+        Scierror(999, _("%s: Wrong number of input arguments: at most %d expected.\n"), fname, NumberPercent);
         return 0;
     }
 
-    if( Rhs > 1 )
+    if (Rhs > 1)
     {
-        for( i = 2 ; i <= Rhs ; i++ )
+        for (i = 2; i <= Rhs; i++)
         {
             int mk = 0;
             int nk = 0;
-            GetMatrixdims(i,&mk,&nk);
+
+            GetMatrixdims(i, &mk, &nk);
             NumberCols += nk;
         }
     }
 
-    if ( NumberCols != NumberPercent )
+    if (NumberCols != NumberPercent)
     {
         if (ptrFormat)
         {
             FREE(ptrFormat);
             ptrFormat = NULL;
         }
-        Scierror(999,_("%s: Wrong number of input arguments: data doesn't fit with format.\n"),fname);
+        Scierror(999, _("%s: Wrong number of input arguments: data doesn't fit with format.\n"), fname);
         return 0;
     }
 
-    n           = 0; /* output line counter */
-    nmax        = 0;
-    strs        = NULL;
-    lcount      = 1;
+    n = 0;                      /* output line counter */
+    nmax = 0;
+    strs = NULL;
+    lcount = 1;
     cat_to_last = 0;
 
     while (1)
     {
-        if ((rval = do_xxprintf("msprintf",(FILE *) 0, ptrFormat, Rhs, 1, lcount,(char **) &lstr)) < 0) break;
+        if ((rval = do_xxprintf("msprintf", (FILE *) 0, ptrFormat, Rhs, 1, lcount, (char **)&lstr)) < 0)
+            break;
 
         lcount++;
-        str =(char *) lstr;
-        if ( str == NULL )
+        str = (char *)lstr;
+        if (str == NULL)
         {
             if (ptrFormat)
             {
                 FREE(ptrFormat);
                 ptrFormat = NULL;
             }
-            Scierror(999,_("%s: Wrong value of input argument %d: data doesn't fit with format.\n"),fname,1);
+            Scierror(999, _("%s: Wrong value of input argument %d: data doesn't fit with format.\n"), fname, 1);
             return 0;
         }
         str1 = str;
-        while (*str != '\0')  
+        while (*str != '\0')
         {
-            if (strncmp(str,"\\n",2) ==0) 
+            if (strncmp(str, "\\n", 2) == 0)
             {
                 k = (int)(str - str1);
-                if (! cat_to_last) 
-                { 
+                if (!cat_to_last)
+                {
                     /*add a new line */
-                    if (n==nmax) 
+                    if (n == nmax)
                     {
-                        nmax+=blk;
-                        if (strs) 
+                        nmax += blk;
+                        if (strs)
                         {
-                            strs = (char **) REALLOC(strs,nmax*sizeof(char **));
-                        } 
-                        else 
+                            strs = (char **)REALLOC(strs, nmax * sizeof(char **));
+                        }
+                        else
                         {
-                            strs = (char **) MALLOC(nmax*sizeof(char **));
+                            strs = (char **)MALLOC(nmax * sizeof(char **));
                         }
 
-                        if ( strs == NULL) 
+                        if (strs == NULL)
                         {
                             if (ptrFormat)
                             {
@@ -152,11 +155,11 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                                 ptrFormat = NULL;
                             }
 
-                            Scierror(999,_("%s: No more memory.\n"),fname);
+                            Scierror(999, _("%s: No more memory.\n"), fname);
                             return 0;
                         }
                     }
-                    if ((strs[n]=MALLOC((k+1))) == NULL) 
+                    if ((strs[n] = MALLOC((k + 1))) == NULL)
                     {
                         if (ptrFormat)
                         {
@@ -164,17 +167,17 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                             ptrFormat = NULL;
                         }
 
-                        Scierror(999,_("%s: No more memory.\n"),fname);
+                        Scierror(999, _("%s: No more memory.\n"), fname);
                         return 0;
                     }
-                    strncpy(strs[n],str1, k);
-                    strs[n][k]='\0';
+                    strncpy(strs[n], str1, k);
+                    strs[n][k] = '\0';
                     n++;
                 }
-                else 
-                { /* cat to previous line */
-                    ll=(int)strlen(strs[n-1]);
-                    if ((strs[n-1]=REALLOC(strs[n-1],(k+1+ll))) == NULL) 
+                else
+                {               /* cat to previous line */
+                    ll = (int)strlen(strs[n - 1]);
+                    if ((strs[n - 1] = REALLOC(strs[n - 1], (k + 1 + ll))) == NULL)
                     {
                         if (ptrFormat)
                         {
@@ -182,31 +185,33 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                             ptrFormat = NULL;
                         }
 
-                        Scierror(999,_("%s: No more memory.\n"),fname);
+                        Scierror(999, _("%s: No more memory.\n"), fname);
                         return 0;
                     }
-                    strncpy(&(strs[n-1][ll]),str1, k);
-                    strs[n-1][k+ll]='\0';
+                    strncpy(&(strs[n - 1][ll]), str1, k);
+                    strs[n - 1][k + ll] = '\0';
                 }
-                k=0;
-                str+=2;
-                str1=str;
-                cat_to_last=0;
+                k = 0;
+                str += 2;
+                str1 = str;
+                cat_to_last = 0;
             }
             else
             {
                 str++;
             }
         }
-        k=(int)(str-str1); /* @TODO add comment */
-        if (k>0) {
-            if ((! cat_to_last) || (n == 0)) { /*add a new line */
-                if (n==nmax) 
+        k = (int)(str - str1);  /* @TODO add comment */
+        if (k > 0)
+        {
+            if ((!cat_to_last) || (n == 0))
+            {                   /*add a new line */
+                if (n == nmax)
                 {
-                    nmax+=blk;
+                    nmax += blk;
                     if (strs)
                     {
-                        if ((strs = (char **) REALLOC(strs,nmax*sizeof(char **))) == NULL) 
+                        if ((strs = (char **)REALLOC(strs, nmax * sizeof(char **))) == NULL)
                         {
                             if (ptrFormat)
                             {
@@ -214,13 +219,13 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                                 ptrFormat = NULL;
                             }
 
-                            Scierror(999,_("%s: No more memory.\n"),fname);
+                            Scierror(999, _("%s: No more memory.\n"), fname);
                             return 0;
                         }
                     }
                     else
                     {
-                        if ( (strs = (char **) MALLOC(nmax*sizeof(char **))) == NULL) 
+                        if ((strs = (char **)MALLOC(nmax * sizeof(char **))) == NULL)
                         {
                             if (ptrFormat)
                             {
@@ -228,14 +233,14 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                                 ptrFormat = NULL;
                             }
 
-                            Scierror(999,_("%s: No more memory.\n"),fname);
+                            Scierror(999, _("%s: No more memory.\n"), fname);
                             return 0;
                         }
                     }
 
                 }
 
-                if ((strs[n]=MALLOC((k+1))) == NULL) 
+                if ((strs[n] = MALLOC((k + 1))) == NULL)
                 {
                     if (ptrFormat)
                     {
@@ -243,17 +248,18 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                         ptrFormat = NULL;
                     }
 
-                    Scierror(999,_("%s: No more memory.\n"),fname);
+                    Scierror(999, _("%s: No more memory.\n"), fname);
                     return 0;
                 }
-                strncpy(strs[n],str1, k);
-                strs[n][k]='\0';
+                strncpy(strs[n], str1, k);
+                strs[n][k] = '\0';
                 n++;
 
             }
-            else { /* cat to previous line */
-                ll=(int)strlen(strs[n-1]);
-                if ((strs[n-1]=REALLOC(strs[n-1],(k+1+ll))) == NULL) 
+            else
+            {                   /* cat to previous line */
+                ll = (int)strlen(strs[n - 1]);
+                if ((strs[n - 1] = REALLOC(strs[n - 1], (k + 1 + ll))) == NULL)
                 {
                     if (ptrFormat)
                     {
@@ -261,15 +267,17 @@ int sci_msprintf(char *fname,unsigned long fname_len)
                         ptrFormat = NULL;
                     }
 
-                    Scierror(999,_("%s: No more memory.\n"),fname);
+                    Scierror(999, _("%s: No more memory.\n"), fname);
                     return 0;
                 }
-                strncpy(&(strs[n-1][ll]),str1, k);
-                strs[n-1][k+ll]='\0';
+                strncpy(&(strs[n - 1][ll]), str1, k);
+                strs[n - 1][k + ll] = '\0';
             }
         }
-        if (strncmp(str-2,"\\n",2) !=0) cat_to_last=1;
-        if (Rhs == 1) break;
+        if (strncmp(str - 2, "\\n", 2) != 0)
+            cat_to_last = 1;
+        if (Rhs == 1)
+            break;
 
     }
 
@@ -279,15 +287,17 @@ int sci_msprintf(char *fname,unsigned long fname_len)
         ptrFormat = NULL;
     }
 
-    if (rval == RET_BUG) return 0;
+    if (rval == RET_BUG)
+        return 0;
     /** Create a Scilab String : lstr must not be freed **/
-    n2=1;
-    CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &n, &n2, strs);
+    n2 = 1;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &n, &n2, strs);
 
     freeArrayOfString(strs, n);
 
-    LhsVar(1)=Rhs+1;
+    LhsVar(1) = Rhs + 1;
     PutLhsVar();
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

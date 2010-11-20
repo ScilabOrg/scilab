@@ -14,12 +14,15 @@
 #include "stack-c.h"
 
 /*--------------------------------------------------------------------------*/
-extern int C2F(intreadmps)(int *id);
+extern int C2F(intreadmps) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_readmps(char *fname,unsigned long fname_len)
+int sci_readmps(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intreadmps)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intreadmps) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -25,25 +25,26 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_callback_type_property( sciPointObj * pobj )
+int get_callback_type_property(sciPointObj * pobj)
 {
-	int type = 0;
+    int type = 0;
 
-	if(sciGetEntityType (pobj) == SCI_UIMENU)
-	{
-		type = pUIMENU_FEATURE(pobj)->callbackType;
-	}
-	else if (sciGetEntityType (pobj) == SCI_UICONTROL)
-	{
-		type = pUICONTROL_FEATURE(pobj)->callbackType;
-	}
-	else
-	{
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"callback_type");
-		return -1;
-		}
+    if (sciGetEntityType(pobj) == SCI_UIMENU)
+    {
+        type = pUIMENU_FEATURE(pobj)->callbackType;
+    }
+    else if (sciGetEntityType(pobj) == SCI_UICONTROL)
+    {
+        type = pUICONTROL_FEATURE(pobj)->callbackType;
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "callback_type");
+        return -1;
+    }
 
-		return sciReturnDouble(type);
-  
+    return sciReturnDouble(type);
+
 }
+
 /*------------------------------------------------------------------------*/

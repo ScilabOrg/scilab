@@ -18,10 +18,10 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-void HandleDrawingObserver::update( void )
-{
-  sciDrawObj( m_pSubject ) ;
-}
+    void HandleDrawingObserver::update(void)
+    {
+        sciDrawObj(m_pSubject);
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

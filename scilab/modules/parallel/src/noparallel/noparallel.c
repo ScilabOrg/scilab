@@ -19,19 +19,21 @@
 /*--------------------------------------------------------------------------*/
 int gw_parallel(void)
 {
-    Scierror(999,_("%s: %s module is not installed.\n"), "Scilab", "parallel");
+    Scierror(999, _("%s: %s module is not installed.\n"), "Scilab", "parallel");
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int parallelConcurrency(void)
 {
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int parallelForbidden(char const* fname)
+int parallelForbidden(char const *fname)
 {
     /* never called then do nothing */
     return 0;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

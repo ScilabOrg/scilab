@@ -19,7 +19,7 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
+int C2F(sci_lasterror) (char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
     BOOL bClearLastError = TRUE;
@@ -27,8 +27,8 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
     const char **errorMessage = NULL;
 
     Rhs = Max(0, Rhs);
-    CheckRhs(0,1);
-    CheckLhs(1,4);
+    CheckRhs(0, 1);
+    CheckLhs(1, 4);
 
     if (Rhs == 1)
     {
@@ -37,7 +37,7 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
 
         /* get Address of inputs */
         sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-        if(sciErr.iErr)
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return 0;
@@ -51,12 +51,12 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
             }
             else
             {
-                Scierror(999,_("%s: Wrong size for input argument #%d: A boolean expected.\n"), fname, 1);
+                Scierror(999, _("%s: Wrong size for input argument #%d: A boolean expected.\n"), fname, 1);
             }
         }
         else
         {
-            Scierror(999,_("%s: Wrong type for input argument #%d: A boolean expected.\n"), fname, 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: A boolean expected.\n"), fname, 1);
         }
     }
 
@@ -68,8 +68,8 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
     }
     else
     {
-        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, NbLines, 1, (char**)errorMessage);
-        if(sciErr.iErr)
+        sciErr = createMatrixOfString(pvApiCtx, Rhs + 1, NbLines, 1, (char **)errorMessage);
+        if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return 0;
@@ -79,21 +79,23 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
 
     if (Lhs >= 2)
     {
-        double dLastErrorValue = (double) getLastErrorValue();
+        double dLastErrorValue = (double)getLastErrorValue();
+
         createScalarDouble(pvApiCtx, Rhs + 2, dLastErrorValue);
         LhsVar(2) = Rhs + 2;
     }
 
     if (Lhs >= 3)
     {
-        double dLinePosition = (double)  getLastErrorLinePosition();
+        double dLinePosition = (double)getLastErrorLinePosition();
+
         createScalarDouble(pvApiCtx, Rhs + 3, dLinePosition);
         LhsVar(3) = Rhs + 3;
     }
 
     if (Lhs == 4)
     {
-        createSingleString(pvApiCtx, Rhs + 4, (char*)getLastErrorFunctionName());
+        createSingleString(pvApiCtx, Rhs + 4, (char *)getLastErrorFunctionName());
         LhsVar(4) = Rhs + 4;
     }
 
@@ -102,8 +104,9 @@ int C2F(sci_lasterror)(char *fname,unsigned long fname_len)
         clearLastError();
     }
 
-    C2F(putlhsvar)();
+    C2F(putlhsvar) ();
 
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

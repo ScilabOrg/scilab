@@ -19,28 +19,29 @@
 #include "callFunctionFromGateway.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table  Tab[]=
-{
-	{sci_with_embedded_jre,"with_embedded_jre"},
-	{sci_system_setproperty,"system_setproperty"},
-	{sci_system_getproperty,"system_getproperty"},
-	{sci_javaclasspath,"javaclasspath"},
-	{sci_javalibrarypath,"javalibrarypath"}
+static gw_generic_table Tab[] = {
+    {sci_with_embedded_jre, "with_embedded_jre"},
+    {sci_system_setproperty, "system_setproperty"},
+    {sci_system_getproperty, "system_getproperty"},
+    {sci_javaclasspath, "javaclasspath"},
+    {sci_javalibrarypath, "javalibrarypath"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_jvm(void)
-{  
-	Rhs = Max(0, Rhs);
+{
+    Rhs = Max(0, Rhs);
 
-	if ( (getScilabMode() != SCILAB_NWNI) )
-	{
-		callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));	
-	}
-	else
-	{
-		Scierror(999,_("JVM interface disabled in -nogui or -nwni modes.\n"));
-	}
+    if ((getScilabMode() != SCILAB_NWNI))
+    {
+        callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    }
+    else
+    {
+        Scierror(999, _("JVM interface disabled in -nogui or -nwni modes.\n"));
+    }
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

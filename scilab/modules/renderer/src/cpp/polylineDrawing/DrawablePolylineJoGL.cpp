@@ -19,25 +19,24 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawablePolylineJoGL::DrawablePolylineJoGL( DrawablePolyline * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
-  
-}
+    DrawablePolylineJoGL::DrawablePolylineJoGL(DrawablePolyline * drawer):DrawableClippedObjectJoGL(drawer)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawablePolylineJoGL::~DrawablePolylineJoGL( void )
-{
-  
-}
+    DrawablePolylineJoGL::~DrawablePolylineJoGL(void)
+    {
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawablePolyline * DrawablePolylineJoGL::getPolylineDrawer( void )
-{
-  return dynamic_cast<DrawablePolyline *>(getDrawer()) ;
-}
+    DrawablePolyline *DrawablePolylineJoGL::getPolylineDrawer(void)
+    {
+        return dynamic_cast < DrawablePolyline * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawablePolylineJavaMapper * DrawablePolylineJoGL::getPolylineJavaMapper(void)
-{
-  return dynamic_cast<DrawablePolylineJavaMapper *>(getJavaMapper());
-}
+    DrawablePolylineJavaMapper *DrawablePolylineJoGL::getPolylineJavaMapper(void)
+    {
+        return dynamic_cast < DrawablePolylineJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

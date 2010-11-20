@@ -14,19 +14,20 @@
 #include "getfiletype.h"
 #include "filesmanagement.h"
 /*--------------------------------------------------------------------------*/
-void C2F(getfiletype)(int *fd, int *type, int *ierr)
+void C2F(getfiletype) (int *fd, int *type, int *ierr)
 {
-	if (*fd<0 || *fd>=GetMaximumFileOpenedInScilab() ) 
-	{
-		*ierr=1;
-		return;
-	}
-	if ( GetFileTypeOpenedInScilab(*fd) == 0 ) 
-	{
-		*ierr=2;
-		return;
-	}
-	*type = GetFileTypeOpenedInScilab(*fd);
-	*ierr=0;
+    if (*fd < 0 || *fd >= GetMaximumFileOpenedInScilab())
+    {
+        *ierr = 1;
+        return;
+    }
+    if (GetFileTypeOpenedInScilab(*fd) == 0)
+    {
+        *ierr = 2;
+        return;
+    }
+    *type = GetFileTypeOpenedInScilab(*fd);
+    *ierr = 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -15,36 +15,38 @@
 #include "gw_polynomials.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static int sci_notused(char *fname,unsigned long fname_len)
+static int sci_notused(char *fname, unsigned long fname_len)
 {
-	/* not used */
-	return 0;
+    /* not used */
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-{sci_poly_primitive,"poly"},
-{sci_roots,"roots"},
-{sci_degree,"degree"},
-{sci_coeff,"coeff"},
-{sci_notused,""}, /* not used but required primitives order (short cut fin,fun) */
-{sci_pppdiv,"pppdiv"},
-{sci_simp,"simp"},
-{sci_psum,"sum"},
-{sci_pprod,"prod"},
-{sci_pdiag,"diag"},
-{sci_ptriu,"triu"},
-{sci_ptril,"tril"},
-{sci_bezout,"bezout"},
-{sci_sfact,"sfact"},
-{sci_simp_mode,"simp_mode"},
-{sci_varn,"varn"},
-{sci_cleanp,"cleanp"}
+static gw_generic_table Tab[] = {
+    {sci_poly_primitive, "poly"},
+    {sci_roots, "roots"},
+    {sci_degree, "degree"},
+    {sci_coeff, "coeff"},
+    {sci_notused, ""},          /* not used but required primitives order (short cut fin,fun) */
+    {sci_pppdiv, "pppdiv"},
+    {sci_simp, "simp"},
+    {sci_psum, "sum"},
+    {sci_pprod, "prod"},
+    {sci_pdiag, "diag"},
+    {sci_ptriu, "triu"},
+    {sci_ptril, "tril"},
+    {sci_bezout, "bezout"},
+    {sci_sfact, "sfact"},
+    {sci_simp_mode, "simp_mode"},
+    {sci_varn, "varn"},
+    {sci_cleanp, "cleanp"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_polynomials(void)
 {
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

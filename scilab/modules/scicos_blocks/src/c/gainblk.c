@@ -18,41 +18,48 @@
 *
 * See the file ./license.txt
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "scicos_block4.h"
-#include "machine.h" /* C2F */
+#include "machine.h"            /* C2F */
 #include "MALLOC.h"
 #include "dynlib_scicos_blocks.h"
-/*--------------------------------------------------------------------------*/ 
-extern int C2F(dmmul)();
-extern int C2F(dmmul1)();
-/*--------------------------------------------------------------------------*/ 
-SCICOS_BLOCKS_IMPEXP void gainblk(scicos_block *block,int flag)
+/*--------------------------------------------------------------------------*/
+extern int C2F(dmmul) ();
+extern int C2F(dmmul1) ();
+
+/*--------------------------------------------------------------------------*/
+SCICOS_BLOCKS_IMPEXP void gainblk(scicos_block * block, int flag)
 {
-  int i = 0;
+    int i = 0;
 
-  double *u = NULL; double *y = NULL;
-  int nu = 0,ny = 0,my = 0;
-  double *rpar = NULL;
-  int nrpar = 0;
+    double *u = NULL;
+    double *y = NULL;
+    int nu = 0, ny = 0, my = 0;
+    double *rpar = NULL;
+    int nrpar = 0;
 
-  nu=GetInPortRows(block,1);
-  ny=GetOutPortRows(block,1);
-  my=GetOutPortCols(block,1);
+    nu = GetInPortRows(block, 1);
+    ny = GetOutPortRows(block, 1);
+    my = GetOutPortCols(block, 1);
 
-  u=GetRealInPortPtrs(block,1);
-  y=GetRealOutPortPtrs(block,1);
+    u = GetRealInPortPtrs(block, 1);
+    y = GetRealOutPortPtrs(block, 1);
 
-  nrpar=GetNrpar(block);
+    nrpar = GetNrpar(block);
 
-  rpar=GetRparPtrs(block);
+    rpar = GetRparPtrs(block);
 
-  if (nrpar==1){
-    for (i=0;i<nu*my;++i){
-     y[i]=rpar[0]*u[i];
+    if (nrpar == 1)
+    {
+        for (i = 0; i < nu * my; ++i)
+        {
+            y[i] = rpar[0] * u[i];
+        }
     }
-  }else{
-    C2F(dmmul)(rpar,&ny,u,&nu,y,&ny,&ny,&nu,&my);
-  }
+    else
+    {
+        C2F(dmmul) (rpar, &ny, u, &nu, y, &ny, &ny, &nu, &my);
+    }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

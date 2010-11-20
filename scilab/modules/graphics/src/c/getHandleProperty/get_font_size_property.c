@@ -23,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_size_property( sciPointObj * pobj )
+int get_font_size_property(sciPointObj * pobj)
 {
-  return sciReturnDouble(sciGetFontSize(pobj) ) ;
+    return sciReturnDouble(sciGetFontSize(pobj));
 }
+
 /*------------------------------------------------------------------------*/

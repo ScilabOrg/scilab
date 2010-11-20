@@ -12,7 +12,6 @@
 
 #include "gencheck.h"
 
-
 #define CHECK(Type) {\
 Type *A;\
 Type *B;\
@@ -82,41 +81,45 @@ Type *B;\
     }\
 }
 
-
-
-
-int C2F(gencheck)(int *typ, int *op, int *n, int *a, int *ia, int *b, int *ib, int *r)
+int C2F(gencheck) (int *typ, int *op, int *n, int *a, int *ia, int *b, int *ib, int *r)
 {
-  static int i, i1, i2, ii1;
-  static int less = 59;
-  static int great = 60;
-  static int equal = 50;
+    static int i, i1, i2, ii1;
+    static int less = 59;
+    static int great = 60;
+    static int equal = 50;
 
-  --r;
-  i1 = 1;i2 = 1;
-  ii1 = *n; 
-  switch (*typ) {
-  case 0:
-    CHECK(double);
-    break;
-  case 1:
-    CHECK(integer1);
-    break;
-  case 2:
-    CHECK(integer2);
-    break;
-  case 4:
-    CHECK(int) ;
-    break;
-  case 11:
-    CHECK(unsigned char);
-    break;
-  case 12:
-    CHECK(unsigned short);
-    break;
-  case 14:
-    CHECK(unsigned int);
-    break;
-  }
-  return 0;
+    --r;
+    i1 = 1;
+    i2 = 1;
+    ii1 = *n;
+    switch (*typ)
+    {
+    case 0:
+        CHECK(double);
+
+        break;
+    case 1:
+        CHECK(integer1);
+        break;
+    case 2:
+        CHECK(integer2);
+        break;
+    case 4:
+        CHECK(int);
+
+        break;
+    case 11:
+        CHECK(unsigned char);
+
+        break;
+    case 12:
+        CHECK(unsigned short);
+
+        break;
+    case 14:
+        CHECK(unsigned int);
+
+        break;
+    }
+    return 0;
 }

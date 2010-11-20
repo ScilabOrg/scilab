@@ -12,17 +12,20 @@
 #include "gw_symbolic.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(sciaddfsubf)(char *fname,unsigned long fname_len);
+extern int C2F(sciaddfsubf) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_addf(char *fname,unsigned long fname_len)
+int sci_addf(char *fname, unsigned long fname_len)
 {
-	C2F(sciaddfsubf)(fname,fname_len);
-	return 0;
+    C2F(sciaddfsubf) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int sci_subf(char *fname,unsigned long fname_len)
+int sci_subf(char *fname, unsigned long fname_len)
 {
-	C2F(sciaddfsubf)(fname,fname_len);
-	return 0;
+    C2F(sciaddfsubf) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

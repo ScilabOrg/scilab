@@ -11,7 +11,6 @@
  *
  */
 
-
 #include "SubwinBackgroundDrawerJavaMapper.hxx"
 
 extern "C"
@@ -23,52 +22,52 @@ namespace sciGraphics
 {
 
 /*--------------------------------------------------------------------------*/
-SubwinBackgroundDrawerJavaMapper::SubwinBackgroundDrawerJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::SubwinBackgroundDrawerGL(getScilabJavaVM());
-}
+    SubwinBackgroundDrawerJavaMapper::SubwinBackgroundDrawerJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_subwinDrawing::SubwinBackgroundDrawerGL(getScilabJavaVM());
+    }
 /*--------------------------------------------------------------------------*/
-SubwinBackgroundDrawerJavaMapper::~SubwinBackgroundDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    SubwinBackgroundDrawerJavaMapper::~SubwinBackgroundDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void SubwinBackgroundDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void SubwinBackgroundDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void SubwinBackgroundDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void SubwinBackgroundDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::destroy(int parentFigureIndex)
-{
-  m_pJavaObject->destroy(parentFigureIndex);
-}
+    void SubwinBackgroundDrawerJavaMapper::destroy(int parentFigureIndex)
+    {
+        m_pJavaObject->destroy(parentFigureIndex);
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::setBoxParameters(int backgroundColor)
-{
-  m_pJavaObject->setBoxParameters(backgroundColor);
-}
+    void SubwinBackgroundDrawerJavaMapper::setBoxParameters(int backgroundColor)
+    {
+        m_pJavaObject->setBoxParameters(backgroundColor);
+    }
 /*--------------------------------------------------------------------------*/
-void SubwinBackgroundDrawerJavaMapper::drawBox(double xMin, double xMax, double yMin,
-                                            double yMax, double zMin, double zMax,
-                                            int concealedCornerIndex)
-{
-  m_pJavaObject->drawBox(xMin, xMax, yMin, yMax, zMin, zMax, concealedCornerIndex);
-}
+    void SubwinBackgroundDrawerJavaMapper::drawBox(double xMin, double xMax, double yMin,
+                                                   double yMax, double zMin, double zMax, int concealedCornerIndex)
+    {
+        m_pJavaObject->drawBox(xMin, xMax, yMin, yMax, zMin, zMax, concealedCornerIndex);
+    }
 /*--------------------------------------------------------------------------*/
 }

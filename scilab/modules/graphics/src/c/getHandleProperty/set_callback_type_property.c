@@ -28,38 +28,39 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_callback_type_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_callback_type_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int cbType = -1;
+    int cbType = -1;
 
-  if ( !isParameterDoubleMatrix(valueType) || nbRow !=1 || nbCol != 1 )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "callback_type");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  cbType = (int)getDoubleFromStack(stackPointer);
-
-  if (cbType < -1 || cbType > 2)
+    if (!isParameterDoubleMatrix(valueType) || nbRow != 1 || nbCol != 1)
     {
-      Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "callback_type", "-1, 0, 1, 2");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "callback_type");
+        return SET_PROPERTY_ERROR;
     }
 
-  if (sciGetEntityType (pobj) == SCI_UIMENU)
+    cbType = (int)getDoubleFromStack(stackPointer);
+
+    if (cbType < -1 || cbType > 2)
     {
-      pUIMENU_FEATURE(pobj)->callbackType = cbType;
-    }
-  else if (sciGetEntityType (pobj) == SCI_UICONTROL)
-    {
-      pUICONTROL_FEATURE(pobj)->callbackType = cbType;
-    }
-  else
-    {
-      Scierror(999, _("'%s' property does not exist for this handle.\n"),"callback_type");
-      return SET_PROPERTY_ERROR ;
+        Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "callback_type", "-1, 0, 1, 2");
+        return SET_PROPERTY_ERROR;
     }
 
-  return SET_PROPERTY_SUCCEED ;
+    if (sciGetEntityType(pobj) == SCI_UIMENU)
+    {
+        pUIMENU_FEATURE(pobj)->callbackType = cbType;
+    }
+    else if (sciGetEntityType(pobj) == SCI_UICONTROL)
+    {
+        pUICONTROL_FEATURE(pobj)->callbackType = cbType;
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "callback_type");
+        return SET_PROPERTY_ERROR;
+    }
+
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

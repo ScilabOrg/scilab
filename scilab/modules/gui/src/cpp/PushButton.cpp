@@ -10,26 +10,25 @@
  *
  */
 
-
 #include "PushButton.hxx"
 
 using namespace org_scilab_modules_gui_bridge;
 
-void createPushButton(sciPointObj* sciObj)
+void createPushButton(sciPointObj * sciObj)
 {
-  pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newPushButton(getScilabJavaVM());
+    pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newPushButton(getScilabJavaVM());
 }
 
-int setCurentFigureAsPushButtonParent(sciPointObj* sciObj)
+int setCurentFigureAsPushButtonParent(sciPointObj * sciObj)
 {
-  int parentFigureIndex = 0;
-  
-  // Scilab list of parent
-  sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
-  
-  // Java objects
-  parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-  CallScilabBridge::setPushButtonParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    int parentFigureIndex = 0;
 
-  return SET_PROPERTY_SUCCEED;
+    // Scilab list of parent
+    sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+
+    // Java objects
+    parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+    CallScilabBridge::setPushButtonParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+    return SET_PROPERTY_SUCCEED;
 }

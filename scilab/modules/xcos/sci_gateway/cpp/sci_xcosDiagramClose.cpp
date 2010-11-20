@@ -27,67 +27,69 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
+
 /*--------------------------------------------------------------------------*/
-int sci_xcosDiagramClose(char *fname,unsigned long fname_len)
+int sci_xcosDiagramClose(char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
+    SciErr sciErr;
 
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-	CheckRhs(1,1);
-	CheckLhs(0,1);
+    int m1 = 0, n1 = 0;
+    int *piAddressVarOne = NULL;
 
-	int m1 = 0, n1 = 0;
-	int *piAddressVarOne = NULL;
+    char *pStVarOne = NULL;
+    int lenStVarOne = 0;
 
-	char *pStVarOne = NULL;
-	int lenStVarOne = 0;
+    /** READ UID **/
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/** READ UID **/
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    /* get dimensions */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get dimensions */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    if (m1 * n1 != 1)
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+        return 0;
+    }
 
-	if (m1 * n1 != 1) {
-		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
-		return 0;
-	}
+    /* get lengths */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get lengths */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    pStVarOne = (char *)MALLOC(sizeof(char *) * (lenStVarOne + 1));
 
-	pStVarOne = (char*)MALLOC(sizeof(char*) * (lenStVarOne + 1));
+    /* get strings */
+    sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
+    if (sciErr.iErr)
+    {
+        FREE(pStVarOne);
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	/* get strings */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
-	if(sciErr.iErr)
-	{
-		FREE(pStVarOne);
-		printError(&sciErr, 0);
-		return 0;
-	}
+    Xcos::xcosDiagramClose(getScilabJavaVM(), pStVarOne);
 
-	Xcos::xcosDiagramClose(getScilabJavaVM(), pStVarOne);
+    LhsVar(1) = 0;
+    PutLhsVar();
 
-	LhsVar(1) = 0;
-	PutLhsVar();
-
-	FREE(pStVarOne);
-	return 0;
+    FREE(pStVarOne);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

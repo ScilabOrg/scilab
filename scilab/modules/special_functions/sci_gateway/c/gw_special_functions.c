@@ -26,25 +26,27 @@ static gw_generic_table Tab[] = {
     {sci_besselk, "besselk"},
     {sci_bessely, "bessely"},
     {sci_besselh, "besselh"},
-    {sci_oldbesseli,"oldbesseli"},
+    {sci_oldbesseli, "oldbesseli"},
     {sci_oldbesselj, "oldbesselj"},
-    {sci_oldbesselk,"oldbesselk"},
-    {sci_oldbessely,"oldbessely"},
-    {sci_gamma,"gamma"},
-    {sci_lgamma,"gammaln"},
-    {sci_dlgamma,"dlgamma"},
-    {sci_calerf,"calerf"}
+    {sci_oldbesselk, "oldbesselk"},
+    {sci_oldbessely, "oldbessely"},
+    {sci_gamma, "gamma"},
+    {sci_lgamma, "gammaln"},
+    {sci_dlgamma, "dlgamma"},
+    {sci_calerf, "calerf"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_special_functions(void)
 {
     Rhs = Max(0, Rhs);
     if (setjmp_slatec_jmp_env())
     {
-        Scierror(999,"%s: Wrong value for input argument: Positive expected.\n", Tab[Fin-1].name);
+        Scierror(999, "%s: Wrong value for input argument: Positive expected.\n", Tab[Fin - 1].name);
         return 0;
     }
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

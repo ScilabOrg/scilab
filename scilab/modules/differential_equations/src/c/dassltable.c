@@ -18,74 +18,73 @@
 ***********************************/
 
 #define ARGS_fresd double *,double*,double*,double*,int*,double*,int*
-typedef int * (*fresdf)(ARGS_fresd);
+typedef int *(*fresdf) (ARGS_fresd);
 
 #define ARGS_fjacd double *,double*,double*,double*,double*,double*,int*
-typedef int * (*fjacdf)(ARGS_fjacd);
+typedef int *(*fjacdf) (ARGS_fjacd);
 
 /***********************************
 * Search Table for dasrt 
 ***********************************/
 
 #define ARGS_fsurfd int*,double *,double*,int*,double*,double*,int*
-typedef int * (*fsurfdf)(ARGS_fsurfd);
-
+typedef int *(*fsurfdf) (ARGS_fsurfd);
 
 #define ARGS_fsurf int*,double *,double*,int*,double*
-typedef int * (*fsurff)(ARGS_fsurf);
+typedef int *(*fsurff) (ARGS_fsurf);
 
 /**************** fresd ***************/
-extern void C2F(dres1)(ARGS_fresd);
-extern void C2F(dres2)(ARGS_fresd);
-extern void C2F(res1)(ARGS_fresd);
-extern void C2F(res2)(ARGS_fresd);
+extern void C2F(dres1) (ARGS_fresd);
+extern void C2F(dres2) (ARGS_fresd);
+extern void C2F(res1) (ARGS_fresd);
+extern void C2F(res2) (ARGS_fresd);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fresd)(ARGS_fresd);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfresd)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fresd) (ARGS_fresd);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfresd) (char *name, int *rep);
 
-FTAB FTab_fresd[] =
-{
-	{"dres1", (voidf)  C2F(dres1)},
-	{"dres2", (voidf)  C2F(dres2)},
-	{"res1", (voidf)  C2F(res1)},
-	{"res2", (voidf)  C2F(res2)},
-	{(char *) 0, (voidf) 0}
+FTAB FTab_fresd[] = {
+    {"dres1", (voidf) C2F(dres1)},
+    {"dres2", (voidf) C2F(dres2)},
+    {"res1", (voidf) C2F(res1)},
+    {"res2", (voidf) C2F(res2)},
+    {(char *)0, (voidf) 0}
 };
 
 /**************** fjacd ***************/
-extern void C2F(djac1)(ARGS_fjacd);
-extern void C2F(djac2)(ARGS_fjacd);
-extern void C2F(jac2)(ARGS_fjacd);
+extern void C2F(djac1) (ARGS_fjacd);
+extern void C2F(djac2) (ARGS_fjacd);
+extern void C2F(jac2) (ARGS_fjacd);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fjacd)(ARGS_fjacd);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfjacd)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fjacd) (ARGS_fjacd);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfjacd) (char *name, int *rep);
 
-FTAB FTab_fjacd[] =
-{
-	{"djac1", (voidf)  C2F(djac1)},
-	{"djac2", (voidf)  C2F(djac2)},
-	{"jac2", (voidf)  C2F(jac2)},
-	{(char *) 0, (voidf) 0}
+FTAB FTab_fjacd[] = {
+    {"djac1", (voidf) C2F(djac1)},
+    {"djac2", (voidf) C2F(djac2)},
+    {"jac2", (voidf) C2F(jac2)},
+    {(char *)0, (voidf) 0}
 };
 
-
 /**************** fsurf ***************/
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fsurf)(ARGS_fsurf);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfsurf)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fsurf) (ARGS_fsurf);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfsurf) (char *name, int *rep);
 
-FTAB FTab_fsurf[] ={
-{(char *) 0, (voidf) 0}};
+FTAB FTab_fsurf[] = {
+    {(char *)0, (voidf) 0}
+};
+
 /**************** fsurfd ***************/
-extern void C2F(gr1)(ARGS_fsurfd);
-extern void C2F(gr2)(ARGS_fsurfd);
+extern void C2F(gr1) (ARGS_fsurfd);
+extern void C2F(gr2) (ARGS_fsurfd);
 
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fsurfd)(ARGS_fsurfd);
-DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfsurfd)(char *name, int *rep);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(fsurfd) (ARGS_fsurfd);
+DIFFERENTIAL_EQUATIONS_IMPEXP void C2F(setfsurfd) (char *name, int *rep);
 
-FTAB FTab_fsurfd[] ={
-{"gr1", (voidf)  C2F(gr1)},
-{"gr2", (voidf)  C2F(gr2)},
-{(char *) 0, (voidf) 0}};
+FTAB FTab_fsurfd[] = {
+    {"gr1", (voidf) C2F(gr1)},
+    {"gr2", (voidf) C2F(gr2)},
+    {(char *)0, (voidf) 0}
+};
 
 /***********************************
 * Search Table for dassl or dassrt 
@@ -93,59 +92,56 @@ FTAB FTab_fsurfd[] ={
 
 /** the current function fixed by setfresd **/
 
-static fresdf fresdfonc ;
+static fresdf fresdfonc;
 
 /** function call **/
 
-void C2F(fresd)(double *t, double *y, double *ydot, double *res, int *ires, double *rpar, int *ipar)
+void C2F(fresd) (double *t, double *y, double *ydot, double *res, int *ires, double *rpar, int *ipar)
 {
-	(*fresdfonc)(t,y,ydot,res,ires,rpar,ipar);
+    (*fresdfonc) (t, y, ydot, res, ires, rpar, ipar);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfresd)(char *name, int *rep)
+void C2F(setfresd) (char *name, int *rep)
 {
-	fresdfonc = (fresdf) GetFunctionByName(name,rep,FTab_fresd);
+    fresdfonc = (fresdf) GetFunctionByName(name, rep, FTab_fresd);
 }
-
 
 /** the current function fixed by setfjacd **/
 
-static fjacdf fjacdfonc ;
+static fjacdf fjacdfonc;
 
 /** function call **/
 
-void C2F(fjacd)(double *t, double *y, double *ydot, double *pd, double *cj, double *rpar, int *ipar)
+void C2F(fjacd) (double *t, double *y, double *ydot, double *pd, double *cj, double *rpar, int *ipar)
 {
-	(*fjacdfonc)(t,y,ydot,pd,cj,rpar,ipar);
+    (*fjacdfonc) (t, y, ydot, pd, cj, rpar, ipar);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfjacd)(char *name, int *rep)
+void C2F(setfjacd) (char *name, int *rep)
 {
-	fjacdfonc = (fjacdf) GetFunctionByName(name,rep,FTab_fjacd);
+    fjacdfonc = (fjacdf) GetFunctionByName(name, rep, FTab_fjacd);
 }
-
 
 /** the current function fixed by setfsurfd **/
 
-static fsurfdf fsurfdfonc ;
+static fsurfdf fsurfdfonc;
 
 /** function call **/
 
-
-void C2F(fsurfd)(int *neq, double *t, double *y, int *ng, double *gout, double *rpar, int *ipar)
+void C2F(fsurfd) (int *neq, double *t, double *y, int *ng, double *gout, double *rpar, int *ipar)
 {
-	(*fsurfdfonc)(neq,t,y,ng,gout,rpar,ipar);
+    (*fsurfdfonc) (neq, t, y, ng, gout, rpar, ipar);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfsurfd)(char *name, int *rep)
+void C2F(setfsurfd) (char *name, int *rep)
 {
-	fsurfdfonc = (fsurfdf) GetFunctionByName(name,rep,FTab_fsurfd);
+    fsurfdfonc = (fsurfdf) GetFunctionByName(name, rep, FTab_fsurfd);
 }
 
 /***********************************
@@ -154,18 +150,18 @@ void C2F(setfsurfd)(char *name, int *rep)
 
 /** the current function fixed by setfsurf **/
 
-static fsurff fsurffonc ;
+static fsurff fsurffonc;
 
 /** function call **/
 
-void C2F(fsurf)(int *ny, double *t, double *y, int *ng, double *gout)
+void C2F(fsurf) (int *ny, double *t, double *y, int *ng, double *gout)
 {
-	(*fsurffonc)(ny, t, y, ng, gout) ;
+    (*fsurffonc) (ny, t, y, ng, gout);
 }
 
 /** fixes the function associated to name **/
 
-void C2F(setfsurf)(char *name, int *rep)
+void C2F(setfsurf) (char *name, int *rep)
 {
-	fsurffonc = (fsurff) GetFunctionByName(name,rep,FTab_fsurf);
+    fsurffonc = (fsurff) GetFunctionByName(name, rep, FTab_fsurf);
 }

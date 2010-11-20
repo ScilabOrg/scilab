@@ -11,46 +11,47 @@
  */
 
 #include "CreateUIContextMenu.h"
-#include "BuildDrawingObserver.h" /* createDrawingObserver */
-#include "ContextMenu.h" /* createContextMenu */
-#include "BuildObjects.h" /* createDefaultRelationShip */
+#include "BuildDrawingObserver.h"   /* createDrawingObserver */
+#include "ContextMenu.h"        /* createContextMenu */
+#include "BuildObjects.h"       /* createDefaultRelationShip */
 
-sciPointObj * CreateUIContextMenu(void)
+sciPointObj *CreateUIContextMenu(void)
 {
-  sciPointObj *pobj = (sciPointObj *) NULL;
-  sciUicontextmenu *ppobj=NULL;
+    sciPointObj *pobj = (sciPointObj *) NULL;
+    sciUicontextmenu *ppobj = NULL;
 
-  if ((pobj = MALLOC (sizeof (sciPointObj))) == NULL)
-    {	
-      return (sciPointObj *) NULL;
-    }
-
-  sciSetEntityType (pobj, SCI_UICONTEXTMENU);
-
-  if ((pobj->pfeatures = MALLOC ((sizeof (sciUicontextmenu)))) == NULL)
+    if ((pobj = MALLOC(sizeof(sciPointObj))) == NULL)
     {
-      FREE(pobj);
-      return (sciPointObj *) NULL;
+        return (sciPointObj *) NULL;
     }
-  ppobj=pUICONTEXTMENU_FEATURE (pobj);
 
-	/* Create the default relationShip */
-	createDefaultRelationShip(pobj);
+    sciSetEntityType(pobj, SCI_UICONTEXTMENU);
 
-  /* add the handle in the handle list */
-  if ( sciAddNewHandle(pobj) == -1 )
+    if ((pobj->pfeatures = MALLOC((sizeof(sciUicontextmenu)))) == NULL)
     {
-      FREE( pobj->pfeatures ) ;
-      FREE( pobj ) ;
-      return NULL ;
+        FREE(pobj);
+        return (sciPointObj *) NULL;
     }
-      
-  pobj->pObservers = NULL ;
-      
-  pobj->pDrawer = NULL ;
- 
-  createContextMenu((sciPointObj *) pobj);
-      
-  return (sciPointObj *) pobj;
+    ppobj = pUICONTEXTMENU_FEATURE(pobj);
+
+    /* Create the default relationShip */
+    createDefaultRelationShip(pobj);
+
+    /* add the handle in the handle list */
+    if (sciAddNewHandle(pobj) == -1)
+    {
+        FREE(pobj->pfeatures);
+        FREE(pobj);
+        return NULL;
+    }
+
+    pobj->pObservers = NULL;
+
+    pobj->pDrawer = NULL;
+
+    createContextMenu((sciPointObj *) pobj);
+
+    return (sciPointObj *) pobj;
 }
+
 /*----------------------------------------------------------------------------*/

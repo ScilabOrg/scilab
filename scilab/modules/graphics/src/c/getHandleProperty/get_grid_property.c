@@ -25,29 +25,30 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_grid_property( sciPointObj * pobj )
+int get_grid_property(sciPointObj * pobj)
 {
-  double grid[3] ;
+    double grid[3];
 
-  if (sciGetEntityType (pobj) != SCI_SUBWIN) 
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"grid") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "grid");
+        return -1;
+    }
 
-  /* need converstion for display in double */
-  grid[0] = pSUBWIN_FEATURE(pobj)->grid[0] ;
-  grid[1] = pSUBWIN_FEATURE(pobj)->grid[1] ;
-  grid[2] = pSUBWIN_FEATURE(pobj)->grid[2] ;
+    /* need converstion for display in double */
+    grid[0] = pSUBWIN_FEATURE(pobj)->grid[0];
+    grid[1] = pSUBWIN_FEATURE(pobj)->grid[1];
+    grid[2] = pSUBWIN_FEATURE(pobj)->grid[2];
 
-  if ( sciGetIs3d( pobj ) )
-  {
-    return sciReturnRowVector( grid, 3 ) ;
-  }
-  else
-  {
-    return sciReturnRowVector( grid, 2 ) ;
-  }
+    if (sciGetIs3d(pobj))
+    {
+        return sciReturnRowVector(grid, 3);
+    }
+    else
+    {
+        return sciReturnRowVector(grid, 2);
+    }
 
 }
+
 /*------------------------------------------------------------------------*/

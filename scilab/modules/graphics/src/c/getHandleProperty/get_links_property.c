@@ -23,29 +23,33 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
-int get_links_property( sciPointObj * pobj )
+int get_links_property(sciPointObj * pobj)
 {
-  int nblegends=pLEGEND_FEATURE(pobj)->nblegends;
-  int i;
-  long *handles;
-  int status;
-  if (sciGetEntityType(pobj) != SCI_LEGEND)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"links") ;
-    return -1 ;
-  }
-  handles=(long *)MALLOC(nblegends*sizeof(long));
-  if (handles==NULL) {
-    Scierror(999, _("%s: No more memory.\n"),"get_links_property");
-    return -1 ;
-  }
-  for (i=0; i<nblegends; i++) {
-    handles[i]=(long)pLEGEND_FEATURE(pobj)->tabofhandles[i];
-  }
-  status = sciReturnRowHandleVector(handles, nblegends);
- 
-  FREE(handles);
+    int nblegends = pLEGEND_FEATURE(pobj)->nblegends;
+    int i;
+    long *handles;
+    int status;
 
-  return status;
+    if (sciGetEntityType(pobj) != SCI_LEGEND)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "links");
+        return -1;
+    }
+    handles = (long *)MALLOC(nblegends * sizeof(long));
+    if (handles == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "get_links_property");
+        return -1;
+    }
+    for (i = 0; i < nblegends; i++)
+    {
+        handles[i] = (long)pLEGEND_FEATURE(pobj)->tabofhandles[i];
+    }
+    status = sciReturnRowHandleVector(handles, nblegends);
+
+    FREE(handles);
+
+    return status;
 }
+
 /*------------------------------------------------------------------------*/

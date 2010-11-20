@@ -16,17 +16,20 @@
 #include "Thread_Wrapper.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
-__declspec(dllexport) __threadSignal		LaunchScilab = __StaticInitThreadSignal;
-__declspec(dllexport) __threadSignalLock	*pLaunchScilabLock = NULL;
+__declspec(dllexport)
+     __threadSignal LaunchScilab = __StaticInitThreadSignal;
+
+__declspec(dllexport)
+     __threadSignalLock *pLaunchScilabLock = NULL;
 
 #include "mmapWindows.h"
 #else
 #include <sys/mman.h>
 #ifndef MAP_ANONYMOUS
-# define MAP_ANONYMOUS MAP_ANON
+#define MAP_ANONYMOUS MAP_ANON
 #endif
-__threadSignal		LaunchScilab = __StaticInitThreadSignal;
-__threadSignalLock	*pLaunchScilabLock = NULL;
+__threadSignal LaunchScilab = __StaticInitThreadSignal;
+__threadSignalLock *pLaunchScilabLock = NULL;
 #endif
 /*--------------------------------------------------------------------------*/
 void ReleaseLaunchScilabSignal(void)
@@ -35,7 +38,7 @@ void ReleaseLaunchScilabSignal(void)
     /* http://msdn.microsoft.com/en-us/magazine/cc164040.aspx */
     if ((pLaunchScilabLock) && (pLaunchScilabLock->LockCount == -1))
 #else
-    if(pLaunchScilabLock)
+    if (pLaunchScilabLock)
 #endif
     {
         __UnLockSignal(pLaunchScilabLock);
@@ -47,15 +50,17 @@ void ReleaseLaunchScilabSignal(void)
 #endif
     }
 }
+
 /*--------------------------------------------------------------------------*/
 void InitializeLaunchScilabSignal(void)
 {
     if (pLaunchScilabLock == NULL)
     {
-        pLaunchScilabLock = mmap(0, sizeof(__threadSignalLock), PROT_READ | PROT_WRITE,MAP_SHARED |  MAP_ANONYMOUS, -1, 0);
+        pLaunchScilabLock = mmap(0, sizeof(__threadSignalLock), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
         __InitSignal(&LaunchScilab);
         __InitSignalLock(pLaunchScilabLock);
         atexit(ReleaseLaunchScilabSignal);
     }
 }
+
 /*--------------------------------------------------------------------------*/

@@ -9,25 +9,24 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "localization.h"
 #include "v2cuniterror.h"
 #include "Scierror.h"
 #include "FileExist.h"
 #include "isdir.h"
-/*--------------------------------------------------------------------------*/ 
-int C2F(v2cuniterror)(int *_errorcode, char *_filename, 
-                      unsigned long _length_filename)
+/*--------------------------------------------------------------------------*/
+int C2F(v2cuniterror) (int *_errorcode, char *_filename, unsigned long _length_filename)
 {
     switch (*_errorcode)
     {
-        case 66:
+    case 66:
         {
             Scierror(*_errorcode, _("Too many files opened!\n"));
         }
         break;
 
-        case 240:
+    case 240:
         {
             if (FileExist(_filename))
             {
@@ -35,12 +34,12 @@ int C2F(v2cuniterror)(int *_errorcode, char *_filename,
             }
             else
             {
-                Scierror(*_errorcode,  _("\"%s\" directory write access denied.\n"), _filename);
+                Scierror(*_errorcode, _("\"%s\" directory write access denied.\n"), _filename);
             }
         }
         break;
 
-        case 241:
+    case 241:
         {
             if (!FileExist(_filename))
             {
@@ -53,13 +52,13 @@ int C2F(v2cuniterror)(int *_errorcode, char *_filename,
         }
         break;
 
-        default:
+    default:
         {
-            Scierror(*_errorcode, 
-                _("unmanaged error by v2cunit.\n"));
+            Scierror(*_errorcode, _("unmanaged error by v2cunit.\n"));
         }
         break;
     }
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

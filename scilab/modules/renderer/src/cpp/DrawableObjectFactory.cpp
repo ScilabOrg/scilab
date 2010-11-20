@@ -36,88 +36,88 @@ extern "C"
 namespace sciGraphics
 {
 
-/*---------------------------------------------------------------------------------*/ 
-void DrawableObjectFactory::setGraphicObj( sciPointObj * drawedObj )
-{
-  m_pDrawed = drawedObj ;
-}
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableObjectFactory::create( void )
-{
-  DrawableObjectFactory * fact = createRightFactory() ;
-  
-  fact->setGraphicObj( m_pDrawed ) ;
-  
-  DrawableObject * drawer = fact->create() ;
-
-  delete fact ;
-
-  return drawer ;
-
-}
+    void DrawableObjectFactory::setGraphicObj(sciPointObj * drawedObj)
+    {
+        m_pDrawed = drawedObj;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableObjectFactory::update( void )
-{
-  DrawableObjectFactory * fact = createRightFactory() ;
+    DrawableObject *DrawableObjectFactory::create(void)
+    {
+        DrawableObjectFactory *fact = createRightFactory();
 
-  fact->setGraphicObj( m_pDrawed ) ;
+        fact->setGraphicObj(m_pDrawed);
 
-  fact->update() ;
+        DrawableObject *drawer = fact->create();
 
-  delete fact ;
+        delete fact;
 
-}
+        return drawer;
+
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObjectFactory * DrawableObjectFactory::createRightFactory( void )
-{
-  switch ( sciGetEntityType(m_pDrawed) )
-  {
-  case SCI_FIGURE:
-    return new DrawableFigureFactory() ;
-    break ;
-  case SCI_SUBWIN:
-    return new DrawableSubwinFactory() ;
-    break;
-  case SCI_TEXT:
-    return new DrawableTextFactory() ;
-    break;
-  case SCI_POLYLINE:
-    return new DrawablePolylineFactory() ;
-    break;
-  case SCI_LABEL:
-    return new DrawableLabelFactory() ;
-    break;
-  case SCI_AGREG:
-    return new DrawableCompoundFactory() ;
-    break ;
-  case SCI_SURFACE:
-    return new DrawableSurfaceFactory() ;
-    break ;
-  case SCI_ARC:
-    return new DrawableArcFactory() ;
-    break ;
-  case SCI_LEGEND:
-    return new DrawableLegendFactory() ;
-    break ;
-  case SCI_AXES:
-    return new DrawableAxesFactory() ;
-    break ;
-  case SCI_SEGS:
-    return new DrawableSegsFactory() ;
-    break ;
-  case SCI_FEC:
-    return new DrawableFecFactory() ;
-    break ;
-  case SCI_GRAYPLOT:
-    return new DrawableGrayplotFactory() ;
-    break ;
-  case SCI_RECTANGLE: 
-    return new DrawableRectangleFactory() ;
-    break ;
-  case SCI_UIMENU:
-  default:
-    return NULL;
-  }
-}
+    void DrawableObjectFactory::update(void)
+    {
+        DrawableObjectFactory *fact = createRightFactory();
+
+        fact->setGraphicObj(m_pDrawed);
+
+        fact->update();
+
+        delete fact;
+
+    }
+/*---------------------------------------------------------------------------------*/
+    DrawableObjectFactory *DrawableObjectFactory::createRightFactory(void)
+    {
+        switch (sciGetEntityType(m_pDrawed))
+        {
+        case SCI_FIGURE:
+            return new DrawableFigureFactory();
+            break;
+        case SCI_SUBWIN:
+            return new DrawableSubwinFactory();
+            break;
+        case SCI_TEXT:
+            return new DrawableTextFactory();
+            break;
+        case SCI_POLYLINE:
+            return new DrawablePolylineFactory();
+            break;
+        case SCI_LABEL:
+            return new DrawableLabelFactory();
+            break;
+        case SCI_AGREG:
+            return new DrawableCompoundFactory();
+            break;
+        case SCI_SURFACE:
+            return new DrawableSurfaceFactory();
+            break;
+        case SCI_ARC:
+            return new DrawableArcFactory();
+            break;
+        case SCI_LEGEND:
+            return new DrawableLegendFactory();
+            break;
+        case SCI_AXES:
+            return new DrawableAxesFactory();
+            break;
+        case SCI_SEGS:
+            return new DrawableSegsFactory();
+            break;
+        case SCI_FEC:
+            return new DrawableFecFactory();
+            break;
+        case SCI_GRAYPLOT:
+            return new DrawableGrayplotFactory();
+            break;
+        case SCI_RECTANGLE:
+            return new DrawableRectangleFactory();
+            break;
+        case SCI_UIMENU:
+        default:
+            return NULL;
+        }
+    }
 /*---------------------------------------------------------------------------------*/
 }

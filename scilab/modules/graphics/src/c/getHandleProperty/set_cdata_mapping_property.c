@@ -31,65 +31,64 @@
 #include "BasicAlgos.h"
 
 /*------------------------------------------------------------------------*/
-int set_cdata_mapping_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_cdata_mapping_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  sciSurface * ppSurf = NULL ;
+    sciSurface *ppSurf = NULL;
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "cdata_mapping");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( sciGetEntityType(pobj) != SCI_SURFACE || pSURFACE_FEATURE(pobj)->typeof3d != SCI_FAC3D )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"cdata_mapping") ;
-    return SET_PROPERTY_ERROR ;
-  }
-
-  ppSurf = pSURFACE_FEATURE ( pobj ) ;
-
-  if ( isStringParamEqual( stackPointer, "scaled" ) )
-  {
-    if( ppSurf->cdatamapping != 0 )
-    { /* not already scaled */
-      LinearScaling2Colormap(pobj);
-      ppSurf->cdatamapping = 0;
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "cdata_mapping");
+        return SET_PROPERTY_ERROR;
     }
-  } 
-  else if ( isStringParamEqual( stackPointer, "direct" ) )
-  {
-    if(pSURFACE_FEATURE (pobj)->cdatamapping != 1)
-    { 
-      /* not already direct */
-      int nc = ppSurf->nc ;
 
-      FREE( ppSurf->color ) ;
-      ppSurf->color = NULL ;
+    if (sciGetEntityType(pobj) != SCI_SURFACE || pSURFACE_FEATURE(pobj)->typeof3d != SCI_FAC3D)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "cdata_mapping");
+        return SET_PROPERTY_ERROR;
+    }
 
-      if( nc > 0 )
-      {
-        if ((ppSurf->color = MALLOC (nc * sizeof (double))) == NULL)
-        {
-					Scierror(999, _("%s: No more memory.\n"),"set_cdata_mapping_property");
-          return SET_PROPERTY_ERROR ;
+    ppSurf = pSURFACE_FEATURE(pobj);
+
+    if (isStringParamEqual(stackPointer, "scaled"))
+    {
+        if (ppSurf->cdatamapping != 0)
+        {                       /* not already scaled */
+            LinearScaling2Colormap(pobj);
+            ppSurf->cdatamapping = 0;
         }
-      }
-
-      doubleArrayCopy( ppSurf->color, ppSurf->zcol, nc ) ;
-
-
-      ppSurf->cdatamapping = 1 ;
     }
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "cdata_mapping", "scaled", "direct");
-    return SET_PROPERTY_ERROR ;
-  }
+    else if (isStringParamEqual(stackPointer, "direct"))
+    {
+        if (pSURFACE_FEATURE(pobj)->cdatamapping != 1)
+        {
+            /* not already direct */
+            int nc = ppSurf->nc;
 
-  return SET_PROPERTY_SUCCEED ;
+            FREE(ppSurf->color);
+            ppSurf->color = NULL;
 
+            if (nc > 0)
+            {
+                if ((ppSurf->color = MALLOC(nc * sizeof(double))) == NULL)
+                {
+                    Scierror(999, _("%s: No more memory.\n"), "set_cdata_mapping_property");
+                    return SET_PROPERTY_ERROR;
+                }
+            }
+
+            doubleArrayCopy(ppSurf->color, ppSurf->zcol, nc);
+
+            ppSurf->cdatamapping = 1;
+        }
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "cdata_mapping", "scaled", "direct");
+        return SET_PROPERTY_ERROR;
+    }
+
+    return SET_PROPERTY_SUCCEED;
 
 }
+
 /*------------------------------------------------------------------------*/

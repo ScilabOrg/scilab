@@ -18,20 +18,21 @@
 #include "tohome.h"
 #include "sciprint.h"
 /*--------------------------------------------------------------------------*/
-int sci_tohome(char *fname,unsigned long fname_len)
+int sci_tohome(char *fname, unsigned long fname_len)
 {
 
-	CheckRhs(0,0);
-	CheckLhs(0,1);
+    CheckRhs(0, 0);
+    CheckLhs(0, 1);
 
-	if (!tohome())
-	{
-		sciprint(_("%s: This feature has not been implemented in this mode.\n"),fname);
-	}
+    if (!tohome())
+    {
+        sciprint(_("%s: This feature has not been implemented in this mode.\n"), fname);
+    }
 
-	LhsVar(1) = 0;
-	C2F(putlhsvar)();
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-	return 0 ;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

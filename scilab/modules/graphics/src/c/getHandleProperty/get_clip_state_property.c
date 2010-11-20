@@ -25,25 +25,26 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_clip_state_property( sciPointObj * pobj )
+int get_clip_state_property(sciPointObj * pobj)
 {
-  if ( sciGetIsClipping (pobj) == 0 )
-  {
-    return sciReturnString( "clipgrf" ) ;
-  }
-  else if ( sciGetIsClipping (pobj) > 0 )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else if (sciGetIsClipping (pobj) == -1)
-  {   
-    return sciReturnString( "off" ) ;
-  }
-	else
-	{
-		/* An error occured while getting clip state */
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"clip_state");
-		return -1;
-	}
+    if (sciGetIsClipping(pobj) == 0)
+    {
+        return sciReturnString("clipgrf");
+    }
+    else if (sciGetIsClipping(pobj) > 0)
+    {
+        return sciReturnString("on");
+    }
+    else if (sciGetIsClipping(pobj) == -1)
+    {
+        return sciReturnString("off");
+    }
+    else
+    {
+        /* An error occured while getting clip state */
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "clip_state");
+        return -1;
+    }
 }
+
 /*------------------------------------------------------------------------*/

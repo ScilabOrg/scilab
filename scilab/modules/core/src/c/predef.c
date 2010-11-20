@@ -19,45 +19,52 @@
 /*--------------------------------------------------------------------------*/
 int getNumberPredefVariablesProtected(void)
 {
-	return (C2F(vstk).isiz - C2F(vstk).bbot);
+    return (C2F(vstk).isiz - C2F(vstk).bbot);
 }
+
 /*--------------------------------------------------------------------------*/
 void setNumberPredefVariablesProtected(int nb)
 {
-	int new_value = Max( C2F(vstk).bot , Min( (C2F(vstk).isiz - nb), C2F(vstk).bot0 ) );
-	if ( C2F(vstk).bbot != new_value ) C2F(vstk).bbot = new_value;
+    int new_value = Max(C2F(vstk).bot, Min((C2F(vstk).isiz - nb), C2F(vstk).bot0));
+
+    if (C2F(vstk).bbot != new_value)
+        C2F(vstk).bbot = new_value;
 }
+
 /*--------------------------------------------------------------------------*/
 void clearPredef(void)
 {
-	if ( C2F(vstk).bbot != C2F(vstk).bot0 ) C2F(vstk).bbot = C2F(vstk).bot0;
+    if (C2F(vstk).bbot != C2F(vstk).bot0)
+        C2F(vstk).bbot = C2F(vstk).bot0;
 }
+
 /*--------------------------------------------------------------------------*/
 void predefAll(void)
 {
-	if (C2F(vstk).bbot != C2F(vstk).bot)
-	{
-		/* bug 3773 */
-		/* "ans" must not be protected */
-		char *FirstNameVariableOnStack = getLocalNamefromId(1);
+    if (C2F(vstk).bbot != C2F(vstk).bot)
+    {
+        /* bug 3773 */
+        /* "ans" must not be protected */
+        char *FirstNameVariableOnStack = getLocalNamefromId(1);
 
-		if (FirstNameVariableOnStack)
-		{
-			if (strcmp(FirstNameVariableOnStack, "ans") == 0)
-			{
-				/* protect variable after "ans" */
-				C2F(vstk).bbot = C2F(vstk).bot + 1;
-			}
-			else
-			{
-				C2F(vstk).bbot = C2F(vstk).bot;
-			}
-			FREE(FirstNameVariableOnStack);
-		}
-		else
-		{
-			C2F(vstk).bbot = C2F(vstk).bot;
-		}
-	}
+        if (FirstNameVariableOnStack)
+        {
+            if (strcmp(FirstNameVariableOnStack, "ans") == 0)
+            {
+                /* protect variable after "ans" */
+                C2F(vstk).bbot = C2F(vstk).bot + 1;
+            }
+            else
+            {
+                C2F(vstk).bbot = C2F(vstk).bot;
+            }
+            FREE(FirstNameVariableOnStack);
+        }
+        else
+        {
+            C2F(vstk).bbot = C2F(vstk).bot;
+        }
+    }
 }
+
 /*--------------------------------------------------------------------------*/

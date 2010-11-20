@@ -11,15 +11,17 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "gw_cacsd3.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(sciresidu)(char *fname,unsigned long fname_len);
+extern int C2F(sciresidu) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_residu(char *fname,unsigned long fname_len)
+int sci_residu(char *fname, unsigned long fname_len)
 {
-	C2F(sciresidu)(fname,fname_len);
-	return 0;
+    C2F(sciresidu) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -57,65 +57,72 @@
 
 extern CellAdr *ListCholFactors;
 
-int sci_taucs_chget(char* fname, unsigned long l)
+int sci_taucs_chget(char *fname, unsigned long l)
 {
 
-	int mC_ptr, nC_ptr, lC_ptr;
-	taucs_handle_factors * pC;
-	taucs_ccs_matrix * C;
-	SciSparse S;
-	int one = 1, nnz, lp, i, pl_miss, it_flag;
+    int mC_ptr, nC_ptr, lC_ptr;
+    taucs_handle_factors *pC;
+    taucs_ccs_matrix *C;
+    SciSparse S;
+    int one = 1, nnz, lp, i, pl_miss, it_flag;
 
-	/* Check numbers of input/output arguments */
-	CheckRhs(1,1); CheckLhs(1,3);
+    /* Check numbers of input/output arguments */
+    CheckRhs(1, 1);
+    CheckLhs(1, 3);
 
-	/* get the pointer to the Choleski factorisation handle */
-	GetRhsVar(1,SCILAB_POINTER_DATATYPE, &mC_ptr, &nC_ptr, &lC_ptr);
-	pC = (taucs_handle_factors *) ((unsigned long int) *stk(lC_ptr));
+    /* get the pointer to the Choleski factorisation handle */
+    GetRhsVar(1, SCILAB_POINTER_DATATYPE, &mC_ptr, &nC_ptr, &lC_ptr);
+    pC = (taucs_handle_factors *) ((unsigned long int)*stk(lC_ptr));
 
-	/* Check if the pointer is a valid ref to ... */
-	if (! IsAdrInList( (Adr)pC, ListCholFactors, &it_flag) )
-		{
-			Scierror(999,_("%s: Wrong value for input argument #%d: Must be a valid reference to a Cholesky factorisation"),fname,1);
-			return 0;
-		};
+    /* Check if the pointer is a valid ref to ... */
+    if (!IsAdrInList((Adr) pC, ListCholFactors, &it_flag))
+    {
+        Scierror(999, _("%s: Wrong value for input argument #%d: Must be a valid reference to a Cholesky factorisation"), fname, 1);
+        return 0;
+    };
 
-	C = taucs_supernodal_factor_to_ccs(pC->C);
-	if (! C) 
-	{
-		Scierror(999,_("%s: No more memory.\n"),fname);
-		return 0;
-	};
+    C = taucs_supernodal_factor_to_ccs(pC->C);
+    if (!C)
+    {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        return 0;
+    };
 
-	/* set up S fields */
-	nnz = 0;
-	for (i = 0 ; i < C->m ; i++)
-		{
-			C->colptr[i] = C->colptr[i+1] - C->colptr[i];
-			nnz += C->colptr[i];
-		}
-	for ( i = 0 ; i < nnz ; i++ )
-		C->rowind[i]++;
-  
-	S.m = C->m ; S.n = C->n; S.it = 0; S.nel = nnz;
-	S.R = C->values; S.I = NULL; 
-	S.icol = C->rowind; S.mnel = C->colptr;
-  
-	if (! test_size_for_sparse(2 , S.m, S.it, S.nel, &pl_miss))
-	{
-		taucs_ccs_free(C); 
-		Scierror(999,_("%s: No more memory : increase stacksize %d supplementary words needed.\n"),fname, pl_miss);
-		return 0;
-	}
-	CreateVarFromPtr(2,SPARSE_MATRIX_DATATYPE,&S.m,&S.n,&S);  
-	taucs_ccs_free(C); 
-  
-	/* now p */
-	CreateVar(3,MATRIX_OF_INTEGER_DATATYPE, &(S.m), &one, &lp); 
-	for  (i = 0 ; i < S.m ; i++) *istk(lp+i) = pC->p[i]+1;
+    /* set up S fields */
+    nnz = 0;
+    for (i = 0; i < C->m; i++)
+    {
+        C->colptr[i] = C->colptr[i + 1] - C->colptr[i];
+        nnz += C->colptr[i];
+    }
+    for (i = 0; i < nnz; i++)
+        C->rowind[i]++;
 
-	LhsVar(1) = 2;
-	LhsVar(2) = 3;
-	C2F(putlhsvar)();
-	return 0;
+    S.m = C->m;
+    S.n = C->n;
+    S.it = 0;
+    S.nel = nnz;
+    S.R = C->values;
+    S.I = NULL;
+    S.icol = C->rowind;
+    S.mnel = C->colptr;
+
+    if (!test_size_for_sparse(2, S.m, S.it, S.nel, &pl_miss))
+    {
+        taucs_ccs_free(C);
+        Scierror(999, _("%s: No more memory : increase stacksize %d supplementary words needed.\n"), fname, pl_miss);
+        return 0;
+    }
+    CreateVarFromPtr(2, SPARSE_MATRIX_DATATYPE, &S.m, &S.n, &S);
+    taucs_ccs_free(C);
+
+    /* now p */
+    CreateVar(3, MATRIX_OF_INTEGER_DATATYPE, &(S.m), &one, &lp);
+    for (i = 0; i < S.m; i++)
+        *istk(lp + i) = pC->p[i] + 1;
+
+    LhsVar(1) = 2;
+    LhsVar(2) = 3;
+    C2F(putlhsvar) ();
+    return 0;
 }

@@ -27,19 +27,22 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_immediate_drawing_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_immediate_drawing_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-	int b =  (int)FALSE;
-	if ( sciGetEntityType (pobj) != SCI_FIGURE )
-	{
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"immediate_drawing");
-		return SET_PROPERTY_ERROR ;
-	}
+    int b = (int)FALSE;
 
-	b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "immediate_drawing");
-	if(b == NOT_A_BOOLEAN_VALUE) return SET_PROPERTY_ERROR;
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "immediate_drawing");
+        return SET_PROPERTY_ERROR;
+    }
 
-	sciSetImmediateDrawingMode(pobj, b);
-	return SET_PROPERTY_SUCCEED ;  
+    b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "immediate_drawing");
+    if (b == NOT_A_BOOLEAN_VALUE)
+        return SET_PROPERTY_ERROR;
+
+    sciSetImmediateDrawingMode(pobj, b);
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

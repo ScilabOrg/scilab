@@ -16,35 +16,34 @@
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableAxes::ConcreteDrawableAxes(sciPointObj * pAxes)
-  : DrawableAxes(pAxes)
-{
-  m_pTicksDrawer = NULL;
-}
+    ConcreteDrawableAxes::ConcreteDrawableAxes(sciPointObj * pAxes):DrawableAxes(pAxes)
+    {
+        m_pTicksDrawer = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-ConcreteDrawableAxes::~ConcreteDrawableAxes(void)
-{
-  setTicksDrawer(NULL);
-}
+    ConcreteDrawableAxes::~ConcreteDrawableAxes(void)
+    {
+        setTicksDrawer(NULL);
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableAxes::setTicksDrawer(TicksDrawer * ticksDrawer)
-{
-  if (m_pTicksDrawer != NULL)
-  {
-    delete m_pTicksDrawer;
-  }
-  m_pTicksDrawer = ticksDrawer;
-}
+    void ConcreteDrawableAxes::setTicksDrawer(TicksDrawer * ticksDrawer)
+    {
+        if (m_pTicksDrawer != NULL)
+        {
+            delete m_pTicksDrawer;
+        }
+        m_pTicksDrawer = ticksDrawer;
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableAxes::drawAxes(void)
-{
-  m_pTicksDrawer->draw();
-}
+    void ConcreteDrawableAxes::drawAxes(void)
+    {
+        m_pTicksDrawer->draw();
+    }
 /*---------------------------------------------------------------------------------*/
-void ConcreteDrawableAxes::showAxes(void)
-{
-  m_pTicksDrawer->show();
-}
+    void ConcreteDrawableAxes::showAxes(void)
+    {
+        m_pTicksDrawer->show();
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

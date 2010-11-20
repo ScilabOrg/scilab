@@ -26,14 +26,15 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_line_style_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_line_style_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "line_style");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "line_style");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetLineStyle( pobj, (int) getDoubleFromStack( stackPointer ) ) ;
+    return sciSetLineStyle(pobj, (int)getDoubleFromStack(stackPointer));
 }
+
 /*------------------------------------------------------------------------*/

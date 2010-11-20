@@ -10,18 +10,19 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_elementary_functions.h"
 #include "api_scilab.h"
 #include "stack-c.h"
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intfrexp)(int *id);
+extern int C2F(intfrexp) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_frexp(char *fname,unsigned long fname_len)
+int sci_frexp(char *fname, unsigned long fname_len)
 {
-	static int id[6];
+    static int id[6];
     SciErr sciErr;
     int *piAddressVarOne = NULL;
 
@@ -29,19 +30,20 @@ int sci_frexp(char *fname,unsigned long fname_len)
     CheckLhs(2, 2);
 
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-    if(sciErr.iErr)
+    if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return 0;
     }
 
-    if ( isVarComplex(pvApiCtx, piAddressVarOne) )
+    if (isVarComplex(pvApiCtx, piAddressVarOne))
     {
-        Scierror(999,_("%s: Wrong type for input argument #%d: Real matrix expected.\n"), fname, 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: Real matrix expected.\n"), fname, 1);
         return 0;
     }
 
-	C2F(intfrexp)(id);
-	return 0;
+    C2F(intfrexp) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

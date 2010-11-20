@@ -12,12 +12,15 @@
 
 #include "gw_sparse.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intnnz)(int *id);
+extern int C2F(intnnz) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_nnz(char *fname,unsigned long fname_len)
+int sci_nnz(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intnnz)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intnnz) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

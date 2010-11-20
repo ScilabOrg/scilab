@@ -25,25 +25,24 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_surface_mode_property( sciPointObj * pobj )
+int get_surface_mode_property(sciPointObj * pobj)
 {
-  if ( (sciGetEntityType(pobj) == SCI_PLOT3D ) ||
-       (sciGetEntityType(pobj) == SCI_FAC3D  ) ||
-       (sciGetEntityType(pobj) == SCI_SURFACE)   )
-  {
-    if ( sciGetIsLine( pobj ) )
+    if ((sciGetEntityType(pobj) == SCI_PLOT3D) || (sciGetEntityType(pobj) == SCI_FAC3D) || (sciGetEntityType(pobj) == SCI_SURFACE))
     {
-      return sciReturnString( "on" ) ;
+        if (sciGetIsLine(pobj))
+        {
+            return sciReturnString("on");
+        }
+        else
+        {
+            return sciReturnString("off");
+        }
     }
     else
     {
-      return sciReturnString( "off" ) ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "surface_mode");
+        return -1;
     }
-  }
-  else
-  {
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"surface_mode") ;
-    return -1;
-  }
 }
+
 /*------------------------------------------------------------------------*/

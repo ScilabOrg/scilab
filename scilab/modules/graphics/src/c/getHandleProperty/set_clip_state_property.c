@@ -28,39 +28,40 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_clip_state_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_clip_state_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "clip_state");
-    return SET_PROPERTY_ERROR ;
-  }
-
-  if ( isStringParamEqual( stackPointer, "clipgrf" ) )
-  {
-    return sciSetIsClipping( pobj, 0 ) ;
-  }
-  else if ( isStringParamEqual( stackPointer, "off" ) )
-  {
-    return sciSetIsClipping(  pobj, -1 ) ;
-  }
-  else if ( isStringParamEqual( stackPointer, "on" ) )
-  {
-    if ( sciGetIsClipRegionValuated(pobj) == 1 )
+    if (!isParameterStringMatrix(valueType))
     {
-      return sciSetIsClipping( pobj, 1 ) ;
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "clip_state");
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (isStringParamEqual(stackPointer, "clipgrf"))
+    {
+        return sciSetIsClipping(pobj, 0);
+    }
+    else if (isStringParamEqual(stackPointer, "off"))
+    {
+        return sciSetIsClipping(pobj, -1);
+    }
+    else if (isStringParamEqual(stackPointer, "on"))
+    {
+        if (sciGetIsClipRegionValuated(pobj) == 1)
+        {
+            return sciSetIsClipping(pobj, 1);
+        }
+        else
+        {
+            return sciSetIsClipping(pobj, 0);
+        }
     }
     else
     {
-      return sciSetIsClipping( pobj, 0 ) ;
+        Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "clip_state", "on, off, clipgrf");
+        return SET_PROPERTY_ERROR;
     }
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "clip_state", "on, off, clipgrf");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_ERROR ;
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

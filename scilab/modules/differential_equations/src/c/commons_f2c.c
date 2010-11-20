@@ -9,14 +9,15 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "machine.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* only for f2c version */
 /* only for Visual studio express version */
 /* We force commons definition here */
-/*--------------------------------------------------------------------------*/ 
-typedef struct {
+/*--------------------------------------------------------------------------*/
+typedef struct
+{
     double tsw; /**< @TODO : add comment */
     double rowns2[20]; /**< @TODO : add comment */
     double pdnorm; /**< @TODO : add comment */
@@ -31,34 +32,45 @@ typedef struct {
 } LSA001_struct;
 
 LSA001_struct C2F(lsa001);
+
 /*--------------------------------------------------------------------------*/
-typedef struct {
+typedef struct
+{
     int nd, iflag;
 } ODECD_struct;
 
 ODECD_struct C2F(odecd);
+
 /*--------------------------------------------------------------------------*/
-typedef struct {
+typedef struct
+{
     int mesflg, lunit;
 } EH0001_struct;
 
 EH0001_struct C2F(eh0001);
+
 /*--------------------------------------------------------------------------*/
-typedef struct {
+typedef struct
+{
     char namjac[25];
 } CJAC_struct;
 
 CJAC_struct C2F(cjac);
+
 /*--------------------------------------------------------------------------*/
-typedef struct {
+typedef struct
+{
     char namef[25];
 } CYDOT_struct;
 
 CYDOT_struct C2F(cydot);
+
 /*--------------------------------------------------------------------------*/
-typedef  struct {
+typedef struct
+{
     char names[25];
 } CSURF_struct;
 
 CSURF_struct C2F(csurf);
+
 /*--------------------------------------------------------------------------*/

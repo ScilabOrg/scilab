@@ -15,57 +15,57 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolSliderStep(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolSliderStep(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  double *allValues = NULL;
-  
-  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    double *allValues = NULL;
+
+    if (sciGetEntityType(sciObj) != SCI_UICONTROL)
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "SliderStep");
-      return SET_PROPERTY_ERROR;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "SliderStep");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (valueType == sci_matrix)
+    if (valueType == sci_matrix)
     {
-      if((nbRow > 1) || (nbCol != 2))
+        if ((nbRow > 1) || (nbCol != 2))
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: A 1 x %d real row vector expected.\n")), "SliderStep", 2);
-          return SET_PROPERTY_ERROR;
-        }
-      
-      /* Store the value in Scilab */
-      allValues = getDoubleMatrixFromStack(stackPointer);
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: A 1 x %d real row vector expected.\n")), "SliderStep", 2);
 
-      /* SliderStep field is allocated if necessary */
-      if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL)
-        {
-          pUICONTROL_FEATURE(sciObj)->sliderStep = new double[2];
+            return SET_PROPERTY_ERROR;
         }
-      pUICONTROL_FEATURE(sciObj)->sliderStep[0] = allValues[0];
-      pUICONTROL_FEATURE(sciObj)->sliderStep[1] = allValues[1];
 
-      // Set the Java object property for sliders
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_SLIDER)
+        /* Store the value in Scilab */
+        allValues = getDoubleMatrixFromStack(stackPointer);
+
+        /* SliderStep field is allocated if necessary */
+        if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL)
         {
-          /* BEGIN If sliderstep is a value */
-          CallScilabBridge::setSliderMinorTickSpacing(getScilabJavaVM(),
-                                                      pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                      (int) pUICONTROL_FEATURE(sciObj)->sliderStep[0]);
-          
-          CallScilabBridge::setSliderMajorTickSpacing(getScilabJavaVM(), 
-                                                      pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                      (int) pUICONTROL_FEATURE(sciObj)->sliderStep[1]);
-          /* END If sliderstep is a value */
+            pUICONTROL_FEATURE(sciObj)->sliderStep = new double[2];
         }
-      return SET_PROPERTY_SUCCEED;
+        pUICONTROL_FEATURE(sciObj)->sliderStep[0] = allValues[0];
+        pUICONTROL_FEATURE(sciObj)->sliderStep[1] = allValues[1];
+
+        // Set the Java object property for sliders
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_SLIDER)
+        {
+            /* BEGIN If sliderstep is a value */
+            CallScilabBridge::setSliderMinorTickSpacing(getScilabJavaVM(),
+                                                        pUICONTROL_FEATURE(sciObj)->hashMapIndex, (int)pUICONTROL_FEATURE(sciObj)->sliderStep[0]);
+
+            CallScilabBridge::setSliderMajorTickSpacing(getScilabJavaVM(),
+                                                        pUICONTROL_FEATURE(sciObj)->hashMapIndex, (int)pUICONTROL_FEATURE(sciObj)->sliderStep[1]);
+            /* END If sliderstep is a value */
+        }
+        return SET_PROPERTY_SUCCEED;
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: A 1 x %d real row vector expected.\n")), "SliderStep", 2);
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: A 1 x %d real row vector expected.\n")), "SliderStep", 2);
+
+        return SET_PROPERTY_ERROR;
     }
 
 }
-

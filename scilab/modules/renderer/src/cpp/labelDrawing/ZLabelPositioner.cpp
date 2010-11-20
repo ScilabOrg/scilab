@@ -22,28 +22,28 @@ extern "C"
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-ZLabelPositioner::ZLabelPositioner(DrawableLabel * label)
-  : LabelPositioner(label)
-{
-  
-}
+    ZLabelPositioner::ZLabelPositioner(DrawableLabel * label):LabelPositioner(label)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-ZLabelPositioner::~ZLabelPositioner(void)
-{
-  
-}
+    ZLabelPositioner::~ZLabelPositioner(void)
+    {
+
+    }
 /*------------------------------------------------------------------------------------------*/
-bool ZLabelPositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
-{
-  sciPointObj * parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
-  return getSubwinDrawer(parentSubwin)->getZAxisPosition(axisStart, axisEnd, ticksDir);
-}
+    bool ZLabelPositioner::getAxisPosition(double axisStart[3], double axisEnd[3], double ticksDir[3])
+    {
+        sciPointObj *parentSubwin = sciGetParentSubwin(m_pLabel->getDrawedObject());
+
+        return getSubwinDrawer(parentSubwin)->getZAxisPosition(axisStart, axisEnd, ticksDir);
+    }
 /*------------------------------------------------------------------------------------------*/
-double ZLabelPositioner::getAutoOrientation(void)
-{
-  // always horizontal
-  return 0.0;
-}
+    double ZLabelPositioner::getAutoOrientation(void)
+    {
+        // always horizontal
+        return 0.0;
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

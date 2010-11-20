@@ -39,824 +39,1011 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_graphic_export {
+namespace org_scilab_modules_graphic_export
+{
 
 // Returns the current env
 
-JNIEnv * JOGLConstant::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *JOGLConstant::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-JOGLConstant::~JOGLConstant() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    JOGLConstant::~JOGLConstant()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-JOGLConstant::JOGLConstant(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    JOGLConstant::JOGLConstant(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-jintget_GL_RGBAID=NULL; 
-jintget_GL_RGBID=NULL; 
-jintget_GL_CURRENT_RASTER_POSITION_VALIDID=NULL; 
-jintget_GL_CURRENT_RASTER_POSITIONID=NULL; 
-jintget_GL_CURRENT_RASTER_COLORID=NULL; 
-jintget_GL_SRC_ALPHAID=NULL; 
-jintget_GL_ONE_MINUS_SRC_ALPHAID=NULL; 
-jintget_GL_ONEID=NULL; 
-jintget_GL_ZEROID=NULL; 
-jintget_GL_COLOR_INDEXID=NULL; 
-jintget_GL_POINT_TOKENID=NULL; 
-jintget_GL_LINE_TOKENID=NULL; 
-jintget_GL_LINE_RESET_TOKENID=NULL; 
-jintget_GL_POLYGON_TOKENID=NULL; 
-jintget_GL_BITMAP_TOKENID=NULL; 
-jintget_GL_DRAW_PIXEL_TOKENID=NULL; 
-jintget_GL_COPY_PIXEL_TOKENID=NULL; 
-jintget_GL_PASS_THROUGH_TOKENID=NULL; 
-jintget_GL_FEEDBACKID=NULL; 
-jintget_GL_COLOR_CLEAR_VALUEID=NULL; 
-jintget_GL_INDEX_CLEAR_VALUEID=NULL; 
-jintget_GL_RENDERID=NULL; 
-jintget_GL_VIEWPORTID=NULL; 
-jintget_GL_BLENDID=NULL; 
-jintget_GL_BLEND_SRCID=NULL; 
-jintget_GL_BLEND_DSTID=NULL; 
-jintget_GL_3D_COLORID=NULL; 
-jintget_GL_FLOATID=NULL; 
-jintget_GL_UNSIGNED_BYTEID=NULL; 
-jintget_GL_POINTSID=NULL; 
-jintget_GL_POLYGON_OFFSET_FACTORID=NULL; 
-jintget_GL_POLYGON_OFFSET_UNITSID=NULL; 
-jintget_GL_LINE_STIPPLE_PATTERNID=NULL; 
-jintget_GL_LINE_STIPPLE_REPEATID=NULL; 
-
-
-}
-
-JOGLConstant::JOGLConstant(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        jintget_GL_RGBAID = NULL;
+        jintget_GL_RGBID = NULL;
+        jintget_GL_CURRENT_RASTER_POSITION_VALIDID = NULL;
+        jintget_GL_CURRENT_RASTER_POSITIONID = NULL;
+        jintget_GL_CURRENT_RASTER_COLORID = NULL;
+        jintget_GL_SRC_ALPHAID = NULL;
+        jintget_GL_ONE_MINUS_SRC_ALPHAID = NULL;
+        jintget_GL_ONEID = NULL;
+        jintget_GL_ZEROID = NULL;
+        jintget_GL_COLOR_INDEXID = NULL;
+        jintget_GL_POINT_TOKENID = NULL;
+        jintget_GL_LINE_TOKENID = NULL;
+        jintget_GL_LINE_RESET_TOKENID = NULL;
+        jintget_GL_POLYGON_TOKENID = NULL;
+        jintget_GL_BITMAP_TOKENID = NULL;
+        jintget_GL_DRAW_PIXEL_TOKENID = NULL;
+        jintget_GL_COPY_PIXEL_TOKENID = NULL;
+        jintget_GL_PASS_THROUGH_TOKENID = NULL;
+        jintget_GL_FEEDBACKID = NULL;
+        jintget_GL_COLOR_CLEAR_VALUEID = NULL;
+        jintget_GL_INDEX_CLEAR_VALUEID = NULL;
+        jintget_GL_RENDERID = NULL;
+        jintget_GL_VIEWPORTID = NULL;
+        jintget_GL_BLENDID = NULL;
+        jintget_GL_BLEND_SRCID = NULL;
+        jintget_GL_BLEND_DSTID = NULL;
+        jintget_GL_3D_COLORID = NULL;
+        jintget_GL_FLOATID = NULL;
+        jintget_GL_UNSIGNED_BYTEID = NULL;
+        jintget_GL_POINTSID = NULL;
+        jintget_GL_POLYGON_OFFSET_FACTORID = NULL;
+        jintget_GL_POLYGON_OFFSET_UNITSID = NULL;
+        jintget_GL_LINE_STIPPLE_PATTERNID = NULL;
+        jintget_GL_LINE_STIPPLE_REPEATID = NULL;
+
+    }
+
+    JOGLConstant::JOGLConstant(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        jintget_GL_RGBAID=NULL; 
-jintget_GL_RGBID=NULL; 
-jintget_GL_CURRENT_RASTER_POSITION_VALIDID=NULL; 
-jintget_GL_CURRENT_RASTER_POSITIONID=NULL; 
-jintget_GL_CURRENT_RASTER_COLORID=NULL; 
-jintget_GL_SRC_ALPHAID=NULL; 
-jintget_GL_ONE_MINUS_SRC_ALPHAID=NULL; 
-jintget_GL_ONEID=NULL; 
-jintget_GL_ZEROID=NULL; 
-jintget_GL_COLOR_INDEXID=NULL; 
-jintget_GL_POINT_TOKENID=NULL; 
-jintget_GL_LINE_TOKENID=NULL; 
-jintget_GL_LINE_RESET_TOKENID=NULL; 
-jintget_GL_POLYGON_TOKENID=NULL; 
-jintget_GL_BITMAP_TOKENID=NULL; 
-jintget_GL_DRAW_PIXEL_TOKENID=NULL; 
-jintget_GL_COPY_PIXEL_TOKENID=NULL; 
-jintget_GL_PASS_THROUGH_TOKENID=NULL; 
-jintget_GL_FEEDBACKID=NULL; 
-jintget_GL_COLOR_CLEAR_VALUEID=NULL; 
-jintget_GL_INDEX_CLEAR_VALUEID=NULL; 
-jintget_GL_RENDERID=NULL; 
-jintget_GL_VIEWPORTID=NULL; 
-jintget_GL_BLENDID=NULL; 
-jintget_GL_BLEND_SRCID=NULL; 
-jintget_GL_BLEND_DSTID=NULL; 
-jintget_GL_3D_COLORID=NULL; 
-jintget_GL_FLOATID=NULL; 
-jintget_GL_UNSIGNED_BYTEID=NULL; 
-jintget_GL_POINTSID=NULL; 
-jintget_GL_POLYGON_OFFSET_FACTORID=NULL; 
-jintget_GL_POLYGON_OFFSET_UNITSID=NULL; 
-jintget_GL_LINE_STIPPLE_PATTERNID=NULL; 
-jintget_GL_LINE_STIPPLE_REPEATID=NULL; 
+        jintget_GL_RGBAID = NULL;
+        jintget_GL_RGBID = NULL;
+        jintget_GL_CURRENT_RASTER_POSITION_VALIDID = NULL;
+        jintget_GL_CURRENT_RASTER_POSITIONID = NULL;
+        jintget_GL_CURRENT_RASTER_COLORID = NULL;
+        jintget_GL_SRC_ALPHAID = NULL;
+        jintget_GL_ONE_MINUS_SRC_ALPHAID = NULL;
+        jintget_GL_ONEID = NULL;
+        jintget_GL_ZEROID = NULL;
+        jintget_GL_COLOR_INDEXID = NULL;
+        jintget_GL_POINT_TOKENID = NULL;
+        jintget_GL_LINE_TOKENID = NULL;
+        jintget_GL_LINE_RESET_TOKENID = NULL;
+        jintget_GL_POLYGON_TOKENID = NULL;
+        jintget_GL_BITMAP_TOKENID = NULL;
+        jintget_GL_DRAW_PIXEL_TOKENID = NULL;
+        jintget_GL_COPY_PIXEL_TOKENID = NULL;
+        jintget_GL_PASS_THROUGH_TOKENID = NULL;
+        jintget_GL_FEEDBACKID = NULL;
+        jintget_GL_COLOR_CLEAR_VALUEID = NULL;
+        jintget_GL_INDEX_CLEAR_VALUEID = NULL;
+        jintget_GL_RENDERID = NULL;
+        jintget_GL_VIEWPORTID = NULL;
+        jintget_GL_BLENDID = NULL;
+        jintget_GL_BLEND_SRCID = NULL;
+        jintget_GL_BLEND_DSTID = NULL;
+        jintget_GL_3D_COLORID = NULL;
+        jintget_GL_FLOATID = NULL;
+        jintget_GL_UNSIGNED_BYTEID = NULL;
+        jintget_GL_POINTSID = NULL;
+        jintget_GL_POLYGON_OFFSET_FACTORID = NULL;
+        jintget_GL_POLYGON_OFFSET_UNITSID = NULL;
+        jintget_GL_LINE_STIPPLE_PATTERNID = NULL;
+        jintget_GL_LINE_STIPPLE_REPEATID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void JOGLConstant::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "JOGLConstant");
-}
-}
+    void JOGLConstant::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "JOGLConstant");
+        }
+    }
 
-void JOGLConstant::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "JOGLConstant");
-}
-}
+    void JOGLConstant::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "JOGLConstant");
+        }
+    }
 // Method(s)
 
-int JOGLConstant::get_GL_RGBA (JavaVM * jvm_){
+    int JOGLConstant::get_GL_RGBA(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintget_GL_RGBAID = curEnv->GetStaticMethodID(cls, "get_GL_RGBA", "()I" ) ;
-if (jintget_GL_RGBAID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RGBA");
-}
+        jmethodID jintget_GL_RGBAID = curEnv->GetStaticMethodID(cls, "get_GL_RGBA", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_RGBAID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintget_GL_RGBAID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RGBA");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_RGBAID));
 
-int JOGLConstant::get_GL_RGB (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintget_GL_RGBID = curEnv->GetStaticMethodID(cls, "get_GL_RGB", "()I" ) ;
-if (jintget_GL_RGBID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RGB");
-}
+    int JOGLConstant::get_GL_RGB(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_RGBID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintget_GL_RGBID = curEnv->GetStaticMethodID(cls, "get_GL_RGB", "()I");
 
-int JOGLConstant::get_GL_CURRENT_RASTER_POSITION_VALID (JavaVM * jvm_){
+        if (jintget_GL_RGBID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RGB");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_RGBID));
 
-jmethodID jintget_GL_CURRENT_RASTER_POSITION_VALIDID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_POSITION_VALID", "()I" ) ;
-if (jintget_GL_CURRENT_RASTER_POSITION_VALIDID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_POSITION_VALID");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_POSITION_VALIDID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int JOGLConstant::get_GL_CURRENT_RASTER_POSITION_VALID(JavaVM * jvm_)
+    {
 
-int JOGLConstant::get_GL_CURRENT_RASTER_POSITION (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintget_GL_CURRENT_RASTER_POSITION_VALIDID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_POSITION_VALID", "()I");
 
-jmethodID jintget_GL_CURRENT_RASTER_POSITIONID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_POSITION", "()I" ) ;
-if (jintget_GL_CURRENT_RASTER_POSITIONID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_POSITION");
-}
+        if (jintget_GL_CURRENT_RASTER_POSITION_VALIDID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_POSITION_VALID");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_POSITIONID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_POSITION_VALIDID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int JOGLConstant::get_GL_CURRENT_RASTER_COLOR (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int JOGLConstant::get_GL_CURRENT_RASTER_POSITION(JavaVM * jvm_)
+    {
 
-jmethodID jintget_GL_CURRENT_RASTER_COLORID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_COLOR", "()I" ) ;
-if (jintget_GL_CURRENT_RASTER_COLORID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_COLOR");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_COLORID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintget_GL_CURRENT_RASTER_POSITIONID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_POSITION", "()I");
 
-}
+        if (jintget_GL_CURRENT_RASTER_POSITIONID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_POSITION");
+        }
 
-int JOGLConstant::get_GL_SRC_ALPHA (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_POSITIONID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintget_GL_SRC_ALPHAID = curEnv->GetStaticMethodID(cls, "get_GL_SRC_ALPHA", "()I" ) ;
-if (jintget_GL_SRC_ALPHAID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_SRC_ALPHA");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_SRC_ALPHAID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int JOGLConstant::get_GL_CURRENT_RASTER_COLOR(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int JOGLConstant::get_GL_ONE_MINUS_SRC_ALPHA (JavaVM * jvm_){
+        jmethodID jintget_GL_CURRENT_RASTER_COLORID = curEnv->GetStaticMethodID(cls, "get_GL_CURRENT_RASTER_COLOR", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintget_GL_CURRENT_RASTER_COLORID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_CURRENT_RASTER_COLOR");
+        }
 
-jmethodID jintget_GL_ONE_MINUS_SRC_ALPHAID = curEnv->GetStaticMethodID(cls, "get_GL_ONE_MINUS_SRC_ALPHA", "()I" ) ;
-if (jintget_GL_ONE_MINUS_SRC_ALPHAID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ONE_MINUS_SRC_ALPHA");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_CURRENT_RASTER_COLORID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_ONE_MINUS_SRC_ALPHAID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int JOGLConstant::get_GL_ONE (JavaVM * jvm_){
+    int JOGLConstant::get_GL_SRC_ALPHA(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintget_GL_ONEID = curEnv->GetStaticMethodID(cls, "get_GL_ONE", "()I" ) ;
-if (jintget_GL_ONEID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ONE");
-}
+        jmethodID jintget_GL_SRC_ALPHAID = curEnv->GetStaticMethodID(cls, "get_GL_SRC_ALPHA", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_ONEID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintget_GL_SRC_ALPHAID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_SRC_ALPHA");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_SRC_ALPHAID));
 
-int JOGLConstant::get_GL_ZERO (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintget_GL_ZEROID = curEnv->GetStaticMethodID(cls, "get_GL_ZERO", "()I" ) ;
-if (jintget_GL_ZEROID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ZERO");
-}
+    int JOGLConstant::get_GL_ONE_MINUS_SRC_ALPHA(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_ZEROID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintget_GL_ONE_MINUS_SRC_ALPHAID = curEnv->GetStaticMethodID(cls, "get_GL_ONE_MINUS_SRC_ALPHA", "()I");
 
-int JOGLConstant::get_GL_COLOR_INDEX (JavaVM * jvm_){
+        if (jintget_GL_ONE_MINUS_SRC_ALPHAID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ONE_MINUS_SRC_ALPHA");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_ONE_MINUS_SRC_ALPHAID));
 
-jmethodID jintget_GL_COLOR_INDEXID = curEnv->GetStaticMethodID(cls, "get_GL_COLOR_INDEX", "()I" ) ;
-if (jintget_GL_COLOR_INDEXID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COLOR_INDEX");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_COLOR_INDEXID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int JOGLConstant::get_GL_ONE(JavaVM * jvm_)
+    {
 
-int JOGLConstant::get_GL_POINT_TOKEN (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintget_GL_ONEID = curEnv->GetStaticMethodID(cls, "get_GL_ONE", "()I");
 
-jmethodID jintget_GL_POINT_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_POINT_TOKEN", "()I" ) ;
-if (jintget_GL_POINT_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POINT_TOKEN");
-}
+        if (jintget_GL_ONEID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ONE");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_POINT_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_ONEID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int JOGLConstant::get_GL_LINE_TOKEN (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int JOGLConstant::get_GL_ZERO(JavaVM * jvm_)
+    {
 
-jmethodID jintget_GL_LINE_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_TOKEN", "()I" ) ;
-if (jintget_GL_LINE_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_TOKEN");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintget_GL_ZEROID = curEnv->GetStaticMethodID(cls, "get_GL_ZERO", "()I");
 
-}
+        if (jintget_GL_ZEROID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_ZERO");
+        }
 
-int JOGLConstant::get_GL_LINE_RESET_TOKEN (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_ZEROID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintget_GL_LINE_RESET_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_RESET_TOKEN", "()I" ) ;
-if (jintget_GL_LINE_RESET_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_RESET_TOKEN");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_RESET_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int JOGLConstant::get_GL_COLOR_INDEX(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int JOGLConstant::get_GL_POLYGON_TOKEN (JavaVM * jvm_){
+        jmethodID jintget_GL_COLOR_INDEXID = curEnv->GetStaticMethodID(cls, "get_GL_COLOR_INDEX", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintget_GL_COLOR_INDEXID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COLOR_INDEX");
+        }
 
-jmethodID jintget_GL_POLYGON_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_TOKEN", "()I" ) ;
-if (jintget_GL_POLYGON_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_TOKEN");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_COLOR_INDEXID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int JOGLConstant::get_GL_BITMAP_TOKEN (JavaVM * jvm_){
+    int JOGLConstant::get_GL_POINT_TOKEN(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintget_GL_BITMAP_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_BITMAP_TOKEN", "()I" ) ;
-if (jintget_GL_BITMAP_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BITMAP_TOKEN");
-}
+        jmethodID jintget_GL_POINT_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_POINT_TOKEN", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_BITMAP_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintget_GL_POINT_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POINT_TOKEN");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_POINT_TOKENID));
 
-int JOGLConstant::get_GL_DRAW_PIXEL_TOKEN (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintget_GL_DRAW_PIXEL_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_DRAW_PIXEL_TOKEN", "()I" ) ;
-if (jintget_GL_DRAW_PIXEL_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_DRAW_PIXEL_TOKEN");
-}
+    int JOGLConstant::get_GL_LINE_TOKEN(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_DRAW_PIXEL_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintget_GL_LINE_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_TOKEN", "()I");
 
-int JOGLConstant::get_GL_COPY_PIXEL_TOKEN (JavaVM * jvm_){
+        if (jintget_GL_LINE_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_TOKEN");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_TOKENID));
 
-jmethodID jintget_GL_COPY_PIXEL_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_COPY_PIXEL_TOKEN", "()I" ) ;
-if (jintget_GL_COPY_PIXEL_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COPY_PIXEL_TOKEN");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_COPY_PIXEL_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int JOGLConstant::get_GL_LINE_RESET_TOKEN(JavaVM * jvm_)
+    {
 
-int JOGLConstant::get_GL_PASS_THROUGH_TOKEN (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintget_GL_LINE_RESET_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_RESET_TOKEN", "()I");
 
-jmethodID jintget_GL_PASS_THROUGH_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_PASS_THROUGH_TOKEN", "()I" ) ;
-if (jintget_GL_PASS_THROUGH_TOKENID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_PASS_THROUGH_TOKEN");
-}
+        if (jintget_GL_LINE_RESET_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_RESET_TOKEN");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_PASS_THROUGH_TOKENID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_RESET_TOKENID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int JOGLConstant::get_GL_FEEDBACK (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int JOGLConstant::get_GL_POLYGON_TOKEN(JavaVM * jvm_)
+    {
 
-jmethodID jintget_GL_FEEDBACKID = curEnv->GetStaticMethodID(cls, "get_GL_FEEDBACK", "()I" ) ;
-if (jintget_GL_FEEDBACKID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_FEEDBACK");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_FEEDBACKID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintget_GL_POLYGON_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_TOKEN", "()I");
 
-}
+        if (jintget_GL_POLYGON_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_TOKEN");
+        }
 
-int JOGLConstant::get_GL_COLOR_CLEAR_VALUE (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_TOKENID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintget_GL_COLOR_CLEAR_VALUEID = curEnv->GetStaticMethodID(cls, "get_GL_COLOR_CLEAR_VALUE", "()I" ) ;
-if (jintget_GL_COLOR_CLEAR_VALUEID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COLOR_CLEAR_VALUE");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_COLOR_CLEAR_VALUEID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int JOGLConstant::get_GL_BITMAP_TOKEN(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int JOGLConstant::get_GL_INDEX_CLEAR_VALUE (JavaVM * jvm_){
+        jmethodID jintget_GL_BITMAP_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_BITMAP_TOKEN", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintget_GL_BITMAP_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BITMAP_TOKEN");
+        }
 
-jmethodID jintget_GL_INDEX_CLEAR_VALUEID = curEnv->GetStaticMethodID(cls, "get_GL_INDEX_CLEAR_VALUE", "()I" ) ;
-if (jintget_GL_INDEX_CLEAR_VALUEID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_INDEX_CLEAR_VALUE");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_BITMAP_TOKENID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_INDEX_CLEAR_VALUEID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int JOGLConstant::get_GL_RENDER (JavaVM * jvm_){
+    int JOGLConstant::get_GL_DRAW_PIXEL_TOKEN(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintget_GL_RENDERID = curEnv->GetStaticMethodID(cls, "get_GL_RENDER", "()I" ) ;
-if (jintget_GL_RENDERID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RENDER");
-}
+        jmethodID jintget_GL_DRAW_PIXEL_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_DRAW_PIXEL_TOKEN", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_RENDERID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintget_GL_DRAW_PIXEL_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_DRAW_PIXEL_TOKEN");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_DRAW_PIXEL_TOKENID));
 
-int JOGLConstant::get_GL_VIEWPORT (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintget_GL_VIEWPORTID = curEnv->GetStaticMethodID(cls, "get_GL_VIEWPORT", "()I" ) ;
-if (jintget_GL_VIEWPORTID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_VIEWPORT");
-}
+    int JOGLConstant::get_GL_COPY_PIXEL_TOKEN(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_VIEWPORTID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintget_GL_COPY_PIXEL_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_COPY_PIXEL_TOKEN", "()I");
 
-int JOGLConstant::get_GL_BLEND (JavaVM * jvm_){
+        if (jintget_GL_COPY_PIXEL_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COPY_PIXEL_TOKEN");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_COPY_PIXEL_TOKENID));
 
-jmethodID jintget_GL_BLENDID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND", "()I" ) ;
-if (jintget_GL_BLENDID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_BLENDID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int JOGLConstant::get_GL_PASS_THROUGH_TOKEN(JavaVM * jvm_)
+    {
 
-int JOGLConstant::get_GL_BLEND_SRC (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintget_GL_PASS_THROUGH_TOKENID = curEnv->GetStaticMethodID(cls, "get_GL_PASS_THROUGH_TOKEN", "()I");
 
-jmethodID jintget_GL_BLEND_SRCID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND_SRC", "()I" ) ;
-if (jintget_GL_BLEND_SRCID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND_SRC");
-}
+        if (jintget_GL_PASS_THROUGH_TOKENID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_PASS_THROUGH_TOKEN");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_BLEND_SRCID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_PASS_THROUGH_TOKENID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int JOGLConstant::get_GL_BLEND_DST (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int JOGLConstant::get_GL_FEEDBACK(JavaVM * jvm_)
+    {
 
-jmethodID jintget_GL_BLEND_DSTID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND_DST", "()I" ) ;
-if (jintget_GL_BLEND_DSTID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND_DST");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_BLEND_DSTID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintget_GL_FEEDBACKID = curEnv->GetStaticMethodID(cls, "get_GL_FEEDBACK", "()I");
 
-}
+        if (jintget_GL_FEEDBACKID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_FEEDBACK");
+        }
 
-int JOGLConstant::get_GL_3D_COLOR (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_FEEDBACKID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintget_GL_3D_COLORID = curEnv->GetStaticMethodID(cls, "get_GL_3D_COLOR", "()I" ) ;
-if (jintget_GL_3D_COLORID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_3D_COLOR");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_3D_COLORID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int JOGLConstant::get_GL_COLOR_CLEAR_VALUE(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-int JOGLConstant::get_GL_FLOAT (JavaVM * jvm_){
+        jmethodID jintget_GL_COLOR_CLEAR_VALUEID = curEnv->GetStaticMethodID(cls, "get_GL_COLOR_CLEAR_VALUE", "()I");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (jintget_GL_COLOR_CLEAR_VALUEID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_COLOR_CLEAR_VALUE");
+        }
 
-jmethodID jintget_GL_FLOATID = curEnv->GetStaticMethodID(cls, "get_GL_FLOAT", "()I" ) ;
-if (jintget_GL_FLOATID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_FLOAT");
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_COLOR_CLEAR_VALUEID));
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_FLOATID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-}
+    }
 
-int JOGLConstant::get_GL_UNSIGNED_BYTE (JavaVM * jvm_){
+    int JOGLConstant::get_GL_INDEX_CLEAR_VALUE(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID jintget_GL_UNSIGNED_BYTEID = curEnv->GetStaticMethodID(cls, "get_GL_UNSIGNED_BYTE", "()I" ) ;
-if (jintget_GL_UNSIGNED_BYTEID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_UNSIGNED_BYTE");
-}
+        jmethodID jintget_GL_INDEX_CLEAR_VALUEID = curEnv->GetStaticMethodID(cls, "get_GL_INDEX_CLEAR_VALUE", "()I");
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_UNSIGNED_BYTEID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        if (jintget_GL_INDEX_CLEAR_VALUEID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_INDEX_CLEAR_VALUE");
+        }
 
-}
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_INDEX_CLEAR_VALUEID));
 
-int JOGLConstant::get_GL_POINTS (JavaVM * jvm_){
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    }
 
-jmethodID jintget_GL_POINTSID = curEnv->GetStaticMethodID(cls, "get_GL_POINTS", "()I" ) ;
-if (jintget_GL_POINTSID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POINTS");
-}
+    int JOGLConstant::get_GL_RENDER(JavaVM * jvm_)
+    {
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_POINTSID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-}
+        jmethodID jintget_GL_RENDERID = curEnv->GetStaticMethodID(cls, "get_GL_RENDER", "()I");
 
-int JOGLConstant::get_GL_POLYGON_OFFSET_FACTOR (JavaVM * jvm_){
+        if (jintget_GL_RENDERID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_RENDER");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_RENDERID));
 
-jmethodID jintget_GL_POLYGON_OFFSET_FACTORID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_OFFSET_FACTOR", "()I" ) ;
-if (jintget_GL_POLYGON_OFFSET_FACTORID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_OFFSET_FACTOR");
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_OFFSET_FACTORID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    }
 
-}
+    int JOGLConstant::get_GL_VIEWPORT(JavaVM * jvm_)
+    {
 
-int JOGLConstant::get_GL_POLYGON_OFFSET_UNITS (JavaVM * jvm_){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID jintget_GL_VIEWPORTID = curEnv->GetStaticMethodID(cls, "get_GL_VIEWPORT", "()I");
 
-jmethodID jintget_GL_POLYGON_OFFSET_UNITSID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_OFFSET_UNITS", "()I" ) ;
-if (jintget_GL_POLYGON_OFFSET_UNITSID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_OFFSET_UNITS");
-}
+        if (jintget_GL_VIEWPORTID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_VIEWPORT");
+        }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_OFFSET_UNITSID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_VIEWPORTID));
 
-}
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-int JOGLConstant::get_GL_LINE_STIPPLE_PATTERN (JavaVM * jvm_){
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    int JOGLConstant::get_GL_BLEND(JavaVM * jvm_)
+    {
 
-jmethodID jintget_GL_LINE_STIPPLE_PATTERNID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_STIPPLE_PATTERN", "()I" ) ;
-if (jintget_GL_LINE_STIPPLE_PATTERNID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_STIPPLE_PATTERN");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_STIPPLE_PATTERNID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintget_GL_BLENDID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND", "()I");
 
-}
+        if (jintget_GL_BLENDID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND");
+        }
 
-int JOGLConstant::get_GL_LINE_STIPPLE_REPEAT (JavaVM * jvm_){
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_BLENDID));
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jmethodID jintget_GL_LINE_STIPPLE_REPEATID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_STIPPLE_REPEAT", "()I" ) ;
-if (jintget_GL_LINE_STIPPLE_REPEATID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_STIPPLE_REPEAT");
-}
+    }
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_STIPPLE_REPEATID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+    int JOGLConstant::get_GL_BLEND_SRC(JavaVM * jvm_)
+    {
 
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_BLEND_SRCID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND_SRC", "()I");
+
+        if (jintget_GL_BLEND_SRCID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND_SRC");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_BLEND_SRCID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_BLEND_DST(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_BLEND_DSTID = curEnv->GetStaticMethodID(cls, "get_GL_BLEND_DST", "()I");
+
+        if (jintget_GL_BLEND_DSTID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_BLEND_DST");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_BLEND_DSTID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_3D_COLOR(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_3D_COLORID = curEnv->GetStaticMethodID(cls, "get_GL_3D_COLOR", "()I");
+
+        if (jintget_GL_3D_COLORID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_3D_COLOR");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_3D_COLORID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_FLOAT(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_FLOATID = curEnv->GetStaticMethodID(cls, "get_GL_FLOAT", "()I");
+
+        if (jintget_GL_FLOATID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_FLOAT");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_FLOATID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_UNSIGNED_BYTE(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_UNSIGNED_BYTEID = curEnv->GetStaticMethodID(cls, "get_GL_UNSIGNED_BYTE", "()I");
+
+        if (jintget_GL_UNSIGNED_BYTEID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_UNSIGNED_BYTE");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_UNSIGNED_BYTEID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_POINTS(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_POINTSID = curEnv->GetStaticMethodID(cls, "get_GL_POINTS", "()I");
+
+        if (jintget_GL_POINTSID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POINTS");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_POINTSID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_POLYGON_OFFSET_FACTOR(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_POLYGON_OFFSET_FACTORID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_OFFSET_FACTOR", "()I");
+
+        if (jintget_GL_POLYGON_OFFSET_FACTORID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_OFFSET_FACTOR");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_OFFSET_FACTORID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_POLYGON_OFFSET_UNITS(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_POLYGON_OFFSET_UNITSID = curEnv->GetStaticMethodID(cls, "get_GL_POLYGON_OFFSET_UNITS", "()I");
+
+        if (jintget_GL_POLYGON_OFFSET_UNITSID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_POLYGON_OFFSET_UNITS");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_POLYGON_OFFSET_UNITSID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_LINE_STIPPLE_PATTERN(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_LINE_STIPPLE_PATTERNID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_STIPPLE_PATTERN", "()I");
+
+        if (jintget_GL_LINE_STIPPLE_PATTERNID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_STIPPLE_PATTERN");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_STIPPLE_PATTERNID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    int JOGLConstant::get_GL_LINE_STIPPLE_REPEAT(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintget_GL_LINE_STIPPLE_REPEATID = curEnv->GetStaticMethodID(cls, "get_GL_LINE_STIPPLE_REPEAT", "()I");
+
+        if (jintget_GL_LINE_STIPPLE_REPEATID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "get_GL_LINE_STIPPLE_REPEAT");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintget_GL_LINE_STIPPLE_REPEATID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
 
 }

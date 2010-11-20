@@ -18,24 +18,23 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] = 
-{
-  {sci_dsaupd,"dsaupd"},
-  {sci_dnaupd,"dnaupd"},
-  {sci_znaupd,"znaupd"},
-  {sci_dseupd,"dseupd"},
-  {sci_dneupd,"dneupd"},
-  {sci_zneupd,"zneupd"}
+static gw_generic_table Tab[] = {
+    {sci_dsaupd, "dsaupd"},
+    {sci_dnaupd, "dnaupd"},
+    {sci_znaupd, "znaupd"},
+    {sci_dseupd, "dseupd"},
+    {sci_dneupd, "dneupd"},
+    {sci_zneupd, "zneupd"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_arnoldi(void)
 {
-	Rhs = Max(0, Rhs);
+    Rhs = Max(0, Rhs);
 
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
 
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-
-

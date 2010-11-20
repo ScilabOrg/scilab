@@ -14,11 +14,13 @@
 #include "gw_special_functions.h"
 #include "machine.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsgamma)(char *id,unsigned long fname_len);
+extern int C2F(intsgamma) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_gamma(char *fname,unsigned long fname_len)
+int sci_gamma(char *fname, unsigned long fname_len)
 {
-    C2F(intsgamma)(fname,fname_len);
+    C2F(intsgamma) (fname, fname_len);
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

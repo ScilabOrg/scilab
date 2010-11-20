@@ -17,50 +17,52 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSegs::draw( void )
-{
-  if(!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  EDisplayStatus status = drawSegs();
-  unClip();
-  endDrawing();
-  return status;
-}
+    DrawableObject::EDisplayStatus DrawableSegs::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        EDisplayStatus status = drawSegs();
+
+        unClip();
+        endDrawing();
+        return status;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSegs::show( void )
-{
-  if(!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showSegs();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableSegs::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showSegs();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableSegs::redraw(void)
-{
-  if(!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  translate();
-  redrawSegs();
-  endTranslate();
-  unClip();
-  endDrawing();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableSegs::redraw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+        clip();
+        translate();
+        redrawSegs();
+        endTranslate();
+        unClip();
+        endDrawing();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

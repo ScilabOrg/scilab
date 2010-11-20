@@ -16,81 +16,97 @@
 /*--------------------------------------------------------------------------*/
 char **searchAllDictionaries(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completion(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completion(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchFunctionsDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnFunctions(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnFunctions(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchCommandsDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnCommandWords(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnCommandWords(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchMacrosDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnMacros(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnMacros(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchVariablesDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnVariablesWithoutMacros(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnVariablesWithoutMacros(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchFilesDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnFiles(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnFiles(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchFieldsDictionary(char *lineBeforeCaret, char *pattern)
 {
-	int nbrElements = 0;
-	if ( (lineBeforeCaret) && (strcmp(lineBeforeCaret,"")) ) 
-	{
-	        return completionOnFields(lineBeforeCaret, pattern, &nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((lineBeforeCaret) && (strcmp(lineBeforeCaret, "")))
+    {
+        return completionOnFields(lineBeforeCaret, pattern, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/
 char **searchHandleGraphicsPropertiesDictionary(char *somechars)
 {
-	int nbrElements = 0;
-	if ( (somechars) && (strcmp(somechars,"")) ) 
-	{
-		return completionOnHandleGraphicsProperties(somechars,&nbrElements);
-	}
-	return NULL;
+    int nbrElements = 0;
+
+    if ((somechars) && (strcmp(somechars, "")))
+    {
+        return completionOnHandleGraphicsProperties(somechars, &nbrElements);
+    }
+    return NULL;
 }
+
 /*--------------------------------------------------------------------------*/

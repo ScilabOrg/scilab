@@ -15,21 +15,22 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-{sci_optim, "optim"},
-{sci_semidef, "semidef"},
-{sci_fsolve, "fsolve"},
-{sci_sqrsolve, "sqrsolve"},
-{sci_qld, "qld"},
-{sci_qp_solve, "qp_solve"},
-{sci_readmps, "readmps"}
+static gw_generic_table Tab[] = {
+    {sci_optim, "optim"},
+    {sci_semidef, "semidef"},
+    {sci_fsolve, "fsolve"},
+    {sci_sqrsolve, "sqrsolve"},
+    {sci_qld, "qld"},
+    {sci_qp_solve, "qp_solve"},
+    {sci_readmps, "readmps"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_optimization(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

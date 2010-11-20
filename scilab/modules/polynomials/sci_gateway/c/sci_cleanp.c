@@ -15,12 +15,15 @@
 #include "gw_polynomials.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intpclean)(int *id);
+extern int C2F(intpclean) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_cleanp(char *fname,unsigned long fname_len)
+int sci_cleanp(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intpclean)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intpclean) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

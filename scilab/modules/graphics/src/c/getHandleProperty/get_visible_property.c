@@ -25,22 +25,22 @@
 
 /*------------------------------------------------------------------------*/
 
-int get_visible_property( sciPointObj * pobj )
+int get_visible_property(sciPointObj * pobj)
 {
 
-  if ( (sciGetEntityType(pobj) == SCI_UIMENU) || (sciGetEntityType(pobj) == SCI_UICONTROL) )
+    if ((sciGetEntityType(pobj) == SCI_UIMENU) || (sciGetEntityType(pobj) == SCI_UICONTROL))
     {
-      return GetUiobjectVisible(pobj);
+        return GetUiobjectVisible(pobj);
     }
 
-  if ( sciGetVisibility( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetVisibility(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
 
 /*------------------------------------------------------------------------*/

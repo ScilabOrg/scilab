@@ -16,6 +16,7 @@
 /*--------------------------------------------------------------------------*/
 SHELL_IMPEXP void TermPrintf_Windows(char *buffer)
 {
-	TerminalPrintf(buffer);
+    TerminalPrintf(buffer);
 }
+
 /*--------------------------------------------------------------------------*/

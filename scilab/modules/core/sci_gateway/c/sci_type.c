@@ -13,20 +13,22 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_type)(char *fname,unsigned long fname_len)
+int C2F(sci_type) (char *fname, unsigned long fname_len)
 {
-	int iType = 0;
-	int l = 0, lc = 0;
-	int one = 1;
-	int zero = 0;
+    int iType = 0;
+    int l = 0, lc = 0;
+    int one = 1;
+    int zero = 0;
 
-	CheckRhs(1,1);
-	CheckLhs(1,2); 
-	
-	iType = GetType(1);
-	if (! C2F(cremat)(fname, &Top, &zero, &one, &one, &l, &lc, fname_len)) return 0;
-	*stk(l) = (double) iType;
+    CheckRhs(1, 1);
+    CheckLhs(1, 2);
 
-	return 0;
+    iType = GetType(1);
+    if (!C2F(cremat) (fname, &Top, &zero, &one, &one, &l, &lc, fname_len))
+        return 0;
+    *stk(l) = (double)iType;
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

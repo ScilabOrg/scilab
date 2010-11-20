@@ -28,19 +28,22 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_closed_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_closed_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-	int b =  (int)FALSE;
-	if(sciGetEntityType(pobj) != SCI_POLYLINE)
-	{
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"closed") ;
-		return SET_PROPERTY_ERROR ;
-	}
+    int b = (int)FALSE;
 
-	b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "closed");
-	if(b == NOT_A_BOOLEAN_VALUE) return SET_PROPERTY_ERROR;
+    if (sciGetEntityType(pobj) != SCI_POLYLINE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "closed");
+        return SET_PROPERTY_ERROR;
+    }
 
-	pPOLYLINE_FEATURE(pobj)->closed = b;
-	return SET_PROPERTY_SUCCEED;
+    b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "closed");
+    if (b == NOT_A_BOOLEAN_VALUE)
+        return SET_PROPERTY_ERROR;
+
+    pPOLYLINE_FEATURE(pobj)->closed = b;
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

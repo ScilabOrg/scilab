@@ -11,7 +11,6 @@
  *
  */
 
-
 #include "PolylineArrowDrawerJoGL.hxx"
 
 extern "C"
@@ -25,97 +24,103 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-PolylineArrowDrawerJoGL::PolylineArrowDrawerJoGL( DrawablePolyline * polyline )
-  : DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
-{
-  setJavaMapper(new PolylineArrowDrawerJavaMapper());
-}
+    PolylineArrowDrawerJoGL::PolylineArrowDrawerJoGL(DrawablePolyline * polyline):DrawPolylineStrategy(polyline), DrawableObjectJoGL(polyline)
+    {
+        setJavaMapper(new PolylineArrowDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineArrowDrawerJoGL::~PolylineArrowDrawerJoGL(void)
-{
+    PolylineArrowDrawerJoGL::~PolylineArrowDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineArrowDrawerJoGL::drawPolyline( void )
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
-  initializeDrawing() ;
+    void PolylineArrowDrawerJoGL::drawPolyline(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
 
-  // set the line parameters
-  getArrowDrawerJavaMapper()->setArrowParameters(sciGetGraphicContext(pObj)->foregroundcolor,
-                                                 sciGetArrowSize(pObj) * sciGetLineWidth(pObj));
+        initializeDrawing();
 
-  double bounds[6];
-  sciGetRealDataBounds(sciGetParentSubwin(pObj), bounds);
-  getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1],
-                                            bounds[2], bounds[3],
-                                            bounds[4], bounds[5]);
+        // set the line parameters
+        getArrowDrawerJavaMapper()->setArrowParameters(sciGetGraphicContext(pObj)->foregroundcolor, sciGetArrowSize(pObj) * sciGetLineWidth(pObj));
 
-  // get the data of the polyline
-  int      nbVertices = 0   ;
-  double * xCoords    = NULL;
-  double * yCoords    = NULL;
-  double * zCoords    = NULL;
+        double bounds[6];
 
-  nbVertices = m_pDrawed->getDrawnVerticesLength();
-  try {
-    xCoords = new double[nbVertices];
-    yCoords = new double[nbVertices];
-    zCoords = new double[nbVertices];
-  }
-  catch (const std::exception& e)
-  {
-    // allocation failed
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineArrowDrawerJoGL::drawPolyline");
-    if(xCoords != NULL) { delete[] xCoords; }
-    if(yCoords != NULL) { delete[] yCoords; }
-    if(zCoords != NULL) { delete[] zCoords; }
-    endDrawing();
-    return;
-   }
+        sciGetRealDataBounds(sciGetParentSubwin(pObj), bounds);
+        getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 
-  m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
+        // get the data of the polyline
+        int nbVertices = 0;
+        double *xCoords = NULL;
+        double *yCoords = NULL;
+        double *zCoords = NULL;
 
-  // display the rectangle
-  try
-  {
-    getArrowDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
-  }
-  catch (const std::exception& e)
-  {
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"PolylineArrowDrawerJoGL::drawPolyline");
-  }
+        nbVertices = m_pDrawed->getDrawnVerticesLength();
+        try
+        {
+            xCoords = new double[nbVertices];
+            yCoords = new double[nbVertices];
+            zCoords = new double[nbVertices];
+        }
+        catch(const std::exception & e)
+        {
+            // allocation failed
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineArrowDrawerJoGL::drawPolyline");
 
+            if (xCoords != NULL)
+            {
+                delete[]xCoords;
+            }
+            if (yCoords != NULL)
+            {
+                delete[]yCoords;
+            }
+            if (zCoords != NULL)
+            {
+                delete[]zCoords;
+            }
+            endDrawing();
+            return;
+        }
 
+        m_pDrawed->getDrawnVertices(xCoords, yCoords, zCoords);
 
-  delete[] xCoords;
-  delete[] yCoords;
-  delete[] zCoords;
-  endDrawing() ;
-}
+        // display the rectangle
+        try
+        {
+            getArrowDrawerJavaMapper()->drawPolyline(xCoords, yCoords, zCoords, nbVertices);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "PolylineArrowDrawerJoGL::drawPolyline");
+        }
+
+        delete[]xCoords;
+        delete[]yCoords;
+        delete[]zCoords;
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineArrowDrawerJoGL::showPolyline( void )
-{
-  show();
-}
+    void PolylineArrowDrawerJoGL::showPolyline(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-void PolylineArrowDrawerJoGL::redrawPolyline( void )
-{
-  initializeDrawing();
-  // axes may have changed
-  double bounds[6];
-  sciGetRealDataBounds(sciGetParentSubwin(m_pDrawed->getDrawedObject()), bounds);
-  getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1],
-                                            bounds[2], bounds[3],
-                                            bounds[4], bounds[5]);
-  getArrowDrawerJavaMapper()->drawPolyline();
-  endDrawing();
-}
+    void PolylineArrowDrawerJoGL::redrawPolyline(void)
+    {
+        initializeDrawing();
+        // axes may have changed
+        double bounds[6];
+
+        sciGetRealDataBounds(sciGetParentSubwin(m_pDrawed->getDrawedObject()), bounds);
+        getArrowDrawerJavaMapper()->setAxesBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+        getArrowDrawerJavaMapper()->drawPolyline();
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-PolylineArrowDrawerJavaMapper * PolylineArrowDrawerJoGL::getArrowDrawerJavaMapper(void)
-{
-  return dynamic_cast<PolylineArrowDrawerJavaMapper *>(getJavaMapper());
-}
+    PolylineArrowDrawerJavaMapper *PolylineArrowDrawerJoGL::getArrowDrawerJavaMapper(void)
+    {
+        return dynamic_cast < PolylineArrowDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

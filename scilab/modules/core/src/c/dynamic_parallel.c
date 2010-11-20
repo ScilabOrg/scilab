@@ -19,21 +19,20 @@
 #define PARALLEL_MODULE_NAME "parallel"
 static DynLibHandle hParallelLib = NULL;
 static PROC_GATEWAY ptr_gw_parallel = NULL;
-static char* dynlibname_parallel = NULL;
-static char* gatewayname_parallel = NULL;
+static char *dynlibname_parallel = NULL;
+static char *gatewayname_parallel = NULL;
+
 /*--------------------------------------------------------------------------*/
 int gw_dynamic_parallel(void)
 {
-    return gw_dynamic_generic(PARALLEL_MODULE_NAME,
-        &dynlibname_parallel,
-        &gatewayname_parallel,
-        &hParallelLib,
-        &ptr_gw_parallel);
+    return gw_dynamic_generic(PARALLEL_MODULE_NAME, &dynlibname_parallel, &gatewayname_parallel, &hParallelLib, &ptr_gw_parallel);
 }
+
 /*--------------------------------------------------------------------------*/
 #define PARALLEL_CONCURRENCY_NAME "parallelConcurrency"
 typedef int (*PROC_PARALLEL_CONCURRENCY) (void);
 static PROC_PARALLEL_CONCURRENCY ptr_parallel_concurrency = NULL;
+
 /*--------------------------------------------------------------------------*/
 int dynParallelConcurrency(void)
 {
@@ -41,42 +40,44 @@ int dynParallelConcurrency(void)
     {
         if (ptr_parallel_concurrency == NULL)
         {
-            ptr_parallel_concurrency = (PROC_PARALLEL_CONCURRENCY) GetDynLibFuncPtr(hParallelLib, 
-                PARALLEL_CONCURRENCY_NAME);
-            if (ptr_parallel_concurrency == NULL) return 0;
+            ptr_parallel_concurrency = (PROC_PARALLEL_CONCURRENCY) GetDynLibFuncPtr(hParallelLib, PARALLEL_CONCURRENCY_NAME);
+            if (ptr_parallel_concurrency == NULL)
+                return 0;
         }
-        return (ptr_parallel_concurrency)();
+        return (ptr_parallel_concurrency) ();
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 #define PARALLEL_FORBIDDEN_NAME "parallelForbidden"
-typedef BOOL (*PROC_PARALLEL_FORBIDDEN) (const char *);
+typedef BOOL(*PROC_PARALLEL_FORBIDDEN) (const char *);
 static PROC_PARALLEL_FORBIDDEN ptr_parallel_forbidden = NULL;
+
 /*--------------------------------------------------------------------------*/
-int dynParallelForbidden(char const* fname)
+int dynParallelForbidden(char const *fname)
 {
     if (hParallelLib)
     {
         if (ptr_parallel_forbidden == NULL)
         {
-            ptr_parallel_forbidden = (PROC_PARALLEL_FORBIDDEN) GetDynLibFuncPtr(hParallelLib, 
-                PARALLEL_FORBIDDEN_NAME);
-            if (ptr_parallel_forbidden == NULL) return 0;
+            ptr_parallel_forbidden = (PROC_PARALLEL_FORBIDDEN) GetDynLibFuncPtr(hParallelLib, PARALLEL_FORBIDDEN_NAME);
+            if (ptr_parallel_forbidden == NULL)
+                return 0;
         }
-        return (ptr_parallel_forbidden)(fname);
+        return (ptr_parallel_forbidden) (fname);
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL dynTerminateParallel(void)
 {
-    if (ptr_parallel_concurrency) ptr_parallel_concurrency = NULL;
-    if (ptr_parallel_forbidden) ptr_parallel_forbidden = NULL;
-    return freeDynamicGateway(&dynlibname_parallel,
-        &gatewayname_parallel,
-        &hParallelLib,
-        &ptr_gw_parallel);
+    if (ptr_parallel_concurrency)
+        ptr_parallel_concurrency = NULL;
+    if (ptr_parallel_forbidden)
+        ptr_parallel_forbidden = NULL;
+    return freeDynamicGateway(&dynlibname_parallel, &gatewayname_parallel, &hParallelLib, &ptr_gw_parallel);
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

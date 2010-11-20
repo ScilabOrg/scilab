@@ -24,8 +24,9 @@
 #include "math_graphics.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_angle_property( sciPointObj * pobj )
+int get_font_angle_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( RAD2DEG(sciGetFontOrientation(pobj)) ) ;
+    return sciReturnDouble(RAD2DEG(sciGetFontOrientation(pobj)));
 }
+
 /*------------------------------------------------------------------------*/

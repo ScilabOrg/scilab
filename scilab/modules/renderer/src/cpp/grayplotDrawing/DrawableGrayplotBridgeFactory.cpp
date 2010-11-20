@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableGrayplotBridge * DrawableGrayplotBridgeFactory::create( void )
-{
-  DrawableGrayplotJoGL * imp = new DrawableGrayplotJoGL( m_pDrawable ) ;
-  imp->setJavaMapper(new DrawableGrayplotJavaMapper()) ;
-  return imp ;
-}
+    DrawableGrayplotBridge *DrawableGrayplotBridgeFactory::create(void)
+    {
+        DrawableGrayplotJoGL *imp = new DrawableGrayplotJoGL(m_pDrawable);
+          imp->setJavaMapper(new DrawableGrayplotJavaMapper());
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableGrayplotBridgeFactory::setDrawedGrayplot( DrawableGrayplot * poly )
-{
-  m_pDrawable = poly ;
-}
+    void DrawableGrayplotBridgeFactory::setDrawedGrayplot(DrawableGrayplot * poly)
+    {
+        m_pDrawable = poly;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

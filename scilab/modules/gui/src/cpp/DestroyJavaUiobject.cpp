@@ -17,26 +17,23 @@ using namespace org_scilab_modules_gui_bridge;
 
 void DestroyJavaUiobject(sciPointObj * sciObj)
 {
-  if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-          CallScilabBridge::destroyFrame(getScilabJavaVM(),
-                                         pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            CallScilabBridge::destroyFrame(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
-      else
+        else
         {
-          CallScilabBridge::destroyWidget(getScilabJavaVM(),
-                                         pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            CallScilabBridge::destroyWidget(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
     }
-  else if (sciGetEntityType( sciObj ) == SCI_UIMENU)
+    else if (sciGetEntityType(sciObj) == SCI_UIMENU)
     {
-          CallScilabBridge::destroyWidget(getScilabJavaVM(),
-                                         pUIMENU_FEATURE(sciObj)->hashMapIndex);
+        CallScilabBridge::destroyWidget(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex);
     }
-  else
+    else
     {
-		sciprint(const_cast<char*>(_("%s: Could not destroy this object.\n")), "DestroyJavaUiobject");
+        sciprint(const_cast < char *>(_("%s: Could not destroy this object.\n")), "DestroyJavaUiobject");
     }
 }

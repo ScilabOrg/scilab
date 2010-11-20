@@ -17,14 +17,16 @@
 /*--------------------------------------------------------------------------*/
 SCILAB_WINDOWS_IMPEXP void setFocusOnConsole(void)
 {
-	if ( (getScilabMode() == SCILAB_NW) || (getScilabMode() == SCILAB_NWNI) )
-	{
-		HWND hWndConsole = GetConsoleWindow();
-		if (hWndConsole)
-		{
-			SetForegroundWindow(hWndConsole);
-			SetActiveWindow(hWndConsole);
-		}
-	}
+    if ((getScilabMode() == SCILAB_NW) || (getScilabMode() == SCILAB_NWNI))
+    {
+        HWND hWndConsole = GetConsoleWindow();
+
+        if (hWndConsole)
+        {
+            SetForegroundWindow(hWndConsole);
+            SetActiveWindow(hWndConsole);
+        }
+    }
 }
+
 /*--------------------------------------------------------------------------*/

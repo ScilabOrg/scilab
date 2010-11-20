@@ -26,27 +26,28 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_mark_size_unit_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_mark_size_unit_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "mark_size_unit");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "mark_size_unit");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "point") )
-  {
-    return sciSetMarkSizeUnit( pobj, 1 ) ; /* 1 : points, 2 : tabulated */
-  }
-  else if ( isStringParamEqual( stackPointer, "tabulated" ) )
-  {
-    return sciSetMarkSizeUnit( pobj, 2) ;
-  }
-  else
-  {
-    Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "mark_size_unit", "'point'", "'tabulated'");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_ERROR ;
+    if (isStringParamEqual(stackPointer, "point"))
+    {
+        return sciSetMarkSizeUnit(pobj, 1); /* 1 : points, 2 : tabulated */
+    }
+    else if (isStringParamEqual(stackPointer, "tabulated"))
+    {
+        return sciSetMarkSizeUnit(pobj, 2);
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: %s or %s expected.\n"), "mark_size_unit", "'point'", "'tabulated'");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

@@ -10,7 +10,7 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <jni.h>
 #include <string.h>
 #include "system_setproperty.h"
@@ -20,50 +20,53 @@
 #ifdef _MSC_VER
 #include "strdup_windows.h"
 #endif
-/*--------------------------------------------------------------------------*/ 
-char * system_setproperty(char *property,char *value)
+/*--------------------------------------------------------------------------*/
+char *system_setproperty(char *property, char *value)
 {
-	char *retValue = NULL;
+    char *retValue = NULL;
 
-	JNIEnv * currentENV = getScilabJNIEnv();
+    JNIEnv *currentENV = getScilabJNIEnv();
 
-	if (currentENV)
-	{
-		jclass cls = NULL;
-		cls = (*currentENV)->FindClass(currentENV, "java/lang/System");
-		if (cls)
-		{
-			jmethodID mid = NULL;
-			mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "setProperty","(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
-			if (mid)
-			{
-				BOOL bOK = FALSE;
-				const char *strPreviousValue = NULL;
-				jstring jstrProperty;
-				jstring jstrValue;
-				jstring jstrPreviousValue;
-		
-				jstrProperty = (*currentENV)->NewStringUTF(currentENV,property);
-				jstrValue = (*currentENV)->NewStringUTF(currentENV,value);
+    if (currentENV)
+    {
+        jclass cls = NULL;
 
-				jstrPreviousValue = (*currentENV)->CallStaticObjectMethod(currentENV,cls, mid,jstrProperty,jstrValue);
-				bOK = catchIfJavaException(""); 
+        cls = (*currentENV)->FindClass(currentENV, "java/lang/System");
+        if (cls)
+        {
+            jmethodID mid = NULL;
 
-				if (bOK)
-				{
-					if (jstrPreviousValue)
-					{
-						strPreviousValue = (*currentENV)->GetStringUTFChars(currentENV,jstrPreviousValue, 0);
-						if (strPreviousValue)
-						{
-							retValue = strdup(strPreviousValue);
-						}
-						(*currentENV)->ReleaseStringUTFChars(currentENV, jstrPreviousValue , strPreviousValue);
-					}
-				}
-			}
-		}
-	}
-	return retValue;
+            mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "setProperty", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
+            if (mid)
+            {
+                BOOL bOK = FALSE;
+                const char *strPreviousValue = NULL;
+                jstring jstrProperty;
+                jstring jstrValue;
+                jstring jstrPreviousValue;
+
+                jstrProperty = (*currentENV)->NewStringUTF(currentENV, property);
+                jstrValue = (*currentENV)->NewStringUTF(currentENV, value);
+
+                jstrPreviousValue = (*currentENV)->CallStaticObjectMethod(currentENV, cls, mid, jstrProperty, jstrValue);
+                bOK = catchIfJavaException("");
+
+                if (bOK)
+                {
+                    if (jstrPreviousValue)
+                    {
+                        strPreviousValue = (*currentENV)->GetStringUTFChars(currentENV, jstrPreviousValue, 0);
+                        if (strPreviousValue)
+                        {
+                            retValue = strdup(strPreviousValue);
+                        }
+                        (*currentENV)->ReleaseStringUTFChars(currentENV, jstrPreviousValue, strPreviousValue);
+                    }
+                }
+            }
+        }
+    }
+    return retValue;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

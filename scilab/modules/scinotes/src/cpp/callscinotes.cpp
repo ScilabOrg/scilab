@@ -24,108 +24,119 @@ extern "C"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_scinotes;
+
 /*--------------------------------------------------------------------------*/
-int callSciNotesW(wchar_t **_wcfilenames, int _nbfiles)
+int callSciNotesW(wchar_t ** _wcfilenames, int _nbfiles)
 {
-        if ( (_wcfilenames) && (_nbfiles > 0) )
-        {
-                int i = 0;
-                for (i = 0; i < _nbfiles; i++)
-                {
-                        if (_wcfilenames[i])
-                        {
-                                wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
-                                if (wcFullFilename)
-                                {
-                                        char *fullFilename = wide_string_to_UTF8(wcFullFilename);
-                                        if (fullFilename)
-                                        {
-                                                SciNotes::scinotes(getScilabJavaVM(), fullFilename);
-                                                FREE(fullFilename);
-                                                fullFilename = NULL;
-                                        }
+    if ((_wcfilenames) && (_nbfiles > 0))
+    {
+        int i = 0;
 
-                                        FREE(wcFullFilename);
-                                        wcFullFilename = NULL;
-                                }
-                        }
-                }
-        }
-        else
+        for (i = 0; i < _nbfiles; i++)
         {
-                SciNotes::scinotes(getScilabJavaVM());
+            if (_wcfilenames[i])
+            {
+                wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
+
+                if (wcFullFilename)
+                {
+                    char *fullFilename = wide_string_to_UTF8(wcFullFilename);
+
+                    if (fullFilename)
+                    {
+                        SciNotes::scinotes(getScilabJavaVM(), fullFilename);
+                        FREE(fullFilename);
+                        fullFilename = NULL;
+                    }
+
+                    FREE(wcFullFilename);
+                    wcFullFilename = NULL;
+                }
+            }
         }
-        return 0;
+    }
+    else
+    {
+        SciNotes::scinotes(getScilabJavaVM());
+    }
+    return 0;
 }
 
-int callSciNotesWWithLineNumber(wchar_t **_wcfilenames, double* pdblLineNumber, int _nbfiles)
+int callSciNotesWWithLineNumber(wchar_t ** _wcfilenames, double *pdblLineNumber, int _nbfiles)
 {
-        if ( (_wcfilenames) && (_nbfiles > 0) )
-        {
-                int i = 0;
-                for (i = 0; i < _nbfiles; i++)
-                {
-                        if (_wcfilenames[i])
-                        {
-                                wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
-                                if (wcFullFilename)
-                                {
-                                        char *fullFilename = wide_string_to_UTF8(wcFullFilename);
-                                        if (fullFilename)
-                                        {
-                                                SciNotes::scinotes(getScilabJavaVM(), fullFilename, (int)pdblLineNumber[i]);
-                                                FREE(fullFilename);
-                                                fullFilename = NULL;
-                                        }
+    if ((_wcfilenames) && (_nbfiles > 0))
+    {
+        int i = 0;
 
-                                        FREE(wcFullFilename);
-                                        wcFullFilename = NULL;
-                                }
-                        }
-                }
-        }
-        else
+        for (i = 0; i < _nbfiles; i++)
         {
-                SciNotes::scinotes(getScilabJavaVM());
+            if (_wcfilenames[i])
+            {
+                wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
+
+                if (wcFullFilename)
+                {
+                    char *fullFilename = wide_string_to_UTF8(wcFullFilename);
+
+                    if (fullFilename)
+                    {
+                        SciNotes::scinotes(getScilabJavaVM(), fullFilename, (int)pdblLineNumber[i]);
+                        FREE(fullFilename);
+                        fullFilename = NULL;
+                    }
+
+                    FREE(wcFullFilename);
+                    wcFullFilename = NULL;
+                }
+            }
         }
-        return 0;
+    }
+    else
+    {
+        SciNotes::scinotes(getScilabJavaVM());
+    }
+    return 0;
 }
 
-int callSciNotesWWithOption(wchar_t **_wcfilenames, wchar_t** option, int _nbfiles)
+int callSciNotesWWithOption(wchar_t ** _wcfilenames, wchar_t ** option, int _nbfiles)
 {
-        if ( (_wcfilenames) && (_nbfiles > 0) )
-        {
-                int i = 0;
-                char *opt = wide_string_to_UTF8(option[0]);
-                if (opt)
-                {
-                        for (i = 0; i < _nbfiles; i++)
-                        {
-                                if (_wcfilenames[i])
-                                {
-                                        wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
-                                        if (wcFullFilename)
-                                        {
-                                                char *fullFilename = wide_string_to_UTF8(wcFullFilename);
-                                                if (fullFilename)
-                                                {
-                                                        SciNotes::scinotes(getScilabJavaVM(), fullFilename, opt);
-                                                        FREE(fullFilename);
-                                                        fullFilename = NULL;
-                                                }
+    if ((_wcfilenames) && (_nbfiles > 0))
+    {
+        int i = 0;
+        char *opt = wide_string_to_UTF8(option[0]);
 
-                                                FREE(wcFullFilename);
-                                                wcFullFilename = NULL;
-                                        }
-                                }
-                        }
-                        FREE(opt);
-                }
-        }
-        else
+        if (opt)
         {
-                SciNotes::scinotes(getScilabJavaVM());
+            for (i = 0; i < _nbfiles; i++)
+            {
+                if (_wcfilenames[i])
+                {
+                    wchar_t *wcFullFilename = getFullFilenameW(_wcfilenames[i]);
+
+                    if (wcFullFilename)
+                    {
+                        char *fullFilename = wide_string_to_UTF8(wcFullFilename);
+
+                        if (fullFilename)
+                        {
+                            SciNotes::scinotes(getScilabJavaVM(), fullFilename, opt);
+                            FREE(fullFilename);
+                            fullFilename = NULL;
+                        }
+
+                        FREE(wcFullFilename);
+                        wcFullFilename = NULL;
+                    }
+                }
+            }
+            FREE(opt);
         }
-        return 0;
+    }
+    else
+    {
+        SciNotes::scinotes(getScilabJavaVM());
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

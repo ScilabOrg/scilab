@@ -23,15 +23,16 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_mark_mode_property( sciPointObj * pobj )
+int get_mark_mode_property(sciPointObj * pobj)
 {
-  if ( sciGetIsMark( pobj ) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetIsMark(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

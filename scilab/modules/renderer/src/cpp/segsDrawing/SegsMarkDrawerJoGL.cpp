@@ -25,60 +25,53 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-SegsMarkDrawerJoGL::SegsMarkDrawerJoGL( DrawableSegs * segs )
-  : DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
-{
-  setJavaMapper(new SegsMarkDrawerJavaMapper());
-}
+    SegsMarkDrawerJoGL::SegsMarkDrawerJoGL(DrawableSegs * segs):DrawSegsStrategy(segs), DrawableObjectJoGL(segs)
+    {
+        setJavaMapper(new SegsMarkDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-SegsMarkDrawerJoGL::~SegsMarkDrawerJoGL(void)
-{
+    SegsMarkDrawerJoGL::~SegsMarkDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsMarkDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
-                                  const double yStarts[], const double yEnds[],
-                                  const double zStarts[], const double zEnds[],
-                                  const int colors[], int nbSegment)
-{
-  sciPointObj * pSegs = m_pDrawed->getDrawedObject();
+    void SegsMarkDrawerJoGL::drawSegs(const double xStarts[], const double xEnds[],
+                                      const double yStarts[], const double yEnds[],
+                                      const double zStarts[], const double zEnds[], const int colors[], int nbSegment)
+    {
+        sciPointObj *pSegs = m_pDrawed->getDrawedObject();
 
-  initializeDrawing();
-  getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pSegs)->markbackground,
-                                               sciGetGraphicContext(pSegs)->markforeground,
-                                               sciGetMarkSizeUnit(pSegs),
-                                               sciGetMarkSize(pSegs),
-                                               sciGetMarkStyle(pSegs));
-  try
-  {
-    getMarkDrawerJavaMapper()->drawSegs(xStarts, xEnds,
-                                        yStarts, yEnds,
-                                        zStarts, zEnds,
-                                        nbSegment);
-  }
-  catch (const std::exception & e)
-  {
-    sciprint(const_cast<char*>(_("%s: No more memory.\n")),"SegsMarkDrawerJoGL::drawSegs");
-  }
+        initializeDrawing();
+        getMarkDrawerJavaMapper()->setMarkParameters(sciGetGraphicContext(pSegs)->markbackground,
+                                                     sciGetGraphicContext(pSegs)->markforeground,
+                                                     sciGetMarkSizeUnit(pSegs), sciGetMarkSize(pSegs), sciGetMarkStyle(pSegs));
+        try
+        {
+            getMarkDrawerJavaMapper()->drawSegs(xStarts, xEnds, yStarts, yEnds, zStarts, zEnds, nbSegment);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "SegsMarkDrawerJoGL::drawSegs");
+        }
 
-  endDrawing();
-}
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsMarkDrawerJoGL::showSegs( void )
-{
-  show();
-}
+    void SegsMarkDrawerJoGL::showSegs(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-void SegsMarkDrawerJoGL::redrawSegs( void )
-{
-  initializeDrawing();
-  getMarkDrawerJavaMapper()->drawSegs();
-  endDrawing();
-}
+    void SegsMarkDrawerJoGL::redrawSegs(void)
+    {
+        initializeDrawing();
+        getMarkDrawerJavaMapper()->drawSegs();
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-SegsMarkDrawerJavaMapper * SegsMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
-{
-  return dynamic_cast<SegsMarkDrawerJavaMapper *>(getJavaMapper());
-}
+    SegsMarkDrawerJavaMapper *SegsMarkDrawerJoGL::getMarkDrawerJavaMapper(void)
+    {
+        return dynamic_cast < SegsMarkDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

@@ -25,37 +25,39 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_sub_tics_property( sciPointObj * pobj )
+int get_sub_tics_property(sciPointObj * pobj)
 {
 
-  /*Dj.A 17/12/2003*/
-  /* modified jb Silvy 01/2006 */
+    /*Dj.A 17/12/2003 */
+    /* modified jb Silvy 01/2006 */
 
-  if ( sciGetEntityType (pobj) == SCI_AXES )
-  {
-    return sciReturnDouble( pAXES_FEATURE(pobj)->subint ) ;
-  }
-  else if ( sciGetEntityType (pobj) == SCI_SUBWIN )
-  {
-    double sub_ticks[3] ;
-    int i ;
-    for ( i = 0 ; i < 3 ; i++ )
+    if (sciGetEntityType(pobj) == SCI_AXES)
     {
-      sub_ticks[i] = pSUBWIN_FEATURE (pobj)->axes.nbsubtics[i];
+        return sciReturnDouble(pAXES_FEATURE(pobj)->subint);
     }
-    if ( sciGetIs3d( pobj ) )
+    else if (sciGetEntityType(pobj) == SCI_SUBWIN)
     {
-      return sciReturnRowVector( sub_ticks, 3 ) ;
+        double sub_ticks[3];
+        int i;
+
+        for (i = 0; i < 3; i++)
+        {
+            sub_ticks[i] = pSUBWIN_FEATURE(pobj)->axes.nbsubtics[i];
+        }
+        if (sciGetIs3d(pobj))
+        {
+            return sciReturnRowVector(sub_ticks, 3);
+        }
+        else
+        {
+            return sciReturnRowVector(sub_ticks, 2);
+        }
     }
     else
     {
-      return sciReturnRowVector( sub_ticks, 2 ) ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "sub_ticks");
+        return -1;
     }
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"sub_ticks") ;
-    return -1 ;
-  }
 }
+
 /*------------------------------------------------------------------------*/

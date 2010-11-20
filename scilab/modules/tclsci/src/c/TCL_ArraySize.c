@@ -17,31 +17,32 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-int TCL_ArraySize(Tcl_Interp *TCLinterpreter,char *VarName)
+int TCL_ArraySize(Tcl_Interp * TCLinterpreter, char *VarName)
 {
-	int ArraySize=0;
+    int ArraySize = 0;
 
-	if (strcmp(VarName,"TclScilabTmpVar"))
-	{
-		char MyTclCommand[2048];
-		char *StrArraySize=NULL;
+    if (strcmp(VarName, "TclScilabTmpVar"))
+    {
+        char MyTclCommand[2048];
+        char *StrArraySize = NULL;
 
-		sprintf(MyTclCommand, "set TclScilabTmpVar [array size %s];",VarName); 
+        sprintf(MyTclCommand, "set TclScilabTmpVar [array size %s];", VarName);
 
-		if ( Tcl_Eval(TCLinterpreter,MyTclCommand) == TCL_ERROR  )
-		{
-			Scierror(999,_("Tcl Error: %s\n"),Tcl_GetStringResult(TCLinterpreter));
-			return 0;
-		}
+        if (Tcl_Eval(TCLinterpreter, MyTclCommand) == TCL_ERROR)
+        {
+            Scierror(999, _("Tcl Error: %s\n"), Tcl_GetStringResult(TCLinterpreter));
+            return 0;
+        }
 
-		StrArraySize = (char *) Tcl_GetVar(TCLinterpreter, "TclScilabTmpVar",TCL_GLOBAL_ONLY);
+        StrArraySize = (char *)Tcl_GetVar(TCLinterpreter, "TclScilabTmpVar", TCL_GLOBAL_ONLY);
 
-		if (StrArraySize)
-		{
-			ArraySize=(int)atoi(StrArraySize);
-			Tcl_UnsetVar(TCLinterpreter, "TclScilabTmpVar", TCL_GLOBAL_ONLY);
-		}
-	}
-	return ArraySize;
+        if (StrArraySize)
+        {
+            ArraySize = (int)atoi(StrArraySize);
+            Tcl_UnsetVar(TCLinterpreter, "TclScilabTmpVar", TCL_GLOBAL_ONLY);
+        }
+    }
+    return ArraySize;
 }
+
 /*--------------------------------------------------------------------------*/

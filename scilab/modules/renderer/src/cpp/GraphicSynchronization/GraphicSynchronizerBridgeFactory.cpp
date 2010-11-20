@@ -18,10 +18,10 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-GraphicSynchronizerBridge * GraphicSynchronizerBridgeFactory::create( void )
-{
-  return new GraphicSynchronizerJavaMapper();
-}
+    GraphicSynchronizerBridge *GraphicSynchronizerBridgeFactory::create(void)
+    {
+        return new GraphicSynchronizerJavaMapper();
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

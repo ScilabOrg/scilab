@@ -25,15 +25,17 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_text_box_property( sciPointObj * pobj )
+int get_text_box_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType (pobj) == SCI_TEXT ) 
-  {
-    double size[2] ;
-    sciGetUserSize( pobj, &(size[0]), &(size[1]) ) ;
-    return sciReturnRowVector( size, 2 ) ;
-  }
-  Scierror(999, _("'%s' property does not exist for this handle.\n"),"text_box") ;
-  return -1;
+    if (sciGetEntityType(pobj) == SCI_TEXT)
+    {
+        double size[2];
+
+        sciGetUserSize(pobj, &(size[0]), &(size[1]));
+        return sciReturnRowVector(size, 2);
+    }
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "text_box");
+    return -1;
 }
+
 /*------------------------------------------------------------------------*/

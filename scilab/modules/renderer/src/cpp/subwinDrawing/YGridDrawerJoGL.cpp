@@ -22,26 +22,26 @@ namespace sciGraphics
 {
 
 /*------------------------------------------------------------------------------------------*/
-YGridDrawerJoGL::YGridDrawerJoGL(DrawableSubwin * subwin)
-  : GridDrawerJoGL(subwin)
-{
+    YGridDrawerJoGL::YGridDrawerJoGL(DrawableSubwin * subwin):GridDrawerJoGL(subwin)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-YGridDrawerJoGL::~YGridDrawerJoGL(void)
-{
+    YGridDrawerJoGL::~YGridDrawerJoGL(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-int YGridDrawerJoGL::getGridStyle(void)
-{
-  sciPointObj * pSubwin = getDrawer()->getDrawedObject();
+    int YGridDrawerJoGL::getGridStyle(void)
+    {
+        sciPointObj *pSubwin = getDrawer()->getDrawedObject();
 
-  int yStyle;
-  sciGetGridStyle(pSubwin, NULL, &yStyle, NULL);
+        int yStyle;
 
-  return yStyle;
-}
+        sciGetGridStyle(pSubwin, NULL, &yStyle, NULL);
+
+        return yStyle;
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

@@ -19,50 +19,51 @@
 #include "stack-c.h"
 #include "gw_gui.h"
 /*--------------------------------------------------------------------------*/
-int sci_getcallbackobject(char *fname,unsigned long fname_len)
+int sci_getcallbackobject(char *fname, unsigned long fname_len)
 {
-  int nbRow = 0, nbCol = 0, stkAdr = 0;
+    int nbRow = 0, nbCol = 0, stkAdr = 0;
 
-  sciPointObj *pObj = NULL;
+    sciPointObj *pObj = NULL;
 
-  CheckRhs(1,1);
-  CheckLhs(0,1);
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-  if (VarType(1) == sci_matrix)
+    if (VarType(1) == sci_matrix)
     {
-      GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-      if (nbRow * nbCol !=1)
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
+        if (nbRow * nbCol != 1)
         {
-          Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
-          return FALSE;
+            Scierror(999, _("%s: Wrong size for input argument #%d: A real expected.\n"), fname, 1);
+            return FALSE;
         }
-      pObj = sciGetPointerFromJavaIndex((int) *stk(stkAdr));
+        pObj = sciGetPointerFromJavaIndex((int)*stk(stkAdr));
     }
-  else
+    else
     {
-      Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, 1);
-      return FALSE;
+        Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), fname, 1);
+        return FALSE;
     }
- 
-  /* Create return variable */
-  if (pObj == NULL) /* Non-existing object --> return [] */
-    {
-      nbRow = 0;
-      nbCol = 0;
-      CreateVar(Rhs+1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-    }
-  else /* Return the handle */
-    {
-      nbRow = 1;
-      nbCol = 1;
-      CreateVar(Rhs+1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
-      *hstk(stkAdr) = sciGetHandle(pObj);
-    }
-      
-  LhsVar(1)=Rhs+1;
 
-  C2F(putlhsvar)();
+    /* Create return variable */
+    if (pObj == NULL)           /* Non-existing object --> return [] */
+    {
+        nbRow = 0;
+        nbCol = 0;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
+    }
+    else                        /* Return the handle */
+    {
+        nbRow = 1;
+        nbCol = 1;
+        CreateVar(Rhs + 1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stkAdr);
+        *hstk(stkAdr) = sciGetHandle(pObj);
+    }
 
-  return TRUE;
+    LhsVar(1) = Rhs + 1;
+
+    C2F(putlhsvar) ();
+
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

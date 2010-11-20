@@ -29,25 +29,27 @@ Type *DY;\
    }\
 }
 
-int C2F(db2int)(int *typ, int *n, double *dx, int *incx, int *dy, int *incy)
+int C2F(db2int) (int *typ, int *n, double *dx, int *incx, int *dy, int *incy)
 {
-  int i1;
-  static int i, ix, iy;
+    int i1;
+    static int i, ix, iy;
 
-  --dx;
-  i1 = *n;
-  if (i1 <= 0) return 0;
-  switch (*typ) {
-  case 1:
-    CONV(integer1);
-    break;
-  case 2:
-    CONV(integer2);
-    break;
-  case 4:
-    CONV(int) ;
-    break;
-  }
-  return 0;
+    --dx;
+    i1 = *n;
+    if (i1 <= 0)
+        return 0;
+    switch (*typ)
+    {
+    case 1:
+        CONV(integer1);
+        break;
+    case 2:
+        CONV(integer2);
+        break;
+    case 4:
+        CONV(int);
+
+        break;
+    }
+    return 0;
 }
-

@@ -14,23 +14,25 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_mytid, fin = 16
  ******************************************/
-int sci_pvm_mytid(char *fname,unsigned long fname_len)
+int sci_pvm_mytid(char *fname, unsigned long fname_len)
 {
-  int un=1,l1;
-  CheckRhs(0,0);
-  CheckLhs(1,1);
-  /* cross variable size checking */
-  CreateVar(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l1);/* named: res */
-  *istk(l1) = pvm_mytid();
-  LhsVar(1)= Rhs+1;
-  C2F(putlhsvar)();
-  return 0;
+    int un = 1, l1;
+
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
+    /* cross variable size checking */
+    CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l1);  /* named: res */
+    *istk(l1) = pvm_mytid();
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

@@ -17,17 +17,17 @@
 #include "callFunctionFromGateway.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] = 
-{ 
-    {sci_oldbesseli,"oldbesseli"},
+static gw_generic_table Tab[] = {
+    {sci_oldbesseli, "oldbesseli"},
     {sci_oldbesselj, "oldbesselj"},
-    {sci_oldbesselk,"oldbesselk"},
-    {sci_oldbessely,"oldbessely"},
-    {sci_gamma,"gamma"},
-    {sci_lgamma,"gammaln"},
-    {sci_dlgamma,"dlgamma"},
-    {sci_calerf,"calerf"}
+    {sci_oldbesselk, "oldbesselk"},
+    {sci_oldbessely, "oldbessely"},
+    {sci_gamma, "gamma"},
+    {sci_lgamma, "gammaln"},
+    {sci_dlgamma, "dlgamma"},
+    {sci_calerf, "calerf"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_special_functions1(void)
 {
@@ -36,4 +36,5 @@ int gw_special_functions1(void)
     callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -25,14 +25,15 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_labels_font_style_property( sciPointObj * pobj )
+int get_labels_font_style_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType( pobj ) != SCI_SUBWIN && sciGetEntityType( pobj ) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"labels_font_style");
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN && sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "labels_font_style");
+        return -1;
+    }
 
-  return sciReturnDouble( sciGetFontStyle( pobj ) ) ;
+    return sciReturnDouble(sciGetFontStyle(pobj));
 }
+
 /*------------------------------------------------------------------------*/

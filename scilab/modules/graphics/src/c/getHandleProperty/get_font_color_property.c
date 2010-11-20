@@ -25,19 +25,18 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_color_property( sciPointObj * pobj )
+int get_font_color_property(sciPointObj * pobj)
 {
-  if (   sciGetEntityType(pobj) == SCI_SUBWIN
-      || sciGetEntityType(pobj) == SCI_FIGURE
-      || sciGetEntityType(pobj) == SCI_LEGEND
-      || sciGetEntityType(pobj) == SCI_AXES)
-  {
-    return sciReturnDouble( sciGetFontForegroundToDisplay(pobj) ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"font_color") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) == SCI_SUBWIN
+        || sciGetEntityType(pobj) == SCI_FIGURE || sciGetEntityType(pobj) == SCI_LEGEND || sciGetEntityType(pobj) == SCI_AXES)
+    {
+        return sciReturnDouble(sciGetFontForegroundToDisplay(pobj));
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "font_color");
+        return -1;
+    }
 }
+
 /*------------------------------------------------------------------------*/

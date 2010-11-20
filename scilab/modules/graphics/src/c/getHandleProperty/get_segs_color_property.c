@@ -26,37 +26,39 @@
 #include "MALLOC.h"
 
 /*------------------------------------------------------------------------*/
-int get_segs_color_property( sciPointObj * pobj )
+int get_segs_color_property(sciPointObj * pobj)
 {
-  double * colors = NULL ;
-  int nbSegs = 0 ;
-  int i ;
-  int status = -1 ;
-  if ( sciGetEntityType( pobj ) != SCI_SEGS || pSEGS_FEATURE(pobj)->ptype != 0 )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"segs_color") ;
-    return -1 ;
-  }
+    double *colors = NULL;
+    int nbSegs = 0;
+    int i;
+    int status = -1;
 
-  /* convert from int array to double one. */
-  nbSegs = pSEGS_FEATURE(pobj)->Nbr1 / 2 ;
-  colors = MALLOC( nbSegs * sizeof(double) ) ;
-  if ( colors == NULL )
-  {
-	  Scierror(999, _("%s: No more memory.\n"),"get_segs_color_property");
-	  return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SEGS || pSEGS_FEATURE(pobj)->ptype != 0)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "segs_color");
+        return -1;
+    }
 
-  for ( i = 0 ; i  < nbSegs ; i++ )
-  {
-    colors[i] = pSEGS_FEATURE (pobj)->pstyle[i] ;
-  }
+    /* convert from int array to double one. */
+    nbSegs = pSEGS_FEATURE(pobj)->Nbr1 / 2;
+    colors = MALLOC(nbSegs * sizeof(double));
+    if (colors == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "get_segs_color_property");
+        return -1;
+    }
 
-  status = sciReturnRowVector( colors, pSEGS_FEATURE(pobj)->Nbr1 / 2 ) ;
+    for (i = 0; i < nbSegs; i++)
+    {
+        colors[i] = pSEGS_FEATURE(pobj)->pstyle[i];
+    }
 
-  FREE( colors ) ;
+    status = sciReturnRowVector(colors, pSEGS_FEATURE(pobj)->Nbr1 / 2);
 
-  return status ;
+    FREE(colors);
+
+    return status;
 
 }
+
 /*------------------------------------------------------------------------*/

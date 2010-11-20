@@ -39,263 +39,310 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_xcos {
+namespace org_scilab_modules_xcos
+{
 
 // Returns the current env
 
-JNIEnv * Xcos::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *Xcos::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-Xcos::~Xcos() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    Xcos::~Xcos()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-Xcos::Xcos(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    Xcos::Xcos(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voidxcosID=NULL; 
-voidxcosjstringID=NULL; 
-voidwarnCellByUIDjstringjstringID=NULL; 
-voidcloseXcosFromScilabID=NULL; 
-jintxcosDiagramToHDF5jstringjstringjbooleanID=NULL; 
-voidxcosDiagramOpenjstringjbooleanID=NULL; 
-voidxcosDiagramClosejstringID=NULL; 
-
-
-}
-
-Xcos::Xcos(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voidxcosID = NULL;
+        voidxcosjstringID = NULL;
+        voidwarnCellByUIDjstringjstringID = NULL;
+        voidcloseXcosFromScilabID = NULL;
+        jintxcosDiagramToHDF5jstringjstringjbooleanID = NULL;
+        voidxcosDiagramOpenjstringjbooleanID = NULL;
+        voidxcosDiagramClosejstringID = NULL;
+
+    }
+
+    Xcos::Xcos(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voidxcosID=NULL; 
-voidxcosjstringID=NULL; 
-voidwarnCellByUIDjstringjstringID=NULL; 
-voidcloseXcosFromScilabID=NULL; 
-jintxcosDiagramToHDF5jstringjstringjbooleanID=NULL; 
-voidxcosDiagramOpenjstringjbooleanID=NULL; 
-voidxcosDiagramClosejstringID=NULL; 
+        voidxcosID = NULL;
+        voidxcosjstringID = NULL;
+        voidwarnCellByUIDjstringjstringID = NULL;
+        voidcloseXcosFromScilabID = NULL;
+        jintxcosDiagramToHDF5jstringjstringjbooleanID = NULL;
+        voidxcosDiagramOpenjstringjbooleanID = NULL;
+        voidxcosDiagramClosejstringID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void Xcos::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "Xcos");
-}
-}
+    void Xcos::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "Xcos");
+        }
+    }
 
-void Xcos::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "Xcos");
-}
-}
+    void Xcos::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "Xcos");
+        }
+    }
 // Method(s)
 
-void Xcos::xcos (JavaVM * jvm_){
+    void Xcos::xcos(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidxcosID = curEnv->GetStaticMethodID(cls, "xcos", "()V" ) ;
-if (voidxcosID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "xcos");
-}
+        jmethodID voidxcosID = curEnv->GetStaticMethodID(cls, "xcos", "()V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidxcosID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidxcosID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "xcos");
+        }
 
-void Xcos::xcos (JavaVM * jvm_, char * fileName){
+        curEnv->CallStaticVoidMethod(cls, voidxcosID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void Xcos::xcos(JavaVM * jvm_, char *fileName)
+    {
 
-jmethodID voidxcosjstringID = curEnv->GetStaticMethodID(cls, "xcos", "(Ljava/lang/String;)V" ) ;
-if (voidxcosjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "xcos");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring fileName_ = curEnv->NewStringUTF( fileName );
+        jmethodID voidxcosjstringID = curEnv->GetStaticMethodID(cls, "xcos", "(Ljava/lang/String;)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidxcosjstringID ,fileName_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidxcosjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "xcos");
+        }
 
-void Xcos::warnCellByUID (JavaVM * jvm_, char * UID, char * message){
+        jstring fileName_ = curEnv->NewStringUTF(fileName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidxcosjstringID, fileName_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voidwarnCellByUIDjstringjstringID = curEnv->GetStaticMethodID(cls, "warnCellByUID", "(Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voidwarnCellByUIDjstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "warnCellByUID");
-}
+    void Xcos::warnCellByUID(JavaVM * jvm_, char *UID, char *message)
+    {
 
-jstring UID_ = curEnv->NewStringUTF( UID );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring message_ = curEnv->NewStringUTF( message );
+        jmethodID voidwarnCellByUIDjstringjstringID = curEnv->GetStaticMethodID(cls, "warnCellByUID", "(Ljava/lang/String;Ljava/lang/String;)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidwarnCellByUIDjstringjstringID ,UID_, message_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidwarnCellByUIDjstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "warnCellByUID");
+        }
 
-void Xcos::closeXcosFromScilab (JavaVM * jvm_){
+        jstring UID_ = curEnv->NewStringUTF(UID);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jstring message_ = curEnv->NewStringUTF(message);
 
-jmethodID voidcloseXcosFromScilabID = curEnv->GetStaticMethodID(cls, "closeXcosFromScilab", "()V" ) ;
-if (voidcloseXcosFromScilabID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "closeXcosFromScilab");
-}
+        curEnv->CallStaticVoidMethod(cls, voidwarnCellByUIDjstringjstringID, UID_, message_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-                         curEnv->CallStaticVoidMethod(cls, voidcloseXcosFromScilabID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+    void Xcos::closeXcosFromScilab(JavaVM * jvm_)
+    {
 
-int Xcos::xcosDiagramToHDF5 (JavaVM * jvm_, char * xcosFile, char * h5File, bool forceOverwrite){
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jmethodID voidcloseXcosFromScilabID = curEnv->GetStaticMethodID(cls, "closeXcosFromScilab", "()V");
 
-jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID = curEnv->GetStaticMethodID(cls, "xcosDiagramToHDF5", "(Ljava/lang/String;Ljava/lang/String;Z)I" ) ;
-if (jintxcosDiagramToHDF5jstringjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramToHDF5");
-}
+        if (voidcloseXcosFromScilabID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "closeXcosFromScilab");
+        }
 
-jstring xcosFile_ = curEnv->NewStringUTF( xcosFile );
+        curEnv->CallStaticVoidMethod(cls, voidcloseXcosFromScilabID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jstring h5File_ = curEnv->NewStringUTF( h5File );
+    int Xcos::xcosDiagramToHDF5(JavaVM * jvm_, char *xcosFile, char *h5File, bool forceOverwrite)
+    {
 
-jboolean forceOverwrite_ = (static_cast<bool>(forceOverwrite) ? JNI_TRUE : JNI_FALSE);
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintxcosDiagramToHDF5jstringjstringjbooleanID ,xcosFile_, h5File_, forceOverwrite_));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
+        jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID =
+            curEnv->GetStaticMethodID(cls, "xcosDiagramToHDF5", "(Ljava/lang/String;Ljava/lang/String;Z)I");
+        if (jintxcosDiagramToHDF5jstringjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramToHDF5");
+        }
 
-}
+        jstring xcosFile_ = curEnv->NewStringUTF(xcosFile);
 
-void Xcos::xcosDiagramOpen (JavaVM * jvm_, char * UID, bool show){
+        jstring h5File_ = curEnv->NewStringUTF(h5File);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jboolean forceOverwrite_ = (static_cast < bool > (forceOverwrite) ? JNI_TRUE : JNI_FALSE);
 
-jmethodID voidxcosDiagramOpenjstringjbooleanID = curEnv->GetStaticMethodID(cls, "xcosDiagramOpen", "(Ljava/lang/String;Z)V" ) ;
-if (voidxcosDiagramOpenjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramOpen");
-}
+        jint res =
+            static_cast < jint >
+            (curEnv->CallStaticIntMethod(cls, jintxcosDiagramToHDF5jstringjstringjbooleanID, xcosFile_, h5File_, forceOverwrite_));
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
 
-jstring UID_ = curEnv->NewStringUTF( UID );
+    }
 
-jboolean show_ = (static_cast<bool>(show) ? JNI_TRUE : JNI_FALSE);
+    void Xcos::xcosDiagramOpen(JavaVM * jvm_, char *UID, bool show)
+    {
 
-                         curEnv->CallStaticVoidMethod(cls, voidxcosDiagramOpenjstringjbooleanID ,UID_, show_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-void Xcos::xcosDiagramClose (JavaVM * jvm_, char * UID){
+        jmethodID voidxcosDiagramOpenjstringjbooleanID = curEnv->GetStaticMethodID(cls, "xcosDiagramOpen", "(Ljava/lang/String;Z)V");
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        if (voidxcosDiagramOpenjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramOpen");
+        }
 
-jmethodID voidxcosDiagramClosejstringID = curEnv->GetStaticMethodID(cls, "xcosDiagramClose", "(Ljava/lang/String;)V" ) ;
-if (voidxcosDiagramClosejstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramClose");
-}
+        jstring UID_ = curEnv->NewStringUTF(UID);
 
-jstring UID_ = curEnv->NewStringUTF( UID );
+        jboolean show_ = (static_cast < bool > (show) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallStaticVoidMethod(cls, voidxcosDiagramClosejstringID ,UID_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidxcosDiagramOpenjstringjbooleanID, UID_, show_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Xcos::xcosDiagramClose(JavaVM * jvm_, char *UID)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidxcosDiagramClosejstringID = curEnv->GetStaticMethodID(cls, "xcosDiagramClose", "(Ljava/lang/String;)V");
+
+        if (voidxcosDiagramClosejstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "xcosDiagramClose");
+        }
+
+        jstring UID_ = curEnv->NewStringUTF(UID);
+
+        curEnv->CallStaticVoidMethod(cls, voidxcosDiagramClosejstringID, UID_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

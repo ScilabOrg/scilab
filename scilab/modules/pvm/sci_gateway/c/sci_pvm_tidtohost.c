@@ -14,27 +14,28 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_tidtohost, fin = 13
  ******************************************/
-int sci_pvm_tidtohost(char *fname,unsigned long fname_len)
+int sci_pvm_tidtohost(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,un=1,l2;
-  CheckRhs(1,1);
-  CheckLhs(1,1);
-  /*  checking variable tid */
-  GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-  CheckScalar(1,m1,n1);
-  /* cross variable size checking */
-  CreateVar(Rhs+2,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l2);/* named: res */
-  *istk(l2) = pvm_tidtohost(*istk(l1));
-  LhsVar(1)= Rhs+2;
-  C2F(putlhsvar)();
-  return 0;
-}
-/*--------------------------------------------------------------------------*/ 
+    int m1, n1, l1, un = 1, l2;
 
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
+    /*  checking variable tid */
+    GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+    CheckScalar(1, m1, n1);
+    /* cross variable size checking */
+    CreateVar(Rhs + 2, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l2);  /* named: res */
+    *istk(l2) = pvm_tidtohost(*istk(l1));
+    LhsVar(1) = Rhs + 2;
+    C2F(putlhsvar) ();
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/

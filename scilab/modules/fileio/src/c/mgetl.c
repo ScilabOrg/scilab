@@ -28,7 +28,8 @@
 /*--------------------------------------------------------------------------*/
 static char *removeEOL(char *_inString);
 static char *convertAnsiToUtf(char *_inString);
-static char *getNextLine(FILE *stream);
+static char *getNextLine(FILE * stream);
+
 /*--------------------------------------------------------------------------*/
 char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 {
@@ -63,13 +64,17 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
             }
 
             Line = getNextLine(fa);
-            while ( Line != NULL )
+            while (Line != NULL)
             {
                 nbLines++;
                 strLines = (char **)REALLOC(strLines, nbLines * sizeof(char *));
                 if (strLines == NULL)
                 {
-                    if (Line) {FREE(Line); Line = NULL;}
+                    if (Line)
+                    {
+                        FREE(Line);
+                        Line = NULL;
+                    }
                     *nbLinesOut = 0;
                     *ierr = MGETL_MEMORY_ALLOCATION_ERROR;
                     return NULL;
@@ -77,7 +82,11 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 
                 strLines[nbLines - 1] = convertAnsiToUtf(removeEOL(Line));
 
-                if (Line) {FREE(Line); Line = NULL;}
+                if (Line)
+                {
+                    FREE(Line);
+                    Line = NULL;
+                }
 
                 if (strLines[nbLines - 1] == NULL)
                 {
@@ -89,7 +98,11 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                 Line = getNextLine(fa);
             }
 
-            if (Line) {FREE(Line); Line = NULL;}
+            if (Line)
+            {
+                FREE(Line);
+                Line = NULL;
+            }
 
             *nbLinesOut = nbLines;
             *ierr = MGETL_NO_ERROR;
@@ -110,6 +123,7 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
             {
                 BOOL bContinue = TRUE;
                 BOOL bEOF = FALSE;
+
                 strLines = (char **)MALLOC(sizeof(char *) * nbLinesIn);
 
                 if (strLines == NULL)
@@ -129,7 +143,11 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                             nbLines++;
                             strLines[nbLines - 1] = convertAnsiToUtf(removeEOL(Line));
 
-                            if (Line) {FREE(Line); Line = NULL;}
+                            if (Line)
+                            {
+                                FREE(Line);
+                                Line = NULL;
+                            }
 
                             if (strLines[nbLines - 1] == NULL)
                             {
@@ -152,9 +170,14 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                     {
                         bContinue = FALSE;
                     }
-                } while (bContinue);
+                }
+                while (bContinue);
 
-                if (Line) {FREE(Line); Line = NULL;}
+                if (Line)
+                {
+                    FREE(Line);
+                    Line = NULL;
+                }
 
                 *nbLinesOut = nbLines;
                 if (bEOF)
@@ -167,17 +190,23 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                 }
             }
         }
-        if (Line) {FREE(Line); Line = NULL;}
+        if (Line)
+        {
+            FREE(Line);
+            Line = NULL;
+        }
     }
 
     return strLines;
 }
+
 /*--------------------------------------------------------------------------*/
 char *removeEOL(char *_inString)
 {
     if (_inString)
     {
         char *pos = strchr(_inString, LF);
+
         if (pos)
         {
             *pos = 0;
@@ -191,6 +220,7 @@ char *removeEOL(char *_inString)
     }
     return _inString;
 }
+
 /*--------------------------------------------------------------------------*/
 /*
 * convert ansi to Utf
@@ -198,6 +228,7 @@ char *removeEOL(char *_inString)
 char *convertAnsiToUtf(char *_inString)
 {
     char *outString = NULL;
+
     if (_inString)
     {
 #ifdef _MSC_VER
@@ -218,7 +249,7 @@ char *convertAnsiToUtf(char *_inString)
             {
                 MultiByteToWideChar(CP_ACP, 0, _inString, lstrlen(_inString), bstrCode, Len);
                 newLen = WideCharToMultiByte(CP_UTF8, 0, bstrCode, -1, outString, 0, NULL, NULL);
-                outString = (char*) MALLOC(newLen + 1);
+                outString = (char *)MALLOC(newLen + 1);
                 if (outString)
                 {
                     WideCharToMultiByte(CP_UTF8, 0, bstrCode, -1, outString, newLen, NULL, NULL);
@@ -245,8 +276,9 @@ char *convertAnsiToUtf(char *_inString)
             int len = (int)strlen(_inString);
             int i = 0;
 
-            outString = (char*)MALLOC(((len*3) + 1) * sizeof(char));
-            if (outString == NULL) return NULL;
+            outString = (char *)MALLOC(((len * 3) + 1) * sizeof(char));
+            if (outString == NULL)
+                return NULL;
             strcpy(outString, EMPTYSTR);
 
             for (i = 0; i < len; i++)
@@ -254,10 +286,12 @@ char *convertAnsiToUtf(char *_inString)
                 unsigned char *outUtfChar = NULL;
                 unsigned char inAnsiChar = 0;
 
-                if (_inString[i] < 0) inAnsiChar = 256 + _inString[i];
-                else inAnsiChar = _inString[i];
+                if (_inString[i] < 0)
+                    inAnsiChar = 256 + _inString[i];
+                else
+                    inAnsiChar = _inString[i];
 
-                if(inAnsiChar < 128)
+                if (inAnsiChar < 128)
                 {
                     outUtfChar = (char *)CALLOC(2, sizeof(char));
                     if (outUtfChar)
@@ -289,10 +323,12 @@ char *convertAnsiToUtf(char *_inString)
     }
     return outString;
 }
+
 /*--------------------------------------------------------------------------*/
-char *getNextLine(FILE *stream)
+char *getNextLine(FILE * stream)
 {
     char *bufferLine = NULL;
+
     if (stream != NULL)
     {
         char *pCurrentLine = NULL;
@@ -300,10 +336,10 @@ char *getNextLine(FILE *stream)
 
         size_t size = 1;
 
-        while (fgets (tmp, LINE_MAX, stream) != NULL)
+        while (fgets(tmp, LINE_MAX, stream) != NULL)
         {
             size += LINE_MAX;
-            pCurrentLine = (char*)REALLOC (bufferLine, sizeof (char) * size);
+            pCurrentLine = (char *)REALLOC(bufferLine, sizeof(char) * size);
             if (pCurrentLine != NULL)
             {
                 if (bufferLine == NULL)
@@ -312,7 +348,7 @@ char *getNextLine(FILE *stream)
                 }
                 bufferLine = pCurrentLine;
                 pCurrentLine = NULL;
-                strcat (bufferLine, tmp);
+                strcat(bufferLine, tmp);
 
                 if (bufferLine[strlen(bufferLine) - 1] == '\n')
                 {
@@ -322,11 +358,12 @@ char *getNextLine(FILE *stream)
             }
             else
             {
-                FREE (bufferLine);
+                FREE(bufferLine);
                 bufferLine = NULL;
             }
         }
     }
     return bufferLine;
 }
+
 /*--------------------------------------------------------------------------*/

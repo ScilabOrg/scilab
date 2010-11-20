@@ -26,14 +26,15 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_hidden_color_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_hidden_color_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "hidden_color");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "hidden_color");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetHiddenColor( pobj, (int) getDoubleFromStack( stackPointer ) ) ;
+    return sciSetHiddenColor(pobj, (int)getDoubleFromStack(stackPointer));
 }
+
 /*------------------------------------------------------------------------*/

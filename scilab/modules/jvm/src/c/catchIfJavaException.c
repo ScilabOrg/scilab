@@ -16,18 +16,19 @@
 #include "catchIfJavaException.h"
 #include "getScilabJNIEnv.h"
 /*--------------------------------------------------------------------------*/
-BOOL catchIfJavaException(char *errorMsg) 
+BOOL catchIfJavaException(char *errorMsg)
 {
-	JNIEnv * currentENV = getScilabJNIEnv();
+    JNIEnv *currentENV = getScilabJNIEnv();
 
-	if ((*currentENV)->ExceptionCheck(currentENV) == JNI_TRUE)
-	{
-		printf("%s",errorMsg);
-		fflush(NULL);
-		(*currentENV)->ExceptionDescribe(currentENV);
-		(*currentENV)->ExceptionClear(currentENV);
-		return FALSE;
-	}
-	return TRUE;
+    if ((*currentENV)->ExceptionCheck(currentENV) == JNI_TRUE)
+    {
+        printf("%s", errorMsg);
+        fflush(NULL);
+        (*currentENV)->ExceptionDescribe(currentENV);
+        (*currentENV)->ExceptionClear(currentENV);
+        return FALSE;
+    }
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/

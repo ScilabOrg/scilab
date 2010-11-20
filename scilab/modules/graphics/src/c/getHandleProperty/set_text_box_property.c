@@ -27,29 +27,29 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_text_box_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_text_box_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  double * values = getDoubleMatrixFromStack( stackPointer ) ;
+    double *values = getDoubleMatrixFromStack(stackPointer);
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "text_box");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "text_box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if (sciGetEntityType (pobj) != SCI_TEXT)
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"text_box");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_TEXT)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "text_box");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( nbRow * nbCol != 2 )
-  {
-    Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "text_box", 2);
-    return SET_PROPERTY_ERROR ;
-  }
-  return sciSetUserSize( pobj, values[0], values[1] ) ;
-
+    if (nbRow * nbCol != 2)
+    {
+        Scierror(999, _("Wrong size for '%s' property: %d elements expected.\n"), "text_box", 2);
+        return SET_PROPERTY_ERROR;
+    }
+    return sciSetUserSize(pobj, values[0], values[1]);
 
 }
+
 /*------------------------------------------------------------------------*/

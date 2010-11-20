@@ -18,37 +18,43 @@
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/
-int C2F(sci_getscilabmode)(char *fname,unsigned long fname_len)
+int C2F(sci_getscilabmode) (char *fname, unsigned long fname_len)
 {
-	int n1 = 0, m1 = 0;
-	char *output = NULL ;
+    int n1 = 0, m1 = 0;
+    char *output = NULL;
 
-	Rhs=Max(Rhs,0);
-	CheckRhs(0,0) ;
-	CheckLhs(1,1) ;
+    Rhs = Max(Rhs, 0);
+    CheckRhs(0, 0);
+    CheckLhs(1, 1);
 
-	switch (getScilabMode())
-	{
-		case SCILAB_API: default :
-			output = strdup("API");
-		break;
-		case SCILAB_STD:
-			output = strdup("STD");
-		break;
-		case SCILAB_NW:
-			output = strdup("NW");
-		break;
-		case SCILAB_NWNI:
-			output = strdup("NWNI");
-		break;
-	}
+    switch (getScilabMode())
+    {
+    case SCILAB_API:
+    default:
+        output = strdup("API");
+        break;
+    case SCILAB_STD:
+        output = strdup("STD");
+        break;
+    case SCILAB_NW:
+        output = strdup("NW");
+        break;
+    case SCILAB_NWNI:
+        output = strdup("NWNI");
+        break;
+    }
 
-	n1=1;
-	CreateVarFromPtr(Rhs+1,STRING_DATATYPE,(m1=(int)strlen(output), &m1),&n1,&output);
-	if (output) {FREE(output);output=NULL;}
+    n1 = 1;
+    CreateVarFromPtr(Rhs + 1, STRING_DATATYPE, (m1 = (int)strlen(output), &m1), &n1, &output);
+    if (output)
+    {
+        FREE(output);
+        output = NULL;
+    }
 
-	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
-	return 0;
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

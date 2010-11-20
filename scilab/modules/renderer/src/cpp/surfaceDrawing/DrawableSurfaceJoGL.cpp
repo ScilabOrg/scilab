@@ -20,25 +20,24 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableSurfaceJoGL::DrawableSurfaceJoGL( DrawableSurface * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
-  setJavaMapper(new DrawableSurfaceJavaMapper());
-}
+    DrawableSurfaceJoGL::DrawableSurfaceJoGL(DrawableSurface * drawer):DrawableClippedObjectJoGL(drawer)
+    {
+        setJavaMapper(new DrawableSurfaceJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSurfaceJoGL::~DrawableSurfaceJoGL( void )
-{
+    DrawableSurfaceJoGL::~DrawableSurfaceJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSurface * DrawableSurfaceJoGL::getSurfaceDrawer( void )
-{
-  return dynamic_cast<DrawableSurface *>(getDrawer()) ;
-}
+    DrawableSurface *DrawableSurfaceJoGL::getSurfaceDrawer(void)
+    {
+        return dynamic_cast < DrawableSurface * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSurfaceJavaMapper * DrawableSurfaceJoGL::getSurfaceJavaMapper(void)
-{
-  return dynamic_cast<DrawableSurfaceJavaMapper *>(getJavaMapper());
-}
+    DrawableSurfaceJavaMapper *DrawableSurfaceJoGL::getSurfaceJavaMapper(void)
+    {
+        return dynamic_cast < DrawableSurfaceJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

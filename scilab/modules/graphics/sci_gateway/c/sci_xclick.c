@@ -27,98 +27,101 @@
 #include "axesScale.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xclick(char *fname,unsigned long fname_len)
+int sci_xclick(char *fname, unsigned long fname_len)
 {
-  int one = 1, three = 3, rep = 0;
-  int istr;
-  //int iflag = 0;
+    int one = 1, three = 3, rep = 0;
+    int istr;
 
-  int mouseButtonNumber = 0;
-  int windowID = 0;
-  char * menuCallback;
-  int pixelCoords[2];
-  double userCoords2D[2];
+    //int iflag = 0;
 
-  CheckRhs(-1,1) ;
-  CheckLhs(1,5) ;
+    int mouseButtonNumber = 0;
+    int windowID = 0;
+    char *menuCallback;
+    int pixelCoords[2];
+    double userCoords2D[2];
 
-  //iflag = ( Rhs >= 1) ? 1 :0;
+    CheckRhs(-1, 1);
+    CheckLhs(1, 5);
 
-  // Select current figure or create it
-  sciGetCurrentFigure();
+    //iflag = ( Rhs >= 1) ? 1 :0;
 
-  // Call Java xclick
-  CallJxclick();
+    // Select current figure or create it
+    sciGetCurrentFigure();
 
-  // Get return values
-  mouseButtonNumber = getJxclickMouseButtonNumber();
-  pixelCoords[0] = (int) getJxclickXCoordinate();
-  pixelCoords[1] = (int) getJxclickYCoordinate();
-  windowID = getJxclickWindowID();
-  menuCallback = getJxclickMenuCallback();
+    // Call Java xclick
+    CallJxclick();
 
-  // Convert pixel coordinates to user coordinates
-  // Conversion is not done if the user clicked on a menu (pixelCoords[*] == -1)
-  if (pixelCoords[0] != -1 && pixelCoords[1] != -1)
+    // Get return values
+    mouseButtonNumber = getJxclickMouseButtonNumber();
+    pixelCoords[0] = (int)getJxclickXCoordinate();
+    pixelCoords[1] = (int)getJxclickYCoordinate();
+    windowID = getJxclickWindowID();
+    menuCallback = getJxclickMenuCallback();
+
+    // Convert pixel coordinates to user coordinates
+    // Conversion is not done if the user clicked on a menu (pixelCoords[*] == -1)
+    if (pixelCoords[0] != -1 && pixelCoords[1] != -1)
     {
-      sciPointObj * clickedSubwin = sciGetFirstTypedSelectedSon(getFigureFromIndex(windowID), SCI_SUBWIN);
-      updateSubwinScale(clickedSubwin);
-      sciGet2dViewCoordFromPixel(clickedSubwin, pixelCoords, userCoords2D);
+        sciPointObj *clickedSubwin = sciGetFirstTypedSelectedSon(getFigureFromIndex(windowID), SCI_SUBWIN);
+
+        updateSubwinScale(clickedSubwin);
+        sciGet2dViewCoordFromPixel(clickedSubwin, pixelCoords, userCoords2D);
     }
-  else
+    else
     {
-      userCoords2D[0] = pixelCoords[0];
-      userCoords2D[1] = pixelCoords[1];
+        userCoords2D[0] = pixelCoords[0];
+        userCoords2D[1] = pixelCoords[1];
     }
 
-  if (Lhs == 1)
-  {
-    LhsVar(1) = Rhs+1;
-    CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&one,&three,&rep);
-    *stk(rep) = (double) mouseButtonNumber;
-    *stk(rep + 1) = userCoords2D[0];
-    *stk(rep + 2) = userCoords2D[1];
-  }
-  else 
-  {
-    LhsVar(1) = Rhs+1;
-    CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&rep); 
-    *stk(rep) = (double) mouseButtonNumber;
-  }
+    if (Lhs == 1)
+    {
+        LhsVar(1) = Rhs + 1;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &one, &three, &rep);
+        *stk(rep) = (double)mouseButtonNumber;
+        *stk(rep + 1) = userCoords2D[0];
+        *stk(rep + 2) = userCoords2D[1];
+    }
+    else
+    {
+        LhsVar(1) = Rhs + 1;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &rep);
+        *stk(rep) = (double)mouseButtonNumber;
+    }
 
-  if (Lhs >= 2) 
-  { 
-    LhsVar(2) = Rhs+2;
-    CreateVar(Rhs+2,MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&rep);
-    *stk(rep) = userCoords2D[0];
-  }
- 
-  if (Lhs >= 3)
-  { 
-    LhsVar(3) = Rhs+3;
-    CreateVar(Rhs+3,MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&rep);
-    *stk(rep) = userCoords2D[1];
-  }
-  
-  if (Lhs >=4) 
-  { 
-    LhsVar(4) = Rhs+4;
-    CreateVar(Rhs+4,MATRIX_OF_DOUBLE_DATATYPE,&one,&one,&rep);
-    *stk(rep) = (double) windowID;
-  }
-  
-  if (Lhs >= 5) 
-  {
-    LhsVar(5) = Rhs+5;
-    istr = (int)strlen(menuCallback);
-    CreateVar(Rhs+5,STRING_DATATYPE,&istr,&one,&rep); 
-    strncpy(cstk(rep),menuCallback,istr);
-  }
+    if (Lhs >= 2)
+    {
+        LhsVar(2) = Rhs + 2;
+        CreateVar(Rhs + 2, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &rep);
+        *stk(rep) = userCoords2D[0];
+    }
 
-  deleteMenuCallBack(menuCallback);
+    if (Lhs >= 3)
+    {
+        LhsVar(3) = Rhs + 3;
+        CreateVar(Rhs + 3, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &rep);
+        *stk(rep) = userCoords2D[1];
+    }
 
-	C2F(putlhsvar)();
+    if (Lhs >= 4)
+    {
+        LhsVar(4) = Rhs + 4;
+        CreateVar(Rhs + 4, MATRIX_OF_DOUBLE_DATATYPE, &one, &one, &rep);
+        *stk(rep) = (double)windowID;
+    }
 
-  return 0;
+    if (Lhs >= 5)
+    {
+        LhsVar(5) = Rhs + 5;
+        istr = (int)strlen(menuCallback);
+        CreateVar(Rhs + 5, STRING_DATATYPE, &istr, &one, &rep);
+        strncpy(cstk(rep), menuCallback, istr);
+    }
+
+    deleteMenuCallBack(menuCallback);
+
+    C2F(putlhsvar) ();
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

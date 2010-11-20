@@ -25,20 +25,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_pixmap_property( sciPointObj * pobj )
+int get_pixmap_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType(pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"pixmap");
-    return -1;
-  }
-  if ( sciGetPixmapMode(pobj) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "pixmap");
+        return -1;
+    }
+    if (sciGetPixmapMode(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

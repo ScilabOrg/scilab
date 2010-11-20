@@ -21,61 +21,60 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-RectangleMarkDrawerJavaMapper::RectangleMarkDrawerJavaMapper(void)
-{
-  m_pJavaObject = new org_scilab_modules_renderer_rectangleDrawing::RectangleMarkDrawerGL(getScilabJavaVM());
-}
+    RectangleMarkDrawerJavaMapper::RectangleMarkDrawerJavaMapper(void)
+    {
+        m_pJavaObject = new org_scilab_modules_renderer_rectangleDrawing::RectangleMarkDrawerGL(getScilabJavaVM());
+    }
 /*---------------------------------------------------------------------------------*/
-RectangleMarkDrawerJavaMapper::~RectangleMarkDrawerJavaMapper(void)
-{
-  delete m_pJavaObject;
-  m_pJavaObject = NULL;
-}
+    RectangleMarkDrawerJavaMapper::~RectangleMarkDrawerJavaMapper(void)
+    {
+        delete m_pJavaObject;
+
+        m_pJavaObject = NULL;
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::display(void)
-{
-  m_pJavaObject->display();
-}
+    void RectangleMarkDrawerJavaMapper::display(void)
+    {
+        m_pJavaObject->display();
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::initializeDrawing(int figureIndex)
-{
-  m_pJavaObject->initializeDrawing(figureIndex);
-}
+    void RectangleMarkDrawerJavaMapper::initializeDrawing(int figureIndex)
+    {
+        m_pJavaObject->initializeDrawing(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::endDrawing(void)
-{
-  m_pJavaObject->endDrawing();
-}
+    void RectangleMarkDrawerJavaMapper::endDrawing(void)
+    {
+        m_pJavaObject->endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::show(int figureIndex)
-{
-  m_pJavaObject->show(figureIndex);
-}
+    void RectangleMarkDrawerJavaMapper::show(int figureIndex)
+    {
+        m_pJavaObject->show(figureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::destroy(int parentFigureIndex)
-{
-  m_pJavaObject->destroy(parentFigureIndex);
-}
+    void RectangleMarkDrawerJavaMapper::destroy(int parentFigureIndex)
+    {
+        m_pJavaObject->destroy(parentFigureIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::setMarkParameters(int background, int foreground, int markSizeUnit, int markSize, int markStyleIndex)
-{
-  m_pJavaObject->setMarkParameters(background, foreground, markSizeUnit, markSize, markStyleIndex);
-}
+    void RectangleMarkDrawerJavaMapper::setMarkParameters(int background, int foreground, int markSizeUnit, int markSize, int markStyleIndex)
+    {
+        m_pJavaObject->setMarkParameters(background, foreground, markSizeUnit, markSize, markStyleIndex);
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::drawRectangle(double corner1X, double corner1Y, double corner1Z,
-                                                  double corner2X, double corner2Y, double corner2Z,
-                                                  double corner3X, double corner3Y, double corner3Z,
-                                                  double corner4X, double corner4Y, double corner4Z)
-{
-  m_pJavaObject->drawRectangle(corner1X, corner1Y, corner1Z,
-                               corner2X, corner2Y, corner2Z,
-                               corner3X, corner3Y, corner3Z,
-                               corner4X, corner4Y, corner4Z) ;
-}
+    void RectangleMarkDrawerJavaMapper::drawRectangle(double corner1X, double corner1Y, double corner1Z,
+                                                      double corner2X, double corner2Y, double corner2Z,
+                                                      double corner3X, double corner3Y, double corner3Z,
+                                                      double corner4X, double corner4Y, double corner4Z)
+    {
+        m_pJavaObject->drawRectangle(corner1X, corner1Y, corner1Z,
+                                     corner2X, corner2Y, corner2Z, corner3X, corner3Y, corner3Z, corner4X, corner4Y, corner4Z);
+    }
 /*---------------------------------------------------------------------------------*/
-void RectangleMarkDrawerJavaMapper::drawRectangle(void)
-{
-  m_pJavaObject->drawRectangle();
-}
+    void RectangleMarkDrawerJavaMapper::drawRectangle(void)
+    {
+        m_pJavaObject->drawRectangle();
+    }
 /*---------------------------------------------------------------------------------*/
 }

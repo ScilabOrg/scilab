@@ -26,11 +26,14 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_mark_mode_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_mark_mode_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "mark_mode");
-  if(b == NOT_A_BOOLEAN_VALUE) return SET_PROPERTY_ERROR;
-  
-  return sciSetIsMark(pobj, b);
+    int b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "mark_mode");
+
+    if (b == NOT_A_BOOLEAN_VALUE)
+        return SET_PROPERTY_ERROR;
+
+    return sciSetIsMark(pobj, b);
 }
+
 /*------------------------------------------------------------------------*/

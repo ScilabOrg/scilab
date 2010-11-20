@@ -13,11 +13,13 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_data_structures1.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intlstcat)(); /* fortran */
+extern int C2F(intlstcat) ();   /* fortran */
+
 /*--------------------------------------------------------------------------*/
-int sci_lstcat(char *fname,unsigned long fname_len)
+int sci_lstcat(char *fname, unsigned long fname_len)
 {
-    C2F(intlstcat)();
-	return 0;
+    C2F(intlstcat) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

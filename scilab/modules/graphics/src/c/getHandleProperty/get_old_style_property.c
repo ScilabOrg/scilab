@@ -25,16 +25,17 @@
 #include "MALLOC.h"
 /*------------------------------------------------------------------------*/
 
-int get_old_style_property( sciPointObj * pobj )
+int get_old_style_property(sciPointObj * pobj)
 {
-	if (pobj != NULL)
-	{
-		/* This property should not be called on an handle */
-		Scierror(999, _("'%s' property does not exist for this handle.\n"), "old_style");
-		return -1;
-	}
+    if (pobj != NULL)
+    {
+        /* This property should not be called on an handle */
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "old_style");
+        return -1;
+    }
 
-  /* no more old style */
-  return sciReturnString( "off" ) ;
+    /* no more old style */
+    return sciReturnString("off");
 }
+
 /*------------------------------------------------------------------------*/

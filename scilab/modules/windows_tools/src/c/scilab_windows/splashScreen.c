@@ -10,78 +10,81 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <Windows.h>
 #include "splashScreen.h"
 #include "localization.h"
 #include "resource.h"
 #include "version.h"
 #include "WndThread.h"
-/*--------------------------------------------------------------------------*/ 
-static DWORD WINAPI ThreadSplashScreen( LPVOID lpParam ) ;
+/*--------------------------------------------------------------------------*/
+static DWORD WINAPI ThreadSplashScreen(LPVOID lpParam);
 static BOOL stopSplashScreen(void);
 static int timeSplashScreen = 0;
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 void splashScreen(void)
 {
-	DWORD dwThreadId, dwThrdParam = 0; 
-	HANDLE hThreadSplashScreen;
+    DWORD dwThreadId, dwThrdParam = 0;
+    HANDLE hThreadSplashScreen;
 
-	hThreadSplashScreen = CreateThread( 
-		NULL,                        // attribut de securité par defaut
-		0,                           // taille de la pile par defaut
-		ThreadSplashScreen,          // notre function
-		&dwThrdParam,                // l'argument pour la fonction
-		0,                           // flag de creation par defaut
-		&dwThreadId);                // retourne l'id du thread
+    hThreadSplashScreen = CreateThread(NULL,    // attribut de securité par defaut
+                                       0,   // taille de la pile par defaut
+                                       ThreadSplashScreen,  // notre function
+                                       &dwThrdParam,    // l'argument pour la fonction
+                                       0,   // flag de creation par defaut
+                                       &dwThreadId);    // retourne l'id du thread
 
 }
-/*--------------------------------------------------------------------------*/ 
-static DWORD WINAPI ThreadSplashScreen( LPVOID lpParam ) 
-{ 
-	HINSTANCE hInstanceThisDll = (HINSTANCE)GetModuleHandle("scilab_windows");
-	HWND hdlg = CreateDialog(hInstanceThisDll, MAKEINTRESOURCE(IDD_SPLASHSCREEN), NULL,NULL);
 
-	ShowWindow(hdlg, SW_SHOWNORMAL);
-	UpdateWindow(hdlg);
+/*--------------------------------------------------------------------------*/
+static DWORD WINAPI ThreadSplashScreen(LPVOID lpParam)
+{
+    HINSTANCE hInstanceThisDll = (HINSTANCE) GetModuleHandle("scilab_windows");
+    HWND hdlg = CreateDialog(hInstanceThisDll, MAKEINTRESOURCE(IDD_SPLASHSCREEN), NULL, NULL);
 
-	SetWindowPos(hdlg,HWND_TOPMOST,0,0,0,0,SWP_NOSIZE|SWP_NOMOVE);
+    ShowWindow(hdlg, SW_SHOWNORMAL);
+    UpdateWindow(hdlg);
 
-	while ( !stopSplashScreen() )
-	{
-		Sleep(20);
-	}
+    SetWindowPos(hdlg, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
-	DestroyWindow(hdlg);
-	return 0; 
-} 
-/*--------------------------------------------------------------------------*/ 
+    while (!stopSplashScreen())
+    {
+        Sleep(20);
+    }
+
+    DestroyWindow(hdlg);
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/
 static BOOL stopSplashScreen(void)
 {
-	HWND hWndMainScilab = NULL;
-	char titleMainWindow[MAX_PATH];
+    HWND hWndMainScilab = NULL;
+    char titleMainWindow[MAX_PATH];
 
-	wsprintf(titleMainWindow,"%s (%d)",SCI_VERSION_STRING,getCurrentScilabId());
-	hWndMainScilab = FindWindow(NULL,titleMainWindow);
+    wsprintf(titleMainWindow, "%s (%d)", SCI_VERSION_STRING, getCurrentScilabId());
+    hWndMainScilab = FindWindow(NULL, titleMainWindow);
 
-	if ( hWndMainScilab && (timeSplashScreen > 1000) )
-	{
-		return TRUE;
-	}
-	else
-	{
-		wsprintf(titleMainWindow, _("Scilab Console"));
-		hWndMainScilab = FindWindow(NULL, titleMainWindow);
+    if (hWndMainScilab && (timeSplashScreen > 1000))
+    {
+        return TRUE;
+    }
+    else
+    {
+        wsprintf(titleMainWindow, _("Scilab Console"));
+        hWndMainScilab = FindWindow(NULL, titleMainWindow);
 
-		if ( hWndMainScilab && (timeSplashScreen > 1000) )
-		{
-			return TRUE;
-		}
-		else
-		{
-			timeSplashScreen = timeSplashScreen + 50;
-		}
-	}
-	return FALSE;
+        if (hWndMainScilab && (timeSplashScreen > 1000))
+        {
+            return TRUE;
+        }
+        else
+        {
+            timeSplashScreen = timeSplashScreen + 50;
+        }
+    }
+    return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

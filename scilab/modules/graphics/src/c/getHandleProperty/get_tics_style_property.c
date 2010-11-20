@@ -25,16 +25,17 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_style_property( sciPointObj * pobj )
+int get_tics_style_property(sciPointObj * pobj)
 {
 
-	if ( sciGetEntityType( pobj ) != SCI_AXES )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_style") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) != SCI_AXES)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "tics_style");
+        return -1;
+    }
 
-  return sciReturnChar( pAXES_FEATURE (pobj)->tics ) ;
+    return sciReturnChar(pAXES_FEATURE(pobj)->tics);
 
 }
+
 /*------------------------------------------------------------------------*/

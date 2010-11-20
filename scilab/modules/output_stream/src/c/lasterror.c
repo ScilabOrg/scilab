@@ -10,7 +10,7 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <string.h>
 #include <stdlib.h>
 #include "MALLOC.h"
@@ -38,12 +38,14 @@ static char **strLastErrorMessage = NULL;
 static int iLastErrorMessageNbLines = NO_ERROR_MESSAGE_NB_LINES;
 static int iLastErrorLinePostion = NO_ERROR_LINEPOSITION;
 static char strLastErrorFunctionName[nlgh + 1] = NO_ERROR_FUNCTIONNAME;
+
 /*--------------------------------------------------------------------------*/
 static void allocLastErrorMessage(void)
 {
-    strLastErrorMessage = (char **)MALLOC(sizeof(char*) * MAX_ERROR_MESSAGE_NB_LINES);
+    strLastErrorMessage = (char **)MALLOC(sizeof(char *) * MAX_ERROR_MESSAGE_NB_LINES);
     iLastErrorMessageNbLines = NO_ERROR_MESSAGE_NB_LINES;
 }
+
 /*--------------------------------------------------------------------------*/
 static void freeLastErrorMessage(void)
 {
@@ -53,8 +55,9 @@ static void freeLastErrorMessage(void)
     }
     iLastErrorMessageNbLines = NO_ERROR_MESSAGE_NB_LINES;
 }
-/*--------------------------------------------------------------------------*/ 
-int setLastError(int iErr, char** strErrorMessage, int iNbLines, int iLinePos, char *strFunctionName)
+
+/*--------------------------------------------------------------------------*/
+int setLastError(int iErr, char **strErrorMessage, int iNbLines, int iLinePos, char *strFunctionName)
 {
     setLastErrorValue(iErr);
 
@@ -71,19 +74,18 @@ int setLastError(int iErr, char** strErrorMessage, int iNbLines, int iLinePos, c
     setLastErrorFunctionName(strFunctionName);
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int clearLastError(void)
 {
-    return setLastError(NO_ERROR_VALUE, 
-        NULL, 
-        NO_ERROR_MESSAGE_NB_LINES, 
-        NO_ERROR_LINEPOSITION, 
-        NO_ERROR_FUNCTIONNAME);
+    return setLastError(NO_ERROR_VALUE, NULL, NO_ERROR_MESSAGE_NB_LINES, NO_ERROR_LINEPOSITION, NO_ERROR_FUNCTIONNAME);
 }
-/*--------------------------------------------------------------------------*/ 
-int setLastErrorMessage(char** strErrorMessage, int iNbLines)
+
+/*--------------------------------------------------------------------------*/
+int setLastErrorMessage(char **strErrorMessage, int iNbLines)
 {
     int i = 0;
+
     if (strLastErrorMessage)
     {
         freeArrayOfString(strLastErrorMessage, iLastErrorMessageNbLines);
@@ -96,8 +98,9 @@ int setLastErrorMessage(char** strErrorMessage, int iNbLines)
     }
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
-const char** getLastErrorMessage(int *iNbLines)
+
+/*--------------------------------------------------------------------------*/
+const char **getLastErrorMessage(int *iNbLines)
 {
     if (iLastErrorMessageNbLines > 0)
     {
@@ -110,7 +113,8 @@ const char** getLastErrorMessage(int *iNbLines)
         return NULL;
     }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int appendStringToLastErrorMessage(char *strErrorMessage)
 {
     if (iLastErrorMessageNbLines >= MAX_ERROR_MESSAGE_NB_LINES)
@@ -128,6 +132,7 @@ int appendStringToLastErrorMessage(char *strErrorMessage)
             else
             {
                 char *withoutCR = strsub(strErrorMessage, CR, EMPTY_STRING);
+
                 strLastErrorMessage[iLastErrorMessageNbLines] = strsub(withoutCR, LF, EMPTY_STRING);
                 if (withoutCR)
                 {
@@ -144,31 +149,38 @@ int appendStringToLastErrorMessage(char *strErrorMessage)
     }
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int setLastErrorValue(int iVal)
 {
     int iPrevValue = iLastErrorValue;
+
     iLastErrorValue = iVal;
     return iPrevValue;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int getLastErrorValue(void)
 {
     return iLastErrorValue;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int setLastErrorLinePosition(int iLinePosition)
 {
     int iPrevLinePosition = iLastErrorLinePostion;
+
     iLastErrorLinePostion = iLinePosition;
     return iPrevLinePosition;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int getLastErrorLinePosition(void)
 {
     return iLastErrorLinePostion;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 int setLastErrorFunctionName(char *strFunctionName)
 {
     if (strFunctionName)
@@ -189,9 +201,11 @@ int setLastErrorFunctionName(char *strFunctionName)
     }
     return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 const char *getLastErrorFunctionName(void)
 {
     return strLastErrorFunctionName;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

@@ -26,36 +26,41 @@
 #include "Scierror.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xdel(char *fname,unsigned long fname_len)
-{ 
-  int m1,n1,l1;
-  CheckRhs(-1,1);
-  if (Rhs >= 1) {
-    int i;
-		double * windowNumbers;
-    GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
+int sci_xdel(char *fname, unsigned long fname_len)
+{
+    int m1, n1, l1;
 
-		/* First check that all the window numbers are valid */
-		windowNumbers = getDoubleMatrixFromStack(l1);
-		for (i = 0; i < m1 * n1; i++)
-		{
-			if (!sciIsExistingFigure((int) windowNumbers[i]))
-			{
-				Scierror(999, "%s: Figure with figure_id %d does not exist.\n",fname, (int) windowNumbers[i]);
-				return -1;
-			}
-		}
-
-    for (i = 0; i < m1*n1 ; i++) 
+    CheckRhs(-1, 1);
+    if (Rhs >= 1)
     {
-      sciDeleteWindow( (int) windowNumbers[i] ) ;
+        int i;
+        double *windowNumbers;
+
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+
+        /* First check that all the window numbers are valid */
+        windowNumbers = getDoubleMatrixFromStack(l1);
+        for (i = 0; i < m1 * n1; i++)
+        {
+            if (!sciIsExistingFigure((int)windowNumbers[i]))
+            {
+                Scierror(999, "%s: Figure with figure_id %d does not exist.\n", fname, (int)windowNumbers[i]);
+                return -1;
+            }
+        }
+
+        for (i = 0; i < m1 * n1; i++)
+        {
+            sciDeleteWindow((int)windowNumbers[i]);
+        }
     }
-  } else {
-    sciDeleteWindow( sciGetNum(sciGetCurrentFigure()) ) ;
-  }
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
-  return 0;
-} 
+    else
+    {
+        sciDeleteWindow(sciGetNum(sciGetCurrentFigure()));
+    }
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
+}
 
 /*--------------------------------------------------------------------------*/

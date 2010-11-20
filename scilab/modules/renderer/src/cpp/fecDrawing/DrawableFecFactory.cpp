@@ -27,34 +27,34 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableFecFactory::create( void )
-{
-  ConcreteDrawableFec * newFec = new ConcreteDrawableFec( m_pDrawed ) ;
-  DrawableFecBridgeFactory fact;
-  fact.setDrawedFec(newFec);
-  newFec->setDrawableImp(fact.create());
-  setStrategies(newFec);
+    DrawableObject *DrawableFecFactory::create(void)
+    {
+        ConcreteDrawableFec *newFec = new ConcreteDrawableFec(m_pDrawed);
+        DrawableFecBridgeFactory fact;
+          fact.setDrawedFec(newFec);
+          newFec->setDrawableImp(fact.create());
+          setStrategies(newFec);
 
-  return newFec;
-}
+          return newFec;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableFecFactory::update( void )
-{
-  setStrategies(dynamic_cast<ConcreteDrawableFec *>(getFecDrawer(m_pDrawed)));
-}
+    void DrawableFecFactory::update(void)
+    {
+        setStrategies(dynamic_cast < ConcreteDrawableFec * >(getFecDrawer(m_pDrawed)));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableFecFactory::setStrategies(ConcreteDrawableFec * fec)
-{
-  fec->removeDrawingStrategies();
-  
-  if (sciGetIsDisplayingLines(m_pDrawed))
-  {
-    fec->addDrawingStrategy(new FecLineDrawerJoGL(fec));
-  }
+    void DrawableFecFactory::setStrategies(ConcreteDrawableFec * fec)
+    {
+        fec->removeDrawingStrategies();
 
-  fec->addDrawingStrategy(new FecFacetDrawerJoGL(fec));
+        if (sciGetIsDisplayingLines(m_pDrawed))
+        {
+            fec->addDrawingStrategy(new FecLineDrawerJoGL(fec));
+        }
 
-}
+        fec->addDrawingStrategy(new FecFacetDrawerJoGL(fec));
+
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

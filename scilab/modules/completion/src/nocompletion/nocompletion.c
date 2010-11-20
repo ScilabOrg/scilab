@@ -16,7 +16,8 @@
 /*--------------------------------------------------------------------------*/
 int gw_completion(void)
 {
-	Scierror(999,_("Scilab completion module not installed.\n"));
-	return 0;
+    Scierror(999, _("Scilab completion module not installed.\n"));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

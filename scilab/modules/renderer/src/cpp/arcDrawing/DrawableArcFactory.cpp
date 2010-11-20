@@ -29,43 +29,45 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableArcFactory::create( void )
-{
-  ConcreteDrawableArc * newArc = new ConcreteDrawableArc(m_pDrawed);
-  DrawableArcBridgeFactory fact;
-  fact.setDrawedArc(newArc);
-  newArc->setDrawableImp(fact.create());
-  setStrategies(newArc);
+    DrawableObject *DrawableArcFactory::create(void)
+    {
+        ConcreteDrawableArc *newArc = new ConcreteDrawableArc(m_pDrawed);
+        DrawableArcBridgeFactory fact;
+          fact.setDrawedArc(newArc);
+          newArc->setDrawableImp(fact.create());
+          setStrategies(newArc);
 
-  return newArc;
+          return newArc;
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableArcFactory::update( void )
-{
-  setStrategies(dynamic_cast<ConcreteDrawableArc *>(getArcDrawer(m_pDrawed)));
-}
+    void DrawableArcFactory::update(void)
+    {
+        setStrategies(dynamic_cast < ConcreteDrawableArc * >(getArcDrawer(m_pDrawed)));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableArcFactory::setStrategies( ConcreteDrawableArc * arc )
-{
-	sciPointObj * pArc = arc->getDrawedObject();
+    void DrawableArcFactory::setStrategies(ConcreteDrawableArc * arc)
+    {
+        sciPointObj *pArc = arc->getDrawedObject();
 
-  arc->removeDrawingStrategies();
+        arc->removeDrawingStrategies();
 
-  if ( sciGetIsFilled(pArc) )
-  {
-    ArcFillDrawerJoGL * strategy = new ArcFillDrawerJoGL(arc);
-    strategy->setJavaMapper(new ArcFillDrawerJavaMapper());
-    arc->addDrawingStrategy(strategy);
-  }
+        if (sciGetIsFilled(pArc))
+        {
+            ArcFillDrawerJoGL *strategy = new ArcFillDrawerJoGL(arc);
 
-	if ( sciGetIsDisplayingLines(pArc) )
-  {
-    ArcLineDrawerJoGL * strategy = new ArcLineDrawerJoGL(arc);
-    strategy->setJavaMapper(new ArcLineDrawerJavaMapper());
-    arc->addDrawingStrategy(strategy);
-  }
-}
+            strategy->setJavaMapper(new ArcFillDrawerJavaMapper());
+            arc->addDrawingStrategy(strategy);
+        }
+
+        if (sciGetIsDisplayingLines(pArc))
+        {
+            ArcLineDrawerJoGL *strategy = new ArcLineDrawerJoGL(arc);
+
+            strategy->setJavaMapper(new ArcLineDrawerJavaMapper());
+            arc->addDrawingStrategy(strategy);
+        }
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

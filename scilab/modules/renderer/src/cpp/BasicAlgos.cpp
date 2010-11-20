@@ -15,46 +15,59 @@
 #include <string.h>
 
 /*------------------------------------------------------------------------------------------*/
-char ** BasicAlgos::createStringArray(int nbElement)
+char **BasicAlgos::createStringArray(int nbElement)
 {
-  char ** res = new char *[nbElement];
+    char **res = new char *[nbElement];
 
-  for (int i = 0; i < nbElement; i++)
-  {
-    res[i] = NULL;
-  }
-  return res;
-}
-/*------------------------------------------------------------------------------------------*/
-void BasicAlgos::stringArrayCopy(char * dest[], char * src[], int nbElement)
-{
-  int i ;
-  for ( i = 0 ; i < nbElement ; i++ )
-  {
-    int elemSize =  (int) strlen( src[i] ) + 1 ;
-    if (dest[i] != NULL) {delete[] dest[i]; }
-
-    dest[i] = new char[elemSize] ;
-
-    if ( dest[i] == NULL )
+    for (int i = 0; i < nbElement; i++)
     {
-      destroyStringArray( dest, nbElement ) ;
-      return ;
+        res[i] = NULL;
+    }
+    return res;
+}
+
+/*------------------------------------------------------------------------------------------*/
+void BasicAlgos::stringArrayCopy(char *dest[], char *src[], int nbElement)
+{
+    int i;
+
+    for (i = 0; i < nbElement; i++)
+    {
+        int elemSize = (int)strlen(src[i]) + 1;
+
+        if (dest[i] != NULL)
+        {
+            delete[]dest[i];
+        }
+
+        dest[i] = new char[elemSize];
+
+        if (dest[i] == NULL)
+        {
+            destroyStringArray(dest, nbElement);
+            return;
+        }
+
+        strcpy(dest[i], src[i]);
+    }
+}
+
+/*------------------------------------------------------------------------------------------*/
+void BasicAlgos::destroyStringArray(char *src[], int nbElement)
+{
+    if (src == NULL)
+    {
+        return;
     }
 
-    strcpy( dest[i], src[i] ) ;
-  }
+    for (int i = 0; i < nbElement; i++)
+    {
+        if (src[i] != NULL)
+        {
+            delete[]src[i];
+        }
+    }
+    delete[]src;
 }
-/*------------------------------------------------------------------------------------------*/
-void BasicAlgos::destroyStringArray(char * src[], int nbElement)
-{
-  if (src == NULL) {return;}
 
-  for (int i = 0; i < nbElement; i++)
-  {
-    if (src[i] != NULL) {delete[] src[i];}
-  }
-  delete[] src;
-}
 /*------------------------------------------------------------------------------------------*/
-

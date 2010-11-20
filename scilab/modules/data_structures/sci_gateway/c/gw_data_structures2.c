@@ -17,23 +17,25 @@
 #include "stack-c.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
-	{sci_getfield, "getfield"},
-	{sci_setfield, "setfield"}
+static gw_generic_table Tab[] = {
+    {sci_getfield, "getfield"},
+    {sci_setfield, "setfield"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_data_structures2(void)
 {
-	Rhs=Max(Rhs,0);
-	if (Top - Rhs + Lhs + 1 >= Bot)
-	{
-		static int codeerror = 18;
-		SciError(codeerror);
-		return 0;
-	}
+    Rhs = Max(Rhs, 0);
+    if (Top - Rhs + Lhs + 1 >= Bot)
+    {
+        static int codeerror = 18;
 
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+        SciError(codeerror);
+        return 0;
+    }
+
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -15,31 +15,33 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolUnits(sciPointObj* sciObj)
+int GetUicontrolUnits(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the font units from Scilab object
-      switch(pUICONTROL_FEATURE(sciObj)->units)
+        // Get the font units from Scilab object
+        switch (pUICONTROL_FEATURE(sciObj)->units)
         {
         case POINTS_UNITS:
-          return sciReturnString("points");
+            return sciReturnString("points");
         case NORMALIZED_UNITS:
-          return sciReturnString("normalized");
+            return sciReturnString("normalized");
         case INCHES_UNITS:
-          return sciReturnString("inches");
+            return sciReturnString("inches");
         case CENTIMETERS_UNITS:
-          return sciReturnString("centimeters");
+            return sciReturnString("centimeters");
         case PIXELS_UNITS:
-          return sciReturnString("pixels");
+            return sciReturnString("pixels");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s', '%s', '%s' or '%s' expected.\n")), "Units", "points", "normalized", "inches", "centimeters", "pixels");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s', '%s', '%s' or '%s' expected.\n")), "Units", "points",
+                     "normalized", "inches", "centimeters", "pixels");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Units");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Units");
+
+        return FALSE;
     }
 }

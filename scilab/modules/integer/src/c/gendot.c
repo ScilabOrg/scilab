@@ -33,34 +33,38 @@ Type C;\
     return C;\
 }
 
-int C2F(gendot)(int *typ,int *n, void *dx, int *incx, void *dy, int *incy)
+int C2F(gendot) (int *typ, int *n, void *dx, int *incx, void *dy, int *incy)
 {
-  int i1;
-  static int i, itemp, ix, iy;
+    int i1;
+    static int i, itemp, ix, iy;
 
-  itemp = 0;
-  i1 = *n;
+    itemp = 0;
+    i1 = *n;
 
-  switch (*typ) {
-  case 1:
-    DOT(integer1);
-    break;
-  case 2:
-    DOT(integer2);
-    break;
-  case 4:
-    DOT(int) ;
-    break;
-  case 11:
-    DOT(unsigned char);
-    break;
-  case 12:
-    DOT(unsigned short);
-    break;
-  case 14:
-    DOT(unsigned int);
-    break;
-  }
-  return 0;
+    switch (*typ)
+    {
+    case 1:
+        DOT(integer1);
+        break;
+    case 2:
+        DOT(integer2);
+        break;
+    case 4:
+        DOT(int);
+
+        break;
+    case 11:
+        DOT(unsigned char);
+
+        break;
+    case 12:
+        DOT(unsigned short);
+
+        break;
+    case 14:
+        DOT(unsigned int);
+
+        break;
+    }
+    return 0;
 }
-

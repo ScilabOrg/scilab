@@ -21,12 +21,11 @@
 
 #ifndef _MSC_VER
 
-#  if defined(HAVE_CURSES_H)
-#    include <curses.h>
-#  elif defined(HAVE_NCURSES_H)
-#    include <ncurses.h>
-#  endif
-
+#if defined(HAVE_CURSES_H)
+#include <curses.h>
+#elif defined(HAVE_NCURSES_H)
+#include <ncurses.h>
+#endif
 
 #ifdef HAVE_TERMCAP_H
 #include <termcap.h>
@@ -55,76 +54,90 @@
 /*--------------------------------------------------------------------------*/
 int scilines(int nblines, int nbcolumns)
 {
-	setLinesSize(nblines);
-	setColumnsSize(nbcolumns);
-	return 0;
+    setLinesSize(nblines);
+    setColumnsSize(nbcolumns);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int scilinesdefault(void)
 {
 #ifndef _MSC_VER
 
-	char tc_buf[1024];       /* holds termcap buffer */
-	if(tgetent(tc_buf, getenv("TERM")) == 1) {
-		setLinesSize(tgetnum("li")); /* retrieve from the term info the number
-										of lines */
-		setColumnsSize(tgetnum("co")); /* And the number of columns */
-	}else{
-		/* Haven't been able to detect the terminal */
-		setLinesSize(DEFAULT_NUMBERS_LINES);
-		setColumnsSize(DEFAULT_NUMBERS_COLUMNS);
-	}
-	
-#else
-	if ( (getScilabMode() != SCILAB_STD) && (getScilabMode() != SCILAB_API) )
-	{
-		/* -NW or -NWNI mode */
-		int X = getXConsoleScreenSize();
-		int Y = getYConsoleScreenSize();
+    char tc_buf[1024];          /* holds termcap buffer */
 
-		if (X < DEFAULT_NUMBERS_COLUMNS) X = DEFAULT_NUMBERS_COLUMNS;
-		if (Y < DEFAULT_NUMBERS_LINES) Y = DEFAULT_NUMBERS_LINES;
-		setColumnsSize(X);
-		setLinesSize(Y);
-	}
-	else
-	{
-		setLinesSize(DEFAULT_NUMBERS_LINES);
-		setColumnsSize(DEFAULT_NUMBERS_COLUMNS);
-	}
+    if (tgetent(tc_buf, getenv("TERM")) == 1)
+    {
+        setLinesSize(tgetnum("li"));    /* retrieve from the term info the number
+                                         * of lines */
+        setColumnsSize(tgetnum("co"));  /* And the number of columns */
+    }
+    else
+    {
+        /* Haven't been able to detect the terminal */
+        setLinesSize(DEFAULT_NUMBERS_LINES);
+        setColumnsSize(DEFAULT_NUMBERS_COLUMNS);
+    }
+
+#else
+    if ((getScilabMode() != SCILAB_STD) && (getScilabMode() != SCILAB_API))
+    {
+        /* -NW or -NWNI mode */
+        int X = getXConsoleScreenSize();
+        int Y = getYConsoleScreenSize();
+
+        if (X < DEFAULT_NUMBERS_COLUMNS)
+            X = DEFAULT_NUMBERS_COLUMNS;
+        if (Y < DEFAULT_NUMBERS_LINES)
+            Y = DEFAULT_NUMBERS_LINES;
+        setColumnsSize(X);
+        setLinesSize(Y);
+    }
+    else
+    {
+        setLinesSize(DEFAULT_NUMBERS_LINES);
+        setColumnsSize(DEFAULT_NUMBERS_COLUMNS);
+    }
 #endif
-       return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(scilines)(int *nblines, int *nbcolumns)
+int C2F(scilines) (int *nblines, int *nbcolumns)
 {
-	return scilines(*nblines,*nbcolumns);
+    return scilines(*nblines, *nbcolumns);
 }
+
 /*--------------------------------------------------------------------------*/
-int C2F(scilinesdefault)(void)
+int C2F(scilinesdefault) (void)
 {
-	return scilinesdefault();
+    return scilinesdefault();
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL setColumnsSize(int colums)
 {
-	C2F(iop).lct[4] = Max(MIN_NUMBERS_COLUMNS,colums);
-	return TRUE;
+    C2F(iop).lct[4] = Max(MIN_NUMBERS_COLUMNS, colums);
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/
 BOOL setLinesSize(int lines_)
 {
-	C2F(iop).lct[1] = Max(MIN_NUMBERS_LINES,lines_);
-	return TRUE;
+    C2F(iop).lct[1] = Max(MIN_NUMBERS_LINES, lines_);
+    return TRUE;
 }
+
 /*--------------------------------------------------------------------------*/
 int getColumnsSize(void)
 {
-	return C2F(iop).lct[4];
+    return C2F(iop).lct[4];
 }
+
 /*--------------------------------------------------------------------------*/
 int getLinesSize(void)
 {
-	return C2F(iop).lct[1];
+    return C2F(iop).lct[1];
 }
+
 /*--------------------------------------------------------------------------*/

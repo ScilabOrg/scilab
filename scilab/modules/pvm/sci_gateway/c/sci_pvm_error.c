@@ -14,26 +14,28 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_error
  ******************************************/
-int sci_pvm_error(char *fname,unsigned long fname_len)
+int sci_pvm_error(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,mres,nres=1;
-  char *res; 
-  CheckRhs(1,1);
-  CheckLhs(1,1);
-  /*  checking variable func */
-  GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-  CheckScalar(1,m1,n1);
-  res = scipvm_error_msg(*istk(l1));
-  CreateVarFromPtr(Rhs+2,STRING_DATATYPE,(mres=(int)strlen(res), &mres), &nres, &res);
-  LhsVar(1)=Rhs+2;
-  C2F(putlhsvar)();
-  return 0;
+    int m1, n1, l1, mres, nres = 1;
+    char *res;
+
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
+    /*  checking variable func */
+    GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+    CheckScalar(1, m1, n1);
+    res = scipvm_error_msg(*istk(l1));
+    CreateVarFromPtr(Rhs + 2, STRING_DATATYPE, (mres = (int)strlen(res), &mres), &nres, &res);
+    LhsVar(1) = Rhs + 2;
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

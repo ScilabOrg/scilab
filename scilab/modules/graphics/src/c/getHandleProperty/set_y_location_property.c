@@ -28,42 +28,43 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_y_location_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_y_location_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "y_location");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "y_location");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( sciGetEntityType(pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"y_location") ;
-    return SET_PROPERTY_ERROR ;
-  }
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_location");
+        return SET_PROPERTY_ERROR;
+    }
 
-  if ( isStringParamEqual( stackPointer, "left" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.ydir = 'l' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "right" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.ydir = 'r' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "middle" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.ydir = 'c' ;
-  }
-  else if ( isStringParamEqual( stackPointer, "origin" ) )
-  {
-    pSUBWIN_FEATURE(pobj)->axes.ydir = 'o' ;
-  }
-  else  
-  {
-    Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "y_location", "left, right, middle, origin");
-    return SET_PROPERTY_ERROR ;
-  }
-  return SET_PROPERTY_SUCCEED ;
+    if (isStringParamEqual(stackPointer, "left"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.ydir = 'l';
+    }
+    else if (isStringParamEqual(stackPointer, "right"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.ydir = 'r';
+    }
+    else if (isStringParamEqual(stackPointer, "middle"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.ydir = 'c';
+    }
+    else if (isStringParamEqual(stackPointer, "origin"))
+    {
+        pSUBWIN_FEATURE(pobj)->axes.ydir = 'o';
+    }
+    else
+    {
+        Scierror(999, _("Wrong value for '%s' property: Must be in the set {%s}.\n"), "y_location", "left, right, middle, origin");
+        return SET_PROPERTY_ERROR;
+    }
+    return SET_PROPERTY_SUCCEED;
 }
+
 /*------------------------------------------------------------------------*/

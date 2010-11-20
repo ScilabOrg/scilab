@@ -17,19 +17,19 @@
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableRectangleBridge * DrawableRectangleBridgeFactory::create( void )
-{
-  DrawableRectangleJoGL * imp = new DrawableRectangleJoGL( m_pDrawable ) ;
-  
-  imp->setJavaMapper(new DrawableRectangleJavaMapper());
+    DrawableRectangleBridge *DrawableRectangleBridgeFactory::create(void)
+    {
+        DrawableRectangleJoGL *imp = new DrawableRectangleJoGL(m_pDrawable);
 
-  return imp ;
-}
+          imp->setJavaMapper(new DrawableRectangleJavaMapper());
+
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableRectangleBridgeFactory::setDrawedRectangle( DrawableRectangle * rect )
-{
-  m_pDrawable = rect ;
-}
+    void DrawableRectangleBridgeFactory::setDrawedRectangle(DrawableRectangle * rect)
+    {
+        m_pDrawable = rect;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

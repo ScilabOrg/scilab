@@ -25,33 +25,34 @@
 #include "MALLOC.h"
 #include "localization.h"
 
-
 /*--------------------------------------------------------------------------*/
-int get_color_map_property( sciPointObj * pobj )
+int get_color_map_property(sciPointObj * pobj)
 {
-  double * colorMap = NULL ;
-  int cmapSize      = 0    ;
-  int status        = -1   ;
-  if ( sciGetEntityType( pobj ) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"color_map");
-    return -1;
-  }
+    double *colorMap = NULL;
+    int cmapSize = 0;
+    int status = -1;
 
-  cmapSize = sciGetNumColors(pobj) ;
-  colorMap = MALLOC( cmapSize * 3 * sizeof(double) ) ;
-  if ( colorMap == NULL )
-  {
-    Scierror(999, _("%s: No more memory.\n"),"get_color_map_property");
-    return -1;
-  }
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "color_map");
+        return -1;
+    }
 
-  sciGetColormap(pobj, colorMap);
+    cmapSize = sciGetNumColors(pobj);
+    colorMap = MALLOC(cmapSize * 3 * sizeof(double));
+    if (colorMap == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "get_color_map_property");
+        return -1;
+    }
 
-  status = sciReturnMatrix( colorMap, sciGetNumColors( pobj ), 3 ) ;
+    sciGetColormap(pobj, colorMap);
 
-  FREE(colorMap) ;
+    status = sciReturnMatrix(colorMap, sciGetNumColors(pobj), 3);
 
-  return status ;
+    FREE(colorMap);
+
+    return status;
 }
+
 /*--------------------------------------------------------------------------*/

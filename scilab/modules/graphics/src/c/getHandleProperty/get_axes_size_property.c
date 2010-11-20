@@ -25,20 +25,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_axes_size_property( sciPointObj * pobj )
+int get_axes_size_property(sciPointObj * pobj)
 {
-  double axesSize[2] ;
+    double axesSize[2];
 
-  if ( sciGetEntityType (pobj) != SCI_FIGURE )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"axes_size");
-    return -1;
-  }
-  
-  axesSize[0] = sciGetWidth(  pobj ) ; 
-  axesSize[1] = sciGetHeight( pobj ) ; 
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "axes_size");
+        return -1;
+    }
 
-  return sciReturnRowVector( axesSize, 2 ) ;
+    axesSize[0] = sciGetWidth(pobj);
+    axesSize[1] = sciGetHeight(pobj);
+
+    return sciReturnRowVector(axesSize, 2);
 
 }
+
 /*------------------------------------------------------------------------*/

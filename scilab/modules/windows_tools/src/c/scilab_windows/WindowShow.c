@@ -16,57 +16,63 @@
 #include "setVisibleMainWindow.h"
 /*--------------------------------------------------------------------------*/
 static int CmdShow = -1;
+
 /*--------------------------------------------------------------------------*/
 void setWindowShowMode(int nCmdShow)
 {
-	switch(nCmdShow)
-	{
-	case SW_HIDE:
-	case SW_SHOWMINIMIZED:
-	case SW_SHOWMAXIMIZED:
-	case SW_SHOWNOACTIVATE:
-	case SW_SHOW:
-	case SW_MINIMIZE:
-	case SW_SHOWMINNOACTIVE:
-	case SW_SHOWNA:
-	case SW_RESTORE:
-	case SW_SHOWDEFAULT:
-	case SW_MAX:
-		CmdShow = nCmdShow;
-		break;
-	case SW_SHOWNORMAL: default:
-		CmdShow = SW_NORMAL;
-		break;
-	}
+    switch (nCmdShow)
+    {
+    case SW_HIDE:
+    case SW_SHOWMINIMIZED:
+    case SW_SHOWMAXIMIZED:
+    case SW_SHOWNOACTIVATE:
+    case SW_SHOW:
+    case SW_MINIMIZE:
+    case SW_SHOWMINNOACTIVE:
+    case SW_SHOWNA:
+    case SW_RESTORE:
+    case SW_SHOWDEFAULT:
+    case SW_MAX:
+        CmdShow = nCmdShow;
+        break;
+    case SW_SHOWNORMAL:
+    default:
+        CmdShow = SW_NORMAL;
+        break;
+    }
 }
+
 /*--------------------------------------------------------------------------*/
 int getWindowShowMode(void)
 {
-	return CmdShow;
+    return CmdShow;
 }
+
 /*--------------------------------------------------------------------------*/
 void WindowShow(void)
 {
-	switch(CmdShow)
-	{
-	case SW_HIDE:
-		setVisibleMainWindow(FALSE);
-		break;
-	
-	case SW_SHOWMINIMIZED:
-	case SW_MINIMIZE:
-	case SW_SHOWMINNOACTIVE:
-		iconifyMainWindow();
-		break;
-	
-	case SW_SHOWMAXIMIZED:
-	case SW_MAX:
-		maximizeMainWindow();
-		break;
+    switch (CmdShow)
+    {
+    case SW_HIDE:
+        setVisibleMainWindow(FALSE);
+        break;
 
-	case SW_SHOWNORMAL: default:
-		normalMainWindow();
-		break;
-	}
+    case SW_SHOWMINIMIZED:
+    case SW_MINIMIZE:
+    case SW_SHOWMINNOACTIVE:
+        iconifyMainWindow();
+        break;
+
+    case SW_SHOWMAXIMIZED:
+    case SW_MAX:
+        maximizeMainWindow();
+        break;
+
+    case SW_SHOWNORMAL:
+    default:
+        normalMainWindow();
+        break;
+    }
 }
+
 /*--------------------------------------------------------------------------*/

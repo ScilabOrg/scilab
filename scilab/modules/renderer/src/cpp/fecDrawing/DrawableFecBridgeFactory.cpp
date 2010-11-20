@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableFecBridge * DrawableFecBridgeFactory::create( void )
-{
-  DrawableFecJoGL * imp = new DrawableFecJoGL( m_pDrawable ) ;
-  imp->setJavaMapper(new DrawableFecJavaMapper()) ;
-  return imp ;
-}
+    DrawableFecBridge *DrawableFecBridgeFactory::create(void)
+    {
+        DrawableFecJoGL *imp = new DrawableFecJoGL(m_pDrawable);
+          imp->setJavaMapper(new DrawableFecJavaMapper());
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableFecBridgeFactory::setDrawedFec( DrawableFec * fec )
-{
-  m_pDrawable = fec ;
-}
+    void DrawableFecBridgeFactory::setDrawedFec(DrawableFec * fec)
+    {
+        m_pDrawable = fec;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

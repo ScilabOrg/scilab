@@ -12,7 +12,6 @@
  *
  */
 
-
 /*------------------------------------------------------------------------*/
 /* file: get_foregroud_property.c                                         */
 /* desc : function to retrieve in Scilab the foreground field of a        */
@@ -24,8 +23,9 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_foreground_property( sciPointObj * pobj )
+int get_foreground_property(sciPointObj * pobj)
 {
-  return sciReturnDouble( sciGetForegroundToDisplay( pobj ) ) ;
+    return sciReturnDouble(sciGetForegroundToDisplay(pobj));
 }
+
 /*------------------------------------------------------------------------*/

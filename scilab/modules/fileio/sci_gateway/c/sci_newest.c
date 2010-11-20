@@ -28,171 +28,183 @@
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/
-static int GetIndexLastModifiedFileInList(char **ListFilename,int numberelemnts);
+static int GetIndexLastModifiedFileInList(char **ListFilename, int numberelemnts);
+
 /*--------------------------------------------------------------------------*/
-int sci_newest(char *fname,unsigned long fname_len)
+int sci_newest(char *fname, unsigned long fname_len)
 {
-	CheckLhs(1,1);
-	if (Rhs == 0)
-	{
-		/* newest() returns [] */
-		int m1 = 0,n1 = 0,l1 = 0;
-		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
-	}
-	else
-	{
-		int m1 = 0,n1 = 0,l1 = 0;
-		int RetIndex = 1;
+    CheckLhs(1, 1);
+    if (Rhs == 0)
+    {
+        /* newest() returns [] */
+        int m1 = 0, n1 = 0, l1 = 0;
 
-		if (Rhs == 1)
-		{
-			if (GetType(1) == sci_matrix)
-			{
-				GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);
-				if ( (m1 == 0) && (n1 == 0) ) /* newest([]) returns [] */
-				{
-					m1 = 0;n1 = 0;l1 = 0;
-					CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-					LhsVar(1)=Rhs+1;
-					C2F(putlhsvar)();
-					return 0;
-				}
-				else
-				{
-					Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"),fname);
-					return 0;
-				}
-			}
-			else
-			{
-				if (GetType(1) == sci_strings)
-				{
-					char **Str = NULL;
+        CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+        LhsVar(1) = Rhs + 1;
+        C2F(putlhsvar) ();
+    }
+    else
+    {
+        int m1 = 0, n1 = 0, l1 = 0;
+        int RetIndex = 1;
 
-					GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&Str);
-					RetIndex = GetIndexLastModifiedFileInList(Str,m1*n1);
-					freeArrayOfString(Str,m1*n1);
-				}
-				else
-				{
-					Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"),fname);
-					return 0;
-				}
-			}
-		}
-		else /* Rhs > 1 */
-		{
-			int i = 1;
-			char **Str = NULL;
-			int RhsBackup = Rhs;
+        if (Rhs == 1)
+        {
+            if (GetType(1) == sci_matrix)
+            {
+                GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+                if ((m1 == 0) && (n1 == 0)) /* newest([]) returns [] */
+                {
+                    m1 = 0;
+                    n1 = 0;
+                    l1 = 0;
+                    CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+                    LhsVar(1) = Rhs + 1;
+                    C2F(putlhsvar) ();
+                    return 0;
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname);
+                    return 0;
+                }
+            }
+            else
+            {
+                if (GetType(1) == sci_strings)
+                {
+                    char **Str = NULL;
 
-			/* check that all input arguments are strings */
-			for (i = 1; i <= Rhs ; i++)
-			{
-				if (GetType(i) != sci_strings)
-				{
-					Scierror(999,_("%s: Wrong type for input argument #%d: String expected.\n"),fname,i);
-					return 0;
-				}
-			}
+                    GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &Str);
+                    RetIndex = GetIndexLastModifiedFileInList(Str, m1 * n1);
+                    freeArrayOfString(Str, m1 * n1);
+                }
+                else
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname);
+                    return 0;
+                }
+            }
+        }
+        else                    /* Rhs > 1 */
+        {
+            int i = 1;
+            char **Str = NULL;
+            int RhsBackup = Rhs;
 
-			Str = (char**)MALLOC(sizeof(char*) * RhsBackup);
-			if (Str)
-			{
-				for (i = 1; i <= RhsBackup; i++)
-				{
-					GetRhsVar(i,STRING_DATATYPE,&m1,&n1,&l1);
-					Str[i-1] = strdup(cstk(l1));
-				}
+            /* check that all input arguments are strings */
+            for (i = 1; i <= Rhs; i++)
+            {
+                if (GetType(i) != sci_strings)
+                {
+                    Scierror(999, _("%s: Wrong type for input argument #%d: String expected.\n"), fname, i);
+                    return 0;
+                }
+            }
 
-				RetIndex = GetIndexLastModifiedFileInList(Str,RhsBackup);
-				freeArrayOfString(Str,RhsBackup);
-			}
-		}
+            Str = (char **)MALLOC(sizeof(char *) * RhsBackup);
+            if (Str)
+            {
+                for (i = 1; i <= RhsBackup; i++)
+                {
+                    GetRhsVar(i, STRING_DATATYPE, &m1, &n1, &l1);
+                    Str[i - 1] = strdup(cstk(l1));
+                }
 
-		/* Output on scilab's stack */
-		if (RetIndex >= 1)
-		{
-			int *paramoutINT = (int*)MALLOC(sizeof(int));
-			*paramoutINT = RetIndex;
+                RetIndex = GetIndexLastModifiedFileInList(Str, RhsBackup);
+                freeArrayOfString(Str, RhsBackup);
+            }
+        }
 
-			n1 = 1;
-			CreateVarFromPtr(Rhs+1,MATRIX_OF_INTEGER_DATATYPE, &n1, &n1, &paramoutINT);
-			LhsVar(1)=Rhs+1;
-			C2F(putlhsvar)();
+        /* Output on scilab's stack */
+        if (RetIndex >= 1)
+        {
+            int *paramoutINT = (int *)MALLOC(sizeof(int));
 
-			if (paramoutINT){FREE(paramoutINT); paramoutINT=NULL;}
-		}
-		else
-		{
-			m1=0;
-			n1=0;
-			l1=0;
+            *paramoutINT = RetIndex;
 
-			CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-			LhsVar(1)=Rhs+1;
-			C2F(putlhsvar)();
-		}
-	}
-	return 0;
+            n1 = 1;
+            CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &n1, &n1, &paramoutINT);
+            LhsVar(1) = Rhs + 1;
+            C2F(putlhsvar) ();
+
+            if (paramoutINT)
+            {
+                FREE(paramoutINT);
+                paramoutINT = NULL;
+            }
+        }
+        else
+        {
+            m1 = 0;
+            n1 = 0;
+            l1 = 0;
+
+            CreateVar(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+            LhsVar(1) = Rhs + 1;
+            C2F(putlhsvar) ();
+        }
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-static int GetIndexLastModifiedFileInList(char **ListFilename,int numberelemnts)
+static int GetIndexLastModifiedFileInList(char **ListFilename, int numberelemnts)
 {
 #ifdef _MSC_VER
-	struct _stat buf;
+    struct _stat buf;
 #else
-	struct stat buf;
+    struct stat buf;
 #endif
 
-	int i=0;
-	int RetVal=0;
+    int i = 0;
+    int RetVal = 0;
 
-	int RetIndex=1;
-	long int MaxTime=0;
+    int RetIndex = 1;
+    long int MaxTime = 0;
 
-	for (i = 0; i<numberelemnts ;i++)
-	{
+    for (i = 0; i < numberelemnts; i++)
+    {
 
-		int resultstat = 0;
-		char *FileName = NULL;
+        int resultstat = 0;
+        char *FileName = NULL;
 
-		FileName = expandPathVariable(ListFilename[i]);
+        FileName = expandPathVariable(ListFilename[i]);
 
 #ifdef _MSC_VER
-		if (FileName)
-		{
-			if ( (FileName[strlen(FileName)-1]=='/') || (FileName[strlen(FileName)-1]=='\\') )
-			{
-				FileName[strlen(FileName)-1]='\0';
-			}
+        if (FileName)
+        {
+            if ((FileName[strlen(FileName) - 1] == '/') || (FileName[strlen(FileName) - 1] == '\\'))
+            {
+                FileName[strlen(FileName) - 1] = '\0';
+            }
 
-		}
+        }
 
-		{
-		wchar_t *pszFileName = to_wide_string(FileName);
-		resultstat = _wstat(pszFileName, &buf );
-		FREE(pszFileName);
-		}
+        {
+            wchar_t *pszFileName = to_wide_string(FileName);
+
+            resultstat = _wstat(pszFileName, &buf);
+            FREE(pszFileName);
+        }
 #else
-		resultstat = stat(FileName, &buf );
+        resultstat = stat(FileName, &buf);
 #endif
-		if (resultstat == 0)
-		{
-			if ((long int)buf.st_mtime>MaxTime)
-			{
-				MaxTime=(long int)buf.st_mtime;
-				RetIndex=i+1;
-			}
-		}
+        if (resultstat == 0)
+        {
+            if ((long int)buf.st_mtime > MaxTime)
+            {
+                MaxTime = (long int)buf.st_mtime;
+                RetIndex = i + 1;
+            }
+        }
 
-		FREE(FileName);
-		FileName = NULL;
-	}
+        FREE(FileName);
+        FileName = NULL;
+    }
 
-	RetVal=RetIndex;
-	return RetVal;
+    RetVal = RetIndex;
+    return RetVal;
 }
+
 /*--------------------------------------------------------------------------*/

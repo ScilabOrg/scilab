@@ -25,18 +25,20 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_log_flags_property( sciPointObj * pobj )
+int get_log_flags_property(sciPointObj * pobj)
 {
-  char logFlagsString[4];
-  if ( sciGetEntityType (pobj) != SCI_SUBWIN )
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"log_flag") ;
-    return -1 ;
-  }
+    char logFlagsString[4];
 
-  /* Set the three first character of log flags.*/
-  sciGetLogFlags(pobj, logFlagsString);
-  logFlagsString[3] = 0; /* 0 terminating character */
-  return sciReturnString( logFlagsString ) ;
+    if (sciGetEntityType(pobj) != SCI_SUBWIN)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "log_flag");
+        return -1;
+    }
+
+    /* Set the three first character of log flags. */
+    sciGetLogFlags(pobj, logFlagsString);
+    logFlagsString[3] = 0;      /* 0 terminating character */
+    return sciReturnString(logFlagsString);
 }
+
 /*------------------------------------------------------------------------*/

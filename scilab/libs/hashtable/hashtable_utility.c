@@ -16,13 +16,13 @@
  * Source due to Holger Schemel.
  * 
  *  */
-int
-hashtable_change(struct hashtable *h, void *k, void *v)
+int hashtable_change(struct hashtable *h, void *k, void *v)
 {
     struct entry *e;
     unsigned int hashvalue, index_;
-    hashvalue = hash(h,k);
-    index_ = indexFor(h->tablelength,hashvalue);
+
+    hashvalue = hash(h, k);
+    index_ = indexFor(h->tablelength, hashvalue);
     e = h->table[index_];
     while (NULL != e)
     {

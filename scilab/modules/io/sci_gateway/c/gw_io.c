@@ -17,10 +17,10 @@
 #include "callFunctionFromGateway.h"
 #include "recursionFunction.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsave)(); /* fortran subroutine */
+extern int C2F(intsave) ();     /* fortran subroutine */
+
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] =
-{
+static gw_generic_table Tab[] = {
     {sci_setenv, "setenv"},
     {sci_read, "read"},
     {sci_getenv, "getenv"},
@@ -40,30 +40,31 @@ static gw_generic_table Tab[] =
     {sci_save, "save"},
     {sci_load, "load"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_io(void)
-{  
+{
     /* Recursion from a function */
-    if(pvApiCtx == NULL)
+    if (pvApiCtx == NULL)
     {
-        pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
+        pvApiCtx = (StrCtx *) MALLOC(sizeof(StrCtx));
     }
 
-    if ( isRecursionCallToFunction() )
+    if (isRecursionCallToFunction())
     {
-        switch ( getRecursionFunctionToCall() )
+        switch (getRecursionFunctionToCall())
         {
         case RECURSION_CALL_SAVE:
             {
                 pvApiCtx->pstName = "save";
-                C2F(intsave)(); 
+                C2F(intsave) ();
                 return 0;
             }
             break;
         case RECURSION_CALL_LOAD:
             {
                 pvApiCtx->pstName = "load";
-                sci_load("load",(unsigned long)strlen("load"));
+                sci_load("load", (unsigned long)strlen("load"));
                 return 0;
             }
             break;
@@ -74,9 +75,10 @@ int gw_io(void)
     else
     {
         Rhs = Max(0, Rhs);
-        pvApiCtx->pstName = (char*)Tab[Fin-1].name;
+        pvApiCtx->pstName = (char *)Tab[Fin - 1].name;
         callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     }
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

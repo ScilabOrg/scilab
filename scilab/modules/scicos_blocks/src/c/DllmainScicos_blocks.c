@@ -19,24 +19,24 @@
 * See the file ./license.txt
 */
 /*--------------------------------------------------------------------------*/
-#include <windows.h> 
-/*--------------------------------------------------------------------------*/ 
+#include <windows.h>
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+/*--------------------------------------------------------------------------*/
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-  switch (reason) 
+    switch (reason)
     {
     case DLL_PROCESS_ATTACH:
-      break;
+        break;
     case DLL_PROCESS_DETACH:
-      break;
+        break;
     case DLL_THREAD_ATTACH:
-      break;
+        break;
     case DLL_THREAD_DETACH:
-      break;
+        break;
     }
-  return 1;
+    return 1;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

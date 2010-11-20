@@ -22,182 +22,205 @@
 #include "call_scilab.h"
 #include "stack-c.h"
 
-SciErr getPointer(void* _pvCtx, int* _piAddress, void** _pvPtr)
+SciErr getPointer(void *_pvCtx, int *_piAddress, void **_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	int iType = 0;
-	double *pdblTmp = NULL;
+    SciErr sciErr;
 
-	if(	_piAddress == NULL)
-	{
-		addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getPointer");
-		return sciErr;
-	}
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    int iType = 0;
+    double *pdblTmp = NULL;
 
-	sciErr = getVarType(_pvCtx, _piAddress, &iType);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_GET_POINTER, _("%s: Unable to get argument #%d"), "getPointer", getRhsFromAddress(_pvCtx, _piAddress));
-		return sciErr;
-	}
-	
-	if(iType != sci_pointer)
-	{
-		addErrorMessage(&sciErr, API_ERROR_INVALID_TYPE, _("%s: Invalid argument type, %s excepted"), "getPointer", _("pointer"));
-		return sciErr;
-	}
-	
-	pdblTmp = (double*)(_piAddress + 4);
+    if (_piAddress == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getPointer");
+        return sciErr;
+    }
 
-	*_pvPtr = (void*)((unsigned long int)(*pdblTmp));
-	return sciErr;
+    sciErr = getVarType(_pvCtx, _piAddress, &iType);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_GET_POINTER, _("%s: Unable to get argument #%d"), "getPointer", getRhsFromAddress(_pvCtx, _piAddress));
+        return sciErr;
+    }
+
+    if (iType != sci_pointer)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_TYPE, _("%s: Invalid argument type, %s excepted"), "getPointer", _("pointer"));
+        return sciErr;
+    }
+
+    pdblTmp = (double *)(_piAddress + 4);
+
+    *_pvPtr = (void *)((unsigned long int)(*pdblTmp));
+    return sciErr;
 }
 
-SciErr fillPointer(void* _pvCtx, int *_piAddress, void** _pvPtr)
+SciErr fillPointer(void *_pvCtx, int *_piAddress, void **_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	if(_piAddress == NULL)
-	{
-		addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "fillPointer");
-		return sciErr;
-	}
+    SciErr sciErr;
 
-	_piAddress[0] = sci_pointer;
-	_piAddress[1] = 1;
-	_piAddress[2] = 1;
-	_piAddress[3] = 0;
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    if (_piAddress == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "fillPointer");
+        return sciErr;
+    }
 
-	*_pvPtr = _piAddress + 4;
+    _piAddress[0] = sci_pointer;
+    _piAddress[1] = 1;
+    _piAddress[2] = 1;
+    _piAddress[3] = 0;
 
-	return sciErr;
+    *_pvPtr = _piAddress + 4;
+
+    return sciErr;
 }
 
-SciErr allocPointer(void* _pvCtx, int _iVar, void** _pvPtr)
+SciErr allocPointer(void *_pvCtx, int _iVar, void **_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	int iNewPos			= Top - Rhs + _iVar;
-	int iAddr				= *Lstk(iNewPos);
-	int* piAddr			= NULL;
-	void* pvPtr			= NULL;
+    SciErr sciErr;
 
-	int iMemSize = 2;
-	int iFreeSpace = iadr(*Lstk(Bot)) - (iadr(iAddr));
-	if (iMemSize > iFreeSpace)
-	{
-		addStackSizeError(&sciErr, ((StrCtx*)_pvCtx)->pstName, iMemSize);
-		return sciErr;
-	}
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    int iNewPos = Top - Rhs + _iVar;
+    int iAddr = *Lstk(iNewPos);
+    int *piAddr = NULL;
+    void *pvPtr = NULL;
 
-	getNewVarAddressFromPosition(_pvCtx, iNewPos, &piAddr);
+    int iMemSize = 2;
+    int iFreeSpace = iadr(*Lstk(Bot)) - (iadr(iAddr));
 
-	sciErr = fillPointer(_pvCtx, piAddr, &pvPtr);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_ALLOC_POINTER, _("%s: Unable to create variable in Scilab memory"), "allocPointer");;
-		return sciErr;
-	}
+    if (iMemSize > iFreeSpace)
+    {
+        addStackSizeError(&sciErr, ((StrCtx *) _pvCtx)->pstName, iMemSize);
+        return sciErr;
+    }
 
-	*_pvPtr = pvPtr;
-	updateInterSCI(_iVar, '$', iAddr, sadr(iadr(iAddr) + 4));
-	updateLstk(iNewPos, sadr(iadr(iAddr) + 4), 2);
+    getNewVarAddressFromPosition(_pvCtx, iNewPos, &piAddr);
 
-	return sciErr;
+    sciErr = fillPointer(_pvCtx, piAddr, &pvPtr);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_ALLOC_POINTER, _("%s: Unable to create variable in Scilab memory"), "allocPointer");;
+        return sciErr;
+    }
+
+    *_pvPtr = pvPtr;
+    updateInterSCI(_iVar, '$', iAddr, sadr(iadr(iAddr) + 4));
+    updateLstk(iNewPos, sadr(iadr(iAddr) + 4), 2);
+
+    return sciErr;
 }
 
-SciErr createPointer(void* _pvCtx, int _iVar, void* _pvPtr)
+SciErr createPointer(void *_pvCtx, int _iVar, void *_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	void* pvPtr		= NULL;
+    SciErr sciErr;
 
-	sciErr = allocPointer(_pvCtx, _iVar, &pvPtr);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_CREATE_POINTER, _("%s: Unable to create variable in Scilab memory"), "createPointer");
-		return sciErr;
-	}
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    void *pvPtr = NULL;
 
-	((double*)pvPtr)[0] = (double) ((unsigned long int)_pvPtr);
+    sciErr = allocPointer(_pvCtx, _iVar, &pvPtr);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_POINTER, _("%s: Unable to create variable in Scilab memory"), "createPointer");
+        return sciErr;
+    }
 
-	return sciErr;
+    ((double *)pvPtr)[0] = (double)((unsigned long int)_pvPtr);
+
+    return sciErr;
 }
 
-SciErr createNamedPointer(void* _pvCtx, const char* _pstName, int* _pvPtr)
+SciErr createNamedPointer(void *_pvCtx, const char *_pstName, int *_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	int iVarID[nsiz];
-	int iSaveRhs	= Rhs;
-	int iSaveTop	= Top;
-	void* pvPtr	= NULL;
-	int *piAddr	= NULL;
+    SciErr sciErr;
 
-	C2F(str2name)(_pstName, iVarID, (int)strlen(_pstName));
-	Top = Top + Nbvars + 1;
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    int iVarID[nsiz];
+    int iSaveRhs = Rhs;
+    int iSaveTop = Top;
+    void *pvPtr = NULL;
+    int *piAddr = NULL;
 
-	int iMemSize = 1;
-	int iFreeSpace = iadr(*Lstk(Bot)) - (iadr(*Lstk(Top)));
-	if (iMemSize > iFreeSpace)
-	{
-		addStackSizeError(&sciErr, ((StrCtx*)_pvCtx)->pstName, iMemSize);
-		return sciErr;
-	}
+    C2F(str2name) (_pstName, iVarID, (int)strlen(_pstName));
+    Top = Top + Nbvars + 1;
 
-	getNewVarAddressFromPosition(_pvCtx, Top, &piAddr);
+    int iMemSize = 1;
+    int iFreeSpace = iadr(*Lstk(Bot)) - (iadr(*Lstk(Top)));
 
-	//write matrix information
-	sciErr = fillPointer(_pvCtx, piAddr, &pvPtr);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_POINTER, _("%s: Unable to create %s named \"%s\""), "createNamedPointer", _("pointer"), _pstName);
-		return sciErr;
-	}
+    if (iMemSize > iFreeSpace)
+    {
+        addStackSizeError(&sciErr, ((StrCtx *) _pvCtx)->pstName, iMemSize);
+        return sciErr;
+    }
 
-	//copy data in stack
-	((double*)pvPtr)[0] = (double) ((unsigned long int)_pvPtr);
+    getNewVarAddressFromPosition(_pvCtx, Top, &piAddr);
 
-	updateLstk(Top, *Lstk(Top) + sadr(4), 2);
+    //write matrix information
+    sciErr = fillPointer(_pvCtx, piAddr, &pvPtr);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_POINTER, _("%s: Unable to create %s named \"%s\""), "createNamedPointer", _("pointer"),
+                        _pstName);
+        return sciErr;
+    }
 
-	Rhs = 0;
-	//Add name in stack reference list
-	createNamedVariable(iVarID);
+    //copy data in stack
+    ((double *)pvPtr)[0] = (double)((unsigned long int)_pvPtr);
 
-	Top = iSaveTop;
-  Rhs = iSaveRhs;
-	return sciErr;
+    updateLstk(Top, *Lstk(Top) + sadr(4), 2);
+
+    Rhs = 0;
+    //Add name in stack reference list
+    createNamedVariable(iVarID);
+
+    Top = iSaveTop;
+    Rhs = iSaveRhs;
+    return sciErr;
 }
 
-SciErr readNamedPointer(void* _pvCtx, const char* _pstName, void** _pvPtr)
+SciErr readNamedPointer(void *_pvCtx, const char *_pstName, void **_pvPtr)
 {
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	int* piAddr				= NULL;
-	void *pvPtr				= NULL;
+    SciErr sciErr;
 
-	sciErr = getVarAddressFromName(_pvCtx, _pstName, &piAddr);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_READ_POINTER, _("%s: Unable to get variable \"%s\""), "readNamedMatrixOfBoolean", _pstName);
-		return sciErr;
-	}
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    int *piAddr = NULL;
+    void *pvPtr = NULL;
 
-	sciErr = getPointer(_pvCtx, piAddr, &pvPtr);
-	if(sciErr.iErr)
-	{
-		addErrorMessage(&sciErr, API_ERROR_READ_POINTER, _("%s: Unable to get variable \"%s\""), "readNamedMatrixOfBoolean", _pstName);
-		return sciErr;
-	}
-	
-	*_pvPtr = pvPtr;
+    sciErr = getVarAddressFromName(_pvCtx, _pstName, &piAddr);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_READ_POINTER, _("%s: Unable to get variable \"%s\""), "readNamedMatrixOfBoolean", _pstName);
+        return sciErr;
+    }
 
-	return sciErr;
+    sciErr = getPointer(_pvCtx, piAddr, &pvPtr);
+    if (sciErr.iErr)
+    {
+        addErrorMessage(&sciErr, API_ERROR_READ_POINTER, _("%s: Unable to get variable \"%s\""), "readNamedMatrixOfBoolean", _pstName);
+        return sciErr;
+    }
+
+    *_pvPtr = pvPtr;
+
+    return sciErr;
 }
+
 /*--------------------------------------------------------------------------*/
-int isPointerType(void* _pvCtx, int* _piAddress)
+int isPointerType(void *_pvCtx, int *_piAddress)
 {
-	return checkVarType(_pvCtx, _piAddress, sci_pointer);
+    return checkVarType(_pvCtx, _piAddress, sci_pointer);
 }
-/*--------------------------------------------------------------------------*/
-int isNamedPointerType(void* _pvCtx, const char* _pstName)
-{
-	return checkNamedVarType(_pvCtx, _pstName, sci_pointer);
-}
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/
+int isNamedPointerType(void *_pvCtx, const char *_pstName)
+{
+    return checkNamedVarType(_pvCtx, _pstName, sci_pointer);
+}
+
+/*--------------------------------------------------------------------------*/

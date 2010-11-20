@@ -5,7 +5,6 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-
 /*********************************************
  *     external fonction for ode 
  *     input variables n, t, y 
@@ -34,13 +33,13 @@
 
 int ext10c(int *n, double *t, double *y, double *ydot)
 {
-  static double param[3];
-  param[0] = y[*n + 0];
-  param[1] = y[*n + 1];
-  param[2] = y[*n + 2];
-  ydot[0] = -param[0] * y[0] + param[1] * y[1] * y[2];
-  ydot[2] = param[2] * y[1] * y[1];
-  ydot[1] = -ydot[0] - ydot[2];
-  return(0);
-} 
+    static double param[3];
 
+    param[0] = y[*n + 0];
+    param[1] = y[*n + 1];
+    param[2] = y[*n + 2];
+    ydot[0] = -param[0] * y[0] + param[1] * y[1] * y[2];
+    ydot[2] = param[2] * y[1] * y[1];
+    ydot[1] = -ydot[0] - ydot[2];
+    return (0);
+}

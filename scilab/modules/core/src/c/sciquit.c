@@ -10,13 +10,13 @@
  *
  */
 
-#ifdef sun 
-	#ifndef SYSV
-	#include <sys/ieeefp.h>
-	#endif
+#ifdef sun
+#ifndef SYSV
+#include <sys/ieeefp.h>
+#endif
 #endif
 #include "sciquit.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "TerminateCore.h"
 #include "../../../graphics/includes/TerminateGraphics.h"
 #include "dynamic_tclsci.h"
@@ -29,52 +29,55 @@
 #endif
 #include "../../../gui/includes/TerminateGui.h"
 #include "scilabmode.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 int ExitScilab(void)
 {
-	TerminateCorePart1();
-  
-	if ( getScilabMode() != SCILAB_NWNI ) 
-	{
-		dynamic_TerminateTclTk();
-		TerminateGraphics();
-		TerminateGUI();
-		TerminateJVM();
-	}
+    TerminateCorePart1();
 
-	TerminateCorePart2();
+    if (getScilabMode() != SCILAB_NWNI)
+    {
+        dynamic_TerminateTclTk();
+        TerminateGraphics();
+        TerminateGUI();
+        TerminateJVM();
+    }
 
-	#ifdef _MSC_VER
-	TerminateWindows_tools();
-	#endif
+    TerminateCorePart2();
 
-	return 0;
+#ifdef _MSC_VER
+    TerminateWindows_tools();
+#endif
+
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 void sciquit(void)
 {
 #ifdef _MSC_VER
-	/* bug 3672 */
-	/* Create a Mutex (closing scilab)
-	used by files association 
-	*/
-	createMutexClosingScilab();
+    /* bug 3672 */
+    /* Create a Mutex (closing scilab)
+     * used by files association 
+     */
+    createMutexClosingScilab();
 #endif
 
-	ExitScilab();
+    ExitScilab();
 
-#ifdef sun 
+#ifdef sun
 #ifndef SYSV
-	char **out;
-	ieee_flags("clearall","exception","all", &out);
-#endif 
-#endif 
+    char **out;
+
+    ieee_flags("clearall", "exception", "all", &out);
+#endif
+#endif
 
 #ifdef _MSC_VER
-	/* close mutex (closing scilab)
-	used by files association 
-	*/
-	terminateMutexClosingScilab();
+    /* close mutex (closing scilab)
+     * used by files association 
+     */
+    terminateMutexClosingScilab();
 #endif
 }
+
 /*--------------------------------------------------------------------------*/

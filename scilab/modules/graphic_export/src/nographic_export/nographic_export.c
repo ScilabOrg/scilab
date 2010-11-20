@@ -14,10 +14,11 @@
 #include "gw_graphic_export.h"
 #include "Scierror.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 int gw_graphic_export(void)
 {
-	Scierror(999,_("Scilab Graphic export module not installed.\n"));
-	return 0;
+    Scierror(999, _("Scilab Graphic export module not installed.\n"));
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

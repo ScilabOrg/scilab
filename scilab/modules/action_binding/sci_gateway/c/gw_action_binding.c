@@ -17,12 +17,14 @@
 static gw_generic_table Tab[] = {
     {sci_notify, "notify"},
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_action_binding(void)
 {
-	Rhs = Max(0, Rhs);
+    Rhs = Max(0, Rhs);
 
-	callFunctionFromGateway(Tab,  SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -17,54 +17,58 @@
 #include "MALLOC.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
-#endif 
+#endif
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
 char **searchmacroinlibraries(char *macro, int *sizeReturnedArray)
 {
-	char **returnedArray = NULL;
-	*sizeReturnedArray = 0;
+    char **returnedArray = NULL;
 
-	if (macro)
-	{
-		int sizelibraries = 0;
-		char **libraries = getlibrarieslist(&sizelibraries);
-		if ( libraries && (sizelibraries > 0) )
-		{
-			int nbLibsWhereIsMacro = 0;
-			int i = 0;
+    *sizeReturnedArray = 0;
 
-			for (i = 0; i < sizelibraries; i++)
-			{
-				int sizemacrosLib = 0;
-				char **macrosLib = getlistmacrosfromlibrary(libraries[i], &sizemacrosLib);
+    if (macro)
+    {
+        int sizelibraries = 0;
+        char **libraries = getlibrarieslist(&sizelibraries);
 
-				if (macrosLib && (sizemacrosLib > 0) )
-				{
-					int j = 0;
-					for (j = 0; j < sizemacrosLib; j++)
-					{
-						if (strcmp(macrosLib[j], macro) == 0)
-						{
-							nbLibsWhereIsMacro++;
-							if (nbLibsWhereIsMacro == 1)
-							{
-								returnedArray = (char**)MALLOC(sizeof(char*)* nbLibsWhereIsMacro);
-							}
-							else
-							{
-								returnedArray = (char**)REALLOC(returnedArray, sizeof(char*)*(nbLibsWhereIsMacro));
-							}
-							returnedArray[nbLibsWhereIsMacro - 1] = strdup(libraries[i]);
-						}
-					}
-					freeArrayOfString(macrosLib, sizemacrosLib);
-				}
-			}
-			*sizeReturnedArray = nbLibsWhereIsMacro;
-			freeArrayOfString(libraries, sizelibraries);
-		}
-	}
-	return returnedArray;
+        if (libraries && (sizelibraries > 0))
+        {
+            int nbLibsWhereIsMacro = 0;
+            int i = 0;
+
+            for (i = 0; i < sizelibraries; i++)
+            {
+                int sizemacrosLib = 0;
+                char **macrosLib = getlistmacrosfromlibrary(libraries[i], &sizemacrosLib);
+
+                if (macrosLib && (sizemacrosLib > 0))
+                {
+                    int j = 0;
+
+                    for (j = 0; j < sizemacrosLib; j++)
+                    {
+                        if (strcmp(macrosLib[j], macro) == 0)
+                        {
+                            nbLibsWhereIsMacro++;
+                            if (nbLibsWhereIsMacro == 1)
+                            {
+                                returnedArray = (char **)MALLOC(sizeof(char *) * nbLibsWhereIsMacro);
+                            }
+                            else
+                            {
+                                returnedArray = (char **)REALLOC(returnedArray, sizeof(char *) * (nbLibsWhereIsMacro));
+                            }
+                            returnedArray[nbLibsWhereIsMacro - 1] = strdup(libraries[i]);
+                        }
+                    }
+                    freeArrayOfString(macrosLib, sizemacrosLib);
+                }
+            }
+            *sizeReturnedArray = nbLibsWhereIsMacro;
+            freeArrayOfString(libraries, sizelibraries);
+        }
+    }
+    return returnedArray;
 }
+
 /*--------------------------------------------------------------------------*/

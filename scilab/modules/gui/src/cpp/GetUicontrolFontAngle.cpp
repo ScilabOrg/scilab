@@ -15,27 +15,29 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolFontAngle(sciPointObj* sciObj)
+int GetUicontrolFontAngle(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the font angle from Scilab object
-      switch(pUICONTROL_FEATURE(sciObj)->fontAngle)
+        // Get the font angle from Scilab object
+        switch (pUICONTROL_FEATURE(sciObj)->fontAngle)
         {
         case NORMAL_FONT:
-          return sciReturnString("normal");
+            return sciReturnString("normal");
         case ITALIC_FONT:
-          return sciReturnString("italic");
+            return sciReturnString("italic");
         case OBLIQUE_FONT:
-          return sciReturnString("oblique");
+            return sciReturnString("oblique");
         default:
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic", "oblique");
-          return FALSE;
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic",
+                     "oblique");
+            return FALSE;
         }
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontAngle");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontAngle");
+
+        return FALSE;
     }
 }

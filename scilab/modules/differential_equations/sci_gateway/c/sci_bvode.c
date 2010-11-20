@@ -10,15 +10,17 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_differential_equations1.h"
 #include "machine.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(scibvode)(char *fname,unsigned long fname_len);
+extern int C2F(scibvode) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_bvode(char *fname,unsigned long fname_len)
+int sci_bvode(char *fname, unsigned long fname_len)
 {
-	C2F(scibvode)(fname, fname_len);
-	return 0;
+    C2F(scibvode) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -14,27 +14,29 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_lvgroup, fin = 2
  ******************************************/
-int sci_pvm_lvgroup(char *fname,unsigned long fname_len)
+int sci_pvm_lvgroup(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,un=1,l2;
-  CheckRhs(1,1);
-  CheckLhs(1,1);
-  /*  checking variable group */
-  GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-  /* cross variable size checking */
-  CreateVar(Rhs+2,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l2);/* named: size */
-  *istk(l2) = pvm_lvgroup(cstk(l1));
-  LhsVar(1)= Rhs+2;
+    int m1, n1, l1, un = 1, l2;
 
-  pvm_error_check(fname,*istk(l2),fname_len);
-  C2F(putlhsvar)();
-  return 0;
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
+    /*  checking variable group */
+    GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+    /* cross variable size checking */
+    CreateVar(Rhs + 2, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l2);  /* named: size */
+    *istk(l2) = pvm_lvgroup(cstk(l1));
+    LhsVar(1) = Rhs + 2;
+
+    pvm_error_check(fname, *istk(l2), fname_len);
+    C2F(putlhsvar) ();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

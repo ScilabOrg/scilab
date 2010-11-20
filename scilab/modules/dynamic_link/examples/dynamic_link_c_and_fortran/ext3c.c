@@ -5,8 +5,6 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-
-
 /************************************
  *     simple example 3 (passing a chain) 
  * -->host('make /tmp/ext3c.o');
@@ -23,16 +21,17 @@
 
 int ext3c(char *ch, int *n, double *a, double *b, double *c)
 {
-  static int k;
-  if (strcmp(ch, "yes") == 0) 
+    static int k;
+
+    if (strcmp(ch, "yes") == 0)
     {
-      for (k = 0; k < *n; ++k) 
-	c[k] = sin(a[k]) + cos(b[k]);
-    } 
-  else 
-    {
-      for (k = 0; k < *n; ++k) 
-	c[k] = a[k] + b[k];
+        for (k = 0; k < *n; ++k)
+            c[k] = sin(a[k]) + cos(b[k]);
     }
-  return(0);
-} 
+    else
+    {
+        for (k = 0; k < *n; ++k)
+            c[k] = a[k] + b[k];
+    }
+    return (0);
+}

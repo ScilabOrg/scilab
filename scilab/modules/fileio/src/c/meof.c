@@ -16,8 +16,10 @@
 #include "filesmanagement.h"
 /*--------------------------------------------------------------------------*/
 void C2F(meof) (int *fd, double *res)
-{       
-	FILE *fa= GetFileOpenedInScilab(*fd);
-	*res = fa ? feof(fa) : 1;
+{
+    FILE *fa = GetFileOpenedInScilab(*fd);
+
+    *res = fa ? feof(fa) : 1;
 }
+
 /*--------------------------------------------------------------------------*/

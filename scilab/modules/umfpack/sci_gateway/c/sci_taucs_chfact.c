@@ -64,74 +64,73 @@
 
 extern CellAdr *ListCholFactors;
 
-int sci_taucs_chfact(char* fname, unsigned long l)
+int sci_taucs_chfact(char *fname, unsigned long l)
 {
-	int mA, nA, stat;
-	int *perm, *invperm;
-	int mC_ptr = 1, nC_ptr = 1; 
-	SciSparse A;
-	taucs_ccs_matrix B, * PAPT;
-	void *C;
-	taucs_handle_factors *pC;
+    int mA, nA, stat;
+    int *perm, *invperm;
+    int mC_ptr = 1, nC_ptr = 1;
+    SciSparse A;
+    taucs_ccs_matrix B, *PAPT;
+    void *C;
+    taucs_handle_factors *pC;
 
-	/* Check numbers of input/output arguments */
-	CheckRhs(1,1);  CheckLhs(1,1);
+    /* Check numbers of input/output arguments */
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-	/* get A the sparse matrix to factorize */ 
-	GetRhsVar(1, SPARSE_MATRIX_DATATYPE, &mA, &nA, &A);
+    /* get A the sparse matrix to factorize */
+    GetRhsVar(1, SPARSE_MATRIX_DATATYPE, &mA, &nA, &A);
 
-	stat = spd_sci_sparse_to_taucs_sparse(2, &A, &B);
-	if ( stat != A_PRIORI_OK )  
-		{
-			if ( stat == MAT_IS_NOT_SPD )
-			{
-				Scierror(999,_("%s: Wrong value for input argument #%d: Must be symmetric positive definite matrix."),fname,1);
-			}
-			/* the message for the other problem (not enough memory in stk) is treated automaticaly */
-			return 0;
-		};
+    stat = spd_sci_sparse_to_taucs_sparse(2, &A, &B);
+    if (stat != A_PRIORI_OK)
+    {
+        if (stat == MAT_IS_NOT_SPD)
+        {
+            Scierror(999, _("%s: Wrong value for input argument #%d: Must be symmetric positive definite matrix."), fname, 1);
+        }
+        /* the message for the other problem (not enough memory in stk) is treated automaticaly */
+        return 0;
+    };
 
-	/* find the permutation */
-	taucs_ccs_genmmd(&B,&perm,&invperm);
-	if ( !perm )
-		{
-			Scierror(999,_("%s: No more memory.\n") ,fname);
-			return 0;
-		};
-  
-	/* apply permutation */
-	PAPT = taucs_ccs_permute_symmetrically(&B, perm, invperm);
-	FREE(invperm);
+    /* find the permutation */
+    taucs_ccs_genmmd(&B, &perm, &invperm);
+    if (!perm)
+    {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        return 0;
+    };
 
-	/* factor */
-	C = taucs_ccs_factor_llt_mf(PAPT);
-	taucs_ccs_free(PAPT);
+    /* apply permutation */
+    PAPT = taucs_ccs_permute_symmetrically(&B, perm, invperm);
+    FREE(invperm);
 
-	if (! C) 
-		{
-			/*   Note : an error indicator is given in the main scilab window
-			 *          (out of memory, no positive definite matrix , etc ...)
-			 */
-			Scierror(999,_("%s: An error occurred: %s\n"),fname,_("factorization"));
-			return 0;
-		};
-      
-	/* put in an handle (Chol fact + perm + size) */
-	pC = (taucs_handle_factors*)MALLOC( sizeof(taucs_handle_factors) );
-	pC->p = perm;
-	pC->C = C;
-	pC->n = A.n;
-  
-	/* add in the list of Chol Factors  */
-	AddAdrToList((Adr) pC, 0, &ListCholFactors);  /* FIXME add a test here .. */
+    /* factor */
+    C = taucs_ccs_factor_llt_mf(PAPT);
+    taucs_ccs_free(PAPT);
 
-	/* create the scilab object to store the pointer onto the Chol handle */
-	CreateVarFromPtr(3,SCILAB_POINTER_DATATYPE,&mC_ptr,&nC_ptr, (void *)pC );
+    if (!C)
+    {
+        /*   Note : an error indicator is given in the main scilab window
+         *          (out of memory, no positive definite matrix , etc ...)
+         */
+        Scierror(999, _("%s: An error occurred: %s\n"), fname, _("factorization"));
+        return 0;
+    };
 
-	/* return the pointer */
-	LhsVar(1) = 3;
-	C2F(putlhsvar)();
-	return 0;
+    /* put in an handle (Chol fact + perm + size) */
+    pC = (taucs_handle_factors *) MALLOC(sizeof(taucs_handle_factors));
+    pC->p = perm;
+    pC->C = C;
+    pC->n = A.n;
+
+    /* add in the list of Chol Factors  */
+    AddAdrToList((Adr) pC, 0, &ListCholFactors);    /* FIXME add a test here .. */
+
+    /* create the scilab object to store the pointer onto the Chol handle */
+    CreateVarFromPtr(3, SCILAB_POINTER_DATATYPE, &mC_ptr, &nC_ptr, (void *)pC);
+
+    /* return the pointer */
+    LhsVar(1) = 3;
+    C2F(putlhsvar) ();
+    return 0;
 }
-
-   

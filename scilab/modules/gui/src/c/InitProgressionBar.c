@@ -18,26 +18,27 @@
 
 sciPointObj *InitProgressionBar(void)
 {
-  sciPointObj *pObj = (sciPointObj *) NULL;
-  
-  if ((pObj = MALLOC (sizeof (sciPointObj))) == NULL)	return (sciPointObj *) NULL;
-  
-  sciSetEntityType (pObj, SCI_PROGRESSIONBAR);
+    sciPointObj *pObj = (sciPointObj *) NULL;
 
-  if ((pObj->pfeatures = MALLOC ((sizeof (sciProgressionbar)))) == NULL)
+    if ((pObj = MALLOC(sizeof(sciPointObj))) == NULL)
+        return (sciPointObj *) NULL;
+
+    sciSetEntityType(pObj, SCI_PROGRESSIONBAR);
+
+    if ((pObj->pfeatures = MALLOC((sizeof(sciProgressionbar)))) == NULL)
     {
-      FREE(pObj);
-      return (sciPointObj *) NULL;
+        FREE(pObj);
+        return (sciPointObj *) NULL;
     }
 
-	/* Allocate relationShip */
-	createDefaultRelationShip(pObj);
+    /* Allocate relationShip */
+    createDefaultRelationShip(pObj);
 
-  pPROGRESSIONBAR_FEATURE(pObj)->hashMapIndex = 0;
-  pObj->pObservers = NULL;
-  pObj->pDrawer = NULL ;
-  sciAddNewHandle(pObj);
-  return (sciPointObj *) pObj;
+    pPROGRESSIONBAR_FEATURE(pObj)->hashMapIndex = 0;
+    pObj->pObservers = NULL;
+    pObj->pDrawer = NULL;
+    sciAddNewHandle(pObj);
+    return (sciPointObj *) pObj;
 }
-/*----------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------*/

@@ -17,206 +17,205 @@ using namespace org_scilab_modules_gui_bridge;
 
 double pixelTomm(double dvalue)
 {
-	return (double) (pixelTocm(dvalue) * 10.0);
+    return (double)(pixelTocm(dvalue) * 10.0);
 }
 
 double pixelTocm(double dvalue)
 {
-	return (double) (pixelToinch(dvalue) * CM_PER_INCH);
+    return (double)(pixelToinch(dvalue) * CM_PER_INCH);
 }
 
 double pixelToinch(double dvalue)
 {
-	return (double) (dvalue * (1.0 / POINT_PER_INCH));
+    return (double)(dvalue * (1.0 / POINT_PER_INCH));
 }
 
 int pixelTopt(double dvalue)
 {
-	return (int)(dvalue * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
+    return (int)(dvalue * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
 }
 
-double ConvertFromPoint(int value, int newUnit, sciPointObj *sciObj, BOOL widthAsRef)
+double ConvertFromPoint(int value, int newUnit, sciPointObj * sciObj, BOOL widthAsRef)
 {
-  int *position = NULL;
+    int *position = NULL;
 
-  int refSize = 0;
+    int refSize = 0;
 
-  sciPointObj *parent = NULL;
+    sciPointObj *parent = NULL;
 
-  /* Get the component height from java */
-  if(sciGetEntityType(sciObj) == SCI_FIGURE) /* Figure */
+    /* Get the component height from java */
+    if (sciGetEntityType(sciObj) == SCI_FIGURE) /* Figure */
     {
-      if (widthAsRef == TRUE)
+        if (widthAsRef == TRUE)
         {
-          refSize = (int)CallScilabBridge::getScreenWidth(getScilabJavaVM());
+            refSize = (int)CallScilabBridge::getScreenWidth(getScilabJavaVM());
         }
-      else
+        else
         {
-          refSize = (int)CallScilabBridge::getScreenHeight(getScilabJavaVM());
+            refSize = (int)CallScilabBridge::getScreenHeight(getScilabJavaVM());
         }
-      newUnit = PIXELS_UNITS;
+        newUnit = PIXELS_UNITS;
     }
-  else /* Uicontrol */
+    else                        /* Uicontrol */
     {
-      parent = sciGetParent(sciObj);
-      if (parent == NULL && newUnit == NORMALIZED_UNITS) /* Parent not yet set */
+        parent = sciGetParent(sciObj);
+        if (parent == NULL && newUnit == NORMALIZED_UNITS)  /* Parent not yet set */
         {
-          return 0.0;
+            return 0.0;
         }
     }
 
-  switch(newUnit)
+    switch (newUnit)
     {
     case POINTS_UNITS:
-       return (double) value;
+        return (double)value;
     case NORMALIZED_UNITS:
-      if(sciGetEntityType(parent) == SCI_FIGURE) /* Figure */
+        if (sciGetEntityType(parent) == SCI_FIGURE) /* Figure */
         {
-          if (widthAsRef == TRUE)
+            if (widthAsRef == TRUE)
             {
-              refSize = sciGetWidth(parent);
+                refSize = sciGetWidth(parent);
             }
-          else
+            else
             {
-              refSize = sciGetHeight(parent);
+                refSize = sciGetHeight(parent);
             }
         }
-      else /* Frame */
+        else                    /* Frame */
         {
-          position = CallScilabBridge::getFramePosition(getScilabJavaVM(),
-                                                        pUICONTROL_FEATURE(parent)->hashMapIndex);
-          
-          if (widthAsRef == TRUE)
+            position = CallScilabBridge::getFramePosition(getScilabJavaVM(), pUICONTROL_FEATURE(parent)->hashMapIndex);
+
+            if (widthAsRef == TRUE)
             {
-              refSize = position[2];
+                refSize = position[2];
             }
-          else
+            else
             {
-              refSize = position[3];
+                refSize = position[3];
             }
 
-          delete[] position;
+            delete[]position;
         }
-      return ((double) value) / (refSize * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
+        return ((double)value) / (refSize * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
     case INCHES_UNITS:
-       return ((double) value) / POINT_PER_INCH;
+        return ((double)value) / POINT_PER_INCH;
     case CENTIMETERS_UNITS:
-       return ((double) value) * CM_PER_INCH / POINT_PER_INCH;
+        return ((double)value) * CM_PER_INCH / POINT_PER_INCH;
     case PIXELS_UNITS:
-       return ((double) value) * CallScilabBridge::getScreenResolution(getScilabJavaVM()) / POINT_PER_INCH;
+        return ((double)value) * CallScilabBridge::getScreenResolution(getScilabJavaVM()) / POINT_PER_INCH;
     default:
-		sciprint(const_cast<char*>(_("%s: Wrong value for '%s' property: points, normalized, inches, centimeters or pixels expected.\n")), "ConvertFromPoint", "FontUnits");
-      return 0.0;
+        sciprint(const_cast < char *>(_("%s: Wrong value for '%s' property: points, normalized, inches, centimeters or pixels expected.\n")),
+                 "ConvertFromPoint", "FontUnits");
+        return 0.0;
     }
 }
 
-int ConvertToPoint(double value, int oldUnit, sciPointObj *sciObj, BOOL widthAsRef)
+int ConvertToPoint(double value, int oldUnit, sciPointObj * sciObj, BOOL widthAsRef)
 {
-  int *position = NULL;
+    int *position = NULL;
 
-  int refSize = 0;
+    int refSize = 0;
 
-  sciPointObj *parent = NULL;
+    sciPointObj *parent = NULL;
 
-  /* Get the component height from java */
-  if(sciGetEntityType(sciObj) == SCI_FIGURE) /* Figure */
+    /* Get the component height from java */
+    if (sciGetEntityType(sciObj) == SCI_FIGURE) /* Figure */
     {
-      /* The parent is the screen */
-      if (widthAsRef == TRUE)
+        /* The parent is the screen */
+        if (widthAsRef == TRUE)
         {
-          refSize = (int)CallScilabBridge::getScreenWidth(getScilabJavaVM());
+            refSize = (int)CallScilabBridge::getScreenWidth(getScilabJavaVM());
         }
-      else
+        else
         {
-          refSize = (int)CallScilabBridge::getScreenHeight(getScilabJavaVM());
+            refSize = (int)CallScilabBridge::getScreenHeight(getScilabJavaVM());
         }
-      oldUnit = PIXELS_UNITS;
+        oldUnit = PIXELS_UNITS;
     }
-  else /* Uicontrol */
+    else                        /* Uicontrol */
     {
-      parent = sciGetParent(sciObj);
-      if (parent == NULL && oldUnit == NORMALIZED_UNITS) /* Parent not yet set */
+        parent = sciGetParent(sciObj);
+        if (parent == NULL && oldUnit == NORMALIZED_UNITS)  /* Parent not yet set */
         {
-          return 0;
+            return 0;
         }
     }
 
-  switch(oldUnit)
+    switch (oldUnit)
     {
     case POINTS_UNITS:
-      return (int) value;
+        return (int)value;
     case NORMALIZED_UNITS:
-      if(sciGetEntityType(parent) == SCI_FIGURE) /* Figure */
+        if (sciGetEntityType(parent) == SCI_FIGURE) /* Figure */
         {
-          if (widthAsRef == TRUE)
+            if (widthAsRef == TRUE)
             {
-              refSize = sciGetWidth(parent);
+                refSize = sciGetWidth(parent);
             }
-          else
+            else
             {
-              refSize = sciGetHeight(parent);
+                refSize = sciGetHeight(parent);
             }
         }
-      else /* Frame */
+        else                    /* Frame */
         {
-          position = CallScilabBridge::getFramePosition(getScilabJavaVM(),
-                                                        pUICONTROL_FEATURE(parent)->hashMapIndex);
-          
-          if (widthAsRef == TRUE)
+            position = CallScilabBridge::getFramePosition(getScilabJavaVM(), pUICONTROL_FEATURE(parent)->hashMapIndex);
+
+            if (widthAsRef == TRUE)
             {
-              refSize = position[2];
+                refSize = position[2];
             }
-          else
+            else
             {
-              refSize = position[3];
+                refSize = position[3];
             }
 
-          delete[] position;
+            delete[]position;
         }
-      return (int) (value * refSize * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
+        return (int)(value * refSize * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
     case INCHES_UNITS:
-      return (int) (value * POINT_PER_INCH);
+        return (int)(value * POINT_PER_INCH);
     case CENTIMETERS_UNITS:
-      return (int) (value * POINT_PER_INCH / CM_PER_INCH);
+        return (int)(value * POINT_PER_INCH / CM_PER_INCH);
     case PIXELS_UNITS:
-      return (int) (value * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
+        return (int)(value * POINT_PER_INCH / CallScilabBridge::getScreenResolution(getScilabJavaVM()));
     default:
-		sciprint(const_cast<char*>(_("%s: Wrong value for '%s' property: points, normalized, inches, centimeters or pixels expected.\n")), "ConvertToPoint", "FontUnits");
-      return 0;
+        sciprint(const_cast < char *>(_("%s: Wrong value for '%s' property: points, normalized, inches, centimeters or pixels expected.\n")),
+                 "ConvertToPoint", "FontUnits");
+        return 0;
     }
 }
 
-double ConvertFromPixel(int value, int newUnit, sciPointObj *sciObj, BOOL widthAsRef)
+double ConvertFromPixel(int value, int newUnit, sciPointObj * sciObj, BOOL widthAsRef)
 {
-  if( (sciObj != NULL) && (sciGetEntityType(sciObj) == SCI_FIGURE) ) /* Uicontrol figure */
+    if ((sciObj != NULL) && (sciGetEntityType(sciObj) == SCI_FIGURE))   /* Uicontrol figure */
     {
-      newUnit = PIXELS_UNITS;
+        newUnit = PIXELS_UNITS;
     }
 
-  if (newUnit == PIXELS_UNITS) 
+    if (newUnit == PIXELS_UNITS)
     {
-      return (double) value;
+        return (double)value;
     }
-  else
+    else
     {
-      return ConvertFromPoint(ConvertToPoint(value, PIXELS_UNITS, sciObj, widthAsRef), newUnit, sciObj, widthAsRef);
+        return ConvertFromPoint(ConvertToPoint(value, PIXELS_UNITS, sciObj, widthAsRef), newUnit, sciObj, widthAsRef);
     }
 }
 
-int ConvertToPixel(double value, int oldUnit, sciPointObj *sciObj, BOOL widthAsRef)
+int ConvertToPixel(double value, int oldUnit, sciPointObj * sciObj, BOOL widthAsRef)
 {
-  if( (sciObj != NULL) && (sciGetEntityType(sciObj) == SCI_FIGURE) ) /* Uicontrol figure */
+    if ((sciObj != NULL) && (sciGetEntityType(sciObj) == SCI_FIGURE))   /* Uicontrol figure */
     {
-      oldUnit = PIXELS_UNITS;
+        oldUnit = PIXELS_UNITS;
     }
 
-  if (oldUnit==PIXELS_UNITS)
+    if (oldUnit == PIXELS_UNITS)
     {
-      return (int) value;
+        return (int)value;
     }
-  else
+    else
     {
-      return (int) ConvertFromPoint(ConvertToPoint(value, oldUnit, sciObj, widthAsRef), PIXELS_UNITS, sciObj, widthAsRef);
+        return (int)ConvertFromPoint(ConvertToPoint(value, oldUnit, sciObj, widthAsRef), PIXELS_UNITS, sciObj, widthAsRef);
     }
 }
-

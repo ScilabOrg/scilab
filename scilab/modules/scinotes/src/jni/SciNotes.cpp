@@ -39,213 +39,250 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_scinotes {
+namespace org_scilab_modules_scinotes
+{
 
 // Returns the current env
 
-JNIEnv * SciNotes::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *SciNotes::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-SciNotes::~SciNotes() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    SciNotes::~SciNotes()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+    }
 // Constructors
-SciNotes::SciNotes(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    SciNotes::SciNotes(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voidscinotesID=NULL; 
-voidscinotesjstringID=NULL; 
-voidscinotesjstringjintID=NULL; 
-voidscinotesjstringjstringID=NULL; 
-voidcloseSciNotesFromScilabID=NULL; 
-
-
-}
-
-SciNotes::SciNotes(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voidscinotesID = NULL;
+        voidscinotesjstringID = NULL;
+        voidscinotesjstringjintID = NULL;
+        voidscinotesjstringjstringID = NULL;
+        voidcloseSciNotesFromScilabID = NULL;
+
+    }
+
+    SciNotes::SciNotes(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voidscinotesID=NULL; 
-voidscinotesjstringID=NULL; 
-voidscinotesjstringjintID=NULL; 
-voidscinotesjstringjstringID=NULL; 
-voidcloseSciNotesFromScilabID=NULL; 
+        voidscinotesID = NULL;
+        voidscinotesjstringID = NULL;
+        voidscinotesjstringjintID = NULL;
+        voidscinotesjstringjstringID = NULL;
+        voidcloseSciNotesFromScilabID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void SciNotes::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "SciNotes");
-}
-}
+    void SciNotes::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "SciNotes");
+        }
+    }
 
-void SciNotes::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "SciNotes");
-}
-}
+    void SciNotes::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "SciNotes");
+        }
+    }
 // Method(s)
 
-void SciNotes::scinotes (JavaVM * jvm_){
+    void SciNotes::scinotes(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voidscinotesID = curEnv->GetStaticMethodID(cls, "scinotes", "()V" ) ;
-if (voidscinotesID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
-}
+        jmethodID voidscinotesID = curEnv->GetStaticMethodID(cls, "scinotes", "()V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidscinotesID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidscinotesID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
+        }
 
-void SciNotes::scinotes (JavaVM * jvm_, char * fileName){
+        curEnv->CallStaticVoidMethod(cls, voidscinotesID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void SciNotes::scinotes(JavaVM * jvm_, char *fileName)
+    {
 
-jmethodID voidscinotesjstringID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;)V" ) ;
-if (voidscinotesjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
-}
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jstring fileName_ = curEnv->NewStringUTF( fileName );
+        jmethodID voidscinotesjstringID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;)V");
 
-                         curEnv->CallStaticVoidMethod(cls, voidscinotesjstringID ,fileName_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voidscinotesjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
+        }
 
-void SciNotes::scinotes (JavaVM * jvm_, char * fileName, int lineNumber){
+        jstring fileName_ = curEnv->NewStringUTF(fileName);
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        curEnv->CallStaticVoidMethod(cls, voidscinotesjstringID, fileName_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jmethodID voidscinotesjstringjintID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;I)V" ) ;
-if (voidscinotesjstringjintID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
-}
+    void SciNotes::scinotes(JavaVM * jvm_, char *fileName, int lineNumber)
+    {
 
-jstring fileName_ = curEnv->NewStringUTF( fileName );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                         curEnv->CallStaticVoidMethod(cls, voidscinotesjstringjintID ,fileName_, lineNumber);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jmethodID voidscinotesjstringjintID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;I)V");
 
-void SciNotes::scinotes (JavaVM * jvm_, char * fileName, char * option){
+        if (voidscinotesjstringjintID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jstring fileName_ = curEnv->NewStringUTF(fileName);
 
-jmethodID voidscinotesjstringjstringID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voidscinotesjstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
-}
+        curEnv->CallStaticVoidMethod(cls, voidscinotesjstringjintID, fileName_, lineNumber);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-jstring fileName_ = curEnv->NewStringUTF( fileName );
+    void SciNotes::scinotes(JavaVM * jvm_, char *fileName, char *option)
+    {
 
-jstring option_ = curEnv->NewStringUTF( option );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-                         curEnv->CallStaticVoidMethod(cls, voidscinotesjstringjstringID ,fileName_, option_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        jmethodID voidscinotesjstringjstringID = curEnv->GetStaticMethodID(cls, "scinotes", "(Ljava/lang/String;Ljava/lang/String;)V");
 
-void SciNotes::closeSciNotesFromScilab (JavaVM * jvm_){
+        if (voidscinotesjstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "scinotes");
+        }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        jstring fileName_ = curEnv->NewStringUTF(fileName);
 
-jmethodID voidcloseSciNotesFromScilabID = curEnv->GetStaticMethodID(cls, "closeSciNotesFromScilab", "()V" ) ;
-if (voidcloseSciNotesFromScilabID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "closeSciNotesFromScilab");
-}
+        jstring option_ = curEnv->NewStringUTF(option);
 
-                         curEnv->CallStaticVoidMethod(cls, voidcloseSciNotesFromScilabID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        curEnv->CallStaticVoidMethod(cls, voidscinotesjstringjstringID, fileName_, option_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void SciNotes::closeSciNotesFromScilab(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voidcloseSciNotesFromScilabID = curEnv->GetStaticMethodID(cls, "closeSciNotesFromScilab", "()V");
+
+        if (voidcloseSciNotesFromScilabID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "closeSciNotesFromScilab");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voidcloseSciNotesFromScilabID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

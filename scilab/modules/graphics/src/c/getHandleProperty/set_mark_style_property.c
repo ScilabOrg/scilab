@@ -26,20 +26,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_mark_style_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_mark_style_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  int status1 ;
-  int status2 ;
+    int status1;
+    int status2;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "mark_style");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "mark_style");
+        return SET_PROPERTY_ERROR;
+    }
 
-   status1 = sciSetIsMark( pobj, TRUE ) ;
-   status2 = sciSetMarkStyle( pobj, (int) getDoubleFromStack(stackPointer) ) ;
+    status1 = sciSetIsMark(pobj, TRUE);
+    status2 = sciSetMarkStyle(pobj, (int)getDoubleFromStack(stackPointer));
 
-  return sciSetFinalStatus( (SetPropertyStatus)status1, (SetPropertyStatus)status2 ) ;
+    return sciSetFinalStatus((SetPropertyStatus) status1, (SetPropertyStatus) status2);
 }
+
 /*------------------------------------------------------------------------*/

@@ -25,50 +25,52 @@ extern "C"
 #include "GetProperty.h"
 }
 
-
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableRectangleFactory::create( void )
-{
-  ConcreteDrawableRectangle * newRect = new ConcreteDrawableRectangle( m_pDrawed ) ;
-  DrawableRectangleBridgeFactory imp ;
-  imp.setDrawedRectangle( newRect ) ;
-  newRect->setDrawableImp( imp.create() ) ;
-  setStrategies(newRect);
+    DrawableObject *DrawableRectangleFactory::create(void)
+    {
+        ConcreteDrawableRectangle *newRect = new ConcreteDrawableRectangle(m_pDrawed);
+        DrawableRectangleBridgeFactory imp;
+          imp.setDrawedRectangle(newRect);
+          newRect->setDrawableImp(imp.create());
+          setStrategies(newRect);
 
-  return newRect ;
-}
+          return newRect;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableRectangleFactory::update( void )
-{
-  setStrategies(dynamic_cast<ConcreteDrawableRectangle *>(getRectangleDrawer(m_pDrawed)));
-}
+    void DrawableRectangleFactory::update(void)
+    {
+        setStrategies(dynamic_cast < ConcreteDrawableRectangle * >(getRectangleDrawer(m_pDrawed)));
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableRectangleFactory::setStrategies( ConcreteDrawableRectangle * rectangle )
-{
-  rectangle->removeDrawingStrategies();
+    void DrawableRectangleFactory::setStrategies(ConcreteDrawableRectangle * rectangle)
+    {
+        rectangle->removeDrawingStrategies();
 
-  // Create rendering algorithms
+        // Create rendering algorithms
 
-  if ( sciGetIsFilled( m_pDrawed ) )
-  {
-    RectangleFillDrawerJoGL * newFiller = new RectangleFillDrawerJoGL( rectangle ) ;
-    rectangle->addDrawingStrategy( newFiller ) ;
-  }
+        if (sciGetIsFilled(m_pDrawed))
+        {
+            RectangleFillDrawerJoGL *newFiller = new RectangleFillDrawerJoGL(rectangle);
 
-  if ( sciGetIsDisplayingLines( m_pDrawed ) )
-  {
-    RectangleLineDrawerJoGL * newLiner = new RectangleLineDrawerJoGL(rectangle);
-    rectangle->addDrawingStrategy( newLiner ) ;
-  }
+            rectangle->addDrawingStrategy(newFiller);
+        }
 
-  if ( sciGetIsMark( m_pDrawed ) )
-  {
-    RectangleMarkDrawerJoGL * newMarker = new RectangleMarkDrawerJoGL(rectangle);
-    rectangle->addDrawingStrategy( newMarker ) ;
-  }
-}
+        if (sciGetIsDisplayingLines(m_pDrawed))
+        {
+            RectangleLineDrawerJoGL *newLiner = new RectangleLineDrawerJoGL(rectangle);
+
+            rectangle->addDrawingStrategy(newLiner);
+        }
+
+        if (sciGetIsMark(m_pDrawed))
+        {
+            RectangleMarkDrawerJoGL *newMarker = new RectangleMarkDrawerJoGL(rectangle);
+
+            rectangle->addDrawingStrategy(newMarker);
+        }
+    }
 /*---------------------------------------------------------------------------------*/
 }

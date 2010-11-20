@@ -15,64 +15,67 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolFontAngle(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolFontAngle(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  /* Font angle can be normal, italic or oblique */
+    /* Font angle can be normal, italic or oblique */
 
-  char * fontAngle = NULL; 
+    char *fontAngle = NULL;
 
-  if (sciGetEntityType( sciObj ) != SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) != SCI_UICONTROL)
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "FontAngle");
-      return SET_PROPERTY_ERROR;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "FontAngle");
+
+        return SET_PROPERTY_ERROR;
     }
 
-  if (valueType == sci_strings)
+    if (valueType == sci_strings)
     {
-      if(nbCol != 1 || nbRow == 0)
+        if (nbCol != 1 || nbRow == 0)
         {
-          /* Wrong string size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic", "oblique");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic",
+                     "oblique");
+            return SET_PROPERTY_ERROR;
         }
-      
-      fontAngle = getStringFromStack(stackPointer);
 
-      if (strcmp(fontAngle, "normal") == 0)
+        fontAngle = getStringFromStack(stackPointer);
+
+        if (strcmp(fontAngle, "normal") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontAngle = NORMAL_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontAngle = NORMAL_FONT;
         }
-      else if(strcmp(fontAngle, "italic") == 0)
+        else if (strcmp(fontAngle, "italic") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontAngle = ITALIC_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontAngle = ITALIC_FONT;
         }
-      else if(strcmp(fontAngle, "oblique") == 0)
+        else if (strcmp(fontAngle, "oblique") == 0)
         {
-          pUICONTROL_FEATURE(sciObj)->fontAngle = OBLIQUE_FONT;
+            pUICONTROL_FEATURE(sciObj)->fontAngle = OBLIQUE_FONT;
         }
-      else
+        else
         {
-          /* Wrong string format */
-          Scierror(999, const_cast<char*>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic", "oblique");
-          return SET_PROPERTY_ERROR;
+            /* Wrong string format */
+            Scierror(999, const_cast < char *>(_("Wrong value for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic",
+                     "oblique");
+            return SET_PROPERTY_ERROR;
         }
-      
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-          CallScilabBridge::setFrameFontAngle(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontAngle);     
+            CallScilabBridge::setFrameFontAngle(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontAngle);
         }
-      else /* All other uicontrol styles */
+        else                    /* All other uicontrol styles */
         {
-          CallScilabBridge::setWidgetFontAngle(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontAngle);
+            CallScilabBridge::setWidgetFontAngle(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, fontAngle);
         }
-      return SET_PROPERTY_SUCCEED;
+        return SET_PROPERTY_SUCCEED;
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic", "oblique");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: '%s', '%s' or '%s' expected.\n")), "FontAngle", "normal", "italic",
+                 "oblique");
+        return SET_PROPERTY_ERROR;
     }
 
 }
-

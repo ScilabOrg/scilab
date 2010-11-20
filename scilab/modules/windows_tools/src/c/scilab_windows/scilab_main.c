@@ -23,77 +23,84 @@
 #include "sciquit.h"
 #include "LaunchScilabSignal.h"
 /*--------------------------------------------------------------------------*/
-static void interrupt_setup (void);
-static void interrupt (int an_int);
+static void interrupt_setup(void);
+static void interrupt(int an_int);
+
 /*--------------------------------------------------------------------------*/
 jmp_buf env;
+
 /*--------------------------------------------------------------------------*/
-int sci_windows_main ( int *nos, char *path, InitScriptType pathtype, int *lpath, int memory)
+int sci_windows_main(int *nos, char *path, InitScriptType pathtype, int *lpath, int memory)
 {
-	InitializeLaunchScilabSignal();
-	setbuf (stderr, (char *) NULL);
-	if (!setjmp (env))
-	{
-		/* first time */
-		interrupt_setup ();
-	}
-	/* take commands from stdin */
-	return realmain(*nos,path,pathtype,memory);
+    InitializeLaunchScilabSignal();
+    setbuf(stderr, (char *)NULL);
+    if (!setjmp(env))
+    {
+        /* first time */
+        interrupt_setup();
+    }
+    /* take commands from stdin */
+    return realmain(*nos, path, pathtype, memory);
 }
+
 /*--------------------------------------------------------------------------*/
 /* Set up to catch interrupts */
-static void interrupt_setup (void)
+static void interrupt_setup(void)
 {
-	(void) signal (SIGINT, interrupt);
+    (void)signal(SIGINT, interrupt);
 }
+
 /*--------------------------------------------------------------------------*/
-void interrupt (int an_int)
+void interrupt(int an_int)
 {
-	(void) signal (SIGINT, interrupt);
-	(void) signal (SIGFPE, SIG_DFL);	/* turn off FPE trapping */
-	(void) fflush (stdout);
-	sciprint ("\n");
-	longjmp (env, TRUE);		/* return to prompt  */
+    (void)signal(SIGINT, interrupt);
+    (void)signal(SIGFPE, SIG_DFL);  /* turn off FPE trapping */
+    (void)fflush(stdout);
+    sciprint("\n");
+    longjmp(env, TRUE);         /* return to prompt  */
 }
+
 /*--------------------------------------------------------------------------*/
-void sci_clear_and_exit(int n) /* used with handlers */ 
+void sci_clear_and_exit(int n)  /* used with handlers */
 {
 #ifdef _DEBUG
-	char Message[256];
-	switch (n)
-	{
-	case SIGINT:
-		wsprintf(Message,"SIGINT Signal detected");
-		break;
-	case SIGILL:
-		wsprintf(Message,"SIGILL Signal detected");
-		break;
-	case SIGFPE:
-		wsprintf(Message,"SIGFPE Signal detected");
-		break;
-	case SIGSEGV:
-		wsprintf(Message,"SIGSEGV Signal detected");
-		break;
-	case SIGTERM:
-		wsprintf(Message,"SIGTERM Signal detected");
-		break;
-	case SIGBREAK:
-		wsprintf(Message,"SIGBREAK Signal detected");
-		break;
-	case SIGABRT:
-		wsprintf(Message,"SIGABRT Signal detected");
-		break;
-	default:
-		wsprintf(Message,"Unknown Signal detected");
-		break;
-	}
-	MessageBox(NULL,Message,"ERROR",MB_ICONWARNING);
+    char Message[256];
+
+    switch (n)
+    {
+    case SIGINT:
+        wsprintf(Message, "SIGINT Signal detected");
+        break;
+    case SIGILL:
+        wsprintf(Message, "SIGILL Signal detected");
+        break;
+    case SIGFPE:
+        wsprintf(Message, "SIGFPE Signal detected");
+        break;
+    case SIGSEGV:
+        wsprintf(Message, "SIGSEGV Signal detected");
+        break;
+    case SIGTERM:
+        wsprintf(Message, "SIGTERM Signal detected");
+        break;
+    case SIGBREAK:
+        wsprintf(Message, "SIGBREAK Signal detected");
+        break;
+    case SIGABRT:
+        wsprintf(Message, "SIGABRT Signal detected");
+        break;
+    default:
+        wsprintf(Message, "Unknown Signal detected");
+        break;
+    }
+    MessageBox(NULL, Message, "ERROR", MB_ICONWARNING);
 #else
-	/*
-	MessageBox(NULL,"Scilab has performed a illegal operation\nand will be shutdown.\n Please save your work ...",
-	"Warning",MB_ICONWARNING);
-	*/
+    /*
+     * MessageBox(NULL,"Scilab has performed a illegal operation\nand will be shutdown.\n Please save your work ...",
+     * "Warning",MB_ICONWARNING);
+     */
 #endif
-	sciquit();
+    sciquit();
 }
+
 /*--------------------------------------------------------------------------*/

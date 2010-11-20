@@ -16,20 +16,19 @@
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableArcJoGL::DrawableArcJoGL(DrawableArc * arc)
-  : DrawableClippedObjectJoGL(arc) 
-{
+    DrawableArcJoGL::DrawableArcJoGL(DrawableArc * arc):DrawableClippedObjectJoGL(arc)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableArcJoGL::~DrawableArcJoGL(void)
-{
+    DrawableArcJoGL::~DrawableArcJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableArc * DrawableArcJoGL::getArcDrawer( void )
-{
-  return dynamic_cast<DrawableArc *>(getDrawer());
-}
+    DrawableArc *DrawableArcJoGL::getArcDrawer(void)
+    {
+        return dynamic_cast < DrawableArc * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
 }

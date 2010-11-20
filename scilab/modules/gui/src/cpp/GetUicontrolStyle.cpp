@@ -13,16 +13,17 @@
 
 #include "GetUicontrolStyle.hxx"
 
-int GetUicontrolStyle(sciPointObj* sciObj)
+int GetUicontrolStyle(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      return sciReturnString(UicontrolStyleToString(pUICONTROL_FEATURE(sciObj)->style));
+        return sciReturnString(UicontrolStyleToString(pUICONTROL_FEATURE(sciObj)->style));
     }
-  else
+    else
     {
-		Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Style");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Style");
+
+        return FALSE;
     }
-  
+
 }

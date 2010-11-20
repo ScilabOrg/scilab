@@ -22,53 +22,59 @@
 #include "InitObjects.h"
 #include "SciHandleTab.h"
 
-
 #include "GraphicSynchronizerInterface.h"
 
-
-static BOOL isGraphicModuleLoaded = FALSE ;
+static BOOL isGraphicModuleLoaded = FALSE;
 
 /*------------------------------------------------------------------------*/
-void loadGraphicModule( void )
+void loadGraphicModule(void)
 {
-  if ( isGraphicModuleLoaded ) { return ; }
-  
-  /* Create hastable for get and set functions */
-  createScilabGetHashTable() ;
-  createScilabSetHashTable() ;
+    if (isGraphicModuleLoaded)
+    {
+        return;
+    }
 
-	/* Create hastable for handle storing */
-	getScilabHandleTab();
+    /* Create hastable for get and set functions */
+    createScilabGetHashTable();
+    createScilabSetHashTable();
 
-  /* Create data for synchronization */
-  createGraphicSynchronizer();
+    /* Create hastable for handle storing */
+    getScilabHandleTab();
 
-  C2F(graphicsmodels)() ;
+    /* Create data for synchronization */
+    createGraphicSynchronizer();
 
-  isGraphicModuleLoaded = TRUE ;
+    C2F(graphicsmodels) ();
+
+    isGraphicModuleLoaded = TRUE;
 }
+
 /*------------------------------------------------------------------------*/
-void closeGraphicModule( void )
+void closeGraphicModule(void)
 {
-  if ( !isGraphicModuleLoaded ) { return ; }
+    if (!isGraphicModuleLoaded)
+    {
+        return;
+    }
 
-  /* destroy all graphic windows */
-  AllGraphWinDelete() ;
+    /* destroy all graphic windows */
+    AllGraphWinDelete();
 
-  /* destroy default objects */
-  destroyDefaultObjects() ;
+    /* destroy default objects */
+    destroyDefaultObjects();
 
-	/* Destroy the handle tab */
-	destroyScilabHandleTab();
-  
-	/* destroy hashtables */
-  destroyScilabGetHashTable() ;
-  destroyScilabSetHashTable() ;
+    /* Destroy the handle tab */
+    destroyScilabHandleTab();
 
-  /* Delete synchronization data */
-  destroyGraphicSynchronizer();
+    /* destroy hashtables */
+    destroyScilabGetHashTable();
+    destroyScilabSetHashTable();
 
-  isGraphicModuleLoaded = FALSE ;
+    /* Delete synchronization data */
+    destroyGraphicSynchronizer();
+
+    isGraphicModuleLoaded = FALSE;
 
 }
+
 /*------------------------------------------------------------------------*/

@@ -23,97 +23,98 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * getHandleDrawer( sciPointObj * pObj )
-{
-  if ( pObj->pDrawer != NULL )
-  {
-    return getHandleDrawerPointer( pObj ) ;
-  }
-  
-  /* We need to create the drawer */
+    DrawableObject *getHandleDrawer(sciPointObj * pObj)
+    {
+        if (pObj->pDrawer != NULL)
+        {
+            return getHandleDrawerPointer(pObj);
+        }
 
-  DrawableObjectFactory creator ;
-  creator.setGraphicObj( pObj ) ;
+        /* We need to create the drawer */
 
-  DrawableObject * drawer = creator.create() ;
+        DrawableObjectFactory creator;
 
-  setHandleDrawerPointer( pObj, drawer ) ;
+        creator.setGraphicObj(pObj);
 
-  return drawer ;
-}
+        DrawableObject *drawer = creator.create();
+
+        setHandleDrawerPointer(pObj, drawer);
+
+        return drawer;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject * getHandleDrawerPointer( sciPointObj * pObj )
-{
-  return ((DrawableObjectWrapper *)(pObj->pDrawer))->drawer ;
-}
+    DrawableObject *getHandleDrawerPointer(sciPointObj * pObj)
+    {
+        return ((DrawableObjectWrapper *) (pObj->pDrawer))->drawer;
+    }
 /*---------------------------------------------------------------------------------*/
-void setHandleDrawerPointer( sciPointObj * pObj, DrawableObject * drawer )
-{
-  if ( pObj->pDrawer == NULL )
-  {
-    pObj->pDrawer = new DrawableObjectWrapper() ;
-  }
-  ((DrawableObjectWrapper *)(pObj->pDrawer))->drawer = drawer ;
-}
+    void setHandleDrawerPointer(sciPointObj * pObj, DrawableObject * drawer)
+    {
+        if (pObj->pDrawer == NULL)
+        {
+            pObj->pDrawer = new DrawableObjectWrapper();
+        }
+        ((DrawableObjectWrapper *) (pObj->pDrawer))->drawer = drawer;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFigure * getFigureDrawer( sciPointObj * pFigure )
-{
-  return dynamic_cast<DrawableFigure *>(getHandleDrawer(pFigure));
-}
+    DrawableFigure *getFigureDrawer(sciPointObj * pFigure)
+    {
+        return dynamic_cast < DrawableFigure * >(getHandleDrawer(pFigure));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableRectangle * getRectangleDrawer( sciPointObj * pRectangle )
-{
-  return dynamic_cast<DrawableRectangle *>(getHandleDrawer(pRectangle));
-}
+    DrawableRectangle *getRectangleDrawer(sciPointObj * pRectangle)
+    {
+        return dynamic_cast < DrawableRectangle * >(getHandleDrawer(pRectangle));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableArc * getArcDrawer( sciPointObj * pArc )
-{
-  return dynamic_cast<DrawableArc *>(getHandleDrawer(pArc));
-}
+    DrawableArc *getArcDrawer(sciPointObj * pArc)
+    {
+        return dynamic_cast < DrawableArc * >(getHandleDrawer(pArc));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawablePolyline * getPolylineDrawer( sciPointObj * pPolyline )
-{
-  return dynamic_cast<DrawablePolyline *>(getHandleDrawer(pPolyline));
-}
+    DrawablePolyline *getPolylineDrawer(sciPointObj * pPolyline)
+    {
+        return dynamic_cast < DrawablePolyline * >(getHandleDrawer(pPolyline));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableText * getTextDrawer( sciPointObj * pText )
-{
-  return dynamic_cast<DrawableText *>(getHandleDrawer(pText));
-}
+    DrawableText *getTextDrawer(sciPointObj * pText)
+    {
+        return dynamic_cast < DrawableText * >(getHandleDrawer(pText));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSubwin * getSubwinDrawer( sciPointObj * pSubwin )
-{
-  return dynamic_cast<DrawableSubwin *>(getHandleDrawer(pSubwin));
-}
+    DrawableSubwin *getSubwinDrawer(sciPointObj * pSubwin)
+    {
+        return dynamic_cast < DrawableSubwin * >(getHandleDrawer(pSubwin));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableLabel * getLabelDrawer( sciPointObj * pLabel )
-{
-  return dynamic_cast<DrawableLabel *>(getHandleDrawer(pLabel));
-}
+    DrawableLabel *getLabelDrawer(sciPointObj * pLabel)
+    {
+        return dynamic_cast < DrawableLabel * >(getHandleDrawer(pLabel));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSurface * getSurfaceDrawer( sciPointObj * pSurface )
-{
-  return dynamic_cast<DrawableSurface *>(getHandleDrawer(pSurface));
-}
+    DrawableSurface *getSurfaceDrawer(sciPointObj * pSurface)
+    {
+        return dynamic_cast < DrawableSurface * >(getHandleDrawer(pSurface));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableSegs * getSegsDrawer( sciPointObj * pSegs )
-{
-  return dynamic_cast<DrawableSegs *>(getHandleDrawer(pSegs));
-}
+    DrawableSegs *getSegsDrawer(sciPointObj * pSegs)
+    {
+        return dynamic_cast < DrawableSegs * >(getHandleDrawer(pSegs));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableGrayplot * getGrayplotDrawer( sciPointObj * pGrayplot )
-{
-  return dynamic_cast<DrawableGrayplot *>(getHandleDrawer(pGrayplot));
-}
+    DrawableGrayplot *getGrayplotDrawer(sciPointObj * pGrayplot)
+    {
+        return dynamic_cast < DrawableGrayplot * >(getHandleDrawer(pGrayplot));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFec * getFecDrawer( sciPointObj * pFec )
-{
-  return dynamic_cast<DrawableFec *>(getHandleDrawer(pFec));
-}
+    DrawableFec *getFecDrawer(sciPointObj * pFec)
+    {
+        return dynamic_cast < DrawableFec * >(getHandleDrawer(pFec));
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableAxes * getAxesDrawer( sciPointObj * pAxes )
-{
-  return dynamic_cast<DrawableAxes *>(getHandleDrawer(pAxes));
-}
+    DrawableAxes *getAxesDrawer(sciPointObj * pAxes)
+    {
+        return dynamic_cast < DrawableAxes * >(getHandleDrawer(pAxes));
+    }
 /*---------------------------------------------------------------------------------*/
 }

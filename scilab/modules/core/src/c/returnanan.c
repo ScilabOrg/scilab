@@ -14,18 +14,19 @@
 #include <stdio.h>
 
 /*--------------------------------------------------------------------------*/
-double C2F(returnanan)(void)
+double C2F(returnanan) (void)
 {
-	static int first = 1;
-	static double nan = 1.0;
+    static int first = 1;
+    static double nan = 1.0;
 
-	if ( first )
-	{
-		nan = (nan - (double) first)/(nan - (double) first);
-		first = 0;
-	}
-	return (nan);
+    if (first)
+    {
+        nan = (nan - (double)first) / (nan - (double)first);
+        first = 0;
+    }
+    return (nan);
 }
+
 /*--------------------------------------------------------------------------*/
 // MB, 26/10/2009
 // Because of a problem of management of the NANs, when used in a Fortran
@@ -37,9 +38,9 @@ double C2F(returnanan)(void)
 // result variable must still be declared as a DOUBLE PRECISION.
 // See Bug #4678 : 
 // http://bugzilla.scilab.org/show_bug.cgi?id=4378
-void C2F(returnananfortran)(double * nan)
+void C2F(returnananfortran) (double *nan)
 {
-	*nan = C2F(returnanan)();
+    *nan = C2F(returnanan) ();
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

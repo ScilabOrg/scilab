@@ -27,30 +27,29 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_font_color_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_font_color_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  int value ;
+    int value;
 
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "font_color");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Integer expected.\n"), "font_color");
+        return SET_PROPERTY_ERROR;
+    }
 
-	value = (int) getDoubleFromStack( stackPointer ) ;
+    value = (int)getDoubleFromStack(stackPointer);
 
-  if (   sciGetEntityType(pobj) == SCI_SUBWIN
-           || sciGetEntityType(pobj) == SCI_FIGURE
-           || sciGetEntityType(pobj) == SCI_LEGEND
-           || sciGetEntityType(pobj) == SCI_AXES)
-  {
-    return sciSetFontForeground( pobj,value ) ;
-  } /* F.Leray 08.04.04 */
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"),"font_color") ;
-  }
-	return SET_PROPERTY_ERROR ;
+    if (sciGetEntityType(pobj) == SCI_SUBWIN
+        || sciGetEntityType(pobj) == SCI_FIGURE || sciGetEntityType(pobj) == SCI_LEGEND || sciGetEntityType(pobj) == SCI_AXES)
+    {
+        return sciSetFontForeground(pobj, value);
+    }                           /* F.Leray 08.04.04 */
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "font_color");
+    }
+    return SET_PROPERTY_ERROR;
 }
+
 /*------------------------------------------------------------------------*/

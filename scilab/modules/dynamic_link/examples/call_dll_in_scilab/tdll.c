@@ -5,32 +5,29 @@
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
-#include <windows.h> 
+#include <windows.h>
 #include <stdio.h>
 #include <math.h>
 
-int WINAPI DllMain (HINSTANCE hInstance , 
-		           DWORD reason,
-		           PVOID pvReserved)
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-  switch (reason) 
+    switch (reason)
     {
     case DLL_PROCESS_ATTACH:
-      break;
+        break;
     case DLL_PROCESS_DETACH:
-      break;
+        break;
     case DLL_THREAD_ATTACH:
-      break;
+        break;
     case DLL_THREAD_DETACH:
-      break;
+        break;
     }
-  return 1;
+    return 1;
 }
 
-void doit (double *i,double *j)
+void doit(double *i, double *j)
 {
-  printf("Enter doit %f %f\n",*i,*j);
-  *j= *i + 2*sin(3.14/2);
-  printf("Exit doit %f %f\n",*i,*j);
+    printf("Enter doit %f %f\n", *i, *j);
+    *j = *i + 2 * sin(3.14 / 2);
+    printf("Exit doit %f %f\n", *i, *j);
 }
-

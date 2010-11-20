@@ -18,26 +18,27 @@
 
 sciPointObj *InitWaitBar(void)
 {
-  sciPointObj *pObj = (sciPointObj *) NULL;
-  
-  if ((pObj = MALLOC (sizeof (sciPointObj))) == NULL)	return (sciPointObj *) NULL;
-  
-  sciSetEntityType (pObj, SCI_WAITBAR);
+    sciPointObj *pObj = (sciPointObj *) NULL;
 
-  if ((pObj->pfeatures = MALLOC ((sizeof (sciWaitbar)))) == NULL)
+    if ((pObj = MALLOC(sizeof(sciPointObj))) == NULL)
+        return (sciPointObj *) NULL;
+
+    sciSetEntityType(pObj, SCI_WAITBAR);
+
+    if ((pObj->pfeatures = MALLOC((sizeof(sciWaitbar)))) == NULL)
     {
-      FREE(pObj);
-      return (sciPointObj *) NULL;
+        FREE(pObj);
+        return (sciPointObj *) NULL;
     }
 
-	/* Allocate relationShip */
-	createDefaultRelationShip(pObj);
+    /* Allocate relationShip */
+    createDefaultRelationShip(pObj);
 
-  pWAITBAR_FEATURE(pObj)->hashMapIndex = 0;
-  pObj->pObservers = NULL;
-  pObj->pDrawer = NULL ;
-  sciAddNewHandle(pObj);
-  return (sciPointObj *) pObj;
+    pWAITBAR_FEATURE(pObj)->hashMapIndex = 0;
+    pObj->pObservers = NULL;
+    pObj->pDrawer = NULL;
+    sciAddNewHandle(pObj);
+    return (sciPointObj *) pObj;
 }
-/*----------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------*/

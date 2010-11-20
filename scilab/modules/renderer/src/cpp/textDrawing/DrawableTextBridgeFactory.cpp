@@ -19,17 +19,17 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableTextBridge * DrawableTextBridgeFactory::create( void )
-{
-  DrawableTextJoGL * imp = new DrawableTextJoGL( m_pDrawable ) ;
-  imp->setJavaMapper(new DrawableTextJavaMapper()) ;
-  return imp ;
-}
+    DrawableTextBridge *DrawableTextBridgeFactory::create(void)
+    {
+        DrawableTextJoGL *imp = new DrawableTextJoGL(m_pDrawable);
+          imp->setJavaMapper(new DrawableTextJavaMapper());
+          return imp;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableTextBridgeFactory::setDrawedText( DrawableText* poly )
-{
-  m_pDrawable = poly ;
-}
+    void DrawableTextBridgeFactory::setDrawedText(DrawableText * poly)
+    {
+        m_pDrawable = poly;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

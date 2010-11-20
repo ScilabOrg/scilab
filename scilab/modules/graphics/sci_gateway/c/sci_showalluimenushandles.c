@@ -24,57 +24,60 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-static int SciShowAllUimenus( sciPointObj * pparent );
+static int SciShowAllUimenus(sciPointObj * pparent);
+
 /*--------------------------------------------------------------------------*/
-int sci_showalluimenushandles( char *fname, unsigned long fname_len )
+int sci_showalluimenushandles(char *fname, unsigned long fname_len)
 {
-  CheckRhs(1,1);
-  CheckLhs(1,1);
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
 
-  if (VarType(1) == sci_handles)
-  {
-    sciPointObj *pParent=NULL;
-    int m1,n1,l1;
-
-    GetRhsVar(1,GRAPHICAL_HANDLE_DATATYPE,&m1,&n1,&l1);
-    pParent = sciGetPointerFromHandle((long)*hstk(l1));
-
-    if (sciGetEntityType (pParent) != SCI_FIGURE ) 
+    if (VarType(1) == sci_handles)
     {
-      Scierror(999,_("%s: Wrong type for input argument: '%s' handle expected.\n"),fname,"Figure");
-      return 0;
+        sciPointObj *pParent = NULL;
+        int m1, n1, l1;
+
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &m1, &n1, &l1);
+        pParent = sciGetPointerFromHandle((long)*hstk(l1));
+
+        if (sciGetEntityType(pParent) != SCI_FIGURE)
+        {
+            Scierror(999, _("%s: Wrong type for input argument: '%s' handle expected.\n"), fname, "Figure");
+            return 0;
+        }
+        else
+        {
+            SciShowAllUimenus(pParent);
+        }
     }
     else
     {
-      SciShowAllUimenus(pParent);
+        Scierror(999, _("%s: Wrong type for input argument: '%s' handle expected.\n"), fname, "Figure");
+        return 0;
     }
-  }
-  else
-  {
-	  Scierror(999,_("%s: Wrong type for input argument: '%s' handle expected.\n"),fname,"Figure");
-  return 0;
-  }
 
-  LhsVar(1) = 0;
-  C2F(putlhsvar)();
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
 
-  return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-static int SciShowAllUimenus( sciPointObj * pparent )
+static int SciShowAllUimenus(sciPointObj * pparent)
 {
-  sciSons * psonstmp = sciGetLastSons(pparent) ;
+    sciSons *psonstmp = sciGetLastSons(pparent);
 
-  while(psonstmp != (sciSons *) NULL)
-  {   
-    if( sciGetEntityType(psonstmp->pointobj) == SCI_UIMENU )
+    while (psonstmp != (sciSons *) NULL)
     {
-      pUIMENU_FEATURE(psonstmp->pointobj)->handle_visible = TRUE;
-      SciShowAllUimenus(psonstmp->pointobj);
-    }
+        if (sciGetEntityType(psonstmp->pointobj) == SCI_UIMENU)
+        {
+            pUIMENU_FEATURE(psonstmp->pointobj)->handle_visible = TRUE;
+            SciShowAllUimenus(psonstmp->pointobj);
+        }
 
-    psonstmp = psonstmp->pprev;
-  }
-  return 0;
+        psonstmp = psonstmp->pprev;
+    }
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

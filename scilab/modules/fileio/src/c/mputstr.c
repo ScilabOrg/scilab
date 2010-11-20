@@ -11,33 +11,36 @@
  *
  */
 /*--------------------------------------------------------------------------*/
-#include <stdio.h> /* FILE */
+#include <stdio.h>              /* FILE */
 #include "mputstr.h"
 #include "filesmanagement.h"
 #include "sciprint.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
 void C2F(mputstr) (int *fd, char *str, double *res, int *ierr)
-{   
-	FILE *fa=NULL;
-	fa = GetFileOpenedInScilab(*fd);
-	if (!fa) 
-	{
-		char *filename = GetFileNameOpenedInScilab(*fd);
-		if (filename)
-		{
-			sciprint(_("%s: Error while opening, reading or writing '%s'.\n"),"mputstr",filename);
-		}
-		else
-		{
-			sciprint(_("%s: Error while opening, reading or writing.\n"),"mputstr");
-		}
-		*ierr=1;
-	}
-	else 
-	{
-		fprintf(fa,"%s",str);
-		(*res) = (*ierr) =ferror(fa);
-	}
+{
+    FILE *fa = NULL;
+
+    fa = GetFileOpenedInScilab(*fd);
+    if (!fa)
+    {
+        char *filename = GetFileNameOpenedInScilab(*fd);
+
+        if (filename)
+        {
+            sciprint(_("%s: Error while opening, reading or writing '%s'.\n"), "mputstr", filename);
+        }
+        else
+        {
+            sciprint(_("%s: Error while opening, reading or writing.\n"), "mputstr");
+        }
+        *ierr = 1;
+    }
+    else
+    {
+        fprintf(fa, "%s", str);
+        (*res) = (*ierr) = ferror(fa);
+    }
 }
+
 /*--------------------------------------------------------------------------*/

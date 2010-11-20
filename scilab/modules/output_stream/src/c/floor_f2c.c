@@ -16,7 +16,7 @@
 /* libf2c does not have C2F(floor) on windows */
 /* only used with F2C visual express version */
 
-double C2F(floor)(double *_value)
+double C2F(floor) (double *_value)
 {
     return floor(*_value);
 }

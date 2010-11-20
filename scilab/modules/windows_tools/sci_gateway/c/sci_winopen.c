@@ -17,25 +17,26 @@
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int sci_winopen(char *fname,unsigned long l)
+int sci_winopen(char *fname, unsigned long l)
 {
-	int m1 = 0,n1 = 0,l1 = 0;
+    int m1 = 0, n1 = 0, l1 = 0;
 
-	CheckRhs(1,1);
+    CheckRhs(1, 1);
 
-	GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
+    GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
 
-	if (winopen(cstk(l1))) 
-	{ 
-		LhsVar(1) = 0;
-	}
-	else
-	{
-		Scierror(999,_("%s: Cannot open file %s.\n"),fname,cstk(l1));
-		return 0;
-	}
-	
-	C2F(putlhsvar)();
-	return 0;
+    if (winopen(cstk(l1)))
+    {
+        LhsVar(1) = 0;
+    }
+    else
+    {
+        Scierror(999, _("%s: Cannot open file %s.\n"), fname, cstk(l1));
+        return 0;
+    }
+
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -24,32 +24,33 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-StandardTextDrawerJoGL::StandardTextDrawerJoGL(DrawableText * text)
-  : TextContentDrawerJoGL(text)
-{
-  setJavaMapper(new StandardTextDrawerJavaMapper());
-}
+    StandardTextDrawerJoGL::StandardTextDrawerJoGL(DrawableText * text):TextContentDrawerJoGL(text)
+    {
+        setJavaMapper(new StandardTextDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-StandardTextDrawerJoGL::~StandardTextDrawerJoGL(void)
-{
-  
-}
-/*---------------------------------------------------------------------------------*/
-void StandardTextDrawerJoGL::setDrawerParameters(void)
-{
-  sciPointObj * pObj = m_pDrawed->getDrawedObject();
-  getStandardTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
-                                                       sciGetFontStyle(pObj), sciGetFontSize(pObj), sciGetFontOrientation(pObj),
-                                                       sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+    StandardTextDrawerJoGL::~StandardTextDrawerJoGL(void)
+    {
 
-  StringMatrix * textMatrix = sciGetText(pObj);
-  getStandardTextDrawerJavaMapper()->setTextContent(getStrMatData(textMatrix), getMatNbRow(textMatrix), getMatNbCol(textMatrix));
-}
+    }
 /*---------------------------------------------------------------------------------*/
-StandardTextDrawerJavaMapper * StandardTextDrawerJoGL::getStandardTextDrawerJavaMapper(void)
-{
-  return dynamic_cast<StandardTextDrawerJavaMapper *>(getJavaMapper());
-}
+    void StandardTextDrawerJoGL::setDrawerParameters(void)
+    {
+        sciPointObj *pObj = m_pDrawed->getDrawedObject();
+
+        getStandardTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
+                                                             sciGetFontStyle(pObj), sciGetFontSize(pObj), sciGetFontOrientation(pObj),
+                                                             sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+
+        StringMatrix *textMatrix = sciGetText(pObj);
+
+        getStandardTextDrawerJavaMapper()->setTextContent(getStrMatData(textMatrix), getMatNbRow(textMatrix), getMatNbCol(textMatrix));
+    }
+/*---------------------------------------------------------------------------------*/
+    StandardTextDrawerJavaMapper *StandardTextDrawerJoGL::getStandardTextDrawerJavaMapper(void)
+    {
+        return dynamic_cast < StandardTextDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

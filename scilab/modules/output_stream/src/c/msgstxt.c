@@ -13,12 +13,13 @@
 #include "stack-c.h"
 #include "basout.h"
 #include "msgstxt.h"
-/*--------------------------------------------------------------------------*/ 
-int C2F(msgstxt)(char *txt,long int txt_len)
+/*--------------------------------------------------------------------------*/
+int C2F(msgstxt) (char *txt, long int txt_len)
 {
-	static int io;
-	C2F(basout)(&io, &C2F(iop).wte,txt,txt_len);
-    return 0;
-} 
-/*--------------------------------------------------------------------------*/ 
+    static int io;
 
+    C2F(basout) (&io, &C2F(iop).wte, txt, txt_len);
+    return 0;
+}
+
+/*--------------------------------------------------------------------------*/

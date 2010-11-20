@@ -17,30 +17,29 @@
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-MiddleXAxisPositioner::MiddleXAxisPositioner(DrawableSubwin * subwin)
-  : XAxisPositioner(subwin)
-{
+    MiddleXAxisPositioner::MiddleXAxisPositioner(DrawableSubwin * subwin):XAxisPositioner(subwin)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-MiddleXAxisPositioner::~MiddleXAxisPositioner(void)
-{
+    MiddleXAxisPositioner::~MiddleXAxisPositioner(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void MiddleXAxisPositioner::getAxisBounds(double startBound[3], double endBound[3])
-{
-  double zCoordinate = findUpperZCoordinate();
-  double yCoordinate = (m_dYmin + m_dYmax) / 2.0;
+    void MiddleXAxisPositioner::getAxisBounds(double startBound[3], double endBound[3])
+    {
+        double zCoordinate = findUpperZCoordinate();
+        double yCoordinate = (m_dYmin + m_dYmax) / 2.0;
 
-  startBound[0] = m_dXmin;
-  startBound[1] = yCoordinate;
-  startBound[2] = zCoordinate;
+        startBound[0] = m_dXmin;
+        startBound[1] = yCoordinate;
+        startBound[2] = zCoordinate;
 
-  endBound[0] = m_dXmax;
-  endBound[1] = yCoordinate;
-  endBound[2] = zCoordinate;
-}
+        endBound[0] = m_dXmax;
+        endBound[1] = yCoordinate;
+        endBound[2] = zCoordinate;
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

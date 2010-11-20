@@ -21,20 +21,18 @@ using namespace org_scilab_modules_gui_bridge;
 
 void DestroyWaitBar(sciPointObj * sciObj)
 {
-  if (sciGetEntityType(sciObj) == SCI_WAITBAR)
+    if (sciGetEntityType(sciObj) == SCI_WAITBAR)
     {
-      CallScilabBridge::destroyWaitBar(getScilabJavaVM(),
-                                       pWAITBAR_FEATURE(sciObj)->hashMapIndex);
+        CallScilabBridge::destroyWaitBar(getScilabJavaVM(), pWAITBAR_FEATURE(sciObj)->hashMapIndex);
     }
-  else if (sciGetEntityType(sciObj) == SCI_PROGRESSIONBAR)
+    else if (sciGetEntityType(sciObj) == SCI_PROGRESSIONBAR)
     {
-      CallScilabBridge::destroyWaitBar(getScilabJavaVM(),
-                                       pPROGRESSIONBAR_FEATURE(sciObj)->hashMapIndex);
+        CallScilabBridge::destroyWaitBar(getScilabJavaVM(), pPROGRESSIONBAR_FEATURE(sciObj)->hashMapIndex);
     }
-  else
+    else
     {
-		sciprint(const_cast<char*>(_("%s: Could not destroy this object.\n")), "DestroyWaitBar");
+        sciprint(const_cast < char *>(_("%s: Could not destroy this object.\n")), "DestroyWaitBar");
     }
 
-	sciStandardDestroyOperations(sciObj) ;
+    sciStandardDestroyOperations(sciObj);
 }

@@ -9,27 +9,30 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-#include "machine.h" /* C2F */
-#include "BOOL.h" 
+#include "machine.h"            /* C2F */
+#include "BOOL.h"
 #include "Scierror.h"
 #include "localization.h"
 #include "gw_fftw.h"
 #include "with_fftw.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 int gw_fftw(void)
 {
-	Scierror(999,_("Scilab FFTW module not installed.\n"));
-	return 0;
+    Scierror(999, _("Scilab FFTW module not installed.\n"));
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 BOOL withfftw(void)
-{ 
-	return FALSE;
+{
+    return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
-int C2F(withfftw)(int *rep)
-{ 
-	*rep =0; 
-	return 0;
+
+/*--------------------------------------------------------------------------*/
+int C2F(withfftw) (int *rep)
+{
+    *rep = 0;
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

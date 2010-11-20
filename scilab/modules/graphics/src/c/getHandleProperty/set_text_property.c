@@ -27,14 +27,15 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_text_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_text_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterStringMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "text");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterStringMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "text");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetText( pobj, getStringMatrixFromStack( stackPointer ), nbRow, nbCol ) ;
+    return sciSetText(pobj, getStringMatrixFromStack(stackPointer), nbRow, nbCol);
 }
+
 /*------------------------------------------------------------------------*/

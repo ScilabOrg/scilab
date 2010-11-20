@@ -14,31 +14,34 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_bufinfo
  ******************************************/
-int sci_pvm_bufinfo(char *fname,unsigned long fname_len)
+int sci_pvm_bufinfo(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,un=1;
-  int bytes,msgtag,tid,res,i;
-  CheckRhs(1,1);
-  CheckLhs(1,4);
-  GetRhsVar(1,MATRIX_OF_INTEGER_DATATYPE,&m1,&n1,&l1);/* bufid */ 
-  CheckScalar(1,m1,n1);
-  CreateVar(Rhs+2,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&bytes);
-  CreateVar(Rhs+3,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&msgtag);
-  CreateVar(Rhs+4,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&tid);
-  CreateVar(Rhs+5,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&res);
-  C2F(scipvmbufinfo)(istk(l1), istk(bytes), istk(msgtag), istk(tid), istk(res)); 
+    int m1, n1, l1, un = 1;
+    int bytes, msgtag, tid, res, i;
 
-  for ( i = 1 ; i <= Lhs ; i++) LhsVar(i)= Rhs+i+1; 
+    CheckRhs(1, 1);
+    CheckLhs(1, 4);
+    GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);    /* bufid */
+    CheckScalar(1, m1, n1);
+    CreateVar(Rhs + 2, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &bytes);
+    CreateVar(Rhs + 3, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &msgtag);
+    CreateVar(Rhs + 4, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &tid);
+    CreateVar(Rhs + 5, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &res);
+    C2F(scipvmbufinfo) (istk(l1), istk(bytes), istk(msgtag), istk(tid), istk(res));
 
-  pvm_error_check(fname,*istk(res),fname_len);
-  C2F(putlhsvar)();
-  return 0;  
+    for (i = 1; i <= Lhs; i++)
+        LhsVar(i) = Rhs + i + 1;
+
+    pvm_error_check(fname, *istk(res), fname_len);
+    C2F(putlhsvar) ();
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

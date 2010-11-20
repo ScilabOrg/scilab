@@ -23,31 +23,36 @@ Type *TO;\
 	 TO[indx[i]] = FROM[1+(i-1)*(*inc2)];\
 }
 
-int C2F(geninsert1)(int *typ,int *mi,int *indx,int *to,int *from,int *inc2)
+int C2F(geninsert1) (int *typ, int *mi, int *indx, int *to, int *from, int *inc2)
 {
 
-  static int i;
-  --indx;
-  switch (*typ) {
-  case 1:
-    INSERT1(integer1);
-    break;
-  case 2:
-    INSERT1(integer2);
-    break;
-  case 4:
-    INSERT1(int) ;
-    break;
-  case 11:
-    INSERT1(unsigned char);
-    break;
-  case 12:
-    INSERT1(unsigned short);
-    break;
-  case 14:
-    INSERT1(unsigned int);
-    break;
-  }
-  return 0;
-}
+    static int i;
 
+    --indx;
+    switch (*typ)
+    {
+    case 1:
+        INSERT1(integer1);
+        break;
+    case 2:
+        INSERT1(integer2);
+        break;
+    case 4:
+        INSERT1(int);
+
+        break;
+    case 11:
+        INSERT1(unsigned char);
+
+        break;
+    case 12:
+        INSERT1(unsigned short);
+
+        break;
+    case 14:
+        INSERT1(unsigned int);
+
+        break;
+    }
+    return 0;
+}

@@ -10,49 +10,55 @@
  *
  */
 #include "scilabmode.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /* default mode is API */
 static scilabMode CurrentScilabMode = SCILAB_API;
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 scilabMode getScilabMode(void)
 {
-	return CurrentScilabMode;
+    return CurrentScilabMode;
 }
-/*--------------------------------------------------------------------------*/ 
-char * getScilabModeString(void)
+
+/*--------------------------------------------------------------------------*/
+char *getScilabModeString(void)
 {
-	switch (CurrentScilabMode){
-		case SCILAB_API:
-			return "API";
-			break;
-		case SCILAB_STD:
-			return "STD";
-			break;
-		case SCILAB_NW:
-			return "NW";
-			break;
-		case SCILAB_NWNI:
-			return "NWNI";
-			break;
-		default:
-			return "STD";
-			break;
-	}
+    switch (CurrentScilabMode)
+    {
+    case SCILAB_API:
+        return "API";
+        break;
+    case SCILAB_STD:
+        return "STD";
+        break;
+    case SCILAB_NW:
+        return "NW";
+        break;
+    case SCILAB_NWNI:
+        return "NWNI";
+        break;
+    default:
+        return "STD";
+        break;
+    }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 BOOL setScilabMode(scilabMode newmode)
 {
-	if ( (newmode == SCILAB_API) || (newmode == SCILAB_STD) || (newmode == SCILAB_NW) || (newmode == SCILAB_NWNI) )
-	{
-		CurrentScilabMode = (scilabMode)newmode;
-		return TRUE;
-	}
-	return FALSE;
+    if ((newmode == SCILAB_API) || (newmode == SCILAB_STD) || (newmode == SCILAB_NW) || (newmode == SCILAB_NWNI))
+    {
+        CurrentScilabMode = (scilabMode) newmode;
+        return TRUE;
+    }
+    return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
-int C2F(getscilabmode)(scilabMode *mode)
+
+/*--------------------------------------------------------------------------*/
+int C2F(getscilabmode) (scilabMode * mode)
 {
-	*mode=getScilabMode();
-	return 0;
+    *mode = getScilabMode();
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

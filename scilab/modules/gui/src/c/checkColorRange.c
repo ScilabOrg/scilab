@@ -16,11 +16,13 @@
 /*--------------------------------------------------------------------------*/
 static int checkColorComponent(double c)
 {
-  return (c >= 0) && (c <= 1);
+    return (c >= 0) && (c <= 1);
 }
+
 /*--------------------------------------------------------------------------*/
 int checkColorRange(double r, double g, double b)
 {
-  return checkColorComponent(r) && checkColorComponent(g) && checkColorComponent(b);
+    return checkColorComponent(r) && checkColorComponent(g) && checkColorComponent(b);
 }
+
 /*--------------------------------------------------------------------------*/

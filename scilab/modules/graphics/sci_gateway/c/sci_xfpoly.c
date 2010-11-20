@@ -25,43 +25,43 @@
 #include "GraphicSynchronizerInterface.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xfpoly(char *fname,unsigned long fname_len)
+int sci_xfpoly(char *fname, unsigned long fname_len)
 {
-  int close=0,m1,n1,l1,m2,n2 ,l2,m3,n3,l3,mn1 ;
+    int close = 0, m1, n1, l1, m2, n2, l2, m3, n3, l3, mn1;
 
-  long hdl; /* NG */
-  sciPointObj * psubwin = NULL ;
+    long hdl;                   /* NG */
+    sciPointObj *psubwin = NULL;
 
-  CheckRhs(2,3);
+    CheckRhs(2, 3);
 
-  GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
-  GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m2,&n2,&l2);
-  CheckSameDims(1,2,m1,n1,m2,n2);
+    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
+    GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &m2, &n2, &l2);
+    CheckSameDims(1, 2, m1, n1, m2, n2);
 
-  if (Rhs == 3) {
-    GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE,&m3,&n3,&l3);
-    CheckScalar(3,m3,n3);
-    close = (int)  *stk(l3);
-  } 
-  mn1 = m1 * n1;
+    if (Rhs == 3)
+    {
+        GetRhsVar(3, MATRIX_OF_DOUBLE_DATATYPE, &m3, &n3, &l3);
+        CheckScalar(3, m3, n3);
+        close = (int)*stk(l3);
+    }
+    mn1 = m1 * n1;
 
+    psubwin = sciGetCurrentSubWin();
 
-  psubwin = sciGetCurrentSubWin();
+    if (close == 0)
+    {
+        close = sciGetForeground(sciGetCurrentSubWin());
+    }
 
-  if(close == 0)
-  {
-    close = sciGetForeground(sciGetCurrentSubWin());
-  }
+    startFigureDataWriting(sciGetParentFigure(psubwin));
+    Objfpoly(stk(l1), stk(l2), mn1, &close, &hdl, 0);
+    endFigureDataWriting(sciGetParentFigure(psubwin));
 
-  startFigureDataWriting(sciGetParentFigure(psubwin));
-  Objfpoly (stk(l1),stk(l2),mn1,&close,&hdl,0);
-  endFigureDataWriting(sciGetParentFigure(psubwin));
+    sciDrawObjIfRequired(sciGetCurrentObj());
 
-  sciDrawObjIfRequired(sciGetCurrentObj ());
-
-  LhsVar(1)=0;
-	C2F(putlhsvar)();
-  return 0;
+    LhsVar(1) = 0;
+    C2F(putlhsvar) ();
+    return 0;
 
 }
 

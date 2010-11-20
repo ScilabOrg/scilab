@@ -10,7 +10,7 @@
 *
 */
 
-
-void forceJHDF5load() {
+void forceJHDF5load()
+{
 /*	Does nothing (for scilab-cli mode) */
 }

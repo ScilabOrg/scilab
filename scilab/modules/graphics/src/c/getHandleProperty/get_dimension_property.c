@@ -25,18 +25,19 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_dimension_property( sciPointObj * pobj )
+int get_dimension_property(sciPointObj * pobj)
 {
-  int size[2] ;
+    int size[2];
 
-	if (sciGetEntityType(pobj) != SCI_FIGURE)
-	{
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"dimension");
-		return -1;
-	}
+    if (sciGetEntityType(pobj) != SCI_FIGURE)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "dimension");
+        return -1;
+    }
 
-  size[0] = sciGetWidth(  pobj ) ;
-  size[1] = sciGetHeight( pobj ) ;
-  return sciReturnRowVectorFromInt( size, 2 ) ;
+    size[0] = sciGetWidth(pobj);
+    size[1] = sciGetHeight(pobj);
+    return sciReturnRowVectorFromInt(size, 2);
 }
+
 /*------------------------------------------------------------------------*/

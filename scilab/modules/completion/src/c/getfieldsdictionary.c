@@ -9,8 +9,8 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-#include <string.h> /* strcmp */
-#include <stdlib.h> /* qsort */
+#include <string.h>             /* strcmp */
+#include <stdlib.h>             /* qsort */
 #include "Scierror.h"
 #include "api_scilab.h"
 #include "stack-c.h"
@@ -19,11 +19,13 @@
 #include "getPartLine.h"
 /*--------------------------------------------------------------------------*/
 extern char **completionOnHandleGraphicsProperties(char *, int *);
+
 /*--------------------------------------------------------------------------*/
 static int cmpNames(const void *a, const void *b)
 {
     return strcmp(*(const char **)a, *(const char **)b);
 }
+
 /*--------------------------------------------------------------------------*/
 char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
 {
@@ -47,8 +49,9 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         return NULL;
     }
 
-    lineBeforePoint = (char*)MALLOC(sizeof(char) * (pos + 1));
-    if (lineBeforePoint == NULL) return NULL;
+    lineBeforePoint = (char *)MALLOC(sizeof(char) * (pos + 1));
+    if (lineBeforePoint == NULL)
+        return NULL;
     memcpy(lineBeforePoint, lineBeforeCaret, pos);
     lineBeforePoint[pos] = '\0';
     var = getPartLevel(lineBeforePoint);
@@ -80,7 +83,7 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         }
 
         rc = rows * cols;
-        piLen = (int*)MALLOC(sizeof(int) * rc);
+        piLen = (int *)MALLOC(sizeof(int) * rc);
         sciErr = getMatrixOfStringInList(pvApiCtx, piAddr, 1, &rows, &cols, piLen, NULL);
         if (sciErr.iErr)
         {
@@ -88,10 +91,10 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
             return NULL;
         }
 
-        pstData = (char**)MALLOC(sizeof(char*) * (rc + 1));
-        for (i = 0 ; i < rc ; i++)
+        pstData = (char **)MALLOC(sizeof(char *) * (rc + 1));
+        for (i = 0; i < rc; i++)
         {
-            pstData[i] = (char*)MALLOC(sizeof(char) * (piLen[i] + 1));
+            pstData[i] = (char *)MALLOC(sizeof(char) * (piLen[i] + 1));
         }
 
         sciErr = getMatrixOfStringInList(pvApiCtx, piAddr, 1, &rows, &cols, piLen, pstData);
@@ -104,9 +107,12 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
 
         // We remove all the entries which don't begin with fieldpart
         // and the first entry (and the second if it is a struct)
-        if (!strcmp(pstData[0], "st")) i = 2; else i = 1;
+        if (!strcmp(pstData[0], "st"))
+            i = 2;
+        else
+            i = 1;
 
-        for (; i < rc ; i++)
+        for (; i < rc; i++)
         {
             if (strstr(pstData[i], pattern) != pstData[i])
             {
@@ -122,7 +128,7 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         }
 
         *size = last;
-        qsort(pstData, *size, sizeof(char*), cmpNames);
+        qsort(pstData, *size, sizeof(char *), cmpNames);
         FREE(piLen);
     }
     else
@@ -132,4 +138,5 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
 
     return pstData;
 }
+
 /*--------------------------------------------------------------------------*/

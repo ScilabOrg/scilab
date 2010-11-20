@@ -14,8 +14,8 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-void requestWidgetFocus(sciPointObj* sciObj)
+void requestWidgetFocus(sciPointObj * sciObj)
 {
-  // Scilab default values
-  CallScilabBridge::requestWidgetFocus(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    // Scilab default values
+    CallScilabBridge::requestWidgetFocus(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
 }

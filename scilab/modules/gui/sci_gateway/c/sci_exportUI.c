@@ -20,56 +20,59 @@
 #include "exportUserInterface.hxx"
 
 /*--------------------------------------------------------------------------*/
-int sci_exportUI( char * fname, unsigned long fname_len )
+int sci_exportUI(char *fname, unsigned long fname_len)
 {
-  // call, exportUI(figId) exportUI(fig)
-  // with figId an int and fig a figure handle
+    // call, exportUI(figId) exportUI(fig)
+    // with figId an int and fig a figure handle
 
-  // id of the figure to export
-  int figureId = 0;
+    // id of the figure to export
+    int figureId = 0;
 
-  CheckLhs(0,1);
-  CheckRhs(1,1);
+    CheckLhs(0, 1);
+    CheckRhs(1, 1);
 
-  if (GetType(1) == sci_handles)
-  {
-    int nbRow;
-    int nbCol;
-    size_t stackPointer = 0;
-    sciPointObj * figure = NULL;
-    GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
-    if (nbRow * nbCol != 1)
+    if (GetType(1) == sci_handles)
     {
-      Scierror(999,_("%s: Wrong size for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-    }
-    figure = sciGetPointerFromHandle((unsigned long) *(hstk( stackPointer )));
-    if (sciGetEntityType(figure) != SCI_FIGURE)
-    {
-      Scierror(999,_("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-    }
-    figureId = sciGetNum(figure);
-  }
-  else if (GetType(1) == sci_matrix)
-  {
-    int nbRow;
-    int nbCol;
-    size_t stackPointer = 0;
-    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
-    if (nbRow * nbCol != 1)
-    {
-      Scierror(999,_("%s: Wrong size for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-    }
-    figureId = (int) *(stk( stackPointer ));
-  }
-  else
-  {
-    Scierror(999,_("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-  }
+        int nbRow;
+        int nbCol;
+        size_t stackPointer = 0;
+        sciPointObj *figure = NULL;
 
-  // call the export function
-  exportUserInterface(figureId);
+        GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+        if (nbRow * nbCol != 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
+        }
+        figure = sciGetPointerFromHandle((unsigned long)*(hstk(stackPointer)));
+        if (sciGetEntityType(figure) != SCI_FIGURE)
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
+        }
+        figureId = sciGetNum(figure);
+    }
+    else if (GetType(1) == sci_matrix)
+    {
+        int nbRow;
+        int nbCol;
+        size_t stackPointer = 0;
 
-  LhsVar(1)=0;
-  return 0;
+        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
+        if (nbRow * nbCol != 1)
+        {
+            Scierror(999, _("%s: Wrong size for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
+        }
+        figureId = (int)*(stk(stackPointer));
+    }
+    else
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
+    }
+
+    // call the export function
+    exportUserInterface(figureId);
+
+    LhsVar(1) = 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

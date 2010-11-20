@@ -31,28 +31,34 @@ Type *B;\
     }\
     }\
 }
-int C2F(genmcopy)(int *typ,int *a, int *na, int *b, int *nb, int *m, int *n)
+int C2F(genmcopy) (int *typ, int *a, int *na, int *b, int *nb, int *m, int *n)
 {
-  static int i, j, ia, ib, mn;
-  switch (*typ) {
-  case 1:
-    MCOPY(integer1);
-    break;
-  case 2:
-    MCOPY(integer2);
-    break;
-  case 4:
-    MCOPY(int) ;
-    break;
-  case 11:
-    MCOPY(unsigned char);
-    break;
-  case 12:
-    MCOPY(unsigned short);
-    break;
-  case 14:
-    MCOPY(unsigned int);
-    break;
-  }
-  return 0;
+    static int i, j, ia, ib, mn;
+
+    switch (*typ)
+    {
+    case 1:
+        MCOPY(integer1);
+        break;
+    case 2:
+        MCOPY(integer2);
+        break;
+    case 4:
+        MCOPY(int);
+
+        break;
+    case 11:
+        MCOPY(unsigned char);
+
+        break;
+    case 12:
+        MCOPY(unsigned short);
+
+        break;
+    case 14:
+        MCOPY(unsigned int);
+
+        break;
+    }
+    return 0;
 }

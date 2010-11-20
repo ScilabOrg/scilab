@@ -10,42 +10,41 @@
  *
  */
 
-
 #include "CallJxclick.hxx"
 
 using namespace org_scilab_modules_gui_events;
 
 void CallJxclick()
 {
-  Jxclick::xclick(getScilabJavaVM());
+    Jxclick::xclick(getScilabJavaVM());
 }
 
 int getJxclickMouseButtonNumber()
 {
-  return Jxclick::getMouseButtonNumber(getScilabJavaVM());
+    return Jxclick::getMouseButtonNumber(getScilabJavaVM());
 }
 
 double getJxclickXCoordinate()
 {
-  return Jxclick::getXCoordinate(getScilabJavaVM());
+    return Jxclick::getXCoordinate(getScilabJavaVM());
 }
 
 double getJxclickYCoordinate()
 {
-  return Jxclick::getYCoordinate(getScilabJavaVM());
+    return Jxclick::getYCoordinate(getScilabJavaVM());
 }
 
 int getJxclickWindowID()
 {
-  return Jxclick::getWindowID(getScilabJavaVM());
+    return Jxclick::getWindowID(getScilabJavaVM());
 }
 
-char * getJxclickMenuCallback()
+char *getJxclickMenuCallback()
 {
-  return Jxclick::getMenuCallback(getScilabJavaVM());
+    return Jxclick::getMenuCallback(getScilabJavaVM());
 }
 
-void deleteMenuCallBack(char * menuCallBack)
+void deleteMenuCallBack(char *menuCallBack)
 {
-  delete[] menuCallBack;
+    delete[]menuCallBack;
 }

@@ -15,109 +15,106 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int SetUicontrolMin(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int SetUicontrolMin(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if (valueType == sci_matrix)
+    if (valueType == sci_matrix)
     {
 
-      if(nbCol != 1 || nbRow != 1)
+        if (nbCol != 1 || nbRow != 1)
         {
-          /* Wrong value size */
-          Scierror(999, const_cast<char*>(_("Wrong size for '%s' property: A real expected.\n")), "Min");
-          return SET_PROPERTY_ERROR;
+            /* Wrong value size */
+            Scierror(999, const_cast < char *>(_("Wrong size for '%s' property: A real expected.\n")), "Min");
+
+            return SET_PROPERTY_ERROR;
         }
 
-      /* Store the value in Scilab */
-      pUICONTROL_FEATURE(sciObj)->min = (int) getDoubleFromStack(stackPointer);
+        /* Store the value in Scilab */
+        pUICONTROL_FEATURE(sciObj)->min = (int)getDoubleFromStack(stackPointer);
 
-      /* Update Java Objects */
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_SLIDER)
+        /* Update Java Objects */
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_SLIDER)
         {
-          /* Min value */
-          CallScilabBridge::setSliderMinValue(getScilabJavaVM(),
-                                                      pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                      (int) pUICONTROL_FEATURE(sciObj)->min);
-         
-          /* Ticks spacing: if not user defined */
-          if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL)
+            /* Min value */
+            CallScilabBridge::setSliderMinValue(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, (int)pUICONTROL_FEATURE(sciObj)->min);
+
+            /* Ticks spacing: if not user defined */
+            if (pUICONTROL_FEATURE(sciObj)->sliderStep == NULL)
             {
-              /* Check if min is < to max property */
-              if (pUICONTROL_FEATURE(sciObj)->min <= pUICONTROL_FEATURE(sciObj)->max)
+                /* Check if min is < to max property */
+                if (pUICONTROL_FEATURE(sciObj)->min <= pUICONTROL_FEATURE(sciObj)->max)
                 {
-                  CallScilabBridge::setSliderMinorTickSpacing(getScilabJavaVM(),
-                                                              pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                              (int) (0.01 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min)));
-                  
-                  CallScilabBridge::setSliderMajorTickSpacing(getScilabJavaVM(), 
-                                                              pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                              (int) (0.1 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min)));
+                    CallScilabBridge::setSliderMinorTickSpacing(getScilabJavaVM(),
+                                                                pUICONTROL_FEATURE(sciObj)->hashMapIndex,
+                                                                (int)(0.01 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min)));
+
+                    CallScilabBridge::setSliderMajorTickSpacing(getScilabJavaVM(),
+                                                                pUICONTROL_FEATURE(sciObj)->hashMapIndex,
+                                                                (int)(0.1 * (pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min)));
                 }
             }
-       }
-      else if (pUICONTROL_FEATURE(sciObj)->style == SCI_LISTBOX)
+        }
+        else if (pUICONTROL_FEATURE(sciObj)->style == SCI_LISTBOX)
         {
-          /* Multiselection available ? */
-          if ((pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min) > 1)
+            /* Multiselection available ? */
+            if ((pUICONTROL_FEATURE(sciObj)->max - pUICONTROL_FEATURE(sciObj)->min) > 1)
             {
-              CallScilabBridge::setListBoxMultipleSelectionEnabled(getScilabJavaVM(),
-                                                                   pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                                   TRUE);
+                CallScilabBridge::setListBoxMultipleSelectionEnabled(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, TRUE);
             }
-          else
+            else
             {
-              CallScilabBridge::setListBoxMultipleSelectionEnabled(getScilabJavaVM(),
-                                                                   pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                                   FALSE);
+                CallScilabBridge::setListBoxMultipleSelectionEnabled(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex, FALSE);
             }
         }
-      else if (pUICONTROL_FEATURE(sciObj)->style == SCI_CHECKBOX)
+        else if (pUICONTROL_FEATURE(sciObj)->style == SCI_CHECKBOX)
         {
-          if (pUICONTROL_FEATURE(sciObj)->valueSize != 0) /* Value set by the user */
+            if (pUICONTROL_FEATURE(sciObj)->valueSize != 0) /* Value set by the user */
             {
-              if ((pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->min) && (pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->max))
+                if ((pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->min)
+                    && (pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->max))
                 {
-					sciprint(const_cast<char*>(_("Warning: '%s' 'Value' property should be equal to either '%s' or '%s' property value.\n")), "Checkbox", "Min", "Max");
+                    sciprint(const_cast < char *>(_("Warning: '%s' 'Value' property should be equal to either '%s' or '%s' property value.\n")),
+                             "Checkbox", "Min", "Max");
                 }
 
-              CallScilabBridge::setCheckBoxChecked(getScilabJavaVM(), 
-                                                   pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                   pUICONTROL_FEATURE(sciObj)->value[0] == pUICONTROL_FEATURE(sciObj)->max);
+                CallScilabBridge::setCheckBoxChecked(getScilabJavaVM(),
+                                                     pUICONTROL_FEATURE(sciObj)->hashMapIndex,
+                                                     pUICONTROL_FEATURE(sciObj)->value[0] == pUICONTROL_FEATURE(sciObj)->max);
             }
-          else  /* Default Value is 0 */
+            else                /* Default Value is 0 */
             {
-              CallScilabBridge::setCheckBoxChecked(getScilabJavaVM(), 
-                                                   pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                   pUICONTROL_FEATURE(sciObj)->max == 0);
+                CallScilabBridge::setCheckBoxChecked(getScilabJavaVM(),
+                                                     pUICONTROL_FEATURE(sciObj)->hashMapIndex, pUICONTROL_FEATURE(sciObj)->max == 0);
             }
         }
-      else if (pUICONTROL_FEATURE(sciObj)->style == SCI_RADIOBUTTON)
+        else if (pUICONTROL_FEATURE(sciObj)->style == SCI_RADIOBUTTON)
         {
-          if (pUICONTROL_FEATURE(sciObj)->valueSize != 0)  /* Value set by the user */
+            if (pUICONTROL_FEATURE(sciObj)->valueSize != 0) /* Value set by the user */
             {
-              if ((pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->min) && (pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->max))
+                if ((pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->min)
+                    && (pUICONTROL_FEATURE(sciObj)->value[0] != pUICONTROL_FEATURE(sciObj)->max))
                 {
-					sciprint(const_cast<char*>(_("Warning: '%s' 'Value' property should be equal to either '%s' or '%s' property value.\n")), "Radiobutton", "Min", "Max");
+                    sciprint(const_cast < char *>(_("Warning: '%s' 'Value' property should be equal to either '%s' or '%s' property value.\n")),
+                             "Radiobutton", "Min", "Max");
                 }
 
-              CallScilabBridge::setRadioButtonChecked(getScilabJavaVM(), 
-                                                      pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                      pUICONTROL_FEATURE(sciObj)->value[0] == pUICONTROL_FEATURE(sciObj)->max);
+                CallScilabBridge::setRadioButtonChecked(getScilabJavaVM(),
+                                                        pUICONTROL_FEATURE(sciObj)->hashMapIndex,
+                                                        pUICONTROL_FEATURE(sciObj)->value[0] == pUICONTROL_FEATURE(sciObj)->max);
             }
-          else  /* Default Value is 0 */
+            else                /* Default Value is 0 */
             {
-              CallScilabBridge::setRadioButtonChecked(getScilabJavaVM(), 
-                                                      pUICONTROL_FEATURE(sciObj)->hashMapIndex,
-                                                      pUICONTROL_FEATURE(sciObj)->max == 0);
+                CallScilabBridge::setRadioButtonChecked(getScilabJavaVM(),
+                                                        pUICONTROL_FEATURE(sciObj)->hashMapIndex, pUICONTROL_FEATURE(sciObj)->max == 0);
             }
         }
-      return SET_PROPERTY_SUCCEED;
+        return SET_PROPERTY_SUCCEED;
     }
-  else
+    else
     {
-      /* Wrong datatype */
-      Scierror(999, const_cast<char*>(_("Wrong type for '%s' property: A real expected.\n")), "Min");
-      return SET_PROPERTY_ERROR;
+        /* Wrong datatype */
+        Scierror(999, const_cast < char *>(_("Wrong type for '%s' property: A real expected.\n")), "Min");
+
+        return SET_PROPERTY_ERROR;
     }
 
 }
-

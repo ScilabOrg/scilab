@@ -26,14 +26,15 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_font_size_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_font_size_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real expected.\n"), "font_size");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real expected.\n"), "font_size");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetFontSize( pobj, getDoubleFromStack( stackPointer ));
+    return sciSetFontSize(pobj, getDoubleFromStack(stackPointer));
 }
+
 /*------------------------------------------------------------------------*/

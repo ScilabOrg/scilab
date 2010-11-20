@@ -14,8 +14,8 @@
 #include <wchar.h>
 #include <stdio.h>
 #ifdef _MSC_VER
-	#include <Windows.h>
-	#pragma comment(lib, "winmm.lib")
+#include <Windows.h>
+#pragma comment(lib, "winmm.lib")
 #endif
 #include "gw_sound.h"
 #include "stack-c.h"
@@ -25,105 +25,115 @@
 #include "localization.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-static int playsound(wchar_t *wcFilename);
+static int playsound(wchar_t * wcFilename);
+
 /*--------------------------------------------------------------------------*/
 /* private function called by playsnd */
 /*--------------------------------------------------------------------------*/
-int sci_Playsound (char *fname,unsigned long fname_len)
+int sci_Playsound(char *fname, unsigned long fname_len)
 {
-	SciErr sciErr;
-	int *piAddressVarOne = NULL;
-	wchar_t *pStVarOne = NULL;
-	int iType1 = 0;
-	int lenStVarOne = 0;
-	int m1 = 0, n1 = 0;
-	wchar_t *expandedPath = NULL;
+    SciErr sciErr;
+    int *piAddressVarOne = NULL;
+    wchar_t *pStVarOne = NULL;
+    int iType1 = 0;
+    int lenStVarOne = 0;
+    int m1 = 0, n1 = 0;
+    wchar_t *expandedPath = NULL;
 
-	CheckRhs(1,1);
-	CheckLhs(0,1);
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getVarType(pvApiCtx, piAddressVarOne, &iType1);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	if (iType1 != sci_strings )
-	{
-		Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"),fname,1);
-		return 0;
-	}
+    if (iType1 != sci_strings)
+    {
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        return 0;
+    }
 
-	if ( (m1 != n1) && (n1 != 1) ) 
-	{
-		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
-		return 0;
-	}
+    if ((m1 != n1) && (n1 != 1))
+    {
+        Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, 1);
+        return 0;
+    }
 
-	sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne,&m1,&n1,&lenStVarOne, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	pStVarOne = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarOne + 1));
-	if (pStVarOne == NULL)
-	{
-		Scierror(999,_("%s: Memory allocation error.\n"),fname);
-		return 0;
-	}
+    pStVarOne = (wchar_t *) MALLOC(sizeof(wchar_t) * (lenStVarOne + 1));
+    if (pStVarOne == NULL)
+    {
+        Scierror(999, _("%s: Memory allocation error.\n"), fname);
+        return 0;
+    }
 
-	sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+    sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 0;
+    }
 
-	expandedPath = expandPathVariableW(pStVarOne);
-	if (pStVarOne) {FREE(pStVarOne); pStVarOne = NULL;}
+    expandedPath = expandPathVariableW(pStVarOne);
+    if (pStVarOne)
+    {
+        FREE(pStVarOne);
+        pStVarOne = NULL;
+    }
 
 #ifdef _MSC_VER
-	{
-		if (expandedPath)
-		{
-			playsound(expandedPath);
-			FREE(expandedPath);
-			expandedPath = NULL;
-		}
-		
-		LhsVar(1) = 0;
-		C2F(putlhsvar)();
-	}
+    {
+        if (expandedPath)
+        {
+            playsound(expandedPath);
+            FREE(expandedPath);
+            expandedPath = NULL;
+        }
+
+        LhsVar(1) = 0;
+        C2F(putlhsvar) ();
+    }
 #else
-	{
-		if (expandedPath) {FREE(expandedPath); expandedPath = NULL;}
-		Scierror(999,_("%s: An error occurred: %s\n"),fname,_("Cannot play file.") );
-	}
+    {
+        if (expandedPath)
+        {
+            FREE(expandedPath);
+            expandedPath = NULL;
+        }
+        Scierror(999, _("%s: An error occurred: %s\n"), fname, _("Cannot play file."));
+    }
 #endif
-	return 0;
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/
-static int playsound(wchar_t *wcFilename)
+static int playsound(wchar_t * wcFilename)
 {
 #ifdef _MSC_VER
-	if (wcFilename)
-	{
-		/* Stop Playing*/
-		PlaySoundW(NULL, NULL, SND_PURGE);
-		PlaySoundW(wcFilename, NULL, SND_ASYNC|SND_FILENAME);
-	}
+    if (wcFilename)
+    {
+        /* Stop Playing */
+        PlaySoundW(NULL, NULL, SND_PURGE);
+        PlaySoundW(wcFilename, NULL, SND_ASYNC | SND_FILENAME);
+    }
 #endif
-	return 0;
+    return 0;
 }
-/*--------------------------------------------------------------------------*/
 
+/*--------------------------------------------------------------------------*/

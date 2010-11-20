@@ -18,25 +18,24 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableFecJoGL::DrawableFecJoGL( DrawableFec * drawer )
-  : DrawableClippedObjectJoGL(drawer)
-{
+    DrawableFecJoGL::DrawableFecJoGL(DrawableFec * drawer):DrawableClippedObjectJoGL(drawer)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFecJoGL::~DrawableFecJoGL( void )
-{
+    DrawableFecJoGL::~DrawableFecJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFec * DrawableFecJoGL::getFecDrawer( void )
-{
-  return dynamic_cast<DrawableFec *>(getDrawer()) ;
-}
+    DrawableFec *DrawableFecJoGL::getFecDrawer(void)
+    {
+        return dynamic_cast < DrawableFec * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFecJavaMapper * DrawableFecJoGL::getFecJavaMapper(void)
-{
-  return dynamic_cast<DrawableFecJavaMapper *>(getJavaMapper());
-}
+    DrawableFecJavaMapper *DrawableFecJoGL::getFecJavaMapper(void)
+    {
+        return dynamic_cast < DrawableFecJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

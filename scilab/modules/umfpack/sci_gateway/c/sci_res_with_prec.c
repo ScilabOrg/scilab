@@ -42,74 +42,76 @@
 #include "Scierror.h"
 #include "localization.h"
 
-int sci_res_with_prec(char* fname, unsigned long l)
+int sci_res_with_prec(char *fname, unsigned long l)
 {
-	int mA, nA, mx, nx, lxr, lxi, itx, mb, nb, lbr, lbi, itb, lrr, lri, itr, ln, lni;
-	int i, one=1, LastNum;
-	SciSparse A;
+    int mA, nA, mx, nx, lxr, lxi, itx, mb, nb, lbr, lbi, itb, lrr, lri, itr, ln, lni;
+    int i, one = 1, LastNum;
+    SciSparse A;
 
-	/* Check numbers of input/output arguments */
-	CheckRhs(3,3);  CheckLhs(1,2);
+    /* Check numbers of input/output arguments */
+    CheckRhs(3, 3);
+    CheckLhs(1, 2);
 
-	/* get A the sparse matrix */ 
-	GetRhsVar(1, SPARSE_MATRIX_DATATYPE, &mA, &nA, &A);
+    /* get A the sparse matrix */
+    GetRhsVar(1, SPARSE_MATRIX_DATATYPE, &mA, &nA, &A);
 
-	/* get x and b */
-	GetRhsCVar(2, MATRIX_OF_DOUBLE_DATATYPE, &itx, &mx, &nx, &lxr, &lxi);
-	GetRhsCVar(3, MATRIX_OF_DOUBLE_DATATYPE, &itb, &mb, &nb, &lbr, &lbi);
- 
-	if ( nx < 1 || nb != nx || mx != nA || mb != mA )
-		{
-			Scierror(999,_("%s: Wrong size for input arguments: Same sizes expected.\n"),fname);
-			return 0;
-		};
+    /* get x and b */
+    GetRhsCVar(2, MATRIX_OF_DOUBLE_DATATYPE, &itx, &mx, &nx, &lxr, &lxi);
+    GetRhsCVar(3, MATRIX_OF_DOUBLE_DATATYPE, &itb, &mb, &nb, &lbr, &lbi);
 
-	if ( A.it == 1  ||  itx == 1  ||  itb == 1 )
-		itr = 1;
-	else
-		itr = 0;
+    if (nx < 1 || nb != nx || mx != nA || mb != mA)
+    {
+        Scierror(999, _("%s: Wrong size for input arguments: Same sizes expected.\n"), fname);
+        return 0;
+    };
 
-	CreateCVar(4, MATRIX_OF_DOUBLE_DATATYPE, &itr, &mb, &nb, &lrr, &lri);
+    if (A.it == 1 || itx == 1 || itb == 1)
+        itr = 1;
+    else
+        itr = 0;
 
-	CreateVar(5, MATRIX_OF_DOUBLE_DATATYPE, &one, &nb, &ln);
-	LastNum = 5;
+    CreateCVar(4, MATRIX_OF_DOUBLE_DATATYPE, &itr, &mb, &nb, &lrr, &lri);
 
-	if ( itr == 0 )
-		for ( i = 0 ; i < nb ; i++ )
-			residu_with_prec(&A, stk(lxr+i*mx), stk(lbr+i*mb), stk(lrr+i*mb), stk(ln+i));
-	else
-		{
-			if ( itx == 0 ) 
-				{
-					CreateVar(LastNum+1, MATRIX_OF_DOUBLE_DATATYPE, &mx, &nx, &lxi);
-					for ( i = 0 ; i < mx*nx ; i++ ) *stk(lxi+i) = 0.0;
-					LastNum++;
-				}
-			if ( itb == 0 ) 
-				{
-					CreateVar(LastNum+1, MATRIX_OF_DOUBLE_DATATYPE, &mb, &nb, &lbi);
-					for ( i = 0 ; i < mb*nb ; i++ ) *stk(lbi+i) = 0.0;
-					LastNum++;
-				}
-			if ( A.it == 0 ) 
-				{
-					CreateVar(LastNum+1, MATRIX_OF_DOUBLE_DATATYPE, &one, &nb, &lni);
-					for ( i = 0 ; i < nb ; i++ )
-						residu_with_prec(&A, stk(lxr+i*mx), stk(lbr+i*mb), stk(lrr+i*mb), stk(ln+i));
-					for ( i = 0 ; i < nb ; i++ )
-						residu_with_prec(&A, stk(lxi+i*mx), stk(lbi+i*mb), stk(lri+i*mb), stk(lni+i));
-					for ( i = 0 ; i < nb ; i++ )
-						*stk(ln+i) = sqrt( *stk(ln+i)**stk(ln+i) +  *stk(lni+i)**stk(lni+i) );
-				}
-			else
-				for ( i = 0 ; i < nb ; i++ )
-					cmplx_residu_with_prec(&A, stk(lxr+i*mx), stk(lxi+i*mx),
-										   stk(lbr+i*mb), stk(lbi+i*mb), 
-										   stk(lrr+i*mb), stk(lri+i*mb), stk(ln+i));
-		}
+    CreateVar(5, MATRIX_OF_DOUBLE_DATATYPE, &one, &nb, &ln);
+    LastNum = 5;
 
-	LhsVar(1) = 4;
-	LhsVar(2) = 5;
-	C2F(putlhsvar)();
-	return 0;
+    if (itr == 0)
+        for (i = 0; i < nb; i++)
+            residu_with_prec(&A, stk(lxr + i * mx), stk(lbr + i * mb), stk(lrr + i * mb), stk(ln + i));
+    else
+    {
+        if (itx == 0)
+        {
+            CreateVar(LastNum + 1, MATRIX_OF_DOUBLE_DATATYPE, &mx, &nx, &lxi);
+            for (i = 0; i < mx * nx; i++)
+                *stk(lxi + i) = 0.0;
+            LastNum++;
+        }
+        if (itb == 0)
+        {
+            CreateVar(LastNum + 1, MATRIX_OF_DOUBLE_DATATYPE, &mb, &nb, &lbi);
+            for (i = 0; i < mb * nb; i++)
+                *stk(lbi + i) = 0.0;
+            LastNum++;
+        }
+        if (A.it == 0)
+        {
+            CreateVar(LastNum + 1, MATRIX_OF_DOUBLE_DATATYPE, &one, &nb, &lni);
+            for (i = 0; i < nb; i++)
+                residu_with_prec(&A, stk(lxr + i * mx), stk(lbr + i * mb), stk(lrr + i * mb), stk(ln + i));
+            for (i = 0; i < nb; i++)
+                residu_with_prec(&A, stk(lxi + i * mx), stk(lbi + i * mb), stk(lri + i * mb), stk(lni + i));
+            for (i = 0; i < nb; i++)
+                *stk(ln + i) = sqrt(*stk(ln + i) ** stk(ln + i) + *stk(lni + i) ** stk(lni + i));
+        }
+        else
+            for (i = 0; i < nb; i++)
+                cmplx_residu_with_prec(&A, stk(lxr + i * mx), stk(lxi + i * mx),
+                                       stk(lbr + i * mb), stk(lbi + i * mb), stk(lrr + i * mb), stk(lri + i * mb), stk(ln + i));
+    }
+
+    LhsVar(1) = 4;
+    LhsVar(2) = 5;
+    C2F(putlhsvar) ();
+    return 0;
 }

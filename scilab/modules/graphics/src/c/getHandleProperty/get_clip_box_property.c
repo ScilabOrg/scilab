@@ -25,24 +25,26 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_clip_box_property( sciPointObj * pobj )
+int get_clip_box_property(sciPointObj * pobj)
 {
-	int clipState = sciGetIsClipping ( pobj );
-  if (clipState > 0)
-  {
-		/* clip state on */
-    return sciReturnRowVector( sciGetClipping( pobj ), 4 ) ;
-  }
-  else if (clipState == 0 || clipState == -1)
-	{
-		/* clip state off or clipgrf */
-    return sciReturnEmptyMatrix() ;
-	}
-	else
-  { 
-		/* error in retriveing clipping */
-		Scierror(999, _("'%s' property does not exist for this handle.\n"),"clip_box");
-		return -1;
-  }
+    int clipState = sciGetIsClipping(pobj);
+
+    if (clipState > 0)
+    {
+        /* clip state on */
+        return sciReturnRowVector(sciGetClipping(pobj), 4);
+    }
+    else if (clipState == 0 || clipState == -1)
+    {
+        /* clip state off or clipgrf */
+        return sciReturnEmptyMatrix();
+    }
+    else
+    {
+        /* error in retriveing clipping */
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "clip_box");
+        return -1;
+    }
 }
+
 /*------------------------------------------------------------------------*/

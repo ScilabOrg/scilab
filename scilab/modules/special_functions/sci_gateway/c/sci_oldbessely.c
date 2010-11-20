@@ -17,9 +17,10 @@
 #include "localization.h"
 #include "sciprint.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intsbessely)(char *id,unsigned long fname_len);
+extern int C2F(intsbessely) (char *id, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int sci_oldbessely(char *fname,unsigned long fname_len)
+int sci_oldbessely(char *fname, unsigned long fname_len)
 {
     if (getWarningMode())
     {
@@ -33,7 +34,8 @@ int sci_oldbessely(char *fname,unsigned long fname_len)
         sciprint(_("This function will be permanently removed in Scilab %s"), "5.3.1");
         sciprint("\n");
     }
-    C2F(intsbessely)(fname,fname_len);
+    C2F(intsbessely) (fname, fname_len);
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

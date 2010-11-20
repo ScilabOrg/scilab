@@ -27,14 +27,15 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_color_map_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_color_map_property(sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
-  if ( !isParameterDoubleMatrix( valueType ) )
-  {
-    Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "color_map");
-    return SET_PROPERTY_ERROR ;
-  }
+    if (!isParameterDoubleMatrix(valueType))
+    {
+        Scierror(999, _("Wrong type for '%s' property: Real matrix expected.\n"), "color_map");
+        return SET_PROPERTY_ERROR;
+    }
 
-  return sciSetColormap( pobj, getDoubleMatrixFromStack( stackPointer), nbRow, nbCol ) ;
+    return sciSetColormap(pobj, getDoubleMatrixFromStack(stackPointer), nbRow, nbCol);
 }
+
 /*------------------------------------------------------------------------*/

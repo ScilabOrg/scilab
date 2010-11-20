@@ -26,32 +26,36 @@ Type *TO;\
 	    l = l+1;}\
 }
 
-
-int C2F(genextrac2)(int *typ,int *mi,int *nj,int *indxi,int *indxj,int *from,int *m,int *to)
+int C2F(genextrac2) (int *typ, int *mi, int *nj, int *indxi, int *indxj, int *from, int *m, int *to)
 {
-  static int i, j, l;
-  --indxi;
-  --indxj;
-  switch (*typ) {
-  case 1:
-    EXTRAC2(integer1);
-    break;
-  case 2:
-    EXTRAC2(integer2);
-    break;
-  case 4:
-    EXTRAC2(int) ;
-    break;
-  case 11:
-    EXTRAC2(unsigned char);
-    break;
-  case 12:
-    EXTRAC2(unsigned short);
-    break;
-  case 14:
-    EXTRAC2(unsigned int);
-    break;
-  }
-  return 0;
-}
+    static int i, j, l;
 
+    --indxi;
+    --indxj;
+    switch (*typ)
+    {
+    case 1:
+        EXTRAC2(integer1);
+        break;
+    case 2:
+        EXTRAC2(integer2);
+        break;
+    case 4:
+        EXTRAC2(int);
+
+        break;
+    case 11:
+        EXTRAC2(unsigned char);
+
+        break;
+    case 12:
+        EXTRAC2(unsigned short);
+
+        break;
+    case 14:
+        EXTRAC2(unsigned int);
+
+        break;
+    }
+    return 0;
+}

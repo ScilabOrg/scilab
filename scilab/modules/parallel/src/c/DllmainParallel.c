@@ -10,13 +10,13 @@
  *
  */
 
-#include <windows.h> 
-/*--------------------------------------------------------------------------*/ 
+#include <windows.h>
+/*--------------------------------------------------------------------------*/
 #pragma comment(lib,"../../../../bin/libintl.lib")
-/*--------------------------------------------------------------------------*/ 
-int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
+/*--------------------------------------------------------------------------*/
+int WINAPI DllMain(HINSTANCE hInstance, DWORD reason, PVOID pvReserved)
 {
-    switch (reason) 
+    switch (reason)
     {
     case DLL_PROCESS_ATTACH:
         break;
@@ -29,5 +29,5 @@ int WINAPI DllMain (HINSTANCE hInstance , DWORD reason, PVOID pvReserved)
     }
     return 1;
 }
-/*--------------------------------------------------------------------------*/ 
 
+/*--------------------------------------------------------------------------*/

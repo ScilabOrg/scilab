@@ -22,30 +22,30 @@ namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject * DrawableFigureFactory::create( void )
-{
-  DrawableFigure * newFig = new ConcreteDrawableFigure( m_pDrawed ) ;
+    DrawableObject *DrawableFigureFactory::create(void)
+    {
+        DrawableFigure *newFig = new ConcreteDrawableFigure(m_pDrawed);
 
-  // create bridge
-  DrawableFigureBridgeFactory imp ;
-  imp.setDrawedFigure( newFig ) ;
+        // create bridge
+        DrawableFigureBridgeFactory imp;
+          imp.setDrawedFigure(newFig);
 
-  newFig->setDrawableImp( imp.create() ) ;
+          newFig->setDrawableImp(imp.create());
 
-  // create synchronizer
-  GraphicSynchronizerFactory fact;
-  newFig->setSynchronizer(fact.createLocalSynchronizer());
+        // create synchronizer
+        GraphicSynchronizerFactory fact;
+          newFig->setSynchronizer(fact.createLocalSynchronizer());
 
-  newFig->createVisualFigure();
+          newFig->createVisualFigure();
 
-  return newFig ;
+          return newFig;
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableFigureFactory::update( void )
-{
-  // nothing for now
-}
+    void DrawableFigureFactory::update(void)
+    {
+        // nothing for now
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

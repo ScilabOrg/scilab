@@ -25,56 +25,53 @@ extern "C"
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-FecFacetDrawerJoGL::FecFacetDrawerJoGL(DrawableFec * fec)
-  : DrawFecStrategy(), DrawableObjectJoGL(fec)
-{
-  setJavaMapper(new FecFacetDrawerJavaMapper());
-}
+    FecFacetDrawerJoGL::FecFacetDrawerJoGL(DrawableFec * fec):DrawFecStrategy(), DrawableObjectJoGL(fec)
+    {
+        setJavaMapper(new FecFacetDrawerJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
-FecFacetDrawerJoGL::~FecFacetDrawerJoGL(void)
-{
+    FecFacetDrawerJoGL::~FecFacetDrawerJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-void FecFacetDrawerJoGL::drawFec(const double xCoords[], const double yCoords[],
-                                 const double values[], int nbNodes,
-  const int firstPoints[], const int secondPoints[],
-  const int thirdPoints[], int nbTriangles)
-{
-  sciPointObj * pFec = getDrawer()->getDrawedObject();
-  sciFec * ppFec = pFEC_FEATURE(pFec);
-  initializeDrawing();
+    void FecFacetDrawerJoGL::drawFec(const double xCoords[], const double yCoords[],
+                                     const double values[], int nbNodes,
+                                     const int firstPoints[], const int secondPoints[], const int thirdPoints[], int nbTriangles)
+    {
+        sciPointObj *pFec = getDrawer()->getDrawedObject();
+        sciFec *ppFec = pFEC_FEATURE(pFec);
 
-  getFacetDrawerJavaMapper()->setFacetParameters(ppFec->zminmax[0], ppFec->zminmax[1],
-                                                 ppFec->colminmax[0], ppFec->colminmax[1],
-                                                 ppFec->colout[0], ppFec->colout[1]);
-  
-  try
-  {
-    getFacetDrawerJavaMapper()->drawFec(xCoords, yCoords, values, nbNodes,
-                                        firstPoints, secondPoints, thirdPoints, nbTriangles);
-  }
-  catch (const std::exception & e)
-  {
-     sciprint(const_cast<char*>(_("%s: No more memory.\n")), "FecFacetDrawerJoGL::drawFec");
-  }
+        initializeDrawing();
 
-  endDrawing();
-}
+        getFacetDrawerJavaMapper()->setFacetParameters(ppFec->zminmax[0], ppFec->zminmax[1],
+                                                       ppFec->colminmax[0], ppFec->colminmax[1], ppFec->colout[0], ppFec->colout[1]);
+
+        try
+        {
+            getFacetDrawerJavaMapper()->drawFec(xCoords, yCoords, values, nbNodes, firstPoints, secondPoints, thirdPoints, nbTriangles);
+        }
+        catch(const std::exception & e)
+        {
+            sciprint(const_cast < char *>(_("%s: No more memory.\n")), "FecFacetDrawerJoGL::drawFec");
+        }
+
+        endDrawing();
+    }
 /*---------------------------------------------------------------------------------*/
-void FecFacetDrawerJoGL::showFec(void)
-{
-  show();
-}
+    void FecFacetDrawerJoGL::showFec(void)
+    {
+        show();
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableFec * FecFacetDrawerJoGL::getFecDrawer(void)
-{
-  return dynamic_cast<DrawableFec *>(getDrawer());
-}
+    DrawableFec *FecFacetDrawerJoGL::getFecDrawer(void)
+    {
+        return dynamic_cast < DrawableFec * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
-FecFacetDrawerJavaMapper * FecFacetDrawerJoGL::getFacetDrawerJavaMapper(void)
-{
-  return dynamic_cast<FecFacetDrawerJavaMapper *>(getJavaMapper());
-}
+    FecFacetDrawerJavaMapper *FecFacetDrawerJoGL::getFacetDrawerJavaMapper(void)
+    {
+        return dynamic_cast < FecFacetDrawerJavaMapper * >(getJavaMapper());
+    }
 /*---------------------------------------------------------------------------------*/
 }

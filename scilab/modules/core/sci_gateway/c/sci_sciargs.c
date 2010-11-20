@@ -15,24 +15,25 @@
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
-int C2F(sci_sciargs)(char *fname,unsigned long fname_len)
+int C2F(sci_sciargs) (char *fname, unsigned long fname_len)
 {
-	char **arguments = NULL;
-	int nb_arguments = 0;
-	
-	int ncol = 0;
-	int nrow = 0;
+    char **arguments = NULL;
+    int nb_arguments = 0;
 
-	arguments = getCommandLineArgs(&nb_arguments);
+    int ncol = 0;
+    int nrow = 0;
 
-	nrow = 1;
-	ncol = nb_arguments;
-	CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &nrow, &ncol,arguments);
-	LhsVar(1)=Rhs+1;
-	C2F(putlhsvar)();
+    arguments = getCommandLineArgs(&nb_arguments);
 
-	freeArrayOfString(arguments,nb_arguments);
+    nrow = 1;
+    ncol = nb_arguments;
+    CreateVarFromPtr(Rhs + 1, MATRIX_OF_STRING_DATATYPE, &nrow, &ncol, arguments);
+    LhsVar(1) = Rhs + 1;
+    C2F(putlhsvar) ();
 
-	return 0;
+    freeArrayOfString(arguments, nb_arguments);
+
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

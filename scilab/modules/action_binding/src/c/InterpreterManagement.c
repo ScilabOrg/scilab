@@ -10,15 +10,16 @@
  *
  */
 
-#include <signal.h> /* for SIGINT */
+#include <signal.h>             /* for SIGINT */
 #include "InterpreterManagement.h"
 #include "storeCommand.h"
 #include "sigbas.h"
 /*--------------------------------------------------------------------------*/
 int putCommandInScilabQueue(char *command)
 {
-  return StoreCommand(command);
+    return StoreCommand(command);
 }
+
 /*--------------------------------------------------------------------------*/
 /*
  * requestScilabExec
@@ -28,13 +29,16 @@ int putCommandInScilabQueue(char *command)
  */
 int requestScilabExec(char *command)
 {
-  return StoreCommandWithFlag(command, 1);
+    return StoreCommandWithFlag(command, 1);
 }
+
 /*--------------------------------------------------------------------------*/
 int interruptScilab(void)
 {
-  int scilabSignal = SIGINT;
-  C2F(sigbas)(&scilabSignal);
-  return 0;
+    int scilabSignal = SIGINT;
+
+    C2F(sigbas) (&scilabSignal);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

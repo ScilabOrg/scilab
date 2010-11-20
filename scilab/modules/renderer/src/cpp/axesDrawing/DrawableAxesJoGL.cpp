@@ -16,20 +16,19 @@
 namespace sciGraphics
 {
 /*---------------------------------------------------------------------------------*/
-DrawableAxesJoGL::DrawableAxesJoGL(DrawableAxes * Axes)
-  : DrawableClippedObjectJoGL(Axes) 
-{
+    DrawableAxesJoGL::DrawableAxesJoGL(DrawableAxes * Axes):DrawableClippedObjectJoGL(Axes)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableAxesJoGL::~DrawableAxesJoGL(void)
-{
+    DrawableAxesJoGL::~DrawableAxesJoGL(void)
+    {
 
-}
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableAxes * DrawableAxesJoGL::getAxesDrawer( void )
-{
-  return dynamic_cast<DrawableAxes *>(getDrawer());
-}
+    DrawableAxes *DrawableAxesJoGL::getAxesDrawer(void)
+    {
+        return dynamic_cast < DrawableAxes * >(getDrawer());
+    }
 /*---------------------------------------------------------------------------------*/
 }

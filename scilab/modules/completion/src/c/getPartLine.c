@@ -19,132 +19,142 @@
 /*--------------------------------------------------------------------------*/
 char *getPartLevel(char *line)
 {
-	#define MAX_SYMBS 28
-	const char symbs[MAX_SYMBS] = "+-*/\\([ ^,;={.&|\'])}:\"\'><~@\t";
-	int index = -1;
-	int i = 0;
+#define MAX_SYMBS 28
+    const char symbs[MAX_SYMBS] = "+-*/\\([ ^,;={.&|\'])}:\"\'><~@\t";
+    int index = -1;
+    int i = 0;
 
-	for (i = 0; i < MAX_SYMBS; i++) 
-	{
-		int len = 0;
-		char *pch = strrchr(line, symbs[i]);
-		if (pch) 
-		{
-			len = (int) (strlen(line) - strlen(pch));
-			index = Max(index, len);
-		}
-	}
+    for (i = 0; i < MAX_SYMBS; i++)
+    {
+        int len = 0;
+        char *pch = strrchr(line, symbs[i]);
 
-	return strdup(&line[index + 1]);
+        if (pch)
+        {
+            len = (int)(strlen(line) - strlen(pch));
+            index = Max(index, len);
+        }
+    }
+
+    return strdup(&line[index + 1]);
 }
+
 /*--------------------------------------------------------------------------*/
 char *getFilePartLevel(char *line)
 {
-	#define MAX_SYMBS_F 2
-	char symbs[MAX_SYMBS_F] = ";,";
-	char *linebis = NULL;
-	int index = -1;
-	int i = 0;
-	int len = (int) strlen(line);
-	int indexspace = -1;
-	int indexquote = -1;
-	int indexdquote = -1;
-	char *pch = NULL;
+#define MAX_SYMBS_F 2
+    char symbs[MAX_SYMBS_F] = ";,";
+    char *linebis = NULL;
+    int index = -1;
+    int i = 0;
+    int len = (int)strlen(line);
+    int indexspace = -1;
+    int indexquote = -1;
+    int indexdquote = -1;
+    char *pch = NULL;
 
-	for (i = 0; i < MAX_SYMBS_F; i++) 
-	{
-		int len = 0;
-		pch = strrchr(line, symbs[i]);
-		if (pch) 
-		{
-			len = (int) (strlen(line) - strlen(pch));
-			index = Max(index, len);
-		}
-	}
+    for (i = 0; i < MAX_SYMBS_F; i++)
+    {
+        int len = 0;
 
-	index++;
+        pch = strrchr(line, symbs[i]);
+        if (pch)
+        {
+            len = (int)(strlen(line) - strlen(pch));
+            index = Max(index, len);
+        }
+    }
 
-	if (index != 0) 
-	{
-		while (line[index] == ' ')
-		{
-			index++;
-			if (index >= len) return NULL;
-		}
-	}
-	/* Search the beginning of the path or file name */
-	/* cd toto */
-	/* cd("toto */
-	linebis = &line[index];
-	index = (int) strlen(linebis);
+    index++;
 
-	/* Searching for the beginning of a white space */
-	pch = strchr(linebis,' ');
-	if (pch)
-	{
-		indexspace = (int) ( strlen(linebis) - strlen(pch) );
-	}
-	else indexspace = -1;
+    if (index != 0)
+    {
+        while (line[index] == ' ')
+        {
+            index++;
+            if (index >= len)
+                return NULL;
+        }
+    }
+    /* Search the beginning of the path or file name */
+    /* cd toto */
+    /* cd("toto */
+    linebis = &line[index];
+    index = (int)strlen(linebis);
 
-	if (indexspace != -1) 
-	{
-		len = (int) strlen(linebis);
-		/* In case of more than 1 blanks, have to skip all but the last one */
-		while(linebis[indexspace] == ' ')
-		{
-			indexspace++;
-			if ( indexspace >= len ) return NULL;
-		}
+    /* Searching for the beginning of a white space */
+    pch = strchr(linebis, ' ');
+    if (pch)
+    {
+        indexspace = (int)(strlen(linebis) - strlen(pch));
+    }
+    else
+        indexspace = -1;
 
-		/* Decrease index because last value read was not a ' ' */
-		indexspace--;
-		index = Min(index, indexspace);
-	}
-	/* Searching for the beginning of a character string */
-	pch = strchr(linebis,'\'');
-	if (pch)
-	{
-		indexquote = (int) ( strlen(linebis) - strlen(pch) );
-	}
-	else indexquote = -1;
+    if (indexspace != -1)
+    {
+        len = (int)strlen(linebis);
+        /* In case of more than 1 blanks, have to skip all but the last one */
+        while (linebis[indexspace] == ' ')
+        {
+            indexspace++;
+            if (indexspace >= len)
+                return NULL;
+        }
 
-	if (indexquote != -1) 
-	{
-		index = Min(index, indexquote);
-	}
+        /* Decrease index because last value read was not a ' ' */
+        indexspace--;
+        index = Min(index, indexspace);
+    }
+    /* Searching for the beginning of a character string */
+    pch = strchr(linebis, '\'');
+    if (pch)
+    {
+        indexquote = (int)(strlen(linebis) - strlen(pch));
+    }
+    else
+        indexquote = -1;
 
-	/* Searching for the beginning of a character string */
-	pch = strchr(linebis,'\"');
-	if (pch)
-	{
-		indexdquote = (int) ( strlen(linebis) - strlen(pch) );
-	}
-	else indexdquote = -1;
+    if (indexquote != -1)
+    {
+        index = Min(index, indexquote);
+    }
 
-	if (indexdquote != -1) 
-	{
-		index = Min(index, indexdquote);
-	}
+    /* Searching for the beginning of a character string */
+    pch = strchr(linebis, '\"');
+    if (pch)
+    {
+        indexdquote = (int)(strlen(linebis) - strlen(pch));
+    }
+    else
+        indexdquote = -1;
 
-	/* If index found in not the end of the line, add 1 to get substring beginning at the next char */
-	len = (int) strlen(linebis);
-	if (index < len)
-	{
-		index++;
-	}
+    if (indexdquote != -1)
+    {
+        index = Min(index, indexdquote);
+    }
 
-	/* bug 5105 */
-	/* cd "toto */
-	if ( (linebis[index] == '\"') || (linebis[index] == '\''))
-	{
-		if (index < len)
-		{
-			index++;
-		}
-	}
+    /* If index found in not the end of the line, add 1 to get substring beginning at the next char */
+    len = (int)strlen(linebis);
+    if (index < len)
+    {
+        index++;
+    }
 
-	if ( (index <= 0) || (linebis[index] == '\0') ) return NULL;
+    /* bug 5105 */
+    /* cd "toto */
+    if ((linebis[index] == '\"') || (linebis[index] == '\''))
+    {
+        if (index < len)
+        {
+            index++;
+        }
+    }
 
-	return strdup(&linebis[index]);
+    if ((index <= 0) || (linebis[index] == '\0'))
+        return NULL;
+
+    return strdup(&linebis[index]);
 }
+
 /*--------------------------------------------------------------------------*/

@@ -39,1098 +39,1292 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-namespace org_scilab_modules_gui_filechooser {
+namespace org_scilab_modules_gui_filechooser
+{
 
 // Returns the current env
 
-JNIEnv * Juigetfile::getCurrentEnv() {
-JNIEnv * curEnv = NULL;
-jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
-}
-return curEnv;
-}
+    JNIEnv *Juigetfile::getCurrentEnv()
+    {
+        JNIEnv *curEnv = NULL;
+        jint res = this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        if (res != JNI_OK)
+        {
+            throw GiwsException::JniException(getCurrentEnv());
+        }
+        return curEnv;
+    }
 // Destructor
 
-Juigetfile::~Juigetfile() {
-JNIEnv * curEnv = NULL;
-this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    Juigetfile::~Juigetfile()
+    {
+        JNIEnv *curEnv = NULL;
 
-curEnv->DeleteGlobalRef(this->instance);
-curEnv->DeleteGlobalRef(this->instanceClass);
-curEnv->DeleteGlobalRef(this->stringArrayClass);}
+        this->jvm->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+
+        curEnv->DeleteGlobalRef(this->instance);
+        curEnv->DeleteGlobalRef(this->instanceClass);
+        curEnv->DeleteGlobalRef(this->stringArrayClass);
+    }
 // Constructors
-Juigetfile::Juigetfile(JavaVM * jvm_) {
-jmethodID constructObject = NULL ;
-jobject localInstance ;
-jclass localClass ;
-const std::string construct="<init>";
-const std::string param="()V";
-jvm=jvm_;
+    Juigetfile::Juigetfile(JavaVM * jvm_)
+    {
+        jmethodID constructObject = NULL;
+        jobject localInstance;
+        jclass localClass;
+        const std::string construct = "<init>";
+        const std::string param = "()V";
 
-JNIEnv * curEnv = getCurrentEnv();
+        jvm = jvm_;
 
-localClass = curEnv->FindClass( this->className().c_str() ) ;
-if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
-}
+        JNIEnv *curEnv = getCurrentEnv();
 
-this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
+        localClass = curEnv->FindClass(this->className().c_str());
+        if (localClass == NULL)
+        {
+            throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+        }
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
 
 /* localClass is not needed anymore */
-curEnv->DeleteLocalRef(localClass);
-
-if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-
-constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
-if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-
-localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
-if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
- 
-this->instance = curEnv->NewGlobalRef(localInstance) ;
-if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
-}
-/* localInstance not needed anymore */
-curEnv->DeleteLocalRef(localInstance);
-
-                /* Methods ID set to NULL */
-voiduigetfileID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_ID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringjstringID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID=NULL; 
-voiduiputfileID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_ID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringjstringID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID=NULL; 
-jstringgetTitleBoxID=NULL; 
-jobjectArray_getMaskID=NULL; 
-jobjectArray_getMaskDescriptionID=NULL; 
-jstringgetInitialDirectoryID=NULL; 
-jintgetSelectionSizeID=NULL; 
-jobjectArray_getSelectionID=NULL; 
-jobjectArray_getSelectionFileNamesID=NULL; 
-jbooleanisMultipleSelectionID=NULL; 
-jstringgetSelectionPathNameID=NULL; 
-jintgetFilterIndexID=NULL; 
-jstringgetMenuCallbackID=NULL; 
-voiduigetdirID=NULL; 
-voiduigetdirjstringID=NULL; 
-voiduigetdirjstringjstringID=NULL; 
-
-
-}
-
-Juigetfile::Juigetfile(JavaVM * jvm_, jobject JObj) {
-        jvm=jvm_;
-
-        JNIEnv * curEnv = getCurrentEnv();
-
-jclass localClass = curEnv->GetObjectClass(JObj);
-        this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
         curEnv->DeleteLocalRef(localClass);
 
-        if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
 
-        this->instance = curEnv->NewGlobalRef(JObj) ;
-        if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        constructObject = curEnv->GetMethodID(this->instanceClass, construct.c_str(), param.c_str());
+        if (constructObject == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        localInstance = curEnv->NewObject(this->instanceClass, constructObject);
+        if (localInstance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(localInstance);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+/* localInstance not needed anymore */
+        curEnv->DeleteLocalRef(localInstance);
+
+        /* Methods ID set to NULL */
+        voiduigetfileID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_ID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringjstringID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID = NULL;
+        voiduiputfileID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_ID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringjstringID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID = NULL;
+        jstringgetTitleBoxID = NULL;
+        jobjectArray_getMaskID = NULL;
+        jobjectArray_getMaskDescriptionID = NULL;
+        jstringgetInitialDirectoryID = NULL;
+        jintgetSelectionSizeID = NULL;
+        jobjectArray_getSelectionID = NULL;
+        jobjectArray_getSelectionFileNamesID = NULL;
+        jbooleanisMultipleSelectionID = NULL;
+        jstringgetSelectionPathNameID = NULL;
+        jintgetFilterIndexID = NULL;
+        jstringgetMenuCallbackID = NULL;
+        voiduigetdirID = NULL;
+        voiduigetdirjstringID = NULL;
+        voiduigetdirjstringjstringID = NULL;
+
+    }
+
+    Juigetfile::Juigetfile(JavaVM * jvm_, jobject JObj)
+    {
+        jvm = jvm_;
+
+        JNIEnv *curEnv = getCurrentEnv();
+
+        jclass localClass = curEnv->GetObjectClass(JObj);
+
+        this->instanceClass = static_cast < jclass > (curEnv->NewGlobalRef(localClass));
+        curEnv->DeleteLocalRef(localClass);
+
+        if (this->instanceClass == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
+        }
+
+        this->instance = curEnv->NewGlobalRef(JObj);
+        if (this->instance == NULL)
+        {
+            throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        voiduigetfileID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_ID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringjstringID=NULL; 
-voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID=NULL; 
-voiduiputfileID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_ID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringjstringID=NULL; 
-voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID=NULL; 
-jstringgetTitleBoxID=NULL; 
-jobjectArray_getMaskID=NULL; 
-jobjectArray_getMaskDescriptionID=NULL; 
-jstringgetInitialDirectoryID=NULL; 
-jintgetSelectionSizeID=NULL; 
-jobjectArray_getSelectionID=NULL; 
-jobjectArray_getSelectionFileNamesID=NULL; 
-jbooleanisMultipleSelectionID=NULL; 
-jstringgetSelectionPathNameID=NULL; 
-jintgetFilterIndexID=NULL; 
-jstringgetMenuCallbackID=NULL; 
-voiduigetdirID=NULL; 
-voiduigetdirjstringID=NULL; 
-voiduigetdirjstringjstringID=NULL; 
+        voiduigetfileID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_ID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringjstringID = NULL;
+        voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID = NULL;
+        voiduiputfileID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_ID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringjstringID = NULL;
+        voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID = NULL;
+        jstringgetTitleBoxID = NULL;
+        jobjectArray_getMaskID = NULL;
+        jobjectArray_getMaskDescriptionID = NULL;
+        jstringgetInitialDirectoryID = NULL;
+        jintgetSelectionSizeID = NULL;
+        jobjectArray_getSelectionID = NULL;
+        jobjectArray_getSelectionFileNamesID = NULL;
+        jbooleanisMultipleSelectionID = NULL;
+        jstringgetSelectionPathNameID = NULL;
+        jintgetFilterIndexID = NULL;
+        jstringgetMenuCallbackID = NULL;
+        voiduigetdirID = NULL;
+        voiduigetdirjstringID = NULL;
+        voiduigetdirjstringjstringID = NULL;
 
-
-}
+    }
 
 // Generic methods
 
-void Juigetfile::synchronize() {
-if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "Juigetfile");
-}
-}
+    void Juigetfile::synchronize()
+    {
+        if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "Juigetfile");
+        }
+    }
 
-void Juigetfile::endSynchronize() {
-if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "Juigetfile");
-}
-}
+    void Juigetfile::endSynchronize()
+    {
+        if (getCurrentEnv()->MonitorExit(instance) != JNI_OK)
+        {
+            throw GiwsException::JniMonitorException(getCurrentEnv(), "Juigetfile");
+        }
+    }
 // Method(s)
 
-void Juigetfile::uigetfile (JavaVM * jvm_){
+    void Juigetfile::uigetfile(JavaVM * jvm_)
+    {
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-jmethodID voiduigetfileID = curEnv->GetStaticMethodID(cls, "uigetfile", "()V" ) ;
-if (voiduigetfileID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
-}
+        jmethodID voiduigetfileID = curEnv->GetStaticMethodID(cls, "uigetfile", "()V");
 
-                         curEnv->CallStaticVoidMethod(cls, voiduigetfileID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+        if (voiduigetfileID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
+        }
 
-void Juigetfile::uigetfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize){
+        curEnv->CallStaticVoidMethod(cls, voiduigetfileID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
+    void Juigetfile::uigetfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize)
+    {
 
-jmethodID voiduigetfilejobjectArray_jobjectArray_ID = curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;)V" ) ;
-if (voiduigetfilejobjectArray_jobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
 
-// create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
-// convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
-curEnv->SetObjectArrayElement( mask_, i, TempString);
-
-// avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+        jmethodID voiduigetfilejobjectArray_jobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;)V");
+        if (voiduigetfilejobjectArray_jobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_ID ,mask_, description_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uigetfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetfilejobjectArray_jobjectArray_jstringID = curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voiduigetfilejobjectArray_jobjectArray_jstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_ID, mask_, description_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uigetfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetfilejobjectArray_jobjectArray_jstringID =
+            curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V");
+        if (voiduigetfilejobjectArray_jobjectArray_jstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringID ,mask_, description_, initialDirectory_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uigetfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory, char * boxtTitle){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetfilejobjectArray_jobjectArray_jstringjstringID = curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voiduigetfilejobjectArray_jobjectArray_jstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringID, mask_, description_, initialDirectory_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uigetfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory,
+                               char *boxtTitle)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetfilejobjectArray_jobjectArray_jstringjstringID =
+            curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+        if (voiduigetfilejobjectArray_jobjectArray_jstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-jstring boxtTitle_ = curEnv->NewStringUTF( boxtTitle );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringjstringID ,mask_, description_, initialDirectory_, boxtTitle_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uigetfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory, char * boxtTitle, bool multipleSelection){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID = curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V" ) ;
-if (voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        jstring boxtTitle_ = curEnv->NewStringUTF(boxtTitle);
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringjstringID, mask_, description_, initialDirectory_,
+                                     boxtTitle_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uigetfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory,
+                               char *boxtTitle, bool multipleSelection)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID =
+            curEnv->GetStaticMethodID(cls, "uigetfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
+        if (voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-jstring boxtTitle_ = curEnv->NewStringUTF( boxtTitle );
-
-jboolean multipleSelection_ = (static_cast<bool>(multipleSelection) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID ,mask_, description_, initialDirectory_, boxtTitle_, multipleSelection_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uiputfile (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduiputfileID = curEnv->GetStaticMethodID(cls, "uiputfile", "()V" ) ;
-if (voiduiputfileID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voiduiputfileID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uiputfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduiputfilejobjectArray_jobjectArray_ID = curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;)V" ) ;
-if (voiduiputfilejobjectArray_jobjectArray_ID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        jstring boxtTitle_ = curEnv->NewStringUTF(boxtTitle);
+
+        jboolean multipleSelection_ = (static_cast < bool > (multipleSelection) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetfilejobjectArray_jobjectArray_jstringjstringjbooleanID, mask_, description_, initialDirectory_,
+                                     boxtTitle_, multipleSelection_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uiputfile(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduiputfileID = curEnv->GetStaticMethodID(cls, "uiputfile", "()V");
+
+        if (voiduiputfileID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voiduiputfileID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uiputfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduiputfilejobjectArray_jobjectArray_ID =
+            curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;)V");
+        if (voiduiputfilejobjectArray_jobjectArray_ID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-                         curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_ID ,mask_, description_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uiputfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduiputfilejobjectArray_jobjectArray_jstringID = curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voiduiputfilejobjectArray_jobjectArray_jstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_ID, mask_, description_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uiputfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduiputfilejobjectArray_jobjectArray_jstringID =
+            curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)V");
+        if (voiduiputfilejobjectArray_jobjectArray_jstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringID ,mask_, description_, initialDirectory_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uiputfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory, char * boxtTitle){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduiputfilejobjectArray_jobjectArray_jstringjstringID = curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voiduiputfilejobjectArray_jobjectArray_jstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringID, mask_, description_, initialDirectory_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uiputfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory,
+                               char *boxtTitle)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduiputfilejobjectArray_jobjectArray_jstringjstringID =
+            curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+        if (voiduiputfilejobjectArray_jobjectArray_jstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-jstring boxtTitle_ = curEnv->NewStringUTF( boxtTitle );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringjstringID ,mask_, description_, initialDirectory_, boxtTitle_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uiputfile (JavaVM * jvm_, char ** mask, int maskSize, char ** description, int descriptionSize, char * initialDirectory, char * boxtTitle, bool multipleSelection){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID = curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V" ) ;
-if (voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
-}
-jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+            curEnv->DeleteLocalRef(TempString);
+        }
 
 // create java array of strings.
-jobjectArray mask_ = curEnv->NewObjectArray( maskSize, stringArrayClass, NULL);
-if (mask_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < maskSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( mask[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
 
-curEnv->SetObjectArrayElement( mask_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        jstring boxtTitle_ = curEnv->NewStringUTF(boxtTitle);
+
+        curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringjstringID, mask_, description_, initialDirectory_,
+                                     boxtTitle_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uiputfile(JavaVM * jvm_, char **mask, int maskSize, char **description, int descriptionSize, char *initialDirectory,
+                               char *boxtTitle, bool multipleSelection)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID =
+            curEnv->GetStaticMethodID(cls, "uiputfile", "([Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
+        if (voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uiputfile");
+        }
+        jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 
 // create java array of strings.
-jobjectArray description_ = curEnv->NewObjectArray( descriptionSize, stringArrayClass, NULL);
-if (description_ == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        jobjectArray mask_ = curEnv->NewObjectArray(maskSize, stringArrayClass, NULL);
+
+        if (mask_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
 
 // convert each char * to java strings and fill the java array.
-for ( int i = 0; i < descriptionSize; i++)
-{
-jstring TempString = curEnv->NewStringUTF( description[i] );
-if (TempString == NULL)
-{
-throw GiwsException::JniBadAllocException(curEnv);
-}
+        for (int i = 0; i < maskSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(mask[i]);
 
-curEnv->SetObjectArrayElement( description_, i, TempString);
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(mask_, i, TempString);
 
 // avoid keeping reference on to many strings
-curEnv->DeleteLocalRef(TempString);
-}
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-jstring boxtTitle_ = curEnv->NewStringUTF( boxtTitle );
-
-jboolean multipleSelection_ = (static_cast<bool>(multipleSelection) ? JNI_TRUE : JNI_FALSE);
-
-                         curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID ,mask_, description_, initialDirectory_, boxtTitle_, multipleSelection_);
-                        curEnv->DeleteLocalRef(stringArrayClass);
-curEnv->DeleteLocalRef(mask_);
-curEnv->DeleteLocalRef(description_);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-char * Juigetfile::getTitleBox (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetTitleBoxID = curEnv->GetStaticMethodID(cls, "getTitleBox", "()Ljava/lang/String;" ) ;
-if (jstringgetTitleBoxID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getTitleBox");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetTitleBoxID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-char ** Juigetfile::getMask (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jobjectArray_getMaskID = curEnv->GetStaticMethodID(cls, "getMask", "()[Ljava/lang/String;" ) ;
-if (jobjectArray_getMaskID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMask");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getMaskID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-char ** Juigetfile::getMaskDescription (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jobjectArray_getMaskDescriptionID = curEnv->GetStaticMethodID(cls, "getMaskDescription", "()[Ljava/lang/String;" ) ;
-if (jobjectArray_getMaskDescriptionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMaskDescription");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getMaskDescriptionID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-char * Juigetfile::getInitialDirectory (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetInitialDirectoryID = curEnv->GetStaticMethodID(cls, "getInitialDirectory", "()Ljava/lang/String;" ) ;
-if (jstringgetInitialDirectoryID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getInitialDirectory");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetInitialDirectoryID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-int Juigetfile::getSelectionSize (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetSelectionSizeID = curEnv->GetStaticMethodID(cls, "getSelectionSize", "()I" ) ;
-if (jintgetSelectionSizeID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionSize");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetSelectionSizeID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-char ** Juigetfile::getSelection (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jobjectArray_getSelectionID = curEnv->GetStaticMethodID(cls, "getSelection", "()[Ljava/lang/String;" ) ;
-if (jobjectArray_getSelectionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getSelection");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getSelectionID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-char ** Juigetfile::getSelectionFileNames (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jobjectArray_getSelectionFileNamesID = curEnv->GetStaticMethodID(cls, "getSelectionFileNames", "()[Ljava/lang/String;" ) ;
-if (jobjectArray_getSelectionFileNamesID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionFileNames");
-}
-
-                        jobjectArray res =  static_cast<jobjectArray>( curEnv->CallStaticObjectMethod(cls, jobjectArray_getSelectionFileNamesID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-
-char **arrayOfString;
-arrayOfString = new char *[lenRow];
-for (jsize i = 0; i < lenRow; i++){
-jstring resString = reinterpret_cast<jstring>(curEnv->GetObjectArrayElement(res, i));
-const char *tempString = curEnv->GetStringUTFChars(resString, 0);
-arrayOfString[i] = new char[strlen(tempString) + 1];
-
-strcpy(arrayOfString[i], tempString);
-curEnv->ReleaseStringUTFChars(resString, tempString);
-curEnv->DeleteLocalRef(resString);
-}
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-curEnv->DeleteLocalRef(res);
-return arrayOfString;
-
-}
-
-bool Juigetfile::isMultipleSelection (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jbooleanisMultipleSelectionID = curEnv->GetStaticMethodID(cls, "isMultipleSelection", "()Z" ) ;
-if (jbooleanisMultipleSelectionID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "isMultipleSelection");
-}
-
-                        jboolean res =  static_cast<jboolean>( curEnv->CallStaticBooleanMethod(cls, jbooleanisMultipleSelectionID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return (res == JNI_TRUE);
-
-}
-
-char * Juigetfile::getSelectionPathName (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetSelectionPathNameID = curEnv->GetStaticMethodID(cls, "getSelectionPathName", "()Ljava/lang/String;" ) ;
-if (jstringgetSelectionPathNameID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionPathName");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetSelectionPathNameID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-int Juigetfile::getFilterIndex (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jintgetFilterIndexID = curEnv->GetStaticMethodID(cls, "getFilterIndex", "()I" ) ;
-if (jintgetFilterIndexID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getFilterIndex");
-}
-
-                        jint res =  static_cast<jint>( curEnv->CallStaticIntMethod(cls, jintgetFilterIndexID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return res;
-
-}
-
-char * Juigetfile::getMenuCallback (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID jstringgetMenuCallbackID = curEnv->GetStaticMethodID(cls, "getMenuCallback", "()Ljava/lang/String;" ) ;
-if (jstringgetMenuCallbackID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "getMenuCallback");
-}
-
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringgetMenuCallbackID ));
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-
-const char *tempString = curEnv->GetStringUTFChars(res, 0);
-char * myStringBuffer = new char[strlen(tempString) + 1];
-strcpy(myStringBuffer, tempString);
-curEnv->ReleaseStringUTFChars(res, tempString);
-curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myStringBuffer;
-
-}
-
-void Juigetfile::uigetdir (JavaVM * jvm_){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetdirID = curEnv->GetStaticMethodID(cls, "uigetdir", "()V" ) ;
-if (voiduigetdirID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
-}
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetdirID );
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uigetdir (JavaVM * jvm_, char * initialDirectory){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetdirjstringID = curEnv->GetStaticMethodID(cls, "uigetdir", "(Ljava/lang/String;)V" ) ;
-if (voiduigetdirjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
-}
-
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetdirjstringID ,initialDirectory_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
-
-void Juigetfile::uigetdir (JavaVM * jvm_, char * initialDirectory, char * title){
-
-JNIEnv * curEnv = NULL;
-jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
-jclass cls = curEnv->FindClass( className().c_str() );
-
-jmethodID voiduigetdirjstringjstringID = curEnv->GetStaticMethodID(cls, "uigetdir", "(Ljava/lang/String;Ljava/lang/String;)V" ) ;
-if (voiduigetdirjstringjstringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
-}
-
-jstring initialDirectory_ = curEnv->NewStringUTF( initialDirectory );
-
-jstring title_ = curEnv->NewStringUTF( title );
-
-                         curEnv->CallStaticVoidMethod(cls, voiduigetdirjstringjstringID ,initialDirectory_, title_);
-                        if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-}
+            curEnv->DeleteLocalRef(TempString);
+        }
+
+// create java array of strings.
+        jobjectArray description_ = curEnv->NewObjectArray(descriptionSize, stringArrayClass, NULL);
+
+        if (description_ == NULL)
+        {
+            throw GiwsException::JniBadAllocException(curEnv);
+        }
+
+// convert each char * to java strings and fill the java array.
+        for (int i = 0; i < descriptionSize; i++)
+        {
+            jstring TempString = curEnv->NewStringUTF(description[i]);
+
+            if (TempString == NULL)
+            {
+                throw GiwsException::JniBadAllocException(curEnv);
+            }
+
+            curEnv->SetObjectArrayElement(description_, i, TempString);
+
+// avoid keeping reference on to many strings
+            curEnv->DeleteLocalRef(TempString);
+        }
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        jstring boxtTitle_ = curEnv->NewStringUTF(boxtTitle);
+
+        jboolean multipleSelection_ = (static_cast < bool > (multipleSelection) ? JNI_TRUE : JNI_FALSE);
+
+        curEnv->CallStaticVoidMethod(cls, voiduiputfilejobjectArray_jobjectArray_jstringjstringjbooleanID, mask_, description_, initialDirectory_,
+                                     boxtTitle_, multipleSelection_);
+        curEnv->DeleteLocalRef(stringArrayClass);
+        curEnv->DeleteLocalRef(mask_);
+        curEnv->DeleteLocalRef(description_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    char *Juigetfile::getTitleBox(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetTitleBoxID = curEnv->GetStaticMethodID(cls, "getTitleBox", "()Ljava/lang/String;");
+
+        if (jstringgetTitleBoxID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getTitleBox");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetTitleBoxID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    char **Juigetfile::getMask(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jobjectArray_getMaskID = curEnv->GetStaticMethodID(cls, "getMask", "()[Ljava/lang/String;");
+
+        if (jobjectArray_getMaskID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMask");
+        }
+
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getMaskID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    char **Juigetfile::getMaskDescription(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jobjectArray_getMaskDescriptionID = curEnv->GetStaticMethodID(cls, "getMaskDescription", "()[Ljava/lang/String;");
+
+        if (jobjectArray_getMaskDescriptionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMaskDescription");
+        }
+
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getMaskDescriptionID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    char *Juigetfile::getInitialDirectory(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetInitialDirectoryID = curEnv->GetStaticMethodID(cls, "getInitialDirectory", "()Ljava/lang/String;");
+
+        if (jstringgetInitialDirectoryID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getInitialDirectory");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetInitialDirectoryID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    int Juigetfile::getSelectionSize(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetSelectionSizeID = curEnv->GetStaticMethodID(cls, "getSelectionSize", "()I");
+
+        if (jintgetSelectionSizeID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionSize");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetSelectionSizeID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    char **Juigetfile::getSelection(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jobjectArray_getSelectionID = curEnv->GetStaticMethodID(cls, "getSelection", "()[Ljava/lang/String;");
+
+        if (jobjectArray_getSelectionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getSelection");
+        }
+
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getSelectionID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    char **Juigetfile::getSelectionFileNames(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jobjectArray_getSelectionFileNamesID = curEnv->GetStaticMethodID(cls, "getSelectionFileNames", "()[Ljava/lang/String;");
+
+        if (jobjectArray_getSelectionFileNamesID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionFileNames");
+        }
+
+        jobjectArray res = static_cast < jobjectArray > (curEnv->CallStaticObjectMethod(cls, jobjectArray_getSelectionFileNamesID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        int lenRow;
+
+        lenRow = curEnv->GetArrayLength(res);
+
+        char **arrayOfString;
+        arrayOfString = new char *[lenRow];
+
+        for (jsize i = 0; i < lenRow; i++)
+        {
+            jstring resString = reinterpret_cast < jstring > (curEnv->GetObjectArrayElement(res, i));
+            const char *tempString = curEnv->GetStringUTFChars(resString, 0);
+            arrayOfString[i] = new char[strlen(tempString) + 1];
+
+            strcpy(arrayOfString[i], tempString);
+            curEnv->ReleaseStringUTFChars(resString, tempString);
+            curEnv->DeleteLocalRef(resString);
+        }
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        curEnv->DeleteLocalRef(res);
+        return arrayOfString;
+
+    }
+
+    bool Juigetfile::isMultipleSelection(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jbooleanisMultipleSelectionID = curEnv->GetStaticMethodID(cls, "isMultipleSelection", "()Z");
+
+        if (jbooleanisMultipleSelectionID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "isMultipleSelection");
+        }
+
+        jboolean res = static_cast < jboolean > (curEnv->CallStaticBooleanMethod(cls, jbooleanisMultipleSelectionID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return (res == JNI_TRUE);
+
+    }
+
+    char *Juigetfile::getSelectionPathName(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetSelectionPathNameID = curEnv->GetStaticMethodID(cls, "getSelectionPathName", "()Ljava/lang/String;");
+
+        if (jstringgetSelectionPathNameID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getSelectionPathName");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetSelectionPathNameID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    int Juigetfile::getFilterIndex(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jintgetFilterIndexID = curEnv->GetStaticMethodID(cls, "getFilterIndex", "()I");
+
+        if (jintgetFilterIndexID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getFilterIndex");
+        }
+
+        jint res = static_cast < jint > (curEnv->CallStaticIntMethod(cls, jintgetFilterIndexID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return res;
+
+    }
+
+    char *Juigetfile::getMenuCallback(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID jstringgetMenuCallbackID = curEnv->GetStaticMethodID(cls, "getMenuCallback", "()Ljava/lang/String;");
+
+        if (jstringgetMenuCallbackID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "getMenuCallback");
+        }
+
+        jstring res = static_cast < jstring > (curEnv->CallStaticObjectMethod(cls, jstringgetMenuCallbackID));
+
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+
+        const char *tempString = curEnv->GetStringUTFChars(res, 0);
+        char *myStringBuffer = new char[strlen(tempString) + 1];
+
+        strcpy(myStringBuffer, tempString);
+        curEnv->ReleaseStringUTFChars(res, tempString);
+        curEnv->DeleteLocalRef(res);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+        return myStringBuffer;
+
+    }
+
+    void Juigetfile::uigetdir(JavaVM * jvm_)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetdirID = curEnv->GetStaticMethodID(cls, "uigetdir", "()V");
+
+        if (voiduigetdirID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
+        }
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetdirID);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uigetdir(JavaVM * jvm_, char *initialDirectory)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetdirjstringID = curEnv->GetStaticMethodID(cls, "uigetdir", "(Ljava/lang/String;)V");
+
+        if (voiduigetdirjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
+        }
+
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetdirjstringID, initialDirectory_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
+
+    void Juigetfile::uigetdir(JavaVM * jvm_, char *initialDirectory, char *title)
+    {
+
+        JNIEnv *curEnv = NULL;
+        jvm_->AttachCurrentThread(reinterpret_cast < void **>(&curEnv), NULL);
+        jclass cls = curEnv->FindClass(className().c_str());
+
+        jmethodID voiduigetdirjstringjstringID = curEnv->GetStaticMethodID(cls, "uigetdir", "(Ljava/lang/String;Ljava/lang/String;)V");
+
+        if (voiduigetdirjstringjstringID == NULL)
+        {
+            throw GiwsException::JniMethodNotFoundException(curEnv, "uigetdir");
+        }
+
+        jstring initialDirectory_ = curEnv->NewStringUTF(initialDirectory);
+
+        jstring title_ = curEnv->NewStringUTF(title);
+
+        curEnv->CallStaticVoidMethod(cls, voiduigetdirjstringjstringID, initialDirectory_, title_);
+        if (curEnv->ExceptionCheck())
+        {
+            throw GiwsException::JniCallMethodException(curEnv);
+        }
+    }
 
 }

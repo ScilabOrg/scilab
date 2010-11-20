@@ -18,51 +18,52 @@
 #include "hashtable_core.h"
 #include "Funtab.h"
 /*--------------------------------------------------------------------------*/
-int C2F(funtab)(int *id, int *fptr, int *job,char *namefunction, unsigned long namefunction_len) 
+int C2F(funtab) (int *id, int *fptr, int *job, char *namefunction, unsigned long namefunction_len)
 {
-  switch ( *job) 
-  {
-	case SCI_HFUNCTIONS_FIND : 
-		*fptr = 0;
-		action_hashtable_scilab_functions(id,NULL,fptr,SCI_HFUNCTIONS_FIND);
-    break;
+    switch (*job)
+    {
+    case SCI_HFUNCTIONS_FIND:
+        *fptr = 0;
+        action_hashtable_scilab_functions(id, NULL, fptr, SCI_HFUNCTIONS_FIND);
+        break;
 
-    case SCI_HFUNCTIONS_BACKSEARCH : 
-		action_hashtable_scilab_functions(id,NULL,fptr,SCI_HFUNCTIONS_BACKSEARCH);
-    break;
+    case SCI_HFUNCTIONS_BACKSEARCH:
+        action_hashtable_scilab_functions(id, NULL, fptr, SCI_HFUNCTIONS_BACKSEARCH);
+        break;
 
-    case SCI_HFUNCTIONS_ENTER :
-		if ( (namefunction) && (namefunction_len) )
-		{
-			if (strcmp(namefunction,"NULL_NAME") == 0)
-			{
-				/* we add function referenced only by id */
-				/* this function has no name */
-				action_hashtable_scilab_functions(id,NULL,fptr,SCI_HFUNCTIONS_ENTER);
-			}
-			else
-			{
-				/* we have a function named */
-				action_hashtable_scilab_functions(id,namefunction,fptr,SCI_HFUNCTIONS_ENTER);
-			}
-		}
-		else
-		{
-			/* namefunction == NULL or namefunction = 0 */
-			/* we add function referenced only by id */
-			/* this function has no name */
-			action_hashtable_scilab_functions(id,NULL,fptr,SCI_HFUNCTIONS_ENTER);
-		}
-      break;
+    case SCI_HFUNCTIONS_ENTER:
+        if ((namefunction) && (namefunction_len))
+        {
+            if (strcmp(namefunction, "NULL_NAME") == 0)
+            {
+                /* we add function referenced only by id */
+                /* this function has no name */
+                action_hashtable_scilab_functions(id, NULL, fptr, SCI_HFUNCTIONS_ENTER);
+            }
+            else
+            {
+                /* we have a function named */
+                action_hashtable_scilab_functions(id, namefunction, fptr, SCI_HFUNCTIONS_ENTER);
+            }
+        }
+        else
+        {
+            /* namefunction == NULL or namefunction = 0 */
+            /* we add function referenced only by id */
+            /* this function has no name */
+            action_hashtable_scilab_functions(id, NULL, fptr, SCI_HFUNCTIONS_ENTER);
+        }
+        break;
 
-    case SCI_HFUNCTIONS_DELETE :  
-		action_hashtable_scilab_functions(id,NULL,fptr,SCI_HFUNCTIONS_DELETE);
-    break;
+    case SCI_HFUNCTIONS_DELETE:
+        action_hashtable_scilab_functions(id, NULL, fptr, SCI_HFUNCTIONS_DELETE);
+        break;
 
-	default :
-	break;
+    default:
+        break;
 
-  }
-  return(0);
+    }
+    return (0);
 }
-/*--------------------------------------------------------------------------*/  
+
+/*--------------------------------------------------------------------------*/

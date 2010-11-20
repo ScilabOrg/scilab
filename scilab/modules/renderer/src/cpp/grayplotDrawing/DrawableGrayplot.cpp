@@ -13,43 +13,44 @@
 
 #include "DrawableGrayplot.h"
 
-
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableGrayplot::draw( void )
-{
-  if(!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  initializeDrawing();
-  clip();
-  reinitMove();
-  EDisplayStatus status = drawGrayplot();
-  unClip();
-  endDrawing();
-  return status;
-}
+    DrawableObject::EDisplayStatus DrawableGrayplot::draw(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        initializeDrawing();
+
+        clip();
+        reinitMove();
+        EDisplayStatus status = drawGrayplot();
+
+        unClip();
+        endDrawing();
+        return status;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableObject::EDisplayStatus DrawableGrayplot::show( void )
-{
-  if(!checkVisibility())
-  {
-    return UNCHANGED;
-  }
-  clip();
-  translate();
-  showGrayplot();
-  endTranslate();
-  unClip();
-  return SUCCESS;
-}
+    DrawableObject::EDisplayStatus DrawableGrayplot::show(void)
+    {
+        if (!checkVisibility())
+        {
+            return UNCHANGED;
+        }
+        clip();
+        translate();
+        showGrayplot();
+        endTranslate();
+        unClip();
+        return SUCCESS;
+    }
 /*---------------------------------------------------------------------------------*/
-DrawableGrayplotBridge * DrawableGrayplot::getGrayplotImp( void )
-{
-  return dynamic_cast<DrawableGrayplotBridge *>(getDrawableImp());
-}
+    DrawableGrayplotBridge *DrawableGrayplot::getGrayplotImp(void)
+    {
+        return dynamic_cast < DrawableGrayplotBridge * >(getDrawableImp());
+    }
 /*---------------------------------------------------------------------------------*/
 }

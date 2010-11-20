@@ -10,26 +10,25 @@
  *
  */
 
-
 #include "ListBox.hxx"
 
 using namespace org_scilab_modules_gui_bridge;
 
-void createListBox(sciPointObj* sciObj)
+void createListBox(sciPointObj * sciObj)
 {
-  pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newListBox(getScilabJavaVM());
+    pUICONTROL_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newListBox(getScilabJavaVM());
 }
 
-int setCurentFigureAsListBoxParent(sciPointObj* sciObj)
+int setCurentFigureAsListBoxParent(sciPointObj * sciObj)
 {
-  int parentFigureIndex = 0;
-  
-  // Scilab list of parent
-  sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
-  
-  // Java objects
-  parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-  CallScilabBridge::setListBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+    int parentFigureIndex = 0;
 
-  return SET_PROPERTY_SUCCEED;
+    // Scilab list of parent
+    sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+
+    // Java objects
+    parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+    CallScilabBridge::setListBoxParent(getScilabJavaVM(), parentFigureIndex, pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+
+    return SET_PROPERTY_SUCCEED;
 }

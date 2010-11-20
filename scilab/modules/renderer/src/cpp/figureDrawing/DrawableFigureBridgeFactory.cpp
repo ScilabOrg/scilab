@@ -14,22 +14,21 @@
 #include "DrawableFigureBridgeFactory.h"
 #include "DrawableFigureJoGL.h"
 
-
 namespace sciGraphics
 {
 
 /*---------------------------------------------------------------------------------*/
-DrawableFigureBridge * DrawableFigureBridgeFactory::create( void )
-{
-  DrawableFigureJoGL * newBridge = new DrawableFigureJoGL( m_pDrawable ) ;
-  newBridge->setJavaMapper(new DrawableFigureJavaMapper() ) ;
-  return newBridge;
-}
+    DrawableFigureBridge *DrawableFigureBridgeFactory::create(void)
+    {
+        DrawableFigureJoGL *newBridge = new DrawableFigureJoGL(m_pDrawable);
+          newBridge->setJavaMapper(new DrawableFigureJavaMapper());
+          return newBridge;
+    }
 /*---------------------------------------------------------------------------------*/
-void DrawableFigureBridgeFactory::setDrawedFigure( DrawableFigure * fig )
-{
-  m_pDrawable = fig ;
-}
+    void DrawableFigureBridgeFactory::setDrawedFigure(DrawableFigure * fig)
+    {
+        m_pDrawable = fig;
+    }
 /*---------------------------------------------------------------------------------*/
 
 }

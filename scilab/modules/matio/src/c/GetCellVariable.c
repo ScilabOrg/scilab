@@ -24,70 +24,74 @@
       return 0;			     \
     }
 
-matvar_t *GetCellVariable(int iVar, const char *name, int matfile_version, int * parent, int item_position)
+matvar_t *GetCellVariable(int iVar, const char *name, int matfile_version, int *parent, int item_position)
 {
-  int nbFields = 0;
-  int K = 0;
-  int prodDims = 1;
-  matvar_t *dimensionsVariable = NULL;
-  matvar_t **cellEntries = NULL;
-  int * var_addr = NULL;
-  int var_type;
-  SciErr _SciErr;
+    int nbFields = 0;
+    int K = 0;
+    int prodDims = 1;
+    matvar_t *dimensionsVariable = NULL;
+    matvar_t **cellEntries = NULL;
+    int *var_addr = NULL;
+    int var_type;
+    SciErr _SciErr;
 
-  if ((parent==NULL)&&(item_position==-1))
+    if ((parent == NULL) && (item_position == -1))
     {
-      _SciErr = getVarAddressFromPosition(pvApiCtx, iVar, &var_addr); MATIO_ERROR;
+        _SciErr = getVarAddressFromPosition(pvApiCtx, iVar, &var_addr);
+        MATIO_ERROR;
     }
-  else if ((parent!=NULL)&&(item_position==-1))
+    else if ((parent != NULL) && (item_position == -1))
     {
-      var_addr = parent;
+        var_addr = parent;
     }
-  else
+    else
     {
-      _SciErr = getListItemAddress(pvApiCtx, parent, item_position, &var_addr); MATIO_ERROR;
-    }
-
-  _SciErr = getVarType(pvApiCtx, var_addr, &var_type); MATIO_ERROR;
-  if (var_type != sci_mlist)
-    {
-      Scierror(999, _("%s: Wrong type for first input argument: Mlist expected.\n"), "GetCellVariable");
-      return FALSE;
+        _SciErr = getListItemAddress(pvApiCtx, parent, item_position, &var_addr);
+        MATIO_ERROR;
     }
 
-  _SciErr = getListItemNumber(pvApiCtx, var_addr, &nbFields); MATIO_ERROR;
-
-  /* FIRST LIST ENTRY: fieldnames --> NO NEED TO BE READ */
-  
-  /* SECOND LIST ENTRY: dimensions */
-  dimensionsVariable = GetMatlabVariable(iVar, "data", 0, var_addr, 2);
-
-  /* OTHERS LIST ENTRIES: ALL CELL VALUES */
-
-  /* Total number of entries */
-  for (K=0; K<dimensionsVariable->rank; K++)
+    _SciErr = getVarType(pvApiCtx, var_addr, &var_type);
+    MATIO_ERROR;
+    if (var_type != sci_mlist)
     {
-      prodDims *= ((int *)dimensionsVariable->data)[K];
+        Scierror(999, _("%s: Wrong type for first input argument: Mlist expected.\n"), "GetCellVariable");
+        return FALSE;
     }
 
-  if ((cellEntries = (matvar_t **) MALLOC (sizeof(matvar_t*)*prodDims)) == NULL)
+    _SciErr = getListItemNumber(pvApiCtx, var_addr, &nbFields);
+    MATIO_ERROR;
+
+    /* FIRST LIST ENTRY: fieldnames --> NO NEED TO BE READ */
+
+    /* SECOND LIST ENTRY: dimensions */
+    dimensionsVariable = GetMatlabVariable(iVar, "data", 0, var_addr, 2);
+
+    /* OTHERS LIST ENTRIES: ALL CELL VALUES */
+
+    /* Total number of entries */
+    for (K = 0; K < dimensionsVariable->rank; K++)
     {
-      Scierror(999, _("%s: No more memory.\n"), "GetCellVariable");
-      return NULL;
+        prodDims *= ((int *)dimensionsVariable->data)[K];
     }
 
-  if (prodDims == 1) /* Scalar cell array */
+    if ((cellEntries = (matvar_t **) MALLOC(sizeof(matvar_t *) * prodDims)) == NULL)
     {
-      cellEntries[0] = GetMatlabVariable(iVar ,"data", matfile_version, var_addr, 3);
+        Scierror(999, _("%s: No more memory.\n"), "GetCellVariable");
+        return NULL;
     }
-  else
+
+    if (prodDims == 1)          /* Scalar cell array */
     {
-      /* Read all entries */
-      for (K=0; K<prodDims; K++)
+        cellEntries[0] = GetMatlabVariable(iVar, "data", matfile_version, var_addr, 3);
+    }
+    else
+    {
+        /* Read all entries */
+        for (K = 0; K < prodDims; K++)
         {
-          cellEntries[K] = GetMatlabVariable(iVar ,"data", matfile_version, var_addr, 3+K);
+            cellEntries[K] = GetMatlabVariable(iVar, "data", matfile_version, var_addr, 3 + K);
         }
     }
 
-  return Mat_VarCreate(name, MAT_C_CELL, MAT_T_CELL, dimensionsVariable->rank, dimensionsVariable->data, cellEntries, 0);
+    return Mat_VarCreate(name, MAT_C_CELL, MAT_T_CELL, dimensionsVariable->rank, dimensionsVariable->data, cellEntries, 0);
 }

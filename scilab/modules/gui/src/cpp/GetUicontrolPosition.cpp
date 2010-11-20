@@ -16,57 +16,54 @@
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolPosition(sciPointObj* sciObj)
+int GetUicontrolPosition(sciPointObj * sciObj)
 {
-  int returnFlag = FALSE;
-  int * returnValues = NULL;
-  double * tmp = NULL;
+    int returnFlag = FALSE;
+    int *returnValues = NULL;
+    double *tmp = NULL;
 
-  if (sciGetEntityType( sciObj ) == SCI_UICONTROL)
+    if (sciGetEntityType(sciObj) == SCI_UICONTROL)
     {
-      // Get the position from Java
-      if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME) /* Frame style uicontrol */
+        // Get the position from Java
+        if (pUICONTROL_FEATURE(sciObj)->style == SCI_UIFRAME)   /* Frame style uicontrol */
         {
-          returnValues = CallScilabBridge::getFramePosition(getScilabJavaVM(),
-                                                             pUICONTROL_FEATURE(sciObj)->hashMapIndex);
+            returnValues = CallScilabBridge::getFramePosition(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
-      else /* All other uicontrol styles */
+        else                    /* All other uicontrol styles */
         {
-          returnValues = CallScilabBridge::getWidgetPosition(getScilabJavaVM(),
-                                                             pUICONTROL_FEATURE(sciObj)->hashMapIndex);
-        }
-          
-      /* If the parent is a Frame we have to modify Java returned values to get the real position of the uicontrol */
-      if (sciGetEntityType(sciGetParent(sciObj)) == SCI_UICONTROL)
-        {
-          int * framePosition = NULL;
-
-          framePosition = CallScilabBridge::getFramePosition(getScilabJavaVM(),
-                                                             pUICONTROL_FEATURE(sciGetParent(sciObj))->hashMapIndex);
-          returnValues[0] -= framePosition[0];
-          returnValues[1] -= framePosition[1];
-
-	  delete [] framePosition;
+            returnValues = CallScilabBridge::getWidgetPosition(getScilabJavaVM(), pUICONTROL_FEATURE(sciObj)->hashMapIndex);
         }
 
-      tmp = new double[4];
-      tmp[0] = ConvertFromPixel((int) returnValues[0], pUICONTROL_FEATURE(sciObj)->units, sciObj, TRUE);
-      tmp[1] = ConvertFromPixel((int) returnValues[1], pUICONTROL_FEATURE(sciObj)->units, sciObj, FALSE);
-      tmp[2] = ConvertFromPixel((int) returnValues[2], pUICONTROL_FEATURE(sciObj)->units, sciObj, TRUE);
-      tmp[3] = ConvertFromPixel((int) returnValues[3], pUICONTROL_FEATURE(sciObj)->units, sciObj, FALSE);
-      
-     
-      returnFlag =  sciReturnRowVector(tmp, 4);
-      
-      delete [] tmp;
-      delete [] returnValues;
-      
-      return returnFlag;
+        /* If the parent is a Frame we have to modify Java returned values to get the real position of the uicontrol */
+        if (sciGetEntityType(sciGetParent(sciObj)) == SCI_UICONTROL)
+        {
+            int *framePosition = NULL;
+
+            framePosition = CallScilabBridge::getFramePosition(getScilabJavaVM(), pUICONTROL_FEATURE(sciGetParent(sciObj))->hashMapIndex);
+            returnValues[0] -= framePosition[0];
+            returnValues[1] -= framePosition[1];
+
+            delete[]framePosition;
+        }
+
+        tmp = new double[4];
+
+        tmp[0] = ConvertFromPixel((int)returnValues[0], pUICONTROL_FEATURE(sciObj)->units, sciObj, TRUE);
+        tmp[1] = ConvertFromPixel((int)returnValues[1], pUICONTROL_FEATURE(sciObj)->units, sciObj, FALSE);
+        tmp[2] = ConvertFromPixel((int)returnValues[2], pUICONTROL_FEATURE(sciObj)->units, sciObj, TRUE);
+        tmp[3] = ConvertFromPixel((int)returnValues[3], pUICONTROL_FEATURE(sciObj)->units, sciObj, FALSE);
+
+        returnFlag = sciReturnRowVector(tmp, 4);
+
+        delete[]tmp;
+        delete[]returnValues;
+
+        return returnFlag;
     }
-  else
+    else
     {
-      Scierror(999, const_cast<char*>(_("No '%s' property for this object.\n")), "Position");
-      return FALSE;
+        Scierror(999, const_cast < char *>(_("No '%s' property for this object.\n")), "Position");
+
+        return FALSE;
     }
 }
-

@@ -15,21 +15,22 @@
 /*--------------------------------------------------------------------------*/
 BOOL with_module(char *modulename)
 {
-	if (modulename)
-	{
-		struct MODULESLIST *Modules=getmodules();
-		int nrow = Modules->numberofModules;
-		int i = 0;
+    if (modulename)
+    {
+        struct MODULESLIST *Modules = getmodules();
+        int nrow = Modules->numberofModules;
+        int i = 0;
 
-		for(i=0;i<nrow;i++)
-		{
-			if ( strcmp(Modules->ModuleList[i],modulename) == 0)
-			{
-				return TRUE;
-			}
-		}
-	}
-	return FALSE;
+        for (i = 0; i < nrow; i++)
+        {
+            if (strcmp(Modules->ModuleList[i], modulename) == 0)
+            {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
 
 }
+
 /*--------------------------------------------------------------------------*/

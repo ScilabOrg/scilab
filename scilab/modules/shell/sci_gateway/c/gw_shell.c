@@ -15,19 +15,20 @@
 #include "stack-c.h"
 #include "callFunctionFromGateway.h"
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[]=
-{
-{sci_clc,"clc"},
-{sci_tohome,"tohome"},
-{sci_lines,"lines"},
-{sci_prompt,"prompt"},
-{sci_iswaitingforinput,"iswaitingforinput"}
+static gw_generic_table Tab[] = {
+    {sci_clc, "clc"},
+    {sci_tohome, "tohome"},
+    {sci_lines, "lines"},
+    {sci_prompt, "prompt"},
+    {sci_iswaitingforinput, "iswaitingforinput"}
 };
+
 /*--------------------------------------------------------------------------*/
 int gw_shell(void)
-{  
-	Rhs = Max(0, Rhs);
-	callFunctionFromGateway(Tab,SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+{
+    Rhs = Max(0, Rhs);
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

@@ -11,7 +11,6 @@
  *
  */
 
-
 #include "GridDrawerJoGL.hxx"
 
 extern "C"
@@ -22,49 +21,44 @@ extern "C"
 namespace sciGraphics
 {
  /*------------------------------------------------------------------------------------------*/
-GridDrawerJoGL::GridDrawerJoGL(DrawableSubwin * subwin)
-: GridDrawer(), DrawableObjectJoGL(subwin)
-{
-  setJavaMapper(new GridDrawerJavaMapper());
-}
+    GridDrawerJoGL::GridDrawerJoGL(DrawableSubwin * subwin):GridDrawer(), DrawableObjectJoGL(subwin)
+    {
+        setJavaMapper(new GridDrawerJavaMapper());
+    }
 /*------------------------------------------------------------------------------------------*/
-GridDrawerJoGL::~GridDrawerJoGL(void)
-{
+    GridDrawerJoGL::~GridDrawerJoGL(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void GridDrawerJoGL::drawGrid(const double firstAxisStart[3], const double firstAxisEnd[3],
-                              const double secondAxisStart[3], const double secondAxisEnd[3],
-                              const double thirdAxisStart[3], const double thirdAxisEnd[3],
-                              const double relativeTicksPositions[], int nbTicks)
-{
-  getGridDrawerJavaMapper()->drawGrid(firstAxisStart, firstAxisEnd,
-                                      secondAxisStart, secondAxisEnd,
-                                      thirdAxisStart, thirdAxisEnd,
-                                      relativeTicksPositions, nbTicks);
-}
+    void GridDrawerJoGL::drawGrid(const double firstAxisStart[3], const double firstAxisEnd[3],
+                                  const double secondAxisStart[3], const double secondAxisEnd[3],
+                                  const double thirdAxisStart[3], const double thirdAxisEnd[3], const double relativeTicksPositions[], int nbTicks)
+    {
+        getGridDrawerJavaMapper()->drawGrid(firstAxisStart, firstAxisEnd,
+                                            secondAxisStart, secondAxisEnd, thirdAxisStart, thirdAxisEnd, relativeTicksPositions, nbTicks);
+    }
 /*------------------------------------------------------------------------------------------*/
-void GridDrawerJoGL::initializeDrawing(void)
-{
-  DrawableObjectJoGL::initializeDrawing();
+    void GridDrawerJoGL::initializeDrawing(void)
+    {
+        DrawableObjectJoGL::initializeDrawing();
 
-  sciPointObj * pSubwin = getDrawer()->getDrawedObject();
+        sciPointObj *pSubwin = getDrawer()->getDrawedObject();
 
-  // set line color and width
-  getGridDrawerJavaMapper()->setGridParameters(getGridStyle(), (float)sciGetLineWidth(pSubwin), 
-											 sciGetGridFront(pSubwin) == TRUE);
+        // set line color and width
+        getGridDrawerJavaMapper()->setGridParameters(getGridStyle(), (float)sciGetLineWidth(pSubwin), sciGetGridFront(pSubwin) == TRUE);
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void GridDrawerJoGL::endDrawing(void)
-{
-  DrawableObjectJoGL::endDrawing();
-}
+    void GridDrawerJoGL::endDrawing(void)
+    {
+        DrawableObjectJoGL::endDrawing();
+    }
 /*------------------------------------------------------------------------------------------*/
-GridDrawerJavaMapper * GridDrawerJoGL::getGridDrawerJavaMapper(void)
-{
-  return dynamic_cast<GridDrawerJavaMapper *>(getJavaMapper());
-}
+    GridDrawerJavaMapper *GridDrawerJoGL::getGridDrawerJavaMapper(void)
+    {
+        return dynamic_cast < GridDrawerJavaMapper * >(getJavaMapper());
+    }
 /*------------------------------------------------------------------------------------------*/
 
 }

@@ -14,48 +14,53 @@
 
 /*--------------------------------------------------------------------------*/
 /* PVM functions interfaces */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "sci_pvm.h"
 #include "gw_pvm.h"
 #include "Scierror.h"
 #include "localization.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 /******************************************
  * SCILAB function : pvm_bcast, fin = 7
  ******************************************/
-int sci_pvm_bcast(char *fname,unsigned long fname_len)
+int sci_pvm_bcast(char *fname, unsigned long fname_len)
 {
-  int m1,n1,l1,m3,n3,l3,un=1,l4,size,l5,used,ierr;
-  int *Ipack,address,*header;
-  CheckRhs(3,3);
-  CheckLhs(1,1);
-  /*  checking variable group */
-  GetRhsVar(1,STRING_DATATYPE,&m1,&n1,&l1);
-  /*  checking variable buff */
-  header = GetData(2);
-  /*  checking variable msgtag */
-  GetRhsVar(3,MATRIX_OF_INTEGER_DATATYPE,&m3,&n3,&l3);
-  CheckScalar(3,m3,n3);
-  /* cross variable size checking */
-  CreateVar(Rhs+4,MATRIX_OF_INTEGER_DATATYPE,&un,&un,&l4);/* named: res */
-  /* Use the rest of the stack as working area */ 
-  CreateWork(5,&size,&l5); 
-  Ipack= (int *) stk(l5);
-  /* Build a pack vector for buff: size is the max size 
-   * allowed for packing 
-   */ 
-  address = Top-Rhs+2;
-  C2F(varpak)(&address,Ipack,&used,&size,&ierr); 
-  switch (ierr ) { 
-  case 1: Scierror(999,_("%s: workspace (stacksize) is too small.\n"),fname);
+    int m1, n1, l1, m3, n3, l3, un = 1, l4, size, l5, used, ierr;
+    int *Ipack, address, *header;
+
+    CheckRhs(3, 3);
+    CheckLhs(1, 1);
+    /*  checking variable group */
+    GetRhsVar(1, STRING_DATATYPE, &m1, &n1, &l1);
+    /*  checking variable buff */
+    header = GetData(2);
+    /*  checking variable msgtag */
+    GetRhsVar(3, MATRIX_OF_INTEGER_DATATYPE, &m3, &n3, &l3);
+    CheckScalar(3, m3, n3);
+    /* cross variable size checking */
+    CreateVar(Rhs + 4, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &l4);  /* named: res */
+    /* Use the rest of the stack as working area */
+    CreateWork(5, &size, &l5);
+    Ipack = (int *)stk(l5);
+    /* Build a pack vector for buff: size is the max size 
+     * allowed for packing 
+     */
+    address = Top - Rhs + 2;
+    C2F(varpak) (&address, Ipack, &used, &size, &ierr);
+    switch (ierr)
+    {
+    case 1:
+        Scierror(999, _("%s: workspace (stacksize) is too small.\n"), fname);
+        return 0;
+    case 2:
+        Scierror(999, _("%s: Unknown or not yet implemented type.\n"), fname);
+        return 0;
+    }
+    C2F(scipvmbcast) (cstk(l1), &m1, Ipack, &used, (double *)header, istk(l3), istk(l4));
+    LhsVar(1) = Rhs + 4;
+    pvm_error_check(fname, *istk(l4), fname_len);
+    C2F(putlhsvar) ();
     return 0;
-  case 2: Scierror(999,_("%s: Unknown or not yet implemented type.\n"),fname);
-    return 0; 
-  }
-  C2F(scipvmbcast)(cstk(l1),&m1,Ipack,&used,(double *)header,istk(l3),istk(l4));
-  LhsVar(1)= Rhs+4;
-  pvm_error_check(fname,*istk(l4),fname_len);
-  C2F(putlhsvar)();
-  return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

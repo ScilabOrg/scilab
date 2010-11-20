@@ -14,30 +14,34 @@
 #include "ilib_verbose.h"
 /*---------------------------------------------------------------------------*/
 ilib_verbose_level verboseLevel = ILIB_VERBOSE_STANDARD;
+
 /*---------------------------------------------------------------------------*/
 BOOL setIlibVerboseLevel(ilib_verbose_level _level)
 {
-	switch (_level)
-	{
-		case ILIB_VERBOSE_NO_OUTPUT:
-		case ILIB_VERBOSE_STANDARD:
-		case ILIB_VERBOSE_MAX:
-		{
-			verboseLevel = _level;
-			return TRUE;
-		}
-	}
-	return FALSE;
+    switch (_level)
+    {
+    case ILIB_VERBOSE_NO_OUTPUT:
+    case ILIB_VERBOSE_STANDARD:
+    case ILIB_VERBOSE_MAX:
+        {
+            verboseLevel = _level;
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
+
 /*---------------------------------------------------------------------------*/
 ilib_verbose_level getIlibVerboseLevel(void)
 {
-	return verboseLevel;
+    return verboseLevel;
 }
+
 /*---------------------------------------------------------------------------*/
-int C2F(getilibverboselevel)(int *_level)
+int C2F(getilibverboselevel) (int *_level)
 {
-	*_level = (int)verboseLevel;
-	return 0;
+    *_level = (int)verboseLevel;
+    return 0;
 }
+
 /*---------------------------------------------------------------------------*/

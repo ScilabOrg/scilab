@@ -19,24 +19,23 @@
 namespace sciGraphics
 {
 /*------------------------------------------------------------------------------------------*/
-UserDefLogTicksComputer::UserDefLogTicksComputer(DrawableSubwin * subwin)
- : UserDefinedTicksComputer(subwin)
-{
+    UserDefLogTicksComputer::UserDefLogTicksComputer(DrawableSubwin * subwin):UserDefinedTicksComputer(subwin)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-UserDefLogTicksComputer::~UserDefLogTicksComputer(void)
-{
+    UserDefLogTicksComputer::~UserDefLogTicksComputer(void)
+    {
 
-}
+    }
 /*------------------------------------------------------------------------------------------*/
-void UserDefLogTicksComputer::getTicksPosition(double positions[], char * labels[], char * labelsExponents[])
-{
-  for (int i = 0; i < m_iNbUserTicks; i++)
-  {
-    positions[i] = m_aUserTicksPositions[i];
-  }
-  BasicAlgos::stringArrayCopy(labels, m_aUserTicksLabels, m_iNbUserTicks);
-}
+    void UserDefLogTicksComputer::getTicksPosition(double positions[], char *labels[], char *labelsExponents[])
+    {
+        for (int i = 0; i < m_iNbUserTicks; i++)
+        {
+            positions[i] = m_aUserTicksPositions[i];
+        }
+        BasicAlgos::stringArrayCopy(labels, m_aUserTicksLabels, m_iNbUserTicks);
+    }
 /*------------------------------------------------------------------------------------------*/
 }

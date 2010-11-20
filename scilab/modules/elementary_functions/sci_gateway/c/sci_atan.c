@@ -9,15 +9,18 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "gw_elementary_functions.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intatan)(int *id);
+extern int C2F(intatan) (int *id);
+
 /*--------------------------------------------------------------------------*/
-int sci_atan(char *fname,unsigned long fname_len)
+int sci_atan(char *fname, unsigned long fname_len)
 {
-	static int id[6];
-	C2F(intatan)(id);
-	return 0;
+    static int id[6];
+
+    C2F(intatan) (id);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

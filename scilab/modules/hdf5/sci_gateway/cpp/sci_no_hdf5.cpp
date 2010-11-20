@@ -9,7 +9,8 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  * 
  */
-extern "C" {
+extern "C"
+{
 #include "stack-c.h"
 #include "gw_hdf5.h"
 #include "Scierror.h"
@@ -18,20 +19,20 @@ extern "C" {
 
 int gw_hdf5()
 {
-  Scierror(999, _("HDF5 is not installed"));
-  return 0;
+    Scierror(999, _("HDF5 is not installed"));
+    return 0;
 }
 
-int sci_export_to_hdf5(char *fname,unsigned long fname_len)
+int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 {
-  Scierror(999, _("HDF5 is not installed"));
-  PutLhsVar();
-  return 0;
+    Scierror(999, _("HDF5 is not installed"));
+    PutLhsVar();
+    return 0;
 }
 
-int sci_import_from_hdf5(char *fname,unsigned long fname_len)
+int sci_import_from_hdf5(char *fname, unsigned long fname_len)
 {
-  Scierror(999, _("HDF5 is not installed"));
-  PutLhsVar();
-  return 0;
+    Scierror(999, _("HDF5 is not installed"));
+    PutLhsVar();
+    return 0;
 }

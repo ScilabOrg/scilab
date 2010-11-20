@@ -12,7 +12,7 @@
  *
  */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "JVM_commons.h"
 #include "dynamiclibrary.h"
@@ -21,108 +21,124 @@
 #include "BOOL.h"
 #include "MALLOC.h"
 #include "charEncoding.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 static DynLibHandle hLibJVM = NULL;
-/*--------------------------------------------------------------------------*/ 
-typedef jint (JNICALL *JNI_CreateJavaVMPROC) (JavaVM **jvm, JNIEnv **penv, JavaVMInitArgs *args);
-typedef jint (JNICALL *JNI_GetCreatedJavaVMsPROC)(JavaVM **vmBuf, jsize BufLen, jsize *nVMs);
-typedef jint (JNICALL *JNI_GetDefaultJavaVMInitArgsPROC)(JavaVMInitArgs *args);
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
+typedef jint(JNICALL * JNI_CreateJavaVMPROC) (JavaVM ** jvm, JNIEnv ** penv, JavaVMInitArgs * args);
+typedef jint(JNICALL * JNI_GetCreatedJavaVMsPROC) (JavaVM ** vmBuf, jsize BufLen, jsize * nVMs);
+typedef jint(JNICALL * JNI_GetDefaultJavaVMInitArgsPROC) (JavaVMInitArgs * args);
+
+/*--------------------------------------------------------------------------*/
 static JNI_GetDefaultJavaVMInitArgsPROC ptr_JNI_GetDefaultJavaVMInitArgs = NULL;
-static JNI_CreateJavaVMPROC ptr_JNI_CreateJavaVM  = NULL;
+static JNI_CreateJavaVMPROC ptr_JNI_CreateJavaVM = NULL;
 static JNI_GetCreatedJavaVMsPROC ptr_JNI_GetCreatedJavaVMs = NULL;
-/*--------------------------------------------------------------------------*/ 
-jint SciJNI_GetDefaultJavaVMInitArgs(JavaVMInitArgs *args)
+
+/*--------------------------------------------------------------------------*/
+jint SciJNI_GetDefaultJavaVMInitArgs(JavaVMInitArgs * args)
 {
-    if (ptr_JNI_GetDefaultJavaVMInitArgs) return (ptr_JNI_GetDefaultJavaVMInitArgs)(args);
+    if (ptr_JNI_GetDefaultJavaVMInitArgs)
+        return (ptr_JNI_GetDefaultJavaVMInitArgs) (args);
     return JNI_ERR;
 }
-/*--------------------------------------------------------------------------*/ 
-jint SciJNI_CreateJavaVM(JavaVM **jvm, JNIEnv **penv, JavaVMInitArgs *args)
+
+/*--------------------------------------------------------------------------*/
+jint SciJNI_CreateJavaVM(JavaVM ** jvm, JNIEnv ** penv, JavaVMInitArgs * args)
 {
-    if (ptr_JNI_CreateJavaVM) return (ptr_JNI_CreateJavaVM)(jvm,penv,args);
+    if (ptr_JNI_CreateJavaVM)
+        return (ptr_JNI_CreateJavaVM) (jvm, penv, args);
     return JNI_ERR;
 }
-/*--------------------------------------------------------------------------*/ 
-jint SciJNI_GetCreatedJavaVMs(JavaVM **vmBuf, jsize BufLen, jsize *nVMs)
+
+/*--------------------------------------------------------------------------*/
+jint SciJNI_GetCreatedJavaVMs(JavaVM ** vmBuf, jsize BufLen, jsize * nVMs)
 {
-    if (ptr_JNI_GetCreatedJavaVMs) return (ptr_JNI_GetCreatedJavaVMs)(vmBuf,BufLen,nVMs);
+    if (ptr_JNI_GetCreatedJavaVMs)
+        return (ptr_JNI_GetCreatedJavaVMs) (vmBuf, BufLen, nVMs);
     return JNI_ERR;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 BOOL FreeDynLibJVM(void)
 {
     if (hLibJVM)
     {
         if (FreeDynLibrary(hLibJVM))
         {
-            ptr_JNI_GetDefaultJavaVMInitArgs = NULL; 
-            ptr_JNI_CreateJavaVM = NULL; 
-            ptr_JNI_GetCreatedJavaVMs = NULL; 
+            ptr_JNI_GetDefaultJavaVMInitArgs = NULL;
+            ptr_JNI_CreateJavaVM = NULL;
+            ptr_JNI_GetCreatedJavaVMs = NULL;
             hLibJVM = NULL;
             return TRUE;
         }
     }
     return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/
 BOOL LoadFuntionsJVM(char *filedynlib)
 {
 #ifdef _MSC_VER
-    wchar_t * wcfiledynlib = to_wide_string(filedynlib);
+    wchar_t *wcfiledynlib = to_wide_string(filedynlib);
+
     if (wcfiledynlib)
     {
-        hLibJVM = LoadDynLibraryW(wcfiledynlib); 
+        hLibJVM = LoadDynLibraryW(wcfiledynlib);
         FREE(wcfiledynlib);
         wcfiledynlib = NULL;
     }
 #else
-    hLibJVM = LoadDynLibrary(filedynlib); 
+    hLibJVM = LoadDynLibrary(filedynlib);
 #endif
 
     if (hLibJVM)
     {
-        ptr_JNI_GetDefaultJavaVMInitArgs = (JNI_GetDefaultJavaVMInitArgsPROC) GetDynLibFuncPtr(hLibJVM, "JNI_GetDefaultJavaVMInitArgs" ); 
-        ptr_JNI_CreateJavaVM = (JNI_CreateJavaVMPROC) GetDynLibFuncPtr(hLibJVM, "JNI_CreateJavaVM" ); 
-        ptr_JNI_GetCreatedJavaVMs = (JNI_GetCreatedJavaVMsPROC) GetDynLibFuncPtr(hLibJVM, "JNI_GetCreatedJavaVMs" ); 
+        ptr_JNI_GetDefaultJavaVMInitArgs = (JNI_GetDefaultJavaVMInitArgsPROC) GetDynLibFuncPtr(hLibJVM, "JNI_GetDefaultJavaVMInitArgs");
+        ptr_JNI_CreateJavaVM = (JNI_CreateJavaVMPROC) GetDynLibFuncPtr(hLibJVM, "JNI_CreateJavaVM");
+        ptr_JNI_GetCreatedJavaVMs = (JNI_GetCreatedJavaVMsPROC) GetDynLibFuncPtr(hLibJVM, "JNI_GetCreatedJavaVMs");
 
-        if (ptr_JNI_GetDefaultJavaVMInitArgs && ptr_JNI_CreateJavaVM && ptr_JNI_GetCreatedJavaVMs) return TRUE;
+        if (ptr_JNI_GetDefaultJavaVMInitArgs && ptr_JNI_CreateJavaVM && ptr_JNI_GetCreatedJavaVMs)
+            return TRUE;
     }
     return FALSE;
 }
-/*--------------------------------------------------------------------------*/ 
-char *getJniErrorFromStatusCode(long status){
-    switch (status){
-        case JNI_ERR:
-            return _("Unknown JNI error");
-            break;
-        case JNI_EDETACHED:
-            return _("Thread detached from the VM");
-            break;
-        case JNI_EVERSION:
-            return _("JNI version error");
-            break;
+
+/*--------------------------------------------------------------------------*/
+char *getJniErrorFromStatusCode(long status)
+{
+    switch (status)
+    {
+    case JNI_ERR:
+        return _("Unknown JNI error");
+        break;
+    case JNI_EDETACHED:
+        return _("Thread detached from the VM");
+        break;
+    case JNI_EVERSION:
+        return _("JNI version error");
+        break;
 #ifdef JNI_ENOMEM
-            /* ifdef because not defined with some version of gcj */
-        case JNI_ENOMEM:
-            return _("JNI: not enough memory");
-            break;
+        /* ifdef because not defined with some version of gcj */
+    case JNI_ENOMEM:
+        return _("JNI: not enough memory");
+        break;
 #endif
 #ifdef JNI_EEXIST
-            /* ifdef because not defined with some version of gcj */
-        case JNI_EEXIST:
-            return _("VM already created");
-            break;
+        /* ifdef because not defined with some version of gcj */
+    case JNI_EEXIST:
+        return _("VM already created");
+        break;
 #endif
 #ifdef JNI_EINVAL
-            /* ifdef because not defined with some version of gcj */
-        case JNI_EINVAL:
-            return _("JNI: invalid arguments");
-            break;
+        /* ifdef because not defined with some version of gcj */
+    case JNI_EINVAL:
+        return _("JNI: invalid arguments");
+        break;
 #endif
-        default:
-            return _("Undefined error code in the JNI. Weird problem");
-            break;
+    default:
+        return _("Undefined error code in the JNI. Weird problem");
+        break;
     }
 }
-/*--------------------------------------------------------------------------*/ 
+
+/*--------------------------------------------------------------------------*/

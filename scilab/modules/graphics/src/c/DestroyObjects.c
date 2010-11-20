@@ -31,7 +31,7 @@
 #include "GetProperty.h"
 #include "DrawObjects.h"
 #include "SetProperty.h"
-#include "Interaction.h" /* for callback funtions */
+#include "Interaction.h"        /* for callback funtions */
 #include "StringMatrix.h"
 #include "WindowList.h"
 #include "sciprint.h"
@@ -50,7 +50,7 @@
 
 //#include "../../../tclsci/includes/GedManagement.h"
 
-#include "MALLOC.h" /* MALLOC */
+#include "MALLOC.h"             /* MALLOC */
 #include "localization.h"
 
 /*----------------------------------------------------------------------------*/
@@ -61,16 +61,16 @@
  */
 int destroyGraphicsSons(sciPointObj * pthis)
 {
-  /* to destroy only the sons put the while into the switch !*/
-  sciSons * toto = NULL;
+    /* to destroy only the sons put the while into the switch ! */
+    sciSons *toto = NULL;
 
-  toto = sciGetSons (pthis);
-  while ((toto != NULL) && (toto->pointobj != NULL))
-  {
-    destroyGraphicHierarchy(toto->pointobj);
     toto = sciGetSons(pthis);
-  }
-  return 0;
+    while ((toto != NULL) && (toto->pointobj != NULL))
+    {
+        destroyGraphicHierarchy(toto->pointobj);
+        toto = sciGetSons(pthis);
+    }
+    return 0;
 }
 
 /********************* modifie le 01/02/2002 ************************
@@ -85,84 +85,82 @@ int destroyGraphicsSons(sciPointObj * pthis)
   */
 int destroyGraphicHierarchy(sciPointObj * pthis)
 {
-  destroyGraphicsSons(pthis);
-  switch (sciGetEntityType (pthis))
+    destroyGraphicsSons(pthis);
+    switch (sciGetEntityType(pthis))
     {
 
     case SCI_FIGURE:
-      DestroyFigure(pthis);
-      return 0;
-      break;
+        DestroyFigure(pthis);
+        return 0;
+        break;
     case SCI_SUBWIN:
-      DestroySubWin (pthis);
-      return 0;
-      break;
+        DestroySubWin(pthis);
+        return 0;
+        break;
     case SCI_TEXT:
-      DestroyText (pthis);
-      return 0;
-      break;
+        DestroyText(pthis);
+        return 0;
+        break;
     case SCI_LEGEND:
-      DestroyLegend (pthis);
-      return 0;
-      break;
+        DestroyLegend(pthis);
+        return 0;
+        break;
     case SCI_ARC:
-      DestroyArc (pthis);
-      return 0; 
-      break;
+        DestroyArc(pthis);
+        return 0;
+        break;
     case SCI_SEGS:
-      DestroySegs (pthis);
-      return 0;
-      break;  
-    case SCI_FEC:  
-      DestroyFec (pthis);
-      return 0;
-      break; 
-    case SCI_GRAYPLOT: 
-      DestroyGrayplot (pthis);
-      return 0;
-      break; 
+        DestroySegs(pthis);
+        return 0;
+        break;
+    case SCI_FEC:
+        DestroyFec(pthis);
+        return 0;
+        break;
+    case SCI_GRAYPLOT:
+        DestroyGrayplot(pthis);
+        return 0;
+        break;
     case SCI_POLYLINE:
-      DestroyPolyline (pthis);
-      return 0;
-      break;
+        DestroyPolyline(pthis);
+        return 0;
+        break;
     case SCI_RECTANGLE:
-      DestroyRectangle (pthis);
-      return 0;
-      break;
+        DestroyRectangle(pthis);
+        return 0;
+        break;
     case SCI_SURFACE:
-      DestroySurface (pthis);
-      return 0;
-      break;
+        DestroySurface(pthis);
+        return 0;
+        break;
     case SCI_AXES:
-      DestroyAxes (pthis);
-      return 0;
-      break;
+        DestroyAxes(pthis);
+        return 0;
+        break;
     case SCI_AGREG:
-      DestroyCompound (pthis);
-      return 0;
-      break; 
-    case SCI_LABEL: /* F.Leray 28.05.04 */
-      DestroyLabel (pthis);
-      return 0;
-      break;
+        DestroyCompound(pthis);
+        return 0;
+        break;
+    case SCI_LABEL:            /* F.Leray 28.05.04 */
+        DestroyLabel(pthis);
+        return 0;
+        break;
     case SCI_UIMENU:
-      DestroyUimenu (pthis);
-      return 0;
-      break;
+        DestroyUimenu(pthis);
+        return 0;
+        break;
     case SCI_UICONTROL:
-      DestroyUicontrol (pthis);
-      return 0;
-      break;
+        DestroyUicontrol(pthis);
+        return 0;
+        break;
     default:
-      sciprint (_("Entity with type %d cannot be destroyed.\n"),sciGetEntityType (pthis));
-      return -1;
-      break;
+        sciprint(_("Entity with type %d cannot be destroyed.\n"), sciGetEntityType(pthis));
+        return -1;
+        break;
     }
 
-  return 0;
+    return 0;
 }
-
-
 
 /**sciDelGraphicObj
  * This function deletes only users graphics object and its dependency limited to
@@ -170,19 +168,18 @@ int destroyGraphicHierarchy(sciPointObj * pthis)
  * SCI_AXES SCI_AGREG SCI_TEXT SCI_FIGURE SCI_SUBWIN
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-sciDelGraphicObj (sciPointObj * pthis)
+int sciDelGraphicObj(sciPointObj * pthis)
 {
-  switch (sciGetEntityType (pthis))
+    switch (sciGetEntityType(pthis))
     {
     case SCI_LABEL:
-      Scierror(999, _("A Label object cannot be deleted.\n"));
-      return -1;
+        Scierror(999, _("A Label object cannot be deleted.\n"));
+        return -1;
     case SCI_LEGEND:
     case SCI_ARC:
-    case SCI_SEGS: 
-    case SCI_FEC: 
-    case SCI_GRAYPLOT: 
+    case SCI_SEGS:
+    case SCI_FEC:
+    case SCI_GRAYPLOT:
     case SCI_POLYLINE:
     case SCI_RECTANGLE:
     case SCI_SURFACE:
@@ -190,21 +187,22 @@ sciDelGraphicObj (sciPointObj * pthis)
     case SCI_AGREG:
     case SCI_TEXT:
     case SCI_FIGURE:
-			destroyGraphicHierarchy (pthis);
-      return 0;
-		case SCI_SUBWIN:
-			{
-				/* Special case here since for now there should be always one subwindow */
-				/* Inside a figure */
-				sciPointObj * parentFigure = sciGetParentFigure(pthis);
-				destroyGraphicHierarchy (pthis);
-				
-				createFirstSubwin(parentFigure);
-				return 0;
-			}
+        destroyGraphicHierarchy(pthis);
+        return 0;
+    case SCI_SUBWIN:
+        {
+            /* Special case here since for now there should be always one subwindow */
+            /* Inside a figure */
+            sciPointObj *parentFigure = sciGetParentFigure(pthis);
+
+            destroyGraphicHierarchy(pthis);
+
+            createFirstSubwin(parentFigure);
+            return 0;
+        }
     default:
-      Scierror(999, _("This object cannot be deleted.\n"));
-      return -1;
+        Scierror(999, _("This object cannot be deleted.\n"));
+        return -1;
     }
 }
 
@@ -212,232 +210,216 @@ sciDelGraphicObj (sciPointObj * pthis)
 /**
  * erase a graphic window if necessary.
  */
-int C2F(scigerase)( void )
+int C2F(scigerase) (void)
 {
-  if ( sciGetIsAutoDrawable(sciGetCurrentFigure()) )
-  {
-    sciClearFigure(sciGetCurrentFigure());
-  }
-  return 0;
-} 
+    if (sciGetIsAutoDrawable(sciGetCurrentFigure()))
+    {
+        sciClearFigure(sciGetCurrentFigure());
+    }
+    return 0;
+}
+
 /*-----------------------------------------------------------------------------*/
 
 /**DestroyFigure
  * This function destroys the parents window (manager) and the elementary structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int DestroyFigure (sciPointObj * pthis)
+int DestroyFigure(sciPointObj * pthis)
 {
-  // remove the figure if it is in the list
-  removeFigureFromList(pthis);
-  
-  if (sciIsCurrentFigure(pthis) )
-  {
+    // remove the figure if it is in the list
+    removeFigureFromList(pthis);
 
-    /* destroyed figure is current one */
-    sciSetCurrentFigure(getFirstFigure()) ;
-  }
+    if (sciIsCurrentFigure(pthis))
+    {
 
-  sciSetIsEventHandlerEnable(pthis, FALSE ) ;
-  
-  if (pFIGURE_FEATURE(pthis)->eventHandler != NULL)
-  {
-    FREE( pFIGURE_FEATURE(pthis)->eventHandler ) ;
-  }
-  
-  if (pFIGURE_FEATURE(pthis)->name != NULL)
-  {
-    FREE( pFIGURE_FEATURE(pthis)->name ) ;
-  }
-  
-	destroyUiobjectTag(pthis);
-  destroyFigureModelData(pFIGURE_FEATURE(pthis)->pModelData) ;
-  pFIGURE_FEATURE(pthis)->pModelData = NULL;
-  sciStandardDestroyOperations(pthis) ;
-  return 0;
+        /* destroyed figure is current one */
+        sciSetCurrentFigure(getFirstFigure());
+    }
+
+    sciSetIsEventHandlerEnable(pthis, FALSE);
+
+    if (pFIGURE_FEATURE(pthis)->eventHandler != NULL)
+    {
+        FREE(pFIGURE_FEATURE(pthis)->eventHandler);
+    }
+
+    if (pFIGURE_FEATURE(pthis)->name != NULL)
+    {
+        FREE(pFIGURE_FEATURE(pthis)->name);
+    }
+
+    destroyUiobjectTag(pthis);
+    destroyFigureModelData(pFIGURE_FEATURE(pthis)->pModelData);
+    pFIGURE_FEATURE(pthis)->pModelData = NULL;
+    sciStandardDestroyOperations(pthis);
+    return 0;
 }
-
-
 
 /**DestroySubWin
  * @memo This function destroies the Subwindow (the Axes) and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroySubWin (sciPointObj * pthis)
-{ 
-  /* Add. grads arrays */ /* F.Leray 11.10.04 */
-  /* specific user arrays */
-  sciSubWindow * ppsubwin = pSUBWIN_FEATURE (pthis);
+int DestroySubWin(sciPointObj * pthis)
+{
+    /* Add. grads arrays *//* F.Leray 11.10.04 */
+    /* specific user arrays */
+    sciSubWindow *ppsubwin = pSUBWIN_FEATURE(pthis);
 
-  FREE( ppsubwin->axes.u_xgrads); ppsubwin->axes.u_xgrads = (double *) NULL;
-  FREE( ppsubwin->axes.u_ygrads); ppsubwin->axes.u_ygrads = (double *) NULL;
-  FREE( ppsubwin->axes.u_zgrads); ppsubwin->axes.u_zgrads = (double *) NULL;
-  ppsubwin->axes.u_xlabels = FreeUserLabels(ppsubwin->axes.u_xlabels, &ppsubwin->axes.u_nxgrads);
-  ppsubwin->axes.u_ylabels = FreeUserLabels(ppsubwin->axes.u_ylabels, &ppsubwin->axes.u_nygrads);
-  ppsubwin->axes.u_zlabels = FreeUserLabels(ppsubwin->axes.u_zlabels, &ppsubwin->axes.u_nzgrads);
+    FREE(ppsubwin->axes.u_xgrads);
+    ppsubwin->axes.u_xgrads = (double *)NULL;
+    FREE(ppsubwin->axes.u_ygrads);
+    ppsubwin->axes.u_ygrads = (double *)NULL;
+    FREE(ppsubwin->axes.u_zgrads);
+    ppsubwin->axes.u_zgrads = (double *)NULL;
+    ppsubwin->axes.u_xlabels = FreeUserLabels(ppsubwin->axes.u_xlabels, &ppsubwin->axes.u_nxgrads);
+    ppsubwin->axes.u_ylabels = FreeUserLabels(ppsubwin->axes.u_ylabels, &ppsubwin->axes.u_nygrads);
+    ppsubwin->axes.u_zlabels = FreeUserLabels(ppsubwin->axes.u_zlabels, &ppsubwin->axes.u_nzgrads);
 
-  ppsubwin->axes.u_xlabels = NULL;
-  ppsubwin->axes.u_ylabels = NULL;
-  ppsubwin->axes.u_zlabels = NULL;
+    ppsubwin->axes.u_xlabels = NULL;
+    ppsubwin->axes.u_ylabels = NULL;
+    ppsubwin->axes.u_zlabels = NULL;
 
-  ppsubwin->axes.u_nxgrads = 0;
-  ppsubwin->axes.u_nygrads = 0;
-  ppsubwin->axes.u_nzgrads = 0;
- 
- 
-  /* auto (computed) arrays are defined with max. length == 20 */
-  ppsubwin->axes.nxgrads = 0;
-  ppsubwin->axes.nygrads = 0;
-  ppsubwin->axes.nzgrads = 0;
-  
-  if ( sciGetCallback(pthis) != (char *)NULL)
-	{
-    FREE(sciGetCallback(pthis));
-	}
+    ppsubwin->axes.u_nxgrads = 0;
+    ppsubwin->axes.u_nygrads = 0;
+    ppsubwin->axes.u_nzgrads = 0;
 
-	return sciStandardDestroyOperations(pthis) ;
+    /* auto (computed) arrays are defined with max. length == 20 */
+    ppsubwin->axes.nxgrads = 0;
+    ppsubwin->axes.nygrads = 0;
+    ppsubwin->axes.nzgrads = 0;
+
+    if (sciGetCallback(pthis) != (char *)NULL)
+    {
+        FREE(sciGetCallback(pthis));
+    }
+
+    return sciStandardDestroyOperations(pthis);
 
 }
-
-
-
-
-
 
 /**
  * free the structure used by the text object but does not remove the relationship links.
  */
-int deallocateText( sciPointObj * pthis )
+int deallocateText(sciPointObj * pthis)
 {
-  deleteMatrix( pTEXT_FEATURE(pthis)->pStrings ) ;
-  FREE (pTEXT_FEATURE (pthis)->user_data);
-  pTEXT_FEATURE (pthis)->size_of_user_data = 0;
-  destroyHandleDrawer(pthis);
+    deleteMatrix(pTEXT_FEATURE(pthis)->pStrings);
+    FREE(pTEXT_FEATURE(pthis)->user_data);
+    pTEXT_FEATURE(pthis)->size_of_user_data = 0;
+    destroyHandleDrawer(pthis);
 
-	destroyRelationShip(pthis);
-  FREE (sciGetPointerToFeature (pthis));
-  FREE (pthis);
+    destroyRelationShip(pthis);
+    FREE(sciGetPointerToFeature(pthis));
+    FREE(pthis);
 
-  return 0;
+    return 0;
 }
 
 /**DestroyText
  * This function destroies Text structure and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int DestroyText (sciPointObj * pthis)
+int DestroyText(sciPointObj * pthis)
 {
-  deleteMatrix( pTEXT_FEATURE(pthis)->pStrings ) ;
-  return sciStandardDestroyOperations(pthis) ;
+    deleteMatrix(pTEXT_FEATURE(pthis)->pStrings);
+    return sciStandardDestroyOperations(pthis);
 }
-
 
 /**DestroyLegend
  * @memo This function destroies legend and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroyLegend (sciPointObj * pthis)
+int DestroyLegend(sciPointObj * pthis)
 {
-  sciLegend * ppLegend = pLEGEND_FEATURE (pthis) ;
-  FREE ( ppLegend->tabofhandles );
-  deleteMatrix( ppLegend->text.pStrings ) ;
+    sciLegend *ppLegend = pLEGEND_FEATURE(pthis);
 
-  return sciStandardDestroyOperations(pthis) ;
-  /* on peut alors destroyer le parent */
+    FREE(ppLegend->tabofhandles);
+    deleteMatrix(ppLegend->text.pStrings);
+
+    return sciStandardDestroyOperations(pthis);
+    /* on peut alors destroyer le parent */
 }
 
-int deallocatePolyline (sciPointObj * pthis)
+int deallocatePolyline(sciPointObj * pthis)
 {
-  FREE (pPOLYLINE_FEATURE (pthis)->pvx);
-  FREE (pPOLYLINE_FEATURE (pthis)->pvy);
+    FREE(pPOLYLINE_FEATURE(pthis)->pvx);
+    FREE(pPOLYLINE_FEATURE(pthis)->pvy);
 
-  if (pPOLYLINE_FEATURE (pthis)->pvz != NULL) /**DJ.Abdemouche 2003**/
-  {
-    FREE (pPOLYLINE_FEATURE (pthis)->pvz);
-  }
-  FREE (pPOLYLINE_FEATURE (pthis)->user_data);
-  pPOLYLINE_FEATURE (pthis)->size_of_user_data = 0;
-  destroyHandleDrawer(pthis);
+    if (pPOLYLINE_FEATURE(pthis)->pvz != NULL)/**DJ.Abdemouche 2003**/
+    {
+        FREE(pPOLYLINE_FEATURE(pthis)->pvz);
+    }
+    FREE(pPOLYLINE_FEATURE(pthis)->user_data);
+    pPOLYLINE_FEATURE(pthis)->size_of_user_data = 0;
+    destroyHandleDrawer(pthis);
 
-	destroyRelationShip(pthis);
-  FREE (sciGetPointerToFeature (pthis));
-  FREE (pthis);
-  return 0;
+    destroyRelationShip(pthis);
+    FREE(sciGetPointerToFeature(pthis));
+    FREE(pthis);
+    return 0;
 }
 
 /**DestroyPolyline
  * @memo This function destroies Polyline and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroyPolyline (sciPointObj * pthis)
+int DestroyPolyline(sciPointObj * pthis)
 {
-  FREE (pPOLYLINE_FEATURE (pthis)->pvx);
-  FREE (pPOLYLINE_FEATURE (pthis)->pvy);
+    FREE(pPOLYLINE_FEATURE(pthis)->pvx);
+    FREE(pPOLYLINE_FEATURE(pthis)->pvy);
 
-  if (pPOLYLINE_FEATURE (pthis)->pvz != NULL) /**DJ.Abdemouche 2003**/
-    FREE (pPOLYLINE_FEATURE (pthis)->pvz);
-  return sciStandardDestroyOperations(pthis) ;
+    if (pPOLYLINE_FEATURE(pthis)->pvz != NULL)/**DJ.Abdemouche 2003**/
+        FREE(pPOLYLINE_FEATURE(pthis)->pvz);
+    return sciStandardDestroyOperations(pthis);
 }
-
 
 /**DestroyArc
  * @memo This function destroies Pacthc and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroyArc (sciPointObj * pthis)
+int DestroyArc(sciPointObj * pthis)
 {
-  FREE(pARC_FEATURE (pthis)->callback);
-  return sciStandardDestroyOperations(pthis) ;
+    FREE(pARC_FEATURE(pthis)->callback);
+    return sciStandardDestroyOperations(pthis);
 }
-
-
 
 /**DestroyRectangle
  * @memo This function destroies Rectangle and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroyRectangle (sciPointObj * pthis)
+int DestroyRectangle(sciPointObj * pthis)
 {
-  return sciStandardDestroyOperations(pthis) ;
+    return sciStandardDestroyOperations(pthis);
 }
-
-
 
 /**DestroySurface
  * @memo This function destroies surface and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int
-DestroySurface (sciPointObj * pthis)
+int DestroySurface(sciPointObj * pthis)
 {
-  sciPointObj * psubwin ;
-  sciSubWindow * ppSubWin ;
-  sciSurface * ppSurface = pSURFACE_FEATURE (pthis) ;
-  int res = -1 ;
-  
-  psubwin  = sciGetParentSubwin(pthis) ;
-  ppSubWin = pSUBWIN_FEATURE ( psubwin ) ;
+    sciPointObj *psubwin;
+    sciSubWindow *ppSubWin;
+    sciSurface *ppSurface = pSURFACE_FEATURE(pthis);
+    int res = -1;
 
-  FREE(ppSurface->pvecz);
-  FREE(ppSurface->pvecy);
-  FREE(ppSurface->pvecx);
-  FREE(ppSurface->inputCMoV); /* Adding F.Leray 24.03.04*/
-  FREE(ppSurface->color); /* Adding F.Leray 18.03.05 */
-  
-  if ( ppSurface->izcol != 0 )
-  { 
-    FREE(ppSurface->zcol);
-  }
-  /* DJ.A 2003 */
-  res = sciStandardDestroyOperations(pthis) ;
+    psubwin = sciGetParentSubwin(pthis);
+    ppSubWin = pSUBWIN_FEATURE(psubwin);
 
+    FREE(ppSurface->pvecz);
+    FREE(ppSurface->pvecy);
+    FREE(ppSurface->pvecx);
+    FREE(ppSurface->inputCMoV); /* Adding F.Leray 24.03.04 */
+    FREE(ppSurface->color);     /* Adding F.Leray 18.03.05 */
 
-  return res;
+    if (ppSurface->izcol != 0)
+    {
+        FREE(ppSurface->zcol);
+    }
+    /* DJ.A 2003 */
+    res = sciStandardDestroyOperations(pthis);
+
+    return res;
 }
 
 /**DestroyGrayplot
@@ -445,34 +427,31 @@ DestroySurface (sciPointObj * pthis)
  * @param sciPointObj * pthis: the pointer to the entity
  * Djalel ABDEMOUCHE
  */
-int
-DestroyGrayplot (sciPointObj * pthis)
+int DestroyGrayplot(sciPointObj * pthis)
 {
-  FREE (pGRAYPLOT_FEATURE (pthis)->pvecx);
-  if (pGRAYPLOT_FEATURE (pthis)->type != 2)
-    FREE (pGRAYPLOT_FEATURE (pthis)->pvecy);
-  FREE (pGRAYPLOT_FEATURE (pthis)->pvecz);
-  return sciStandardDestroyOperations(pthis) ;
+    FREE(pGRAYPLOT_FEATURE(pthis)->pvecx);
+    if (pGRAYPLOT_FEATURE(pthis)->type != 2)
+        FREE(pGRAYPLOT_FEATURE(pthis)->pvecy);
+    FREE(pGRAYPLOT_FEATURE(pthis)->pvecz);
+    return sciStandardDestroyOperations(pthis);
 
 }
-
 
 /**DestroyAxes
  * @memo This function destroies axes and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  */
-int
-DestroyAxes (sciPointObj * pthis)
+int DestroyAxes(sciPointObj * pthis)
 {
-  int i;
-  char **str;
+    int i;
+    char **str;
 
-  FREE (pAXES_FEATURE(pthis)->vx);
-  FREE (pAXES_FEATURE(pthis)->vy);
-  str=pAXES_FEATURE(pthis)->str;
-  for (i=Max(pAXES_FEATURE(pthis)->nx,pAXES_FEATURE(pthis)->ny)-1;i<0;i--) 
-    FREE (pAXES_FEATURE(pthis)->str); 
-  FREE (pAXES_FEATURE(pthis)->str);
-  return sciStandardDestroyOperations(pthis) ;
+    FREE(pAXES_FEATURE(pthis)->vx);
+    FREE(pAXES_FEATURE(pthis)->vy);
+    str = pAXES_FEATURE(pthis)->str;
+    for (i = Max(pAXES_FEATURE(pthis)->nx, pAXES_FEATURE(pthis)->ny) - 1; i < 0; i--)
+        FREE(pAXES_FEATURE(pthis)->str);
+    FREE(pAXES_FEATURE(pthis)->str);
+    return sciStandardDestroyOperations(pthis);
 }
 
 /**DestroyGrayplot
@@ -482,16 +461,14 @@ DestroyAxes (sciPointObj * pthis)
  * @version 0.1
  * @see 
  */
-int
-DestroyFec (sciPointObj * pthis)
+int DestroyFec(sciPointObj * pthis)
 {
-  FREE (pFEC_FEATURE (pthis)->pvecx);
-  FREE (pFEC_FEATURE (pthis)->pvecy);
-  FREE (pFEC_FEATURE (pthis)->pnoeud); 
-  FREE (pFEC_FEATURE (pthis)->pfun); 
-  return sciStandardDestroyOperations(pthis) ;
+    FREE(pFEC_FEATURE(pthis)->pvecx);
+    FREE(pFEC_FEATURE(pthis)->pvecy);
+    FREE(pFEC_FEATURE(pthis)->pnoeud);
+    FREE(pFEC_FEATURE(pthis)->pfun);
+    return sciStandardDestroyOperations(pthis);
 }
-
 
 /**DestroySegments
  * @memo This function destroies Grayplot and the elementaries structures and only this to destroy all sons use DelGraphicsSon
@@ -500,209 +477,226 @@ DestroyFec (sciPointObj * pthis)
  * @version 0.1
  * @see 
  */
-int
-DestroySegs (sciPointObj * pthis)
-{  
-  FREE (pSEGS_FEATURE (pthis)->vx);
-  FREE (pSEGS_FEATURE (pthis)->vy); 
-  if (pSEGS_FEATURE (pthis)->vz != (double *)NULL) 
-    FREE (pSEGS_FEATURE (pthis)->vz);  
-  if (pSEGS_FEATURE (pthis)->ptype <=0) 
+int DestroySegs(sciPointObj * pthis)
+{
+    FREE(pSEGS_FEATURE(pthis)->vx);
+    FREE(pSEGS_FEATURE(pthis)->vy);
+    if (pSEGS_FEATURE(pthis)->vz != (double *)NULL)
+        FREE(pSEGS_FEATURE(pthis)->vz);
+    if (pSEGS_FEATURE(pthis)->ptype <= 0)
     {
-      FREE(pSEGS_FEATURE (pthis)->pstyle);
-    } 
-  else 
+        FREE(pSEGS_FEATURE(pthis)->pstyle);
+    }
+    else
     {
-      FREE(pSEGS_FEATURE (pthis)->vfx); pSEGS_FEATURE (pthis)->vfx = NULL;
-      FREE(pSEGS_FEATURE (pthis)->vfy); pSEGS_FEATURE (pthis)->vfy = NULL;
-      FREE(pSEGS_FEATURE (pthis)->vfz); pSEGS_FEATURE (pthis)->vfz = NULL;
-    } 
-  return sciStandardDestroyOperations(pthis) ;
+        FREE(pSEGS_FEATURE(pthis)->vfx);
+        pSEGS_FEATURE(pthis)->vfx = NULL;
+        FREE(pSEGS_FEATURE(pthis)->vfy);
+        pSEGS_FEATURE(pthis)->vfy = NULL;
+        FREE(pSEGS_FEATURE(pthis)->vfz);
+        pSEGS_FEATURE(pthis)->vfz = NULL;
+    }
+    return sciStandardDestroyOperations(pthis);
 }
 
 /**DestroyCompound
  * @memo This function destroy the Compound and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  */
-int DestroyCompound (sciPointObj * pthis)
+int DestroyCompound(sciPointObj * pthis)
 {
-  return sciStandardDestroyOperations(pthis) ;
+    return sciStandardDestroyOperations(pthis);
 }
 
 /**sciUnCompound
  * @memo This function destroies the Compound and  and unpackes the elementaries structures to associates them to its parent
  */
-int
-sciUnCompound (sciPointObj * pobj)
+int sciUnCompound(sciPointObj * pobj)
 {
-  sciPointObj *pparent, *pobjson;
-  sciSons *psons = (sciSons *)NULL;
-	
-  if (sciGetEntityType(pobj) != SCI_AGREG)
-    return -1;
+    sciPointObj *pparent, *pobjson;
+    sciSons *psons = (sciSons *) NULL;
 
-  psons = sciGetLastSons(pobj);
-  pobjson = psons->pointobj;
-  pparent = sciGetParent(pobj);
-  while ((psons != (sciSons *) NULL) && (pobjson != (sciPointObj *) NULL))
+    if (sciGetEntityType(pobj) != SCI_AGREG)
+        return -1;
+
+    psons = sciGetLastSons(pobj);
+    pobjson = psons->pointobj;
+    pparent = sciGetParent(pobj);
+    while ((psons != (sciSons *) NULL) && (pobjson != (sciPointObj *) NULL))
     {
-      /* we delete this son to this */ 
-      pobjson = psons->pointobj;
-      /* take the previous sons before the current is freed */
-      psons = psons->pprev;
-      sciDelThisToItsParent (pobjson, pobj);
-      /* and link to its old parent */
-      sciAddThisToItsParent (pobjson, pparent);
+        /* we delete this son to this */
+        pobjson = psons->pointobj;
+        /* take the previous sons before the current is freed */
+        psons = psons->pprev;
+        sciDelThisToItsParent(pobjson, pobj);
+        /* and link to its old parent */
+        sciAddThisToItsParent(pobjson, pparent);
     }
 
-  sciSetCurrentObj(pparent); /* pparent is the new current object */
+    sciSetCurrentObj(pparent);  /* pparent is the new current object */
 
-  DestroyCompound(pobj);
-  return 0;
+    DestroyCompound(pobj);
+    return 0;
 }
-
 
 /**DestroyTitle
  * @memo This function destroies the Subwindow (the Axe) and the elementaries structures and only this to destroy all sons use DelGraphicsSon
  * @param sciPointObj * pthis: the pointer to the entity
  */
-int DestroyLabel (sciPointObj * pthis)
+int DestroyLabel(sciPointObj * pthis)
 {
-  sciLabel * ppLabel = pLABEL_FEATURE (pthis);
-  int textStatus = -1 ;
-  deleteObservers( pthis ) ;
-  destroyHandleDrawer( pthis ) ;
-  sciUnselectSons( pthis ) ;
-  sciDelThisToItsParent( pthis, sciGetParent(pthis) ) ;
-  if ( sciDelHandle(pthis) == -1 ) { return -1 ; }
-  textStatus = deallocateText( ppLabel->text ) ;
-  if ( textStatus != 0 )
-  {
-    return textStatus ;
-  }
-  ppLabel->text = NULL ;
-	destroyRelationShip(pthis);
-  FREE(ppLabel) ;
-  FREE(pthis) ;
-  return 0 ;
+    sciLabel *ppLabel = pLABEL_FEATURE(pthis);
+    int textStatus = -1;
+
+    deleteObservers(pthis);
+    destroyHandleDrawer(pthis);
+    sciUnselectSons(pthis);
+    sciDelThisToItsParent(pthis, sciGetParent(pthis));
+    if (sciDelHandle(pthis) == -1)
+    {
+        return -1;
+    }
+    textStatus = deallocateText(ppLabel->text);
+    if (textStatus != 0)
+    {
+        return textStatus;
+    }
+    ppLabel->text = NULL;
+    destroyRelationShip(pthis);
+    FREE(ppLabel);
+    FREE(pthis);
+    return 0;
 }
 
 /*---------------------------------------------------------------------------*/
 /* free the user_data */
-void clearUserData( sciPointObj * pObj )
+void clearUserData(sciPointObj * pObj)
 {
-  int ** pUserData ;
-  int *  pSizeUD   ;
-  sciGetPointerToUserData( pObj, &pUserData, &pSizeUD ) ;
-  if ( pUserData != NULL && *pUserData != NULL )
-  {
-    FREE( *pUserData ) ;
-    *pUserData = NULL ;
-    *pSizeUD = 0 ;
-  }
+    int **pUserData;
+    int *pSizeUD;
+
+    sciGetPointerToUserData(pObj, &pUserData, &pSizeUD);
+    if (pUserData != NULL && *pUserData != NULL)
+    {
+        FREE(*pUserData);
+        *pUserData = NULL;
+        *pSizeUD = 0;
+    }
 }
+
 /*---------------------------------------------------------------------------*/
 /**
  * Close the figure with number winNum.
  */
-void sciDeleteWindow( int winNum )
+void sciDeleteWindow(int winNum)
 {
-  sciPointObj * deletedFig = getFigureFromIndex(winNum);
-  startGraphicDataWriting();
-  sciDelGraphicObj(deletedFig);
-  endGraphicDataWriting();
+    sciPointObj *deletedFig = getFigureFromIndex(winNum);
+
+    startGraphicDataWriting();
+    sciDelGraphicObj(deletedFig);
+    endGraphicDataWriting();
 }
+
 /*--------------------------------------------------------------------------------*/
-void AllGraphWinDelete( void )
+void AllGraphWinDelete(void)
 {
 
-  int iflag=0 ;
-  int num = sciGetNbFigure() ;
-  int *ArrayWGraph = NULL ;
+    int iflag = 0;
+    int num = sciGetNbFigure();
+    int *ArrayWGraph = NULL;
 
-  /* sciGetIdFigure (ArrayWGraph,&num,&iflag); */
+    /* sciGetIdFigure (ArrayWGraph,&num,&iflag); */
 
-  if (num > 0)
-  {
-    int i=0;
-    ArrayWGraph=(int*)MALLOC(sizeof(int)*num);
-
-    iflag = 1;
-    sciGetFiguresId( ArrayWGraph ) ;
-
-    for (i=0;i<num;i++)
+    if (num > 0)
     {
-      sciDeleteWindow(ArrayWGraph[i]);
+        int i = 0;
+
+        ArrayWGraph = (int *)MALLOC(sizeof(int) * num);
+
+        iflag = 1;
+        sciGetFiguresId(ArrayWGraph);
+
+        for (i = 0; i < num; i++)
+        {
+            sciDeleteWindow(ArrayWGraph[i]);
+        }
+        FREE(ArrayWGraph);
+        ArrayWGraph = NULL;
     }
-    FREE (ArrayWGraph);
-    ArrayWGraph=NULL;
-  }
 }
+
 /*--------------------------------------------------------------------------------*/
 /**
  * Recurrent destroying actions for objects
  */
-int sciStandardDestroyOperations( sciPointObj * pThis )
+int sciStandardDestroyOperations(sciPointObj * pThis)
 {
-  int res = 0 ;
+    int res = 0;
 
-  /* Update current object if needed */
-  if (pThis == sciGetCurrentObj())
-  {
-    if (sciGetParent(pThis) != NULL)
+    /* Update current object if needed */
+    if (pThis == sciGetCurrentObj())
     {
-      sciSetCurrentObj(sciGetParent(pThis));
+        if (sciGetParent(pThis) != NULL)
+        {
+            sciSetCurrentObj(sciGetParent(pThis));
+        }
+        else if (getFirstFigure() != NULL)
+        {
+            sciSetCurrentObj(sciGetCurrentSubWin());
+        }
+        else
+        {
+            /* no more object */
+            sciSetCurrentObj(NULL);
+        }
     }
-    else if (getFirstFigure() != NULL)
-    {
-      sciSetCurrentObj(sciGetCurrentSubWin());
-    }
-    else
-    {
-      /* no more object */
-      sciSetCurrentObj(NULL);
-    }
-  }
 
-  deleteObservers( pThis ) ;
-  destroyHandleDrawer( pThis ) ;
-  clearUserData( pThis ) ;
-  sciUnselectSons( pThis ) ;
-  sciDelThisToItsParent( pThis, sciGetParent(pThis) ) ;
-  if ( sciDelHandle(pThis) == -1 ) { res = -1 ; }
-	destroyRelationShip(pThis);
-  FREE( pThis->pfeatures ) ;
-  FREE( pThis ) ;
-  return res ;
+    deleteObservers(pThis);
+    destroyHandleDrawer(pThis);
+    clearUserData(pThis);
+    sciUnselectSons(pThis);
+    sciDelThisToItsParent(pThis, sciGetParent(pThis));
+    if (sciDelHandle(pThis) == -1)
+    {
+        res = -1;
+    }
+    destroyRelationShip(pThis);
+    FREE(pThis->pfeatures);
+    FREE(pThis);
+    return res;
 }
+
 /*--------------------------------------------------------------------------------*/
 /**
  * destroy a pointer or array allocated by MALLOC
  * This function was created since cpp does not
  * seems to allow the use of MALLOC or FREE
  */
-void destroyGraphicPointer(void * pointer)
+void destroyGraphicPointer(void *pointer)
 {
-  FREE(pointer);
+    FREE(pointer);
 }
+
 /*--------------------------------------------------------------------------------*/
 /**
  * destroy an array of C strings.
  * This function was created since cpp does not
  * seems to allow the use of MALLOC or FREE
  */
-void destroyGraphicStringArray(char ** strArray, int nbStrings)
+void destroyGraphicStringArray(char **strArray, int nbStrings)
 {
-	freeArrayOfString(strArray,nbStrings);
+    freeArrayOfString(strArray, nbStrings);
 }
+
 /*--------------------------------------------------------------------------------*/
 void destroyRelationShip(sciPointObj * pObj)
 {
-	/* Don't destroy relationShip for labels since the relationShip of a label
-	is contained in (and destroyed with) its text attribute (see ConstructLabel) */
-	if (pObj->relationShip != NULL && sciGetEntityType(pObj) != SCI_LABEL)
-	{
-		FREE(pObj->relationShip);
-		pObj->relationShip = NULL;
-	}
+    /* Don't destroy relationShip for labels since the relationShip of a label
+     * is contained in (and destroyed with) its text attribute (see ConstructLabel) */
+    if (pObj->relationShip != NULL && sciGetEntityType(pObj) != SCI_LABEL)
+    {
+        FREE(pObj->relationShip);
+        pObj->relationShip = NULL;
+    }
 }
+
 /*--------------------------------------------------------------------------------*/

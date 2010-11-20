@@ -23,15 +23,16 @@
 #include "returnProperty.h"
 
 /*------------------------------------------------------------------------*/
-int get_line_mode_property( sciPointObj * pobj )
+int get_line_mode_property(sciPointObj * pobj)
 {
-  if ( sciGetIsLine(pobj) )
-  {
-    return sciReturnString( "on" ) ;
-  }
-  else
-  {
-    return sciReturnString( "off" ) ;
-  }
+    if (sciGetIsLine(pobj))
+    {
+        return sciReturnString("on");
+    }
+    else
+    {
+        return sciReturnString("off");
+    }
 }
+
 /*------------------------------------------------------------------------*/

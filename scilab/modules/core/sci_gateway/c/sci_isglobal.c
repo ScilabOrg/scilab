@@ -12,11 +12,13 @@
 #include "gw_core.h"
 #include "stack-c.h"
 /*--------------------------------------------------------------------------*/
-extern int C2F(intisglobal)(char *fname,unsigned long fname_len);
+extern int C2F(intisglobal) (char *fname, unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
-int C2F(sci_isglobal)(char *fname,unsigned long fname_len)
+int C2F(sci_isglobal) (char *fname, unsigned long fname_len)
 {
-	C2F(intisglobal)(fname,fname_len);
-	return 0;
+    C2F(intisglobal) (fname, fname_len);
+    return 0;
 }
+
 /*--------------------------------------------------------------------------*/

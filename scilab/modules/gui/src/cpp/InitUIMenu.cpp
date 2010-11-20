@@ -15,7 +15,8 @@
 #include "InitUIMenu.hxx"
 #include "getHandleDrawer.h"
 #include "CallScilabBridge.hxx"
-extern "C"{
+extern "C"
+{
 #include "sci_types.h"
 #include "BOOL.h"
 #include "getScilabJavaVM.h"
@@ -30,122 +31,128 @@ extern "C"{
 
 using namespace org_scilab_modules_gui_bridge;
 
-void InitUIMenu(sciPointObj* sciObj)
+void InitUIMenu(sciPointObj * sciObj)
 {
-  pUIMENU_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newMenu(getScilabJavaVM());
+    pUIMENU_FEATURE(sciObj)->hashMapIndex = CallScilabBridge::newMenu(getScilabJavaVM());
 }
 
-int setMenuParent(sciPointObj* sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
+int setMenuParent(sciPointObj * sciObj, size_t stackPointer, int valueType, int nbRow, int nbCol)
 {
 
-  int parentFigureIndex = 0; 
+    int parentFigureIndex = 0;
 
-  /* Special case to set current figure for parent */
-  if (stackPointer == -1)
+    /* Special case to set current figure for parent */
+    if (stackPointer == -1)
     {
-      // Get current figure index
-      parentFigureIndex = sciGetNum(sciGetCurrentFigure());
-      // Send to Java
-      CallScilabBridge::setFigureAsParent(getScilabJavaVM(), parentFigureIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
-      // Scilab relationship
-      sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
+        // Get current figure index
+        parentFigureIndex = sciGetNum(sciGetCurrentFigure());
+        // Send to Java
+        CallScilabBridge::setFigureAsParent(getScilabJavaVM(), parentFigureIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
+        // Scilab relationship
+        sciAddThisToItsParent(sciObj, sciGetCurrentFigure());
     }
 
-  if (nbRow*nbCol != 1) {
-    // Parent must be a single value
-    return SET_PROPERTY_ERROR;
-  }
-
-  if (valueType == sci_handles)
+    if (nbRow * nbCol != 1)
     {
-      if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_FIGURE)
+        // Parent must be a single value
+        return SET_PROPERTY_ERROR;
+    }
+
+    if (valueType == sci_handles)
+    {
+        if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_FIGURE)
         {
 
-          // If the parent is a figure
-          parentFigureIndex = sciGetNum(sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
-          CallScilabBridge::setFigureAsParent(getScilabJavaVM(), parentFigureIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
-          
-          // Scilab relationship
-          sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
-          sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
-          
-          return SET_PROPERTY_SUCCEED;
+            // If the parent is a figure
+            parentFigureIndex = sciGetNum(sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
+            CallScilabBridge::setFigureAsParent(getScilabJavaVM(), parentFigureIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
 
-        } 
-      else if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_UIMENU)
+            // Scilab relationship
+            sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
+            sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
+
+            return SET_PROPERTY_SUCCEED;
+
+        }
+        else if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_UIMENU)
         {
 
-          // If the parent is a menu
-          CallScilabBridge::setMenuAsParent(getScilabJavaVM(), pUIMENU_FEATURE(sciGetPointerFromHandle(getHandleFromStack(stackPointer)))->hashMapIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
-          
-          // Scilab relationship
-          sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
-          sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
-          
-          return SET_PROPERTY_SUCCEED;
+            // If the parent is a menu
+            CallScilabBridge::setMenuAsParent(getScilabJavaVM(),
+                                              pUIMENU_FEATURE(sciGetPointerFromHandle(getHandleFromStack(stackPointer)))->hashMapIndex,
+                                              pUIMENU_FEATURE(sciObj)->hashMapIndex);
 
-        } 
-      else if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_UICONTEXTMENU)
+            // Scilab relationship
+            sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
+            sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
+
+            return SET_PROPERTY_SUCCEED;
+
+        }
+        else if (sciGetEntityType(sciGetPointerFromHandle(getHandleFromStack(stackPointer))) == SCI_UICONTEXTMENU)
         {
 
-          // If the parent is a context menu
-          CallScilabBridge::setMenuAsParent(getScilabJavaVM(), pUICONTEXTMENU_FEATURE(sciGetPointerFromHandle(getHandleFromStack(stackPointer)))->hashMapIndex, pUIMENU_FEATURE(sciObj)->hashMapIndex);
-          
-          // Scilab relationship
-          sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
-          sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
-          
-          return SET_PROPERTY_SUCCEED;
+            // If the parent is a context menu
+            CallScilabBridge::setMenuAsParent(getScilabJavaVM(),
+                                              pUICONTEXTMENU_FEATURE(sciGetPointerFromHandle(getHandleFromStack(stackPointer)))->hashMapIndex,
+                                              pUIMENU_FEATURE(sciObj)->hashMapIndex);
 
-        } 
-      else
+            // Scilab relationship
+            sciDelThisToItsParent(sciObj, sciGetParent(sciObj));
+            sciAddThisToItsParent(sciObj, sciGetPointerFromHandle(getHandleFromStack(stackPointer)));
+
+            return SET_PROPERTY_SUCCEED;
+
+        }
+        else
         {
-          Scierror(999, const_cast<char*>(_("%s: Wrong type for parent: Figure or uimenu expected.\n")),"SetMenuParent");
-          return SET_PROPERTY_ERROR;
+            Scierror(999, const_cast < char *>(_("%s: Wrong type for parent: Figure or uimenu expected.\n")), "SetMenuParent");
+
+            return SET_PROPERTY_ERROR;
         }
     }
-  else if (valueType == sci_matrix)
+    else if (valueType == sci_matrix)
     {
-      // The parent is Scilab Main window (Console Tab)
-      // TODO check that value is 0 
-      CallScilabBridge::setRootAsParent(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex);
-      return SET_PROPERTY_SUCCEED;
-    } 
-  else
-    {
-      Scierror(999, const_cast<char*>(_("%s: Wrong type for parent: Figure or uimenu expected.\n")),"SetMenuParent");
-      return SET_PROPERTY_ERROR;
+        // The parent is Scilab Main window (Console Tab)
+        // TODO check that value is 0 
+        CallScilabBridge::setRootAsParent(getScilabJavaVM(), pUIMENU_FEATURE(sciObj)->hashMapIndex);
+        return SET_PROPERTY_SUCCEED;
     }
-  
-}
+    else
+    {
+        Scierror(999, const_cast < char *>(_("%s: Wrong type for parent: Figure or uimenu expected.\n")), "SetMenuParent");
 
+        return SET_PROPERTY_ERROR;
+    }
+
+}
 
 void EnableRootMenu(char *name, BOOL status)
 {
-  CallScilabBridge::setRootMenuEnabled(getScilabJavaVM(),  name, BOOLtobool(status));
+    CallScilabBridge::setRootMenuEnabled(getScilabJavaVM(), name, BOOLtobool(status));
 }
 
 void EnableRootSubMenu(char *name, int position, BOOL status)
 {
-  CallScilabBridge::setRootSubMenuEnabled(getScilabJavaVM(), name, position, BOOLtobool(status));
+    CallScilabBridge::setRootSubMenuEnabled(getScilabJavaVM(), name, position, BOOLtobool(status));
 }
 
 void EnableFigureMenu(int figurenum, char *name, BOOL status)
 {
-  CallScilabBridge::setFigureMenuEnabled(getScilabJavaVM(), figurenum, name, BOOLtobool(status));
+    CallScilabBridge::setFigureMenuEnabled(getScilabJavaVM(), figurenum, name, BOOLtobool(status));
 }
 
 void EnableFigureSubMenu(int figurenum, char *name, int position, BOOL status)
 {
- CallScilabBridge::setFigureSubMenuEnabled(getScilabJavaVM(), figurenum, name, position, BOOLtobool(status));
+    CallScilabBridge::setFigureSubMenuEnabled(getScilabJavaVM(), figurenum, name, position, BOOLtobool(status));
 }
 
 void DeleteRootMenu(char *name)
 {
-   CallScilabBridge::removeRootMenu(getScilabJavaVM(), name);
+    CallScilabBridge::removeRootMenu(getScilabJavaVM(), name);
 }
 
 void DeleteFigureMenu(int figurenum, char *name)
 {
-  CallScilabBridge::removeFigureMenu(getScilabJavaVM(), figurenum, name);
+    CallScilabBridge::removeFigureMenu(getScilabJavaVM(), figurenum, name);
 }

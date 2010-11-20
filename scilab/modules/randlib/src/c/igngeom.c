@@ -48,20 +48,21 @@
 #include "grand.h"
 
 /* the external functions used  here : */
-double F2C(logp1)(double *x);  /* celle-ci est ds SCI/modules/elementary_functions/src/fortran/watan.f */
+double F2C(logp1) (double *x);  /* celle-ci est ds SCI/modules/elementary_functions/src/fortran/watan.f */
 double igngeom(double p)
 {
-  static double p_save = 1.0, ln_1_m_p = 0.0;
-  double u;
+    static double p_save = 1.0, ln_1_m_p = 0.0;
+    double u;
 
-  if ( p == 1 ) 
-    return ( 1.0 );
-  else if ( p != p_save )   /* => recompute log(1-p) */
+    if (p == 1)
+        return (1.0);
+    else if (p != p_save)       /* => recompute log(1-p) */
     {
-      p_save = p; u = -p; ln_1_m_p = F2C(logp1)(&u);
+        p_save = p;
+        u = -p;
+        ln_1_m_p = F2C(logp1) (&u);
     };
-  
-  u = -C2F(ranf)();
-  return ( floor( 1.0 + F2C(logp1)(&u)/ln_1_m_p) );
-}      
-    
+
+    u = -C2F(ranf) ();
+    return (floor(1.0 + F2C(logp1) (&u) / ln_1_m_p));
+}

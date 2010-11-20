@@ -25,16 +25,17 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_polyline_style_property( sciPointObj * pobj )
+int get_polyline_style_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType (pobj) == SCI_POLYLINE )
-  {
-    return sciReturnDouble( pPOLYLINE_FEATURE (pobj)->plot ) ;
-  }
-  else
-  {
-    Scierror(999, _("'%s' property does not exist for this handle.\n"), "polyline_style") ;
-    return -1 ;
-  }
+    if (sciGetEntityType(pobj) == SCI_POLYLINE)
+    {
+        return sciReturnDouble(pPOLYLINE_FEATURE(pobj)->plot);
+    }
+    else
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "polyline_style");
+        return -1;
+    }
 }
+
 /*------------------------------------------------------------------------*/

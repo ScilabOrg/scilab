@@ -25,20 +25,21 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_auto_dimensionning_property( sciPointObj * pobj )
+int get_auto_dimensionning_property(sciPointObj * pobj)
 {
-  if ( sciGetEntityType( pobj ) == SCI_TEXT )
-  {
-    if ( sciGetAutoSize( pobj ) )
+    if (sciGetEntityType(pobj) == SCI_TEXT)
     {
-      return sciReturnString( "on" ) ;
+        if (sciGetAutoSize(pobj))
+        {
+            return sciReturnString("on");
+        }
+        else
+        {
+            return sciReturnString("off");
+        }
     }
-    else
-    {
-      return sciReturnString( "off" ) ;
-    }
-  }
-  Scierror(999, _("'%s' property does not exist for this handle.\n"),"auto_dimensionning") ;
-  return -1 ;
+    Scierror(999, _("'%s' property does not exist for this handle.\n"), "auto_dimensionning");
+    return -1;
 }
+
 /*------------------------------------------------------------------------*/
