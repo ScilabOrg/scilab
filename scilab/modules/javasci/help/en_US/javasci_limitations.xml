@@ -32,8 +32,8 @@
       <listitem>Cannot manage several instances of Scilab (this problem is not addressed yet in Javasci v2)</listitem>
     </itemizedlist>
   </refsection>
-  <refsection>
-    <title>See Also</title>
+  <refsection role="see also">
+<title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="compile_and_run_javasci">Compile and run with Javasci</link>
