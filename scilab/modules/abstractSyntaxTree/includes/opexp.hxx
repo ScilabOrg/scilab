@@ -32,26 +32,26 @@ namespace ast
       /** \brief "+" */			plus,
       /** \brief "-" */			minus,
       /** \brief "*" */			times,
-      /** \brief "/" */			divide,
-      /** \brief "\" */			rdivide,
+      /** \brief "/" */			rdivide,
+      /** \brief "\" */			ldivide,
       /** \brief "**" or "^" */		power,
 
       // Element Ways.
       /** \brief ".*" */		dottimes,
-      /** \brief "./" */		dotdivide,
-      /** \brief ".\" */		dotrdivide,
+      /** \brief "./" */		dotrdivide,
+      /** \brief ".\" */		dotldivide,
       /** \brief ".^" */		dotpower,
 
       // Kroneckers
       /** \brief ".*." */		krontimes,
-      /** \brief "./." */		krondivide,
-      /** \brief ".\." */		kronrdivide,
+      /** \brief "./." */		kronrdivide,
+      /** \brief ".\." */		kronldivide,
 
       // Control
       // FIXME : What the hell is this ???
       /** \brief "*." */		controltimes,
-      /** \brief "/." */		controldivide,
-      /** \brief "\." */		controlrdivide,
+      /** \brief "/." */		controlrdivide,
+      /** \brief "\." */		controlldivide,
 
       // Comparison.
       /** \brief "==" */		eq,
