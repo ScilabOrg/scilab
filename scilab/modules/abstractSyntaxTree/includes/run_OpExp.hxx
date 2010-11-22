@@ -302,7 +302,7 @@ void visitprivate(const OpExp &e)
                 }
                 break;
             }
-        case OpExp::divide:
+        case OpExp::rdivide:
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
