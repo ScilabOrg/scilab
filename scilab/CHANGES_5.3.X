@@ -1,3 +1,5 @@
+ * bug 7806 fixed - [a, b] = dos("git 1>&2") returned a wrong error.
+ 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
