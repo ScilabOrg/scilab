@@ -334,6 +334,9 @@ Bug Fixes:
 
 * bug 8202 fixed - Typo in the localization.
 
+* bug 8203 fixed - It was not possible to close the fontchooser or the colorchooser
+                   with the escape key.
+
 * bug 8206 fixed - isnum did not manage blanks.
 
 * bug 8208 fixed - Error in creating the temporary directory in function
