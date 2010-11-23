@@ -16,6 +16,8 @@
 #include <iostream>
 #include <string.h>
 
+#include "scilab.hxx" /* define scilab various main prototypes */
+
 extern "C"
 {
 #ifndef _MSC_VER
@@ -538,7 +540,7 @@ static void TermPrintf(char *text)
 /*
 ** -*- MAIN -*-
 */
-int main(int argc, char *argv[])
+__SCILAB_MAIN_BEGIN__
 {
     int iFileIndex = INTERACTIVE;
     int iLangIndex = 0;
@@ -584,6 +586,7 @@ int main(int argc, char *argv[])
         return StartScilabEngine(argc, argv, iFileIndex);
 #endif // defined(WITHOUT_GUI)
 }
+__SCILAB_MAIN_END__
 
 int StartScilabEngine(int argc, char*argv[], int iFileIndex)
 {
