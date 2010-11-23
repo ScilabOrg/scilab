@@ -46,6 +46,7 @@ public final class SciDocMain {
     private String scimacro;
     private String version;
     private String imagedir;
+    private boolean checkExamples;
 
     /**
      * Set the directory where files must be exported
@@ -82,6 +83,14 @@ public final class SciDocMain {
         this.format = format;
     }
 
+    /**
+     * Check if a help page contains an example.
+     * @param enable, set to true to check
+     */
+    public void setCheckExamples(boolean enable) {
+        this.checkExamples = enable;
+    }
+
     public static void main(String[] args) {
         SciDocMain sciDoc = new SciDocMain();
         sciDoc.buildDocumentationCommandLine(args);
@@ -93,16 +102,17 @@ public final class SciDocMain {
             System.out.println("Usage scidoc [OPTION]... file");
             System.out.println("SciDoc is a tool to generate html or javahelp files from DocBook");
             System.out.println("");
-            System.out.println("-input        Input DocBook file");
-            System.out.println("-output       The output directory");
-            System.out.println("-template     A template file used for the generation");
-            System.out.println("-imagedir     The directory which will contain the generated images");
-            System.out.println("              the path is relative to output");
-            System.out.println("-javahelp     No expected argument, just precise the kind of output");
-            System.out.println("-html         No expected argument, just precise the kind of output (default)");
-            System.out.println("-sciprim      A file containing the list of the Scilab primitives");
-            System.out.println("-scimacro     A file containing the list of the Scilab macros");
-            System.out.println("-version      A string with the version of Scilab");
+            System.out.println("-input          Input DocBook file");
+            System.out.println("-output         The output directory");
+            System.out.println("-template       A template file used for the generation");
+            System.out.println("-imagedir       The directory which will contain the generated images");
+            System.out.println("                the path is relative to output");
+            System.out.println("-javahelp       No expected argument, just precise the kind of output");
+            System.out.println("-html           No expected argument, just precise the kind of output (default)");
+            System.out.println("-sciprim        A file containing the list of the Scilab primitives");
+            System.out.println("-scimacro       A file containing the list of the Scilab macros");
+            System.out.println("-version        A string with the version of Scilab");
+            System.out.println("-checkexamples  true or false to check if examples are present");
             //System.out.println("-checklast    true or false, just say if the date of the last generation");
             //System.out.println("              must be checked, it could be useful to regenerate only the changed files");
             System.out.println("");
@@ -139,6 +149,7 @@ public final class SciDocMain {
         scimacro = map.get("scimacro");
         version = map.get("version");
         imagedir = map.get("imagedir");
+        checkExamples = map.containsKey("checkexamples");
 
         if (map.containsKey("javahelp")) {
             process(input, "");
@@ -164,11 +175,11 @@ public final class SciDocMain {
         try {
             DocbookTagConverter converter = null;
             if (format.equalsIgnoreCase("javahelp")) {
-                converter = new JavaHelpDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast);
+                converter = new JavaHelpDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast, checkExamples);
             } else if (format.equalsIgnoreCase("html")) {
-                converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast);
+                converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast, checkExamples);
             } else if (format.equalsIgnoreCase("chm")) {
-                converter = new CHMDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast);
+                converter = new CHMDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, checkLast, checkExamples);
             }
 
             converter.registerExternalXMLHandler(new HTMLMathMLHandler(outputDirectory, imagedir));

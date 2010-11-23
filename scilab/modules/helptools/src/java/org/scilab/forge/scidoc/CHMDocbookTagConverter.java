@@ -46,8 +46,8 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
      * @param macroConf the file containing the macros of Scilab
      * @param out the output stream
      */
-    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, boolean checkLast) throws IOException, SAXException {
-        super(inName, outName, primConf, macroConf, template, version, imageDir, checkLast);
+    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, boolean checkLast, boolean checkExamples) throws IOException, SAXException {
+        super(inName, outName, primConf, macroConf, template, version, imageDir, checkLast, checkExamples);
         this.outName = new File(outName).getCanonicalPath() + File.separator;
     }
 
