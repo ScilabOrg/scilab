@@ -1,3 +1,4 @@
+
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
@@ -15,6 +16,13 @@ Removed functions (previously declared as obsolete):
 
 * 'oldbesseli', 'oldbesselj', 'oldbesselk' and 'oldbessely' removed.
   Please use 'besseli', 'besselj', 'besselk' and 'bessely' instead.
+
+
+Demonstration:
+==============
+
+* A demonstration (Nonisothermal plug flow reactor model) of ode usage has been
+  added. Thanks to Jakub Kopac.
 
 
 Documentation:
@@ -124,6 +132,7 @@ Bug fixes:
             ========================================================
 
 
+<<<<<<< HEAD
 SciNotes:
 =========
 
