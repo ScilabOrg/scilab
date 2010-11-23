@@ -1,3 +1,14 @@
+            Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
+            ========================================================
+
+
+Demonstration:
+==============
+
+* A demonstration (Nonisothermal plug flow reactor model) of ode usage has been
+  added. Thanks to Jakub Kopac.
+
+
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
