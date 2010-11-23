@@ -1,0 +1,75 @@
+<!--title=<!--<title>-->--> <!--subtitle=<!--<subtitle>-->-->
+<div id="global">
+
+			<div id="myHeader">
+
+              <!--links-->
+
+            <div id="slogan">
+              Scilab documentation portal
+            </div>
+
+              <div id="cadre_help">
+                <!--login--><br />
+                <!--search-->              
+              </div>
+			</div>
+			
+			<div id="mainArea">
+			
+				<div id="myLeftArea">
+				    <div class="title">
+                      <!--<version>-->
+                    </div>
+                    <!--<toclist>-->
+				</div>
+							
+				
+				<div id="myMiddleArea">
+                  
+  <div class="editbar">
+    <div class="selectlanguage">
+      <!--selectlanguage-->
+    </div>
+    
+    <div class="favorite">
+      <!--favorite-->
+    </div>
+  </div>
+      
+    <!--<content>-->
+    
+    <!--zone_comment-->
+  
+    <table width="100%"><tr>
+    <td width="30%">
+      <!--<previous>-->
+    </td>
+    <td width="40%" class="center">
+      <!--<top>-->
+    </td>
+    <td width="30%" class="next" align="right">
+      <!--<next>-->
+    </td>
+    </tr></table>
+    <hr />
+				</div>
+				
+			</div>	
+			
+		</div>
+		
+		<div id="myFooter">
+<table width="100%"><tr><td>
+  
+      <b><a href="http://www.scilab.org/">Consortium Scilab (DIGITEO)</a></b><br />
+      Copyright (c) 1989-2010 (INRIA)<br />
+      Copyright (c) 1989-2007 (ENPC)<br />
+      with <a href="http://www.scilab.org/communities/developer_zone/contribute/contributors_list">contributors</a>
+      </td><td align="right">
+      Last updated:<br /><!--<generationdate>-->
+      <br /><br /><br />
+          </td>
+      </tr></table>
+                    
+		</div>
