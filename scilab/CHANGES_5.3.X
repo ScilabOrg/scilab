@@ -4,6 +4,9 @@
 Xcos:
 =====
 
+* bug 8223 fixed - Xcos did not produce a visible error when Saxon is used as
+                   XML DOM implementation.
+
 * bug 8441 fixed - "xcos_block" abstract block were not removed on the 
                    compilation.
 
