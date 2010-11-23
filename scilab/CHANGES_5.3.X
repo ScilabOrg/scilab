@@ -31,6 +31,12 @@ in the status bar of Scinotes.
 
 * A bad identifier is now shown in the text editor.
 
+Xcos:
+=====
+
+* bug 8223 fixed - Xcos did not produce a visible error when Saxon is used as
+                   XML DOM implementation.
+
 Localization:
 =============
 
