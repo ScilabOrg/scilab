@@ -368,7 +368,7 @@ public final class Xcos {
 			return;
 		}
 		
-		final Xcos instance = getInstance();
+		final Xcos instance = sharedInstance;
 		final List<XcosDiagram> diagrams = instance.diagrams;
 
 		/*
@@ -387,6 +387,10 @@ public final class Xcos {
 			instance.palette.getView().close();
 			instance.palette.setView(null);
 		}
+		
+		/* Saving modified data */
+		instance.palette.saveConfig();
+		instance.configuration.saveConfig();
 	}
 
 	/**
@@ -467,10 +471,6 @@ public final class Xcos {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {
-					// Saving modified data
-					getInstance().palette.saveConfig();
-					getInstance().configuration.saveConfig();
-					
 					closeSession();
 					clearInstance();
 				}
