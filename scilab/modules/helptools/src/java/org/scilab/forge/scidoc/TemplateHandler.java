@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 
@@ -38,8 +39,9 @@ public class TemplateHandler {
     public void generateFileFromTemplate(String fileName, String id, String contents) {
         try {
             OutputStream out = new FileOutputStream(fileName);
-            OutputStreamWriter writer = new OutputStreamWriter(out, Charset.forName("UTF-8"));
-
+            OutputStreamWriter oswriter = new OutputStreamWriter(out, Charset.forName("UTF-8"));
+	    BufferedWriter writer = new BufferedWriter(oswriter);
+	    
             for (int i = 0; i < array.length; i += 2) {
                 writer.append(array[i]);
                 String str = "";
@@ -75,7 +77,7 @@ public class TemplateHandler {
 
             writer.flush();
             writer.close();
-            out.flush();
+	    oswriter.close();
             out.close();
         } catch (IOException e) {
             System.err.println(e);
@@ -92,6 +94,7 @@ public class TemplateHandler {
                 stringBuilder.append("\n");
             }
 
+	    reader.close();
             array = stringBuilder.toString().split("(<!--<)|(>-->)");
         } catch (IOException e) {
             e.printStackTrace();
