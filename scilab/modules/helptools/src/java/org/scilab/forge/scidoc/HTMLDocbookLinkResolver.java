@@ -38,6 +38,7 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
 
     private Map<String, String> mapId = new LinkedHashMap();
     private Map<String, String> toc = new LinkedHashMap();
+    private Map<String, String> mapIdPurpose = new LinkedHashMap();
     private Map<String, TreeId> mapTreeId = new HashMap();
     private Map<String, String> mapIdDeclaringFile = new HashMap();
     private TreeId tree = new TreeId(null, "root");
@@ -49,6 +50,7 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
     private Locator locator;
     private String currentFileName;
     private boolean waitForRefname;
+    private boolean waitForRefpurpose;
     private boolean waitForTitle;
     private boolean getContents;
     private final File in;
@@ -70,6 +72,13 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
      */
     public Map<String, String> getMapId() {
         return mapId;
+    }
+
+    /**
+     * @return the map id-&gt;title
+     */
+    public Map<String, String> getMapIdPurpose() {
+        return mapIdPurpose;
     }
 
     /**
@@ -134,6 +143,11 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
                 getContents = true;
                 buffer.setLength(0);
             }
+        } else if (localName.equals("refpurpose")) {
+            if (waitForRefpurpose) {
+                getContents = true;
+                buffer.setLength(0);
+            }
         } else if (localName.equals("refentry") || localName.equals("section") || localName.equals("part") || localName.equals("chapter")) {
             if (id == null) {
                 throw new SAXException(errorMsg());
@@ -149,6 +163,7 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
             mapId.put(id, current);
             waitForTitle = localName.charAt(0) != 'r';
             waitForRefname = !waitForTitle;
+            waitForRefpurpose = waitForRefname;
             TreeId leaf = new TreeId(currentLeaf, id);
             currentLeaf.add(leaf);
             currentLeaf = leaf;
@@ -162,10 +177,15 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
      */
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (getContents) {
-            toc.put(lastId, buffer.toString().trim());
             getContents = false;
-            waitForRefname = false;
-            waitForTitle = false;
+            if (localName.equals("refpurpose")) {
+                mapIdPurpose.put(lastId, buffer.toString().trim());
+                waitForRefpurpose = false;
+            } else {
+                toc.put(lastId, buffer.toString().trim());
+                waitForRefname = false;
+                waitForTitle = false;
+            }
         }
         if (localName.equals("refentry") || localName.equals("section") || localName.equals("part") || localName.equals("chapter")) {
             currentLeaf = currentLeaf.parent;
@@ -250,12 +270,12 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
         if (currentFileName != null) {
             str = currentFileName;
         } else {
-                try {
-                    str = in.getCanonicalPath();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    str = null;
-                }
+            try {
+                str = in.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+                str = null;
+            }
         }
 
         return "Refentry without id attributes in file " + str + " at line " + locator.getLineNumber();

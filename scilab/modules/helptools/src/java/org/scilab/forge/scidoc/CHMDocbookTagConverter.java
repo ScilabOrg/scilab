@@ -49,8 +49,8 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
      * @param macroConf the file containing the macros of Scilab
      * @param out the output stream
      */
-    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, boolean checkLast, String language) throws IOException, SAXException {
-        super(inName, outName, primConf, macroConf, template, version, imageDir, checkLast);
+    public CHMDocbookTagConverter(String inName, String outName, String primConf, String macroConf, String template, String version, String imageDir, String language, boolean checkLast, boolean checkExamples) throws IOException, SAXException {
+        super(inName, outName, primConf, macroConf, template, version, imageDir, checkLast, checkExamples);
         this.outName = new File(outName).getCanonicalPath() + File.separator;
         this.language = language;
     }
@@ -178,8 +178,6 @@ public class CHMDocbookTagConverter extends HTMLDocbookTagConverter {
     }
 
     private void convertFileList(Appendable buffer) throws IOException {
-        // Allan : si tu penses que l'on peut faire un truc plus configurable, dis-moi je ferais un fichier modele
-        // que l'on remplira ensuite avec les bonnes options...
         buffer.append("[OPTIONS]\n");
         buffer.append("Binary TOC=Yes\n");
         buffer.append("Compatibility=1.1 or later\n");

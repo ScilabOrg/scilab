@@ -80,11 +80,11 @@ public class DocbookTagConverter extends DefaultHandler {
      * @param in the input file path
      */
     public DocbookTagConverter(String in) throws IOException {
-    	if (in != null && !in.isEmpty()) {
-    		this.in = new File(in);
-    	} else {
-    		this.in = null;
-    	}
+        if (in != null && !in.isEmpty()) {
+            this.in = new File(in);
+        } else {
+            this.in = null;
+        }
     }
 
     /**
@@ -275,12 +275,12 @@ public class DocbookTagConverter extends DefaultHandler {
      */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (uri.equals(DOCBOOKURI)) {
-                int len = attributes.getLength();
-                Map<String, String> map = new HashMap(len);
-                for (int i = 0; i < len; i++) {
-                    map.put(attributes.getLocalName(i), attributes.getValue(i));
-                }
-                stack.push(baseElement.getNewInstance(localName, map));
+            int len = attributes.getLength();
+            Map<String, String> map = new HashMap(len);
+            for (int i = 0; i < len; i++) {
+                map.put(attributes.getLocalName(i), attributes.getValue(i));
+            }
+            stack.push(baseElement.getNewInstance(localName, map));
         } else {
             ExternalXMLHandler h = externalHandlers.get(uri);
             if (h == null) {
@@ -305,7 +305,7 @@ public class DocbookTagConverter extends DefaultHandler {
     /**
      * {@inheritDoc}
      */
-    public void endElement(String uri, String localName, String qName) throws SAXException {//if (localName.equals("member")&&titi>1){titi=0;System.out.println(currentFileName);}
+    public void endElement(String uri, String localName, String qName) throws SAXException {
         if (uri.equals(DOCBOOKURI)) {
             DocbookElement elem = stack.pop();
             if (!elem.getName().equals(localName)) {
@@ -426,14 +426,14 @@ public class DocbookTagConverter extends DefaultHandler {
         if (currentFileName != null) {
             sId = "SystemID:" + currentFileName;
         }
-        
+
         String file;
-		try {
-			file = in.getCanonicalPath();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			file = null;
-		}
+        try {
+            file = in.getCanonicalPath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            file = null;
+        }
         if (locator != null) {
             throw new SAXException("Cannot parse " + file + ":\n" + e.getMessage() + "\n" + sId + " at line " + locator.getLineNumber());
         } else {
