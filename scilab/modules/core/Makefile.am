@@ -38,7 +38,6 @@ src/c/xscion.c \
 src/c/SetScilabEnvironment.c \
 src/c/returnanan.c \
 src/c/LoadFunctionsTab.c \
-src/c/with_module.c \
 src/c/loadversion.c \
 src/c/version.c \
 src/c/stackinfo.c \
@@ -82,10 +81,12 @@ src/c/getversion.c \
 src/c/dynamic_tclsci.c \
 src/c/dynamic_parallel.c
 
-CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
-src/cpp/namstr.cpp \
-src/cpp/search_functions.cpp \
-src/cpp/storeCommand.cpp
+CORE_CPP_SOURCES = \
+	src/cpp/hashtable_core.cpp \
+	src/cpp/namstr.cpp \
+	src/cpp/search_functions.cpp \
+	src/cpp/storeCommand.cpp \
+	src/cpp/with_module.cpp
 
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
@@ -231,7 +232,6 @@ sci_gateway/c/sci_typename.c \
 sci_gateway/c/sci_mode.c \
 sci_gateway/c/sci_macr2tree.c \
 sci_gateway/c/sci_iserror.c \
-sci_gateway/c/sci_getversion.c \
 sci_gateway/c/sci_getdebuginfo.c \
 sci_gateway/c/sci_debug.c \
 sci_gateway/c/gw_core.c \
@@ -273,7 +273,8 @@ GATEWAY_CPP_SOURCES = 	\
 	sci_gateway/cpp/sci_getos.cpp \
 	sci_gateway/cpp/sci_exists.cpp \
 	sci_gateway/cpp/sci_with_module.cpp \
-	sci_gateway/cpp/sci_lasterror.cpp
+	sci_gateway/cpp/sci_lasterror.cpp \
+	sci_gateway/cpp/sci_getversion.cpp
 
 libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(srcdir)/src/c/ \
