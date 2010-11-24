@@ -1,3 +1,6 @@
+* bug 8220 fixed - 'whereis' function with a string as input argument did not work
+                   with ATOMS functions.
+
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
