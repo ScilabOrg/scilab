@@ -1,5 +1,7 @@
+
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
+
 
 SciNotes:
 =========
@@ -10,6 +12,9 @@ SciNotes:
 
 Bug Fixes:
 ==========
+
+* bug 8448 fixed - 'whereis' function with a string as input argument did not work
+                   with ATOMS functions.
 
 * bug 8459 fixed - strsplit failed when second input argument was a "/"
 
