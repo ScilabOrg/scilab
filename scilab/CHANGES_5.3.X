@@ -1,3 +1,15 @@
+            Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
+            ========================================================
+
+Xcos:
+=====
+
+* bug 8223 fixed - Xcos did not produce a visible error when Saxon is used as
+                   XML DOM implementation.
+
+* bug 8441 fixed - "xcos_block" abstract block were not removed on the 
+                   compilation.
+
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
