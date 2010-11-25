@@ -1,3 +1,6 @@
+
+* bug 8459 fixed - strsplit failed when second input argument was a "/"
+
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
