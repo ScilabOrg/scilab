@@ -1,8 +1,6 @@
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
- * bug 7806 fixed - [a, b] = dos("git 1>&2") returned a wrong error.
-
 
 SciNotes:
 =========
@@ -38,6 +36,8 @@ Bug Fixes:
                    Added unit tests for sp2adj and adj2sp.
                    Improved implementation by checking the input arguments.
 
+* bug 7806 fixed - [a, b] = dos("git 1>&2") returned a wrong error.
+
 * bug 7849 fixed - eqfir / remez functions crashed under MacOSX due to
                    a lapack bug on slamch function.
 
@@ -62,6 +62,8 @@ Bug Fixes:
 * bug 8459 fixed - strsplit failed when second input argument was a "/"
 
 * bug 8462 fixed - bvodeS crashed on Windows and did not return a error.
+
+* bug 8463 fixed - scilab pdfs (fr_FR and pt_BR) were not fully generated.
 
 * bug 8468 fixed - size with 2 input arguments did not work for hypermatrices.
 
