@@ -298,6 +298,7 @@ bool FuncManager::CreateModuleList(void)
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"string", &StringModule::Load));
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"scinotes", &ScinotesModule::Load));
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"localization", &LocalizationModule::Load));
+    m_ModuleMap.insert(pair<wstring, GW_MOD>(L"jvm", &JvmModule::Load));
 #ifdef _MSC_VER
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"windows_tools", &WindowsToolsModule::Load));
 #endif
