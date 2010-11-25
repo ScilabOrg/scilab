@@ -43,20 +43,39 @@ wchar_t *getSCIW(void)
 /*--------------------------------------------------------------------------*/
 void setSCIW(const wchar_t* _sci_path)
 {
-    //add SCI value in context as variable
-    types::String *pS = new types::String(_sci_path);
-    symbol::Context::getInstance()->put(L"SCI", *pS);
-
-    //add SCI value ConfigVariable
-    std::wstring sci_path(_sci_path);
-    ConfigVariable::setSCIPath(sci_path);
+    char* pstPath = wide_string_to_UTF8(_sci_path);
+    setSCI(pstPath);
+    FREE(pstPath);
 }
 /*--------------------------------------------------------------------------*/
 void setSCI(const char* _sci_path)
 {
-    wchar_t* pstTemp = to_wide_string(_sci_path);
-    setSCIW(pstTemp);
-    FREE(pstTemp);
+    //
+    char *ShortPath = NULL;
+    char *pstSlash = new char[strlen(_sci_path) + 1];
+    char *pstBackSlash = new char[strlen(_sci_path) + 1];
+    bool bConvertOK = false;
+    ShortPath = getshortpathname(_sci_path, &bConvertOK);
+    AntislashToSlash(ShortPath, pstSlash);
+    SlashToAntislash(_sci_path, pstBackSlash);
+
+    //SCI
+    wchar_t* pwstSCI = to_wide_string(pstSlash);
+    types::String *pSSCI = new types::String(pwstSCI);
+    symbol::Context::getInstance()->put(L"SCI", *pSSCI);
+
+    //WSCI
+    wchar_t* pwstWSCI = to_wide_string(pstBackSlash);
+    types::String *pSWSCI = new types::String(pwstWSCI);
+    symbol::Context::getInstance()->put(L"WSCI", *pSWSCI);
+
+    ConfigVariable::setSCIPath(wstring(pwstWSCI));
+
+    FREE(pwstSCI);
+    FREE(pwstWSCI);
+    FREE(pstBackSlash);
+    FREE(pstSlash);
+    FREE(ShortPath);
 }
 /*--------------------------------------------------------------------------*/
 void putenvSCIW(const wchar_t* _sci_path)
