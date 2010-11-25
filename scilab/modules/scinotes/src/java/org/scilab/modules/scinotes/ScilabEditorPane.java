@@ -51,6 +51,7 @@ import javax.swing.event.CaretListener;
 import org.scilab.modules.commons.gui.ScilabCaret;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.scinotes.actions.CopyAsHTMLAction;
+import org.scilab.modules.scinotes.actions.PasteAction;
 import org.scilab.modules.scinotes.actions.OpenSourceFileOnKeywordAction;
 import org.scilab.modules.scinotes.utils.NavigatorWindow;
 import org.scilab.modules.scinotes.utils.SciNotesMessages;
@@ -971,6 +972,9 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      */
     public void mouseClicked(MouseEvent e) {
         preventConcernedKeywordListener(getCaretPosition(), e, KeywordListener.ONMOUSECLICKED);
+        if (e.getModifiers() == MouseEvent.BUTTON2_MASK) {
+            new PasteAction("", editor).doAction();
+        }
     }
 
     /**
