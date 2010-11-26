@@ -104,7 +104,6 @@ void visitprivate(const CallExp &e)
         {
             execVar[k].result_get()->DecreaseRef();
         }
-
         //std::cout << "before delete[]" << std::endl;
         delete[] execVar;
         //std::cout << "after delete[]" << std::endl;
@@ -283,6 +282,9 @@ void visitprivate(const CallExp &e)
             case InternalType::RealInt :
                 pOut = pIT->getAsInt()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
+            case InternalType::RealSparse :
+                pOut = pIT->getAsSparse()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
+                    break;
             case InternalType::RealString :
                 pOut = pIT->getAsString()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
                 break;
