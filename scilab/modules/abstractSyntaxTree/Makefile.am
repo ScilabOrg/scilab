@@ -27,7 +27,9 @@ libsciabstractSyntaxTree_la_CXXFLAGS 	= -I$(top_srcdir)/modules/symbol/includes 
 			-I $(top_srcdir)/modules/operations/includes \
 			-I $(top_srcdir)/modules/output_stream/includes \
 			-I includes \
-			-I src/cpp
+			-I src/cpp \
+			$(EIGEN_CPPFLAGS)
+
 
 
 libsciabstractSyntaxTree_la_includedir=$(pkgincludedir)/abstractSyntaxTree

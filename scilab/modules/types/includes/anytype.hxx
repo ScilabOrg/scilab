@@ -43,6 +43,9 @@ namespace types
     class TList;
     class MList;
     class File;
+    class Sparse;
+    class SparseBool;
+    template<class  T> class User;
 }
 
 #endif /* !__ANY_TYPES_HXX__ */
