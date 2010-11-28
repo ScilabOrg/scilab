@@ -18,6 +18,10 @@
 #include "parser_private.hxx"
 #include "scilabexception.hxx"
 
+#ifdef __APPLE__
+#define MAX_PATH 1024
+#endif
+
 #ifdef _MSC_VER
 #include "windows.h"
 #include "charEncoding.h"
@@ -144,10 +148,15 @@ void ParserSingleInstance::parse(char *command)
 #endif
 
 #ifdef __APPLE__
-	yyin = fopen("command.temp", "w");
+	char szFile[MAX_PATH];
+    char* pstTmpDIr = "/tmp";
+    //char* pstTmpDIr = NSTemporaryDirectory();
+    sprintf(szFile, "%s/%s", pstTmpDIr, "command.temp");
+    // FREE(pstTmpDIr);
+	yyin = fopen(szFile, "w");
 	fwrite(command, 1, strlen(command), yyin);
 	fclose(yyin);
-	yyin = fopen("command.temp", "r");
+	yyin = fopen(szFile, "r");
 #endif
 
 
