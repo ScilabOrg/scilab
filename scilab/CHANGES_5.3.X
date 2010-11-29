@@ -31,6 +31,11 @@ in the status bar of Scinotes.
 
 * A bad identifier is now shown in the text editor.
 
+Xcos:
+=====
+
+* bug 8480 fixed - The Debug block did not have a valid function type.
+
 Localization:
 =============
 
