@@ -198,14 +198,14 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      * {@inheritDoc}
      */
     public boolean isEscapable(String tagName) {
-        return !"latex".equals(tagName) && !"programlisting".equals(tagName) && !"synopsis".equals(tagName);
+        return !"latex".equals(tagName) && !"screen".equals(tagName) && !"programlisting".equals(tagName) && !"synopsis".equals(tagName);
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean isTrimable(String tagName) {
-        return !"programlisting".equals(tagName) && !"synopsis".equals(tagName);
+        return !"screen".equals(tagName) && !"programlisting".equals(tagName) && !"synopsis".equals(tagName);
     }
 
     /**
@@ -700,6 +700,23 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     public String handleProgramlisting(Map<String, String> attributes, String contents) throws SAXException {
         String id = attributes.get("id");
         String str = encloseContents("div", "programlisting", encloseContents("pre", scilabLexer.convert(HTMLScilabCodeHandler.getInstance(refname, mapId), contents)));
+        if (id != null) {
+            return "<a name=\"" + id + "\"></a>" + str;
+        } else {
+            return str;
+        }
+    }
+
+    /**
+     * Handle a screen
+     * @param attributes the tag attributes
+     * @param contents the tag contents
+     * @return the HTML code
+     * @throws SAXEception if an error is encountered
+     */
+    public String handleScreen(Map<String, String> attributes, String contents) throws SAXException {
+        String id = attributes.get("id");
+        String str = encloseContents("div", "screen", encloseContents("pre", contents));
         if (id != null) {
             return "<a name=\"" + id + "\"></a>" + str;
         } else {
