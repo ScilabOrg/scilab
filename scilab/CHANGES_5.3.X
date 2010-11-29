@@ -21,6 +21,8 @@ Xcos:
 Bug Fixes:
 ==========
 
+* bug 4673 fixed - A example of calling the "addinter" function was added.
+
 * bug 5686 fixed - Complex number manipulation could crash Scilab.
 
 * bug 6768 fixed - input did not return good value when RETURN was pressed
