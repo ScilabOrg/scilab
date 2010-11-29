@@ -14,7 +14,10 @@ package org.scilab.modules.xcos.graph.swing.handler;
 
 import java.awt.event.MouseEvent;
 
+import org.scilab.modules.xcos.block.SplitBlock;
+import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
+import org.scilab.modules.xcos.link.BasicLink;
 
 import com.mxgraph.model.mxICell;
 import com.mxgraph.view.mxCellState;
@@ -28,6 +31,8 @@ import com.mxgraph.view.mxGraph;
  */
 public class ConnectPreview extends com.mxgraph.swing.handler.mxConnectPreview {
 
+	
+	
 	/**
 	 * Default constructor
 	 * 
@@ -52,5 +57,30 @@ public class ConnectPreview extends com.mxgraph.swing.handler.mxConnectPreview {
 		((mxICell) startState.getCell()).insertEdge(cell, true);
 
 		return cell;
+	}
+	
+	/**
+	 * Starting a new connection by setting sourceState, startPoint and previewState.
+	 * 
+	 * @param e the mouse event
+	 * @param startState the cell state
+	 * @param style the style of the edge
+	 * @see com.mxgraph.swing.handler.mxConnectPreview#start(java.awt.event.MouseEvent, com.mxgraph.view.mxCellState, java.lang.String)
+	 */
+	@Override
+	public void start(MouseEvent e, mxCellState startState, String style) {
+		final XcosDiagram graph = (XcosDiagram) graphComponent.getGraph();
+		final ConnectionHandler handler = (ConnectionHandler) graphComponent.getConnectionHandler();
+		
+		// Split case
+		if (startState.getCell() instanceof BasicLink)  {
+			BasicLink lnk = (BasicLink) startState.getCell();
+			handler.setResetEnable(false);
+			SplitBlock split = graph.addSplitEdge(transformScreenPoint(e.getPoint().getX(), e.getPoint().getY()), lnk);
+			handler.setResetEnable(true);
+			super.start(e, graph.getView().getState(split), style);
+		} else {
+			super.start(e, startState, style);
+		}
 	}
 }
