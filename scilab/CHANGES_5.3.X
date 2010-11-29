@@ -7,6 +7,9 @@ SciNotes:
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
+* bugs 8499, 8500 fixed - There were no position and current function name
+                          in status bar.
+
 
 Bug Fixes:
 ==========
