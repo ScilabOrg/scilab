@@ -15,6 +15,8 @@
 #include <cstdio>
 #include <iostream>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 extern "C"
 {
@@ -82,8 +84,8 @@ extern "C"
 #include "configvariable.hxx"
 #include "filemanager.hxx"
 #include "scilabexception.hxx"
-
 #include "banner.hxx"
+#include "execvisitor.hxx"
 
 #define INTERACTIVE     -1
 
@@ -127,6 +129,10 @@ int InitializeEnvironnement(void);
 bool execScilabStart(void);
 
 int StartScilabEngine(int argc, char*argv[], int iFileIndex);
+
+
+void printLine(char* _stPrompt, char* _stLine, bool _bLF);
+void printExp(std::ifstream* _pFile, Exp* _pExp, char* _pstPrompt, int* _piLine /* in/out */, char* _pstPreviousBuffer);
 
 /*
 ** Usage
@@ -259,153 +265,312 @@ static int batchMain (void)
 /*
 ** -*- PARSING -*-
 */
-    Parser *parser = new Parser();
-    parser->setParseTrace(parseTrace);
-
-    //Change parsing methode to parse line by line and not entire file
-    char* pstFilename = wide_string_to_UTF8(file_name);
-    char pstRead[4096] = {0};
-    char* pstCommand = NULL;
-    FILE* fileIn = NULL;
-#ifdef _MSC_VER
-    fopen_s(&fileIn, pstFilename, "r");
-#else
-    fileIn = fopen(pstFilename, "r");
-#endif
-    if(fileIn == NULL)
-    {
-        wchar_t szError[bsiz];
-        os_swprintf(szError, bsiz, _W("%ls: Cannot open file %ls.\n"), L"parser", file_name);
-        throw ast::ScilabError(szError, 999, *new Location());
-    }
-
-    while (!ConfigVariable::getForceQuit() && fgets(pstRead, 4096, fileIn) != 0)
-    {
-        if(pstCommand == NULL)
-        {
-            pstCommand = os_strdup(pstRead);
-        }
-        else
-        {
-            //+1 for null termination and +1 for '\n'
-            size_t iLen = strlen(pstCommand) + strlen(pstRead) + 2;
-            char* pstNewCommand = (char*)MALLOC(iLen * sizeof(char));
-#ifdef _MSC_VER
-            sprintf_s(pstNewCommand, iLen, "%s\n%s", pstCommand, pstRead);
-#else
-            sprintf(pstNewCommand, "%s\n%s", pstCommand, pstRead);
-#endif
-            FREE(pstCommand);
-            pstCommand = pstNewCommand;
-        }
-
-        if (strcmp(pstCommand, "") != 0 && strcmp(pstCommand, "\n") != 0)
-        {
-            wchar_t* pwstCommand = to_wide_string(pstCommand);
-            /*
-            ** -*- PARSING -*-
-            */
-            parseCommandTask(parser, timed, pwstCommand);
-
-            /*
-            ** -*- DUMPING TREE -*-
-            */
-            if (dumpAst == true) { dumpAstTask(parser->getTree(), timed); }
-
-            if (parser->getExitStatus() == Parser::Succeded)
-            {
-                //update diary
-                diaryWrite(pwstCommand, TRUE);
-
-                /*
-                ** -*- PRETTY PRINT TREE -*-
-                */
-                if (printAst == true) { printAstTask(parser->getTree(), timed); }
-
-                /*
-                ** -*- EXECUTING TREE -*-
-                */
-                if (execAst == true) { execAstTask(parser->getTree(), timed, ASTtimed); }
-
-                /*
-                ** -*- DUMPING STACK AFTER EXECUTION -*-
-                */
-                if (dumpStack == true) { dumpStackTask(timed); }
-
-                FREE(pstCommand);
-                pstCommand = NULL;
-            }
-            else if(parser->getExitStatus() == Parser::Failed && parser->getControlStatus() == Parser::AllControlClosed)
-            {
-                YaspWriteW(parser->getErrorMessage());
-            }
-
-            parser->freeTree();
-            FREE(pwstCommand);
-        }
-        else
-        {
-            FREE(pstCommand);
-            pstCommand = NULL;
-        }
-        pstRead[0] = '\0';
-    }
-
-    fclose(fileIn);
-
-    if(parser->getExitStatus() == Parser::Failed)
-    {
-        YaspWriteW(parser->getErrorMessage());
-        ConfigVariable::setExitStatus(parser->getExitStatus());
-    }
-
-#ifdef DEBUG
-    std::cerr << "To end program press [ENTER]" << std::endl;
-#endif
-    return ConfigVariable::getExitStatus();
-
-//    parseFileTask(parser, timed, file_name, prog_name);
+    //Parser *parser = new Parser();
+    //parser->setParseTrace(parseTrace);
 //
-///*
-//** -*- DUMPING TREE -*-
-//*/
-//    if (dumpAst == true) { dumpAstTask(parser->getTree(), timed); }
+//    //Change parsing methode to parse line by line and not entire file
+//    char* pstFilename = wide_string_to_UTF8(file_name);
+//    char pstRead[4096] = {0};
+//    char* pstCommand = NULL;
+//    FILE* fileIn = NULL;
+//#ifdef _MSC_VER
+//    fopen_s(&fileIn, pstFilename, "r");
+//#else
+//    fileIn = fopen(pstFilename, "r");
+//#endif
+//    if(fileIn == NULL)
+//    {
+//        wchar_t szError[bsiz];
+//        os_swprintf(szError, bsiz, _W("%ls: Cannot open file %ls.\n"), L"parser", file_name);
+//        throw ast::ScilabError(szError, 999, *new Location());
+//    }
 //
-//    if (parser->getExitStatus() != Parser::Succeded)
+//    while (!ConfigVariable::getForceQuit() && fgets(pstRead, 4096, fileIn) != 0)
+//    {
+//        if(pstCommand == NULL)
+//        {
+//            pstCommand = os_strdup(pstRead);
+//        }
+//        else
+//        {
+//            //+1 for null termination and +1 for '\n'
+//            size_t iLen = strlen(pstCommand) + strlen(pstRead) + 2;
+//            char* pstNewCommand = (char*)MALLOC(iLen * sizeof(char));
+//#ifdef _MSC_VER
+//            sprintf_s(pstNewCommand, iLen, "%s\n%s", pstCommand, pstRead);
+//#else
+//            sprintf(pstNewCommand, "%s\n%s", pstCommand, pstRead);
+//#endif
+//            FREE(pstCommand);
+//            pstCommand = pstNewCommand;
+//        }
+//
+//        if (strcmp(pstCommand, "") != 0 && strcmp(pstCommand, "\n") != 0)
+//        {
+//            wchar_t* pwstCommand = to_wide_string(pstCommand);
+//            /*
+//            ** -*- PARSING -*-
+//            */
+//            parseCommandTask(parser, timed, pwstCommand);
+//
+//            /*
+//            ** -*- DUMPING TREE -*-
+//            */
+//            if (dumpAst == true) { dumpAstTask(parser->getTree(), timed); }
+//
+//            if (parser->getExitStatus() == Parser::Succeded)
+//            {
+//                //update diary
+//                diaryWrite(pwstCommand, TRUE);
+//
+//                /*
+//                ** -*- PRETTY PRINT TREE -*-
+//                */
+//                if (printAst == true) { printAstTask(parser->getTree(), timed); }
+//
+//                /*
+//                ** -*- EXECUTING TREE -*-
+//                */
+//                if (execAst == true) { execAstTask(parser->getTree(), timed, ASTtimed); }
+//
+//                /*
+//                ** -*- DUMPING STACK AFTER EXECUTION -*-
+//                */
+//                if (dumpStack == true) { dumpStackTask(timed); }
+//
+//                FREE(pstCommand);
+//                pstCommand = NULL;
+//            }
+//            else if(parser->getExitStatus() == Parser::Failed && parser->getControlStatus() == Parser::AllControlClosed)
+//            {
+//                YaspWriteW(parser->getErrorMessage());
+//            }
+//
+//            parser->freeTree();
+//            FREE(pwstCommand);
+//        }
+//        else
+//        {
+//            FREE(pstCommand);
+//            pstCommand = NULL;
+//        }
+//        pstRead[0] = '\0';
+//    }
+//
+//    fclose(fileIn);
+//
+//    if(parser->getExitStatus() == Parser::Failed)
 //    {
 //        YaspWriteW(parser->getErrorMessage());
-//        return PARSE_ERROR;
+//        ConfigVariable::setExitStatus(parser->getExitStatus());
 //    }
-//
-///*
-//** -*- PRETTY PRINT TREE -*-
-//*/
-//    if (printAst == true) { printAstTask(parser->getTree(), timed); }
-//
-///*
-//** -*- EXECUTING TREE -*-
-//*/
-//    if (execAst == true)
-//    {
-//        //save current prompt mode
-//        ConfigVariable::PromptMode oldVal = ConfigVariable::getPromptMode();
-//        //set mode silent for errors
-//        ConfigVariable::setPromptMode(ConfigVariable::silent);
-//        execAstTask(parser->getTree(), timed, ASTtimed);
-//        //restore previous prompt mode
-//        ConfigVariable::setPromptMode(oldVal);
-//    }
-//
-///*
-//** -*- DUMPING STACK AFTER EXECUTION -*-
-//*/
-//    if (dumpStack == true) { dumpStackTask(timed); }
 //
 //#ifdef DEBUG
 //    std::cerr << "To end program press [ENTER]" << std::endl;
 //#endif
-//
 //    return ConfigVariable::getExitStatus();
+
+    Parser parser;
+    parser.setParseTrace(parseTrace);
+    parseFileTask(&parser, timed, file_name, prog_name);
+
+    /*
+    ** -*- DUMPING TREE -*-
+    */
+    if (dumpAst == true) { dumpAstTask(parser.getTree(), timed); }
+
+    if (parser.getExitStatus() != Parser::Succeded)
+    {
+        YaspWriteW(parser.getErrorMessage());
+        return PARSE_ERROR;
+    }
+
+    /*
+    ** -*- PRETTY PRINT TREE -*-
+    */
+    if (printAst == true) { printAstTask(parser.getTree(), timed); }
+
+    /*
+    ** -*- EXECUTING TREE -*-
+    */
+    if (execAst == true)
+    {
+        Exp* pExp = parser.getTree();
+        std::list<Exp *>::iterator j;
+        std::list<Exp *>LExp = ((SeqExp*)pExp)->exps_get();
+
+        char stPrompt[64];
+        //get prompt
+        GetCurrentPrompt(stPrompt);
+
+        char* pstFile = wide_string_to_UTF8(file_name);
+        std::ifstream file(pstFile);
+
+
+        char str[1024];
+        int iCurrentLine = -1; //no data in str
+
+
+        for(j = LExp.begin() 
+            ; j != LExp.end() && !ConfigVariable::getForceQuit() 
+            ; j++)
+        {
+            try
+            {
+                //if(checkPrompt(iMode, EXEC_MODE_MUTE))
+                //{
+                //    //manage mute option
+                //    (*j)->mute();
+                //    MuteVisitor mute;
+                //    (*j)->accept(mute);
+                //}
+                //else if(checkPrompt(iMode, EXEC_MODE_VERBOSE))
+                //{
+                printExp(&file, *j, stPrompt, &iCurrentLine, str);
+                //}
+
+                //excecute script
+                ExecVisitor execMe;
+                (*j)->accept(execMe);
+
+                bool bImplicitCall = false;
+
+                //to manage call without ()
+                if(execMe.result_get() != NULL && execMe.result_get()->getAsCallable())
+                {
+                    Callable *pCall = execMe.result_get()->getAsCallable();
+                    types::typed_list out;
+                    types::typed_list in;
+
+                    ExecVisitor execCall;
+                    Function::ReturnValue Ret = pCall->call(in, 1, out, &execCall);
+
+                    if(Ret == Callable::OK)
+                    {
+                        if(out.size() == 0)
+                        {
+                            execMe.result_set(NULL);
+                        }
+                        else if(out.size() == 1)
+                        {
+                            out[0]->DecreaseRef();
+                            execMe.result_set(out[0]);
+                        }
+                        else
+                        {
+                            for(int i = 0 ; i < static_cast<int>(out.size()) ; i++)
+                            {
+                                out[i]->DecreaseRef();
+                                execMe.result_set(i, out[i]);
+                            }
+                        }
+
+                        bImplicitCall = true;
+                    }
+                    else if(Ret == Callable::Error)
+                    {
+                        if(ConfigVariable::getLastErrorFunction() == L"")
+                        {
+                            ConfigVariable::setLastErrorFunction(pCall->getName());
+                        }
+
+                        if(pCall->isMacro() || pCall->isMacroFile())
+                        {
+                            wchar_t szError[bsiz];
+                            os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*j)->location_get().first_line, pCall->getName().c_str());
+                            throw ScilabMessage(szError);
+                        }
+                        else
+                        {
+                            throw ScilabMessage();
+                        }
+                    }
+                }
+
+                //update ans variable.
+                if(execMe.result_get() != NULL && execMe.result_get()->isDeletable())
+                {
+                    wstring varName = L"ans";
+                    symbol::Context::getInstance()->put(varName, *execMe.result_get());
+                    if((*j)->is_verbose())
+                    {
+                        std::wostringstream ostr;
+                        ostr << L"ans = " << std::endl;
+                        ostr << std::endl;
+                        ostr << execMe.result_get()->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth()) << std::endl;
+                        YaspWriteW(ostr.str().c_str());
+                    }
+                }
+                YaspWriteW(L"\n");
+
+            }
+            catch(ScilabMessage sm)
+            {
+                YaspWriteW(sm.GetErrorMessage().c_str());
+
+                CallExp* pCall = dynamic_cast<CallExp*>(*j);
+                if(pCall != NULL)
+                {//to print call expression only of it is a macro
+                    ExecVisitor execFunc;
+                    pCall->name_get().accept(execFunc);
+
+                    if(execFunc.result_get() != NULL &&
+                        (execFunc.result_get()->isMacro() || execFunc.result_get()->isMacroFile()))
+                    {
+                        wostringstream os;
+
+                        //add function failed
+                        PrintVisitor printMe(os);
+                        pCall->accept(printMe);
+                        os << std::endl;
+
+                        //add info on file failed
+                        wchar_t szError[bsiz];
+                        os_swprintf(szError, bsiz, _W("at line % 5d of exec file called by :\n"), (*j)->location_get().first_line);
+                        os << szError;
+
+                        if(ConfigVariable::getLastErrorFunction() == L"")
+                        {
+                            ConfigVariable::setLastErrorFunction(execFunc.result_get()->getAsCallable()->getName());
+                        }
+
+                        throw ScilabMessage(os.str(), 0, (*j)->location_get());
+                    }
+                }
+
+                throw ScilabMessage((*j)->location_get());
+            }
+            catch(ScilabError se)
+            {
+                break;
+            }
+        }
+
+        parser.freeTree();
+        file.close();
+
+
+        //old version
+
+        ////save current prompt mode
+        //ConfigVariable::PromptMode oldVal = ConfigVariable::getPromptMode();
+        ////set mode silent for errors
+        //ConfigVariable::setPromptMode(ConfigVariable::silent);
+        //execAstTask(parser->getTree(), timed, ASTtimed);
+        ////restore previous prompt mode
+        //ConfigVariable::setPromptMode(oldVal);
+    }
+
+    /*
+    ** -*- DUMPING STACK AFTER EXECUTION -*-
+    */
+    if (dumpStack == true) { dumpStackTask(timed); }
+
+#ifdef DEBUG
+    std::cerr << "To end program press [ENTER]" << std::endl;
+#endif
+
+    return ConfigVariable::getExitStatus();
 }
 
 /*
@@ -654,36 +819,29 @@ int StartScilabEngine(int argc, char*argv[], int iFileIndex)
     }
 
 
-    try
-    {
-        if(execCommand)
-        {//-e option, create a file with command and run as batch
-            ConfigVariable::setPromptMode(ConfigVariable::prompt);
-            char szFile[PATH_MAX];
-            sprintf(szFile, "%s\\%s", getTMPDIR(), "execcommand.temp");
-            FILE* fExec = NULL;
-    #ifdef _MSC_VER
-            fopen_s(&fExec, szFile, "w");
-    #else
-            fExec = fopen(szFile, "w");
-    #endif
-            fwrite(argv[iFileIndex], sizeof(char), strlen(argv[iFileIndex]), fExec);
-            fclose(fExec);
-            file_name = to_wide_string(szFile);
-            iMainRet = batchMain();
-            deleteafile(szFile);
-        }
-        else if(execFile)
-        {//-f option
-            ConfigVariable::setPromptMode(ConfigVariable::silent);
-            file_name = to_wide_string(argv[iFileIndex]);
-            iMainRet = batchMain();
-        }
+
+    if(execCommand)
+    {//-e option, create a file with command and run as batch
+        ConfigVariable::setPromptMode(ConfigVariable::prompt);
+        char szFile[PATH_MAX];
+        sprintf(szFile, "%s\\%s", getTMPDIR(), "execcommand.temp");
+        FILE* fExec = NULL;
+#ifdef _MSC_VER
+        fopen_s(&fExec, szFile, "w");
+#else
+        fExec = fopen(szFile, "w");
+#endif
+        fwrite(argv[iFileIndex], sizeof(char), strlen(argv[iFileIndex]), fExec);
+        fclose(fExec);
+        file_name = to_wide_string(szFile);
+        iMainRet = batchMain();
+        deleteafile(szFile);
     }
-    catch(ScilabException se)
-    {
-        ConfigVariable::setPromptMode(ConfigVariable::normal);
-        YaspWriteW(se.GetErrorMessage().c_str());
+    else if(execFile)
+    {//-f option
+        ConfigVariable::setPromptMode(ConfigVariable::silent);
+        file_name = to_wide_string(argv[iFileIndex]);
+        iMainRet = batchMain();
     }
     ConfigVariable::setPromptMode(ConfigVariable::normal);
 
@@ -805,3 +963,99 @@ void Add_String_Constant(wstring _szName, const char* _pstString)
     types::String* ps = new types::String(_pstString);
     symbol::Context::getInstance()->put(_szName, *ps);
 }
+
+void printExp(std::ifstream* _pFile, Exp* _pExp, char* _pstPrompt, int* _piLine /* in/out */, char* _pstPreviousBuffer)
+{
+	char strLastLine[1024];
+	//case 1, exp is on 1 line and take the entire line
+
+	//case 2, exp is multiline
+
+	//case 3, exp is part of a line.
+	//ex : 3 exp on the same line a = 1; b = 2; c = 3;
+
+	//case 4, exp is multiline but start and/or finish in the middle of a line
+	//ex :
+	//a = 10;for i = 1 : a
+	//	a
+	//end, b = 1;
+
+	Location loc = _pExp->location_get();
+
+	//positionning file curser at loc.first_line
+	{
+		//strange case, current position is after the wanted position
+		if(*_piLine > loc.first_line)
+		{
+			//reset line counter and restart reading at the start of the file.
+			*_piLine = -1;
+			_pFile->seekg( 0, ios_base::beg );
+		}
+
+		//bypass previous lines
+		for(int i = *_piLine ; i < loc.first_line - 1; i++)
+		{
+			(*_piLine)++;
+			_pFile->getline(_pstPreviousBuffer, 1024);
+		}
+	}
+
+	if(loc.first_line == loc.last_line)
+	{//1 line
+		strncpy(strLastLine, _pstPreviousBuffer + (loc.first_column - 1), loc.last_column - (loc.first_column - 1));
+		strLastLine[loc.last_column - (loc.first_column - 1)] = 0;
+        int iLineLen = strlen(_pstPreviousBuffer);
+        int iExpLen = strlen(strLastLine);
+        if(iExpLen + (loc.first_column - 1) == iLineLen)
+        {
+            printLine(_pstPrompt, strLastLine, true);
+        }
+        else
+        {
+            printLine(_pstPrompt, strLastLine, false);
+        }
+	}
+	else
+	{//multiline
+		printLine(_pstPrompt, _pstPreviousBuffer + (loc.first_column - 1), true);
+
+		//print other full lines
+		for(int i = loc.first_line; i < (loc.last_line - 1) ; i++)
+		{
+			(*_piLine)++;
+			_pFile->getline(_pstPreviousBuffer, 1024);
+			printLine(_pstPrompt, _pstPreviousBuffer, true);
+		}
+
+		//last line
+		_pFile->getline(_pstPreviousBuffer, 1024);
+		(*_piLine)++;
+
+		strncpy(strLastLine, _pstPreviousBuffer, loc.last_column);
+		strLastLine[loc.last_column] = 0;
+		printLine(_pstPrompt, strLastLine, true);
+	}
+}
+
+void printLine(char* _stPrompt, char* _stLine, bool _bLF)
+{
+    wchar_t* pwstPrompt = to_wide_string(_stPrompt);
+	diaryWrite(pwstPrompt, TRUE);
+    FREE(pwstPrompt);
+
+    wchar_t* pwstLine = to_wide_string(_stLine);
+	diaryWrite(pwstLine, TRUE);
+    FREE(pwstLine);
+
+    if(_bLF)
+    {
+        diaryWrite(L"\n", TRUE);
+    }
+
+	////print prompt
+	//YaspWrite(_stPrompt);
+	////print first line
+	//YaspWrite(_stLine);
+	//YaspWrite("\n");
+}
+/*--------------------------------------------------------------------------*/
