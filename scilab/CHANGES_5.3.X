@@ -11,6 +11,8 @@ SciNotes:
 Bug Fixes:
 ==========
 
+* bug 4673 fixed - A example of calling the "addinter" function was added.
+
 * bug 7694 fixed - There were no key shortcuts in the command history browser.
 
 * bug 7695 fixed - Only the first selected line was deleted in command history
