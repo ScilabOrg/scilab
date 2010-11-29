@@ -7,6 +7,10 @@ SciNotes:
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
+Xcos:
+=====
+
+* bug 8480 fixed - The Debug block did not have a valid function type.
 
 Bug Fixes:
 ==========
