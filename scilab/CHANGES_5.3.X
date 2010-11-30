@@ -22,6 +22,8 @@ Bug Fixes:
 
 * bug 8468 fixed - size with 2 input arguments did not work for hypermatrices.
 
+* bug 8478 fixed - Missing searched path for docbook xsl under Gentoo.
+
 * bug 8481 fixed - Scilab crashed when display a rational containing a complex.
 
 
