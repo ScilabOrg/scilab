@@ -113,7 +113,13 @@ libscihelptools_la_xsl_fo_DATA = xsl/fo/docbook.xsl
 
 #### helptools : schema files ####
 libscihelptools_la_schemadir = $(mydatadir)/schema
-libscihelptools_la_schema_DATA = schema/scilab.rnc
+libscihelptools_la_schema_DATA = schema/scilab.rnc \
+schema/extendedStyle.xsl
+
+
+#### helptools : 'mydatadir' files ####
+libscihelptools_la_mydatadirdir = $(mydatadir)
+libscihelptools_la_mydatadir_DATA = fopconf.xml
 
 
 #### helptools : doc files ####
