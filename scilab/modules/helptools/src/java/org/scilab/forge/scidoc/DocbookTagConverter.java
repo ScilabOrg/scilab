@@ -80,11 +80,11 @@ public class DocbookTagConverter extends DefaultHandler {
      * @param in the input file path
      */
     public DocbookTagConverter(String in) throws IOException {
-    	if (in != null && !in.isEmpty()) {
-    		this.in = new File(in);
-    	} else {
-    		this.in = null;
-    	}
+        if (in != null && !in.isEmpty()) {
+            this.in = new File(in);
+        } else {
+            this.in = null;
+        }
     }
 
     /**
@@ -229,18 +229,26 @@ public class DocbookTagConverter extends DefaultHandler {
      * {@inheritDoc}
      */
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-        currentFileName = systemId;
         if (converters != null) {
             for (DocbookTagConverter conv : converters) {
                 conv.resolveEntity(publicId, systemId);
             }
         }
         try {
-            URI uri = new URI(systemId);
+            int pos = systemId.indexOf(":");
+            URI uri;
+            if (pos != -1) {
+                uri = new URI(systemId.substring(0, pos), systemId.substring(pos + 1), null);
+            } else {
+                uri = new URI(systemId);
+            }
+            currentFileName = uri.toString();
             if (new File(uri).lastModified() > lastGeneration) {
                 return super.resolveEntity(publicId, systemId);
             }
-        } catch (URISyntaxException e) { }
+        } catch (URISyntaxException e) {
+            throw new SAXException("Problem to make an URI with name " + systemId + "\n" + e.getCause());
+        }
 
         return new InputSource(new StringReader(""));
     }
@@ -275,12 +283,12 @@ public class DocbookTagConverter extends DefaultHandler {
      */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (uri.equals(DOCBOOKURI)) {
-                int len = attributes.getLength();
-                Map<String, String> map = new HashMap(len);
-                for (int i = 0; i < len; i++) {
-                    map.put(attributes.getLocalName(i), attributes.getValue(i));
-                }
-                stack.push(baseElement.getNewInstance(localName, map));
+            int len = attributes.getLength();
+            Map<String, String> map = new HashMap(len);
+            for (int i = 0; i < len; i++) {
+                map.put(attributes.getLocalName(i), attributes.getValue(i));
+            }
+            stack.push(baseElement.getNewInstance(localName, map));
         } else {
             ExternalXMLHandler h = externalHandlers.get(uri);
             if (h == null) {
@@ -426,14 +434,14 @@ public class DocbookTagConverter extends DefaultHandler {
         if (currentFileName != null) {
             sId = "SystemID:" + currentFileName;
         }
-        
+
         String file;
-		try {
-			file = in.getCanonicalPath();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			file = null;
-		}
+        try {
+            file = in.getCanonicalPath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            file = null;
+        }
         if (locator != null) {
             throw new SAXException("Cannot parse " + file + ":\n" + e.getMessage() + "\n" + sId + " at line " + locator.getLineNumber());
         } else {
