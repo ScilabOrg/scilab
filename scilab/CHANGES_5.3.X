@@ -15,6 +15,9 @@ Xcos:
 
 * bug 8480 fixed - The Debug block did not have a valid function type.
 
+* bug 8483 fixed - Multiplying a scalar and vector using the MATMUL block did not
+                   work.
+
 Bug Fixes:
 ==========
 
