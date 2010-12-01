@@ -11,6 +11,9 @@ SciNotes:
 Bug Fixes:
 ==========
 
+* bug 7069 fixed - Old documentation about the documentation build process
+                   removed.
+
 * bug 7694 fixed - There were no key shortcuts in the command history browser.
 
 * bug 7695 fixed - Only the first selected line was deleted in command history
