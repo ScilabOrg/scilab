@@ -16,6 +16,9 @@ Bug Fixes:
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
 
+* bug 7900 fixed - inserting a rational in a rational hymermatrix  generated 
+                   invalid rationals entries (with zero denominators)
+
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
 
