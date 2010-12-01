@@ -16,7 +16,6 @@ package org.scilab.modules.xcos.block.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,6 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.block.SuperBlock;
-import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
@@ -94,7 +92,7 @@ public final class SuperblockMaskCustomizeAction extends DefaultAction {
 				.getSelectionCell();
 		block.createChildDiagram(); // assert that diagram is an xcos one
 		
-		CustomizeFrame frame = new CustomizeFrame(block.getChild());
+		CustomizeFrame frame = new CustomizeFrame(block.getParentDiagram());
 		CustomizeFrame.CustomizeFrameModel model = frame.getController()
 				.getModel();
 		model.setBlock(block);
@@ -135,13 +133,13 @@ public final class SuperblockMaskCustomizeAction extends DefaultAction {
 
 		/**
 		 * Constructor
-		 * @param superBlockDiagram the diagram
+		 * @param diagram the container diagram
 		 */
-		public CustomizeFrame(SuperBlockDiagram superBlockDiagram) {
+		public CustomizeFrame(XcosDiagram diagram) {
 			setTitle(XcosMessages.MASK_TITLE);
 			setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 			controler = new CustomizeFrameControler();
-			initComponents(superBlockDiagram);
+			initComponents(diagram);
 		}
 
 		/**
@@ -153,11 +151,11 @@ public final class SuperblockMaskCustomizeAction extends DefaultAction {
 
 		/**
 		 * Construct the UI and install the listeners.
-		 * @param superBlockDiagram the diagram
+		 * @param diagram the container diagram
 		 */
 		// CSOFF: JavaNCSS
 		// CSOFF: MagicNumber
-		private void initComponents(SuperBlockDiagram superBlockDiagram) {
+		private void initComponents(XcosDiagram diagram) {
 
 			/* Construct the components */
 			mainPanel = new javax.swing.JPanel();
@@ -297,7 +295,7 @@ public final class SuperblockMaskCustomizeAction extends DefaultAction {
 			/* Evaluate the context and set up the variable name selection */
 			TableColumn vars = varCustomizeTable.getColumnModel().getColumn(1);
 			JComboBox validVars = new JComboBox();
-			Map<String, String> context = superBlockDiagram.evaluateContext();
+			Map<String, String> context = diagram.evaluateContext();
 			for (String key : context.keySet()) {
 				validVars.addItem(key);
 			}

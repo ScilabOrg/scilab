@@ -7,9 +7,14 @@ SciNotes:
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
+Xcos:
+=====
 
 * bug 8483 fixed - Multiplying a scalar and vector using the MATMUL block did not
                    work.
+
+* bug 8235 fixed - Using masked super-block did not work when parameters are
+                   defined on the sub-context.
 
 Bug Fixes:
 ==========
