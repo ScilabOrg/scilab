@@ -20,8 +20,10 @@
 //             The default is to get the current handle with gcf().
 // @param[opt] imageType the exported image type. only "svg" and "gif" is
 //             supported. The default is to use "gif".
+// @param[opt] withPort true if the exported image should contains the port,
+//             false otherwise. The default is value is true.
 // @return status %T if the operation has been sucessfull, %F otherwise.
-function status = generateBlockImage(block, path, file, handle, imageType)
+function status = generateBlockImage(block, path, file, handle, imageType, withPort)
     status = %f;
     
     // call loadScicosLibs if not loaded
@@ -49,6 +51,10 @@ function status = generateBlockImage(block, path, file, handle, imageType)
         end
     end
     
+    if exists("withPort", 'l') == 0 then
+        withPort = %t;
+    end
+
     // set the default outFile
     if exists("file", 'l') == 0 then
         outFile = path + "/" + block.gui + "." + imageType;
@@ -72,6 +78,14 @@ function status = generateBlockImage(block, path, file, handle, imageType)
         deleteHandle = %f;
     end
     
+    if ~withPort then
+        prot = funcprot();
+        function standard_draw_port(varargin)
+        endfunction
+        standard_draw_port_up = standard_draw_port;
+        funcprot(prot);
+    end
+
     // constants
     diagram = scicos_diagram();
     options = diagram.props.options;
@@ -99,7 +113,7 @@ function status = generateBlockImage(block, path, file, handle, imageType)
     if (ierr <> 0) then
         return;
     end
-    
+
     if imageType == "svg" then
         xs2svg(handle.figure_id, outFile);
     elseif imageType == "gif" then
