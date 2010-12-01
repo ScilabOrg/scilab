@@ -50,6 +50,9 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
+* bug 8235 fixed - Using masked super-block did not work when parameters are
+                   defined on the sub-context.
+
 Localization:
 =============
 
