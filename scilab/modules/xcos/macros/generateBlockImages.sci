@@ -99,7 +99,7 @@ function generateBlockImages(palFiles, iconsOutPath, imagesOutPath, traceEnable)
             mprintf("%d: %s",  kBlock, varsToLoad(kBlock));
         end
         if ierr == 0 then
-            status = generateBlockImage(scs_m, imagesOutPath, handle=f, imageType="svg");
+            status = generateBlockImage(scs_m, imagesOutPath, handle=f, imageType="svg", %f);
             if status & traceEnable then
                 mprintf(" SUCCEED\n");
             elseif traceEnable then
