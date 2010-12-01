@@ -37,6 +37,9 @@ Xcos:
 * bug 8223 fixed - Xcos did not produce a visible error when Saxon is used as
                    XML DOM implementation.
 
+* bug 8235 fixed - Using masked super-block did not work when parameters are
+                   defined on the sub-context.
+
 Localization:
 =============
 
