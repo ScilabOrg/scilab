@@ -8,6 +8,9 @@ SciNotes:
                    middle click.
 
 
+* bug 8483 fixed - Multiplying a scalar and vector using the MATMUL block did not
+                   work.
+
 Bug Fixes:
 ==========
 
