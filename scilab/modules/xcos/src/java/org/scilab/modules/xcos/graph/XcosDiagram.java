@@ -1684,7 +1684,7 @@ public class XcosDiagram extends ScilabGraph {
 			if (getModel().getChildCount(getDefaultParent()) == 0) {
 		    	load(theFile);
 		    	postLoad(theFile);
-		    	getParentTab().setVisible(true);
+		    	setVisible(true);
 		    } else {
 		    	info(XcosMessages.LOADING_DIAGRAM);
 		    	final XcosDiagram xcosDiagram = new XcosDiagram();
@@ -1705,7 +1705,7 @@ public class XcosDiagram extends ScilabGraph {
 	    handler.readDiagram(this);
 	    generateUID();
 	    updateTabTitle();
-	    getParentTab().setVisible(true);
+    	setVisible(true);
 	    result = true;
 	    break;
 
