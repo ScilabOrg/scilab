@@ -17,7 +17,7 @@
   <refnamediv>
     <refname>javasci.SciBoolean (deprecated)</refname>
     <refpurpose>Class to use boolean object with
-  scilab</refpurpose>
+  scilab. Deprecated: Please use <link linkend="javasci">Javasci v2</link></refpurpose>
   </refnamediv>
   <refsection>
     <title>Description</title>
@@ -57,6 +57,9 @@
   <refsection>
     <title>See Also</title>
     <simplelist type="inline">
+    <member>
+        Browse <ulink url="file:///SCI/modules/javasci/javadoc/index.html">the documentation of Javasci v2.</ulink>
+       </member>
       <member>
         <link linkend="javasci.Scilab">javasci.Scilab</link>
       </member>

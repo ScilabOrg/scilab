@@ -17,7 +17,7 @@
   <refnamediv>
     <refname>javasci.SciComplexArray (deprecated)</refname>
     <refpurpose>Class to use complex matrix in
-  Scilab.</refpurpose>
+  Scilab. Deprecated: Please use <link linkend="javasci">Javasci v2</link></refpurpose>
   </refnamediv>
   <refsection>
     <title>Description</title>
@@ -64,6 +64,9 @@
   <refsection>
     <title>See Also</title>
     <simplelist type="inline">
+    <member>
+        Browse <ulink url="file:///SCI/modules/javasci/javadoc/index.html">the documentation of Javasci v2.</ulink>
+       </member>
       <member>
         <link linkend="javasci.Scilab">javasci.Scilab</link>
       </member>
