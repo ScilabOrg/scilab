@@ -22,20 +22,21 @@ extern "C"
 
 using namespace types;
 
-Function::ReturnValue sci_tlist(typed_list &in, int _piRetCount, typed_list &out)
+template <typename TorMList>
+Function::ReturnValue sci_tlist_or_mlist(typed_list &in, int _piRetCount, typed_list &out, wchar_t *_pstrFunName)
 {
     TList* pRetVal = NULL;
 
     //check input parameters
     if(in.size() < 1)
     {
-        ScierrorW(999, _W("%ls: Wrong number of input arguments: At least %d expected.\n"), L"tlist" ,1);
+        ScierrorW(999, _W("%ls: Wrong number of input arguments: At least %d expected.\n"), _pstrFunName ,1);
         return Function::Error;
     }
 
     if(in[0]->getType() != InternalType::RealString)
     {
-        ScierrorW(999,_W("%ls: Wrong type for input argument #%d: String expected.\n"), L"tlist", 1);
+        ScierrorW(999,_W("%ls: Wrong type for input argument #%d: String expected.\n"), _pstrFunName, 1);
         return Function::Error;
     }
 
@@ -51,14 +52,14 @@ Function::ReturnValue sci_tlist(typed_list &in, int _piRetCount, typed_list &out
         {
             if(*it == wstring(pS->string_get(i)))
             {
-                ScierrorW(999, _W("%ls : Fields names must be unique"), L"tlist");
+                ScierrorW(999, _W("%ls : Fields names must be unique"), _pstrFunName);
                 return Function::Error;
             }
         }
         fieldNames.push_back(pS->string_get(i));
     }
 
-    pRetVal = new TList();
+    pRetVal = new TorMList();
     for(int i = 0 ; i < in.size() ; i++)
     {
         pRetVal->append(in[i]);
@@ -72,4 +73,9 @@ Function::ReturnValue sci_tlist(typed_list &in, int _piRetCount, typed_list &out
 
     out.push_back(pRetVal);
     return Function::OK;
+}
+
+Function::ReturnValue sci_tlist(typed_list &in, int _piRetCount, typed_list &out)
+{
+    return sci_tlist_or_mlist<TList>(in, _piRetCount, out, L"tlist");
 }
