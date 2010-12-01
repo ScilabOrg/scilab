@@ -21,11 +21,17 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
+import javax.swing.BorderFactory;
 import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.ScilabComponent;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
@@ -121,6 +127,7 @@ public class EditFormatAction extends DefaultAction {
 		int fontStyle;
 		Color textColor;
 		String text;
+		URL image;
 		
 		StyleMap style = new StyleMap(selectedCell.getStyle());
 		
@@ -166,6 +173,18 @@ public class EditFormatAction extends DefaultAction {
 			textColor = mxUtils.parseColor(working);
 		}
 		
+		working = style.get(mxConstants.STYLE_IMAGE);
+		if(working == null) {
+			try {
+				image = new URL(working);
+			} catch (MalformedURLException e) {
+				LogFactory.getLog(EditFormatAction.class).debug(e);
+				image = null;
+			}
+		} else {
+			image = null;
+		}
+		
 		Object current = selectedCell.getValue();
 		if (current == null) {
 			text = "";
@@ -174,7 +193,7 @@ public class EditFormatAction extends DefaultAction {
 		}
 		
 		EditFormatDialog dialog = new EditFormatDialog(window);
-		dialog.setValues(border, fill, font, fontSize, fontStyle, textColor, text);
+		dialog.setValues(border, fill, font, fontSize, fontStyle, textColor, text, image);
 		dialog.setCell(selectedCell);
 		return dialog;
 	}
@@ -189,9 +208,10 @@ public class EditFormatAction extends DefaultAction {
 	 * @param fontSize the selected font size
 	 * @param textColor the selected color
 	 * @param text the typed text
+	 * @param image the image URL
 	 */
 	private static void updateFromDialog(EditFormatDialog dialog, Color borderColor, Color backgroundColor, 
-				String fontName, int fontSize, Color textColor, String text) {
+				String fontName, int fontSize, Color textColor, String text, String image) {
 		mxCell cell = dialog.getCell();
 		
 		StyleMap style = new StyleMap(cell.getStyle());
@@ -219,6 +239,19 @@ public class EditFormatAction extends DefaultAction {
 		if (!textColor.equals(DEFAULT_BORDERCOLOR)) {
 			style.put(mxConstants.STYLE_FONTCOLOR, mxUtils.hexString(textColor));
 		}
+
+		if (image != null && !image.isEmpty()) {
+			URL url;
+			try {
+				url = new URL(image);
+				style.put(mxConstants.STYLE_IMAGE, url.toExternalForm());
+			} catch (MalformedURLException e) {
+				LogFactory.getLog(EditFormatAction.class).debug(e);
+			}
+		} else {
+			style.remove(mxConstants.STYLE_IMAGE);
+		}
+			
 		
 		cell.setStyle(style.toString());
 		cell.setValue(text);
@@ -273,6 +306,11 @@ public class EditFormatAction extends DefaultAction {
 	    private javax.swing.JCheckBox fontStyleBold;
 	    private javax.swing.JCheckBox fontStyleItalic;
 	    private javax.swing.JLabel fontStyleLabel;
+	    private javax.swing.JPanel backgroundPane;
+	    
+	    private javax.swing.JLabel imagePathLabel;
+	    private javax.swing.JTextField imagePath;
+	    private javax.swing.JButton imageFileChooserBtn;
 	    
 	    private javax.swing.JPanel jPanel2;
 	    private javax.swing.JScrollPane jScrollPane1;
@@ -309,7 +347,7 @@ public class EditFormatAction extends DefaultAction {
 				updateFont();
 			}
 		};
-	    
+		
 		/**
 		 * Construct the dialog
 		 * 
@@ -333,10 +371,11 @@ public class EditFormatAction extends DefaultAction {
 		 * @param fontStyle the current font style
 		 * @param textColor the current text color
 		 * @param text the current text
+		 * @param image the current URL of the image (may be null)
 		 */
 		public void setValues(Color borderColor, Color backgroundColor, 
 				String fontName, int fontSize, int fontStyle, Color textColor, 
-				String text) {
+				String text, URL image) {
 			borderColorChooser.setColor(borderColor);
 			backgroundColorChooser.setColor(backgroundColor);
 			textColorChooser.setColor(textColor);
@@ -348,6 +387,9 @@ public class EditFormatAction extends DefaultAction {
 			fontStyleItalic.setSelected((fontStyle & mxConstants.FONT_ITALIC) != 0);
 			
 			textArea.setText(text);
+			if (image != null) {
+				imagePath.setText(image.toExternalForm());
+			}
 		}
 		
 		/**
@@ -359,9 +401,9 @@ public class EditFormatAction extends DefaultAction {
 			
 			// enable/disable the fill color pane
 			if (selectedCell.isVertex()) {
-				mainTab.addTab(XcosMessages.FILL_COLOR, backgroundColorChooser);
+				mainTab.addTab(XcosMessages.FILL_COLOR, backgroundPane);
 			} else {
-				mainTab.remove(backgroundColorChooser);
+				mainTab.remove(backgroundPane);
 			}
 			
 			pack();
@@ -405,6 +447,10 @@ public class EditFormatAction extends DefaultAction {
 	        fontStyleBold = new javax.swing.JCheckBox();
 	        fontStyleItalic = new javax.swing.JCheckBox();
 	        fontStyleLabel = new javax.swing.JLabel();
+	        imageFileChooserBtn = new javax.swing.JButton(XcosMessages.DOTS);
+	        imagePathLabel = new javax.swing.JLabel();
+	        imagePath = new javax.swing.JTextField(TEXT_AREA_COLUMNS);
+	        backgroundPane = new javax.swing.JPanel();
 	        
 	        jScrollPane1 = new javax.swing.JScrollPane();
 	        textArea = new javax.swing.JTextArea();
@@ -418,6 +464,7 @@ public class EditFormatAction extends DefaultAction {
 	        okButton = new javax.swing.JButton(XcosMessages.OK);
 	        buttonPane = new javax.swing.JPanel();
 
+	        backgroundPane.setLayout(new java.awt.BorderLayout());
 	        textFormat.setLayout(new java.awt.BorderLayout());
 
 	        fontSizeLabel.setText(XcosMessages.FONT_SIZE);
@@ -440,6 +487,8 @@ public class EditFormatAction extends DefaultAction {
 	        
 	        fontStyleItalic.setText(XcosMessages.ITALIC);
 	        fontStyleItalic.addChangeListener(defaultChangeListener);
+	        
+	        imagePathLabel.setText(XcosMessages.IMAGE_PATH);
 	        
 	        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
 	        jPanel2.setLayout(jPanel2Layout);
@@ -485,6 +534,14 @@ public class EditFormatAction extends DefaultAction {
 	        jScrollPane1.setBackground(Color.WHITE);
 
 	        textFormat.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+	        
+	        backgroundPane.add(backgroundColorChooser, java.awt.BorderLayout.CENTER);
+	        javax.swing.JPanel filePane = new javax.swing.JPanel();
+	        filePane.setBorder(BorderFactory.createEtchedBorder());
+	        filePane.add(imagePathLabel);
+	        filePane.add(imagePath);
+	        filePane.add(imageFileChooserBtn);
+	        backgroundPane.add(filePane, java.awt.BorderLayout.SOUTH);
 
 	        mainTab.addTab(XcosMessages.TEXT_SETTINGS, textFormat);
 	        mainTab.addTab(XcosMessages.BORDER_COLOR, borderColorChooser);
@@ -524,8 +581,44 @@ public class EditFormatAction extends DefaultAction {
 							(String) fontNameComboBox.getSelectedItem(),
 							(Integer) fontSizeSpinner.getValue(), 
 							textColorChooser.getColor(),
-							textArea.getText());
+							textArea.getText(),
+							imagePath.getText());
 					getDialog().dispose();
+				}
+			});
+			
+			imageFileChooserBtn.addActionListener(new ActionListener() {
+				/**
+				 * On file chooser open the file chooser with image filter.
+				 * @param e the event
+				 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+				 */
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+					javax.swing.filechooser.FileNameExtensionFilter filter = new javax.swing.filechooser.FileNameExtensionFilter(
+					        "Images", "jpg", "png", "svg", "gif");
+					chooser.setFileFilter(filter);
+					
+					final String current = imagePath.getText();
+					if (current != null && !current.isEmpty()) {
+						try {
+							chooser.setCurrentDirectory(new File(new URL(current).toURI()));
+						} catch (MalformedURLException e1) {
+							LogFactory.getLog(EditFormatAction.class).debug(e1);
+						} catch (URISyntaxException e1) {
+							LogFactory.getLog(EditFormatAction.class).debug(e1);
+						}
+					}
+					
+				    int returnVal = chooser.showOpenDialog(mainTab);
+				    if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
+				    	try {
+							imagePath.setText(chooser.getSelectedFile().toURI().toURL().toExternalForm());
+						} catch (MalformedURLException e1) {
+							LogFactory.getLog(EditFormatAction.class).error(e1);
+						}
+				    }
 				}
 			});
 			
