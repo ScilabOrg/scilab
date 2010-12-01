@@ -16,6 +16,9 @@ Bug Fixes:
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
 
+* bug 7714 fixed - diag, triu, tril applyed to rational matrices  changed
+                   the formal variable name
+
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
 
