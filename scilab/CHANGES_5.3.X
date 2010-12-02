@@ -89,6 +89,10 @@ Bug fixes:
 SciNotes:
 =========
 
+* Refactorization of the printing
+
+* Add the possibility to export code to pdf, ps, eps and rtf.
+
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
