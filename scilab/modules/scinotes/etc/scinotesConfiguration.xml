@@ -12,7 +12,7 @@
  *
  -->
 
-<Setting version="0.30">
+<Setting version="0.31">
 
   <!-- SCINOTES configuration -->
   <Profile name="scinotes">
@@ -207,6 +207,10 @@
         <FontStyle default="0" value="0"/> <!-- 0=PLAIN, 1=BOLD, 2=ITALIC, 3=BOLD+ITALIC -->
       </style>
     </styles>
+
+    <!-- Paper format Section 
+	 The default unit is the postscript point (1/72 inch) -->
+    <PaperFormat MarginBottom="58.0" MarginLeft="57.0" MarginRight="57.0" MarginTop="57.0" height="794.0" width="613.0"/>
 
     <!-- Favorite Directories Section  -->
     <favoriteDirectories>
