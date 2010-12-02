@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string.h>
 #include "anytype.hxx"
-
+#include <omp.h>
 using namespace std;
 
 namespace types
@@ -64,10 +64,10 @@ namespace types
       };
 
   protected :
-                                        InternalType() : m_iRef(0), m_bAllowDelete(true) {}
+      InternalType() : m_iRef(0), m_bAllowDelete(true) {omp_init_lock(&m_refCountLock); }
 
   public :
-      virtual                           ~InternalType(){};
+      virtual                           ~InternalType(){omp_destroy_lock(&m_refCountLock);}
       virtual void                      whoAmI(void) { std::cout << "types::Inernal"; }
 
       virtual bool                      isAssignable(void) { return false; }
@@ -80,15 +80,20 @@ namespace types
 
       void IncreaseRef()
       {
-          m_iRef++;
+          omp_set_lock(&m_refCountLock);
+          ++m_iRef;
+          omp_unset_lock(&m_refCountLock);
+
       }
 
       void DecreaseRef()
       {
+ omp_set_lock(&m_refCountLock);
           if(m_iRef > 0)
           {
-              m_iRef--;
+              --m_iRef;
           }
+omp_unset_lock(&m_refCountLock);
       }
 
       bool	                            isDeletable() { return m_iRef == 0; }
@@ -235,6 +240,7 @@ namespace types
       int                               m_iRef;
       //use to know if we can delete this variables or if it's link to a scilab variable.
       bool                              m_bAllowDelete;
+      omp_lock_t                        m_refCountLock;
   };
 
   /*

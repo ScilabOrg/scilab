@@ -407,7 +407,7 @@ libsciabstractSyntaxTree_la_SOURCES = \
 				src/cpp/shortcutvisitor.cpp \
 				src/cpp/scilabexception.cpp
 
-libsciabstractSyntaxTree_la_CXXFLAGS = \
+libsciabstractSyntaxTree_la_CXXFLAGS = $(OPENMP_CXXFLAGS) \
 			-I $(top_srcdir)/modules/symbol/includes \
 			-I $(top_srcdir)/modules/types/includes \
 			-I $(top_srcdir)/modules/functions_manager/includes \

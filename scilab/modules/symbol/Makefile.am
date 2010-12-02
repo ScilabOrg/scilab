@@ -18,7 +18,8 @@ pkglib_LTLIBRARIES 		= libscisymbol.la
 
 libscisymbol_la_SOURCES 	= $(SYMBOL_CPP_SOURCES)
 
-libscisymbol_la_CXXFLAGS	= -I includes/ \
+libscisymbol_la_CXXFLAGS	= $(OPENMP_CXXFLAGS) \
+				-I includes/ \
 				-I $(top_builddir)/modules/types/includes \
 				-I $(top_builddir)/modules/functions_manager/includes \
 				-I $(top_builddir)/modules/elementary_functions/includes \

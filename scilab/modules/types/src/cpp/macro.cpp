@@ -171,7 +171,8 @@ namespace types
         try
         {
 
-            m_body->mute();
+//            m_body->mute();
+            m_body->set_verbose(true);
             MuteVisitor mute;
             m_body->accept(mute);
 
