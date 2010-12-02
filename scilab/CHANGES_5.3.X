@@ -16,6 +16,11 @@ Bug Fixes:
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
 
+* bug 7727 fixed - The help page of sp2adj was not correct.
+                   Improved the help page of adj2sp.
+                   Added unit tests for sp2adj and adj2sp.
+                   Improved implementation by checking the input arguments.
+
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
 
