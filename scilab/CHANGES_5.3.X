@@ -27,6 +27,8 @@ Bug Fixes:
 
 * bug 8481 fixed - Scilab crashed when display a rational containing a complex.
 
+* bug 8531 fixed - "edit" function failed to open a defined macro loaded on stack.
+
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
