@@ -344,6 +344,10 @@
 				RelativePath="..\sci_msprintf.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\cpp\scilab_sprintf.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -352,6 +356,10 @@
 			>
 			<File
 				RelativePath="..\..\..\includes\output_stream_gw.hxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\includes\scilab_sprintf.hxx"
 				>
 			</File>
 		</Filter>
