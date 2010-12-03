@@ -547,6 +547,8 @@ Bug Fixes:
 
 * bug 8528 fixed - length returned a wrong size for malformed characters.
 
+* bug 8529 fixed - mkdir did not create in the same instruction one folder and one subfolder.
+
 * bug 8531 fixed - "edit" function failed to open a defined macro loaded on stack.
 
 * bug 8532 fixed - size of input arguments of read_csv was not verified.
@@ -564,6 +566,7 @@ Bug Fixes:
 * bug 8601 fixed - An help page was misdiplayed when the title contains html tag.
 
 * bug 8611 fixed - Path of few images in documentation was bad.
+
 
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
