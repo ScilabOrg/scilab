@@ -26,7 +26,7 @@
 #include "SetScilabEnvironment.h"
 #include "../../../jvm/includes/loadBackGroundClassPath.h"
 /*--------------------------------------------------------------------------*/
-int C2F(initscilab)(void)
+int C2F(initscilab)(int *ierr)
 {
 
 	SetScilabEnvironment();
@@ -39,7 +39,11 @@ int C2F(initscilab)(void)
 	InitializeWindows_tools();
 	#endif
 
-	InitializeCore();
+	if (!InitializeCore())
+    {
+        *ierr = 1;
+        return *ierr;
+    }
 
 	InitializeShell();
 
@@ -60,6 +64,7 @@ int C2F(initscilab)(void)
 		
 		loadBackGroundClassPath();
 	}
-	return 0;
+    *ierr = 0;
+	return *ierr;
 }
 /*--------------------------------------------------------------------------*/
