@@ -1047,7 +1047,7 @@ function st = st_run(st)
 
 	head = [                                                                ...
 	"// <-- HEADER START -->";                                              ...
-//	"mode(3);" ;                                                            ...
+	"mode(3);" ;                                                            ...
 //	"lines(28,72);";                                                        ...
 //	"lines(0);" ;                                                           ...
 //	"function %onprompt" ;                                                  ...
@@ -1332,16 +1332,24 @@ function st = st_run(st)
 				// suppress blank (diff -nw)
 
 				dia = strsubst(dia,' ','');
+                disp("dia : " + string(size(dia, "*")));
 				ref = strsubst(ref,' ','');
+                disp("ref : " + string(size(ref, "*")));
 
 				dia(find(dia=='')) = [];
+                disp("dia : " + string(size(dia, "*")));
 				ref(find(ref=='')) = [];
+                disp("ref : " + string(size(ref, "*")));
 
 				dia(find(dia=='')) = [];
+                disp("dia : " + string(size(dia, "*")));
 				ref(find(ref=='')) = [];
+                disp("ref : " + string(size(ref, "*")));
 
 				dia( find(part(dia,(1:2))=="//") ) = [];
+                disp("dia : " + string(size(dia, "*")));
 				ref( find(part(ref,(1:2))=="//") ) = [];
+                disp("ref : " + string(size(ref, "*")));
 
 				if or(ref<>dia) then
 					st.status = status_set_id(st.status,4);
