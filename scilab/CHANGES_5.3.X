@@ -27,6 +27,8 @@ Bug Fixes:
 
 * bug 8481 fixed - Scilab crashed when display a rational containing a complex.
 
+* bug 8518 fixed - Error messages when exporting were not clear.
+
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
