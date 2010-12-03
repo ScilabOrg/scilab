@@ -87,7 +87,11 @@ c     initialization call
 c     -------------------
 
 c     initialization C environment
-      call initscilab
+      call initscilab(ierr)
+      if (ierr.gt.0 )then
+         return
+      endif
+      
 c     
 c     .  scilab function protection mode
 c     .  ------------------------------

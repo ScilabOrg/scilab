@@ -23,17 +23,19 @@
 /*--------------------------------------------------------------------------*/ 
 BOOL InitializeCore(void)
 {
-	BOOL bOK=FALSE;
-	int pause=0;
+	int pause = 0;
 
 	InitializeScilabFilesList();
 
-	getmodules();
+	if (getmodules() == NULL)
+    {
+        return FALSE;
+    }
 
 	if ( create_hashtable_scilab_functions() == FALSE ) 
 	{
 		sciprint(_("Fatal Error: Can't create table for scilab functions.\n"));
-		exit(1);
+		return FALSE;
 	}
 
 	LoadFunctionsTab();
@@ -41,7 +43,7 @@ BOOL InitializeCore(void)
 	/* Set prompt level */
 	C2F(setprlev)(&pause);
 
-	return bOK;
+	return TRUE;
 }
 /*--------------------------------------------------------------------------*/ 
 

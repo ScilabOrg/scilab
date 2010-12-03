@@ -18,10 +18,10 @@
 /**
  * @TODO add comment
  *
- * @param void  
+ * @param[out] ierr must be equals to 0 if it is initialized
  * @return <ReturnValue>
  */
-int C2F(initscilab)(void);
+int C2F(initscilab)(int *ierr);
 
 #endif /* __INITSCILAB_H__ */
 /*--------------------------------------------------------------------------*/ 
