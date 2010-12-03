@@ -27,6 +27,8 @@ Bug Fixes:
 
 * bug 8481 fixed - Scilab crashed when display a rational containing a complex.
 
+* bug 8532 fixed - size of input arguments of read_csv was no verified.
+
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
