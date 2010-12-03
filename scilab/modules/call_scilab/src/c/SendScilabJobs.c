@@ -151,12 +151,19 @@ BOOL GetLastJob(char *JOB,int nbcharsJOB)
 {
     if (JOB)
     {
-        if ((int)strlen(lastjob) < nbcharsJOB)
+        if (lastjob)
         {
-            strcpy(JOB, lastjob);
+            if ((int)strlen(lastjob) < nbcharsJOB)
+            {
+                strcpy(JOB, lastjob);
+            }
+            else strncpy(JOB, lastjob, nbcharsJOB);
+            return TRUE;
         }
-        else strncpy(JOB, lastjob, nbcharsJOB);
-        return TRUE;
+        else
+        {
+            strcpy(JOB, "");
+        }
     }
     return FALSE;
 }

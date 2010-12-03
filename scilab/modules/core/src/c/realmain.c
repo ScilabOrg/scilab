@@ -120,7 +120,12 @@ int realmain(int no_startup_flag_l, char *initial_script, InitScriptType initial
 
     /* initialize scilab interp  */
     C2F(inisci)(&initialization, &memory, &ierr);
-    if (ierr > 0) sciquit() ;
+    if (ierr > 0) 
+    {
+        FREE(startup);
+        return ierr;
+    }
+
     /* execute the initial script and enter scilab */
 
 #if !defined(_DEBUG) && defined(_MSC_VER)
