@@ -10,11 +10,11 @@
  *
  */
 
-package org.scilab.modules.output_stream;
+/*--------------------------------------------------------------------------*/
+#ifndef __OUTPUT_STREAM_H__
+#define __OUTPUT_STREAM_H__
 
-public class output_stream {
+int writeOnSystemOut(char*);
 
-    public static void writeOnSystemOut(String str) {
-        System.out.println(str);
-    }
-}
+#endif /* __OUTPUT_STREAM_H__ */
+/*--------------------------------------------------------------------------*/

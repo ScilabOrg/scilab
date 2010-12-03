@@ -8,11 +8,20 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+GIWS_WRAPPERS = src/jni/output_stream.giws.xml
+
+if GIWS
+    BUILT_SOURCES=giws
+endif
+
 OUTPUT_STREAM_CPP_SOURCES = src/cpp/Diary.cpp \
 	src/cpp/DiaryList.cpp \
 	src/cpp/diary_manager.cpp \
 	src/cpp/getDiaryDate.cpp \
-	src/cpp/getFullFilename.cpp
+	src/cpp/getFullFilename.cpp \
+	src/cpp/writeOnSystemOut.cpp \
+	src/jni/output_stream.cpp \
+	src/jni/GiwsException.cpp
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_diary.cpp
 
@@ -57,12 +66,12 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_output_stream.c \
 		sci_gateway/c/sci_mprintf.c \
 		sci_gateway/c/sci_msprintf.c \
 		sci_gateway/c/sci_disp.c
-		
 
 GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/intprint.f \
 			sci_gateway/fortran/intdisp.f
 
-libscioutput_stream_la_CFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
+libscioutput_stream_la_CFLAGS=  $(JAVA_JNI_INCLUDE) \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/core/includes \
 -I$(srcdir)/src/c/ \
@@ -70,11 +79,14 @@ libscioutput_stream_la_CFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/string/includes
 
-libscioutput_stream_la_CPPFLAGS=  -I$(top_srcdir)/libs/MALLOC/includes/ \
+libscioutput_stream_la_CPPFLAGS=  $(JAVA_JNI_INCLUDE) \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/core/includes \
 -I$(srcdir)/src/cpp/ \
 -I$(srcdir)/src/c/ \
+-I$(srcdir)/src/jni/ \
+-I$(top_srcdir)/modules/jvm/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/string/includes
 

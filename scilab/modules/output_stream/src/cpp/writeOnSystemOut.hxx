@@ -10,11 +10,16 @@
  *
  */
 
-package org.scilab.modules.output_stream;
+#ifndef __OUTPUT_STREAM_HXX__
+#define __OUTPUT_STREAM_HXX__
+/*--------------------------------------------------------------------------*/
+#include <jni.h>
 
-public class output_stream {
+extern "C"
+{
+#include "getScilabJavaVM.h"
+#include "output_stream.h"
+} /* extern "C" */
 
-    public static void writeOnSystemOut(String str) {
-        System.out.println(str);
-    }
-}
+/*--------------------------------------------------------------------------*/
+#endif /* __OUTPUT_STREAM_HXX__ */

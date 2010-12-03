@@ -141,7 +141,10 @@ am__objects_2 = libscioutput_stream_la-Diary.lo \
 	libscioutput_stream_la-DiaryList.lo \
 	libscioutput_stream_la-diary_manager.lo \
 	libscioutput_stream_la-getDiaryDate.lo \
-	libscioutput_stream_la-getFullFilename.lo
+	libscioutput_stream_la-getFullFilename.lo \
+	libscioutput_stream_la-writeOnSystemOut.lo \
+	libscioutput_stream_la-output_stream.lo \
+	libscioutput_stream_la-GiwsException.lo
 am__objects_3 = wspdsp.lo wmdsp.lo strdsp.lo prntid.lo print.lo \
 	lspdsp.lo fmttyp.lo fmt.lo dspdsp.lo dmrdsp.lo dmpdsp.lo \
 	dmdspf.lo dmdsp.lo dldsp.lo basouttofile.lo formatnumber.lo
@@ -442,11 +445,16 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+GIWS_WRAPPERS = src/jni/output_stream.giws.xml
+@GIWS_TRUE@BUILT_SOURCES = giws
 OUTPUT_STREAM_CPP_SOURCES = src/cpp/Diary.cpp \
 	src/cpp/DiaryList.cpp \
 	src/cpp/diary_manager.cpp \
 	src/cpp/getDiaryDate.cpp \
-	src/cpp/getFullFilename.cpp
+	src/cpp/getFullFilename.cpp \
+	src/cpp/writeOnSystemOut.cpp \
+	src/jni/output_stream.cpp \
+	src/jni/GiwsException.cpp
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_diary.cpp
 OUTPUT_STREAM_C_SOURCES = src/c/erro.c \
@@ -493,7 +501,8 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_output_stream.c \
 GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/intprint.f \
 			sci_gateway/fortran/intdisp.f
 
-libscioutput_stream_la_CFLAGS = -I$(top_srcdir)/libs/MALLOC/includes/ \
+libscioutput_stream_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/core/includes \
 -I$(srcdir)/src/c/ \
@@ -501,11 +510,14 @@ libscioutput_stream_la_CFLAGS = -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/string/includes
 
-libscioutput_stream_la_CPPFLAGS = -I$(top_srcdir)/libs/MALLOC/includes/ \
+libscioutput_stream_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
+-I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/core/includes \
 -I$(srcdir)/src/cpp/ \
 -I$(srcdir)/src/c/ \
+-I$(srcdir)/src/jni/ \
+-I$(top_srcdir)/modules/jvm/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/string/includes
 
@@ -605,7 +617,8 @@ JARMASK = *.jar
 HELP_CHAPTERDIR = help/
 HELP_CHAPTERFILE = addchapter.sce
 HELP_CHAPTERLANG = en_US fr_FR pt_BR
-all: all-am
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .sci .bin .c .cpp .f .lo .o .obj
@@ -681,6 +694,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-Diary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-DiaryList.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-GiwsException.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-Scierror.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-basout.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-cerro.Plo@am__quote@
@@ -699,6 +713,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-msgs.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-msgstore.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-msgstxt.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-output_stream.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-sci_diary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-sci_disp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-sci_mprintf.Plo@am__quote@
@@ -707,6 +722,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-sciprint.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-sciprint_full.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-set_xxprintf.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioutput_stream_la-writeOnSystemOut.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -938,6 +954,27 @@ libscioutput_stream_la-getFullFilename.lo: src/cpp/getFullFilename.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/getFullFilename.cpp' object='libscioutput_stream_la-getFullFilename.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscioutput_stream_la-getFullFilename.lo `test -f 'src/cpp/getFullFilename.cpp' || echo '$(srcdir)/'`src/cpp/getFullFilename.cpp
+
+libscioutput_stream_la-writeOnSystemOut.lo: src/cpp/writeOnSystemOut.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscioutput_stream_la-writeOnSystemOut.lo -MD -MP -MF $(DEPDIR)/libscioutput_stream_la-writeOnSystemOut.Tpo -c -o libscioutput_stream_la-writeOnSystemOut.lo `test -f 'src/cpp/writeOnSystemOut.cpp' || echo '$(srcdir)/'`src/cpp/writeOnSystemOut.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioutput_stream_la-writeOnSystemOut.Tpo $(DEPDIR)/libscioutput_stream_la-writeOnSystemOut.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/writeOnSystemOut.cpp' object='libscioutput_stream_la-writeOnSystemOut.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscioutput_stream_la-writeOnSystemOut.lo `test -f 'src/cpp/writeOnSystemOut.cpp' || echo '$(srcdir)/'`src/cpp/writeOnSystemOut.cpp
+
+libscioutput_stream_la-output_stream.lo: src/jni/output_stream.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscioutput_stream_la-output_stream.lo -MD -MP -MF $(DEPDIR)/libscioutput_stream_la-output_stream.Tpo -c -o libscioutput_stream_la-output_stream.lo `test -f 'src/jni/output_stream.cpp' || echo '$(srcdir)/'`src/jni/output_stream.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioutput_stream_la-output_stream.Tpo $(DEPDIR)/libscioutput_stream_la-output_stream.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/output_stream.cpp' object='libscioutput_stream_la-output_stream.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscioutput_stream_la-output_stream.lo `test -f 'src/jni/output_stream.cpp' || echo '$(srcdir)/'`src/jni/output_stream.cpp
+
+libscioutput_stream_la-GiwsException.lo: src/jni/GiwsException.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscioutput_stream_la-GiwsException.lo -MD -MP -MF $(DEPDIR)/libscioutput_stream_la-GiwsException.Tpo -c -o libscioutput_stream_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioutput_stream_la-GiwsException.Tpo $(DEPDIR)/libscioutput_stream_la-GiwsException.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/GiwsException.cpp' object='libscioutput_stream_la-GiwsException.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscioutput_stream_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
 
 libscioutput_stream_la-sci_diary.lo: sci_gateway/cpp/sci_diary.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscioutput_stream_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscioutput_stream_la-sci_diary.lo -MD -MP -MF $(DEPDIR)/libscioutput_stream_la-sci_diary.Tpo -c -o libscioutput_stream_la-sci_diary.lo `test -f 'sci_gateway/cpp/sci_diary.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_diary.cpp
@@ -1179,13 +1216,15 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) check-local
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
 	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscioutput_stream_la_etcdir)" "$(DESTDIR)$(libscioutput_stream_la_rootdir)" "$(DESTDIR)$(libscioutput_stream_la_sci_gatewaydir)" "$(DESTDIR)$(libscioutput_stream_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -1210,6 +1249,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
@@ -1289,7 +1329,7 @@ uninstall-am: uninstall-libscioutput_stream_la_etcDATA \
 	uninstall-libscioutput_stream_la_sci_gatewayDATA \
 	uninstall-pkglibLTLIBRARIES
 
-.MAKE: check-am install-am install-strip
+.MAKE: all check check-am install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am all-local check check-am check-local \
 	clean clean-generic clean-libtool clean-local \
