@@ -11,9 +11,21 @@ SciNotes:
 Bug Fixes:
 ==========
 
+* bug 7694 fixed - There were no key shortcuts in the command history browser.
+
+* bug 7695 fixed - Only the first selected line was deleted in command history
+                   browser.
+
+* bug 8254 fixed - The nearfloat function did not work properly for near
+                   denormalized numbers.
+
+* bug 8412 fixed - find returned incorrect values with big vector.
+
 * bug 8459 fixed - strsplit failed when second input argument was a "/"
 
 * bug 8468 fixed - size with 2 input arguments did not work for hypermatrices.
+
+* bug 8481 fixed - Scilab crashed when display a rational containing a complex.
 
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
@@ -129,7 +141,12 @@ Xcos:
 
 * bug 8397 fixed - the simulation was blocked on a Modelica translator error.
 
+
 * bug 8400 fixed - start demos from Xcos menu (? --> Xcos demos) did not work.
+
+
+* bug 8417 fixed - An h5 diagram open a new diagram before the end of the
+                   decoding.
 
 
 Graphic export:

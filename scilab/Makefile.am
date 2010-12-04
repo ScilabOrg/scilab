@@ -128,13 +128,13 @@ $(top_srcdir)/README_Windows.txt
 
 iconsdir=$(pkgdatadir)/icons/
 icons_DATA = $(top_srcdir)/icons/scilab.xpm \
-icons/puffin_128.xpm \
-icons/puffin_256.xpm \
-icons/puffin_32.xpm \
-icons/puffin_48.xpm \
-icons/puffin.png \
-icons/puffin.icns \
-icons/scilab.icns
+$(top_srcdir)/icons/puffin_128.xpm \
+$(top_srcdir)/icons/puffin_256.xpm \
+$(top_srcdir)/icons/puffin_32.xpm \
+$(top_srcdir)/icons/puffin_48.xpm \
+$(top_srcdir)/icons/puffin.png \
+$(top_srcdir)/icons/puffin.icns \
+$(top_srcdir)/icons/scilab.icns
 
 valgrinddir=$(pkgdatadir)/tools/profiling
 valgrind_DATA = $(top_srcdir)/tools/profiling/valgrind.supp
@@ -144,7 +144,14 @@ macros:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
 	echo "$(top_builddir)/bin/scilab-cli -ns -f modules/functions/scripts/buildmacros/buildmacros.sce" ; \
 	$(top_builddir)/bin/scilab-cli -ns -f modules/functions/scripts/buildmacros/buildmacros.sce)
 
-doc:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-adv-cli
+
+# Build the public Javadoc (javasci v2 and Java/Scilab types)
+# This is not done in the module itself because its needs also the "types"
+# module
+javadoc:
+	$(JAVADOC) -noindex -nohelp -nonavbar -notree -d $(top_builddir)/modules/javasci/javadoc -sourcepath $(top_srcdir)/modules/javasci/src/java:$(top_srcdir)/modules/types/src/java org.scilab.modules.javasci org.scilab.modules.types
+
+doc: javadoc $(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-adv-cli
 if BUILD_HELP
 	-@if test -x $(top_builddir)/scilab-bin; then \
 		cd $(top_builddir);\
@@ -234,7 +241,9 @@ clean-doc:
 	echo "rm -f $(top_builddir)/modules/scicos/help/en_US/master_help.xml"; \
 	rm -f $(top_builddir)/modules/scicos/help/en_US/master_help.xml; \
 	echo "rm -f $(top_builddir)/modules/scicos/jar/"; \
-	rm -rf $(top_builddir)/modules/scicos/jar/
+	rm -rf $(top_builddir)/modules/scicos/jar/; \
+	echo "rm -rf $(top_builddir)/modules/javasci/javadoc"; \
+	rm -rf $(top_builddir)/modules/javasci/javadoc;
 
 clean-tests:
 	@if test -x $(top_builddir)/scilab-cli-bin; then \
@@ -291,6 +300,12 @@ DOCMASK=scilab_*_help.jar
 # Path to builded files
 PATHTOHELPFILES = modules/helptools/jar/
 
+# Path javasci to builded files
+PATHTOJAVASCIDOC = modules/javasci/javadoc/
+JAVASCI_DIRS = . resources \
+	org/scilab/modules/javasci/ \
+	org/scilab/modules/types/
+
 if GENERATE_LOCALIZATION_FILES
 install-data-local:
 	@$(mkinstalldirs) $(DESTDIR)$(localedir); \
@@ -315,6 +330,20 @@ if BUILD_HELP
 		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)" ; \
 	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES) ; \
 		done; \
+	fi
+## Install Javasci documentation (javadoc)
+## See target javadoc in this file to see how it is build
+	@if test -d $(PATHTOJAVASCIDOC); then \
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC); \
+	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC); \
+	for dir in $(JAVASCI_DIRS) ; do \
+		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir; \
+		echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir; \
+			for file in $(top_builddir)/$(PATHTOJAVASCIDOC)/$(dir)/*; do \
+			    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir" ; \
+				$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir ; \
+			done; \
+	done; \
 	fi
 endif
 
