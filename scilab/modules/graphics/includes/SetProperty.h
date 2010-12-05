@@ -4,17 +4,17 @@
  * Copyright (C) 2002 - 2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004 - 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
 /*------------------------------------------------------------------------
- *    Graphic library 
+ *    Graphic library
  *    -This file contains all functions used to SET the properties of graphics
  *    objects.
  *    - there are two kinds of functions : the sciInit*** which only set an object
@@ -37,7 +37,7 @@ GRAPHICS_IMPEXP void Obj_RedrawNewAngle(sciPointObj * pSubwin, double alpha, dou
 
 GRAPHICS_IMPEXP int sciSetEntityType (sciPointObj * pobj, sciEntityType value); /* SET */
 GRAPHICS_IMPEXP int sciSetColormap (sciPointObj * pobj, double *rgbmat,
-			   int m, int n); /* SET */
+                           int m, int n); /* SET */
 GRAPHICS_IMPEXP int sciInitNumColors( sciPointObj * pobj, int numcolors ) ; /* SET */
 GRAPHICS_IMPEXP int sciSetNumColors ( sciPointObj * pobj, int numcolors ) ; /* SET */
 
@@ -97,8 +97,10 @@ GRAPHICS_IMPEXP int sciSetFontSize (sciPointObj * pobj, double fontSize); /* SET
 GRAPHICS_IMPEXP int sciInitFontOrientation(sciPointObj * pobj, double textorientation); /* SET */
 GRAPHICS_IMPEXP int sciSetFontOrientation (sciPointObj * pobj, double textorientation); /* SET */
 
-GRAPHICS_IMPEXP int sciSetStrings( sciPointObj * pobj, const StringMatrix * pStrings ) ; /* SET */
-GRAPHICS_IMPEXP int sciSetText (   sciPointObj * pobj, char ** text, int nbRow, int nbCol ) ; /* SET */
+GRAPHICS_IMPEXP int sciSetStrings      (sciPointObj * pobj, const StringMatrix * pStrings ) ; /* SET */
+GRAPHICS_IMPEXP int sciSetText         (sciPointObj * pobj, char ** text, int nbRow, int nbCol ) ; /* SET */
+GRAPHICS_IMPEXP int sciSetTextRenderer  (sciPointObj * pobj, char * renderer ) ; /* SET */
+GRAPHICS_IMPEXP int sciInitTextRenderer (sciPointObj * pobj, char * renderer ) ;
 
 GRAPHICS_IMPEXP int sciInitFontBackground(sciPointObj * pobj, int color);
 GRAPHICS_IMPEXP int sciSetFontBackground (sciPointObj * pobj, int color); /* SET */
@@ -211,7 +213,7 @@ GRAPHICS_IMPEXP int sciInitdrawmode( BOOL mode );
 
 GRAPHICS_IMPEXP int sciInitGraphicsStyle( sciPointObj * pobj, BOOL value );
 
-GRAPHICS_IMPEXP int sciInitGridStyle( sciPointObj * pObj, int xStyle, int yStyle, int zStyle ) ; 
+GRAPHICS_IMPEXP int sciInitGridStyle( sciPointObj * pObj, int xStyle, int yStyle, int zStyle ) ;
 GRAPHICS_IMPEXP int sciSetGridStyle( sciPointObj * pObj, int xStyle, int yStyle, int zStyle ) ; /* SET */
 
 GRAPHICS_IMPEXP int sciSetViewport(  sciPointObj * pObj, const int viewport[4] ) ; /* SET */
@@ -256,7 +258,7 @@ GRAPHICS_IMPEXP int sciSetUseNurbs(sciPointObj * pObj, BOOL useNurbs); /* SET */
 GRAPHICS_IMPEXP int sciInitIsUsingFractionalMetrics(sciPointObj * pObj, BOOL useFractionalMetrics);
 GRAPHICS_IMPEXP int sciSetIsUsingFractionalMetrics(sciPointObj * pObj, BOOL useFractionalMetrics); /* SET */
 
-GRAPHICS_IMPEXP int sciInitColorRange(sciPointObj * pObj, int subset[2]); 
+GRAPHICS_IMPEXP int sciInitColorRange(sciPointObj * pObj, int subset[2]);
 GRAPHICS_IMPEXP int sciSetColorRange(sciPointObj * pObj, int subset[2]); /* SET */
 
 GRAPHICS_IMPEXP int sciInitOutsideColors(sciPointObj * pObj, int colors[2]);

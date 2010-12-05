@@ -41,7 +41,8 @@ void CenteredTextDrawerJoGL::setDrawerParameters(void)
 
   getCenteredTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
                                                        sciGetFontStyle(pObj), sciGetFontSize(pObj), sciGetFontOrientation(pObj),
-                                                       sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+                                                       sciGetIsUsingFractionalMetrics(pObj) == TRUE,
+						       sciGetTextRenderer(pObj));
 
   StringMatrix * textMatrix = sciGetText(pObj);
   getCenteredTextDrawerJavaMapper()->setTextContent(getStrMatData(textMatrix), getMatNbRow(textMatrix), getMatNbCol(textMatrix));

@@ -2,11 +2,11 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2007 - INRIA - Vincent Couvert
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -26,7 +26,7 @@
 #include "strdup_windows.h"
 #endif
 
-/** 
+/**
 * use for the singleton to know if the hashtable has already be created.
 */
 static BOOL setHashTableCreated = FALSE ;
@@ -40,7 +40,7 @@ static SetPropertyHashTable * setHashTable = NULL ;
 * a couple of key (property name) and associated value
 * (accessor name)
 */
-typedef struct  
+typedef struct
 {
   char            * key ;
   setPropertyFunc   accessor ;
@@ -51,7 +51,7 @@ typedef struct
 * don't forget to modify it each time the propertyTable
 * is modified.
 */
-#define NB_PROPERTIES 155
+#define NB_PROPERTIES 156
 
 /**
 * list of all property names and associated functions in scilab
@@ -213,7 +213,8 @@ static setHashTableCouple propertyTable[NB_PROPERTIES] =
 { "outside_colors"      , set_outside_colors_property       },
 { "color_range"         , set_color_range_property          },
 { "grid_position"       , set_grid_position_property        },
-{ "anti_aliasing"       , set_anti_aliasing_property        }
+{ "anti_aliasing"       , set_anti_aliasing_property        },
+{ "renderer"            , set_text_renderer_property        }
 } ;
 
 /*--------------------------------------------------------------------------*/
@@ -269,19 +270,19 @@ void destroyScilabSetHashTable( void )
 /*--------------------------------------------------------------------------*/
 char **getDictionarySetProperties(int *sizearray)
 {
-	char **dictionary = NULL;
-	*sizearray = 0;
-	dictionary = (char **)MALLOC(sizeof(char*)*NB_PROPERTIES);
-	if (dictionary)
-	{
-		int i = 0;
-		*sizearray = NB_PROPERTIES;
-		for (i = 0;i < NB_PROPERTIES; i++)
-		{
-			dictionary [i] = strdup(propertyTable[i].key);
-		}
-	}
-	return dictionary;
+        char **dictionary = NULL;
+        *sizearray = 0;
+        dictionary = (char **)MALLOC(sizeof(char*)*NB_PROPERTIES);
+        if (dictionary)
+        {
+                int i = 0;
+                *sizearray = NB_PROPERTIES;
+                for (i = 0;i < NB_PROPERTIES; i++)
+                {
+                        dictionary [i] = strdup(propertyTable[i].key);
+                }
+        }
+        return dictionary;
 }
 /*--------------------------------------------------------------------------*/
 #undef NB_PROPERTIES

@@ -90,7 +90,7 @@ int setSubWinAngles( sciPointObj *psubwin, double theta, double alpha )
   {
     ppSubWin->project[2]= 1; /* z must be displayed */
     if (    ((alpha == 90.0 ) || (alpha == 270.0 ) || (alpha == -90.0 ) || (alpha == -270.0 ))
-	 && ((theta == 90.0 ) || (theta == -90.0 ) || (theta == 270.0 ) || (theta == -270.0 )))
+         && ((theta == 90.0 ) || (theta == -90.0 ) || (theta == 270.0 ) || (theta == -270.0 )))
     {
       ppSubWin->project[1]= 0; /* no y to display */
     }
@@ -218,27 +218,27 @@ void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m)
 
 
   if((sciGetEntityType(pobj) != SCI_AXES)        &&
-		 !sciIsAutomaticallyRedrawn(pobj))
+                 !sciIsAutomaticallyRedrawn(pobj))
     {
       if(old_m +1 == sciGetForeground(pobj)) {   /* 0 => deals with Foreground */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,0,-1); /* Black */
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,0,-1); /* Black */
+        sciSetNumColors (pobj,old_m);
       }
       else  if(old_m +2 == sciGetForeground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,0,-2); /* White */
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,0,-2); /* White */
+        sciSetNumColors (pobj,old_m);
       }
       if(old_m +1 == sciGetBackground(pobj)) { /* 1 => deals with Background */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,1,-1);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,1,-1);
+        sciSetNumColors (pobj,old_m);
       }
       else if(old_m +2 == sciGetBackground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,1,-2);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,1,-2);
+        sciSetNumColors (pobj,old_m);
       }
     }
 
@@ -251,26 +251,26 @@ void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m)
      (sciGetEntityType(pobj) == SCI_LABEL))
     {
       if(old_m +1 == sciGetFontForeground(pobj)) {
-	/* 2 => deals with FontForeground */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,2,-1);
-	sciSetNumColors (pobj,old_m);
+        /* 2 => deals with FontForeground */
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,2,-1);
+        sciSetNumColors (pobj,old_m);
       }
       else  if(old_m +2 == sciGetFontForeground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,2,-2);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,2,-2);
+        sciSetNumColors (pobj,old_m);
       }
 
       if(old_m +1 == sciGetFontBackground(pobj)) { /* 3 => deals with FontBackground */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,3,-1);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,3,-1);
+        sciSetNumColors (pobj,old_m);
       }
       else if(old_m +2 == sciGetFontBackground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,3,-2);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,3,-2);
+        sciSetNumColors (pobj,old_m);
       }
     }
 
@@ -287,24 +287,24 @@ void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m)
      (sciGetEntityType(pobj) == SCI_SEGS))
     {
       if(old_m +1 == sciGetMarkForeground(pobj)) {   /* 4 => deals with MarkForeground */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,4,-1); /* Black */
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,4,-1); /* Black */
+        sciSetNumColors (pobj,old_m);
       }
       else  if(old_m +2 == sciGetMarkForeground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,4,-2); /* White */
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,4,-2); /* White */
+        sciSetNumColors (pobj,old_m);
       }
       if(old_m +1 == sciGetMarkBackground(pobj)) { /* 5 => deals with MarkBackground */
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,5,-1);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,5,-1);
+        sciSetNumColors (pobj,old_m);
       }
       else if(old_m +2 == sciGetMarkBackground(pobj)) {
-	sciSetNumColors (pobj,m);
-	sciUpdateBaW (pobj,5,-2);
-	sciSetNumColors (pobj,old_m);
+        sciSetNumColors (pobj,m);
+        sciUpdateBaW (pobj,5,-2);
+        sciSetNumColors (pobj,old_m);
       }
     }
 
@@ -326,126 +326,126 @@ sciUpdateBaW (sciPointObj * pobj, int flag, int value)
     {
     case 0: /* Foreground*/
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_POLYLINE:
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_ARC:
-	case SCI_SEGS:
-	case SCI_FEC:
-	case SCI_GRAYPLOT:
-	case SCI_RECTANGLE:
-	case SCI_SURFACE:
-	case SCI_AXES:
-	case SCI_LABEL: /* F.Leray 28.05.04 */
-	case SCI_TEXT:
-	case SCI_LEGEND:
-	  sciSetForeground(pobj,value);
-	  break;
-	case SCI_UIMENU:
-	case SCI_AGREG:
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_POLYLINE:
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_ARC:
+        case SCI_SEGS:
+        case SCI_FEC:
+        case SCI_GRAYPLOT:
+        case SCI_RECTANGLE:
+        case SCI_SURFACE:
+        case SCI_AXES:
+        case SCI_LABEL: /* F.Leray 28.05.04 */
+        case SCI_TEXT:
+        case SCI_LEGEND:
+          sciSetForeground(pobj,value);
+          break;
+        case SCI_UIMENU:
+        case SCI_AGREG:
+        default:
+          return -1;
+          break;
+        }
       break;
     case 1: /* Background*/
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_ARC:
-	case SCI_SEGS:
-	case SCI_FEC:
-	case SCI_GRAYPLOT:
-	case SCI_POLYLINE:
-	case SCI_RECTANGLE:
-	case SCI_SURFACE:
-	case SCI_AXES:
-	case SCI_LABEL: /* F.Leray 28.05.04 */
-	case SCI_TEXT:
-	case SCI_LEGEND:
-	  sciSetBackground(pobj,value);
-	  break;
-	case SCI_UIMENU:
-	case SCI_AGREG:
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_ARC:
+        case SCI_SEGS:
+        case SCI_FEC:
+        case SCI_GRAYPLOT:
+        case SCI_POLYLINE:
+        case SCI_RECTANGLE:
+        case SCI_SURFACE:
+        case SCI_AXES:
+        case SCI_LABEL: /* F.Leray 28.05.04 */
+        case SCI_TEXT:
+        case SCI_LEGEND:
+          sciSetBackground(pobj,value);
+          break;
+        case SCI_UIMENU:
+        case SCI_AGREG:
+        default:
+          return -1;
+          break;
+        }
       break;
     case 2: /* FontForeground*/
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_AXES:
-	case SCI_TEXT:
-	case SCI_LEGEND:
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_LABEL: /* F.Leray 28.05.04 */
-	  sciSetFontForeground(pobj,value);
-	  break;
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_AXES:
+        case SCI_TEXT:
+        case SCI_LEGEND:
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_LABEL: /* F.Leray 28.05.04 */
+          sciSetFontForeground(pobj,value);
+          break;
+        default:
+          return -1;
+          break;
+        }
       break;
     case 3:
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_AXES:
-	case SCI_TEXT:
-	case SCI_LEGEND:
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_LABEL: /* F.Leray 28.05.04 */
-	  sciSetFontBackground(pobj,value);
-	  break;
-	case SCI_UIMENU:
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_AXES:
+        case SCI_TEXT:
+        case SCI_LEGEND:
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_LABEL: /* F.Leray 28.05.04 */
+          sciSetFontBackground(pobj,value);
+          break;
+        case SCI_UIMENU:
+        default:
+          return -1;
+          break;
+        }
       break;
     case 4: /* MarkForeground*/
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_LEGEND:
-	case SCI_ARC:
-	case SCI_POLYLINE:
-	case SCI_RECTANGLE:
-	case SCI_SURFACE:
-	case SCI_AXES:
-	case SCI_SEGS:
-	  sciSetMarkForeground(pobj,value); /* F.Leray 21.01.05 */
-	  break;
-	case SCI_UIMENU:
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_LEGEND:
+        case SCI_ARC:
+        case SCI_POLYLINE:
+        case SCI_RECTANGLE:
+        case SCI_SURFACE:
+        case SCI_AXES:
+        case SCI_SEGS:
+          sciSetMarkForeground(pobj,value); /* F.Leray 21.01.05 */
+          break;
+        case SCI_UIMENU:
+        default:
+          return -1;
+          break;
+        }
       break;
     case 5: /* MarkBackground*/
       switch (sciGetEntityType (pobj))
-	{
-	case SCI_FIGURE:
-	case SCI_SUBWIN:
-	case SCI_LEGEND:
-	case SCI_ARC:
-	case SCI_POLYLINE:
-	case SCI_RECTANGLE:
-	case SCI_SURFACE:
-	case SCI_AXES:
-	case SCI_SEGS:
-	  sciSetMarkBackground(pobj,value); /* F.Leray 21.01.05 */
-	  break;
-	case SCI_UIMENU:
-	default:
-	  return -1;
-	  break;
-	}
+        {
+        case SCI_FIGURE:
+        case SCI_SUBWIN:
+        case SCI_LEGEND:
+        case SCI_ARC:
+        case SCI_POLYLINE:
+        case SCI_RECTANGLE:
+        case SCI_SURFACE:
+        case SCI_AXES:
+        case SCI_SEGS:
+          sciSetMarkBackground(pobj,value); /* F.Leray 21.01.05 */
+          break;
+        case SCI_UIMENU:
+        default:
+          return -1;
+          break;
+        }
       break;
 
     default:
@@ -460,7 +460,7 @@ int sciInitNumColors( sciPointObj * pobj, int numcolors)
 {
 
   /* modified jb Silvy 06/2006 */
-	if (sciGetEntityType (pobj)==SCI_FIGURE)
+        if (sciGetEntityType (pobj)==SCI_FIGURE)
   {
     pFIGURE_FEATURE(pobj)->numcolors = numcolors ;
     return 0 ;
@@ -493,7 +493,7 @@ sciSetNumColors (sciPointObj * pobj, int numcolors)
 /* -1 is actually m+1 and -2, m+2 */
 int sciSetGoodIndex(sciPointObj * pobj, int colorindex) /* return colorindex or m (Default Black) or m+1 (Default White)*/
 {
-  int m = sciGetNumColors (pobj);	/* the number of the color*/
+  int m = sciGetNumColors (pobj);       /* the number of the color*/
 
   if( colorindex == -1 ) /* Black */
     return m + 1 ; /* modif. ici*/
@@ -517,10 +517,10 @@ int sciInitBackground( sciPointObj * pobj, int colorindex )
 
     if (sciGetEntityType(pobj) == SCI_FIGURE && !isFigureModel(pobj))
     {
-			/* disable protection since this function will call Java */
-		  disableFigureSynchronization(pobj);
+                        /* disable protection since this function will call Java */
+                  disableFigureSynchronization(pobj);
       sciSetJavaBackground(pobj, newIndex);
-			enableFigureSynchronization(pobj);
+                        enableFigureSynchronization(pobj);
     }
 
     return 0;
@@ -1042,9 +1042,9 @@ int sciSetText (sciPointObj * pobj, char ** text, int nbRow, int nbCol)
 {
 
 /* Check if we should load LaTex / MathML Java libraries */
-	loadTextRenderingAPI(text, nbRow, nbCol);
+        loadTextRenderingAPI(text, nbRow, nbCol);
 
-	switch (sciGetEntityType (pobj))
+        switch (sciGetEntityType (pobj))
     {
     case SCI_TEXT:
       deleteMatrix( pTEXT_FEATURE (pobj)->pStrings ) ;
@@ -1085,6 +1085,62 @@ int sciSetText (sciPointObj * pobj, char ** text, int nbRow, int nbCol)
   return 0;
 }
 
+/**sciSetTextRenderer
+ * Sets the Text in TEXT, TITLE or LEGEND
+ * @param sciPointObj * pobj: the pointer to the entity
+ * @param char *text[] : the text which has to be put
+ * @param int nbRow : the number of row of the text matrix
+ * @param int nbCol : the number of col of the text matrix
+ * @return  0 if OK, -1 if not
+ */
+int sciSetTextRenderer (sciPointObj * pobj, char * renderer)
+{
+  loadTextRenderingAPIOnRenderer(renderer);
+
+  switch (sciGetEntityType (pobj))
+    {
+    case SCI_TEXT:
+      if (pTEXT_FEATURE (pobj)->renderer != NULL)
+      {
+          FREE(pTEXT_FEATURE (pobj)->renderer);
+      }
+      pTEXT_FEATURE (pobj)->renderer = strdup(renderer);
+      break;
+    case SCI_LEGEND:
+      if (pLEGEND_FEATURE (pobj)->text.renderer != NULL)
+      {
+          FREE(pLEGEND_FEATURE (pobj)->text.renderer);
+      }
+      pLEGEND_FEATURE (pobj)->text.renderer = strdup(renderer);
+      break;
+    case SCI_LABEL: /* F.Leray 28.05.04 */
+      return sciSetTextRenderer( pLABEL_FEATURE(pobj)->text, renderer) ;
+      break;
+    case SCI_SUBWIN:
+      if (pSUBWIN_FEATURE (pobj)->renderer != NULL)
+      {
+          FREE(pSUBWIN_FEATURE (pobj)->renderer);
+      }
+      pSUBWIN_FEATURE (pobj)->renderer = strdup(renderer);
+      break;
+    case SCI_AXES:
+    case SCI_FIGURE:
+    case SCI_UIMENU:
+    case SCI_ARC:
+    case SCI_SEGS:
+    case SCI_FEC:
+    case SCI_GRAYPLOT:
+    case SCI_POLYLINE:
+    case SCI_RECTANGLE:
+    case SCI_SURFACE:
+    case SCI_AGREG:
+    default:
+      printSetGetErrorMessage("text");
+      return -1;
+      break;
+    }
+  return 0;
+}
 
 int sciInitFontBackground( sciPointObj * pobj, int colorindex )
 {
@@ -1093,27 +1149,27 @@ int sciInitFontBackground( sciPointObj * pobj, int colorindex )
     {
     case SCI_TEXT:
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));;
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));;
       break;
     case SCI_LEGEND:
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_AXES:
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_SUBWIN: /* F.Leray 08.04.04 */
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_FIGURE: /* F.Leray 08.04.04 */
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_LABEL: /* F.Leray 28.05.04 */
       (sciGetFontContext(pobj))->backgroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_UIMENU:
     case SCI_ARC:
@@ -1159,27 +1215,27 @@ int sciInitFontForeground( sciPointObj * pobj, int colorindex )
     {
     case SCI_TEXT:
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_LEGEND:
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_AXES:
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_SUBWIN: /* F.Leray 08.04.04 */
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_FIGURE: /* F.Leray 08.04.04 */
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_LABEL: /* F.Leray 08.04.04 */
       (sciGetFontContext(pobj))->foregroundcolor =
-	Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
+        Max (0, Min (colorindex - 1, sciGetNumColors (pobj) + 1));
       break;
     case SCI_UIMENU:
     case SCI_ARC:
@@ -1269,7 +1325,7 @@ sciSetFontStyle (sciPointObj * pobj, int iAttributes )
 int sciInitLegendPlace( sciPointObj * pobj, sciLegendPlace place )
 {
   double position[2]={0.0,0.0};
-  
+
   if (sciGetEntityType (pobj) == SCI_LEGEND)
   {
     pLEGEND_FEATURE (pobj)->place = place;
@@ -1396,8 +1452,8 @@ int sciInitIsClipping( sciPointObj * pobj, int value )
       if(value>0) pGRAYPLOT_FEATURE (pobj)->clip_region_set=1;
       break;
     case SCI_LEGEND:
-			pLEGEND_FEATURE(pobj)->isclip = value;
-			if(value>0) { pLEGEND_FEATURE (pobj)->clip_region_set=1;}
+                        pLEGEND_FEATURE(pobj)->isclip = value;
+                        if(value>0) { pLEGEND_FEATURE (pobj)->clip_region_set=1;}
       break;
     case SCI_AGREG:
     case SCI_FIGURE:
@@ -1542,9 +1598,9 @@ int sciInitAutoScale( sciPointObj * pobj, BOOL value )
     {
     case SCI_FIGURE:
       if (pobj == getFigureModel())
-	(sciGetGraphicMode (pobj))->autoscaling = value;
+        (sciGetGraphicMode (pobj))->autoscaling = value;
       else
-	sciSetAutoScale(sciGetFirstTypedSelectedSon(pobj, SCI_SUBWIN),value);
+        sciSetAutoScale(sciGetFirstTypedSelectedSon(pobj, SCI_SUBWIN),value);
       break;
     case SCI_SUBWIN:
       (sciGetGraphicMode (pobj))->autoscaling = value;
@@ -1848,35 +1904,35 @@ int sciInitName(sciPointObj * pobj, char * newName)
     {
       int newNameLength;
 
-			/* first case newName is NULL */
-			if (newName == NULL)
-			{
-				/* Just set an empty title for the physical window if needed */
-				if (!isFigureModel(pobj))
-				{
-					sciSetJavaTitle(pobj, "");
-				}
-				
-				return 0;
-			}
-			
-			/* newName is a valid string */
-			newNameLength = (int) strlen(newName);
-      
+                        /* first case newName is NULL */
+                        if (newName == NULL)
+                        {
+                                /* Just set an empty title for the physical window if needed */
+                                if (!isFigureModel(pobj))
+                                {
+                                        sciSetJavaTitle(pobj, "");
+                                }
+
+                                return 0;
+                        }
+
+                        /* newName is a valid string */
+                        newNameLength = (int) strlen(newName);
+
       /* Reallocate name */
       pFIGURE_FEATURE(pobj)->name = MALLOC( (newNameLength + 1) * sizeof(char) );
 
-			/* copy the string */
+                        /* copy the string */
       strcpy(pFIGURE_FEATURE(pobj)->name, newName) ;
-			
-			/* Update the name of the physical window if one exists */
+
+                        /* Update the name of the physical window if one exists */
       if (!isFigureModel(pobj))
       {
-      	/* In this case, we need to send the name to the physical window */
+        /* In this case, we need to send the name to the physical window */
         if ( checkPercent(newName) == 0 )
         {
-         	/* no %d, set the java title directly */
-        	sciSetJavaTitle(pobj, pFIGURE_FEATURE(pobj)->name);
+                /* no %d, set the java title directly */
+                sciSetJavaTitle(pobj, pFIGURE_FEATURE(pobj)->name);
         }
         else
         {
@@ -1896,7 +1952,7 @@ int sciInitName(sciPointObj * pobj, char * newName)
           FREE(realTitle) ;
         }
 
-        
+
       }
 
       return 0 ;
@@ -1920,26 +1976,26 @@ sciSetName(sciPointObj * pobj, char * newName)
   if (   newName != NULL
       && sciGetName(pobj) != NULL
       && strcmp(sciGetName(pobj), newName) == 0)
-	{
-		// nothing to do
-		return 1;
-	}
-	
-	/* Check that the string contains at most one %d character */
-	if (checkPercent(newName) < 0)
+        {
+                // nothing to do
+                return 1;
+        }
+
+        /* Check that the string contains at most one %d character */
+        if (checkPercent(newName) < 0)
   {
-  	Scierror(999, _("Figure name may not contains any %% character, except a single %%d.\n")) ;
-  	return -1 ;
+        Scierror(999, _("Figure name may not contains any %% character, except a single %%d.\n")) ;
+        return -1 ;
   }
-	
-	/* Free the current name if needed */
-	if (sciGetName(pobj) != NULL)
-	{
-		FREE(pFIGURE_FEATURE(pobj)->name);
-		pFIGURE_FEATURE(pobj)->name = NULL;
-	}
-	
-	return sciInitName(pobj, newName);
+
+        /* Free the current name if needed */
+        if (sciGetName(pobj) != NULL)
+        {
+                FREE(pFIGURE_FEATURE(pobj)->name);
+                pFIGURE_FEATURE(pobj)->name = NULL;
+        }
+
+        return sciInitName(pobj, newName);
 }
 
 int sciInitNum( sciPointObj * pobj, int value )
@@ -2212,10 +2268,10 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
     case SCI_POLYLINE:
       n1=pPOLYLINE_FEATURE (pthis)->n1;
       if ( (*numcol != 3) && (*numcol != 2) && (*numcol != 0) )
-	{
-	  Scierror(999, _("Number of columns must be %d (%d if %s coordinate).\n"),2,3,"z");
-	  return -1;
-	}
+        {
+          Scierror(999, _("Number of columns must be %d (%d if %s coordinate).\n"),2,3,"z");
+          return -1;
+        }
       if (*numrow != n1) /* SS 30/1/02 */
       {
 
@@ -2228,32 +2284,32 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
         if ( *numcol > 0 )
         {
           if ((pvx = MALLOC (n1 * sizeof (double))) == NULL) return -1;
-	  if ((pvy = MALLOC (n1 * sizeof (double))) == NULL)
+          if ((pvy = MALLOC (n1 * sizeof (double))) == NULL)
           {
             FREE(pvx); pvx = (double *) NULL;
-	    return -1;
-	  }
-	  if (*numcol == 3)
+            return -1;
+          }
+          if (*numcol == 3)
           {
             if ((pvz = MALLOC (n1 * sizeof (double))) == NULL)
             {
               FREE(pvx); pvx = (double *) NULL;
-	      FREE(pvy); pvy = (double *) NULL;
+              FREE(pvy); pvy = (double *) NULL;
               return -1;
             }
           }
 
-	  for ( i = 0 ; i < *numrow ; i++ )
-	  {
-	    pvx[i] = tab[i];
-	    pvy[i] = tab[i+ (*numrow)];
+          for ( i = 0 ; i < *numrow ; i++ )
+          {
+            pvx[i] = tab[i];
+            pvy[i] = tab[i+ (*numrow)];
             if (*numcol == 3)
             {
-	      pvz[i] = tab[i+ 2*(*numrow)];
+              pvz[i] = tab[i+ 2*(*numrow)];
             }
           }
-	  pPOLYLINE_FEATURE (pthis)->pvx=pvx;
-	  pPOLYLINE_FEATURE (pthis)->pvy=pvy;
+          pPOLYLINE_FEATURE (pthis)->pvx=pvx;
+          pPOLYLINE_FEATURE (pthis)->pvy=pvy;
           pPOLYLINE_FEATURE (pthis)->pvz=pvz;
         }
 
@@ -2261,27 +2317,27 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
 
       }
       else
-	{
-	  for (i=0;i < *numrow;i++)
-	    {
-	      pPOLYLINE_FEATURE (pthis)->pvx[i] = tab[i];
-	      pPOLYLINE_FEATURE (pthis)->pvy[i] = tab[i+ (*numrow)];
-	    }
-	  if (*numcol == 3)
-	    {
-	      if(pPOLYLINE_FEATURE (pthis)->pvz==NULL)
-		if ((pPOLYLINE_FEATURE (pthis)->pvz = MALLOC ((*numrow) * sizeof (double))) == NULL)
-		  return -1;
+        {
+          for (i=0;i < *numrow;i++)
+            {
+              pPOLYLINE_FEATURE (pthis)->pvx[i] = tab[i];
+              pPOLYLINE_FEATURE (pthis)->pvy[i] = tab[i+ (*numrow)];
+            }
+          if (*numcol == 3)
+            {
+              if(pPOLYLINE_FEATURE (pthis)->pvz==NULL)
+                if ((pPOLYLINE_FEATURE (pthis)->pvz = MALLOC ((*numrow) * sizeof (double))) == NULL)
+                  return -1;
 
-	      for (i=0;i < *numrow;i++)
-		pPOLYLINE_FEATURE (pthis)->pvz[i] = tab[i+ 2*(*numrow)];
-	    }
-	  else
-	    {
-	      FREE(pPOLYLINE_FEATURE (pthis)->pvz);
-	      pPOLYLINE_FEATURE (pthis)->pvz=NULL;
-	    }
-	}
+              for (i=0;i < *numrow;i++)
+                pPOLYLINE_FEATURE (pthis)->pvz[i] = tab[i+ 2*(*numrow)];
+            }
+          else
+            {
+              FREE(pPOLYLINE_FEATURE (pthis)->pvz);
+              pPOLYLINE_FEATURE (pthis)->pvz=NULL;
+            }
+        }
 
 
 
@@ -2320,195 +2376,195 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
     break;
     case SCI_ARC:
       if ((*numrow * *numcol != 7)&&(*numrow * *numcol != 6))
-	{
-	  Scierror(999, _("Number of elements must be %d (%d if z coordinate )\n"),6,7);
-	  return -1;
-	}
+        {
+          Scierror(999, _("Number of elements must be %d (%d if z coordinate )\n"),6,7);
+          return -1;
+        }
 
       pARC_FEATURE (pthis)->x          = tab[0];
       pARC_FEATURE (pthis)->y          = tab[1];
       if (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d)
-	{
-	  pARC_FEATURE (pthis)->z          = tab[2];
-	  pARC_FEATURE (pthis)->width      = tab[3];
-	  pARC_FEATURE (pthis)->height     = tab[4];
-	  pARC_FEATURE (pthis)->alphabegin = DEG2RAD(tab[5]);
-	  pARC_FEATURE (pthis)->alphaend   = DEG2RAD(tab[6]);
-	}
+        {
+          pARC_FEATURE (pthis)->z          = tab[2];
+          pARC_FEATURE (pthis)->width      = tab[3];
+          pARC_FEATURE (pthis)->height     = tab[4];
+          pARC_FEATURE (pthis)->alphabegin = DEG2RAD(tab[5]);
+          pARC_FEATURE (pthis)->alphaend   = DEG2RAD(tab[6]);
+        }
       else
-	{
-	  pARC_FEATURE (pthis)->width      = tab[2];
-	  pARC_FEATURE (pthis)->height     = tab[3];
-	  pARC_FEATURE (pthis)->alphabegin = DEG2RAD(tab[4]);
-	  pARC_FEATURE (pthis)->alphaend   = DEG2RAD(tab[5]);
-	}
+        {
+          pARC_FEATURE (pthis)->width      = tab[2];
+          pARC_FEATURE (pthis)->height     = tab[3];
+          pARC_FEATURE (pthis)->alphabegin = DEG2RAD(tab[4]);
+          pARC_FEATURE (pthis)->alphaend   = DEG2RAD(tab[5]);
+        }
       return 0;
       break;
     case SCI_TEXT:
       if ((*numrow * *numcol != 2)&&(*numrow * *numcol != 3))
-	{
-	  Scierror(999, _("Number of elements must be %d (%d if %s coordinate).\n"),2,3,"z");
-	  return -1;
-	}
+        {
+          Scierror(999, _("Number of elements must be %d (%d if %s coordinate).\n"),2,3,"z");
+          return -1;
+        }
       pTEXT_FEATURE (pthis)->x = tab[0];
       pTEXT_FEATURE (pthis)->y = tab[1];
       if (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d)
-	pTEXT_FEATURE (pthis)->z = tab[2];
+        pTEXT_FEATURE (pthis)->z = tab[2];
       return 0;
       break;
     case SCI_SEGS:
       if (pSEGS_FEATURE (pthis)->ptype <= 0) {
-	if ((*numcol != 3)&&(*numcol != 2)) {
-	  Scierror(999, _("Number of columns must be %d (%d if %s coordinate).\n"),2,3,"z");
-	  return -1;
-	}
-	n1=pSEGS_FEATURE (pthis)->Nbr1;
-	if (*numrow != n1) {
-	  n1=*numrow;
-	  if ((pvx = MALLOC (n1 * sizeof (double))) == NULL) return -1;
-	  if ((pvy = MALLOC (n1 * sizeof (double))) == NULL) {
-	    FREE(pvx); pvx = (double *) NULL;
-	    return -1;
-	  }
-	  if (*numcol == 3)
-	    if ((pvz = MALLOC (n1 * sizeof (double))) == NULL) {
-	      FREE(pvx); pvx = (double *) NULL;
-	      FREE(pvy); pvy = (double *) NULL;
-	      return -1;
-	    }
-	  if ((pstyle = MALLOC (n1 * sizeof (int))) == NULL) {
-	    FREE(pvx); pvx = (double *) NULL;
-	    FREE(pvy); pvy = (double *) NULL;
-	    FREE(pvz); pvz = (double *) NULL;
-	    return -1;
-	  }
-	  FREE(pSEGS_FEATURE (pthis)->vx); pSEGS_FEATURE (pthis)->vx = NULL;
-	  FREE(pSEGS_FEATURE (pthis)->vy); pSEGS_FEATURE (pthis)->vx = NULL;
-	  if (*numcol == 3)
-	    FREE(pSEGS_FEATURE (pthis)->vz); pSEGS_FEATURE (pthis)->vz = NULL;
-	  /* Attention ici on detruit pstyle !! F.Leray 20.02.04*/
-	  FREE(pSEGS_FEATURE (pthis)->pstyle); pSEGS_FEATURE (pthis)->pstyle = NULL;
-	  for (i=0;i < *numrow;i++)
-	    {
-	      pvx[i] = tab[i];
-	      pvy[i] = tab[i+ (*numrow)];
-	      if (*numcol == 3)
-		pvz[i] = tab[i+ 2*(*numrow)];
-	      pstyle[i] = 0;
-	    }
-	  pSEGS_FEATURE (pthis)->vx=pvx;
-	  pSEGS_FEATURE (pthis)->vy=pvy;
-	  if (*numcol == 3)
-	    pSEGS_FEATURE (pthis)->vz=pvz;
-	  pSEGS_FEATURE (pthis)->Nbr1=n1;
-	  pSEGS_FEATURE (pthis)->pstyle=pstyle;
-	}
-	else {
-	  if ((*numcol == 3) && (pSEGS_FEATURE (pthis)->vz == NULL))
-	    if ((pSEGS_FEATURE (pthis)->vz = MALLOC (n1 * sizeof (double))) == NULL) return -1;
+        if ((*numcol != 3)&&(*numcol != 2)) {
+          Scierror(999, _("Number of columns must be %d (%d if %s coordinate).\n"),2,3,"z");
+          return -1;
+        }
+        n1=pSEGS_FEATURE (pthis)->Nbr1;
+        if (*numrow != n1) {
+          n1=*numrow;
+          if ((pvx = MALLOC (n1 * sizeof (double))) == NULL) return -1;
+          if ((pvy = MALLOC (n1 * sizeof (double))) == NULL) {
+            FREE(pvx); pvx = (double *) NULL;
+            return -1;
+          }
+          if (*numcol == 3)
+            if ((pvz = MALLOC (n1 * sizeof (double))) == NULL) {
+              FREE(pvx); pvx = (double *) NULL;
+              FREE(pvy); pvy = (double *) NULL;
+              return -1;
+            }
+          if ((pstyle = MALLOC (n1 * sizeof (int))) == NULL) {
+            FREE(pvx); pvx = (double *) NULL;
+            FREE(pvy); pvy = (double *) NULL;
+            FREE(pvz); pvz = (double *) NULL;
+            return -1;
+          }
+          FREE(pSEGS_FEATURE (pthis)->vx); pSEGS_FEATURE (pthis)->vx = NULL;
+          FREE(pSEGS_FEATURE (pthis)->vy); pSEGS_FEATURE (pthis)->vx = NULL;
+          if (*numcol == 3)
+            FREE(pSEGS_FEATURE (pthis)->vz); pSEGS_FEATURE (pthis)->vz = NULL;
+          /* Attention ici on detruit pstyle !! F.Leray 20.02.04*/
+          FREE(pSEGS_FEATURE (pthis)->pstyle); pSEGS_FEATURE (pthis)->pstyle = NULL;
+          for (i=0;i < *numrow;i++)
+            {
+              pvx[i] = tab[i];
+              pvy[i] = tab[i+ (*numrow)];
+              if (*numcol == 3)
+                pvz[i] = tab[i+ 2*(*numrow)];
+              pstyle[i] = 0;
+            }
+          pSEGS_FEATURE (pthis)->vx=pvx;
+          pSEGS_FEATURE (pthis)->vy=pvy;
+          if (*numcol == 3)
+            pSEGS_FEATURE (pthis)->vz=pvz;
+          pSEGS_FEATURE (pthis)->Nbr1=n1;
+          pSEGS_FEATURE (pthis)->pstyle=pstyle;
+        }
+        else {
+          if ((*numcol == 3) && (pSEGS_FEATURE (pthis)->vz == NULL))
+            if ((pSEGS_FEATURE (pthis)->vz = MALLOC (n1 * sizeof (double))) == NULL) return -1;
 
-	  for (i=0;i < *numrow;i++) {
-	    pSEGS_FEATURE (pthis)->vx[i] = tab[i];
-	    pSEGS_FEATURE (pthis)->vy[i] = tab[i+ (*numrow)];
-	    if (*numcol == 3)
-	      pSEGS_FEATURE (pthis)->vz[i] = tab[i+ 2*(*numrow)];
-	  }
-	}
+          for (i=0;i < *numrow;i++) {
+            pSEGS_FEATURE (pthis)->vx[i] = tab[i];
+            pSEGS_FEATURE (pthis)->vy[i] = tab[i+ (*numrow)];
+            if (*numcol == 3)
+              pSEGS_FEATURE (pthis)->vz[i] = tab[i+ 2*(*numrow)];
+          }
+        }
       }
       else { /* Strange test object == Champ: e=gce(); e.data = e.data
-	        make this error happened! Remove it to perform such legal operation */
+                make this error happened! Remove it to perform such legal operation */
 
-	n1=pSEGS_FEATURE (pthis)->Nbr1;
-	if (*numrow != n1) /* SS 30/1/02 */
-	  {
-	    n1=*numrow;
-	    if ((pvx = MALLOC (n1 * sizeof (double))) == NULL) return -1;
-	    if ((pvy = MALLOC (n1 * sizeof (double))) == NULL) {
-	      FREE(pvx); pvx = (double *) NULL;
-	      return -1;
-	    }
-	    if ((pstyle = MALLOC (n1 * sizeof (int))) == NULL) {
-	      FREE(pvx); pvx = (double *) NULL;
-	      FREE(pvy); pvy = (double *) NULL;
-	      FREE(pvz); pvz = (double *) NULL;
-	      return -1;
-	    }
-	    if ((pvfx = MALLOC ((n1*n1) * sizeof (double))) == NULL) return -1;
-	    if ((pvfy = MALLOC ((n1*n1) * sizeof (double))) == NULL) {
-	      FREE(pvx); pvx = (double *) NULL;
-	      FREE(pvy); pvy = (double *) NULL;
-	      FREE(pvz); pvz = (double *) NULL;
-	      FREE(pvfx); pvfx = (double *) NULL;
-	      return -1;
-	    }
-	    if (*numcol == 3 +3*(*numrow * *numrow))
-	      {
-		if ((pvz = MALLOC (n1 * sizeof (double))) == NULL) {
-		  FREE(pvx); pvx = (double *) NULL;
-		  FREE(pvy); pvy = (double *) NULL;
-		  return -1;
-		}
-		if ((pvfz = MALLOC ((n1*n1) * sizeof (double))) == NULL) {
-		  FREE(pvx); pvx = (double *) NULL;
-		  FREE(pvy); pvy = (double *) NULL;
-		  FREE(pvz); pvz = (double *) NULL;
-		  FREE(pvfx); pvfx = (double *) NULL;
-		  FREE(pvfy); pvfy = (double *) NULL;
-		  return -1;
-		}
-		FREE(pSEGS_FEATURE (pthis)->vz); pSEGS_FEATURE (pthis)->vz = NULL;
-		FREE(pSEGS_FEATURE (pthis)->vfz); pSEGS_FEATURE (pthis)->vfz = NULL;
-	      }
-	    FREE(pSEGS_FEATURE (pthis)->vx); pSEGS_FEATURE (pthis)->vx = NULL;
-	    FREE(pSEGS_FEATURE (pthis)->vy); pSEGS_FEATURE (pthis)->vy = NULL;
-	    FREE(pSEGS_FEATURE (pthis)->vfx); pSEGS_FEATURE (pthis)->vfx = NULL;
-	    FREE(pSEGS_FEATURE (pthis)->vfy); pSEGS_FEATURE (pthis)->vfy = NULL;
-	    for (i=0;i < n1;i++)
-	      {
-		pvx[i] = tab[i];
-		pvy[i] = tab[i+ (*numrow)];
-		if (*numcol == 3 +3*(*numrow * *numrow))
-		  pvz[i] = tab[i+ 2*(*numrow)];
+        n1=pSEGS_FEATURE (pthis)->Nbr1;
+        if (*numrow != n1) /* SS 30/1/02 */
+          {
+            n1=*numrow;
+            if ((pvx = MALLOC (n1 * sizeof (double))) == NULL) return -1;
+            if ((pvy = MALLOC (n1 * sizeof (double))) == NULL) {
+              FREE(pvx); pvx = (double *) NULL;
+              return -1;
+            }
+            if ((pstyle = MALLOC (n1 * sizeof (int))) == NULL) {
+              FREE(pvx); pvx = (double *) NULL;
+              FREE(pvy); pvy = (double *) NULL;
+              FREE(pvz); pvz = (double *) NULL;
+              return -1;
+            }
+            if ((pvfx = MALLOC ((n1*n1) * sizeof (double))) == NULL) return -1;
+            if ((pvfy = MALLOC ((n1*n1) * sizeof (double))) == NULL) {
+              FREE(pvx); pvx = (double *) NULL;
+              FREE(pvy); pvy = (double *) NULL;
+              FREE(pvz); pvz = (double *) NULL;
+              FREE(pvfx); pvfx = (double *) NULL;
+              return -1;
+            }
+            if (*numcol == 3 +3*(*numrow * *numrow))
+              {
+                if ((pvz = MALLOC (n1 * sizeof (double))) == NULL) {
+                  FREE(pvx); pvx = (double *) NULL;
+                  FREE(pvy); pvy = (double *) NULL;
+                  return -1;
+                }
+                if ((pvfz = MALLOC ((n1*n1) * sizeof (double))) == NULL) {
+                  FREE(pvx); pvx = (double *) NULL;
+                  FREE(pvy); pvy = (double *) NULL;
+                  FREE(pvz); pvz = (double *) NULL;
+                  FREE(pvfx); pvfx = (double *) NULL;
+                  FREE(pvfy); pvfy = (double *) NULL;
+                  return -1;
+                }
+                FREE(pSEGS_FEATURE (pthis)->vz); pSEGS_FEATURE (pthis)->vz = NULL;
+                FREE(pSEGS_FEATURE (pthis)->vfz); pSEGS_FEATURE (pthis)->vfz = NULL;
+              }
+            FREE(pSEGS_FEATURE (pthis)->vx); pSEGS_FEATURE (pthis)->vx = NULL;
+            FREE(pSEGS_FEATURE (pthis)->vy); pSEGS_FEATURE (pthis)->vy = NULL;
+            FREE(pSEGS_FEATURE (pthis)->vfx); pSEGS_FEATURE (pthis)->vfx = NULL;
+            FREE(pSEGS_FEATURE (pthis)->vfy); pSEGS_FEATURE (pthis)->vfy = NULL;
+            for (i=0;i < n1;i++)
+              {
+                pvx[i] = tab[i];
+                pvy[i] = tab[i+ (*numrow)];
+                if (*numcol == 3 +3*(*numrow * *numrow))
+                  pvz[i] = tab[i+ 2*(*numrow)];
 
-	      }
-	    k=3*n1;
-	    for (i=0;i < n1*n1;i++)
-	      {
-		pvfx[i] = tab[k+i];
-		pvfy[i] = tab[k+n1*n1+i];
-		if (*numcol == 3 +3*(*numrow * *numrow))
-		  pvfz[i] = tab[2*k+n1*n1+i];
+              }
+            k=3*n1;
+            for (i=0;i < n1*n1;i++)
+              {
+                pvfx[i] = tab[k+i];
+                pvfy[i] = tab[k+n1*n1+i];
+                if (*numcol == 3 +3*(*numrow * *numrow))
+                  pvfz[i] = tab[2*k+n1*n1+i];
 
-	      }
-	    pSEGS_FEATURE (pthis)->vx=pvx;
-	    pSEGS_FEATURE (pthis)->vy=pvy;
-	    pSEGS_FEATURE (pthis)->vx=pvfx;
-	    pSEGS_FEATURE (pthis)->vy=pvfy;
-	    pSEGS_FEATURE (pthis)->Nbr1=n1;
-	    if (*numcol == 3 +3*(*numrow * *numrow))
-	      {
-		pSEGS_FEATURE (pthis)->vz=pvz;
-		pSEGS_FEATURE (pthis)->vy=pvfz;
-	      }
+              }
+            pSEGS_FEATURE (pthis)->vx=pvx;
+            pSEGS_FEATURE (pthis)->vy=pvy;
+            pSEGS_FEATURE (pthis)->vx=pvfx;
+            pSEGS_FEATURE (pthis)->vy=pvfy;
+            pSEGS_FEATURE (pthis)->Nbr1=n1;
+            if (*numcol == 3 +3*(*numrow * *numrow))
+              {
+                pSEGS_FEATURE (pthis)->vz=pvz;
+                pSEGS_FEATURE (pthis)->vy=pvfz;
+              }
 
-	  }
-	else {
-	  for (i=0;i < *numrow;i++)   {
-	    pSEGS_FEATURE (pthis)->vx[i] = tab[i];
-	    pSEGS_FEATURE (pthis)->vy[i] = tab[i+ (*numrow)];
-	    if (pSEGS_FEATURE (pthis)->vz != (double *)NULL)
-	      pSEGS_FEATURE (pthis)->vz[i] = tab[i+ 2*(*numrow)];
-	  }
-	  k=2* (*numrow);
-	  k1=k+ (*numrow * *numrow);
-	  k2=2*k+ (*numrow * *numrow);
-	  for (i=0;i < *numrow * *numrow ;i++)   {
-	    pSEGS_FEATURE (pthis)->vfx[i] = tab[k+i];
-	    pSEGS_FEATURE (pthis)->vfy[i] = tab[k1+i];
-	    if (pSEGS_FEATURE (pthis)->vfz != (double *)NULL)
-	      pSEGS_FEATURE (pthis)->vfz[i] = tab[k2+i];
-	  }
-	}
+          }
+        else {
+          for (i=0;i < *numrow;i++)   {
+            pSEGS_FEATURE (pthis)->vx[i] = tab[i];
+            pSEGS_FEATURE (pthis)->vy[i] = tab[i+ (*numrow)];
+            if (pSEGS_FEATURE (pthis)->vz != (double *)NULL)
+              pSEGS_FEATURE (pthis)->vz[i] = tab[i+ 2*(*numrow)];
+          }
+          k=2* (*numrow);
+          k1=k+ (*numrow * *numrow);
+          k2=2*k+ (*numrow * *numrow);
+          for (i=0;i < *numrow * *numrow ;i++)   {
+            pSEGS_FEATURE (pthis)->vfx[i] = tab[k+i];
+            pSEGS_FEATURE (pthis)->vfy[i] = tab[k1+i];
+            if (pSEGS_FEATURE (pthis)->vfz != (double *)NULL)
+              pSEGS_FEATURE (pthis)->vfz[i] = tab[k2+i];
+          }
+        }
       }
       return 0;
       break;
@@ -2520,84 +2576,84 @@ sciSetPoint(sciPointObj * pthis, double *tab, int *numrow, int *numcol)
       break;
     case SCI_GRAYPLOT:
       if (pGRAYPLOT_FEATURE (pthis)->type == 0) { /* gray plot */
-	double *pvecx,*pvecy,*pvecz;
-	int nx,ny;
-	nx=*numrow-1;
-	ny=*numcol-1;
-	if (pGRAYPLOT_FEATURE (pthis)->ny!=ny || pGRAYPLOT_FEATURE (pthis)->nx!=nx) {
-	  if ((pvecx = CALLOC(nx,sizeof(double))) == NULL) {
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    return -1;}
-	  if ((pvecy = CALLOC(ny,sizeof(double))) == NULL) {
-	    FREE(pvecx);
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    return -1;}
-	  if ((pvecz = CALLOC(nx*ny,sizeof(double))) == NULL) {
-	    FREE(pvecx);FREE(pvecy);
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    return -1;}
-	  FREE(pGRAYPLOT_FEATURE (pthis)->pvecx);pGRAYPLOT_FEATURE (pthis)->pvecx=pvecx;
-	  FREE(pGRAYPLOT_FEATURE (pthis)->pvecy);pGRAYPLOT_FEATURE (pthis)->pvecy=pvecy;
-	  FREE(pGRAYPLOT_FEATURE (pthis)->pvecz);pGRAYPLOT_FEATURE (pthis)->pvecz=pvecz;
-	}
-	for (i=0;i < nx;i++)
-	  pGRAYPLOT_FEATURE (pthis)->pvecx[i] = tab[i+1];
+        double *pvecx,*pvecy,*pvecz;
+        int nx,ny;
+        nx=*numrow-1;
+        ny=*numcol-1;
+        if (pGRAYPLOT_FEATURE (pthis)->ny!=ny || pGRAYPLOT_FEATURE (pthis)->nx!=nx) {
+          if ((pvecx = CALLOC(nx,sizeof(double))) == NULL) {
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            return -1;}
+          if ((pvecy = CALLOC(ny,sizeof(double))) == NULL) {
+            FREE(pvecx);
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            return -1;}
+          if ((pvecz = CALLOC(nx*ny,sizeof(double))) == NULL) {
+            FREE(pvecx);FREE(pvecy);
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            return -1;}
+          FREE(pGRAYPLOT_FEATURE (pthis)->pvecx);pGRAYPLOT_FEATURE (pthis)->pvecx=pvecx;
+          FREE(pGRAYPLOT_FEATURE (pthis)->pvecy);pGRAYPLOT_FEATURE (pthis)->pvecy=pvecy;
+          FREE(pGRAYPLOT_FEATURE (pthis)->pvecz);pGRAYPLOT_FEATURE (pthis)->pvecz=pvecz;
+        }
+        for (i=0;i < nx;i++)
+          pGRAYPLOT_FEATURE (pthis)->pvecx[i] = tab[i+1];
 
-	for (i=0;i < ny;i++)
-	  pGRAYPLOT_FEATURE (pthis)->pvecy[i] = tab[*numrow*(i+1)];
-	for (i=0;i < ny;i++)
-	  for (k=0;k < nx;k++)
-	    pGRAYPLOT_FEATURE (pthis)->pvecz[nx*i+k]=tab[*numrow*(i+1)+k+1];
-	pGRAYPLOT_FEATURE (pthis)->ny=ny;
-	pGRAYPLOT_FEATURE (pthis)->nx=nx;
+        for (i=0;i < ny;i++)
+          pGRAYPLOT_FEATURE (pthis)->pvecy[i] = tab[*numrow*(i+1)];
+        for (i=0;i < ny;i++)
+          for (k=0;k < nx;k++)
+            pGRAYPLOT_FEATURE (pthis)->pvecz[nx*i+k]=tab[*numrow*(i+1)+k+1];
+        pGRAYPLOT_FEATURE (pthis)->ny=ny;
+        pGRAYPLOT_FEATURE (pthis)->nx=nx;
       }
       else  {/* Matplot */
-	double *pvecz;
-	int nx,ny;
-	nx=*numrow;
-	ny=*numcol;
-	if (pGRAYPLOT_FEATURE (pthis)->ny!=ny+1 || pGRAYPLOT_FEATURE (pthis)->nx!=nx+1) {
-	  if ((pvecz = CALLOC(nx*ny,sizeof(double))) == NULL) {
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    return -1;}
-	  FREE(pGRAYPLOT_FEATURE (pthis)->pvecz);pGRAYPLOT_FEATURE (pthis)->pvecz=pvecz;
-	}
-	for (i=0;i < nx*ny;i++)
-	  pGRAYPLOT_FEATURE (pthis)->pvecz[i]=tab[i];
-	pGRAYPLOT_FEATURE (pthis)->ny=ny+1;
-	pGRAYPLOT_FEATURE (pthis)->nx=nx+1;
+        double *pvecz;
+        int nx,ny;
+        nx=*numrow;
+        ny=*numcol;
+        if (pGRAYPLOT_FEATURE (pthis)->ny!=ny+1 || pGRAYPLOT_FEATURE (pthis)->nx!=nx+1) {
+          if ((pvecz = CALLOC(nx*ny,sizeof(double))) == NULL) {
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            return -1;}
+          FREE(pGRAYPLOT_FEATURE (pthis)->pvecz);pGRAYPLOT_FEATURE (pthis)->pvecz=pvecz;
+        }
+        for (i=0;i < nx*ny;i++)
+          pGRAYPLOT_FEATURE (pthis)->pvecz[i]=tab[i];
+        pGRAYPLOT_FEATURE (pthis)->ny=ny+1;
+        pGRAYPLOT_FEATURE (pthis)->nx=nx+1;
       }
       break;
     case SCI_FEC:
       {
-	double *pvecx,*pvecy,*pfun;
-	int Nnode;
-	if (*numcol != 3) {
-	  Scierror(999, _("Number of columns must be %d.\n"),2);
-	  return -1;}
+        double *pvecx,*pvecy,*pfun;
+        int Nnode;
+        if (*numcol != 3) {
+          Scierror(999, _("Number of columns must be %d.\n"),2);
+          return -1;}
 
-	Nnode = *numrow;
-	if (pFEC_FEATURE (pthis)->Nnode!=Nnode) {
-	  if ((pvecx = CALLOC(Nnode,sizeof(double))) == NULL) {
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    return -1;}
-	  if ((pvecy = CALLOC(Nnode,sizeof(double))) == NULL) {
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    FREE(pvecx);
-	    return -1;}
-	  if ((pfun = CALLOC(Nnode,sizeof(double))) == NULL) {
-	    Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
-	    FREE(pvecx);FREE(pvecy);
-	    return -1;}
-	  FREE( pFEC_FEATURE (pthis)->pvecx); pFEC_FEATURE (pthis)->pvecx=pvecx;
-	  FREE( pFEC_FEATURE (pthis)->pvecy); pFEC_FEATURE (pthis)->pvecy=pvecy;
-	  FREE( pFEC_FEATURE (pthis)->pfun); pFEC_FEATURE (pthis)->pfun=pfun;
-	}
-	for (i=0;i < Nnode;i++) {
-	  pFEC_FEATURE (pthis)->pvecx[i]=tab[i];
-	  pFEC_FEATURE (pthis)->pvecy[i]=tab[Nnode+i];
-	  pFEC_FEATURE (pthis)->pfun[i]=tab[2*Nnode+i];
-	}
+        Nnode = *numrow;
+        if (pFEC_FEATURE (pthis)->Nnode!=Nnode) {
+          if ((pvecx = CALLOC(Nnode,sizeof(double))) == NULL) {
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            return -1;}
+          if ((pvecy = CALLOC(Nnode,sizeof(double))) == NULL) {
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            FREE(pvecx);
+            return -1;}
+          if ((pfun = CALLOC(Nnode,sizeof(double))) == NULL) {
+            Scierror(999, _("%s: No more memory.\n"), "sciSetPoint") ;
+            FREE(pvecx);FREE(pvecy);
+            return -1;}
+          FREE( pFEC_FEATURE (pthis)->pvecx); pFEC_FEATURE (pthis)->pvecx=pvecx;
+          FREE( pFEC_FEATURE (pthis)->pvecy); pFEC_FEATURE (pthis)->pvecy=pvecy;
+          FREE( pFEC_FEATURE (pthis)->pfun); pFEC_FEATURE (pthis)->pfun=pfun;
+        }
+        for (i=0;i < Nnode;i++) {
+          pFEC_FEATURE (pthis)->pvecx[i]=tab[i];
+          pFEC_FEATURE (pthis)->pvecy[i]=tab[Nnode+i];
+          pFEC_FEATURE (pthis)->pfun[i]=tab[2*Nnode+i];
+        }
       }
       break;
     case SCI_FIGURE:
@@ -3240,48 +3296,48 @@ int sciSetViewport( sciPointObj * pObj, const int viewport[4] )
 /*-----------------------------------------------------------------------------------*/
 int sciInitInfoMessage(sciPointObj * pObj, const char * newMessage)
 {
-	if ( sciGetEntityType( pObj ) == SCI_FIGURE)
-	{
+        if ( sciGetEntityType( pObj ) == SCI_FIGURE)
+        {
 
-		/* first case newName is NULL */
-		if (newMessage == NULL)
-		{
-			/* Just set an empty title for the physical window if needed */
-			if(isFigureModel(pObj))
-			{
-				pFIGURE_FEATURE(pObj)->pModelData->infoMessage = NULL;
-			}
-			else
-			{
-				sciSetJavaInfoMessage(pObj, "");
-			}
-				
-			return 0;
-		}
+                /* first case newName is NULL */
+                if (newMessage == NULL)
+                {
+                        /* Just set an empty title for the physical window if needed */
+                        if(isFigureModel(pObj))
+                        {
+                                pFIGURE_FEATURE(pObj)->pModelData->infoMessage = NULL;
+                        }
+                        else
+                        {
+                                sciSetJavaInfoMessage(pObj, "");
+                        }
 
-		if (isFigureModel(pObj))
-		{
-			/* Copy the message into the special data */
-			int newMessageLength = (int) strlen(newMessage);
-			pFIGURE_FEATURE(pObj)->pModelData->infoMessage = MALLOC((newMessageLength + 1) * sizeof(char));
-			if (pFIGURE_FEATURE(pObj)->pModelData->infoMessage != NULL)
-			{
-				strcpy(pFIGURE_FEATURE(pObj)->pModelData->infoMessage, newMessage);
-			}
-		}
-		else
-		{
-			/* Copy in the Java data */
-			sciSetJavaInfoMessage(pObj, newMessage);
-		}
+                        return 0;
+                }
 
-		return 0 ;
-	}
-	else
-	{
-		printSetGetErrorMessage("info_message");
-		return -1;
-	}
+                if (isFigureModel(pObj))
+                {
+                        /* Copy the message into the special data */
+                        int newMessageLength = (int) strlen(newMessage);
+                        pFIGURE_FEATURE(pObj)->pModelData->infoMessage = MALLOC((newMessageLength + 1) * sizeof(char));
+                        if (pFIGURE_FEATURE(pObj)->pModelData->infoMessage != NULL)
+                        {
+                                strcpy(pFIGURE_FEATURE(pObj)->pModelData->infoMessage, newMessage);
+                        }
+                }
+                else
+                {
+                        /* Copy in the Java data */
+                        sciSetJavaInfoMessage(pObj, newMessage);
+                }
+
+                return 0 ;
+        }
+        else
+        {
+                printSetGetErrorMessage("info_message");
+                return -1;
+        }
 }
 /*-----------------------------------------------------------------------------------*/
 /**
@@ -3290,11 +3346,11 @@ int sciInitInfoMessage(sciPointObj * pObj, const char * newMessage)
 int sciSetInfoMessage( sciPointObj * pObj, const char * newMessage )
 {
   if (isFigureModel(pObj) && pFIGURE_FEATURE(pObj)->pModelData->infoMessage != NULL)
-	{
-		FREE(pFIGURE_FEATURE(pObj)->pModelData->infoMessage);
-		pFIGURE_FEATURE(pObj)->pModelData->infoMessage = NULL;
-	}
-	return sciInitInfoMessage(pObj, newMessage);
+        {
+                FREE(pFIGURE_FEATURE(pObj)->pModelData->infoMessage);
+                pFIGURE_FEATURE(pObj)->pModelData->infoMessage = NULL;
+        }
+        return sciInitInfoMessage(pObj, newMessage);
 }
 /*-----------------------------------------------------------------------------------*/
 int sciInitEventHandler( sciPointObj * pObj, char * name )
@@ -3304,15 +3360,15 @@ int sciInitEventHandler( sciPointObj * pObj, char * name )
       sciFigure * ppFigure = pFIGURE_FEATURE(pObj) ;
 
       if ( ppFigure == NULL )
-	{
-	  Scierror(999, _("%s: No more memory.\n"), "sciInitEventHandler") ;
-	  return -1 ;
-	}
+        {
+          Scierror(999, _("%s: No more memory.\n"), "sciInitEventHandler") ;
+          return -1 ;
+        }
 
       if ( ppFigure->eventHandler != NULL )
-	{
-	  FREE(ppFigure->eventHandler);
-	}
+        {
+          FREE(ppFigure->eventHandler);
+        }
 
       ppFigure->eventHandler = strdup(name);
 
@@ -3323,9 +3379,9 @@ int sciInitEventHandler( sciPointObj * pObj, char * name )
         }
 
       if ( strcmp( name, "" ) == 0 )
-	{
-	  sciInitIsEventHandlerEnable( pObj, FALSE ) ;
-	}
+        {
+          sciInitIsEventHandlerEnable( pObj, FALSE ) ;
+        }
 
       return 0 ;
     }
@@ -3358,21 +3414,21 @@ int sciInitIsEventHandlerEnable( sciPointObj * pObj, BOOL enable )
       ** raise a Warning.
       */
       if (ppFigure != NULL
-	  && ppFigure->eventHandler != NULL
-	  && (strcmp(ppFigure->eventHandler, "") != 0 || enable == FALSE))
-	{
-	  pFIGURE_FEATURE(pObj)->isEventHandlerEnable = enable ;
+          && ppFigure->eventHandler != NULL
+          && (strcmp(ppFigure->eventHandler, "") != 0 || enable == FALSE))
+        {
+          pFIGURE_FEATURE(pObj)->isEventHandlerEnable = enable ;
 
-	  /* Java is called to enable or disable the listener */
-	  if (!isFigureModel(pObj))
-	    {
-	      setFigureEventHandlerEnabled(sciGetNum(pObj), enable);
-	    }
-	}
+          /* Java is called to enable or disable the listener */
+          if (!isFigureModel(pObj))
+            {
+              setFigureEventHandlerEnabled(sciGetNum(pObj), enable);
+            }
+        }
       else
-	{
-	  Scierror(999, _("%s: Can't enable a void event handler.\n"), "sciInitEventHandler") ;
-	}
+        {
+          Scierror(999, _("%s: Can't enable a void event handler.\n"), "sciInitEventHandler") ;
+        }
       return 0 ;
     }
   else
@@ -3452,7 +3508,7 @@ int sciInitViewingAngles( sciPointObj * pObj, double alpha, double theta)
     return 0;
   default:
     printSetGetErrorMessage("rotation_angles");
-	return -1;
+        return -1;
   }
 
 }
@@ -3542,7 +3598,7 @@ int sciInitPixmapMode(sciPointObj * pObj, BOOL onOrOff)
     return 0;
   default:
     printSetGetErrorMessage("pixmap");
-	return -1;
+        return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3768,12 +3824,12 @@ int sciInitColorRange(sciPointObj * pObj, int subset[2])
   switch (sciGetEntityType(pObj))
   {
   case SCI_FEC:
-		pFEC_FEATURE(pObj)->colminmax[0] = subset[0];
-		pFEC_FEATURE(pObj)->colminmax[1] = subset[1];
-		return 0;
+                pFEC_FEATURE(pObj)->colminmax[0] = subset[0];
+                pFEC_FEATURE(pObj)->colminmax[1] = subset[1];
+                return 0;
   default:
     printSetGetErrorMessage("color_range");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3783,15 +3839,15 @@ int sciInitColorRange(sciPointObj * pObj, int subset[2])
 int sciSetColorRange(sciPointObj * pObj, int subset[2])
 {
 
-	int curColorRange[2];
-	sciGetColorRange(pObj, curColorRange);
-	if (curColorRange[0] == subset[0] && curColorRange[1] == subset[1])
-	{
-		/* nothing to do */
-		return 1;
-	}
+        int curColorRange[2];
+        sciGetColorRange(pObj, curColorRange);
+        if (curColorRange[0] == subset[0] && curColorRange[1] == subset[1])
+        {
+                /* nothing to do */
+                return 1;
+        }
 
-	return sciInitColorRange(pObj, subset);
+        return sciInitColorRange(pObj, subset);
 
 }
 /*----------------------------------------------------------------------------------*/
@@ -3800,12 +3856,12 @@ int sciInitOutsideColors(sciPointObj * pObj, int colors[2])
   switch (sciGetEntityType(pObj))
   {
   case SCI_FEC:
-		pFEC_FEATURE(pObj)->colout[0] = colors[0];
-		pFEC_FEATURE(pObj)->colout[1] = colors[1];
-		return 0;
+                pFEC_FEATURE(pObj)->colout[0] = colors[0];
+                pFEC_FEATURE(pObj)->colout[1] = colors[1];
+                return 0;
   default:
     printSetGetErrorMessage("outside_color");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3815,13 +3871,13 @@ int sciInitOutsideColors(sciPointObj * pObj, int colors[2])
 int sciSetOutsideColors(sciPointObj * pObj, int colors[2])
 {
 
-	int curColors[2];
-	sciGetOutsideColor(pObj, curColors);
-	if (curColors[0] == colors[0] && curColors[1] == colors[1])
-	{
-		/* nothing to do */
-		return 1;
-	}
+        int curColors[2];
+        sciGetOutsideColor(pObj, curColors);
+        if (curColors[0] == colors[0] && curColors[1] == colors[1])
+        {
+                /* nothing to do */
+                return 1;
+        }
 
   return sciInitOutsideColors(pObj, colors);
 }
@@ -3831,12 +3887,12 @@ int sciInitZBounds(sciPointObj * pObj, double bounds[2])
   switch (sciGetEntityType(pObj))
   {
   case SCI_FEC:
-		pFEC_FEATURE(pObj)->zminmax[0] = bounds[0];
-		pFEC_FEATURE(pObj)->zminmax[1] = bounds[1];
-		return 0;
+                pFEC_FEATURE(pObj)->zminmax[0] = bounds[0];
+                pFEC_FEATURE(pObj)->zminmax[1] = bounds[1];
+                return 0;
   default:
     printSetGetErrorMessage("z_bounds");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3846,26 +3902,26 @@ int sciInitZBounds(sciPointObj * pObj, double bounds[2])
 int sciSetZBounds(sciPointObj * pObj, double bounds[2])
 {
   double curBounds[2];
-	sciGetZBounds(pObj, curBounds);
-	if (curBounds[0] == bounds[0] && curBounds[1] == bounds[1])
-	{
-		/* nothing to do */
-		return 1;
-	}
+        sciGetZBounds(pObj, curBounds);
+        if (curBounds[0] == bounds[0] && curBounds[1] == bounds[1])
+        {
+                /* nothing to do */
+                return 1;
+        }
 
-	return sciInitZBounds(pObj, bounds);
+        return sciInitZBounds(pObj, bounds);
 }
 /*----------------------------------------------------------------------------------*/
 int sciInitGridFront(sciPointObj * pObj, BOOL gridFront)
 {
   switch (sciGetEntityType(pObj))
   {
-	case SCI_SUBWIN:
-		pSUBWIN_FEATURE(pObj)->gridFront = gridFront;
-		return 0;
-	default:
+        case SCI_SUBWIN:
+                pSUBWIN_FEATURE(pObj)->gridFront = gridFront;
+                return 0;
+        default:
     printSetGetErrorMessage("grid_position");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3874,31 +3930,31 @@ int sciInitGridFront(sciPointObj * pObj, BOOL gridFront)
  */
 int sciSetGridFront(sciPointObj * pObj, BOOL gridFront)
 {
-	if (sciGetGridFront(pObj) == gridFront)
-	{
-		/* nothing to do */
-		return 1;
-	}
-	return sciInitGridFront(pObj, gridFront);
+        if (sciGetGridFront(pObj) == gridFront)
+        {
+                /* nothing to do */
+                return 1;
+        }
+        return sciInitGridFront(pObj, gridFront);
 }
 /*----------------------------------------------------------------------------------*/
 int sciInitAntialiasingQuality(sciPointObj * pObj, int quality)
 {
   switch (sciGetEntityType(pObj))
   {
-	case SCI_FIGURE:
-		if (isFigureModel(pObj))
-		{
-			pFIGURE_FEATURE(pObj)->pModelData->antialiasingQuality = quality;
-		}
-		else
-		{
-			sciSetJavaAntialiasingQuality(pObj, quality);
-		}
-		return 0;
+        case SCI_FIGURE:
+                if (isFigureModel(pObj))
+                {
+                        pFIGURE_FEATURE(pObj)->pModelData->antialiasingQuality = quality;
+                }
+                else
+                {
+                        sciSetJavaAntialiasingQuality(pObj, quality);
+                }
+                return 0;
   default:
     printSetGetErrorMessage("anti_aliasing");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3912,23 +3968,23 @@ int sciInitAntialiasingQuality(sciPointObj * pObj, int quality)
 int sciSetAntialiasingQuality(sciPointObj * pObj, int quality)
 {
   if (sciGetAntialiasingQuality(pObj) == quality)
-	{
-		/* nothing to do */
-		return 1;
-	}
-	return sciInitAntialiasingQuality(pObj, quality);
+        {
+                /* nothing to do */
+                return 1;
+        }
+        return sciInitAntialiasingQuality(pObj, quality);
 }
 /*----------------------------------------------------------------------------------*/
 int sciInitLegendLocation(sciPointObj * pObj, sciLegendPlace location)
 {
-	switch (sciGetEntityType(pObj))
+        switch (sciGetEntityType(pObj))
   {
-	case SCI_LEGEND:
-		pLEGEND_FEATURE(pObj)->place = location;
-		return 0;
-	default:
+        case SCI_LEGEND:
+                pLEGEND_FEATURE(pObj)->place = location;
+                return 0;
+        default:
     printSetGetErrorMessage("legend_location");
-		return -1;
+                return -1;
   }
 }
 /*----------------------------------------------------------------------------------*/
@@ -3937,12 +3993,12 @@ int sciInitLegendLocation(sciPointObj * pObj, sciLegendPlace location)
  */
 int sciSetLegendLocation(sciPointObj * pObj, sciLegendPlace location)
 {
-	if (sciGetLegendLocation(pObj) == location)
-	{
-		/* nothing to do */
-		return 1;
-	}
-	return sciInitLegendLocation(pObj, location);
+        if (sciGetLegendLocation(pObj) == location)
+        {
+                /* nothing to do */
+                return 1;
+        }
+        return sciInitLegendLocation(pObj, location);
 }
 /*----------------------------------------------------------------------------------*/
 /**

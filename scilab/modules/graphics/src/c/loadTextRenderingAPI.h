@@ -14,7 +14,7 @@
 
 
 /**
- * Taken a Matrix of string, we check if any char is starting by 
+ * Taken a Matrix of string, we check if any char is starting by
  * $ or < which are the two tags for, respectively, latex & MathML
  *
  * @param text  the matrix of string
@@ -22,5 +22,12 @@
  * @param nbCol  the number of col
  */
 void loadTextRenderingAPI(char **text, int nbRow, int nbCol);
+
+/**
+ * Taken a renderer, we check if it is latex or MathML
+ *
+ * @param renderer the renderer
+ */
+void loadTextRenderingAPIOnRenderer(char *renderer);
 
 #endif /* _LOADTEXTRENDERINGAPI_H_ */

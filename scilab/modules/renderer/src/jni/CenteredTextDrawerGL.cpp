@@ -109,7 +109,7 @@ voidinitializeDrawingjintID=NULL;
 voidendDrawingID=NULL; 
 voidshowjintID=NULL; 
 voiddestroyjintID=NULL; 
-voidsetTextParametersjintjintjintjdoublejdoublejbooleanID=NULL; 
+voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID=NULL; 
 voidsetBoxDrawingParametersjbooleanjbooleanjintjintID=NULL; 
 voidsetTextContentjobjectArray_jintjintID=NULL; 
 
@@ -120,7 +120,7 @@ voidsetCenterPositionjdoublejdoublejdoubleID=NULL;
 jdoubleArray_drawTextContentID=NULL; 
 voidsetFilledBoxSizejdoublejdoubleID=NULL; 
 jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_updateParentFigurejintID=NULL; 
+voidupdateParentFigurejintID=NULL; 
 
 
 }
@@ -148,7 +148,7 @@ voidinitializeDrawingjintID=NULL;
 voidendDrawingID=NULL; 
 voidshowjintID=NULL; 
 voiddestroyjintID=NULL; 
-voidsetTextParametersjintjintjintjdoublejdoublejbooleanID=NULL; 
+voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID=NULL; 
 voidsetBoxDrawingParametersjbooleanjbooleanjintjintID=NULL; 
 voidsetTextContentjobjectArray_jintjintID=NULL; 
 
@@ -159,7 +159,7 @@ voidsetCenterPositionjdoublejdoublejdoubleID=NULL;
 jdoubleArray_drawTextContentID=NULL; 
 voidsetFilledBoxSizejdoublejdoubleID=NULL; 
 jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID=NULL; 
-jdoubleArray_updateParentFigurejintID=NULL; 
+voidupdateParentFigurejintID=NULL; 
 
 
 }
@@ -259,19 +259,21 @@ throw GiwsException::JniCallMethodException(curEnv);
 }
 }
 
-void CenteredTextDrawerGL::setTextParameters (int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle, bool useFractionalMetrics){
+void CenteredTextDrawerGL::setTextParameters (int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle, bool useFractionalMetrics, char * renderer){
 
 JNIEnv * curEnv = getCurrentEnv();
 
-if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID==NULL) { /* Use the cache */
- voidsetTextParametersjintjintjintjdoublejdoublejbooleanID = curEnv->GetMethodID(this->instanceClass, "setTextParameters", "(IIIDDZ)V" ) ;
-if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanID == NULL) {
+if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID==NULL) { /* Use the cache */
+ voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID = curEnv->GetMethodID(this->instanceClass, "setTextParameters", "(IIIDDZLjava/lang/String;)V" ) ;
+if (voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID == NULL) {
 throw GiwsException::JniMethodNotFoundException(curEnv, "setTextParameters");
 }
 }
 jboolean useFractionalMetrics_ = (static_cast<bool>(useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetTextParametersjintjintjintjdoublejdoublejbooleanID ,textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics_);
+jstring renderer_ = curEnv->NewStringUTF( renderer );
+
+                         curEnv->CallVoidMethod( this->instance, voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID ,textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics_, renderer_);
                         if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
 }
@@ -439,39 +441,20 @@ return myArray;
 
 }
 
-double* CenteredTextDrawerGL::updateParentFigure (int parentFigureIndex){
+void CenteredTextDrawerGL::updateParentFigure (int parentFigureIndex){
 
 JNIEnv * curEnv = getCurrentEnv();
 
-if (jdoubleArray_updateParentFigurejintID==NULL) { /* Use the cache */
- jdoubleArray_updateParentFigurejintID = curEnv->GetMethodID(this->instanceClass, "updateParentFigure", "(I)[D" ) ;
-if (jdoubleArray_updateParentFigurejintID == NULL) {
+if (voidupdateParentFigurejintID==NULL) { /* Use the cache */
+ voidupdateParentFigurejintID = curEnv->GetMethodID(this->instanceClass, "updateParentFigure", "(I)V" ) ;
+if (voidupdateParentFigurejintID == NULL) {
 throw GiwsException::JniMethodNotFoundException(curEnv, "updateParentFigure");
 }
 }
-                        jdoubleArray res =  static_cast<jdoubleArray>( curEnv->CallObjectMethod( this->instance, jdoubleArray_updateParentFigurejintID ,parentFigureIndex));
-                        if (res == NULL) { return NULL; }
+                         curEnv->CallVoidMethod( this->instance, voidupdateParentFigurejintID ,parentFigureIndex);
                         if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
-}int lenRow;
- lenRow = curEnv->GetArrayLength(res);
-jboolean isCopy = JNI_FALSE;
-
-/* GetPrimitiveArrayCritical is faster than getXXXArrayElements */
-jdouble *resultsArray = static_cast<jdouble *>(curEnv->GetPrimitiveArrayCritical(res, &isCopy));
-double* myArray= new double[ lenRow];
-
-for (jsize i = 0; i <  lenRow; i++){
-myArray[i]=resultsArray[i];
 }
-curEnv->ReleasePrimitiveArrayCritical(res, resultsArray, JNI_ABORT);
-
-                        curEnv->DeleteLocalRef(res);
-if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
-}
-return myArray;
-
 }
 
 }

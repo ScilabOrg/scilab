@@ -56,7 +56,7 @@ public:
 
   virtual void setAxisParamerters(int lineStyle, float lineWidth, int lineColor,
                                   int fontType, double fontSize, int fontColor,
-                                  bool useFractionalMetrics);
+                                  bool useFractionalMetrics, char *renderer);
 
   virtual void setAxisLineDrawing(bool drawAxisLine);
 

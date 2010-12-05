@@ -56,7 +56,7 @@ public:
   /*----------------------------------------------------------------------*/
   // specific for standard text drawer
   virtual void setTextParameters(int textAlignment, int color, int fontStyle,
-                                 double fontSize, double rotationAngle, bool useFractionalMetrics);
+                                 double fontSize, double rotationAngle, bool useFractionalMetrics, char * renderer);
   /*----------------------------------------------------------------------*/
 
 private:

@@ -13,42 +13,48 @@
 #include "BOOL.h"
 #include "loadOnUseClassPath.h"
 
-/* Variable to store if you have already loaded or not the Latex 
+/* Variable to store if you have already loaded or not the Latex
  * dependencies */
 static BOOL loadedDepLatex = FALSE;
 /* Variable to store if you have already loaded or not the MathML
  * dependencies */
 static BOOL loadedDepMathML = FALSE;
 
+void loadTextRenderingAPIOnRenderer(char *renderer)
+{
+  if (!loadedDepLatex && !strcmp(renderer, "latex"))
+  {
+        loadOnUseClassPath("graphics_latex_textrendering");
+        loadedDepLatex = TRUE;
+  }
+
+  if (!loadedDepMathML && !strcmp(renderer, "mathml"))
+  {
+        loadOnUseClassPath("graphics_mathml_textrendering");
+        loadedDepMathML = TRUE;
+  }
+}
+/* ---------------------------------------------------------------- */
 void loadTextRenderingAPI(char **text, int nbRow, int nbCol)
 {
 
-	int i;
+        int i;
 
-	/* We already loaded both, don't need to check again */
-	if (loadedDepLatex && loadedDepMathML) 
-	{
-		return; 
-	}
+        /* We already loaded both, don't need to check again */
+        if (loadedDepLatex && loadedDepMathML)
+        {
+                return;
+        }
 
-
-	/* For each element in the array, look if the text starts by:
-	 * '$' for latex
-	 * '<' for MathML
-	 */
-	for ( i = 0 ; i < nbRow * nbCol ; i++ )
-	{
-		if (text[i][0]=='$' && !loadedDepLatex) /* One of the string starts by a $. This might be a Latex expression */
-		{
-			loadOnUseClassPath("graphics_latex_textrendering");
-			loadedDepLatex=TRUE;
-		}
-
-		if (text[i][0]=='<' && !loadedDepMathML) /* One of the string starts by a <. This might be a MathML expression */
-		{
-			loadOnUseClassPath("graphics_mathml_textrendering");
-			loadedDepMathML=TRUE;
-		}
-	}
-
+        /* For each element in the array, look if the text starts by:
+         * '$' for latex
+         */
+        for ( i = 0 ; i < nbRow * nbCol ; i++ )
+        {
+                if (text[i][0]=='$' && !loadedDepLatex) /* One of the string starts by a $. This might be a Latex expression */
+                {
+                        loadOnUseClassPath("graphics_latex_textrendering");
+                        loadedDepLatex = TRUE;
+                }
+        }
 }

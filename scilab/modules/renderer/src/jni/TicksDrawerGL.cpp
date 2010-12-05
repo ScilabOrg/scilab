@@ -115,7 +115,7 @@ jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
 stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
 curEnv->DeleteLocalRef(localStringArrayClass);
 jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID=NULL; 
-voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID=NULL; 
+voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID=NULL; 
 jdoubleshowTicksID=NULL; 
 jdoubledrawTicksID=NULL; 
 voidsetAxisLineDrawingjbooleanID=NULL; 
@@ -153,7 +153,7 @@ jclass localStringArrayClass = curEnv->FindClass("java/lang/String");
 stringArrayClass = static_cast<jclass>(curEnv->NewGlobalRef(localStringArrayClass));
 curEnv->DeleteLocalRef(localStringArrayClass);
 jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID=NULL; 
-voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID=NULL; 
+voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID=NULL; 
 jdoubleshowTicksID=NULL; 
 jdoubledrawTicksID=NULL; 
 voidsetAxisLineDrawingjbooleanID=NULL; 
@@ -484,19 +484,21 @@ return res;
 
 }
 
-void TicksDrawerGL::setAxisParameters (int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor, bool useFractionalMetrics){
+void TicksDrawerGL::setAxisParameters (int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor, bool useFractionalMetrics, char * renderer){
 
 JNIEnv * curEnv = getCurrentEnv();
 
-if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID==NULL) { /* Use the cache */
- voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID = curEnv->GetMethodID(this->instanceClass, "setAxisParameters", "(IFIIDIZ)V" ) ;
-if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID == NULL) {
+if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID==NULL) { /* Use the cache */
+ voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID = curEnv->GetMethodID(this->instanceClass, "setAxisParameters", "(IFIIDIZLjava/lang/String;)V" ) ;
+if (voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID == NULL) {
 throw GiwsException::JniMethodNotFoundException(curEnv, "setAxisParameters");
 }
 }
 jboolean useFractionalMetrics_ = (static_cast<bool>(useFractionalMetrics) ? JNI_TRUE : JNI_FALSE);
 
-                         curEnv->CallVoidMethod( this->instance, voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID ,lineStyle, lineWidth, lineColor, fontType, fontSize, fontColor, useFractionalMetrics_);
+jstring renderer_ = curEnv->NewStringUTF( renderer );
+
+                         curEnv->CallVoidMethod( this->instance, voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID ,lineStyle, lineWidth, lineColor, fontType, fontSize, fontColor, useFractionalMetrics_, renderer_);
                         if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
 }

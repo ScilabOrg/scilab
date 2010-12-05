@@ -60,6 +60,12 @@
         </listitem>
       </varlistentry>
       <varlistentry>
+        <term>renderer: </term>
+        <listitem>
+          <para>Specify the renderer to use, possible values are "none", "latex" and "mathml".</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
         <term>alignment: </term>
         <listitem>
           <para>Specify how the strings are aligned in their columns. The value

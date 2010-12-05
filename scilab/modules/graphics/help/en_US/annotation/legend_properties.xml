@@ -82,7 +82,12 @@
          <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
         </listitem>
       </varlistentry>
-
+      <varlistentry>
+        <term>renderer: </term>
+        <listitem>
+          <para>Specify the renderer to use, possible values are "none", "latex" and "mathml".</para>
+        </listitem>
+      </varlistentry>
       <varlistentry>
         <term>font_size:</term>
         <listitem>
