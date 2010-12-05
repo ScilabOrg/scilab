@@ -35,7 +35,7 @@ public:
                                         double centerPixY,
                                         double centerPixZ) = 0;
   virtual void setTextParameters(int textAlignment, int color, int fontStyle,
-                                 double fontSize, double rotationAngle, bool useFractionalMetrics) = 0;
+                                 double fontSize, double rotationAngle, bool useFractionalMetrics, char * renderer) = 0;
 
   virtual void updateParentFigure(int parentFigureIndex) = 0;
 

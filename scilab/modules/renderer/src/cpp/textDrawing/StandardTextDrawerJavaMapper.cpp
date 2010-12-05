@@ -59,9 +59,9 @@ void StandardTextDrawerJavaMapper::destroy(int figureIndex)
 }
 /*---------------------------------------------------------------------------------*/
 void StandardTextDrawerJavaMapper::setTextParameters(int textAlignment, int color, int fontStyle,
-                                                     double fontSize, double rotationAngle, bool useFractionalMetrics)
+                                                     double fontSize, double rotationAngle, bool useFractionalMetrics, char * renderer)
 {
-  m_pJavaObject->setTextParameters(textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics);
+  m_pJavaObject->setTextParameters(textAlignment, color, fontStyle, fontSize, rotationAngle, useFractionalMetrics, renderer);
 }
 /*---------------------------------------------------------------------------------*/
 void StandardTextDrawerJavaMapper::updateParentFigure(int parentFigureIndex)

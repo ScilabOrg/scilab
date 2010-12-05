@@ -176,6 +176,7 @@ src/c/getHandleProperty/get_color_range_property.c \
 src/c/getHandleProperty/get_outside_colors_property.c \
 src/c/getHandleProperty/get_grid_position_property.c \
 src/c/getHandleProperty/get_anti_aliasing_property.c \
+src/c/getHandleProperty/get_text_renderer_property.c \
 src/c/getHandleProperty/GetHashTable.c \
 src/c/graphicModuleLoad.c \
 src/c/getHandleProperty/set_old_style_property.c \
@@ -313,6 +314,7 @@ src/c/getHandleProperty/set_color_range_property.c \
 src/c/getHandleProperty/set_outside_colors_property.c \
 src/c/getHandleProperty/set_grid_position_property.c \
 src/c/getHandleProperty/set_anti_aliasing_property.c \
+src/c/getHandleProperty/set_text_renderer_property.c \
 src/c/DefaultCommandArg.c \
 src/c/Axes.c \
 src/c/sciMatrix.c \

@@ -4,17 +4,17 @@
  * Copyright (C) 2002-2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
 /*------------------------------------------------------------------------
- *    Graphic library 
+ *    Graphic library
  *    newGraph Library header
  *    Comment:
  *    This file contains all functions used to CLONE an object, it means make
@@ -34,7 +34,7 @@
 
 
 /**CloneText
- * 
+ *
  * @param sciPointObj * pthis: the pointer to the entity
  */
 sciPointObj *
@@ -49,23 +49,23 @@ CloneText (sciPointObj * pthis)
   int nbRow ;
   int nbCol ;
   double textPos[3];
- 
+
   subwinparent = pthis;
 
   while ((sciGetEntityType(subwinparent = sciGetParent(subwinparent)) != SCI_SUBWIN)
-	 && ((int) sciGetEntityType(subwinparent) != -1));
+         && ((int) sciGetEntityType(subwinparent) != -1));
   if ((int) sciGetEntityType(subwinparent) == -1)
   {
     return (sciPointObj *)NULL;
   }
-  
+
   sciGetTextSize( pthis, &nbRow, &nbCol ) ;
   sciGetTextPos(pthis, textPos);
-  if (!(pobj = ConstructText (subwinparent, getStrMatData( sciGetText(pthis) ), nbRow, nbCol, 
-			      textPos[0], textPos[1], sciGetAutoSize(pthis),
+  if (!(pobj = ConstructText (subwinparent, getStrMatData( sciGetText(pthis) ), nbRow, nbCol,
+                              textPos[0], textPos[1], sciGetAutoSize(pthis),
                               pTEXT_FEATURE(pthis)->userSize,pTEXT_FEATURE(pthis)->centeredPos,
-			      &foreground,&background,pTEXT_FEATURE(pthis)->isboxed,
-			      sciGetIsLine(pthis), sciGetIsFilled(pthis), sciGetAlignment(pthis))))
+                              &foreground,&background,pTEXT_FEATURE(pthis)->isboxed,
+                              sciGetIsLine(pthis), sciGetIsFilled(pthis), sciGetAlignment(pthis))))
   {
     return (sciPointObj *)NULL;
   }
@@ -73,22 +73,25 @@ CloneText (sciPointObj * pthis)
   {
     sciSetCurrentObj(pobj);
   } /* F.Leray Adding 26.03.04*/
-  
+
+  if (sciSetTextRenderer(pobj, sciGetTextRenderer (pthis)) == -1)
+    return (sciPointObj *)NULL;
+
   if (sciSetBackground(pobj, sciGetBackground (pthis)) == -1)
     return (sciPointObj *)NULL;
-  
+
   if (sciSetForeground(pobj, sciGetForeground (pthis)) == -1)
     return (sciPointObj *)NULL;
-  
+
   if (sciSetFontSize(pobj, sciGetFontSize(pthis)) < 0.0)
     return (sciPointObj *)NULL;
-  
+
   if (sciSetFontOrientation(pobj, sciGetFontOrientation (pthis)) == -1)
     return (sciPointObj *)NULL;
-  
+
   if (sciSetFontStyle(pobj,sciGetFontStyle (pthis)) == -1)
     return (sciPointObj *)NULL;
-  
+
   /* get the pointer on features */
   ppThisText = pTEXT_FEATURE( pthis ) ;
   ppCopyText = pTEXT_FEATURE( pobj  ) ;
@@ -97,8 +100,8 @@ CloneText (sciPointObj * pthis)
   ppCopyText->userSize[1] = ppThisText->userSize[1];
 
   /* copy user data */
-	cloneUserData(pthis, pobj);
-  
+        cloneUserData(pthis, pobj);
+
   return (sciPointObj *)pobj;
 }
 
@@ -125,8 +128,8 @@ sciCloneObj (sciPointObj * pobj)
       break;
     case SCI_AGREG:
 
-    case SCI_SEGS: 
-    case SCI_FEC: 
+    case SCI_SEGS:
+    case SCI_FEC:
     case SCI_GRAYPLOT:
     case SCI_FIGURE:
     case SCI_SUBWIN:
@@ -154,17 +157,17 @@ CloneRectangle (sciPointObj * pthis)
   sciPointObj * pobj, *subwinparent;
   int foreground = sciGetForeground(pthis);
   int background = sciGetBackground(pthis);
- 
+
   subwinparent = pthis;
-  
-  
+
+
   while ((sciGetEntityType(subwinparent = sciGetParent(subwinparent)) != SCI_SUBWIN)
-	 && ((int)sciGetEntityType(subwinparent) != -1));
+         && ((int)sciGetEntityType(subwinparent) != -1));
   if ((int)sciGetEntityType(subwinparent) == -1)
     return (sciPointObj *)NULL;
-  if (!(pobj = ConstructRectangle (subwinparent, pRECTANGLE_FEATURE(pthis)->x, 
-				   pRECTANGLE_FEATURE(pthis)->y, pRECTANGLE_FEATURE(pthis)->height,pRECTANGLE_FEATURE(pthis)->width, 
-				   &foreground,&background,sciGetIsFilled(pthis),sciGetIsLine(pthis)))){
+  if (!(pobj = ConstructRectangle (subwinparent, pRECTANGLE_FEATURE(pthis)->x,
+                                   pRECTANGLE_FEATURE(pthis)->y, pRECTANGLE_FEATURE(pthis)->height,pRECTANGLE_FEATURE(pthis)->width,
+                                   &foreground,&background,sciGetIsFilled(pthis),sciGetIsLine(pthis)))){
     return (sciPointObj *)NULL;
   }
   else {
@@ -179,9 +182,9 @@ CloneRectangle (sciPointObj * pthis)
     return (sciPointObj *)NULL;
   if (sciSetIsFilled(pobj, sciGetIsFilled (pthis)) == -1)
     return (sciPointObj *)NULL;
-  
+
   cloneUserData(pthis, pobj);
-  
+
   return (sciPointObj *)pobj;
 }
 
@@ -199,25 +202,25 @@ ClonePolyline (sciPointObj * pthis)
   int mark_foreground = sciGetMarkForeground(pthis);
   int mark_background = sciGetMarkBackground(pthis);
   int mark_style = sciGetMarkStyle(pthis);
-  
+
   subwinparent = pthis;
-  
+
   while ((sciGetEntityType(subwinparent = sciGetParent(subwinparent)) != SCI_SUBWIN)
-	 && ((int)sciGetEntityType(subwinparent) != -1));
+         && ((int)sciGetEntityType(subwinparent) != -1));
   if ((int)sciGetEntityType(subwinparent) == -1)
     return (sciPointObj *)NULL;
   /* DJ.A 2003 */
   if (!(pobj = ConstructPolyline (subwinparent, pPOLYLINE_FEATURE(pthis)->pvx, pPOLYLINE_FEATURE(pthis)->pvy,pPOLYLINE_FEATURE(pthis)->pvz,
-				  pPOLYLINE_FEATURE(pthis)->closed, pPOLYLINE_FEATURE(pthis)->n1,pPOLYLINE_FEATURE(pthis)->plot,
-				  &foreground, &background,
-				  &mark_style, &mark_foreground, &mark_background,
-				  sciGetIsLine(pthis),  sciGetIsFilled(pthis), 
-				  sciGetIsMark(pthis),pPOLYLINE_FEATURE(pthis)->isinterpshaded))){
+                                  pPOLYLINE_FEATURE(pthis)->closed, pPOLYLINE_FEATURE(pthis)->n1,pPOLYLINE_FEATURE(pthis)->plot,
+                                  &foreground, &background,
+                                  &mark_style, &mark_foreground, &mark_background,
+                                  sciGetIsLine(pthis),  sciGetIsFilled(pthis),
+                                  sciGetIsMark(pthis),pPOLYLINE_FEATURE(pthis)->isinterpshaded))){
     return (sciPointObj *)NULL;
   }
   else {
     sciSetCurrentObj(pobj);}; /* F.Leray Adding 26.03.04*/
-  
+
   if (sciSetBackground(pobj, sciGetBackground (pthis)) == -1)
     return (sciPointObj *)NULL;
   if (sciSetForeground(pobj, sciGetForeground (pthis)) == -1)
@@ -227,8 +230,8 @@ ClonePolyline (sciPointObj * pthis)
   if (sciSetLineWidth(pobj, sciGetLineWidth (pthis)) == -1)
     return (sciPointObj *)NULL;
 
-	cloneUserData(pthis, pobj);
-  
+        cloneUserData(pthis, pobj);
+
   return (sciPointObj *)pobj;
 }
 
@@ -246,16 +249,16 @@ CloneArc (sciPointObj * pthis)
   int background = sciGetBackground(pthis);
 
   subwinparent = pthis;
-  
- 
+
+
   while ((sciGetEntityType(subwinparent = sciGetParent(subwinparent)) != SCI_SUBWIN)
-	 && ((int)sciGetEntityType(subwinparent) != -1));
+         && ((int)sciGetEntityType(subwinparent) != -1));
   if ((int)sciGetEntityType(subwinparent) == -1)
     return (sciPointObj *)NULL;
-  if (!(pobj = ConstructArc (subwinparent, pARC_FEATURE(pthis)->x, 
-			     pARC_FEATURE(pthis)->y, pARC_FEATURE(pthis)->height,pARC_FEATURE(pthis)->width,
-			     pARC_FEATURE(pthis)->alphabegin, pARC_FEATURE(pthis)->alphaend,
-			     &foreground,&background,sciGetIsFilled(pthis),sciGetIsLine(pthis)))){
+  if (!(pobj = ConstructArc (subwinparent, pARC_FEATURE(pthis)->x,
+                             pARC_FEATURE(pthis)->y, pARC_FEATURE(pthis)->height,pARC_FEATURE(pthis)->width,
+                             pARC_FEATURE(pthis)->alphabegin, pARC_FEATURE(pthis)->alphaend,
+                             &foreground,&background,sciGetIsFilled(pthis),sciGetIsLine(pthis)))){
     return (sciPointObj *)NULL;
   }
   else {
@@ -271,8 +274,8 @@ CloneArc (sciPointObj * pthis)
   if (sciSetIsFilled(pobj, sciGetIsFilled (pthis)) == -1)
     return (sciPointObj *)NULL;
 
-	cloneUserData(pthis, pobj);
- 
+        cloneUserData(pthis, pobj);
+
   return (sciPointObj *)pobj;
 }
 
@@ -305,36 +308,36 @@ int cloneUserData( sciPointObj * pObjSource, sciPointObj * pObjDest )
   int *  srcSize   ;
   int ** dstUserData ;
   int *  dstSize     ;
-	
-	/* Get pointer and data of both source and destination */
+
+        /* Get pointer and data of both source and destination */
   sciGetPointerToUserData( pObjSource, &srcUserData, &srcSize ) ;
   sciGetPointerToUserData( pObjDest  , &dstUserData, &dstSize ) ;
 
-	/* Deallocate current user data */
-	if (*dstUserData != NULL)
-	{
-		FREE(*dstUserData);
-		*dstUserData = NULL;
-		*dstSize = 0;
-	}
+        /* Deallocate current user data */
+        if (*dstUserData != NULL)
+        {
+                FREE(*dstUserData);
+                *dstUserData = NULL;
+                *dstSize = 0;
+        }
 
-	/* Reallocate if needed */
+        /* Reallocate if needed */
   if ( *srcSize > 0 )
   {
-		/* update size */
+                /* update size */
     *dstSize = *srcSize ;
-    
-		/* reallocation */
+
+                /* reallocation */
     *dstUserData = MALLOC( *srcSize * sizeof(int) ) ;
     if ( *dstUserData == NULL )
     {
-		  Scierror(999, _("%s: No more memory.\n"),"CloneUserData");
-		  *dstSize     = 0 ;
-		  *dstUserData = NULL ;
-		  return -1 ;
+                  Scierror(999, _("%s: No more memory.\n"),"CloneUserData");
+                  *dstSize     = 0 ;
+                  *dstUserData = NULL ;
+                  return -1 ;
     }
 
-		/* copy */
+                /* copy */
     intArrayCopy( *dstUserData, *srcUserData, *srcSize ) ;
   }
 
@@ -343,7 +346,7 @@ int cloneUserData( sciPointObj * pObjSource, sciPointObj * pObjDest )
 /*--------------------------------------------------------------------------*/
 int cloneFontContext( sciPointObj * pObjSource, sciPointObj * pObjDest )
 {
-  
+
   /* struct affectation, doesn't copy the font name */
   /* *(sciGetFontContext(pObjDest)) = *(sciGetFontContext(pObjSource)) ; */
 

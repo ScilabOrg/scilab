@@ -4,17 +4,17 @@
  * Copyright (C) 2002 - 2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004 - 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
 /*------------------------------------------------------------------------
- *    Graphic library 
+ *    Graphic library
  *    newGraph Library header
  *    Comment:
  *    This file contains all functions used to GET the properties of graphics
@@ -69,6 +69,7 @@ GRAPHICS_IMPEXP StringMatrix * sciGetText (sciPointObj * pobj); /* GET */
 GRAPHICS_IMPEXP void sciGetTextSize( sciPointObj * pobj, int * nbRow, int * nbCol ) ; /* GET */
 GRAPHICS_IMPEXP BOOL sciisTextEmpty( sciPointObj * pobj);
 GRAPHICS_IMPEXP unsigned int sciGetTextLength (sciPointObj * pobj); /* GET */
+GRAPHICS_IMPEXP char *sciGetTextRenderer (sciPointObj * pobj); /* GET */
 
 GRAPHICS_IMPEXP int sciGetFontBackground (sciPointObj * pobj); /* GET */
 GRAPHICS_IMPEXP int sciGetFontForeground (sciPointObj * pobj); /* GET */

@@ -72,7 +72,7 @@ jmethodID voiddestroyjintID; // cache method id
 jmethodID jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_ID; // cache method id
 jclass stringArrayClass;
 jmethodID jdoubledrawTicksjdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jdoubleArray_jobjectArray_jobjectArray_ID; // cache method id
-jmethodID voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanID; // cache method id
+jmethodID voidsetAxisParametersjintjfloatjintjintjdoublejintjbooleanjstringID; // cache method id
 jmethodID jdoubleshowTicksID; // cache method id
 jmethodID jdoubledrawTicksID; // cache method id
 jmethodID voidsetAxisLineDrawingjbooleanID; // cache method id
@@ -147,7 +147,7 @@ double drawTicks(double* axisSegmentStart, int axisSegmentStartSize, double* axi
 
 double drawTicks(double* axisSegmentStart, int axisSegmentStartSize, double* axisSegmentEnd, int axisSegmentEndSize, double* ticksDir, int ticksDirSize, double* relativeTicksPos, int relativeTicksPosSize, double* relativeSubticksPos, int relativeSubticksPosSize, char ** ticksLabels, int ticksLabelsSize, char ** labelsExponents, int labelsExponentsSize);
 
-void setAxisParameters(int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor, bool useFractionalMetrics);
+void setAxisParameters(int lineStyle, float lineWidth, int lineColor, int fontType, double fontSize, int fontColor, bool useFractionalMetrics, char * renderer);
 
 double showTicks();
 

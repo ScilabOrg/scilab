@@ -38,6 +38,7 @@
       <param type="double" name="fontSize" />
       <param type="int" name="fontColor" />
       <param type="boolean" name="useFractionalMetrics" />
+      <param type="String" name="renderer" />
     </method>
     <method name="showTicks" returnType="double">
     </method>

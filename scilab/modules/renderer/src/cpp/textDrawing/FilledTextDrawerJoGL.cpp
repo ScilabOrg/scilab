@@ -50,7 +50,8 @@ void FilledTextDrawerJoGL::setDrawerParameters(void)
   getFilledTextDrawerJavaMapper()->setTextParameters(sciGetAlignment(pObj), sciGetFontContext(pObj)->foregroundcolor,
                                                      sciGetFontStyle(pObj), m_pDrawed->getDefaultFontSize(),
                                                      sciGetFontOrientation(pObj),
-                                                     sciGetIsUsingFractionalMetrics(pObj) == TRUE);
+                                                     sciGetIsUsingFractionalMetrics(pObj) == TRUE,
+						     sciGetTextRenderer(pObj));
 
   // set box size
   double boxWidth;

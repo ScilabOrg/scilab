@@ -11,6 +11,9 @@ SciNotes:
 Bug Fixes:
 ==========
 
+* bug 6910 fixed - There was not a specific field in handle to render text
+                   with LaTeX or MathML. 
+
 * bug 7694 fixed - There were no key shortcuts in the command history browser.
 
 * bug 7695 fixed - Only the first selected line was deleted in command history

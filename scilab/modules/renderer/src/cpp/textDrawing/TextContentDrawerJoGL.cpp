@@ -30,6 +30,7 @@ extern "C"
 #include "GetProperty.h"
 #include "sciprint.h"
 #include "localization.h"
+#include <stdio.h>
 }
 
 namespace sciGraphics
@@ -141,7 +142,6 @@ void TextContentDrawerJoGL::drawTextContent(double corner1[3], double corner2[3]
   }
 
   double * rect = getTextContentDrawerJavaMapper()->drawTextContent();
-
   convertCornersArray(rect, corner1, corner2, corner3, corner4);
 
   delete[] rect;

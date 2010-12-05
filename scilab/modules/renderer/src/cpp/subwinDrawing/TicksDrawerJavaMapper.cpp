@@ -90,11 +90,11 @@ double TicksDrawerJavaMapper::drawTicks(const double ticksPositions[], char * ti
 }
 /*--------------------------------------------------------------------------*/
 void TicksDrawerJavaMapper::setAxisParamerters(int lineStyle, float lineWidth, int lineColor,
-                                                      int fontType, double fontSize, int fontColor,
-                                                      bool useFractionalMetrics)
+					       int fontType, double fontSize, int fontColor,
+					       bool useFractionalMetrics, char *renderer)
 {
   m_pJavaObject->setAxisParameters(lineStyle, lineWidth, lineColor,
-                                   fontType, fontSize, fontColor, useFractionalMetrics);
+                                   fontType, fontSize, fontColor, useFractionalMetrics, renderer);
 }
 /*--------------------------------------------------------------------------*/
 void TicksDrawerJavaMapper::setAxisLineDrawing(bool drawAxisLine)

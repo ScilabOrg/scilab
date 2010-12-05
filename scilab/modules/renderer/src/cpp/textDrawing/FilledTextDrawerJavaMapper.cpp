@@ -58,10 +58,10 @@ void FilledTextDrawerJavaMapper::destroy(int figureIndex)
 }
 /*---------------------------------------------------------------------------------*/
 void FilledTextDrawerJavaMapper::setTextParameters(int textAlignment, int color, int fontStyle,
-                                                   double defaultFontSize, double rotationAngle, bool useFractionalMetrics)
+                                                   double defaultFontSize, double rotationAngle, bool useFractionalMetrics, char * renderer)
 {
   m_pJavaObject->setTextParameters(textAlignment, color, fontStyle, defaultFontSize,
-                                   rotationAngle, useFractionalMetrics);
+                                   rotationAngle, useFractionalMetrics, renderer);
 }
 /*---------------------------------------------------------------------------------*/
 void FilledTextDrawerJavaMapper::updateParentFigure(int parentFigureIndex)

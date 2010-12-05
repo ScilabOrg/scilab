@@ -50,7 +50,7 @@ public:
                                         double centerPixZ);
 
   virtual void setTextParameters(int textAlignment, int color, int fontStyle,
-                                 double defaultFontSize, double rotationAngle, bool useFractionalMetrics);
+                                 double defaultFontSize, double rotationAngle, bool useFractionalMetrics, char * renderer);
 
   virtual void updateParentFigure(int parentFigureIndex);
 

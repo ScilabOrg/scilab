@@ -121,9 +121,9 @@ int C2F(graphicsmodels) (void)
       return 0;
     }
 
-	createDefaultRelationShip(pfiguremdl);
-
-	/* add the handle in the handle list */
+  createDefaultRelationShip(pfiguremdl);
+  
+  /* add the handle in the handle list */
   if ( sciAddNewHandle(pfiguremdl) == -1 )
   {
     return NULL ;
@@ -222,7 +222,6 @@ int C2F(graphicsmodels) (void)
 
   return 1;
 }
-
 
 /**sciInitGraphicContext
  * Inits the graphic context of this object with the default value. the new graphic object inherits parent's features by sciGetParent()

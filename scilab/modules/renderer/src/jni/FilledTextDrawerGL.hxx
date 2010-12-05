@@ -69,7 +69,7 @@ jmethodID voidinitializeDrawingjintID; // cache method id
 jmethodID voidendDrawingID; // cache method id
 jmethodID voidshowjintID; // cache method id
 jmethodID voiddestroyjintID; // cache method id
-jmethodID voidsetTextParametersjintjintjintjdoublejdoublejbooleanID; // cache method id
+jmethodID voidsetTextParametersjintjintjintjdoublejdoublejbooleanjstringID; // cache method id
 jmethodID voidsetBoxDrawingParametersjbooleanjbooleanjintjintID; // cache method id
 jmethodID voidsetTextContentjobjectArray_jintjintID; // cache method id
 jclass stringArrayClass;
@@ -78,7 +78,7 @@ jmethodID jdoubleArray_drawTextContentID; // cache method id
 jmethodID jdoubleArray_getScreenBoundingBoxjdoublejdoublejdoubleID; // cache method id
 jmethodID jdoublegetScilabFontSizeID; // cache method id
 jmethodID voidsetFilledBoxSizejdoublejdoubleID; // cache method id
-jmethodID jdoubleArray_updateParentFigurejintID; // cache method id
+jmethodID voidupdateParentFigurejintID; // cache method id
 
 
 
@@ -145,7 +145,7 @@ void show(int figureIndex);
 
 void destroy(int parentFigureIndex);
 
-void setTextParameters(int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle, bool useFractionalMetrics);
+void setTextParameters(int textAlignment, int color, int fontStyle, double fontSize, double rotationAngle, bool useFractionalMetrics, char * renderer);
 
 void setBoxDrawingParameters(bool drawBoxLine, bool drawBoxBackground, int lineColor, int backgroundColor);
 
@@ -161,7 +161,7 @@ double getScilabFontSize();
 
 void setFilledBoxSize(double boxWidth, double boxHeight);
 
-double* updateParentFigure(int parentFigureIndex);
+void updateParentFigure(int parentFigureIndex);
 
 
                         /**
