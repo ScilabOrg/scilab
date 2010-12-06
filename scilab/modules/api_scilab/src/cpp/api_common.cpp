@@ -199,12 +199,12 @@ SciErr getVarType(void* _pvCtx, int* _piAddress, int* _piType)
 	case GenericType::RealBool :
 		*_piType = sci_boolean;
 		break;
-	//case GenericType::RealSparse :
-	//	*_piType = sci_sparse;
-	//	break;
-	//case GenericType::RealBoolSparse :
-	//	*_piType = sci_boolean_sparse;
-	//	break;
+	case GenericType::RealSparse :
+		*_piType = sci_sparse;
+		break;
+	case GenericType::RealSparseBool :
+		*_piType = sci_boolean_sparse;
+		break;
 	//case GenericType::RealMatlabSparse :
 	//	*_piType = sci_matlab_sparse;
 	//	break;
