@@ -18,7 +18,7 @@
 //             The default is `block.gui'.
 // @param[opt] handle the graphical handle to use
 //             The default is to get the current handle with gcf().
-// @param[opt] imageType the exported image type. only "svg" and "gif" is
+// @param[opt] imageType the exported image type. only "svg", "gif", "jpg" is
 //             supported. The default is to use "gif".
 // @return status %T if the operation has been sucessfull, %F otherwise.
 function status = generateBlockImage(block, path, file, handle, imageType)
@@ -44,8 +44,8 @@ function status = generateBlockImage(block, path, file, handle, imageType)
     if exists("imageType", 'l') == 0 then
         imageType = "gif";
     else
-        if typeof(imageType) <> "string" | and(imageType <> ["svg", "gif"]) then
-            error(msprintf(gettext("%s: Wrong input argument ""%s"": ""svg"" or ""gif"" expected.\n"), "generateBlockImage", "imageType"));
+        if typeof(imageType) <> "string" | and(imageType <> ["svg", "gif", "jpg"]) then
+            error(msprintf(gettext("%s: Wrong input argument ""%s"": ""svg"", ""gif"" or ""jpg"" expected.\n"), "generateBlockImage", "imageType"));
         end
     end
     
@@ -104,6 +104,8 @@ function status = generateBlockImage(block, path, file, handle, imageType)
         xs2svg(handle.figure_id, outFile);
     elseif imageType == "gif" then
         xs2gif(handle.figure_id, outFile);
+    elseif imageType == "jpg" then
+        xs2jpg(handle.figure_id, outFile);
     end
     
     // post operations
