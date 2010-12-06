@@ -49,12 +49,12 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
 import org.scilab.modules.commons.gui.ScilabCaret;
+import org.scilab.modules.gui.utils.ScilabLaTeXViewer;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.scinotes.actions.CopyAsHTMLAction;
 import org.scilab.modules.scinotes.actions.OpenSourceFileOnKeywordAction;
 import org.scilab.modules.scinotes.utils.NavigatorWindow;
 import org.scilab.modules.scinotes.utils.SciNotesMessages;
-import org.scilab.modules.scinotes.utils.SciNotesLaTeXViewer;
 
 /**
  * Class ScilabEditorPane
@@ -198,10 +198,11 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                                 int start = e.getStart();
                                 int end = start + e.getLength();
                                 String exp = ((ScilabDocument) getDocument()).getText(start, e.getLength());
-                                SciNotesLaTeXViewer.displayExpression(ScilabEditorPane.this, exp, start, end);
+                                int height = scroll.getHeight() + scroll.getVerticalScrollBar().getValue();
+                                ScilabLaTeXViewer.displayExpression(ScilabEditorPane.this, height, exp, start, end);
                             } catch (BadLocationException ex) { }
                         } else {
-                            SciNotesLaTeXViewer.removeLaTeXViewer(ScilabEditorPane.this);
+                            ScilabLaTeXViewer.removeLaTeXViewer(ScilabEditorPane.this);
                         }
                     }
                 }
