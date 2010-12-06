@@ -1244,13 +1244,23 @@ namespace types
 		case InternalType::RealDouble :
             {
                 Double *pIn = _poSource->getAsDouble();
-
                 if(pIn->size_get() != 0)
                 {// []
                     //Only resize after all tests !
-                    if(resize(iNewRows, iNewCols) == false)
+                    if(!_bAsVector)
                     {
-                        return NULL;
+                        if(resize(iNewRows, iNewCols) == false)
+                        {
+                            return NULL;
+                        }
+                    }
+                    else
+                    {
+                        if((iNewRows > rows_get() * cols_get()))
+                        {
+                            return NULL; // should be caught earlier: Scilab <6 complains with "Invalid index."
+                        }
+
                     }
 
                     //variable can receive new values.

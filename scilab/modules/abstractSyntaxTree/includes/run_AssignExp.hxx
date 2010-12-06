@@ -163,7 +163,7 @@ void visitprivate(const AssignExp  &e)
             bool bSeeAsVector   = false;
             int iProductElem    = (int)pCall->args_get().size();
 
-
+            bSeeAsVector	= (iProductElem == 1);
 
             pVar = dynamic_cast<const SimpleVar*>(&pCall->name_get());
             if(pVar == NULL)
