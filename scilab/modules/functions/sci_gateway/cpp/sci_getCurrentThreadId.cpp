@@ -18,7 +18,7 @@ extern "C"
 }
 
 #include "functions_gw.hxx"
-#include "threadId.hxx"
+#include "configvariable.hxx"
 #include "funcmanager.hxx"
 
 using namespace types;
@@ -37,7 +37,9 @@ Function::ReturnValue sci_getCurrentThreadId(types::typed_list &in, int _iRetCou
         return Function::Error;
     }
 
-    out.push_back(ThreadId::createThreadId(__GetCurrentThreadId()));
+    HANDLE h1 = GetCurrentThread();
+    DWORD d1 = GetCurrentThreadId();
+    out.push_back(ConfigVariable::getThread(__GetCurrentThreadKey()));
 
     return Function::OK;
 }
