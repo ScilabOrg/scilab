@@ -85,15 +85,27 @@ public final class SciNotesLaTeXViewer extends JPanel {
      * @param b the beginning of the expression
      * @param e the end of the expression
      */
+    public static void displayExpressionIfVisible(ScilabEditorPane sep, String exp, int b, int e) {
+        if (viewer.isVisible()) {
+            displayExpression(sep, exp, b, e);
+        }
+    }
+
+    /**
+     * @param sep the pane where to display the LaTeX
+     * @param exp the expression
+     * @param b the beginning of the expression
+     * @param e the end of the expression
+     */
     public static void displayExpression(ScilabEditorPane sep, String exp, int b, int e) {
         int n = 1;
         // We have $...$ or "$...$"
         if (exp.charAt(0) != '$') {
             n = 2;
         }
-        viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression(exp.substring(n, exp.length() - n), defaultSize);
+        viewer.icon = ScilabSpecialTextUtilities.compilePartialLaTeXExpression(exp.substring(n, exp.length() - n), defaultSize);
         if (viewer.icon == null) {
-            viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression("\\text{Error in \\LaTeX expression}", defaultSize);
+            viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression("", 0);
         }
 
         width = viewer.icon.getIconWidth();

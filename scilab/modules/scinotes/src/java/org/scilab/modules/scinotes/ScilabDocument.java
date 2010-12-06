@@ -34,6 +34,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.scilab.modules.scinotes.utils.ConfigSciNotesManager;
+import org.scilab.modules.scinotes.utils.SciNotesLaTeXViewer;
 
 /**
  * The class ScilabDocument is used to render a document .sci or .sce
@@ -663,6 +664,16 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
                 || (index > 0 && ((ScilabLeafElement) root.getElement(index - 1)).isBroken())) {
                 pane.repaint();
             }
+        }
+
+        KeywordEvent e = pane.getKeywordEvent();
+        if (ScilabLexerConstants.isLaTeX(e.getType())) {
+            try {
+                int start = e.getStart();
+                int end = start + e.getLength();
+                String exp = getText(start, e.getLength());
+                SciNotesLaTeXViewer.displayExpressionIfVisible(pane, exp, start, end);
+            } catch (BadLocationException ex) { }
         }
     }
 
