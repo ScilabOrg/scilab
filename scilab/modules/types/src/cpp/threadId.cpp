@@ -13,7 +13,7 @@
 #include <map>
 #include <sstream>
 #include "core_math.h"
-#include "string.hxx"
+#include "cell.hxx"
 #include "threadId.hxx"
 #include "tostring_common.hxx"
 
@@ -42,19 +42,12 @@ namespace types
         return ptidThread;
     }
 
-	ThreadId::~ThreadId()
-    {
-        this->DecreaseRef();
-
-        if (this->isDeletable())
-        {
-            m_threadList.erase(this->getId());
-        }
-    }
+	ThreadId::~ThreadId() { }
 
 	ThreadId::ThreadId(__threadId _id)
 	{
         m_threadId = _id;
+        m_threadStatus = Running;
 	}
 
     __threadId ThreadId::getId()
@@ -64,7 +57,7 @@ namespace types
 
     void ThreadId::setId(__threadId _id)
     {
-        m_threadId = _id;
+        this->m_threadId = _id;
     }
 
 	ThreadId *ThreadId::clone()
@@ -82,13 +75,76 @@ namespace types
 		return GenericType::RealThreadId;
 	}
 
+    std::wstring ThreadId::StatusToString(Status _status)
+    {
+        switch(_status)
+        {
+        case Running :
+            return L"Running";
+        case Paused :
+            return L"Paused";
+        case Aborted :
+            return L"Aborted";
+        case Done :
+            return L"Done";
+        }
+    }
+
+    void ThreadId::setStatus(ThreadId::Status _status)
+    {
+        m_threadStatus = _status;
+    }
+
+    ThreadId::Status ThreadId::getStatus(void)
+    {
+        return m_threadStatus;
+    }
+
 	wstring ThreadId::toString(int _iPrecision, int _iLineLen)
 	{
 		wostringstream ostr;
 
-        ostr << L"ThreadId : " << this;
+        ostr << L"ThreadId : " << this << std::endl;
+        ostr << L"Status : " << StatusToString(this->getStatus());
 
         return ostr.str();
     }
+
+    void ThreadId::checkIn(__threadId _id)
+    {
+        ThreadId* ptidThread = new ThreadId(_id);
+        m_threadList[_id] = ptidThread;
+    }
+
+    void ThreadId::checkOut(__threadId _id)
+    {
+        ThreadId *ptidThread = m_threadList[_id];
+        ptidThread->setStatus(Done);
+        //m_threadList[_id]->setStatus(Done);
+        m_threadList[_id] = NULL;
+        m_threadList.erase(_id);
+    }
+
+    Cell* ThreadId::getThreads(void)
+    {
+        int iSize = (int) m_threadList.size();
+
+        if (iSize == 0)
+        {
+            return new Cell();
+        }
+
+        int i = 0;
+        Cell *pcResult = new Cell(iSize, 1);
+        std::map<__threadId, ThreadId *>::iterator it;
+
+        for (it = m_threadList.begin() ; it != m_threadList.end() ; ++it, ++i)
+        {
+            pcResult->set(i, 0, it->second);
+        }
+
+        return pcResult;
+    }
+
 }
 
