@@ -28,12 +28,13 @@ namespace
     GenericType* buildSparse(Double CONST& indices, DenseType CONST& vals, Double CONST* pDim)
     {
         GenericType* pRes(0);
-        if ( (indices.rows_get() != vals.size_get()) || (indices.cols_get() != 2))
+        // indices and values can be [], in which case we create an empty sparse matrix.
+        if ( (indices.rows_get() != vals.size_get()) || (indices.cols_get() != 2 && indices.size_get() != 0))
         {
             return 0;
         }
         // indices must be >=1
-        if(*std::min_element(indices.real_get(), indices.real_get() + indices.size_get()) < 1)
+        if(indices.size_get() && *std::min_element(indices.real_get(), indices.real_get() + indices.size_get()) < 1)
         {
             return 0;
         }
