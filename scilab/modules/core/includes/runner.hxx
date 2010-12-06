@@ -15,10 +15,14 @@
 
 #include <iostream>
 
+extern "C"
+{
 #include "Thread_Wrapper.h"
+}
 
 #include "exp.hxx"
 #include "execvisitor.hxx"
+#include "threadId.hxx"
 
 class Runner
 {
@@ -59,12 +63,20 @@ public :
         return m_theProgram;
     }
 
+    __threadId getThreadId(void)
+    {
+        return m_threadId;
+    }
+
 private :
     static void *launch(void *args)
     {
+        Runner *me = (Runner *)args;
+        // Register this thread.
+        ThreadId::checkIn(me->getThreadId());
+
         try
         {
-            Runner *me = (Runner *)args;
             me->getProgram()->accept(*(me->getVisitor()));
             ConfigVariable::clearLastError();
         }
@@ -72,6 +84,9 @@ private :
         {
             YaspWriteW(se.GetErrorMessage().c_str());
         }
+        // Unregister this thread.
+
+        ThreadId::checkOut(me->getThreadId());
         return NULL;
     }
 
