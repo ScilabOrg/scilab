@@ -16,6 +16,12 @@ Bug Fixes:
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
 
+* bug 7849 fixed - eqfir / remez functions crashed under MacOSX due to
+                   a lapack bug on slamch function.
+
+* bug 8175 fixed - roots function did not converge under MacOSX due to
+                   a lapack bug on slamch function.
+
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
 
