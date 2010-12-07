@@ -463,9 +463,6 @@ public class XcosDiagram extends ScilabGraph {
 	// Override isCellResizable to filter what the user can resize
 	setCellsResizable(true);
 
-	// force auto resize cell
-	setAutoSizeCells(true);
-
 	/* Labels use HTML if not equal to interface function name */
 	setHtmlLabels(true);
 	
