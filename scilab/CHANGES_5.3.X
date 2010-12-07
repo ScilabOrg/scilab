@@ -10,6 +10,13 @@ SciNotes:
 Xcos:
 =====
 
+* bug 8348 fixed - Sometimes when openning the parameters of a block, its ports
+                   changed their index (and position).
+
+* bug 8407 fixed - The blocks was always resized after a parameters edition.
+
+* bug 8540 fixed - Fix a typo on the "highligthed" term.
+
 * bug 8556 fixed - Creating a split block from a link did not work.
 
 
@@ -40,8 +47,6 @@ Bug Fixes:
 
 * bug 8505 fixed - help was not generated on Windows, if there was a path name
                    with some spaces.
-
-* bug 8540 fixed - Fix a typo in Xcos.
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
