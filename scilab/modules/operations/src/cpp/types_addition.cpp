@@ -19,6 +19,8 @@
 extern "C"
 {
 	#include "matrix_addition.h"
+    #include "localization.h"
+    #include "charEncoding.h"
 }
 
 InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOperand)
@@ -38,10 +40,7 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         int iResult = AddDoubleToDouble(pL, pR, (Double**)&pResult);
         if(iResult != 0)
         {
-            std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-            throw ScilabError(os.str());
+            throw ScilabError(_W("Inconsistent row/column dimensions.\n"));
         }
         return pResult;
     }
@@ -64,10 +63,7 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
 
         if(iResult != 0)
         {
-            std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-            throw ScilabError(os.str());
+            throw ScilabError(_W("Inconsistent row/column dimensions.\n"));
         }
         return pResult;
     }
@@ -88,10 +84,7 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         int iResult = AddDoubleToPoly(pR, pL, (MatrixPoly**)&pResult);
         if(iResult != 0)
         {
-            std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-            throw ScilabError(os.str());
+            throw ScilabError(_W("Inconsistent row/column dimensions.\n"));
         }
         return pResult;
     }
@@ -107,10 +100,7 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         int iResult = AddDoubleToPoly(pL, pR, (MatrixPoly**)&pResult);
         if(iResult != 0)
         {
-            std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-            throw ScilabError(os.str());
+            throw ScilabError(_W("Inconsistent row/column dimensions.\n"));
         }
         return pResult;
     }
@@ -128,17 +118,11 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         {
             if(iResult == 1)
             {
-                std::wostringstream os;
-                os << L"inconsistent row/column dimensions\n";
-                //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-                throw ScilabError(os.str());
+                throw ScilabError(_W("Inconsistent row/column dimensions.\n"));
             }
             else if(iResult == 2)
             {
-                std::wostringstream os;
-                os << L"variables don't have the same formal variable";
-                //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
-                throw ScilabError(os.str());
+                throw ScilabError(_W("Operands don't have the same formal variable name."));
             }
         }
         return pResult;
