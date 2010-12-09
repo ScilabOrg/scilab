@@ -38,6 +38,9 @@ Bug Fixes:
 
 * bug 8540 fixed - Fix a typo in Xcos.
 
+* bug 8587 fixed - readNamedMatrixOfDouble (readCommonNamedMatrixOfDouble)
+                   returned wrong values.
+
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
 
