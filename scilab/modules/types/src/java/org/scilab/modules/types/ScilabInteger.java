@@ -444,6 +444,8 @@ public class ScilabInteger implements ScilabType {
 
 	/**
 	 * Display the representation in the Scilab language of the type
+	 * Note that the representation can be copy/paste straight into Scilab 
+     *
 	 * @return the pretty-printed values 
 	 * @see java.lang.Object#toString()
 	 */

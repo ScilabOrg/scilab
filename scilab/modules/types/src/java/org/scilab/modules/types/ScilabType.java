@@ -50,7 +50,8 @@ public interface ScilabType extends Serializable, Cloneable {
 
 	/**
 	 * Display the representation in the Scilab language of the type
-	 *
+	 * Note that the representation can be copy/paste straight into Scilab 
+     * 
 	 * @return the pretty print
 	 */
 	String toString();

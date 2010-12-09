@@ -133,6 +133,8 @@ public class ScilabString implements ScilabType {
 
 	/**
 	 * Display the representation in the Scilab language of the type
+	 * Note that the representation can be copy/paste straight into Scilab 
+     *
 	 * @return a Scilab-like String representation of the data.
 	 * @see java.lang.Object#toString()
 	 */
