@@ -88,13 +88,16 @@ Compilation:
 
 * -Wimplicit removed for gfortran in the enable debug mode
 
-
 Scilab:
 =======
 
 * Scilab startup script of the binary is now automatically synchronized with
   the one from the source tree.
 
+Statistics:
+==========
+
+* bug 8560 fixed - The grand function failed on 64 bits machines.
 
 Bug fixes:
 ==========
@@ -104,7 +107,6 @@ Bug fixes:
 
 * bug 8492 fixed - When the documentation was generated, error messages were not
                    displayed in the console but in the terminal.
-
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
