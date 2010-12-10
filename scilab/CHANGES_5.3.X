@@ -88,6 +88,8 @@ Bug Fixes:
 
 * bug 8540 fixed - Fix a typo in Xcos.
 
+* bug 8560 fixed - The grand function failed on 64 bits machines.
+
 * bug 8582 fixed - Under Linux & Mac OS the waitbar window was too small and we
                    could not see the bar inside it.
 

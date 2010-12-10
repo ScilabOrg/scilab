@@ -1,4 +1,10 @@
 /*
+ * 
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
+ * Copyright (C) 2004 - Bruno Pincon
+ * Copyright (C) 1998 - Terry H. Andres
+ * Copyright (C) 1998 - Pierre Lecuyer
+ * 
  *  PURPOSE
  *     clcg4 generator stuff
  *
@@ -62,24 +68,24 @@
 
 #define H   32768               /* = 2^15 : use in MultModM.           */
 
-static long aw[4], avw[4],      /*   a[j]^{2^w} et a[j]^{2^{v+w}}.     */
+static int aw[4], avw[4],      /*   a[j]^{2^w} et a[j]^{2^{v+w}}.     */
             a[4] = { 45991, 207707, 138556, 49689 },
             m[4] = { 2147483647, 2147483543, 2147483423, 2147483323 };
 
-static long Ig[4][Maxgen+1], Lg[4][Maxgen+1], Cg[4][Maxgen+1];
+static int Ig[4][Maxgen+1], Lg[4][Maxgen+1], Cg[4][Maxgen+1];
                      /* Initial seed, previous seed, and current seed. */
 
 
 static int  is_init = 0;
-static long v_default = 31;
-static long w_default = 41;
+static int v_default = 31;
+static int w_default = 41;
 
 
-static long MultModM (long s, long t, long M)
+static int MultModM (int s, int t, int M)
    /* Returns (s*t) MOD M.  Assumes that -M < s < M and -M < t < M.    */
    /* See L'Ecuyer and Cote (1991).                                    */
   {
-  long R, S0, S1, q, qh, rh, k;
+  int R, S0, S1, q, qh, rh, k;
 
   if (s < 0)  s += M;
   if (t < 0)  t += M;
@@ -114,7 +120,7 @@ static long MultModM (long s, long t, long M)
   return R;
   }
 
-static void comp_aw_and_avw(long v, long w)
+static void comp_aw_and_avw(int v, int w)
 {
   int i, j;
   for (j = 0; j < 4; j++)
@@ -128,7 +134,7 @@ static void comp_aw_and_avw(long v, long w)
     }
 }
 
-static void init_clcg4(long v, long w)
+static void init_clcg4(int v, int w)
 {
   /* currently the scilab interface don't let the user chooses
    * v and w (always v_default and w_default) so this routine
@@ -173,8 +179,8 @@ int set_seed_clcg4(int g, double s0, double s1, double s2, double s3)
 
   if ( verif_seeds_clcg4(s0, s1, s2, s3) )
     {
-      Ig [0][g] = (long) s0; Ig [1][g] = (long) s1;
-      Ig [2][g] = (long) s2; Ig [3][g] = (long) s3;
+      Ig [0][g] = (int) s0; Ig [1][g] = (int) s1;
+      Ig [2][g] = (int) s2; Ig [3][g] = (int) s3;
       init_generator_clcg4(g, InitialSeed);
       sciprint(_("\n=> be aware that you have may lost synchronization\n    between the virtual gen %d and the others !\n    use grand(\"setall\", s1, s2, s3, s4) if you want recover it."), g);
       return ( 1 );
@@ -214,7 +220,7 @@ void init_generator_clcg4(int g, SeedType Where)
 
 void advance_state_clcg4(int g, int k)
 {
-  long int b[4];
+  int b[4];
   int i, j;
 
   if (! is_init ) {init_clcg4(v_default,w_default); is_init = 1; };
@@ -242,10 +248,10 @@ int set_initial_seed_clcg4(double s0, double s1, double s2, double s3)
     };
 
   is_init = 1;
-  Ig [0][0] = (long) s0;
-  Ig [1][0] = (long) s1;
-  Ig [2][0] = (long) s2;
-  Ig [3][0] = (long) s3;
+  Ig [0][0] = (int) s0;
+  Ig [1][0] = (int) s1;
+  Ig [2][0] = (int) s2;
+  Ig [3][0] = (int) s3;
   init_generator_clcg4(0, InitialSeed);
   for (g = 1; g <= Maxgen; g++)
     {
@@ -256,11 +262,11 @@ int set_initial_seed_clcg4(double s0, double s1, double s2, double s3)
   return ( 1 );
 }
 
-unsigned long clcg4(int g)
+unsigned int clcg4(int g)
 {
   /* Modif Bruno : the generator have now the form (1) in place of (2) */
 
-  long k,s;
+  int k,s;
   double u;
 
   if (! is_init ) {init_clcg4(v_default,w_default); is_init = 1; };
@@ -290,7 +296,7 @@ unsigned long clcg4(int g)
   if (u >= 2147483647) u -= 2147483647;
   if (u >= 2147483647) u -= 2147483647;
 
-  return ((unsigned long) u );
+  return ((unsigned int) u );
 
 }
 

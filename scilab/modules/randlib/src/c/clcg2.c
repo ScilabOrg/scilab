@@ -1,4 +1,10 @@
 /*  
+ * 
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
+ * Copyright (C) 2004 - Bruno Pincon
+ * Copyright (C) Luc Devroye
+ * Copyright (C) Pierre Lecuyer
+ * 
  *  PURPOSE
  *     uniform random number generator developed by Pierre 
  *     Lecuyer based on a clever and tested combination of 
@@ -33,12 +39,12 @@
 #include "others_generators.h"
 
 /* initial default state (seeds) : */
-static long s1 = 1234567890 ;
-static long s2 = 123456789  ;
+static int s1 = 1234567890 ;
+static int s2 = 123456789  ;
 
-unsigned long clcg2()
+unsigned int clcg2()
 {
-  register long k,z;
+  register int k,z;
 
   /*  s1 = a1*s1 mod m1  (Schrage 's method)  */
   k= s1 /53668;
@@ -63,7 +69,7 @@ unsigned long clcg2()
    *   randlib.
    */
   
-  return( (unsigned long) z );
+  return( (unsigned int) z );
 }
 
 int set_state_clcg2(double g1, double g2)
@@ -73,8 +79,8 @@ int set_state_clcg2(double g1, double g2)
        1 <= g1 && g1 <= 2147483562    && 
        1 <= g2 && g2 <= 2147483398 )
     {
-      s1 = (long) g1;
-      s2 = (long) g2;
+      s1 = (int) g1;
+      s2 = (int) g2;
       return ( 1 );
     }
   else

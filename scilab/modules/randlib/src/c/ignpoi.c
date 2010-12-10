@@ -14,7 +14,7 @@ int C2F(ignpoi)(double *mu)
 /*
 **********************************************************************
 This source code was taken in the project "freemat"(BSD license)
-This source code was modified by Gaüzère Sabine according to the 
+This source code was modified by Gauziere Sabine according to the 
 modifications done by JJV
 
      long ignpoi(float mu)

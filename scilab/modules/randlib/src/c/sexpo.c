@@ -14,7 +14,7 @@ double C2F(sexpo)(void)
 **********************************************************************
 
 This source code was taken in the project "freemat"(BSD license)
-This source code was modified by Gaüzère Sabine according to the 
+This source code was modified by Gauziere Sabine according to the 
 modifications done by JJV
 
      FOR DETAILS SEE:
