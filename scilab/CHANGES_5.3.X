@@ -30,6 +30,13 @@ Compilation:
 
 * -Wimplicit removed for gfortran in the enable debug mode
 
+Bug fixes:
+==========
+
+* bug 8560 fixed - The grand function failed on 64 bits machines.
+
+
+
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
