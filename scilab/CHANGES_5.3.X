@@ -7,6 +7,14 @@ SciNotes:
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
+Xcos:
+=====
+
+* bug 8556 fixed - Creating a split block from a link did not work.
+
+* bug 8569 fixed - Deleting a link with a split-block did not reconstruct any
+                   valid link.
+
 
 Bug Fixes:
 ==========
@@ -15,6 +23,14 @@ Bug Fixes:
 
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
+
+* bug 7849 fixed - eqfir / remez functions crashed under MacOSX due to
+                   a lapack bug on slamch function.
+
+* bug 8091 fixed - Scilab was unable to find fortran compiler under MacOSX.
+
+* bug 8175 fixed - roots function did not converge under MacOSX due to
+                   a lapack bug on slamch function.
 
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
@@ -31,6 +47,13 @@ Bug Fixes:
                    with some spaces.
 
 * bug 8540 fixed - Fix a typo in Xcos.
+
+* bug 8582 fixed - Under Linux & Mac OS the waitbar window was too small and we
+                   could not see the bar inside it.
+
+* bug 8587 fixed - readNamedMatrixOfDouble (readCommonNamedMatrixOfDouble)
+                   returned wrong values.
+
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================
