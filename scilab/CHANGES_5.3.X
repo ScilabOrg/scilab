@@ -1,25 +1,42 @@
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
+ * bug 7806 fixed - [a, b] = dos("git 1>&2") returned a wrong error.
+
+
 SciNotes:
 =========
 
 * bug 8465 fixed - Under GNU/Linux, it was not possible to paste with the
                    middle click.
 
+
 Xcos:
 =====
 
 * bug 8556 fixed - Creating a split block from a link did not work.
 
+* bug 8569 fixed - Deleting a link with a split-block did not reconstruct any
+                   valid link.
+
 
 Bug Fixes:
 ==========
+
+* bug 5686 fixed - Complex number manipulation could crash Scilab.
+
+* bug 6768 fixed - input did not return good value when RETURN was pressed
+                   on Windows XP.
 
 * bug 7694 fixed - There were no key shortcuts in the command history browser.
 
 * bug 7695 fixed - Only the first selected line was deleted in command history
                    browser.
+
+* bug 7727 fixed - The help page of sp2adj was not correct.
+                   Improved the help page of adj2sp.
+                   Added unit tests for sp2adj and adj2sp.
+                   Improved implementation by checking the input arguments.
 
 * bug 7849 fixed - eqfir / remez functions crashed under MacOSX due to
                    a lapack bug on slamch function.
@@ -32,9 +49,19 @@ Bug Fixes:
 * bug 8254 fixed - The nearfloat function did not work properly for near
                    denormalized numbers.
 
+* bug 8279 fixed - error(144) returned a unexpected message.
+
+* bug 8390 fixed - a "Warning : redefining function: mputl" displayed if you
+                   did not install fftw on Windows.
+
 * bug 8412 fixed - find returned incorrect values with big vector.
 
+* bug 8448 fixed - 'whereis' function with a string as input argument did not work
+                   with ATOMS functions.
+
 * bug 8459 fixed - strsplit failed when second input argument was a "/"
+
+* bug 8462 fixed - bvodeS crashed on Windows and did not return a error.
 
 * bug 8468 fixed - size with 2 input arguments did not work for hypermatrices.
 
@@ -43,10 +70,17 @@ Bug Fixes:
 * bug 8505 fixed - help was not generated on Windows, if there was a path name
                    with some spaces.
 
+* bug 8531 fixed - "edit" function failed to open a defined macro loaded on stack.
+
+* bug 8532 fixed - size of input arguments of read_csv was not verified.
+
 * bug 8540 fixed - Fix a typo in Xcos.
 
 * bug 8582 fixed - Under Linux & Mac OS the waitbar window was too small and we
                    could not see the bar inside it.
+
+* bug 8587 fixed - readNamedMatrixOfDouble (readCommonNamedMatrixOfDouble)
+                   returned wrong values.
 
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
