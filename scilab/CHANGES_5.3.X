@@ -115,13 +115,16 @@ Compilation:
 
 * Intel Compiler XE 2011 update 1 C++/Fortran used to build Scilab on Windows.
 
-
 Scilab:
 =======
 
 * Scilab startup script of the binary is now automatically synchronized with
   the one from the source tree.
 
+Statistics:
+==========
+
+* bug 8560 fixed - The grand function failed on 64 bits machines.
 
 Bug fixes:
 ==========
@@ -138,7 +141,6 @@ Bug fixes:
                    displayed in the console but in the terminal.
 
 * bug 8732 fixed - strchr and strrchr did not work with a non-ASCII character needle.
-
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
