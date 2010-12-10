@@ -1,4 +1,10 @@
 /* 
+ * 
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
+ * Copyright (C) 2004 - Bruno Pincon
+ * Copyright (C) 1992 - Arif Zaman
+ * Copyright (C) 1992 - George Marsaglia
+ * 
 FSU - ULTRA	The greatest random number generator that ever was
 		or ever will be.  Way beyond Super-Duper.
 		(Just kidding, but we think its a good one.)
@@ -67,10 +73,10 @@ See Also:	README		for a brief description
 #define N2 24           /* The shorter lag      */
 
 static int is_init=0;  
-static long swb_state[N];          /* state of the swb generator */
+static int swb_state[N];          /* state of the swb generator */
 static int swb_index=N;            /* an index on the swb state */
 static int swb_flag;		   /* the carry flag for the SWB generator */
-static unsigned long cong_state;   /* state of the congruential generator */
+static unsigned int cong_state;   /* state of the congruential generator */
 
 /* for this generator the state seems completly defined by:
       swb_state, swb_index, swb_flag (which define the state of the swb generator)
@@ -135,14 +141,14 @@ static void advance_state_swb()
 
 int set_state_fsultra_simple(double s1, double s2)
 { 
-  unsigned long shrgx, tidbits=0;
+  unsigned int shrgx, tidbits=0;
   int i, j;
 
   if (    (s1 == floor(s1) && 0.0 <= s1 && s1 <= 4294967295.0)
        && (s2 == floor(s2) && 0.0 <= s2 && s2 <= 4294967295.0) )
     {
-      cong_state = ((unsigned long) s1)*2 + 1;
-      shrgx = (unsigned long) s2;
+      cong_state = ((unsigned int) s1)*2 + 1;
+      shrgx = (unsigned int) s2;
       for ( i=0 ; i<N ; i++)
 	{
 	  for ( j=32 ; j>0 ; j--)
@@ -194,11 +200,11 @@ int set_state_fsultra(double *s)
       sciprint(_("\nThe third component of the fsultra state, must be an int in [1, 2^32-1]\n"));
       return 0;
     }
-  cong_state = (unsigned long) try;
+  cong_state = (unsigned int) try;
  
   /* no verif here ... */
   for (i = 0 ; i < N ; i++) 
-    swb_state[i] = (long) (((unsigned long) s[i+3]) & 0xffffffff);
+    swb_state[i] = (int) (((unsigned int) s[i+3]) & 0xffffffff);
 
   is_init = 1;
   return 1;
@@ -217,10 +223,10 @@ void get_state_fsultra(double s[])
   s[1] = (double)  swb_flag;
   s[2] = (double)  cong_state;
   for (i = 0 ; i < N ; i++) 
-    s[i+3] = (double) (unsigned long) swb_state[i];
+    s[i+3] = (double) (unsigned int) swb_state[i];
 }
 
-unsigned long fsultra()
+unsigned int fsultra()
 {
   if (swb_index >= N)  /* generate N words at one time */
     { 
