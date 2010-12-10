@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -23,10 +24,37 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>Y=grand(m, n, dist_type [,p1,...,pk])
-      Y=grand(X, dist_type [,p1,...,pk])
-      Y=grand(n, dist_type [,p1,...,pk])
-      S=grand(action [,q1,....,ql])</synopsis>
+    <synopsis>
+      Y=grand(m,n,'bet',A,B)
+      Y=grand(m,n,'bin',N,p)
+      Y=grand(m,n,'nbn',N,p)
+      Y=grand(m,n,'chi', Df)
+      Y=grand(m,n,'nch',Df,Xnon)
+      Y=grand(m,n,'exp',Av)
+      Y=grand(m,n,'f',Dfn,Dfd)
+      Y=grand(m,n,'nf',Dfn,Dfd,Xnon)
+      Y=grand(m,n,'gam',shape,scale)
+      Y=grand(m,n,'nor',Av,Sd)
+      Y=grand(n,'mn',Mean,Cov)
+      Y=grand(m,n,'geom', p)
+      Y=grand(n,'markov',P,x0)
+      Y=grand(n,'mul',nb,P)
+      Y=grand(m,n,'poi',mu)
+      Y=grand(n,'prm',vect)
+      Y=grand(m,n,'def')
+      Y=grand(m,n,'unf',Low,High)
+      Y=grand(m,n,'uin',Low,High)
+      Y=grand(m,n,'lgi')
+      S=grand('getgen')
+      grand('setgen',gen)
+      S=grand('getsd')
+      grand('setsd',S)
+      grand('setcgn',G)
+      S=grand('getcgn')
+      grand('initgn',I)
+      grand('setall',s1,s2,s3,s4)
+      grand('advnst',K)
+    </synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
@@ -92,12 +120,6 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    
-    <para>Warning: without a seed, the sequence will remain the same
-      from a session to the other.</para>
-    <para>At the beginning of each script using rand function, you
-      should use:</para>
-    <programlisting role="example"><![CDATA[rand('seed',getdate('s'))]]></programlisting>
     
     <para>
       This function may be used to generate random numbers from various
@@ -649,6 +671,109 @@ scale       x          e          /  gamma(shape)
       and do the same  for the second method.  This assures that the initial data  for method two is 
       that used by  method  one.  When both  have concluded,  advance the block for both generators.</para>
   </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <para>
+    In the following example, we generate random numbers from various distributions and 
+    plot the associated histograms.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+// Normal
+R = grand(400,800,"nor",0,1);
+histplot(10,R)
+// Uniform
+R = grand(400,800,"def");
+histplot(10,R)
+// Poisson
+R = grand(400,800,"poi",2);
+histplot(10,R)
+ ]]>
+</programlisting>
+
+    <para>
+    In the following example, we generate random numbers from the exponential distribution and 
+    then compare the empirical with the theoretical distribution.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+lambda=1.6;
+N=100000;
+X = grand(1,100000,"exp",lambda);
+clf();
+classes = linspace(0,12,25);
+histplot(classes,X)
+x=linspace(0,12,25);
+y = (1/lambda)*exp(-(1/lambda)*x);
+plot(x,y,"ro-");
+legend(["Empirical" "Theory"]);
+ ]]>
+</programlisting>
+
+    <para>
+    In the following example, we generate random numbers from the gamma distribution and 
+    then compare the empirical with the theoretical distribution.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+    N=10000;
+    A=10;
+    B=4;
+    R=grand(1,N,'gam',A,B); 
+    XS=gsort(R,"g","i")';
+    PS=(1:N)'/N;
+    P=cdfgam("PQ",XS,A*ones(XS),B*ones(XS));
+    plot(XS,PS,"b-"); // Empirical distribution
+    plot(XS,P,"r-"); // Theoretical distribution
+    legend(["Empirical" "Theory"]);
+ ]]>
+</programlisting>
+
+    <para>
+    In the following example, we generate 10 random integers in the [1,365] interval.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+    grand(10,1,"uin",1,365)
+ ]]>
+</programlisting>
+
+    <para>
+    In the following example, we generate 12 permutations of the [1,2,...,7] set. 
+    The 12 permutations are stored column-by-column.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+    grand(12,"prm",(1:7)')
+ ]]>
+</programlisting>
+
+    <para>
+    This pseudo random number generator is a deterministic sequence which aims at 
+    reproducing a independent identically distributed numbers.
+    In order to get reproducible simulations, the initial seed of the generator is constant, 
+    such that the sequence will remain the same from a session to the other. 
+    The first numbers produced by grand always are the same. 
+    In some situations, we may want to initialize the seed of the generator in 
+    order to produce less reproducible numbers. 
+    In this case, we may initialize the seed with the output of the getdate function:
+    </para>
+
+    <programlisting role="example">
+    <![CDATA[
+grand("setsd",getdate("s"))
+    ]]>
+    </programlisting>
+
+  </refsection>
+
   <refsection>
     <title>See Also</title>
     <simplelist type="inline">
@@ -666,7 +791,8 @@ scale       x          e          /  gamma(shape)
           <para>
             The codes to generate sequences following other distributions than def, unf, lgi,  uin and geom are
             from "Library of Fortran Routines for Random Number  Generation", by Barry W. Brown 
-            and James Lovato, Department of Biomathematics, The University of Texas, Houston.  
+            and James Lovato, Department of Biomathematics, The University of Texas, Houston.
+            The source code is available at : http://www.netlib.org/random/ranlib.f.tar.gz
           </para>
         </listitem>
       </varlistentry>
@@ -725,6 +851,14 @@ scale       x          e          /  gamma(shape)
         <listitem>
           <para>
             By Jean-Philippe Chancelier and Bruno Pincon  
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>This help page</term>
+        <listitem>
+          <para>
+             Copyright (C) 2010 - DIGITEO - Michael Baudin
           </para>
         </listitem>
       </varlistentry>
