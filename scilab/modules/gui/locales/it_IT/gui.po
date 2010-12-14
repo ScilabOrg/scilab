@@ -72,7 +72,7 @@ msgstr "%s: Nodo padre non valido.\n"
 
 #, c-format
 msgid "%s: Invalid position ''%s''.\n"
-msgstr "%s: La posizione \"%s\" non è valida.\n"
+msgstr "%s: La posizione ''%s'' non è valida.\n"
 
 #, c-format
 msgid "%s: No matching node.\n"
@@ -304,7 +304,7 @@ msgstr "%s: %s è di tipo sbagliato: era attesa una stringa.\n"
 #, c-format
 msgid "%s: Wrong type for ''%s'' property: A string expected.\n"
 msgstr ""
-"%s: La proprietà \"%s\" è di tipo sbagliato: era attesa una stringa.\n"
+"%s: La proprietà ''%s'' è di tipo sbagliato: era attesa una stringa.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
@@ -543,7 +543,7 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for ''%s'' property: %d, %d or %d expected.\n"
 msgstr ""
-"%s: La proprietà \"%s\" ha un valore sbagliato: era atteso %d, %d o %d.\n"
+"%s: La proprietà ''%s'' ha un valore sbagliato: era atteso %d, %d o %d.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
@@ -561,8 +561,8 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"
 msgstr ""
-"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso \"%s\" o "
-"\"%s\".\n"
+"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso ''%s'' o "
+"''%s''.\n"
 
 #, c-format
 msgid ""
@@ -1077,7 +1077,7 @@ msgstr "Menù"
 
 #, c-format
 msgid "Menu ''%s'' is %s."
-msgstr "Il menù \"%s\" è %s."
+msgstr "Il menù ''%s'' è %s."
 
 msgid "Menu status"
 msgstr "Stato del menù"
@@ -1611,11 +1611,11 @@ msgstr "Sì"
 
 #, c-format
 msgid "You clicked on menu ''%s''."
-msgstr "È stato fatto un clic sul menù \"%s\"."
+msgstr "È stato fatto un clic sul menù ''%s''."
 
 #, c-format
 msgid "You selected ''%s''."
-msgstr "È stato selezionato \"%s\"."
+msgstr "È stato selezionato ''%s''."
 
 msgid "Zoom Area"
 msgstr "Ingrandisci l'Area"

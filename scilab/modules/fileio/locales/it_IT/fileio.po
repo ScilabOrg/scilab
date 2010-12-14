@@ -162,7 +162,7 @@ msgstr "%s: Le opzioni sono state ignorate.\n"
 
 #, c-format
 msgid "%s: Specified format cannot include any '\\n'\n"
-msgstr "%s: Il formato specificato non può includere alcun ''\\n''\n"
+msgstr "%s: Il formato specificato non può includere alcun '\\n'\n"
 
 #, c-format
 msgid "%s: The file %s is not opened in scilab.\n"
@@ -186,7 +186,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Warning: Directory '%s' already exists.\n"
-msgstr "%s: Attenzione: la directory ''%s'' già esiste.\n"
+msgstr "%s: Attenzione: la directory '%s' già esiste.\n"
 
 #, c-format
 msgid ""
@@ -516,7 +516,7 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be ''%s''.\n"
 msgstr ""
-"%s: L'argomento in ingresso #%d ha un valore sbagliato: deve essere \"%s\".\n"
+"%s: L'argomento in ingresso #%d ha un valore sbagliato: deve essere ''%s''.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument: no empty string expected.\n"
@@ -617,7 +617,7 @@ msgstr "Attenzione: c'è stato un errore durante l'apertura di %s: %s\n"
 
 #, c-format
 msgid "Warning: file '%s' already opened in Scilab.\n"
-msgstr "Attenzione: il file ''%s'' è già aperto in Scilab.\n"
+msgstr "Attenzione: il file '%s' è già aperto in Scilab.\n"
 
 msgid "unclosed [ directive."
 msgstr "la direttiva [ non è chiusa."

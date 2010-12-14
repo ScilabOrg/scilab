@@ -549,11 +549,11 @@ msgstr "%s: -simplex0method オプション で、未知の値 %s"
 
 #, c-format
 msgid "%s: Unrecognized parameter name ''%s''."
-msgstr "%s: 承認されないパラメータ名 \"%s\" です。"
+msgstr "%s: 承認されないパラメータ名 ''%s'' です。"
 
 #, c-format
 msgid "%s: Unrecognized value ''%s'' for ''Display'' option."
-msgstr "%s: \"Display\" オプションの承認されない値 \"%s\" です。"
+msgstr "%s: ''Display'' オプションの承認されない値 ''%s'' です。"
 
 #
 # File: macros/fit_dat.sci, line: 81

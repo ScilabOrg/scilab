@@ -181,13 +181,13 @@ msgid ""
 "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' or ''%s'' "
 "expected.\n"
 msgstr ""
-"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso \"%s\" o "
-"\"%s\" o \"%s\".\n"
+"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso ''%s'' o "
+"''%s'' o ''%s''.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or real expected.\n"
 msgstr ""
-"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso \"%s\" o "
+"%s: L'argomento in ingresso #%d ha un valore sbagliato: era atteso ''%s'' o "
 "un numero reale.\n"
 
 #, c-format
