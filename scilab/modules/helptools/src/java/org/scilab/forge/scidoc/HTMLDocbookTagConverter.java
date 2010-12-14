@@ -223,7 +223,11 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      * {@inheritDoc}
      */
     public String makeTitle(String id) {
-        return refname;
+        if (refname.length() > 0) {
+            return tocitem.get(id);
+        }
+
+        return "";
     }
 
     /**
