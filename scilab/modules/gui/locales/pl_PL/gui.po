@@ -550,8 +550,8 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"
 msgstr ""
-"%s: Nieprawidłowa wartość argumentu wejściowego nr %d: oczekiwany \"%s\" lub "
-"\"%s\" .\n"
+"%s: Nieprawidłowa wartość argumentu wejściowego nr %d: oczekiwany ''%s'' lub "
+"''%s'' .\n"
 
 #, c-format
 msgid ""
@@ -1575,7 +1575,7 @@ msgstr "Tak"
 
 #, c-format
 msgid "You clicked on menu ''%s''."
-msgstr "Klikneleś na menu \"%s''."
+msgstr "Klikneleś na menu ''%s''."
 
 #, c-format
 msgid "You selected ''%s''."
