@@ -165,7 +165,7 @@ msgid ""
 "Mu-law can only be used with 8 bit data. Use method=''linear'' instead."
 msgstr ""
 "La Mu-law può essere usata solo con dati a 8 bit.Usare invece "
-"metodo=\"lineare\""
+"metodo=''lineare''"
 
 msgid "Requires 2-D values only."
 msgstr "Richiede solo valori 2-D"
