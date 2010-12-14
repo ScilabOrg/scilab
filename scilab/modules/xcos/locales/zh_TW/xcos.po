@@ -234,8 +234,17 @@ msgstr "對齊區塊"
 msgid "Annotations"
 msgstr "注解"
 
+msgid "Automotive Suspension"
+msgstr ""
+
+msgid "Ball on a Platform"
+msgstr ""
+
 msgid "Based on Scicos"
 msgstr "根據 Scicos"
+
+msgid "Basic controller"
+msgstr ""
 
 msgid "Block Help"
 msgstr "區塊說明"
@@ -252,6 +261,15 @@ msgstr "邊框顏色"
 msgid "Bottom"
 msgstr "底部"
 
+msgid "Bouncing Ball"
+msgstr ""
+
+msgid "Bouncing Balls"
+msgstr ""
+
+msgid "Bridge Rectifer"
+msgstr ""
+
 msgid "CVODE"
 msgstr "CVODE 常微分方程"
 
@@ -264,6 +282,9 @@ msgstr ""
 msgid "Center"
 msgstr "中間"
 
+msgid "Chaos Modelica"
+msgstr ""
+
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr "點按 diagram 以增加link point 或是 相容的目標來完成"
@@ -273,6 +294,9 @@ msgstr "關閉"
 
 msgid "Code generation"
 msgstr "產生程式碼"
+
+msgid "Colpitts oscillator"
+msgstr ""
 
 msgid "Command port must be connected to control port"
 msgstr "命令埠必須連接到控制埠"
@@ -293,8 +317,14 @@ msgstr ""
 msgid "Computing"
 msgstr ""
 
+msgid "Cont.Plant-Hybrid Observer"
+msgstr ""
+
 msgid "Continuous time systems"
 msgstr "連續的 time systems"
+
+msgid "Control Systems"
+msgstr ""
 
 msgid "Copyright (c) 1989-2009 (INRIA)"
 msgstr "版權所有 (c) 1989-2009 (INRIA)"
@@ -310,6 +340,12 @@ msgstr ""
 
 msgid "Customize"
 msgstr "自訂"
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
 
 msgid "Debug block calls without trace"
 msgstr "Debug block 呼叫沒有 trace"
@@ -342,11 +378,20 @@ msgstr "Diagram已經異動 從上一次存檔.<br/> 你想要儲存嗎?"
 msgid "Diff. States"
 msgstr ""
 
+msgid "Differential amplifier"
+msgstr ""
+
 msgid "Discontinuities"
 msgstr "不連續性"
 
 msgid "Discrete"
 msgstr "離散"
+
+msgid "Discrete Controller"
+msgstr ""
+
+msgid "Discrete Kalman Filter"
+msgstr ""
 
 msgid "Discrete time systems"
 msgstr "離散時間系統"
@@ -369,6 +414,9 @@ msgstr "可編輯的"
 msgid "Electrical"
 msgstr "電力"
 
+msgid "Electrical Systems"
+msgstr ""
+
 msgid "Enable"
 msgstr ""
 
@@ -376,6 +424,9 @@ msgid "Equations"
 msgstr ""
 
 msgid "Error"
+msgstr ""
+
+msgid "Error on export"
 msgstr ""
 
 msgid "Event handling"
@@ -406,6 +457,9 @@ msgstr ""
 
 msgid "Failed to load Diagram"
 msgstr "載入圖框失敗"
+
+msgid "Fibonacci Numbers"
+msgstr ""
 
 msgid "File"
 msgstr "檔案"
@@ -467,11 +521,17 @@ msgstr ""
 msgid "Goto %s"
 msgstr "Goto %s"
 
+msgid "Goto/From blocks"
+msgstr ""
+
 msgid "Grid"
 msgstr "網格"
 
 msgid "Horizontal"
 msgstr "水平"
+
+msgid "Hydraulics blocks"
+msgstr ""
 
 msgid "IDA"
 msgstr "IDA"
@@ -511,7 +571,13 @@ msgstr "絶對容錯積分器"
 msgid "Integrator relative tolerance"
 msgstr "相對容錯積分器"
 
+msgid "Inverted Pendulum"
+msgstr ""
+
 msgid "Italic"
+msgstr ""
+
+msgid "Kalman Filter"
 msgstr ""
 
 msgid "Left"
@@ -538,8 +604,17 @@ msgstr ""
 msgid "Loading user defined palettes"
 msgstr "載入使用者自訂的調色盤"
 
+msgid "Logic AND gate"
+msgstr ""
+
+msgid "Logic NOR gate"
+msgstr ""
+
 msgid "Lookup Tables"
 msgstr "查詢表"
+
+msgid "Lorentz butterfly"
+msgstr ""
 
 msgid "Masked SuperBlock editor"
 msgstr "Masked SuperBlock 編輯器"
@@ -553,11 +628,17 @@ msgstr "矩陣"
 msgid "Max integration time interval"
 msgstr "最大整合的間隔時間"
 
+msgid "Mechanical Systems"
+msgstr ""
+
 msgid "Middle"
 msgstr "中間"
 
 msgid "Mirror"
 msgstr "鏡象"
+
+msgid "Modelica demos"
+msgstr ""
 
 msgid "Modelica initialize"
 msgstr ""
@@ -592,6 +673,15 @@ msgstr "正常 100%"
 msgid "Ok"
 msgstr "確定"
 
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Old demos"
+msgstr ""
+
+msgid "OpAmp amplifier"
+msgstr ""
+
 msgid "Open"
 msgstr "開啟"
 
@@ -610,6 +700,9 @@ msgstr ""
 msgid "Per block execution trace and Debug block calls"
 msgstr "每一block 執行trace和 Debug block calls"
 
+msgid "Please specify a file format"
+msgstr ""
+
 msgid "Please take a look into the Scilab console"
 msgstr ""
 
@@ -620,11 +713,20 @@ msgid ""
 "Port is already connected, please select an unconnected port or a valid link."
 msgstr "Port 已連上, 請選擇一個未連上的port 或是有效的link."
 
+msgid "Preview"
+msgstr ""
+
 msgid "Print"
 msgstr "列印"
 
 msgid "Quit Xcos"
 msgstr "離開 Xcos"
+
+msgid "RLC Circuit"
+msgstr ""
+
+msgid "RLC circuit"
+msgstr ""
 
 msgid "Real time scaling"
 msgstr "即時延展"
@@ -674,6 +776,9 @@ msgstr "儲存區塊的使用者介面"
 msgid "Saving diagram"
 msgstr "圖框儲存中"
 
+msgid "Scicos data types"
+msgstr ""
+
 msgid "Scicos file"
 msgstr "Scicos 檔"
 
@@ -684,6 +789,9 @@ msgstr "使用-nogui 或 -nwni 參數的模式下 Scilab '%s' 模組已被停用
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "Scilab '%s' 模組尚未安裝.\n"
+
+msgid "Scilab block"
+msgstr ""
 
 msgid "Scilab file"
 msgstr "Scilab 檔"
@@ -712,11 +820,20 @@ msgstr "顯示上層的 diagram"
 msgid "Show/Hide shadow"
 msgstr "顯示/隱藏 陰影"
 
+msgid "Signal Builder"
+msgstr ""
+
 msgid "Signal Processing"
 msgstr "訊號處理"
 
 msgid "Signal Routing"
 msgstr "訊回迴路"
+
+msgid "Simple Demo"
+msgstr ""
+
+msgid "Simple Thermostat"
+msgstr ""
 
 msgid "Simulation"
 msgstr "模擬"
@@ -739,6 +856,9 @@ msgstr "求解器 0 (CVODE) - 100 (IDA)"
 msgid "Sources"
 msgstr "訊號源"
 
+msgid "Standard demos"
+msgstr ""
+
 msgid "Start"
 msgstr "開始"
 
@@ -750,6 +870,15 @@ msgstr "直線"
 
 msgid "Superblock mask"
 msgstr "Superblock 遮罩"
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr ""
+
+msgid "Temperature Controller"
+msgstr ""
 
 msgid "Text Color"
 msgstr ""
@@ -789,6 +918,9 @@ msgstr "工具"
 
 msgid "Top"
 msgstr "頂部"
+
+msgid "Transformer"
+msgstr ""
 
 msgid "Unable to delete "
 msgstr ""
@@ -867,6 +999,9 @@ msgstr "檢示 Scicos"
 msgid "Viewport"
 msgstr "觀察窗"
 
+msgid "Water tank"
+msgstr ""
+
 msgid "Will try to continue..."
 msgstr "繼續測試..."
 
@@ -907,8 +1042,14 @@ msgstr ""
 "你應該在scilab 指令處使用 Scilab 指令去定義區塊中的符號式參數.<br/>這些指令已被證實過.(換言之, 當你按 OK, 則圖框就被 "
 "Eval 載入一次.)"
 
+msgid "Zero Crossing"
+msgstr ""
+
 msgid "Zero crossing detection"
 msgstr "Zero crossing 偵測"
+
+msgid "_IF_ Scicos block"
+msgstr ""
 
 msgid "comment"
 msgstr ""

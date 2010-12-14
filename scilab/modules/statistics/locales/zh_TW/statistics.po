@@ -312,6 +312,9 @@ msgstr "Pnonc,P,Q,F 及 Dfn"
 msgid "Pr,OMPr,P,Q and S"
 msgstr "Pr,OMPr,P,Q 及 S"
 
+msgid "Rate,P,Q and X"
+msgstr ""
+
 msgid "S and Xlam"
 msgstr "S 及 Xlam"
 
@@ -321,11 +324,8 @@ msgstr "S,XN,PR 及 OMPR"
 msgid "S,Xn,Pr and Ompr"
 msgstr "S,Xn,Pr 及 Ompr"
 
-msgid "Scale,P,Q and X"
-msgstr "Scale,P,Q 及 X"
-
-msgid "Shape,Scale,P and Q"
-msgstr "Shape,Scale,P 及 Q"
+msgid "Shape,Rate,P and Q"
+msgstr ""
 
 #, c-format
 msgid "Size of x is zero : returning NaN.\n"
@@ -358,8 +358,8 @@ msgstr "X,Df 及 Pnonc"
 msgid "X,Mean and Std"
 msgstr "X,Mean 及 Std"
 
-msgid "X,Shape and Scale"
-msgstr "X,Shape 及 Scale"
+msgid "X,Shape and Rate"
+msgstr ""
 
 msgid "X,Y,A and B"
 msgstr "X,Y,A 及 B"

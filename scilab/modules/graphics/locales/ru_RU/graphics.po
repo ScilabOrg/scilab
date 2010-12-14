@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: graphics-ru\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 17:45+0100\n"
-"PO-Revision-Date: 2010-09-21 20:06+0000\n"
+"PO-Revision-Date: 2010-12-11 17:51+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,10 @@ msgstr "%s должен быть вектором чисел с плавающе
 #, c-format
 msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: Дескриптор «%s» более не существует.\n"
+
+#, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr "%s: «%s» не может быть использована с «%s».\n"
 
 #, c-format
 msgid ""
@@ -837,6 +841,22 @@ msgstr ""
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+"%s: Неверное значение входного параметра: ожидалось «%s», «%s», «%s», «%s» "
+"или «%s».\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+"%s: Неверное значение входного параметра: ожидалось «%s», «%s», «%s», «%s», "
+"«%s», «%s», «%s» или «%s».\n"
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr ""
 "%s: Неверное значение входных параметров №%d и №%d: несовместимая длина.\n"
@@ -892,8 +912,14 @@ msgstr "Дескриптор «%s» (более) не существует.\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "Свойство «%s» не существует для этого дескриптора.\n"
 
+msgid "... as well as very tiny radii"
+msgstr "... также как и очень маленькие радиусы"
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "Не удалось удалить метку.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr "Выбор частичной области просмотра с помощью кадрирования"
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -905,6 +931,9 @@ msgstr "Autumn"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "Плохой размер в %s: сначала нужно увеличить размер %s.\n"
+
+msgid "Big radii are supported..."
+msgstr "Поддерживаются большие радиусы..."
 
 msgid "Bone"
 msgstr "Bone"
@@ -932,9 +961,6 @@ msgstr ""
 msgid "Color number"
 msgstr "Номер цвета"
 
-msgid "Colormap"
-msgstr "Цветовая палитра"
-
 msgid "Common X axis"
 msgstr "Общая ось X"
 
@@ -946,6 +972,9 @@ msgstr "Copper"
 
 msgid "Customize your complex function"
 msgstr "Настройте вашу комплексную функцию"
+
+msgid "Data on the full circle ..."
+msgstr "Данные на полном круге ..."
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -1098,6 +1127,9 @@ msgstr "Режим с несколькими подсказками данных
 msgid "Name"
 msgstr "Название"
 
+msgid "Negative radii are supported:"
+msgstr "Поддерживаются отрицательные радиусы:"
+
 msgid "No Callback is associated with this Entity.\n"
 msgstr "Нет связанной с этим объектом функции обратного вызова.\n"
 
@@ -1146,11 +1178,20 @@ msgstr "Свойство предка не может быть изменено 
 msgid "Pink"
 msgstr "Pink"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+"Нажмите клавишу Enter в командном окне Scilab для перехода к следующему "
+"примеру функции polarplot"
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr "Отправляйте отчёты об ошибках на адрес dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
 msgstr "Графики с 3 разными масштабами по оси Y и общей оси X"
+
+msgid "Press enter to go on..."
+msgstr "Нажмите клавишу Enter для продолжения..."
 
 msgid "Problem with sciInitFontContext\n"
 msgstr "Проблема с sciInitFontContext\n"
@@ -1173,8 +1214,14 @@ msgstr "Графический модуль Scilab выключен в режи�
 msgid "Select tip orientation"
 msgstr "Выберете расположение подсказок:"
 
+msgid "Several curves may be plotted at the same time"
+msgstr "Несколько кривых могут быть построены одновременно"
+
 msgid "Spring"
 msgstr "Spring"
+
+msgid "Still a single quadrant..."
+msgstr "По-прежнему один квадрант..."
 
 msgid "Summer"
 msgstr "Summer"
@@ -1511,11 +1558,22 @@ msgstr "Вначале вы должны указать %s для этого о�
 msgid "automatic"
 msgstr "Автоматическое"
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+"Поддерживаются даже громадные радиусы, если должным образом отформатированы "
+"метки..."
+
 msgid "lower left"
 msgstr "Снизу слева"
 
 msgid "lower right"
 msgstr "Снизу справа"
+
+msgid "on 2 quadrants..."
+msgstr "На двух квадрантах..."
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr "polarplot(): Отображаются только квадранты, которые содержат данные"
 
 msgid "select the curve tip display function"
 msgstr "Выбрать функцию отображения подсказок"

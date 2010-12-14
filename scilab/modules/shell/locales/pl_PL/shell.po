@@ -59,6 +59,9 @@ msgstr "Okno graficzne"
 msgid "Scilab Command"
 msgstr "Polecenie programu Scilab"
 
+msgid "Scilab Fields"
+msgstr ""
+
 msgid "Scilab Function"
 msgstr "Funkcia programu Scilab"
 

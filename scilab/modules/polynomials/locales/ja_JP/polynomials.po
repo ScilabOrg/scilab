@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-09-22 14:08+0100\n"
-"PO-Revision-Date: 2010-08-04 16:00+0000\n"
+"PO-Revision-Date: 2010-12-04 10:48+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgstr "%s: 入力引数 %d と %d で互換性がありません。\n"
 # File: macros/determ.sci, line: 58
 msgid "Computing determinant: Be patient...\n"
 msgstr "行列式を計算しています、しばらくお待ちください....\n"
+
+msgid "Introduction"
+msgstr "導入"
 
 # File: etc/polynomials.start, line: 26
 msgid "Polynomials"

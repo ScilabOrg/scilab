@@ -107,23 +107,14 @@ msgstr ""
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s: falscher Wert für Eingangsargument #%d: '%s' erwartet.\n"
 
-msgid "&?"
-msgstr "&?"
-
-msgid "&Edit"
-msgstr "&Editieren"
-
-msgid "&File"
-msgstr "&Datei"
-
-msgid "&Tools"
-msgstr "&Zusatzprogramme"
-
 msgid "Alpha Release"
 msgstr "Alpha Veröffentlichung"
 
 msgid "Beta Release"
 msgstr "Beta Veröffentlichung"
+
+msgid "Color"
+msgstr ""
 
 #, c-format
 msgid "Error %s while loading library %s"
@@ -161,8 +152,17 @@ msgstr "Es ist unmöglich die Umgebungsvariable zu setzen."
 msgid "Impossible to set system encoding."
 msgstr "Unmöglich die System Encodierung zu setzen."
 
+msgid "Puzzle"
+msgstr ""
+
+msgid "Scale"
+msgstr ""
+
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Scilab TCL/TK Modul nicht installiert.\n"
+
+msgid "Scroll"
+msgstr ""
 
 #, c-format
 msgid "TCL_EvalScilabCmd %s"

@@ -59,6 +59,10 @@ msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: O manipulador \"%s\" não existe ou não existe mais.\n"
 
 #, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "%s: At least one x data must be strictly positive to compute the bounds and "
 "use logarithmic mode.\n"
@@ -915,6 +919,18 @@ msgstr ""
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr ""
 "%s: Valor incorreto para os argumentos de entrada #%d e #%d: os comprimentos "
@@ -972,8 +988,14 @@ msgstr "O manipulador \"%s\" não existe ou não existe mais.\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "A propriedade \"%s\" não existe para este manipulador.\n"
 
+msgid "... as well as very tiny radii"
+msgstr ""
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "Um objeto Label (rótulo) não pode ser excluído.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr ""
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -986,6 +1008,9 @@ msgstr "Outono"
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr ""
 "Tamanho inválido em %s: você deve primeiro aumentar o tamanho de %s.\n"
+
+msgid "Big radii are supported..."
+msgstr ""
 
 msgid "Bone"
 msgstr "Osso"
@@ -1013,9 +1038,6 @@ msgstr ""
 msgid "Color number"
 msgstr "Quantidade de cores"
 
-msgid "Colormap"
-msgstr "Mapa de cores"
-
 msgid "Common X axis"
 msgstr "Eixo X em comum"
 
@@ -1028,6 +1050,9 @@ msgstr "Cobre"
 
 msgid "Customize your complex function"
 msgstr "Personalizar sua função complexa"
+
+msgid "Data on the full circle ..."
+msgstr ""
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -1181,6 +1206,9 @@ msgstr "Modo de datatips múltiplos"
 msgid "Name"
 msgstr "Nome"
 
+msgid "Negative radii are supported:"
+msgstr ""
+
 msgid "No Callback is associated with this Entity.\n"
 msgstr "Nenhum Callback está associado a esta entidade.\n"
 
@@ -1229,11 +1257,18 @@ msgstr "A propriedade do pai não pode ser modificada diretamente.\n"
 msgid "Pink"
 msgstr "Rosa"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr "Por favor, envie um relatório de erros para dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
 msgstr "Desenha com 3 escalas Y diferentes com a X compartilhada"
+
+msgid "Press enter to go on..."
+msgstr ""
 
 msgid "Problem with sciInitFontContext\n"
 msgstr "Problema com sciInitFontContext\n"
@@ -1256,8 +1291,14 @@ msgstr "O módulo gráfico do Scilab desabilitou o modo -nogui ou o -nwni.\n"
 msgid "Select tip orientation"
 msgstr "Selecione a orientação do tip"
 
+msgid "Several curves may be plotted at the same time"
+msgstr ""
+
 msgid "Spring"
 msgstr "Primavera"
+
+msgid "Still a single quadrant..."
+msgstr ""
 
 msgid "Summer"
 msgstr "Verão"
@@ -1611,11 +1652,20 @@ msgstr "Você primeiro deve especificar um %s para este objeto.\n"
 msgid "automatic"
 msgstr "automático"
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+
 msgid "lower left"
 msgstr "inferior esquerdo"
 
 msgid "lower right"
 msgstr "inferior direito"
+
+msgid "on 2 quadrants..."
+msgstr ""
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr ""
 
 msgid "select the curve tip display function"
 msgstr "Selecione a função de exibição do tip da curva"

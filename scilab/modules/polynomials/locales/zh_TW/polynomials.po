@@ -78,5 +78,8 @@ msgstr "%s:  第 %d 及 第 %d 輸入參數不相容.\n"
 msgid "Computing determinant: Be patient...\n"
 msgstr "判定運算中: 請耐心等候...\n"
 
+msgid "Introduction"
+msgstr ""
+
 msgid "Polynomials"
 msgstr "多項式"

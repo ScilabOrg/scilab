@@ -42,22 +42,14 @@ msgstr ""
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s] in %s. (Please wait building ... this can take "
-"a while)\n"
+"Building the manual file [%s] in %s.\n"
 msgstr ""
-"\n"
-"S'està creant el fitxer de manual [%s] a %s. (Espereu a la seva creació... "
-"pot durar una estona)\n"
 
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s]. (Please wait building ... this can take a "
-"while)\n"
+"Building the manual file [%s].\n"
 msgstr ""
-"\n"
-"S'està creant el fitxer de manual [%s]. (Espereu a la seva creació... pot "
-"durar una estona)\n"
 
 msgid ""
 "\n"
@@ -97,6 +89,10 @@ msgstr "%s: Error en crear la documentació: %s.\n"
 #, c-format
 msgid "%s: Execution Java stack %s.\n"
 msgstr "%s: Pila d'execució en Java %s.\n"
+
+#, c-format
+msgid "%s: Execution Java stack: %s.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: File skipped %s."
@@ -145,12 +141,6 @@ msgstr ""
 #, c-format
 msgid "%s: This function is only supported on Windows platforms.\n"
 msgstr "%s: Aquesta funció només està suportada en plataformes Windows.\n"
-
-#, c-format
-msgid "%s: Wrong for type for input argument #%d: String expected.\n"
-msgstr ""
-"%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser una cadena "
-"de text.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): At most %d expected.\n"
@@ -220,11 +210,6 @@ msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser un vector "
 "de cadenes de text.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-"%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser un text.\n"
 
 #, c-format
 msgid ""

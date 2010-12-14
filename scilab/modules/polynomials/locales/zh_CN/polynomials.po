@@ -78,5 +78,8 @@ msgstr "%s：输入参数%d和%d不兼容\n"
 msgid "Computing determinant: Be patient...\n"
 msgstr "计算行列式：请耐心等待...\n"
 
+msgid "Introduction"
+msgstr ""
+
 msgid "Polynomials"
 msgstr "多项式"

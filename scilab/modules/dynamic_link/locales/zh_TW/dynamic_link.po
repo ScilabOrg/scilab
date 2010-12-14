@@ -173,6 +173,10 @@ msgid "%s: Cannot open shared files. Max entry %d reached.\n"
 msgstr "%s: 無法開啟共用程式庫. 已到達最大進入點(Entry point)數目 %d 限制.\n"
 
 #, c-format
+msgid "%s: Error while executing %s.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Error while modifying the reference Makefile:\n"
 msgstr "%s: 修改參考的 Makefile時產生錯誤:\n"
 

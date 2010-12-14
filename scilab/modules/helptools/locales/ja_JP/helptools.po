@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-07-03 00:44+0000\n"
+"PO-Revision-Date: 2010-12-04 10:46+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -56,28 +56,21 @@ msgstr ""
 "\n"
 "%sのScilabマニュアル マスタードキュメントを構築。\n"
 
-#
-# File: macros/xmltoformat.sci, line: 523
-# File: macros/xmltoformat.sci, line: 617
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s] in %s. (Please wait building ... this can take "
-"a while)\n"
+"Building the manual file [%s] in %s.\n"
 msgstr ""
 "\n"
-"%2$s の [%1$s] ファイルの構築(しばらくお待ちください... これは少し時間がかかります)\n"
+"マニュアルファイル [%s] を %sに構築中.\n"
 
-#
-# File: macros/xmltoformat.sci, line: 612
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s]. (Please wait building ... this can take a "
-"while)\n"
+"Building the manual file [%s].\n"
 msgstr ""
 "\n"
-"[%s] ファイルの構築(しばらくお待ちください... これは少し時間がかかります)\n"
+"マニュアルファイル [%s] を構築中.\n"
 
 #
 # File: macros/xmltoformat.sci, line: 391
@@ -146,6 +139,10 @@ msgid "%s: Execution Java stack %s.\n"
 msgstr "%s: Javaスタック %s の実行。\n"
 
 #, c-format
+msgid "%s: Execution Java stack: %s.\n"
+msgstr "%s: Javaスタックを実行中: %s.\n"
+
+#, c-format
 msgid "%s: File skipped %s."
 msgstr "%s: ファイル %s はスキップされました 。"
 
@@ -195,12 +192,6 @@ msgstr "%s: last_successful_build ファイルは 行 %d で満足にフォー�
 #, c-format
 msgid "%s: This function is only supported on Windows platforms.\n"
 msgstr "%s: この関数はWindowsプラットホームだけをサポートします。\n"
-
-#
-# File: sci_gateway/cpp/sci_buildDoc.cpp, line: 117
-#, c-format
-msgid "%s: Wrong for type for input argument #%d: String expected.\n"
-msgstr "%s: 入力引数 #%d で不正な型: 文字列を想定します。\n"
 
 #
 # File: macros/xmltochm.sci, line: 33
@@ -283,13 +274,6 @@ msgstr "%s: 入力引数 #%d で不正な型: 単一文字列を想定します�
 #, c-format
 msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr "%s: 入力引数 #%d で不正な型: 文字配列を想定します。\n"
-
-#
-# File: sci_gateway/cpp/sci_buildDoc.cpp, line: 80
-# File: sci_gateway/cpp/sci_buildDoc.cpp, line: 134
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s: 入力引数 #%d で不正な型: 文字列を想定します。\n"
 
 #
 # File: sci_gateway/cpp/sci_buildDoc.cpp, line: 80

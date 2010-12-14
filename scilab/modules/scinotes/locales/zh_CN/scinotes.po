@@ -78,6 +78,9 @@ msgstr ""
 msgid "Anchors"
 msgstr ""
 
+msgid "Apply & Reindent"
+msgstr ""
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr ""
 
@@ -105,7 +108,13 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Cannot guess the file encoding."
+msgstr ""
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
+msgstr ""
+
+msgid "Capitalize Selection;Capitalize character"
 msgstr ""
 
 msgid "Case sensitive"
@@ -153,11 +162,17 @@ msgstr "注释选区"
 msgid "Complete"
 msgstr ""
 
+msgid "Configure Tabulation"
+msgstr ""
+
 msgid "Continue ?"
 msgstr ""
 
 msgid "Copy"
 msgstr "复制"
+
+msgid "Copy as HTML with line number"
+msgstr ""
 
 msgid "Copy selection in a new tab"
 msgstr ""
@@ -177,6 +192,9 @@ msgstr ""
 msgid "Could not find the temporary file."
 msgstr ""
 
+msgid "Current file encoding"
+msgstr ""
+
 msgid "Cursor Color"
 msgstr ""
 
@@ -185,6 +203,9 @@ msgstr "剪切"
 
 msgid "Default"
 msgstr "默认"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr ""
 
 msgid "Delete"
 msgstr "删除"
@@ -198,6 +219,9 @@ msgstr "方向"
 msgid "Document"
 msgstr "文档"
 
+msgid "Double chevrons"
+msgstr ""
+
 msgid "Edit"
 msgstr "编辑"
 
@@ -205,6 +229,9 @@ msgid "Enable Auto Reformat"
 msgstr ""
 
 msgid "Encoding"
+msgstr ""
+
+msgid "Encoding problems"
 msgstr ""
 
 msgid "Enter line number"
@@ -297,13 +324,25 @@ msgstr ""
 msgid "Highlight current line"
 msgstr "高亮显示当前行"
 
+msgid "Horizontal rule"
+msgstr ""
+
+msgid "Horizontal wrapping"
+msgstr ""
+
 msgid "Ignore"
+msgstr ""
+
+msgid "Incremental Search"
 msgstr ""
 
 msgid "Invalid regular expression : %s"
 msgstr "不正确的正则表达式：%s"
 
 msgid "Italic"
+msgstr ""
+
+msgid "Length"
 msgstr ""
 
 msgid "Line Endings"
@@ -322,6 +361,12 @@ msgid "Mac Classic (CR)"
 msgstr ""
 
 msgid "Mail to "
+msgstr ""
+
+msgid "Make Selection Lowercase"
+msgstr ""
+
+msgid "Make Selection Uppercase"
 msgstr ""
 
 msgid "Natural order"
@@ -348,7 +393,7 @@ msgstr ""
 msgid "Normal Line Numbering"
 msgstr ""
 
-msgid "Numerotation"
+msgid "Numeration"
 msgstr ""
 
 msgid "Ok"
@@ -360,7 +405,7 @@ msgstr "打开"
 msgid "Open URL"
 msgstr ""
 
-msgid "Open file in ...;Add a directory;Remove last directory"
+msgid "Open file in ..."
 msgstr ""
 
 msgid "Open function source file"
@@ -477,6 +522,9 @@ msgstr ""
 msgid "Save as"
 msgstr "另存为"
 
+msgid "Save file in ..."
+msgstr ""
+
 msgid "SciNotes"
 msgstr ""
 
@@ -514,6 +562,9 @@ msgstr "选择的区域"
 
 msgid "Set Colors"
 msgstr "设置颜色"
+
+msgid "Set Colors ..."
+msgstr ""
 
 msgid "Set Font"
 msgstr "设置字体"
@@ -560,6 +611,12 @@ msgstr "没有发现字符串 %s"
 msgid "Syntax Type"
 msgstr "语法类型"
 
+msgid "Tab representation"
+msgstr ""
+
+msgid "Tab style"
+msgstr ""
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -577,7 +634,14 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr ""
 
+msgid "The file could not be created, check the path"
+msgstr ""
+
 msgid "The file could not be saved."
+msgstr ""
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
 msgstr ""
 
 msgid "This file"
@@ -609,6 +673,12 @@ msgstr ""
 msgid "Untitled "
 msgstr "未命名 "
 
+msgid "Use spaces"
+msgstr ""
+
+msgid "Vertical rule"
+msgstr ""
+
 msgid "View"
 msgstr "查看"
 
@@ -629,6 +699,9 @@ msgstr ""
 
 msgid "Word Wrap"
 msgstr "文字换行"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr ""
 
 msgid "You have passed the beginning of the document"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-10-03 17:11+0200\n"
-"PO-Revision-Date: 2009-07-01 13:52+0000\n"
+"PO-Revision-Date: 2010-12-03 01:09+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr "Не удалось изменить шрифт в командном о
 
 msgid "Could not change the Console Foreground."
 msgstr "Не удалось изменить цвет фона в командном окне"
+
+msgid "Field"
+msgstr "Поле"
 
 msgid "File or Directory"
 msgstr "Файл или Каталог"

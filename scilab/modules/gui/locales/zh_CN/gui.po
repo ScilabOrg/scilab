@@ -1375,6 +1375,10 @@ msgid ""
 "expected.\n"
 msgstr "属性'%s'的值错误：应该为一个字符串或者 1x%d 的实数行向量。\n"
 
+#, c-format
+msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
+msgstr ""
+
 msgid "Xcos"
 msgstr "Xcos"
 

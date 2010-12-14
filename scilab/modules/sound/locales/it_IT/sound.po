@@ -123,6 +123,9 @@ msgstr "il file .wav non contiene l'identificatore RIFF."
 msgid ".wav file does not contain the wave identifier."
 msgstr "il file .wav non contiene l'identificatore dell'onda."
 
+msgid "A complete picture of the sound."
+msgstr ""
+
 msgid "Cannot play file."
 msgstr "Non è possibile eseguire il file."
 
@@ -144,6 +147,9 @@ msgstr "Errore durante la lettura del file wav."
 
 msgid "Error while writing sound file."
 msgstr "Errore durante la scrittura del file di suono."
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr ""
 
 msgid "Incorrect chunk size information in RIFF file."
 msgstr ""
@@ -187,3 +193,6 @@ msgstr "Formato di dati non riconosciuto."
 
 msgid "only 8/16/24/32 bits for the encoding."
 msgstr "solo 8/16/24/32 bit per la codifica"
+
+msgid "see ''mapsound'' function"
+msgstr ""

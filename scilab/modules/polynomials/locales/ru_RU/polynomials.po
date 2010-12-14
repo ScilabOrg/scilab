@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-09-22 14:08+0100\n"
-"PO-Revision-Date: 2009-11-09 23:58+0000\n"
+"PO-Revision-Date: 2010-12-09 00:00+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +88,9 @@ msgstr "%s: несовместимые входные параметры %d и %
 
 msgid "Computing determinant: Be patient...\n"
 msgstr "Вычисление детерминанта. Будьте терпеливы...\n"
+
+msgid "Introduction"
+msgstr "Введение"
 
 msgid "Polynomials"
 msgstr "Полиномы"

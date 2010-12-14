@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 17:45+0100\n"
-"PO-Revision-Date: 2010-08-02 16:43+0000\n"
+"PO-Revision-Date: 2010-12-03 15:19+0000\n"
 "Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,10 @@ msgstr "%s debía se un vector de valores de doble precisión.\n"
 #, c-format
 msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: El manejador '%s' ya no existe.\n"
+
+#, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr "%s: ''%s'' no puede usarse con ''%s''.\n"
 
 #, c-format
 msgid ""
@@ -157,6 +161,7 @@ msgstr "%s: El argumento de entrada #%d debe ser real.\n"
 #, c-format
 msgid "%s: Input argument and the legend must have the same parent axes.\n"
 msgstr ""
+"%s: El argumento de entrada y la leyenda deben tener los mismos ejes.\n"
 
 #, c-format
 msgid "%s: Interpolated shading only works for polygons of size %d or %d\n"
@@ -885,6 +890,22 @@ msgstr ""
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+"%s: Valor incorrecto del argumento de entrada: Se esperaba ''%s'', ''%s'', "
+"''%s'', ''%s'' o ''%s''.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+"%s: Valor incorrecto del argumento de entrada: Se esperaba ''%s'', ''%s'', "
+"''%s'', ''%s'', ''%s'', ''%s'', ''%s'' o ''%s''.\n"
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr ""
 "%s: Valor incorrecto de los argumentos de entrada #%d y#%d: Dimensión "
@@ -942,8 +963,14 @@ msgstr "El manejador '%s' no existe o ya no existe.\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "la propiedad '%s' no existe para este manejador.\n"
 
+msgid "... as well as very tiny radii"
+msgstr "... así como los pequeños radios"
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "No se puede eliminar una etiqueta.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr ""
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -955,6 +982,9 @@ msgstr "Otoño"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "Tamaño incorrecto en %s: Primero debe aumentar el tamaño del %s.\n"
+
+msgid "Big radii are supported..."
+msgstr "Los radios grandes están soportados..."
 
 msgid "Bone"
 msgstr "Hueso"
@@ -983,11 +1013,8 @@ msgstr ""
 msgid "Color number"
 msgstr "Número de color"
 
-msgid "Colormap"
-msgstr "Mapa de colores"
-
 msgid "Common X axis"
-msgstr ""
+msgstr "Eje X común"
 
 msgid "Coordinates modifications are only applicable on axes objects.\n"
 msgstr "Modificaciones de coordenadas solo aplicables en ejes.\n"
@@ -997,6 +1024,9 @@ msgstr "Cobre"
 
 msgid "Customize your complex function"
 msgstr "Personalizar su función compleja"
+
+msgid "Data on the full circle ..."
+msgstr "Datos del círculo completo ..."
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -1128,6 +1158,7 @@ msgstr ""
 
 msgid "Left click on a graphic entity to open its property editor"
 msgstr ""
+"Click izquierdo en una entidad gráfica para abrir su editor de propiedades"
 
 #, c-format
 msgid "Line width must be greater than %d.\n"
@@ -1141,6 +1172,9 @@ msgstr ""
 
 msgid "Name"
 msgstr "Nombre"
+
+msgid "Negative radii are supported:"
+msgstr "Radios negativos soportados:"
 
 msgid "No Callback is associated with this Entity.\n"
 msgstr "No hay devolución de llamadas asociadas con esta entidad.\n"
@@ -1191,11 +1225,18 @@ msgstr "La propiedad del padre no puede ser modificada directamente.\n"
 msgid "Pink"
 msgstr "Rosa"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr "Por favor envíe reportes de errores a dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
 msgstr ""
+
+msgid "Press enter to go on..."
+msgstr "Presione enter para continuar..."
 
 msgid "Problem with sciInitFontContext\n"
 msgstr "Problemas con sciInitFontContext\n"
@@ -1218,14 +1259,20 @@ msgstr "Módulo de gráficos de Scilab deshabilitado en modo -nogui o -nwni.\n"
 msgid "Select tip orientation"
 msgstr ""
 
+msgid "Several curves may be plotted at the same time"
+msgstr "Varias curvas pueden ser dibujadas al mismo tiempo"
+
 msgid "Spring"
 msgstr "Primavera"
+
+msgid "Still a single quadrant..."
+msgstr ""
 
 msgid "Summer"
 msgstr "Verano"
 
 msgid "Tcl/Tk interface not installed."
-msgstr ""
+msgstr "La interfaz Tcl/Tk no está instalada."
 
 #, c-format
 msgid "The font size must be greater than %d.\n"
@@ -1573,11 +1620,20 @@ msgstr "Primero debe especificar un %s para este objeto.\n"
 msgid "automatic"
 msgstr "automático"
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+
 msgid "lower left"
 msgstr "abajo a la izquierda"
 
 msgid "lower right"
 msgstr "abajo a la derecha"
+
+msgid "on 2 quadrants..."
+msgstr "en 2 cuadrantes..."
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr ""
 
 msgid "select the curve tip display function"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-10-03 17:11+0200\n"
-"PO-Revision-Date: 2009-12-16 12:29+0000\n"
+"PO-Revision-Date: 2010-12-06 11:41+0000\n"
 "Last-Translator: Carml <mighty.carml@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr "Non è stato possibile cambiare il carattere del terminale."
 
 msgid "Could not change the Console Foreground."
 msgstr "Non è stato possibile cambiare l'aspetto del terminale."
+
+msgid "Field"
+msgstr "Campo"
 
 msgid "File or Directory"
 msgstr "File o Directory"

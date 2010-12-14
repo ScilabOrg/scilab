@@ -42,22 +42,14 @@ msgstr ""
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s] in %s. (Please wait building ... this can take "
-"a while)\n"
+"Building the manual file [%s] in %s.\n"
 msgstr ""
-"\n"
-"Erzeuge die Hanbuchdatei[%s] in %s. (Bitte warten Sie wähernddessen...kann "
-"eine Weile dauern)\n"
 
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s]. (Please wait building ... this can take a "
-"while)\n"
+"Building the manual file [%s].\n"
 msgstr ""
-"\n"
-"Erzeuge die Manualdatei [%s]. (Bitte warten Sie während dieses "
-"Vorgangs...kann eine Weile dauern)\n"
 
 msgid ""
 "\n"
@@ -98,6 +90,10 @@ msgstr "%s: Fehler während des Erzeugens der Dokumentation: %s.\n"
 #, c-format
 msgid "%s: Execution Java stack %s.\n"
 msgstr "%s: führe Java Stapel aus %s.\n"
+
+#, c-format
+msgid "%s: Execution Java stack: %s.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: File skipped %s."
@@ -146,10 +142,6 @@ msgstr ""
 msgid "%s: This function is only supported on Windows platforms.\n"
 msgstr ""
 "%s: diese Funktionalität wird nur auf Windows Plattformen unterstützt.\n"
-
-#, c-format
-msgid "%s: Wrong for type for input argument #%d: String expected.\n"
-msgstr "%s: falscher Typ für Eingangsargument #%d: Zeichenkette erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): At most %d expected.\n"
@@ -209,10 +201,6 @@ msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: Matrix mit Zeichenketten "
 "erwartet.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s: falscher Typ für Eingangsargument #%d: Variable erwartet.\n"
 
 #, c-format
 msgid ""

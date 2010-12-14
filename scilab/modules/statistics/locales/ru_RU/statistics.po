@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-09-18 21:50+0000\n"
+"PO-Revision-Date: 2010-12-09 00:32+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -356,6 +356,9 @@ msgstr "Pnonc,P,Q,F и Dfn"
 msgid "Pr,OMPr,P,Q and S"
 msgstr "Pr,OMPr,P,Q и S"
 
+msgid "Rate,P,Q and X"
+msgstr "Rate,P,Q and X"
+
 msgid "S and Xlam"
 msgstr "S и Xlam"
 
@@ -365,11 +368,8 @@ msgstr "S,XN,PR и OMPR"
 msgid "S,Xn,Pr and Ompr"
 msgstr "S,Xn,Pr и Ompr"
 
-msgid "Scale,P,Q and X"
-msgstr "Scale, P, Q и X"
-
-msgid "Shape,Scale,P and Q"
-msgstr "Shape, Scale, P и Q"
+msgid "Shape,Rate,P and Q"
+msgstr "Shape,Rate,P and Q"
 
 #, c-format
 msgid "Size of x is zero : returning NaN.\n"
@@ -402,8 +402,8 @@ msgstr "X,Df и Pnonc"
 msgid "X,Mean and Std"
 msgstr "X,Mean и Std"
 
-msgid "X,Shape and Scale"
-msgstr "X, Shape и Scale"
+msgid "X,Shape and Rate"
+msgstr "X,Shape and Rate"
 
 msgid "X,Y,A and B"
 msgstr "X,Y,A и B"

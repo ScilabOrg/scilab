@@ -22,6 +22,9 @@ msgstr "No s'ha pogut canviar el tipus de lletra de la consola."
 msgid "Could not change the Console Foreground."
 msgstr "No s'ha pogut canviar el color en primer pla de la consola."
 
+msgid "Field"
+msgstr ""
+
 msgid "File or Directory"
 msgstr "Fitxer o directori"
 

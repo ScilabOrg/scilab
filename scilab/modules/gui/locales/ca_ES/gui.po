@@ -1580,6 +1580,10 @@ msgstr ""
 "La propietat '%s' té un valor incorrecte: Ha de ser una cadena de text o un "
 "vector de nombres reals de (1 x %d).\n"
 
+#, c-format
+msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
+msgstr ""
+
 msgid "Xcos"
 msgstr "Xcos"
 

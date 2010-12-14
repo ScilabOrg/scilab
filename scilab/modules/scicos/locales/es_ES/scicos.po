@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-09-22 14:07+0100\n"
-"PO-Revision-Date: 2010-10-08 09:32+0000\n"
+"PO-Revision-Date: 2010-12-03 16:02+0000\n"
 "Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -578,7 +578,7 @@ msgid "Align"
 msgstr "Alinear"
 
 msgid "An Atomic Superblock cannot contain sample clocks"
-msgstr ""
+msgstr "Un superbloque atómico no puede contener relojes de muestra"
 
 msgid "An error occur when evaluating context:"
 msgstr "Ocurrió un error al evaluar el contexto:"
@@ -610,10 +610,10 @@ msgid "Block Documentation"
 msgstr "Documentación de bloque"
 
 msgid "Block ID font name"
-msgstr ""
+msgstr "Tipografía del ID del bloque"
 
 msgid "Block ID font size"
-msgstr ""
+msgstr "Tamaño de tipografía del ID de bloque"
 
 msgid "BrowseTo"
 msgstr ""
@@ -988,7 +988,7 @@ msgstr ""
 
 #, c-format
 msgid "Event: %d activated at t=%f\n"
-msgstr ""
+msgstr "Evento: %d activado en t=%f\n"
 
 msgid "Exit"
 msgstr "Salir"
@@ -1391,7 +1391,7 @@ msgid "No"
 msgstr "No"
 
 msgid "No selected block in the current Scicos window."
-msgstr ""
+msgstr "No hay bloques seleccionados en la ventana actual de Scicos."
 
 msgid "Only  blocks can be selected for this operation."
 msgstr "Sólo los bloques pueden ser seleccionados para esta operación."
@@ -1410,7 +1410,7 @@ msgid "Open a Scicos diagram"
 msgstr "Abrir un diagrama Scicos"
 
 msgid "Open/Set"
-msgstr ""
+msgstr "Abrir/Asignar"
 
 msgid "Pal editor"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-09-22 14:08+0100\n"
-"PO-Revision-Date: 2009-10-22 19:38+0000\n"
+"PO-Revision-Date: 2010-12-06 12:02+0000\n"
 "Last-Translator: Carml <mighty.carml@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,6 +96,9 @@ msgstr "%s: gli argomenti in ingresso %d e %d sono  incompatibili\n"
 
 msgid "Computing determinant: Be patient...\n"
 msgstr "Calcolo del determinante in corso: attendere...\n"
+
+msgid "Introduction"
+msgstr "Introduzione"
 
 msgid "Polynomials"
 msgstr "Polinomi"

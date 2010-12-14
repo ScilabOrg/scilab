@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-09-27 16:24+0200\n"
-"PO-Revision-Date: 2010-06-29 12:07+0000\n"
+"PO-Revision-Date: 2010-12-03 05:08+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -320,6 +320,13 @@ msgstr "%s: помилковий тип вхідних параметрів: т�
 #, c-format
 msgid "%s: Wrong value for input argument #%d.\n"
 msgstr "%s: помилкове значення вхідного параметра №%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: \"%s\", \"%s\" or \"%s\" expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d. Слід використовувати «%s», "
+"«%s» або «%s».\n"
 
 #, c-format
 msgid ""

@@ -1584,6 +1584,10 @@ msgstr ""
 "Valor incorreto para a propriedade \"%s\": esperava-se um texto ou um vetor "
 "linha 1 x %d de números reais.\n"
 
+#, c-format
+msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
+msgstr ""
+
 msgid "Xcos"
 msgstr "Xcos"
 

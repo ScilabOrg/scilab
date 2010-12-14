@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-10-23 00:41+0000\n"
+"PO-Revision-Date: 2010-12-04 11:03+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -135,25 +135,6 @@ msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s: 入力引数 #%d の値が間違っています: ’%s’ を指定してください.\n"
 
 #
-# File: demos/tk/uicontrol.sci, line: 31
-msgid "&?"
-msgstr "その他(&?)"
-
-#
-# File: demos/tk/uicontrol.sci, line: 30
-msgid "&Edit"
-msgstr "編集(&E)"
-
-# File: demos/tk/uicontrol.sci, line: 28
-msgid "&File"
-msgstr "ファイル(&F)"
-
-#
-# File: demos/tk/uicontrol.sci, line: 29
-msgid "&Tools"
-msgstr "ツール(&T)"
-
-#
 # File: sci_gateway/c/sci_TCL_GetVersion.c, line: 43
 msgid "Alpha Release"
 msgstr "アルファリリース"
@@ -162,6 +143,9 @@ msgstr "アルファリリース"
 # File: sci_gateway/c/sci_TCL_GetVersion.c, line: 46
 msgid "Beta Release"
 msgstr "ベータリリース"
+
+msgid "Color"
+msgstr "色"
 
 #
 # File: macros/gettklib.sci, line: 45
@@ -222,10 +206,19 @@ msgstr "環境変数の設定ができません。"
 msgid "Impossible to set system encoding."
 msgstr "システムエンコーディングを設定できません。"
 
+msgid "Puzzle"
+msgstr "パズル"
+
+msgid "Scale"
+msgstr "拡大縮小"
+
 #
 # File: src/notclsci/notclsci.c, line: 52
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Scilab TCL/TK モジュールはインストールされていません。\n"
+
+msgid "Scroll"
+msgstr "スクロール"
 
 #
 # File: src/c/ScilabEval.c, line: 50

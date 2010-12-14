@@ -160,6 +160,10 @@ msgstr ""
 "alcançado.\n"
 
 #, c-format
+msgid "%s: Error while executing %s.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Error while modifying the reference Makefile:\n"
 msgstr "%s: erro quando modificando o Makefile de referência:\n"
 

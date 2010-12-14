@@ -341,6 +341,11 @@ msgstr "%s: L'argument d'entrada #%d té un valor incorrecte.\n"
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument #%d: \"%s\", \"%s\" or \"%s\" expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input argument #%d: %d,''%s'',%d or ''%s'' expected\n"
 msgstr ""
 "%s: L'argument d'entrada #%d té un valor incorrecte: Ha de ser %d, ''%s'', "

@@ -319,7 +319,7 @@ msgstr "%s: Das angegebene System besitzt keine Pole und Nullstellen.\n"
 
 #, c-format
 msgid "%s: Undefined type ''%s''.\n"
-msgstr "%s: Undefinierter Typ ''%s''.\n"
+msgstr "%s: Undefinierter Typ '%s'.\n"
 
 #, c-format
 msgid "%s: WARNING: the A matrix has eigenvalues near the imaginary axis.\n"
@@ -579,7 +579,7 @@ msgstr "%s: falscher Wert von Eingangsargumenten #%d: %d oder %d erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' expected.\n"
-msgstr "%s: falscher Wert für Eingangsargument #%d: ''%s'' erwartet.\n"
+msgstr "%s: falscher Wert für Eingangsargument #%d: '%s' erwartet.\n"
 
 #, c-format
 msgid ""
@@ -639,7 +639,7 @@ msgstr ""
 msgid ""
 "%s: Wrong value for input argument #%d: Time domain must be ''c'' or ''d''.\n"
 msgstr ""
-"%s: falscher Wert für Eingangsargument #%d: Zeitbereich muß in ''c'' oder ''d'' "
+"%s: falscher Wert für Eingangsargument #%d: Zeitbereich muß in 'c' oder 'd' "
 "liegen.\n"
 
 #, c-format

@@ -58,6 +58,10 @@ msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: El tractament '%s' no existeix.\n"
 
 #, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "%s: At least one x data must be strictly positive to compute the bounds and "
 "use logarithmic mode.\n"
@@ -905,6 +909,18 @@ msgstr ""
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr ""
 "%s: Els arguments d'entrada #%d i #%d tenen un valor incorrecte: La seva "
@@ -962,8 +978,14 @@ msgstr "El tractament '%s' no existeix.\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "La propietat '%s' no existeix en aquest tractament.\n"
 
+msgid "... as well as very tiny radii"
+msgstr ""
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "No es pot eliminar un objecte Etiqueta.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr ""
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -975,6 +997,9 @@ msgstr "Tardor"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "%s té una mida incorrecta: primer heu d'augmentar la mida del %s.\n"
+
+msgid "Big radii are supported..."
+msgstr ""
 
 msgid "Bone"
 msgstr "Os"
@@ -1002,9 +1027,6 @@ msgstr ""
 msgid "Color number"
 msgstr "Número de color"
 
-msgid "Colormap"
-msgstr "Mapa de colors"
-
 msgid "Common X axis"
 msgstr ""
 
@@ -1017,6 +1039,9 @@ msgstr "Coure"
 
 msgid "Customize your complex function"
 msgstr "Personalitzeu la vostra funció complexa"
+
+msgid "Data on the full circle ..."
+msgstr ""
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -1165,6 +1190,9 @@ msgstr "Mode per múltiples datatips"
 msgid "Name"
 msgstr "Nom"
 
+msgid "Negative radii are supported:"
+msgstr ""
+
 msgid "No Callback is associated with this Entity.\n"
 msgstr "No hi ha cap Callback associat a aquesta entitat.\n"
 
@@ -1215,10 +1243,17 @@ msgstr "No es pot modificar directament la propietat pare.\n"
 msgid "Pink"
 msgstr "Rosa"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr "Envieu l'error a dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
+msgstr ""
+
+msgid "Press enter to go on..."
 msgstr ""
 
 msgid "Problem with sciInitFontContext\n"
@@ -1242,8 +1277,14 @@ msgstr "S'ha deshabilitat el mòdul gràfic Scilab en mode -nogui o -nwni.\n"
 msgid "Select tip orientation"
 msgstr "Seleccioneu la orientació"
 
+msgid "Several curves may be plotted at the same time"
+msgstr ""
+
 msgid "Spring"
 msgstr "Primavera"
+
+msgid "Still a single quadrant..."
+msgstr ""
 
 msgid "Summer"
 msgstr "Estiu"
@@ -1592,11 +1633,20 @@ msgstr "Primer heu d'especificar un %s per aquest objecte.\n"
 msgid "automatic"
 msgstr "automàtic"
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+
 msgid "lower left"
 msgstr "inferior esquerre"
 
 msgid "lower right"
 msgstr "inferior esquerra"
+
+msgid "on 2 quadrants..."
+msgstr ""
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr ""
 
 msgid "select the curve tip display function"
 msgstr "seleccioneu la funció de visualització de la corba"

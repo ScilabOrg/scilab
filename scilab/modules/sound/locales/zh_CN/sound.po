@@ -103,6 +103,9 @@ msgstr ".wav文件不包含RIFF标识。"
 msgid ".wav file does not contain the wave identifier."
 msgstr ".wav文件不包含wave标识。"
 
+msgid "A complete picture of the sound."
+msgstr ""
+
 msgid "Cannot play file."
 msgstr "无法播放文件。"
 
@@ -123,6 +126,9 @@ msgstr "读wav文件时发生错误。"
 
 msgid "Error while writing sound file."
 msgstr "写声音文件时出错。"
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr ""
 
 msgid "Incorrect chunk size information in RIFF file."
 msgstr "在RIFF文件中有不正确的块（chunk）大小信息。"
@@ -160,3 +166,6 @@ msgstr "无法识别的数据格式。"
 
 msgid "only 8/16/24/32 bits for the encoding."
 msgstr "只能为8/16/24/32位编码。"
+
+msgid "see ''mapsound'' function"
+msgstr ""

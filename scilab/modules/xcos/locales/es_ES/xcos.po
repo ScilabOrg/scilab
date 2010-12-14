@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-10-30 21:46+0000\n"
-"Last-Translator: Sergio I. <korgzak@gmail.com>\n"
+"PO-Revision-Date: 2010-12-03 15:54+0000\n"
+"Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -274,8 +274,17 @@ msgstr "Alinear Bloques"
 msgid "Annotations"
 msgstr "Anotaciones"
 
+msgid "Automotive Suspension"
+msgstr "Suspensión de automotor"
+
+msgid "Ball on a Platform"
+msgstr "Bola en una plataforma"
+
 msgid "Based on Scicos"
 msgstr "Basado en Scicos"
+
+msgid "Basic controller"
+msgstr "Controlador básico"
 
 msgid "Block Help"
 msgstr "Ayuda de Bloque"
@@ -292,6 +301,15 @@ msgstr "Color de Borde"
 msgid "Bottom"
 msgstr "Inferior"
 
+msgid "Bouncing Ball"
+msgstr "Bola rebotando"
+
+msgid "Bouncing Balls"
+msgstr "Bolas rebotando"
+
+msgid "Bridge Rectifer"
+msgstr "Rectificador de Puente"
+
 msgid "CVODE"
 msgstr "CVODE"
 
@@ -304,6 +322,9 @@ msgstr "Categoría"
 msgid "Center"
 msgstr "Centrar"
 
+msgid "Chaos Modelica"
+msgstr "Chaos Modelica"
+
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr ""
@@ -315,6 +336,9 @@ msgstr "Cerrar"
 
 msgid "Code generation"
 msgstr "Generación de código"
+
+msgid "Colpitts oscillator"
+msgstr "Oscilador de Colpitts"
 
 msgid "Command port must be connected to control port"
 msgstr "El puerto de comando debe estar conectado al puerto de control"
@@ -337,8 +361,14 @@ msgstr "Compilando"
 msgid "Computing"
 msgstr "Calculando"
 
+msgid "Cont.Plant-Hybrid Observer"
+msgstr ""
+
 msgid "Continuous time systems"
 msgstr "Sistemas de tiempo continuo"
+
+msgid "Control Systems"
+msgstr "Sistemas de control"
 
 msgid "Copyright (c) 1989-2009 (INRIA)"
 msgstr "Copyright (c) 1989-2009 (INRIA)"
@@ -354,6 +384,12 @@ msgstr "Crear categoría"
 
 msgid "Customize"
 msgstr "Personalizar"
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
 
 msgid "Debug block calls without trace"
 msgstr "Depurar llamadas de bloques sin traza"
@@ -387,11 +423,20 @@ msgstr ""
 msgid "Diff. States"
 msgstr ""
 
+msgid "Differential amplifier"
+msgstr "Aplificador diferencial"
+
 msgid "Discontinuities"
 msgstr "Discontinuidades"
 
 msgid "Discrete"
 msgstr "Discreto"
+
+msgid "Discrete Controller"
+msgstr "Controlador discreto"
+
+msgid "Discrete Kalman Filter"
+msgstr "Filtro discreto de Kalman"
 
 msgid "Discrete time systems"
 msgstr "Sistemas de tiempo discreto"
@@ -414,6 +459,9 @@ msgstr "Editable"
 msgid "Electrical"
 msgstr "Eléctrica"
 
+msgid "Electrical Systems"
+msgstr "Sistemas Eléctricos"
+
 msgid "Enable"
 msgstr "Activar"
 
@@ -422,6 +470,9 @@ msgstr "Ecuaciones"
 
 msgid "Error"
 msgstr "Error"
+
+msgid "Error on export"
+msgstr "Error al exportar"
 
 msgid "Event handling"
 msgstr "Gestión de eventos"
@@ -455,6 +506,9 @@ msgstr "Extendido"
 
 msgid "Failed to load Diagram"
 msgstr "Fallo al cargar el Diagrama"
+
+msgid "Fibonacci Numbers"
+msgstr "Números de Fibonacci"
 
 msgid "File"
 msgstr "Archivo"
@@ -516,11 +570,17 @@ msgstr "Global"
 msgid "Goto %s"
 msgstr "Ir a %s"
 
+msgid "Goto/From blocks"
+msgstr ""
+
 msgid "Grid"
 msgstr "Cuadrilla"
 
 msgid "Horizontal"
 msgstr "Horizontal"
+
+msgid "Hydraulics blocks"
+msgstr "Bloques hidráulicos"
 
 msgid "IDA"
 msgstr "IDA"
@@ -564,8 +624,14 @@ msgstr "Tolerancia absoluta del integrador"
 msgid "Integrator relative tolerance"
 msgstr "Tolerancia relativa del integrador"
 
+msgid "Inverted Pendulum"
+msgstr "Péndulo invertido"
+
 msgid "Italic"
 msgstr "Itálica"
+
+msgid "Kalman Filter"
+msgstr "Filtro de Kalman"
 
 msgid "Left"
 msgstr "Izquierda"
@@ -591,8 +657,17 @@ msgstr "Cargando bloque"
 msgid "Loading user defined palettes"
 msgstr "Cargando las paletas definidas por el usuario"
 
+msgid "Logic AND gate"
+msgstr "Compuerta lógica AND"
+
+msgid "Logic NOR gate"
+msgstr "Compuerta lógica NOR"
+
 msgid "Lookup Tables"
 msgstr "Buscar Tablas"
+
+msgid "Lorentz butterfly"
+msgstr "Mariposa de Lorentz"
 
 msgid "Masked SuperBlock editor"
 msgstr "Editor Masked SuperBlock"
@@ -606,11 +681,17 @@ msgstr "Matriz"
 msgid "Max integration time interval"
 msgstr "Intervalo de tiempo máximo para la integración"
 
+msgid "Mechanical Systems"
+msgstr "Sistemas Mecánicos"
+
 msgid "Middle"
 msgstr "Medio"
 
 msgid "Mirror"
 msgstr "Reflejar"
+
+msgid "Modelica demos"
+msgstr "Demos de Modelica"
 
 msgid "Modelica initialize"
 msgstr "Inicializar Modelica"
@@ -645,6 +726,15 @@ msgstr "Normal 100%"
 msgid "Ok"
 msgstr "Ok"
 
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Old demos"
+msgstr "Demos antiguos"
+
+msgid "OpAmp amplifier"
+msgstr ""
+
 msgid "Open"
 msgstr "Abrir"
 
@@ -658,10 +748,13 @@ msgid "Palettes"
 msgstr "Paletas"
 
 msgid "Parameter embedding"
-msgstr ""
+msgstr "Embeber parámetros"
 
 msgid "Per block execution trace and Debug block calls"
 msgstr "Ejecución de traza y depuración por bloque"
+
+msgid "Please specify a file format"
+msgstr "Por favor especifique un formato de archivo"
 
 msgid "Please take a look into the Scilab console"
 msgstr "Por favor revise la consola de Scilab"
@@ -675,11 +768,20 @@ msgstr ""
 "El puerto ya esta conectado, por favor seleccione un puerto sin conexión o "
 "un enlace válido."
 
+msgid "Preview"
+msgstr "Previsualizar"
+
 msgid "Print"
 msgstr "Imprimir"
 
 msgid "Quit Xcos"
 msgstr "Salir de Xcos"
+
+msgid "RLC Circuit"
+msgstr "Circuito RLC"
+
+msgid "RLC circuit"
+msgstr "circuito RLC"
 
 msgid "Real time scaling"
 msgstr "Escalamiento en tiempo real"
@@ -694,10 +796,10 @@ msgid "Region to superblock"
 msgstr "Región al superbloque"
 
 msgid "Relaxed parameters"
-msgstr ""
+msgstr "Parámetros relajados"
 
 msgid "Relaxed variables"
-msgstr ""
+msgstr "Variables relajadas"
 
 msgid "Remove"
 msgstr "Quitar"
@@ -729,6 +831,9 @@ msgstr "Guardar bloque de Interfaz Gráfica de Usuario"
 msgid "Saving diagram"
 msgstr "Guardando diagrama"
 
+msgid "Scicos data types"
+msgstr "tipos de datos de Scicos"
+
 msgid "Scicos file"
 msgstr "Archivo de Scicos"
 
@@ -739,6 +844,9 @@ msgstr "El módulo «%s» de Scilab está desactivado en modo -nogui o -nwni.\n"
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "El módulo '%s' de Scilab no está instalado.\n"
+
+msgid "Scilab block"
+msgstr "Bloque de Scilab"
 
 msgid "Scilab file"
 msgstr "Archivo de Scilab"
@@ -768,11 +876,20 @@ msgstr "Mostrar el diagrama padre"
 msgid "Show/Hide shadow"
 msgstr "Mostrar/Ocultar sombra"
 
+msgid "Signal Builder"
+msgstr "Constructor de señales"
+
 msgid "Signal Processing"
 msgstr "Procesamiento de Señales"
 
 msgid "Signal Routing"
 msgstr "Enrutamiento de Señal"
+
+msgid "Simple Demo"
+msgstr "Demo simple"
+
+msgid "Simple Thermostat"
+msgstr "Termostato simple"
 
 msgid "Simulation"
 msgstr "Simulación"
@@ -795,6 +912,9 @@ msgstr "Solver 0 (CVODE) - 100 (IDA)"
 msgid "Sources"
 msgstr "Fuentes"
 
+msgid "Standard demos"
+msgstr "Demos estándar"
+
 msgid "Start"
 msgstr "Iniciar"
 
@@ -806,6 +926,15 @@ msgstr "Directo"
 
 msgid "Superblock mask"
 msgstr "Máscara del superbloque"
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr "Buscar en la tabla"
+
+msgid "Temperature Controller"
+msgstr "Controlador de temperatura"
 
 msgid "Text Color"
 msgstr "Color de Texto"
@@ -851,6 +980,9 @@ msgstr "Herramientas"
 
 msgid "Top"
 msgstr "Superior"
+
+msgid "Transformer"
+msgstr "Transformador"
 
 msgid "Unable to delete "
 msgstr "Imposible de eliminar "
@@ -935,6 +1067,9 @@ msgstr "Ver en Scicos"
 msgid "Viewport"
 msgstr "Puerto de vista"
 
+msgid "Water tank"
+msgstr "Tanque de agua"
+
 msgid "Will try to continue..."
 msgstr "Intentará continuar..."
 
@@ -979,8 +1114,14 @@ msgstr ""
 "de Scilab.<br/>Estas instrucciones son evaluadas una vez confirmadas.(i.e. "
 "hace click en OK, por Eval y cada vez se carga un diagrama.)"
 
+msgid "Zero Crossing"
+msgstr ""
+
 msgid "Zero crossing detection"
 msgstr "Detección de cruce por cero"
+
+msgid "_IF_ Scicos block"
+msgstr ""
 
 msgid "comment"
 msgstr "comentario"

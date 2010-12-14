@@ -160,6 +160,10 @@ msgstr ""
 "%s: kann gemeinsame Dateien nicht laden. Maximale Einträge %d erreicht.\n"
 
 #, c-format
+msgid "%s: Error while executing %s.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Error while modifying the reference Makefile:\n"
 msgstr "%s: Fehler beim Modifizieren des Referenz Makefiles:\n"
 

@@ -114,23 +114,14 @@ msgstr ""
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s: Wrong value for input argument #%d: '%s' expected.\n"
 
-msgid "&?"
-msgstr "&?"
-
-msgid "&Edit"
-msgstr "&Edita"
-
-msgid "&File"
-msgstr "&Fitxer"
-
-msgid "&Tools"
-msgstr "&Eines"
-
 msgid "Alpha Release"
 msgstr "Versió alfa"
 
 msgid "Beta Release"
 msgstr "Versió beta"
+
+msgid "Color"
+msgstr ""
 
 #, c-format
 msgid "Error %s while loading library %s"
@@ -168,8 +159,17 @@ msgstr "No s'ha pogut definir la variable d'entorn."
 msgid "Impossible to set system encoding."
 msgstr "No s'ha pogut establir la codificació del sistema."
 
+msgid "Puzzle"
+msgstr ""
+
+msgid "Scale"
+msgstr ""
+
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "El mòdul TCL/TK del Scilab no està instal·lat.\n"
+
+msgid "Scroll"
+msgstr ""
 
 #, c-format
 msgid "TCL_EvalScilabCmd %s"

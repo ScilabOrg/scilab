@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-02-27 18:16+0100\n"
-"PO-Revision-Date: 2010-09-17 12:59+0000\n"
+"PO-Revision-Date: 2010-12-03 14:39+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -579,6 +579,10 @@ msgid ""
 msgstr "%s: 入力引数 #%d の型が間違っています: 文字列またはスカラーを指定してください.\n"
 
 #, c-format
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
+msgstr "%s: 入力引数 #%d の型が間違っています: 整数値を指定してください.\n"
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: Compiled macro expected.\n"
 msgstr "%s: 入力引数 #%d の型が間違っています: コンパイル済みのマクロを指定してください.\n"
 
@@ -676,6 +680,10 @@ msgstr "%s: 入力引数 #%d の値が間違っています: 整数を指定し�
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A integer expected.\n"
 msgstr "%s: 入力引数 #%d の値が間違っています: 整数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgstr "%s: 入力引数 #%d の値が間違っています: 整数値を指定してください.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-10-03 17:11+0200\n"
-"PO-Revision-Date: 2009-10-26 00:15+0000\n"
+"PO-Revision-Date: 2010-12-03 14:52+0000\n"
 "Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr "No se pudo cambiar la tipografía de consola."
 
 msgid "Could not change the Console Foreground."
 msgstr "No se ha podido cambiar el primer plano de la consola."
+
+msgid "Field"
+msgstr "Campo"
 
 msgid "File or Directory"
 msgstr "Archivo o Directorio"

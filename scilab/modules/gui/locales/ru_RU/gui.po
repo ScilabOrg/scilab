@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gui-ru\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-09-21 20:07+0000\n"
+"PO-Revision-Date: 2010-12-03 01:18+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <localization@lists.scilab.org>\n"
 "MIME-Version: 1.0\n"
@@ -84,11 +84,11 @@ msgstr "%s: Не осталось доступной памяти.\n"
 
 #, c-format
 msgid "%s: No results found for property ''%s'' and value ''%s''.\n"
-msgstr ""
+msgstr "%s: Нет найденных результатов для свойства «%s» и значения «%s».\n"
 
 #, c-format
 msgid "%s: No results found.\n"
-msgstr ""
+msgstr "%s: Нет найденных результатов.\n"
 
 #, c-format
 msgid "%s: Only available under 'STANDARD' mode.\n"
@@ -1492,6 +1492,10 @@ msgid ""
 msgstr ""
 "Неверное значение свойства «%s»: ожидалась строка или (1 x %d)-вектор-строка "
 "вещественных чисел.\n"
+
+#, c-format
+msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
+msgstr "Неверное значение свойства «%s»: ожидались числа между 0 и 1.\n"
 
 msgid "Xcos"
 msgstr "Xcos"

@@ -60,6 +60,9 @@ msgstr "Feld für Graphen"
 msgid "Scilab Command"
 msgstr "Scilab Befehl"
 
+msgid "Scilab Fields"
+msgstr ""
+
 msgid "Scilab Function"
 msgstr "Scilab Funktion"
 

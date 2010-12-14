@@ -254,6 +254,15 @@ msgstr ""
 msgid "Degrees of freedom nonpositive\n"
 msgstr ""
 
+msgid "Erlang random variable"
+msgstr ""
+
+msgid "Exponential random variable"
+msgstr ""
+
+msgid "Hyper geometric random variable"
+msgstr ""
+
 msgid "Low > High\n"
 msgstr ""
 
@@ -333,6 +342,9 @@ msgstr ""
 msgid "P(%d,%d) > 1\n"
 msgstr ""
 
+msgid "Poisson random variable"
+msgstr ""
+
 #, c-format
 msgid "Rand(...,'bet',..): A or B < %f\n"
 msgstr ""
@@ -347,6 +359,15 @@ msgid "SD < 0.0\n"
 msgstr ""
 
 msgid "Scilab randlib interface not installed.\n"
+msgstr ""
+
+msgid "Simulation"
+msgstr ""
+
+msgid "Simulation of a binomial random variable"
+msgstr ""
+
+msgid "Simulation of a discrete random variable"
 msgstr ""
 
 #, c-format
@@ -367,13 +388,31 @@ msgstr ""
 msgid "The first component of the mt state mt, must be an int in [1, 624]\n"
 msgstr ""
 
+msgid "Theory"
+msgstr ""
+
 msgid "This information concerns only the clcg4 generator\n"
+msgstr ""
+
+msgid "Weibull random variable"
 msgstr ""
 
 msgid "X0 is empty\n"
 msgstr ""
 
 msgid "a and b must integers with (b-a+1) <= 2147483561"
+msgstr ""
+
+msgid "binomial random variable"
+msgstr ""
+
+msgid "discrete random variable"
+msgstr ""
+
+msgid "discrete uniform random variable"
+msgstr ""
+
+msgid "geometric random variable"
 msgstr ""
 
 msgid "grand(..'gam',A,R) : A <= 0.0 or R <= 0.0\n"

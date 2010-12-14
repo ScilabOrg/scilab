@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-09-27 16:24+0200\n"
-"PO-Revision-Date: 2010-07-10 21:17+0000\n"
+"PO-Revision-Date: 2010-12-03 01:14+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -295,6 +295,13 @@ msgstr "%s: Неверный тип входных параметров: ожи�
 #, c-format
 msgid "%s: Wrong value for input argument #%d.\n"
 msgstr "%s: Неверное значение входного параметра №%d.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: \"%s\", \"%s\" or \"%s\" expected.\n"
+msgstr ""
+"%s: Неверное значение входного параметра №%d: ожидалось «%s», «%s» или "
+"«%s».\n"
 
 #, c-format
 msgid ""

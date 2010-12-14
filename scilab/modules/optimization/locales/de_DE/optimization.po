@@ -110,6 +110,11 @@ msgstr ""
 "%s anstattdessen."
 
 #, c-format
+msgid ""
+"%s: H_form must be default,blockmat or hypermat, but current H_form=%s\n"
+msgstr ""
+
+#, c-format
 msgid "%s: History disabled ; enable -storehistory option."
 msgstr "%s: Verlauf abgeschaltet; schalte Option -storehistory an."
 
@@ -162,7 +167,7 @@ msgid ""
 "%s: No default options available: the function ''%s'' does not exist on the "
 "path."
 msgstr ""
-"%s: keine voreingestellten Optionen verfügbar: die Funktion ''%s'' existiert "
+"%s: keine voreingestellten Optionen verfügbar: die Funktion '%s' existiert "
 "im Pfad nicht."
 
 #, c-format
@@ -230,6 +235,10 @@ msgstr ""
 #, c-format
 msgid "%s: Q is not symmetric positive definite.\n"
 msgstr "%s: Q ist nicht symetrisch positiv definit.\n"
+
+#, c-format
+msgid "%s: Q must be orthogonal.\n"
+msgstr ""
 
 #, c-format
 msgid ""
@@ -408,13 +417,13 @@ msgstr ""
 msgid ""
 "%s: The value of the ''OutputFcn'' option is neither a function nor a list."
 msgstr ""
-"%s: der Wert von ''OutputFcn'' Option ist weder eine Funktion noch eine Liste."
+"%s: der Wert von 'OutputFcn' Option ist weder eine Funktion noch eine Liste."
 
 #, c-format
 msgid ""
 "%s: The value of the ''PlotFcns'' option is neither a function nor a list."
 msgstr ""
-"%s: der Wert von ''PlotFcns'' Option ist weder eine Funktion noch eine Liste."
+"%s: der Wert von 'PlotFcns' Option ist weder eine Funktion noch eine Liste."
 
 #, c-format
 msgid ""
@@ -585,11 +594,11 @@ msgstr "%s: unbekannter Wert %s für -simplex0method Option."
 
 #, c-format
 msgid "%s: Unrecognized parameter name ''%s''."
-msgstr "%s: nicht erkannter Parameter Name ''%s''."
+msgstr "%s: nicht erkannter Parameter Name '%s'."
 
 #, c-format
 msgid "%s: Unrecognized value ''%s'' for ''Display'' option."
-msgstr "%s: nicht erkannter Wert ''%s'' für 'Display' Option."
+msgstr "%s: nicht erkannter Wert '%s' für 'Display' Option."
 
 #, c-format
 msgid "%s: Weighting matrix must be square.\n"
@@ -598,6 +607,12 @@ msgstr "%s: Gewichtungs-Matrix muß quadratisch sein.\n"
 #, c-format
 msgid "%s: Wrong number of arguments : %d expected while %d given"
 msgstr "%s: falscher Wert für Argumente: %d erwartet, aber %d gegeben."
+
+#, c-format
+msgid ""
+"%s: Wrong number of elements in input argument #%d: At least %d elements "
+"expected, but current number is %d.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input argument(s).\n"
@@ -623,6 +638,12 @@ msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: Anzahl an Spalten %d erwartet.\n"
 
 #, c-format
+msgid ""
+"%s: Wrong type for element #%d in input argument #%d: A function is "
+"expected, but current type is %s.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: A function expected.\n"
 msgstr ""
 "%s: falsche Größe für Eingangsargument #%d: eine Funktion erwartet.\n"
@@ -641,6 +662,75 @@ msgstr "%s: falscher Typ für Eingangsargument #%s: externer erwartet.\n"
 #, c-format
 msgid "%s: x0 is not feasible."
 msgstr "%s: x0 ist nicht durchführbar."
+
+msgid "...Done\n"
+msgstr ""
+
+msgid "A new method of constrained optimization \n"
+msgstr ""
+
+msgid "Column #1: number of dimensions\n"
+msgstr ""
+
+msgid "Column #2: number of function evaluations\n"
+msgstr ""
+
+msgid "Column #3: number of iterations\n"
+msgstr ""
+
+msgid "Column #4: convergence rate (lower is better)\n"
+msgstr ""
+
+msgid "Computation of optimal parameters"
+msgstr ""
+
+msgid "Configuring nmplot object...\n"
+msgstr ""
+
+msgid "Creating nmplot object ...\n"
+msgstr ""
+
+msgid "Creating nmplot object...\n"
+msgstr ""
+
+msgid "Creating object ...\n"
+msgstr ""
+
+msgid "Creating object...\n"
+msgstr ""
+
+msgid "Defining Han function...\n"
+msgstr ""
+
+msgid "Defining McKinnon function...\n"
+msgstr ""
+
+msgid "Defining Rosenbrock Post Office function...\n"
+msgstr ""
+
+msgid "Defining Rosenbrock function ...\n"
+msgstr ""
+
+msgid "Defining Rosenbrock function...\n"
+msgstr ""
+
+msgid "Defining initial simplex coordinates...\n"
+msgstr ""
+
+msgid "Defining quadratic function ...\n"
+msgstr ""
+
+msgid "Defining quadratic function...\n"
+msgstr ""
+
+msgid "Derivative"
+msgstr ""
+
+msgid "End of Optimization\n"
+msgstr ""
+
+msgid "End of demo.\n"
+msgstr ""
 
 #, c-format
 msgid "Error in dgels, info = %d.\n"
@@ -665,14 +755,172 @@ msgstr "Fehler in dtrcon, info = %d.\n"
 msgid "F(x)*Z has a negative eigenvalue.\n"
 msgstr "F(x)*Zhat einen negativen Eigenwert.\n"
 
+msgid "Function Value Average"
+msgstr ""
+
+msgid "Genetic algorithms"
+msgstr ""
+
+msgid ""
+"Han and Neumann. Effect of dimensionality on the nelder-mead simplex method. "
+"Optimization Methods and Software, 2006.\n"
+msgstr ""
+
+msgid "Illustrates Box'' algorithm on Box problem A.\n"
+msgstr ""
+
+msgid "Illustrates Box'' algorithm on Box problem B.\n"
+msgstr ""
+
+msgid "Illustrates Box'' algorithm on Rosenbrock''s Post Office Problem.\n"
+msgstr ""
+
+msgid ""
+"Illustrates Box'' algorithm on a simply bounds-constrained optimization "
+"problem.\n"
+msgstr ""
+
+msgid ""
+"Illustrates that the Nelder-Mead algorithm performs correctly on a badly "
+"quadratic test case.\n"
+msgstr ""
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm does NOT perform "
+"well on Rosenbrock test case.\n"
+msgstr ""
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm performs badly on "
+"a badly quadratic test case.\n"
+msgstr ""
+
+msgid ""
+"Illustrates that the fixed-shape Spendley et al. algorithm performs well on "
+"a quadratic test case.\n"
+msgstr ""
+
+msgid ""
+"Illustrates that the variable-shape Nelder-Mead algorithm performs well on a "
+"quadratic test case.\n"
+msgstr ""
+
+msgid "Illustrates the 1st counter example given by Han et al.\n"
+msgstr ""
+
+msgid "Illustrates the 2nd counter example given by Han et al.\n"
+msgstr ""
+
+msgid ""
+"Illustrates the sensitivity to dimension of the Nelder-Mead algorithm\n"
+msgstr ""
+
+msgid "Initialization\n"
+msgstr ""
+
+msgid "Iterations"
+msgstr ""
+
 msgid "L must be at least one.\n"
 msgstr "L muß mindestens ein sein.\n"
+
+msgid "LQV"
+msgstr ""
+
+msgid "Logarithm Maximum Oriented length"
+msgstr ""
+
+msgid "Logarithm Minimum Function Value"
+msgstr ""
 
 msgid "Matrices Fi, i=1,...,m are linearly dependent.\n"
 msgstr "Matrizen Fi, i=1,...,m sind linear abhängig.\n"
 
+msgid "Maximum Oriented length"
+msgstr ""
+
+#, c-format
+msgid "Maximum dimension:%d\n"
+msgstr ""
+
+msgid "Minimum Function Value"
+msgstr ""
+
+msgid "Non linear data fitting"
+msgstr ""
+
+msgid "Number of function evaluations"
+msgstr ""
+
+msgid "Number of parameters"
+msgstr ""
+
+msgid "Optimisation"
+msgstr ""
+
 msgid "Optimization and Simulation"
 msgstr "Optimierung und Simulation"
+
+msgid "Output"
+msgstr ""
+
+msgid "Plot"
+msgstr ""
+
+msgid "Plot contour (please wait) ...\n"
+msgstr ""
+
+msgid "Plot contour (please wait)...\n"
+msgstr ""
+
+msgid "Plotting contour (please wait) ...\n"
+msgstr ""
+
+msgid "Plotting contour (please wait)...\n"
+msgstr ""
+
+msgid "Plotting history of fbar ...\n"
+msgstr ""
+
+msgid "Plotting history of fopt ...\n"
+msgstr ""
+
+msgid "Plotting history of sigma ...\n"
+msgstr ""
+
+msgid "Problem A\n"
+msgstr ""
+
+msgid "Problem B\n"
+msgstr ""
+
+msgid "Rate of convergence"
+msgstr ""
+
+#, c-format
+msgid "Relative error = %e\n"
+msgstr ""
+
+msgid "Rosenbrock"
+msgstr ""
+
+msgid "Running optimization ...\n"
+msgstr ""
+
+msgid "Searching (please wait) ...\n"
+msgstr ""
+
+msgid "Searching (please wait)...\n"
+msgstr ""
+
+msgid "Setup output files...\n"
+msgstr ""
+
+msgid "Simulated Annealing"
+msgstr ""
+
+msgid "Spaceship landing trajectory"
+msgstr ""
 
 msgid ""
 "The matrices F_i, i=1,...,m are linearly dependent (or the initial points "
@@ -692,15 +940,103 @@ msgstr ""
 msgid "Z0 is not positive definite.\n"
 msgstr "Z0 ist nicht positiv definit.\n"
 
+msgid "and a comparison with other methods.\n"
+msgstr ""
+
 #, c-format
 msgid "blck_szs[%d] must be at least one.\n"
 msgstr "blck_szs[%d] muß mindestens eins sein.\n"
 
+#, c-format
+msgid "f computed = %f\n"
+msgstr ""
+
+#, c-format
+msgid "f expected = %f\n"
+msgstr ""
+
+msgid "fminsearch"
+msgstr ""
+
+msgid "fminsearch - Option Display"
+msgstr ""
+
+msgid "fminsearch - Output Function"
+msgstr ""
+
+msgid "fminsearch - Plot F"
+msgstr ""
+
+msgid "fminsearch - Plot Func Count"
+msgstr ""
+
+msgid "fminsearch - Plot X"
+msgstr ""
+
+msgid "fminsearch - Rosenbrock"
+msgstr ""
+
+msgid "fminsearch - tolx"
+msgstr ""
+
 msgid "m must be at least one.\n"
 msgstr "m muß mindestens ein sein.\n"
+
+msgid "neldermead - Box A"
+msgstr ""
+
+msgid "neldermead - Box B"
+msgstr ""
+
+msgid "neldermead - Box Bounds"
+msgstr ""
+
+msgid "neldermead - Box Post"
+msgstr ""
+
+msgid "neldermead - Dimensionnality"
+msgstr ""
+
+msgid "neldermead - Output Command"
+msgstr ""
+
+msgid "neldermead - Rosenbrock Variable"
+msgstr ""
+
+msgid "nmplot - Han #1"
+msgstr ""
+
+msgid "nmplot - Han #2"
+msgstr ""
+
+msgid "nmplot - McKinnon #1"
+msgstr ""
+
+msgid "nmplot - McKinnon #2"
+msgstr ""
+
+msgid "nmplot - Quadratic Fixed #1"
+msgstr ""
+
+msgid "nmplot - Quadratic Fixed #2"
+msgstr ""
+
+msgid "nmplot - Rosenbrock Fixed"
+msgstr ""
+
+msgid "nmplot - Rosenbrock Variable"
+msgstr ""
 
 msgid "nu must be at least 1.0.\n"
 msgstr "nu muß mindestens 1.0. sein.\n"
 
+#, c-format
+msgid "x0 = %s\n"
+msgstr ""
+
 msgid "x0 is not strictly primal feasible.\n"
 msgstr "x0 ist nicht hauptsächlich strikt ursprünglich.\n"
+
+#, c-format
+msgid "x0=%s\n"
+msgstr ""

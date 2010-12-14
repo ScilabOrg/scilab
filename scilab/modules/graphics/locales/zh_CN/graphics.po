@@ -56,6 +56,10 @@ msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s：句柄“%s”不存在。\n"
 
 #, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "%s: At least one x data must be strictly positive to compute the bounds and "
 "use logarithmic mode.\n"
@@ -711,6 +715,18 @@ msgstr "%s：输入参数 #%d 的值错误：指定的范围不正确。\n"
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr "%s：输入参数 #%d 和 #%d 的值错误：长度不一致。\n"
 
@@ -763,7 +779,13 @@ msgstr "句柄“%s”不存在或不再存在。\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "属性“%s”不为这个句柄存在。\n"
 
+msgid "... as well as very tiny radii"
+msgstr ""
+
 msgid "A Label object cannot be deleted.\n"
+msgstr ""
+
+msgid "A partial viewport may be set with clipping"
 msgstr ""
 
 #, c-format
@@ -776,6 +798,9 @@ msgstr "秋季"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "%s 的大小不足：您必须先增加 %s 的大小。\n"
+
+msgid "Big radii are supported..."
+msgstr ""
 
 msgid "Bone"
 msgstr "骨"
@@ -801,9 +826,6 @@ msgstr "颜色矩阵是空的：不能向当前的颜色表建立线性的颜色
 msgid "Color number"
 msgstr "颜色编号"
 
-msgid "Colormap"
-msgstr "颜色表"
-
 msgid "Common X axis"
 msgstr ""
 
@@ -815,6 +837,9 @@ msgstr "铜"
 
 msgid "Customize your complex function"
 msgstr "定制您的复杂函数"
+
+msgid "Data on the full circle ..."
+msgstr ""
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -955,6 +980,9 @@ msgstr ""
 msgid "Name"
 msgstr "名称"
 
+msgid "Negative radii are supported:"
+msgstr ""
+
 msgid "No Callback is associated with this Entity.\n"
 msgstr "没有回调函数跟此实体联系。\n"
 
@@ -1000,10 +1028,17 @@ msgstr "母属性不能直接被修改。\n"
 msgid "Pink"
 msgstr "粉色"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr "请把此缺陷报告给：dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
+msgstr ""
+
+msgid "Press enter to go on..."
 msgstr ""
 
 msgid "Problem with sciInitFontContext\n"
@@ -1027,8 +1062,14 @@ msgstr "在 -nogui 或 -nwni 模式下 Scilab 的图形模块被禁用。\n"
 msgid "Select tip orientation"
 msgstr ""
 
+msgid "Several curves may be plotted at the same time"
+msgstr ""
+
 msgid "Spring"
 msgstr "春季"
+
+msgid "Still a single quadrant..."
+msgstr ""
 
 msgid "Summer"
 msgstr "夏季"
@@ -1331,10 +1372,19 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+
 msgid "lower left"
 msgstr ""
 
 msgid "lower right"
+msgstr ""
+
+msgid "on 2 quadrants..."
+msgstr ""
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
 msgstr ""
 
 msgid "select the curve tip display function"

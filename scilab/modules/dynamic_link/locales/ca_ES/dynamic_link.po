@@ -163,6 +163,10 @@ msgstr ""
 "%d.\n"
 
 #, c-format
+msgid "%s: Error while executing %s.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Error while modifying the reference Makefile:\n"
 msgstr "%s: S'ha produït un error en modificar la referència del Makefile:\n"
 

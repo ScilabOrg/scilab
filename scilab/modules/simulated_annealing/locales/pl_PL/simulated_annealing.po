@@ -32,5 +32,14 @@ msgstr "%s: cit_f jest obowiązkowy"
 msgid "%s: error - wrong accept type"
 msgstr "%s: błąd - zły typ akceptacji"
 
+msgid "Please wait ..."
+msgstr ""
+
+msgid "Simulated Annealing"
+msgstr ""
+
+msgid "Simulated Annealing and Ising problem"
+msgstr ""
+
 msgid "optim_sa: sa_f is mandatory"
 msgstr "optim_sa: sa_f jest obowiązkowy"

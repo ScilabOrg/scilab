@@ -307,6 +307,11 @@ msgstr "%s: 第 %d 輸入參數的數值錯誤.\n"
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument #%d: \"%s\", \"%s\" or \"%s\" expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input argument #%d: %d,''%s'',%d or ''%s'' expected\n"
 msgstr "%s: 第 %d 個輸入參數數值錯誤: %d,''%s'',%d or 應為 ''%s''\n"
 

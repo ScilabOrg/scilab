@@ -178,6 +178,10 @@ msgstr "JNI: 資憶體不足"
 msgid "JVM interface disabled in -nogui or -nwni modes.\n"
 msgstr "JVM 介面在-nogui or -nwni模式下不作用.\n"
 
+#, c-format
+msgid "Options:\n"
+msgstr ""
+
 msgid "Scilab Java module not installed.\n"
 msgstr "Scilab java模組未安裝.\n"
 

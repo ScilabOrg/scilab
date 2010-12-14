@@ -255,6 +255,11 @@ msgstr "%s：输入参数#%d的值错误。\n"
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument #%d: \"%s\", \"%s\" or \"%s\" expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input argument #%d: %d,''%s'',%d or ''%s'' expected\n"
 msgstr "%s：输入参数#%d的值错误：应该为%d、\"%s\"、%d或\"%s\"。\n"
 

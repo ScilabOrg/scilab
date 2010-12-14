@@ -87,6 +87,9 @@ msgstr ""
 msgid "Anchors"
 msgstr ""
 
+msgid "Apply & Reindent"
+msgstr ""
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr "Esteu segur que voleu tancar l'SciNotes?"
 
@@ -114,8 +117,14 @@ msgstr "Negreta"
 msgid "Cancel"
 msgstr "Cancel·la"
 
+msgid "Cannot guess the file encoding."
+msgstr ""
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
 msgstr "No s'ha pogut carregar el \"scinotesConfiguration.xml\""
+
+msgid "Capitalize Selection;Capitalize character"
+msgstr ""
 
 msgid "Case sensitive"
 msgstr "Distingix majúscules i minúscules"
@@ -162,11 +171,17 @@ msgstr "Comenta la selecció"
 msgid "Complete"
 msgstr "Finalitzat"
 
+msgid "Configure Tabulation"
+msgstr ""
+
 msgid "Continue ?"
 msgstr ""
 
 msgid "Copy"
 msgstr "Copia"
+
+msgid "Copy as HTML with line number"
+msgstr ""
 
 msgid "Copy selection in a new tab"
 msgstr ""
@@ -186,6 +201,9 @@ msgstr "No s'ha trobat la consola ni l'intèrpret de comandes."
 msgid "Could not find the temporary file."
 msgstr "No s'ha trobat el fitxer temporal"
 
+msgid "Current file encoding"
+msgstr ""
+
 msgid "Cursor Color"
 msgstr ""
 
@@ -194,6 +212,9 @@ msgstr "Retalla"
 
 msgid "Default"
 msgstr "Predeterminat"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr ""
 
 msgid "Delete"
 msgstr "Elimina"
@@ -207,6 +228,9 @@ msgstr "Direcció"
 msgid "Document"
 msgstr "Document"
 
+msgid "Double chevrons"
+msgstr ""
+
 msgid "Edit"
 msgstr "Edita"
 
@@ -215,6 +239,9 @@ msgstr "Habilita el format automàtic"
 
 msgid "Encoding"
 msgstr "Codificació"
+
+msgid "Encoding problems"
+msgstr ""
 
 msgid "Enter line number"
 msgstr "Entreu el número de línia"
@@ -306,14 +333,26 @@ msgstr "Ajuda a l'escriptura"
 msgid "Highlight current line"
 msgstr "Ressalta la línia actual"
 
+msgid "Horizontal rule"
+msgstr ""
+
+msgid "Horizontal wrapping"
+msgstr ""
+
 msgid "Ignore"
 msgstr "Ignora"
+
+msgid "Incremental Search"
+msgstr ""
 
 msgid "Invalid regular expression : %s"
 msgstr "Expressió regular invàlida: %s"
 
 msgid "Italic"
 msgstr "Cursiva"
+
+msgid "Length"
+msgstr ""
 
 msgid "Line Endings"
 msgstr "Finals de línia"
@@ -331,6 +370,12 @@ msgid "Mac Classic (CR)"
 msgstr "Mac Classic (CR)"
 
 msgid "Mail to "
+msgstr ""
+
+msgid "Make Selection Lowercase"
+msgstr ""
+
+msgid "Make Selection Uppercase"
 msgstr ""
 
 msgid "Natural order"
@@ -357,7 +402,7 @@ msgstr ""
 msgid "Normal Line Numbering"
 msgstr "Números de línia normals"
 
-msgid "Numerotation"
+msgid "Numeration"
 msgstr ""
 
 msgid "Ok"
@@ -369,7 +414,7 @@ msgstr "Obre"
 msgid "Open URL"
 msgstr ""
 
-msgid "Open file in ...;Add a directory;Remove last directory"
+msgid "Open file in ..."
 msgstr ""
 
 msgid "Open function source file"
@@ -486,6 +531,9 @@ msgstr "Desa-ho tot"
 msgid "Save as"
 msgstr "Anomena i desa"
 
+msgid "Save file in ..."
+msgstr ""
+
 msgid "SciNotes"
 msgstr "SciNotes"
 
@@ -524,6 +572,9 @@ msgstr "Línies seleccionades"
 
 msgid "Set Colors"
 msgstr "Determina els colors"
+
+msgid "Set Colors ..."
+msgstr ""
 
 msgid "Set Font"
 msgstr "Determina la font"
@@ -570,6 +621,12 @@ msgstr "No s'ha trobat la cadena %s"
 msgid "Syntax Type"
 msgstr "Tipus de sintaxi"
 
+msgid "Tab representation"
+msgstr ""
+
+msgid "Tab style"
+msgstr ""
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -587,8 +644,15 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr "No s'ha pogut convertir el text."
 
+msgid "The file could not be created, check the path"
+msgstr ""
+
 msgid "The file could not be saved."
 msgstr "No s'ha pogut desar el text."
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
+msgstr ""
 
 msgid "This file"
 msgstr "Aquest fitxer"
@@ -622,6 +686,12 @@ msgstr "Unix (LF)"
 msgid "Untitled "
 msgstr "Sense títol "
 
+msgid "Use spaces"
+msgstr ""
+
+msgid "Vertical rule"
+msgstr ""
+
 msgid "View"
 msgstr "Visualitza"
 
@@ -642,6 +712,9 @@ msgstr "Windows/DOS (CR + LF)"
 
 msgid "Word Wrap"
 msgstr "Ajust de paraula"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr ""
 
 msgid "You have passed the beginning of the document"
 msgstr "Heu passat l'inici del document"

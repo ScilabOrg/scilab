@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 17:45+0100\n"
-"PO-Revision-Date: 2010-09-17 13:03+0000\n"
+"PO-Revision-Date: 2010-12-03 14:53+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,10 @@ msgstr "%s は倍精度実数のベクトルとする必要があります.\n"
 #, c-format
 msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: '%s' ハンドルはもう存在しません。\n"
+
+#, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr "%s: \"%s\" は　\"%s\" と共に使用することはできません.\n"
 
 #, c-format
 msgid ""
@@ -997,6 +1001,21 @@ msgid ""
 "%s: Wrong value for input argument #%d: Specified bounds are not correct.\n"
 msgstr "%s: 入力引数 #%d で不正な値: 明確に界は正しくありません。\n"
 
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+"%s: 入力引数の値が間違っています: ''%s'', ''%s'', ''%s'', ''%s'' または ''%s'' を指定してください.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+"%s: 入力引数の値が間違っています: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', ''%s'' "
+"または ''%s'' を指定してください.\n"
+
 #
 # File: sci_gateway/c/sci_plot3d.c, line: 133
 # File: sci_gateway/c/sci_plot3d.c, line: 137
@@ -1244,8 +1263,14 @@ msgstr "'%s' ハンドルは、見つからないか、もうありません。\
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "'%s' プロパティはこのハンドルにありません。\n"
 
+msgid "... as well as very tiny radii"
+msgstr "... 非常に小さい半径も"
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "ラベルオブジェクトは削除できません.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr "クリッピングによりビューポートを限定することができます."
 
 #
 # File: src/c/getHandleProperty/set_data_bounds_property.c, line: 203
@@ -1266,6 +1291,9 @@ msgstr "秋"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "%s は不正なサイズです: 最初に %s のサイズを増やさなければなりません。\n"
+
+msgid "Big radii are supported..."
+msgstr "大きな半径がサポートされています..."
 
 #
 # File: demos/misc.dem.sci, line: 232
@@ -1311,10 +1339,6 @@ msgstr "カラー行列はNULLです: 現在の色付けで直線的に色を描
 msgid "Color number"
 msgstr "色番号"
 
-# File: demos/misc.dem.sci, line: 55
-msgid "Colormap"
-msgstr "カラーマップ"
-
 msgid "Common X axis"
 msgstr "共通のX軸"
 
@@ -1334,6 +1358,9 @@ msgstr "銅"
 
 msgid "Customize your complex function"
 msgstr "複雑関数をカスタマイズして下さい"
+
+msgid "Data on the full circle ..."
+msgstr "完全な円の上のデータ ..."
 
 msgid ""
 "Data tips cannot be attached to this curve,\n"
@@ -1660,6 +1687,9 @@ msgstr "複数データtipsモード"
 msgid "Name"
 msgstr "名前"
 
+msgid "Negative radii are supported:"
+msgstr "負の半径がサポートされています:"
+
 #
 # File: src/c/Interaction.c, line: 169
 # File: src/c/Interaction.c, line: 227
@@ -1742,6 +1772,10 @@ msgstr "親プロパティは、直接に修正することができません。
 msgid "Pink"
 msgstr "桃"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr "より多くのpolarplotの例を参照するには、Scilabコンソールでenterを入力してください."
+
 #
 # File: src/c/Format.c, line: 301
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
@@ -1749,6 +1783,9 @@ msgstr "どうぞ、dev@lists.scilab.org にバグレポートを送ってくだ
 
 msgid "Plot with 3 different Y scales at shared X"
 msgstr "3つの異なるYスケールを共通のXでプロット"
+
+msgid "Press enter to go on..."
+msgstr "継続するには、enterを入力してください..."
 
 #
 # File: src/c/BuildObjects.c, line: 850
@@ -1780,11 +1817,17 @@ msgstr "Scilabグラフィック・モジュール は、-nogui または -nwni 
 msgid "Select tip orientation"
 msgstr "tipの方向を選択"
 
+msgid "Several curves may be plotted at the same time"
+msgstr "複数の曲線を同時にプロットすることができます"
+
 #
 # File: demos/misc.dem.sci, line: 184
 # File: demos/misc/misc.dem.sci, line: 182
 msgid "Spring"
 msgstr "春"
+
+msgid "Still a single quadrant..."
+msgstr "まだ四分円です..."
 
 #
 # File: demos/misc.dem.sci, line: 200
@@ -2261,11 +2304,20 @@ msgstr "このオブジェクトには %s  を指定する必要があります.
 msgid "automatic"
 msgstr "自動"
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr "大きな半径で、適切に整形されたラベルを指定した場合でも..."
+
 msgid "lower left"
 msgstr "左下"
 
 msgid "lower right"
 msgstr "右下"
+
+msgid "on 2 quadrants..."
+msgstr "四分円が２つの場合..."
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr "polarplot(): データにより区切られた四分円のみが表示されます"
 
 msgid "select the curve tip display function"
 msgstr "曲線tip表示関数を選択"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-10-07 11:56+0000\n"
-"Last-Translator: kreo <Unknown>\n"
+"PO-Revision-Date: 2010-11-22 23:39+0000\n"
+"Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -221,6 +221,7 @@ msgstr "%s: Неверный тип входного параметра %s: ож
 #, c-format
 msgid "%s: Wrong value for input argument %s: An existing file expected.\n"
 msgstr ""
+"%s: Неверное значение входного параметра %s: Ожидался существующий файл.\n"
 
 msgid "?"
 msgstr "Справка"
@@ -246,8 +247,17 @@ msgstr "Выровнять блоки"
 msgid "Annotations"
 msgstr "Примечания"
 
+msgid "Automotive Suspension"
+msgstr ""
+
+msgid "Ball on a Platform"
+msgstr ""
+
 msgid "Based on Scicos"
 msgstr "Основан на Scicos"
+
+msgid "Basic controller"
+msgstr ""
 
 msgid "Block Help"
 msgstr "Справка по блоку"
@@ -264,6 +274,15 @@ msgstr "Цвет границы"
 msgid "Bottom"
 msgstr "По нижнему краю"
 
+msgid "Bouncing Ball"
+msgstr ""
+
+msgid "Bouncing Balls"
+msgstr ""
+
+msgid "Bridge Rectifer"
+msgstr ""
+
 msgid "CVODE"
 msgstr "CVODE"
 
@@ -276,6 +295,9 @@ msgstr "Категория"
 msgid "Center"
 msgstr "По центру"
 
+msgid "Chaos Modelica"
+msgstr ""
+
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr ""
@@ -287,6 +309,9 @@ msgstr "Закрыть"
 
 msgid "Code generation"
 msgstr "Сформировать код"
+
+msgid "Colpitts oscillator"
+msgstr ""
 
 msgid "Command port must be connected to control port"
 msgstr "Командный порт должен быть подключён к управляющему порту"
@@ -303,13 +328,19 @@ msgid "Compile"
 msgstr "Компилировать"
 
 msgid "Compiling"
-msgstr ""
+msgstr "Компиляция"
 
 msgid "Computing"
+msgstr "Вычисление"
+
+msgid "Cont.Plant-Hybrid Observer"
 msgstr ""
 
 msgid "Continuous time systems"
 msgstr "Системы с непрерывным временем"
+
+msgid "Control Systems"
+msgstr ""
 
 msgid "Copyright (c) 1989-2009 (INRIA)"
 msgstr "Авторское право (c) 1989-2009 (INRIA)"
@@ -325,6 +356,12 @@ msgstr "Создать категорию"
 
 msgid "Customize"
 msgstr "Настроить"
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
 
 msgid "Debug block calls without trace"
 msgstr "Вызовы блока отладки без трассировки"
@@ -357,11 +394,20 @@ msgstr "Диаграмма была изменена.<br/> Сохранить и
 msgid "Diff. States"
 msgstr ""
 
+msgid "Differential amplifier"
+msgstr ""
+
 msgid "Discontinuities"
 msgstr "Системы с разрывами"
 
 msgid "Discrete"
 msgstr "Дискретные блоки"
+
+msgid "Discrete Controller"
+msgstr ""
+
+msgid "Discrete Kalman Filter"
+msgstr ""
 
 msgid "Discrete time systems"
 msgstr "Системы с дискретным временем"
@@ -384,14 +430,20 @@ msgstr "Изменяемый"
 msgid "Electrical"
 msgstr "Электрические блоки"
 
+msgid "Electrical Systems"
+msgstr ""
+
 msgid "Enable"
 msgstr "Включить"
 
 msgid "Equations"
-msgstr ""
+msgstr "Уравнения"
 
 msgid "Error"
 msgstr "Ошибка"
+
+msgid "Error on export"
+msgstr ""
 
 msgid "Event handling"
 msgstr "Обработка событий"
@@ -425,6 +477,9 @@ msgstr "Расширенный"
 
 msgid "Failed to load Diagram"
 msgstr "Не удалось загрузить диаграмму"
+
+msgid "Fibonacci Numbers"
+msgstr ""
 
 msgid "File"
 msgstr "Файл"
@@ -469,7 +524,7 @@ msgid "From %s"
 msgstr "От %s"
 
 msgid "Generate Jacobian"
-msgstr ""
+msgstr "Формировать матрицу Якоби"
 
 msgid "Generate SuperBlock, please wait ..."
 msgstr "Формируется суперблок..."
@@ -481,16 +536,22 @@ msgid "Get infos"
 msgstr "Получить информацию"
 
 msgid "Global"
-msgstr ""
+msgstr "Общие"
 
 msgid "Goto %s"
 msgstr "Перейти к %s"
+
+msgid "Goto/From blocks"
+msgstr ""
 
 msgid "Grid"
 msgstr "Сетка"
 
 msgid "Horizontal"
 msgstr "Горизонтальный"
+
+msgid "Hydraulics blocks"
+msgstr ""
 
 msgid "IDA"
 msgstr "IDA"
@@ -520,7 +581,7 @@ msgid "Initial computing method"
 msgstr ""
 
 msgid "Input"
-msgstr ""
+msgstr "Вход"
 
 msgid "Insert"
 msgstr "Вставить"
@@ -534,8 +595,14 @@ msgstr "Абсолютная погрешность интегрирования
 msgid "Integrator relative tolerance"
 msgstr "Относительная погрешность интегрирования"
 
+msgid "Inverted Pendulum"
+msgstr ""
+
 msgid "Italic"
 msgstr "Курсив"
+
+msgid "Kalman Filter"
+msgstr ""
 
 msgid "Left"
 msgstr "По левому краю"
@@ -561,8 +628,17 @@ msgstr "Загружается блок"
 msgid "Loading user defined palettes"
 msgstr "Загружаются пользовательские палитры"
 
+msgid "Logic AND gate"
+msgstr ""
+
+msgid "Logic NOR gate"
+msgstr ""
+
 msgid "Lookup Tables"
 msgstr "Задание табличных значений"
+
+msgid "Lorentz butterfly"
+msgstr ""
 
 msgid "Masked SuperBlock editor"
 msgstr "Редактор маскированного суперблока"
@@ -576,17 +652,23 @@ msgstr "Матричные операции"
 msgid "Max integration time interval"
 msgstr "Максимальный временной интервал интегрирования"
 
+msgid "Mechanical Systems"
+msgstr ""
+
 msgid "Middle"
 msgstr "По середине"
 
 msgid "Mirror"
 msgstr "Отразить по горизонтали"
 
+msgid "Modelica demos"
+msgstr ""
+
 msgid "Modelica initialize"
-msgstr "Запускается Modelica"
+msgstr "Запустить Modelica"
 
 msgid "Modelica settings"
-msgstr ""
+msgstr "Настройки Modelica"
 
 msgid "Move Down"
 msgstr "Переместить вниз"
@@ -615,6 +697,15 @@ msgstr "Нормальный размер"
 msgid "Ok"
 msgstr "ОК"
 
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Old demos"
+msgstr ""
+
+msgid "OpAmp amplifier"
+msgstr ""
+
 msgid "Open"
 msgstr "Открыть"
 
@@ -633,6 +724,9 @@ msgstr ""
 msgid "Per block execution trace and Debug block calls"
 msgstr "Трассировка всех блоков и вызовы блока отладки"
 
+msgid "Please specify a file format"
+msgstr ""
+
 msgid "Please take a look into the Scilab console"
 msgstr ""
 
@@ -644,11 +738,20 @@ msgid ""
 msgstr ""
 "Порт уже подключён, выберите не подключенный порт или допустимое соединение."
 
+msgid "Preview"
+msgstr ""
+
 msgid "Print"
 msgstr "Печать"
 
 msgid "Quit Xcos"
 msgstr "Выход из Xcos"
+
+msgid "RLC Circuit"
+msgstr ""
+
+msgid "RLC circuit"
+msgstr ""
 
 msgid "Real time scaling"
 msgstr "Количество секунд в единице времени"
@@ -698,6 +801,9 @@ msgstr "Сохранить как блок GUI"
 msgid "Saving diagram"
 msgstr "Сохранение диаграммы"
 
+msgid "Scicos data types"
+msgstr ""
+
 msgid "Scicos file"
 msgstr "Файл Scicos"
 
@@ -708,6 +814,9 @@ msgstr "Модуль «%s» выключен в режимах -nogui и -nwni.\
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "Модуль «%s» не установлен.\n"
+
+msgid "Scilab block"
+msgstr ""
 
 msgid "Scilab file"
 msgstr "Файл Scilab"
@@ -737,11 +846,20 @@ msgstr "Показать основную диаграмму"
 msgid "Show/Hide shadow"
 msgstr "Показать/скрыть тень"
 
+msgid "Signal Builder"
+msgstr ""
+
 msgid "Signal Processing"
 msgstr "Обработка сигналов"
 
 msgid "Signal Routing"
 msgstr "Маршрутизация сигналов"
+
+msgid "Simple Demo"
+msgstr ""
+
+msgid "Simple Thermostat"
+msgstr ""
 
 msgid "Simulation"
 msgstr "Моделирование"
@@ -753,16 +871,19 @@ msgid "Sinks"
 msgstr "Регистрирующие устройства"
 
 msgid "Solve"
-msgstr ""
+msgstr "Решить"
 
 msgid "Solver"
-msgstr ""
+msgstr "Программа решения"
 
 msgid "Solver 0 (CVODE) - 100 (IDA)"
 msgstr "Метод решения"
 
 msgid "Sources"
 msgstr "Источники сигналов и воздействий"
+
+msgid "Standard demos"
+msgstr ""
 
 msgid "Start"
 msgstr "Выполнить"
@@ -775,6 +896,15 @@ msgstr "Прямой"
 
 msgid "Superblock mask"
 msgstr "Маска суперблока"
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr ""
+
+msgid "Temperature Controller"
+msgstr ""
 
 msgid "Text Color"
 msgstr "Цвет текста"
@@ -821,6 +951,9 @@ msgstr "Инструменты"
 msgid "Top"
 msgstr "По верхнему краю"
 
+msgid "Transformer"
+msgstr ""
+
 msgid "Unable to delete "
 msgstr "Не удалось удалить "
 
@@ -866,7 +999,7 @@ msgid "Unknown Diagram Version : "
 msgstr "Неизвестная версия диаграммы: "
 
 msgid "Unknowns"
-msgstr ""
+msgstr "Неизвестные"
 
 msgid "Unknowns not equals to Equations"
 msgstr ""
@@ -903,6 +1036,9 @@ msgstr "Просмотреть в Scicos"
 
 msgid "Viewport"
 msgstr "Окно просмотра"
+
+msgid "Water tank"
+msgstr ""
 
 msgid "Will try to continue..."
 msgstr "Попытаюсь продолжить..."
@@ -949,8 +1085,14 @@ msgstr ""
 "подтверждения (т.е. при нажатии на ОК,<br/>при вызове Eval и каждый раз при "
 "загрузке диаграммы)."
 
+msgid "Zero Crossing"
+msgstr ""
+
 msgid "Zero crossing detection"
 msgstr "Обнаружение перехода через нуль"
+
+msgid "_IF_ Scicos block"
+msgstr ""
 
 msgid "comment"
 msgstr ""

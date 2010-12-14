@@ -84,7 +84,7 @@ msgstr "%s: falscher Typ für Eingangsargument #%d: Variable erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' value expected.\n"
-msgstr "%s: falscher Wert für Eingangsargument #%d: ''%s'' Wert erwartet.\n"
+msgstr "%s: falscher Wert für Eingangsargument #%d: '%s' Wert erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A int expected.\n"

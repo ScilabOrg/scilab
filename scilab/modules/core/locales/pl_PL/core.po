@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-02-27 18:16+0100\n"
-"PO-Revision-Date: 2010-09-29 13:19+0000\n"
+"PO-Revision-Date: 2010-12-04 15:38+0000\n"
 "Last-Translator: I.Rokach <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,7 +255,8 @@ msgstr "%s: Zła wartość: %s.\n"
 msgid ""
 "%s: Wrong input argument #%d: Path to a scilab script file expected.\n"
 msgstr ""
-"%s: Zły parametr wejściowy #%d: Oczekiwano ścieżki do pliku skryptu Scilab.\n"
+"%s: Nieprawidłowy parametr wejściowy nr %d: Oczekiwano ścieżki do pliku "
+"skryptu Scilab.\n"
 
 #, c-format
 msgid "%s: Wrong module name %s.\n"
@@ -263,12 +264,12 @@ msgstr "%s: Nieprawidłowa nazwa modułu %s.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
-msgstr "%s: Zła liczba parametrów wejściowych: oczekiwano %d.\n"
+msgstr "%s: Nieprawidłowa liczba parametrów wejściowych: oczekiwano %d.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d to %d expected.\n"
 msgstr ""
-"%s: Niewłaściwa liczba argumentów wejściowych: oczekiwano od %d do%d\n"
+"%s: Nieprawidłowa liczba argumentów wejściowych: oczekiwano od %d do %d\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): At least %d expected.\n"
@@ -575,6 +576,10 @@ msgstr ""
 "%s: Zły typ parametru wejściowego #%d: Oczekiwano ciągu znaków lub skalara.\n"
 
 #, c-format
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: Compiled macro expected.\n"
 msgstr ""
 "%s: Zły typ parametru wejściowego #%d: oczekiwane skompilowane makro.\n"
@@ -615,6 +620,8 @@ msgstr "%s: Złe typy parametrów wejściowych\n"
 #, c-format
 msgid "%s: Wrong type of input argument #%d: Integer expected.\n"
 msgstr ""
+"%s: Niewłaściwy typ wejściowego argumentu nr  %d: Oczekiwano liczbę "
+"całkowirtą.\n"
 
 #, c-format
 msgid "%s: Wrong type of input argument #%d: String expected.\n"
@@ -689,6 +696,10 @@ msgid "%s: Wrong value for input argument #%d: A integer expected.\n"
 msgstr ""
 "%s: Nieprawidłowa wartość dla argumentu wejściowego nr %d: oczekiwano "
 "wartości całkowitej.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"

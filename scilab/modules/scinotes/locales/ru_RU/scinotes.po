@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 16:29+0100\n"
-"PO-Revision-Date: 2010-09-18 23:40+0000\n"
+"PO-Revision-Date: 2010-12-10 23:31+0000\n"
 "Last-Translator: kkirill <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "Метка: "
 msgid "Anchors"
 msgstr "Метки"
 
+msgid "Apply & Reindent"
+msgstr "Исправить отступы"
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr "Закрыть SciNotes?"
 
@@ -111,8 +114,14 @@ msgstr "Полужирный"
 msgid "Cancel"
 msgstr "Отменить"
 
+msgid "Cannot guess the file encoding."
+msgstr "Не удалось определить кодировку файла."
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
 msgstr "Не удалось загрузить «scinotesConfiguration.xml»"
+
+msgid "Capitalize Selection;Capitalize character"
+msgstr "Начинать слова с прописной буквы;Заменить букву на прописную"
 
 msgid "Case sensitive"
 msgstr "Учитывать регистр"
@@ -159,11 +168,17 @@ msgstr "Добавить комментарии"
 msgid "Complete"
 msgstr "Завершить"
 
+msgid "Configure Tabulation"
+msgstr "Параметры табуляции"
+
 msgid "Continue ?"
 msgstr "Продолжить?"
 
 msgid "Copy"
 msgstr "Копировать"
+
+msgid "Copy as HTML with line number"
+msgstr "Копировать как HTML с номерами строк"
 
 msgid "Copy selection in a new tab"
 msgstr "Скопировать выделенное в новую вкладку"
@@ -183,6 +198,9 @@ msgstr "Не удалось найти командное окно или Interp
 msgid "Could not find the temporary file."
 msgstr "Не удалось найти временный файл."
 
+msgid "Current file encoding"
+msgstr "Текущая кодировка файла"
+
 msgid "Cursor Color"
 msgstr "Цвет курсора"
 
@@ -191,6 +209,9 @@ msgstr "Вырезать"
 
 msgid "Default"
 msgstr "По умолчанию"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr "Кодировка файла по умолчанию;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
 
 msgid "Delete"
 msgstr "Удалить"
@@ -204,6 +225,9 @@ msgstr "Направление"
 msgid "Document"
 msgstr "Документ"
 
+msgid "Double chevrons"
+msgstr "Двойные угловые скобки"
+
 msgid "Edit"
 msgstr "Правка"
 
@@ -212,6 +236,9 @@ msgstr "Автоматический отступ"
 
 msgid "Encoding"
 msgstr "Кодировка"
+
+msgid "Encoding problems"
+msgstr "Проблемы с кодировкой"
 
 msgid "Enter line number"
 msgstr "Введите номер строки"
@@ -305,14 +332,26 @@ msgstr "Помощь при наборе"
 msgid "Highlight current line"
 msgstr "Подсвечивать текущую строку"
 
+msgid "Horizontal rule"
+msgstr "Горизонтальная линия"
+
+msgid "Horizontal wrapping"
+msgstr "Режим переноса текста"
+
 msgid "Ignore"
 msgstr "Пропускать"
+
+msgid "Incremental Search"
+msgstr "Пошаговый поиск"
 
 msgid "Invalid regular expression : %s"
 msgstr "Недопустимое регулярное выражение: %s"
 
 msgid "Italic"
 msgstr "Курсив"
+
+msgid "Length"
+msgstr "Длина"
 
 msgid "Line Endings"
 msgstr "Конец строки"
@@ -331,6 +370,12 @@ msgstr "Mac Classic (CR)"
 
 msgid "Mail to "
 msgstr "Пишите на адрес "
+
+msgid "Make Selection Lowercase"
+msgstr "Изменить на строчные буквы"
+
+msgid "Make Selection Uppercase"
+msgstr "Изменить на прописные буквы"
 
 msgid "Natural order"
 msgstr "Естественный порядок"
@@ -356,7 +401,7 @@ msgstr "Нет текста для выполнения."
 msgid "Normal Line Numbering"
 msgstr "Общая нумерация строк"
 
-msgid "Numerotation"
+msgid "Numeration"
 msgstr "Нумерация"
 
 msgid "Ok"
@@ -368,8 +413,8 @@ msgstr "Открыть"
 msgid "Open URL"
 msgstr "Открыть URL"
 
-msgid "Open file in ...;Add a directory;Remove last directory"
-msgstr "Открыть файл в ...;Добавить каталог;Удалить последний каталог"
+msgid "Open file in ..."
+msgstr "Открыть файл в ..."
 
 msgid "Open function source file"
 msgstr "Открыть исходный текст функции"
@@ -486,6 +531,9 @@ msgstr "Сохранить все"
 msgid "Save as"
 msgstr "Сохранить как"
 
+msgid "Save file in ..."
+msgstr "Сохранить файл в ..."
+
 msgid "SciNotes"
 msgstr "SciNotes"
 
@@ -523,6 +571,9 @@ msgstr "Выделенные строки"
 
 msgid "Set Colors"
 msgstr "Цвета"
+
+msgid "Set Colors ..."
+msgstr "Цвета ..."
 
 msgid "Set Font"
 msgstr "Шрифт"
@@ -569,6 +620,12 @@ msgstr "Фраза %s не найдена"
 msgid "Syntax Type"
 msgstr "Режим подсветки синтаксиса"
 
+msgid "Tab representation"
+msgstr "Отображение табуляции"
+
+msgid "Tab style"
+msgstr "Стиль табуляции"
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -586,8 +643,15 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr "Не удалось преобразовать файл."
 
+msgid "The file could not be created, check the path"
+msgstr "Не удалось создать файл, проверьте путь"
+
 msgid "The file could not be saved."
 msgstr "Не удалось сохранить файл."
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
+msgstr "Исходная кодировка файла - %s. Сохранить файл в кодировке %s?"
 
 msgid "This file"
 msgstr "Этот файл"
@@ -618,6 +682,12 @@ msgstr "Unix (LF)"
 msgid "Untitled "
 msgstr "Безымянный документ "
 
+msgid "Use spaces"
+msgstr "Вставлять пробелы вместо табуляций"
+
+msgid "Vertical rule"
+msgstr "Вертикальная линия"
+
 msgid "View"
 msgstr "Вид"
 
@@ -638,6 +708,9 @@ msgstr "Windows/DOS (CR + LF)"
 
 msgid "Word Wrap"
 msgstr "Автоматический переход на новую строку"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr "Рабочие каталоги;Добавить каталог;Удалить последний каталог"
 
 msgid "You have passed the beginning of the document"
 msgstr "Пройдено начало документа"

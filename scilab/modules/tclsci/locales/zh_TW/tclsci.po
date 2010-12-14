@@ -101,23 +101,14 @@ msgstr "%s: 第 %d 輸入參數型態錯誤: 應為字串或字串向量.\n"
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s: 第 %d 個輸入參數數值錯誤: 應為 '%s'.\n"
 
-msgid "&?"
-msgstr "&?"
-
-msgid "&Edit"
-msgstr "編輯(&E)"
-
-msgid "&File"
-msgstr "檔案(&F)"
-
-msgid "&Tools"
-msgstr "工具(&T)"
-
 msgid "Alpha Release"
 msgstr "Alpha 版"
 
 msgid "Beta Release"
 msgstr "Beta 版"
+
+msgid "Color"
+msgstr ""
 
 #, c-format
 msgid "Error %s while loading library %s"
@@ -155,8 +146,17 @@ msgstr "無法設定環境參數."
 msgid "Impossible to set system encoding."
 msgstr "無法設定系統編碼"
 
+msgid "Puzzle"
+msgstr ""
+
+msgid "Scale"
+msgstr ""
+
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Scilab TCL/TK   模組未安裝.\n"
+
+msgid "Scroll"
+msgstr ""
 
 #, c-format
 msgid "TCL_EvalScilabCmd %s"

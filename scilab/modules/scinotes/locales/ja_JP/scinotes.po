@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 16:29+0100\n"
-"PO-Revision-Date: 2010-09-17 13:05+0000\n"
+"PO-Revision-Date: 2010-12-03 15:05+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,9 @@ msgstr "アンカー: "
 msgid "Anchors"
 msgstr "アンカー"
 
+msgid "Apply & Reindent"
+msgstr "適用 & 再インデント"
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr "本当に SciNotes を閉じてよいですか ?"
 
@@ -105,8 +108,14 @@ msgstr "ボールド体"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Cannot guess the file encoding."
+msgstr "ファイルのエンコーディングを推定できません."
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
 msgstr "\"scinotesConfiguration.xml\"を読み込めません"
+
+msgid "Capitalize Selection;Capitalize character"
+msgstr "セレクションの先頭を大文字にします; 文字の先頭を大文字にします"
 
 msgid "Case sensitive"
 msgstr "大文字/小文字を区別"
@@ -153,11 +162,17 @@ msgstr "コメント選択"
 msgid "Complete"
 msgstr "完了"
 
+msgid "Configure Tabulation"
+msgstr "設定の一覧表化"
+
 msgid "Continue ?"
 msgstr "続けますか?"
 
 msgid "Copy"
 msgstr "コピー"
+
+msgid "Copy as HTML with line number"
+msgstr "行番号付きのHTMLとしてコピー"
 
 msgid "Copy selection in a new tab"
 msgstr "選択部を新規タブにコピー"
@@ -177,6 +192,9 @@ msgstr "インタープリタ・マネージメントもコンソールも見つ
 msgid "Could not find the temporary file."
 msgstr "一時ファイルを見つけることができません。"
 
+msgid "Current file encoding"
+msgstr "カレントのファイルエンコーディング"
+
 msgid "Cursor Color"
 msgstr "カーソルの色"
 
@@ -185,6 +203,9 @@ msgstr "切り取り"
 
 msgid "Default"
 msgstr "デフォルト"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr "デフォルトのSciNotesファイルエンコーディング; UTF-8; Windows 1252 (ANSI);ISO-8859-1"
 
 msgid "Delete"
 msgstr "削除"
@@ -198,6 +219,9 @@ msgstr "方向"
 msgid "Document"
 msgstr "文書"
 
+msgid "Double chevrons"
+msgstr "二重逆V字型"
+
 msgid "Edit"
 msgstr "編集"
 
@@ -206,6 +230,9 @@ msgstr "自動再フォーマットを有効"
 
 msgid "Encoding"
 msgstr "エンコーディング"
+
+msgid "Encoding problems"
+msgstr "エンコーディングの問題"
 
 msgid "Enter line number"
 msgstr "行番号を入力してください"
@@ -297,14 +324,26 @@ msgstr "入力に関するヘルプ"
 msgid "Highlight current line"
 msgstr "現在行をハイライト"
 
+msgid "Horizontal rule"
+msgstr "水平方向の罫線"
+
+msgid "Horizontal wrapping"
+msgstr "水平方向のラッピング"
+
 msgid "Ignore"
 msgstr "無視する"
+
+msgid "Incremental Search"
+msgstr "インクリメンタルサーチ"
 
 msgid "Invalid regular expression : %s"
 msgstr "正規表現が不正です: %s"
 
 msgid "Italic"
 msgstr "イタリック体"
+
+msgid "Length"
+msgstr "長さ"
 
 msgid "Line Endings"
 msgstr "行末コード"
@@ -323,6 +362,12 @@ msgstr "Macクラシック(CR)"
 
 msgid "Mail to "
 msgstr "メール送信 "
+
+msgid "Make Selection Lowercase"
+msgstr "選択部を小文字にする"
+
+msgid "Make Selection Uppercase"
+msgstr "選択部を大文字にする"
 
 msgid "Natural order"
 msgstr "自然順序"
@@ -348,8 +393,8 @@ msgstr "実行するテキストがありません."
 msgid "Normal Line Numbering"
 msgstr "通常の行番号付け"
 
-msgid "Numerotation"
-msgstr "数値循環"
+msgid "Numeration"
+msgstr "計算"
 
 msgid "Ok"
 msgstr "OK"
@@ -360,8 +405,8 @@ msgstr "開く"
 msgid "Open URL"
 msgstr "URLを開く"
 
-msgid "Open file in ...;Add a directory;Remove last directory"
-msgstr "ファイルを開く ...;ディレクトリを追加;直近のディレクトリを削除"
+msgid "Open file in ..."
+msgstr "ファイルをオープン ..."
 
 msgid "Open function source file"
 msgstr "関数のソースファイルを開く"
@@ -477,6 +522,9 @@ msgstr "全て保存"
 msgid "Save as"
 msgstr "名前を付けて保存"
 
+msgid "Save file in ..."
+msgstr "ファイルを保存 ..."
+
 msgid "SciNotes"
 msgstr "SciNotes"
 
@@ -514,6 +562,9 @@ msgstr "選択された行"
 
 msgid "Set Colors"
 msgstr "色設定"
+
+msgid "Set Colors ..."
+msgstr "色を設定 ..."
 
 msgid "Set Font"
 msgstr "フォントを指定"
@@ -560,6 +611,12 @@ msgstr "文字列 %s は見つかりません"
 msgid "Syntax Type"
 msgstr "構文の型"
 
+msgid "Tab representation"
+msgstr "タブ形式"
+
+msgid "Tab style"
+msgstr "タブ形式"
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -577,8 +634,15 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr "ファイルは変換できませんでした."
 
+msgid "The file could not be created, check the path"
+msgstr "ファイルを作成できません, パスを確認してください"
+
 msgid "The file could not be saved."
 msgstr "ファイルは保存できませんでした."
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
+msgstr "ファイルエンコーディングは実際には %s で、 %s により保存されます. 続けますか ?"
 
 msgid "This file"
 msgstr "このファイル"
@@ -611,6 +675,12 @@ msgstr "Unix (LF)"
 msgid "Untitled "
 msgstr "無題 "
 
+msgid "Use spaces"
+msgstr "空白を使用"
+
+msgid "Vertical rule"
+msgstr "縦罫線"
+
 msgid "View"
 msgstr "表示"
 
@@ -631,6 +701,9 @@ msgstr "Windows/DOS (CR + LF)"
 
 msgid "Word Wrap"
 msgstr "ワードラップ"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr "ワーキングディレクトリ;ディレクトリを追加;直近のディレクトリを削除"
 
 msgid "You have passed the beginning of the document"
 msgstr "文書の先頭を通過しました"

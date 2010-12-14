@@ -556,6 +556,10 @@ msgstr ""
 "erwartet.\n"
 
 #, c-format
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: Compiled macro expected.\n"
 msgstr ""
 "%s: falscher Typ für Eingangsargument #%d: kompiliertes Makro erwartet.\n"
@@ -642,11 +646,11 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"
 msgstr ""
-"%s: falscher Wert für Eingangsargument #%d: ''%s'' oder ''%s'' erwartet.\n"
+"%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '0' or '1' expected.\n"
-msgstr "%s: Falscher Wert für Eingangsargument #%d: ''0'' oder ''1'' erwartet.\n"
+msgstr "%s: Falscher Wert für Eingangsargument #%d: '0' oder '1' erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: 1,2 or 3 expected.\n"
@@ -659,6 +663,10 @@ msgstr "%s: Falscher Wert für Eingangsargument #%d: Integer erwartet.\n"
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A integer expected.\n"
 msgstr "%s: falscher Wert für Eingangsargument #%d: ein Integer erwartet.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"

@@ -273,8 +273,17 @@ msgstr "Alinea els blocs"
 msgid "Annotations"
 msgstr "Anotacions"
 
+msgid "Automotive Suspension"
+msgstr ""
+
+msgid "Ball on a Platform"
+msgstr ""
+
 msgid "Based on Scicos"
 msgstr "Basat en l'Scicos"
+
+msgid "Basic controller"
+msgstr ""
 
 msgid "Block Help"
 msgstr "Ajuda de bloc"
@@ -291,6 +300,15 @@ msgstr "Color de les vores"
 msgid "Bottom"
 msgstr "Inferior"
 
+msgid "Bouncing Ball"
+msgstr ""
+
+msgid "Bouncing Balls"
+msgstr ""
+
+msgid "Bridge Rectifer"
+msgstr ""
+
 msgid "CVODE"
 msgstr "CVODE"
 
@@ -303,6 +321,9 @@ msgstr "Categoria"
 msgid "Center"
 msgstr "Centrat"
 
+msgid "Chaos Modelica"
+msgstr ""
+
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr ""
@@ -314,6 +335,9 @@ msgstr "Tanca"
 
 msgid "Code generation"
 msgstr "Generació de codi"
+
+msgid "Colpitts oscillator"
+msgstr ""
 
 msgid "Command port must be connected to control port"
 msgstr "Un port de comanda ha d'estar connectat a un port de control"
@@ -334,8 +358,14 @@ msgstr ""
 msgid "Computing"
 msgstr ""
 
+msgid "Cont.Plant-Hybrid Observer"
+msgstr ""
+
 msgid "Continuous time systems"
 msgstr "Sistemes temporals continus"
+
+msgid "Control Systems"
+msgstr ""
 
 msgid "Copyright (c) 1989-2009 (INRIA)"
 msgstr "Copyright (c) 1989-2009 (INRIA)"
@@ -351,6 +381,12 @@ msgstr "Crea una categoria"
 
 msgid "Customize"
 msgstr "Personalitza"
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
 
 msgid "Debug block calls without trace"
 msgstr "Crides a blocs de depuració sense traces"
@@ -385,11 +421,20 @@ msgstr ""
 msgid "Diff. States"
 msgstr ""
 
+msgid "Differential amplifier"
+msgstr ""
+
 msgid "Discontinuities"
 msgstr "Discontinuitats"
 
 msgid "Discrete"
 msgstr "Discret"
+
+msgid "Discrete Controller"
+msgstr ""
+
+msgid "Discrete Kalman Filter"
+msgstr ""
 
 msgid "Discrete time systems"
 msgstr "Sistemes temporals discrets"
@@ -412,6 +457,9 @@ msgstr "Editable"
 msgid "Electrical"
 msgstr "Elèctric"
 
+msgid "Electrical Systems"
+msgstr ""
+
 msgid "Enable"
 msgstr "Activa"
 
@@ -419,6 +467,9 @@ msgid "Equations"
 msgstr ""
 
 msgid "Error"
+msgstr ""
+
+msgid "Error on export"
 msgstr ""
 
 msgid "Event handling"
@@ -453,6 +504,9 @@ msgstr ""
 
 msgid "Failed to load Diagram"
 msgstr "No s'ha pogut carregar el diagrama"
+
+msgid "Fibonacci Numbers"
+msgstr ""
 
 msgid "File"
 msgstr "Fitxer"
@@ -514,11 +568,17 @@ msgstr ""
 msgid "Goto %s"
 msgstr "Vés a %s"
 
+msgid "Goto/From blocks"
+msgstr ""
+
 msgid "Grid"
 msgstr "Quadrícula"
 
 msgid "Horizontal"
 msgstr "Horitzontal"
+
+msgid "Hydraulics blocks"
+msgstr ""
 
 msgid "IDA"
 msgstr "IDA"
@@ -562,8 +622,14 @@ msgstr "Tolerància absoluta de l'integrador"
 msgid "Integrator relative tolerance"
 msgstr "Tolerància relativa de l'integrador"
 
+msgid "Inverted Pendulum"
+msgstr ""
+
 msgid "Italic"
 msgstr "Cursiva"
+
+msgid "Kalman Filter"
+msgstr ""
 
 msgid "Left"
 msgstr "Esquerra"
@@ -589,8 +655,17 @@ msgstr ""
 msgid "Loading user defined palettes"
 msgstr "S'està carregant les paletes d'usuari"
 
+msgid "Logic AND gate"
+msgstr ""
+
+msgid "Logic NOR gate"
+msgstr ""
+
 msgid "Lookup Tables"
 msgstr "Taules de cerca"
+
+msgid "Lorentz butterfly"
+msgstr ""
 
 msgid "Masked SuperBlock editor"
 msgstr "Editor de superblocs emmascarats"
@@ -604,11 +679,17 @@ msgstr "Matriu"
 msgid "Max integration time interval"
 msgstr "Intèrval màxim d'integració"
 
+msgid "Mechanical Systems"
+msgstr ""
+
 msgid "Middle"
 msgstr "Centre"
 
 msgid "Mirror"
 msgstr "Inverteix"
+
+msgid "Modelica demos"
+msgstr ""
 
 msgid "Modelica initialize"
 msgstr "Inicialitza la modelica"
@@ -643,6 +724,15 @@ msgstr "Normal 100%"
 msgid "Ok"
 msgstr "Accepta"
 
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Old demos"
+msgstr ""
+
+msgid "OpAmp amplifier"
+msgstr ""
+
 msgid "Open"
 msgstr "Obre"
 
@@ -661,6 +751,9 @@ msgstr ""
 msgid "Per block execution trace and Debug block calls"
 msgstr "Crides a traces i depuracions per execucions de blocs"
 
+msgid "Please specify a file format"
+msgstr ""
+
 msgid "Please take a look into the Scilab console"
 msgstr ""
 
@@ -673,11 +766,20 @@ msgstr ""
 "El port ja està connectat. Seleccioneu un port desconnectat o un enllaç "
 "vàlid."
 
+msgid "Preview"
+msgstr ""
+
 msgid "Print"
 msgstr "Imprimeix"
 
 msgid "Quit Xcos"
 msgstr "Tanca el Xcos"
+
+msgid "RLC Circuit"
+msgstr ""
+
+msgid "RLC circuit"
+msgstr ""
 
 msgid "Real time scaling"
 msgstr "Escalat en temps real"
@@ -727,6 +829,9 @@ msgstr "Desa el bloc GUI"
 msgid "Saving diagram"
 msgstr "S'està desant el diagrama"
 
+msgid "Scicos data types"
+msgstr ""
+
 msgid "Scicos file"
 msgstr "Fitxer d'Scicos"
 
@@ -738,6 +843,9 @@ msgstr ""
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "No està instal·lat el mòdul '%s' del Scilab.\n"
+
+msgid "Scilab block"
+msgstr ""
 
 msgid "Scilab file"
 msgstr "Fitxer d'Scilab"
@@ -767,11 +875,20 @@ msgstr "Mostra el diagrama superior"
 msgid "Show/Hide shadow"
 msgstr "Mostra/amaga les ombres"
 
+msgid "Signal Builder"
+msgstr ""
+
 msgid "Signal Processing"
 msgstr "Processat de senyal"
 
 msgid "Signal Routing"
 msgstr "Enrutament de senyal"
+
+msgid "Simple Demo"
+msgstr ""
+
+msgid "Simple Thermostat"
+msgstr ""
 
 msgid "Simulation"
 msgstr "Simulació"
@@ -794,6 +911,9 @@ msgstr "Solver 0 (CVODE) - 100 (IDA)"
 msgid "Sources"
 msgstr "Fonts"
 
+msgid "Standard demos"
+msgstr ""
+
 msgid "Start"
 msgstr "Inicia"
 
@@ -805,6 +925,15 @@ msgstr "Directe"
 
 msgid "Superblock mask"
 msgstr "Màscara de superbloc"
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr ""
+
+msgid "Temperature Controller"
+msgstr ""
 
 msgid "Text Color"
 msgstr "Color del text"
@@ -850,6 +979,9 @@ msgstr "Eines"
 
 msgid "Top"
 msgstr "Superior"
+
+msgid "Transformer"
+msgstr ""
 
 msgid "Unable to delete "
 msgstr "No s'ha pogut eliminar "
@@ -932,6 +1064,9 @@ msgstr "Visualitza a l'Scicos"
 msgid "Viewport"
 msgstr "Finestra de visualització"
 
+msgid "Water tank"
+msgstr ""
+
 msgid "Will try to continue..."
 msgstr "S'intenta continuar..."
 
@@ -975,8 +1110,14 @@ msgstr ""
 "exemple, quan feu clic a Accepta, a Eval i cada cop que es carrega el "
 "diagrama)."
 
+msgid "Zero Crossing"
+msgstr ""
+
 msgid "Zero crossing detection"
 msgstr "Detecció d'encreuament pel zero"
+
+msgid "_IF_ Scicos block"
+msgstr ""
 
 msgid "comment"
 msgstr ""

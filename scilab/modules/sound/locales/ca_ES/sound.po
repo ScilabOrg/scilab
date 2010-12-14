@@ -119,6 +119,9 @@ msgstr "El fitxer .wav no conté l'identificador RIFF."
 msgid ".wav file does not contain the wave identifier."
 msgstr "El fitxer .wav no conté l'identificador d'ona."
 
+msgid "A complete picture of the sound."
+msgstr ""
+
 msgid "Cannot play file."
 msgstr "No s'ha pogut reproduir el fitxer."
 
@@ -139,6 +142,9 @@ msgstr "Error llegint el fitxer wav."
 
 msgid "Error while writing sound file."
 msgstr "Error escrivint el fitxer de so."
+
+msgid "Fourier analysis of 0.5 seconds of sound parameters."
+msgstr ""
 
 msgid "Incorrect chunk size information in RIFF file."
 msgstr "S'ha trobat informació incorrecta de peça en el fitxer RIFF."
@@ -180,3 +186,6 @@ msgstr "El format de les dades és desconegut."
 
 msgid "only 8/16/24/32 bits for the encoding."
 msgstr "Només es pot codificar en 8/16/24/32 bits."
+
+msgid "see ''mapsound'' function"
+msgstr ""

@@ -57,6 +57,10 @@ msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: '%s' 代碼 (handle) 不存在或已刪除.\n"
 
 #, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "%s: At least one x data must be strictly positive to compute the bounds and "
 "use logarithmic mode.\n"
@@ -714,6 +718,18 @@ msgstr "%s: 第 #%d 個輸入參數數值錯誤: 給定的範圍有誤.\n"
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr "%s: 第 #%d 和第 #%d 個輸入參數數值錯誤: 長度不相容.\n"
 
@@ -766,8 +782,14 @@ msgstr "'%s' 代碼 (handle) 不存在或不再存在.\n"
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "此代碼 (handle) 之 '%s' 屬性不存在.\n"
 
+msgid "... as well as very tiny radii"
+msgstr ""
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "Label 物件無法被刪除.\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr ""
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -779,6 +801,9 @@ msgstr "秋"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "%s 的大小錯誤: 你必須增加 %s 的大小.\n"
+
+msgid "Big radii are supported..."
+msgstr ""
 
 msgid "Bone"
 msgstr ""
@@ -804,9 +829,6 @@ msgstr ""
 msgid "Color number"
 msgstr ""
 
-msgid "Colormap"
-msgstr ""
-
 msgid "Common X axis"
 msgstr ""
 
@@ -817,6 +839,9 @@ msgid "Copper"
 msgstr ""
 
 msgid "Customize your complex function"
+msgstr ""
+
+msgid "Data on the full circle ..."
 msgstr ""
 
 msgid ""
@@ -958,6 +983,9 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+msgid "Negative radii are supported:"
+msgstr ""
+
 msgid "No Callback is associated with this Entity.\n"
 msgstr ""
 
@@ -1003,10 +1031,17 @@ msgstr ""
 msgid "Pink"
 msgstr ""
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
 msgstr ""
 
 msgid "Plot with 3 different Y scales at shared X"
+msgstr ""
+
+msgid "Press enter to go on..."
 msgstr ""
 
 msgid "Problem with sciInitFontContext\n"
@@ -1030,7 +1065,13 @@ msgstr ""
 msgid "Select tip orientation"
 msgstr ""
 
+msgid "Several curves may be plotted at the same time"
+msgstr ""
+
 msgid "Spring"
+msgstr ""
+
+msgid "Still a single quadrant..."
 msgstr ""
 
 msgid "Summer"
@@ -1332,10 +1373,19 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
+
 msgid "lower left"
 msgstr ""
 
 msgid "lower right"
+msgstr ""
+
+msgid "on 2 quadrants..."
+msgstr ""
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
 msgstr ""
 
 msgid "select the curve tip display function"

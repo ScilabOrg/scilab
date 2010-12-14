@@ -57,6 +57,9 @@ msgstr "圖形控制代碼(handle)欄位"
 msgid "Scilab Command"
 msgstr "Scilab 命令"
 
+msgid "Scilab Fields"
+msgstr ""
+
 msgid "Scilab Function"
 msgstr "Scilab 函數"
 

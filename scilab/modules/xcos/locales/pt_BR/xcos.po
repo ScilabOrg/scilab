@@ -278,8 +278,17 @@ msgstr "Alinhe blocos"
 msgid "Annotations"
 msgstr "Anotações"
 
+msgid "Automotive Suspension"
+msgstr ""
+
+msgid "Ball on a Platform"
+msgstr ""
+
 msgid "Based on Scicos"
 msgstr "Baseado no Scicos"
+
+msgid "Basic controller"
+msgstr ""
 
 msgid "Block Help"
 msgstr "Ajuda do bloco"
@@ -296,6 +305,15 @@ msgstr "Cor da borda"
 msgid "Bottom"
 msgstr "Base"
 
+msgid "Bouncing Ball"
+msgstr ""
+
+msgid "Bouncing Balls"
+msgstr ""
+
+msgid "Bridge Rectifer"
+msgstr ""
+
 msgid "CVODE"
 msgstr "CVODE"
 
@@ -308,6 +326,9 @@ msgstr "Categoria"
 msgid "Center"
 msgstr "Centro"
 
+msgid "Chaos Modelica"
+msgstr ""
+
 msgid ""
 "Click on diagram to add link point or on a compatible target to finish"
 msgstr ""
@@ -319,6 +340,9 @@ msgstr "Fechar"
 
 msgid "Code generation"
 msgstr "Geração de código"
+
+msgid "Colpitts oscillator"
+msgstr ""
 
 msgid "Command port must be connected to control port"
 msgstr "A porta de comando deve estar conectada à porta de controle"
@@ -341,8 +365,14 @@ msgstr "Compilando"
 msgid "Computing"
 msgstr "Calculando"
 
+msgid "Cont.Plant-Hybrid Observer"
+msgstr ""
+
 msgid "Continuous time systems"
 msgstr "Sistema de tempo contínuo"
+
+msgid "Control Systems"
+msgstr ""
 
 msgid "Copyright (c) 1989-2009 (INRIA)"
 msgstr "Direitos reservados (c) 1989-2009 (INRIA)"
@@ -358,6 +388,12 @@ msgstr "Criar uma categoria"
 
 msgid "Customize"
 msgstr "Personalizar"
+
+msgid "DC/DC Boost Converter"
+msgstr ""
+
+msgid "DC/DC Buck Converter"
+msgstr ""
 
 msgid "Debug block calls without trace"
 msgstr "Depurar as chamadas de bloco sem rastreio"
@@ -391,11 +427,20 @@ msgstr ""
 msgid "Diff. States"
 msgstr ""
 
+msgid "Differential amplifier"
+msgstr ""
+
 msgid "Discontinuities"
 msgstr "Descontinuidades"
 
 msgid "Discrete"
 msgstr "Discreto"
+
+msgid "Discrete Controller"
+msgstr ""
+
+msgid "Discrete Kalman Filter"
+msgstr ""
 
 msgid "Discrete time systems"
 msgstr "Sistema de tempo discreto"
@@ -418,6 +463,9 @@ msgstr "Editável"
 msgid "Electrical"
 msgstr "Elétrica"
 
+msgid "Electrical Systems"
+msgstr ""
+
 msgid "Enable"
 msgstr "Habilitar"
 
@@ -426,6 +474,9 @@ msgstr "Equações"
 
 msgid "Error"
 msgstr "Erro"
+
+msgid "Error on export"
+msgstr ""
 
 msgid "Event handling"
 msgstr "Tratamento de eventos"
@@ -459,6 +510,9 @@ msgstr "Estendido"
 
 msgid "Failed to load Diagram"
 msgstr "Erro ao carregar diagrama"
+
+msgid "Fibonacci Numbers"
+msgstr ""
 
 msgid "File"
 msgstr "Arquivo"
@@ -520,11 +574,17 @@ msgstr "Global"
 msgid "Goto %s"
 msgstr "Ir para %s"
 
+msgid "Goto/From blocks"
+msgstr ""
+
 msgid "Grid"
 msgstr "Grade"
 
 msgid "Horizontal"
 msgstr "Horizontal"
+
+msgid "Hydraulics blocks"
+msgstr ""
 
 msgid "IDA"
 msgstr "IDA"
@@ -568,8 +628,14 @@ msgstr "Tolerância absoluta do integrador"
 msgid "Integrator relative tolerance"
 msgstr "Tolerância relativa do integrador"
 
+msgid "Inverted Pendulum"
+msgstr ""
+
 msgid "Italic"
 msgstr "Itálico"
+
+msgid "Kalman Filter"
+msgstr ""
 
 msgid "Left"
 msgstr "Esquerda"
@@ -595,8 +661,17 @@ msgstr "Carregando o bloco"
 msgid "Loading user defined palettes"
 msgstr "Carregando paletas definidas pelo usuário"
 
+msgid "Logic AND gate"
+msgstr ""
+
+msgid "Logic NOR gate"
+msgstr ""
+
 msgid "Lookup Tables"
 msgstr "Tabelas de busca"
+
+msgid "Lorentz butterfly"
+msgstr ""
 
 msgid "Masked SuperBlock editor"
 msgstr "Editor de SuperBloco mascarado"
@@ -610,11 +685,17 @@ msgstr "Matriz"
 msgid "Max integration time interval"
 msgstr "Intervalo máximo de tempo de integração"
 
+msgid "Mechanical Systems"
+msgstr ""
+
 msgid "Middle"
 msgstr "Meio"
 
 msgid "Mirror"
 msgstr "Espelhar verticalmente"
+
+msgid "Modelica demos"
+msgstr ""
 
 msgid "Modelica initialize"
 msgstr "Iniciar Modelica"
@@ -649,6 +730,15 @@ msgstr "Normal 100%"
 msgid "Ok"
 msgstr "Ok"
 
+msgid "Old Gain Block"
+msgstr ""
+
+msgid "Old demos"
+msgstr ""
+
+msgid "OpAmp amplifier"
+msgstr ""
+
 msgid "Open"
 msgstr "Abrir"
 
@@ -667,6 +757,9 @@ msgstr ""
 msgid "Per block execution trace and Debug block calls"
 msgstr "Rastreio da execução de bloco e chamadas de depuração por bloco"
 
+msgid "Please specify a file format"
+msgstr ""
+
 msgid "Please take a look into the Scilab console"
 msgstr "Por favor, dê uma olhada no console do Scilab"
 
@@ -679,11 +772,20 @@ msgstr ""
 "A porta já está conectada. Por favor, selecione uma porta desconectada ou um "
 "vínculo válido."
 
+msgid "Preview"
+msgstr ""
+
 msgid "Print"
 msgstr "Imprimir"
 
 msgid "Quit Xcos"
 msgstr "Encerrar Xcos"
+
+msgid "RLC Circuit"
+msgstr ""
+
+msgid "RLC circuit"
+msgstr ""
 
 msgid "Real time scaling"
 msgstr "Escala em tempo real"
@@ -733,6 +835,9 @@ msgstr "Salvar GUI do bloco"
 msgid "Saving diagram"
 msgstr "Salvando diagrama"
 
+msgid "Scicos data types"
+msgstr ""
+
 msgid "Scicos file"
 msgstr "Arquivo Scicos"
 
@@ -743,6 +848,9 @@ msgstr "O módulo \"%s\" do Scilab é desabilitado em modo -nogui ou -nwni.\n"
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "O módulo \"%s\" do Scilab não está instalado.\n"
+
+msgid "Scilab block"
+msgstr ""
 
 msgid "Scilab file"
 msgstr "Arquivo Scilab"
@@ -772,11 +880,20 @@ msgstr "Mostrar diagrama pai"
 msgid "Show/Hide shadow"
 msgstr "Mostrar/ocultar sombra"
 
+msgid "Signal Builder"
+msgstr ""
+
 msgid "Signal Processing"
 msgstr "Processamento de sinal"
 
 msgid "Signal Routing"
 msgstr "Roteamento de sinal"
+
+msgid "Simple Demo"
+msgstr ""
+
+msgid "Simple Thermostat"
+msgstr ""
 
 msgid "Simulation"
 msgstr "Simulação"
@@ -799,6 +916,9 @@ msgstr "Solucionador 0 (CVODE) - 100 (IDA)"
 msgid "Sources"
 msgstr "Fontes"
 
+msgid "Standard demos"
+msgstr ""
+
 msgid "Start"
 msgstr "Iniciar"
 
@@ -810,6 +930,15 @@ msgstr "Direto"
 
 msgid "Superblock mask"
 msgstr "Máscara de Superbloco"
+
+msgid "Switched capacitor integrator"
+msgstr ""
+
+msgid "Table Lookup"
+msgstr ""
+
+msgid "Temperature Controller"
+msgstr ""
 
 msgid "Text Color"
 msgstr "Cor do texto"
@@ -855,6 +984,9 @@ msgstr "Ferramentas"
 
 msgid "Top"
 msgstr "Topo"
+
+msgid "Transformer"
+msgstr ""
 
 msgid "Unable to delete "
 msgstr "Não é possível excluir "
@@ -937,6 +1069,9 @@ msgstr "Ver em Scicos"
 msgid "Viewport"
 msgstr "Janela de exibição"
 
+msgid "Water tank"
+msgstr ""
+
 msgid "Will try to continue..."
 msgstr "Tentará continuar..."
 
@@ -980,8 +1115,14 @@ msgstr ""
 "são avaliadas uma vez que confirmadas (p.ex. você clica em OK, por Eval e "
 "toda vez que um diagrama é carregado.)"
 
+msgid "Zero Crossing"
+msgstr ""
+
 msgid "Zero crossing detection"
 msgstr "Detecção de cruzamento no zero"
+
+msgid "_IF_ Scicos block"
+msgstr ""
 
 msgid "comment"
 msgstr ""

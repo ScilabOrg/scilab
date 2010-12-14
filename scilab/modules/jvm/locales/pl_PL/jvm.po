@@ -198,6 +198,10 @@ msgstr "JNI: za mało pamięci"
 msgid "JVM interface disabled in -nogui or -nwni modes.\n"
 msgstr "Interfejs JVM  wyłączony w trybach in -nogui lub -nwni.\n"
 
+#, c-format
+msgid "Options:\n"
+msgstr ""
+
 msgid "Scilab Java module not installed.\n"
 msgstr "Moduł Java programu Scilab nie jest zainstalowany.\n"
 

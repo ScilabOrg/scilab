@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-10-08 09:44+0000\n"
+"PO-Revision-Date: 2010-12-03 15:53+0000\n"
 "Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -373,6 +373,9 @@ msgstr "Pnonc,P,Q,F y Dfn"
 msgid "Pr,OMPr,P,Q and S"
 msgstr "Pr,OMPr,P,Q y S"
 
+msgid "Rate,P,Q and X"
+msgstr "Tasa,P,Q y X"
+
 msgid "S and Xlam"
 msgstr "S y Xlam"
 
@@ -382,11 +385,8 @@ msgstr "S,XN,PR y OMPR"
 msgid "S,Xn,Pr and Ompr"
 msgstr "S,Xn,Pr y Ompr"
 
-msgid "Scale,P,Q and X"
-msgstr "Escala,P,Q y X"
-
-msgid "Shape,Scale,P and Q"
-msgstr "Forma,Escala,P y Q"
+msgid "Shape,Rate,P and Q"
+msgstr "Forma,Tasa,P y Q"
 
 #, c-format
 msgid "Size of x is zero : returning NaN.\n"
@@ -419,8 +419,8 @@ msgstr "X,Df y Pnonc"
 msgid "X,Mean and Std"
 msgstr "X,Media y Std"
 
-msgid "X,Shape and Scale"
-msgstr "X,Forma y Escala"
+msgid "X,Shape and Rate"
+msgstr "X,Forma y Tasa"
 
 msgid "X,Y,A and B"
 msgstr "X,Y,A y B"

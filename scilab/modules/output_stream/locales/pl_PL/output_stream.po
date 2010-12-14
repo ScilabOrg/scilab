@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-01-30 18:01+0100\n"
-"PO-Revision-Date: 2010-07-08 11:29+0000\n"
+"PO-Revision-Date: 2010-11-23 14:16+0000\n"
 "Last-Translator: I.Rokach <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -649,6 +649,10 @@ msgid ""
 "                                   Bad call to a scilab function ?\n"
 "                                   Otherwise, send a bug report to :\n"
 msgstr ""
+"Błąd krytyczny!!! Wartości zmiennych zostały zapisane do pliku : %s\n"
+"                                   Źle wywołanie funkcji Scilab ?\n"
+"                                   W przeciwnym razie wyszli informacje o "
+"błędzie do :\n"
 
 #, c-format
 msgid "File \"%s\" already exists or directory write access denied.\n"
@@ -1104,7 +1108,7 @@ msgid "Undefined operation for the given operands.\n"
 msgstr "Niezdefiniowana operacja dla podanych argumentów.\n"
 
 msgid "Undefined variable.\n"
-msgstr ""
+msgstr "Zmienna nie zdefiniowana.\n"
 
 #, c-format
 msgid "Undefined variable: %s\n"

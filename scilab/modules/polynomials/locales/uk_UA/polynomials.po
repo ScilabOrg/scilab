@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-09-22 14:08+0100\n"
-"PO-Revision-Date: 2010-01-16 17:40+0000\n"
+"PO-Revision-Date: 2010-12-03 05:19+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -96,6 +96,9 @@ msgstr "%s: вхідні параметри %d і %d несумісні\n"
 
 msgid "Computing determinant: Be patient...\n"
 msgstr "Обчислення визначника: зачекайте…\n"
+
+msgid "Introduction"
+msgstr "Вступ"
 
 msgid "Polynomials"
 msgstr "Поліноми"

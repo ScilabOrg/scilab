@@ -42,20 +42,14 @@ msgstr ""
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s] in %s. (Please wait building ... this can take "
-"a while)\n"
+"Building the manual file [%s] in %s.\n"
 msgstr ""
-"\n"
-"生成手册文件[%s]，位于%s。（请等待...这可能需要一些时间）\n"
 
 #, c-format
 msgid ""
 "\n"
-"Building the manual file [%s]. (Please wait building ... this can take a "
-"while)\n"
+"Building the manual file [%s].\n"
 msgstr ""
-"\n"
-"生成手册文件[%s]。（请等待...这可能需要一些时间）\n"
 
 msgid ""
 "\n"
@@ -95,6 +89,10 @@ msgstr "%s：生成文档时发生错误：%s。\n"
 #, c-format
 msgid "%s: Execution Java stack %s.\n"
 msgstr "%s：执行Java stack %s。\n"
+
+#, c-format
+msgid "%s: Execution Java stack: %s.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: File skipped %s."
@@ -139,10 +137,6 @@ msgstr "%s：last_successful_build文件的第%d行格式不正确。\n"
 #, c-format
 msgid "%s: This function is only supported on Windows platforms.\n"
 msgstr "%s：只在Windows平台下可使用这个函数。\n"
-
-#, c-format
-msgid "%s: Wrong for type for input argument #%d: String expected.\n"
-msgstr "%s：输入参数#%d的类型错误：应该为字符串。\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): At most %d expected.\n"
@@ -195,10 +189,6 @@ msgstr "%s：输入参数#%d的类型错误：应该为一个字符串。\n"
 #, c-format
 msgid "%s: Wrong type for input argument #%d: String array expected.\n"
 msgstr "%s：输入参数 #%d 的类型错误：应该为字符串数组。\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr "%s：输入参数#%d的类型错误：应该为字符串。\n"
 
 #, c-format
 msgid ""

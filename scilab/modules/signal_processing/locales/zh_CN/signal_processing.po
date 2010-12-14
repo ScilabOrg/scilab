@@ -151,11 +151,56 @@ msgid ""
 "%s: Wrong values for input argument #%d: degree must be in the set {%s}.\n"
 msgstr "%s：输入参数#%d的值错误：度数必须在集合{%s}中。\n"
 
+msgid "Arma Spectral power estimation:"
+msgstr ""
+
 msgid "Arma identification"
+msgstr ""
+
+msgid "Arma simulation and identification"
+msgstr ""
+
+msgid "Arma, Spectral power estimation"
+msgstr ""
+
+msgid "Arma, bidimensional version"
+msgstr ""
+
+msgid "Bode plots"
+msgstr ""
+
+msgid "Discrete IIR filter"
+msgstr ""
+
+msgid "IIR filter design"
+msgstr ""
+
+msgid "Identification ARX (least square):"
+msgstr ""
+
+msgid "Identification ARX (least square): "
+msgstr ""
+
+msgid "Minimax FIR filter"
+msgstr ""
+
+msgid "Minimax FIR filter design"
+msgstr ""
+
+msgid "Press Return to continue ... \n"
 msgstr ""
 
 msgid "Signal Processing"
 msgstr "信号处理"
+
+msgid "Simulation of an ARMAX process:"
+msgstr ""
+
+msgid "Simulation of an ARMAX process: "
+msgstr ""
+
+msgid "Spectral Estimation"
+msgstr ""
 
 msgid "Spectral power"
 msgstr ""
@@ -166,6 +211,12 @@ msgstr ""
 msgid "Using macro mese"
 msgstr ""
 
+msgid "Wiegner filter"
+msgstr ""
+
+msgid "Window FIR filters"
+msgstr ""
+
 msgid "estimates xf"
 msgstr ""
 
@@ -173,6 +224,12 @@ msgid "estimates xs"
 msgstr ""
 
 msgid "frequency"
+msgstr ""
+
+msgid "length 33"
+msgstr ""
+
+msgid "low pass  cut-off in [.23,.27]"
 msgstr ""
 
 msgid "real state"

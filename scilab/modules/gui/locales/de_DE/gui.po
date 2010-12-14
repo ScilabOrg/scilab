@@ -180,7 +180,7 @@ msgid ""
 "%s: Wrong size for input argument #%d: A ''Figure'' handle or a real "
 "expected.\n"
 msgstr ""
-"%s: Falsche Größe für Eingangsargument #%d: Eine ''Diagramm'' Handhabung "
+"%s: Falsche Größe für Eingangsargument #%d: Eine \"Diagramm\" Handhabung "
 "oder Realzahl erwartet.\n"
 
 #, c-format
@@ -278,7 +278,7 @@ msgstr "%s: falscher Typ für %s: eine Zeichenkette erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong type for ''%s'' property: A string expected.\n"
-msgstr "%s: falscher Typ für ''%s'' Eigenschaft: eine Zeichenkette erwartet.\n"
+msgstr "%s: falscher Typ für '%s' Eigenschaft: eine Zeichenkette erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d or #%d: String expected.\n"
@@ -475,8 +475,8 @@ msgid ""
 "%s: Wrong type for input argument #%d: must be ''label'', ''icon'' or "
 "''callback''.\n"
 msgstr ""
-"%s: falscher Typ für Eingangsargument #%d: muß eine ''Beschriftung'', ''Bild'' "
-"oder ''Rückruf'' sein.\n"
+"%s: falscher Typ für Eingangsargument #%d: muß eine 'Beschriftung', 'Bild' "
+"oder 'Rückruf' sein.\n"
 
 #, c-format
 msgid "%s: Wrong type for input arguments from #%d: Tree expected.\n"
@@ -496,7 +496,7 @@ msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for ''%s'' property: %d, %d or %d expected.\n"
-msgstr "%s: falscher Wert für ''%s'' Eigenschaft: %d, %d oder %d erwartet.\n"
+msgstr "%s: falscher Wert für '%s' Eigenschaft: %d, %d oder %d erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
@@ -512,13 +512,13 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"
 msgstr ""
-"%s: falscher Wert für Eingangsargument #%d: ''%s'' oder ''%s'' erwartet.\n"
+"%s: falscher Wert für Eingangsargument #%d: '%s' oder '%s' erwartet.\n"
 
 #, c-format
 msgid ""
 "%s: Wrong value for input argument #%d: ''%s'', ''%s'' or ''%s'' expected.\n"
 msgstr ""
-"%s: falscher Wert für Eingangsargument #%d: ''%s'', ''%s'' oder ''%s'' erwartet.\n"
+"%s: falscher Wert für Eingangsargument #%d: '%s', '%s' oder '%s' erwartet.\n"
 
 #, c-format
 msgid ""
@@ -1021,7 +1021,7 @@ msgstr "Menü"
 
 #, c-format
 msgid "Menu ''%s'' is %s."
-msgstr "Menü ''%s'' ist %s."
+msgstr "Menü '%s' ist %s."
 
 msgid "Menu status"
 msgstr "Menustatus"
@@ -1516,6 +1516,10 @@ msgstr ""
 "Falscher Wert für Eigenschaft '%s': eine Zeichenkette oder ein 1 x %d "
 "reeller Zeilenvektor erwartet.\n"
 
+#, c-format
+msgid "Wrong value for '%s' property: Numbers between 0 and 1 expected.\n"
+msgstr ""
+
 msgid "Xcos"
 msgstr "Xcos"
 
@@ -1527,11 +1531,11 @@ msgstr "Ja"
 
 #, c-format
 msgid "You clicked on menu ''%s''."
-msgstr "Sie haben auf Menü ''%s'' geklickt."
+msgstr "Sie haben auf Menü '%s' geklickt."
 
 #, c-format
 msgid "You selected ''%s''."
-msgstr "Sie haben ''%s'' ausgewählt."
+msgstr "Sie haben '%s' ausgewählt."
 
 msgid "Zoom Area"
 msgstr "Vergrößerungsbereich"

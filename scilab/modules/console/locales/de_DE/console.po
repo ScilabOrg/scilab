@@ -22,6 +22,9 @@ msgstr "Kann den Konsolenzeichensatz nicht ändern."
 msgid "Could not change the Console Foreground."
 msgstr "Kann den Konsolenvordergrund nicht ändern."
 
+msgid "Field"
+msgstr ""
+
 msgid "File or Directory"
 msgstr "Datei oder Verzeichnis"
 

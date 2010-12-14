@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 17:45+0100\n"
-"PO-Revision-Date: 2010-07-02 11:49+0000\n"
+"PO-Revision-Date: 2010-12-08 21:00+0000\n"
 "Last-Translator: I.Rokach <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,10 @@ msgstr ""
 #, c-format
 msgid "%s: '%s' handle does not or no longer exists.\n"
 msgstr "%s: Uchwyt (handle) '%s' nie istniał lub już nie istnieje.\n"
+
+#, c-format
+msgid "%s: ''%s'' cannot be used with ''%s''.\n"
+msgstr "%s: ''%s'' nie może być używane z ''%s''.\n"
 
 #, c-format
 msgid ""
@@ -911,6 +915,22 @@ msgstr ""
 
 #, c-format
 msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'' or ''%s'' "
+"expected.\n"
+msgstr ""
+"%s: Nieprawidłowa wartość parametru wejściowego: oczekiwano ''%s'', ''%s'', "
+"''%s'', ''%s'' lub ''%s''.\n"
+
+#, c-format
+msgid ""
+"%s: Wrong value for input argument: ''%s'', ''%s'', ''%s'', ''%s'', ''%s'', "
+"''%s'', ''%s'' or ''%s'' expected.\n"
+msgstr ""
+"%s: Nieprawidłowa wartość parametru wejściowego: oczekiwano ''%s'', ''%s'', "
+"''%s'', ''%s'', ''%s'', ''%s'', ''%s'' lub ''%s''.\n"
+
+#, c-format
+msgid ""
 "%s: Wrong value for input arguments #%d and #%d: Incompatible length.\n"
 msgstr ""
 "%s: Nieprawidłowa wartość argumentów wejściowych nr %d i nr %d: niezgodna "
@@ -962,14 +982,20 @@ msgstr "&Narzędzia"
 
 #, c-format
 msgid "'%s' handle does not or no longer exists.\n"
-msgstr "Uchwytu (handle) '%s'  nie było lub już nie istnieje.\n"
+msgstr "Uchwytu (handle) '%s'  nie było lub już nie ma.\n"
 
 #, c-format
 msgid "'%s' property does not exist for this handle.\n"
 msgstr "'%s'  własność nie istnieje dla tego uchwytu (handle).\n"
 
+msgid "... as well as very tiny radii"
+msgstr ""
+
 msgid "A Label object cannot be deleted.\n"
 msgstr "Nie można usunąć obiektu typu metka (Label)\n"
+
+msgid "A partial viewport may be set with clipping"
+msgstr ""
 
 #, c-format
 msgid "Argument #%d must have %d elements.\n"
@@ -981,6 +1007,9 @@ msgstr "Jesień"
 #, c-format
 msgid "Bad size in %s: you must first increase the size of the %s.\n"
 msgstr "Zły rozmiar %s: najpierw musisz zwiększyć rozmiar %s.\n"
+
+msgid "Big radii are supported..."
+msgstr ""
 
 msgid "Bone"
 msgstr "Kość"
@@ -1008,11 +1037,8 @@ msgstr ""
 msgid "Color number"
 msgstr "Numer koloru"
 
-msgid "Colormap"
-msgstr "Paleta kolorów"
-
 msgid "Common X axis"
-msgstr ""
+msgstr "Wspólna oś X"
 
 msgid "Coordinates modifications are only applicable on axes objects.\n"
 msgstr ""
@@ -1025,10 +1051,15 @@ msgstr "Miedź"
 msgid "Customize your complex function"
 msgstr "Dostosowywanie funkcji zespolonej"
 
+msgid "Data on the full circle ..."
+msgstr ""
+
 msgid ""
 "Data tips cannot be attached to this curve,\n"
 "the user_data field is already used"
 msgstr ""
+"Dymki danych nie mogą być dołączone do tej krzywej,\n"
+"pole user_data jest już używane"
 
 msgid "Default axes cannot be create.\n"
 msgstr "Nie można stworzyć osi domyślnych.\n"
@@ -1037,22 +1068,22 @@ msgid "Default figure cannot be create.\n"
 msgstr "Nie można utworzyć figury domyślnej.\n"
 
 msgid "Delete all datatips"
-msgstr ""
+msgstr "Usuń wszystkie dymki danych"
 
 msgid "Delete all datatips for the selected curve"
-msgstr ""
+msgstr "Usuń wszystkie dymki danych dla wybranej krzywej"
 
 msgid "Delete last datatip"
-msgstr ""
+msgstr "Usuń ostatni dymek danych"
 
 msgid "Delete nearest datatip"
-msgstr ""
+msgstr "Usuń najbliższy dymek danych"
 
 msgid "Disable interpolation"
 msgstr "Wyłącz interpolację"
 
 msgid "Edit the curve tip display function"
-msgstr ""
+msgstr "Edycja funkcji wyświetlania dymku krzywej"
 
 msgid "Enable interpolation"
 msgstr "Włącz interpolację"
@@ -1098,7 +1129,7 @@ msgid "Graphics"
 msgstr "Grafika"
 
 msgid "Graphics with 2 different Y-scales"
-msgstr ""
+msgstr "Wykres z 2 różnymi skalami Y"
 
 msgid "Gray"
 msgstr "Odcienie szarości"
@@ -1153,9 +1184,13 @@ msgstr ""
 msgid ""
 "Left click on a curve to create a datatip, right opens contextual menu"
 msgstr ""
+"Kliknięcie lewym klawiszem tworzy dymek danych, prawym - otwiera menu "
+"kontekstowe"
 
 msgid "Left click on a graphic entity to open its property editor"
 msgstr ""
+"Kliknij lewym kławiszem na element graficzny, żeby otworzyć edytor jego "
+"własciwości"
 
 #, c-format
 msgid "Line width must be greater than %d.\n"
@@ -1165,10 +1200,13 @@ msgid "Misc"
 msgstr "Pozostałe"
 
 msgid "Multiple datatips mode"
-msgstr ""
+msgstr "Tryb wielu dymków danych"
 
 msgid "Name"
 msgstr "Nazwa"
+
+msgid "Negative radii are supported:"
+msgstr ""
 
 msgid "No Callback is associated with this Entity.\n"
 msgstr ""
@@ -1220,10 +1258,19 @@ msgstr ""
 msgid "Pink"
 msgstr "Różowy"
 
+msgid ""
+"Please press enter into the Scilab console to see more polarplot examples"
+msgstr ""
+"Naciśnij Enter w konsoli Scilab, żeby zobaczyć więcej przykładów wykresów "
+"biegunowych"
+
 msgid "Please send a Bug report to dev@lists.scilab.org\n"
-msgstr "Proszę, wyślij raport o błędach do dev@lists.scilab.org\n"
+msgstr "Wyślij raport o błędach do dev@lists.scilab.org\n"
 
 msgid "Plot with 3 different Y scales at shared X"
+msgstr "Wykres z 3 różnymi skalami Y i wspólną X"
+
+msgid "Press enter to go on..."
 msgstr ""
 
 msgid "Problem with sciInitFontContext\n"
@@ -1233,10 +1280,10 @@ msgid "Rainbow"
 msgstr "Tęcza"
 
 msgid "Redraw all datatips"
-msgstr ""
+msgstr "Odśwież wszystkie dymki danych"
 
 msgid "Scale n1"
-msgstr ""
+msgstr "Skala n1"
 
 msgid "Scilab Graphics module not installed.\n"
 msgstr "Moduł graficzny Scilab jest nie zainstalowany.\n"
@@ -1245,16 +1292,22 @@ msgid "Scilab graphic module disabled -nogui or -nwni mode.\n"
 msgstr "Moduł graficzny Scilab niedostępny w trybie -nogui lub  -nwni.\n"
 
 msgid "Select tip orientation"
-msgstr ""
+msgstr "Wybierz orientacje dymku"
+
+msgid "Several curves may be plotted at the same time"
+msgstr "Można wyświetlić kilka krzywych jednocześnie"
 
 msgid "Spring"
 msgstr "Wiosna"
+
+msgid "Still a single quadrant..."
+msgstr ""
 
 msgid "Summer"
 msgstr "Lato"
 
 msgid "Tcl/Tk interface not installed."
-msgstr ""
+msgstr "Interfejs Tcl/Tk nie jest zainstalowany"
 
 #, c-format
 msgid "The font size must be greater than %d.\n"
@@ -1283,7 +1336,7 @@ msgid "The parent has to be a SUBWIN\n"
 msgstr "Rodzic musi być typu SUBWIN\n"
 
 msgid "The selected file cannot be executed"
-msgstr ""
+msgstr "Brak możliwości wykonania zaznaczonego pliku"
 
 msgid "The selected file defines more than one function"
 msgstr "Wybrany plik definiuje więcej niz jedną funkcję"
@@ -1340,7 +1393,7 @@ msgid "Unhandled data field\n"
 msgstr "Nieobsługiwane pole danych.\n"
 
 msgid "Unique datatip mode"
-msgstr ""
+msgstr "Tryb pojedynczych dymków danych"
 
 #, c-format
 msgid "Unknown property: %s.\n"
@@ -1461,7 +1514,7 @@ msgstr "Nieprawidłowy rozmiar własności '%s': musi być %s lub %s.\n"
 
 #, c-format
 msgid "Wrong size for '%s' property: Must be in the set {%s}.\n"
-msgstr "Zły rozmiar dla '%s' własności: musi być w zbiorze {%s}.\n"
+msgstr "Nieprawidłowy rozmiar dla '%s' własności: musi być w zbiorze {%s}.\n"
 
 #, c-format
 msgid "Wrong size for '%s' property: Must have %d columns.\n"
@@ -1490,6 +1543,8 @@ msgstr ""
 #, c-format
 msgid "Wrong type for '%s' property: Graphic handle array expected.\n"
 msgstr ""
+"Nieodpowiedni typ dla właściwości '%s': oczekiwano tablicy uchwytów (handle) "
+"graficznych.\n"
 
 #, c-format
 msgid "Wrong type for '%s' property: Handle expected.\n"
@@ -1593,10 +1648,13 @@ msgstr "Nie używasz obiektu legendy.\n"
 
 #, c-format
 msgid "You must first specify an %s for this object.\n"
-msgstr ""
+msgstr "Musisz określić %s dla tego obiektu.\n"
 
 msgid "automatic"
 msgstr "automatyczne"
+
+msgid "even huge radii, with properly formatted labels..."
+msgstr ""
 
 msgid "lower left"
 msgstr "dolny lewy"
@@ -1604,8 +1662,14 @@ msgstr "dolny lewy"
 msgid "lower right"
 msgstr "dolny prawy"
 
-msgid "select the curve tip display function"
+msgid "on 2 quadrants..."
 msgstr ""
+
+msgid "polarplot(): Only quadrant(s) reached by data are displayed"
+msgstr ""
+
+msgid "select the curve tip display function"
+msgstr "wybierz funkcję wyświetlania dymku krzywej"
 
 msgid "upper left"
 msgstr "górny lewy"

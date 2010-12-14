@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-06-02 10:01+0100\n"
-"PO-Revision-Date: 2010-08-18 12:49+0000\n"
+"PO-Revision-Date: 2010-12-04 10:59+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,15 @@ msgstr "%s: cit_f は必須です"
 #, c-format
 msgid "%s: error - wrong accept type"
 msgstr "%s:エラー - 不正な型を受け付けました"
+
+msgid "Please wait ..."
+msgstr "お待ちください ..."
+
+msgid "Simulated Annealing"
+msgstr "シミュレーティド・アニーリング"
+
+msgid "Simulated Annealing and Ising problem"
+msgstr "焼きなましおよび凍結問題"
 
 #
 # File: macros/optim_sa.sci, line: 57

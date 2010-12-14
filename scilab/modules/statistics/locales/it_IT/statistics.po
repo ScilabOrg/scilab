@@ -385,6 +385,9 @@ msgstr "Pnonc,P,Q,F e Dfn"
 msgid "Pr,OMPr,P,Q and S"
 msgstr "Pr,OMPr,P,Q e S"
 
+msgid "Rate,P,Q and X"
+msgstr ""
+
 msgid "S and Xlam"
 msgstr "S e Xlam"
 
@@ -394,11 +397,8 @@ msgstr "S,XN,PR e OMPR"
 msgid "S,Xn,Pr and Ompr"
 msgstr "S,Xn,Pr e Ompr"
 
-msgid "Scale,P,Q and X"
-msgstr "Scala,P,Q e X"
-
-msgid "Shape,Scale,P and Q"
-msgstr "Forma,Scala,P e Q"
+msgid "Shape,Rate,P and Q"
+msgstr ""
 
 #, c-format
 msgid "Size of x is zero : returning NaN.\n"
@@ -431,8 +431,8 @@ msgstr "X,Df e Pnonc"
 msgid "X,Mean and Std"
 msgstr "X,Media e Std"
 
-msgid "X,Shape and Scale"
-msgstr "X,Forma e Scala"
+msgid "X,Shape and Rate"
+msgstr ""
 
 msgid "X,Y,A and B"
 msgstr "X,Y,A e B"

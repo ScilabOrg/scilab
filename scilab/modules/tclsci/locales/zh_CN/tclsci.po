@@ -101,23 +101,14 @@ msgstr "%s：输入参数#%d的类型错误：应该为字符串或者字符串�
 msgid "%s: Wrong value for input argument #%d: '%s' expected.\n"
 msgstr "%s：输入参数#%d的值错误：应该为'%s'。\n"
 
-msgid "&?"
-msgstr "&?"
-
-msgid "&Edit"
-msgstr "编辑(&E)"
-
-msgid "&File"
-msgstr "文件(&F)"
-
-msgid "&Tools"
-msgstr "工具(&T)"
-
 msgid "Alpha Release"
 msgstr "Alpha版本"
 
 msgid "Beta Release"
 msgstr "Beta版本"
+
+msgid "Color"
+msgstr ""
 
 #, c-format
 msgid "Error %s while loading library %s"
@@ -155,8 +146,17 @@ msgstr "不可能设置环境变量。"
 msgid "Impossible to set system encoding."
 msgstr "不可能设置系统编码。"
 
+msgid "Puzzle"
+msgstr ""
+
+msgid "Scale"
+msgstr ""
+
 msgid "Scilab TCL/TK module not installed.\n"
 msgstr "Scilab Tcl/Tk 模块没有安装。\n"
+
+msgid "Scroll"
+msgstr ""
 
 #, c-format
 msgid "TCL_EvalScilabCmd %s"

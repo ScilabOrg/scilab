@@ -22,6 +22,9 @@ msgstr "无法改变控制台字体"
 msgid "Could not change the Console Foreground."
 msgstr "无法改变控制台前景"
 
+msgid "Field"
+msgstr ""
+
 msgid "File or Directory"
 msgstr "文件或目录"
 

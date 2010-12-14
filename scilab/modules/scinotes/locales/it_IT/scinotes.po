@@ -88,6 +88,9 @@ msgstr ""
 msgid "Anchors"
 msgstr ""
 
+msgid "Apply & Reindent"
+msgstr ""
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr "Chiudere veramente SciNotes?"
 
@@ -115,8 +118,14 @@ msgstr "Grassetto"
 msgid "Cancel"
 msgstr "Annulla"
 
+msgid "Cannot guess the file encoding."
+msgstr ""
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
 msgstr "Impossibile caricare !scinotesConfiguration.xml\""
+
+msgid "Capitalize Selection;Capitalize character"
+msgstr ""
 
 msgid "Case sensitive"
 msgstr "Distinzione maiuscole/minuscole"
@@ -163,11 +172,17 @@ msgstr "_Commenta la selezione"
 msgid "Complete"
 msgstr "Completo"
 
+msgid "Configure Tabulation"
+msgstr ""
+
 msgid "Continue ?"
 msgstr "Continuare ?"
 
 msgid "Copy"
 msgstr "_Copia"
+
+msgid "Copy as HTML with line number"
+msgstr ""
 
 msgid "Copy selection in a new tab"
 msgstr "Copia la selezione in una nuova scheda"
@@ -187,6 +202,9 @@ msgstr "Non è possibile trovare il terminale né lo InterpreterManagement"
 msgid "Could not find the temporary file."
 msgstr "Non è possibile trovare il file temporaneo."
 
+msgid "Current file encoding"
+msgstr ""
+
 msgid "Cursor Color"
 msgstr "Colore del cursore"
 
@@ -195,6 +213,9 @@ msgstr "_Taglia"
 
 msgid "Default"
 msgstr "Predefinito"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr ""
 
 msgid "Delete"
 msgstr "Elimina"
@@ -208,6 +229,9 @@ msgstr "Direzione"
 msgid "Document"
 msgstr "_Documento"
 
+msgid "Double chevrons"
+msgstr ""
+
 msgid "Edit"
 msgstr "_Modifica"
 
@@ -216,6 +240,9 @@ msgstr "Abilita la riformattazione automatica"
 
 msgid "Encoding"
 msgstr "_Codifica"
+
+msgid "Encoding problems"
+msgstr ""
 
 msgid "Enter line number"
 msgstr "Inserire il numero della riga"
@@ -307,14 +334,26 @@ msgstr ""
 msgid "Highlight current line"
 msgstr "_Evidenzia la riga attuale"
 
+msgid "Horizontal rule"
+msgstr ""
+
+msgid "Horizontal wrapping"
+msgstr ""
+
 msgid "Ignore"
 msgstr "Ignora"
+
+msgid "Incremental Search"
+msgstr ""
 
 msgid "Invalid regular expression : %s"
 msgstr "Espressione regolare non valida : %s"
 
 msgid "Italic"
 msgstr "Corsivo"
+
+msgid "Length"
+msgstr ""
 
 msgid "Line Endings"
 msgstr "Fine riga"
@@ -332,6 +371,12 @@ msgid "Mac Classic (CR)"
 msgstr "Mac Classico (CR)"
 
 msgid "Mail to "
+msgstr ""
+
+msgid "Make Selection Lowercase"
+msgstr ""
+
+msgid "Make Selection Uppercase"
 msgstr ""
 
 msgid "Natural order"
@@ -358,7 +403,7 @@ msgstr "Nessun testo da eseguire"
 msgid "Normal Line Numbering"
 msgstr "Numerazione normale delle righe"
 
-msgid "Numerotation"
+msgid "Numeration"
 msgstr ""
 
 msgid "Ok"
@@ -370,7 +415,7 @@ msgstr "_Apri"
 msgid "Open URL"
 msgstr ""
 
-msgid "Open file in ...;Add a directory;Remove last directory"
+msgid "Open file in ..."
 msgstr ""
 
 msgid "Open function source file"
@@ -487,6 +532,9 @@ msgstr "Salva tutto"
 msgid "Save as"
 msgstr "Sal_va come"
 
+msgid "Save file in ..."
+msgstr ""
+
 msgid "SciNotes"
 msgstr "SciNotes"
 
@@ -525,6 +573,9 @@ msgstr "Righe selezionate"
 
 msgid "Set Colors"
 msgstr "Imposta i co_lori"
+
+msgid "Set Colors ..."
+msgstr ""
 
 msgid "Set Font"
 msgstr "Imposta il tipo di carattere"
@@ -571,6 +622,12 @@ msgstr "La stringa %s non è stata trovata"
 msgid "Syntax Type"
 msgstr "Tipo di sintassi"
 
+msgid "Tab representation"
+msgstr ""
+
+msgid "Tab style"
+msgstr ""
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -588,8 +645,15 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr "Il file non può essere convertito."
 
+msgid "The file could not be created, check the path"
+msgstr ""
+
 msgid "The file could not be saved."
 msgstr "Il file non può essere salvato."
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
+msgstr ""
 
 msgid "This file"
 msgstr "Questo file"
@@ -625,6 +689,12 @@ msgstr "Unix (LF)"
 msgid "Untitled "
 msgstr "Senza nome "
 
+msgid "Use spaces"
+msgstr ""
+
+msgid "Vertical rule"
+msgstr ""
+
 msgid "View"
 msgstr "_Visualizza"
 
@@ -645,6 +715,9 @@ msgstr "Windows/DOS (CR + LF)"
 
 msgid "Word Wrap"
 msgstr "A capo automatico"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr ""
 
 msgid "You have passed the beginning of the document"
 msgstr "È stato passato l'inizio del documento"

@@ -83,6 +83,9 @@ msgstr ""
 msgid "Anchors"
 msgstr ""
 
+msgid "Apply & Reindent"
+msgstr ""
+
 msgid "Are you sure that you want to close SciNotes ?"
 msgstr ""
 
@@ -110,7 +113,13 @@ msgstr ""
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Cannot guess the file encoding."
+msgstr ""
+
 msgid "Cannot load \"scinotesConfiguration.xml\""
+msgstr ""
+
+msgid "Capitalize Selection;Capitalize character"
 msgstr ""
 
 msgid "Case sensitive"
@@ -158,11 +167,17 @@ msgstr "Auswahl kommentieren"
 msgid "Complete"
 msgstr ""
 
+msgid "Configure Tabulation"
+msgstr ""
+
 msgid "Continue ?"
 msgstr ""
 
 msgid "Copy"
 msgstr "kopieren"
+
+msgid "Copy as HTML with line number"
+msgstr ""
 
 msgid "Copy selection in a new tab"
 msgstr ""
@@ -182,6 +197,9 @@ msgstr "Konnte weder die Konsole noch Interpreter Managment finden"
 msgid "Could not find the temporary file."
 msgstr "konnte temporäre Datei nicht finden"
 
+msgid "Current file encoding"
+msgstr ""
+
 msgid "Cursor Color"
 msgstr ""
 
@@ -190,6 +208,9 @@ msgstr "Ausschneiden"
 
 msgid "Default"
 msgstr "Standard"
+
+msgid "Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"
+msgstr ""
 
 msgid "Delete"
 msgstr "Löschen"
@@ -203,6 +224,9 @@ msgstr "Ausrichtung"
 msgid "Document"
 msgstr "Dokument"
 
+msgid "Double chevrons"
+msgstr ""
+
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -211,6 +235,9 @@ msgstr "schalte automatische Formatierung ein"
 
 msgid "Encoding"
 msgstr "Zeichenkodierung"
+
+msgid "Encoding problems"
+msgstr ""
 
 msgid "Enter line number"
 msgstr "Zeilenzahl eingeben"
@@ -302,13 +329,25 @@ msgstr ""
 msgid "Highlight current line"
 msgstr "Aktuelle Zeile hervorheben"
 
+msgid "Horizontal rule"
+msgstr ""
+
+msgid "Horizontal wrapping"
+msgstr ""
+
 msgid "Ignore"
+msgstr ""
+
+msgid "Incremental Search"
 msgstr ""
 
 msgid "Invalid regular expression : %s"
 msgstr "ungültiger regulärer Ausdruck: %s"
 
 msgid "Italic"
+msgstr ""
+
+msgid "Length"
 msgstr ""
 
 msgid "Line Endings"
@@ -327,6 +366,12 @@ msgid "Mac Classic (CR)"
 msgstr "Mac Classic (CR)"
 
 msgid "Mail to "
+msgstr ""
+
+msgid "Make Selection Lowercase"
+msgstr ""
+
+msgid "Make Selection Uppercase"
 msgstr ""
 
 msgid "Natural order"
@@ -353,7 +398,7 @@ msgstr ""
 msgid "Normal Line Numbering"
 msgstr ""
 
-msgid "Numerotation"
+msgid "Numeration"
 msgstr ""
 
 msgid "Ok"
@@ -365,7 +410,7 @@ msgstr "Öffnen"
 msgid "Open URL"
 msgstr ""
 
-msgid "Open file in ...;Add a directory;Remove last directory"
+msgid "Open file in ..."
 msgstr ""
 
 msgid "Open function source file"
@@ -482,6 +527,9 @@ msgstr "Alles sichern"
 msgid "Save as"
 msgstr "Speichern als"
 
+msgid "Save file in ..."
+msgstr ""
+
 msgid "SciNotes"
 msgstr ""
 
@@ -519,6 +567,9 @@ msgstr "ausgewählte Zeilen"
 
 msgid "Set Colors"
 msgstr "Farben einstellen"
+
+msgid "Set Colors ..."
+msgstr ""
 
 msgid "Set Font"
 msgstr "Schriftart wählen"
@@ -565,6 +616,12 @@ msgstr "Zeichenkette %s nicht gefunden"
 msgid "Syntax Type"
 msgstr "Syntax Typ"
 
+msgid "Tab representation"
+msgstr ""
+
+msgid "Tab style"
+msgstr ""
+
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -582,8 +639,15 @@ msgstr ""
 msgid "The file could not be converted."
 msgstr "Die Datei konnte nicht konvertiert werden."
 
+msgid "The file could not be created, check the path"
+msgstr ""
+
 msgid "The file could not be saved."
 msgstr "Datei konnte nicht gespeichert werden."
+
+msgid ""
+"The file encoding is actually %s and it will be saved in using %s. Continue ?"
+msgstr ""
 
 msgid "This file"
 msgstr "Diese Datei"
@@ -618,6 +682,12 @@ msgstr "Unix (LF)"
 msgid "Untitled "
 msgstr "Unbenannt "
 
+msgid "Use spaces"
+msgstr ""
+
+msgid "Vertical rule"
+msgstr ""
+
 msgid "View"
 msgstr "Ansicht"
 
@@ -638,6 +708,9 @@ msgstr "Windows/DOS (CR + LF)"
 
 msgid "Word Wrap"
 msgstr "Zeilenumbruch"
+
+msgid "Working directories;Add a directory;Remove last directory"
+msgstr ""
 
 msgid "You have passed the beginning of the document"
 msgstr "Sie haben den Anfang des Dokuments passiert"

@@ -30,5 +30,14 @@ msgstr "%s: cit_f 是強制性的"
 msgid "%s: error - wrong accept type"
 msgstr "%s: 錯誤 - 接受型態錯誤"
 
+msgid "Please wait ..."
+msgstr ""
+
+msgid "Simulated Annealing"
+msgstr "模擬鍛鍊中"
+
+msgid "Simulated Annealing and Ising problem"
+msgstr ""
+
 msgid "optim_sa: sa_f is mandatory"
 msgstr "optim_sa: sa_f 是強制性的"

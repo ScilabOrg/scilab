@@ -96,5 +96,8 @@ msgstr "%s: Os argumentos de entrada #%d e #%d estão incompatíveis\n"
 msgid "Computing determinant: Be patient...\n"
 msgstr "Computando o determinante: Tenha paciência...\n"
 
+msgid "Introduction"
+msgstr ""
+
 msgid "Polynomials"
 msgstr "Polinômios"

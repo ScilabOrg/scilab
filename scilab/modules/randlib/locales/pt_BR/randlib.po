@@ -336,6 +336,15 @@ msgstr "DF < 1.0 ou DF <= 0.0 ou Xnonc < 0.0\n"
 msgid "Degrees of freedom nonpositive\n"
 msgstr "Graus de liberdade não-positivos\n"
 
+msgid "Erlang random variable"
+msgstr ""
+
+msgid "Exponential random variable"
+msgstr ""
+
+msgid "Hyper geometric random variable"
+msgstr ""
+
 msgid "Low > High\n"
 msgstr "Inferior > Superior\n"
 
@@ -415,6 +424,9 @@ msgstr "P(%d,%d) < 0\n"
 msgid "P(%d,%d) > 1\n"
 msgstr "P(%d,%d) > 1\n"
 
+msgid "Poisson random variable"
+msgstr ""
+
 #, c-format
 msgid "Rand(...,'bet',..): A or B < %f\n"
 msgstr "Rand(...,'bet',..): A ou B < %f\n"
@@ -430,6 +442,15 @@ msgstr "SD < 0.0\n"
 
 msgid "Scilab randlib interface not installed.\n"
 msgstr "A interface randlib do Scilab não está instalada.\n"
+
+msgid "Simulation"
+msgstr ""
+
+msgid "Simulation of a binomial random variable"
+msgstr ""
+
+msgid "Simulation of a discrete random variable"
+msgstr ""
 
 #, c-format
 msgid "Sum of P(%d,1:%d)=%f ~= 1\n"
@@ -449,14 +470,32 @@ msgstr "A opção %s afeta apenas o gerador clcg4\n"
 msgid "The first component of the mt state mt, must be an int in [1, 624]\n"
 msgstr "O primeiro componente do estado mt deve ser um inteiro em [1, 624]\n"
 
+msgid "Theory"
+msgstr ""
+
 msgid "This information concerns only the clcg4 generator\n"
 msgstr "Esta informação refere-se apenas ao gerador clcg4\n"
+
+msgid "Weibull random variable"
+msgstr ""
 
 msgid "X0 is empty\n"
 msgstr "X0 é vazia\n"
 
 msgid "a and b must integers with (b-a+1) <= 2147483561"
 msgstr "a e b devem ser inteiros com (b-a+1) <= 2147483561"
+
+msgid "binomial random variable"
+msgstr ""
+
+msgid "discrete random variable"
+msgstr ""
+
+msgid "discrete uniform random variable"
+msgstr ""
+
+msgid "geometric random variable"
+msgstr ""
 
 msgid "grand(..'gam',A,R) : A <= 0.0 or R <= 0.0\n"
 msgstr "grand(..'gam',A,R) : A <= 0.0 ou R <= 0.0\n"

@@ -196,11 +196,56 @@ msgstr ""
 "%s: Nieprawidłowe wartości argumentu wejściowego nr %d: Stopień musi być w "
 "zestawie {%s}.\n"
 
+msgid "Arma Spectral power estimation:"
+msgstr ""
+
 msgid "Arma identification"
 msgstr "identyfikacja Arma"
 
+msgid "Arma simulation and identification"
+msgstr ""
+
+msgid "Arma, Spectral power estimation"
+msgstr ""
+
+msgid "Arma, bidimensional version"
+msgstr ""
+
+msgid "Bode plots"
+msgstr ""
+
+msgid "Discrete IIR filter"
+msgstr ""
+
+msgid "IIR filter design"
+msgstr ""
+
+msgid "Identification ARX (least square):"
+msgstr ""
+
+msgid "Identification ARX (least square): "
+msgstr ""
+
+msgid "Minimax FIR filter"
+msgstr ""
+
+msgid "Minimax FIR filter design"
+msgstr ""
+
+msgid "Press Return to continue ... \n"
+msgstr ""
+
 msgid "Signal Processing"
 msgstr "Przetwarzanie sygnałów"
+
+msgid "Simulation of an ARMAX process:"
+msgstr ""
+
+msgid "Simulation of an ARMAX process: "
+msgstr ""
+
+msgid "Spectral Estimation"
+msgstr ""
 
 msgid "Spectral power"
 msgstr "Moc widma"
@@ -211,6 +256,12 @@ msgstr "Wartość teoretyczna"
 msgid "Using macro mese"
 msgstr "Korzystanie z makro mese"
 
+msgid "Wiegner filter"
+msgstr ""
+
+msgid "Window FIR filters"
+msgstr ""
+
 msgid "estimates xf"
 msgstr "szacowanie xf"
 
@@ -219,6 +270,12 @@ msgstr "szacowanie xs"
 
 msgid "frequency"
 msgstr "Częstotliwość"
+
+msgid "length 33"
+msgstr ""
+
+msgid "low pass  cut-off in [.23,.27]"
+msgstr ""
 
 msgid "real state"
 msgstr "Rzeczywisty stan"
