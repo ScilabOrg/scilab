@@ -40,6 +40,8 @@ Xcos:
 * bug 8235 fixed - Using masked super-block did not work when parameters are
                    defined on the sub-context.
 
+* bug 8642 fixed - The getDiagramVersion unit test could not pass.
+
 Localization:
 =============
 
