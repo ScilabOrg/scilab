@@ -23,16 +23,16 @@
 
   <target name="validate" description="Validate the data">
     <!-- Validate the demos -->
-    <schemavalidate noNamespaceFile="etc/XcosFile.xsd">
+    <schemavalidate noNamespaceFile="etc/XcosFile.xsd" failonerror="no">
       <fileset dir="demos" includes="**/*.xcos"/>
     </schemavalidate>
 
     <!-- Validate the global configuration file -->
-    <schemavalidate noNamespaceFile="etc/XcosConfiguration.xsd"
+    <schemavalidate noNamespaceFile="etc/XcosConfiguration.xsd" failonerror="no"
       file="etc/xcos.xml" />
 
     <!-- Validate the palette configuration file -->
-    <schemavalidate noNamespaceFile="etc/PaletteConfiguration.xsd"
+    <schemavalidate noNamespaceFile="etc/PaletteConfiguration.xsd" failonerror="no"
       file="etc/palettes.xml" />
   </target>
 
