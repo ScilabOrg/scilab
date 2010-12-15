@@ -1,3 +1,23 @@
+            Changes between version 5.3.0 and 5.3.1 of Scilab
+            =================================================
+
+
+Quality assurance:
+==================
+
+* C/C++/Fortran test coverage available on the Scilab source code.
+  Add "--enable-code-coverage" to the configure under GNU/Linux and Mac OS X
+  Start the unitary tests or launch Scilab
+  "make code-coverage" creates the report into "/coverage/results/"
+
+
+Compilation:
+============
+
+* -Wimplicit removed for gfortran in the enable debug mode
+
+
+
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
