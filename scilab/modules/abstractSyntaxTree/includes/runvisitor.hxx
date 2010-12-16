@@ -76,6 +76,7 @@ namespace ast
         {
             if(is_single_result())
             {
+#pragma omp critical (ref_count) //(manage_ref)
                 if(_result != NULL && _result->isDeletable() == true)
                 {
                     //					std::cout << "before single delete : " << _result << std::endl;

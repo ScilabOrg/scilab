@@ -20,7 +20,7 @@
 #include "symbol.hxx"
 #include "stack.hxx"
 #include "heap.hxx"
-
+#include <vector>
 namespace symbol
 {
 
@@ -31,6 +31,7 @@ namespace symbol
     public :
         Context();
         static Context* getInstance(void);
+        static void initThreadedContext(void);
 
         /** Open a context scope i.e
         ** open the heap table one
@@ -111,7 +112,7 @@ namespace symbol
         Stack EnvFunTable;
         Stack EnvVarTable;
 
-        static Context* me;
+        static std::vector<Context*> we;
     };
 }
 #endif // !CONTEXT_HH

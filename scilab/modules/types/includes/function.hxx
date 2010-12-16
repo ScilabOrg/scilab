@@ -32,7 +32,7 @@ namespace types
     class Function : public Callable
     {
     public :
-        typedef ReturnValue (*GW_FUNC)(typed_list &in, int _iRetCount, typed_list &out); 
+        typedef ReturnValue (*GW_FUNC)(typed_list &in, int _iRetCount, typed_list &out);
         typedef int (*OLDGW_FUNC)(char *fname, int* _piKey);
 
                                 Function() : Callable() {};
@@ -78,7 +78,6 @@ namespace types
 
     private :
         OLDGW_FUNC              m_pOldFunc;
-        InternalType*           m_pTempOut[MAX_OUTPUT_VARIABLE];
     };
 
     class GatewayStruct
