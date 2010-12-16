@@ -1,6 +1,11 @@
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
+SciNotes:
+=========
+
+* bug 8627 fixed - A bad identifier was not shew as invalid.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
