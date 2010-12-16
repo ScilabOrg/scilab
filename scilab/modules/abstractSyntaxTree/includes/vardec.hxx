@@ -22,6 +22,8 @@
 
 #include "dec.hxx"
 
+#include "scope.hxx"
+
 namespace ast
 {
 
@@ -59,7 +61,7 @@ namespace ast
         ** \li "2097" is the initial value of the variable
         */
         VarDec (const Location& location,
-            std::wstring name, Exp& init) 
+            std::wstring name, Exp& init)
             : Dec (location),
             _name (name),
             _init (&init),
@@ -101,7 +103,7 @@ namespace ast
         ** \{ */
     public:
         /** \brief Return the variable name (read only). */
-        const std::wstring& name_get (void) const
+        const symbol::symbol_t& name_get (void) const
         {
             return _name;
         }
@@ -132,7 +134,7 @@ namespace ast
 
     protected:
         /** \brief Name of the declared variable. */
-        std::wstring _name;
+        symbol::symbol_t _name;
         /** \brief The initial value (expression) assigned to the variable. */
         Exp* _init;
 

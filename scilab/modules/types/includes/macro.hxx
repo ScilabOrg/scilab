@@ -1,13 +1,13 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2010 - DIGITEO - Bruno JOFRET
- * 
+ *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
  *  you should have received as part of this distribution.  The terms
  *  are also available at
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- * 
+ *
  */
 
 #ifndef __MACRO_HXX__
@@ -26,7 +26,7 @@ namespace types
     {
     public :
                                     Macro(): Callable(){};
-                                    Macro(const wstring& _stName, list<wstring> &_inputArgs, list<wstring> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule);
+                                    Macro(const symbol::symbol_t& _stName, list<symbol::symbol_t> &_inputArgs, list<symbol::symbol_t> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule);
         virtual                     ~Macro();
 
         // FIXME : Should not return NULL;
@@ -48,12 +48,12 @@ namespace types
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual wstring             getShortTypeStr() {return L"function";}
 
-        list<wstring>*              inputs_get();
-        list<wstring>*              outputs_get();
+        list<symbol::symbol_t>*              inputs_get();
+        list<symbol::symbol_t>*              outputs_get();
 
     private :
-        list<wstring>*              m_inputArgs;
-        list<wstring>*              m_outputArgs;
+        list<symbol::symbol_t>*              m_inputArgs;
+        list<symbol::symbol_t>*              m_outputArgs;
         ast::SeqExp*                m_body;
         bool                        bAutoAlloc;
 

@@ -15,6 +15,7 @@
 #define __CALLABLE_HXX__
 
 #include <string>
+#include "symbol.hxx"
 #include "types.hxx"
 
 #include "visitor.hxx"
@@ -31,7 +32,7 @@ namespace types
           OK_NoResult,
           Error
       };
-    
+
                             Callable(): InternalType() {}
       virtual               ~Callable() {}
 
@@ -40,8 +41,8 @@ namespace types
 
       virtual ReturnValue   call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc) = 0;
 
-      void                  setName(std::wstring _stName) { m_stName = _stName; }
-      std::wstring          getName() { return m_stName; }
+      void                  setName(symbol::symbol_t const& _stName) { m_stName = _stName; }
+      symbol::symbol_t          getName() { return m_stName; }
       void                  setModule(std::wstring _stModule) { m_stModule = _stModule; }
       std::wstring          getModule() { return m_stModule; }
 
@@ -52,7 +53,7 @@ namespace types
       virtual Callable*     clone(void) = 0;
 
   protected :
-      std::wstring           m_stName;
+      symbol::symbol_t           m_stName;
       std::wstring           m_stModule;
   };
 }

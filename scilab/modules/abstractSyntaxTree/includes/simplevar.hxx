@@ -16,6 +16,8 @@
 
 #include "var.hxx"
 
+#include "scope.hxx"
+
 namespace ast
 {
     /** \brief Abstract a Simple Variable node.
@@ -31,7 +33,7 @@ namespace ast
         ** \param name the name of the variable
         */
         SimpleVar (const Location& location,
-            const std::wstring name) 
+            const std::wstring name)
             : Var (location),
             _name (name)
         {
@@ -69,7 +71,7 @@ namespace ast
         ** \{ */
     public:
         /** \brief Return the Variable's name. */
-        const std::wstring& name_get () const
+        const symbol::symbol_t& name_get () const
         {
             return _name;
         }
@@ -83,7 +85,7 @@ namespace ast
 
     protected:
         /** \brief Variable's name */
-        std::wstring _name;
+        symbol::symbol_t _name;
     };
 
 } // namespace ast

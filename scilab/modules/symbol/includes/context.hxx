@@ -45,19 +45,19 @@ namespace symbol
 
         /** If key was associated to some Entry_T in the open scopes, return the
         ** most recent insertion. Otherwise return the empty pointer. */
-        InternalType*	get(const wstring& key) const;
+        InternalType*	get(const symbol::symbol_t& key) const;
 
         /** If key was associated to some Entry_T in the last opened scope, return it.
         ** Otherwise return the empty pointer. */
-        InternalType*	getCurrentLevel(const wstring& key) const;
+        InternalType*	getCurrentLevel(const symbol::symbol_t& key) const;
 
         /** If key was associated to some Entry_T in the open scopes, return the
          ** most recent insertion DESPITE the current/last one. Otherwise return the empty pointer. */
-        InternalType*	getAllButCurrentLevel(const wstring& key) const;
+        InternalType*	getAllButCurrentLevel(const symbol::symbol_t& key) const;
 
         /** If key was associated to some Entry_T in the open scopes, return the
         ** most recent insertion. Otherwise return the empty pointer. */
-        InternalType*	get_fun(const wstring& key) const;
+        InternalType*	get_fun(const symbol::symbol_t& key) const;
 
         /*return function list in the module _stModuleName*/
         std::list<wstring>& get_funlist(const wstring& _stModuleName);
@@ -66,39 +66,39 @@ namespace symbol
         /* global functions */
 
         /*return global variable visibility status*/
-        bool isGlobalVisible(const wstring& key) const;
+        bool isGlobalVisible(const symbol::symbol_t& key) const;
 
         /*return global variable, search in global scope ( highest )*/
-        InternalType* getGlobalValue(const wstring& key) const;
+        InternalType* getGlobalValue(const symbol::symbol_t& key) const;
 
         /*return global variable existance status*/
-        bool isGlobalExists(const wstring& key) const;
+        bool isGlobalExists(const symbol::symbol_t& key) const;
 
         /*create or update a global variable*/
-        void setGlobalValue(const wstring& key, InternalType &value);
+        void setGlobalValue(const symbol::symbol_t& key, InternalType &value);
 
         /*remove global variable and all visibility references */
-        void removeGlobal(const wstring &key);
+        void removeGlobal(const symbol::symbol_t &key);
 
         /*remove all global variables and references */
         void removeGlobalAll();
 
         /*create an empty variable*/
-        void createEmptyGlobalValue(const wstring& key);
+        void createEmptyGlobalValue(const symbol::symbol_t& key);
 
         /*set variable visible/hidden in current global scope*/
-        void setGlobalVisible(const wstring& key, bool bVisible = true);
+        void setGlobalVisible(const symbol::symbol_t& key, bool bVisible = true);
 
         /*print all tables*/
         void print();
 
         /*add symbol and value in the stack*/
-        bool put(const wstring& key, InternalType &type);
+        bool put(const symbol::symbol_t& key, InternalType &type);
         /*add symbol and value in the previous scope*/
-        bool put_in_previous_scope(const wstring& key, InternalType &type);
+        bool put_in_previous_scope(const symbol::symbol_t& key, InternalType &type);
 
         /* remove symbol/value association */
-        bool remove(const wstring& key);
+        bool remove(const symbol::symbol_t& key);
 
         bool AddFunction(types::Function *_info);
         bool AddMacro(types::Macro *_info);

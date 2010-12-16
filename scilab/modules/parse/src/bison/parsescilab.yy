@@ -26,6 +26,7 @@
 #include <string>
 #include <sstream>
 #include <list>
+#include "symbol.hxx"
 #include "all.hxx"
 #include "parse.hxx"
 #include "parser_private.hxx"

@@ -15,7 +15,7 @@
 #define SYMBOL_SCOPE_HH
 
 #include <iostream>
-#include <map>
+
 #include "symbol.hxx"
 #include "alltypes.hxx"
 #include "export_symbol.h"
@@ -26,11 +26,11 @@ extern "C"
 #include "MALLOC.h"
 }
 
+
 using namespace types;
 
 namespace symbol
 {
-
     //template< class Entry_T, class Key_T = Symbol >
     class EXTERN_SYMBOL Scope
     {
@@ -39,19 +39,19 @@ namespace symbol
         /** \brief Construct a Scope */
         explicit Scope()
         {
-            _scope = new map<wstring, InternalType*>();
+            _scope = new map_t();
             _name = L"";
         }
         /** \brief Construct a named Scope i.e Namespace */
         explicit Scope(wstring name)
         {
-            _scope = new map<wstring, InternalType*>();
+            _scope = new map_t();
             _name = name;
         }
 
         ~Scope()
         {
-            map<wstring, InternalType*>::const_iterator i;
+            map_t::const_iterator i;
             for(i = _scope->begin() ; i != _scope->end() ; ++i)
             {
                 //std::cout << i->first << std::endl;
@@ -71,7 +71,7 @@ namespace symbol
 
         bool isUsed(InternalType* pIT) const
         {
-            map<wstring, InternalType*>::const_iterator it_scope;
+            map_t::const_iterator it_scope;
             for(it_scope = _scope->begin() ; it_scope != _scope->end() ; ++it_scope)
             {
                 if((*it_scope).second == pIT)
@@ -81,7 +81,7 @@ namespace symbol
         }
 
         /** Associate value to key in the current scope. */
-        InternalType*	put (const wstring& key, InternalType &value)
+        InternalType*	put (const symbol_t& key, InternalType &value)
         {
             InternalType *pOld = (*_scope)[key];
 
@@ -110,12 +110,12 @@ namespace symbol
             return NULL;
         }
 
-        void remove(const wstring& key)
+        void remove(const symbol_t& key)
         {
             if((*_scope).find(key) != (*_scope).end())
             {
                 InternalType *pOld = (*_scope)[key];
-                
+
                 if(pOld)
                 {
                     _scope->erase(key);
@@ -131,9 +131,9 @@ namespace symbol
 
         /** If key was associated to some Entry_T in the open scopes, return the
         ** most recent insertion. Otherwise return the empty pointer. */
-        InternalType*	get (const wstring& key) const
+        InternalType*	get (const symbol_t& key) const
         {
-            map<wstring, InternalType*>::const_iterator it_scope;
+            map_t::const_iterator it_scope;
 
             it_scope = (*_scope).find(key);
             if (it_scope == (*_scope).end())
@@ -151,7 +151,7 @@ namespace symbol
         list<wstring>& get_names(const wstring& _stModuleName) const
         {
             list<wstring>* pNames = new list<wstring>;
-            map<wstring, InternalType*>::const_iterator it_scope;
+            map_t::const_iterator it_scope;
             for(it_scope = _scope->begin() ; it_scope != _scope->end() ; ++it_scope)
             {
                 if(it_scope->second->isFunction() || it_scope->second->isMacro() || it_scope->second->isMacroFile())
@@ -171,20 +171,20 @@ namespace symbol
         ** of the stack being displayed last. */
         void	print (wostream& ostr) const
         {
-            map<wstring, InternalType*>::const_iterator it_scope;
+            map_t::const_iterator it_scope;
             for(it_scope = _scope->begin() ; it_scope != _scope->end() ; ++it_scope)
             {
                 ostr << it_scope->first << " = " << it_scope->second->toString(10,75) << std::endl;
             }
         }
 
-        map<wstring, InternalType*>* getInternalMap()
+        map_t* getInternalMap()
         {
             return _scope;
         }
 
     private:
-        map<wstring, InternalType*>* 	_scope;
+        map_t* 	_scope;
         wstring				            _name;
     };
 

@@ -13,6 +13,8 @@
 #ifndef __OVERLOAD_HXX__
 #define __OVERLOAD_HXX__
 
+#include "symbol.hxx"
+
 #include "function.hxx"
 #include "visitor.hxx"
 #include "opexp.hxx"
@@ -25,15 +27,15 @@ public:
      ** depending on input parameters
      ** and maybe on number of result expected <further implementation>
      */
-    static std::wstring buildOverloadName(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount);
+    static symbol::symbol_t buildOverloadName(symbol::symbol_t const& _stFunctionName, types::typed_list &in, int _iRetCount);
 
     /**
      */
-    static types::Function::ReturnValue generateNameAndCall(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
+    static types::Function::ReturnValue generateNameAndCall(symbol::symbol_t const& _stFunctionName, types::typed_list &in, int _iRetCount,
                                              types::typed_list &out, ast::ConstVisitor *_execMe);
     /**
      */
-    static types::Function::ReturnValue call(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
+    static types::Function::ReturnValue call(symbol::symbol_t const& _stFunctionName, types::typed_list &in, int _iRetCount,
                                              types::typed_list &out, ast::ConstVisitor *_execMe);
 
     static std::wstring getNameFromOper(ast::OpExp::Oper);

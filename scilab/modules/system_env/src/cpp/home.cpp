@@ -52,7 +52,8 @@ void setHOMEW(const wchar_t* _home)
 {
     //add SCI value in context as variable
     types::String *pS = new types::String(_home);
-    symbol::Context::getInstance()->put(L"home", *pS);
+
+    symbol::Context::getInstance()->put(symbol::symbol_t(std::wstring(L"home")), *pS);
 
     std::wstring home(_home);
     ConfigVariable::setHOME(home);

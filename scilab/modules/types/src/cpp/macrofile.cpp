@@ -2,13 +2,13 @@
 *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 *  Copyright (C) 2009-2010 - DIGITEO - Bruno JOFRET
 *  Copyright (C) 2009-2009 - DIGITEO - Antoine ELIAS
-* 
+*
 *  This file must be used under the terms of the CeCILL.
 *  This source file is licensed as described in the file COPYING, which
 *  you should have received as part of this distribution.  The terms
 *  are also available at
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-* 
+*
 */
 
 #include <sstream>
@@ -26,9 +26,10 @@ namespace types
     /*--------------*/
     /*	Contructor  */
     /*--------------*/
-    MacroFile::MacroFile(wstring _stName, wstring _stPath, wstring _stModule) : Callable(), m_stPath(_stPath), m_pMacro(NULL)
+    MacroFile::MacroFile(wstring const&_stName, wstring _stPath, wstring _stModule) : Callable(), m_stPath(_stPath), m_pMacro(NULL)
     {
-        setName(_stName);
+        symbol::symbol_t name(_stName);
+        setName(name);
         setModule(_stModule);
     }
 
@@ -47,12 +48,12 @@ namespace types
 
     MacroFile* MacroFile::getAsMacroFile(void)
     {
-        return this; 
+        return this;
     }
 
     InternalType::RealType MacroFile::getType(void)
-    { 
-        return RealMacroFile; 
+    {
+        return RealMacroFile;
     }
 
     Macro* MacroFile::macro_get(void)
@@ -122,7 +123,7 @@ namespace types
                             std::list<Var *>::const_iterator	i;
 
                             //get input parameters list
-                            std::list<std::wstring> *pVarList = new std::list<std::wstring>();
+                            std::list<symbol::symbol_t> *pVarList = new std::list<symbol::symbol_t>();
                             ArrayListVar *pListVar = (ArrayListVar *)&pFD->args_get();
                             for(i = pListVar->vars_get().begin() ; i != pListVar->vars_get().end() ; i++)
                             {
@@ -130,7 +131,7 @@ namespace types
                             }
 
                             //get output parameters list
-                            std::list<std::wstring> *pRetList = new std::list<std::wstring>();
+                            std::list<symbol::symbol_t> *pRetList = new std::list<symbol::symbol_t>();
                             ArrayListVar *pListRet = (ArrayListVar *)&pFD->returns_get();
                             for(i = pListRet->vars_get().begin() ; i != pListRet->vars_get().end() ; i++)
                             {

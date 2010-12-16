@@ -38,11 +38,11 @@ namespace types
         bool                            exists(const std::wstring& _sKey);
         InternalType*                   get(const std::wstring& _sKey);
         InternalType*                   get(const int _iIndex);
-        int                             getIndexFromString(const std::wstring _sKey);
+       int                             getIndexFromString(const std::wstring& _sKey);
         bool                            set(const std::wstring& _sKey, InternalType* _pIT);
         bool                            set(const int _iIndex, InternalType* _pIT);
 
-        std::vector<InternalType*>      extract_string(list<wstring> _stFields);
+        types::result_t      extract_string(list<wstring> const& _stFields);
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::wstring             getTypeStr();

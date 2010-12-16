@@ -19,7 +19,7 @@
 #define AST_EXP_HXX
 
 #include <list>
-
+#include "symbol.hxx"
 #include "ast.hxx"
 
 namespace ast
@@ -34,7 +34,7 @@ namespace ast
     public:
         /** \brief Construct an Expression node.
         ** \param location scanner position informations */
-        Exp (const Location& location) 
+        Exp (const Location& location)
             : Ast (location),
             _verbose(false),
             _bBreak(false),

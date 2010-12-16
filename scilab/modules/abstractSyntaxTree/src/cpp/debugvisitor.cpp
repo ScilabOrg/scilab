@@ -159,7 +159,8 @@ namespace ast
     void DebugVisitor::visit (const SimpleVar &e)
     {
         DEBUG_START_NODE();
-        DEBUG(L"Exec SimpleVar : "+e.name_get(), e);
+        std::wstring const& name(e.name_get());
+        DEBUG(L"Exec SimpleVar : "+name, e);
         DEBUG_END_NODE();
     }
 
@@ -444,7 +445,8 @@ namespace ast
         DEBUG(L"Exec VarDec", e);
         {
             DEBUG_START_NODE();
-            DEBUG(L"Exec Symbol : " + e.name_get(), e);
+            std::wstring const& name(e.name_get());
+            DEBUG(L"Exec Symbol : " + name, e);
             DEBUG_END_NODE();
         }
         e.init_get().accept(*this);

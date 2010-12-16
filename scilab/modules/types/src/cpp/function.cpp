@@ -29,7 +29,7 @@ namespace types
 
     Function::Function(wstring _stName, GW_FUNC _pFunc, wstring _stModule) : Callable(), m_pFunc(_pFunc)
     {
-        setName(_stName);
+        setName(symbol::symbol_t(_stName));
         setModule(_stModule);
     }
 
@@ -105,13 +105,14 @@ namespace types
         out.resize( MAX_OUTPUT_VARIABLE );
         pStr->m_pOut = &out[0];
         pStr->m_piRetCount = &_iRetCount;
-        pStr->m_pstName = const_cast<wchar_t*>(m_stName.c_str());
+        std::wstring const& name(m_stName);
+        pStr->m_pstName = const_cast<wchar_t*>(name.c_str());
         pStr->m_pOutOrder = new int[_iRetCount < 1 ? 1 : _iRetCount];
         memset(pStr->m_pOutOrder, 0xFF, (_iRetCount < 1 ? 1 : _iRetCount) * sizeof(int));
         memset(pStr->m_pOut, 0x00, MAX_OUTPUT_VARIABLE * sizeof(InternalType*));
 
         //call gateway
-        iRet = m_pOldFunc((char*)m_stName.c_str(), (int*)pStr);
+        iRet = m_pOldFunc((char*)name.c_str(), (int*)pStr);
 
         if(iRet != 0)
         {

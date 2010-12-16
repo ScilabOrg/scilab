@@ -118,11 +118,19 @@ namespace
         }
 
         Callable* getFunction(std::size_t pos) {
+            Callable* res(0);
             funPos= pos;
             String* str(in[pos]->getAsString());
-            return str
-                ? dynamic_cast<Callable*>(symbol::Context::getInstance()->get(str->string_get(0,0)))
-                : dynamic_cast<Callable*>(in[pos]);
+            if(str)
+            {
+                symbol::symbol_t name(str->string_get(0,0));
+                res= dynamic_cast<Callable*>(symbol::Context::getInstance()->get(name));
+            }
+            else
+            {
+                res= dynamic_cast<Callable*>(in[pos]);
+            }
+            return res;
         }
 
         void operator()()

@@ -87,16 +87,18 @@ static PrivateResult sci_existsOrIsdef(types::typed_list &in, const char *fname)
 
 
     types::InternalType *pitReturn = NULL;
+    std::wstring const tmp(in[0]->getAsString()->string_get(0,0));
+    symbol::symbol_t const name(tmp);
     switch (getScopeFromOption(psScope))
     {
     case All:
-        pitReturn = symbol::Context::getInstance()->get(in[0]->getAsString()->string_get(0,0));
+        pitReturn = symbol::Context::getInstance()->get(name);
         break;
     case Local:
-        pitReturn = symbol::Context::getInstance()->getCurrentLevel(in[0]->getAsString()->string_get(0,0));
+        pitReturn = symbol::Context::getInstance()->getCurrentLevel(name);
         break;
     case NoLocal:
-        pitReturn = symbol::Context::getInstance()->getAllButCurrentLevel(in[0]->getAsString()->string_get(0,0));
+        pitReturn = symbol::Context::getInstance()->getAllButCurrentLevel(name);
         break;
     default :
         Scierror(36, _("%s: Wrong input argument %d.\n"), fname, 2);

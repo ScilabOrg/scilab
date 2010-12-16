@@ -3,6 +3,7 @@
 #include "isatty.hxx"
 #include "parse.hxx"
 #include "parser_private.hxx"
+#include "symbol.hxx"
 
 #include "context.hxx"
 
@@ -341,8 +342,9 @@ assign			"="
             yyterminate();
         }
         yylval.str = new std::wstring(pwText);
-        if (symbol::Context::getInstance()->get(*yylval.str) != NULL
-            && symbol::Context::getInstance()->get(*yylval.str)->isCallable())
+        symbol::symbol_t name(*yylval.str);
+        if (symbol::Context::getInstance()->get(name) != NULL
+            && symbol::Context::getInstance()->get(name)->isCallable())
         {
             scan_throw(ID);
             BEGIN(SHELLMODE);

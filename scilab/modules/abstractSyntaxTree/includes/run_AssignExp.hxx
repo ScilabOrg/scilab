@@ -252,25 +252,25 @@ void visitprivate(const AssignExp  &e)
 
                 switch(execMeR.result_get()->getType())
                 {
-                case InternalType::RealDouble : 
+                case InternalType::RealDouble :
                     pOut = Double::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsDouble(), bSeeAsVector);
                     break;
-                case InternalType::RealBool : 
+                case InternalType::RealBool :
                     pOut = Bool::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsBool(), bSeeAsVector);
                     break;
-                case InternalType::RealString : 
+                case InternalType::RealString :
                     pOut = String::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsString(), bSeeAsVector);
                     break;
-                case InternalType::RealInt : 
+                case InternalType::RealInt :
                     pOut = Int::insert_new(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_get()->getAsInt(), bSeeAsVector);
                     break;
-                case InternalType::RealList : 
+                case InternalType::RealList :
                     //never occur !
                     break;
-                case InternalType::RealCell : 
+                case InternalType::RealCell :
                     //never occur !
                     break;
-                default : 
+                default :
                     //TOTO YaSp : overlaoding insertion
                     break;
                 }
@@ -280,25 +280,25 @@ void visitprivate(const AssignExp  &e)
                 InternalType* pRet = NULL;
                 switch(pIT->getType())
                 {
-                case InternalType::RealDouble : 
+                case InternalType::RealDouble :
                     pRet = pIT->getAsDouble()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
                     break;
-                case InternalType::RealBool : 
+                case InternalType::RealBool :
                     pRet = pIT->getAsBool()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
                     break;
-                case InternalType::RealString : 
+                case InternalType::RealString :
                     pRet = pIT->getAsString()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
                     break;
-                case InternalType::RealInt : 
+                case InternalType::RealInt :
                     pRet = pIT->getAsInt()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
                     break;
-                case InternalType::RealList : 
+                case InternalType::RealList :
                     pRet = pIT->getAsList()->insert(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_list_get(), bSeeAsVector);
                     break;
-                case InternalType::RealTList : 
+                case InternalType::RealTList :
                     pRet = pIT->getAsTList()->insert(iTotalCombi, piIndexSeq, piMaxDim, execMeR.result_list_get(), bSeeAsVector);
                     break;
-                case InternalType::RealCell : 
+                case InternalType::RealCell :
                     if(execMeR.result_get()->isCell() == true)
                     {
                         pRet = pIT->getAsCell()->insert(iTotalCombi, piIndexSeq, piMaxDim, (GenericType*)execMeR.result_get(), bSeeAsVector);
@@ -312,7 +312,7 @@ void visitprivate(const AssignExp  &e)
                         throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
                     }
                     break;
-                default : 
+                default :
                     //TODO YaSp : overlaoding insertion
                     break;
                 }
@@ -327,7 +327,7 @@ void visitprivate(const AssignExp  &e)
                     }
                     bNew = true;
                 }
-                
+
                 pOut = pRet;
             }
 
@@ -378,7 +378,7 @@ void visitprivate(const AssignExp  &e)
                 //os << ((Location)e.right_exp_get().location_get()).location_string_get() << std::endl;
                 throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
-				
+
             InternalType *pIT	=	execMeR.result_get();
             if(pIT->isImplicitList())
             {
@@ -468,7 +468,7 @@ void visitprivate(const AssignExp  &e)
             if(pHead->isRef(1) == true)
             {
                 pHead = pHead->clone();
-                const wstring *pstName = getStructNameFromExp(pField);
+                const symbol::symbol_t *pstName = getStructNameFromExp(pField);
                 symbol::Context::getInstance()->put(*pstName, *pHead);
             }
             /*getting what to assign*/
@@ -529,7 +529,7 @@ void visitprivate(const AssignExp  &e)
 
             if(e.is_verbose())
             {
-                const wstring *pstName = getStructNameFromExp(pField);
+                const symbol::symbol_t*pstName = getStructNameFromExp(pField);
 
                 std::wostringstream ostr;
                 ostr << *pstName << L" = " << std::endl << std::endl;

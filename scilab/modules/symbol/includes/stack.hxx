@@ -17,6 +17,7 @@
 #include <list>
 #include <map>
 #include <cassert>
+#include "symbol.hxx"
 #include "table.hxx"
 #include "export_symbol.h"
 
@@ -48,7 +49,7 @@ namespace symbol
             this->l_scope.pop_front();
         }
 
-        void	put_in_previous_scope(const wstring& key, InternalType &value)
+        void	put_in_previous_scope(symbol::symbol_t const& key, InternalType &value)
         {
             size_t iSize = l_scope.size();
             if(iSize > 1)
@@ -61,20 +62,20 @@ namespace symbol
         }
 
         /** Associate value to key in the current scope. */
-        void	put (const wstring& key, InternalType &value)
+        void	put (symbol::symbol_t const& key, InternalType &value)
         {
             (this->l_scope.front())->put(key, value);
         }
 
         /** Remove Association between value and key in the current scope. */
-        void	remove(const wstring& key)
+        void	remove(const symbol::symbol_t& key)
         {
             (this->l_scope.front())->remove(key);
         }
 
         /** If key was associated to some Entry_T in the open scopes, return the
         ** most recent insertion. Otherwise return the empty pointer. */
-        InternalType*	get (const wstring& key) const
+        InternalType*	get (const symbol::symbol_t& key) const // /!\ TIME SINK
         {
             InternalType* result = 0;
 
@@ -94,7 +95,7 @@ namespace symbol
 
         /** If key was associated to some Entry_T in the open scopes, return the
         ** most recent insertion DESPITE the current/last one. Otherwise return the empty pointer. */
-        InternalType*	getAllButCurrentLevel(const wstring& key) const
+        InternalType*	getAllButCurrentLevel(const symbol::symbol_t& key) const
         {
             InternalType* result = 0;
 
@@ -125,13 +126,13 @@ namespace symbol
 
         /** If key was associated to some Entry_T in the last opened scope, return it.
         ** Otherwise return the empty pointer. */
-        InternalType*	getCurrentLevel(const wstring& key) const
+        InternalType*	getCurrentLevel(const symbol::symbol_t& key) const
         {
             return l_scope.front()->get(key);
         }
 
 
-        std::list<std::wstring>& get_funlist(const wstring& _stModuleName)
+        std::list<wstring>& get_funlist(const wstring& _stModuleName)
         {
             //get hightest scope
             std::list<Scope*>::iterator i = l_scope.end();

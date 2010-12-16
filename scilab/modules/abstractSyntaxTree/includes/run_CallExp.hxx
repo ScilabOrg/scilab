@@ -90,7 +90,7 @@ void visitprivate(const CallExp &e)
                         throw ScilabError(os.str(), 999, e.location_get());
                     }
                 }
-// out can become invalid in multi-threaded exec :(
+// out can become invalid in multi-threaded exec when calling C functions :(
                 if(out.size() == 1)
                 {//protect output values
                     out[0]->IncreaseRef();
@@ -122,7 +122,7 @@ void visitprivate(const CallExp &e)
             }
 
             //std::cout << "before delete[]" << std::endl;
-            delete[] execVar;
+            delete[] execVar; // /!\ TIME SINK
             //std::cout << "after delete[]" << std::endl;
 
             if(out.size() == 1)
@@ -142,7 +142,8 @@ void visitprivate(const CallExp &e)
             if(pCall->isMacro() || pCall->isMacroFile())
             {
                 wchar_t szError[bsiz];
-                os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), sm.GetErrorLocation().first_line, pCall->getName().c_str());
+                std::wstring const& name(pCall->getName());
+                os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), sm.GetErrorLocation().first_line, name.c_str());
                 throw ScilabMessage(szError);
             }
             else
@@ -170,7 +171,7 @@ void visitprivate(const CallExp &e)
 
         int iArgDim = static_cast<int>(e.args_get().size());
         InternalType *pOut = NULL;
-        std::vector<InternalType*> ResultList;
+        types::result_t ResultList;
 
         //To manage extraction without parameter like SCI()
         if(iArgDim == 0)

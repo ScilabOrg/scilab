@@ -13,6 +13,7 @@
 /*--------------------------------------------------------------------------*/
 
 #include <wchar.h>
+#include "symbol.hxx"
 
 #include "stack-c.h"
 
@@ -34,8 +35,8 @@ extern "C"
 /*--------------------------------------------------------------------------*/
 struct VARIABLEALIAS
 {
-	wchar_t *Alias;
-	wchar_t *VariableName;
+	wchar_t const* const Alias;
+	wchar_t const* const VariableName;
 };
 /*--------------------------------------------------------------------------*/
 #define NB_ALIAS 7
@@ -50,8 +51,8 @@ static struct VARIABLEALIAS VARIABLES_words[NB_ALIAS] =
 	{L"TMPDIR", L"TMPDIR"}
 };
 /*--------------------------------------------------------------------------*/
-static wchar_t *getVariableValueDefinedInScilab(wchar_t *wcVarName);
-static wchar_t *convertFileSeparators(wchar_t *wcStr);
+static wchar_t *getVariableValueDefinedInScilab(wchar_t const *wcVarName);
+static wchar_t *convertFileSeparators(wchar_t  *wcStr);
 /*--------------------------------------------------------------------------*/
 wchar_t *expandPathVariableW(wchar_t *wcstr)
 {
@@ -122,7 +123,7 @@ wchar_t *expandPathVariableW(wchar_t *wcstr)
 	return wcexpanded;
 }
 /*--------------------------------------------------------------------------*/
-char *expandPathVariable(char* str)
+char *expandPathVariable(char * str)
 {
 	char *expanded = NULL;
 	wchar_t *wstr = to_wide_string(str);
@@ -142,11 +143,13 @@ char *expandPathVariable(char* str)
 	return expanded;
 }
 /*--------------------------------------------------------------------------*/
-wchar_t *getVariableValueDefinedInScilab(wchar_t *wcVarName)
+wchar_t *getVariableValueDefinedInScilab(wchar_t const *wcVarName)
 {
 	if (wcVarName)
 	{
-        InternalType *pIT = symbol::Context::getInstance()->get(wcVarName);
+        std::wstring tmp(wcVarName);
+        symbol::symbol_t name(tmp);
+        InternalType *pIT = symbol::Context::getInstance()->get(name);
         if(pIT->isString() == false)
         {
             return NULL;

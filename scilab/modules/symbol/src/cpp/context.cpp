@@ -9,7 +9,7 @@
 *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
-
+#include "symbol.hxx"
 #include "context.hxx"
 #include <iostream>
 #include <omp.h>
@@ -98,7 +98,7 @@ namespace symbol
         HeapVarTable.scope_end();
     }
 
-    InternalType* Context::get(const wstring& key) const
+    InternalType* Context::get(const symbol::symbol_t& key) const
     {
         InternalType* pI = NULL;
 
@@ -140,7 +140,7 @@ namespace symbol
         return NULL;
     }
 
-    InternalType* Context::getCurrentLevel(const wstring& key) const
+    InternalType* Context::getCurrentLevel(const symbol::symbol_t& key) const
     {
         // FIXME
         InternalType* pI = NULL;
@@ -164,7 +164,7 @@ namespace symbol
         }
     }
 
-    InternalType* Context::getAllButCurrentLevel(const wstring& key) const
+    InternalType* Context::getAllButCurrentLevel(const symbol::symbol_t& key) const
     {
        // FIXME
         InternalType* pI = NULL;
@@ -188,7 +188,7 @@ namespace symbol
         }
     }
 
-    InternalType* Context::get_fun(const wstring& key) const
+    InternalType* Context::get_fun(const symbol::symbol_t& key) const
     {
         //FIXME Global
         return EnvFunTable.get(key);
@@ -199,7 +199,7 @@ namespace symbol
         return EnvFunTable.get_funlist(_stModuleName);
     }
 
-    bool Context::put(const wstring& key, InternalType &type)
+    bool Context::put(const symbol::symbol_t& key, InternalType &type)
     {
         if(HeapVarTable.isGlobalVisible(key))
         {
@@ -213,7 +213,7 @@ namespace symbol
         return true;
     }
 
-    bool Context::remove(const wstring& key)
+    bool Context::remove(const symbol::symbol_t& key)
     {
         // look in local global scope
         if(HeapVarTable.isGlobalVisible(key))
@@ -240,7 +240,7 @@ namespace symbol
         return true;
     }
 
-    bool Context::put_in_previous_scope(const wstring& key, InternalType &type)
+    bool Context::put_in_previous_scope(const symbol::symbol_t& key, InternalType &type)
     {
         // FIXME
         EnvVarTable.put_in_previous_scope(key, type);
@@ -282,39 +282,39 @@ namespace symbol
         return true;
     }
 
-    bool Context::isGlobalVisible(const wstring& key) const
+    bool Context::isGlobalVisible(const symbol::symbol_t& key) const
     {
         return HeapVarTable.isGlobalVisible(key);
     }
 
     /*return global variable, search in global scope ( highest )*/
-    InternalType* Context::getGlobalValue(const wstring& key) const
+    InternalType* Context::getGlobalValue(const symbol::symbol_t& key) const
     {
         return HeapVarTable.getGlobalValue(key);
     }
 
     /*return global variable existance status*/
-    bool Context::isGlobalExists(const wstring& key) const
+    bool Context::isGlobalExists(const symbol::symbol_t& key) const
     {
         return HeapVarTable.isGlobalExists(key);
     }
 
-    void Context::setGlobalValue(const wstring& key, InternalType &value)
+    void Context::setGlobalValue(const symbol::symbol_t& key, InternalType &value)
     {
         HeapVarTable.setGlobalValue(key, value);
     }
 
-    void Context::createEmptyGlobalValue(const wstring& key)
+    void Context::createEmptyGlobalValue(const symbol::symbol_t& key)
     {
         HeapVarTable.createEmptyGlobalValue(key);
     }
 
-    void Context::setGlobalVisible(const wstring& key, bool bVisible)
+    void Context::setGlobalVisible(const symbol::symbol_t& key, bool bVisible)
     {
         HeapVarTable.setGlobalVisible(key, bVisible);
     }
 
-    void Context::removeGlobal(const wstring &key)
+    void Context::removeGlobal(const symbol::symbol_t&key)
     {
         HeapVarTable.removeGlobal(key);
     }

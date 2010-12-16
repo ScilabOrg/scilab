@@ -16,6 +16,8 @@
 #include "internal.hxx"
 #include "exp.hxx"
 
+#include "symbol.hxx"
+
 #define bsiz	4096
 EXTERN_AST bool bConditionState(types::InternalType *_pITResult);
 
@@ -38,7 +40,7 @@ EXTERN_AST types::InternalType* AddElementToVariableFromRow(
                         int _iRows, int _iCols, int *_piRows);
 
 
-EXTERN_AST const std::wstring* getStructNameFromExp(const ast::Exp* _pExp);
+EXTERN_AST const symbol::symbol_t* getStructNameFromExp(const ast::Exp* _pExp);
 
 EXTERN_AST types::Struct* getStructFromExp(const ast::Exp* _pExp);
 

@@ -139,7 +139,8 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 	{//1st argument is a macro name, parse and execute it in the current environnement
 		if(in[0]->getAsMacroFile()->parse() == false)
 		{
-            ScierrorW(999, _W("%ls: Unable to parse macro '%s'"), "exec", in[0]->getAsMacroFile()->getName().c_str());
+            std::wstring const& name(in[0]->getAsMacroFile()->getName());
+            ScierrorW(999, _W("%ls: Unable to parse macro '%s'"), "exec", name.c_str());
             mclose(iID);
 			return Function::Error;
 		}
@@ -197,7 +198,7 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
             (*j)->accept(execMe);
 
             bool bImplicitCall = false;
-            
+
             //to manage call without ()
             if(execMe.result_get() != NULL && execMe.result_get()->getAsCallable())
             {
@@ -232,15 +233,16 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
                 }
                 else if(Ret == Callable::Error)
                 {
+                    std::wstring const&name(pCall->getName());
                     if(ConfigVariable::getLastErrorFunction() == L"")
                     {
-                        ConfigVariable::setLastErrorFunction(pCall->getName());
+                        ConfigVariable::setLastErrorFunction(name);
                     }
 
                     if(pCall->isMacro() || pCall->isMacroFile())
                     {
                         wchar_t szError[bsiz];
-                        os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*j)->location_get().first_line, pCall->getName().c_str());
+                        os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*j)->location_get().first_line, name.c_str());
                         throw ScilabMessage(szError);
                     }
                     else
@@ -253,11 +255,12 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
             //update ans variable.
 			if(execMe.result_get() != NULL && execMe.result_get()->isDeletable())
 			{
-				wstring varName = L"ans";
+                std::wstring const tmp(L"ans");
+                symbol::symbol_t const varName(tmp);
 				symbol::Context::getInstance()->put(varName, *execMe.result_get());
-				if( (*j)->is_verbose() && 
-                    !checkPrompt(iMode, EXEC_MODE_MUTE) && 
-                    checkPrompt(iMode, EXEC_MODE_VERBOSE) && 
+				if( (*j)->is_verbose() &&
+                    !checkPrompt(iMode, EXEC_MODE_MUTE) &&
+                    checkPrompt(iMode, EXEC_MODE_VERBOSE) &&
                     bErrCatch == false)
 				{
 					std::wostringstream ostr;
@@ -268,8 +271,8 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 				}
 			}
 
-			if( !checkPrompt(iMode, EXEC_MODE_MUTE) && 
-                checkPrompt(iMode, EXEC_MODE_VERBOSE) && 
+			if( !checkPrompt(iMode, EXEC_MODE_MUTE) &&
+                checkPrompt(iMode, EXEC_MODE_VERBOSE) &&
                 bErrCatch == false)
 			{
 				YaspWriteW(L"\n");
@@ -303,7 +306,8 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 
                     if(ConfigVariable::getLastErrorFunction() == L"")
                     {
-                        ConfigVariable::setLastErrorFunction(execFunc.result_get()->getAsCallable()->getName());
+                        std::wstring const& name(execFunc.result_get()->getAsCallable()->getName());
+                        ConfigVariable::setLastErrorFunction(name);
                     }
 
 

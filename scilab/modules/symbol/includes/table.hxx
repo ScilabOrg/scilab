@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <list>
+
 #include "symbol.hxx"
 #include "scope.hxx"
 #include "export_symbol.h"
@@ -38,11 +39,11 @@ namespace symbol
 		}
 
 		/** Associate value to key in the current scope. */
-		virtual void put (const wstring& key, InternalType &value) = 0 ;
+		virtual void put (const symbol::symbol_t& key, InternalType &value) = 0 ;
 
 		/** If key was associated to some Entry_T in the open scopes, return the
 		** most recent insertion. Otherwise return the empty pointer. */
-		virtual InternalType*	get (const wstring& key) const = 0 ;
+		virtual InternalType*	get (const symbol::symbol_t& key) const = 0 ;
 
 		/** Send the content of this table on ostr in a readable manner, the top
 		** of the stack being displayed last. */

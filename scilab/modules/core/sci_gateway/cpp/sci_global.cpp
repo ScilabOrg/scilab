@@ -52,30 +52,31 @@ types::Function::ReturnValue sci_global(types::typed_list &in, int _iRetCount, t
     for(int i = 0 ; i < in.size() ; i++)
     {
         wchar_t* pstVar = in[i]->getAsString()->string_get(0);
-
+        std::wstring tmp(pstVar);
+        symbol::symbol_t name(tmp);
         //does it visible in current global scope
-        if(pCtx->isGlobalVisible(pstVar) == false)
+        if(pCtx->isGlobalVisible(name) == false)
         {
             //does it exist in global
-            if(pCtx->isGlobalExists(pstVar) == false)
+            if(pCtx->isGlobalExists(name) == false)
             {
-                InternalType* pIT = pCtx->get(pstVar);
+                InternalType* pIT = pCtx->get(name);
                 if(pIT)
                 {//variable have already a value in current local scope
-                    
+
                     //set global at local value
-                    pCtx->setGlobalValue(pstVar, *pIT);
-                    pCtx->remove(pstVar);
+                    pCtx->setGlobalValue(name, *pIT);
+                    pCtx->remove(name);
                 }
                 else
                 {
                     //create global variable with default value []
-                    pCtx->createEmptyGlobalValue(pstVar);
+                    pCtx->createEmptyGlobalValue(name);
                 }
             }
 
             //set visible in current global scope
-            pCtx->setGlobalVisible(pstVar);
+            pCtx->setGlobalVisible(name);
         }
     }
     return types::Function::OK;

@@ -784,24 +784,24 @@ void Add_Poly_Constant(wstring _szName, wstring _szPolyVar, int _iRank, Double *
     types::MatrixPoly *pVar = new types::MatrixPoly(_szPolyVar, 1, 1, &_iRank);
     Poly *poPoly = pVar->poly_get(0,0);
     poPoly->coef_set(_pdbl);
-    Context::getInstance()->put(_szName, *pVar);
+    Context::getInstance()->put(symbol::symbol_t(_szName), *pVar);
 }
 
 void Add_Double_Constant(wstring _szName, double _dblReal, double _dblImg, bool _bComplex)
 {
     types::Double* pVal = new types::Double(1,1,_bComplex);
     pVal->val_set(0,0,_dblReal,_dblImg);
-    symbol::Context::getInstance()->put(_szName, *pVal);
+    symbol::Context::getInstance()->put(symbol::symbol_t(_szName), *pVal);
 }
 
 void Add_Boolean_Constant(wstring _szName, bool _bBool)
 {
     types::Bool* pVal = new types::Bool(_bBool);
-    symbol::Context::getInstance()->put(_szName, *pVal);
+    symbol::Context::getInstance()->put(symbol::symbol_t(_szName), *pVal);
 }
 
 void Add_String_Constant(wstring _szName, const char* _pstString)
 {
     types::String* ps = new types::String(_pstString);
-    symbol::Context::getInstance()->put(_szName, *ps);
+    symbol::Context::getInstance()->put(symbol::symbol_t(_szName), *ps);
 }

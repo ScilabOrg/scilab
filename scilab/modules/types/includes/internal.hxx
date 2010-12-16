@@ -22,6 +22,8 @@
 #include <omp.h>
 using namespace std;
 
+#define UNSAFE_REF
+
 namespace types
 {
   class InternalType
@@ -64,10 +66,20 @@ namespace types
       };
 
   protected :
-      InternalType() : m_iRef(0), m_bAllowDelete(true) {omp_init_lock(&m_refCountLock); }
+      InternalType() : m_iRef(0), m_bAllowDelete(true)
+      {
+#ifndef UNSAFE_REF
+          omp_init_lock(&m_refCountLock);
+#endif
+      }
 
   public :
-      virtual                           ~InternalType(){omp_destroy_lock(&m_refCountLock);}
+      virtual                           ~InternalType()
+      {
+#ifndef UNSAFE_REF
+          omp_destroy_lock(&m_refCountLock);
+#endif
+}
       virtual void                      whoAmI(void) { std::cout << "types::Inernal"; }
 
       virtual bool                      isAssignable(void) { return false; }
@@ -80,20 +92,28 @@ namespace types
 
       void IncreaseRef()
       {
+#ifndef UNSAFE_REF
           omp_set_lock(&m_refCountLock);
+#endif
           ++m_iRef;
+#ifndef UNSAFE_REF
           omp_unset_lock(&m_refCountLock);
+#endif
 
       }
 
       void DecreaseRef()
       {
+#ifndef UNSAFE_REF
  omp_set_lock(&m_refCountLock);
+#endif
           if(m_iRef > 0)
           {
               --m_iRef;
           }
+#ifndef UNSAFE_REF
 omp_unset_lock(&m_refCountLock);
+#endif
       }
 
       bool	                            isDeletable() { return m_iRef == 0; }
@@ -240,7 +260,9 @@ omp_unset_lock(&m_refCountLock);
       int                               m_iRef;
       //use to know if we can delete this variables or if it's link to a scilab variable.
       bool                              m_bAllowDelete;
+#ifndef UNSAFE_REF
       omp_lock_t                        m_refCountLock;
+#endif
   };
 
   /*

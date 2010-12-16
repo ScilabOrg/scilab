@@ -16,6 +16,11 @@
 #include <vector>
 #include <iostream>
 #include <string>
+
+#ifdef RESULT_POOL_ALLOC // worse : not for lots of small vectors
+#include <boost/pool/pool_alloc.hpp>
+#endif
+
 #include "internal.hxx"
 
 using namespace std;
@@ -71,6 +76,11 @@ namespace types
     };
 
     static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount);
+#ifdef RESULT_POOL_ALLOC
+    typedef std::vector<types::InternalType*, boost::pool_allocator<types::InternalType*> > result_t;
+#else
+    typedef std::vector<types::InternalType* > result_t;
+#endif
 
 }
 #endif /* !__TYPES_HXX__ */

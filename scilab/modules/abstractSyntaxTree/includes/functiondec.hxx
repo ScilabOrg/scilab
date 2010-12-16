@@ -19,6 +19,7 @@
 #define AST_FUNCTIONDEC_HXX
 
 #include <list>
+#include "symbol.hxx"
 
 #include "dec.hxx"
 #include "exp.hxx"
@@ -49,7 +50,7 @@ namespace ast
             const std::wstring name,
             ArrayListVar& args,
             ArrayListVar& returns,
-            Exp& body) 
+            Exp& body)
             : Dec (location),
             _name (name),
             _args (&args),
@@ -87,7 +88,7 @@ namespace ast
 
         // \name Accessors.
     public:
-        const wstring& name_get (void) const
+        const symbol::symbol_t& name_get (void) const
         {
             return _name;
         }
@@ -128,7 +129,7 @@ namespace ast
         }
 
     protected:
-        std::wstring	_name;
+        symbol::symbol_t	_name;
         ArrayListVar*	_args;
         ArrayListVar*	_returns;
         Exp*		_body;

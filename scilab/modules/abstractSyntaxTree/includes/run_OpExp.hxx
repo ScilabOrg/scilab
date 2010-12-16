@@ -1272,8 +1272,8 @@ InternalType* callOverload(OpExp::Oper _oper, T *_paramL, T *_paramR)
     _paramR->result_get()->IncreaseRef();
     in.push_back(_paramL->result_get());
     in.push_back(_paramR->result_get());
-
-    Overload::generateNameAndCall(Overload::getNameFromOper(_oper), in, 1, out, &execMe);
+    symbol::symbol_t name(Overload::getNameFromOper(_oper));
+    Overload::generateNameAndCall(name, in, 1, out, &execMe);
     if(out[0] != NULL)
     {
         out[0]->IncreaseRef();

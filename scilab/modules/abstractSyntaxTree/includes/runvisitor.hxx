@@ -20,6 +20,7 @@
 #include <cstdio>
 #include <iostream>
 
+
 #include "visitor_common.hxx"
 //#include "runvisitor.hxx"
 //#include "execvisitor.hxx"
@@ -53,18 +54,15 @@ extern "C" {
 #include "all.hxx"
 #include "types.hxx"
 
+#define UNSAFE_REF_COUNT
 
 namespace ast
 {
     class RunVisitor : public ConstVisitor
     {
     public:
-        RunVisitor()
+        RunVisitor():_resultVect(static_cast<std::size_t>(1), static_cast< types::InternalType *>(NULL)), _result(NULL), m_bSingleResult(true), _excepted_result(-1)
         {
-            _excepted_result = -1;
-            _resultVect.push_back(NULL);
-            _result = NULL;
-            m_bSingleResult = true;
         }
 
         ~RunVisitor()
@@ -76,10 +74,13 @@ namespace ast
         {
             if(is_single_result())
             {
-#pragma omp critical (ref_count) //(manage_ref)
+#ifndef UNSAFE_REF_COUNT
+#pragma omp critical (ref_count) //(manage_ref)// /!\ PERF SINK :(
+#endif
                 if(_result != NULL && _result->isDeletable() == true)
                 {
                     //					std::cout << "before single delete : " << _result << std::endl;
+// /!\ PERF SINK
                     delete _result;
                     //					std::cout << "after single delete" << std::endl;
                 }
@@ -88,6 +89,9 @@ namespace ast
             {
                 for(unsigned int i = 0 ; i < _resultVect.size() ; i++)
                 {
+#ifndef UNSAFE_REF_COUNT
+#pragma omp critical (ref_count) //(manage_ref)// /!\ PERF SINK :(
+#endif
                     if(_resultVect[i] != NULL && _resultVect[i]->isDeletable() == true)
                     {
                         delete _resultVect[i];
@@ -126,16 +130,9 @@ namespace ast
             _excepted_result = _iSize;
         }
 
-        types::InternalType* result_get(void)
+        types::InternalType* result_get(void)// should be inlined
         {
-            if(is_single_result())
-            {
-                return _result;
-            }
-            else
-            {
-                return _resultVect[0];
-            }
+            return m_bSingleResult ? _result : _resultVect[0];
         }
 
         types::InternalType* result_get(int _iPos)
@@ -147,18 +144,11 @@ namespace ast
             return _resultVect[_iPos];
         }
 
-        vector<types::InternalType*>* result_list_get()
+        types::result_t* result_list_get()
         {
-            if(result_size_get() == 1)
-            {
-                vector<types::InternalType*>* pList = new vector<types::InternalType*>;
-                pList->push_back(_result);
-                return pList;
-            }
-            else
-            {
-                return &_resultVect;
-            }
+            return (result_size_get() == 1)
+                ? new types::result_t(1,_result) // how do we know when to delete this ?
+                : &_resultVect;
         }
 
         void result_set(int _iPos, const types::InternalType *gtVal)
@@ -174,7 +164,7 @@ namespace ast
 
             if(_iPos >=  static_cast<int>(_resultVect.size()))
             {
-                _resultVect.resize(_iPos + 1, NULL);
+                _resultVect.resize(_iPos + 1, NULL); // /!\ TIME SINK
             }
 
             _resultVect[_iPos] = const_cast<types::InternalType *>(gtVal);
@@ -195,7 +185,7 @@ namespace ast
         | Attributes.  |
         `-------------*/
     protected:
-        vector<types::InternalType*>	_resultVect;
+        types::result_t	_resultVect; // /!\ TIME SINK
         types::InternalType*	_result;
         bool m_bSingleResult;
         int _excepted_result;
@@ -527,7 +517,8 @@ namespace ast
             else
             {
                 wchar_t szError[bsiz];
-                os_swprintf(szError, bsiz, _W("Undefined variable: %ls\n"), e.name_get().c_str());
+                const wstring& name( e.name_get());
+                os_swprintf(szError, bsiz, _W("Undefined variable: %ls\n"), name.c_str());
                 throw ScilabError(szError, 999, e.location_get());
                 //Err, SimpleVar doesn't exist in Scilab scopes.
             }
@@ -607,7 +598,8 @@ namespace ast
                     else
                     {
                         wchar_t szError[bsiz];
-                        os_swprintf(szError, bsiz, _W("Unknown field : %ls.\n"), psvRightMember->name_get().c_str());
+                        const wstring& name( psvRightMember->name_get());
+                        os_swprintf(szError, bsiz, _W("Unknown field : %ls.\n"), name.c_str());
                         throw ScilabError(szError, 999, psvRightMember->location_get());
                     }
                 }
@@ -632,7 +624,8 @@ namespace ast
                     else
                     {
                         wchar_t szError[bsiz];
-                        os_swprintf(szError, bsiz, _W("Unknown field : %ls.\n"), psvRightMember->name_get().c_str());
+                        const wstring& name( psvRightMember->name_get());
+                        os_swprintf(szError, bsiz, _W("Unknown field : %ls.\n"), name.c_str());
                         throw ScilabError(szError, 999, psvRightMember->location_get());
                     }
                 }
@@ -895,7 +888,7 @@ namespace ast
 
                 InternalType *pIT = NULL;
                 pIT = pVar->extract_value(0);
-                wstring varName = e.vardec_get().name_get();
+                symbol::symbol_t const& varName = e.vardec_get().name_get();
                 symbol::Context::getInstance()->put(varName, *pIT);
 
                 for(int i = 0 ; i < pVar->size_get() ; i++)
@@ -1129,13 +1122,15 @@ namespace ast
                             {
                                 if(ConfigVariable::getLastErrorFunction() == L"")
                                 {
-                                    ConfigVariable::setLastErrorFunction(pCall->getName());
+                                    std::wstring const& name(pCall->getName());
+                                    ConfigVariable::setLastErrorFunction(name);
                                 }
 
                                 if(pCall->isMacro() || pCall->isMacroFile())
                                 {
                                     wchar_t szError[bsiz];
-                                    os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*itExp)->location_get().first_line, pCall->getName().c_str());
+                                    std::wstring const& name(pCall->getName());
+                                    os_swprintf(szError, bsiz, _W("at line % 5d of function %ls called by :\n"), (*itExp)->location_get().first_line, name.c_str());
                                     throw ScilabMessage(szError);
                                 }
                                 else
@@ -1150,7 +1145,7 @@ namespace ast
                         //don't output Simplevar and empty result
                         if(execMe.result_get() != NULL && (pVar == NULL || bImplicitCall))
                         {
-                            symbol::Context::getInstance()->put(L"ans", *execMe.result_get());
+                            symbol::Context::getInstance()->put(symbol::symbol_t(L"ans"), *execMe.result_get());
                             if((*itExp)->is_verbose())
                             {
                                 //TODO manage multiple returns
@@ -1200,7 +1195,8 @@ namespace ast
                             os << std::endl << std::endl;
                             if(ConfigVariable::getLastErrorFunction() == L"")
                             {
-                                ConfigVariable::setLastErrorFunction(execFunc.result_get()->getAsCallable()->getName());
+                                std::wstring const& name(execFunc.result_get()->getAsCallable()->getName());
+                                ConfigVariable::setLastErrorFunction(name);
                             }
                             throw ScilabMessage(os.str(), 0, (*itExp)->location_get());
                         }
@@ -1233,7 +1229,8 @@ namespace ast
                                 PrintVisitor printMe(os);
                                 pCall->accept(printMe);
                                 os << std::endl << std::endl;
-                                ConfigVariable::setLastErrorFunction(execFunc.result_get()->getAsCallable()->getName());
+                                std::wstring const& name(execFunc.result_get()->getAsCallable()->getName());
+                                ConfigVariable::setLastErrorFunction(name);
                                 YaspWriteW(se.GetErrorMessage().c_str());
                                 throw ScilabMessage(os.str(), 0, (*itExp)->location_get());
                             }
@@ -1444,7 +1441,7 @@ namespace ast
             std::list<ast::Var *>::const_iterator	i;
 
             //get input parameters list
-            std::list<wstring> *pVarList = new std::list<wstring>();
+            std::list<symbol::symbol_t> *pVarList = new std::list<symbol::symbol_t>();
             const ArrayListVar *pListVar = &e.args_get();
             for(i = pListVar->vars_get().begin() ; i != pListVar->vars_get().end() ; i++)
             {
@@ -1452,7 +1449,7 @@ namespace ast
             }
 
             //get output parameters list
-            std::list<wstring> *pRetList = new std::list<wstring>();
+            std::list<symbol::symbol_t> *pRetList = new std::list<symbol::symbol_t>();
             const ArrayListVar *pListRet = &e.returns_get();
             for(i = pListRet->vars_get().begin() ; i != pListRet->vars_get().end() ; i++)
             {

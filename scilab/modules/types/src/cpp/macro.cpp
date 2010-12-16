@@ -33,7 +33,7 @@ namespace types
     /*--------------*/
     /*	Contructor  */
     /*--------------*/
-    Macro::Macro(const wstring& _stName, list<wstring> &_inputArgs, list<wstring> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule) :
+    Macro::Macro(const symbol::symbol_t& _stName, list<symbol::symbol_t> &_inputArgs, list<symbol::symbol_t> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule) :
     Callable(), m_inputArgs(&_inputArgs), m_outputArgs(&_outputArgs), m_body(&_body)
     {
         setName(_stName);
@@ -86,6 +86,9 @@ namespace types
 
     Callable::ReturnValue Macro::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc)
     {
+        static std::wstring  tmpvIn(L"varargin"), tmpnIn(L"nargin"), tmpnOut(L"nargout");
+        static symbol::symbol_t vIn(tmpvIn), nIn(tmpnIn), nOut(tmpnOut);
+
         ReturnValue RetVal = Callable::OK;
         symbol::Context *pContext = symbol::Context::getInstance();
 
@@ -105,7 +108,7 @@ namespace types
             }
 
             //add all standard variable in function context but not varargin
-            list<wstring>::const_iterator itName = m_inputArgs->begin();
+            list<symbol::symbol_t>::const_iterator itName = m_inputArgs->begin();
             typed_list::const_iterator itValue = in.begin();
             while(iVarPos > 0)
             {
@@ -125,7 +128,7 @@ namespace types
                     pL->append(*itValue);
                     itValue++;
                 }
-                pContext->put(L"varargin", *pL);
+                pContext->put(vIn, *pL);
             }
         }
 		else if(in.size() > m_inputArgs->size())
@@ -138,7 +141,7 @@ namespace types
             {
                 ostr << _W("Arguments are:") << std::endl << std::endl;
                 ostr << " ";
-                for (list<wstring>::iterator it =  m_inputArgs->begin() ; it != m_inputArgs->end() ; ++it)
+                for (list<symbol::symbol_t>::iterator it =  m_inputArgs->begin() ; it != m_inputArgs->end() ; ++it)
                 {
                     ostr << *it << L"    ";
                 }
@@ -153,7 +156,7 @@ namespace types
             pContext->scope_begin();
 
             //assign value to variable in the new context
-            list<wstring>::const_iterator i;
+            list<symbol::symbol_t>::const_iterator i;
             typed_list::const_iterator j;
 
             for (i = m_inputArgs->begin(), j = in.begin(); j != in.end (); ++j,++i)
@@ -165,8 +168,8 @@ namespace types
         //common part with or without varargin
 
         // Declare nargin & nargout in function context.
-        pContext->put(wstring(L"nargin"), *new Double(static_cast<double>(in.size())));
-        pContext->put(wstring(L"nargout"), *new Double(static_cast<double>(_iRetCount)));
+        pContext->put(nIn, *new Double(static_cast<double>(in.size())));
+        pContext->put(nOut, *new Double(static_cast<double>(_iRetCount)));
 
         try
         {
@@ -184,7 +187,7 @@ namespace types
             }
 
 
-            list<wstring>::const_iterator i;
+            list<symbol::symbol_t>::const_iterator i;
             for (i = m_outputArgs->begin(); i != m_outputArgs->end() && _iRetCount; ++i, --_iRetCount)
             {
                 InternalType *pIT = pContext->get((*i));
@@ -196,7 +199,8 @@ namespace types
                 else
                 {
                     wchar_t sz[bsiz];
-                    os_swprintf(sz, bsiz, _W("Undefined variable %ls.\n"), (*i).c_str());
+                    std::wstring const& name(*i);
+                    os_swprintf(sz, bsiz, _W("Undefined variable %ls.\n"), name.c_str());
                     YaspWriteW(sz);
                 }
             }
@@ -222,12 +226,12 @@ namespace types
         return RetVal;
     }
 
-    std::list<wstring>* Macro::inputs_get()
+    std::list<symbol::symbol_t>* Macro::inputs_get()
     {
         return m_inputArgs;
     }
 
-    std::list<wstring>* Macro::outputs_get()
+    std::list<symbol::symbol_t>* Macro::outputs_get()
     {
         return m_outputArgs;
     }

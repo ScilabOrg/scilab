@@ -30,8 +30,8 @@ namespace types
     */
     TList::TList(TList *_oTListCopyMe)
     {
-        std::vector<InternalType *>::iterator itValues;
-        m_plData = new std::vector<InternalType *>;
+        types::result_t::iterator itValues;
+        m_plData = new types::result_t;
 
         for(int i = 0 ; i < _oTListCopyMe->getData()->size() ; i++)
         {
@@ -90,7 +90,7 @@ namespace types
         return NULL;
     }
 
-    int TList::getIndexFromString(const std::wstring _sKey)
+    int TList::getIndexFromString(const std::wstring& _sKey)
     {
         if(size_get() < 1)
         {
@@ -101,7 +101,7 @@ namespace types
         //first field is the tlist type
         for(int i = 1 ; i < pS->size_get() ; i++)
         {
-            if(wstring(pS->string_get(i)) == _sKey)
+            if(wstring(pS->string_get(i)) == _sKey) // /!\ PERF SINK
             {
                 return i;
             }
@@ -109,9 +109,9 @@ namespace types
         return -1;
     }
 
-    std::vector<InternalType*> TList::extract_string(list<wstring> _stFields)
+    types::result_t TList::extract_string(list<wstring> const& _stFields)
     {
-        std::vector<InternalType*> Result;
+        types::result_t Result;
 
         std::list<wstring>::const_iterator it;
         for(it = _stFields.begin() ; it != _stFields.end() ; it++)
