@@ -17,6 +17,12 @@
 
 #include <vector>
 #include <iostream>
+
+#define SMALL_VECTOR
+
+#ifdef SMALL_VECTOR
+#include <llvm/ADT/SmallVector.h>
+#endif
 #include <string.h>
 #include "anytype.hxx"
 #include <omp.h>
@@ -268,7 +274,12 @@ omp_unset_lock(&m_refCountLock);
   /*
   ** List of types
   */
+#ifdef SMALL_VECTOR
+    typedef llvm::SmallVector<InternalType*, 4> typed_list;
+
+#else
   typedef std::vector<InternalType *>   typed_list;
+#endif
 
 }
 
