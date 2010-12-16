@@ -90,6 +90,7 @@ namespace types
         void                        CreateDouble(int _iRows, int _iCols, double **_pdblReal, double **_pdblImg);
 
     private :
+        // /!\ PERF SINK should be small vector (cf llvm:SmallVector)
         double*                       m_pdblReal;
         double*                       m_pdblImg;
         bool                          m_bComplex;

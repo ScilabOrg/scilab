@@ -29,7 +29,8 @@ void visitprivate(const CallExp &e)
         types::typed_list in;
 
         //get function arguments
-        T *execVar = new T[e.args_get().size()]();
+//        T *execVar = new T[e.args_get().size()]();// /!\ PERF SINK
+        execVar.resize(e.args_get().size());
         int j = 0;
         for (j = 0, itExp = e.args_get().begin (); itExp != e.args_get().end (); ++itExp,j++)
         {
@@ -122,7 +123,7 @@ void visitprivate(const CallExp &e)
             }
 
             //std::cout << "before delete[]" << std::endl;
-            delete[] execVar; // /!\ TIME SINK
+//            delete[] execVar; // /!\ TIME SINK
             //std::cout << "after delete[]" << std::endl;
 
             if(out.size() == 1)

@@ -98,8 +98,8 @@ namespace types
         ReturnValue retVal = Callable::OK;
         GatewayStruct* pStr;
         int iRet ;
+#if 0
         pStr = new GatewayStruct();
-
         _iRetCount = Max(1, _iRetCount);
         pStr->m_pIn = &in;
         out.resize( MAX_OUTPUT_VARIABLE );
@@ -107,7 +107,20 @@ namespace types
         pStr->m_piRetCount = &_iRetCount;
         std::wstring const& name(m_stName);
         pStr->m_pstName = const_cast<wchar_t*>(name.c_str());
-        pStr->m_pOutOrder = new int[_iRetCount < 1 ? 1 : _iRetCount];
+
+#else
+        GatewayStruct gs;
+        _iRetCount = Max(1, _iRetCount);
+        gs.m_pIn = &in;
+        out.resize( MAX_OUTPUT_VARIABLE );
+        gs.m_pOut = &out[0];
+        gs.m_piRetCount = &_iRetCount;
+        std::wstring const& name(m_stName);
+        gs.m_pstName = const_cast<wchar_t*>(name.c_str());
+        int tmpOutOrder[ MAX_OUTPUT_VARIABLE];
+        gs.m_pOutOrder = &tmpOutOrder[0];
+        pStr=&gs;
+#endif
         memset(pStr->m_pOutOrder, 0xFF, (_iRetCount < 1 ? 1 : _iRetCount) * sizeof(int));
         memset(pStr->m_pOut, 0x00, MAX_OUTPUT_VARIABLE * sizeof(InternalType*));
 
@@ -123,8 +136,10 @@ namespace types
         {
             out.resize( _iRetCount);
         }
+#if 0
         delete[] pStr->m_pOutOrder;
         delete pStr;
+#endif
         return retVal;
     }
 }

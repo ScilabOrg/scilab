@@ -194,6 +194,7 @@ namespace ast
     template <class T>
     class RunVisitorT : public RunVisitor
     {
+        std::vector<T> execVar; // small vector ?
     protected :
         int  GetIndexList(InternalType* _pRef, std::list<ast::Exp *>const& _plstArg, int** _piIndexSeq, int** _piMaxDim, InternalType *_pRefVar, int *_iDimSize)
         {
