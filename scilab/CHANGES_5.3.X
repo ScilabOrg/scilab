@@ -1,6 +1,12 @@
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
+Removed functions (previously declared as obsolete):
+====================================================
+
+* 'oldbesseli', 'oldbesselj', 'oldbesselk' and 'oldbessely' removed.
+Please use 'besseli', 'besselj', 'besselk' and 'bessely' instead.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
