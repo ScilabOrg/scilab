@@ -15,6 +15,10 @@
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "function.hxx"
+#include "double.hxx"
+
 #include "machine.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -24,9 +28,7 @@
 #include "api_oldstack.h"
 #include "localization.h"
 #include "MALLOC.h"
-#include "context.hxx"
 
-using namespace std;
 using namespace types;
 
 /*******************************/

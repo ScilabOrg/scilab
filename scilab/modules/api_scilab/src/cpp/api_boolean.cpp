@@ -9,12 +9,18 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 * Please note that piece of code will be rewrited for the Scilab 6 family
-* However, the API (profile of the functions in the header files) will be 
+* However, the API (profile of the functions in the header files) will be
 * still available and supported in Scilab 6.
 */
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "bool.hxx"
+#include "function.hxx"
+
+extern "C"
+{
 #include "machine.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -24,7 +30,8 @@
 #include "api_oldstack.h"
 #include "localization.h"
 #include "MALLOC.h"
-#include "context.hxx"
+}
+
 
 using namespace std;
 using namespace types;

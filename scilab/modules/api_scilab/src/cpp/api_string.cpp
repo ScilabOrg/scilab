@@ -18,6 +18,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "machine.h"
+
+#include "function.hxx"
+#include "string.hxx"
+
 #include "charEncoding.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -27,14 +31,12 @@
 #include "api_oldstack.h"
 #include "localization.h"
 #include "MALLOC.h"
-#include "context.hxx"
 
 extern "C"
 {
 #include "freeArrayOfString.h"
 }
 
-using namespace std;
 using namespace types;
 /*--------------------------------------------------------------------------*/
 

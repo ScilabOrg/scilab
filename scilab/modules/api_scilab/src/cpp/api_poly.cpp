@@ -9,12 +9,16 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  * Please note that piece of code will be rewrited for the Scilab 6 family
- * However, the API (profile of the functions in the header files) will be 
+ * However, the API (profile of the functions in the header files) will be
  * still available and supported in Scilab 6.
  */
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "function.hxx"
+#include "matrixpoly.hxx"
+
 #include "machine.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -25,10 +29,8 @@
 #include "localization.h"
 #include "MALLOC.h"
 #include "charEncoding.h"
-#include "context.hxx"
 
 
-using namespace std;
 using namespace types;
 
 SciErr getPolyVariableName(void* _pvCtx, int* _piAddress, char* _pstVarName, int* _piVarNameLen)

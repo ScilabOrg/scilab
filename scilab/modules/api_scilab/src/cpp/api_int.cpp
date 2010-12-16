@@ -15,6 +15,10 @@
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "function.hxx"
+#include "int.hxx"
+
 #include "machine.h"
 #include "call_scilab.h"
 #include "api_scilab.h"
@@ -24,9 +28,7 @@
 #include "api_oldstack.h"
 #include "localization.h"
 #include "MALLOC.h"
-#include "context.hxx"
 
-using namespace std;
 using namespace types;
 
 SciErr getMatrixOfIntegerPrecision(void* _pvCtx, int* _piAddress, int* _piPrecision)
