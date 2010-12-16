@@ -1,6 +1,14 @@
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
+Removed functions (previously declared as obsolete):
+====================================================
+
+* 'VCtoLCCLib', 'configure_lcc', 'with_lcc', 'chooselcccompiler', 'findlcccompiler'
+  have been moved as modules in ATOMS.
+  See http://atoms.scilab.org/toolboxes/LCC-windows or atomsInstall('lcc-windows')
+  from Scilab.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
