@@ -1,0 +1,53 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2010 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- JVM NOT MANDATORY -->
+
+ierr = execstr("fullpath();","errcatch");
+if ierr <> 77 then pause,end
+
+ierr = execstr("fullpath(''test.sce'',''test.sce'');","errcatch");
+if ierr <> 77 then pause,end
+
+cd(TMPDIR);
+mkdir(TMPDIR+'/niv1');
+mkdir(TMPDIR+'/niv1/niv2');
+mkdir(TMPDIR+'/niv1/niv2/niv3');
+mputl(' ',TMPDIR+'/niv1/test1.txt');
+mputl(' ',TMPDIR+'/niv1/niv2/test2.txt');
+
+REF3 = TMPDIR + filesep() + 'niv1' + filesep() + 'niv2' + filesep() + 'niv3' + filesep() + 'test.txt';
+REF2 = TMPDIR + filesep() + 'niv1' + filesep() + 'niv2' + filesep() + 'test2.txt';
+REF1 = TMPDIR + filesep() + 'niv1' + filesep() + 'test1.txt';
+
+cd(TMPDIR+'/niv1/niv2/niv3');
+
+r1 = fullpath('../../test1.txt');
+if r1 <> REF1 then pause, end
+
+r2 = fullpath('../test2.txt');
+if r2 <> REF2 then pause, end
+
+r3 = fullpath('test.txt');
+if r3 <> REF3 then pause, end
+
+r1 = fullpath(REF1);
+if r1 <> REF1 then pause, end
+
+r2 = fullpath(REF2);
+if r2 <> REF2 then pause, end
+
+r3 = fullpath(REF3);
+if r3 <> REF3 then pause, end
+
+REF_M = [REF1, REF2, REF3];
+M = ['../../test1.txt', '../test2.txt', 'test.txt'];
+R = fullpath(M);
+
+if or(REF_M <> R) then pause, end
+
+if fullpath('.') <> pwd() then pause, end
