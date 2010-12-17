@@ -55,13 +55,6 @@
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term>files</term>
-
-        <listitem>
-          <para>a string matrix.</para>
-        </listitem>
-      </varlistentry>
     </variablelist>
   </refsection>
 
