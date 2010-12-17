@@ -77,8 +77,8 @@ int sci_scanf(char *fname,unsigned long fname_len)
 
         /* get a line */
         C2F(xscion)(&iflag);
-        //C2F(zzledt)(String,&len,&lline,&status,&interrupt,&iflag,(long int)strlen(String));
-        //getLine(String,&len,&lline,&status);
+        /*C2F(zzledt)(String,&len,&lline,&status,&interrupt,&iflag,(long int)strlen(String)); *
+          /*getLine(String,&len,&lline,&status); */
         String = getConsoleInputLine();
         if (String == NULL)
         {

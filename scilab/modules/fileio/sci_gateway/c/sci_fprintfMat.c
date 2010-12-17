@@ -149,7 +149,7 @@ int sci_fprintfMat(char *fname,unsigned long fname_len)
             return 0;
         }
 
-        // get lengthStrings value
+        /* get lengthStrings value */
         sciErr = getMatrixOfString(pvApiCtx, piAddressVarFour, &m4, &n4, lengthStrings, NULL);
         if(sciErr.iErr)
         {
@@ -181,7 +181,7 @@ int sci_fprintfMat(char *fname,unsigned long fname_len)
             }
         }
 
-        // get textAdded
+        /* get textAdded */
         sciErr = getMatrixOfString(pvApiCtx, piAddressVarFour, &m4, &n4, lengthStrings, textAdded);
         if (lengthStrings) {FREE(lengthStrings); lengthStrings = NULL;}
         if(sciErr.iErr)

@@ -78,7 +78,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 			return 0;
 		}
 
-		// get value of third argument
+		/* get value of third argument */
 		sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarThree, &m, &n, &pdVarThree);
 		if(sciErr.iErr)
 		{
@@ -143,7 +143,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 			return 0;
 		}
 
-		// strsplit([], ...) returns []
+		/* strsplit([], ...) returns [] */
 
 		sciErr = createMatrixOfDouble(pvApiCtx, Rhs + 1, 0, 0, NULL);
 		if(sciErr.iErr)
@@ -198,7 +198,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 				return 0;
 			}
 
-			// get lenStVarOne
+			/* get lenStVarOne */
 			sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne,&m,&n,&lenStVarOne, NULL);
 			if(sciErr.iErr)
 			{
@@ -206,7 +206,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 				return 0;
 			}
 
-			// get value of first argument only now
+			/* get value of first argument only now */
 			pStVarOne = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarOne + 1));
 			if (pStVarOne == NULL)
 			{
@@ -221,7 +221,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 				return 0;
 			}
 
-			// get value of second argument
+			/* get value of second argument */
 			sciErr = getMatrixOfDouble(pvApiCtx, piAddressVarTwo, &m2, &n2, &pdVarTwo);
 			if(sciErr.iErr)
 			{
@@ -317,7 +317,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 					return 0;
 				}
 				
-				// get lenStVarTwo
+				/* get lenStVarTwo */
 				sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarTwo, &m, &n, lenStVarTwo, NULL);
 				if(sciErr.iErr)
 				{
@@ -378,7 +378,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 		}
 	}
 
-	// others cases , we call %_strsplit macro
+	/* others cases , we call %_strsplit macro */
 	C2F(overload)(&lw, fname, fname_len);
 
 	return 0;

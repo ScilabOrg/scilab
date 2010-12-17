@@ -85,7 +85,7 @@ int sci_size(char *fname,unsigned long fname_len)
                         iValue = (int)(dValue);
                     }
                 }
-                else // string
+                else /* string */
                 {
                     char *pStr = NULL;
                     if (getAllocatedSingleString(pvApiCtx, piAddressVarTwo, &pStr) == 0)

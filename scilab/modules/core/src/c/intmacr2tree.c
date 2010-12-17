@@ -1147,11 +1147,11 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
     int m_inline_tlist = 1;
     int n_inline_tlist = 3;
 
-    int k = 0, i = 0; // Loop indices
-    int nCols = 0; // Number of columns
-    int nRows = 0; // Number of rows
+    int k = 0, i = 0; /* Loop indices */
+    int nCols = 0; /* Number of columns */
+    int nRows = 0; /* Number of rows */
 
-    int *lengths = NULL; // Elements lengths
+    int *lengths = NULL; /* Elements lengths */
     int maxlength = 0;
 
     char **str = NULL;
@@ -1202,8 +1202,8 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
   
     /* Read function definition */
   
-    (*index2)++; // Go to code 26
-    (*index2)++; // Ignore code 26
+    (*index2)++; /* Go to code 26 */
+    (*index2)++; /* Ignore code 26 */
   
     nCols = data[*index2];
     (*index2)++;
@@ -1211,7 +1211,7 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
     nRows = data[*index2];
     (*index2)++;
   
-    // Next zero is ignored
+    /* Next zero is ignored */
     (*index2)++; 
   
     /* Memory allocation */
@@ -1268,8 +1268,8 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
               
     str2sci(str, nCols, nRows);
 
-    (*index2)++; // Unsused code
-    (*index2)++; // Go to code 6
+    (*index2)++; /* Unsused code */
+    (*index2)++; /* Go to code 6 */
   
     /* Ignore next constant creation (not used) */
     if (data[*index2]==6)
@@ -1280,7 +1280,7 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
     /* Ignore next funcall: a call to deff function */
     (*index2)++;
     (*index2)++;
-    data[*index2+2] = 2; // Change number of inputs because of constant ignore above */
+    data[*index2+2] = 2; /* Change number of inputs because of constant ignore above */
     if (data[*index2]==3)
     {
         GetInstruction(data,index2,nblines,addinstr);
@@ -1298,7 +1298,7 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
     /* Create returned list */
     C2F(mktlist)(&n_inline_tlist);
 
-    // Free memory
+    /* Free memory */
     freeArrayOfString(str, nCols*nRows);
     FREE(int_str);
     return 0;

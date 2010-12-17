@@ -63,14 +63,14 @@ int sci_fscanf(char *fname,unsigned long fname_len)
 	switch (param1)
 	{
 	case 0:
-		// stderr
+		/* stderr */
 		f = (FILE *)0;
 		break;
 	case 5:
 		f = stdin;
 		break;
 	case 6:
-		// stdout
+		/* stdout */
 		f = (FILE *)0;
 		break;
 	default:

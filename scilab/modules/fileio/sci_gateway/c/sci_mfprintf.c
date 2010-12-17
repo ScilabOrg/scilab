@@ -72,7 +72,7 @@ int sci_mfprintf(char *fname,unsigned long fname_len)
 		f = stderr;
 		break;
 	case 5:
-		// stdin; 
+		/* stdin;  */
 		f = (FILE *)0;
 		break;
 	case 6:

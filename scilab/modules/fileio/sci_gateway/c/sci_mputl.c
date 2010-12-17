@@ -245,9 +245,9 @@ int sci_mputl(char *fname, unsigned long fname_len)
         break;
 
     case MPUTL_INVALID_FILE_DESCRIPTOR:
-        // commented for compatiblity
-        // Scierror(999, _("%s: invalid file descriptor.\n"), fname);
-        // break;
+        /* commented for compatiblity
+         * Scierror(999, _("%s: invalid file descriptor.\n"), fname);
+         * break; */
     case MPUTL_ERROR:
     case MPUTL_NO_WRITE_RIGHT:
     default:

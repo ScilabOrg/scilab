@@ -75,7 +75,7 @@ int sci_copyfile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of lenStVarOne
+	/* get value of lenStVarOne */
 	sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
 	if(sciErr.iErr)
 	{
@@ -83,7 +83,7 @@ int sci_copyfile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of first argument only now (+ 2 if we add file separator @ the end)
+	/* get value of first argument only now (+ 2 if we add file separator @ the end) */
 	pStVarOne = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarOne + 2));
 	if (pStVarOne == NULL)
 	{
@@ -133,7 +133,7 @@ int sci_copyfile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of lenStVarTwo
+	/* get value of lenStVarTwo */
 	sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarTwo, &m2, &n2, &lenStVarTwo, NULL);
 	if(sciErr.iErr)
 	{
@@ -141,7 +141,7 @@ int sci_copyfile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of first argument only now (+ 2 if we add file separator @ the end)
+	/* get value of first argument only now (+ 2 if we add file separator @ the end) */
 	pStVarTwo = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarTwo + 2));
 	if (pStVarTwo == NULL)
 	{
@@ -293,8 +293,9 @@ static void returnCopyFileResultOnStack(int ierr, char *fname)
 			wcscpy(buffer, L"Unknown Error");
 		}
 
-		// Compatibility with previous version , we return 0
-		//dError = (double) dw;
+		/* Compatibility with previous version , we return 0
+         * dError = (double) dw;
+         */
 		dError = (double) 0.;
 
 		sciError[0] = (wchar_t*)MALLOC(sizeof(wchar_t)* ((int)wcslen(buffer) + 1));
@@ -320,9 +321,10 @@ static void returnCopyFileResultOnStack(int ierr, char *fname)
 #else
 	if (ierr)
 	{
-		// Compatibility with previous version , we return 0
-		//dError = (double) ierr;
-		//dError = (double) 0.;
+		/* Compatibility with previous version , we return 0
+         * dError = (double) ierr;
+         * dError = (double) 0.;
+         */
 		sciError[0] = to_wide_string(strerror(errno));
 		if (sciError[0] == NULL)
 		{

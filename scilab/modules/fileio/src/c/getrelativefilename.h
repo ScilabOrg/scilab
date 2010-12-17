@@ -19,20 +19,20 @@
 #define ABSOLUTE_NAME_START 1
 #endif
 
-// ABSOLUTE_NAME_START
-// 
-// The number of characters at the start of an absolute filename.  e.g. in DOS,
-// absolute filenames start with "X:\" so this value should be 3, in UNIX they start
-// with "\" so this value should be 1.
+/* ABSOLUTE_NAME_START 
+ * The number of characters at the start of an absolute filename.  e.g. in DOS,
+ * absolute filenames start with "X:\" so this value should be 3, in UNIX they start
+ * with "\" so this value should be 1. */
 
 
-/* ================================================================================== */
-// getrelativefilename
-//
-// Given the absolute current directory and an absolute file name, returns a relative file name.
-// For example, if the current directory is C:\foo\bar and the filename C:\foo\whee\text.txt is given,
-// GetRelativeFilename will return ..\whee\text.txt.
-/* ================================================================================== */
+/* ======================================================================== */
+/* getrelativefilename
+ *
+ * Given the absolute current directory and an absolute file name, returns a relative file name.
+ * For example, if the current directory is C:\foo\bar and the filename C:\foo\whee\text.txt is given,
+ * GetRelativeFilename will return ..\whee\text.txt.
+ */
+/* ======================================================================== */
 
 char* getrelativefilename(char *currentDirectory, char *absoluteFilename);
 

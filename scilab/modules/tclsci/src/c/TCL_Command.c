@@ -24,34 +24,34 @@
 #include "TCL_Command.h"
 #include "GlobalTclInterp.h"
 
-// Globla Tcl Slave Name
+/* Globla Tcl Slave Name */
 char *			TclSlave;
-// Global Tcl Command Buffer
+/* Global Tcl Command Buffer */
 char *			TclCommand;
-// Global Tcl Script to Evaluate
+/* Global Tcl Script to Evaluate */
 char *			TclFile;
-// Global Tcl Return Code.
+/* Global Tcl Return Code. */
 int			TclInterpReturn;
-// Global Tcl Return Result.
+/* Global Tcl Return Result. */
 char *			TclInterpResult;
 
-// Single execution
+/* Single execution */
 __threadLock		singleExecutionLock;
 
-// Wake Up
+/* Wake Up */
 __threadSignal		wakeUp;
 __threadSignalLock	wakeUpLock;
 
-// Work is done
+/* Work is done */
 __threadSignal		workIsDone;
 
-// Launch command
+/* Launch command */
 __threadSignalLock	launchCommand;
 
-// ***********************
-// ** Enable LocalDebug **
-// **********************
-//#define __LOCAL_DEBUG__
+/* ***********************
+ * ** Enable LocalDebug **
+ * ********************** */
+/*#define __LOCAL_DEBUG__ */
 
 
 static Tcl_Interp *LocalTCLinterp;
@@ -69,8 +69,8 @@ extern BOOL TK_Started;
 static void *sleepAndSignal(void* in) {
   while(TK_Started) {
 #ifdef __LOCAL_DEBUG__
-    //printf(".");
-    //fflush(NULL);
+      printf("."); 
+      fflush(NULL);
 #endif
     usleep(TIME_TO_SLEEP);
     __LockSignal(&wakeUpLock);
@@ -89,9 +89,9 @@ static void evaluateTclCommand()
   printf("[TCL Daemon] Eval : %s\n", TclCommand);
   fflush(NULL);
 #endif
-  //CommandEvaluationInProgress = TRUE;
+  /* CommandEvaluationInProgress = TRUE; */
   TclInterpReturn = Tcl_Eval(LocalTCLinterp, TclCommand);
-  //CommandEvaluationInProgress = FALSE;
+  /* CommandEvaluationInProgress = FALSE; */
   FREE(TclCommand);
   TclCommand = NULL;
 }
@@ -137,8 +137,8 @@ void startTclLoop()
   */
   while(TK_Started) {
 #ifdef __LOCAL_DEBUG__
-    //printf(".");
-    //fflush(NULL);
+    printf(".");
+    fflush(NULL);
 #endif
     /*
     ** -= IF =-

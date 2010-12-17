@@ -256,7 +256,7 @@ int sci_strindex(char *fname,unsigned long fname_len)
 							values[nbposition++].position = x+1;
 						}
 					}
-					while(pCur != NULL && *pCur != 0);//Plus tard
+					while(pCur != NULL && *pCur != 0);/*Plus tard*/
 
 					/* values are sorted */
 					qsort(values,nbValues,sizeof(values[0]),cmp);

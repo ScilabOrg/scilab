@@ -227,13 +227,10 @@ int C2F(parse)(void)
     }
   }
  L13:
-  //C2F(tksynchro)(&C2F(recu).paus);
 
   C2F(getlin)(&job, &c__1);
 
   ClearTemporaryPrompt();
-  //C2F(tksynchro)(&c_n1);
-
 
   if (Fin == -3) {
     /*     interrupted line acquisition */
@@ -993,7 +990,6 @@ int C2F(parse)(void)
         i__2 = C2F(dbg).lgptrs[kmac+1] - 1;
         curline = Lct[8] - nlc - 1;
         for (ibpt = C2F(dbg).lgptrs[kmac]; ibpt <= i__2; ++ibpt) {
-          //sciprint("la Lct[8]-nlc =%d, bptlg=%d\n",Lct[8] - nlc,C2F(dbg).bptlg[ibpt - 1]);
           if (curline == C2F(dbg).bptlg[ibpt - 1]) { /* yes */
             /* display a message */
             C2F(cvname)(&C2F(dbg).macnms[kmac * nsiz], tmp, &c__1, nlgh);

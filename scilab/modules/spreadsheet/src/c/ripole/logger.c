@@ -17,7 +17,7 @@
 #include "MALLOC.h"
 #include "charEncoding.h"
 
-//#define SYSLOG_ENABLE 1
+/*#define SYSLOG_ENABLE 1 */
 
 #ifndef _MSC_VER
 static int _LOGGER_mode = _LOGGER_SYSLOG;

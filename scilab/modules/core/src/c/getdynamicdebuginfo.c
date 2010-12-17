@@ -17,7 +17,7 @@
 #endif
 
 
-// UNAME 
+/* UNAME  */
 #ifdef HAVE_UNAME
 #include <sys/utsname.h>
 #endif
@@ -71,7 +71,7 @@ static void SetDebugMsg(debug_message *msg, char* desc, char* value){
 #define S(X) ( ((unsigned long long)(X) << 10) >> shift)
 
 #if defined(k64test) || (defined(_ABIN32) && _MIPS_SIM == _ABIN32)
-#define KLONG long long    // not typedef; want "unsigned KLONG" to work
+#define KLONG long long    /* not typedef; want "unsigned KLONG" to work */
 #else
 #define KLONG long
 #endif
@@ -180,7 +180,7 @@ unsigned long kb_dirty;
 unsigned long kb_inactive;
 unsigned long kb_mapped;
 unsigned long kb_pagetables;
-// seen on a 2.6.x kernel:
+/* seen on a 2.6.x kernel: */
 static unsigned long kb_vmalloc_chunk;
 static unsigned long kb_vmalloc_total;
 static unsigned long kb_vmalloc_used;
@@ -192,34 +192,34 @@ static void meminfo(void){
 	char *head;
 	char *tail;
 	static const mem_table_struct mem_table[] = {
-		{"Active",       &kb_active},       // important
-		{"Buffers",      &kb_main_buffers}, // important
-		{"Cached",       &kb_main_cached},  // important
+		{"Active",       &kb_active},       /* important */
+		{"Buffers",      &kb_main_buffers}, /* important */
+		{"Cached",       &kb_main_cached},  /* important */
 		{"Committed_AS", &kb_committed_as},
-		{"Dirty",        &kb_dirty},        // kB version of vmstat nr_dirty
+		{"Dirty",        &kb_dirty},        /* kB version of vmstat nr_dirty */
 		{"HighFree",     &kb_high_free},
 		{"HighTotal",    &kb_high_total},
 		{"Inact_clean",  &kb_inact_clean},
 		{"Inact_dirty",  &kb_inact_dirty},
 		{"Inact_laundry",&kb_inact_laundry},
 		{"Inact_target", &kb_inact_target},
-		{"Inactive",     &kb_inactive},     // important
+		{"Inactive",     &kb_inactive},     /* important */
 		{"LowFree",      &kb_low_free},
 		{"LowTotal",     &kb_low_total},
-		{"Mapped",       &kb_mapped},       // kB version of vmstat nr_mapped
-		{"MemFree",      &kb_main_free},    // important
-		{"MemShared",    &kb_main_shared},  // important, but now gone!
-		{"MemTotal",     &kb_main_total},   // important
-		{"PageTables",   &kb_pagetables},   // kB version of vmstat nr_page_table_pages
-		{"ReverseMaps",  &nr_reversemaps},  // same as vmstat nr_page_table_pages
-		{"Slab",         &kb_slab},         // kB version of vmstat nr_slab
+		{"Mapped",       &kb_mapped},       /* kB version of vmstat nr_mapped */
+		{"MemFree",      &kb_main_free},    /* important */
+		{"MemShared",    &kb_main_shared},  /* important , but now gone!*/
+		{"MemTotal",     &kb_main_total},   /* important */
+		{"PageTables",   &kb_pagetables},   /* kB version of vmstat nr_page_table_pages */
+		{"ReverseMaps",  &nr_reversemaps},  /* same as vmstat nr_page_table_pages */
+		{"Slab",         &kb_slab},         /* kB version of vmstat nr_slab */
 		{"SwapCached",   &kb_swap_cached},
-		{"SwapFree",     &kb_swap_free},    // important
-		{"SwapTotal",    &kb_swap_total},   // important
+		{"SwapFree",     &kb_swap_free},    /* important */
+		{"SwapTotal",    &kb_swap_total},   /* important */
 		{"VmallocChunk", &kb_vmalloc_chunk},
 		{"VmallocTotal", &kb_vmalloc_total},
 		{"VmallocUsed",  &kb_vmalloc_used},
-		{"Writeback",    &kb_writeback},    // kB version of vmstat nr_writeback
+		{"Writeback",    &kb_writeback},    /* kB version of vmstat nr_writeback */
 	};
 	const int mem_table_count = sizeof(mem_table)/sizeof(mem_table_struct);
 

@@ -30,7 +30,7 @@ BOOL deleteafile(char *filename)
 		FILE *f = fopen(filename, "r") ;
 		if (! f) return bOK;
 		fclose(f) ;
-		chmod(filename, S_IWRITE) ;
+		chmod(filename, S_IWUSR) ;
 		if (remove(filename) == 0)  bOK = TRUE;
 	}
 	#else

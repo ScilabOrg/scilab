@@ -62,10 +62,6 @@
 	#define DEFAULTGSTACKSIZE 1000
 #endif
 
-
-//#define DefaultScilabQuit "SCI/etc/scilab.quit"
-//static char DefaultSCIenv[]="../..";
-
 #ifndef _MSC_VER
 /* What is the variable to export for the language */
 #define EXPORTENVLOCALE LC_MESSAGES

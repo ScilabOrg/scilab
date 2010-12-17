@@ -53,7 +53,7 @@ int C2F(intisequalvar)(char * fname, int *job, long int fl)
     int res = 42; /* Bruno : @TODO initialisation !!! */
     int one = 1;
     int l1,lk, il1,ilk;
-    int n1,nk; //memory size used by the variable, only used for overloaded comparison
+    int n1,nk; /*memory size used by the variable, only used for overloaded comparison*/
 
     initStackParameters();
 

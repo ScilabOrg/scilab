@@ -37,6 +37,7 @@
 #include "strdup_windows.h"
 
 #else
+#define __USE_MISC /* Allow MAP_ANONYMOUS */
 #include <sys/mman.h>
 #ifndef MAP_ANONYMOUS
 # define MAP_ANONYMOUS MAP_ANON
@@ -131,7 +132,7 @@ char *getConsoleInputLine(void)
 */
 static void initAll(void) {
   initialized = TRUE;
-  pReadyForLaunch = mmap(0, sizeof(__threadSignalLock), PROT_READ | PROT_WRITE,MAP_SHARED |  MAP_ANONYMOUS, -1, 0);
+  pReadyForLaunch = mmap(0, sizeof(__threadSignalLock), PROT_READ | PROT_WRITE, MAP_SHARED |  MAP_ANONYMOUS, -1, 0);
   atexit(release);
   __InitSignal(&TimeToWork);
   __InitSignalLock(pReadyForLaunch);

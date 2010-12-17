@@ -197,7 +197,7 @@ L9999:
 	** We want to be interruptible after having an error
 	** _VERY_ CRAPPY CODE
 	*/
-	//C2F(basbrk).interruptible = Ids[4 + Pt * nsiz];
+
 	C2F(basbrk).interruptible = TRUE;
 	Pt=Pts;Top=Tops;
 	C2F(recu).icall = 0;

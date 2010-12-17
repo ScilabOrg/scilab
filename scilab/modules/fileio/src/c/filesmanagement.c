@@ -136,7 +136,7 @@ void SetFileTypeOpenedInScilab(int Id,int Type)
 /*--------------------------------------------------------------------------*/
 char* GetFileNameOpenedInScilab(int Id)
 {
-    if (GetFileTypeOpenedInScilab(Id) == 1) // Fortran file
+    if (GetFileTypeOpenedInScilab(Id) == 1) /* Fortran file */
     {
         /* A exception for Id 5 and 6 */ 
         /* no name */

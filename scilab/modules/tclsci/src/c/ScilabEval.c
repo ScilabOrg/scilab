@@ -94,8 +94,9 @@ int TCL_EvalScilabCmd(ClientData clientData,Tcl_Interp * theinterp,int objc,CONS
 	      sciprint_full(msg,command);
 	      sciprint("\n");
 	    }
-	  // TODO : Scilab is supposed to be busy there. Add mutex lock...
-	  // C2F(tksynchro)(&C2F(recu).paus);
+	  /* TODO : Scilab is supposed to be busy there. Add mutex lock...
+       * C2F(tksynchro)(&C2F(recu).paus);
+       */
 	  if (ierr != 0) return TCL_ERROR;
 	}
       else if (strncmp(command,"flush",5)==0)
@@ -116,8 +117,9 @@ int TCL_EvalScilabCmd(ClientData clientData,Tcl_Interp * theinterp,int objc,CONS
 	  if (ismenu()) sciprint(_("Warning: Too many callbacks in queue!\n"));
 	  for (nc = 0 ; nc <= ncomm ; nc++ )
 	    {
-	      // TODO : Scilab is supposed to be busy there. Add mutex lock...
-	      // C2F(tksynchro)(&c_n1);  // set sciprompt to -1 (scilab busy)
+            /* TODO : Scilab is supposed to be busy there. Add mutex lock...
+             * C2F(tksynchro)(&c_n1);  // set sciprompt to -1 (scilab busy)
+             */
 	      if (C2F(iop).ddt==-1)
 		{
 		  if (seqf[nc]==0)
@@ -147,8 +149,9 @@ int TCL_EvalScilabCmd(ClientData clientData,Tcl_Interp * theinterp,int objc,CONS
 		  sciprint("\n");
 		}
 	      FREE(comm[nc]);
-	      // TODO : Scilab is supposed to be busy there. Add mutex lock...
-	      // C2F(tksynchro)(&C2F(recu).paus);
+	      /* TODO : Scilab is supposed to be busy there. Add mutex lock...
+           * C2F(tksynchro)(&C2F(recu).paus);
+           */
 	      if (ierr != 0) return TCL_ERROR;
 	    }
 	  if (C2F(iop).ddt==-1) sciprint(_("Flushing ends\n"));

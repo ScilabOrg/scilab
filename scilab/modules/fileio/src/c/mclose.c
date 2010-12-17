@@ -35,7 +35,7 @@ void C2F(mclose) (int *fd, double *res)
 			{
 				int res1 = 1;
 				res1=fclose( stream );
-				// this function previously called ferror on a just before fclosed FILE* that could lead to crash at exit, depending on libc implementation.
+				/* this function previously called ferror on a just before fclosed FILE* that could lead to crash at exit, depending on libc implementation. */
 				if (res1 != 0) *res =1;
 				C2F(delfile)(&fd1);
 				/* bug 3897 */

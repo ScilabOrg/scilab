@@ -61,7 +61,7 @@ char* scistrrev(char* str)
 		int j = 0, k = 0;
 
 		if (wcstr) i = (int)wcslen(wcstr);
-		t = !(i%2)? 1 : 0;      // check the length of the string .
+		t = !(i%2)? 1 : 0;      /* check the length of the string . */
 		
 		/* copy character by character to reverse string */
 		k = 0;

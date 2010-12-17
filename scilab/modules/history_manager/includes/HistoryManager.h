@@ -33,7 +33,7 @@ extern "C" {
 	 * @return TRUE or FALSE
 	 */
 	HISTORY_MANAGER_IMPEXP BOOL appendLinesToScilabHistory(char **lines_, int numberoflines);
-	// Note it is lines_ because line is a keyword for term stuff
+	/* Note it is lines_ because line is a keyword for term stuff */
 
 	/**
 	* add a line to History manager

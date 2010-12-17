@@ -173,7 +173,7 @@ static void *DaemonOpenTCLsci(void* in)
 		TKmainWindow = Tk_MainWindow(getTclInterp());
 		releaseTclInterp();
 		Tk_GeometryRequest(TKmainWindow,2,2);
-		//printf("TkScriptpathShort : |%s|\n", TkScriptpathShort);
+		/*printf("TkScriptpathShort : |%s|\n", TkScriptpathShort); */
 		if ( Tcl_EvalFile(getTclInterp(),TkScriptpathShort) == TCL_ERROR  )
 		{
 			releaseTclInterp();
@@ -202,13 +202,14 @@ static void *DaemonOpenTCLsci(void* in)
 	}
 
 	__LockSignal(&InterpReadyLock);
-	// Signal TclInterpreter init is now over.
+	/* Signal TclInterpreter init is now over. */
 	__Signal(&InterpReady);
 	__UnLockSignal(&InterpReadyLock);
 
-	// This start a periodic and endless call to "update"
-	// TCL command. This causes any TCL application to start
-	// and run as if it's in the main program thread.
+	/* This start a periodic and endless call to "update"
+     * TCL command. This causes any TCL application to start
+     * and run as if it's in the main program thread.
+     */
 	startTclLoop();
 	return(0);
 
@@ -218,13 +219,13 @@ int OpenTCLsci(void)
 {
 	__InitSignalLock(&InterpReadyLock);
 	__InitSignal(&InterpReady);
-	// Open TCL interpreter in a separated thread.
-	// Allows all Tcl application not to freeze nor decrease Scilab speed.
-	// Causes also Scilab let those application live their own lifes.
-
+	/* Open TCL interpreter in a separated thread.
+     * Allows all Tcl application not to freeze nor decrease Scilab speed.
+     * Causes also Scilab let those application live their own lifes.
+     */
 
 	__CreateThread(&TclThread, &DaemonOpenTCLsci);
-	// Wait to be sure initialisation is complete.
+	/* Wait to be sure initialisation is complete. */
 	__LockSignal(&InterpReadyLock);
 	__Wait(&InterpReady, &InterpReadyLock);
 	__UnLockSignal(&InterpReadyLock);

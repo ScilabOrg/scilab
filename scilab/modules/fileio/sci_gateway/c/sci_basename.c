@@ -192,7 +192,7 @@ int sci_basename(char *fname,unsigned long fname_len)
 			return 0;
 		}
 
-		// get lenStVarOne value
+		/* get lenStVarOne value */
 		sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, lenStVarOne, NULL);
 		if(sciErr.iErr)
 		{
@@ -222,7 +222,7 @@ int sci_basename(char *fname,unsigned long fname_len)
 			}
 		}
 
-		// get pStVarOne
+		/* get pStVarOne */
 		sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, lenStVarOne, pStVarOne);
 		if(sciErr.iErr)
 		{

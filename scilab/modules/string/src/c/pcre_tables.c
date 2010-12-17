@@ -54,7 +54,7 @@ clashes with the library. */
 /* Table of sizes for the fixed-length opcodes. It's defined in a macro so that
 the definition is next to the definition of the opcodes in pcre_internal.h. */
 
-//const uschar _pcre_OP_lengths[] = { OP_LENGTHS };
+/*const uschar _pcre_OP_lengths[] = { OP_LENGTHS }; */
 
 
 

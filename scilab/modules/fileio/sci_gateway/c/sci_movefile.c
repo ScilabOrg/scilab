@@ -81,7 +81,7 @@ int sci_movefile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get lenStVarOne
+	/* get lenStVarOne */
 	sciErr = getMatrixOfWideString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
 	if(sciErr.iErr)
 	{
@@ -89,7 +89,7 @@ int sci_movefile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of first argument only now (+ 2 if we add file separator @ the end)
+	/* get value of first argument only now (+ 2 if we add file separator @ the end) */
 	pStVarOne = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarOne + 2));
 	if (pStVarOne == NULL)
 	{
@@ -146,7 +146,7 @@ int sci_movefile(char *fname,unsigned long fname_len)
 		return 0;
 	}
 
-	// get value of first argument only now (+ 2 if we add file separator @ the end)
+	/* get value of first argument only now (+ 2 if we add file separator @ the end) */
 	pStVarTwo = (wchar_t*)MALLOC(sizeof(wchar_t)*(lenStVarTwo + 2));
 	if (pStVarTwo == NULL)
 	{
@@ -288,8 +288,8 @@ static void returnMoveFileResultOnStack(int ierr, char *fname)
 			wcscpy(buffer, L"Unknown Error");
 		}
 
-		// for compatibilty with copyfile, we return 0 (error)
-		//dError = (double) dw;
+		/* for compatibilty with copyfile, we return 0 (error) 
+         * dError = (double) dw; */
 		dError = (double) 0;
 
 		sciError[0] = (wchar_t*)MALLOC(sizeof(wchar_t)* ((int)wcslen(buffer) + 1));
@@ -315,8 +315,9 @@ static void returnMoveFileResultOnStack(int ierr, char *fname)
 #else
 	if (ierr)
 	{
-		// for compatibilty with copyfile, we return 0 (error)
-		//dError = (double) ierr;
+		/* for compatibilty with copyfile, we return 0 (error)
+         * dError = (double) ierr; 
+         */
 		dError = (double) 0.;
 
 		sciError[0] = to_wide_string(strerror(errno));
