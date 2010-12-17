@@ -6,6 +6,8 @@ File input/output:
 
 * mgetl, exec, fscanfMat functions manage files encoded as UTF-8 with BOM.
 
+* fullpath did not manage matrix of string as input argument. (see SEP 52)
+
 
 Bug Fixes:
 ==========
@@ -30,5 +32,5 @@ Performance:
 ============
 
 * SSE is now enabled by default under GNU/Linux with 32 bit CPU (it is already
-  the case under 64 bit CPU). 
+  the case under 64 bit CPU).
   Pentium III class (or equivalent) with SSE instructions is required.

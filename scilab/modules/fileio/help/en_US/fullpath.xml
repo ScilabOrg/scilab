@@ -2,7 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Allan CORNET
- * ...
+ * Copyright (C) 2010 - DIGITEO - Allan CORNET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -29,7 +29,7 @@
       <varlistentry>
         <term>res</term>
         <listitem>
-          <para>a string</para>
+          <para>a string or matrix of string</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -37,7 +37,7 @@
       <varlistentry>
         <term>relative_path</term>
         <listitem>
-          <para>a string</para>
+          <para>a string or a matrix of string</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -45,16 +45,24 @@
   <refsection>
     <title>Description</title>
     <para>Creates an full path name for the specified relative path name.</para>
-    <para>On linux 'relative_path' needs to exist.</para>
   </refsection>
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
-mkdir(TMPDIR+'/niv1');
-mkdir(TMPDIR+'/niv1/niv2');
-mputl(' ',TMPDIR+'/niv1/test.txt');
-cd(TMPDIR+'/niv1/niv2');
-fullpath('../test.txt')
+cd(TMPDIR);
+mkdir(TMPDIR + "/niv1");
+mkdir(TMPDIR + "/niv1/niv2");
+mkdir(TMPDIR + "/niv1/niv2/niv3");
+mputl(' ', TMPDIR + "/niv1/test1.txt");
+mputl(' ' , TMPDIR + "/niv1/niv2/test2.txt");
+
+cd(TMPDIR + "/niv1/niv2/niv3");
+
+r1 = fullpath("../../test1.txt")
+r2 = fullpath("../test2.txt")
+M = ["../../test1.txt", "../test2.txt"];
+R = fullpath(M)
+
  ]]></programlisting>
   </refsection>
   <refsection>
