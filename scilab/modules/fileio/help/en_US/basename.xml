@@ -31,7 +31,7 @@
   <refsynopsisdiv>
     <title>Calling Sequence</title>
 
-    <synopsis>files= basename(files[,flag [,flagexpand]])</synopsis>
+    <synopsis>filesProcessed = basename(files[,flag [,flagexpand]])</synopsis>
   </refsynopsisdiv>
 
   <refsection>
@@ -56,12 +56,13 @@
       </varlistentry>
 
       <varlistentry>
-        <term>files</term>
+        <term>filesProcessed</term>
 
         <listitem>
-          <para>a string matrix.</para>
+          <para>a string matrix with the filenames processed.</para>
         </listitem>
       </varlistentry>
+
     </variablelist>
   </refsection>
 
