@@ -30,6 +30,12 @@ Compilation:
 
 * -Wimplicit removed for gfortran in the enable debug mode
 
+Bug fixes:
+==========
+
+* bug 7118 fixed - "bode" plot produced incorrect Magnitude response in some
+                   cases.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================

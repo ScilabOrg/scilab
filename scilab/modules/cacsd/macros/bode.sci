@@ -15,13 +15,20 @@ function []=bode(varargin)
   end
   fname="bode";//for error messages
   fmax=[]
+  c=1/2/%pi;
   discr=%f //for shannon limit
   if or(typeof(varargin(1))==["state-space" "rational"]) then
     //sys,fmin,fmax [,pas] or sys,frq
     refdim=1 //for error message
+    for i=2:rhs
+        tmp=varargin(i); 
+        if typeof(tmp)=="constant" then
+            varargin(i)=tmp*c; 
+        end
+    end
     discr=varargin(1).dt<>'c';
     if rhs==1 then //sys
-      [frq,repf]=repfreq(varargin(1),1d-3,1d3)
+      [frq,repf]=repfreq(varargin(1),1d-3*c,1d3*c)
     elseif rhs==2 then //sys,frq
       if size(varargin(2),2)<2 then
         error(msprintf(_("%s: Wrong size for input argument #%d: A row vector with length>%d expected.\n"),..
@@ -35,8 +42,9 @@ function []=bode(varargin)
     end
     [phi,d]=phasemag(repf)
     if rhs>=3 then fmax=varargin(3),end
-  elseif  type(varargin(1))==1 then
+  elseif  type(varargin(1))==1 then  // First input arg is the real frequency vector
     //frq,db,phi [,comments] or frq, repf [,comments]
+    varargin(1)=varargin(1)*c
     refdim=2
     select rhs
     case 2 then //frq,repf
@@ -66,7 +74,11 @@ function []=bode(varargin)
   else
     error(msprintf(_("%s: Wrong type for input argument #%d: Linear dynamical system or row vector of floats expected.\n"),fname,1))
   end;
-  frq=frq';d=d',phi=phi'
+  frq=frq/c;
+  fmax=fmax/c;
+  frq=frq';
+  d=d';
+  phi=phi';
   [n,mn]=size(d)
 
   if comments==[] then
