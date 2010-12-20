@@ -1236,6 +1236,7 @@ function st = st_run(st)
         if ( (tmp_errfile_info <> []) & (tmp_errfile_info(1)<>0) ) then
             st.status = status_set_id(st.status,5);
             st.status = status_set_message(st.status,"failed  : error_output not empty");
+            st.status = status_set_message(st.status,"Use option ''no_check_error_output'' to disable this check.");
             st.status = status_set_details(st.status,st_checkthefile(st.tmp_err));
             return;
         end
