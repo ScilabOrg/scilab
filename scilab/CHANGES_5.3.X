@@ -81,6 +81,9 @@ Bug fixes:
 * bug 8492 fixed - When the documentation was generated, error messages were not
                    displayed in the console but in the terminal.
 
+* bug 8563 fixed - Scilab under GNU/Linux 64 bit was unable to load files bigger
+                   than 2GB.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
