@@ -19,6 +19,8 @@
 extern "C"
 {
 	#include "matrix_addition.h"
+    #include "localization.h"
+    #include "charEncoding.h"
 }
 
 InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOperand)
@@ -39,8 +41,8 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         if(iResult != 0)
         {
             std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+            os << L"Error: operator +: Matrix dimensions must agree (op1 is " << pL->DimToString();
+            os << L", op2 is " << pR->DimToString() << L")" << std::endl;
             throw ast::ScilabError(os.str());
         }
         return pResult;
@@ -65,8 +67,8 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         if(iResult != 0)
         {
             std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+            os << L"Error: operator +: Matrix dimensions must agree (op1 is " << pL->DimToString();
+            os << L", op2 is " << pR->DimToString() << L")" << std::endl;
             throw ast::ScilabError(os.str());
         }
         return pResult;
@@ -89,8 +91,8 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         if(iResult != 0)
         {
             std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+            os << L"Error: operator +: Matrix dimensions must agree (op1 is " << pL->DimToString();
+            os << L", op2 is " << pR->DimToString() << L")" << std::endl;
             throw ast::ScilabError(os.str());
         }
         return pResult;
@@ -108,8 +110,8 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
         if(iResult != 0)
         {
             std::wostringstream os;
-            os << L"inconsistent row/column dimensions\n";
-            //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+            os << L"Error: operator +: Matrix dimensions must agree (op1 is " << pL->DimToString();
+            os << L", op2 is " << pR->DimToString() << L")" << std::endl;
             throw ast::ScilabError(os.str());
         }
         return pResult;
@@ -129,8 +131,8 @@ InternalType *GenericPlus(InternalType *_pLeftOperand, InternalType *_pRightOper
             if(iResult == 1)
             {
                 std::wostringstream os;
-                os << L"inconsistent row/column dimensions\n";
-                //os << ((Location)e.right_get().location_get()).location_string_get() << std::endl;
+                os << L"Error: operator +: Matrix dimensions must agree (op1 is " << pL->DimToString();
+                os << L", op2 is " << pR->DimToString() << L")" << std::endl;
                 throw ast::ScilabError(os.str());
             }
             else if(iResult == 2)
