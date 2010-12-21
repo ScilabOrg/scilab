@@ -31,6 +31,12 @@ in the status bar of Scinotes.
 
 * A bad identifier is now shown in the text editor.
 
+Xcos:
+=====
+
+* bug 8674 fixed - xcosShowBlockWarning was not protected against arbitrary 
+                   arguments.
+
 Localization:
 =============
 
