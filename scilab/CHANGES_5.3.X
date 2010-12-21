@@ -42,6 +42,9 @@ Xcos:
 
 * bug 8642 fixed - The getDiagramVersion unit test could not pass.
 
+* bug 8674 fixed - xcosShowBlockWarning was not protected against arbitrary 
+                   arguments.
+
 Localization:
 =============
 
