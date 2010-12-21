@@ -88,6 +88,8 @@ Bug fixes:
 * bug 7691 fixed - Giving complex arguments to inverse degree trigonometric 
                    functions produced inconsistent results.
 
+* bug 7377 fixed - Thrownan failed on empty matrix.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
