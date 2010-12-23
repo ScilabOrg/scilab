@@ -46,6 +46,9 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
+* bug 8696 fixed - An exception was thrown while linking and deleting the 
+                   source block.
+
 Localization:
 =============
 
