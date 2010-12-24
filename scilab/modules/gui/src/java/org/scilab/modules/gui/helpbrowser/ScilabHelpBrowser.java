@@ -12,8 +12,12 @@
 
 package org.scilab.modules.gui.helpbrowser;
 
+import javax.swing.SwingUtilities;
+
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.gui.bridge.ScilabBridge;
+import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
+import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.dockable.ScilabDockable;
 import org.scilab.modules.gui.events.callback.ScilabCallBack;
@@ -22,6 +26,7 @@ import org.scilab.modules.gui.tab.ScilabTab;
 import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
+import org.scilab.modules.gui.utils.ConfigManager;
 import org.scilab.modules.gui.utils.MenuBarBuilder;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
@@ -84,9 +89,19 @@ public class ScilabHelpBrowser extends ScilabDockable implements HelpBrowser {
 
 			Window helpWindow = ScilabWindow.createWindow();
 			helpWindow.addTab(helpTab);
+
+			/* Set the dimension / position of the help window */
+			helpWindow.setPosition(ConfigManager.getHelpWindowPosition());
+			helpWindow.setDims(ConfigManager.getHelpWindowSize());
+
 			helpWindow.draw();
-			
+
+		} else {
+                        SwingScilabWindow window = (SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, (SwingScilabTab) helpTab.getAsSimpleTab());
+                        window.setVisible(true);
+                        window.toFront();
 		}
+
 		return instance;
 	}
 
@@ -98,6 +113,14 @@ public class ScilabHelpBrowser extends ScilabDockable implements HelpBrowser {
 		if (instance == null) {
 			instance = new ScilabHelpBrowser(null, "en_US");
 		}
+		return instance;
+	}
+	
+	/**
+	 * Get the Scilab Help Browser (does not create it is not existing)
+	 * @return the console
+	 */
+	public static HelpBrowser getHelpBrowserWithoutCreation() {
 		return instance;
 	}
 	

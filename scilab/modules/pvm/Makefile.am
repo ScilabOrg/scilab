@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 if PVM
 
@@ -96,8 +96,7 @@ libscipvm_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
 libscipvm_la_SOURCES = $(PVM_C_SOURCES) 
 
-libscipvm_la_LIBADD = \
-	$(top_builddir)/modules/core/libscicore.la
+libscipvm_la_LIBADD =	
 
 libscipvm_la_CFLAGS = -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(srcdir)/includes/ \

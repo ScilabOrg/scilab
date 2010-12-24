@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -142,11 +141,11 @@ msgstr "%s：输入参数#%d的类型错误：应该为实数数组。\n"
 msgid ""
 "%s: Wrong value for input argument #%d: ''%s'' or ''%s'' or ''%s'' "
 "expected.\n"
-msgstr "%s：输入参数#%d的值错误：应该为\"%s\"、\"%s\"或\"%s\"。\n"
+msgstr "%s：输入参数#%d的值错误：应该为''%s''、''%s''或''%s''。\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: ''%s'' or real expected.\n"
-msgstr "%s：输入参数#%d的值错误：应该为\"%s\"或实数。\n"
+msgstr "%s：输入参数#%d的值错误：应该为''%s''或实数。\n"
 
 #, c-format
 msgid ""

@@ -52,7 +52,6 @@
 
 # TODO:
 # * see if we can do more factorisation (on the lexer for example)
-# * translator must be renamed
 
 ######### Common Modelica elements #############
 
@@ -82,10 +81,13 @@ DIST_COMMON = $(am__libsciscicos_la_include_HEADERS_DIST) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/Makefile.modelica.am $(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@am__append_1 = java
-@OCAML_TRUE@bin_PROGRAMS = $(am__EXEEXT_1)
+
+# With --enable-compilation-tests, launch java unitary tests
+@COMPILATION_TESTS_TRUE@am__append_2 = test
+@OCAML_TRUE@@SCICOS_TRUE@bin_PROGRAMS = $(am__EXEEXT_1)
 
 ########## COMMON
-@OCAML_TRUE@am__append_2 = .ml .mli .mll .mly .cmo .cmi .cmx
+@OCAML_TRUE@@SCICOS_TRUE@am__append_3 = .ml .mli .mll .mly .cmo .cmi .cmx
 subdir = modules/scicos
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -97,7 +99,11 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/libxml2.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+<<<<<<< HEAD
 	$(top_srcdir)/m4/mpi.m4 $(top_srcdir)/m4/ocaml.m4 \
+=======
+	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/ocaml.m4 \
+>>>>>>> origin/5.3
 	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
 	$(top_srcdir)/m4/pvm.m4 $(top_srcdir)/m4/relocatable.m4 \
 	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
@@ -132,8 +138,6 @@ am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
 am__installdirs = "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(libsciscicos_la_etcdir)" \
-	"$(DESTDIR)$(libsciscicos_la_help_en_USdir)" \
-	"$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)" \
 	"$(DESTDIR)$(libsciscicos_la_rootdir)" \
 	"$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" \
 	"$(DESTDIR)$(libsciscicos_la_cosfdir)" \
@@ -151,7 +155,6 @@ LTLIBRARIES = $(pkglib_LTLIBRARIES)
 @SCICOS_TRUE@	$(top_builddir)/modules/scicos/libscisundials.la \
 @SCICOS_TRUE@	$(top_builddir)/modules/scicos_blocks/libsciscicos_blocks.la \
 @SCICOS_TRUE@	$(top_builddir)/modules/mexlib/libmex.la \
-@SCICOS_TRUE@	$(top_builddir)/modules/core/libscicore.la \
 @SCICOS_TRUE@	$(top_builddir)/libs/MALLOC/libscimalloc.la \
 @SCICOS_TRUE@	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
 @SCICOS_TRUE@	$(top_builddir)/modules/arnoldi/libsciarnoldi.la
@@ -307,8 +310,9 @@ libscisundials_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(libscisundials_la_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 @SCICOS_TRUE@am_libscisundials_la_rpath = -rpath $(pkglibdir)
-@OCAML_TRUE@am__EXEEXT_1 = modelicac$(EXEEXT) XML2Modelica$(EXEEXT) \
-@OCAML_TRUE@	translator$(EXEEXT)
+@OCAML_TRUE@@SCICOS_TRUE@am__EXEEXT_1 = modelicac$(EXEEXT) \
+@OCAML_TRUE@@SCICOS_TRUE@	XML2Modelica$(EXEEXT) \
+@OCAML_TRUE@@SCICOS_TRUE@	modelicat$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 am__XML2Modelica_SOURCES_DIST = $(srcdir)/src/xml2modelica/xMLTree.ml \
 	$(srcdir)/src/xml2modelica/linenum.ml \
@@ -319,7 +323,7 @@ am__XML2Modelica_SOURCES_DIST = $(srcdir)/src/xml2modelica/xMLTree.ml \
 	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml \
 	$(srcdir)/src/xml2modelica/xML2Modelica.ml
 am__objects_7 =
-@OCAML_TRUE@am_XML2Modelica_OBJECTS = $(am__objects_7)
+@OCAML_TRUE@@SCICOS_TRUE@am_XML2Modelica_OBJECTS = $(am__objects_7)
 XML2Modelica_OBJECTS = $(am_XML2Modelica_OBJECTS)
 XML2Modelica_LDADD = $(LDADD)
 am__modelicac_SOURCES_DIST =  \
@@ -341,10 +345,10 @@ am__modelicac_SOURCES_DIST =  \
 	$(srcdir)/src/modelica_compiler/optimizingCompiler.ml \
 	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.ml \
 	$(srcdir)/src/modelica_compiler/scicosOptimizingCompiler.ml
-@OCAML_TRUE@am_modelicac_OBJECTS = $(am__objects_7)
+@OCAML_TRUE@@SCICOS_TRUE@am_modelicac_OBJECTS = $(am__objects_7)
 modelicac_OBJECTS = $(am_modelicac_OBJECTS)
 modelicac_LDADD = $(LDADD)
-am__translator_SOURCES_DIST =  \
+am__modelicat_SOURCES_DIST =  \
 	$(srcdir)/src/translator/compilation/types.ml \
 	$(srcdir)/src/translator/compilation/nameResolve.ml \
 	$(srcdir)/src/translator/instantiation/instantiation.ml \
@@ -355,9 +359,9 @@ am__translator_SOURCES_DIST =  \
 	$(srcdir)/src/translator/translation/codeGeneration.ml \
 	$(srcdir)/src/translator/translation/versiondate.ml \
 	$(srcdir)/src/translator/translation/translator.ml
-@OCAML_TRUE@am_translator_OBJECTS = $(am__objects_7)
-translator_OBJECTS = $(am_translator_OBJECTS)
-translator_LDADD = $(LDADD)
+@OCAML_TRUE@@SCICOS_TRUE@am_modelicat_OBJECTS = $(am__objects_7)
+modelicat_OBJECTS = $(am_modelicat_OBJECTS)
+modelicat_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -380,19 +384,17 @@ F77LINK = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = $(libsciscicos_la_SOURCES) $(libscisundials_la_SOURCES) \
 	$(XML2Modelica_SOURCES) $(modelicac_SOURCES) \
-	$(translator_SOURCES)
+	$(modelicat_SOURCES)
 DIST_SOURCES = $(am__libsciscicos_la_SOURCES_DIST) \
 	$(am__libscisundials_la_SOURCES_DIST) \
 	$(am__XML2Modelica_SOURCES_DIST) $(am__modelicac_SOURCES_DIST) \
-	$(am__translator_SOURCES_DIST)
-DATA = $(libsciscicos_la_etc_DATA) $(libsciscicos_la_help_en_US_DATA) \
-	$(libsciscicos_la_help_fr_FR_DATA) \
-	$(libsciscicos_la_root_DATA) \
+	$(am__modelicat_SOURCES_DIST)
+DATA = $(libsciscicos_la_etc_DATA) $(libsciscicos_la_root_DATA) \
 	$(libsciscicos_la_sci_gateway_DATA) \
 	$(nobase_libsciscicos_la_cosf_DATA)
-am__libsciscicos_la_include_HEADERS_DIST = src/c/noscicos/resource.h \
-	includes/scicos.h includes/scicos-def.h includes/scicos_free.h \
-	includes/scicos_malloc.h
+am__libsciscicos_la_include_HEADERS_DIST = includes/scicos.h \
+	includes/scicos-def.h includes/scicos_free.h \
+	includes/scicos_malloc.h includes/scicos_math.h
 HEADERS = $(libsciscicos_la_include_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -444,6 +446,7 @@ FGREP = @FGREP@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
 FOP = @FOP@
+GENHTML = @GENHTML@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
@@ -466,6 +469,7 @@ INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+JAVADOC = @JAVADOC@
 JAVAH = @JAVAH@
 JAVASCI_ENABLE = @JAVASCI_ENABLE@
 JAVA_DEBUG_OPTIONS = @JAVA_DEBUG_OPTIONS@
@@ -486,6 +490,7 @@ JROSETTA_API = @JROSETTA_API@
 JROSETTA_ENGINE = @JROSETTA_ENGINE@
 JUNIT = @JUNIT@
 LAPACK_LIBS = @LAPACK_LIBS@
+LCOV = @LCOV@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
@@ -520,9 +525,16 @@ OCAMLDEP = @OCAMLDEP@
 OCAMLLEX = @OCAMLLEX@
 OCAMLOPT = @OCAMLOPT@
 OCAMLYACC = @OCAMLYACC@
+<<<<<<< HEAD
 OPENMPI_CC = @OPENMPI_CC@
 OPENMPI_FLAGS = @OPENMPI_FLAGS@
 OPENMPI_LIBS = @OPENMPI_LIBS@
+=======
+OPENMP_CFLAGS = @OPENMP_CFLAGS@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
+OPENMP_ENABLE = @OPENMP_ENABLE@
+OPENMP_LIBS = @OPENMP_LIBS@
+>>>>>>> origin/5.3
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -658,12 +670,12 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1)
+TARGETS_ALL = $(am__append_1) $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
 # NOT USED  AT THE MOMENT
-SUFFIXES = .sci $(am__append_2)
+SUFFIXES = .sci $(am__append_3)
 
 ########### INSTALL DOCUMENTATION ###################
 
@@ -694,7 +706,7 @@ MACROBUILDMASK = *.sce
 # Mask of the Scilab compiled macros
 MACROBINMASK = *.bin
 # List of the standard directory for tests
-TESTS_DIR = tests/benchmarks tests/nonreg_tests tests/unit_tests
+TESTS_DIR = tests/benchmarks tests/nonreg_tests tests/unit_tests tests/java
 # Where the demos should be installed
 pkgdemosdir = $(mydatadir)
 # List of the standard directory for demos
@@ -709,105 +721,105 @@ JARMASK = *.jar
 HELP_CHAPTERDIR = help/
 HELP_CHAPTERFILE = addchapter.sce
 HELP_CHAPTERLANG = en_US fr_FR pt_BR
-@OCAML_TRUE@TARGET = modelicac XML2Modelica translator
-@OCAML_TRUE@BASE_PATH = $(srcdir)/src/
-@OCAML_TRUE@OCAMLLIBS = nums.cma
+@OCAML_TRUE@@SCICOS_TRUE@TARGET = modelicac XML2Modelica modelicat
+@OCAML_TRUE@@SCICOS_TRUE@BASE_PATH = $(srcdir)/src/
+@OCAML_TRUE@@SCICOS_TRUE@OCAMLLIBS = nums.cma
 
 ### XML2Modelica
-@OCAML_TRUE@XML2Modelica_SOURCES = $(MLS_XML2Modelica)
-@OCAML_TRUE@MLS_XML2Modelica = $(srcdir)/src/xml2modelica/xMLTree.ml $(srcdir)/src/xml2modelica/linenum.ml $(srcdir)/src/xml2modelica/stringParser.ml $(srcdir)/src/xml2modelica/stringLexer.ml $(srcdir)/src/xml2modelica/xMLParser.ml $(srcdir)/src/xml2modelica/xMLLexer.ml\
-@OCAML_TRUE@	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml $(srcdir)/src/xml2modelica/xML2Modelica.ml
+@OCAML_TRUE@@SCICOS_TRUE@XML2Modelica_SOURCES = $(MLS_XML2Modelica)
+@OCAML_TRUE@@SCICOS_TRUE@MLS_XML2Modelica = $(srcdir)/src/xml2modelica/xMLTree.ml $(srcdir)/src/xml2modelica/linenum.ml $(srcdir)/src/xml2modelica/stringParser.ml $(srcdir)/src/xml2modelica/stringLexer.ml $(srcdir)/src/xml2modelica/xMLParser.ml $(srcdir)/src/xml2modelica/xMLLexer.ml\
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/xml2modelica/modelicaCodeGenerator.ml $(srcdir)/src/xml2modelica/xML2Modelica.ml
 
-@OCAML_TRUE@BASE_PATH_XML2Modelica = $(srcdir)/src/xml2modelica
+@OCAML_TRUE@@SCICOS_TRUE@BASE_PATH_XML2Modelica = $(srcdir)/src/xml2modelica
 
 ### Translator 
-@OCAML_TRUE@translator_SOURCES = $(MLS_translator)
-@OCAML_TRUE@MLS_translator = $(srcdir)/src/translator/compilation/types.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/compilation/nameResolve.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/instantiation/instantiation.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/exceptionHandling/msgDico.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/exceptionHandling/errorDico.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/exceptionHandling/exceptHandler.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/translation/libraryManager.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/translation/codeGeneration.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/translation/versiondate.ml \
-@OCAML_TRUE@ $(srcdir)/src/translator/translation/translator.ml
+@OCAML_TRUE@@SCICOS_TRUE@modelicat_SOURCES = $(MLS_modelicat)
+@OCAML_TRUE@@SCICOS_TRUE@MLS_modelicat = $(srcdir)/src/translator/compilation/types.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/compilation/nameResolve.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/instantiation/instantiation.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/exceptionHandling/msgDico.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/exceptionHandling/errorDico.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/exceptionHandling/exceptHandler.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/translation/libraryManager.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/translation/codeGeneration.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/translation/versiondate.ml \
+@OCAML_TRUE@@SCICOS_TRUE@ $(srcdir)/src/translator/translation/translator.ml
 
-@OCAML_TRUE@MLS_SPECIFIC_PRE_translator = $(srcdir)/src/translator/parsing/syntax.ml \
-@OCAML_TRUE@$(srcdir)/src/translator/parsing/parser.ml \
-@OCAML_TRUE@$(srcdir)/src/translator/parsing/lexer.ml \
-@OCAML_TRUE@$(srcdir)/src/translator/parsing/linenum.ml
+@OCAML_TRUE@@SCICOS_TRUE@MLS_SPECIFIC_PRE_modelicat = $(srcdir)/src/translator/parsing/syntax.ml \
+@OCAML_TRUE@@SCICOS_TRUE@$(srcdir)/src/translator/parsing/parser.ml \
+@OCAML_TRUE@@SCICOS_TRUE@$(srcdir)/src/translator/parsing/lexer.ml \
+@OCAML_TRUE@@SCICOS_TRUE@$(srcdir)/src/translator/parsing/linenum.ml
 
-@OCAML_TRUE@PARSER_SRC_translator = $(srcdir)/src/translator/parsing/parser.mly
-@OCAML_TRUE@LEXER_SRC_translator = $(srcdir)/src/translator/parsing/lexer.mll
-@OCAML_TRUE@INCLUDE_translator = -I $(srcdir)/src/translator/compilation \
-@OCAML_TRUE@-I $(srcdir)/src/translator/exceptionHandling \
-@OCAML_TRUE@-I $(srcdir)/src/translator/parsing \
-@OCAML_TRUE@-I $(srcdir)/src/translator/instantiation \
-@OCAML_TRUE@-I $(srcdir)/src/translator/translation
+@OCAML_TRUE@@SCICOS_TRUE@PARSER_SRC_modelicat = $(srcdir)/src/translator/parsing/parser.mly
+@OCAML_TRUE@@SCICOS_TRUE@LEXER_SRC_modelicat = $(srcdir)/src/translator/parsing/lexer.mll
+@OCAML_TRUE@@SCICOS_TRUE@INCLUDE_modelicat = -I $(srcdir)/src/translator/compilation \
+@OCAML_TRUE@@SCICOS_TRUE@-I $(srcdir)/src/translator/exceptionHandling \
+@OCAML_TRUE@@SCICOS_TRUE@-I $(srcdir)/src/translator/parsing \
+@OCAML_TRUE@@SCICOS_TRUE@-I $(srcdir)/src/translator/instantiation \
+@OCAML_TRUE@@SCICOS_TRUE@-I $(srcdir)/src/translator/translation
 
 
 ### Modelicac
-@OCAML_TRUE@modelicac_SOURCES = $(MLS)
-@OCAML_TRUE@MLS = $(srcdir)/src/modelica_compiler/parseTree.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/linenum.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/parser.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/lexer.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/precompilation.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/compilation.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/instantiation.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/graphNodeSet.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/symbolicExpression.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/squareSparseMatrix.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/bipartiteGraph.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/hungarianMethod.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/causalityGraph.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/optimization.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/xMLCodeGeneration.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/optimizingCompiler.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.ml \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/scicosOptimizingCompiler.ml
+@OCAML_TRUE@@SCICOS_TRUE@modelicac_SOURCES = $(MLS)
+@OCAML_TRUE@@SCICOS_TRUE@MLS = $(srcdir)/src/modelica_compiler/parseTree.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/linenum.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/parser.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/lexer.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/precompilation.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/compilation.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/instantiation.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/graphNodeSet.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/symbolicExpression.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/squareSparseMatrix.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/bipartiteGraph.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/hungarianMethod.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/causalityGraph.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/optimization.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/xMLCodeGeneration.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/optimizingCompiler.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/scicosOptimizingCompiler.ml
 
 
 # This is a basic copy of MLS with some elements removed
-@OCAML_TRUE@MLIS = $(srcdir)/src/modelica_compiler/parseTree.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/precompilation.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/compilation.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/instantiation.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/graphNodeSet.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/symbolicExpression.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/squareSparseMatrix.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/bipartiteGraph.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/hungarianMethod.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/causalityGraph.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/optimization.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/xMLCodeGeneration.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/optimizingCompiler.mli \
-@OCAML_TRUE@	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.mli
+@OCAML_TRUE@@SCICOS_TRUE@MLIS = $(srcdir)/src/modelica_compiler/parseTree.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/precompilation.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/compilation.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/instantiation.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/graphNodeSet.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/symbolicExpression.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/squareSparseMatrix.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/bipartiteGraph.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/hungarianMethod.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/causalityGraph.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/optimization.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/xMLCodeGeneration.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/optimizingCompiler.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(srcdir)/src/modelica_compiler/scicosCodeGeneration.mli
 
-@OCAML_TRUE@PARSER_SRC = $(srcdir)/src/modelica_compiler/parser.mly
-@OCAML_TRUE@LEXER_SRC = $(srcdir)/src/modelica_compiler/lexer.mll
-@OCAML_TRUE@BASE_PATH_MODELICAC = $(srcdir)/src/modelica_compiler
-@OCAML_TRUE@INCLUDE = -I $(BASE_PATH_MODELICAC) -I $(BASE_PATH_XML2Modelica)
-@OCAML_TRUE@CLEANFILES = $(BASE_PATH)/*/*.cmi \
-@OCAML_TRUE@	$(BASE_PATH)/*/*.o \
-@OCAML_TRUE@	$(BASE_PATH)/*/*.cmo \
-@OCAML_TRUE@	$(BASE_PATH)/*/*.cm[aiox] \
-@OCAML_TRUE@	$(BASE_PATH)/*/parser.mli \
-@OCAML_TRUE@	$(BASE_PATH)/*/lexer.mli \
-@OCAML_TRUE@	$(BASE_PATH)/*/parser.ml \
-@OCAML_TRUE@	$(BASE_PATH)/*/lexer.ml \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.cmi \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.o \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.a \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.cmo \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.cmxa \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/*.cm[aiox] \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/parser.mli \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/lexer.mli \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/parser.ml \
-@OCAML_TRUE@	$(BASE_PATH)/translator/*/lexer.ml \
-@OCAML_TRUE@	$(TARGET)
+@OCAML_TRUE@@SCICOS_TRUE@PARSER_SRC = $(srcdir)/src/modelica_compiler/parser.mly
+@OCAML_TRUE@@SCICOS_TRUE@LEXER_SRC = $(srcdir)/src/modelica_compiler/lexer.mll
+@OCAML_TRUE@@SCICOS_TRUE@BASE_PATH_MODELICAC = $(srcdir)/src/modelica_compiler
+@OCAML_TRUE@@SCICOS_TRUE@INCLUDE = -I $(BASE_PATH_MODELICAC) -I $(BASE_PATH_XML2Modelica)
+@OCAML_TRUE@@SCICOS_TRUE@CLEANFILES = $(BASE_PATH)/*/*.cmi \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/*.o \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/*.cmo \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/*.cm[aiox] \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/parser.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/lexer.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/parser.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/*/lexer.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.cmi \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.o \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.a \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.cmo \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.cmxa \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/*.cm[aiox] \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/parser.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/lexer.mli \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/parser.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(BASE_PATH)/translator/*/lexer.ml \
+@OCAML_TRUE@@SCICOS_TRUE@	$(TARGET)
 
 @SCICOS_FALSE@pkglib_LTLIBRARIES = libsciscicos.la
 
@@ -934,7 +946,7 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 @SCICOS_TRUE@$(top_builddir)/modules/scicos/libscisundials.la \
 @SCICOS_TRUE@$(top_builddir)/modules/scicos_blocks/libsciscicos_blocks.la \
 @SCICOS_TRUE@$(top_builddir)/modules/mexlib/libmex.la \
-@SCICOS_TRUE@$(top_builddir)/modules/core/libscicore.la \
+@SCICOS_TRUE@ \
 @SCICOS_TRUE@$(top_builddir)/libs/MALLOC/libscimalloc.la \
 @SCICOS_TRUE@$(top_builddir)/modules/output_stream/libscioutput_stream.la \
 @SCICOS_TRUE@$(top_builddir)/modules/arnoldi/libsciarnoldi.la 
@@ -955,15 +967,14 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 #### scicos : gateway declaration ####
 @SCICOS_TRUE@libsciscicos_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 @SCICOS_TRUE@libsciscicos_la_sci_gateway_DATA = sci_gateway/scicos_gateway.xml
-@SCICOS_FALSE@libsciscicos_la_includedir = $(pkgincludedir)/scicos
 
 #### scicos : include files ####
 @SCICOS_TRUE@libsciscicos_la_includedir = $(pkgincludedir)/scicos
-@SCICOS_FALSE@libsciscicos_la_include_HEADERS = src/c/noscicos/resource.h
 @SCICOS_TRUE@libsciscicos_la_include_HEADERS = includes/scicos.h \
 @SCICOS_TRUE@includes/scicos-def.h \
 @SCICOS_TRUE@includes/scicos_free.h \
-@SCICOS_TRUE@includes/scicos_malloc.h
+@SCICOS_TRUE@includes/scicos_malloc.h \
+@SCICOS_TRUE@includes/scicos_math.h
 
 
 #### scicos : cosf files ####
@@ -973,7 +984,9 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 @SCICOS_TRUE@palettes/Events.cosf \
 @SCICOS_TRUE@palettes/Integer.cosf \
 @SCICOS_TRUE@palettes/Linear.cosf \
+@SCICOS_TRUE@palettes/Lookup_Tables.cosf \
 @SCICOS_TRUE@palettes/Matrix.cosf \
+@SCICOS_TRUE@palettes/Modelica.cosf \
 @SCICOS_TRUE@palettes/Non_linear.cosf \
 @SCICOS_TRUE@palettes/OldBlocks.cosf \
 @SCICOS_TRUE@palettes/Others.cosf \
@@ -1020,12 +1033,6 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 @SCICOS_TRUE@-I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/sundials
 
 @SCICOS_TRUE@libscisundials_la_SOURCES = $(SUNDIALS_SOURCES)
-
-#### scicos : help files scripts ####
-@SCICOS_TRUE@libsciscicos_la_help_en_USdir = $(mydatadir)/help/en_US
-@SCICOS_TRUE@libsciscicos_la_help_en_US_DATA = 
-@SCICOS_TRUE@libsciscicos_la_help_fr_FRdir = $(mydatadir)/help/fr_FR
-@SCICOS_TRUE@libsciscicos_la_help_fr_FR_DATA = 
 @SCICOS_FALSE@NO_SCICOS_C_SOURCES = src/c/noscicos/noscicos.c
 all: all-am
 
@@ -1142,12 +1149,21 @@ clean-binPROGRAMS:
 @OCAML_FALSE@XML2Modelica$(EXEEXT): $(XML2Modelica_OBJECTS) $(XML2Modelica_DEPENDENCIES) 
 @OCAML_FALSE@	@rm -f XML2Modelica$(EXEEXT)
 @OCAML_FALSE@	$(LINK) $(XML2Modelica_OBJECTS) $(XML2Modelica_LDADD) $(LIBS)
+@SCICOS_FALSE@XML2Modelica$(EXEEXT): $(XML2Modelica_OBJECTS) $(XML2Modelica_DEPENDENCIES) 
+@SCICOS_FALSE@	@rm -f XML2Modelica$(EXEEXT)
+@SCICOS_FALSE@	$(LINK) $(XML2Modelica_OBJECTS) $(XML2Modelica_LDADD) $(LIBS)
 @OCAML_FALSE@modelicac$(EXEEXT): $(modelicac_OBJECTS) $(modelicac_DEPENDENCIES) 
 @OCAML_FALSE@	@rm -f modelicac$(EXEEXT)
 @OCAML_FALSE@	$(LINK) $(modelicac_OBJECTS) $(modelicac_LDADD) $(LIBS)
-@OCAML_FALSE@translator$(EXEEXT): $(translator_OBJECTS) $(translator_DEPENDENCIES) 
-@OCAML_FALSE@	@rm -f translator$(EXEEXT)
-@OCAML_FALSE@	$(LINK) $(translator_OBJECTS) $(translator_LDADD) $(LIBS)
+@SCICOS_FALSE@modelicac$(EXEEXT): $(modelicac_OBJECTS) $(modelicac_DEPENDENCIES) 
+@SCICOS_FALSE@	@rm -f modelicac$(EXEEXT)
+@SCICOS_FALSE@	$(LINK) $(modelicac_OBJECTS) $(modelicac_LDADD) $(LIBS)
+@OCAML_FALSE@modelicat$(EXEEXT): $(modelicat_OBJECTS) $(modelicat_DEPENDENCIES) 
+@OCAML_FALSE@	@rm -f modelicat$(EXEEXT)
+@OCAML_FALSE@	$(LINK) $(modelicat_OBJECTS) $(modelicat_LDADD) $(LIBS)
+@SCICOS_FALSE@modelicat$(EXEEXT): $(modelicat_OBJECTS) $(modelicat_DEPENDENCIES) 
+@SCICOS_FALSE@	@rm -f modelicat$(EXEEXT)
+@SCICOS_FALSE@	$(LINK) $(modelicat_OBJECTS) $(modelicat_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1816,46 +1832,6 @@ uninstall-libsciscicos_la_etcDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(libsciscicos_la_etcdir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(libsciscicos_la_etcdir)" && rm -f $$files
-install-libsciscicos_la_help_en_USDATA: $(libsciscicos_la_help_en_US_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(libsciscicos_la_help_en_USdir)" || $(MKDIR_P) "$(DESTDIR)$(libsciscicos_la_help_en_USdir)"
-	@list='$(libsciscicos_la_help_en_US_DATA)'; test -n "$(libsciscicos_la_help_en_USdir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(libsciscicos_la_help_en_USdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(libsciscicos_la_help_en_USdir)" || exit $$?; \
-	done
-
-uninstall-libsciscicos_la_help_en_USDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libsciscicos_la_help_en_US_DATA)'; test -n "$(libsciscicos_la_help_en_USdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(libsciscicos_la_help_en_USdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(libsciscicos_la_help_en_USdir)" && rm -f $$files
-install-libsciscicos_la_help_fr_FRDATA: $(libsciscicos_la_help_fr_FR_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(libsciscicos_la_help_fr_FRdir)" || $(MKDIR_P) "$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)"
-	@list='$(libsciscicos_la_help_fr_FR_DATA)'; test -n "$(libsciscicos_la_help_fr_FRdir)" || list=; \
-	for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  echo "$$d$$p"; \
-	done | $(am__base_list) | \
-	while read files; do \
-	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)'"; \
-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)" || exit $$?; \
-	done
-
-uninstall-libsciscicos_la_help_fr_FRDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libsciscicos_la_help_fr_FR_DATA)'; test -n "$(libsciscicos_la_help_fr_FRdir)" || list=; \
-	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
-	test -n "$$files" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)" && rm -f $$files
 install-libsciscicos_la_rootDATA: $(libsciscicos_la_root_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(libsciscicos_la_rootdir)" || $(MKDIR_P) "$(DESTDIR)$(libsciscicos_la_rootdir)"
@@ -2028,7 +2004,7 @@ check: check-am
 all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(DATA) $(HEADERS) \
 		all-local
 installdirs:
-	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libsciscicos_la_etcdir)" "$(DESTDIR)$(libsciscicos_la_help_en_USdir)" "$(DESTDIR)$(libsciscicos_la_help_fr_FRdir)" "$(DESTDIR)$(libsciscicos_la_rootdir)" "$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" "$(DESTDIR)$(libsciscicos_la_cosfdir)" "$(DESTDIR)$(libsciscicos_la_includedir)"; do \
+	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libsciscicos_la_etcdir)" "$(DESTDIR)$(libsciscicos_la_rootdir)" "$(DESTDIR)$(libsciscicos_la_sci_gatewaydir)" "$(DESTDIR)$(libsciscicos_la_cosfdir)" "$(DESTDIR)$(libsciscicos_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -2081,8 +2057,6 @@ info: info-am
 info-am:
 
 install-data-am: install-data-local install-libsciscicos_la_etcDATA \
-	install-libsciscicos_la_help_en_USDATA \
-	install-libsciscicos_la_help_fr_FRDATA \
 	install-libsciscicos_la_includeHEADERS \
 	install-libsciscicos_la_rootDATA \
 	install-libsciscicos_la_sci_gatewayDATA \
@@ -2133,8 +2107,6 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
-	uninstall-libsciscicos_la_help_en_USDATA \
-	uninstall-libsciscicos_la_help_fr_FRDATA \
 	uninstall-libsciscicos_la_includeHEADERS \
 	uninstall-libsciscicos_la_rootDATA \
 	uninstall-libsciscicos_la_sci_gatewayDATA \
@@ -2153,8 +2125,6 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-html-local install-info \
 	install-info-am install-libsciscicos_la_etcDATA \
-	install-libsciscicos_la_help_en_USDATA \
-	install-libsciscicos_la_help_fr_FRDATA \
 	install-libsciscicos_la_includeHEADERS \
 	install-libsciscicos_la_rootDATA \
 	install-libsciscicos_la_sci_gatewayDATA install-man \
@@ -2166,8 +2136,6 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am uninstall-binPROGRAMS \
 	uninstall-libsciscicos_la_etcDATA \
-	uninstall-libsciscicos_la_help_en_USDATA \
-	uninstall-libsciscicos_la_help_fr_FRDATA \
 	uninstall-libsciscicos_la_includeHEADERS \
 	uninstall-libsciscicos_la_rootDATA \
 	uninstall-libsciscicos_la_sci_gatewayDATA \
@@ -2176,7 +2144,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libsciscicos_la_etcDATA \
 
 
 # This target enables tests for Scilab
-check-local: $(top_builddir)/scilab-bin
+check-local: $(top_builddir)/scilab-bin test
 	@COMMAND="test_run('$(modulename)');quit";\
 	export LANG=C;\
 	$(top_builddir)/bin/scilab -nwni -nb -e "$$COMMAND"
@@ -2224,7 +2192,7 @@ check-code:
 @GIWS_TRUE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@		done; \
 @GIWS_TRUE@	fi
 
@@ -2242,6 +2210,13 @@ clean-macros:
 		echo "rm -f $(builddir)/$$dir/$(MACROBINMASK)"; \
 		rm -f $(builddir)/$$dir/$(MACROBINMASK); \
 	done
+
+test:
+# More tests could be added here
+	@if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+	if test -f build.xml -a $$USEANT -eq 1; then \
+		$(ANT) test; \
+	fi
 
 all-local: $(TARGETS_ALL)
 
@@ -2328,6 +2303,7 @@ install-data-local:
 		if test -d $(srcdir)/$$dir/; then \
 			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
 			if test -n "$(MACROSSPECIALEXT)"; then \
+				specialExtDir=""; \
 				for specialExt in $(MACROSSPECIALEXT); do \
 					specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
 				done; \
@@ -2350,9 +2326,11 @@ install-data-local:
 	fi
 
 ########### CLEAN ###################
-# Clean macros and help (generated automatically by Scilab)
-@NEED_JAVA_TRUE@clean-local: clean-java clean-macros
-@NEED_JAVA_FALSE@clean-local: clean-macros
+# Clean help (generated automatically by Scilab)
+# It used to clean the macro (clean-macros) but this was causing
+# make clean && make to fail Scilab startup
+@NEED_JAVA_TRUE@clean-local: clean-java
+@NEED_JAVA_FALSE@clean-local:
 
 distclean-local:
 	rm -f $(builddir)/help/*/.last_successful_build_javaHelp $(builddir)/help/*/.list_*
@@ -2361,76 +2339,80 @@ distclean-local:
 
 # @TODO check how to avoid the rebuild of the parser/lexer
 
-@OCAML_TRUE@.ml.cmo:
-@OCAML_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE_translator)  -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE_translator)  -c $<; \
-@OCAML_TRUE@	else \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE)  -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE)  -c $<; \
-@OCAML_TRUE@	fi
+@OCAML_TRUE@@SCICOS_TRUE@.ml.cmo:
+@OCAML_TRUE@@SCICOS_TRUE@	@if echo "$<"|grep src/translator; then \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat)  -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat)  -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	else \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE)  -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE)  -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	fi
 
-@OCAML_TRUE@.ml.cmx:
-@OCAML_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@		echo $(OCAMLOPT) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@		$(OCAMLOPT) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@	else \
-@OCAML_TRUE@		echo $(OCAMLOPT) $(INCLUDE) -c $<; \
-@OCAML_TRUE@		$(OCAMLOPT) $(INCLUDE) -c $<; \
-@OCAML_TRUE@	fi
+@OCAML_TRUE@@SCICOS_TRUE@.ml.cmx:
+@OCAML_TRUE@@SCICOS_TRUE@	@if echo "$<"|grep src/translator; then \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLOPT) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	else \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLOPT) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLOPT) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	fi
 
-@OCAML_TRUE@.mli.cmi:
-@OCAML_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@	else \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE) -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE) -c $<; \
-@OCAML_TRUE@	fi
+@OCAML_TRUE@@SCICOS_TRUE@.mli.cmi:
+@OCAML_TRUE@@SCICOS_TRUE@	@if echo "$<"|grep src/translator; then \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	else \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	fi
 
-@OCAML_TRUE@.ml.mli:
-@OCAML_TRUE@	@if echo "$<"|grep src/translator; then \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE_translator) -c $<; \
-@OCAML_TRUE@	else \
-@OCAML_TRUE@		echo $(OCAMLC) $(INCLUDE) -c $<; \
-@OCAML_TRUE@		$(OCAMLC) $(INCLUDE) -c $<; \
-@OCAML_TRUE@	fi
+@OCAML_TRUE@@SCICOS_TRUE@.ml.mli:
+@OCAML_TRUE@@SCICOS_TRUE@	@if echo "$<"|grep src/translator; then \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE_modelicat) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	else \
+@OCAML_TRUE@@SCICOS_TRUE@		echo $(OCAMLC) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@		$(OCAMLC) $(INCLUDE) -c $<; \
+@OCAML_TRUE@@SCICOS_TRUE@	fi
 
-@OCAML_TRUE@.mll.ml:
-@OCAML_TRUE@	$(OCAMLLEX) $<
+@OCAML_TRUE@@SCICOS_TRUE@.mll.ml:
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLLEX) $<
 
-@OCAML_TRUE@.mly.ml:
-@OCAML_TRUE@	$(OCAMLYACC) $<
+@OCAML_TRUE@@SCICOS_TRUE@.mly.ml:
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLYACC) $<
 
 # call the ocaml/Yacc
-@OCAML_TRUE@generate-parser: $(PARSER_SRC)
-@OCAML_TRUE@	$(OCAMLYACC) $(<)
-@OCAML_TRUE@	$(RM) -f $(<:.mly=.mli)
+@OCAML_TRUE@@SCICOS_TRUE@generate-parser: $(PARSER_SRC)
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLYACC) $(<)
+@OCAML_TRUE@@SCICOS_TRUE@	$(RM) -f $(<:.mly=.mli)
+# Crappy workaround to avoid bug 8013
+@OCAML_TRUE@@SCICOS_TRUE@	touch src/modelica_compiler/scicosCodeGeneration.mli
 
 # Call the lexer
-@OCAML_TRUE@generate-lexer: $(LEXER_SRC)
-@OCAML_TRUE@	$(OCAMLLEX) $(<)
+@OCAML_TRUE@@SCICOS_TRUE@generate-lexer: $(LEXER_SRC)
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLLEX) $(<)
 
 # Build the binaries
 
-@OCAML_TRUE@modelicac:generate-parser generate-lexer $(MLIS:.mli=.cmi) $(MLS:.ml=.cmo) $(MLS:.ml=.cmx)
-@OCAML_TRUE@	$(OCAMLOPT) -o modelicac $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS:.ml=.cmx)
+@OCAML_TRUE@@SCICOS_TRUE@modelicac:generate-parser generate-lexer $(MLIS:.mli=.cmi) $(MLS:.ml=.cmo) $(MLS:.ml=.cmx)
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLOPT) -o modelicac $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS:.ml=.cmx)
 
-@OCAML_TRUE@XML2Modelica: $(MLS_XML2Modelica:.ml=.cmo) $(MLS_XML2Modelica:.ml=.cmx) 
-@OCAML_TRUE@	$(OCAMLOPT) -o XML2Modelica $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS_XML2Modelica:.ml=.cmx) 
+@OCAML_TRUE@@SCICOS_TRUE@XML2Modelica: $(MLS_XML2Modelica:.ml=.cmo) $(MLS_XML2Modelica:.ml=.cmx) 
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLOPT) -o XML2Modelica $(INCLUDE) $(OCAMLLIBS:.cma=.cmxa) $(MLS_XML2Modelica:.ml=.cmx) 
 
 # call the ocaml/Yacc
-@OCAML_TRUE@generate-parser_translator: $(PARSER_SRC_translator)
-@OCAML_TRUE@	$(OCAMLYACC) $(<)
-@OCAML_TRUE@	$(RM) -f $(<:.mly=.mli)
+@OCAML_TRUE@@SCICOS_TRUE@generate-parser_modelicat: $(PARSER_SRC_modelicat)
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLYACC) $(<)
+@OCAML_TRUE@@SCICOS_TRUE@	$(RM) -f $(<:.mly=.ml)i
+# Crappy workaround to avoid bug 8013
+@OCAML_TRUE@@SCICOS_TRUE@	touch $(srcdir)/src/modelica_compiler/scicosCodeGeneration.mli
 
 # Call the lexer
-@OCAML_TRUE@generate-lexer_translator: $(LEXER_SRC_translator)
-@OCAML_TRUE@	$(OCAMLLEX) $(<)
+@OCAML_TRUE@@SCICOS_TRUE@generate-lexer_modelicat: $(LEXER_SRC_modelicat)
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLLEX) $(<)
 
-@OCAML_TRUE@translator: generate-parser_translator generate-lexer_translator $(MLS_SPECIFIC_PRE_translator:.ml=.cmo)  $(MLS_translator:.ml=.mli) $(MLS_SPECIFIC_PRE_translator:.ml=.cmx) $(MLS_translator:.ml=.cmo)  $(MLS_translator:.ml=.cmx) 
-@OCAML_TRUE@	$(OCAMLOPT) -o modelicat $(INCLUDE_translator) $(OCAMLLIBS:.cma=.cmxa) $(MLS_SPECIFIC_PRE_translator:.ml=.cmx) $(MLS_translator:.ml=.cmx) 
+@OCAML_TRUE@@SCICOS_TRUE@modelicat: generate-parser_modelicat generate-lexer_modelicat $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmo)  $(MLS_modelicat:.ml=.mli) $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmx) $(MLS_modelicat:.ml=.cmo)  $(MLS_modelicat:.ml=.cmx) 
+@OCAML_TRUE@@SCICOS_TRUE@	$(OCAMLOPT) -o modelicat $(INCLUDE_modelicat) $(OCAMLLIBS:.cma=.cmxa) $(MLS_SPECIFIC_PRE_modelicat:.ml=.cmx) $(MLS_modelicat:.ml=.cmx) 
 
 .NOTPARALLEL: libscisundials.la libsciscicos.la
 

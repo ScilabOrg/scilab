@@ -1,6 +1,6 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-# Copyright (C) 2006 - INRIA - Sylvestre Ledru <sylvestre.ledru@inria.fr>
-# 
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
 # This file is distributed under the same license as the Scilab package.
 
 # Localization of the module interpolation
@@ -46,7 +46,7 @@ CHECK_SRC= $(INTERPOLATION_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libsciinterpolation_la_CFLAGS)
 
 libsciinterpolation_la_LIBADD = \
-	$(top_builddir)/modules/core/libscicore.la \
+	 \
 	$(top_builddir)/modules/elementary_functions/libscielementary_functions.la \
     $(top_builddir)/modules/string/libscistring.la
 

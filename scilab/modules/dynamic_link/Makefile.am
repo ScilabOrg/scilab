@@ -1,12 +1,13 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006 
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
+
 
 DYNAMIC_LINK_C_SOURCES = src/c/addinter.c \
 src/c/dynamic_link.c \
 src/c/dl_genErrorMessage.c \
-src/c/AddFunctionInTable.c \
+src/c/GetFunctionByName.c \
 src/c/ilib_verbose.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_dynamic_link.c \
@@ -25,6 +26,7 @@ libscidynamic_link_la_CFLAGS = \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/fileio/includes \
 -I$(top_srcdir)/modules/localization/includes \
+-I$(top_srcdir)/modules/string/includes \
 -I$(top_srcdir)/modules/io/includes \
 -I$(top_srcdir)/libs/dynamiclibrary/includes \
 -I$(srcdir)/src/c/ \
@@ -40,7 +42,7 @@ libscidynamic_link_la_SOURCES = $(DYNAMIC_LINK_C_SOURCES) $(GATEWAY_C_SOURCES) $
 CHECK_SRC=  $(DYNAMIC_LINK_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscidynamic_link_la_CFLAGS)
 
-# cyclic $(top_builddir)/modules/core/libscicore.la 
+# cyclic  
 libscidynamic_link_la_LIBADD =  $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/libs/dynamiclibrary/libscidynamiclibrary.la $(top_builddir)/modules/string/libscistring.la $(top_builddir)/libs/MALLOC/libscimalloc.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 #### Target ######
 modulename=dynamic_link

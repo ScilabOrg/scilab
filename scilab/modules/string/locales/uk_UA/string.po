@@ -9,18 +9,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-01-29 14:56+0100\n"
-"PO-Revision-Date: 2010-01-12 13:54+0000\n"
-"Last-Translator: yurchor <yurchor@gmail.com>\n"
+"PO-Revision-Date: 2010-08-17 13:15+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-01-21 15:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-
-#, c-format
-msgid "%s : Memory allocation error.\n"
-msgstr "%s: помилка під час спроби виділення пам’яті.\n"
 
 #, c-format
 msgid "%s : No more memory.\n"
@@ -52,7 +47,7 @@ msgstr "%s: поточна версія бібліотеки PCRE не підт�
 
 #, c-format
 msgid "%s: Delimiter must not be alphameric.\n"
-msgstr "%s: роздільний має бути літерою або цифрою.\n"
+msgstr "%s: роздільник має бути літерою або цифрою.\n"
 
 #, c-format
 msgid "%s: Duplicate name status changes.\n"
@@ -76,6 +71,10 @@ msgstr ""
 msgid "%s: Matched text exceeds buffer limit.\n"
 msgstr ""
 "%s: розміри відповідного фрагмента тексту перевищують розміри буфера.\n"
+
+#, c-format
+msgid "%s: Memory allocation error.\n"
+msgstr "%s: помилка виділення пам’яті.\n"
 
 #, c-format
 msgid "%s: No more memory.\n"
@@ -107,6 +106,11 @@ msgstr "%s: невідома помилка.\n"
 #, c-format
 msgid "%s: Wrong number of input argument: %d expected.\n"
 msgstr "%s: помилкова кількість вхідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
 
 #, c-format
 msgid "%s: Wrong number of output arguments: %d expected.\n"
@@ -243,6 +247,12 @@ msgstr ""
 "тип.\n"
 
 #, c-format
+msgid "%s: Wrong type for input argument #%d: A string array expected.\n"
+msgstr ""
+"%s: помилковий тип вхідного параметра №%d: слід використовувати масив з "
+"рядків.\n"
+
+#, c-format
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
@@ -256,10 +266,6 @@ msgstr "%s: помилковий тип вхідного параметра №%
 msgid "%s: Wrong type for input argument #%d: Character expected.\n"
 msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати символ.\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: Matrix of character strings.\n"
-msgstr "%s: помилковий тип вхідного параметра №%d: матриця з рядків\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Matrix of integers expected.\n"
@@ -353,6 +359,12 @@ msgstr ""
 "%s.\n"
 
 #, c-format
+msgid "%s: Wrong value for input argument #%d: %s, %s or %s expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати %s, %s "
+"або %s.\n"
+
+#, c-format
 msgid "%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"
 msgstr ""
 "%s: помилкове значення вхідного параметра №%d: слід використовувати «%s» або "
@@ -413,12 +425,6 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Wrong values for input argument #%d: ''r'',''l'' or ''c'' expected.\n"
-msgstr ""
-"%s: помилкові значення вхідного параметра №%d: мало бути «r», «l» або «c».\n"
-
-#, c-format
-msgid ""
 "%s: Wrong values for input argument #%d: An non-negative integer expected.\n"
 msgstr ""
 "%s: помилкові значення вхідного параметра №%d: слід було вказувати "
@@ -446,15 +452,3 @@ msgstr "%s: неможливо отримати розмірність цієї 
 
 msgid "WARNING : \n"
 msgstr "Попередження: \n"
-
-#, c-format
-msgid "WARNING: Function %s is obsolete.\n"
-msgstr "ПОПЕРЕДЖЕННЯ: функція %s вважається застарілою.\n"
-
-#, c-format
-msgid "WARNING: Please use %s instead.\n"
-msgstr "ПОПЕРЕДЖЕННЯ: будь ласка, скористайтеся %s.\n"
-
-#, c-format
-msgid "WARNING: This function will be permanently removed in Scilab %s.\n"
-msgstr "ПОПЕРЕДЖЕННЯ: цю функцію буде назавжди вилучено у Scilab %s.\n"

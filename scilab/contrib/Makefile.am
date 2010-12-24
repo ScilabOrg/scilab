@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### DIGITEO - Scilab 2008
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2008 - DIGITEO - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 # Install the contrib_skeleton directory (the template)
 
@@ -42,6 +42,8 @@ toolbox_skeleton/src/builder_src.sce \
 toolbox_skeleton/src/c/builder_c.sce \
 toolbox_skeleton/src/c/csub.c \
 toolbox_skeleton/src/c/csum.c \
+toolbox_skeleton/src/c/csub.h \
+toolbox_skeleton/src/c/csum.h \
 toolbox_skeleton/src/fortran/builder_fortran.sce \
 toolbox_skeleton/src/fortran/fsum.f \
 toolbox_skeleton/tests/unit_tests/c_sum.tst \

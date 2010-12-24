@@ -17,18 +17,35 @@ import java.util.Map;
 
 import org.scilab.modules.graph.io.ScilabGraphCodec;
 import org.scilab.modules.xcos.graph.ScicosParameters;
+import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import com.icl.saxon.functions.Current;
 import com.mxgraph.io.mxCodec;
+import com.mxgraph.io.mxCodecRegistry;
 
 /**
  * Codec for an {@link org.scilab.modules.xcos.graph.XcosDiagram} instance.
  */
 public class XcosDiagramCodec extends ScilabGraphCodec {
 	private static final String SCICOS_PARAMETERS = "scicosParameters";
+	private static final String AS_ATTRIBUTE = "as";
+	
+	
+	// The non saved fields are hardcoded and can have the same name.
+	// CSOFF: MultipleStringLiterals
+	private static final String[] DIAGRAM_IGNORED_FIELDS = {"stylesheet",
+			"parentTab", "viewPort", "viewPortMenu", "view", "selectionModel",
+			"savedFile", "multiplicities", "opened", "modified", "undoManager" };
+	private static final String[] SUPERBLOCKDIAGRAM_IGNORED_FIELDS = {
+			"stylesheet", "parentTab", "viewPort", "viewPortMenu", "view",
+			"selectionModel", "multiplicities", "opened", "modified",
+			"undoManager", "savedFile", "container",
+			"integratorAbsoluteTolerance", "integratorRelativeTolerance",
+			"maxIntegrationTimeInterval", "toleranceOnTime" };
+	// CSON: MultipleStringLiterals
 
 	/**
 	 * Default constructor
@@ -58,6 +75,16 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		super(template, exclude, idrefs, mapping);
 	}
 
+	/**
+	 * Register this codec into the {@link mxCodecRegistry}.
+	 */
+	public static void register() {
+		ScilabGraphCodec diagramCodec = new XcosDiagramCodec(new XcosDiagram(), DIAGRAM_IGNORED_FIELDS, null, null);
+		mxCodecRegistry.register(diagramCodec);
+		ScilabGraphCodec superBlockDiagramCodec = new XcosDiagramCodec(new SuperBlockDiagram(), SUPERBLOCKDIAGRAM_IGNORED_FIELDS, null, null);
+		mxCodecRegistry.register(superBlockDiagramCodec);
+	}
+	
 	/**
 	 * Encode the fieldname value.
 	 * 
@@ -89,11 +116,16 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 			Node params = node.getLastChild();
 
 			/*
-			 * Move each attribute from child to parent.
+			 * Remove the "as" attribute
 			 */
 			NamedNodeMap childAttributes = params.getAttributes();
+			childAttributes.removeNamedItem(AS_ATTRIBUTE);
+
+			/*
+			 * Move each attribute from child to parent
+			 */
 			NamedNodeMap parentAttributes = node.getAttributes();
-			for (int length = childAttributes.getLength() - 1; length > 0; length--) {
+			for (int length = childAttributes.getLength() - 1; length >= 0; length--) {
 				Node element = childAttributes.item(length);
 
 				childAttributes.removeNamedItem(element.getNodeName());
@@ -101,11 +133,20 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 			}
 
 			/*
-			 * Remove the ScicosParameter instance if empty
+			 * Move each childNode from child to parent
 			 */
-			if (params.getChildNodes().getLength() == 0) {
-				node.removeChild(params);
+			NodeList children = params.getChildNodes();
+			for (int length = children.getLength() - 1; length >= 0; length--) {
+				Node element = children.item(length);
+
+				params.removeChild(element);
+				node.appendChild(element);
 			}
+			
+			/*
+			 * Remove the ScicosParameter instance
+			 */
+			node.removeChild(params);
 		}
 	}
 	
@@ -133,5 +174,26 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		if (field == null) {
 			super.setFieldValue(obj, fieldname, value);
 		}
+	}
+	
+	/**
+	 * Apply compatibility pattern to the decoded object
+	 * @param dec Codec that controls the decoding process.
+	 * @param node XML node to decode the object from.
+	 * @param obj Object decoded.
+	 * @return The Object transformed
+	 * @see org.scilab.modules.graph.io.ScilabGraphCodec#afterDecode(com.mxgraph.io.mxCodec, org.w3c.dom.Node, java.lang.Object)
+	 */
+	@Override
+	public Object afterDecode(mxCodec dec, Node node, Object obj) {
+		XcosDiagram diag = (XcosDiagram) obj;
+		
+		diag.setChildrenParentDiagram();
+		
+		// pre-5.3 diagram may be saved in a locked state
+		// unlock it
+		diag.setReadOnly(false);
+		
+		return super.afterDecode(dec, node, obj);
 	}
 }

@@ -13,9 +13,14 @@
 package org.scilab.modules.xcos.port;
 
 import org.scilab.modules.graph.ScilabGraphUniqueObject;
+import org.scilab.modules.graph.utils.ScilabGraphConstants;
+import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.utils.XcosConstants;
+import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxGeometry;
+import com.mxgraph.util.mxConstants;
 
 /**
  * Common implementation of any Port.
@@ -169,7 +174,7 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
      * @param portOrdering a unique order number per type
      */
     public void setOrdering(int portOrdering) {
-	this.ordering = portOrdering;
+	ordering = portOrdering;
     }
 
     /**
@@ -204,18 +209,31 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
 	 *            The default orientation of this port
 	 */
 	public final void setOrientation(Orientation defaultOrientation) {
-		this.orientation = defaultOrientation;
+		if (orientation != defaultOrientation) {
+			orientation = defaultOrientation;
+			setLabelPosition(orientation);
+		}
 	}
     
 	/**
 	 * @return An html formatted documentation string
 	 */
     public String getToolTipText() {
-	StringBuffer result = new StringBuffer();
-	result.append(XcosConstants.HTML_BEGIN);
-	result.append("Port number : " + getOrdering() + XcosConstants.HTML_NEWLINE);
-	result.append("Style : " + getStyle() + XcosConstants.HTML_NEWLINE);
-	result.append(XcosConstants.HTML_END);
+	StringBuilder result = new StringBuilder();
+	result.append(ScilabGraphConstants.HTML_BEGIN);
+	result.append("Port number : " + getOrdering() + ScilabGraphConstants.HTML_NEWLINE);
+	
+	final int length = getStyle().length();
+	result.append("Style : ");
+	if (length > XcosConstants.MAX_CHAR_IN_STYLE) {
+		result.append(getStyle().substring(0, XcosConstants.MAX_CHAR_IN_STYLE));
+		result.append(XcosMessages.DOTS);
+	} else {
+		result.append(getStyle());
+	}
+	result.append(ScilabGraphConstants.HTML_NEWLINE);
+	
+	result.append(ScilabGraphConstants.HTML_END);
 	return result.toString();
     }
 
@@ -240,5 +258,56 @@ public abstract class BasicPort extends ScilabGraphUniqueObject {
 		setDataLines(DEFAULT_DATALINES);
 		setDataColumns(DEFAULT_DATACOLUMNS);
 		setDataType(DataType.UNKNOW_TYPE);
+		
+		setLabelPosition(getOrientation());
 	}
+
+	/**
+	 * Set the label position of the current port according to the orientation.
+	 * 
+	 * @param current the port orientation, if null, does nothing.
+	 */
+	public void setLabelPosition(final Orientation current) {
+		if (current != null) {
+			StyleMap style = new StyleMap(getStyle());
+			
+			// set label position
+			style.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
+			style.put(mxConstants.STYLE_LABEL_POSITION, current.getLabelPosition());
+			style.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, current.getVerticalLabelPosition());
+			
+			// clean up any spacing values
+			style.remove(mxConstants.STYLE_SPACING_BOTTOM);
+			style.remove(mxConstants.STYLE_SPACING_LEFT);
+			style.remove(mxConstants.STYLE_SPACING_RIGHT);
+			style.remove(mxConstants.STYLE_SPACING_TOP);
+			
+			// setting spacing values
+			style.put(current.getSpacingSide(), Integer.toString(BasicPort.DEFAULT_PORTSIZE / 2 + 1));
+			
+			setStyle(style.toString());
+		}
+	}
+	
+	/**
+	 * Hook to update the port label from the associated block expression.
+	 * 
+	 * The current port index may be found in the ordering data.
+	 * @param exprs the associated block expression.
+	 */
+	public void updateLabel(ScilabType exprs) { }
+	
+    /*
+     * Overriden methods from jgraphx
+     */
+    
+    /**
+     * @return true if not already connected
+     * @see com.mxgraph.model.mxCell#isConnectable()
+     */
+    @Override
+    public boolean isConnectable() {
+    	final int edges = getEdgeCount();
+    	return edges == 0 || getEdgeAt(0).getTerminal(false) == null;
+    }
 }

@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2009-11-12 18:59+0000\n"
-"Last-Translator: Federico Vera <Unknown>\n"
+"PO-Revision-Date: 2010-08-02 15:01+0000\n"
+"Last-Translator: Fido <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -167,6 +166,10 @@ msgid ""
 "// Input: tree = Matlab funcall tree\n"
 "// Output: tree = Scilab equivalent for tree"
 msgstr ""
+"// Copyright INRIA (Generado por M2SCI)\n"
+"// Función de conversión para Matlab %s()\n"
+"// Entrada: tree = árbol de llamadas de Matlab\n"
+"// Salida: tree = árbol equivalente de Scilab"
 
 msgid "// Display mode"
 msgstr "// Modo de visualización"
@@ -181,6 +184,10 @@ msgid ""
 "// Input: tree = Matlab funcall tree\n"
 "// Output: tree = Scilab equivalent for tree"
 msgstr ""
+"// Copyright INRIA (Generado por M2SCI)\n"
+"// Función de conversión para Matlab %s\n"
+"// Entrada: tree = árbol de llamadas de Matlab\n"
+"// Salida: tree = árbol equivalente de Scilab"
 
 msgid "// Inference for varargout"
 msgstr "// Interferencia para varargout"
@@ -190,6 +197,8 @@ msgstr "// Número de argumentos en el llamado a función"
 
 msgid "// Output variables initialisation (not found in input variables)"
 msgstr ""
+"// Inicialización de variables de salida (no se encuentran en las variables "
+"de entrada)"
 
 msgid "0"
 msgstr "0"
@@ -355,6 +364,14 @@ msgid ""
 msgstr ""
 "Si %s está fuera de [-1,1]\n"
 "   la parte compleja de la salida de %s será el opuesto a la de Matlab."
+
+#, c-format
+msgid ""
+"If %s is outside [-1,1]\n"
+"   real part of output of %s will be the opposite of Matlab one."
+msgstr ""
+"Si %s no pertenece a [-1,1]\n"
+"   la parte real de la salida de %s será el opuesto a la salida en Matlab."
 
 #, c-format
 msgid ""
@@ -673,7 +690,7 @@ msgstr "Si"
 
 #, c-format
 msgid "contents must be a ''contents'' tlist instead of a: %s."
-msgstr "el contenido debe ser una lista de \"contenidos\" en lugar de: %s."
+msgstr "el contenido debe ser una lista de ''contenidos'' en lugar de: %s."
 
 msgid "cube_scaling only used in 3d mode."
 msgstr "cube_scaling solo usada en modo 3d."
@@ -715,7 +732,7 @@ msgid "infer must be an ''infer'' tlist instead of a: %s."
 msgstr "infer debe ser una lista ''infer'' en lugar de: %s."
 
 msgid "input argument must be an ''operation'' tlist."
-msgstr "el argumento de entrada debe ser una lista de \"operaciones\"."
+msgstr "el argumento de entrada debe ser una lista de ''operaciones''."
 
 msgid "is Real."
 msgstr "es Real."
@@ -857,7 +874,7 @@ msgstr "el tipo %d no implementado."
 
 #, c-format
 msgid "type must be a ''type'' tlist instead of a: %s."
-msgstr "el tipo debe ser una lista de \"tipo\" en lugar de: %s."
+msgstr "el tipo debe ser una lista de ''tipo'' en lugar de: %s."
 
 msgid "unitfile.dat"
 msgstr "unitfile.dat"

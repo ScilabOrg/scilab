@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2008-07-18 19:57+0000\n"
+"PO-Revision-Date: 2010-07-09 13:30+0000\n"
 "Last-Translator: RodolfoRG <rodolforg@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -22,9 +21,16 @@ msgid "%s: No more memory.\n"
 msgstr "%s: Memória esgotada.\n"
 
 #, c-format
-msgid "Unqueuing %s - No option.\n"
-msgstr "Retirando %s da fila - Sem opção.\n"
+msgid "%s: Wrong type for input argument #%d: A string expected.\n"
+msgstr ""
+"%s: Tipo incorreto para o argumento de entrada #%d: esperava-se um texto.\n"
+
+msgid "Same command executed again"
+msgstr "Mesmo comando executado novamente"
 
 #, c-format
-msgid "Unqueuing %s - seq.\n"
-msgstr "Retirando %s da fila - seq.\n"
+msgid "Scilab '%s' module not installed.\n"
+msgstr "O módulo '%s' do Scilab não está instalado.\n"
+
+msgid "Unable to communicate with the interpreter"
+msgstr "Incapaz de se comunicar com o interpretador"

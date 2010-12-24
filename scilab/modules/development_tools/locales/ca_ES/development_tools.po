@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:53+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -42,9 +41,6 @@ msgstr "%s: L'argument d'entrada té una mida incorrecta."
 msgid "%s: Wrong type for input argument #%d: %s expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser %s.\n"
-
-msgid "Generating loader.sce...\n"
-msgstr "S'està generant el loader.sce...\n"
 
 #, c-format
 msgid "No variable %s_ref in reference file"

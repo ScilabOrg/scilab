@@ -19,8 +19,8 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import org.scilab.modules.graph.utils.ScilabInterpreterManagement;
-import org.scilab.modules.graph.utils.ScilabInterpreterManagement.InterpreterException;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.bridge.contextmenu.SwingScilabContextMenu;
 import org.scilab.modules.gui.contextmenu.ContextMenu;
 import org.scilab.modules.gui.contextmenu.ScilabContextMenu;
@@ -32,7 +32,7 @@ import org.scilab.modules.gui.menuitem.ScilabMenuItem;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.palette.PaletteBlock;
+import org.scilab.modules.xcos.palette.PaletteBlockCtrl;
 import org.scilab.modules.xcos.palette.view.PaletteBlockView;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
@@ -47,6 +47,7 @@ public final class PaletteBlockMouseListener implements MouseListener {
 	 * Load and perform display update on mouse click
 	 * @param e The associated event 
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		if ((e.getClickCount() == 1 && SwingUtilities.isRightMouseButton(e))
 				|| e.isPopupTrigger()
@@ -54,8 +55,8 @@ public final class PaletteBlockMouseListener implements MouseListener {
 
 			ContextMenu menu = ScilabContextMenu.createContextMenu();
 
-			final List<XcosDiagram> allDiagrams = Xcos.getDiagrams();
-			final PaletteBlock control = ((PaletteBlockView) e.getSource()).getController();
+			final List<XcosDiagram> allDiagrams = Xcos.getInstance().getDiagrams();
+			final PaletteBlockCtrl control = ((PaletteBlockView) e.getSource()).getController();
 			
 			// No diagram opened: should never happen as Xcos opens an empty diagram when it is launched
 			assert allDiagrams.size() != 0;
@@ -67,6 +68,7 @@ public final class PaletteBlockMouseListener implements MouseListener {
 				addTo.setText(XcosMessages.ADDTO + " " + allDiagrams.get(0).getParentTab().getName());
 				final XcosDiagram theDiagram = allDiagrams.get(0);
 				addTo.setCallback(new CallBack(e.toString()) {
+					@Override
 					public void callBack() {
 						BasicBlock current = loadAndSetupBlock(control);
 						theDiagram.addCell(current);
@@ -86,6 +88,7 @@ public final class PaletteBlockMouseListener implements MouseListener {
 					final XcosDiagram theDiagram = allDiagrams.get(i);
 					diagram.setText(allDiagrams.get(i).getParentTab().getName());
 					diagram.setCallback(new CallBack(e.toString()) {
+						@Override
 						public void callBack() {
 							BasicBlock current = loadAndSetupBlock(control);
 							theDiagram.addCell(current);
@@ -103,9 +106,10 @@ public final class PaletteBlockMouseListener implements MouseListener {
 			MenuItem help = ScilabMenuItem.createMenuItem();
 			help.setText("Block help");
 			help.setCallback(new CallBack(e.toString()) {
+				@Override
 				public void callBack() {
 					try {
-						ScilabInterpreterManagement.synchronousScilabExec("help " + control.getModel().getName());
+						ScilabInterpreterManagement.asynchronousScilabExec(null, "help", control.getModel().getName());
 					} catch (InterpreterException e) {
 						e.printStackTrace();
 					}
@@ -125,10 +129,19 @@ public final class PaletteBlockMouseListener implements MouseListener {
 	 * @return the loaded block
 	 */
 	private BasicBlock loadAndSetupBlock(
-			final PaletteBlock control) {
+			final PaletteBlockCtrl control) {
 		BasicBlock current = control.loadBlock();
+		
 		current.getGeometry().setX(BLOCK_DEFAULT_POSITION);
 		current.getGeometry().setY(BLOCK_DEFAULT_POSITION);
+		
+		PaletteBlockCtrl.INTERNAL_GRAPH.addCell(current);
+		PaletteBlockCtrl.INTERNAL_GRAPH.selectAll();
+		
+		PaletteBlockCtrl.INTERNAL_GRAPH.updateCellSize(current);
+		
+		PaletteBlockCtrl.INTERNAL_GRAPH.removeCells();
+		
 		return current;
 	}
 
@@ -136,18 +149,21 @@ public final class PaletteBlockMouseListener implements MouseListener {
 	 * Not used
 	 * @param e Not used
 	 */
+	@Override
 	public void mouseEntered(MouseEvent e) { }
 
 	/**
 	 * Not used
 	 * @param e Not used
 	 */
+	@Override
 	public void mouseExited(MouseEvent e) { }
 
 	/**
 	 * Select on mouse press
 	 * @param e The associated event
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {
 		PaletteBlockView view = (PaletteBlockView) e.getSource();
 		view.getController().setSelected(true);
@@ -157,5 +173,6 @@ public final class PaletteBlockMouseListener implements MouseListener {
 	 * Not used
 	 * @param e Not used
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) { }
 }

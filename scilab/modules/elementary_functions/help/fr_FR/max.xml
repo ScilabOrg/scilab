@@ -12,10 +12,9 @@
 
   <refnamediv>
     <refname>max</refname>
-
     <refpurpose>maximum</refpurpose>
   </refnamediv>
-
+  
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
 
@@ -104,3 +103,4 @@
     </simplelist>
   </refsection>
 </refentry>
+ 

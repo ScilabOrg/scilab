@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -50,17 +49,14 @@ msgstr ""
 "%s: L'argument d'entrada #%d té un valor incorrecte. Ha d'estar a l'interval "
 "[%d,%d].\n"
 
-msgid "// Begin Session : "
-msgstr "// Inici de sessió : "
-
-msgid "// End Session   : "
-msgstr "// Final de sessió  : "
-
 msgid "Apr"
 msgstr "Abr"
 
 msgid "Aug"
 msgstr "Ago"
+
+msgid "Begin Session : "
+msgstr ""
 
 msgid "Dec"
 msgstr "Des"
@@ -97,9 +93,6 @@ msgstr "Oct"
 
 msgid "Sat"
 msgstr "Ds"
-
-msgid "Scilab history_manager module not installed.\n"
-msgstr "No s'ha instal·lat el mòdul history_manager de Scilab.\n"
 
 msgid "Sep"
 msgstr "Set"

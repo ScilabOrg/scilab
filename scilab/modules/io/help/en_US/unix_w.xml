@@ -24,7 +24,7 @@
     <synopsis>unix_w(cmd)</synopsis>
   </refsynopsisdiv>
   <refsection>
-    <title>Parameters</title>
+    <title>Arguments</title>
     <variablelist>
       <varlistentry>
         <term>cmd</term>
@@ -45,7 +45,7 @@
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
-if MSDOS then
+if getos() == 'Windows' then
   unix_w("dir "+'""'+WSCI+"\modules"+'""'); 
 else 
   unix_w("ls $SCI/modules");

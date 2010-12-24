@@ -12,7 +12,7 @@
 
 ## Process this file with automake to produce Makefile.in (which will be changed by the ./configure)
 
-AUTOMAKE_OPTIONS = 1.9 dist-zip dist-bzip2
+AUTOMAKE_OPTIONS = 1.11 dist-zip dist-bzip2
 
 SUBDIRS= libs \
 	modules \
@@ -20,7 +20,7 @@ SUBDIRS= libs \
 
 ACLOCAL_AMFLAGS = -I m4/
 
-changelogs = CHANGES CHANGES_5.1.X
+changelogs = CHANGES_5.1.X CHANGES_5.2.X CHANGES_5.3.X
 
 bin_PROGRAMS		= scilab-bin scilab-cli-bin
 
@@ -35,7 +35,7 @@ if IS_MACOSX
 scilab_bin_LDFLAGS 		+= -framework Cocoa
 endif
 
-scilab_bin_CFLAGS 		=
+scilab_bin_CFLAGS 		= -I$(top_srcdir)/modules/io/includes	
 # --no-undefined --relax
 
 # libshell is mandatory here since main_linux.c depends on it.
@@ -59,7 +59,7 @@ scilab_bin_LDADD 		= $(COMMON_LIBS) $(SCILAB_LIB)
 # Match scilab -nwni (ie command line without graphics)
 scilab_cli_bin_SOURCES	= $(top_srcdir)/modules/shell/src/c/others/mainscic.c
 
-scilab_cli_bin_CFLAGS 		= -DWITHOUT_GUI
+scilab_cli_bin_CFLAGS 		= -DWITHOUT_GUI -I$(top_srcdir)/modules/io/includes	
 scilab_cli_bin_LDADD 		= $(COMMON_LIBS) $(SCILAB_CLI_LIB)
 
 
@@ -103,37 +103,40 @@ $(top_srcdir)/etc/toolboxes.xml \
 $(top_builddir)/etc/jvm_options.xml \
 $(top_builddir)/etc/modules.xml \
 $(top_builddir)/etc/classpath.xml \
-$(top_builddir)/etc/librarypath.xml
+$(top_builddir)/etc/logging.properties \
+$(top_builddir)/etc/librarypath.xml \
+$(top_builddir)/Version.incl
 
 
 infofilesdir=$(pkgdatadir)/
-infofiles_DATA = $(top_srcdir)/CHANGES \
-$(top_srcdir)/CHANGES_2.X \
+infofiles_DATA = $(top_srcdir)/CHANGES_2.X \
 $(top_srcdir)/CHANGES_3.X \
 $(top_srcdir)/CHANGES_4.X \
 $(top_srcdir)/CHANGES_5.0.X \
 $(top_srcdir)/CHANGES_5.1.X \
 $(top_srcdir)/CHANGES_5.2.X \
+$(top_srcdir)/CHANGES_5.3.X \
 $(top_srcdir)/ACKNOWLEDGEMENTS \
 $(top_srcdir)/COPYING \
+$(top_srcdir)/COPYING-BSD \
 $(top_srcdir)/COPYING-FR \
 $(top_srcdir)/README_Unix \
-$(top_srcdir)/RELEASE_NOTES \
 $(top_srcdir)/RELEASE_NOTES_5.0.X \
 $(top_srcdir)/RELEASE_NOTES_5.1.X \
 $(top_srcdir)/RELEASE_NOTES_5.2.X \
+$(top_srcdir)/RELEASE_NOTES_5.3.X \
 $(top_srcdir)/Readme_Visual.txt \
 $(top_srcdir)/README_Windows.txt
 
 iconsdir=$(pkgdatadir)/icons/
 icons_DATA = $(top_srcdir)/icons/scilab.xpm \
-icons/puffin_128.xpm \
-icons/puffin_256.xpm \
-icons/puffin_32.xpm \
-icons/puffin_48.xpm \
-icons/puffin.png \
-icons/puffin.icns \
-icons/scilab.icns
+$(top_srcdir)/icons/puffin_128.xpm \
+$(top_srcdir)/icons/puffin_256.xpm \
+$(top_srcdir)/icons/puffin_32.xpm \
+$(top_srcdir)/icons/puffin_48.xpm \
+$(top_srcdir)/icons/puffin.png \
+$(top_srcdir)/icons/puffin.icns \
+$(top_srcdir)/icons/scilab.icns
 
 valgrinddir=$(pkgdatadir)/tools/profiling
 valgrind_DATA = $(top_srcdir)/tools/profiling/valgrind.supp
@@ -143,16 +146,46 @@ macros:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
 	echo "$(top_builddir)/bin/scilab-cli -ns -f modules/functions/scripts/buildmacros/buildmacros.sce" ; \
 	$(top_builddir)/bin/scilab-cli -ns -f modules/functions/scripts/buildmacros/buildmacros.sce)
 
-doc:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-adv-cli
+
+# Build the public Javadoc (javasci v2 and Java/Scilab types)
+# This is not done in the module itself because its needs also the "types"
+# module
+javadoc:
+	$(JAVADOC) -noindex -nohelp -nonavbar -notree -d $(top_builddir)/modules/javasci/javadoc -sourcepath $(top_srcdir)/modules/javasci/src/java:$(top_srcdir)/modules/types/src/java org.scilab.modules.javasci org.scilab.modules.types
+
+doc: javadoc $(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-adv-cli
 if BUILD_HELP
 	-@if test -x $(top_builddir)/scilab-bin; then \
 		cd $(top_builddir);\
 		echo "-- Building documentation (English) --"; \
-		echo "LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'en_US');exit;\"";\
-		LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -l en_US -nouserstartup -e "xmltojar([],[],'en_US');exit;";\
+		echo "LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'en_US');exit;\"";\
+		LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l en_US -nouserstartup -e "xmltojar([],[],'en_US');exit;";\
 		echo "-- Building documentation (French) --"; \
-		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'fr_FR');exit;\""; \
-		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltojar([],[],'fr_FR');exit;"; \
+		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'fr_FR');exit;\""; \
+		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltojar([],[],'fr_FR');exit;"; \
+		echo "-- Building documentation (portugues do Brasil) --"; \
+		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'pt_BR');exit;\""; \
+		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltojar([],[],'pt_BR');exit;"; \
+	else \
+		echo "Cannot find Scilab-adv-cli binary"; \
+	fi
+else
+	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
+endif
+
+doc-web:$(top_builddir)/scilab-bin $(top_builddir)/bin/scilab-adv-cli
+if BUILD_HELP
+	-@if test -x $(top_builddir)/scilab-bin; then \
+		cd $(top_builddir);\
+		echo "-- Building documentation (English) --"; \
+		echo "LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltoweb([],[],'en_US');exit;\"";\
+		LANG=C SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -l en_US -nouserstartup -e "xmltoweb([],[],'en_US');exit;";\
+		echo "-- Building documentation (French) --"; \
+		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltoweb([],[],'fr_FR');exit;\""; \
+		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltoweb([],[],'fr_FR');exit;"; \
+		echo "-- Building documentation (portugues do Brasil) --"; \
+		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltoweb([],[],'pt_BR');exit;\""; \
+		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltoweb([],[],'pt_BR');exit;"; \
 	else \
 		echo "Cannot find Scilab-adv-cli binary"; \
 	fi
@@ -180,13 +213,26 @@ check-local:
 		echo "Cannot find Scilab binary"; \
 	fi
 
+code-coverage:
+if CODE_COVERAGE
+	@if test ! -d $(top_builddir)/coverage/; then \
+		mkdir $(top_builddir)/coverage/; \
+	fi; \
+	$(LCOV) --directory $(top_builddir) --capture --ignore-errors source --output-file $(top_builddir)/coverage/scilab-code-coverage.info; \
+	$(GENHTML) -o $(top_builddir)/coverage/results/ --show-details --highlight --legend $(top_builddir)/coverage/scilab-code-coverage.info; \
+	echo "To open the result: firefox  $(top_builddir)/coverage/results/index.html"
+#--frames is disable because of : http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=607206
+else
+	@echo "Cannot start the code coverage. Add --enable-code-coverage to the ./configure and 'make clean all'."
+endif
+
 distclean-recursive: distclean-generated clean-recursive
 
 clean-recursive: clean-doc clean-localization clean-macros clean-generated
 
 clean-macros:
 # Find is necessary because of subdirs...
-	@echo "-- Cleaning macros (*.bin) --"; \
+	-@echo "-- Cleaning macros (*.bin) --"; \
 	find $(top_builddir) -name "*.bin" | xargs --no-run-if-empty rm 2> /dev/null; \
 	echo "-- Cleaning names files (names) --"; \
 	find $(top_builddir)/modules/*/macros -name "names" | xargs --no-run-if-empty rm 2> /dev/null; \
@@ -195,7 +241,7 @@ clean-macros:
 
 
 clean-doc:
-	@if test -x $(top_builddir)/scilab-cli-bin; then \
+	-@if test -x $(top_builddir)/scilab-cli-bin; then \
 		echo "$(top_builddir)/bin/scilab-cli -nb -l fr -e 'clean_help();exit;'"; \
 		$(top_builddir)/bin/scilab-cli -nb -l fr -e 'clean_help();exit;'; \
 		echo "$(top_builddir)/bin/scilab-cli  -nb -l en -e 'clean_help();exit;'"; \
@@ -204,13 +250,15 @@ clean-doc:
 		echo "Cannot find Scilab binary"; \
 	fi; \
 	echo "rmdir $(top_builddir)/modules/helptools/javaHelp/"; \
-	rmdir $(top_builddir)/modules/helptools/javaHelp/; \
+	rm -rf $(top_builddir)/modules/helptools/javaHelp/; \
 	echo "rm -rf $(top_builddir)/modules/scicos/help/*/scilab_*_help"; \
 	rm -rf $(top_builddir)/modules/scicos/help/*/scilab_*_help; \
 	echo "rm -f $(top_builddir)/modules/scicos/help/en_US/master_help.xml"; \
 	rm -f $(top_builddir)/modules/scicos/help/en_US/master_help.xml; \
 	echo "rm -f $(top_builddir)/modules/scicos/jar/"; \
-	rm -rf $(top_builddir)/modules/scicos/jar/
+	rm -rf $(top_builddir)/modules/scicos/jar/; \
+	echo "rm -rf $(top_builddir)/modules/javasci/javadoc"; \
+	rm -rf $(top_builddir)/modules/javasci/javadoc;
 
 clean-tests:
 	@if test -x $(top_builddir)/scilab-cli-bin; then \
@@ -253,7 +301,7 @@ localization:
 			mkdir -p $$PATHTO; \
 		fi; \
 		POFILE=$$PATHTO/$(LANG_DOMAIN).po; \
-		$(MSGCAT) -o $$POFILE $$FILES; \
+		$(MSGCAT) --use-first -o $$POFILE $$FILES; \
 		if test "$(MACOSX)" = "1"; then sed -i -e '/charset=UTF-8/d' $$POFILE; fi; \
 		$(MSGFMT) $(MSGFMT_OPTS) --statistics -o $$PATHTO/$(LANG_DOMAIN).mo $$POFILE; \
 	done;
@@ -266,6 +314,12 @@ DOCMASK=scilab_*_help.jar
 
 # Path to builded files
 PATHTOHELPFILES = modules/helptools/jar/
+
+# Path javasci to builded files
+PATHTOJAVASCIDOC = modules/javasci/javadoc/
+JAVASCI_DIRS = . resources \
+	org/scilab/modules/javasci/ \
+	org/scilab/modules/types/
 
 if GENERATE_LOCALIZATION_FILES
 install-data-local:
@@ -291,6 +345,20 @@ if BUILD_HELP
 		    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES)" ; \
 	    	$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOHELPFILES) ; \
 		done; \
+	fi
+## Install Javasci documentation (javadoc)
+## See target javadoc in this file to see how it is build
+	@if test -d $(PATHTOJAVASCIDOC); then \
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC); \
+	echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC); \
+	for dir in $(JAVASCI_DIRS) ; do \
+		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir; \
+		echo $(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir; \
+			for file in $(top_builddir)/$(PATHTOJAVASCIDOC)/$(dir)/*; do \
+			    echo "$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir" ; \
+				$(INSTALL_DATA) "$$file" $(DESTDIR)$(pkgdatadir)/$(PATHTOJAVASCIDOC)/$$dir ; \
+			done; \
+	done; \
 	fi
 endif
 

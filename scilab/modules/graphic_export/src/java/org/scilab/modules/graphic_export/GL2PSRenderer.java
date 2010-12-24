@@ -118,7 +118,12 @@ public class GL2PSRenderer extends ExportRenderer {
 			}						
 			
 			GL gl = gLDrawable.getGL();
-			int sort = is2D ? GL2PS.GL2PS_NO_SORT : GL2PS.GL2PS_SIMPLE_SORT; 
+			int sort;
+			if (is2D) {
+			    sort = GL2PS.GL2PS_NO_SORT;
+			} else {
+			    sort = GL2PS.GL2PS_SIMPLE_SORT;
+			}
 			int gl2psBeginPageStatut = gl2ps.gl2psBeginPage(exportedFigure.getTitle(), "Scilab", null, format, 
 					sort, GL2PS.GL2PS_USE_CURRENT_VIEWPORT | GL2PS.GL2PS_BEST_ROOT
 					| GL2PS.GL2PS_SIMPLE_LINE_OFFSET | GL2PS.GL2PS_DRAW_BACKGROUND | exportOrientation,
@@ -134,7 +139,7 @@ public class GL2PSRenderer extends ExportRenderer {
 			GL2PSGL newGL = new GL2PSGL(gl, gl2ps);
 			gLDrawable.setGL(newGL);
 
-			
+			exportedFigure.setMarkDrawingStrategy(new GL2PSMarkDrawingStrategy());
 			exportedFigure.setTextRendererFactory(new PSTextRendererFactory());
 			exportedFigure.setArcRendererFactory(new FastArcRendererFactory());
 			exportedFigure.setShadeFacetDrawer(new GL2PSShadeFacetDrawer());
@@ -148,6 +153,7 @@ public class GL2PSRenderer extends ExportRenderer {
 			int gl2psEndPageStatut = gl2ps.gl2psEndPage();
 			
 			gLDrawable.setGL(gl);
+			exportedFigure.setDefaultMarkDrawingStrategy();
 			exportedFigure.setDefaultArcRendererFactory();
 			exportedFigure.setDefaultTextRenderer();
 			exportedFigure.setDefaultShadeFacetDrawer();
@@ -223,7 +229,6 @@ public class GL2PSRenderer extends ExportRenderer {
 	 * @param file exported file
 	 * @return permission status
 	 */
-        /* Calixte added a static */
 	public static int checkWritePermission(File file) {
 		try {
 			file.createNewFile();			

@@ -2,20 +2,18 @@
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the scilab package.
 #
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+# Yuri Chornoivan <yurchor@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-11-26 18:05+0100\n"
-"PO-Revision-Date: 2010-01-12 11:09+0000\n"
-"Last-Translator: yurchor <yurchor@gmail.com>\n"
+"PO-Revision-Date: 2010-06-29 12:06+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-01-21 15:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -137,8 +135,16 @@ msgid "%s: Already loaded from library %s\n"
 msgstr "%s: вже завантажено з бібліотеки %s\n"
 
 #, c-format
-msgid "%s: An error occured during the compilation:\n"
+msgid "%s: An error occurred during the compilation:\n"
 msgstr "%s: під час спроби збирання сталася помилка:\n"
+
+#, c-format
+msgid ""
+"%s: An error occurred during the detection of the compiler(s). Set "
+"ilib_verbose(2) for more information.\n"
+msgstr ""
+"%s: під час визначення компіляторів сталася помилка. Щоб дізнатися більше, "
+"встановіть рівень докладності ilib_verbose(2).\n"
 
 #, c-format
 msgid "%s: An error occurred: %s\n"
@@ -159,7 +165,7 @@ msgstr ""
 "кількість записів %d.\n"
 
 #, c-format
-msgid "%s: Error while modifing the reference Makefile:\n"
+msgid "%s: Error while modifying the reference Makefile:\n"
 msgstr "%s: помилка під час спроби змінити еталонний Makefile:\n"
 
 #, c-format
@@ -217,6 +223,16 @@ msgstr "%s: помилкова кількість вхідних парамет�
 msgid "%s: Wrong number of input argument(s): %d,%d or %d expected.\n"
 msgstr ""
 "%s: помилкова кількість вхідних параметрів: мало бути %d, %d або %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument(s): at least %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід вказати принаймні %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати %d.\n"
 
 #, c-format
 msgid "%s: Wrong size for input argument #%d.\n"
@@ -280,16 +296,10 @@ msgid "%s: Wrong type for input argument #%d: Integer expected.\n"
 msgstr "%s: помилковий тип вхідного параметра №%d: мало бути ціле число.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: String array expected.\n"
+msgid "%s: Wrong type for input argument #%d: String matrix expected.\n"
 msgstr ""
-"%s: помилковий тип вхідного параметра №%d: слід використовувати масив "
-"значень типу «string».\n"
-
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-"%s: помилковий тип вхідного параметра №%d: слід використовувати тип "
-"«string».\n"
+"%s: помилковий тип вхідного параметра №%d: слід використовувати матрицю з "
+"рядків.\n"
 
 #, c-format
 msgid "%s: Wrong type for input argument. Strings expected.\n"
@@ -306,6 +316,12 @@ msgstr ""
 msgid "%s: Wrong type for input arguments: Strings expected.\n"
 msgstr ""
 "%s: помилковий тип вхідних параметрів: слід використовувати «string».\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: '''' or ''[]'' expected.\n"
+msgstr ""
+"%s: помилкове значення вхідного параметра №%d: слід використовувати '''' або "
+"«[]».\n"
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A int expected.\n"

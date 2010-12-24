@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 
 SLICOT_FORTRAN_SOURCES= src/slicot/sb04pd.f \
@@ -219,7 +219,7 @@ INCLUDE_FLAGS = $(libscicacsd_la_CFLAGS)
 
 
 # cyclic deps $(top_builddir)/modules/polynomials/libscipolynomials.la
-libscicacsd_la_LIBADD =  $(top_builddir)/modules/mexlib/libmx.la $(top_builddir)/modules/mexlib/libmat.la  $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/differential_equations/libscidifferential_equations.la $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/mexlib/libmex.la $(top_builddir)/modules/core/libscicore.la $(top_builddir)/modules/output_stream/libscioutput_stream.la 
+libscicacsd_la_LIBADD =  $(top_builddir)/modules/mexlib/libmx.la $(top_builddir)/modules/mexlib/libmat.la  $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/differential_equations/libscidifferential_equations.la $(top_builddir)/modules/linear_algebra/libscilinear_algebra.la $(top_builddir)/modules/mexlib/libmex.la  $(top_builddir)/modules/output_stream/libscioutput_stream.la 
 
 
 #### Target ######

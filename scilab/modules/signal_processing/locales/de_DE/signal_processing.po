@@ -8,18 +8,17 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-09-27 16:24+0200\n"
-"PO-Revision-Date: 2009-11-11 15:05+0000\n"
-"Last-Translator: Keruskerfuerst <armin_mohring@web.de>\n"
+"PO-Revision-Date: 2010-10-23 20:26+0000\n"
+"Last-Translator: Petersen <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
 msgid "%s: Arguments #%d and #%d must have the same sizes.\n"
-msgstr "%s: Argumente #%d und #%d müssen die gleich Größe haben.\n"
+msgstr "%s: Argumente #%d und #%d müssen die gleiche Größe besitzen.\n"
 
 #, c-format
 msgid ""
@@ -57,16 +56,16 @@ msgstr "%s: zu abrupte Änderung am Ende des Frequenzbereichs.\n"
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
-msgstr "%s: falsche Anzahl von Eingangsargumenten: %d erwartet.\n"
+msgstr "%s: Falsche Anzahl von Eingangsargumenten: %d erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
-msgstr ""
-"%s: Unerwartete Anzahl von Eingangsargumenten: %d oder %d erwartet.\n"
+msgstr "%s: Falsche Anzahl von Eingangsargumenten: %d oder %d erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
-msgstr "%s: Falsche Anzahl an Eingangsargumenten: %d zu %d erwartet.\n"
+msgstr ""
+"%s: Falsche Anzahl von Eingangsargumenten: zwischen %d und %d erwartet.\n"
 
 #, c-format
 msgid ""
@@ -188,16 +187,16 @@ msgstr ""
 "befinden.\n"
 
 msgid "Arma identification"
-msgstr ""
+msgstr "Arma Identifikation"
 
 msgid "Signal Processing"
 msgstr "Signal-Verarbeitung"
 
 msgid "Spectral power"
-msgstr "Spektrale Kraft"
+msgstr "Spektrale Leistung"
 
 msgid "Theoretical value"
-msgstr ""
+msgstr "Theoretischer Wert"
 
 msgid "Using macro mese"
 msgstr "verwende Makro Mese"

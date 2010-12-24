@@ -1,7 +1,7 @@
-##########
-### Sylvestre Ledru <sylvestre.ledru@inria.fr>
-### INRIA - Scilab 2006
-##########
+# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+# Copyright (C) 2006 - INRIA - Sylvestre LEDRU
+#
+# This file is distributed under the same license as the Scilab package.
 
 
 ARNOLDI_FORTRAN_SOURCES = src/arpack/dsconv.f \
@@ -81,7 +81,7 @@ libsciarnoldi_la_SOURCES =  $(ARNOLDI_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES)
 CHECK_SRC= $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libsciarnoldi_la_CFLAGS)
 
-libsciarnoldi_la_LIBADD =  $(top_builddir)/modules/core/libscicore.la
+libsciarnoldi_la_LIBADD =  #
 
 #### Target ######
 modulename=arnoldi

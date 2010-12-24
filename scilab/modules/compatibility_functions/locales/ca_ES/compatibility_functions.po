@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #, c-format
@@ -171,6 +170,14 @@ msgid "%s: Wrong size for ''%s'': Vector expected.\n"
 msgstr "%s: Mida incorrecta per a ''%s'': Ha de ser un vector.\n"
 
 #, c-format
+msgid "%s: Wrong size for input argument #%d: A scalar expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A string expected.\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "%s: Wrong size for input argument #%d: Matlab vector of strings expected.\n"
 msgstr ""
@@ -253,6 +260,10 @@ msgid ""
 msgstr ""
 "%s: L'argument d'entrada #%d té un valor incorrecte: Ha de ser un enter "
 "positiu.\n"
+
+#, c-format
+msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: pencil is not diagonalizable.\n"

@@ -122,7 +122,7 @@ libsciscicos_la_CFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/include \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/include/sundials \
 			-I$(top_srcdir)/modules/scicos/src/scicos_sundials/src/ida
-			
+
 
 libsciscicos_la_SOURCES = $(SCICOS_C_SOURCES) $(SCICOS_FORTRAN_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 
@@ -141,7 +141,7 @@ $(top_builddir)/modules/dynamic_link/libscidynamic_link.la \
 $(top_builddir)/modules/scicos/libscisundials.la \
 $(top_builddir)/modules/scicos_blocks/libsciscicos_blocks.la \
 $(top_builddir)/modules/mexlib/libmex.la \
-$(top_builddir)/modules/core/libscicore.la \
+ \
 $(top_builddir)/libs/MALLOC/libscimalloc.la \
 $(top_builddir)/modules/output_stream/libscioutput_stream.la \
 $(top_builddir)/modules/arnoldi/libsciarnoldi.la 
@@ -155,7 +155,6 @@ libsciscicos_la_root_DATA = changelog.txt license.txt readme.txt version.xml
 libsciscicos_la_etcdir = $(mydatadir)/etc
 libsciscicos_la_etc_DATA = etc/scicos.quit etc/scicos.start
 
-
 #### scicos : gateway declaration ####
 libsciscicos_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libsciscicos_la_sci_gateway_DATA = sci_gateway/scicos_gateway.xml
@@ -166,7 +165,8 @@ libsciscicos_la_includedir=$(pkgincludedir)/scicos
 libsciscicos_la_include_HEADERS = includes/scicos.h \
 includes/scicos-def.h \
 includes/scicos_free.h \
-includes/scicos_malloc.h
+includes/scicos_malloc.h \
+includes/scicos_math.h
 
 
 #### scicos : cosf files ####
@@ -176,7 +176,9 @@ palettes/DemoBlocks.cosf \
 palettes/Events.cosf \
 palettes/Integer.cosf \
 palettes/Linear.cosf \
+palettes/Lookup_Tables.cosf \
 palettes/Matrix.cosf \
+palettes/Modelica.cosf \
 palettes/Non_linear.cosf \
 palettes/OldBlocks.cosf \
 palettes/Others.cosf \
@@ -224,15 +226,6 @@ libscisundials_la_CFLAGS = -I$(top_srcdir)/modules/scicos/src/scicos_sundials/in
 
 libscisundials_la_SOURCES = $(SUNDIALS_SOURCES)
 
-
-#### scicos : help files scripts ####
-
-libsciscicos_la_help_en_USdir = $(mydatadir)/help/en_US
-libsciscicos_la_help_en_US_DATA = 
-
-libsciscicos_la_help_fr_FRdir = $(mydatadir)/help/fr_FR
-libsciscicos_la_help_fr_FR_DATA = 
-
 else
 
 pkglib_LTLIBRARIES = libsciscicos.la
@@ -243,9 +236,6 @@ libsciscicos_la_SOURCES = $(NO_SCICOS_C_SOURCES)
 libsciscicos_la_CFLAGS= -I$(top_srcdir)/modules/output_stream/includes \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/scicos/includes
-
-libsciscicos_la_includedir=$(pkgincludedir)/scicos
-libsciscicos_la_include_HEADERS = src/c/noscicos/resource.h
 
 #### scicos : init scripts ####
 libsciscicos_la_etcdir = $(mydatadir)/etc

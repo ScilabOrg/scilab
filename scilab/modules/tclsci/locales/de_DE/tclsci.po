@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 msgid " Flushing starts for queued commands.\n"
@@ -208,9 +207,6 @@ msgstr ""
 msgid "Tcl/TK interface disabled in -nogui mode.\n"
 msgstr "Tcl/TK Schnittstelle im Modus -nogui deaktiviert.\n"
 
-msgid "Tcl/Tk interface not loaded."
-msgstr "Tcl/Tk Schnittstelle nicht geladen."
-
 msgid ""
 "The SCI environment variable is not set.\n"
 "TCL initialisation failed !\n"
@@ -239,9 +235,6 @@ msgstr ""
 
 msgid "Unknown Release"
 msgstr "unbekannte Veröffentlichung"
-
-msgid "Updating, please wait"
-msgstr "Aktualisiere, bitte warten"
 
 msgid "Variable too long.\n"
 msgstr "Variabel zu lang.\n"

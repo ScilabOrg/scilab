@@ -14,7 +14,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 msgid " Flushing starts for queued commands.\n"
@@ -197,9 +196,6 @@ msgstr "Tcl 錯誤: 在 Scilab/TK 重置程中發生錯誤. (Tcl_CreateInterpt).
 msgid "Tcl/TK interface disabled in -nogui mode.\n"
 msgstr "Tcl/Tk 介面在 -nogui  模式下未啟用.\n"
 
-msgid "Tcl/Tk interface not loaded."
-msgstr "Tcl/Tk 介面未載入."
-
 msgid ""
 "The SCI environment variable is not set.\n"
 "TCL initialisation failed !\n"
@@ -228,9 +224,6 @@ msgstr ""
 
 msgid "Unknown Release"
 msgstr "未知版本"
-
-msgid "Updating, please wait"
-msgstr "更新中,  請等一下"
 
 msgid "Variable too long.\n"
 msgstr "變數太長.\n"

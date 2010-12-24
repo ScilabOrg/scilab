@@ -12,8 +12,8 @@
 
 package org.scilab.modules.xcos.block;
 
-import org.scilab.modules.hdf5.scilabTypes.ScilabString;
-import org.scilab.modules.hdf5.scilabTypes.ScilabType;
+import org.scilab.modules.types.ScilabString;
+import org.scilab.modules.types.ScilabType;
 
 /**
  * @author Bruno JOFRET
@@ -44,6 +44,7 @@ public final class GainBlock extends BasicBlock {
     /**
      * @param exprs new exprs
      */
+	@Override
     public void setExprs(ScilabType exprs) {
 	super.setExprs(exprs);
 	setValue(((ScilabString) getExprs()).getData()[0][0]);

@@ -15,8 +15,8 @@
 
 package org.scilab.modules.gui.bridge.window;
 
-import java.awt.Image;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -35,12 +35,11 @@ import org.flexdock.docking.DockingPort;
 import org.flexdock.docking.activation.ActiveDockableTracker;
 import org.flexdock.docking.defaults.DefaultDockingPort;
 import org.flexdock.view.View;
-
+import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.bridge.menubar.SwingScilabMenuBar;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.bridge.textbox.SwingScilabTextBox;
 import org.scilab.modules.gui.bridge.toolbar.SwingScilabToolBar;
-import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.menubar.SimpleMenuBar;
 import org.scilab.modules.gui.tab.Tab;
@@ -115,7 +114,6 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 		 * Prevent the background RootPane to catch Focus.
 		 * Causes trouble with Scicos use xclick & co.
 		 */
-		sciDockingPort.getRootPane().setFocusable(false);
 		this.setFocusable(false);
 		
 		// let the OS choose the window position if not specified by user.
@@ -276,7 +274,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 	 */
 	public void setTitle(String newWindowTitle) {
 		// set only if required
-		if (!newWindowTitle.equals(getTitle())) {
+		if (newWindowTitle != null && !newWindowTitle.equals(getTitle())) {
 			super.setTitle(newWindowTitle);
 		}
 	}
@@ -296,12 +294,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 	 * @see org.scilab.modules.gui.window.Window#addTab(org.scilab.modules.gui.tab.Tab)
 	 */
 	public void addTab(Tab newTab) {
-		((SwingScilabTab) newTab.getAsSimpleTab()).setParentWindowId(this.elementId);
-		DockingManager.dock((SwingScilabTab) newTab.getAsSimpleTab(), this.getDockingPort());
-		// Adding the MenuBar of the last added Tab
-		this.addMenuBar(newTab.getMenuBar());
-		this.addToolBar(newTab.getToolBar());
-		this.addInfoBar(newTab.getInfoBar());
+		final SwingScilabTab tabImpl = ((SwingScilabTab) newTab.getAsSimpleTab());
+		
+		tabImpl.setParentWindowId(this.elementId);
+		DockingManager.dock(tabImpl, this.getDockingPort());
+		ActiveDockableTracker.requestDockableActivation(tabImpl);
 	}
 	
 	/**
@@ -321,9 +318,6 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 			if (menuBar != null) {
 				UIElementMapper.removeMapping(menuBar.getElementId());
 			}
-			addMenuBar(null);
-			addToolBar(null);
-			addInfoBar(null);
 			UIElementMapper.removeMapping(this.elementId);
 			
 			// clean all
@@ -339,7 +333,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 			/* Make sur a Tab is active */
 			Set<SwingScilabTab> docks = sciDockingPort.getDockables();
 			Iterator<SwingScilabTab> it = docks.iterator();
-			((SwingScilabTab) it.next()).setActive(true);
+			ActiveDockableTracker.requestDockableActivation((SwingScilabTab) it.next());
 		}
 	}
 	
@@ -467,4 +461,31 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 		pack();
 	}
 	
+	/**
+	* DeIconify Window
+	*/
+	public void windowDeiconified() {
+		super.setState(Frame.NORMAL);
+	}
+	
+	/**
+	* Iconify Window
+	*/
+	public void windowIconified() {
+		super.setState(Frame.ICONIFIED);
+	}
+	
+	/**
+	* Maximized Window
+	*/
+	public void windowMaximized() {
+		super.setExtendedState(Frame.MAXIMIZED_BOTH);
+	}
+
+  /**
+  * Window is in the "normal" state.
+  */
+	public void windowNormal() {
+		super.setState(Frame.NORMAL);
+	}
 }

@@ -14,17 +14,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-15 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 msgid " An hypermatrix extraction must have at least 2 arguments. "
 msgstr " 超矩阵提取必须至少有2个参数。 "
 
-msgid " An hypermatrix insertion must have at least 3 arguments "
-msgstr " 超矩阵插入必须至少有3个参数 "
-
-msgid " Argument is not an hypermatrix "
-msgstr " 参数不是一个超矩阵 "
+msgid " An hypermatrix insertion must have at least 3 arguments. "
+msgstr ""
 
 msgid " Argument is not an hypermatrix. "
 msgstr " 参数不是一个超矩阵。 "
@@ -36,8 +32,16 @@ msgid " Incompatible hypermatrix extraction. "
 msgstr " 不兼容的超矩阵提取。 "
 
 #, c-format
-msgid "%s: Wrong number of input argument(s) : an even number is expected."
-msgstr "%s：输入参数的个数错误：应该为偶数。"
+msgid "%s: ''dims'' can not be used as a field name.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Number of entries does not match product of dimensions"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input argument(s) : an even number is expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input argument(s): %d expected.\n"
@@ -54,6 +58,16 @@ msgstr "%s：输入参数#%d的类型错误：应该为一个字符串。\n"
 #, c-format
 msgid "%s: Wrong type for input argument #%d: struct array expected.\n"
 msgstr "%s：输入参数#%d的类型错误：应该为结构数组（struct array）。\n"
+
+#, c-format
+msgid ""
+"%s: Wrong values for input argument #%d: Elements must be non-negative "
+"integers.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: field name ''%s'' defined twice.\n"
+msgstr ""
 
 #, c-format
 msgid "Bad (%d th) index in hypermatrix extraction. "

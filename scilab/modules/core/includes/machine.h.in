@@ -206,6 +206,9 @@
 /* Define to 1 if you have the <nlist.h> header file. */
 #undef HAVE_NLIST_H
 
+/* Define to 1 if you have the <omp.h> header file. */
+#undef HAVE_OMP_H
+
 /* Define to 1 if you have the <pcre.h> header file. */
 #undef HAVE_PCRE_H
 
@@ -383,12 +386,6 @@
 
 /* Define to 1 if you have the `_NSGetExecutablePath' function. */
 #undef HAVE__NSGETEXECUTABLEPATH
-
-/* HDF5 cflags */
-#undef HDF5_CFLAGS
-
-/* HDF5 library */
-#undef HDF5_LIBS
 
 /* Define to the value of ${prefix}, as a string. */
 #undef INSTALLPREFIX
