@@ -557,6 +557,9 @@ Dynamic link:
 
 * Intel Fortran Composer XE 2011 (12) used by default if it is detected.
 
+* Under GNU/Linux and Mac OS X, all modules build as standalone its algorithms
+  as a static library (only available in the source tree).
+  This will avoid an important dependency tree for unitary testing.
 
 Scilab:
 =======
