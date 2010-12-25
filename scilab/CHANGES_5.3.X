@@ -88,6 +88,9 @@ Compilation:
 
 * -Wimplicit removed for gfortran in the enable debug mode
 
+* Under GNU/Linux and Mac OS X, all modules build as standalone its algorithms
+  as a static library (only available in the source tree).
+  This will avoid an important dependency tree for unitary testing.
 
 Scilab:
 =======
