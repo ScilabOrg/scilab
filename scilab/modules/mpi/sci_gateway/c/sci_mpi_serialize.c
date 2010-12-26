@@ -19,7 +19,12 @@ int sci_mpi_serialize (char *fname, unsigned long fname_len)
 	int flag;
 	CheckRhs(2,2);
 	CheckLhs(0,1);
-	mappinpScilabMPI data = getMPIDataStructure(2);
+	mappinpScilabMPI sciData = getMPIDataStructure(2);
+    FILE *pFile = fopen( "/tmp/serialisation.mpi", "wb" );
+    fwrite (&sciData.count , 1 , sizeof(int),  pFile );
+    fwrite (&sciData.Scilab , 1 , sizeof(sci_types), pFile );
+    fwrite (&sciData.data , sciData.count, sizeof(double), pFile );
+    fclose(pFile);
 	sciprint("Serialize");
 	LhsVar(1)= 0;
 	C2F(putlhsvar)();

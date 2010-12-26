@@ -13,10 +13,10 @@
 #include <mpi.h>
 #include "api_scilab.h"
 #include "mappingScilabMPI.h"
-
+#include "Scierror.h"
 
 static mappinpScilabMPI getMPIMapping(sci_types scilabType);
-
+static MPI_Datatype setHomogenousScilabType(int size, MPI_Datatype dataType);
 mappinpScilabMPI getMPIDataStructure(int position){
 	int typevar;
     SciErr sciErr;
@@ -43,10 +43,11 @@ mappinpScilabMPI getMPIDataStructure(int position){
 		case sci_matrix:
 			(*mapping.f)(pvApiCtx, piAddr, &iRows, &iCols, &data);
 //			getMatrixOfDouble(pvApiCtx, piAddr, &iRows, &iCols, &data);
-			printf("ici 4\n");
-			mapping.data=data;
+//			printf("data: %d\n",(double*)data);
+
+			mapping.data=&data;
 			mapping.count=iRows*iCols;
-			printf("count %d \n",mapping.count);//, *data[0]);
+            mapping.customMPI=setHomogenousScilabType(iRows*iCols, mapping.MPI);
 			break;
 		case sci_strings:
 			
@@ -83,6 +84,23 @@ static mappinpScilabMPI getMPIMapping(sci_types scilabType){
 
 }
 
+
+static MPI_Datatype setHomogenousScilabType(int size, MPI_Datatype dataType) {
+  MPI_Datatype matrix;
+  int ierr = MPI_Type_contiguous(size, dataType, &matrix);
+
+  if (ierr != MPI_SUCCESS) 
+  {
+      fprintf(stderr,"an error occurred");
+  }
+
+  ierr = MPI_Type_commit(&matrix);
+  if (ierr != MPI_SUCCESS) 
+  {
+      fprintf(stderr,"an error occurred");
+  }
+  return matrix;
+}
 
 /*
   sci_matrix = 1 ,

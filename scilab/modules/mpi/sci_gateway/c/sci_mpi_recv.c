@@ -29,6 +29,17 @@ int sci_mpi_recv (char *fname,unsigned long fname_len)
 	int rankSource;
 	int tag;
 	char *stringToBeReceived=(char*)MALLOC((256)*sizeof(char));
+  MPI_Datatype matrixOfDouble;
+  int ierr = MPI_Type_contiguous(4, MPI_DOUBLE, &matrixOfDouble);
+  if (ierr != MPI_SUCCESS) 
+  {
+      fprintf(stderr,"an error occurred");
+  }
+  ierr = MPI_Type_commit(&matrixOfDouble);
+  if (ierr != MPI_SUCCESS) 
+  {
+      fprintf(stderr,"an error occurred");
+  }
 
 	CheckRhs(2,2);	
 	CheckLhs(1,1);
@@ -43,15 +54,33 @@ int sci_mpi_recv (char *fname,unsigned long fname_len)
 
 	int msgsize;
 	MPI_Status status;
+//	double *recvValue=(double*)MALLOC(sizeof(double)*4);
 	/* Freemat envoit d'abord le nombre de message puis le message ?! a voir si c'est obligatoire ou pas */
-	//	MPI_Recv(&msgsize,1,MPI_INT,rankSource,tag,MPI_COMM_WORLD,&status);
+//	MPI_Recv(&msgsize,1,MPI_INT,rankSource,tag,MPI_COMM_WORLD,&status);
+	printf("tag: %d waiting \n",tag);
+	printf("rankSource: %d waiting \n",rankSource);
+//	MPI_Recv(recvValue,4,MPI_DOUBLE,rankSource,tag,MPI_COMM_WORLD,&status);
+
+        int count, j;
+        printf("Avant mpi_probe\n");fflush(NULL);
+//        MPI_Probe( MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status );
+        printf("Avant mpi_get_element\n");fflush(NULL);
+//        MPI_Get_elements( &status, matrixOfDouble, &count);
+        double recvValue[count];
+        printf("Avant mpi_recv\n");fflush(NULL);
+//        MPI_Recv(recvValue, 1, matrixOfDouble, rankSource, tag, MPI_COMM_WORLD, &status);
+        MPI_Recv(recvValue, 4, MPI_DOUBLE , rankSource, tag, MPI_COMM_WORLD, &status);
+        printf("after MPI_Recv\n");fflush(NULL);
+
+//        MPI_Recv(BRecv, BUFSIZE, MPI_CHAR, i, TAG, MPI_COMM_WORLD, &stat);
+//	MPI_Recv(&msgsize,4,MPI_DOUBLE,rankSource,tag,MPI_COMM_WORLD,&status);
 	//	void *cp = malloc(msgsize);
-	MPI_Recv(stringToBeReceived,255,MPI_CHAR,rankSource,tag,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+//	MPI_Recv(stringToBeReceived,255,MPI_CHAR,rankSource,tag,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 	//	MPI_Recv(buff, BUFSIZE, MPI_CHAR, 0, TAG, MPI_COMM_WORLD, &stat);
 
-	m3=1;
-	n3=1;
-	CreateVarFromPtr( Rhs+1, "c",(m3=(int)strlen(stringToBeReceived), &m3),&n3,&stringToBeReceived);
+//	m3=1;
+//	n3=1;
+//	CreateVarFromPtr( Rhs+1, "c",(m3=(int)strlen(stringToBeReceived), &m3),&n3,&stringToBeReceived);
 	
 	LhsVar(1) = Rhs+1;
 	C2F(putlhsvar)();	

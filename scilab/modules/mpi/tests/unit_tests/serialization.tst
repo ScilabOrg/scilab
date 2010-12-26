@@ -4,3 +4,5 @@ file=TMPDIR+"/test"
 MPI_serialize(file,a);
 a=MPI_unserialize(file);
 
+exit
+

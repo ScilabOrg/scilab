@@ -292,7 +292,7 @@ char *TermReadAndProcess(void)
 
   if(init_flag)
     {
-      init_io();
+//      init_io();
       init_flag = FALSE;
     }
 

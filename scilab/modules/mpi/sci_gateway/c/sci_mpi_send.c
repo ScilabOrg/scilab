@@ -51,17 +51,20 @@ int sci_mpi_send(char *fname,unsigned long fname_len)
 
 	mapping=getMPIDataStructure(1);
 	
-	getMatrixOfDouble(pvApiCtx, 2, &m2, &n2, &nodeID);
-	printf("To node %d\n", nodeID);
-	CheckScalar(2,m2,n2);
+//	getMatrixOfDouble(pvApiCtx, 2, &m2, &n2, &nodeID);
+//	printf("To node %d\n", nodeID);
+	//	CheckScalar(2,m2,n2);
 
-	errorCode = MPI_Send(mapping.data, mapping.count, mapping.MPI, nodeID, TAG, MPI_COMM_WORLD);
+	printf("try: %d, %d, %d, %d, %d\n", &mapping.data, mapping.count, mapping.MPI, TAG, nodeID);
+	fflush(NULL);
+	errorCode = MPI_Send(mapping.data, mapping.count, mapping.customMPI, nodeID, TAG, MPI_COMM_WORLD);
+    printf("after MPI_Send. Error code: %d\n",errorCode);fflush(NULL);
 	//	errorCode = MPI_Send(stringToBeSend, strlen(stringToBeSend), MPI_CHAR, nodeID, TAG, MPI_COMM_WORLD);
 	
 	m3=1;
 	n3=1;
 
-	createMatrixOfDouble(pvApiCtx, Rhs + 1, &m3, &n3, &errorCode);
+//	createMatrixOfDouble(pvApiCtx, Rhs + 1, &m3, &n3, &errorCode);
 						 //	CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&m3,&n3,&errorCode);
 	
 	LhsVar(1) = Rhs+1;
