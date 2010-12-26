@@ -1,5 +1,5 @@
 function MPIHelloWorld()
-
+disp("plop")
 ////////////
 // PARALLEL / initialization, include MPI_Init time in measurement
 ////////////

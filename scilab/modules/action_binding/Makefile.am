@@ -85,11 +85,10 @@ INCLUDE_FLAGS = $(libsciaction_binding_la_CFLAGS)
 ## Libraries necessary
 ## Change to include other Scilab modules/lib
 libsciaction_binding_la_LIBADD =  	$(top_builddir)/libs/MALLOC/libscimalloc.la \
-									$(top_builddir)/modules/output_stream/libscioutput_stream.la
+									$(top_builddir)/modules/output_stream/libscioutput_stream.la $(top_builddir)/modules/jvm/libscijvm.la
 
 # Cyclic dependancy
 #									$(top_builddir)/modules/jvm/libscijvm.la
-
 #### Name of the module and the path ######
 modulename=action_binding
 

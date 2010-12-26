@@ -54,6 +54,9 @@
 //     <-- XCOS TEST -->
 //       This test will launch all the necessary Xcos libs. This test
 //       will be launched in nw mode.
+//     <-- MPI TEST --> or <-- MPI TEST 3 -->
+//       This test will launch Scilab with mpirun with two nodes.
+//		 With an integer, the number of launch processes can be set.
 //
 //   Each test is executed in a separated process, created with the "host" command.
 //   That enables the current command to continue, even if the test as
@@ -657,6 +660,8 @@ function st = st_new()
                  "tmp_err"        ..    // reference file
                  "status"         ..    // status
                  "xcos"           ..    // xcos test ?
+                 "mpi"            ..    // mpi test ?
+                 "mpi_process"    ..    // number of mpi process
                  "cmd"            ..    // command to launch
                  ] );
 
@@ -690,6 +695,10 @@ function st = st_new()
     st.status        = status_new();
 
     st.xcos          = %F;
+
+    st.mpi           = %F;
+
+    st.mpi_process   = "2";
 
 endfunction
 
@@ -808,6 +817,14 @@ function st = st_set_xcos(st,xmode)
     st.xcos = xmode;
 endfunction
 
+function st = st_set_mpi(st,mpimode)
+    st.mpi = mpimode;
+endfunction
+
+function st = st_set_mpi_process(st,mpi_process)
+    st.mpi_process = mpi_process;
+endfunction
+
 // show
 // -----------------------------------------------------------------------------
 
@@ -822,6 +839,7 @@ function st_show(st)
     if st.graphic        then st_graphic        = "Yes"; else st_graphic        = "No"; end
     if st.try_catch      then st_try_catch      = "Yes"; else st_try_catch      = "No"; end
     if st.xcos           then st_xcos           = "Yes"; else st_xcos           = "No"; end
+    if st.mpi            then st_mpi            = "Yes"; else st_mpi            = "No"; end
 
     mprintf("Test :\n");
     mprintf("  name           = %s\n"   ,st.name);
@@ -853,6 +871,7 @@ function st_show(st)
     mprintf("  error_output   = %s\n"   ,st.error_output);
     mprintf("  try_catch      = %s\n"   ,st_try_catch);
     mprintf("  xcos           = %s\n"   ,st_xcos);
+    mprintf("  mpi            = %s\n"   ,st_mpi);
     mprintf("\n");
 
     mprintf("Test scilab cmd :\n");
@@ -935,6 +954,16 @@ function st = st_analyse(st)
     if ~ isempty( grep(st.content,"<-- XCOS TEST -->") ) then
         st = st_set_xcos(st,%T);
         st = st_set_jvm_mandatory(st,%T);
+    end
+
+//	[a,b,match] = regexp(st.content,"/<-- MPI TEST ([0-9 ]*)-->/");
+
+    if ~ isempty( grep(st.content, "/<-- MPI TEST ([0-9 ]*)-->/","r")) then
+        st = st_set_mpi(st,%T);
+//		[a,b,match2]=regexp(match, "/([0-9*])/");
+//		if ~ isempty(match2) then
+//		   st_set_mpi_process(match2);
+//		end
     end
     // Language
     // =========================================================================
@@ -1173,13 +1202,20 @@ function st = st_run(st)
         language_arg = "LANG=" + st.language + " ; ";
     end
 
+	if st.mpi == %f then
+	   preCommand = ""
+	else
+	   preCommand = "mpirun -c " + st.mpi_process
+	end
+	   
     // Assembly
     // -------------------------------------------------------------------------
 
     if getos() == 'Windows' then
         test_cmd = "( """+SCI_BIN+"\bin\scilex.exe"+""""+" "+mode_arg+" "+language_arg+" -nb -f """+st.tmp_tst+""" > """+st.tmp_res+""" ) 2> """+st.tmp_err+"""";
     else
-        test_cmd = "( "+language_arg+" "+SCI_BIN+"/bin/scilab "+mode_arg+" -nb -f "+st.tmp_tst+" > "+st.tmp_res+" ) 2> "+st.tmp_err;
+        test_cmd = "( "+language_arg+" "+preCommand+" "+SCI_BIN+"/bin/scilab "+mode_arg+" -nb -f "+st.tmp_tst+" > "+st.tmp_res+" ) 2> "+st.tmp_err;
+
     end
 
     st= st_set_cmd(st,test_cmd);

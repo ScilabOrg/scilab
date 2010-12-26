@@ -295,8 +295,8 @@ char *TermReadAndProcess(void)
 
     if(init_flag)
     {
-        init_io();
-        init_flag = FALSE;
+      init_io();
+      init_flag = FALSE;
     }
 
     if (interrupted)

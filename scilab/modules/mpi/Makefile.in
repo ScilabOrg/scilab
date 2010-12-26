@@ -82,10 +82,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = mpitest$(EXEEXT) mpi_pi$(EXEEXT)
+bin_PROGRAMS = mpitest$(EXEEXT) mpi_pi$(EXEEXT) \
+	mpi_test_scilab_data$(EXEEXT) mpitest_contiguous$(EXEEXT) \
+	mpitest_scilab_pack$(EXEEXT)
 DIST_COMMON = $(libscimpi_la_include_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/Makefile.incl.am TODO
 @NEED_JAVA_TRUE@am__append_1 = java
+
+# With --enable-compilation-tests, launch java unitary tests
+@COMPILATION_TESTS_TRUE@am__append_2 = test
 subdir = modules/mpi
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -97,12 +102,12 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
 	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/libxml2.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/mpi.m4 $(top_srcdir)/m4/ocaml.m4 \
-	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
-	$(top_srcdir)/m4/pvm.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
-	$(top_srcdir)/m4/tcltk.m4 $(top_srcdir)/m4/umfpack.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/mpi.m4 \
+	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pcre.m4 \
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/pvm.m4 \
+	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/swig.m4 \
+	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
+	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
@@ -146,8 +151,9 @@ am__objects_1 = libscimpi_la-sci_mpi_init.lo \
 	libscimpi_la-sci_mpi_recv.lo libscimpi_la-sci_mpi_send.lo \
 	libscimpi_la-sci_mpi_serialize.lo \
 	libscimpi_la-sci_mpi_unserialize.lo \
-	libscimpi_la-build_buff_type.lo libscimpi_la-s_mpi_recv.lo \
-	libscimpi_la-s_mpi_send.lo
+	libscimpi_la-build_buff_type.lo \
+	libscimpi_la-pre_send_recv_metadata.lo \
+	libscimpi_la-s_mpi_recv.lo libscimpi_la-s_mpi_send.lo
 am__objects_2 = libscimpi_la-mappingScilabMPI.lo
 am_libscimpi_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libscimpi_la_OBJECTS = $(am_libscimpi_la_OBJECTS)
@@ -162,6 +168,12 @@ mpi_pi_LDADD = $(LDADD)
 mpi_pi_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(mpi_pi_LDFLAGS) \
 	$(LDFLAGS) -o $@
+am_mpi_test_scilab_data_OBJECTS = mpitest_scilab_data.$(OBJEXT)
+mpi_test_scilab_data_OBJECTS = $(am_mpi_test_scilab_data_OBJECTS)
+mpi_test_scilab_data_LDADD = $(LDADD)
+mpi_test_scilab_data_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(mpi_test_scilab_data_LDFLAGS) $(LDFLAGS) -o $@
 am__objects_4 = mpitest.$(OBJEXT)
 am_mpitest_OBJECTS = $(am__objects_4)
 mpitest_OBJECTS = $(am_mpitest_OBJECTS)
@@ -169,6 +181,12 @@ mpitest_LDADD = $(LDADD)
 mpitest_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(mpitest_LDFLAGS) \
 	$(LDFLAGS) -o $@
+am_mpitest_contiguous_OBJECTS = mpitest_contiguous.$(OBJEXT)
+mpitest_contiguous_OBJECTS = $(am_mpitest_contiguous_OBJECTS)
+mpitest_contiguous_LDADD = $(LDADD)
+am_mpitest_scilab_pack_OBJECTS = mpitest_scilab_pack.$(OBJEXT)
+mpitest_scilab_pack_OBJECTS = $(am_mpitest_scilab_pack_OBJECTS)
+mpitest_scilab_pack_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -182,9 +200,12 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(libscimpi_la_SOURCES) $(mpi_pi_SOURCES) $(mpitest_SOURCES)
+SOURCES = $(libscimpi_la_SOURCES) $(mpi_pi_SOURCES) \
+	$(mpi_test_scilab_data_SOURCES) $(mpitest_SOURCES) \
+	$(mpitest_contiguous_SOURCES) $(mpitest_scilab_pack_SOURCES)
 DIST_SOURCES = $(libscimpi_la_SOURCES) $(mpi_pi_SOURCES) \
-	$(mpitest_SOURCES)
+	$(mpi_test_scilab_data_SOURCES) $(mpitest_SOURCES) \
+	$(mpitest_contiguous_SOURCES) $(mpitest_scilab_pack_SOURCES)
 DATA = $(libscimpi_la_etc_DATA) $(libscimpi_la_root_DATA) \
 	$(libscimpi_la_sci_gateway_DATA)
 HEADERS = $(libscimpi_la_include_HEADERS)
@@ -246,6 +267,7 @@ FGREP = @FGREP@
 FLEXDOCK = @FLEXDOCK@
 FLIBS = @FLIBS@
 FOP = @FOP@
+GENHTML = @GENHTML@
 GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
 GIWS_BIN = @GIWS_BIN@
 GLUEGEN_RT = @GLUEGEN_RT@
@@ -268,6 +290,7 @@ INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+JAVADOC = @JAVADOC@
 JAVAH = @JAVAH@
 JAVASCI_ENABLE = @JAVASCI_ENABLE@
 JAVA_DEBUG_OPTIONS = @JAVA_DEBUG_OPTIONS@
@@ -288,6 +311,7 @@ JROSETTA_API = @JROSETTA_API@
 JROSETTA_ENGINE = @JROSETTA_ENGINE@
 JUNIT = @JUNIT@
 LAPACK_LIBS = @LAPACK_LIBS@
+LCOV = @LCOV@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
@@ -325,6 +349,10 @@ OCAMLYACC = @OCAMLYACC@
 OPENMPI_CC = @OPENMPI_CC@
 OPENMPI_FLAGS = @OPENMPI_FLAGS@
 OPENMPI_LIBS = @OPENMPI_LIBS@
+OPENMP_CFLAGS = @OPENMP_CFLAGS@
+OPENMP_CXXFLAGS = @OPENMP_CXXFLAGS@
+OPENMP_ENABLE = @OPENMP_ENABLE@
+OPENMP_LIBS = @OPENMP_LIBS@
 OTOOL = @OTOOL@
 OTOOL64 = @OTOOL64@
 PACKAGE = @PACKAGE@
@@ -443,13 +471,17 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-MPI_TEST_EXE_SOURCES = src/c/mpitest.c
+MPI_TEST_EXE_SOURCES = src/c/mpitest.c 
 mpitest_SOURCES = $(MPI_TEST_EXE_SOURCES)
 mpitest_LDFLAGS = $(OPENMPI_LIBS)
+mpitest_scilab_pack_SOURCES = src/c/mpitest_scilab_pack.c
+mpi_test_scilab_data_SOURCES = src/c/mpitest_scilab_data.c
+mpi_test_scilab_data_LDFLAGS = $(OPENMPI_LIBS)
 MPI_PI_SOURCES = src/c/mpi_pi_send.c src/c/dboard.c
 mpi_pi_SOURCES = $(MPI_PI_SOURCES)
 mpi_pi_LDFLAGS = $(OPENMPI_LIBS)
 MPI_C_SOURCES = src/c/mappingScilabMPI.c
+mpitest_contiguous_SOURCES = src/c/mpitest_contiguous.c
 
 # List of the gateway c files
 GATEWAY_C_SOURCES = sci_gateway/c/sci_mpi_init.c \
@@ -462,6 +494,7 @@ sci_gateway/c/sci_mpi_send.c \
 sci_gateway/c/sci_mpi_serialize.c \
 sci_gateway/c/sci_mpi_unserialize.c \
 src/c/build_buff_type.c \
+src/c/pre_send_recv_metadata.c \
 src/c/s_mpi_recv.c \
 src/c/s_mpi_send.c
 
@@ -517,7 +550,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1)
+TARGETS_ALL = $(am__append_1) $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -553,7 +586,7 @@ MACROBUILDMASK = *.sce
 # Mask of the Scilab compiled macros
 MACROBINMASK = *.bin
 # List of the standard directory for tests
-TESTS_DIR = tests/benchmarks tests/nonreg_tests tests/unit_tests
+TESTS_DIR = tests/benchmarks tests/nonreg_tests tests/unit_tests tests/java
 # Where the demos should be installed
 pkgdemosdir = $(mydatadir)
 # List of the standard directory for demos
@@ -681,9 +714,18 @@ clean-binPROGRAMS:
 mpi_pi$(EXEEXT): $(mpi_pi_OBJECTS) $(mpi_pi_DEPENDENCIES) 
 	@rm -f mpi_pi$(EXEEXT)
 	$(mpi_pi_LINK) $(mpi_pi_OBJECTS) $(mpi_pi_LDADD) $(LIBS)
+mpi_test_scilab_data$(EXEEXT): $(mpi_test_scilab_data_OBJECTS) $(mpi_test_scilab_data_DEPENDENCIES) 
+	@rm -f mpi_test_scilab_data$(EXEEXT)
+	$(mpi_test_scilab_data_LINK) $(mpi_test_scilab_data_OBJECTS) $(mpi_test_scilab_data_LDADD) $(LIBS)
 mpitest$(EXEEXT): $(mpitest_OBJECTS) $(mpitest_DEPENDENCIES) 
 	@rm -f mpitest$(EXEEXT)
 	$(mpitest_LINK) $(mpitest_OBJECTS) $(mpitest_LDADD) $(LIBS)
+mpitest_contiguous$(EXEEXT): $(mpitest_contiguous_OBJECTS) $(mpitest_contiguous_DEPENDENCIES) 
+	@rm -f mpitest_contiguous$(EXEEXT)
+	$(LINK) $(mpitest_contiguous_OBJECTS) $(mpitest_contiguous_LDADD) $(LIBS)
+mpitest_scilab_pack$(EXEEXT): $(mpitest_scilab_pack_OBJECTS) $(mpitest_scilab_pack_DEPENDENCIES) 
+	@rm -f mpitest_scilab_pack$(EXEEXT)
+	$(LINK) $(mpitest_scilab_pack_OBJECTS) $(mpitest_scilab_pack_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -695,6 +737,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-build_buff_type.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-gw_mpi.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-mappingScilabMPI.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-pre_send_recv_metadata.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-s_mpi_recv.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-s_mpi_send.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-sci_mpi_comm_rank.Plo@am__quote@
@@ -707,6 +750,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscimpi_la-sci_mpi_unserialize.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpi_pi_send.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpitest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpitest_contiguous.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpitest_scilab_data.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mpitest_scilab_pack.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -799,6 +845,13 @@ libscimpi_la-build_buff_type.lo: src/c/build_buff_type.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -c -o libscimpi_la-build_buff_type.lo `test -f 'src/c/build_buff_type.c' || echo '$(srcdir)/'`src/c/build_buff_type.c
 
+libscimpi_la-pre_send_recv_metadata.lo: src/c/pre_send_recv_metadata.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -MT libscimpi_la-pre_send_recv_metadata.lo -MD -MP -MF $(DEPDIR)/libscimpi_la-pre_send_recv_metadata.Tpo -c -o libscimpi_la-pre_send_recv_metadata.lo `test -f 'src/c/pre_send_recv_metadata.c' || echo '$(srcdir)/'`src/c/pre_send_recv_metadata.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscimpi_la-pre_send_recv_metadata.Tpo $(DEPDIR)/libscimpi_la-pre_send_recv_metadata.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/pre_send_recv_metadata.c' object='libscimpi_la-pre_send_recv_metadata.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -c -o libscimpi_la-pre_send_recv_metadata.lo `test -f 'src/c/pre_send_recv_metadata.c' || echo '$(srcdir)/'`src/c/pre_send_recv_metadata.c
+
 libscimpi_la-s_mpi_recv.lo: src/c/s_mpi_recv.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscimpi_la_CFLAGS) $(CFLAGS) -MT libscimpi_la-s_mpi_recv.lo -MD -MP -MF $(DEPDIR)/libscimpi_la-s_mpi_recv.Tpo -c -o libscimpi_la-s_mpi_recv.lo `test -f 'src/c/s_mpi_recv.c' || echo '$(srcdir)/'`src/c/s_mpi_recv.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscimpi_la-s_mpi_recv.Tpo $(DEPDIR)/libscimpi_la-s_mpi_recv.Plo
@@ -848,6 +901,20 @@ dboard.obj: src/c/dboard.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dboard.obj `if test -f 'src/c/dboard.c'; then $(CYGPATH_W) 'src/c/dboard.c'; else $(CYGPATH_W) '$(srcdir)/src/c/dboard.c'; fi`
 
+mpitest_scilab_data.o: src/c/mpitest_scilab_data.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_scilab_data.o -MD -MP -MF $(DEPDIR)/mpitest_scilab_data.Tpo -c -o mpitest_scilab_data.o `test -f 'src/c/mpitest_scilab_data.c' || echo '$(srcdir)/'`src/c/mpitest_scilab_data.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_scilab_data.Tpo $(DEPDIR)/mpitest_scilab_data.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_scilab_data.c' object='mpitest_scilab_data.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_scilab_data.o `test -f 'src/c/mpitest_scilab_data.c' || echo '$(srcdir)/'`src/c/mpitest_scilab_data.c
+
+mpitest_scilab_data.obj: src/c/mpitest_scilab_data.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_scilab_data.obj -MD -MP -MF $(DEPDIR)/mpitest_scilab_data.Tpo -c -o mpitest_scilab_data.obj `if test -f 'src/c/mpitest_scilab_data.c'; then $(CYGPATH_W) 'src/c/mpitest_scilab_data.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_scilab_data.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_scilab_data.Tpo $(DEPDIR)/mpitest_scilab_data.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_scilab_data.c' object='mpitest_scilab_data.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_scilab_data.obj `if test -f 'src/c/mpitest_scilab_data.c'; then $(CYGPATH_W) 'src/c/mpitest_scilab_data.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_scilab_data.c'; fi`
+
 mpitest.o: src/c/mpitest.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest.o -MD -MP -MF $(DEPDIR)/mpitest.Tpo -c -o mpitest.o `test -f 'src/c/mpitest.c' || echo '$(srcdir)/'`src/c/mpitest.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest.Tpo $(DEPDIR)/mpitest.Po
@@ -861,6 +928,34 @@ mpitest.obj: src/c/mpitest.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest.c' object='mpitest.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest.obj `if test -f 'src/c/mpitest.c'; then $(CYGPATH_W) 'src/c/mpitest.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest.c'; fi`
+
+mpitest_contiguous.o: src/c/mpitest_contiguous.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_contiguous.o -MD -MP -MF $(DEPDIR)/mpitest_contiguous.Tpo -c -o mpitest_contiguous.o `test -f 'src/c/mpitest_contiguous.c' || echo '$(srcdir)/'`src/c/mpitest_contiguous.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_contiguous.Tpo $(DEPDIR)/mpitest_contiguous.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_contiguous.c' object='mpitest_contiguous.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_contiguous.o `test -f 'src/c/mpitest_contiguous.c' || echo '$(srcdir)/'`src/c/mpitest_contiguous.c
+
+mpitest_contiguous.obj: src/c/mpitest_contiguous.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_contiguous.obj -MD -MP -MF $(DEPDIR)/mpitest_contiguous.Tpo -c -o mpitest_contiguous.obj `if test -f 'src/c/mpitest_contiguous.c'; then $(CYGPATH_W) 'src/c/mpitest_contiguous.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_contiguous.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_contiguous.Tpo $(DEPDIR)/mpitest_contiguous.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_contiguous.c' object='mpitest_contiguous.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_contiguous.obj `if test -f 'src/c/mpitest_contiguous.c'; then $(CYGPATH_W) 'src/c/mpitest_contiguous.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_contiguous.c'; fi`
+
+mpitest_scilab_pack.o: src/c/mpitest_scilab_pack.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_scilab_pack.o -MD -MP -MF $(DEPDIR)/mpitest_scilab_pack.Tpo -c -o mpitest_scilab_pack.o `test -f 'src/c/mpitest_scilab_pack.c' || echo '$(srcdir)/'`src/c/mpitest_scilab_pack.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_scilab_pack.Tpo $(DEPDIR)/mpitest_scilab_pack.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_scilab_pack.c' object='mpitest_scilab_pack.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_scilab_pack.o `test -f 'src/c/mpitest_scilab_pack.c' || echo '$(srcdir)/'`src/c/mpitest_scilab_pack.c
+
+mpitest_scilab_pack.obj: src/c/mpitest_scilab_pack.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT mpitest_scilab_pack.obj -MD -MP -MF $(DEPDIR)/mpitest_scilab_pack.Tpo -c -o mpitest_scilab_pack.obj `if test -f 'src/c/mpitest_scilab_pack.c'; then $(CYGPATH_W) 'src/c/mpitest_scilab_pack.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_scilab_pack.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/mpitest_scilab_pack.Tpo $(DEPDIR)/mpitest_scilab_pack.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/mpitest_scilab_pack.c' object='mpitest_scilab_pack.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o mpitest_scilab_pack.obj `if test -f 'src/c/mpitest_scilab_pack.c'; then $(CYGPATH_W) 'src/c/mpitest_scilab_pack.c'; else $(CYGPATH_W) '$(srcdir)/src/c/mpitest_scilab_pack.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1171,7 +1266,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libscimpi_la_etcDATA \
 
 
 # This target enables tests for Scilab
-check-local: $(top_builddir)/scilab-bin
+check-local: $(top_builddir)/scilab-bin test
 	@COMMAND="test_run('$(modulename)');quit";\
 	export LANG=C;\
 	$(top_builddir)/bin/scilab -nwni -nb -e "$$COMMAND"
@@ -1219,7 +1314,7 @@ check-code:
 @GIWS_TRUE@	if test -n "$(GIWS_WRAPPERS)"; then \
 @GIWS_TRUE@		for file in $(GIWS_WRAPPERS) ; do \
 @GIWS_TRUE@			echo "GIWS process of $$file ..."; \
-@GIWS_TRUE@			$(GIWS_BIN) --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
+@GIWS_TRUE@			$(GIWS_BIN) --disable-return-size-array --output-dir $$GIWS_OUTPUTDIR --throws-exception-on-error --description-file $$file; \
 @GIWS_TRUE@		done; \
 @GIWS_TRUE@	fi
 
@@ -1237,6 +1332,13 @@ clean-macros:
 		echo "rm -f $(builddir)/$$dir/$(MACROBINMASK)"; \
 		rm -f $(builddir)/$$dir/$(MACROBINMASK); \
 	done
+
+test:
+# More tests could be added here
+	@if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+	if test -f build.xml -a $$USEANT -eq 1; then \
+		$(ANT) test; \
+	fi
 
 all-local: $(TARGETS_ALL)
 
@@ -1323,6 +1425,7 @@ install-data-local:
 		if test -d $(srcdir)/$$dir/; then \
 			FILELIST="$(srcdir)/$$dir/$(MACROMASK) $(srcdir)/$$dir/$(MACROBINMASK) $(srcdir)/$$dir/$(MACROBUILDMASK) $(srcdir)/$$dir/names $(srcdir)/$$dir/lib";\
 			if test -n "$(MACROSSPECIALEXT)"; then \
+				specialExtDir=""; \
 				for specialExt in $(MACROSSPECIALEXT); do \
 					specialExtDir="$$specialExtDir $(srcdir)/$$dir/$$specialExt"; \
 				done; \
@@ -1345,9 +1448,11 @@ install-data-local:
 	fi
 
 ########### CLEAN ###################
-# Clean macros and help (generated automatically by Scilab)
-@NEED_JAVA_TRUE@clean-local: clean-java clean-macros
-@NEED_JAVA_FALSE@clean-local: clean-macros
+# Clean help (generated automatically by Scilab)
+# It used to clean the macro (clean-macros) but this was causing
+# make clean && make to fail Scilab startup
+@NEED_JAVA_TRUE@clean-local: clean-java
+@NEED_JAVA_FALSE@clean-local:
 
 distclean-local:
 	rm -f $(builddir)/help/*/.last_successful_build_javaHelp $(builddir)/help/*/.list_*
