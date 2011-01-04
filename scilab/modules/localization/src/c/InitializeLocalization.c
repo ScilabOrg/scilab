@@ -1,11 +1,11 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Sylvestre LEDRU
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -40,14 +40,15 @@
 #include "LanguagePreferences_Windows.h"
 #endif
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 
 BOOL InitializeLocalization(void)
 {
 #ifdef HAVE_LIBINTL_H
 
 	char *SCIpath = getSCI();
-	char *pathLocales = NULL, *previousPathLocales = NULL;
+	char *pathLocales = NULL;
+    char *previousPathLocales = NULL;
 	char *ret = NULL;
 
 	/* set directory containing message catalogs */
@@ -57,7 +58,7 @@ BOOL InitializeLocalization(void)
 	strcat(pathLocales, PATHLOCALIZATIONFILE);
 
 	if (bindtextdomain(NAMELOCALIZATIONDOMAIN,pathLocales)==NULL || !isdir(pathLocales))
-	{ 
+	{
 		/* source tree and classic build */
 		previousPathLocales = os_strdup(pathLocales);
 		if (pathLocales) {FREE(pathLocales); pathLocales = NULL;}
@@ -67,7 +68,7 @@ BOOL InitializeLocalization(void)
 		strcat(pathLocales, "/..");
 		strcat(pathLocales, PATHLOCALIZATIONFILE);
 		if (bindtextdomain(NAMELOCALIZATIONDOMAIN,pathLocales)==NULL || !isdir(pathLocales))
-		{ 
+		{
 			/* when it is installed on the system for example /usr/share/locale/ */
 			fprintf(stderr, "Warning: Localization issue: Error while binding the domain from %s or %s: Switch to the default language (English).\n", pathLocales, previousPathLocales);
 			if (previousPathLocales) {FREE(previousPathLocales); previousPathLocales = NULL;}
@@ -78,7 +79,7 @@ BOOL InitializeLocalization(void)
 		if (previousPathLocales) {FREE(previousPathLocales); previousPathLocales = NULL;}
 		if (pathLocales) {FREE(pathLocales); pathLocales = NULL;}
 		if (SCIpath) {FREE(SCIpath); SCIpath = NULL;}
-		
+
 	}
 
 	/* set domain for future gettext() calls */
@@ -92,12 +93,12 @@ BOOL InitializeLocalization(void)
 #ifndef _MSC_VER
 	/* Here, the "" means that we will try to use the language of the system
 	 * first. If it doesn't work, we switch back to default (English) */
-	setlanguage("");
+	setlanguage(L"");
 #else
 	/* We look if registry value LANGUAGE exists */
 	/* If not exists the "" means that we will try to use the language of the system.*/
 	{
-		char *loadLanguage = getLanguagePreferences();
+		wchar_t *loadLanguage = getLanguagePreferences();
 		setlanguage(loadLanguage);
 		if (loadLanguage) {FREE(loadLanguage); loadLanguage = NULL;}
 	}
@@ -113,5 +114,5 @@ BOOL InitializeLocalization(void)
 	return FALSE;
 #endif
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 
