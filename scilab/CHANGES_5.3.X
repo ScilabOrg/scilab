@@ -95,6 +95,26 @@ Scilab:
 * Scilab startup script of the binary is now automatically synchronized with
   the one from the source tree.
 
+Optimization:
+=============
+
+* Improved the karmarkar linear optimization solver: 
+  * Let the user configure an output function.
+  * Put the number of iterations as an output argument.
+  * Put x0 as an optional argument.
+  * Manage inequality constraints.
+  * Manage bounds.
+  * Compute the exitflag.
+  * Compute the Lagrange multipliers.
+  * Provide documentation for the rtolf and gam parameters.
+  * Provide more examples.
+  * Provide documentation for the stopping rule.
+
+* bug 8719 fixed - The karmarkar function printed unwanted messages.
+
+* bug 8720 fixed - The karmarkar function stoped too early in the iterations.
+
+* bug 8726 fixed - The karmarkar function produced a division-by-zero error.
 
 Bug fixes:
 ==========
