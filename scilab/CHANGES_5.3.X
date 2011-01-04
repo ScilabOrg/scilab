@@ -48,6 +48,8 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
+* bug 8440 fixed - The SVG background was not exported to SVG.
+
 Localization:
 =============
 
