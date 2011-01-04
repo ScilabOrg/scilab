@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -24,13 +25,20 @@
   <refnamediv>
     <refname>karmarkar</refname>
 
-    <refpurpose>karmarkar algorithm</refpurpose>
+    <refpurpose>Solves a linear optimization problem.</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <title>Calling Sequence</title>
 
-    <synopsis>[x1]=karmarkar(a,b,c,x0)</synopsis>
+    <synopsis>
+      xopt=karmarkar(Aeq,beq,c,x0)
+      xopt=karmarkar(Aeq,beq,c,x0,rtol)
+      xopt=karmarkar(Aeq,beq,c,x0,rtol,sf)
+      xopt=karmarkar(Aeq,beq,c,x0,rtol,sf,outfun)
+      [xopt,fopt]=karmarkar(...)
+      [xopt,fopt,iter]=karmarkar(...)
+    </synopsis>
   </refsynopsisdiv>
 
   <refsection>
@@ -38,96 +46,390 @@
 
     <variablelist>
       <varlistentry>
-        <term>a</term>
-
+        <term>Aeq</term>
         <listitem>
-          <para>matrix (n,p)</para>
+          <para>
+            a n-by-p matrix of doubles, where <literal>n</literal> is the number
+            of linear equality constraints
+            and <literal>p</literal> is the number of unknowns,
+            the matrix in the linear equality constraints.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>b</term>
-
+        <term>beq</term>
         <listitem>
-          <para>n - vector</para>
+          <para>
+            a n-by-1 matrix of doubles,
+            the right hand side of the linear equality constraint.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term>c</term>
-
         <listitem>
-          <para>p - vector</para>
+          <para>
+            a p-by-1 matrix of doubles,
+            the linear part of the objective function.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
         <term>x0</term>
-
         <listitem>
-          <para>initial vector</para>
+          <para>
+            a p-by-1 matrix of doubles, the initial guess.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>eps</term>
-
+        <term>rtol</term>
         <listitem>
-          <para>threshold (default value : 1.d-5)</para>
+          <para>
+            a 1-by-1 matrix of doubles,
+            a relative tolerance on <literal>x</literal> (default rtol=1.d-5).
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>gamma</term>
-
+        <term>sf</term>
         <listitem>
-          <para>descent step <literal>0&lt;gamma&lt;1</literal> , default
-          value : 1/4</para>
+          <para>
+            a 1-by-1 matrix of doubles, the scaling factor (default sf=0.25).
+            The scaling factor must satisfy <literal>0&lt;sf&lt;1</literal>.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>x1</term>
-
+        <term>outfun</term>
         <listitem>
-          <para>solution</para>
+          <para>
+            a function or a list, the output function.
+          </para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>crit</term>
-
+        <term>xopt</term>
         <listitem>
-          <para>value of c'*x1</para>
+          <para>a p-by-1 matrix of doubles, the solution.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>fopt</term>
+        <listitem>
+          <para>
+            a 1-by-1 matrix of doubles, the objective function
+            value at optimum, i.e. the value of c'*xopt.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>iter</term>
+        <listitem>
+          <para>
+            a 1-by-1 matrix of floating point integers, the number of iterations.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsection>
 
   <refsection>
     <title>Description</title>
 
-    <para>Computes <literal>x</literal> which minimizes</para>
+    <para>
+      Computes <literal>x</literal> which solves the linear optimization problem:
+    </para>
 
-    <informalequation>
-      <mediaobject>
-        <imageobject>
-          <imagedata align="center" fileref="../mml/karmarkar_equation_1.mml" />
-        </imageobject>
-      </mediaobject>
-    </informalequation>
+    <para>
+      <latex>
+        \begin{eqnarray}
+        \begin{array}{l}
+        \textrm{minimize } c^T \cdot x\\
+        A_{eq} x = b_{eq}\\
+        x \geq 0
+        \end{array}
+        \end{eqnarray}
+      </latex>
+    </para>
+
+    <para>
+      Any optional parameter equal to the empty matrix <literal>[]</literal> is replaced by
+      its default value.
+    </para>
+
+    <para>
+      If the scaling factor <literal>sf</literal> is closer to 1 (say <literal>sf=0.99</literal>,
+      for example), then the number of iterations may be lower.
+    </para>
+
+    <para>
+      The output function outfun must have header
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+     stop = outfun ( iter , xopt , fopt , d )
+]]>
+    </programlisting>
+
+    <para>
+      where <literal>iter</literal> is the iteration index,
+      <literal>xopt</literal> is the current point,
+      <literal>fopt</literal> is the current function value and
+      <literal>d</literal> is the current direction.
+      Here, <literal>stop</literal> is a boolean,
+      which is <literal>%t</literal> if the algorithm must stop.
+    </para>
+
+    <para>
+      It might happen that the output function requires additionnal arguments to be evaluated.
+      In this case, we can use the following feature.
+      The function <literal>outfun</literal> can also be the list <literal>(outf,a1,a2,...)</literal>.
+      In this case <literal>outf</literal>, the first element in the list, must have the header:
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+       stop = outf ( iter , xopt , fopt , d , a1 , a2 , ... )
+]]>
+    </programlisting>
+
+    <para>
+      where the input arguments <literal>a1, a2, ...</literal>
+      will be automatically be appended at the end of the calling sequence.
+    </para>
+
   </refsection>
 
   <refsection>
     <title>Examples</title>
 
-    <programlisting role="example"><![CDATA[ 
-n=10;p=20;
-a=rand(n,p);
+    <para>
+      In the following example, we solve a linear optimization problem with 2 linear
+      equality constraints and 3 unknowns.
+      The exact solution is <literal>xstar=[1 1 0]'</literal>.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+    Aeq = [
+    1 -1 0
+    1  1 1
+    ];
+    beq = [0;2];
+    c = [-1;-1;0];
+    x0 = [0.1;0.1;1.8];
+    [xopt,fopt,iter]=karmarkar(Aeq,beq,c,x0)
+]]>
+    </programlisting>
+
+
+    <para>
+      In the following example, we solve a linear optimization problem with 10 random linear
+      equality constraints and 20 unknowns.
+      The initial guess is chosen at random in the [0,1]^p range.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+n=10;
+p=20;
+Aeq=rand(n,p);
 c=rand(p,1);
-x0=abs(rand(p,1));
-b=a*x0;
-x1=karmarkar(a,b,c,x0);
- ]]></programlisting>
+x0=rand(p,1);
+beq=Aeq*x0;
+xopt=karmarkar(Aeq,beq,c,x0);
+// Check constraints
+norm(Aeq*xopt-beq)
+]]>
+    </programlisting>
   </refsection>
+
+  <refsection>
+    <title>Introducing slack variables</title>
+
+    <para>
+      It may be required to change the problem formulation in order to
+      use the current algorithm.
+      Consider the following linear program.
+    </para>
+
+    <para>
+      <latex>
+        \begin{eqnarray}
+        \begin{array}{l}
+        \textrm{maximize } 20 x_1 + 24 x_2\\
+        3 x_1 + 6 x_2 \leq 60 \\
+        4 x_1 + 2 x_2 \leq 32 \\
+        x_1,x_2 \geq 0
+        \end{array}
+        \end{eqnarray}
+      </latex>
+    </para>
+
+    <para>
+      The solution of this problem is <literal>xopt = [4 8]'</literal>.
+      In order to use the <literal>karmarkar</literal> function, we change
+      the problem form into the following.
+      We introduce the slack variables <literal>x3,x4</literal>
+      which turns the inequality constraints into equality constraints.
+    </para>
+
+    <para>
+      <latex>
+        \begin{eqnarray}
+        \begin{array}{l}
+        \textrm{minimize } -20 x_1 - 24 x_2\\
+        3 x_1 + 6 x_2 + x_3 = 60 \\
+        4 x_1 + 2 x_2 + x_4 = 32 \\
+        x_1,x_2,x_3,x_4 \geq 0
+        \end{array}
+        \end{eqnarray}
+      </latex>
+    </para>
+
+    <para>
+      Once done, we can use the <literal>karmarkar</literal> function,
+      by introducing the additionnal equality constraints.
+      The initial guess <literal>x0</literal> is computed so that the slack variables
+      automatically solve the linear equalities.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+    c = [-20 -24 0 0]';
+    Aeq = [
+    3 6 1 0
+    4 2 0 1
+    ];
+    beq = [60 32]';
+    x0(1:2)=[0.1;0.1];
+    x0(3:4)=beq-Aeq(:,1:2)*x0(1:2);
+    xopt=karmarkar(Aeq,beq,c,x0)
+]]>
+    </programlisting>
+
+  </refsection>
+
+  <refsection>
+    <title>Configuring a callback</title>
+
+    <para>
+      It may be useful to configure a callback, so that we can customize the
+      printed messages or create a plot.
+      Consider the following linear optimization problem.
+    </para>
+
+    <para>
+      <latex>
+        \begin{eqnarray}
+        \begin{array}{l}
+        \textrm{maximize } x_1 + x_2\\
+        2 p x_1 + x_2 \leq 1+p^2, \quad p=0.0, 0.1, 0.2, ..., 1.0\\
+        x_1,x_2 \geq 0
+        \end{array}
+        \end{eqnarray}
+      </latex>
+    </para>
+
+    <para>
+      In order to be able to solve it, we introduce slack variables.
+      This leads to the following problem.
+    </para>
+
+    <para>
+      <latex>
+        \begin{eqnarray}
+        \begin{array}{l}
+        \textrm{minimize } -x_1 - x_2\\
+        x_2 + x_3 = 1\\
+        0.2 x_1 + x_2 + x_4 = 1 + 0.1^2 \\
+        0.4 x_1 + x_2 + x_5 = 1 + 0.2^2 \\
+        0.6 x_1 + x_2 + x_6 = 1 + 0.3^2 \\
+        0.8 x_1 + x_2 + x_7 = 1 + 0.4^2 \\
+        1.0 x_1 + x_2 + x_8 = 1 + 0.5^2 \\
+        1.2 x_1 + x_2 + x_9 = 1 + 0.6^2 \\
+        1.4 x_1 + x_2 + x_{10} = 1 + 0.7^2 \\
+        1.6 x_1 + x_2 + x_{11} = 1 + 0.8^2 \\
+        1.8 x_1 + x_2 + x_{12} = 1 + 0.9^2 \\
+        2.0 x_1 + x_2 + x_{13} = 1 + 1.0^2 \\
+        x_1 , x_2 , ..., x_{13} \geq 0
+        \end{array}
+        \end{eqnarray}
+      </latex>
+    </para>
+
+    <para>
+      The following output function plots the current point
+      and prints the iteration number, the value of the objective
+      function and the norm of the step.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+  function stop = myoutputfunction ( iter , xopt , xopt , d )
+      plot(xopt(1),xopt(2),"ro")
+      norstep = norm(d)
+      localmsg = gettext("Iteration #%3.0f, fopt=%f, ||d||=%10.3e\n")
+      mprintf(localmsg,iter,fopt,norstep)
+      stop = %f
+  endfunction
+]]>
+    </programlisting>
+
+    <para>
+      The following script defines the optimization problem and
+      runs the optimization.
+    </para>
+
+    <programlisting role="example">
+<![CDATA[ 
+  n=11;
+  Aeq = zeros(n,n+2);
+  Aeq(:,1) = 2*linspace(0,1,n)';
+  Aeq(:,2) = ones(11,1);
+  Aeq(1:n,3:n+2) = eye(n,n);
+  beq = 1 + linspace(0,1,n)'.^2;
+  c=[-1;-1;zeros(n,1)];
+  x0=zeros(n+2,1);
+  x0(1:2) = [0.1;0.2];
+  x0(3:n+2)=beq-Aeq(:,1:2)*x0(1:2);
+  // Plot the constraints
+  for i = 1 : n
+  plot(linspace(0,1,100),beq(i)-Aeq(i,1)*linspace(0,1,100),"b-")
+  end
+  h=gcf();
+  h.children.data_bounds = [
+  0 0
+  1.1 1.1
+  ];
+  // Run the optimization
+  xopt=karmarkar(Aeq,beq,c,x0,[],0.5,[],myoutputfunction);
+  // Plot the starting and ending points
+  plot(x0(1),x0(2),"g+")
+  plot(xopt(1),xopt(2),"k*")
+]]>
+    </programlisting>
+
+
+  </refsection>
+
+
+
+  <refsection>
+    <title>References</title>
+    <para>Narendra Karmarkar (1984). "A New Polynomial Time Algorithm for Linear Programming", Combinatorica, Vol 4, nr. 4, p. 373–395.</para>
+  </refsection>
+
 </refentry>
