@@ -80,7 +80,7 @@ types::Function::ReturnValue sci_warning(types::typed_list &in, int _iRetCount, 
     {
         for(int i = 0; i < psInput->size_get() ; ++i)
         {
-            sciprintW(_W("WARNING: %ls\n"), psInput->string_get(i));
+            sciprintW(_W("WARNING: %s\n"), psInput->string_get(i));
         }
         sciprintW(L"\n");
     }
