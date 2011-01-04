@@ -24,70 +24,79 @@
 /*--------------------------------------------------------------------------*/
 BOOL setenvc(char *stringIn,char *valueIn)
 {
-	BOOL ret = TRUE;
-	int len_env = 0;
 #ifdef _MSC_VER
-	{
-		/*
-		On Windows :
-		each process has two copies of the environment variables,
-		one managed by the OS and one managed by the C library. We set
-		the value in both locations, so that other software that looks in
-		one place or the other is guaranteed to see the value.
-		*/
+    wchar_t* wstringIn = to_wide_string(stringIn);
+    wchar_t* wvalueIn = to_wide_string(valueIn);
 
-		#define ENV_FORMAT L"%ls=%ls"
-		wchar_t* wstringIn = to_wide_string(stringIn);
-		wchar_t* wvalueIn = to_wide_string(valueIn);
+    return setenvcW(wstringIn, wvalueIn);
+#endif  
+}
+/*--------------------------------------------------------------------------*/
+BOOL setenvcW(wchar_t *wstringIn,wchar_t *wvalueIn)
+{
+    BOOL ret = TRUE;
+    int len_env = 0;
+#ifdef _MSC_VER
+    {
+        /*
+        On Windows :
+        each process has two copies of the environment variables,
+        one managed by the OS and one managed by the C library. We set
+        the value in both locations, so that other software that looks in
+        one place or the other is guaranteed to see the value.
+        */
 
-		if (SetEnvironmentVariableW(wstringIn,wvalueIn) == 0)
-		{
-			ret = FALSE;
-		}
+#define ENV_FORMAT L"%ls=%ls"
 
-		len_env = (int) (wcslen(wstringIn) + wcslen(wvalueIn) + wcslen(ENV_FORMAT)) + 1;
-		if (len_env < _MAX_ENV)
-		{
-			wchar_t *env = (wchar_t*) MALLOC(len_env * sizeof(wchar_t));
-			if (env)
-			{
-				os_swprintf(env, len_env, ENV_FORMAT, wstringIn, wvalueIn);
-				if(_wputenv(env))
-				{
-					ret = FALSE;
-				}
+        if (SetEnvironmentVariableW(wstringIn,wvalueIn) == 0)
+        {
+            ret = FALSE;
+        }
 
-				FREE(env);env = NULL;
-			}
-		}
-		else ret = FALSE;
-	}
+        len_env = (int) (wcslen(wstringIn) + wcslen(wvalueIn) + wcslen(ENV_FORMAT)) + 1;
+        if (len_env < _MAX_ENV)
+        {
+            wchar_t *env = (wchar_t*) MALLOC(len_env * sizeof(wchar_t));
+            if (env)
+            {
+                os_swprintf(env, len_env, ENV_FORMAT, wstringIn, wvalueIn);
+                if(_wputenv(env))
+                {
+                    ret = FALSE;
+                }
+
+                FREE(env);env = NULL;
+            }
+        }
+        else ret = FALSE;
+    }
 #else
-	/* linux and Mac OS X */
-	/* setenv() function is strongly preferred to putenv() */
-	/* http://developer.apple.com/documentation/Darwin/Reference/ManPages/man3/setenv.3.html */
-	
-	#ifndef _MAX_ENV 
-		#define _MAX_ENV 32767
-	#endif
+    /* linux and Mac OS X */
+    /* setenv() function is strongly preferred to putenv() */
+    /* http://developer.apple.com/documentation/Darwin/Reference/ManPages/man3/setenv.3.html */
 
-	len_env = (int)(strlen(stringIn) + strlen(valueIn) + 1);
-	if (len_env < _MAX_ENV)
-	{
-		if ( setenv(stringIn, valueIn, 1) ) 
-		{
-			ret = FALSE;
-		}
-	}
-	else ret = FALSE;
+#ifndef _MAX_ENV 
+#define _MAX_ENV 32767
+#endif
+
+    len_env = (int)(strlen(stringIn) + strlen(valueIn) + 1);
+    if (len_env < _MAX_ENV)
+    {
+        if ( setenv(stringIn, valueIn, 1) ) 
+        {
+            ret = FALSE;
+        }
+    }
+    else ret = FALSE;
 
 #endif
 
-	if(ret)
-	{
-		dynamic_setenvtcl(stringIn,valueIn);
-	}
+    // Disable TCLSCI
+    //if(ret)
+    //{
+    //    dynamic_setenvtcl(stringIn,valueIn);
+    //}
 
-	return ret;
+    return ret;
 }
 /*--------------------------------------------------------------------------*/

@@ -47,7 +47,8 @@ BOOL InitializeLocalization(void)
 #ifdef HAVE_LIBINTL_H
 
 	char *SCIpath = getSCI();
-	char *pathLocales = NULL, *previousPathLocales = NULL;
+	char *pathLocales = NULL;
+    char *previousPathLocales = NULL;
 	char *ret = NULL;
 
 	/* set directory containing message catalogs */
@@ -97,7 +98,7 @@ BOOL InitializeLocalization(void)
 	/* We look if registry value LANGUAGE exists */
 	/* If not exists the "" means that we will try to use the language of the system.*/
 	{
-		char *loadLanguage = getLanguagePreferences();
+		wchar_t *loadLanguage = getLanguagePreferences();
 		setlanguage(loadLanguage);
 		if (loadLanguage) {FREE(loadLanguage); loadLanguage = NULL;}
 	}
