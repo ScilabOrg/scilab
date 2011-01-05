@@ -29,8 +29,17 @@ extern "C"
 #include "getScilabJavaVM.h"
 #include "scilabmode.h"
 }
+
+// use the global external scicos structure
+typedef struct
+{
+    int halt;
+} COSHLT_struct;
+extern COSHLT_struct C2F(coshlt);
+
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
+
 /*--------------------------------------------------------------------------*/
 int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
 {
@@ -43,19 +52,25 @@ int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
         try
         {
             Xcos::closeXcosFromScilab(getScilabJavaVM());
-        } catch (GiwsException::JniCallMethodException exception)
+        }
+        catch(GiwsException::JniCallMethodException exception)
         {
             Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());
             return 0;
-        } catch (GiwsException::JniException exception)
+        }
+        catch(GiwsException::JniException exception)
         {
             Scierror(999, "%s: %s\n", fname, exception.what());
             return 0;
         }
     }
 
+    // always send to Scicos the halt signal (passed by global simulation flag)
+    C2F(coshlt).halt = 1;
+
     LhsVar(1) = 0;
     PutLhsVar();
     return 0;
 }
+
 /*--------------------------------------------------------------------------*/

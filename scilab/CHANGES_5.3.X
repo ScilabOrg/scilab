@@ -48,6 +48,8 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
+* bug 8639 fixed - Simulations were not halted on Xcos close.
+
 Localization:
 =============
 
