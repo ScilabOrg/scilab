@@ -50,6 +50,9 @@ Xcos:
 
 * bug 8639 fixed - Simulations were not halted on Xcos close.
 
+* bug 8737 fixed - Compilation failed when a diagram contains any hidden links
+                   (wrong indexes issues).
+
 Localization:
 =============
 
