@@ -38,6 +38,8 @@ in the status bar of Scinotes.
 
 * bug 8697 fixed - An exception was thrown when an empty document was reload.
 
+* bugs 8715, 8716 fixed - Problems with dnd'ed tabs. 
+
 Xcos:
 =====
 
