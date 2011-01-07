@@ -28,6 +28,8 @@ trigger a warning and do not add a link on the function name.
 
 * bug 8690 fixed - Typo fixed in the french min help page.
 
+* bug 8709 fixed - 
+
 Scinotes:
 =========
 
