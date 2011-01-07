@@ -38,6 +38,8 @@ in the status bar of Scinotes.
 
 * bug 8697 fixed - An exception was thrown when an empty document was reload.
 
+* bug 8714 fixed - Problem with Incremental Search bar when Code Navigator is docked.
+
 Xcos:
 =====
 
