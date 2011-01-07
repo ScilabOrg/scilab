@@ -73,6 +73,8 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     protected String refname = "";
     protected String version;
 
+    protected String currentId;
+
     protected String indexFilename = "index" /*UUID.randomUUID().toString()*/ + ".html";
 
     /**
@@ -441,8 +443,11 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      * @throws SAXEception if an error is encountered
      */
     public String handleRefentry(Map<String, String> attributes, String contents) throws SAXException {
-        String fileName = attributes.get("id") + ".html";
-        createHTMLFile(attributes.get("id"), fileName, refpurpose, contents);
+        if (currentId == null) {
+            currentId = attributes.get("id");
+        }
+        String fileName = currentId + ".html";
+        createHTMLFile(currentId, fileName, refpurpose, contents);
         if (!hasExamples) {
             warnings++;
             //System.err.println("Warning (should be fixed): no example in " + currentFileName);
@@ -450,9 +455,10 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             hasExamples = false;
         }
         String rp = encloseContents("span", "refentry-description", refpurpose);
-        String str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "refentry"}, attributes.get("id")) + " &#8212; " + rp);
+        String str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "refentry"}, currentId) + " &#8212; " + rp);
         refpurpose = "";
         refname = "";
+        currentId = null;
 
         return str;
     }
@@ -489,8 +495,8 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         createHTMLFile("index", indexFilename, bookTitle, title + "\n" + str);
 
         if (warnings != 0) {
-            System.out.println("Total files without example: " + warnings);
-            System.out.println("Total generated html files: " + nbFiles);
+            System.err.println("Total files without example: " + warnings);
+            System.err.println("Total generated html files: " + nbFiles);
         }
 
         return encloseContents("li", encloseContents("a", new String[]{"href", indexFilename, "class", "part"}, bookTitle) + "\n" + str);
@@ -595,10 +601,10 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     public String handleRefnamediv(Map<String, String> attributes, String contents) throws SAXException {
         String id = attributes.get("id");
         if (id != null) {
-            return "<a name=\"" + id + "\"></a>" + encloseContents("div", "refnamediv", contents);
-        } else {
-            return encloseContents("div", "refnamediv", contents);
+            currentId = id;
         }
+
+        return encloseContents("div", "refnamediv", contents);
     }
 
     /**
