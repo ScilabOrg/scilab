@@ -174,15 +174,16 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 *                      (true if the UIElement is enabled, false if not)
 	 */
 	public void setEnabled(boolean newEnableState) {
+		if (mouseListener != null) {
+			getList().removeMouseListener(mouseListener);
+		}
+		
 		super.setEnabled(newEnableState);
 		getList().setEnabled(newEnableState);
+		
 		if (newEnableState) {
 			if (mouseListener != null) {
 				getList().addMouseListener(mouseListener);
-			}
-		} else {
-			if (mouseListener != null) {
-				getList().removeMouseListener(mouseListener);
 			}
 		}
 	}

@@ -74,6 +74,9 @@ GUI:
 * bug 8203 fixed - It was not possible to close the fontchooser or the
                    colorchooser with the escape key.
 
+* bug 8759 fixed - The callback of "listbox" style uicontrols was executed many
+                   times instead of once when an item was selected.
+
 Quality assurance:
 ==================
 
