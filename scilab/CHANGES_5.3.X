@@ -50,6 +50,8 @@ Xcos:
 
 * bug 8440 fixed - The SVG background was not exported to SVG.
 
+* bug 8644 fixed - Add an simple example to define their own block.
+
 Localization:
 =============
 
