@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - DIGITEO - Clément DAVID
+ * Copyright (C) 2010-2011 - DIGITEO - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -32,7 +31,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.ScilabComponent;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
@@ -42,7 +40,11 @@ import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxEvent;
+import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxUtils;
 
 /**
@@ -74,6 +76,8 @@ public class EditFormatAction extends DefaultAction {
 	 * The default color used on non initialized filled color.
 	 */
 	private static final Color DEFAULT_FILLCOLOR = Color.WHITE;
+
+	private static final String HASH_IDENTIFIER = "#identifier";
 	
 	/**
 	 * Default constructor
@@ -181,7 +185,13 @@ public class EditFormatAction extends DefaultAction {
 			image = working;
 		}
 		
-		Object current = selectedCell.getValue();
+		/*
+		 * Getting the identifier cell
+		 */
+		final mxGraphModel model = (mxGraphModel) graph.getModel();
+		final String cellId = selectedCell.getId() + HASH_IDENTIFIER;
+		
+		Object current = model.getValue(model.getCell(cellId));
 		if (current == null) {
 			text = "";
 		} else {
@@ -209,7 +219,9 @@ public class EditFormatAction extends DefaultAction {
 	 */
 	private static void updateFromDialog(EditFormatDialog dialog, Color borderColor, Color backgroundColor, 
 				String fontName, int fontSize, Color textColor, String text, String image) {
-		mxCell cell = dialog.getCell();
+		final mxCell cell = dialog.getCell();
+		final XcosDiagram graph = dialog.getGraph();
+		final mxGraphModel model = (mxGraphModel) graph.getModel();
 		
 		StyleMap style = new StyleMap(cell.getStyle());
 		
@@ -251,9 +263,30 @@ public class EditFormatAction extends DefaultAction {
 			style.remove(mxConstants.STYLE_IMAGE);
 		}
 			
+		model.setStyle(cell, style.toString());
 		
-		cell.setStyle(style.toString());
-		cell.setValue(text);
+		/*
+		 * update the identifier child cell. 
+		 */
+		mxCell identifier;
+		final String cellId = cell.getId() + HASH_IDENTIFIER;
+		{
+			identifier = (mxCell) model.getCell(cellId);
+			if (identifier == null) {
+				// create a new identifier cell
+				identifier = new mxCell(null, new mxGeometry(0.5, 1.1, 0.0, 0.0), "noLabel=0;opacity=0;");
+				identifier.getGeometry().setRelative(true);
+				identifier.setVertex(true);
+				identifier.setConnectable(false);
+				identifier.setId(cellId);
+				
+				// add the identifier
+				model.add(cell, identifier, cell.getChildCount());
+			}
+		}
+		graph.cellLabelChanged(identifier, text, false);
+		graph.fireEvent(new mxEventObject(mxEvent.LABEL_CHANGED,
+				"cell", identifier, "value", text, "parent", cell));
 	}
 	
 	/**
@@ -589,6 +622,7 @@ public class EditFormatAction extends DefaultAction {
 				 */
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					graph.getModel().beginUpdate();
 					EditFormatAction.updateFromDialog(getDialog(),
 							borderColorChooser.getColor(),
 							backgroundColorChooser.getColor(),
@@ -597,6 +631,7 @@ public class EditFormatAction extends DefaultAction {
 							textColorChooser.getColor(),
 							textArea.getText(),
 							imagePath.getText());
+					graph.getModel().endUpdate();
 					getDialog().dispose();
 				}
 			});
