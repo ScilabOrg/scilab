@@ -10,6 +10,9 @@
 *
 */
 
+#include <iostream>
+#include <omp.h>
+
 #include "context.hxx"
 #include "function.hxx"
 #include "macro.hxx"
@@ -17,7 +20,7 @@
 
 namespace symbol
 {
-    Context* Context::me;
+    std::vector<Context*> Context::we;
 
     Context::Context()
     {
@@ -31,11 +34,55 @@ namespace symbol
 
     Context* Context::getInstance(void)
     {
-        if (me == 0)
+        int const n(omp_get_thread_num());
+#pragma omp critical (context)
         {
-            me = new Context();
+//            if(n) std::cerr<<"in a worker thread of id: "<<n<<std::endl;
+            if (we.size() <= n)
+            {
+                we.resize(n+1, 0);
+            }
+            if (!we[n])
+            {
+                if(n) std::cerr<<"we should not be here, call initThreadedContext before calling macros in threads\n";
+                we[n] = n ? new Context(*(we[0])) : new Context();
+            }
         }
-        return me;
+            return we[n];
+    }
+
+    /* init a new context for a slave thread, copying from parent of master thread (0)
+     */
+    void Context::initThreadedContext()
+    {
+        int const n( omp_get_thread_num());
+        if(n) // only for slaves
+        {
+#pragma omp critical// (initThreadContext)
+            {
+                int ancestor(omp_get_ancestor_thread_num(omp_get_level()));
+//            std::cerr<<"init thread context for thread "<<n<<" with parent "<<omp_get_ancestor_thread_num(omp_get_level())<<std::endl;
+            if (ancestor == n)
+            {
+                ancestor= 0;
+            }
+            if(!we[0])
+            {
+                we[0] = new Context();
+            }
+            if( we.size() <= n)
+            {
+                we.resize(n+1, 0);
+            }
+            delete we[n];
+#if 0
+            std::cerr<<"cloning:";
+            we[ancestor]->print();
+            std::cerr<<std::endl;
+#endif
+            we[n]= new Context(*we[ancestor]);
+            }
+        }
     }
 
     void Context::scope_begin()

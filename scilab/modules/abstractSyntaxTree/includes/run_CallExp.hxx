@@ -76,8 +76,9 @@ void visitprivate(const CallExp &e)
         try
         {
             T execCall;
-            Function::ReturnValue Ret = pCall->call(in, iRetCount, out, &execCall);
+            Function::ReturnValue Ret;
 
+            Ret = pCall->call(in, iRetCount, out, &execCall);
             if(Ret == Callable::OK)
             {
                 if(expected_size_get() == 1 && out.size() == 0) //to manage ans
@@ -89,7 +90,7 @@ void visitprivate(const CallExp &e)
                         throw ScilabError(os.str(), 999, e.location_get());
                     }
                 }
-
+// out can become invalid in multi-threaded exec :(
                 if(out.size() == 1)
                 {//protect output values
                     out[0]->IncreaseRef();
