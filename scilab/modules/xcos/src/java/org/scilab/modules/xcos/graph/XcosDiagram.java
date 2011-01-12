@@ -457,6 +457,12 @@ public class XcosDiagram extends ScilabGraph {
 
 	/* Labels use HTML if not equal to interface function name */
 	setHtmlLabels(true);
+	/**
+	 * by default every label is movable, see
+	 * XcosDiagram##isLabelMovable(java.lang.Object) for restrictions
+	 */
+	setVertexLabelsMovable(true);
+	setEdgeLabelsMovable(true);
 	
 	//
 	//setCloneInvalidEdges(false);
@@ -1083,7 +1089,7 @@ public class XcosDiagram extends ScilabGraph {
 	
 	/**
 	 * Manage Group to be CellFoldable i.e with a (-) to reduce and a (+) to
-	 * expand them. Only non-Block / non-Port Cell are foldable.
+	 * expand them. Only basic mxCell are foldable.
 	 * 
 	 * @param cell
 	 *            the selected cell
@@ -1098,6 +1104,21 @@ public class XcosDiagram extends ScilabGraph {
 		return !(cell instanceof BasicBlock) && super.isCellFoldable(cell, collapse);
     }
 
+	/**
+	 * Not BasicBLock cell have a moveable label.
+	 * @param cell the cell
+	 * @return true if the corresponding label is moveable 
+	 * @see com.mxgraph.view.mxGraph#isLabelMovable(java.lang.Object)
+	 */
+	@Override
+	public boolean isLabelMovable(Object cell) {
+		if (cell instanceof BasicBlock) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/**
 	 * Return true if selectable
 	 * @param cell the cell
@@ -1137,7 +1158,7 @@ public class XcosDiagram extends ScilabGraph {
 
 	return movable && super.isCellMovable(cell);
     }
-
+	
 	/**
 	 * Return true if resizable
 	 * @param cell the cell
@@ -1223,7 +1244,7 @@ public class XcosDiagram extends ScilabGraph {
 		if (cell instanceof TextBlock) {
 			status &= false;
 		}
-		
+			
     	return status;
     }
 
