@@ -592,9 +592,11 @@ public final class SuperBlock extends BasicBlock {
 	public Object clone() throws CloneNotSupportedException {
 		SuperBlock clone = (SuperBlock) super.clone();
 		
-		// Clear then generate the child.
-		clone.child = null;
-		clone.generateId();
+		// clone the diagram
+		if (child != null) {
+			clone.child = (SuperBlockDiagram) child.clone();
+			clone.child.setContainer(clone);
+		}
 		
 		return clone;
 		
