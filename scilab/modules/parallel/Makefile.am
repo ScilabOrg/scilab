@@ -7,39 +7,34 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-PARALLEL_CPP_SOURCES =
+PARALLEL_CPP_SOURCES = \
+src/cpp/SharedData.cpp \
+src/cpp/ProcessesScheduler.cpp \
+src/cpp/ThreadsScheduler.cpp \
+src/cpp/ParallelRunner.cpp
 
-GATEWAY_CPP_SOURCES =
-#sci_gateway/cpp/sci_parallel_run.cpp
+GATEWAY_CPP_SOURCES = sci_gateway/cpp/parallel_gw.cpp \
+					sci_gateway/cpp/sci_parallel_run.cpp
 
 
 PARALLEL_C_SOURCES =
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_parallel.c
-#					sci_gateway/c/sci_parallel_concurrency.c
+GATEWAY_C_SOURCES =
 
 
-libsciparallel_la_CFLAGS= $(OPENMP_CFLAGS) \
--I$(top_srcdir)/libs/MALLOC/includes/ \
--I$(srcdir)/includes/ \
--I$(top_srcdir)/modules/core/includes \
--I$(srcdir)/src/cpp/ \
--I$(top_srcdir)/modules/api_scilab/includes \
--I$(top_srcdir)/modules/string/includes \
--I$(top_srcdir)/modules/operations/includes \
--I$(top_srcdir)/modules/operations/includes
+libsciparallel_la_CFLAGS= $(OPENMP_CFLAGS) -O0
+
 
 libsciparallel_la_CPPFLAGS= $(OPENMP_CXXFLAGS) \
--I$(top_srcdir)/libs/MALLOC/includes/ \
--I$(srcdir)/includes/ \
--I$(top_srcdir)/modules/core/includes \
--I$(srcdir)/src/cpp/ \
--I$(top_srcdir)/modules/api_scilab/includes \
--I$(top_srcdir)/modules/output_stream/includes \
--I$(top_srcdir)/modules/parameters/includes \
--I$(top_srcdir)/modules/dynamic_link/includes \
--I$(top_srcdir)/modules/operations/includes \
--I$(top_srcdir)/modules/system_env/includes
+					-Iincludes/ \
+					-I$(top_srcdir)/modules/types/includes \
+					-I$(top_srcdir)/modules/symbol/includes \
+					-I$(top_srcdir)/modules/functions_manager/includes \
+					-I$(top_srcdir)/modules/output_stream/includes \
+					-I$(top_srcdir)/modules/operations/includes \
+					-I$(top_srcdir)/modules/system_env/includes \
+					-I$(top_srcdir)/modules/string/includes \
+					-I$(top_srcdir)/modules/abstractSyntaxTree/includes
 
 
 pkglib_LTLIBRARIES = libsciparallel.la
