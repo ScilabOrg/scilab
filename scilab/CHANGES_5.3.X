@@ -54,6 +54,8 @@ Xcos:
 
 * bug 8440 fixed - The SVG background was not exported to SVG.
 
+* bug 8731 fixed - Copied SuperBlocks lost some graphical settings.
+
 Localization:
 =============
 
