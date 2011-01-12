@@ -227,7 +227,32 @@ public abstract class ContextUpdate extends BasicBlock {
 
 			return ret;
 		}
+		
+		public static List<mxICell> getPorts(SuperBlock parent, Class<? extends ContextUpdate> klass) {
+			List<mxICell> ret = new ArrayList<mxICell>();
+			
+			/* Get the corresponding klass */
+			Class< ? extends BasicPort> portKlass = null; 
+			for (IOBlocks b : IOBlocks.values()) {
+				if (b.getReferencedClass().equals(klass)) {
+					portKlass = b.getReferencedPortClass();
+					break;
+				}
+			}
+			
+			/* Loop all over the children */
+			final int childCount = parent.getChildCount();
 
+			for (int i = 0; i < childCount; i++) {
+				final mxICell child = parent.getChildAt(i);
+				if (portKlass.isInstance(child)) {
+					ret.add(child);
+				}
+			}
+			
+			return ret;
+		}
+		
 		/**
 		 * Get all the I/O blocks of the SuperBlock parent.
 		 * 
@@ -309,7 +334,7 @@ public abstract class ContextUpdate extends BasicBlock {
 		setODState(new ScilabList());
 		setValue(1);
 	}
-
+	
 	/**
 	 * @param context
 	 *            new context
