@@ -141,6 +141,8 @@ Module skeleton:
 * New example added (function with copy instead of reference)
 
 
+* bug 8731 fixed - Copied SuperBlocks lost some graphical settings.
+
 Localization:
 =============
 
