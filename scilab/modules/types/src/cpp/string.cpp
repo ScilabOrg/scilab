@@ -153,7 +153,7 @@ namespace types
 
 		if(m_pstData[_iPos] != NULL)
 		{
-			delete[] m_pstData[_iPos];
+			delete[] m_pstData[_iPos]; // /!\ data from os_wcsdup was allocated with malloc
 		}
 
 		m_pstData[_iPos] = new wchar_t[wcslen(_pstData) + 1];
