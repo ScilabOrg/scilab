@@ -166,13 +166,14 @@ namespace types
         //common part with or without varargin
 
         // Declare nargin & nargout in function context.
-        pContext->put(wstring(L"nargin"), *new Double(static_cast<double>(in.size())));
-        pContext->put(wstring(L"nargout"), *new Double(static_cast<double>(_iRetCount)));
+        pContext->put(wstring(L"nargin"), *(new Double(static_cast<double>(in.size()))));
+        pContext->put(wstring(L"nargout"), *(new Double(static_cast<double>(_iRetCount))));
 
         try
         {
 
             m_body->mute();
+//            m_body->set_verbose(true);
             MuteVisitor mute;
             m_body->accept(mute);
 
@@ -203,7 +204,7 @@ namespace types
         }
         catch(ast::ScilabError se)
         {
-            //close the current scope
+            //close the current scope : should be in the destructor of a scoped lock (RAII)
             pContext->scope_end();
             for (int j = 0; j < out.size(); ++j)
             {
@@ -214,7 +215,6 @@ namespace types
 
         //close the current scope
         pContext->scope_end();
-
         for (int j = 0; j < out.size(); ++j)
         {
             out[j]->DecreaseRef();
