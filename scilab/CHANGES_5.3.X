@@ -106,6 +106,8 @@ Scilab:
 Bug fixes:
 ==========
 
+* bug 6884 fixed - Some issues in the buttmag help page were present.
+
 * bug 7691 fixed - Giving complex arguments to inverse degree trigonometric
                    functions produced inconsistent results.
 
