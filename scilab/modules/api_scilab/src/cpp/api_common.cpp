@@ -190,7 +190,7 @@ SciErr getVarAddressFromName(void* _pvCtx, const char* _pstName, int** _piAddres
 SciErr getVarType(void* _pvCtx, int* _piAddress, int* _piType)
 {
 	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-    
+
 	if(_piAddress == NULL)
 	{
 		addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getVarType");
@@ -243,6 +243,10 @@ SciErr getVarType(void* _pvCtx, int* _piAddress, int* _piType)
 		break;
 	case GenericType::RealMList :
 		*_piType = sci_mlist;
+		break;
+    case GenericType::RealStruct :
+        // Scilab < 6 compatibility... Struct have type 17;
+        *_piType = sci_mlist;
 		break;
 	case GenericType::RealUserType :
 		*_piType = sci_pointer;
