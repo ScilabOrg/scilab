@@ -120,6 +120,9 @@ Scilab:
 Bug fixes:
 ==========
 
+* bug 4840 fixed - The more there was text in the console, the slower was the 
+                   display.
+
 * bug 7691 fixed - Giving complex arguments to inverse degree trigonometric
                    functions produced inconsistent results.
 
