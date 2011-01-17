@@ -163,6 +163,8 @@ Bug fixes:
 
 * bug 8732 fixed - strchr and strrchr did not work with a non-ASCII character needle.
 
+* bug 8749 fixed - Add Evaluate Selection With Echo/No Echo in popupmenu in
+                   console.
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
