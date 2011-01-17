@@ -151,6 +151,8 @@ Bug fixes:
 * bug 5551 fixed - With the function dir(), add a trailing filesep() for each
                    directory.
 
+* bug 6251 fixed - The console could not be scrolled with Page Up/Down.
+
 * bug 7377 fixed - Thrownan failed on empty matrix.
 
 * bug 7691 fixed - Giving complex arguments to inverse degree trigonometric
