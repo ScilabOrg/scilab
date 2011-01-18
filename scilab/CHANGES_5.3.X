@@ -30,6 +30,11 @@ Removed functions (previously declared as obsolete):
 * 'oldbesseli', 'oldbesselj', 'oldbesselk' and 'oldbessely' removed.
   Please use 'besseli', 'besselj', 'besselk' and 'bessely' instead.
 
+Obsolete Functions:
+===================
+
+* 'loadScicosLibs' is obsolete and will be removed on 5.4.0, please use
+  'loadXcosLibs' instead.
 
 Demonstration:
 ==============
