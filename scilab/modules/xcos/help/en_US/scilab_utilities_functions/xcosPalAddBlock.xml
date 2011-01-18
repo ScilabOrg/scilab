@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<refentry version="5.0-subset Scilab" xml:id="xcosPalAddBlock"
-xml:lang="en" xmlns="http://docbook.org/ns/docbook"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:svg="http://www.w3.org/2000/svg"
-xmlns:ns3="http://www.w3.org/1999/xhtml"
-xmlns:mml="http://www.w3.org/1998/Math/MathML"
-xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="xcosPalAddBlock" xml:lang="en">
   <refnamediv>
     <refname>xcosPalAddBlock</refname>
     <refpurpose>Add a block to a Scilab/Xcos palette instance. Some
@@ -877,28 +871,22 @@ pal = xcosPalAddBlock(pal, block, pal_block_img, style);]]></synopsis>
       <itemizedlist xml:id="jgraphx-style-align-list">
         <title>JGraphx alignment values</title>
         <listitem>
-          <para>
-          <literal>"left"</literal>- horizontal alignment</para>
+          <para><literal>"left"</literal>- horizontal alignment</para>
         </listitem>
         <listitem>
-          <para>
-          <literal>"center"</literal>- horizontal alignment</para>
+          <para><literal>"center"</literal>- horizontal alignment</para>
         </listitem>
         <listitem>
-          <para>
-          <literal>"right"</literal>- horizontal alignment</para>
+          <para><literal>"right"</literal>- horizontal alignment</para>
         </listitem>
         <listitem>
-          <para>
-          <literal>"top"</literal>- vertical alignment</para>
+          <para><literal>"top"</literal>- vertical alignment</para>
         </listitem>
         <listitem>
-          <para>
-          <literal>"middle"</literal>- vertical alignment</para>
+          <para><literal>"middle"</literal>- vertical alignment</para>
         </listitem>
         <listitem>
-          <para>
-          <literal>"bottom"</literal>- vertical alignment</para>
+          <para><literal>"bottom"</literal>- vertical alignment</para>
         </listitem>
       </itemizedlist>
       <itemizedlist xml:id="jgraphx-style-arrow-list">
@@ -1111,12 +1099,12 @@ pal = xcosPalAddBlock(pal, block, pal_block_img, style);]]></synopsis>
         </listitem>
       </itemizedlist>
     </para>
-    <para></para>
+    <para/>
   </refsection>
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[
-loadScicosLibs();
+loadXcosLibs();
 pal = xcosPal();
 
 sumPath = TMPDIR + "/sum.h5";
