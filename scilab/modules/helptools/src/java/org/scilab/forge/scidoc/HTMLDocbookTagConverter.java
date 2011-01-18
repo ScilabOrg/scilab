@@ -282,7 +282,6 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             return "";
         }
 
-        String str = tocitem.get(id);
         leaf = leaf.parent;
         if (leaf != null) {
             buffer.append("<a href=\"");
