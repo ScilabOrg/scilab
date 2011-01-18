@@ -19,14 +19,18 @@
 // See the file ./license.txt
 //
 //
-function xcos_workspace_init()
-  // any old scicos macros, will be removed on 5.4.0
-  warnobsolete(scilabRemovedVersion="5.4.0")
-
+function scicos_workspace_init()
 //preserve all variables of type struct having a "time" and a "value"
 //field in temporary binary files 
   path=TMPDIR+"/Workspace/"
   mkdir(path);
+  
+  
+  //prepare the fromworkspace stuff We need to store all variables of
+  //type struct which have 2 fields "values" and "time". these variables
+  //are stored into Scilab binary files whose name are the variable names
+  //and which contain 2 variables "x" and "t"
+  //
   prt=funcprot(),funcprot(0)
   varnames = who("get")   ;
   varnames = varnames(1:$-predef()+1);  //** exclude protected variables
@@ -34,10 +38,13 @@ function xcos_workspace_init()
   for var=varnames'
     v=evstr(var);
     if typeof(v)=='st' then
-      if execstr('x=v.values','errcatch')==0 then
-	if execstr('t=v.time','errcatch') ==0 then
-	    execstr('save(path'+var+''",x,t)')
-	end
+      fn=fieldnames(v)
+      if or(fn==["values";"time"])&or(fn==["time";"value"]) then
+        if execstr('x=v.values','errcatch')==0 then
+          if execstr('t=v.time','errcatch') ==0 then
+            execstr('save(""'+path+var+''",x,t)')
+          end
+        end
       end
     end
   end
