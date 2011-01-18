@@ -59,6 +59,9 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
+* bug 8798 fixed - The context parameter of scicos_simulate was not taken into 
+                   account.
+
 Localization:
 =============
 
