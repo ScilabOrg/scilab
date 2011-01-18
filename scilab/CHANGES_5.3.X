@@ -211,6 +211,9 @@ Xcos:
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
 
+* bug 8798 fixed - The context parameter of scicos_simulate was not taken into 
+                   account.
+
 * bug 8818 fixed - Generic modelica blocks did not transform Scilab exponential
                    notation to Modelica one.
 
@@ -219,12 +222,10 @@ Xcos:
 * bug 8884 fixed - Using region to super block with ports on the same position
                    was resulting to a non-reconnected link.
 
-
 Module skeleton:
 ================
 
 * New example added (function with copy instead of reference)
-
 
 Localization:
 =============
