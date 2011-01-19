@@ -303,6 +303,8 @@ Bug Fixes:
 
 * bug 8611 fixed - Path of few images in documentation was bad.
 
+* bug 8748 fixed - Java exceptions were not printed on classic stderr.
+
 
             Changes between version 5.3.0-beta-4 and 5.3.0-beta-5 of Scilab
             ===============================================================

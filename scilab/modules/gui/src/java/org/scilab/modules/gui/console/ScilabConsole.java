@@ -16,6 +16,7 @@ package org.scilab.modules.gui.console;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.io.PrintStream;
 
 import org.scilab.modules.gui.bridge.ScilabBridge;
 import org.scilab.modules.gui.dockable.ScilabDockable;
@@ -49,7 +50,9 @@ public class ScilabConsole extends ScilabDockable implements Console {
         if (instance == null) {
             instance = new ScilabConsole();
             if (ScilabPrintStream.isAvailable()) {
+                PrintStream err = System.err;
                 System.setErr(ScilabPrintStream.getInstance());
+                ScilabPrintStream.setRedirect(err);
             }
         }
         return instance;
