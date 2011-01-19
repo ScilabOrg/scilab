@@ -188,6 +188,8 @@ Bug fixes:
 
 * bug 8732 fixed - strchr and strrchr did not work with a non-ASCII character needle.
 
+* bug 8748 fixed - Java exceptions were not printed on classic stderr.
+
 * bug 8789 fixed - read function crashed on Windows XP 64 bit platform.
 
 
