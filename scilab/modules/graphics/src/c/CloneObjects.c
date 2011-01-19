@@ -4,7 +4,7 @@
  * Copyright (C) 2002-2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2005 - INRIA - Jean-Baptiste Silvy
- * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
+ * Copyright (C) 2010-2011 - DIGITEO - Manuel Juliachs
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -425,20 +425,28 @@ int cloneUserData( sciPointObj * pObjSource, sciPointObj * pObjDest )
   return 0 ;
 }
 /*--------------------------------------------------------------------------*/
-int cloneFontContext( sciPointObj * pObjSource, sciPointObj * pObjDest )
+int cloneFontContext(char* sourceIdentifier, char* destIdentifier)
 {
+    double* doubleTmp;
+    double fontSize;
+    int* tmp;
+    int fontColor;
+    int fontStyle;
+    int fontFractional;
 
-  /* struct affectation, doesn't copy the font name */
-  /* *(sciGetFontContext(pObjDest)) = *(sciGetFontContext(pObjSource)) ; */
+    tmp = (int*) getGraphicObjectProperty(sourceIdentifier, __GO_FONT_COLOR__, jni_int);
+    fontColor = *tmp;
+    tmp = (int*) getGraphicObjectProperty(sourceIdentifier, __GO_FONT_STYLE__, jni_int);
+    fontStyle = *tmp;
+    doubleTmp = (double*) getGraphicObjectProperty(sourceIdentifier, __GO_FONT_SIZE__, jni_double);
+    fontSize = *doubleTmp;
+    tmp = (int*) getGraphicObjectProperty(sourceIdentifier, __GO_FONT_FRACTIONAL__, jni_bool);
+    fontFractional = *tmp;
 
-  sciFont * sourceFC = sciGetFontContext( pObjSource ) ;
-  sciFont * destFC   = sciGetFontContext( pObjDest   ) ;
+    setGraphicObjectProperty(destIdentifier, __GO_FONT_COLOR__, &fontColor, jni_int, 1);
+    setGraphicObjectProperty(destIdentifier, __GO_FONT_STYLE__, &fontStyle, jni_int, 1);
+    setGraphicObjectProperty(destIdentifier, __GO_FONT_SIZE__, &fontSize, jni_double, 1);
+    setGraphicObjectProperty(destIdentifier, __GO_FONT_FRACTIONAL__, &fontFractional, jni_bool, 1);
 
-  destFC->backgroundcolor      = sourceFC->backgroundcolor     ;
-  destFC->foregroundcolor      = sourceFC->foregroundcolor     ;
-  destFC->fonttype             = sourceFC->fonttype            ;
-  destFC->fontSize             = sourceFC->fontSize            ;
-  destFC->textorientation      = sourceFC->textorientation     ;
-  destFC->useFractionalMetrics = sourceFC->useFractionalMetrics;
-  return 0 ;
+    return 0;
 }
