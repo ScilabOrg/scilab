@@ -143,8 +143,12 @@ Graphics:
 GUI:
 ====
 
+* user_data for a uimenu was not displayed.
+
 * bug 8203 fixed - It was not possible to close the fontchooser or the
                    colorchooser with the escape key.
+                   
+* bug 8826, 8827 fixed -  userdata property for a menu crashed Scilab                   
 
 Quality assurance:
 ==================
