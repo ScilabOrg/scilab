@@ -56,7 +56,15 @@ namespace types
 
     String::String(int _iRows, int _iCols, wchar_t** _pstData)
     {
+        m_iRows		= _iRows;
+		m_iCols		= _iCols;
+		m_iSize		= m_iRows * m_iCols;
 
+		m_pstData	= new wchar_t*[m_iSize];
+		for(int iIndex = 0 ; iIndex < m_iSize ; iIndex++)
+		{
+			m_pstData[iIndex] = os_wcsdup(_pstData[iIndex]);
+		}
     }
 
 	String *String::clone()
