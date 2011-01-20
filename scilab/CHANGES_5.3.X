@@ -11,7 +11,7 @@ Console:
   console. See bug #8749.
 
 * Performance improvements on the display of long computation with a lot of
-  output (the more text in the console, the slower was the display). 
+  output (the more text in the console, the slower was the display).
   See bug #4840.
 
 
@@ -151,8 +151,15 @@ Graphics:
 GUI:
 ====
 
+* user_data for a uimenu was not displayed.
+
 * bug 8203 fixed - It was not possible to close the fontchooser or the
                    colorchooser with the escape key.
+
+* bug 8826, 8827 fixed - userdata property for a menu crashed Scilab.
+
+* bug 8838 fixed - uimenu without input argument crashed Scilab.
+
 
 Quality assurance:
 ==================
@@ -574,7 +581,7 @@ Bug Fixes:
 
 * bug 6942 fixed - Explicit dependency on the libX11 on scilab-cli was existing.
 
-* bug 7242 fixed - API Scilab returned bad address for named variables 
+* bug 7242 fixed - API Scilab returned bad address for named variables
                    when name was provided by input arguments.
 
 * bug 7364 fixed - The "Checked" property misworked for uimenus and they could
