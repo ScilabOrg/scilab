@@ -267,6 +267,7 @@ namespace types
 		{
 			iMaxRank = Max(iMaxRank, piRank[i]);
 		}
+		delete[] piRank;
 		return iMaxRank;
 	}
 
