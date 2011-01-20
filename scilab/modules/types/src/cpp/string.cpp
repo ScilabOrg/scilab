@@ -404,7 +404,7 @@ namespace types
         int piIndexes[2] = {_iRows, _iCols};
         return set(getIndex(piIndexes), copyValue(_pwstData));
     }
-        
+
     bool String::set(int _iRows, int _iCols, wchar_t* _pwstData)
     {
         int piIndexes[2] = {_iRows, _iCols};
