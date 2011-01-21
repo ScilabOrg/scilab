@@ -28,7 +28,6 @@ namespace types
                                         List(List *_oListCopyMe);
     protected :
         std::vector<InternalType *>*    getData();
-
     public :
         int                             size_get();
 
@@ -51,6 +50,8 @@ namespace types
         std::wstring                    toString(int _iPrecision, int _iLineLen);
 
         List*                           getAsList(void) { return this; }
+
+        virtual InternalType*           get(const int _iIndex);
 
         InternalType*                   insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, std::vector<types::InternalType*>* _poSource, bool _bAsVector);
         std::vector<InternalType*>      extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
