@@ -117,6 +117,9 @@ Xcos:
 * bug 8658 fixed - Use accentuated characters on file name lead to a modelica
                    compiler error.
 
+* bug 8818 fixed - Generic modelica blocks did not transform Scilab exponential
+                   notation to Modelica one.
+
 Module skeleton:
 ================
 
