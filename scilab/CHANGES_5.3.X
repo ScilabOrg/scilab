@@ -112,6 +112,9 @@ Xcos:
 * bug 8658 fixed - Use accentuated characters on file name lead to a modelica
                    compiler error.
 
+* bug 8822 fixed - Remove an implicit link connected to a spli block could lead
+                   to an unconnectable port.
+
 Module skeleton:
 ================
 
