@@ -22,7 +22,7 @@ namespace types
     {
     public :
                                         List();
-                                        ~List();
+        virtual                         ~List();
 
     private :
                                         List(List *_oListCopyMe);
