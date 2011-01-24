@@ -336,9 +336,11 @@ Bug fixes:
 * bug 8837 fixed - fscanfMat did not read a malformated text with many blanks
                    at the end of file.
 
+* bug 8859 fixed - Some missing comparison operators between hypermatrices and 
+                   scalars added.
+
 * bug 8897 fixed - Typo fixed.
-
-
+ 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
