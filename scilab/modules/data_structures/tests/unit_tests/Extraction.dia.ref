@@ -1,0 +1,7 @@
+// Extraction tests
+function linenumber()
+  [linenum,mac]=where()
+  mprintf("Problem detected at line #%d\n",linenum(2))
+endfunction
+mode(-1);
+ 

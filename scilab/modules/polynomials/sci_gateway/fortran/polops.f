@@ -1481,6 +1481,11 @@ c     get arg1
          call error(220)
          return
       endif
+      if (istk(il1).eq.17) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
 
@@ -1617,6 +1622,11 @@ c     get arg2
          call error(220)
          return
       endif
+      if (istk(il2).eq.17) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m2=istk(il2+1)
 c     get arg1
       top=top-1
@@ -1624,6 +1634,11 @@ c     get arg1
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       if(istk(il1).eq.0) then
          call error(220)
+         return
+      endif
+      if (istk(il1).eq.17) then
+         top=top+2
+         fin=-fin
          return
       endif
       m1=istk(il1+1)

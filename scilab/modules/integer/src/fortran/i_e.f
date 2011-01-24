@@ -34,6 +34,11 @@ c
 c     
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
+      if (istk(il1).eq.17) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
       it1=istk(il1+3)
@@ -146,6 +151,11 @@ c
 c     
       il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
+      if (istk(il2).eq.17) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m2=istk(il2+1)
       n2=istk(il2+2)
       it2=istk(il2+3)
@@ -155,6 +165,11 @@ c
 c     
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
+      if (istk(il1).eq.17) then
+         top=top+2
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
       it1=istk(il1+3)
