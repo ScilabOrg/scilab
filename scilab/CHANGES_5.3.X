@@ -973,7 +973,14 @@ Bug Fixes:
 
 * Bug 8906 fixed - Bad links to javasci javadoc on the website.
 
+<<<<<<< HEAD
 * Bug 8912 fixed - fullpath did not return same result under Windows and Linux.
+=======
+* bug 8859 fixed - Some missing comparison operators between hypermatrices and 
+                   scalars added.
+
+* bug 8897 fixed - Typo fixed.
+>>>>>>> e9c6b18... Missing comparison operators between hypermatrices and scalar added
 
 * Bug 8919 fixed - Typo fixed.
 
@@ -981,10 +988,16 @@ Bug Fixes:
 
 * Bug 9034 fixed - atomsVersionCompare failed on version with '-0'.
 
+<<<<<<< HEAD
 * Bug 9096 fixed - Sometimes an exception was thrown at the Scilab's startup.
 
 
             Changes between versions 5.3.0-beta-5 and 5.3.0 of Scilab
+=======
+* bug 9047 fixed - The macro edit couldn't open a file at a given line number.
+ 
+            Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
+>>>>>>> e9c6b18... Missing comparison operators between hypermatrices and scalar added
             ========================================================
 
 
