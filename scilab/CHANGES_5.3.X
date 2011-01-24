@@ -227,6 +227,9 @@ Bug fixes:
 * bug 8830 fixed - In call_scilab, TerminateScilab did not clear the last
                    error.
 
+* bug 8859 fixed - Some missing comparison operators between hypermatrices and 
+                   scalars added.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
