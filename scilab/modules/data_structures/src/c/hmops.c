@@ -7,6 +7,9 @@
  *
  *  AUTHOR
  *     Bruno Pincon (Bruno.Pincon@iecn.u-nancy.fr)
+ *     jan 2011 intehm revised  by Serge Steer to 
+ *             - allow more index than actual dimensions
+ *             - allow boolean index with size greater than corresponding dimension
  *
  *  exportation de C2F(ishm)
  *                 C2F(intehm)
@@ -325,7 +328,7 @@ static int reshape_hmat(int pos, HyperMat *H, int new_dimsize)
 {
   /*
    *   This utility routine is used when an hypermatrix H
-   *   is indexed with fewer indices vectors than its dimsize
+   *   is indexed with fewer (or more) indices vectors than its dimsize
    *   (for instance the profil of H is n1 x n2 x n3 but
    *    an expression like H(v1,v2) is used). So we have to
    *    reconsidered the profil of H for this operation (in
@@ -335,15 +338,25 @@ static int reshape_hmat(int pos, HyperMat *H, int new_dimsize)
    *    the new profil in this var and then H->dims will points to it.
    *
    */
+  /* Modified by S. Steer to manage the case  new_dimsize > H->dimsize -completion with 1 */
   int *new_dims;
   int k, one=1, l;
-
+  if (new_dimsize==H->dimsize) return 1;
+  /* Take care that a new variable is created in the stack */
   l = I_INT32; CreateVar(pos,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, &new_dimsize, &one, &l);
   new_dims = istk(l);
-  for ( k = 0 ; k < new_dimsize ; k++)
-    new_dims[k] = H->dims[k];
-  for ( k = new_dimsize ; k < H->dimsize ; k++ )
-    new_dims[new_dimsize-1] *= H->dims[k];
+  if (new_dimsize > H->dimsize){
+    for ( k = 0 ; k < H->dimsize ; k++)
+      new_dims[k] = H->dims[k];
+    for ( k =  H->dimsize ; k < new_dimsize ; k++)
+      new_dims[k] = 1;
+  }
+  else {
+    for ( k = 0 ; k < new_dimsize ; k++)
+      new_dims[k] = H->dims[k];
+    for ( k = new_dimsize ; k < H->dimsize ; k++ )
+      new_dims[new_dimsize-1] *= H->dims[k];
+  }
   H->dimsize = new_dimsize;
   H->dims = new_dims;
   return 1;
@@ -496,21 +509,24 @@ static int create_index_vector(int pos, int pos_ind, int *mn,
 	}
 
     case (sci_boolean) :
-
+      /* modified by Serge jan 2011 to allow boolean vector index with size greater than
+         corresponding dimension */
       GetRhsVar(pos,MATRIX_OF_BOOLEAN_DATATYPE, &m, &n, &l);
-      if ( m*n != nmax )
-	return 0;
       *mn = 0;
-      for ( k = 0 ; k < nmax ; k++ )
+      for ( k = 0 ; k < m*n ; k++ )
 	if ( *istk(l+k) != 0 )
 	  (*mn)++;
+
+      if (  (*mn)> nmax )
+	return 0;
+
       if ( *mn == 0 )
 	{
 	  *ind_max = 0; return 1;
 	}
       li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
       i = 0;
-      for ( k = 0 ; k < nmax ; k++ )
+      for ( k = 0 ; k < n*m ; k++ )
 	if ( *istk(l+k) != 0 )
 	  {
 	    ti[i] = k; i++;
@@ -518,31 +534,61 @@ static int create_index_vector(int pos, int pos_ind, int *mn,
       *ind_max = ti[*mn-1] + 1;
       return 1;
 
-    case (sci_mlist) :         /* Try if it is an hypermat of BOOLEANS */
+    case (sci_mlist) :         
 
       GetHMat(pos, &H);
-      if ( H.type != sci_boolean ||  H.size != nmax)
-	return 0;
-      P = (int *) H.P;
-      *ind_max = 0;
-      *mn = 0;
-      for ( k = 0 ; k < nmax ; k++ )
-	if ( P[k] != 0 )
-	  (*mn)++;
-      if ( *mn == 0 )
+      if (H.type==sci_matrix) {/* added by S. Steer to support hypermatrix of double as index */
+        /*hypermatrix of doubles*/
+        *mn= H.size;
+        *ind_max = 0;
+        li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
+        for ( i = 0 ; i < H.size ; i++ ){
+          ti[i]=H.R[i];
+          if ( ti[i] <= 0 ) return 0;
+          if (ti[i]>*ind_max) *ind_max=ti[i];
+          ti[i]--;
+        }
+        return 1;
+      }
+      if (H.type==sci_ints) {/* added by S. Steer to support hypermatrix of ints as index %%%%*/
+        
+        *mn= H.size;
+        *ind_max = 0;
+        li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
+        li = 4; C2F(tpconv)(&(H.it), &li, mn, H.P, &one, (void *) ti, &one);
+        for ( i = 0 ; i < *mn ; i++ )
+	    {
+	      if ( ti[i] <= 0 ) return 0;
+	      if ( ti[i] > *ind_max ) *ind_max = ti[i];
+	      ti[i]--;
+	    }
+
+        return 1;
+      }
+      if ( H.type == sci_boolean ) {
+        P = (int *) H.P;
+        /* count number of true values */
+        *ind_max = 0;
+        *mn = 0;
+        for ( k = 0 ; k < H.size ; k++ )
+          if ( P[k] != 0 )
+            (*mn)++;
+        if ( *mn == 0 )
 	{
 	  *ind_max = 0; return 1;
 	}
-      li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
-      i = 0;
-      for ( k = 0 ; k < nmax ; k++ )
-	if ( P[k] != 0 )
-	  {
-	    ti[i] = k; i++;
-	  }
-      *ind_max = ti[*mn-1] + 1;
-      return 1;
 
+        li = 4; CreateVar(pos_ind,MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, mn,   &one,   &li); ti = istk(li);
+        i = 0;
+        for ( k = 0 ; k < H.size ; k++ )
+          if ( P[k] != 0 )
+            {
+              ti[i] = k; i++;
+            }
+        *ind_max = ti[*mn-1] + 1;
+        return 1;
+      }
+      return 0;
 
     case (sci_boolean_sparse) :
 
@@ -640,12 +686,12 @@ int C2F(intehm)()
   HyperMat H, He;
   int dec, i, k, l, m, n, mn, ntot, ind_max;
   int *j, ier, one=1, zero=0, ltot, nb_index_vectors, final_dimsize, lr, lc;
+  int  Hcoldim, Hrowdim;
   int *P, *Pe;
   short int *siP, *siPe;
   char  *cP, *cPe;
 
 /*   CheckLhs(minlhs,maxlhs); */
-
   if ( Rhs < 2 )
     {
       Scierror(999,_(" An hypermatrix extraction must have at least 2 arguments. "));
@@ -663,14 +709,13 @@ int C2F(intehm)()
       Fin = -Fin;
       return 0;
     }
-
   nb_index_vectors = Rhs-1;
-  if ( H.dimsize <  nb_index_vectors )
-    {
-      Scierror(999,_(" Incompatible hypermatrix extraction. "));
-      return 0;
-    }
-  else if ( H.dimsize > nb_index_vectors )  /* reshape H */
+
+  /* modified by Serge jan 2011 to allow more index than actual dimensions */
+  Hrowdim= H.dims[0]; /*preserve initial row dimension */
+  Hcoldim= H.dims[1]; /*preserve initial column dimension */
+
+  if ( H.dimsize !=  nb_index_vectors )
     {
       ReshapeHMat(Rhs+1, &H, nb_index_vectors );
       dec = Rhs+1;
@@ -680,6 +725,7 @@ int C2F(intehm)()
 
   if ( H.size == 0 )   /* the hypermat is empty => return an empty matrix ? */
     {
+      /*it should be necessary to check index validity */
       CreateVar(dec+1,MATRIX_OF_DOUBLE_DATATYPE, &zero, &zero, &l);
       LhsVar(1) = dec+1;
       PutLhsVar();
@@ -691,9 +737,15 @@ int C2F(intehm)()
   for ( i = 1 ; i <= nb_index_vectors ; i++ )
     {
       ier = create_index_vector(i, dec+i, &mn, H.dims[i-1], &ind_max);
-      if ( ier == 0  ||  ind_max > H.dims[i-1] )
+      if ( ier == 0)
 	{
-	  Scierror(999,_("Bad (%d th) index in hypermatrix extraction. "),i); return 0;
+	  Scierror(999,_("Extraction: invalid index #%d"),i); 
+          return 0;
+	}
+      if ( ind_max > H.dims[i-1] )
+	{
+	  Scierror(999,_("Extraction: Index #%d exceeds matrix dimensions: %d."),i,H.dims[i-1]); 
+          return 0;
 	}
       if ( mn == 0 )   /* the vector index is [] => we return an empty matrix */
 	{
@@ -724,11 +776,19 @@ int C2F(intehm)()
     }
   else                /* we create a matrix  for the extraction result */
     {
-      m = get_length(dec+1);
-      if (final_dimsize > 1)
-	n = get_length(dec+2);
-      else
-	n = 1;
+      if (Hrowdim==1&&Hcoldim>1) { /*initial matrix is a row, return a row */
+        m=1;
+        n = get_length(dec+1);
+        if (final_dimsize > 1)
+          n*=get_length(dec+2);
+      }
+      else  {
+        m = get_length(dec+1);
+        if (final_dimsize > 1)
+          n = get_length(dec+2);
+        else
+          n = 1;
+      }
       switch (H.type)
 	{
 	case (sci_matrix):
