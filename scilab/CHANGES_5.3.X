@@ -274,6 +274,8 @@ Quality assurance:
 
 * bug 6684 fixed - Some Xcos unitary tests had problems loading native libraries.
 
+* bug 6873 fixed - A jar file was not available when testng was called.
+
 Compilation:
 ============
 
