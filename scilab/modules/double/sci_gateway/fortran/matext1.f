@@ -15,6 +15,7 @@ c     B=A(i)
       include 'stack.h'
 c     
       integer iadr,sadr
+      integer ishm
 c     
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
@@ -32,6 +33,20 @@ c
 c     
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
+      if(ishm().eq.1) then ! use entries field
+         if(mn2.eq.1) then !arg2(arg1) with arg2 a scalar and arg1 an hypermatrix
+            top=top+1
+            fin=-fin
+            return
+         endif
+         il1 = iadr(sadr(il1+6) + istk(il1+4) - 1)
+      endif
+      if (istk(il1).ne.1.and.istk(il1).ne.2.and.istk(il1).ne.4.and.
+     $     istk(il1).ne.8.and.istk(il1).ne.129) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
       it1=istk(il1+3)
@@ -96,7 +111,7 @@ c     check and convert indices variable
          call error(21)
          return
       endif
- 79   if(mi.eq.0) then
+      if(mi.eq.0) then
 c     arg2([])
          il1=iadr(lstk(top))
          istk(il1)=1

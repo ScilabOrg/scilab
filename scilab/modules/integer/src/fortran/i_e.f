@@ -34,6 +34,20 @@ c
 c     
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
+      if(ishm().eq.1) then ! use entries field  as index
+         il1 = iadr(sadr(il1+6) + istk(il1+4) - 1)
+         if(mn2.eq.1) then !arg2(arg1) with arg2 a scalar and arg1 an hypermatrix
+            top=top+1
+            fin=-fin
+            return
+         endif
+      endif
+      if (istk(il1).ne.1.and.istk(il1).ne.2.and.istk(il1).ne.4.and.
+     $     istk(il1).ne.8.and.istk(il1).ne.129) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
       it1=istk(il1+3)
@@ -146,6 +160,15 @@ c
 c     
       il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
+      if(ishm().eq.1) then ! use entries field  as index
+         il2 = iadr(sadr(il2+6) + istk(il2+4) - 1)
+      endif
+      if (istk(il2).ne.1.and.istk(il2).ne.2.and.istk(il2).ne.4.and.
+     $     istk(il2).ne.8.and.istk(il2).ne.129) then
+         top=top+1
+         fin=-fin
+         return
+      endif
       m2=istk(il2+1)
       n2=istk(il2+2)
       it2=istk(il2+3)
@@ -155,6 +178,15 @@ c
 c     
       il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
+      if(ishm().eq.1) then ! use entries field  as index
+         il1 = iadr(sadr(il1+6) + istk(il1+4) - 1)
+      endif
+      if (istk(il1).ne.1.and.istk(il1).ne.2.and.istk(il1).ne.4.and.
+     $     istk(il1).ne.8.and.istk(il1).ne.129) then
+         top=top+2
+         fin=-fin
+         return
+      endif
       m1=istk(il1+1)
       n1=istk(il1+2)
       it1=istk(il1+3)
