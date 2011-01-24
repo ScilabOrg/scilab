@@ -479,6 +479,9 @@ Bug fixes:
 
 * bug 8854 fixed - warning about bug 7575 disabled for new Nvidia drivers.
 
+* bug 8859 fixed - Some missing comparison operators between hypermatrices and 
+                   scalars added.
+
 * bug 8897 fixed - Typo fixed.
 
 * bug 8912 fixed - fullpath did not return same result on Windows and Linux.
@@ -488,8 +491,7 @@ Bug fixes:
 * bug 9034 fixed - atomsVersionCompare failed on version with '-0'.
 
 * bug 9047 fixed - The macro edit couldn't open a file at a given line number.
-
-
+ 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
