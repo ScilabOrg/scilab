@@ -140,6 +140,10 @@ c     -------matrices of string
       ilog=getsimat("print",lk,lk,m,n,1,1,lr,nlr)
 C     working area 
       if (.not.crewimat("print",topk,1,n,lw)) return
+      if(m*n.eq.0) then
+         call basout(io,lunit,'     []')
+         goto 48
+      endif
       call strdsp(istk(lr),istk(lr-m*n-1),m,n,lineln,lunit,istk(lw),buf)
       goto 48
 c     -------matrices of handle 
