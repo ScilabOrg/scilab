@@ -101,14 +101,14 @@ Xcos:
 * bug 7639 fixed - Generating code for scilab function block was failing with
                    a syntax error message.
 
-* bug 8042 fixed - After a region to superblock action, the ports were wrongly
-                   placed.
-
 * bug 8223 fixed - Xcos did not produce a visible error when Saxon is used as
                    XML DOM implementation.
 
 * bug 8235 fixed - Using masked super-block did not work when parameters are
                    defined on the sub-context.
+
+* bug 8711 fixed - The "Cont. Plant-Hybrid Observer" demo contains a translated
+                   origin point which lead to strange links creation.
 
 * bug 8440 fixed - The SVG background was not exported to SVG.
 
@@ -124,10 +124,6 @@ Xcos:
 
 * bug 8658 fixed - Use accentuated characters on file name lead to a modelica
                    compiler error.
-
-* bug 8711 fixed - The "Cont. Plant-Hybrid Observer" demo contains a translated
-                   origin point which lead to strange links creation.
-
 
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
@@ -256,6 +252,9 @@ Bug fixes:
 * bug 8789 fixed - read function crashed on Windows XP 64 bit platform.
 
 * bug 8809 fixed - Bad top link in the chm files.
+
+* bug 8820 fixed - squeeze function returned 2D hypermatrix instead of regular 2D array 
+                   function also extended to all array types included cells ans structs
 
 * bug 8830 fixed - In call_scilab, TerminateScilab did not clear the last
                    error.
