@@ -165,6 +165,9 @@ Bug fixes:
 
 * bug 8732 fixed - strchr and strrchr did not work with a non-ASCII character needle.
 
+* bug 8859 fixed - Some missing comparison operators between hypermatrices and 
+                   scalars added.
+
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
