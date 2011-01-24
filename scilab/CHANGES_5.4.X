@@ -6,3 +6,5 @@ Bug Fixes:
 ==========
 
 * bug 8608 - dec2hex, hex2dec, dec2oct, oct2dec, code have been simplified and optimized.
+
+* bug 7409 - empty string matrix now displayed as []
