@@ -257,7 +257,10 @@ Bug fixes:
 
 * bug 8789 fixed - read function crashed on Windows XP 64 bit platform.
 
+
 * bug 8809 fixed - Bad top link in the chm files.
+
+* bug 8810 fixed - Using hypermatrix as index in extraction operations created  errors
 
 * bug 8830 fixed - In call_scilab, TerminateScilab did not clear the last
                    error.
