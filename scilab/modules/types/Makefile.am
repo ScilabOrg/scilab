@@ -55,6 +55,7 @@ TYPES_CPP_SOURCES = \
 			src/cpp/tlist.cpp \
 			src/cpp/file.cpp \
 			src/cpp/mlist.cpp \
+			src/cpp/CallableCFunctionPtr.cpp \
 			src/cpp/threadId.cpp
 
 GIWS_WRAPPERS =

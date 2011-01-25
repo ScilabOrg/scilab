@@ -58,7 +58,8 @@ namespace types
           RealListDeleteOperation,
           RealListUndefinedOperation,
           RealFile,
-          RealThreadId
+          RealThreadId,
+          RealCallableCFunctionPtr
       };
 
   protected :
@@ -210,6 +211,10 @@ namespace types
       /* ThreadId */
       bool                              isThreadId(void) { return (getType() == RealThreadId); }
       virtual ThreadId*                 getAsThreadId(void) { return NULL; }
+
+      /* CallableCFunctionPtr */
+      bool                              isCallableCFunctionPtr(void) { return (getType() == RealCallableCFunctionPtr); }
+      virtual CallableCFunctionPtr*     getAsCallableCFunctionPtr(void) { return NULL; }
 
       /**
       ** List Operations
