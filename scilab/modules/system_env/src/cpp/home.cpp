@@ -63,7 +63,7 @@ wchar_t* computeHOMEW(void)
 {
     char* pstTemp = computeHOME();
     wchar_t* pstReturn = to_wide_string(pstTemp);
-    FREE(pstTemp);
+    delete [] pstTemp;
     return pstReturn;
 }
 /*--------------------------------------------------------------------------*/

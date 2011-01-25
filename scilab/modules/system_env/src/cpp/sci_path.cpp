@@ -72,7 +72,7 @@ void setSCI(const char* _sci_path)
     pwstWSCI = to_wide_string(pstBackSlash);
     types::String *pSWSCI = new types::String(pwstWSCI);
     symbol::Context::getInstance()->put(L"WSCI", *pSWSCI);
-    FREE(pstBackSlash);
+    delete [] pstBackSlash;
 #else
     pwstWSCI = to_wide_string(_sci_path);
 #endif
@@ -82,7 +82,7 @@ void setSCI(const char* _sci_path)
 
     FREE(pwstWSCI);
     FREE(pwstSCI);
-    FREE(pstSlash);
+    delete [] pstSlash;
     FREE(ShortPath);
 }
 /*--------------------------------------------------------------------------*/

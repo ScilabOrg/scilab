@@ -152,7 +152,7 @@ void visitprivate(const AssignExp  &e)
                 //os << ((Location)e.right_exp_get().location_get()).location_string_get() << std::endl;
                 throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
             }
-            delete piMaxDim;
+            delete[] piMaxDim;
             delete[] piDimSize;
         }
         else if(pCall)
@@ -372,7 +372,7 @@ void visitprivate(const AssignExp  &e)
 
                     pOut = pRet;
                 }
-                delete piMaxDim;
+                delete[] piMaxDim;
                 delete[] piDimSize;
             }
 

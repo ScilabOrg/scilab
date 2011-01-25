@@ -27,6 +27,24 @@ using namespace std;
 #define SIZE_BETWEEN_TWO_VALUES			2
 #define SPACE_BETWEEN_TWO_VALUES		L"  "
 
+namespace
+{
+    // like wcsdup, but using new (instead of malloc) to allocate the data
+    // so that we can delete [] it.
+    wchar_t* new_wcsdup(wchar_t const* src)
+    {
+        std::size_t const len(wcslen(src) + 1);
+        wchar_t* const res(new wchar_t[len]);
+#ifdef _MSC_VER
+        wcscpy_s(res, len, src);
+#else
+        wcscpy(res, src);
+#endif
+        return res;
+    }
+}
+
+
 namespace types
 {
 	String::~String()
@@ -77,7 +95,7 @@ namespace types
 		m_pstData	= new wchar_t*[m_iSize];
 		for(int iIndex = 0 ; iIndex < m_iSize ; iIndex++)
 		{
-			m_pstData[iIndex] = os_wcsdup(L"");
+			m_pstData[iIndex] = new_wcsdup(L"");
 		}
 	}
 
@@ -486,7 +504,7 @@ namespace types
 					{//a([]) = R
 						for(int i = 0 ; i < _iSeqCount ; i++)
 						{
-							m_pstData[_piSeqCoord[i] - 1]	= os_wcsdup(pstIn[0]);
+							m_pstData[_piSeqCoord[i] - 1]	= new_wcsdup(pstIn[0]);
 						}
 					}
 					else
@@ -494,7 +512,7 @@ namespace types
 						for(int i = 0 ; i < _iSeqCount ; i++)
 						{
 							int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-							m_pstData[iPos]	= os_wcsdup(pstIn[0]);
+							m_pstData[iPos]	= new_wcsdup(pstIn[0]);
 						}
 					}
 				}
@@ -504,7 +522,7 @@ namespace types
 					{//a([]) = [R]
 						for(int i = 0 ; i < _iSeqCount ; i++)
 						{
-							m_pstData[_piSeqCoord[i] - 1]	= os_wcsdup(pstIn[i]);
+							m_pstData[_piSeqCoord[i] - 1]	= new_wcsdup(pstIn[i]);
 						}
 					}
 					else
@@ -516,7 +534,7 @@ namespace types
 							int iTempC = i % pIn->cols_get();
 							int iNew_i = iTempR + iTempC * pIn->rows_get();
 
-							m_pstData[iPos]	= os_wcsdup(pstIn[iNew_i]);
+							m_pstData[iPos]	= new_wcsdup(pstIn[iNew_i]);
 						}
 					}
 				}
@@ -736,7 +754,7 @@ namespace types
 		pst	= new wchar_t*[_iNewRows * _iNewCols];
 		for(int i = 0 ; i < _iNewRows * _iNewCols ; i++)
 		{
-			pst[i] = os_wcsdup(L"");
+			pst[i] = new_wcsdup(L"");
 		}
 
 		//copy existing values
@@ -746,7 +764,7 @@ namespace types
 			{
 				if(pst[j * _iNewRows + i])
 				{
-					delete pst[j * _iNewRows + i];
+					delete [] pst[j * _iNewRows + i];
 				}
 				pst[j * _iNewRows + i] = m_pstData[j * rows_get() + i];
 			}
@@ -803,7 +821,7 @@ namespace types
 		{
 			for(int i = 0 ; i < _iSeqCount ; i++)
 			{
-				pst[i] = os_wcsdup(m_pstData[_piSeqCoord[i] - 1]);
+				pst[i] = new_wcsdup(m_pstData[_piSeqCoord[i] - 1]);
 			}
 		}
 		else
@@ -813,7 +831,7 @@ namespace types
 				//convert vertical indexes to horizontal indexes
 				int iCurIndex   = (i % iColsOut) * iRowsOut + (i / iColsOut);
 				int iInIndex    = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-				pst[iCurIndex]  = os_wcsdup(m_pstData[iInIndex]);
+				pst[iCurIndex]  = new_wcsdup(m_pstData[iInIndex]);
 			}
 		}
 
