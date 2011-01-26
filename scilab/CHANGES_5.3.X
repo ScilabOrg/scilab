@@ -130,9 +130,10 @@ Xcos:
 * bug 8711 fixed - The "Cont. Plant-Hybrid Observer" demo contains a translated
                    origin point which lead to strange links creation.
 
-
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
+
+* bug 8867 fixed - Unconnected links could not be deleted.
 
 
 Module skeleton:
