@@ -2,7 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Vincent Couvert
  * Copyright (C) 2007 - INRIA - Marouane BEN JELLOUL
- * Copyright (C) 2010 - DIGITEO - Vincent COUVERT
+ * Copyright (C) 2010-2011 - DIGITEO - Vincent COUVERT
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -26,6 +26,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.listbox.SimpleListBox;
@@ -49,7 +51,7 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 
 	private CallBack callback;
 	
-	private MouseListener mouseListener;
+	private ListSelectionListener listSelectionListener;
 	
 	/**
 	 * the JList we use
@@ -174,15 +176,14 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 *                      (true if the UIElement is enabled, false if not)
 	 */
 	public void setEnabled(boolean newEnableState) {
+		if (listSelectionListener != null) {
+			getList().removeListSelectionListener(listSelectionListener);
+		}
 		super.setEnabled(newEnableState);
 		getList().setEnabled(newEnableState);
 		if (newEnableState) {
-			if (mouseListener != null) {
-				getList().addMouseListener(mouseListener);
-			}
-		} else {
-			if (mouseListener != null) {
-				getList().removeMouseListener(mouseListener);
+			if (listSelectionListener != null) {
+				getList().addListSelectionListener(listSelectionListener);
 			}
 		}
 	}
@@ -192,27 +193,22 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 	 * @param cb the callback to set.
 	 */
 	public void setCallback(CallBack cb) {
-		if (mouseListener != null) {
-			getList().removeMouseListener(mouseListener);
+		if (listSelectionListener != null) {
+			getList().removeListSelectionListener(listSelectionListener);
 		}
 		this.callback = cb;
 		
-		mouseListener = new MouseListener() {
-
-			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1) {
+		listSelectionListener = new ListSelectionListener() {
+			
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()) {
 					callback.actionPerformed(null);
 				}
 			}
-
-			public void mouseEntered(MouseEvent arg0) { }
-			public void mouseExited(MouseEvent arg0) { }
-			public void mousePressed(MouseEvent arg0) { }
-			public void mouseReleased(MouseEvent arg0) { }
 		};
 		
 		if (isEnabled()) {
-			getList().addMouseListener(mouseListener);
+			getList().addListSelectionListener(listSelectionListener);
 		}
 	}
 
@@ -368,15 +364,15 @@ public class SwingScilabListBox extends JScrollPane implements SimpleListBox {
 		}
 		
 		/* Remove the listener to avoid the callback to be executed */
-		if (mouseListener != null) {
-			getList().removeMouseListener(mouseListener);
+		if (listSelectionListener != null) {
+			getList().removeListSelectionListener(listSelectionListener);
 		}
 		
 		getList().setSelectedIndices(javaIndices);
 		
 		/* Put back the listener */
-		if (mouseListener != null) {
-			getList().addMouseListener(mouseListener);
+		if (listSelectionListener != null) {
+			getList().addListSelectionListener(listSelectionListener);
 		}
 	}
 	

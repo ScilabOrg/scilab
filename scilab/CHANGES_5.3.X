@@ -179,6 +179,10 @@ GUI:
 
 * bug 8717 fixed - Bad window's title just after creation.
 
+* bug 8812 fixed - "Value" property of a "Listbox" style uicontrol did not always
+                   contain the selected items indexes.
+
+
 Quality assurance:
 ==================
 
