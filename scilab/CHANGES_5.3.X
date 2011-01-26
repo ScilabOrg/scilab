@@ -130,11 +130,11 @@ Xcos:
 * bug 8711 fixed - The "Cont. Plant-Hybrid Observer" demo contains a translated
                    origin point which lead to strange links creation.
 
-
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
 
-* bug 8783 fixed - loadmatfile could not load hypermatrices of integer types.
+* bug 8884 fixed - Using region to super block with ports on the same position
+                   was resulting to a non-reconnected link.
 
 Module skeleton:
 ================
@@ -258,6 +258,8 @@ Bug fixes:
 
 * bug 8765 fixed - A(1:N,j)=[] returned wrong values if N>size(A,1).
 
+* bug 8783 fixed - loadmatfile could not load hypermatrices of integer types.
+
 * bug 8789 fixed - read function crashed on Windows XP 64 bit platform.
 
 * bug 8809 fixed - Bad top link in the chm files.
@@ -270,6 +272,7 @@ Bug fixes:
 
 * bug 8837 fixed - fscanfMat did not read a malformated text with many blanks 
                    at the end of file.
+
 
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
