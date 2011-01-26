@@ -905,6 +905,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 	 * @param modifiedBlock the modified instance
 	 */
 	private void updateFields(BasicBlock modifiedBlock) {
+		if (modifiedBlock == null) {
+			return;
+		}
+		
 		setDependsOnT(modifiedBlock.isDependsOnT());
 		setDependsOnU(modifiedBlock.isDependsOnU());
 		setExprs(modifiedBlock.getExprs());
@@ -926,6 +930,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 	 * @param modifiedBlock the new block instance
 	 */
 	private void updateChildren(BasicBlock modifiedBlock) {
+		if (modifiedBlock == null) {
+			return;
+		}
+		
 		/*
 		 * Checked as port classes only
 		 */
