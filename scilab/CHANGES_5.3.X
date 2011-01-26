@@ -112,6 +112,8 @@ Xcos:
 * bug 8235 fixed - Using masked super-block did not work when parameters are
                    defined on the sub-context.
 
+* bug 8387 fixed - loadmatfile could not load hypermatrices of integer types.
+
 * bug 8440 fixed - The SVG background was not exported to SVG.
 
 * bug 8480 fixed - The Debug block did not have a valid function type.
