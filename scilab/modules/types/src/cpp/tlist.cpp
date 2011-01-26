@@ -10,6 +10,7 @@
  *
  */
 
+#include <cstring>
 #include <sstream>
 #include "double.hxx"
 #include "tlist.hxx"
@@ -63,7 +64,7 @@ namespace types
         //first field is the tlist type
         for(int i = 1 ; i < pS->size_get() ; i++)
         {
-            if(std::wstring(pS->string_get(i)) == _sKey)
+            if(wcscmp(pS->string_get(i), _sKey.c_str()) == 0)
             {
                 return true;
             }
@@ -90,7 +91,7 @@ namespace types
         return NULL;
     }
 
-    int TList::getIndexFromString(const std::wstring _sKey)
+    int TList::getIndexFromString(const std::wstring& _sKey)
     {
         if(size_get() < 1)
         {
@@ -101,7 +102,7 @@ namespace types
         //first field is the tlist type
         for(int i = 1 ; i < pS->size_get() ; i++)
         {
-            if(std::wstring(pS->string_get(i)) == _sKey)
+            if(wcscmp(pS->string_get(i), _sKey.c_str()) == 0)
             {
                 return i;
             }
@@ -109,7 +110,7 @@ namespace types
         return -1;
     }
 
-    std::vector<InternalType*> TList::extract_string(std::list<std::wstring> _stFields)
+    std::vector<InternalType*> TList::extract_string(const std::list<std::wstring>& _stFields)
     {
         std::vector<InternalType*> Result;
 
