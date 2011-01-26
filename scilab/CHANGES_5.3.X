@@ -208,7 +208,7 @@ Scilab:
 Optimization:
 =============
 
-* Improved the karmarkar linear optimization solver: 
+* Improved the karmarkar linear optimization solver:
   * Let the user configure an output function.
   * Put the number of iterations as an output argument.
   * Put x0 as an optional argument.
@@ -220,7 +220,7 @@ Optimization:
   * Provide more examples.
   * Provide documentation for the stopping rule.
 
-* bug 7193 fixed - The karmarkar help page did not document the 
+* bug 7193 fixed - The karmarkar help page did not document the
                    parameters eps, gamma, and crit.
 
 * bug 8719 fixed - The karmarkar function printed unwanted messages.
@@ -267,6 +267,9 @@ Bug fixes:
 
 * bug 8836 fixed - fileparts crashed when a matrix of strings was passed as
                    input argument.
+
+* bug 8845 fixed - a example in call_scilab module with Visual Studio has been
+                   rewritten to use api_scilab.
 
 
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
