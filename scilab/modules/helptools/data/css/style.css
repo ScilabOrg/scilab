@@ -287,3 +287,7 @@ div#cadre_help
     font-size:0.8em;
     color:#0000AA;
 }
+
+.para {
+    padding-left: 10px;
+}
