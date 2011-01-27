@@ -190,17 +190,17 @@ int plot2dn(int ptype,char *logflags,double *x,double *y,int *n1,int *n2,int *st
 
   if (autoScale)
   {
-    /* compute and merge new specified bounds with psubwin->Srect */
+    /* compute and merge new specified bounds with the data bounds */
     switch (strflag[1])  {
     case '0': 
-      /* do not change psubwin->Srect */
+      /* do not change data bounds */
       break;
     case '1' : case '3' : case '5' : case '7':
-      /* Force psubwin->Srect=brect */
+      /* Force data bounds=brect */
       re_index_brect(brect, drect);
       break;
     case '2' : case '4' : case '6' : case '8': case '9':
-      /* Force psubwin->Srect to the x and y bounds */
+      /* Force data bounds to the x and y bounds */
       if ( (int)strlen(logflags) < 1) dataflag='g' ; else dataflag=logflags[0];
 
       tmp = getGraphicObjectProperty(psubwin->UID, __GO_X_AXIS_LOG_FLAG__, jni_bool);
@@ -220,7 +220,7 @@ int plot2dn(int ptype,char *logflags,double *x,double *y,int *n1,int *n2,int *st
       break;
     }
 
-    /* merge psubwin->Srect and drect */
+    /* merge data bounds and drect */
     if ( !firstPlot &&
         (strflag[1] == '5' || strflag[1] == '7' || strflag[1] == '8' || strflag[1] == '9'))
     {
