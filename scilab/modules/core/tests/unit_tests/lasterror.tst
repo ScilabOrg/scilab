@@ -50,3 +50,10 @@ if l4 <> 0 then pause,end
 if f4 <> '' then pause,end
 if str4 <> [] then pause, end
 
+
+ierr = execstr('a = lasterror(2);','errcatch');
+if ierr <> 999 then pause,end
+
+
+ierr = execstr('a = lasterror([%t, %f]);','errcatch');
+if ierr <> 999 then pause,end

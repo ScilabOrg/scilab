@@ -42,3 +42,7 @@ if n4 <> 0 then bugmes();quit;end
 if l4 <> 0 then bugmes();quit;end
 if f4 <> '' then bugmes();quit;end
 if str4 <> [] then bugmes();quit;end
+ierr = execstr('a = lasterror(2);','errcatch');
+if ierr <> 999 then bugmes();quit;end
+ierr = execstr('a = lasterror([%t, %f]);','errcatch');
+if ierr <> 999 then bugmes();quit;end
