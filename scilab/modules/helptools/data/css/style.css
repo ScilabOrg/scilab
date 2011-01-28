@@ -128,6 +128,19 @@ ul.toc li {
     text-align: center;
 }
 
+.screen {
+    font-family: monospace;
+    font-size: 100%;
+    background-color:#FFFFFF;
+    border-color:#CCCCCC ;
+    border-style:solid;
+    border-width:2px medium;
+    width:80%;
+    color:#333333;
+    line-height:120%;
+    padding:10px;
+}
+
 /* Top and bottom navigation controls on manual pages --------------------- */
 div.manualnavbar {
     background-color: #E0E0E0;
