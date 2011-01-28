@@ -203,7 +203,7 @@ namespace types
         }
         catch(ast::ScilabError se)
         {
-            //close the current scope
+            //close the current scope : should be in the destructor of a scoped lock (RAII)
             pContext->scope_end();
             for (int j = 0; j < out.size(); ++j)
             {

@@ -33,5 +33,6 @@
     <module name="localization" activate="yes"/>
     <module name="jvm" activate="@JAVA_ENABLE@"/>
     <module name="functions" activate="yes"/>
+    <module name="parallel" activate="yes"/>
 </modules>
 

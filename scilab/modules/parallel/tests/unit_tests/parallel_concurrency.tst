@@ -14,6 +14,6 @@ function r=dummy_arg(n)
 endfunction;
 if parallel_concurrency() <> 0 then pause, end
 // parallel_run requires a function taking at least one argument
-r= parallel_run(1:2,dummy_arg);
-// all results must be <>0 (hence %T)
-if ~and(r) then pause, end
+r=[parallel_run(1, dummy_arg, tlist(["params","shared_memory"],1)), parallel_run(1, dummy_arg, tlist(["params","shared_memory"],0))];
+
+if or(r<>[1,2]) then pause, end
