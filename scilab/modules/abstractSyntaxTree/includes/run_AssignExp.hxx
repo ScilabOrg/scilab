@@ -205,7 +205,7 @@ void visitprivate(const AssignExp  &e)
                 }
             }
 
-            if(pIT->isStruct())
+            if(pIT && pIT->isStruct())
             {
                 // Don't know how to manage struc array now.
                 if(pCall->args_get().size() != 1)
