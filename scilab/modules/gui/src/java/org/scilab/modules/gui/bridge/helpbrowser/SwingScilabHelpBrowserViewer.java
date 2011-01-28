@@ -15,21 +15,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.JarURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.help.DefaultHelpHistoryModel;
 import javax.help.JHelpContentViewer;
+import javax.help.HelpSet;
 import javax.help.plaf.basic.BasicContentViewerUI;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.DefaultEditorKit;
 
+import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.helpbrowser.ScilabHelpBrowser;
+import org.scilab.modules.gui.messagebox.ScilabModalDialog;
+import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.localization.Messages;
 
@@ -38,7 +50,7 @@ import org.scilab.modules.localization.Messages;
  * Through this class, we are adding some features on the javahelp browser
  * We are adding a popup menu on the right click of the mouse
  * In this menu, we are providing:
- *     - Execute in Scilab
+ *  - Execute in Scilab
  *  - Edit in the text editor
  *  - Copy
  *  - Select all
@@ -46,18 +58,22 @@ import org.scilab.modules.localization.Messages;
  */
 public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
 
-    /**
-     *
-     */
+    private static final String SCILAB_PROTO = "scilab://";
+    private static final String SCI = ScilabConstants.SCI.getPath();
     private static final long serialVersionUID = -2593697956426596790L;
+
     /* This field is a copy of BasicContentViewerUI which is privated.
      * Therefor, I am changing the permission here to make it available
      * to the methods of this object
      */
     private javax.swing.JEditorPane accessibleHtml;
 
+    private JHelpContentViewer x;
+    private List<HelpSet> helpSets;
+
     public SwingScilabHelpBrowserViewer(JHelpContentViewer x) {
         super(x);
+	this.x = x;
     }
 
     public static javax.swing.plaf.ComponentUI createUI(JComponent x) {
@@ -68,19 +84,158 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
      * Update the browser links
      */
     public void hyperlinkUpdate(HyperlinkEvent event) {
-        if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+	if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             if (event.getDescription().startsWith("http://")) {
                 WebBrowser.openUrl(event.getURL(), event.getDescription());
-            } else {
-                if (event.getDescription().startsWith("file://")) {
-                    String url = event.getDescription();
-                    url = url.replaceFirst("SCI", System.getenv("SCI"));
-                    WebBrowser.openUrl(url);
-                } else {
-                    super.hyperlinkUpdate(event);
-                }
-            }
+            } else if (event.getDescription().startsWith(SCILAB_PROTO)) {
+		if (helpSets == null) {
+		    initHelpSets(x.getModel().getHelpSet());
+		}
+                URL url = resolvScilabLink(event.getDescription());
+		if (url != null) {
+		    super.hyperlinkUpdate(new HyperlinkEvent(event.getSource(), event.getEventType(), url, ""));
+		}
+	    } else if (event.getDescription().startsWith("file://")) {
+		String url = event.getDescription();
+		url = url.replaceFirst("SCI", SCI);
+		WebBrowser.openUrl(url);
+	    } else {
+		super.hyperlinkUpdate(event);
+	    }
         }
+    }
+
+    private void initHelpSets(HelpSet hs) {
+	helpSets = new ArrayList();
+	helpSets.add(hs);
+	for (Enumeration<HelpSet> e = hs.getHelpSets(); e.hasMoreElements();) {
+	    helpSets.add(e.nextElement());
+	}
+    }
+
+    /**
+     * Try to find an id
+     * @param id the id to find
+     * @return the URL corresponding to the id
+     */
+    public URL getURLFromID(String id) {
+	URL url = null;
+	try { 
+	    for (HelpSet hs : helpSets) {
+		javax.help.Map map = hs.getLocalMap();
+		if (map.isValidID(id, hs)) {
+		    url = map.getURLFromID(javax.help.Map.ID.create(id, hs));
+		    if (url != null) {
+			return url;
+		    }
+		}
+	    }
+	    url = new URL(helpSets.get(0).getHelpSetURL().toString().replace("jhelpset.hs", "ScilabErrorPage.html"));
+	} catch (MalformedURLException ex) { }
+		
+	return url;
+    }
+
+    /**
+     * Try to find an id in a toolbox
+     * @param tbxName the toolbox's name
+     * @param id the id to find
+     * @return the URL corresponding to the id
+     */
+    public URL getURLFromID(String tbxName, String id) {
+	if (tbxName == null) {
+	    return getURLFromID(id);
+	}
+	URL url = null;
+	try { 
+	    for (HelpSet hs : helpSets) {
+		if (hs.getHelpSetURL().toString().indexOf("/" + tbxName + "_") !=  -1) {
+		    javax.help.Map map = hs.getLocalMap();
+		    if (map.isValidID(id, hs)) {
+			url = map.getURLFromID(javax.help.Map.ID.create(id, hs));
+			if (url != null) {
+			    return url;
+			}
+		    }
+		}
+	    }
+	    url = new URL(helpSets.get(0).getHelpSetURL().toString().replace("jhelpset.hs", "ScilabErrorPage.html"));	
+	} catch (MalformedURLException ex) { }
+
+	return url;
+    }
+
+    /**
+     * Try to transform an address such as scilab://scilab.help/bvode into a conform URL
+     * pointing to the corresponding file in using jar: protocol.
+     * E.g. scilab://scilab.help/bvode will be transform into
+     * jar:file:SCI/modules/helptools/jar/scilab_fr_FR_help.jar!/scilab_fr_FR_help/bvode.html
+     * (where SCI has the good value)
+     * @param address the address to convert
+     * @return the correct address in using jar:// protocol
+     **/
+    public URL resolvScilabLink(String address) {
+        int pos = SCILAB_PROTO.length();
+        String addr = address.trim().replaceAll("\\\\", "/");
+        addr = addr.substring(pos);
+
+        pos = addr.indexOf("/");
+        String location;
+        String path = "";
+        if (pos != -1) {
+            location = addr.substring(0, pos);
+            if (pos != addr.length()) {
+                path = addr.substring(pos + 1);
+            }
+        } else {
+            return getURLFromID(addr);
+        }
+
+        String[] splitLoc = location.split("\\.");
+	String mainLocation = null;
+        String subLocation = null;
+
+        if (splitLoc.length >= 1) {
+            mainLocation = splitLoc[0];
+        }
+        if (splitLoc.length >= 2) {
+            subLocation = splitLoc[1];
+        }
+
+	if (subLocation.equals("help")) {
+	    return getURLFromID(/*mainLocation,*/ path);
+	} else if (subLocation.equals("exec")) {
+	    exec(getToolboxPath() + "/" + path);
+	} else if (subLocation.equals("demos")) {
+	    exec(getToolboxPath() + "/demos/" + path + ".sce");
+	}
+	
+	return null;
+    }
+
+    /**
+     * @return the path of the toolbox
+     */
+    public String getToolboxPath() {
+	try {
+	    URL url = ((JarURLConnection) x.getCurrentURL().openConnection()).getJarFileURL();
+	    return new File(url.toURI()).getParentFile().getParent();
+	} catch (Exception e) { }
+
+	return "";
+    }
+
+    /**
+     * Execute a file given by its path
+     * @param the file path
+     */
+    public void exec(String path) {
+	String cmd = "exec('" + path + "', -1)";
+	try {
+	    ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(cmd, true, false);
+	} catch (NoClassDefFoundError e) {
+	    ScilabModalDialog.show((Tab) SwingUtilities.getAncestorOfClass(Tab.class, x), Messages.gettext("Could not find the console nor the InterpreterManagement."));
+	}
     }
 
     /**
@@ -93,7 +248,6 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
         this.retrievePrivateFieldFromBasicContentViewerUI();
         this.createPopupMenu(c);
     }
-
 
     /**
      * Retrieve the field "html" from BasicContentViewerUI and change
