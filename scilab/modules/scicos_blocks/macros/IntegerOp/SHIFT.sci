@@ -39,13 +39,13 @@ case 'set' then
   model=arg1.model
   exprs=graphics.exprs
   while %t do
-    [ok,Datatype,nb,np,exprs]=scicos_getvalue('Set Shift block parameters',..
+    [ok,Datatype,nb,np,exprs]=scicos_getvalue('Set SHIFT block parameters',..
 			    ['Datatype (3=int32  4=int16 5=int8 ...)';..
-                             'Number of bits to shift left (use negatif number to shift right)';..
-                             'Shifttype(0=Arithmetic 1=Circular)'],..
+                             'Number of bits to shift left (use negative number to shift right)';..
+                             'Shifttype (0=Arithmetic 1=Circular)'],..
                              list('vec',1,'vec',1,'vec',1),exprs)
     if ~ok then break,end
-    if (np~=0 & np~=1) then message ("shifttyp is not supported");ok=%f;end
+    if (np~=0 & np~=1) then message ("Shifttype is not supported");ok=%f;end
     it=Datatype;
     ot=Datatype;
 //    model.sim=list('shift_ia',4)
