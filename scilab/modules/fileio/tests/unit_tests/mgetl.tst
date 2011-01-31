@@ -73,3 +73,7 @@ mclose(fd);
 r = mgetl(TMPDIR + '/mgetl_text_tst.txt');
 if ~and(r == ref) then pause,end
 //==============================================================================
+txt = mgetl("SCI/modules/fileio/tests/unit_tests/text-UTF8BOM.txt");
+if and(size(txt) <> [12 1]) then pause,end
+r ="It is a high level programming language in that most of its functionality is based around the ability to specify many computations with few lines of code. It does this primarily by abstracting primitive data types to functionally equivalent matrices."
+if r <> txt(1) then pause, end

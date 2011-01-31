@@ -22,6 +22,7 @@
 #include "charEncoding.h"
 /*--------------------------------------------------------------------------*/
 #define LINE_MAX 4096
+#define UTF8BOM_BYTEORDER_MARK "﻿"
 #define CR '\r'
 #define LF '\n'
 #define EMPTYSTR ""
@@ -63,6 +64,16 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
             }
 
             Line = getNextLine(fa);
+            if (Line)
+            {
+                /* UTF-8 BOM */
+                if (strncmp(Line, UTF8BOM_BYTEORDER_MARK, strlen(UTF8BOM_BYTEORDER_MARK)) == 0)
+                {
+                    /* we skip this line and get next */
+                    FREE(Line);
+                    Line = getNextLine(fa);
+                }
+            }
             while ( Line != NULL )
             {
                 nbLines++;
@@ -123,7 +134,22 @@ char **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
                 {
                     if (nbLines < nbLinesIn)
                     {
-                        Line = getNextLine(fa);
+                        if ((double) ftell(fa) == 0)
+                        {
+                            Line = getNextLine(fa);
+                            /* UTF-8 BOM */
+                            if (Line && (strncmp(Line, UTF8BOM_BYTEORDER_MARK, strlen(UTF8BOM_BYTEORDER_MARK)) == 0))
+                            {
+                                /* we skip this line and get next */
+                                FREE(Line);
+                                Line = getNextLine(fa);
+                            }
+                        }
+                        else
+                        {
+                            Line = getNextLine(fa);
+                        }
+
                         if (Line != NULL)
                         {
                             nbLines++;
