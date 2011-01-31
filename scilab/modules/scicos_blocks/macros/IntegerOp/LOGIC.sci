@@ -35,8 +35,8 @@ function [x,y,typ]=LOGIC(job,arg1,arg2)
     graphics=arg1.graphics;exprs=graphics.exprs
     model=arg1.model;
     while %t do
-      [ok,mat,herit,exprs]=scicos_getvalue('Set Logic parameters',..
-	  ['Truth table';'Inherit(0=no 1=yes)'],..
+      [ok,mat,herit,exprs]=scicos_getvalue('Set Logic block parameters',..
+	  ['Truth table';'Inherit (0=no 1=yes)'],..
 	  list('mat',[-1,-2],'vec',1),exprs)
       if ~ok then break,end
       nout=size(mat,2)
@@ -44,7 +44,7 @@ function [x,y,typ]=LOGIC(job,arg1,arg2)
       u1=floor(nin)
       if (herit<>0) then herit=1;end;
       if (u1<>nin) then message ("The number of rows of the truth table must be a power of two");ok=%f;end
-      if (find(mat(:)<>0&mat(:)<>1)<>[]) then message ("number in truth table must be 0 or 1");ok=%f;end
+      if (find(mat(:)<>0&mat(:)<>1)<>[]) then message ("Number in truth table must be 0 or 1");ok=%f;end
       if ok then
         in=[ones(nin,1) ones(nin,1)]
         out=[ones(nout,1) ones(nout,1)]

@@ -39,10 +39,10 @@ case 'set' then
   while %t do
     [ok,Datatype,np,exprs]=scicos_getvalue('Set INTMUL block parameters',..
 			    ['Datatype (3=int32  4=int16 5=int8 ...)';..
-                             'Do on Overflow(0=Nothing 1=Saturate 2=Error)'],..
+                             'Do on Overflow (0=Nothing 1=Saturate 2=Error)'],..
                              list('vec',1,'vec',1),exprs)
     if ~ok then break,end
-    if (np~=0 & np~=1 & np~=2) then message ("type is not supported");ok=%f;end
+    if (np~=0 & np~=1 & np~=2) then message ("Do on overflow type is not supported");ok=%f;end
     it=Datatype*ones(1,2);
     ot=Datatype;
     if Datatype==3 then
