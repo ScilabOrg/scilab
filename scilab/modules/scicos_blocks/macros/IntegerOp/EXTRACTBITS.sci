@@ -41,11 +41,11 @@ case 'set' then
   model=arg1.model;
   while %t do
     [ok,Datatype,rule,bit,scal,exprs]=scicos_getvalue(...
-        ['            Set parameters';'';'-Dataype : set the integer type';..
-         '     3=int32, 4=int16, 5=int8, ...';..
-         '-Bits to extract :';'     1=Upper Half';'     2=Lower Half';..
-         '     3=Range from MSB';'     4=Range to LSB';'     5=Range of bits';..
-         '-Number of bits or index of bit :';'     case range of bits:[start,end],0 is LSB';..
+        ['            Set EXTRACTBITS block parameters';'';'-Datatype : set the integer type';..
+         '&nbsp;&nbsp;3=int32, 4=int16, 5=int8, ...';..
+         '-Bits to extract :';'&nbsp;&nbsp;1=Upper Half';'&nbsp;&nbsp;2=Lower Half';..
+         '&nbsp;&nbsp;3=Range from MSB';'&nbsp;&nbsp;4=Range to LSB';'&nbsp;&nbsp;5=Range of bits';..
+         '-Number of bits or index of bit :';'&nbsp;&nbsp;case range of bits:[start,end],0 is LSB';..
          '-Treat bit field as an integer (0=no 1=yes)';''],..
 	['Datatype';..
 	 'Bits to extract';..
@@ -56,7 +56,7 @@ case 'set' then
     if (rule<1)|(rule>5) then message('Incorrect index '+string(rule)+' ; must be 1 to 5.');ok=%f;end
     in=[model.in model.in2];bit=int(bit);rule=int(rule);
     if (or(bit(:)<0)) then
-      message('Incorrect index '+string(min(bit))+' ; must be >0.');ok=%f;
+      message('Incorrect index '+string(min(bit))+' ; must be &gt;0.');ok=%f;
     end
     if (rule==3)|(rule==4) then 
 	if (size(bit,'*')~=1) then message('Index of bit must be a single value');ok=%f;
@@ -69,7 +69,7 @@ case 'set' then
     else bit=0;numb=[]
     end
     if (Datatype==3 | Datatype==6) then
-	if or(bit(:) > 31) then message ('Incorrect index '+string(max(bit))+' ; must be <32.');ok=%f;
+		if or(bit(:) > 31) then message ('Incorrect index '+string(max(bit))+' ; must be &lt;32.');ok=%f;
 	end
 	select rule
 	    case 1 then
@@ -105,7 +105,7 @@ case 'set' then
 		end
 	end
     elseif (Datatype==4 | Datatype==7) then
-	if or(bit(:) > 15) then message ('Incorrect index '+string(max(bit))+' ; must be <16.');ok=%f;
+	if or(bit(:) > 15) then message ('Incorrect index '+string(max(bit))+' ; must be &lt;16.');ok=%f;
 	end
 	select rule
 	    case 1 then
@@ -141,7 +141,7 @@ case 'set' then
 		end
 	end
     elseif (Datatype==5 | Datatype==8) then
-	if or(bit(:) > 7) then message ('Incorrect index '+string(max(bit))+' ; must be <8.');ok=%f;
+	if or(bit(:) > 7) then message ('Incorrect index '+string(max(bit))+' ; must be &lt;8.');ok=%f;
 	end
 	select rule
 	    case 1 then
