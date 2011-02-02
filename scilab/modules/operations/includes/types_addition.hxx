@@ -16,9 +16,7 @@
 
 #include "operation.hxx"
 #include "internal.hxx"
-#include "double.hxx"
-#include "matrixpoly.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 using namespace types;
 

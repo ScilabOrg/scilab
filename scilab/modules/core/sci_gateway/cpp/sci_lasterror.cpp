@@ -11,9 +11,7 @@
  */
 #include "function.hxx"
 #include "context.hxx"
-#include "types.hxx"
-#include "double.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "configvariable.hxx"
 
 extern "C"
@@ -42,7 +40,7 @@ types::Function::ReturnValue sci_lasterror(types::typed_list &in, int _iRetCount
 
     if(in.size() == 1)
     {
-        if(in[0]->isBool() == false || in[0]->getAsBool()->size_get() != 1)
+        if(in[0]->isBool() == false || in[0]->getAsBool()->getSize() != 1)
         {
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: Boolean vector expected.\n"), L"lasterror", 1);
             return Function::Error;

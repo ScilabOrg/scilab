@@ -14,8 +14,7 @@
 #define __TYPES_DIVIDE_HXX__
 
 #include "operation.hxx"
-#include "double.hxx"
-#include "matrixpoly.hxx"
+#include "arrayof.hxx"
 
 EXTERN_OP types::InternalType *GenericRDivide(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand);
 

@@ -11,9 +11,7 @@
 */
 #include <sstream>
 #include <math.h>
-#include "implicitlist.hxx"
-#include "double.hxx"
-#include "matrixpoly.hxx"
+#include "arrayof.hxx"
 
 #include "core_math.h"
 #include "tostring_common.hxx"
@@ -73,38 +71,38 @@ namespace types
         m_iSize = -1;
         m_eOutSubType = Int::Type8;
         m_eOutType = RealGeneric;
-        start_set(_poStart);
-        step_set(_poStep);
-        end_set(_poEnd);
+        setStart(_poStart);
+        setStep(_poStep);
+        setEnd(_poEnd);
         compute();
     }
 
-    ImplicitList* ImplicitList::clone()
+    InternalType* ImplicitList::clone()
     {
         return new ImplicitList(m_poStart, m_poStep, m_poEnd);
     }
 
-    InternalType::RealType ImplicitList::start_type_get()
+    InternalType::RealType ImplicitList::getStartType()
     {
         return m_poStart->getType();
     }
 
-    InternalType::RealType ImplicitList::step_type_get()
+    InternalType::RealType ImplicitList::getStepType()
     {
         return m_poStep->getType();
     }
 
-    InternalType::RealType ImplicitList::end_type_get()
+    InternalType::RealType ImplicitList::getEndType()
     {
         return m_poEnd->getType();
     }
 
-    InternalType* ImplicitList::start_get()
+    InternalType* ImplicitList::getStart()
     {
         return m_poStart;
     }
 
-    void ImplicitList::start_set(InternalType *_poIT)
+    void ImplicitList::setStart(InternalType *_poIT)
     {
         _poIT->IncreaseRef();
         m_poStart = _poIT;
@@ -115,12 +113,12 @@ namespace types
         m_bComputed = false;
     }
 
-    InternalType* ImplicitList::step_get()
+    InternalType* ImplicitList::getStep()
     {
         return m_poStep;
     }
 
-    void ImplicitList::step_set(InternalType *_poIT)
+    void ImplicitList::setStep(InternalType *_poIT)
     {
         _poIT->IncreaseRef();
         m_poStep = _poIT;
@@ -131,12 +129,12 @@ namespace types
         m_bComputed = false;
     }
 
-    InternalType* ImplicitList::end_get()
+    InternalType* ImplicitList::getEnd()
     {
         return m_poEnd;
     }
 
-    void ImplicitList::end_set(InternalType* _poIT)
+    void ImplicitList::setEnd(InternalType* _poIT)
     {
         _poIT->IncreaseRef();
         m_poEnd = _poIT;
@@ -147,7 +145,7 @@ namespace types
         m_bComputed = false;
     }
 
-    long long ImplicitList::size_get()
+    long long ImplicitList::getSize()
     {
         return m_iSize;
     }
@@ -160,14 +158,14 @@ namespace types
         }
 
         m_iSize = -1;
-        if(computable() == true)
+        if(isComputable() == true)
         {
             m_iSize = 0;
             if(m_eOutType == RealDouble)
             {
-                double dblStart	= m_poStart->getAsDouble()->real_get(0,0);
-                double dblStep	= m_poStep->getAsDouble()->real_get(0,0);
-                double dblEnd   = m_poEnd->getAsDouble()->real_get(0,0);
+                double dblStart	= m_poStart->getAs<Double>()->getReal(0,0);
+                double dblStep	= m_poStep->getAs<Double>()->getReal(0,0);
+                double dblEnd   = m_poEnd->getAs<Double>()->getReal(0,0);
 
                 if(dblStep > 0)
                 {
@@ -224,7 +222,7 @@ namespace types
         }
     }
 
-    bool ImplicitList::computable()
+    bool ImplicitList::isComputable()
     {
         if(m_eStartType != RealDouble && m_eStartType != RealInt)
         {
@@ -268,9 +266,9 @@ namespace types
 
     std::wstring ImplicitList::toString(int _iPrecision, int _iLineLen)
     {
-        if(computable())
+        if(isComputable())
         {
-            return extract_matrix()->toString(_iPrecision, _iLineLen);
+            return extractFullMatrix()->toString(_iPrecision, _iLineLen);
         }
         else
         {
@@ -278,39 +276,39 @@ namespace types
             ostr << L" ";
             if(m_eStartType == RealDouble)
             {
-                Double *pD = m_poStart->getAsDouble();
+                Double *pD = m_poStart->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
             {
                 MatrixPoly* pMP = m_poStart->getAsPoly();
-                ostr << printInLinePoly(pMP->poly_get(0,0), pMP->var_get(), _iPrecision, _iLineLen);
+                ostr << printInLinePoly(pMP->getPoly(0,0), pMP->getVariableName(), _iPrecision, _iLineLen);
             }
 
             ostr << L":";
 
             if(m_eStepType == RealDouble)
             {
-                Double *pD = m_poStep->getAsDouble();
+                Double *pD = m_poStep->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
             {
                 MatrixPoly* pMP = m_poStep->getAsPoly();
-                ostr << printInLinePoly(pMP->poly_get(0,0), pMP->var_get(), _iPrecision, _iLineLen);
+                ostr << printInLinePoly(pMP->getPoly(0,0), pMP->getVariableName(), _iPrecision, _iLineLen);
             }
 
             ostr << L":";
 
             if(m_eEndType == RealDouble)
             {
-                Double *pD = m_poEnd->getAsDouble();
+                Double *pD = m_poEnd->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
             {
                 MatrixPoly* pMP = m_poEnd->getAsPoly();
-                ostr << printInLinePoly(pMP->poly_get(0,0), pMP->var_get(), _iPrecision, _iLineLen);
+                ostr << printInLinePoly(pMP->getPoly(0,0), pMP->getVariableName(), _iPrecision, _iLineLen);
             }
             ostr << std::endl;
             return ostr.str();
@@ -327,20 +325,20 @@ namespace types
         return m_eOutSubType;
     }
 
-    double ImplicitList::extract_value_double(int _iOccur)
+    double ImplicitList::extractValueInDouble(int _iOccur)
     {
-        double dblStart		= m_poStart->getAsDouble()->real_get(0,0);
-        double dblStep		= m_poStep->getAsDouble()->real_get(0,0);
+        double dblStart		= m_poStart->getAs<Double>()->getReal(0,0);
+        double dblStep		= m_poStep->getAs<Double>()->getReal(0,0);
         return dblStart + _iOccur * dblStep;
     }
 
-    long long ImplicitList::extract_value_int(int _iOccur)
+    long long ImplicitList::extractValueInInteger(int _iOccur)
     {
         return convert_input(m_poStart) + _iOccur * convert_input(m_poStep);
     }
 
     //extract single value in a InternalType
-    InternalType* ImplicitList::extract_value(int _iOccur)
+    InternalType* ImplicitList::extractValue(int _iOccur)
     {
         InternalType* pIT = NULL;
         if(compute())
@@ -354,8 +352,8 @@ namespace types
             }
             else //RealDouble
             {
-                double dblStart		= m_poStart->getAsDouble()->real_get(0,0);
-                double dblStep		= m_poStep->getAsDouble()->real_get(0,0);
+                double dblStart		= m_poStart->getAs<Double>()->getReal(0,0);
+                double dblStep		= m_poStep->getAs<Double>()->getReal(0,0);
                 Double* pD				= new Double(dblStart + _iOccur * dblStep);
                 pIT = pD;
             }
@@ -364,7 +362,7 @@ namespace types
     }
 
     //extract matrix in a Internaltype
-    InternalType* ImplicitList::extract_matrix()
+    InternalType* ImplicitList::extractFullMatrix()
     {
         InternalType* pIT = NULL;
         if(compute())
@@ -383,7 +381,7 @@ namespace types
             else //RealDouble
             {
                 Double* pD = new Double(1, static_cast<int>(m_iSize));
-                extract_matrix(pD->real_get());
+                extractFullMatrix(pD->getReal());
                 pIT = pD;
             }
         }
@@ -391,7 +389,7 @@ namespace types
     }
 
     template<typename T>
-    void ImplicitList::extract_matrix(T *_pT)
+    void ImplicitList::extractFullMatrix(T *_pT)
     {
         T tStart = static_cast<T>(convert_input(m_poStart));
         T tStep	= static_cast<T>(convert_input(m_poStep));
@@ -406,15 +404,15 @@ namespace types
 std::wstring printInLinePoly(types::Poly* _pPoly, std::wstring _stVar, int _iPrecision, int _iLineLen)
 {
     std::wostringstream ostr;
-    for(int i = 0 ; i < _pPoly->rank_get() ; i++)
+    for(int i = 0 ; i < _pPoly->getRank() ; i++)
     {
-        double dbl = _pPoly->coef_get()->real_get()[i];
+        double dbl = _pPoly->getCoef()->getReal()[i];
         if(dbl != 0)
         {
             int iWidth = 0, iPrec = 0;
             bool bFP = false; // FloatingPoint
-            GetDoubleFormat(dbl, _iPrecision, &iWidth, &iPrec, &bFP);
-            AddDoubleValue(&ostr, dbl, iWidth, iPrec, ostr.str().size() != 0, i == 0, false);
+            getDoubleFormat(dbl, _iPrecision, &iWidth, &iPrec, &bFP);
+            addDoubleValue(&ostr, dbl, iWidth, iPrec, ostr.str().size() != 0, i == 0, false);
             if(i != 0)
             {
                 ostr <<_stVar;
@@ -433,8 +431,8 @@ std::wstring printDouble(types::Double* _pD, int _iPrecision, int _iLineLen)
     std::wostringstream ostr;
     int iWidth = 0, iPrec = 0;
     bool bFP = false; // FloatingPoint
-    GetDoubleFormat(_pD->real_get(0,0), _iPrecision, &iWidth, &iPrec, &bFP);
-    AddDoubleValue(&ostr, _pD->real_get(0,0), iWidth, iPrec, false, true, false);
+    getDoubleFormat(_pD->getReal(0,0), _iPrecision, &iWidth, &iPrec, &bFP);
+    addDoubleValue(&ostr, _pD->getReal(0,0), iWidth, iPrec, false, true, false);
     return ostr.str();
 }
 
@@ -444,7 +442,7 @@ long long convert_input(types::InternalType* _poIT)
     switch(_poIT->getType())
     {
     case types::GenericType::RealDouble :
-        llValue = static_cast<long long>(_poIT->getAsDouble()->real_get(0,0));
+        llValue = static_cast<long long>(_poIT->getAs<types::Double>()->getReal(0,0));
         break;
     case types::GenericType::RealInt :
         llValue = static_cast<long long>(_poIT->getAsInt()->data_get(0,0));
@@ -462,7 +460,7 @@ unsigned long long convert_unsigned_input(types::InternalType* _poIT)
     switch(_poIT->getType())
     {
     case types::GenericType::RealDouble :
-        ullValue = static_cast<unsigned long long>(_poIT->getAsDouble()->real_get(0,0));
+        ullValue = static_cast<unsigned long long>(_poIT->getAs<types::Double>()->getReal(0,0));
         break;
     case types::GenericType::RealInt :
         ullValue = static_cast<unsigned long long>(_poIT->getAsInt()->data_get(0,0));
