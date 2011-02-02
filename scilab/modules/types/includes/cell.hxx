@@ -41,7 +41,7 @@ namespace types
         ** Clone
         ** Create a new List and Copy all values.
         */
-        Cell*               clone();
+        InternalType*       clone();
 
         std::wstring        toString(int _iPrecision, int _iLineLen);
 
@@ -52,6 +52,8 @@ namespace types
         bool                set(int _iRows, int _iCols, InternalType* _pIT);
         bool                set(int _iIndex, InternalType* _pIT);
 
+        GenericType*        get_col_value(int _iPos);
+
 
         bool                resize(int _iNewRows, int _iNewCols);
         bool                append(int _iRows, int _iCols, Cell *_poSource);
@@ -59,10 +61,10 @@ namespace types
         bool                operator==(const InternalType& it);
         bool                operator!=(const InternalType& it);
 
-        InternalType*       insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        bool                insert_cell(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        static Cell*        insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        Cell*               extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+        InternalType*       insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
+        bool                insert_cell(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
+        static Cell*        insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
+        Cell*               extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector);
 
         std::vector<InternalType*> extract_cell(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
 

@@ -87,7 +87,7 @@ types::Function::ReturnValue sci_strindex(types::typed_list &in, int _iRetCount,
     String* pS = in[1]->getAsString();
     wchar_t** pwstSearch = pS->string_get();
 
-    if(in[0]->isDouble() && in[0]->getAsDouble()->isEmpty())
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->isEmpty())
     {
         out.push_back(Double::Empty());
         return Function::OK;
@@ -162,7 +162,7 @@ types::Function::ReturnValue sci_strindex(types::typed_list &in, int _iRetCount,
     Double* pIndex = new Double(1, iValues);
     for(int i = 0 ; i < iValues ; i++)
     {
-        pIndex->val_set(0, i, pstrResult[i].data);
+        pIndex->set_real(0, i, pstrResult[i].data);
     }
 
     out.push_back(pIndex);
@@ -172,7 +172,7 @@ types::Function::ReturnValue sci_strindex(types::typed_list &in, int _iRetCount,
         Double* pPos = new Double(1, iValues);
         for(int i = 0 ; i < iValues ; i++)
         {
-            pPos->val_set(0, i, pstrResult[i].position);
+            pPos->set_real(0, i, pstrResult[i].position);
         }
         out.push_back(pPos);
     }

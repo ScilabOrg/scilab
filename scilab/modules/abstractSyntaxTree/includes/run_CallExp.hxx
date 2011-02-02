@@ -47,7 +47,7 @@ void visitprivate(const CallExp &e)
                 if(pIL->computable() == false)
                 {
                     Double* pVal = new Double(-1, -1);
-                    pVal->real_get()[0] = 1;
+                    pVal->get_real()[0] = 1;
                     execVar[j].result_set(pVal);
                 }
                 else
@@ -242,11 +242,15 @@ void visitprivate(const CallExp &e)
             if(rtIndex  == InternalType::RealDouble)
             {
                 //Create list of indexes
-                bool bSeeAsVector   = iArgDim == 1;
+                ArrayOf<double>* pArray = pIT->getAs<ArrayOf<double>>();
+                bool bSeeAsVector   = iArgDim < pArray->get_dims();
                 int *piIndexSeq		= NULL;
                 int *piMaxDim       = NULL;
                 int *piDimSize		= new int[iArgDim];
-                int iTotalCombi		= GetIndexList(pIT, e.args_get(), &piIndexSeq, &piMaxDim, pIT, piDimSize);
+                int iDims           = 0;
+                int iTotalCombi		= GetIndexList(pIT, e.args_get(), &piIndexSeq, &piMaxDim, &iDims, pIT, piDimSize);
+
+                typed_list *pArgs = GetArgumentList(e.args_get());
 
                 //check we don't have bad indexes like "< 1"
                 for(int i = 0 ; i < iTotalCombi * iArgDim; i++)
@@ -260,7 +264,7 @@ void visitprivate(const CallExp &e)
                         throw ScilabError(os.str(), 999, e.name_get().location_get());
                     }
                 }
-                ResultList = pIT->getAsTList()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
+                ResultList = pIT->getAsTList()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
             }
             else if(rtIndex  == InternalType::RealString)
             {
@@ -282,65 +286,44 @@ void visitprivate(const CallExp &e)
         else
         {
             //Create list of indexes
-            bool bSeeAsVector   = iArgDim == 1;
-            int *piIndexSeq		= NULL;
-            int *piMaxDim       = NULL;
-            int *piDimSize		= new int[iArgDim];
-            int iTotalCombi		= GetIndexList(pIT, e.args_get(), &piIndexSeq, &piMaxDim, pIT, piDimSize);
-
-            //check we don't have bad indexes like "< 1"
-            for(int i = 0 ; i < iTotalCombi * iArgDim; i++)
-            {
-                if(piIndexSeq[i] < 1)
-                {
-                    //manage error
-                    std::wostringstream os;
-                    os << _W("Indexes must be positive .\n");
-                    //os << ((Location)e.name_get().location_get()).location_string_get() << std::endl;
-                    throw ScilabError(os.str(), 999, e.name_get().location_get());
-                }
-            }
+            typed_list *pArgs = GetArgumentList(e.args_get());
 
             switch(pIT->getType())
             {
             case InternalType::RealDouble :
-                pOut = pIT->getAsDouble()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
+                pOut = pIT->getAs<Double>()->extract(pArgs);
                 break;
-            case InternalType::RealBool :
-                pOut = pIT->getAsBool()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
-                break;
-            case InternalType::RealInt :
-                pOut = pIT->getAsInt()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
-                break;
-            case InternalType::RealString :
-                pOut = pIT->getAsString()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
-                break;
-            case InternalType::RealList :
-            {
-                ResultList = pIT->getAsList()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
-                if(ResultList.size() == 1)
-                {
-                    result_set(ResultList[0]);
-                }
-                else
-                {
-                    for(int i = 0 ; i < static_cast<int>(ResultList.size()) ; i++)
-                    {
-                        result_set(i, ResultList[i]);
-                    }
-                }
-                break;
-            }
-            case InternalType::RealCell :
-                pOut = pIT->getAsCell()->extract(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
-                break;
+            //case InternalType::RealBool :
+            //    pOut = pIT->getAsBool()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+            //    break;
+            //case InternalType::RealInt :
+            //    pOut = pIT->getAsInt()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+            //    break;
+            //case InternalType::RealString :
+            //    pOut = pIT->getAsString()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+            //    break;
+            //case InternalType::RealList :
+            //{
+            //    ResultList = pIT->getAsList()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+            //    if(ResultList.size() == 1)
+            //    {
+            //        result_set(ResultList[0]);
+            //    }
+            //    else
+            //    {
+            //        for(int i = 0 ; i < static_cast<int>(ResultList.size()) ; i++)
+            //        {
+            //            result_set(i, ResultList[i]);
+            //        }
+            //    }
+            //    break;
+            //}
+            //case InternalType::RealCell :
+            //    pOut = pIT->getAsCell()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+            //    break;
             default :
                 break;
             }
-
-            delete[] piDimSize;
-            delete[] piIndexSeq;
-            delete[] piMaxDim;
         }
 
         //List extraction can return multiple items

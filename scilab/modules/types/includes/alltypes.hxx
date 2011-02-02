@@ -46,5 +46,6 @@
 #include "mlist.hxx"
 #include "file.hxx"
 #include "threadId.hxx"
+#include "arrayof.hxx"
 
 #endif /* !ALL_TYPES_HXX */

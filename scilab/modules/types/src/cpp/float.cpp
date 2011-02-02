@@ -108,7 +108,7 @@ namespace types
 			m_pfImg = NULL;
 	}
 
-	Float* Float::clone()
+	InternalType* Float::clone()
 	{
 		// FIXME : Implement me.
 		return NULL;
@@ -120,25 +120,25 @@ namespace types
 	}
 
 	/*------------*/
-	/*	real_get	*/
+	/*	get_real	*/
 	/*------------*/
-	float*	Float::real_get() const
+	float*	Float::get_real() const
 	{
 		return m_pfReal;
 	}
 
 	/*------------*/
-	/*	img_get	*/
+	/*	get_img	*/
 	/*------------*/
-	float*	Float::img_get() const
+	float*	Float::get_img() const
 	{
 		return m_pfImg;
 	}
 
 	/*------------*/
-	/*	real_set	*/
+	/*	set_real	*/
 	/*------------*/
-	bool Float::real_set(float *_pfReal)
+	bool Float::set_real(float *_pfReal)
 	{
 		if(_pfReal != NULL)
 		{
@@ -156,9 +156,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	real_get	*/
+	/*	get_real	*/
 	/*------------*/
-	float	Float::real_get(int _iRows, int _iCols) const
+	float	Float::get_real(int _iRows, int _iCols) const
 	{
 		if(m_pfReal != NULL)
 		{
@@ -171,9 +171,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	img_set		*/
+	/*	set_img		*/
 	/*------------*/
-	bool Float::img_set(float *_pfImg)
+	bool Float::set_img(float *_pfImg)
 	{
 		if(_pfImg != NULL)
 		{
@@ -191,9 +191,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	img_get	*/
+	/*	get_img	*/
 	/*------------*/
-	float	Float::img_get(int _iRows, int _iCols) const
+	float	Float::get_img(int _iRows, int _iCols) const
 	{
 		if(m_pfImg != NULL)
 		{
@@ -348,7 +348,7 @@ namespace types
 			return false;
 		}
 
-		float *pfReal = pf->real_get();
+		float *pfReal = pf->get_real();
 		if(memcmp(m_pfReal, pfReal, size_get() * sizeof(float)) != 0)
 		{
 			return false;
@@ -356,7 +356,7 @@ namespace types
 
 		if(isComplex())
 		{
-			float *pfImg = pf->img_get();
+			float *pfImg = pf->get_img();
 			if(memcmp(m_pfImg, pfImg, size_get() * sizeof(float)) != 0)
 			{
 				return false;
@@ -380,7 +380,7 @@ namespace types
 				pf = new Float(m_iRows, 1, true);
 				for(int i = 0 ; i < m_iRows ; i++)
 				{
-					pf->val_set(i, 0, real_get(i, _iPos), img_get(i, _iPos));
+					pf->val_set(i, 0, get_real(i, _iPos), get_img(i, _iPos));
 				}
 			}
 			else
@@ -388,7 +388,7 @@ namespace types
 				pf = new Float(m_iRows, 1);
 				for(int i = 0 ; i < m_iRows ; i++)
 				{
-					pf->val_set(i, 0, real_get(i, _iPos));
+					pf->val_set(i, 0, get_real(i, _iPos));
 				}
 			}
 		}

@@ -54,13 +54,13 @@ Function::ReturnValue sci_fileinfo(typed_list &in, int _iRetCount, typed_list &o
     double* pData = filesinfoW(pS->string_get(), pS->rows_get(), piErr);
 
     Double *pOut = new Double(pS->rows_get(), FILEINFO_ARRAY_SIZE);
-    pOut->real_set(pData);
+    pOut->set_real(pData);
     out.push_back(pOut);
 
     if(_iRetCount == 2)
     {
         Double* pErr = new Double(pS->rows_get(), 1);
-        pErr->real_set(piErr);
+        pErr->set_real(piErr);
         out.push_back(pErr);
     }
 

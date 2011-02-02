@@ -59,7 +59,7 @@ namespace types
 
     }
 
-	String *String::clone()
+	InternalType* String::clone()
 	{
 	  String *pstClone = new String(rows_get(), cols_get());
 
@@ -413,7 +413,7 @@ namespace types
 		return ps;
 	}
 
-	InternalType* String::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+	InternalType* String::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
 	{
 		int iNewRows = rows_get();
 		int iNewCols = cols_get();
@@ -525,7 +525,7 @@ namespace types
         case InternalType::RealDouble :
             {//[] used to delete items
 
-                Double *pIn = _poSource->getAsDouble();
+                Double *pIn = _poSource->getAs<Double>();
 
                 if(pIn->size_get() != 0)
                 {//not []
@@ -690,7 +690,7 @@ namespace types
 		return this;
 	}
 
-	String*	String::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String* _poSource, bool _bAsVector)
+	String*	String::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, String* _poSource, bool _bAsVector)
 	{
 		String *pS	= NULL ;
 
@@ -714,7 +714,7 @@ namespace types
 			pS = new String(_piMaxDim[0], _piMaxDim[1]);
 		}
 
-		if(pS->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+		if(pS->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
 		{
 			delete pS;
 			return NULL;
@@ -761,7 +761,7 @@ namespace types
 		return true;
 	}
 
-	String*	String::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	String*	String::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
 	{
 		String* pOut	= NULL;
 		int iRowsOut	= 0;

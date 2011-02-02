@@ -202,7 +202,7 @@ wchar_t** scilab_sprintf(wchar_t* _pwstName, wchar_t* _pwstInput, typed_list &in
                 void* pvVal = NULL;
                 if(_pArgs[i - 1].type == InternalType::RealDouble)
                 {
-                    double dblVal = in[_pArgs[i - 1].iArg]->getAsDouble()->real_get(j, _pArgs[i - 1].iPos);
+                    double dblVal = in[_pArgs[i - 1].iArg]->getAs<Double>()->get_real(j, _pArgs[i - 1].iPos);
                     if(pToken[i].outputType == InternalType::RealDouble)
                     {
                         swprintf(pwstTemp, bsiz, pToken[i].pwstToken, dblVal);

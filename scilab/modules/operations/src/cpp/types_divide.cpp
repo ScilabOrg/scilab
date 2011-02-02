@@ -50,30 +50,30 @@ int DivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDouble
 		if(bComplex1 == false && bComplex2 == false)
 		{// Real1 \ Real2 -> Real2 / Real1
 			iErr = iRightDivisionRealMatrixByRealMatrix(
-				_pDouble1->real_get(), iInc1, 
-				_pDouble2->real_get(), iInc2, 
-				(*_pDoubleOut)->real_get(), 1, iSizeResult);
+				_pDouble1->get_real(), iInc1, 
+				_pDouble2->get_real(), iInc2, 
+				(*_pDoubleOut)->get_real(), 1, iSizeResult);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{// Real \ Complex -> Complex / Real
 			iErr = iRightDivisionRealMatrixByComplexMatrix(
-				_pDouble1->real_get(), iInc1, 
-				_pDouble2->real_get(), _pDouble2->img_get(), iInc2, 
-				(*_pDoubleOut)->real_get(),	(*_pDoubleOut)->img_get(), 1, iSizeResult);
+				_pDouble1->get_real(), iInc1, 
+				_pDouble2->get_real(), _pDouble2->get_img(), iInc2, 
+				(*_pDoubleOut)->get_real(),	(*_pDoubleOut)->get_img(), 1, iSizeResult);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{// Complex \ Real -> Real / Complex
 			iErr = iRightDivisionComplexMatrixByRealMatrix(
-				_pDouble1->real_get(), _pDouble1->img_get(), iInc1, 
-				_pDouble2->real_get(), iInc2,
-				(*_pDoubleOut)->real_get(),	(*_pDoubleOut)->img_get(), 1, iSizeResult);
+				_pDouble1->get_real(), _pDouble1->get_img(), iInc1, 
+				_pDouble2->get_real(), iInc2,
+				(*_pDoubleOut)->get_real(),	(*_pDoubleOut)->get_img(), 1, iSizeResult);
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{// Complex \ Complex
 			iErr = iRightDivisionComplexMatrixByComplexMatrix(
-				_pDouble1->real_get(), _pDouble1->img_get(), iInc1,
-				_pDouble2->real_get(), _pDouble2->img_get(), iInc2, 
-				(*_pDoubleOut)->real_get(),	(*_pDoubleOut)->img_get(), 1, iSizeResult);
+				_pDouble1->get_real(), _pDouble1->get_img(), iInc1,
+				_pDouble2->get_real(), _pDouble2->get_img(), iInc2, 
+				(*_pDoubleOut)->get_real(),	(*_pDoubleOut)->get_img(), 1, iSizeResult);
 		}
 	}
 	else if(bScalar1)
@@ -91,19 +91,20 @@ int DivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDouble
 
 		if(_pDouble1->isComplex())
 		{
-			dblSavedR = _pDouble1->real_get()[0];
-			dblSavedI = _pDouble1->img_get()[0];
+			dblSavedR = _pDouble1->get_real()[0];
+			dblSavedI = _pDouble1->get_img()[0];
 			for(int i = 0 ; i < iRowResult ; i++)
 			{
-				pdblTemp->val_set(i,i,dblSavedR, dblSavedI);
+				pdblTemp->set(i, i, dblSavedR);
+				pdblTemp->set_img(i, i, dblSavedI);
 			}
 		}
 		else
 		{
-			dblSavedR = _pDouble1->real_get()[0];
+			dblSavedR = _pDouble1->get_real()[0];
 			for(int i = 0 ; i < iRowResult ; i++)
 			{
-				pdblTemp->val_set(i,i,dblSavedR);
+				pdblTemp->set(i, i, dblSavedR);
 			}
 		}
 
@@ -113,17 +114,17 @@ int DivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDouble
 		{
 			double dblRcond = 0;
 			iRightDivisionOfComplexMatrix(
-					pdblTemp->real_get(), pdblTemp->img_get(), pdblTemp->rows_get(), pdblTemp->cols_get(),
-					_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-					(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), iRowResult, iColResult, &dblRcond);
+					pdblTemp->get_real(), pdblTemp->get_img(), pdblTemp->rows_get(), pdblTemp->cols_get(),
+					_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+					(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img(), iRowResult, iColResult, &dblRcond);
 		}
 		else
 		{
 			double dblRcond = 0;
 			iRightDivisionOfRealMatrix(
-					pdblTemp->real_get(), pdblTemp->rows_get(), pdblTemp->cols_get(),
-					_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-					(*_pDoubleOut)->real_get(), iRowResult, iColResult, &dblRcond);
+					pdblTemp->get_real(), pdblTemp->rows_get(), pdblTemp->cols_get(),
+					_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+					(*_pDoubleOut)->get_real(), iRowResult, iColResult, &dblRcond);
 		}
 		delete pdblTemp;
 	}
@@ -134,17 +135,17 @@ int DivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDouble
 		{
 			double dblRcond = 0;
 			iRightDivisionOfComplexMatrix(
-					_pDouble1->real_get(), _pDouble1->img_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-					_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-					(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), _pDouble1->rows_get(), _pDouble2->rows_get(), &dblRcond);
+					_pDouble1->get_real(), _pDouble1->get_img(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+					_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+					(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img(), _pDouble1->rows_get(), _pDouble2->rows_get(), &dblRcond);
 		}
 		else
 		{
 			double dblRcond = 0;
 			iRightDivisionOfRealMatrix(
-					_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-					_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-					(*_pDoubleOut)->real_get(), _pDouble1->rows_get(), _pDouble2->rows_get(), &dblRcond);
+					_pDouble1->get_real(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+					_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+					(*_pDoubleOut)->get_real(), _pDouble1->rows_get(), _pDouble2->rows_get(), &dblRcond);
 		}
 	}
 	else
@@ -242,39 +243,39 @@ int DividePolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly** _pPoly
 		for(int i = 0 ; i < _pPoly->size_get() ; i++)
 		{
 			Poly *pPolyIn			= _pPoly->poly_get(i);
-			double* pRealIn		= pPolyIn->coef_get()->real_get();
-			double* pImgIn		= pPolyIn->coef_get()->img_get();
+			double* pRealIn		= pPolyIn->coef_get()->get_real();
+			double* pImgIn		= pPolyIn->coef_get()->get_img();
 
 			Poly *pPolyOut		= (*_pPolyOut)->poly_get(i);
-			double* pRealOut	= pPolyOut->coef_get()->real_get();
-			double* pImgOut		= pPolyOut->coef_get()->img_get();
+			double* pRealOut	= pPolyOut->coef_get()->get_real();
+			double* pImgOut		= pPolyOut->coef_get()->get_img();
 			
 			if(bComplex1 == false && bComplex2 == false)
 			{
 				iRightDivisionRealMatrixByRealMatrix(
 						pRealIn, 1,
-						_pDouble->real_get(),	0, 
+						_pDouble->get_real(),	0, 
 						pRealOut, 1, pPolyOut->rank_get());
 			}
 			else if(bComplex1 == false && bComplex2 == true)
 			{
 				iRightDivisionRealMatrixByComplexMatrix(
 						pRealIn, 1,
-						_pDouble->real_get(),	_pDouble->img_get(), 0, 
+						_pDouble->get_real(),	_pDouble->get_img(), 0, 
 						pRealOut,	pImgOut, 1, pPolyOut->rank_get());
 			}
 			else if(bComplex1 == true && bComplex2 == false)
 			{
 				iRightDivisionComplexMatrixByRealMatrix(
 						pRealIn, pImgIn, 1,
-						_pDouble->real_get(), 0, 
+						_pDouble->get_real(), 0, 
 						pRealOut, pImgOut, 1, pPolyOut->rank_get());
 			}
 			else if(bComplex1 == true && bComplex2 == true)
 			{
 				iRightDivisionComplexMatrixByComplexMatrix(
 						pRealIn, pImgIn, 1,
-						_pDouble->real_get(),	_pDouble->img_get(), 0, 
+						_pDouble->get_real(),	_pDouble->get_img(), 0, 
 						pRealOut, pImgOut, 1, pPolyOut->rank_get());
 			}
 		}
@@ -282,30 +283,30 @@ int DividePolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly** _pPoly
 	else if(bScalar1)
 	{
 		Double *pResultCoef = new Double(iRowResult, iColResult, (*_pPolyOut)->isComplex());
-		double *pReal				= pResultCoef->real_get();
-		double *pImg				= pResultCoef->img_get();
+		double *pReal				= pResultCoef->get_real();
+		double *pImg				= pResultCoef->get_img();
 
 		for(int i = 0 ; i < pTemp->poly_get(0)->rank_get() ; i++)
 		{
 			Double *pCoef				= pTemp->extract_coef(i);
 			Double *pResultCoef = new Double(iRowResult, iColResult, pCoef->isComplex());
-			double *pReal				= pResultCoef->real_get();
-			double *pImg				= pResultCoef->img_get();
+			double *pReal				= pResultCoef->get_real();
+			double *pImg				= pResultCoef->get_img();
 
 			if(bComplex1 == false && bComplex2 == false)
 			{
 				double dblRcond = 0;
 				iRightDivisionOfRealMatrix(
-						pCoef->real_get(), iRowResult, iRowResult,
-						_pDouble->real_get(), _pDouble->rows_get(), _pDouble->cols_get(), 
+						pCoef->get_real(), iRowResult, iRowResult,
+						_pDouble->get_real(), _pDouble->rows_get(), _pDouble->cols_get(), 
 						pReal, iRowResult, iColResult, &dblRcond);
 			}
 			else
 			{
 				double dblRcond = 0;
 				iRightDivisionOfComplexMatrix(
-						pCoef->real_get(), pCoef->img_get(), iRowResult, iRowResult,
-						_pDouble->real_get(), _pDouble->img_get(), _pDouble->rows_get(), _pDouble->cols_get(), 
+						pCoef->get_real(), pCoef->get_img(), iRowResult, iRowResult,
+						_pDouble->get_real(), _pDouble->get_img(), _pDouble->rows_get(), _pDouble->cols_get(), 
 						pReal, pImg, iRowResult, iColResult, &dblRcond);
 			}
 

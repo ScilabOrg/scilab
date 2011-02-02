@@ -51,14 +51,14 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
         }
         else
         {
-            if(in[i]->getAsDouble()->size_get() != 1)
+            if(in[i]->getAs<Double>()->size_get() != 1)
             {
                 Scierror(999,_("%s: Wrong type for input argument #%d: A scalar expected.\n"), "argn", i + 1);
                 return Function::Error;
             }
             else
             {
-                if(in[i]->getAsDouble()->isComplex())
+                if(in[i]->getAs<Double>()->isComplex())
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), "argn", i + 1);
                     return Function::Error;
@@ -80,7 +80,7 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
     {
         if(iRhs == 1)
         {
-            double dblVal = in[0]->getAsDouble()->real_get(0,0);
+            double dblVal = in[0]->getAs<Double>()->get_real(0,0);
             if(dblVal == 1)
             {
                 out.push_back(pOut);

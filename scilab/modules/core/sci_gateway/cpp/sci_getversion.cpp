@@ -91,7 +91,7 @@ Function::ReturnValue sci_getversion(types::typed_list &in, int _iRetCount, type
             }
 
             Double* pOut = new Double(1, versionSize);
-            pOut->real_set(version);
+            pOut->set_real(version);
             out.push_back(pOut);
             FREE(version);
         }

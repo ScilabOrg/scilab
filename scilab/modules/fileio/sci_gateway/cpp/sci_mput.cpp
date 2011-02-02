@@ -54,7 +54,7 @@ Function::ReturnValue sci_mput(typed_list &in, int _iRetCount, typed_list &out)
 
     if(in[0]->getType() == InternalType::RealDouble)
     {
-        pData = in[0]->getAsDouble()->real_get();
+        pData = in[0]->getAs<Double>()->get_real();
     }
     else
     {//ints
@@ -74,13 +74,13 @@ Function::ReturnValue sci_mput(typed_list &in, int _iRetCount, typed_list &out)
 
     if(in.size() == 3)
     {
-        if(in[2]->getType() != InternalType::RealDouble || in[2]->getAsDouble()->size_get() != 1)
+        if(in[2]->getType() != InternalType::RealDouble || in[2]->getAs<Double>()->size_get() != 1)
         {
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A integer expected.\n"), L"mput", 3);
             return Function::Error;
         }
 
-        iFile = static_cast<int>(in[2]->getAsDouble()->real_get()[0]);
+        iFile = static_cast<int>(in[2]->getAs<Double>()->get_real()[0]);
     }
 
     C2F(mput)(&iFile, pData, &iSize, pstType, &iErr);

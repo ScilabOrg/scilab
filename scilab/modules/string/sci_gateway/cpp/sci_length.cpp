@@ -93,7 +93,7 @@ static Double* lengthStrings(String* _pS)
     }
 
     Double* pD = new Double(_pS->rows_get(), _pS->cols_get());
-    double* pdblData = pD->real_get();
+    double* pdblData = pD->get_real();
 
     for(int i = 0 ; i < _pS->size_get() ; i++)
     {

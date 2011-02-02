@@ -52,7 +52,7 @@ Function::ReturnValue sci_ascii(typed_list &in, int _iRetCount, typed_list &out)
     {
     case InternalType::RealDouble :
         {
-            pOut = DoubleToString(in[0]->getAsDouble());
+            pOut = DoubleToString(in[0]->getAs<Double>());
             break;
         }
     case InternalType::RealString :
@@ -370,7 +370,7 @@ String* DoubleToString(Double* _pdbl)
     String* pOut = NULL;
     char* pst = (char*)MALLOC(sizeof(char) * (_pdbl->size_get() + 1));
     memset(pst, 0x00, _pdbl->size_get() + 1);
-    double* pdbl = _pdbl->real_get();
+    double* pdbl = _pdbl->get_real();
 
     bool bWarning = false;
     for(int i = 0 ; i < _pdbl->size_get() ; i++)
@@ -408,7 +408,7 @@ Double* StringToDouble(String* _pst)
         {
             pOut = new Double(1, (int)strlen(pst));
             int iLen = (int)strlen(pst);
-            double* pD = pOut->real_get();
+            double* pD = pOut->get_real();
             for(int j = 0 ; j < iLen ; j++)
             {
                 pD[j] = pst[j];
@@ -418,7 +418,7 @@ Double* StringToDouble(String* _pst)
         {
             int iLen = (int)strlen(pst);
             Double *pIn = new Double(1, iLen);
-            double* pD = pIn->real_get();
+            double* pD = pIn->get_real();
             for(int j = 0 ; j < iLen ; j++)
             {
                 pD[j] = pst[j];

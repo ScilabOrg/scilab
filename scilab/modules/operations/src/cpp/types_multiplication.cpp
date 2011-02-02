@@ -54,45 +54,45 @@ int MultiplyDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double**	 _pDou
 	bool bComplexOut	= bComplex1 || bComplex2;
 	(*_pDoubleOut) = new Double(iRowResult, iColResult, bComplexOut);
 
-	double *pReal			= (*_pDoubleOut)->real_get();
-	double *pImg			= (*_pDoubleOut)->img_get();
+	double *pReal			= (*_pDoubleOut)->get_real();
+	double *pImg			= (*_pDoubleOut)->get_img();
 
 	if(bScalar1)
 	{//cst*b
 		if(bComplex1 == false && bComplex2 == false)
 		{
-			iMultiRealScalarByRealMatrix(_pDouble1->real_get(0,0), _pDouble2->real_get(), iRowResult, iColResult, pReal);
+			iMultiRealScalarByRealMatrix(_pDouble1->get_real(0,0), _pDouble2->get_real(), iRowResult, iColResult, pReal);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
-			iMultiRealScalarByComplexMatrix(_pDouble1->real_get(0,0), _pDouble2->real_get(), _pDouble2->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiRealScalarByComplexMatrix(_pDouble1->get_real(0,0), _pDouble2->get_real(), _pDouble2->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
-			iMultiComplexScalarByRealMatrix(_pDouble1->real_get(0,0), _pDouble1->img_get(0,0), _pDouble2->real_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByRealMatrix(_pDouble1->get_real(0,0), _pDouble1->get_img(0,0), _pDouble2->get_real(), iRowResult, iColResult, pReal, pImg);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
-			iMultiComplexScalarByComplexMatrix(_pDouble1->real_get(0,0), _pDouble1->img_get(0,0), _pDouble2->real_get(), _pDouble2->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByComplexMatrix(_pDouble1->get_real(0,0), _pDouble1->get_img(0,0), _pDouble2->get_real(), _pDouble2->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 	}
 	else if(bScalar2)
 	{//a * cst
 		if(bComplex1 == false && bComplex2 == false)
 		{//Real Matrix by Real Scalar
-			iMultiRealScalarByRealMatrix(_pDouble2->real_get(0,0), _pDouble1->real_get(), iRowResult, iColResult, pReal);
+			iMultiRealScalarByRealMatrix(_pDouble2->get_real(0,0), _pDouble1->get_real(), iRowResult, iColResult, pReal);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{//Real Matrix by Scalar Complex
-			iMultiComplexScalarByRealMatrix(_pDouble2->real_get(0,0), _pDouble2->img_get(0,0), _pDouble1->real_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByRealMatrix(_pDouble2->get_real(0,0), _pDouble2->get_img(0,0), _pDouble1->get_real(), iRowResult, iColResult, pReal, pImg);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
-			iMultiRealScalarByComplexMatrix(_pDouble2->real_get(0,0), _pDouble1->real_get(), _pDouble1->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiRealScalarByComplexMatrix(_pDouble2->get_real(0,0), _pDouble1->get_real(), _pDouble1->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
-			iMultiComplexScalarByComplexMatrix(_pDouble2->real_get(0,0), _pDouble2->img_get(0,0), _pDouble1->real_get(), _pDouble1->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByComplexMatrix(_pDouble2->get_real(0,0), _pDouble2->get_img(0,0), _pDouble1->get_real(), _pDouble1->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 	}
 	else if(_pDouble1->cols_get() == _pDouble2->rows_get())
@@ -100,29 +100,29 @@ int MultiplyDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double**	 _pDou
 		if(bComplex1 == false && bComplex2 == false)
 		{//Real Matrix by Real Matrix
 			iMultiRealMatrixByRealMatrix(
-									_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-									_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+									_pDouble1->get_real(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+									_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 									pReal);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{//Real Matrix by Matrix Complex
 			iMultiRealMatrixByComplexMatrix(
-									_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-									_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+									_pDouble1->get_real(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+									_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 									pReal, pImg);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{//Complex Matrix by Real Matrix
 			iMultiComplexMatrixByRealMatrix(
-									_pDouble1->real_get(), _pDouble1->img_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-									_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+									_pDouble1->get_real(), _pDouble1->get_img(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+									_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 									pReal, pImg);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{//Complex Matrix by Complex Matrix
 			iMultiComplexMatrixByComplexMatrix(
-									_pDouble1->real_get(), _pDouble1->img_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-									_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+									_pDouble1->get_real(), _pDouble1->get_img(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+									_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
 									pReal, pImg);
 		}
 	}
@@ -166,64 +166,64 @@ int DotMultiplyDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double**	 _p
 	bool bComplexOut	= bComplex1 || bComplex2;
 	(*_pDoubleOut) = new Double(iRowResult, iColResult, bComplexOut);
 
-	double *pReal			= (*_pDoubleOut)->real_get();
-	double *pImg			= (*_pDoubleOut)->img_get();
+	double *pReal			= (*_pDoubleOut)->get_real();
+	double *pImg			= (*_pDoubleOut)->get_img();
 
 	if(bScalar1)
 	{
 		if(bComplex1 == false && bComplex2 == false)
 		{
-			iMultiRealScalarByRealMatrix(_pDouble1->real_get(0,0), _pDouble2->real_get(), iRowResult, iColResult, pReal);
+			iMultiRealScalarByRealMatrix(_pDouble1->get_real(0,0), _pDouble2->get_real(), iRowResult, iColResult, pReal);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
-			iMultiRealScalarByComplexMatrix(_pDouble1->real_get(0,0), _pDouble2->real_get(), _pDouble2->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiRealScalarByComplexMatrix(_pDouble1->get_real(0,0), _pDouble2->get_real(), _pDouble2->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
-			iMultiComplexScalarByRealMatrix(_pDouble1->real_get(0,0), _pDouble1->img_get(0,0), _pDouble2->real_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByRealMatrix(_pDouble1->get_real(0,0), _pDouble1->get_img(0,0), _pDouble2->get_real(), iRowResult, iColResult, pReal, pImg);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
-			iMultiComplexScalarByComplexMatrix(_pDouble1->real_get(0,0), _pDouble1->img_get(0,0), _pDouble2->real_get(), _pDouble2->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByComplexMatrix(_pDouble1->get_real(0,0), _pDouble1->get_img(0,0), _pDouble2->get_real(), _pDouble2->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 	}
 	else if(bScalar2)
 	{
 		if(bComplex1 == false && bComplex2 == false)
 		{//Real Matrix by Real Scalar
-			iMultiRealScalarByRealMatrix(_pDouble2->real_get(0,0), _pDouble1->real_get(), iRowResult, iColResult, pReal);
+			iMultiRealScalarByRealMatrix(_pDouble2->get_real(0,0), _pDouble1->get_real(), iRowResult, iColResult, pReal);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{//Real Matrix by Scalar Complex
-			iMultiComplexScalarByRealMatrix(_pDouble2->real_get(0,0), _pDouble2->img_get(0,0), _pDouble1->real_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByRealMatrix(_pDouble2->get_real(0,0), _pDouble2->get_img(0,0), _pDouble1->get_real(), iRowResult, iColResult, pReal, pImg);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
-			iMultiRealScalarByComplexMatrix(_pDouble2->real_get(0,0), _pDouble1->real_get(), _pDouble1->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiRealScalarByComplexMatrix(_pDouble2->get_real(0,0), _pDouble1->get_real(), _pDouble1->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
-			iMultiComplexScalarByComplexMatrix(_pDouble2->real_get(0,0), _pDouble2->img_get(0,0), _pDouble1->real_get(), _pDouble1->img_get(), iRowResult, iColResult, pReal, pImg);
+			iMultiComplexScalarByComplexMatrix(_pDouble2->get_real(0,0), _pDouble2->get_img(0,0), _pDouble1->get_real(), _pDouble1->get_img(), iRowResult, iColResult, pReal, pImg);
 		}
 	}
 	else
 	{//multiply element wise element
 		if(bComplex1 == false && bComplex2 == false)
 		{
-			iDotMultiplyRealMatrixByRealMatrix(_pDouble1->real_get(), _pDouble2->real_get(), pReal, iRowResult, iColResult);
+			iDotMultiplyRealMatrixByRealMatrix(_pDouble1->get_real(), _pDouble2->get_real(), pReal, iRowResult, iColResult);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
-			iDotMultiplyRealMatrixByComplexMatrix(_pDouble1->real_get(), _pDouble2->real_get(), _pDouble2->img_get(), pReal, pImg, iRowResult, iColResult);
+			iDotMultiplyRealMatrixByComplexMatrix(_pDouble1->get_real(), _pDouble2->get_real(), _pDouble2->get_img(), pReal, pImg, iRowResult, iColResult);
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
-			iDotMultiplyComplexMatrixByRealMatrix(_pDouble1->real_get(), _pDouble1->img_get(), _pDouble2->real_get(), pReal, pImg, iRowResult, iColResult);
+			iDotMultiplyComplexMatrixByRealMatrix(_pDouble1->get_real(), _pDouble1->get_img(), _pDouble2->get_real(), pReal, pImg, iRowResult, iColResult);
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
-			iDotMultiplyComplexMatrixByComplexMatrix(_pDouble1->real_get(), _pDouble1->img_get(), _pDouble2->real_get(), _pDouble2->img_get(), pReal, pImg, iRowResult, iColResult);
+			iDotMultiplyComplexMatrixByComplexMatrix(_pDouble1->get_real(), _pDouble1->get_img(), _pDouble2->get_real(), _pDouble2->get_img(), pReal, pImg, iRowResult, iColResult);
 		}
 	}
 	
@@ -289,38 +289,38 @@ int MultiplyDoubleByPoly(Double* _pDouble, MatrixPoly* _pPoly, MatrixPoly** _pPo
 		for(int i = 0 ; i < _pPoly->size_get() ; i++)
 		{
 			Poly *pPolyIn			= _pPoly->poly_get(i);
-			double* pRealIn		= pPolyIn->coef_get()->real_get();
-			double* pImgIn		= pPolyIn->coef_get()->img_get();
+			double* pRealIn		= pPolyIn->coef_get()->get_real();
+			double* pImgIn		= pPolyIn->coef_get()->get_img();
 
 			Poly *pPolyOut		= (*_pPolyOut)->poly_get(i);
-			double* pRealOut	= pPolyOut->coef_get()->real_get();
-			double* pImgOut		= pPolyOut->coef_get()->img_get();
+			double* pRealOut	= pPolyOut->coef_get()->get_real();
+			double* pImgOut		= pPolyOut->coef_get()->get_img();
 
 			if(bComplex1 == false && bComplex2 == false)
 			{
 				iMultiRealScalarByRealMatrix(
-								_pDouble->real_get(0,0),
+								_pDouble->get_real(0,0),
 								pRealIn, 1, pPolyIn->rank_get(),
 								pRealOut);
 			}
 			else if(bComplex1 == false && bComplex2 == true)
 			{
 				iMultiRealScalarByComplexMatrix(
-								_pDouble->real_get(0,0),
+								_pDouble->get_real(0,0),
 								pRealIn, pImgIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
 			else if(bComplex1 == true && bComplex2 == false)
 			{
 				iMultiComplexScalarByRealMatrix(
-								_pDouble->real_get(0,0), _pDouble->img_get(0,0),
+								_pDouble->get_real(0,0), _pDouble->get_img(0,0),
 								pRealIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
 			else if(bComplex1 == true && bComplex2 == true)
 			{
 				iMultiComplexScalarByComplexMatrix(
-								_pDouble->real_get(0,0), _pDouble->img_get(0,0),
+								_pDouble->get_real(0,0), _pDouble->get_img(0,0),
 								pRealIn, pImgIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
@@ -328,18 +328,18 @@ int MultiplyDoubleByPoly(Double* _pDouble, MatrixPoly* _pPoly, MatrixPoly** _pPo
 	}
 	else if(bScalar2)
 	{
-		double *pDoubleR	= _pDouble->real_get();
-		double *pDoubleI	= _pDouble->img_get();
+		double *pDoubleR	= _pDouble->get_real();
+		double *pDoubleI	= _pDouble->get_img();
 
 		Poly *pPolyIn			= _pPoly->poly_get(0);
-		double* pRealIn		= pPolyIn->coef_get()->real_get();
-		double* pImgIn		= pPolyIn->coef_get()->img_get();
+		double* pRealIn		= pPolyIn->coef_get()->get_real();
+		double* pImgIn		= pPolyIn->coef_get()->get_img();
 
 		for(int i = 0 ; i < _pDouble->size_get() ; i++)
 		{
 			Poly *pPolyOut		= (*_pPolyOut)->poly_get(i);
-			double* pRealOut	= pPolyOut->coef_get()->real_get();
-			double* pImgOut		= pPolyOut->coef_get()->img_get();
+			double* pRealOut	= pPolyOut->coef_get()->get_real();
+			double* pImgOut		= pPolyOut->coef_get()->get_img();
 
 			if(bComplex1 == false && bComplex2 == false)
 			{
@@ -379,33 +379,33 @@ int MultiplyDoubleByPoly(Double* _pDouble, MatrixPoly* _pPoly, MatrixPoly** _pPo
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iMultiRealMatrixByRealMatrix(
-							_pDouble->real_get(), _pDouble->rows_get(), _pDouble->cols_get(),
-							pCoef->real_get(), pCoef->rows_get(), pCoef->cols_get(),
-							pTemp->real_get());
+							_pDouble->get_real(), _pDouble->rows_get(), _pDouble->cols_get(),
+							pCoef->get_real(), pCoef->rows_get(), pCoef->cols_get(),
+							pTemp->get_real());
 
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
 			iMultiRealMatrixByComplexMatrix(
-							_pDouble->real_get(), _pDouble->rows_get(), _pDouble->cols_get(),
-							pCoef->real_get(), pCoef->img_get(), pCoef->rows_get(), pCoef->cols_get(),
-							pTemp->real_get(), pTemp->img_get());
+							_pDouble->get_real(), _pDouble->rows_get(), _pDouble->cols_get(),
+							pCoef->get_real(), pCoef->get_img(), pCoef->rows_get(), pCoef->cols_get(),
+							pTemp->get_real(), pTemp->get_img());
 
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iMultiComplexMatrixByRealMatrix(
-							_pDouble->real_get(), _pDouble->img_get(), _pDouble->rows_get(), _pDouble->cols_get(),
-							pCoef->real_get(), pCoef->rows_get(), pCoef->cols_get(),
-							pTemp->real_get(), pTemp->img_get());
+							_pDouble->get_real(), _pDouble->get_img(), _pDouble->rows_get(), _pDouble->cols_get(),
+							pCoef->get_real(), pCoef->rows_get(), pCoef->cols_get(),
+							pTemp->get_real(), pTemp->get_img());
 
 		}
 		else //if(bComplex1 == true && bComplex2 == true)
 		{
 			iMultiComplexMatrixByComplexMatrix(
-							_pDouble->real_get(), _pDouble->img_get(), _pDouble->rows_get(), _pDouble->cols_get(),
-							pCoef->real_get(), pCoef->img_get(), pCoef->rows_get(), pCoef->cols_get(),
-							pTemp->real_get(), pTemp->img_get());
+							_pDouble->get_real(), _pDouble->get_img(), _pDouble->rows_get(), _pDouble->cols_get(),
+							pCoef->get_real(), pCoef->get_img(), pCoef->rows_get(), pCoef->cols_get(),
+							pTemp->get_real(), pTemp->get_img());
 
 		}
 		(*_pPolyOut)->coef_set(pTemp);
@@ -479,18 +479,18 @@ int MultiplyPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly **_pPo
 
 	if(bScalar1)
 	{//p[1] * A
-		double *pDoubleR	= _pDouble->real_get();
-		double *pDoubleI	= _pDouble->img_get();
+		double *pDoubleR	= _pDouble->get_real();
+		double *pDoubleI	= _pDouble->get_img();
 
 		Poly *pPolyIn			= _pPoly->poly_get(0);
-		double* pRealIn		= pPolyIn->coef_get()->real_get();
-		double* pImgIn		= pPolyIn->coef_get()->img_get();
+		double* pRealIn		= pPolyIn->coef_get()->get_real();
+		double* pImgIn		= pPolyIn->coef_get()->get_img();
 
 		for(int i = 0 ; i < _pDouble->size_get() ; i++)
 		{
 			Poly *pPolyOut		= (*_pPolyOut)->poly_get(i);
-			double* pRealOut	= pPolyOut->coef_get()->real_get();
-			double* pImgOut		= pPolyOut->coef_get()->img_get();
+			double* pRealOut	= pPolyOut->coef_get()->get_real();
+			double* pImgOut		= pPolyOut->coef_get()->get_img();
 
 			if(bComplex1 == false && bComplex2 == false)
 			{
@@ -527,38 +527,38 @@ int MultiplyPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly **_pPo
 		for(int i = 0 ; i < _pPoly->size_get() ; i++)
 		{
 			Poly *pPolyIn			= _pPoly->poly_get(i);
-			double* pRealIn		= pPolyIn->coef_get()->real_get();
-			double* pImgIn		= pPolyIn->coef_get()->img_get();
+			double* pRealIn		= pPolyIn->coef_get()->get_real();
+			double* pImgIn		= pPolyIn->coef_get()->get_img();
 
 			Poly *pPolyOut		= (*_pPolyOut)->poly_get(i);
-			double* pRealOut	= pPolyOut->coef_get()->real_get();
-			double* pImgOut		= pPolyOut->coef_get()->img_get();
+			double* pRealOut	= pPolyOut->coef_get()->get_real();
+			double* pImgOut		= pPolyOut->coef_get()->get_img();
 
 			if(bComplex1 == false && bComplex2 == false)
 			{
 				iMultiRealScalarByRealMatrix(
-								_pDouble->real_get(0,0),
+								_pDouble->get_real(0,0),
 								pRealIn, 1, pPolyIn->rank_get(),
 								pRealOut);
 			}
 			else if(bComplex1 == false && bComplex2 == true)
 			{
 				iMultiComplexScalarByRealMatrix(
-								_pDouble->real_get(0,0), _pDouble->img_get(0,0),
+								_pDouble->get_real(0,0), _pDouble->get_img(0,0),
 								pRealIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
 			else if(bComplex1 == true && bComplex2 == false)
 			{
 				iMultiRealScalarByComplexMatrix(
-								_pDouble->real_get(0,0),
+								_pDouble->get_real(0,0),
 								pRealIn, pImgIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
 			else if(bComplex1 == true && bComplex2 == true)
 			{
 				iMultiComplexScalarByComplexMatrix(
-								_pDouble->real_get(0,0), _pDouble->img_get(0,0),
+								_pDouble->get_real(0,0), _pDouble->get_img(0,0),
 								pRealIn, pImgIn, 1, pPolyIn->rank_get(),
 								pRealOut, pImgOut);
 			}
@@ -580,11 +580,11 @@ int MultiplyPolyByDouble(MatrixPoly* _pPoly, Double* _pDouble, MatrixPoly **_pPo
 					Double *pDouble = NULL;
 					if(bComplex2 == false)
 					{
-						pDouble	= new Double(_pDouble->real_get(iRow2, iCol2));
+						pDouble	= new Double(_pDouble->get_real(iRow2, iCol2));
 					}
 					else
 					{
-						pDouble	= new Double(_pDouble->real_get(iRow2, iCol2), _pDouble->img_get(iRow2, iCol2));
+						pDouble	= new Double(_pDouble->get_real(iRow2, iCol2), _pDouble->get_img(iRow2, iCol2));
 					}
 
 					Double *TimeDouble = NULL; //(pPolyCoef->rows_get(), pPolyCoef->cols_get(), bComplexOut);
@@ -682,9 +682,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 			pPolyOut->coef_get()->zero_set();
 
 			iMultiRealPolyByRealPoly(
-					pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-					pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-					pPolyOut->coef_get()->real_get(), pPolyOut->rank_get());
+					pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+					pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+					pPolyOut->coef_get()->get_real(), pPolyOut->rank_get());
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
@@ -695,9 +695,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 			pPolyOut->coef_get()->zero_set();
 
 			iMultiRealPolyByComplexPoly(
-					pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-					pPoly2->coef_get()->real_get(), pPoly2->coef_get()->img_get(), pPoly2->rank_get(),
-					pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+					pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+					pPoly2->coef_get()->get_real(), pPoly2->coef_get()->get_img(), pPoly2->rank_get(),
+					pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
@@ -708,9 +708,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 			pPolyOut->coef_get()->zero_set();
 
 			iMultiComplexPolyByRealPoly(
-					pPoly1->coef_get()->real_get(), pPoly1->coef_get()->img_get(), pPoly1->rank_get(),
-					pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-					pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+					pPoly1->coef_get()->get_real(), pPoly1->coef_get()->get_img(), pPoly1->rank_get(),
+					pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+					pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{
@@ -723,9 +723,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 
 			pCoefOut->zero_set();
 			iMultiComplexPolyByComplexPoly(
-					pCoef1->real_get(), pCoef1->img_get(), pPoly1->rank_get(),
-					pCoef2->real_get(), pCoef2->img_get(), pPoly2->rank_get(),
-					pCoefOut->real_get(), pCoefOut->img_get(), pPolyOut->rank_get());
+					pCoef1->get_real(), pCoef1->get_img(), pPoly1->rank_get(),
+					pCoef2->get_real(), pCoef2->get_img(), pPoly2->rank_get(),
+					pCoefOut->get_real(), pCoefOut->get_img(), pPolyOut->rank_get());
 		}
 	}
 	else if(bScalar1)
@@ -741,9 +741,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiRealPolyByRealPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == false && bComplex2 == true)
@@ -756,9 +756,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiRealPolyByComplexPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->coef_get()->img_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->coef_get()->get_img(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == false)
@@ -771,9 +771,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiComplexPolyByRealPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->coef_get()->img_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->coef_get()->get_img(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == true)
@@ -790,9 +790,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pCoefOut->zero_set();
 
 				iMultiComplexPolyByComplexPoly(
-						pCoef1->real_get(), pCoef1->img_get(), pPoly1->rank_get(),
-						pCoef2->real_get(), pCoef2->img_get(), pPoly2->rank_get(),
-						pCoefOut->real_get(), pCoefOut->img_get(), pPolyOut->rank_get());
+						pCoef1->get_real(), pCoef1->get_img(), pPoly1->rank_get(),
+						pCoef2->get_real(), pCoef2->get_img(), pPoly2->rank_get(),
+						pCoefOut->get_real(), pCoefOut->get_img(), pPolyOut->rank_get());
 			}
 		}
 	}
@@ -809,9 +809,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiRealPolyByRealPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == false && bComplex2 == true)
@@ -824,9 +824,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiRealPolyByComplexPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->coef_get()->img_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->coef_get()->get_img(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == false)
@@ -839,9 +839,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pPolyOut->coef_get()->zero_set();
 
 				iMultiComplexPolyByRealPoly(
-						pPoly1->coef_get()->real_get(), pPoly1->coef_get()->img_get(), pPoly1->rank_get(),
-						pPoly2->coef_get()->real_get(), pPoly2->rank_get(),
-						pPolyOut->coef_get()->real_get(), pPolyOut->coef_get()->img_get(), pPolyOut->rank_get());
+						pPoly1->coef_get()->get_real(), pPoly1->coef_get()->get_img(), pPoly1->rank_get(),
+						pPoly2->coef_get()->get_real(), pPoly2->rank_get(),
+						pPolyOut->coef_get()->get_real(), pPolyOut->coef_get()->get_img(), pPolyOut->rank_get());
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == true)
@@ -858,9 +858,9 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 				pCoefOut->zero_set();
 
 				iMultiComplexPolyByComplexPoly(
-						pCoef1->real_get(), pCoef1->img_get(), pPoly1->rank_get(),
-						pCoef2->real_get(), pCoef2->img_get(), pPoly2->rank_get(),
-						pCoefOut->real_get(), pCoefOut->img_get(), pPolyOut->rank_get());
+						pCoef1->get_real(), pCoef1->get_img(), pPoly1->rank_get(),
+						pCoef2->get_real(), pCoef2->get_img(), pPoly2->rank_get(),
+						pCoefOut->get_real(), pCoefOut->get_img(), pPolyOut->rank_get());
 			}
 		}
 	}
@@ -886,14 +886,14 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 						pTemp->coef_get()->zero_set();
 
 						iMultiRealPolyByRealPoly(
-								pL->coef_get()->real_get(), pL->rank_get(),
-								pR->coef_get()->real_get(), pR->rank_get(),
-								pTemp->coef_get()->real_get(), pL->rank_get() + pR->rank_get() - 1);
+								pL->coef_get()->get_real(), pL->rank_get(),
+								pR->coef_get()->get_real(), pR->rank_get(),
+								pTemp->coef_get()->get_real(), pL->rank_get() + pR->rank_get() - 1);
 				
 						iAddRealPolyToRealPoly(
-								pResult->coef_get()->real_get(), pResult->rank_get(),
-								pTemp->coef_get()->real_get(), pResult->rank_get(),
-								pResult->coef_get()->real_get(), pResult->rank_get());
+								pResult->coef_get()->get_real(), pResult->rank_get(),
+								pTemp->coef_get()->get_real(), pResult->rank_get(),
+								pResult->coef_get()->get_real(), pResult->rank_get());
 					}
 				}
 			}
@@ -919,14 +919,14 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 						pTemp->coef_get()->zero_set();
 
 						iMultiRealPolyByComplexPoly(
-								pL->coef_get()->real_get(), pL->rank_get(),
-								pR->coef_get()->real_get(), pR->coef_get()->img_get(), pR->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pL->rank_get() + pR->rank_get() - 1);
+								pL->coef_get()->get_real(), pL->rank_get(),
+								pR->coef_get()->get_real(), pR->coef_get()->get_img(), pR->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pL->rank_get() + pR->rank_get() - 1);
 				
 						iAddComplexPolyToComplexPoly(
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pResult->rank_get(),
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get());
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pResult->rank_get(),
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get());
 					}
 				}
 			}
@@ -952,14 +952,14 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 						pTemp->coef_get()->zero_set();
 
 						iMultiRealPolyByComplexPoly(
-								pR->coef_get()->real_get(), pR->rank_get(),
-								pL->coef_get()->real_get(), pL->coef_get()->img_get(), pL->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pL->rank_get() + pR->rank_get() - 1);
+								pR->coef_get()->get_real(), pR->rank_get(),
+								pL->coef_get()->get_real(), pL->coef_get()->get_img(), pL->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pL->rank_get() + pR->rank_get() - 1);
 				
 						iAddComplexPolyToComplexPoly(
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pResult->rank_get(),
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get());
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pResult->rank_get(),
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get());
 					}
 				}
 			}
@@ -985,14 +985,14 @@ int MultiplyPolyByPoly(MatrixPoly* _pPoly1, MatrixPoly* _pPoly2, MatrixPoly** _p
 						pTemp->coef_get()->zero_set();
 
 						iMultiComplexPolyByComplexPoly(
-								pL->coef_get()->real_get(), pL->coef_get()->img_get(), pL->rank_get(),
-								pR->coef_get()->real_get(), pR->coef_get()->img_get(), pR->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pL->rank_get() + pR->rank_get() - 1);
+								pL->coef_get()->get_real(), pL->coef_get()->get_img(), pL->rank_get(),
+								pR->coef_get()->get_real(), pR->coef_get()->get_img(), pR->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pL->rank_get() + pR->rank_get() - 1);
 				
 						iAddComplexPolyToComplexPoly(
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get(),
-								pTemp->coef_get()->real_get(), pTemp->coef_get()->img_get(), pResult->rank_get(),
-								pResult->coef_get()->real_get(), pResult->coef_get()->img_get(), pResult->rank_get());
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get(),
+								pTemp->coef_get()->get_real(), pTemp->coef_get()->get_img(), pResult->rank_get(),
+								pResult->coef_get()->get_real(), pResult->coef_get()->get_img(), pResult->rank_get());
 					}
 				}
 			}

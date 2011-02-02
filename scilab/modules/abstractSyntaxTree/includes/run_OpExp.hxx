@@ -68,12 +68,14 @@ void visitprivate(const OpExp &e)
                     pSE->SetErrorLocation(e.right_get().location_get());
                     throw pSE;
                 }
+
                 if (pResult == NULL)
                 {
                     // We did not have any algorithm matching, so we try to call OverLoad
                     pResult = callOverload(e.oper_get(), &execMeL, &execMeR);
 
                 }
+
                 result_set(pResult);
                 break;
             }
@@ -88,12 +90,14 @@ void visitprivate(const OpExp &e)
                     pSE->SetErrorLocation(e.right_get().location_get());
                     throw pSE;
                 }
+
                 if (pResult == NULL)
                 {
                     // We did not have any algorithm matching, so we try to call OverLoad
                     pResult = callOverload(e.oper_get(), &execMeL, &execMeR);
 
                 }
+
                 result_set(pResult);
                 break;
             }
@@ -101,8 +105,8 @@ void visitprivate(const OpExp &e)
               {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     int iResult = MultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
                     if(iResult)
@@ -117,7 +121,7 @@ void visitprivate(const OpExp &e)
                 }
                 else if(TypeL == InternalType::RealDouble && TypeR == InternalType::RealPoly)
                 {
-                    Double *pL			    = execMeL.result_get()->getAsDouble();
+                    Double *pL			    = execMeL.result_get()->getAs<Double>();
                     MatrixPoly *pR	    = execMeR.result_get()->getAsPoly();
 
                     int iResult = MultiplyDoubleByPoly(pL, pR, (MatrixPoly**)&pResult);
@@ -135,7 +139,7 @@ void visitprivate(const OpExp &e)
                 else if(TypeL == InternalType::RealPoly && TypeR == InternalType::RealDouble)
                 {
                     MatrixPoly *pL	    = execMeL.result_get()->getAsPoly();
-                    Double *pR			    = execMeR.result_get()->getAsDouble();
+                    Double *pR			    = execMeR.result_get()->getAs<Double>();
 
                     int iResult = MultiplyPolyByDouble(pL, pR, (MatrixPoly**)&pResult);
 
@@ -176,8 +180,8 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     int iResult = DivideDoubleByDouble(pL, pR, (Double**)&pResult);
                     if(iResult)
@@ -192,7 +196,7 @@ void visitprivate(const OpExp &e)
                 else if(TypeL == GenericType::RealPoly && TypeR == GenericType::RealDouble)
                 {
                     MatrixPoly *pL	= execMeL.result_get()->getAsPoly();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     int iResult = DividePolyByDouble(pL, pR, (MatrixPoly**)&pResult);
                     if(iResult)
@@ -207,7 +211,7 @@ void visitprivate(const OpExp &e)
                 }
                 else if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealPoly)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
                     MatrixPoly *pR	= execMeR.result_get()->getAsPoly();
 
                     int iResult = DivideDoubleByPoly(pL, pR, (MatrixPoly**)&pResult);
@@ -230,8 +234,8 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
 
                     int iResult = DotMultiplyDoubleByDouble(pL, pR, (Double**)&pResult);
@@ -253,7 +257,7 @@ void visitprivate(const OpExp &e)
             }
         case OpExp::eq :
             {
-                if(TypeL == GenericType::RealDouble && execMeL.result_get()->getAsDouble()->size_get() == 0)
+                if(TypeL == GenericType::RealDouble && execMeL.result_get()->getAs<Double>()->size_get() == 0)
                 {//[] == xx
                     if(TypeR != InternalType::RealDouble)
                     {
@@ -262,7 +266,7 @@ void visitprivate(const OpExp &e)
                     }
                 }
 
-                if(TypeR == GenericType::RealDouble && execMeR.result_get()->getAsDouble()->size_get() == 0)
+                if(TypeR == GenericType::RealDouble && execMeR.result_get()->getAs<Double>()->size_get() == 0)
                 {//xx == []
                     if(TypeL != InternalType::RealDouble)
                     {
@@ -273,8 +277,8 @@ void visitprivate(const OpExp &e)
 
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 0 && pL->size_get() == 0)
                     {
@@ -287,24 +291,24 @@ void visitprivate(const OpExp &e)
                     else if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) == dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) == dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef == pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef == pR->get_real(i, j));
                             }
                         }
                     }
@@ -315,7 +319,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) == pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) == pR->get_real(i, j));
                             }
                         }
                     }
@@ -478,7 +482,7 @@ void visitprivate(const OpExp &e)
             }
         case OpExp::ne :
             {
-                if(TypeL == GenericType::RealDouble && execMeL.result_get()->getAsDouble()->size_get() == 0)
+                if(TypeL == GenericType::RealDouble && execMeL.result_get()->getAs<Double>()->size_get() == 0)
                 {//[] <> xx
                     if(TypeR != InternalType::RealDouble)
                     {
@@ -487,7 +491,7 @@ void visitprivate(const OpExp &e)
                     }
                 }
 
-                if(TypeR == GenericType::RealDouble && execMeR.result_get()->getAsDouble()->size_get() == 0)
+                if(TypeR == GenericType::RealDouble && execMeR.result_get()->getAs<Double>()->size_get() == 0)
                 {//xx <> []
                     if(TypeL != InternalType::RealDouble)
                     {
@@ -498,8 +502,8 @@ void visitprivate(const OpExp &e)
 
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 0 && pL->size_get() == 0)
                     {
@@ -512,24 +516,24 @@ void visitprivate(const OpExp &e)
                     else if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) != dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) != dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef != pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef != pR->get_real(i, j));
                             }
                         }
                     }
@@ -540,7 +544,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) != pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) != pR->get_real(i, j));
                             }
                         }
                     }
@@ -635,30 +639,30 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) < dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) < dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef < pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef < pR->get_real(i, j));
                             }
                         }
                     }
@@ -669,7 +673,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) < pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) < pR->get_real(i, j));
                             }
                         }
                     }
@@ -690,30 +694,30 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) <= dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) <= dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef <= pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef <= pR->get_real(i, j));
                             }
                         }
                     }
@@ -724,7 +728,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) <= pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) <= pR->get_real(i, j));
                             }
                         }
                     }
@@ -745,30 +749,30 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) > dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) > dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef > pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef > pR->get_real(i, j));
                             }
                         }
                     }
@@ -780,7 +784,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) > pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) > pR->get_real(i, j));
                             }
                         }
                     }
@@ -801,30 +805,30 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     if(pR->size_get() == 1)
                     {
                         pResult				= new Bool(pL->rows_get(), pL->cols_get());
-                        double dblRef	= pR->real_get(0,0);
+                        double dblRef	= pR->get_real(0,0);
                         for(int i = 0 ; i < pL->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pL->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) >= dblRef);
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) >= dblRef);
                             }
                         }
                     }
                     else if(pL->size_get() == 1)
                     {
                         pResult				= new Bool(pR->rows_get(), pR->cols_get());
-                        double dblRef	= pL->real_get(0,0);
+                        double dblRef	= pL->get_real(0,0);
                         for(int i = 0 ; i < pR->rows_get() ; i++)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, dblRef >= pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, dblRef >= pR->get_real(i, j));
                             }
                         }
                     }
@@ -835,7 +839,7 @@ void visitprivate(const OpExp &e)
                         {
                             for(int j = 0 ; j < pR->cols_get() ; j++)
                             {
-                                pResult->getAsBool()->bool_set(i, j, pL->real_get(i, j) >= pR->real_get(i, j));
+                                pResult->getAsBool()->bool_set(i, j, pL->get_real(i, j) >= pR->get_real(i, j));
                             }
                         }
                     }
@@ -856,8 +860,8 @@ void visitprivate(const OpExp &e)
             {
                 if(TypeL == GenericType::RealDouble && TypeR == GenericType::RealDouble)
                 {
-                    Double *pL			= execMeL.result_get()->getAsDouble();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pL			= execMeL.result_get()->getAs<Double>();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     int iResult = PowerDoubleByDouble(pL, pR, (Double**)&pResult);
                     if(iResult != 0)
@@ -872,7 +876,7 @@ void visitprivate(const OpExp &e)
                 else if(TypeL == GenericType::RealPoly && TypeR == GenericType::RealDouble)
                 {
                     MatrixPoly *pL	= execMeL.result_get()->getAsPoly();
-                    Double *pR			= execMeR.result_get()->getAsDouble();
+                    Double *pR			= execMeR.result_get()->getAs<Double>();
 
                     int iResult = PowerPolyByDouble(pL, pR, (MatrixPoly**)&pResult);
                     if(iResult != 0)

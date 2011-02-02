@@ -140,7 +140,7 @@ void visitprivate(const MatrixExp &e)
                 int iAddCol = 0;
                 for(it_RL = (*it_ML).begin() ; it_RL != (*it_ML).end() ; it_RL++)
                 {
-                    if((*it_RL)->isDouble() && (*it_RL)->getAsDouble()->isEmpty())
+                    if((*it_RL)->isDouble() && (*it_RL)->getAs<Double>()->isEmpty())
                     {//manage []
                         continue;
                     }
@@ -153,7 +153,7 @@ void visitprivate(const MatrixExp &e)
                         {
                             if((*it_RL)->getType() == InternalType::RealDouble)
                             {
-                                delete (*it_RL)->getAsDouble();
+                                delete (*it_RL)->getAs<Double>();
                             }
                             else
                             {
@@ -169,7 +169,7 @@ void visitprivate(const MatrixExp &e)
                         {
                             if((*it_RL)->getType() == InternalType::RealDouble)
                             {
-                                delete (*it_RL)->getAsDouble();
+                                delete (*it_RL)->getAs<Double>();
                             }
                             else
                             {

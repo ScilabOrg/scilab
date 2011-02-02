@@ -67,7 +67,7 @@ Function::ReturnValue sci_strcat(typed_list &in, int _iRetCount, typed_list &out
         }
     }
 
-    if(in[0]->isDouble() && in[0]->getAsDouble()->size_get() == 0)
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->size_get() == 0)
     {
         String *pOut = new String(1,1);
         pOut->string_set(0, L"");

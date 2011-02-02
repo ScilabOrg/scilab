@@ -133,11 +133,15 @@ namespace types
     ** Clone
     ** Create a new Struct and Copy all values.
     */
-    Struct *Struct::clone()
+    InternalType* Struct::clone()
     {
         return new Struct(this);
     }
 
+    GenericType* Struct::get_col_value(int _iPos)
+    {
+        return NULL;
+    }
     /**
     ** toString to display Structs
     ** FIXME : Find a better indentation process

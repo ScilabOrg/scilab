@@ -167,7 +167,7 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
 
     int rhs = _iVar - api_Rhs((int*)_pvCtx);
     out[rhs - 1] = pDbl;
-    *_pdblReal = pDbl->real_get();
+    *_pdblReal = pDbl->get_real();
     if(*_pdblReal == NULL)
     {
         addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");
@@ -176,7 +176,7 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
 
     if(_iComplex && _pdblImg != NULL)
     {
-        *_pdblImg	= pDbl->img_get();
+        *_pdblImg	= pDbl->get_img();
         if(*_pdblImg == NULL)
         {
             addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");

@@ -23,7 +23,7 @@ namespace types
     */
     class ImplicitList : public InternalType
     {
-    private :
+    protected :
         InternalType*		    m_poStart;
         InternalType*		    m_poStep;
         InternalType*		    m_poEnd;
@@ -43,7 +43,7 @@ namespace types
         virtual ~ImplicitList();
         ImplicitList(InternalType* _poStart, InternalType* _poStep, InternalType* _poEnd);
 
-        ImplicitList*           clone();
+        InternalType*           clone();
 
         ImplicitList*           getAsImplicitList(void) { return this; }
         RealType                getType(void) { return RealImplicitList; }

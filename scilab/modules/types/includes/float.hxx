@@ -27,18 +27,18 @@ namespace types
                             Float(int _iRows, int _iCols, float **_pfReal);
                             Float(int _iRows, int _iCols, float **_pfReal, float **_pfImg);
 
-        Float*              clone();
+        InternalType*       clone();
 
         /*data management*/
         GenericType*        get_col_value(int _iPos);
 
-        float*              real_get() const;
-        float               real_get(int _iRows, int _iCols) const;
-        float*              img_get() const;
-        float               img_get(int _iRows, int _iCols) const;
+        float*              get_real() const;
+        float               get_real(int _iRows, int _iCols) const;
+        float*              get_img() const;
+        float               get_img(int _iRows, int _iCols) const;
 
-        bool                real_set(float *_pfReal);
-        bool                img_set(float *_pfImg);
+        bool                set_real(float *_pfReal);
+        bool                set_img(float *_pfImg);
 
 
         bool                val_set(int _iRows, int _iCols, float _fReal);

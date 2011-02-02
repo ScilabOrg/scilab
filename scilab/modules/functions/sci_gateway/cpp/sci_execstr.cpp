@@ -100,7 +100,7 @@ Function::ReturnValue sci_execstr(types::typed_list &in, int _iRetCount, types::
 	}
 
     //1st argument
-    if(in[0]->isDouble() && in[0]->getAsDouble()->size_get() == 0)
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->size_get() == 0)
     {// execstr([])
         out.push_back(Double::Empty());
         return Function::OK;

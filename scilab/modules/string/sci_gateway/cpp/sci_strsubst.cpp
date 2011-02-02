@@ -80,7 +80,7 @@ Function::ReturnValue sci_strsubst(typed_list &in, int _iRetCount, typed_list &o
 
     wchar_t* pwstSearch = in[1]->getAsString()->string_get()[0];
 
-    if(in[0]->isDouble() && in[0]->getAsDouble()->isEmpty())
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->isEmpty())
     {
         out.push_back(Double::Empty());
         return Function::OK;

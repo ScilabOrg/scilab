@@ -38,20 +38,20 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
 
     if(in.size() == 2)
     {
-        if(in[0]->isDouble() == false || in[0]->getAsDouble()->size_get() != 1)
+        if(in[0]->isDouble() == false || in[0]->getAs<Double>()->size_get() != 1)
         {
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A scalar expected.\n"), L"eye", 1);
             return Function::Error;
         }
 
-        if(in[1]->isDouble() == false || in[1]->getAsDouble()->size_get() != 1)
+        if(in[1]->isDouble() == false || in[1]->getAs<Double>()->size_get() != 1)
         {
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A scalar expected.\n"), L"eye", 2);
             return Function::Error;
         }
 
-        iRows = in[0]->getAsDouble()->real_get()[0];
-        iCols = in[1]->getAsDouble()->real_get()[0];
+        iRows = in[0]->getAs<Double>()->get_real()[0];
+        iCols = in[1]->getAs<Double>()->get_real()[0];
     }
 
     if(in.size() == 1)
@@ -76,12 +76,12 @@ Function::ReturnValue sci_eye(types::typed_list &in, int _iRetCount, types::type
     pOut->zero_set();
     for(int i = 0 ; i < Min(iRows, iCols) ; i++)
     {
-        pOut->val_set(i,i, 1);
+        pOut->set_real(i,i, 1);
     }
 
     if(iRows == -1 && iCols == -1)
     {
-        pOut->real_get()[0] = 1;
+        pOut->get_real()[0] = 1;
     }
     out.push_back(pOut);
     return Function::OK;

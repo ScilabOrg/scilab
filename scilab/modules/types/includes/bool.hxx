@@ -25,7 +25,7 @@ namespace types
                                 Bool(int _iRows, int _iCols, int **_piData);
                                 ~Bool();
 
-		Bool*                   clone();
+		InternalType*           clone();
 
 		/*data management*/
 		int*                    bool_get() const;
@@ -33,6 +33,8 @@ namespace types
 
 		bool                    bool_set(int *_piData);
 		bool                    bool_set(int _iRows, int _iCols, int _iData);
+
+        GenericType*            get_col_value(int _iPos);
 
 
 		/*zero or one set filler*/
@@ -47,9 +49,9 @@ namespace types
         std::wstring            toString(int _iPrecision, int _iLineLen);
 
 		bool                    resize(int _iNewRows, int _iNewCols);
-		InternalType*           insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-		static Bool*            insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Bool* _poSource, bool _bAsVector);
-		Bool*                   extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+		InternalType*           insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
+		static Bool*            insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, Bool* _poSource, bool _bAsVector);
+		Bool*                   extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector);
 
 		bool                    operator==(const InternalType& it);
 		bool                    operator!=(const InternalType& it);

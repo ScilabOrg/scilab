@@ -92,7 +92,7 @@ Function::ReturnValue sci_pathconvert(typed_list &in, int _iRetCount, typed_list
         iPathTrail = in[1]->getAsBool()->bool_get()[0];
     }
 
-    if(in[0]->isDouble() && in[0]->getAsDouble()->isEmpty())
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->isEmpty())
     {
         out.push_back(Double::Empty());
         return Function::OK;
