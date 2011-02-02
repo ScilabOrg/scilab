@@ -303,7 +303,7 @@ char* getLastErrorMessageSingle();
  * @param[out] nbCol Number of cols
  * @return The matrix of string (column sorted)
  */
-char ** getString(char* variableName, int *nbRow, int *nbCol);
+char ** get(char* variableName, int *nbRow, int *nbCol);
 
 /**
  * Set a matrix of string

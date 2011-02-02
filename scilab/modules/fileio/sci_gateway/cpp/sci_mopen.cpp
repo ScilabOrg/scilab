@@ -11,8 +11,7 @@
  */
 
 #include "function.hxx"
-#include "string.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
@@ -54,14 +53,14 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
             return Function::Error;
         }
 
-        String* pS1 = in[0]->getAsString();
-        if(pS1->size_get() != 1)
+        String* pS1 = in[0]->getAs<types::String>();
+        if(pS1->getSize() != 1)
         {
             ScierrorW(999, _W("%ls: Wrong size for input argument #%d: A string expected.\n"), L"mopen" , 1);
             return Function::Error;
         }
 
-        pstFilename = expandPathVariableW(pS1->string_get(0));
+        pstFilename = expandPathVariableW(pS1->get(0));
 
         if(in.size() >= 2)
         {//mode
@@ -71,14 +70,14 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
                 return Function::Error;
             }
 
-            String* pS2 = in[1]->getAsString();
-            if(pS2->size_get() != 1)
+            String* pS2 = in[1]->getAs<types::String>();
+            if(pS2->getSize() != 1)
             {
                 ScierrorW(999, _W("%ls: Wrong size for input argument #%d: A string expected.\n"), L"mopen" , 2);
                 return Function::Error;
             }
 
-            pstMode = pS2->string_get(0);
+            pstMode = pS2->get(0);
 
             if(in.size() >= 3)
             {//swap
@@ -88,15 +87,15 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
                     return Function::Error;
                 }
 
-                Double* pD3 = in[2]->getAsDouble();
-                if(pD3->size_get() != 1 || pD3->isComplex())
+                Double* pD3 = in[2]->getAs<Double>();
+                if(pD3->getSize() != 1 || pD3->isComplex())
                 {
                     ScierrorW(999, _W("%ls: Wrong size for input argument #%d: An integer expected.\n"), L"mopen", 3);
                     return Function::Error;
                 }
 
                 //if value == 0 set swap to 0 otherwise let to 1
-                if(pD3->real_get(0,0) == 0)
+                if(pD3->getReal(0,0) == 0)
                 {
                     iSwap = 0;
                 }

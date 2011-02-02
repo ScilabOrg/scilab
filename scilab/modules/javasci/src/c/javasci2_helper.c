@@ -619,7 +619,7 @@ char* getLastErrorMessageSingle(void) {
 
 
 
-char ** getString(char* variableName, int *nbRow, int *nbCol) {
+char ** get(char* variableName, int *nbRow, int *nbCol) {
 #ifndef __REWRITE_FOR_SCILAB_6__
     SciErr sciErr;
     int i = 0;

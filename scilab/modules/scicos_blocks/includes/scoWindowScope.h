@@ -71,7 +71,7 @@ All these functions create pointer of special objects. We could use directly the
 \param color The color of the polyline. If <= 0 it will be a mark else it will be a line.
 \attention There is a polyline_size to allocate the table but dont forget that the n1 value of pPOLYLINE_FEATURE is set to 0
 */
-SCICOS_BLOCKS_IMPEXP scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size,int color);
+SCICOS_BLOCKS_IMPEXP scoGraphicalObject scocreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size,int color);
 
 /**
 \brief Create a Filled Circle  by using the constructArc method of sgl and return a pointer on it

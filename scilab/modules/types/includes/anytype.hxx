@@ -18,9 +18,9 @@
 namespace types
 {
     class String;
-    class Double;
     class Float;
     class Int;
+    class Double;
     class Bool;
     class MatrixType;
     class GenericType;
@@ -30,6 +30,7 @@ namespace types
     class Macro;
     class MacroFile;
     class Dollar;
+    class Colon;
     class Poly;
     class MatrixPoly;
     class Container;
@@ -45,5 +46,6 @@ namespace types
     class File;
     class ThreadId;
 }
+
 
 #endif /* !__ANY_TYPES_HXX__ */
