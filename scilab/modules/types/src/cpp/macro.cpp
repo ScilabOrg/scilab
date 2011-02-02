@@ -47,7 +47,7 @@ namespace types
         delete m_body;
     }
 
-    Macro* Macro::clone()
+    InternalType* Macro::clone()
     {
         IncreaseRef();
         return this;
@@ -70,7 +70,7 @@ namespace types
         return RealMacro;
     }
 
-    ast::SeqExp* Macro::body_get(void)
+    ast::SeqExp* Macro::getBody(void)
     {
         return m_body;
     }

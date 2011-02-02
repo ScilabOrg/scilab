@@ -24,7 +24,7 @@ namespace types
                                 ListOperation(): InternalType(){};
         virtual                 ~ListOperation();
 
-        ListOperation*          clone();
+        InternalType*           clone();
 
         ListOperation*          getAsListOperation(void);
         RealType                getType(void);

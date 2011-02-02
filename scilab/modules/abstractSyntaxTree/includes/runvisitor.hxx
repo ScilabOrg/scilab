@@ -27,8 +27,8 @@
 #include "shortcutvisitor.hxx"
 #include "printvisitor.hxx"
 
-#include "double.hxx"
-#include "implicitlist.hxx"
+#include "arrayof.hxx"
+#include "dollar.hxx"
 #include "tlist.hxx"
 #include "struct.hxx"
 #include "macro.hxx"
@@ -104,12 +104,12 @@ namespace ast
         }
 
     public:
-        int expected_size_get(void)
+        int expected_getSize(void)
         {
             return _excepted_result;
         }
 
-        int result_size_get(void)
+        int result_getSize(void)
         {
             if(is_single_result())
             {
@@ -161,7 +161,7 @@ namespace ast
 
         vector<types::InternalType*>* result_list_get()
         {
-            if(result_size_get() == 1)
+            if(result_getSize() == 1)
             {
                 vector<types::InternalType*>* pList = new vector<types::InternalType*>;
                 pList->push_back(_result);
@@ -217,27 +217,41 @@ namespace ast
     class RunVisitorT : public RunVisitor
     {
     protected :
-        int  GetIndexList(InternalType* _pRef, std::list<ast::Exp *>const& _plstArg, int** _piIndexSeq, int** _piMaxDim, InternalType *_pRefVar, int *_iDimSize)
+
+        typed_list* GetArgumentList(std::list<ast::Exp *>const& _plstArg)
+        {
+            typed_list* pArgs = new typed_list();
+            std::list<ast::Exp *>::const_iterator it;
+            for(it = _plstArg.begin() ; it != _plstArg.end() ; it++)
+            {
+                T execMeArg;
+                (*it)->accept(execMeArg);
+                pArgs->push_back(execMeArg.result_get()->clone());
+            }
+            return pArgs;
+        }
+
+        int GetIndexList(InternalType* _pRef, std::list<ast::Exp *>const& _plstArg, int** _piIndexSeq, int** _piMaxDim, int* _piDims, InternalType *_pRefVar, int *_piDimSize)
         {
             //Create list of indexes
             //std::vector<std::vector<int>> IndexList;
-            int iProductElem				= static_cast<int>(_plstArg.size());
-            int **piIndexList				= NULL;
-            int *piTabsize					= NULL;
-            int iTotalCombi					= 1;
-            int k										= 0;
+            int iProductElem    = static_cast<int>(_plstArg.size());
+            int **piIndexList   = NULL;
+            int *piTabsize      = NULL;
+            int iTotalCombi     = 1;
+            int k               = 0;
 
-            piTabsize			= new int[iProductElem];
-            piIndexList		= new int*[iProductElem];
+            piTabsize           = new int[iProductElem];
+            piIndexList         = new int*[iProductElem];
 
-            (*_piMaxDim)	= new int[iProductElem];
+            (*_piMaxDim)        = new int[iProductElem];
+            *_piDims            = iProductElem;
 
             T execMeArg;
             std::list<Exp *>::const_iterator	i;
             for(i = _plstArg.begin() ; i != _plstArg.end() ; i++,k++)
             {
                 (*i)->accept(execMeArg);
-                InternalType *pIn = NULL;
                 Double *pDbl = NULL;
                 bool bDeleteDbl = false;
 
@@ -251,26 +265,26 @@ namespace ast
 
                     Double dbl(iMaxDim); // $
                     ImplicitList *pIL = execMeArg.result_get()->getAsImplicitList();
-                    if(pIL->computable() == false)
+                    if(pIL->isComputable() == false)
                     {
-                        if(pIL->start_type_get() == InternalType::RealPoly)
+                        if(pIL->getStartType() == InternalType::RealPoly)
                         {
-                            MatrixPoly *poPoly	= pIL->start_get()->getAsPoly();
-                            pIL->start_set(poPoly->evaluate(&dbl));
+                            MatrixPoly *poPoly	= pIL->getStart()->getAsPoly();
+                            pIL->setStart(poPoly->evaluate(&dbl));
                         }
-                        if(pIL->step_type_get() == InternalType::RealPoly)
+                        if(pIL->getStepType() == InternalType::RealPoly)
                         {
-                            MatrixPoly *poPoly	= pIL->step_get()->getAsPoly();
-                            pIL->step_set(poPoly->evaluate(&dbl));
+                            MatrixPoly *poPoly	= pIL->getStep()->getAsPoly();
+                            pIL->setStep(poPoly->evaluate(&dbl));
                         }
-                        if(pIL->end_type_get() == InternalType::RealPoly)
+                        if(pIL->getEndType() == InternalType::RealPoly)
                         {
-                            MatrixPoly *poPoly	= pIL->end_get()->getAsPoly();
-                            pIL->end_set(poPoly->evaluate(&dbl));
+                            MatrixPoly *poPoly	= pIL->getEnd()->getAsPoly();
+                            pIL->setEnd(poPoly->evaluate(&dbl));
                         }
                     }
 
-                    pDbl = pIL->extract_matrix()->getAsDouble();
+                    pDbl = pIL->extractFullMatrix()->getAs<Double>();
                     bDeleteDbl = true;
                 }
                 else if(execMeArg.result_get()->getType() == InternalType::RealBool)
@@ -280,7 +294,7 @@ namespace ast
 
                     //find true item count
                     int iItemCount = 0;
-                    for(int j = 0 ; j < pB->size_get() ; j++)
+                    for(int j = 0 ; j < pB->getSize() ; j++)
                     {
                         if(piB[j])
                         {
@@ -290,10 +304,10 @@ namespace ast
 
                     //allow new Double variable
                     pDbl            = new Double(iItemCount, 1);
-                    double* pdbl    = pDbl->real_get();
+                    double* pdbl    = pDbl->getReal();
 
                     int j = 0;
-                    for(int l = 0 ; l < pB->size_get() ; l++)
+                    for(int l = 0 ; l < pB->getSize() ; l++)
                     {
                         if(piB[l])
                         {
@@ -327,20 +341,20 @@ namespace ast
                     if(_pRef != NULL && _pRef->isTList())
                     {
                         TList* pTL      = _pRef->getAsTList();
-                        pDbl            = new Double(pS->size_get(), 1);
-                        double* pdbl    = pDbl->real_get();
+                        pDbl            = new Double(pS->getSize(), 1);
+                        double* pdbl    = pDbl->getReal();
 
-                        for(int i = 0 ; i < pS->size_get() ; i++)
+                        for(int j = 0 ; j < pS->getSize() ; j++)
                         {
-                            pdbl[i] =  pTL->getIndexFromString(pS->string_get(i));
+                            pdbl[j] =  pTL->getIndexFromString(pS->getString(j));
 
-                            if(pdbl[i] == -1)
+                            if(pdbl[j] == -1)
                             {//field not found
                                 return 0;
                             }
                             else
                             {
-                                pdbl[i]++; //indexed at 1
+                                pdbl[j]++; //indexed at 1
                             }
                         }
 
@@ -356,27 +370,28 @@ namespace ast
                 }
                 else if(execMeArg.result_get()->getType() == InternalType::RealDouble)
                 {
-                    pDbl	= execMeArg.result_get()->getAsDouble();
+                    InternalType* pVar = execMeArg.result_get();
+                    pDbl	= pVar->getAs<Double>();
                 }
                 else
                 {//Heu ... ?
                 }
 
-                double *pData = pDbl->real_get();
+                double *pData = pDbl->getReal();
 
-                piTabsize[k] = pDbl->size_get();
+                piTabsize[k] = pDbl->getSize();
                 piIndexList[k] = new int[piTabsize[k]];
 
                 (*_piMaxDim)[k] = static_cast<int>(pData[0] + 0.5);
-                int iSize = pDbl->size_get();
-                if(_iDimSize != NULL)
+                int iSize = pDbl->getSize();
+                if(_piDimSize != NULL)
                 {
-                    _iDimSize[k] = iSize;
+                    _piDimSize[k] = iSize;
                 }
 
                 for(int j = 0 ; j < iSize ; j++)
                 {
-                    piIndexList[k][j] = static_cast<int>(pData[j] + 0.5);
+                    piIndexList[k][j] = static_cast<int>(pData[j] + 0.5) - 1;
                     if(piIndexList[k][j] > (*_piMaxDim)[k])
                     {
                         (*_piMaxDim)[k] = piIndexList[k][j];
@@ -439,7 +454,7 @@ namespace ast
                 {
                     std::wostringstream os;
                     os << L"inconsistent row/column dimensions\n";
-                    //os << ((Location)(*row)->location_get()).location_string_get() << std::endl;
+                    //os << ((Location)(*row)->location_get()).location_getString() << std::endl;
                     throw ScilabError(os.str(), 999, (*row)->location_get());
                 }
             }
@@ -548,20 +563,22 @@ namespace ast
 
         void visitprivate(const ColonVar &e)
         {
-            int pRank[1] = {2};
-            Double dblCoef(1,2);
-            dblCoef.val_set(0, 0, 0);
-            dblCoef.val_set(0, 1, 1);
+            //int pRank[1] = {2};
+            //Double dblCoef(1,2);
+            //dblCoef.setReal(0, 0, 0);
+            //dblCoef.setReal(0, 1, 1);
 
-            MatrixPoly *pVar = new MatrixPoly(L"$", 1, 1, pRank);
-            Poly *poPoly = pVar->poly_get(0,0);
-            poPoly->coef_set(&dblCoef);
+            //MatrixPoly *pVar = new MatrixPoly(L"$", 1, 1, pRank);
+            //Poly *poPoly = pVar->getPoly(0,0);
+            //poPoly->setCoef(&dblCoef);
 
-            ImplicitList *pIL = new ImplicitList();
-            pIL->start_set(new Double(1));
-            pIL->step_set(new Double(1));
-            pIL->end_set(pVar);
-            result_set(pIL);
+            //ImplicitList *pIL = new ImplicitList();
+            //pIL->setStart(new Double(1));
+            //pIL->setStep(new Double(1));
+            //pIL->setEnd(pVar);
+
+            Colon *pC = new Colon();
+            result_set(pC);
             /*
             : = 1:$
             */
@@ -570,14 +587,16 @@ namespace ast
 
         void visitprivate(const DollarVar &e)
         {
-            int pRank[1] = {2};
-            Double dblCoef(1,2);
-            dblCoef.val_set(0, 0, 0);
-            dblCoef.val_set(0, 1, 1);
+            //int pRank[1] = {2};
+            //Double dblCoef(1,2);
+            //dblCoef.setReal(0, 0, 0);
+            //dblCoef.setReal(0, 1, 1);
 
-            MatrixPoly *pVar = new MatrixPoly(L"$", 1, 1, pRank);
-            Poly *poPoly = pVar->poly_get(0,0);
-            poPoly->coef_set(&dblCoef);
+            //MatrixPoly *pVar = new MatrixPoly(L"$", 1, 1, pRank);
+            //Poly *poPoly = pVar->getPoly(0,0);
+            //poPoly->setCoef(&dblCoef);
+
+            Dollar* pVar = new Dollar();
             result_set(pVar);
         }
 
@@ -686,7 +705,8 @@ namespace ast
                     int *piIndexSeq		= NULL;
                     int *piMaxDim       = NULL;
                     int *piDimSize		= new int[iArgDim];
-                    int iTotalCombi		= GetIndexList(pIT, e.args_get(), &piIndexSeq, &piMaxDim, pIT, piDimSize);
+                    int iDims           = 0;
+                    int iTotalCombi		= GetIndexList(pIT, e.args_get(), &piIndexSeq, &piMaxDim, &iDims, pIT, piDimSize);
 
                     //check we don't have bad indexes like "< 1"
                     for(int i = 0 ; i < iTotalCombi * iArgDim; i++)
@@ -696,12 +716,12 @@ namespace ast
                             //manage error
                             std::wostringstream os;
                             os << _W("Indexes must be positive .\n");
-                            //os << ((Location)e.name_get().location_get()).location_string_get() << std::endl;
+                            //os << ((Location)e.name_get().location_get()).location_getString() << std::endl;
                             throw ScilabError(os.str(), 999, e.location_get());
                         }
                     }
 
-                    ResultList = pIT->getAsCell()->extract_cell(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
+                    ResultList = pIT->getAsCell()->extractCell(iTotalCombi, piIndexSeq, piMaxDim, piDimSize, bSeeAsVector);
 
                     delete[] piDimSize;
                     delete[] piIndexSeq;
@@ -711,7 +731,7 @@ namespace ast
                     {
                         std::wostringstream os;
                         os << L"inconsistent row/column dimensions\n";
-                        //os << ((*e.args_get().begin())->location_get()).location_string_get() << std::endl;
+                        //os << ((*e.args_get().begin())->location_get()).location_getString() << std::endl;
                         throw ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
                     }
 
@@ -906,11 +926,11 @@ namespace ast
                 //			std::cout << "ImplicitList references : " << pVar->getRef() << std::endl;
 
                 InternalType *pIT = NULL;
-                pIT = pVar->extract_value(0);
+                pIT = pVar->extractValue(0);
                 wstring varName = e.vardec_get().name_get();
                 symbol::Context::getInstance()->put(varName, *pIT);
 
-                for(int i = 0 ; i < pVar->size_get() ; i++)
+                for(int i = 0 ; i < pVar->getSize() ; i++)
                 {
                     bool bNew = false;
                     if(pIT->isRef(1))
@@ -919,19 +939,19 @@ namespace ast
                         bNew = true;
                     }
 
-                    if(pIT->getAsDouble())
+                    if(pIT->getAs<Double>())
                     {
-                        Double *pDouble = pIT->getAsDouble();
-                        pDouble->real_get()[0] = pVar->extract_value_double(i);
+                        Double *pDouble = pIT->getAs<Double>();
+                        pDouble->getReal()[0] = pVar->extractValueInDouble(i);
                     }
                     else if(pIT->getAsInt())
                     {
                         Int *pInt = pIT->getAsInt();
-                        pInt->data_set(0, 0,  pVar->extract_value_int(i));
+                        pInt->data_set(0, 0,  pVar->extractValueInInteger(i));
                     }
                     else
                     {
-                        pIT = pVar->extract_value(i);
+                        pIT = pVar->extractValue(i);
                         symbol::Context::getInstance()->put(varName, *pIT);
                     }
 
@@ -965,9 +985,14 @@ namespace ast
             {//Matrix i = [1,3,2,6] or other type
                 T execBody;
                 GenericType* pVar = static_cast<GenericType*>(execVar.result_get());
-                for(int i = 0 ; i < pVar->cols_get() ; i++)
+                if(pVar->getAs<Double>()->getDims() > 2)
                 {
-                    GenericType* pNew = pVar->get_col_value(i);
+                    throw ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.vardec_get().location_get());
+                }
+
+                for(int i = 0 ; i < pVar->getCols() ; i++)
+                {
+                    GenericType* pNew = pVar->getColumnValues(i);
                     symbol::Context::getInstance()->put(e.vardec_get().name_get(), *pNew);
                     e.body_get().accept(execBody);
                     if(e.body_get().is_break())
@@ -1007,7 +1032,7 @@ namespace ast
                 T execVar;
                 e.exp_get().accept(execVar);
 
-                if(execVar.result_size_get() == 1)
+                if(execVar.result_getSize() == 1)
                 {
                     //protect variable
                     InternalType *pIT = execVar.result_get();
@@ -1016,7 +1041,7 @@ namespace ast
                 }
                 else
                 {
-                    for(int i = 0 ; i < execVar.result_size_get() ; i++)
+                    for(int i = 0 ; i < execVar.result_getSize() ; i++)
                     {
                         //protect variable
                         InternalType *pIT = execVar.result_get(i);
@@ -1026,14 +1051,14 @@ namespace ast
                 }
             }
 
-            if(result_size_get() == 1)
+            if(result_getSize() == 1)
             {
                 //unprotect variable
                 result_get()->DecreaseRef();
             }
             else
             {
-                for(int i = 0 ; i < result_size_get() ; i++)
+                for(int i = 0 ; i < result_getSize() ; i++)
                 {
                     //unprotect variable
                     result_get(i)->DecreaseRef();
@@ -1125,7 +1150,7 @@ namespace ast
                             types::typed_list in;
 
                             T execCall;
-                            Function::ReturnValue Ret = pCall->call(in, expected_size_get(), out, &execCall);
+                            Function::ReturnValue Ret = pCall->call(in, expected_getSize(), out, &execCall);
 
                             if(Ret == Callable::OK)
                             {
@@ -1262,7 +1287,7 @@ namespace ast
                                 throw ScilabMessage(os.str(), 0, (*itExp)->location_get());
                             }
                         }
-                        catch(ScilabError se)
+                        catch(ScilabError se2)
                         {//just to catch exception, do nothing
                         }
                     }
@@ -1290,6 +1315,7 @@ namespace ast
 
         void visitprivate(const AssignListExp  &e)
         {
+            
         }
         /** \} */
 
@@ -1306,11 +1332,12 @@ namespace ast
 
             if(execMe.result_get()->isDouble())
             {
-                Double *pdbl	= execMe.result_get()->getAsDouble();
-                Bool *pReturn	= new Bool(pdbl->rows_get(), pdbl->cols_get());
-                double *pR		= pdbl->real_get();
-                int *piB			= pReturn->bool_get();
-                for(int i = 0 ; i < pdbl->size_get() ; i++)
+                InternalType* pVar  = execMe.result_get();
+                Double *pdbl        = pVar->getAs<Double>();
+                Bool *pReturn       = new Bool(pdbl->getRows(), pdbl->getCols());
+                double *pR		    = pdbl->getReal();
+                int *piB            = pReturn->bool_get();
+                for(int i = 0 ; i < pdbl->getSize() ; i++)
                 {
                     piB[i] = pR[i] == 0 ? 1 : 0;
                 }
@@ -1319,11 +1346,11 @@ namespace ast
             else if(execMe.result_get()->isBool())
             {
                 Bool *pb			= execMe.result_get()->getAsBool();
-                Bool *pReturn	= new Bool(pb->rows_get(), pb->cols_get());
+                Bool *pReturn	= new Bool(pb->getRows(), pb->getCols());
                 int *piR			= pb->bool_get();
                 int *piB			= pReturn->bool_get();
 
-                for(int i = 0 ; i < pb->size_get() ; i++)
+                for(int i = 0 ; i < pb->getSize() ; i++)
                 {
                     piB[i] = piR[i] == 1 ? 0 : 1;
                 }
@@ -1344,32 +1371,33 @@ namespace ast
 
             if(execMe.result_get()->isImplicitList())
             {
-                InternalType *pIT = execMe.result_get()->getAsImplicitList()->extract_matrix();
+                InternalType *pIT = execMe.result_get()->getAsImplicitList()->extractFullMatrix();
                 execMe.result_set(pIT);
             }
 
             if(execMe.result_get()->isDouble())
             {
-                Double *pdbl		= execMe.result_get()->getAsDouble();
-                Double *pReturn	= NULL;
+                InternalType* pVar  = execMe.result_get();
+                Double *pdbl		= pVar->getAs<Double>();
+                Double *pReturn	    = NULL;
 
                 if(pdbl->isComplex())
                 {
-                    pReturn				= new Double(pdbl->cols_get(), pdbl->rows_get(), true);
-                    double *pInR	=	pdbl->real_get();
-                    double *pInI	=	pdbl->img_get();
-                    double *pOutR	=	pReturn->real_get();
-                    double *pOutI	=	pReturn->img_get();
+                    pReturn				= new Double(pdbl->getCols(), pdbl->getRows(), true);
+                    double *pInR	=	pdbl->getReal();
+                    double *pInI	=	pdbl->getImg();
+                    double *pOutR	=	pReturn->getReal();
+                    double *pOutI	=	pReturn->getImg();
 
-                    vTransposeComplexMatrix(pInR, pInI, pdbl->rows_get(), pdbl->cols_get(), pOutR, pOutI, bConjug);
+                    vTransposeComplexMatrix(pInR, pInI, pdbl->getRows(), pdbl->getCols(), pOutR, pOutI, bConjug);
                 }
                 else
                 {
-                    pReturn				= new Double(pdbl->cols_get(), pdbl->rows_get(), false);
-                    double *pInR	=	pdbl->real_get();
-                    double *pOutR	=	pReturn->real_get();
+                    pReturn				= new Double(pdbl->getCols(), pdbl->getRows(), false);
+                    double *pInR	=	pdbl->getReal();
+                    double *pOutR	=	pReturn->getReal();
 
-                    vTransposeRealMatrix(pInR, pdbl->rows_get(), pdbl->cols_get(), pOutR);
+                    vTransposeRealMatrix(pInR, pdbl->getRows(), pdbl->getCols(), pOutR);
                 }
                 result_set(pReturn);
             }
@@ -1379,28 +1407,28 @@ namespace ast
                 MatrixPoly *pReturn	= NULL;
 
                 //prepare rank array
-                int* piRank = new int[pMP->size_get()];
+                int* piRank = new int[pMP->getSize()];
 
-                for(int i = 0 ; i < pMP->rows_get() ; i++)
+                for(int i = 0 ; i < pMP->getRows() ; i++)
                 {
-                    for(int j = 0 ; j < pMP->cols_get() ; j++)
+                    for(int j = 0 ; j < pMP->getCols() ; j++)
                     {
-                        piRank[i * pMP->cols_get() + j] = pMP->poly_get(i,j)->rank_get();
+                        piRank[i * pMP->getCols() + j] = pMP->getPoly(i,j)->getRank();
                     }
                 }
 
-                pReturn = new MatrixPoly(pMP->var_get(), pMP->cols_get(), pMP->rows_get(), piRank);
-                pReturn->complex_set(pMP->isComplex());
+                pReturn = new MatrixPoly(pMP->getVariableName(), pMP->getCols(), pMP->getRows(), piRank);
+                pReturn->setComplex(pMP->isComplex());
 
                 if(pMP->isComplex() && bConjug)
                 {
-                    for(int i = 0 ; i < pMP->rows_get() ; i++)
+                    for(int i = 0 ; i < pMP->getRows() ; i++)
                     {
-                        for(int j = 0 ; j < pMP->cols_get() ; j++)
+                        for(int j = 0 ; j < pMP->getCols() ; j++)
                         {
-                            pReturn->poly_set(j, i, pMP->poly_get(i,j)->coef_get());
-                            double *pdblImg = pReturn->poly_get(j, i)->coef_img_get();
-                            for(int k = 0 ; k < pReturn->poly_get(j, i)->rank_get() ; k++)
+                            pReturn->poly_set(j, i, pMP->getPoly(i,j)->getCoef());
+                            double *pdblImg = pReturn->getPoly(j, i)->getCoefImg();
+                            for(int k = 0 ; k < pReturn->getPoly(j, i)->getRank() ; k++)
                             {
                                 pdblImg[k] *= -1;
                             }
@@ -1409,11 +1437,11 @@ namespace ast
                 }
                 else
                 {
-                    for(int i = 0 ; i < pMP->rows_get() ; i++)
+                    for(int i = 0 ; i < pMP->getRows() ; i++)
                     {
-                        for(int j = 0 ; j < pMP->cols_get() ; j++)
+                        for(int j = 0 ; j < pMP->getCols() ; j++)
                         {
-                            pReturn->poly_set(j, i, pMP->poly_get(i,j)->coef_get());
+                            pReturn->poly_set(j, i, pMP->getPoly(i,j)->getCoef());
                         }
                     }
                 }
@@ -1423,13 +1451,13 @@ namespace ast
             else if(execMe.result_get()->isString())
             {
                 String *pS      = execMe.result_get()->getAsString();
-                String* pReturn = new String(pS->cols_get(), pS->rows_get());
+                String* pReturn = new String(pS->getCols(), pS->getRows());
 
-                for(int i = 0 ; i < pS->rows_get() ; i++)
+                for(int i = 0 ; i < pS->getRows() ; i++)
                 {
-                    for(int j = 0 ; j < pS->cols_get() ; j++)
+                    for(int j = 0 ; j < pS->getCols() ; j++)
                     {
-                        pReturn->string_set(j,i, pS->string_get(i,j));
+                        pReturn->setString(j,i, pS->getString(i,j));
                     }
                 }
                 result_set(pReturn);
@@ -1505,7 +1533,7 @@ namespace ast
             {
                 e.start_get().accept(execMeStart);
                 GenericType* pITStart = static_cast<GenericType*>(execMeStart.result_get());
-                if(pITStart->rows_get() != 1 || pITStart->cols_get() != 1)
+                if(pITStart->getRows() != 1 || pITStart->getCols() != 1)
                 {
                     throw 1;
                 }
@@ -1513,14 +1541,14 @@ namespace ast
 
                 e.step_get().accept(execMeStep);
                 GenericType* pITStep = static_cast<GenericType*>(execMeStep.result_get());
-                if(pITStep->rows_get() != 1 || pITStep->cols_get() != 1)
+                if(pITStep->getRows() != 1 || pITStep->getCols() != 1)
                 {
                     throw 2;
                 }
 
                 e.end_get().accept(execMeEnd);
                 GenericType* pITEnd = static_cast<GenericType*>(execMeEnd.result_get());
-                if(pITEnd->rows_get() != 1 || pITEnd->cols_get() != 1)
+                if(pITEnd->getRows() != 1 || pITEnd->getCols() != 1)
                 {
                     throw 3;
                 }

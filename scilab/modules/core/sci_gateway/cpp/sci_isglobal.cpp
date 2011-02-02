@@ -13,7 +13,7 @@
 #include "function.hxx"
 #include "callable.hxx"
 #include "context.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -42,13 +42,13 @@ Function::ReturnValue sci_isglobal(types::typed_list &in, int _iRetCount, types:
         }
 
         String* pS = in[0]->getAsString();
-        if(pS->size_get() != 1)
+        if(pS->getSize() != 1)
         {
             Scierror(999,_("%s: Wrong type for input argument #%d: Single string expected.\n"), "isglobal", 1);
             return Function::Error;
         }
 
-        if(symbol::Context::getInstance()->isGlobalExists(pS->string_get(0)))
+        if(symbol::Context::getInstance()->isGlobalExists(pS->getString(0)))
         {
             out.push_back(new Bool(1));
         }

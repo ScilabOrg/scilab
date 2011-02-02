@@ -14,7 +14,7 @@
 #include "funcmanager.hxx"
 #include "context.hxx"
 #include "functions_gw.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 using namespace types;
 /*--------------------------------------------------------------------------*/
@@ -39,12 +39,12 @@ Function::ReturnValue sci_funclist(types::typed_list &in, int _iRetCount, types:
 
 		String *pS = pIT->getAsString();
 
-		if(pS->size_get() != 1)
+		if(pS->getSize() != 1)
 		{
 			return Function::Error;
 		}
 
-		pstLibName = pS->string_get(0);
+		pstLibName = pS->getString(0);
 	}
 	else
 	{
@@ -60,7 +60,7 @@ Function::ReturnValue sci_funclist(types::typed_list &in, int _iRetCount, types:
 	int i = 0;
 	for(it = FuncList.begin() ; it != FuncList.end() ; it++)
 	{
-		pS->string_set(i++, 0, it->c_str());
+		pS->setString(i++, 0, it->c_str());
 	}
 
 	out.push_back(pS);

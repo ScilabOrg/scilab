@@ -24,7 +24,7 @@ namespace types
                                 ListInsert(InternalType* _pIT);
         virtual                 ~ListInsert();
 
-        ListInsert*             clone();
+        InternalType*           clone();
 
         ListInsert*             getAsListInsert(void);
         RealType                getType(void);
@@ -32,7 +32,7 @@ namespace types
         void                    whoAmI();
 
         std::wstring            toString(int _iPrecision, int _iLineLen);
-        InternalType*           insert_get();
+        InternalType*           getInsert();
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::wstring    getTypeStr() {return L"listinsert";}

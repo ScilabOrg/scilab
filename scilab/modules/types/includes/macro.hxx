@@ -29,7 +29,7 @@ namespace types
         virtual                     ~Macro();
 
         // FIXME : Should not return NULL;
-        Macro*                      clone();
+        InternalType*               clone();
 
         Macro*                      getAsMacro(void);
         RealType                    getType(void);
@@ -40,7 +40,7 @@ namespace types
 
         Callable::ReturnValue       call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
 
-        ast::SeqExp*                body_get();
+        ast::SeqExp*                getBody();
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual wstring             getTypeStr() {return L"macro";}

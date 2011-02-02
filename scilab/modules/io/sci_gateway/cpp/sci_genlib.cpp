@@ -31,7 +31,7 @@
 #include "yaspio.hxx"
 #include "expandPathVariable.h"
 #include "configvariable.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -76,11 +76,11 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
 	}
 
 	String *pS = pIT->getAsString();
-	if(pS->size_get() != 1)
+	if(pS->getSize() != 1)
 	{
 		return Function::Error;
 	}
-	pstLibName = pS->string_get(0);
+	pstLibName = pS->getString(0);
 
 	//param 2, library path
 	pIT = in[1];
@@ -90,7 +90,7 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
 	}
 
 	pS = pIT->getAsString();
-	if(pS->size_get() != 1)
+	if(pS->getSize() != 1)
 	{
 		return Function::Error;
 	}
@@ -110,7 +110,7 @@ Function::ReturnValue sci_genlib(types::typed_list &in, int _iRetCount, types::t
         bVerbose = pIT->getAsBool()->bool_get()[0] == 1;
     }
 
-	wchar_t* pstFile = pS->string_get(0);
+	wchar_t* pstFile = pS->getString(0);
     pstParsePath = expandPathVariableW(pstFile);
 
 	os_swprintf(pstParseFile, PATH_MAX + FILENAME_MAX, L"%ls%lslib", pstParsePath, FILE_SEPARATOR);

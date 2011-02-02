@@ -285,6 +285,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\cpp\arrayof.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\cpp\bool.cpp"
 				>
 			</File>
@@ -395,6 +399,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\arrayof.hxx"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\bool.hxx"
 				>
 			</File>
@@ -407,7 +415,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\includes\colon.hxx"
+				>
+			</File>
+			<File
 				RelativePath=".\includes\container.hxx"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\dollar.hxx"
 				>
 			</File>
 			<File
@@ -427,7 +443,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\includes\ImplicitList.hxx"
+				RelativePath=".\includes\implicitlist.hxx"
 				>
 			</File>
 			<File

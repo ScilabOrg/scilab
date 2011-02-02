@@ -13,11 +13,8 @@
 /*--------------------------------------------------------------------------*/
 
 #include <wchar.h>
-
-
 #include "context.hxx"
-#include "internal.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "expandPathVariable.h"
 
 extern "C"
@@ -156,7 +153,7 @@ wchar_t *getVariableValueDefinedInScilab(wchar_t *wcVarName)
         }
 
         types::String* pS = pIT->getAsString();
-        return os_wcsdup(pS->string_get(0));
+        return os_wcsdup(pS->getString(0));
 	}
 	return NULL;
 }

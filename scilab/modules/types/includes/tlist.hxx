@@ -32,7 +32,7 @@ namespace types
 
         RealType                        getType(void) { return RealTList; }
 
-        TList*                          clone();
+        InternalType*                   clone();
 
         TList*                          getAsTList(void) { return this; }
 
@@ -43,7 +43,7 @@ namespace types
         bool                            set(const std::wstring& _sKey, InternalType* _pIT);
         bool                            set(const int _iIndex, InternalType* _pIT);
 
-        std::vector<InternalType*>      extract_string(std::list<std::wstring> _stFields);
+        std::vector<InternalType*>      extractStrings(std::list<std::wstring> _stFields);
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::wstring             getTypeStr();

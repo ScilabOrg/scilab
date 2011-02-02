@@ -19,7 +19,7 @@
 
 #include "string_gw.hxx"
 #include "function.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -52,7 +52,7 @@ Function::ReturnValue sci_ascii(typed_list &in, int _iRetCount, typed_list &out)
     {
     case InternalType::RealDouble :
         {
-            pOut = DoubleToString(in[0]->getAsDouble());
+            pOut = DoubleToString(in[0]->getAs<Double>());
             break;
         }
     case InternalType::RealString :
@@ -368,12 +368,12 @@ Function::ReturnValue sci_ascii(typed_list &in, int _iRetCount, typed_list &out)
 String* DoubleToString(Double* _pdbl)
 {
     String* pOut = NULL;
-    char* pst = (char*)MALLOC(sizeof(char) * (_pdbl->size_get() + 1));
-    memset(pst, 0x00, _pdbl->size_get() + 1);
-    double* pdbl = _pdbl->real_get();
+    char* pst = (char*)MALLOC(sizeof(char) * (_pdbl->getSize() + 1));
+    memset(pst, 0x00, _pdbl->getSize() + 1);
+    double* pdbl = _pdbl->getReal();
 
     bool bWarning = false;
-    for(int i = 0 ; i < _pdbl->size_get() ; i++)
+    for(int i = 0 ; i < _pdbl->getSize() ; i++)
     {
         if(bWarning == false && pdbl[i] > 255)
         {
@@ -386,7 +386,7 @@ String* DoubleToString(Double* _pdbl)
 
     wchar_t* pwst = to_wide_string(pst);
     pOut = new String(1, 1);
-    pOut->string_set(0, 0, pwst);
+    pOut->setString(0, 0, pwst);
     return pOut;
 }
 /*--------------------------------------------------------------------------*/
@@ -401,14 +401,14 @@ Double* StringToDouble(String* _pst)
 {
     Double* pOut = NULL;
     /*compute total length*/
-    for(int i = 0 ; i < _pst->size_get() ; i++)
+    for(int i = 0 ; i < _pst->getSize() ; i++)
     {
-        char* pst = wide_string_to_UTF8(_pst->string_get(i));
+        char* pst = wide_string_to_UTF8(_pst->getString(i));
         if(pOut == NULL)
         {
             pOut = new Double(1, (int)strlen(pst));
             int iLen = (int)strlen(pst);
-            double* pD = pOut->real_get();
+            double* pD = pOut->getReal();
             for(int j = 0 ; j < iLen ; j++)
             {
                 pD[j] = pst[j];
@@ -418,13 +418,13 @@ Double* StringToDouble(String* _pst)
         {
             int iLen = (int)strlen(pst);
             Double *pIn = new Double(1, iLen);
-            double* pD = pIn->real_get();
+            double* pD = pIn->getReal();
             for(int j = 0 ; j < iLen ; j++)
             {
                 pD[j] = pst[j];
             }
 
-            int iOldCols = pOut->cols_get();
+            int iOldCols = pOut->getCols();
             pOut->resize(1, iOldCols + iLen);
             pOut->append(0, iOldCols, pIn);
             delete pIn;

@@ -14,9 +14,7 @@
 #define __STRIPBLANKS_HXX__
 
 #include "dynlib_string.h"
-#include "types.hxx"
-#include "string.hxx"
-#include "bool.hxx"
+#include "arrayof.hxx"
 
 using namespace types;
 

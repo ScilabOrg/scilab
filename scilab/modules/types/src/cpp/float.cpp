@@ -22,7 +22,7 @@ namespace types
 	{
 		if(isDeletable() == true)
 		{
-			all_delete();
+			deleteAll();
 		}
 	}
 
@@ -32,7 +32,7 @@ namespace types
 	/*--------------------*/
 	Float::Float(int _iRows, int _iCols, bool _bComplex)
 	{
-		CreateFloat(_iRows, _iCols, NULL, NULL);
+		createFloat(_iRows, _iCols, NULL, NULL);
 		m_bComplex = _bComplex;
 		return;
 	}
@@ -44,7 +44,7 @@ namespace types
 	Float::Float(float _fReal)
 	{
 		float *pfVal;
-		CreateFloat(1, 1, &pfVal, NULL);
+		createFloat(1, 1, &pfVal, NULL);
 		pfVal[0] = _fReal;
 		m_bComplex = false;
 		return;
@@ -56,7 +56,7 @@ namespace types
 	/*--------------------*/
 	Float::Float(int _iRows, int _iCols, float **_pfReal)
 	{
-		CreateFloat(_iRows, _iCols, _pfReal, NULL);
+		createFloat(_iRows, _iCols, _pfReal, NULL);
 		m_bComplex = false;
 		return;
 	}
@@ -67,7 +67,7 @@ namespace types
 	/*----------------------*/
 	Float::Float(int _iRows, int _iCols, float **_pfReal, float **_pfImg)
 	{
-		CreateFloat(_iRows, _iCols, _pfReal, _pfImg);
+		createFloat(_iRows, _iCols, _pfReal, _pfImg);
 		//		m_bComplex = false;
 		return;
 	}
@@ -76,7 +76,7 @@ namespace types
 	/*			CreateFloat		*/
 	/*	Commun constructor	*/
 	/*----------------------*/
-	void Float::CreateFloat(int _iRows, int _iCols, float **_pfReal, float **_pfImg)
+	void Float::createFloat(int _iRows, int _iCols, float **_pfReal, float **_pfImg)
 	{
 		m_iCols	= _iCols;
 		m_iRows	= _iRows;
@@ -108,7 +108,7 @@ namespace types
 			m_pfImg = NULL;
 	}
 
-	Float* Float::clone()
+	InternalType* Float::clone()
 	{
 		// FIXME : Implement me.
 		return NULL;
@@ -120,25 +120,25 @@ namespace types
 	}
 
 	/*------------*/
-	/*	real_get	*/
+	/*	get_real	*/
 	/*------------*/
-	float*	Float::real_get() const
+	float*	Float::getReal() const
 	{
 		return m_pfReal;
 	}
 
 	/*------------*/
-	/*	img_get	*/
+	/*	get_img	*/
 	/*------------*/
-	float*	Float::img_get() const
+	float*	Float::getImg() const
 	{
 		return m_pfImg;
 	}
 
 	/*------------*/
-	/*	real_set	*/
+	/*	set_real	*/
 	/*------------*/
-	bool Float::real_set(float *_pfReal)
+	bool Float::setReal(float *_pfReal)
 	{
 		if(_pfReal != NULL)
 		{
@@ -156,9 +156,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	real_get	*/
+	/*	get_real	*/
 	/*------------*/
-	float	Float::real_get(int _iRows, int _iCols) const
+	float	Float::getReal(int _iRows, int _iCols) const
 	{
 		if(m_pfReal != NULL)
 		{
@@ -171,9 +171,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	img_set		*/
+	/*	set_img		*/
 	/*------------*/
-	bool Float::img_set(float *_pfImg)
+	bool Float::setImg(float *_pfImg)
 	{
 		if(_pfImg != NULL)
 		{
@@ -191,9 +191,9 @@ namespace types
 	}
 
 	/*------------*/
-	/*	img_get	*/
+	/*	get_img	*/
 	/*------------*/
-	float	Float::img_get(int _iRows, int _iCols) const
+	float	Float::getImg(int _iRows, int _iCols) const
 	{
 		if(m_pfImg != NULL)
 		{
@@ -232,7 +232,7 @@ namespace types
 	/*--------------*/
 	/*	real_clean	*/
 	/*--------------*/
-	void Float::real_delete()
+	void Float::deleteReal()
 	{
 		if(m_pfReal != NULL)
 		{
@@ -244,7 +244,7 @@ namespace types
 	/*------------*/
 	/*	img_clean	*/
 	/*------------*/
-	void Float::img_delete(bool _bSetReal)
+	void Float::deleteImg(bool _bSetReal)
 	{
 		if(m_pfImg != NULL)
 		{
@@ -257,16 +257,16 @@ namespace types
 	/*------------*/
 	/*	all_clean	*/
 	/*------------*/
-	void Float::all_delete(bool _bSetReal)
+	void Float::deleteAll(bool _bSetReal)
 	{
-		real_delete();
-		img_delete(_bSetReal);
+		deleteReal();
+		deleteImg(_bSetReal);
 	}
 
 	/*------------*/
 	/*	zero_set	*/
 	/*------------*/
-	bool Float::zero_set()
+	bool Float::setZeros()
 	{
 		if(m_pfReal != NULL)
 		{
@@ -299,7 +299,7 @@ namespace types
 	/*------------*/
 	/*	one_set	*/
 	/*------------*/
-	bool Float::one_set()
+	bool Float::setOnes()
 	{
 		if(m_pfReal != NULL)
 		{
@@ -338,7 +338,7 @@ namespace types
 
 		Float* pf = const_cast<InternalType &>(it).getAsFloat();
 
-		if(pf->rows_get() != rows_get() || pf->cols_get() != cols_get())
+		if(pf->getRows() != getRows() || pf->getCols() != getCols())
 		{
 			return false;
 		}
@@ -348,16 +348,16 @@ namespace types
 			return false;
 		}
 
-		float *pfReal = pf->real_get();
-		if(memcmp(m_pfReal, pfReal, size_get() * sizeof(float)) != 0)
+		float *pfReal = pf->getReal();
+		if(memcmp(m_pfReal, pfReal, getSize() * sizeof(float)) != 0)
 		{
 			return false;
 		}
 
 		if(isComplex())
 		{
-			float *pfImg = pf->img_get();
-			if(memcmp(m_pfImg, pfImg, size_get() * sizeof(float)) != 0)
+			float *pfImg = pf->getImg();
+			if(memcmp(m_pfImg, pfImg, getSize() * sizeof(float)) != 0)
 			{
 				return false;
 			}
@@ -370,7 +370,7 @@ namespace types
 		return !(*this == it);
 	}
 
-	GenericType*	Float::get_col_value(int _iPos)
+	GenericType*	Float::getColumnValues(int _iPos)
 	{
 		Float *pf = NULL;
 		if(_iPos < m_iCols)
@@ -380,7 +380,7 @@ namespace types
 				pf = new Float(m_iRows, 1, true);
 				for(int i = 0 ; i < m_iRows ; i++)
 				{
-					pf->val_set(i, 0, real_get(i, _iPos), img_get(i, _iPos));
+					pf->setValue(i, 0, getReal(i, _iPos), getImg(i, _iPos));
 				}
 			}
 			else
@@ -388,19 +388,19 @@ namespace types
 				pf = new Float(m_iRows, 1);
 				for(int i = 0 ; i < m_iRows ; i++)
 				{
-					pf->val_set(i, 0, real_get(i, _iPos));
+					pf->setValue(i, 0, getReal(i, _iPos));
 				}
 			}
 		}
 		return pf;
 	}
 
-	bool Float::val_set(int _iRows, int _iCols, float _fReal)
+	bool Float::setValue(int _iRows, int _iCols, float _fReal)
 	{
-		return val_set(_iRows, _iCols, _fReal, 0);
+		return setValue(_iRows, _iCols, _fReal, 0);
 	}
 
-	bool Float::val_set(int _iRows, int _iCols, float _fReal, float _fImg)
+	bool Float::setValue(int _iRows, int _iCols, float _fReal, float _fImg)
 	{
 		if(m_pfReal != NULL)
 		{

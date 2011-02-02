@@ -10,12 +10,15 @@
 *
 */
 
-#ifndef __MATRIXPOLY_HH__
-#define __MATRIXPOLY_HH__
+// This code is separated in matrixpoly.hxx
+// but will be inlined in arrayof.hxx
+//
+// If you need additionnal headers, please add it in arrayof.hxx
 
-#include "matrixpoly.hxx"
+#ifndef __ARRAYOF_HXX__
+    #error This file must only be include by arrayof.hxx
+#endif
 #include "poly.hxx"
-#include "double.hxx"
 
 #ifdef isComplex
 #undef isComplex
@@ -32,12 +35,12 @@ namespace types
         virtual                 ~MatrixPoly();
 
         // FIXME : Should not return NULL
-        MatrixPoly*             clone() { std::cout << "MatrixPoly::clone" << std::endl; return NULL; }
+        InternalType*           clone() { std::cout << "MatrixPoly::clone" << std::endl; return NULL; }
 
-        GenericType*            get_col_value(int _iPos);
+        GenericType*            getColumnValues(int _iPos);
 
-        Poly*                   poly_get(int _iRows, int _iCols);
-        Poly*                   poly_get(int _iIdx);
+        Poly*                   getPoly(int _iRows, int _iCols);
+        Poly*                   getPoly(int _iIdx);
         bool                    poly_set(int _iRows, int _iCols, Double *_pdblCoef);
         bool                    poly_set(int _iIdx, Double *_pdblCoef);
 
@@ -45,23 +48,23 @@ namespace types
         RealType                getType();
         void                    whoAmI(void);
         bool                    isComplex(void);
-        void                    complex_set(bool _bComplex);
-        std::wstring            var_get();
-        bool                    rank_get(int *_piRank);
-        int                     rank_max_get(void);
+        void                    setComplex(bool _bComplex);
+        std::wstring            getVariableName();
+        bool                    getRank(int *_piRank);
+        int                     getMaxRank(void);
         Double*                 evaluate(Double* _pdblValue);
-        void                    update_rank(void);
-        Double*                 coef_get(void);
-        void                    coef_set(Double *_pCoef);
-        Double*                 extract_coef(int _iRank);
-        bool                    insert_coef(int _iRank, Double* _pCoef);
+        void                    updateRank(void);
+        Double*                 getCoef(void);
+        void                    setCoef(Double *_pCoef);
+        Double*                 extractCoef(int _iRank);
+        bool                    insertCoef(int _iRank, Double* _pCoef);
 
         InternalType*           insert(int _iRows, int _iCols, MatrixPoly* _poSource);
 
         std::wstring            toString(int _iPrecison, int _iLineLen);
-        std::wstring            GetRowString(int _iPrecison, int _iLineLen, bool _bComplex);
-        std::wstring            GetColString(int _iPrecison, int _iLineLen, bool _bComplex);
-        std::wstring            GetMatrixString(int _iPrecison, int _iLineLen, bool _bComplex);
+        std::wstring            getRowString(int _iPrecison, int _iLineLen, bool _bComplex);
+        std::wstring            getColString(int _iPrecison, int _iLineLen, bool _bComplex);
+        std::wstring            getMatrixString(int _iPrecison, int _iLineLen, bool _bComplex);
 
 
         MatrixPoly&             operator= (MatrixPoly& poPoly);
@@ -74,10 +77,10 @@ namespace types
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring    getShortTypeStr() {return L"p";}
 
-    private :
+    protected :
         Poly*                   m_poPolyMatrix;
         bool                    m_bComplex;
         std::wstring            m_szVarName;
     };
 }
-#endif /* !__MATRIXPOLY_HH__ */
+

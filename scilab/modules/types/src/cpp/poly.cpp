@@ -13,7 +13,7 @@
 #include <math.h>
 #include "poly.hxx"
 #include "tostring_common.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -32,19 +32,19 @@ namespace types
 
 	Poly::Poly(double** _pdblCoefR, int _iRank)
 	{
-		CreatePoly(_pdblCoefR, NULL, _iRank);
+		createPoly(_pdblCoefR, NULL, _iRank);
 	}
 
 	Poly::Poly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
 	{
-		CreatePoly(_pdblCoefR, _pdblCoefI, _iRank);
+		createPoly(_pdblCoefR, _pdblCoefI, _iRank);
 	}
 
 	Poly::Poly(Double** _poCoefR, int _iRank)
 	{
 		double *pR	= NULL;
 		double *pI	= NULL;
-		CreatePoly(&pR, &pI, _iRank);
+		createPoly(&pR, &pI, _iRank);
 		*_poCoefR = m_pdblCoef;
 	}
 
@@ -55,7 +55,7 @@ namespace types
 	}
 
 	/*Real constructor, private only*/
-	void Poly::CreatePoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
+	void Poly::createPoly(double** _pdblCoefR, double** _pdblCoefI, int _iRank)
 	{
 		double *pR	= NULL;
 		double *pI	= NULL;
@@ -76,7 +76,7 @@ namespace types
 			m_pdblCoef = new Double(1, _iRank, &pR);
 		}
 
-		m_pdblCoef->zero_set();
+		m_pdblCoef->setZeros();
 		if(_pdblCoefR != NULL)
 		{
 			*_pdblCoefR = pR;
@@ -94,12 +94,12 @@ namespace types
 		return this;
 	}
 
-	int Poly::rank_get()
+	int Poly::getRank()
 	{
 		return m_iRank;
 	}
 
-	bool Poly::rank_set(int _iRank, bool bSave)
+	bool Poly::setRank(int _iRank, bool bSave)
 	{
 		double *pR	= NULL;
 		double *pI	= NULL;
@@ -111,11 +111,11 @@ namespace types
 
 				if(m_bComplex == false)
 				{
-					CreatePoly(&pR, NULL, _iRank);
+					createPoly(&pR, NULL, _iRank);
 				}
 				else
 				{
-					CreatePoly(&pR, &pI, _iRank);
+					createPoly(&pR, &pI, _iRank);
 				}
 				return true;
 			}
@@ -127,11 +127,11 @@ namespace types
 			if(_iRank != 0)
 			{
 				pCoef = new Double(1, _iRank, &pR, &pI);
-				pCoef->real_set(m_pdblCoef->real_get());
-				complex_set(m_pdblCoef->isComplex());
+				pCoef->setReal(m_pdblCoef->getReal());
+				setComplex(m_pdblCoef->isComplex());
 				if(m_pdblCoef->isComplex())
 				{
-					pCoef->img_set(m_pdblCoef->img_get());
+					pCoef->setImg(m_pdblCoef->getImg());
 				}
 				m_iRank = _iRank;
 			}
@@ -139,8 +139,8 @@ namespace types
 			{
 				m_iRank = 1;
 				pCoef = new Double(1, 1, &pR, &pI);
-				complex_set(m_pdblCoef->isComplex());
-				pCoef->val_set(0,0,0,0);
+				setComplex(m_pdblCoef->isComplex());
+				pCoef->set(0,0,0);
 			}
 			delete m_pdblCoef;
 			m_pdblCoef = pCoef;
@@ -149,41 +149,41 @@ namespace types
 		return false;
 	}
 
-	Double* Poly::coef_get()
+	Double* Poly::getCoef()
 	{
 		return m_pdblCoef;
 	}
 
-	double* Poly::coef_real_get()
+	double* Poly::getCoefReal()
 	{
-		return m_pdblCoef->real_get();
+		return m_pdblCoef->getReal();
 	}
 
-	double* Poly::coef_img_get()
+	double* Poly::getCoefImg()
 	{
-		return m_pdblCoef->img_get();
+		return m_pdblCoef->getImg();
 	}
 
-	bool	Poly::coef_set(Double* _pdblCoefR)
+	bool	Poly::setCoef(Double* _pdblCoefR)
 	{
 		if(m_pdblCoef == NULL || _pdblCoefR == NULL)
 		{
 			return false;
 		}
 
-		double *pInR	= _pdblCoefR->real_get();
-		double *pInI	= _pdblCoefR->img_get();
+		double *pInR	= _pdblCoefR->getReal();
+		double *pInI	= _pdblCoefR->getImg();
 
-		return coef_set(pInR, pInI);
+		return setCoef(pInR, pInI);
 	}
 
-	void Poly::complex_set(bool _bComplex)
+	void Poly::setComplex(bool _bComplex)
 	{
-		m_pdblCoef->complex_set(_bComplex);
+		m_pdblCoef->setComplex(_bComplex);
 		m_bComplex = _bComplex;
 	}
 
-	bool Poly::coef_set(double* _pdblCoefR, double* _pdblCoefI)
+	bool Poly::setCoef(double* _pdblCoefR, double* _pdblCoefI)
 	{
 		if(m_pdblCoef == NULL)
 		{
@@ -192,12 +192,12 @@ namespace types
 
 		if(_pdblCoefI != NULL && isComplex() == false)
 		{
-			m_pdblCoef->complex_set(true);
+			m_pdblCoef->setComplex(true);
 			m_bComplex = true;
 		}
 
-		double *pR = m_pdblCoef->real_get();
-		double *pI = m_pdblCoef->img_get();
+		double *pR = m_pdblCoef->getReal();
+		double *pI = m_pdblCoef->getImg();
 
 		if(_pdblCoefR != NULL && pR != NULL)
 		{
@@ -222,15 +222,20 @@ namespace types
 		return m_bComplex;
 	}
 
-	GenericType::RealType Poly::getType(void)
+    GenericType* Poly::getColumnValues(int _iPos)
+    {
+        return NULL;
+    }
+
+    GenericType::RealType Poly::getType(void)
 	{
 		return RealSinglePoly;
 	}
 
 	bool Poly::evaluate(double _dblInR, double _dblInI, double *_pdblOutR, double *_pdblOutI)
 	{
-		double *pCoefR = m_pdblCoef->real_get();
-		double *pCoefI = m_pdblCoef->img_get();
+		double *pCoefR = m_pdblCoef->getReal();
+		double *pCoefI = m_pdblCoef->getImg();
 
         *_pdblOutR = 0;
         *_pdblOutI = 0;
@@ -301,12 +306,12 @@ namespace types
 		return true;
 	}
 
-	void Poly::update_rank(void)
+	void Poly::updateRank(void)
 	{
 		double dblEps = getRelativeMachinePrecision();
 		int iNewRank = m_iRank;
-		double *pCoefR = coef_get()->real_get();
-		double *pCoefI = coef_get()->img_get();
+		double *pCoefR = getCoef()->getReal();
+		double *pCoefI = getCoef()->getImg();
 		for(int i = m_iRank - 1; i >= 0 ; i--)
 		{
 			if(fabs(pCoefR[i]) <= dblEps && (pCoefI != NULL ? fabs(pCoefI[i]) : 0) <= dblEps)
@@ -319,7 +324,7 @@ namespace types
 
 		if(iNewRank < m_iRank)
 		{
-			rank_set(iNewRank, true);
+			setRank(iNewRank, true);
 		}
 	}
 
@@ -335,7 +340,7 @@ namespace types
 
 	void Poly::toStringReal(int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
 	{
-		toStringInternal(m_pdblCoef->real_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
+		toStringInternal(m_pdblCoef->getReal(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
 	void Poly::toStringImg(int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
@@ -347,7 +352,7 @@ namespace types
 			return;
 		}
 
-		toStringInternal(m_pdblCoef->img_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
+		toStringInternal(m_pdblCoef->getImg(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
 	void Poly::toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
@@ -369,7 +374,7 @@ namespace types
 			{
 				int iWidth = 0, iPrec = 0;
 				bool bFP = false; // FloatingPoint
-				GetDoubleFormat(_pdblVal[i], _iPrecision, &iWidth, &iPrec, &bFP);
+				getDoubleFormat(_pdblVal[i], _iPrecision, &iWidth, &iPrec, &bFP);
 
 				if(iLen + iWidth + 2 >= _iLineLen)
 				{//flush
@@ -380,20 +385,20 @@ namespace types
 							continue;
 						}
 
-						Add_Space(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
+						addSpaces(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
 						if(isZero(_pdblVal[j]) == false)
 							ostemp2 << j;
 					}
 					iLastFlush = i;
 					_pListExp->push_back(ostemp2.str());
 					ostemp2.str(L""); //reset stream
-					Add_Space(&ostemp2, 12); //take from scilab ... why not ...
+					addSpaces(&ostemp2, 12); //take from scilab ... why not ...
 
 					_pListCoef->push_back(ostemp.str());
 					ostemp.str(L""); //reset stream
-					Add_Space(&ostemp, 12); //take from scilab ... why not ...
+					addSpaces(&ostemp, 12); //take from scilab ... why not ...
 				}
-				AddDoubleValue(&ostemp, _pdblVal[i], iWidth, iPrec, ostemp.str().size() != 2, i == 0);
+				addDoubleValue(&ostemp, _pdblVal[i], iWidth, iPrec, ostemp.str().size() != 2, i == 0);
 
 				if(i != 0)
 				{
@@ -414,7 +419,7 @@ namespace types
 					continue;
 				}
 
-				Add_Space(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
+				addSpaces(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
 				if(isZero(_pdblVal[j]) == false)
 				{
 					ostemp2 << j;
@@ -424,7 +429,7 @@ namespace types
 			if(ostemp.str() == L"  ")
 			{
 				ostemp << L"  0";
-				Add_Space(&ostemp2, static_cast<int>(ostemp.str().size()));
+				addSpaces(&ostemp2, static_cast<int>(ostemp.str().size()));
 			}
 
 			_pListExp->push_back(ostemp2.str());
@@ -444,25 +449,25 @@ namespace types
 
 		Poly* pP = const_cast<InternalType &>(it).getAsSinglePoly();
 
-		if(rank_get() != pP->rank_get())
+		if(getRank() != pP->getRank())
 		{
 			return false;
 		}
 
-		double* pR1 = coef_real_get();
-		double *pR2 = pP->coef_real_get();
+		double* pR1 = getCoefReal();
+		double *pR2 = pP->getCoefReal();
 
-		if(memcmp(pR1, pR2, sizeof(double) * rank_get()) != 0)
+		if(memcmp(pR1, pR2, sizeof(double) * getRank()) != 0)
 		{
 			return false;
 		}
 
 		if(isComplex())
 		{
-			double* pI1 = coef_img_get();
-			double *pI2 = pP->coef_img_get();
+			double* pI1 = getCoefImg();
+			double *pI2 = pP->getCoefImg();
 
-			if(memcmp(pI1, pI2, sizeof(double) * rank_get()) != 0)
+			if(memcmp(pI1, pI2, sizeof(double) * getRank()) != 0)
 			{
 				return false;
 			}

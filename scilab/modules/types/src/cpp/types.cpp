@@ -13,6 +13,15 @@
 #include <sstream>
 #include "types.hxx"
 
+#include "scilabexception.hxx"
+
+extern "C"
+{
+#include "localization.h"
+#include "charEncoding.h"
+#include "os_swprintf.h"
+}
+
 namespace types
 {
     bool InternalType::isGenericType(void)
@@ -21,17 +30,17 @@ namespace types
     }
 
 	/*commun functions*/
-	int GenericType::cols_get()
+	int GenericType::getCols()
 	{
 		return m_iCols;
 	}
 
-	int GenericType::rows_get()
+	int GenericType::getRows()
 	{
 		return m_iRows;
 	}
 
-	int GenericType::size_get()
+	int GenericType::getSize()
 	{
 		return m_iSize;
 	}
@@ -39,7 +48,7 @@ namespace types
     std::wstring GenericType::DimToString()
 	{
         std::wostringstream ostr;
-		ostr << rows_get() << L"x" << cols_get();
+		ostr << getRows() << L"x" << getCols();
 		return ostr.str();
 	}
 
@@ -55,11 +64,11 @@ namespace types
     bool GenericType::hasAllIndexesOfRow(int _iRow, int* _piCoord, int _iCoordCount)
     {
         bool bAll = true;
-        for(int i = 0 ; i < cols_get() ; i++)
+        for(int i = 0 ; i < getCols() ; i++)
         {
             bool bFind = false;
             //+1 to keep 1 based index
-            int iIdx = _iRow + i * cols_get() + 1;
+            int iIdx = _iRow + i * getCols() + 1;
 
 
             if(isCoordIndex(iIdx, _piCoord, _iCoordCount) == false)
@@ -74,11 +83,11 @@ namespace types
     bool GenericType::hasAllIndexesOfCol(int _iCol, int* _piCoord, int _iCoordCount)
     {
         bool bAll = true;
-        for(int i = 0 ; i < rows_get() ; i++)
+        for(int i = 0 ; i < getRows() ; i++)
         {
             bool bFind = false;
             //+1 to keep 1 based index
-            int iIdx = i + _iCol * rows_get() + 1;
+            int iIdx = i + _iCol * getRows() + 1;
 
 
             if(isCoordIndex(iIdx, _piCoord, _iCoordCount) == false)
@@ -89,20 +98,16 @@ namespace types
         }
         return bAll;
     }
-
-    static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount)
+    
+    int GenericType::getDims()
     {
-        bool bFind = false;
-        for(int j = 0 ; j < _iCoordCount ; j++)
-        {
-            if(_piCoord[j] == _iIndex)
-            {
-                bFind = true;
-                break;
-            }
-        }
-
-        return bFind;
+        return m_iDims;
     }
+
+    int* GenericType::getDimsArray()
+    {
+        return m_piDims;
+    }
+
 }
 

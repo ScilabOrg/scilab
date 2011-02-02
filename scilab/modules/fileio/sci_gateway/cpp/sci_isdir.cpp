@@ -17,8 +17,7 @@
  */
 /*--------------------------------------------------------------------------*/
 #include "function.hxx"
-#include "string.hxx"
-#include "bool.hxx"
+#include "arrayof.hxx"
 #include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
@@ -53,11 +52,11 @@ Function::ReturnValue sci_isdir(typed_list &in, int _iRetCount, typed_list &out)
     }
 
     String* pS  = in[0]->getAsString();
-    Bool* pOut  = new Bool(pS->rows_get(), pS->cols_get());
+    Bool* pOut  = new Bool(pS->getRows(), pS->getCols());
 
-    for(int i = 0 ; i < pS->size_get() ; i++)
+    for(int i = 0 ; i < pS->getSize() ; i++)
     {
-        wchar_t *expandedPath = expandPathVariableW(pS->string_get(i));
+        wchar_t *expandedPath = expandPathVariableW(pS->getString(i));
 		if(expandedPath)
 		{
 			pOut->bool_get()[i] = isdirW(expandedPath);
