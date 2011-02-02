@@ -44,9 +44,9 @@ Function::ReturnValue sci_mputl(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
-    if(in[1]->getType() == InternalType::RealDouble && in[1]->getAsDouble()->size_get() == 1)
+    if(in[1]->getType() == InternalType::RealDouble && in[1]->getAs<Double>()->size_get() == 1)
     {
-        iFileID = static_cast<int>(in[1]->getAsDouble()->real_get()[0]);
+        iFileID = static_cast<int>(in[1]->getAs<Double>()->get_real()[0]);
     }
     else if(in[1]->getType() == InternalType::RealString && in[1]->getAsString()->size_get() == 1)
     {

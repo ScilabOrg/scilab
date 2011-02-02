@@ -88,7 +88,7 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
                     return Function::Error;
                 }
 
-                Double* pD3 = in[2]->getAsDouble();
+                Double* pD3 = in[2]->getAs<Double>();
                 if(pD3->size_get() != 1 || pD3->isComplex())
                 {
                     ScierrorW(999, _W("%ls: Wrong size for input argument #%d: An integer expected.\n"), L"mopen", 3);
@@ -96,7 +96,7 @@ Function::ReturnValue sci_mopen(typed_list &in, int _iRetCount, typed_list &out)
                 }
 
                 //if value == 0 set swap to 0 otherwise let to 1
-                if(pD3->real_get(0,0) == 0)
+                if(pD3->get_real(0,0) == 0)
                 {
                     iSwap = 0;
                 }

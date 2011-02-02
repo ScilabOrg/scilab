@@ -32,7 +32,7 @@ namespace types
         setModule(_stModule);
     }
 
-    MacroFile* MacroFile::clone()
+    InternalType* MacroFile::clone()
     {
         IncreaseRef();
         return this;

@@ -34,8 +34,8 @@ namespace types
 
         MList*                          getAsMList(void) { return this; }
 
-        InternalType*                   insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, std::vector<types::InternalType*>* _poSource, bool _bAsVector);
-        std::vector<InternalType*>      extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+        InternalType*                   insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, std::vector<types::InternalType*>* _poSource, bool _bAsVector);
+        std::vector<InternalType*>      extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector);
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::wstring             getTypeStr() {return L"mlist";}

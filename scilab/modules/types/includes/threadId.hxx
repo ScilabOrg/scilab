@@ -22,7 +22,7 @@ extern "C"
 
 namespace types
 {
-    class ThreadId : public GenericType
+    class ThreadId : public InternalType
     {
     public :
                                 ThreadId(__threadId _id);
@@ -35,7 +35,7 @@ namespace types
         virtual std::wstring    getTypeStr() {return L"ThreadId";}
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring    getShortTypeStr() {return L"tid";}
-        ThreadId*               clone();
+        InternalType*               clone();
 
         __threadId              getId();
         void                    setId(__threadId _id);

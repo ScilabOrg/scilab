@@ -24,7 +24,7 @@ namespace types
                                 ListInsert(InternalType* _pIT);
         virtual                 ~ListInsert();
 
-        ListInsert*             clone();
+        InternalType*           clone();
 
         ListInsert*             getAsListInsert(void);
         RealType                getType(void);

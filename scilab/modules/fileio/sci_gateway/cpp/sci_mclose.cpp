@@ -54,14 +54,14 @@ Function::ReturnValue sci_mclose(typed_list &in, int _iRetCount, typed_list &out
         }
         else if(in[0]->getType() == InternalType::RealDouble)
         {
-            Double* pD = in[0]->getAsDouble();
+            Double* pD = in[0]->getAs<Double>();
             if(pD->size_get() != 1 || pD->isComplex())
             {
                 ScierrorW(999,_W("%ls: Wrong type for input argument #%d: A real expected.\n"), L"mclose", 1);
                 return Function::Error;
             }
 
-            int iVal = static_cast<int>(pD->real_get()[0]);
+            int iVal = static_cast<int>(pD->get_real()[0]);
             iRet = mclose(iVal);
         }
         else

@@ -60,7 +60,7 @@ namespace types
 		return;
 	}
 
-	Bool* Bool::clone()
+	InternalType* Bool::clone()
 	{
 	  Bool *pbClone =  new Bool(rows_get(), cols_get());
 	  pbClone->bool_set(m_piData);
@@ -160,6 +160,20 @@ namespace types
 		}
 		return true;
 	}
+
+    GenericType* Bool::get_col_value(int _iPos)
+    {
+        Bool *pb = NULL;
+        if(_iPos < m_iCols)
+        {
+            pb = new Bool(m_iRows, 1);
+            for(int i = 0 ; i < m_iRows ; i++)
+            {
+                pb->bool_set(i, 0, bool_get(i, _iPos));
+            }
+        }
+        return pb;
+    }
 
 	/*--------------*/
 	/*		whoIAm		*/
@@ -407,7 +421,7 @@ namespace types
 		return true;
 	}
 
-	InternalType* Bool::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+	InternalType* Bool::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
 	{
 		int iNewRows = rows_get();
 		int iNewCols = cols_get();
@@ -523,7 +537,7 @@ namespace types
 		return this;
 	}
 
-	Bool* Bool::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Bool* _poSource, bool _bAsVector)
+	Bool* Bool::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, Bool* _poSource, bool _bAsVector)
 	{
 		Bool* pb	= NULL ;
 
@@ -548,7 +562,7 @@ namespace types
 		}
 
 		pb->false_set();
-		if(pb->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+		if(pb->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
 		{
 			delete pb;
 			return NULL;
@@ -557,7 +571,7 @@ namespace types
 		return pb;
 	}
 
-	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
 	{
 		Bool* pOut		= NULL;
 		int iRowsOut	= 0;

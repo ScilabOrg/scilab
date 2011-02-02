@@ -31,9 +31,6 @@ namespace types
 
 	ThreadId::ThreadId(__threadId _id)
 	{
-        m_iRows = 1;
-        m_iCols = 1;
-        m_iSize = 1;
         m_threadId = _id;
         m_threadStatus = Running;
 	}
@@ -48,7 +45,7 @@ namespace types
         this->m_threadId = _id;
     }
 
-	ThreadId *ThreadId::clone()
+	InternalType* ThreadId::clone()
 	{
         return this;
 	}

@@ -13,6 +13,15 @@
 #include <sstream>
 #include "types.hxx"
 
+#include "scilabexception.hxx"
+
+extern "C"
+{
+#include "localization.h"
+#include "charEncoding.h"
+#include "os_swprintf.h"
+}
+
 namespace types
 {
     bool InternalType::isGenericType(void)
@@ -88,21 +97,6 @@ namespace types
             }
         }
         return bAll;
-    }
-
-    static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount)
-    {
-        bool bFind = false;
-        for(int j = 0 ; j < _iCoordCount ; j++)
-        {
-            if(_piCoord[j] == _iIndex)
-            {
-                bFind = true;
-                break;
-            }
-        }
-
-        return bFind;
     }
 }
 

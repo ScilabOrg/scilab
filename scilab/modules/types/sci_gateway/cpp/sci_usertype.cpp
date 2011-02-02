@@ -33,7 +33,7 @@ public:
     }
 
 public :
-    MyDataType * clone()
+    InternalType * clone()
     {
         return new MyDataType(m_shortName, m_longName);
     }

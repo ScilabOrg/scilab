@@ -29,7 +29,7 @@ namespace types
         virtual                     ~Macro();
 
         // FIXME : Should not return NULL;
-        Macro*                      clone();
+        InternalType*               clone();
 
         Macro*                      getAsMacro(void);
         RealType                    getType(void);

@@ -49,7 +49,7 @@ Function::ReturnValue sci_part(typed_list &in, int _iRetCount, typed_list &out)
     }
 
     //part([], ...
-    if(in[0]->isDouble() && in[0]->getAsDouble()->isEmpty())
+    if(in[0]->isDouble() && in[0]->getAs<Double>()->isEmpty())
     {
         out.push_back(Double::Empty());
         return Function::OK;
@@ -70,7 +70,7 @@ Function::ReturnValue sci_part(typed_list &in, int _iRetCount, typed_list &out)
     }
 
 
-    Double* pD = in[1]->getAsDouble();
+    Double* pD = in[1]->getAs<Double>();
     if(pD->isEmpty())
     {
         out.push_back(new String(L""));
@@ -87,7 +87,7 @@ Function::ReturnValue sci_part(typed_list &in, int _iRetCount, typed_list &out)
     int* piIndex = new int[pD->size_get()];
     for(int i = 0 ; i < pD->size_get() ; i++)
     {
-        piIndex[i] = static_cast<int>(pD->real_get()[i]);
+        piIndex[i] = static_cast<int>(pD->get_real()[i]);
     }
 
     wchar_t** pwstOut = partfunctionW(pS->string_get(), pS->rows_get(), pS->cols_get(), piIndex, pD->size_get());

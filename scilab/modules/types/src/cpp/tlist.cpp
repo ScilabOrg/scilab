@@ -46,7 +46,7 @@ namespace types
     ** Clone
     ** Create a new List and Copy all values.
     */
-    TList* TList::clone()
+    InternalType* TList::clone()
     {
         return new TList(this);
     }

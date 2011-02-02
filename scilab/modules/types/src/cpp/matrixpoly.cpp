@@ -199,8 +199,8 @@ namespace types
 			}
 		}
 */
-		double *pR	= _pdblValue->real_get();
-		double *pI	= _pdblValue->img_get();
+		double *pR	= _pdblValue->get_real();
+		double *pI	= _pdblValue->get_img();
 		int iRows		= _pdblValue->rows_get();
 		int iCols		= _pdblValue->cols_get();
 
@@ -279,8 +279,8 @@ namespace types
 			pCoef->complex_set(true);
 		}
 
-		double *pCoefR	= pCoef->real_get();
-		double *pCoefI	= pCoef->img_get();
+		double *pCoefR	= pCoef->get_real();
+		double *pCoefI	= pCoef->get_img();
 
 		for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 		{
@@ -297,8 +297,8 @@ namespace types
 				}
 				else
 				{
-					double *pR	= pPoly->coef_get()->real_get();
-					double *pI	= pPoly->coef_get()->img_get();
+					double *pR	= pPoly->coef_get()->get_real();
+					double *pI	= pPoly->coef_get()->get_img();
 
 					pCoefR[iRank * size_get() + i] = pR[iRank];
 					if(isComplex())
@@ -316,21 +316,21 @@ namespace types
 		int iMaxRank = rank_max_get();
 
 		complex_set(_pCoef->isComplex());
-		double *pR = _pCoef->real_get();
-		double *pI = _pCoef->img_get();
+		double *pR = _pCoef->get_real();
+		double *pI = _pCoef->get_img();
 		for(int i = 0 ; i < size_get() ; i++)
 		{
 			Double *pTemp = new Double(1, iMaxRank, _pCoef->isComplex());
 			Poly *pPoly = poly_get(i);
 			for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 			{
-				pTemp->real_get()[iRank] = pR[iRank * size_get() + i];
+				pTemp->get_real()[iRank] = pR[iRank * size_get() + i];
 			}
 			if(isComplex())
 			{
 				for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 				{
-					pTemp->img_get()[iRank] = pI[iRank * size_get() + i];
+					pTemp->get_img()[iRank] = pI[iRank * size_get() + i];
 				}
 			}
 
@@ -762,8 +762,8 @@ namespace types
 	Double* MatrixPoly::extract_coef(int _iRank)
 	{
 		Double *pdbl	= new Double(m_iRows, m_iCols, m_bComplex);
-		double *pReal	= pdbl->real_get();
-		double *pImg	= pdbl->img_get();
+		double *pReal	= pdbl->get_real();
+		double *pImg	= pdbl->get_img();
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
@@ -779,10 +779,10 @@ namespace types
 			}
 			else
 			{
-				pReal[i]		= pPoly->coef_get()->real_get()[_iRank];
+				pReal[i]		= pPoly->coef_get()->get_real()[_iRank];
 				if(m_bComplex)
 				{
-					pImg[i]		= pPoly->coef_get()->img_get()[_iRank];
+					pImg[i]		= pPoly->coef_get()->get_img()[_iRank];
 				}
 			}
 		}
@@ -791,8 +791,8 @@ namespace types
 	}
 	bool MatrixPoly::insert_coef(int _iRank, Double* _pCoef)
 	{
-		double *pReal	= _pCoef->real_get();
-		double *pImg	= _pCoef->img_get();
+		double *pReal	= _pCoef->get_real();
+		double *pImg	= _pCoef->get_img();
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
@@ -802,10 +802,10 @@ namespace types
 				return false;
 			}
 
-			pPoly->coef_get()->real_get()[_iRank] = pReal[i];
+			pPoly->coef_get()->get_real()[_iRank] = pReal[i];
 			if(m_bComplex)
 			{
-				pPoly->coef_get()->img_get()[_iRank] = pImg[i];
+				pPoly->coef_get()->get_img()[_iRank] = pImg[i];
 			}
 		}
 		return true;
