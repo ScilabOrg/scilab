@@ -16,9 +16,9 @@ import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
-import org.scilab.forge.scirenderer.shapes.appearance.Color;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
 import org.scilab.forge.scirenderer.shapes.geometry.GeometryImpl;
+import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.TransformationStack;
@@ -48,6 +48,8 @@ import org.scilab.modules.graphic_objects.textObject.TextObject;
 import org.scilab.modules.graphic_objects.vectfield.Arrow;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
+import org.scilab.modules.renderer.JoGLView.mark.MarkSpriteManager;
+import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 
 /**
  * @author Pierre Lando
@@ -87,6 +89,7 @@ public class DrawerVisitor implements IVisitor, Drawer {
     private final Canvas canvas;
     private final Figure figure;
     private final DataManager dataManager;
+    private final MarkSpriteManager spriteManager;
 
     private ColorMap colorMap;
     private DrawingTools drawingTools = null;
@@ -94,7 +97,9 @@ public class DrawerVisitor implements IVisitor, Drawer {
     public DrawerVisitor(Canvas canvas, Figure figure) {
         this.canvas = canvas;
         this.figure = figure;
+
         this.dataManager = new DataManager(canvas);
+        this.spriteManager = new MarkSpriteManager(canvas.getSpriteManager());
 
         boxBorderVertices = canvas.getBuffersManager().createElementsBuffer();
         boxBorderVertices.setData(boxBorderVerticesData, ELEMENT_SIZE);
@@ -228,7 +233,7 @@ public class DrawerVisitor implements IVisitor, Drawer {
             /**********************************************************************************************************/
             drawingTools.clearDepthBuffer();
             Appearance appearance = new Appearance();
-            appearance.setFillColor(new Color(colorMap.getScilabColor(axes.getBackground())));
+            appearance.setFillColor(ColorFactory.createColor(colorMap, axes.getBackground()));
             drawingTools.draw(cubeGeometry, appearance);
             drawingTools.clearDepthBuffer();
 
@@ -249,7 +254,7 @@ public class DrawerVisitor implements IVisitor, Drawer {
                 /**
                  * Draw hidden box border.
                  */
-                appearance.setLineColor(new Color(colorMap.getScilabColor(axes.getHiddenAxisColor())));
+                appearance.setLineColor(ColorFactory.createColor(colorMap, axes.getHiddenAxisColor()));
                 appearance.setLineWidth(axes.getLineThickness().floatValue());
                 appearance.setLinePattern(HIDDEN_BORDER_PATTERN.asPattern());
                 drawingTools.draw(hiddenBoxBorderGeometry, appearance);
@@ -260,7 +265,7 @@ public class DrawerVisitor implements IVisitor, Drawer {
                     /**
                      * Draw box border.
                      */
-                    appearance.setLineColor(new Color(colorMap.getScilabColor(axes.getLineColor())));
+                    appearance.setLineColor(ColorFactory.createColor(colorMap, axes.getLineColor()));
                     appearance.setLineWidth(axes.getLineThickness().floatValue());
                     appearance.setLinePattern(axes.getLine().getLineStyle().asPattern());
                     drawingTools.draw(boxBorderGeometry, appearance);
@@ -351,7 +356,7 @@ public class DrawerVisitor implements IVisitor, Drawer {
              */
             colorMap = figure.getColorMap();
 
-            drawingTools.clear(new Color(colorMap.getScilabColor(figure.getBackground())));
+            drawingTools.clear(ColorFactory.createColor(colorMap, figure.getBackground()));
             drawingTools.clearDepthBuffer();
 
             askAcceptVisitor(figure.getChildren());
@@ -384,18 +389,27 @@ public class DrawerVisitor implements IVisitor, Drawer {
 
     @Override
     public void visit(Polyline polyline) {
-        Geometry geometry = new GeometryImpl(
-                Geometry.DrawingMode.SEGMENTS_STRIP,
-                dataManager.getVertexBuffer(polyline.getIdentifier())
-        );
 
-        Appearance appearance = new Appearance();
+        if (polyline.getLineMode()) {
+            Geometry geometry = new GeometryImpl(
+                    Geometry.DrawingMode.SEGMENTS_STRIP,
+                    dataManager.getVertexBuffer(polyline.getIdentifier())
+            );
 
-        appearance.setLineColor(new Color(colorMap.getScilabColor(polyline.getLineColor())));
-        appearance.setLineWidth(polyline.getLineThickness().floatValue());
-        appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+            Appearance appearance = new Appearance();
 
-        drawingTools.draw(geometry, appearance);
+            appearance.setLineColor(ColorFactory.createColor(colorMap, polyline.getLineColor()));
+            appearance.setLineWidth(polyline.getLineThickness().floatValue());
+            appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+
+            drawingTools.draw(geometry, appearance);
+        }
+
+        if (polyline.getMarkMode()) {
+            Sprite sprite = spriteManager.getMarkSprite(polyline, colorMap);
+            ElementsBuffer positions = dataManager.getVertexBuffer(polyline.getIdentifier());
+            drawingTools.draw(sprite, positions);
+        }
     }
 
     @Override
