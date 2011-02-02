@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "bool.hxx"
+#include "arrayof.hxx"
 #include "function.hxx"
 
 extern "C"

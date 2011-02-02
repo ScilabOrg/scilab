@@ -10,7 +10,7 @@
 *
 */
 
-#include "bool.hxx"
+#include "arrayof.hxx"
 #include <sstream>
 #include "core_math.h"
 
@@ -23,7 +23,7 @@ namespace types
 	{
 		if(isDeletable() == true)
 		{
-			all_delete();
+			deleteAll();
 		}
 	}
 
@@ -60,9 +60,9 @@ namespace types
 		return;
 	}
 
-	Bool* Bool::clone()
+	InternalType* Bool::clone()
 	{
-	  Bool *pbClone =  new Bool(rows_get(), cols_get());
+	  Bool *pbClone =  new Bool(getRows(), getCols());
 	  pbClone->bool_set(m_piData);
 
 	  return pbClone;
@@ -161,6 +161,20 @@ namespace types
 		return true;
 	}
 
+    GenericType* Bool::getColumnValues(int _iPos)
+    {
+        Bool *pb = NULL;
+        if(_iPos < m_iCols)
+        {
+            pb = new Bool(m_iRows, 1);
+            for(int i = 0 ; i < m_iRows ; i++)
+            {
+                pb->bool_set(i, 0, bool_get(i, _iPos));
+            }
+        }
+        return pb;
+    }
+
 	/*--------------*/
 	/*		whoIAm		*/
 	/*--------------*/
@@ -188,7 +202,7 @@ namespace types
 	/*--------------*/
 	/*	real_clean	*/
 	/*--------------*/
-	void Bool::all_delete()
+	void Bool::deleteAll()
 	{
 		if(m_piData != NULL)
 		{
@@ -200,7 +214,7 @@ namespace types
 	/*------------*/
 	/*	zero_set	*/
 	/*------------*/
-	bool Bool::false_set()
+	bool Bool::setFalse()
 	{
 		if(m_piData != NULL)
 		{
@@ -218,7 +232,7 @@ namespace types
 	/*------------*/
 	/*	one_set	*/
 	/*------------*/
-	bool Bool::true_set()
+	bool Bool::setTrue()
 	{
 		if(m_piData != NULL)
 		{
@@ -238,21 +252,21 @@ namespace types
         std::wostringstream ostr;
 		ostr << std::endl;
 		/*Comment tenir compte de la longueur des lignes dans le formatage de variable ? */
-		if(cols_get() == 1 && rows_get() == 1)
+		if(getCols() == 1 && getRows() == 1)
 		{//scalar
 				ostr << (m_piData[0] == 1 ? L"T" : L"F");
 				ostr << std::endl;
 		}
-		else if(cols_get() == 1)
+		else if(getCols() == 1)
 		{//column vector
-			for(int i = 0 ; i < rows_get() ; i++)
+			for(int i = 0 ; i < getRows() ; i++)
 			{
 				ostr << (m_piData[i] == 1 ? L"T" : L"F");
 				ostr << std::endl;
 			}
 			ostr << std::endl;
 		}
-		else if(rows_get() == 1)
+		else if(getRows() == 1)
 		{//row vector
 			bool bWordWarp = false;
 			int iLineTag = 5000; //or not Oo
@@ -263,7 +277,7 @@ namespace types
 				bWordWarp = true;
 			}
 
-			for(int i = 0 ; i < cols_get() ; i++)
+			for(int i = 0 ; i < getCols() ; i++)
 			{
 				if(i != 0)
 				{
@@ -287,7 +301,7 @@ namespace types
 			}
 			if(bWordWarp == true)
 			{
-				ostr << std::endl << L"\t\tcolumn " << (cols_get() - 1) / (iLineTag + 1) * iLineTag + 1 << L" to " << cols_get() << std::endl;
+				ostr << std::endl << L"\t\tcolumn " << (getCols() - 1) / (iLineTag + 1) * iLineTag + 1 << L" to " << getCols() << std::endl;
 			}
 			ostr << szTemp;
 			ostr << std::endl;
@@ -303,14 +317,14 @@ namespace types
 				bWordWarp = true;
 			}
 
-			for(int i = 0 ; i < cols_get() ; i++)
+			for(int i = 0 ; i < getCols() ; i++)
 			{
 				if(i != 0)
 				{
 					szTemp += L"  ";
 				}
 
-				if(bWordWarp == false && static_cast<int>(szTemp.size() + wcslen(m_piData[i * rows_get()] ? L"T" : L"F")) >= _iLineLen)
+				if(bWordWarp == false && static_cast<int>(szTemp.size() + wcslen(m_piData[i * getRows()] ? L"T" : L"F")) >= _iLineLen)
 				{
 					bWordWarp = true;
 					iLineTag	= i;
@@ -321,7 +335,7 @@ namespace types
 				{
 					ostr << std::endl << L"\t\tcolumn " << (i - 1) / (iLineTag + 1) * iLineTag + 1 << L" to " << i << std::endl;
 					ostr << szTemp << std::endl;
-					for(int j = 1 ; j < rows_get() ; j++)
+					for(int j = 1 ; j < getRows() ; j++)
 					{
 						for(int k = (i - 1) / (iLineTag + 1) * iLineTag ; k <= i ; k++)
 						{
@@ -329,18 +343,18 @@ namespace types
 							{
 								ostr << L"\t,";
 							}
-							ostr << (m_piData[k * cols_get() + j] ? L"T" : L"F");
+							ostr << (m_piData[k * getCols() + j] ? L"T" : L"F");
 						}
 						ostr << L" ;" << std::endl;
 					}
 					szTemp	= L"";
 				}
 
-				szTemp += m_piData[i * rows_get()] ? L"T" : L"F";
+				szTemp += m_piData[i * getRows()] ? L"T" : L"F";
 			}
 			if(bWordWarp == true)
 			{
-				ostr << std::endl << L"\t\tcolumn " << (cols_get() - 1) / (iLineTag + 1) * iLineTag + 1 << L" to " << cols_get() << std::endl;
+				ostr << std::endl << L"\t\tcolumn " << (getCols() - 1) / (iLineTag + 1) * iLineTag + 1 << L" to " << getCols() << std::endl;
 			}
 			ostr << szTemp;
 			ostr << std::endl;
@@ -358,14 +372,14 @@ namespace types
 
 		Bool* pb = const_cast<InternalType &>(it).getAsBool();
 
-		if(pb->rows_get() != rows_get() || pb->cols_get() != cols_get())
+		if(pb->getRows() != getRows() || pb->getCols() != getCols())
 		{
 			return false;
 		}
 
 		int* piBool = pb->bool_get();
 
-		if(memcmp(m_piData, piBool, size_get() * sizeof(int)) != 0)
+		if(memcmp(m_piData, piBool, getSize() * sizeof(int)) != 0)
 		{
 			return false;
 		}
@@ -379,7 +393,7 @@ namespace types
 
 	bool Bool::resize(int _iNewRows, int _iNewCols)
 	{
-		if(_iNewRows <= rows_get() && _iNewCols <= cols_get())
+		if(_iNewRows <= getRows() && _iNewCols <= getCols())
 		{//nothing to do
 			return true;
 		}
@@ -391,11 +405,11 @@ namespace types
 		memset(piB, 0x00, sizeof(int) * _iNewRows * _iNewCols);
 
 		//copy existing values
-		for(int i = 0 ; i < rows_get() ; i++)
+		for(int i = 0 ; i < getRows() ; i++)
 		{
-			for(int j = 0 ; j < cols_get() ; j++)
+			for(int j = 0 ; j < getCols() ; j++)
 			{
-				piB[j * _iNewRows + i] = m_piData[j * rows_get() + i];
+				piB[j * _iNewRows + i] = m_piData[j * getRows() + i];
 			}
 		}
 		delete[] m_piData;
@@ -407,29 +421,29 @@ namespace types
 		return true;
 	}
 
-	InternalType* Bool::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+	InternalType* Bool::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
 	{
-		int iNewRows = rows_get();
-		int iNewCols = cols_get();
+		int iNewRows = getRows();
+		int iNewCols = getCols();
 		//check input size
 		if(_bAsVector == false)
 		{
-			if(rows_get() < _piMaxDim[0] || cols_get() < _piMaxDim[1])
+			if(getRows() < _piMaxDim[0] || getCols() < _piMaxDim[1])
 			{//compute new dimensions
-				iNewRows = Max(_piMaxDim[0], rows_get());
-				iNewCols = Max(_piMaxDim[1], cols_get());
+				iNewRows = Max(_piMaxDim[0], getRows());
+				iNewCols = Max(_piMaxDim[1], getCols());
 			}
 		}
 		else
 		{
-			if(size_get() < _piMaxDim[0])
+			if(getSize() < _piMaxDim[0])
 			{
-				if(rows_get() == 1 || size_get() == 0)
+				if(getRows() == 1 || getSize() == 0)
 				{
 					iNewRows = 1;
 					iNewCols = _piMaxDim[0];
 				}
-				else if(cols_get() == 1)
+				else if(getCols() == 1)
 				{
 					iNewRows = _piMaxDim[0];
 					iNewCols = 1;
@@ -442,18 +456,18 @@ namespace types
 		}
 
 		//check if the size of _poSource is compatible with the size of the variable
-		if(_bAsVector == false && (iNewRows < _poSource->rows_get() || iNewCols < _poSource->cols_get()))
+		if(_bAsVector == false && (iNewRows < _poSource->getRows() || iNewCols < _poSource->getCols()))
 		{
 			return NULL;
 		}
-		else if(_bAsVector == true && (iNewRows * iNewCols < _poSource->size_get()))
+		else if(_bAsVector == true && (iNewRows * iNewCols < _poSource->getSize()))
 		{
 			return NULL;
 		}
 
 
 		//check if the count of values is compatible with indexes
-		if(_poSource->size_get() != 1 && _poSource->size_get() != _iSeqCount)
+		if(_poSource->getSize() != 1 && _poSource->getSize() != _iSeqCount)
 		{
 			return NULL;
 		}
@@ -474,7 +488,7 @@ namespace types
 				int* piIn = pIn->bool_get();
 
 				//variable can receive new values.
-				if(pIn->size_get() == 1)
+				if(pIn->getSize() == 1)
 				{//a(?) = x
 					if(_bAsVector)
 					{//a([]) = R
@@ -487,7 +501,7 @@ namespace types
 					{//a([],[]) = R
 						for(int i = 0 ; i < _iSeqCount ; i++)
 						{
-							int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
+							int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * getRows();
 							m_piData[iPos]	= piIn[0];
 						}
 					}
@@ -505,10 +519,10 @@ namespace types
 					{//a([],[]) = [R]
 						for(int i = 0 ; i < _iSeqCount ; i++)
 						{
-							int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
-							int iTempR = i / pIn->cols_get();
-							int iTempC = i % pIn->cols_get();
-							int iNew_i = iTempR + iTempC * pIn->rows_get();
+							int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * getRows();
+							int iTempR = i / pIn->getCols();
+							int iTempC = i % pIn->getCols();
+							int iNew_i = iTempR + iTempC * pIn->getRows();
 
 							m_piData[iPos]	= piIn[iNew_i];
 						}
@@ -523,17 +537,17 @@ namespace types
 		return this;
 	}
 
-	Bool* Bool::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Bool* _poSource, bool _bAsVector)
+	Bool* Bool::insertNew(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, Bool* _poSource, bool _bAsVector)
 	{
 		Bool* pb	= NULL ;
 
 		if(_bAsVector)
 		{
-			if(_poSource->cols_get() == 1)
+			if(_poSource->getCols() == 1)
 			{
 				pb = new Bool(_piMaxDim[0], 1);
 			}
-			else if(_poSource->rows_get() == 1)
+			else if(_poSource->getRows() == 1)
 			{
 				pb = new Bool(1, _piMaxDim[0]);
 			}
@@ -547,8 +561,8 @@ namespace types
 			pb = new Bool(_piMaxDim[0], _piMaxDim[1]);
 		}
 
-		pb->false_set();
-		if(pb->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+		pb->setFalse();
+		if(pb->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
 		{
 			delete pb;
 			return NULL;
@@ -557,7 +571,7 @@ namespace types
 		return pb;
 	}
 
-	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+	Bool* Bool::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
 	{
 		Bool* pOut		= NULL;
 		int iRowsOut	= 0;
@@ -565,16 +579,16 @@ namespace types
 
 		//check input param
 
-		if(	(_bAsVector && _piMaxDim[0] > size_get()) ||
-            (_bAsVector == false && _piMaxDim[0] > rows_get()) ||
-            (_bAsVector == false && _piMaxDim[1] > cols_get()))
+		if(	(_bAsVector && _piMaxDim[0] > getSize()) ||
+            (_bAsVector == false && _piMaxDim[0] > getRows()) ||
+            (_bAsVector == false && _piMaxDim[1] > getCols()))
 		{
 			return NULL;
 		}
 
 		if(_bAsVector)
 		{//a([])
-			if(rows_get() == 1)
+			if(getRows() == 1)
 			{
 				iRowsOut	= 1;
 				iColsOut	= _piDimSize[0];
@@ -608,7 +622,7 @@ namespace types
 			{
 				//convert vertical indexes to horizontal indexes
 				int iCurIndex		= (i % iColsOut) * iRowsOut + (i / iColsOut);
-				int iInIndex		= (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * rows_get();
+				int iInIndex		= (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * getRows();
 				piB[iCurIndex]	= m_piData[iInIndex];
 			}
 		}
