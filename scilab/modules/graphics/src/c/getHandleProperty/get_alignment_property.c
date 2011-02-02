@@ -47,11 +47,11 @@ int get_alignment_property( sciPointObj * pobj )
     }
     else if (*alignment == 1)
     {
-        return sciReturnString("right");
+        return sciReturnString("center");
     }
     else if (*alignment == 2)
     {
-        return sciReturnString("center");
+        return sciReturnString("right");
     }
     else
     {
