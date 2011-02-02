@@ -11,7 +11,7 @@
  */
 
 #include "function.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "int.hxx"
 #include "api_scilab.h"
 

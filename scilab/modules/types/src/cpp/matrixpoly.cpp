@@ -11,11 +11,10 @@
 */
 
 #include <sstream>
-#include "matrixpoly.hxx"
 #include "core_math.h"
 #include "tostring_common.hxx"
 #include "poly.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 
 using namespace std;
 
@@ -36,7 +35,7 @@ namespace types
 		m_poPolyMatrix = new Poly[_iRows * _iCols];
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			m_poPolyMatrix[i].CreatePoly(NULL, NULL, _piRank[i]);
+			m_poPolyMatrix[i].createPoly(NULL, NULL, _piRank[i]);
 		}
 	}
 
@@ -51,7 +50,7 @@ namespace types
 		m_poPolyMatrix = new Poly[_iRows * _iCols];
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			m_poPolyMatrix[i].CreatePoly(NULL, NULL, _piRank[i]);
+			m_poPolyMatrix[i].createPoly(NULL, NULL, _piRank[i]);
 		}
 	}
 
@@ -63,7 +62,7 @@ namespace types
 		}
 	}
 
-	Poly* MatrixPoly::poly_get(int _iRows, int _iCols)
+	Poly* MatrixPoly::getPoly(int _iRows, int _iCols)
 	{
 		if(m_poPolyMatrix == NULL || _iRows >= m_iRows || _iCols >= m_iCols)
 		{
@@ -75,7 +74,7 @@ namespace types
 		}
 	}
 
-	Poly* MatrixPoly::poly_get(int _iIdx)
+	Poly* MatrixPoly::getPoly(int _iIdx)
 	{
 		if(m_poPolyMatrix == NULL || _iIdx >= m_iSize)
 		{
@@ -97,9 +96,9 @@ namespace types
 		if(_iIdx < m_iSize)
 		{
 			/*Get old Poly*/
-			Poly *poPoly = poly_get(_iIdx);
-			poPoly->rank_set(_pdblCoef->size_get());
-			poPoly->coef_set(_pdblCoef);
+			Poly *poPoly = getPoly(_iIdx);
+			poPoly->setRank(_pdblCoef->getSize());
+			poPoly->setCoef(_pdblCoef);
 		}
 		else
 		{
@@ -109,7 +108,7 @@ namespace types
 		return true;
 	}
 
-	bool MatrixPoly::rank_get(int *_piRank)
+	bool MatrixPoly::getRank(int *_piRank)
 	{
 		if(_piRank == NULL || m_poPolyMatrix == NULL)
 		{
@@ -118,7 +117,7 @@ namespace types
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			_piRank[i] = m_poPolyMatrix[i].rank_get();
+			_piRank[i] = m_poPolyMatrix[i].getRank();
 		}
 		return true;
 	}
@@ -143,18 +142,18 @@ namespace types
 		return m_bComplex;
 	}
 
-	wstring MatrixPoly::var_get()
+	wstring MatrixPoly::getVariableName()
 	{
 		return m_szVarName;
 	}
 
-	void MatrixPoly::complex_set(bool _bComplex)
+	void MatrixPoly::setComplex(bool _bComplex)
 	{
 		if(_bComplex != m_bComplex)
 		{
 			for(int i = 0 ; i < m_iSize ; i++)
 			{
-				m_poPolyMatrix[i].complex_set(_bComplex);
+				m_poPolyMatrix[i].setComplex(_bComplex);
 			}
 			m_bComplex = _bComplex;
 		}
@@ -162,24 +161,24 @@ namespace types
 
 	MatrixPoly& MatrixPoly::operator= (MatrixPoly& poPoly)
 	{
-		m_iRows			= (&poPoly)->rows_get();
-		m_iCols			= (&poPoly)->cols_get();
+		m_iRows			= (&poPoly)->getRows();
+		m_iCols			= (&poPoly)->getCols();
 		m_iSize			= m_iRows * m_iCols;
-		m_szVarName	= (&poPoly)->var_get();
+		m_szVarName	= (&poPoly)->getVariableName();
 
 		int *piRank = new int[m_iSize];
 		m_bComplex	= false;
 
-		(&poPoly)->rank_get(piRank);
+		(&poPoly)->getRank(piRank);
 
 		m_poPolyMatrix = new Poly[m_iRows * m_iCols];
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			m_poPolyMatrix[i].CreatePoly(NULL, NULL, piRank[i]);
+			m_poPolyMatrix[i].createPoly(NULL, NULL, piRank[i]);
 			if(m_poPolyMatrix[i].isComplex())
 				m_bComplex = true;
-			Double *pCoef = (&poPoly)->poly_get(i)->coef_get();
-			m_poPolyMatrix[i].coef_set(pCoef);
+			Double *pCoef = (&poPoly)->getPoly(i)->getCoef();
+			m_poPolyMatrix[i].setCoef(pCoef);
 
 		}
 
@@ -193,27 +192,27 @@ namespace types
 		{
 			for(int iPolyC = 0 ; iPolyC < m_iCols ; iPolyC++)
 			{
-				Poly *pPoly = poly_get(iPolyR, iPolyC);
+				Poly *pPoly = getPoly(iPolyR, iPolyC);
 				pPoly->evaluate(pInR, pInI, &pOutR, &pOutI);
 
 			}
 		}
 */
-		double *pR	= _pdblValue->real_get();
-		double *pI	= _pdblValue->img_get();
-		int iRows		= _pdblValue->rows_get();
-		int iCols		= _pdblValue->cols_get();
+		double *pR	= _pdblValue->getReal();
+		double *pI	= _pdblValue->getImg();
+		int iRows		= _pdblValue->getRows();
+		int iCols		= _pdblValue->getCols();
 
 		double *pReturnR	= NULL;
 		double *pReturnI	= NULL;
 		Double *pReturn		= new Double(m_iRows * iRows, m_iCols * iCols, &pReturnR, &pReturnI);
 		if(pI != NULL)
 		{
-			pReturn->complex_set(true);
+			pReturn->setComplex(true);
 		}
 		else
 		{
-			pReturn->complex_set(false);
+			pReturn->setComplex(false);
 		}
 
 		int i = 0;
@@ -229,7 +228,7 @@ namespace types
 						double OutR	= 0;
 						double OutI	= 0;
 
-						Poly *pPoly = poly_get(iPolyRow, iPolyCol);
+						Poly *pPoly = getPoly(iPolyRow, iPolyCol);
 						if(pReturn->isComplex())
 						{
 							pPoly->evaluate(pR[iCol * iRows + iRow], pI[iCol * iRows + iRow], &OutR, &OutI);
@@ -249,61 +248,61 @@ namespace types
 		return pReturn;
 	}
 
-	void MatrixPoly::update_rank(void)
+	void MatrixPoly::updateRank(void)
 	{
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			Poly *pPoly = poly_get(i);
-			pPoly->update_rank();
+			Poly *pPoly = getPoly(i);
+			pPoly->updateRank();
 		}
 	}
 
-	int MatrixPoly::rank_max_get(void)
+	int MatrixPoly::getMaxRank(void)
 	{
-		int *piRank = new int[size_get()];
-		rank_get(piRank);
+		int *piRank = new int[getSize()];
+		getRank(piRank);
 		int iMaxRank = 0;
-		for(int i = 0 ; i < size_get() ; i++)
+		for(int i = 0 ; i < getSize() ; i++)
 		{
 			iMaxRank = Max(iMaxRank, piRank[i]);
 		}
 		return iMaxRank;
 	}
 
-	Double* MatrixPoly::coef_get(void)
+	Double* MatrixPoly::getCoef(void)
 	{
-		int iMaxRank = rank_max_get();
-		Double *pCoef = new Double(rows_get(), cols_get() * iMaxRank, false);
+		int iMaxRank = getMaxRank();
+		Double *pCoef = new Double(getRows(), getCols() * iMaxRank, false);
 		if(isComplex())
 		{
-			pCoef->complex_set(true);
+			pCoef->setComplex(true);
 		}
 
-		double *pCoefR	= pCoef->real_get();
-		double *pCoefI	= pCoef->img_get();
+		double *pCoefR	= pCoef->getReal();
+		double *pCoefI	= pCoef->getImg();
 
 		for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 		{
-			for(int i = 0 ; i < size_get() ; i++)
+			for(int i = 0 ; i < getSize() ; i++)
 			{
-				Poly *pPoly	= poly_get(i);
-				if(iRank > pPoly->rank_get())
+				Poly *pPoly	= getPoly(i);
+				if(iRank > pPoly->getRank())
 				{
-					pCoefR[iRank * size_get() + i] = 0;
+					pCoefR[iRank * getSize() + i] = 0;
 					if(isComplex())
 					{
-						pCoefI[iRank * size_get() + i] = 0;
+						pCoefI[iRank * getSize() + i] = 0;
 					}
 				}
 				else
 				{
-					double *pR	= pPoly->coef_get()->real_get();
-					double *pI	= pPoly->coef_get()->img_get();
+					double *pR	= pPoly->getCoef()->getReal();
+					double *pI	= pPoly->getCoef()->getImg();
 
-					pCoefR[iRank * size_get() + i] = pR[iRank];
+					pCoefR[iRank * getSize() + i] = pR[iRank];
 					if(isComplex())
 					{
-						pCoefI[iRank * size_get() + i] = pI[iRank];
+						pCoefI[iRank * getSize() + i] = pI[iRank];
 					}
 				}
 			}
@@ -311,30 +310,30 @@ namespace types
 		return pCoef;
 	}
 
-	void MatrixPoly::coef_set(Double *_pCoef)
+	void MatrixPoly::setCoef(Double *_pCoef)
 	{
-		int iMaxRank = rank_max_get();
+		int iMaxRank = getMaxRank();
 
-		complex_set(_pCoef->isComplex());
-		double *pR = _pCoef->real_get();
-		double *pI = _pCoef->img_get();
-		for(int i = 0 ; i < size_get() ; i++)
+		setComplex(_pCoef->isComplex());
+		double *pR = _pCoef->getReal();
+		double *pI = _pCoef->getImg();
+		for(int i = 0 ; i < getSize() ; i++)
 		{
 			Double *pTemp = new Double(1, iMaxRank, _pCoef->isComplex());
-			Poly *pPoly = poly_get(i);
+			Poly *pPoly = getPoly(i);
 			for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 			{
-				pTemp->real_get()[iRank] = pR[iRank * size_get() + i];
+				pTemp->getReal()[iRank] = pR[iRank * getSize() + i];
 			}
 			if(isComplex())
 			{
 				for(int iRank = 0 ; iRank < iMaxRank ; iRank++)
 				{
-					pTemp->img_get()[iRank] = pI[iRank * size_get() + i];
+					pTemp->getImg()[iRank] = pI[iRank * getSize() + i];
 				}
 			}
 
-			pPoly->coef_set(pTemp);
+			pPoly->setCoef(pTemp);
 		}
 	}
 
@@ -353,14 +352,14 @@ namespace types
 			if(m_bComplex)
 			{
 				ostr << L"Real part" << endl << endl << endl;
-				poly_get(0)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(0)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 				for(it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++,it_Exp++)
 				{
 					ostr << *it_Exp << endl << *it_Coef << endl;
 				}
 
 				ostr << L"Imaginary part" << endl << endl << endl ;
-				poly_get(0)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpI, &listCoefI);
+				getPoly(0)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpI, &listCoefI);
 				for(it_Coef = listCoefI.begin(), it_Exp = listExpI.begin() ; it_Coef != listCoefI.end() ; it_Coef++,it_Exp++)
 				{
 					ostr << *it_Exp << endl << *it_Coef << endl;
@@ -368,7 +367,7 @@ namespace types
 			}
 			else
 			{
-				poly_get(0)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(0)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 
 				for(it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++,it_Exp++)
 				{
@@ -381,13 +380,13 @@ namespace types
 			if(m_bComplex)
 			{
 				ostr << L"Real part" << endl << endl;
-				ostr << GetRowString(_iPrecison, _iLineLen, false);
+				ostr << getRowString(_iPrecison, _iLineLen, false);
 				ostr << L"Imaginary part" << endl << endl;
-				ostr << GetRowString(_iPrecison, _iLineLen, true);
+				ostr << getRowString(_iPrecison, _iLineLen, true);
 			}
 			else
 			{
-				ostr << GetRowString(_iPrecison, _iLineLen, false);
+				ostr << getRowString(_iPrecison, _iLineLen, false);
 			}
 		}
 		else if(m_iCols == 1)
@@ -395,13 +394,13 @@ namespace types
 			if(m_bComplex)
 			{
 				ostr << L"Real part" << endl << endl;
-				ostr << GetColString(_iPrecison, _iLineLen, false);
+				ostr << getColString(_iPrecison, _iLineLen, false);
 				ostr << L"Imaginary part" << endl << endl;
-				ostr << GetColString(_iPrecison, _iLineLen, true);
+				ostr << getColString(_iPrecison, _iLineLen, true);
 			}
 			else
 			{
-				ostr << GetColString(_iPrecison, _iLineLen, false);
+				ostr << getColString(_iPrecison, _iLineLen, false);
 			}
 		}
 		else
@@ -409,20 +408,20 @@ namespace types
 			if(m_bComplex)
 			{
 				ostr << L"Real part" << endl << endl;
-				ostr << GetMatrixString(_iPrecison, _iLineLen, false);
+				ostr << getMatrixString(_iPrecison, _iLineLen, false);
 				ostr << L"Imaginary part" << endl << endl;
-				ostr << GetMatrixString(_iPrecison, _iLineLen, true);
+				ostr << getMatrixString(_iPrecison, _iLineLen, true);
 			}
 			else
 			{
-				ostr << GetMatrixString(_iPrecison, _iLineLen, false);
+				ostr << getMatrixString(_iPrecison, _iLineLen, false);
 			}
 		}
 		ostr << endl;
 		return ostr.str();
 	}
 
-	wstring MatrixPoly::GetMatrixString(int _iPrecison, int _iLineLen, bool _bComplex)
+	wstring MatrixPoly::getMatrixString(int _iPrecison, int _iLineLen, bool _bComplex)
 	{
 		wostringstream ostr;
 		wostringstream osExp;
@@ -449,11 +448,11 @@ namespace types
                 int iLen = 0;
 				if(_bComplex)
 				{
-					poly_get(iRows1, iCols1)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+					getPoly(iRows1, iCols1)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 				}
 				else
 				{
-					poly_get(iRows1, iCols1)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+					getPoly(iRows1, iCols1)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 				}
 
 				if(listExpR.size() > 1)
@@ -491,11 +490,11 @@ namespace types
 					{
 						if(_bComplex)
 						{
-							poly_get(iRows2, iCols2)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+							getPoly(iRows2, iCols2)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 						}
 						else
 						{
-							poly_get(iRows2, iCols2)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+							getPoly(iRows2, iCols2)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 						}
 
 						if(listCoefR.size() > 1)
@@ -503,11 +502,11 @@ namespace types
 							for(it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++,it_Exp++)
 							{
 								osExp << *it_Exp;
-								Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Exp).size()));
+								addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Exp).size()));
 								osExp << endl;
 
 								osExp << *it_Coef;
-								Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Coef).size()));
+								addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Coef).size()));
 								osExp << endl;
 								bMultiLine = true;
 							}
@@ -515,9 +514,9 @@ namespace types
 						else
 						{
 							osExp << listExpR.front();
-							Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>(listExpR.front().size()));
+							addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>(listExpR.front().size()));
 							osCoef << listCoefR.front();
-							Add_Space(&osCoef, piMaxLen[iCols2] - static_cast<int>(listCoefR.front().size()));
+							addSpaces(&osCoef, piMaxLen[iCols2] - static_cast<int>(listCoefR.front().size()));
 							bMultiLine = false;
 						}
 						listExpR.clear();
@@ -572,11 +571,11 @@ namespace types
 			{
 				if(_bComplex)
 				{
-					poly_get(iRows2, iCols2)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+					getPoly(iRows2, iCols2)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 				}
 				else
 				{
-					poly_get(iRows2, iCols2)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+					getPoly(iRows2, iCols2)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 				}
 
 				if(listCoefR.size() > 1)
@@ -584,11 +583,11 @@ namespace types
 					for(it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++,it_Exp++)
 					{//normally useless ...
 						osExp << *it_Exp;
-						Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Exp).size()));
+						addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Exp).size()));
 						osExp << endl;
 
 						osExp << *it_Coef;
-						Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Coef).size()));
+						addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>((*it_Coef).size()));
 						osExp << endl;
 					}
 				}
@@ -599,9 +598,9 @@ namespace types
 						osExp << listExpR.front();
 					}
 
-					Add_Space(&osExp, piMaxLen[iCols2] - static_cast<int>(listExpR.front().size()));
+					addSpaces(&osExp, piMaxLen[iCols2] - static_cast<int>(listExpR.front().size()));
 					osCoef << listCoefR.front();
-					Add_Space(&osCoef, piMaxLen[iCols2] - static_cast<int>(listCoefR.front().size()));
+					addSpaces(&osCoef, piMaxLen[iCols2] - static_cast<int>(listCoefR.front().size()));
 				}
 				listExpR.clear();
 				listCoefR.clear();
@@ -620,7 +619,7 @@ namespace types
 		return ostr.str();
 	}
 
-	wstring MatrixPoly::GetRowString(int _iPrecison, int _iLineLen, bool _bComplex)
+	wstring MatrixPoly::getRowString(int _iPrecison, int _iLineLen, bool _bComplex)
 	{
 		int iLen        = 0;
 		int iLastFlush  = 0;
@@ -639,11 +638,11 @@ namespace types
 
 			if(_bComplex)
 			{
-				poly_get(i)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(i)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 			}
 			else
 			{
-				poly_get(i)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(i)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 			}
 			if(iLen != 0 && static_cast<int>(iLen + listExpR.front().size()) > _iLineLen)
 			{//flush strean
@@ -706,7 +705,7 @@ namespace types
 		return ostr.str();
 	}
 
-	wstring MatrixPoly::GetColString(int _iPrecison, int _iLineLen, bool _bComplex)
+	wstring MatrixPoly::getColString(int _iPrecison, int _iLineLen, bool _bComplex)
 	{
 		wostringstream ostr;
 		wostringstream osExp;
@@ -722,11 +721,11 @@ namespace types
 
 			if(_bComplex)
 			{
-				poly_get(i)->toStringImg(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(i)->toStringImg(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 			}
 			else
 			{
-				poly_get(i)->toStringReal(_iPrecison, _iLineLen, var_get(), &listExpR, &listCoefR);
+				getPoly(i)->toStringReal(_iPrecison, _iLineLen, getVariableName(), &listExpR, &listCoefR);
 			}
 
 			for(it_Coef = listCoefR.begin(), it_Exp = listExpR.begin() ; it_Coef != listCoefR.end() ; it_Coef++,it_Exp++)
@@ -742,8 +741,8 @@ namespace types
 
 	InternalType* MatrixPoly::insert(int _iRows, int _iCols, MatrixPoly *_poSource)
 	{
-		int iRows = _poSource->rows_get();
-		int iCols = _poSource->cols_get();
+		int iRows = _poSource->getRows();
+		int iCols = _poSource->getCols();
 
 		if(_iRows + iRows > m_iRows || _iCols + iCols > m_iCols)
 		{
@@ -754,22 +753,22 @@ namespace types
 		{
 			for(int iCol = 0 ; iCol < iCols ; iCol++)
 			{
-				poly_set(_iRows + iRow, _iCols + iCol, _poSource->poly_get(iRow, iCol)->coef_get());
+				poly_set(_iRows + iRow, _iCols + iCol, _poSource->getPoly(iRow, iCol)->getCoef());
 			}
 		}
 		return this;
 	}
-	Double* MatrixPoly::extract_coef(int _iRank)
+	Double* MatrixPoly::extractCoef(int _iRank)
 	{
 		Double *pdbl	= new Double(m_iRows, m_iCols, m_bComplex);
-		double *pReal	= pdbl->real_get();
-		double *pImg	= pdbl->img_get();
+		double *pReal	= pdbl->getReal();
+		double *pImg	= pdbl->getImg();
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			Poly *pPoly = poly_get(i);
+			Poly *pPoly = getPoly(i);
 
-			if(pPoly->rank_get() <= _iRank)
+			if(pPoly->getRank() <= _iRank)
 			{
 				pReal[i] = 0;
 				if(m_bComplex)
@@ -779,33 +778,33 @@ namespace types
 			}
 			else
 			{
-				pReal[i]		= pPoly->coef_get()->real_get()[_iRank];
+				pReal[i]		= pPoly->getCoef()->getReal()[_iRank];
 				if(m_bComplex)
 				{
-					pImg[i]		= pPoly->coef_get()->img_get()[_iRank];
+					pImg[i]		= pPoly->getCoef()->getImg()[_iRank];
 				}
 			}
 		}
 
 		return pdbl;
 	}
-	bool MatrixPoly::insert_coef(int _iRank, Double* _pCoef)
+	bool MatrixPoly::insertCoef(int _iRank, Double* _pCoef)
 	{
-		double *pReal	= _pCoef->real_get();
-		double *pImg	= _pCoef->img_get();
+		double *pReal	= _pCoef->getReal();
+		double *pImg	= _pCoef->getImg();
 
 		for(int i = 0 ; i < m_iSize ; i++)
 		{
-			Poly *pPoly = poly_get(i);
-			if(pPoly->rank_get() <= _iRank)
+			Poly *pPoly = getPoly(i);
+			if(pPoly->getRank() <= _iRank)
 			{
 				return false;
 			}
 
-			pPoly->coef_get()->real_get()[_iRank] = pReal[i];
+			pPoly->getCoef()->getReal()[_iRank] = pReal[i];
 			if(m_bComplex)
 			{
-				pPoly->coef_get()->img_get()[_iRank] = pImg[i];
+				pPoly->getCoef()->getImg()[_iRank] = pImg[i];
 			}
 		}
 		return true;
@@ -820,7 +819,7 @@ namespace types
 
 		MatrixPoly* pM = const_cast<InternalType &>(it).getAsPoly();
 
-		if(pM->rows_get() != rows_get() || pM->cols_get() != cols_get())
+		if(pM->getRows() != getRows() || pM->getCols() != getCols())
 		{
 			return false;
 		}
@@ -830,10 +829,10 @@ namespace types
 			return false;
 		}
 
-		for(int i = 0 ; i < size_get() ; i++)
+		for(int i = 0 ; i < getSize() ; i++)
 		{
-			Poly* p1 = poly_get(i);
-			Poly* p2 = pM->poly_get(i);
+			Poly* p1 = getPoly(i);
+			Poly* p2 = pM->getPoly(i);
 
 			if(*p1 != *p2)
 			{
@@ -848,21 +847,21 @@ namespace types
 		return !(*this == it);
 	}
 
-	GenericType* MatrixPoly::get_col_value(int _iPos)
+	GenericType* MatrixPoly::getColumnValues(int _iPos)
 	{
 		MatrixPoly* pMP = NULL;
-		if(_iPos < cols_get())
+		if(_iPos < getCols())
 		{
-			int *piRank = new int[rows_get()];
-			for(int i = 0 ; i < rows_get() ; i++)
+			int *piRank = new int[getRows()];
+			for(int i = 0 ; i < getRows() ; i++)
 			{
-				piRank[i] = poly_get(i, _iPos)->rank_get();
+				piRank[i] = getPoly(i, _iPos)->getRank();
 			}
 
-			pMP = new MatrixPoly(var_get(), rows_get(), 1, piRank);
-			for(int i = 0 ; i < rows_get() ; i++)
+			pMP = new MatrixPoly(getVariableName(), getRows(), 1, piRank);
+			for(int i = 0 ; i < getRows() ; i++)
 			{
-				pMP->poly_set(i, 0, poly_get(i, _iPos)->coef_get());
+				pMP->poly_set(i, 0, getPoly(i, _iPos)->getCoef());
 			}
 
 			delete[] piRank;

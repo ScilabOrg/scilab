@@ -68,7 +68,7 @@ namespace types
         return ostr.str();
     }
 
-    Function* Function::clone()
+    InternalType* Function::clone()
     {
         IncreaseRef();
         return this;
@@ -88,7 +88,7 @@ namespace types
         m_pOldFunc  = _pWrapFunction->getFunc();
     }
 
-    WrapFunction* WrapFunction::clone()
+    InternalType* WrapFunction::clone()
     {
         return new WrapFunction(this);
     }

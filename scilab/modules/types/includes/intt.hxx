@@ -88,12 +88,12 @@ namespace types
             delete[] m_pData;
         }
 
-        virtual Int *clone()
+        virtual InternalType* clone()
         {
-            Int *pOut = Int::createInt(rows_get(), cols_get(), getIntType());
+            Int *pOut = Int::createInt(getRows(), getCols(), getIntType());
 
-            T* pTData = new T[size_get()];
-            memcpy(pTData, m_pData, size_get() * sizeof(T));
+            T* pTData = new T[getSize()];
+            memcpy(pTData, m_pData, getSize() * sizeof(T));
 
             dynamic_cast<IntT<T>*>(pOut)->data_set(pTData);
 
@@ -102,7 +102,7 @@ namespace types
 
         bool data_set(Int* _pTData)
         {
-            if(m_iSize != _pTData->size_get())
+            if(m_iSize != _pTData->getSize())
             {
                 return false;
             }
@@ -170,19 +170,19 @@ namespace types
             return true;
         }
 
-        GenericType* get_col_value(int _iPos)
+        GenericType* getColumnValues(int _iPos)
         {
             //FIXME
             return NULL;
         }
 
-        Int* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+        Int* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
         {
             Int* pOut		= NULL;
             int iRowsOut	= 0;
             int iColsOut	= 0;
 
-            if(extract_size_get(_piMaxDim, _piDimSize, _bAsVector, &iRowsOut, &iColsOut) == false)
+            if(extract_getSize(_piMaxDim, _piDimSize, _bAsVector, &iRowsOut, &iColsOut) == false)
             {
                 return NULL;
             }
@@ -207,7 +207,7 @@ namespace types
                 for(int i = 0 ; i < _iSeqCount ; i++)
                 {
                     //convert vertical indexes to horizontal indexes
-                    int iOutIndex   = (i % _poOut->cols_get()) * _poOut->rows_get() + (i / _poOut->cols_get());
+                    int iOutIndex   = (i % _poOut->getCols()) * _poOut->getRows() + (i / _poOut->getCols());
                     int iInIndex    = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * m_iRows;
                     _poOut->data_set(iOutIndex,data_get(iInIndex));
                 }
@@ -215,12 +215,12 @@ namespace types
             return _poOut;
         }
 
-        InternalType* insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+        InternalType* insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
         {
-            int iNewRows = rows_get();
-            int iNewCols = cols_get();
+            int iNewRows = getRows();
+            int iNewCols = getCols();
 
-            if(Int::insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+            if(Int::insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
             {
                 return false;
             }
@@ -231,7 +231,7 @@ namespace types
             }
 
             Int* pIn = _poSource->getAsInt();
-            if(pIn->size_get() == 1)
+            if(pIn->getSize() == 1)
             {//a(?) = x
                 if(_bAsVector)
                 {//a([]) = R
@@ -263,9 +263,9 @@ namespace types
                     for(int i = 0 ; i < _iSeqCount ; i++)
                     {
                         int iPos = (_piSeqCoord[i * 2] - 1) + (_piSeqCoord[i * 2 + 1] - 1) * m_iRows;
-                        int iTempR = i / pIn->cols_get();
-                        int iTempC = i % pIn->cols_get();
-                        int iNew_i = iTempR + iTempC * pIn->rows_get();
+                        int iTempR = i / pIn->getCols();
+                        int iTempC = i % pIn->getCols();
+                        int iNew_i = iTempR + iTempC * pIn->getRows();
 
                         m_pData[iPos]	= static_cast<T>(pIn->data_get(iNew_i));
                     }
