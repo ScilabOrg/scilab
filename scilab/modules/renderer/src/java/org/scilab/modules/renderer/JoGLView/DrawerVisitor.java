@@ -19,6 +19,7 @@ import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
 import org.scilab.forge.scirenderer.shapes.geometry.GeometryImpl;
+import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.TransformationStack;
@@ -48,6 +49,7 @@ import org.scilab.modules.graphic_objects.textObject.TextObject;
 import org.scilab.modules.graphic_objects.vectfield.Arrow;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
+import org.scilab.modules.renderer.JoGLView.mark.MarkSpriteFactory;
 
 /**
  * @author Pierre Lando
@@ -384,18 +386,32 @@ public class DrawerVisitor implements IVisitor, Drawer {
 
     @Override
     public void visit(Polyline polyline) {
-        Geometry geometry = new GeometryImpl(
-                Geometry.DrawingMode.SEGMENTS_STRIP,
-                dataManager.getVertexBuffer(polyline.getIdentifier())
-        );
 
-        Appearance appearance = new Appearance();
+        if (polyline.getLineMode()) {
+            Geometry geometry = new GeometryImpl(
+                    Geometry.DrawingMode.SEGMENTS_STRIP,
+                    dataManager.getVertexBuffer(polyline.getIdentifier())
+            );
 
-        appearance.setLineColor(new Color(colorMap.getScilabColor(polyline.getLineColor())));
-        appearance.setLineWidth(polyline.getLineThickness().floatValue());
-        appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+            Appearance appearance = new Appearance();
 
-        drawingTools.draw(geometry, appearance);
+            appearance.setLineColor(new Color(colorMap.getScilabColor(polyline.getLineColor())));
+            appearance.setLineWidth(polyline.getLineThickness().floatValue());
+            appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+
+            drawingTools.draw(geometry, appearance);
+        }
+
+        if (polyline.getMarkMode()) {
+
+            final Appearance appearance = new Appearance();
+            appearance.setLineColor(new Color(colorMap.getScilabColor(polyline.getLineColor())));
+
+            Sprite sprite = MarkSpriteFactory.getMarkSprite(polyline.getMark(), colorMap);
+
+            ElementsBuffer positions = dataManager.getVertexBuffer(polyline.getIdentifier());
+            drawingTools.draw(sprite, positions);
+        }
     }
 
     @Override
