@@ -43,7 +43,7 @@ namespace types
         std::cout << "types::ListInsert";
     }
 
-    ListInsert* ListInsert::clone(void)
+    InternalType* ListInsert::clone(void)
     {
         return new ListInsert(m_pInsert);
     }

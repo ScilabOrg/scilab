@@ -12,8 +12,7 @@
 
 #include "localization_gw.hxx"
 #include "function.hxx"
-#include "bool.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

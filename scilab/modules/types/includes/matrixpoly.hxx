@@ -10,12 +10,15 @@
 *
 */
 
-#ifndef __MATRIXPOLY_HH__
-#define __MATRIXPOLY_HH__
+// This code is separated in matrixpoly.hxx
+// but will be inlined in arrayof.hxx
+//
+// If you need additionnal headers, please add it in arrayof.hxx
 
-#include "matrixpoly.hxx"
+#ifndef __ARRAYOF_HXX__
+    #error This file must only be include by arrayof.hxx
+#endif
 #include "poly.hxx"
-#include "double.hxx"
 
 #ifdef isComplex
 #undef isComplex
@@ -32,7 +35,7 @@ namespace types
         virtual                 ~MatrixPoly();
 
         // FIXME : Should not return NULL
-        MatrixPoly*             clone() { std::cout << "MatrixPoly::clone" << std::endl; return NULL; }
+        InternalType*           clone() { std::cout << "MatrixPoly::clone" << std::endl; return NULL; }
 
         GenericType*            get_col_value(int _iPos);
 
@@ -74,10 +77,10 @@ namespace types
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring    getShortTypeStr() {return L"p";}
 
-    private :
+    protected :
         Poly*                   m_poPolyMatrix;
         bool                    m_bComplex;
         std::wstring            m_szVarName;
     };
 }
-#endif /* !__MATRIXPOLY_HH__ */
+

@@ -11,7 +11,7 @@
 */
 
 #include <sstream>
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "list.hxx"
 #include "listundefined.hxx"
 #include "listinsert.hxx"
@@ -85,9 +85,14 @@ namespace types
     ** Clone
     ** Create a new List and Copy all values.
     */
-    List *List::clone()
+    InternalType *List::clone()
     {
         return new List(this);
+    }
+
+    GenericType* List::get_col_value(int _iPos)
+    {
+		return NULL;
     }
 
     /**
@@ -115,7 +120,7 @@ namespace types
         return ostr.str();
     }
 
-    std::vector<InternalType*>	List::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+    std::vector<InternalType*>	List::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
     {
         std::vector<InternalType*> outList;
 
@@ -140,7 +145,7 @@ namespace types
         return outList;
     }
 
-    InternalType* List::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, std::vector<types::InternalType*>* _poSource, bool _bAsVector)
+    InternalType* List::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, std::vector<types::InternalType*>* _poSource, bool _bAsVector)
     {
         //check input param
         if(_bAsVector == false)

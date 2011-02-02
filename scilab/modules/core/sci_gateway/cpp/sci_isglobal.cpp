@@ -13,7 +13,7 @@
 #include "function.hxx"
 #include "callable.hxx"
 #include "context.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

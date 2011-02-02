@@ -23,7 +23,7 @@
 #include "context.hxx"
 #include "io_gw.hxx"
 #include "setenvvar.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

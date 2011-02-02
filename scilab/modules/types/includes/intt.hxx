@@ -88,7 +88,7 @@ namespace types
             delete[] m_pData;
         }
 
-        virtual Int *clone()
+        virtual InternalType* clone()
         {
             Int *pOut = Int::createInt(rows_get(), cols_get(), getIntType());
 
@@ -176,7 +176,7 @@ namespace types
             return NULL;
         }
 
-        Int* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+        Int* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
         {
             Int* pOut		= NULL;
             int iRowsOut	= 0;
@@ -215,12 +215,12 @@ namespace types
             return _poOut;
         }
 
-        InternalType* insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+        InternalType* insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
         {
             int iNewRows = rows_get();
             int iNewCols = cols_get();
 
-            if(Int::insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+            if(Int::insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
             {
                 return false;
             }

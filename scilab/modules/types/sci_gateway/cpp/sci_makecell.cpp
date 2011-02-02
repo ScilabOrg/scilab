@@ -11,7 +11,7 @@
  */
 
 #include "cell.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "function.hxx"
 #include "funcmanager.hxx"
 
@@ -35,7 +35,7 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
         //FIXME: call overload function %_makecell to manage ohter input types
     }
 
-    Double* pD = in[0]->getAsDouble();
+    Double* pD = in[0]->getAs<Double>();
 
     //check vector format
     if(pD->rows_get() != 1 && pD->cols_get() != 1 || pD->size_get() == 1)
@@ -55,7 +55,7 @@ Function::ReturnValue sci_makecell(typed_list &in, int _piRetCount, typed_list &
     }
     else
     {//2 dims
-        pC  = new Cell(static_cast<int>(pD->real_get()[0]), static_cast<int>(pD->real_get()[1]));
+        pC  = new Cell(static_cast<int>(pD->get_real()[0]), static_cast<int>(pD->get_real()[1]));
 
         for(int i = 1 ; i < in.size() ; i++)
         {
@@ -72,7 +72,7 @@ int prodDims(Double* _pVar)
     int iProd = 1;
     for(int i = 0 ; i < _pVar->size_get() ; i++)
     {
-        iProd *= static_cast<int>(_pVar->real_get()[i]);
+        iProd *= static_cast<int>(_pVar->get_real()[i]);
     }
     return iProd;
 }

@@ -14,7 +14,7 @@
 #include <math.h>
 #include "symbol.hxx"
 #include "cell.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "tostring_common.hxx"
 #include "core_math.h"
 
@@ -143,9 +143,23 @@ namespace types
     ** Clone
     ** Create a new Struct and Copy all values.
     */
-    Cell *Cell::clone()
+    InternalType *Cell::clone()
     {
         return new Cell(this);
+    }
+
+    GenericType* Cell::get_col_value(int _iPos)
+    {
+		Cell *pCell = NULL;
+		if(_iPos < m_iCols)
+		{
+			pCell = new Cell(m_iRows, 1);
+			for(int i = 0 ; i < m_iRows ; i++)
+			{
+				pCell->set(i, 0, get(i, _iPos));
+			}
+		}
+		return pCell;
     }
 
     /**
@@ -333,7 +347,7 @@ namespace types
         return !(*this == it);
     }
 
-    Cell* Cell::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+    Cell* Cell::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
     {
         Cell* pOut		= NULL;
         int iRowsOut	= 0;
@@ -422,7 +436,7 @@ namespace types
         return vectRet;
     }
 
-    InternalType* Cell::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+    InternalType* Cell::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
     {
         int iNewRows = rows_get();
         int iNewCols = cols_get();
@@ -533,7 +547,7 @@ namespace types
         return this;
     }
 
-    Cell* Cell::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+    Cell* Cell::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
     {
         Cell *pCell = NULL;
 
@@ -546,7 +560,7 @@ namespace types
             pCell = new Cell(_piMaxDim[0], _piMaxDim[1]);
         }
 
-        if(pCell->insert_cell(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+        if(pCell->insert_cell(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
         {
             delete pCell;
             return NULL;
@@ -555,7 +569,7 @@ namespace types
         return pCell;
     }
 
-    bool Cell::insert_cell(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+    bool Cell::insert_cell(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
     {
         int iNewRows = rows_get();
         int iNewCols = cols_get();

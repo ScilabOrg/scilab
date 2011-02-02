@@ -27,7 +27,7 @@ namespace types
         virtual                 ~MacroFile(){};
 
         //FIXME : Should not return NULL
-        MacroFile*              clone();
+        InternalType*           clone();
 
         MacroFile*              getAsMacroFile(void);
         RealType                getType(void);

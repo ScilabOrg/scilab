@@ -61,11 +61,13 @@ namespace types
 
         std::vector<InternalType*>              extract(std::list<std::wstring> _stFields);
 
+        GenericType*                            get_col_value(int _iPos);
+
         /**
         ** Clone
         ** Create a new List and Copy all values.
         */
-        Struct*                                 clone();
+        InternalType*                           clone();
 
         std::wstring                            toString(int _iPrecision, int _iLineLen);
 

@@ -14,7 +14,7 @@
  */
 
 #include "function.hxx"
-#include "matrixpoly.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -129,14 +129,14 @@ SciErr getCommonMatrixOfPoly(void* _pvCtx, int* _piAddress, int _iComplex, int* 
 
     for(int i = 0 ; i < iSize ; i++)
     {
-        memcpy(_pdblReal[i], pMP->poly_get(i)->coef_real_get(), sizeof(double) * pMP->poly_get(i)->rank_get());
+        memcpy(_pdblReal[i], pMP->poly_get(i)->coef_get_real(), sizeof(double) * pMP->poly_get(i)->rank_get());
     }
 
     if(_iComplex == 1)
     {
         for(int i = 0 ; i < iSize ; i++)
         {
-            memcpy(_pdblImg[i], pMP->poly_get(i)->coef_img_get(), sizeof(double) * _piNbCoef[i]);
+            memcpy(_pdblImg[i], pMP->poly_get(i)->coef_get_img(), sizeof(double) * _piNbCoef[i]);
         }
     }
     return sciErr;
@@ -184,10 +184,10 @@ SciErr createCommonMatrixOfPoly(void* _pvCtx, int _iVar, int _iComplex, char* _p
     for(int i = 0 ; i < pP->size_get() ; i++)
     {
         Double* pD = new Double(_piNbCoef[i], 1, _iComplex == 1);
-        pD->real_set(_pdblReal[i]);
+        pD->set_real(_pdblReal[i]);
         if(_iComplex)
         {
-            pD->img_set(_pdblImg[i]);
+            pD->set_img(_pdblImg[i]);
         }
         pP->poly_set(i, pD);
     }

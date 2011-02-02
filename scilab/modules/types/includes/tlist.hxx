@@ -32,7 +32,7 @@ namespace types
 
         RealType                        getType(void) { return RealTList; }
 
-        TList*                          clone();
+        InternalType*                   clone();
 
         TList*                          getAsTList(void) { return this; }
 

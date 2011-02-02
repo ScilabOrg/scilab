@@ -12,8 +12,7 @@
 
 #include "function.hxx"
 #include "struct.hxx"
-#include "string.hxx"
-#include "bool.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

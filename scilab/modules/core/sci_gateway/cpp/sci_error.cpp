@@ -12,8 +12,7 @@
 
 #include "types.hxx"
 #include "function.hxx"
-#include "double.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -70,7 +69,7 @@ Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, types::ty
                 return Function::Error;
             }
 
-            if(in[0]->getAs<Double>()->real_get(0, 0) <= 0 || in[0]->getAs<Double>()->isComplex())
+            if(in[0]->getAs<Double>()->get_real(0, 0) <= 0 || in[0]->getAs<Double>()->isComplex())
             {
                 ScierrorW(999,_W("%ls: Wrong value for input argument #%d: Value greater than 0 expected.\n"), L"error", 1);
                 return Function::Error;
@@ -78,9 +77,9 @@ Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, types::ty
 
 
             // FIXME : Find a way to retrieve error message from given ID.
-            ScierrorW(in[0]->getAs<Double>()->real_get(0, 0),
+            ScierrorW((int)in[0]->getAs<Double>()->get_real(0, 0),
                       L"[Error %d]: message given by ID... Should avoid this !!",
-                      (int) in[0]->getAs<Double>()->real_get(0, 0));
+                      (int) in[0]->getAs<Double>()->get_real(0, 0));
             return Function::Error;
         }
 
@@ -112,13 +111,13 @@ Function::ReturnValue sci_error(types::typed_list &in, int _iRetCount, types::ty
             return Function::Error;
         }
 
-        if(in[0]->getAs<Double>()->real_get(0, 0) <= 0 || in[0]->getAs<Double>()->isComplex())
+        if(in[0]->getAs<Double>()->get_real(0, 0) <= 0 || in[0]->getAs<Double>()->isComplex())
         {
             ScierrorW(999,_W("%ls: Wrong value for input argument #%d: Value greater than 0 expected.\n"), L"error", 1);
             return Function::Error;
         }
 
-        ScierrorW(in[0]->getAs<Double>()->real_get(0, 0),
+        ScierrorW((int)in[0]->getAs<Double>()->get_real(0, 0),
                   in[1]->getAs<String>()->string_get(0));
         return Function::Error;
 

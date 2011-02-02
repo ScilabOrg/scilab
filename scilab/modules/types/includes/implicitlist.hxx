@@ -10,10 +10,14 @@
 *
 */
 
-#ifndef __IMPLICITLIST_HXX__
-#define __IMPLICITLIST_HXX__
+// This code is separated in implicitList.hxx
+// but will be inlined in arrayof.hxx
+//
+// If you need additionnal headers, please add it in arrayof.hxx
 
-#include "types.hxx"
+#ifndef __ARRAYOF_HXX__
+    #error This file must only be include by arrayof.hxx
+#endif
 #include "int.hxx"
 
 namespace types
@@ -23,7 +27,7 @@ namespace types
     */
     class ImplicitList : public InternalType
     {
-    private :
+    protected :
         InternalType*		    m_poStart;
         InternalType*		    m_poStep;
         InternalType*		    m_poEnd;
@@ -43,7 +47,7 @@ namespace types
         virtual ~ImplicitList();
         ImplicitList(InternalType* _poStart, InternalType* _poStep, InternalType* _poEnd);
 
-        ImplicitList*           clone();
+        InternalType*           clone();
 
         ImplicitList*           getAsImplicitList(void) { return this; }
         RealType                getType(void) { return RealImplicitList; }
@@ -91,4 +95,3 @@ namespace types
     };
 }
 
-#endif /* !__IMPLICITLIST_HXX__ */

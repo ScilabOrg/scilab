@@ -31,7 +31,7 @@
 #include "yaspio.hxx"
 #include "expandPathVariable.h"
 #include "configvariable.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

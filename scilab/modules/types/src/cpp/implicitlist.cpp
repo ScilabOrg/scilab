@@ -11,9 +11,7 @@
 */
 #include <sstream>
 #include <math.h>
-#include "implicitlist.hxx"
-#include "double.hxx"
-#include "matrixpoly.hxx"
+#include "arrayof.hxx"
 
 #include "core_math.h"
 #include "tostring_common.hxx"
@@ -79,7 +77,7 @@ namespace types
         compute();
     }
 
-    ImplicitList* ImplicitList::clone()
+    InternalType* ImplicitList::clone()
     {
         return new ImplicitList(m_poStart, m_poStep, m_poEnd);
     }
@@ -165,9 +163,9 @@ namespace types
             m_iSize = 0;
             if(m_eOutType == RealDouble)
             {
-                double dblStart	= m_poStart->getAsDouble()->real_get(0,0);
-                double dblStep	= m_poStep->getAsDouble()->real_get(0,0);
-                double dblEnd   = m_poEnd->getAsDouble()->real_get(0,0);
+                double dblStart	= m_poStart->getAs<Double>()->get_real(0,0);
+                double dblStep	= m_poStep->getAs<Double>()->get_real(0,0);
+                double dblEnd   = m_poEnd->getAs<Double>()->get_real(0,0);
 
                 if(dblStep > 0)
                 {
@@ -278,7 +276,7 @@ namespace types
             ostr << L" ";
             if(m_eStartType == RealDouble)
             {
-                Double *pD = m_poStart->getAsDouble();
+                Double *pD = m_poStart->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
@@ -291,7 +289,7 @@ namespace types
 
             if(m_eStepType == RealDouble)
             {
-                Double *pD = m_poStep->getAsDouble();
+                Double *pD = m_poStep->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
@@ -304,7 +302,7 @@ namespace types
 
             if(m_eEndType == RealDouble)
             {
-                Double *pD = m_poEnd->getAsDouble();
+                Double *pD = m_poEnd->getAs<Double>();
                 ostr << printDouble(pD, _iPrecision, _iLineLen);
             }
             else //MatrixPoly
@@ -329,8 +327,8 @@ namespace types
 
     double ImplicitList::extract_value_double(int _iOccur)
     {
-        double dblStart		= m_poStart->getAsDouble()->real_get(0,0);
-        double dblStep		= m_poStep->getAsDouble()->real_get(0,0);
+        double dblStart		= m_poStart->getAs<Double>()->get_real(0,0);
+        double dblStep		= m_poStep->getAs<Double>()->get_real(0,0);
         return dblStart + _iOccur * dblStep;
     }
 
@@ -354,8 +352,8 @@ namespace types
             }
             else //RealDouble
             {
-                double dblStart		= m_poStart->getAsDouble()->real_get(0,0);
-                double dblStep		= m_poStep->getAsDouble()->real_get(0,0);
+                double dblStart		= m_poStart->getAs<Double>()->get_real(0,0);
+                double dblStep		= m_poStep->getAs<Double>()->get_real(0,0);
                 Double* pD				= new Double(dblStart + _iOccur * dblStep);
                 pIT = pD;
             }
@@ -383,7 +381,7 @@ namespace types
             else //RealDouble
             {
                 Double* pD = new Double(1, static_cast<int>(m_iSize));
-                extract_matrix(pD->real_get());
+                extract_matrix(pD->get_real());
                 pIT = pD;
             }
         }
@@ -408,7 +406,7 @@ std::wstring printInLinePoly(types::Poly* _pPoly, std::wstring _stVar, int _iPre
     std::wostringstream ostr;
     for(int i = 0 ; i < _pPoly->rank_get() ; i++)
     {
-        double dbl = _pPoly->coef_get()->real_get()[i];
+        double dbl = _pPoly->coef_get()->get_real()[i];
         if(dbl != 0)
         {
             int iWidth = 0, iPrec = 0;
@@ -433,8 +431,8 @@ std::wstring printDouble(types::Double* _pD, int _iPrecision, int _iLineLen)
     std::wostringstream ostr;
     int iWidth = 0, iPrec = 0;
     bool bFP = false; // FloatingPoint
-    GetDoubleFormat(_pD->real_get(0,0), _iPrecision, &iWidth, &iPrec, &bFP);
-    AddDoubleValue(&ostr, _pD->real_get(0,0), iWidth, iPrec, false, true, false);
+    GetDoubleFormat(_pD->get_real(0,0), _iPrecision, &iWidth, &iPrec, &bFP);
+    AddDoubleValue(&ostr, _pD->get_real(0,0), iWidth, iPrec, false, true, false);
     return ostr.str();
 }
 
@@ -444,7 +442,7 @@ long long convert_input(types::InternalType* _poIT)
     switch(_poIT->getType())
     {
     case types::GenericType::RealDouble :
-        llValue = static_cast<long long>(_poIT->getAsDouble()->real_get(0,0));
+        llValue = static_cast<long long>(_poIT->getAs<types::Double>()->get_real(0,0));
         break;
     case types::GenericType::RealInt :
         llValue = static_cast<long long>(_poIT->getAsInt()->data_get(0,0));
@@ -462,7 +460,7 @@ unsigned long long convert_unsigned_input(types::InternalType* _poIT)
     switch(_poIT->getType())
     {
     case types::GenericType::RealDouble :
-        ullValue = static_cast<unsigned long long>(_poIT->getAsDouble()->real_get(0,0));
+        ullValue = static_cast<unsigned long long>(_poIT->getAs<types::Double>()->get_real(0,0));
         break;
     case types::GenericType::RealInt :
         ullValue = static_cast<unsigned long long>(_poIT->getAsInt()->data_get(0,0));

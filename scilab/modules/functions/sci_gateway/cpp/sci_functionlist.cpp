@@ -14,7 +14,7 @@
 #include "funcmanager.hxx"
 #include "context.hxx"
 #include "functions_gw.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 using namespace types;
 /*--------------------------------------------------------------------------*/

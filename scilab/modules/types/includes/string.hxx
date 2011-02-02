@@ -10,12 +10,17 @@
  *
  */
 
-#ifndef __STRING_HH__
-#define __STRING_HH__
+// This code is separated in string.hxx
+// but will be inlined in arrayof.hxx
+//
+// If you need additionnal headers, please add it in arrayof.hxx
+
+#ifndef __ARRAYOF_HXX__
+    #error This file must only be include by arrayof.hxx
+#endif
 
 #include <string>
 #include <list>
-#include "types.hxx"
 
 namespace types
 {
@@ -44,9 +49,9 @@ namespace types
         std::wstring            toString(int _iPrecision, int _iLineLen);
 
         bool                    resize(int _iNewRows, int _iNewCols);
-        InternalType*           insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
-        static String*          insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, String* _poSource, bool _bAsVector);
-        String*                 extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector);
+        InternalType*           insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
+        static String*          insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, String* _poSource, bool _bAsVector);
+        String*                 extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector);
         bool                    append(int _iRows, int _iCols, String *_poSource);
 
         bool                    operator==(const InternalType& it);
@@ -56,7 +61,7 @@ namespace types
         virtual std::wstring    getTypeStr() {return L"string";}
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring    getShortTypeStr() {return L"c";}
-        String*                 clone();
+        InternalType*           clone();
 
     protected :
         RealType                getType();//			{ return RealString; }
@@ -71,4 +76,4 @@ namespace types
         void                    CreateString(int _iRows, int _iCols);
     };
 }
-#endif /* !__STRING_HH__ */
+

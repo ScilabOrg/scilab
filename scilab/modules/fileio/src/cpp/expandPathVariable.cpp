@@ -13,11 +13,8 @@
 /*--------------------------------------------------------------------------*/
 
 #include <wchar.h>
-
-
 #include "context.hxx"
-#include "internal.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "expandPathVariable.h"
 
 extern "C"
