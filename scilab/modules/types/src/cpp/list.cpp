@@ -11,7 +11,7 @@
 */
 
 #include <sstream>
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "list.hxx"
 #include "listundefined.hxx"
 #include "listinsert.hxx"
@@ -65,7 +65,7 @@ namespace types
     ** size_get
     ** Return the number of elements in list
     */
-    int List::size_get()
+    int List::getSize()
     {
         return static_cast<int>(m_plData->size());
     }
@@ -85,9 +85,14 @@ namespace types
     ** Clone
     ** Create a new List and Copy all values.
     */
-    List *List::clone()
+    InternalType *List::clone()
     {
         return new List(this);
+    }
+
+    GenericType* List::getColumnValues(int _iPos)
+    {
+		return NULL;
     }
 
     /**
@@ -98,7 +103,7 @@ namespace types
     {
         std::wostringstream ostr;
 
-        if (size_get() == 0)
+        if (getSize() == 0)
         {
             ostr << L"()" << std::endl;
         }
@@ -115,7 +120,7 @@ namespace types
         return ostr.str();
     }
 
-    std::vector<InternalType*>	List::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector)
+    std::vector<InternalType*>	List::extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector)
     {
         std::vector<InternalType*> outList;
 
@@ -125,7 +130,7 @@ namespace types
             std::cout << "Extract from list must be \"as vector\"" << std::endl;
         }
 
-        if(	_bAsVector && _piMaxDim[0] > size_get())
+        if(	_bAsVector && _piMaxDim[0] > getSize())
         {
             //retrun empty list
             return outList;
@@ -140,7 +145,7 @@ namespace types
         return outList;
     }
 
-    InternalType* List::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, std::vector<types::InternalType*>* _poSource, bool _bAsVector)
+    InternalType* List::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, std::vector<types::InternalType*>* _poSource, bool _bAsVector)
     {
         //check input param
         if(_bAsVector == false)
@@ -172,13 +177,13 @@ namespace types
                     while(m_plData->size() < _piSeqCoord[i])
                     {//incease list size and fill with "Undefined"
                         m_plData->push_back(new ListUndefined());
-                        m_iSize = size_get();
+                        m_iSize = getSize();
                     }
-                    (*m_plData)[_piSeqCoord[i] - 1] = pInsert->insert_get();
+                    (*m_plData)[_piSeqCoord[i] - 1] = pInsert->getInsert();
                 }
                 else
                 {
-                    InternalType* pIT = pInsert->insert_get();
+                    InternalType* pIT = pInsert->getInsert();
                     pIT->IncreaseRef();
                     m_plData->insert(m_plData->begin() + (_piSeqCoord[i] - 1), pIT);
                 }
@@ -188,7 +193,7 @@ namespace types
                 while(m_plData->size() < _piSeqCoord[i])
                 {//increase list size and fill with "Undefined"
                     m_plData->push_back(new ListUndefined());
-                    m_iSize = size_get();
+                    m_iSize = getSize();
                 }
 
                 InternalType* pIT = (*m_plData)[_piSeqCoord[i] - 1];

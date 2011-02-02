@@ -592,7 +592,7 @@ void scoDrawScopeAmplitudeTimeStyle(ScopeMemory * pScopeMemory, double t)
 }
 
 //**-------------------------------------------------------------------------------------------------------------
-scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size, int color)
+scoGraphicalObject scocreatePolyline(scoGraphicalObject pAxes, scoInteger polyline_size, int color)
 {
 	scoGraphicalObject pPolyline;
 	int i;
@@ -666,7 +666,7 @@ scoGraphicalObject scoCreatePolyline(scoGraphicalObject pAxes, scoInteger polyli
 void scoAddPolylineForShortDraw(ScopeMemory * pScopeMemory, int i, int j, int color)
 {
 	scoGraphicalObject pShortDraw;
-	pShortDraw = scoCreatePolyline(scoGetPointerAxes(pScopeMemory,i),scoGetShortDrawSize(pScopeMemory,i),color);
+	pShortDraw = scocreatePolyline(scoGetPointerAxes(pScopeMemory,i),scoGetShortDrawSize(pScopeMemory,i),color);
 	scoSetHandleFromPointerShortDraw(pScopeMemory,i,j,pShortDraw);
 }
 /*--------------------------------------------------------------------------*/ 
@@ -674,7 +674,7 @@ void scoAddPolylineForLongDraw(ScopeMemory * pScopeMemory, int i, int j, int col
 {
 
 	scoGraphicalObject pLongDraw;
-	pLongDraw = scoCreatePolyline(scoGetPointerAxes(pScopeMemory,i),scoGetLongDrawSize(pScopeMemory,i),color);
+	pLongDraw = scocreatePolyline(scoGetPointerAxes(pScopeMemory,i),scoGetLongDrawSize(pScopeMemory,i),color);
 	scoSetHandleFromPointerLongDraw(pScopeMemory,i,j,pLongDraw);
 
 }
