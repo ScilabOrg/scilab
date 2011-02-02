@@ -2219,18 +2219,36 @@ double *sciGetPoint(sciPointObj * pthis, int *numrow, int *numcol)
     }
     else if (strcmp(type, __GO_TEXT__) == 0)
     {
+        char* parentAxes;
+        double* textPosition;
+        int* tmp;
+        int view;
+
         *numrow = 1;
-        *numcol= (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d) ? 3: 2;
+
+        parentAxes = (char*) getGraphicObjectProperty(pthis->UID, __GO_PARENT_AXES__, jni_string);
+        tmp = (int*) getGraphicObjectProperty(parentAxes, __GO_VIEW__, jni_int);
+        view = *tmp;
+
+        *numcol = view ? 3: 2;
+
         if ((tab = CALLOC((*numrow)*(*numcol),sizeof(double))) == NULL)
         {
             *numrow = -1;
             *numcol = -1;
             return NULL;
         }
-        tab[0] = pTEXT_FEATURE (pthis)->x;
-        tab[1] = pTEXT_FEATURE (pthis)->y;
-        if (pSUBWIN_FEATURE (sciGetParentSubwin(pthis))->is3d)
-            tab[2] =  pTEXT_FEATURE (pthis)->z;
+
+        textPosition = (double*) getGraphicObjectProperty(pthis->UID, __GO_POSITION__, jni_double_vector);
+
+        tab[0] = textPosition[0];
+        tab[1] = textPosition[1];
+
+        if (view)
+        {
+            tab[2] = textPosition[2];
+        }
+
         return (double*)tab;
     }
     else if (strcmp(type, __GO_SEGS__) == 0)
