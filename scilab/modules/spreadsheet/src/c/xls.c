@@ -38,7 +38,7 @@ static double NumFromRk2(long rk);
 static void getBoundsheets(int * fd,char ***Sheetnames, int** Abspos, int *nsheets,int *cur_pos,int *err);
 static void getSST(int *fd,short Len,int BIFF,int *ns,char ***sst,int *err);
 static void getBOF(int *fd ,int* Data, int *err);
-static void getString(int *fd,short *count, short *Len, int flag,char **str,int *err);
+static void get(int *fd,short *count, short *Len, int flag,char **str,int *err);
 
 /**
  ** Bruno : Defined but not used ... so what !!!!!!!!
@@ -456,7 +456,7 @@ static void getSST(int *fd,short Len,int BIFF,int *ns,char ***sst,int *err)
       for (i=0;i<nm;i++) (*sst)[i]=NULL;
       for(i=0;i<nm;i++) {/* LOOP ON STRINGS */
 	*err=i;/*for debug*/
-	getString(fd,&count,&Len,1,&((*sst)[i]),err);
+	get(fd,&count,&Len,1,&((*sst)[i]),err);
 	if (*err > 0) goto ErrL;
 	/*printf("i=%d, %s\n",i,(*sst)[i]);*/
       }
@@ -476,7 +476,7 @@ static void getSST(int *fd,short Len,int BIFF,int *ns,char ***sst,int *err)
     *err=4; /* read problem */
 }
 
-static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,char **str,int *err)
+static void get(int *fd,short *PosInRecord, short *RecordLen, int flag,char **str,int *err)
 {
   short ln=0;
   short Opcode;/* to store tag information */
@@ -714,7 +714,7 @@ static void getBoundsheets(int * fd,char ***Sheetnames, int** Abspos, int *nshee
 	 short count=0;
 	 i++;
 	 (*Abspos)[i]=abspos;
-	 getString(fd,&count,(short *) &Len, 0,&((*Sheetnames)[i]),err);
+	 get(fd,&count,(short *) &Len, 0,&((*Sheetnames)[i]),err);
 	 if (*err > 0) goto ErrL;
        }
        *cur_pos=*cur_pos+4+Len;

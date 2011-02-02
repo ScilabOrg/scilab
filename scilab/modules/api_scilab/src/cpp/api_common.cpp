@@ -15,9 +15,8 @@
 
 
 #include "internal.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "function.hxx"
-#include "matrixpoly.hxx"
 
 extern "C"
 {
@@ -60,8 +59,8 @@ SciErr getVarDimension(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols
     SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
     if(_piAddress != NULL && isVarMatrixType(_pvCtx, _piAddress))
     {
-        *_piRows        = ((types::InternalType*)_piAddress)->getAsGenericType()->rows_get();
-        *_piCols        = ((types::InternalType*)_piAddress)->getAsGenericType()->cols_get();
+        *_piRows        = ((types::InternalType*)_piAddress)->getAsGenericType()->getRows();
+        *_piCols        = ((types::InternalType*)_piAddress)->getAsGenericType()->getCols();
     }
     else
     {

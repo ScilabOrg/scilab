@@ -909,7 +909,7 @@ void GetRhsBooleanSparseVar(int _iVarNum, int* _piRows, int* _piCols, int* _piTo
 	C2F(intersci).iwhere[_iVarNum - 1] = *Lstk(_iVarNum);
 }
 
-void CreatePolyVarFromPtr(int _iNewVal, int** _piVarName, int _iRows, int _iCols, int *_piPow, double* _pdblRealData)
+void createPolyVarFromPtr(int _iNewVal, int** _piVarName, int _iRows, int _iCols, int *_piPow, double* _pdblRealData)
 {
 	CreateCPolyVarFromPtr(_iNewVal, _piVarName, _iRows, _iCols, _piPow, _pdblRealData, NULL);
 }

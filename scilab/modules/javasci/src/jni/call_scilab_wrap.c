@@ -1042,7 +1042,7 @@ SWIGEXPORT jobjectArray JNICALL Java_org_scilab_modules_javasci_Call_1ScilabJNI_
       if (!arg1) return 0;
     }
   }
-  result = (char **)getString(arg1,arg2,arg3);
+  result = (char **)get(arg1,arg2,arg3);
   {
     const jclass clazz = (*jenv)->FindClass(jenv, "java/lang/Object");
     int i = 0, j = 0;
