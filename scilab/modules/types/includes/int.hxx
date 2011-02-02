@@ -40,11 +40,12 @@ namespace types
 
     public :
         static Int*             createInt(int _iRows, int _iCols, IntType _iIntType);
-        static Int*             insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Int* _poSource, bool _bAsVector);
+        static Int*             insertNew(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, Int* _poSource, bool _bAsVector);
 
         Int*                    getAsInt(void) { return this; }
         virtual IntType         getIntType() = 0;
         RealType                getType(void);
+        bool                    isInt() { return true; }
 
         virtual bool            data_set(Int* _pData) = 0;
         virtual bool            data_set(int _iRows, int _iCols, long long _llData) = 0;
@@ -53,22 +54,22 @@ namespace types
         virtual long long       data_get(int _iRows, int _iCols) = 0;
         virtual void*           data_get() = 0;
         virtual bool            resize(int _iNewRows, int _iNewCols) = 0;
-        virtual GenericType*    get_col_value(int _iPos) = 0;
-        virtual Int*            extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector) = 0;
-        virtual InternalType*   insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector);
+        virtual GenericType*    getColumnValues(int _iPos) = 0;
+        virtual Int*            extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, int* _piDimSize, bool _bAsVector) = 0;
+        virtual InternalType*   insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector);
         bool                    append(int _iRows, int _iCols, Int *_poSource);
 
 
         virtual std::wstring    toString(int _iPrecision, int _iLineLen) = 0;
-        virtual Int*            clone() = 0;
+        virtual InternalType*   clone() = 0;
 
         /* return type as string ( double, int, cell, list, ... )*/
         virtual std::wstring    getTypeStr() {return L"int";}
         /* return type as short string ( s, i, ce, l, ... )*/
-        virtual std::wstring      getShortTypeStr() {return L"i";}
+        virtual std::wstring    getShortTypeStr() {return L"i";}
     protected :
         /* Only used by Int8,16, ... */
-        bool                    extract_size_get(int* _piMaxDim, int* _piDimSize, bool _bAsVector, int* _piRows, int* _piCols);
+        bool                    extract_getSize(int* _piMaxDim, int* _piDimSize, bool _bAsVector, int* _piRows, int* _piCols);
 
     protected :
         IntType                 m_iIntType;

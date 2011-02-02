@@ -32,7 +32,7 @@ namespace types
         setModule(_stModule);
     }
 
-    MacroFile* MacroFile::clone()
+    InternalType* MacroFile::clone()
     {
         IncreaseRef();
         return this;
@@ -55,7 +55,7 @@ namespace types
         return RealMacroFile; 
     }
 
-    Macro* MacroFile::macro_get(void)
+    Macro* MacroFile::getMacro(void)
     {
         return m_pMacro;
     }
