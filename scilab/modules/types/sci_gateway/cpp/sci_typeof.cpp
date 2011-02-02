@@ -12,7 +12,7 @@
 
 #include "types.hxx"
 #include "function.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C" {
     #include "Scierror.h"

@@ -119,7 +119,6 @@ namespace types
 
       /* Double */
       bool                              isDouble(void) { return (getType() == RealDouble); }
-      virtual Double*                   getAsDouble(void) { return NULL; }
 
       /* Float */
       bool                              isFloat(void) { return (getType() == RealFloat); }

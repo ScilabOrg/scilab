@@ -15,9 +15,8 @@
 
 
 #include "internal.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "function.hxx"
-#include "matrixpoly.hxx"
 
 extern "C"
 {

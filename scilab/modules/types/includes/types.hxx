@@ -18,6 +18,11 @@
 #include <string>
 #include "internal.hxx"
 
+extern "C"
+{
+	#include "core_math.h"
+}
+
 namespace types
 {
     /*
@@ -31,8 +36,11 @@ namespace types
         int                         m_iCols;
         int                         m_iSize;
         int                         m_iSizeMax;
+        int*                        m_piDims;
+        int                         m_iDims;
+        
 
-                                    GenericType() : InternalType(), m_iRows(0), m_iCols(0), m_iSize(0) {}
+                                    GenericType() : InternalType(), m_iRows(0), m_iCols(0), m_iSize(0), m_piDims(NULL), m_iDims(0) {}
         virtual                     ~GenericType() {}
 
         bool                        hasAllIndexesOfRow(int _iRow, int* _piCoord, int _iCoordCount);
@@ -45,6 +53,9 @@ namespace types
         int                         cols_get();
         int                         rows_get();
         int                         size_get();
+        int                         get_dims();
+        int*                        get_dims_array();
+        
 
         std::wstring                DimToString();
 
@@ -52,7 +63,7 @@ namespace types
         GenericType*                getAsGenericType(void) { return this; }
 
         /* FIXME : should be : virtual GenericType*	get(int _iPos) = 0; */
-        virtual GenericType*        get_col_value(int _iPos) { return NULL; }
+        virtual GenericType*        get_col_value(int _iPos) = 0;
 
         bool                        isIdentity(void);
         virtual bool                isAssignable(void) { return true; }
@@ -64,11 +75,38 @@ namespace types
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring        getShortTypeStr() {return L"";}
 
-        virtual GenericType*        clone(void) = 0;
+        virtual InternalType*       clone(void) { return NULL;}
 
     };
 
-    static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount);
+    static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount)
+    {
+        bool bFind = false;
+        for(int j = 0 ; j < _iCoordCount ; j++)
+        {
+            if(_piCoord[j] == _iIndex)
+            {
+                bFind = true;
+                break;
+            }
+        }
 
+        return bFind;
+    }
+
+    static int get_max_size(int* _piDims, int _iDims)
+    {
+        if(_iDims == 0)
+        {
+            return 0;
+        }
+
+        int iMax = 1;
+        for(int i = 0 ; i < _iDims ; i++)
+        {
+            iMax *= _piDims[i];
+        }
+        return iMax;
+    }
 }
 #endif /* !__TYPES_HXX__ */

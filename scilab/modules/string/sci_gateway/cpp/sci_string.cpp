@@ -12,7 +12,7 @@
 
 #include <math.h>
 #include <sstream>
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "string_gw.hxx"
 #include "tostring_common.hxx"
 
@@ -94,8 +94,8 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
     {
     case GenericType::RealDouble :
         {
-            int iRows = in[0]->getAsDouble()->rows_get();
-            int iCols = in[0]->getAsDouble()->cols_get();
+            int iRows = in[0]->getAs<Double>()->rows_get();
+            int iCols = in[0]->getAs<Double>()->cols_get();
 
             // Special case string([]) == []
             if(iRows == 0 && iCols == 0)
@@ -114,11 +114,11 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
             for (int i = 0; i < iRows * iCols; ++i)
             {
                 std::wostringstream ostr;
-                double dblReal = in[0]->getAsDouble()->real_get()[i];
+                double dblReal = in[0]->getAs<Double>()->get_real()[i];
                 double dblImg  = 0.0;
-                if (in[0]->getAsDouble()->isComplex() == true)
+                if (in[0]->getAs<Double>()->isComplex() == true)
                 {
-                    dblImg  = in[0]->getAsDouble()->img_get()[i];
+                    dblImg  = in[0]->getAs<Double>()->get_img()[i];
                 }
                 DoubleComplexMatrix2String(&ostr, dblReal, dblImg);
                 pstOutput->string_set(i, ostr.str().c_str());

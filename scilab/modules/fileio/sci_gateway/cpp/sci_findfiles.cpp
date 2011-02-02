@@ -16,7 +16,7 @@
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
 #include "function.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

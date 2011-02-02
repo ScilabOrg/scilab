@@ -25,7 +25,7 @@ namespace types
         virtual                 ~ListDelete();
 
         // FIXME : Should not return NULL;
-        ListDelete*             clone();
+        InternalType*           clone();
 
         ListDelete*             getAsListDelete(void);
         RealType                getType(void);

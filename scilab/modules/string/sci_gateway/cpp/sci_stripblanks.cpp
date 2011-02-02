@@ -70,7 +70,7 @@ types::Function::ReturnValue sci_stripblanks(types::typed_list &in, int _iRetCou
         break;
     case InternalType::RealDouble://manage []
         {
-            if (in[0]->getAsDouble()->size_get() != 0)
+            if (in[0]->getAs<Double>()->size_get() != 0)
             {
                 Scierror(999,_("%s: Wrong type for input argument #%d: Matrix of strings or empty matrix expected.\n"), FUNCNAME, 1);
                 return Function::Error;

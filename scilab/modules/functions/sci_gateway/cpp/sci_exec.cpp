@@ -80,18 +80,18 @@ Function::ReturnValue sci_exec(types::typed_list &in, int _iRetCount, types::typ
 
 			if(in.size() > 2)
 			{
-                if(in[2]->getType() != InternalType::RealDouble || in[2]->getAsDouble()->size_get() != 1)
+                if(in[2]->getType() != InternalType::RealDouble || in[2]->getAs<Double>()->size_get() != 1)
 				{//mode
                     ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A integer expected.\n"), L"exec", 3);
                     return Function::Error;
 				}
 
-                promptMode = (int)in[2]->getAsDouble()->real_get()[0];
+                promptMode = (int)in[2]->getAs<Double>()->get_real()[0];
 			}
 		}
-		else if(in[1]->getType() == InternalType::RealDouble && in[1]->getAsDouble()->size_get() == 1)
+		else if(in[1]->getType() == InternalType::RealDouble && in[1]->getAs<Double>()->size_get() == 1)
         {//mode
-            promptMode = (int)in[1]->getAsDouble()->real_get()[0];
+            promptMode = (int)in[1]->getAs<Double>()->get_real()[0];
 		}
 		else
 		{//not managed

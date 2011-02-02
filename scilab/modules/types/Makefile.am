@@ -55,7 +55,8 @@ TYPES_CPP_SOURCES = \
 			src/cpp/tlist.cpp \
 			src/cpp/file.cpp \
 			src/cpp/mlist.cpp \
-			src/cpp/threadId.cpp
+			src/cpp/threadId.cpp \
+			src/cpp/arrayof.cpp
 
 GIWS_WRAPPERS =
 

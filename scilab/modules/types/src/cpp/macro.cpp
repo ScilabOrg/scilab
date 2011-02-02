@@ -47,7 +47,7 @@ namespace types
         delete m_body;
     }
 
-    Macro* Macro::clone()
+    InternalType* Macro::clone()
     {
         IncreaseRef();
         return this;

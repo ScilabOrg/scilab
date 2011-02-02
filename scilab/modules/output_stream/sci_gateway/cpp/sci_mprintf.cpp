@@ -16,7 +16,7 @@
 #include "scilab_sprintf.hxx"
 #include "yaspio.hxx"
 #include "function.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {

@@ -91,7 +91,7 @@ namespace types
 		return true;
 	}
 
-	Int* Int::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, Int* _poSource, bool _bAsVector)
+	Int* Int::insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, Int* _poSource, bool _bAsVector)
 	{
 		Int* pi	= NULL ; 
 
@@ -116,7 +116,7 @@ namespace types
 		}
 
 		//pi->zero_set();
-		if(pi->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _poSource, _bAsVector) == false)
+		if(pi->insert(_iSeqCount, _piSeqCoord, _piMaxDim, _iDims, _poSource, _bAsVector) == false)
 		{
 			delete pi;
 			return NULL;
@@ -125,7 +125,7 @@ namespace types
 		return pi;
 	}
 
-	InternalType* Int::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType* _poSource, bool _bAsVector)
+	InternalType* Int::insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int _iDims, GenericType* _poSource, bool _bAsVector)
 	{
 		int iNewRows = rows_get();
 		int iNewCols = cols_get();

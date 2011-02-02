@@ -15,14 +15,14 @@
 bool isDoubleFinite(Double *_pDouble)
 {
 	int iSize = _pDouble->size_get();
-	if(matrix_finite( _pDouble->real_get(), iSize) == 1)
+	if(matrix_finite( _pDouble->get_real(), iSize) == 1)
 	{
 		return false;
 	}
 
 	if(_pDouble->isComplex())
 	{
-		if(matrix_finite(_pDouble->img_get(), iSize) == 1)
+		if(matrix_finite(_pDouble->get_img(), iSize) == 1)
 		{
 			return false;
 		}

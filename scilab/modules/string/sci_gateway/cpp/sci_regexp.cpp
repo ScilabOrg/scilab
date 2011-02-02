@@ -16,8 +16,7 @@ using regular expression .                                      */
 /*------------------------------------------------------------------------*/
 #include "function.hxx"
 #include "context.hxx"
-#include "types.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "string_gw.hxx"
 
 extern "C"
@@ -137,7 +136,7 @@ Function::ReturnValue sci_regexp(typed_list &in, int _iRetCount, typed_list &out
 
 
     Double* pStart = new Double(1, iOccurs);
-    double* pdblStart = pStart->real_get();
+    double* pdblStart = pStart->get_real();
 
     for(int i = 0 ; i < iOccurs ; i++)
     {
@@ -149,7 +148,7 @@ Function::ReturnValue sci_regexp(typed_list &in, int _iRetCount, typed_list &out
     if(_iRetCount > 1)
     {
         Double* pEnd = new Double(1, iOccurs);
-        double* pdblEnd = pEnd->real_get();
+        double* pdblEnd = pEnd->get_real();
         for(int i = 0 ; i < iOccurs ; i++)
         {
             pdblEnd[i]   = piEnd[i];

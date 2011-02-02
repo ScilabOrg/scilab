@@ -14,7 +14,7 @@
 #include "funcmanager.hxx"
 #include "user.hxx"
 #include "function.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 
 extern "C" {
     #include "Scierror.h"
@@ -33,7 +33,7 @@ public:
     }
 
 public :
-    MyDataType * clone()
+    InternalType * clone()
     {
         return new MyDataType(m_shortName, m_longName);
     }

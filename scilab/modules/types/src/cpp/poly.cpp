@@ -13,7 +13,7 @@
 #include <math.h>
 #include "poly.hxx"
 #include "tostring_common.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 
 extern "C"
 {
@@ -127,11 +127,11 @@ namespace types
 			if(_iRank != 0)
 			{
 				pCoef = new Double(1, _iRank, &pR, &pI);
-				pCoef->real_set(m_pdblCoef->real_get());
+				pCoef->set_real(m_pdblCoef->get_real());
 				complex_set(m_pdblCoef->isComplex());
 				if(m_pdblCoef->isComplex())
 				{
-					pCoef->img_set(m_pdblCoef->img_get());
+					pCoef->set_img(m_pdblCoef->get_img());
 				}
 				m_iRank = _iRank;
 			}
@@ -140,7 +140,7 @@ namespace types
 				m_iRank = 1;
 				pCoef = new Double(1, 1, &pR, &pI);
 				complex_set(m_pdblCoef->isComplex());
-				pCoef->val_set(0,0,0,0);
+				pCoef->set(0,0,0);
 			}
 			delete m_pdblCoef;
 			m_pdblCoef = pCoef;
@@ -154,14 +154,14 @@ namespace types
 		return m_pdblCoef;
 	}
 
-	double* Poly::coef_real_get()
+	double* Poly::coef_get_real()
 	{
-		return m_pdblCoef->real_get();
+		return m_pdblCoef->get_real();
 	}
 
-	double* Poly::coef_img_get()
+	double* Poly::coef_get_img()
 	{
-		return m_pdblCoef->img_get();
+		return m_pdblCoef->get_img();
 	}
 
 	bool	Poly::coef_set(Double* _pdblCoefR)
@@ -171,8 +171,8 @@ namespace types
 			return false;
 		}
 
-		double *pInR	= _pdblCoefR->real_get();
-		double *pInI	= _pdblCoefR->img_get();
+		double *pInR	= _pdblCoefR->get_real();
+		double *pInI	= _pdblCoefR->get_img();
 
 		return coef_set(pInR, pInI);
 	}
@@ -196,8 +196,8 @@ namespace types
 			m_bComplex = true;
 		}
 
-		double *pR = m_pdblCoef->real_get();
-		double *pI = m_pdblCoef->img_get();
+		double *pR = m_pdblCoef->get_real();
+		double *pI = m_pdblCoef->get_img();
 
 		if(_pdblCoefR != NULL && pR != NULL)
 		{
@@ -222,15 +222,20 @@ namespace types
 		return m_bComplex;
 	}
 
-	GenericType::RealType Poly::getType(void)
+    GenericType* Poly::get_col_value(int _iPos)
+    {
+        return NULL;
+    }
+
+    GenericType::RealType Poly::getType(void)
 	{
 		return RealSinglePoly;
 	}
 
 	bool Poly::evaluate(double _dblInR, double _dblInI, double *_pdblOutR, double *_pdblOutI)
 	{
-		double *pCoefR = m_pdblCoef->real_get();
-		double *pCoefI = m_pdblCoef->img_get();
+		double *pCoefR = m_pdblCoef->get_real();
+		double *pCoefI = m_pdblCoef->get_img();
 
         *_pdblOutR = 0;
         *_pdblOutI = 0;
@@ -305,8 +310,8 @@ namespace types
 	{
 		double dblEps = getRelativeMachinePrecision();
 		int iNewRank = m_iRank;
-		double *pCoefR = coef_get()->real_get();
-		double *pCoefI = coef_get()->img_get();
+		double *pCoefR = coef_get()->get_real();
+		double *pCoefI = coef_get()->get_img();
 		for(int i = m_iRank - 1; i >= 0 ; i--)
 		{
 			if(fabs(pCoefR[i]) <= dblEps && (pCoefI != NULL ? fabs(pCoefI[i]) : 0) <= dblEps)
@@ -335,7 +340,7 @@ namespace types
 
 	void Poly::toStringReal(int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
 	{
-		toStringInternal(m_pdblCoef->real_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
+		toStringInternal(m_pdblCoef->get_real(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
 	void Poly::toStringImg(int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
@@ -347,7 +352,7 @@ namespace types
 			return;
 		}
 
-		toStringInternal(m_pdblCoef->img_get(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
+		toStringInternal(m_pdblCoef->get_img(),_iPrecision, _iLineLen, _szVar, _pListExp, _pListCoef);
 	}
 
 	void Poly::toStringInternal(double *_pdblVal, int _iPrecision, int _iLineLen, wstring _szVar, list<wstring>* _pListExp , list<wstring>* _pListCoef)
@@ -449,8 +454,8 @@ namespace types
 			return false;
 		}
 
-		double* pR1 = coef_real_get();
-		double *pR2 = pP->coef_real_get();
+		double* pR1 = coef_get_real();
+		double *pR2 = pP->coef_get_real();
 
 		if(memcmp(pR1, pR2, sizeof(double) * rank_get()) != 0)
 		{
@@ -459,8 +464,8 @@ namespace types
 
 		if(isComplex())
 		{
-			double* pI1 = coef_img_get();
-			double *pI2 = pP->coef_img_get();
+			double* pI1 = coef_get_img();
+			double *pI2 = pP->coef_get_img();
 
 			if(memcmp(pI1, pI2, sizeof(double) * rank_get()) != 0)
 			{

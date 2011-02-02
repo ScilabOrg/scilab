@@ -10,27 +10,26 @@
 *
 */
 
+#include <string>
 #include <numeric>
 #include "visitor_common.hxx"
-#include "context.hxx"
-#include "internal.hxx"
 #include "exp.hxx"
 #include "fieldexp.hxx"
-#include "callexp.hxx"
 #include "simplevar.hxx"
-#include "double.hxx"
-#include "string.hxx"
-#include "implicitlist.hxx"
+#include "callexp.hxx"
 #include "struct.hxx"
-#include "matrixpoly.hxx"
+#include "context.hxx"
+
+#include "arrayof.hxx"
+#include "int.hxx"
 
 bool bConditionState(types::InternalType *_pITResult)
 {
 	if(_pITResult->isDouble() &&
-       _pITResult->getAsDouble()->isComplex() == false)
+        _pITResult->getAs<types::Double>()->isComplex() == false)
 	{
-		types::Double *pR = _pITResult->getAsDouble();
-		double *pReal = pR->real_get();
+		types::Double *pR = _pITResult->getAs<types::Double>();
+		double *pReal = pR->get_real();
 
 		for(int i = 0 ; i < pR->size_get() ; i++)
 		{
@@ -132,33 +131,6 @@ void ExpandList(int ** _piList, int *_piListSize, int _iListSizeSize, int *_piRe
 #endif
 }
 
-int GetVarMaxDim(types::InternalType *_pIT, int _iCurrentDim, int _iMaxDim)
-{
-	if(_pIT == NULL)
-	{
-		return 0;
-	}
-	if(_iCurrentDim == 0)
-	{
-		if(_iMaxDim != 1)
-		{
-			return static_cast<types::GenericType*>(_pIT)->rows_get();
-		}
-		else
-		{
-			return static_cast<types::GenericType*>(_pIT)->size_get();
-		}
-	}
-	else if(_iCurrentDim == 1)
-	{
-		return static_cast<types::GenericType*>(_pIT)->cols_get();
-	}
-	else
-	{//more than 2 dimensions ? :(
-		return static_cast<types::GenericType*>(_pIT)->size_get();
-	}
-}
-
 /*
  * Generate destination variable from _poSource type and size parameters
  */
@@ -229,13 +201,13 @@ types::InternalType* AddElementToVariableFromCol(types::InternalType* _poDest, t
         switch(TypeDest)
         {
         case types::GenericType::RealDouble :
-            if(poResult->getAsDouble()->isComplex() == false && _poSource->getAsDouble()->isComplex() == true)
+            if(poResult->getAs<types::Double>()->isComplex() == false && _poSource->getAs<types::Double>()->isComplex() == true)
             {
-                poResult->getAsDouble()->complex_set(true);
+                poResult->getAs<types::Double>()->complex_set(true);
             }
 
-            poResult->getAsDouble()->fillFromCol(*_piCols, _poSource->getAsDouble());
-            *_piCols += _poSource->getAsDouble()->cols_get();
+            poResult->getAs<types::Double>()->fillFromCol(*_piCols, _poSource->getAs<types::Double>());
+            *_piCols += _poSource->getAs<types::Double>()->cols_get();
 
             break;
         default:
@@ -276,13 +248,13 @@ types::InternalType* AddElementToVariableFromRow(types::InternalType* _poDest, t
         switch(TypeDest)
         {
         case types::GenericType::RealDouble :
-            if(poResult->getAsDouble()->isComplex() == false && _poSource->getAsDouble()->isComplex() == true)
+            if(poResult->getAs<types::Double>()->isComplex() == false && _poSource->getAs<types::Double>()->isComplex() == true)
             {
-                poResult->getAsDouble()->complex_set(true);
+                poResult->getAs<types::Double>()->complex_set(true);
             }
 
-            poResult->getAsDouble()->fillFromRow(*_piRows, _poSource->getAsDouble());
-            *_piRows += _poSource->getAsDouble()->rows_get();
+            poResult->getAs<types::Double>()->fillFromRow(*_piRows, _poSource->getAs<types::Double>());
+            *_piRows += _poSource->getAs<types::Double>()->rows_get();
 
             break;
         default:
@@ -357,7 +329,7 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 		case types::GenericType::RealDouble :
 			if(TypeSource == types::GenericType::RealPoly)
 			{
-				types::Double *poDest = _poDest->getAsDouble();
+				types::Double *poDest = _poDest->getAs<types::Double>();
 				//Convert Dest to RealPoly
 				int *piRank = new int[poDest->size_get()];
 				for(int i = 0 ; i < poDest->size_get() ; i++)
@@ -367,8 +339,8 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 
 				poResult = new types::MatrixPoly(_poSource->getAsPoly()->var_get(), poDest->rows_get(), poDest->cols_get(),  piRank);
 
-				double *pR = poDest->real_get();
-				double *pI = poDest->img_get();
+				double *pR = poDest->get_real();
+				double *pI = poDest->get_img();
 				for(int i = 0 ; i < poDest->size_get() ; i++)
 				{
 					types::Double *pdbl = NULL;
@@ -395,7 +367,7 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 				types::Poly* pPolyOut	= poResult->getAsPoly()->poly_get(iCurRow, iCurCol);
 
 				pPolyOut->rank_set(1);
-				pPolyOut->coef_set(_poSource->getAsDouble());
+                pPolyOut->coef_set(_poSource->getAs<types::Double>());
 			}
 			break;
 		default:
@@ -408,22 +380,23 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 		switch(TypeDest)
 		{
 		case types::GenericType::RealDouble :
-			if(poResult->getAsDouble()->isComplex() == false && _poSource->getAsDouble()->isComplex() == true)
+            if(poResult->getAs<types::Double>()->isComplex() == false && _poSource->getAs<types::Double>()->isComplex() == true)
 			{
-				poResult->getAsDouble()->complex_set(true);
+				poResult->getAs<types::Double>()->complex_set(true);
 			}
 
-			if(_poSource->getAsDouble()->size_get() != 1)
+			if(_poSource->getAs<types::Double>()->size_get() != 1)
 			{
-				poResult->getAsDouble()->append(iCurRow, iCurCol, _poSource->getAsDouble());
+				poResult->getAs<types::Double>()->append(iCurRow, iCurCol, _poSource->getAs<types::Double>());
 			}
 			else
 			{
-				poResult->getAsDouble()->val_set(iCurRow, iCurCol, _poSource->getAsDouble()->real_get(0,0), _poSource->getAsDouble()->img_get(0,0));
+				poResult->getAs<types::Double>()->set_real(iCurRow, iCurCol, _poSource->getAs<types::Double>()->get_real(0,0));
+				poResult->getAs<types::Double>()->set_img(iCurRow, iCurCol, _poSource->getAs<types::Double>()->get_img(0,0));
 			}
 
-			*_piRows = _poSource->getAsDouble()->rows_get();
-			*_piCols = _poSource->getAsDouble()->cols_get();
+			*_piRows = _poSource->getAs<types::Double>()->rows_get();
+			*_piCols = _poSource->getAs<types::Double>()->cols_get();
 			break;
 		case types::GenericType::RealPoly :
 			{

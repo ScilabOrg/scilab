@@ -28,7 +28,7 @@ namespace types
                                 ~Poly();
 
         // FIXME : Should not return NULL;
-        Poly*                   clone() { std::cout << "Poly::clone" << std::endl; return NULL; }
+        InternalType*           clone() { std::cout << "Poly::clone" << std::endl; return NULL; }
 
         Poly*                   getAsSinglePoly(void);
         /*Config management*/
@@ -39,13 +39,14 @@ namespace types
         int                     rank_get();
         bool                    rank_set(int _iRank, bool bSave = false);
         Double*                 coef_get();
-        double*                 coef_real_get();
-        double*                 coef_img_get();
+        double*                 coef_get_real();
+        double*                 coef_get_img();
         bool                    coef_set(Double *_poPow);
         bool                    coef_set(double *_pdblCoefR, double *_pdblCoefI);
         bool                    evaluate(double _dblInR, double _dblInI, double *_pdblOutR, double *_pdblOutI);
         void                    update_rank(void);
 
+        GenericType*            get_col_value(int _iPos);
         void                    CreatePoly(double**_pdblCoefR, double**_pdblCoefI, int _iRank);
         void                    toStringReal(int _iPrecision, int _iLineLen, std::wstring _szVar, std::list<std::wstring>* _pListExp , std::list<std::wstring>* _pListCoef);
         void                    toStringImg(int _iPrecision, int _iLineLen, std::wstring _szVar, std::list<std::wstring>* _pListExp , std::list<std::wstring>* _pListCoef);

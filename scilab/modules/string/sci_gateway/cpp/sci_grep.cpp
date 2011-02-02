@@ -15,8 +15,7 @@ using regular express .                                         */
 /*------------------------------------------------------------------------*/
 
 #include "function.hxx"
-#include "double.hxx"
-#include "string.hxx"
+#include "arrayof.hxx"
 #include "funcmanager.hxx"
 extern "C"
 {
@@ -60,7 +59,7 @@ Function::ReturnValue sci_grep(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
-    if(in[0]->getType() == InternalType::RealDouble && in[0]->getAsDouble()->size_get() == 0)
+    if(in[0]->getType() == InternalType::RealDouble && in[0]->getAs<Double>()->size_get() == 0)
     {
         Double *pD = Double::Empty();
         out.push_back(pD);
@@ -147,7 +146,7 @@ Function::ReturnValue sci_grep(typed_list &in, int _iRetCount, typed_list &out)
     case GREP_OK :
         {
             Double* pD1 = new Double(1, grepresults.currentLength);
-            double* pDbl1 = pD1->real_get();
+            double* pDbl1 = pD1->get_real();
             for (int i = 0 ; i < grepresults.currentLength ; i++ )
             {
                 pDbl1[i] = static_cast<double>(grepresults.values[i]);
@@ -158,7 +157,7 @@ Function::ReturnValue sci_grep(typed_list &in, int _iRetCount, typed_list &out)
             if (_iRetCount == 2)
             {
                 Double* pD2 = new Double(1, grepresults.currentLength);
-                double* pDbl2 = pD2->real_get();
+                double* pDbl2 = pD2->get_real();
                 for (int i = 0 ; i < grepresults.currentLength ; i++ )
                 {
                     pDbl2[i] = static_cast<double>(grepresults.positions[i]);

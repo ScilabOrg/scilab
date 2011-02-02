@@ -11,9 +11,8 @@
  */
 
 #include <sstream>
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "tlist.hxx"
-#include "string.hxx"
 #include "listundefined.hxx"
 
 namespace types
@@ -46,7 +45,7 @@ namespace types
     ** Clone
     ** Create a new List and Copy all values.
     */
-    TList* TList::clone()
+    InternalType* TList::clone()
     {
         return new TList(this);
     }

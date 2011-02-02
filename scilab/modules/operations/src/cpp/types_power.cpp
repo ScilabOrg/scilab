@@ -34,30 +34,30 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iPowerRealScalarByRealScalar(
-				_pDouble1->real_get()[0], 
-				_pDouble2->real_get()[0],
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
+				_pDouble1->get_real()[0], 
+				_pDouble2->get_real()[0],
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
 			iPowerRealScalarByComplexScalar(
-				_pDouble1->real_get()[0], 
-				_pDouble2->real_get()[0], _pDouble2->img_get()[0],
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], 
+				_pDouble2->get_real()[0], _pDouble2->get_img()[0],
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iPowerComplexScalarByRealScalar(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
-				_pDouble2->real_get()[0],
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], _pDouble1->get_img()[0], 
+				_pDouble2->get_real()[0],
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{
 			iPowerComplexScalarByComplexScalar(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0],
-				_pDouble2->real_get()[0], _pDouble2->img_get()[0],
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], _pDouble1->get_img()[0],
+				_pDouble2->get_real()[0], _pDouble2->get_img()[0],
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 	}
 	else if(bScalar1)
@@ -67,30 +67,30 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iPowerRealScalarByRealMatrix(
-				_pDouble1->real_get()[0], 
-				_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
+				_pDouble1->get_real()[0], 
+				_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
 			iPowerRealScalarByComplexMatrix(
-				_pDouble1->real_get()[0], 
-				_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], 
+				_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iPowerComplexScalarByRealMatrix(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
-				_pDouble2->real_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], _pDouble1->get_img()[0], 
+				_pDouble2->get_real(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{
 			iPowerComplexScalarByComplexMatrix(
-				_pDouble1->real_get()[0], _pDouble1->img_get()[0], 
-				_pDouble2->real_get(), _pDouble2->img_get(), _pDouble2->rows_get(), _pDouble2->cols_get(),
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real()[0], _pDouble1->get_img()[0], 
+				_pDouble2->get_real(), _pDouble2->get_img(), _pDouble2->rows_get(), _pDouble2->cols_get(),
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 	}
 	else if(bScalar2 && ( _pDouble1->rows_get() == 1 || _pDouble1->cols_get() == 1 ))
@@ -102,9 +102,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 				iPowerRealScalarByRealScalar(
-					_pDouble1->real_get()[i], 
-					_pDouble2->real_get()[0],
-					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i], &iComplex);
+					_pDouble1->get_real()[i], 
+					_pDouble2->get_real()[0],
+					&(*_pDoubleOut)->get_real()[i], &(*_pDoubleOut)->get_img()[i], &iComplex);
 			}
 		}
 		else if(bComplex1 == false && bComplex2 == true)
@@ -112,9 +112,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 				iPowerRealScalarByComplexScalar(
-					_pDouble1->real_get()[i], 
-					_pDouble2->real_get()[0], _pDouble2->img_get()[0],
-					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i]);
+					_pDouble1->get_real()[i], 
+					_pDouble2->get_real()[0], _pDouble2->get_img()[0],
+					&(*_pDoubleOut)->get_real()[i], &(*_pDoubleOut)->get_img()[i]);
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == false)
@@ -122,9 +122,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 			iPowerComplexScalarByRealScalar(
-				_pDouble1->real_get()[i], _pDouble1->img_get()[i], 
-				_pDouble2->real_get()[0],
-					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i]);
+				_pDouble1->get_real()[i], _pDouble1->get_img()[i], 
+				_pDouble2->get_real()[0],
+					&(*_pDoubleOut)->get_real()[i], &(*_pDoubleOut)->get_img()[i]);
 			}
 		}
 		else if(bComplex1 == true && bComplex2 == true)
@@ -132,9 +132,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 			for(int i = 0 ; i < (*_pDoubleOut)->size_get() ; i++)
 			{
 			iPowerComplexScalarByComplexScalar(
-				_pDouble1->real_get()[i], _pDouble1->img_get()[i],
-				_pDouble2->real_get()[0], _pDouble2->img_get()[0],
-					&(*_pDoubleOut)->real_get()[i], &(*_pDoubleOut)->img_get()[i]);
+				_pDouble1->get_real()[i], _pDouble1->get_img()[i],
+				_pDouble2->get_real()[0], _pDouble2->get_img()[0],
+					&(*_pDoubleOut)->get_real()[i], &(*_pDoubleOut)->get_img()[i]);
 			}
 		}
 	}
@@ -144,9 +144,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		if(bComplex1 == false && bComplex2 == false)
 		{
 			iPowerRealSquareMatrixByRealScalar(
-				_pDouble1->real_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-				_pDouble2->real_get()[0], 
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get(), &iComplex);
+				_pDouble1->get_real(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+				_pDouble2->get_real()[0], 
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img(), &iComplex);
 		}
 		else if(bComplex1 == false && bComplex2 == true)
 		{
@@ -154,9 +154,9 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 		else if(bComplex1 == true && bComplex2 == false)
 		{
 			iPowerComplexSquareMatrixByRealScalar(
-				_pDouble1->real_get(), _pDouble1->img_get(), _pDouble1->rows_get(), _pDouble1->cols_get(),
-				_pDouble2->real_get()[0], 
-				(*_pDoubleOut)->real_get(), (*_pDoubleOut)->img_get());
+				_pDouble1->get_real(), _pDouble1->get_img(), _pDouble1->rows_get(), _pDouble1->cols_get(),
+				_pDouble2->get_real()[0], 
+				(*_pDoubleOut)->get_real(), (*_pDoubleOut)->get_img());
 		}
 		else if(bComplex1 == true && bComplex2 == true)
 		{

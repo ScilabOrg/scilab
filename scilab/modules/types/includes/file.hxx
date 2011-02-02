@@ -13,7 +13,7 @@
 #ifndef __FILE_HH__
 #define __FILE_HH__
 
-#include "double.hxx"
+#include "arrayof.hxx"
 
 namespace types
 {

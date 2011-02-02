@@ -11,8 +11,7 @@
  */
 
 #include "tlist.hxx"
-#include "string.hxx"
-#include "double.hxx"
+#include "arrayof.hxx"
 #include "function.hxx"
 #include "funcmanager.hxx"
 
