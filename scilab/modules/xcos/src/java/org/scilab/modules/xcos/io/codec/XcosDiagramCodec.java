@@ -13,9 +13,11 @@
 package org.scilab.modules.xcos.io.codec;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Map;
 
 import org.scilab.modules.graph.io.ScilabGraphCodec;
+import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
@@ -25,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import com.mxgraph.io.mxCodec;
 import com.mxgraph.io.mxCodecRegistry;
+import com.mxgraph.model.mxGraphModel;
 
 /**
  * Codec for an {@link org.scilab.modules.xcos.graph.XcosDiagram} instance.
@@ -186,9 +189,28 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 	 */
 	@Override
 	public Object afterDecode(mxCodec dec, Node node, Object obj) {
-		XcosDiagram diag = (XcosDiagram) obj;
+		final XcosDiagram diag = (XcosDiagram) obj;
 		
-		diag.setChildrenParentDiagram();
+		// main update loop 
+		final mxGraphModel model = (mxGraphModel) diag.getModel();
+		final Object parent = diag.getDefaultParent();
+		final mxGraphModel.Filter filter = new mxGraphModel.Filter() {
+			@Override
+			public boolean filter(Object cell) {
+				if (cell instanceof BasicBlock) {
+					final BasicBlock block = (BasicBlock) cell;
+					
+					// update parent diagram
+					block.setParentDiagram(diag);
+					
+					// restore default root in case of a wrong hierarchy.
+					return block.getParent() != parent;
+				}
+				return false;
+			}
+		};
+		final Collection<Object> blocks = mxGraphModel.filterDescendants(model, filter);
+		diag.addCells(blocks.toArray());
 		
 		// pre-5.3 diagram may be saved in a locked state
 		// unlock it
