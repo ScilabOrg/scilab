@@ -1895,13 +1895,17 @@ public class XcosDiagram extends ScilabGraph {
     public void setChildrenParentDiagram() {
     	getModel().beginUpdate();
     	try {
-	    	for (int i = 0; i < getModel().getChildCount(getDefaultParent()); i++) {
-	    	    final mxCell cell = (mxCell) getModel().getChildAt(getDefaultParent(), i);
-	    	    if (cell instanceof BasicBlock) {
-	    		final BasicBlock block = (BasicBlock) cell;
-	    		block.setParentDiagram(this);
-	    	    }
-	    	}
+			final mxGraphModel.Filter filter = new Filter() {
+				@Override
+				public boolean filter(Object cell) {
+					if (cell instanceof BasicBlock) {
+						final BasicBlock block = (BasicBlock) cell;
+						block.setParentDiagram(XcosDiagram.this);
+					}
+					return false;
+				}
+			};
+			mxGraphModel.filterDescendants(getModel(), filter);
     	} finally {
     		getModel().endUpdate();
     	}
