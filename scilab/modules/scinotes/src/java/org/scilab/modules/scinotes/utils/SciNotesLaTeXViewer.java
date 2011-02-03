@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.console.utils;
+package org.scilab.modules.scinotes.utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,13 +19,16 @@ import java.awt.Rectangle;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.JTextComponent;
+
+import org.scilab.modules.gui.utils.ScilabSpecialTextUtilities;
+import org.scilab.modules.scinotes.ScilabEditorPane;
+import org.scilab.modules.scinotes.SciNotes;
 
 /**
  * Class to have a preview of a LaTeX string
  * @author Calixte DENIZET
  */
-public final class ScilabLaTeXViewer extends JPanel {
+public final class SciNotesLaTeXViewer extends JPanel {
 
     private static final int INSET = 3;
     private static final Rectangle NULLRECT = new Rectangle(0, 0, 0, 0);
@@ -34,12 +37,12 @@ public final class ScilabLaTeXViewer extends JPanel {
     private static Icon icon;
     private static int width;
     private static int height;
-    private static ScilabLaTeXViewer viewer = new ScilabLaTeXViewer();
+    private static SciNotesLaTeXViewer viewer = new SciNotesLaTeXViewer();
 
     /**
      * Default constructor
      */
-    private ScilabLaTeXViewer() {
+    private SciNotesLaTeXViewer() {
         // I disable the double-buffering, it's useless here
         super(false);
     }
@@ -56,7 +59,7 @@ public final class ScilabLaTeXViewer extends JPanel {
      * {@inheritedDoc}
      */
     public void paint(Graphics g) {
-        //super.paint(g);
+        super.paint(g);
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, width + 2 * INSET, height + 2 * INSET);
         g.setColor(Color.LIGHT_GRAY);
@@ -67,12 +70,12 @@ public final class ScilabLaTeXViewer extends JPanel {
     /**
      * @param sep the pane where to remove the LaTeXViewer
      */
-    public static void removeLaTeXViewer(JTextComponent tc) {
+    public static void removeLaTeXViewer(ScilabEditorPane sep) {
         if (viewer.icon != null) {
             viewer.icon = null;
             viewer.setVisible(false);
-            tc.remove(viewer);
-            tc.repaint();
+            sep.remove(viewer);
+            sep.repaint();
         }
     }
 
@@ -82,79 +85,62 @@ public final class ScilabLaTeXViewer extends JPanel {
      * @param b the beginning of the expression
      * @param e the end of the expression
      */
-    public static void displayExpressionIfVisible(JTextComponent tc, int totalHeight, String exp, int b, int e) {
-        if (viewer.isVisible()) {
-            displayExpression(tc, totalHeight, exp, b, e);
+    public static void displayExpression(ScilabEditorPane sep, String exp, int b, int e) {
+        int n = 1;
+        // We have $...$ or "$...$"
+        if (exp.charAt(0) != '$') {
+            n = 2;
         }
-    }
-
-    /**
-     * @param sep the pane where to display the LaTeX
-     * @param exp the expression
-     * @param b the beginning of the expression
-     * @param e the end of the expression
-     */
-    public static int displayExpression(JTextComponent tc, int totalHeight, String exp, int b, int e) {
-        String latex = exp;
-        if (exp.startsWith("$") || exp.startsWith("\"$") || exp.startsWith("'$")) {
-            int n = 1;
-            // We have $...$ or "$...$"
-            if (exp.charAt(0) != '$') {
-                n = 2;
-            }
-            latex = exp.substring(n, exp.length() - n);
-        }
-
-        viewer.icon = ScilabSpecialTextUtilities.compilePartialLaTeXExpression(latex, defaultSize);
+        viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression(exp.substring(n, exp.length() - n), defaultSize);
         if (viewer.icon == null) {
-            viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression("", 0);
+            viewer.icon = ScilabSpecialTextUtilities.compileLaTeXExpression("\\text{Error in \\LaTeX expression}", defaultSize);
         }
 
         width = viewer.icon.getIconWidth();
         height = viewer.icon.getIconHeight();
         viewer.setSize(width + 2 * INSET, height + 2 * INSET);
-        tc.add(viewer);
+        sep.add(viewer);
         Rectangle begin;
         Rectangle end;
         try {
-            begin = tc.modelToView(b);
-            end = tc.modelToView(e);
+            begin = sep.modelToView(b);
+            end = sep.modelToView(e);
         } catch (BadLocationException ex) {
             begin = NULLRECT;
             end = NULLRECT;
         }
 
+        int scrollValue = sep.getScrollPane().getVerticalScrollBar().getValue();
+        int scrollHeight = sep.getScrollPane().getHeight();
         int abs;
         int ord;
         if (begin.y == end.y) {
             //We're on the same line
             abs = Math.max(1, (end.x + begin.x - width) / 2);
             ord = begin.y + begin.height + 1;
-            if (height + ord > totalHeight) {
-                ord = begin.y - 1 - height - 2 * INSET;
+            if (height + ord > scrollValue + scrollHeight) {
+                ord = begin.y - 1 - height;
             }
         } else if (begin.y + begin.height == end.y) {
             //The line is drawn on two lines
             ord = end.y + end.height + 1;
-            if (height + ord > totalHeight) {
-                ord = begin.y - 1 - height - 2 * INSET;
+            if (height + ord > scrollValue + scrollHeight) {
+                ord = begin.y - 1 - height;
                 abs = begin.x;
             } else {
                 abs = end.x;
             }
         } else {
             //Guess
-            abs = Math.max(1, (tc.getWidth() - width) / 2);
+            abs = Math.max(1, (sep.getWidth() - width) / 2);
             ord = end.y + end.height + 1;
-            if (height + ord > totalHeight) {
-                ord = begin.y - 1 - height - 2 * INSET;
+            if (height + ord > scrollValue + scrollHeight) {
+                ord = begin.y - 1 - height;
             }
         }
 
         viewer.setLocation(abs, ord);
         viewer.setVisible(true);
         viewer.repaint();
-
-        return height + 2 * INSET;
     }
 }
