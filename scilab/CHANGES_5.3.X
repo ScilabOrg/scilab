@@ -379,6 +379,9 @@ Bug fixes:
 
 * bug 8897 fixed - Typo fixed.
 
+* bug 8912 fixed - fullpath did not return same result on Windows and Linux.
+
+
             Changes between version 5.3.0-beta-5 and 5.3.0 of Scilab
             ========================================================
 
