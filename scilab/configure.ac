@@ -23,8 +23,19 @@ SCI_BUILDDIR="`pwd`"
 SCI_SRCDIR="$srcdir"
 SCI_SRCDIR_FULL="`cd $SCI_SRCDIR && pwd`"
 
-SCILAB_LIBRARY_VERSION=5:3:0
+SCILAB_VERSION_MAJOR=5
+SCILAB_VERSION_MINOR=3
+SCILAB_VERSION_MAINTENANCE=1
+AC_SUBST(SCILAB_VERSION_MAJOR)
+AC_SUBST(SCILAB_VERSION_MINOR)
+AC_SUBST(SCILAB_VERSION_MAINTENANCE)
+
+
+SCILAB_LIBRARY_VERSION=$SCILAB_VERSION_MAJOR:$SCILAB_VERSION_MINOR:$SCILAB_VERSION_MAINTENANCE
 AC_SUBST(SCILAB_LIBRARY_VERSION)
+
+SCILAB_BINARY_VERSION=$SCILAB_VERSION_MAJOR.$SCILAB_VERSION_MINOR.$SCILAB_VERSION_MAINTENANCE
+AC_SUBST(SCILAB_BINARY_VERSION)
 
 #shared library versioning
 #GENERIC_LIBRARY_VERSION=1:2:0
@@ -56,7 +67,7 @@ AC_CONFIG_HEADERS([modules/core/includes/machine.h])
 AM_PROG_INSTALL_STRIP
 AC_PROG_LN_S
 
-AC_SYS_LARGEFILE
+AC_CUSTOM_LARGE_FILE
 
 # In order to be able to change the scilab directory
 # See http://wiki.debian.org/RpathIssue
@@ -329,6 +340,13 @@ fi
 
 if test "x${prefix}" = "xNONE"; then
   prefix="${ac_default_prefix}"
+fi
+
+
+if test "$enable_largefile" = "yes"; then
+   CFLAGS="$CFLAGS $LARGEFILE_CFLAGS"
+   CPPFLAGS="$CPPFLAGS $LARGEFILE_CFLAGS"
+   FFLAGS="$FFLAGS $LARGEFILE_CFLAGS"
 fi
 
 ###############################
@@ -901,7 +919,7 @@ the the JNI libraries."])],
                 JLATEXMATH=$PACKAGE_JAR_FILE
                 AC_SUBST(JLATEXMATH)
 
-				AC_JAVA_CHECK_VERSION_PACKAGE([jlatexmath],[import org.scilab.forge.jlatexmath.TeXFormula;],$JLATEXMATH,[0.9.3],[TeXFormula.VERSION])
+				AC_JAVA_CHECK_VERSION_PACKAGE([jlatexmath],[import org.scilab.forge.jlatexmath.TeXFormula;],$JLATEXMATH,[0.9.4],[TeXFormula.VERSION])
 
 				AC_DEFINE([WITH_GUI],[],[With the JAVA stuff (GUI, Console, JOGL...)])
 
@@ -1765,8 +1783,10 @@ scilab.pc
 etc/modules.xml
 etc/classpath.xml
 etc/jvm_options.xml
+etc/Info.plist
 scilab-lib.properties
 scilab-lib-doc.properties
+modules/core/includes/version.h
 ])
 
 # Detection of the module for the future version of Scilab 6
