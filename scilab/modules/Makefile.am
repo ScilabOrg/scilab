@@ -111,6 +111,31 @@ if JAVASCI
 SUBDIRS += javasci
 endif
 
+
+TARGETS_ALL=
+if NEED_JAVA
+TARGETS_ALL+=java
+USEANT=1
+java:
+# Some configurations needs to export JAVA_HOME in the current env
+	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
+	if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+	if test -f build.xml -a $$USEANT -eq 1; then \
+		$(ANT); \
+	fi
+
+clean-java:
+# Some configurations needs to export JAVA_HOME in the current env
+	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
+	if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+	if test -f build.xml -a $$USEANT -eq 1; then \
+		$(ANT) clean; \
+	fi;
+endif
+
+all-local: $(TARGETS_ALL)
+
+
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)
 
@@ -195,7 +220,7 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/hdf5/libscihdf5.la \
 	$(top_builddir)/modules/pvm/libscipvm.la \
 	$(top_builddir)/modules/fftw/libscifftw.la
-	
+
 
 # These libraries are loaded dynamically from Scilab.
 ENGINE_LIBS_DYNAMIC_LOAD = \
@@ -238,3 +263,5 @@ endif
 #if MPI
 #libscilab_la_LIBADD += $(top_builddir)/modules/mpi/libscimpi.la
 #endif
+
+.PHONY:  java 

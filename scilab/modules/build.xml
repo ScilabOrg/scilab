@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - INRIA - Sylvestre LEDRU
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<project name="modules" default="jar">
+
+<target name="jar">
+  <antcall target="common">
+    <param name="target" value="jar"/>
+  </antcall>
+</target>
+
+<target name="clean">
+  <antcall target="common">
+    <param name="target" value="clean"/>
+  </antcall>
+</target>
+
+
+<target name="common">
+  <ant dir="commons/" target="${target}"/>
+  <ant dir="jvm/" target="${target}"/>
+  <ant dir="localization/" target="${target}"/>
+  <ant dir="action_binding/"  target="${target}"/>
+  <ant dir="history_manager/" target="${target}"/>
+  <ant dir="completion/" target="${target}"/>
+  <ant dir="console/" target="${target}"/>
+  <ant dir="renderer/" target="${target}"/>
+  <ant dir="graphic_export/" target="${target}"/>
+  <ant dir="gui/" target="${target}"/>
+  <ant dir="history_browser/" target="${target}"/>
+  <ant dir="core/" target="${target}"/>
+  <ant dir="types/" target="${target}"/>
+  <ant dir="graph/" target="${target}"/>
+  <ant dir="hdf5/" target="${target}"/>
+  <ant dir="helptools/" target="${target}"/>
+  <ant dir="javasci/" target="${target}"/>
+  <ant dir="output_stream/" target="${target}"/>
+  <ant dir="scinotes/" target="${target}"/>
+  <ant dir="shell/" target="${target}"/>
+  <ant dir="ui_data/" target="${target}"/>
+  <ant dir="xcos/" target="${target}"/>
+</target>
+
+</project>

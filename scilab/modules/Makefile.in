@@ -62,11 +62,12 @@ host_triplet = @host@
 # javasci should be compile at the end because it needs libscilab.la
 # Don't forget that the order in subdirs does matter !!!
 @JAVASCI_TRUE@am__append_2 = javasci
-@HDF5_TRUE@am__append_3 = $(top_builddir)/modules/hdf5/libscihdf5-forceload.la
-@HDF5_TRUE@am__append_4 = $(top_builddir)/modules/hdf5/libscihdf5-forceload-disable.la
-@GUI_TRUE@am__append_5 = $(GUI_LIBS)
-@GUI_FALSE@am__append_6 = $(NO_GUI_LIBS)
-@ENABLE_STATIC_TRUE@am__append_7 = $(ALL_LIBS)
+@NEED_JAVA_TRUE@am__append_3 = java
+@HDF5_TRUE@am__append_4 = $(top_builddir)/modules/hdf5/libscihdf5-forceload.la
+@HDF5_TRUE@am__append_5 = $(top_builddir)/modules/hdf5/libscihdf5-forceload-disable.la
+@GUI_TRUE@am__append_6 = $(GUI_LIBS)
+@GUI_FALSE@am__append_7 = $(NO_GUI_LIBS)
+@ENABLE_STATIC_TRUE@am__append_8 = $(ALL_LIBS)
 subdir = modules
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -123,7 +124,7 @@ libscilab_cli_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(libscilab_cli_la_LDFLAGS) $(LDFLAGS) -o $@
 am__DEPENDENCIES_1 =
 libscilab_la_DEPENDENCIES = $(ENGINE_LIBS) $(EXTERNAL_LIBS) \
-	$(am__append_5) $(am__append_6) $(am__DEPENDENCIES_1)
+	$(am__append_6) $(am__append_7) $(am__DEPENDENCIES_1)
 am_libscilab_la_OBJECTS =
 libscilab_la_OBJECTS = $(am_libscilab_la_OBJECTS)
 libscilab_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -461,6 +462,8 @@ SUBDIRS = output_stream arnoldi elementary_functions string api_scilab \
 	types hdf5 graph xcos scinotes parallel modules_manager \
 	ui_data history_browser $(am__append_1) scicos . \
 	$(am__append_2)
+TARGETS_ALL = $(am__append_3)
+@NEED_JAVA_TRUE@USEANT = 1
 
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)
@@ -488,7 +491,7 @@ GUI_LIBS = $(top_builddir)/modules/gui/libscigui.la \
 	$(top_builddir)/modules/ui_data/libsciui_data.la \
 	$(top_builddir)/modules/history_browser/libscihistory_browser.la \
 	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/tclsci/libscitclsci.la $(am__append_3)
+	$(top_builddir)/modules/tclsci/libscitclsci.la $(am__append_4)
 # HDF5 is here because it needs the JVM (see bug #5481)
 NO_GUI_LIBS = $(top_builddir)/modules/gui/libscigui-disable.la \
 	$(top_builddir)/modules/graphics/libscigraphics-disable.la \
@@ -501,7 +504,7 @@ NO_GUI_LIBS = $(top_builddir)/modules/gui/libscigui-disable.la \
 	$(top_builddir)/modules/ui_data/libsciui_data-disable.la \
 	$(top_builddir)/modules/history_browser/libscihistory_browser-disable.la \
 	$(top_builddir)/modules/commons/libscicommons-disable.la \
-	$(am__append_4)
+	$(am__append_5)
 # HDF5 is here because it needs the JVM (see bug #5481)
 ENGINE_LIBS = $(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/mexlib/libmex.la \
@@ -560,7 +563,7 @@ ENGINE_LIBS_DYNAMIC_LOAD = \
 
 # Core modules
 libscilab_la_LIBADD = $(ENGINE_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS) \
-	$(am__append_5) $(am__append_6) $(am__append_7)
+	$(am__append_6) $(am__append_7) $(am__append_8)
 
 # Core modules
 libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS)
@@ -840,7 +843,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LTLIBRARIES) all-local
 installdirs: installdirs-recursive
 installdirs-am:
 	for dir in "$(DESTDIR)$(pkglibdir)"; do \
@@ -944,25 +947,44 @@ uninstall-am: uninstall-pkglibLTLIBRARIES
 	install-am install-strip tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am check check-am clean clean-generic clean-libtool \
-	clean-pkglibLTLIBRARIES ctags ctags-recursive distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-pkglibLTLIBRARIES \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-recursive uninstall uninstall-am \
-	uninstall-pkglibLTLIBRARIES
+	all all-am all-local check check-am clean clean-generic \
+	clean-libtool clean-pkglibLTLIBRARIES ctags ctags-recursive \
+	distclean distclean-compile distclean-generic \
+	distclean-libtool distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-pkglibLTLIBRARIES install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-pkglibLTLIBRARIES
 
+@NEED_JAVA_TRUE@java:
+# Some configurations needs to export JAVA_HOME in the current env
+@NEED_JAVA_TRUE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
+@NEED_JAVA_TRUE@	if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+@NEED_JAVA_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
+@NEED_JAVA_TRUE@		$(ANT); \
+@NEED_JAVA_TRUE@	fi
+
+@NEED_JAVA_TRUE@clean-java:
+# Some configurations needs to export JAVA_HOME in the current env
+@NEED_JAVA_TRUE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
+@NEED_JAVA_TRUE@	if test -z "$(USEANT)"; then USEANT=0; else USEANT=1; fi; \
+@NEED_JAVA_TRUE@	if test -f build.xml -a $$USEANT -eq 1; then \
+@NEED_JAVA_TRUE@		$(ANT) clean; \
+@NEED_JAVA_TRUE@	fi;
+
+all-local: $(TARGETS_ALL)
 
 #if MPI
 #libscilab_la_LIBADD += $(top_builddir)/modules/mpi/libscimpi.la
 #endif
+
+.PHONY:  java 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
