@@ -1,4 +1,3 @@
-
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) 2006-2008 - INRIA - Sylvestre LEDRU <sylvestre.ledru@inria.fr>
 # Copyright (C) 2008      - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
@@ -42,7 +41,7 @@ check-code:
 
 TARGETS_ALL=
 if NEED_JAVA
-TARGETS_ALL+=java
+#TARGETS_ALL+=java
 java:
 # Some configurations needs to export JAVA_HOME in the current env
 	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \

@@ -74,14 +74,12 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
-@NEED_JAVA_TRUE@@PVM_TRUE@am__append_1 = java
 
 # With --enable-compilation-tests, launch java unitary tests
-@COMPILATION_TESTS_TRUE@@PVM_TRUE@am__append_2 = test
-@NEED_JAVA_TRUE@@PVM_FALSE@am__append_3 = java
+@COMPILATION_TESTS_TRUE@@PVM_TRUE@am__append_1 = test
 
 # With --enable-compilation-tests, launch java unitary tests
-@COMPILATION_TESTS_TRUE@@PVM_FALSE@am__append_4 = test
+@COMPILATION_TESTS_TRUE@@PVM_FALSE@am__append_2 = test
 subdir = modules/pvm
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -583,15 +581,14 @@ top_srcdir = @top_srcdir@
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@PVM_FALSE@TARGETS_ALL = $(am__append_3) $(am__append_4)
+@PVM_FALSE@TARGETS_ALL = $(am__append_2)
 
 ########################### JAVA ######################################
 #### We are delegating java compilation to ant... Thanks to that
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-@PVM_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2) \
-@PVM_TRUE@	$(am__append_3) $(am__append_4)
+@PVM_TRUE@TARGETS_ALL = $(am__append_1) $(am__append_2)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -1425,6 +1422,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @PVM_TRUE@	if test -x "$(SPLINT)"; then \
 @PVM_TRUE@		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 @PVM_TRUE@	fi
+#TARGETS_ALL+=java
 @NEED_JAVA_TRUE@@PVM_TRUE@java:
 # Some configurations needs to export JAVA_HOME in the current env
 @NEED_JAVA_TRUE@@PVM_TRUE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
@@ -1625,6 +1623,7 @@ uninstall-am: uninstall-libscipvm_la_etcDATA \
 @PVM_FALSE@	if test -x "$(SPLINT)"; then \
 @PVM_FALSE@		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 @PVM_FALSE@	fi
+#TARGETS_ALL+=java
 @NEED_JAVA_TRUE@@PVM_FALSE@java:
 # Some configurations needs to export JAVA_HOME in the current env
 @NEED_JAVA_TRUE@@PVM_FALSE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
