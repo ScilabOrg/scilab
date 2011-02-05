@@ -64,11 +64,10 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
-@NEED_JAVA_TRUE@am__append_1 = java
 
 # With --enable-compilation-tests, launch java unitary tests
-@COMPILATION_TESTS_TRUE@am__append_2 = test
-@GUI_TRUE@am__append_3 = libscihistory_browser.la 
+@COMPILATION_TESTS_TRUE@am__append_1 = test
+@GUI_TRUE@am__append_2 = libscihistory_browser.la 
 subdir = modules/history_browser
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -459,7 +458,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1) $(am__append_2)
+TARGETS_ALL = $(am__append_1)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -535,7 +534,7 @@ libscihistory_browser_disable_la_CFLAGS = -I$(srcdir)/includes/
 HISTORY_BROWSER_DISABLE_C_SOURCES = src/nohistory_browser/CommandHistory_Wrap_Fake.c
 libscihistory_browser_disable_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 libscihistory_browser_disable_la_SOURCES = $(HISTORY_BROWSER_DISABLE_C_SOURCES)
-pkglib_LTLIBRARIES = libscihistory_browser-disable.la $(am__append_3)
+pkglib_LTLIBRARIES = libscihistory_browser-disable.la $(am__append_2)
 libscihistory_browser_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 libscihistory_browser_la_SOURCES = $(HISTORY_BROWSER_C_SOURCES) $(HISTORY_BROWSER_JNI_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(HISTORY_BROWSER_CPP_SOURCES)
 
@@ -1013,6 +1012,7 @@ check-code:
 	if test -x "$(SPLINT)"; then \
 		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 	fi
+#TARGETS_ALL+=java
 @NEED_JAVA_TRUE@java:
 # Some configurations needs to export JAVA_HOME in the current env
 @NEED_JAVA_TRUE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
