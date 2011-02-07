@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - DIGITEO - Manuel JULIACHS
+ * Copyright (C) 2010-2011 - DIGITEO - Manuel JULIACHS
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -96,8 +96,8 @@ public class Axis extends ClippableContouredObject {
 		ticksColor = 0;
 		ticksSegment = false;
 		ticksLabels = new ArrayList<String>(DEFAULT_NUMBER_OF_TICKS);
-		formatn = null;
-		font = null;
+		formatn = new String("");
+		font = new Font();
 	}
 
     @Override
@@ -204,6 +204,10 @@ public class Axis extends ClippableContouredObject {
 	public boolean setProperty(Object property, Object value) {
 		if (property == AxisProperty.TICKSDIRECTION) {
 			setTicksDirection((Integer) value);
+		} else if (property == AxisProperty.XNUMBERTICKS) {
+			setXNumberTicks((Integer) value);
+		} else if (property == AxisProperty.YNUMBERTICKS) {
+			setYNumberTicks((Integer) value);
 		} else if (property == AxisProperty.XTICKSCOORDS) {
 			setXTicksCoords((Double[]) value);
 		} else if (property == AxisProperty.YTICKSCOORDS) {
@@ -468,10 +472,28 @@ public class Axis extends ClippableContouredObject {
 	}
 
 	/**
+	 * @param numberTicks the number of X ticks to set
+	 */
+	public void setXNumberTicks(int numberTicks) {
+		if (numberTicks != xTicksCoords.length) {
+			xTicksCoords = new double[numberTicks];
+		}
+	}
+
+	/**
 	 * @return the number of X ticks
 	 */
 	public Integer getYNumberTicks() {
 		return yTicksCoords.length;
+	}
+
+	/**
+	 * @param numberTicks the number of Y ticks to set
+	 */
+	public void setYNumberTicks(int numberTicks) {
+		if (numberTicks != yTicksCoords.length) {
+			yTicksCoords = new double[numberTicks];
+		}
 	}
 
 	/**
