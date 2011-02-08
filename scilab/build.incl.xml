@@ -106,9 +106,11 @@
     
     <pathelement location="${jgraphx.jar}"/>
 
+    <pathelement location="${batik.jar}"/>
+    <pathelement location="/usr/share/java/xml-commons-apis-ext.jar"/>
+
     <!-- Only usefull for the documentation -->    
     <pathelement location="${library.helptools.dir}/${library.helptools.name}"/>
-    <pathelement location="${batik.jar}"/>
 
     <pathelement location="${saxon.jar}"/>
 
