@@ -47,7 +47,9 @@ public class%}
   static {
     try {
         if (System.getProperty("os.name").toLowerCase().contains("windows") != true) {
-        System.loadLibrary("scilab");
+            if (System.getProperty("testngTests").equals("1")) {
+                System.loadLibrary("scilab");
+            }
         }
         System.loadLibrary("scilocalization");
     } catch (SecurityException e) {
