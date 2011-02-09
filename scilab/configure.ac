@@ -516,6 +516,10 @@ case "$CXX" in
    fi
    CPPFLAGS="$CPPFLAGS -fno-stack-protector" # bug 3131
    ;;
+   clang-* | clang) 
+           # clang expect an explict declaration
+           LDFLAGS="-lstdc++"
+   ;;
 esac
 
 #### 64 bits detection
