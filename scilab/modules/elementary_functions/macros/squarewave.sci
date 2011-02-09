@@ -14,7 +14,9 @@ function s = squarewave(t,%)
 
 //square(t,%) generates an unsymmetric  square wave: %, is the 
 //percent of the period in which the signal is positive.
-[lhs,rhs]=argn()
-if rhs<2 then %=50,end
-s=2*bool2s(modulo(t,2*%pi) < 2*%pi*%/100)-1
+  [lhs,rhs]=argn()
+  if rhs<2 then
+    percentPositive=50;
+  end
+  s=2*bool2s(pmodulo(t,2*%pi) < 2*%pi*percentPositive/100)-1
 endfunction
