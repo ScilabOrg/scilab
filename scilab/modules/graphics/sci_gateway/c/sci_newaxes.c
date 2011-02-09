@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2011 - DIGITEO - Manuel Juliachs
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -37,7 +38,15 @@ int sci_newaxes( char * fname,unsigned long fname_len )
   if ((masousfen = ConstructSubWin (sciGetCurrentFigure())) != NULL)
   {
     sciSetCurrentObj(masousfen);
+
+    /*
+     * Sets the newly created Axes as selected
+     * To be implemented within the MVC
+     */
+#if 0
     sciSetSelectedSubWin(masousfen);
+#endif
+
     CreateVar(Rhs+1,GRAPHICAL_HANDLE_DATATYPE,&numrow,&numcol,&outindex);
     *hstk(outindex) = sciGetHandle(masousfen);
 
