@@ -14,6 +14,8 @@ package org.scilab.modules.gui.bridge.helpbrowser;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -31,22 +33,31 @@ import javax.help.DefaultHelpHistoryModel;
 import javax.help.JHelpContentViewer;
 import javax.help.HelpSet;
 import javax.help.plaf.basic.BasicContentViewerUI;
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Document;
+import javax.swing.text.EditorKit;
 import javax.swing.text.Element;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 
 import org.scilab.modules.commons.ScilabConstants;
+import org.scilab.modules.commons.gui.ScilabKeyStroke;
 import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.helpbrowser.ScilabHelpBrowser;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.tab.Tab;
+import org.scilab.modules.gui.utils.ConfigManager;
 import org.scilab.modules.gui.utils.WebBrowser;
 import org.scilab.modules.localization.Messages;
 
@@ -64,11 +75,15 @@ import org.scilab.modules.localization.Messages;
  * @author Sylvestre LEDRU
  * @author Calixte DENIZET
  */
-public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
+public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implements MouseWheelListener {
 
     private static final String SCILAB_PROTO = "scilab://";
     private static final String SCI = ScilabConstants.SCI.getPath();
+    private static final String SHIFTEQ = "shiftEquals";
     private static final long serialVersionUID = -2593697956426596790L;
+    private static final int[] fontSizes = new int[]{8, 10, 12, 14, 18, 24, 36};
+
+    private static int currentFontSize = ConfigManager.getHelpFontSize();
 
     /* This field is a copy of BasicContentViewerUI which is privated.
      * Therefor, I am changing the permission here to make it available
@@ -378,6 +393,24 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
 
         try {
             this.accessibleHtml = (javax.swing.JEditorPane) privateField.get(this);
+            accessibleHtml.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                        if (evt.getPropertyName().equals("document")) {
+                            accessibleHtml.setVisible(false);
+                        }
+                        if (evt.getPropertyName().equals("page")) {
+                            modifyFont(0);
+                            accessibleHtml.setVisible(true);
+                        }
+                    }
+                });
+            accessibleHtml.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ScilabKeyStroke.getKeyStroke("OSSCKEY shift EQUALS"), SHIFTEQ);
+            accessibleHtml.getActionMap().put(SHIFTEQ, new AbstractAction() {
+                    public void actionPerformed(ActionEvent e) {
+                        SwingScilabHelpBrowserViewer.this.increaseFont();
+                    }
+                });
+            SwingUtilities.getAncestorOfClass(JScrollPane.class, accessibleHtml).addMouseWheelListener(this);
         } catch (IllegalArgumentException e) {
             System.err.println("Illegal argument in the retrieval of the html component of Javahelp");
             e.printStackTrace();
@@ -475,7 +508,6 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
         popup.add(menuItem);
         popup.addSeparator();
 
-
         /* Select all */
         ActionListener actionListenerSelectAll = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -517,8 +549,54 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI {
         helpMenuItem.addActionListener(actionListenerHelpOnKeyword);
         popup.add(helpMenuItem);
 
-
         /* Creates the Popupmenu on the component */
         accessibleHtml.setComponentPopupMenu(popup);
+    }
+
+    /**
+     * {@inheritedDoc}
+     */
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if (e.isControlDown()) {
+            int n = e.getWheelRotation();
+            if (currentFontSize != Math.min(Math.max(0, currentFontSize + n), 6)) {
+                modifyFont(n);
+                ConfigManager.setHelpFontSize(currentFontSize);
+            }
+            e.consume();
+        }
+    }
+
+    /**
+     * Modify the current base font size
+     * @param s the size to add to the current size
+     */
+    public void modifyFont(int s) {
+        EditorKit kit = accessibleHtml.getEditorKit();
+        MutableAttributeSet attrs = ((HTMLEditorKit) kit).getInputAttributes();
+        currentFontSize = Math.min(Math.max(0, currentFontSize + s), 6);
+        StyleConstants.setFontSize(attrs, fontSizes[currentFontSize]);
+        HTMLDocument doc = (HTMLDocument) accessibleHtml.getDocument();
+        doc.setCharacterAttributes(0, doc.getLength() + 1, attrs, false);
+    }
+
+    /**
+     * Increase the font size +1
+     */
+    public void increaseFont() {
+        if (currentFontSize != Math.min(Math.max(0, currentFontSize + 1), 6)) {
+            modifyFont(1);
+            ConfigManager.setHelpFontSize(currentFontSize);
+        }
+    }
+
+    /**
+     * Decrease the font size -1
+     */
+    public void decreaseFont() {
+        if (currentFontSize != Math.min(Math.max(0, currentFontSize - 1), 6)) {
+            modifyFont(-1);
+            ConfigManager.setHelpFontSize(currentFontSize);
+        }
     }
 }
