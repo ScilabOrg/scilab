@@ -1,0 +1,6 @@
+changelog of the xcos_toolbox_skeleton toolbox
+
+xcos_toolbox_skeleton (0.0)
+    * Template creation
+ -- Clément DAVID <clement.david@scilab.org> Fri, 28 Jan 2011 09:25:39 +0100
+

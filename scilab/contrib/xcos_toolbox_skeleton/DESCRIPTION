@@ -1,0 +1,30 @@
+Toolbox: xcos-toolbox-skeleton
+
+Title: Xcos Toolbox Skeleton
+
+Summary: Simple Xcos toolbox template
+
+Version: 0.0
+
+Author: Clément DAVID <clement.david@scilab.org>
+
+Maintainer: Clément DAVID <clement.david@scilab.org>
+
+Category: Xcos
+
+Entity: Digiteo
+
+WebSite: http://www.scilab.org
+
+License: CeCILL
+
+ScilabVersion: >= 5.3
+
+Depends: 
+
+Date: 2011-01-28
+
+Description: Simple template for a new Xcos toolbox
+ 
+ help xcos_toolbox_skeleton
+
