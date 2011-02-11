@@ -25,7 +25,17 @@
 #include <string.h>
 #include "gw_scicos.h"
 #include "stack-c.h"
+#include "api_common.h"
 #include "callFunctionFromGateway.h"
+
+/**
+ * Stub function to load the gateway
+ * @param fname function name
+ * @param fname_len function name length
+ * @return always 0
+ */
+static int sci_loadScicos(char *fname,unsigned long fname_len);
+
 /*--------------------------------------------------------------------------*/
 static gw_generic_table Tab[] = 
 {
@@ -60,7 +70,8 @@ static gw_generic_table Tab[] =
 	{sci_data2sig,"data2sig"},
 	{sci_sig2data,"sig2data"},
 	{sci_model2blk,"model2blk"},
-	{sci_callblk,"callblk"}
+	{sci_callblk,"callblk"},
+	{sci_loadScicos,"loadScicos"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_scicos(void)
@@ -70,4 +81,13 @@ int gw_scicos(void)
 	return 0;
 }
 /*--------------------------------------------------------------------------*/
+/*
+ * Stub function to load the gateway
+ */
+static int sci_loadScicos(char *fname, unsigned long fname_len) {
+	CheckRhs(0,1);
+	LhsVar(1) = 0;
+	PutLhsVar();
+	return 0;
+}
 
