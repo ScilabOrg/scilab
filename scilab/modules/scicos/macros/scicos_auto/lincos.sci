@@ -1,6 +1,7 @@
 //  Scicos
 //
 //  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//  Copyright (C) DIGITEO - Clément DAVID <clement.david@scilab.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -88,24 +89,26 @@ if ( ~isdef("scicos_pal") | ~isdef("%scicos_menu") | ..
    %scicos_libs, %scicos_with_grid, %scs_wgrid] = initial_scicos_tables();
 end
 // =====================================================================
+[lhs, rhs] = argn(0);
 
-[lhs,rhs] = argn(0)
+if rhs < 1 then
+  error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "lincos", 1));
+endgettext(
+if typeof(scs_m)<>"diagram" then
+  error(msprintf(gettext("%s: Wrong type for input argument #%d: A diagram expected.\n"), "lincos", 1));
+end
+
 IN  = [];
 OUT = [];
 
 // check version
 current_version = get_scicos_version()
 scicos_ver      = find_scicos_version(scs_m)
-
-// do version
 if scicos_ver<>current_version then
-  ierr = execstr('scs_m=do_version(scs_m,scicos_ver)','errcatch')
-  if ierr<>0 then
-    error("Can''t convert old diagram (problem in version)")
-    return
-  end
+  scs_m=do_version(scs_m, scicos_ver);
 end
 
+// looking for I/O
 for i=1:size(scs_m.objs)
   if typeof(scs_m.objs(i))=='Block' then  
     if scs_m.objs(i).gui=='IN_f' then
@@ -122,6 +125,13 @@ for i=1:size(scs_m.objs)
       scs_m.objs(i).model.sim(1)='bidon'
     end
   end
+end
+
+if IN == [] then
+  error(msprintf(gettext("%s: Unable to find diagram inputs\n"), "lincos"));
+end
+if OUT == [] then
+  error(msprintf(gettext("%s: Unable to find diagram outputs\n"), "lincos"));
 end
 
 IN=-gsort(-IN);
