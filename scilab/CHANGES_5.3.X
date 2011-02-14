@@ -352,6 +352,8 @@ Optimization:
 
 Bug fixes:
 ==========
+* bug 476  fixed - find did not work when there are most lhs arguments 
+                   than matrix dimensions
 
 * bug 4930 fixed - When the console was resized from 0-height to x-height,
                    lines() was not correctly updated.
