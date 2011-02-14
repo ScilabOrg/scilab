@@ -7,7 +7,6 @@
 // =============================================================================
 
 // <-- ENGLISH IMPOSED -->
-// <-- NOT FIXED -->
 
 ilib_verbose(0);
 
@@ -27,5 +26,30 @@ for i=1:length(scs_m.objs)
     end
 end
 
-//scs_m = scs_m.objs(5).model.rpar;
+// scs_m is the top SUPER_f;
 [X,U,Y,XP] = steadycos(scs_m,[],[],[],[],1,1:$);
+
+// valid results
+X_ref = [..
+    0.  ;..
+    0.  ;..
+    0.  ;..
+    0.  ];
+U_ref = [..
+    12.731756  ];
+Y_ref = [..
+    0.  ;..
+    0.  ];
+XP_ref = [..
+    0.  ;..
+    0.  ;..
+    0.  ;..
+    0.  ];
+
+// diff
+margin = 1D-06;
+if and(abs(X - X_ref) > margin) |..
+   and(abs(U - U_ref) > margin) |..
+   and(abs(Y - Y_ref) > margin) |..
+   and(abs(XP - XP_ref) > margin) then pause, end
+
