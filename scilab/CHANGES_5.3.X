@@ -218,6 +218,8 @@ Xcos:
 * bug 8884 fixed - Using region to super block with ports on the same position
                    was resulting to a non-reconnected link.
 
+* bug 8952 fixed - "lincos" did not produce a valid error message when the 
+                   diagram has no inputs nor outputs.
 
 Module skeleton:
 ================
