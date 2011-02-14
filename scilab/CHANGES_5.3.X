@@ -39,6 +39,9 @@ New functions
 Obsolete Functions:
 ===================
 
+* 'with_atlas' is obsolete and will be removed on 5.3.2, please use
+  'getdebuginfo' instead.
+
 * 'loadScicosLibs' is obsolete and will be removed on 5.4.0, please use
   'loadXcosLibs' instead.
 
