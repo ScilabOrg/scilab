@@ -113,6 +113,8 @@ trigger a warning and do not add a link on the function name.
 
 * bug 8937 fixed - The tag <screenshot> was not handled.
 
+* bug 8974 fixed - In the help browser, two ctrl+F led to an exception.
+
 
 Scinotes:
 =========
