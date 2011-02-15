@@ -38,9 +38,9 @@
 
 typedef void (*voidg)();
 
-/* scicos_block structure definition 
-* WARNING: take care that this sructure is 
-* not the same as the one in scicos_block.h 
+/* scicos_block structure definition
+* WARNING: take care that this sructure is
+* not the same as the one in scicos_block.h
 * i.e same name but inptr and outptr are void **
 */
 typedef struct {
@@ -98,8 +98,8 @@ typedef enum scicos_flag {
 
 /* utility function for block declaration */
 int get_block_error(void);
-int* get_pointer_xproperty();
-int get_npointer_xproperty();
+int* get_pointer_xproperty(void);
+int get_npointer_xproperty(void);
 double Get_Jacobian_cj(void);
 double Get_Jacobian_ci(void);
 double Get_Scicos_SQUR(void);
@@ -664,15 +664,15 @@ typedef enum scicos_datatype_number {
 #if _MSC_VER
 #ifdef min
 #undef min
-#endif 
-#ifdef max 
+#endif
+#ifdef max
 #undef max
-#endif 
-#endif 
+#endif
+#endif
 
 #ifndef max
 #define max(a,b) ((a) >= (b) ? (a) : (b))
-#endif 
+#endif
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
