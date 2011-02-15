@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
+-->
+<refentry 
+  xmlns="http://docbook.org/ns/docbook" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" 
+  xmlns:svg="http://www.w3.org/2000/svg"  
+  xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+  xmlns:db="http://docbook.org/ns/docbook" 
+  version="5.0-subset Scilab" 
+  xml:lang="fr" 
+  xml:id="assert_overview">
+  <info>
+    <pubdate>$LastChangedDate: 16-12-2008 $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>Assert</refname>
+
+    <refpurpose>An overview of the Assert toolbox.</refpurpose>
+  </refnamediv>
+
+  <refsection>
+    <title>Purpose</title>
+
+    <para>
+    The goal of this toolbox is to provide functions to check the 
+    behavior of some other functions, for example in unit tests.
+    We emphasize the use of consistent tools for testing numerical issues, 
+    with the goal of testing numerical algorithms more easily. 
+    In particular, we provide a comparison function for two floating
+    point numbers, which allows to check that two numbers are "numerically almost equal",
+    i.e. that the relative error is small.
+    </para>
+
+    <para>
+    Some functions under test may produce an unsorted matrix of complex 
+    values. 
+    For example, the output of the "root" function may
+    produce a given set of roots on one machine and another set of
+    roots on another machines. The most common reasons for these
+    discrepancies are the change of operating system, the use of
+    various compiling options (e.g. debug or optimized), or the
+    use of various libraries (e.g. ATLAS, Intel MKL).
+    This makes the testing of such a function difficult so that 
+    the <literal>assert_checkalmostequal</literal> function, by itself, is 
+    only a part of the solution.
+    </para>
+
+    <para>
+    This is why we provide a numerically stable sorting algorithm in the
+    <literal>assert_sortcomplex</literal>.
+    First, the comparison is done on the real part first, and on the
+    imaginary part if there is a tie on the real part.
+    Second, we use a comparison function which takes into account
+    for numerical issues and uses a mixed relative-absolute
+    criteria.
+    This allows to produce a robust sorted matrix of complex doubles, which
+    can be consistently given to the <literal>assert_checkalmostequal</literal> function.
+    </para>
+
+    <para>
+    The toolbox is based on macros.
+    </para>
+  </refsection>
+
+  <refsection>
+    <title>Quick start</title>
+
+    <para>
+    The <literal>assert_true</literal> function allows to 
+    check that a matrix of booleans is true.
+    The following assertion fails and generate an error.
+    </para>
+
+   <programlisting role="example"><![CDATA[
+assert_true ( [%t %F] );
+   ]]></programlisting>
+
+    <para>
+    The <literal>assert_checkequal</literal> function allows to 
+    check that two variables are equal.
+    The following assertion is a success and runs silently.
+    </para>
+
+   <programlisting role="example"><![CDATA[
+assert_checkequal ( %nan , %nan );
+   ]]></programlisting>
+
+    <para>
+    The <literal>assert_checkalmostequal</literal> function allows to 
+    check that a computed result is close to an expected result.
+    In the following script, we check that <literal>computed=1.23456</literal>
+    is close to <literal>expected=1.23457</literal>, but that 
+    11 digits have been lost with respect to the maximum 
+    achievable accuracy.
+    </para>
+
+   <programlisting role="example"><![CDATA[
+assert_checkalmostequal ( 1.23456 , 1.23457 , 1.e11*%eps );
+   ]]></programlisting>
+
+    <para>
+The <literal>assert_sortcomplex</literal> provides a numerically 
+stable sorting algorithm for matrices of complex doubles.
+In the following example, we sort the matrix of complex doubles 
+presented in the bug report number 415.
+    </para>
+
+   <programlisting role="example"><![CDATA[
+x = [
+-1.9914145
+-1.895889
+-1.6923826
+-1.4815461
+-1.1302576
+-0.5652256 - 0.0655080 * %i
+-0.5652256 + 0.0655080 * %i
+0.3354023 - 0.1602902 * %i
+0.3354023 + 0.1602902 * %i
+1.3468911
+1.5040136
+1.846668
+1.9736772
+1.9798866
+];
+// Consider less than 4 significant digits
+y = assert_sortcomplex(x,1.e-5)
+   ]]></programlisting>
+
+  </refsection>
+
+
+  <refsection>
+    <title>Authors</title>
+
+    <simplelist type="vert">
+      <member>2008-2009 - INRIA - Michael Baudin</member>
+      <member>2010 - DIGITEO - Michael Baudin</member>
+    </simplelist>
+  </refsection>
+
+</refentry>
