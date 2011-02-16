@@ -14,12 +14,14 @@ package org.scilab.modules.renderer.JoGLView;
 import com.sun.opengl.util.BufferUtil;
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
-import org.scilab.modules.graphic_objects.NativeGL;
+import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
+import org.scilab.modules.graphic_objects.DataLoader;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +30,12 @@ import java.util.Map;
  */
 public class DataManager implements GraphicView {
 
-    private final Map<String, ElementsBuffer> vertexBuffers = new HashMap<String, ElementsBuffer>();
+    private static final double[] DEFAULT_SCALE     = new double[] {1, 1, 1};
+    private static final double[] DEFAULT_TRANSLATE = new double[] {0, 0, 0};
+
+
+    private final Map<String, ElementsBuffer> vertexBufferMap = new HashMap<String, ElementsBuffer>();
+    private final Map<String, IndicesBuffer> indexBufferMap = new HashMap<String, IndicesBuffer>();
     private final Canvas canvas;
 
 
@@ -37,33 +44,51 @@ public class DataManager implements GraphicView {
         GraphicController.getController().register(this);
     }
 
+    /**
+     * Return the vertex buffer of the given object.
+     * @param id the given object Id.
+     * @return the vertex buffer of the given object.
+     */
     public ElementsBuffer getVertexBuffer(String id) {
-        if (vertexBuffers.containsKey(id)) {
-            return vertexBuffers.get(id);
+        if (vertexBufferMap.containsKey(id)) {
+            return vertexBufferMap.get(id);
         } else {
             ElementsBuffer vertexBuffer = canvas.getBuffersManager().createElementsBuffer();
-
-            int length = NativeGL.getGLDataLength(id);
-            FloatBuffer dataBuffer = BufferUtil.newFloatBuffer(length);
-            NativeGL.loadGLData(dataBuffer, id);
-
-            vertexBuffer.setData(dataBuffer, 4);
-
-            vertexBuffers.put(id, vertexBuffer);
+            fillVertexBuffer(vertexBuffer, id);
+            vertexBufferMap.put(id, vertexBuffer);
             return vertexBuffer;
+        }
+    }
+
+    /**
+     * Return the index buffer of the given object.
+     * @param id the given object Id.
+     * @return the index buffer of the given object.
+     */
+    public IndicesBuffer getIndexBuffer(String id) {
+        if (indexBufferMap.containsKey(id)) {
+            return indexBufferMap.get(id);
+        } else {
+            IndicesBuffer indexBuffer = canvas.getBuffersManager().createIndicesBuffer();
+            fillIndexBuffer(indexBuffer, id);
+            indexBufferMap.put(id, indexBuffer);
+            return indexBuffer;
         }
     }
 
     @Override
     public void updateObject(String id, String property) {
-        if (property.equals(GraphicObjectProperties.__GO_DATA_MODEL__) && vertexBuffers.containsKey(id)) {
-            ElementsBuffer vertexBuffer = vertexBuffers.get(id);
+        if (property.equals(GraphicObjectProperties.__GO_DATA_MODEL__) && vertexBufferMap.containsKey(id)) {
 
-            int length = NativeGL.getGLDataLength(id);
-            FloatBuffer dataBuffer = BufferUtil.newFloatBuffer(length);
-            NativeGL.loadGLData(dataBuffer, id);
-            
-            vertexBuffer.setData(dataBuffer, 4);
+            ElementsBuffer vertexBuffer = vertexBufferMap.get(id);
+            if (vertexBuffer != null) {
+                fillVertexBuffer(vertexBuffer, id);
+            }
+
+            IndicesBuffer indexBuffer = indexBufferMap.get(id);
+            if (indexBuffer != null) {
+                fillIndexBuffer(indexBuffer, id);
+            }
         }
     }
 
@@ -72,9 +97,35 @@ public class DataManager implements GraphicView {
 
     @Override
     public void deleteObject(String id) {
-        if (vertexBuffers.containsKey(id)) {
-            canvas.getBuffersManager().dispose(vertexBuffers.get(id));
-            vertexBuffers.remove(id);
+
+        if (vertexBufferMap.containsKey(id)) {
+            canvas.getBuffersManager().dispose(vertexBufferMap.get(id));
+            vertexBufferMap.remove(id);
         }
+
+        if (indexBufferMap.containsKey(id)) {
+            canvas.getBuffersManager().dispose(indexBufferMap.get(id));
+            indexBufferMap.remove(id);
+        }
+    }
+
+
+    private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id) {
+            int length = DataLoader.getDataSize(id);
+            FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
+            DataLoader.fillVertices(id, data, length, 4, 0x1 | 0x2 | 0x4 | 0x8, DEFAULT_SCALE, DEFAULT_TRANSLATE);
+            vertexBuffer.setData(data, 4);
+    }
+
+    private void fillIndexBuffer(IndicesBuffer indexBuffer, String id) {
+        int length = DataLoader.getIndicesSize(id);
+        IntBuffer data = BufferUtil.newIntBuffer(length);
+
+        int actualLength = DataLoader.fillIndices(id, data, length);
+
+        /* Set the buffer size to the actual number of indices */
+        data.limit(actualLength);
+
+        indexBuffer.setData(data);
     }
 }
