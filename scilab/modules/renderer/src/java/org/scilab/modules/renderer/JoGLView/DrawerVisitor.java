@@ -15,6 +15,7 @@ import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
+import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
@@ -383,11 +384,41 @@ public class DrawerVisitor implements IVisitor, Drawer {
     }
 
     @Override
-    public void visit(Polyline polyline) {
-        Geometry geometry = new GeometryImpl(
-                Geometry.DrawingMode.SEGMENTS_STRIP,
-                dataManager.getVertexBuffer(polyline.getIdentifier())
-        );
+    public void visit(final Polyline polyline) {
+        Geometry geometry = new Geometry() {
+
+            @Override
+            public DrawingMode getDrawingMode() {
+                return Geometry.DrawingMode.SEGMENTS;
+            }
+
+            @Override
+            public ElementsBuffer getVertices() {
+                return dataManager.getVertexBuffer(polyline.getIdentifier());
+            }
+
+            @Override
+            public ElementsBuffer getColors() {
+                return null;
+            }
+
+            @Override
+            public ElementsBuffer getNormals() {
+                return null;
+            }
+
+            @Override
+            public IndicesBuffer getIndices() {
+                IndicesBuffer buffer = dataManager.getIndexBuffer(polyline.getIdentifier());
+                if (buffer.getSize() == 0) {
+                    return null;
+                } else {
+                    return buffer;
+                }
+            }
+        };
+
+
 
         Appearance appearance = new Appearance();
 
