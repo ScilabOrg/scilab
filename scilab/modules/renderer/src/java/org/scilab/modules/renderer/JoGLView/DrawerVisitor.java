@@ -15,9 +15,9 @@ import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
+import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
-import org.scilab.forge.scirenderer.shapes.geometry.GeometryImpl;
 import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
 import org.scilab.modules.graphic_objects.arc.Arc;
@@ -177,26 +177,49 @@ public class DrawerVisitor implements IVisitor, Drawer {
     }
 
     @Override
-    public void visit(Polyline polyline) {
+    public void visit(final Polyline polyline) {
         if (polyline.getVisible()) {
-            if (polyline.getLineMode()) {
-                Geometry geometry = new GeometryImpl(
-                        Geometry.DrawingMode.SEGMENTS_STRIP,
-                        dataManager.getVertexBuffer(polyline.getIdentifier())
-                );
 
-                Appearance appearance = new Appearance();
+            Geometry geometry = new Geometry() {
+                @Override
+                public DrawingMode getDrawingMode() {
+                    return Geometry.DrawingMode.SEGMENTS;
+                }
 
-                appearance.setLineColor(ColorFactory.createColor(colorMap, polyline.getLineColor()));
-                appearance.setLineWidth(polyline.getLineThickness().floatValue());
-                appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+                @Override
+                public ElementsBuffer getVertices() {
+                    return dataManager.getVertexBuffer(polyline.getIdentifier());
+                }
 
-                drawingTools.draw(geometry, appearance);
-            }
+                @Override
+                public ElementsBuffer getColors() {
+                    return null;
+                }
+
+                @Override
+                public ElementsBuffer getNormals() {
+                    return null;
+                }
+
+                @Override
+                public IndicesBuffer getIndices() {
+                    IndicesBuffer indices = dataManager.getIndexBuffer(polyline.getIdentifier());
+                    System.out.println("indices size : " + indices.getSize());
+                    return indices;
+                }
+            };
+
+            Appearance appearance = new Appearance();
+            appearance.setLineColor(ColorFactory.createColor(colorMap, polyline.getLineColor()));
+            appearance.setLineWidth(polyline.getLineThickness().floatValue());
+            appearance.setLinePattern(polyline.getLineStyleAsEnum().asPattern());
+
+            drawingTools.draw(geometry, appearance);
+
 
             if (polyline.getMarkMode()) {
                 Sprite sprite = MarkManager.getMarkSprite(polyline, colorMap);
-                ElementsBuffer positions = dataManager.getVertexBuffer(polyline.getIdentifier());
+                ElementsBuffer positions = dataManager.getVertexBuffer(polyline.getIdentifier());  // TODO : getMarkVertexBuffer
                 drawingTools.draw(sprite, SpriteAnchorPosition.CENTER, positions);
             }
         }
