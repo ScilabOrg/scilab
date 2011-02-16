@@ -8,7 +8,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  */
 
-%module NativeGL
+%module DataLoader
 
 %define NIO_BUFFER_TYPEMAP(CTYPE, LABEL, BUFFERTYPE)
 %typemap(jni) CTYPE* LABEL "jobject"
@@ -142,8 +142,35 @@ UNSIGNED_NIO_BUFFER_TYPEMAP(unsigned long, 4, java.nio.LongBuffer, permafrost.hd
   }
 %}
 
+%include "arrays_java.i"
 %inline %{
-    extern int getGLDataLength(char* id);
-    extern void loadGLData(float* BUFF, char* id);
+    /**
+     * Return the number of data elements for the given object.
+     *  - id : The id of the given object.
+     */
+    extern int getDataSize(char* id);
+    
+    /**
+     * Return the number of indices for the given object.
+     *  - id : The id of the given object.
+     */
+    extern int getIndicesSize(char* id);
+    
+    /**
+     * Fill the given buffer with vertex data from the given object.
+     *  - id : The id of the given object.
+     *  - BUFF : the buffer to fill.
+     *  - elementSize : the number of coordinate taken by one element in the buffer.
+     *  - coordinateMask : this byte mask specify witch coordinates are filled (1 for X, 2 for Y, 4 for Z).
+     *  - scale, translation : the transformation to apply to data.
+     */
+    extern void fillVertices(char* id, float* BUFF, int elementsSize, int coordinateMask, double scale[], double translation[]);
+    
+    /**
+     * Fill the given buffer with indices data from the given.
+     *  - id : The id of the given object.
+     *  - BUFF : the buffer to fill.
+     */
+    extern void fillIndices(char* id, int* BUFF);
 %}
 

@@ -8,17 +8,19 @@
 
 package org.scilab.modules.graphic_objects;
 
-class NativeGLJNI {
+class DataLoaderJNI {
 
   static {
     try {
         System.loadLibrary("scigraphic_objects");
     } catch (UnsatisfiedLinkError e) {
-      System.err.println("Native code library failed to load. \n" + e);
+      System.err.println("Native library failed to load. \n" + e);
       System.exit(1);
     }
   }
 
-  public final static native int getGLDataLength(String jarg1);
-  public final static native void loadGLData(java.nio.FloatBuffer jarg1, String jarg2);
+  public final static native int getDataSize(String jarg1);
+  public final static native int getIndicesSize(String jarg1);
+  public final static native void fillVertices(String jarg1, java.nio.FloatBuffer jarg2, int jarg3, int jarg4, double[] jarg5, double[] jarg6);
+  public final static native void fillIndices(String jarg1, java.nio.IntBuffer jarg2);
 }

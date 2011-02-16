@@ -10,13 +10,15 @@
  *
  */
 
-#ifndef NATIVE_GL_HXX
-#define NATIVE_GL_HXX
+#ifndef DATA_LOADER_HXX
+#define DATA_LOADER_HXX
 
 extern "C"
 {
-  int getGLDataLength(char* id);
-  void loadGLData(float* buffer, char* id);
+  int getDataSize(char* id);
+  int getIndicesSize(char* id);
+  void fillVertices(char* id, float* BUFF, int elementsSize, char coordinateMask, double* scale, double* translation);
+  void fillIndices(char* id, int* BUFF);
 }
 
-#endif NATIVE_GL_HXX
+#endif DATA_LOADER_HXX
