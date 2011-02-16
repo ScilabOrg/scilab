@@ -53,7 +53,7 @@ int get_x_shift_property( sciPointObj * pobj )
     else
     {
         getGraphicObjectProperty(pobj->UID, __GO_DATA_MODEL_X_COORDINATES_SHIFT__, jni_double_vector, &shiftCoordinates);
-        getGraphicObjectProperty(pobj->UID, __GO_DATA_MODEL_NUM_ELEMENTS__, jni_int, piSize);
+        getGraphicObjectProperty(pobj->UID, __GO_DATA_MODEL_NUM_ELEMENTS__, jni_int, &piSize);
 
         return sciReturnRowVector(shiftCoordinates, iSize);
     }
