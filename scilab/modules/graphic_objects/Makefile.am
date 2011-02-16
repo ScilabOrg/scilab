@@ -31,7 +31,7 @@ BUILT_SOURCES = 	includes/graphicObjectsProperties.h
 
 GRAPHIC_OBJECTS_JNI_SOURCES = src/jni/CallGraphicController.cpp
 
-GRAPHIC_OBJECTS_C_SOURCES = src/jni/NativeGL_wrap.c
+GRAPHIC_OBJECTS_C_SOURCES = src/jni/DataLoader_wrap.c
 
 GRAPHIC_OBJECTS_CPP_SOURCES = 	src/cpp/createGraphicObject.cpp \
 								src/cpp/getGraphicObjectProperty.cpp \
@@ -39,7 +39,7 @@ GRAPHIC_OBJECTS_CPP_SOURCES = 	src/cpp/createGraphicObject.cpp \
 								src/cpp/deleteGraphicObject.cpp \
 								src/cpp/dataModel.cpp \
 								src/cpp/Data3D.cpp \
-								src/cpp/NativeGL.cpp \
+								src/cpp/DataLoader.cpp \
 								src/cpp/NgonData.cpp \
 								src/cpp/NgonGeneralData.cpp \
 								src/cpp/NgonGridData.cpp \
@@ -103,7 +103,7 @@ INCLUDE_FLAGS = $(libscigraphic_objects_la_CFLAGS)
 
 
 #### SWIG Declaration ####
-SWIG_WRAPPERS = src/jni/NativeGL.i
+SWIG_WRAPPERS = src/jni/DataLoader.i
 
 if SWIG
   BUILT_SOURCES += swig
