@@ -45,3 +45,5 @@ SEP #45 : Xcos palette management
 SEP #46 : sum/cumsum/prod/cumprod revision
 SEP #47 : Scilab Desktop
 SEP #48 : Scilab Preferences
+SEP #49 : Repmat
+SEP #50 : Assert

@@ -2,6 +2,19 @@
             =================================================
 
 
+New functions
+=============
+
+* The assert module provides a set of assertion functions.
+  The goal of this module is to provide functions to check the 
+  behavior of some other functions, for example in unit tests. 
+  We emphasize the use of consistent tools for testing numerical 
+  issues, with the goal of testing numerical algorithms more easily. 
+  In particular, we provide a comparison function for two floating 
+  point numbers, which allows to check that two numbers are 
+  "numerically almost equal", i.e. that the relative error is small.
+  This automatically fixes the bug #4381.
+
 Bug Fixes:
 ==========
 
