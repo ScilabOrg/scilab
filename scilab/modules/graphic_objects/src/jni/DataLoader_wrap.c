@@ -757,16 +757,15 @@ jdoubleArray SWIG_JavaArrayOutDouble (JNIEnv *jenv, double *result, jsize sz) {
 #endif
 
 
-
     extern int getDataSize(char* id);
-    extern void fillVertices(char* id, float* BUFF, int bufferLength, int elementsSize, int coordinateMask, double scale[], double translation[]);
-    extern void fillColors(char* id, float* BUFF, int bufferLength, int elementsSize);
+    extern void fillVertices(char* id, float* buffer, int bufferLength, int elementsSize, int coordinateMask, double scale[], double translation[]);
+    extern void fillColors(char* id, float* buffer, int bufferLength, int elementsSize);
     
     extern int getIndicesSize(char* id);    
-    extern void fillIndices(char* id, int* BUFF, int bufferLength);
+    extern void fillIndices(char* id, int* buffer, int bufferLength);
     
     extern int getWireIndicesSize(char* id);    
-    extern void fillWireIndices(char* id, int* BUFF, int bufferLength);
+    extern void fillWireIndices(char* id, int* buffer, int bufferLength);
 
 
 #ifdef __cplusplus
@@ -825,7 +824,6 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   SWIG_JavaArrayArgoutDouble(jenv, jarr6, arg6, jarg6); 
   SWIG_JavaArrayArgoutDouble(jenv, jarr7, arg7, jarg7); 
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
-  
   free(arg6); 
   free(arg7); 
 }
@@ -854,7 +852,6 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   arg4 = (int)jarg4; 
   fillColors(arg1,arg2,arg3,arg4);
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
-  
 }
 
 
@@ -898,7 +895,6 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   arg3 = (int)jarg3; 
   fillIndices(arg1,arg2,arg3);
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
-  
 }
 
 
@@ -942,7 +938,6 @@ SWIGEXPORT void JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   arg3 = (int)jarg3; 
   fillWireIndices(arg1,arg2,arg3);
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
-  
 }
 
 
