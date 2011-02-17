@@ -2,6 +2,11 @@
             =================================================
 
 
+New functions
+=============
+
+* The assert module provides a set of assertion functions.
+
 Bug Fixes:
 ==========
 
