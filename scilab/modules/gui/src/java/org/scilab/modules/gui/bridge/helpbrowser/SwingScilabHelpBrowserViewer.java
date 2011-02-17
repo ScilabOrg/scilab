@@ -240,11 +240,11 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
             } else {
                 return getURLFromID(mainLocation, path);
             }
-        } else if (subLocation.equals("exec")) {
+        } else if (subLocation.equals("exec") || subLocation.equals("xcos") || subLocation.equals("scinotes")) {
             if (!mainLocation.equals("scilab")) {
-                exec(getToolboxPath() + "/" + path);
+                exec(subLocation, getToolboxPath() + "/" + path);
             } else {
-                exec(SCI + "/modules/" + path);
+                exec(subLocation, SCI + "/modules/" + path);
             }
         } else if (subLocation.equals("demos")) {
             if (!mainLocation.equals("scilab")) {
@@ -357,6 +357,20 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
         String cmd = "exec('" + path + "', -1)";
         try {
             ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(cmd, true, false);
+        } catch (NoClassDefFoundError e) {
+            ScilabModalDialog.show((Tab) SwingUtilities.getAncestorOfClass(Tab.class, x), Messages.gettext("Could not find the console nor the InterpreterManagement."));
+        }
+    }
+
+    /**
+     * Execute with the command and a file given by its path
+     * @param command the command to execute
+     * @param the file path
+     */
+    public void exec(String command, String path) {
+        String cmd = command + "('" + path + "', -1)";
+        try {
+            ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(cmd, false, false);
         } catch (NoClassDefFoundError e) {
             ScilabModalDialog.show((Tab) SwingUtilities.getAncestorOfClass(Tab.class, x), Messages.gettext("Could not find the console nor the InterpreterManagement."));
         }
