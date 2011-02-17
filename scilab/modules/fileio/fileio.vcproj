@@ -36,9 +36,6 @@
 				Name="VCXMLDataGeneratorTool"
 			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
 				Name="VCMIDLTool"
 			/>
 			<Tool
@@ -118,9 +115,6 @@
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
 			/>
 			<Tool
 				Name="VCMIDLTool"
@@ -203,9 +197,6 @@
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
 			/>
 			<Tool
 				Name="VCMIDLTool"
@@ -293,9 +284,6 @@
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
 			/>
 			<Tool
 				Name="VCMIDLTool"
@@ -951,10 +939,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\c\resource.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\c\scanf_functions.h"
 				>
 			</File>
@@ -989,7 +973,7 @@
 			Name="localization"
 			>
 			<File
-				RelativePath=".\locales\en_US\messages.pot"
+				RelativePath=".\locales\en_US\fileio.pot"
 				>
 			</File>
 		</Filter>

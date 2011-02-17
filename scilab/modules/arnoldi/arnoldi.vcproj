@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
@@ -406,10 +406,6 @@
 				RelativePath=".\includes\gw_arnoldi.h"
 				>
 			</File>
-			<File
-				RelativePath=".\src\c\resource.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -425,7 +421,7 @@
 			Name="localization"
 			>
 			<File
-				RelativePath=".\locales\en_US\messages.pot"
+				RelativePath=".\locales\en_US\arnoldi.pot"
 				>
 			</File>
 		</Filter>
