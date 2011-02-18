@@ -30,8 +30,6 @@ NON_BLOCK_C_SOURCES = ['scoGetProperty.c',
 'scoWindowScope.c',
 'affich.c',
 'DllmainScicos_blocks.c',
-'readf4.c',
-'writef4.c',
 'scicos_evalhermite.c',
 'scicos_indexfinder.c'];
 
