@@ -2164,6 +2164,13 @@ public class CallScilabBridge {
     }
 
     /**
+     * Open a Browser on Wiki Web Site
+     */
+    public static void openWikiScilabWebSite() {
+        WebBrowser.openUrl("http://wiki.scilab.org/");
+    }
+
+    /**
      * Open a Browser on ATOMS Web Site
      */
     public static void openAtomsScilabWebSite() {
@@ -2171,10 +2178,10 @@ public class CallScilabBridge {
     }
 
     /**
-     * Open a Browser on Contributions Web Site
+     * Open a Browser on File Exchange Web Site
      */
-    public static void openContributionsWebSite() {
-        WebBrowser.openUrl("http://www.scilab.org/contrib/index_contrib.php?page=howto.html");
+    public static void openFileExchange() {
+        WebBrowser.openUrl("http://fileexchange.scilab.org/");
     }
 
     /**
@@ -2182,6 +2189,13 @@ public class CallScilabBridge {
      */
     public static void openBugzillaWebSite() {
         WebBrowser.openUrl("http://bugzilla.scilab.org/");
+    }
+
+    /**
+     * Open a Browser on Forge Web Site
+     */
+    public static void openForgeWebSite() {
+        WebBrowser.openUrl("http://forge.scilab.org/");
     }
 
     /**
@@ -2195,7 +2209,7 @@ public class CallScilabBridge {
      * Open a Browser on Mailing List Archives
      */
     public static void openMailingListWebSite() {
-        WebBrowser.openUrl("http://www.scilab.org/contactus/index_contactus.php?page=mailing_lists");
+        WebBrowser.openUrl("http://www.scilab.org/communities/developer_zone/tools/mailing_list");
     }
 
     /***************************/
