@@ -1352,6 +1352,17 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     }
 
     /**
+     * Handle a filename
+     * @param attributes the tag attributes
+     * @param contents the tag contents
+     * @return the HTML code
+     * @throws SAXEception if an error is encountered
+     */
+    public String handleFilename(Map<String, String> attributes, String contents) throws SAXException {
+        return encloseContents("span", "filename", contents);
+    }
+
+    /**
      * Handle a bibliomset
      * @param attributes the tag attributes
      * @param contents the tag contents
