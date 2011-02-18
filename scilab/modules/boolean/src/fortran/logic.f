@@ -1,31 +1,31 @@
-      subroutine logic
-c     ====================================================================
-c     
-c     operations sur les booleens et matrices de booleens
-c     
-c     ====================================================================
-c     
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-c Copyright (C) INRIA
-c 
+c Copyright (C) 2000-2011  - INRIA -  S. Steer
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+      subroutine logic
+c     ====================================================================
+c
+c     operations sur les booleens et matrices de booleens
+c
+c     ====================================================================
+c
 
       INCLUDE 'stack.h'
-c     
+c
       integer quote,dot,colon
       integer less,great,equal,et,ou,non
       integer insert,extrac
 c
       character tmpbuf*(bsiz)
-c     
+c
       integer iadr,sadr,op,top0
       logical isany
-c     
+c
       data quote/53/,dot/51/,colon/44/
       data less/59/,great/60/,equal/50/
       data ou/57/,et/58/,non/61/
@@ -33,15 +33,15 @@ c
 c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
-c     
+c
       op=fin
       top0=top
-c     
+c
       if (ddt .eq. 4) then
         write(tmpbuf(1:4),'(i4)') fin
         call basout(io,wte,' logic op: '//tmpbuf(1:4))
       endif
-c     
+c
       lw=lstk(top+1)
       if(op.eq.extrac) goto 50
       if(op.eq.insert) goto 60
@@ -49,7 +49,7 @@ c
       goto (04,03,02,01) rhs
       call error(39)
       return
-c     
+c
  01   il4=iadr(lstk(top))
       if(istk(il4).lt.0) il4=iadr(istk(il4+1))
       m4=istk(il4+1)
@@ -66,7 +66,7 @@ c
          return
       endif
       top=top-1
-c     
+c
  02   il3=iadr(lstk(top))
       if(istk(il3).lt.0) il3=iadr(istk(il3+1))
       m3=istk(il3+1)
@@ -83,7 +83,7 @@ c
          return
       endif
       top=top-1
-c     
+c
  03   il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
       m2=istk(il2+1)
@@ -100,7 +100,7 @@ c
          return
       endif
       top=top-1
-c     
+c
  04   il1=iadr(lstk(top))
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       m1=istk(il1+1)
@@ -117,36 +117,36 @@ c
          return
       endif
       top=top-1
-c     
+c
 c     operations binaires et ternaires
 c     --------------------------------
-c     
+c
       top=top+1
-c     
+c
       fun = 0
-c     
+c
 c         cconc              rconc
       goto(45  ,  999  , 999  ,48 ) op
-c     
-c     
+c
+c
 c          :  +   -  * /  \
       goto(15,15,15,15,15,15,130,06,06,40,130,130) op+1-colon
       if(op.eq.quote+dot) goto 40
       if(op.eq.ou.or.op.eq.et) goto 20
       if(op.eq.non) goto 30
-c     
-      
+c
+
  06   if(op.gt.3*dot) goto 15
       if(op.ge.equal+equal) goto 130
       if(op.gt.dot) goto 15
-      
-c     
+
+c
 
 c     operations non implantees
  15   fin=-fin
       top=top0
       go to 999
-c     
+c
 c     ou/et logique
  20   m1=abs(m1)
       n1=abs(n1)
@@ -191,20 +191,20 @@ c     ou/et logique
       if(fin.eq.et) then
          do 21 k=0,n1*m1-1
             istk(il1+3+k)=istk(l1+k)*istk(l2+k)
- 21      continue  
+ 21      continue
       else
          do 22 k=0,n1*m1-1
             istk(il1+3+k)=max(istk(l1+k),istk(l2+k))
- 22      continue  
+ 22      continue
       endif
       lstk(top+1)=sadr(il1+3+m1*n1)
-c         
+c
       goto 999
 c NOT
  30   continue
       do 31 k=0,n1*m1-1
          istk(il1+3+k)=1-istk(il1+3+k)
- 31   continue  
+ 31   continue
       goto 999
 
 c     transposition
@@ -220,17 +220,17 @@ c     transposition
          call error(17)
          return
       endif
-c     
+c
       istk(il1+1)=n1
       istk(il1+2)=m1
-c     
+c
       call icopy(mn1,istk(l1),1,istk(ll),1)
       do 41 j=0,n1-1
          call icopy(m1,istk(ll+j*m1),1,istk(l1+j),n1)
  41   continue
-c     
+c
       goto 999
-c     
+c
 c     concatenation
  45   if(m1.lt.0.or.m2.lt.0) then
          call error(14)
@@ -303,9 +303,9 @@ c
       istk(il1+2)=n1
       lstk(top+1)=sadr(l1+mn)
       goto 999
-c     
+c
 c     extraction
-c     
+c
  50   continue
       if(rhs.lt.2) then
          call error(227)
@@ -333,11 +333,11 @@ c     get arg1
          top=top+1
          fin=-fin
          return
-      endif
+       endif    
       m1=istk(il1+1)
       n1=istk(il1+2)
 c
-      if(mn2.eq.0) then 
+      if(mn2.eq.0) then
 c     .  arg2=[]
          ilrs=iadr(lstk(top))
          istk(ilrs)=1
@@ -414,7 +414,7 @@ c     form resulting variable
       if(lr.ne.l1) call icopy(mi,istk(lr),1,istk(l1),1)
       lstk(top+1)=sadr(l1+mi)
       go to 999
-c     
+c
 c     arg3(arg1,arg2)
  55   continue
 c     get arg3
@@ -432,7 +432,8 @@ c     get arg2
          top=top+1
          fin=-fin
          return
-      endif
+       endif    
+
       m2=istk(il2+1)
       l2=il2+3
 c     get arg1
@@ -444,11 +445,12 @@ c     get arg1
          top=top+2
          fin=-fin
          return
-      endif
+       endif    
+
       m1=istk(il1+1)
       l1=il1+3
 
-      if(mn3.eq.0) then 
+      if(mn3.eq.0) then
 c     .  arg3=[]
          ilrs=iadr(lstk(top))
          istk(ilrs)=1
@@ -477,8 +479,8 @@ c     check and convert indices variables
       endif
 c
  56   mn=mi*nj
-      if(mn.eq.0) then 
-c     .  arg1=[] or arg2=[] 
+      if(mn.eq.0) then
+c     .  arg1=[] or arg2=[]
          ilrs=iadr(lstk(top))
          istk(ilrs)=1
          istk(ilrs+1)=0
@@ -522,7 +524,7 @@ c     form the resulting variable
       if(lr.ne.l1) call icopy(mn,istk(lr),1,istk(ilrs+3),1)
       lstk(top+1)=sadr(ilrs+3+mn)
       go to 999
-c     
+c
 c     insertion
  60   continue
       if(rhs.gt.4) then
@@ -572,11 +574,11 @@ c     get arg1
       m1=istk(il1+1)
       n1=istk(il1+2)
       l1=il1+3
-c     
+c
       if (m2.eq.0) then
 c     .  arg3(arg1)=[] -->[]
          if(m1.eq.-1) then
-c     .    arg3(:)=[] 
+c     .    arg3(:)=[]
             ilrs=iadr(lstk(top))
             istk(ilrs)=1
             istk(ilrs+1)=0
@@ -591,7 +593,7 @@ c     .     arg3([])=[]  --> arg3
             lstk(top+1)=sadr(ilrs+3+mn3)
             goto 999
          else
-c     .     arg3(arg1)=[] 
+c     .     arg3(arg1)=[]
             if(istk(il1).eq.4.and.m3.eq.m1.and.n3.eq.n1) then
                if(.not.isany(il1)) then
 c     .          arg3([])=[]  --> arg3
@@ -662,7 +664,7 @@ c     .     arg3([])=c  --> arg3
             return
          endif
       endif
-c     
+c
       if (n3.gt.1.and.m3.gt.1) then
 c     .  arg3 is not a vector
          if(n2.gt.1.and.m2.gt.1) then
@@ -713,7 +715,7 @@ c     write arg2 in r
          ls = l2+i*inc2
          istk(ll) = istk(ls)
  64   continue
-c     
+c
       ilrs=iadr(lstk(top))
       if(lr.ne.l3) then
          call icopy(mnr,istk(lr),1,istk(ilrs+3),1)
@@ -722,15 +724,15 @@ c
          istk(ilrs+2)=nr
          lstk(top+1)=sadr(ilrs+3+mnr)
       else
-c     la matrice a ete modifie sur place 
+c     la matrice a ete modifie sur place
          k=istk(iadr(lstk(top0))+2)
          top=top-1
          call setref(k)
       endif
       goto 999
 
- 65   continue 
-c     
+ 65   continue
+c
 c     arg4(arg1,arg2)=arg3
 c     get arg4
       il4=iadr(lstk(top))
@@ -819,13 +821,13 @@ c     .     arg4(arg1,arg2)=[] --> arg4(:,compl(arg2))
             call indxgc(il2,n4,ilj,nj,mxj,lw)
             if(err.gt.0) return
             if(nj.eq.0) then
-c     .        arg4(arg1,1:n4)=[] 
+c     .        arg4(arg1,1:n4)=[]
                call indxgc(il1,m4,ili,mi,mxi,lw)
                lw2=lw
                if(err.gt.0) return
 c     .        arg2=1:n3
                if(mi.eq.0) then
-c     .           arg4(1:m4,1:n4)=[] 
+c     .           arg4(1:m4,1:n4)=[]
                   ilrs=iadr(lstk(top))
                   istk(ilrs)=1
                   istk(ilrs+1)=0
@@ -834,7 +836,7 @@ c     .           arg4(1:m4,1:n4)=[]
                   lstk(top+1)=sadr(ilrs+4)+1
                   goto 999
                else
-c     .           arg4(arg1,1:n4)=[] 
+c     .           arg4(arg1,1:n4)=[]
 c     .           replace arg2 by ":"
                   il2=iadr(lw2)
                   istk(il2)=1
@@ -863,7 +865,7 @@ c               lw=lw1
                call indxgc(il1,m4,ili,mi,mxi,lw)
                if(err.gt.0) return
                if(mi.eq.0) then
-c     .           arg4(1:m4,arg2)=[] 
+c     .           arg4(1:m4,arg2)=[]
                   call indxg(il1,m4,ili,mi,mxi,lw,1)
                   if(err.gt.0) return
                   l3=l4
@@ -902,68 +904,54 @@ c     .  arg4(:,:)=arg3
             return
          elseif(mn3.eq.1) then
             ilrs=iadr(lstk(top))
-            istk(ilrs)=4
-            istk(ilrs+1)=m4
-            istk(ilrs+2)=n4
-
-            call iset(mn4,istk(l3),istk(ilrs+3),1)
-            lstk(top+1)=sadr(ilrs+3+mn4)
+            if (mn4.eq.0) then ! return an empty matrix
+               call icopy(4,istk(il4),1,istk(ilrs),1)
+               lstk(top+1)=sadr(ilrs+4)
+            else
+               istk(ilrs)=4
+               istk(ilrs+1)=m4
+               istk(ilrs+2)=n4
+               call iset(mn4,istk(il3+3),istk(ilrs+3),1)
+               lstk(top+1)=sadr(ilrs+3+mn4)
+            endif
             return
          else
             call error(15)
             return
          endif
       endif
-      init4=0
-      if(m1.eq.-1.and.m4.eq.0) then
-c     .  arg4(:,i)=arg3
-         m3=m3*n3
-         n3=1
-         n4=1
-         m4=m3
-         init4=1
-         
-      elseif(m2.eq.-1.and.m4.eq.0) then
-c     .  arg4(i,:)=arg3
-         n3=m3*n3
-         m3=1
-         m4=1
-         n4=n3
-         init4=1
-      endif
-      if(init4.eq.1) then
-         mn4=m4*n4
-         l4=iadr(lw)
-         lw=sadr(l4+ mn4)
-         err=lw-lstk(bot)
-         if(err.gt.0) then
-            call error(17)
-            return
+c
+      if(m4.eq.0.or.n4.eq.0) then !arg4==[]
+c     .  next lines to give proprer meanning to ":" before calling indxg
+         if(m1.eq.-1) then      !arg4(:,i)=arg3
+            m4=1
+         elseif(m2.eq.-1) then  !arg4(i,:)=arg3
+            n4=1
          endif
-         call iset(mn4,0,istk(l4),1)
       endif
+c
       call indxg(il1,m4,ili,mi,mxi,lw,1)
       if(err.gt.0) return
       call indxg(il2,n4,ilj,mj,mxj,lw,1)
       if(err.gt.0) return
-* the 4 following lines commented by bruno (see just after)
-c$$$      if(mi.eq.0.or.mj.eq.0) then
-c$$$         call error(15)
-c$$$         return
-c$$$      endif
       inc3=1
       if(mi.ne.m3.or.mj.ne.n3) then
 c     .  sizes of arg1 or arg2 dont agree with arg3 sizes
          if(m3*n3.eq.1) then
-* added by Bruno to have A(i,j) = boolean_scalar working
-* as usual when i or j is []
             if(mi.eq.0.or.mj.eq.0) then
-               ilrs=iadr(lstk(top))
-               call icopy(3+mn4,istk(il4),1,istk(ilrs),1)
-               lstk(top+1)=sadr(ilrs+3+mn4)
-               goto 999
+c     .        arg4(arg1,[])=arg3 or  arg4([],arg2)=arg3 or  arg4([],[]) =arg3
+c     .        -->arg4
+              if (istk(il4+1).eq.0) then
+                  call icopy(4,istk(il4),1,istk(ilrs),1)
+                  lstk(top+1)=sadr(ilrs+4)
+                  goto 999
+               else
+                  ilrs=iadr(lstk(top))
+                  call icopy(3+mn4,istk(il4),1,istk(ilrs),1)
+                  lstk(top+1)=sadr(ilrs+3+mn4)
+                  goto 999
+               endif
             else
-* end of the add on *************************************
                inc3=0
             endif
          else
@@ -993,7 +981,7 @@ c     .  copy arg4 in r
       else
          lr=l4
       endif
-c     
+c
 c     copy arg3 elements in r
       do 69 j = 0, mj-1
          ljj =  istk(ilj+j) - 1
@@ -1003,7 +991,7 @@ c     copy arg3 elements in r
             istk(ll) = istk(ls)
  68     continue
  69   continue
-c     
+c
       ilrs=iadr(lstk(top))
       if(lr.ne.l4.or.init4.ne.0) then
          call icopy(mnr,istk(lr),1,istk(ilrs+3),1)
@@ -1012,7 +1000,7 @@ c
          istk(ilrs+2)=nr
          lstk(top+1)=sadr(ilrs+3+mnr)
       else
-c     la matrice a ete modifie sur place 
+c     la matrice a ete modifie sur place
          k=istk(iadr(lstk(top0))+2)
          top=top-1
          call setref(k)
@@ -1020,7 +1008,7 @@ c     la matrice a ete modifie sur place
       goto 999
 
 c     comparaisons
-c     
+c
  130  continue
       itrue=1
       if(op.eq.less+great) itrue=0
@@ -1082,6 +1070,6 @@ c
       istk(il1+2)=n1
       lstk(top+1)=sadr(il1+3+mn1)
       goto 999
-c     
+c
  999  return
       end

@@ -7,7 +7,7 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function M=%sp_i_s(varargin)
+function M=%spb_i_s(varargin)
 // %sp_i_s(i,j,b,a) insert sparse matrix b into full matrix a
 // M(i,j)=b
 //!

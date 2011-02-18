@@ -1,6 +1,6 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-c Copyright (C) INRIA
-c Copyright (C) DIGITEO - 2010 - Allan CORNET
+c Copyright (C) 1990-2011  - INRIA -  S. Steer
+c Copyright (C)  2010 - DIGITEO - Allan CORNET
 c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
@@ -9,17 +9,17 @@ c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
       subroutine matins2
-c     
+c
 c     A(i,j)=B
 
       include 'stack.h'
-c     
+c
       integer top0
       integer iadr,sadr
-c     
+c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
-c     
+c
       top0=top
       lw=lstk(top+1)+1
 
@@ -40,7 +40,7 @@ c
       l3=sadr(il3+4)
       mn3=m3*n3
       top=top-1
-c     
+c
       il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
       m2=istk(il2+1)
@@ -49,7 +49,7 @@ c
       l2=sadr(il2+4)
       mn2=m2*n2
       top=top-1
-c     
+c
       il1=iadr(lstk(top))
       ilrs=il1
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
@@ -108,18 +108,18 @@ c     .     arg4(:,arg2)=[] --> arg4(:,compl(arg2))
 c     .     call extraction
             goto 90
          else
-c     .     arg4(arg1,arg2)=[] 
+c     .     arg4(arg1,arg2)=[]
             lw1=lw
             call indxgc(il2,n4,ilj,nj,mxj,lw)
             if(err.gt.0) return
             if(nj.eq.0) then
-c     .        arg4(arg1,1:n4)=[] 
+c     .        arg4(arg1,1:n4)=[]
                call indxgc(il1,m4,ili,mi,mxi,lw)
                lw2=lw
                if(err.gt.0) return
 
                if(mi.eq.0) then
-c     .           arg4(1:m4,1:n4)=[] 
+c     .           arg4(1:m4,1:n4)=[]
                   istk(ilrs)=1
                   istk(ilrs+1)=0
                   istk(ilrs+2)=0
@@ -127,7 +127,7 @@ c     .           arg4(1:m4,1:n4)=[]
                   lstk(top+1)=sadr(ilrs+4)
                   return
                else
-c     .           arg4(arg1,1:n4)=[] 
+c     .           arg4(arg1,1:n4)=[]
 c     .           replace arg2 by ":"
                   il2=iadr(lw2)
                   istk(il2)=1
@@ -158,7 +158,7 @@ c              arg4(arg1,[])=[] --> arg4
                if(err.gt.0) return
 
                if(mi.eq.0) then
-c     .           arg4(1:m4,arg2)=[] 
+c     .           arg4(1:m4,arg2)=[]
                   call indxg(il1,m4,ili,mi,mxi,lw,1)
                   if(err.gt.0) return
                   l3=l4
@@ -216,34 +216,16 @@ c     .     set all elements of arg4 to arg3
          endif
 
       endif
-      init4=0
-      if(m1.eq.-1.and.m4.eq.0) then
-c     .  arg4(:,i)=arg3
-         m3=m3*n3
-         n3=1
-         n4=1
-         m4=m3
-         init4=1
-         
-      elseif(m2.eq.-1.and.m4.eq.0) then
-c     .  arg4(i,:)=arg3
-         n3=m3*n3
-         m3=1
-         m4=1
-         n4=n3
-         init4=1
-      endif
-      if(init4.eq.1) then
-         err=lw-lstk(bot)
-         if(err.gt.0) then
-            call error(17)
-            return
+c
+      if(m4.eq.0.or.n4.eq.0) then !arg4==[]
+c     .  next lines to give proprer meanning to ":" before calling indxg
+         if(m1.eq.-1) then      !arg4(:,i)=arg3
+            m4=1
+         elseif(m2.eq.-1) then  !arg4(i,:)=arg3
+            n4=1
          endif
-         mn4=m4*n4
-         l4=lw
-         lw=l4+ mn4
-         call dset(mn4,0.0d0,stk(l4),1)
       endif
+c
       call indxg(il1,m4,ili,mi,mxi,lw,1)
       if(err.gt.0) return
       call indxg(il2,n4,ilj,mj,mxj,lw,1)
@@ -280,7 +262,7 @@ c
          lr=lw
          lw=lr + mnr*(itr+1)
          err = lw - lstk(bot)
-c        lw must > 0         
+c        lw must > 0
          if (err .gt. 0 .or. lw .le. 0) then
             call error(17)
             return
@@ -297,7 +279,7 @@ c     .  copy arg4 in r
       else
          lr=l4
       endif
-c     
+c
 c     copy arg3 elements in r
       do 115 j = 0, mj-1
          ljj =  istk(ilj+j) - 1
@@ -307,7 +289,7 @@ c     copy arg3 elements in r
 c           check ll and ls values
             if (ll.le.0.or.ls.le.0) then
               call error(17)
-              return 
+              return
             endif
             stk(ll) = stk(ls)
             if(it3.eq.1) then
@@ -317,7 +299,7 @@ c           check ll and ls values
             endif
  114     continue
  115  continue
-c     
+c
       if(lr.ne.l4.or.init4.ne.0) then
          l1=sadr(ilrs+4)
          call unsfdcopy(mnr*(itr+1),stk(lr),1,stk(l1),1)
@@ -327,7 +309,7 @@ c
          istk(ilrs+3)=itr
          lstk(top+1)=l1+mnr*(itr+1)
       else
-c     la matrice a ete modifie sur place 
+c     la matrice a ete modifie sur place
          k=istk(iadr(lstk(top0))+2)
          top=top-1
          call setref(k)
@@ -336,8 +318,8 @@ c     la matrice a ete modifie sur place
       return
 c     inline extraction procedure copied from matext2
  90   mn=mi*nj
-      if(mn.eq.0) then 
-c     .  arg1=[] or arg2=[] 
+      if(mn.eq.0) then
+c     .  arg1=[] or arg2=[]
          ilrs=iadr(lstk(top))
          istk(ilrs)=1
          istk(ilrs+1)=0
@@ -383,4 +365,3 @@ c     form the resulting variable
 
       end
 
-c			================================================

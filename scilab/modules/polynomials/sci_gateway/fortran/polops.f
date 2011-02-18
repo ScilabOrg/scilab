@@ -1,5 +1,6 @@
 c     Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-c     Copyright (C) ????-2008 - INRIA
+c     Copyright (C) 1990-2011  - INRIA -  S. Steer
+c     Copyright (C) 1990-2000  - INRIA -  C. Kliman
 c
 c     This file must be used under the terms of the CeCILL.
 c     This source file is licensed as described in the file COPYING,
@@ -9,13 +10,11 @@ c     are also available at
 c     http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
       subroutine polops
 c     =================================================================
-c     ===
 c
 c     operations on polynomial matrices
 c
 c     =================================================================
-c     ===
-c
+
       include 'stack.h'
 c
 
@@ -1286,59 +1285,43 @@ c     .  arg3=eye , arg4=eye
          return
       elseif(m1.eq.-1.and.m2.eq.-1) then
 c     .  arg4(:,:)=arg3
-         if(mn3.ne.mn4) then
-            if(mn3.eq.1) goto 125
+         if(mn3.eq.mn4) then
+c     .    reshape arg3 according to arg4
+            volr=istk(id3+mn3)-1
+            istk(ilrs)=2
+            istk(ilrs+1)=m4
+            istk(ilrs+2)=n4
+            istk(ilrs+3)=it3
+            call icopy(4,var3,1,istk(ilrs+4),1)
+            call icopy(mn3+1,istk(id3),1,istk(ilrs+8),1)
+            l1=sadr(ilrs+9+mn3)
+            call unsfdcopy(volr*(it3+1),stk(l3r),1,stk(l1),1)
+            lstk(top+1)=l1+volr*(it3+1)
+            goto 999
+         elseif(mn3.eq.1) then  !insertion of scalar
+c     .     set all elements of arg4 to arg3
+            if (mn4.eq.0) then  ! arg4==[] return an empty matrix
+               call icopy(4,istk(il4),1,istk(il1),1)
+               lstk(top+1)=sadr(il1+4)
+            else                ! set all elements of arg4 to arg3
+               goto 125
+            endif      
+         else
             call error(15)
             return
+         endif         
+      endif
+c
+      if(m4.eq.0.or.n4.eq.0) then !arg4==[]
+c     .  next lines to give proprer meanning to ":" before calling indxg
+         if(m1.eq.-1) then      !arg4(:,i)=arg3
+            m4=1
+         elseif(m2.eq.-1) then  !arg4(i,:)=arg3
+            n4=1
          endif
-c     .  reshape arg3 according to arg4
-         volr=istk(id3+mn3)-1
-         istk(ilrs)=2
-         istk(ilrs+1)=m4
-         istk(ilrs+2)=n4
-         istk(ilrs+3)=it3
-         call icopy(4,var3,1,istk(ilrs+4),1)
-         call icopy(mn3+1,istk(id3),1,istk(ilrs+8),1)
-         l1=sadr(ilrs+9+mn3)
-         call unsfdcopy(volr*(it3+1),stk(l3r),1,stk(l1),1)
-         lstk(top+1)=l1+volr*(it3+1)
-         goto 999
       endif
-
- 125  continue
-      init4=0
-      if(m1.eq.-1.and.m4.eq.0) then
-c     .  arg4(:,i)=arg3
-         m3=m3*n3
-         n3=1
-         n4=1
-         m4=m3
-         init4=1
-
-      elseif(m2.eq.-1.and.m4.eq.0) then
-c     .  arg4(i,:)=arg3
-         n3=m3*n3
-         m3=1
-         m4=1
-         n4=n3
-         init4=1
-      endif
-      if(init4.eq.1) then
-
-         mn4=m4*n4
-         l4r=lw
-         l4i=l4r+mn4
-         id4=iadr(l4i)
-         lw=sadr(id4+mn4+1)
-         err=lw-lstk(bot)
-         if(err.gt.0) then
-            call error(17)
-            return
-         endif
-         call dset(mn4,0.0d0,stk(l4r),1)
-         call ivimp(1,mn4+1,1,istk(id4))
-      endif
-      call indxg(il1,m4,ili,mi,mxi,lw,1)
+c
+ 125  call indxg(il1,m4,ili,mi,mxi,lw,1)
       if(err.gt.0) return
       call indxg(il2,n4,ilj,mj,mxj,lw,1)
       if(err.gt.0) return
@@ -1347,17 +1330,25 @@ c     .  sizes of arg1 or arg2 dont agree with arg3 sizes
          inc3=1
          if(mn3.eq.1) then
             if(mi.eq.0.or.mj.eq.0) then
-               volr=istk(id4+mn4)-1
-               istk(ilrs)=2
-               istk(ilrs+1)=m4
-               istk(ilrs+2)=n4
-               istk(ilrs+3)=it4
-               call icopy(4,var3,1,istk(ilrs+4),1)
-               call icopy(mn4+1,istk(id4),1,istk(ilrs+8),1)
-               l1=sadr(ilrs+9+mn4)
-               call unsfdcopy(volr*(it4+1),stk(l4r),1,stk(l1),1)
-               lstk(top+1)=l1+volr*(it4+1)
-               goto 999
+c     .        arg4(arg1,[])=arg3 or  arg4([],arg2)=arg3 or  arg4([],[]) =arg3 
+c     .        -->arg4
+               if (istk(il4+1).eq.0) then
+                  call icopy(4,istk(il4),1,istk(ilrs),1)
+                  lstk(top+1)=sadr(ilrs+4)
+                  goto 999
+               else
+                  volr=istk(id4+mn4)-1
+                  istk(ilrs)=2
+                  istk(ilrs+1)=m4
+                  istk(ilrs+2)=n4
+                  istk(ilrs+3)=it4
+                  call icopy(4,var3,1,istk(ilrs+4),1)
+                  call icopy(mn4+1,istk(id4),1,istk(ilrs+8),1)
+                  l1=sadr(ilrs+9+mn4)
+                  call unsfdcopy(volr*(it4+1),stk(l4r),1,stk(l1),1)
+                  lstk(top+1)=l1+volr*(it4+1)
+                  goto 999
+               endif
             endif
             inc3=0
          else
@@ -1644,6 +1635,7 @@ c     get arg1
          fin=-fin
          return
       endif
+ 
       m1=istk(il1+1)
 c
       if(mn3.eq.0) then

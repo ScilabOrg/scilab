@@ -1,10 +1,10 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-c Copyright (C) INRIA
-c 
+c Copyright (C) 2000-2011  - INRIA -  S. Steer
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
       subroutine i_i_i
@@ -16,10 +16,10 @@ c     insertion
       external memused
       integer memused
       integer iadr,sadr
-c     
+c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
-c     
+c
       top0=top
       lw=lstk(top+1)
       if(rhs.gt.4) then
@@ -41,7 +41,7 @@ c
       l3=il3+4
       mn3=m3*n3
       top=top-1
-c     
+c
       il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
       ityp2=istk(il2)
@@ -51,8 +51,9 @@ c
       l2=il2+4
       mn2=m2*n2
       top=top-1
-c     
+c
       il1=iadr(lstk(top))
+      ilrs=il1
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       if (istk(il1).eq.10.or.istk(il1).eq.15) then
          top=top0
@@ -76,7 +77,7 @@ c
          goto 10
       endif
 
-      if(it2.ne.it3.or.istk(il3).ne.istk(il2)) then 
+      if(it2.ne.it3.or.istk(il3).ne.istk(il2)) then
          top=top0
          fin=-fin
          return
@@ -86,7 +87,7 @@ c
  10   if (m2.eq.0) then
 c     .  arg3(arg1)=[] -->[]
          if(m1.eq.-1) then
-c     .    arg3(:)=[] 
+c     .    arg3(:)=[]
             istk(il1)=1
             istk(il1+1)=0
             istk(il1+2)=0
@@ -156,7 +157,7 @@ c     .  arg3([])=c  --> arg3
          else
             call error(15)
             return
-         endif  
+         endif
       endif
       inc2=1
       if(mi.ne.mn2) then
@@ -167,7 +168,7 @@ c     .  arg3([])=c  --> arg3
             return
          endif
       endif
-c     
+c
       if (n3.gt.1.and.m3.gt.1) then
 c     .  arg3 is not a vector
          if(n2.gt.1.and.m2.gt.1) then
@@ -214,7 +215,7 @@ c     .  initialise result r to 0 and write arg3 in r
       endif
 c     write arg2 in r
       call geninsert1(it3,mi,istk(ili),istk(lr),istk(l2),inc2)
-c     
+c
       if(lr.ne.l3.or..not.ref) then
          l1=il1+4
          call gencopy(it3,mnr,istk(lr),1,istk(l1),1)
@@ -225,7 +226,7 @@ c
          istk(il1+3)=it3
       else
 
-c     la matrice a ete modifie sur place 
+c     la matrice a ete modifie sur place
          k=istk(iadr(lstk(top0))+2)
          istk(il1)=-ityp
          istk(il1+1)=-1
@@ -235,21 +236,21 @@ c     la matrice a ete modifie sur place
       goto 999
 
  100  continue
-c     
+c
 c     arg4(arg1,arg2)=arg3
 
- 01   il4=iadr(lstk(top))
+      il4=iadr(lstk(top))
       ref=istk(il4).lt.0
       if(ref) il4=iadr(istk(il4+1))
-      
+
       m4=istk(il4+1)
       n4=istk(il4+2)
       it4=istk(il4+3)
       l4=il4+4
       mn4=m4*n4
       top=top-1
-c     
- 02   il3=iadr(lstk(top))
+c
+      il3=iadr(lstk(top))
       if(istk(il3).lt.0) il3=iadr(istk(il3+1))
       m3=istk(il3+1)
       n3=istk(il3+2)
@@ -257,8 +258,8 @@ c
       l3=il3+4
       mn3=m3*n3
       top=top-1
-c     
- 03   il2=iadr(lstk(top))
+c
+      il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
       m2=istk(il2+1)
       n2=istk(il2+2)
@@ -266,8 +267,9 @@ c
       l2=sadr(il2+4)
       mn2=m2*n2
       top=top-1
-c     
- 04   il1=iadr(lstk(top))
+c
+      il1=iadr(lstk(top))
+      ilrs=il1
       if(istk(il1).lt.0) il1=iadr(istk(il1+1))
       m1=istk(il1+1)
       n1=istk(il1+2)
@@ -279,7 +281,7 @@ c
          if(istk(il4).eq.1.and.mn4.eq.0) then
             ityp=istk(il3)
             it4=it3
-         elseif(it3.ne.it4.or.istk(il3).ne.istk(il4))then 
+         elseif(it3.ne.it4.or.istk(il3).ne.istk(il4))then
             top=top0
             fin=-fin
             return
@@ -333,18 +335,18 @@ c     .     arg4(:,arg2)=[] --> arg4(:,compl(arg2))
 c     .     call extraction
             goto 90
          else
-c     .     arg4(arg1,arg2)=[] 
+c     .     arg4(arg1,arg2)=[]
             lw1=lw
             call indxgc(il2,n4,ilj,nj,mxj,lw)
             if(err.gt.0) return
             if(nj.eq.0) then
-c     .        arg4(arg1,1:n4)=[] 
+c     .        arg4(arg1,1:n4)=[]
                call indxgc(il1,m4,ili,mi,mxi,lw)
                lw2=lw
                if(err.gt.0) return
 
                if(mi.eq.0) then
-c     .           arg4(1:m4,1:n4)=[] 
+c     .           arg4(1:m4,1:n4)=[]
                   istk(il1)=1
                   istk(il1+1)=0
                   istk(il1+2)=0
@@ -352,7 +354,7 @@ c     .           arg4(1:m4,1:n4)=[]
                   lstk(top+1)=sadr(il1+4)
                   goto 999
                else
-c     .           arg4(arg1,1:n4)=[] 
+c     .           arg4(arg1,1:n4)=[]
 c     .           replace arg2 by ":"
                   il2=iadr(lw2)
                   istk(il2)=1
@@ -382,7 +384,7 @@ c             arg4(arg1,[])=[] --> arg4
                call indxgc(il1,m4,ili,mi,mxi,lw)
                if(err.gt.0) return
                if(mi.eq.0) then
-c     .           arg4(1:m4,arg2)=[] 
+c     .           arg4(1:m4,arg2)=[]
                   call indxg(il1,m4,ili,mi,mxi,lw,1)
                   if(err.gt.0) return
                   l3=l4
@@ -423,51 +425,35 @@ c     .     reshape arg3 according to arg4
             call gencopy(it3,mn4,istk(l3),1,istk(l1),1)
             lstk(top+1)=sadr(l1+memused(it3,mn4))
             return
-         elseif(mn3.eq.1) then
-c     .     set all elements of arg4 to arg3
-            istk(il1)=ityp
-            istk(il1+1)=m4
-            istk(il1+2)=n4
-            istk(il1+3)=it3
-            l1=il1+4
-            call genset(it3,mn4,istk(l3),istk(l1),1)
-            lstk(top+1)=sadr(l1+memused(it3,mn4))
+         elseif(mn3.eq.1) then !insertion of scalar
+            if (mn4.eq.0) then  ! arg4==[] return an empty matrix
+               call icopy(4,istk(il4),1,istk(il1),1)
+               lstk(top+1)=sadr(il1+4)
+            else                ! set all elements of arg4 to arg3
+               istk(il1)=ityp
+               istk(il1+1)=m4
+               istk(il1+2)=n4
+               istk(il1+3)=it3
+               l1=il1+4
+               call genset(it3,mn4,istk(l3),istk(l1),1)
+               lstk(top+1)=sadr(l1+memused(it3,mn4))
+            endif
             return
          else
             call error(15)
             return
          endif
       endif
-
-      init4=0
-      if(m1.eq.-1.and.m4.eq.0) then
-c     .  arg4(:,i)=arg3
-         m3=m3*n3
-         n3=1
-         n4=1
-         m4=m3
-         init4=1
-         
-      elseif(m2.eq.-1.and.m4.eq.0) then
-c     .  arg4(i,:)=arg3
-         n3=m3*n3
-         m3=1
-         m4=1
-         n4=n3
-         init4=1
-      endif
-      if(init4.eq.1) then
-         mn4=m4*n4
-         l4=iadr(lw)
-         lw=sadr(l4+ mn4)
-         err=lw-lstk(bot)
-         if(err.gt.0) then
-            call error(17)
-            return
+c
+      if(m4.eq.0.or.n4.eq.0) then !arg4==[]
+c     .  next lines to give proprer meanning to ":" before calling indxg
+         if(m1.eq.-1) then      !arg4(:,i)=arg3
+            m4=1
+         elseif(m2.eq.-1) then  !arg4(i,:)=arg3
+            n4=1
          endif
-         call tpconv(4,it4,1,0,1,is2,1)
-         call genset(it4,mn4,is2,istk(l4),1)
       endif
+c
       call indxg(il1,m4,ili,mi,mxi,lw,1)
       if(err.gt.0) return
       call indxg(il2,n4,ilj,mj,mxj,lw,1)
@@ -475,13 +461,21 @@ c     .  arg4(i,:)=arg3
       inc3=1
       if(mi.ne.m3.or.mj.ne.n3) then
 c     .  sizes of arg1 or arg2 dont agree with arg3 sizes
-         if(m3*n3.eq.1) then
+         if(m3*n3.eq.1) then !insertion of scalar
             if(mi.eq.0.or.mj.eq.0) then
-               call icopy(4,istk(il4),1,istk(il1),1)
-               l=il1+4
-               call gencopy(it4,mn4,istk(l4),1,istk(l),1)
-               lstk(top+1)=sadr(l+memused(it4,mn4))
-               goto 999
+c     .        arg4(arg1,[])=arg3 or  arg4([],arg2)=arg3 or  arg4([],[]) =arg3
+c     .        -->arg4
+               if (istk(il4+1).eq.0) then !arg4=[] -> []
+                  call icopy(4,istk(il4),1,istk(ilrs),1)
+                  lstk(top+1)=sadr(ilrs+4)
+                  goto 999
+               else
+                  call icopy(4,istk(il4),1,istk(ilrs),1)
+                  l=ilrs+4
+                  call gencopy(it4,mn4,istk(l4),1,istk(l),1)
+                  lstk(top+1)=sadr(l+memused(it4,mn4))
+                  goto 999
+               endif
             endif
             inc3=0
          else
@@ -518,11 +512,11 @@ c     .  copy arg4 in r
       else
          lr=l4
       endif
-c     
+c
 c     copy arg3 elements in r
       call geninsert2(it4,mj,mi,istk(ilj),istk(ili),istk(lr),mr,
      $        istk(l3),m3,inc3)
-c     
+c
       if(lr.ne.l4.or..not.ref.or.init4.ne.0) then
          l1=il1+4
          call gencopy(it4,mnr,istk(lr),1,istk(l1),1)
@@ -532,7 +526,7 @@ c
          istk(il1+2)=nr
          istk(il1+3)=it4
       else
-c     la matrice a ete modifie sur place 
+c     la matrice a ete modifie sur place
          k=istk(iadr(lstk(top0))+2)
          istk(il1)=-1
          istk(il1+1)=-1
@@ -541,7 +535,7 @@ c     la matrice a ete modifie sur place
       endif
       goto 999
 c
-c     inline extraction code 
+c     inline extraction code
  79   if(mi.eq.0) then
 c     arg2([])
          il1=iadr(lstk(top))
@@ -570,7 +564,6 @@ c     get memory for the result
 c     perform extraction
       call genextrac1(it2,mi,istk(ilr),istk(l2),istk(lr))
 
- 81   continue
 c     set output sizes
       if (m2.eq.1.and.n2.eq.1.and.m1.gt.0) then
          m = m1
@@ -596,8 +589,8 @@ c     form resulting variable
  90   continue
 c     inline extraction code
       mn=mi*nj
-      if(mn.eq.0) then 
-c     .  arg1=[] or arg2=[] 
+      if(mn.eq.0) then
+c     .  arg1=[] or arg2=[]
          il1=iadr(lstk(top))
          istk(il1)=1
          istk(il1+1)=0

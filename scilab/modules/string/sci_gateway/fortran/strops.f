@@ -1,6 +1,6 @@
 c     Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-c     Copyright (C) INRIA
-c     
+c     Copyright (C) 1990-2011  - INRIA -  S. Steer
+c
 c     This file must be used under the terms of the CeCILL.
 c     This source file is licensed as described in the file COPYING,
 c     which
@@ -10,9 +10,9 @@ c     http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
       subroutine strops
 c     =================================================================
-c     
+c
 c     operations sur les matrices de chaines de caracteres
-c     
+c
 c     =================================================================
 c
 c     Copyright INRIA
@@ -635,65 +635,61 @@ c     .  arg3=eye , arg4=eye
          return
       elseif(m1.eq.-1.and.m2.eq.-1) then
 c     .  arg4(:,:)=arg3
-         if(mn3.ne.mn4) then
-            if(mn3.eq.1) goto 127
+         if(mn3.eq.mn4) then
+c     .     reshape arg3 according to arg4
+            istk(ilrs)=10
+            istk(ilrs+1)=m4
+            istk(ilrs+2)=n4
+            istk(ilrs+3)=0
+            volr=istk(id3+mn3)-1
+            call icopy(mn3+1+volr,istk(id3),1,istk(ilrs+4),1)
+            lstk(top+1)=sadr(ilrs+5+mn3+volr)
+            return
+         elseif(mn3.eq.1) then !insertion of scalar
+c     .     set all elements of arg4 to arg3
+            if (mn4.eq.0) then   ! arg4==[] return an empty matrix
+               call icopy(4,istk(il4),1,istk(il1),1)
+               lstk(top+1)=sadr(il1+4)
+            else                 ! set all elements of arg4 to arg3
+               goto 127
+            endif
+         else
             call error(15)
             return
          endif
-c     .  reshape arg3 according to arg4
-         istk(ilrs)=10
-         istk(ilrs+1)=m4
-         istk(ilrs+2)=n4
-         istk(ilrs+3)=0
-         volr=istk(id3+mn3)-1
-         call icopy(mn3+1+volr,istk(id3),1,istk(ilrs+4),1)
-         lstk(top+1)=sadr(ilrs+5+mn3+volr)
-         goto 999
       endif
-
- 127  continue
-      init4=0
-      if(m1.eq.-1.and.m4.eq.0) then
-c     .  arg4(:,i)=arg3
-         m3=m3*n3
-         n3=1
-         n4=1
-         m4=m3
-         init4=1
-      elseif(m2.eq.-1.and.m4.eq.0) then
-c     .  arg4(i,:)=arg3
-         n3=m3*n3
-         m3=1
-         m4=1
-         n4=n3
-         init4=1
-      endif
-      if(init4.eq.1) then
-         mn4=m4*n4
-         l4r=iadr(lw)
-         id4=l4r
-         lw=sadr(id4+mn4+1)
-         err=lw-lstk(bot)
-         if(err.gt.0) then
-            call error(17)
-            return
+c
+      if(m4.eq.0.or.n4.eq.0) then !arg4==[]
+c     .  next lines to give proprer meanning to ":" before calling indxg
+         if(m1.eq.-1) then      !arg4(:,i)=arg3
+            m4=1
+         elseif(m2.eq.-1) then  !arg4(i,:)=arg3
+            n4=1
          endif
-         call ivimp(1,mn4+1,1,istk(id4))
       endif
+c
+ 127  continue
       call indxg(il1,m4,ili,mi,mxi,lw,1)
       if(err.gt.0) return
       call indxg(il2,n4,ilj,mj,mxj,lw,1)
       if(err.gt.0) return
       if(mi.ne.m3.or.mj.ne.n3) then
-         if(m3*n3.eq.1) then
-            if(mi.eq.0.or.mj.eq.0) then
-               istk(ilrs)=10
-               istk(ilrs+1)=m4
-               istk(ilrs+2)=n4
-               istk(ilrs+3)=0
-               volr=istk(id4+mn4)-1
-               call icopy(mn4+volr,istk(id4),1,istk(ilrs+4),1)
-               lstk(top+1)=sadr(ilrs+5+mn4+volr)
+c     .  sizes of arg1 or arg2 dont agree with arg3 sizes
+         if(m3*n3.eq.1) then !insertion of scalar
+            if(mi.eq.0.or.mj.eq.0) then ! return arg4
+               if (istk(il4+1).eq.0) then  ! arg4==[] return an empty matrix
+                  call icopy(4,istk(il4),1,istk(ilrs),1)
+                  lstk(top+1)=sadr(ilrs+4)
+                  goto 999
+               else ! return arg4
+                  istk(ilrs)=10
+                  istk(ilrs+1)=m4
+                  istk(ilrs+2)=n4
+                  istk(ilrs+3)=0
+                  volr=istk(id4+mn4)-1
+                  call icopy(mn4+volr,istk(id4),1,istk(ilrs+4),1)
+                  lstk(top+1)=sadr(ilrs+5+mn4+volr)
+               endif
                goto 999
             endif
          else
@@ -778,6 +774,7 @@ c     get arg1
          fin=-fin
          return
       endif
+
       m1=istk(il1+1)
       n1=istk(il1+2)
 
@@ -896,11 +893,12 @@ c     get arg2
       top=top-1
       il2=iadr(lstk(top))
       if(istk(il2).lt.0) il2=iadr(istk(il2+1))
-      if (istk(il2).eq.17.) then
+      if (istk(il2).eq.17) then
          top=top+1
          fin=-fin
          return
       endif
+
       m2=istk(il2+1)
 c     get arg1
       top=top-1
