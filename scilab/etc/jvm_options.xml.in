@@ -40,4 +40,8 @@ $SCILAB : scilab path (SCI in Scilab)
 @JAVA_DEBUG_OPTIONS@
 
 <!-- comments -->
+
+<!-- Set the splash screen -->
+<splashscreen filename="$SCILAB/modules/gui/images/splashscreen/scilab_splashscreen.png" />
+
 </jvm_options>
