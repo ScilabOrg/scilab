@@ -338,7 +338,8 @@ images/icons/zoom-fit-drawing.png \
 images/icons/zoom-fit-selection.png \
 images/icons/zoom-in.png \
 images/icons/zoom-original.png \
-images/icons/zoom-out.png
+images/icons/zoom-out.png \
+images/splashscreen/scilab_splashscreen.png
 
 if GUI
 USEANT=1

@@ -94,7 +94,8 @@ src/c/catchIfJavaException.c \
 src/c/loadLibrarypath.c \
 src/c/getLibrarypath.c \
 src/c/addToLibrarypath.c \
-src/c/getJvmOptions.c
+src/c/getJvmOptions.c \
+src/c/JVM_splashscreen.c
 
 libscijvm_disable_la_SOURCES = src/nojvm/nojvm.c
 libscijvm_disable_la_CFLAGS = -I$(srcdir)/includes/ \
