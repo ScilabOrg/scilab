@@ -153,6 +153,8 @@ in the status bar of Scinotes.
 Xcos:
 =====
 
+* Block parameter errors, add a specific display function.
+
 * Many improvements on the english documentation of Xcos (better description
   of the blocks, arguments, etc). Many thanks to Bernard Dujardin.
 
