@@ -42,7 +42,7 @@ import com.mxgraph.model.mxGeometry;
 class BlockGraphicElement extends BlockPartsElement {
 	private static final List<String> DATA_FIELD_NAMES = asList(
 			"graphics", "orig", "sz", "flip", "theta", "exprs", "pin", "pout",
-			"pein", "peout", "gr_i", "id", "in_implicit", "out_implicit");
+			"pein", "peout", "gr_i", "id", "in_implicit", "out_implicit", "in_style", "out_style");
 	
 	private static final int ORIGIN_INDEX = 1;
 	private static final int DIMS_INDEX = 2;
@@ -240,6 +240,20 @@ class BlockGraphicElement extends BlockPartsElement {
 				&& !isEmptyField(data.get(field))) {
 			throw new WrongTypeException(DATA_FIELD_NAMES, field);
 		}
+		
+		// in_style
+		field++;
+		if (!(data.get(field) instanceof ScilabString)
+				&& !isEmptyField(data.get(field))) {
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
+		}
+
+		// out_style
+		field++;
+		if (!(data.get(field) instanceof ScilabString)
+				&& !isEmptyField(data.get(field))) {
+			throw new WrongTypeException(DATA_FIELD_NAMES, field);
+		}
 	}
 	// CSON: CyclomaticComplexity
 	// CSON: NPathComplexity
@@ -428,6 +442,8 @@ class BlockGraphicElement extends BlockPartsElement {
 		 */
 		field++; // in_implicit
 		field++; // out_implicit
+		field++; // in_style
+		field++; // out_style
 		
 		data = (ScilabMList) afterEncode(from, data);
 		
@@ -474,6 +490,8 @@ class BlockGraphicElement extends BlockPartsElement {
 		element.add(new ScilabString("")); // id
 		addSizedPortVector(element, ScilabString.class, getInSize()); // in_implicit
 		addSizedPortVector(element, ScilabString.class, getOutSize()); // out_implicit
+		addSizedPortVector(element, ScilabString.class, getInSize()); // in_style
+		addSizedPortVector(element, ScilabString.class, getOutSize()); // out_style
 		return element;
 	}
 }
