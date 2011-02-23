@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - DIGITEO - Manuel JULIACHS
+ * Copyright (C) 2010-2011 - DIGITEO - Manuel JULIACHS
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -165,6 +165,17 @@ public class Font {
 	 */
 	public void setStyle(Integer style) {
 		this.style = style;
+	}
+
+	/**
+	 * Sets the font properties to those of a source font object
+	 * @param font the source font
+	 */
+	public void setProperties(Font font) {
+		style = font.style;
+		size = font.size;
+		color = font.color;
+		fractional = font.fractional;
 	}
 
 }
