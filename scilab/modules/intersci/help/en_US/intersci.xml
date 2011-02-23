@@ -39,7 +39,7 @@
     <para>Refer to intersci documentation for more details.</para>
     <para>Note that this feature is obsolete and unsupported and will be replaced by a Scilab SWIG wrapper in an upcoming version.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -37,15 +37,15 @@
 [s,w] = powershell('ls');
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="unix">unix</link>
       </member>
-           <member>
+      <member>
         <link linkend="dos">dos</link>
-      </member> 
+      </member>
     </simplelist>
   </refsection>
   <refsection>

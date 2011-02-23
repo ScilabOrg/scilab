@@ -57,14 +57,12 @@ val=h.prop</synopsis>
     graphics entity or a GUI object. In this case it is equivalent to use the dot operator on an handle.
 	For exemple, <literal>get(h,"background")</literal> is equivalent to <literal>h.background</literal>.
 	</para>
-	<para>Property names are character strings. To get the list of all existing properties
+    <para>Property names are character strings. To get the list of all existing properties
 	see <link linkend="graphics_entities">graphics_entities</link> or <link linkend="uicontrol">uicontrol</link>
 	for User Interface objects.</para>
-	
-	<para>
-	<literal>get</literal> function can be also called with only a property as argument. In this case,
+    <para><literal>get</literal> function can be also called with only a property as argument. In this case,
 	the property must be one of the following:</para>
-	<variablelist>
+    <variablelist>
       <varlistentry>
         <term>current_entity or hdl</term>
         <listitem>
@@ -74,7 +72,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>current_figure</term>
         <listitem>
           <para>returns a handle on the current graphic figure.
@@ -82,7 +80,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>current_axes</term>
         <listitem>
           <para>returns a handle on the current axes entity.
@@ -90,7 +88,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>default_figure</term>
         <listitem>
           <para>returns a handle on the default figure entity.
@@ -98,7 +96,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>default_axes</term>
         <listitem>
           <para>returns a handle on the default axes entity.
@@ -106,7 +104,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>figures_id</term>
         <listitem>
           <para>returns a row vector containing ids of all opened graphic figures.
@@ -114,7 +112,7 @@ val=h.prop</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	</variablelist>
+    </variablelist>
   </refsection>
   <refsection>
     <title>Examples</title>
@@ -156,7 +154,7 @@ disp('Button width: ' + string(p(3))); // print the width of the button
 close(); // close figure
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -165,7 +163,7 @@ close(); // close figure
       <member>
         <link linkend="root_properties">root_properties</link>
       </member>
-	  <member>
+      <member>
         <link linkend="graphics_entities">graphics_entities</link>
       </member>
       <member>

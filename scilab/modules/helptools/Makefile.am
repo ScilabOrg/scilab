@@ -63,7 +63,7 @@ modulename=helptools
 
 #### helptools : Conf files ####
 libscihelptools_la_rootdir = $(mydatadir)
-libscihelptools_la_root_DATA = changelog.txt license.txt readme.txt version.xml
+libscihelptools_la_root_DATA =  license.txt version.xml
 
 #### helptools : init scripts ####
 libscihelptools_la_etcdir = $(mydatadir)/etc
@@ -89,7 +89,6 @@ libscihelptools_la_data_template_DATA = data/template/template_javahelp.html
 libscihelptools_la_data_cssdir = $(mydatadir)/data/css
 libscihelptools_la_data_css_DATA = data/css/scilab_code.css \
 data/css/style.css
-
 
 #### helptools : xsl files ####
 libscihelptools_la_xsl_convertdir = $(mydatadir)/xsl/convert

@@ -40,7 +40,7 @@
       <varlistentry>
         <term>sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list, <literal>sl=[A,B,C,D]</literal>.</para>
+          <para><literal>syslin</literal> list, <literal>sl=[A,B,C,D]</literal>.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -58,7 +58,7 @@ sl=cont_frm(NUM,den);
 slss=ss2tf(sl);       //Compare with NUM/den
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

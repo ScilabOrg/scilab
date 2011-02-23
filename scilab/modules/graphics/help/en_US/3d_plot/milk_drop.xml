@@ -53,7 +53,7 @@ z=eval3d(milk_drop,x,y);
 plot3d(x,y,z)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

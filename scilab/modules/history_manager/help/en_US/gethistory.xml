@@ -51,7 +51,7 @@ line=gethistory(N)</synopsis>
     <title>Description</title>
     <para>returns current scilab history in a string matrix.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

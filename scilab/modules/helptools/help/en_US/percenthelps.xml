@@ -27,9 +27,9 @@
     the kth chapter of the manual and is made of two strings:</para>
     <para><literal>%helps(k,1)</literal> is the absolute pathname for a help directory.</para>
     <para><literal>%helps(k,2)</literal> is a title for this help directory.</para>
-     <para> To add a new help directory, the user should use <literal>add_help_chapter</literal>.</para>
+    <para> To add a new help directory, the user should use <literal>add_help_chapter</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

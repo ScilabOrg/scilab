@@ -58,7 +58,7 @@ displayhistory()
 historymanager(backupstate)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -67,7 +67,6 @@ historymanager(backupstate)
       <member>
         <link linkend="call_scilab">call_scilab</link>
       </member>
-      
     </simplelist>
-  </refsection>  
+  </refsection>
 </refentry>

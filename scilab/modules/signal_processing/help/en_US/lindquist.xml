@@ -53,7 +53,7 @@
     Riccati equation and gives the matrices <literal>R</literal> and <literal>T</literal> of the 
     filter model, by the Lindquist's algorithm.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

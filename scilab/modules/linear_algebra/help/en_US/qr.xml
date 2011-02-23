@@ -145,7 +145,7 @@ norm(Q'*A-R)
 svd([A,Q(:,1:rk)])    //span(A) =span(Q(:,1:rk))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

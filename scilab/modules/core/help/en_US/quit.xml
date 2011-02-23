@@ -24,7 +24,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-	<term>If there is a <literal>pause</literal> active,</term>
+        <term>If there is a <literal>pause</literal> active,</term>
         <listitem>
           <para>then the
           <literal>quit</literal> command makes aborts the instructions
@@ -32,11 +32,9 @@
         </listitem>
       </varlistentry>
     </variablelist>
-
   </refsection>
- <refsection>
+  <refsection>
     <title>Examples</title>
-
     <programlisting role="example"><![CDATA[ 
 // quit Scilab
 function foo(x),if x then quit,end,endfunction
@@ -56,8 +54,7 @@ endfunction
 foo1(%t) //enter quit at the following prompt
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

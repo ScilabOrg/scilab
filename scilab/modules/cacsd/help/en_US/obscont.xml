@@ -29,7 +29,7 @@
       <varlistentry>
         <term>P</term>
         <listitem>
-          <para> <literal>syslin</literal> list (nominal plant) in state-space form, continuous  or discrete time</para>
+          <para><literal>syslin</literal> list (nominal plant) in state-space form, continuous  or discrete time</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -47,13 +47,13 @@
       <varlistentry>
         <term>K</term>
         <listitem>
-          <para> <literal>syslin</literal> list (controller)</para>
+          <para><literal>syslin</literal> list (controller)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>J</term>
         <listitem>
-          <para> <literal>syslin</literal> list (extended controller)</para>
+          <para><literal>syslin</literal> list (extended controller)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -82,7 +82,7 @@
     <para>
     The closed loop feedback system <literal> Cl: v -&gt;y</literal> with
     (negative) feedback <literal>K</literal> (i.e. <literal>y = P u, u = v - K y</literal>, or  </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 xdot = A x + B u, 
    y = C x + D u, 
 zdot = (A + Kf C) z - Kf y + B u, 
@@ -118,7 +118,7 @@ K=lft(J,r,Q);
 spec(h_cl(P,K))  // closed-loop A matrix (should be stable);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

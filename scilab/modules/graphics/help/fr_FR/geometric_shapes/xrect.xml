@@ -29,7 +29,7 @@ xrect(rect) // rect =[x,y,w,h]</synopsis>
     <para><literal>xrect</literal> dessine un rectangle défini par <literal>[x,y,w,h]</literal> 
     (point en haut à gauche, largeur, hauteur) en coordonnées utilisateur et en utilisant le style de ligne courant.
   </para>
-  <para>ATTENTION : notez que la valeur de la hauteur est positive en allant vers la bas.</para>
+    <para>ATTENTION : notez que la valeur de la hauteur est positive en allant vers la bas.</para>
   </refsection>
   <refsection>
     <title>Exemples</title>
@@ -40,8 +40,8 @@ xrect(-1,1,2,2)
 xset("default")
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="xfrect">xfrect</link>

@@ -37,7 +37,7 @@ intppty(fun)</synopsis>
     <para>
     In the first and default way, the arguments are passed by value.
     With the following syntax:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 foo(A,1+2)
  ]]></programlisting>
     <para>
@@ -51,7 +51,7 @@ foo(A,1+2)
     done). <literal>intppty(fun)</literal> with <literal>fun&gt;0</literal> tells Scilab that the
     interface with number <literal>fun</literal> can handle arguments passed by
     reference. With the following syntax:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 foo(A,1+2)
  ]]></programlisting>
     <para>
@@ -69,7 +69,7 @@ foo(A,1+2)
     This function may be useful for dynamically loaded interface (see
     addinter).</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

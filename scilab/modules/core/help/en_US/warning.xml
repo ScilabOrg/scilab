@@ -35,7 +35,7 @@ warning('on')
 warning(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"myFunction",2));
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

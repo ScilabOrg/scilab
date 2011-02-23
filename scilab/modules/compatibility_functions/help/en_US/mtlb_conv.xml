@@ -60,7 +60,7 @@
     to have a closer result from Matlab one.</para>
     <para>Caution: <literal>mtlb_conv</literal> has not to be used for hand coded functions.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -12,7 +12,7 @@
     <para>
     Matrices are basic objects defined in Scilab.
     They can be defined as follows:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 E=[e11,e12,...,e1n;
    e21,e22,...,e2n;
         ....
@@ -34,7 +34,7 @@ E=[1/s,0;s,1/(s+1)]
 E=['A11','A12';'A21','A22']
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

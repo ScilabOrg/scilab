@@ -35,7 +35,7 @@
       <varlistentry>
         <term>dom</term>
         <listitem>
-          <para> <literal>'c'</literal> or <literal>'d'</literal> for the time domain (continuous or discrete)</para>
+          <para><literal>'c'</literal> or <literal>'d'</literal> for the time domain (continuous or discrete)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -55,12 +55,12 @@
   <refsection>
     <title>Description</title>
     <para><literal>X=riccati(A,B,C,dom,[typ])</literal> solves the Riccati equation:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A'*X+X*A-X*B*X+C=0 
  ]]></programlisting>
     <para>
     in continuous time case, or:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A'*X*A-(A'*X*B1/(B2+B1'*X*B1))*(B1'*X*A)+C-X
  ]]></programlisting>
     <para>
@@ -68,7 +68,7 @@ A'*X*A-(A'*X*B1/(B2+B1'*X*B1))*(B1'*X*A)+C-X
     If called with two output arguments, <literal>riccati</literal> returns <literal>X1,X2</literal>
     such that <literal>X=X1/X2</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

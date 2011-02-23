@@ -86,20 +86,21 @@ typedef struct {
 } scicos_block;
 
 /** define scicos flag number */
-typedef enum scicos_flag {
-    DerivativeState         = 0,
-    OutputUpdate            = 1,
-    StateUpdate             = 2,
-    OutputEventTiming       = 3,
-    Initialization          = 4,
-    Ending                  = 5,
-    ReInitialization        = 6
-};
+typedef enum {
+        DerivativeState         = 0,
+        OutputUpdate            = 1,
+        StateUpdate             = 2,
+        OutputEventTiming       = 3,
+        Initialization          = 4,
+        Ending                  = 5,
+        ReInitialization        = 6,
+        ZeroCrossing            = 9,
+} scicos_flag;
 
 /* utility function for block declaration */
 int get_block_error(void);
-int* get_pointer_xproperty();
-int get_npointer_xproperty();
+int* get_pointer_xproperty(void);
+int get_npointer_xproperty(void);
 double Get_Jacobian_cj(void);
 double Get_Jacobian_ci(void);
 double Get_Scicos_SQUR(void);

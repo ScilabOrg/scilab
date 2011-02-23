@@ -97,7 +97,7 @@ file('close',u) //close the result file
 fprintf(0,'My error which is going to be displayed on the stderr') 
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

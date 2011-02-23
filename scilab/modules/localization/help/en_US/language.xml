@@ -23,7 +23,7 @@
     <title>Description</title>
     <para>LANGUAGE is obsolete. If you need LANGUAGE, add LANGUAGE=getlanguage();</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

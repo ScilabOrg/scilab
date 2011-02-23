@@ -87,7 +87,7 @@ B=auread(TMPDIR+'/foo.au');
 max(abs(A- round(B*6)))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

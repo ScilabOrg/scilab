@@ -29,7 +29,7 @@
         <term>where</term>
         <listitem>
           <para>(optional) integer, specifying what tasks to return information about. The options are:</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
  0(default) for all the tasks on the virtual machine
  pvmd tid for all tasks on a given host
    tid  for a specific task
@@ -107,7 +107,7 @@
     will be &lt; 0.</para>
     <para>
     for example:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 -->res = pvm_tasks()
  res  =
  
@@ -140,7 +140,7 @@
     0. 
   ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

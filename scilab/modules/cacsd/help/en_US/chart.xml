@@ -84,7 +84,9 @@ chart(gain,phase [,flags])</synopsis>
     <para>
       <literal>[-12 -8 -6 -5 -4 -3 -2 -1.4 -1 -.5 0.25 0.5 0.7 1 1.4 2 2.3 3 4 5 6 8 12]</literal>
     </para>
-    <para><literal>[-(1:10) , -(20:10:160)]</literal></para>
+    <para>
+      <literal>[-(1:10) , -(20:10:160)]</literal>
+    </para>
   </refsection>
   <refsection>
     <title>Examples</title>
@@ -101,7 +103,7 @@ set(gca(),'data_bounds',[-180 -30;180 30]) //enlarge the frame
 chart(list(1,0));
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

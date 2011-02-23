@@ -64,7 +64,7 @@
     Kronecker form of matrix pencil: <literal>kroneck</literal> computes two
     orthogonal matrices <literal>Q, Z</literal> which put the pencil <literal>F=s*E -A</literal> into
     upper-triangular form:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
            | sE(eps)-A(eps) |        X       |      X     |      X        |
            |----------------|----------------|------------|---------------|
            |        O       | sE(inf)-A(inf) |      X     |      X        |
@@ -113,7 +113,7 @@ numbeps
 numbeta
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

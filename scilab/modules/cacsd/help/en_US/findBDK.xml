@@ -193,7 +193,7 @@
     <itemizedlist>
       <listitem>
         <para>[B,D,K] = findBDK(S,N,L,R,A,C,METH,JOB,NSMPL,TOL,PRINTW)  computes the system matrices B (if JOB = 1), B and D (if JOB = 2), and the Kalman  predictor gain K (if NSMPL &gt; 0). The model structure is:</para>
-        <programlisting role = ""><![CDATA[ 
+        <programlisting role=""><![CDATA[ 
 x(k+1) = Ax(k) + Bu(k) + Ke(k),   k >= 1,
 y(k)   = Cx(k) + Du(k) + e(k),
  ]]></programlisting>
@@ -215,7 +215,7 @@ y(k)   = Cx(k) + Du(k) + e(k),
     <para>
     The number of output arguments may vary, but should correspond to the 
     input arguments, e.g.,</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
          B = findBDK(S,N,L,R,A,C,METH,1)  or
      [B,D] = findBDK(S,N,L,R,A,C,METH,2)  or
 [B,D,RCND] = findBDK(S,N,L,R,A,C,METH,2)  
@@ -252,7 +252,7 @@ Y1=flts(U,SYS1);
 clf();plot2d((1:nsmp)',[Y',Y1'])
 ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

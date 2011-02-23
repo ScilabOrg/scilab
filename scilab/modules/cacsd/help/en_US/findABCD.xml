@@ -166,7 +166,7 @@ SYS = findABCD(S,N,L,R,METH)
     <itemizedlist>
       <listitem>
         <para>[SYS,K] = findABCD(S,N,L,R,METH,NSMPL,TOL,PRINTW)  computes a state- space realization SYS = (A,B,C,D) (an ss object), and the Kalman predictor gain K (if NSMPL &gt; 0). The model structure is:</para>
-        <programlisting role = ""><![CDATA[ 
+        <programlisting role=""><![CDATA[ 
 x(k+1) = Ax(k) + Bu(k) + Ke(k),   k >= 1,
 y(k)   = Cx(k) + Du(k) + e(k),
  ]]></programlisting>
@@ -178,7 +178,7 @@ y(k)   = Cx(k) + Du(k) + e(k),
         <para>[SYS,K,Q,Ry,S,RCND] = findABCD(S,N,L,R,METH,NSMPL,TOL,PRINTW)  also returns the state, output, and state-output (cross-)covariance matrices Q, Ry, and S (used for computing the Kalman gain), as well as the vector RCND of length lr containing the reciprocal condition numbers of the matrices involved in rank decisions, least squares or Riccati equation solutions, where</para>
       </listitem>
     </itemizedlist>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 lr = 4,  if Kalman gain matrix K is not required, and
 lr = 12, if Kalman gain matrix K is required.
  ]]></programlisting>
@@ -214,7 +214,7 @@ Y1=flts(U,SYS1);
 clf();plot2d((1:nsmp)',[Y',Y1'])
 ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

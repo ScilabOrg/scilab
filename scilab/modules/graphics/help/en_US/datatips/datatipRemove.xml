@@ -8,7 +8,7 @@
  * are also available at    
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en_US" xml:id="datatipRemove">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en_US" xml:id="datatipRemove">
   <info>
     <pubdate>$LastChangedDate: 19-02-2010 $</pubdate>
   </info>
@@ -40,7 +40,6 @@
           </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>ind</term>
         <listitem>
@@ -71,11 +70,11 @@
     datatipRemove(t1)
     ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-        <link linkend="datatips" >datatips</link>
+        <link linkend="datatips">datatips</link>
       </member>
       <member>
         <link linkend="datatipCreate">datatipCreate</link>
@@ -88,5 +87,4 @@
       <member>Serge Steer, INRIA</member>
     </simplelist>
   </refsection>
- 
 </refentry>

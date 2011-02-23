@@ -69,7 +69,7 @@
     the <link linkend="nnz">nnz</link> scilab function (see the 2d example in <link linkend="taucs_chget">taucs_chget</link>).
   </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

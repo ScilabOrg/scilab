@@ -29,7 +29,7 @@
       <varlistentry>
         <term>Sys</term>
         <listitem>
-          <para> <literal>syslin</literal> list containing the matrices <literal>(A,B,C2,D2)</literal>.</para>
+          <para><literal>syslin</literal> list containing the matrices <literal>(A,B,C2,D2)</literal>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -86,7 +86,7 @@
     with <literal>D11=D(:,reject)</literal></para>
     <para>
     The data (Sys, reject,C1, D1)   define a 2-input 2-output system:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 xdot =  A x + B1  w + B2  u
    z = C1 x + D11 w + D12 u
    y = C2 x + D21 w + D22 u
@@ -139,7 +139,7 @@ C1=rand(1,nx);D1=[0,1];
 UIobs=ui_observer(Sys,1,C1,D1);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

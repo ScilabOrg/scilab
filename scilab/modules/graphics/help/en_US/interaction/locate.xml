@@ -57,7 +57,7 @@
     <para>
     If <literal>flag=1</literal> a cross is drawn at the points where the mouse is clicked.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

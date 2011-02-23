@@ -39,7 +39,7 @@
           <para> a boolean, use to allow economy size singular value decomposition.</para>
         </listitem>
       </varlistentry>
-       <varlistentry>
+      <varlistentry>
         <term>facpr</term>
         <listitem>
           <para>A <literal>p</literal>-by-<literal>p</literal>
@@ -47,7 +47,7 @@
           the correlation matrix <literal>V</literal>.</para>
         </listitem>
       </varlistentry>
-       <varlistentry>
+      <varlistentry>
         <term>comprinc</term>
         <listitem>
           <para>a <literal>n</literal>-by-<literal>p</literal>
@@ -74,8 +74,6 @@
           T^2 statistic for each data point.</para>
         </listitem>
       </varlistentry>
-     
-     
     </variablelist>
   </refsection>
   <refsection>
@@ -98,8 +96,7 @@
     </para>
     <para> 
       To compute principal component analysis with standardized variables may use
-      <literal>princomp(wcenter(x,1))</literal> or use the <link
-      linkend="pca">pca</link>  function.
+      <literal>princomp(wcenter(x,1))</literal> or use the <link linkend="pca">pca</link>  function.
     </para>
   </refsection>
   <refsection>
@@ -109,7 +106,7 @@ a=rand(100,10,'n');
 [facpr,comprinc,lambda,tsquare] = princomp(a);
  ]]></programlisting>
   </refsection>
- <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

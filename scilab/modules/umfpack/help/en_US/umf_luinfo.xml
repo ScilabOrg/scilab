@@ -102,7 +102,7 @@ nnz(U)  // must be equal to unz
 umf_ludel(Lup) // clear memory
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

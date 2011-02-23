@@ -33,8 +33,8 @@ mtlb_mode(mmode)</synopsis>
       <varlistentry>
         <term>Scilab</term>
         <listitem>
-          <para></para>
-          <programlisting role = ""><![CDATA[ 
+          <para/>
+          <programlisting role=""><![CDATA[ 
 a+[] -->a
 a-[] -->a
 []+a -->a
@@ -45,7 +45,7 @@ a-[] -->a
       <varlistentry>
         <term>Matlab</term>
         <listitem>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 a+[] -->[]
 a-[] -->[]
 []+a -->[]
@@ -58,7 +58,7 @@ a-[] -->[]
     substractions. <literal> mtlb_mode(%f)</literal>  switches back to Scilab mode.</para>
     <para><literal> mtlb_mode()</literal> return the current mmode' value</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

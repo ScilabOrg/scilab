@@ -38,7 +38,7 @@
     <title>Description</title>
     <para><literal>X = lyap(A,C,flag)</literal> solves the continuous time or
     discrete time matrix Lyapunov matrix equation:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A'*X + X*A = C       ( flag='c' )
 A'*X*A - X = C       ( flag='d' )
  ]]></programlisting>
@@ -57,7 +57,7 @@ X=lyap(A,C,'d');
 A'*X*A - X -C
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

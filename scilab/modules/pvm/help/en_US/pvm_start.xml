@@ -62,7 +62,7 @@
     on how to start/stop pvm.</para>
     <para>
     For example:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 pvm_start()
  ans  =
  
@@ -77,7 +77,7 @@ pvm_start()
     <para>
     Error -1 means: missing environment variables.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -57,7 +57,7 @@ disp(size(M_own('dims')))
 disp(size(M_own('entries')))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

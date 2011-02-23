@@ -46,7 +46,7 @@ exportUI(fig)</synopsis>
       call the graphical interface dedicated in exporting a graphic window into an image file.
     </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -71,4 +71,3 @@ exportUI(fig)</synopsis>
     <para>Jean-Baptiste Silvy</para>
   </refsection>
 </refentry>
-

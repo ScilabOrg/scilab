@@ -43,8 +43,6 @@
     <literal>show_margins</literal> display gain and phase margin and
     associated crossover frequencies on a bode (the defaut) or nyquist
     representation of the frequency response of the system.</para>
-
-
   </refsection>
   <refsection>
     <title>Examples</title>
@@ -61,13 +59,21 @@ show_margins(h)
 show_margins(h,'nyquist')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member><link linkend="p_margin">p_margin</link></member>
-      <member><link linkend="g_margin">g_margin</link></member>
-      <member><link linkend="bode">bode</link></member>
-      <member><link linkend="nyquist">nyquist</link></member>
+      <member>
+        <link linkend="p_margin">p_margin</link>
+      </member>
+      <member>
+        <link linkend="g_margin">g_margin</link>
+      </member>
+      <member>
+        <link linkend="bode">bode</link>
+      </member>
+      <member>
+        <link linkend="nyquist">nyquist</link>
+      </member>
     </simplelist>
   </refsection>
   <refsection>

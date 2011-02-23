@@ -65,7 +65,7 @@
     <para>
     Error -14 means: pvm_halt(): Can't contact local daemon</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -38,44 +38,38 @@
 					</para>
         </listitem>
       </varlistentry>
-			
-			<varlistentry>
+      <varlistentry>
         <term>section</term>
         <listitem>
           <para>
 						This argument controls the list of sections where search
 						URL(s) to remove.
 					</para>
-          <para>
-						<literal>section</literal> is a single-string and its value should be :
+          <para><literal>section</literal> is a single-string and its value should be :
 					</para>
           <itemizedlist>
             <listitem>
-              <para>
-								<literal>"all"</literal>: URL(s) to remove are searched in both
+              <para><literal>"all"</literal>: URL(s) to remove are searched in both
 								"user" and "allusers" sections.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"allusers"</literal>: URL(s) to remove are only searched in
+              <para><literal>"allusers"</literal>: URL(s) to remove are only searched in
 								the "allusers" section.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"user"</literal>: URL(s) to remove are only searched in
+              <para><literal>"user"</literal>: URL(s) to remove are only searched in
 								the "user" section.
 							</para>
             </listitem>
           </itemizedlist>
-					<para>
+          <para>
 						If SCI is write accessible, "all" is the default value.
 						Otherwise, the default value is "user".
 					</para>
         </listitem>
-			</varlistentry>
-			
+      </varlistentry>
       <varlistentry>
         <term>nbDel</term>
         <listitem>
@@ -111,7 +105,7 @@ atomsRepositoryList()
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

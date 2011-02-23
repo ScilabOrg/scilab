@@ -67,7 +67,7 @@ y=loadwave("SCI/modules/sound/demos/chimes.wav");
 playsnd(y)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

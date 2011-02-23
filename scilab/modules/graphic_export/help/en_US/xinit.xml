@@ -55,7 +55,7 @@ xend()
 driver("X11")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -75,4 +75,3 @@ driver("X11")
     <para>Jean-Baptiste Silvy</para>
   </refsection>
 </refentry>
-

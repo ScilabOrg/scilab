@@ -66,7 +66,7 @@ cmap=get(gcf(),"color_map");
 rgb2name(cmap(10,:)*255)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

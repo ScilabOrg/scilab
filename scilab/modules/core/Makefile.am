@@ -248,7 +248,6 @@ sci_gateway/c/gw_user2.c \
 sci_gateway/c/sci_error.c \
 sci_gateway/c/sci_sciargs.c \
 sci_gateway/c/sci_with_module.c \
-sci_gateway/c/sci_islittleendian.c \
 sci_gateway/c/sci_getscilabmode.c \
 sci_gateway/c/sci_getvariablesonstack.c \
 sci_gateway/c/sci_readgateway.c \
@@ -327,7 +326,7 @@ modulename=core
 
 #### core : Conf files ####
 libscicore_la_rootdir = $(mydatadir)
-libscicore_la_root_DATA = changelog.txt license.txt readme.txt version.xml
+libscicore_la_root_DATA =  license.txt version.xml
 
 
 #### core : init scripts ####

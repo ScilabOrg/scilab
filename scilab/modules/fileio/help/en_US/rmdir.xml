@@ -44,7 +44,7 @@ mkdir(SCI,'Directory')
 rmdir(SCI+'/Directory')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

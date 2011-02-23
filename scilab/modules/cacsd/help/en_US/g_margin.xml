@@ -10,36 +10,24 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry version="5.0-subset Scilab" xml:id="g_margin" xml:lang="en"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:ns3="http://www.w3.org/1999/xhtml"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="g_margin" xml:lang="en">
   <info>
     <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (Wed, 26 Mar 2008)
     $</pubdate>
   </info>
-
   <refnamediv>
     <refname>g_margin</refname>
-
     <refpurpose>gain margin and associated crossover frequency</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-
     <synopsis>
       gm=g_margin(h)
       [gm,fr]=g_margin(h)
     </synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Arguments</title>
-
     <variablelist>
       <varlistentry>
         <term>h</term>
@@ -63,10 +51,8 @@
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
-
     <para>Given a SISO linear system in continuous or discrete time,
     <literal>g_margin</literal> returns <literal>gm</literal>, the
     gain margin in dB of <literal>h</literal> and
@@ -81,24 +67,21 @@
     <para>The algorithm uses polynomial root finder to solve the equations:</para>
     <variablelist>
       <varlistentry>
-	<term>h(s)=h(-s)</term>
+        <term>h(s)=h(-s)</term>
         <listitem>
           <para> for the continuous time case.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
-	<term>h(z)=h(1/z)</term>
+        <term>h(z)=h(1/z)</term>
         <listitem>
           <para> for the discrete time case.</para>
         </listitem>
       </varlistentry>
     </variablelist>
-
   </refsection>
-
   <refsection>
     <title>Examples</title>
-
     <programlisting role="example"><![CDATA[ 
 h=syslin('c',-1+%s,3+2*%s+%s^2) //continuous time case
 [g,fr]=g_margin(h)
@@ -110,21 +93,33 @@ h = syslin(0.1,0.04798*%z+0.0464,%z^2-1.81*%z+0.9048);//discrete time case
 show_margins(h)
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
-
     <simplelist type="inline">
-      <member><link linkend="p_margin">p_margin</link></member>
-      <member><link linkend="show_margins">show_margins</link></member>
-      <member><link linkend="repfreq">repfreq</link></member>
-      <member><link linkend="black">black</link></member>
-      <member><link linkend="bode">bode</link></member>
-      <member><link linkend="chart">chart</link></member>
-      <member><link linkend="nyquist">nyquist</link></member>
+      <member>
+        <link linkend="p_margin">p_margin</link>
+      </member>
+      <member>
+        <link linkend="show_margins">show_margins</link>
+      </member>
+      <member>
+        <link linkend="repfreq">repfreq</link>
+      </member>
+      <member>
+        <link linkend="black">black</link>
+      </member>
+      <member>
+        <link linkend="bode">bode</link>
+      </member>
+      <member>
+        <link linkend="chart">chart</link>
+      </member>
+      <member>
+        <link linkend="nyquist">nyquist</link>
+      </member>
     </simplelist>
   </refsection>
- <refsection>
+  <refsection>
     <title>Authors</title>
     <para>Serge Steer, INRIA  </para>
   </refsection>

@@ -55,7 +55,7 @@ clean(T*P*T')
 clean(inv(T)'*Q*inv(T))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

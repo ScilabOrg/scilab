@@ -98,7 +98,7 @@
     and upper bounds are computed using the associated 
     Lyapunov solutions.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

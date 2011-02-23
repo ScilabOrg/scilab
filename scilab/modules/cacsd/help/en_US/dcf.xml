@@ -28,7 +28,7 @@
       <varlistentry>
         <term>G</term>
         <listitem>
-          <para> <literal>syslin</literal> list (continuous-time linear system)</para>
+          <para><literal>syslin</literal> list (continuous-time linear system)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -58,7 +58,7 @@
     for the doubly coprime factorization</para>
     <para><literal>G</literal> must be stabilizable and detectable.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

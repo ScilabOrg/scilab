@@ -168,7 +168,7 @@
     initial state X0 and the matrices B and D of a discrete-time 
     system using the system matrices A, C, output data Y and the input 
     data U. The model structure is :</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 x(k+1) = Ax(k) + Bu(k),   k >= 1,
 y(k)   = Cx(k) + Du(k),
  ]]></programlisting>
@@ -180,7 +180,7 @@ y(k)   = Cx(k) + Du(k),
     matrix V which reduces the system state matrix A to a real Schur
     form, as well as some estimates of the reciprocal condition numbers
     of the matrices involved in rank decisions.</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
     B = findx0BD(A,C,Y,U,0,0)  returns B only, and
 [B,D] = findx0BD(A,C,Y,U,0)    returns B and D only. 
  ]]></programlisting>
@@ -215,7 +215,7 @@ Y1=flts(U,SYS1);
 clf();plot2d((1:nsmp)',[Y',Y1'])
 ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -25,7 +25,6 @@
   <refsection>
     <title>Arguments</title>
     <variablelist>
-    	
       <varlistentry>
         <term>makename</term>
         <listitem>
@@ -34,31 +33,29 @@
           <para>A warning will be displayed in Scilab 5.3 if you use another value that the default.</para>
         </listitem>
       </varlistentry>
-      
       <varlistentry>
         <term>loadername</term>
         <listitem>
           <para>character string. The pathname of the loader file (default value is <literal>loader.sce</literal>).</para>
         </listitem>
       </varlistentry>
-      
       <varlistentry>
         <term>files</term>
         <listitem>
           <para>matrix of character string. files to delete.</para>
         </listitem>
       </varlistentry>
-      
-      
     </variablelist>
   </refsection>
   <refsection>
     <title>Description</title>
     <para>This is internal function used by <literal>ilib_build and ilib_for_link</literal>
     This function generates a cleaner file.</para>
-    <para><emphasis role="bold">Only use this function is you know what you are doing (it is a semi-private function).</emphasis></para>
+    <para>
+      <emphasis role="bold">Only use this function is you know what you are doing (it is a semi-private function).</emphasis>
+    </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -70,7 +67,9 @@
       <member>
         <link linkend="ilib_for_link">ilib_for_link</link>
       </member>
-      <member><link linkend="api_scilab">api_scilab</link></member>
+      <member>
+        <link linkend="api_scilab">api_scilab</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

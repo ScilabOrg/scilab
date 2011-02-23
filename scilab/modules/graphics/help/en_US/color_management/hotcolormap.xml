@@ -52,7 +52,7 @@ plot3d1();
 f.color_map = hotcolormap(32);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -106,4 +106,3 @@ f.color_map = hotcolormap(32);
     </simplelist>
   </refsection>
 </refentry>
-

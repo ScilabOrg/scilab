@@ -28,13 +28,13 @@
       <varlistentry>
         <term>Plant</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>Model</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -49,13 +49,13 @@
     <title>Description</title>
     <para>
     Given the the linear plant:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 x'= F*x + G*u 
 y = H*x + J*u
  ]]></programlisting>
     <para>
     and the linear model</para>
-    <programlisting role = ""><![CDATA[
+    <programlisting role=""><![CDATA[
 xm'= A*xm + B*um
 ym = C*xm + D*um
  ]]></programlisting>
@@ -63,12 +63,12 @@ ym = C*xm + D*um
     the goal is for the plant to track the model i.e. <literal>e = y - ym ---&gt; 0</literal>
     while keeping stable the state x(t) of the plant. 
     <literal>u</literal> is given by feedforward and feedback</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 u = L*xm + M*um + K*(x-T*xm) = [K , L-K*T] *(x,xm) + M*um
  ]]></programlisting>
     <para>
     The matrices T,L,M satisfy generalized Francis equations</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 F*T + G*L = T*A
 H*T + J*L = C
       G*M = T*B
@@ -94,7 +94,7 @@ norm(G*M-T*B,1)
 norm(J*M-D,1)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

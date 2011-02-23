@@ -55,7 +55,7 @@
     <title>Description</title>
     <para>
     Returns a permutation vector <literal>perm</literal> such that</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 M(perm,perm) = [M11 0 0 0 0   0]
                [0 M22 0 0     0]
                [0 0 M33       0]
@@ -80,7 +80,7 @@ P=genmarkov([2,1],2,'perm')
 P(perm,perm)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

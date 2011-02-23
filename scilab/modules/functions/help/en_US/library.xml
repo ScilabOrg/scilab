@@ -62,7 +62,7 @@ elementary_functionlib.sinm //loads sinm from the library
 elementary_functionlib.cosm(A) //reloads cosm and executes it
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

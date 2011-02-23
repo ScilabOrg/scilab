@@ -40,7 +40,7 @@
       <varlistentry>
         <term>Sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -52,7 +52,7 @@
     <literal>markpar</literal> of size <literal>nout</literal>X<literal>(n*nin) markp2ss</literal>
     returns a state-space linear system <literal>sl</literal> (<literal>syslin</literal> list) 
     such that with <literal>[A,B,C,D]=abcd(sl)</literal>:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 C*B = markpar(1:nout,1:nin),
 C*A*B =markpar(1:nout,nin+1:2*nin),....
  ]]></programlisting>
@@ -70,7 +70,7 @@ norm(markpar-Markpar,1)
 //Caution... c*a^5*b is not C*A^5*B !
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

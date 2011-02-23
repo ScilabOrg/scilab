@@ -50,7 +50,7 @@
     <para>
     si <literal>fill(i)=0</literal>, le rectangle <literal>i</literal> est dessiné avec le style de ligne courant.
   </para>
-  <para>ATTENTION : notez que la valeur de la hauteur est positive en allant vers la bas.</para>
+    <para>ATTENTION : notez que la valeur de la hauteur est positive en allant vers la bas.</para>
   </refsection>
   <refsection>
     <title>Exemples</title>
@@ -63,8 +63,8 @@ xrects(rects,cols)
 xnumb(x,15*ones(x),cols)
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="xfrect">xfrect</link>

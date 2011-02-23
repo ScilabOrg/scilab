@@ -74,7 +74,7 @@ plot3d3(X,Y,Z, &lt;opt_args&gt;)</synopsis>
                 <para>Colormap index defining the color used to draw vertical edges.</para>
               </listitem>
             </varlistentry>
-			<varlistentry>
+            <varlistentry>
               <term>horizontal_color</term>
               <listitem>
                 <para>an integer (surface color), default is 4.</para>
@@ -237,7 +237,7 @@ e.visible='off';
 e.visible='on'; // back to the mesh view
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

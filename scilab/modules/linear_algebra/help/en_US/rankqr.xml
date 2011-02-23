@@ -87,7 +87,7 @@ rank-deficient, and estimate its effective rank using incremental
 condition estimation.</para>
     <para>
 The routine uses a QR factorization with column pivoting:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A * P = Q * R,  where  R = [ R11 R12 ],
                            [  0  R22 ]
  ]]></programlisting>
@@ -117,7 +117,7 @@ A=rand(5,3)*rand(3,7);
 [Q,R,JPVT,RANK,SVAL]=rankqr(A,%eps)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

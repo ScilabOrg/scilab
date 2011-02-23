@@ -12,7 +12,7 @@
     <para>
     Mot-clé utilisé dans une structure <literal>select ... case</literal>, à utiliser de la façon suivante :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 select expr,
   case expr1 then instructions1,
   case expr2 then instructions2,
@@ -54,8 +54,8 @@ while %t do
 end
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="if">if</link>

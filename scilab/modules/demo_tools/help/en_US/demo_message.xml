@@ -35,7 +35,7 @@
 demo_message('SCI/demos/control/pid/pid_3.sce');
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

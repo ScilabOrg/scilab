@@ -54,7 +54,7 @@
     may be assigned a new instance number. Old instance
     numbers are reassigned to processes calling pvm_joingroup.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

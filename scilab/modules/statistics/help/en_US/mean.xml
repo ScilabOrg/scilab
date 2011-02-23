@@ -69,7 +69,7 @@ A=matrix(1:12,[1,1,2,3,2]);
 y=mean(A,'m')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

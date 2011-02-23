@@ -55,7 +55,7 @@
     for n=0,1,...,nc. An FIR, linear-phase filter
     can be obtained from the the output of the function
     by using the following commands</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 hn(1:nc-1)=an(nc:-1:2)/2;
 hn(nc)=an(1);
 hn(nc+1:2*nc-1)=an(2:nc)/2;
@@ -111,7 +111,7 @@ hn(nc+1:2*nc-1)=an(2:nc)/2;
 plot(.5*(0:255)/256,frmag(hn,256));
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

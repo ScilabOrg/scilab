@@ -28,7 +28,7 @@
       <varlistentry>
         <term>sl,slc</term>
         <listitem>
-          <para> <literal>syslin</literal> lists (linear systems in state-space form)</para>
+          <para><literal>syslin</literal> lists (linear systems in state-space form)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -51,7 +51,7 @@ ssprint(sl);
 ssprint(minss(sl))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

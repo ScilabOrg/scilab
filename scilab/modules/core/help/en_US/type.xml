@@ -86,7 +86,7 @@
      130
     : Scilab intrinsic (C or Fortran code).</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

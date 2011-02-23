@@ -77,7 +77,7 @@ roots(det(Ws))
 clean(inv(F)-inv(F1)*Ws,1.d-7)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

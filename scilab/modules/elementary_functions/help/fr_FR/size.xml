@@ -1,75 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry version="5.0-subset Scilab" xml:id="size" xml:lang="fr"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:ns5="http://www.w3.org/1999/xhtml"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="size" xml:lang="fr">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
-
   <refnamediv>
     <refname>size</refname>
-
     <refpurpose>taille d'un objet</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
-
     <synopsis>y=size(x [,sel])
 [nr,nc]=size(x)</synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Paramètres</title>
-
     <variablelist>
       <varlistentry>
         <term>x</term>
-
         <listitem>
           <para>matrice, liste ou liste de type
           <literal>syslin</literal></para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>y</term>
-
         <listitem>
           <para>un entier ou un vecteur d'entiers <literal> 1x2
           </literal></para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>sel</term>
-
         <listitem>
           <para>un entier ou une chaîne de caractères</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>nr,nc</term>
-
         <listitem>
           <para>deux entiers</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
-
     <variablelist>
       <varlistentry>
         <term>Appliquée à :</term>
-
         <listitem>
           <para>une matrice (constante, polynomiale, de chaînes de caractères,
           booléenne, rationnelle) <literal>x</literal>, avec un seul argument
@@ -79,27 +57,21 @@
           <literal>nr,nc</literal> = [nombre de lignes, nombre de colonnes].
           <literal>sel</literal> peut être utilisé pour indiquer la dimension
           désirée</para>
-
           <variablelist>
             <varlistentry>
               <term>1 ou 'r'</term>
-
               <listitem>
                 <para>pour obtenir le nombre de lignes</para>
               </listitem>
             </varlistentry>
-
             <varlistentry>
               <term>2 ou 'c'</term>
-
               <listitem>
                 <para>pour obtenir le nombre de colonnes</para>
               </listitem>
             </varlistentry>
-
             <varlistentry>
               <term>'*'</term>
-
               <listitem>
                 <para>pour obtenir le produit du nombre de lignes et de
                 colonnes</para>
@@ -108,20 +80,16 @@
           </variablelist>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>Appliquée à :</term>
-
         <listitem>
           <para>une liste, size en renvoie le nombre d'éléments. Dans ce cas
           seule la syntaxe <literal>y=size(x)</literal> peut être
           utilisée.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>Appliquée à :</term>
-
         <listitem>
           <para>un système dynamique linéaire, <literal>y=size(x)</literal>
           renvoie le vecteur ligne <literal>y</literal> = [nombre de sorties,
@@ -136,10 +104,8 @@
           l'état).</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>Appliquée à :</term>
-
         <listitem>
           <para>une hypermatrice, <literal> y=size(x) </literal> renvoie le
           vecteur de ses dimensions. La syntaxe <literal>
@@ -151,10 +117,8 @@
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Exemples</title>
-
     <programlisting role="example"><![CDATA[ 
 [n,m]=size(rand(3,2))
 [n,m]=size(['a','b';'c','d'])
@@ -170,14 +134,15 @@ m=size(rand(3,2),"c")
 nm=size(rand(3,2),"*")
  ]]></programlisting>
   </refsection>
-
-  <refsection>
-    <title>Voir Aussi</title>
-
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
-      <member><link linkend="length">length</link></member>
-
-      <member><link linkend="syslin">syslin</link></member>
+      <member>
+        <link linkend="length">length</link>
+      </member>
+      <member>
+        <link linkend="syslin">syslin</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

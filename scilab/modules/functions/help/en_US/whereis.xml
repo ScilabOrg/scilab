@@ -18,7 +18,7 @@
     the name of the library containing the function <literal>function-name</literal>. 
     The path of the library is returned by typing <literal>"librname"</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

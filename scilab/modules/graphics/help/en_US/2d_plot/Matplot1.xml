@@ -35,7 +35,9 @@
       <varlistentry>
         <term>rect</term>
         <listitem>
-          <para> <literal>[xmin,ymin,xmax,ymax]</literal></para>
+          <para>
+            <literal>[xmin,ymin,xmax,ymax]</literal>
+          </para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -84,7 +86,7 @@ for k=-n:n,
 end
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

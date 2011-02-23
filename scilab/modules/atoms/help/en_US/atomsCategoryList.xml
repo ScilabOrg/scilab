@@ -37,19 +37,16 @@
             This argument controls if all categories or only main categories have
             to be displayed.
           </para>
-          <para>
-            <literal>filter</literal> is a single-string and its value should be:
+          <para><literal>filter</literal> is a single-string and its value should be:
           </para>
           <itemizedlist>
             <listitem>
-              <para>
-                <literal>"all"</literal>: All categories (main categories and
+              <para><literal>"all"</literal>: All categories (main categories and
                 sub-categories) are displayed.
               </para>
             </listitem>
             <listitem>
-              <para>
-                <literal>"main"</literal>: Only main categories are displayed.
+              <para><literal>"main"</literal>: Only main categories are displayed.
               </para>
             </listitem>
           </itemizedlist>
@@ -80,7 +77,7 @@ atomsCategoryList("main");
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

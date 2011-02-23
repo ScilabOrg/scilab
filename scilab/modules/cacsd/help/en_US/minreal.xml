@@ -28,7 +28,7 @@
       <varlistentry>
         <term>sl,slb</term>
         <listitem>
-          <para> <literal>syslin</literal> lists</para>
+          <para><literal>syslin</literal> lists</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -61,7 +61,7 @@ clean(ctr_gram(slb))
 clean(obs_gram(slb))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

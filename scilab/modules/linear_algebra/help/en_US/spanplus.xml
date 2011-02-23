@@ -63,7 +63,7 @@
     The <literal>dim</literal> first columns of <literal>X</literal> make a basis for <literal>A+B</literal>.</para>
     <para>
     One has the following canonical form for <literal>[A,B]</literal>:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
          [*,*]    (dima rows)
 X'*[A,B]=[0,*]    (dim-dima rows)
          [0,0]    
@@ -80,7 +80,7 @@ dimA
 dim
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

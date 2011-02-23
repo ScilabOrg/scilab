@@ -72,7 +72,7 @@ txt=lmitool(probname,varlist,datalist)</synopsis>
     This file is the skeleton of a solver function and the corresponding 
     evaluation function needed by <literal>lmisolver</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

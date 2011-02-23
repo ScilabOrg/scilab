@@ -47,7 +47,7 @@
       <varlistentry>
         <term>sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -63,7 +63,7 @@
     four matrices <literal>(A,B,C,D)</literal></para>
     <para>
     For example, if <literal>ftz</literal> is the function passed to ode e.g.</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [zd]=ftz(t,z,u)
  ]]></programlisting>
     <para>
@@ -71,12 +71,12 @@
     <para><literal>[z]=ode(x0,t0,tf,list(ftz,u)</literal> compute <literal>x(tf)</literal>.</para>
     <para>
     If <literal>simula</literal> is the following function:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 deff('[y,xd]=simula(x,u)','xd=ftz(tf,x,u); y=x;');
  ]]></programlisting>
     <para>
     the tangent linear system <literal>sl</literal> can be obtained by:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [A,B,C,D]=lin(simula,z,u)
 sl = syslin('c',A,B,C,D,x0)
  ]]></programlisting>
@@ -88,7 +88,7 @@ deff('[y,xdot]=sim(x,u)','xdot=[u*sin(x);-u*x^2];y=xdot(1)+xdot(2)')
 sl=lin(sim,1,2);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

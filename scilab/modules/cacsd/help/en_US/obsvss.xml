@@ -35,7 +35,7 @@
       <varlistentry>
         <term>sl,slo</term>
         <listitem>
-          <para> <literal>syslin</literal> lists</para>
+          <para><literal>syslin</literal> lists</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -52,7 +52,7 @@
     <para><literal>tol</literal>  threshold to test controllability (see <literal>contr</literal>); 
     default value = <literal>100*%eps</literal></para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

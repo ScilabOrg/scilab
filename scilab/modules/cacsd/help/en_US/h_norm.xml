@@ -57,7 +57,7 @@
     produces the infinity norm  of a state-space system 
     (the maximum over all frequencies of the maximum singular value).</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

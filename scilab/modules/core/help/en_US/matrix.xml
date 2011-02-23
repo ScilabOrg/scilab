@@ -68,7 +68,7 @@ matrix(a,1,-1)
 matrix(a,3,2)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

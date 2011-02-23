@@ -46,7 +46,7 @@ sz=gstacksize()</synopsis>
     <para><literal>gstacksize('min')</literal> allows the user to decrease the size of
     this global stack to the minimum.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

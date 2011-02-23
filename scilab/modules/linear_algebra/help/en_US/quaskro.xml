@@ -72,7 +72,7 @@
     Quasi-Kronecker form of matrix pencil: <literal>quaskro</literal> computes two
     orthogonal matrices <literal>Q, Z</literal> which put the pencil <literal>F=s*E -A</literal> into
     upper-triangular form:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
            | sE(eps)-A(eps) |        X       |      X     |
            |----------------|----------------|------------|
            |        O       | sE(inf)-A(inf) |      X     |
@@ -102,7 +102,7 @@ Q(sE-A)Z = |=================================|============|
     <para>
     The code is taken from T. Beelen</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

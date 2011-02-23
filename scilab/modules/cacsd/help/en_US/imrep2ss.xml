@@ -40,7 +40,7 @@
       <varlistentry>
         <term>sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -69,7 +69,7 @@ w=z*imrep2ss(rep)   //Realization with shifted impulse response
 H2=ss2tf(w);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

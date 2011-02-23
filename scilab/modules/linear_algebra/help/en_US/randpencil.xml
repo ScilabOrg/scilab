@@ -89,7 +89,7 @@ F=randpencil([],[1,2],s^3-2,[]); //regular pencil
 det(F)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

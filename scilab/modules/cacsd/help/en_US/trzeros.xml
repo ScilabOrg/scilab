@@ -99,7 +99,7 @@ colf=(Zd(1)+Zd(2)+1):(Zd(1)+Zd(2)+Zd(3));
 roots(St1(rowf,colf)), nt./dt     //By Kronecker form
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -61,13 +61,13 @@
           depending on the <literal>mark_style</literal> and the
           <literal>mark_foreground</literal> and
           <literal>mark_background</literal> properties.</para>
-	<para>
-	  <inlinemediaobject>
-	    <imageobject>
-	      <imagedata fileref="../../images/marks.svg"/>
-	    </imageobject>
-	  </inlinemediaobject>
-	</para>
+          <para>
+            <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../../images/marks.svg"/>
+              </imageobject>
+            </inlinemediaobject>
+          </para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -239,7 +239,7 @@ r.data(:,[1 2])=[1/2 1/2];
 r.clip_state="off"
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

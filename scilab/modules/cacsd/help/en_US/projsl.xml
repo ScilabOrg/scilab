@@ -28,7 +28,7 @@
       <varlistentry>
         <term>sl,slp</term>
         <listitem>
-          <para> <literal>syslin</literal> lists</para>
+          <para><literal>syslin</literal> lists</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -71,7 +71,7 @@ slr=projsl(sl,Q,M);  //reduced model
 hankelsv(slr)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

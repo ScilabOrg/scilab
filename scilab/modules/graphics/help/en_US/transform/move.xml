@@ -70,7 +70,7 @@ t=[1,0,-1.25];
 move(p,t);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

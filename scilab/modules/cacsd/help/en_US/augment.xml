@@ -63,7 +63,7 @@
     <title>Description</title>
     <para>
     If <literal>flag1='SRT'</literal> (default value), returns the "full" augmented plant</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
     [ I | -G]   -->'S'
     [ 0 |  I]   -->'R'
 P = [ 0 |  G]   -->'T'
@@ -80,7 +80,7 @@ P = [ 0 |  G]   -->'T'
     <literal>P</literal> is calculated by: <literal>[I,0,0;0,I,0;-I,0,I;I,0,0]*[I,-G;0,I;I,0]</literal>.</para>
     <para>
     The augmented plant associated with input sensitivity functions, namely</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
     [ I | -I]   -->'S'  (input sensitivity)
     [ G | -G]   -->'R'  (G*input sensitivity)
 P = [ 0 |  I]   -->'T'  (K*G*input sensitivity)
@@ -125,7 +125,7 @@ T1n=Oloop*inv(eye(Oloop)+Oloop);
 clean(T1tf(1,1)-T1n(1,1))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

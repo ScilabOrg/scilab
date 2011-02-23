@@ -62,7 +62,7 @@
     as they become available, for example on a weekend, or if the
     application dynamically determines it could use more computational power.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

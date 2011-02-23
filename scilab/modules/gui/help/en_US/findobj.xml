@@ -7,14 +7,12 @@
     <refname>findobj</refname>
     <refpurpose> find an object with specified property</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Calling Sequence</title>
     <synopsis>
        h =  findobj(propertyName, propertyValue)
     </synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Arguments</title>
     <variablelist>
@@ -64,7 +62,7 @@ disp("The text of the label is """+lab.string+"""");
 close();
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

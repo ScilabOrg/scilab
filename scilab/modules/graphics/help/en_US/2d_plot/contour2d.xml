@@ -51,13 +51,13 @@ contour2d(x,y,z,nz,&lt;opt_args&gt;)</synopsis>
                 <para>If <literal>nz</literal> is an integer, its value gives the
                 number of level curves equally spaced from zmin to zmax as
                 follows:</para>
-                <programlisting role = ""><![CDATA[ 
+                <programlisting role=""><![CDATA[ 
 z= zmin + (1:nz)*(zmax-zmin)/(nz+1) 
  ]]></programlisting>
                 <para>Note that the <literal>zmin</literal> and <literal>zmax</literal>
                 levels are not drawn (generically they are reduced to points)
                 but they can be added with</para>
-                <programlisting role = ""><![CDATA[ 
+                <programlisting role=""><![CDATA[ 
 [im,jm] = find(z == zmin); // or zmax
 plot2d(x(im)',y(jm)',-9,"000")
  ]]></programlisting>
@@ -140,7 +140,7 @@ legends(string(-0.75:0.25:0.75),1:7,"lr");
 xtitle("Some level curves of the function cos(x)cos(y)")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -56,7 +56,7 @@
     The vector <literal>ind</literal> is made of the <literal>epsilon_i</literal>'s indices
     of the pencil <literal>[sI - A ,  B]</literal> (decreasing order).
     For example with <literal>ind=[3,2]</literal>, <literal>Ac</literal> and <literal>Bc</literal> are as follows:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
       [*,*,*,*,*]           [*]
       [1,0,0,0,0]           [0]
 Ac=   [0,1,0,0,0]        Bc=[0]
@@ -96,7 +96,7 @@ Ac+Bc*F         // Companion form
 spec(A+B*F/U)   // F/U is the gain matrix in original basis.
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

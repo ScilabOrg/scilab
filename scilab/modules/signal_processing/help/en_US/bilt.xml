@@ -65,9 +65,7 @@
     <para>function for calculating the gain poles and zeros which
     result from a bilinear transform or from a biquadratic transform.
     Used by the functions <link linkend="iir">iir</link> and <link linkend="trans">trans</link>.</para>
-   
   </refsection>
-
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
@@ -91,12 +89,18 @@ horner(Hlp,num/den)
     <title>Authors</title>
     <para>Carey Bunks ;   </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member><link linkend="iir">iir</link></member>
-      <member><link linkend="trans">trans</link></member>
-      <member><link linkend="horner">horner</link></member>
+      <member>
+        <link linkend="iir">iir</link>
+      </member>
+      <member>
+        <link linkend="trans">trans</link>
+      </member>
+      <member>
+        <link linkend="horner">horner</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

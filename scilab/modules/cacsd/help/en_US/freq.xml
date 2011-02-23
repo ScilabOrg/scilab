@@ -72,7 +72,7 @@ Sys=tf2ss(sys);
 freq(A,B,C,[0,0.9,1.1,2,3,10,20])
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

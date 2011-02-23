@@ -17,7 +17,7 @@
       <varlistentry>
         <term>Sl,Stmp</term>
         <listitem>
-          <para> <literal>syslin</literal> lists</para>
+          <para><literal>syslin</literal> lists</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -53,7 +53,7 @@ Stmp('D')     // D matrix of Stmp
 clean(ss2tf(Stmp))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

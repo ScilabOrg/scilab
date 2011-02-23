@@ -29,7 +29,7 @@
       <varlistentry>
         <term>Sys</term>
         <listitem>
-          <para> <literal>syslin</literal> list containing the matrices <literal>(A,B2,C,D2)</literal>.</para>
+          <para><literal>syslin</literal> list containing the matrices <literal>(A,B2,C,D2)</literal>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -80,7 +80,7 @@
     <literal>Sys</literal> is a linear system {A,B2,C,D2} with one input and two outputs 
     ( i.e.  Sys: u--&gt;(z,y) ), part the following system defined from <literal>Sys</literal>
     and <literal>B1,D1</literal>:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 xdot =  A x + B1  w + B2  u
    z = C1 x + D11 w + D12 u
    y = C2 x + D21 w + D22 u
@@ -88,7 +88,7 @@ xdot =  A x + B1  w + B2  u
     <para>
     outputs of Sys are partitioned into (z,y) where z is to be zeroed,
     i.e. the matrices C and D2 are:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 C=[C1;C2]         D2=[D12;D22]
 C1=C(zeroed,:)    D12=D2(zeroed,:)
  ]]></programlisting>
@@ -97,7 +97,7 @@ C1=C(zeroed,:)    D12=D2(zeroed,:)
     with <literal>D11=D1(zeroed,:)</literal>.
     The control is u=Fx+Gw and one  looks for matriced <literal>F,G</literal> such that the 
     closed loop system: w--&gt;z given by</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 xdot= (A+B2*F)  x + (B1 + B2*G) w
   z = (C1+D12F) x + (D11+D12*G) w
  ]]></programlisting>
@@ -109,7 +109,7 @@ xdot= (A+B2*F)  x + (B1 + B2*G) w
     <literal>beta</literal>.</para>
     <para>
     Closed is a realization of the <literal>w--&gt;y</literal> closed loop system</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 xdot= (A+B2*F)  x + (B1 + B2*G) w
   y = (C2+D22*F) x + (D21+D22*G) w
  ]]></programlisting>
@@ -144,7 +144,7 @@ closed=syslin('c',A+B2*F,B1+B2*G,C1+D12*F,D11+D12*G);
 ss2tf(closed)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

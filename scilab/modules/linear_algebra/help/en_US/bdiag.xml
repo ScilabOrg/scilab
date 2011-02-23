@@ -59,7 +59,7 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [Ab [,X [,bs]]]=bdiag(A [,rmax]) 
  ]]></programlisting>
     <para>
@@ -85,7 +85,7 @@ a=rand(5,5);[ab,x,bs]=bdiag(a);ab
 [ab,x,bs]=bdiag(a+%i*0);ab
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

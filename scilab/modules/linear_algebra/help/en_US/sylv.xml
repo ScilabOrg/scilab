@@ -43,12 +43,12 @@
     <title>Description</title>
     <para><literal>X = sylv(A,B,C,'c')</literal> computes <literal>X</literal>, solution
     of the "continuous time" Sylvester equation</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A*X+X*B=C 
  ]]></programlisting>
     <para><literal>X=sylv(A,B,C,'d')</literal> computes <literal>X</literal>, solution
     of the "discrete time" Sylvester equation</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A*X*B-X=C
  ]]></programlisting>
   </refsection>
@@ -62,7 +62,7 @@ X=sylv(A,B,C,'d')
 norm(A*X*B-X-C)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

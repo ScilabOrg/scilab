@@ -36,7 +36,7 @@ mulf('0','a')
 'a'+'b'   //Caution...
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

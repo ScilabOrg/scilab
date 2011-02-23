@@ -131,14 +131,14 @@
     <para><literal>[AK,BK,CK,DK,(RCOND)] = hinf(A,B,C,D,ncon,nmeas,gamma)</literal>
     To compute the matrices of an H-infinity (sub)optimal n-state
     controller</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
     | AK | BK |
 K = |----|----|,
     | CK | DK |
  ]]></programlisting>
     <para>
     for the continuous-time system</para>
-    <programlisting role = ""><![CDATA[
+    <programlisting role=""><![CDATA[
     | A  | B1  B2  |   | A | B |
 P = |----|---------| = |---|---|,
     | C1 | D11 D12 |   | C | D | 
@@ -188,7 +188,7 @@ Gamma=10.18425636157899;
 [AK,BK,CK,DK] = hinf(A,B,C,D,2,2,Gamma)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

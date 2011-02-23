@@ -76,7 +76,7 @@ save("vals.dat",a,b,c)
 listvarinfile("vals.dat")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

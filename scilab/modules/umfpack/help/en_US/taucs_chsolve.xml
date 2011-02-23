@@ -61,7 +61,7 @@
     see the example section of <link linkend="taucs_chfact">taucs_chfact</link>
   </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

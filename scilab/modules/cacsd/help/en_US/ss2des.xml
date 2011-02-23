@@ -29,7 +29,7 @@ S=ss2des(Sl,flag)</synopsis>
       <varlistentry>
         <term>Sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list: proper or improper linear system.</para>
+          <para><literal>syslin</literal> list: proper or improper linear system.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -54,7 +54,7 @@ S=ss2des(Sl,flag)</synopsis>
     polynomial or constant, but not zero <literal>ss2des</literal>
     returns a descriptor system as <literal>list('des',A,B,C,0,E)</literal>
     such that:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 Sl=C*(s*E-A)^(-1)*B
  ]]></programlisting>
     <para>
@@ -72,7 +72,7 @@ Des=des2ss(S);Des(5)=clean(Des(5))
 Des1=des2ss(S1)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -70,37 +70,38 @@
     one of the following filters:</para>
     <variablelist>
       <varlistentry>
-	<term>tr_type='lp'</term>
-	<listitem>
-	  <para>low pass filter, the cutoff frequency is given by the
+        <term>tr_type='lp'</term>
+        <listitem>
+          <para>low pass filter, the cutoff frequency is given by the
 	  first entry of <literal>frq</literal>, the second one is ignored.</para>
-	</listitem>
+        </listitem>
       </varlistentry>
       <varlistentry>
-	<term>tr_type='hp'</term>
-	<listitem>
-	  <para>high pass filter, the cutoff frequency is given by the
+        <term>tr_type='hp'</term>
+        <listitem>
+          <para>high pass filter, the cutoff frequency is given by the
 	  first entry of  <literal>frq</literal>, the second one is ignored.</para>
-	</listitem>
+        </listitem>
       </varlistentry>
       <varlistentry>
-	<term>tr_type='bp'</term>
-	<listitem>
-	  <para>band pass filter, the frequency range is given by <literal>frq(1)</literal> and <literal>frq(2)</literal>.</para>
-	</listitem>
+        <term>tr_type='bp'</term>
+        <listitem>
+          <para>band pass filter, the frequency range is given by <literal>frq(1)</literal> and <literal>frq(2)</literal>.</para>
+        </listitem>
       </varlistentry>
       <varlistentry>
-	<term>tr_type='sb'</term>
-	<listitem>
-	  <para>stop band filter, the frequency range is given by <literal>frq(1)</literal> and <literal>frq(2)</literal>.</para>
-	</listitem>
+        <term>tr_type='sb'</term>
+        <listitem>
+          <para>stop band filter, the frequency range is given by <literal>frq(1)</literal> and <literal>frq(2)</literal>.</para>
+        </listitem>
       </varlistentry>
     </variablelist>
   </refsection>
   <refsection>
- 
-  <title>Used functions</title>
-  <para><link linkend="bilt">bilt</link></para>
+    <title>Used functions</title>
+    <para>
+      <link linkend="bilt">bilt</link>
+    </para>
   </refsection>
   <refsection>
     <title>Examples</title>
@@ -119,11 +120,15 @@ l.legend_location="in_lower_left";
     <title>Authors</title>
     <para>Carey Bunks ;   </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member><link linkend="iir">iir</link></member>
-       <member><link linkend="bilt">bilt</link></member>
+      <member>
+        <link linkend="iir">iir</link>
+      </member>
+      <member>
+        <link linkend="bilt">bilt</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

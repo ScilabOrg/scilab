@@ -81,7 +81,7 @@
     Frequency response to  transfer function conversion. The order of <literal>h</literal>
     is a priori given in <literal>dg</literal> which must be provided.
     The following linear system is solved in the least square sense.</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
  weight(k)*(n( phi_k) - d(phi_k)*rep_k)=0, k=1,..,n
  ]]></programlisting>
     <para>
@@ -116,7 +116,7 @@ frq=(0:0.01:0.5)/dom;repf=repfreq(h,frq);
 clf();plot2d1("onn",frq',abs([repf;rep2])');
 ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

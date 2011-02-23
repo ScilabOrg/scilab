@@ -105,9 +105,11 @@
     <para>
     Files are not required to exist, when Makefile is generated, but of
     course are required for executing the Makefile.</para>
-	 <para><emphasis role="bold">Only use this function is you know what you are doing (it is a semi-private function).</emphasis></para>
+    <para>
+      <emphasis role="bold">Only use this function is you know what you are doing (it is a semi-private function).</emphasis>
+    </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -131,7 +133,9 @@
       <member>
         <link linkend="ilib_for_link">ilib_for_link</link>
       </member>
-      <member><link linkend="api_scilab">api_scilab</link></member>
+      <member>
+        <link linkend="api_scilab">api_scilab</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

@@ -28,7 +28,7 @@
       <varlistentry>
         <term>sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list describing a discrete time linear system</para>
+          <para><literal>syslin</literal> list describing a discrete time linear system</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -65,7 +65,7 @@ u=ones(1,20);
 x2=dsimul(sl,u);  //Step response
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

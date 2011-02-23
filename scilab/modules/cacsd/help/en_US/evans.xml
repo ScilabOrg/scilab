@@ -29,8 +29,7 @@
         <term>H</term>
         <listitem>
           <para>SISO linear system given by a transfer or a state
-          space representation (see:<link
-          linkend="syslin">syslin</link>).</para>
+          space representation (see:<link linkend="syslin">syslin</link>).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -68,13 +67,13 @@
     ]]></programlisting>
     <para>
       <inlinemediaobject>
-	<imageobject>
-	  <imagedata fileref="../images/evans.svg"/>
-	</imageobject>
+        <imageobject>
+          <imagedata fileref="../images/evans.svg"/>
+        </imageobject>
       </inlinemediaobject>
     </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

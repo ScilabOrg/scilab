@@ -28,7 +28,7 @@
       <varlistentry>
         <term>P12</term>
         <listitem>
-          <para> <literal>syslin</literal> list (state-space linear system)</para>
+          <para><literal>syslin</literal> list (state-space linear system)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -48,7 +48,7 @@
     <para>
     The cost function is l2-norm of <literal>z'*z</literal> with <literal>z=C1 x + D12 u</literal>
     i.e. <literal>[x,u]' * BigQ * [x;u]</literal> where</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
       [C1' ]               [Q  S]
 BigQ= [    ]  * [C1 D12] = [    ]
       [D12']               [S' R]
@@ -58,30 +58,30 @@ BigQ= [    ]  * [C1 D12] = [    ]
     <para><literal>X</literal> is the stabilizing solution of the Riccati equation.</para>
     <para>
     For a continuous plant:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 (A-B2*inv(R)*S')'*X+X*(A-B2*inv(R)*S')-X*B2*inv(R)*B2'*X+Q-S*inv(R)*S'=0
  ]]></programlisting>
-    <programlisting role = ""><![CDATA[
+    <programlisting role=""><![CDATA[
 K=-inv(R)*(B2'*X+S)
  ]]></programlisting>
     <para>
     For a discrete plant:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 X=A'*X*A-(A'*X*B2+C1'*D12)*pinv(B2'*X*B2+D12'*D12)*(B2'*X*A+D12'*C1)+C1'*C1;
  ]]></programlisting>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 K=-pinv(B2'*X*B2+D12'*D12)*(B2'*X*A+D12'*C1)
  ]]></programlisting>
     <para>
     An equivalent form for <literal>X</literal> is</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 X=Abar'*inv(inv(X)+B2*inv(r)*B2')*Abar+Qbar
  ]]></programlisting>
     <para>
     with <literal>Abar=A-B2*inv(R)*S'</literal> and <literal>Qbar=Q-S*inv(R)*S'</literal></para>
     <para>
     The 3-blocks matrix pencils associated with these Riccati equations are:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
              discrete                           continuous
  |I   0    0|   | A    0    B2|         |I   0   0|   | A    0    B2|
 z|0   A'   0| - |-Q    I    -S|        s|0   I   0| - |-Q   -A'   -S|
@@ -108,7 +108,7 @@ spec(A+B*K)   //check stability
 norm(A'*X*A-(A'*X*B)*pinv(B'*X*B+R)*(B'*X*A)+Q-X,1) //Riccati check
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

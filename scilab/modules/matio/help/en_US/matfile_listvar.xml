@@ -56,7 +56,7 @@
     <para>
     Lists variables of a Matlab binary MAT-file opened by <link linkend="matfile_open">matfile_open</link>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

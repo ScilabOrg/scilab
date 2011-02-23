@@ -209,7 +209,7 @@ fig.event_handler_enable = "on" ;
 fig.event_handler_enable = "off" ; //suppress the event handler
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -35,13 +35,13 @@
       <varlistentry>
         <term>Y</term>
         <listitem>
-          <para></para>
+          <para/>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>U</term>
         <listitem>
-          <para></para>
+          <para/>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -171,7 +171,7 @@
       <varlistentry>
         <term>R</term>
         <listitem>
-          <para></para>
+          <para/>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -206,7 +206,7 @@
     upper triangular factor  R  of the concatenated block-Hankel matrices 
     built from the input-output data, and the order  N  of a discrete-time
     realization. The model structure is:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 x(k+1) = Ax(k) + Bu(k) + w(k),   k >= 1,
 y(k)   = Cx(k) + Du(k) + e(k).
  ]]></programlisting>
@@ -243,7 +243,7 @@ SVAL
 N
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

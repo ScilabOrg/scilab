@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry version="5.0-subset Scilab" xml:id="roots" xml:lang="fr"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:ns5="http://www.w3.org/1999/xhtml"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="roots" xml:lang="fr">
   <info>
     <pubdate>$LastChangedDate: 2008-07-11 10:34:31 +0200 (ven., 11 juil. 2008)
     $</pubdate>
   </info>
-
   <refnamediv>
     <refname>roots</refname>
-
     <refpurpose>racines d'un polynôme</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
-
     <synopsis>[x]=roots(p)</synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Paramètres</title>
-
     <variablelist>
       <varlistentry>
         <term>p</term>
-
         <listitem>
           <para>polynôme à coefficients réels ou complexes ou vecteur des
           coefficients du polynôme ordonnés par puissance décroissante
@@ -38,10 +25,8 @@
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
-
     <para><literal>x=roots(p)</literal> renvoie dans le vecteur complexe
     <literal>x</literal> les racines du polynôme <literal>p</literal>. Pour
     les polynômes à coefficients réels et de degré &lt;=100, l'algorithme
@@ -50,10 +35,8 @@
     compagnon du polynôme. Pour forcer ce dernier algorithme dans tous les
     cas, utilisez <literal>x=roots(p,'e')</literal>.</para>
   </refsection>
-
   <refsection>
     <title>Exemples</title>
-
     <programlisting role="example"><![CDATA[ 
 p=poly([0,10,1+%i,1-%i],'x');
 roots(p)
@@ -61,37 +44,33 @@ A=rand(3,3);roots(poly(A,'x'))    // comparaison via le polynôme caractéristiq
 spec(A) 
  ]]></programlisting>
   </refsection>
-
-  <refsection>
-    <title>Voir Aussi</title>
-
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
-      <member><link linkend="poly">poly</link></member>
-
-      <member><link linkend="spec">spec</link></member>
-
-      <member><link linkend="companion">companion</link></member>
+      <member>
+        <link linkend="poly">poly</link>
+      </member>
+      <member>
+        <link linkend="spec">spec</link>
+      </member>
+      <member>
+        <link linkend="companion">companion</link>
+      </member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Auteurs</title>
-
     <simplelist type="vert">
       <member>Serge Steer (INRIA)</member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Bibliographie</title>
-
     <para>La routine RPOLY est decrite dans "Algorithm 493: Zeros of a Real
     Polynomial", ACM TOMS Volume 1, Issue 2 (June 1975), pp. 178-189</para>
   </refsection>
-
   <refsection>
     <title>Fonctions Utilisées</title>
-
     <para>Le code source de rpoly.f peut être trouvé dans le repertoire
 	    SCI/modules/polynomials/src/fortran de la distribution source de Scilab. Dans le cas où la
     matrix compagnon est utilisée, le calcul des valeurs propres est effectué

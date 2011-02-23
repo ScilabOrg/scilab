@@ -34,7 +34,7 @@
       <varlistentry>
         <term>isValid</term>
         <listitem>
-	  <para>Matrice de booléens de même taille que <literal>h</literal></para>
+          <para>Matrice de booléens de même taille que <literal>h</literal></para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -68,8 +68,8 @@ delete(polylines(3:7));
 is_handle_valid(polylines)
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="delete">delete</link>
@@ -84,6 +84,3 @@ is_handle_valid(polylines)
     <para>Jean-Baptiste Silvy INRIA</para>
   </refsection>
 </refentry>
-
-
-

@@ -30,7 +30,7 @@
         <term>title,x_label,y_label, z_label</term>
         <listitem>
           <para>matrices of strings.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
+          <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -75,7 +75,7 @@ mathml="<mrow>      <mfrac>        <mrow>          <mi>d</mi>          <mi>y</mi
 xtitle( 'My surface is blue', 'X axis', '$Y axis$', mathml );
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

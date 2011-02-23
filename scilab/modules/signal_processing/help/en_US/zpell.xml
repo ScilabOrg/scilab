@@ -64,7 +64,7 @@
     Poles and zeros of prototype lowpass elliptic filter.
     <literal>gain</literal> is the gain of the filter</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

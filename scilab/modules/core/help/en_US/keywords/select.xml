@@ -9,7 +9,7 @@
   </refnamediv>
   <refsection>
     <title>Description</title>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 select expr,
   case expr1 then instructions1,
   case expr2 then instructions2,
@@ -52,7 +52,7 @@ while %t do
 end
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

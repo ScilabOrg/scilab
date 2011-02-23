@@ -110,15 +110,14 @@
   <refsection>
     <title>Remarque</title>
     <para>Pour des raisons historiques,  des symboles différents peuvent représenter le même opérateur:</para>
-    <para> <literal>{</literal> a la même signification que <literal>[</literal></para>
-    <para> <literal>}</literal> a la même signification que  <literal>]</literal></para>
-    <para> <literal>@</literal> a la même signification que  <literal>~</literal></para>
-    <para> <literal>`</literal> a la même signification que  &lt;</para>
+    <para><literal>{</literal> a la même signification que <literal>[</literal></para>
+    <para><literal>}</literal> a la même signification que  <literal>]</literal></para>
+    <para><literal>@</literal> a la même signification que  <literal>~</literal></para>
+    <para><literal>`</literal> a la même signification que  &lt;</para>
     <para> Il est fortement déconseillé d'utiliser ces opérateurs alternatifs, car il seront supprimés dans le futur.</para>
   </refsection>
-
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="overloading">overloading</link>

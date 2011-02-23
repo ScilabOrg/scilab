@@ -50,7 +50,7 @@ demolist=['n-pendulum','npend/npend_gateway.sce';
 demo_file_choice('SCI/demos/simulation/','no');
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

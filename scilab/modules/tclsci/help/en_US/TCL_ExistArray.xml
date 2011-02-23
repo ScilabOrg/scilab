@@ -65,7 +65,7 @@ TCL_ExistVar("A")
 TCL_ExistArray("A")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

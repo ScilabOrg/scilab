@@ -35,7 +35,7 @@
         <term>str</term>
         <listitem>
           <para>matrix of strings.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
+          <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -89,7 +89,7 @@ xset("font",1,24); xstring(0.1,0.6,"a") //big alpha
 xset("default")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

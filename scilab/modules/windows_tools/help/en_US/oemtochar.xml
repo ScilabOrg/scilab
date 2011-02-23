@@ -45,7 +45,7 @@
     <para><literal>oemtochar</literal> translates a string from the OEM-defined
     character set into either an ANSI string.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

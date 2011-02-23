@@ -61,7 +61,7 @@ TCL_ExistVar("a")
 TCL_DeleteInterp("TCLinterp")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

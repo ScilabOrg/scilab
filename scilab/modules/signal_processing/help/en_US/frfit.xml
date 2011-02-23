@@ -68,7 +68,7 @@ frespfit=repfreq(Gid,w);
 bode(w,[fresp;frespfit])
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

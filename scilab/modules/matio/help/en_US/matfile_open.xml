@@ -58,7 +58,7 @@
     <para>
     Opens a Matlab binary MAT-file for reading or writing data.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

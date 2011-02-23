@@ -91,7 +91,7 @@ plot(real(Y),imag(Y),'+r')
     <title>Author</title>
     <para>Serge Steer, INRIA</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

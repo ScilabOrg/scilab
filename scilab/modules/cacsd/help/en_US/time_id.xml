@@ -72,7 +72,7 @@
       <varlistentry>
         <term>err</term>
         <listitem>
-          <para> <literal>||y - impuls(H,npt)||^2</literal>, where <literal>impuls(H,npt)</literal> are the <literal>npt</literal> first coefficients of impulse response of <literal>H</literal></para>
+          <para><literal>||y - impuls(H,npt)||^2</literal>, where <literal>impuls(H,npt)</literal> are the <literal>npt</literal> first coefficients of impulse response of <literal>H</literal></para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -104,7 +104,7 @@ H=time_id(2,'step',rep)
 H=time_id(3,u,rep)    //with u as input and too high order required
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

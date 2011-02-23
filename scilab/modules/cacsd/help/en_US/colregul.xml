@@ -28,7 +28,7 @@
       <varlistentry>
         <term>Sl,Stmp</term>
         <listitem>
-          <para> <literal>syslin</literal> lists</para>
+          <para><literal>syslin</literal> lists</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -51,7 +51,7 @@
     <para><literal>Sl</literal> is a assumed to be a left invertible linear system (<literal>syslin</literal> list)
     in state-space representation with possibly a polynomial <literal>D</literal> matrix.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

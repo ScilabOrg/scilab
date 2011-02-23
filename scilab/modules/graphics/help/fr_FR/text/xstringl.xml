@@ -32,7 +32,7 @@
         <term>str</term>
         <listitem>
           <para>matrice de chaînes de caractères.</para>
-<para>A partir de la version Scilab 5.2, il est possible d'utiliser les expressions <link linkend="math_rendering_features_in_graphic">LaTeX ou MathML</link></para>
+          <para>A partir de la version Scilab 5.2, il est possible d'utiliser les expressions <link linkend="math_rendering_features_in_graphic">LaTeX ou MathML</link></para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -78,8 +78,8 @@ txt2.font_size = 5;
 txt2.font_style = 2;
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="titlepage">titlepage</link>

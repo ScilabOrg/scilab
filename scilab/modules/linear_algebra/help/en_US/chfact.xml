@@ -47,7 +47,7 @@
     Fortran programs for a complete description of the variables in
     <literal>spcho</literal>. This function is to be used with <literal>chsolve</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

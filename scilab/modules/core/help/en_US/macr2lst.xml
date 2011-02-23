@@ -179,7 +179,7 @@ L=macr2lst(foo)
 fun2string(L)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

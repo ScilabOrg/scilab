@@ -57,7 +57,7 @@
 		  defining the position of the upper-left corner of the window.
 		  The position <literal>[0,0]</literal> is the upper-left corner of the
 		  screen.</para>
-		<para>The initial position of graphic windows is taken from the default figure entity (see
+                <para>The initial position of graphic windows is taken from the default figure entity (see
 		  <link linkend="gdf">gdf</link>). The only exception is when default figure <literal>figure_position</literal>
 		  value is <literal>[-1,-1]</literal>. In this case, the initial position of graphic windows is automatically set
 		  by the windowing system.
@@ -155,7 +155,7 @@
                 </para>
               </listitem>
             </varlistentry>
-	    <varlistentry>
+            <varlistentry>
               <term>anti_aliasing: </term>
               <listitem>
                 <para>This property controls the anti-aliasing level used to improve graphic quality.
@@ -296,7 +296,7 @@ t=-%pi:0.3:%pi;
 plot3d(t,t,sin(t)'*cos(t),35,45,'X@Y@Z',[15,2,4]);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

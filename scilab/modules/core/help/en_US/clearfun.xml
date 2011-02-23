@@ -18,7 +18,7 @@
     This function allows to rename a primitive : a Scilab 
     primitive can be replaced by a user-defined function. For experts...</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

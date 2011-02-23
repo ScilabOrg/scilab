@@ -10,34 +10,22 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry version="5.0-subset Scilab" xml:id="champ_properties" xml:lang="en"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:ns5="http://www.w3.org/1999/xhtml"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="champ_properties" xml:lang="en">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
-
   <refnamediv>
     <refname>champ_properties</refname>
-
     <refpurpose>Descrição das propriedades da entidade campo vetorial
     2d</refpurpose>
   </refnamediv>
-
   <refsection>
     <title>Descrição</title>
-
     <para>A entidade Champ é uma folha na hierarquia de entidade gráficas.
     Esta entidade define parâmetros para um campo vetorial 2d .</para>
-
     <variablelist>
       <varlistentry>
         <term>visible:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>visible</literal> para a entidade. Pode ser <literal>"on"
@@ -46,10 +34,8 @@
           vetorial não aparece na tela.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>data:</term>
-
         <listitem>
           <para>este campo define uma estrutura de dados
           <literal>tlist</literal> de tipo <literal>"champdata"</literal>
@@ -63,20 +49,16 @@
           <literal>(x(i),y(j))</literal>.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>user_data:</term>
-
         <listitem>
           <para>este campo pode ser utilizado para armazenar qualquer variável
           Scilab na estrutura de dados da entidade Champ e recuperá-la.
           </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>line_style:</term>
-
         <listitem>
           <para>o valor da propriedade <literal>line_style</literal> deve ser
           um valor inteiro no intervalo [0 9]. 0 significa linha sólida e os
@@ -85,10 +67,8 @@
           </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>thickness:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>thickness</literal> (espessura) para todas as linhas
@@ -96,36 +76,29 @@
           </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>colored:</term>
-
         <listitem>
           <para>se o valor desta propriedade for <literal>"on"</literal>, os
           vetores são coloridos utilizando-se uma cor porporcional à
           intensidade do campo.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>clip_state:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>clip_state</literal> para a entidade Champ. Pode ser
           :</para>
-
           <itemizedlist>
             <listitem>
               <para><literal>"off"</literal> significa que o campo vetorial
               não é recortado</para>
             </listitem>
-
             <listitem>
               <para><literal>"clipgrf"</literal> siginifica que o campo
               vetorial é recortado fora da caixa da entidade Axes.</para>
             </listitem>
-
             <listitem>
               <para><literal>"on"</literal> significa que o campo vetorial é
               recortado fora do retângulo dado pela propriedade
@@ -134,10 +107,8 @@
           </itemizedlist>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>clip_box:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>clip_box</literal>. Seu valor pode ser uma matriz vazia se
@@ -148,10 +119,8 @@
           modificado.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>parent:</term>
-
         <listitem>
           <para>esta propriedade contém o manipulador da raiz. A raiz de uma
           entidade campo vetorial 2d deve ser do tipo
@@ -160,10 +129,8 @@
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Exemplos</title>
-
     <programlisting role="example"><![CDATA[ 
 a=get("current_axes");//obtendo o manipulador dos novos eixos criados
 a.data_bounds=[-10,-10;10,10];
@@ -177,29 +144,31 @@ c.data // exibindo um tlist do tipo "scichampdata"
 a.data_bounds=[-5,-5;5,5];
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>Ver Também</title>
-
     <simplelist type="inline">
-      <member><link linkend="set">set</link></member>
-
-      <member><link linkend="get">get</link></member>
-
-      <member><link linkend="delete">delete</link></member>
-
-      <member><link linkend="champ">champ</link></member>
-
-      <member><link linkend="champ1">champ1</link></member>
-
-      <member><link
-      linkend="graphics_entities">graphics_entities</link></member>
+      <member>
+        <link linkend="set">set</link>
+      </member>
+      <member>
+        <link linkend="get">get</link>
+      </member>
+      <member>
+        <link linkend="delete">delete</link>
+      </member>
+      <member>
+        <link linkend="champ">champ</link>
+      </member>
+      <member>
+        <link linkend="champ1">champ1</link>
+      </member>
+      <member>
+        <link linkend="graphics_entities">graphics_entities</link>
+      </member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Autor</title>
-
     <para>Djalel ABDEMOUCHE</para>
   </refsection>
 </refentry>

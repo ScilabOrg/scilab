@@ -13,7 +13,7 @@
     Used at end of loops or conditionals.
     <literal>for, while, if, select</literal> must be terminated by <literal>end</literal> .</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -53,7 +53,7 @@
 tbx_build_help("Toolbox Example", get_absolute_file_path('build_help.sce'))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -67,7 +67,6 @@ tbx_build_help("Toolbox Example", get_absolute_file_path('build_help.sce'))
       </member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Authors</title>
     <simplelist type="vert">

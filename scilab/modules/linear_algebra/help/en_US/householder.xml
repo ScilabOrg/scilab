@@ -54,7 +54,7 @@
     <para><literal>w</literal> default value is <literal> eye(v)</literal>. In this case vector <literal> (eye()-2*u*u')*v</literal> is the 
     vector  <literal> eye(v)*norm(v)</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

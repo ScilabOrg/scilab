@@ -62,7 +62,7 @@ date_st.day=19;
 date_st.semaine=32
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -68,7 +68,7 @@
     <para>
     This function creates a description as a tlist of an  ARMAX process</para>
     <para><literal>ar</literal> is defined by</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 ar=tlist(['ar','a','b','d','ny','nu','sig'],a,b,d,ny,nu,sig);
  ]]></programlisting>
     <para>
@@ -87,7 +87,7 @@ ar=armac(a,b,d,2,1,sig)
 [A,B,D]=arma2p(ar);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -2,7 +2,7 @@
 <!--
  * Ajouter ici d'éventuels commentaires sur le fichier XML
 -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="aplat">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="aplat">
   <info>
     <pubdate>$LastChangedDate: 22-07-2009 $</pubdate>
   </info>
@@ -63,11 +63,11 @@
 [lf,ind]=aplat(list(1,2,list([3,1],'xxx',list([3,2,1]))))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-        <link linkend="recons" >recons</link>
+        <link linkend="recons">recons</link>
       </member>
     </simplelist>
   </refsection>
@@ -77,5 +77,4 @@
       <member>F.D. and S.S., INRIA</member>
     </simplelist>
   </refsection>
-
 </refentry>

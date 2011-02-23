@@ -46,8 +46,7 @@ xset()</synopsis>
     <para>Warning this function is obsolete. Use the Scilab graphic objetcs representation
     instead (see the
     <link linkend="set">set</link> and <link linkend="get">get</link>
-    functions as well as the <link
-    linkend="graphics_entities">graphics_entities</link> help
+    functions as well as the <link linkend="graphics_entities">graphics_entities</link> help
     page).</para>
     <para><literal>xset</literal> is used to set default values of the current window
     graphic context.</para>
@@ -268,7 +267,7 @@ xset()</synopsis>
         <listitem>
           <para>If flag=1 then the graphic is automatically resized to fill the
         graphics window.</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 xdel();
 xset("wresize",1);
 plot2d();
@@ -277,7 +276,7 @@ xset("wdim",1000,500)
           <para>If flag=0 the scale of the graphic is left unchanged when the
         graphics window is resized. Top left panner or keyboard arrows may be
         used to scroll over the graphic.</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 xdel();
 plot2d();
 xset("wresize",0);
@@ -299,15 +298,27 @@ xset("wdim",1000,500)
       </varlistentry>
     </variablelist>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member> <link linkend="xget">xget</link> </member>
-      <member> <link linkend="getcolor">getcolor</link></member>
-      <member> <link linkend="getsymbol">getsymbol</link></member>
-      <member><link linkend="ged">ged</link></member>
-      <member><link linkend="set">set</link></member>
-      <member><link linkend="graphics_entities">graphics_entities</link></member>
+      <member>
+        <link linkend="xget">xget</link>
+      </member>
+      <member>
+        <link linkend="getcolor">getcolor</link>
+      </member>
+      <member>
+        <link linkend="getsymbol">getsymbol</link>
+      </member>
+      <member>
+        <link linkend="ged">ged</link>
+      </member>
+      <member>
+        <link linkend="set">set</link>
+      </member>
+      <member>
+        <link linkend="graphics_entities">graphics_entities</link>
+      </member>
     </simplelist>
   </refsection>
   <refsection>

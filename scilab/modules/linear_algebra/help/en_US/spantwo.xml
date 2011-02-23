@@ -57,7 +57,7 @@
     Given two matrices <literal>A</literal> and <literal>B</literal> with same number of rows,
     returns a square matrix <literal>Xp</literal> (non singular but not necessarily orthogonal) 
     such that :</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
          [A1, 0]    (dim-dimb rows)
 Xp*[A,B]=[A2,B2]    (dima+dimb-dim rows)
          [0, B3]    (dim-dima rows)
@@ -93,7 +93,7 @@ Sl=ss2ss(syslin('c',A,B,C),rand(A));
 Slcan=ss2ss(Sl,inv(Xp));
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

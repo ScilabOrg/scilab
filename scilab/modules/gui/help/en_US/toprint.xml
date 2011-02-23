@@ -87,7 +87,7 @@ toprint(4);
 toprint(4,"pos");
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

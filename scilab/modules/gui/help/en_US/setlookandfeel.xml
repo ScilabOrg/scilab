@@ -75,7 +75,7 @@ sleep(3000);
 setlookandfeel(currentlnf)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

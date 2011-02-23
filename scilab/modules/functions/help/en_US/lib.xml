@@ -37,7 +37,6 @@
           <para>library variable returned by 'lib'.</para>
         </listitem>
       </varlistentry>
-      
     </variablelist>
   </refsection>
   <refsection>
@@ -104,7 +103,7 @@ isdef('myplus')
 
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -128,7 +127,6 @@ isdef('myplus')
       <member>
         <link linkend="libraryinfo">libraryinfo</link>
       </member>
-     
     </simplelist>
   </refsection>
 </refentry>

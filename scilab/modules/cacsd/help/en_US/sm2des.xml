@@ -43,14 +43,14 @@
     <title>Description</title>
     <para>
     Utility function: converts the system matrix:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 Sm = [-sE + A   B;
      [    C     D]
  ]]></programlisting>
     <para>
     to descriptor system <literal>Des=list('des',A,B,C,D,E)</literal>).</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

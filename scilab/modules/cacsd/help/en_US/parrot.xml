@@ -48,7 +48,7 @@
     largest singular value of <literal>[D11 D12; D21 D22+K]</literal>
     is minimal (Parrot's problem)</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

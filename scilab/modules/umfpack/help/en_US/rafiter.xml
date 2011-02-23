@@ -96,7 +96,7 @@ norm(A*xn - b)
 taucs_chdel(C_ptr)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -68,7 +68,7 @@ delete(polylines(3:7));
 is_handle_valid(polylines)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -84,5 +84,3 @@ is_handle_valid(polylines)
     <para>Jean-Baptiste Silvy INRIA</para>
   </refsection>
 </refentry>
-
-

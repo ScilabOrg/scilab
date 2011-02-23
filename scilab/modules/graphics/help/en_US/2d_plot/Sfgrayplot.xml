@@ -68,7 +68,7 @@ Sfgrayplot(x,y,f [,strf, rect, nax, zminmax, colminmax, mesh, colout])</synopsis
     plot is smoothed. The function <literal>fec</literal> is used for smoothing. The
     surface is plotted assuming that it is linear on a set of triangles built
     from the grid (here with n1=5, n2=3):</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 _____________
 | /| /| /| /|
 |/_|/_|/_|/_| 
@@ -144,7 +144,7 @@ drawnow() ;
 show_window()
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

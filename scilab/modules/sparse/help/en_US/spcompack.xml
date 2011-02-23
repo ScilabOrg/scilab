@@ -49,7 +49,7 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 Utility fonction spcompak is used to convert a compressed adjacency
 representation into standard adjacency representation.
  ]]></programlisting>
@@ -93,7 +93,7 @@ xlindx=[1,2,3,8,9,11];
 adjncy-spcompack(xadj,xlindx,lindx)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

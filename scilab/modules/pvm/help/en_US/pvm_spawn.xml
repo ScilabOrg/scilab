@@ -77,7 +77,7 @@
     If <literal>PVM_EXPORT</literal> contains other names (separated by
     ':') they will 
     be passed too. This is useful for e.g.:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 setenv DISPLAY myworkstation:0.0
 setenv MYSTERYVAR 13
 setenv PVM_EXPORT DISPLAY:MYSTERYVAR
@@ -108,7 +108,7 @@ setenv PVM_EXPORT DISPLAY:MYSTERYVAR
     <literal>pvm_spawn</literal> will start all
     copies on this single machine using the vendor's underlying routines.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

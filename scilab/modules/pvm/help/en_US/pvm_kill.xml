@@ -56,7 +56,7 @@
     To kill yourself in C call <literal>pvm_exit()</literal> 
     followed by <literal>quit()</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

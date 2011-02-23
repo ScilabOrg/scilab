@@ -41,7 +41,7 @@
     pattern  of the Cholesky factorization (or if you  code something which
     use the factors). Traditionnaly, the factorization is written :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 P A P' = C C'
  ]]></programlisting>
     <para>
@@ -49,7 +49,7 @@ P A P' = C C'
     As we get the upper triangle Ct (= C'), in scilab syntax we
     can write :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A(p,p) = Ct' * Ct
  ]]></programlisting>
   </refsection>
@@ -93,7 +93,7 @@ cnz_exact = nnz(Ct)
 taucs_chdel(Cptr)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

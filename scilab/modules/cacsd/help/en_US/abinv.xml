@@ -28,7 +28,7 @@
       <varlistentry>
         <term>Sys</term>
         <listitem>
-          <para> <literal>syslin</literal> list containing the matrices <literal>[A,B,C,D]</literal>.</para>
+          <para><literal>syslin</literal> list containing the matrices <literal>[A,B,C,D]</literal>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -158,7 +158,7 @@
     (resp. stabilizable) subspace of the blocks 3 to 6 (resp. 2 to 6).</para>
     <para>
     This function can be used for the (exact) disturbance decoupling problem.</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 DDPS:
    Find u=Fx+Rd=[F,R]*[x;d] which rejects Q*d and stabilizes the plant:
 
@@ -231,7 +231,7 @@ ss2tf(closed)       // Closed loop is zero
 spec(closed('A'))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -63,7 +63,7 @@
     <title>Description</title>
     <para><literal>getio</literal> returns logical units assigned for main scilab input and output</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

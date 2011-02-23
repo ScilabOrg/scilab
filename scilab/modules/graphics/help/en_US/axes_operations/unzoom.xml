@@ -71,7 +71,7 @@ zoom_rect(rect) // zoom again
 unzoom(gcf()) // unzoom all the axes, equivalent to unzoom()
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

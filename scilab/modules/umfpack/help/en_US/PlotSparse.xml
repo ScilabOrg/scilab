@@ -26,7 +26,7 @@
           <para>(optional) a string given the color and/or the marker type of the form "[color][mark]" 
       where color may be a number referring the color you want to use (in the current colormap). 
       If you use the std colormap then color may be one of the following letters :</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 k  for black       b  for blue
 r  for red         g  for green
 c  for cyan        m  for magenta
@@ -36,7 +36,7 @@ G  a dark green
           <para>
     mark must be one of the following :
   </para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 .  point           +  plus 
 x  cross           *  circled plus 
 D  filled diamond  d  diamond
@@ -66,7 +66,7 @@ PlotSparse(A,"y+")
 xtitle(ref + "." + mtype + " : " + description)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

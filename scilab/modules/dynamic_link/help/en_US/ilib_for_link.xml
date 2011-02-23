@@ -34,7 +34,7 @@
       <varlistentry>
         <term>files</term>
         <listitem>
-          <para>string matrix giving source (from Scilab 5.0) or object files needed for shared library creation</para>
+          <para>string matrix giving source files needed for shared library creation. Since Scilab 5.3.1, object files are deprecated.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -55,7 +55,6 @@
           <para>character string. The pathname of the Makefile file without extension (default value <literal>Makelib</literal>).</para>
           <para>This parameter is useless since Scilab 5.0.</para>
           <para>A warning will be displayed in Scilab 5.3 if you use another value that the default.</para>
-
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -124,8 +123,12 @@
     <para>
     Many examples are provided in <literal>SCI/modules/dynamic_link/examples</literal>
     directory. They are all released into the public domain.</para>
-	<para><emphasis role="bold">Note that a compiler must be available on the system to use this function.</emphasis></para>
-	<para><emphasis role="bold">Languages handle by this function are: C, C++, Fortran and Fortran 90.</emphasis></para>
+    <para>
+      <emphasis role="bold">Note that a compiler must be available on the system to use this function.</emphasis>
+    </para>
+    <para>
+      <emphasis role="bold">Languages handle by this function are: C, C++, Fortran and Fortran 90.</emphasis>
+    </para>
   </refsection>
   <refsection>
     <title>Examples (C code)</title>
@@ -158,8 +161,7 @@ if norm(c-(a+b)) > %eps then pause,end
 end
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -183,7 +185,9 @@ end
       <member>
         <link linkend="ilib_for_link">ilib_for_link</link>
       </member>
-      <member><link linkend="api_scilab">api_scilab</link></member>
+      <member>
+        <link linkend="api_scilab">api_scilab</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

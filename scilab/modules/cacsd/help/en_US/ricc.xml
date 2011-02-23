@@ -64,12 +64,12 @@
     Riccati solver.</para>
     <para>
     Continuous time:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 X=ricc(A,B,C,'cont')
  ]]></programlisting>
     <para>
     gives a solution to the continuous time ARE</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A'*X+X*A-X*B*X+C=0 .
  ]]></programlisting>
     <para><literal>B</literal> and <literal>C</literal> are assumed to be nonnegative definite.
@@ -79,12 +79,12 @@ A'*X+X*A-X*B*X+C=0 .
     factorization of <literal>C</literal>.</para>
     <para>
     Discrete time:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 X=ricc(F,G,H,'disc')
  ]]></programlisting>
     <para>
     gives a solution  to the discrete time ARE</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 X=F'*X*F-F'*X*G1*((G2+G1'*X*G1)^-1)*G1'*X*F+H
  ]]></programlisting>
     <para><literal>F</literal> is assumed invertible and   <literal>G = G1*inv(G2)*G1'</literal>.</para>
@@ -131,7 +131,7 @@ Ham=[F+G*Fit*H -G*Fit;-Fit*H Fit];
 norm(X2-X,1)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -19,17 +19,15 @@
     <para>
     Kronecker product is <literal>x.*.y</literal></para>
     <para><literal>A*.B</literal>  is an operator with no predefined meaning. It may be used
-			to define a new operator (see overloading) with  the same precedence as * or /.
+			to define a new operator (see <link linkend="overloading">overloading</link>) with  the same precedence as * or /.
 		</para>
-
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="slash">slash</link>
       </member>
-
       <member>
         <link linkend="backslash">backslash</link>
       </member>

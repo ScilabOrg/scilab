@@ -51,7 +51,7 @@ file names. The other ones are subsidiary functions.</para>
 [m,p]=libraryinfo('corelib')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

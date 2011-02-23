@@ -30,46 +30,41 @@
   <refsection>
     <title>Arguments</title>
     <variablelist>
-			<varlistentry>
+      <varlistentry>
         <term>section</term>
         <listitem>
           <para>
 						This argument controls the list of section where search URL(s).
 					</para>
-          <para>
-						<literal>section</literal> is a single-string and its value should be :
+          <para><literal>section</literal> is a single-string and its value should be :
 					</para>
           <itemizedlist>
             <listitem>
-              <para>
-								<literal>"all"</literal>: URL(s) present in the "user", "allusers"
+              <para><literal>"all"</literal>: URL(s) present in the "user", "allusers"
 								and "official" section are listed.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"allusers"</literal>: only URL(s) present in the "allusers"
+              <para><literal>"allusers"</literal>: only URL(s) present in the "allusers"
 								section are listed.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"user"</literal>: only URL(s) present in the "user"
+              <para><literal>"user"</literal>: only URL(s) present in the "user"
 								section are listed.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"official"</literal>: only URL(s) present in the "official"
+              <para><literal>"official"</literal>: only URL(s) present in the "official"
 								section are listed.
 							</para>
             </listitem>
           </itemizedlist>
-					<para>
+          <para>
 						The default value is "all".
 					</para>
         </listitem>
-			</varlistentry>
+      </varlistentry>
       <varlistentry>
         <term>repositories</term>
         <listitem>
@@ -110,7 +105,7 @@ atomsRepositoryDel('http://scene1.atoms.scilab.org');
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

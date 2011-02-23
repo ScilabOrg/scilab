@@ -103,7 +103,7 @@ M(2)='a'+string([1 2;3 4])
 M('name')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

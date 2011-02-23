@@ -25,7 +25,6 @@
   <refsection>
     <title>Arguments</title>
     <variablelist>
-     
       <varlistentry>
         <term>lambda</term>
         <listitem>
@@ -68,7 +67,7 @@ a=rand(100,10,'n');
 show_pca(lambda,facpr)
  ]]></programlisting>
   </refsection>
- <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -79,7 +78,6 @@ show_pca(lambda,facpr)
       </member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Authors</title>
     <para>

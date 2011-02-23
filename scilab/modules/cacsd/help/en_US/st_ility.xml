@@ -28,7 +28,7 @@
       <varlistentry>
         <term>Sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list (linear system)</para>
+          <para><literal>syslin</literal> list (linear system)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -68,7 +68,7 @@
     <para><literal> Slo=( U'*A*U, U'*B, C*U, D, U'*x0 )</literal> (<literal>syslin</literal> list)
     displays the stabilizable form of <literal>Sl</literal>. Stabilizability means
     <literal>ns=nx</literal> (dim. of <literal>A</literal> matrix).</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
          [*,*,*]            [*]
 U'*A*U = [0,*,*]     U'*B = [0]
          [0,0,*]            [0]
@@ -92,7 +92,7 @@ U'*A*U
 U'*B
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

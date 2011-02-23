@@ -49,7 +49,7 @@
     byte-encoded audio files.   Translation of C program by Craig Reese: 
     IDA/Supercomputing Research Center Joe Campbell: Department of Defense</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

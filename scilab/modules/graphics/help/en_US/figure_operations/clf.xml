@@ -63,11 +63,11 @@ clf(num,&lt;opt_job_arg&gt;)</synopsis>
     and <literal>figure_size</literal> properties which can not be reset if the figure
     is docked with other elements.</para>
     <para><literal>clf(num)</literal> clear or reset the figure with
-	    <literal>figure_id==num</literal>.</para><para><literal>clf(h)</literal> clear or reset the figure pointed to by
+	    <literal>figure_id==num</literal>.</para>
+    <para><literal>clf(h)</literal> clear or reset the figure pointed to by
     the handle <literal>h</literal>.</para>
     <para><literal>clf()</literal> clear or reset the current figure.</para>
-	<para>
-	  <literal>clf</literal> function delete every children of specified windows including
+    <para><literal>clf</literal> function delete every children of specified windows including
 	  menus and uicontrols added by user.
 	  To prevent menus and uicontrols from being deleted, the <literal>delete(gca())</literal> command
 	  might be used instead.
@@ -94,7 +94,7 @@ clf(gcf(),'reset')
 plot3d1(t,t,sin(t)'*cos(t));  // color_map changed (back to the default one with 32 colors)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

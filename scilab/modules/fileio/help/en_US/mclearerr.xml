@@ -41,7 +41,7 @@
     <para>The function <literal>clearerr</literal> is used to resets the error indicator and
     EOF  indicator to zero.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

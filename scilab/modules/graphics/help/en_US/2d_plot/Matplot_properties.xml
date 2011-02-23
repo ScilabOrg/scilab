@@ -108,7 +108,7 @@ e=gce(); // get current entity
 e.data=e.data($:-1:1) // reverse order
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

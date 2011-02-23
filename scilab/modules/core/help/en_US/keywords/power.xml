@@ -77,7 +77,7 @@ s=poly(0,'s')
 s^(1:10)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

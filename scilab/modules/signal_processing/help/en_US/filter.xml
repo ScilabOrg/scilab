@@ -18,8 +18,12 @@
     <refname>filter</refname>
     <refpurpose>filters a data sequence using a digital filter</refpurpose>
   </refnamediv>
- <refsynopsisdiv><title>Calling Sequence</title><synopsis>[y,zf] = filter(num,den,x [,zi])</synopsis></refsynopsisdiv>
-  <refsection><title>Arguments</title>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>[y,zf] = filter(num,den,x [,zi])</synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
     <variablelist>
       <varlistentry>
         <term>num</term>
@@ -62,10 +66,8 @@
           filter a next batch of the input signal. </para>
         </listitem>
       </varlistentry>
-
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
     <para>
@@ -80,17 +82,17 @@
       Oppenheim, A. V. and R.W. Schafer. Discrete-Time Signal Processing, Englewood Cliffs, NJ: Prentice-Hall, 1989, pp. 311-312. 
     </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-	<link linkend="flts">flts</link>
+        <link linkend="flts">flts</link>
       </member>
       <member>
-	<link linkend="rtitr">rtitr</link>
+        <link linkend="rtitr">rtitr</link>
       </member>
       <member>
-	<link linkend="ltitr">ltitr</link>
+        <link linkend="ltitr">ltitr</link>
       </member>
     </simplelist>
   </refsection>

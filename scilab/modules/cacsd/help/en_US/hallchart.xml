@@ -21,7 +21,7 @@
   <refsynopsisdiv>
     <title>Calling Sequence</title>
     <synopsis>hallchart([ modules [,args [,colors]]])</synopsis>
-   <synopsis></synopsis>
+    <synopsis/>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
@@ -57,9 +57,10 @@
     <para>
       <literal>[-20 -10 -6 -4 -2 2 4 6 10 20]</literal>
     </para>
-    <para><literal>[-90 -60 -45 -30 -15 15 30 45 60 90]</literal></para>
+    <para>
+      <literal>[-90 -60 -45 -30 -15 15 30 45 60 90]</literal>
+    </para>
     <para>This function superseeds the <link linkend="m_circle">m_circle</link> function</para>
-
   </refsection>
   <refsection>
     <title>Graphics entities organization</title>
@@ -90,11 +91,11 @@
     //Hall chart
     clf();hallchart()
     ]]></programlisting>
-   <para>
+    <para>
       <inlinemediaobject>
-	<imageobject>
-	  <imagedata fileref="../images/hallchart.svg"/>
-	</imageobject>
+        <imageobject>
+          <imagedata fileref="../images/hallchart.svg"/>
+        </imageobject>
       </inlinemediaobject>
     </para>
     <programlisting role="example"><![CDATA[
@@ -111,19 +112,23 @@
     ax=gca();Leg=ax.children(1);
     Leg.legend_location="in_lower_right";
     ]]></programlisting>
-   <para>
+    <para>
       <inlinemediaobject>
-	<imageobject>
-	  <imagedata fileref="../images/nyquist2.svg"/>
-	</imageobject>
+        <imageobject>
+          <imagedata fileref="../images/nyquist2.svg"/>
+        </imageobject>
       </inlinemediaobject>
     </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member><link linkend="nyquist">nyquist</link></member>
-      <member><link linkend="nicholschart">nicholschart</link></member>
+      <member>
+        <link linkend="nyquist">nyquist</link>
+      </member>
+      <member>
+        <link linkend="nicholschart">nicholschart</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

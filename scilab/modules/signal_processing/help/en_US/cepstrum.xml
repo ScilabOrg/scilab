@@ -50,7 +50,7 @@ fresp=cepstrum(w,mag);
 plot2d([w',w'],[mag(:),abs(fresp)])
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

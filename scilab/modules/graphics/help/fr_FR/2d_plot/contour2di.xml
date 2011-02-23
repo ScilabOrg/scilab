@@ -39,7 +39,7 @@
                 <para>
      Si <literal>nz</literal> est un entier, sa valeur définit le nombre de courbes
 		  de niveaux espacées régulièrement entre zmin et zmax :</para>
-                <programlisting role = ""><![CDATA[ 
+                <programlisting role=""><![CDATA[ 
 z= zmin + (1:nz)*(zmax-zmin)/(nz+1)
  ]]></programlisting>
                 <para>
@@ -48,7 +48,7 @@ z= zmin + (1:nz)*(zmax-zmin)/(nz+1)
 		  peuvent être ajoutés avec
 
     </para>
-                <programlisting role = ""><![CDATA[ 
+                <programlisting role=""><![CDATA[ 
 [im,jm] = find(z == zmin);     // ou zmax 
 plot2d(x(im)',y(jm)',-9,"000")
  ]]></programlisting>
@@ -96,8 +96,8 @@ while k+yc(k)<size(xc,'*')
 end
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="contour">contour</link>

@@ -46,7 +46,7 @@
 plot(filt_sinc(100,0.1))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

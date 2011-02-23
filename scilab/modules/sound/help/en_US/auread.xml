@@ -85,7 +85,7 @@ y1=auread(TMPDIR+'/tmp.au');
 max(abs(y-y1))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

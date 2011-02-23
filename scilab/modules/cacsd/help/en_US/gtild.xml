@@ -103,7 +103,7 @@ Gt=gtild(Gss);    //..in state-space
 Gt2=clean(ss2tf(Gt));clean(Gt1-Gt2)  //Check
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

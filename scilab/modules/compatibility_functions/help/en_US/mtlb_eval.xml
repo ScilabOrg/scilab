@@ -66,7 +66,7 @@
         When called with two inputs and more than one output,
         <literal>[val1,val2,...]=mtlb_eval(str1,str2)</literal> may be replaced by:
         </para>
-        <programlisting role = ""><![CDATA[ 
+        <programlisting role=""><![CDATA[ 
 if execstr("[val1,val2,...]"+str1,"errcatch")<>0 then
   execstr("[val1,val2,...]"+str2);
 end	  
@@ -78,7 +78,7 @@ end
     </itemizedlist>
     <para>Caution: <literal>mtlb_eval</literal> has not to be used for hand coded functions.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

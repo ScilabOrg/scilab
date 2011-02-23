@@ -82,7 +82,7 @@
     pvm_bcast may not be an efficient communication method on
     some multiprocessors.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

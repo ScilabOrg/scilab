@@ -107,20 +107,18 @@ evals=spec(A,E)
       <varlistentry>
         <term>spec(A)</term>
         <listitem>
-          <para>
-	    <literal> evals=spec(A)</literal>  retourne dans le vecteur
+          <para><literal> evals=spec(A)</literal>  retourne dans le vecteur
 	    <literal>evals</literal> les valeurs propres de <literal>A</literal>.
 	  </para>
           <para><literal> [evals,X] =spec(A)</literal> retourne de plus les vecteurs
-	    propres (s'ils existent). Voir aussi <literal>bdiag</literal>
+	    propres (s'ils existent). Voir Aussi <literal>bdiag</literal>
 	  </para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>spec(A,B)</term>
         <listitem>
-          <para>
-	    <literal>evals=spec(A,E)</literal> retourne le  spectre du faisceau
+          <para><literal>evals=spec(A,E)</literal> retourne le  spectre du faisceau
 	    <literal>s E - A</literal>, c'est à dire les racines du déterminant de
 	    la matrice de polynômes <literal>s E - A</literal>.
 	  </para>
@@ -138,8 +136,7 @@ evals=spec(A,E)
 	    <literal>Q</literal> et <literal>Z</literal> des vecteurs propres généralisés à
 	    droite et à gauche.
 	  </para>
-	  
-	  <para>Pour les grosses matrices pleines / creuses, vous
+          <para>Pour les grosses matrices pleines / creuses, vous
 	  pouvez utiliser le module Arnoldi.</para>
         </listitem>
       </varlistentry>
@@ -167,8 +164,8 @@ A=A+%i*rand(A);E=rand(A);
 roots(det(%s*E-A))   //complex case
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="poly">poly</link>
@@ -189,10 +186,10 @@ roots(det(%s*E-A))   //complex case
         <link linkend="colcomp">colcomp</link>
       </member>
       <member>
-	<link linkend="dsaupd">dsaupd</link>
+        <link linkend="dsaupd">dsaupd</link>
       </member>
       <member>
-	<link linkend="dnaupd">dnaupd</link>
+        <link linkend="dnaupd">dnaupd</link>
       </member>
     </simplelist>
   </refsection>

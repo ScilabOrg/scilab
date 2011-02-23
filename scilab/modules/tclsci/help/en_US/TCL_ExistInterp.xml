@@ -55,7 +55,7 @@ TCL_ExistInterp('SlaveInterp')
 TCL_DeleteInterp('SlaveInterp')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

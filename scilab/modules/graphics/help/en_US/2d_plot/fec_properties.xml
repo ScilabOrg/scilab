@@ -84,7 +84,7 @@
 		</para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>outside_color: </term>
         <listitem>
           <para>
@@ -99,7 +99,7 @@
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>color_range: </term>
         <listitem>
           <para>
@@ -112,14 +112,14 @@
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>line_mode:</term>
         <listitem>
           <para>If <literal>"on"</literal>, the wireframe enclosing triangles is drawn.
 		  If <literal>"off"</literal>, only the inside of triangles are drawn.</para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>foreground:</term>
         <listitem>
           <para>This color index specifies the color of the mesh.
@@ -179,7 +179,7 @@ f.data(:,3)=(1:size(f.data,1))';
 a.parent.color_map=hotcolormap(64);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

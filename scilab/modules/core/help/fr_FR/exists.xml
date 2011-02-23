@@ -47,8 +47,7 @@
     compris le niveau du shell Scilab) de la fonction courante et <literal>0</literal>
     sinon.</para>
     <para>Attention: la fonction <literal>exists</literal> ne teste
-    pas si une variable existe dans l'espace de nom <link
-    linkend="global">global</link>.</para>
+    pas si une variable existe dans l'espace de nom <link linkend="global">global</link>.</para>
   </refsection>
   <refsection>
     <title>Exemples</title>
@@ -74,8 +73,8 @@ endfunction
 go()
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="isdef">isdef</link>

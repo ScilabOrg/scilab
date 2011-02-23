@@ -108,7 +108,7 @@ X0 = inistate(A,C,Y);
     X0 = inistate(SYS,Y,U,TOL,PRINTW)  estimates the initial state X0 of 
     the discrete-time system SYS = (A,B,C,D), using the output data Y
     and the input data U. The model structure is :</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 x(k+1) = Ax(k) + Bu(k),   k >= 1,
 y(k)   = Cx(k) + Du(k),
  ]]></programlisting>
@@ -125,7 +125,7 @@ y(k)   = Cx(k) + Du(k),
     a real Schur form, as well as an estimate of the reciprocal condition
     number of the coefficient matrix of the least squares problem solved.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

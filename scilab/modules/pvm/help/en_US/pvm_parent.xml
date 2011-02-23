@@ -43,7 +43,7 @@
     then <literal>tid</literal> is set to
     <literal>PvmNoParent=-23</literal></para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

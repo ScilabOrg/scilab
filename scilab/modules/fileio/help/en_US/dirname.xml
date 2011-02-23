@@ -68,7 +68,7 @@ files=dirname('SCI/modules\fileio/macros/poo.sci')
 files=dirname('SCI/modules\fileio/macros/poo.sci.k')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -33,7 +33,7 @@ syslin('c',H)
 [Num1,Den1]=simp(Num,Den)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -27,7 +27,7 @@
     <title>Description</title>
     <para>Returns list of modules installed in Scilab.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

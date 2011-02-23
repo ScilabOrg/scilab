@@ -72,7 +72,7 @@
     <literal>pvm_bufinfo</literal> is successful and will be 
     will be &lt; 0 if some error occurs.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -62,7 +62,7 @@
     <literal>pvm_mytid</literal>, the returned value will be 
     will be &lt; 0.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

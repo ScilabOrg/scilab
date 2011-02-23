@@ -106,7 +106,7 @@
     Once pvm_recv returns, the data in the message can be unpacked
     into the user's memory using the unpack routines.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

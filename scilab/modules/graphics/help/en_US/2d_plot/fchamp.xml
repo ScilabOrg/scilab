@@ -109,7 +109,7 @@ clf()
 fchamp(derpol,0,xf,yf,1,[-2,-2,2,2],"011")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -196,7 +196,7 @@ m=rand(4,2);
 rot90(m,1)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

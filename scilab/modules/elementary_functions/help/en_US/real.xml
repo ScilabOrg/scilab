@@ -43,7 +43,7 @@
     <title>Description</title>
     <para><literal>real(x)</literal> is the real part of <literal>x</literal> (See <literal>%i</literal> to enter complex numbers).</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

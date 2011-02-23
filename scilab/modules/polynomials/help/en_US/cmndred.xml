@@ -44,7 +44,7 @@
     <para>
     The rational matrix defined by <literal>num./den</literal> is <literal>n/d</literal></para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

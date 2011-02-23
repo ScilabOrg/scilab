@@ -98,7 +98,7 @@ spec(Sys('A'))
 spec(h_cl(Sys,K))   //K Stabilizes what can be stabilized.
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

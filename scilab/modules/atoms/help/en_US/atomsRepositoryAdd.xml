@@ -38,20 +38,17 @@
 					</para>
         </listitem>
       </varlistentry>
-			<varlistentry>
+      <varlistentry>
         <term>section</term>
-				
         <listitem>
           <para>
 						This argument controls where the repository is added.
 					</para>
-          <para>
-						<literal>section</literal> is a single-string and its value should be :
+          <para><literal>section</literal> is a single-string and its value should be :
 					</para>
           <itemizedlist>
             <listitem>
-              <para>
-								<literal>"allusers"</literal>: the repository is added to the
+              <para><literal>"allusers"</literal>: the repository is added to the
 								"allusers" list and all user of scilab are affected.
 							</para>
             </listitem>
@@ -61,12 +58,12 @@
 							</para>
             </listitem>
           </itemizedlist>
-					<para>
+          <para>
 						If SCI/contrib is write accessible, "allusers" is the default value.
 						Otherwise, the default value is "user".
 					</para>
         </listitem>
-			</varlistentry>
+      </varlistentry>
       <varlistentry>
         <term>nbAdd</term>
         <listitem>
@@ -100,7 +97,7 @@ atomsRepositoryList()
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

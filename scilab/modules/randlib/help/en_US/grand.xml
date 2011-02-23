@@ -2,6 +2,7 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
+ * Copyright (C) 2010 - DIGITEO - Michael Baudin
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,23 +11,44 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" 
-          xmlns:xlink="http://www.w3.org/1999/xlink" 
-          xmlns:svg="http://www.w3.org/2000/svg" 
-          xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-          xmlns:db="http://docbook.org/ns/docbook" 
-          version="5.0-subset Scilab" xml:lang="en" xml:id="grand">
-
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="grand">
   <refnamediv>
     <refname>grand</refname>
     <refpurpose> Random number generator(s)   </refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>Y=grand(m, n, dist_type [,p1,...,pk])
-      Y=grand(X, dist_type [,p1,...,pk])
-      Y=grand(n, dist_type [,p1,...,pk])
-      S=grand(action [,q1,....,ql])</synopsis>
+    <synopsis>
+      Y=grand(m,n,'bet',A,B)
+      Y=grand(m,n,'bin',N,p)
+      Y=grand(m,n,'nbn',N,p)
+      Y=grand(m,n,'chi', Df)
+      Y=grand(m,n,'nch',Df,Xnon)
+      Y=grand(m,n,'exp',Av)
+      Y=grand(m,n,'f',Dfn,Dfd)
+      Y=grand(m,n,'nf',Dfn,Dfd,Xnon)
+      Y=grand(m,n,'gam',shape,scale)
+      Y=grand(m,n,'nor',Av,Sd)
+      Y=grand(n,'mn',Mean,Cov)
+      Y=grand(m,n,'geom', p)
+      Y=grand(n,'markov',P,x0)
+      Y=grand(n,'mul',nb,P)
+      Y=grand(m,n,'poi',mu)
+      Y=grand(n,'prm',vect)
+      Y=grand(m,n,'def')
+      Y=grand(m,n,'unf',Low,High)
+      Y=grand(m,n,'uin',Low,High)
+      Y=grand(m,n,'lgi')
+      S=grand('getgen')
+      grand('setgen',gen)
+      S=grand('getsd')
+      grand('setsd',S)
+      grand('setcgn',G)
+      S=grand('getcgn')
+      grand('initgn',I)
+      grand('setall',s1,s2,s3,s4)
+      grand('advnst',K)
+    </synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
@@ -92,13 +114,6 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    
-    <para>Warning: without a seed, the sequence will remain the same
-      from a session to the other.</para>
-    <para>At the beginning of each script using rand function, you
-      should use:</para>
-    <programlisting role="example"><![CDATA[rand('seed',getdate('s'))]]></programlisting>
-    
     <para>
       This function may be used to generate random numbers from various
       distributions. In this case you must apply one of the
@@ -145,22 +160,20 @@ x   (1-x)   / beta(A,B)
       <varlistentry>
         <term>binomial</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'bin',N,p)</literal> generates random
+          <para><literal>Y=grand(m,n,'bin',N,p)</literal> generates random
 	    variates from the binomial distribution with parameters
 	    <literal>N</literal> (positive integer) and <literal>p</literal>
 	    (real in [0,1]) : number of successes in <literal>N</literal>
 	    independant Bernouilli trials with probability <literal>p</literal>
 	    of success.  Related function(s) : <link linkend="binomial">binomial</link>,
-	    <link  linkend="cdfbin">cdfbin</link>.
+	    <link linkend="cdfbin">cdfbin</link>.
           </para>
         </listitem>
       </varlistentry>
       <varlistentry>
         <term>negative binomial</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'nbn',N,p)</literal> generates random variates from the negative binomial 
+          <para><literal>Y=grand(m,n,'nbn',N,p)</literal> generates random variates from the negative binomial 
 	    distribution with parameters <literal>N</literal> (positive integer) and <literal>p</literal> (real 
 	    in (0,1)) : number of failures occurring before <literal>N</literal> successes 
 	    in independant Bernouilli trials with probability <literal>p</literal> of success.
@@ -171,8 +184,7 @@ x   (1-x)   / beta(A,B)
       <varlistentry>
         <term>chisquare</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'chi', Df)</literal> generates random
+          <para><literal>Y=grand(m,n,'chi', Df)</literal> generates random
 	    variates from the chisquare distribution with <literal>Df</literal>
 	    (real &gt; 0.0) degrees of freedom.  Related function(s) : 
             <link linkend="cdfchi">cdfchi</link>.
@@ -182,8 +194,7 @@ x   (1-x)   / beta(A,B)
       <varlistentry>
         <term>non central chisquare</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'nch',Df,Xnon)</literal> generates
+          <para><literal>Y=grand(m,n,'nch',Df,Xnon)</literal> generates
 	    random variates from the non central chisquare
 	    distribution with <literal>Df</literal> degrees of freedom
 	    (real &gt;= 1.0) and noncentrality parameter
@@ -203,8 +214,7 @@ x   (1-x)   / beta(A,B)
       <varlistentry>
         <term>F variance ratio</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'f',Dfn,Dfd)</literal> generates
+          <para><literal>Y=grand(m,n,'f',Dfn,Dfd)</literal> generates
 	    random variates from the F (variance ratio) distribution
 	    with <literal>Dfn</literal> (real &gt; 0.0) degrees of
 	    freedom in the numerator and <literal>Dfd</literal> (real
@@ -216,8 +226,7 @@ x   (1-x)   / beta(A,B)
       <varlistentry>
         <term>non central F variance ratio</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'nf',Dfn,Dfd,Xnon)</literal>
+          <para><literal>Y=grand(m,n,'nf',Dfn,Dfd,Xnon)</literal>
 	    generates random variates from the noncentral F (variance
 	    ratio) distribution with <literal>Dfn</literal> (real
 	    &gt;= 1) degrees of freedom in the numerator, and
@@ -249,8 +258,7 @@ scale       x          e          /  gamma(shape)
       <varlistentry>
         <term>Gauss Laplace (normal)</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(m,n,'nor',Av,Sd)</literal> generates
+          <para><literal>Y=grand(m,n,'nor',Av,Sd)</literal> generates
 	    random variates from the normal distribution with mean
 	    <literal>Av</literal> (real) and standard deviation
 	    <literal>Sd</literal> (real &gt;= 0). Related function(s)
@@ -280,7 +288,7 @@ scale       x          e          /  gamma(shape)
             succes is met. <literal>p</literal> must be in
             <literal>[pmin,1]</literal> (with <literal>pmin = 1.3
               10^(-307)</literal>).</para>
-	  <para><literal>Y</literal> contains positive real numbers
+          <para><literal>Y</literal> contains positive real numbers
 	    with integer values, with are the "number of trials to get
 	    a success".</para>
         </listitem>
@@ -288,8 +296,7 @@ scale       x          e          /  gamma(shape)
       <varlistentry>
         <term>markov</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(n,'markov',P,x0)</literal> generate
+          <para><literal>Y=grand(n,'markov',P,x0)</literal> generate
 	    <literal>n</literal> successive states of a Markov chain
 	    described by the transition matrix
 	    <literal>P</literal>. Initial state is given by
@@ -304,8 +311,7 @@ scale       x          e          /  gamma(shape)
       <varlistentry>
         <term>multinomial</term>
         <listitem>
-          <para>
-	    <literal>Y=grand(n,'mul',nb,P)</literal> generates
+          <para><literal>Y=grand(n,'mul',nb,P)</literal> generates
 	    <literal>n</literal> observations from the Multinomial
 	    distribution : class <literal>nb</literal> events in
 	    <literal>m</literal> categories (put <literal>nb</literal>
@@ -396,9 +402,9 @@ scale       x          e          /  gamma(shape)
   </refsection>
   <refsection>
     <title>Set/get the current generator and its state</title>
-    <para> Since Scilab-2.7 you have the possibility to choose between different base 
+    <para> The user has the possibility to choose between different base 
       generators (which give random integers following the 'lgi' distribution, the others 
-      being gotten from it) :
+      being gotten from it).
     </para>
     <variablelist>
       <varlistentry>
@@ -421,7 +427,7 @@ scale       x          e          /  gamma(shape)
         <listitem>
           <para>a Combined 2 Linear Congruential Generator of P. L'Ecuyer,
             period about <literal>2^61</literal>, state given by <literal>2</literal> integers ; this was 
-            the only generator previously used by grand (but slightly modified)</para>
+            the only generator previously used by grand (but slightly modified).</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -534,7 +540,7 @@ scale       x          e          /  gamma(shape)
             <varlistentry>
               <term>for fsultra</term>
               <listitem>
-                <para>  <literal>S</literal> is a vector of integers of dim <literal>40</literal> (the first component 
+                <para><literal>S</literal> is a vector of integers of dim <literal>40</literal> (the first component 
                   is an index and must be in <literal>[0,37]</literal>, the 2d component is a flag (0 or 1), the 3d
                   an integer in [1,2^32[ and the 37 others integers in [0,2^32[) ; a simpler (and recommanded) 
                   initialisation may be done with two integers <literal>s1</literal> and <literal>s2</literal> in 
@@ -650,6 +656,82 @@ scale       x          e          /  gamma(shape)
       that used by  method  one.  When both  have concluded,  advance the block for both generators.</para>
   </refsection>
   <refsection>
+    <title>Examples</title>
+    <para>
+    In the following example, we generate random numbers from various distributions and 
+    plot the associated histograms.
+    </para>
+    <programlisting role="example"><![CDATA[ 
+// Normal
+R = grand(400,800,"nor",0,1);
+histplot(10,R)
+// Uniform
+R = grand(400,800,"def");
+histplot(10,R)
+// Poisson
+R = grand(400,800,"poi",2);
+histplot(10,R)
+ ]]></programlisting>
+    <para>
+    In the following example, we generate random numbers from the exponential distribution and 
+    then compare the empirical with the theoretical distribution.
+    </para>
+    <programlisting role="example"><![CDATA[ 
+lambda=1.6;
+N=100000;
+X = grand(1,100000,"exp",lambda);
+clf();
+classes = linspace(0,12,25);
+histplot(classes,X)
+x=linspace(0,12,25);
+y = (1/lambda)*exp(-(1/lambda)*x);
+plot(x,y,"ro-");
+legend(["Empirical" "Theory"]);
+ ]]></programlisting>
+    <para>
+    In the following example, we generate random numbers from the gamma distribution and 
+    then compare the empirical with the theoretical distribution.
+    </para>
+    <programlisting role="example"><![CDATA[ 
+    N=10000;
+    A=10;
+    B=4;
+    R=grand(1,N,'gam',A,B); 
+    XS=gsort(R,"g","i")';
+    PS=(1:N)'/N;
+    P=cdfgam("PQ",XS,A*ones(XS),B*ones(XS));
+    plot(XS,PS,"b-"); // Empirical distribution
+    plot(XS,P,"r-"); // Theoretical distribution
+    legend(["Empirical" "Theory"]);
+ ]]></programlisting>
+    <para>
+    In the following example, we generate 10 random integers in the [1,365] interval.
+    </para>
+    <programlisting role="example"><![CDATA[ 
+    grand(10,1,"uin",1,365)
+ ]]></programlisting>
+    <para>
+    In the following example, we generate 12 permutations of the [1,2,...,7] set. 
+    The 12 permutations are stored column-by-column.
+    </para>
+    <programlisting role="example"><![CDATA[ 
+    grand(12,"prm",(1:7)')
+ ]]></programlisting>
+    <para>
+    This pseudo random number generator is a deterministic sequence which aims at 
+    reproducing a independent identically distributed numbers.
+    In order to get reproducible simulations, the initial seed of the generator is constant, 
+    such that the sequence will remain the same from a session to the other. 
+    The first numbers produced by grand always are the same. 
+    In some situations, we may want to initialize the seed of the generator in 
+    order to produce less reproducible numbers. 
+    In this case, we may initialize the seed with the output of the getdate function:
+    </para>
+    <programlisting role="example"><![CDATA[
+grand("setsd",getdate("s"))
+    ]]></programlisting>
+  </refsection>
+  <refsection>
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -666,7 +748,8 @@ scale       x          e          /  gamma(shape)
           <para>
             The codes to generate sequences following other distributions than def, unf, lgi,  uin and geom are
             from "Library of Fortran Routines for Random Number  Generation", by Barry W. Brown 
-            and James Lovato, Department of Biomathematics, The University of Texas, Houston.  
+            and James Lovato, Department of Biomathematics, The University of Texas, Houston.
+            The source code is available at : http://www.netlib.org/random/ranlib.f.tar.gz
           </para>
         </listitem>
       </varlistentry>
@@ -695,8 +778,15 @@ scale       x          e          /  gamma(shape)
         <term>clcg2</term>
         <listitem>
           <para>
-            The method is from P. L'Ecuyer but the C code is provided at the Luc  Devroye home page 
-            (<ulink url="http://cgm.cs.mcgill.ca/~luc/rng.html">http://cgm.cs.mcgill.ca/~luc/rng.html</ulink>).
+            The method is from P. L'Ecuyer but the C code is provided at Luc Devroye's home page 
+            (<ulink url="http://cg.scs.carleton.ca/~luc/rng.html">http://cg.scs.carleton.ca/~luc/rng.html</ulink> See "lecuyer.c".).
+            This generator is made of two linear congruential sequences s1 = a1*s1 mod m1, 
+            with a1 = 40014, m1 = 2147483563 and s2 = a2*s2 mod m2 , with a2 = 40692, m2 = 2147483399.
+            The output is computed from output =  s1-s2 mod (m1 - 1).
+            Therefore, output is in [0, 2147483561]. The perido is about 2.3 10^18.
+            The state is given by (s1, s2). In case of a user modification of the state we must have :
+            s1 in [1, m1-1] and s2 in [1, m2-1].
+            The default initial seeds are s1 = 1234567890  and s2 = 123456789.
           </para>
         </listitem>
       </varlistentry>
@@ -707,7 +797,8 @@ scale       x          e          /  gamma(shape)
             The code is from P. L'Ecuyer and Terry H.Andres and provided at the P. L'Ecuyer
             home page ( <ulink url="http://www.iro.umontreal.ca/~lecuyer/papers.html">http://www.iro.umontreal.ca/~lecuyer/papers.html</ulink>) A paper is also provided 
             and this new package is the logical successor of an old 's one from : P.  L'Ecuyer
-            and S. Cote.   Implementing a Random   Number Package with Splitting Facilities.  ACM Transactions 
+            and S. Cote.
+            Implementing a Random   Number Package with Splitting Facilities.  ACM Transactions
             on Mathematical  Software 17:1,pp 98-111.
           </para>
         </listitem>
@@ -725,6 +816,14 @@ scale       x          e          /  gamma(shape)
         <listitem>
           <para>
             By Jean-Philippe Chancelier and Bruno Pincon  
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>This help page</term>
+        <listitem>
+          <para>
+             Copyright (C) 2010 - DIGITEO - Michael Baudin
           </para>
         </listitem>
       </varlistentry>

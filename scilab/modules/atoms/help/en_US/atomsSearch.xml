@@ -52,8 +52,7 @@
   <!-- ===================================================================== -->
   <refsection>
     <title>Description</title>
-    <para>
-			<literal>atomsSearch</literal> searches for packages matching one of
+    <para><literal>atomsSearch</literal> searches for packages matching one of
 			the patterns supplied as input argument.
 		</para>
   </refsection>
@@ -71,7 +70,7 @@ atomsSearch("toolbox");
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

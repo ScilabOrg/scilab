@@ -47,9 +47,9 @@ date_st.annee=1973;
 // ajouter un champ 'semaine'
 date_st.semaine=32
  ]]></programlisting>
-</refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  </refsection>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="cell">cell</link>

@@ -62,7 +62,7 @@ gcf()
 f42 = get_figure_handle(42);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -87,4 +87,3 @@ f42 = get_figure_handle(42);
     <para>Jean-Baptiste Silvy INRIA</para>
   </refsection>
 </refentry>
-

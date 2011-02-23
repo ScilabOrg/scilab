@@ -84,7 +84,7 @@
     <literal>K2 = lM/lm</literal>. For each method the iterations are stopped until the following
     condition is met :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 | (l_new - l_old)/l_new | < rtol
  ]]></programlisting>
     <para>
@@ -95,7 +95,7 @@
     instance if you want to see the intermediary result without setting yourself the 
     rtol and itermax parameters you may called this function with the syntax :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [K2, lm, vm, lM, vM] = cond2sp(A , C_ptr, verb=%t )
  ]]></programlisting>
   </refsection>
@@ -113,13 +113,13 @@
     not very good. If you look for a smaller residual <literal>||Av - l*v||</literal>, you may apply some inverse 
     power iterations  from v0 with the matrix :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 B = A - l0*speye(A)
  ]]></programlisting>
     <para>
     For instance, applied 5 such iterations for <literal>(lm,vm)</literal> is done with :
   </para>
-    <programlisting role = "example"><![CDATA[ 
+    <programlisting role="example"><![CDATA[ 
 l0 = lm ; v0 = vm;  // or l0 = lM ; v0 = vM;  // to polish (lM,vM)
 B = A - l0*speye(A);
 LUp = umf_lufact(B);
@@ -145,7 +145,7 @@ C_ptr = taucs_chfact(A);
 taucs_chdel(C_ptr)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

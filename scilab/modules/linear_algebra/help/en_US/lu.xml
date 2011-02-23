@@ -55,8 +55,7 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>
-      <literal>[L,U]= lu(A)</literal> produces two matrices <literal>L</literal> and
+    <para><literal>[L,U]= lu(A)</literal> produces two matrices <literal>L</literal> and
       <literal>U</literal> such that <literal>A = L*U</literal> with <literal>U</literal>
       upper triangular and <literal>L</literal> a general matrix without any particular 
       structure. In fact, the matrix <literal>A</literal> is factored as <literal>E*A=B*U</literal>
@@ -67,8 +66,7 @@
       If <literal>A</literal> has rank <literal>k</literal>, rows <literal>k+1</literal> to
       <literal>n</literal> of <literal>U</literal> are zero.
     </para>
-    <para>
-      <literal>[L,U,E]= lu(A)</literal> produces three matrices <literal>L</literal>, <literal>U</literal> and
+    <para><literal>[L,U,E]= lu(A)</literal> produces three matrices <literal>L</literal>, <literal>U</literal> and
       <literal>E</literal> such that <literal>E*A = L*U</literal> with
       <literal>U</literal> upper triangular and <literal>E*L</literal> lower
       triangular for a permutation matrix <literal>E</literal>.
@@ -126,7 +124,7 @@ Q=full(Q);
 norm(P*L*U*Q-a)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

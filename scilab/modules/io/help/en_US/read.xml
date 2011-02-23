@@ -73,7 +73,7 @@
       truncated when they are longuer than 4093.</para>
     <para>
     Examples for <literal>format</literal>:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 (1x,e10.3,5x,3(f3.0))
 (10x,a20) 
  ]]></programlisting>
@@ -104,7 +104,7 @@ B = read(TMPDIR + '/foo', -1, 5);
 read(%io(1), 1, 1, '(a)')  // waits for user's input
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

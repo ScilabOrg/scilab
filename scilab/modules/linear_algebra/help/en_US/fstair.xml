@@ -141,7 +141,7 @@
     <para><literal>Q,Z</literal> are the unitary matrices used to compute the pencil where E
     is in column echelon form (see ereduc)</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

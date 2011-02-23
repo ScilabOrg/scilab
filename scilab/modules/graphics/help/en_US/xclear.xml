@@ -42,13 +42,12 @@
     1, 2 and 3.
     If one of the windows does not 
     exist, then it is automatically created.</para>
-    
     <para>
 		Function <literal>xclear</literal> is obsolete.
 		To clear a figure, please use instead the <literal>clf</literal> function or the <literal>visible</literal> property.
 	</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

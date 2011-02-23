@@ -60,7 +60,7 @@ pvm_f772sci(a)
 if norm(a - [1.+2* %i,3.+%i, 2. + 3. *%i ]) >10*%eps then pause;end
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -52,7 +52,7 @@ c=getcolor()</synopsis>
     The user can click on a color to show its id and RGB values.
     <literal>getcolor</literal> returns the id of the selected color or [] if the "Cancel" button has been clicked or the window closed.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

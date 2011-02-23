@@ -150,7 +150,6 @@
             be drawn along the axis at tics positions.</para>
               </listitem>
             </varlistentry>
-
             <varlistentry>
               <term>format_n: </term>
               <listitem>
@@ -159,7 +158,6 @@
             If equal to <literal>""</literal>, a default display format is used.</para>
               </listitem>
             </varlistentry>
-
             <varlistentry>
               <term>labels_font_color: </term>
               <listitem>
@@ -176,10 +174,10 @@
                 </para>
               </listitem>
             </varlistentry>
-             <varlistentry>
+            <varlistentry>
               <term>fractional_font: </term>
               <listitem>
-	        <para>
+                <para>
 		  This property specifies whether ticks labels are displayed using fractional font sizes.
 		  Its value must be either <literal>"on"</literal> or <literal>"off"</literal>.
 		  If <literal>"on"</literal> the floating point value of <literal>font_size</literal>
@@ -258,7 +256,7 @@ a3.tics_labels= 'B'  +string(0:7);
 a3.tics_direction="left";
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

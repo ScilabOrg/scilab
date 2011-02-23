@@ -36,7 +36,6 @@ bOK=dos(command-name,'-echo')
     <para>[output,bOK] = dos(command-name,'-echo') forces the output to the
     Command Window, even though it is also being assigned into a variable.</para>
     <para>exitcode value returned by the external process.</para>
-    
     <para>To open the notepad editor and return control immediately to Scilab
     dos('start notepad')</para>
   </refsection>
@@ -52,7 +51,7 @@ dos('taskkill /IM notepad.exe') // Caution, this command will kill all launched 
 [s, w, code] = dos('foo')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

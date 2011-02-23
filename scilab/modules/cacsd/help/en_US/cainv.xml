@@ -28,7 +28,7 @@
       <varlistentry>
         <term>Sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list containing the matrices <literal>[A,B,C,D]</literal>.</para>
+          <para><literal>syslin</literal> list containing the matrices <literal>[A,B,C,D]</literal>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -92,7 +92,7 @@
     <para><literal>cainv</literal> finds a bases <literal>(X,Y)</literal> (of state space and output space resp.)
     and output injection matrix <literal>J</literal> such that the matrices of Sl in 
     bases (X,Y) are displayed as:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
                [A11,*,*,*,*,*]                [*]
                [0,A22,*,*,*,*]                [*]
 X'*(A+J*C)*X = [0,0,A33,*,*,*]   X'*(B+J*D) = [*]
@@ -133,7 +133,7 @@ X'*(A+J*C)*X = [0,0,A33,*,*,*]   X'*(B+J*D) = [*]
     given a four blocks partition is returned (see abinv).</para>
     <para>
     This function can be used to calculate an unknown input observer:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 // DDEP: dot(x)=A x + Bu + Gd
 //           y= Cx   (observation)
 //           z= Hx    (z=variable to be estimated, d=disturbance)
@@ -148,7 +148,7 @@ X'*(A+J*C)*X = [0,0,A33,*,*,*]   X'*(B+J*D) = [*]
 // H*W = [0 | *]  (with at least as many aero columns as above).
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

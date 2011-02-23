@@ -44,7 +44,7 @@ exec('SCI/demos/control/pid/pid_dial_4.sce');
 if defv==[] then warning('Demo stops!');return;end
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

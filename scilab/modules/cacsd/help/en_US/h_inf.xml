@@ -29,7 +29,7 @@
       <varlistentry>
         <term>P</term>
         <listitem>
-          <para> <literal>syslin</literal> list : continuous-time linear system (``augmented'' plant given in state-space form  or in transfer form)</para>
+          <para><literal>syslin</literal> list : continuous-time linear system (``augmented'' plant given in state-space form  or in transfer form)</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -85,7 +85,7 @@
     Algorithm is adapted from Safonov-Limebeer. Note that <literal>P</literal> is assumed to be 
     a continuous-time plant.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

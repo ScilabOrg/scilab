@@ -44,7 +44,7 @@ y=fft2(x,n,m)</synopsis>
   </refsection>
   <refsection>
     <title>Description</title>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 This functions performs the two-dimension discrete Fourier transform.
  ]]></programlisting>
     <para><literal>y=fft2(x)</literal>y and x have the same size</para>
@@ -84,7 +84,7 @@ end
 norm(a2-fft2(a))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

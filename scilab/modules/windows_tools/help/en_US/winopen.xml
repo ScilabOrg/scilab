@@ -31,7 +31,7 @@
     the file in the Windows Explorer. If filename is not in the current
     directory, specify the absolute path for filename.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

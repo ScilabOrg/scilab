@@ -52,7 +52,7 @@
     this routine can only guarantee to return the instantaneous
     size of a given group.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -57,7 +57,7 @@
     It is the responsibility of the application developer to make his
     application tolerant of host failure.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -103,7 +103,7 @@
             using the color given indexed by the grid value.</para>
               </listitem>
             </varlistentry>
-			<varlistentry>
+            <varlistentry>
               <term>grid_position: </term>
               <listitem>
                 <para>This character string specifies the grid position compared with other graphic entities.
@@ -250,8 +250,7 @@
             (of the same size). To specify greater or lesser graduations, man
             can act on the <literal>x_ticks</literal> <literal>tlist</literal> defining a
             corresponding<literal> x_ticks.locations</literal> real vector too.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
-
+                <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -262,8 +261,7 @@
             (of the same size). To specify greater or lesser graduations, man
             can act on the <literal>y_ticks</literal> <literal>tlist</literal> defining a
             corresponding<literal> y_ticks.locations</literal> real vector too.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
-
+                <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -274,7 +272,7 @@
             (of the same size). To specify greater or lesser graduations, man
             can act on the <literal>z_ticks</literal> <literal>tlist</literal> defining a
             corresponding<literal> z_ticks.locations</literal> real vector too.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
+                <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -328,7 +326,7 @@
 			If <literal>fractional_font</literal> property is <literal>"off"</literal>
 		 	only the integer part of the value is used.
 			For more information see <link linkend="graphics_fonts">graphics_fonts</link>.
-		</para>	
+		</para>
               </listitem>
             </varlistentry>
             <varlistentry>
@@ -340,7 +338,7 @@
             <varlistentry>
               <term>fractional_font: </term>
               <listitem>
-	        <para>
+                <para>
 		  This property specify whether ticks labels are displayed using fractional font sizes.
 		  Its value must be either <literal>"on"</literal> or <literal>"off"</literal>.
 		  If <literal>"on"</literal> the floating point value of <literal>font_size</literal>
@@ -834,7 +832,7 @@ a.y_ticks.labels=["0";"1";"2";"3";"$\cos(a)$";"5";"6";mathml;"8"];
 
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

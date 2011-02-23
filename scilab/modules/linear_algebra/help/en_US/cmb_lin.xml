@@ -28,7 +28,7 @@
     Evaluates <literal>alfa*x-beta*y</literal>. <literal> alfa, beta, x, y</literal> are character
     strings. (low-level routine)</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

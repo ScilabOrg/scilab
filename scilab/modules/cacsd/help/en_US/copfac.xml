@@ -28,7 +28,7 @@
       <varlistentry>
         <term>G</term>
         <listitem>
-          <para> <literal>syslin</literal> list  (continuous-time linear system )</para>
+          <para><literal>syslin</literal> list  (continuous-time linear system )</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -60,7 +60,7 @@
     <para><literal>[XT -YT].[M N]' = eye</literal> (Bezout identity)</para>
     <para><literal>G</literal> is assumed stabilizable and detectable.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

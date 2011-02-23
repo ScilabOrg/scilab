@@ -128,7 +128,7 @@ f=gcf();f.color_map=graycolormap(max(C));
 xfpolys(X,Y,C)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

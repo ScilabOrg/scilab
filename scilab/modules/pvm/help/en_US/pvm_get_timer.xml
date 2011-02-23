@@ -54,7 +54,7 @@ A = rand(100,100);
 pvm_set_timer();C=A*B;t=pvm_get_timer()
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

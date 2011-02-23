@@ -20,7 +20,7 @@ PathFileName=uiputfile([file_mask[,dir[,boxTitle]]])
         <term>file_mask</term>
         <listitem>
           <para>a string matrix which gives the file masks to use for file selection. <literal>file_mask</literal> is written with Unix convention. The default value is '*'.</para>
-		  <para>we can also add descriptions for masks, for example ["*.x*","X files";"*.bin","BIN files"].</para>
+          <para>we can also add descriptions for masks, for example ["*.x*","X files";"*.bin","BIN files"].</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -29,18 +29,18 @@ PathFileName=uiputfile([file_mask[,dir[,boxTitle]]])
           <para>a character string which gives the initial directory used for file search. By default uiputfile uses the previously selected directory.</para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>boxTitle</term>
         <listitem>
           <para>a character string which gives the title of the uiputfile window. By default uiputfile's title is 'uiputfile'.</para>
         </listitem>
       </varlistentry>
-	</variablelist>
+    </variablelist>
   </refsection>
   <refsection>
-	<title>Output parameters</title>
-	<variablelist>
-	  <varlistentry>
+    <title>Output parameters</title>
+    <variablelist>
+      <varlistentry>
         <term>FileName</term>
         <listitem>
           <para>string which give the user selected file (path + file name) if user answers "Ok" or the " " string if user answers "Cancel".</para>
@@ -75,7 +75,7 @@ uiputfile(["*.x*","X files";"*.bin","BIN files"],"SCI/modules/gui/macros/")
 uiputfile(["*.sce";"*.bin"],"SCI/modules/gui/macros/", "Choose a file name"); 
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

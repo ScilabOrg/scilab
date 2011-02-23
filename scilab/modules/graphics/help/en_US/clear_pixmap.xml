@@ -34,7 +34,7 @@
     <para/>
     <para>The pixmap mode can be used to obtain smooth animations.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

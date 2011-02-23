@@ -69,7 +69,7 @@
 files=listfiles(['SCI/modules/core/macros/*.sci';'SCI/modules/core/macros/*.bin']);
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

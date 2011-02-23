@@ -36,13 +36,11 @@
           <para>mx5 String matrix :</para>
           <itemizedlist>
             <listitem>
-              <para>
-                <literal>1st column</literal> : External module's technical name
+              <para><literal>1st column</literal> : External module's technical name
               </para>
             </listitem>
             <listitem>
-              <para>
-                <literal>2nd column</literal> : External module's version
+              <para><literal>2nd column</literal> : External module's version
               </para>
             </listitem>
             <listitem>
@@ -52,13 +50,11 @@
               </para>
             </listitem>
             <listitem>
-              <para>
-                <literal>4th column</literal> : External module's installation path
+              <para><literal>4th column</literal> : External module's installation path
               </para>
             </listitem>
             <listitem>
-              <para>
-                <literal>5th column</literal> : I/A, this parameter tell if
+              <para><literal>5th column</literal> : I/A, this parameter tell if
                 the external module has been automatically or intentionnaly installed.
               </para>
             </listitem>
@@ -72,8 +68,7 @@
   <!-- ===================================================================== -->
   <refsection>
     <title>Description</title>
-    <para>
-      <literal>atomsGetLoaded</literal> returns the list of loaded external modules
+    <para><literal>atomsGetLoaded</literal> returns the list of loaded external modules
     </para>
   </refsection>
   <!-- ===================================================================== -->
@@ -95,7 +90,7 @@ atomsRemove("toolbox_5");
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

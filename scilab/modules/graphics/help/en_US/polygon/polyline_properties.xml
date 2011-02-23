@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Djalel Abdemouche
@@ -139,14 +139,13 @@
             command its appearance.</para>
             </listitem>
           </itemizedlist>
-	  <para>
-	  <inlinemediaobject>
-	    <imageobject>
-	      <imagedata fileref="../../images/polyline_style.svg"/>
-	    </imageobject>
-	  </inlinemediaobject>
-	</para>
-
+          <para>
+            <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../../images/polyline_style.svg"/>
+              </imageobject>
+            </inlinemediaobject>
+          </para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -204,14 +203,13 @@
         stands for: dot, plus, cross, star, filled diamond, diamond, triangle
         up, triangle down, diamond plus, circle, asterisk, square, triangle
         right, triangle left and pentagram. The figure below shows the aspects of the marks depending on the <literal>mark_style</literal> and the <literal>mark_foreground</literal> and <literal>mark_background</literal> properties.</para>
-	<para>
-	  <inlinemediaobject>
-	    <imageobject>
-	      <imagedata fileref="../../images/marks.svg"/>
-	    </imageobject>
-	  </inlinemediaobject>
-	</para>
-
+          <para>
+            <inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../../images/marks.svg"/>
+              </imageobject>
+            </inlinemediaobject>
+          </para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -353,7 +351,7 @@ p.polyline_style=3;
 p.line_style=4;
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

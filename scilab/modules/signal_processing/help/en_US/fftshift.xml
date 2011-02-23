@@ -44,7 +44,7 @@
     <para>
     If <literal>x</literal> is an <literal>m</literal> by <literal>n</literal>  matrix <literal>y</literal> is the matrix
     <literal>x([m/2+1:n,1:m/2],[n/2+1:n,1:n/2])</literal>.</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
   [x11 x12]                  [x22 x21]
 x=[       ]        gives   y=[       ]
   [x21 x22]                  [x12 x11]
@@ -79,7 +79,7 @@ subplot(2,1,1);Matplot(abs(y))
 subplot(2,1,2);Matplot(fftshift(abs(y)))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

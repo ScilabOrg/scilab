@@ -288,7 +288,7 @@ scf(2);
 plot3d1(xx,yy,zz) // the 2 graphics are similar
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

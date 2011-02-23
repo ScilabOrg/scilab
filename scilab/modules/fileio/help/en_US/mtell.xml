@@ -40,7 +40,7 @@
     The function <literal>mtell()</literal> returns the offset of the current byte  relative  to
     the beginning of the file associated with the named stream <literal>fd</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

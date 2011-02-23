@@ -93,7 +93,7 @@
     <para>
     Computes
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
          n - m 
          ====
          \                                       1
@@ -150,7 +150,7 @@ cov(m) =  >   (x(k) - xmean) (y(m+k) - ymean) * ---
       <varlistentry>
         <term>Updating method</term>
         <listitem>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 [w,xu]=corr('updt',x1,[y1],w0)
 [w,xu]=corr('updt',x2,[y2],w,xu)
  ...
@@ -159,7 +159,7 @@ wk=corr('updt',xk,[yk],w,xu)
           <para>
     With this calling sequence the calculation is updated at each
     call to <literal>corr</literal>.</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 w0 = 0*ones(1,2*nlags);
 nlags = power of 2.
  ]]></programlisting>
@@ -225,7 +225,7 @@ y=ymacro(100,1);
 [max(abs(cc-cc1)),max(abs(mm-mm1)),max(abs(cc-cc2)),max(abs(mm-mm2))]
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

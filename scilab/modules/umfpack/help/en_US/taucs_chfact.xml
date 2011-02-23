@@ -103,7 +103,7 @@ norm(A*x - b)
 taucs_chdel(Cp)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

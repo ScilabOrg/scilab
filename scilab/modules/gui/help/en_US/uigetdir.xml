@@ -45,7 +45,7 @@ uigetdir("SCI/modules/")
 uigetdir("SCI/modules/", "Choose a directory")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

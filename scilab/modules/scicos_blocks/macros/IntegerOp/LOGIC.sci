@@ -1,6 +1,7 @@
 //  Scicos
 //
 //  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+//  Copyright 2011 - Bernard DUJARDIN
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -35,29 +36,41 @@ function [x,y,typ]=LOGIC(job,arg1,arg2)
     graphics=arg1.graphics;exprs=graphics.exprs
     model=arg1.model;
     while %t do
-      [ok,mat,herit,exprs]=scicos_getvalue('Set Logic parameters',..
-	  ['Truth table';'Inherit(0=no 1=yes)'],..
-	  list('mat',[-1,-2],'vec',1),exprs)
+      [ok,mat,herit,exprs]=scicos_getvalue( ..
+        ['Set LOGIC block parameters'; ..
+        " "; ..
+        "&nbsp;The rows of the matrix contains output values"; ..
+        "&nbsp;for all combinations of inputs. The number of rows"; ..
+        "&nbsp;must be a power of two"; ..
+        "&nbsp;The number of columns gives the number of outputs."; ..
+        " "], ..
+        ['Truth table (matrix of outputs)'; ..
+         'Accepts inherited events (0=no 1=yes)'], ..
+        list('mat',[-1,-2],'vec',1),exprs)
       if ~ok then break,end
       nout=size(mat,2)
       nin=(log(size(mat,1))/log(2))
       u1=floor(nin)
       if (herit<>0) then herit=1;end;
-      if (u1<>nin) then message ("The number of rows of the truth table must be a power of two");ok=%f;end
-      if (find(mat(:)<>0&mat(:)<>1)<>[]) then message ("number in truth table must be 0 or 1");ok=%f;end
+      if (u1<>nin) then
+        message ("The number of rows of the truth table must be a power of two");
+        ok=%f;
+      elseif (find(mat(:)<>0&mat(:)<>1)<>[]) then
+        message ("Number in truth table must be 0 or 1");ok=%f;
+      end
       if ok then
         in=[ones(nin,1) ones(nin,1)]
         out=[ones(nout,1) ones(nout,1)]
         it=5*ones(1,nin)
-      	ot=5*ones(1,nout)
-      	[model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),ones(1-herit,1),[])
+          ot=5*ones(1,nout)
+          [model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),ones(1-herit,1),[])
       end
       if ok then
-	graphics.exprs=exprs;
-	mat=int8(mat);
-	model.opar=list(mat);
-	x.graphics=graphics;x.model=model;
-	break
+    graphics.exprs=exprs;
+    mat=int8(mat);
+    model.opar=list(mat);
+    x.graphics=graphics;x.model=model;
+    break
       end
     end
    case 'define' then

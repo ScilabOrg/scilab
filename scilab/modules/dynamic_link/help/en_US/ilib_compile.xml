@@ -68,9 +68,11 @@
     <para>
     Shared libraries can then be used with the <literal>link</literal> and
     <literal>addinter</literal> Scilab function for incremental/dynamic link.</para>
-	<para><emphasis role="bold">Note that a compiler must be available on the system to use this function.</emphasis></para>
+    <para>
+      <emphasis role="bold">Note that a compiler must be available on the system to use this function.</emphasis>
+    </para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
@@ -94,7 +96,9 @@
       <member>
         <link linkend="ilib_for_link">ilib_for_link</link>
       </member>
-      <member><link linkend="api_scilab">api_scilab</link></member>
+      <member>
+        <link linkend="api_scilab">api_scilab</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

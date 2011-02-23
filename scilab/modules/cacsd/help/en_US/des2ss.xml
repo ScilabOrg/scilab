@@ -41,7 +41,7 @@
       <varlistentry>
         <term>Sl</term>
         <listitem>
-          <para> <literal>syslin</literal> list</para>
+          <para><literal>syslin</literal> list</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -78,7 +78,7 @@ clean(ss2tf(W1))
 clean(ss2tf(W2))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

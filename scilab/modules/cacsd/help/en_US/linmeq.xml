@@ -221,7 +221,7 @@
       <varlistentry>
         <term>X</term>
         <listitem>
-          <para></para>
+          <para/>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -239,7 +239,7 @@
     using SLICOT routines SB04MD, SB04ND, SB04PD, SB04QD, 
     SB04RD, SB03MD, and SB03OD.
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
     [X] = linmeq(1,A,B,C,flag,trans,schur)
 [X,sep] = linmeq(2,A,C,flag,trans)
     [X] = linmeq(2,A,C,flag,trans)
@@ -248,7 +248,7 @@
     <para>
     linmeq solves various Sylvester and Lyapunov matrix equations:
   </para>
-    <programlisting role = ""><![CDATA[
+    <programlisting role=""><![CDATA[
 op(A)*X + X*op(B) = C,                           (1a)
 
 op(A)*X*op(B) + X = C,                           (1b)
@@ -345,7 +345,7 @@ X=linmeq(3,A,C,[1 0]);
 norm(A'*X'*X*A - X'*X +C'*C,1)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

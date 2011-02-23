@@ -30,7 +30,6 @@
   <refsection>
     <title>Arguments</title>
     <variablelist>
-			
       <varlistentry>
         <term>installed</term>
         <listitem>
@@ -39,21 +38,19 @@
             <listitem>
               <para><literal>1st column</literal> : External module's technical name
 							</para>
-						</listitem>
-						<listitem>
-							<para><literal>2nd column</literal> : External module's version
+            </listitem>
+            <listitem>
+              <para><literal>2nd column</literal> : External module's version
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>3rd column</literal> : allusers/user, this parameter tell if
+              <para><literal>3rd column</literal> : allusers/user, this parameter tell if
 								the external module has been installed for all users or only for the
 								current user.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>4th column</literal> : External module's installation path
+              <para><literal>4th column</literal> : External module's installation path
 							</para>
             </listitem>
             <listitem>
@@ -64,42 +61,36 @@
           </itemizedlist>
         </listitem>
       </varlistentry>
-			
-			<varlistentry>
+      <varlistentry>
         <term>section</term>
         <listitem>
           <para>
 						This argument filter the output list.
 					</para>
-          <para>
-						<literal>section</literal> is a single-string and its value should be :
+          <para><literal>section</literal> is a single-string and its value should be :
 					</para>
           <itemizedlist>
             <listitem>
-              <para>
-								<literal>"all"</literal>: atomsGetInstalled() lists external
+              <para><literal>"all"</literal>: atomsGetInstalled() lists external
 								modules installed in both "user" and "allusers" sections.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"allusers"</literal>: atomsGetInstalled() only lists
+              <para><literal>"allusers"</literal>: atomsGetInstalled() only lists
 								external modules	installed in the "allusers" section.
 							</para>
             </listitem>
             <listitem>
-              <para>
-								<literal>"user"</literal>: atomsGetInstalled() only lists
+              <para><literal>"user"</literal>: atomsGetInstalled() only lists
 								external modules	installed in the "user" section.
 							</para>
             </listitem>
           </itemizedlist>
-					<para>
+          <para>
 						The default value is "all".
 					</para>
         </listitem>
-			</varlistentry>
-			
+      </varlistentry>
     </variablelist>
   </refsection>
   <!-- ===================================================================== -->
@@ -126,7 +117,7 @@ atomsRemove("toolbox_5");
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

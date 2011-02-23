@@ -46,7 +46,7 @@
     <para><literal>X = lyap(A,C,flag)</literal> résout l'équation matricielle de
       Lyapunov en temps continu ou discret
     </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A'*X + X*A = C       ( flag = 'c' )
 A'*X*A - X = C       ( flag = 'd' )
  ]]></programlisting>
@@ -66,8 +66,8 @@ X=lyap(A,C,'d');
 A'*X*A - X -C
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="sylv">sylv</link>

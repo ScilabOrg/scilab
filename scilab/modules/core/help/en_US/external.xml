@@ -21,7 +21,7 @@
     For example the external function <literal>costfunc</literal> is an argument of the <literal>optim</literal> 
     primitive. Its calling sequence must be: <literal>[f,g,ind]=costfunc(x,ind)</literal> and 
     <literal>optim</literal> (the high-level optimization primitive) is invoked as follows:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 optim(costfunc,...)
  ]]></programlisting>
     <para>
@@ -31,13 +31,13 @@ optim(costfunc,...)
     If other values are needed by the external function these variables
     can be defined in its environment. Also, they can be put in a list.
     For example,the external function</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [f,g,ind]=costfunc(x,ind,a,b,c) 
  ]]></programlisting>
     <para>
     is valid for <literal>optim</literal> if the external is <literal>list(costfunc,a,b,c)</literal> and
     the call to <literal>optim</literal> is then:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 optim(list(costfunc,a1,b1,c1),....
  ]]></programlisting>
     <para>
@@ -51,7 +51,7 @@ optim(list(costfunc,a1,b1,c1),....
     <para>
     External Fortran or C routines can also be dynamically linked (see <literal>link</literal>)</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

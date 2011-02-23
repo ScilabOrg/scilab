@@ -36,8 +36,7 @@
           <para>
             This argument limits the list of modules to a category.
           </para>
-          <para>
-            <literal>category</literal> is a single-string and its value should
+          <para><literal>category</literal> is a single-string and its value should
             be a valid category (See <link linkend="atomsCategoryList">atomsCategoryList</link>).
           </para>
         </listitem>
@@ -66,7 +65,7 @@ atomsList("Data Analysis And Statistics");
   <!-- ===================================================================== -->
   <!-- See also -->
   <!-- ===================================================================== -->
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -1,43 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry version="5.0-subset Scilab" xml:id="FindOpt" xml:lang="en"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:html="http://www.w3.org/1999/xhtml"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="FindOpt" xml:lang="en">
   <refnamediv>
     <refname>FindOpt</refname>
-
     <refpurpose>C gateway function find the position of an optional argument
     given its name</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-
     <synopsis>Pos FindOpt(varname, opts)</synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Arguments</title>
-
     <variablelist>
       <varlistentry>
         <term>varname</term>
-
         <listitem>
           <para>the name of the optional parameter</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>opts</term>
-
         <listitem>
           <para>a C list of optional parameters</para>
-
-          <programlisting role = ""><![CDATA[  
+          <programlisting role=""><![CDATA[  
 typedef struct rhs_opts__ {
   int position ; // stack position : -1 if not present
   char *name; // the name of the variable
@@ -48,10 +33,8 @@ typedef struct rhs_opts__ {
  ]]></programlisting>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>Pos</term>
-
         <listitem>
           <para>the rank of the optional parameter if it has been found in the
           parameters sent to the C function, 0 otherwise.</para>
@@ -59,23 +42,17 @@ typedef struct rhs_opts__ {
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
-
     <para>A C gateway function which find the position of an optional argument
     given its name. You must include stack-c.h to benefit from this
     function.</para>
-
     <para>WARNING: This API is deprecated from Scilab 5.2.0 and is going to be removed with Scilab 6.0. Please use <link linkend="api_scilab">API Scilab</link> (the new Scilab API).</para>
   </refsection>
-
   <refsection>
     <title>Examples</title>
-
     <para>A more complete example is available in the directory
     SCI/modules/core/example/optional_parameters.</para>
-
     <programlisting role="example"><![CDATA[ 
 #include <stack-c.h>
 
@@ -119,31 +96,40 @@ int sci_optional_parameters(char * fname)
 }
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
-
     <simplelist type="inline">
-      <member><link linkend="CheckDims">CheckDims</link></member>
-
-      <member><link linkend="CheckRow">CheckRow</link></member>
-
-      <member><link linkend="CheckScalar">CheckScalar</link></member>
-
-      <member><link linkend="CheckVector">CheckVector</link></member>
-
-      <member><link linkend="OverLoad">CheckOverLoad</link></member>
-
-      <member><link linkend="CheckDimProp">CheckDimProp</link></member>
-
-      <member><link linkend="CheckLength">CheckLength</link></member>
-
-      <member><link linkend="CheckSameDims">CheckSameDims</link></member>
-
-      <member><link linkend="CheckSquare">CheckSquare</link></member>
-
-      <member><link linkend="HowToCheckParameters">How to check
-      parameters</link></member>
+      <member>
+        <link linkend="CheckDims">CheckDims</link>
+      </member>
+      <member>
+        <link linkend="CheckRow">CheckRow</link>
+      </member>
+      <member>
+        <link linkend="CheckScalar">CheckScalar</link>
+      </member>
+      <member>
+        <link linkend="CheckVector">CheckVector</link>
+      </member>
+      <member>
+        <link linkend="OverLoad">CheckOverLoad</link>
+      </member>
+      <member>
+        <link linkend="CheckDimProp">CheckDimProp</link>
+      </member>
+      <member>
+        <link linkend="CheckLength">CheckLength</link>
+      </member>
+      <member>
+        <link linkend="CheckSameDims">CheckSameDims</link>
+      </member>
+      <member>
+        <link linkend="CheckSquare">CheckSquare</link>
+      </member>
+      <member>
+        <link linkend="HowToCheckParameters">How to check
+      parameters</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

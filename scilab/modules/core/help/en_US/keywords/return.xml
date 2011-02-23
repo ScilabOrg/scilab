@@ -40,7 +40,7 @@
     <literal>ai</literal> in calling environnement under names <literal>xi</literal>.</para>
     <para><literal>resume</literal> is equivalent to <literal>return</literal>.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -33,7 +33,7 @@
     before, but it will be removed in the future release. </para>
     <para>
     The first three syntaxes can be replaced by</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 [As,Es]=schur(A,E)
 [As,Es,Q,Z]=schur(A,E);Q=Q' //NOTE THE TRANPOSITION HERE
 [As,Es,Z,dim] = schur(A,E,flag) 
@@ -48,7 +48,7 @@
           <para>extern is a scilab function  the new calling sequence
         should be <literal>[As,Es,Z,dim]= schur(A,E,Nextern)</literal> with
         Nextern defined as follow:</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role=""><![CDATA[ 
 function t=Nextern(R)
 if R(2)==0 then
   t=extern([1,R(1),R(3)])==1
@@ -68,7 +68,7 @@ endfunction
         </listitem>
       </varlistentry>
     </variablelist>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 logical function nextern(ar,ai,beta)
 double precision ar,ai,beta
 integer r,extern
@@ -81,7 +81,7 @@ nextern=r.eq.1
 end
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -53,22 +53,19 @@ h.prop=val</synopsis>
   </refsection>
   <refsection>
     <title>Description</title>
-	
-	<para>This routine can be used to modify the value of a specified property from a
+    <para>This routine can be used to modify the value of a specified property from a
     graphics entity or a GUI object. In this case it is equivalent to use the dot operator on an handle.
 	For exemple, <literal>set(h,"background",5)</literal> is equivalent to <literal>h.background = 5</literal>.
 	</para>
-	<para>Property names are character strings. The type of the set values depends on the handle type and property.
+    <para>Property names are character strings. The type of the set values depends on the handle type and property.
 	</para>
-	<para>To get the list of all existing properties
+    <para>To get the list of all existing properties
 	see <link linkend="graphics_entities">graphics_entities</link> or <link linkend="uicontrol">uicontrol</link>
 	for User Interface objects.</para>
-	
-	<para>
-	<literal>set</literal> function can be also called with only a property and a value as argument. In this case,
+    <para><literal>set</literal> function can be also called with only a property and a value as argument. In this case,
 	the property must be one of the following:
         </para>
-	<variablelist>
+    <variablelist>
       <varlistentry>
         <term>current_entity or hdl</term>
         <listitem>
@@ -76,7 +73,7 @@ h.prop=val</synopsis>
 		  In this case, the value must be a graphic handle.</para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>current_figure</term>
         <listitem>
           <para><literal>set('current_figure',fig)</literal> sets a new graphic figure as current.
@@ -84,24 +81,21 @@ h.prop=val</synopsis>
 		  </para>
         </listitem>
       </varlistentry>
-	  <varlistentry>
+      <varlistentry>
         <term>current_axes</term>
         <listitem>
-		  <para><literal>set('current_axes',axes)</literal> sets a new axes entity as current.
+          <para><literal>set('current_axes',axes)</literal> sets a new axes entity as current.
 		  It is equivalent to <link linkend="sca">sca</link>. In this case, the value must be an Axes handle.
 		  </para>
         </listitem>
       </varlistentry>
-	</variablelist>
-	
-	<para>
-	<literal>set</literal> can also be called with a graphic handle and property as arguments.
+    </variablelist>
+    <para><literal>set</literal> can also be called with a graphic handle and property as arguments.
 	The handle must be either a handle on the default figure or the default axes entities.
 	The property must be <literal>"default_values"</literal>. In this case, the default entity
 	is reset to the value it had at Scilab startup. <literal>set("default_values",h)</literal>
 	is equivalent to <link linkend="sda">sda</link> or <link linkend="sdf">sdf</link>.
 	</para>
-	
   </refsection>
   <refsection>
     <title>Examples</title>
@@ -129,7 +123,7 @@ p3= a.children(1).children;
 set([a p1 p2 p3],"foreground",5)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

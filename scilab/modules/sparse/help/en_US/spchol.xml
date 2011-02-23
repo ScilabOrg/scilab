@@ -69,7 +69,7 @@ X=sparse(X);[R,P] = spchol(X);
 max(P*R*R'*P'-X)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

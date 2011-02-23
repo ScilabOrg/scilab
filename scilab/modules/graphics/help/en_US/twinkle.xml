@@ -60,7 +60,7 @@ twinkle(p2,10)
 twinkle(gca())
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

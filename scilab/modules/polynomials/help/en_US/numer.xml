@@ -46,7 +46,7 @@
     function matrix <literal>R</literal> (<literal>R</literal> may be also a constant or polynomial matrix).
     <literal>numer(R)</literal> is equivalent to <literal>R(2)</literal>, <literal>R('num')</literal> or <literal>R.num</literal></para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

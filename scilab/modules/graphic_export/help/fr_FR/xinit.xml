@@ -42,7 +42,7 @@
 	    Pour les pilotes Postscript, Xfig, Gif ou PPM <literal>fileName</literal> doit être spécifié. Il determine
 	      le nom du fichier où tous les ordres graphiques sont enregistrés.
   </para>
-  <para>Pour les pilotes écrans (X11 ou Rec), <literal>xinit</literal> doit être appelé sans argument. Dans ce cas,
+    <para>Pour les pilotes écrans (X11 ou Rec), <literal>xinit</literal> doit être appelé sans argument. Dans ce cas,
 	une fenêtre graphique vide est ouverte.</para>
   </refsection>
   <refsection>
@@ -55,8 +55,8 @@ xend()
 driver("X11")
  ]]></programlisting>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+    <title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="xend">xend</link>
@@ -72,4 +72,3 @@ driver("X11")
     <para>Jean-Baptiste Silvy</para>
   </refsection>
 </refentry>
-

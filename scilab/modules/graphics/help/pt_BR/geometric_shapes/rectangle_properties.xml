@@ -10,55 +10,39 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
-<refentry version="5.0-subset Scilab" xml:id="rectangle_properties"
-          xml:lang="en" xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:ns3="http://www.w3.org/1999/xhtml"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="rectangle_properties" xml:lang="en">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
-
   <refnamediv>
     <refname>rectangle_properties</refname>
-
     <refpurpose>Descrição de propriedades da entidade Rectangle
     (retângulo)</refpurpose>
   </refnamediv>
-
   <refsection>
     <title>Descrição</title>
-
     <para>A entidade Rectangle é uma folha na hierarquia de entidades
     gráficas. Esta entidade define parâmetros para retângulos preenchidos ou
     não.</para>
-
     <variablelist>
       <varlistentry>
         <term>parent:</term>
-
         <listitem>
           <para>esta propriedade contém o manipulador da raiz. A raiz de uma
           entidade Rectangle deve ser do tipo <literal>"Axes"</literal> ou
           <literal>"Compound"</literal>.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>children:</term>
-
         <listitem>
           <para>esta propriedade contém um vetor com os galhos do manipulador.
           Contudo, manipuladores rectangle não possuem galhos correntemente.
           </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_mode:</term>
-
         <listitem>
           <para>este campo contém o valor padrão da propriedade
           <literal>mark_mode</literal> para a poligonal. Deve ser
@@ -66,10 +50,8 @@
           <literal>"off"</literal> (nenhuma marca desenhada). </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_style:</term>
-
         <listitem>
           <para>a propriedade <literal>mark_style</literal> é utilizada para
           selecionar o tipo de marca utilizada quando a propriedade
@@ -80,10 +62,8 @@
           direita, triângulo para esquerda e pentagrama.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_size_unit:</term>
-
         <listitem>
           <para>este campo contém o valor padrão da propriedade
           <literal>mark_size_unit</literal> property value. Se
@@ -100,10 +80,8 @@
           o modo <literal>point</literal> é automaticamente habilitado.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_size:</term>
-
         <listitem>
           <para>A propriedade <literal>mark_size</literal> é utilizada para
           escolher o tamanho das marcas quando a propriedade
@@ -112,10 +90,8 @@
           24pt.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_foreground:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>mark_foreground</literal> que é a cor da borda das marcas.
@@ -123,10 +99,8 @@
           corrente).</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>mark_background:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>mark_background</literal> que é a cor da face das marcas. O
@@ -134,10 +108,8 @@
           corrente).</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>line_mode:</term>
-
         <listitem>
           <para>este campo contém o valor padrão da propriedade
           <literal>line_mode</literal> para a poligonal. O valor pode ser
@@ -145,10 +117,8 @@
           <literal>"off"</literal> (nenhuma linha desenhada). </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>fill_mode:</term>
-
         <listitem>
           <para>Se o valor da propriedade <literal>fill_mode</literal> é
           <literal>"on"</literal>, o retângulo é preenchido com a cor de
@@ -158,50 +128,40 @@
           desenhado utilizando-se a cor de primeiro plano. </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>line_style:</term>
-
         <listitem>
           <para>a propriedade <literal>line_style</literal> deve ser um
           inteiro em [1 6]. 1 stands significa linha sólida, o restante
           seleciona tracejados. </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>thickness:</term>
-
         <listitem>
           <para>este campo contém o valor padrão da propriedade
           <literal>thickness</literal> (espessura) da linha. Deve ser um
           inteiro positivo. </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>foreground:</term>
-
         <listitem>
           <para>este campo contém a cor utilizada para desenhar a linha de
           contorno do retângulo. Seu valor deve ser um índice de cor (relativo
           ao mapa de cores corrente). </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>background:</term>
-
         <listitem>
           <para>este campo contém a cor utilizada para preencher a parte
           interna do retângulo. Seu valor deve ser um índice de cor (relativo
           ao mapa de cores corrente). </para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>data:</term>
-
         <listitem>
           <para>esta propriedade retorna as coordenadas do ponto superior
           esquerdo do retângulo, sua altura e largura em unidades de dados dos
@@ -209,10 +169,8 @@
           <literal>[xleft,yup,[zup],width,height]</literal></para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>visible:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>visible</literal> para a entidade. Pode ser <literal>"on"
@@ -221,26 +179,21 @@
           <literal>"off"</literal> o retângulo não é exibido na tela.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>clip_state:</term>
-
         <listitem>
           <para>este campo contém o valor da propriedade
           <literal>clip_state</literal> para o retângulo. o valor de
           clip_state pode ser :</para>
-
           <itemizedlist>
             <listitem>
               <para><literal>"off"</literal> ignifica que o retângulo não é
               recortado. </para>
             </listitem>
-
             <listitem>
               <para><literal>"clipgrf"</literal> significa que o retângulo é
               recortado fora da caixa dos eixos. </para>
             </listitem>
-
             <listitem>
               <para><literal>"on"</literal> significa que o retângulo é
               recortado fora do retângulo dado pela propriedade
@@ -249,10 +202,8 @@
           </itemizedlist>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>clip_box:</term>
-
         <listitem>
           <para>este campo determina a propriedade <literal>clip_box</literal>
           property. Por padrão seu valor é uma matriz vazia se a propriedade
@@ -263,10 +214,8 @@
           alterado.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>user_data:</term>
-
         <listitem>
           <para>este campo pode ser utilizado para armazenar qualquer variável
           Scilab na estrutura de dados da entidade retângulo e
@@ -275,10 +224,8 @@
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Exemplos</title>
-
     <programlisting role="example"><![CDATA[ 
 a=get("current_axes");//obtendo o manipulador dos novos eixos criados
 a.data_bounds=[-2,-2;2,2];
@@ -298,31 +245,34 @@ r.data(:,[1 2])=[1/2 1/2];
 r.clip_state="off"
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>Ver Também</title>
-
     <simplelist type="inline">
-      <member><link linkend="set">set</link></member>
-
-      <member><link linkend="get">get</link></member>
-
-      <member><link linkend="delete">delete</link></member>
-
-      <member><link linkend="xrect">xrect</link></member>
-
-      <member><link linkend="xfrect">xfrect</link></member>
-
-      <member><link linkend="xrects">xrects</link></member>
-
-      <member><link
-      linkend="graphics_entities">graphics_entities</link></member>
+      <member>
+        <link linkend="set">set</link>
+      </member>
+      <member>
+        <link linkend="get">get</link>
+      </member>
+      <member>
+        <link linkend="delete">delete</link>
+      </member>
+      <member>
+        <link linkend="xrect">xrect</link>
+      </member>
+      <member>
+        <link linkend="xfrect">xfrect</link>
+      </member>
+      <member>
+        <link linkend="xrects">xrects</link>
+      </member>
+      <member>
+        <link linkend="graphics_entities">graphics_entities</link>
+      </member>
     </simplelist>
   </refsection>
-
   <refsection>
     <title>Autor</title>
-
     <para>Djalel ABDEMOUCHE</para>
   </refsection>
 </refentry>

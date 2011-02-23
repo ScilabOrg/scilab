@@ -46,7 +46,7 @@ A=testmatrix('hilb',6);
 cond(A)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

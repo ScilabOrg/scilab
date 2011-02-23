@@ -40,7 +40,7 @@ zoom_rect(h,rect)
       <varlistentry>
         <term>h</term>
         <listitem>
-		<para>Graphic handle of type Figure or Axes. Specify on which Axes
+          <para>Graphic handle of type Figure or Axes. Specify on which Axes
 		the zoom will apply.</para>
         </listitem>
       </varlistentry>
@@ -48,8 +48,7 @@ zoom_rect(h,rect)
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>
-      <literal>zoom_rect</literal> funtion is used to perform a zoom inside a set of Axes Objects.
+    <para><literal>zoom_rect</literal> funtion is used to perform a zoom inside a set of Axes Objects.
     </para>
     <para>
       The <literal>h</literal> input argument specifies on which Axes the zoom will apply.
@@ -105,7 +104,7 @@ zoom_rect();
 zoom_rect(gcf());
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

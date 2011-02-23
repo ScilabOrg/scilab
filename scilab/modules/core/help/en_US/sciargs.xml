@@ -20,7 +20,7 @@
     <para>
     This function corresponds to the <literal>getarg</literal> function in C langage</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

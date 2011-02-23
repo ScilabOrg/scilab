@@ -24,17 +24,17 @@
 ulink()</synopsis>
   </refsynopsisdiv>
   <refsection>
-  <refsection>
-    <title>Arguments</title>
-    <variablelist>
-      <varlistentry>
-        <term>x</term>
-        <listitem>
-          <para>a ID returned by <literal>link</literal></para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsection>
+    <refsection>
+      <title>Arguments</title>
+      <variablelist>
+        <varlistentry>
+          <term>x</term>
+          <listitem>
+            <para>a ID returned by <literal>link</literal></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsection>
     <title>Description</title>
     <para>see <literal>link</literal></para>
     <para>If you plan to use <literal>valgrind</literal> to profile
@@ -51,7 +51,7 @@ scilab -nwni -profile
     loaded dynamic libraries. This will
     allow <literal>valgrind</literal> to perform its sum-up analysis.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

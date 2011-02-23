@@ -40,7 +40,6 @@
           interpreter in which the operation has to be performed. If not
           provided, it defaults to the main tcl interpreter created by
           Scilab.</para>
-
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -72,7 +71,7 @@ TCL_ExistVar("Scilab",'InterpSlave')
 TCL_DeleteInterp('InterpSlave')
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

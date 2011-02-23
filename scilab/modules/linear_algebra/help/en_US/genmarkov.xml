@@ -68,7 +68,7 @@ P=genmarkov([2,1],2,'perm')
 P(perm,perm)
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

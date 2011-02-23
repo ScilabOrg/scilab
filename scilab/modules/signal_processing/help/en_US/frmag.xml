@@ -20,7 +20,7 @@
       <varlistentry>
         <term>sys</term>
         <listitem>
-	  <para>a single input,
+          <para>a single input,
 	  single output discrete transfer function, or a polynomial or
 	  the vector of polynomial coefficients, the filter.</para>
         </listitem>
@@ -32,21 +32,19 @@
           the numerator of the filter</para>
         </listitem>
       </varlistentry>
-     <varlistentry>
+      <varlistentry>
         <term>den</term>
         <listitem>
           <para>a polynomial or the vector of polynomial coefficients,
           the denominator of the filter (the default value is 1).</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>npts</term>
         <listitem>
           <para>integer, the number of points in frequency response.</para>
         </listitem>
       </varlistentry>
-
       <varlistentry>
         <term>xm</term>
         <listitem>
@@ -79,7 +77,6 @@
   </refsection>
   <refsection>
     <title>Examples</title>
-
     <programlisting role="example"><![CDATA[ 
 hz=iir(3,'bp','cheb1',[.15 .25],[.08 .03]);
 [hzm,fr]=frmag(hz,256);
@@ -89,15 +86,24 @@ hz=iir(3,'bp','ellip',[.15 .25],[.08 .03]);
 plot(fr,hzm,'r')
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
-      <member><link linkend="iir">iir</link></member>
-      <member><link linkend="eqfir">eqfir</link></member>
-      <member><link linkend="repfreq">repfreq</link></member>
-      <member><link linkend="calfrq">calfrq</link></member>
-      <member><link linkend="phasemag">phasemag</link></member>
+      <member>
+        <link linkend="iir">iir</link>
+      </member>
+      <member>
+        <link linkend="eqfir">eqfir</link>
+      </member>
+      <member>
+        <link linkend="repfreq">repfreq</link>
+      </member>
+      <member>
+        <link linkend="calfrq">calfrq</link>
+      </member>
+      <member>
+        <link linkend="phasemag">phasemag</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

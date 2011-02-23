@@ -26,7 +26,7 @@
     <title>Description</title>
     <para>
     Given a spectral density matrix <literal>phi(s)</literal>:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
             -1                   -1
 R + C*(s*I-A) * B  +  B'*(-s*I-A') * C'  with R=D+D' > 0
  ]]></programlisting>
@@ -52,7 +52,7 @@ Ws=ss2tf(W);
 horner(Ws,-s)*Ws
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

@@ -55,7 +55,7 @@
         <listitem>
           <para>The matrix containing the strings of the object. The rows of the
         matrix are displayed horizontally and the columns vertically.</para>
-         <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
+          <para>Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -113,16 +113,16 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-              <term>fractional_font: </term>
-              <listitem>
-	        <para>
+        <term>fractional_font: </term>
+        <listitem>
+          <para>
 		  This property specify whether text is displayed using fractional font sizes.
 		  Its value must be either <literal>"on"</literal> or <literal>"off"</literal>.
 		  If <literal>"on"</literal> the floating point value of <literal>font_size</literal>
 		  is used for display and the font is anti-aliased. If <literal>"off"</literal> only the integer part is used
 		  and the font is not smoothed.
 		</para>
-              </listitem>
+        </listitem>
       </varlistentry>
       <varlistentry>
         <term>font_angle: </term>
@@ -192,7 +192,7 @@ x_label.text="<mrow><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac
 </mfrac></mrow></mfrac></mrow></mfenced></mrow>"
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

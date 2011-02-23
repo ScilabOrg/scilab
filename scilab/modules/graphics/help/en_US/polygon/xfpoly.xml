@@ -63,7 +63,7 @@ e.closed = 'off' // the polyline is now open
 xset("default")
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

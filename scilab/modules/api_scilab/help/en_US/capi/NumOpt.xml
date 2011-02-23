@@ -1,54 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry version="5.0-subset Scilab" xml:id="NumOpt" xml:lang="en"
-          xmlns="http://docbook.org/ns/docbook"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          xmlns:svg="http://www.w3.org/2000/svg"
-          xmlns:mml="http://www.w3.org/1998/Math/MathML"
-          xmlns:html="http://www.w3.org/1999/xhtml"
-          xmlns:db="http://docbook.org/ns/docbook">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="NumOpt" xml:lang="en">
   <refnamediv>
     <refname>NumOpt</refname>
-
     <refpurpose>C gateway function which returns the number of optional
     parameters sent to a C function</refpurpose>
   </refnamediv>
-
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-
     <synopsis>Res = NumOpt()</synopsis>
   </refsynopsisdiv>
-
   <refsection>
     <title>Arguments</title>
-
     <variablelist>
       <varlistentry>
         <term>Res</term>
-
         <listitem>
           <para>the number of optional parameters detected</para>
         </listitem>
       </varlistentry>
     </variablelist>
   </refsection>
-
   <refsection>
     <title>Description</title>
-
     <para>A C gateway function which returns the number of optional parameters
     sent to a C function. You must include stack-c.h to benefit from this
     function.</para>
-
     <para>WARNING: This API is deprecated from Scilab 5.2.0 and is going to be removed with Scilab 6.0. Please use <link linkend="api_scilab">API Scilab</link> (the new Scilab API).</para>
   </refsection>
-
   <refsection>
     <title>Examples</title>
-
     <para>A more complete example is available in the directory
     SCI/modules/core/example/optional_parameters.</para>
-
     <programlisting role="example"><![CDATA[ 
 #include <stack-c.h>
 
@@ -92,31 +74,40 @@ int sci_optional_parameters(char * fname)
 }
  ]]></programlisting>
   </refsection>
-
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
-
     <simplelist type="inline">
-      <member><link linkend="CheckDims">CheckDims</link></member>
-
-      <member><link linkend="CheckRow">CheckRow</link></member>
-
-      <member><link linkend="CheckScalar">CheckScalar</link></member>
-
-      <member><link linkend="CheckVector">CheckVector</link></member>
-
-      <member><link linkend="OverLoad">CheckOverLoad</link></member>
-
-      <member><link linkend="CheckDimProp">CheckDimProp</link></member>
-
-      <member><link linkend="CheckLength">CheckLength</link></member>
-
-      <member><link linkend="CheckSameDims">CheckSameDims</link></member>
-
-      <member><link linkend="CheckSquare">CheckSquare</link></member>
-
-      <member><link linkend="HowToCheckParameters">How to check
-      parameters</link></member>
+      <member>
+        <link linkend="CheckDims">CheckDims</link>
+      </member>
+      <member>
+        <link linkend="CheckRow">CheckRow</link>
+      </member>
+      <member>
+        <link linkend="CheckScalar">CheckScalar</link>
+      </member>
+      <member>
+        <link linkend="CheckVector">CheckVector</link>
+      </member>
+      <member>
+        <link linkend="OverLoad">CheckOverLoad</link>
+      </member>
+      <member>
+        <link linkend="CheckDimProp">CheckDimProp</link>
+      </member>
+      <member>
+        <link linkend="CheckLength">CheckLength</link>
+      </member>
+      <member>
+        <link linkend="CheckSameDims">CheckSameDims</link>
+      </member>
+      <member>
+        <link linkend="CheckSquare">CheckSquare</link>
+      </member>
+      <member>
+        <link linkend="HowToCheckParameters">How to check
+      parameters</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

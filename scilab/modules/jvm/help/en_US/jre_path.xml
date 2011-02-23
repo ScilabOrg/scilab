@@ -37,7 +37,7 @@
     <title>Description</title>
     <para>returns Java Runtime Environment used by Scilab.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>

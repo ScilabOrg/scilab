@@ -67,7 +67,7 @@ W=inv(A)*A
 clean(ss2tf(W))
  ]]></programlisting>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>See Also</title>
     <simplelist type="inline">
       <member>
