@@ -40,6 +40,7 @@ Source: modules\{#SCICOS}\palettes\*.cosf; DestDir: {app}\modules\{#SCICOS}\pale
 ;
 ;Source: modules\{#SCICOS}\includes\*.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}
 Source: modules\{#SCICOS}\includes\scicos.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}
+Source: modules\{#SCICOS}\includes\import.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}
 Source: modules\{#SCICOS}\includes\scicos_free.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}
 Source: modules\{#SCICOS}\includes\scicos_malloc.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}
 Source: modules\{#SCICOS}\includes\scicos_math.h; DestDir: {app}\modules\{#SCICOS}\includes; Components: {#COMPN_XCOS}

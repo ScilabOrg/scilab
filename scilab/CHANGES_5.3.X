@@ -241,7 +241,7 @@ Xcos:
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
 
-* bug 8798 fixed - The context parameter of scicos_simulate was not taken into 
+* bug 8798 fixed - The context parameter of scicos_simulate was not taken into
                    account.
 
 * bug 8818 fixed - Generic modelica blocks did not transform Scilab exponential
@@ -258,6 +258,8 @@ Xcos:
 
 * bug 8952 fixed - "lincos" did not produce a valid error message when the
                    diagram has no inputs nor outputs.
+
+* bug 9016 fixed - import.h used by scicos.h was missing.
 
 
 Module skeleton:
