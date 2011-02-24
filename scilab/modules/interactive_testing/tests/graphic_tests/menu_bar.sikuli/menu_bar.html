@@ -1,0 +1,97 @@
+
+<html>
+   <head>
+      <style type="text/css">
+         .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display:table-cell;
+            white-space: pre-wrap;       /* css-3 */
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            width: 99%;   /* remove horizontal scroll-bar when viewing in IE7 */
+         }
+         .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+         }
+         .kw {
+            color: blue;
+         }
+         .skw {
+            color: rgb(63, 127, 127);
+         }
+
+         .str {
+            color: rgb(128, 0, 0);
+         }
+
+         .dig {
+            color: rgb(128, 64, 0);
+         }
+
+         .cmt {
+            color: rgb(200, 0, 200);
+         }
+
+         h2 {
+            display: inline;
+            font-weight: normal;
+         }  
+         
+         .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+         }
+
+         a {
+            color: #9D2900;
+         }
+
+         body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+         }
+
+      </style>
+   </head>
+<body>
+<div class="info">
+<h2>menu_bar.sikuli</h2> <a href="menu_bar.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="skw">click</span>(<img src="1297931922922.png" />)
+<span class="skw">click</span>(<img src="Untitled1.png" />)
+paste(<span class="str">"2+42"</span>)
+<span class="skw">type</span>(<span class="str">"l"</span>,KEY_CTRL)
+<span class="skw">click</span>(Pattern(<img src="FilaEdit.png" />).targetOffset(-<span class="dig">19</span>,<span class="dig">0</span>))
+<span class="skw">click</span>(Pattern(<img src="sc.png" />).targetOffset(-<span class="dig">116</span>,<span class="dig">6</span>))
+<span class="skw">click</span>(<img src="1297932329690.png" />)
+<span class="kw">if</span> <span class="kw">not</span> exists(<img src="242BHS44.png" />):
+        <span class="kw">print</span> <span class="str">"could not found the text 44"</span>
+<span class="skw">click</span>(<img src="1297932418868.png" />)
+<span class="skw">click</span>(<img src="1297932428914.png" />)
+<span class="cmt"># focus on the console
+</span><span class="skw">click</span>(<img src="Startupexecu.png" />)
+paste(<span class="str">"a=[2,42; 32, 3];\n"</span>)
+paste(<span class="str">"disp(a);\n"</span>)
+<span class="skw">dragDrop</span>(<img src="8.png" />, <img src="2.png" />)
+<span class="skw">click</span>(<img src="1297932560233.png" />)
+<span class="skw">click</span>(<img src="1297932586980.png" />)
+paste(<span class="str">"\n;clc();\n"</span>)
+paste(<span class="str">"disp(a*2);\n"</span>)
+<span class="kw">if</span> <span class="kw">not</span> exists(<img src="8464.png" />):
+        <span class="kw">print</span> <span class="str">"could not found the text"</span>
+</pre>
+</body>
+</html>
