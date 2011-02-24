@@ -303,6 +303,7 @@
         <imagedata align="center" fileref="../../../examples/integer_pal/fr_FR/bitclear_diagram_fr_FR.png" />
       </imageobject>
     </mediaobject>
+     <para><link type="scilab" linkend="scilab.xcos/xcos/examples/integer_pal/en_US/BITCLEAR_en_US.xcos">Modifier cet exemple dans Xcos</link></para>
   </refsection>
 
   <refsection id="Interfacingfunction_BITCLEAR">
