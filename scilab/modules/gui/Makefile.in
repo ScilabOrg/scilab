@@ -22,11 +22,11 @@
 # Copyright (C) DIGITEO - 2009 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Pierre MARECHAL
 # Copyright (C) DIGITEO - 2010 - Clément DAVID
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 
@@ -69,10 +69,7 @@ host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@am__append_1 = java
-
-# With --enable-compilation-tests, launch java unitary tests
-@COMPILATION_TESTS_TRUE@am__append_2 = test
-@GUI_TRUE@am__append_3 = libscigui.la 
+@GUI_TRUE@am__append_2 = libscigui.la
 subdir = modules/gui
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
@@ -80,16 +77,16 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/docbook.m4 \
 	$(top_srcdir)/m4/giws.m4 $(top_srcdir)/m4/hdf5.m4 \
 	$(top_srcdir)/m4/intel_compiler.m4 \
 	$(top_srcdir)/m4/java-thirdparty.m4 $(top_srcdir)/m4/java.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/libsmath.m4 \
-	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/libxml2.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/macosx.m4 $(top_srcdir)/m4/ocaml.m4 \
-	$(top_srcdir)/m4/pcre.m4 $(top_srcdir)/m4/pkg.m4 \
-	$(top_srcdir)/m4/pvm.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/swig.m4 $(top_srcdir)/m4/symlinks.m4 \
-	$(top_srcdir)/m4/tcltk.m4 $(top_srcdir)/m4/umfpack.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/largefile.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/libsmath.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/libxml2.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/macosx.m4 \
+	$(top_srcdir)/m4/ocaml.m4 $(top_srcdir)/m4/pcre.m4 \
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/pvm.m4 \
+	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/swig.m4 \
+	$(top_srcdir)/m4/symlinks.m4 $(top_srcdir)/m4/tcltk.m4 \
+	$(top_srcdir)/m4/umfpack.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
@@ -169,7 +166,8 @@ am__objects_4 = libscigui_la-sci_printsetupbox.lo \
 	libscigui_la-sci_uigetdir.lo libscigui_la-sci_uigetfile.lo \
 	libscigui_la-sci_displaytree.lo libscigui_la-sci_uiputfile.lo \
 	libscigui_la-displayUiTree.lo libscigui_la-sci_about.lo
-am__objects_5 = libscigui_la-InitUIMenu.lo \
+am__objects_5 = libscigui_la-callJoGLView.lo \
+	libscigui_la-CallGraphicJoGLView.lo libscigui_la-InitUIMenu.lo \
 	libscigui_la-CallScilabBridge.lo libscigui_la-Jxclick.lo \
 	libscigui_la-DestroyUimenu.lo libscigui_la-DestroyUicontrol.lo \
 	libscigui_la-DestroyJavaUiobject.lo \
@@ -446,7 +444,12 @@ RELOCATABLE = @RELOCATABLE@
 RT_LIB = @RT_LIB@
 SAXON = @SAXON@
 SCICOS_ENABLE = @SCICOS_ENABLE@
+SCILAB_BINARY_VERSION = @SCILAB_BINARY_VERSION@
 SCILAB_LIBRARY_VERSION = @SCILAB_LIBRARY_VERSION@
+SCILAB_VERSION_MAINTENANCE = @SCILAB_VERSION_MAINTENANCE@
+SCILAB_VERSION_MAJOR = @SCILAB_VERSION_MAJOR@
+SCILAB_VERSION_MINOR = @SCILAB_VERSION_MINOR@
+SCIRENDERER = @SCIRENDERER@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SET_RELOCATABLE = @SET_RELOCATABLE@
@@ -569,7 +572,7 @@ SPLINT_OPTIONS = -weak -booltype BOOL
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
-TARGETS_ALL = $(am__append_1) $(am__append_2)
+TARGETS_ALL = $(am__append_1)
 
 ################ MACROS ######################
 # Rule to build a macro
@@ -634,9 +637,12 @@ src/c/InitProgressionBar.c \
 src/c/CreateUIContextMenu.c \
 src/c/UicontrolStyleToString.c \
 src/c/checkColorRange.c \
-src/c/messageboxoptions.c 
+src/c/messageboxoptions.c
 
-GUI_CPP_SOURCES = src/cpp/InitUIMenu.cpp \
+GUI_CPP_SOURCES = \
+src/cpp/callJoGLView.cpp \
+src/jni/CallGraphicJoGLView.cpp \
+src/cpp/InitUIMenu.cpp \
 src/jni/CallScilabBridge.cpp \
 src/jni/Jxclick.cpp \
 src/cpp/DestroyUimenu.cpp \
@@ -738,6 +744,7 @@ src/cpp/displaytree.cpp \
 src/jni/ScilabDisplayTree.cpp
 
 GIWS_WRAPPERS = \
+src/jni/JoGLView.giws.xml \
 src/jni/CallScilabBridge.giws.xml \
 src/jni/Jxclick.giws.xml \
 src/jni/Jxgetmouse.giws.xml \
@@ -824,10 +831,11 @@ libscigui_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/graphics/src/c/getHandleProperty/ \
 			-I$(top_srcdir)/modules/graphic_export/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes \
-			-I$(top_srcdir)/modules/string/includes/
+			-I$(top_srcdir)/modules/string/includes/ \
+			-I$(top_srcdir)/modules/graphic_objects/includes/
 
 
-# Without the GUI module 
+# Without the GUI module
 libscigui_disable_la_CFLAGS = -Iincludes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes \
 			-I$(srcdir)/includes/ \
@@ -836,7 +844,7 @@ libscigui_disable_la_CFLAGS = -Iincludes/ \
 GUI_DISABLE_C_SOURCES = src/nogui/nogui.c
 libscigui_disable_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 libscigui_disable_la_SOURCES = $(GUI_DISABLE_C_SOURCES)
-pkglib_LTLIBRARIES = libscigui-disable.la $(am__append_3)
+pkglib_LTLIBRARIES = libscigui-disable.la $(am__append_2)
 libscigui_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 libscigui_la_SOURCES = $(GUI_C_SOURCES) $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(GUI_CPP_SOURCES)
 
@@ -993,6 +1001,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallColorChooser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallFigure.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallFontChooser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallGraphicJoGLView.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallHelpBrowser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallJuigetfile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-CallJxclick.Plo@am__quote@
@@ -1095,8 +1104,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-Widget.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-addmenu.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-buildMainWindowTitle.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-displayUiTree.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-callJoGLView.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-checkColorRange.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-displayUiTree.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-displaytree.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-exportUserInterface.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigui_la-getMainWindowTitle.Plo@am__quote@
@@ -1538,6 +1548,20 @@ libscigui_la-sci_about.lo: sci_gateway/cpp/sci_about.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_about.cpp' object='libscigui_la-sci_about.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscigui_la-sci_about.lo `test -f 'sci_gateway/cpp/sci_about.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_about.cpp
+
+libscigui_la-callJoGLView.lo: src/cpp/callJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscigui_la-callJoGLView.lo -MD -MP -MF $(DEPDIR)/libscigui_la-callJoGLView.Tpo -c -o libscigui_la-callJoGLView.lo `test -f 'src/cpp/callJoGLView.cpp' || echo '$(srcdir)/'`src/cpp/callJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscigui_la-callJoGLView.Tpo $(DEPDIR)/libscigui_la-callJoGLView.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/callJoGLView.cpp' object='libscigui_la-callJoGLView.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscigui_la-callJoGLView.lo `test -f 'src/cpp/callJoGLView.cpp' || echo '$(srcdir)/'`src/cpp/callJoGLView.cpp
+
+libscigui_la-CallGraphicJoGLView.lo: src/jni/CallGraphicJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscigui_la-CallGraphicJoGLView.lo -MD -MP -MF $(DEPDIR)/libscigui_la-CallGraphicJoGLView.Tpo -c -o libscigui_la-CallGraphicJoGLView.lo `test -f 'src/jni/CallGraphicJoGLView.cpp' || echo '$(srcdir)/'`src/jni/CallGraphicJoGLView.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscigui_la-CallGraphicJoGLView.Tpo $(DEPDIR)/libscigui_la-CallGraphicJoGLView.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/CallGraphicJoGLView.cpp' object='libscigui_la-CallGraphicJoGLView.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscigui_la-CallGraphicJoGLView.lo `test -f 'src/jni/CallGraphicJoGLView.cpp' || echo '$(srcdir)/'`src/jni/CallGraphicJoGLView.cpp
 
 libscigui_la-InitUIMenu.lo: src/cpp/InitUIMenu.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigui_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscigui_la-InitUIMenu.lo -MD -MP -MF $(DEPDIR)/libscigui_la-InitUIMenu.Tpo -c -o libscigui_la-InitUIMenu.lo `test -f 'src/cpp/InitUIMenu.cpp' || echo '$(srcdir)/'`src/cpp/InitUIMenu.cpp
@@ -2636,6 +2660,12 @@ all-local: $(TARGETS_ALL)
 	fi )
 
 install-html-local:
+
+install-data-local-local:
+# Mainly for javasci
+	@if test -d $(srcdir)/javadoc; then \
+		cp -R $(srcdir)/javadoc $(DESTDIR)/$(mydatadir)/; \
+	fi
 # If the user wants the help sources to be installed
 @INSTALL_HELP_XML_TRUE@	@echo "-------- Install of XML sources of help files --------"; \
 @INSTALL_HELP_XML_TRUE@	for lang in $(ALL_LINGUAS); do \
