@@ -68,12 +68,10 @@ public final class ScilabSpecialTextUtilities {
             }
         }
 
-        if (icon != null) {
-            try {
-                setIcon(component, icon);
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
+        try {
+            setIcon(component, icon);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
 
         return icon != null;
@@ -104,7 +102,7 @@ public final class ScilabSpecialTextUtilities {
         if (!loadedLaTeX) {
             if (loadJLM == null) {
                 loadJLM = new Thread(new Runnable() {
-/* Create a thread in the background to avoid a lag in the loading of jar */
+                        /* Create a thread in the background to avoid a lag in the loading of jar */
                         public void run() {
                             LoadClassPath.loadOnUse("graphics_latex_textrendering");
                             LaTeXCompiler.compilePartial("", 0);
