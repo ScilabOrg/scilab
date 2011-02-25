@@ -171,6 +171,8 @@ in the status bar of Scinotes.
 
 * bug 9000 fixed - '1+..' was miscolorized
 
+* bug 9060 fixed - It was not possible to save as an unexisting file
+
 Xcos:
 =====
 
