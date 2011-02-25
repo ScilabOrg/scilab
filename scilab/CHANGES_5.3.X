@@ -243,7 +243,7 @@ Xcos:
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
 
-* bug 8798 fixed - The context parameter of scicos_simulate was not taken into 
+* bug 8798 fixed - The context parameter of scicos_simulate was not taken into
                    account.
 
 * bug 8818 fixed - Generic modelica blocks did not transform Scilab exponential
@@ -461,6 +461,8 @@ Bug fixes:
 
 * bug 8837 fixed - fscanfMat did not read a malformated text with many blanks
                    at the end of file.
+
+* bug 8854 fixed - warning about bug 7575 disabled for new Nvidia drivers.
 
 * bug 8897 fixed - Typo fixed.
 
