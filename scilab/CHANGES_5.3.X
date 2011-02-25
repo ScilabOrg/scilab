@@ -243,6 +243,9 @@ Xcos:
 * bug 8737 fixed - Compilation failed when a diagram contains any hidden links
                    (wrong indexes issues).
 
+* bug 8740 fixed - On the Modelica initialization GUI, discretes parameters are
+                   not added to the unknowns sum.
+
 * bug 8798 fixed - The context parameter of scicos_simulate was not taken into
                    account.
 
