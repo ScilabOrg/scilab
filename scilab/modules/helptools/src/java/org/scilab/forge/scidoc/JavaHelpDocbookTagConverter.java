@@ -108,6 +108,13 @@ public class JavaHelpDocbookTagConverter extends HTMLDocbookTagConverter {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected String makeJavasciLink(String link) {
+        return "file://SCI/modules/javasci/javadoc/" + link;
+    }
+
     private String convertMapId() {
         buffer.setLength(0);
         buffer.append("<map version=\"1.0\">\n<mapID target=\"index\" url=\"index.html\"/>\n");
