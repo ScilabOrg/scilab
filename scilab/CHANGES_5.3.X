@@ -361,7 +361,14 @@ Compilation:
 
 * Intel Compiler XE 2011 update 1 C++/Fortran used to build Scilab on Windows.
 
+* Option --without-scicos renamed to --without-xcos
+
+* Option --without-ocaml renamed to --without-modelica
+
 * Upgrade to autoconf 2.67
+
+* Bug 7049 fixed - jgraphx version was checked even if the --without-xcos
+                   flag is set.
 
 * Bug 8053 fixed - For an unknown reason, libtool refused to set the Wl flag
                    when the gfortran compiler was set as
@@ -369,6 +376,9 @@ Compilation:
 
 * Bug 8961 fixed - Ubuntu 11.04 explicitly forces the as-needed option to the
                    linker. Disable it.
+
+* Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
+                   building xcos.
 
 Dynamic link:
 =============
