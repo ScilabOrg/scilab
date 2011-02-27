@@ -367,6 +367,9 @@ Compilation:
                    when the gfortran compiler was set as
                    ./configure F77=gfortran
 
+* Bug 8423 fixed - With certain options of the configure, the build process
+                   failed.
+
 * Bug 8961 fixed - Ubuntu 11.04 explicitly forces the as-needed option to the
                    linker. Disable it.
 
