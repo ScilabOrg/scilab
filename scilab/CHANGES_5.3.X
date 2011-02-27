@@ -363,6 +363,9 @@ Compilation:
 
 * Upgrade to autoconf 2.67
 
+* Bug 3196 fixed - Minimal version of pcre (7.2) was not checked by the 
+                   configure
+
 * Bug 8053 fixed - For an unknown reason, libtool refused to set the Wl flag
                    when the gfortran compiler was set as
                    ./configure F77=gfortran
