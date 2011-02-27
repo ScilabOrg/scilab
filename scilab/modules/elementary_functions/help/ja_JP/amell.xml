@@ -54,7 +54,7 @@
 	はベクトル, <literal>sn</literal> は(要素毎の)計算値のベクトルです.
 	関数<literal>%sn</literal>で使用されます.</para>
   </refsection>
-  <refsection>
+  <refsection role="see also">
     <title>参照</title>
     <simplelist type="inline">
       <member>
