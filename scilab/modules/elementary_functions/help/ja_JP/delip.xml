@@ -118,7 +118,7 @@ intg(0,1,f)    //OK since real solution!
  ]]></programlisting>
   </refsection>
 
-  <refsection>
+  <refsection role="see also">
     <title>参照</title>
 
     <simplelist type="inline">
