@@ -94,41 +94,45 @@
           </listitem>
         </itemizedlist>
       </listitem>
-    </itemizedlist>
-
-    <para>An optional decimal digit string that specifies the minimum field
-    width. If the converted value has fewer characters than the field width,
-    the field is padded on the left to the length specified by the field
-    width. If the left-adjustment option is specified, the field is padded on
-    the right.</para>
-
-    <para>An optional precision. The precision is a <literal>.</literal> (dot)
-    followed by a decimal digit string. If no precision is given, the
-    parameter is treated as 0 (zero). The precision specifies:</para>
-
-    <itemizedlist>
+      
       <listitem>
-        <para>The minimum number of digits to appear for <literal>d</literal>,
-        <literal>u</literal>, <literal>o</literal>, <literal>x</literal>, or
-        <literal>X</literal> conversions</para>
+        <para>An optional decimal digit string that specifies the minimum field
+        width. If the converted value has fewer characters than the field width,
+        the field is padded on the left to the length specified by the field
+        width. If the left-adjustment option is specified, the field is padded on
+        the right.</para>
       </listitem>
 
       <listitem>
-        <para>The number of digits to appear after the decimal point for
-        <literal>e</literal>, <literal>E</literal>, and <literal>f</literal>
-        conversions</para>
-      </listitem>
+        <para>An optional precision. The precision is given by a dot<literal>.</literal>
+        followed by a decimal digit string. If no precision is given, the
+        parameter is treated as 0 (zero). The precision specifies:</para>
 
-      <listitem>
-        <para>The maximum number of significant digits for
-        <literal>g</literal> and <literal>G</literal> conversions</para>
-      </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>The minimum number of digits to appear for <literal>d</literal>,
+            <literal>u</literal>, <literal>o</literal>, <literal>x</literal>, or
+            <literal>X</literal> conversions</para>
+          </listitem>
 
-      <listitem>
-        <para>The maximum number of characters to be printed from a string in
-        an <literal>s</literal> conversion</para>
-      </listitem>
+          <listitem>
+            <para>The number of digits to appear after the decimal point for
+            <literal>e</literal>, <literal>E</literal>, and <literal>f</literal>
+            conversions</para>
+          </listitem>
 
+          <listitem>
+            <para>The maximum number of significant digits for
+            <literal>g</literal> and <literal>G</literal> conversions</para>
+          </listitem>
+
+          <listitem>
+            <para>The maximum number of characters to be printed from a string in
+            an <literal>s</literal> conversion</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      
       <listitem>
         <para>A character that indicates the type of conversion to be
         applied:</para>
@@ -325,7 +329,7 @@ printf('a character: %c\n', 'aaa');
   </refsection>
 
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
 
     <simplelist type="inline">
       <member><link linkend="printf">printf</link></member>

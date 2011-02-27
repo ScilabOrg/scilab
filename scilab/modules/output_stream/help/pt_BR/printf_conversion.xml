@@ -92,40 +92,44 @@
         uma precisão for especificada, o indicador <literal>0</literal> também
         é ignorado.</para>
       </listitem>
-    </itemizedlist>
 
-    <para>Um string de dígitos decimais opcional que especifica a largura
-    mínima do campo. Se o valor convertido tiver menos caracteres que a
-    largura do campo, o campo é aumentado à esquerda até o comprimento
-    especificado pela largura do campo. Se a opção de ajuste à esquerda for
-    especificada, o campo é aumentado pela direita.</para>
-
-    <para>Uma precisão opcional. A precisão é um <literal>.</literal> (ponto)
-    seguido por um string de dígito decimal. Se nenhuma precisão for
-    fornecida, o parâmetro é tratado como 0 (zero). A precisão
-    especifica:</para>
-
-    <itemizedlist>
       <listitem>
-        <para>O número mínimo de dígitos a aparecerem nas conversões
-        <literal>d</literal>, <literal>u</literal>, <literal>o</literal>,
-        <literal>x</literal>, ou <literal>X</literal> </para>
+        <para>Um string de dígitos decimais opcional que especifica a largura
+        mínima do campo. Se o valor convertido tiver menos caracteres que a
+        largura do campo, o campo é aumentado à esquerda até o comprimento
+        especificado pela largura do campo. Se a opção de ajuste à esquerda for
+        especificada, o campo é aumentado pela direita.</para>
       </listitem>
 
       <listitem>
-        <para>O número de dígitos a aparecerem após o ponto decimal nas
-        conversões <literal>e</literal>, <literal>E</literal>, e
-        <literal>f</literal></para>
-      </listitem>
+        <para>Uma precisão opcional. A precisão é um ponto <literal>.</literal>
+        seguido por um string de dígito decimal. Se nenhuma precisão for
+        fornecida, o parâmetro é tratado como 0 (zero). A precisão
+        especifica:</para>
 
-      <listitem>
-        <para>O número máximo de dígitos significativos para as conversões
-        <literal>g</literal> e <literal>G</literal></para>
-      </listitem>
+        <itemizedlist>
+          <listitem>
+            <para>O número mínimo de dígitos a aparecerem nas conversões
+            <literal>d</literal>, <literal>u</literal>, <literal>o</literal>,
+            <literal>x</literal>, ou <literal>X</literal> </para>
+          </listitem>
 
-      <listitem>
-        <para>O número máximo de caracteres a serem impressos a partir de um
-        string em uma convesão <literal>s</literal></para>
+          <listitem>
+            <para>O número de dígitos a aparecerem após o ponto decimal nas
+            conversões <literal>e</literal>, <literal>E</literal>, e
+            <literal>f</literal></para>
+          </listitem>
+
+          <listitem>
+            <para>O número máximo de dígitos significativos para as conversões
+            <literal>g</literal> e <literal>G</literal></para>
+          </listitem>
+
+          <listitem>
+            <para>O número máximo de caracteres a serem impressos a partir de um
+            string em uma convesão <literal>s</literal></para>
+          </listitem>
+        </itemizedlist>
       </listitem>
 
       <listitem>
@@ -271,7 +275,7 @@
   </refsection>
 
   <refsection role="see also">
-<title>Ver Também</title>
+    <title>Ver Também</title>
 
     <simplelist type="inline">
       <member><link linkend="printf">printf</link></member>
