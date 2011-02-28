@@ -1147,6 +1147,14 @@ int getScilabTypeFromDataSet(int _iDatasetId)
     {
         iVarType = sci_mlist;
     }
+    else if(strcmp(pstScilabClass, g_SCILAB_CLASS_VOID) == 0)
+    {
+        iVarType = 0;
+    }
+    else if(strcmp(pstScilabClass, g_SCILAB_CLASS_UNDEFINED) == 0)
+    {
+        iVarType = -1;
+    }
 
     if(iVarType == 0)
     {
