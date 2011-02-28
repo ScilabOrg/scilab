@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.help.DefaultHelpHistoryModel;
 import javax.help.JHelpContentViewer;
@@ -55,6 +56,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.commons.gui.ScilabKeyStroke;
+import org.scilab.modules.core.Scilab;
 import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.gui.helpbrowser.ScilabHelpBrowser;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
@@ -129,7 +131,10 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
                 }
             } else if (event.getDescription().startsWith("file://")) {
                 String url = event.getDescription();
-                url = url.replaceFirst("SCI", SCI);
+                url = url.replaceFirst("SCI", Matcher.quoteReplacement(SCI));
+		if (Scilab.isWindowsPlateform()) {
+		    url = url.replaceAll("/",  "\\\\");
+		}
                 WebBrowser.openUrl(url);
             } else {
                 super.hyperlinkUpdate(event);
