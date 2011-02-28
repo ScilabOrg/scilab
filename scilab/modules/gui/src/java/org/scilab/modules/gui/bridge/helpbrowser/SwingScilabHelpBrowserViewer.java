@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.help.DefaultHelpHistoryModel;
 import javax.help.JHelpContentViewer;
@@ -129,7 +130,7 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
                 }
             } else if (event.getDescription().startsWith("file://")) {
                 String url = event.getDescription();
-                url = url.replaceFirst("SCI", SCI);
+                url = url.replaceFirst("SCI", Matcher.quoteReplacement(SCI));
                 WebBrowser.openUrl(url);
             } else {
                 super.hyperlinkUpdate(event);
