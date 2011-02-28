@@ -476,6 +476,9 @@ Bug fixes:
 * bug 8007 fixed - Hit UP key when the message 'Continue display...' was
                    displayed could lead to a crash.
 
+* bug 8383 fixed - import and export hdf5 functions can save and restore "void" 
+                   and "undefined" items in list
+
 * bug 8435 fixed - squarewave(t) failed for t<0. Thanks to Samuel Gougeon for
                    the fix.
 
