@@ -90,7 +90,7 @@ int C2F(macr2tree) (char *fname, unsigned long fname_len);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateVariableTList(char **varname);
+int CreateVariableTList(char **varname);
 
 /****************************************************************
  Function name: CreateEOLList
@@ -105,7 +105,7 @@ static int CreateVariableTList(char **varname);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateEOLList(void);
+int CreateEOLList(void);
 
 /****************************************************************
  Function name: AddVar
@@ -120,7 +120,7 @@ static int CreateEOLList(void);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int AddVar(char *name);
+int AddVar(char *name);
 
 /****************************************************************
  Function name: IsDefinedVar
@@ -136,7 +136,7 @@ static int AddVar(char *name);
   - if variable already exists in "varnames", returned value is 
     equal to index where variable was find
 ****************************************************************/
-static int IsDefinedVar(char *name);
+int IsDefinedVar(char *name);
 
 /****************************************************************
  Function name: GetInstruction
@@ -161,7 +161,7 @@ static int IsDefinedVar(char *name);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int GetInstruction(int *data,int *index,int *nblines,int *addinstr);
+int GetInstruction(int *data,int *index,int *nblines,int *addinstr);
 
 /****************************************************************
  Function name: GetControlInstruction
@@ -181,7 +181,7 @@ static int GetInstruction(int *data,int *index,int *nblines,int *addinstr);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int GetControlInstruction(int *data,int *index,int *nblines);
+int GetControlInstruction(int *data,int *index,int *nblines);
 
 /****************************************************************
  Function name: CreateCsteTList
@@ -198,7 +198,7 @@ static int GetControlInstruction(int *data,int *index,int *nblines);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateCsteTList(char *type,int *data,int *index);
+int CreateCsteTList(char *type,int *data,int *index);
 
 /****************************************************************
  Function name: CreateInlineTList
@@ -215,7 +215,7 @@ static int CreateCsteTList(char *type,int *data,int *index);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr);
+int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr);
 
 /****************************************************************
  Function name: CreateOperationTList
@@ -231,7 +231,7 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateOperationTList(int *data,int *index);
+int CreateOperationTList(int *data,int *index);
 
 /****************************************************************
  Function name: CreateFuncallTList
@@ -248,7 +248,7 @@ static int CreateOperationTList(int *data,int *index);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateFuncallTList(char *fromwhat,int *data,int *index);
+int CreateFuncallTList(char *fromwhat,int *data,int *index);
 
 /****************************************************************
  Function name: CreateEqualTList
@@ -265,7 +265,7 @@ static int CreateFuncallTList(char *fromwhat,int *data,int *index);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int CreateEqualTList(char *fromwhat,int *data,int *index);
+int CreateEqualTList(char *fromwhat,int *data,int *index);
 
 /****************************************************************
  Function name:  CreateCommentTList
@@ -281,7 +281,7 @@ static int CreateEqualTList(char *fromwhat,int *data,int *index);
   - 0 if execution succeeds
   - not null if execution fails
 */
-static int CreateCommentTList(int *data,int *index);
+int CreateCommentTList(int *data,int *index);
 
 /****************************************************************
 
@@ -299,7 +299,7 @@ static int CreateCommentTList(int *data,int *index);
   - 0 if execution succeeds
   - not null if execution fails
 ****************************************************************/
-static int VCopyObj(char *fname,int *orig,int *dest,unsigned long fname_length);
+ int VCopyObj(char *fname,int *orig,int *dest,unsigned long fname_length);
 
 /****************************************************************
  Function name: complexity
@@ -328,4 +328,4 @@ int complexity(int *data,int *index,int *lgth);
  Returned value:
   - 1 if the variable at position stkPos is a "comment" tlist and 0 else
 ****************************************************************/
-static int isAComment(int stkPos);
+int isAComment(int stkPos);

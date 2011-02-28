@@ -340,7 +340,7 @@ int C2F(macr2tree) (char *fname,unsigned long fname_len)
 /****************************************************************
  Function name: CreateVariableTList
 ****************************************************************/
-static int CreateVariableTList(char **varname)
+int CreateVariableTList(char **varname)
 {
     char *variable_tlist[] = {"variable","name"};
     int m_variable_tlist = 1;
@@ -366,7 +366,7 @@ static int CreateVariableTList(char **varname)
 /****************************************************************
  Function name: CreateEOLList
 ****************************************************************/
-static int CreateEOLList(void)
+int CreateEOLList(void)
 {
     char **eol;
 
@@ -401,7 +401,7 @@ static int CreateEOLList(void)
 /****************************************************************
  Function name: AddVar
 ****************************************************************/
-static int AddVar(char *name)
+int AddVar(char *name)
 {
     if(IsDefinedVar(name)==-1)
     {
@@ -414,7 +414,7 @@ static int AddVar(char *name)
 /****************************************************************
  Function name: IsDefinedVar
 ****************************************************************/
-static int IsDefinedVar(char *name)
+int IsDefinedVar(char *name)
 {
     int index2 = -1;
     int k;
@@ -447,7 +447,7 @@ static int IsDefinedVar(char *name)
 /****************************************************************
  Function name: GetInstruction
 ****************************************************************/
-static int GetInstruction(int *data,int *index2,int *nblines,int *addinstr)
+int GetInstruction(int *data,int *index2,int *nblines,int *addinstr)
 {
     int job1 = 1;
 
@@ -659,7 +659,7 @@ static int GetInstruction(int *data,int *index2,int *nblines,int *addinstr)
 /****************************************************************
  Function name: GetControlInstruction
 ****************************************************************/
-static int GetControlInstruction(int *data,int *index2,int *nblines)
+int GetControlInstruction(int *data,int *index2,int *nblines)
 {
     /* try-catch */
     char *trycatch_tlist[] = {"trycatch","trystat","catchstat"};
@@ -994,7 +994,7 @@ static int GetControlInstruction(int *data,int *index2,int *nblines)
 /****************************************************************
  Function name: CreateCsteTList
 ****************************************************************/
-static int CreateCsteTList(char *type,int *data,int *index2)
+int CreateCsteTList(char *type,int *data,int *index2)
 {
     char *cste_tlist[] = {"cste","value"};
     int m_cste_tlist = 1;
@@ -1141,7 +1141,7 @@ static int CreateCsteTList(char *type,int *data,int *index2)
 /****************************************************************
  Function name: CreateInlineTList
 ****************************************************************/
-static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
+int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
 {
     char *inline_tlist[] = {"inline","prototype","definition"};
     int m_inline_tlist = 1;
@@ -1307,7 +1307,7 @@ static int CreateInlineTList(int *data,int *index2, int *nblines, int *addinstr)
 /****************************************************************
  Function name: CreateOperationTList
 ****************************************************************/
-static int CreateOperationTList(int *data,int *index2)
+int CreateOperationTList(int *data,int *index2)
 {
     char *op_tlist[] = {"operation","operands","operator"};
     int m_op_tlist = 1;
@@ -1450,7 +1450,7 @@ static int CreateOperationTList(int *data,int *index2)
 /****************************************************************
  Function name: CreateFuncallTList
 ****************************************************************/
-static int CreateFuncallTList(char *fromwhat,int *data,int *index2)
+int CreateFuncallTList(char *fromwhat,int *data,int *index2)
 {
     char *fun_tlist[] = {"funcall","rhs","name","lhsnb"};
     int m_fun_tlist = 1;
@@ -1629,7 +1629,7 @@ static int CreateFuncallTList(char *fromwhat,int *data,int *index2)
 /****************************************************************
  Function name: CreateEqualTList
 ****************************************************************/
-static int CreateEqualTList(char *fromwhat,int *data,int *index2)
+int CreateEqualTList(char *fromwhat,int *data,int *index2)
 {
     char *eq_tlist[] = {"equal","expression","lhs","endsymbol"};
     int m_eq_tlist = 1;
@@ -1950,7 +1950,7 @@ static int CreateEqualTList(char *fromwhat,int *data,int *index2)
 /****************************************************************
  Function name: CreateCommentTList
 ****************************************************************/
-static int CreateCommentTList(int *data,int *index2)
+int CreateCommentTList(int *data,int *index2)
 {
     char *fun_tlist[] = {"comment","text"};
     int m_fun_tlist = 1;
@@ -2031,7 +2031,7 @@ static int CreateRecursiveIndex2List(int *data,int *index2)
  dest: position where object has to be copied
  fname_length: length of character string fname
 ***********************************************************/
-static int VCopyObj(char *fname,int *orig,int *dest,unsigned long fname_length)
+int VCopyObj(char *fname,int *orig,int *dest,unsigned long fname_length)
 {
     C2F(vcopyobj)(fname,orig,dest,fname_length);
     Top = *dest;
