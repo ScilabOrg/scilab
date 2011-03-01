@@ -807,7 +807,7 @@ namespace ast
             {//Matrix i = [1,3,2,6] or other type
                 T execBody;
                 GenericType* pVar = static_cast<GenericType*>(execVar.result_get());
-                if(pVar->getAs<Double>()->getDims() > 2)
+                if(pVar->getDims() > 2)
                 {
                     throw ScilabError(_W("for expression can only manage 1 or 2 dimensions variables\n"), 999, e.vardec_get().location_get());
                 }
