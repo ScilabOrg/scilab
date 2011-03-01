@@ -111,6 +111,7 @@ Documentation:
 
 * bug 9019 fixed - dsearch help page was unaccurate.
 
+* bug 9088 fixed - An exception was sometimes thrown on helpviewer startup. 
 
 Xcos:
 =====
