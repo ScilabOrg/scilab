@@ -630,13 +630,19 @@ namespace types
             int iDims           = (int)_pArgs->size();
             typed_list pArg;
 
+#ifdef _MSC_VER
             int* piMaxDim       = new int[iDims];
             int* piCountDim     = new int[iDims];
+#else
+            int piMaxDim[iDims];
+            int piCountDim[iDims];
+#endif
 
             //evaluate each argument and replace by appropriate value and compute the count of combinations
             int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
             if(iSeqCount == 0)
             {
+                // Mem leak
                 return createEmptyDouble();
             }
 
@@ -656,6 +662,7 @@ namespace types
 
                     if(piMaxDim[i] > iDimToCheck)
                     {
+                        // Mem leak
                         return NULL;
                     }
                 }
@@ -666,6 +673,7 @@ namespace types
                 {
                     if(piMaxDim[i] > 1)
                     {
+                        // Mem leak
                         return false;
                     }
                 }
@@ -677,6 +685,7 @@ namespace types
                 {
                     if(piMaxDim[i] > m_piDims[i])
                     {//exrtact must be in dimension limits
+                        // Mem leak
                         return false;
                     }
                 }
@@ -701,6 +710,7 @@ namespace types
                 if(piCountDim[0] == 0)
                 {
                     //pOut = createEmptyDouble()->getAs<Double>();
+                    // Mem leak
                     return createEmptyDouble();
                 }
                 else
@@ -732,9 +742,15 @@ namespace types
 
             T* pReal        = pOut->get();
             T* pImg         = pOut->getImg();
+#ifdef _MSC_VER
             int* piIndex    = new int[_pArgs->size()];
             int* piCoord    = new int[_pArgs->size()];
             int* piViewDims = new int[iDims];
+#else
+            int piIndex[_pArgs->size()];
+            int piCoord[_pArgs->size()];
+            int piViewDims[iDims];
+#endif
             memset(piIndex, 0x00, sizeof(int) * _pArgs->size());
 
             for(int i = 0 ; i < iDims ; i++)
@@ -799,11 +815,15 @@ namespace types
                 }
             }
 
+#ifdef _MSC_VER
             delete[] piIndex;
             delete[] piCoord;
             delete[] piViewDims;
             delete[] piMaxDim;
             delete[] piCountDim;
+#else
+            // nothing to delete
+#endif
 
             return pOut;
 	    }
