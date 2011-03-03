@@ -121,9 +121,9 @@ int *C2F(zchsel)(doublecmplx *alpha)
 
 void C2F(setzchsel)(int *len, char *name, int *rep)
 {
-	if ( ((strncmp(name,"c",1)== 0) && (*len==1)) || strncmp(name,"cont",3)== 0 )
+	if ( ((strncmp(name,"c",2)== 0) && (*len==1)) || strncmp(name,"cont",5)== 0 )
 		zchselfonc = (zchself) GetFunctionByName("zb02mv",rep,FTab_zchsel);
-	else if ( ( (strncmp(name,"d",1)== 0) && (*len==1) ) || strncmp(name,"disc",4)== 0 )
+	else if ( ( (strncmp(name,"d",2)== 0) && (*len==1) ) || strncmp(name,"disc",5)== 0 )
 		zchselfonc = (zchself) GetFunctionByName("zb02mw",rep,FTab_zchsel);
 	else 
 		zchselfonc = (zchself) GetFunctionByName(name,rep,FTab_zchsel);
@@ -148,9 +148,9 @@ int *C2F(gshsel)(double *alphar, double *alphai, double *beta)
 
 void C2F(setgshsel)(int *len, char *name, int *rep)
 {
-	if ( ((strncmp(name,"c",1)== 0) && (*len==1)) || strncmp(name,"cont",3)== 0 )
+	if ( ((strncmp(name,"c",2)== 0) && (*len==1)) || strncmp(name,"cont",5)== 0 )
 		gshselfonc = (gshself) GetFunctionByName("sb02ow",rep,FTab_gshsel);
-	else if ( ( (strncmp(name,"d",1)== 0) && (*len==1) ) || strncmp(name,"disc",4)== 0 )
+	else if ( ( (strncmp(name,"d",2)== 0) && (*len==1) ) || strncmp(name,"disc",5)== 0 )
 		gshselfonc = (gshself) GetFunctionByName("sb02ox",rep,FTab_gshsel);
 	else 
 		gshselfonc = (gshself) GetFunctionByName(name,rep,FTab_gshsel);
@@ -175,9 +175,9 @@ int *C2F(gzhsel)(doublecmplx *alpha, doublecmplx *beta)
 
 void C2F(setgzhsel)(int *len, char *name, int *rep)
 {
-	if ( ((strncmp(name,"c",1)== 0) && (*len==1)) || strncmp(name,"cont",3)== 0 )
+	if ( ((strncmp(name,"c",2)== 0) && (*len==1)) || strncmp(name,"cont",5)== 0 )
 		gzhselfonc = (gzhself) GetFunctionByName("zb02ow",rep,FTab_gzhsel);
-	else if ( ( (strncmp(name,"d",1)== 0) && (*len==1) ) || strncmp(name,"disc",4)== 0 )
+	else if ( ( (strncmp(name,"d",2)== 0) && (*len==1) ) || strncmp(name,"disc",5)== 0 )
 		gzhselfonc = (gzhself) GetFunctionByName("zb02ox",rep,FTab_gzhsel);
 	else 
 		gzhselfonc = (gzhself) GetFunctionByName(name,rep,FTab_gzhsel);
@@ -202,9 +202,9 @@ int *C2F(fschur)(int *lsize, double *alpha, double *beta, double *s, double *p)
 
 void C2F(setfschur)(char *name, int *rep)
 {
-	if (strncmp(name,"c",1)== 0 || strncmp(name,"cont",3)== 0 )
+	if (strncmp(name,"c",2)== 0 || strncmp(name,"cont",5)== 0 )
 		fschurfonc = (fschurf) GetFunctionByName("folhp",rep,FTab_fschur);
-	else if (strncmp(name,"d",1)== 0 || strncmp(name,"disc",4)== 0 )
+	else if (strncmp(name,"d",2)== 0 || strncmp(name,"disc",5)== 0 )
 		fschurfonc = (fschurf) GetFunctionByName("find",rep,FTab_fschur);
 	else 
 		fschurfonc = (fschurf) GetFunctionByName(name,rep,FTab_fschur);
