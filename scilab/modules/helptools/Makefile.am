@@ -73,7 +73,7 @@ libscihelptools_la_etc_DATA = etc/helptools.quit etc/helptools.start etc/MAIN_CH
 libscihelptools_la_bindir = $(mydatadir)/bin
 libscihelptools_la_bin_DATA = bin/scivalid \
 bin/man2sci \
-bin/manrev2sci 
+bin/manrev2sci
 
 #### helptools : gateway declaration ####
 libscihelptools_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -106,6 +106,14 @@ libscihelptools_la_xsl_fo_DATA = xsl/fo/docbook.xsl
 libscihelptools_la_schemadir = $(mydatadir)/schema
 libscihelptools_la_schema_DATA = schema/scilab.rnc \
 schema/extendedStyle.xsl
+
+#### helptools : pages files ####
+libscihelptools_la_data_pagesdir = $(mydatadir)/data/pages
+libscihelptools_la_data_pages_DATA = data/pages/error.html \
+data/pages/homepage-en_US.html \
+data/pages/homepage-fr_FR.html \
+data/pages/ban-en_US.png \
+data/pages/ban-fr_FR.png
 
 include $(top_srcdir)/Makefile.incl.am
 
