@@ -30,6 +30,11 @@
 #define TIME_TO_SLEEP 10000
 
 /*
+** Init the variables before starting the TCL loop
+*/
+void		InitTCLLoop();
+
+/*
 ** This function start an endless Tcl Loop
 ** in order the Scilab Global Tcl Interpreter
 ** do some "update" and let the Tcl Applications live.
