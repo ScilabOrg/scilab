@@ -59,7 +59,21 @@ static Tcl_Interp *LocalTCLinterp;
 static BOOL FileEvaluationInProgress;
 static BOOL CommandEvaluationInProgress;
 
+// Booleans used to avoid spurious wake up
+static BOOL wakeUpBool = TRUE;
+static BOOL workIsDoneBool = TRUE;
+
 extern BOOL TK_Started;
+
+void InitTCLLoop()
+{
+  __InitLock(&singleExecutionLock);
+
+  __InitSignal(&wakeUp);
+  __InitSignalLock(&wakeUpLock);
+  __InitSignal(&workIsDone);
+  __InitSignalLock(&launchCommand);
+}
 
 /*
 ** This function is a timer to periodicly wake
@@ -74,6 +88,7 @@ static void *sleepAndSignal(void* in) {
 #endif
     usleep(TIME_TO_SLEEP);
     __LockSignal(&wakeUpLock);
+    wakeUpBool = FALSE;
     __Signal(&wakeUp);
     __UnLockSignal(&wakeUpLock);
   }
@@ -112,8 +127,6 @@ static void evaluateTclFile()
   TclFile = NULL;
 }
 
-
-
 /*
 ** This function start an endless Tcl Loop
 ** in order the Scilab Global Tcl Interpreter
@@ -122,14 +135,6 @@ static void evaluateTclFile()
 void startTclLoop()
 {
   __threadId sleepThreadId;
-
-  __InitLock(&singleExecutionLock);
-
-  __InitSignal(&wakeUp);
-  __InitSignalLock(&wakeUpLock);
-  __InitSignal(&workIsDone);
-  __InitSignalLock(&launchCommand);
-
   __CreateThread(&sleepThreadId, sleepAndSignal);
 
   /*
@@ -199,6 +204,7 @@ void startTclLoop()
 	releaseTclInterp();
 	Tcl_Eval(getTclInterp(), "update");
 	releaseTclInterp();
+	workIsDoneBool = FALSE;
 	__Signal(&workIsDone);
 	__UnLockSignal(&launchCommand);
       }
@@ -216,7 +222,12 @@ void startTclLoop()
 	//printf("[TCL Daemon] Wait\n");
 	//fflush(NULL);
 #endif
-	__Wait(&wakeUp, &wakeUpLock);
+	while (wakeUpBool)
+	{
+	  __Wait(&wakeUp, &wakeUpLock);
+	}
+	wakeUpBool = TRUE;
+	
 	__UnLockSignal(&wakeUpLock);
       }
   }
@@ -249,13 +260,18 @@ int sendTclFileToSlave(char* file, char* slave)
 	TclSlave = NULL;
       }
     __LockSignal(&wakeUpLock);
+    wakeUpBool = FALSE;
     __Signal(&wakeUp);
     __UnLockSignal(&wakeUpLock);
 #ifdef __LOCAL_DEBUG__
     printf("[TCL Main] Wait EXECUTION DONE\n");
     fflush(NULL);
 #endif
-    __Wait(&workIsDone, &launchCommand);
+    while (workIsDoneBool)
+    {
+      __Wait(&workIsDone, &launchCommand);
+    }
+    workIsDoneBool = TRUE;
 #ifdef __LOCAL_DEBUG__
     printf("[TCL SendFile] DONE\n");
     fflush(NULL);
@@ -298,6 +314,7 @@ int sendTclCommandToSlave(char* command, char* slave)
 			TclSlave = NULL;
 		}
 		__LockSignal(&wakeUpLock);
+		wakeUpBool = FALSE;
 		__Signal(&wakeUp);
 		__UnLockSignal(&wakeUpLock);
 
@@ -305,7 +322,11 @@ int sendTclCommandToSlave(char* command, char* slave)
 		printf("[TCL Main]Wait EXECUTION DONE\n");
 		fflush(NULL);
 #endif
-		__Wait(&workIsDone, &launchCommand);
+		while (workIsDoneBool)
+		{
+		  __Wait(&workIsDone, &launchCommand);
+		}
+		workIsDoneBool = TRUE;
 #ifdef __LOCAL_DEBUG__
 		printf("[TCL Send] DONE\n");
 		fflush(NULL);
