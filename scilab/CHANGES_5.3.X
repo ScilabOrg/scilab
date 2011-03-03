@@ -2,6 +2,13 @@
             =================================================
 
 
+Bug Fixes:
+==========
+
+* bug 7954 fixed - Using TCL_EvalStr randomly froze Scilab.
+
+
+
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
