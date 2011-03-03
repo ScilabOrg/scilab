@@ -42,6 +42,8 @@ __threadId TclThread;
 __threadSignal InterpReady;
 __threadSignalLock InterpReadyLock;
 
+// Boolean used to avoid spurious wake up
+BOOL InterpReadyBool = TRUE;
 
 /*--------------------------------------------------------------------------*/
 static char *GetSciPath(void);
@@ -203,6 +205,7 @@ static void *DaemonOpenTCLsci(void* in)
 
 	__LockSignal(&InterpReadyLock);
 	// Signal TclInterpreter init is now over.
+	InterpReadyBool = FALSE;
 	__Signal(&InterpReady);
 	__UnLockSignal(&InterpReadyLock);
 
@@ -216,6 +219,8 @@ static void *DaemonOpenTCLsci(void* in)
 /*--------------------------------------------------------------------------*/
 int OpenTCLsci(void)
 {
+
+	InitTCLLoop();
 	__InitSignalLock(&InterpReadyLock);
 	__InitSignal(&InterpReady);
 	// Open TCL interpreter in a separated thread.
@@ -226,7 +231,12 @@ int OpenTCLsci(void)
 	__CreateThread(&TclThread, &DaemonOpenTCLsci);
 	// Wait to be sure initialisation is complete.
 	__LockSignal(&InterpReadyLock);
-	__Wait(&InterpReady, &InterpReadyLock);
+	while (InterpReadyBool)
+	{
+	        __Wait(&InterpReady, &InterpReadyLock);
+	}
+	InterpReadyBool = TRUE;
+
 	__UnLockSignal(&InterpReadyLock);
 	return 0;
 }
