@@ -88,6 +88,8 @@ libscihelptools_la_data_templatedir = $(mydatadir)/data/template
 libscihelptools_la_data_template_DATA = data/template/template_javahelp.html
 libscihelptools_la_data_cssdir = $(mydatadir)/data/css
 libscihelptools_la_data_css_DATA = data/css/scilab_code.css \
+data/css/c_code.css \
+data/css/xml_code.css \
 data/css/style.css
 
 #### helptools : xsl files ####
