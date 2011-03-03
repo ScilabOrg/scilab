@@ -643,7 +643,6 @@ char *TermReadAndProcess(void)
 exit:
     /* copy to return buffer */
     buffer=strdup(wk_buf);
-    putchar('\r');
     putchar('\n');
 #ifdef KEYPAD
     set_crmod();
@@ -700,11 +699,11 @@ static void displayPrompt(char *wk_buf)
     char msg[WK_BUF_SIZE]="";
     if (tmpPrompt!=NULL)
     {
-        sprintf(msg,"%s\r\n%s%s",msg,tmpPrompt,wk_buf);
+        sprintf(msg,"\n%s%s",tmpPrompt,wk_buf);
     }
     else
     {
-        sprintf(msg,"%s\r\n%s%s",msg,Sci_Prompt,wk_buf);
+        sprintf(msg,"\n%s%s",Sci_Prompt,wk_buf);
     }
     display_string(msg);
 }
@@ -727,7 +726,7 @@ static void displayCompletionDictionary(char **dictionary,int sizedictionary, ch
             int newlenLine = lenCurrentLine + (int)strlen(dictionary[i]) + (int)strlen(" ");
             if ( (lenCurrentLine + newlenLine) > MAX_LINE_SIZE )
             {
-                display_string("\r\n");
+                display_string("\n");
                 lenCurrentLine = 0;
             }
             else
@@ -737,7 +736,7 @@ static void displayCompletionDictionary(char **dictionary,int sizedictionary, ch
             display_string(dictionary[i]);
             display_string(" ");
         }
-        display_string("\r\n");
+        display_string("\n");
     }
 }
 /*--------------------------------------------------------------------------*/
@@ -807,7 +806,7 @@ static void TermCompletionOnFiles(char **dictionaryFiles, int sizedictionaryFile
             displayCompletionDictionary(dictionaryFiles,
                 sizedictionaryFiles, gettext("File or Directory"));
 
-            display_string("\r\n");
+            display_string("\n");
 
             backspace(*cursor);
             erase_nchar(*cursor_max);
@@ -977,7 +976,7 @@ static void TermCompletionOnAll(char *lineBeforeCaret, char *lineAfterCaret, cha
                     freeArrayOfString(completionDictionaryHandleGraphicsProperties, sizecompletionDictionaryHandleGraphicsProperties);
                 }
 
-                display_string("\r\n");
+                display_string("\n");
 
                 backspace(*cursor);
                 erase_nchar(*cursor_max);
