@@ -116,7 +116,7 @@ namespace types
                             std::list<Var *>::const_iterator	i;
 
                             //get input parameters list
-                            std::list<std::wstring> *pVarList = new std::list<std::wstring>();
+                            std::list<symbol::Symbol> *pVarList = new std::list<symbol::Symbol>();
                             ArrayListVar *pListVar = (ArrayListVar *)&pFD->args_get();
                             for(i = pListVar->vars_get().begin() ; i != pListVar->vars_get().end() ; i++)
                             {

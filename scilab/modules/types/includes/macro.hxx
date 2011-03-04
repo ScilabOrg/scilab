@@ -25,7 +25,7 @@ namespace types
     {
     public :
                                     Macro(): Callable(){};
-                                    Macro(const wstring& _stName, list<wstring> &_inputArgs, list<wstring> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule);
+                                    Macro(const std::string& _stName, std::list<symbol::Symbol> &_inputArgs, std::list<symbol::Symbol> &_outputArgs, ast::SeqExp &_body, const string& _stModule);
         virtual                     ~Macro();
 
         // FIXME : Should not return NULL;
@@ -52,8 +52,8 @@ namespace types
         list<wstring>*              outputs_get();
 
     private :
-        list<wstring>*              m_inputArgs;
-        list<wstring>*              m_outputArgs;
+        std::list<symbol::Symbol>*  m_inputArgs;
+        std::list<symbol::Symbol>*  m_outputArgs;
         ast::SeqExp*                m_body;
         bool                        bAutoAlloc;
 

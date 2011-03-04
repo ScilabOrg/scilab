@@ -30,7 +30,7 @@ extern "C"
 
 namespace types
 {
-    Macro::Macro(const wstring& _stName, list<wstring> &_inputArgs, list<wstring> &_outputArgs, ast::SeqExp &_body, const wstring& _stModule) :
+    Macro::Macro(const std::string& _stName, std::list<symbol::Symbol> &_inputArgs, std::list<symbol::Symbol> &_outputArgs, ast::SeqExp &_body, const string& _stModule):
     Callable(), m_inputArgs(&_inputArgs), m_outputArgs(&_outputArgs), m_body(&_body)
     {
         setName(_stName);
@@ -100,7 +100,7 @@ namespace types
             }
 
             //add all standard variable in function context but not varargin
-            list<wstring>::const_iterator itName = m_inputArgs->begin();
+            std::list<symbol::Symbol>::const_iterator itName = m_inputArgs->begin();
             typed_list::const_iterator itValue = in.begin();
             while(iVarPos > 0)
             {
@@ -133,9 +133,9 @@ namespace types
             {
                 ostr << _W("Arguments are:") << std::endl << std::endl;
                 ostr << " ";
-                for (list<wstring>::iterator it =  m_inputArgs->begin() ; it != m_inputArgs->end() ; ++it)
+                for (std::list<symbol::Symbol>::iterator it =  m_inputArgs->begin() ; it != m_inputArgs->end() ; ++it)
                 {
-                    ostr << *it << L"    ";
+                    ostr << (*it).name_get() << L"    ";
                 }
                 ostr << std::endl;
             }
@@ -148,7 +148,7 @@ namespace types
             pContext->scope_begin();
 
             //assign value to variable in the new context
-            list<wstring>::const_iterator i;
+            std::list<symbol::Symbol>::const_iterator i;
             typed_list::const_iterator j;
 
             for (i = m_inputArgs->begin(), j = in.begin(); j != in.end (); ++j,++i)
@@ -160,8 +160,8 @@ namespace types
         //common part with or without varargin
 
         // Declare nargin & nargout in function context.
-        pContext->put(wstring(L"nargin"), *new Double(static_cast<double>(in.size())));
-        pContext->put(wstring(L"nargout"), *new Double(static_cast<double>(_iRetCount)));
+        pContext->put(Symbol::Symbol(L"nargin"), *new Double(static_cast<double>(in.size())));
+        pContext->put(Symbol::Symbol(L"nargout"), *new Double(static_cast<double>(_iRetCount)));
 
         try
         {
@@ -177,8 +177,7 @@ namespace types
                 m_body->returnable_set();
             }
 
-
-            list<wstring>::const_iterator i;
+            std::list<symbol::Symbol>::const_iterator i;
             for (i = m_outputArgs->begin(); i != m_outputArgs->end() && _iRetCount; ++i, --_iRetCount)
             {
                 InternalType *pIT = pContext->get((*i));
@@ -190,7 +189,7 @@ namespace types
                 else
                 {
                     wchar_t sz[bsiz];
-                    os_swprintf(sz, bsiz, _W("Undefined variable %ls.\n"), (*i).c_str());
+                    os_swprintf(sz, bsiz, _W("Undefined variable %ls.\n"), (*i).name_get().c_str());
                     YaspWriteW(sz);
                 }
             }
