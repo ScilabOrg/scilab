@@ -10,6 +10,7 @@ Scinotes:
 
 Xcos:
 =====
+* Functions of Port & Subsystems palette documented an french translated.
 
 Update the documentation with examples of the blocks and their translations to
 French:
