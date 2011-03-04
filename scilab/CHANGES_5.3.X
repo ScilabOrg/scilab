@@ -10,6 +10,7 @@ Scinotes:
 
 Xcos:
 =====
+* Functions of Port & Subsystems palette documented an french translated.
 
 * bug 9122 fixed - Java check failed on diagram validation.
 
