@@ -11,6 +11,8 @@ Scinotes:
 Xcos:
 =====
 
+* bug 6416 fixed - GENSQR_f block documentation was not complete.
+
 * bug 9122 fixed - Java check failed on diagram validation.
 
 Compilation:
