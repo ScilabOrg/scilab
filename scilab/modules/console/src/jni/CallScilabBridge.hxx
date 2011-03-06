@@ -65,7 +65,6 @@ JavaVM * jvm;
 
 protected:
 jmethodID voiddisplayjstringID; // cache method id
-jmethodID jstringreadLineID; // cache method id
 jmethodID voidclearID; // cache method id
 jmethodID voidclearjintID; // cache method id
 jmethodID jintgetCharWithoutOutputID; // cache method id
@@ -130,8 +129,6 @@ void endSynchronize();
 
 // Methods
 static void display(JavaVM * jvm_, char * dataToDisplay);
-
-static char * readLine(JavaVM * jvm_);
 
 static void clear(JavaVM * jvm_);
 

@@ -32,6 +32,9 @@ Compilation:
 Bug fixes:
 ==========
 
+* bug 8371 fixed - Each thread used to get the command line was not detached
+                   from the JVM.
+
 * Bug 8423 fixed - With certain options of the configure, the build process
                    failed.
 

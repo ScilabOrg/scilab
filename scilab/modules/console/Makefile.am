@@ -28,7 +28,8 @@ libsciconsole_la_etc_DATA = etc/console.quit etc/console.start etc/configuration
 
 #### console : List of the cpp files ####
 CONSOLE_CPP_JNI_SOURCES = src/jni/CallScilabBridge.cpp \
-src/jni/GiwsException.cpp
+src/jni/GiwsException.cpp \
+src/jni/ReadLine.cpp
 
 CONSOLE_CPP_SOURCES =  src/cpp/ClearConsole.cpp \
 src/cpp/ClearConsolePart.cpp \
