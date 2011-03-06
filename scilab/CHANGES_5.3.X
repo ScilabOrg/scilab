@@ -38,6 +38,9 @@ Bug fixes:
 
 * bug 9121 fixed - Doc generation did not fail when an invalid image was met. 
 
+* bug 9126 fixed - Some new files of the module/toolbox skeleton introduced in
+                   Scilab 5.3.1 were not installed.
+
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
