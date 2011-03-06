@@ -14,11 +14,24 @@
   </para>
   </refsection>
   <refsection>
-    <title>Voir Aussi</title>
+    <title>Example</title>
+    <programlisting role="example"><![CDATA[ 
+val = %t
+
+if val==%t then
+    disp("true");
+else
+    disp("false");
+end
+     ]]></programlisting>
+  </refsection>
+  <refsection role="see also">
+<title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="if">if</link>
       </member>
     </simplelist>
   </refsection>
+
 </refentry>

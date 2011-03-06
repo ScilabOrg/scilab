@@ -98,31 +98,25 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
 	 *            otherwise
 	 * @return The points
 	 */
-    public mxPoint[] getPoints(int index, boolean fromStart) { 
+	public List<mxPoint> getPoints(int index, boolean fromStart) {
 
-	if (getGeometry() == null || getGeometry().getPoints() == null) { 
-	    return new mxPoint[0];
-	}
+		if (getGeometry() == null || getGeometry().getPoints() == null) {
+			return new ArrayList<mxPoint>();
+		}
 
-	int start = 0;
-	int size = 0;
-	if (fromStart) { 
-	    size = Math.min(getGeometry().getPoints().size(), index);
-	    start = 0;
-	} else {
-	    start = index;
-	    size = getGeometry().getPoints().size() - index;
+		final List<mxPoint> points = getGeometry().getPoints();
+		if (fromStart) {
+			return new ArrayList<mxPoint>(points.subList(0,
+					Math.min(points.size(), index)));
+		} else {
+			if (index < points.size()) {
+				return new ArrayList<mxPoint>(points.subList(index,
+						points.size()));
+			} else {
+				return new ArrayList<mxPoint>();
+			}
+		}
 	}
-
-	if (size > 0) {
-	    mxPoint[] points = new mxPoint[size];
-	    for (int i = 0; i < size; i++) { 
-		points[i] = getGeometry().getPoints().get(start + i);
-	    }
-	    return points;
-	}
-	return null;
-    }
 
     /** @return the number of points in this link */
     public int getPointCount() { 
@@ -354,5 +348,27 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
     @Override
     public boolean isConnectable() {
     	return true;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+    	final StringBuilder str = new StringBuilder();
+    	str.append(source);
+    	
+    	str.append(" -> ");
+    	if (getChildCount() > 0) {
+    		// append the label
+    		str.append(getChildAt(0).getValue());
+    	} else {
+    		str.append(getClass().getSimpleName());
+    	}
+    	str.append(" -> ");
+    	
+    	str.append(target);
+    	
+    	return str.toString();
     }
 }

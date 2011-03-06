@@ -46,7 +46,7 @@ endif
 
 pkglib_LTLIBRARIES = libscitclsci.la
 
-libscitclsci_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION) $(TCLTK_LIBS)
+libscitclsci_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(TCLTK_LIBS)
 
 libscitclsci_la_CFLAGS= -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c \
@@ -75,7 +75,7 @@ modulename=tclsci
 
 #### tclsci : Conf files ####
 libscitclsci_la_rootdir = $(mydatadir)
-libscitclsci_la_root_DATA = changelog.txt license.txt readme.txt version.xml
+libscitclsci_la_root_DATA =  license.txt version.xml
 
 #### tclsci : init scripts ####
 libscitclsci_la_etcdir = $(mydatadir)/etc
@@ -121,6 +121,8 @@ tcl/sciGUI/local_extra/spinbutton.tcl \
 tcl/sciGUI/license.txt \
 tcl/sciGUI/sciGUI.tcl \
 tcl/sciGUI/sciConfig.tcl \
+tcl/sciGUI/sciBrowseVar.tcl \
+tcl/sciGUI/sciEditVar.tcl \
 tcl/BWidget-1.8.0/tests/entry.test \
 tcl/BWidget-1.8.0/BWman/SelectColor.html \
 tcl/BWidget-1.8.0/BWman/SpinBox.html \

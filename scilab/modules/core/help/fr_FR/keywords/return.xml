@@ -9,7 +9,8 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
-    <synopsis>return [x1,..,xn]=return(a1,..,an)</synopsis>
+    <synopsis>return
+[x1,..,xn]=return(a1,..,an)</synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Description</title>
@@ -31,8 +32,8 @@
     <para><literal>return</literal> est équivalent à <literal>resume</literal>.
   </para>
   </refsection>
-  <refsection>
-    <title>Voir Aussi</title>
+  <refsection role="see also">
+<title>Voir aussi</title>
     <simplelist type="inline">
       <member>
         <link linkend="abort">abort</link>

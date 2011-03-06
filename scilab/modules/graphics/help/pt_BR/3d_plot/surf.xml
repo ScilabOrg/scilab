@@ -152,7 +152,7 @@ surf(&lt;axes_handle&gt;,...)</synopsis>
 
     <para><inlinemediaobject>
         <imageobject>
-          <imagedata fileref="../images/surf_01.gif"></imagedata>
+          <imagedata fileref="../../images/surf_01.gif"></imagedata>
         </imageobject>
       </inlinemediaobject></para>
 
@@ -344,8 +344,8 @@ xdel(winsid())
  ]]></programlisting>
   </refsection>
 
-  <refsection>
-    <title>Ver Também</title>
+  <refsection role="see also">
+<title>Ver Também</title>
 
     <simplelist type="inline">
       <member><link linkend="plot2d">plot2d</link></member>
