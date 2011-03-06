@@ -26,14 +26,21 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LookAndFeelManager {
 
-    private static UIManager.LookAndFeelInfo[] availableLookAndFeels = UIManager.getInstalledLookAndFeels();
+    private static UIManager.LookAndFeelInfo[] availableLookAndFeels;
     private boolean ret;
+
+    static {
+        UIManager.installLookAndFeel("JGoodies Windows L&F", "com.jgoodies.looks.windows.WindowsLookAndFeel");
+        UIManager.installLookAndFeel("JGoodies Plastic L&F", "com.jgoodies.looks.plastic.PlasticLookAndFeel");
+        UIManager.installLookAndFeel("JGoodies Plastic3D L&F", "com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
+        UIManager.installLookAndFeel("JGoodies PlasticXP L&F", "com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
+        availableLookAndFeels = UIManager.getInstalledLookAndFeels();
+    }
 
     /**
      * Constructor
      */
-    public LookAndFeelManager() {
-    }
+    public LookAndFeelManager() { }
 
     /**
      * Get Installed Look and Feels
@@ -90,6 +97,7 @@ public class LookAndFeelManager {
                         try {
                             UIManager.setLookAndFeel(lookandfeel);
                             ret = true;
+                            ConfigManager.setLookAndFeel(lookandfeel);
                         } catch (UnsupportedLookAndFeelException e) {
                             System.err.println("Cannot find this look and feel:");
                             System.err.println(e.getLocalizedMessage());
@@ -108,7 +116,7 @@ public class LookAndFeelManager {
         }
         catch (InterruptedException e) { }
         catch (InvocationTargetException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
 
         return ret;

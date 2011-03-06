@@ -68,6 +68,7 @@ public final class ConfigManager {
         private static final String COLORPREFIX = "#";
         private static final String MAXOUTPUTSIZE = "MaxOutputSize";
         private static final String LASTOPENEDDIR = "LastOpenedDirectory";
+        private static final String LOOKANDFEEL = "LookAndFeel";
 
         private static final String SCILAB_CONFIG_FILE = System.getenv("SCI") + "/modules/console/etc/configuration.xml";
 
@@ -246,6 +247,58 @@ public final class ConfigManager {
                     }
 
                     helpFontSize.setAttribute(VALUE, Integer.toString(size));
+                    writeDocument();
+                }
+        }
+
+        /**
+         * Get the font size in the help viewer
+         * @return the font size
+         */
+        public static String getLookAndFeel() {
+
+                /* Load file */
+                readDocument();
+
+                if (document != null) {
+                    Element racine = document.getDocumentElement();
+
+                    NodeList profiles = racine.getElementsByTagName(PROFILE);
+                    Element scilabProfile = (Element) profiles.item(0);
+
+                    NodeList allPositionElements = scilabProfile.getElementsByTagName(LOOKANDFEEL);
+                    Element laf = (Element) allPositionElements.item(0);
+                    if (laf != null) {
+                        return laf.getAttribute(VALUE);
+                    }
+                }
+
+                return null;
+        }
+
+        /**
+         * Get the font size in the help viewer
+         * @return the font size
+         */
+        public static void setLookAndFeel(String lookandfeel) {
+
+                /* Load file */
+                readDocument();
+
+                if (document != null) {
+                    Element racine = document.getDocumentElement();
+
+                    NodeList profiles = racine.getElementsByTagName(PROFILE);
+                    Element scilabProfile = (Element) profiles.item(0);
+
+                    NodeList allPositionElements = scilabProfile.getElementsByTagName(LOOKANDFEEL);
+                    Element laf = (Element) allPositionElements.item(0);
+                    if (laf == null) {
+                        laf = document.createElement(LOOKANDFEEL);
+                        scilabProfile.appendChild(laf);
+                    }
+
+                    laf.setAttribute(VALUE, lookandfeel);
                     writeDocument();
                 }
         }

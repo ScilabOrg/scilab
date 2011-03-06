@@ -5,11 +5,11 @@
  * Copyright (C) 2007-2008 - INRIA - Sylvestre LEDRU
  * Copyright (C) 2007-2008 - INRIA - Jean-Baptiste SILVY
  * Copyright (C) 2007-2008 - INRIA - Bruno JOFRET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -80,13 +80,13 @@ public class Scilab {
          */
         try {
             SCIDIR = System.getenv("SCI");
-            
+
             /*
-             * Set Java directories to Scilab ones 
+             * Set Java directories to Scilab ones
              */
             System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
             System.setProperty("user.home", ScilabConstants.SCIHOME.getCanonicalPath());
-            
+
         } catch (Exception e) {
             System.err.println("Cannot retrieve the variable SCI. Please report on http://bugzilla.scilab.org/");
             System.err.println(e.getLocalizedMessage());
@@ -112,16 +112,18 @@ public class Scilab {
             /* http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html */
             try {
 
-                String scilabLookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel";
+                String scilabLookAndFeel = ConfigManager.getLookAndFeel();
 
-                if (isWindowsPlateform()) {
-                    scilabLookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-                } else if (System.getProperty(OSNAME).toLowerCase().indexOf(MACOS) != -1) {
-                                        /** OPTION ADDED TO ALLOW DOCKING UNDER MACOSX */
-                                        System.setProperty(DockingConstants.HEAVYWEIGHT_DOCKABLES, ENABLE);
-                    scilabLookAndFeel = "apple.laf.AquaLookAndFeel";
-                } else {
-                    scilabLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+                if (scilabLookAndFeel == null) {
+                    if (isWindowsPlateform()) {
+                        scilabLookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+                    } else if (System.getProperty(OSNAME).toLowerCase().indexOf(MACOS) != -1) {
+                        /** OPTION ADDED TO ALLOW DOCKING UNDER MACOSX */
+                        System.setProperty(DockingConstants.HEAVYWEIGHT_DOCKABLES, ENABLE);
+                        scilabLookAndFeel = "apple.laf.AquaLookAndFeel";
+                    } else {
+                        scilabLookAndFeel = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+                    }
                 }
 
                 /* Init the LookAndFeelManager all the time since we can
@@ -200,7 +202,7 @@ public class Scilab {
             consoleTab.addMember(ScilabConsole.getConsole());
             mainView.addTab(consoleTab);
             mainView.draw();
-        } 
+        }
 
     }
 
