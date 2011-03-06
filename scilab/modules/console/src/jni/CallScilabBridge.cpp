@@ -190,11 +190,15 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID jstringreadLineID = curEnv->GetStaticMethodID(cls, "readLine", "()Ljava/lang/String;" ) ;
 if (jstringreadLineID == NULL) {
+
+jvm_->DetachCurrentThread();
 throw GiwsException::JniMethodNotFoundException(curEnv, "readLine");
 }
 
                         jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringreadLineID ));
                         if (curEnv->ExceptionCheck()) {
+
+jvm_->DetachCurrentThread();
 throw GiwsException::JniCallMethodException(curEnv);
 }
 
@@ -205,8 +209,12 @@ curEnv->ReleaseStringUTFChars(res, tempString);
 curEnv->DeleteLocalRef(res);
 if (curEnv->ExceptionCheck()) {
 delete[] myStringBuffer;
-                                throw GiwsException::JniCallMethodException(curEnv);
+                                
+jvm_->DetachCurrentThread();
+throw GiwsException::JniCallMethodException(curEnv);
 }
+jvm_->DetachCurrentThread();
+
 return myStringBuffer;
 
 }
