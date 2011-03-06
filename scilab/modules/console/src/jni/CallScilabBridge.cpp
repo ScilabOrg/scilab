@@ -106,6 +106,7 @@ curEnv->DeleteLocalRef(localInstance);
                 /* Methods ID set to NULL */
 voiddisplayjstringID=NULL; 
 jstringreadLineID=NULL; 
+voidreadjstringID=NULL; 
 voidclearID=NULL; 
 voidclearjintID=NULL; 
 jintgetCharWithoutOutputID=NULL; 
@@ -137,6 +138,7 @@ throw GiwsException::JniObjectCreationException(curEnv, this->className());
         /* Methods ID set to NULL */
         voiddisplayjstringID=NULL; 
 jstringreadLineID=NULL; 
+voidreadjstringID=NULL; 
 voidclearID=NULL; 
 voidclearjintID=NULL; 
 jintgetCharWithoutOutputID=NULL; 
@@ -190,11 +192,15 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID jstringreadLineID = curEnv->GetStaticMethodID(cls, "readLine", "()Ljava/lang/String;" ) ;
 if (jstringreadLineID == NULL) {
+
+jvm_->DetachCurrentThread();
 throw GiwsException::JniMethodNotFoundException(curEnv, "readLine");
 }
 
                         jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringreadLineID ));
                         if (curEnv->ExceptionCheck()) {
+
+jvm_->DetachCurrentThread();
 throw GiwsException::JniCallMethodException(curEnv);
 }
 
@@ -205,10 +211,33 @@ curEnv->ReleaseStringUTFChars(res, tempString);
 curEnv->DeleteLocalRef(res);
 if (curEnv->ExceptionCheck()) {
 delete[] myStringBuffer;
-                                throw GiwsException::JniCallMethodException(curEnv);
+                                
+jvm_->DetachCurrentThread();
+throw GiwsException::JniCallMethodException(curEnv);
 }
+jvm_->DetachCurrentThread();
+
 return myStringBuffer;
 
+}
+
+void CallScilabBridge::read (JavaVM * jvm_, char * dataToDisplay){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidreadjstringID = curEnv->GetStaticMethodID(cls, "read", "(Ljava/lang/String;)V" ) ;
+if (voidreadjstringID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "read");
+}
+
+jstring dataToDisplay_ = curEnv->NewStringUTF( dataToDisplay );
+
+                         curEnv->CallStaticVoidMethod(cls, voidreadjstringID ,dataToDisplay_);
+                        if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
 }
 
 void CallScilabBridge::clear (JavaVM * jvm_){
