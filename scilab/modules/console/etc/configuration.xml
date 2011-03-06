@@ -37,6 +37,9 @@
                 <!-- Help part -->
                 <HelpFontSize useCache="true" value="2"/>
 
+		<!-- Look and Feel -->
+                <LookAndFeel value="com.jgoodies.looks.plastic.PlasticLookAndFeel"/>
+
                 <!-- Core part -->
                 <OutputViewStyledDocument useCache="true" value="javax.swing.text.DefaultStyledDocument"/>
                 <InputCommandViewStyledDocument useCache="true" value="javax.swing.text.DefaultStyledDocument"/>
