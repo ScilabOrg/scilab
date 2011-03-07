@@ -46,6 +46,8 @@ Bug fixes:
 * bug 5687 fixed - The window title of a figure was not immediately updated when
                    figure_name was changed.
 
+* bug 7954 fixed - Using TCL_EvalStr randomly froze Scilab.
+
 * Bug 8423 fixed - With certain options of the configure, the build process
                    failed.
 
