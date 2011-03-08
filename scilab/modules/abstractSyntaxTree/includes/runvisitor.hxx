@@ -679,6 +679,15 @@ namespace ast
                     continue;
                 }
 
+                //clear old result value before evaluate new one
+                if(execMeTest.result_get() != NULL)
+                {
+                    if(execMeTest.result_get()->isDeletable())
+                    {
+                        delete execMeTest.result_get();
+                    }
+                }
+
                 e.test_get().accept(execMeTest);
             }
         }
@@ -716,6 +725,7 @@ namespace ast
                     if(pIT->isRef(1))
                     {
                         pIT = pIT->clone();
+                        pDouble = pIT->getAs<Double>();
                         bNew = true;
                     }
 
