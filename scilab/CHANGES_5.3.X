@@ -25,6 +25,15 @@ French:
 
 * bug 9122 fixed - Java check failed on diagram validation.
 
+Javasci:
+========
+
+* Javasci v2 FAQ updated.
+
+* bug 9147 fixed - Javasci v1 was broken since the introduction of the
+                   version 2.
+
+
 Compilation:
 ============
 
@@ -59,8 +68,6 @@ Bug fixes:
 
 * bug 9128 fixed - In help page of dir(), infos about bytes field were missing.
 
-* bug 9147 fixed - Javasci v1 was broken since the introduction of the
-                   version 2.
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
