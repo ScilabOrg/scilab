@@ -313,6 +313,8 @@ static int interactiveMain (void)
         // Show Parser Sate before prompt
         stateShow(controlStatus);
 
+        pause = ConfigVariable::getPauseLevel();
+
         //set prompt value
         C2F(setprlev)(&pause);
 
@@ -400,7 +402,6 @@ static Parser::ControlStatus processCommand(char* _pstCommand)
             YaspWriteW(parser->getErrorMessage());
         }
 
-        parser->freeTree();
         FREE(pwstCommand);
     }
     return parser->getControlStatus();

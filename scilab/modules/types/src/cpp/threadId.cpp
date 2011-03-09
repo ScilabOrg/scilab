@@ -32,6 +32,7 @@ namespace types
 	ThreadId::ThreadId(__threadId _id)
 	{
         m_threadId = _id;
+        __InitLock(&m_threadLock);
         m_threadStatus = Running;
 	}
 
@@ -84,6 +85,29 @@ namespace types
     ThreadId::Status ThreadId::getStatus(void)
     {
         return m_threadStatus;
+    }
+
+    void ThreadId::suspend()
+    {
+        setStatus(Paused);
+        __Lock(&m_threadLock);
+
+        // Lock twice to force thread wait.
+        // UnLock will come if resume is called for that thread.
+        __Lock(&m_threadLock);
+        __UnLock(&m_threadLock);
+    }
+
+    void ThreadId::resume()
+    {
+        setStatus(Running);
+        __UnLock(&m_threadLock);
+    }
+
+    void ThreadId::abort()
+    {
+        setStatus(Aborted);
+        __UnLock(&m_threadLock);
     }
 
     std::wstring ThreadId::toString(int _iPrecision, int _iLineLen)
