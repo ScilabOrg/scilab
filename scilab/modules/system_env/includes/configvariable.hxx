@@ -189,6 +189,15 @@ public :
     static void setThread(__threadKey _key, types::ThreadId* _thread);
     static void deleteThread(__threadKey _key);
 
+    // Pause level
+private :
+    static int m_iPauseLevel;
+
+public :
+    static void IncreasePauseLevel();
+    static void DecreasePauseLevel();
+    static int getPauseLevel();
+
 
 };
 
