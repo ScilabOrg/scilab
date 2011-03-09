@@ -61,6 +61,9 @@ Bug fixes:
 * Bug 8423 fixed - With certain options of the configure, the build process
                    failed.
 
+* bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation with
+                   ode" displayed a warning about an obsolete use of ilib_for_link.
+
 * bug 9113 fixed - setlookandfeel could lead to an exception.
 
 * bug 9121 fixed - Doc generation did not fail when an invalid image was met.
@@ -72,6 +75,7 @@ Bug fixes:
 
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
+
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
