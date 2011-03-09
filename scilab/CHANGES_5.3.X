@@ -23,6 +23,8 @@ French:
 - Counter
 - RAMP
 
+* bug 9024 fixed - Opening a non existing file lead to palette closing issues.
+
 * bug 9122 fixed - Java check failed on diagram validation.
 
 Javasci:
