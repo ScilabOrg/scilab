@@ -25,6 +25,9 @@ French:
 
 * bug 9077 fixed - Automotive Suspension demo was modified on loading.
 
+* bug 9111 fixed - Zoom In/Zoom Out keyboard shortcuts did not work on Apple 
+                   machines.
+
 * bug 9122 fixed - Java check failed on diagram validation.
 
 Javasci:
