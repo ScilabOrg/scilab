@@ -25,7 +25,7 @@
   <refnamediv>
     <refname>base2dec</refname>
 
-    <refpurpose>conversion from base b representation to integers</refpurpose>
+    <refpurpose>Conversion of integers from base b to decimal</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

@@ -25,8 +25,7 @@
   <refnamediv>
     <refname>hex2dec</refname>
 
-    <refpurpose>conversion from hexadecimal representation to
-    integers</refpurpose>
+    <refpurpose>conversion of integers from hexadecimal to integers</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

@@ -34,6 +34,13 @@ Javasci:
                    version 2.
 
 
+Documentation:
+==============
+
+* Bug 7072 fixed - Fix various issues in the documentation. 
+                   Thanks to Yves Barois.
+
+
 Compilation:
 ============
 

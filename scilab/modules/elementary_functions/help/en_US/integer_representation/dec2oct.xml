@@ -25,7 +25,7 @@
   <refnamediv>
     <refname>dec2oct</refname>
 
-    <refpurpose>octal representation of integers</refpurpose>
+    <refpurpose>conversion of integers from decimal to octal</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

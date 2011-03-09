@@ -5,7 +5,7 @@
   </info>
   <refnamediv>
     <refname>fix</refname>
-    <refpurpose> arrondi vers zéro ou troncature  </refpurpose>
+    <refpurpose>Partie entière</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Séquence d'appel</title>

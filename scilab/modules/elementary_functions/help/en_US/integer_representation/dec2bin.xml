@@ -24,7 +24,7 @@
   <refnamediv>
     <refname>dec2bin</refname>
 
-    <refpurpose>binary representation</refpurpose>
+    <refpurpose>conversion of integers from decimal to binary</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
