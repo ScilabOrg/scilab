@@ -70,6 +70,9 @@ Bug fixes:
 
 * bug 9128 fixed - In help page of dir(), infos about bytes field were missing.
 
+* bug 9139 fixed - Scilab 5.3.1 had an unexpected dependency on GLIBC_2.7
+                   causing Scilab to crash under old RHEL / CentOS.
+
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
 
