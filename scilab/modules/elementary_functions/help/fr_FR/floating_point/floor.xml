@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>floor</refname>
 
-    <refpurpose>partie entière</refpurpose>
+    <refpurpose>Arrondi à l'entier immédiatement inférieur</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>

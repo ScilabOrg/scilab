@@ -84,6 +84,7 @@ Javasci:
                    version 2.
 
 
+<<<<<<< HEAD
 Dynamic link:
 =============
 
@@ -104,6 +105,12 @@ Localization:
 
 * bug 8994 fixed - Some localization templates were not included and
                    translated.
+
+Documentation:
+==============
+
+* Bug 7072 fixed - Fix various issues in the documentation. 
+                   Thanks to Yves Barois.
 
 Compilation:
 ============

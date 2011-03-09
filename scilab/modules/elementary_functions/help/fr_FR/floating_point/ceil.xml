@@ -13,7 +13,7 @@
   <refnamediv>
     <refname>ceil</refname>
 
-    <refpurpose>partie entière supérieure</refpurpose>
+    <refpurpose>Arrondi à l'entier immédiatement supérieur</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
