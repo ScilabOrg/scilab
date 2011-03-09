@@ -429,3 +429,29 @@ void ConfigVariable::deleteThread(__threadKey _key)
 /*
 ** \}
 */
+
+/*
+** Prompt Mode
+** \{
+*/
+
+int ConfigVariable::m_iPauseLevel = 0;
+
+void ConfigVariable::IncreasePauseLevel()
+{
+    m_iPauseLevel++;
+}
+
+void ConfigVariable::DecreasePauseLevel()
+{
+    m_iPauseLevel--;
+}
+
+int ConfigVariable::getPauseLevel()
+{
+    return m_iPauseLevel;
+}
+
+/*
+** \}
+*/

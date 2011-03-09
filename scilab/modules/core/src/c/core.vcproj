@@ -609,6 +609,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\cpp\runner.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\c\sci_clearfun.c"
 				>
 			</File>

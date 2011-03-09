@@ -53,6 +53,10 @@ namespace types
 
         Status                  getStatus();
         void                    setStatus(Status _status);
+
+        void                    suspend();
+        void                    resume();
+        void                    abort();
     private :
         std::wstring            StatusToString(Status _status);
 
@@ -61,6 +65,7 @@ namespace types
 
     private :
         __threadId                                 m_threadId;
+        __threadLock                               m_threadLock;
         Status                                     m_threadStatus;
 
     };

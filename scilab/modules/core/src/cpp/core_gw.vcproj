@@ -337,6 +337,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\cpp\sci_abort.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\cpp\sci_argn.cpp"
 				>
 			</File>
@@ -397,7 +401,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\sci_gateway\cpp\sci_pause.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\sci_gateway\cpp\sci_quit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\sci_gateway\cpp\sci_resume.cpp"
 				>
 			</File>
 			<File
