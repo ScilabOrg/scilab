@@ -36,6 +36,12 @@ Javasci:
                    version 2.
 
 
+Localization:
+=============
+
+* Bugs 8994 fixed - Some localization templates were not included and
+                    translated.
+
 Compilation:
 ============
 
