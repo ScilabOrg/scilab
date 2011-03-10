@@ -1,7 +1,7 @@
-//  Scicos
+//  Xcos
 //
 //  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
-//  Copyright (C) 2011 - Bernard DUJARDIN
+//  Copyright 2011 - Bernard DUJARDIN <bernard.dujardin@contrib.scilab.org>
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,10 +19,6 @@
 //
 // See the file ../license.txt
 //
-// 03/02/2011   Bernard DUJARDIN
-// - Fix typo and messages
-// - Adding some checks on the user's inputs
-// - Begin to set file to the Scilab coding's standards
 
 function [x,y,typ] = READC_f(job,arg1,arg2)
 
@@ -58,102 +54,86 @@ function [x,y,typ] = READC_f(job,arg1,arg2)
         frmt = exprs(4)
 
         while %t do
-            [ok,tmask1,outmask,fname1,frmt1,M,N,offset,swap,exprs] = ...
-                scicos_getvalue( ...
-                    ["Set READC_f block parameters"; ...
-                     " "; ...
-                     "Read is done on a binary file" ...
-                    ], ...
-                    ["Time record selection"; ...
-                     "Outputs record selection"; ...
-                     "Input file name";
-                     "Input Format"; ...
-                     "Record size"; ...
-                     "Buffer size (in records)"; ...
-                     "Initial record index"; ...
-                     "Swap mode 0/1" ...
-                    ], ...
-                    list("vec", -1, "vec", -1, "str", 1, "str", 1, ...
-                        "vec", 1, "vec", 1,"vec", 1, "vec", 1 ...
-                    ),..
-                    exprs ...
-                    );
+            [ok,tmask1,outmask,fname1,frmt1,M,N,offset,swap,exprs] = scicos_getvalue([msprintf(gettext("Set %s block parameters"), "READC_f" );
+              " "; gettext("Read from C binary file")], [gettext("Time Record Selection"); gettext("Outputs Record Selection"); ..
+              gettext("Input File Name"); gettext("Input Format"); gettext("Record Size"); gettext("Buffer Size"); ..
+              gettext("Initial Record Index"); gettext("Swap Mode (0:No, 1:Yes)")], ..
+              list("vec", -1, "vec", -1, "str", 1, "str", 1, "vec", 1, "vec", 1,"vec", 1, "vec", 1), exprs);
 
             if ~ok then
                 break
 
             end //user cancel modification
 
-            fname1 = stripblanks(fname1)
+            fname1 = pathconvert(stripblanks(fname1), %f, %t)
             frmt1 = stripblanks(frmt1)
-            fmts = [ ...
-                "s","l","d","f","c","us","ul","uc","ull","uls","ubl","ubs",..
-                "dl","fl","ll","sl","db","fb","lb","sb"...
-                ];
+            fmts = [ "s","l","d","f","c","us","ul","uc","ull","uls","ubl","ubs","dl","fl","ll","sl","db","fb","lb","sb"];
 
             nout  =  size(outmask,"*")
 
             if prod(size( tmask1 )) > 1 then
-                message( ...
-                    "Time record selection must be a scalar or an empty matrix")
+                block_parameter_error(gettext("Wrong value for ''Time Record Selection'' parameter."), ..
+                  gettext("Must be a scalar or an empty matrix."))
 
             elseif and(frmt1 <> fmts) then
-                message( ...
-                    ["Incorrect input format, valid formats are:"; ...
-                      strcat(fmts,', ')] ...
-                    );
+                block_parameter_error(msprintf(gettext("Wrong value for ''Input Format'' parameter: %s."), frmt1), ..
+                  gettext("Valid formats are: " + strcat(fmts,', ')));
 
             elseif alreadyran & fname1 <> fname then
-                message( ...
-                    ["You cannot modify Output file name when running"; ...
-                      "End current simulation first"] ...
-                    );
+                block_parameter_error(gettext("You cannot modify ''Input File Name'' when running"), ..
+                  gettext("End current simulation first."));
 
             elseif N <> ipar(6) & alreadyran then
-                message(["You cannot modify buffer length when running"; ...
-                  "End current simulation first"])
+                block_parameter_error(gettext("You cannot modify ''Buffer Size'' when running."), ..
+                  gettext("End current simulation first"));
 
             elseif alreadyran & size(tmask1) <> size(tmask) then
-                message( ...
-                    ["You cannot modify time management when running"; ...
-                     "End current simulation first"] ...
-                    );
+                block_parameter_error(gettext("You cannot modify ''Time Record Selection'' when running."), ..
+                  gettext("End current simulation first."));
 
             elseif fname1 == "" then
-                message("You must provide a file name")
+                block_parameter_error(msprintf(gettext("Wrong value for ''Input File Name'' parameter."), fname1), ..
+                  gettext("You must provide a file name."));
+            //Check if file exist
+            elseif ~isfile(fname1) then
+                [pa, fn, ex] = fileparts(fname1)
+                if pa == "" then
+                    pa = gettext("current")
+                end
+                block_parameter_error(gettext("Wrong value for ''Input File Name'' parameter."), ..
+                  [msprintf(gettext("File ''%s'' does not exist"), fn + ex ); msprintf(gettext("in ''%s'' directory."), pa )]);
 
             elseif M < 1 then
-                message("Record size must be at least 1")
+                block_parameter_error(msprintf(gettext("Wrong value for ''Record Size'' parameter: %d."), M), ..
+                  gettext("Strictly positive integer expected."));
 
             elseif tmask1 ~= [] & (tmask1 < 1 | tmask1 > M) then
-                message( ...
-                    "Time record index must be positive and " ...
-                    + " at the most equal Record size=" + string (M) ...
-                    );
+              block_parameter_error(msprintf(gettext("Wrong value for  ''Time Record Selection'' parameter: %d."), tmask1), ..
+                msprintf(gettext("Must be in the interval %s."), gettext("[1, Record Size = ") + string (M)+"]"));
 
             elseif nout == 0 then
-                message("You must read at least one field in record")
+                block_parameter_error(msprintf(gettext("Wrong value for ''Outputs Record Selection'' parameter: %d."), nout), ..
+                  gettext("Strictly positive integer expected."));
 
             elseif nout > M then
-                message( ...
-                    "Number of outputs cannot be greater than  Record size = " ...
-                    + string (M) ...
-                    );
+              block_parameter_error(msprintf(gettext("Wrong value for ''Outputs Record Selection'' parameter: %d."), nout), ..
+                msprintf(gettext("Must be in the interval %s."), gettext("[1, Record Size = ") + string (M)+"]"));
 
             elseif max(outmask) > M | min(outmask) < 1 then
-                  message( ...
-                      "Outputs record indexes must be positive and " ...
-                      + " at the most equal " + string (M) ...
-                      );
+              block_parameter_error(msprintf(gettext("Wrong value for indexes in ''Outputs Record Selection'' parameter: %s."),  strcat(string(outmask(:))," ")), ..
+                msprintf(gettext("Must be in the interval %s."), gettext("[1, Record Size = ") + string (M)+"]"));
 
             elseif N < 1 then
-                message("Buffer size must be at least 1")
+                block_parameter_error(msprintf(gettext("Wrong value for ''Buffer Size'' parameter: %d."), N), ..
+                  gettext("Strictly positive integer expected."));
 
             elseif swap <> 0 & swap <> 1 then
-                message("Swap mode must be 0 or 1")
+                block_parameter_error(msprintf(gettext("Wrong value for  ''Swap Mode'' parameter: %d."), swap), ..
+                  msprintf(gettext("Must be in the interval %s."), "[0, 1]"));
 
             elseif offset < 1 then
-                message("Initial record index must be strictly positive")
+                block_parameter_error(msprintf(gettext("Wrong value for ''Initial Record Index'' parameter: %d."), offset), ..
+                  gettext("Strictly positive integer expected."));
 
             else
 
