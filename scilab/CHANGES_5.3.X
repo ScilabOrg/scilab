@@ -103,6 +103,9 @@ Bug fixes:
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
 
+* bug 9168 fixed - Bad command line width when completion window was shew at
+                   the console bottom.
+
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
