@@ -32,6 +32,8 @@ Xcos:
 
 * bug 9024 fixed - Opening a non existing file lead to palette closing issues.
 
+* bug 9116 fixed - Saving a diagram with the default name produce an exception.
+
 * bug 9122 fixed - Java check failed on diagram validation.
 
 Javasci:
