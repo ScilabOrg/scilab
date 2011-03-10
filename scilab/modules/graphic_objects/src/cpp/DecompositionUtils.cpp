@@ -60,3 +60,20 @@ int DecompositionUtils::isLogValid(double x, double y, double z, int logMask)
     return valid;
 }
 
+/*
+ * Decomposes a quad into two adjacent triangles.
+ * The quad's vertices are supposed to be specified in
+ * counter-clockwise order, with 0 corresponding to the quad's lower-left vertex.
+ * The two output triangles' vertex indices are therefore also specified in
+ * counter-clockwise order.
+ */
+void DecompositionUtils::getDecomposedQuadTriangleIndices(int* indices)
+{
+    indices[0] = 0;
+    indices[1] = 1;
+    indices[2] = 2;
+    indices[3] = 0;
+    indices[4] = 2;
+    indices[5] = 3;
+}
+
