@@ -677,6 +677,11 @@ assign			"="
       return scan_throw(COLON);
   }
 
+  {spaces}{lparen} {
+      unput(yytext[yyleng - 1]);
+      return scan_throw(SPACES);
+  }
+
   {newline} {
       yylloc.last_line += 1;
       yylloc.last_column = 1;

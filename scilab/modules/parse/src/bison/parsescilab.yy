@@ -1210,8 +1210,10 @@ matrixOrCellColumns matrixOrCellColumnsBreak variable       %prec HIGHLEVEL {
 */
 /* How to tell the column is now ended. */
 matrixOrCellColumnsBreak :
-matrixOrCellColumnsBreak COMMA					{ /* !! Do Nothing !! */ }
+matrixOrCellColumnsBreak COMMA		{ /* !! Do Nothing !! */ }
+| matrixOrCellColumnsBreak SPACES	{ /* !! Do Nothing !! */ }
 | COMMA								{ /* !! Do Nothing !! */ }
+| SPACES							{ /* !! Do Nothing !! */ }
 ;
 
 /*
