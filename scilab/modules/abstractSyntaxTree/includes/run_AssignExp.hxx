@@ -203,10 +203,80 @@ void visitprivate(const AssignExp  &e)
                 InternalType* pIL = execMeR.result_get()->clone();
                 execMeR.result_set(pIL);
             }
+            
+            
+            if(execMeR.result_get()->isDouble() && execMeR.result_get()->getAs<Double>()->isEmpty())
+            {//insert [] so deletion !
+                if(pIT == NULL)
+                {
+                    pOut = Double::Empty();
+                    bNew = true;
+                }
+                else
+                {
+                    if(pIT->isDouble())
+                    {
+                        pOut = pIT->getAs<Double>()->remove(pArgs);
+                    }
+                    else if(pIT->isString())
+                    {
+                        pOut = pIT->getAs<String>()->remove(pArgs);
+                    }
+                    else if(pIT->isCell())
+                    {
+                        pOut = pIT->getAs<Cell>()->remove(pArgs);
+                    }
+                    else if(pIT->isBool())
+                    {
+                        pOut = pIT->getAs<Bool>()->remove(pArgs);
+                    }
+                    else if(pIT->isPoly())
+                    {
+                        pOut = pIT->getAs<Polynom>()->remove(pArgs);
+                    }
+                    else if(pIT->isInt8())
+                    {
+                        pOut = pIT->getAs<Int8>()->remove(pArgs);
+                    }
+                    else if(pIT->isUInt8())
+                    {
+                        pOut = pIT->getAs<UInt8>()->remove(pArgs);
+                    }
+                    else if(pIT->isInt16())
+                    {
+                        pOut = pIT->getAs<Int16>()->remove(pArgs);
+                    }
+                    else if(pIT->isUInt16())
+                    {
+                        pOut = pIT->getAs<UInt16>()->remove(pArgs);
+                    }
+                    else if(pIT->isInt32())
+                    {
+                        pOut = pIT->getAs<Int32>()->remove(pArgs);
+                    }
+                    else if(pIT->isUInt32())
+                    {
+                        pOut = pIT->getAs<UInt32>()->remove(pArgs);
+                    }
+                    else if(pIT->isInt64())
+                    {
+                        pOut = pIT->getAs<Int64>()->remove(pArgs);
+                    }
+                    else if(pIT->isUInt64())
+                    {
+                        pOut = pIT->getAs<UInt64>()->remove(pArgs);
+                    }
 
-            //insert in a new variable or []
-            if(pIT == NULL || (pIT->isDouble() && pIT->getAs<Double>()->getSize() == 0))
-            {//call static insert function
+                    if(pOut && pOut != pIT)
+                    {
+                        bNew = true;
+                    }
+                }
+            }
+            else if(pIT == NULL || (pIT->isDouble() && pIT->getAs<Double>()->getSize() == 0))
+            {
+                //insert in a new variable or []
+                //call static insert function
                 //special case for insertion in [] 
                 if(pIT != NULL && pIT->isDouble() && pIT->getAs<Double>()->getSize() == 0)
                 {
