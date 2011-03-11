@@ -1,5 +1,5 @@
-                                   Scilab 5.0
-                                   **********
+                                   Scilab
+                                   ******
  
  ******************************************************************************
  INSTALLATION GUIDE
@@ -12,6 +12,9 @@
  This license is compatibility with the GNU General Public License (GPL).
  See the included license: "COPYING" in English
                            "COPYING-FR" in French
+
+ Scilab is also using some codes with other licenses. Please see 
+ SCI/modules/*/license.txt for details.
  
  ******************************************************************************
  
@@ -24,6 +27,12 @@
   Unpack Scilab and call the execution script:
   # ./bin/scilab
 
+  Advanced command line interpreter (GUI, help browser, Tcl/Tk...)
+  # ./bin/scilab-adv-cli
+
+  Command line interpreter:
+  # ./bin/scilab-cli
+
   For futher information: http://wiki.scilab.org/howto/install/linux
 
  
@@ -35,19 +44,22 @@
 	 
  
  ******************************************************************************
- II - REMARKS
+ II - OTHER RESOURCES
  *******************************
 
-    1 - If you have any problem or suggestion to improve Scilab
-          http://bugzilla.scilab.org/index.cgi
+  1 - If you have any problem or suggestion to improve Scilab
+    http://bugzilla.scilab.org/
 
-		Don't hesitate to browse other the bug reports to see workarounds.
+    Don't hesitate to browse other the bug reports to see workarounds.
 	
-	2 - User and development mailing lists are available:
+  2 - User and development mailing lists are available:
 
-		http://www.scilab.org/contactus/index_contactus.php?page=mailing_lists
+    http://www.scilab.org/communities/developer_zone/tools/mailing_list
+    Archives of these mailing lists are available:
+    http://mailinglists.scilab.org/
 
-		Archives of these mailing lists are available.
+  3 - Exchange files, script, data, experiences, etc:
+    http://fileexchange.scilab.org/
 
-	3 - The newsgroup is still available here:
-          comp.soft-sys.math.scilab
+  4 - Browse our packages available through ATOMS:
+    http://atoms.scilab.org/

@@ -5,9 +5,13 @@
 0 - COPYRIGHT NOTICE
 ******************************************************************************
  
- Scilab is free software. 
+ Scilab is a free software released under the terms of the CeCILL license.
+ This license is compatibility with the GNU General Public License (GPL).
  See the included license: "license.txt" in English
                            "licence.txt" in French
+
+ Scilab is also using some codes with other licenses. Please see 
+ SCI/modules/*/license.txt for details.
  
 ******************************************************************************
 I - TO RUN SCILAB (BINARY VERSION)
@@ -55,7 +59,12 @@ IV - DOCUMENTATION
 ******************************************************************************
  
  In addition to Scilab online documentation (obtained by typing "help item" or
- clicking on the help button), you will find scilab wiki :
+ clicking on the help button). 
+ 
+ An online help is also available:
+ http://help.scilab.org/
+
+ You will find scilab wiki :
  http://wiki.scilab.org/
 
 ******************************************************************************
