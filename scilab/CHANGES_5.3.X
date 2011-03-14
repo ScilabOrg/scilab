@@ -82,6 +82,9 @@ Bug fixes:
 * bug 5687 fixed - The window title of a figure was not immediately updated when
                    figure_name was changed.
 
+* bug 8317 fixed - Confusing examples updated.
+
+
 * bug 8371 fixed - Each thread used to get the command line was not detached
                    from the JVM.
 
