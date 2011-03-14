@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XcosDiagram background="-1" integratorAbsoluteTolerance="1.0E-9" integratorRelativeTolerance="1.0E-10" title="batch_simulation">
+<XcosDiagram background="-1" integratorAbsoluteTolerance="1.0E-9" integratorRelativeTolerance="1.0E-10" finalIntegrationTime="1.0E5" title="batch_simulation">
   <Array as="context" scilabClass="String[]">
     <add value="Amplitude=2"/>
     <add value="Pulsation=3"/>

@@ -15,6 +15,9 @@ Scinotes:
 Xcos:
 =====
 
+* The default simulation time is now set to 30 seconds to ease scope
+  manipulation for first-time users.
+
 * Update the documentation with examples of the blocks and their translations to
   French:
   - OUT_f - Regular Output Port

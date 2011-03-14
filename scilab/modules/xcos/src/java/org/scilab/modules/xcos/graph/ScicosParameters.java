@@ -34,7 +34,7 @@ public class ScicosParameters implements Serializable, Cloneable {
 	/**
 	 * The default integration time
 	 */
-	public static final double FINAL_INTEGRATION_TIME = 100000;
+	public static final double FINAL_INTEGRATION_TIME = 30;
 	/**
 	 * The default integrator absolute tolerance
 	 */
