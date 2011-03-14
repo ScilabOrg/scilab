@@ -12,6 +12,9 @@ Scinotes:
 
 * bug 9171 fixed - Problem to enter Japanese chars under Windows with IME.
 
+* bug 9183 fixed - Bad display of selected text when horizontal wrapping was
+                   disabled.
+
 Xcos:
 =====
 
