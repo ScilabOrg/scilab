@@ -81,6 +81,9 @@ Compilation:
 Bug fixes:
 ==========
 
+* bug 5573 fixed - It was not possible to set the compression quality when
+                   exporting into jpeg.
+
 * bug 5687 fixed - The window title of a figure was not immediately updated when
                    figure_name was changed.
 
