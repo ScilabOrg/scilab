@@ -30,8 +30,8 @@
   <refsynopsisdiv>
     <title>Calling Sequence</title>
 
-    <synopsis>xs2jpg(win_num, file_name)
-xs2jpg(fig, file_name)</synopsis>
+    <synopsis>xs2jpg(win_num, file_name [, compression_quality])
+xs2jpg(fig, file_name [, compression_quality])</synopsis>
   </refsynopsisdiv>
 
   <refsection>
@@ -61,6 +61,14 @@ xs2jpg(fig, file_name)</synopsis>
           <para>string, name of the exported file.</para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>compression_quality</term>
+
+        <listitem>
+          <para>real, a number between 0 and 1 (best quality). The default compression quality is set to 0.75.</para>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </refsection>
 
@@ -78,6 +86,8 @@ plot2d();
 //JPG export
 xs2jpg(0,'foo.jpg');
 xs2jpg(gcf(),'foo.jpg');
+xs2jpg(0,'foo_0.jpg', 0); // poor quality
+xs2jpg(gcf(),'foo_1.jpg', 1); // best quality
  ]]></programlisting>
   </refsection>
 
