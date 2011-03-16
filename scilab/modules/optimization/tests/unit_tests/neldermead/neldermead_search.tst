@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,42 +12,7 @@
 // <-- ENGLISH IMPOSED -->
 
 
-//
-// assert_close --
-//   Returns 1 if the two real matrices computed and expected are close,
-//   i.e. if the relative distance between computed and expected is lesser than epsilon.
-// Arguments
-//   computed, expected : the two matrices to compare
-//   epsilon : a small number
-//
-function flag = assert_close ( computed, expected, epsilon )
-  if expected==0.0 then
-    shift = norm(computed-expected);
-  else
-    shift = norm(computed-expected)/norm(expected);
-  end
-  if shift < epsilon then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
-endfunction
-//
-// assert_equal --
-//   Returns 1 if the two real matrices computed and expected are equal.
-// Arguments
-//   computed, expected : the two matrices to compare
-//   epsilon : a small number
-//
-function flag = assert_equal ( computed , expected )
-  if computed==expected then
-    flag = 1;
-  else
-    flag = 0;
-  end
-  if flag <> 1 then pause,end
-endfunction
+
 
 //
 // optimtestcase --
@@ -102,7 +68,7 @@ expected = "neldermead_startup: The max bound -1.000000e+001 for variable #1 is 
 else
 expected = "neldermead_startup: The max bound -1.000000e+01 for variable #1 is lower than the min bound 1.000000e+01.";
 end
-assert_equal ( computed , expected );
+assert_checkequal ( computed , expected );
 //
 // Test with wrong number of min bounds
 //
@@ -112,7 +78,7 @@ cmd = "nm = neldermead_search(nm)";
 execstr(cmd,"errcatch");
 computed = lasterror();
 expected = "neldermead_startup: The number of variables 4 does not match the number of min bounds 1 from [10]";
-assert_equal ( computed , expected );
+assert_checkequal ( computed , expected );
 //
 // Test with wrong number of max bounds
 //
@@ -122,7 +88,7 @@ cmd = "nm = neldermead_search(nm)";
 execstr(cmd,"errcatch");
 computed = lasterror();
 expected = "neldermead_startup: The number of variables 4 does not match the number of max bounds 1 from [-10]";
-assert_equal ( computed , expected );
+assert_checkequal ( computed , expected );
 //
 // Test with Box algorithm and randomized bounds simplex and no bounds
 //
@@ -133,7 +99,7 @@ cmd = "nm = neldermead_search(nm)";
 execstr(cmd,"errcatch");
 computed = lasterror();
 expected = "neldermead_startup: Randomized bounds initial simplex is not available without bounds.";
-assert_equal ( computed , expected );
+assert_checkequal ( computed , expected );
 //
 // Clean-up
 //
@@ -154,6 +120,6 @@ nm = neldermead_configure(nm,"-verbosetermination",1);
 nm = neldermead_search(nm);
 nm = neldermead_destroy(nm);
 computed = deletefile("search.txt");
-assert_equal ( computed , %t );
+assert_checkequal ( computed , %t );
 
 
