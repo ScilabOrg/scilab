@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -11,14 +12,14 @@
 // <-- ENGLISH IMPOSED -->
 
 //
-// assert_close --
+// assert_checkalmostequal --
 //   Returns 1 if the two real matrices computed and expected are close,
 //   i.e. if the relative distance between computed and expected is lesser than epsilon.
 // Arguments
 //   computed, expected : the two matrices to compare
 //   epsilon : a small number
 //
-function flag = assert_close ( computed, expected, epsilon )
+function flag = assert_checkalmostequal ( computed, expected, epsilon )
   if expected==0.0 then
     shift = norm(computed-expected);
   else
@@ -45,9 +46,9 @@ nm = neldermead_configure(nm,"-method","fixed");
 nm = neldermead_configure(nm,"-function",squarefun);
 nm = neldermead_search(nm);
 xopt = neldermead_get(nm,"-xopt");
-assert_close ( xopt , [0.0;0.0], 1e-6 );
+assert_checkalmostequal ( xopt , [0.0;0.0], 1e-6 );
 fopt = neldermead_get(nm,"-fopt");
-assert_close ( fopt , 0.0, 1e-6 );
+assert_checkalmostequal ( fopt , 0.0, 1e-6 );
 nm = neldermead_destroy(nm);
 
 //
@@ -63,8 +64,8 @@ nm = neldermead_configure(nm,"-verbose",1);
 nm = neldermead_configure(nm,"-tolsimplexizerelative",0.0);
 nm = neldermead_search(nm);
 xopt = neldermead_get(nm,"-xopt");
-assert_close ( xopt , [0.0;0.0], 1e-6 );
+assert_checkalmostequal ( xopt , [0.0;0.0], 1e-6 );
 fopt = neldermead_get(nm,"-fopt");
-assert_close ( fopt , 0.0, 1e-6 );
+assert_checkalmostequal ( fopt , 0.0, 1e-6 );
 nm = neldermead_destroy(nm);
 
