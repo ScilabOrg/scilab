@@ -19,6 +19,11 @@ function [flag,errmsg] = assert_checkerror ( varargin )
     instr = varargin(1)
     expectedmsg = varargin(2)
     expectederrnb = argindefault ( rhs , varargin , 3 , [] )
+    varargin(1) = null();
+    varargin(1) = null();
+    if ~isempty(expectederrnb) then
+        varargin(1) = null();
+    end
     //
     // Check types of variables
     if ( typeof(instr) <> "string" ) then
@@ -76,7 +81,7 @@ function [flag,errmsg] = assert_checkerror ( varargin )
     errmsg = ""
     //
     // Check the error message
-    if ( expectedmsg <> compmsg ) then
+    if ( or(msprintf(gettext(expectedmsg), varargin(:)) <> compmsg ) ) then
         flag = %f
         localstr = gettext("%s: Assertion failed: expected error message = ""%s"" while computed error message = ""%s"".")
         errmsg = msprintf(localstr,"assert_checkerror",expectedmsg,compmsg)
