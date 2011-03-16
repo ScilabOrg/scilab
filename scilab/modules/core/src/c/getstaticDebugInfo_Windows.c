@@ -25,6 +25,7 @@
 #include "getversion.h"
 #include "dynamic_tclsci.h"
 #include "..\..\..\..\libs\pcre\pcre.h"
+#include "getBlasType.h"
 /*--------------------------------------------------------------------------*/
 extern BOOL BuildWithVS8ExpressF2C(void);
 static char ** appendStringStaticDebugInfo(char **listInfo,int *sizeListInfo,char *str);
@@ -92,6 +93,34 @@ char **getStaticDebugInfo_Windows(int *sizeArray)
 		}
 	}
 	
+	str_info = (char*)MALLOC(sizeof(char)*BUFFER_LEN);
+	if (str_info)
+	{
+        blas_type blasType = getBlasType();
+        strcpy(str_info, "BLAS library optimized type:");
+        switch (blasType)
+        {
+        default:
+        case BLAS_UNKNOW:
+            strcat(str_info, "UNKNOW");
+            break;
+
+        case BLAS_REF:
+            strcat(str_info, "REFERENCE");
+            break;
+
+        case BLAS_ATLAS:
+            strcat(str_info, "ATLAS");
+            break;
+
+        case BLAS_MKL:
+            strcat(str_info, "MKL");
+            break;
+        }
+		outputDynamicList = appendStringStaticDebugInfo(outputDynamicList,&nb_info,str_info);
+	}
+
+
 	str_info = (char*)MALLOC(sizeof(char)*BUFFER_LEN);
 	if (str_info)
 	{
