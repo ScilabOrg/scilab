@@ -1630,7 +1630,15 @@ public class XcosDiagram extends ScilabGraph {
 	    final SwingScilabFileChooser fc = ((SwingScilabFileChooser) ScilabFileChooser.createFileChooser().getAsSimpleFileChooser());
 	    fc.setTitle(XcosMessages.SAVE_AS);
 	    fc.setUiDialogType(JFileChooser.SAVE_DIALOG);
+	    
+	    final SciFileFilter xcosFilter = new SciFileFilter("*.xcos", null, 0);
+	    final SciFileFilter allFilter = new SciFileFilter("*.*", null, 1);
+	    fc.addChoosableFileFilter(xcosFilter);
+	    fc.addChoosableFileFilter(allFilter);
+	    fc.setFileFilter(xcosFilter);
+	    
 	    fc.setMultipleSelection(false);
+	    fc.setAcceptAllFileFilterUsed(false);
 	    if (getSavedFile() != null) {
 	    	fc.setSelectedFile(getSavedFile());
 	    } else {
@@ -1640,20 +1648,13 @@ public class XcosDiagram extends ScilabGraph {
 	    	}
 	    }
 
-	    final SciFileFilter xcosFilter = new SciFileFilter("*.xcos", null, 0);
-	    final SciFileFilter allFilter = new SciFileFilter("*.*", null, 1);
-	    fc.addChoosableFileFilter(xcosFilter);
-	    fc.addChoosableFileFilter(allFilter);
-	    fc.setFileFilter(xcosFilter);
-
-	    fc.setAcceptAllFileFilterUsed(false);
-	    fc.displayAndWait();
-
-	    if (fc.getSelection() == null || fc.getSelection().length == 0 || fc.getSelection()[0].equals("")) {
-		info(XcosMessages.EMPTY_INFO);
-		return isSuccess;
+	    int status = fc.showSaveDialog(this.getAsComponent());
+	    if (status != JFileChooser.APPROVE_OPTION) {
+	    	info(XcosMessages.EMPTY_INFO);
+	    	return isSuccess;
 	    }
-	    writeFile = new File(fc.getSelection()[0]);
+	    
+	    writeFile = fc.getSelectedFile();
 	}
 	
 	/* Extension checks */
@@ -1844,41 +1845,46 @@ public class XcosDiagram extends ScilabGraph {
 
     /**
      * Read a diagram from an HDF5 file (ask for creation if the file does not exist) 
-     * @param diagramFileName file to open
+     * @param diagram file to open
+     * @return the diagram instance or null on error 
      */
-    public void openDiagramFromFile(final File diagramFileName) {
-	    info(XcosMessages.LOADING_DIAGRAM);
+	public XcosDiagram openDiagramFromFile(final File diagram) {
+		info(XcosMessages.LOADING_DIAGRAM);
 
-	    if (diagramFileName.exists()) {
-	    	transformAndLoadFile(diagramFileName, false);
-	    } else {
-		AnswerOption answer;
-		try {
-			answer = ScilabModalDialog.show(getParentTab(), String.format(
-				XcosMessages.FILE_DOESNT_EXIST, diagramFileName.getCanonicalFile()),
-				XcosMessages.XCOS, IconType.QUESTION_ICON,
-				ButtonType.YES_NO);
-		} catch (final IOException e) {
-			LOG.error(e);
-			answer = AnswerOption.YES_OPTION;
-		}
+		if (diagram.exists()) {
+			transformAndLoadFile(diagram, false);
+		} else {
+			AnswerOption answer;
+			try {
+				answer = ScilabModalDialog.show(getParentTab(), String.format(
+						XcosMessages.FILE_DOESNT_EXIST,
+						diagram.getCanonicalFile()), XcosMessages.XCOS,
+						IconType.QUESTION_ICON, ButtonType.YES_NO);
+			} catch (final IOException e) {
+				LOG.error(e);
+				answer = AnswerOption.YES_OPTION;
+			}
 
-		if (answer == AnswerOption.YES_OPTION) {
-		    try {
-			final FileWriter writer = new FileWriter(diagramFileName);
-			writer.write("");
-			writer.flush();
-			writer.close();
-			setSavedFile(diagramFileName);
-		    } catch (final IOException ioexc) {
-		    	LOG.error(ioexc);
-		    	JOptionPane.showMessageDialog(getAsComponent(), ioexc);
-		    }
+			if (answer == AnswerOption.YES_OPTION) {
+				try {
+					final FileWriter writer = new FileWriter(diagram);
+					writer.write("");
+					writer.flush();
+					writer.close();
+					setSavedFile(diagram);
+				} catch (final IOException ioexc) {
+					LOG.error(ioexc);
+					JOptionPane.showMessageDialog(getAsComponent(), ioexc);
+				}
+			} else {
+				return null;
+			}
 		}
-	    }
-	    info(XcosMessages.EMPTY_INFO);
-	    getUndoManager().clear();
-    }
+		info(XcosMessages.EMPTY_INFO);
+		getUndoManager().clear();
+
+		return this;
+	}
     
 
     /**

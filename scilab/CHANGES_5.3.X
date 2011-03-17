@@ -5,35 +5,72 @@
 Scinotes:
 =========
 
+* The selection is now highlighted in yellow in all the document.
+
 * bug 9047 fixed - edit('foo',12) now opens the function foo 12 lines after the
                    definition of foo.
+
+* bug 9171 fixed - Problem to enter Japanese chars under Windows with IME.
+
+* bug 9186 fixed - An exception was thrown when textfield got the focus in code
+                   navigator.
+
+* bug 9189 fixed - Certains keywords were not helpable.
+
 
 Xcos:
 =====
 
 * Update the documentation with examples of the blocks and their translations to
-French:
-- OUT_f - Regular Output Port
-- IN_f - Regular Input Port
-- Modulo_Count - Modulo counter (0 to N counter)
-- OUTIMPL_f - Output implicit port
-- CLKINV_f - Input activation port
-- CLKOUTV_f - Output activation port
-- INIMPL_f - Implicit Input port
-- Counter
-- RAMP
+  French:
+  - OUT_f - Regular Output Port
+  - IN_f - Regular Input Port
+  - Modulo_Count - Modulo counter (0 to N counter)
+  - OUTIMPL_f - Output implicit port
+  - CLKINV_f - Input activation port
+  - CLKOUTV_f - Output activation port
+  - INIMPL_f - Implicit Input port
+  - GENSIM_f - Sine wave generator
+  - STEP_FUNCTION - Step Function
+  - SAWTOOTH_f - Sawtooth generator
+  - Counter
+  - RAMP
+
+* bug 6416 fixed - GENSQR_f block documentation was not complete.
+
+* bug 8692 fixed - Null block parameters was not checked before encoding.
+
+* bug 9024 fixed - Opening a non existing file lead to palette closing issues.
 
 * bug 9077 fixed - Automotive Suspension demo was modified on loading.
 
+* bug 9111 fixed - Zoom In/Zoom Out keyboard shortcuts did not work on Apple
+                   machines.
+
+* bug 9116 fixed - Saving a diagram with the default name produce an exception.
+
 * bug 9122 fixed - Java check failed on diagram validation.
+
+* bug 9175 fixed - Xcos: Sigbuilder, modify "Data bounds" in curve editor fails
 
 Javasci:
 ========
 
 * Javasci v2 FAQ updated.
 
+* bug 6823 fixed - In Javasci v1, the constructor 
+                   SciStringArray(String name, int r, int c) did not work.
+                   Thanks to F. Legrand for providing the fix.
+
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
+
+
+Graphics:
+=========
+
+* It was not possible to set the compression quality when exporting into jpeg.
+  See bug 5573 and SEP 52.
 
 
 Localization:
@@ -66,8 +103,25 @@ Bug fixes:
 * bug 5687 fixed - The window title of a figure was not immediately updated when
                    figure_name was changed.
 
+* bug 7954 fixed - Using TCL_EvalStr randomly froze Scilab.
+
+* bug 7976 fixed - help/cleaner_help.sce was not called when cleaning a toolbox.
+
+* bug 8317 fixed - Confusing examples updated.
+
+* bug 8371 fixed - Each thread used to get the command line was not detached
+                   from the JVM.
+
 * Bug 8423 fixed - With certain options of the configure, the build process
                    failed.
+
+* bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation with
+                   ode" displayed a warning about an obsolete use of ilib_for_link.
+
+* bug 9082 fixed - It was not possible to preview LaTeX when it was a second
+                   LaTeX string.
+
+* Bug 9083 fixed - Bad output with prettyprint and syslin.
 
 * bug 9113 fixed - setlookandfeel could lead to an exception.
 
@@ -78,8 +132,16 @@ Bug fixes:
 
 * bug 9128 fixed - In help page of dir(), infos about bytes field were missing.
 
+* bug 9139 fixed - Scilab 5.3.1 had an unexpected dependency on GLIBC_2.7
+                   causing Scilab to crash under old RHEL / CentOS.
+
+* bug 9141 fixed - An extra empty line was present in the console.
+
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
+
+* bug 9170 fixed - 'help clink' threw an exception.
+
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
