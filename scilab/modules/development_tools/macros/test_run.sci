@@ -217,17 +217,17 @@ function test_run(varargin)
             module = module_set_name(module,module_mat(i))
 
              // It's a scilab internal module
-            if with_module(module.items(i)) then
-                module = module_set_path(module,pathconvert(SCI+"/modules/"+module.items(i),%F));
+            if with_module(module.items(1)) then
+                module = module_set_path(module,pathconvert(SCI+"/modules/"+module.items(1),%F));
 
             // It's an ATOMS module
             elseif or(librarieslist() == "atomslib") ..
                     & atomsIsLoaded(module.items(i)) then
-                module = module_set_path(module,pathconvert(atomsGetLoadedPath(module.items(i)),%F,%T));
+                module = module_set_path(module,pathconvert(atomsGetLoadedPath(module.items(1)),%F,%T));
 
             // It's an external module
             elseif isdir(module.items(i)) then
-                module = module_set_path(module,pathconvert(module.items(i),%F));
+                module = module_set_path(module,pathconvert(module.items(1),%F));
 
             // It's an error
             else
@@ -237,7 +237,6 @@ function test_run(varargin)
             tests = get_tests_from_module(module,type_filter,skip_mat);
 
             testsuite = testsuite_add_tests( testsuite , tests);
-
         end
 
     elseif or(rhs==[2 3]) then

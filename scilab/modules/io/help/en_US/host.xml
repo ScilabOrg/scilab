@@ -11,44 +11,53 @@
  *
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="host">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
-  <refnamediv>
-    <refname>host</refname>
-    <refpurpose> Unix or DOS command execution</refpurpose>
-  </refnamediv>
-  <refsynopsisdiv>
-    <title>Calling Sequence</title>
-    <synopsis>stat=host(command-name)</synopsis>
-  </refsynopsisdiv>
-  <refsection>
-    <title>Arguments</title>
-    <variablelist>
-      <varlistentry>
-        <term>command-name</term>
-        <listitem>
-          <para>A character string containing Unix sh instruction</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>stat</term>
-        <listitem>
-          <para>An integer flag</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-  </refsection>
-  <refsection>
-    <title>Description</title>
-    <para>
-    Sends a string <literal>command-name</literal> to Unix for execution by the command interpreter (sh under Unix, or command.com under DOS). Standard output and standard errors of the shell command are written in the calling shell.
-    <literal>stat</literal> gives -1 if host can't be called (Not enough system memory
-    available) or the command interpreter return code.</para>
-  </refsection>
-  <refsection>
-    <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <info>
+        <pubdate>$LastChangedDate$</pubdate>
+    </info>
+    <refnamediv>
+        <refname>host</refname>
+        <refpurpose> Unix or DOS command execution</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>stat = host(command-name [, timeout])</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>command-name</term>
+                <listitem>
+                    <para>A character string containing Unix sh instruction</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>timeout</term>
+                <listitem>
+                    <para>maximum allowed time to execution in milliseconds</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>stat</term>
+                <listitem>
+                    <para>An integer flag</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Sends a string <literal>command-name</literal> to Unix for execution by the command interpreter (sh under Unix, or command.com under DOS). Standard output and standard errors of the shell command are written in the calling shell.
+        </para>
+        <para>
+            <literal>host</literal> returns command interpreter return code. In case of timeout, <literal>host</literal> returns -1.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example">
+            <![CDATA[ 
 //create a getdir function based on host
 function wd=getdir()
   if getos() == 'Windows' then 
@@ -60,29 +69,56 @@ function wd=getdir()
 endfunction
 //call it
 wd=getdir()
- ]]></programlisting>
-  </refsection>
-  <refsection role="see also">
-<title>See Also</title>
-    <simplelist type="inline">
-      <member>
-        <link linkend="edit">edit</link>
-      </member>
-      <member>
-        <link linkend="manedit">manedit</link>
-      </member>
-      <member>
-        <link linkend="unix_g">unix_g</link>
-      </member>
-      <member>
-        <link linkend="unix_s">unix_s</link>
-      </member>
-      <member>
-        <link linkend="unix_w">unix_w</link>
-      </member>
-      <member>
-        <link linkend="unix_x">unix_x</link>
-      </member>
-    </simplelist>
-  </refsection>
+
+
+//how to use timeout parameter
+if (getos() <> 'Windows') & ~isfile(SCI+"/bin/scilab") then
+    SCI_BIN = strsubst(SCI,'share/scilab','');
+else
+    SCI_BIN = SCI;
+end
+
+if getos() == 'Windows' then
+    scilab_bin = SCI_BIN + "\bin\scilex.exe";
+else
+    scilab_bin = SCI_BIN + "/bin/scilab";
+end
+
+i = 1;
+while %t
+    result = host(scilab_bin + " -e ""sleep(3000);exit(10);""",  i * 1000);
+    if result == -1 then
+        printf("\texecution cancel after %d milliseconds\n", i * 1000);
+        i = i + 1;
+    else
+        printf("\tnormal exit before %d milliseconds\n", i * 1000);
+        break;
+    end
+end
+ ]]>
+        </programlisting>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="edit">edit</link>
+            </member>
+            <member>
+                <link linkend="manedit">manedit</link>
+            </member>
+            <member>
+                <link linkend="unix_g">unix_g</link>
+            </member>
+            <member>
+                <link linkend="unix_s">unix_s</link>
+            </member>
+            <member>
+                <link linkend="unix_w">unix_w</link>
+            </member>
+            <member>
+                <link linkend="unix_x">unix_x</link>
+            </member>
+        </simplelist>
+    </refsection>
 </refentry>

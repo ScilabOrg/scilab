@@ -51,8 +51,12 @@ typedef HANDLE				__threadSignal;
 
 #define __CreateThread(threadId, functionName)  *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, NULL, 0, NULL)
 
+#define __CreateThreadWithParams(threadId, functionName, params)  *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, params, 0, NULL)
+
 #define __WaitThreadDie(threadId)				((WaitForSingleObject((threadId),INFINITE)!=WAIT_OBJECT_0) || !CloseHandle(threadId))
 
+#define __WaitTimeoutThread(threadId, timeout)  ((WaitForSingleObject((threadId), timeout)!=WAIT_OBJECT_0) || !CloseHandle(threadId))
+    
 #define __Terminate(threadId)					TerminateThread(threadId, 0)
 
 #define __StaticInitLock                                        NULL
