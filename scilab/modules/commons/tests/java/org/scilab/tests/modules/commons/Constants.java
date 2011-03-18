@@ -52,14 +52,12 @@ public class Constants {
 	@Test
 	public void checkSciHome() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException {
 		assert ScilabConstants.SCIHOME != null;
+		assert ScilabConstants.SCIHOME.exists();
+		assert ScilabConstants.SCIHOME.isDirectory();
 		
-		// Default SciHome is not an existing directory so comment check
-//		assert ScilabConstants.SCIHOME.exists();
-//		assert ScilabConstants.SCIHOME.isDirectory();
-//		
-//		final File homeFile = new File(ScilabConstants.SCIHOME, "homeFile");
-//		assert homeFile.createNewFile();
-//		assert homeFile.exists();
-//		assert homeFile.delete();
+		final File homeFile = new File(ScilabConstants.SCIHOME, "homeFile");
+		assert homeFile.createNewFile();
+		assert homeFile.exists();
+		assert homeFile.delete();
 	}
 }
