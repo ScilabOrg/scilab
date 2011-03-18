@@ -73,8 +73,6 @@ public final class Xcos {
 		Messages.gettext("Unable to load the native HDF5 library.");
 	private static final String UNABLE_TO_LOAD_BATIK = 
 		Messages.gettext("Unable to load the Batik library. \nExpecting version %s ; Getting version %s .");
-	private static final String UNABLE_TO_USE_DOM = 
-		Messages.gettext("Saxon provides only an immutable DOM, please configure another implementation");
 	
 	private static final String CALLED_OUTSIDE_THE_EDT_THREAD = "Called outside the EDT thread.";
 	private static final Log LOG = LogFactory.getLog(Xcos.class);
@@ -212,11 +210,8 @@ public final class Xcos {
 					BATIK_VERSIONS.get(0), batikVersion), e);
 		}
 		
-		/* DOM implementation must be writable */
-		final String title = TransformerFactory.newInstance().getClass().getName();
-		if (title.contains("saxon")) {
-			throw new RuntimeException(UNABLE_TO_USE_DOM);
-		}
+		/* DOM implementation must be writable, so force the default one. */
+		System.setProperty("javax.xml.transform.TransformerFactory", "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
 	}
 	// CSON: MagicNumber
 	// CSON: IllegalCatch
