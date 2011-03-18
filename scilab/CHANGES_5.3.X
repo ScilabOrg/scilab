@@ -150,6 +150,8 @@ Bug fixes:
 
 * bug 9170 fixed - 'help clink' threw an exception.
 
+* bug 9211 fixed - set("userdata", list()) crashed Scilab.
+
 
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
