@@ -64,7 +64,7 @@ Javasci:
 
 * Javasci v2 FAQ updated.
 
-* bug 6823 fixed - In Javasci v1, the constructor 
+* bug 6823 fixed - In Javasci v1, the constructor
                    SciStringArray(String name, int r, int c) did not work.
                    Thanks to F. Legrand for providing the fix.
 
@@ -147,6 +147,8 @@ Bug fixes:
 
 * bug 9147 fixed - Javasci v1 was broken since the introduction of the
                    version 2.
+
+* bug 9159 fixed - grand(1,3,'uin',1,0) crashed scilab.
 
 * bug 9168 fixed - Bad command line width when completion window was shew at
                    the console bottom.
