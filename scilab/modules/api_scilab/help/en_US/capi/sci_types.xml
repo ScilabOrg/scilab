@@ -97,9 +97,6 @@
     variables. Using the enumeration type is recommended because of the
     explicit meaning of the value of the enumeration type.</para>
 
-    <para>If this function is used, it is probable that <link
-    linkend="GetType">GetType</link> will also be used.</para>
-
     <para>WARNING: This API is deprecated from Scilab 5.2.0 and is going to be removed with Scilab 6.0. Please use <link linkend="api_scilab">API Scilab</link> (the new Scilab API).</para>
   </refsection>
 
@@ -182,7 +179,6 @@ int sci_mysci_typesrhs(char * fname)
     <simplelist type="inline">
       <member><link linkend="sciprint">sciprint</link></member>
 
-      <member><link linkend="GetType">GetType</link></member>
     </simplelist>
   </refsection>
 </refentry>
