@@ -79,6 +79,9 @@
 
 int sci_mysizedouble(char * fname)
 {
+
+ Note that most of the code here is deprecated 
+
   int m_in_row,          n_in_col,          l_in_pos;
   int m_out_lines_row,   n_out_lines_col,   l_out_lines_pos;
   int m_out_columns_row, n_out_columns_col, l_out_columns_pos;
@@ -106,17 +109,4 @@ int sci_mysizedouble(char * fname)
  ]]></programlisting>
   </refsection>
 
-  <refsection role="see also">
-<title>See Also</title>
-
-    <simplelist type="inline">
-      <member><link linkend="ScilabCTypes">Scilab C Type</link></member>
-
-      <member><link linkend="istk">istk</link></member>
-
-      <member><link linkend="CreateVar">CreateVar</link></member>
-
-      <member><link linkend="GetRhsVar">GetRhsVar</link></member>
-    </simplelist>
-  </refsection>
 </refentry>
