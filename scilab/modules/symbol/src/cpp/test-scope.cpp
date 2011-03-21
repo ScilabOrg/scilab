@@ -23,42 +23,42 @@ using symbol::Scope;
 
 static int scope_test(void) {
 
-  Symbol scilab("scilab");
-  Symbol scicos("scicos");
+  Symbol scilab(L"scilab");
+  Symbol scicos(L"scicos");
 
   Scope env;
-  Scope scicos_ns ("SCICOS");
+  Scope scicos_ns (L"SCICOS");
 
 	int *piVal0		= NULL;
 	int *piJaune		= NULL;
 
-  Int zero(1, 1, &piVal0);
-	piVal0[0] = 0;
+  Int32 *zero = new Int32(1, 1, &piVal0);
+  piVal0[0] = 0;
 
-  Int jaune(1,1, &piJaune);
-	piJaune[0] = 51;
+  Int32 *jaune = new Int32(1,1, &piJaune);
+  piJaune[0] = 51;
 
-  env.put(scicos, zero);
-  env.put(scilab, jaune);
-  scicos_ns.put(scicos, jaune);
-  scicos_ns.put(scilab, zero);
+  env.put(scicos, *zero);
+  env.put(scilab, *jaune);
+  scicos_ns.put(scicos, *jaune);
+  scicos_ns.put(scilab, *zero);
 
-  assert(env.get(scilab) == &jaune);
-  assert(env.get(scicos) == &zero);
-  assert(scicos_ns.get(scilab) == &zero);
-  assert(scicos_ns.get(scicos) == &jaune);
+  assert(env.get(scilab) == jaune);
+  assert(env.get(scicos) == zero);
+  assert(scicos_ns.get(scilab) == zero);
+  assert(scicos_ns.get(scicos) == jaune);
 
-  std::cout << "----------------" << std::endl;
-  std::cout << "Scope ENV Overview :" << std::endl;
-  std::cout << "----------------" << std::endl;
-  std::cout << env;
-  std::cout << "----------------" << std::endl;
-  std::cout << std::endl;
-  std::cout << "----------------" << std::endl;
-  std::cout << "Scope SCICOS Overview :" << std::endl;
-  std::cout << "----------------" << std::endl;
-  std::cout << scicos_ns;
-  std::cout << "----------------" << std::endl;
+  std::wcout << L"----------------" << std::endl;
+  std::wcout << L"Scope ENV Overview :" << std::endl;
+  std::wcout << L"----------------" << std::endl;
+  std::wcout << env;
+  std::wcout << L"----------------" << std::endl;
+  std::wcout << std::endl;
+  std::wcout << L"----------------" << std::endl;
+  std::wcout << L"Scope SCICOS Overview :" << std::endl;
+  std::wcout << L"----------------" << std::endl;
+  std::wcout << scicos_ns;
+  std::wcout << L"----------------" << std::endl;
 
   return 0;
 }
