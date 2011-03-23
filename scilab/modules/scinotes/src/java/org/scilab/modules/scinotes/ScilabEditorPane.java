@@ -63,9 +63,9 @@ import org.scilab.modules.scinotes.utils.SciNotesMessages;
  *
  */
 public class ScilabEditorPane extends JEditorPane implements Highlighter.HighlightPainter,
-                                                             CaretListener, MouseListener,
-                                                             MouseMotionListener, Cloneable,
-                                                             KeyListener {
+                                                  CaretListener, MouseListener,
+                                                  MouseMotionListener, Cloneable,
+                                                  KeyListener {
 
     private static final String TIRET = " - ";
     private static final Cursor HANDCURSOR = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
@@ -1291,8 +1291,8 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     }
 
     public void highlightWords(String word, boolean exact) {
+        removeHighlightedWords();
         if (word != null && word.length() != 0) {
-            removeHighlightedWords();
             String text = getText();
             if (!exact) {
                 text = text.toLowerCase();

@@ -84,7 +84,7 @@ public final class IncrementalSearchAction extends DefaultAction {
         if (!fields.containsKey(getEditor())) {
             SearchField field = new SearchField();
             fields.put(getEditor(), field);
-            getEditor().getTextPane().getEditorComponent().insertBottomComponent(field);
+            getEditor().insertBottomComponent(field);
             field.requestFocus();
         } else {
             fields.get(getEditor()).requestFocus();
@@ -121,6 +121,30 @@ public final class IncrementalSearchAction extends DefaultAction {
             fields.get(editor).removeListeners();
             fields.remove(editor);
         }
+    }
+
+    /**
+     * @param editor the editor where to close the search bar
+     * @return the word which is currently searching
+     */
+    public static String getWord(SciNotes editor) {
+        if (fields.containsKey(editor)) {
+            return fields.get(editor).getWord();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param editor the editor where to close the search bar
+     * @return true if it is an exact search
+     */
+    public static boolean getExact(SciNotes editor) {
+        if (fields.containsKey(editor)) {
+            return fields.get(editor).getExact();
+        }
+
+        return false;
     }
 
     /**
@@ -166,6 +190,20 @@ public final class IncrementalSearchAction extends DefaultAction {
         }
 
         /**
+         * @return the word which is currently searching
+         */
+        public String getWord() {
+            return field.getText();
+        }
+
+        /**
+         * @return true if it is an exact search
+         */
+        public boolean getExact() {
+            return exact;
+        }
+
+        /**
          * {@inheritDoc}
          */
         public void requestFocus() {
@@ -203,7 +241,7 @@ public final class IncrementalSearchAction extends DefaultAction {
         public void hideField() {
             removeListeners();
             fields.remove(getEditor());
-            getEditor().getTextPane().getEditorComponent().insertBottomComponent(null);
+            getEditor().insertBottomComponent(null);
         }
 
         /**
