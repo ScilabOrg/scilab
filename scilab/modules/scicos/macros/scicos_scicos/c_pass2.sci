@@ -2029,6 +2029,27 @@ function [ok,bllst]=adjust_inout(bllst,connectmat)
   end
 endfunction
 
+function id = getBlockIds(path)
+    // Return a block id path from a block index path
+    //
+    // path: the path in the index form
+    // id: th path in the uid form
+    
+    scs_m; // check scs_m access
+    id=[];
+    
+    k = path(:);
+    for i = k
+        b = scs_m.objs(i);
+        if typeof(b) == "Block" &  size(scs_m.objs(i).doc) >= 1 then
+            id($ + 1) = scs_m.objs(i).doc(1);
+        end
+        if typeof(b.model.rpar) == "diagram" then
+           scs_m = b.model.rpar; 
+        end
+    end
+endfunction
+
 //19/01/07, Alan : under_connection show bad link and returns two dimensions now
 function ninnout=under_connection(path_out,prt_out,nout,path_in,prt_in,nin,flagg)
 // alert for badly connected blocks

@@ -1,6 +1,7 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2009 - DIGITEO - Vincent COUVERt
+* Copyright (C) 2011 - DIGITEO - Clément DAVID
 *
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -11,18 +12,17 @@
 */
 /*--------------------------------------------------------------------------*/
 #include "Xcos.hxx"
+#include "xcosUtilities.hxx"
 extern "C"
 {
 #include "gw_xcos.h"
 #include "stack-c.h"
 #include "callxcos.h"
-#include "api_common.h"
-#include "api_string.h"
+#include "api_scilab.h"
 #include "localization.h"
 #include "Scierror.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
-#include "getFullFilename.h"
 #include "getScilabJavaVM.h"
 }
 /*--------------------------------------------------------------------------*/
@@ -32,62 +32,30 @@ int sci_xcosDiagramClose(char *fname,unsigned long fname_len)
 {
 	SciErr sciErr;
 
-
 	CheckRhs(1,1);
 	CheckLhs(0,1);
 
-	int m1 = 0, n1 = 0;
-	int *piAddressVarOne = NULL;
+	int i;
 
-	char *pStVarOne = NULL;
-	int lenStVarOne = 0;
+	char** path = NULL;
+	int pathLength = 0;
 
-	/** READ UID **/
-	sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
+	/** read UID **/
+    if (readVectorString(pvApiCtx, 1, &path, &pathLength, fname))
+    {
+        return 0;
+    }
 
-	/* get dimensions */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, NULL, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
-
-	if (m1 * n1 != 1) {
-		Scierror(999,_("%s: Wrong size for input argument #%d: A string expected.\n"),fname,1);
-		return 0;
-	}
-
-	/* get lengths */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, NULL);
-	if(sciErr.iErr)
-	{
-		printError(&sciErr, 0);
-		return 0;
-	}
-
-	pStVarOne = (char*)MALLOC(sizeof(char*) * (lenStVarOne + 1));
-
-	/* get strings */
-	sciErr = getMatrixOfString(pvApiCtx, piAddressVarOne, &m1, &n1, &lenStVarOne, &pStVarOne);
-	if(sciErr.iErr)
-	{
-		FREE(pStVarOne);
-		printError(&sciErr, 0);
-		return 0;
-	}
-
-	Xcos::xcosDiagramClose(getScilabJavaVM(), pStVarOne);
+    /* call the implementation */
+	Xcos::xcosDiagramClose(getScilabJavaVM(), path, pathLength);
 
 	LhsVar(1) = 0;
 	PutLhsVar();
 
-	FREE(pStVarOne);
+	for (i=0; i<pathLength; i++) {
+		FREE(path[i]);
+	}
+	FREE(path);;
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

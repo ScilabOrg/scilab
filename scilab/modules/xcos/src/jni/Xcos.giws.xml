@@ -5,7 +5,7 @@
             <parameter name="fileName" type="String"/>
         </method>
         <method name="warnCellByUID" returnType="void" modifier="static">
-            <parameter name="UID" type="String"/>
+            <parameter name="uids" type="String[]"/>
             <parameter name="message" type="String"/>
         </method>
         <method name="closeXcosFromScilab" returnType="void" modifier="static"/>
@@ -15,11 +15,10 @@
             <parameter name="forceOverwrite" type="boolean"/>
         </method>
         <method name="xcosDiagramOpen" returnType="void" modifier="static">
-            <parameter name="UID" type="String"/>
-            <parameter name="show" type="boolean"/>
+            <parameter name="UID" type="String[]"/>
         </method>
         <method name="xcosDiagramClose" returnType="void" modifier="static">
-            <parameter name="UID" type="String"/>
+            <parameter name="UID" type="String[]"/>
         </method>
     </object>
 </package>
