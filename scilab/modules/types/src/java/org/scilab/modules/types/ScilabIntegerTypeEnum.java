@@ -32,7 +32,6 @@ public enum ScilabIntegerTypeEnum {
     throw new IllegalArgumentException("No enum " + ScilabIntegerTypeEnum.class + " with value " + swigValue);
   }
 
-  @SuppressWarnings("unused")
   private ScilabIntegerTypeEnum() {
     this.swigValue = SwigNext.next++;
   }
