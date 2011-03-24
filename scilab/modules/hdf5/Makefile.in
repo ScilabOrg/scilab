@@ -152,14 +152,15 @@ am__libscihdf5_la_SOURCES_DIST = src/c/h5_fileManagement.c \
 	sci_gateway/cpp/sci_no_hdf5.cpp \
 	sci_gateway/cpp/sci_export_to_hdf5.cpp \
 	sci_gateway/cpp/sci_import_from_hdf5.cpp \
-	sci_gateway/c/gw_hdf5.c src/jni/GiwsException.hxx \
-	src/jni/GiwsException.cpp
+	sci_gateway/cpp/hdf5_gw.cpp sci_gateway/c/gw_hdf5.c \
+	src/jni/GiwsException.hxx src/jni/GiwsException.cpp
 @HDF5_TRUE@am__objects_3 = libscihdf5_la-h5_fileManagement.lo \
 @HDF5_TRUE@	libscihdf5_la-h5_writeDataToFile.lo \
 @HDF5_TRUE@	libscihdf5_la-h5_readDataFromFile.lo
 @HDF5_FALSE@am__objects_4 = libscihdf5_la-sci_no_hdf5.lo
 @HDF5_TRUE@am__objects_4 = libscihdf5_la-sci_export_to_hdf5.lo \
-@HDF5_TRUE@	libscihdf5_la-sci_import_from_hdf5.lo
+@HDF5_TRUE@	libscihdf5_la-sci_import_from_hdf5.lo \
+@HDF5_TRUE@	libscihdf5_la-hdf5_gw.lo
 @HDF5_TRUE@am__objects_5 = libscihdf5_la-gw_hdf5.lo
 @HDF5_TRUE@@NEED_JAVA_TRUE@am__objects_6 =  \
 @HDF5_TRUE@@NEED_JAVA_TRUE@	libscihdf5_la-GiwsException.lo
@@ -482,8 +483,10 @@ yacc_present = @yacc_present@
 @HDF5_FALSE@GATEWAY_C_SOURCES = 
 @HDF5_TRUE@GATEWAY_C_SOURCES = sci_gateway/c/gw_hdf5.c
 @HDF5_FALSE@GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_no_hdf5.cpp
-@HDF5_TRUE@GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_export_to_hdf5.cpp \
-@HDF5_TRUE@sci_gateway/cpp/sci_import_from_hdf5.cpp
+@HDF5_TRUE@GATEWAY_CPP_SOURCES = \
+@HDF5_TRUE@    sci_gateway/cpp/sci_export_to_hdf5.cpp \
+@HDF5_TRUE@    sci_gateway/cpp/sci_import_from_hdf5.cpp \
+@HDF5_TRUE@    sci_gateway/cpp/hdf5_gw.cpp
 
 @HDF5_TRUE@FORCE_LOAD_SOURCES_DISABLE = src/cpp/forceJHDF5load-jvmdisable.cpp
 @HDF5_TRUE@libscihdf5_forceload_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS) $(HDF5_LIBS)
@@ -510,6 +513,10 @@ libscihdf5_la_CPPFLAGS = -I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/fileio/includes \
 				-I$(top_srcdir)/modules/system_env/includes \
 				-I$(top_srcdir)/modules/string/includes \
+				-I$(top_srcdir)/modules/types/includes \
+				-I$(top_srcdir)/modules/functions_manager/includes \
+				-I$(top_srcdir)/modules/symbol/includes \
+				-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
 				$(JAVA_JNI_INCLUDE) \
 				$(HDF5_CFLAGS)
 
@@ -703,6 +710,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-h5_fileManagement.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-h5_readDataFromFile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-h5_writeDataToFile.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-hdf5_gw.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-sci_export_to_hdf5.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-sci_import_from_hdf5.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscihdf5_la-sci_no_hdf5.Plo@am__quote@
@@ -818,6 +826,13 @@ libscihdf5_la-sci_import_from_hdf5.lo: sci_gateway/cpp/sci_import_from_hdf5.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_import_from_hdf5.cpp' object='libscihdf5_la-sci_import_from_hdf5.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscihdf5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscihdf5_la-sci_import_from_hdf5.lo `test -f 'sci_gateway/cpp/sci_import_from_hdf5.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_import_from_hdf5.cpp
+
+libscihdf5_la-hdf5_gw.lo: sci_gateway/cpp/hdf5_gw.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscihdf5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscihdf5_la-hdf5_gw.lo -MD -MP -MF $(DEPDIR)/libscihdf5_la-hdf5_gw.Tpo -c -o libscihdf5_la-hdf5_gw.lo `test -f 'sci_gateway/cpp/hdf5_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/hdf5_gw.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscihdf5_la-hdf5_gw.Tpo $(DEPDIR)/libscihdf5_la-hdf5_gw.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/hdf5_gw.cpp' object='libscihdf5_la-hdf5_gw.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscihdf5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscihdf5_la-hdf5_gw.lo `test -f 'sci_gateway/cpp/hdf5_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/hdf5_gw.cpp
 
 libscihdf5_la-GiwsException.lo: src/jni/GiwsException.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscihdf5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscihdf5_la-GiwsException.lo -MD -MP -MF $(DEPDIR)/libscihdf5_la-GiwsException.Tpo -c -o libscihdf5_la-GiwsException.lo `test -f 'src/jni/GiwsException.cpp' || echo '$(srcdir)/'`src/jni/GiwsException.cpp
