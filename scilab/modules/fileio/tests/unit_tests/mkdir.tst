@@ -82,3 +82,20 @@ removedir(test_4_dir);
 removedir(test_5_dir);
 removedir(test_6_dir);
 removedir(test_7_dir);
+
+// TEST : error messages
+try
+mkdir([])
+catch
+[str,n]=lasterror();
+if n <> 999 then pause, end
+if str <> _("mkdir: Wrong type for input argument #1: String expected.") then pause, end
+end
+
+try
+mkdir(["a", "b"])
+catch
+[str,n]=lasterror();
+if n <> 999 then pause, end
+if str <> _("mkdir: Wrong size for input argument #1: A string expected.") then pause, end
+end
