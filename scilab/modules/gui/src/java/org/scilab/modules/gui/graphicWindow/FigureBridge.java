@@ -11,26 +11,35 @@
 
 package org.scilab.modules.gui.graphicWindow;
 
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CHILDREN__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTROL__;
+
+import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
+
+import javax.media.opengl.GLJPanel;
+import javax.swing.JComponent;
+
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLCanvasFactory;
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicView.GraphicView;
+import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
 import org.scilab.modules.gui.tab.ScilabTab;
 import org.scilab.modules.gui.tab.Tab;
 import org.scilab.modules.gui.textbox.ScilabTextBox;
 import org.scilab.modules.gui.textbox.TextBox;
+import org.scilab.modules.gui.utils.Position;
+import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.gui.window.ScilabWindow;
 import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
-
-import javax.media.opengl.GLCanvas;
-import javax.swing.JComponent;
-import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 /**
  * @author Pierre Lando
@@ -38,11 +47,12 @@ import java.awt.event.MouseMotionListener;
 public class FigureBridge implements GraphicView {
 
     private final Window frame = ScilabWindow.createWindow();
-    private final GLCanvas canvas = new GLCanvas();
+    private final GLJPanel glpanel = new GLJPanel();
     private final Tab tab = ScilabTab.createTab("scilab");
     private final TextBox infoTextBox = ScilabTextBox.createTextBox();
     private final String id;
 
+    private final HashMap<String,SwingScilabPushButton> children = new HashMap<String, SwingScilabPushButton>();
 
     /**
      * Default constructor.
@@ -60,7 +70,7 @@ public class FigureBridge implements GraphicView {
             if (object instanceof Figure) {
                 final Figure figure = (Figure) object;
 
-                Canvas rendererCanvas = JoGLCanvasFactory.createCanvas(canvas);
+                Canvas rendererCanvas = JoGLCanvasFactory.createCanvas(glpanel);
 
                 rendererCanvas.setMainDrawer(new DrawerVisitor(rendererCanvas, figure));
 
@@ -82,7 +92,7 @@ public class FigureBridge implements GraphicView {
                 };
                 */
 
-                canvas.addMouseListener(new MouseListener() {
+                glpanel.addMouseListener(new MouseListener() {
                     MouseEvent beginEvent;
                     final MouseMotionListener mouseMotionListener = new MouseMotionListener() {
 
@@ -113,7 +123,7 @@ public class FigureBridge implements GraphicView {
                     public void mousePressed(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             System.out.println("Begin");
-                            canvas.addMouseMotionListener(mouseMotionListener);
+                            glpanel.addMouseMotionListener(mouseMotionListener);
                             beginEvent = e;
                         }
                     }
@@ -122,7 +132,7 @@ public class FigureBridge implements GraphicView {
                     public void mouseReleased(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             System.out.println("End");
-                            canvas.removeMouseMotionListener(mouseMotionListener);
+                            glpanel.removeMouseMotionListener(mouseMotionListener);
                         }
                     }
 
@@ -136,7 +146,7 @@ public class FigureBridge implements GraphicView {
                 tab.setCallback(null);
                 JComponent jComp = ((JComponent)tab.getAsSimpleTab());
                 jComp.setLayout(new BorderLayout());
-                jComp.add(canvas, BorderLayout.CENTER);
+                jComp.add(glpanel, BorderLayout.CENTER);
                 tab.addInfoBar(infoTextBox);
 
                 frame.addTab(tab);
@@ -144,7 +154,7 @@ public class FigureBridge implements GraphicView {
                 GraphicController.getController().register(this);
                 frame.setVisible(true);
                 tab.setVisible(true);
-                canvas.setVisible(true);
+                glpanel.setVisible(true);
                 updateGUI();
             }
         } else {
@@ -180,16 +190,53 @@ public class FigureBridge implements GraphicView {
 
     @Override
     public void updateObject(String id, String property) {
-        if (id != null && id.equals(this.id)) {
+        System.out.println("[UPDATE] "+id+ ((String) GraphicController.getController().getProperty(id, __GO_TYPE__))+" Property = "+property);       
+        
+        /*
+         * Check if someone is not adding me a child
+         */
+        if (id != null && id.equals(this.id) && property.equals(__GO_CHILDREN__))
+        {
+            
+            String[] allChildren =  (String []) GraphicController.getController().getProperty(id,__GO_CHILDREN__);
+            
+            for (int i = 0; i < allChildren.length ; ++i) {
+                   if (!children.containsKey(allChildren[i])) {                        
+                       String childType = (String) GraphicController.getController().getProperty(allChildren[i],__GO_TYPE__);
+                       if (childType.equals(__GO_UICONTROL__)) {
+                           System.out.println("[!!!!!] I Have a new Uicontrol Child !!!");
+                           SwingScilabPushButton button = new SwingScilabPushButton();
+                           button.setText("Hello...");
+                           button.setVisible(true);
+                           button.setDims(new Size(200, 200));
+                           button.setPosition(new Position(0, 0));
+                       
+                           children.put(allChildren[i], button);
+                           //((SwingScilabTab) tab.getAsSimpleTab()).addMember(button);
+                           glpanel.add(button);
+                       }
+                       else {
+                          children.put(allChildren[i],null);
+                       }
+                   }
+               }
+            }
+        
+        if(children.containsKey(id))
+        {
             updateGUI();
         }
     }
 
     @Override
-    public void createObject(String id) {}
+    public void createObject(String id) {
+        System.out.println("[CREATE] " + id + " "+((String) GraphicController.getController().getProperty(id, __GO_TYPE__)));
+    }
 
     @Override
-    public void deleteObject(String id) {}
+    public void deleteObject(String id) {
+            System.out.println("[DELETE] " + id + " " + ((String) GraphicController.getController().getProperty(id, __GO_TYPE__)));
+    }
 
     public static FigureBridge createFigure(String id) {
         try {

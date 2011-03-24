@@ -3,18 +3,22 @@
 <!-- Object creation/destruction -->
 	<method name="newWindow" returnType="int" modifier="static"/>
 	<method name="newMenuBar" returnType="int" modifier="static"/>
-	<method name="newMenu" returnType="int" modifier="static"/>        
-	<method name="newPushButton" returnType="int" modifier="static"/>        
-	<method name="newEditBox" returnType="int" modifier="static"/>        
-	<method name="newLabel" returnType="int" modifier="static"/>        
-	<method name="newCheckBox" returnType="int" modifier="static"/>        
+	<method name="newMenu" returnType="int" modifier="static"/>
+	<method name="newPushButton" returnType="int" modifier="static"/>
+	<method name="newPushButton" returnType="int" modifier="static">
+      <parameter type="String" name="UID"/>
+    </method>
+	<method name="newEditBox" returnType="int" modifier="static"/>
+	<method name="newLabel" returnType="int" modifier="static"/>
+	<method name="newCheckBox" returnType="int" modifier="static"/>
 	<method name="newRadioButton" returnType="int" modifier="static"/>
-      	<method name="newSlider" returnType="int" modifier="static"/>        
+      	<method name="newSlider" returnType="int" modifier="static"/>
 	<method name="newPopupMenu" returnType="int" modifier="static"/>
-        <method name="newListBox" returnType="int" modifier="static"/>        
-        <method name="newFrame" returnType="int" modifier="static"/>  
+        <method name="newListBox" returnType="int" modifier="static"/>
+        <method name="newFrame" returnType="int" modifier="static"/>
         <method name="newImageRenderer" returnType="int" modifier="static"/>
-	<method name="newUiTable" returnType="int" modifier="static"/>                            
+	<method name="newUiTable" returnType="int" modifier="static"/>
+	<method name="newUiDisplayTree" returnType="int" modifier="static"/>
 	<method name="newContextMenu" returnType="String" modifier="static">
           <parameter type="String[]" name="menuLabels"/>
         </method>
@@ -47,6 +51,10 @@
 	<method name="setPushButtonParent" returnType="void" modifier="static">
 	  <parameter type="int" name="parentID"/>
 	  <parameter type="int" name="objID"/>
+	</method>
+	<method name="setPushButtonParent" returnType="void" modifier="static">
+	  <parameter type="String" name="parentUID"/>
+	  <parameter type="String" name="objUID"/>
 	</method>
 	<method name="removePushButtonFromParent" returnType="void" modifier="static">
 	  <parameter type="int" name="parentID"/>
@@ -96,7 +104,15 @@
 	  <parameter type="int" name="parentID"/>
 	  <parameter type="int" name="objID"/>
 	</method>
+	<method name="setUiDisplayTreeParent" returnType="void" modifier="static">
+	  <parameter type="int" name="parentID"/>
+	  <parameter type="int" name="objID"/>
+	</method>
 	<method name="removeUiTableFromParent" returnType="void" modifier="static">
+	  <parameter type="int" name="parentID"/>
+	  <parameter type="int" name="objID"/>
+	</method>
+	<method name="removeUiDisplayTreeFromParent" returnType="void" modifier="static">
 	  <parameter type="int" name="parentID"/>
 	  <parameter type="int" name="objID"/>
 	</method>
@@ -404,17 +420,17 @@
 	<method name="setWidgetEnable" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="boolean" name="status"/>
-        </method>      
+        </method>
 	<method name="setFrameEnable" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="boolean" name="status"/>
-        </method>      
+        </method>
 	<method name="isWidgetEnable" returnType="boolean" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="isFrameEnable" returnType="boolean" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 <!-- Menu setting -->
 	<method name="setMenuChecked" returnType="void" modifier="static">
 	  <parameter type="int" name="objID"/>
@@ -436,100 +452,100 @@
 	  <parameter type="int" name="ID"/>
 	</method>
 <!-- Message Box -->
-	<method name="newMessageBox" returnType="int" modifier="static"/>      
+	<method name="newMessageBox" returnType="int" modifier="static"/>
 	<method name="setMessageBoxTitle" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="title" type="String"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxMessage" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="message" type="String"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxMessage" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="message" type="String[]"/>
-        </method>      
+        </method>
 	<method name="messageBoxDisplayAndWait" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
-        </method>      
+        </method>
 	<method name="getMessageBoxSelectedButton" returnType="int" modifier="static">
             <parameter name="id" type="int"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxDefaultSelectedButtons" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="index" type="int[]"/>
-       </method>      
+       </method>
 	<method name="getMessageBoxUserSelectedButtons" returnType="int[]" modifier="static">
             <parameter name="id" type="int"/>
-       </method>      
+       </method>
 	<method name="setMessageBoxButtonsLabels" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="labels" type="String[]"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxInitialValue" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="value" type="String[]"/>
-        </method>      
+        </method>
 	<method name="getMessageBoxValue" returnType="String[]" modifier="static">
             <parameter name="id" type="int"/>
-        </method>      
+        </method>
 	<method name="getMessageBoxValueSize" returnType="int" modifier="static">
             <parameter name="id" type="int"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxListBoxItems" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="items" type="String[]"/>
-        </method>      
+        </method>
 	<method name="getMessageBoxSelectedItem" returnType="int" modifier="static">
             <parameter name="id" type="int"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxLineLabels" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="labels" type="String[]"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxColumnLabels" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="labels" type="String[]"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxDefaultInput" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="values" type="String[]"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxModal" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="status" type="boolean"/>
-        </method>      
+        </method>
 	<method name="setMessageBoxIcon" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="name" type="String"/>
-        </method>      
+        </method>
 <!-- Toolbar -->
-	<method name="isToolbarVisible" returnType="boolean" modifier="static">      
+	<method name="isToolbarVisible" returnType="boolean" modifier="static">
             <parameter name="figNum" type="int"/>
-        </method>      
+        </method>
 	<method name="setToolbarVisible" returnType="void" modifier="static">
             <parameter name="figNum" type="int"/>
             <parameter name="status" type="boolean"/>
-        </method>      
+        </method>
 <!-- EventHandler -->
 	<method name="setEventHandler" returnType="void" modifier="static">
             <parameter name="figNum" type="int"/>
             <parameter name="command" type="String"/>
-        </method>      
+        </method>
 	<method name="setEventHandlerEnabled" returnType="void" modifier="static">
             <parameter name="figNum" type="int"/>
             <parameter name="status" type="boolean"/>
-        </method>      
+        </method>
 <!-- Wait Bar -->
-	<method name="newWaitBar" returnType="int" modifier="static"/>      
+	<method name="newWaitBar" returnType="int" modifier="static"/>
 	<method name="setWaitBarMessage" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="message" type="String[]"/>
-        </method>      
+        </method>
 	<method name="setWaitBarValue" returnType="void" modifier="static">
             <parameter name="id" type="int"/>
             <parameter name="value" type="int"/>
-        </method>      
+        </method>
         <method name="destroyWaitBar" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
         </method>
@@ -541,7 +557,7 @@
 	<method name="launchHelpBrowser" returnType="void" modifier="static">
           <parameter type="String[]" name="helps"/>
           <parameter type="String" name="language"/>
-        </method>      
+        </method>
         <method name="searchKeyword" returnType="void" modifier="static">
           <parameter type="String[]" name="helps"/>
           <parameter type="String" name="keyword"/>
@@ -550,130 +566,130 @@
         </method>
 <!-- Main settings -->
 	<method name="saveMainWindowSettings" returnType="void" modifier="static">
-        </method> 
+        </method>
 <!-- Help settings -->
 	<method name="saveHelpWindowSettings" returnType="void" modifier="static">
-        </method> 
+        </method>
 <!-- Export GUI-->
 	<method name="newExportFileChooser" returnType="int" modifier="static">
         <parameter type="int" name="figureId"/>
-      </method>    
+      </method>
 <!-- Font Chooser -->
 	<method name="newFontChooser" returnType="int" modifier="static">
-        </method>      
+        </method>
 	<method name="fontChooserDisplayAndWait" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="setFontChooserFontName" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="String" name="fontName"/>
-        </method>      
+        </method>
 	<method name="setFontChooserFontSize" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="int" name="fontSize"/>
-        </method>      
+        </method>
 	<method name="setFontChooserBold" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="boolean" name="bold"/>
-        </method>      
+        </method>
 	<method name="setFontChooserItalic" returnType="void" modifier="static">
            <parameter type="int" name="objID"/>
          <parameter type="boolean" name="italic"/>
-        </method>      
+        </method>
 	<method name="getFontChooserFontName" returnType="String" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="getFontChooserFontSize" returnType="int" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="getFontChooserBold" returnType="boolean" modifier="static">
            <parameter type="int" name="objID"/>
-       </method>      
+       </method>
 	<method name="getFontChooserItalic" returnType="boolean" modifier="static">
            <parameter type="int" name="objID"/>
-       </method>      
+       </method>
 <!-- Color Chooser -->
 	<method name="newColorChooser" returnType="int" modifier="static">
-        </method>      
+        </method>
 	<method name="colorChooserDisplayAndWait" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="setColorChooserDefaultColor" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="int[]" name="rgb"/>
-        </method>      
+        </method>
 	<method name="getColorChooserSelectedColor" returnType="int[]" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="setColorChooserTitle" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="String" name="title"/>
-        </method>      
+        </method>
 <!-- Widget visible -->
 	<method name="setWidgetVisible" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="boolean" name="status"/>
-        </method>      
+        </method>
 	<method name="setFrameVisible" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
           <parameter type="boolean" name="status"/>
-        </method>      
+        </method>
 	<method name="isWidgetVisible" returnType="boolean" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="isFrameVisible" returnType="boolean" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 <!-- Clipboard management -->
 	<method name="getClipboardContents" returnType="String" modifier="static">
-        </method>      
+        </method>
 	<method name="pasteClipboardIntoConsole" returnType="void" modifier="static">
-        </method>      
+        </method>
 	<method name="copyConsoleSelection" returnType="void" modifier="static">
-        </method>      
+        </method>
 	<method name="emptyClipboard" returnType="void" modifier="static">
-        </method>      
+        </method>
 	<method name="setClipboardContents" returnType="void" modifier="static">
           <parameter type="String" name="text"/>
-        </method>      
+        </method>
 	<method name="copyFigureToClipBoard" returnType="void" modifier="static">
           <parameter type="int" name="figID"/>
-        </method>  
+        </method>
 <!-- Misc -->
 	<method name="getScreenResolution" returnType="int" modifier="static">
-        </method>      
+        </method>
 	<method name="getScreenWidth" returnType="double" modifier="static">
-        </method>      
+        </method>
 	<method name="getScreenHeight" returnType="double" modifier="static">
-        </method>      
+        </method>
 	<method name="getScreenDepth" returnType="int" modifier="static">
-        </method>      
+        </method>
 	<method name="printFigure" returnType="boolean" modifier="static">
           <parameter type="int" name="figID"/>
           <parameter type="boolean" name="postScript"/>
           <parameter type="boolean" name="displayDialog"/>
-        </method>      
+        </method>
 	<method name="printFile" returnType="boolean" modifier="static">
           <parameter type="String" name="fileName"/>
-        </method>      
+        </method>
 	<method name="printString" returnType="boolean" modifier="static">
           <parameter type="String" name="theString"/>
           <parameter type="String" name="pageHeader"/>
-        </method>      
+        </method>
 	<method name="pageSetup" returnType="boolean" modifier="static">
-        </method>      
+        </method>
 	<method name="requestWidgetFocus" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="requestFrameFocus" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
-        </method>      
+        </method>
 	<method name="raiseWindow" returnType="void" modifier="static">
           <parameter type="int" name="objID"/>
         </method>
 	<method name="useCanvasForDisplay" returnType="void" modifier="static">
           <parameter type="boolean" name="onOrOff"/>
-        </method>      
+        </method>
 	<method name="useCanvasForDisplay" returnType="boolean" modifier="static"/>
 	<method name="scilabAboutBox" returnType="void" modifier="static"/>
     <method name="setImageRendererRotate" returnType="void" modifier="static">
@@ -699,6 +715,10 @@
 	<method name="setUiTableData" returnType="void" modifier="static">
 	  <parameter type="int" name="objID"/>
 	  <parameter type="String" name="text"/>
+	</method>
+	<method name="setUiTreeData" returnType="void" modifier="static">
+	  <parameter type="int" name="objID"/>
+	  <parameter type="String[]" name="text"/>
 	</method>
   </object>
 </package>
