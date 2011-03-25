@@ -24,8 +24,6 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.scinotes.SciNotes;
 import org.scilab.modules.scinotes.ScilabEditorPane;
 
-import org.scilab.modules.history_manager.HistoryManagement;
-
 /**
  * EvaluateSelectionAction class
  * @author Bruno JOFRET
@@ -61,7 +59,7 @@ public final class EvaluateSelectionAction extends DefaultAction {
             while (tokens.hasMoreTokens()) {
                 lines[i++] = tokens.nextToken();
             }
-            HistoryManagement.appendLinesToScilabHistory(lines, lines.length);
+            //HistoryManagement.appendLinesToScilabHistory(lines, lines.length);
             ScilabConsole.getConsole().getAsSimpleConsole().sendCommandsToScilab(selection, true, false);
         }
     }
