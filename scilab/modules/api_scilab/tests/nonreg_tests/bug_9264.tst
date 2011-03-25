@@ -1,0 +1,25 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - Calixte DENIZET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- JVM NOT MANDATORY -->
+//
+// <-- Non-regression test for bug 9264 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/9264
+//
+// <-- Short Description -->
+// Big loss of performance on mputl
+
+stacksize('max');
+IM=zeros(1000,1000);
+IM=matrix(IM,1,1000000);
+IM = string(IM);
+timer();
+mputl(IM,TMPDIR + filesep() + "essai.txt");
+Time=timer()
+if Time > 30 then pause, end
