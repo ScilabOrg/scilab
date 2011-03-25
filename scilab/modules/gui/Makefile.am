@@ -79,6 +79,9 @@ src/cpp/EditBox.cpp \
 src/cpp/Label.cpp \
 src/cpp/CheckBox.cpp \
 src/cpp/RadioButton.cpp \
+src/cpp/ImageRenderer.cpp \
+src/cpp/UiTable.cpp \
+src/cpp/UiDisplayTree.cpp \
 src/cpp/Slider.cpp \
 src/cpp/PopupMenu.cpp \
 src/cpp/ContextMenu.cpp \
@@ -111,6 +114,12 @@ src/cpp/GetUicontrolFontAngle.cpp \
 src/cpp/SetUiobjectCallback.cpp \
 src/cpp/GetUiobjectCallback.cpp \
 src/cpp/SetUiobjectTag.cpp \
+src/cpp/SetUiobjectRotate.cpp \
+src/cpp/SetUiobjectShear.cpp \
+src/cpp/SetUiobjectScale.cpp \
+src/cpp/SetUiobjectColnames.cpp \
+src/cpp/SetUiobjectRownames.cpp \
+src/cpp/SetUiobjectTabledata.cpp \
 src/cpp/GetUiobjectTag.cpp \
 src/cpp/SetUiobjectEnable.cpp \
 src/cpp/GetUiobjectEnable.cpp \
@@ -177,8 +186,8 @@ sci_gateway/c/sci_delmenu.c \
 sci_gateway/c/sci_setmenu.c \
 sci_gateway/c/sci_ClipBoard.c \
 sci_gateway/c/sci_toolbar.c \
-sci_gateway/c/sci_uicontrol.c \
 sci_gateway/c/sci_uicontextmenu.c \
+sci_gateway/c/sci_uicontrol.c \
 sci_gateway/c/sci_uimenu.c \
 sci_gateway/c/sci_uiwait.c \
 sci_gateway/c/sci_mpopup.c \
@@ -202,6 +211,7 @@ sci_gateway/cpp/sci_uigetdir.cpp \
 sci_gateway/cpp/sci_uigetfile.cpp \
 sci_gateway/cpp/sci_displaytree.cpp \
 sci_gateway/cpp/sci_uiputfile.cpp \
+sci_gateway/cpp/displayUiTree.cpp \
 sci_gateway/cpp/sci_about.cpp
 
 libscigui_la_CFLAGS=	-I$(srcdir)/src/c/ \

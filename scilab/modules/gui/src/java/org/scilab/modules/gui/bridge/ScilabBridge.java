@@ -89,6 +89,15 @@ import org.scilab.modules.gui.pushbutton.SimplePushButton;
 import org.scilab.modules.gui.radiobutton.RadioButton;
 import org.scilab.modules.gui.radiobutton.ScilabRadioButtonBridge;
 import org.scilab.modules.gui.radiobutton.SimpleRadioButton;
+import org.scilab.modules.gui.imagerenderer.ImageRenderer;
+import org.scilab.modules.gui.imagerenderer.ScilabImageRendererBridge;
+import org.scilab.modules.gui.imagerenderer.SimpleImageRenderer;
+import org.scilab.modules.gui.uitable.UiTable;
+import org.scilab.modules.gui.uitable.ScilabUiTableBridge;
+import org.scilab.modules.gui.uitable.SimpleUiTable;
+import org.scilab.modules.gui.uidisplaytree.UiDisplayTree;
+import org.scilab.modules.gui.uidisplaytree.ScilabUiDisplayTreeBridge;
+import org.scilab.modules.gui.uidisplaytree.SimpleUiDisplayTree;
 import org.scilab.modules.gui.separator.ScilabSeparatorBridge;
 import org.scilab.modules.gui.separator.Separator;
 import org.scilab.modules.gui.slider.ScilabSliderBridge;
@@ -845,6 +854,51 @@ public class ScilabBridge {
     public static void removeMember(Tab tab, RadioButton member) {
         ScilabTabBridge.removeMember(tab, member);
     }
+
+	/**
+	 * Add a member (dockable element) to a tab and returns the index of this member
+	 * @param tab the tab which we want to add the ImageRenderer to
+	 * @param member the ImageRenderer to add
+	 * @return the position of the ImageRenderer in the member list.
+	 */
+	public static int addMember(Tab tab, ImageRenderer member) {
+		return ScilabTabBridge.addMember(tab, member);
+	}
+	
+	/**
+	 * Remove a ImageRenderer member from a tab
+	 * @param tab the tab which we want to remove the ImageRenderer from
+	 * @param member the ImageRenderer to remove
+	 */
+	public static void removeMember(Tab tab, ImageRenderer member) {
+		ScilabTabBridge.removeMember(tab, member);
+	}
+
+	/**
+	 * Add a member (dockable element) to a tab and returns the index of this member
+	 * @param tab the tab which we want to add the UiTable to
+	 * @param member the UiTable to add
+	 * @return the position of the UiTable in the member list.
+	 */
+	public static int addMember(Tab tab, UiTable member) {
+		return ScilabTabBridge.addMember(tab, member);
+	}
+	
+	/**
+	 * Remove a UiTable member from a tab
+	 * @param tab the tab which we want to remove the UiTable from
+	 * @param member the UiTable to remove
+	 */
+	public static void removeMember(Tab tab, UiTable member) {
+		ScilabTabBridge.removeMember(tab, member);
+	}	
+
+	public static int addMember(Tab tab, UiDisplayTree member) {
+		return ScilabTabBridge.addMember(tab, member);
+	}
+	public static void removeMember(Tab tab, UiDisplayTree member) {
+		ScilabTabBridge.removeMember(tab, member);
+	}
 
     /**
      * Add a member (dockable element) to a tab and returns the index of this member
@@ -5344,4 +5398,735 @@ public class ScilabBridge {
         ScilabConsoleBridge.evaluateSelectionWithNoEcho(console);
     }
 
+	/************************/
+	/* ImageRenderer Bridge */
+	/************************/
+
+	/**
+	 * Creates a new ImageRenderer
+	 * @return the created ImageRenderer
+	 */
+	public static SimpleImageRenderer createImageRenderer() {
+		return ScilabImageRendererBridge.createImageRenderer();
+	}
+	
+	/**
+	 * Sets the Text of a ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to set the Text of
+	 * @param newText the Text to set for the ImageRenderer
+	 */
+	public static void setText(ImageRenderer imageRenderer, String newText) {
+		ScilabImageRendererBridge.setText(imageRenderer, newText);
+	}
+	
+	/**
+	 * Gets the text of an ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to get the text of
+	 * @return the text of the ImageRenderer
+	 */
+	public static String getText(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getText(imageRenderer);
+	}
+	
+	/**
+	 * Draws a Scilab ImageRenderer
+	 * @param imageRenderer the ImageRenderer to draw
+	 * @see org.scilab.modules.ihm.UIElement#draw()
+	 */
+	public static void draw(ImageRenderer imageRenderer) {
+		ScilabImageRendererBridge.draw(imageRenderer);
+	}
+	
+	/**
+	 * Gets the dimensions (width and height) of a Scilab ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to get the dimensions of
+	 * @return the size of the imageRenderer
+	 * @see org.scilab.modules.ihm.UIElement#getDims()
+	 */
+	public static Size getDims(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getDims(imageRenderer);
+	}
+	
+	/**
+	 * Gets the position (X-coordinate and Y-coordinate) of a Scilab imageRenderer
+	 * @param imageRenderer the imageRenderer we want to get the position of
+	 * @return the position of the imageRenderer
+	 * @see org.scilab.modules.ihm.UIElement#getPosition()
+	 */
+	public static Position getPosition(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getPosition(imageRenderer);
+	}
+	
+	/**
+	 * Gets the visibility status of a Scilab ImageRenderer
+	 * @param imageRenderer the imageRenderer we want to get the visiblity status of
+	 * @return the visibility status of the imageRenderer (true if the imageRenderer is visible, false if not)
+	 * @see org.scilab.modules.ihm.UIElement#isVisible()
+	 */
+	public static boolean isVisible(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.isVisible(imageRenderer);
+	}
+	
+	/**
+	 * Sets the dimensions (width and height) of a Scilab ImageRenderer
+	 * @param imageRenderer the imageRenderer we want to set the dimensions of
+	 * @param newSize the size we want to set to the imageRenderer
+	 * @see org.scilab.modules.ihm.UIElement#setDims(org.scilab.modules.ihm.utils.Size)
+	 */
+	public static void setDims(ImageRenderer imageRenderer, Size newSize) {
+		ScilabImageRendererBridge.setDims(imageRenderer, newSize);
+	}
+	
+	/**
+	 * Sets the position (X-coordinate and Y-coordinate) of a Scilab imageRenderer
+	 * @param imageRenderer the imageRenderer we want to set the position of
+	 * @param newPosition the position we want to set to the imageRenderer
+	 * @see org.scilab.modules.ihm.UIElement#setPosition(org.scilab.modules.ihm.utils.Position)
+	 */
+	public static void setPosition(ImageRenderer imageRenderer, Position newPosition) {
+		ScilabImageRendererBridge.setPosition(imageRenderer, newPosition);
+	}
+	
+	/**
+	 * Sets the visibility status of a Scilab ImageRenderer
+	 * @param imageRenderer the imageRenderer we want to set the visiblity status of
+	 * @param newVisibleState the visibility status we want to set to the imageRenderer (true to set the imageRenderer visible, false else)
+	 * @see org.scilab.modules.ihm.UIElement#setVisible(boolean)
+	 */
+	public static void setVisible(ImageRenderer imageRenderer, boolean newVisibleState) {
+		ScilabImageRendererBridge.setVisible(imageRenderer, newVisibleState);
+	}
+	
+	/**
+	 * Set the Background color of the ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to set the background of
+	 * @param color the Color
+	 */
+	public static void setBackground(ImageRenderer imageRenderer, Color color) {
+		ScilabImageRendererBridge.setBackground(imageRenderer, color);
+	}
+	
+	/**
+	 * Get the Background color of the ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to get the background of
+	 * @return the Color
+	 */
+	public static Color getBackground(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getBackground(imageRenderer);
+	}
+	
+	/**
+	 * Set the Foreground color of the ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to set the foreground of
+	 * @param color the Color
+	 */
+	public static void setForeground(ImageRenderer imageRenderer, Color color) {
+		ScilabImageRendererBridge.setForeground(imageRenderer, color);
+	}
+	
+	/**
+	 * Get the Foreground color of the ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to get the foreground of
+	 * @return the Color
+	 */
+	public static Color getForeground(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getForeground(imageRenderer);
+	}
+	
+	/**
+	 * Set the font of the ImageRenderer.
+	 * @param imageRenderer the ImageRenderer we want to set the font of
+	 * @param font the font
+	 */
+	public static void setFont(ImageRenderer imageRenderer, Font font) {
+		ScilabImageRendererBridge.setFont(imageRenderer, font);
+	}
+	
+	/**
+	 * Get the font of the ImageRenderer.
+	 * @param imageRenderer the ImageRenderer we want to get the font of
+	 * @return the font
+	 */
+	public static Font getFont(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.getFont(imageRenderer);
+	}
+	
+	/**
+	 * Set if the ImageRenderer is enabled or not
+	 * @param imageRenderer the ImageRenderer we want to set the status of
+	 * @param status true if the ImageRenderer is enabled
+	 */
+	public static void setEnabled(ImageRenderer imageRenderer, boolean status) {
+		ScilabImageRendererBridge.setEnabled(imageRenderer, status);
+	}
+	
+	/**
+	 * Gets the enable status of a ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to get the status of
+	 * @return the enable status of the ImageRenderer (true if the ImageRenderer is enabled, false if not)
+	 */
+	public static boolean isEnabled(ImageRenderer imageRenderer) {
+		return ScilabImageRendererBridge.isEnabled(imageRenderer);
+	}
+	
+	/**
+	 * Add a callback to the ImageRenderer
+	 * @param imageRenderer the ImageRenderer we want to set the callback of
+	 * @param callback the Callback to set.
+	 */
+	public static void setCallback(ImageRenderer imageRenderer, CallBack callback) {
+		ScilabImageRendererBridge.setCallback(imageRenderer, callback);
+	}
+	
+	/**
+	 * Set the horizontal alignment for the ImageRenderer text
+	 * @param imageRenderer the ImageRenderer we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setHorizontalAlignment(ImageRenderer imageRenderer, String alignment) {
+		ScilabImageRendererBridge.setHorizontalAlignment(imageRenderer, alignment);
+	}
+	
+	/**
+	 * Set the vertical alignment for the ImageRenderer text
+	 * @param imageRenderer the ImageRenderer we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setVerticalAlignment(ImageRenderer imageRenderer, String alignment) {
+		ScilabImageRendererBridge.setVerticalAlignment(imageRenderer, alignment);
+	}
+	
+	/**
+	 * Set the Relief of the ImageRenderer
+	 * @param imageRenderer the ImageRenderer which we want to set the Relief of
+	 * @param reliefType the type of the relief to set (See ScilabRelief.java)
+	 */
+	public static void setRelief(ImageRenderer imageRenderer, String reliefType) {
+		ScilabImageRendererBridge.setRelief(imageRenderer, reliefType);
+	}
+	
+	/**
+	 * Delete the ImageRenderer
+	 * @param imageRenderer the ImageRenderer to be destroyed
+	 */
+	public static void destroy(ImageRenderer imageRenderer) {
+		ScilabImageRendererBridge.destroy(imageRenderer);
+	}
+	
+	/**
+	 * Give the focus to the ImageRenderer
+	 * @param imageRenderer the ImageRenderer
+	 */
+	public static void requestFocus(ImageRenderer imageRenderer) {
+		ScilabImageRendererBridge.requestFocus(imageRenderer);
+	}
+
+	/**
+         * Rotates an image
+	 * @param imageRenderer the ImageRenderer we want to rotate
+	 * @param indices the double value that contains an angle to rotate
+	 */
+	public static void setRotate(ImageRenderer imageRenderer, double[] indices) {
+		ScilabImageRendererBridge.setRotate(imageRenderer, indices);
+	}
+
+	/**
+         * Shears an image by x, y values
+	 * @param imageRenderer the ImageRenderer we want to shear
+	 * @param indices the double array that contains x, y values to shear
+	 */
+	public static void setShear(ImageRenderer imageRenderer, double[] indices) {
+		ScilabImageRendererBridge.setShear(imageRenderer, indices);
+	}
+
+	/**
+         * Scaless an image by x, y values
+	 * @param imageRenderer the ImageRenderer we want to scale
+	 * @param indices the double array that contains x, y values to scale
+	 */
+	public static void setScale(ImageRenderer imageRenderer, double[] indices) {
+		ScilabImageRendererBridge.setScale(imageRenderer, indices);
+	}
+
+	/**********************/
+	/* UiTable Bridge */
+	/**********************/
+
+	/**
+	 * Creates a new UiTable
+	 * @return the created UiTable
+	 */
+	public static SimpleUiTable createUiTable() {
+		return ScilabUiTableBridge.createUiTable();
+	}
+	
+	/**
+	 * Sets the Text of a UiTable
+	 * @param uiTable the UiTable we want to set the Text of
+	 * @param newText the Text to set for the UiTable
+	 */
+	public static void setText(UiTable uiTable, String newText) {
+		ScilabUiTableBridge.setText(uiTable, newText);
+	}
+	
+	/**
+	 * Gets the text of an UiTable
+	 * @param uiTable the UiTable we want to get the text of
+	 * @return the text of the UiTable
+	 */
+	public static String getText(UiTable uiTable) {
+		return ScilabUiTableBridge.getText(uiTable);
+	}
+	
+	/**
+	 * Draws a Scilab UiTable
+	 * @param uiTable the UiTable to draw
+	 * @see org.scilab.modules.ihm.UIElement#draw()
+	 */
+	public static void draw(UiTable uiTable) {
+		ScilabUiTableBridge.draw(uiTable);
+	}
+	
+	/**
+	 * Gets the dimensions (width and height) of a Scilab UiTable
+	 * @param uiTable the UiTable we want to get the dimensions of
+	 * @return the size of the uiTable
+	 * @see org.scilab.modules.ihm.UIElement#getDims()
+	 */
+	public static Size getDims(UiTable uiTable) {
+		return ScilabUiTableBridge.getDims(uiTable);
+	}
+	
+	/**
+	 * Gets the position (X-coordinate and Y-coordinate) of a Scilab uiTable
+	 * @param uiTable the uiTable we want to get the position of
+	 * @return the position of the uiTable
+	 * @see org.scilab.modules.ihm.UIElement#getPosition()
+	 */
+	public static Position getPosition(UiTable uiTable) {
+		return ScilabUiTableBridge.getPosition(uiTable);
+	}
+	
+	/**
+	 * Gets the visibility status of a Scilab UiTable
+	 * @param uiTable the uiTable we want to get the visiblity status of
+	 * @return the visibility status of the uiTable (true if the uiTable is visible, false if not)
+	 * @see org.scilab.modules.ihm.UIElement#isVisible()
+	 */
+	public static boolean isVisible(UiTable uiTable) {
+		return ScilabUiTableBridge.isVisible(uiTable);
+	}
+	
+	/**
+	 * Sets the dimensions (width and height) of a Scilab UiTable
+	 * @param uiTable the uiTable we want to set the dimensions of
+	 * @param newSize the size we want to set to the uiTable
+	 * @see org.scilab.modules.ihm.UIElement#setDims(org.scilab.modules.ihm.utils.Size)
+	 */
+	public static void setDims(UiTable uiTable, Size newSize) {
+		ScilabUiTableBridge.setDims(uiTable, newSize);
+	}
+	
+	/**
+	 * Sets the position (X-coordinate and Y-coordinate) of a Scilab uiTable
+	 * @param uiTable the uiTable we want to set the position of
+	 * @param newPosition the position we want to set to the uiTable
+	 * @see org.scilab.modules.ihm.UIElement#setPosition(org.scilab.modules.ihm.utils.Position)
+	 */
+	public static void setPosition(UiTable uiTable, Position newPosition) {
+		ScilabUiTableBridge.setPosition(uiTable, newPosition);
+	}
+	
+	/**
+	 * Sets the visibility status of a Scilab UiTable
+	 * @param uiTable the uiTable we want to set the visiblity status of
+	 * @param newVisibleState the visibility status we want to set to the uiTable (true to set the uiTable visible, false else)
+	 * @see org.scilab.modules.ihm.UIElement#setVisible(boolean)
+	 */
+	public static void setVisible(UiTable uiTable, boolean newVisibleState) {
+		ScilabUiTableBridge.setVisible(uiTable, newVisibleState);
+	}
+	
+	/**
+	 * Set the Background color of the UiTable
+	 * @param uiTable the UiTable we want to set the background of
+	 * @param color the Color
+	 */
+	public static void setBackground(UiTable uiTable, Color color) {
+		ScilabUiTableBridge.setBackground(uiTable, color);
+	}
+	
+	/**
+	 * Get the Background color of the UiTable
+	 * @param uiTable the UiTable we want to get the background of
+	 * @return the Color
+	 */
+	public static Color getBackground(UiTable uiTable) {
+		return ScilabUiTableBridge.getBackground(uiTable);
+	}
+	
+	/**
+	 * Set the Foreground color of the UiTable
+	 * @param uiTable the UiTable we want to set the foreground of
+	 * @param color the Color
+	 */
+	public static void setForeground(UiTable uiTable, Color color) {
+		ScilabUiTableBridge.setForeground(uiTable, color);
+	}
+	
+	/**
+	 * Get the Foreground color of the UiTable
+	 * @param uiTable the UiTable we want to get the foreground of
+	 * @return the Color
+	 */
+	public static Color getForeground(UiTable uiTable) {
+		return ScilabUiTableBridge.getForeground(uiTable);
+	}
+	
+	/**
+	 * Set the font of the UiTable.
+	 * @param uiTable the UiTable we want to set the font of
+	 * @param font the font
+	 */
+	public static void setFont(UiTable uiTable, Font font) {
+		ScilabUiTableBridge.setFont(uiTable, font);
+	}
+	
+	/**
+	 * Get the font of the UiTable.
+	 * @param uiTable the UiTable we want to get the font of
+	 * @return the font
+	 */
+	public static Font getFont(UiTable uiTable) {
+		return ScilabUiTableBridge.getFont(uiTable);
+	}
+	
+	/**
+	 * Set if the UiTable is enabled or not
+	 * @param uiTable the UiTable we want to set the status of
+	 * @param status true if the UiTable is enabled
+	 */
+	public static void setEnabled(UiTable uiTable, boolean status) {
+		ScilabUiTableBridge.setEnabled(uiTable, status);
+	}
+	
+	/**
+	 * Gets the enable status of a UiTable
+	 * @param uiTable the UiTable we want to get the status of
+	 * @return the enable status of the UiTable (true if the UiTable is enabled, false if not)
+	 */
+	public static boolean isEnabled(UiTable uiTable) {
+		return ScilabUiTableBridge.isEnabled(uiTable);
+	}
+	
+	/**
+	 * Add a callback to the UiTable
+	 * @param uiTable the UiTable we want to set the callback of
+	 * @param callback the Callback to set.
+	 */
+	public static void setCallback(UiTable uiTable, CallBack callback) {
+		ScilabUiTableBridge.setCallback(uiTable, callback);
+	}
+	
+	/**
+	 * Set the horizontal alignment for the UiTable text
+	 * @param uiTable the UiTable we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setHorizontalAlignment(UiTable uiTable, String alignment) {
+		ScilabUiTableBridge.setHorizontalAlignment(uiTable, alignment);
+	}
+	
+	/**
+	 * Set the vertical alignment for the UiTable text
+	 * @param uiTable the UiTable we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setVerticalAlignment(UiTable uiTable, String alignment) {
+		ScilabUiTableBridge.setVerticalAlignment(uiTable, alignment);
+	}
+	
+	/**
+	 * Set the Relief of the UiTable
+	 * @param uiTable the UiTable which we want to set the Relief of
+	 * @param reliefType the type of the relief to set (See ScilabRelief.java)
+	 */
+	public static void setRelief(UiTable uiTable, String reliefType) {
+		ScilabUiTableBridge.setRelief(uiTable, reliefType);
+	}
+	
+	/**
+	 * Delete the UiTable
+	 * @param uiTable the UiTable to be destroyed
+	 */
+	public static void destroy(UiTable uiTable) {
+		ScilabUiTableBridge.destroy(uiTable);
+	}
+	
+	/**
+	 * Give the focus to the UiTable
+	 * @param uiTable the UiTable
+	 */
+	public static void requestFocus(UiTable uiTable) {
+		ScilabUiTableBridge.requestFocus(uiTable);
+	}
+
+	/**
+	 * Sets the column names for uitable
+	 * @param uiTable the UiTable
+	 * @param text the String that contains column names delimited by a '|'. Example: 1|2|3|4
+	 */
+	public static void setColnames(UiTable uiTable, String text) {
+		ScilabUiTableBridge.setColnames(uiTable, text);
+	}
+
+	/**
+	 * Sets the row names for uitable
+	 * @param uiTable the UiTable
+	 * @param text the String that contains row names delimited by a '|'. Example: 1|2|3|4
+	 */
+	public static void setRownames(UiTable uiTable, String text) {
+		ScilabUiTableBridge.setRownames(uiTable, text);
+	}
+
+	/**
+	 * Sets the Data for uitable
+	 * @param uiTable the UiTable
+	 * @param text the String that contains row data delimited by a '|'
+         *        and column data delimited by " ". Example: 1.26 3.47 | a b | d e | a b
+	 */
+	public static void setData(UiTable uiTable, String text) {
+		ScilabUiTableBridge.setData(uiTable, text);
+	}
+
+	/**********************/
+	/* UiDisplayTree Bridge */
+	/**********************/
+
+	/**
+	 * Creates a new UiDisplayTree
+	 * @return the created UiDisplayTree
+	 */
+	public static SimpleUiDisplayTree createUiDisplayTree() {
+		return ScilabUiDisplayTreeBridge.createUiDisplayTree();
+	}
+	
+	/**
+	 * Sets the Text of a UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to set the Text of
+	 * @param newText the Text to set for the UiDisplayTree
+	 */
+	public static void setText(UiDisplayTree uiTree, String newText) {
+		ScilabUiDisplayTreeBridge.setText(uiTree, newText);
+	}
+	
+	/**
+	 * Gets the text of an UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to get the text of
+	 * @return the text of the UiDisplayTree
+	 */
+	public static String getText(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getText(uiTree);
+	}
+	
+	/**
+	 * Draws a Scilab UiDisplayTree
+	 * @param uiTree the UiDisplayTree to draw
+	 * @see org.scilab.modules.ihm.UIElement#draw()
+	 */
+	public static void draw(UiDisplayTree uiTree) {
+		ScilabUiDisplayTreeBridge.draw(uiTree);
+	}
+	
+	/**
+	 * Gets the dimensions (width and height) of a Scilab UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to get the dimensions of
+	 * @return the size of the uiTree
+	 * @see org.scilab.modules.ihm.UIElement#getDims()
+	 */
+	public static Size getDims(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getDims(uiTree);
+	}
+	
+	/**
+	 * Gets the position (X-coordinate and Y-coordinate) of a Scilab uiTree
+	 * @param uiTree the uiTree we want to get the position of
+	 * @return the position of the uiTree
+	 * @see org.scilab.modules.ihm.UIElement#getPosition()
+	 */
+	public static Position getPosition(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getPosition(uiTree);
+	}
+	
+	/**
+	 * Gets the visibility status of a Scilab UiDisplayTree
+	 * @param uiTree the uiTree we want to get the visiblity status of
+	 * @return the visibility status of the uiTree (true if the uiTree is visible, false if not)
+	 * @see org.scilab.modules.ihm.UIElement#isVisible()
+	 */
+	public static boolean isVisible(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.isVisible(uiTree);
+	}
+	
+	/**
+	 * Sets the dimensions (width and height) of a Scilab UiDisplayTree
+	 * @param uiTree the uiTree we want to set the dimensions of
+	 * @param newSize the size we want to set to the uiTree
+	 * @see org.scilab.modules.ihm.UIElement#setDims(org.scilab.modules.ihm.utils.Size)
+	 */
+	public static void setDims(UiDisplayTree uiTree, Size newSize) {
+		ScilabUiDisplayTreeBridge.setDims(uiTree, newSize);
+	}
+	
+	/**
+	 * Sets the position (X-coordinate and Y-coordinate) of a Scilab uiTree
+	 * @param uiTree the uiTree we want to set the position of
+	 * @param newPosition the position we want to set to the uiTree
+	 * @see org.scilab.modules.ihm.UIElement#setPosition(org.scilab.modules.ihm.utils.Position)
+	 */
+	public static void setPosition(UiDisplayTree uiTree, Position newPosition) {
+		ScilabUiDisplayTreeBridge.setPosition(uiTree, newPosition);
+	}
+	
+	/**
+	 * Sets the visibility status of a Scilab UiDisplayTree
+	 * @param uiTree the uiTree we want to set the visiblity status of
+	 * @param newVisibleState the visibility status we want to set to the uiTree (true to set the uiTree visible, false else)
+	 * @see org.scilab.modules.ihm.UIElement#setVisible(boolean)
+	 */
+	public static void setVisible(UiDisplayTree uiTree, boolean newVisibleState) {
+		ScilabUiDisplayTreeBridge.setVisible(uiTree, newVisibleState);
+	}
+	
+	/**
+	 * Set the Background color of the UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to set the background of
+	 * @param color the Color
+	 */
+	public static void setBackground(UiDisplayTree uiTree, Color color) {
+		ScilabUiDisplayTreeBridge.setBackground(uiTree, color);
+	}
+	
+	/**
+	 * Get the Background color of the UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to get the background of
+	 * @return the Color
+	 */
+	public static Color getBackground(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getBackground(uiTree);
+	}
+	
+	/**
+	 * Set the Foreground color of the UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to set the foreground of
+	 * @param color the Color
+	 */
+	public static void setForeground(UiDisplayTree uiTree, Color color) {
+		ScilabUiDisplayTreeBridge.setForeground(uiTree, color);
+	}
+	
+	/**
+	 * Get the Foreground color of the UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to get the foreground of
+	 * @return the Color
+	 */
+	public static Color getForeground(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getForeground(uiTree);
+	}
+	
+	/**
+	 * Set the font of the UiDisplayTree.
+	 * @param uiTree the UiDisplayTree we want to set the font of
+	 * @param font the font
+	 */
+	public static void setFont(UiDisplayTree uiTree, Font font) {
+		ScilabUiDisplayTreeBridge.setFont(uiTree, font);
+	}
+	
+	/**
+	 * Get the font of the UiDisplayTree.
+	 * @param uiTree the UiDisplayTree we want to get the font of
+	 * @return the font
+	 */
+	public static Font getFont(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.getFont(uiTree);
+	}
+	
+	/**
+	 * Set if the UiDisplayTree is enabled or not
+	 * @param uiTree the UiDisplayTree we want to set the status of
+	 * @param status true if the UiDisplayTree is enabled
+	 */
+	public static void setEnabled(UiDisplayTree uiTree, boolean status) {
+		ScilabUiDisplayTreeBridge.setEnabled(uiTree, status);
+	}
+	
+	/**
+	 * Gets the enable status of a UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to get the status of
+	 * @return the enable status of the UiDisplayTree (true if the UiDisplayTree is enabled, false if not)
+	 */
+	public static boolean isEnabled(UiDisplayTree uiTree) {
+		return ScilabUiDisplayTreeBridge.isEnabled(uiTree);
+	}
+	
+	/**
+	 * Add a callback to the UiDisplayTree
+	 * @param uiTree the UiDisplayTree we want to set the callback of
+	 * @param callback the Callback to set.
+	 */
+	public static void setCallback(UiDisplayTree uiTree, CallBack callback) {
+		ScilabUiDisplayTreeBridge.setCallback(uiTree, callback);
+	}
+	
+	/**
+	 * Set the horizontal alignment for the UiDisplayTree text
+	 * @param uiTree the UiDisplayTree we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setHorizontalAlignment(UiDisplayTree uiTree, String alignment) {
+		ScilabUiDisplayTreeBridge.setHorizontalAlignment(uiTree, alignment);
+	}
+	
+	/**
+	 * Set the vertical alignment for the UiDisplayTree text
+	 * @param uiTree the UiDisplayTree we want to set the alignment of
+	 * @param alignment the value for the alignment (See ScilabAlignment.java)
+	 */
+	public static void setVerticalAlignment(UiDisplayTree uiTree, String alignment) {
+		ScilabUiDisplayTreeBridge.setVerticalAlignment(uiTree, alignment);
+	}
+	
+	/**
+	 * Set the Relief of the UiDisplayTree
+	 * @param uiTree the UiDisplayTree which we want to set the Relief of
+	 * @param reliefType the type of the relief to set (See ScilabRelief.java)
+	 */
+	public static void setRelief(UiDisplayTree uiTree, String reliefType) {
+		ScilabUiDisplayTreeBridge.setRelief(uiTree, reliefType);
+	}
+	
+	/**
+	 * Delete the UiDisplayTree
+	 * @param uiTree the UiDisplayTree to be destroyed
+	 */
+	public static void destroy(UiDisplayTree uiTree) {
+		ScilabUiDisplayTreeBridge.destroy(uiTree);
+	}
+	
+	/**
+	 * Give the focus to the UiDisplayTree
+	 * @param uiTree the UiDisplayTree
+	 */
+	public static void requestFocus(UiDisplayTree uiTree) {
+		ScilabUiDisplayTreeBridge.requestFocus(uiTree);
+	}
+	
+	/**
+	 * Sets the tree data to be added to viewport
+	 * @param text the array of strings containing tree data
+	 */
+	public static void setData(UiDisplayTree uiTree, String[] text) {
+		ScilabUiDisplayTreeBridge.setData(uiTree, text);
+	}
 }
