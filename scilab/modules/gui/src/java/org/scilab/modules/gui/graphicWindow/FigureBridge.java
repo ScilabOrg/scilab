@@ -240,7 +240,9 @@ public class FigureBridge implements GraphicView {
             
             for (int i = 0; i < allChildren.length ; ++i) {
                    if (!children.containsKey(allChildren[i])) {                        
+                       
                        String childType = (String) GraphicController.getController().getProperty(allChildren[i],__GO_TYPE__);
+                       
                        if (childType.equals(__GO_UICONTROL__)) {
                            DEBUG("[!!!!!] I Have a new Uicontrol Child !!!");
                            SwingScilabPushButton button = new SwingScilabPushButton();

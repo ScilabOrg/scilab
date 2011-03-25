@@ -3048,7 +3048,7 @@ sciPointObj * createFullFigure(int * winNum)
     sciPointObj *pNewFigure = MALLOC(sizeof(sciPointObj));
     pNewFigure->UID = createGraphicObject(__GO_FIGURE__);
     setGraphicObjectProperty(pNewFigure->UID, __GO_ID__, winNum, jni_int, 1);
-    createJoGLView(pNewFigure->UID);
+    //createJoGLView(pNewFigure->UID);
     sciAddNewHandle(pNewFigure);
     return pNewFigure;
 
