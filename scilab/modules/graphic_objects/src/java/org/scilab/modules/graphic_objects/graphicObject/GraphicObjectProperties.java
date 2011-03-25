@@ -286,5 +286,10 @@ public static final String __GO_BOUNDING_BOX__ =           "BoundingBox";
 
 public static final String __GO_HIDDEN_COLOR__ =           "HiddenColor";
 
+public static final String __GO_STYLE__ =                  "Style";
+public static final String __GO_UI_PUSHBUTTON__ =          "UIPushButton";
+public static final String __GO_UI_TEXT__ =                "UIText";
+
+
 
 }

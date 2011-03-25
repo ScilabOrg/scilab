@@ -285,5 +285,10 @@
 
 #define __GO_HIDDEN_COLOR__                "HiddenColor"
 
+#define __GO_STYLE__                       "Style"
+#define __GO_UI_PUSHBUTTON__               "UIPushButton"
+#define __GO_UI_TEXT__                     "UIText"
+
+
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */

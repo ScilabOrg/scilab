@@ -33,6 +33,11 @@ import java.util.Set;
  */
 public class GraphicController {
 
+    private static void DEBUG(String message)
+    {
+        System.err.println("[CONTROLLER] : "+message);
+    }
+    
     /**
      * Set of all views attached to this controller.
      */
@@ -67,6 +72,7 @@ public class GraphicController {
      * @param view The view to register.
      */
     public void register(GraphicView view) {
+        DEBUG("Register view : " + view.toString());
         allViews.add(view);
     }
 
@@ -162,6 +168,8 @@ public class GraphicController {
      * @param id the created object's id
      */
     public void objectCreated(String id) {
+        DEBUG("create object : "+id);
+        DEBUG("type is : " + getProperty(id, "Type"));
         for (GraphicView view : allViews) {
             view.createObject(id);
         }
@@ -205,7 +213,7 @@ public class GraphicController {
 
             if (!oldParentId.equals("")) {
                 String[] children = (String[]) GraphicController.getController().getProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__);
-                List<String> list = new ArrayList(Arrays.asList(children));
+                List<String> list = new ArrayList<String>(Arrays.asList(children));
                 list.remove(childId);
                 setProperty(oldParentId, GraphicObjectProperties.__GO_CHILDREN__, list);
             }
