@@ -182,6 +182,10 @@ Bug fixes:
 * bug 9250 fixed - mkdir used to display a wrong message when called with
                    2 inputs arguments.
 
+* bug 9232 fixed - Play the example in 'help about' in NW mode led to an
+                   exception.
+
+
             Changes between version 5.3.0 and 5.3.1 of Scilab
             =================================================
 
