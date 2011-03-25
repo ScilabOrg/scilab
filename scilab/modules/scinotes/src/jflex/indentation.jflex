@@ -1,12 +1,12 @@
-//CHECKSTYLE:OFF 
+//CHECKSTYLE:OFF
 
 package org.scilab.modules.scinotes;
 
 import java.io.IOException;
 import javax.swing.text.Element;
 import javax.swing.text.BadLocationException;
- 
-%% 
+
+%%
 
 %public
 %class IndentScanner
@@ -20,12 +20,13 @@ import javax.swing.text.BadLocationException;
 %{
     private ScilabDocument doc;
     private Element elem;
+    private boolean selectOnPrevious;
 
     public IndentScanner(ScilabDocument doc) {
     	this.doc = doc;
 	this.elem = doc.getDefaultRootElement();
     }
-   
+
     public int getIndentNumber(int lineNumber, char type) {
         if (lineNumber < 0) {
 	    return 0;
@@ -33,7 +34,7 @@ import javax.swing.text.BadLocationException;
         try {
 	     Element line = elem.getElement(lineNumber);
 	     int startL = line.getStartOffset();
-	     int endL = line.getEndOffset();	
+	     int endL = line.getEndOffset();
 	     yyreset(new ScilabDocumentReader(doc, startL, endL));
 	     switch (type) {
 	     	 case ' ':
@@ -49,7 +50,7 @@ import javax.swing.text.BadLocationException;
 	} catch (IOException e) {
 	     return 0;
 	}
-    }	
+    }
 
     public int getTabsAtBeginning(int pos) {
     	Element line = elem.getElement(pos);
@@ -61,19 +62,33 @@ import javax.swing.text.BadLocationException;
 	    if (yylex() == 1) {
 	        return yylength();
        	    }
-	} catch (IOException e) {  
-	    return 0;	
+	} catch (IOException e) {
+	    return 0;
     	}
 	return 0;
-    }	    
+    }
+
+    private boolean isPreviousLineIsSelect(int nb) throws IOException {
+    	if (nb >= 0) {
+	     Element line = elem.getElement(nb);
+	     int startL = line.getStartOffset();
+	     int endL = line.getEndOffset();
+	     yyreset(new ScilabDocumentReader(doc, startL, endL));
+	     yybegin(SELECT);
+	     return yylex() == 1 ? true : false;
+   	}
+	return false;
+    }
 
     public void getIndentLevel(int pos, int[] level) {
-    	Element line = elem.getElement(elem.getElementIndex(pos));
+        int lineNb = elem.getElementIndex(pos);
+    	Element line = elem.getElement(lineNb);
 	int startL = line.getStartOffset();
 	int endL = line.getEndOffset();
 	level[0] = 0;
 	level[1] = 0;
 	try {
+            selectOnPrevious = isPreviousLineIsSelect(lineNb - 1);
 	    yyreset(new ScilabDocumentReader(doc, startL, endL));
 	    yybegin(INDENT);
 	    do {
@@ -95,9 +110,9 @@ import javax.swing.text.BadLocationException;
 		         level[0]++;
 		         level[1]++;
 		     }
-                }	         
+                }
 	    } while (zzMarkedPos != 0);
-        } catch (IOException e) { } 	  
+        } catch (IOException e) { }
     }
 %}
 
@@ -117,18 +132,20 @@ string = (([^\'\"\r\n]*)|([\'\"]{2}))+
 qstring = (\"|\'){string}(\"|\')
 transp = ({spec} | ")" | "]" | "}") "'"
 
-indentP = ("function" | "if" | "for" | "while" | "try" | "select")
-indentPx = {indentP}{spec}+
-xindentP = {spec}{indentP}
+indentP = ("function" | "if" | "for" | "while" | "try")
+selectP = "select"
+indentPx = ({indentP} | {selectP}){spec}+
+xindentP = {spec}({indentP} | {selectP})
 
 indentM = ("endfunction" | "end")
 indentMx = {indentM}{spec}+
 xindentM = {spec}{indentM}
-indentMP = ("else" | "elseif" | "catch" | "case")
-indentMPx = {indentMP}{spec}+
-xindentMP = {spec}{indentMP}
+indentMP = ("else" | "elseif" | "catch")
+casePMP = "case"
+indentMPx = ({indentMP} | casePMP) {spec}+
+xindentMP = {spec}({indentMP} | casePMP)
 
-%x INDENT, WHITE, TAB, BEG
+%x INDENT, WHITE, TAB, BEG, SELECT
 
 %%
 
@@ -137,6 +154,20 @@ xindentMP = {spec}{indentMP}
   {comment}			 |
   {indentPx}			 |
   {qstring}			 { }
+
+  {casePMP}			 {
+				   if (selectOnPrevious) {
+				     selectOnPrevious = false;
+				     return 1;
+				   }
+				   return 3;
+  				 }
+
+  {selectP}			 {
+				   selectOnPrevious = true;
+				   return 1;
+  				 }
+
 
   {indentP}			 {
   				   return 1;
@@ -183,6 +214,18 @@ xindentMP = {spec}{indentMP}
   				   return 0;
  				 }
 }
+
+<SELECT> {
+  [ \t]*{selectP}[ (\[\{]        {
+   		  		   return 1;
+				 }
+
+  .				 |
+  {eol}				 {
+  				   return 0;
+				 }
+}
+
 
 <BEG> {
   ^[ \t]+			 {

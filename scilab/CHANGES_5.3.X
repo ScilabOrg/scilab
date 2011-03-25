@@ -26,6 +26,8 @@ Scinotes:
 
 * bug 9189 fixed - Certains keywords were not helpable.
 
+* bug 9241 fixed - Add an indentation on 'case' keyword.
+
 
 Xcos:
 =====
