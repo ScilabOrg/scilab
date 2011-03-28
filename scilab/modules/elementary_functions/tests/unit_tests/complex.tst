@@ -1,0 +1,45 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- JVM NOT MANDATORY -->
+
+
+c = complex(1,2);
+assert_checkequal([real(c);imag(c)],[1;2]);
+//
+c = complex([1 2],[3 4]);
+assert_checkequal([real(c);imag(c)],[1 2;3 4]);
+//
+c = complex(%inf,%inf);
+assert_checkequal([real(c);imag(c)],[%inf;%inf]);
+//
+c = complex(%inf,%nan);
+assert_checkequal([real(c);imag(c)],[%inf;%nan]);
+//
+c = complex(%nan,%nan);
+assert_checkequal([real(c);imag(c)],[%nan;%nan]);
+//
+c = complex(%nan,%inf);
+assert_checkequal([real(c);imag(c)],[%nan;%inf]);
+//
+c = complex(0,%nan);
+assert_checkequal([real(c);imag(c)],[0;%nan]);
+//
+c = complex(0,%inf);
+assert_checkequal([real(c);imag(c)],[0;%inf]);
+//
+c = complex(1);
+assert_checkequal([real(c);imag(c)],[1;0]);
+//
+c = complex([1 2]);
+assert_checkequal([real(c);imag(c)],[1 2;0 0]);
+//
+c = complex([1 2 3], 4);
+assert_checkequal([real(c);imag(c)],[1 2 3;4 4 4]);
+//
+c = complex(1, [2 3 4]);
+assert_checkequal([real(c);imag(c)],[1 1 1;2 3 4]);
