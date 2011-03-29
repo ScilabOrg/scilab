@@ -5,7 +5,7 @@
 
 STRING_CPP_SOURCES = src/cpp/stripblanks.cpp
 
-STRING_C_SOURCES = src/c/code2str.c \
+STRING_C_SOURCES = \
 src/c/convstr.c \
 src/c/men_Sutils.c \
 src/c/tokens.c \
@@ -51,8 +51,6 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_string.cpp \
 	sci_gateway/cpp/sci_convstr.cpp \
     sci_gateway/cpp/sci_strncpy.cpp \
-    sci_gateway/cpp/sci_str2code.cpp \
-    sci_gateway/cpp/sci_code2str.cpp \
     sci_gateway/cpp/sci_strrchr.cpp \
     sci_gateway/cpp/sci_strchr.cpp \
     sci_gateway/cpp/sci_strstr.cpp \
