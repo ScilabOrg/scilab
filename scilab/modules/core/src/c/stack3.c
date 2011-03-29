@@ -986,7 +986,7 @@ void GetRhsStringVar(int _iVarNum, int* _piRows, int* _piCols, int* _piLen, char
 	{
 		return;
 	}
-	code2str(&_pstData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
+	//code2str(&_pstData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
 
 	C2F(intersci).ntypes[_iVarNum - 1] = '$' ;
 	C2F(intersci).iwhere[_iVarNum - 1] = *Lstk(_iVarNum);
@@ -1748,7 +1748,7 @@ int iGetListItemString(int _iVar, int _iItemNumber, int *_piRows, int *_piCols, 
 	if(iAddrData == 0 || _pszData == NULL)
 		return 0;
 
-	code2str(&_pszData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
+	//code2str(&_pszData, (int*) cstk(iAddrData), iArraySum(_piLen, 0, *_piRows * *_piCols));
 	return 0;
 }
 
@@ -1809,7 +1809,7 @@ int iGetListSubItemString(int _iVar, int* _piParentList, int _iItemNumber, int *
 		return 0;
 	}
 
-	code2str(&_pszData, piString, iArraySum(_piLen, 0, *_piRows * *_piCols));
+	//code2str(&_pszData, piString, iArraySum(_piLen, 0, *_piRows * *_piCols));
 	{
 		return 0;
 	}
