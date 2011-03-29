@@ -76,7 +76,16 @@ types::Function::ReturnValue sci_argn(types::typed_list &in, int _iRetCount, typ
     }
     else
     {
-        if(iRhs == 1)
+        if(iRhs == 0 && _iRetCount == 1)
+        {
+            out.push_back(pOut);
+        }
+        else if(iRhs == 0 && _iRetCount == 2)
+        {
+            out.push_back(pOut);
+            out.push_back(pIn);
+        }
+        else if(iRhs == 1)
         {
             double dblVal = in[0]->getAs<Double>()->getReal(0,0);
             if(dblVal == 1)
