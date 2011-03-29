@@ -32,17 +32,10 @@ src/c/scistrtostr.c
 STRING_FORTRAN_SOURCES =
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_string.c \
-sci_gateway/c/sci_code2str.c \
 sci_gateway/c/sci_strsplit.c \
-sci_gateway/c/sci_tokens.c \
-sci_gateway/c/sci_strcmp.c \
-sci_gateway/c/sci_isletter.c \
 sci_gateway/c/sci_isdigit.c \
 sci_gateway/c/sci_isalphanum.c \
-sci_gateway/c/sci_isascii.c \
-sci_gateway/c/sci_strcspn.c \
-sci_gateway/c/sci_strspn.c \
-sci_gateway/c/sci_strtok.c
+sci_gateway/c/sci_isascii.c 
 
 GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_stripblanks.cpp \
@@ -59,12 +52,19 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_convstr.cpp \
     sci_gateway/cpp/sci_strncpy.cpp \
     sci_gateway/cpp/sci_str2code.cpp \
+    sci_gateway/cpp/sci_code2str.cpp \
     sci_gateway/cpp/sci_strrchr.cpp \
     sci_gateway/cpp/sci_strchr.cpp \
     sci_gateway/cpp/sci_strstr.cpp \
     sci_gateway/cpp/sci_strrev.cpp \
-    sci_gateway/cpp/sci_strtod.cpp 
-
+    sci_gateway/cpp/sci_strtod.cpp \
+    sci_gateway/cpp/sci_tokens.cpp \
+    sci_gateway/cpp/sci_strcmp.cpp \
+    sci_gateway/cpp/sci_isletter.cpp \
+    sci_gateway/cpp/sci_strcspn.cpp \
+    sci_gateway/cpp/sci_strtok.cpp \
+    sci_gateway/cpp/sci_strspn.cpp
+    
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_string.f \
 sci_gateway/fortran/strops.f
 
