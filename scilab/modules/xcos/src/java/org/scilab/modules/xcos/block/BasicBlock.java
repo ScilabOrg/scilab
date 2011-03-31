@@ -1115,6 +1115,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 	    return;
 	}
 	
+	if (context == null) {
+		throw new IllegalArgumentException();
+	}
+	
 	//prevent to open twice
 	if (isLocked()) {
 	    return;

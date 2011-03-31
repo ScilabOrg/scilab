@@ -21,6 +21,9 @@
 //
 
 function cmd=get_errorcmd(path,scs_m_in,title_err,mess_err)
+  // any old scicos macros, will be removed on 5.4.0
+  warnobsolete(scilabRemovedVersion="5.4.0")
+
 //** get_errorcmd : return a Scicos_commands strings
 //** to select/hilite and display error messages for block
 //** defined by his main scs_m path.
