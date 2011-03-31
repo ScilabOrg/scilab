@@ -24,50 +24,27 @@ function hilite_path(path,mess,with_intermediates)
 //message.   If required all the intermediate superblocs are displayed
 //first entry of the path must be a bloc of currently opened diagram  
 
-  global   Scicos_commands
+    if argn(2)<2 then mess=" ",end
 
-  Scicos_commands=['%diagram_path_objective='+sci2exp(path(1:$-1))+';%scicos_navig=1';
-		   'Cmenu=[];show_window();%scicos_navig=[];']
+    diagram = scs_m;  
+    uid = []; // empty uid path
 
-  if argn(2)<3 then with_intermediates=%f,end
-  if argn(2)<2 then mess=' ',end
-  scs_m;
-  mxwin=max(winsid()),opened_windows=[]
+    // construct the uid path from the index path
+    for i = 1:length(path)
+        index = path(i);
+        if typeof(diagram.objs(index)) == "Block" then
+            uid($+1) = diagram.objs(index).doc(1) + "";
 
-  //** save the current figure handle
-  gh_wins = gcf();
-
-  hilite_obj(path(1))
-
-  if with_intermediates then
-    scs_m=scs_m.objs(path(1)).model.rpar;
-    for k=2:size(path,'*')
-      scs_show(scs_m,mxwin+k);opened_windows=[mxwin+k opened_windows]
-      hilite_obj(path(k))
-      scs_m=scs_m.objs(path(k)).model.rpar;
+            if typeof(diagram.objs(index).model.rpar) == "diagram" then
+                diagram = diagram.objs(index).model.rpar;
+            else
+                break;
+            end
+        end
     end
-  else
-    if size(path,'*')==1 then
-      hilite_obj(path)
-    else
-      for k=1:size(path,'*')-1;scs_m=scs_m.objs(path(k)).model.rpar;end
-      scs_show(scs_m,mxwin+1);opened_windows=[mxwin+1 opened_windows]
-      hilite_obj(path($))
+
+    if uid <> [] then
+      warnBlockByUID(uid, mess);
     end
-  end
-  messagebox(mess,'modal')
-
-  for k=1:size(opened_windows,'*') //** close opened_windows
-    //** select the opened_windows(k) and get the handle
-    gh_del = scf(opened_windows(k));
-    //** delete the window
-    delete(gh_del)
-  end
-  //scs_m=null()
-
-  //** restore the active window
-  scf(gh_wins);
-
-  //** unhilite entity path(1)
-  unhilite_obj(path(1))
 endfunction
+
