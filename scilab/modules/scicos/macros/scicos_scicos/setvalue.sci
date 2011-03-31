@@ -231,20 +231,22 @@ while %t do
     case 'gen'
       //accept all
     else
-      error('Incorrect type :'+%typ(2*%kk-1))
+      str = gettext("%s: incorrect type, getting %s");
+      error(msprintf(str, 'setvalue', %typ(2*%kk-1)));
     end
     execstr('%'+string(%kk)+'=%vv')
     clear %vv
   end
-  if %noooo>0 then 
-    messagebox(['answer given for  '+%lables(%noooo);
-             'has invalid dimension: ';
-             'waiting for dimension  '+%ssss],'modal')
+  if %noooo>0 then
+    str = gettext("%s: invalid dimension for ''%s'', waiting for %s");
+    mess = msprintf(str, 'setvalue', %lables(%noooo), %ssss);
+    warnBlockByUID(arg1.doc(1), mess); // arg1 is from the block interface function
     %ini=%str
     %ok=%f;break
   elseif %noooo<0 then
-    messagebox(['answer given for  '+%lables(-%noooo);
-             'has incorrect type :'+ %typ(-2*%noooo-1)],'modal')
+    str = gettext("%s: incorrect type for ''%s'', getting %s");
+    mess = msprintf(str, 'setvalue', %lables(-%noooo), %typ(-2*%noooo-1));
+    warnBlockByUID(arg1.doc(1), mess); // arg1 is from the block interface function
     %ini=%str
     %ok=%f;break
   else
