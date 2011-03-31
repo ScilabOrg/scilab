@@ -31,9 +31,8 @@ int mseek(int fd, int offset, int iflag)
 #endif
 
     File* pF = FileManager::getFile(fd);
-	FILE* fa = pF->getFiledesc();
 
-	if(fa == NULL) 
+	if(pF == NULL) 
 	{
 		return 1;
 	}
@@ -44,7 +43,7 @@ int mseek(int fd, int offset, int iflag)
 	}
 
 #if (defined(sun) && !defined(SYSV)) || defined(sgi)
-	irep = fseek(fa,(long) offset,iflag) ;
+	irep = fseek(pF->getFiledesc(),(long) offset,iflag) ;
 	if(irep != 0 ) 
 	{
 		return 1;
@@ -56,12 +55,12 @@ int mseek(int fd, int offset, int iflag)
 #else
 	#ifdef _MSC_VER
 		#if _WIN64 
-			if(_fseeki64(fa,(long) offset,iflag) == -1 ) 
+			if(_fseeki64(pF->getFiledesc(),(long) offset,iflag) == -1 ) 
 		#else
-			if(fseek(fa,(long) offset,iflag) == -1 ) 
+			if(fseek(pF->getFiledesc(),(long) offset,iflag) == -1 ) 
 		#endif
 	#else
-	if(fseek(fa,(long) offset,iflag) == -1) 
+	if(fseek(pF->getFiledesc(),(long) offset,iflag) == -1) 
 	#endif
 	{
 		return errno; // global variable produced by fseek
@@ -71,8 +70,5 @@ int mseek(int fd, int offset, int iflag)
 		return 0;
 	}
 #endif
-
-    FREE(pF);
-    FREE(fa);
 }
 /*--------------------------------------------------------------------------*/
