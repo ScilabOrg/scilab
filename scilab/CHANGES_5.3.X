@@ -51,6 +51,7 @@ Xcos:
   - RAMP
   - DELAY_f (english update only)
   - INTRPLBLK_f (english update only)
+  - TKSCALE (english update only)
 
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
 
