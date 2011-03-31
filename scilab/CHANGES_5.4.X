@@ -22,6 +22,8 @@ Graphical User Interface:
 Xcos:
 =====
 
+* Error reporting has been improved to print warnings on blocks into Xcos.
+
 * bug 8421 fixed - CLKFROM and CLKGOTO were not part of the "Signal Routing"
                    palette.
 
