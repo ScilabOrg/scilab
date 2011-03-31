@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.xcos.block.BasicBlock;
+import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.Orientation;
 
