@@ -274,6 +274,10 @@ public final class XcosMessages {
     /* Blocks values */
     public static final String BLOCK_FROM = Messages.gettext("From %s");
     public static final String BLOCK_GOTO = Messages.gettext("Goto %s");
+
+    /* Errors */
+	public static final String ERROR_UNABLE_TO_COMPILE_THIS_SUPER_BLOCK = "Error: unable to compile this SuperBlock";
+	public static final String WRONG_PORT_NUMBER =  Messages.gettext("Wrong port number");
     
 // CSON: JavadocVariable
 // CSON: LineLength

@@ -1873,16 +1873,8 @@ public class XcosDiagram extends ScilabGraph {
 			}
 
 			if (answer == AnswerOption.YES_OPTION) {
-				try {
-					final FileWriter writer = new FileWriter(diagram);
-					writer.write("");
-					writer.flush();
-					writer.close();
-					setSavedFile(diagram);
-				} catch (final IOException ioexc) {
-					LOG.error(ioexc);
-					JOptionPane.showMessageDialog(getAsComponent(), ioexc);
-				}
+				saveDiagramAs(diagram);
+				getParentTab().setVisible(true);
 			} else {
 				return null;
 			}
@@ -1905,7 +1897,7 @@ public class XcosDiagram extends ScilabGraph {
 	final XcosFileType filetype = XcosFileType.findFileType(fileToLoad);
 	boolean result = false;
 
-	if (!fileToLoad.exists()) {
+	if (!fileToLoad.exists() || filetype == null) {
 		XcosDialogs.couldNotLoadFile(this);
 		return false;
 	}
@@ -2073,12 +2065,18 @@ public class XcosDiagram extends ScilabGraph {
 		return;
     	}
     	
-    	if (message.isEmpty()) {
-    		// put the current tab on top
-    		setVisible(true);
+    	if (message.isEmpty()) { 
+    		if (isVisible()) {
+    			getAsComponent().clearCellOverlays(cell);
+    		}
+    	} else {
+    		if (getParentTab() == null) {
+    			// Open a new tab
+    			new XcosTab(this);
+    			setVisible(true);
+    		}
+    		getAsComponent().setCellWarning(cell, message, null, true);
     	}
-    	
-    	getAsComponent().setCellWarning(cell, message);
     }
 
     /**

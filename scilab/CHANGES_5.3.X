@@ -62,6 +62,8 @@ Xcos:
   - RAMP
   - DELAY_f
 
+* Error reporting has been improved to print warnings on blocks into Xcos.
+
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
 
 * bug 6416 fixed - GENSQR_f block documentation was not complete.
