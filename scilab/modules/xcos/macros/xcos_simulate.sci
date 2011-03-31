@@ -15,9 +15,6 @@ function %cpr = xcos_simulate(scs_m, needcompile)
 //-- BJ : Alias Warning Function
   prot = funcprot();
   funcprot(0);
-//  hilite_obj = xcosShowBlockWarning;
-//  unhilite_obj = xcosClearBlockWarning;
-//  scs_show = xcos_open;
 
 //    function ret = fake_gcf() 
 //        disp("fake_gcf");
