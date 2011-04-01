@@ -124,6 +124,10 @@ Compilation:
 * Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
                    building xcos.
 
+Optimization:
+=============
+
+* Updated the help page of semidef.
 
 Bug fixes:
 ==========
