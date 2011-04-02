@@ -80,6 +80,11 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         }
 
         rc = rows * cols;
+        if (rc == 1)
+        {
+            return NULL;
+        }
+
         piLen = (int*)MALLOC(sizeof(int) * rc);
         sciErr = getMatrixOfStringInList(pvApiCtx, piAddr, 1, &rows, &cols, piLen, NULL);
         if (sciErr.iErr)
@@ -89,6 +94,7 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         }
 
         pstData = (char**)MALLOC(sizeof(char*) * (rc + 1));
+        pstData[rc] = NULL;
         for (i = 0 ; i < rc ; i++)
         {
             pstData[i] = (char*)MALLOC(sizeof(char) * (piLen[i] + 1));
@@ -98,13 +104,36 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
         if (sciErr.iErr)
         {
             FREE(piLen);
+            for (i = 0; i < rc; i++)
+            {
+                FREE(pstData[i]);
+            }
             FREE(pstData);
             return NULL;
         }
+        FREE(piLen);
 
         // We remove all the entries which don't begin with fieldpart
         // and the first entry (and the second if it is a struct)
-        if (!strcmp(pstData[0], "st")) i = 2; else i = 1;
+        if (!strcmp(pstData[0], "st"))
+        {
+            FREE(pstData[0]);
+            pstData[0] = NULL;
+            FREE(pstData[1]);
+            pstData[1] = NULL;
+            if (rc == 2)
+            {
+                FREE(pstData);
+                return NULL;
+            }
+            i = 2;
+        }
+        else
+        {
+            FREE(pstData[0]);
+            pstData[0] = NULL;
+            i = 1;
+        }
 
         for (; i < rc ; i++)
         {
@@ -123,7 +152,6 @@ char **getfieldsdictionary(char *lineBeforeCaret, char *pattern, int *size)
 
         *size = last;
         qsort(pstData, *size, sizeof(char*), cmpNames);
-        FREE(piLen);
     }
     else
     {
