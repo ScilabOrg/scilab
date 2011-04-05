@@ -80,7 +80,7 @@ affich2(scicos_block * block, int flag)
             {
                 int iPrec = GetIparPtrs(block)[5];
                 double dblScale = pow((double) 10, iPrec);
-                double dblTemp = pdblReal[i] * dblScale;
+                double dblTemp = pdblReal[i + (j * iRowsIn)] * dblScale;
                 double dblValue = C2F(sciround)(&dblTemp) / dblScale;
                 char pstFormat[10];
 

@@ -36,6 +36,9 @@ Scinotes:
 
 * bug 9257 fixed - SciNotes could not be started from NW / adv-cli mode.
 
+* bug 9307 fixed - AFFICH_m block only printed the first column for an input
+                   matrix.
+
 
 Xcos:
 =====
