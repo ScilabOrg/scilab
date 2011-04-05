@@ -20,9 +20,9 @@
 #include "sciprint.h"
 #include "returnanan.h"
 #include "xls.h"
-#include "mseek.h"
-#include "mtell.h"
-#include "mget.h"
+//#include "mseek.h"
+//#include "mtell.h"
+//#include "mget.h"
 /*------------------------------------------------------------------*/
 #define  typ_short "s"
 #define  typ_ushort "us"
@@ -85,7 +85,7 @@ void xls_read(int *fd, int *cur_pos,double **data, int **chainesind, int *N, int
   *err=0;
 
   *cur_pos=*cur_pos;
-  C2F(mseek) (fd, cur_pos, "set", err);
+  //C2F(mseek) (fd, cur_pos, "set", err);
   if (*err > 0) goto ErrL;
 
   /* first record should be a BOF */
@@ -101,18 +101,18 @@ void xls_read(int *fd, int *cur_pos,double **data, int **chainesind, int *N, int
     return;
   }
 
-  C2F(mtell) (fd, &pos, err);
+  //C2F(mtell) (fd, &pos, err);
   if (*err > 0) goto ErrL;
   *cur_pos=(int)pos;
 
   while(1)
     {
-      C2F(mseek) (fd, cur_pos, "set", err);
+      //C2F(mseek) (fd, cur_pos, "set", err);
       if (*err > 0) goto ErrL;
       /*Enregistrement de l'Opcode et de la Len du tag*/
-      C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
       if (*err > 0) goto ErrL;
-      C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
       if (*err > 0) goto ErrL;
      switch(Opcode) {
      case 10:/*EOF */
@@ -122,66 +122,66 @@ void xls_read(int *fd, int *cur_pos,double **data, int **chainesind, int *N, int
        *cur_pos=*cur_pos+4+Len;
        return;
      case 638: /*RK*/
-       C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&col, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&col, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&xf , &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&xf , &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &rkvalue , &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*) &rkvalue , &one, typ_int, err);
        if (*err > 0) goto ErrL;
        valeur[col*(hauteur)+row]= NumFromRk2(rkvalue);
        break;
      case 515: /*Number*/
-       C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&col, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&col, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&xf , &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&xf , &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &resultat , &one, typ_double, err);
+       //C2F(mgetnc) (fd, (void*) &resultat , &one, typ_double, err);
        if (*err > 0) goto ErrL;
        valeur[col*(hauteur)+row]=resultat ;
        break;
 
      case 189: /*MULRK*/
-       C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*)&row, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd,  (void*)&colFirst, &one, typ_short, err);
+       //C2F(mgetnc) (fd,  (void*)&colFirst, &one, typ_short, err);
        if (*err > 0) goto ErrL;
        /*List of nc=lc-fc+1  XF/RK structures*/
        ncol=(Len-6)/6;
        for (i=0;i<ncol;i++) {
-	 C2F(mgetnc) (fd, (void*) &ixfe, &one, typ_short, err);
+	 //C2F(mgetnc) (fd, (void*) &ixfe, &one, typ_short, err);
 	 if (*err > 0) goto ErrL;
-	 C2F(mgetnc) (fd, (void*) &rkvalue, &one, typ_int, err);
+	 //C2F(mgetnc) (fd, (void*) &rkvalue, &one, typ_int, err);
 	 if (*err > 0) goto ErrL;
 	 valeur[row+(colFirst+i)*hauteur]=NumFromRk2(rkvalue);
        }
 
        /*Index of last column*/
-       C2F(mgetnc) (fd, (void*) &colLast, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &colLast, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
        break;
 
      case 253:/*LABELSST*/
-       C2F(mgetnc) (fd, (void*) labelsst1, &three, typ_short, err);
+       //C2F(mgetnc) (fd, (void*) labelsst1, &three, typ_short, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &indsst , &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*) &indsst , &one, typ_int, err);
        if (*err > 0) goto ErrL;
        /*Allocation dans le tableau final*/
        (*chainesind)[(labelsst1[1])*(hauteur)+labelsst1[0]]=indsst+1;
        break;
      case 512:/* DIMENSIONS*/
-       C2F(mgetnc) (fd, (void*) &f_row, &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*) &f_row, &one, typ_int, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &l_row, &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*) &l_row, &one, typ_int, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &f_col, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &f_col, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &l_col, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &l_col, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &notused, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &notused, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
 
        /*Calcul de longueur, hauteur et capacite dela feuille*/
@@ -198,28 +198,28 @@ void xls_read(int *fd, int *cur_pos,double **data, int **chainesind, int *N, int
        }
        break;
      case 6:/* FORMULA*/
-       C2F(mgetnc) (fd, (void*) &row, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &row, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &col, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &col, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*) &xf, &one, typ_ushort, err);
+       //C2F(mgetnc) (fd, (void*) &xf, &one, typ_ushort, err);
        if (*err > 0) goto ErrL;
 
-       C2F(mgetnc) (fd, (void*) &resultat, &one, typ_double, err);
+       //C2F(mgetnc) (fd, (void*) &resultat, &one, typ_double, err);
        if (*err > 0) goto ErrL;
 
        valeur[(col*hauteur+row)]=resultat;
 
-       C2F(mgetnc) (fd, (void*)&optionflag, &one, typ_short, err);
+       //C2F(mgetnc) (fd, (void*)&optionflag, &one, typ_short, err);
        if (*err > 0) goto ErrL;
 
-       C2F(mgetnc) (fd, (void*) &formula_notused, &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*) &formula_notused, &one, typ_int, err);
        if (*err > 0) goto ErrL;
 
        /*Formuled data*/
        taille=Len-2-2-2-8-2-4;
        /*char formuladata[taille];
-	 C2F(mgetnc) (fd, (void*) formuladata, &taille, typ_char, err);
+	 //C2F(mgetnc) (fd, (void*) formuladata, &taille, typ_char, err);
 	 if (*err > 0) goto ErrL;*/
 
        break;
@@ -276,7 +276,7 @@ void xls_open(int *err, int *fd, char ***sst, int *ns, char ***Sheetnames, int**
     *err=1;
     return;
     }*/
-  C2F(mtell) (fd, &pos, err);
+  //C2F(mtell) (fd, &pos, err);
   cur_pos=(int)pos;
   init_pos=cur_pos;
 
@@ -293,18 +293,18 @@ void xls_open(int *err, int *fd, char ***sst, int *ns, char ***Sheetnames, int**
     return;
   }
 
-  C2F(mtell) (fd, &pos, err);
+  //C2F(mtell) (fd, &pos, err);
   if (*err > 0) goto Err2;
   cur_pos=(int)pos;
 
   /* loops on records till an EOF is found */
   while(1) {
-    C2F(mseek) (fd, &cur_pos, "set", err);
+    //C2F(mseek) (fd, &cur_pos, "set", err);
     if (*err > 0) goto Err2;
     /*Enregistrement de l'Opcode et de la Len du tag*/
-    C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+    //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
     if (*err > 0) goto Err2;
-    C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
+    //C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
     if (*err > 0) goto Err2;
 
     switch(Opcode) {
@@ -368,25 +368,25 @@ static void getBOF(int *fd ,int* Data, int *err)
   unsigned short Len;
   int one=1;
 
-  C2F(mgetnc) (fd, (void*)&Opcode, &one, typ_ushort, err);
+  //C2F(mgetnc) (fd, (void*)&Opcode, &one, typ_ushort, err);
   if (*err > 0) return;
-  C2F(mgetnc) (fd, (void*)&Len, &one, typ_ushort, err);
+  //C2F(mgetnc) (fd, (void*)&Len, &one, typ_ushort, err);
   if (*err > 0) return;
 
   switch(Opcode) {
   case 2057:     /*Begin of file, BOF for BIFF5 BIFF7 BIFF8 BIFF8X*/
-    C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&Identifier, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Identifier, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&Year, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Year, &one, typ_short, err);
     if (*err > 0) return;
     if (Len==16) {
-      C2F(mgetnc) (fd, (void*)&HistoryFlags, &one, typ_int, err);
+      //C2F(mgetnc) (fd, (void*)&HistoryFlags, &one, typ_int, err);
       if (*err > 0) return;
-      C2F(mgetnc) (fd, (void*)&LowestXlsVersion, &one, typ_int, err);
+      //C2F(mgetnc) (fd, (void*)&LowestXlsVersion, &one, typ_int, err);
       if (*err > 0) return;
       BIFF=8;
       if (Version != 1536) return;
@@ -395,23 +395,23 @@ static void getBOF(int *fd ,int* Data, int *err)
       BIFF=7;
     break;
   case 1033 : /*Interpr�tation du BIFF4  0409 H*/
-    C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
     if (*err > 0) return;
     BIFF=4;
     break;
   case 521 : /*Interpr�tation du BIFF3  0209 H*/
-    C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
     if (*err > 0) return;
     BIFF=3;
     break;
   case 9 : /*Interpr�tation du BIFF2  0009 H*/
-    C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&Version, &one, typ_short, err);
     if (*err > 0) return;
-    C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&DataType, &one, typ_short, err);
     if (*err > 0) return;
     BIFF=2;
     break;
@@ -443,9 +443,9 @@ static void getSST(int *fd,short Len,int BIFF,int *ns,char ***sst,int *err)
 
   if(BIFF==8) {
     /*Total number of strings in the workbook*/
-    C2F(mgetnc) (fd, (void*)&ntot, &one, typ_int, err);
+    //C2F(mgetnc) (fd, (void*)&ntot, &one, typ_int, err);
     if (*err > 0) goto ErrL;
-    C2F(mgetnc) (fd, (void*)&nm, &one, typ_int, err);
+    //C2F(mgetnc) (fd, (void*)&nm, &one, typ_int, err);
     if (*err > 0) goto ErrL;
     *ns=nm;
     count+=8;
@@ -493,27 +493,27 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
  if (flag&&(*PosInRecord==*RecordLen)) {/* data limit encountered */
     /*check for continue tag */
       /*lecture de l'Opcode et de la RecordLen du tag*/
-      C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
       if ((*err > 0)||(Opcode!=60)) goto ErrL;
-      C2F(mgetnc) (fd, RecordLen, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, RecordLen, &one, typ_ushort, err);
       if (*err > 0) goto ErrL;
       *PosInRecord=0;
   }
 
  /* get the number of characters included in the string (number of bytes or number of couple of bytes) */
   if (flag){  /* getString called by getSST */
-    C2F(mgetnc) (fd, (void*)&ln, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&ln, &one, typ_short, err);
     if (*err > 0) goto ErrL;
     *PosInRecord+=2;
   }
   else { /* getString called by getBoundsheets */
-    C2F(mgetnc) (fd, (void*)&ln, &one, typ_char, err);
+    //C2F(mgetnc) (fd, (void*)&ln, &one, typ_char, err);
     if (*err > 0) goto ErrL;
     *PosInRecord+=1;
   }
 
   /*get the encoding options */
-  C2F(mgetnc) (fd, (void*)&OptionFlag, &one, typ_char, err);
+  //C2F(mgetnc) (fd, (void*)&OptionFlag, &one, typ_char, err);
   if (*err > 0) goto ErrL;
   *PosInRecord+=1;
 
@@ -522,13 +522,13 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
   richString = (OptionFlag & 0x08) != 0;
 
  if (richString) { /*richString*/
-    C2F(mgetnc) (fd, (void*)&rt, &one, typ_short, err);
+    //C2F(mgetnc) (fd, (void*)&rt, &one, typ_short, err);
     *PosInRecord+=2;
     if (*err > 0) goto ErrL;
   }
 
   if (extendedString) {/* extendedString */
-    C2F(mgetnc) (fd, (void*)&sz, &one, typ_int, err);
+    //C2F(mgetnc) (fd, (void*)&sz, &one, typ_int, err);
     if (*err > 0) goto ErrL;
     *PosInRecord+=4;
   }
@@ -542,7 +542,7 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
 
   if (!flag||(*PosInRecord+BytesToBeRead<=*RecordLen)) {
     /* all bytes are in the same record */
-    C2F(mgetnc) (fd, (void*)*str, &BytesToBeRead, typ_char, err);
+    //C2F(mgetnc) (fd, (void*)*str, &BytesToBeRead, typ_char, err);
     if (*err > 0) goto ErrL;
     *PosInRecord+=BytesToBeRead;
   }
@@ -551,26 +551,26 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
     strindex=0; /*current position in str*/
     /* read bytes before the "continue"  */
     /* according to documentation  bytesRead should be strictly positive */
-    C2F(mgetnc) (fd, (void*)(*str+strindex), &bytesRead, typ_char, err);
+    //C2F(mgetnc) (fd, (void*)(*str+strindex), &bytesRead, typ_char, err);
     if (*err > 0) goto ErrL;
     strindex+=bytesRead;
     *PosInRecord+=bytesRead;
     while (BytesToBeRead-bytesRead > 0){
       /*"continue" tag assumed, verify */
-      C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
       if ((*err > 0)||(Opcode!=60)) goto ErrL;
-      C2F(mgetnc) (fd, RecordLen, &one, typ_ushort, err);
+      //C2F(mgetnc) (fd, RecordLen, &one, typ_ushort, err);
       if (*err > 0) goto ErrL;
       *PosInRecord=0;
       /* encoding option may change !!!! */
-      C2F(mgetnc) (fd, (void*)&OptionFlag, &one, typ_char, err);
+      //C2F(mgetnc) (fd, (void*)&OptionFlag, &one, typ_char, err);
       if (*err > 0) goto ErrL;
       *PosInRecord+=1;
 
       if ((!UTFEncoding && (OptionFlag == 0))||(UTFEncoding && (OptionFlag != 0))) {
 	/*string encoding does not change */
 	l1=Min(BytesToBeRead-bytesRead,*RecordLen-*PosInRecord);
-	C2F(mgetnc) (fd, (void*)(*str+strindex), &l1, typ_char, err);
+	//C2F(mgetnc) (fd, (void*)(*str+strindex), &l1, typ_char, err);
 	if (*err > 0) goto ErrL;
 	bytesRead+=l1;
 	strindex+=l1;
@@ -581,7 +581,7 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
         /* may this happen ???? */
 	l1=Min(BytesToBeRead-bytesRead,*RecordLen-*PosInRecord);
 	for (j=0;j<l1;j++){
-	  C2F(mgetnc) (fd, (void*)(*str+strindex), &one, typ_char, err);
+	  //C2F(mgetnc) (fd, (void*)(*str+strindex), &one, typ_char, err);
 	  if (*err > 0) goto ErrL;
 	  (*str)[strindex+1]='\0';
 	  strindex+=2;
@@ -606,7 +606,7 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
 	bytesRead=bytesRead*2;
 	/* read following two bytes characters */
 	l1=Min((BytesToBeRead-bytesRead)*2,*RecordLen-*PosInRecord);
-	C2F(mgetnc) (fd, (void*)(*str+strindex), &l1, typ_char, err);
+	//C2F(mgetnc) (fd, (void*)(*str+strindex), &l1, typ_char, err);
 	if (*err > 0) goto ErrL;
 	bytesRead+=l1;
 	strindex+=l1;
@@ -621,8 +621,10 @@ static void getString(int *fd,short *PosInRecord, short *RecordLen, int flag,cha
   /* For extended strings, skip over the extended string data*/
   /* may continuation records appear here? */
   l1=4*rt;
-  if (richString) {C2F(mseek) (fd, &l1, "cur", err);*PosInRecord+=l1;}
-  if (extendedString) {C2F(mseek) (fd, &sz, "cur", err);*PosInRecord+=sz;}
+  if (richString) {//C2F(mseek) (fd, &l1, "cur", err);*PosInRecord+=l1;
+  }
+  if (extendedString) {//C2F(mseek) (fd, &sz, "cur", err);*PosInRecord+=sz;
+  }
 
   /* add string terminaison */
   if (UTFEncoding) {
@@ -667,18 +669,18 @@ static void getBoundsheets(int * fd,char ***Sheetnames, int** Abspos, int *nshee
   /* Count number of boundsheets */
   ns=0;
   while(1) {
-    C2F(mseek) (fd, cur_pos, "set", err);
+    //C2F(mseek) (fd, cur_pos, "set", err);
     if (*err > 0) goto ErrL;
-    C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+    //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
     if (*err > 0) goto ErrL;
-    C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
+    //C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
     if (*err > 0) goto ErrL;
     if (Opcode==133) {
-      C2F(mgetnc) (fd, (void*)&abspos, &one, typ_int, err);
+      //C2F(mgetnc) (fd, (void*)&abspos, &one, typ_int, err);
       if (*err > 0) goto ErrL;
-      C2F(mgetnc) (fd, (void*)&visibility, &one, typ_char, err);
+      //C2F(mgetnc) (fd, (void*)&visibility, &one, typ_char, err);
       if (*err > 0) goto ErrL;
-      C2F(mgetnc) (fd, (void*)&sheettype, &one, typ_char, err);
+      //C2F(mgetnc) (fd, (void*)&sheettype, &one, typ_char, err);
       if (sheettype==0) {/* worksheet */
 	ns++;
       }
@@ -698,16 +700,16 @@ static void getBoundsheets(int * fd,char ***Sheetnames, int** Abspos, int *nshee
    *cur_pos=pos;
    i=-1;
    while(1) {
-     C2F(mseek) (fd, cur_pos, "set", err);
+     //C2F(mseek) (fd, cur_pos, "set", err);
      if (*err > 0) goto ErrL;
-     C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
-     C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
+     //C2F(mgetnc) (fd, &Opcode, &one, typ_ushort, err);
+     //C2F(mgetnc) (fd, &Len, &one, typ_ushort, err);
      if (Opcode==133) {
-       C2F(mgetnc) (fd, (void*)&abspos, &one, typ_int, err);
+       //C2F(mgetnc) (fd, (void*)&abspos, &one, typ_int, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&visibility, &one, typ_char, err);
+       //C2F(mgetnc) (fd, (void*)&visibility, &one, typ_char, err);
        if (*err > 0) goto ErrL;
-       C2F(mgetnc) (fd, (void*)&sheettype, &one, typ_char, err);
+       //C2F(mgetnc) (fd, (void*)&sheettype, &one, typ_char, err);
        if (sheettype==0) {/* worksheet */
 	 short count=0;
 	 i++;
@@ -744,7 +746,7 @@ static void getBoundsheets(int * fd,char ***Sheetnames, int** Abspos, int *nshee
  unsigned char header[512];
  int c,ierr;
 
- C2F(mgetnc) (fd, (void *)header,(c=512,&c), typ_uchar, &ierr);
+ //C2F(mgetnc) (fd, (void *)header,(c=512,&c), typ_uchar, &ierr);
  if (ierr !=0)  return 1;
  if (memcmp (header, MAGIC, sizeof (MAGIC)) != 0) return 1;
  return 0;
