@@ -70,9 +70,9 @@ AC_DEFUN([AC_PROG_JAVAC], [
 	     # Don't follow the symlink since Java under MacOS is messy
 	     # Uses the wrapper providing by Apple to retrieve the path
 	     # See: http://developer.apple.com/mac/library/qa/qa2001/qa1170.html
-		JAVAC=/System/Library/Frameworks/JavaVM.framework/Commands/javac
-		DONT_FOLLOW_SYMLINK=yes
-		;;
+	       JAVAC=$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)/bin/javac
+               DONT_FOLLOW_SYMLINK=yes
+	     ;;
 	esac
 	fi
     if test "x$JAVAC" = "x" ; then
@@ -233,8 +233,8 @@ Maybe JAVA_HOME is pointing to a JRE (Java Runtime Environment) instead of a JDK
 		     *darwin* )
 			AC_MSG_RESULT([Darwin (Mac OS X) found. Use the standard paths.])
 			# See: http://developer.apple.com/mac/library/qa/qa2001/qa1170.html
-			ac_java_jvm_dir=/System/Library/Frameworks/JavaVM.framework
-			JAVAC=$ac_java_jvm_dir/Commands/javac
+			ac_java_jvm_dir=$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)
+			JAVAC=$ac_java_jvm_dir/bin/javac
 			;;
 		esac
 	fi
@@ -372,7 +372,7 @@ AC_DEFUN([AC_JAVA_JNI_INCLUDE], [
          else
 		case "$host_os" in
 		     *darwin* )
-		     	      ac_java_jvm_jni_include_flags="-I/Developer/SDKs/MacOSX${macosx_version}.sdk/System/Library/Frameworks/JavaVM.framework/Headers"
+		     	      ac_java_jvm_jni_include_flags="-I/Developer/SDKs/MacOSX${macosx_version}.sdk/System/Library/Frameworks/JavaVM.framework/Headers -I$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)/include/"
 			      ;;
 		      *)
 	                   AC_MSG_ERROR([Could not locate Java's jni.h include file])
@@ -555,27 +555,6 @@ AC_DEFUN([AC_JAVA_JNI_LIBS], [
             fi
         fi
 
-        # Sun on MacOS X Java Compiler
-
-        F=Libraries/libjava.jnilib
-        if test "x$ac_java_jvm_jni_lib_flags" = "x" ; then
-            AC_MSG_LOG([Looking for $ac_java_jvm_dir/$F])
-            if test -f $ac_java_jvm_dir/$F ; then
-                AC_MSG_LOG([Found $ac_java_jvm_dir/$F])
-		libSymbolToTest="JNI_GetCreatedJavaVMs_Impl"
-
-
-                #D=`dirname $ac_java_jvm_dir/$F`
-                #ac_java_jvm_jni_lib_runtime_path=$D
-                #ac_java_jvm_jni_lib_flags="-L$D -ljvm"
-
-                #D=$ac_java_jvm_dir/jre/lib/i386/server
-		D=/Developer/SDKs/MacOSX${macosx_version}.sdk/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Libraries
-                ac_java_jvm_jni_lib_runtime_path="${ac_java_jvm_jni_lib_runtime_path}:$D"
-                ac_java_jvm_jni_lib_flags="$ac_java_jvm_jni_lib_flags -L$D -ljvm"
-            fi
-        fi
-
         # Sun JDK 1.4 and 1.5 for Win32 (client JVM)
 
         F=lib/jvm.lib
@@ -748,7 +727,8 @@ AC_DEFUN([AC_JAVA_TOOLS], [
 
     case "$host_os" in
           *darwin*)
-	      ac_java_jvm_bin_dir=/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands;;
+	      ac_java_jvm_bin_dir=$(/usr/libexec/java_home --arch x86_64 --failfast --version 1.6+)/bin/
+	;;
           *)
               ac_java_jvm_bin_dir=$ac_java_jvm_dir/bin;;
     esac
