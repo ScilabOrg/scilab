@@ -80,6 +80,8 @@ Xcos:
 
 * bug 9175 fixed - Xcos: Sigbuilder, modify "Data bounds" in curve editor fails
 
+* bug 9219 fixed - AFFICH_m format was not the parameterized one.
+
 Packaging:
 ==========
 
