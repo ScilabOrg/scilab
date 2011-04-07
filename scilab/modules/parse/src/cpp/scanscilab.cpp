@@ -2199,7 +2199,10 @@ YY_RULE_SETUP
   if (last_token == ID
       || last_token == RBRACK
       || last_token == RPAREN
-      || last_token == RBRACE)
+      || last_token == RBRACE
+      || last_token == VARINT
+      || last_token == VARFLOAT
+      || last_token == NUM)
     {
       return scan_throw(QUOTE);
     }
