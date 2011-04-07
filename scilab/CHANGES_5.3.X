@@ -58,6 +58,7 @@ Xcos:
   - Counter
   - RAMP
   - DELAY_f
+  - WFILE_f -Write to output file
 
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
 
