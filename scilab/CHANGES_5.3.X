@@ -58,6 +58,7 @@ Xcos:
   - Counter
   - RAMP
   - DELAY_f
+  - WRITEC_f - Write C binary file
 
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
 
