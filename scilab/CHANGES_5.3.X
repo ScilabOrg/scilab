@@ -165,6 +165,9 @@ Bug fixes:
 * Bug 8423 fixed - With certain options of the configure, the build process
                    failed.
 
+* Bug 8595 fixed - The Options Dialogbox when exporting did not appear to front
+                   with several screens.
+
 * bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation with
                    ode" displayed a warning about an obsolete use of ilib_for_link.
 
