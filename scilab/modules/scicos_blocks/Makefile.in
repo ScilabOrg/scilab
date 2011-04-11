@@ -268,7 +268,7 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absblk.c \
 	src/c/scoMemoryScope.c src/c/scoWindowScope.c src/c/affich.c \
 	src/c/scicos_evalhermite.c src/c/scicos_indexfinder.c \
 	src/jni/GiwsException.cpp src/jni/AfficheBlock.cpp \
-	src/cpp/affich2.cpp
+	src/cpp/block.cpp src/cpp/affich2.cpp
 @XCOS_TRUE@am__objects_1 = libsciscicos_blocks_la-absblk.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-absolute_value.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-acos_blk.lo \
@@ -601,7 +601,8 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absblk.c \
 @XCOS_TRUE@	libsciscicos_blocks_la-scicos_evalhermite.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-scicos_indexfinder.lo
 @XCOS_TRUE@am__objects_4 = libsciscicos_blocks_la-GiwsException.lo \
-@XCOS_TRUE@	libsciscicos_blocks_la-AfficheBlock.lo
+@XCOS_TRUE@	libsciscicos_blocks_la-AfficheBlock.lo \
+@XCOS_TRUE@	libsciscicos_blocks_la-block.lo
 @XCOS_TRUE@am__objects_5 = libsciscicos_blocks_la-affich2.lo
 @XCOS_TRUE@am_libsciscicos_blocks_la_OBJECTS = $(am__objects_1) \
 @XCOS_TRUE@	$(am__objects_2) $(am__objects_3) $(am__objects_4) \
@@ -1306,7 +1307,8 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 
 @XCOS_TRUE@NON_BLOCK_CPP_SOURCES = \
 @XCOS_TRUE@src/jni/GiwsException.cpp \
-@XCOS_TRUE@src/jni/AfficheBlock.cpp
+@XCOS_TRUE@src/jni/AfficheBlock.cpp \
+@XCOS_TRUE@src/cpp/block.cpp
 
 @XCOS_TRUE@GIWS_WRAPPERS = \
 @XCOS_TRUE@src/jni/Blocks.giws.xml
@@ -1787,6 +1789,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_16.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bit_set_8.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-block.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bounce_ball.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-bouncexy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-canimxy.Plo@am__quote@
@@ -4375,6 +4378,13 @@ libsciscicos_blocks_la-AfficheBlock.lo: src/jni/AfficheBlock.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/jni/AfficheBlock.cpp' object='libsciscicos_blocks_la-AfficheBlock.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsciscicos_blocks_la-AfficheBlock.lo `test -f 'src/jni/AfficheBlock.cpp' || echo '$(srcdir)/'`src/jni/AfficheBlock.cpp
+
+libsciscicos_blocks_la-block.lo: src/cpp/block.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsciscicos_blocks_la-block.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-block.Tpo -c -o libsciscicos_blocks_la-block.lo `test -f 'src/cpp/block.cpp' || echo '$(srcdir)/'`src/cpp/block.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libsciscicos_blocks_la-block.Tpo $(DEPDIR)/libsciscicos_blocks_la-block.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/block.cpp' object='libsciscicos_blocks_la-block.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libsciscicos_blocks_la-block.lo `test -f 'src/cpp/block.cpp' || echo '$(srcdir)/'`src/cpp/block.cpp
 
 libsciscicos_blocks_la-affich2.lo: src/cpp/affich2.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libsciscicos_blocks_la-affich2.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-affich2.Tpo -c -o libsciscicos_blocks_la-affich2.lo `test -f 'src/cpp/affich2.cpp' || echo '$(srcdir)/'`src/cpp/affich2.cpp

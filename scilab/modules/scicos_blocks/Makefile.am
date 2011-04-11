@@ -347,7 +347,8 @@ src/c/scicos_indexfinder.c
 
 NON_BLOCK_CPP_SOURCES = \
 src/jni/GiwsException.cpp \
-src/jni/AfficheBlock.cpp
+src/jni/AfficheBlock.cpp \
+src/cpp/block.cpp
 
 GIWS_WRAPPERS = \
 src/jni/Blocks.giws.xml
