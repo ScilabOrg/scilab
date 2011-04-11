@@ -26,6 +26,7 @@
 #include "setgetlanguage.h"
 #include "LaunchScilabSignal.h"
 #include "setenvc.h"
+#include <setjmp.h>
 
 #ifdef __APPLE__
 #include "initMacOSXEnv.h"
@@ -34,6 +35,7 @@
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
+jmp_buf* getFallback_jmp_point(void);
 
 /*--------------------------------------------------------------------------*/
 #define MIN_STACKSIZE 8000000
@@ -67,6 +69,9 @@ int main(int argc, char **argv)
 #endif
 
   InitializeLaunchScilabSignal();
+
+/* Management of the signals (seg fault, floating point exception, etc) */
+  base_error_init();
 
 #if defined(netbsd) || defined(freebsd)
 /* floating point exceptions */
