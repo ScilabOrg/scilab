@@ -27,13 +27,14 @@
 #include <sys/types.h> /* getpid */
 #include <unistd.h> /* gethostname */
 
+#include "csignal.h"
 #include "localization.h"
 #include "backtrace.h"
 #include "signal_mgmt.h"
 #include "machine.h"
 #include "Scierror.h"
 extern jmp_buf jmp_env;
-
+static void sci_sigint_addinter(int n);
 /*----------------------------------------------------------------------------
  * Print a stack trace
  *----------------------------------------------------------------------------*/
@@ -485,6 +486,22 @@ void base_error_init(void)
 
     /* Signal handlers */
 
+    struct sigaction act_addinter, act_controlC;
+
+    memset(&act_addinter, 0, sizeof(act_addinter));
+    act_addinter.sa_sigaction = sci_sigint_addinter;
+    if (sigaction(SIGINT, &act_addinter, NULL) != 0)
+    {
+        fprintf(stderr,"Could not set the signal SIGINT to the handler.\n");
+    }
+
+    memset(&act_controlC, 0, sizeof(act_controlC));
+    act_controlC.sa_sigaction = controlC_handler;
+    if (sigaction(SIGINT, &act_controlC, NULL) != 0)
+    {
+        fprintf(stderr,"Could not set the signal SIGINT to the handler.\n");
+    }
+
     memset(&act, 0, sizeof(act));
     act.sa_sigaction = sig_fatal;
     act.sa_flags = SA_SIGINFO;
@@ -524,5 +541,19 @@ void base_error_init(void)
         {
             fprintf(stderr,"Could not set handler for signal %d\n",signals[j]);
         }
+    }
+}
+
+
+/*--------------------------------------------------------------------------*/
+static void sci_sigint_addinter(int n)
+{
+    int c = 0;
+    sciprint(_("Trying to stop scilab in the middle of an interface.\n"));
+    sciprint(_("Do you really want to abort computation (y or n ?) \n"));
+    c = getchar();
+    if ( c == 'y' )
+    {
+        errjump();
     }
 }
