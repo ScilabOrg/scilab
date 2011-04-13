@@ -62,6 +62,9 @@ CPP_GATEWAY_PROTOTYPE(sci_mputstr);
 CPP_GATEWAY_PROTOTYPE(sci_mgetstr);
 CPP_GATEWAY_PROTOTYPE(sci_mseek);
 CPP_GATEWAY_PROTOTYPE(sci_mtell);
-
+CPP_GATEWAY_PROTOTYPE(sci_mfprintf);
+CPP_GATEWAY_PROTOTYPE(sci_mscanf);
+CPP_GATEWAY_PROTOTYPE(sci_mfscanf);
+CPP_GATEWAY_PROTOTYPE(sci_msscanf);
 
 #endif /* !__FILEIO_GW_HXX__ */
