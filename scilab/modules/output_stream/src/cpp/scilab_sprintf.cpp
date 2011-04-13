@@ -216,22 +216,43 @@ wchar_t** scilab_sprintf(wchar_t* _pwstName, wchar_t* _pwstInput, typed_list &in
                 {
                     wchar_t* pwstStr = in[_pArgs[i - 1].iArg]->getAs<types::String>()->get(j, _pArgs[i - 1].iPos);
 
-#ifdef _MSC_VER
-                    swprintf(pwstTemp, bsiz, pToken[i].pwstToken, pwstStr);
-#else
-                    if(pToken[i].bLengthFlag == false)
+                    if(pToken[i].pwstToken[wcslen(pToken[i].pwstToken) - 1] == L'c')
                     {
-                        //replace %s by %ls to wide char compatibility
-                        wchar_t* pwstToken = (wchar_t*)MALLOC(sizeof(wchar_t) * (wcslen(pToken[i].pwstToken) + 2));
-                        swprintf(pwstToken, wcslen(pToken[i].pwstToken) + 2, pToken[i].pwstToken, "%ls");
-                        swprintf(pwstTemp, bsiz, pwstToken, pwstStr);
-                        FREE(pwstToken);
+                        if(pToken[i].bLengthFlag == false)
+                        {
+                            //replace %c by %lc to wide char compatibility
+                            wchar_t* pwstToken = (wchar_t*)MALLOC(sizeof(wchar_t) * (wcslen(pToken[i].pwstToken) + 2));
+                            wcscpy(pwstToken, pToken[i].pwstToken);
+                            pwstToken[wcslen(pToken[i].pwstToken) - 1]  = L'l';
+                            pwstToken[wcslen(pToken[i].pwstToken)]      = L'c';
+                            pwstToken[wcslen(pToken[i].pwstToken) + 1]  = L'\0';
+                            swprintf(pwstTemp, bsiz, pwstToken, pwstStr[0]);
+                            FREE(pwstToken);
+                        }
+                        else
+                        {
+                            swprintf(pwstTemp, bsiz, pToken[i].pwstToken, pwstStr[0]);
+                        }
                     }
-                    else
+                    else //'s'
                     {
-                        swprintf(pwstTemp, bsiz, pToken[i].pwstToken, pwstStr);
+                        if(pToken[i].bLengthFlag == false)
+                        {
+                            //replace %s by %ls to wide char compatibility
+                            wchar_t* pwstToken = (wchar_t*)MALLOC(sizeof(wchar_t) * (wcslen(pToken[i].pwstToken) + 2));
+                            wcscpy(pwstToken, pToken[i].pwstToken);
+                            pwstToken[wcslen(pToken[i].pwstToken) - 1]  = L'l';
+                            pwstToken[wcslen(pToken[i].pwstToken)]      = L's';
+                            pwstToken[wcslen(pToken[i].pwstToken) + 1]  = L'\0';
+                            swprintf(pwstTemp, bsiz, pwstToken, pwstStr);
+                            FREE(pwstToken);
+                        }
+                        else
+                        {
+                            swprintf(pwstTemp, bsiz, 
+                            pToken[i].pwstToken, pwstStr);
+                        }
                     }
-#endif
                 }
                 else
                 {//impossible but maybe in the futur
