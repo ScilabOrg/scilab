@@ -52,7 +52,11 @@ bool FileioModule::Load()
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mputstr", &sci_mputstr, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mgetstr", &sci_mgetstr, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mseek", &sci_mseek, MODULE_NAME));
-    
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mfprintf", &sci_mfprintf, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mscanf", &sci_mscanf, MODULE_NAME));   
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mfscanf", &sci_mfscanf, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"msscanf", &sci_msscanf, MODULE_NAME));
     
     return true;
 }
+
