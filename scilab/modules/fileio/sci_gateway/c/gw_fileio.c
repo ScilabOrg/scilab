@@ -29,10 +29,10 @@ static gw_generic_table Tab[]={
 	{NULL, ""}, //mseek
 	{NULL, ""}, //mtell
 	{sci_mclearerr, "mclearerr"},
-	{sci_mfprintf,"mfprintf"}, //
-	{sci_scanf,"mscanf"}, //
-	{sci_fscanf,"mfscanf"}, //
-	{sci_sscanf,"msscanf"}, //
+	{NULL, ""}, //mfprintf *
+	{NULL, ""}, //mscanf *
+	{NULL, ""}, //mfscanf *
+	{NULL, ""}, //msscanf *
 	{sci_fscanfMat,"fscanfMat"},
 	{sci_fprintfMat,"fprintfMat"},
 	{sci_merror, "merror"},

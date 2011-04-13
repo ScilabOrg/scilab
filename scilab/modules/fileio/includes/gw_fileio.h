@@ -19,10 +19,6 @@ FILEIO_IMPEXP int gw_fileio(void);
 /*--------------------------------------------------------------------------*/
 FILEIO_IMPEXP int sci_merror(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_mclearerr(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_mfprintf(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_scanf(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_sscanf(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_fscanf(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_maxfiles(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_getdrives(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_pathsep(char *fname,unsigned long fname_len);
