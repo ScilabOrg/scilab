@@ -26,6 +26,7 @@
 #include "localization.h"
 #include "Scierror.h"
 #include "do_error_number.h"
+//#include "code2str.h"
 #include "elementary_functions.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
@@ -1809,9 +1810,9 @@ int iGetListSubItemString(int _iVar, int* _piParentList, int _iItemNumber, int *
 	}
 
 	//code2str(&_pszData, piString, iArraySum(_piLen, 0, *_piRows * *_piCols));
-	{
-		return 0;
-	}
+	//{
+	//	return 0;
+	//}
 }
 
 
