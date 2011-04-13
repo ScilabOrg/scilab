@@ -70,6 +70,8 @@ Xcos:
 
 * bug 8692 fixed - Null block parameters was not checked before encoding.
 
+* bug 8931 fixed - Simulations errors were not reported on Linux and Mac.
+
 * bug 9024 fixed - Opening a non existing file lead to palette closing issues.
 
 * bug 9077 fixed - Automotive Suspension demo was modified on loading.
