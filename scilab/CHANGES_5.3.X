@@ -231,6 +231,8 @@ Bug fixes:
 
 * bug 9280 fixed - wavread failed to read PCM 32 bit float file format.
 
+* bug 9291 fixed - The env var JAVA_HOME had a bad value.
+
 * bug 9300 fixed - Scilab crashed when one tryed to complete an empty mlist.
 
 
