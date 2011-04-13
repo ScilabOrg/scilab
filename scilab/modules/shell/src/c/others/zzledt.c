@@ -290,9 +290,6 @@ char *TermReadAndProcess(void)
 
     char *buffer = NULL;
 
-    tmpPrompt = GetTemporaryPrompt(); /* Input function has been used ? */
-    GetCurrentPrompt(Sci_Prompt);
-
     if(init_flag)
     {
         init_io();
@@ -322,12 +319,14 @@ char *TermReadAndProcess(void)
     /* Display the Scilab prompt */
     if(sendprompt)
     {
+        tmpPrompt = GetTemporaryPrompt(); /* Input function has been used ? */
         if(tmpPrompt!=NULL)
         {
             printf("%s",tmpPrompt);
         }
         else
         {
+            GetCurrentPrompt(Sci_Prompt);
             printf("%s",Sci_Prompt);/* write prompt */
         }
     }
