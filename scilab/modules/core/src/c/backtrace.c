@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "machine.h"
 
 #if defined(HAVE_GLIBC_BACKTRACE)
 #include <memory.h>
@@ -32,7 +33,6 @@
 #include <demangle.h>
 #endif
 
-#include "machine.h"
 #if defined(HAVE_GLIBC_BACKTRACE) && defined(__GNUC__)
 #define _GNU_SOURCE
 #endif
