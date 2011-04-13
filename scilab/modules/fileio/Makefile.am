@@ -48,10 +48,6 @@ src/c/fprintfMat.c
 
 GATEWAY_C_SOURCES = \
 sci_gateway/c/gw_fileio.c \
-sci_gateway/c/sci_mfprintf.c \
-sci_gateway/c/sci_mscanf.c \
-sci_gateway/c/sci_msscanf.c \
-sci_gateway/c/sci_mfscanf.c \
 sci_gateway/c/sci_fprintfMat.c \
 sci_gateway/c/sci_fscanfMat.c \
 sci_gateway/c/sci_maxfiles.c \
@@ -94,8 +90,12 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_mputstr.cpp \
 	sci_gateway/cpp/sci_mgetstr.cpp \
 	sci_gateway/cpp/sci_mseek.cpp \
-	sci_gateway/cpp/sci_mtell.cpp
-	
+	sci_gateway/cpp/sci_mtell.cpp \
+	sci_gateway/cpp/sci_mfprintf.cpp \
+	sci_gateway/cpp/sci_mfscanf.cpp \
+	sci_gateway/cpp/sci_mscanf.cpp \
+	sci_gateway/cpp/sci_msscanf.cpp 
+		
 FILEIO_CPP_SOURCES = \
 	src/cpp/expandPathVariable.cpp \
 	src/cpp/mopen.cpp \
@@ -107,8 +107,11 @@ FILEIO_CPP_SOURCES = \
 	src/cpp/mgetstr.cpp \
 	src/cpp/filemanager.cpp \
 	src/cpp/mseek.cpp \
-	src/cpp/mtell.cpp
-	
+	src/cpp/mtell.cpp \
+	src/cpp/scilab_sscanf.cpp \
+	src/cpp/checkformat.cpp	
+		
+
 libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \
 				-I$(srcdir)/src/cpp/ \
@@ -123,6 +126,7 @@ libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/string/includes \
 				-I$(top_srcdir)/modules/system_env/includes \
 				-I$(top_srcdir)/modules/io/includes \
+				-I$(top_srcdir)/modules/shell/includes \
 				$(HDF5_CFLAGS)
 
 libscifileio_la_CFLAGS=		-I$(srcdir)/includes/ \
