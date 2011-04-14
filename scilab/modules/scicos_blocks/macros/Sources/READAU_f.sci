@@ -51,7 +51,7 @@ case 'set' then
           list("str",1,"vec",1,"vec",1), exprs);
      tmask1=[];outmask=1;frmt1='uc';M=1;offset=1;
     if ~ok then break,end //user cancel modification
-    fname1=stripblanks(fname1)
+    fname1 = pathconvert(stripblanks(fname1), %f, %t) // Path expansion
     frmt1=stripblanks(frmt1)
     if alreadyran&fname1<>fname then
         block_parameter_error(gettext("Simulation running !!! You cannot modify Input file name"), ..
