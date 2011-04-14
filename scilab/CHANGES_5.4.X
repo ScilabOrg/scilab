@@ -6,6 +6,10 @@ SciNotes:
 
 * Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
 
+Xcos:
+=====
+
+* bug 9346 fixed - FROMWS_c block had functional regression since scilab-5.3.1
 
 File input/output:
 ==================
