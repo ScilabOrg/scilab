@@ -5,7 +5,7 @@ Scilab:
 =======
 
 * The Mac OS X version is checked to avoid errors on unsupported versions
-  of Mac OS X. As a remider, Scilab is supported under Mac OS X 10.6.
+  of Mac OS X. As a reminder, Scilab is supported under Mac OS X 10.6.
 
 
 Scinotes:
@@ -70,7 +70,7 @@ Xcos:
 
 * bug 8692 fixed - Null block parameters was not checked before encoding.
 
-* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced 
+* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced
                    warnings.
 
 * bug 9024 fixed - Opening a non existing file lead to palette closing issues.
@@ -136,7 +136,7 @@ Localization:
 Documentation:
 ==============
 
-* Bug 7072 fixed - Fix various issues in the documentation. 
+* Bug 7072 fixed - Fix various issues in the documentation.
                    Thanks to Yves Barois.
 
 Compilation:
