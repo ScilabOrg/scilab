@@ -61,6 +61,7 @@ Xcos:
   - Counter
   - RAMP
   - DELAY_f
+  - RFILE_f Read from input file
 
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
 
