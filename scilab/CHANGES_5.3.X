@@ -11,6 +11,8 @@ Scilab:
 Scinotes:
 =========
 
+* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+
 * Add the possibility to save and execute the code with F5 key.
 
 * Add the possibility to remove the comments when executing the code in the
