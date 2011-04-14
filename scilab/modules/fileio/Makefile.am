@@ -15,8 +15,6 @@ src/c/filesmanagement.c \
 src/c/getfiledesc.c \
 src/c/getfileinfo.c \
 src/c/getfiletype.c \
-src/c/mclearerr.c \
-src/c/merror.c \
 src/c/mgeti.c \
 src/c/mputi.c \
 src/c/mtell.c \
@@ -53,15 +51,10 @@ sci_gateway/c/sci_fprintfMat.c \
 sci_gateway/c/sci_fscanfMat.c \
 sci_gateway/c/sci_maxfiles.c \
 sci_gateway/c/sci_getdrives.c \
-sci_gateway/c/sci_pathsep.c \
 sci_gateway/c/sci_chdir.c \
 sci_gateway/c/sci_pwd.c \
-sci_gateway/c/sci_mclearerr.c \
-sci_gateway/c/sci_merror.c \
 sci_gateway/c/sci_mtell.c \
 sci_gateway/c/sci_newest.c \
-sci_gateway/c/sci_get_absolute_file_path.c  \
-sci_gateway/c/sci_getrelativefilename.c \
 sci_gateway/c/sci_copyfile.c \
 sci_gateway/c/sci_movefile.c
 
@@ -95,8 +88,13 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_mfprintf.cpp \
 	sci_gateway/cpp/sci_mfscanf.cpp \
 	sci_gateway/cpp/sci_mscanf.cpp \
-	sci_gateway/cpp/sci_msscanf.cpp 
-		
+	sci_gateway/cpp/sci_msscanf.cpp \
+	sci_gateway/cpp/sci_merror.cpp \
+	sci_gateway/cpp/sci_mclearerr.cpp \
+	sci_gateway/cpp/sci_get_absolute_file_path.cpp \
+	sci_gateway/cpp/sci_getrelativefilename.cpp \
+	sci_gateway/cpp/sci_pathsep.cpp 
+
 FILEIO_CPP_SOURCES = \
 	src/cpp/expandPathVariable.cpp \
 	src/cpp/mopen.cpp \

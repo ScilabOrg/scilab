@@ -56,7 +56,12 @@ bool FileioModule::Load()
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mscanf", &sci_mscanf, MODULE_NAME));   
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mfscanf", &sci_mfscanf, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"msscanf", &sci_msscanf, MODULE_NAME));
-    
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"merror", &sci_merror, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"mclearerr", &sci_mclearerr, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"get_absolute_file_path", &sci_get_absolute_file_path, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"getrelativefilename", &sci_getrelativefilename, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"pathsep", &sci_pathsep, MODULE_NAME));
+
     return true;
 }
 

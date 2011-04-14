@@ -17,15 +17,10 @@
 /*--------------------------------------------------------------------------*/
 FILEIO_IMPEXP int gw_fileio(void);
 /*--------------------------------------------------------------------------*/
-FILEIO_IMPEXP int sci_merror(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_mtell(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_mclearerr(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_maxfiles(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_getdrives(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_pathsep(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_newest(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_getrelativefilename(char *fname, unsigned long l);
-FILEIO_IMPEXP int sci_get_absolute_file_path(char *fname,unsigned long fname_len);
 
 //YaSp
 FILEIO_IMPEXP int sci_pwd(char *fname, int* _piKey);
