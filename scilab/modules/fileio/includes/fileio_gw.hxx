@@ -70,6 +70,6 @@ CPP_GATEWAY_PROTOTYPE(sci_mclearerr);
 CPP_GATEWAY_PROTOTYPE(sci_get_absolute_file_path);
 CPP_GATEWAY_PROTOTYPE(sci_getrelativefilename);
 CPP_GATEWAY_PROTOTYPE(sci_pathsep);
-
+CPP_GATEWAY_PROTOTYPE(sci_getdrives);
 
 #endif /* !__FILEIO_GW_HXX__ */

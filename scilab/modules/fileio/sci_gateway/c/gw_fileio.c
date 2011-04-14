@@ -29,16 +29,16 @@ static gw_generic_table Tab[]={
 	{NULL, ""}, //mseek
 	{sci_mtell, "mtell"}, //
 	{NULL, ""}, //mclearerr
-	{NULL, ""}, //mfprintf *
-	{NULL, ""}, //mscanf *
-	{NULL, ""}, //mfscanf *
-	{NULL, ""}, //msscanf *
+	{NULL, ""}, //mfprintf
+	{NULL, ""}, //mscanf
+	{NULL, ""}, //mfscanf
+	{NULL, ""}, //msscanf
 	{sci_fscanfMat,"fscanfMat"},
 	{sci_fprintfMat,"fprintfMat"},
 	{NULL, ""}, //merror
 	{NULL, ""}, //findfiles
-	{sci_maxfiles,"maxfiles"},
-	{sci_getdrives,"getdrives"},
+	{NULL, ""}, //maxfiles => deprecated (Scilab 5.4)
+	{NULL, ""}, //getdrives
 	{NULL, ""}, //fullpath
 	{NULL, ""}, //deletefile
 	{NULL, ""}, //pathsep
@@ -52,7 +52,7 @@ static gw_generic_table Tab[]={
 	{NULL, ""}, //pwd
 	{NULL, ""}, //chdir
 	{NULL, ""}, //fileinfo
-	{sci_newest,"newest"},
+	{sci_newest,"newest"}, //
 	{NULL, ""}, //getrelativefilename
 	{NULL, ""}, //get_absolute_file_path
 	{NULL, ""}, //copyfile
