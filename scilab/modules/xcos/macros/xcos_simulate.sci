@@ -43,6 +43,9 @@ if ( ~isdef("scicos_pal") | ~isdef("%scicos_menu") | ..
 end
 // =====================================================================
 
+if ~exists("scicos_diagram") then
+    loadXcosLibs();
+end
 
   funcprot(prot);
   //-- end
@@ -261,7 +264,7 @@ end
         path=corinv(kfun)
         //** get error cmd for the block
         disp(str_err);
-        get_errorcmd(path,'Initialisation problem.',str_err);
+        get_errorcmd(path,gettext('Initialisation problem'),str_err);
         
 
       else //** simulator error
@@ -318,7 +321,7 @@ end
         if kfun<>0 then //** block error
           path = corinv(kfun)
           //** get error cmd for the block
-          get_errorcmd(path,'End problem.',str_err);
+          get_errorcmd(path,gettext('End problem'),str_err);
         else //** simulator error
           message(['End problem:';str_err])
           //scf(curwin);
@@ -338,7 +341,7 @@ end
     if kfun<>0 then //** block error
       path = corinv(kfun);
       //** get error cmd for the block
-      get_errorcmd(path,"Simulation problem.",str_err);
+      get_errorcmd(path,gettext("Simulation problem"),str_err);
     else //** simulateur error
       message(['Simulation problem:';str_err])
       //scf(curwin);
