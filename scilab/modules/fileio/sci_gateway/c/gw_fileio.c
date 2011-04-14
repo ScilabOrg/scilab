@@ -37,8 +37,8 @@ static gw_generic_table Tab[]={
 	{sci_fprintfMat,"fprintfMat"},
 	{NULL, ""}, //merror
 	{NULL, ""}, //findfiles
-	{sci_maxfiles,"maxfiles"},
-	{sci_getdrives,"getdrives"},
+	{NULL, ""}, //maxfiles => deprecated (Scilab 5.4)
+	{NULL, ""}, //getdrives
 	{NULL, ""}, //fullpath
 	{NULL, ""}, //deletefile
 	{NULL, ""}, //pathsep

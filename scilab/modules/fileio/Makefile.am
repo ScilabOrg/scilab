@@ -52,8 +52,6 @@ sci_gateway/c/sci_msscanf.c \
 sci_gateway/c/sci_mfscanf.c \
 sci_gateway/c/sci_fprintfMat.c \
 sci_gateway/c/sci_fscanfMat.c \
-sci_gateway/c/sci_maxfiles.c \
-sci_gateway/c/sci_getdrives.c \
 sci_gateway/c/sci_chdir.c \
 sci_gateway/c/sci_pwd.c \
 sci_gateway/c/sci_copyfile.c \
@@ -92,7 +90,8 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_mclearerr.cpp \
 	sci_gateway/cpp/sci_get_absolute_file_path.cpp \
 	sci_gateway/cpp/sci_getrelativefilename.cpp \
-	sci_gateway/cpp/sci_pathsep.cpp
+	sci_gateway/cpp/sci_pathsep.cpp \
+	sci_gateway/cpp/sci_getdrives.cpp
 
 FILEIO_CPP_SOURCES = \
 	src/cpp/expandPathVariable.cpp \
