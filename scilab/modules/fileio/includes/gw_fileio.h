@@ -18,8 +18,6 @@
 FILEIO_IMPEXP int gw_fileio(void);
 /*--------------------------------------------------------------------------*/
 
-FILEIO_IMPEXP int sci_maxfiles(char *fname,unsigned long fname_len);
-FILEIO_IMPEXP int sci_getdrives(char *fname,unsigned long fname_len);
 FILEIO_IMPEXP int sci_newest(char *fname,unsigned long fname_len);
 
 //YaSp

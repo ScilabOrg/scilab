@@ -62,6 +62,8 @@ bool FileioModule::Load()
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"get_absolute_file_path", &sci_get_absolute_file_path, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"getrelativefilename", &sci_getrelativefilename, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"pathsep", &sci_pathsep, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"getdrives", &sci_getdrives, MODULE_NAME));
+
 
     return true;
 }
