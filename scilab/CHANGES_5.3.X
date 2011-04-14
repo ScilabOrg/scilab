@@ -70,7 +70,7 @@ Xcos:
 
 * bug 8692 fixed - Null block parameters was not checked before encoding.
 
-* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced 
+* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced
                    warnings.
 
 * bug 9024 fixed - Opening a non existing file lead to palette closing issues.
@@ -136,7 +136,7 @@ Localization:
 Documentation:
 ==============
 
-* Bug 7072 fixed - Fix various issues in the documentation. 
+* Bug 7072 fixed - Fix various issues in the documentation.
                    Thanks to Yves Barois.
 
 Compilation:
@@ -177,8 +177,11 @@ Bug fixes:
 * bug 8371 fixed - Each thread used to get the command line was not detached
                    from the JVM.
 
-* Bug 8423 fixed - With certain options of the configure, the build process
+* bug 8423 fixed - With certain options of the configure, the build process
                    failed.
+
+* bug 8959 fixed - winqueryreg returned an incorrect value if the value name was
+                   false.
 
 * bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation with
                    ode" displayed a warning about an obsolete use of ilib_for_link.
