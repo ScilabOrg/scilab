@@ -75,6 +75,9 @@ Optimization:
   See the help page of neldermead for details to update your 
   code, if required.
 
+* Bug 7889 fixed - The tolerance on x for neldermead was too small.
+  Updated -tolxrelative default value from %eps to sqrt(%eps).
+
 
 Xcos:
 =====
