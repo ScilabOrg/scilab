@@ -219,6 +219,7 @@ Optimization:
 * bug 7723 fixed - The demonstrations of the nmplot functions generated
                    warnings.
 
+* Bug 7889 fixed - The tolerance on x for neldermead was too small.
 
 Documentation:
 ==============

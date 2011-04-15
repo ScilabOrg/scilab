@@ -478,7 +478,7 @@ Vertex #6/8 : fv=7.245215e-001, x=4.727706e-001 -5.395325e-001 7.606076e-002 2.0
   > Termination ?
   > iterations=2 >= maxiter=5
   > funevals=51 >= maxfunevals=1000
-  > e(x)=4.132440e-001 < 2.220446e-016 * 5.612439e-001 + 0.000000e+000
+  > e(x)=4.132440e-001 < 1.490116e-008 * 5.612439e-001 + 0.000000e+000
   > Terminate = F, status = continue
   > simplex size=3.149420e+000 < 0.000000e+000 + 1.000000e-003 * 2.239716e+000
   > Terminate = F, status = continue
@@ -523,7 +523,7 @@ Vertex #6/8 : fv=0.000000e+000, x=0.000000e+000 0.000000e+000 0.000000e+000 0.00
   > Termination ?
   > iterations=3 >= maxiter=5
   > funevals=56 >= maxfunevals=1000
-  > e(x)=3.705056e-001 < 2.220446e-016 * 9.130556e-001 + 0.000000e+000
+  > e(x)=3.705056e-001 < 1.490116e-008 * 9.130556e-001 + 0.000000e+000
   > Terminate = F, status = continue
   > simplex size=2.858240e+000 < 0.000000e+000 + 1.000000e-003 * 2.239716e+000
   > Terminate = F, status = continue
@@ -564,7 +564,7 @@ Vertex #6/8 : fv=-4.711579e+000, x=5.658767e-001 -7.537140e-001 1.106433e-001 -6
   > Termination ?
   > iterations=4 >= maxiter=5
   > funevals=60 >= maxfunevals=1000
-  > e(x)=2.620103e-001 < 2.220446e-016 * 9.975385e-001 + 0.000000e+000
+  > e(x)=2.620103e-001 < 1.490116e-008 * 9.975385e-001 + 0.000000e+000
   > Terminate = F, status = continue
   > simplex size=2.693410e+000 < 0.000000e+000 + 1.000000e-003 * 2.239716e+000
   > Terminate = F, status = continue
