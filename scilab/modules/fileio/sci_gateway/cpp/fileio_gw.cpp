@@ -63,7 +63,7 @@ bool FileioModule::Load()
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"getrelativefilename", &sci_getrelativefilename, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"pathsep", &sci_pathsep, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(Function::createFunction(L"getdrives", &sci_getdrives, MODULE_NAME));
-
+    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"newest", &sci_newest, MODULE_NAME));
 
     return true;
 }

@@ -52,7 +52,7 @@ static gw_generic_table Tab[]={
 	{NULL, ""}, //pwd
 	{NULL, ""}, //chdir
 	{NULL, ""}, //fileinfo
-	{sci_newest,"newest"}, //
+	{NULL, ""}, //newest
 	{NULL, ""}, //getrelativefilename
 	{NULL, ""}, //get_absolute_file_path
 	{NULL, ""}, //copyfile

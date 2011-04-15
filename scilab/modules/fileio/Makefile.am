@@ -50,7 +50,6 @@ sci_gateway/c/sci_fprintfMat.c \
 sci_gateway/c/sci_fscanfMat.c \
 sci_gateway/c/sci_chdir.c \
 sci_gateway/c/sci_pwd.c \
-sci_gateway/c/sci_newest.c \
 sci_gateway/c/sci_copyfile.c \
 sci_gateway/c/sci_movefile.c
 
@@ -91,8 +90,8 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_get_absolute_file_path.cpp \
 	sci_gateway/cpp/sci_getrelativefilename.cpp \
 	sci_gateway/cpp/sci_pathsep.cpp \
-	sci_gateway/cpp/sci_getdrives.cpp 
-
+	sci_gateway/cpp/sci_getdrives.cpp \
+	sci_gateway/cpp/sci_newest.cpp 
 
 FILEIO_CPP_SOURCES = \
 	src/cpp/expandPathVariable.cpp \
@@ -107,8 +106,8 @@ FILEIO_CPP_SOURCES = \
 	src/cpp/mseek.cpp \
 	src/cpp/mtell.cpp \
 	src/cpp/scilab_sscanf.cpp \
-	src/cpp/checkformat.cpp	
-		
+	src/cpp/checkformat.cpp	\
+	src/cpp/newest.cpp	
 
 libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \

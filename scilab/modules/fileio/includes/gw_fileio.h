@@ -18,8 +18,6 @@
 FILEIO_IMPEXP int gw_fileio(void);
 /*--------------------------------------------------------------------------*/
 
-FILEIO_IMPEXP int sci_newest(char *fname,unsigned long fname_len);
-
 //YaSp
 FILEIO_IMPEXP int sci_pwd(char *fname, int* _piKey);
 FILEIO_IMPEXP int sci_chdir(char *fname, int* _piKey);
