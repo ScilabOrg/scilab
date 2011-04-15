@@ -73,7 +73,7 @@ Xcos:
 
 * bug 8692 fixed - Null block parameters was not checked before encoding.
 
-* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced 
+* bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced
                    warnings.
 
 * bug 9024 fixed - Opening a non existing file lead to palette closing issues.
@@ -97,6 +97,13 @@ Packaging:
 * In the source tree, scilab-adv-cli.desktop, scilab-cli.desktop,
   scilab.desktop can be found desktop/. This follows the FreeDesktop Standards:
   "Desktop Entry Specification".
+
+
+toolbox_skeleton:
+=================
+
+* removal of temporary variables created on the stack by the build and load of
+  the toolbox_skeleton.
 
 
 Javasci:
@@ -139,7 +146,7 @@ Localization:
 Documentation:
 ==============
 
-* Bug 7072 fixed - Fix various issues in the documentation. 
+* Bug 7072 fixed - Fix various issues in the documentation.
                    Thanks to Yves Barois.
 
 Compilation:
