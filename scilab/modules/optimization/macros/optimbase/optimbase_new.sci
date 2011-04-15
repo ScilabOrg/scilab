@@ -72,7 +72,8 @@ function newobj = optimbase_new ()
   // The absolute tolerance on x
   newobj.tolxabsolute = 0.0;
   // The relative tolerance on x
-  newobj.tolxrelative = %eps;
+  // See http://bugzilla.scilab.org/show_bug.cgi?id=7889
+  newobj.tolxrelative = sqrt(%eps);
   // The number of function evaluations
   newobj.funevals = 0;
   // The number of iterations

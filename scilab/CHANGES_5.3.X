@@ -197,11 +197,15 @@ Compilation:
 * Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
                    building xcos.
 
+
 Optimization:
 =============
 
-* bug 7723 fixed - The demonstrations of the nmplot functions generated 
+* bug 7723 fixed - The demonstrations of the nmplot functions generated
                    warnings.
+
+* Bug 7889 fixed - The tolerance on x for neldermead was too small.
+
 
 Documentation:
 ==============
