@@ -88,6 +88,20 @@
     <pathelement location="${jeuclid-core.jar}"/>
     <pathelement location="${jlatexmath.jar}"/>
   </path>
+
+    <target name="checkIsNotJdk16or17" if="recent.jdk">
+        <fail message="JDK 1.6 or 1.7 required" />
+    </target>
+
+    <condition property="recent.jdk">
+        <not>
+          <or>
+            <equals arg1="${ant.java.version}" arg2="1.6" />
+            <equals arg1="${ant.java.version}" arg2="1.7" />
+          </or>
+        </not>
+    </condition>
+
   <taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
   <!-- Checkstyle process -->
   <target name="checkstyle" depends="checkstyle-init" description="Generates a report of code convention violations.">
@@ -126,7 +140,7 @@
   <target name="validate">
     <!-- Empty target to be override by other build.xml -->
   </target>
-  <target name="init">
+  <target name="init" depends="checkIsNotJdk16or17">
     <mkdir dir="${classes.dir}"/>
     <mkdir dir="${classes.test.dir}"/>
     <mkdir dir="${build.jar.dir}"/>
