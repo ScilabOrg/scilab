@@ -6,6 +6,8 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
+// <-- ENGLISH IMPOSED -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -97,13 +99,13 @@ Sort
 Iteration #1 (total = 1)
 Function Eval #5
 Xopt : -1.2 1
-Fopt : 2.420000e+01
-DeltaFv : 6.940000e+01
+Fopt : 24.2
+DeltaFv : 69.4
 Center : -0.8666667 1.3333333
-Size : 1.000000e+00
-Vertex #1/3 : fv=2.420000e+01, x=-1.200000e+00 1.000000e+00
-Vertex #2/3 : fv=3.620000e+01, x=-1.200000e+00 2.000000e+00
-Vertex #3/3 : fv=9.360000e+01, x=-2.000000e-01 1.000000e+00
+Size : 1
+Optim Simplex Object:
+=====================
+Vertex #1/3 : fv=24.2, x=-1.2 1.000000e+00
 Reflect
 xbar=-1.2 1.5
 Function Evaluation #6 at [-2.2 2]
@@ -116,13 +118,13 @@ xr2=-0.2 0, f(xr2)=1.600000
 Iteration #2 (total = 2)
 Function Eval #7
 Xopt : -0.2 0
-Fopt : 1.600000e+00
-DeltaFv : 9.200000e+01
+Fopt : 1.6
+DeltaFv : 92
 Center : -0.5333333 0.6666667
-Size : 1.414214e+00
-Vertex #1/3 : fv=1.600000e+00, x=-2.000000e-01 0.000000e+00
-Vertex #2/3 : fv=2.420000e+01, x=-1.200000e+00 1.000000e+00
-Vertex #3/3 : fv=9.360000e+01, x=-2.000000e-01 1.000000e+00
+Size : 1.4142136
+Optim Simplex Object:
+=====================
+Vertex #1/3 : fv=1.6, x=-0.2 0.000000e+00
 Reflect
 xbar=-0.7 0.5
 Function Evaluation #8 at [-1.2 0]
@@ -137,13 +139,13 @@ Function Evaluation #11 at [-0.2 0.5]
 Iteration #3 (total = 3)
 Function Eval #11
 Xopt : -0.2 0
-Fopt : 1.600000e+00
-DeltaFv : 2.100000e+01
+Fopt : 1.6
+DeltaFv : 21
 Center : -0.3666667 0.3333333
-Size : 7.071068e-01
-Vertex #1/3 : fv=1.600000e+00, x=-2.000000e-01 0.000000e+00
-Vertex #2/3 : fv=2.900000e+00, x=-7.000000e-01 5.000000e-01
-Vertex #3/3 : fv=2.260000e+01, x=-2.000000e-01 5.000000e-01
+Size : 0.7071068
+Optim Simplex Object:
+=====================
+Vertex #1/3 : fv=1.6, x=-0.2 0.000000e+00
 Reflect
 xbar=-0.45 0.25
 Function Evaluation #12 at [-0.7 0]
@@ -156,13 +158,13 @@ xr2=0.3 0, f(xr2)=1.300000
 Iteration #4 (total = 4)
 Function Eval #13
 Xopt : 0.3 0
-Fopt : 1.300000e+00
-DeltaFv : 2.130000e+01
+Fopt : 1.3
+DeltaFv : 21.3
 Center : -0.0333333 0.1666667
-Size : 7.071068e-01
-Vertex #1/3 : fv=1.300000e+00, x=3.000000e-01 0.000000e+00
-Vertex #2/3 : fv=1.600000e+00, x=-2.000000e-01 0.000000e+00
-Vertex #3/3 : fv=2.260000e+01, x=-2.000000e-01 5.000000e-01
+Size : 0.7071068
+Optim Simplex Object:
+=====================
+Vertex #1/3 : fv=1.3, x=0.3 0.000000e+00
 Reflect
 xbar=0.05 0
 Function Evaluation #14 at [0.3 -0.5]
@@ -177,13 +179,13 @@ Function Evaluation #17 at [0.05 0.25]
 Iteration #5 (total = 5)
 Function Eval #17
 Xopt : 0.05 0
-Fopt : 9.031250e-01
-DeltaFv : 6.125000e+00
+Fopt : 0.903125
+DeltaFv : 6.125
 Center : 0.1333333 0.0833333
-Size : 2.500000e-01
-Vertex #1/3 : fv=9.031250e-01, x=5.000000e-02 0.000000e+00
-Vertex #2/3 : fv=1.300000e+00, x=3.000000e-01 0.000000e+00
-Vertex #3/3 : fv=7.028125e+00, x=5.000000e-02 2.500000e-01
+Size : 0.25
+Optim Simplex Object:
+=====================
+Vertex #1/3 : fv=0.903125, x=0.05 0.000000e+00
 Terminate with status : maxiter
 status = neldermead_get(nm,"-status");
 assert_equal ( status , "maxiter" );

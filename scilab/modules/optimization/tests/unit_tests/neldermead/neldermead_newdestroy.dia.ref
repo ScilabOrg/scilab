@@ -132,7 +132,7 @@ str = string(nm)
 !                                                                      !
 !Kelley Stagnation : F                                                 !
 !                                                                      !
-!Restart Epsilon : 2.220446e-016                                       !
+!Restart Epsilon : 2.220D-16                                           !
 !                                                                      !
 !Restart Step : 1                                                      !
 !                                                                      !
@@ -184,7 +184,7 @@ str = string(nm)
 !                                                                      !
 !Optimum Parameters : [0]                                              !
 !                                                                      !
-!Optimum Function Value :0.000000e+000                                 !
+!Optimum Function Value :0                                             !
 !                                                                      !
 !Number of iterations : 0                                              !
 !                                                                      !
@@ -204,7 +204,7 @@ str = string(nm)
 !                                                                      !
 !Termination Absolute Tolerance on x : 0                               !
 !                                                                      !
-!Termination Relative Tolerance on x : 2.220D-16                       !
+!Termination Relative Tolerance on x : 1.490D-08                       !
 !                                                                      !
 !Optimization Status :                                                 !
 !                                                                      !
@@ -275,7 +275,7 @@ Expansion Factor (chi) : 2
 Contraction Factor (gamma) : 0.5
 Shrinkage Factor (sigma) : 0.5
 Kelley Stagnation : F
-Restart Epsilon : 2.220446e-016
+Restart Epsilon : 2.220D-16
 Restart Step : 1
 Restart Maximum : 3
 Restart Simplex Method : oriented
@@ -301,7 +301,7 @@ Number of Inequality Constraints :0
 Bounds Mininimum : []
 Bounds Maxinimum :[]
 Optimum Parameters : [0]
-Optimum Function Value :0.000000e+000
+Optimum Function Value :0
 Number of iterations : 0
 Maximum number of iterations : 100
 Number function evaluations : 0
@@ -311,7 +311,7 @@ Termination Absolute Tolerance on function value : 0
 Termination Relative Tolerance on function value : 2.220D-16
 Termination Method on x : T
 Termination Absolute Tolerance on x : 0
-Termination Relative Tolerance on x : 2.220D-16
+Termination Relative Tolerance on x : 1.490D-08
 Optimization Status : 
 Verbose logging : 0
 Verbose Termination : 0
@@ -443,7 +443,7 @@ str = string(nm)
 !                                                                      !
 !Kelley Stagnation : F                                                 !
 !                                                                      !
-!Restart Epsilon : 2.220446e-016                                       !
+!Restart Epsilon : 2.220D-16                                           !
 !                                                                      !
 !Restart Step : 1                                                      !
 !                                                                      !
@@ -495,7 +495,7 @@ str = string(nm)
 !                                                                      !
 !Optimum Parameters : [0]                                              !
 !                                                                      !
-!Optimum Function Value :0.000000e+000                                 !
+!Optimum Function Value :0                                             !
 !                                                                      !
 !Number of iterations : 0                                              !
 !                                                                      !
@@ -515,7 +515,7 @@ str = string(nm)
 !                                                                      !
 !Termination Absolute Tolerance on x : 0                               !
 !                                                                      !
-!Termination Relative Tolerance on x : 2.220D-16                       !
+!Termination Relative Tolerance on x : 1.490D-08                       !
 !                                                                      !
 !Optimization Status :                                                 !
 !                                                                      !
@@ -586,7 +586,7 @@ Expansion Factor (chi) : 2
 Contraction Factor (gamma) : 0.5
 Shrinkage Factor (sigma) : 0.5
 Kelley Stagnation : F
-Restart Epsilon : 2.220446e-016
+Restart Epsilon : 2.220D-16
 Restart Step : 1
 Restart Maximum : 3
 Restart Simplex Method : oriented
@@ -612,7 +612,7 @@ Number of Inequality Constraints :3
 Bounds Mininimum : []
 Bounds Maxinimum :[]
 Optimum Parameters : [0]
-Optimum Function Value :0.000000e+000
+Optimum Function Value :0
 Number of iterations : 0
 Maximum number of iterations : 200
 Number function evaluations : 0
@@ -622,7 +622,7 @@ Termination Absolute Tolerance on function value : 0
 Termination Relative Tolerance on function value : 2.220D-16
 Termination Method on x : T
 Termination Absolute Tolerance on x : 0
-Termination Relative Tolerance on x : 2.220D-16
+Termination Relative Tolerance on x : 1.490D-08
 Optimization Status : 
 Verbose logging : 0
 Verbose Termination : 0
