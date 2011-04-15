@@ -15,6 +15,8 @@ c     WARNING : argument of this interface may be passed by reference
       logical ref
       integer head
       integer iadr,sadr
+      double precision x, y, z
+      double precision mynan
 c     
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
@@ -70,6 +72,7 @@ c
       endif
       l1=l-1
       lr1=lr-1
+      CALL returnananfortran(mynan)
       if(it.eq.0) then
          do 11 i=1,mn
             stk(lr1+i)=abs(stk(l1+i))
@@ -77,7 +80,14 @@ c
       else
          k1=l1+mn
          do 13 i=1,mn
-            stk(lr1+i)=dlapy2(stk(l1+i),stk(k1+i))
+              x = stk(l1+i)
+              y = stk(k1+i)
+              if ( isanan(x) .OR. isanan(y) ) then
+                  z = mynan
+              else
+                  z=dlapy2(x,y)
+              endif
+              stk(lr1+i) = z
  13      continue
          istk(ilr+3)=0
       endif

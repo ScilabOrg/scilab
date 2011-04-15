@@ -161,6 +161,11 @@ Compilation:
 * Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
                    building xcos.
 
+Numerical Maths:
+================
+
+* Bug 9350 fixed - abs(complex(%nan,0)) returned zero instead of nan.
+
 
 Bug fixes:
 ==========
