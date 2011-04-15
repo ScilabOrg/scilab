@@ -59,11 +59,6 @@ sci_gateway/c/sci_getdrives.c \
 sci_gateway/c/sci_pathsep.c \
 sci_gateway/c/sci_chdir.c \
 sci_gateway/c/sci_pwd.c \
-sci_gateway/c/sci_mclearerr.c \
-sci_gateway/c/sci_merror.c \
-sci_gateway/c/sci_newest.c \
-sci_gateway/c/sci_get_absolute_file_path.c  \
-sci_gateway/c/sci_getrelativefilename.c \
 sci_gateway/c/sci_copyfile.c \
 sci_gateway/c/sci_movefile.c
 
@@ -94,8 +89,9 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_mputstr.cpp \
 	sci_gateway/cpp/sci_mgetstr.cpp \
 	sci_gateway/cpp/sci_mseek.cpp \
-	sci_gateway/cpp/sci_mtell.cpp
-	
+	sci_gateway/cpp/sci_mtell.cpp \
+	sci_gateway/cpp/sci_newest.cpp
+
 FILEIO_CPP_SOURCES = \
 	src/cpp/expandPathVariable.cpp \
 	src/cpp/mopen.cpp \
@@ -107,8 +103,9 @@ FILEIO_CPP_SOURCES = \
 	src/cpp/mgetstr.cpp \
 	src/cpp/filemanager.cpp \
 	src/cpp/mseek.cpp \
-	src/cpp/mtell.cpp
-	
+	src/cpp/mtell.cpp \
+	src/cpp/newest.cpp
+
 libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \
 				-I$(srcdir)/src/cpp/ \
