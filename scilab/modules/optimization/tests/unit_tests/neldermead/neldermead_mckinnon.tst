@@ -243,6 +243,7 @@ nm = neldermead_configure(nm,"-method","variable");
 nm = neldermead_configure(nm,"-kelleystagnationflag",%t);
 nm = neldermead_configure(nm,"-restartflag",%t);
 nm = neldermead_configure(nm,"-restartdetection","kelley");
+nm = neldermead_configure(nm,"-tolxrelative",0);
 nm = neldermead_search(nm);
 // Check status
 status = neldermead_get(nm,"-status");
@@ -279,6 +280,7 @@ nm = neldermead_configure(nm,"-tolsimplexizemethod",%t);
 nm = neldermead_configure(nm,"-tolsimplexizerelative",1.e-6);
 nm = neldermead_configure(nm,"-restartflag",%t);
 nm = neldermead_configure(nm,"-restartdetection","oneill");
+nm = neldermead_configure(nm,"-tolxrelative",0);
 nm = neldermead_search(nm);
 // Check status
 status = neldermead_get(nm,"-status");
@@ -398,6 +400,7 @@ nm = neldermead_configure(nm,"-restartflag",%t);
 nm = neldermead_configure(nm,"-restartdetection","kelley");
 nm = neldermead_configure(nm,"-restartsimplexmethod","pfeffer");
 nm = neldermead_configure(nm,"-kelleystagnationalpha0",1.e-2);
+nm = neldermead_configure(nm,"-tolxrelative",0);
 nm = neldermead_search(nm);
 // Check status
 status = neldermead_get(nm,"-status");
