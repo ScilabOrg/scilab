@@ -161,6 +161,10 @@ Compilation:
 * Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
                    building xcos.
 
+Optimization:
+=============
+
+* Bug 7889 fixed - The tolerance on x for neldermead was too small.
 
 Bug fixes:
 ==========
