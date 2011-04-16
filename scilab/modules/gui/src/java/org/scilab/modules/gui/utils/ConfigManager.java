@@ -106,11 +106,26 @@ public final class ConfigManager {
         }
     }
 
+    // TODO: remove this f...g method (see in SwingScilabConsole and in checkVersion)
+    public static String workaroundForVersionBugWith5_3_1() {
+	File fileConfig = new File(USER_CONFIG_FILE);
+	if (fileConfig.exists()) {
+            Document doc = readDocument(USER_CONFIG_FILE);
+            Element setting = doc.getDocumentElement();
+            String str = setting.getAttribute(VERSION);
+	    if (str == null || str.isEmpty()) {
+		return SCILAB_CONFIG_FILE;
+	    }
+	}
+	
+	return USER_CONFIG_FILE;
+    }
+
     /**
      * @return true if configuration.xml in etc has a version different of the version in home
      */
     public static boolean checkVersion() {
-        if (updated) {
+        if (updated || !workaroundForVersionBugWith5_3_1().equals(USER_CONFIG_FILE)) {
             return false;
         }
 
