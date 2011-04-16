@@ -64,7 +64,8 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
      * Constructor
      */
     public SwingScilabConsole() {
-        super(ConfigManager.getUserConfigFile());
+	// TODO: replace contents of super(...) by the commented code
+        super(ConfigManager.workaroundForVersionBugWith5_3_1());//ConfigManager.getUserConfigFile());
 
         SwingScilabContextMenu menu = new SwingScilabContextMenu();
 
