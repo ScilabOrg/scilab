@@ -61,7 +61,7 @@ modulename=parallel
 
 #### parallel : Conf files ####
 libsciparallel_la_rootdir = $(mydatadir)
-libsciparallel_la_root_DATA = license.txt version.xml
+libsciparallel_la_root_DATA = license.txt 
 
 
 #### parallel : init scripts ####
