@@ -16,6 +16,9 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#if defined(__linux__)
+#define __USE_FORTIFY_LEVEL 0 /* Avoid dependency on GLIBC_2.11 (__longjmp_chk) */
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>
