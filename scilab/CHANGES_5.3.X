@@ -183,6 +183,10 @@ Numerical Maths:
 
 * Bug 9350 fixed - abs(complex(%nan,0)) returned zero instead of nan.
 
+CACSD
+=====
+
+* Bug 6744 fixed - p_margin() returned an erroneous result (new fix).
 
 Bug fixes:
 ==========
