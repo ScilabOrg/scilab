@@ -491,53 +491,6 @@ namespace ast
             }
         }
 
-
-        void visitprivate(const CellCallExp &e)
-        {
-            //get head
-            T execMeCell;
-            e.name_get().accept(execMeCell);
-
-            if(execMeCell.result_get() != NULL)
-            {//a{xxx} with a variable, extraction
-                InternalType *pIT = NULL;
-
-                pIT = execMeCell.result_get();
-
-                if(pIT)
-                {
-                    //Create list of indexes
-                    typed_list *pArgs = GetArgumentList(e.args_get());
-
-                    List* pList = pIT->getAs<Cell>()->extractCell(pArgs);
-
-                    if(pList == NULL)
-                    {
-                        std::wostringstream os;
-                        os << L"inconsistent row/column dimensions\n";
-                        //os << ((*e.args_get().begin())->location_get()).location_getString() << std::endl;
-                        throw ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
-                    }
-
-                    if (pList->getSize() == 1)
-                    {
-                        result_set(pList->get(0));
-                    }
-                    else
-                    {
-                        result_set(pList);
-                    }
-                }
-            }
-            else
-            {
-                //result == NULL ,variable doesn't exist :(
-                // Sould never be in this case
-                // In worst case variable pointing to function does not exists
-                // visitprivate(SimpleVar) will throw the right exception.
-            }
-        }
-
         void visitprivate(const IfExp  &e)
         {
             //Create local exec visitor
@@ -734,7 +687,7 @@ namespace ast
                     if(pIT->isRef(1))
                     {
                         //decrease reference to pIT
-                        //this variable does not push in context 
+                        //this variable does not push in context
                         //so increase and decrease ref are not "automaticly" manage
                         //std::wcout << varName.name_get() << " : " << pIT->getRef() << std::endl;
                         //pIT->DecreaseRef();
