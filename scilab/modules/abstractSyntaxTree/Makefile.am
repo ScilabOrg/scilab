@@ -21,7 +21,10 @@ libsciabstractSyntaxTree_la_SOURCES = \
 				src/cpp/mutevisitor.cpp \
 				src/cpp/shortcutvisitor.cpp \
 				src/cpp/scilabexception.cpp \
-				src/cpp/run_CallExp.cpp
+				src/cpp/run_CallExp.cpp \
+				src/cpp/execvisitor.cpp \
+				src/cpp/timedvisitor.cpp \
+				src/cpp/run_LoopExp.cpp
 
 libsciabstractSyntaxTree_la_CXXFLAGS = \
 			-I $(top_srcdir)/modules/symbol/includes \
@@ -34,7 +37,8 @@ libsciabstractSyntaxTree_la_CXXFLAGS = \
 			-I src/cpp \
 			-I $(top_srcdir)/modules/system_env/includes \
 			-I $(top_srcdir)/modules/api_scilab/includes \
-			-I $(top_srcdir)/modules/string/includes
+			-I $(top_srcdir)/modules/string/includes \
+			-O3
 
 
 
