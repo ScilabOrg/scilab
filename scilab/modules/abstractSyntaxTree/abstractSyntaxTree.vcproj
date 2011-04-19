@@ -319,6 +319,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\cpp\execvisitor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\cpp\libAst.cpp"
 				>
 			</File>
@@ -331,7 +335,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\cpp\run_CallExp.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\cpp\shortcutvisitor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\cpp\timedvisitor.cpp"
 				>
 			</File>
 			<File
@@ -454,6 +466,10 @@
 			</File>
 			<File
 				RelativePath=".\includes\dummyvisitor.hxx"
+				>
+			</File>
+			<File
+				RelativePath=".\includes\dynlib_ast.h"
 				>
 			</File>
 			<File

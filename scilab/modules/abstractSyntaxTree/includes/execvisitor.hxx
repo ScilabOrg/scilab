@@ -15,194 +15,88 @@
 
 #include "runvisitor.hxx"
 
+extern "C"
+{
+#include "dynlib_ast.h"
+}
+
 namespace ast
 {
-	class ExecVisitor : public RunVisitorT<ExecVisitor>
+    class EXTERN_AST ExecVisitor : public RunVisitorT<ExecVisitor>
 	{
-        void visit (const SeqExp  &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const SeqExp  &e);
 
-        void visit (const MatrixExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const MatrixExp &e);
 
-        void visit (const MatrixLineExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const MatrixLineExp &e);
 
-        void visit (const CellExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const CellExp &e);
 
-        void visit (const StringExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const StringExp &e);
 
-        void visit (const CommentExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const CommentExp &e);
 
-        void visit (const IntExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const IntExp &e);
 
-        void visit (const FloatExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const FloatExp &e);
 
-        void visit (const DoubleExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const DoubleExp &e);
 
-        void visit (const BoolExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const BoolExp &e);
 
-        void visit (const NilExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const NilExp &e);
 
-        void visit (const SimpleVar &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const SimpleVar &e);
 
-        void visit (const ColonVar &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ColonVar &e);
 
-        void visit (const DollarVar &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const DollarVar &e);
 
-        void visit (const ArrayListVar &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ArrayListVar &e);
 
-        void visit (const FieldExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const FieldExp &e);
 
-        void visit (const OpExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const OpExp &e);
 
-        void visit (const LogicalOpExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const LogicalOpExp &e);
 
-        void visit (const AssignExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const AssignExp &e);
 
-        void visit (const CellCallExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const CellCallExp &e);
 
-        void visit (const CallExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const CallExp &e);
 
-        void visit (const IfExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const IfExp &e);
 
-        void visit (const TryCatchExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const TryCatchExp &e);
 
-        void visit (const WhileExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const WhileExp &e);
 
-        void visit (const ForExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ForExp &e);
 
-        void visit (const BreakExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const BreakExp &e);
 
-        void visit (const ContinueExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ContinueExp &e);
 
-        void visit (const ReturnExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ReturnExp &e);
 
-        void visit (const SelectExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const SelectExp &e);
 
-        void visit (const CaseExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const CaseExp &e);
 
-        void visit (const ArrayListExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const ArrayListExp &e);
 
-        void visit (const AssignListExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const AssignListExp &e);
 
-        void visit (const NotExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const NotExp &e);
 
-        void visit (const TransposeExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const TransposeExp &e);
 
-        void visit (const VarDec &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const VarDec &e);
 
-        void visit (const FunctionDec &e)
-        {
-            visitprivate(e);
-        }
+        void visit (const FunctionDec &e);
 
-        void visit(const ListExp &e)
-        {
-            visitprivate(e);
-        }
+        void visit(const ListExp &e);
     };
 }
 #endif // !AST_EXECVISITOR_HXX
