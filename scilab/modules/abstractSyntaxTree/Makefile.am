@@ -20,7 +20,8 @@ libsciabstractSyntaxTree_la_SOURCES = \
 				src/cpp/debugvisitor.cpp \
 				src/cpp/mutevisitor.cpp \
 				src/cpp/shortcutvisitor.cpp \
-				src/cpp/scilabexception.cpp
+				src/cpp/scilabexception.cpp \
+				src/cpp/run_CallExp.cpp
 
 libsciabstractSyntaxTree_la_CXXFLAGS = \
 			-I $(top_srcdir)/modules/symbol/includes \
