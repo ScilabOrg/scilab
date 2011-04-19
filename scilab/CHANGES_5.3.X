@@ -101,6 +101,8 @@ Xcos:
 
 * bug 9369 fixed - Diagrams with an origin did not pass validation.
 
+* bug 9346 fixed - FROMWS_c block had functional regression since scilab-5.3.1
+
 Packaging:
 ==========
 
