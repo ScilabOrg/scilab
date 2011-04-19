@@ -152,6 +152,9 @@ Documentation:
 * Bug 7072 fixed - Fix various issues in the documentation.
                    Thanks to Yves Barois.
 
+* bug 7305 fixed - issparse was not documented.
+
+
 Compilation:
 ============
 
