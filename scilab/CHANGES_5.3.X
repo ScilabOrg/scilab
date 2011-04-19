@@ -149,8 +149,11 @@ Localization:
 Documentation:
 ==============
 
-* Bug 7072 fixed - Fix various issues in the documentation.
+* bug 7072 fixed - Fix various issues in the documentation.
                    Thanks to Yves Barois.
+
+* bug 6975 fixed - xlabel(), ylabel() and zlabel() functions were undocumented.
+
 
 Compilation:
 ============
