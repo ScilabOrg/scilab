@@ -25,7 +25,7 @@ function hilite_path(path,mess,with_intermediates)
 //first entry of the path must be a bloc of currently opened diagram  
 
     if argn(2)<2 then mess=" ",end
-
+    
     diagram = scs_m;  
     uid = []; // empty uid path
 
@@ -44,7 +44,7 @@ function hilite_path(path,mess,with_intermediates)
     end
 
     if uid <> [] then
-      warnBlockByUID(uid, mess);
+      warnBlockByUID(uid, strcat(mess, " "));
     end
 endfunction
 
