@@ -13,15 +13,12 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
-#include "function.hxx"
 #include "string.hxx"
 
 extern "C"
 {
-#include <stdio.h>
 #include "localization.h"
 #include "Scierror.h"
 #include "mseek.h"
@@ -94,6 +91,15 @@ Function::ReturnValue sci_mseek(types::typed_list &in, int _iRetCount, types::ty
         wcsFlag = in[2]->getAs<types::String>()->get(0);
     }
 
+    switch (iFile)
+    {
+    case 0: // stderr
+    case 5: // stdin
+    case 6: // stdout
+        ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mseek", iFile);
+        return types::Function::Error;
+    }
+
     if(wcsFlag != NULL)
     {  
         if(wcsncmp(wcsFlag, L"set",3) == 0)
@@ -106,7 +112,7 @@ Function::ReturnValue sci_mseek(types::typed_list &in, int _iRetCount, types::ty
         }
         else if(wcsncmp(wcsFlag, L"end",3) == 0)
         {
-		    iFlag = SEEK_END;
+            iFlag = SEEK_END;
         }
         else
         {
