@@ -15,6 +15,7 @@
 #include "fileio_gw.hxx"
 #include "function.hxx"
 #include "string.hxx"
+#include "yaspio.hxx"
 
 extern "C"
 {
@@ -94,7 +95,13 @@ Function::ReturnValue sci_mputl(typed_list &in, int _iRetCount, typed_list &out)
 
     String* pS = in[0]->getAs<types::String>();
 
-    iErr = mputl(iFileID, pS->get(), pS->getSize());
+	switch (iFileID)
+	{
+        case 5: // stdin
+            ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mputl", iFileID);
+            return types::Function::Error;
+        default : iErr = mputl(iFileID, pS->get(), pS->getSize());
+    }
 
     out.push_back(new Bool(!iErr));
 

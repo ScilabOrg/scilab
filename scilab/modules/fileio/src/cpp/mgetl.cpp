@@ -44,6 +44,11 @@ wchar_t **mgetl(int fd, int nbLinesIn, int *nbLinesOut, int *ierr)
 
     pFile = FileManager::getFile(fd);
 
+    if(nbLinesIn < 0 && fd == 5)
+    {
+        nbLinesIn = 1;
+    }
+
     if (pFile)
     {
         wchar_t Line[LINE_MAX * 2];
