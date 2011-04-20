@@ -23,6 +23,7 @@ import org.scilab.modules.graph.io.ScilabGraphCodec;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
@@ -42,6 +43,7 @@ import com.mxgraph.model.mxGraphModel;
 public class XcosDiagramCodec extends ScilabGraphCodec {
 	private static final String SCICOS_PARAMETERS = "scicosParameters";
 	private static final String AS_ATTRIBUTE = "as";
+	private static final String SEP = " - ";
 	
 	private static final String INCOMPATIBILITY_DETECTED = Messages.gettext("Incompatibility detected");
 	private static final String PLEASE_CHECK_THE_DIAGRAM = Messages.gettext("Please check the diagram, before trying to simulate it.");
@@ -187,6 +189,22 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		if (field == null) {
 			super.setFieldValue(obj, fieldname, value);
 		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Put a comment with versions.
+	 */
+	@Override
+	public Object beforeEncode(mxCodec enc, Object obj, Node node) {
+		final Package p = Package.getPackage("org.scilab.modules.xcos");
+		
+		node.appendChild(enc.getDocument().createComment(new StringBuilder()
+			.append(Xcos.TRADENAME).append(SEP).append(Xcos.VERSION).append(SEP)
+			.append(p.getSpecificationVersion()).append(SEP).append(p.getImplementationVersion()).toString()));
+		
+		return super.beforeEncode(enc, obj, node);
 	}
 	
 	/**
