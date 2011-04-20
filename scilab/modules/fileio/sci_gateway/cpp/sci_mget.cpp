@@ -55,7 +55,7 @@ Function::ReturnValue sci_mget(typed_list &in, int _iRetCount, typed_list &out)
     {//export format
         if(in[1]->isString() == false || in[1]->getAs<types::String>()->getSize() != 1)
         {
-            ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A string expected.\n"), L"mput", 2);
+            ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A string expected.\n"), L"mget", 2);
             return Function::Error;
         }
         pstType = wide_string_to_UTF8(in[1]->getAs<types::String>()->get(0));
@@ -66,7 +66,7 @@ Function::ReturnValue sci_mget(typed_list &in, int _iRetCount, typed_list &out)
     {
         if(in[2]->isDouble() == false || in[2]->getAs<Double>()->getSize() != 1)
         {
-            ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A integer expected.\n"), L"mput", 3);
+            ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A integer expected.\n"), L"mget", 3);
             return Function::Error;
         }
 
@@ -75,6 +75,15 @@ Function::ReturnValue sci_mget(typed_list &in, int _iRetCount, typed_list &out)
 
     Double* pD = new Double(1, iSize);
     pData = pD->getReal();
+
+	switch (iFile)
+	{
+    case 0: // stderr
+    case 5: // stdin
+    case 6: // stdout
+        ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mget", iFile);
+        return types::Function::Error;
+    }
 
     C2F(mget)(&iFile, pData, &iSize, pstType, &iErr);
 

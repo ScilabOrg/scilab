@@ -94,6 +94,15 @@ Function::ReturnValue sci_mgetl(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
+    switch (iFileID)
+    {
+    case 0: // stderr
+    case 5: // stdin
+    case 6: // stdout
+        ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mgetl", iFileID);
+        return types::Function::Error;
+    }
+
     wchar_t** wcReadedStrings = mgetl(iFileID, iLinesExcepted, &iLinesRead, &iErr);
 
     switch(iErr)

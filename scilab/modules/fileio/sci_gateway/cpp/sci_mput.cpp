@@ -81,6 +81,15 @@ Function::ReturnValue sci_mput(typed_list &in, int _iRetCount, typed_list &out)
         iFile = static_cast<int>(in[2]->getAs<Double>()->get(0));
     }
 
+	switch (iFile)
+	{
+    case 0: // stderr
+    case 5: // stdin
+    case 6: // stdout
+        ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mput", iFile);
+        return types::Function::Error;
+    }
+
     C2F(mput)(&iFile, pData, &iSize, pstType, &iErr);
 
     FREE(pstType);

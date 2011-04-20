@@ -35,7 +35,6 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
     int iFile                   = -1; //default file : last opened file
     types::String* pOutString   = NULL;
     int iSizeToRead             = 0;
-    types::Double* pdFileId     = NULL;
     
     if(in.size() < 1 || in.size() > 2)
     {
@@ -58,21 +57,25 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A real expected.\n"), L"mgetstr", 2);
             return types::Function::Error;
         }
-        pdFileId = in[1]->getAs<types::Double>();
+        
+        iFile = static_cast<int>(in[1]->getAs<types::Double>()->getReal()[0]);
+        switch (iFile)
+        {
+        case 0: // stderr
+        case 5: // stdin
+        case 6: // stdout
+            ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mgetstr", iFile);
+            return types::Function::Error;
+        }
     }
 
     pOutString = new types::String(iDims,iDimsArray);
-
-    if(pdFileId != NULL)
-    {
-        iFile = static_cast<int>(pdFileId->getReal()[0]);
-    }
     
     wchar_t* pwstOut = mgetstr(iFile, iSizeToRead);
     if(pwstOut == NULL)
     {
- //       ScierrorW(999, _W("%ls: Unable to read file %d.\n"), L"mgetstr", iFile);
-//        return types::Function::Error;
+        ScierrorW(999, _W("%ls: Unable to read file %d.\n"), L"mgetstr", iFile);
+        return types::Function::Error;
     }
     else
     {
