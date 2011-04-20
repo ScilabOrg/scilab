@@ -23,6 +23,7 @@ import org.scilab.modules.graph.io.ScilabGraphCodec;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.ScicosParameters;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
@@ -42,11 +43,12 @@ import com.mxgraph.model.mxGraphModel;
 public class XcosDiagramCodec extends ScilabGraphCodec {
 	private static final String SCICOS_PARAMETERS = "scicosParameters";
 	private static final String AS_ATTRIBUTE = "as";
-	
+	private static final String SEP = " - ";
+
 	private static final String INCOMPATIBILITY_DETECTED = Messages.gettext("Incompatibility detected");
 	private static final String PLEASE_CHECK_THE_DIAGRAM = Messages.gettext("Please check the diagram, before trying to simulate it.");
 	private static final String SOME_BLOCKS_HAVE_BEEN_REMOVED = Messages.gettext("Some blocks have been removed to ensure compatibility.");
-	
+
 	// The non saved fields are hardcoded and can have the same name.
 	// CSOFF: MultipleStringLiterals
 	private static final String[] DIAGRAM_IGNORED_FIELDS = {"stylesheet",
@@ -62,7 +64,7 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 
 	/**
 	 * Default constructor
-	 * 
+	 *
 	 * @param template
 	 *            the instance template
 	 */
@@ -72,7 +74,7 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 
 	/**
 	 * The constructor used for configuration
-	 * 
+	 *
 	 * @param template
 	 *            Prototypical instance of the object to be encoded/decoded.
 	 * @param exclude
@@ -97,12 +99,12 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		ScilabGraphCodec superBlockDiagramCodec = new XcosDiagramCodec(new SuperBlockDiagram(), SUPERBLOCKDIAGRAM_IGNORED_FIELDS, null, null);
 		mxCodecRegistry.register(superBlockDiagramCodec);
 	}
-	
+
 	/**
 	 * Encode the fieldname value.
-	 * 
+	 *
 	 * This method encode the 'scicosParameters' variable to the parent node.
-	 * 
+	 *
 	 * @param enc
 	 *            Codec that controls the encoding process.
 	 * @param obj
@@ -155,17 +157,17 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 				params.removeChild(element);
 				node.appendChild(element);
 			}
-			
+
 			/*
 			 * Remove the ScicosParameter instance
 			 */
 			node.removeChild(params);
 		}
 	}
-	
+
 	/**
-	 * Load the ScicosParameters fields from the current object 
-	 * 
+	 * Load the ScicosParameters fields from the current object
+	 *
 	 * @param obj the {@link XcosDiagram} instance
 	 * @param fieldname the {@link Current} field name
 	 * @param value the current field value
@@ -183,34 +185,34 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		} catch (NoSuchFieldException e) {
 			field = null;
 		}
-		
+
 		if (field == null) {
 			super.setFieldValue(obj, fieldname, value);
 		}
 	}
-	
+
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * Strip out any node with an invalid parent id. 
+	 *
+	 * Strip out any node with an invalid parent id.
 	 * (5.3.1 diagrams may contains invalid default parents, remove them.)
 	 */
 	@Override
 	public Node beforeDecode(mxCodec dec, Node node, Object obj) {
 		final HashSet<String> ids = new HashSet<String>();
 		final ArrayList<Node> trash = new ArrayList<Node>();
-		
+
 		if (node instanceof Element) {
 			final Node model = ((Element) node).getElementsByTagName("mxGraphModel").item(0);
 			if (model instanceof Element) {
 				final Node root = ((Element) model).getElementsByTagName("root").item(0);
 				if (root != null) {
 					for (Node cell = root.getFirstChild(); cell != null; cell = cell.getNextSibling()) {
-						
+
 						if (cell instanceof Element && cell.getLocalName().contentEquals("mxCell")) {
 							final Node id = cell.getAttributes().getNamedItem("id");
 							final Node parent = cell.getAttributes().getNamedItem("parent");
-							
+
 							if (id instanceof Element) {
 								ids.add(id.getNodeValue());
 							}
@@ -219,17 +221,31 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 							}
 						}
 					}
-					
+
 					for (Node cell : trash) {
 						root.removeChild(cell);
 					}
 				}
 			}
 		}
-		
+
 		return super.beforeDecode(dec, node, obj);
+    }
+
+    /**
+	 * Put a comment with versions.
+	 */
+	@Override
+	public Object beforeEncode(mxCodec enc, Object obj, Node node) {
+		final Package p = Package.getPackage("org.scilab.modules.xcos");
+
+		node.appendChild(enc.getDocument().createComment(new StringBuilder()
+			.append(Xcos.TRADENAME).append(SEP).append(Xcos.VERSION).append(SEP)
+			.append(p.getSpecificationVersion()).append(SEP).append(p.getImplementationVersion()).toString()));
+
+		return super.beforeEncode(enc, obj, node);
 	}
-	
+
 	/**
 	 * Apply compatibility pattern to the decoded object
 	 * @param dec Codec that controls the decoding process.
@@ -244,17 +260,17 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 
 		final mxGraphModel model = (mxGraphModel) diag.getModel();
 		final Object parent = diag.getDefaultParent();
-		
-		// main update loop 
+
+		// main update loop
 		final mxGraphModel.Filter filter = new mxGraphModel.Filter() {
 			@Override
 			public boolean filter(Object cell) {
 				if (cell instanceof BasicBlock) {
 					final BasicBlock block = (BasicBlock) cell;
-					
+
 					// update parent diagram
 					block.setParentDiagram(diag);
-					
+
 					// restore default root in case of a wrong hierarchy.
 					return block.getParent() != parent;
 				}
@@ -265,11 +281,11 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 		if (!blocks.isEmpty()) {
 			diag.addCells(blocks.toArray());
 		}
-		
+
 		// pre-5.3 diagram may be saved in a locked state
 		// unlock it
 		diag.setReadOnly(false);
-		
+
 		// 5.3.1 diagrams may contains invalid default parents, remove them.
 		{
 			final Object root = model.getParent(parent);
@@ -278,7 +294,7 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
 				model.setRoot(root);
 			}
 		}
-		
+
 		return super.afterDecode(dec, node, obj);
 	}
 
