@@ -51,11 +51,11 @@ public class GraphicController {
      * @return the controller
      */
     public static GraphicController getController() {
-    if (me == null) {
-        me = new GraphicController();
-    }
+        if (me == null) {
+            me = new GraphicController();
+        }
 
-    return me;
+        return me;
     }
 
     /**
