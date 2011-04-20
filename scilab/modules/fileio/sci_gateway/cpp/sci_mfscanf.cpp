@@ -63,7 +63,7 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
             ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A Real expected.\n"), L"mfscanf", 1);
             return types::Function::Error;
         }
-        iNiter = static_cast<int>(in[0]->getAs<types::Double>()->getReal()[0]);
+        iNiter = static_cast<int>(in[0]->getAs<types::Double>()->get(0));
     }
 
     if(in[size-2]->isDouble() == false || in[size-2]->getAs<types::Double>()->isScalar() == false || in[size-2]->getAs<types::Double>()->isComplex())
@@ -78,7 +78,7 @@ types::Function::ReturnValue sci_mfscanf(types::typed_list &in, int _iRetCount, 
         return types::Function::Error;
     }
 
-    iFile = static_cast<int>(in[size-2]->getAs<types::Double>()->getReal()[0]);
+    iFile = static_cast<int>(in[size-2]->getAs<types::Double>()->get(0));
 	switch (iFile)
 	{
     case 0:

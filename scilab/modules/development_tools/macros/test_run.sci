@@ -201,6 +201,7 @@ function test_run(varargin)
         result                      = test_module(params);
     
         if params.reference <> "list" then
+            disp("result.totalTime : " + string(result.totalTime));
             status.totalTime            = result.totalTime;
             status.details_failed       = [status.details_failed; result.details_failed];
             status.test_count           = status.test_count + result.test_count;

@@ -13,15 +13,12 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
-#include "function.hxx"
 #include "string.hxx"
 
 extern "C"
 {
-#include <stdio.h>
 #include "localization.h"
 #include "Scierror.h"
 #include "mtell.h"
@@ -48,7 +45,16 @@ Function::ReturnValue sci_mtell(types::typed_list &in, int _iRetCount, types::ty
             return types::Function::Error;
         }
 
-        iFile = static_cast<int>(in[0]->getAs<types::Double>()->getReal()[0]);
+        iFile = static_cast<int>(in[0]->getAs<types::Double>()->get(0));
+    }
+
+    switch (iFile)
+    {
+    case 0: // stderr
+    case 5: // stdin
+    case 6: // stdout
+        ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mtell", iFile);
+        return types::Function::Error;
     }
 
     long int offset = mtell(iFile);
