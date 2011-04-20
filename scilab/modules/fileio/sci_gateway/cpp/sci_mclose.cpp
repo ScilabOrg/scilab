@@ -61,6 +61,14 @@ Function::ReturnValue sci_mclose(typed_list &in, int _iRetCount, typed_list &out
             }
 
             int iVal = static_cast<int>(pD->getReal()[0]);
+            switch (iVal)
+            {
+            case 0: // stderr
+            case 5: // stdin
+            case 6: // stdout
+                ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mclose", iVal);
+                return types::Function::Error;
+            }
             iRet = mclose(iVal);
         }
         else
