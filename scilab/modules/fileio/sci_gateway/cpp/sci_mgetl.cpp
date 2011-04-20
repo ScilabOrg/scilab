@@ -16,6 +16,7 @@
 #include "fileio_gw.hxx"
 #include "function.hxx"
 #include "string.hxx"
+#include "yaspio.hxx"
 
 extern "C"
 {
@@ -35,7 +36,8 @@ Function::ReturnValue sci_mgetl(typed_list &in, int _iRetCount, typed_list &out)
     bool bCloseFile     = false;
     int iLinesExcepted  = -1;
     int iLinesRead      = -1;
-
+    String *pS          = NULL;
+    
     if(in.size() < 1 || in.size() > 2)
     {
         Scierror(999, _("%s: Wrong number of input arguments: %d to %d expected.\n"), "mgetl" , 1, 2);
@@ -94,16 +96,27 @@ Function::ReturnValue sci_mgetl(typed_list &in, int _iRetCount, typed_list &out)
         return Function::Error;
     }
 
-    wchar_t** wcReadedStrings = mgetl(iFileID, iLinesExcepted, &iLinesRead, &iErr);
-
-    switch(iErr)
+    switch (iFileID)
     {
-    case MGETL_MEMORY_ALLOCATION_ERROR :
-        break;
+        case 0: // stderr
+        case 6: // stdout
+            ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mgetl", iFileID);
+            return types::Function::Error;
+        default :
+        {
+            wchar_t** wcReadedStrings = mgetl(iFileID, iLinesExcepted, &iLinesRead, &iErr);
 
+            switch(iErr)
+            {
+            case MGETL_MEMORY_ALLOCATION_ERROR :
+                break;
+
+            }
+            pS = new String(iLinesRead, 1);
+            pS->set(wcReadedStrings);
+        }
     }
-    String *pS = new String(iLinesRead, 1);
-    pS->set(wcReadedStrings);
+
     out.push_back(pS);
 
     if(bCloseFile)
