@@ -39,3 +39,10 @@
  if ierr <> 999 then pause,end
  
  mclose(fd1);
+ 
+ierr = execstr('mget(1,''ull'',0)','errcatch');
+if ierr <> 999 then pause,end
+ierr = execstr('mget(1,''ull'',5)','errcatch');
+if ierr <> 999 then pause,end
+ierr = execstr('mget(1,''ull'',6)','errcatch');
+if ierr <> 999 then pause,end
