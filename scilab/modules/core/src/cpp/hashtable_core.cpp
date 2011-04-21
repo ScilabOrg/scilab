@@ -10,6 +10,9 @@
 *
 */
 /*----------------------------------------------------------------------------*/
+
+#include "symbol.hxx"
+
 extern "C" {
 #include "hashtable_core.h"
 #include "stack-def.h"
@@ -22,6 +25,8 @@ extern "C" {
 unsigned int hashtable_core_maxFilled = 0;
 extern int C2F(cvname)(int *,char *,int const*, unsigned long int);
 #include "os_strdup.h"
+
+#include "charEncoding.h"
 }
 /*----------------------------------------------------------------------------*/
 #include <iterator>
@@ -247,12 +252,21 @@ struct copy_name : std::unary_function<entry const&, char**> {
 /*----------------------------------------------------------------------------*/
 char **GetFunctionsList(int *sizeList)
 {
-    *sizeList= (int)std::count_if(table.begin(), table.end(), has_namefunction());
+    *sizeList = symbol::Symbol::map_size();
+    wchar_t** allSymbols = symbol::Symbol::get_all();
+
     char **ListFunctions = static_cast<char**>(MALLOC(sizeof(char*)*(*sizeList)));
-    if ( ListFunctions )
+
+    for (int i = 0 ; i <  *sizeList ; ++i)
     {
-        std::for_each(table.begin(), table.end(), copy_name(ListFunctions));
+        ListFunctions[i] = wide_string_to_UTF8(allSymbols[i]);
     }
+//    *sizeList= (int)std::count_if(table.begin(), table.end(), has_namefunction());
+//    char **ListFunctions = static_cast<char**>(MALLOC(sizeof(char*)*(*sizeList)));
+//    if ( ListFunctions )
+//    {
+//        std::for_each(table.begin(), table.end(), copy_name(ListFunctions));
+//    }
     return ListFunctions;
 }
 /*--------------------------------------------------------------------------*/
