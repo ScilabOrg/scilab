@@ -75,9 +75,9 @@ sfn = nmplot_cget ( nm , "-sigmafn" );
 assert_equal ( sfn , "rosenbrock.history.sigma.txt" );
 // Check the display
 nmplot_display(nm);
-WARNING: Function nmplot_display is obsolete.
+WARNING: Feature nmplot_display is obsolete.
 WARNING: Please use disp instead.
-WARNING: This function will be permanently removed in Scilab nmplot_display
+WARNING: This feature will be permanently removed in Scilab nmplot_display
 
  
 Nelder-Mead Plot Object:

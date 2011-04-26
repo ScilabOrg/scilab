@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -185,8 +186,7 @@ opt = optimbase_new ();
 opt = optimbase_configure ( opt , "-numberofvariables",2);
 opt = optimbase_configure ( opt , "-verbose",1);
 opt = optimbase_configure ( opt , "-nbineqconst",4);
-opt = optimbase_configure ( opt , "-function" , gouldnonconvex2 );
-opt = optimbase_configure ( opt , "-costfargument" , mystuff );
+opt = optimbase_configure ( opt , "-function" , list(gouldnonconvex2,mystuff) );
 [ opt , isfeasible ] = optimbase_isinbounds ( opt ,  [ 14.0950013 , 0.8429636 ] );
 assert_equal ( isfeasible , %t );
 [ opt , isfeasible ] = optimbase_isinbounds ( opt ,  [ 14.0950013 , 0.0 ] );

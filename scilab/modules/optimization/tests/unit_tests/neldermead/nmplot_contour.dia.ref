@@ -6,6 +6,7 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- ENGLISH IMPOSED -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -53,7 +54,13 @@ NP = 20;
 nm = nmplot_new ();
 nm = nmplot_configure(nm,"-numberofvariables",2);
 nm = nmplot_configure(nm,"-function",rosenbrock);
-[nm , xdata , ydata , zdata ] = nmplot_contour ( nm , xmin = -2.0 , xmax = 2.0 , ymin = -2.0 , ymax = 2.0 , nx = NP , ny = NP );
+xmin = -2.0;
+xmax = 2.0;
+ymin = -2.0;
+ymax = 2.0;
+nx = NP;
+ny = NP;
+[nm , xdata , ydata , zdata ] = nmplot_contour ( nm , xmin , xmax , ymin , ymax , nx , ny );
 f = scf();
 drawlater();
 contour ( xdata , ydata , zdata , [1 10 100 500 1000 2000] );
@@ -72,7 +79,13 @@ NP = 20;
 nm = nmplot_new ();
 nm = nmplot_configure(nm,"-numberofvariables",2);
 nm = nmplot_configure(nm,"-function",myquad);
-[nm , xdata , ydata , zdata ] = nmplot_contour ( nm , xmin = -2.0 , xmax = 2.0 , ymin = -2.0 , ymax = 2.0 , nx = NP , ny = NP );
+xmin = -2.0;
+xmax = 2.0;
+ymin = -2.0;
+ymax = 2.0;
+nx = NP;
+ny = NP;
+[nm , xdata , ydata , zdata ] = nmplot_contour ( nm , xmin , xmax , ymin , ymax , nx , ny );
 f = scf();
 drawlater();
 contour ( xdata , ydata , zdata , linspace(0,8,20) );

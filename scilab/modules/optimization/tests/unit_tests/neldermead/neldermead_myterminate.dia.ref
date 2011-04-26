@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,6 +8,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 // <-- JVM NOT MANDATORY -->
+// <-- ENGLISH IMPOSED -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -43,13 +45,14 @@ function flag = assert_equal ( computed , expected )
   end
   if flag <> 1 then bugmes();quit;end
 endfunction
-function [ this , terminate , status ] = mystoppingrule ( this , simplex )
+function stop = myoutputcmd ( state , data )
+  simplex = data.simplex
   ssize = optimsimplex_size ( simplex , "sigmaplus" );
   if ( ssize < 1.e-4 ) then
-    terminate = %t;
+    stop = %t;
     status = "mysize";
   else
-    terminate = %f
+    stop = %f
   end
 endfunction
 function [ y , index ] = rosenbrock ( x , index )
@@ -68,8 +71,7 @@ nm = neldermead_configure(nm,"-method","variable");
 // Disable default terminations
 nm = neldermead_configure(nm,"-tolxmethod",%f);
 nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
-nm = neldermead_configure(nm,"-myterminateflag",%t);
-nm = neldermead_configure(nm,"-myterminate",mystoppingrule);
+nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
 nm = neldermead_search(nm);
 // Check optimum point
 xopt = neldermead_get(nm,"-xopt");
@@ -79,5 +81,14 @@ fopt = neldermead_get(nm,"-fopt");
 assert_close ( fopt , 0.0 , 1e-5 );
 // Check status
 status = neldermead_get(nm,"-status");
-assert_equal ( status , "mysize" );
+assert_equal ( status , "userstop" );
+// Check simplex size
+simplex = neldermead_get(nm,"-simplexopt");
+ssize = optimsimplex_size ( simplex , "sigmaplus" );
+assert_equal ( ssize<1.e-4 , %t );
+// Check function evaluations
+// If not user-termination, then funevals = 401, i.e.
+// the maximum.
+funevals = neldermead_get(nm,"-funevals");
+assert_equal ( funevals<200 , %t );
 nm = neldermead_destroy(nm);

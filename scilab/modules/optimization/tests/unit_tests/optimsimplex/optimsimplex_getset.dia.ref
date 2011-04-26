@@ -77,9 +77,9 @@ computed = optimsimplex_getfv( s1 , 3);
 assert_equal ( computed , 14.0 );
 // Print the simplex
 optimsimplex_print ( s1 );
-WARNING: Function optimsimplex_print is obsolete.
+WARNING: Feature optimsimplex_print is obsolete.
 WARNING: Please use disp instead.
-WARNING: This function will be permanently removed in Scilab optimsimplex_print
+WARNING: This feature will be permanently removed in Scilab optimsimplex_print
 
  
 Optim Simplex Object:

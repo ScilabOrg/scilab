@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -63,7 +64,7 @@ endfunction
 //  state : the current state of the algorithm
 //    "init", "iter", "done"
 //
-function outfun ( x , optimValues , state )
+function stop = outfun ( x , optimValues , state )
   plot( x(1),x(2),'.');
   // Unload all fields and check consistent values
   fc = optimValues.funccount;
@@ -98,7 +99,8 @@ function outfun ( x , optimValues , state )
   else
     error ( sprintf ( "Unknown state %s." , state ) )
   end
-  mprintf ( "%d %e %d -%s- %s\n" , fc , fv , it , pr , state )
+  mprintf ( "%d %s %d -%s- %s\n" , fc , string(fv) , it , pr , state )
+  stop = %f
 endfunction
 opt = optimset ( "OutputFcn" , outfun);
 [x fval] = fminsearch ( rosenbrock , [-1.2 1] , opt );
@@ -106,13 +108,15 @@ close();
 //
 // Use several output functions
 //
-function outfun2 ( x , optimValues , state )
+function stop = outfun2 ( x , optimValues , state )
   scf ( fig1 );
   plot( x(1),x(2),'.');
+  stop = %f
 endfunction
-function outfun3 ( x , optimValues , state )
+function stop = outfun3 ( x , optimValues , state )
   scf ( fig2 );
   plot( x(1),x(2),'o');
+  stop = %f
 endfunction
 myfunctions = list ( outfun2 , outfun3 );
 fig1 = scf(1000);

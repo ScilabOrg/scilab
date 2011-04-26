@@ -285,15 +285,15 @@ Optim Simplex Object:
 =====================
 Vertex #1/3 : fv=0.000000e+000, x=0.000000e+000 0.000000e+000
 Reflect
-xbar=0.0039063 0
+xbar=0.0039062 0
 Function Evaluation #38 at [0.0078125 -0.0078125]
 xr=0.0078125 -0.0078125, f(xr)=0.000122
-xbar2=0 0.0039063
+xbar2=0 0.0039062
 Function Evaluation #39 at [-0.0078125 0.0078125]
 xr2=-0.0078125 0.0078125, f(xr2)=0.000122
   > Perform Shrink
-Function Evaluation #40 at [0.0039063 0]
-Function Evaluation #41 at [0 0.0039063]
+Function Evaluation #40 at [0.0039062 0]
+Function Evaluation #41 at [0 0.0039062]
 =================================================================
 Iteration #13 (total = 13)
 Function Eval #41
@@ -307,11 +307,11 @@ Optim Simplex Object:
 Vertex #1/3 : fv=0.000000e+000, x=0.000000e+000 0.000000e+000
 Reflect
 xbar=0.0019531 0
-Function Evaluation #42 at [0.0039063 -0.0039063]
-xr=0.0039063 -0.0039063, f(xr)=0.000031
+Function Evaluation #42 at [0.0039062 -0.0039062]
+xr=0.0039062 -0.0039062, f(xr)=0.000031
 xbar2=0 0.0019531
-Function Evaluation #43 at [-0.0039063 0.0039063]
-xr2=-0.0039063 0.0039063, f(xr2)=0.000031
+Function Evaluation #43 at [-0.0039062 0.0039062]
+xr2=-0.0039062 0.0039062, f(xr2)=0.000031
   > Perform Shrink
 Function Evaluation #44 at [0.0019531 0]
 Function Evaluation #45 at [0 0.0019531]

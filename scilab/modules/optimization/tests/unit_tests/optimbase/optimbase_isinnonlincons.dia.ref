@@ -6,6 +6,7 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -137,13 +138,10 @@ opt = optimbase_configure(opt,"-nbineqconst",4);
 opt = optimbase_configure ( opt , "-function" , gouldnonconvex );
 [ opt , isfeasible ] = optimbase_isinnonlincons ( opt ,  [ 14.0950013 , 0.8429636 ] );
 Function Evaluation #1 at [14.095001 0.8429636]
-
 assert_equal ( isfeasible , %t );
 [ opt , isfeasible ] = optimbase_isinnonlincons ( opt ,  [ 14.0950013 , 0.0 ] );
 Function Evaluation #2 at [14.095001 0]
-
 Inequality constraint #3/4 is not satisfied for x
-
 assert_equal ( isfeasible , %f );
 opt = optimbase_destroy(opt);
 //
@@ -158,16 +156,12 @@ opt = optimbase_new ();
 opt = optimbase_configure ( opt , "-numberofvariables",2);
 opt = optimbase_configure ( opt , "-verbose",1);
 opt = optimbase_configure ( opt , "-nbineqconst",4);
-opt = optimbase_configure ( opt , "-function" , gouldnonconvex2 );
-opt = optimbase_configure ( opt , "-costfargument" , mystuff );
+opt = optimbase_configure ( opt , "-function" , list(gouldnonconvex2,mystuff) );
 [ opt , isfeasible ] = optimbase_isinnonlincons ( opt ,  [ 14.0950013 , 0.8429636 ] );
 Function Evaluation #1 at [14.095001 0.8429636]
-
 assert_equal ( isfeasible , %t );
 [ opt , isfeasible ] = optimbase_isinnonlincons ( opt ,  [ 14.0950013 , 0.0 ] );
 Function Evaluation #2 at [14.095001 0]
-
 Inequality constraint #3/4 is not satisfied for x
-
 assert_equal ( isfeasible , %f );
 opt = optimbase_destroy(opt);

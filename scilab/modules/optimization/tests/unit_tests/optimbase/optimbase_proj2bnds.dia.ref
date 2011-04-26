@@ -6,6 +6,7 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -56,10 +57,8 @@ opt = optimbase_configure ( opt , "-boundsmax" , [5.0 5.0] );
 [ opt , p ] = optimbase_proj2bnds ( opt ,  [0.0 0.0] );
 assert_equal ( p , [0.0 0.0] );
 [ opt , p ] = optimbase_proj2bnds ( opt ,  [-6.0 6.0] );
-Projecting p(1) = -6.000000e+000 on min bound -5.000000e+000
-
-Projecting p(2) = 6.000000e+000 on max bound 5.000000e+000
-
+Projecting p(1) = -6 on min bound -5
+Projecting p(2) = 6 on max bound 5
 assert_equal ( p , [-5.0 5.0] );
 opt = optimbase_destroy(opt);
 //

@@ -6,6 +6,7 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// <-- JVM NOT MANDATORY -->
 //
 // assert_close --
 //   Returns 1 if the two real matrices computed and expected are close,
@@ -98,9 +99,7 @@ opt = optimbase_configure ( opt , "-numberofvariables",2);
 opt = optimbase_configure ( opt , "-verbose",1);
 [ opt , isok ] = optimbase_checkx0 ( opt );
 Checking initial guess...
-
 ... initial guess is feasible.
-
 assert_equal ( isok , %T );
 opt = optimbase_destroy(opt);
 //
@@ -113,18 +112,13 @@ opt = optimbase_configure ( opt , "-boundsmax" , [5.0 5.0] );
 opt = optimbase_configure ( opt , "-x0", [1.0 1.0]' );
 [ opt , isok ] = optimbase_checkx0 ( opt );
 Checking initial guess...
-
 ... initial guess is feasible.
-
 assert_equal ( isok , %T );
 opt = optimbase_configure ( opt , "-x0",[-6.0 1.0]');
 [ opt , isok ] = optimbase_checkx0 ( opt );
 Checking initial guess...
-
-Component #1/2 of x is lower than min bound -5.000000e+000
-
+Component #1/2 of x is lower than min bound -5
 ... initial guess is not feasible.
-
 assert_equal ( isok , %F );
 opt = optimbase_destroy(opt);
 //
@@ -137,21 +131,14 @@ opt = optimbase_configure ( opt , "-function" , gouldnonconvex );
 opt = optimbase_configure ( opt , "-x0" , [ 14.0950013 , 0.8429636 ]');
 [ opt , isok ] = optimbase_checkx0 ( opt );
 Checking initial guess...
-
 Function Evaluation #1 at [14.095001 0.8429636]
-
 ... initial guess is feasible.
-
 assert_equal ( isok , %T );
 opt = optimbase_configure ( opt , "-x0" , [ 14.0950013 , 0.0 ]');
 [ opt , isok ] = optimbase_checkx0 ( opt );
 Checking initial guess...
-
 Function Evaluation #2 at [14.095001 0]
-
 Inequality constraint #3/4 is not satisfied for x
-
 ... initial guess is not feasible.
-
 assert_equal ( isok , %F );
 opt = optimbase_destroy(opt);
