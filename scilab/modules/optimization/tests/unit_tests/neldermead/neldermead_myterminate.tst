@@ -15,15 +15,15 @@
 
 
 
-function [ this , terminate , status ] = mystoppingrule ( this , simplex )
+function stop = myoutputcmd ( state , data )
+  simplex = data.simplex
   ssize = optimsimplex_size ( simplex , "sigmaplus" );
   if ( ssize < 1.e-4 ) then
-    terminate = %t;
+    stop = %t;
     status = "mysize";
   else
-    terminate = %f
+    stop = %f
   end
-
 endfunction
 
 function [ y , index ] = rosenbrock ( x , index )
@@ -46,8 +46,60 @@ nm = neldermead_configure(nm,"-method","variable");
 // Disable default terminations
 nm = neldermead_configure(nm,"-tolxmethod",%f);
 nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
+nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
+nm = neldermead_search(nm);
+// Check optimum point
+xopt = neldermead_get(nm,"-xopt");
+assert_checkalmostequal ( xopt , [1.0 1.0]', 1e-3 );
+// Check optimum point value
+fopt = neldermead_get(nm,"-fopt");
+assert_checkalmostequal ( fopt , 0.0 , [] , 1e-5 );
+// Check status
+status = neldermead_get(nm,"-status");
+assert_checkequal ( status , "userstop" );
+// Check simplex size
+simplex = neldermead_get(nm,"-simplexopt");
+ssize = optimsimplex_size ( simplex , "sigmaplus" );
+assert_checkequal ( ssize<1.e-4 , %t );
+// Check function evaluations
+// If not user-termination, then funevals = 401, i.e.
+// the maximum.
+funevals = neldermead_get(nm,"-funevals");
+assert_checkequal ( funevals<200 , %t );
+nm = neldermead_destroy(nm);
+
+//
+// Check backward compatibility:
+// check obsolete options "-myterminateflag" and "-myterminate".
+//
+function [ this , terminate , status ] = mystoppingrule2 ( this , simplex )
+  ssize = optimsimplex_size ( simplex , "sigmaplus" );
+  if ( ssize < 1.e-4 ) then
+    terminate = %t;
+    status = "mysize";
+  else
+    terminate = %f
+  end
+
+endfunction
+
+
+
+//
+// Test with my own termination criteria 
+//
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",2);
+nm = neldermead_configure(nm,"-function",rosenbrock);
+nm = neldermead_configure(nm,"-x0",[-1.2 1.0]');
+nm = neldermead_configure(nm,"-maxiter",200);
+nm = neldermead_configure(nm,"-maxfunevals",400);
+nm = neldermead_configure(nm,"-method","variable");
+// Disable default terminations
+nm = neldermead_configure(nm,"-tolxmethod",%f);
+nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
 nm = neldermead_configure(nm,"-myterminateflag",%t);
-nm = neldermead_configure(nm,"-myterminate",mystoppingrule);
+nm = neldermead_configure(nm,"-myterminate",mystoppingrule2);
 nm = neldermead_search(nm);
 // Check optimum point
 xopt = neldermead_get(nm,"-xopt");
