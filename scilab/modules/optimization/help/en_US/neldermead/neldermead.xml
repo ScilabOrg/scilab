@@ -260,7 +260,7 @@
 
                     <listitem>
                       <para>
-                        the maximum number of function evalutations
+                        the maximum number of function evaluations
                         (default is 100). If this criteria is triggered, the
                         status of the optimization is set to
                         "maxfuneval".
@@ -363,7 +363,8 @@
 
                     <listitem>
                       <para>
-                        the objective function, which computes the value
+                        a function or a list, the objective function.
+                        This function computes the value
                         of the cost and the non linear constraints, if
                         any.
                       </para>
@@ -377,37 +378,17 @@
                   </varlistentry>
 
                   <varlistentry>
-                    <term>-costfargument</term>
-
-                    <listitem>
-                      <para>
-                        an additionnal argument, passed to the cost
-                        function.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-
-                  <varlistentry>
                     <term>-outputcommand</term>
 
                     <listitem>
-                      <para>a command which is called back for output.</para>
+                      <para>
+					  a function or a list, a function which is called back for output.
+					  </para>
 
                       <para>
                         See below for the details of the communication
                         between the optimization system and the output command
                         function.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-
-                  <varlistentry>
-                    <term>-outputcommandarg</term>
-
-                    <listitem>
-                      <para>
-                        an additionnal argument, passed to the output
-                        command.
                       </para>
                     </listitem>
                   </varlistentry>
@@ -1223,27 +1204,6 @@
                     </listitem>
                   </varlistentry>
 
-                  <varlistentry>
-                    <term>-myterminate</term>
-
-                    <listitem>
-                      <para>
-                        a user-defined terminate function. See below for
-                        details (default is empty).
-                      </para>
-                    </listitem>
-                  </varlistentry>
-
-                  <varlistentry>
-                    <term>-myterminateflag</term>
-
-                    <listitem>
-                      <para>
-                        set to %t to enable the user-defined terminate
-                        function (default is %f).
-                      </para>
-                    </listitem>
-                  </varlistentry>
                 </variablelist>
               </listitem>
             </varlistentry>
@@ -1301,7 +1261,13 @@
             generates an error.
           </para>
 
-          <variablelist>
+                <para>
+                  Most fields are available only after an optimization has
+                  been performed with one call to the neldermead_search
+                  method.
+                </para>
+
+		<variablelist>
             <varlistentry>
               <term>this</term>
 
@@ -1456,11 +1422,6 @@
                   </varlistentry>
                 </variablelist>
 
-                <para>
-                  Most fields are available only after an optimization has
-                  been performed with one call to the neldermead_search
-                  method.
-                </para>
               </listitem>
             </varlistentry>
           </variablelist>
@@ -1562,18 +1523,12 @@
       function is used to compute the objective function value <literal>f</literal>.
       If the <literal>-nbineqconst</literal> option is configured to a non-zero value, the cost function
       must also compute the value of the nonlinear, positive, inequality constraints <literal>c</literal>.
-      The cost function can also take as input/output an additional
-      argument, if the <literal>-costfargument</literal> option is configured.
       Depending of these options, the cost function can have one of the following headers :
     </para>
 
     <programlisting role="example">
-      //  Without additionnal data
       [ f , index ] = costf ( x , index )
       [ f , c , index ] = costf ( x , index )
-      //  With -costfargument
-      [ f , index , data ] = costf ( x , index , data )
-      [ f , c , index , data ] = costf ( x , index , data )
     </programlisting>
 
     <para>where</para>
@@ -1608,14 +1563,6 @@
 
         <listitem>
           <para>the value of the non-linear, positive, inequality constraints</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>data</term>
-
-        <listitem>
-          <para>an user-provided input/output argument</para>
         </listitem>
       </varlistentry>
 
@@ -1663,34 +1610,21 @@
     </para>
 
     <programlisting role="example">
-      function [ f , index ]= myfunction ( x , index )
+[ f , index ]= myfunction ( x , index )
     </programlisting>
 
     <para>
-      The <literal>data</literal> argument is both input and output and the following paragraph
-      explains for what reason and how it works.
-    </para>
-    <para>
-      This feature may be used in the situation where the cost function has to update its
-      environment from call to call. Its simplest use is to count the
-      number of calls to the cost function, but this feature is already available directly.
-      Consider the more practical situation where the optimization requires the execution of
-      an underlying Newton method (a chemical solver for example).
-      This Newton method requires an initial guess x0. If the initial guess
-      for this underlying Newton method is kept constant, the Newton method may
-      have problems to converge when the current optimization point get far away from the
-      its initial point. If the <literal>-costfargument</literal> option is provided, the
-      initial guess for the Newton method can be updated so that it gets the
-      value of the previous call. This way, the Newton method will have less problems to
-      converge and the cost function evaluation may be faster.
-    </para>
-    <para>
-      We now present how the feature works.
-      Everytime the cost function is called back, the <literal>-costfargument</literal> option
-      is passed to the cost function as an input argument. If the cost function modifies its content
-      in the output argument, the content of the <literal>-costfargument</literal> option is updated accordingly.
-      Once the optimization is performed, the user may call the <literal>neldermead_cget</literal>
-      function and get back an updated <literal>-costfargument</literal> content.
+      It might happen that the function requires additionnal arguments to be evaluated.
+      In this case, we can use the following feature.
+      The argument <literal>fun</literal> can also be the list <literal>(f,a1,a2,...)</literal>.
+      In this case <literal>f</literal>, the first element in the list, must be a function and must
+      have the header:
+      <programlisting>
+      [ f , index ] = costf ( x , index , a1, a2, ... )
+      [ f , c , index ] = costf ( x , index , a1, a2, ...)
+      </programlisting>
+      where the input arguments <literal>a1, a2, ...</literal>
+      are automatically appended at the end of the calling sequence.
     </para>
 
   </refsection>
@@ -1707,15 +1641,15 @@
     <para>The output function must have the following header</para>
 
     <programlisting role="example">
-      function outputcmd(state, data, myobj)
+stop = outputcmd(state, data)
     </programlisting>
 
     <para>where</para>
 
     <variablelist>
+	
       <varlistentry>
         <term>state</term>
-
         <listitem>
           <para>
             a string representing the current state of the algorithm.
@@ -1726,9 +1660,8 @@
 
       <varlistentry>
         <term>data</term>
-
         <listitem>
-          <para>a tlist containing at least the following entries</para>
+          <para>a data structure containing at least the following entries</para>
 
           <variablelist>
             <varlistentry>
@@ -1787,26 +1720,35 @@
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term>myobj</term>
-
+	<varlistentry>
+        <term>stop</term>
         <listitem>
-          <para>a user-defined parameter.</para>
-
           <para>
-            This input parameter is defined with the -outputcommandarg
-            option.
+            a 1-by-1 matrix of booleans, set to true to stop the 
+			algorithm, set to false to continue the optimization.
           </para>
         </listitem>
       </varlistentry>
+
     </variablelist>
 
     <para>
-      The output function may be used when debugging the specialized
-      optimization algorithm, so that a verbose logging is produced. It may also
-      be used to write one or several report files in a specialized format
-      (ASCII, LaTeX, Excel, Hdf5, etc...). The user-defined parameter may be
-      used in that case to store file names or logging options.
+      It might happen that the output function requires additionnal arguments to be evaluated.
+      In this case, we can use the following feature.
+      The argument <literal>outputcmd</literal> can also be the list <literal>(outf,a1,a2,...)</literal>.
+      In this case <literal>outf</literal>, the first element in the list, must be a function and must
+      have the header:
+      <programlisting>
+        stop = outf ( state, data, a1, a2, ... )
+      </programlisting>
+      where the input arguments <literal>a1, a2, ...</literal>
+      are automatically appended at the end of the calling sequence.
+    </para>
+
+    <para>
+	If the output function sets the <literal>stop</literal> variable to true, 
+	then the optimization alorithm stops and the status of the optimization is 
+	set to <literal>"userstop"</literal>.
     </para>
 
   </refsection>
@@ -2208,38 +2150,6 @@
         </variablelist>
       </listitem>
 
-      <listitem>
-        <para>
-          The user-defined termination condition
-          is examined depending on the value of the
-          <literal>-myterminateflag</literal> option.
-        </para>
-
-        <variablelist>
-          <varlistentry>
-            <term>%f</term>
-
-            <listitem>
-              <para>then the criteria is just ignored.</para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term>%t</term>
-
-            <listitem>
-              <para>
-                if the <literal>term</literal> output argument
-                boolean returned by the termination function is true,
-                then the status is set to the user-defined status and
-                <literal>terminate</literal> is set to %t.
-              </para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </listitem>
-
-
     </itemizedlist>
   </refsection>
 
@@ -2489,8 +2399,7 @@
     </para>
     <programlisting role="example">
       <![CDATA[ 
-function this = myalgorithm ( this )
-endfunction
+this = myalgorithm ( this )
  ]]>
     </programlisting>
     <para>
@@ -2512,48 +2421,7 @@ endfunction
   </refsection>
 
   <refsection>
-    <title>User-defined termination</title>
-    <para>
-      Many termination criteria are found in the bibliography.
-      Users which aim at reproducing the results exhibited in a particular
-      paper may find that that none of the provided termination criteria match the
-      one which is used in the paper. It may also happen that the provided termination
-      criteria are not suitable for the specific test case. In those situation the
-      <literal>-myterminate</literal> option allows to configure a user-defined
-      termination function.
-    </para>
-    <para>
-      The value of the <literal>-myterminate</literal> option is expected to be
-      a Scilab function with the following header
-    </para>
-    <programlisting role="example">
-      <![CDATA[ 
-function [ this , terminate , status ] = mystoppingrule ( this , simplex )
-endfunction
- ]]>
-    </programlisting>
-    <para>
-      where <literal>-this</literal> is the current object and <literal>-simplex</literal>
-      is the current simplex. The <literal>terminate</literal> output argument is
-      a boolean which is false if the algorithm must continue and true if the algorithm
-      must stop. The <literal>status</literal> output argument is
-      a string which is associated with the current termination criteria.
-    </para>
-    <para>
-      In order to enable the use of the user-defined termination function, the value of the
-      <literal>-myterminateflag</literal> must be set to true.
-      At each iteration, if the -myterminateflag option has been set to true,
-      the user-defined termination is called. If the <literal>terminate</literal>
-      output argument is true, then the algorithm is stopped.
-      In that case, the value of the <literal>-status</literal> option of the
-      <literal>neldermead_get</literal> is the value of the <literal>status</literal>
-      output argument of the user-defined termination function.
-    </para>
-
-  </refsection>
-
-  <refsection>
-    <title>Example #1 : basic use</title>
+    <title>Example #1: basic use</title>
 
     <para>
       In the following example, we solve a simple quadratic test case. We
@@ -2746,8 +2614,9 @@ endfunction
 //    * iteration : the number of iterations performed
 //    * funccount : the number of function evaluations
 //    * step : the type of step in the previous iteration
+//  stop : set to true to stop the optimization
 //
-function myoutputcmd ( state , data )
+function stop = myoutputcmd ( state , data )
   iter = data.iteration
   if ( state == "init" ) then
     mprintf ( "=================================\n");
@@ -2763,7 +2632,13 @@ function myoutputcmd ( state , data )
   // Simplex is a data structure, which can be managed
   // by the optimsimplex class.
   ssize = optimsimplex_size ( simplex )
+<<<<<<< HEAD
   mprintf ( "Iteration #%d, Feval #%d, Fval = %e, x = %s, Size = %e\n", iter, fc, fval, strcat(string(x)," "), ssize);
+=======
+  mprintf ( "Iter. #%3d, Feval #%3d, Fval = %.1e, x = %s, S = %.1e\n", ..
+    iter, fc, fval, strcat(string(x)," "), ssize);
+  stop = %f
+>>>>>>> c6ba75b... optimization: Bug #7891 fixed: neldermead had too many options
 endfunction
 
 
@@ -2809,6 +2684,156 @@ Iteration #157, Feval #300, Fval = 6.023002e-027, x = 1 1, Size = 2.814328e-013
   </refsection>
 
   <refsection>
+<<<<<<< HEAD
+=======
+    <title>Example #5: Optimization with nonlinear constraints</title>
+
+    <para>
+	The <literal>neldermead</literal> solver can optimize problems with 
+	nonlinear constraints. 
+	In the following example, we solve Rosenbrock's Post Office problem, which 
+	has both bounds and linear constraints. 
+	In our example, we will manage the linear constraints as general non-linear 
+	constraints (i.e. the solver does not make a difference if the constraints are 
+	linear or non-linear).
+	This example was first 
+	presented in "An automatic method for finding the greatest or least value of a function", 
+    Rosenbrock, 1960. 
+	This example was first used with the complex method of Box in 
+	"Algorithm 454: The complex method for constrained optimization" by 
+    Richardson, Kuester, 1971. 
+	Richardson and Kuester found the minimum function value 
+    F=-3456, with X1 = 24.01, X2 = 12.00, X3 = 12.00 and 
+    72 Iterations were necessary for them to get this result.
+	</para>
+
+    <para>
+	In the following function, we define the function <literal>fpostoffice</literal>, 
+	which returns both the objective function <literal>f</literal> and the 
+	constraint value <literal>c</literal>. 
+	The original constraint is the "double" inequality constraint 
+	<literal>0&lt;=x(1) + 2 * x(2) + 2 * x(3) &lt;=72</literal>.
+	To take this constraint into account, we turn it into two separate, positive, 
+	constraints and set <literal>c</literal> as a 1-by-2 matrix of doubles. 
+	</para>
+	
+    <programlisting role="example">
+<![CDATA[ 
+  function [ f , c , index ] = fpostoffice ( x , index )
+    f = []
+    c = []
+    if ( index==2 | index==6 ) then
+      f = -x(1) * x(2) * x(3)
+    end
+    
+    if ( index==5 | index==6 ) then
+      c1 = x(1) + 2 * x(2) + 2 * x(3)
+      c2 = 72 - c1
+      c = [c1 c2]
+    end
+  endfunction
+ ]]>
+</programlisting>
+
+    <para>
+	In the following script, we solve Rosenbrock's Post Office problem. 
+	First, we initialize the random number generator, so that the results are always the
+    same. 
+	Then, we check that the cost function is correctly defined and that the 
+	constraints are satisfied at the initial guess.
+	Then we configure the algorithm so that Box's algorithm is used and 
+	setup the bounds of the problem. 
+	We configure the parameters of the algorithm as suggested by Box. 
+	</para>
+
+    <programlisting role="example">
+<![CDATA[ 
+  rand("seed" , 0);
+  x0 = [1.0 1.0 1.0].';
+  // Compute f(x0) : should be close to -1
+  fx0 = fpostoffice ( x0 , 2 )
+  // Compute the constraints: cx0 should be [5 67]
+  [ fx0 , cx0, index ] = fpostoffice ( x0 , 6 )
+  // Compute f(xopt) : fopt should be -3456
+  xopt = [24 12 12].';
+  fopt = fpostoffice ( xopt );
+  // Setup optimization
+  nm = neldermead_new ();
+  nm = neldermead_configure(nm,"-numberofvariables",3);
+  nm = neldermead_configure(nm,"-function",fpostoffice);
+  nm = neldermead_configure(nm,"-x0",x0);
+  nm = neldermead_configure(nm,"-maxiter",300);
+  nm = neldermead_configure(nm,"-maxfunevals",300);
+  nm = neldermead_configure(nm,"-method","box");
+  nm = neldermead_configure(nm,"-boundsmin",[0.0 0.0 0.0]);
+  nm = neldermead_configure(nm,"-boundsmax",[42.0 42.0 42.0]);
+  // Configure like Box
+  nm = neldermead_configure(nm,"-simplex0method","randbounds");
+  nm = neldermead_configure(nm,"-nbineqconst",2);
+  nm = neldermead_configure(nm,"-tolxmethod" , %f );
+  nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
+  nm = neldermead_configure(nm,"-boxtermination" , %t );
+  nm = neldermead_configure(nm,"-boxtolf" , 0.001 );
+  nm = neldermead_configure(nm,"-boxboundsalpha" , 0.0001 );
+  //
+  // Check that the cost function is correctly connected.
+  [ nm , result ] = neldermead_function ( nm , x0 );
+  //
+  // Perform optimization
+  nm = neldermead_search(nm);
+  xcomp = neldermead_get(nm,"-xopt")
+  // Compare with the exact optimum:
+  xopt
+  fcomp = neldermead_get(nm,"-fopt")
+  // Compare with the exact function value:
+  fopt
+  nm = neldermead_destroy(nm);
+ ]]>
+</programlisting>
+
+    <para>
+	In general, we should not expect too much from this algorithm with 
+	nonlinear constraints. 
+	Indeed, some cases require thousands of iterations to converge to 
+	an optimum, because the nonlinear constraints leave a too small 
+	space for the simplex to evolve.
+	</para>
+</refsection>
+
+  <refsection>
+    <title>Example #6: passing extra parameters</title>
+
+    <para>
+      In the following example, we solve a simple quadratic test case. 
+	  Notice that the objective function has two extra parameters 
+	  <literal>a</literal> and <literal>b</literal>. 
+	  This is why the "-function" option is set as a list,
+	  where the first element is the function and the 
+	  remaining elements are the extra parameters.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function [ f , index ] = quadratic_ab ( x , index , a , b )
+  f = a * x(1)^2 + b * x(2)^2;
+endfunction
+x0 = [1.0 1.0].';
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",2);
+a = 1;
+b = 2;
+nm = neldermead_configure(nm,"-function",list(quadratic_ab,a,b));
+nm = neldermead_configure(nm,"-x0",x0);
+nm = neldermead_search(nm);
+xopt = neldermead_get(nm,"-xopt")
+nm = neldermead_destroy(nm);
+ ]]>
+    </programlisting>
+  </refsection>
+
+
+  <refsection>
+>>>>>>> c6ba75b... optimization: Bug #7891 fixed: neldermead had too many options
     <title>Bibliography</title>
 
     <para>
