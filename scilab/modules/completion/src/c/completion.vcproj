@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions=""
 				Optimization="0"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
+				AdditionalIncludeDirectories=".;../cpp;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../symbol/includes;../../../abstractSyntaxTree/includes;../../../types/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;COMPLETION_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
+				AdditionalIncludeDirectories=".;../cpp;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../symbol/includes;../../../abstractSyntaxTree/includes;../../../types/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;_DEBUG;_WINDOWS;_USRDLL;COMPLETION_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -213,7 +213,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
+				AdditionalIncludeDirectories=".;../cpp;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../symbol/includes;../../../abstractSyntaxTree/includes;../../../types/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;COMPLETION_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -302,7 +302,7 @@
 				InlineFunctionExpansion="1"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
+				AdditionalIncludeDirectories=".;../cpp;../../includes;../../../../libs/intl;../../../core/includes;../../../output_stream/includes;../../../localization/includes;../../../string/includes;../../../fileio/includes;../../../symbol/includes;../../../abstractSyntaxTree/includes;../../../types/includes;../../../graphics/includes;../../../../libs/MALLOC/includes;../../../../java/jdk/include;../../../../java/jdk/include/win32;../../../api_scilab/includes;../../../functions/includes;../../../operations/includes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;FORDLL;NDEBUG;_WINDOWS;_USRDLL;COMPLETION_EXPORTS"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -394,6 +394,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\cpp\completionDictionary.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DllmainCompletion.c"
 				>
 			</File>
@@ -407,14 +411,6 @@
 			</File>
 			<File
 				RelativePath=".\getfilesdictionary.c"
-				>
-			</File>
-			<File
-				RelativePath=".\getfulldictionary.c"
-				>
-			</File>
-			<File
-				RelativePath=".\getmacrosdictionary.c"
 				>
 			</File>
 			<File
@@ -459,6 +455,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\cpp\completionDictionary.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\includes\dynlib_completion.h"
 				>
 			</File>
@@ -472,14 +472,6 @@
 			</File>
 			<File
 				RelativePath=".\getfilesdictionary.h"
-				>
-			</File>
-			<File
-				RelativePath=".\getfulldictionary.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\includes\getmacrosdictionary.h"
 				>
 			</File>
 			<File
