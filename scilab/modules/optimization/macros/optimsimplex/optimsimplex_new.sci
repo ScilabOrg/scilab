@@ -536,6 +536,14 @@ endfunction
 //   simplex0 : the initial simplex
 //
 function [ newobj , data ] = optimsimplex_oriented ( simplex0 , fun , data )
+  if ( simplex0.nbve == [] ) then
+    errmsg = msprintf(gettext ( "%s: The initial simplex has no vertices.") , "optimsimplex_oriented")
+    error(errmsg)
+  end
+  if ( simplex0.n == [] ) then
+    errmsg = msprintf(gettext ( "%s: The initial simplex has no dimension.") , "optimsimplex_oriented")
+    error(errmsg)
+  end
   if ( simplex0.nbve <> simplex0.n+1 ) then
     errmsg = msprintf(gettext ( "%s: The oriented simplex can be computed only with a simplex made of n+1 points, but the dimension is %d and the number of vertices is %d") , "optimsimplex_oriented", simplex0.n , simplex0.nbve)
     error(errmsg)

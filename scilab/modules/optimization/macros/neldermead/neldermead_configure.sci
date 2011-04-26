@@ -191,19 +191,6 @@ function this = neldermead_configure (this,key,value)
   case "-mymethod" then
     assert_typefunction ( value , "value" , 3 );
     this.mymethod = value
-  case "-myterminate" then
-    assert_typefunction ( value , "value" , 3 );
-    this.myterminate = value
-  case "-myterminateflag" then
-    assert_typeboolean ( value , "value" , 3 );
-    select value
-    case %f then
-      this.myterminateflag = value;
-    case %t then
-      this.myterminateflag = value;
-    else
-      unknownValueForOption ( value , "-myterminateflag" )
-    end
   case "-tolvarianceflag" then
     assert_typeboolean ( value , "value" , 3 )
     this.tolvarianceflag = value

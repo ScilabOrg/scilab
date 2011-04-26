@@ -66,8 +66,9 @@ endfunction
 //    * iteration : the number of iterations performed
 //    * funccount : the number of function evaluations
 //    * step : the type of step in the previous iteration
+// stop: set to true to stop algorithm
 //
-function myoutputcmd ( state , data )
+function stop = myoutputcmd ( state , data )
   global _OUTPUCMDFLAG_
   // Unload the array, just to make sure that the minimum is there
   iter = data.iteration
@@ -81,6 +82,7 @@ function myoutputcmd ( state , data )
   v = optimsimplex_dirmat ( simplex )
   condv = cond ( v )
   _OUTPUCMDFLAG_ = 1
+  stop = %f
 endfunction
 
 
@@ -150,6 +152,66 @@ nm = neldermead_search(nm);
 // We are here, that means that the output command has been correctly
 // called
 assert_equal ( _OUTPUCMDFLAG_ , 1 );
+nm = neldermead_destroy(nm);
+
+
+function [ y , index ] = rosenbrock ( x , index )
+  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+endfunction
+
+//
+// myoutputcmd2 --
+//  This command is called back by the Nelder-Mead
+//  algorithm.
+// Arguments
+//  state : the current state of the algorithm
+//    "init", "iter", "done"
+//  data : the data at the current state
+//    This is a tlist with the following entries:
+//    * x : the optimal vector of parameters
+//    * fval : the minimum function value
+//    * simplex : the simplex, as a simplex object
+//    * iteration : the number of iterations performed
+//    * funccount : the number of function evaluations
+//  myobj : a user-defined data structure
+// stop: set to true to stop algorithm
+//
+function stop = myoutputcmd2 ( state , data , myobj )
+  global _OUTPUCMDFLAG_
+  // Unload the array, just to make sure that the minimum is there
+  iter = data.iteration
+  fc = data.funccount
+  fval = data.fval
+  x = data.x
+  simplex = data.simplex
+  // Simplex is a data structure, which can be managed
+  // by the simplex class.
+  v = optimsimplex_dirmat ( simplex )
+  condv = cond ( v )
+  _OUTPUCMDFLAG_ = myobj.myarg
+  stop = %f
+endfunction
+
+global _OUTPUCMDFLAG_;
+_OUTPUCMDFLAG_ = 0;
+
+myobj = tlist(["T_MYSTUFF","myarg"]);
+myobj.myarg = 12;
+
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",2);
+nm = neldermead_configure(nm,"-function",rosenbrock);
+nm = neldermead_configure(nm,"-x0",[-1.2 1.0]');
+nm = neldermead_configure(nm,"-maxiter",200);
+nm = neldermead_configure(nm,"-maxfunevals",300);
+nm = neldermead_configure(nm,"-tolfunrelative",10*%eps);
+nm = neldermead_configure(nm,"-tolxrelative",10*%eps);
+nm = neldermead_configure(nm,"-simplex0method","axes");
+nm = neldermead_configure(nm,"-simplex0length",1.0);
+nm = neldermead_configure(nm,"-method","variable");
+nm = neldermead_configure(nm,"-outputcommand",list(myoutputcmd2,myobj));
+nm = neldermead_search(nm);
+assert_equal ( _OUTPUCMDFLAG_ , 12 );
 nm = neldermead_destroy(nm);
 
 

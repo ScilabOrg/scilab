@@ -23,8 +23,9 @@
 //    * iteration : the number of iterations performed
 //    * funccount : the number of function evaluations
 //  this : the current nmplot object
+// stop: set to true when the algorithm must stop
 //
-function nmplot_outputcmd ( state , data , this )
+function stop = nmplot_outputcmd ( state , data , this )
   nmplot_log ( this , "nmplot_outputcmd (1)")
   iter = data.iteration
   // Print simplex
@@ -58,5 +59,6 @@ function nmplot_outputcmd ( state , data , this )
     sigma = optimsimplex_size ( data.simplex , "sigmaplus" )
     mfprintf ( this.sigmahandle , "%d %e\n", iter , sigma )
   end
+  stop = %f
 endfunction
 

@@ -65,8 +65,6 @@ function newobj = neldermead_new ()
     "tolrelativevariance"
     "variancesimplex0"
     "mymethod"
-    "myterminate"
-    "myterminateflag"
     "greedy"
     ]);
 
@@ -182,10 +180,6 @@ function newobj = neldermead_new ()
   newobj.variancesimplex0 = 0.0;
   // User-defined algorithm
   newobj.mymethod = []
-  // User-defined terimination criteria
-  newobj.myterminate = []
-  // Flag to enable the user-defined terimination criteria
-  newobj.myterminateflag = %f
   // Set to %t to enable greedy Nelder-Mead
   newobj.greedy = %f;
 endfunction

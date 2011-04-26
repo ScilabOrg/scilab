@@ -47,13 +47,29 @@ function this = neldermead_search ( this )
     this = neldermead_startup ( this );
     this.startupflag = %t;
   end
-  neldermead_outputcmd ( this, "init" , this.simplex0 , "init" )
+  stop = neldermead_outputcmd ( this, "init" , this.simplex0 , "init" )
+  if ( stop ) then
+    this.optbase = optimbase_set ( this.optbase , "-status" , "userstop" );
+    verbose = optimbase_cget ( this.optbase , "-verbose" )
+    if ( verbose == 1 ) then
+      this = neldermead_log (this,sprintf("Terminate by user''s request"));
+    end
+    return
+  end
+
   if ( this.restartflag ) then
     this = neldermead_autorestart ( this )
   else
     this = neldermead_algo ( this );
   end
-  neldermead_outputcmd ( this, "done" , this.simplexopt , "done" )
+  stop = neldermead_outputcmd ( this, "done" , this.simplexopt , "done" )
+  if ( stop ) then
+    this.optbase = optimbase_set ( this.optbase , "-status" , "userstop" );
+    verbose = optimbase_cget ( this.optbase , "-verbose" )
+    if ( verbose == 1 ) then
+      this = neldermead_log (this,sprintf("Terminate by user''s request"));
+    end
+  end
 endfunction
 //
 // neldermead_algo --
@@ -244,7 +260,14 @@ function this = neldermead_variable ( this )
     end
     this.optbase = optimbase_set ( this.optbase , "-xopt" , xlow );
     this.optbase = optimbase_set ( this.optbase , "-fopt" , flow );
-    neldermead_outputcmd ( this, "iter" , simplex , step )
+    stop = neldermead_outputcmd ( this, "iter" , simplex , step )
+	if ( stop ) then
+		status = "userstop"
+		if ( verbose == 1 ) then
+		this = neldermead_log (this,sprintf("Terminate by user''s request"));
+		end
+		break
+	end
 
     //
     // Update termination flag
@@ -490,7 +513,14 @@ function this = neldermead_fixed (this)
     end
     this.optbase = optimbase_set ( this.optbase , "-xopt" , xlow );
     this.optbase = optimbase_set ( this.optbase , "-fopt" , flow );
-    neldermead_outputcmd ( this, "iter" , simplex , step )
+    stop = neldermead_outputcmd ( this, "iter" , simplex , step )
+	if ( stop ) then
+		status = "userstop"
+		if ( verbose == 1 ) then
+		this = neldermead_log (this,sprintf("Terminate by user''s request"));
+		end
+		break
+	end
     //
     // Update termination flag
     //
@@ -603,7 +633,6 @@ endfunction
 //     "kelleystagnation"
 //     "tolboxf"
 //     "tolvariance"
-//     or the user-defined termination status
 // Notes
 //   Use the function average on the simplex instead of the best function value.
 //   This is because the function average changes at each iteration.
@@ -727,18 +756,6 @@ function [ this , terminate , status ] = neldermead_termination (this , ...
       end
     end
   end
-  //
-  // Criteria #11 : user-defined criteria
-  //
-  if ( ~terminate ) then
-    if ( this.myterminateflag ) then
-      [ this , term , stat ] = this.myterminate ( this , simplex )
-      if ( term ) then 
-        terminate = term
-        status = stat
-      end
-    end
-  end
   if ( verbose == 1 ) then
     this.optbase = optimbase_stoplog (this.optbase,sprintf("  > Terminate = %s, status = %s",...
       string(terminate) , status ));
@@ -757,8 +774,9 @@ endfunction
 //   step : the type of step performed during the iteration
 //     "init", "done", "reflection", "expansion", "insidecontraction", "outsidecontraction"
 //     "reflectionnext", "shrink"
+//   stop : set to true to stop algorithm
 //
-function  neldermead_outputcmd ( this, ...
+function stop = neldermead_outputcmd ( this, ...
    state , simplex , step )
   outputcmd = optimbase_cget ( this.optbase , "-outputcommand" );
   if typeof(outputcmd) <> "string" then
@@ -772,7 +790,9 @@ function  neldermead_outputcmd ( this, ...
     data.funccount = brutedata.funccount;
     data.simplex = simplex;
     data.step = step;
-    optimbase_outputcmd ( this.optbase , state , data );
+    stop = optimbase_outputcmd ( this.optbase , state , data );
+  else
+    stop = %f
   end
 endfunction
 //
@@ -1250,7 +1270,14 @@ function this = neldermead_box ( this )
         this = neldermead_log (this,str(i));
       end
     end
-    neldermead_outputcmd ( this, "iter" , simplex , step )
+    stop = neldermead_outputcmd ( this, "iter" , simplex , step )
+	if ( stop ) then
+		status = "userstop"
+		if ( verbose == 1 ) then
+			this = neldermead_log (this,sprintf("Terminate by user''s request"));
+		end
+		break
+	end
 
     //
     // Update termination flag

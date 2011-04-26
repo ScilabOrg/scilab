@@ -13,6 +13,11 @@
 //   Destroy an object.
 //
 function this = optimbase_destroy (this)
+    [lhs,rhs]=argn();
+    if ( rhs <> 1 ) then
+        errmsg = msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"), "optimbase_destroy", 1);
+        error(errmsg)
+    end
   this.historyfopt = [];
   this.historyxopt = [];
   if ( this.logstartup ) then

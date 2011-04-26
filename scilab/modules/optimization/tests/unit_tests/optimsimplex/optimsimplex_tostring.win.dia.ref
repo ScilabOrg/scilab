@@ -52,9 +52,9 @@ simplex = [
 ];
 s1 = optimsimplex_setall ( s1 , simplex );
 str = optimsimplex_tostring ( s1 );
-WARNING: Function optimsimplex_tostring is obsolete.
+WARNING: Feature optimsimplex_tostring is obsolete.
 WARNING: Please use string instead.
-WARNING: This function will be permanently removed in Scilab optimsimplex_tostring
+WARNING: This feature will be permanently removed in Scilab optimsimplex_tostring
 
 if getos() == 'Windows' then
 expected = [
@@ -85,9 +85,9 @@ simplex = [
 ];
 s1 = optimsimplex_setall ( s1 , simplex );
 str = optimsimplex_tostring ( s1 );
-WARNING: Function optimsimplex_tostring is obsolete.
+WARNING: Feature optimsimplex_tostring is obsolete.
 WARNING: Please use string instead.
-WARNING: This function will be permanently removed in Scilab optimsimplex_tostring
+WARNING: This feature will be permanently removed in Scilab optimsimplex_tostring
 
 if getos() == 'Windows' then
 expected = [

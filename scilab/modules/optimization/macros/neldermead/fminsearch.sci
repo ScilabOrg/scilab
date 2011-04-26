@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
-// Copyright (C) 2009-2010 - DIGITEO - Michael Baudin
+// Copyright (C) 2009-2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -94,8 +94,7 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
   nm = neldermead_configure(nm,"-simplex0deltausual",0.05);
   nm = neldermead_configure(nm,"-simplex0deltazero",0.0075);
   nm = neldermead_configure(nm,"-method","variable");
-  nm = neldermead_configure(nm,"-function",fminsearch_function);
-  nm = neldermead_configure(nm,"-costfargument",fmsfundata);
+  nm = neldermead_configure(nm,"-function",list(fminsearch_function,fmsfundata));
   nm = neldermead_configure(nm,"-maxiter",MaxIter);
   nm = neldermead_configure(nm,"-maxfunevals",MaxFunEvals);
   nm = neldermead_configure(nm,"-tolxmethod",%f);
@@ -105,8 +104,7 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
   nm = neldermead_configure(nm,"-toldeltafv",TolFun);
   nm = neldermead_configure(nm,"-tolsimplexizeabsolute",TolX);
   nm = neldermead_configure(nm,"-checkcostfunction",%f);
-  nm = neldermead_configure(nm,"-outputcommand",fminsearch_outputfun);
-  nm = neldermead_configure(nm,"-outputcommandarg",fmsdata);
+  nm = neldermead_configure(nm,"-outputcommand",list(fminsearch_outputfun,fmsdata));
   //nm = neldermead_configure(nm,"-verbose",1);
   //nm = neldermead_configure(nm,"-verbosetermination",1);
   nm = neldermead_search(nm);
@@ -132,6 +130,8 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
     exitflag = 0;
   case "tolsizedeltafv" then
     exitflag = 1;
+  case "userstop" then
+    exitflag = -1;
   else
     errmsg = msprintf(gettext("%s: Unknown status %s"), "fminsearch", status)
     error(errmsg)
@@ -177,7 +177,7 @@ endfunction
 //    * Display : what to display
 //    * OutputFcn : the array of output functions
 //
-function fminsearch_outputfun ( state , data , fmsdata )
+function stop = fminsearch_outputfun ( state , data , fmsdata )
   // 
   // Compute procedure
   //
@@ -218,6 +218,7 @@ function fminsearch_outputfun ( state , data , fmsdata )
   //
   // Process output functions
   //
+  stop = %f
   optimValues = struct(...
       "funccount" ,data.funccount , ...
       "fval" ,data.fval , ...
@@ -227,11 +228,11 @@ function fminsearch_outputfun ( state , data , fmsdata )
   if ( fmsdata.OutputFcn <> [] ) then
     if ( type ( fmsdata.OutputFcn ) == 13 ) then
       // The output function is a macro
-      fmsdata.OutputFcn ( data.x , optimValues , state );
+      stop = fmsdata.OutputFcn ( data.x , optimValues , state );
     elseif ( type ( fmsdata.OutputFcn ) == 15 ) then
       // The output function is a list of macros
       for i = 1:length(fmsdata.OutputFcn)
-        fmsdata.OutputFcn(i) ( data.x , optimValues , state );
+        stop = fmsdata.OutputFcn(i) ( data.x , optimValues , state );
       end
     else
       // The user did something wrong...

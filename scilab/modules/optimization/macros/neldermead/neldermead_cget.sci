@@ -84,10 +84,6 @@ function value = neldermead_cget (this,key)
     value = this.boxineqscaling;
   case "-mymethod" then
     value = this.mymethod
-  case "-myterminate" then
-    value = this.myterminate
-  case "-myterminateflag" then
-    value = this.myterminateflag
   case "-tolvarianceflag" then
     value = this.tolvarianceflag
   case "-tolabsolutevariance" then
