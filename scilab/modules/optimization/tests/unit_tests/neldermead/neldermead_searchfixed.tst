@@ -36,6 +36,9 @@ nm = neldermead_configure(nm,"-numberofvariables",2);
 nm = neldermead_configure(nm,"-x0",[1.0 1.0]');
 nm = neldermead_configure(nm,"-method","fixed");
 nm = neldermead_configure(nm,"-function",squarefun);
+// Reduce number of displayed digits to increase 
+// portability of the test.
+format("v",7);
 nm = neldermead_configure(nm,"-verbose",1);
 // Set the relative size to zero: it should never stop...
 nm = neldermead_configure(nm,"-tolsimplexizerelative",0.0);
