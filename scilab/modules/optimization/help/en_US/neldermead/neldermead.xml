@@ -363,7 +363,8 @@ g_i(x) &gt;= 0, i = 1,nbineq
 
                     <listitem>
                       <para>
-                        the objective function, which computes the value
+                        a function or a list, the objective function.
+                        This function computes the value
                         of the cost and the non linear constraints, if
                         any.
                       </para>
@@ -377,37 +378,17 @@ g_i(x) &gt;= 0, i = 1,nbineq
                   </varlistentry>
 
                   <varlistentry>
-                    <term>-costfargument</term>
-
-                    <listitem>
-                      <para>
-                        an additionnal argument, passed to the cost
-                        function.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-
-                  <varlistentry>
                     <term>-outputcommand</term>
 
                     <listitem>
-                      <para>a command which is called back for output.</para>
+                      <para>
+					  a function or a list, a function which is called back for output.
+					  </para>
 
                       <para>
                         See below for the details of the communication
                         between the optimization system and the output command
                         function.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-
-                  <varlistentry>
-                    <term>-outputcommandarg</term>
-
-                    <listitem>
-                      <para>
-                        an additionnal argument, passed to the output
-                        command.
                       </para>
                     </listitem>
                   </varlistentry>
@@ -1562,18 +1543,12 @@ g_i(x) &gt;= 0, i = 1,nbineq
       function is used to compute the objective function value <literal>f</literal>.
       If the <literal>-nbineqconst</literal> option is configured to a non-zero value, the cost function
       must also compute the value of the nonlinear, positive, inequality constraints <literal>c</literal>.
-      The cost function can also take as input/output an additional
-      argument, if the <literal>-costfargument</literal> option is configured.
       Depending of these options, the cost function can have one of the following headers :
     </para>
 
     <programlisting role="example">
-      //  Without additionnal data
       [ f , index ] = costf ( x , index )
       [ f , c , index ] = costf ( x , index )
-      //  With -costfargument
-      [ f , index , data ] = costf ( x , index , data )
-      [ f , c , index , data ] = costf ( x , index , data )
     </programlisting>
 
     <para>where</para>
@@ -1608,14 +1583,6 @@ g_i(x) &gt;= 0, i = 1,nbineq
 
         <listitem>
           <para>the value of the non-linear, positive, inequality constraints</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term>data</term>
-
-        <listitem>
-          <para>an user-provided input/output argument</para>
         </listitem>
       </varlistentry>
 
@@ -1663,34 +1630,21 @@ g_i(x) &gt;= 0, i = 1,nbineq
     </para>
 
     <programlisting role="example">
-      function [ f , index ]= myfunction ( x , index )
+[ f , index ]= myfunction ( x , index )
     </programlisting>
 
     <para>
-      The <literal>data</literal> argument is both input and output and the following paragraph
-      explains for what reason and how it works.
-    </para>
-    <para>
-      This feature may be used in the situation where the cost function has to update its
-      environment from call to call. Its simplest use is to count the
-      number of calls to the cost function, but this feature is already available directly.
-      Consider the more practical situation where the optimization requires the execution of
-      an underlying Newton method (a chemical solver for example).
-      This Newton method requires an initial guess x0. If the initial guess
-      for this underlying Newton method is kept constant, the Newton method may
-      have problems to converge when the current optimization point get far away from the
-      its initial point. If the <literal>-costfargument</literal> option is provided, the
-      initial guess for the Newton method can be updated so that it gets the
-      value of the previous call. This way, the Newton method will have less problems to
-      converge and the cost function evaluation may be faster.
-    </para>
-    <para>
-      We now present how the feature works.
-      Everytime the cost function is called back, the <literal>-costfargument</literal> option
-      is passed to the cost function as an input argument. If the cost function modifies its content
-      in the output argument, the content of the <literal>-costfargument</literal> option is updated accordingly.
-      Once the optimization is performed, the user may call the <literal>neldermead_cget</literal>
-      function and get back an updated <literal>-costfargument</literal> content.
+      It might happen that the function requires additionnal arguments to be evaluated.
+      In this case, we can use the following feature.
+      The argument <literal>fun</literal> can also be the list <literal>(f,a1,a2,...)</literal>.
+      In this case <literal>f</literal>, the first element in the list, must be a function and must
+      have the header:
+      <programlisting>
+      [ f , index ] = costf ( x , index , a1, a2, ... )
+      [ f , c , index ] = costf ( x , index , a1, a2, ...)
+      </programlisting>
+      where the input arguments <literal>a1, a2, ...</literal>
+      are automatically appended at the end of the calling sequence.
     </para>
 
   </refsection>
@@ -1707,15 +1661,15 @@ g_i(x) &gt;= 0, i = 1,nbineq
     <para>The output function must have the following header</para>
 
     <programlisting role="example">
-      function outputcmd(state, data, myobj)
+stop = outputcmd(state, data)
     </programlisting>
 
     <para>where</para>
 
     <variablelist>
+	
       <varlistentry>
         <term>state</term>
-
         <listitem>
           <para>
             a string representing the current state of the algorithm.
@@ -1726,9 +1680,8 @@ g_i(x) &gt;= 0, i = 1,nbineq
 
       <varlistentry>
         <term>data</term>
-
         <listitem>
-          <para>a tlist containing at least the following entries</para>
+          <para>a data structure containing at least the following entries</para>
 
           <variablelist>
             <varlistentry>
@@ -1787,26 +1740,29 @@ g_i(x) &gt;= 0, i = 1,nbineq
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term>myobj</term>
-
+	<varlistentry>
+        <term>stop</term>
         <listitem>
-          <para>a user-defined parameter.</para>
-
           <para>
-            This input parameter is defined with the -outputcommandarg
-            option.
+            a 1-by-1 matrix of booleans, set to true to stop the 
+			algorithm, set to false to continue the optimization.
           </para>
         </listitem>
       </varlistentry>
+
     </variablelist>
 
     <para>
-      The output function may be used when debugging the specialized
-      optimization algorithm, so that a verbose logging is produced. It may also
-      be used to write one or several report files in a specialized format
-      (ASCII, LaTeX, Excel, Hdf5, etc...). The user-defined parameter may be
-      used in that case to store file names or logging options.
+      It might happen that the output function requires additionnal arguments to be evaluated.
+      In this case, we can use the following feature.
+      The argument <literal>outputcmd</literal> can also be the list <literal>(outf,a1,a2,...)</literal>.
+      In this case <literal>outf</literal>, the first element in the list, must be a function and must
+      have the header:
+      <programlisting>
+        stop = outf ( state, data, a1, a2, ... )
+      </programlisting>
+      where the input arguments <literal>a1, a2, ...</literal>
+      are automatically appended at the end of the calling sequence.
     </para>
 
   </refsection>
@@ -2490,8 +2446,7 @@ norm(xopt - previousxopt) &lt; tolxrelative * norm(xopt) + tolxabsolute
     </para>
     <programlisting role="example">
       <![CDATA[ 
-function this = myalgorithm ( this )
-endfunction
+this = myalgorithm ( this )
  ]]>
     </programlisting>
     <para>
@@ -2529,8 +2484,7 @@ endfunction
     </para>
     <programlisting role="example">
       <![CDATA[ 
-function [ this , terminate , status ] = mystoppingrule ( this , simplex )
-endfunction
+[ this , terminate , status ] = mystoppingrule ( this , simplex )
  ]]>
     </programlisting>
     <para>
@@ -2728,8 +2682,9 @@ endfunction
 //    * iteration : the number of iterations performed
 //    * funccount : the number of function evaluations
 //    * step : the type of step in the previous iteration
+//  stop : set to true to stop the optimization
 //
-function myoutputcmd ( state , data )
+function stop = myoutputcmd ( state , data )
   iter = data.iteration
   if ( state == "init" ) then
     mprintf ( "=================================\n");
@@ -2747,6 +2702,7 @@ function myoutputcmd ( state , data )
   ssize = optimsimplex_size ( simplex )
   mprintf ( "Iter. #%3d, Feval #%3d, Fval = %.1e, x = %s, S = %.1e\n", ..
     iter, fc, fval, strcat(string(x)," "), ssize);
+  stop = %f
 endfunction
 
 
@@ -2950,6 +2906,37 @@ nm = neldermead_destroy(nm);
 	space for the simplex to evolve.
 	</para>
 </refsection>
+
+  <refsection>
+    <title>Example #6: passing extra parameters</title>
+
+    <para>
+      In the following example, we solve a simple quadratic test case. 
+	  Notice that the objective function has two extra parameters 
+	  <literal>a</literal> and <literal>b</literal>. 
+	  This is why the "-function" option is set as a list,
+	  where the first element is the function and the 
+	  remaining elements are the extra parameters.
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function [ f , index ] = quadratic_ab ( x , index , a , b )
+  f = a * x(1)^2 + b * x(2)^2;
+endfunction
+x0 = [1.0 1.0].';
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",2);
+a = 1;
+b = 2;
+nm = neldermead_configure(nm,"-function",list(quadratic_ab,a,b));
+nm = neldermead_configure(nm,"-x0",x0);
+nm = neldermead_search(nm);
+xopt = neldermead_get(nm,"-xopt")
+nm = neldermead_destroy(nm);
+ ]]>
+    </programlisting>
+  </refsection>
 
 
   <refsection>
