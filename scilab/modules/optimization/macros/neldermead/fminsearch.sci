@@ -94,8 +94,7 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
   nm = neldermead_configure(nm,"-simplex0deltausual",0.05);
   nm = neldermead_configure(nm,"-simplex0deltazero",0.0075);
   nm = neldermead_configure(nm,"-method","variable");
-  nm = neldermead_configure(nm,"-function",fminsearch_function);
-  nm = neldermead_configure(nm,"-costfargument",fmsfundata);
+  nm = neldermead_configure(nm,"-function",list(fminsearch_function,fmsfundata));
   nm = neldermead_configure(nm,"-maxiter",MaxIter);
   nm = neldermead_configure(nm,"-maxfunevals",MaxFunEvals);
   nm = neldermead_configure(nm,"-tolxmethod",%f);
@@ -105,8 +104,7 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
   nm = neldermead_configure(nm,"-toldeltafv",TolFun);
   nm = neldermead_configure(nm,"-tolsimplexizeabsolute",TolX);
   nm = neldermead_configure(nm,"-checkcostfunction",%f);
-  nm = neldermead_configure(nm,"-outputcommand",fminsearch_outputfun);
-  nm = neldermead_configure(nm,"-outputcommandarg",fmsdata);
+  nm = neldermead_configure(nm,"-outputcommand",list(fminsearch_outputfun,fmsdata));
   //nm = neldermead_configure(nm,"-verbose",1);
   //nm = neldermead_configure(nm,"-verbosetermination",1);
   nm = neldermead_search(nm);
@@ -132,6 +130,8 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
     exitflag = 0;
   case "tolsizedeltafv" then
     exitflag = 1;
+  case "userstop" then
+    exitflag = -1;
   else
     errmsg = msprintf(gettext("%s: Unknown status %s"), "fminsearch", status)
     error(errmsg)
@@ -144,11 +144,11 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
   output.algorithm = 'Nelder-Mead simplex direct search';
   output.funcCount = neldermead_get(nm,"-funevals");
   output.iterations = neldermead_get(nm,"-iterations");
-  output.message = sprintf("%s\n%s %e\n%s %e", "Optimization terminated:",...
+  output.message = sprintf("%s\n%s %s\n%s %s", "Optimization terminated:",...
     " the current x satisfies the termination criteria using OPTIONS.TolX of",...
-    TolX,...
+    string(TolX),...
     " and F(X) satisfies the convergence criteria using OPTIONS.TolFun of",...
-    TolFun);
+    string(TolFun));
   if ( ( Display == "final" ) | ( Display == "iter" ) ) then
     if ( ( exitflag == 1 ) ) then
       mprintf( "%s\n" , output.message(1) );
@@ -177,7 +177,7 @@ endfunction
 //    * Display : what to display
 //    * OutputFcn : the array of output functions
 //
-function fminsearch_outputfun ( state , data , fmsdata )
+function stop = fminsearch_outputfun ( state , data , fmsdata )
   // 
   // Compute procedure
   //
@@ -218,6 +218,7 @@ function fminsearch_outputfun ( state , data , fmsdata )
   //
   // Process output functions
   //
+  stop = %f
   optimValues = struct(...
       "funccount" ,data.funccount , ...
       "fval" ,data.fval , ...
@@ -227,11 +228,11 @@ function fminsearch_outputfun ( state , data , fmsdata )
   if ( fmsdata.OutputFcn <> [] ) then
     if ( type ( fmsdata.OutputFcn ) == 13 ) then
       // The output function is a macro
-      fmsdata.OutputFcn ( data.x , optimValues , state );
+      stop = fmsdata.OutputFcn ( data.x , optimValues , state );
     elseif ( type ( fmsdata.OutputFcn ) == 15 ) then
       // The output function is a list of macros
       for i = 1:length(fmsdata.OutputFcn)
-        fmsdata.OutputFcn(i) ( data.x , optimValues , state );
+        stop = fmsdata.OutputFcn(i) ( data.x , optimValues , state );
       end
     else
       // The user did something wrong...
