@@ -20,10 +20,12 @@
 function  optimbase_outputcmd ( this , ...
    state , data )
   if this.outputcommand <> "" then
-    if typeof(this.outputcommandarg)=="string" then
+    typout = type(this.outputcommand)
+    if ( or (typout==[11 13]) ) then
       this.outputcommand ( state , data )
     else
-      this.outputcommand ( state , data , this.outputcommandarg )
+	  __optimbase_output_f__ = this.outputcommand(1)
+      __optimbase_output_f__ ( state , data , this.outputcommand(2:$) )
     end
   end
 endfunction

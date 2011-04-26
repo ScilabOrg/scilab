@@ -209,6 +209,14 @@ Numerical Maths:
 
 * Bug 9350 fixed - abs(complex(%nan,0)) returned zero instead of nan.
 
+Optimization:
+=============
+
+* bug 7891 fixed - The neldermead component had too many options.
+                   Replaced -costfargument option with list (backward 
+				   compability lost).
+                   Replaced -outputcommandarg option with list (backward 
+				   compability lost).
 
 Bug fixes:
 ==========

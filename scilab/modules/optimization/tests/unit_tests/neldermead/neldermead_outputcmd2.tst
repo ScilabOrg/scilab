@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008-2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -99,8 +100,7 @@ nm = neldermead_configure(nm,"-tolxrelative",10*%eps);
 nm = neldermead_configure(nm,"-simplex0method","axes");
 nm = neldermead_configure(nm,"-simplex0length",1.0);
 nm = neldermead_configure(nm,"-method","variable");
-nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
-nm = neldermead_configure(nm,"-outputcommandarg",myobj);
+nm = neldermead_configure(nm,"-outputcommand",list(myoutputcmd,myobj));
 nm = neldermead_search(nm);
 assert_equal ( _OUTPUCMDFLAG_ , 12 );
 nm = neldermead_destroy(nm);

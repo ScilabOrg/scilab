@@ -142,8 +142,7 @@ opt = optimbase_configure(opt,"-function",rosenbrock);
 [this,f , index ] = optimbase_function ( opt , [0.0 0.0] , 2 );
 assert_close ( f , 1.0 , %eps );
 // Check cost function with additionnal argument
-opt = optimbase_configure(opt,"-function",rosenbrock2);
-opt = optimbase_configure(opt,"-costfargument",mystuff);
+opt = optimbase_configure(opt,"-function",list(rosenbrock2,mystuff));
 [this,f, index ] = optimbase_function ( opt , [0.0 0.0] , 2 );
 assert_close ( f , 144.0 , %eps );
 // Check initial guess
@@ -210,8 +209,7 @@ mydata.myspecialdata = "yahoo !";
 optimbase_outputcmd ( opt , "init" , mydata );
 assert_equal ( _OUTPUCMDFLAG_ , 1 );
 // Check output command with additionnal argument
-opt = optimbase_configure(opt,"-outputcommand",myoutputcmd2);
-opt = optimbase_configure(opt,"-outputcommandarg",myobj);
+opt = optimbase_configure(opt,"-outputcommand",list(myoutputcmd2,myobj));
 brutedata = optimbase_outstruct ( opt );
 mydata = tlist(["T_MYDATA",...
       "x","fval","iteration","funccount",...
