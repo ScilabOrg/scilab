@@ -26,6 +26,15 @@ New functions
   "numerically almost equal", i.e. that the relative error is small.
   This automatically fixes the bug #4381.
 
+Optimization:
+=============
+
+* bug 7891 fixed - The neldermead component had too many options.
+                   Replaced -costfargument option with list (backward 
+                   compability lost).
+                   Replaced -outputcommandarg option with list (backward 
+                   compability lost).
+
 Bug Fixes:
 ==========
 
