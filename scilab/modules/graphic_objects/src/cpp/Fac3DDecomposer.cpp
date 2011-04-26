@@ -200,7 +200,7 @@ void Fac3DDecomposer::fillNormalizedZColors(float* buffer, int bufferLength, int
     int j;
     int bufferOffset = 0;
 
-    computeMinMaxValues(z, numGons*numVerticesPerGon, numGons, numVerticesPerGon, 0, &zMin, &zMax);
+    computeMinMaxValues(z, numGons*numVerticesPerGon, numGons, numVerticesPerGon, ALL_VALUES, &zMin, &zMax);
 
     minDoubleValue = DecompositionUtils::getMinDoubleValue();
 
@@ -283,10 +283,10 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
     /* 0: colors are scaled */
     if (dataMapping == 0)
     {
-        int average;
+        int valueComputation;
         int numColors;
 
-        average = 0;
+        valueComputation = ALL_VALUES;
 
         if (perVertex)
         {
@@ -294,7 +294,11 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
 
             if (colorFlag == 2)
             {
-                average = 1;
+                valueComputation = FACE_AVERAGE;
+            }
+            else if (colorFlag == 4)
+            {
+                valueComputation = FIRST_VERTEX_VALUE;
             }
         }
         else
@@ -302,7 +306,7 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
             numColors = numGons;
         }
 
-        Fac3DDecomposer::computeMinMaxValues(colors, numColors, numGons, numVerticesPerGon, average, &colMin, &colMax);
+        Fac3DDecomposer::computeMinMaxValues(colors, numColors, numGons, numVerticesPerGon, valueComputation, &colMin, &colMax);
 
         colRange = colMax - colMin;
 
@@ -325,9 +329,16 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
 
         for (j = 0; j < numVerticesPerGon; j++)
         {
-            if (perVertex == 1 && colorFlag == 3)
+            if (perVertex == 1)
             {
-                color = colors[i*numVerticesPerGon+j] - 1.0;
+                if (colorFlag == 3)
+                {
+                    color = colors[i*numVerticesPerGon+j] - 1.0;
+                }
+                else if (colorFlag == 4)
+                {
+                    color = colors[i*numVerticesPerGon] - 1.0;
+                }
             }
 
             if (dataMapping == 1)
@@ -336,6 +347,7 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
             }
             else if (dataMapping == 0)
             {
+
                 ColorComputer::getColor(color, colMin, colRange, COLOR_OFFSET, colormap, colormapSize, &buffer[bufferOffset]);
             }
 
@@ -367,7 +379,7 @@ double Fac3DDecomposer::computeAverageValue(double* values, int numVertices)
     return averageValue;
 }
 
-void Fac3DDecomposer::computeMinMaxValues(double* values, int numValues, int numGons, int numVerticesPerGon, int average,
+void Fac3DDecomposer::computeMinMaxValues(double* values, int numValues, int numGons, int numVerticesPerGon, int valueComputation,
     double* valueMin, double* valueMax)
 {
     double maxDouble;
@@ -383,7 +395,7 @@ void Fac3DDecomposer::computeMinMaxValues(double* values, int numValues, int num
     tmpValueMin = maxDouble;
     tmpValueMax = -maxDouble;
 
-    if (average)
+    if (valueComputation != ALL_VALUES)
     {
         numIterations = numGons;
     }
@@ -394,7 +406,11 @@ void Fac3DDecomposer::computeMinMaxValues(double* values, int numValues, int num
 
     for (i = 0; i < numIterations; i++)
     {
-        if (average)
+        if (valueComputation == FIRST_VERTEX_VALUE)
+        {
+            value = values[i*numVerticesPerGon];
+        }
+        else if (valueComputation == FACE_AVERAGE)
         {
             value = computeAverageValue(&values[i*numVerticesPerGon], numVerticesPerGon);
         }

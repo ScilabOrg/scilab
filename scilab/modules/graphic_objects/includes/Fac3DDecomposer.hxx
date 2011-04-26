@@ -25,13 +25,24 @@ extern "C" {
  * as a function of the decomposed Fac3D object's properties.
  * Fac3D data is represented by an N-gon set, as referred by the
  * various comments.
- * To do: implement fillColors for the second per-facet shading mode (colorFlag == 4)
  */
 
 class Fac3DDecomposer
 {
 
 private :
+
+    /**
+     * Specifies how the minimum and maximum values are computed from an input array
+     * of per-vertex or per-face values.
+     * The first enum value corresponds to either per-face or per-vertex input values
+     * whereas the last two are only relevant to per-vertex input values.
+     */
+    enum valueComputation {
+        ALL_VALUES,   /** all input values are used */
+        FACE_AVERAGE,   /** per-face averaged values */
+        FIRST_VERTEX_VALUE   /** only each face's first value */
+    };
 
     /**
      * Fills a buffer with colors computed from z values.
@@ -95,11 +106,12 @@ private :
      * @param[in] the number of values
      * @param[in] the number of N-gons.
      * @param[in] the number of vertices per N-gon.
-     * @param[in] a flag specifying whether per-vertex (0) or per-face averaged (1) values are considered.
+     * @param[in] specifies how input array values are used: unmodified, per-face averaged, or only each face's first value.
+     *     The first case corresponds to either per-face or per-vertex values whereas the last two are valid only for per-vertex values.
      * @param[out] a pointer to the returned minimum value.
      * @param[out] a pointer to the returned maximum value.
      */
-    static void computeMinMaxValues(double* values, int numValues, int numGons, int numVerticesPerGon, int average, double* valueMin, double* valueMax);
+    static void computeMinMaxValues(double* values, int numValues, int numGons, int numVerticesPerGon, int valueComputation, double* valueMin, double* valueMax);
 
 public :
 
@@ -169,6 +181,7 @@ public :
      * @return the number of indices actually written.
      */
     static int fillWireIndices(char* id, int* buffer, int bufferLength, int logMask);
+
 
 };
 
