@@ -45,7 +45,108 @@ New functions
   "numerically almost equal", i.e. that the relative error is small.
   This automatically fixes the bug #4381.
 
+Optimization:
+=============
 
+* bug 7891 fixed - The neldermead component had too many options.
+  Tagged -costfargument option of optimbase as obsolete: will be 
+  maintained for backward compatibility until 5.4.1.
+  The -fun option can now be a list, where the element #1 is a 
+  function, and the elements #2 to the end are automatically appended to 
+  the calling sequence.
+  To update your code, replace:
+
+nm = neldermead_configure(nm,"-function",myfun);
+nm = neldermead_configure(nm,"-costfargument",mystuff);
+
+with
+
+nm = neldermead_configure(nm,"-function",list(myfun,mystuff));
+
+  Tagged -outputcommandarg option of optimbase as obsolete: will be 
+  maintained for backward compatibility until 5.4.1.
+  The -outputcommand option can now be a list, where the element #1 is 
+  a function, and the elements #2 to the end are automatically appended 
+  to the calling sequence.
+  To update your code, replace:
+  
+nm = neldermead_configure(nm,"-outputcommand",myoutputfun);
+nm = neldermead_configure(nm,"-outputcommandarg",mystuff);
+
+  with:
+
+nm = neldermead_configure(nm,"-outputcommand",list(myoutputfun,mystuff));
+
+  Tagged "outputfun(x,optimValues,state)" calling sequence of fminsearch 
+  as obsolete: will be maintained for backward compatibility until 
+  5.4.1.
+  The new calling sequence is "stop=outputfun(x,optimValues,state)"
+  To update your code, replace:
+
+function outfun ( x , optimValues , state )
+    [...]
+endfunction
+
+  with:
+
+function stop = outfun ( x , optimValues , state )
+    [...]
+	stop = %f
+endfunction
+
+  Tagged "myoutputfun(state,data)" calling sequence of neldermead 
+  as obsolete: will be maintained for backward compatibility until 
+  5.4.1.
+  The new calling sequence is "stop=myoutputfun(state,data)"
+  To update your code, replace:
+
+function myoutputfun ( state , data )
+  [...]
+endfunction
+
+  with:
+
+function stop = myoutputfun ( state , data )
+  [...]
+  stop = %f
+endfunction
+  
+  Tagged "-myterminateflag" and "-myterminate" options as obsolete: 
+  will be maintained for backward compatibility until 5.4.1.
+  To update your code, replace:
+
+function [ this , terminate , status ] = myoldterminate ( this , simplex )
+  ssize = optimsimplex_size ( simplex , "sigmaplus" );
+  if ( ssize < 1.e-2 ) then
+    terminate = %t;
+    status = "mysize";
+  else
+    terminate = %f
+  end
+endfunction
+
+with :
+
+function stop = myoutputcmd ( state , data )
+  simplex = data.simplex
+  ssize = optimsimplex_size ( simplex , "sigmaplus" );
+  if ( ssize < 1.e-2 ) then
+    stop = %t;
+    status = "mysize";
+  else
+    stop = %f
+  end
+endfunction
+
+  and replace the configuration:
+
+nm = neldermead_configure(nm,"-myterminateflag",%t);
+nm = neldermead_configure(nm,"-myterminate",myoldterminate);
+
+  with:
+
+nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
+  
 Xcos:
 =====
 
