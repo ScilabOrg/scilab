@@ -16,14 +16,17 @@
 //   state : the state of the algorithm,
 //     "init", "done", "iter"
 //   data : the data to pass to the client output command
+//   stop : set to true to stop the algorithm
 //
-function  optimbase_outputcmd ( this , ...
+function stop = optimbase_outputcmd ( this , ...
    state , data )
   if this.outputcommand <> "" then
-    if typeof(this.outputcommandarg)=="string" then
-      this.outputcommand ( state , data )
+    typout = type(this.outputcommand)
+    if ( or (typout==[11 13]) ) then
+      stop = this.outputcommand ( state , data )
     else
-      this.outputcommand ( state , data , this.outputcommandarg )
+	  __optimbase_output_f__ = this.outputcommand(1)
+      stop = __optimbase_output_f__ ( state , data , this.outputcommand(2:$) )
     end
   end
 endfunction
