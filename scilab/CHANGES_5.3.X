@@ -108,6 +108,8 @@ Xcos:
 
 * bug 9369 fixed - Diagrams with an origin did not pass validation.
 
+* bug 9386 fixed - Diagram root cell might be invalid on hierarchical diagrams.
+
 Packaging:
 ==========
 
