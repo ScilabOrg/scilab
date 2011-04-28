@@ -18,6 +18,8 @@
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir=$(pkgdatadir)/modules/$(modulename)
 
+TARGETS_ALL=
+
 # This target enables tests for Scilab
 check-local: $(top_builddir)/scilab-bin test
 	@COMMAND="test_run('$(modulename)');quit";\
@@ -34,13 +36,22 @@ check-code:
 		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 	fi
 
+# check the xml help files
+if BUILD_HELP
+TARGETS_ALL+=check-help
+check-help:
+	if test -d help -a -x "$(XMLLINT)"; then \
+		find help -name "*.xml" |xargs $(XMLLINT) --noout --schema $(top_builddir)/modules/helptools/schema/docbook-scilab.xsd ; \
+	fi
+
+endif
+
 ########################### JAVA ######################################
 #### We are delegating java compilation to ant... Thanks to that
 #### the procedure will be the same with Microsoft Windows (C)
 #### and Linux/Unix
 #######################################################################
 
-TARGETS_ALL=
 if NEED_JAVA
 TARGETS_ALL+=java
 java:

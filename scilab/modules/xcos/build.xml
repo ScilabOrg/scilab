@@ -18,6 +18,11 @@
       Build the Scilab xcos module
   </description>
   <target name="validate" description="Validate the data">
+    <!-- Validate the help pages associated with the module -->
+    <schemavalidate>
+      <schema namespace="http://docbook.org/ns/docbook" file="${base.dir}/modules/helptools/schema/docbook-reduced.xsd"/>
+      <fileset dir="help" includes="**/*.xml"/>
+    </schemavalidate>
     <!-- Validate the demos -->
     <schemavalidate noNamespaceFile="etc/XcosFile.xsd">
       <fileset dir="demos" includes="**/*.xcos"/>
