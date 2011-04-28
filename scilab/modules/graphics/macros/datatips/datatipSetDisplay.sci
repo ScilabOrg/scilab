@@ -7,11 +7,11 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-
 function datatipSetDisplay(curve_handle,fun)
 //Changes the datatips visualisation function for a given curve
   if argn(2)<1 then
-    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),"datatipSetDisplay",1))
+    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),...
+                   "datatipSetDisplay",1))
   end
 
   ud=datatipGetStruct(curve_handle)
@@ -40,6 +40,7 @@ function datatipSetDisplay(curve_handle,fun)
     string_handle=tip_handle.children(2)
     tip_index=point_handle.user_data(2)
     string_handle.text=fun(curve_handle,point_handle.data)
+    datatipSetTipStyle(tip_handle,ud.style)
   end
 
 endfunction

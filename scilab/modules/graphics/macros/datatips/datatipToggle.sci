@@ -7,7 +7,6 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-
 function datatipToggle(fig)
 //Toggles activation of the datatip edition mode for the given or current
 //figure
@@ -15,7 +14,8 @@ function datatipToggle(fig)
     fig=gcf();
   else
     if type(fig)<>9|or(fig.type<>"Figure") then
-      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipCreate",1,"Figure"))
+      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),...
+                     "datatipToggle",1,"Figure"))
     end
   end
   datatipManagerMode(fig)

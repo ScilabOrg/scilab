@@ -67,7 +67,7 @@ function datatipManagerMode(varargin)
         clearglobal datatipAngles
         xinfo("")
       end
-      
+
     else
       fig.event_handler_enable = "off" //to prevent against bug 7855
       fig.event_handler = "datatipEventhandler"
