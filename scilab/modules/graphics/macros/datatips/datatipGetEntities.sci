@@ -7,7 +7,6 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-
 function curve_handles=datatipGetEntities(ax)
 //Collects all entities supporting datatips in a given axes
   curve_handles=[];
@@ -18,13 +17,11 @@ function curve_handles=datatipGetEntities(ax)
     case 'Compound' then
       curve_handles=[curve_handles datatipGetEntities(ck)]
     case 'Polyline' then
-      if size(ck.data,1)>1 then
+      if size(ck.data,1)>2 then
         curve_handles=[curve_handles ck];
       end
-//     case 'Plot3d' then
-//       if size(ck.data.x,1)>1 then
-//         curve_handles=[curve_handles ck];
-//       end
+    case 'Plot3d' then
+      //TBD
     end
   end
 endfunction

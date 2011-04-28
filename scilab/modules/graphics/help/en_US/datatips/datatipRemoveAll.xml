@@ -18,7 +18,9 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>datatipRemoveAll(curve_handles)</synopsis>
+    <synopsis>
+    datatipRemoveAll(curve_handles)
+    datatipRemoveAll()</synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
@@ -27,7 +29,7 @@
         <term>curve_handles</term>
         <listitem>
           <para>
-            A vector of polyline  handles.
+            A vector of polyline  handles. 
           </para>
         </listitem>
       </varlistentry>
@@ -36,7 +38,9 @@
   <refsection>
     <title>Description</title>
     <para>
-        Removes all datatips on a set of polylines. 
+        Removes all datatips on a set of polylines. If the
+        <literal>curve_handles</literal> argument is omitted, all
+        datatips associated to current axes entities are removed.
     </para>
   </refsection>
   <refsection>
@@ -50,6 +54,13 @@
     datatipCreate(e(1),50);
     datatipCreate(e(2),20);
     datatipRemoveAll(e) 
+
+    plot(x,x.^3,'b',x,x.^2,'r');
+    e=gce();e=e.children
+    datatipCreate(e(1),50);
+    datatipCreate(e(2),20);
+    datatipRemoveAll() 
+
     ]]></programlisting>
   </refsection>
   <refsection role="see also">

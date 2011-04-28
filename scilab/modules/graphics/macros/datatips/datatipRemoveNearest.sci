@@ -7,22 +7,19 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function datatipRemoveAll(curve_handles)
-//remove all the datatips for the given curves
-  if argn(2)<1 then
-    curve_handles=datatipGetEntities()
-  end
-
-  drawlater()
-
-  for k=1:size(curve_handles,'*')
-    ck=curve_handles(k);
-    ud=datatipGetStruct(ck)// the curve datatips data structure
-    if typeof(ud)=='datatips' then
-      for i=1:size(ud.tips,'*'), delete(ud.tips(i));end
-      ud.tips=[]
-      datatipSetStruct(ck,ud)
+function datatipRemoveNearest(curve)
+  ud=datatipGetStruct(curve)
+  if typeof(ud)=='datatips' then
+    tips=ud.tips
+    dmin=%inf;l=[];
+    for tip_index=1:size(tips,'*')
+      d=norm(tips(tip_index).children(1).data(1:2)-pt(1:2))
+      if d<dmin then
+        l=tip_index;dmin=d;
+      end
+    end
+    if l<>[] then
+      datatipRemove(curve,l);
     end
   end
-  drawnow()
 endfunction

@@ -18,8 +18,9 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>datatipRemove(polyline_handle,ind)
-    datatipRemove(datatip_handle)</synopsis>
+    <synopsis>
+     datatipRemove(polyline_handle,ind)
+     datatipRemove(datatip_handle)</synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
@@ -65,8 +66,8 @@
     clf()
     plot(x,y);
     e=gce();p=e.children(1);//get the handle on the polyline
-    t1=datatipCreate(p,50);
-    datatipCreate(p,20);
+    t1=datatipCreate(p,80);
+    datatipCreate(p,40);
     datatipRemove(p,2) 
     datatipRemove(t1)
     ]]></programlisting>
