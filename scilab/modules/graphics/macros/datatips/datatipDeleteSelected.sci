@@ -7,14 +7,12 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function t=datatipGetStruct(curve)
-//to be customized when a specific field will be dedicated to datatips
-  u_d=get(curve,'user_data')
-  if  typeof(u_d)=="datatips" then //compatibility
-    t=u_d
-  elseif typeof(u_d)=="st"&isfield(u_d,"datatips")
-    t=u_d.datatips
-  else
-    t=[]
+function datatipDeleteSelected(curve_handles)
+//set the selected datatip(s)
+
+  [curve,ind]=datatipGetSelected(curve_handles)
+  if ind<>[] then
+    datatipRemove(curve,ind)
   end
 endfunction
+

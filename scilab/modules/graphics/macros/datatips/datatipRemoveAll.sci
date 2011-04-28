@@ -10,10 +10,16 @@
 function datatipRemoveAll(curve_handles)
 //remove all the datatips for the given curves
   if argn(2)<1 then
-    error(msprintf(_("%s: Wrong number of input argument(s): %d expected.\n"),"datatipRemoveAll",1))
+    ax=gca();
+    curve_handles=datatipGetEntities(ax)
+  else
+    ax=curve_handles(1).parent;
+    while ax.type<>"Axes" then ax=ax.parent,end
   end
 
-  drawlater()
+  fig=ax.parent
+  id=fig.immediate_drawing;
+  fig.immediate_drawing="off"
 
   for k=1:size(curve_handles,'*')
     ck=curve_handles(k);
@@ -24,5 +30,5 @@ function datatipRemoveAll(curve_handles)
       datatipSetStruct(ck,ud)
     end
   end
-  drawnow()
+  fig.immediate_drawing=id
 endfunction

@@ -14,7 +14,7 @@
   </info>
   <refnamediv>
     <refname>datatipRedraw</refname>
-    <refpurpose>Adjust datatip text boxes positions after a 3D rotation</refpurpose>
+    <refpurpose>Redraw all datatips  after a 3D rotation to adjust their positions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -51,13 +51,13 @@
     <para>
         Due to graphic system limitations it is not possible to adjust
         the datatip textbox positions during a rotation. Calling this
-        function recomputes the positions for a clean rendrering.
+        function recomputes the positions for a clean rendering.
     </para>
   </refsection>
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[
-    param3d()
+    clf();param3d()
     p=gce();//get the handle on the polyline
     datatipCreate(p,30);
     datatipCreate(p,100);
