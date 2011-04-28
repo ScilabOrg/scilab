@@ -9,16 +9,19 @@
 
 function datatipRemove(handle,ind)
   if argn(2)<1 then
-    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),"datatipRemove",1))
+    error(msprintf(_("%s: Wrong number of input argument(s): At least %d expected.\n"),...
+                   "datatipRemove",1))
   end
 
-  drawlater()
+
   if argn(2)==1 then //handle on a tip
     if type(handle)<>9|or(handle.type<>"Compound") then
-      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"datatip"))
+      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),...
+                     "datatipRemove",1,"datatip"))
     end
     ind=[]
-    curve_handles=datatipGetEntities(handle.parent)
+
+    curve_handles=datatipGetEntities(ax)
     for k=1:size(curve_handles,'*')
       ck=curve_handles(k)
       ud=datatipGetStruct(ck);
@@ -34,7 +37,8 @@ function datatipRemove(handle,ind)
   else
     curve_handle=handle;
     if type(curve_handle)<>9|or(curve_handle.type<>"Polyline") then
-      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),"datatipRemove",1,"Polyline"))
+      error(msprintf(_("%s: Wrong type for input argument #%d: A ''%s'' handle expected.\n"),...
+                     "datatipRemove",1,"Polyline"))
     end
   end
 
@@ -44,9 +48,10 @@ function datatipRemove(handle,ind)
     tips=ud.tips;
     del=tips(ind)
     tips(ind)=[]
-    ud.tips=tips
+    ud.tips=tips;
+    if ud.selected==ind then ud.selected=0;end
     delete(del);
     datatipSetStruct(curve_handle,ud)
   end
-  drawnow()
+
 endfunction
