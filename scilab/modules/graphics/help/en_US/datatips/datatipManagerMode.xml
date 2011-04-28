@@ -43,7 +43,7 @@
     <title>Description</title>
     <para>
       When enabled, the data tips mode allow
-      to add and edit tips at selected points of curve. The selection is
+      to add and edit tips at selected points of polylines. The selection is
       made by a right click on the selected point.
     </para>
     <para>

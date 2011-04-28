@@ -29,7 +29,7 @@
         <term>curve_handle</term>
         <listitem>
           <para>
-            A handle on a curve or surface. 
+            A handle on a polyline. 
           </para>
         </listitem>
       </varlistentry>
@@ -41,7 +41,7 @@
           <para>
             A boolean, if false the tips can only be located at the
             mesh points, if true interpolation is made between mesh
-            points. The defaul value is false.
+            points. The default value is false.
           </para>
         </listitem>
       </varlistentry>
