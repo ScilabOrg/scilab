@@ -14,7 +14,7 @@
   </info>
   <refnamediv>
     <refname>datatipSetOrientation</refname>
-    <refpurpose>Search the nearest datatip of a given point. </refpurpose>
+    <refpurpose>Set the position of the text box associated with the given tip.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -54,21 +54,20 @@
     <para>
         Set the position on the text box with respect to the curve
         point. With the <literal>"automatic"</literal> orientation the
-        program makes the choice to keep the text box within the plot
-        boundaries.
+        program makes the choice of the position trying to prevent
+        text from overlapping curve, it also tries to to keep the text
+        box within the plot boundaries.
     </para>
   </refsection>
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[
- 
     x=linspace(-20,20,1000);
- 
     clf()
     plot(x,sinc(x),x,sinc(x^2));
-    e=gce();e=e.children
+    e=gce();e=e.children;
     d1=datatipCreate(e(1),500);
-    d2=datatipCreate(e(2),200);
+    d2=datatipCreate(e(2),60);
     datatipSetOrientation(d2,"lower left") 
     ]]></programlisting>
   </refsection>

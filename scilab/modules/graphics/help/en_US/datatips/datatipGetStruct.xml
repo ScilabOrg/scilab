@@ -15,7 +15,7 @@
 
   <refnamediv> 
     <refname>datatipGetStruct</refname>
-    <refpurpose>Extract the datatips data structure infrom the curve or surface entity. </refpurpose>
+    <refpurpose>Extract the datatips data structure from the curve or surface entity. </refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -30,7 +30,7 @@
         <term>curve_handle</term>
         <listitem>
           <para>
-            A handle on a curve or surface. 
+            A handle on a curve or surface (not yet implemented). 
           </para>
         </listitem>
       </varlistentry>
@@ -48,7 +48,6 @@
   </refsection>
   <refsection>
     <title>Description</title>
-  
     <para>
         <literal>datatipGetStruct</literal> extract the datatips data
         structure out of the curve or surface entity. It may be called

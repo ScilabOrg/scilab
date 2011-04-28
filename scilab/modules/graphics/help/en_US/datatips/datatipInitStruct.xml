@@ -14,7 +14,7 @@
   </info>
   <refnamediv>
     <refname>datatipInitStruct</refname>
-    <refpurpose>initialize the datatip structure associated with the given polyline. </refpurpose>
+    <refpurpose>Initialize the datatip structure associated with the given polyline. </refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -23,6 +23,7 @@
   <refsection>
     <title>Arguments</title>
     <variablelist>
+
       <varlistentry>
         <term>curve_handle</term>
         <listitem>
@@ -31,6 +32,7 @@
           </para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>varargin</term>
         <listitem>
@@ -40,6 +42,17 @@
           </para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>ok</term>
+        <listitem>
+          <para>
+            notification flag. set to %f if the datatip structure
+            cannot be stored in the curve user_data field.
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsection>
   <refsection>
@@ -51,7 +64,8 @@
       field.
     </para>
     <para>
-      This function as to be called only is one want to customize the datatips data structure fields
+      This function as to be called only is one want to customize the
+      datatips data structure fields
     </para>
   </refsection>
   <refsection>
@@ -62,6 +76,7 @@
       fields.
     </para>
     <variablelist>
+
       <varlistentry>
         <term>interpolate</term>
         <listitem>
@@ -70,11 +85,26 @@
           </para>
         </listitem>
       </varlistentry>
+
       <varlistentry>
         <term>replace</term>
         <listitem>
           <para>
              A boolean, indicating if adding a new tip erases the others or not
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>style</term>
+        <listitem>
+          <para>
+             A two elements vector with integer values.
+             <literal>style(1)</literal> is a number in <literal>[1
+             2]</literal> that gives the the datatips style,
+             <literal>style(2)</literal> is a number in <literal>[0
+             1]</literal>. If set to 1 the datatip text is boxed (see
+             <link linkend="datatipSetStyle">datatipSetStyle</link>).
           </para>
         </listitem>
       </varlistentry>
@@ -95,14 +125,27 @@
           </para>
         </listitem>
       </varlistentry>
+
+      <varlistentry>
+        <term>selected</term>
+        <listitem>
+          <para>
+             A scalar with integer value: the index of the selected datatip if any or 0.
+          </para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry>
         <term>tips</term>
         <listitem>
           <para>
-             An array of handles. Each of these points to a given tip on the curve.
+             An array of handles. Each of these points to a given tip
+             on the curve. This field cannot be changed by the
+             <literal>datatipInitStruct</literal> function.
           </para>
         </listitem>
       </varlistentry>
+
     </variablelist>
     <para>
       Others fields can be added by the programmer to the datatips
@@ -146,8 +189,8 @@
       str=msprintf("%s\nt=%-0.3g",ds.name,t);
     endfunction
 
-    ok=datatipInitStruct(p1,"formatfunction","mytipfmt","param",t,"name","spiral");
-    ok=datatipInitStruct(p2,"formatfunction","mytipfmt","param",t,"name","curve");
+    ok=datatipInitStruct(p1,"formatfunction","mytipfmt","param",t,"name","curve");
+    ok=datatipInitStruct(p2,"formatfunction","mytipfmt","param",t,"name","spiral","style",[2 0]);
 
     datatipCreate(p1,500);
     datatipCreate(p1,900);

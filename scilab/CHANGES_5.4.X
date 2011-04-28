@@ -12,6 +12,17 @@ File input/output:
 
 * mgetl, exec, fscanfMat functions manage files encoded as UTF-8 with BOM.
 
+Graphics 
+========
+
+* datatips tool improved on several aspects:
+  - It is now possible to manage directional arrows as well as
+    square marks markers.
+  - The automatic label placement has been improved to avoid avoid the
+    overlapping with the curve.
+  - It is now possible to have  painted box or box free labels.
+  - Markers can now be selected and moved using the arrow keys
+    or deleted with the "Del" key.
 
 New functions
 =============

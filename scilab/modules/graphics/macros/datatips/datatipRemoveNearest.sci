@@ -7,21 +7,19 @@
 // are also available at;
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function curve_handles=datatipGetEntities(ax)
-//Collects all entities supporting datatips in a given axes
-  curve_handles=[];
-  if argn(2)<1 then ax=gca(),end
-  for k=1:size(ax.children,'*')
-    ck=ax.children(k);
-    select ck.type
-    case 'Compound' then
-      curve_handles=[curve_handles datatipGetEntities(ck)]
-    case 'Polyline' then
-      if size(ck.data,1)>2 then
-        curve_handles=[curve_handles ck];
+function datatipRemoveNearest(curve)
+  ud=datatipGetStruct(curve)
+  if typeof(ud)=='datatips' then
+    tips=ud.tips
+    dmin=%inf;l=[];
+    for tip_index=1:size(tips,'*')
+      d=norm(tips(tip_index).children(1).data(1:2)-pt(1:2))
+      if d<dmin then
+        l=tip_index;dmin=d;
       end
-    case 'Plot3d' then
-      //TBD
+    end
+    if l<>[] then
+      datatipRemove(curve,l);
     end
   end
 endfunction
