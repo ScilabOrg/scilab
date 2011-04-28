@@ -43,4 +43,4 @@ fi
 # validation
 # ==============================================================================
 
-java -jar "$libDir/jing.jar" -c "$schemaDir/scilab.rnc" "$@"
+java -jar "$libDir/jing.jar" -c "$schemaDir/scilab.rng" "$@"
