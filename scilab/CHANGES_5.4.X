@@ -244,6 +244,8 @@ New functions
 * The damp function in CACSD modules computes the natural pulsation
   and damping factor of linear dynamical systems.
 
+* A phaseplot function has been added in the CACSD module as a
+  counterpart of the gainplot function.
 
 Optimization:
 =============
