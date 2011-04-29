@@ -26,6 +26,9 @@ New functions
   "numerically almost equal", i.e. that the relative error is small.
   This automatically fixes the bug #4381.
 
+* A phaseplot function has been added in the CACSD module as a
+  counterpart of the gainplot function.
+
 Bug Fixes:
 ==========
 
