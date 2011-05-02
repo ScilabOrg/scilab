@@ -32,6 +32,7 @@ c
       endif
 c
       eigen=.false.
+// Read the algo option
       if (rhs.eq.2) then
          ilopt=iadr(lstk(top))
          if(istk(ilopt).lt.0) ilopt=iadr(istk(ilopt+1))
@@ -45,6 +46,7 @@ c
             call error(89)
             return
          endif
+// TODO : if algo="jt", then switch to Jenkins-Traub
          if(istk(ilopt+5).ne.2.or.istk(ilopt+6).ne.eig) then
             err=2
             call error(116)

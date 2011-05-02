@@ -232,6 +232,7 @@ Numerical Maths:
 
 * Bug 9350 fixed - abs(complex(%nan,0)) returned zero instead of nan.
 
+* Bug 7101 fixed - the roots had convergence problems for some polynomials.
 
 Bug fixes:
 ==========
