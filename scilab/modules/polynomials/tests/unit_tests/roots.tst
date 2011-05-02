@@ -1,0 +1,262 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - 2009 - INRIA - Michael Baudin
+// Copyright (C) 2011 - DIGITEO - Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- JVM NOT MANDATORY -->
+
+// 
+// sort_merge_comparison --
+//   Returns -1 if x < y, 
+//   returns 0 if x==y,
+//   returns +1 if x > y
+//
+function order = sort_merge_comparison ( x , y )
+  if x < y then
+    order = -1
+  elseif x==y then
+    order = 0
+  else 
+    order = 1
+  end
+endfunction
+
+//
+// sort_merge --
+//   Returns the sorted array x.
+// Arguments
+//   x : the array to sort
+//   compfun : the comparison function
+// Bruno Pincon
+// "quelques tests de rapidit´e entre diff´erents logiciels matriciels"
+// Modified by Michael Baudin to manage a comparison function
+//
+function [x] = sort_merge ( varargin )
+  [lhs,rhs]=argn();
+  if rhs<>1 & rhs<>2 then
+    errmsg = sprintf("Unexpected number of arguments : %d provided while 1 or 2 are expected.",rhs);
+    error(errmsg)
+  end
+  // Get the array x
+  x = varargin(1);
+  // Get the comparison function compfun
+  if rhs==1 then
+    compfun = sort_merge_comparison;
+  else
+    compfun = varargin(2);
+  end
+  // Proceed...
+  n = length(x)
+  if n > 1 then
+    m = floor(n/2); 
+    p = n-m
+    x1 = sort_merge ( x(1:m) , compfun )
+    x2 = sort_merge ( x(m+1:n) , compfun )
+    i = 1; 
+    i1 = 1;
+    i2 = 1;
+    for i = 1:n
+      order = compfun ( x1(i1) , x2(i2) );
+      if order<=0 then
+        x(i) = x1(i1)
+        i1 = i1+1
+        if (i1 > m) then
+          x(i+1:n) = x2(i2:p)
+          break
+        end
+      else
+        x(i) = x2(i2)
+        i2 = i2+1
+        if (i2 > p) then
+          x(i+1:n) = x1(i1:m)
+          break
+        end
+      end
+    end
+  end
+endfunction
+
+// 
+// compare_complexrealimag --
+//   Returns -1 if a < b, 
+//   returns 0 if a==b,
+//   returns +1 if a > b
+// Compare first by real parts, then by imaginary parts.
+//
+function order = compare_complexrealimag ( a , b )
+ ar = real(a)
+ br = real(b)
+ if ar < br then
+   order = -1
+ elseif ar > br then
+   order = 1
+ else
+   ai = imag(a)
+   bi = imag(b)
+   if ai < bi then
+     order = -1
+   elseif ai == bi then
+     order = 0
+   else
+     order = 1
+    end
+  end
+endfunction
+
+function y = sortmyroots(x)
+  // Sort the roots of a polynomial with a customized
+  // complex-aware sorting algorithm.
+  y = sort_merge ( x , compare_complexrealimag );
+endfunction
+
+//
+// assert_close --
+//   Returns 1 if the two real matrices computed and expected are close,
+//   i.e. if the relative distance between computed and expected is lesser than epsilon.
+// Arguments
+//   computed, expected : the two matrices to compare
+//   epsilon : a small number
+//
+function flag = assert_close ( computed, expected, epsilon )
+  if expected==0.0 then
+    shift = norm(computed-expected);
+  else
+    den = norm(expected)
+    if ( den==0 ) then
+      shift = norm(computed-expected);
+	else
+      shift = norm(computed-expected)/den;
+	end
+  end
+  if shift <= epsilon then
+    flag = 1;
+  else
+    flag = 0;
+  end
+  if flag <> 1 then pause,end
+endfunction
+
+//
+// assert_equal --
+//   Returns 1 if the two real matrices computed and expected are equal.
+// Arguments
+//   computed, expected : the two matrices to compare
+//   epsilon : a small number
+//
+function flag = assert_equal ( computed , expected )
+  if computed==expected then
+    flag = 1;
+  else
+    flag = 0;
+  end
+  if flag <> 1 then pause,end
+endfunction
+
+function checkroots(p,expectedroots,rtol)
+	// Checks the roots function against given roots.
+	//
+	// 1. Check default algorithm
+	myroots=roots(p);
+	computedroots = sortmyroots(myroots);
+	expectedroots  = sortmyroots(expectedroots);
+	assert_close(computedroots,expectedroots,rtol);
+	//
+	// 2. Check "e" algorithm
+	myroots=roots(p,"e");
+	computedroots = sortmyroots(myroots);
+	expectedroots  = sortmyroots(expectedroots);
+	assert_close(computedroots,expectedroots,rtol);
+	//
+	// 3. Check "f" algorithm
+	if ( isreal(p) ) then
+		myroots=roots(p,"f");
+		computedroots = sortmyroots(myroots);
+		expectedroots  = sortmyroots(expectedroots);
+		assert_close(computedroots,expectedroots,rtol);
+	end
+endfunction
+
+//   Check the computation of the roots of a polynomial
+//   with different kinds of polynomials and different 
+//   kinds of roots :
+//   - real poly,
+//   - complex poly,
+//   - real roots,
+//   - complex roots.
+
+//roots : 3 real roots
+p=-6+11*%s-6*%s^2+%s^3;
+expectedroots  = [1; 2; 3];
+checkroots(p,expectedroots,400*%eps);
+//roots : 3 real roots + polynomials algebra
+p=-6+11*%s-6*%s^2+%s^3;
+q = p+0;
+expectedroots  = [1; 2; 3];
+checkroots(q,expectedroots,400*%eps);
+//roots : 3 complex roots
+p=-6-%i*6+(11+%i*5)*%s+(-6-%i)*%s^2+%s^3;
+expectedroots  = [1+%i; 2 ; 3];
+checkroots(p,expectedroots,400*%eps);
+//roots : 3 complex roots + polynomials algebra
+p=-6-%i*6+(11+%i*5)*%s+(-6-%i)*%s^2+%s^3;
+q = p+0;
+expectedroots  = [1+%i; 2 ; 3];
+checkroots(p,expectedroots,400*%eps);
+// roots : no root at all
+p=1;
+v=[];
+checkroots(p,[],0);
+q = p+0;
+checkroots(q,[],0);
+//roots : 2 complex roots
+p=1+%s+%s^2;
+expectedroots  = [-0.5 - sqrt(3.)/2.*%i; -0.5 + sqrt(3.)/2.*%i ];
+checkroots(p,expectedroots,400*%eps);
+//roots : 2 roots equals 0
+p=%s^2;
+expectedroots  = [0. ; 0. ];
+// 2 real roots with a zero derivate at the root
+p=(%s-%pi)^2;
+expectedroots  = [%pi;%pi];
+checkroots(p,expectedroots,400*%eps);
+//
+// Caution !
+// The following are difficult root-finding problems
+// with expected precision problems.
+// See "Principles for testing polynomial 
+// zerofinding programs"
+// Jenkins, Traub
+// 1975
+// p.28
+// "The accuracy which one may expect to achieve in calculating
+// zeros is limited by the condition of these zeros. In particular,
+// for multiple zeros perturbations of size epsilon in the 
+// coefficients cause perturbations of size epsilon^(1/m)
+// in the zeros."
+// 
+//
+// 3 real roots with a zero derivate at the root
+// Really difficult problem : only simple precision computed, instead of double precision ***
+p=(%s-%pi)^3;
+expectedroots  = [%pi;%pi;%pi];
+checkroots(p,expectedroots,10^11*%eps);
+// 4 real roots with a zero derivate at the root
+// Really difficult problem : only simple precision
+p=(%s-%pi)^4;
+expectedroots  = [%pi;%pi;%pi;%pi];
+checkroots(p,expectedroots,10^12*%eps);
+// 10 real roots with a zero derivate at the root
+// Really difficult problem : only one correct digit
+p=(%s-%pi)^10;
+expectedroots  = [%pi;%pi;%pi;%pi;%pi;%pi;%pi;%pi;%pi;%pi];
+checkroots(p,expectedroots,10^15*%eps);
+
+// "Numerical computing with Matlab", Cleve Moler.
+A = diag(1:20);
+p = poly(A,'x');
+e = [1:20]';
+checkroots(p,e,1.e-2);
+
