@@ -1,0 +1,45 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Bruno JOFRET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- JVM NOT MANDATORY -->
+ierr = execstr("getrelativefilename();","errcatch");
+if ierr <> 77 then pause,end
+
+ierr = execstr("getrelativefilename([], []);","errcatch");
+if ierr <> 999 then pause,end
+
+__dir1  = TMPDIR+"/dir1";
+__dir11 = TMPDIR+"/dir1/dir1.1";
+__dir12 = TMPDIR+"/dir1/dir1.2";
+
+mkdir(__dir1);
+mkdir(__dir11);
+mkdir(__dir12);
+
+__file1  = __dir1+"/file1.txt";
+__file11 = __dir11+"/file11.txt";
+__file12 =  __dir12+"/file12.txt";
+
+__fd1  = mopen(__file1, "wt");
+__fd11 = mopen(__file11, "wt");
+__fd12 = mopen(__file12, "wt");
+
+mclose(__fd1);
+mclose(__fd11);
+mclose(__fd12);
+
+if getrelativefilename(__dir1, __file1) <> "file1.txt" then pause, end
+if getrelativefilename(__dir1, __file11) <> "dir1.1/file11.txt" then pause, end
+if getrelativefilename(__dir1, __file12) <> "dir1.2/file12.txt" then pause, end
+
+if getrelativefilename(__dir11, __file1) <> "../file1.txt" then pause, end
+if getrelativefilename(__dir11, __file11) <> "file11.txt" then pause, end
+if getrelativefilename(__dir11, __file12) <> "../dir1.2/file12.txt" then pause, end
+
+if getrelativefilename(__dir12, __file1) <> "../file1.txt" then pause, end;
+if getrelativefilename(__dir12, __file11) <> "../dir1.1/file11.txt" then pause, end;
+if getrelativefilename(__dir12, __file12) <> "file12.txt" then pause, end;
