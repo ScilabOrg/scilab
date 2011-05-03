@@ -17,6 +17,7 @@ AC_DEFUN([AC_DOCBOOK], [
 
 DOCBOOK_OK=no
 DOCBOOK_ROOT=""
+XMLLINT=""
 
 AC_ARG_WITH(docbook,
 		AC_HELP_STRING([--with-docbook=DIR],[Set the path to the docbook package]),
@@ -33,6 +34,12 @@ AC_ARG_WITH(docbook,
 		AC_MSG_ERROR([Could not find the Docbook root directory. If you have installed it on your system and we haven't been able to find it. Please report a bug])
 	fi
 
+	# xmllint is used for help validation
+    AC_PATH_PROG(XMLLINT, xmllint, no)
+    if test -z "$XMLLINT"; then
+        AC_MSG_ERROR([Could not find xmllint on the path.])
+    fi
+	AC_SUBST(XMLLINT)
 
 	# Saxon XSLT Processor
 	AC_JAVA_CHECK_PACKAGE([saxon],[com.icl.saxon.Loader],[Saxon XSLT Processor])
