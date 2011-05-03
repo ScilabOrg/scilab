@@ -1080,6 +1080,9 @@ uninstall-am: uninstall-libjavasci_la_etcDATA \
 @JAVASCI_TRUE@	if test -x "$(SPLINT)"; then \
 @JAVASCI_TRUE@		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 @JAVASCI_TRUE@	fi
+
+@BUILD_HELP_TRUE@@JAVASCI_TRUE@@NEED_JAVA_TRUE@check-help: $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
+@BUILD_HELP_TRUE@@JAVASCI_TRUE@@NEED_JAVA_TRUE@	find help -name "*.xml" |xargs $(JAVA) -jar $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
 @JAVASCI_TRUE@@NEED_JAVA_TRUE@java:
 # Some configurations needs to export JAVA_HOME in the current env
 @JAVASCI_TRUE@@NEED_JAVA_TRUE@	@if test "$(JAVA_HOME)"; then export JAVA_HOME=$(JAVA_HOME); fi; \
