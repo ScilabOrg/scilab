@@ -122,6 +122,9 @@ Xcos:
 
 * bug 9386 fixed - Diagram root cell might be invalid on hierarchical diagrams.
 
+* bug 9390 fixed - FROMWSB_c block does not reset to the default values on 
+                   ReInitialization execution.
+
 Packaging:
 ==========
 
