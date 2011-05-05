@@ -7,7 +7,13 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+function elementary_functionslib = startModule()
+
 //Load  functions libraries
 // =============================================================================
-load('SCI/modules/elementary_functions/macros/lib');
+  load('SCI/modules/elementary_functions/macros/lib');
 
+endfunction
+
+elementary_functionslib = startModule();
+clear startModule;

@@ -7,7 +7,14 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+function fileiolib = startModule()
+
 //Load  functions libraries
 // =============================================================================
-load('SCI/modules/fileio/macros/lib');
+  load('SCI/modules/fileio/macros/lib');
+endfunction
+
+fileiolib = startModule();
+clear startModule;
+
 

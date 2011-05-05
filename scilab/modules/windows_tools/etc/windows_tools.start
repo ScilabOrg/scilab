@@ -7,12 +7,19 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-// =============================================================================
+function windows_toolslib = startModule()
+
 // Load  functions libraries
 // =============================================================================
-load("SCI/modules/windows_tools/macros/lib");
+  load("SCI/modules/windows_tools/macros/lib");
+  
 // =============================================================================
-if (getscilabmode() == 'STD') then 
-  consolebox('off');
-end
-// =============================================================================
+  if (getscilabmode() == 'STD') then 
+    consolebox('off');
+  end
+  
+endfunction
+
+
+windows_toolslib = startModule();
+clear startModule;

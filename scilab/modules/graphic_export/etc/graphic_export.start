@@ -7,22 +7,26 @@
 // you should have received as part of this distribution.  The terms
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-
 // =============================================================================
+
+function graphic_exportlib = startModule()
+
 //Load  functions libraries
 // =============================================================================
-if (getscilabmode() <> 'NWNI') then
-	load(SCI+"/modules/graphic_export/macros/lib");
-end
-
+  load(SCI+"/modules/graphic_export/macros/lib");
 
 // global variable for export
 // =============================================================================
-global %driverName;
-global %exportFileName;
+  global %driverName;
+  global %exportFileName;
 
-%driverName = "Rec";
-%exportFileName = [];
+  %driverName = "Rec";
+  %exportFileName = [];
+endfunction
 
-clear %driverName;
-clear %exportFileName;
+
+if (getscilabmode() <> 'NWNI') then
+  graphic_exportlib = startModule();
+end
+
+clear startModule;
