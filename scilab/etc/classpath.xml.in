@@ -11,8 +11,8 @@
  Don't touch if you do not know what you are doing
 -->
 <!-- =================== -->
-<!-- 
-Scilab Java dependencies can be load in different ways. 
+<!--
+Scilab Java dependencies can be load in different ways.
 It can be:
 * startup - Load immediatly the dep when Scilab starts (default behaviour)
 * background - After Scilab engine is loaded, load the dep in the background
@@ -21,8 +21,8 @@ It can be:
 Some deps can be also disabled only for a specific mode.
 The option is "disableUnderMode" and can be:
 * STD - Normal mode
-* NW - No Window mode (ie command line but with graphics 
-* API - Scilab as an API 
+* NW - No Window mode (ie command line but with graphics
+* API - Scilab as an API
 -->
 
 <classpaths>
@@ -112,7 +112,7 @@ The option is "disableUnderMode" and can be:
 	<load on="documentationGeneration"/>
 	<load on="graphics_mathml_textrendering"/>
 	<load on="pdf_ps_eps_graphic_export"/>
-	<load on="xcos"/>
+	<load on="XCos"/>
 </path>
 
 <!-- PDF doc generation (dep of jeuclid) -->
