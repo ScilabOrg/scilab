@@ -14,7 +14,7 @@ CurrentDirScicos = get_absolute_file_path("buildmacros.sce");
 macrosdirs       = ["scicos_auto","scicos_utils","scicos_scicos","scicos_menus"];
 
 for i=1:size(macrosdirs,"*") do
-  exec(CurrentDirScicos+"/"+macrosdirs(i)+"/buildmacros.sce");
+  exec(CurrentDirScicos+"/"+macrosdirs(i)+"/buildmacros.sce", -1);
 end
 
 clear my_script_path CurrentDirScicos macrosdirs

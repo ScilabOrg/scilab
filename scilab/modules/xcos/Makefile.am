@@ -68,7 +68,8 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_xcosPalEnable.cpp \
 	sci_gateway/cpp/sci_xcosPalDisable.cpp \
 	sci_gateway/cpp/sci_xcosPalGenerateIcon.cpp \
-	sci_gateway/cpp/sci_xcosConfigureXmlFile.cpp
+	sci_gateway/cpp/sci_xcosConfigureXmlFile.cpp \
+	sci_gateway/cpp/xcos_gw.cpp
 
 libscixcos_la_CFLAGS= $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
@@ -92,15 +93,20 @@ libscixcos_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/scicos_blocks/src/jni \
 			-I$(top_srcdir)/modules/operations/includes \
 			-I$(top_srcdir)/modules/api_scilab/includes \
-			-I$(top_srcdir)/modules/system_env/includes
+			-I$(top_srcdir)/modules/system_env/includes \
+			-I$(top_srcdir)/modules/functions_manager/includes \
+			-I$(top_srcdir)/modules/symbol/includes \
+			-I$(top_srcdir)/modules/types/includes \
+			-I$(top_srcdir)/modules/abstractSyntaxTree/includes
 
 # Without the xcos module
 libscixcos_disable_la_CFLAGS = -Iincludes/ \
 			-I$(top_srcdir)/modules/output_stream/includes
 
-XCOS_DISABLE_C_SOURCES = src/noxcos/noxcos.c
+XCOS_DISABLE_CPP_SOURCES = src/noxcos/noxcos.cpp
+libscixcos_disable_la_CPPFLAGS = -Iincludes
 libscixcos_disable_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
-libscixcos_disable_la_SOURCES = $(XCOS_DISABLE_C_SOURCES)
+libscixcos_disable_la_SOURCES = $(XCOS_DISABLE_CPP_SOURCES)
 
 pkglib_LTLIBRARIES = libscixcos-disable.la
 

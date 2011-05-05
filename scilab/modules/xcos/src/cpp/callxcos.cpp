@@ -46,12 +46,17 @@ int callXcos(char **_filenames, int _nbfiles)
     }
     catch (GiwsException::JniCallMethodException exception)
     {
-        Scierror(999, "%s: %s\n", "xcos", exception.getJavaDescription().c_str());
+        std::cerr << "[EXCEPTION JniCallMethodException] {" << exception.getJavaDescription().c_str() << "}"<< std::endl;
+        std::cerr << "[EXCEPTION JniCallMethodException] {" << exception.what() << "}"<< std::endl;
+        std::cerr << "[EXCEPTION JniCallMethodException] {" << exception.getJavaStackTrace() << "}"<< std::endl;
+        std::cerr << "[EXCEPTION JniCallMethodException] {" << exception.getJavaExceptionName() << "}"<< std::endl;
+        ScierrorW(999, L"%s: %s\n", "xcos", exception.getJavaDescription().c_str());
         return 0;
     }
     catch (GiwsException::JniException exception)
     {
-        Scierror(999, "%s: %s\n", "xcos", exception.what());
+        std::cerr << "[EXCEPTION JniException] " << exception.what() << std::endl;
+        ScierrorW(999, L"%s: %s\n", "xcos", exception.what());
         return 0;
     }
 
