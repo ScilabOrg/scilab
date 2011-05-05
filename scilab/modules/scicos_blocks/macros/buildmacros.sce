@@ -19,7 +19,7 @@
 // See the file ../license.txt
 //
 
-lines(0);
+//lines(0);
 
 if getos() == 'Windows' then
   // Add SCI/bin to current PATH env
@@ -42,9 +42,9 @@ CurrentDirScicosBlocks=pwd();
 		    "Electrical",
 		    "PDE",
 		    "IntegerOp"];
- 
+
 Dim=size(SubDirsScicosBlocks);
-for i=1:Dim(1) do 
+for i=1:Dim(1) do
   chdir(SubDirsScicosBlocks(i));
   exec('buildmacros.sce');
   chdir(CurrentDirScicosBlocks);
