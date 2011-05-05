@@ -10,6 +10,9 @@
 *
 */
 /*--------------------------------------------------------------------------*/
+
+#include <iostream>
+
 extern "C"
 {
 #include "gw_xcos.h"
@@ -23,6 +26,7 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "getFullFilename.h"
 #include "loadOnUseClassPath.h"
+#include "api_oldstack.h"
 }
 /*--------------------------------------------------------------------------*/
 int sci_Xcos(char *fname, int* _piKey)
@@ -32,6 +36,7 @@ int sci_Xcos(char *fname, int* _piKey)
 
 	if (Rhs == 0)
 	{
+        std::cerr << "RHS = 0 => callXcos()" << std::endl;
 		callXcos(NULL, 0);
 		loadOnUseClassPath(const_cast<char*>("xcos_block_rendering"));
 	}

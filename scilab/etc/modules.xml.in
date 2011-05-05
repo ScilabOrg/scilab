@@ -35,5 +35,6 @@
     <module name="functions" activate="yes"/>
     <module name="helptools" activate="@HELP_ENABLE@"/>
     <module name="hdf5" activate="yes"/>
+    <module name="xcos" activate="@GUI_ENABLE@"/>
 </modules>
 

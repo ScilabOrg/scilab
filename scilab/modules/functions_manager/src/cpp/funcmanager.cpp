@@ -303,6 +303,7 @@ bool FuncManager::CreateModuleList(void)
     if (ConfigVariable::getScilabMode() != SCILAB_NWNI)
     {
         m_ModuleMap.insert(pair<wstring, GW_MOD>(L"jvm", &JvmModule::Load));
+        m_ModuleMap.insert(pair<wstring, GW_MOD>(L"xcos", &XcosModule::Load));
     }
 #ifdef _MSC_VER
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"windows_tools", &WindowsToolsModule::Load));
