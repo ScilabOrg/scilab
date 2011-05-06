@@ -52,6 +52,7 @@ Removed functions (previously declared as obsolete):
 
 * 'with_atlas' removed. Please use 'getdebuginfo' instead.
 
+* 'MSDOS' removed. Please use 'getos' instead.
 
 Performance:
 ============
