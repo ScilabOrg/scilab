@@ -18,3 +18,16 @@ if d1 <> TMPDIR + filesep() then bugmes();quit;end
 // file 'test.sce' closed then not found
 ierr = execstr('d3 = get_absolute_file_path(''test.sce'');','errcatch');
 if ierr <> 999 then bugmes();quit;end
+// using exec temporary open the file
+cd TMPDIR;
+fd = mopen(TMPDIR+'/exec_me.sce','wt');
+mputl("get_absolute_file_path(""exec_me.sce"") == TMPDIR+""/""", fd);
+mclose(fd);
+exec("exec_me.sce")
+== TMPDIR+"/"
+ans = 
+
+
+  T
+
+
