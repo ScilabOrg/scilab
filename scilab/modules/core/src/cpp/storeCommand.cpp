@@ -20,6 +20,7 @@ extern "C"
 #include "execvisitor.hxx"
 #include "tasks.hxx"
 #include "yaspio.hxx"
+#include "scilabexception.hxx"
 
 /*--------------------------------------------------------------------------*/
 /*
@@ -65,15 +66,25 @@ int StoreCommandWithFlag (wchar_t *command,int flag)
         ast::ExecVisitor exec;
         parser.getTree()->accept(exec);
     }
-    catch (std::wstring error)
+    catch(ScilabException se)
     {
-        YaspWriteW(L"\n");
-        YaspWriteW(L"\n");
-        YaspWriteW(command);
-        YaspWriteW(L"\n");
-        YaspWriteW(error.c_str());
-        YaspWriteW(L"\n");
-        YaspWriteW(_W("while executing a callback"));
+        YaspErrorW(L"\n");
+        YaspErrorW(L"\n");
+        YaspErrorW(command);
+        YaspErrorW(L"\n");
+        YaspErrorW(se.GetErrorMessage().c_str());
+        YaspErrorW(L"\n");
+        YaspErrorW(_W("while executing a callback"));
+    }
+    catch(ScilabMessage sm)
+    {
+        YaspErrorW(L"\n");
+        YaspErrorW(L"\n");
+        YaspErrorW(command);
+        YaspErrorW(L"\n");
+        YaspErrorW(sm.GetErrorMessage().c_str());
+        YaspErrorW(L"\n");
+        YaspErrorW(_W("while executing a callback"));
     }
 
     delete parser.getTree();
@@ -95,15 +106,25 @@ int StorePrioritaryCommandWithFlag (wchar_t *command,int flag)
         ast::ExecVisitor exec;
         parser.getTree()->accept(exec);
     }
-    catch (std::wstring error)
+    catch(ScilabException se)
     {
-        YaspWriteW(L"\n");
-        YaspWriteW(L"\n");
-        YaspWriteW(command);
-        YaspWriteW(L"\n");
-        YaspWriteW(error.c_str());
-        YaspWriteW(L"\n");
-        YaspWriteW(_W("while executing a callback"));
+        YaspErrorW(L"\n");
+        YaspErrorW(L"\n");
+        YaspErrorW(command);
+        YaspErrorW(L"\n");
+        YaspErrorW(se.GetErrorMessage().c_str());
+        YaspErrorW(L"\n");
+        YaspErrorW(_W("while executing a callback"));
+    }
+    catch(ScilabMessage sm)
+    {
+        YaspErrorW(L"\n");
+        YaspErrorW(L"\n");
+        YaspErrorW(command);
+        YaspErrorW(L"\n");
+        YaspErrorW(sm.GetErrorMessage().c_str());
+        YaspErrorW(L"\n");
+        YaspErrorW(_W("while executing a callback"));
     }
 
     delete parser.getTree();
