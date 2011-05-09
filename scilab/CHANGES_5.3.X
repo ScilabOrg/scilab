@@ -14,16 +14,16 @@ Scilab:
 Scinotes:
 =========
 
-* Add the possibility to replace single quoted by double quoted strings.
+* Add tools 'Find Files' (CTRL+SHIFT+B) and 'Find word in Files' (CTRL+SHIFT+F).
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+* Add the possibility to replace single quoted by double quoted strings.
 
 * Add the possibility to save and execute the code with F5 key.
 
 * Add the possibility to remove the comments when executing the code in the
   console.
 
-* The selection is now highlighted in yellow in all the document.
+* The selection is now highlighted in yellow in the whole document.
 
 * bug 9012 fixed - Print preview triggered a java exception.
 
@@ -41,9 +41,9 @@ Scinotes:
 * bug 9186 fixed - An exception was thrown when textfield got the focus in code
                    navigator.
 
-* bug 9189 fixed - Certains keywords were not helpable.
+* bug 9189 fixed - Some keywords were not helpable.
 
-* bug 9257 fixed - SciNotes could not be started from NW / adv-cli mode.
+* bug 9257 fixed - Scinotes could not be started from NW / adv-cli mode.
 
 * bug 9340 fixed - Bad name was proposed when export to PDF.
 
@@ -57,8 +57,6 @@ Xcos:
 
 * A skeleton of an Xcos module has been introduced and should help the user
   to design its own palette.
-
-* Duplicate tests have been removed.
 
 * Update the documentation with examples of the blocks and their translations to
   French:
@@ -81,7 +79,9 @@ Xcos:
   - DELAY_f
   - RFILE_f Read from input file
 
-* bug 5425 fixed - Drag and drop of blocks between different scilab versions
+* Some duplicated tests have been removed.
+
+* bug 5425 fixed - Drag and drop of blocks between different Scilab versions
                    produced an exception
 
 * bug 5605 fixed - REGISTER block was not present into the discrete palette.
@@ -93,7 +93,7 @@ Xcos:
 * bug 8630 fixed - Scopes crashed Scilab on simulation when they had the same
                    window id.
 
-* bug 8692 fixed - Null block parameters was not checked before encoding.
+* bug 8692 fixed - Null block parameters were not checked before encoding.
 
 * bug 8735 fixed - Mixed (Implicit-Explicit) superblocks I/O blocks produced
                    warnings.
@@ -120,11 +120,12 @@ Xcos:
 * bug 9307 fixed - AFFICH_m block only printed the first column for an input
                    matrix.
 
-* bug 9346 fixed - FROMWS_c block had functional regression since scilab-5.3.1
+* bug 9346 fixed - FROMWS_c block had a functional regression since Scilab-5.3.1
 
 * bug 9369 fixed - Diagrams with an origin did not pass validation.
 
 * bug 9386 fixed - Diagram root cell might be invalid on hierarchical diagrams.
+
 
 Packaging:
 ==========
@@ -180,11 +181,13 @@ Graphics:
 
 * New functions 'comet' and 'comet3d' have been added.
 
+
 Localization:
 =============
 
 * bug 8994 fixed - Some localization templates were not included and
                    translated.
+
 
 Documentation:
 ==============
@@ -199,6 +202,7 @@ Documentation:
 * bug 7305 fixed - issparse was not documented.
 
 * bug 9362 fixed - An exception was thrown on the pdf doc generation.
+
 
 Compilation:
 ============
@@ -219,6 +223,7 @@ Compilation:
 * Bug 9018 fixed - --without-xcos disabled the detection of jhdf5 but was still
                    building xcos.
 
+
 Optimization:
 =============
 
@@ -233,11 +238,12 @@ Optimization:
 Numerical Maths:
 ================
 
-* Bug 7101 fixed - the roots had convergence problems for some polynomials.
+* Bug 7101 fixed - The roots had convergence problems for some polynomials.
                    The default algorithm has been changed to the eigenvalue 
                    of the companion matrix.
 
 * Bug 9350 fixed - abs(complex(%nan,0)) returned zero instead of nan.
+
 
 
 CACSD module:
@@ -245,8 +251,8 @@ CACSD module:
 
 * Bug 6744 fixed - p_margin() returned an erroneous result (new fix).
 
-* Bug 9205 fixed - Optional argument added to nyquist to control the drawing of the 
-                   symetric part and new a function added for high definition zoom
+* Bug 9205 fixed - Optional argument added to nyquist to control the drawing of                    the symetric part and new a function added for high
+                   definition zoom
 
 
 Bug fixes:
@@ -265,7 +271,7 @@ Bug fixes:
 
 * bug 7976 fixed - help/cleaner_help.sce was not called when cleaning a toolbox.
 
-* bug 8317 fixed - Confusing examples updated.
+* bug 8317 fixed - Confusing examples of Matplot1 updated.
 
 * bug 8371 fixed - Each thread used to get the command line was not detached
                    from the JVM.
@@ -283,11 +289,12 @@ Bug fixes:
 
 * bug 8971 fixed - The termination rule of optim was unclear.
 
-* bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation with
-                   ode" displayed a warning about an obsolete use of ilib_for_link.
+* bug 9070 fixed - The demonstration "Simulation/Wheel Simulation/Simulation
+                   with ode" displayed a warning about an obsolete use of
+                   ilib_for_link.
 
-* bug 9082 fixed - It was not possible to preview LaTeX when it was a second
-                   LaTeX string.
+* bug 9082 fixed - It was not possible to preview LaTeX with second LaTeX
+                   string displayed.
 
 * Bug 9083 fixed - Bad output with prettyprint and syslin.
 
@@ -307,9 +314,6 @@ Bug fixes:
 
 * bug 9141 fixed - An extra empty line was present in the console.
 
-* bug 9147 fixed - Javasci v1 was broken since the introduction of the
-                   version 2.
-
 * bug 9159 fixed - grand(1,3,'uin',1,0) crashed scilab.
 
 * bug 9168 fixed - Bad command line width when completion window was shew at
@@ -320,7 +324,8 @@ Bug fixes:
 * bug 9195 fixed - Empty lines entered in Scilab console were displayed in
                    the history browser.
 
-* bug 9200 fixed - perl.sci script crashed on Windows with a wrong error message.
+* bug 9200 fixed - perl.sci script crashed on Windows with a wrong error
+                   message.
 
 * bug 9211 fixed - set("userdata", list()) crashed Scilab.
 
@@ -333,8 +338,8 @@ Bug fixes:
 * bug 9250 fixed - mkdir used to display a wrong message when called with
                    2 inputs arguments.
 
-* bug 9264 fixed - Big loss of performance on some string management functions
-                   in api_scilab (example: on mputl).
+* bug 9264 fixed - Important loss of performance on some string management
+                   functions in api_scilab (example: on mputl).
 
 * bug 9279 fixed - Add a version number in configuration.xml.
 
