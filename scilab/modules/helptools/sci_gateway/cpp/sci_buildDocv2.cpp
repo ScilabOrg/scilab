@@ -21,6 +21,7 @@ extern "C"
 #include "stack-c.h"
 #include "gw_helptools.h"
 #include "Scierror.h"
+#include "sciprint.h"
 #include "setgetSCIpath.h"
 #include "localization.h"
 #include "setgetlanguage.h"
@@ -238,8 +239,9 @@ extern "C"
         }
         catch(GiwsException::JniException ex)
         {
-            Scierror(999,_("%s: Error while building documentation: %s.\n"), fname, ex.getJavaDescription().c_str());
-            Scierror(999,_("%s: Execution Java stack: %s.\n"), fname, ex.getJavaStackTrace().c_str());
+            sciprint(_("%s: Error while building documentation: %s.\n"), fname, ex.getJavaDescription().c_str());
+            sciprint(_("%s: Execution Java stack: %s.\n"), fname, ex.getJavaStackTrace().c_str());
+            sciprint(_("If Scilab is launched from a chroot, you probably can ignore this warning.\n"));
             return FALSE;
         }
 
