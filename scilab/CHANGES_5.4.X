@@ -32,6 +32,8 @@ Bug Fixes:
 * bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
                    is supplied by the 2nd input argument.
 
+* bug 7061 fixed - changelog.txt, readme.txt, version.xml removed from modules.
+
 * bug 8608 - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
              and optimized.
 
@@ -42,6 +44,9 @@ Bug Fixes:
 * bug 9164 - The unit tests now use the new assert functions.
 
 * bug 9277 - escape character "\" did not work with msprintf.
+
+* bug 9432 fixed - link a 64 bit dynamic library on a 32 bit platform returned
+                   a wrong error message on Windows.
 
 
 Removed functions (previously declared as obsolete):
@@ -69,10 +74,4 @@ Compilation:
 * Under GNU/Linux and Mac OS X, all modules build as standalone its algorithms
   as a static library (only available in the source tree).
   This will avoid an important dependency tree for unitary testing.
-
-
-Bug fixes:
-==========
-
-* bug 7061 fixed - changelog.txt, readme.txt, version.xml removed from modules.
 
