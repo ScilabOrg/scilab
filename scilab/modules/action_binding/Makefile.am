@@ -23,16 +23,15 @@ src/jni/GiwsException.cpp
 # List of the gateway c files
 CONSOLE_C_JNI_SOURCES = src/jni/InterpreterManagement_wrap.c
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_action_binding.c
-
-GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_notify.cpp
+GATEWAY_CPP_SOURCES =   sci_gateway/cpp/action_binding_gw.cpp \
+                        sci_gateway/cpp/sci_notify.cpp
 
 #### SWIG Declaration ####
 SWIG_WRAPPERS = src/jni/InterpreterManagement.i
 
 else
 # List of the c files
-ACTION_BINDING_C_SOURCES = src/noaction_binding/noaction_binding.c
+ACTION_BINDING_CPP_SOURCES = src/noaction_binding/noaction_binding.cpp
 endif
 
 if SWIG
@@ -45,9 +44,13 @@ if GIWS
 BUILT_SOURCES=giws
 endif
 
-libsciaction_binding_disable_la_SOURCES = src/noaction_binding/noaction_binding.c
-libsciaction_binding_disable_la_CFLAGS = 	-I$(srcdir)/includes/ \
-											-I$(top_srcdir)/modules/output_stream/includes
+libsciaction_binding_disable_la_SOURCES = src/noaction_binding/noaction_binding.cpp
+libsciaction_binding_disable_la_CPPFLAGS = 	-I$(srcdir)/includes/ \
+                                            -I$(top_srcdir)/modules/output_stream/includes \
+                                            -I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+                                            -I$(top_srcdir)/modules/symbol/includes \
+                                            -I$(top_srcdir)/modules/system_env/includes \
+                                            -I$(top_srcdir)/modules/types/includes
 
 # Includes need for the compilation
 libsciaction_binding_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \
@@ -55,10 +58,14 @@ libsciaction_binding_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \
 -I$(srcdir)/src/c/ \
 -I$(srcdir)/src/jni/ \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
+<<<<<<< HEAD
 -I$(top_srcdir)/modules/jvm/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
 -I$(top_srcdir)/modules/types/includes
+=======
+-I$(top_srcdir)/modules/jvm/includes/
+>>>>>>> 6509228... notify added.
 
 # Includes need for the compilation
 libsciaction_binding_la_CPPFLAGS= 	$(JAVA_JNI_INCLUDE) \
@@ -69,6 +76,13 @@ libsciaction_binding_la_CPPFLAGS= 	$(JAVA_JNI_INCLUDE) \
 -I$(top_srcdir)/modules/jvm/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \
 -I$(top_srcdir)/modules/output_stream/includes \
+<<<<<<< HEAD
+=======
+-I$(top_srcdir)/modules/symbol/includes \
+-I$(top_srcdir)/modules/functions_manager/includes \
+-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+-I$(top_srcdir)/modules/system_env/includes \
+>>>>>>> 6509228... notify added.
 -I$(top_srcdir)/modules/types/includes
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
@@ -84,13 +98,13 @@ libsciaction_binding_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD
 
 # All the sources needed by libsciaction_binding.la
 libsciaction_binding_algo_la_SOURCES = $(ACTION_BINDING_C_SOURCES) $(ACTION_BINDING_CPP_SOURCES) $(CONSOLE_C_JNI_SOURCES)
-libsciaction_binding_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
+libsciaction_binding_la_SOURCES = $(GATEWAY_CPP_SOURCES)
 libsciaction_binding_algo_la_CFLAGS = $(libsciaction_binding_la_CFLAGS)
 libsciaction_binding_algo_la_CPPFLAGS = $(libsciaction_binding_la_CPPFLAGS)
 
 
 # For the code check (splint)
-CHECK_SRC= $(ACTION_BINDING_C_SOURCES) $(GATEWAY_C_SOURCES)
+CHECK_SRC= $(ACTION_BINDING_CPP_SOURCES)
 INCLUDE_FLAGS = $(libsciaction_binding_la_CFLAGS)
 
 ## Libraries necessary
