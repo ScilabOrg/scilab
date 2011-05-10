@@ -106,8 +106,6 @@ int sci_javaclasspath(char *fname, int* _piKey)
                 pStVarOne[i] = (char*)MALLOC(sizeof(char*) * (lenStVarOne[i] + 1));
             }
 
-            GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&classPaths);
-
             /* get strings */
             sciErr = getMatrixOfString(_piKey, piAddressVarOne, &m1, &n1, lenStVarOne, pStVarOne);
             if(sciErr.iErr)
