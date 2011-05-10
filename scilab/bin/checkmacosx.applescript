@@ -5,6 +5,7 @@
  * For now, this script checks the minimal version of Mac OS X
  *
  * Copyright (C) 2011 - DIGITEO - Sylvestre LEDRU
+ * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
  *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -34,43 +35,16 @@
  *
  *************************************************************************)
 
-on run()
-    -- Check for the required version of Mac OS X
-    if (not atLeastOSXVersion(10, 6, 4) and not atLeastOSXVersion(10, 5, 8)) then
-        tell application  "System Events" -- Mandatory to use tell application otherwis, osascript complains
-          activate
-          display dialog  "This version of Scilab will probably fail on this system: requires MacOSX 10.5.8 (Leopard) or 10.6.5 (Snow Leopard) or newer system" buttons {"Try anyway", "Quit"} default button "Try anyway"
-          if the button returned of the result is "Quit" then
-            error number 128 
+on run argv
+    tell application  "System Events" -- Mandatory to use tell application otherwis, osascript complains
+        activate
+        display dialog  "This version of Scilab will probably fail on this system (" & item 1 of argv & "): Scilab requires " & item 2 of argv & "." buttons {"Try anyway", "Quit"} default button "Try anyway"
+        if the button returned of the result is "Quit" then
+            error number 128
             return false
-          else
+        else
             return true
-          end if
+        end if
         end tell
-    end if
 end run
-
--- Test for a minimum version of Mac OS X
-on atLeastOSXVersion(verMajor, verMinor, verStep)
-    -- The StandardAdditions's 'system attribute' used to be the Finder's 'computer' command.
-    tell application "Finder" to set sysv to (system attribute "sysv")
-    
-    -- Generate sysv-compatible number from given version
-    set reqVer to ((verMajor div 10) * 4096 + (verMajor mod 10) * 256 + verMinor * 16 + verStep)
-    
-    -- DEBUGGING:
-    -- display dialog ("RV:" & reqVer & " < " & sysv as string)
-    
-    -- set major to ((sysv div 4096) * 10 + (sysv mod 4096 div 256))
-    -- set minor to (sysv mod 256 div 16)
-    -- set step to (sysv mod 16)
-    --display dialog ("Your Mac OS X version: " & major & "." & minor & "." & step)
-    
-    if (reqVer > sysv) then
-        return false
-    else
-        return true
-    end if
-end atLeastOSXVersion
-
 
