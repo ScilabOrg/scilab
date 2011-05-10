@@ -16,11 +16,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.scilab.modules.xcos.utils.XcosFileType;
+import org.scilab.modules.xcos.utils.FileType;
 import org.testng.annotations.Test;
 
 /**
- * Test the {@link XcosFileType} class.
+ * Test the {@link FileType} class.
  */
 public class FileTypeTest {
 	private static final String XcosFileHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -28,14 +28,14 @@ public class FileTypeTest {
 	
 	@Test
 	public void checkSupportedType() {
-		assert XcosFileType.values().length == 4;
-		assert XcosFileType.getDefault() == XcosFileType.XCOS;
-		assert XcosFileType.getScilabFileType() == XcosFileType.HDF5;
+		assert FileType.values().length == 4;
+		assert FileType.getDefault() == FileType.XCOS;
+		assert FileType.getScilabFileType() == FileType.HDF5;
 	}
 	
 	@Test(dependsOnMethods = { "checkSupportedType" })
 	public void checkNullField() {
-		for (XcosFileType type : XcosFileType.values()) {
+		for (FileType type : FileType.values()) {
 			assert type.getExtension() != null;
 			assert type.getDescription() != null;
 		}
@@ -43,7 +43,7 @@ public class FileTypeTest {
 	
 	@Test(dependsOnMethods = { "checkNullField" })
 	public void checkExtension() {
-		for (XcosFileType type : XcosFileType.values()) {
+		for (FileType type : FileType.values()) {
 			assert type.getDottedExtension().compareTo("." + type.getExtension()) == 0;
 			assert type.getFileMask().compareTo("*" + type.getDottedExtension()) == 0;
 		}
@@ -51,13 +51,13 @@ public class FileTypeTest {
 	
 	@Test(dependsOnMethods = { "checkExtension" })
 	public void validateFindFileType() throws IOException {
-		for (XcosFileType type : XcosFileType.values()) {
+		for (FileType type : FileType.values()) {
 			File tmp = File.createTempFile("xcosTest", type.getDottedExtension());
 			
-			if (type != XcosFileType.XCOS) {
-				assert type == XcosFileType.findFileType(tmp);
+			if (type != FileType.XCOS) {
+				assert type == FileType.findFileType(tmp);
 			} else {
-				assert XcosFileType.findFileType(tmp) == null;
+				assert FileType.findFileType(tmp) == null;
 			}
 			
 			tmp.delete();
@@ -66,13 +66,13 @@ public class FileTypeTest {
 	
 	@Test(dependsOnMethods = { "validateFindFileType" })
 	public void validateXcosFindFileType() throws IOException {
-		File tmp = File.createTempFile("xcosTest", XcosFileType.XCOS
+		File tmp = File.createTempFile("xcosTest", FileType.XCOS
 				.getDottedExtension());
 		FileOutputStream stream = new FileOutputStream(tmp);
 		stream.write(XcosFileHeader.getBytes());
 		stream.close();
 		
-		assert XcosFileType.XCOS == XcosFileType.findFileType(tmp);
+		assert FileType.XCOS == FileType.findFileType(tmp);
 		
 		tmp.delete();
 	}

@@ -244,6 +244,7 @@ public final class XcosMessages {
     public static final String FILE_COSF = Messages.gettext("Scicos file");
     public static final String FILE_COS = FILE_COSF;
     public static final String FILE_XCOS = Messages.gettext("Xcos file");
+    public static final String FILE_PNG = Messages.gettext("Xcos PNG+XML file");
     public static final String FILE_HDF5 = Messages.gettext("Scilab file");
 
     /* Superblock mask editor */

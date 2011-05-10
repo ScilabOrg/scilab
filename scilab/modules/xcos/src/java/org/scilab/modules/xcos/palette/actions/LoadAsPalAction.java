@@ -30,7 +30,7 @@ import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.Custom;
 import org.scilab.modules.xcos.palette.model.PaletteNode;
 import org.scilab.modules.xcos.palette.model.VariablePath;
-import org.scilab.modules.xcos.utils.XcosFileType;
+import org.scilab.modules.xcos.utils.FileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -89,8 +89,8 @@ public final class LoadAsPalAction extends DefaultAction {
 		fc.setMultipleSelection(false);
 
 
-		final SciFileFilter xcosFilter = new SciFileFilter(XcosFileType.XCOS.getFileMask(), null, 0);
-		final SciFileFilter cosFilter = new SciFileFilter(XcosFileType.COS.getFileMask() + "*", null, 1);
+		final SciFileFilter xcosFilter = new SciFileFilter(FileType.XCOS.getFileMask(), null, 0);
+		final SciFileFilter cosFilter = new SciFileFilter(FileType.COS.getFileMask() + "*", null, 1);
 		final SciFileFilter allFilter = new SciFileFilter("*.*", null, 2);
 		fc.addChoosableFileFilter(xcosFilter);
 		fc.addChoosableFileFilter(cosFilter);

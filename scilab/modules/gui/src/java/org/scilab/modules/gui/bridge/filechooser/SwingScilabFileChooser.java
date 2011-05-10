@@ -14,6 +14,7 @@
 package org.scilab.modules.gui.bridge.filechooser;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
@@ -21,12 +22,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.scilab.modules.localization.Messages;
-
 import org.scilab.modules.gui.filechooser.FileChooserInfos;
 import org.scilab.modules.gui.filechooser.SimpleFileChooser;
 import org.scilab.modules.gui.utils.ConfigManager;
 import org.scilab.modules.gui.utils.SciFileFilter;
+import org.scilab.modules.localization.Messages;
 
 /**
  * Swing implementation of a Scilab File ChooserS
@@ -69,6 +69,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Set the title of the file chooser
 	 * @param title the title to set
 	 */
+	@Override
 	public void setTitle(String title) {
 		super.setDialogTitle(title);
 	}
@@ -103,6 +104,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Set the initial directory used for file search
 	 * @param path the default path
 	 */
+	@Override
 	public void setInitialDirectory(String path) {
 		// When empty string given
 		if (path.length() == 0) {
@@ -124,6 +126,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	/**
 	 * Display this chooser and wait for user selection 
 	 */
+	@Override
 	public void displayAndWait() {
 		JFrame parentFrame = new JFrame();
 		parentFrame.setIconImage(new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/scilab.png").getImage());
@@ -235,6 +238,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Get the number of files selected
 	 * @return the number of files selected
 	 */
+	@Override
 	public int getSelectionSize() {
 		return selectionSize;
 	}
@@ -243,6 +247,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Get the names of selected files
 	 * @return the names of selected files
 	 */
+	@Override
 	public String[] getSelection() {
 		return selection;
 	}
@@ -250,6 +255,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	/**
 	 * Set the flag indicating that we want only select directories
 	 */
+	@Override
 	public void setDirectorySelectionOnly() {
 		setFileSelectionMode(DIRECTORIES_ONLY);
 	}
@@ -258,6 +264,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Set the flag indicating that we can select multiple files
 	 * @param multipleSelection is enable or not
 	 */
+	@Override
 	public void setMultipleSelection(boolean multipleSelection) {
 		setMultiSelectionEnabled(multipleSelection);
 	}
@@ -266,6 +273,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Get the path of selected files
 	 * @return selectionPath selected file(s) path
 	 */
+	@Override
 	public String getSelectionPathName() {
 		return selectionPath;
 	}
@@ -274,6 +282,7 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Get the names of selected files
 	 * @return selectionFileNnames selected file(s) path
 	 */
+	@Override
 	public String[] getSelectionFileNames() {
 		return selectionFileNames;
 	}
@@ -282,8 +291,9 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * Get the filter index
 	 * @return this.getFilterIndex() filter index
 	 */
+	@Override
 	public int getFilterIndex() {
-		return getFilterIndex();
+		return Arrays.asList(getChoosableFileFilters()).indexOf(getFileFilter());
 	}
 	
 	/**
@@ -291,13 +301,19 @@ public class SwingScilabFileChooser extends JFileChooser implements SimpleFileCh
 	 * @param filterIndex index of the filter
 	 */
 	public void setFilterIndex(int filterIndex) {
-		setFilterIndex(filterIndex);
+		javax.swing.filechooser.FileFilter[] filters = getChoosableFileFilters();
+		if (filterIndex < filters.length) {
+			setFileFilter(filters[filterIndex]);
+		} else {
+			setFileFilter(getAcceptAllFileFilter());
+		}
 	}
 	
 	/**
 	 * Set the dialog type (save or open a file ?)
 	 * @param dialogType the dialog type
 	 */
+	@Override
 	public void setUiDialogType(int dialogType) {
 		this.dialogType = dialogType;
 	}

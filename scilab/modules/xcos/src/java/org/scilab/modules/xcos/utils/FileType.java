@@ -12,26 +12,98 @@
 
 package org.scilab.modules.xcos.utils;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
+import org.scilab.modules.commons.xml.ScilabTransformerFactory;
+import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.io.XcosCodec;
+
+import com.mxgraph.io.mxCodec;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.util.mxUtils;
+import com.mxgraph.util.png.mxPngEncodeParam;
+import com.mxgraph.util.png.mxPngImageEncoder;
 
 /**
  * All the filetype recognized by Xcos.
  */
-public enum XcosFileType {
+public enum FileType {
 	/**
 	 * Represent the Xcos XML format.
 	 */
-	XCOS("xcos", XcosMessages.FILE_XCOS),
+	XCOS("xcos", XcosMessages.FILE_XCOS) {
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		public void save(XcosDiagram diagram, File file) throws IOException {
+			final XcosCodec codec = new XcosCodec();
+			final TransformerFactory tranFactory = ScilabTransformerFactory.newInstance();
+			
+			try {
+				final Transformer aTransformer = tranFactory.newTransformer();
+				
+				final DOMSource src = new DOMSource(codec.encode(diagram));
+				final StreamResult result = new StreamResult(file);
+				aTransformer.transform(src, result);
+			} catch (TransformerException e) {
+				throw new IOException(e);
+			}
+		}
+	},
+	/**
+	 * Represent the Xcos PNG+XML format.
+	 */
+	PNG("png", XcosMessages.FILE_PNG) {
+		/**
+		 *{@inheritDoc}
+		 */
+		@Override
+		public void save(XcosDiagram diagram, File file) throws IOException {
+			final mxGraphComponent comp = diagram.getAsComponent();
+			
+			// Creates the image for the PNG file
+			final BufferedImage image = mxCellRenderer.createBufferedImage(diagram,
+					null, 1, comp.getBackground(), comp.isAntiAlias(), null,
+					comp.getCanvas());
+			
+			// Creates the URL-encoded XML data
+			mxCodec codec = new mxCodec();
+			String xml = URLEncoder.encode(
+					mxUtils.getXml(codec.encode(diagram.getModel())), "UTF-8");
+			mxPngEncodeParam param = mxPngEncodeParam
+					.getDefaultEncodeParam(image);
+			param.setCompressedText(new String[] {"mxGraphModel", xml});
+			
+			// Saves as a PNG file
+			FileOutputStream outputStream = new FileOutputStream(file);
+			mxPngImageEncoder encoder = new mxPngImageEncoder(outputStream,
+					param);
+			if (image != null) {
+				encoder.encode(image);
+			} else {
+				throw new IOException("Unable to encode data.");
+			}
+		}
+	},
 	/**
 	 * Represent the old Scicos text format.
 	 */
@@ -73,7 +145,11 @@ public enum XcosFileType {
 		public File exportToHdf5(File arg0) {
 			return arg0;
 		}
-	};
+	},
+	/**
+	 * Any other format.
+	 */
+	UNKNOW("", "");
 	
 	
 	private String extension;
@@ -84,7 +160,7 @@ public enum XcosFileType {
 	 * @param extension file extension (without the dot)
 	 * @param description file description
 	 */
-	XcosFileType(String extension, String description) {
+	FileType(String extension, String description) {
 		this.extension = extension;
 		this.description = description + " (*." + extension + ")";
 	}
@@ -122,16 +198,16 @@ public enum XcosFileType {
 	 * @param theFile Current file
 	 * @return The determined filetype
 	 */
-	public static XcosFileType findFileType(File theFile) {
+	public static FileType findFileType(File theFile) {
 		int dotPos = theFile.getName().lastIndexOf('.');
 		String extension = "";
-		XcosFileType retValue = null;
+		FileType retValue = null;
 
 		if (dotPos > 0 && dotPos <= theFile.getName().length() - 2) {
 			extension = theFile.getName().substring(dotPos + 1);
 		}
 		
-		for (XcosFileType currentFileType : XcosFileType.values()) {
+		for (FileType currentFileType : FileType.values()) {
 			if (extension.compareToIgnoreCase(currentFileType.extension) == 0) {
 				retValue = currentFileType;
 				break;
@@ -139,13 +215,15 @@ public enum XcosFileType {
 		}
 		
 		/* Validate xml header */
-		if (retValue == XcosFileType.XCOS) {
+		if (retValue == FileType.XCOS) {
 			byte[] xmlMagic = "<?xml".getBytes();
 			byte[] readMagic = new byte[xmlMagic.length];
 
 			FileInputStream stream = null;
 			try {
+				
 				stream = new FileInputStream(theFile);
+				
 				int length;
 				length = stream.read(readMagic);
 				if (length != xmlMagic.length
@@ -159,7 +237,7 @@ public enum XcosFileType {
 					try {
 						stream.close();
 					} catch (IOException e) {
-						LogFactory.getLog(XcosFileType.class).error(e);
+						LogFactory.getLog(FileType.class).error(e);
 					}
 				}
 			}
@@ -171,15 +249,25 @@ public enum XcosFileType {
 	/** 
 	 * @return the Xcos default filetype
 	 */
-	public static XcosFileType getDefault() {
-		return XcosFileType.XCOS;
+	@Deprecated
+	public static FileType getDefault() {
+		return FileType.XCOS;
+	}
+	
+	/**
+	 * @return all the save and load file types
+	 */
+	public static FileType[] getValidFileType() {
+		return new FileType[] {
+				FileType.XCOS, FileType.PNG
+		};
 	}
 	
 	/** 
 	 * @return the Scilab default filetype
 	 */
-	public static XcosFileType getScilabFileType() {
-		return XcosFileType.HDF5;
+	public static FileType getScilabFileType() {
+		return FileType.HDF5;
 	}
 	
 	/**
@@ -188,7 +276,17 @@ public enum XcosFileType {
 	 * @return The created file
 	 */
 	public File exportToHdf5(File file) {
-	    throw new Error("Not implemented operation");
+	    throw new Error();
+	}
+	
+	/**
+	 * Save a diagram to a file for the specific type
+	 * @param diagram the diagram to save
+	 * @param file the file to save to
+	 * @throws IOException on problem
+	 */
+	public void save(XcosDiagram diagram, File file) throws IOException {
+		throw new Error();
 	}
 	
 	/**
@@ -198,7 +296,7 @@ public enum XcosFileType {
 		final FileFilter[] filters = new FileFilter[values().length];
 		
 		for (int i = 0; i < filters.length; i++) {
-			final XcosFileType type = values()[i];
+			final FileType type = values()[i];
 			filters[i] = new FileNameExtensionFilter(
 					type.getDescription(), 
 					type.getExtension());
@@ -211,10 +309,10 @@ public enum XcosFileType {
 	 * @return A valid file mask
 	 */
 	public static String[] getValidFileMask() {
-	    String[] result = new String[XcosFileType.values().length - 1];
+	    String[] result = new String[FileType.values().length - 1];
 	    
 	    for (int i = 0; i < result.length; i++) {
-		result[i] = XcosFileType.values()[i].getFileMask();
+		result[i] = FileType.values()[i].getFileMask();
 	    }
 	    
 	    return result;
@@ -225,10 +323,10 @@ public enum XcosFileType {
 	 * @return A valid file mask
 	 */
 	public static String[] getValidFileDescription() {
-	    String[] result = new String[XcosFileType.values().length - 1];
+	    String[] result = new String[FileType.values().length - 1];
 	    
 	    for (int i = 0; i < result.length; i++) {
-		result[i] = XcosFileType.values()[i].getDescription() + " (*." + XcosFileType.values()[i].getExtension() + ")";
+		result[i] = FileType.values()[i].getDescription() + " (*." + FileType.values()[i].getExtension() + ")";
 	    }
 	    
 	    return result;
@@ -239,7 +337,7 @@ public enum XcosFileType {
 	 * @param filename The file to execute in scilab.
 	 * @return The exported data in hdf5.
 	 */
-	public static File loadScicosDiagram(File filename) {
+	private static File loadScicosDiagram(File filename) {
 	    File tempOutput = null;
 	    try {
 		tempOutput = FileUtils.createTempFile();

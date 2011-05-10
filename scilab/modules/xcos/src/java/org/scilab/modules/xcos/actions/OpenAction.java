@@ -28,7 +28,7 @@ import org.scilab.modules.gui.filechooser.ScilabFileChooser;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.xcos.Xcos;
-import org.scilab.modules.xcos.utils.XcosFileType;
+import org.scilab.modules.xcos.utils.FileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -84,7 +84,7 @@ public final class OpenAction extends DefaultAction {
 	    
 	    /* Standard files */
 	    fc.setAcceptAllFileFilterUsed(true);
-	    final FileFilter[] filters = XcosFileType.getValidFilters();
+	    final FileFilter[] filters = FileType.getValidFilters();
 	    for (FileFilter fileFilter : filters) {
 	    	fc.addChoosableFileFilter(fileFilter);
 		}

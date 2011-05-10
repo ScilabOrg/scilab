@@ -124,8 +124,8 @@ public final class FileUtils {
 	 * @throws IOException when an error occurs
 	 */
 	public static File createTempFile() throws IOException {
-		return File.createTempFile(XcosFileType.XCOS.getExtension(),
-				XcosFileType.HDF5.getDottedExtension());
+		return File.createTempFile(FileType.XCOS.getExtension(),
+				FileType.HDF5.getDottedExtension());
 	}
 	
 	/**
