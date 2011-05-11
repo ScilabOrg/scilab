@@ -14,7 +14,7 @@
 #ifndef __TYPES_ADD_H__
 #define __TYPES_ADD_H__
 
-#include "operation.hxx"
+#include "dynlib_operations.hxx"
 #include "internal.hxx"
 #include "double.hxx"
 #include "string.hxx"
