@@ -1,5 +1,3 @@
-Test write
-
 ----------------
 Prerequirements:
 ----------------
