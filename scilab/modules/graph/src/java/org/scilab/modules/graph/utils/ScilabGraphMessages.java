@@ -19,6 +19,7 @@ import org.scilab.modules.localization.Messages;
  */
 public final class ScilabGraphMessages {
 
+	public static final String LAYOUT = Messages.gettext("Layout");
 	public static final String COPY = Messages.gettext("Copy");
 	public static final String CUT = Messages.gettext("Cut");
 	public static final String GROUP = Messages.gettext("Group");

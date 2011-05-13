@@ -14,7 +14,6 @@ package org.scilab.modules.xcos;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -24,18 +23,17 @@ import java.util.UUID;
 import javax.swing.JCheckBoxMenuItem;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
 import org.scilab.modules.graph.actions.DeleteAction;
 import org.scilab.modules.graph.actions.InvertSelectionAction;
+import org.scilab.modules.graph.actions.LayoutAction;
 import org.scilab.modules.graph.actions.PasteAction;
 import org.scilab.modules.graph.actions.RedoAction;
 import org.scilab.modules.graph.actions.SelectAllAction;
 import org.scilab.modules.graph.actions.UndoAction;
 import org.scilab.modules.graph.actions.ZoomInAction;
 import org.scilab.modules.graph.actions.ZoomOutAction;
-import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.event.ArrowKeyListener;
 import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
@@ -467,6 +465,8 @@ public class XcosTab extends SwingScilabTab implements Tab {
         final CheckBoxMenuItem gridMenu = ViewGridAction
                 .createCheckBoxMenu(diagram);
         format.add(gridMenu);
+
+        format.add(LayoutAction.createMenu(diagram));
 
         /** Tools menu */
         tools = ScilabMenu.createMenu();
