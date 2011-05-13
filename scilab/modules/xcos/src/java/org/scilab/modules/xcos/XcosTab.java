@@ -27,6 +27,7 @@ import org.scilab.modules.graph.actions.CopyAction;
 import org.scilab.modules.graph.actions.CutAction;
 import org.scilab.modules.graph.actions.DeleteAction;
 import org.scilab.modules.graph.actions.InvertSelectionAction;
+import org.scilab.modules.graph.actions.LayoutAction;
 import org.scilab.modules.graph.actions.PasteAction;
 import org.scilab.modules.graph.actions.RedoAction;
 import org.scilab.modules.graph.actions.SelectAllAction;
@@ -153,6 +154,7 @@ public class XcosTab extends ScilabTab {
 	private PushButton zoomOutAction;
 	private PushButton xcosDemonstrationAction;
 	private PushButton xcosDocumentationAction;
+	private PushButton xcosLayout;
 
 	/**
 	 * Default constructor
@@ -518,6 +520,9 @@ public class XcosTab extends ScilabTab {
 		xcosDocumentationAction = XcosDocumentationAction.createButton(diagram);
 		toolBar.add(xcosDocumentationAction);
 
+		xcosLayout = LayoutAction.createButton(diagram);
+		toolBar.add(xcosLayout);
+		
 		return toolBar;
 	}
 
