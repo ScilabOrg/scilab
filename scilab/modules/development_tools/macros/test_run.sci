@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL <pierre.marechal@inria.fr>
-// Copyright (C) 2009-2010 - DIGITEO - Michael Baudin
+// Copyright (C) 2009-2011 - DIGITEO - Michael Baudin
 // Copyright (C) 2011-2010 - DIGITEO - Antoine ELIAS
 //
 // This file must be used under the terms of the CeCILL.
@@ -131,7 +131,7 @@ function test_run(varargin)
     status.list                 = [];
 
     params.longtime             = %t;
-    params.wanted_mode          = "NW";
+    params.wanted_mode          = "";
     params.error_output         = "check";
     params.reference            = "check";
     params.testTypes            = "all_tests";
