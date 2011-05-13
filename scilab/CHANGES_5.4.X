@@ -4,6 +4,9 @@
 SciNotes:
 =========
 
+* bug 9334 fixed - Extra lines was added when code was exported into PDF under
+                   Windows.
+
 * bug 9480 fixed - Highlighted words after selection were wrong under Windows.
 
 
