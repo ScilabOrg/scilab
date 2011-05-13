@@ -20,17 +20,6 @@ New functions
   "numerically almost equal", i.e. that the relative error is small.
   This automatically fixes the bug #4381.
 
-Bug Fixes:
-==========
-
-* bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
-                   is supplied by the 2nd input argument.
-
-* bug 8608 - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
-             and optimized.
-
-* bug 8608 - dec2hex, hex2dec, dec2oct, oct2dec, code have been simplified and optimized.
-
 
 Removed functions (previously declared as obsolete):
 ====================================================
@@ -45,6 +34,16 @@ Performance:
 * SSE is now enabled by default under GNU/Linux with 32 bit CPU (it is already
   the case under 64 bit CPU). 
   Pentium III class (or equivalent) with SSE instructions is required.
-=======
+
+
+Bug Fixes:
+==========
+
+* bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
+                   is supplied by the 2nd input argument.
+
+* bug 8608 - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
+             and optimized.
+
 * bug 8608 - dec2hex, hex2dec, dec2oct, oct2dec, code have been simplified and optimized.
 
