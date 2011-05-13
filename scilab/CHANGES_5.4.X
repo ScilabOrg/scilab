@@ -6,6 +6,11 @@ SciNotes:
 
 * Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
 
+Xcos:
+=====
+
+* bug 9478 fixed - Block structure was not checked while adding them to a new
+                   palette.
 
 File input/output:
 ==================
