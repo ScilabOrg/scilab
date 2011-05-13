@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4d634fe0-ee6f-4bd9-8502-3daead6ef126}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{db29a78c-3037-4ace-b4c3-8dcdecc08715}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="localization">
+      <UniqueIdentifier>{a3edeb78-53b7-4c5d-b239-c88eef67fabf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies">
+      <UniqueIdentifier>{9b284d1f-d253-4c51-8762-a54e0c2d99bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies\Imports">
+      <UniqueIdentifier>{9ff2d00d-3d1e-43ad-a1ec-d4c6a11d9d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource File">
+      <UniqueIdentifier>{255a21a6-e313-4f75-9a9a-af8465a8d6f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllmainCacsd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_cacsd0.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_cacsd1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_cacsd2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_cacsd3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_slicot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_arl2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_contr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_ereduc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_freq.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_fstair.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_gschur.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_gspec.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_ldiv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_ltitr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_ppol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_rankqr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_residu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_rtitr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_tzer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\includes\dynlib_cacsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_cacsd0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_cacsd1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_cacsd2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_cacsd3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_slicot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sci_gateway\c\sci_contr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\sci_gateway\c\sci_rankqr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\locales\en_US\messages.pot">
+      <Filter>localization</Filter>
+    </None>
+    <None Include="cacsd_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="LibScilab_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="..\..\cacsd.iss" />
+    <None Include="..\..\sci_gateway\cacsd_gateway.xml" />
+    <None Include="..\..\Makefile.am" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cacsd.rc">
+      <Filter>Resource File</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\bin\blasplus.lib" />
+    <Library Include="..\..\..\..\bin\lapack.lib" />
+  </ItemGroup>
+</Project>

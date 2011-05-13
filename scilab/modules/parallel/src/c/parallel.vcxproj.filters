@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{e2b9f7fa-b61d-41ae-8f2b-15611778e3d4}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{6ba0e743-4c4b-4803-9481-4a8b77402c23}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="localization">
+      <UniqueIdentifier>{393fdd5c-f2ae-4bb0-8cfd-fc828992206c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Swig Files">
+      <UniqueIdentifier>{fb12dde7-2d84-4f75-a732-f4e9fbb3f236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies">
+      <UniqueIdentifier>{5c666eb7-0126-4c9f-9e58-271aedb79942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies\Imports">
+      <UniqueIdentifier>{09ee527b-078e-45a5-894c-8c0764b0ca69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{7b2ceaec-21a2-4981-8331-96ebba9ae942}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllmainParallel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="forkWindows.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\gw_parallel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_parallel_concurrency.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_parallel_run.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\includes\concurrency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\dynlib_parallel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="forkWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\gw_parallel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cpp\parallel_run.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="semWindows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LibScilab_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="..\..\Makefile.am" />
+    <None Include="..\..\parallel.iss" />
+    <None Include="..\..\sci_gateway\parallel_gateway.xml" />
+    <None Include="..\..\locales\parallel.pot">
+      <Filter>localization</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="parallel.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
