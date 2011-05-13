@@ -1362,7 +1362,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     public void highlightWords(String word, boolean exact) {
         removeHighlightedWords();
         if (word != null && word.length() != 0) {
-            String text = getText();
+            String text = ((ScilabDocument) getDocument()).getText();
             if (!exact) {
                 text = text.toLowerCase();
                 word = word.toLowerCase();
@@ -1390,7 +1390,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
         if (pattern != null) {
             removeHighlightedWords();
             int first = -1;
-            String text = getText();
+            String text = ((ScilabDocument) getDocument()).getText();
             Matcher matcher = pattern.matcher(text);
 
             Highlighter highlighter = getHighlighter();

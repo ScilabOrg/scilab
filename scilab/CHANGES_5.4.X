@@ -4,7 +4,7 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+* bug 9480 fixed - Highlighted words after selection were wrong under Windows.
 
 
 File input/output:
