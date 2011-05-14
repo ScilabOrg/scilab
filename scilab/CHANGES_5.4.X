@@ -1,6 +1,13 @@
             Changes between version 5.3.X and 5.4.0 of Scilab
             =================================================
 
+SciNotes:
+=========
+
+* bug 9476 fixed - In find/grep tools, use the abbreviation 'sec' instead of
+                   'seconds'.
+
+
 File input/output:
 ==================
 
