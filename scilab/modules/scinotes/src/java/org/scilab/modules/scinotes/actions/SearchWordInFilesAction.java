@@ -55,6 +55,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
 
+import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.filechooser.ScilabFileChooser;
 import org.scilab.modules.gui.bridge.filechooser.SwingScilabFileChooser;
 import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
@@ -165,7 +166,7 @@ public class SearchWordInFilesAction extends DefaultAction implements WindowFocu
         if (SearchFile.isDone(searcher)) {
             buttonStop.setEnabled(true);
             buttonFind.setEnabled(false);
-            String baseDir = (String) comboBaseDir.getEditor().getItem();
+            String baseDir = getBaseDir((String) comboBaseDir.getEditor().getItem());
             boolean recursive = checkRecursive.isSelected();
             boolean lineByLine = checkLineByLine.isSelected();
             String filePattern = (String) comboFilePattern.getEditor().getItem();
@@ -569,6 +570,7 @@ public class SearchWordInFilesAction extends DefaultAction implements WindowFocu
         String filePattern = (String) comboFilePattern.getEditor().getItem();
         boolean goodBaseDir = !baseDirModified;
         if (baseDirModified && !baseDir.isEmpty()) {
+            baseDir = getBaseDir(baseDir);
             File dir = new File(baseDir);
             if (dir.exists() && dir.isDirectory()) {
                 goodBaseDir = true;
@@ -581,6 +583,19 @@ public class SearchWordInFilesAction extends DefaultAction implements WindowFocu
             ((JTextField) comboBaseDir.getEditor().getEditorComponent()).setForeground(ERRORCOLOR);
             buttonFind.setEnabled(false);
         }
+    }
+
+    /**
+     * Replace ~ by user home
+     * @param baseDir the base directory
+     * @return correct base directory
+     */
+    private static String getBaseDir(String baseDir) {
+        baseDir = baseDir.trim();
+        if (baseDir != null && !baseDir.isEmpty() && (baseDir.startsWith("~" + File.separator) || (baseDir.length() == 1 && baseDir.charAt(0) == '~'))) {
+            return baseDir.replaceFirst("~", ScilabConstants.USERHOME);
+        }
+        return baseDir;
     }
 
     /**
