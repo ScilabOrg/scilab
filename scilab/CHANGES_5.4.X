@@ -75,3 +75,8 @@ Bug fixes:
 * bug 9277 fixed - escape character "\" did not work with msprintf.
 
 * bug 9479 fixed - Typo fixed (intput => input).
+
+* bug 9474 fixed - In help browser, <ALT>+<LEFT ARROW> did not display the
+                   previous page in history.
+
+* bug 9491 fixed - In help browser, the space key did not behave like page down.
