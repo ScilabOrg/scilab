@@ -4,7 +4,7 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+* Add an 'Save and Execute all files' action.
 
 
 File input/output:
