@@ -68,6 +68,8 @@ Bug fixes:
                    and optimized.
 * bug 8768 fixed - GetRhsVar(..., STRING_DATATYPE, ...) did not check size of input argument.
 
+* bug 9056 fixed - An uicontrol could not be closed with <META>+W.
+
 * bug 9156 fixed - mgetl.c compilation failed on some Windows.
 
 * bug 9164 fixed - The unit tests now use the new assert functions.
