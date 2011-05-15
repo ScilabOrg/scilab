@@ -62,6 +62,9 @@ Bug fixes:
 * bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
                    is supplied by the 2nd input argument.
 
+* bug 4847 fixed - In uigetfile, there was no way to select files with a given
+                   pattern.
+
 * bug 7061 fixed - changelog.txt, readme.txt, version.xml removed from modules.
 
 * bug 8608 fixed - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
