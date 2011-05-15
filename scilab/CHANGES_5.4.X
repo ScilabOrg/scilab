@@ -4,7 +4,8 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+Bug 9301 fixed - Exception when one tryed to paste a column to replace a
+                 column selection.
 
 
 File input/output:
