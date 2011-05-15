@@ -4,7 +4,7 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+* Bug 9488 fixed - There was no popup menu on the tab to copy the file path.
 
 
 File input/output:
