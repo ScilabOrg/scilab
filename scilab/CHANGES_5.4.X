@@ -4,7 +4,8 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+Bug 9484 fixed - An empty file was not removed when an existing file was
+                 opened.
 
 
 File input/output:
