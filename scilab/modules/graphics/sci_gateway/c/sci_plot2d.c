@@ -83,8 +83,8 @@ int sci_plot2d( char * fname, unsigned long fname_len )
   }
 
   if (GetType(1+iskip) != sci_matrix) {
-	  Scierror(999, _("%s: Wrong type for input argument #%d: Real or Complex matrix expected.\n"), fname, 1+iskip);
-    return 0;
+      OverLoad(1 + iskip);
+      return 0;
   }
 
   if (FirstOpt() == 2+iskip)       				/** plot2d([loglags,] y, <opt_args>); **/
