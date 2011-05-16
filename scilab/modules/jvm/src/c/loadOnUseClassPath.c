@@ -30,7 +30,7 @@
 #include "strdup_windows.h"
 #endif
 /*--------------------------------------------------------------------------*/ 
-BOOL loadOnUseClassPath(char *tag)
+BOOL loadOnUseClassPath(const char *tag)
 {
 	BOOL bOK = FALSE;
 	char *sciPath = getSCIpath();

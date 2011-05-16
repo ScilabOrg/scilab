@@ -28,6 +28,7 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "getScilabJavaVM.h"
 #include "scilabmode.h"
+#include <assert.h>
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
@@ -36,6 +37,8 @@ int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
 {
     CheckRhs(0, 0);
     CheckLhs(0, 1);
+
+    assert(strlen(fname) == (size_t) fname_len);
 
     // only if xcos was already opened and with supported mode
     if ((getScilabMode() != SCILAB_NWNI) && xcosStarted())

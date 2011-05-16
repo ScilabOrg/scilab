@@ -25,6 +25,7 @@ extern "C"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 #include "getScilabJavaVM.h"
+#include <assert.h>
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
@@ -35,6 +36,8 @@ sci_xcosDiagramToHDF5(char *fname, unsigned long fname_len)
     CheckRhs(3, 3);
     CheckLhs(0, 1);
 
+    assert(strlen(fname) == (size_t) fname_len);
+
     SciErr sciErr;
 
     int iRows1 = 0;
@@ -42,8 +45,6 @@ sci_xcosDiagramToHDF5(char *fname, unsigned long fname_len)
     int iLen1 = 0;
     int* piAddr1 = NULL;
     char* pstXcosFile = NULL;
-
-    int iVarType2 = 0;
 
     int iRows2 = 0;
     int iCols2 = 0;

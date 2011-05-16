@@ -23,12 +23,15 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "getFullFilename.h"
 #include "loadOnUseClassPath.h"
+#include <assert.h>
 }
 /*--------------------------------------------------------------------------*/
 int sci_Xcos(char *fname,unsigned long fname_len)
 {
 	CheckRhs(0,1);
 	CheckLhs(0,1);
+
+	assert(strlen(fname) == (size_t) fname_len);
 
 	if (Rhs == 0)
 	{

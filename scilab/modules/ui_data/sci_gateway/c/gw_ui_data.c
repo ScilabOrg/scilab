@@ -20,8 +20,6 @@
 #include "BOOL.h"
 #include "loadOnUseClassPath.h"
 /*--------------------------------------------------------------------------*/
-static BOOL loadedDep = FALSE;
-/*--------------------------------------------------------------------------*/
 static gw_generic_table Tab[]=
 {
     {sci_editvar, "editvar"},
