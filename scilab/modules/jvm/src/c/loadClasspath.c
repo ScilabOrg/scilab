@@ -47,7 +47,7 @@ void freeClassPathxmlDocPtr(void)
 	}
 }
 /*--------------------------------------------------------------------------*/ 
-BOOL LoadClasspath(char *xmlfilename)
+BOOL LoadClasspath(const char *xmlfilename)
 {
 	BOOL bOK = FALSE;
 	BOOL errorOnLoad = FALSE;

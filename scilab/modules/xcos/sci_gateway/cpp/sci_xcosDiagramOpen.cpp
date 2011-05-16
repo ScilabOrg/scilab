@@ -23,6 +23,7 @@ extern "C"
 #include "freeArrayOfString.h"
 #include "getFullFilename.h"
 #include "getScilabJavaVM.h"
+#include "assert.h"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
@@ -33,6 +34,8 @@ int sci_xcosDiagramOpen(char *fname,unsigned long fname_len)
 
 	CheckRhs(1,2);
 	CheckLhs(0,1);
+
+	assert(strlen(fname) == (size_t) fname_len);
 
 	int m1 = 0, n1 = 0;
 	int *piAddressVarOne = NULL;

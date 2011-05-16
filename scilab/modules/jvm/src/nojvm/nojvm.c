@@ -23,6 +23,8 @@
 #include "loadBackGroundClassPath.h"
 #include "loadOnUseClassPath.h"
 #include "localization.h"
+#include "assert.h"
+#include "string.h"
 /*--------------------------------------------------------------------------*/ 
 #ifdef _MSC_VER
 JVM_IMPEXP JavaVM *getScilabJavaVM(void)
@@ -62,8 +64,9 @@ BOOL loadBackGroundClassPath(void)
     return FALSE;
 }
 /*--------------------------------------------------------------------------*/
-BOOL loadOnUseClassPath(char *tag)
+BOOL loadOnUseClassPath(const char *tag)
 {
+	assert(strlen(tag) != 0);
     return FALSE;
 }
 /*--------------------------------------------------------------------------*/

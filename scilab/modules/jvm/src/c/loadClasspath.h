@@ -24,7 +24,7 @@
 * @param a filename SCI/etc/classpath.xml
 * @return TRUE or FALSE
 */
-BOOL LoadClasspath(char *xmlfilename);
+BOOL LoadClasspath(const char *xmlfilename);
 
 
 /**

@@ -22,7 +22,7 @@
 * @param a new path to add
 * @return TRUE or FALSE
 */
-JVM_IMPEXP BOOL loadOnUseClassPath(char *tag);
+JVM_IMPEXP BOOL loadOnUseClassPath(const char *tag);
 
 #endif /* __LOADONUSECLASSPATH_H__ */
 /*--------------------------------------------------------------------------*/ 

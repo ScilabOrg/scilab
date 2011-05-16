@@ -24,6 +24,7 @@ extern "C"
 #include "Scierror.h"
 #include "MALLOC.h"
 #include "getScilabJavaVM.h"
+#include "assert.h"
 }
 
 using namespace org_scilab_modules_xcos_palette;
@@ -33,6 +34,8 @@ sci_xcosPalDisable(char *fname, unsigned long fname_len)
 {
     CheckRhs(1, 1);
     CheckLhs(0, 1);
+
+    assert(strlen(fname) == (size_t) fname_len);
 
     char** name = NULL;
     int nameLength = 0;
