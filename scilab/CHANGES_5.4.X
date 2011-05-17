@@ -91,3 +91,5 @@ Bug fixes:
 * bug 9277 fixed - escape character "\" did not work with msprintf.
 
 * bug 9479 fixed - Typo fixed (intput => input).
+
+* bug 9498 fixed - A long history caused Scilab startup to be very long.

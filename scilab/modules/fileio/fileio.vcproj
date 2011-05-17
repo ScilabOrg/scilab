@@ -903,7 +903,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\c\mgetl.h"
+				RelativePath=".\includes\mgetl.h"
 				>
 			</File>
 			<File
