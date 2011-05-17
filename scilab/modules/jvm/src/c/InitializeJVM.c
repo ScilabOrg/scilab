@@ -23,6 +23,7 @@
 #include "createMainScilabObject.h"
 #include "scilabDefaults.h"
 #include "localization.h"
+#include "fromjava.h"
 /*--------------------------------------------------------------------------*/ 
 static void DoLoadClasspathInEtc(char *sciPath);
 static void DoLoadLibrarypathInEtc(char *sciPath);
@@ -49,11 +50,20 @@ BOOL InitializeJVM(void)
 
 		if (!createMainScilabObject())
 		{
+            char *errorMsg = gettext("\nScilab cannot create Scilab Java Main-Class (we have not been able to find the main Scilab class. Check if the Scilab and thirdparty packages are available).\n");
+            if (IsFromJava()) {
+                char *errorMsg2 = gettext("If Scilab is used from Java, make sure that your IDE (ex: Netbeans, etc) is not adding extra dependencies which could not be found at runtime.\n");
+                char * tempMsg = (char*)malloc(sizeof(char)*(strlen(errorMsg)+strlen(errorMsg2)+1));
+                strcpy(tempMsg, errorMsg);
+                strcpy(tempMsg+strlen(errorMsg), errorMsg2);
+                errorMsg=tempMsg;
+            }
 #ifdef _MSC_VER
-			MessageBox(NULL,gettext("\nScilab cannot create Scilab Java Main-Class (we have not been able to find the main Scilab class. Check if the Scilab and thirdparty packages are available).\n"),gettext("Error"),MB_ICONEXCLAMATION|MB_OK);
+			MessageBox(NULL,errorMsg,gettext("Error"),MB_ICONEXCLAMATION|MB_OK);
 #else
-			fprintf(stderr,_("\nScilab cannot create Scilab Java Main-Class (we have not been able to find the main Scilab class. Check if the Scilab and thirdparty packages are available).\n"));
+			fprintf(stderr,errorMsg);
 #endif
+            free(errorMsg);
 		}
 		else
 			{
