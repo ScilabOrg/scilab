@@ -1,6 +1,12 @@
             Changes between version 5.3.X and 5.4.0 of Scilab
             =================================================
 
+Xcos:
+=====
+
+* bug 8421 fixed - CLKFROM and CLKGOTO was not part of the "Signal Routing"
+                   palette.
+
 SciNotes:
 =========
 
