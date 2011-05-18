@@ -4,7 +4,7 @@
 SciNotes:
 =========
 
-* Add tools 'Find Files' (ctrl+shift+B) and 'Find word in Files' (ctrl+shift+F).
+* bug 9505 fixed - 
 
 
 File input/output:
