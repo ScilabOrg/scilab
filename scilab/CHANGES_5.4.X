@@ -7,6 +7,8 @@ Xcos:
 * bug 8421 fixed - CLKFROM and CLKGOTO was not part of the "Signal Routing"
                    palette.
 
+* bug 8538 fixed - Counter block label was not reflecting parameters
+
 SciNotes:
 =========
 
