@@ -18,6 +18,8 @@ Xcos:
 * bug 9478 fixed - Block structure was not checked while adding them to a new
                    palette.
 
+* A remote test.
+
 File input/output:
 ==================
 
