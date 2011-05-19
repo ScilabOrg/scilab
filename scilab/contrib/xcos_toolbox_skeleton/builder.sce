@@ -21,7 +21,7 @@ function main_builder()
     error(gettext("Scilab 5.3.2 or more is required."));
   end
 
-  if or(v < [5 3 2 0]) then
+  if ~exists("xcosPal") then
     // new API in scilab 5.3.2
     error(gettext('Scilab 5.3.2 or more is required.'));
   end
