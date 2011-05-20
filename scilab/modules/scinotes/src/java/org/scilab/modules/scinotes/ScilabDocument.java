@@ -680,7 +680,7 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
         // Java, by default, highlights the chinese chars when entered on keyboard
         super.insertUpdate(chng, null);
     }
-
+    static int toto=0;
     /**
      * @param ev the DocumentEvent to handle
      */
@@ -702,6 +702,7 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
                     }
                 }
                 for (int i = 0; i < added.length; i++) {
+                    ((ScilabLeafElement) added[i]).resetType();
                     ((ScilabLeafElement) added[i]).resetTypeWhenBroken();
                     String name = ((ScilabLeafElement) added[i]).getFunctionName();
                     if (name.length() != 0) {
