@@ -52,7 +52,7 @@ public class ScilabTransformerFactory {
     public static TransformerFactory newInstance() {
         String factory = useDefaultTransformerFactoryImpl();
         TransformerFactory tf = TransformerFactory.newInstance();
-        restoreTransformerFactoryImpl(factory);
+	restoreTransformerFactoryImpl(factory);
 
         return tf;
     }
