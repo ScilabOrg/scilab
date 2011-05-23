@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2011-05-10 11:48+0100\n"
+"Revision-Date: 2011-05-23 14:49+0100\n"
 
 # File: src/c/msgs.c, line: 922
 #, c-format
@@ -253,34 +253,14 @@ msgid ""
 "   previous order computed solution returned.\n"
 msgstr ""
 #
-# File: macros/prettyprint.sci, line: 594
-#, c-format
-msgid "%s: Type %s is not handled : Define the function %s2%s."
-msgstr ""
-#
-# File: macros/prettyprint.sci, line: 126
-#, c-format
-msgid "%s: Wrong export format: %s"
-msgstr ""
-#
 # File: src/c/errmsg.c, line: 938
 #, c-format
 msgid "%s: Wrong input parameters.\n"
 msgstr ""
 #
-# File: macros/prettyprint.sci, line: 74
-#, c-format
-msgid "%s: Wrong number of input argument(s): %d to %d expected."
-msgstr ""
-#
 # File: src/c/errmsg.c, line: 573
 #, c-format
 msgid "%s: Wrong number of input arguments.\n"
-msgstr ""
-#
-# File: macros/prettyprint.sci, line: 121
-#, c-format
-msgid "%s: Wrong number of input arguments: %d to %d expected"
 msgstr ""
 #
 # File: sci_gateway/c/sci_msprintf.c, line: 153
@@ -334,13 +314,6 @@ msgstr ""
 # File: sci_gateway/cpp/sci_diary.cpp, line: 949
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A vector expected.\n"
-msgstr ""
-#
-# File: macros/prettyprint.sci, line: 104
-# File: macros/prettyprint.sci, line: 115
-# File: macros/prettyprint.sci, line: 118
-#, c-format
-msgid "%s: Wrong type for argument #%d: Boolean expected.\n"
 msgstr ""
 #
 # File: src/c/errmsg.c, line: 1129
@@ -434,14 +407,6 @@ msgstr ""
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr ""
 #
-# File: macros/prettyprint.sci, line: 82
-# File: macros/prettyprint.sci, line: 89
-# File: macros/prettyprint.sci, line: 98
-# File: macros/prettyprint.sci, line: 109
-#, c-format
-msgid "%s: Wrong type for input argument #%d: String expected.\n"
-msgstr ""
-#
 # File: sci_gateway/cpp/sci_diary.cpp, line: 348
 # File: sci_gateway/cpp/sci_diary.cpp, line: 495
 # File: sci_gateway/cpp/sci_diary.cpp, line: 501
@@ -449,15 +414,6 @@ msgstr ""
 # File: sci_gateway/cpp/sci_diary.cpp, line: 619
 #, c-format
 msgid "%s: Wrong value for input argument #%d.\n"
-msgstr ""
-#
-# File: macros/prettyprint.sci, line: 92
-# File: macros/prettyprint.sci, line: 101
-# File: macros/prettyprint.sci, line: 112
-#, c-format
-msgid ""
-"%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', ''%s'', "
-"''%s'' or ''%s'' expected.\n"
 msgstr ""
 #
 # File: sci_gateway/cpp/sci_diary.cpp, line: 228
@@ -605,14 +561,6 @@ msgstr ""
 # File: src/c/errmsg.c, line: 1449
 #, c-format
 msgid "%s: sum(m) must be less than 40.\n"
-msgstr ""
-#
-# File: macros/ssprint.sci, line: 91
-# File: macros/ssprint.sci, line: 94
-# File: macros/ssprint.sci, line: 152
-# File: macros/ssprint.sci, line: 155
-#, c-format
-msgid "%s: system cannot be displayed in this page.\n"
 msgstr ""
 #
 # File: src/c/msgs.c, line: 1170
