@@ -1,6 +1,15 @@
             Changes between version 5.3.X and 5.4.0 of Scilab
             =================================================
 
+
+Localization:
+=============
+
+* In order to avoid translation errors which were breaking Scilab code, 
+a separation between the localization of the Scilab code and the C, C++ and Java
+code has been introduced.
+
+
 SciNotes:
 =========
 
