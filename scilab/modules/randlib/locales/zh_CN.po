@@ -6,11 +6,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scilab\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2007-11-26 18:05+0100\n"
+"Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
+"POT-Creation-Date: 2011-03-09 11:38+0100\n"
 "PO-Revision-Date: 2011-04-04 22:09+0100\n"
 "Last-Translator: Shiqi Yu <shiqi.yu@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -153,6 +154,10 @@ msgstr "%s：第一个输入参数的类型错误：应该为一个标量。\n"
 msgid "%s: Wrong type for fourth input argument: Scalar expected.\n"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "%s: Wrong type for input argument. Low < High expected.\n"
+msgstr "%s：输入参数的类型错误：应该为标量。\n"
+
 #, c-format
 msgid "%s: Wrong type for input argument: Column vector expected.\n"
 msgstr ""
@@ -219,8 +224,7 @@ msgid "%s: Wrong value for second input argument: Must be > %d.\n"
 msgstr "%s：第二个输入参数的值错误：必须大于>%d。\n"
 
 #, c-format
-msgid ""
-"%s: Wrong value for second input argument: Must be between %d and %d.\n"
+msgid "%s: Wrong value for second input argument: Must be between %d and %d.\n"
 msgstr "%s：第二个输入参数值错误：必须介于%d到%d之间。\n"
 
 #, c-format
@@ -252,9 +256,6 @@ msgid "DF < 1.0 or DF <= 0.0 or Xnonc < 0.0\n"
 msgstr ""
 
 msgid "Degrees of freedom nonpositive\n"
-msgstr ""
-
-msgid "Low > High\n"
 msgstr ""
 
 msgid "Missing A and B for beta law\n"
@@ -338,9 +339,6 @@ msgid "Rand(...,'bet',..): A or B < %f\n"
 msgstr ""
 
 msgid "Rand: DF <= 0\n"
-msgstr ""
-
-msgid "Random"
 msgstr ""
 
 msgid "SD < 0.0\n"
