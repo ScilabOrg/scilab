@@ -14,7 +14,11 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
     </Filter>
     <Filter Include="Libraries Dependencies">
+<<<<<<< HEAD
       <UniqueIdentifier>{2c22b92e-5b27-4912-8680-6ea29684c31b}</UniqueIdentifier>
+=======
+      <UniqueIdentifier>{571beffb-9176-443c-9f97-db775581d89d}</UniqueIdentifier>
+>>>>>>> ffa30c4... YaSp VS 2010
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +52,9 @@
     <Library Include="..\..\..\..\bin\LibScilab.lib">
       <Filter>Libraries Dependencies</Filter>
     </Library>
+<<<<<<< HEAD
     <Library Include="..\..\..\..\bin\elementary_functions_f.lib" />
+=======
+>>>>>>> ffa30c4... YaSp VS 2010
   </ItemGroup>
 </Project>

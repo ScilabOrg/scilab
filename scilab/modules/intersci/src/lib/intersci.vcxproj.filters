@@ -14,6 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="localization">
+<<<<<<< HEAD
       <UniqueIdentifier>{ce5e7a01-8a27-401b-92fc-d8ddd3994953}</UniqueIdentifier>
     </Filter>
     <Filter Include="Libraries Dependencies">
@@ -21,6 +22,15 @@
     </Filter>
     <Filter Include="Libraries Dependencies\Imports">
       <UniqueIdentifier>{cbc290b0-bbe2-4f59-b4dc-c72fbea0052e}</UniqueIdentifier>
+=======
+      <UniqueIdentifier>{16104ac4-9910-457a-bd43-f47876214c50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies">
+      <UniqueIdentifier>{7025e65f-3c83-4dd7-9460-aea44fd70bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries Dependencies\Imports">
+      <UniqueIdentifier>{4599ee07-7f85-465f-ae1a-9c6e33a7ef74}</UniqueIdentifier>
+>>>>>>> ffa30c4... YaSp VS 2010
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,9 +55,12 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="..\..\locales\en_US\intersci.pot">
       <Filter>localization</Filter>
     </None>
+=======
+>>>>>>> ffa30c4... YaSp VS 2010
     <None Include="intersci_header.def">
       <Filter>Libraries Dependencies</Filter>
     </None>
@@ -55,5 +68,11 @@
       <Filter>Libraries Dependencies\Imports</Filter>
     </None>
     <None Include="..\..\intersci.iss" />
+<<<<<<< HEAD
+=======
+    <None Include="..\..\locales\intersci.pot">
+      <Filter>localization</Filter>
+    </None>
+>>>>>>> ffa30c4... YaSp VS 2010
   </ItemGroup>
 </Project>

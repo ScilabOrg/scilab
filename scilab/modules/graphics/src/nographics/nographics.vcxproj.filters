@@ -14,7 +14,11 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Libraries Dependencies">
+<<<<<<< HEAD
       <UniqueIdentifier>{e50a8dc5-8dac-427f-8564-ae3e43ed665b}</UniqueIdentifier>
+=======
+      <UniqueIdentifier>{df33f70e-a796-4ae7-a3a4-13826af64a1e}</UniqueIdentifier>
+>>>>>>> ffa30c4... YaSp VS 2010
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,7 +31,10 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Library Include="..\..\..\..\bin\LibScilab.lib" />
   </ItemGroup>
+=======
+>>>>>>> ffa30c4... YaSp VS 2010
 </Project>
