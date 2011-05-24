@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA - 2007-2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009-2011 - Sylvestre Ledru
@@ -24,12 +24,12 @@ if test $# -ne 1; then
     echo "Syntax : $0 <module>"
     echo "If <module> is equal to 'process_all', it will parse all Scilab module"
     echo "per module"
-    exit -1
+    exit 42
 fi
 
 if test -z "$SCI"; then
     echo "Please define the variable SCI" 
-    exit -1
+    exit 42
 fi
 
 MODULES=$1
@@ -162,6 +162,10 @@ function process_module {
     fi
     cat $LOCALIZATION_FILE_US.tmp >> $LOCALIZATION_FILE_US
     rm $LOCALIZATION_FILE_US.tmp 2> /dev/null
+    if test -z "$(msgcat $LOCALIZATION_FILE_US)"; then
+        # empty template. Kill it!
+        rm $LOCALIZATION_FILE_US
+    fi
 
     # Remove fake file used to extract string from XML
     rm $FAKE_C_FILE 2> /dev/null
