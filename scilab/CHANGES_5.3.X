@@ -208,6 +208,8 @@ Graphics:
 
 * Bug 9428 fixed - A Java exception was displayed in some cases when using event handlers.
 
+* Bug 9527 fixed - Problem when a text was exported in SVG from the gui.
+
 
 Localization:
 =============
