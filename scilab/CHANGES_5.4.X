@@ -131,3 +131,5 @@ Bug fixes:
 
 * bug 9510 fixed - export_to_hdf5 did not return %f when trying to export
                    unmanaged type (function, macro, ...)
+
+* bug 9527 fixed - Problem when text was exported in SVG in using the gui.
