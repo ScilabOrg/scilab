@@ -71,6 +71,9 @@ Optimization:
   will be maintained for backward compatibility until 5.4.1.
   See the help page of neldermead for details to update your 
   code, if required.
+
+* bug 8805 fixed - The neldermead function, algorithm box, wrongly used 
+  the output function.
   
 Xcos:
 =====
