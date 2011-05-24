@@ -53,6 +53,9 @@ Xcos:
 
 * bug 9506 fixed - some libraries dependencies were not loaded for xcos_skeleton startup.
 
+Optimization:
+=============
+* neldermead: Added a demo - search for largest smallest polygon.
 
 Documentation:
 ==============
