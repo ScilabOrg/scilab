@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2011-05-23 14:49+0100\n"
+"Revision-Date: 2011-05-24 18:05+0100\n"
 
 # File: src/c/JVM.c, line: 119
 #, c-format
@@ -166,9 +166,9 @@ msgid ""
 "found.\n"
 msgstr ""
 #
-# File: src/c/loadLibrarypath.c, line: 61
 # File: src/c/loadOnUseClassPath.c, line: 63
 # File: src/c/loadClasspath.c, line: 89
+# File: src/c/loadLibrarypath.c, line: 61
 #, c-format
 msgid "Error: could not parse file %s\n"
 msgstr ""
@@ -265,9 +265,9 @@ msgstr ""
 msgid "Warning: could not find classpath declaration file %s.\n"
 msgstr ""
 #
-# File: src/c/loadLibrarypath.c, line: 124
 # File: src/c/loadOnUseClassPath.c, line: 112
 # File: src/c/loadClasspath.c, line: 177
+# File: src/c/loadLibrarypath.c, line: 124
 #, c-format
 msgid "Wrong format for %s.\n"
 msgstr ""

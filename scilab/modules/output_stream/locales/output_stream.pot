@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2011-05-23 14:49+0100\n"
+"Revision-Date: 2011-05-24 18:05+0100\n"
 
 # File: src/c/msgs.c, line: 922
 #, c-format
@@ -179,6 +179,9 @@ msgstr ""
 msgid "%s: Loop on two orders detected.\n"
 msgstr ""
 #
+# File: sci_gateway/c/sci_msprintf.c, line: 107
+# File: sci_gateway/c/sci_msprintf.c, line: 113
+# File: sci_gateway/c/sci_msprintf.c, line: 126
 # File: sci_gateway/cpp/sci_diary.cpp, line: 135
 # File: sci_gateway/cpp/sci_diary.cpp, line: 179
 # File: sci_gateway/cpp/sci_diary.cpp, line: 625
@@ -191,9 +194,6 @@ msgstr ""
 # File: sci_gateway/cpp/sci_diary.cpp, line: 926
 # File: sci_gateway/cpp/sci_diary.cpp, line: 1186
 # File: sci_gateway/cpp/sci_diary.cpp, line: 1229
-# File: sci_gateway/c/sci_msprintf.c, line: 107
-# File: sci_gateway/c/sci_msprintf.c, line: 113
-# File: sci_gateway/c/sci_msprintf.c, line: 126
 #, c-format
 msgid "%s: Memory allocation error.\n"
 msgstr ""
@@ -263,8 +263,8 @@ msgstr ""
 msgid "%s: Wrong number of input arguments.\n"
 msgstr ""
 #
-# File: sci_gateway/c/sci_msprintf.c, line: 153
 # File: sci_gateway/c/sci_mprintf.c, line: 60
+# File: sci_gateway/c/sci_msprintf.c, line: 153
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
 msgstr ""
@@ -301,10 +301,10 @@ msgstr ""
 msgid "%s: Wrong size for input argument #%d.\n"
 msgstr ""
 #
+# File: sci_gateway/c/sci_msprintf.c, line: 101
 # File: sci_gateway/cpp/sci_diary.cpp, line: 829
 # File: sci_gateway/cpp/sci_diary.cpp, line: 1327
 # File: sci_gateway/cpp/sci_diary.cpp, line: 1395
-# File: sci_gateway/c/sci_msprintf.c, line: 101
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A string expected.\n"
 msgstr ""
