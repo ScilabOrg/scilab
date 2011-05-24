@@ -1250,6 +1250,8 @@ function this = neldermead_box ( this )
         this = neldermead_log (this,str(i));
       end
     end
+    this.optbase = optimbase_set ( this.optbase , "-xopt" , xlow );
+    this.optbase = optimbase_set ( this.optbase , "-fopt" , flow );
     neldermead_outputcmd ( this, "iter" , simplex , step )
 
     //
