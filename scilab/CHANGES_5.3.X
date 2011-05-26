@@ -130,6 +130,7 @@ Xcos:
 
 * Bug 9386 fixed - Diagram root cell could be invalid on hierarchical diagrams.
 
+* Bug 9547 fixed - The about box was not localized due to a multi-line string.
 
 Packaging:
 ==========
