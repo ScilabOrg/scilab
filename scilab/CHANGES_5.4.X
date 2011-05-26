@@ -7,6 +7,9 @@ SciNotes:
 * In the find/grep tools, add the possibility to use ~ as a joker for user home
   dir. and SCI for Scilab data base dir.
 
+* Bug 9358 fixed - A simple quoted string was not always correctly convert
+                   into double quoted one.
+
 * bug 9476 fixed - In find/grep tools, use the abbreviation 'sec' instead of
                    'seconds'.
 
