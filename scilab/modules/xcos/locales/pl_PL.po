@@ -294,6 +294,7 @@ msgstr "Rodzaj czcionki"
 msgid "Format"
 msgstr "Format"
 
+#, c-format
 msgid "From %s"
 msgstr "Od %s"
 
@@ -312,6 +313,7 @@ msgstr "Pobierz informacje"
 msgid "Global"
 msgstr "Globalny"
 
+#, c-format
 msgid "Goto %s"
 msgstr "Idź do %s"
 
@@ -644,6 +646,7 @@ msgstr "Ustawiwnia tekstu"
 msgid "The Scilab Consortium (DIGITEO)"
 msgstr "Konsorcjum Scilab (DIGITEO)"
 
+#, c-format
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -679,23 +682,28 @@ msgstr "Góra"
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 23
+#, c-format
 msgid "Unable to decode \"%s\" : invalid data."
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 24
+#, c-format
 msgid "Unable to decode \"%s.%s\" : invalid field."
 msgstr ""
 
 msgid "Unable to delete "
 msgstr "Nie jest w stanie usunąć "
 
+#, c-format
 msgid "Unable to import %s .\n"
 msgstr "Nie jest w stanie importować %s .\n"
 
+#, c-format
 msgid "Unable to load block from %s ."
 msgstr "Nie jest w stanie załadować blok z %s ."
 
+#, c-format
 msgid ""
 "Unable to load the Batik library. \n"
 "Expecting version %s ; Getting version %s ."
@@ -703,6 +711,7 @@ msgstr ""
 "Nie jest w stanie załadować bibliotekę Batik. \n"
 "Oczekiwana wersja %s ; Otrzymana wersja %s ."
 
+#, c-format
 msgid ""
 "Unable to load the hdf5-java (jhdf5) library. \n"
 "Expecting version %s ; Getting version %s ."
@@ -710,6 +719,7 @@ msgstr ""
 "Nie udało się załadować bibliotekę hdf5-java (jhdf5). \n"
 "Wersja oczekiwana: %s ; Wersja odczytana %s ."
 
+#, c-format
 msgid ""
 "Unable to load the jgraphx library.\n"
 "Expecting version %s ; Getting version %s ."
@@ -771,10 +781,12 @@ msgstr "WygraćTytuł"
 msgid "Window title"
 msgstr "Tytuł okna"
 
+#, c-format
 msgid ""
 "Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
 msgstr ""
 
+#, c-format
 msgid "Wrong input argument \"%s\": invalid tree path.\n"
 msgstr ""
 "Niepoprawny parametr wejściowy \"%s\": niedopuszczalna ścieżka drzewa.\n"
@@ -799,16 +811,10 @@ msgstr "Błąd Xcos"
 msgid "Xcos file"
 msgstr "Plik Xcos"
 
-msgid ""
-"You may enter here scilab instructions to define symbolic parameters used in "
-"block definitions using Scilab instructions.<br/>These instructions are "
-"evaluated once confirmed.(i.e. you click on OK, by Eval and every time "
-"diagram is loaded.)"
+#
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 153
+msgid "You may enter here scilab instructions to define "
 msgstr ""
-"Możesz tutaj wprowadzić instrukcje scilab aby zdefiniować parametry "
-"symboliczne użyte w definicjach bloków użytych w instrukcjach Scilab.<br/> "
-"Te instrukcje po potwierdzeniu są poddane ocenie.(np. po każdym kliknięciu "
-"OK, do każdej oceny, w przypadku, gdy schemat jest załadowany.)"
 
 msgid "Zero crossing detection"
 msgstr "Wykrywanie przekroczenia zera"
@@ -861,3 +867,14 @@ msgstr ""
 
 msgid "weight"
 msgstr "waga"
+
+#~ msgid ""
+#~ "You may enter here scilab instructions to define symbolic parameters used "
+#~ "in block definitions using Scilab instructions.<br/>These instructions "
+#~ "are evaluated once confirmed.(i.e. you click on OK, by Eval and every "
+#~ "time diagram is loaded.)"
+#~ msgstr ""
+#~ "Możesz tutaj wprowadzić instrukcje scilab aby zdefiniować parametry "
+#~ "symboliczne użyte w definicjach bloków użytych w instrukcjach Scilab.<br/"
+#~ "> Te instrukcje po potwierdzeniu są poddane ocenie.(np. po każdym "
+#~ "kliknięciu OK, do każdej oceny, w przypadku, gdy schemat jest załadowany.)"

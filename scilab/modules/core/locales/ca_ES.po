@@ -508,6 +508,12 @@ msgstr ""
 "%s: L'argument d'entrada #%d és d'un tipus incorrecte. Ha de ser una cadena "
 "de text o un escalar.\n"
 
+#
+# File: sci_gateway/c/sci_errclear.c, line: 71
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Compiled macro expected.\n"
 msgstr ""
@@ -614,6 +620,12 @@ msgstr ""
 msgid "%s: Wrong value for input argument #%d: A int expected.\n"
 msgstr ""
 "%s: L'argument d'entrada #%d té un valor incorrecte. Ha de ser un enter.\n"
+
+#
+# File: sci_gateway/c/sci_errclear.c, line: 56
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: An integer expected.\n"
@@ -752,6 +764,11 @@ msgstr "&Barres d'eines"
 msgid "A non square matrix!\n"
 msgstr "La matriu no és quadrada!\n"
 
+#
+# File: src/c/callinterf.c, line: 121
+msgid "Aborting current computation\n"
+msgstr ""
+
 msgid "Cannot find Windows temporary directory (1)."
 msgstr "No s'ha trobat el directori temporal de Windows (1)."
 
@@ -769,6 +786,11 @@ msgid "Copyright (c) 1989-2007 (ENPC)\n"
 msgstr "Copyright (c) 1989-2007 (ENPC)\n"
 
 #
+# File: src/c/banier.c, line: 37
+msgid "Copyright (c) 1989-2011 (INRIA)\n"
+msgstr ""
+
+#
 # File: src/c/signal_mgmt.c, line: 117
 #, c-format
 msgid ""
@@ -781,6 +803,13 @@ msgstr "Error"
 
 msgid "Error returning tlist, memory full.\n"
 msgstr "Error en retornar el tlist, la memòria està plena.\n"
+
+#
+# File: includes/stack-c.h, line: 195
+msgid ""
+"Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
+"SciError(x).\n"
+msgstr ""
 
 #, c-format
 msgid "Error: Could not create %s: %s\n"
@@ -977,6 +1006,12 @@ msgstr "AVÍS: %s\n"
 
 msgid "Warning"
 msgstr "Avís"
+
+#
+# File: src/c/getmodules.c, line: 132
+#, c-format
+msgid "Warning: Could not find %s\n"
+msgstr ""
 
 #, c-format
 msgid "Warning: Problems with %s.\n"

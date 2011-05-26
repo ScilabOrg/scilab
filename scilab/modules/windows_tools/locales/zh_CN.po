@@ -41,6 +41,14 @@ msgstr "%s: 内存不足。\n"
 msgid "%s: Wrong size for input argument #%d: A string expected.\n"
 msgstr "%s：输入参数#%d的大小错误：应该为字符串。\n"
 
+#
+# File: sci_gateway/c/sci_winqueryreg.c, line: 59
+# File: sci_gateway/c/sci_winqueryreg.c, line: 85
+# File: sci_gateway/c/sci_winqueryreg.c, line: 104
+#, c-format
+msgid "%s: Wrong size for input argument #%d: String expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr "%s：输入参数#%d的类型错误：应该为一个字符串。\n"

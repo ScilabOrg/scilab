@@ -278,6 +278,7 @@ msgstr ""
 msgid "Format"
 msgstr "格式"
 
+#, c-format
 msgid "From %s"
 msgstr ""
 
@@ -296,6 +297,7 @@ msgstr "获取信息"
 msgid "Global"
 msgstr ""
 
+#, c-format
 msgid "Goto %s"
 msgstr ""
 
@@ -620,6 +622,7 @@ msgstr ""
 msgid "The Scilab Consortium (DIGITEO)"
 msgstr ""
 
+#, c-format
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -651,33 +654,40 @@ msgstr "顶对齐"
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 23
+#, c-format
 msgid "Unable to decode \"%s\" : invalid data."
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 24
+#, c-format
 msgid "Unable to decode \"%s.%s\" : invalid field."
 msgstr ""
 
 msgid "Unable to delete "
 msgstr ""
 
+#, c-format
 msgid "Unable to import %s .\n"
 msgstr ""
 
+#, c-format
 msgid "Unable to load block from %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the Batik library. \n"
 "Expecting version %s ; Getting version %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the hdf5-java (jhdf5) library. \n"
 "Expecting version %s ; Getting version %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the jgraphx library.\n"
 "Expecting version %s ; Getting version %s ."
@@ -737,10 +747,12 @@ msgstr ""
 msgid "Window title"
 msgstr ""
 
+#, c-format
 msgid ""
 "Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
 msgstr ""
 
+#, c-format
 msgid "Wrong input argument \"%s\": invalid tree path.\n"
 msgstr ""
 
@@ -764,11 +776,9 @@ msgstr "Xcos错误"
 msgid "Xcos file"
 msgstr ""
 
-msgid ""
-"You may enter here scilab instructions to define symbolic parameters used in "
-"block definitions using Scilab instructions.<br/>These instructions are "
-"evaluated once confirmed.(i.e. you click on OK, by Eval and every time "
-"diagram is loaded.)"
+#
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 153
+msgid "You may enter here scilab instructions to define "
 msgstr ""
 
 msgid "Zero crossing detection"

@@ -214,11 +214,23 @@ msgstr "%s: I parametri in ingresso sono sbagliati.\n"
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s: Il numero degli argomenti in ingresso è sbagliato.\n"
 
+#
+# File: sci_gateway/c/sci_msprintf.c, line: 42
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
 msgstr ""
 "%s: Il numero degli argomenti in ingresso è sbagliato: ne erano attesi "
 "almeno %d.\n"
+
+#
+# File: sci_gateway/c/sci_mprintf.c, line: 87
+#, c-format
+msgid "%s: Wrong number of input arguments: data do not fit with format.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input arguments: data doesn't fit with format.\n"
@@ -872,6 +884,11 @@ msgstr "Non è sviluppato in Scilab...\n"
 
 msgid "Null variable cannot be used here.\n"
 msgstr "Una variabile nulla non può essere usata qui.\n"
+
+#
+# File: src/c/errmsg.c, line: 1293
+msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+msgstr ""
 
 msgid "Optim stops: maximum number of calls to f is reached.\n"
 msgstr ""

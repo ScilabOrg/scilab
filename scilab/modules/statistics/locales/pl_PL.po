@@ -140,6 +140,11 @@ msgstr "Pnonc,P,Q,F i Dfn"
 msgid "Pr,OMPr,P,Q and S"
 msgstr "Pr,OMPr,P,Q i S"
 
+#
+# File: sci_gateway/c/sci_cdfgam.c, line: 56
+msgid "Rate,P,Q and X"
+msgstr ""
+
 msgid "S and Xlam"
 msgstr "S oraz Xlam"
 
@@ -148,6 +153,11 @@ msgstr "S,XN,PR i OMPR"
 
 msgid "S,Xn,Pr and Ompr"
 msgstr "S,Xn,Pr i Ompr"
+
+#
+# File: sci_gateway/c/sci_cdfgam.c, line: 50
+msgid "Shape,Rate,P and Q"
+msgstr ""
 
 msgid "Std,P,Q and X"
 msgstr "Std,P,Q i X"
@@ -163,6 +173,11 @@ msgstr "X,Df i Pnonc"
 
 msgid "X,Mean and Std"
 msgstr "X,Średnia i Std"
+
+#
+# File: sci_gateway/c/sci_cdfgam.c, line: 44
+msgid "X,Shape and Rate"
+msgstr ""
 
 msgid "X,Y,A and B"
 msgstr "X,Y,A i B"

@@ -438,6 +438,12 @@ msgstr "%s：输入参数 #%d 的类型出错：应该为一个字符串。\n"
 msgid "%s: Wrong type for input argument #%d: A string or a scalar expected.\n"
 msgstr "%s：输入参数 #%d 的类型出错：应该为一个字符串或标量。\n"
 
+#
+# File: sci_gateway/c/sci_errclear.c, line: 71
+#, c-format
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong type for input argument #%d: Compiled macro expected.\n"
 msgstr "%s：输入参数 #%d 的类型出错：应该为已编译的宏。\n"
@@ -522,6 +528,12 @@ msgstr "%s：输入参数 #%d 的值出错：应该是1，2或3。\n"
 #, c-format
 msgid "%s: Wrong value for input argument #%d: A int expected.\n"
 msgstr "%s：输入参数 #%d 的值出错：应该一个整数。\n"
+
+#
+# File: sci_gateway/c/sci_errclear.c, line: 56
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: An integer expected.\n"
@@ -643,6 +655,11 @@ msgstr "&工具箱"
 msgid "A non square matrix!\n"
 msgstr "矩阵非方阵！\n"
 
+#
+# File: src/c/callinterf.c, line: 121
+msgid "Aborting current computation\n"
+msgstr ""
+
 msgid "Cannot find Windows temporary directory (1)."
 msgstr "没有找到 Windows 的临时路径（1）。"
 
@@ -660,6 +677,11 @@ msgid "Copyright (c) 1989-2007 (ENPC)\n"
 msgstr "版权所有 (c) 1989-2007 (ENPC)\n"
 
 #
+# File: src/c/banier.c, line: 37
+msgid "Copyright (c) 1989-2011 (INRIA)\n"
+msgstr ""
+
+#
 # File: src/c/signal_mgmt.c, line: 117
 #, c-format
 msgid ""
@@ -672,6 +694,13 @@ msgstr "出错"
 
 msgid "Error returning tlist, memory full.\n"
 msgstr "返回 tlist 出错，内存已用尽。\n"
+
+#
+# File: includes/stack-c.h, line: 195
+msgid ""
+"Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
+"SciError(x).\n"
+msgstr ""
 
 #, c-format
 msgid "Error: Could not create %s: %s\n"
@@ -856,6 +885,12 @@ msgstr "警告：%s\n"
 
 msgid "Warning"
 msgstr "警告"
+
+#
+# File: src/c/getmodules.c, line: 132
+#, c-format
+msgid "Warning: Could not find %s\n"
+msgstr ""
 
 #, c-format
 msgid "Warning: Problems with %s.\n"

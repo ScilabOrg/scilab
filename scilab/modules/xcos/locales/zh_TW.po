@@ -279,6 +279,7 @@ msgstr ""
 msgid "Format"
 msgstr "格式"
 
+#, c-format
 msgid "From %s"
 msgstr "寄件者 %s"
 
@@ -297,6 +298,7 @@ msgstr "取得資訊"
 msgid "Global"
 msgstr ""
 
+#, c-format
 msgid "Goto %s"
 msgstr "Goto %s"
 
@@ -621,6 +623,7 @@ msgstr ""
 msgid "The Scilab Consortium (DIGITEO)"
 msgstr "Scilab 集團組織 (DIGITEO)"
 
+#, c-format
 msgid ""
 "The file %s doesn't exist\n"
 " Do you want to create it?"
@@ -650,33 +653,40 @@ msgstr "頂部"
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 23
+#, c-format
 msgid "Unable to decode \"%s\" : invalid data."
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/xcos/io/scicos/ScicosFormatException.java, line: 24
+#, c-format
 msgid "Unable to decode \"%s.%s\" : invalid field."
 msgstr ""
 
 msgid "Unable to delete "
 msgstr ""
 
+#, c-format
 msgid "Unable to import %s .\n"
 msgstr ""
 
+#, c-format
 msgid "Unable to load block from %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the Batik library. \n"
 "Expecting version %s ; Getting version %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the hdf5-java (jhdf5) library. \n"
 "Expecting version %s ; Getting version %s ."
 msgstr ""
 
+#, c-format
 msgid ""
 "Unable to load the jgraphx library.\n"
 "Expecting version %s ; Getting version %s ."
@@ -736,10 +746,12 @@ msgstr "WinTitle"
 msgid "Window title"
 msgstr "視窗標題"
 
+#, c-format
 msgid ""
 "Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n"
 msgstr ""
 
+#, c-format
 msgid "Wrong input argument \"%s\": invalid tree path.\n"
 msgstr ""
 
@@ -763,14 +775,10 @@ msgstr "Xcos 錯誤"
 msgid "Xcos file"
 msgstr "Xcos 檔"
 
-msgid ""
-"You may enter here scilab instructions to define symbolic parameters used in "
-"block definitions using Scilab instructions.<br/>These instructions are "
-"evaluated once confirmed.(i.e. you click on OK, by Eval and every time "
-"diagram is loaded.)"
+#
+# File: src/java/org/scilab/modules/xcos/utils/XcosMessages.java, line: 153
+msgid "You may enter here scilab instructions to define "
 msgstr ""
-"你應該在scilab 指令處使用 Scilab 指令去定義區塊中的符號式參數.<br/>這些指令已"
-"被證實過.(換言之, 當你按 OK, 則圖框就被 Eval 載入一次.)"
 
 msgid "Zero crossing detection"
 msgstr "Zero crossing 偵測"
@@ -821,3 +829,12 @@ msgstr ""
 
 msgid "weight"
 msgstr ""
+
+#~ msgid ""
+#~ "You may enter here scilab instructions to define symbolic parameters used "
+#~ "in block definitions using Scilab instructions.<br/>These instructions "
+#~ "are evaluated once confirmed.(i.e. you click on OK, by Eval and every "
+#~ "time diagram is loaded.)"
+#~ msgstr ""
+#~ "你應該在scilab 指令處使用 Scilab 指令去定義區塊中的符號式參數.<br/>這些指"
+#~ "令已被證實過.(換言之, 當你按 OK, 則圖框就被 Eval 載入一次.)"

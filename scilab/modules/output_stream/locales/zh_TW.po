@@ -250,9 +250,21 @@ msgstr "%s: 輸入參數錯誤.\n"
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s: 輸入參數數目錯誤.\n"
 
+#
+# File: sci_gateway/c/sci_msprintf.c, line: 42
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
 msgstr "%s: 輸入參數之數目錯誤: 最多應為 %d.\n"
+
+#
+# File: sci_gateway/c/sci_mprintf.c, line: 87
+#, c-format
+msgid "%s: Wrong number of input arguments: data do not fit with format.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input arguments: data doesn't fit with format.\n"
@@ -1066,6 +1078,11 @@ msgstr "未在  scilab 中實作 (implemented)...\n"
 # File: src/c/errmsg.c, line: 1193
 msgid "Null variable cannot be used here.\n"
 msgstr "此處不能使用空 (Null) 變數 .\n"
+
+#
+# File: src/c/errmsg.c, line: 1293
+msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+msgstr ""
 
 #
 # File: src/c/msgs.c, line: 603

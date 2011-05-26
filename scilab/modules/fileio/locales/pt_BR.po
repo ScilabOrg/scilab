@@ -373,6 +373,15 @@ msgstr ""
 "%s: Valor incorreto para o argumento de entrada #%d (%s): esperava-se '%s', "
 "'%s' ou '%s'.\n"
 
+#
+# File: sci_gateway/c/sci_copyfile.c, line: 220
+# File: sci_gateway/c/sci_copyfile.c, line: 236
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d ('%ls'): A valid filename or "
+"directory expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong value for input argument #%d ('%s'): Format not recognized.\n"
 msgstr ""
@@ -408,6 +417,21 @@ msgid ""
 msgstr ""
 "%s: Valor incorreto para o argumento de entrada #%d: esperava-se ''w'' ou "
 "''u''.\n"
+
+#
+# File: sci_gateway/c/sci_fileparts.c, line: 74
+#, c-format
+msgid "%s: Wrong value for input argument #%d: A string expected.\n"
+msgstr ""
+
+#
+# File: sci_gateway/c/sci_movefile.c, line: 223
+# File: sci_gateway/c/sci_movefile.c, line: 231
+#, c-format
+msgid ""
+"%s: Wrong value for input argument #%d: A valid filename or directory "
+"expected.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Format not recognized.\n"

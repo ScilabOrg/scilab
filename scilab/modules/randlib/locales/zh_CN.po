@@ -154,6 +154,13 @@ msgstr "%s：第一个输入参数的类型错误：应该为一个标量。\n"
 msgid "%s: Wrong type for fourth input argument: Scalar expected.\n"
 msgstr ""
 
+#
+# File: sci_gateway/c/sci_grand.c, line: 679
+# File: sci_gateway/c/sci_grand.c, line: 718
+#, c-format
+msgid "%s: Wrong type for input argument. Low < High expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong type for input argument: Column vector expected.\n"
 msgstr ""

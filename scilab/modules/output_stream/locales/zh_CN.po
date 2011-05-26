@@ -202,9 +202,21 @@ msgstr "%s：输入参数错误。\n"
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s：输入参数的数目错误。\n"
 
+#
+# File: sci_gateway/c/sci_msprintf.c, line: 42
+#, c-format
+msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+msgstr ""
+
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
 msgstr "%s：输入参数的数目错误：应该做多为%d个。\n"
+
+#
+# File: sci_gateway/c/sci_mprintf.c, line: 87
+#, c-format
+msgid "%s: Wrong number of input arguments: data do not fit with format.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: Wrong number of input arguments: data doesn't fit with format.\n"
@@ -775,6 +787,11 @@ msgstr "在Scilab中尚未实现...\n"
 
 msgid "Null variable cannot be used here.\n"
 msgstr "此处不可使用空变量（null）。\n"
+
+#
+# File: src/c/errmsg.c, line: 1293
+msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+msgstr ""
 
 msgid "Optim stops: maximum number of calls to f is reached.\n"
 msgstr "优化停止：已经达到了调用f的最大次数。\n"
