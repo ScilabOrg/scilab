@@ -130,6 +130,13 @@ Compilation:
   This will avoid an important dependency tree for unitary testing.
 
 
+Graphics:
+=========
+
+* bug 9330 fixed - delete() called overloading instead of deleting the current
+                   graphic entity.
+
+
 Bug fixes:
 ==========
 
