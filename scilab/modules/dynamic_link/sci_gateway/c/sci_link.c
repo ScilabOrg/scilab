@@ -1,19 +1,21 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
-/*-----------------------------------------------------------------------------------*/ 
+/*-----------------------------------------------------------------------------------*/
 #include <string.h>
 #include "gw_dynamic_link.h"
 #include "stack-c.h"
+#include "api_scilab.h"
+#include "api_oldstack.h"
 #include "Scierror.h"
 #include "dynamic_link.h"
 #include "MALLOC.h"
@@ -22,11 +24,12 @@
 #include "freeArrayOfString.h"
 #include "os_strdup.h"
 /*-----------------------------------------------------------------------------------*/
-static int linkNoRhs(void);
-static int linkOneRhsShow(void);
+static int linkNoRhs(int *_piKey);
+static int linkOneRhsShow(int *_piKey);
 /*-----------------------------------------------------------------------------------*/
-int sci_link(char *fname,unsigned long fname_len)
+int sci_link(char *fname,int *_piKey)
 {
+    SciErr sciErr;
 	BOOL fflag = FALSE;
 	int idsharedlibrary = -1;
 
@@ -41,24 +44,38 @@ int sci_link(char *fname,unsigned long fname_len)
 	int returnedID = -1;
 	int ierr = 0;
 
+    int* piAddress;
+    int iType;
+
+    int iRet = 0;
+
 	CheckRhs(0,3);
 	CheckLhs(1,1);
 
 	if (Rhs == 0)
 	{
-		return linkNoRhs();
+		return linkNoRhs(_piKey);
 	}
 	else
 	{
 		if (Rhs >= 1)
 		{
-			if (VarType(1)== sci_matrix)
+            sciErr = getVarAddressFromPosition(_piKey, 1, &piAddress);
+            sciErr = getVarType(_piKey, piAddress, &iType);
+
+			if (iType == sci_matrix)
 			{
-				int m1 = 0, n1 = 0, l1 = 0;
-				GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
+				int m1 = 0, n1 = 0;
+                double* pdblReal = NULL;
+                sciErr = getMatrixOfDouble(_piKey, piAddress, &m1, &n1, &pdblReal);
+				if(sciErr.iErr)
+				{
+					printError(&sciErr, 0);
+					return sciErr.iErr;
+				}
 				if ( (m1 == n1) && (n1 == 1) )
 				{
-					idsharedlibrary= (int)*stk(l1);
+					idsharedlibrary = (int)pdblReal[0];
 				}
 				else
 				{
@@ -66,11 +83,16 @@ int sci_link(char *fname,unsigned long fname_len)
 					return 0;
 				}
 			}
-			else if (VarType(1) == sci_strings)
+			else if (iType == sci_strings)
 			{
 				char **strings = NULL;
 				int m1 = 0, n1 = 0;
-				GetRhsVar(1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,&strings);
+                iRet = getAllocatedMatrixOfString(_piKey, piAddress, &m1, &n1, &strings);
+                if(iRet)
+                {
+                    freeAllocatedMatrixOfString(m1, n1, strings);
+                    return iRet;
+                }
 
 				if ( (m1 == 1) && (n1 == 1) )
 				{
@@ -79,14 +101,14 @@ int sci_link(char *fname,unsigned long fname_len)
 				}
 				else
 				{
-					freeArrayOfString(strings, m1*n1);
+                    freeAllocatedMatrixOfString(m1, n1, strings);
 					Scierror(999,_("%s : Wrong type for input argument #%d: %s\n"),fname,1,_("Unique dynamic library name expected."));
 					return 0;
 				}
 
 				if ( (Rhs == 1) && (strcmp(SharedLibraryName,"show")==0) )
 				{
-					return linkOneRhsShow();
+					return linkOneRhsShow(_piKey);
 				}
 			}
 			else
@@ -98,9 +120,17 @@ int sci_link(char *fname,unsigned long fname_len)
 
 		if (Rhs >= 2)
 		{
-			if (VarType(2) == sci_strings)
+            sciErr = getVarAddressFromPosition(_piKey, 2, &piAddress);
+            sciErr = getVarType(_piKey, piAddress, &iType);
+
+			if (iType == sci_strings)
 			{
-				GetRhsVar(2,MATRIX_OF_STRING_DATATYPE,&m2,&n2,&subname);
+                iRet = getAllocatedMatrixOfString(_piKey, piAddress, &m2, &n2, &subname);
+                if(iRet)
+                {
+                    freeAllocatedMatrixOfString(m2, n2, subname);
+                    return iRet;
+                }
 				if ( ((m2 == 1) && (n2 >= 1)) || ((m2 >= 1) && (n2 == 1)) )
 				{
 					if ((m2 == 1) && (n2 >= 1)) sizesubname = n2;
@@ -122,12 +152,20 @@ int sci_link(char *fname,unsigned long fname_len)
 
 		if (Rhs == 3)
 		{
-			int m3 = 0,n3 = 0,l3 = 0;
-			GetRhsVar(3,STRING_DATATYPE,&m3,&n3,&l3);
-			if ( ( strcmp(cstk(l3),"f") == 0 ) || ( strcmp(cstk(l3),"c") == 0 ) )
+            sciErr = getVarAddressFromPosition(_piKey, 3, &piAddress);
+			int iRows       = 0;
+			int iCols       = 0;
+			char** pstData  = NULL;
+
+			iRet = getAllocatedMatrixOfString(_piKey, piAddress, &iRows, &iCols, &pstData);
+			if(iRet)
 			{
-				param3flag = (char*)MALLOC(sizeof(char)*( strlen( cstk(l3) )+1 ) );
-				strcpy(param3flag,cstk(l3));
+				freeAllocatedMatrixOfString(iRows, iCols, pstData);
+				return iRet;
+			}
+			if ( ( strcmp(pstData[0], "f") == 0 ) || ( strcmp(pstData[0], "c") == 0 ) )
+			{
+				param3flag = os_strdup(pstData);
 			}
 			else
 			{
@@ -146,17 +184,19 @@ int sci_link(char *fname,unsigned long fname_len)
 		returnedID = scilabLink(idsharedlibrary,SharedLibraryName,subname,sizesubname,fflag,&ierr);
 		if (ierr == 0)
 		{
-			int n = 1 ,l = 0;
-			CreateVar(Rhs+1, MATRIX_OF_INTEGER_DATATYPE, &n, &n,&l);
-			*istk(l) = (int)returnedID;
+            iRet = createScalarInteger32(_piKey, Rhs + 1, returnedID);
+            if(iRet)
+            {
+                return iRet;
+            }
 			LhsVar(1)=Rhs+1;
-			C2F(putlhsvar)();
+			PutLhsVar();
 		}
 		else
 		{
 			dl_genErrorMessage(fname, ierr, SharedLibraryName);
 		}
-		
+
 		if (Rhs >= 2)
 		{
 			freeArrayOfString(subname,m2*n2);
@@ -170,10 +210,10 @@ int sci_link(char *fname,unsigned long fname_len)
 	return 0;
 }
 /*-----------------------------------------------------------------------------------*/
-static int linkNoRhs(void)
+static int linkNoRhs(int* _piKey)
 {
-	int retval = 0;
-	static int l1 = 0,n1 = 0,m1 = 0;
+    SciErr sciErr;
+    int iRet = 0;
 	int sizeFunctionsList = 0;
 	char ** FunctionsList = NULL;
 
@@ -181,29 +221,33 @@ static int linkNoRhs(void)
 
 	if ( (FunctionsList) && (sizeFunctionsList > 0) )
 	{
-		m1 = sizeFunctionsList;
-		n1 = 1;
-		CreateVarFromPtr(Rhs+1, MATRIX_OF_STRING_DATATYPE, &n1, &m1, FunctionsList);
-
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
-
-		freeArrayOfString(FunctionsList,sizeFunctionsList);
+        sciErr = createMatrixOfString(_piKey, Rhs + 1, 1, sizeFunctionsList, FunctionsList);
+        freeArrayOfString(FunctionsList,sizeFunctionsList);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+		LhsVar(1) = Rhs+1;
+		PutLhsVar();
 	}
 	else
 	{
-		m1=0;
-		n1=0;
-		l1=0;
-		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
-		LhsVar(1)=Rhs+1;
-		C2F(putlhsvar)();
+        iRet = createEmptyMatrix(_piKey, Rhs + 1);
+        if(iRet)
+        {
+            return iRet;
+        }
+		LhsVar(1) = Rhs+1;
+		PutLhsVar();
 	}
-	return retval;
+	return 0;
 }
 /*-----------------------------------------------------------------------------------*/
-static int linkOneRhsShow(void)
+static int linkOneRhsShow(int *_piKey)
 {
+    SciErr sciErr;
+    int iRet = 0;
 	int m1 = 0, n1 = 0, l1 = 0;
 	int *IdsList = NULL;
 	int sizeIds = 0;
@@ -213,20 +257,28 @@ static int linkOneRhsShow(void)
 
 	if ( (sizeIds>0) && (IdsList) )
 	{
-		m1=1;
-		n1=sizeIds;
-		CreateVarFromPtr(Rhs+1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &IdsList);
-		if (IdsList) {FREE(IdsList); IdsList=NULL;}
+        sciErr = createMatrixOfInteger32(_piKey, Rhs + 1, 1, sizeIds, IdsList);
+ 		if (IdsList)
+        {
+            FREE(IdsList);
+            IdsList=NULL;
+        }
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
 	}
 	else
 	{
-		m1=0;
-		n1=0;
-		l1=0;
-		CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,  &m1, &n1, &l1);
+        iRet = createEmptyMatrix(_piKey, Rhs + 1);
+        if(iRet)
+        {
+            return iRet;
+        }
 	}
-	LhsVar(1)=Rhs+1;
-	C2F(putlhsvar)();
+	LhsVar(1) = Rhs + 1;
+	PutLhsVar();
 	return 0;
 }
 /*-----------------------------------------------------------------------------------*/
