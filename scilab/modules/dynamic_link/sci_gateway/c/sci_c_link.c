@@ -13,14 +13,20 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_dynamic_link.h"
 #include "stack-c.h"
+#include "api_scilab.h"
+#include "api_oldstack.h"
 #include "dynamic_link.h"
 #include "MALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int sci_c_link(char *fname,unsigned long fname_len)
+int sci_c_link(char *fname, int* _piKey)
 {
+    SciErr sciErr;
+    int iRet = 0;
 	int ilib = 0;
+    int* piAddress;
+    int iType;
 
 	CheckRhs(1,2);
 	CheckLhs(1,2);
@@ -31,13 +37,32 @@ int sci_c_link(char *fname,unsigned long fname_len)
 
 	if (Rhs == 2)
 	{
-		if (VarType(2) == sci_matrix)
+        sciErr = getVarAddressFromPosition(_piKey, 2, &piAddress);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+        sciErr = getVarType(_piKey, piAddress, &iType);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+
+        if (iType == sci_matrix)
 		{
 			int m1 = 0, n1 = 0, l1 = 0;
-			GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
+            double* pdblReal = NULL;
+            sciErr = getMatrixOfDouble(_piKey, piAddress, &m1, &n1, &pdblReal);
+            if(sciErr.iErr)
+            {
+                printError(&sciErr, 0);
+                return sciErr.iErr;
+            }
 			if ( (m1 == n1) && (n1 == 1) )
 			{
-				ilib =  (int)*stk(l1);
+				ilib =  (int) pdblReal[0];
 			}
 			else
 			{
@@ -53,48 +78,69 @@ int sci_c_link(char *fname,unsigned long fname_len)
 	}
 	else ilib = -1;
 
+    sciErr = getVarAddressFromPosition(_piKey, 1, &piAddress);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return sciErr.iErr;
+    }
+    sciErr = getVarType(_piKey, piAddress, &iType);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return sciErr.iErr;
+    }
 
-	if (VarType(1) == sci_strings)
+	if (iType == sci_strings)
 	{
 		char **routinename = NULL;
 		int m1 = 0, n1 = 0;
-		GetRhsVar(1,"S",&m1,&n1,&routinename);
+        iRet = getAllocatedMatrixOfString(_piKey, piAddress, &m1, &n1, &routinename);
+        if(iRet)
+        {
+            freeAllocatedMatrixOfString(m1, n1, routinename);
+            return iRet;
+        }
 
 		if ( (m1 == 1) && (n1 == 1) )
 		{
-			int *paramoutINT=(int*)MALLOC(sizeof(int));
+			int paramoutINT;
 			BOOL FindFunction = FALSE;
 
 			FindFunction = c_link(routinename[0],&ilib);
-			if (routinename) {FREE(routinename);routinename = NULL;}
-
-			
+			if (routinename)
+            {
+                freeAllocatedMatrixOfString(m1, n1, routinename);
+                routinename = NULL;
+            }
 
 			if ( FindFunction )
 			{
-				*paramoutINT=(int)(TRUE);
+				paramoutINT=(int)(TRUE);
 			}
 			else
 			{
-				*paramoutINT=(int)(FALSE);
+				paramoutINT=(int)(FALSE);
 			}
 
-			CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
-			LhsVar(1)=Rhs+1;
+            iRet = createScalarBoolean(_piKey, Rhs + 1, paramoutINT);
+            if(iRet)
+            {
+                return 0;
+            }
+			LhsVar(1) = Rhs + 1;
 
 			if (Lhs == 2)
 			{
-				int one = 1;
-				int l = 0;
-
-				CreateVar(Rhs+2, MATRIX_OF_INTEGER_DATATYPE, &one, &one,&l);
-				*istk(l) = (int)ilib;
-				LhsVar(2)=Rhs+2;
+                iRet = createScalarInteger32(_piKey, Rhs + 2, (int) ilib);
+                if(iRet)
+                {
+                    return 0;
+                }
+				LhsVar(2) = Rhs + 2;
 			}
 
-			C2F(putlhsvar)();
-			if (paramoutINT) {FREE(paramoutINT);paramoutINT=NULL;}
-			
+			PutLhsVar();
 		}
 		else
 		{
