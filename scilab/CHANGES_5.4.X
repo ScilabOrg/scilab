@@ -56,33 +56,33 @@ Optimization:
 * neldermead: Added a demo - search for largest smallest polygon.
 
 * bug 7891 fixed - The neldermead component had too many options.
-  Tagged -costfargument option of optimbase as obsolete: will be 
+  Tagged -costfargument option of optimbase as obsolete: will be
   maintained for backward compatibility until 5.4.1.
-  The -fun option can now be a list, where the element #1 is a 
-  function, and the elements #2 to the end are automatically appended to 
+  The -fun option can now be a list, where the element #1 is a
+  function, and the elements #2 to the end are automatically appended to
   the calling sequence.
-  Tagged -outputcommandarg option of optimbase as obsolete: will be 
+  Tagged -outputcommandarg option of optimbase as obsolete: will be
   maintained for backward compatibility until 5.4.1.
-  The -outputcommand option can now be a list, where the element #1 is 
-  a function, and the elements #2 to the end are automatically appended 
+  The -outputcommand option can now be a list, where the element #1 is
+  a function, and the elements #2 to the end are automatically appended
   to the calling sequence.
-  Tagged "outputfun(x,optimValues,state)" calling sequence of fminsearch 
-  as obsolete: will be maintained for backward compatibility until 
+  Tagged "outputfun(x,optimValues,state)" calling sequence of fminsearch
+  as obsolete: will be maintained for backward compatibility until
   5.4.1.
   The new calling sequence is "stop=outputfun(x,optimValues,state)"
-  Tagged "myoutputfun(state,data)" calling sequence of neldermead 
-  as obsolete: will be maintained for backward compatibility until 
+  Tagged "myoutputfun(state,data)" calling sequence of neldermead
+  as obsolete: will be maintained for backward compatibility until
   5.4.1.
   The new calling sequence is "stop=myoutputfun(state,data)"
-  Tagged "-myterminateflag" and "-myterminate" options as obsolete: 
+  Tagged "-myterminateflag" and "-myterminate" options as obsolete:
   will be maintained for backward compatibility until 5.4.1.
-  See the help page of neldermead for details to update your 
+  See the help page of neldermead for details to update your
   code, if required.
 
 * Bug 7889 fixed - The tolerance on x for neldermead was too small.
                    Updated -tolxrelative default value from %eps to sqrt(%eps).
 
-* bug 8805 fixed - The 'neldermead' function, algorithm box, wrongly used 
+* bug 8805 fixed - The 'neldermead' function, algorithm box, wrongly used
                    the output function.
 
 
@@ -193,3 +193,7 @@ Bug fixes:
                    to parse XML configuration files.
 
 * bug 9555 fixed - Typo in the 'deff' help page.
+
+* bug 9571 fixed - "error(144)" returned a wrong variable name.
+
+
