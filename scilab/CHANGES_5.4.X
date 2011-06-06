@@ -122,7 +122,6 @@ Optimization:
                    Updated -tolxrelative default value from %eps to sqrt(%eps).
 
 * Bug 8805 fixed - The 'neldermead' function, algorithm box, wrongly used
-                   the output function.
 
 * Bug 9567 fixed - The neldermead Overview had a TODO section.
 
@@ -267,3 +266,7 @@ Bug fixes:
                    EDT was crashing the execution of a java program.
 
 * bug 9555 fixed - Typo in the 'deff' help page.
+
+* bug 9571 fixed - "error(144)" returned a wrong variable name.
+
+
