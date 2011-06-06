@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA - Allan CORNET
+ * Copyright (C) DIGITEO - 2011 - Antoine ELIAS
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,98 +14,113 @@
 /*--------------------------------------------------------------------------*/
 #include "gw_dynamic_link.h"
 #include "stack-c.h"
+#include "api_scilab.h"
+#include "api_oldstack.h"
 #include "dynamic_link.h"
 #include "MALLOC.h"
 #include "localization.h"
 #include "Scierror.h"
 /*--------------------------------------------------------------------------*/
-int sci_c_link(char *fname,unsigned long fname_len)
+int sci_c_link(char *fname, int* _piKey)
 {
+    SciErr sciErr;
+    int iRet = 0;
 	int ilib = 0;
+    int* piAddress;
+    int iType;
 
-	CheckRhs(1,2);
+	char *routinename   = NULL;
+	int paramoutINT     = 0;
+	BOOL FindFunction   = FALSE;
+
+    CheckRhs(1,2);
 	CheckLhs(1,2);
 
 	/* [test,ilib]=c_link(routine-name)  */
 	/* test = c_link(routine-name)  */
 	/* test = c_link(routine-name,num)  */
 
-	if (Rhs == 2)
+	if(Rhs == 2)
 	{
-		if (VarType(2) == sci_matrix)
+        sciErr = getVarAddressFromPosition(_piKey, 2, &piAddress);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+        sciErr = getVarType(_piKey, piAddress, &iType);
+        if(sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return sciErr.iErr;
+        }
+
+        if(isDoubleType(_piKey, piAddress))
 		{
-			int m1 = 0, n1 = 0, l1 = 0;
-			GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1);
-			if ( (m1 == n1) && (n1 == 1) )
-			{
-				ilib =  (int)*stk(l1);
-			}
-			else
-			{
-				Scierror(999,_("%s : second argument must be a unique id of a shared library.\n"),fname);
-				return 0;
-			}
+            double pdblReal = 0;
+            if(getScalarDouble(_piKey, piAddress, &pdblReal))
+            {
+				Scierror(999, _("%s : second argument must be a unique id of a shared library.\n"),fname);
+                return 1;
+            }
+
+            ilib = (int)pdblReal;
 		}
 		else
 		{
-			Scierror(999,_("%s : second argument must be a unique id of a shared library.\n"),fname);
+			Scierror(999 ,_("%s : second argument must be a unique id of a shared library.\n"),fname);
 			return 0;
 		}
 	}
-	else ilib = -1;
+    else 
+    {
+        ilib = -1;
+    }
 
+    sciErr = getVarAddressFromPosition(_piKey, 1, &piAddress);
+    if(sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return sciErr.iErr;
+    }
 
-	if (VarType(1) == sci_strings)
+	if(isStringType(_piKey, piAddress) == FALSE)
 	{
-		char **routinename = NULL;
-		int m1 = 0, n1 = 0;
-		GetRhsVar(1,"S",&m1,&n1,&routinename);
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 1);
+        return 1;
+    }
 
-		if ( (m1 == 1) && (n1 == 1) )
-		{
-			int *paramoutINT=(int*)MALLOC(sizeof(int));
-			BOOL FindFunction = FALSE;
+    if(getAllocatedSingleString(_piKey, piAddress, &routinename))
+    {
+        return 1;
+    }
 
-			FindFunction = c_link(routinename[0],&ilib);
-			if (routinename) {FREE(routinename);routinename = NULL;}
+	FindFunction = c_link(routinename, &ilib);
+    FREE(routinename);
 
-			
-
-			if ( FindFunction )
-			{
-				*paramoutINT=(int)(TRUE);
-			}
-			else
-			{
-				*paramoutINT=(int)(FALSE);
-			}
-
-			CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
-			LhsVar(1)=Rhs+1;
-
-			if (Lhs == 2)
-			{
-				int one = 1;
-				int l = 0;
-
-				CreateVar(Rhs+2, MATRIX_OF_INTEGER_DATATYPE, &one, &one,&l);
-				*istk(l) = (int)ilib;
-				LhsVar(2)=Rhs+2;
-			}
-
-			C2F(putlhsvar)();
-			if (paramoutINT) {FREE(paramoutINT);paramoutINT=NULL;}
-			
-		}
-		else
-		{
-			Scierror(999,_("%s: Wrong type for input argument #%d: A string expected.\n"), fname,1);
-		}
-	}
-	else
+	if(FindFunction)
 	{
-		SciError(201);
+		paramoutINT = (int)(TRUE);
 	}
+
+    if(createScalarBoolean(_piKey, Rhs + 1, paramoutINT))
+    {
+        return 1;
+    }
+
+	LhsVar(1) = Rhs + 1;
+
+	if(Lhs == 2)
+	{
+        if(createScalarDouble(_piKey, Rhs + 2, ilib))
+        {
+            return 1;
+        }
+
+		LhsVar(2) = Rhs + 2;
+	}
+
+	PutLhsVar();
 	return 0;
 }
 /*--------------------------------------------------------------------------*/

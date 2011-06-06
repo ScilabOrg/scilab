@@ -25,7 +25,7 @@ static gw_generic_table Tab[] =
 	{sci_link,"link"},
 	{sci_ulink,"ulink"},
 	{sci_c_link,"c_link"},
-	{sci_ilib_verbose,"ilib_verbose"}
+	{NULL, ""} // ilib_verbose
 };
 /*--------------------------------------------------------------------------*/
 int gw_dynamic_link(void)
