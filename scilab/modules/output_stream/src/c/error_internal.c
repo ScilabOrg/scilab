@@ -17,7 +17,6 @@
 #include "msgstore.h"
 #include "BOOL.h"
 #include "stack-def.h"
-#include "errmsg.h"
 #include "errmds.h"
 #include "lasterror.h"
 /*--------------------------------------------------------------------------*/ 
