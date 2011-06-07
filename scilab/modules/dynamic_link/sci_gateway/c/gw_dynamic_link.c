@@ -22,9 +22,9 @@ static gw_generic_table Tab[] =
 	{sci_addinter,"addinter"},
 	{sci_fort,"fort"},
 	{sci_call,"call"},
-	{sci_link,"link"},
-	{sci_ulink,"ulink"},
-	{sci_c_link,"c_link"},
+	{NULL,"link"},//link
+	{NULL, ""},//ulink
+	{NULL,""},//c_link
 	{NULL, ""} // ilib_verbose
 };
 /*--------------------------------------------------------------------------*/
