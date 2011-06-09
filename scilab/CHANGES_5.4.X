@@ -49,6 +49,9 @@ Xcos:
 
 * bug 9590 fixed - xcos examples were not embeded in binary version on Windows.
 
+* Bug 9579 fixed - Duplicate content in scicos_math.h removed and replaced by
+                   a cleaner call to math.h instead.
+
 
 File input/output:
 ==================
