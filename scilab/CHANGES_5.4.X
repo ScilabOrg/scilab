@@ -173,7 +173,8 @@ Xcos:
 
 * bug 9547 fixed - The about box was not localized due to a multi-line string.
 
-* bug 9573 fixed - getdebuginfo did not report multiple video cards on Windows.
+* bug 9579 fixed - Duplicate content in scicos_math.h removed and replaced by
+                   a cleaner call to math.h instead.
 
 * bug 9590 fixed - xcos examples were not embeded in binary version on Windows.
 
@@ -826,6 +827,8 @@ Bug fixes:
 
 * bug 9571 fixed - "error(144)" returned a wrong variable name.
 
+* bug 9573 fixed - getdebuginfo did not report multiple video cards on Windows.
+
 * bug 9599 fixed - error message "at line ... of function ... called by" was
                    printed directly on the same line.
 
@@ -936,7 +939,7 @@ Bug fixes:
 
 * bug 10179 fixed - Weird behaviour with evstr.
 
-* bug 10282 fixed - repmat did not work for scalar input on dims greater than 2 
+* bug 10282 fixed - repmat did not work for scalar input on dims greater than 2
                     neither for N-D arrays.
 
 * bug 10289 fixed - xload returns a better error message when a file does
