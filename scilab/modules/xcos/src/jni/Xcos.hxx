@@ -38,7 +38,6 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
 */
 
-
 #ifndef __ORG_SCILAB_MODULES_XCOS_XCOS__
 #define __ORG_SCILAB_MODULES_XCOS_XCOS__
 #include <iostream>
@@ -49,7 +48,7 @@ knowledge of the CeCILL-B license and that you accept its terms.
 
 #include "GiwsException.hxx"
 
-#ifndef _MSC_VER /* Defined anyway with Visual */
+#ifndef _MSC_VER                /* Defined anyway with Visual */
 #if !defined(byte)
 typedef signed char byte;
 #else
@@ -57,32 +56,31 @@ typedef signed char byte;
 #endif
 #endif
 
-namespace org_scilab_modules_xcos {
-class Xcos {
+namespace org_scilab_modules_xcos
+{
+    class Xcos
+    {
 
 private:
-JavaVM * jvm;
+        JavaVM * jvm;
 
 protected:
-jmethodID voidxcosID; // cache method id
-jmethodID voidxcosjstringID; // cache method id
-jmethodID voidwarnCellByUIDjobjectArray_jstringID; // cache method id
-jclass stringArrayClass;
-jmethodID voidcloseXcosFromScilabID; // cache method id
-jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID; // cache method id
-jmethodID voidxcosDiagramOpenjobjectArray_ID; // cache method id
-jmethodID voidxcosDiagramClosejobjectArray_ID; // cache method id
+        jmethodID voidxcosID;   // cache method id
+        jmethodID voidxcosjstringID;    // cache method id
+        jmethodID voidstartXcosSessionID;   // cache method id
+        jmethodID voidendXcosSessionID; // cache method id
+        jmethodID voidwarnCellByUIDjobjectArray_jstringID;  // cache method id
+        jclass stringArrayClass;
+        jmethodID voidcloseXcosFromScilabID;    // cache method id
+        jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID;    // cache method id
 
-
-
-jobject instance;
-jclass instanceClass; // cache class
-
+        jobject instance;
+        jclass instanceClass;   // cache class
 
 /**
 * Get the environment matching to the current thread.
 */
-virtual JNIEnv * getCurrentEnv();
+        virtual JNIEnv *getCurrentEnv();
 
 public:
 // Constructor
@@ -91,7 +89,7 @@ public:
 * It will call the default constructor
 * @param JEnv_ the Java Env
 */
-Xcos(JavaVM * jvm_);
+          Xcos(JavaVM * jvm_);
 
 /**
 * Create a wrapping of an already existing object from a JNIEnv.
@@ -99,19 +97,20 @@ Xcos(JavaVM * jvm_);
 * @param JEnv_ the Java Env
 * @param JObj the object
 */
-Xcos(JavaVM * jvm_, jobject JObj);
-
+          Xcos(JavaVM * jvm_, jobject JObj);
 
 /** 
 * This is a fake constructor to avoid the constructor
 * chaining when dealing with extended giws classes 
 */
 #ifdef FAKEGIWSDATATYPE
-Xcos(fakeGiwsDataType::fakeGiwsDataType /* unused */) {}
+          Xcos(fakeGiwsDataType::fakeGiwsDataType /* unused */ )
+        {
+        }
 #endif
 
 // Destructor
-~Xcos();
+         ~Xcos();
 
 // Generic method
 // Synchronization methods
@@ -119,42 +118,40 @@ Xcos(fakeGiwsDataType::fakeGiwsDataType /* unused */) {}
 * Enter monitor associated with the object.
 * Equivalent of creating a "synchronized(obj)" scope in Java.
 */
-void synchronize();
+        void synchronize();
 
 /**
 * Exit monitor associated with the object.
 * Equivalent of ending a "synchronized(obj)" scope.
 */
-void endSynchronize();
+        void endSynchronize();
 
 // Methods
-static void xcos(JavaVM * jvm_);
+        static void xcos(JavaVM * jvm_);
 
-static void xcos(JavaVM * jvm_, char * fileName);
+        static void xcos(JavaVM * jvm_, char *fileName);
 
-static void warnCellByUID(JavaVM * jvm_, char ** uids, int uidsSize, char * message);
+        static void startXcosSession(JavaVM * jvm_);
 
-static void closeXcosFromScilab(JavaVM * jvm_);
+        static void endXcosSession(JavaVM * jvm_);
 
-static int xcosDiagramToHDF5(JavaVM * jvm_, char * xcosFile, char * h5File, bool forceOverwrite);
+        static void warnCellByUID(JavaVM * jvm_, char **uids, int uidsSize, char *message);
 
-static void xcosDiagramOpen(JavaVM * jvm_, char ** UID, int UIDSize);
+        static void closeXcosFromScilab(JavaVM * jvm_);
 
-static void xcosDiagramClose(JavaVM * jvm_, char ** UID, int UIDSize);
-
+        static int xcosDiagramToHDF5(JavaVM * jvm_, char *xcosFile, char *h5File, bool forceOverwrite);
 
                         /**
                         * Get class name to use for static methods
                         * @return class name to use for static methods
                         */
-                        
-                static const std::string className()
-                {
-                return "org/scilab/modules/xcos/Xcos";
-                }
-                
-};
 
+        static const std::string className()
+        {
+            return "org/scilab/modules/xcos/Xcos";
+        }
+
+    };
 
 }
 #endif

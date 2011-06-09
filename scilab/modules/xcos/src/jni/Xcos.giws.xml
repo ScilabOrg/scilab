@@ -5,6 +5,8 @@
     <method name="xcos" returnType="void" modifier="static">
       <parameter name="fileName" type="String"/>
     </method>
+    <method name="startXcosSession" returnType="void" modifier="static"/>
+    <method name="endXcosSession" returnType="void" modifier="static"/>
     <method name="warnCellByUID" returnType="void" modifier="static">
       <parameter name="uids" type="String[]"/>
       <parameter name="message" type="String"/>
@@ -14,12 +16,6 @@
       <parameter name="xcosFile" type="String"/>
       <parameter name="h5File" type="String"/>
       <parameter name="forceOverwrite" type="boolean"/>
-    </method>
-    <method name="xcosDiagramOpen" returnType="void" modifier="static">
-      <parameter name="UID" type="String[]"/>
-    </method>
-    <method name="xcosDiagramClose" returnType="void" modifier="static">
-      <parameter name="UID" type="String[]"/>
     </method>
   </object>
 </package>

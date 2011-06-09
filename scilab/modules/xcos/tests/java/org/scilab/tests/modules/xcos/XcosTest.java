@@ -12,7 +12,6 @@
 
 package org.scilab.tests.modules.xcos;
 
-import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
@@ -48,7 +47,7 @@ public class XcosTest {
 			}
 		});
 		
-		Xcos.closeXcosFromScilab();
+		Xcos.endXcosSession();
 		
 		// perform assert on the EDT Thread and after all events
 		SwingUtilities.invokeAndWait(new Runnable() {
