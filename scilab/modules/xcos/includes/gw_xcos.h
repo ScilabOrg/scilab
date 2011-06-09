@@ -15,13 +15,15 @@
 #define __GW_XCOS__
 /*--------------------------------------------------------------------------*/
 #include "dynlib_xcos.h"
+#include "BOOL.h"
 /*--------------------------------------------------------------------------*/
 XCOS_IMPEXP int gw_xcos(void);
 /*--------------------------------------------------------------------------*/
 int sci_Xcos(char* fname, unsigned long l);
+int sci_startXcosSession(char* fname, unsigned long l);
+int sci_endXcosSession(char* fname, unsigned long l);
 int sci_xcosNotify(char* fname, unsigned long l);
 int sci_warnBlockByUID(char* fname, unsigned long l);
-int sci_closeXcosFromScilab(char* fname, unsigned long l);
 int sci_xcosDiagramToHDF5(char* fname, unsigned long l);
 int sci_xcosDiagramOpen(char* fname, unsigned long l);
 int sci_xcosDiagramClose(char* fname, unsigned long l);
@@ -38,7 +40,7 @@ int sci_xcosConfigureXmlFile(char* fname, unsigned long l);
 * xcos already started
 * @return 1 if xcos started else 0
 */
-int xcosStarted(void);
+BOOL xcosStarted(void);
 /*--------------------------------------------------------------------------*/
 #endif /* __GW_XCOS__ */
 /*--------------------------------------------------------------------------*/

@@ -25,8 +25,9 @@ static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/
 static gw_generic_table Tab[] = {
     {sci_Xcos,                            "xcos"},
+    {sci_startXcosSession,                "startXcosSession"},
+    {sci_endXcosSession,                  "endXcosSession"},
     {sci_warnBlockByUID,                  "warnBlockByUID"},
-    {sci_closeXcosFromScilab,             "closeXcos"},
     {sci_xcosDiagramToHDF5,               "xcosDiagramToHDF5"},
     {sci_xcosDiagramOpen,                 "xcosDiagramOpen"},
     {sci_xcosDiagramClose,                "xcosDiagramClose"},
@@ -52,7 +53,7 @@ int gw_xcos(void)
     }
 
     if (!loadedDep                                      // never reload
-        && Tab[Fin-1].f != sci_closeXcosFromScilab)     // do not load on close
+        && Tab[Fin-1].f != sci_endXcosSession)     // do not load on close
     {
         loadOnUseClassPath("XCos");
         loadedDep = TRUE;
@@ -61,7 +62,7 @@ int gw_xcos(void)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-int xcosStarted(void)
+BOOL xcosStarted(void)
 {
     return loadedDep;
 }

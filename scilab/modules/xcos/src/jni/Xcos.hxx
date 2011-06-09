@@ -67,7 +67,8 @@ protected:
 jmethodID voidxcosID; // cache method id
 jmethodID voidxcosjstringID; // cache method id
 jmethodID voidwarnCellByUIDjstringjstringID; // cache method id
-jmethodID voidcloseXcosFromScilabID; // cache method id
+jmethodID voidstartXcosSessionID; // cache method id
+jmethodID voidendXcosSessionID; // cache method id
 jmethodID jintxcosDiagramToHDF5jstringjstringjbooleanID; // cache method id
 jmethodID voidxcosDiagramOpenjstringjbooleanID; // cache method id
 jmethodID voidxcosDiagramClosejstringID; // cache method id
@@ -133,7 +134,9 @@ static void xcos(JavaVM * jvm_, char * fileName);
 
 static void warnCellByUID(JavaVM * jvm_, char * UID, char * message);
 
-static void closeXcosFromScilab(JavaVM * jvm_);
+static void startXcosSession(JavaVM * jvm_);
+
+static void endXcosSession(JavaVM * jvm_);
 
 static int xcosDiagramToHDF5(JavaVM * jvm_, char * xcosFile, char * h5File, bool forceOverwrite);
 

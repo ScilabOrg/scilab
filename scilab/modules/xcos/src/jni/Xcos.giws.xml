@@ -8,7 +8,8 @@
             <parameter name="UID" type="String"/>
             <parameter name="message" type="String"/>
         </method>
-        <method name="closeXcosFromScilab" returnType="void" modifier="static"/>
+        <method name="startXcosSession" returnType="void" modifier="static"/>
+        <method name="endXcosSession" returnType="void" modifier="static"/>
         <method name="xcosDiagramToHDF5" returnType="int" modifier="static">
             <parameter name="xcosFile" type="String"/>
             <parameter name="h5File" type="String"/>

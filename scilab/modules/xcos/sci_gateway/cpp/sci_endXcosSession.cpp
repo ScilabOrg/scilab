@@ -1,7 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) DIGITEO - 2009-2010 - Vincent COUVERT <vincent.couvert@scilab.org>
- * Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+ * Copyright (C) DIGITEO - 2010-2011 - Clément DAVID <clement.david@scilab.org>
  * Copyright (C) DIGITEO - 2010 - Allan CORNET
  *
  * This file must be used under the terms of the CeCILL.
@@ -19,30 +19,24 @@ extern "C"
 {
 #include "gw_xcos.h"
 #include "stack-c.h"
-#include "callxcos.h"
-#include "api_common.h"
-#include "api_string.h"
-#include "localization.h"
 #include "Scierror.h"
-#include "MALLOC.h"
-#include "freeArrayOfString.h"
 #include "getScilabJavaVM.h"
 #include "scilabmode.h"
 }
 /*--------------------------------------------------------------------------*/
 using namespace org_scilab_modules_xcos;
 /*--------------------------------------------------------------------------*/
-int sci_closeXcosFromScilab(char *fname, unsigned long fname_len)
+int sci_endXcosSession(char *fname, unsigned long fname_len)
 {
     CheckRhs(0, 0);
-    CheckLhs(0, 1);
+    CheckLhs(0, 0);
 
     // only if xcos was already opened and with supported mode
     if ((getScilabMode() != SCILAB_NWNI) && xcosStarted())
     {
         try
         {
-            Xcos::closeXcosFromScilab(getScilabJavaVM());
+            Xcos::endXcosSession(getScilabJavaVM());
         } catch (GiwsException::JniCallMethodException exception)
         {
             Scierror(999, "%s: %s\n", fname, exception.getJavaDescription().c_str());

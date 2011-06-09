@@ -107,7 +107,8 @@ curEnv->DeleteLocalRef(localInstance);
 voidxcosID=NULL; 
 voidxcosjstringID=NULL; 
 voidwarnCellByUIDjstringjstringID=NULL; 
-voidcloseXcosFromScilabID=NULL; 
+voidstartXcosSessionID=NULL; 
+voidendXcosSessionID=NULL; 
 jintxcosDiagramToHDF5jstringjstringjbooleanID=NULL; 
 voidxcosDiagramOpenjstringjbooleanID=NULL; 
 voidxcosDiagramClosejstringID=NULL; 
@@ -136,7 +137,8 @@ throw GiwsException::JniObjectCreationException(curEnv, this->className());
         voidxcosID=NULL; 
 voidxcosjstringID=NULL; 
 voidwarnCellByUIDjstringjstringID=NULL; 
-voidcloseXcosFromScilabID=NULL; 
+voidstartXcosSessionID=NULL; 
+voidendXcosSessionID=NULL; 
 jintxcosDiagramToHDF5jstringjstringjbooleanID=NULL; 
 voidxcosDiagramOpenjstringjbooleanID=NULL; 
 voidxcosDiagramClosejstringID=NULL; 
@@ -237,18 +239,36 @@ throw GiwsException::JniCallMethodException(curEnv);
 }
 }
 
-void Xcos::closeXcosFromScilab (JavaVM * jvm_){
+void Xcos::startXcosSession (JavaVM * jvm_){
 
 JNIEnv * curEnv = NULL;
 jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 jclass cls = curEnv->FindClass( className().c_str() );
 
-jmethodID voidcloseXcosFromScilabID = curEnv->GetStaticMethodID(cls, "closeXcosFromScilab", "()V" ) ;
-if (voidcloseXcosFromScilabID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "closeXcosFromScilab");
+jmethodID voidstartXcosSessionID = curEnv->GetStaticMethodID(cls, "startXcosSession", "()V" ) ;
+if (voidstartXcosSessionID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "startXcosSession");
 }
 
-                         curEnv->CallStaticVoidMethod(cls, voidcloseXcosFromScilabID );
+                         curEnv->CallStaticVoidMethod(cls, voidstartXcosSessionID );
+                        curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+}
+
+void Xcos::endXcosSession (JavaVM * jvm_){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidendXcosSessionID = curEnv->GetStaticMethodID(cls, "endXcosSession", "()V" ) ;
+if (voidendXcosSessionID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "endXcosSession");
+}
+
+                         curEnv->CallStaticVoidMethod(cls, voidendXcosSessionID );
                         curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);

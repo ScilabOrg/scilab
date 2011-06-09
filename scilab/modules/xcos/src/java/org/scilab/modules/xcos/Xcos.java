@@ -216,7 +216,7 @@ public final class Xcos {
 	}
 	// CSON: MagicNumber
 	// CSON: IllegalCatch
-
+	
 	/**
 	 * @return the per Scilab application, Xcos instance
 	 */
@@ -234,7 +234,9 @@ public final class Xcos {
 					try {
 						final Category root = PaletteManager.getInstance().getRoot();
 						
-						final PaletteBlock b = ((PreLoaded) root.getNode().get(0)).getBlock().get(0);
+						final PaletteBlock b = ((PreLoaded) ((Category) root
+								.getNode().get(0)).getNode().get(0)).getBlock()
+								.get(0);
 						new PaletteBlockCtrl(b).getTransferable();
 					} catch (IndexOutOfBoundsException e) {
 						LOG.debug(e);
@@ -250,15 +252,57 @@ public final class Xcos {
 
 		return sharedInstance;
 	}
-	
+
+
+
 	/**
-	 * Clear the shared instance.
+	 * Close the current xcos session.
+	 * 
+	 * This method must be called on the EDT thread. For other use, please use
+	 * the {@link #closeXcosFromScilab()} method.
 	 */
-	private static synchronized void clearInstance() {
+	public static synchronized void clearInstance() {
+		if (!SwingUtilities.isEventDispatchThread()) {
+			LOG.error(CALLED_OUTSIDE_THE_EDT_THREAD);
+		}
+
+		/* Doesn't instantiate xcos on close operation */
+		if (sharedInstance == null) {
+			return;
+		}
+		
+		final Xcos instance = sharedInstance;
+		final List<XcosDiagram> diagrams = instance.diagrams;
+
+		/*
+		 * We are looping in the inverted order because we have to close latest
+		 * add diagrams (eg SuperBlockDiagrams) before any others.
+		 * 
+		 * Furthermore the closeDiagram operation modify the diagram list. Thus
+		 * we must *NOT* use i-- there.
+		 */
+		for (int i = diagrams.size() - 1; i >= 0; i = diagrams.size() - 1) {
+			instance.close(diagrams.get(i), true);
+		}
+
+		if (instance.palette.getView() != null 
+				&& instance.palette.getView().isVisible()) {
+			instance.palette.getView().close();
+			instance.palette.setView(null);
+		}
+		
+		/* terminate any remaining simulation */
+		InterpreterManagement.requestScilabExec("haltscicos");
+
+		/* Saving modified data */
+		instance.palette.saveConfig();
+		instance.configuration.saveConfig();
+		
+		/* Clear the shared instance */
 		sharedInstance = null;
 		LOG.trace("Session ended");
 	}
-
+	
 	/**
 	 * @return the already opened diagrams
 	 */
@@ -357,73 +401,12 @@ public final class Xcos {
 		    diagrams.remove(diagram);
 		    
 		    if (diagrams.isEmpty()) {
-		    	Xcos.closeSession();
-		    } else {
-		    	// we must also close the session is no diagram is visible
-		    	for (final XcosDiagram diag : diagrams) {
-					if (diag.getParentTab() != null) {
-						return true;
-					}
-		    	}
-		    	Xcos.closeSession();
+		    	PaletteManager.setVisible(false);
 		    }
+		    
 		    return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Close the current xcos session.
-	 * 
-	 * This method must be called on the EDT thread. For other use, please use
-	 * the {@link #closeXcosFromScilab()} method.
-	 */
-	public static synchronized void closeSession() {
-		if (!SwingUtilities.isEventDispatchThread()) {
-			LOG.error(CALLED_OUTSIDE_THE_EDT_THREAD);
-		}
-
-		/* Doesn't instantiate xcos on close operation */
-		if (sharedInstance == null) {
-			return;
-		}
-		
-		final Xcos instance = sharedInstance;
-		final List<XcosDiagram> diagrams = instance.diagrams;
-
-		/*
-		 * We are looping in the inverted order because we have to close latest
-		 * add diagrams (eg SuperBlockDiagrams) before any others.
-		 * 
-		 * Furthermore the closeDiagram operation modify the diagram list. Thus
-		 * we must *NOT* use i-- there.
-		 */
-		for (int i = diagrams.size() - 1; i >= 0; i = diagrams.size() - 1) {
-			instance.close(diagrams.get(i), true);
-		}
-
-		if (instance.palette.getView() != null 
-				&& instance.palette.getView().isVisible()) {
-			instance.palette.getView().close();
-			instance.palette.setView(null);
-		}
-		
-		/* terminate any remaining simulation */
-		InterpreterManagement.requestScilabExec("haltscicos");
-
-		/* Saving modified data */
-		instance.palette.saveConfig();
-		instance.configuration.saveConfig();
-	}
-
-	/**
-	 * Debug main function
-	 * 
-	 * @param args
-	 *            command line args (Not used)
-	 */
-	public static void main(final String[] args) {
-		xcos();
 	}
 
 	/*
@@ -494,20 +477,48 @@ public final class Xcos {
 			throw new RuntimeException(firstMessage, e);
 		}
 	}
+	
 
 	/**
-	 * Close the current xcos session from any thread.
+	 * Start the Xcos session from any thread.
 	 * 
 	 * This method invoke Xcos operation on the EDT thread. Please prefer using
-	 * {@link #closeSession()} when the caller is on the EDT thread.
+	 * {@link #getInstance()} when the caller is on the EDT thread.
 	 */
-	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-	public static void closeXcosFromScilab() {
+	public static void startXcosSession() {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {
-					closeSession();
+					getInstance();
+				}
+			});
+		} catch (final InterruptedException e) {
+			LOG.error(e);
+		} catch (final InvocationTargetException e) {
+			Throwable throwable = e;
+			String firstMessage = null;
+			while (throwable != null) {
+				firstMessage = throwable.getLocalizedMessage();
+				throwable = throwable.getCause();
+			}
+			
+			throw new RuntimeException(firstMessage, e);
+		}
+	}
+	
+	/**
+	 * End the Xcos session from any thread.
+	 * 
+	 * This method invoke Xcos operation on the EDT thread. Please prefer using
+	 * {@link #clearInstance()} and  when the caller is on the EDT thread.
+	 */
+	@ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
+	public static void endXcosSession() {
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
+				public void run() {
 					clearInstance();
 				}
 			});

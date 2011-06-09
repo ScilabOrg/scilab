@@ -56,8 +56,9 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_xcos.c
 
 GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_Xcos.cpp \
+	sci_gateway/cpp/sci_startXcosSession.cpp \
+	sci_gateway/cpp/sci_endXcosSession.cpp \
 	sci_gateway/cpp/sci_warnBlockByUID.cpp \
-	sci_gateway/cpp/sci_closeXcosFromScilab.cpp \
 	sci_gateway/cpp/sci_xcosDiagramToHDF5.cpp \
 	sci_gateway/cpp/sci_xcosDiagramOpen.cpp \
 	sci_gateway/cpp/sci_xcosDiagramClose.cpp \
