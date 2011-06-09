@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #endif
-#include "scicos_math.h"
+#include <math.h>
 #include "dynlib_scicos_blocks.h"
 /*--------------------------------------------------------------------------*/ 
 /* Table of constant values */

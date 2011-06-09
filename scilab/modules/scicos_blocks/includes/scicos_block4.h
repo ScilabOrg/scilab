@@ -34,7 +34,7 @@
 #define NULL 0
 #endif
 
-#include "scicos_math.h"
+#include <math.h>
 
 typedef void (*voidg)();
 
