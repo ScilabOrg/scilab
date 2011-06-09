@@ -189,5 +189,6 @@ int set_outside_colors_property(       sciPointObj * pobj, size_t stackPointer, 
 int set_color_range_property(          sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol ) ;
 int set_grid_position_property(        sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol ) ;
 int set_anti_aliasing_property(        sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol ) ;
+int set_tag_property(                  sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol ) ;
 
 #endif /* _SET_HANDLE_PROPERTY_H_ */
