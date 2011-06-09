@@ -59,6 +59,6 @@ public final class QuitAction extends DefaultAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Xcos.closeSession();
+		Xcos.clearInstance();
 	}
 }

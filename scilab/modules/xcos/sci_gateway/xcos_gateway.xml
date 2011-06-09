@@ -22,15 +22,16 @@
 -->
   <!-- =================== -->
   <PRIMITIVE gatewayId="64" primitiveId="1" primitiveName="xcos"/>
-  <PRIMITIVE gatewayId="64" primitiveId="2" primitiveName="warnBlockByUID"/>
-  <PRIMITIVE gatewayId="64" primitiveId="3" primitiveName="closeXcos"/>
-  <PRIMITIVE gatewayId="64" primitiveId="4" primitiveName="xcosDiagramToHDF5"/>
-  <PRIMITIVE gatewayId="64" primitiveId="5" primitiveName="xcosPalLoad"/>
-  <PRIMITIVE gatewayId="64" primitiveId="6" primitiveName="xcosPalCategoryAdd"/>
-  <PRIMITIVE gatewayId="64" primitiveId="7" primitiveName="xcosPalDelete"/>
-  <PRIMITIVE gatewayId="64" primitiveId="8" primitiveName="xcosPalMove"/>
-  <PRIMITIVE gatewayId="64" primitiveId="9" primitiveName="xcosPalEnable"/>
-  <PRIMITIVE gatewayId="64" primitiveId="10" primitiveName="xcosPalDisable"/>
-  <PRIMITIVE gatewayId="64" primitiveId="11" primitiveName="xcosPalGenerateIcon"/>
-  <PRIMITIVE gatewayId="64" primitiveId="12" primitiveName="xcosConfigureXmlFile"/>
+  <PRIMITIVE gatewayId="64" primitiveId="2" primitiveName="startXcosSession"/>
+  <PRIMITIVE gatewayId="64" primitiveId="3" primitiveName="endXcosSession"/>
+  <PRIMITIVE gatewayId="64" primitiveId="4" primitiveName="warnBlockByUID"/>
+  <PRIMITIVE gatewayId="64" primitiveId="5" primitiveName="xcosDiagramToHDF5"/>
+  <PRIMITIVE gatewayId="64" primitiveId="6" primitiveName="xcosPalLoad"/>
+  <PRIMITIVE gatewayId="64" primitiveId="7" primitiveName="xcosPalCategoryAdd"/>
+  <PRIMITIVE gatewayId="64" primitiveId="8" primitiveName="xcosPalDelete"/>
+  <PRIMITIVE gatewayId="64" primitiveId="9" primitiveName="xcosPalMove"/>
+  <PRIMITIVE gatewayId="64" primitiveId="10" primitiveName="xcosPalEnable"/>
+  <PRIMITIVE gatewayId="64" primitiveId="11" primitiveName="xcosPalDisable"/>
+  <PRIMITIVE gatewayId="64" primitiveId="12" primitiveName="xcosPalGenerateIcon"/>
+  <PRIMITIVE gatewayId="64" primitiveId="13" primitiveName="xcosConfigureXmlFile"/>
 </GATEWAY>

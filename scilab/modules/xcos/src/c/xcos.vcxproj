@@ -228,13 +228,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_endXcosSession.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_startXcosSession.cpp" />
     <ClCompile Include="..\cpp\callxcos.cpp" />
     <ClCompile Include="DllmainXCOS.c" />
     <ClCompile Include="..\jni\GiwsException.cpp" />
     <ClCompile Include="..\..\sci_gateway\c\gw_xcos.c" />
     <ClCompile Include="..\jni\Modelica.cpp" />
     <ClCompile Include="..\jni\Palette.cpp" />
-    <ClCompile Include="..\..\sci_gateway\cpp\sci_closeXcosFromScilab.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_warnBlockByUID.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_Xcos.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_xcosConfigureXmlFile.cpp" />
