@@ -47,6 +47,9 @@ Xcos:
 
 * Bug 9547 fixed - The about box was not localized due to a multi-line string.
 
+* Bug 9579 fixed - Duplicate content in scicos_math.h removed and replaced by
+                   a cleaner call to math.h instead.
+
 
 File input/output:
 ==================

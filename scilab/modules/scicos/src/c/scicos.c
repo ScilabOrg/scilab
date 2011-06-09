@@ -69,7 +69,7 @@
 #include "cvstr.h"
 #include "ezxml.h"
 #include "xscion.h"
-#include "scicos_math.h"
+
 #include "sciblk2.h"
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
