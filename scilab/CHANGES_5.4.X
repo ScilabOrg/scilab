@@ -151,6 +151,9 @@ Compilation:
   as a static library (only available in the source tree).
   This will avoid an important dependency tree for unitary testing.
 
+* bug 9500 fixed - Explicit the GUI module manifest class-path to make Debian
+                   checking tool happy.
+
 
 Graphics:
 =========
