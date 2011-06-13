@@ -38,7 +38,7 @@ int ExitScilab(void)
 	{
 		dynamic_TerminateTclTk();
 		TerminateGraphics();
-		TerminateGUI();
+		//TerminateGUI();
 		TerminateJVM();
 	}
 
