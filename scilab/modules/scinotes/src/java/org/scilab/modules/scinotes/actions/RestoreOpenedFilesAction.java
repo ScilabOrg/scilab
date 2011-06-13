@@ -74,7 +74,7 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
     private static final Icon SCILAB_ICON = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/scilab.png");
     private static JDialog dialog;
     private static JTree tree;
-    private static List<List<File>> selectedFiles;
+    private static List<File> selectedFiles;
 
     /**
      * Constructor
@@ -109,15 +109,16 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
     /**
      * @return the selected files opened in the last session
      */
-    public static List<List<File>> getSelectedFiles() {
+    public static List<File> getSelectedFiles() {
         return selectedFiles;
     }
 
     /**
      * Display the JDialog
      * @param owner the owner
+     * @param uuid the editor uuid
      */
-    public static void displayDialog(JFrame owner) {
+    public static void displayDialog(JFrame owner, final String uuid) {
         selectedFiles = null;
         int dimX = 450;
         int dimY = 300;
@@ -138,7 +139,7 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
         Object[] buttons = new Object[2];
         ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    selectedFiles = getOpenedFiles();
+                    selectedFiles = getOpenedFiles(uuid);
                     dialog.dispose();
                 }
             });
@@ -148,7 +149,10 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
                     List<UUID> editorID = ConfigSciNotesManager.getOpenFilesEditorList();
                     for (int i = 0; i < editorID.size(); i++) {
                         // Remove these files from the list of open files
-                        ConfigSciNotesManager.removeFromOpenFiles(editorID.get(i));
+                        if (editorID.toString().equals(uuid)) {
+			    ConfigSciNotesManager.removeFromOpenFiles(editorID.get(i));
+			    break;
+			}
                     }
                     dialog.dispose();
                 }
@@ -180,7 +184,7 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
         c.gridy = 1;
         c.gridheight = GridBagConstraints.REMAINDER;
         c.fill = GridBagConstraints.HORIZONTAL;
-        fillTree();
+        fillTree(uuid);
         JScrollPane scroll = new JScrollPane(tree);
         scroll.setMinimumSize(new Dimension(dimX - 2 * GAP, dimY / 2));
         panel.add(scroll, c);
@@ -207,48 +211,41 @@ public class RestoreOpenedFilesAction extends DefaultCheckAction {
     /**
      * @return the files to open in the different editors
      */
-    private static List<List<File>> getOpenedFiles() {
-        List<List<File>> list = new ArrayList();
-        List<UUID> editorID = ConfigSciNotesManager.getOpenFilesEditorList();
-        Object[] eds = new Object[editorID.size()];
+    private static List<File> getOpenedFiles(String uuid) {
+        List<File> list = new ArrayList();
         TreeModel model = tree.getModel();
 
-        for (int i = 0; i < eds.length; i++) {
-            List<File> files = ConfigSciNotesManager.getOpenFilesByEditor(editorID.get(i));
-            if (files.size() > 0) {
-                List<File> filesToOpen = new ArrayList();
-                TreeNode node = (TreeNode) model.getChild(model.getRoot(), i);
-                for (int j = 0; j < files.size(); j++) {
-                    DefaultMutableTreeNode mutNode = (DefaultMutableTreeNode) node.getChildAt(j);
-                    CheckBoxNode cb = (CheckBoxNode) mutNode.getUserObject();
-                    if (cb.isSelected()) {
-                        filesToOpen.add(files.get(j));
-                    }
-                }
-                if (filesToOpen.size() > 0) {
-                    list.add(filesToOpen);
-                }
-            }
-            // Remove these files from the list of open files
-            ConfigSciNotesManager.removeFromOpenFiles(editorID.get(i));
-        }
+	List<File> files = ConfigSciNotesManager.getOpenFilesByEditor(UUID.fromString(uuid));
+	if (files.size() > 0) {
+	    List<File> filesToOpen = new ArrayList();
+	    TreeNode node = (TreeNode) model.getChild(model.getRoot(), 0);
+	    for (int j = 0; j < files.size(); j++) {
+		DefaultMutableTreeNode mutNode = (DefaultMutableTreeNode) node.getChildAt(j);
+		CheckBoxNode cb = (CheckBoxNode) mutNode.getUserObject();
+		if (cb.isSelected()) {
+		    filesToOpen.add(files.get(j));
+		}
+	    }
+	    list = filesToOpen;
+	}
+	// Remove these files from the list of open files
+	ConfigSciNotesManager.removeFromOpenFiles(UUID.fromString(uuid));
 
         return list;
     }
 
     /**
      * Fill the tree with the opened files
+     * @param uuid the editor uuid
      */
-    private static void fillTree() {
+    private static void fillTree(String uuid) {
         List<UUID> editorID = ConfigSciNotesManager.getOpenFilesEditorList();
-        Vector eds = new Vector(editorID.size());
+        Vector eds = new Vector(1);
 
-        for (int i = 0; i < editorID.size(); i++) {
-            List<File> filesToOpen = ConfigSciNotesManager.getOpenFilesByEditor(editorID.get(i));
-            if (filesToOpen.size() > 0) {
-                eds.add(new FilesVector("Editor " + (i + 1), filesToOpen));
-            }
-        }
+	List<File> filesToOpen = ConfigSciNotesManager.getOpenFilesByEditor(UUID.fromString(uuid));
+	if (filesToOpen.size() > 0) {
+	    eds.add(new FilesVector("Editor " + ConfigSciNotesManager.getEditorNbFromUUID(uuid), filesToOpen));
+	}
 
         tree = new JTree(eds);
 
