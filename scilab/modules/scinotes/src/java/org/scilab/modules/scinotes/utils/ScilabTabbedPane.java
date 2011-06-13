@@ -200,7 +200,7 @@ public class ScilabTabbedPane extends JTabbedPane implements DragGestureListener
                     Component c = tabbedPane.getComponentAt(tabbedPane.draggedIndex);
                     String title = tabbedPane.getScilabTitleAt(tabbedPane.draggedIndex);
                     ConfigSciNotesManager.removeFromOpenFiles(tabbedPane.editor, tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
-                    NavigatorWindow.removePane(tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
+                    tabbedPane.editor.getNavigator().removePane(tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
                     tabbedPane.remove(c);
                     if (tabbedPane.getTabCount() == 0) {
                         tabbedPane.editor.addEmptyTab();

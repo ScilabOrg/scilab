@@ -91,7 +91,7 @@ public class SciUndockingAction extends AbstractAction {
                 /** New Window properties */
                 newWindow.setPosition(new Position(oldWindowPosition.getX() + UNDOCK_OFFSET, oldWindowPosition.getY() + UNDOCK_OFFSET));
 
-                newWindow.setVisible(true);
+                newWindow.setVisible(associatedTab.isVisible());
 
                 /** Set new Window dimensions so that the tab has the same dimensions as before */
                 Size windowSize = newWindow.getDims();
