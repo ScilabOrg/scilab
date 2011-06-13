@@ -18,6 +18,8 @@
 #include "loadClasspath.h"
 #include "loadLibrarypath.h"
 #include "setgetSCIpath.h"
+#include "getScilabJNIEnv.h"
+#include "getScilabJavaVM.h"
 #include "MALLOC.h"
 #include "JVM.h"
 #include "createMainScilabObject.h"
@@ -84,5 +86,32 @@ static void DoLoadLibrarypathInEtc(char *sciPath)
 	if (librarypathfile) {FREE(librarypathfile); librarypathfile = NULL;}
 }
 /*--------------------------------------------------------------------------*/ 
+BOOL ExecuteInitialHooks(void)
+{
+    JNIEnv * currentENV = getScilabJNIEnv();
+    JavaVM * currentJVM = getScilabJavaVM();
+    
+    jint result = (*currentJVM)->AttachCurrentThread(currentJVM, (void **) &currentENV, NULL) ;
+    if (result == 0)
+    {
+        jclass cls = NULL;
+        cls = (*currentENV)->FindClass(currentENV, "org/scilab/modules/core/Scilab");
+        catchIfJavaException(_("Could not access to the Main Scilab Class:\n"));
+        if (cls)
+        {
+            jmethodID mid = NULL;
+            mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "executeInitialHooks", "()V");
+            if (mid)
+            {
+                (*currentENV)->CallStaticVoidMethod(currentENV, cls, mid);
+            }
+            catchIfJavaException(_("Cannot execute initial hooks. Error:\n"));
+
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+/*--------------------------------------------------------------------------*/
 
 
