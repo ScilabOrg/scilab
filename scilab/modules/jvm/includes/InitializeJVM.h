@@ -24,5 +24,7 @@
 */
 JVM_IMPEXP BOOL InitializeJVM(void);
 
+JVM_IMPEXP BOOL ExecuteInitialHooks(void);
+
 #endif /* __INITIALIZEJVM_H__ */
 /*--------------------------------------------------------------------------*/ 
