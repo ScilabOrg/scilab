@@ -89,11 +89,14 @@ src/c/dynamic_tclsci.c \
 src/c/dynamic_parallel.c \
 src/c/storeCommand.c \
 src/c/backtrace.c \
-src/c/signal_mgmt.c
+src/c/signal_mgmt.c \
+src/c/ScilabTermination.c
 
 CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
 src/cpp/namstr.cpp \
 src/cpp/search_functions.cpp
+
+CORE_JNI_SOURCES = src/jni/ScilabTermination_wrap.c
 
 if USE_DYNAMIC_STACK
 CORE_C_SOURCES += src/c/scimem64.c
@@ -276,8 +279,10 @@ sci_gateway/fortran/sci_f_debug.f \
 sci_gateway/fortran/sci_f_comp.f \
 sci_gateway/fortran/sci_f_isglobal.f
 
-libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
+libscicore_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
+	-I$(srcdir)/includes/ \
 	-I$(srcdir)/src/c/ \
+	-I$(srcdir)/src/jni/ \
 	-I$(top_srcdir)/libs/MALLOC/includes/ \
 	-I$(top_srcdir)/libs/dynamiclibrary/includes/ \
 	-I$(top_srcdir)/libs/doublylinkedlist/includes \
@@ -297,8 +302,10 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/shell/includes \
 	$(XML_FLAGS)
 
-libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
+libscicore_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
+	-I$(srcdir)/includes/ \
 	-I$(srcdir)/src/c/ \
+	-I$(srcdir)/src/jni/ \
 	-I$(srcdir)/src/cpp/ \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/libs/MALLOC/includes/
@@ -318,10 +325,17 @@ libscicore_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(XML_LIBS)
 CHECK_SRC= $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CFLAGS)
 
-libscicore_algo_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES)  $(JNI_SOURCES)
+libscicore_algo_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES)  $(CORE_JNI_SOURCES)
 libscicore_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscicore_algo_la_CFLAGS = $(libscicore_la_CFLAGS)
 libscicore_algo_la_CPPFLAGS = $(libscicore_la_CPPFLAGS)
+
+#### SWIG Declaration ####
+SWIG_WRAPPERS = src/jni/ScilabTermination.i 
+
+if SWIG
+    BUILT_SOURCES=swig
+endif
 
 # Commented because it is easier to comment first the core module
 libscicore_la_LIBADD = libscicore-algo.la
