@@ -13,6 +13,7 @@
 package org.scilab.modules.scinotes.utils;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -55,9 +56,9 @@ import org.scilab.modules.scinotes.ScilabEditorPane;
  * @author Calixte DENIZET
  */
 public class ScilabTabbedPane extends JTabbedPane implements DragGestureListener,
-                                                             DragSourceListener,
-                                                             DropTargetListener,
-                                                             Transferable {
+                                                  DragSourceListener,
+                                                  DropTargetListener,
+                                                  Transferable {
 
     private static final ImageIcon CLOSEICON = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/close-tab.png");
     private static final int BUTTONSIZE = 18;
@@ -81,6 +82,17 @@ public class ScilabTabbedPane extends JTabbedPane implements DragGestureListener
     public ScilabTabbedPane(SciNotes editor) {
         super();
         this.editor = editor;
+        setFocusTraversalPolicy(new java.awt.DefaultFocusTraversalPolicy() {
+                public Component getComponentAfter(Container aContainer, Component aComponent) {
+		    //System.out.println(aComponent);
+                    if (aComponent instanceof ScilabEditorPane) {
+                        return aComponent;
+                    }
+                    return super.getComponentAfter(aContainer, aComponent);
+                }
+            });
+
+        setFocusCycleRoot(true);
         DragSource dragsource = DragSource.getDefaultDragSource();
         dragsource.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_MOVE, this);
         DropTarget droptarget = new DropTarget(this, this);
@@ -200,8 +212,10 @@ public class ScilabTabbedPane extends JTabbedPane implements DragGestureListener
                     Component c = tabbedPane.getComponentAt(tabbedPane.draggedIndex);
                     String title = tabbedPane.getScilabTitleAt(tabbedPane.draggedIndex);
                     ConfigSciNotesManager.removeFromOpenFiles(tabbedPane.editor, tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
-                    NavigatorWindow.removePane(tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
-                    tabbedPane.remove(c);
+                    if (tabbedPane.editor.getNavigator() != null) {
+			tabbedPane.editor.getNavigator().removePane(tabbedPane.editor.getTextPane(tabbedPane.draggedIndex));
+                    }
+		    tabbedPane.remove(c);
                     if (tabbedPane.getTabCount() == 0) {
                         tabbedPane.editor.addEmptyTab();
                     }

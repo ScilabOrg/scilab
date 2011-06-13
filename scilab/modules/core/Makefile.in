@@ -154,7 +154,8 @@ am__libscicore_algo_la_SOURCES_DIST = src/c/inffic.c src/c/cs2st.c \
 	src/c/exitCodeValue.c src/c/getversion.c \
 	src/c/dynamic_tclsci.c src/c/dynamic_parallel.c \
 	src/c/storeCommand.c src/c/backtrace.c src/c/signal_mgmt.c \
-	src/c/scimem64.c src/cpp/hashtable_core.cpp src/cpp/namstr.cpp \
+	src/c/ScilabTermination.c src/c/scimem64.c \
+	src/cpp/hashtable_core.cpp src/cpp/namstr.cpp \
 	src/cpp/search_functions.cpp src/fortran/clunit.f \
 	src/fortran/getlin.f src/fortran/allowptr.f \
 	src/fortran/isany.f src/fortran/hmcreate.f src/fortran/nextj.f \
@@ -192,7 +193,7 @@ am__libscicore_algo_la_SOURCES_DIST = src/c/inffic.c src/c/cs2st.c \
 	src/fortran/putid.f src/fortran/itosci.f \
 	src/fortran/stackr2d.f src/fortran/stacki2d.f \
 	src/fortran/stackc2i.f src/fortran/isinstring.f \
-	src/fortran/relocstack.f
+	src/fortran/relocstack.f src/jni/ScilabTermination_wrap.c
 @USE_DYNAMIC_STACK_TRUE@am__objects_1 =  \
 @USE_DYNAMIC_STACK_TRUE@	libscicore_algo_la-scimem64.lo
 am__objects_2 = libscicore_algo_la-inffic.lo \
@@ -257,7 +258,8 @@ am__objects_2 = libscicore_algo_la-inffic.lo \
 	libscicore_algo_la-dynamic_parallel.lo \
 	libscicore_algo_la-storeCommand.lo \
 	libscicore_algo_la-backtrace.lo \
-	libscicore_algo_la-signal_mgmt.lo $(am__objects_1)
+	libscicore_algo_la-signal_mgmt.lo \
+	libscicore_algo_la-ScilabTermination.lo $(am__objects_1)
 am__objects_3 = libscicore_algo_la-hashtable_core.lo \
 	libscicore_algo_la-namstr.lo \
 	libscicore_algo_la-search_functions.lo
@@ -279,11 +281,12 @@ am__objects_5 = clunit.lo getlin.lo allowptr.lo isany.lo hmcreate.lo \
 	seteol.lo basin.lo clause.lo compcl.lo termf.lo expsum.lo \
 	copyvar.lo putid.lo itosci.lo stackr2d.lo stacki2d.lo \
 	stackc2i.lo isinstring.lo $(am__objects_4)
+am__objects_6 = libscicore_algo_la-ScilabTermination_wrap.lo
 am_libscicore_algo_la_OBJECTS = $(am__objects_2) $(am__objects_3) \
-	$(am__objects_5)
+	$(am__objects_5) $(am__objects_6)
 libscicore_algo_la_OBJECTS = $(am_libscicore_algo_la_OBJECTS)
 libscicore_la_DEPENDENCIES = libscicore-algo.la
-am__objects_6 = libscicore_la-sci_stacksize.lo \
+am__objects_7 = libscicore_la-sci_stacksize.lo \
 	libscicore_la-sci_resume.lo libscicore_la-sci_mtlb_mode.lo \
 	libscicore_la-sci_banner.lo libscicore_la-sci_where.lo \
 	libscicore_la-sci_errcatch.lo libscicore_la-sci_getos.lo \
@@ -313,13 +316,13 @@ am__objects_6 = libscicore_la-sci_stacksize.lo \
 	libscicore_la-sci_getvariablesonstack.lo \
 	libscicore_la-sci_readgateway.lo libscicore_la-sci_comp.lo \
 	libscicore_la-sci_exit.lo
-am__objects_7 = sci_f_global.lo sci_f_mtlb_mode.lo sci_f_resume.lo \
+am__objects_8 = sci_f_global.lo sci_f_mtlb_mode.lo sci_f_resume.lo \
 	sci_f_dispbpt.lo sci_f_useascommand.lo sci_f_intppty.lo \
 	sci_f_ieee.lo sci_f_macrovar.lo sci_f_exists.lo \
 	sci_f_errcatch.lo sci_f_clear.lo sci_f_argn.lo sci_f_setbpt.lo \
 	sci_f_clearglobal.lo sci_f_delbpt.lo where.lo sci_f_iserror.lo \
 	sci_f_debug.lo sci_f_comp.lo sci_f_isglobal.lo
-am_libscicore_la_OBJECTS = $(am__objects_6) $(am__objects_7)
+am_libscicore_la_OBJECTS = $(am__objects_7) $(am__objects_8)
 libscicore_la_OBJECTS = $(am_libscicore_la_OBJECTS)
 libscicore_la_LINK = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(F77LD) $(AM_FFLAGS) $(FFLAGS) \
@@ -644,11 +647,12 @@ CORE_C_SOURCES = src/c/inffic.c src/c/cs2st.c src/c/tmpdir.c \
 	src/c/exitCodeValue.c src/c/getversion.c \
 	src/c/dynamic_tclsci.c src/c/dynamic_parallel.c \
 	src/c/storeCommand.c src/c/backtrace.c src/c/signal_mgmt.c \
-	$(am__append_1)
+	src/c/ScilabTermination.c $(am__append_1)
 CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
 src/cpp/namstr.cpp \
 src/cpp/search_functions.cpp
 
+CORE_JNI_SOURCES = src/jni/ScilabTermination_wrap.c
 CORE_FORTRAN_SOURCES = src/fortran/clunit.f src/fortran/getlin.f \
 	src/fortran/allowptr.f src/fortran/isany.f \
 	src/fortran/hmcreate.f src/fortran/nextj.f \
@@ -765,7 +769,8 @@ sci_gateway/fortran/sci_f_debug.f \
 sci_gateway/fortran/sci_f_comp.f \
 sci_gateway/fortran/sci_f_isglobal.f
 
-libscicore_la_CFLAGS = -I$(srcdir)/includes/ -I$(srcdir)/src/c/ \
+libscicore_la_CFLAGS = $(JAVA_JNI_INCLUDE) -I$(srcdir)/includes/ \
+	-I$(srcdir)/src/c/ -I$(srcdir)/src/jni/ \
 	-I$(top_srcdir)/libs/MALLOC/includes/ \
 	-I$(top_srcdir)/libs/dynamiclibrary/includes/ \
 	-I$(top_srcdir)/libs/doublylinkedlist/includes \
@@ -784,8 +789,10 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ -I$(srcdir)/src/c/ \
 	-I$(top_srcdir)/modules/fileio/includes \
 	-I$(top_srcdir)/modules/shell/includes $(XML_FLAGS) \
 	$(am__append_3)
-libscicore_la_CPPFLAGS = -I$(srcdir)/includes/ \
+libscicore_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
+	-I$(srcdir)/includes/ \
 	-I$(srcdir)/src/c/ \
+	-I$(srcdir)/src/jni/ \
 	-I$(srcdir)/src/cpp/ \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/libs/MALLOC/includes/
@@ -797,10 +804,14 @@ libscicore_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(XML_LIBS)
 # For the code check (splint)
 CHECK_SRC = $(CORE_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscicore_la_CFLAGS)
-libscicore_algo_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES)  $(JNI_SOURCES)
+libscicore_algo_la_SOURCES = $(CORE_C_SOURCES) $(CORE_CPP_SOURCES) $(CORE_FORTRAN_SOURCES)  $(CORE_JNI_SOURCES)
 libscicore_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
 libscicore_algo_la_CFLAGS = $(libscicore_la_CFLAGS)
 libscicore_algo_la_CPPFLAGS = $(libscicore_la_CPPFLAGS)
+
+#### SWIG Declaration ####
+SWIG_WRAPPERS = src/jni/ScilabTermination.i 
+@SWIG_TRUE@BUILT_SOURCES = swig
 
 # Commented because it is easier to comment first the core module
 libscicore_la_LIBADD = libscicore-algo.la
@@ -922,7 +933,8 @@ JARMASK = *.jar
 HELP_CHAPTERDIR = help/
 HELP_CHAPTERFILE = addchapter.sce
 HELP_CHAPTERLANG = en_US fr_FR pt_BR
-all: all-am
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .sci .bin .c .cpp .f .lo .o .obj
@@ -1015,6 +1027,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-LaunchScilabSignal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-LoadFunctionsTab.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-SCIHOME.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-ScilabTermination.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-ScilabTermination_wrap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-SetScilabEnvironment.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-TerminateCore.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicore_algo_la-backtrace.Plo@am__quote@
@@ -1737,12 +1751,26 @@ libscicore_algo_la-signal_mgmt.lo: src/c/signal_mgmt.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -c -o libscicore_algo_la-signal_mgmt.lo `test -f 'src/c/signal_mgmt.c' || echo '$(srcdir)/'`src/c/signal_mgmt.c
 
+libscicore_algo_la-ScilabTermination.lo: src/c/ScilabTermination.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -MT libscicore_algo_la-ScilabTermination.lo -MD -MP -MF $(DEPDIR)/libscicore_algo_la-ScilabTermination.Tpo -c -o libscicore_algo_la-ScilabTermination.lo `test -f 'src/c/ScilabTermination.c' || echo '$(srcdir)/'`src/c/ScilabTermination.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscicore_algo_la-ScilabTermination.Tpo $(DEPDIR)/libscicore_algo_la-ScilabTermination.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/ScilabTermination.c' object='libscicore_algo_la-ScilabTermination.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -c -o libscicore_algo_la-ScilabTermination.lo `test -f 'src/c/ScilabTermination.c' || echo '$(srcdir)/'`src/c/ScilabTermination.c
+
 libscicore_algo_la-scimem64.lo: src/c/scimem64.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -MT libscicore_algo_la-scimem64.lo -MD -MP -MF $(DEPDIR)/libscicore_algo_la-scimem64.Tpo -c -o libscicore_algo_la-scimem64.lo `test -f 'src/c/scimem64.c' || echo '$(srcdir)/'`src/c/scimem64.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscicore_algo_la-scimem64.Tpo $(DEPDIR)/libscicore_algo_la-scimem64.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scimem64.c' object='libscicore_algo_la-scimem64.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -c -o libscicore_algo_la-scimem64.lo `test -f 'src/c/scimem64.c' || echo '$(srcdir)/'`src/c/scimem64.c
+
+libscicore_algo_la-ScilabTermination_wrap.lo: src/jni/ScilabTermination_wrap.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -MT libscicore_algo_la-ScilabTermination_wrap.lo -MD -MP -MF $(DEPDIR)/libscicore_algo_la-ScilabTermination_wrap.Tpo -c -o libscicore_algo_la-ScilabTermination_wrap.lo `test -f 'src/jni/ScilabTermination_wrap.c' || echo '$(srcdir)/'`src/jni/ScilabTermination_wrap.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscicore_algo_la-ScilabTermination_wrap.Tpo $(DEPDIR)/libscicore_algo_la-ScilabTermination_wrap.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/jni/ScilabTermination_wrap.c' object='libscicore_algo_la-ScilabTermination_wrap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_algo_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_algo_la_CFLAGS) $(CFLAGS) -c -o libscicore_algo_la-ScilabTermination_wrap.lo `test -f 'src/jni/ScilabTermination_wrap.c' || echo '$(srcdir)/'`src/jni/ScilabTermination_wrap.c
 
 libscicore_la-sci_stacksize.lo: sci_gateway/c/sci_stacksize.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicore_la_CPPFLAGS) $(CPPFLAGS) $(libscicore_la_CFLAGS) $(CFLAGS) -MT libscicore_la-sci_stacksize.lo -MD -MP -MF $(DEPDIR)/libscicore_la-sci_stacksize.Tpo -c -o libscicore_la-sci_stacksize.lo `test -f 'sci_gateway/c/sci_stacksize.c' || echo '$(srcdir)/'`sci_gateway/c/sci_stacksize.c
@@ -2722,13 +2750,15 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) check-local
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
 	for dir in "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libscicore_la_etcdir)" "$(DESTDIR)$(libscicore_la_rootdir)" "$(DESTDIR)$(libscicore_la_sci_gatewaydir)" "$(DESTDIR)$(libscicore_la_xmldir)" "$(DESTDIR)$(libscicore_la_includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -2753,6 +2783,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-local \
@@ -2832,7 +2863,7 @@ uninstall-am: uninstall-libscicore_la_etcDATA \
 	uninstall-libscicore_la_sci_gatewayDATA \
 	uninstall-libscicore_la_xmlDATA uninstall-pkglibLTLIBRARIES
 
-.MAKE: check-am install-am install-strip
+.MAKE: all check check-am install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am all-local check check-am check-local \
 	clean clean-generic clean-libtool clean-local \
