@@ -148,7 +148,7 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
 
     if(_pvCtx == NULL)
     {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
         return sciErr;
     }
 
@@ -158,10 +158,20 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
     int*	piRetCount = pStr->m_piRetCount;
     wchar_t* pstName = pStr->m_pstName;
 
-    Double* pDbl = new Double(_iRows, _iCols, _iComplex == 1);
+    Double* pDbl = NULL;
+    try
+    {
+        pDbl = new Double(_iRows, _iCols, _iComplex == 1);
+    }
+    catch(ast::ScilabError se)
+    {
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: %ls"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble", se.GetErrorMessage().c_str());
+        return sciErr;
+    }
+
     if(pDbl == NULL)
     {
-        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");
+        addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocate variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
         return sciErr;
     }
 
@@ -179,7 +189,7 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
         *_pdblImg	= pDbl->getImg();
         if(*_pdblImg == NULL)
         {
-            addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocexMatrixOfDouble");
+            addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), _iComplex ? "allocComplexMatrixOfDouble" : "allocMatrixOfDouble");
             return sciErr;
         }
     }
