@@ -73,8 +73,13 @@ for file in $LAUNCHPAD_DIRECTORY/*.po; do
         # diff too big for a little gain.
         # See bug #7059
         sed -i -e "/X-Launchpad-Export-Date/d" $LAUNCHPAD_DIRECTORY/$file
-
-
+        if test "$IS_MACRO" -eq 0; then
+            perl $SCI/tools/localization/pocheck.pl -n $LAUNCHPAD_DIRECTORY/$file
+            if test $? -ne 0; then
+                echo "Validation failed";
+                exit 2;
+            fi
+        fi
         /bin/cp -f $LAUNCHPAD_DIRECTORY/$file $TARGETFILE
         if test $? -ne 0; then
             echo "Error detected in the copy"

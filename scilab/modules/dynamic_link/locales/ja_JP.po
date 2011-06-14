@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-11 13:21+0000\n"
+"PO-Revision-Date: 2011-06-10 13:53+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
@@ -59,12 +59,9 @@ msgstr "%s: 共有ファイルを開けません. エントリ数の最大値 %d
 msgid "%s: Shared lib %s does not exist.\n"
 msgstr "%s: 共有ライブラリ %s が存在しません.\n"
 
-#
-# File: macros/dllinfo.sci, line: 110
-# File: src/c/dynamic_link.c, line: 104
 #, c-format
-msgid "%s: The file %s does not exist.\n"
-msgstr "%s: ファイル %s は存在しません。\n"
+msgid "%s: The file %s does not exist in PATH environment.\n"
+msgstr "%s: ファイル %s が環境変数PATH に存在しません.\n"
 
 #, c-format
 msgid "%s: The shared archive was not loaded: %s\n"
@@ -113,6 +110,14 @@ msgstr "%s: 入力引数 #%d の値が間違っています: 整数を指定し�
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
 msgstr "%s: 入力引数 #%d の値が正しくありません: 集合 {%s} に含まれる値を指定してください.\n"
+
+#, c-format
+msgid "%s: can not load a x64 dll in a x86 environment.\n"
+msgstr "%s: x86環境でx64 dll をロードすることはできません.\n"
+
+#, c-format
+msgid "%s: can not to load a x86 dll in a x64 environment.\n"
+msgstr "%s: x64環境でx86 dll をロードすることはできません.\n"
 
 #, c-format
 msgid "%s: problem with one of the entry point.\n"
@@ -195,6 +200,13 @@ msgstr "] : %d ライブラリ。\n"
 # File: etc/dynamic_link.start, line: 43
 #~ msgid "Dynamic link"
 #~ msgstr "ダイナミックリンク"
+
+#
+# File: macros/dllinfo.sci, line: 110
+# File: src/c/dynamic_link.c, line: 104
+#, c-format
+#~ msgid "%s: The file %s does not exist.\n"
+#~ msgstr "%s: ファイル %s は存在しません。\n"
 
 #
 # File: macros/ilib_build.sci, line: 35

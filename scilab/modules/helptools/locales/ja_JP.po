@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-11 13:39+0000\n"
+"PO-Revision-Date: 2011-06-10 13:51+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
@@ -45,6 +45,9 @@ msgstr "%s: Javaスタックを実行中: %s.\n"
 msgid "%s: Wrong type for input argument #%d: Single string expected.\n"
 msgstr "%s: 入力引数 #%d で不正な型: 単一文字列を想定します。\n"
 
+msgid "Description"
+msgstr "説明"
+
 msgid ""
 "If Scilab is started in a chroot, you might want to try to set the two "
 "environment variables: SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1\n"
@@ -63,6 +66,9 @@ msgstr "-nogui または -nwni モードで Scilab '%s' モジュールは無効
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "Scilab '%s' モジュールはインストールされていません。\n"
+
+msgid "Version"
+msgstr "バージョン"
 
 # File: macros/apropos.sci, line: 13
 #, c-format

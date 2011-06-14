@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: pl\n"
 
 msgid ""
@@ -1371,6 +1371,14 @@ msgstr "z flagiem %d "
 
 #~ msgid "**** SUNDIALS.IDA succesfully initialized *****\n"
 #~ msgstr "**** SUNDIALS.IDA zainicjalizowano *****\n"
+
+#, c-format
+#~ msgid ""
+#~ "****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and "
+#~ "ATOL)\r\n"
+#~ msgstr ""
+#~ "****SUNDIALS.Cvode: zbyt dużo pracy dla momentu czasowego t=%g (układ w tym "
+#~ "zakresie jest sztywny, zmień RTOL i ATOL)\r\n"
 
 #~ msgid "Activate Scilab Window"
 #~ msgstr "Actywuj okno Scilab"

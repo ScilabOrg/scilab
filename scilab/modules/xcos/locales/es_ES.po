@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: es\n"
 
 #, c-format
@@ -137,9 +137,6 @@ msgstr "Calculando"
 
 msgid "Continuous time systems"
 msgstr "Sistemas de tiempo continuo"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Copyright (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "No se pudo guardar el diagrama."
@@ -303,8 +300,8 @@ msgstr "Desde %s"
 msgid "Generate Jacobian"
 msgstr "Generar Jacobiano"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Generando SuperBloque, por favor espere ..."
+msgid "Generate SuperBlock, please wait"
+msgstr ""
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Generando código de C para el Super-Bloque"
@@ -634,9 +631,6 @@ msgstr "Color de Texto"
 msgid "Text settings"
 msgstr "Configuración de texto"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "The Scilab Consortium (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -797,7 +791,11 @@ msgstr "Error de Xcos"
 msgid "Xcos file"
 msgstr "Archivo de Xcos"
 
-msgid "You may enter here scilab instructions to define "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
 msgstr ""
 
 msgid "Zero crossing detection"
@@ -983,9 +981,18 @@ msgstr "peso"
 #~ msgid "Unknow Diagram Version : "
 #~ msgstr "Versión de Diagrama desconocida : "
 
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Copyright (c) 1989-2009 (INRIA)"
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Generando SuperBloque, por favor espere ..."
+
 #, c-format
 #~ msgid "%s: Unable to import xcos file %s.\n"
 #~ msgstr "%s: Imposible importar el archivo %s de xcos.\n"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "The Scilab Consortium (DIGITEO)"
 
 #~ msgid "Light Simulation trace (Discrete and Continous part switches)"
 #~ msgstr "Traza de Simulación de Luz (cambios discretos y continuos)"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: pt_BR\n"
 
 #, c-format
@@ -139,9 +139,6 @@ msgstr "Calculando"
 
 msgid "Continuous time systems"
 msgstr "Sistema de tempo contínuo"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Direitos reservados (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "Não foi possível salvar diagrama."
@@ -305,8 +302,8 @@ msgstr "De %s"
 msgid "Generate Jacobian"
 msgstr "Gerar Jacobiano"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Gerando SuperBloco. Por favor, aguarde..."
+msgid "Generate SuperBlock, please wait"
+msgstr ""
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Gerando código C para o SuperBloco"
@@ -636,9 +633,6 @@ msgstr "Cor do texto"
 msgid "Text settings"
 msgstr "Configurações do texto"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "O Consórcio Scilab (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -800,7 +794,11 @@ msgstr "Erro do Xcos"
 msgid "Xcos file"
 msgstr "Arquivo Xcos"
 
-msgid "You may enter here scilab instructions to define "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
 msgstr ""
 
 msgid "Zero crossing detection"
@@ -862,6 +860,9 @@ msgstr "peso"
 #~ msgid "Copy"
 #~ msgstr "Copiar"
 
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Direitos reservados (c) 1989-2009 (INRIA)"
+
 #, c-format
 #~ msgid "FAILED TO EXPORT: %s\n"
 #~ msgstr "FALHA AO EXPORTAR: %s\n"
@@ -880,6 +881,9 @@ msgstr "peso"
 
 #~ msgid "Same command executed again"
 #~ msgstr "Mesmo comando executado novamente"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "O Consórcio Scilab (DIGITEO)"
 
 #~ msgid "UnGroup"
 #~ msgstr "Desagrupar"
@@ -904,6 +908,9 @@ msgstr "peso"
 
 #~ msgid "Cut"
 #~ msgstr "Recortar"
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Gerando SuperBloco. Por favor, aguarde..."
 
 #~ msgid "Select all"
 #~ msgstr "Selecionar tudo"

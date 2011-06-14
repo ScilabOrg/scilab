@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ru\n"
 
 msgid ""
@@ -58,6 +58,9 @@ msgstr "%s: Неверный тип параметра %d: ожидалась м
 
 msgid "(* for any string and ? for any character)"
 msgstr "(* для  любой строки и ? для любого символа)"
+
+msgid "(~ for user home dir. and SCI for Scilab base dir.)"
+msgstr ""
 
 msgid "... file with echo"
 msgstr "... файла с отображением команд"
@@ -273,12 +276,8 @@ msgid "Edit"
 msgstr "Правка"
 
 #, c-format
-msgid "Elapsed time: %s second."
-msgstr "Прошедшее время: %s секунда."
-
-#, c-format
-msgid "Elapsed time: %s seconds."
-msgstr "Прошедшее время: %s секунд(ы)."
+msgid "Elapsed time: %s sec."
+msgstr ""
 
 msgid "Enable Auto Reformat"
 msgstr "Автоматический отступ"
@@ -375,6 +374,9 @@ msgstr "Перейти к предыдущей метке"
 msgid "Goto line"
 msgstr "Перейти к строке"
 
+msgid "Graphics handle field"
+msgstr ""
+
 msgid "Help about '"
 msgstr "Справка по '"
 
@@ -464,6 +466,9 @@ msgstr "Следующая вкладка"
 
 msgid "No Line Numbering"
 msgstr "Без нумерации строк"
+
+msgid "No help"
+msgstr ""
 
 msgid "No split"
 msgstr "Без разделения"
@@ -900,3 +905,11 @@ msgstr "Закрыть эту вкладку"
 
 #~ msgid "Numerotation"
 #~ msgstr "Нумерация"
+
+#, c-format
+#~ msgid "Elapsed time: %s seconds."
+#~ msgstr "Прошедшее время: %s секунд(ы)."
+
+#, c-format
+#~ msgid "Elapsed time: %s second."
+#~ msgstr "Прошедшее время: %s секунда."

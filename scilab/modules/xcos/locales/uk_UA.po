@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-27 14:59+0000\n"
+"PO-Revision-Date: 2011-06-10 20:37+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: uk\n"
 
 #, c-format
@@ -138,9 +138,6 @@ msgstr "Обчислення"
 
 msgid "Continuous time systems"
 msgstr "Неперервні динамічні системи"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Авторські права належать © 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "Не вдалося зберегти діаграму."
@@ -303,8 +300,8 @@ msgstr "З %s"
 msgid "Generate Jacobian"
 msgstr "Створити матрицю Якобі"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Створення суперблоку, будь ласка, зачекайте…"
+msgid "Generate SuperBlock, please wait"
+msgstr "Створення суперблоку, зачекайте"
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Створення коду C для суперблоку"
@@ -633,9 +630,6 @@ msgstr "Колір тексту"
 msgid "Text settings"
 msgstr "Параметри тексту"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "Консорціум Scilab (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -796,8 +790,16 @@ msgstr "Помилка Xcos"
 msgid "Xcos file"
 msgstr "Файл Xcos"
 
-msgid "You may enter here scilab instructions to define "
-msgstr "Тут ви можете вказати інструкції scilab, які слід визначити "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
+msgstr ""
+"Тут ви можете вказати команди Scilab для визначення символічних параметрів, "
+"що використовуються у визначеннях блоків.<br/>Ці команди буде виконано "
+"одразу після підтвердження (тобто натискання вами кнопки «Гаразд», у "
+"відповідь на команду Eval та кожного разу під час завантаження діаграми)."
 
 msgid "Zero crossing detection"
 msgstr "Визначення переходів через нуль"
@@ -878,12 +880,18 @@ msgstr "вага"
 #~ msgid "Copy"
 #~ msgstr "Копіювати"
 
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Авторські права належать © 1989-2009 (INRIA)"
+
 #~ msgid "Cut"
 #~ msgstr "Вирізати"
 
 #, c-format
 #~ msgid "FAILED TO EXPORT: %s\n"
 #~ msgstr "НЕ ВДАЛОСЯ ЕКСПОРТУВАТИ: %s\n"
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Створення суперблоку, будь ласка, зачекайте…"
 
 #~ msgid "Group"
 #~ msgstr "Групувати"
@@ -900,6 +908,9 @@ msgstr "вага"
 
 #~ msgid "Redo"
 #~ msgstr "Повторити"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "Консорціум Scilab (DIGITEO)"
 
 #~ msgid "UnGroup"
 #~ msgstr "Розгрупувати"
@@ -1309,3 +1320,6 @@ msgstr "вага"
 
 #~ msgid "Simulation problem"
 #~ msgstr "Проблеми з імітацією"
+
+#~ msgid "You may enter here scilab instructions to define "
+#~ msgstr "Тут ви можете вказати інструкції scilab, які слід визначити "

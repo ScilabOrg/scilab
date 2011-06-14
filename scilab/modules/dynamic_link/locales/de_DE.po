@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: de\n"
 
 #, c-format
@@ -58,8 +58,8 @@ msgid "%s: Shared lib %s does not exist.\n"
 msgstr "%s: gemeinsame Bibliothek %s existiert nicht.\n"
 
 #, c-format
-msgid "%s: The file %s does not exist.\n"
-msgstr "%s: Die Datei %s existiert nicht.\n"
+msgid "%s: The file %s does not exist in PATH environment.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: The shared archive was not loaded: %s\n"
@@ -114,6 +114,14 @@ msgstr "%s: Falscher Wert für Eingangsargument #%d: Integer erwartet.\n"
 msgid "%s: Wrong value for input argument #%d: Must be in the set {%s}.\n"
 msgstr ""
 "%s: falscher Wert für Eingangsargument #%d: muß sich im Satz {%s} befinden.\n"
+
+#, c-format
+msgid "%s: can not load a x64 dll in a x86 environment.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: can not to load a x86 dll in a x64 environment.\n"
+msgstr ""
 
 #, c-format
 msgid "%s: problem with one of the entry point.\n"
@@ -224,6 +232,10 @@ msgstr "]: %d Bibliothek.\n"
 #~ msgid "   %s: Copy compilation files (Makefile*, libtool...) to TMPDIR\n"
 #~ msgstr ""
 #~ "   %s: kopiere Kompilat-Dateien (Steuerdatei, libtool...) nach TMPDIR\n"
+
+#, c-format
+#~ msgid "%s: The file %s does not exist.\n"
+#~ msgstr "%s: Die Datei %s existiert nicht.\n"
 
 #, c-format
 #~ msgid "%s: Cannot open file %s.\n"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ru\n"
 
 #, c-format
@@ -131,9 +131,6 @@ msgstr "Вычисление"
 
 msgid "Continuous time systems"
 msgstr "Системы с непрерывным временем"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Авторское право (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "Не удалось сохранить диаграмму"
@@ -296,8 +293,8 @@ msgstr "От %s"
 msgid "Generate Jacobian"
 msgstr "Формировать матрицу Якоби"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Формируется суперблок..."
+msgid "Generate SuperBlock, please wait"
+msgstr ""
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Формируется код на C для суперблока..."
@@ -626,9 +623,6 @@ msgstr "Цвет текста"
 msgid "Text settings"
 msgstr "Настройки текста"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "Консорциум Scilab (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -789,7 +783,11 @@ msgstr "Ошибка Xcos"
 msgid "Xcos file"
 msgstr "Файл Xcos"
 
-msgid "You may enter here scilab instructions to define "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
 msgstr ""
 
 msgid "Zero crossing detection"
@@ -938,6 +936,9 @@ msgstr "вес"
 #~ msgid "%s: Unable to import xcos file %s.\n"
 #~ msgstr "%s: Не удалось импортировать файл Xcos %s.\n"
 
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Авторское право (c) 1989-2009 (INRIA)"
+
 #~ msgid "Continuous"
 #~ msgstr "C непрерывными характеристиками"
 
@@ -953,10 +954,16 @@ msgstr "вес"
 #~ msgid "Group"
 #~ msgstr "Сгруппировать"
 
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Формируется суперблок..."
+
 #~ msgid "Set deugging level (0,1,2,3) </br> it performs scicos_debug(n)"
 #~ msgstr ""
 #~ "Выберите уровень отладки</br> (для выполнения scicos_debug(n), где "
 #~ "n=(0,1,2,3))"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "Консорциум Scilab (DIGITEO)"
 
 #~ msgid "Xcos version 1.0"
 #~ msgstr "Xcos версия 1.0"

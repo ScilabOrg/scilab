@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: de\n"
 
 msgid ""
@@ -57,6 +57,9 @@ msgstr ""
 "%s: falscher Typ für Argument %d: Matrix von Zeichenketten erwartet.\n"
 
 msgid "(* for any string and ? for any character)"
+msgstr ""
+
+msgid "(~ for user home dir. and SCI for Scilab base dir.)"
 msgstr ""
 
 msgid "... file with echo"
@@ -272,11 +275,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #, c-format
-msgid "Elapsed time: %s second."
-msgstr ""
-
-#, c-format
-msgid "Elapsed time: %s seconds."
+msgid "Elapsed time: %s sec."
 msgstr ""
 
 msgid "Enable Auto Reformat"
@@ -372,6 +371,9 @@ msgstr ""
 msgid "Goto line"
 msgstr "Gehe zu Zeile"
 
+msgid "Graphics handle field"
+msgstr ""
+
 msgid "Help about '"
 msgstr "Hilfe über '"
 
@@ -460,6 +462,9 @@ msgid "Next tab"
 msgstr "Nächster Reiter"
 
 msgid "No Line Numbering"
+msgstr ""
+
+msgid "No help"
 msgstr ""
 
 msgid "No split"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: de\n"
 
 #, c-format
@@ -136,9 +136,6 @@ msgstr "Berechnen"
 
 msgid "Continuous time systems"
 msgstr "Zeitkontinuierliche Systeme"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Copyright (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "Konnte Diagramm nicht speichern."
@@ -303,8 +300,8 @@ msgstr "Von %s"
 msgid "Generate Jacobian"
 msgstr "Erzeuge Jacobi-Matrix"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Generiere Superblock, bitte warten..."
+msgid "Generate SuperBlock, please wait"
+msgstr ""
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Generiere C-Code für Superblock"
@@ -635,9 +632,6 @@ msgstr "Textfarbe"
 msgid "Text settings"
 msgstr "Texteinstellungen"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "Das Scilab Konsortium (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -798,7 +792,11 @@ msgstr "Xcos Fehler"
 msgid "Xcos file"
 msgstr "Xcos Datei"
 
-msgid "You may enter here scilab instructions to define "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
 msgstr ""
 
 msgid "Zero crossing detection"
@@ -975,6 +973,15 @@ msgstr "Gewichtung"
 
 #~ msgid "Unknow Diagram Version : "
 #~ msgstr "unbekannte Diagrammversion "
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Generiere Superblock, bitte warten..."
+
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Copyright (c) 1989-2009 (INRIA)"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "Das Scilab Konsortium (DIGITEO)"
 
 #~ msgid "Remove user defined palette"
 #~ msgstr "Enferne Vom Benutzer definierte Palette"

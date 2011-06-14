@@ -63,7 +63,7 @@ function [model, ok] = build_block(o)
         mputl(tt, funam);
       end
 
-      //next lines removed in ScicosLab
+      //next lines removed in scicos
 //       //++ Check that modelica compiler is available
 //       //++ Otherwise, give some feedback and quit
 //       if ~with_modelica_compiler() then

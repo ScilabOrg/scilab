@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: JAPAN\n"
 "X-Poedit-Language: Japanese\n"
 
@@ -769,11 +769,6 @@ msgstr "エラー"
 msgid "Error returning tlist, memory full.\n"
 msgstr "tlist を返す際のエラー, メモリ不足です.\n"
 
-msgid ""
-"Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
-"SciError(x).\n"
-msgstr "Error(x) は古い関数で, Scilab 5.4 では削除される予定です. SciError(x) の使用を検討ください.\n"
-
 #, c-format
 msgid "Error: Could not create %s: %s\n"
 msgstr "エラー:  %s を作成できませんでした: %s\n"
@@ -1449,6 +1444,11 @@ msgstr "tlist は完全には代入されませんでした.\n"
 
 #~ msgid "               Copyright (c) 1989-2010 (INRIA)\n"
 #~ msgstr "               Copyright (c) 1989-2010 (INRIA)\n"
+
+#~ msgid ""
+#~ "Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
+#~ "SciError(x).\n"
+#~ msgstr "Error(x) は古い関数で, Scilab 5.4 では削除される予定です. SciError(x) の使用を検討ください.\n"
 
 #, c-format
 #~ msgid "%s: %s is a uneditable hard coded function.\n"

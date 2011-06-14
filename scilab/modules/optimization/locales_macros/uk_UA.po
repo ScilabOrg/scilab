@@ -8,26 +8,34 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-06-02 11:01+0000\n"
-"Last-Translator: yurchor <Unknown>\n"
+"PO-Revision-Date: 2011-06-10 20:30+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: uk\n"
 
 #, c-format
-msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
-msgstr " кількість обмежень (%s)''),''lmisolver'',%m,%fm));"
+msgid "%s:       OPTIMIZATION PHASE."
+msgstr "%s:       ФАЗА ОПТИМІЗАЦІЇ."
 
 #, c-format
-msgid "%s: %s"
-msgstr "%s: %s"
+msgid "%s:     FEASIBILITY PHASE."
+msgstr "%s:     ФАЗА ДОСЯЖНОСТІ."
+
+#, c-format
+msgid "%s: Absolute accuracy reached."
+msgstr "%s: досягнуто абсолютної точності."
 
 #, c-format
 msgid "%s: Ambiguous property name %s matches several fields : %s"
 msgstr "%s: неоднозначна назва властивості %s відповідає декільком полям: %s"
+
+#, c-format
+msgid "%s: Basis Construction."
+msgstr "%s: побудова базису."
 
 #, c-format
 msgid "%s: Cannot check cost function when x0 is empty"
@@ -58,6 +66,10 @@ msgid "%s: Cannot evaluate cost function from costf(x0,6)."
 msgstr "%s: не вдалося обчислити функцію вартості за допомогою costf(x0,6)."
 
 #, c-format
+msgid "%s: Construction of canonical representation."
+msgstr "%s: побудова канонічного представлення."
+
+#, c-format
 msgid "%s: Either one of Aeq, A, lb or ub must be non-empty."
 msgstr "%s: одне зі значень Aeq, A, lb або ub має бути непорожнім."
 
@@ -78,6 +90,21 @@ msgid ""
 msgstr ""
 "%s: для змінної %s мало бути вказано функцію у вхідному параметрі №%d, але "
 "вказано %s."
+
+#, c-format
+msgid ""
+"%s: Expected function for variable %s(1) at input #%d, but got %s instead."
+msgstr ""
+"%s: мало бути вказано функцію змінної %s(1) на вхідному каналі №%d, але "
+"отримано %s."
+
+#, c-format
+msgid ""
+"%s: Expected function or list for variable %s at input #%d, but got %s "
+"instead."
+msgstr ""
+"%s: мало бути вказано функцію або список змінної %s на вхідному каналі №%d, "
+"але отримано %s."
 
 #, c-format
 msgid ""
@@ -110,6 +137,13 @@ msgstr "%s: журнал вимкнено; увімкнути його можн�
 
 #, c-format
 msgid ""
+"%s: Ill-posed problem. Number of unknowns (%s) > number of constraints (%s)"
+msgstr ""
+"%s: некоректна задача. Кількість невідомих (%s) перевищує кількість обмежень "
+"(%s)"
+
+#, c-format
+msgid ""
 "%s: Impossible to scale the vertex #%d/%d at [%s] into inequality constraints"
 msgstr ""
 "%s: не вдалося масштабувати вершину №#%d з %d у [%s] відповідно до умов "
@@ -118,6 +152,10 @@ msgstr ""
 #, c-format
 msgid "%s: Initial guess [%s] is not feasible."
 msgstr "%s: початкова точка [%s] не задовольняє умовам задачі."
+
+#, c-format
+msgid "%s: Initial guess feasible."
+msgstr "%s: початкове припущення є досяжним."
 
 #, c-format
 msgid "%s: Initial guess not feasible.\n"
@@ -136,6 +174,18 @@ msgid "%s: Logging not started."
 msgstr "%s: ведення записів не розпочато."
 
 #, c-format
+msgid "%s: M must be strictly greater than trace of F(x0)."
+msgstr "%s: M має бути строго більшим за слід F(x0)."
+
+#, c-format
+msgid "%s: Max. iters. exceeded."
+msgstr "%s: перевищено максимальну кількість ітерацій."
+
+#, c-format
+msgid "%s: Mbound too small."
+msgstr "%s: занадто мале значення Mbound."
+
+#, c-format
 msgid "%s: Negative iteration index %d is not allowed."
 msgstr "%s: не можна використовувати від’ємні кроки ітерації %d."
 
@@ -150,6 +200,14 @@ msgid ""
 msgstr ""
 "%s: типових параметрів не визначено: у каталогах шляхів до функцій немає "
 "функції «%s»."
+
+#, c-format
+msgid "%s: No feasible solution exists."
+msgstr "%s: не існує досяжних розв’язків."
+
+#, c-format
+msgid "%s: No feasible solution found."
+msgstr "%s: не знайдено досяжного розв’язку."
 
 #, c-format
 msgid "%s: No output command is defined."
@@ -182,6 +240,10 @@ msgid ""
 msgstr ""
 "%s: кількість рядків у x дорівнює %d, тобто не збігається з кількістю вершин "
 "%d."
+
+#, c-format
+msgid "%s: Objective constant."
+msgstr "%s: цільова стала."
 
 #, c-format
 msgid ""
@@ -224,6 +286,18 @@ msgid ""
 msgstr ""
 "%s: використовувати початковий симплекс з випадковими межами у задачі без "
 "обмежень не можна."
+
+#, c-format
+msgid "%s: Relative accuracy reached."
+msgstr "%s: досягнуто відносної точності."
+
+#, c-format
+msgid "%s: Target value not achievable."
+msgstr "%s: потрібне значення недосяжне."
+
+#, c-format
+msgid "%s: Target value reached."
+msgstr "%s: досягнуто потрібного значення."
 
 #, c-format
 msgid ""
@@ -280,6 +354,14 @@ msgid ""
 msgstr ""
 "%s: градієнт можна застосовувати лише для симплексів з n+1 точки, але "
 "розмірність дорівнює %d, а кількість вершин — %d"
+
+#, c-format
+msgid "%s: The initial simplex has no dimension."
+msgstr "%s: початковий симплекс не має вимірів."
+
+#, c-format
+msgid "%s: The initial simplex has no vertices."
+msgstr "%s: початковий симплекс не має вершин."
 
 #, c-format
 msgid ""
@@ -451,13 +533,6 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Unexpected number of input arguments : %d provided while 2 or 3 are "
-"expected."
-msgstr ""
-"%s: неочікувана кількість вхідних параметрів: вказано %d, мало бути 2 або 3."
-
-#, c-format
-msgid ""
 "%s: Unexpected number of input arguments : %d provided while 2 to 4 are "
 "expected."
 msgstr ""
@@ -575,6 +650,15 @@ msgstr ""
 #, c-format
 msgid "%s: Wrong number of input argument(s).\n"
 msgstr "%s: помилкова кількість вхідних параметрів.\n"
+
+#, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr "%s: помилкова кількість вхідних параметрів: мало бути %d.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+"%s: помилкова кількість вхідних параметрів: слід використовувати %d або %d.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
@@ -695,11 +779,53 @@ msgstr ""
 "%s: помилкове значення вхідного параметра №%d. x0 має менше значення за "
 "нижню межу lb."
 
+#, c-format
+msgid "%s: feasible solution found."
+msgstr "%s: знайдено досяжний розв’язок."
+
+#, c-format
+msgid "%s: initial guess is feasible."
+msgstr "%s: початкове припущення є досяжним."
+
+#, c-format
+msgid "%s: max number of iterations exceeded, solution may not be optimal"
+msgstr ""
+"%s: перевищено максимальну можливу кількість ітерацій, розв’язок може бути "
+"неоптимальним."
+
+#, c-format
+msgid "%s: max number of iterations exceeded."
+msgstr "%s: перевищено максимальну кількість ітерацій."
+
+#, c-format
+msgid "%s: may be unbounded below"
+msgstr "%s: можливо, задача необмежена знизу"
+
+#, c-format
+msgid "%s: not feasible or badly defined problem."
+msgstr "%s: не розв’язна або некоректно визначена задача."
+
+#, c-format
+msgid "%s: optimal solution found"
+msgstr "%s: знайдено оптимальний розв’язок"
+
+#, c-format
+msgid "%s: rank deficient problem"
+msgstr "%s: задача з недостатнім рангом"
+
+#, c-format
+msgid "%s: solution unbounded."
+msgstr "%s: необмежений розв’язок."
+
 msgid "...Done\n"
 msgstr "...Виконано\n"
 
 msgid "A new method of constrained optimization \n"
 msgstr "Новий метод оптимізації з обмеженнями \n"
+
+#, c-format
+msgid "Calling sequence %s is obsolete."
+msgstr "Виклик послідовності %s є застарілим."
 
 msgid "Column #1: number of dimensions\n"
 msgstr "Стовпчик 1: кількість вимірів\n"
@@ -847,12 +973,6 @@ msgstr "Ітерації"
 msgid "LQV"
 msgstr "LQV"
 
-msgid "Logarithm Maximum Oriented length"
-msgstr "Логарифм максимальної орієнтованої довжини"
-
-msgid "Logarithm Minimum Function Value"
-msgstr "Логарифм мінімального значення функції"
-
 msgid "Maximum Oriented length"
 msgstr "Максимальна орієнтована довжина"
 
@@ -878,8 +998,16 @@ msgstr "Оптимізація"
 msgid "Optimization and Simulation"
 msgstr "Оптимізація та моделювання"
 
+#, c-format
+msgid "Option %s is obsolete."
+msgstr "Параметр %s є застарілим."
+
 msgid "Output"
 msgstr "Виведення"
+
+#, c-format
+msgid "Please use %s instead."
+msgstr "Будь ласка, використовуйте %s."
 
 msgid "Plot"
 msgstr "Креслення"
@@ -896,15 +1024,6 @@ msgstr "Креслення контура (будь ласка, зачекайт
 msgid "Plotting contour (please wait)...\n"
 msgstr "Креслення контура (будь ласка, зачекайте)…\n"
 
-msgid "Plotting history of fbar ...\n"
-msgstr "Креслення годографа fbar…\n"
-
-msgid "Plotting history of fopt ...\n"
-msgstr "Креслення годографа fopt…\n"
-
-msgid "Plotting history of sigma ...\n"
-msgstr "Креслення годографа sigma…\n"
-
 msgid "Problem A\n"
 msgstr "Задача A\n"
 
@@ -915,8 +1034,12 @@ msgid "Rate of convergence"
 msgstr "Швидкість збігання"
 
 #, c-format
-msgid "Relative error = %e\n"
-msgstr "Відносна похибка = %e\n"
+msgid "Relative error on f = %e\n"
+msgstr "Відносна похибка за f = %e\n"
+
+#, c-format
+msgid "Relative error on x = %e\n"
+msgstr "Відносна похибка за x = %e\n"
 
 msgid "Rosenbrock"
 msgstr "Розенброк"
@@ -939,12 +1062,12 @@ msgstr "Моделювання відпалювання"
 msgid "Spaceship landing trajectory"
 msgstr "Траєкторія приземлення космічного корабля"
 
+#, c-format
+msgid "This feature will be permanently removed in Scilab %s"
+msgstr "Цю функцію буде назавжди вилучено у Scilab %s"
+
 msgid "and a comparison with other methods.\n"
 msgstr "та порівняння з іншими методами.\n"
-
-#, c-format
-msgid "f computed = %f\n"
-msgstr "f_ обчислене = %f\n"
 
 #, c-format
 msgid "f expected = %f\n"
@@ -992,6 +1115,9 @@ msgstr "neldermead — розмірність"
 msgid "neldermead - Output Command"
 msgstr "neldermead — команда виводу"
 
+msgid "neldermead - Polygon"
+msgstr "neldermead — багатокутник"
+
 msgid "neldermead - Rosenbrock Variable"
 msgstr "neldermead — змінна Розенброка"
 
@@ -1013,6 +1139,12 @@ msgstr "nmplot — квадратичний фіксований 1"
 msgid "nmplot - Quadratic Fixed #2"
 msgstr "nmplot — квадратичний фіксований 2"
 
+msgid "nmplot - Quadratic Variable#1"
+msgstr "nmplot — квадратична змінна 1"
+
+msgid "nmplot - Quadratic Variable#2"
+msgstr "nmplot — квадратична змінна 2"
+
 msgid "nmplot - Rosenbrock Fixed"
 msgstr "nmplot — фіксований Розенброка"
 
@@ -1026,3 +1158,41 @@ msgstr "x0 = %s\n"
 #, c-format
 msgid "x0=%s\n"
 msgstr "x0=%s\n"
+
+#, c-format
+#~ msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
+#~ msgstr " кількість обмежень (%s)''),''lmisolver'',%m,%fm));"
+
+#, c-format
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
+
+#, c-format
+#~ msgid "Relative error = %e\n"
+#~ msgstr "Відносна похибка = %e\n"
+
+#, c-format
+#~ msgid "f computed = %f\n"
+#~ msgstr "f_ обчислене = %f\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Unexpected number of input arguments : %d provided while 2 or 3 are "
+#~ "expected."
+#~ msgstr ""
+#~ "%s: неочікувана кількість вхідних параметрів: вказано %d, мало бути 2 або 3."
+
+#~ msgid "Logarithm Maximum Oriented length"
+#~ msgstr "Логарифм максимальної орієнтованої довжини"
+
+#~ msgid "Logarithm Minimum Function Value"
+#~ msgstr "Логарифм мінімального значення функції"
+
+#~ msgid "Plotting history of fbar ...\n"
+#~ msgstr "Креслення годографа fbar…\n"
+
+#~ msgid "Plotting history of fopt ...\n"
+#~ msgstr "Креслення годографа fopt…\n"
+
+#~ msgid "Plotting history of sigma ...\n"
+#~ msgstr "Креслення годографа sigma…\n"

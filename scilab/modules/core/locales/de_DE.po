@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: de\n"
 
 #, c-format
@@ -750,13 +750,6 @@ msgstr "Fehler"
 msgid "Error returning tlist, memory full.\n"
 msgstr "Fehler beim Zurückgeben der tlist, Speicher voll.\n"
 
-msgid ""
-"Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
-"SciError(x).\n"
-msgstr ""
-"Error(x) ist veraltet und wird in Scilab 5.4 entfernt. Bitte SciError(x) "
-"berücksichtigen.\n"
-
 #, c-format
 msgid "Error: Could not create %s: %s\n"
 msgstr "Fehler: Konnte %s: %s nicht erstellen\n"
@@ -1365,6 +1358,13 @@ msgstr "tlist nicht vollständig gefüllt.\n"
 
 #~ msgid "Bytes"
 #~ msgstr "Bytes"
+
+#~ msgid ""
+#~ "Error(x) is deprecated and will be removed in Scilab 5.4. Please consider "
+#~ "SciError(x).\n"
+#~ msgstr ""
+#~ "Error(x) ist veraltet und wird in Scilab 5.4 entfernt. Bitte SciError(x) "
+#~ "berücksichtigen.\n"
 
 #~ msgid "Type"
 #~ msgstr "Typ"

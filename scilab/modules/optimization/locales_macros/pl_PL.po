@@ -14,20 +14,28 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: pl\n"
 
 #, c-format
-msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
-msgstr " liczba ograniczeń (%s)''),''lmisolver'',%m,%fm));"
+msgid "%s:       OPTIMIZATION PHASE."
+msgstr ""
 
 #, c-format
-msgid "%s: %s"
-msgstr "%s: %s"
+msgid "%s:     FEASIBILITY PHASE."
+msgstr ""
+
+#, c-format
+msgid "%s: Absolute accuracy reached."
+msgstr ""
 
 #, c-format
 msgid "%s: Ambiguous property name %s matches several fields : %s"
 msgstr "%s: Niejasna nazwa właściwości %s. Nazwa pasuje do wielu pól : %s"
+
+#, c-format
+msgid "%s: Basis Construction."
+msgstr ""
 
 #, c-format
 msgid "%s: Cannot check cost function when x0 is empty"
@@ -58,6 +66,10 @@ msgid "%s: Cannot evaluate cost function from costf(x0,6)."
 msgstr "%s: Nie można ocenić funkcji kosztów z costf(x0,6)."
 
 #, c-format
+msgid "%s: Construction of canonical representation."
+msgstr ""
+
+#, c-format
 msgid "%s: Either one of Aeq, A, lb or ub must be non-empty."
 msgstr ""
 
@@ -78,6 +90,17 @@ msgid ""
 msgstr ""
 "%s: Oczekiwano funkcji dla zmiennej %s (parametr wejściowy nr %d), zamiast "
 "tego otrzymano %s"
+
+#, c-format
+msgid ""
+"%s: Expected function for variable %s(1) at input #%d, but got %s instead."
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: Expected function or list for variable %s at input #%d, but got %s "
+"instead."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -109,6 +132,11 @@ msgstr "%s: Historia nieaktywna; włącz opcje -storehistory."
 
 #, c-format
 msgid ""
+"%s: Ill-posed problem. Number of unknowns (%s) > number of constraints (%s)"
+msgstr ""
+
+#, c-format
+msgid ""
 "%s: Impossible to scale the vertex #%d/%d at [%s] into inequality constraints"
 msgstr ""
 "%s: Nie możliwe przeskalowanie wierzchołka nr %d/%d w [%s] w ograniczenia w "
@@ -117,6 +145,10 @@ msgstr ""
 #, c-format
 msgid "%s: Initial guess [%s] is not feasible."
 msgstr "%s: Wstępna wartość [%s] nie jest dopuszczalna."
+
+#, c-format
+msgid "%s: Initial guess feasible."
+msgstr ""
 
 #, c-format
 msgid "%s: Initial guess not feasible.\n"
@@ -135,6 +167,18 @@ msgid "%s: Logging not started."
 msgstr "%s: Log-plik nie został uruchomiony."
 
 #, c-format
+msgid "%s: M must be strictly greater than trace of F(x0)."
+msgstr ""
+
+#, c-format
+msgid "%s: Max. iters. exceeded."
+msgstr ""
+
+#, c-format
+msgid "%s: Mbound too small."
+msgstr ""
+
+#, c-format
 msgid "%s: Negative iteration index %d is not allowed."
 msgstr "%s: Ujemny indeks iteracji %d nie jest dozwolony."
 
@@ -148,6 +192,14 @@ msgid ""
 "path."
 msgstr ""
 "%s: Domyślne opcje nie dostępne: brak funkcji ''%s'' nie podanej ścieżce."
+
+#, c-format
+msgid "%s: No feasible solution exists."
+msgstr ""
+
+#, c-format
+msgid "%s: No feasible solution found."
+msgstr ""
 
 #, c-format
 msgid "%s: No output command is defined."
@@ -175,6 +227,10 @@ msgid ""
 "%d."
 msgstr ""
 "%s: Liczba wierszy x wynosi %d, różni się od liczby wierzchołków = %d."
+
+#, c-format
+msgid "%s: Objective constant."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -216,6 +272,18 @@ msgid ""
 "%s: Randomized bounds initial simplex is not available without bounds."
 msgstr ""
 "%s: Przypadkowe granice początku simplex nie są dostępne bez ograniczeń."
+
+#, c-format
+msgid "%s: Relative accuracy reached."
+msgstr ""
+
+#, c-format
+msgid "%s: Target value not achievable."
+msgstr ""
+
+#, c-format
+msgid "%s: Target value reached."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -272,6 +340,14 @@ msgid ""
 msgstr ""
 "%s: Gradient może być stosowany tylko z simpleksem, który składa się z n+1 "
 "punktów, ale wymiar wynosi %d a liczba wierzchołków %d"
+
+#, c-format
+msgid "%s: The initial simplex has no dimension."
+msgstr ""
+
+#, c-format
+msgid "%s: The initial simplex has no vertices."
+msgstr ""
 
 #, c-format
 msgid ""
@@ -438,12 +514,6 @@ msgstr ""
 
 #, c-format
 msgid ""
-"%s: Unexpected number of input arguments : %d provided while 2 or 3 are "
-"expected."
-msgstr ""
-
-#, c-format
-msgid ""
 "%s: Unexpected number of input arguments : %d provided while 2 to 4 are "
 "expected."
 msgstr ""
@@ -561,6 +631,14 @@ msgid "%s: Wrong number of input argument(s).\n"
 msgstr "%s: Nieprawidłowa liczba parametrów wejściowych.\n"
 
 #, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr ""
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr ""
+
+#, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr ""
 "%s: Nieprawidłowa liczba argumentów wejściowych: oczekiwano od %d do %d.\n"
@@ -657,10 +735,50 @@ msgstr ""
 msgid "%s: Wrong value for input argument #%d. x0 lower than lower bound lb."
 msgstr ""
 
+#, c-format
+msgid "%s: feasible solution found."
+msgstr ""
+
+#, c-format
+msgid "%s: initial guess is feasible."
+msgstr ""
+
+#, c-format
+msgid "%s: max number of iterations exceeded, solution may not be optimal"
+msgstr ""
+
+#, c-format
+msgid "%s: max number of iterations exceeded."
+msgstr ""
+
+#, c-format
+msgid "%s: may be unbounded below"
+msgstr ""
+
+#, c-format
+msgid "%s: not feasible or badly defined problem."
+msgstr ""
+
+#, c-format
+msgid "%s: optimal solution found"
+msgstr ""
+
+#, c-format
+msgid "%s: rank deficient problem"
+msgstr ""
+
+#, c-format
+msgid "%s: solution unbounded."
+msgstr ""
+
 msgid "...Done\n"
 msgstr ""
 
 msgid "A new method of constrained optimization \n"
+msgstr ""
+
+#, c-format
+msgid "Calling sequence %s is obsolete."
 msgstr ""
 
 msgid "Column #1: number of dimensions\n"
@@ -795,12 +913,6 @@ msgstr ""
 msgid "LQV"
 msgstr ""
 
-msgid "Logarithm Maximum Oriented length"
-msgstr ""
-
-msgid "Logarithm Minimum Function Value"
-msgstr ""
-
 msgid "Maximum Oriented length"
 msgstr ""
 
@@ -826,7 +938,15 @@ msgstr ""
 msgid "Optimization and Simulation"
 msgstr "Optymalizacja i Symulacja"
 
+#, c-format
+msgid "Option %s is obsolete."
+msgstr ""
+
 msgid "Output"
+msgstr ""
+
+#, c-format
+msgid "Please use %s instead."
 msgstr ""
 
 msgid "Plot"
@@ -844,15 +964,6 @@ msgstr ""
 msgid "Plotting contour (please wait)...\n"
 msgstr ""
 
-msgid "Plotting history of fbar ...\n"
-msgstr ""
-
-msgid "Plotting history of fopt ...\n"
-msgstr ""
-
-msgid "Plotting history of sigma ...\n"
-msgstr ""
-
 msgid "Problem A\n"
 msgstr ""
 
@@ -863,7 +974,11 @@ msgid "Rate of convergence"
 msgstr ""
 
 #, c-format
-msgid "Relative error = %e\n"
+msgid "Relative error on f = %e\n"
+msgstr ""
+
+#, c-format
+msgid "Relative error on x = %e\n"
 msgstr ""
 
 msgid "Rosenbrock"
@@ -887,11 +1002,11 @@ msgstr ""
 msgid "Spaceship landing trajectory"
 msgstr ""
 
-msgid "and a comparison with other methods.\n"
+#, c-format
+msgid "This feature will be permanently removed in Scilab %s"
 msgstr ""
 
-#, c-format
-msgid "f computed = %f\n"
+msgid "and a comparison with other methods.\n"
 msgstr ""
 
 #, c-format
@@ -940,6 +1055,9 @@ msgstr ""
 msgid "neldermead - Output Command"
 msgstr ""
 
+msgid "neldermead - Polygon"
+msgstr ""
+
 msgid "neldermead - Rosenbrock Variable"
 msgstr ""
 
@@ -961,6 +1079,12 @@ msgstr ""
 msgid "nmplot - Quadratic Fixed #2"
 msgstr ""
 
+msgid "nmplot - Quadratic Variable#1"
+msgstr ""
+
+msgid "nmplot - Quadratic Variable#2"
+msgstr ""
+
 msgid "nmplot - Rosenbrock Fixed"
 msgstr ""
 
@@ -974,3 +1098,11 @@ msgstr ""
 #, c-format
 msgid "x0=%s\n"
 msgstr ""
+
+#, c-format
+#~ msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
+#~ msgstr " liczba ograniczeń (%s)''),''lmisolver'',%m,%fm));"
+
+#, c-format
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"

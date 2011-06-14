@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-10 20:07+0000\n"
+"PO-Revision-Date: 2011-06-10 20:11+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: uk\n"
 
 #, c-format
@@ -40,6 +40,9 @@ msgstr ""
 "%s: помилковий тип вхідного параметра №%d: слід використовувати одинарне "
 "значення типу «string».\n"
 
+msgid "Description"
+msgstr "Опис"
+
 msgid ""
 "If Scilab is started in a chroot, you might want to try to set the two "
 "environment variables: SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1\n"
@@ -54,6 +57,9 @@ msgstr "Модуль «%s» Scilab у режимі -nogui або -nwni вимк�
 #, c-format
 msgid "Scilab '%s' module not installed.\n"
 msgstr "Модуль «%s» Scilab не встановлено.\n"
+
+msgid "Version"
+msgstr "Версія"
 
 #, c-format
 #~ msgid "\t%s\n"

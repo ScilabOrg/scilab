@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ca\n"
 
 msgid ""
@@ -1353,6 +1353,14 @@ msgstr "amb senyal %d "
 #, c-format
 #~ msgid "%s is not a valid name, please change the title of the diagram."
 #~ msgstr "%s no és un nom vàlid, canvieu el nom del diagrama."
+
+#, c-format
+#~ msgid ""
+#~ "****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and "
+#~ "ATOL)\r\n"
+#~ msgstr ""
+#~ "****SUNDIALS.Cvode: hi ha massa feina en el moment=%g (regió stiff, canvia "
+#~ "RTOL i ATOL)\r\n"
 
 #~ msgid "**** SUNDIALS.IDA succesfully initialized *****\n"
 #~ msgstr "**** S'ha inicialitzat correctament el SUNDIALS.IDA *****\n"

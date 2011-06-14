@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: uk\n"
 
 msgid ""
@@ -1904,6 +1904,14 @@ msgstr "з прапорцем %d "
 
 #~ msgid "**** SUNDIALS.IDA succesfully initialized *****\n"
 #~ msgstr "**** SUNDIALS.IDA успішно ініціалізовано *****\n"
+
+#, c-format
+#~ msgid ""
+#~ "****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and "
+#~ "ATOL)\r\n"
+#~ msgstr ""
+#~ "**** SUNDIALS.Cvode: занадто багато роботи за час=%g (фіксований діапазон, "
+#~ "змініть RTOL і ATOL)\r\n"
 
 #~ msgid "An Atomic Superblock cannot contain sample clocks"
 #~ msgstr "Елементарний суперблок не може містити шаблонів годинника"

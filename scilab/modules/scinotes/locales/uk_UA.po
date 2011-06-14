@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-27 14:58+0000\n"
+"PO-Revision-Date: 2011-06-10 20:34+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: uk\n"
 
 msgid ""
@@ -64,6 +64,9 @@ msgstr ""
 
 msgid "(* for any string and ? for any character)"
 msgstr "(* — будь-який рядок, ? — будь-який символ)"
+
+msgid "(~ for user home dir. and SCI for Scilab base dir.)"
+msgstr "(~ — домашня тека користувача, SCI — основна тека Scilab)"
 
 msgid "... file with echo"
 msgstr "…файл з виведенням"
@@ -279,12 +282,8 @@ msgid "Edit"
 msgstr "Зміни"
 
 #, c-format
-msgid "Elapsed time: %s second."
-msgstr "Витрачено часу: %s секунда"
-
-#, c-format
-msgid "Elapsed time: %s seconds."
-msgstr "Витрачено часу: %s секунд"
+msgid "Elapsed time: %s sec."
+msgstr "Витрачено часу: %s сек."
 
 msgid "Enable Auto Reformat"
 msgstr "Увімкнути автоматичну зміну формату"
@@ -379,6 +378,9 @@ msgstr "Перейти до попередньої прив’язки"
 msgid "Goto line"
 msgstr "Перейти до рядка"
 
+msgid "Graphics handle field"
+msgstr "Поле елемента керування графіки"
+
 msgid "Help about '"
 msgstr "Довідка щодо «"
 
@@ -468,6 +470,9 @@ msgstr "Наступна вкладка"
 
 msgid "No Line Numbering"
 msgstr "Без нумерації рядків"
+
+msgid "No help"
+msgstr "Немає довідки"
 
 msgid "No split"
 msgstr "Без поділу"
@@ -909,3 +914,11 @@ msgstr "закрити цю вкладку"
 
 #~ msgid "Open file in ...;Add a directory;Remove last directory"
 #~ msgstr "Відкрити файл у…;Додати каталог;Вилучити останній каталог"
+
+#, c-format
+#~ msgid "Elapsed time: %s seconds."
+#~ msgstr "Витрачено часу: %s секунд"
+
+#, c-format
+#~ msgid "Elapsed time: %s second."
+#~ msgstr "Витрачено часу: %s секунда"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: pl\n"
 
 msgid ""
@@ -61,6 +61,9 @@ msgstr ""
 "%s: Nieprawidłowy typ parametru nr %d: Oczekiwana macierz ciągów znaków.\n"
 
 msgid "(* for any string and ? for any character)"
+msgstr ""
+
+msgid "(~ for user home dir. and SCI for Scilab base dir.)"
 msgstr ""
 
 msgid "... file with echo"
@@ -277,12 +280,8 @@ msgid "Edit"
 msgstr "Edycja"
 
 #, c-format
-msgid "Elapsed time: %s second."
-msgstr "Szacowany czas: %s sec."
-
-#, c-format
-msgid "Elapsed time: %s seconds."
-msgstr "Szacowany czas: %s sec."
+msgid "Elapsed time: %s sec."
+msgstr ""
 
 msgid "Enable Auto Reformat"
 msgstr "Włącz autoformatowanie"
@@ -377,6 +376,9 @@ msgstr "Do poprzedniej kotwicy"
 msgid "Goto line"
 msgstr "Idź do linii"
 
+msgid "Graphics handle field"
+msgstr ""
+
 msgid "Help about '"
 msgstr "Pomoc o '"
 
@@ -466,6 +468,9 @@ msgstr "Następna karta"
 
 msgid "No Line Numbering"
 msgstr "Brak numeracji wierszy"
+
+msgid "No help"
+msgstr ""
 
 msgid "No split"
 msgstr "Nie dziel"
@@ -920,3 +925,11 @@ msgstr "zamknij kartę"
 
 #~ msgid "Open file in ...;Add a directory;Remove last directory"
 #~ msgstr "Otwórz plik w ...;Dodaj katalog;Usuń ostatni katalog"
+
+#, c-format
+#~ msgid "Elapsed time: %s seconds."
+#~ msgstr "Szacowany czas: %s sec."
+
+#, c-format
+#~ msgid "Elapsed time: %s second."
+#~ msgstr "Szacowany czas: %s sec."

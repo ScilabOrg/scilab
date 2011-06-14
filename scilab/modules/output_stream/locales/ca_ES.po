@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ca\n"
 
 #, c-format
@@ -49,9 +49,6 @@ msgstr " s'ha truncat a: %s.\n"
 msgid " input line longer than buffer size: %d\n"
 msgstr ""
 " la línia d'entrada és més llarga que la mida de la memòria intermèdia: %d\n"
-
-msgid "\"unknown data\""
-msgstr "\"dades desconegudes\""
 
 #, c-format
 msgid "%d graphic terminal?\n"
@@ -212,12 +209,6 @@ msgstr "%s: Els paràmetres d'entrada són incorrectes.\n"
 #, c-format
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s: El nombre d'arguments d'entrada és incorrecte.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: at least %d expected.\n"
-msgstr ""
-"%s: El nombre d'arguments d'entrada és incorrecte: Han de ser com a mínim "
-"%d.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
@@ -519,14 +510,14 @@ msgstr ""
 msgid "Argument type must be boolean.\n"
 msgstr "L'argument ha de ser un booleà.\n"
 
-msgid "Arguments are :\n"
-msgstr "Els arguments són:\n"
-
 #, c-format
 msgid "At time: %s. Too many iteration to achieve required precision.\n"
 msgstr ""
 "Actualment: %s. S'ha de fer massa iteracions per assolir la precisió "
 "requerida.\n"
+
+msgid "Bad call to a scilab function ?\n"
+msgstr ""
 
 #, c-format
 msgid "Bad call to primitive: %s\n"
@@ -611,16 +602,8 @@ msgid "Eye variable undefined in this context.\n"
 msgstr "La variable objectiu no està definida en aquest context.\n"
 
 #, c-format
-msgid ""
-"Fatal error!!! Your variables have been saved in the file : %s\n"
-"                                   Bad call to a scilab function ?\n"
-"                                   Otherwise, send a bug report to :\n"
+msgid "Fatal error!!! Your variables have been saved in the file : %s\n"
 msgstr ""
-"Error. Les vostres variable s'han desat al fitxer: %s\n"
-"                                   Potser heu fet una crida incorrecta a una "
-"funció de l'Scilab.\n"
-"                                   Si no és així, envieu un informe amb "
-"l'error a:\n"
 
 #, c-format
 msgid "File \"%s\" already exists or directory write access denied.\n"
@@ -865,8 +848,9 @@ msgstr "No s'ha implementat al Scilab...\n"
 msgid "Null variable cannot be used here.\n"
 msgstr "Aquí no es pot utilitzar cap variable nul·la.\n"
 
-msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
 msgstr ""
+"Els operants de les operacions / i \\ no poden contenir NaN de inf.\n"
 
 msgid "Optim stops: maximum number of calls to f is reached.\n"
 msgstr ""
@@ -887,6 +871,9 @@ msgstr "Error a l'optimització: S'ha tornat al punt inicial.\n"
 msgid "Optimization stops because too small variations for x.\n"
 msgstr ""
 "S'ha aturat l'optimització perquè hi ha variacions massa petites de x.\n"
+
+msgid "Otherwise, send a bug report to :"
+msgstr ""
 
 msgid "Pause mode: enter empty lines to continue.\n"
 msgstr "Mode de pausa: Entreu línies buides per a continuar.\n"
@@ -1088,6 +1075,9 @@ msgstr "Variable indefinida.\n"
 msgid "Undefined variable: %s\n"
 msgstr "Variable indefinida: %s\n"
 
+msgid "Unknown data.\n"
+msgstr ""
+
 msgid "Unknown file format.\n"
 msgstr "El format del fitxer és desconegut.\n"
 
@@ -1238,8 +1228,8 @@ msgstr "El primer argument és incorrecte.\n"
 msgid "Wrong input argument %d.\n"
 msgstr "L'argument d'entrada %d és incorrecte.\n"
 
-msgid "Wrong number of input arguments:\n"
-msgstr "El nombre d'arguments d'entrada és incorrecte:\n"
+msgid "Wrong number of input arguments."
+msgstr ""
 
 msgid ""
 "Wrong number of input arguments: This function has no input argument.\n"
@@ -1247,8 +1237,8 @@ msgstr ""
 "El nombre d'arguments d'entrada és incorrecte: Aquesta funció no té "
 "arguments d'entrada.\n"
 
-msgid "Wrong number of output arguments\n"
-msgstr "El nombre d'arguments de sortida és incorrecte\n"
+msgid "Wrong number of output arguments.\n"
+msgstr ""
 
 msgid ""
 "Wrong number of output arguments: This function has no output argument.\n"
@@ -1501,6 +1491,9 @@ msgstr "Aquí no es pot utilitzar la paraula varargout.\n"
 #~ msgid "Wrong number of arguments in function call...\n"
 #~ msgstr "El nombre d'arguments a la crida a la funció és incorrecte...\n"
 
+#~ msgid "Arguments are :\n"
+#~ msgstr "Els arguments són:\n"
+
 #~ msgid "Function has no input argument...\n"
 #~ msgstr "La funció no té cap argument d'entrada...\n"
 
@@ -1545,6 +1538,9 @@ msgstr "Aquí no es pot utilitzar la paraula varargout.\n"
 #~ msgstr ""
 #~ "Error d'escriptura al fitxer (el disc és ple o s'ha eliminat el fitxer).\n"
 
+#~ msgid "\"unknown data\""
+#~ msgstr "\"dades desconegudes\""
+
 #, c-format
 #~ msgid "Rank defficient. rank = %d\n"
 #~ msgstr "El rang és deficient. rank = %d\n"
@@ -1588,6 +1584,12 @@ msgstr "Aquí no es pot utilitzar la paraula varargout.\n"
 #~ msgid "'o' format not allowed."
 #~ msgstr "El format 'o' no està permès."
 
+#~ msgid "Wrong number of output arguments\n"
+#~ msgstr "El nombre d'arguments de sortida és incorrecte\n"
+
+#~ msgid "Wrong number of input arguments:\n"
+#~ msgstr "El nombre d'arguments d'entrada és incorrecte:\n"
+
 #~ msgid "Warning: obsolete use of eye rand or ones.\n"
 #~ msgstr "Avís: Utilització obsoleta d'identitat aleatòria, o uns.\n"
 
@@ -1609,6 +1611,12 @@ msgstr "Aquí no es pot utilitzar la paraula varargout.\n"
 #~ "%s: El nombre d'arguments d'entrada és incorrecte: Han de ser de %d a %d"
 
 #, c-format
+#~ msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+#~ msgstr ""
+#~ "%s: El nombre d'arguments d'entrada és incorrecte: Han de ser com a mínim "
+#~ "%d.\n"
+
+#, c-format
 #~ msgid "%s: Wrong type for argument #%d: Boolean expected.\n"
 #~ msgstr "%s: L'argument #%d és d'un tipus incorrecte: Ha de ser un booleà.\n"
 
@@ -1625,6 +1633,14 @@ msgstr "Aquí no es pot utilitzar la paraula varargout.\n"
 #~ msgstr ""
 #~ "%s: L'argument d'entrada #%d és d'un tipus incorrecte: Ha de ser un text.\n"
 
-#~ msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
+#, c-format
+#~ msgid ""
+#~ "Fatal error!!! Your variables have been saved in the file : %s\n"
+#~ "                                   Bad call to a scilab function ?\n"
+#~ "                                   Otherwise, send a bug report to :\n"
 #~ msgstr ""
-#~ "Els operants de les operacions / i \\ no poden contenir NaN de inf.\n"
+#~ "Error. Les vostres variable s'han desat al fitxer: %s\n"
+#~ "                                   Potser heu fet una crida incorrecta a una "
+#~ "funció de l'Scilab.\n"
+#~ "                                   Si no és així, envieu un informe amb "
+#~ "l'error a:\n"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: de\n"
 
 #, c-format
@@ -48,9 +48,6 @@ msgstr " wurde abgeschniten bei: %s.\n"
 #, c-format
 msgid " input line longer than buffer size: %d\n"
 msgstr " Eingabezeile länger als Buffergröße: %d\n"
-
-msgid "\"unknown data\""
-msgstr "\"unbekannte Daten\""
 
 #, c-format
 msgid "%d graphic terminal?\n"
@@ -206,10 +203,6 @@ msgstr "%s: falscher Eingangsparameter.\n"
 #, c-format
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s: falsche Anzahl von EIngangsargumenten.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: at least %d expected.\n"
-msgstr "%s: falsche Anzahl an Eingangsargumenten: mindestens %d erwartet.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
@@ -498,13 +491,13 @@ msgstr "eine dürtige Matrix ist durch zwei Werte definiert.\n"
 msgid "Argument type must be boolean.\n"
 msgstr "Argument Typ muß ein boolscher Wert sein.\n"
 
-msgid "Arguments are :\n"
-msgstr "Argumente sind:\n"
-
 #, c-format
 msgid "At time: %s. Too many iteration to achieve required precision.\n"
 msgstr ""
 "Zur Zeit: %s. Zu viele Iterationen, um benötigte Präzision zu erlangen.\n"
+
+msgid "Bad call to a scilab function ?\n"
+msgstr ""
 
 #, c-format
 msgid "Bad call to primitive: %s\n"
@@ -590,15 +583,8 @@ msgid "Eye variable undefined in this context.\n"
 msgstr "Augen-Variable für diesen Kontext definiert.\n"
 
 #, c-format
-msgid ""
-"Fatal error!!! Your variables have been saved in the file : %s\n"
-"                                   Bad call to a scilab function ?\n"
-"                                   Otherwise, send a bug report to :\n"
+msgid "Fatal error!!! Your variables have been saved in the file : %s\n"
 msgstr ""
-"Fataler Fehler!!! Ihre Variablen wurden in dieser Datei gesichert : %s\n"
-"                                   Falscher Aufruf einer scilab Funktion ?\n"
-"                                   Andernfalls bitte einen Fehlerbericht "
-"senden an :\n"
 
 #, c-format
 msgid "File \"%s\" already exists or directory write access denied.\n"
@@ -845,8 +831,9 @@ msgstr "Nicht in Scilab Implementiert...\n"
 msgid "Null variable cannot be used here.\n"
 msgstr "Eine Null-Variable kann hier nicht verwendet werden.\n"
 
-msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
 msgstr ""
+"Operanden von / und \\ Operationen darf kein Nan oder Inf. enthalten.\n"
 
 msgid "Optim stops: maximum number of calls to f is reached.\n"
 msgstr ""
@@ -864,6 +851,9 @@ msgstr "Optimierung schlägt fehl: zurück zum Ursprungspunkt.\n"
 
 msgid "Optimization stops because too small variations for x.\n"
 msgstr "Optimierung hält an, weil die Variationen für x zu klein sind.\n"
+
+msgid "Otherwise, send a bug report to :"
+msgstr ""
 
 msgid "Pause mode: enter empty lines to continue.\n"
 msgstr "Pausenmodus: leere Zeilen eingeben, um fortzufahren.\n"
@@ -1066,6 +1056,9 @@ msgstr "Undefinierte Variable.\n"
 msgid "Undefined variable: %s\n"
 msgstr "Undefinierte Variable: %s\n"
 
+msgid "Unknown data.\n"
+msgstr ""
+
 msgid "Unknown file format.\n"
 msgstr "unbekanntes Dateiformat.\n"
 
@@ -1220,8 +1213,8 @@ msgstr "Falsches erstes Argument.\n"
 msgid "Wrong input argument %d.\n"
 msgstr "Falsches Eingangsargument %d.\n"
 
-msgid "Wrong number of input arguments:\n"
-msgstr "Falsche Anzahl an Eingangsargumenten:\n"
+msgid "Wrong number of input arguments."
+msgstr ""
 
 msgid ""
 "Wrong number of input arguments: This function has no input argument.\n"
@@ -1229,8 +1222,8 @@ msgstr ""
 "Falscher Anzahl an EIngangsargumenten: diese Funktion hat kein "
 "Eingangsargument.\n"
 
-msgid "Wrong number of output arguments\n"
-msgstr "Falsche Anzahl an Ausgangsargumenten\n"
+msgid "Wrong number of output arguments.\n"
+msgstr ""
 
 msgid ""
 "Wrong number of output arguments: This function has no output argument.\n"
@@ -1461,6 +1454,9 @@ msgstr "varargout Schlüsselwort kann hier nicht verwendet werden.\n"
 #~ msgid "Wrong number of arguments in function call...\n"
 #~ msgstr "Falsche Anzahl an Argumenten in Funktionsaufruf...\n"
 
+#~ msgid "Arguments are :\n"
+#~ msgstr "Argumente sind:\n"
+
 #~ msgid "Function has no input argument...\n"
 #~ msgstr "Funktion hat keine Eingangsargumente...\n"
 
@@ -1487,6 +1483,9 @@ msgstr "varargout Schlüsselwort kann hier nicht verwendet werden.\n"
 #~ msgid "A sparse matrix entry is defined with two differents values.\n"
 #~ msgstr ""
 #~ "Eine leer-Matrix Eintrag ist mit zwei verschiedenen Werten definiert.\n"
+
+#~ msgid "\"unknown data\""
+#~ msgstr "\"unbekannte Daten\""
 
 #~ msgid "Operands of / and \\ operations  must not contain NaN of Inf.\n"
 #~ msgstr ""
@@ -1556,6 +1555,12 @@ msgstr "varargout Schlüsselwort kann hier nicht verwendet werden.\n"
 #~ msgid "'o' format not allowed."
 #~ msgstr "'o' Format nicht erlaubt."
 
+#~ msgid "Wrong number of input arguments:\n"
+#~ msgstr "Falsche Anzahl an Eingangsargumenten:\n"
+
+#~ msgid "Wrong number of output arguments\n"
+#~ msgstr "Falsche Anzahl an Ausgangsargumenten\n"
+
 #, c-format
 #~ msgid "%s: Wrong number of input argument(s): %d to %d expected."
 #~ msgstr "%s: falsche Anzahl von Eingangsargumenten: %d nach %d erwartet."
@@ -1577,12 +1582,23 @@ msgstr "varargout Schlüsselwort kann hier nicht verwendet werden.\n"
 #~ msgstr "%s: falsche Anzahl an Eingangsargumenten: %d zu %d erwartet"
 
 #, c-format
+#~ msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+#~ msgstr "%s: falsche Anzahl an Eingangsargumenten: mindestens %d erwartet.\n"
+
+#, c-format
 #~ msgid "%s: Wrong type for argument #%d: Boolean expected.\n"
 #~ msgstr "%s: falscher Typ für Argument #%d: boolscher Wert erwartet.\n"
 
-#~ msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
+#, c-format
+#~ msgid ""
+#~ "Fatal error!!! Your variables have been saved in the file : %s\n"
+#~ "                                   Bad call to a scilab function ?\n"
+#~ "                                   Otherwise, send a bug report to :\n"
 #~ msgstr ""
-#~ "Operanden von / und \\ Operationen darf kein Nan oder Inf. enthalten.\n"
+#~ "Fataler Fehler!!! Ihre Variablen wurden in dieser Datei gesichert : %s\n"
+#~ "                                   Falscher Aufruf einer scilab Funktion ?\n"
+#~ "                                   Andernfalls bitte einen Fehlerbericht "
+#~ "senden an :\n"
 
 #, c-format
 #~ msgid ""

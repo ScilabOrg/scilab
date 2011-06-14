@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ru\n"
 
 #, c-format
@@ -49,9 +49,6 @@ msgstr " было усечено до %s.\n"
 #, c-format
 msgid " input line longer than buffer size: %d\n"
 msgstr " входная строка длиннее размера буфера: %d\n"
-
-msgid "\"unknown data\""
-msgstr "\"неизвестные данные\""
 
 #, c-format
 msgid "%d graphic terminal?\n"
@@ -209,10 +206,6 @@ msgstr "%s: Неверные входные параметры.\n"
 #, c-format
 msgid "%s: Wrong number of input arguments.\n"
 msgstr "%s: Неверное количество входных параметров.\n"
-
-#, c-format
-msgid "%s: Wrong number of input arguments: at least %d expected.\n"
-msgstr "%s: Неверное количество входных параметров: ожидалось не менее %d.\n"
 
 #, c-format
 msgid "%s: Wrong number of input arguments: at most %d expected.\n"
@@ -503,14 +496,14 @@ msgstr "Элемент разреженной матрицы был задан �
 msgid "Argument type must be boolean.\n"
 msgstr "Тип параметра должен быть логическим.\n"
 
-msgid "Arguments are :\n"
-msgstr "Параметры:\n"
-
 #, c-format
 msgid "At time: %s. Too many iteration to achieve required precision.\n"
 msgstr ""
 "В промежуток времени %s, слишком много итераций для достижения требуемой "
 "точности.\n"
+
+msgid "Bad call to a scilab function ?\n"
+msgstr ""
 
 #, c-format
 msgid "Bad call to primitive: %s\n"
@@ -592,14 +585,8 @@ msgid "Eye variable undefined in this context.\n"
 msgstr "Переменная окна (eye variable) не определена в данном контексте.\n"
 
 #, c-format
-msgid ""
-"Fatal error!!! Your variables have been saved in the file : %s\n"
-"                                   Bad call to a scilab function ?\n"
-"                                   Otherwise, send a bug report to :\n"
+msgid "Fatal error!!! Your variables have been saved in the file : %s\n"
 msgstr ""
-"Критическая ошибка!!! Ваши переменные были сохранены в следующий файл: %s\n"
-"                                   Неправильный вызов функции Scilab?\n"
-"                                   Иначе, сообщите об ошибке по адресу:\n"
 
 #, c-format
 msgid "File \"%s\" already exists or directory write access denied.\n"
@@ -842,8 +829,8 @@ msgstr "Не реализовано в scilab...\n"
 msgid "Null variable cannot be used here.\n"
 msgstr "Здесь не может использоваться пустая переменная.\n"
 
-msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
-msgstr "Операнды операций / и \\ не должны содержать NaN или Inf.\n"
+msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
+msgstr "Параметры команд / и \\ не могут содержать NaN или Inf.\n"
 
 msgid "Optim stops: maximum number of calls to f is reached.\n"
 msgstr "Оптимизация остановилась: достигнут максимум вызовов функции f.\n"
@@ -861,6 +848,9 @@ msgstr "Оптимизация не удалась: возврат к исход
 
 msgid "Optimization stops because too small variations for x.\n"
 msgstr "Оптимизация остановилась, потому что вариации x слишком малы.\n"
+
+msgid "Otherwise, send a bug report to :"
+msgstr ""
 
 msgid "Pause mode: enter empty lines to continue.\n"
 msgstr "Режим паузы: введите пустую строку для продолжения.\n"
@@ -1057,6 +1047,9 @@ msgstr "Неопределённая переменная.\n"
 msgid "Undefined variable: %s\n"
 msgstr "Неизвестная переменная: %s\n"
 
+msgid "Unknown data.\n"
+msgstr ""
+
 msgid "Unknown file format.\n"
 msgstr "Неизвестный формат файла.\n"
 
@@ -1209,8 +1202,8 @@ msgstr "Неверный первый параметр.\n"
 msgid "Wrong input argument %d.\n"
 msgstr "Неверный входной параметр %d.\n"
 
-msgid "Wrong number of input arguments:\n"
-msgstr "Неверное количество входных параметров:\n"
+msgid "Wrong number of input arguments."
+msgstr ""
 
 msgid ""
 "Wrong number of input arguments: This function has no input argument.\n"
@@ -1218,8 +1211,8 @@ msgstr ""
 "Неверное количество входных параметров: у данной функции нет входного "
 "параметра.\n"
 
-msgid "Wrong number of output arguments\n"
-msgstr "Неверное количество выходных параметров\n"
+msgid "Wrong number of output arguments.\n"
+msgstr ""
 
 msgid ""
 "Wrong number of output arguments: This function has no output argument.\n"
@@ -1487,6 +1480,9 @@ msgstr "Ключевое слово varargout не может быть испо�
 #~ msgid "Error while writing in file,(disk full or deleted file.\n"
 #~ msgstr "Ошибка записи в файл, диск заполнен либо файл удалён.\n"
 
+#~ msgid "\"unknown data\""
+#~ msgstr "\"неизвестные данные\""
+
 #, c-format
 #~ msgid "Rank defficient. rank = %d\n"
 #~ msgstr "Ранг недостаточен. Ранг = %d\n"
@@ -1543,6 +1539,15 @@ msgstr "Ключевое слово varargout не может быть испо�
 #~ "Внимание: задан Якобиан, но\n"
 #~ " не использован! см. %ODEOPTIONS(6).\n"
 
+#~ msgid "Wrong number of output arguments\n"
+#~ msgstr "Неверное количество выходных параметров\n"
+
+#~ msgid "Wrong number of input arguments:\n"
+#~ msgstr "Неверное количество входных параметров:\n"
+
+#~ msgid "Arguments are :\n"
+#~ msgstr "Параметры:\n"
+
 #~ msgid "Binary direct acces files must be opened by 'file'.\n"
 #~ msgstr ""
 #~ "Двоичная файлы прямого доступа могут быть открыты только командой «file».\n"
@@ -1564,6 +1569,10 @@ msgstr "Ключевое слово varargout не может быть испо�
 #~ msgstr "%s: Неверное количество входных параметров: ожидалось от %d до %d."
 
 #, c-format
+#~ msgid "%s: Wrong number of input arguments: at least %d expected.\n"
+#~ msgstr "%s: Неверное количество входных параметров: ожидалось не менее %d.\n"
+
+#, c-format
 #~ msgid "%s: Wrong type for argument #%d: Boolean expected.\n"
 #~ msgstr "%s: Неверный тип параметра №%d: ожидалось логическое значение.\n"
 
@@ -1579,5 +1588,15 @@ msgstr "Ключевое слово varargout не может быть испо�
 #~ msgid "%s: Wrong type for input argument #%d: String expected.\n"
 #~ msgstr "%s: Неверный тип входного параметра №%d: ожидалась строка.\n"
 
-#~ msgid "Operands of / and \\ operations must not contain NaN of Inf.\n"
-#~ msgstr "Параметры команд / и \\ не могут содержать NaN или Inf.\n"
+#, c-format
+#~ msgid ""
+#~ "Fatal error!!! Your variables have been saved in the file : %s\n"
+#~ "                                   Bad call to a scilab function ?\n"
+#~ "                                   Otherwise, send a bug report to :\n"
+#~ msgstr ""
+#~ "Критическая ошибка!!! Ваши переменные были сохранены в следующий файл: %s\n"
+#~ "                                   Неправильный вызов функции Scilab?\n"
+#~ "                                   Иначе, сообщите об ошибке по адресу:\n"
+
+#~ msgid "Operands of / and \\ operations must not contain NaN or Inf.\n"
+#~ msgstr "Операнды операций / и \\ не должны содержать NaN или Inf.\n"

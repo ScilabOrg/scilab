@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-06-01 15:09+0000\n"
+"PO-Revision-Date: 2011-06-10 13:59+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: ja\n"
 
 msgid "&?"
@@ -425,9 +425,6 @@ msgstr "厳密に正の数を指定してください."
 msgid "Swap Mode"
 msgstr "スワップモード"
 
-msgid "Swap Mode (0:No 1:Yes)"
-msgstr "スワップモード (0:No 1:Yes)"
-
 msgid "Swap Mode (0:No, 1:Yes)"
 msgstr "スワップモード (0:No 1:Yes)"
 
@@ -503,24 +500,8 @@ msgid "Wrong type for ''%s'' parameter: %5.1f."
 msgstr "''%s'' パラメータの型が間違っています: %5.1f."
 
 #, c-format
-msgid "Wrong value for  ''%s'' parameter: %d."
-msgstr "''%s'' パラメータの値が間違っています: %d."
-
-#, c-format
-msgid "Wrong value for  ''Rule'' parameter: %d"
-msgstr "''Rule'' パラメータの値が間違っています: %d"
-
-#, c-format
-msgid "Wrong value for ''%s'' parameter"
-msgstr "''%s'' パラメータの値が間違っています"
-
-#, c-format
 msgid "Wrong value for ''%s'' parameter."
 msgstr "''%s'' パラメータの値が間違っています."
-
-#, c-format
-msgid "Wrong value for ''%s'' parameter: %d"
-msgstr "''%s'' パラメータの値が間違っています: %d"
 
 #, c-format
 msgid "Wrong value for ''%s'' parameter: %d."
@@ -546,12 +527,12 @@ msgid "Wrong value for ''Port Number'' parameter: %d."
 msgstr "''ポート番号''パラメータの値が間違っています: %d."
 
 #, c-format
-msgid "Wrong value for ''Start Time'' parameter: %e."
-msgstr "''開始時刻''パラメータの値が間違っています: %e."
+msgid "Wrong value for ''Rule'' parameter: %d"
+msgstr "''Rule'' パラメータの値が間違っています: %d"
 
 #, c-format
-msgid "Wrong value for of ''%s'' parameter."
-msgstr "''%s'' パラメータの値が間違っています."
+msgid "Wrong value for ''Start Time'' parameter: %e."
+msgstr "''開始時刻''パラメータの値が間違っています: %e."
 
 #, c-format
 msgid "Wrong values for ''%s'' parameter: %5.1e."
@@ -604,3 +585,26 @@ msgstr "null"
 
 msgid "positive"
 msgstr "正"
+
+#~ msgid "Swap Mode (0:No 1:Yes)"
+#~ msgstr "スワップモード (0:No 1:Yes)"
+
+#, c-format
+#~ msgid "Wrong value for ''%s'' parameter: %d"
+#~ msgstr "''%s'' パラメータの値が間違っています: %d"
+
+#, c-format
+#~ msgid "Wrong value for  ''Rule'' parameter: %d"
+#~ msgstr "''Rule'' パラメータの値が間違っています: %d"
+
+#, c-format
+#~ msgid "Wrong value for  ''%s'' parameter: %d."
+#~ msgstr "''%s'' パラメータの値が間違っています: %d."
+
+#, c-format
+#~ msgid "Wrong value for ''%s'' parameter"
+#~ msgstr "''%s'' パラメータの値が間違っています"
+
+#, c-format
+#~ msgid "Wrong value for of ''%s'' parameter."
+#~ msgstr "''%s'' パラメータの値が間違っています."

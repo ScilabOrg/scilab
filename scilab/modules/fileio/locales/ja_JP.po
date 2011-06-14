@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
@@ -539,14 +539,6 @@ msgid ""
 msgstr "%s: 入力引数 #%d (%s) で不正な値: '%s' または '%s' また '%s' を想定します。\n"
 
 #
-# File: macros/copyfile.sci, line: 36
-#, c-format
-msgid ""
-"%s: Wrong value for input argument #%d ('%ls'): A valid filename or "
-"directory expected.\n"
-msgstr "%s: 入力引数 #%d で不正な値 ('%ls'): 適切なファイル名、または、ディレクトリ を想定します。\n"
-
-#
 # File: src/c/mput.c, line: 217
 #, c-format
 msgid ""
@@ -1023,6 +1015,14 @@ msgstr "閉じられません [ 指令"
 #, c-format
 #~ msgid "%s: Wrong value for input argument #%d: A valid format expected.\n"
 #~ msgstr "%s: 入力引数 #%d の値が間違っています: 正しい形式で指定してください.\n"
+
+#
+# File: macros/copyfile.sci, line: 36
+#, c-format
+#~ msgid ""
+#~ "%s: Wrong value for input argument #%d ('%ls'): A valid filename or "
+#~ "directory expected.\n"
+#~ msgstr "%s: 入力引数 #%d で不正な値 ('%ls'): 適切なファイル名、または、ディレクトリ を想定します。\n"
 
 #~ msgid "A file with the same name already exists in "
 #~ msgstr "同名のファイルが既に存在します "

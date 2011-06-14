@@ -8,30 +8,36 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-06-04 11:35+0000\n"
+"PO-Revision-Date: 2011-06-10 14:27+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <z-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
 
-#
-# File: macros/lmisolver.sci, line: 135
 #, c-format
-msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
-msgstr " 制約,,数値 (%s)''),''lmisolver'',%m,%fm));"
+msgid "%s:       OPTIMIZATION PHASE."
+msgstr "%s: 最適化フェーズ."
 
 #, c-format
-msgid "%s: %s"
-msgstr "%s: %s"
+msgid "%s:     FEASIBILITY PHASE."
+msgstr "%s: 実行可能解生成フェーズ."
+
+#, c-format
+msgid "%s: Absolute accuracy reached."
+msgstr "%s: 絶対精度に達しました."
 
 #, c-format
 msgid "%s: Ambiguous property name %s matches several fields : %s"
 msgstr "%s: あいまいなプロパティ名 %s は、いくつかのフィールドと一致します: %s"
+
+#, c-format
+msgid "%s: Basis Construction."
+msgstr "%s: 基礎構築."
 
 #, c-format
 msgid "%s: Cannot check cost function when x0 is empty"
@@ -62,6 +68,10 @@ msgid "%s: Cannot evaluate cost function from costf(x0,6)."
 msgstr "%s: costf(x0,6) からコスト関数を評価することができません。"
 
 #, c-format
+msgid "%s: Construction of canonical representation."
+msgstr "%s: 正準表現の構築"
+
+#, c-format
 msgid "%s: Either one of Aeq, A, lb or ub must be non-empty."
 msgstr "%s: Aeq, A, lb または ub のどれかは空でない必要があります."
 
@@ -78,6 +88,17 @@ msgstr "%1$s:  入力 #%3$d の変数 %2$s に論理値ではなく  %4$s が指
 msgid ""
 "%s: Expected function but for variable %s at input #%d, got %s instead."
 msgstr "%1$s:  入力 #%3$d の変数 %2$s に関数ではなく %4$s が指定されています."
+
+#, c-format
+msgid ""
+"%s: Expected function for variable %s(1) at input #%d, but got %s instead."
+msgstr "%s: 変数 %s(1) (入力 #%d) には関数を指定しますが, %s が指定されました."
+
+#, c-format
+msgid ""
+"%s: Expected function or list for variable %s at input #%d, but got %s "
+"instead."
+msgstr "%s: 変数 %s (入力 #%d) には関数またはリストを指定しますが, %s が指定されました."
 
 #, c-format
 msgid ""
@@ -106,12 +127,21 @@ msgstr "%s: ヒストリが無効となっています ; -storehistory オプシ
 
 #, c-format
 msgid ""
+"%s: Ill-posed problem. Number of unknowns (%s) > number of constraints (%s)"
+msgstr "%s: 不良設定問題. 未知数の数 (%s) > 拘束条件の数 (%s)"
+
+#, c-format
+msgid ""
 "%s: Impossible to scale the vertex #%d/%d at [%s] into inequality constraints"
 msgstr "%s: 不等式拘束条件で頂点 #%d/%d [%s] に到達できません."
 
 #, c-format
 msgid "%s: Initial guess [%s] is not feasible."
 msgstr "%s: 初期推定値 [%s] は実行可能解ではありません."
+
+#, c-format
+msgid "%s: Initial guess feasible."
+msgstr "%s: 初期推定値は実行可能."
 
 #, c-format
 msgid "%s: Initial guess not feasible.\n"
@@ -130,6 +160,18 @@ msgid "%s: Logging not started."
 msgstr "%s: ロギングを開始できません。"
 
 #, c-format
+msgid "%s: M must be strictly greater than trace of F(x0)."
+msgstr "%s: M は F(x0) のトレースよりも大きい必要があります."
+
+#, c-format
+msgid "%s: Max. iters. exceeded."
+msgstr "%s: 最大反復回数を超えました."
+
+#, c-format
+msgid "%s: Mbound too small."
+msgstr "%s: Mbound が小さすぎます."
+
+#, c-format
 msgid "%s: Negative iteration index %d is not allowed."
 msgstr "%s: 負の反復添字 %d は使用できません."
 
@@ -142,6 +184,14 @@ msgid ""
 "%s: No default options available: the function ''%s'' does not exist on the "
 "path."
 msgstr "%s: 初期化オプションが可能ではありません: 関数 ''%s'' は path に存在しません。"
+
+#, c-format
+msgid "%s: No feasible solution exists."
+msgstr "%s: 実行可能解が存在しません."
+
+#, c-format
+msgid "%s: No feasible solution found."
+msgstr "%s: 実行可能解が見つかりません."
 
 #, c-format
 msgid "%s: No output command is defined."
@@ -167,6 +217,10 @@ msgid ""
 "%s: Number of rows of x is %d, which is different from number of vertices = "
 "%d."
 msgstr "%s:  xの行の数は %d で, 頂点の数 = %d と異なっています."
+
+#, c-format
+msgid "%s: Objective constant."
+msgstr "%s: 目的定数."
 
 #, c-format
 msgid ""
@@ -199,6 +253,18 @@ msgstr "%s: Q は直交行列である必要があります.\n"
 msgid ""
 "%s: Randomized bounds initial simplex is not available without bounds."
 msgstr "%s: 初期シンプレックスのランダムな境界は境界を指定しない場合には利用できません."
+
+#, c-format
+msgid "%s: Relative accuracy reached."
+msgstr "%s: 相対精度に達しました."
+
+#, c-format
+msgid "%s: Target value not achievable."
+msgstr "%s: 目標値に到達できません."
+
+#, c-format
+msgid "%s: Target value reached."
+msgstr "%s: 目標値に到達しました."
 
 #, c-format
 msgid ""
@@ -243,6 +309,14 @@ msgid ""
 "%s: The gradient can be applied only with a simplex made of n+1 points, but "
 "the dimension is %d and the number of vertices is %d"
 msgstr "%s: 傾斜はシンプレックスが n+1 個の点からなる時にのみ適用可能ですが,次元が %d , 頂点の数が %d となっています."
+
+#, c-format
+msgid "%s: The initial simplex has no dimension."
+msgstr "%s: 初期シンプレックスに次元がありません."
+
+#, c-format
+msgid "%s: The initial simplex has no vertices."
+msgstr "%s: 初期シンプレックスに頂点がありません."
 
 #, c-format
 msgid ""
@@ -389,12 +463,6 @@ msgstr "%s: 入力引数の数が間違っています: 仕様は2個ですが %
 
 #, c-format
 msgid ""
-"%s: Unexpected number of input arguments : %d provided while 2 or 3 are "
-"expected."
-msgstr "%s: 入力引数の数が間違っています: 仕様は2または3個ですが %d 個指定されています."
-
-#, c-format
-msgid ""
 "%s: Unexpected number of input arguments : %d provided while 2 to 4 are "
 "expected."
 msgstr "%s: 入力引数の数が間違っています: 仕様は2から4個ですが %d 個指定されています."
@@ -501,6 +569,14 @@ msgid "%s: Wrong number of input argument(s).\n"
 msgstr "%s: 入力引数の数が間違っています.\n"
 
 #, c-format
+msgid "%s: Wrong number of input argument: %d expected.\n"
+msgstr "%s: 入力引数の数が間違っています: %d 個の引数を指定してください.\n"
+
+#, c-format
+msgid "%s: Wrong number of input arguments: %d or %d expected.\n"
+msgstr "%s: 入力引数の数が間違っています: %d または %d 個の引数を指定してください.\n"
+
+#, c-format
 msgid "%s: Wrong number of input arguments: %d to %d expected.\n"
 msgstr "%s: 入力引数の数が間違っています: %d から %d 個の引数を指定してください.\n"
 
@@ -589,11 +665,51 @@ msgstr "%s: 入力引数 #%d の値が間違っています. x0 が正ではあ�
 msgid "%s: Wrong value for input argument #%d. x0 lower than lower bound lb."
 msgstr "%s: 入力引数 #%d の値が間違っています. x0 が下界 lb よりも小さくなっています."
 
+#, c-format
+msgid "%s: feasible solution found."
+msgstr "%s: 実行可能解が見つかりました."
+
+#, c-format
+msgid "%s: initial guess is feasible."
+msgstr "%s: 初期推定値は実行可能です."
+
+#, c-format
+msgid "%s: max number of iterations exceeded, solution may not be optimal"
+msgstr "%s: 反復回数の最大値を超えました, 解は最適でない可能性があります"
+
+#, c-format
+msgid "%s: max number of iterations exceeded."
+msgstr "%s: 最大反復回数を超えました."
+
+#, c-format
+msgid "%s: may be unbounded below"
+msgstr "%s: 下界を有さない可能性があります"
+
+#, c-format
+msgid "%s: not feasible or badly defined problem."
+msgstr "%s: 実行可能でないか, 不良な問題です."
+
+#, c-format
+msgid "%s: optimal solution found"
+msgstr "%s: 最適解が見つかりました"
+
+#, c-format
+msgid "%s: rank deficient problem"
+msgstr "%s: ランク不足の問題"
+
+#, c-format
+msgid "%s: solution unbounded."
+msgstr "%s: 解が無制限です."
+
 msgid "...Done\n"
 msgstr "...完了\n"
 
 msgid "A new method of constrained optimization \n"
 msgstr "拘束付き最適化の新しい手法 \n"
+
+#, c-format
+msgid "Calling sequence %s is obsolete."
+msgstr "呼び出し手順 %s は廃止されています."
 
 msgid "Column #1: number of dimensions\n"
 msgstr "列 #1 : 次元の数\n"
@@ -729,12 +845,6 @@ msgstr "反復"
 msgid "LQV"
 msgstr "LQV"
 
-msgid "Logarithm Maximum Oriented length"
-msgstr "対数最大配向長"
-
-msgid "Logarithm Minimum Function Value"
-msgstr "対数最小関数値"
-
 msgid "Maximum Oriented length"
 msgstr "最大配向長"
 
@@ -761,8 +871,16 @@ msgstr "最適化"
 msgid "Optimization and Simulation"
 msgstr "最適化とシミュレーション"
 
+#, c-format
+msgid "Option %s is obsolete."
+msgstr "オプション %s は廃止されています."
+
 msgid "Output"
 msgstr "出力"
+
+#, c-format
+msgid "Please use %s instead."
+msgstr "代わりに %s を使用してください."
 
 msgid "Plot"
 msgstr "プロット"
@@ -779,15 +897,6 @@ msgstr "等高線をプロット中 (お待ちください) ...\n"
 msgid "Plotting contour (please wait)...\n"
 msgstr "等高線をプロット中 (お待ちください)...\n"
 
-msgid "Plotting history of fbar ...\n"
-msgstr "fbarの履歴をプロット中 ...\n"
-
-msgid "Plotting history of fopt ...\n"
-msgstr "foptの履歴をプロット中 ...\n"
-
-msgid "Plotting history of sigma ...\n"
-msgstr "sigmaの履歴をプロット中 ...\n"
-
 msgid "Problem A\n"
 msgstr "問題A\n"
 
@@ -798,8 +907,12 @@ msgid "Rate of convergence"
 msgstr "収束速度"
 
 #, c-format
-msgid "Relative error = %e\n"
-msgstr "相対誤差 = %e\n"
+msgid "Relative error on f = %e\n"
+msgstr "f = %e の相対誤差\n"
+
+#, c-format
+msgid "Relative error on x = %e\n"
+msgstr "x = %e における相対誤差\n"
 
 msgid "Rosenbrock"
 msgstr "Rosenbrock"
@@ -822,12 +935,12 @@ msgstr "焼きなまし法"
 msgid "Spaceship landing trajectory"
 msgstr "宇宙船の着陸軌道"
 
+#, c-format
+msgid "This feature will be permanently removed in Scilab %s"
+msgstr "この関数は Scilab %s  以降では削除される予定です."
+
 msgid "and a comparison with other methods.\n"
 msgstr "その他の手法と比較.\n"
-
-#, c-format
-msgid "f computed = %f\n"
-msgstr "fの計算値 = %f\n"
 
 #, c-format
 msgid "f expected = %f\n"
@@ -875,6 +988,9 @@ msgstr "neldermead - 次元"
 msgid "neldermead - Output Command"
 msgstr "neldermead - 出力コマンド"
 
+msgid "neldermead - Polygon"
+msgstr "neldermead - ポリゴン"
+
 msgid "neldermead - Rosenbrock Variable"
 msgstr "neldermead - Rosenbrock 変数"
 
@@ -896,6 +1012,12 @@ msgstr "nmplot - 二次計画問題,固定 #1"
 msgid "nmplot - Quadratic Fixed #2"
 msgstr "nmplot - 二次計画問題,固定 #2"
 
+msgid "nmplot - Quadratic Variable#1"
+msgstr "nmplot - 二次変数#1"
+
+msgid "nmplot - Quadratic Variable#2"
+msgstr "nmplot - 二次変数#2"
+
 msgid "nmplot - Rosenbrock Fixed"
 msgstr "nmplot - Rosenbrock 固定"
 
@@ -909,3 +1031,42 @@ msgstr "x0 = %s\n"
 #, c-format
 msgid "x0=%s\n"
 msgstr "x0=%s\n"
+
+#
+# File: macros/lmisolver.sci, line: 135
+#, c-format
+#~ msgid " number of of constraints (%s)'),'lmisolver',%m,%fm));"
+#~ msgstr " 制約,,数値 (%s)''),''lmisolver'',%m,%fm));"
+
+#, c-format
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
+
+#~ msgid "Logarithm Maximum Oriented length"
+#~ msgstr "対数最大配向長"
+
+#~ msgid "Logarithm Minimum Function Value"
+#~ msgstr "対数最小関数値"
+
+#~ msgid "Plotting history of fopt ...\n"
+#~ msgstr "foptの履歴をプロット中 ...\n"
+
+#~ msgid "Plotting history of fbar ...\n"
+#~ msgstr "fbarの履歴をプロット中 ...\n"
+
+#~ msgid "Plotting history of sigma ...\n"
+#~ msgstr "sigmaの履歴をプロット中 ...\n"
+
+#, c-format
+#~ msgid "Relative error = %e\n"
+#~ msgstr "相対誤差 = %e\n"
+
+#, c-format
+#~ msgid "f computed = %f\n"
+#~ msgstr "fの計算値 = %f\n"
+
+#, c-format
+#~ msgid ""
+#~ "%s: Unexpected number of input arguments : %d provided while 2 or 3 are "
+#~ "expected."
+#~ msgstr "%s: 入力引数の数が間違っています: 仕様は2または3個ですが %d 個指定されています."

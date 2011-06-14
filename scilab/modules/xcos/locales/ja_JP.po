@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: scilab\n"
 "Report-Msgid-Bugs-To: <localization@lists.scilab.org>\n"
 "POT-Creation-Date: 2011-03-09 11:38+0100\n"
-"PO-Revision-Date: 2011-05-27 13:08+0000\n"
+"PO-Revision-Date: 2011-06-10 14:05+0000\n"
 "Last-Translator: Rui Hirokawa <Unknown>\n"
 "Language-Team: Japanese <zz-saito@guitar.ocn.ne.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "X-Poedit-Country: Japan\n"
 "Language: ja\n"
 "X-Poedit-Language: Japanese\n"
@@ -134,9 +134,6 @@ msgstr "計算中"
 
 msgid "Continuous time systems"
 msgstr "連続時間システム"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Copyright (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "ダイアグラムを保存できません."
@@ -292,8 +289,8 @@ msgstr "%s から"
 msgid "Generate Jacobian"
 msgstr "ヤコビアンを生成"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "スーパーブロック生成中, お待ちください ..."
+msgid "Generate SuperBlock, please wait"
+msgstr "SuperBlockを生成中, お待ちください"
 
 msgid "Generating C Code for SuperBlock"
 msgstr "スーパーブロックのCコードを生成中"
@@ -613,9 +610,6 @@ msgstr "テキストの色"
 msgid "Text settings"
 msgstr "テキスト設定"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "Scilab コンソーシアム (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -766,8 +760,14 @@ msgstr "Xcos エラー"
 msgid "Xcos file"
 msgstr "Xcosファイル"
 
-msgid "You may enter here scilab instructions to define "
-msgstr "ここに定義するScilab命令を入力できます "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
+msgstr ""
+"Scilab命令によるブロック定義で使用される記号パラメータを定義するScilab命令をここに入力できます.<r/>これらの命令は確認された後に評価されま"
+"す(すなわち,Eval時にOKをクリックした場合,およびダイアグラムをロードする度に)."
 
 msgid "Zero crossing detection"
 msgstr "ゼロクロス検出"
@@ -924,6 +924,12 @@ msgstr "重み"
 
 #~ msgid "Continuous"
 #~ msgstr "連続性"
+
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Copyright (c) 1989-2009 (INRIA)"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "Scilab コンソーシアム (DIGITEO)"
 
 #~ msgid "Light Simulation trace (Discrete and Continous part switches)"
 #~ msgstr "信号シミュレーショントレース(分離と連続部分スイッチ)"
@@ -1104,6 +1110,9 @@ msgstr "重み"
 #, c-format
 #~ msgid "%s: Wrong value for input argument %s: An existing file expected.\n"
 #~ msgstr "%s: 入力引数 %s の値が間違っています:存在するファイルを指定してください.\n"
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "スーパーブロック生成中, お待ちください ..."
 
 #, c-format
 #~ msgid ""
@@ -1292,3 +1301,6 @@ msgstr "重み"
 
 #~ msgid "Simulation problem"
 #~ msgstr "シミュレーション上の問題"
+
+#~ msgid "You may enter here scilab instructions to define "
+#~ msgstr "ここに定義するScilab命令を入力できます "

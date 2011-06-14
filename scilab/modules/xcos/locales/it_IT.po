@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Launchpad (build 13144)\n"
+"X-Generator: Launchpad (build 13216)\n"
 "Language: it\n"
 
 #, c-format
@@ -140,9 +140,6 @@ msgstr "Calcolo in corso"
 
 msgid "Continuous time systems"
 msgstr "Sistemi di tempo continuo"
-
-msgid "Copyright (c) 1989-2009 (INRIA)"
-msgstr "Diritto d'autore (c) 1989-2009 (INRIA)"
 
 msgid "Could not save diagram."
 msgstr "Impossibile salvare il diagramma"
@@ -307,8 +304,8 @@ msgstr "Da %s"
 msgid "Generate Jacobian"
 msgstr "Genera lo Jacobiano"
 
-msgid "Generate SuperBlock, please wait ..."
-msgstr "Generazione di SuperBlock in corso..."
+msgid "Generate SuperBlock, please wait"
+msgstr ""
 
 msgid "Generating C Code for SuperBlock"
 msgstr "Generazione di codice C per SuperBlock"
@@ -638,9 +635,6 @@ msgstr "Colore del testo"
 msgid "Text settings"
 msgstr "Impostazioni del testo"
 
-msgid "The Scilab Consortium (DIGITEO)"
-msgstr "Il Consorzio Scilab (DIGITEO)"
-
 #, c-format
 msgid ""
 "The file %s doesn't exist\n"
@@ -803,8 +797,12 @@ msgstr "Errore di Xcos"
 msgid "Xcos file"
 msgstr "Un file di Xcos"
 
-msgid "You may enter here scilab instructions to define "
-msgstr "Qui si possono inserire le istruzioni di Scilab da definire "
+msgid ""
+"You may enter here scilab instructions to define symbolic parameters used in "
+"block definitions using Scilab instructions.<br/>These instructions are "
+"evaluated once confirmed (i.e. you click on OK, by Eval and every time "
+"diagram is loaded)."
+msgstr ""
 
 msgid "Zero crossing detection"
 msgstr ""
@@ -941,6 +939,15 @@ msgstr "peso"
 
 #~ msgid "CeCILL License"
 #~ msgstr "Licenza CeCILL"
+
+#~ msgid "Generate SuperBlock, please wait ..."
+#~ msgstr "Generazione di SuperBlock in corso..."
+
+#~ msgid "Copyright (c) 1989-2009 (INRIA)"
+#~ msgstr "Diritto d'autore (c) 1989-2009 (INRIA)"
+
+#~ msgid "The Scilab Consortium (DIGITEO)"
+#~ msgstr "Il Consorzio Scilab (DIGITEO)"
 
 #~ msgid "Copy"
 #~ msgstr "_Copia"
@@ -1258,3 +1265,6 @@ msgstr "peso"
 #~ msgstr ""
 #~ "%s: È impossibile caricare un blocco da %s: nessuna variabile ''scs_m'' "
 #~ "trovata.\n"
+
+#~ msgid "You may enter here scilab instructions to define "
+#~ msgstr "Qui si possono inserire le istruzioni di Scilab da definire "
