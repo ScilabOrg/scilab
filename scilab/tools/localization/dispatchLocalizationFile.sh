@@ -74,6 +74,11 @@ for file in $LAUNCHPAD_DIRECTORY/*.po; do
         # See bug #7059
         sed -i -e "/X-Launchpad-Export-Date/d" $LAUNCHPAD_DIRECTORY/$file
 
+        perl $SCI/tools/localization/pocheck.pl -n $LAUNCHPAD_DIRECTORY/$file
+        if test $? -ne 0; then
+            echo "Validation failed";
+            exit 2;
+        fi
 
         /bin/cp -f $LAUNCHPAD_DIRECTORY/$file $TARGETFILE
         if test $? -ne 0; then

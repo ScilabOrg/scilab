@@ -331,3 +331,6 @@ foreach my $pofilename ( @ARGV ) {
 }
 
 print "Warnings on all files: $global_warn\n";
+if ($global_warn > 0) {
+    exit 42;
+}
