@@ -26,7 +26,6 @@ Graphical User Interface:
 
 * The variable browser now refresh itself automatically (See bug 9446).
 
-
 Xcos:
 =====
 
@@ -161,6 +160,11 @@ Graphics:
                    graphic entity.
 
 * bug 9455 fixed - The contourf and contourf 2 demos displayed unwanted dots.
+
+
+ATOMS:
+======
+* bug 9127 fixed - "Home" is now "Installed Modules"
 
 
 Bug fixes:
