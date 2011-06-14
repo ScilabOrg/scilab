@@ -64,6 +64,8 @@
 #include "double.hxx"
 #include "bool.hxx"
 #include "string.hxx"
+#include "struct.hxx"
+#include "cell.hxx"
 
 #include "stack-c.h"
 extern "C" {
@@ -265,67 +267,56 @@ int theMLIST(int *header)
 
 mxClassID mxGetClassID(const mxArray *ptr)
 {
-  int *header = Header(ptr);
-  switch (header[0]) {
-  case DOUBLEMATRIX:
-    return mxDOUBLE_CLASS;
-  case STRINGMATRIX:
+  types::InternalType *type = (types::InternalType *) ptr;
+
+  if (type->isCell()) {
+    return mxCELL_CLASS;
+  }
+  if (type->isString()) {
     return mxCHAR_CLASS;
-  case SPARSEMATRIX:
-    return mxSPARSE_CLASS;
-  case INTMATRIX:
-    /*[8,m,n,it] it=01    02   04    11     12    14
-                   int8 int16 int32 uint8 uint16 uint32    */
-    switch (header[3]){
-    case 1:
-      return mxINT8_CLASS;
-    case 2:
-      return mxINT16_CLASS;
-    case 4:
-      return mxINT32_CLASS;
-    case 11:
-      return mxUINT8_CLASS;
-    case 12:
-      return mxUINT16_CLASS;
-    case 14:
-      return mxUINT32_CLASS;
-    default:
-      return mxUNKNOWN_CLASS;
-    }
-  case MLIST:
-    switch (theMLIST(header)) {
-    case CELL:
-      return mxCELL_CLASS;
-    case STRUCT:
-      return mxSTRUCT_CLASS;
-    case NDARRAY:
-    /* header[6+2*(header[4]-1)]   ( = 1, 10, 8)  */
-    switch (header[6+2*(header[4]-1)]) {
-    case DOUBLEMATRIX:
-      return mxDOUBLE_CLASS;
-    case STRINGMATRIX:
-      return mxCHAR_CLASS;
-    case INTMATRIX:
-      switch (header[6+2*(header[4]-1)+3]) {
-      case 1:
-	return mxINT8_CLASS;
-      case 2:
-	return mxINT16_CLASS;
-      case 4:
-	return mxINT32_CLASS;
-      case 11:
-	return mxUINT8_CLASS;
-      case 12:
-	return  mxUINT16_CLASS;
-      case 14:
-	return  mxUINT32_CLASS;
-      default:
-	return mxUNKNOWN_CLASS;
-      }
-    }
-    default:
-      return mxUNKNOWN_CLASS;
-    }
+  }
+  if (type->isDouble()) {
+    return mxDOUBLE_CLASS;
+  }
+  if (type->isFunction()) {
+     return mxFUNCTION_CLASS;
+  }
+  // TODO: we don't have Sparse classes yet
+  // if (type->isSparse()) {
+  //   return mxSPARSE_CLASS;
+  // }
+  if (type->isInt8()) {
+    return mxINT8_CLASS;
+  }
+  if (type->isInt16()) {
+    return mxINT16_CLASS;
+  }
+  if (type->isInt32()) {
+    return mxINT32_CLASS;
+  }
+  if (type->isInt64()) {
+    return mxINT64_CLASS;
+  }
+  if (type->isBool()) {
+    return mxLOGICAL_CLASS;
+  }
+  if (type->isFloat()) {
+    return mxSINGLE_CLASS;
+  }
+  if (type->isStruct()) {
+    return mxSTRUCT_CLASS;
+  }
+  if (type->isUInt8()) {
+    return mxUINT8_CLASS;
+  }
+  if (type->isUInt16()) {
+    return mxUINT16_CLASS;
+  }
+  if (type->isUInt32()) {
+    return mxUINT32_CLASS;
+  }
+  if (type->isUInt64()) {
+    return mxUINT64_CLASS;
   }
   return mxUNKNOWN_CLASS;
 }
@@ -366,7 +357,6 @@ double mxGetEps(void)
   return EPSILON;
 }
 
-
 double mxGetInf(void)
 {
   double big;
@@ -376,31 +366,25 @@ double mxGetInf(void)
 
 double mxGetNaN(void)
 {
-double x,y;
-x=mxGetInf();
-y=x/x;
+  double x, y;
+  x = mxGetInf();
+  y = x/x;
   return y;
 }
 
 bool mxIsInf(double x)
 {
-  if (x == x+1)
-    return 1;
-  else return 0;
+  return (x == x+1) ? 1 : 0;
 }
 
 bool mxIsFinite(double x)
 {
-  if (x < x+1)
-    return 1;
-  else return 0;
+  return (x < x+1) ? 1 : 0;
 }
 
 bool mxIsNaN(double x)
 {
-  if ( x != x )
-    return 1;
-  else return 0;
+  return (x != x) ? 1 : 0;
 }
 
 int *RawHeader(const mxArray *ptr)
@@ -569,43 +553,27 @@ void mxSetN(mxArray *ptr, int N)
 
 bool mxIsString(const mxArray *ptr)
 {
-  return mxGetClassID(ptr)==mxCHAR_CLASS;
+  /* mxIsString is deprecated. Use mxIsChar. */
+  return mxIsChar(ptr);
 }
 
 bool mxIsChar(const mxArray *ptr)
 {
-  int *header = Header(ptr);
-  switch (header[0]) {
-  case STRINGMATRIX:
-    return 1;
-  case MLIST:
-    switch (header[6+2*(header[4]-1)]){
-    case STRINGMATRIX:
-      return 1;
-    default:
-      return 0;
-    }
-  default:
-    return 0;
-  }
+  return mxGetClassID(ptr)==mxCHAR_CLASS;
 }
 
 bool mxIsNumeric(const mxArray *ptr)
 {
-  int *header = Header(ptr);
-  if (header[0] != STRINGMATRIX)
-    return 1;
-  else
-    return 0;
+  return mxIsDouble(ptr) || mxIsSingle(ptr) ||
+    mxIsInt8(ptr) || mxIsUint8(ptr) ||
+    mxIsInt16(ptr) || mxIsUint16(ptr) ||
+    mxIsInt32(ptr) || mxIsUint32(ptr);
+    //mxIsInt64(ptr) || mxIsUint64(ptr);
 }
 
 bool mxIsDouble(const mxArray *ptr)
 {
-  int *header = Header(ptr);
-  if ((header[0] == DOUBLEMATRIX) | (header[0] == SPARSEMATRIX) | ( (header[0] == MLIST) && (header[6+2*(header[4]-1)] == DOUBLEMATRIX)))
-    return 1;
-  else
-    return 0;
+  return mxGetClassID(ptr)==mxDOUBLE_CLASS;
 }
 
 bool mxIsSingle(const mxArray *ptr)
@@ -642,7 +610,7 @@ bool mxIsSparse(const mxArray *ptr)
 
 bool mxIsLogical(const mxArray *ptr)
 {
-  return ((types::InternalType *) ptr)->isBool();
+  return mxGetClassID(ptr)==mxLOGICAL_CLASS;
 }
 
 void mxSetLogical(mxArray *ptr)
@@ -723,66 +691,77 @@ mxArray *mxCreateDoubleScalar(double value)
 
 bool mxIsClass(const mxArray *ptr, const char *name)
 {
-  int *header = Header(ptr);
-  switch (header[0]) {
-  case DOUBLEMATRIX:
-    if ( strcmp(name,"double") == 0) return 1;
-    break;
-  case MLIST:
-    switch (header[6+2*(header[4]-1)]){
-    case DOUBLEMATRIX:
-      if ( strcmp(name,"double") == 0) return 1;
-      break;
-    case INTMATRIX:
-      if ( strcmp(name,"double") == 0) return 1;
-      break;
-    }
-    break;
-  case STRINGMATRIX:
-    if ( strcmp(name,"char") == 0) return 1;
-    break;
-  case SPARSEMATRIX:
-    if ( strcmp(name,"sparse") == 0) return 1;
-    break;
-  default:
-    return 0;
+  mxClassID classID = mxGetClassID(ptr);
+
+  if (strcmp(name, "cell") == 0) {
+    return classID == mxCELL_CLASS;
   }
-  return 0;
+  if (strcmp(name, "char") == 0) {
+    return classID == mxCHAR_CLASS;
+  }
+  if (strcmp(name, "double") == 0) {
+    return classID == mxDOUBLE_CLASS;
+  }
+  if (strcmp(name, "function_handle") == 0) {
+    return classID == mxFUNCTION_CLASS;
+  }
+  if (strcmp(name, "int8") == 0) {
+    return classID == mxINT8_CLASS;
+  }
+  if (strcmp(name, "int16") == 0) {
+    return classID == mxINT16_CLASS;
+  }
+  if (strcmp(name, "int32") == 0) {
+    return classID == mxINT32_CLASS;
+  }
+  if (strcmp(name, "int64") == 0) {
+    return classID == mxINT64_CLASS;
+  }
+  if (strcmp(name, "logical") == 0) {
+    return classID == mxLOGICAL_CLASS;
+  }
+  if (strcmp(name, "single") == 0) {
+    return classID == mxSINGLE_CLASS;
+  }
+  if (strcmp(name, "struct") == 0) {
+    return classID == mxSTRUCT_CLASS;
+  }
+  if (strcmp(name, "uint8") == 0) {
+    return classID == mxUINT8_CLASS;
+  }
+  if (strcmp(name, "uint16") == 0) {
+    return classID == mxUINT16_CLASS;
+  }
+  if (strcmp(name, "uint32") == 0) {
+    return classID == mxUINT32_CLASS;
+  }
+  if (strcmp(name, "uint64") == 0) {
+    return classID == mxUINT64_CLASS;
+  }
+  
+  // TODO: how to handle <class_name> and <class_id>?
+
+  if (strcmp(name, "unknown") == 0) {	
+    return classID == mxUNKNOWN_CLASS;
+  }
+
+  return false;
 }
 
 mxArray *mxCreateStructArray(int ndim, const int *dims, int nfields, const char **field_names)
 {
-  static int lw,lw1;
-  int retval;
-  Nbvars++;
-  lw = Nbvars;
-  lw1 = lw + Top - Rhs;
-  C2F(stcreate)(&lw1, &ndim, (int *) dims, &nfields, (char **) field_names, &retval);
-  if( !retval) {
-    return (mxArray *) 0;
+  types::Struct *ptr = new types::Struct(ndim, (int *) dims);
+
+  for (int i = 0; i < nfields; i++) {
+    ptr->addField((wchar_t *) field_names[i]);
   }
-  C2F(intersci).ntypes[lw-1]=AsIs;
-  return (mxArray *) C2F(vstk).lstk[lw + Top - Rhs - 1 ];
+  return (mxArray *) ptr;
 }
 
 mxArray *mxCreateStructMatrix(int m, int n, int nfields, const char **field_names)
 {
-  static int lw,lw1;
-  int ndim;
-  int retval;
-  int dims[2];
-
-  dims[0] = m; dims[1] = n;
-
-  Nbvars++;
-  lw = Nbvars;
-  lw1 = lw + Top - Rhs;
-  C2F(stcreate)(&lw1, (ndim=2, &ndim), dims, &nfields, (char **) field_names, &retval);
-  if( !retval) {
-    return (mxArray *) 0;
-  }
-  C2F(intersci).ntypes[lw-1]=AsIs;
-  return (mxArray *) C2F(vstk).lstk[lw + Top - Rhs - 1 ];
+  int dims[2] = {m, n};
+  return mxCreateStructArray(2, dims, nfields, field_names);
 }
 
 void mxSetFieldByNumber(mxArray *array_ptr, int lindex, int field_number, mxArray *value)
@@ -860,48 +839,48 @@ int IsReference(mxArray *array_ptr)
     return 0;
 }
 
-mxArray *mxCreateNumericArray(int ndim, const int *dims, mxClassID CLASS, mxComplexity complexFlag)
+mxArray *mxCreateNumericArray(int ndim, const int *dims, mxClassID classID, mxComplexity complexFlag)
 {
   types::GenericType *ptr;
 
-  if (CLASS == mxINT8_CLASS) {
+  if (classID == mxINT8_CLASS) {
     ptr = new types::Int8(ndim, (int *) dims);
   }
-  if (CLASS == mxUINT8_CLASS) {
+  if (classID == mxUINT8_CLASS) {
     ptr = new types::UInt8(ndim, (int *) dims);
   }
-  if (CLASS == mxINT16_CLASS) {
+  if (classID == mxINT16_CLASS) {
     ptr = new types::Int16(ndim, (int *) dims);
   }
-  if (CLASS == mxUINT16_CLASS) {
+  if (classID == mxUINT16_CLASS) {
     ptr = new types::UInt16(ndim, (int *) dims);
   }
-  if (CLASS == mxINT32_CLASS) {
+  if (classID == mxINT32_CLASS) {
     ptr = new types::Int32(ndim, (int *) dims);
   }
-  if (CLASS == mxUINT32_CLASS) {
+  if (classID == mxUINT32_CLASS) {
     ptr = new types::UInt32(ndim, (int *) dims);
   }
-  if (CLASS == mxINT64_CLASS) {
+  if (classID == mxINT64_CLASS) {
     ptr = new types::Int64(ndim, (int *) dims);
   }
-  if (CLASS == mxUINT64_CLASS) {
+  if (classID == mxUINT64_CLASS) {
     ptr = new types::UInt64(ndim, (int *) dims);
   }
-  if (CLASS == mxSINGLE_CLASS) {
+  if (classID == mxSINGLE_CLASS) {
     // TODO: this constructor does not exist
     //ptr = new types::Float(ndim, (int *) dims, complexFlag == mxCOMPLEX);
   }
-  if (CLASS == mxDOUBLE_CLASS) {
+  if (classID == mxDOUBLE_CLASS) {
     ptr = new types::Double(ndim, (int *) dims, complexFlag == mxCOMPLEX);
   }
   return (mxArray *) ptr;
 }
 
-mxArray *mxCreateNumericMatrix(int m, int n, mxClassID CLASS, mxComplexity complexFlag)
+mxArray *mxCreateNumericMatrix(int m, int n, mxClassID classID, mxComplexity complexFlag)
 {
   int dims[2] = {m, n};
-  return mxCreateNumericArray(2, dims, CLASS, complexFlag);
+  return mxCreateNumericArray(2, dims, classID, complexFlag);
 }
 
 
@@ -922,58 +901,20 @@ mxArray *mxCreateCharArray(int ndim, const int *dims)
 
 mxArray *mxCreateCellArray(int ndim, const int *dims)
 {
-  static int lw,lw1;
-  int retval;int *header;
-  int nfields;char *field_names[] = {"entries"};
-  Nbvars++;
-  lw = Nbvars;
-  lw1 = lw + Top - Rhs;
-  C2F(stcreate)(&lw1, &ndim, (int *) dims, (nfields=1,&nfields), field_names , &retval);
-  if( !retval) {
-    return (mxArray *) 0;
-  }
-  header =  (int *) stk(C2F(vstk).lstk[lw + Top - Rhs - 1 ]);
-  header[14]=12;header[15]=14; /*  "st" <-- "ce"  */
-  C2F(intersci).ntypes[lw-1]=AsIs;
-  return (mxArray *) C2F(vstk).lstk[lw + Top - Rhs - 1 ];
+  types::Cell *ptr = new types::Cell(ndim, (int *) dims);
+  return (mxArray *) ptr;
 }
 
-mxArray *mxCreateCellMatrix(int nrows, int ncols)
+mxArray *mxCreateCellMatrix(int m, int n)
 {
-  int two=2;int dims[2];
-  dims[0] = nrows; dims[1] = ncols;
-  return mxCreateCellArray(two, dims);
+  int dims[2] = {m, n};
+  return mxCreateCellArray(2, dims);
 }
 
-mxArray *mxGetCell(const mxArray *ptr, int lindex)
+mxArray *mxGetCell(const mxArray *ptr, int index)
 {
-  int kk,lw,isize;int proddims,k;int is1x1;
-  int *headerlist,*headerobj,*headerobjcopy;
-  int *header = Header(ptr);
-  int *headerdims = listentry(header,2);
-
-  proddims=1;
-  for (k=0; k<headerdims[1]*headerdims[2]; k++) {
-    proddims=proddims*headerdims[4+k];
-  }
-  is1x1= (int) proddims==1;
-
-  if (is1x1) {
-    headerobj = listentry( header, lindex+1);
-    isize = header[5]- header[4];
-  }
-  else {
-    headerlist = listentry(header,3);
-    headerobj = listentry(headerlist,lindex+1);
-    isize=headerlist[lindex+3]-headerlist[lindex+2];
-  }
-  Nbvars++;  lw=Nbvars;
-  CreateData(lw,isize*sizeof(double));
-  headerobjcopy=(int *) GetData(lw);
-  for (kk = 0; kk < 2*isize; ++kk) headerobjcopy[kk]=headerobj[kk];
-  C2F(intersci).ntypes[lw-1]=AsIs;
-  C2F(intersci).iwhere[lw-1]=C2F(vstk).lstk[lw+ Top - Rhs - 1];
-  return (mxArray *) C2F(intersci).iwhere[lw-1];
+  types::Cell *pa = (types::Cell *) ptr;
+  return (mxArray *) pa->get(index);
 }
 
 int mxGetFieldNumber(const mxArray *ptr, const char *string)
@@ -1937,10 +1878,38 @@ void mxSetName(mxArray *array_ptr, const char *name)
   exit(1);  /* TO BE DONE */
 }
 
-void mxSetData(mxArray *array_ptr, void *data_ptr)
+void mxSetData(mxArray *ptr, void *pr)
 {
-  mexErrMsgTxt(_("Routine mxSetData not implemented.\n"));
-  exit(1);  /* TO BE DONE */
+  if (mxIsChar(ptr)) {
+    ((types::String *) ptr)->set((wchar_t **) pr);
+  }
+  else if (mxIsInt16(ptr)) {
+    ((types::Int16 *) ptr)->set((short *) pr);
+  }
+  else if (mxIsInt32(ptr)) {
+    ((types::Int32 *) ptr)->set((int *) pr);
+  }
+  // else if (mxIsInt64(ptr)) {
+  //   ((types::Int64 *) ptr)->set(pr);
+  // }
+  else if (mxIsLogical(ptr)) {
+    ((types::Bool *) ptr)->set((int *) pr);
+  }
+  // else if (mxIsSingle(ptr)) {
+  //   ((types::Float *) ptr)->set((float *) pr);
+  // }
+  else if (mxIsUint8(ptr)) {
+    ((types::UInt8 *) ptr)->set((unsigned char *) pr);
+  }
+  else if (mxIsUint16(ptr)) {
+    ((types::UInt16 *) ptr)->set((unsigned short *) pr);
+  }
+  else if (mxIsUint32(ptr)) {
+    ((types::UInt32 *) ptr)->set((unsigned int *) pr);
+  }
+  // else if (mxIsUint64(ptr)) {
+  //   ((types::UInt64 *) ptr)->set((unsigned short *) pr);
+  // }
 }
 
 void mxSetPr(mxArray *ptr, double *pr)
