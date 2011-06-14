@@ -13,11 +13,12 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
 #include "function.hxx"
 #include "string.hxx"
+#include "double.hxx"
+#include "bool.hxx"
 
 extern "C"
 {
@@ -35,7 +36,7 @@ Function::ReturnValue sci_mputstr(types::typed_list &in, int _iRetCount, types::
     types::String* pString  = NULL;
     types::Double* pdFileId = NULL;
     File* pF                = NULL;
-    
+
     if(in.size() < 1 || in.size() > 2)
     {
         ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), L"mputstr", 1, 2);
@@ -47,7 +48,7 @@ Function::ReturnValue sci_mputstr(types::typed_list &in, int _iRetCount, types::
         ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A string expected.\n"), L"mputstr", 1);
         return types::Function::Error;
     }
-    
+
     pString = in[0]->getAs<types::String>();
 
     if(in.size() == 2)

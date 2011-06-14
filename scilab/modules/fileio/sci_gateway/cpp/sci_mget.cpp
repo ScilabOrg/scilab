@@ -12,10 +12,10 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
 #include "string.hxx"
+#include "double.hxx"
 #include "file.hxx"
 #include "function.hxx"
 

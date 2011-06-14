@@ -13,11 +13,11 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "filemanager.hxx"
 #include "fileio_gw.hxx"
 #include "function.hxx"
 #include "string.hxx"
+#include "double.hxx"
 
 extern "C"
 {
@@ -36,7 +36,7 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
     types::String* pOutString   = NULL;
     int iSizeToRead             = 0;
     types::Double* pdFileId     = NULL;
-    
+
     if(in.size() < 1 || in.size() > 2)
     {
         ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), L"mgetstr", 1, 2);
@@ -48,9 +48,9 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
         ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A real expected.\n"), L"mgetstr", 1);
         return types::Function::Error;
     }
-    
+
     iSizeToRead = static_cast<int>(in[0]->getAs<types::Double>()->getReal()[0]);
-    
+
     if(in.size() == 2)
     {
         if(in[1]->isDouble() == false || in[1]->getAs<types::Double>()->isScalar() == false || in[1]->getAs<types::Double>()->isComplex())
@@ -67,7 +67,7 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
     {
         iFile = static_cast<int>(pdFileId->getReal()[0]);
     }
-    
+
     wchar_t* pwstOut = mgetstr(iFile, iSizeToRead);
     if(pwstOut == NULL)
     {
@@ -78,7 +78,7 @@ Function::ReturnValue sci_mgetstr(types::typed_list &in, int _iRetCount, types::
     {
         pOutString->set(0, pwstOut);
     }
-    
+
     FREE(pwstOut);
     out.push_back(pOutString);
     return Function::OK;

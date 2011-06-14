@@ -11,10 +11,11 @@
  *
  */
 /*--------------------------------------------------------------------------*/
-#include "funcmanager.hxx"
 #include "fileio_gw.hxx"
 #include "function.hxx"
 #include "string.hxx"
+#include "double.hxx"
+#include "bool.hxx"
 #include "filemanager.hxx"
 
 extern "C"
