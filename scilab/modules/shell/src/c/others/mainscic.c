@@ -53,6 +53,10 @@ int F77_DUMMY_MAIN() { return 1; }
 
 int main(int argc, char **argv)
 {
+  /*Enable standards streams stdout and stderr */
+  setvbuf(stdout, (char *)NULL, _IONBF, 0);
+  setvbuf(stderr, (char *)NULL, _IONBF, 0);
+
   int i;
   int no_startup_flag=0;
   int memory = MIN_STACKSIZE;
