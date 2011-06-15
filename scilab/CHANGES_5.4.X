@@ -8,6 +8,8 @@ SciNotes:
 * In the find/grep tools, add the possibility to use ~ as a joker for user home
   dir. and SCI for Scilab data base dir.
 
+* A tab can be closed in using the middle mouse button.
+
 * bug 9334 fixed - Extra lines was added when code was exported into PDF under
                    Windows.
 
