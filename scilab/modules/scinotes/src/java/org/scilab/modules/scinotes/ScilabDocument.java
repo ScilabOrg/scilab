@@ -130,10 +130,19 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
 
     /**
      * Create a lexer used to colorize the text
+     * @param update true if the scilab vars must be updated
+     * @return ScilabLexer the lexer
+     */
+    public ScilabLexer createLexer(boolean update) {
+        return new ScilabLexer(this, update);
+    }
+
+    /**
+     * Create a lexer used to colorize the text
      * @return ScilabLexer the lexer
      */
     public ScilabLexer createLexer() {
-        return new ScilabLexer(this);
+        return new ScilabLexer(this, true);
     }
 
     /**
@@ -685,9 +694,11 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
      * @param ev the DocumentEvent to handle
      */
     private void handleEvent(DocumentEvent ev) {
-        if (!contentModified && pane != null) {
+        if (!contentModified) {
             contentModified = true;
-            pane.updateTitle();
+            if (pane != null) {
+                pane.updateTitle();
+            }
         }
 
         DocumentEvent.ElementChange chg = ev.getChange(getDefaultRootElement());
@@ -718,19 +729,23 @@ public class ScilabDocument extends PlainDocument implements DocumentListener {
             boolean broken = line.isBroken();
             if (line.resetType() == ScilabLeafElement.FUN || broken != line.isBroken()
                 || (index > 0 && ((ScilabLeafElement) root.getElement(index - 1)).isBroken())) {
-                pane.repaint();
+                if (pane != null) {
+                    pane.repaint();
+                }
             }
         }
 
-        KeywordEvent e = pane.getKeywordEvent();
-        if (ScilabLexerConstants.isLaTeX(e.getType())) {
-            try {
-                int start = e.getStart();
-                int end = start + e.getLength();
-                String exp = getText(start, e.getLength());
-                int height = pane.getScrollPane().getHeight() + pane.getScrollPane().getVerticalScrollBar().getValue();
-                ScilabLaTeXViewer.displayExpressionIfVisible(pane, height, exp, start, end);
-            } catch (BadLocationException ex) { }
+        if (pane != null) {
+            KeywordEvent e = pane.getKeywordEvent();
+            if (ScilabLexerConstants.isLaTeX(e.getType())) {
+                try {
+                    int start = e.getStart();
+                    int end = start + e.getLength();
+                    String exp = getText(start, e.getLength());
+                    int height = pane.getScrollPane().getHeight() + pane.getScrollPane().getVerticalScrollBar().getValue();
+                    ScilabLaTeXViewer.displayExpressionIfVisible(pane, height, exp, start, end);
+                } catch (BadLocationException ex) { }
+            }
         }
     }
 

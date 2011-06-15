@@ -36,13 +36,19 @@ import javax.swing.text.Element;
     private boolean breakstring;
 
     public ScilabLexer(ScilabDocument doc) {
+    	this(doc, true);
+    }
+
+    public ScilabLexer(ScilabDocument doc, boolean update) {
         this.doc = doc;
         this.elem = doc.getDefaultRootElement();
         this.infile = doc.getFunctionsInDoc();
-	update();
+	if (update) {
+	    update();
+	}
     }
 
-    public void update() {
+    public static void update() {
         variables.clear();
         commands.clear();
         macros.clear();

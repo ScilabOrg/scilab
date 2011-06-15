@@ -37,7 +37,9 @@
       editor(file, line_number, macro_name)
       editor([file1, file2], [line_number1, line_number2])
       editor(file, 'readonly')
+      editor(file, 'actions=indent,trailing,quote')
       editor([file1, file2], 'readonly')
+      editor([file1, file2], 'actions=indent,trailing,quote')
 
     </synopsis>
   </refsynopsisdiv>
@@ -112,6 +114,8 @@
     
     <para>With the option 'readonly', files are opened in read-only mode so
     they cannot be modified.</para>
+
+    <para>With the option 'actions=...', the editor will not be opened and the file(s) will be treated consequently to the actions. The action 'indent' will indent correctly the file, the action 'trailing' will remove the trailing white spaces and the action 'quote' will replace all simple quoted strings by double quoted ones. It is possible to have one or several actions, e.g. 'actions=trailing' or 'actions=indent,quote'.</para>
 
     <para>Keyboard shortcuts are defined for most possible editing actions and
     reported by the menu entries.</para>

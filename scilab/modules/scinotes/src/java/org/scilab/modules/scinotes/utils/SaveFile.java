@@ -46,61 +46,36 @@ public final class SaveFile {
      */
     private SaveFile() { }
 
+
     /**
-     * save text in JEditorPane
-     * @param textPane JEditorPane
+     * save a document
+     * @param doc the document to save
      * @param fOut File
      * @param editorKit EditorKit
      * @return true if saved
      */
-    public static boolean doSave(ScilabEditorPane textPane, int index, File fOut, EditorKit editorKit) {
-        ScilabDocument styledDocument = (ScilabDocument) textPane.getDocument();
-        boolean enc = false;
-        if (!styledDocument.getEncoding().equalsIgnoreCase(ConfigSciNotesManager.getDefaultEncoding())) {
-            String msg = String.format(SciNotesMessages.DIFFERENT_ENCODINGS, styledDocument.getEncoding(), ConfigSciNotesManager.getDefaultEncoding());
-            if (ScilabModalDialog.show(textPane.getEditor(), msg, SciNotesMessages.DIFFERENT_ENCODINGS_TITLE, IconType.QUESTION_ICON, ButtonType.YES_NO) == AnswerOption.NO_OPTION) {
-                return false;
-            }
-            enc = true;
-        }
-
-        try {
-            fOut.createNewFile();
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-
-        if (!fOut.canWrite()) {
-            ScilabModalDialog.show(textPane.getEditor(), SciNotesMessages.NOTWRITABLE, SciNotesMessages.SCINOTES_ERROR, IconType.ERROR_ICON);
-            return false;
-        }
-
+    public static boolean doSave(ScilabDocument doc, File fOut, EditorKit editorKit) throws IOException {
         // get default eol
         String defaultEol = System.getProperty(LINE_SEPARATOR);
-
-        // set eol used to save file
-        if (styledDocument.getEOL().compareTo(defaultEol) != 0) {
-            System.setProperty(LINE_SEPARATOR, styledDocument.getEOL());
-        }
         boolean bReturn = false;
-
         BufferedWriter bw = null;
         OutputStreamWriter osw = null;
         FileOutputStream fos = null;
+
+        // set eol used to save file
+        if (doc.getEOL().compareTo(defaultEol) != 0) {
+            System.setProperty(LINE_SEPARATOR, doc.getEOL());
+        }
 
         try {
             fos = new FileOutputStream(fOut);
             osw = new OutputStreamWriter(fos, ConfigSciNotesManager.getDefaultEncoding());
             bw = new BufferedWriter(osw);
-            editorKit.write(bw, styledDocument, 0, styledDocument.getLength());
+            editorKit.write(bw, doc, 0, doc.getLength());
             bw.flush();
             bReturn = true;
-        } catch (IOException e) {
-            System.err.println(e);
-            bReturn = false;
         } catch (BadLocationException e) {
             System.err.println(e);
-            bReturn = false;
         } finally {
             try {
                 if (fos != null) {
@@ -119,8 +94,49 @@ public final class SaveFile {
 
         // restore default eol
         System.setProperty(LINE_SEPARATOR, defaultEol);
+
+        return bReturn;
+    }
+
+    /**
+     * save text in JEditorPane
+     * @param textPane JEditorPane
+     * @param index the index of the textPane
+     * @param fOut File
+     * @param editorKit EditorKit
+     * @return true if saved
+     */
+    public static boolean doSave(ScilabEditorPane textPane, int index, File fOut, EditorKit editorKit) {
+        ScilabDocument doc = (ScilabDocument) textPane.getDocument();
+        boolean enc = false;
+	boolean bReturn = false;
+        if (!doc.getEncoding().equalsIgnoreCase(ConfigSciNotesManager.getDefaultEncoding())) {
+            String msg = String.format(SciNotesMessages.DIFFERENT_ENCODINGS, doc.getEncoding(), ConfigSciNotesManager.getDefaultEncoding());
+            if (ScilabModalDialog.show(textPane.getEditor(), msg, SciNotesMessages.DIFFERENT_ENCODINGS_TITLE, IconType.QUESTION_ICON, ButtonType.YES_NO) == AnswerOption.NO_OPTION) {
+                return false;
+            }
+            enc = true;
+        }
+
+        try {
+            fOut.createNewFile();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
+        if (!fOut.canWrite()) {
+            ScilabModalDialog.show(textPane.getEditor(), SciNotesMessages.NOTWRITABLE, SciNotesMessages.SCINOTES_ERROR, IconType.ERROR_ICON);
+            return false;
+        }
+
         if (enc) {
             textPane.getEditor().reload(index);
+        }
+
+        try {
+            bReturn = doSave(doc, fOut, editorKit);
+        } catch (IOException e) {
+            System.err.println(e);
         }
 
         return bReturn;

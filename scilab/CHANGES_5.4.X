@@ -8,6 +8,8 @@ SciNotes:
 * In the find/grep tools, add the possibility to use ~ as a joker for user home
   dir. and SCI for Scilab data base dir.
 
+* Add the possibility to execute actions on a file without open it in SciNotes.
+
 * bug 9334 fixed - Extra lines was added when code was exported into PDF under
                    Windows.
 
