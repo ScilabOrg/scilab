@@ -129,6 +129,8 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* Bug 9323 fixed - The messages in optimbase_checkbounds were not localized.
+                   Same changes applied to optimbase_checkx0.
 
 Documentation:
 ==============
