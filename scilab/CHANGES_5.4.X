@@ -129,6 +129,9 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* Bug 8552 fixed - Improved fminsearch to provide Extra Parameters.
+                   Help page updated with new section "The cost function".
+                   Help page updated with new example "Passing extra parameters".
 
 Documentation:
 ==============
