@@ -168,6 +168,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(fec.getIdentifier());
                     return indices;
                 }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
             };
 
             Geometry wireframe = new Geometry() {
@@ -195,6 +200,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getIndices() {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(fec.getIdentifier());
                     return indices;
+                }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
                 }
             };
 
@@ -255,6 +265,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(grayplot.getIdentifier());
                     return indices;
                 }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
             };
 
             Appearance trianglesAppearance = new Appearance();
@@ -291,6 +306,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getIndices() {
                     IndicesBuffer indices = dataManager.getIndexBuffer(matplot.getIdentifier());
                     return indices;
+                }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
                 }
             };
 
@@ -341,6 +361,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(polyline.getIdentifier());
                     return indices;
                 }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
             };
 
             Geometry geometry = new Geometry() {
@@ -369,6 +394,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(polyline.getIdentifier());
                     System.out.println("indices size : " + indices.getSize());
                     return indices;
+                }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
                 }
             };
 
@@ -445,6 +475,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(fac3d.getIdentifier());
                     return indices;
                 }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
             };
 
             Geometry wireframe = new Geometry() {
@@ -472,6 +507,10 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getIndices() {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(fac3d.getIdentifier());
                     return indices;
+                }
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
                 }
             };
 
@@ -545,6 +584,10 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(plot3d.getIdentifier());
                     return indices;
                 }
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
             };
 
             Geometry wireframe = new Geometry() {
@@ -572,6 +615,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getIndices() {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(plot3d.getIdentifier());
                     return indices;
+                }
+
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
                 }
             };
 
