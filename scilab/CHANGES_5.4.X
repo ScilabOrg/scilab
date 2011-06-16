@@ -129,6 +129,8 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* Bug 9576 fixed - The neldermead component did not check the bounds 
+                   of some input parameters.
 
 Documentation:
 ==============
