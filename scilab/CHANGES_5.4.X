@@ -118,6 +118,9 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* Bug 8545 fixed - In neldermead, the printing system displays too long 
+                   messages.
+
 
 Documentation:
 ==============
