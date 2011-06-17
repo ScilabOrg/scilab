@@ -1,3 +1,13 @@
+c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+c Copyright (C) 2011 - DIGITEO - Michael Baudin
+c 
+c This file must be used under the terms of the CeCILL.
+c This source file is licensed as described in the file COPYING, which
+c you should have received as part of this distribution.  The terms
+c are also available at    
+c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+c
+
 C****************************************************
 C     ****  RDMPS1 ... READ THE  MPS FILE  ****
 C****************************************************
@@ -120,6 +130,7 @@ C                    Polish Academy of Sciences, Newelska 6,
 C                    01-447 Warsaw, Poland.
 C     Date written:  November 15, 1992
 C     Last modified: February 8, 1997
+C                    MB, 06/2011: Ignore blank lines
 C
 C
 C *** BODY OF (RDMPS1) ***
@@ -158,14 +169,14 @@ C
 C     Read the problem name.
    60 LINE=LINE+1
       READ(INMPS,1000,END=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 60
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 60
       READ(RDLINE,61,ERR=9000) NM,NAMMPS
    61 FORMAT(A4,10X,A8)
       IF(NM.NE.'NAME'.AND.NM.NE.'name') GO TO 60
 
    70 LINE=LINE+1
       READ(INMPS,1000,END=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 70
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 70
       READ(RDLINE,71,ERR=9000) SECT
    71 FORMAT(A1)
       IF(SECT.NE.'R'.AND.SECT.NE.'r') GO TO 9000
@@ -177,7 +188,7 @@ C
 C     Read the ROWS section.
   100 LINE=LINE+1
       READ(INMPS,1000,END=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 100
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 100
       READ(RDLINE,101,ERR=9000) SECT,TYPROW,NAMRW1
   101 FORMAT(A1,A2,1X,A8)
       IF(SECT.NE.' ') GO TO 200
@@ -273,7 +284,7 @@ C
       NAME0='        '
   220 LINE=LINE+1
       READ(INMPS,1000,END=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 220
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 220
       READ(RDLINE,221,ERR=9000) SECT,NAMCLN,NAMRW1,VAL1,NAMRW2,VAL2
   221 FORMAT(A1,3X,A8,2X,A8,2X,D12.0,3X,A8,2X,D12.0)
 C
@@ -407,7 +418,7 @@ C
       INDEX=1
   550 LINE=LINE+1
       READ(INMPS,1000,END=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 550
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 550
 C
 C     ENCODE all column names and create linked lists of columns 
 C     with the same codes.
@@ -850,7 +861,7 @@ C
 C     Main loop begins here.
   200 LINE=LINE+1
       READ(INMPS,1000,ERR=9000) RDLINE
-      IF(RDLINE(1:1).EQ.'*') GO TO 200
+      IF(RDLINE(1:1).EQ.'*'.OR.TRIM(RDLINE).EQ.'') GO TO 200
       INDEX=1
       READ(RDLINE,201,ERR=9000) SECT,NAME0,NAMRW1,VAL1,NAMRW2,VAL2
   201 FORMAT(A1,3X,A8,2X,A8,2X,D12.0,3X,A8,2X,D12.0)

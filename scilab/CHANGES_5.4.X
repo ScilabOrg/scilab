@@ -129,6 +129,11 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* readmps - Created unit test.
+            Fixed bug in the management of error messages.
+            Fixed bug in the reading of a test file.
+            Defined a printing system by overloading for MPS structure.
+            Updated the help page.
 
 Documentation:
 ==============
