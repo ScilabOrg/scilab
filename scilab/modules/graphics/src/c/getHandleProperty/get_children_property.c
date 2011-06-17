@@ -71,41 +71,5 @@ int get_children_property( sciPointObj * pobj )
     FREE( plChildren ) ;
 
     return status ;
-
-#if 0
-  sciSons * curSon = NULL ;
-  int nbChildren = sciGetNbAccessibleChildren( pobj ) ;
-
-  if ( nbChildren == 0 )
-  {
-    return sciReturnEmptyMatrix() ;
-  }
-  else
-  {
-    int index_  =  0 ;
-    int status = -1 ;
-    long * children = NULL ;
-
-    children = MALLOC( nbChildren * sizeof(long) ) ;
-    if ( children == NULL )
-    {
-			Scierror(999, _("%s: No more memory.\n"),"get_children_property");
-			return -1 ;
-    }
-
-    curSon = sciGetFirstAccessibleSon( pobj ) ;
-    while ( curSon != NULL && curSon->pointobj != NULL )
-    {
-      children[index_] = sciGetHandle( curSon->pointobj ) ;
-      index_++ ;
-      curSon = sciGetNextAccessibleSon( curSon ) ;
-    }
-    status = sciReturnColHandleVector( children, nbChildren ) ;
-
-    FREE( children ) ;
-
-    return status ;
-  }
-#endif
 }
 /*--------------------------------------------------------------------------*/

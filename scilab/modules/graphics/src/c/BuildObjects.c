@@ -36,7 +36,7 @@
 #include "CloneObjects.h"
 #include "StringMatrix.h"
 #include "Scierror.h"
-#include "CurrentObjectsManagement.h"
+#include "CurrentFigure.h"
 #include "ObjectSelection.h"
 #include "BuildDrawingObserver.h"
 #include "WindowList.h"
@@ -71,7 +71,8 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
 {
     sciPointObj *pClone = sciCloneObj(getFigureModel());
     setGraphicObjectProperty(pClone->UID, __GO_ID__, figureIndex, jni_int, 1);
-    addNewFigureToList(pClone);
+    // No more needed with MVC.
+    //addNewFigureToList(pClone);
     return pClone;
 
 #ifdef __OLD_IMPLEMENTATION__
@@ -209,7 +210,8 @@ sciPointObj * ConstructFigure(sciPointObj * pparent, int * figureIndex)
     FREE(pobj);
     return NULL ;
   }
-  addNewFigureToList(pobj);
+  // No more needed with MVC.
+  //addNewFigureToList(pobj);
   endGraphicDataWriting();
 
   // At least, should be only this call.
@@ -344,7 +346,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 		if (sciInitGraphicContext (pobj) == -1)
 		{
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -353,7 +355,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 		if (sciInitGraphicMode (pobj) == -1)
 		{
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -364,7 +366,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 		if (sciInitFontContext (pobj) == -1)
 		{
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -528,7 +530,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 
 		if ((ppsubwin->mon_title =  ConstructLabel (pobj, "",1)) == NULL){
 			sciDelThisToItsParent (pobj, sciGetParent (pobj)); /* pobj type = scisubwindow*/
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -543,7 +545,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 		if ((ppsubwin->mon_x_label =  ConstructLabel (pobj, "",2)) == NULL){
 			DestroyLabel(ppsubwin->mon_title);
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -559,7 +561,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 			DestroyLabel(ppsubwin->mon_title);
 			DestroyLabel(ppsubwin->mon_x_label);
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -574,7 +576,7 @@ ConstructSubWin(sciPointObj * pparentfigure)
 			DestroyLabel(ppsubwin->mon_x_label);
 			DestroyLabel(ppsubwin->mon_y_label);
 			sciDelThisToItsParent (pobj, sciGetParent (pobj));
-			sciDelHandle (pobj);
+			// sciDelHandle (pobj);
 			FREE(pobj->pfeatures);
 			FREE(pobj);
 			endFigureDataWriting(pparentfigure);
@@ -1951,7 +1953,7 @@ ConstructSurface (sciPointObj * pparentsubwin, sciTypeOf3D typeof3d,
         setGraphicObjectRelationship("", pobj->UID);
         deleteGraphicObject(pobj->UID);
         deleteDataObject(pobj->UID);
-        sciDelHandle(pobj);
+        // sciDelHandle(pobj);
 
         FREE(pobj);
         return (sciPointObj *) NULL;
@@ -2131,7 +2133,7 @@ ConstructGrayplot (sciPointObj * pparentsubwin, double *pvecx, double *pvecy,
         setGraphicObjectRelationship("", pobj->UID);
         deleteGraphicObject(pobj->UID);
         deleteDataObject(pobj->UID);
-        sciDelHandle(pobj);
+        // sciDelHandle(pobj);
 
         FREE(pobj);
         return (sciPointObj *) NULL;
@@ -2494,7 +2496,7 @@ ConstructFec (sciPointObj * pparentsubwin, double *pvecx, double *pvecy, double 
         setGraphicObjectRelationship("", pobj->UID);
         deleteGraphicObject(pobj->UID);
         deleteDataObject(pobj->UID);
-        sciDelHandle(pobj);
+        // sciDelHandle(pobj);
 
         FREE(pobj);
         return (sciPointObj *) NULL;
@@ -3006,7 +3008,7 @@ sciPointObj * sciStandardBuildOperations( sciPointObj * pObj, sciPointObj * pare
   /* connect the object under its parent in the hierarchy */
   if ( !sciAddThisToItsParent( pObj, parent) )
   {
-    sciDelHandle(pObj) ;
+    // sciDelHandle(pObj) ;
     return NULL ;
   }
 

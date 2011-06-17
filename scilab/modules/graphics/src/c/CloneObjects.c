@@ -25,7 +25,6 @@
 #include "GetProperty.h"
 #include "BuildObjects.h"
 #include "SetProperty.h"
-#include "CurrentObjectsManagement.h"
 #include "HandleManagement.h"
 
 #include "MALLOC.h" /* MALLOC */

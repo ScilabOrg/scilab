@@ -30,7 +30,6 @@
 #include "BasicAlgos.h"
 #include "sciprint.h"
 #include "Scierror.h"
-#include "CurrentObjectsManagement.h"
 #include "GraphicSynchronizerInterface.h"
 
 #include "MALLOC.h" /* MALLOC */

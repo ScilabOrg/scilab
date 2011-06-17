@@ -4,11 +4,11 @@
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2009 - DIGITEO - Pierre Lando
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -18,6 +18,8 @@
 /* desc : function to modify in Scilab the current_figure field of        */
 /*        a handle                                                        */
 /*------------------------------------------------------------------------*/
+
+#include <stdio.h>
 
 #include "setHandleProperty.h"
 #include "SetProperty.h"
@@ -29,9 +31,16 @@
 #include "GraphicSynchronizerInterface.h"
 #include "HandleManagement.h"
 
+#include "setGraphicObjectProperty.h"
+#include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
+#include "callJoGLView.h"
+
 /*------------------------------------------------------------------------*/
 int set_current_figure_property( sciPointObj * pobj, size_t stackPointer, int valueType, int nbRow, int nbCol )
 {
+
+    fprintf(stderr, "__--__ [DEBUG] calling  set_current_figure_property\n");
   int figNum = -1 ;
   int res = -1 ;
 
@@ -48,12 +57,12 @@ int set_current_figure_property( sciPointObj * pobj, size_t stackPointer, int va
     Scierror(999, _("Wrong size for '%s' property: A scalar expected.\n"), "current_figure");
     return SET_PROPERTY_ERROR ;
   }
-  
+
   if ( isParameterHandle( valueType ) )
   {
 
     sciPointObj * curFig = sciGetPointerFromHandle( getHandleFromStack( stackPointer ) ) ;
-    
+
     if ( curFig == NULL )
     {
       Scierror(999, _("'%s' handle does not or no longer exists.\n"),"Figure");
@@ -77,6 +86,18 @@ int set_current_figure_property( sciPointObj * pobj, size_t stackPointer, int va
   {
     Scierror(999, _("Wrong type for '%s' property: Real or '%s' handle expected.\n"), "current_figure","Figure") ;
     return SET_PROPERTY_ERROR ;
+  }
+
+  if (getFigureFromIndex(figNum) == NULL)
+  {
+      // No Figure available with this index, should create it  !!
+      char* pFigureUID = NULL;
+      sciPointObj* newaxes = NULL;
+
+
+      pFigureUID = cloneGraphicObject(getFigureModel());
+      setGraphicObjectProperty(pFigureUID, __GO_ID__, &figNum, jni_int, 1);
+      createJoGLView(pFigureUID);
   }
 
   /* select the figure num */
