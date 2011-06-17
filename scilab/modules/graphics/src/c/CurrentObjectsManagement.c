@@ -47,6 +47,9 @@ static sciPointObj * getCurrentPointedFigure(void)
 /*----------------------------------------------------------------------------------*/
 sciPointObj * sciGetCurrentFigure( void )
 {
+    // ???
+    abort();
+#if 0
   /* debug F.Leray 22.07.04 */
   sciPointObj * pFigure = getCurrentPointedFigure();
   sciPointObj* newaxes = NULL;
@@ -77,23 +80,26 @@ sciPointObj * sciGetCurrentFigure( void )
        * This was previously done in ConstructFigure, called by createFullFigure
        * which has been replaced by the Figure model clone call above.
        */
-      addNewFigureToList(pFigure);
+      // No more needed with MVC.
+      //addNewFigureToList(pFigure);
 
-      sciSetCurrentFigure(pFigure);
+      setCurrentFigure(pFigure->UID);
 
       // Register handle to Scilab.
-      sciAddNewHandle(pFigure);
+//      sciAddNewHandle(pFigure);
 
       /*
        * Registers the Axes' handle and sets the Axes as the current object.
        * This was previously done in ConstructSubWin, called by createFirstSubwin
        * which was also called by createFullFigure.
        */
-      sciAddNewHandle(newaxes);
-      sciSetCurrentObj(newaxes);
+//      sciAddNewHandle(newaxes);
+//      sciSetCurrentObj(newaxes);
   }
 
   return pFigure;
+#endif
+  return NULL;
 }
 /*----------------------------------------------------------------------------------*/
 BOOL sciIsCurrentFigure(sciPointObj * pFigure)
@@ -162,7 +168,7 @@ sciPointObj * sciGetCurrentSubWin( void )
   currentSubwin = MALLOC(sizeof(sciPointObj));
 
   currentSubwin->UID = selectedChild;
-  sciAddNewHandle(currentSubwin);
+//  sciAddNewHandle(currentSubwin);
 
   /*
    * Former way to get the Figure's current selected Axes.

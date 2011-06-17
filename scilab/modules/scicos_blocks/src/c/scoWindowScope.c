@@ -43,9 +43,7 @@
 #include "sciprint.h"
 #include "WindowList.h"
 #include "DrawingBridge.h"
-#include "CurrentObjectsManagement.h"
 #include "ObjectSelection.h"
-#include "HandleManagement.h" /* sciGetHandle */
 #include "scicos_block4.h"
 #include "localization.h"
 /*--------------------------------------------------------------------------*/
