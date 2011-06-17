@@ -45,7 +45,11 @@
  *     values = vector of doubles or int8-16-32 or char
  --------------------------------------------------------------------------*/
 
+#include <stdarg.h>
+
 #include <limits>
+
+#include "yaspio.hxx"
 
 #include "types.hxx"
 #include "int8.hxx"
@@ -59,6 +63,8 @@
 #include "double.hxx"
 #include "bool.hxx"
 #include "string.hxx"
+#include "struct.hxx"
+#include "cell.hxx"
 
 extern "C"
 {
@@ -70,8 +76,36 @@ static char *the_current_mex_name;
 
 mxClassID mxGetClassID(const mxArray *ptr)
 {
-    // FIXME : use getType() enum
-    return mxUNKNOWN_CLASS;
+    types::InternalType::RealType type = ((types::InternalType *) ptr)->getType();
+
+    switch (type) {
+        case types::InternalType::RealInt8:
+            return mxINT8_CLASS;
+        case types::InternalType::RealUInt8:
+            return mxUINT8_CLASS;
+        case types::InternalType::RealInt16:
+            return mxINT16_CLASS;
+        case types::InternalType::RealUInt16:
+            return mxUINT16_CLASS;
+        case types::InternalType::RealInt32:
+            return mxINT32_CLASS;
+        case types::InternalType::RealUInt32:
+            return mxUINT32_CLASS;
+        case types::InternalType::RealInt64:
+            return mxINT64_CLASS;
+        case types::InternalType::RealUInt64:
+            return mxUINT64_CLASS;
+        case types::InternalType::RealString:
+            return mxCHAR_CLASS;
+        case types::InternalType::RealDouble:
+            return mxDOUBLE_CLASS;
+        case types::InternalType::RealBool:
+            return mxLOGICAL_CLASS;
+        case types::InternalType::RealFloat:
+            return mxSINGLE_CLASS;
+        default:
+          return mxUNKNOWN_CLASS;
+    }
 }
 
 bool mxIsInt8(const mxArray *ptr)
@@ -89,6 +123,11 @@ bool mxIsInt32(const mxArray *ptr)
     return mxGetClassID(ptr)==mxINT32_CLASS;
 }
 
+bool mxIsInt64(const mxArray *ptr)
+{
+    return mxGetClassID(ptr)==mxINT64_CLASS;
+}
+
 bool mxIsUint8(const mxArray *ptr)
 {
     return mxGetClassID(ptr)==mxUINT8_CLASS;
@@ -102,6 +141,11 @@ bool mxIsUint16(const mxArray *ptr)
 bool mxIsUint32(const mxArray *ptr)
 {
     return mxGetClassID(ptr)==mxUINT32_CLASS;
+}
+
+bool mxIsUint64(const mxArray *ptr)
+{
+    return mxGetClassID(ptr)==mxUINT64_CLASS;
 }
 
 double mxGetEps(void)
@@ -173,13 +217,10 @@ int mxGetNumberOfElements(const mxArray *ptr)
     return ((types::GenericType *) ptr)->getSize();
 }
 
-
 double *mxGetPr(const mxArray *ptr)
 {
     return ((types::Double *) ptr)->get();
 }
-
-
 
 double *mxGetPi(const mxArray *ptr)
 {
@@ -214,29 +255,29 @@ void mxSetM(mxArray *ptr, int M)
 
 int *mxGetJc(const mxArray *ptr)
 {
-    // FIXME
+    // TODO: sparse
     return NULL;
 }
 
 int *mxGetIr(const mxArray *ptr)
 {
-    // FIXME
+    // TODO: sparse
     return NULL;
 }
 
 void mxSetJc(mxArray *array_ptr, int *jc_data)
 {
-    // FIXME
+    // TODO: sparse
 }
 
 void mxSetIr(mxArray *array_ptr, int *ir_data)
 {
-    // FIXME
+    // TODO: sparse
 }
 
 void mxSetNzmax(mxArray *array_ptr, int nzmax)
 {
-    //FIXME
+    // TODO: sparse
 }
 
 int mxGetN(const mxArray *ptr)
@@ -256,25 +297,27 @@ void mxSetN(mxArray *ptr, int N)
 
 bool mxIsString(const mxArray *ptr)
 {
-    return mxGetClassID(ptr)==mxCHAR_CLASS;
+    /* mxIsString is obsolete. */
+    return mxIsChar(ptr);
 }
 
 bool mxIsChar(const mxArray *ptr)
 {
-    // FIXME
-    return false;
+    return mxGetClassID(ptr)==mxCHAR_CLASS;
 }
 
 bool mxIsNumeric(const mxArray *ptr)
 {
-    // FIXME
-    return false;
+    return mxIsDouble(ptr) || mxIsSingle(ptr) ||
+           mxIsInt8(ptr) || mxIsUint8(ptr) ||
+           mxIsInt16(ptr) || mxIsUint16(ptr) ||
+           mxIsInt32(ptr) || mxIsUint32(ptr) ||
+           mxIsInt64(ptr) || mxIsUint64(ptr);
 }
 
 bool mxIsDouble(const mxArray *ptr)
 {
-    // FIXME
-    return false;
+    return mxGetClassID(ptr)==mxDOUBLE_CLASS;
 }
 
 bool mxIsSingle(const mxArray *ptr)
@@ -288,35 +331,34 @@ bool mxIsEmpty(const mxArray *ptr)
     int ndim = pa->getDims();
     int *dims = pa->getDimsArray();
 
-    int size = 1;
-    for (int i = 0; i < ndim; i++)
-    {
-        // FIXME : Some overflow may happen here.
-        size *= dims[i];
+    for (int i = 0; i < ndim; i++) {
+        if (dims[i] == 0) {
+            return true;
+        }
     }
-    return size == 0;
+    return false;
 }
 
 bool mxIsFull(const mxArray *ptr)
 {
+    /* mxIsFull is obsolete. */
     return !mxIsSparse(ptr);
 }
 
 bool mxIsSparse(const mxArray *ptr)
 {
-    // FIXME
+    // TODO: sparse
     return false;
 }
 
 bool mxIsLogical(const mxArray *ptr)
 {
-    return ((types::InternalType *) ptr)->isBool();
+    return mxGetClassID(ptr)==mxLOGICAL_CLASS;
 }
 
 bool mxIsLogicalScalar(const mxArray *ptr)
 {
-    // FIXME
-    return false;
+    return mxIsLogical(ptr) && mxGetNumberOfElements(ptr) == 1;
 }
 
 void mxSetLogical(mxArray *ptr)
@@ -340,8 +382,7 @@ double mxGetScalar(const mxArray *ptr)
 
     for (int i=0; i < array->getSize(); i++) {
         double value = array->get(i);
-        if (value)
-        {
+        if (value) {
             return value;
         }
     }
@@ -386,25 +427,86 @@ mxArray *mxCreateDoubleScalar(double value)
 
 bool mxIsClass(const mxArray *ptr, const char *name)
 {
-    // FIXME
-    return false;
+  mxClassID classID = mxGetClassID(ptr);
+
+  if (strcmp(name, "cell") == 0) {
+    return classID == mxCELL_CLASS;
+  }
+  if (strcmp(name, "char") == 0) {
+    return classID == mxCHAR_CLASS;
+  }
+  if (strcmp(name, "double") == 0) {
+    return classID == mxDOUBLE_CLASS;
+  }
+  if (strcmp(name, "function_handle") == 0) {
+    return classID == mxFUNCTION_CLASS;
+  }
+  if (strcmp(name, "int8") == 0) {
+    return classID == mxINT8_CLASS;
+  }
+  if (strcmp(name, "int16") == 0) {
+    return classID == mxINT16_CLASS;
+  }
+  if (strcmp(name, "int32") == 0) {
+    return classID == mxINT32_CLASS;
+  }
+  if (strcmp(name, "int64") == 0) {
+    return classID == mxINT64_CLASS;
+  }
+  if (strcmp(name, "logical") == 0) {
+    return classID == mxLOGICAL_CLASS;
+  }
+  if (strcmp(name, "single") == 0) {
+    return classID == mxSINGLE_CLASS;
+  }
+  if (strcmp(name, "struct") == 0) {
+    return classID == mxSTRUCT_CLASS;
+  }
+  if (strcmp(name, "uint8") == 0) {
+    return classID == mxUINT8_CLASS;
+  }
+  if (strcmp(name, "uint16") == 0) {
+    return classID == mxUINT16_CLASS;
+  }
+  if (strcmp(name, "uint32") == 0) {
+    return classID == mxUINT32_CLASS;
+  }
+  if (strcmp(name, "uint64") == 0) {
+    return classID == mxUINT64_CLASS;
+  }
+  
+  // TODO: how to handle <class_name> and <class_id>?
+  if (strcmp(name, "unknown") == 0) {   
+    return classID == mxUNKNOWN_CLASS;
+  }
+  return false;
 }
 
 mxArray *mxCreateStructArray(int ndim, const int *dims, int nfields, const char **field_names)
 {
-    // FIXME
-    return NULL;
+  types::Struct *ptr = new types::Struct(ndim, (int *) dims);
+
+  for (int i = 0; i < nfields; i++) {
+    // TODO: is this cast right?
+    ptr->addField((wchar_t *) field_names[i]);
+  }
+  return (mxArray *) ptr;
 }
 
 mxArray *mxCreateStructMatrix(int m, int n, int nfields, const char **field_names)
 {
-    // FIXME
-    return NULL;
+  int dims[2] = {m, n};
+  return mxCreateStructArray(2, dims, nfields, field_names);
 }
 
 void mxSetFieldByNumber(mxArray *array_ptr, int lindex, int field_number, mxArray *value)
 {
-    // FIXME
+    if (!mxIsStruct(array_ptr)) {
+      return;
+    }
+    types::SingleStruct *ptr = ((types::Struct *) array_ptr)->get(lindex);
+    types::String *names = ptr->getFieldNames();
+    ptr->set(names->get(field_number), (types::InternalType *) value);
 }
 
 void mxSetField(mxArray *array_ptr, int lindex, const char *field_name, mxArray *value)
@@ -416,14 +518,16 @@ void mxSetField(mxArray *array_ptr, int lindex, const char *field_name, mxArray 
 
 const char *mxGetFieldNameByNumber(const mxArray *array_ptr, int field_number)
 {
-    // FIXME
-    return NULL;
+    types::String *names = ((types::Struct *) array_ptr)->getFieldNames();
+    // TODO: is this cast right?
+    return (const char *) names->get(field_number);
 }
 
 
 mxChar *mxGetChars(mxArray *array_ptr)
 {
-    mexPrintf("%Not yet implemented\n");
+    // FIXME
+    return 0;
 }
 
 
@@ -480,51 +584,66 @@ mxArray *mxCreateNumericMatrix(int m, int n, mxClassID CLASS, mxComplexity compl
 
 mxArray *mxCreateCharArray(int ndim, const int *dims)
 {
-    // FIXME
-    return NULL;
+    if (ndim == 0 || ndim == 1) {
+        ndim = 2;
+    }
+    types::String *ptr = new types::String(ndim, (int *) dims);
+    return (mxArray *) ptr;
 }
 
 mxArray *mxCreateCellArray(int ndim, const int *dims)
 {
-    // FIXME
-    return NULL;
+    types::Cell *ptr = new types::Cell(ndim, (int *) dims);
+    return (mxArray *) ptr;
 }
 
-mxArray *mxCreateCellMatrix(int nrows, int ncols)
+mxArray *mxCreateCellMatrix(int m, int n)
 {
-    int two=2;int dims[2];
-    dims[0] = nrows; dims[1] = ncols;
-    return mxCreateCellArray(two, dims);
+    int dims[2] = {m, n};
+    return mxCreateCellArray(2, dims);
 }
 
 mxArray *mxGetCell(const mxArray *ptr, int lindex)
 {
-    // FIXME
-    return NULL;
+    types::Cell *pa = (types::Cell *) ptr;
+    return (mxArray *) pa->get(lindex);
 }
 
 int mxGetFieldNumber(const mxArray *ptr, const char *string)
 {
     // FIXME
-    return 0;
+    types::String *names = ((types::Struct *) ptr)->getFieldNames();
+        for (int i=0; i < names->getSize(); i++) {
+        if (strcmp((char *) names->get(i), string) == 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 mxArray *mxGetField(const mxArray *ptr, int lindex, const char *string)
 {
     // FIXME
-    return NULL;
+    types::Struct *pa = (types::Struct *) ptr;
+    types::SingleStruct *s = pa->get(lindex);
+    return (mxArray *) s->get((wchar_t *) string);
 }
 
 mxArray *mxGetFieldByNumber(const mxArray *ptr, int lindex, int field_number)
 {
     // FIXME
-    return NULL;
+    types::Struct *pa = (types::Struct *) ptr;
+    types::String *names = pa->getFieldNames();
+    types::SingleStruct *s = pa->get(lindex);
+    return (mxArray *) s->get(names->get(field_number));
 }
 
 int mxGetNumberOfFields(const mxArray *ptr)
 {
     // FIXME
-    return 0;
+    types::Struct *pa = (types::Struct *) ptr;
+    types::String *fields = pa->getFieldNames();
+    return fields->getSize();
 }
 
 /*----------------------------------------------------
@@ -607,14 +726,30 @@ bool mxIsStruct(const mxArray *ptr)
 
 int mxGetString(const mxArray *ptr, char *str, int strl)
 {
-    // FIXME
-    return 0;
+    if (!mxIsChar(ptr)) {
+        return 1;
+    }
+    types::String *pa = (types::String *) ptr;
+    int length = Min(strl-1, pa->getSize());
+    memcpy(str, pa->get(), length);
+    str[length] = '\0';
+    return (length != pa->getSize()) ? 1 : 0;
 }
 
 char *mxArrayToString(const mxArray *array_ptr)
 {
     // FIXME
-    return NULL;
+    if (!mxIsChar(array_ptr)) {
+        return (char *) 0;
+    }
+    types::String *pa = (types::String *) array_ptr;
+    int buflen = pa->getSize() + 1;
+    char *buf = (char *) mxCalloc(buflen, sizeof(char));
+
+    if (mxGetString(array_ptr, buf, buflen) == 0) {
+        return buf;
+    }
+    return (char *) 0;
 }
 
 /*-------------------------------------------------
@@ -636,7 +771,7 @@ char *mxArrayToString(const mxArray *array_ptr)
 
 void mxFreeMatrix(mxArray *ptr)
 {
-    // FIXME
+    mxDestroyArray(ptr);
 }
 
 bool mexIsGlobal(const mxArray *ptr)
@@ -659,8 +794,9 @@ mxArray *UnrefStruct(mxArray *ptr)
 }
 
 void mxDestroyArray(mxArray *ptr)
-{   /* No need */
-    return;
+{
+    /* No need */
+    // FIXME: is it true?
 }
 
 void mxFree(void *ptr)
@@ -677,7 +813,7 @@ int mexAtExit(mxArray *ptr)
 
 mxArray *mxCreateSparse(int m, int n, int nzmax, mxComplexity cmplx)
 {
-    // FIXME
+    // TODO: sparse
     return NULL;
 }
 
@@ -720,9 +856,14 @@ bool mxIsLogicalScalar(mxArray *pa)
   in Scilab window
 */
 
-void mexPrintf (const char *fmt,...)
+void mexPrintf (const char *fmt, ...)
 {
-    // FIXME : Use YaSpWrite
+    va_list args;
+    char buf[2048];
+    va_start(args, fmt);
+    sprintf(buf, fmt, args);
+    YaspWrite(fmt);
+    va_end(args);
 }
 
 
@@ -769,8 +910,13 @@ int mxGetElementSize(const mxArray *ptr)
 
 mxArray *mxCreateCharMatrixFromStrings(int m, const char **str)
 {
-    // FIXME
-    return NULL;
+    int n = 0;
+    for (int k = 0; k < m; k++) {
+        n = Max(n, (int) strlen(str[k]));
+    }
+    // TODO: is wchar_t** cast right?
+    types::String *ptr = new types::String(m, n, (wchar_t **) str);
+    return (mxArray *) ptr;
 }
 
 int mexEvalString(const char *name)
@@ -800,8 +946,7 @@ int mexEvalString(const char *name)
 
 mxArray *mexGetArray(char *name, char *workspace)
 {
-    // FIXME : use Context::get
-    return NULL;
+    return mexGetVariable(workspace, name);
 }
 
 const mxArray *mexGetVariablePtr(const char *workspace, const char *var_name)
@@ -838,9 +983,40 @@ void mxSetName(mxArray *array_ptr, const char *name)
 
 void mxSetData(mxArray *array_ptr, void *data_ptr)
 {
-    // FIXME
-    mexErrMsgTxt(_("Routine mxSetData not implemented.\n"));
-    exit(1);  /* TO BE DONE */
+
+    if (mxIsChar(array_ptr)) {
+        ((types::String *) array_ptr)->set((wchar_t **) data_ptr);
+    }
+    else if (mxIsInt8(array_ptr)) {
+        ((types::Int8 *) array_ptr)->set((char *) data_ptr);
+    }
+    else if (mxIsInt16(array_ptr)) {
+        ((types::Int16 *) array_ptr)->set((short *) data_ptr);
+    }
+    else if (mxIsInt32(array_ptr)) {
+        ((types::Int32 *) array_ptr)->set((int *) data_ptr);
+    }
+    else if (mxIsInt64(array_ptr)) {
+        ((types::Int64 *) array_ptr)->set((long long *) data_ptr);
+    }
+    else if (mxIsLogical(array_ptr)) {
+        ((types::Bool *) array_ptr)->set((int *) data_ptr);
+    }
+    // else if (mxIsSingle(array_ptr)) {
+    //   ((types::Float *) array_ptr)->set((float *) data_ptr);
+    // }
+    else if (mxIsUint8(array_ptr)) {
+        ((types::UInt8 *) array_ptr)->set((unsigned char *) data_ptr);
+    }
+    else if (mxIsUint16(array_ptr)) {
+        ((types::UInt16 *) array_ptr)->set((unsigned short *) data_ptr);
+    }
+    else if (mxIsUint32(array_ptr)) {
+        ((types::UInt32 *) array_ptr)->set((unsigned int *) data_ptr);
+    }
+    else if (mxIsUint64(array_ptr)) {
+        ((types::UInt64 *) array_ptr)->set((unsigned long long *) data_ptr);
+    }
 }
 
 void mxSetPr(mxArray *ptr, double *pr)
@@ -863,28 +1039,109 @@ const char *mxGetName(const mxArray *array_ptr)
 
 int mxSetDimensions(mxArray *array_ptr, const int *dims, int ndim)
 {
-    // FIXME
-    mexPrintf(_("Routine mxSetDimensions not implemented.\n"));
-    exit(1);  /* TO BE DONE */
-    return 0;
+    if (mxIsCell(array_ptr)) {
+        ((types::Cell *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsChar(array_ptr)) {
+        ((types::String *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsDouble(array_ptr)) {
+        ((types::Double *) array_ptr)->resize((int *) dims, ndim);
+    }
+    // else if (mxIsFunction(array_ptr)) {
+    //     ((types::Function *) array_ptr)->resize((int *) dims, ndim);
+    //}
+    // else if (mxIsSparse(array_ptr)) {
+    //     TODO: we don't have Sparse classes yet
+    // }
+    else if (mxIsInt8(array_ptr)) {
+        ((types::Int8 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsInt16(array_ptr)) {
+        ((types::Int16 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsInt32(array_ptr)) {
+        ((types::Int32 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsInt64(array_ptr)) {
+        ((types::Int64 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsLogical(array_ptr)) {
+        ((types::Bool *) array_ptr)->resize((int *) dims, ndim);
+    }
+    // else if (mxIsSingle(array_ptr)) {
+    //     ((types::Float *) array_ptr)->resize((int *) dims, ndim);
+    // }
+    else if (mxIsStruct(array_ptr)) {
+        ((types::Struct *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsUint8(array_ptr)) {
+        ((types::UInt8 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsUint16(array_ptr)) {
+        ((types::UInt16 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsUint32(array_ptr)) {
+        ((types::UInt32 *) array_ptr)->resize((int *) dims, ndim);
+    }
+    else if (mxIsUint64(array_ptr)) {
+        ((types::UInt64 *) array_ptr)->resize((int *) dims, ndim);
+    }
 }
 
 const char *mxGetClassName(const mxArray *ptr)
 {
     // FIXME
+    if (mxIsDouble(ptr)) {
+        return "double";
+    }
+    if (mxIsChar(ptr)) {
+        return "char";
+    }
+    if (mxIsSparse(ptr)) {
+        return "sparse";
+    }
+    if (mxIsInt8(ptr)) {
+        return "int8";
+    }
+    if (mxIsInt16(ptr)) {
+        return "int16";
+    }
+    if (mxIsInt32(ptr)) {
+        return "int32";
+    }
+    if (mxIsInt64(ptr)) {
+        return "int64";
+    }
+    if (mxIsUint8(ptr)) {
+        return "uint8";
+    }
+    if (mxIsUint16(ptr)) {
+        return "uint16";
+    }
+    if (mxIsUint32(ptr)) {
+        return "uint32";
+    }
+    if (mxIsUint64(ptr)) {
+        return "uint64";
+    }
+    if (mxIsCell(ptr)) {
+        return "cell";
+    }
+    if (mxIsStruct(ptr)) {
+        return "struct";
+    }
     return "unknown";
 }
 
 void mxSetCell(mxArray *array_ptr, int lindex, mxArray *value)
 {
-    // FIXME : ???
-    mxSetFieldByNumber(array_ptr, lindex, 0 , value);
-    return;
+    ((types::Cell *) array_ptr)->set(lindex, (types::InternalType *) value);
 }
 
 int mxGetNzmax(const mxArray *ptr)
 {
-    // FIXME
+    // TODO: sparse
     return 0;
 }
 
@@ -911,113 +1168,102 @@ int mexCheck(char *str,int nbvars) {
  * C functions for Fortran  mexfunctions
  ****************************************************/
 
-double * C2F(mxgetpr)(mxArray *ptr)
+double *C2F(mxgetpr)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return NULL;
+    return mxGetPr(ptr);
 }
 
 
 double * C2F(mxgetpi)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return NULL;
+    return mxGetPi(ptr);
 }
 
 int  C2F(mxgetm)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxGetM(ptr);
 }
 
 int  C2F(mxgetn)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxGetN(ptr);
 }
 
 int  C2F(mxisstring)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxIsString(ptr);
 }
 
 int  C2F(mxisnumeric)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxIsNumeric(ptr);
 }
 
 int  C2F(mxisfull)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxIsFull(ptr);
 }
 
 int  C2F(mxissparse)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxIsSparse(ptr);
 }
 
 
 int  C2F(mxiscomplex)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxIsComplex(ptr);
 }
 
 double  C2F(mxgetscalar)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
+    return mxGetScalar(ptr);
 }
 
 void  C2F(mexprintf)(char *error_msg, int len)
 {
-    // FIXME : Wrap this one to the C one
+    error_msg[len] = '\0';
+    mexPrintf(error_msg);
 }
 
 void C2F(mexerrmsgtxt)(char *error_msg, int len)
 {
-    // FIXME : Wrap this one to the C one
+    error_msg[len] = '\0';
+    mexErrMsgTxt(error_msg);
 }
 
 mxArray *C2F(mxcreatefull)(int *m, int *n, int *it)
 {
-    // FIXME : Wrap this one to the C one
-    return NULL;
+    /* mxCreateFull is obsolete. Call mxCreateDoubleMatrix instead. */
+    return (mxArray *) mxCreateDoubleMatrix(*m, *n, (mxComplexity) *it);
 }
 
 mxArray *C2F(mxcreatedoublematrix)(int *m, int *n, int *it)
 {
-    return (mxArray *) mxCreateDoubleMatrix(*m, *n, (mxComplexity)*it);
+    return (mxArray *) mxCreateDoubleMatrix(*m, *n, (mxComplexity) *it);
 }
-
 
 unsigned long int C2F(mxcalloc)(unsigned int *n, unsigned int *size)
 {
-    // FIXME : Wrap this one to the C one
+     // FIXME : Wrap this one to the C one
     return 0;
 }
 
 int  C2F(mxgetstring)(mxArray *ptr, char *str, int *strl)
 {
-    // FIXME : Wrap this one to the C one
-    return 0;
+    return mxGetString(ptr, str, *strl);
 }
 
 void C2F(mxfreematrix)(mxArray *ptr)
 {
-    // FIXME : Wrap this one to the C one
+    mxFreeMatrix(ptr);
 }
-
 
 mxArray * C2F(mxcreatestring)(char *string, long int l)
 {
-    // FIXME : Wrap this one to the C one
-    return NULL;
+    string[l] = '\0';
+    return mxCreateString(string);
 }
-
 
 int C2F(mxcopyreal8toptr)(double *y, mxArray *ptr, int *n)
 {
@@ -1043,8 +1289,7 @@ int C2F(mxcopyptrtocomplex16)(mxArray *ptr, mxArray *pti, double *y, int *n)
     return 0;
 }
 
-/* mxCreateLogicalArray
- * mxIsLogicalScalarTrue */
+/* mxCreateLogicalArray */
 
 /* *mxRealloc(void *ptr, size_t size);
    mxArray *mxCreateStringFromNChars(const char *str, int n);
