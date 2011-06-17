@@ -45,10 +45,10 @@
 #include "BuildObjects.h"
 #include "math_graphics.h"
 #include "Scierror.h"
-#include "CurrentObjectsManagement.h"
+#include "CurrentFigure.h"
 #include "ObjectSelection.h"
 #include "BasicAlgos.h"
-#include "WindowList.h"
+#include "FigureList.h"
 #include "localization.h"
 #include "SetJavaProperty.h"
 #include "GraphicSynchronizerInterface.h"
@@ -315,12 +315,13 @@ void sciRecursiveUpdateBaW(sciPointObj *pobj, int old_m, int m)
 
   sciSetNumColors (pobj,m); /* Add F.Leray 25.06.04 */
 
-  psonstmp = sciGetLastSons (pobj);
-  while (psonstmp != (sciSons *) NULL)
-    {
-      sciRecursiveUpdateBaW(psonstmp->pointobj, old_m, m);
-      psonstmp = psonstmp->pprev;
-    }
+  // ???
+  /* psonstmp = sciGetLastSons (pobj); */
+  /* while (psonstmp != (sciSons *) NULL) */
+  /*   { */
+  /*     sciRecursiveUpdateBaW(psonstmp->pointobj, old_m, m); */
+  /*     psonstmp = psonstmp->pprev; */
+  /*   } */
 }
 
 
@@ -2712,6 +2713,7 @@ int sciInitUsedWindow( int winNum )
  */
 int sciSetUsedWindow( int winNum )
 {
+    return 1;
   /* select or create the window in the driver */
   if ( sciHasFigures() && sciGetNum( sciGetCurrentFigure() ) == winNum )
   {

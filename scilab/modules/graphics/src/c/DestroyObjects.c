@@ -36,7 +36,6 @@
 #include "WindowList.h"
 #include "sciprint.h"
 #include "InitObjects.h"
-#include "CurrentObjectsManagement.h"
 #include "ObjectSelection.h"
 #include "BuildDrawingObserver.h"
 #include "DrawingBridge.h"
@@ -242,13 +241,14 @@ int C2F(scigerase)( void )
 int DestroyFigure (sciPointObj * pthis)
 {
   // remove the figure if it is in the list
-  removeFigureFromList(pthis);
+    // No more needed with MVC.
+    //removeFigureFromList(pthis);
 
   if (sciIsCurrentFigure(pthis) )
   {
 
     /* destroyed figure is current one */
-    sciSetCurrentFigure(getFirstFigure()) ;
+    //sciSetCurrentFigure(getFirstFigure()) ;
   }
 
   sciSetIsEventHandlerEnable(pthis, FALSE ) ;
@@ -546,6 +546,9 @@ int DestroyCompound (sciPointObj * pthis)
 int
 sciUnCompound (sciPointObj * pobj)
 {
+    abort();
+    // ???
+#if 0
   sciPointObj *pparent, *pobjson;
   sciSons *psons = (sciSons *)NULL;
 
@@ -569,6 +572,7 @@ sciUnCompound (sciPointObj * pobj)
   sciSetCurrentObj(pparent); /* pparent is the new current object */
 
   DestroyCompound(pobj);
+#endif
   return 0;
 }
 
@@ -585,7 +589,10 @@ int DestroyLabel (sciPointObj * pthis)
   destroyHandleDrawer( pthis ) ;
   sciUnselectSons( pthis ) ;
   sciDelThisToItsParent( pthis, sciGetParent(pthis) ) ;
-  if ( sciDelHandle(pthis) == -1 ) { return -1 ; }
+  //if ( sciDelHandle(pthis) == -1 )
+  //{
+  //    return -1 ;
+  //}
   textStatus = deallocateText( ppLabel->text ) ;
   if ( textStatus != 0 )
   {
@@ -662,10 +669,10 @@ int sciStandardDestroyOperations( sciPointObj * pThis )
     {
       sciSetCurrentObj(sciGetParent(pThis));
     }
-    else if (getFirstFigure() != NULL)
-    {
-      sciSetCurrentObj(sciGetCurrentSubWin());
-    }
+    //else if (getFirstFigure() != NULL)
+    //{
+    //  sciSetCurrentObj(sciGetCurrentSubWin());
+    //}
     else
     {
       /* no more object */
@@ -678,7 +685,7 @@ int sciStandardDestroyOperations( sciPointObj * pThis )
   clearUserData( pThis ) ;
   sciUnselectSons( pThis ) ;
   sciDelThisToItsParent( pThis, sciGetParent(pThis) ) ;
-  if ( sciDelHandle(pThis) == -1 ) { res = -1 ; }
+  //if ( sciDelHandle(pThis) == -1 ) { res = -1 ; }
 	destroyRelationShip(pThis);
   FREE( pThis->pfeatures ) ;
   FREE( pThis ) ;

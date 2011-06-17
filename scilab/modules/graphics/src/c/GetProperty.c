@@ -29,7 +29,7 @@
 #include "GetProperty.h"
 #include "Scierror.h"
 #include "InitObjects.h"
-#include "CurrentObjectsManagement.h"
+#include "CurrentFigure.h"
 #include "ObjectSelection.h"
 #include "GetJavaProperty.h"
 #include "BasicAlgos.h"
@@ -1870,6 +1870,9 @@ int sciGetWindowHeight(sciPointObj * pObj)
 sciPointObj *
 sciIsExistingSubWin (double WRect[4])
 {
+
+// ???
+#if 0
     sciPointObj *pparentfigure;
     sciSons *psonstmp;
 
@@ -1924,7 +1927,7 @@ sciIsExistingSubWin (double WRect[4])
         psonstmp = psonstmp->pnext;
     }
 
-
+#endif
     return NULL;
 }
 
@@ -3024,23 +3027,6 @@ BOOL sciGetIsAccessibleChild( sciPointObj * pObj )
 {
     return sciGetEntityType( pObj ) != SCI_LABEL
         && GetHandleVisibilityOnUimenu( pObj ) ;
-}
-/*-----------------------------------------------------------------------------------*/
-/**
-* return the number of children of an object. This corresponds to the number of children
-* seen in the Scilab console.
-*/
-int sciGetNbAccessibleChildren( sciPointObj * pObj )
-{
-    int nbChildren = 0 ;
-    sciSons * curSon = sciGetFirstAccessibleSon( pObj ) ;
-
-    while ( curSon != NULL && curSon->pointobj != NULL )
-    {
-        nbChildren++ ;
-        curSon = sciGetNextAccessibleSon( curSon ) ;
-    }
-    return nbChildren ;
 }
 /*-----------------------------------------------------------------------------------*/
 BOOL GetHandleVisibilityOnUimenu( sciPointObj * pobj )
