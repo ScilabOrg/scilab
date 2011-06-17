@@ -206,8 +206,9 @@ void visitprivate(const AssignExp  &e)
                 pITR = pIL;
             }
 
-            if(pITR->isDouble() && pITR->getAs<Double>()->isEmpty() && pIT->isStruct() == false)
-            {//insert [] so deletion !
+            
+            if(pITR->isDouble() && pITR->getAs<Double>()->isEmpty() && pIT->isStruct() == false && pIT->isList() == false)
+            {//insert [] so deletion except for Struct and List which can insert []
                 if(pIT == NULL)
                 {
                     pOut = Double::Empty();
