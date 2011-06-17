@@ -219,6 +219,8 @@ extern "C" {
         mxUINT32_CLASS,
         mxINT64_CLASS,
         mxUINT64_CLASS,
+        mxLOGICAL_CLASS,
+        mxFUNCTION_CLASS,
         mxUNKNOWN_CLASS = 0
     } mxClassID;
 
