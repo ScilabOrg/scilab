@@ -49,7 +49,7 @@ public class AxesRulerDrawer {
      * @param drawingTools the used {@see DrawingTools}
      */
     public void drawRuler(Axes axes, ColorMap colorMap, DrawingTools drawingTools) {
-        Double[] bounds = axes.getDataBounds();
+        Double[] bounds = getCurrentBounds(axes);
         double[] matrix = drawingTools.getTransformationManager().getModelViewStack().peek().getMatrix();
 
         RulerDrawingResult rulerDrawingResult;
@@ -252,7 +252,19 @@ public class AxesRulerDrawer {
         return r;
     }
 
-
+    /**
+     * Return the current visible bounds of the given axes.
+     * // TODO : tight limit.
+     * @param axes the given axes.
+     * @return the current visible bounds of the given axes.
+     */
+    private Double[] getCurrentBounds(Axes axes) {
+        if (axes.getZoomEnabled()) {
+            return axes.getZoomBox();
+        } else {
+            return axes.getDataBounds();
+        }
+    }
 
     private FloatBuffer getXGridData(double[] values, RulerModel rulerModel) {
         FloatBuffer vertexData = FloatBuffer.allocate(values.length * 16);
