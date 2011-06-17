@@ -217,6 +217,19 @@ public class AxesDrawer {
         return zoneTranslation.rightTimes(zoneScale);
     }
 
+    /**
+     * Return the current visible bounds of the given axes.
+     * // TODO : tight limit.
+     * @param axes the given axes.
+     * @return the current visible bounds of the given axes.
+     */
+    private Double[] getCurrentBounds(Axes axes) {
+        if (axes.getZoomEnabled()) {
+            return axes.getZoomBox();
+        } else {
+            return axes.getDataBounds();
+        }
+    }
 
     /**
      * Compute data transformation for the given {@see Axes}.
@@ -227,7 +240,7 @@ public class AxesDrawer {
      * @return data transformation.
      */
     private Transformation computeDataTransformation(Axes axes) {
-        Double[] bounds = axes.getDataBounds();
+        Double[] bounds = getCurrentBounds(axes);
 
         // Reverse data if needed.
         Transformation transformation = TransformationFactory.getScaleTransformation(
@@ -266,8 +279,7 @@ public class AxesDrawer {
      * @return box transformation for the given axes.
      */
     private Transformation computeBoxTransformation(Axes axes, Canvas canvas) {
-        // TODO : zoom box ?
-        Double[] bounds = axes.getDataBounds();
+        Double[] bounds = getCurrentBounds(axes);
 
         double tmpX;
         double tmpY;
