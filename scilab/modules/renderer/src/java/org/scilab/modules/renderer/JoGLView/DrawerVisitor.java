@@ -172,6 +172,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getEdgesIndices() {
                     return null;
                 }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
+                    return null;
+                }
             };
 
             Geometry wireframe = new Geometry() {
@@ -200,8 +205,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(fec.getIdentifier());
                     return indices;
                 }
+                
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
 
-		public IndicesBuffer getEdgesIndices() {
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -267,6 +278,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                 public IndicesBuffer getEdgesIndices() {
                     return null;
                 }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
+                    return null;
+                }
             };
 
             Appearance trianglesAppearance = new Appearance();
@@ -304,8 +320,15 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(matplot.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
+                    // TODO Auto-generated method stub
                     return null;
                 }
             };
@@ -357,8 +380,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(polyline.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -391,7 +420,13 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     return indices;
                 }
 
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -469,8 +504,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(fac3d.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -501,8 +542,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(fac3d.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -577,8 +624,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getIndexBuffer(plot3d.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
@@ -609,8 +662,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
                     IndicesBuffer indices = dataManager.getWireIndexBuffer(plot3d.getIdentifier());
                     return indices;
                 }
-
+                
+                @Override
                 public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
                     return null;
                 }
             };
