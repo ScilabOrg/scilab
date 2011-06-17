@@ -135,11 +135,12 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
               }
               else if ((strcmp(parentType, __GO_FIGURE__) == 0) || (strcmp(parentType, __GO_UIMENU__) == 0)) /* PushButton creation */
               {
+                  // ????
                   /* Create a new pushbutton */
-                  GraphicHandle = sciGetHandle(CreateUIControl(NULL));
+                  //GraphicHandle = sciGetHandle(CreateUIControl(NULL));
 
                   /* First parameter is the parent */
-                  setGraphicObjectRelationship(pParent->UID, sciGetPointerFromHandle(GraphicHandle)->UID);
+                  //setGraphicObjectRelationship(pParent->UID, sciGetPointerFromHandle(GraphicHandle)->UID);
                   //setStatus = callSetProperty(sciGetPointerFromHandle(GraphicHandle), stkAdr, sci_handles, nbRow, nbCol, (char*)propertiesNames[1]);
                   //if (setStatus == SET_PROPERTY_ERROR)
                   //{
@@ -304,7 +305,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                     {
                       strncpy(propertyPart, propertiesNames[k], strlen(propertyName));
                       propertyPart[strlen(propertyName)] = '\0';
- 
+
                       if (stricmp(propertyName, propertyPart) == 0)
                         {
                           propertiesValuesIndices[k] = inputIndex+1; /* Position of value for property */
@@ -442,7 +443,8 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
                       setStatus = callSetProperty(sciGetPointerFromHandle(GraphicHandle), stkAdr, sci_handles, nbRow, nbCol, (char*)propertiesNames[inputIndex]);
                       break;
                     case sci_tlist:
-                        if(displayUiTree(pUICONTROL_FEATURE(sciGetPointerFromHandle(GraphicHandle))->hashMapIndex, propertiesValuesIndices[inputIndex]) != 0)
+                        // ???
+                        //if(displayUiTree(pUICONTROL_FEATURE(sciGetPointerFromHandle(GraphicHandle))->hashMapIndex, propertiesValuesIndices[inputIndex]) != 0)
                         {
                             setStatus = SET_PROPERTY_ERROR;
                         }

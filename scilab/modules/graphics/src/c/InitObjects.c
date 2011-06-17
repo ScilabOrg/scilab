@@ -199,7 +199,7 @@ int C2F(graphicsmodels) (void)
   setGraphicObjectProperty(pfiguremdl->UID, __GO_PARENT__, "", jni_string, 1);
 
   // Register object inside Scilab
-  sciAddNewHandle(pfiguremdl);
+  //sciAddNewHandle(pfiguremdl);
 
   /*
   ** Init Axes Model
@@ -244,10 +244,10 @@ int C2F(graphicsmodels) (void)
   setGraphicObjectProperty(paxesmdl->UID, __GO_CLIP_BOX_SET__, &clipRegionSet, jni_bool, 1);
 
   /* add the handle in the handle list */
-  if ( sciAddNewHandle(paxesmdl) == -1 )
-  {
-    return NULL;
-  }
+  //if ( sciAddNewHandle(paxesmdl) == -1 )
+  //{
+  //  return NULL;
+  //}
 
   /*
    * Specifies that no high-level drawing function has been called yet.
@@ -1388,14 +1388,14 @@ int ResetFigureToDefaultValues(sciPointObj * pobj)
   /* initialisation de context et mode graphique par defaut (figure model)*/
   if (sciInitGraphicContext (pobj) == -1)
     {
-      sciDelHandle (pobj);
-      FREE(pobj->pfeatures);
-      FREE(pobj);
-      return -1;
+        //sciDelHandle (pobj);
+        FREE(pobj->pfeatures);
+        FREE(pobj);
+        return -1;
     }
   if (sciInitGraphicMode (pobj) == -1)
     {
-      sciDelHandle (pobj);
+        //sciDelHandle (pobj);
       FREE(pobj->pfeatures);
       FREE(pobj);
       return -1;
@@ -1404,7 +1404,7 @@ int ResetFigureToDefaultValues(sciPointObj * pobj)
   /* F.Leray 08.04.04 */
   if (sciInitFontContext (pobj) == -1)
     {
-      sciDelHandle (pobj);
+        //sciDelHandle (pobj);
       FREE(pobj->pfeatures);
       FREE(pobj);
       return -1;
@@ -1639,7 +1639,7 @@ sciPointObj * initLabel( sciPointObj * pParentObj )
 
   if ( !sciAddThisToItsParent( newLabel, pParentObj ) )
   {
-    sciDelHandle (newLabel);
+      //sciDelHandle (newLabel);
     FREE( ppLabel ) ;
     FREE( newLabel  );
     return NULL ;

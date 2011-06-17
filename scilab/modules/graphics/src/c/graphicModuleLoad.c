@@ -45,7 +45,8 @@ void loadGraphicModule( void )
 
   C2F(graphicsmodels)() ;
 
-  __registerToController();
+  /* Register Scilab as a dedicated View */
+  registerToController();
 
   isGraphicModuleLoaded = TRUE ;
 }

@@ -26,7 +26,7 @@
 #include "InitObjects.h"
 #include "SetProperty.h"
 #include "axesScale.h"
-#include "CurrentObjectsManagement.h"
+#include "CurrentSubwin.h"
 #include "DrawingBridge.h"
 
 #include "GetProperty.h"
@@ -155,12 +155,13 @@ BOOL checkRedrawing( void )
 
     //  nbCheckRedraw++;
     //  fprintf(stderr, "[DEBUG] checkRedrawing : %d\n", nbCheckRedraw);
-    sciPointObj * pSubWin = sciGetCurrentSubWin();
+    char* pstSubWinID = getCurrentSubWin();
 
-    getGraphicObjectProperty(pSubWin->UID, __GO_AUTO_CLEAR__, jni_bool, &piAutoClear);
+    getGraphicObjectProperty(pstSubWinID, __GO_AUTO_CLEAR__, jni_bool, &piAutoClear);
 
     if (iAutoClear)
     {
+#if 0
         reinitSubWin(pSubWin);
 
         /*
@@ -168,7 +169,6 @@ BOOL checkRedrawing( void )
          * that the Axes object has changed
          * To be implemented
          */
-#if 0
         forceRedraw(pSubWin);
 #endif
         return TRUE;
