@@ -77,7 +77,8 @@ sciPointObj * sciGetCurrentFigure( void )
        * This was previously done in ConstructFigure, called by createFullFigure
        * which has been replaced by the Figure model clone call above.
        */
-      addNewFigureToList(pFigure);
+      // No more needed with MVC.
+      //addNewFigureToList(pFigure);
 
       sciSetCurrentFigure(pFigure);
 
