@@ -509,7 +509,50 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
 
                 @Override
                 public FaceCullingMode getFaceCullingMode() {
-                    return FaceCullingMode.BOTH;
+                    if (fac3d.getHiddenColor() > 0) {
+                        return FaceCullingMode.CW;
+                    }
+                    else {
+                        return FaceCullingMode.BOTH;
+                    }
+                }
+            };
+
+            Geometry backTriangles = new Geometry() {
+                @Override
+                public DrawingMode getDrawingMode() {
+                    return Geometry.DrawingMode.TRIANGLES;
+                }
+
+                @Override
+                public ElementsBuffer getVertices() {
+                    return dataManager.getVertexBuffer(fac3d.getIdentifier());
+                }
+
+                @Override
+                public ElementsBuffer getColors() {
+                    return null;
+                }
+
+                @Override
+                public ElementsBuffer getNormals() {
+                    return null;
+                }
+
+                @Override
+                public IndicesBuffer getIndices() {
+                    IndicesBuffer indices = dataManager.getIndexBuffer(fac3d.getIdentifier());
+                    return indices;
+                }
+                
+                @Override
+                public IndicesBuffer getEdgesIndices() {
+                    return null;
+                }
+
+                @Override
+                public FaceCullingMode getFaceCullingMode() {
+                    return FaceCullingMode.CCW;
                 }
             };
 
@@ -553,6 +596,14 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
 
             if (fac3d.getSurfaceMode()) {
                 if (fac3d.getColorMode() != 0) {
+                    /* Back-facing triangles */
+                    if (fac3d.getHiddenColor() > 0) {
+                        Appearance backTrianglesAppearance = new Appearance();
+                        backTrianglesAppearance.setFillColor(ColorFactory.createColor(colorMap, fac3d.getHiddenColor()));
+                        drawingTools.draw(backTriangles, backTrianglesAppearance);
+                    }
+
+                    /* Front-facing triangles */
                     Appearance trianglesAppearance = new Appearance();
 
                     if (fac3d.getColorFlag() == 0) {
