@@ -6,6 +6,16 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 function B = repmat(A,varargin)
+  //ajouter test sur les type des elements de varargin
+  if isdef("A") then
+    narg=size(varargin)
+    if narg<1 then
+      error(msprintf(_("%s: Wrong number of input arguments: at least %d expected.\n"),"repmat",2))
+    end
+  else
+    error(msprintf(_("%s: Wrong number of input arguments: at least %d expected.\n"),"repmat",2))
+  end
+
   if type(A)>10 then
     if typeof(A)=="rational" then
       B=rlist(repmat(A.num,varargin(:)),repmat(A.den,varargin(:)),A.dt)
@@ -14,11 +24,7 @@ function B = repmat(A,varargin)
       execstr('B=%'+typeof(A)+"_repmat(A,varargin(:))")
     end
   end
-  narg=size(varargin)
-  //ajouter test sur les type des elements de varargin
-  if narg<1 then
-     error(msprintf(_("%s: Wrong number of input arguments: at least %d expected.\n"),"repmat",2))
-  end
+
   if narg==1 then 
     if size(varargin(1),'*')==1 then
       siz=list(varargin(1),varargin(1))
