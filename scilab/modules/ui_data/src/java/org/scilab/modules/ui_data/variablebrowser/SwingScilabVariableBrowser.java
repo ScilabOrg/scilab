@@ -136,10 +136,25 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
                             java.awt.Point p = e.getPoint();
                             int rowIndex = rowAtPoint(p);
                             int colIndex = columnAtPoint(p);
-                            if (colIndex==3) {
+                            if (colIndex==BrowseVar.TYPE_COLUMN_INDEX) { /* Scilab type */
+                                try {
+                                    int type = Integer.parseInt(getValueAt(rowIndex, colIndex).toString());
+                                    tip = Messages.gettext("Scilab type:")+" "+ ScilabTypeEnum.swigToEnum(type);
+                                } catch (IllegalArgumentException exception) {
+                                    /* If the type is not known/manage, don't crash */
+                                }
                                 
-                                tip = Messages.gettext("Scilab type:")+" "+ScilabTypeEnum.swigToEnum(Integer.parseInt(getValueAt(rowIndex, colIndex).toString()));
+                            } else {
+
+                                if (colIndex==BrowseVar.SIZE_COLUMN_INDEX) {
+                                    /* Use the getModel() method because the
+                                     * column 5 has been removed from display
+                                     * but still exist in the model */
+                                    tip = Messages.gettext("Bytes:")+" "+((JTable)e.getSource()).getModel().getValueAt(rowIndex, BrowseVar.BYTES_COLUMN_INDEX).toString();
+                                }
+
                             }
+                            
                             return tip;
                 }
             };
@@ -147,8 +162,9 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
         table.setAutoResizeMode(CENTER);
         table.setAutoCreateRowSorter(true);
 
-        TableColumn column = table.getColumnModel().getColumn(0);
-        column.setPreferredWidth(30);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        TableColumn column = table.getColumnModel().getColumn(5);
+        table.removeColumn(column);
         
         table.addMouseListener(new BrowseVarMouseListener());
         // Mouse selection mode
