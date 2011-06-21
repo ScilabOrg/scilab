@@ -68,6 +68,7 @@ Xcos:
 
 * bug 9590 fixed - xcos examples were not embeded in binary version on Windows.
 
+* bug 9614 fixed - jhdf5 did not handle files with localized path
 
 File input/output:
 ==================

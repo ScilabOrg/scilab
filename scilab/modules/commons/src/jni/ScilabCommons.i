@@ -20,7 +20,9 @@
 %{
 #include "../../../core/includes/SCIHOME.h"
 #include "../../../core/includes/tmpdir.h"
+#include "../../../fileio/includes/getshortpathname.h"
 %}
+%include "typemaps.i"
 
 /* JavaDoc for ScilabCommonsJNI class */
 %pragma(java) jniclassclassmodifiers=%{
@@ -101,3 +103,9 @@ char* getSCIHOME();
    */
 public";
 char *getTMPDIR(void);
+
+
+/* TODO: scilab_typemaps.i does not support INOUT BOOLs                 */
+/*       hardcoded BOOL as an int, see BOOL.h                           */
+char *getshortpathname(char *longpathname, int *INOUT);
+

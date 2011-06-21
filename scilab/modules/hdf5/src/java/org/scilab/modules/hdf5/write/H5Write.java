@@ -1,7 +1,7 @@
-package org.scilab.modules.hdf5.write;
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Bruno JOFRET
+ * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,11 +11,14 @@ package org.scilab.modules.hdf5.write;
  *
  */
 
+package org.scilab.modules.hdf5.write;
+
 import ncsa.hdf.hdf5lib.H5;
 import ncsa.hdf.hdf5lib.HDF5Constants;
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 import ncsa.hdf.hdf5lib.exceptions.HDF5LibraryException;
 
+import org.scilab.modules.commons.ScilabFile;
 import org.scilab.modules.types.ScilabBoolean;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabInteger;
@@ -30,7 +33,7 @@ public class H5Write {
 
 	public static int createFile(String fileName) {
 		try {
-			return H5.H5Fcreate(fileName,  HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+			return H5.H5Fcreate(ScilabFile.convertToShortName(fileName),  HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
 		} catch (HDF5LibraryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +44,7 @@ public class H5Write {
 			return 0;
 		}
 	}
-
+	
 	public static void closeFile(int fileId) {
 		try {
 			H5.H5Fclose(fileId);

@@ -17,6 +17,7 @@ import ncsa.hdf.hdf5lib.exceptions.HDF5AttributeException;
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 import ncsa.hdf.hdf5lib.exceptions.HDF5LibraryException;
 
+import org.scilab.modules.commons.ScilabFile;
 import org.scilab.modules.hdf5.H5ScilabConstant;
 import org.scilab.modules.types.ScilabBoolean;
 import org.scilab.modules.types.ScilabDouble;
@@ -47,7 +48,7 @@ public final class H5Read {
      * @throws HDF5LibraryException .
      */
     public static int openFile(String fileName) throws HDF5LibraryException {
-	return H5.H5Fopen(fileName, HDF5Constants.H5F_ACC_RDONLY, HDF5Constants.H5P_DEFAULT);
+	return H5.H5Fopen(ScilabFile.convertToShortName(fileName), HDF5Constants.H5F_ACC_RDONLY, HDF5Constants.H5P_DEFAULT);
     }
 
     /**
