@@ -199,6 +199,13 @@ Misc:
 * Change the buffering display mode.
 
 
+History:
+========
+
+* Default text in history for a starting session has been changed for:
+"Begin Session : Tue Jun 21 14:35:45 2011" to "21/05/2011 14:11:19"
+
+
 Bug fixes:
 ==========
 
