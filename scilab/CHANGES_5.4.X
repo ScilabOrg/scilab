@@ -129,6 +129,7 @@ Optimization:
 * Bug 8542 fixed - In neldermead, there were undocumented default options. 
                    Same changes applied to the help of optimbase.
 
+* Bug 8546 fixed - The neldermead functions may call f outside the bounds.
 
 Documentation:
 ==============
