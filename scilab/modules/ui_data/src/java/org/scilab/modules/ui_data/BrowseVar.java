@@ -91,7 +91,7 @@ public class BrowseVar {
      * Open variable Browser
      */
     public static void openVariableBrowser() {
-        ScilabVariableBrowser.getVariableBrowser();
+        ScilabVariableBrowser.getVariableBrowser(false);
     }
 
     /**
@@ -101,7 +101,7 @@ public class BrowseVar {
      * @param dataTypes : scilab variable type (as integer)
      * @param dataVisibility : local or global variable
      */
-    public static void openVariableBrowser(String[] dataNames, int[] dataBytes, int[] dataTypes, String[] dataVisibility) {
+    public static void openVariableBrowser(boolean update, String[] dataNames, int[] dataBytes, int[] dataTypes, String[] dataVisibility) {
         Object[][] data = new Object[dataNames.length][COLUMNNAMES.length];
         for (int i = 0; i < dataNames.length; ++i) {
             data[i][ICON_COLUMN_INDEX] = getIconFromType(dataTypes[i]);
@@ -110,13 +110,20 @@ public class BrowseVar {
             data[i][TYPE_COLUMN_INDEX] = dataTypes[i];
             data[i][VISIBILITY_COLUMN_INDEX] = dataVisibility[i];
         }
-        ScilabVariableBrowser.getVariableBrowser(data);
+        ScilabVariableBrowser.getVariableBrowser(update, data);
+    }
+
+    /**
+     * @return true if an instance of BrowseVar already exists.
+     */
+    public static boolean isVariableBrowserOpened() {
+        return ScilabVariableBrowser.isBrowseVarOpened();
     }
 
     /**
      * Close Variable Browser
      */
     public static void closeVariableBrowser() {
-        ScilabVariableBrowser.getVariableBrowser().close();
+        ScilabVariableBrowser.getVariableBrowser(true).close();
     }
 }
