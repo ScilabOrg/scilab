@@ -21,7 +21,6 @@ public abstract class FilteringAction extends DefaultAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ScilabVariableBrowser.getVariableBrowser().updateRowFiltering();
+		ScilabVariableBrowser.getVariableBrowser(true).updateRowFiltering();
 	}
-
 }
