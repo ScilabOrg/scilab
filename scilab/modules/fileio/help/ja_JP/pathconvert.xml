@@ -62,16 +62,14 @@
 	変換後の形式はオプションの文字列<literal>type</literal>で指定でき,
 	Unixの場合は <literal>'u'</literal>,Windowsの場合は<literal>'w'</literal>
 	を指定できます.
-	デフォルトの形式は<literal>MSDOS</literal>の値に基づき設定されます.
-	<literal>MSDOS</literal>が TRUE (またはFALSE) の場合,
+	デフォルトの形式は<literal>getos() == "Windows"</literal>の値に基づき設定されます.
+	<literal>getos() == "Windows"</literal>が TRUE (またはFALSE) の場合,
 	デフォルトの形式は <literal>'w'</literal> (または <literal>'u'</literal>)となります.
 	</para>
-    <para>
-	<literal>name:</literal>で始まる
+    <para><literal>name:</literal>で始まる
     Windows のパス名は cygwinの表記法に基づき
 	<literal>/cygdrive/name/</literal>で始まるパス名に変換されます.</para>
-    <para>
-      <literal>flagtrail</literal> はオプションの論理値パラメータです.
+    <para><literal>flagtrail</literal> はオプションの論理値パラメータです.
 	その値をTRUE (デフォルト値)にした時,
 	末尾セパレータ 
 	 (<literal>'\'</literal> または <literal>'/'</literal>) 

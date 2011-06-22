@@ -64,8 +64,7 @@
      deletion : <literal>l(i)=null()</literal> removes the i-th
      element of the <literal>tlist l</literal>. Note that the
      semantics of <literal>l.x=null()</literal> is undefined, but a
-     definition can be given through the <link
-     linkend="overloading">overloading</link> mechanism.</para>
+     definition can be given through the <link linkend="overloading">overloading</link> mechanism.</para>
     <para>
      display</para>
     <para>
@@ -129,7 +128,7 @@ disp(t)
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="percent">percent</link>
@@ -139,6 +138,9 @@ disp(t)
       </member>
       <member>
         <link linkend="list">list</link>
+      </member>
+      <member>
+        <link linkend="mlist">mlist</link>
       </member>
     </simplelist>
   </refsection>

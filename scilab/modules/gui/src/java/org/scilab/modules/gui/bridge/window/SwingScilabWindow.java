@@ -18,6 +18,8 @@ package org.scilab.modules.gui.bridge.window;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +30,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
@@ -43,6 +46,7 @@ import org.flexdock.docking.defaults.DefaultDockingPort;
 import org.flexdock.docking.defaults.DefaultDockingStrategy;
 import org.flexdock.view.View;
 import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.commons.gui.ScilabKeyStroke;
 import org.scilab.modules.gui.bridge.menubar.SwingScilabMenuBar;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.bridge.textbox.SwingScilabTextBox;
@@ -80,7 +84,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
     private static final int DEFAULTHEIGHT = 500;
 
     static {
-	DefaultDockingStrategy.setDefaultResizeWeight(0.5);
+        DefaultDockingStrategy.setDefaultResizeWeight(0.5);
     }
 
     private DefaultDockingPort sciDockingPort;
@@ -100,6 +104,13 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
         super();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        // By default ctrl+w close the window
+        ActionListener listener = new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    processWindowEvent(new WindowEvent(SwingScilabWindow.this, WindowEvent.WINDOW_CLOSING));
+                }
+            };
+        getRootPane().registerKeyboardAction(listener, ScilabKeyStroke.getKeyStroke("OSSCKEY W"), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         this.uuid = UUID.randomUUID().toString();
 
@@ -113,7 +124,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 
         /* Create automatically a docking port associated to the window */
         sciDockingPort = new DefaultDockingPort();
- 
+
         //EffectsManager.setPreview(new GhostPreview());
 
         /* The docking port is the center of the Layout of the Window */
@@ -131,7 +142,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
          * Causes trouble with Scicos use xclick & co.
          */
         this.setFocusable(false);
-	
+
         // let the OS choose the window position if not specified by user.
         setLocationByPlatform(true);
 
@@ -207,29 +218,40 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
     }
 
     /**
+     * Private method to raise to the front the window
+     */
+    private void raiseToFront() {
+        // force visibility
+        setVisible(true);
+
+        // deiconify the window if needed
+        setState(NORMAL);
+
+        // put it in front of others
+        toFront();
+    }
+
+    /**
      * Deiconify the window and put it in front of other window
      */
     public void raise() {
         // blocking call. So graphic synchronization must be desactivated here.
-        try {
-            SwingUtilities.invokeAndWait(new Runnable() {
-                    public void run() {
-                        // force visibility
-                        setVisible(true);
-
-                        // deiconify the window if needed
-                        setState(NORMAL);
-
-                        // put it in front of others
-                        toFront();
-                    }
-                });
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        if (!SwingUtilities.isEventDispatchThread()) {
+            /* javasci bug: See bug 9544 why we are doing this check */
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                        public void run() {
+                            raiseToFront();
+                        }
+                    });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } else {
+            raiseToFront();
         }
-
     }
 
     /**
@@ -336,10 +358,10 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      */
     public void removeTabs(SwingScilabTab[] tabs) {
         for (SwingScilabTab tab : tabs) {
-	    DockingManager.unregisterDockable((Dockable) tab);
-	    DockingManager.close(tab);
-	    tab.close();
-	}
+            DockingManager.unregisterDockable((Dockable) tab);
+            DockingManager.close(tab);
+            tab.close();
+        }
         if (getDockingPort().getDockables().isEmpty()) {
             // remove xxxBars
             if (toolBar != null) {
@@ -521,9 +543,5 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      */
     public void windowNormal() {
         super.setState(Frame.NORMAL);
-    }
-
-    public void saveState() {
-        WindowsConfigurationManager.saveWindowProperties(this);
     }
 }

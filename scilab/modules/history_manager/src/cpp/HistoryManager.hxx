@@ -1,14 +1,15 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2007-2008 - INRIA - Allan CORNET
- *
- * This file must be used under the terms of the CeCILL.
- * This source file is licensed as described in the file COPYING, which
- * you should have received as part of this distribution.  The terms
- * are also available at
- * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- *
- */
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2007-2008 - INRIA - Allan CORNET
+* Copyright (C) 2011 - DIGITEO - Allan CORNET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*/
 
 /*------------------------------------------------------------------------*/
 #ifndef __HISTORYMANAGER_CPP_H__
@@ -20,12 +21,14 @@ extern "C"
 {
 #include <time.h>
 };
+
 /*------------------------------------------------------------------------*/
 #include <list>
 #include "CommandLine.hxx"
 #include "HistoryFile.hxx"
 #include "HistorySearch.hxx"
 using namespace std;
+
 /*------------------------------------------------------------------------*/
 class HistoryManager
 {
@@ -41,11 +44,11 @@ public:
     ~HistoryManager();
 
     /*
-    * add a line to History manager
-    * @param a line to add
-    * line isn't added if it is the same as previous (FALSE)
-    * @return TRUE or FALSE
-    */
+     * add a line to History manager
+     * @param a line to add
+     * line isn't added if it is the same as previous (FALSE)
+     * @return TRUE or FALSE
+     */
     BOOL appendLine(char *cline);
 
     /**
@@ -54,7 +57,7 @@ public:
     * @param size of the array of string
     * @return TRUE or FALSE
     */
-    BOOL appendLines(char **lines,int nbrlines);
+    BOOL appendLines(char **lines, int nbrlines);
 
     /**
     * Display history
@@ -196,13 +199,29 @@ public:
     */
     char *getNextLine(void);
 
+    /**
+    * get info about history file was truncated
+    * @return TRUE or FALSE
+    */
+    BOOL isTruncated(void);
+
+    /**
+    *
+    */
+    BOOL setNumberOfLinesMax(int nbLinesMax);
+
+    /**
+    *
+    */
+    int getNumberOfLinesMax(void);
+
 protected:
 
 private:
-    HistoryFile my_file;
+      HistoryFile my_file;
     HistorySearch my_search;
 
-    list<CommandLine> CommandsList;
+      list < CommandLine > CommandsList;
 
     BOOL saveconsecutiveduplicatelines;
     int afterhowmanylineshistoryissaved;
@@ -219,8 +238,10 @@ private:
     */
     void fixHistorySession(void);
 
+    BOOL bTruncated;
 
 };
+
 /*------------------------------------------------------------------------*/
 #endif /* __cplusplus */
 /*------------------------------------------------------------------------*/

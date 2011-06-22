@@ -68,7 +68,7 @@
     from parent environment to children tasks.  If set, the envar
     <literal>PVM_EXPORT</literal> is passed.  If <literal>PVM_EXPORT</literal> contains other names
     (separated by ':') they will be passed too.  This is useful for e.g.:</para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 setenv DISPLAY myworkstation:0.0
 setenv MYSTERYVAR 13
 setenv PVM_EXPORT DISPLAY:MYSTERYVAR
@@ -88,7 +88,7 @@ setenv PVM_EXPORT DISPLAY:MYSTERYVAR
     first tids in the array are always valid.</para>
     <para>
     When the argument  <literal>where</literal> 
-    is omitted  an heuristic (round-robin assignment) is used to
+    is omitted  a heuristic (round-robin assignment) is used to
     distribute the <literal>ntask</literal> 
     processes across the virtual machine.</para>
     <para>
@@ -98,7 +98,7 @@ setenv PVM_EXPORT DISPLAY:MYSTERYVAR
     copies on this single machine using the vendor's underlying routines.</para>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="pvm">pvm</link>

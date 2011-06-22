@@ -9,7 +9,7 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>mode = getscilabmode()</synopsis>
+    <synopsis>m = getscilabmode()</synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Description</title>
@@ -26,7 +26,7 @@ getscilabmode()
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="scilab">scilab</link>

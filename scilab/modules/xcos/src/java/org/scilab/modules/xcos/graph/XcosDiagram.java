@@ -1053,7 +1053,7 @@ public class XcosDiagram extends ScilabGraph {
 					connection = findTerminals(inLink, out2Link, removedCells);
 					points = getDirectPoints(splitBlock, inLink, out2Link);
 				} else if (inRemoved && !out1Removed && !out2Removed) {
-					// only implicit case, log otherwise
+					// only implicit or event case, log otherwise
 					if (out1Link instanceof ExplicitLink || out2Link instanceof ExplicitLink) {
 						LOG.error("Reconnection failed for explicit links");
 						connection = null;
@@ -1079,7 +1079,10 @@ public class XcosDiagram extends ScilabGraph {
 			for (int i = 0; i < connectedCells.size(); i++) {
 				final BasicPort[] connection = connectedCells.get(i);
 				final List<mxPoint> points = connectedPoints.get(i);
-				connect(connection[0], connection[1], points, new mxPoint());
+				if (!removedCells.contains(connection[0].getParent())
+						&& !removedCells.contains(connection[1].getParent())) {
+					connect(connection[0], connection[1], points, new mxPoint());
+				}
 			}
 		} finally {
 			getModel().endUpdate();
@@ -1873,16 +1876,8 @@ public class XcosDiagram extends ScilabGraph {
 			}
 
 			if (answer == AnswerOption.YES_OPTION) {
-				try {
-					final FileWriter writer = new FileWriter(diagram);
-					writer.write("");
-					writer.flush();
-					writer.close();
-					setSavedFile(diagram);
-				} catch (final IOException ioexc) {
-					LOG.error(ioexc);
-					JOptionPane.showMessageDialog(getAsComponent(), ioexc);
-				}
+				saveDiagramAs(diagram);
+				getParentTab().setVisible(true);
 			} else {
 				return null;
 			}
@@ -1905,7 +1900,7 @@ public class XcosDiagram extends ScilabGraph {
 	final XcosFileType filetype = XcosFileType.findFileType(fileToLoad);
 	boolean result = false;
 
-	if (!fileToLoad.exists()) {
+	if (!fileToLoad.exists() || filetype == null) {
 		XcosDialogs.couldNotLoadFile(this);
 		return false;
 	}
@@ -2073,12 +2068,18 @@ public class XcosDiagram extends ScilabGraph {
 		return;
     	}
     	
-    	if (message.isEmpty()) {
-    		// put the current tab on top
-    		setVisible(true);
+    	if (message.isEmpty()) { 
+    		if (isVisible()) {
+    			getAsComponent().clearCellOverlays(cell);
+    		}
+    	} else {
+    		if (getParentTab() == null) {
+    			// Open a new tab
+    			new XcosTab(this);
+    			setVisible(true);
+    		}
+    		getAsComponent().setCellWarning(cell, message, null, true);
     	}
-    	
-    	getAsComponent().setCellWarning(cell, message);
     }
 
     /**

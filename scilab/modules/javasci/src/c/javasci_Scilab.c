@@ -20,34 +20,39 @@
 #include "../../../modules/graphics/includes/WindowList.h"
 /*--------------------------------------------------------------------------*/
 extern int GetLastErrorCode(void);
+
 /*--------------------------------------------------------------------------*/
-JNIEXPORT void JNICALL Java_javasci_Scilab_Initialize (JNIEnv *env, jclass cl)
+JNIEXPORT void JNICALL Java_javasci_Scilab_Initialize(JNIEnv * env, jclass cl)
 {
     setCallScilabEngineState(CALL_SCILAB_ENGINE_STARTED);
-    if ( GetInterfState() == 0) 
-    { 
+    if (GetInterfState() == 0)
+    {
         EnableInterf();
         Initialize();
-    } 
+    }
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native void Events(); */
-JNIEXPORT void JNICALL Java_javasci_Scilab_Events(JNIEnv *env , jobject obj_this)
+JNIEXPORT void JNICALL Java_javasci_Scilab_Events(JNIEnv * env, jobject obj_this)
 /*--------------------------------------------------------------------------*/
 {
     ScilabDoOneEvent();
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native boolean HaveAGraph(); */
-JNIEXPORT jboolean JNICALL Java_javasci_Scilab_HaveAGraph (JNIEnv *env , jobject obj_this)
+JNIEXPORT jboolean JNICALL Java_javasci_Scilab_HaveAGraph(JNIEnv * env, jobject obj_this)
 /*--------------------------------------------------------------------------*/
 {
-    if (sciHasFigures()) return JNI_TRUE;
+    if (sciHasFigures())
+        return JNI_TRUE;
     return JNI_FALSE;
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native boolean Exec(String job); */
-JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Exec(JNIEnv *env , jclass cl, jstring job)
+JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Exec(JNIEnv * env, jclass cl, jstring job)
 {
     jboolean bOK = JNI_TRUE;
     const char *cjob = NULL;
@@ -56,27 +61,29 @@ JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Exec(JNIEnv *env , jclass cl, jst
 
     if (strlen(cjob) >= MAX_STR)
     {
-        fprintf(stderr,"Error in Java_javasci_Scilab_Exec routine (line too long).\n");
-        bOK=JNI_FALSE;
+        fprintf(stderr, "Error in Java_javasci_Scilab_Exec routine (line too long).\n");
+        bOK = JNI_FALSE;
     }
     else
     {
-        if ( SendScilabJob((char *)cjob) != 0) 
+        if (SendScilabJob((char *)cjob) != 0)
         {
-            fprintf(stderr,"Error in Java_javasci_Scilab_Exec routine.\n");
+            fprintf(stderr, "Error in Java_javasci_Scilab_Exec routine.\n");
             bOK = JNI_FALSE;
         }
-        else bOK = JNI_TRUE;
+        else
+            bOK = JNI_TRUE;
         fflush(stdout);
     }
 
-    (*env)->ReleaseStringUTFChars(env, job , cjob);
+    (*env)->ReleaseStringUTFChars(env, job, cjob);
 
     return bOK;
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native boolean Finish(); */
-JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Finish (JNIEnv *env , jobject obj_this)
+JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Finish(JNIEnv * env, jobject obj_this)
 {
     setCallScilabEngineState(CALL_SCILAB_ENGINE_STOP);
     if (GetInterfState() == 0)
@@ -89,9 +96,10 @@ JNIEXPORT jboolean JNICALL Java_javasci_Scilab_Finish (JNIEnv *env , jobject obj
         return JNI_TRUE;
     }
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native boolean ExistVar(String varName); */
-JNIEXPORT jboolean JNICALL Java_javasci_Scilab_ExistVar(JNIEnv *env , jclass cl, jstring varName)
+JNIEXPORT jboolean JNICALL Java_javasci_Scilab_ExistVar(JNIEnv * env, jclass cl, jstring varName)
 {
     SciErr sciErr;
     jboolean bOK = JNI_FALSE;
@@ -102,19 +110,19 @@ JNIEXPORT jboolean JNICALL Java_javasci_Scilab_ExistVar(JNIEnv *env , jclass cl,
 
     if (strlen(cvarName) >= nlgh)
     {
-        fprintf(stderr,"Error in Java_javasci_Scilab_ExistVar routine (line too long > %d).\n", nlgh);
-        (*env)->ReleaseStringUTFChars(env, varName , cvarName);
+        fprintf(stderr, "Error in Java_javasci_Scilab_ExistVar routine (line too long > %d).\n", nlgh);
+        (*env)->ReleaseStringUTFChars(env, varName, cvarName);
         return JNI_FALSE;
     }
 
-    sciErr = getNamedVarType(pvApiCtx, (char*)cvarName, &sciType);
-    if(sciErr.iErr)
+    sciErr = getNamedVarType(pvApiCtx, (char *)cvarName, &sciType);
+    if (sciErr.iErr)
     {
-        fprintf(stderr,"%s", getErrorMessage(sciErr));
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
         return JNI_FALSE;
     }
 
-    switch(sciType)
+    switch (sciType)
     {
     case sci_matrix:
     case sci_poly:
@@ -141,12 +149,13 @@ JNIEXPORT jboolean JNICALL Java_javasci_Scilab_ExistVar(JNIEnv *env , jclass cl,
         break;
     }
 
-    (*env)->ReleaseStringUTFChars(env, varName , cvarName);
+    (*env)->ReleaseStringUTFChars(env, varName, cvarName);
     return bOK;
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native int TypeVar(String varName); */
-JNIEXPORT jint JNICALL Java_javasci_Scilab_TypeVar(JNIEnv *env , jclass cl, jstring varName)
+JNIEXPORT jint JNICALL Java_javasci_Scilab_TypeVar(JNIEnv * env, jclass cl, jstring varName)
 {
     SciErr sciErr;
     jint type = -1;
@@ -154,20 +163,28 @@ JNIEXPORT jint JNICALL Java_javasci_Scilab_TypeVar(JNIEnv *env , jclass cl, jstr
 
     if (strlen(cvarName) >= nlgh)
     {
-        fprintf(stderr,"Error in Java_javasci_Scilab_TypeVar routine (line too long > %d).\n", nlgh);
-        (*env)->ReleaseStringUTFChars(env, varName , cvarName);
+        fprintf(stderr, "Error in Java_javasci_Scilab_TypeVar routine (line too long > %d).\n", nlgh);
+        (*env)->ReleaseStringUTFChars(env, varName, cvarName);
         return type;
     }
 
-    sciErr = getNamedVarType(pvApiCtx, (char *)cvarName, (int*)&type);
-    (*env)->ReleaseStringUTFChars(env, varName , cvarName);
+    sciErr = getNamedVarType(pvApiCtx, (char *)cvarName, (int *)&type);
+    if (sciErr.iErr)
+    {
+        fprintf(stderr, "%s", getErrorMessage(sciErr));
+        return JNI_FALSE;
+    }
+
+    (*env)->ReleaseStringUTFChars(env, varName, cvarName);
 
     return type;
 }
+
 /*--------------------------------------------------------------------------*/
 /* public static native int GetLastErrorCode(); */
-JNIEXPORT jint JNICALL Java_javasci_Scilab_GetLastErrorCode (JNIEnv *env , jobject obj_this)
+JNIEXPORT jint JNICALL Java_javasci_Scilab_GetLastErrorCode(JNIEnv * env, jobject obj_this)
 {
     return GetLastErrorCode();
 }
+
 /*--------------------------------------------------------------------------*/

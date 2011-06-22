@@ -52,11 +52,9 @@
 	の唯一の差は型の値(15ではなく16)です.</para>
     <para><literal>typ(1)</literal> はリストの型を指定します
  (ソフトコードされた処理を定義するために使用される文字列)</para>
-    <para>
-    <literal>typ(i)</literal> が指定された場合,
+    <para><literal>typ(i)</literal> が指定された場合,
 	<literal>i+1</literal>番目の形式要素の名前を指定します.</para>
-    <para>
-	<literal>リスト</literal>における標準処理は
+    <para><literal>リスト</literal>における標準処理は
 	<literal>型付リスト</literal>でも類似性があります:</para>
     <para>
      展開
@@ -148,6 +146,9 @@ disp(t)
       </member>
       <member>
         <link linkend="list">list</link>
+      </member>
+      <member>
+        <link linkend="mlist">mlist</link>
       </member>
     </simplelist>
   </refsection>

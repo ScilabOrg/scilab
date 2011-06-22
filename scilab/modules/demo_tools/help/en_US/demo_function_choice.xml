@@ -44,14 +44,14 @@ demolist=[
 	'Simulation of a Poisson random variable','clf();PoissonT() ;';
 	'Simulation of an exponential random variable','clf();ExpT();';
 	'Simulation of a Weibull random variable','clf();WeibullT();';
-	'Simulation of an hyper geometric random variable','clf();HyperGeomT();';
+	'Simulation of a hyper geometric random variable','clf();HyperGeomT();';
 	'Simulation of an Erlang random variable','clf();ErlangT();'];
 
 demo_function_choice();
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="demo_file_choice">demo_file_choice</link>

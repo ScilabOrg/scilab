@@ -5,7 +5,6 @@
     Map between action and keys
     If no path is given, org.scilab.modules.scinotes.actions will be choosen
   </comment>
-
   <entry key="ActivateHelpOnTypingForOpenersAction">OSSCKEY H</entry>
   <entry key="ActivateHelpOnTypingForKeywordsAction">OSSCKEY shift H</entry>
   <entry key="GenerateHelpFromFunctionAction">OSSCKEY shift G</entry>
@@ -19,7 +18,6 @@
   <entry key="SelectBlockAction">OSSCKEY B</entry>
   <entry key="OpenTabInNewWindowAction">OSSCKEY shift T</entry>
   <entry key="CCloseTabInNewWindowAction">OSSCKEY shift X</entry>
-
   <entry key="CopyAsHTMLAction">OSSCKEY C</entry>
   <entry key="CutAction">OSSCKEY X</entry>
   <entry key="PasteAction">OSSCKEY V</entry>
@@ -27,9 +25,7 @@
   <entry key="RepeatSelectionOnColumnAction">control shift Z</entry>
   <entry key="UndoAction">OSSCKEY Z</entry>
   <entry key="RedoAction">OSSCKEY Y</entry>
-
   <entry key="CopyAsHTMLWithLineNumberAction">OSSCKEY shift C</entry>
-
   <entry key="NewAction">OSSCKEY N</entry>
   <entry key="OpenAction">OSSCKEY O</entry>
   <entry key="OpenURLAction">OSSCKEY U</entry>
@@ -41,17 +37,15 @@
   <entry key="PrintAction">OSSCKEY P</entry>
   <entry key="CloseAction">OSSCKEY W</entry>
   <entry key="ExitAction">OSSCKEY Q</entry>
-
   <entry key="ToLowerCaseAction">OSSCKEY J</entry>
   <entry key="ToUpperCaseAction">OSSCKEY shift J</entry>
   <entry key="CapitalizeAction">OSSCKEY shift A</entry>
   <entry key="HelpOnKeywordAction">OSSCKEY F1</entry>
-
   <entry key="LoadIntoScilabAction">OSSCKEY L</entry>
   <entry key="ExecuteFileIntoScilabAction">OSSCKEY shift E</entry>
   <entry key="EvaluateSelectionAction">OSSCKEY E</entry>
   <entry key="SaveAndExecuteFileAction">F5</entry>
-
+  <entry key="SaveAndExecuteAllFilesAction">OSSCKEY F5</entry>
   <entry key="FindAction">OSSCKEY F</entry>
   <entry key="FindNextAction">OSSCKEY K</entry>
   <entry key="FindPreviousAction">OSSCKEY shift K</entry>
@@ -63,15 +57,10 @@
   <entry key="CodeNavigatorAction">OSSCKEY G</entry>
   <entry key="SearchWordInFilesAction">OSSCKEY shift F</entry>
   <entry key="SearchFilesAction">OSSCKEY shift B</entry>
-
   <entry key="SciNotesCompletionAction">OSSCKEY SPACE</entry>
-
   <entry key="HelpAction">F1</entry>
   <entry key="AboutAction">shift F1</entry>
-
-  <entry key="NextTabAction">ctrl UP</entry>
-  <entry key="PreviousTabAction">ctrl DOWN</entry>
-
+  <entry key="NextTabAction">ctrl PAGE_UP</entry>
+  <entry key="PreviousTabAction">ctrl PAGE_DOWN</entry>
   <entry key="DeleteAction">DELETE</entry>
-
 </properties>

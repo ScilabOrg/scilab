@@ -60,9 +60,8 @@
 	両方のOSに有効なワイルドカードパターンを指定する必要があります.
 	パス名の変換が行われ,例えば<literal>SCI/core/macros/*.sci</literal>
 	はUnixとWindowsの両方で有効なパターンであることに注意してください.</para>
-    <para>
-    <literal>flag</literal> が真の場合,<literal>paths</literal>で
-	指定したパス名は MSDOSの値に基づき変換されます
+    <para><literal>flag</literal> が真の場合,<literal>paths</literal>で
+	指定したパス名は getos() == "Windows" の値に基づき変換されます
 	(<literal>pathconvert</literal>参照). 
     さらに, <literal>flagexpand</literal> が真の場合,
     <literal>HOME</literal>, <literal>SCI</literal> または <literal>~</literal> のような
