@@ -38,6 +38,7 @@ import javax.help.HelpSet;
 import javax.help.JHelpContentViewer;
 import javax.help.plaf.basic.BasicContentViewerUI;
 import javax.swing.AbstractAction;
+import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JMenuItem;
@@ -428,9 +429,9 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
         }
 
         try {
-            this.accessibleHtml = (javax.swing.JEditorPane) privateField.get(this);
-            accessibleHtml.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
+            this.accessibleHtml = (JEditorPane) privateField.get(this);
+            accessibleHtml.addPropertyChangeListener(new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent evt) {
                         // Crappy workaround to avoid bad html display (the icons play and edit can be misplaced)
                         // To improve... (it doesn't always work)
                         if (evt.getPropertyName().equals("document")) {
@@ -460,12 +461,43 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
                 });
             accessibleHtml.setFocusCycleRoot(true);
 
-            accessibleHtml.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ScilabKeyStroke.getKeyStroke("OSSCKEY shift EQUALS"), SHIFTEQ);
+            String keyModifier = "alt ";
+            if (isMac) {
+                keyModifier = "meta ";
+            }
+
+            InputMap inputmap = accessibleHtml.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+            inputmap.put(ScilabKeyStroke.getKeyStroke("OSSCKEY shift EQUALS"), SHIFTEQ);
             accessibleHtml.getActionMap().put(SHIFTEQ, new AbstractAction() {
                     public void actionPerformed(ActionEvent e) {
                         SwingScilabHelpBrowserViewer.this.increaseFont();
                     }
                 });
+            inputmap.put(ScilabKeyStroke.getKeyStroke(keyModifier + "LEFT"), "Previous-page");
+            accessibleHtml.getActionMap().put("Previous-page", new AbstractAction() {
+                    public void actionPerformed(ActionEvent e) {
+                        DefaultHelpHistoryModel history = SwingScilabHelpBrowser.getHelpHistory();
+                        if (history.getIndex() > 0) {
+                            history.goBack();
+                        }
+                    }
+                });
+            inputmap.put(ScilabKeyStroke.getKeyStroke(keyModifier + "RIGHT"), "Next-page");
+            accessibleHtml.getActionMap().put("Next-page", new AbstractAction() {
+                    public void actionPerformed(ActionEvent e) {
+                        DefaultHelpHistoryModel history = SwingScilabHelpBrowser.getHelpHistory();
+                        if (history.getHistory().size() != (history.getIndex() + 1)) {
+                            history.goForward();
+                        }
+                    }
+                });
+
+            inputmap = accessibleHtml.getInputMap(JComponent.WHEN_FOCUSED);
+            inputmap.put(ScilabKeyStroke.getKeyStroke(keyModifier + "LEFT"), new Object());
+            inputmap.put(ScilabKeyStroke.getKeyStroke(keyModifier + "RIGHT"), new Object());
+            inputmap.put(ScilabKeyStroke.getKeyStroke("shift SPACE"), inputmap.get(ScilabKeyStroke.getKeyStroke("PAGE_UP")));
+            inputmap.put(ScilabKeyStroke.getKeyStroke("SPACE"), inputmap.get(ScilabKeyStroke.getKeyStroke("PAGE_DOWN")));
+
             SwingUtilities.getAncestorOfClass(JScrollPane.class, accessibleHtml).addMouseWheelListener(this);
         } catch (IllegalArgumentException e) {
             System.err.println("Illegal argument in the retrieval of the html component of Javahelp");
@@ -635,6 +667,7 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
                         StyleContext.NamedStyle style = (StyleContext.NamedStyle) doc.getStyleSheet().getStyle("body");
                         MutableAttributeSet attr = (MutableAttributeSet) style.getResolveParent();
                         currentFontSize = Math.min(Math.max(0, currentFontSize + s), 6);
+                        ConfigManager.setHelpFontSize(currentFontSize);
                         StyleConstants.setFontSize(attr, fontSizes[currentFontSize]);
                         style.setResolveParent(attr);
                     } catch (NullPointerException e) {
@@ -650,7 +683,6 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
     public void increaseFont() {
         if (currentFontSize != Math.min(Math.max(0, currentFontSize + 1), 6)) {
             modifyFont(1);
-            ConfigManager.setHelpFontSize(currentFontSize);
         }
     }
 
@@ -660,7 +692,6 @@ public class SwingScilabHelpBrowserViewer extends BasicContentViewerUI implement
     public void decreaseFont() {
         if (currentFontSize != Math.min(Math.max(0, currentFontSize - 1), 6)) {
             modifyFont(-1);
-            ConfigManager.setHelpFontSize(currentFontSize);
         }
     }
 }

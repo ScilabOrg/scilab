@@ -33,8 +33,7 @@ public class CloseAction extends DefaultAction {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ScilabVariableBrowser.getVariableBrowser().close();
-		
+		ScilabVariableBrowser.getVariableBrowser(true).close();
 	}
 
 }
