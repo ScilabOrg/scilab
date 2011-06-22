@@ -556,6 +556,7 @@ if test $SCIVERBOSE -ne 0; then
     echo "IS_SCILAB_BINARY : $IS_SCILAB_BINARY"
 fi
 
+
 # If we are calling scilab-cli, no need to detect java.
 if test $DISABLE_JAVA_DETECTION -ne 1; then
     detect_java_vm
@@ -569,6 +570,7 @@ if test $IS_SCILAB_BINARY -eq 1; then
     DOCBOOK_ROOT="$SCI/thirdparty/docbook"
     PATH="$PATH:$SCI/modules/scicos/"
 
+    export IS_SCILAB_BINARY
     export DOCBOOK_ROOT
     export PATH
     export LD_LIBRARY_PATH

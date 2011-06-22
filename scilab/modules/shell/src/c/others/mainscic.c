@@ -70,7 +70,10 @@ int main(int argc, char **argv)
   InitializeLaunchScilabSignal();
 
 /* Management of the signals (seg fault, floating point exception, etc) */
-  base_error_init();
+  if (getenv("IS_SCILAB_BINARY")!=NULL) {
+      /* Only set in the Scilab binary */
+      base_error_init();
+  }
 
 #if defined(netbsd) || defined(freebsd)
 /* floating point exceptions */
