@@ -190,7 +190,15 @@ str = string(nm)
 !                                                                      !
 !=====================                                                 !
 !                                                                      !
-!Empty simplex (zero dimension)                                        !
+!verbose: 0                                                            !
+!                                                                      !
+!nbve: 0                                                               !
+!                                                                      !
+!n: 0                                                                  !
+!                                                                      !
+!x: [] matrix                                                          !
+!                                                                      !
+!fv: [] matrix                                                         !
 !                                                                      !
 !                                                                      !
 !                                                                      !
@@ -286,7 +294,11 @@ Store History : F
 Simplex0 : 
 Optim Simplex Object:
 =====================
-Empty simplex (zero dimension)
+verbose: 0
+nbve: 0
+n: 0
+x: [] matrix
+fv: [] matrix
 
 Simplex Optimum : 
 nm = neldermead_destroy(nm);
@@ -501,7 +513,15 @@ str = string(nm)
 !                                                                      !
 !=====================                                                 !
 !                                                                      !
-!Empty simplex (zero dimension)                                        !
+!verbose: 0                                                            !
+!                                                                      !
+!nbve: 0                                                               !
+!                                                                      !
+!n: 0                                                                  !
+!                                                                      !
+!x: [] matrix                                                          !
+!                                                                      !
+!fv: [] matrix                                                         !
 !                                                                      !
 !                                                                      !
 !                                                                      !
@@ -597,7 +617,11 @@ Store History : F
 Simplex0 : 
 Optim Simplex Object:
 =====================
-Empty simplex (zero dimension)
+verbose: 0
+nbve: 0
+n: 0
+x: [] matrix
+fv: [] matrix
 
 Simplex Optimum : 
 nm = neldermead_destroy(nm);

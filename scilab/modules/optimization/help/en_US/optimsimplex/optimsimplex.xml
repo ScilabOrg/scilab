@@ -32,12 +32,12 @@
     <title>SYNOPSIS</title>
 
     <synopsis>
-      [ newobj [, data] ] = optimsimplex_new ( coords , fun [, data] )
-      [ newobj [, data] ] = optimsimplex_new ( "axes" , x0 , fun , len [, data] )
-      [ newobj [, data] ] = optimsimplex_new ( "spendley" , x0 , fun , len [, data] )
-      [ newobj [, data] ] = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero [, data] )
-      [ newobj [, data] ] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbve  [, data] )
-      [ newobj [, data] ] = optimsimplex_new ( "oriented" , simplex0 , fun [, data] )
+      [newobj [, data]] = optimsimplex_new ( coords , fun [, data] )
+      [newobj [, data]] = optimsimplex_new ( "axes" , x0 , fun , len [, data] )
+      [newobj [, data]] = optimsimplex_new ( "spendley" , x0 , fun , len [, data] )
+      [newobj [, data]] = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero [, data] )
+      [newobj [, data]] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbve  [, data] )
+      [newobj [, data]] = optimsimplex_new ( "oriented" , simplex0 , fun [, data] )
       this = optimsimplex_destroy (this)
       this = optimsimplex_setall ( this , simplex )
       this = optimsimplex_setallfv ( this , fv )
@@ -57,7 +57,8 @@
       x = optimsimplex_getx ( this , ive )
       sicenter = optimsimplex_center ( this )
       optimsimplex_check ( this )
-      [ this , data ] = optimsimplex_computefv ( this , fun , data )
+      [this [, data]] = optimsimplex_computefv ( this , fun [, data] )
+      [this [, data]] = optimsimplex_compsomefv ( this, fun, indices[, data])
       df = optimsimplex_deltafv ( this )
       dfm = optimsimplex_deltafvmax ( this )
       m = optimsimplex_dirmat ( this )
@@ -175,11 +176,7 @@
       </listitem>
 
       <listitem>
-        <para>shrink the simplex toward the best vertex,</para>
-      </listitem>
-
-      <listitem>
-        <para>etc...</para>
+        <para>shrink the simplex toward the best vertex.</para>
       </listitem>
     </itemizedlist>
   </refsection>
@@ -257,21 +254,15 @@
     <variablelist>
       <varlistentry>
         <term xml:id="optimsimplex_new">newobj = optimsimplex_new ( )</term>
+        <term>newobj = optimsimplex_new ( coords )</term>
+        <term>newobj = optimsimplex_new ( coords , fun )</term>
+        <term>[ newobj , data ] = optimsimplex_new ( coords , fun , data )</term>
         <listitem>
           <para>
             Creates a new simplex object. All input arguments are
             optional. If no input argument is provided, returns an empty simplex
             object.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            newobj = optimsimplex_new ( coords )
-            newobj = optimsimplex_new ( coords , fun )
-            [ newobj , data ] = optimsimplex_new ( coords , fun , data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>newobj</term>
@@ -302,19 +293,10 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
-                </para>
-
-                <programlisting>
-                  function y = myfunction (x)
-                </programlisting>
-
-                <para>
-                  where <literal>x</literal> is a row vector.
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section below for more details on the function.
                 </para>
 
               </listitem>
@@ -327,25 +309,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting>
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -355,19 +319,14 @@
 
       <varlistentry>
         <term>this = optimsimplex_new ( "axes" , x0 )</term>
+        <term>this = optimsimplex_new ( "axes" , x0 , fun )</term>
+        <term>this = optimsimplex_new ( "axes" , x0 , fun , len )</term>
+        <term>[ this , data ] = optimsimplex_new ( "axes" , x0 , fun , len , data )</term>
         <listitem>
           <para>
             Creates a new simplex object so that it is computed axis by
             axis, with the given length.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            this = optimsimplex_new ( "axes" , x0 , fun )
-            this = optimsimplex_new ( "axes" , x0 , fun , len )
-            [ this , data ] = optimsimplex_new ( "axes" , x0 , fun , len , data )
-          </programlisting>
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -389,16 +348,11 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -422,25 +376,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -450,22 +386,16 @@
 
       <varlistentry>
         <term>this = optimsimplex_new ( "pfeffer" , x0 )</term>
+        <term>this = optimsimplex_new ( "pfeffer" , x0 , fun )</term>
+        <term>this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual )</term>
+        <term>this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero )</term>
+        <term>[ this , data ] = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero , data )</term>
         <listitem>
           <para>
             Creates a new simplex so that it is computed from Pfeffer's
             method, i.e. a relative delta for non-zero values and an absolute
             delta for zero values.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            this = optimsimplex_new ( "pfeffer" , x0 , fun )
-            this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual )
-            this = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero )
-            [ this , data ] = optimsimplex_new ( "pfeffer" , x0 , fun , deltausual , deltazero , data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -487,16 +417,11 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -529,25 +454,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -558,21 +465,16 @@
       <varlistentry>
         <term>
           this = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin ,
-          boundsmax , nbpoints )
+          boundsmax )
         </term>
+        <term>[ this , data ] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbpoints )</term>
+        <term>[ this , data ] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbpoints , data )</term>
         <listitem>
           <para>
             Creates a new simplex so that it is computed by taking the
             bounds into account with random scaling. The number of vertices in
             the simplex is arbitrary.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            [ this , data ] = optimsimplex_new ( "randbounds" , x0 , fun , boundsmin , boundsmax , nbpoints , data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -597,16 +499,11 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -626,12 +523,8 @@
 
                 <para>
                   Each component ix =1,n of the vertex #k = 2,nbve is
-                  computed from the formula :
+                  computed from the formula <literal>x(k,ix)=boundsmin(ix)+rand()*(boundsmax(ix)-boundsmin(ix))</literal>.
                 </para>
-
-                <programlisting role="example">
-                  x ( k , ix ) = boundsmin( ix ) + rand() * (boundsmax( ix ) - boundsmin( ix ))
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -639,7 +532,10 @@
               <term>nbpoints</term>
 
               <listitem>
-                <para>total number of points in the simplex</para>
+                <para>
+                  total number of points in the simplex.
+                  Default value is <literal>n+1</literal>, where <literal>n</literal> is the size of <literal>x0</literal>.
+                </para>
               </listitem>
             </varlistentry>
 
@@ -650,25 +546,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -678,22 +556,15 @@
 
       <varlistentry>
         <term>this = optimsimplex_new ( "spendley" , x0 )</term>
-
+        <term>this = optimsimplex_new ( "spendley" , x0 , fun )</term>
+        <term>this = optimsimplex_new ( "spendley" , x0 , fun , len )</term>
+        <term>[ this , data ] = optimsimplex_new ( "spendley" , x0 , fun , len, data )</term>
         <listitem>
           <para>
             Creates a new simplex so that it is computed from Spendley's
             et al. method, i.e. a regular simplex made of nbve = n+1
             vertices.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            this = optimsimplex_new ( "spendley" , x0 , fun )
-            this = optimsimplex_new ( "spendley" , x0 , fun , len )
-            [ this , data ] = optimsimplex_new ( "spendley" , x0 , fun , len, data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -715,16 +586,11 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -746,25 +612,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -774,6 +622,7 @@
 
       <varlistentry>
         <term>this = optimsimplex_new ( "oriented" , simplex0 , fun )</term>
+        <term>[ this , data ] = optimsimplex_new ( "oriented" , simplex0 , fun, data )</term>
         <listitem>
           <para>
             Returns a new oriented simplex, in sorted order. The new
@@ -782,13 +631,6 @@
             be used, as Kelley suggests, for a restart of Nelder-Mead
             algorithm.
           </para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            [ this , data ] = optimsimplex_new ( "oriented" , simplex0 , fun, data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -810,16 +652,11 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices (default fun=[]).
+                  If fun is equal to [], then the function values are not computed.
+                  See in "The function" section for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -830,25 +667,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See in "The function" section for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -1431,10 +1250,9 @@
 
       <varlistentry>
         <term xml:id="optimsimplex_computefv">
-          [ this , data ] = optimsimplex_computefv ( this , fun , data
-          )
+          this = optimsimplex_computefv ( this , fun )
         </term>
-
+        <term> [this, data] = optimsimplex_computefv ( this , fun , data)</term>
         <listitem>
           <para>Set the values of the function at vertices points.</para>
 
@@ -1451,16 +1269,10 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices.
+                  See "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -1471,25 +1283,62 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
+                  See "The function" section below for more details on the function.
                 </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+      </varlistentry>
 
+      <varlistentry>
+        <term xml:id="optimsimplex_computefv">
+          this = optimsimplex_compsomefv ( this , fun )
+        </term>
+        <term> this = optimsimplex_compsomefv ( this, fun, indices )</term>
+        <term> [this, data] = optimsimplex_compsomefv ( this, fun, indices, data)</term>
+        <listitem>
+          <para>Set the values of the function at vertices points.</para>
+
+          <variablelist>
+            <varlistentry>
+              <term>this</term>
+
+              <listitem>
+                <para>The current simplex object.</para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>fun</term>
+
+              <listitem>
                 <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
+                  optional, the function to compute at vertices.
+                  See "The function" section below for more details on the function.
                 </para>
+              </listitem>
+            </varlistentry>
 
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
+            <varlistentry>
+              <term>indices</term>
 
+              <listitem>
                 <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  optional, a 1-by-m matrix of doubles, integers, positive, the indices of the
+                  vertices to compute (default indices=1:nbve, where nbve is the number of vertices).
+                </para>
+              </listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>data</term>
+
+              <listitem>
+                <para>
+                  optional, user-defined data passed to the
+                  function.
+                  See "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -1626,17 +1475,11 @@
 
       <varlistentry>
         <term xml:id="optimsimplex_gradientfv">g = optimsimplex_gradientfv ( this , fun , method )</term>
+        <term>g = optimsimplex_gradientfv="" ( this , fun , method )</term>
+        <term>[ g , data ] = optimsimplex_gradientfv ( this , fun , method , data )</term>
 
         <listitem>
           <para>Returns the simplex gradient of the function.</para>
-          <para>
-            The following is a complete list of available calling sequences.
-          </para>
-          <programlisting>
-            g = optimsimplex_gradientfv ( this , fun , method )
-            [ g , data ] = optimsimplex_gradientfv ( this , fun , method , data )
-          </programlisting>
-
           <variablelist>
             <varlistentry>
               <term>this</term>
@@ -1650,16 +1493,10 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices.
+                  See "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -1686,25 +1523,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -1735,16 +1554,10 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices.
+                  See "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -1755,25 +1568,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -1807,16 +1602,10 @@
               <term>fun</term>
 
               <listitem>
-                <para>optional, the function to compute at vertices.</para>
-
                 <para>
-                  The function is expected to have the following input and
-                  output arguments :
+                  optional, the function to compute at vertices.
+                  See "The function" section below for more details on the function.
                 </para>
-
-                <programlisting role="example">
-                  function y = myfunction (x)
-                </programlisting>
               </listitem>
             </varlistentry>
 
@@ -1838,25 +1627,7 @@
                 <para>
                   optional, user-defined data passed to the
                   function.
-                </para>
-
-                <para>
-                  If data is provided, it is passed to the callback
-                  function both as an input and output argument. In that case,
-                  the function must have the following header :
-                </para>
-
-                <programlisting role="example">
-                  function [ y , data ] = myfunction ( x , data )
-                </programlisting>
-
-                <para>
-                  The data input parameter may be used if the function
-                  uses some additionnal parameters. It is returned as an output
-                  parameter because the function may modify the data while
-                  computing the function value. This feature may be used, for
-                  example, to count the number of times that the function has
-                  been called.
+                  See "The function" section below for more details on the function.
                 </para>
               </listitem>
             </varlistentry>
@@ -2008,6 +1779,46 @@
         </listitem>
       </varlistentry>
     </variablelist>
+  </refsection>
+
+  <refsection>
+    <title>
+      The function
+    </title>
+
+    <para>
+      When creating a new simplex with the <literal>optimsimplex_new</literal> function,
+      the <literal>fun</literal> argument can be used to compute the function
+      value at the vertices.
+    </para>
+
+    <para>
+      The function <literal>fun</literal> is expected to have the following input and
+      output arguments :
+    </para>
+
+    <programlisting role="example">
+      y = myfunction (x)
+    </programlisting>
+
+    <para>
+      If <literal>data</literal> is provided, it is passed to the callback
+      function both as an input and output argument. In that case,
+      the function must have the following header :
+    </para>
+
+    <programlisting role="example">
+      [ y , data ] = myfunction ( x , data )
+    </programlisting>
+
+    <para>
+      The data input parameter may be used if the function
+      uses some additionnal parameters. It is returned as an output
+      parameter because the function may modify the data while
+      computing the function value. This feature may be used, for
+      example, to count the number of times that the function has
+      been called.
+    </para>
   </refsection>
 
   <refsection>
