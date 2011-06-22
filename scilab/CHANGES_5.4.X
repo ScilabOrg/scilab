@@ -198,6 +198,9 @@ Misc:
 
 * Change the buffering display mode.
 
+* Options -disable-exception-catching added under GNU/Linux & Mac OS X. 
+  Disables the Scilab exception catching system.
+
 
 Bug fixes:
 ==========
