@@ -53,10 +53,10 @@
 #define __GO_HAS_LEGEND_CHILD__            "HasLegendChild"
 #define __GO_SELECTED_CHILD__              "SelectedChild"
 
-#define __GO_DATA_MODEL_COORDINATES__                 "DataModelCoordinates"
-#define __GO_DATA_MODEL_X__     		           "DataModelX"
-#define __GO_DATA_MODEL_Y__                           "DataModelY"
-#define __GO_DATA_MODEL_Z__                           "DataModelZ"
+#define __GO_DATA_MODEL_COORDINATES__      "DataModelCoordinates"
+#define __GO_DATA_MODEL_X__                "DataModelX"
+#define __GO_DATA_MODEL_Y__                "DataModelY"
+#define __GO_DATA_MODEL_Z__                "DataModelZ"
 
 #define __GO_DATA_MODEL_X_COORDINATES_SHIFT__          "DataModelXCoordinatesShift"
 #define __GO_DATA_MODEL_Y_COORDINATES_SHIFT__          "DataModelYCoordinatesShift"
@@ -66,7 +66,7 @@
 #define __GO_DATA_MODEL_Y_COORDINATES_SHIFT_SET__      "DataModelYCoordinatesShiftSet"
 #define __GO_DATA_MODEL_Z_COORDINATES_SHIFT_SET__      "DataModelZCoordinatesShiftSet"
 
-#define __GO_DATA_MODEL_NUM_ELEMENTS__     	    "DataModelNumElements"
+#define __GO_DATA_MODEL_NUM_ELEMENTS__                 "DataModelNumElements"
 #define __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__           "DataModelNumElementsArray"
 #define __GO_DATA_MODEL_NUM_VERTICES_PER_GON__         "DataModelNumVerticesPerGon"
 #define __GO_DATA_MODEL_NUM_GONS__                     "DataModelNumGons"
@@ -290,6 +290,7 @@
 #define __GO_UI_FRAME__                    "frame"
 #define __GO_UI_PUSHBUTTON__               "pushbutton"
 #define __GO_UI_TEXT__                     "text"
+#define __GO_UI_IMAGERENDERER__            "imagerenderer"
 
 #define __GO_UI_BACKGROUNDCOLOR__          "UIBackgroundColor"
 #define __GO_UI_ENABLE__                   "UIEnable"

@@ -32,6 +32,7 @@ import org.scilab.modules.graphic_objects.rectangle.Rectangle;
 import org.scilab.modules.graphic_objects.surface.Fac3d;
 import org.scilab.modules.graphic_objects.surface.Plot3d;
 import org.scilab.modules.graphic_objects.textObject.Text;
+import org.scilab.modules.graphic_objects.uicontrol.imagerenderer.ImageRenderer;
 import org.scilab.modules.graphic_objects.uicontrol.pushbutton.PushButton;
 import org.scilab.modules.graphic_objects.vectfield.Champ;
 import org.scilab.modules.graphic_objects.vectfield.Segs;
@@ -89,6 +90,7 @@ public class GraphicModel {
      * @return property value
      */
     public Object getProperty(String id, String property) {
+    	System.out.println("GraphicModel::getProperty(" + property + ")");
         GraphicObject object = allObjects.get(id);
         Object propertyType = object.getPropertyFromName(property);
 
@@ -186,6 +188,8 @@ public class GraphicModel {
                 return new Segs();
             case TEXT:
                 return new Text();
+            case IMAGERENDERER:
+                return new ImageRenderer();
             case PUSHBUTTON:
                 return new PushButton();
             case UNKNOWNOBJECT:
