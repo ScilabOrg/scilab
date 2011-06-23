@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010 - Han DONG
+ * Copyright (C) 2011 - DIGITEO - Vincent COUVERT
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -13,16 +14,16 @@ package org.scilab.modules.gui.bridge.uitable;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Dimension;
 
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 import java.util.StringTokenizer;
 
+import org.scilab.modules.gui.SwingScilabWidget;
+import org.scilab.modules.gui.SwingViewObject;
 import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.gui.uitable.SimpleUiTable;
 import org.scilab.modules.gui.menubar.MenuBar;
@@ -39,9 +40,11 @@ import org.scilab.modules.gui.utils.Size;
  * Swing implementation for Scilab UiTable in GUIs
  * @author Han DONG
  */
-public class SwingScilabUiTable extends JScrollPane implements SimpleUiTable {
+public class SwingScilabUiTable extends JScrollPane implements SwingViewObject, SimpleUiTable {
 
 	private static final long serialVersionUID = -5497171010652701217L;
+
+	private String uid;
 
 	private JTable uiTable;
 	private JList rowHeader;
@@ -50,8 +53,8 @@ public class SwingScilabUiTable extends JScrollPane implements SimpleUiTable {
 	private Object[] rowNames = {};
 	private Object[][] data = {};	
 
-	private int nCol = 0;
-	private int nRow = 0;
+	private int nCol;
+	private int nRow;
 
 	private JLabel label;
 
@@ -426,4 +429,30 @@ public class SwingScilabUiTable extends JScrollPane implements SimpleUiTable {
 		uiTable = new JTable(data, colNames);
 		getViewport().add(uiTable);
 	}
+	
+	/**
+	 * Set the UID
+	 * @param id the UID
+	 */
+	public void setId(String id) {
+		uid = id;
+	}
+
+	/**
+	 * Get the UID
+	 * @return the UID
+	 */
+	public String getId() {
+		return uid;
+	}
+
+	/**
+	 * Generic update method
+	 * @param property property name
+	 * @param value property value
+	 */
+	public void update(String property, Object value) {
+		SwingScilabWidget.update(this, property, value);
+	}
+
 }

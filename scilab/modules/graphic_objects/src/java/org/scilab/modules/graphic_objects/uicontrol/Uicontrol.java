@@ -17,6 +17,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTROL__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_BACKGROUNDCOLOR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_COLUMNNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTANGLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
@@ -32,11 +33,13 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ROWNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SCALE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SHEAR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDERSTEP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_STRING_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_TABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_UNITS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VALUE_SIZE__;
@@ -53,6 +56,7 @@ public class Uicontrol extends GraphicObject {
 
 	private UicontrolStyle style;
 	private Double[] backgroundColor = {0.0, 0.0, 0.0};
+	private String[] columnnames = {};
 	private boolean enable = true;
 	private String fontAngle = "normal";
 	private String fontName = "helvetica";
@@ -66,6 +70,7 @@ public class Uicontrol extends GraphicObject {
 	private int min; 
 	private Double[] position = {20.0, 40.0, 40.0, 20.0};
 	private String relief = "raised";
+	private String[] rownames = {};
 	private Double[] scale = {1.0, 1.0};
 	private Double[] shear = {1.0, 1.0};
 	private Double[] sliderStep = {0.01, 0.1};
@@ -80,6 +85,7 @@ public class Uicontrol extends GraphicObject {
 	private enum UicontrolProperty {
 		STYLE,
 		BACKGROUNDCOLOR,
+		COLUMNNAMES,
 		ENABLE,
 		FONTANGLE,
 		FONTNAME,
@@ -99,6 +105,7 @@ public class Uicontrol extends GraphicObject {
 		STRING,
 		STRING_SIZE,
 		RELIEF,
+		ROWNAMES,
 		UNITS,
 		VALUE,
 		VALUE_SIZE,
@@ -110,7 +117,8 @@ public class Uicontrol extends GraphicObject {
 	 */
 	private enum UicontrolStyle {
 		IMAGERENDERER,
-		PUSHBUTTON
+		PUSHBUTTON,
+		TABLE
 	};
 
 	/**
@@ -126,11 +134,14 @@ public class Uicontrol extends GraphicObject {
 	 * @return the uicontrol style as a string
 	 */
 	private String styleEnumToString(UicontrolStyle style) {
-		if (style == UicontrolStyle.PUSHBUTTON) {
-			return __GO_UI_PUSHBUTTON__;
+		if (style == UicontrolStyle.TABLE) {
+			return __GO_UI_TABLE__;
 		}
 		if (style == UicontrolStyle.IMAGERENDERER) {
 			return __GO_UI_IMAGERENDERER__;
+		}
+		if (style == UicontrolStyle.PUSHBUTTON) {
+			return __GO_UI_PUSHBUTTON__;
 		}
 		return null;
 	}
@@ -141,11 +152,14 @@ public class Uicontrol extends GraphicObject {
 	 * @return the uicontrol style as an enum element
 	 */
 	private UicontrolStyle stringToStyleEnum(String style) {
-		if (style.equals(__GO_UI_PUSHBUTTON__)) {
-			return UicontrolStyle.PUSHBUTTON;
+		if (style.equals(__GO_UI_TABLE__)) {
+			return UicontrolStyle.TABLE;
 		}
 		if (style.equals(__GO_UI_IMAGERENDERER__)) {
 			return UicontrolStyle.IMAGERENDERER;
+		}
+		if (style.equals(__GO_UI_PUSHBUTTON__)) {
+			return UicontrolStyle.PUSHBUTTON;
 		}
 		return null;
 	}
@@ -169,6 +183,8 @@ public class Uicontrol extends GraphicObject {
 			return UicontrolProperty.STYLE;
 		} else if (propertyName.equals(__GO_UI_BACKGROUNDCOLOR__)) {
 			return UicontrolProperty.BACKGROUNDCOLOR;
+		} else if (propertyName.equals(__GO_UI_COLUMNNAMES__)) {
+			return UicontrolProperty.COLUMNNAMES;
 		} else if (propertyName.equals(__GO_UI_ENABLE__)) {
 			return UicontrolProperty.ENABLE;
 		} else if (propertyName.equals(__GO_UI_FONTANGLE__)) {
@@ -197,6 +213,8 @@ public class Uicontrol extends GraphicObject {
 			return UicontrolProperty.POSITION;
 		} else if (propertyName.equals(__GO_UI_RELIEF__)) {
 			return UicontrolProperty.RELIEF;
+		} else if (propertyName.equals(__GO_UI_ROWNAMES__)) {
+			return UicontrolProperty.ROWNAMES;
 		} else if (propertyName.equals(__GO_UI_SCALE__)) {
 			return UicontrolProperty.SCALE;
 		} else if (propertyName.equals(__GO_UI_SHEAR__)) {
@@ -230,6 +248,8 @@ public class Uicontrol extends GraphicObject {
 			return getStyle();
 		} else if (property == UicontrolProperty.BACKGROUNDCOLOR) {
 			return getBackgroundColor();
+		} else if (property == UicontrolProperty.COLUMNNAMES) {
+			return getColumnNames();
 		} else if (property == UicontrolProperty.ENABLE) {
 			return getEnable();
 		} else if (property == UicontrolProperty.FONTANGLE) {
@@ -258,6 +278,8 @@ public class Uicontrol extends GraphicObject {
 			return getUiPosition();
 		} else if (property == UicontrolProperty.RELIEF) {
 			return getRelief();
+		} else if (property == UicontrolProperty.ROWNAMES) {
+			return getRowNames();
 		} else if (property == UicontrolProperty.SCALE) {
 			return getScale();
 		} else if (property == UicontrolProperty.SHEAR) {
@@ -292,6 +314,8 @@ public class Uicontrol extends GraphicObject {
 			setStyle((String) value);
 		} else if (property == UicontrolProperty.BACKGROUNDCOLOR) {
 			setBackgroundColor((Double[]) value);
+		} else if (property == UicontrolProperty.COLUMNNAMES) {
+			setColumnNames((String[]) value);
 		} else if (property == UicontrolProperty.ENABLE) {
 			setEnable((Boolean) value);
 		} else if (property == UicontrolProperty.FONTANGLE) {
@@ -318,6 +342,8 @@ public class Uicontrol extends GraphicObject {
 			setUiPosition((Double[]) value);
 		} else if (property == UicontrolProperty.RELIEF) {
 			setRelief((String) value);
+		} else if (property == UicontrolProperty.ROWNAMES) {
+			setRowNames((String[]) value);
 		} else if (property == UicontrolProperty.SCALE) {
 			setScale((Double[]) value);
 		} else if (property == UicontrolProperty.SHEAR) {
@@ -362,6 +388,22 @@ public class Uicontrol extends GraphicObject {
 
 	public void setBackgroundColor(Double[] colors) {
 		this.backgroundColor = colors;
+	}
+
+	/**
+	 * Get the column names
+	 * @return the column names
+	 */
+	public String[] getColumnNames() {
+		return this.columnnames;
+	}
+
+	/**
+	 * Set the column names
+	 * @param columnnames the columnnames
+	 */
+	public void setColumnNames(String[] columnnames) {
+		this.columnnames = columnnames;
 	}
 
 	/* Enable */
@@ -485,11 +527,34 @@ public class Uicontrol extends GraphicObject {
 		this.relief = relief;
 	}
 
-	/* String */
+	/**
+	 * Get the row names
+	 * @return the row names
+	 */
+	public String[] getRowNames() {
+		return this.rownames;
+	}
+
+	/**
+	 * Set the row names
+	 * @param rownames the rownames
+	 */
+	public void setRowNames(String[] rownames) {
+		this.rownames = rownames;
+	}
+
+	/**
+	 * Get the string
+	 * @return the string
+	 */
 	public String[] getString() {
 		return this.string;
 	}
 
+	/**
+	 * Set the string
+	 * @param string the string
+	 */
 	public void setString(String[] string) {
 		this.string = string;
 	}

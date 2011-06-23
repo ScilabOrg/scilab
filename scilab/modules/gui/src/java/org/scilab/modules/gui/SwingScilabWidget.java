@@ -17,6 +17,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_BACKGROUNDCOLOR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_COLUMNNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTANGLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
@@ -29,6 +30,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ROWNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SCALE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SHEAR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_SLIDERSTEP__;
@@ -59,6 +61,7 @@ public class SwingScilabWidget {
     	if (property.equals(__GO_UI_BACKGROUNDCOLOR__)) {
     		Double[] allColors = ((Double[]) value);
     		uiControl.setBackground(new Color((int) (allColors[0]*255), (int) (allColors[1]*255), (int) (allColors[2]*255)));
+    	} else if (property.equals(__GO_UI_COLUMNNAMES__)) {
     	} else if (property.equals(__GO_UI_ENABLE__)) {
     		uiControl.setEnabled(((Boolean) value).booleanValue());
     	} else if (property.equals(__GO_UI_FONTANGLE__)) {
@@ -134,6 +137,7 @@ public class SwingScilabWidget {
     		uiControl.setPosition(new Position(dblValues[0].intValue(), dblValues[1].intValue()));
     	} else if (property.equals(__GO_UI_RELIEF__)) {
     		uiControl.setRelief((String) value);
+    	} else if (property.equals(__GO_UI_ROWNAMES__)) {
     	} else if (property.equals(__GO_UI_SCALE__)) {
     		Double[] scale = ((Double[]) value);
     		double[] convertedScale = new double[2];
