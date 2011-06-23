@@ -53,12 +53,12 @@ public class SwingScilabWidget {
     private static final String BOLDFONT = "bold";
 
     public static void update(Widget uiControl, String property, Object value) {
-    	if(property.equals(__GO_UI_BACKGROUNDCOLOR__)) {
+    	if (property.equals(__GO_UI_BACKGROUNDCOLOR__)) {
     		Double[] allColors = ((Double[]) value);
     		uiControl.setBackground(new Color((int) (allColors[0]*255), (int) (allColors[1]*255), (int) (allColors[2]*255)));
     	} else if (property.equals(__GO_UI_ENABLE__)) {
     		uiControl.setEnabled(((Boolean) value).booleanValue());
-    	} else if(property.equals(__GO_UI_FONTANGLE__)) {
+    	} else if (property.equals(__GO_UI_FONTANGLE__)) {
             Font font = uiControl.getFont();
             String angle = (String) value;
             
@@ -77,23 +77,23 @@ public class SwingScilabWidget {
             }
 
             uiControl.setFont(font);
-    	} else if(property.equals(__GO_UI_FONTNAME__)) {
+    	} else if (property.equals(__GO_UI_FONTNAME__)) {
             Font font = uiControl.getFont();
             String name = (String) value;
             
             font = new Font(name, font.getStyle(), font.getSize());
             
             uiControl.setFont(font);
-    	} else if(property.equals(__GO_UI_FONTSIZE__)) {
+    	} else if (property.equals(__GO_UI_FONTSIZE__)) {
             Font font = uiControl.getFont();
             int size = ((Double) value).intValue();
             
             font = new Font(font.getName(), font.getStyle(), size);
             
             uiControl.setFont(font);
-    	} else if(property.equals(__GO_UI_FONTUNITS__)) {
+    	} else if (property.equals(__GO_UI_FONTUNITS__)) {
     		/* TO BE DONE */
-    	} else if(property.equals(__GO_UI_FONTWEIGHT__)) {
+    	} else if (property.equals(__GO_UI_FONTWEIGHT__)) {
             Font font = uiControl.getFont();
             String weight = (String) value;
             
@@ -112,15 +112,15 @@ public class SwingScilabWidget {
             }
 
             uiControl.setFont(font);
-    	} else if(property.equals(__GO_UI_FOREGROUNDCOLOR__)) {
+    	} else if (property.equals(__GO_UI_FOREGROUNDCOLOR__)) {
     		Double[] allColors = ((Double[]) value);
     		uiControl.setForeground(new Color((int) (allColors[0]*255), (int) (allColors[1]*255), (int) (allColors[2]*255)));
-    	} else if(property.equals(__GO_UI_HORIZONTALALIGNMENT__)) {
+    	} else if (property.equals(__GO_UI_HORIZONTALALIGNMENT__)) {
     		uiControl.setHorizontalAlignment((String) value);
-    	} else if(property.equals(__GO_UI_LISTBOXTOP__)) {
-    	} else if(property.equals(__GO_UI_MAX__)) {
-    	} else if(property.equals(__GO_UI_MIN__)) {
-    	} else if(property.equals(__GO_POSITION__)) {
+    	} else if (property.equals(__GO_UI_LISTBOXTOP__)) {
+    	} else if (property.equals(__GO_UI_MAX__)) {
+    	} else if (property.equals(__GO_UI_MIN__)) {
+    	} else if (property.equals(__GO_POSITION__)) {
     		/* Convert value according to units */
     		UicontrolUnits unitsProperty = UnitsConverter.stringToUnitsEnum((String) GraphicController.getController().getProperty(((SwingViewObject) uiControl).getId(), __GO_UI_UNITS__));
     		System.out.println("Input position = " + ((Double[]) value)[0] + " " + ((Double[]) value)[1] + " "+ ((Double[]) value)[2] + " "+ ((Double[]) value)[3] + " ");
@@ -129,15 +129,15 @@ public class SwingScilabWidget {
     		System.out.println("Converted position = " + dblValues[0] + " " + dblValues[1] + " "+ dblValues[2] + " "+ dblValues[3] + " ");
     		uiControl.setDims(new Size(dblValues[2].intValue(), dblValues[3].intValue()));
     		uiControl.setPosition(new Position(dblValues[0].intValue(), dblValues[1].intValue()));
-    	} else if(property.equals(__GO_UI_RELIEF__)) {
+    	} else if (property.equals(__GO_UI_RELIEF__)) {
     		uiControl.setRelief((String) value);
-    	} else if(property.equals(__GO_UI_SLIDERSTEP__)) {
+    	} else if (property.equals(__GO_UI_SLIDERSTEP__)) {
     	} else if (property.equals(__GO_STYLE__)) {
     	} else if (property.equals(__GO_UI_STRING__)) {
     		uiControl.setText(((String[]) value)[0]);
-    	} else if(property.equals(__GO_UI_UNITS__)) {
-    	} else if(property.equals(__GO_UI_VALUE__)) {
-    	} else if(property.equals(__GO_UI_VERTICALALIGNMENT__)) {
+    	} else if (property.equals(__GO_UI_UNITS__)) {
+    	} else if (property.equals(__GO_UI_VALUE__)) {
+    	} else if (property.equals(__GO_UI_VERTICALALIGNMENT__)) {
     		uiControl.setVerticalAlignment((String) value);
     	} else if (property.equals(__GO_VISIBLE__)) {
         	uiControl.setVisible(((Boolean) value).booleanValue());

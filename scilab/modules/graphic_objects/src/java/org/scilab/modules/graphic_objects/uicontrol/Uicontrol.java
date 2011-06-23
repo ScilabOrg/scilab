@@ -25,6 +25,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTWEIGHT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_HORIZONTALALIGNMENT__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_IMAGERENDERER__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_LISTBOXTOP_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
@@ -42,9 +43,36 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.IVisitor;
 
+/**
+ * @author Bruno JOFRET
+ * @author Vincent COUVERT
+ */
 public class Uicontrol extends GraphicObject {
 
+	private UicontrolStyle style;
+	private Double[] backgroundColor = {0.0, 0.0, 0.0};
+	private boolean enable = true;
+	private String fontAngle = "normal";
+	private String fontName = "helvetica";
+	private double fontSize = 10.0;
+	private String fontUnits = "points";
+	private String fontWeight = "normal";
+	private Double[] foregroundColor = {0.0, 0.0, 0.0};
+	private String horizontalAlignment = "center";
+	private Integer[] listboxTop; 
+	private int max = 1; 
+	private int min; 
+	private Double[] position = {20.0, 40.0, 40.0, 20.0};
+	private String relief = "raised";
+	private Double[] sliderStep = {0.01, 0.1};
+	private String[] string = {""};
+	private String units = "pixels";
+	private Integer[] value; 
+	private String verticalAlignment = "middle";
 
+	/**
+	 * All uicontrol properties
+	 */
 	private enum UicontrolProperty {
 		STYLE,
 		BACKGROUNDCOLOR,
@@ -71,49 +99,57 @@ public class Uicontrol extends GraphicObject {
 		VERTICALALIGNMENT
 	};
 
+	/**
+	 * All uicontrol styles
+	 */
 	private enum UicontrolStyle {
+		IMAGERENDERER,
 		PUSHBUTTON
 	};
 
+	/**
+	 * Constructor
+	 */
+	public Uicontrol() {
+		super();
+	}
+	
+	/**
+	 * Get style as a string
+	 * @param style the uicontrol style
+	 * @return the uicontrol style as a string
+	 */
 	private String styleEnumToString(UicontrolStyle style) {
-		if(style == UicontrolStyle.PUSHBUTTON) {
+		if (style == UicontrolStyle.PUSHBUTTON) {
 			return __GO_UI_PUSHBUTTON__;
+		}
+		if (style == UicontrolStyle.IMAGERENDERER) {
+			return __GO_UI_IMAGERENDERER__;
 		}
 		return null;
 	}
 
+	/**
+	 * Get style as an enum element
+	 * @param style the uicontrol style
+	 * @return the uicontrol style as an enum element
+	 */
 	private UicontrolStyle stringToStyleEnum(String style) {
 		if (style.equals(__GO_UI_PUSHBUTTON__)) {
 			return UicontrolStyle.PUSHBUTTON;
 		}
+		if (style.equals(__GO_UI_IMAGERENDERER__)) {
+			return UicontrolStyle.IMAGERENDERER;
+		}
 		return null;
 	}
 	
-	private UicontrolStyle style;
-	private Double[] backgroundColor = {0.0, 0.0, 0.0};
-	private boolean enable = true;
-	private String fontAngle = "normal";
-	private String fontName = "helvetica";
-	private double fontSize = 10.0;
-	private String fontUnits = "points";
-	private String fontWeight = "normal";
-	private Double[] foregroundColor = {0.0, 0.0, 0.0};
-	private String horizontalAlignment = "center";
-	private Integer[] listboxTop = null; 
-	private int max = 1; 
-	private int min = 0; 
-	private Double[] position = {20.0, 40.0, 40.0, 20.0};
-	private String relief = "raised";
-	private Double[] sliderStep = {0.01, 0.1};
-	private String[] string = {""};
-	private String units = "pixels";
-	private Integer[] value = null; 
-	private String verticalAlignment = "middle";
 
-	public Uicontrol() {
-		super();
-	}
-
+	/**
+	 * Get this object type
+	 * @return uicontrol
+	 * @see org.scilab.modules.graphic_objects.graphicObject.GraphicObject#getType()
+	 */
 	public String getType() {
 		return __GO_UICONTROL__;
 	}
@@ -174,6 +210,7 @@ public class Uicontrol extends GraphicObject {
 			return super.getPropertyFromName(propertyName);
 		}
 	}
+
 	/**
 	 * Fast property get method
 	 * @param property the property to get
@@ -285,11 +322,18 @@ public class Uicontrol extends GraphicObject {
 		return true;
 	}
 
-	/* Style */
+	/**
+	 * Get the style
+	 * @return the style
+	 */
 	public String getStyle() {
 		return styleEnumToString(this.style);
 	}
 
+	/**
+	 * Set the style
+	 * @param style the style
+	 */
 	public void setStyle(String style) {
 		this.style = stringToStyleEnum(style);
 	}
