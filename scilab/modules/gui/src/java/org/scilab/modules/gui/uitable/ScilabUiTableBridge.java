@@ -257,7 +257,8 @@ public class ScilabUiTableBridge {
 	 * @param text the String that contains column names delimited by a '|'
 	 */
 	public static void setColnames(UiTable uiTable, String text) {
-		uiTable.getAsSimpleUiTable().setColnames(text);		
+		// TODO remove
+		//uiTable.getAsSimpleUiTable().setColnames(text);		
 	}
 
 	/**
@@ -265,7 +266,8 @@ public class ScilabUiTableBridge {
 	 * @param text the String that contains row name delimited by a '|'
 	 */
 	public static void setRownames(UiTable uiTable, String text) {
-		uiTable.getAsSimpleUiTable().setRownames(text);		
+		// TODO remove
+		//uiTable.getAsSimpleUiTable().setRownames(text);		
 	}
 
 	/**
