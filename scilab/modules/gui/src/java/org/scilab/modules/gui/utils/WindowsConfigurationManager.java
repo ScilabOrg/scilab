@@ -204,7 +204,7 @@ public class WindowsConfigurationManager {
      * @param restoreTab if true the tab is restored too
      * @return the corresponding window
      */
-    public static SwingScilabWindow restoreWindow(String uuid, String defaultTabUuid, boolean restoreTab) {
+    public static SwingScilabWindow restoreWindow(String uuid, String defaultTabUuid, boolean restoreTab, boolean requestFocus) {
         readDocument();
 
         Element root = doc.getDocumentElement();
@@ -292,28 +292,30 @@ public class WindowsConfigurationManager {
                 }
             }
 
-            // Be sur that the main tab will have the focus.
-            // Get the elder tab and activate it
-            final SwingScilabTab mainTab = ClosingOperationsManager.getElderTab(new ArrayList(Arrays.asList(tabs)));
-            ActiveDockableTracker.requestDockableActivation(mainTab);
-            SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        Thread t = new Thread(new Runnable() {
-                                public void run() {
-                                    while (ActiveDockableTracker.getActiveDockable(window) == null && !mainTab.hasFocus()) {
-                                        mainTab.requestFocus();
-					try {
-                                            Thread.sleep(100);
-                                        } catch (InterruptedException e) { }
+            if (requestFocus) {
+                // Be sur that the main tab will have the focus.
+                // Get the elder tab and activate it
+                final SwingScilabTab mainTab = ClosingOperationsManager.getElderTab(new ArrayList(Arrays.asList(tabs)));
+                ActiveDockableTracker.requestDockableActivation(mainTab);
+                SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            Thread t = new Thread(new Runnable() {
+                                    public void run() {
+                                        while (ActiveDockableTracker.getActiveDockable(window) == null && !mainTab.hasFocus()) {
+                                            mainTab.requestFocus();
+                                            try {
+                                                Thread.sleep(100);
+                                            } catch (InterruptedException e) { }
+                                        }
+                                        if (ActiveDockableTracker.getActiveDockable(window) != mainTab) {
+                                            ActiveDockableTracker.requestDockableActivation(mainTab);
+                                        }
                                     }
-                                    if (ActiveDockableTracker.getActiveDockable(window) != mainTab) {
-                                        ActiveDockableTracker.requestDockableActivation(mainTab);
-                                    }
-                                }
-                            });
-                        t.start();
-                    }
-                });
+                                });
+                            t.start();
+                        }
+                    });
+            }
         }
 
         return window;
@@ -440,16 +442,24 @@ public class WindowsConfigurationManager {
             }
         }
 
+        boolean requestFocus = true;
+
         for (String winuuid : wins) {
             if (!alreadyRestoredWindows.contains(winuuid)) {
-                restoreWindow(winuuid, uuid, true);
+                restoreWindow(winuuid, uuid, true, requestFocus);
                 alreadyRestoredWindows.add(winuuid);
+                if (requestFocus) {
+                    requestFocus = false;
+                }
             }
         }
 
         for (String u : tabsWithoutWin) {
-            SwingScilabWindow window = restoreWindow(NULLUUID, u, true);
+            SwingScilabWindow window = restoreWindow(NULLUUID, u, true, requestFocus);
             alreadyRestoredWindows.add(window.getUUID());
+            if (requestFocus) {
+                requestFocus = false;
+            }
         }
     }
 
@@ -557,21 +567,21 @@ public class WindowsConfigurationManager {
      * Clean the document in removing the useless tags
      */
     public static void clean() {
-	readDocument();
-	Element root = doc.getDocumentElement();
-	NodeList list = root.getElementsByTagName("Window");
-	int len = getNodeListLength(list);
+        readDocument();
+        Element root = doc.getDocumentElement();
+        NodeList list = root.getElementsByTagName("Window");
+        int len = getNodeListLength(list);
         for (int i = 0; i < len; i++) {
             if (list.item(i) instanceof Element) {
                 String uuid = ((Element) list.item(i)).getAttribute("uuid");
-		List<Element> elements = ScilabXMLUtilities.getElementsWithAttributeEquals(root, "winuuid", uuid);
-		if (elements == null || elements.size() == 0) {
-		    root.removeChild(list.item(i));
-		    removeWin(uuid);
-		}
+                List<Element> elements = ScilabXMLUtilities.getElementsWithAttributeEquals(root, "winuuid", uuid);
+                if (elements == null || elements.size() == 0) {
+                    root.removeChild(list.item(i));
+                    removeWin(uuid);
+                }
             }
         }
-	writeDocument();
+        writeDocument();
     }
 
     /**
