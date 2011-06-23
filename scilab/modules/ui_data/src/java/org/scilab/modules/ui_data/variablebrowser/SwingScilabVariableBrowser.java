@@ -135,33 +135,35 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 
         dataModel = new SwingTableModel<Object>(columnsName);
 
-        table = new JTable(dataModel){    
+        table = new JTable(dataModel){
                 //Implement table cell tool tips.
                 public String getToolTipText(MouseEvent e) {
                     String tip = null;
-                            java.awt.Point p = e.getPoint();
-                            int rowIndex = rowAtPoint(p);
-                            int colIndex = columnAtPoint(p);
-                            if (colIndex==BrowseVar.TYPE_COLUMN_INDEX) { /* Scilab type */
-                                try {
-                                    int type = Integer.parseInt(getValueAt(rowIndex, colIndex).toString());
-                                    tip = Messages.gettext("Scilab type:")+" "+ ScilabTypeEnum.swigToEnum(type);
-                                } catch (IllegalArgumentException exception) {
-                                    /* If the type is not known/manage, don't crash */
-                                }
-                                
-                            } else {
-
-                                if (colIndex==BrowseVar.SIZE_COLUMN_INDEX) {
-                                    /* Use the getModel() method because the
-                                     * column 5 has been removed from display
-                                     * but still exist in the model */
-                                    tip = Messages.gettext("Bytes:")+" "+((JTable)e.getSource()).getModel().getValueAt(rowIndex, BrowseVar.BYTES_COLUMN_INDEX).toString();
-                                }
-
+                    TableModel model = ((JTable) e.getSource()).getModel();
+                    java.awt.Point p = e.getPoint();
+                    int rowIndex = rowAtPoint(p);
+                    int colIndex = columnAtPoint(p);
+                    if (rowIndex >= 0 && rowIndex < model.getRowCount()) {
+                        if (colIndex == BrowseVar.TYPE_COLUMN_INDEX) { /* Scilab type */
+                            try {
+                                int type = Integer.parseInt(getValueAt(rowIndex, colIndex).toString());
+                                tip = Messages.gettext("Scilab type:") + " " + ScilabTypeEnum.swigToEnum(type);
+                            } catch (IllegalArgumentException exception) {
+                                /* If the type is not known/manage, don't crash */
                             }
-                            
-                            return tip;
+
+                        } else {
+                            if (colIndex == BrowseVar.SIZE_COLUMN_INDEX) {
+                                /* Use the getModel() method because the
+                                 * column 5 has been removed from display
+                                 * but still exist in the model */
+                                tip = Messages.gettext("Bytes:") + " " + model.getValueAt(rowIndex, BrowseVar.BYTES_COLUMN_INDEX).toString();
+                            }
+
+                        }
+                    }
+
+                    return tip;
                 }
             };
 
@@ -171,14 +173,14 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
 
         /* Size of the icon column */
         table.getColumnModel().getColumn(0).setPreferredWidth(30);
-        
+
         /* Hide the columns. But keep it in memory for the tooltip */
         TableColumn column = table.getColumnModel().getColumn(BrowseVar.FROM_SCILAB_COLUMN_INDEX);
         table.removeColumn(column);
-        
+
         column = table.getColumnModel().getColumn(BrowseVar.BYTES_COLUMN_INDEX);
         table.removeColumn(column);
-        
+
         table.addMouseListener(new BrowseVarMouseListener());
         // Mouse selection mode
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -240,7 +242,7 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
         RowFilter<Object, Object> compoundRowFilter = null;
         filters.add(rowFilter);
         filters.add(rowDataFilter);
-        compoundRowFilter = RowFilter.andFilter(filters); 
+        compoundRowFilter = RowFilter.andFilter(filters);
         rowSorter.setRowFilter(compoundRowFilter);
         table.setRowSorter(rowSorter);
 
