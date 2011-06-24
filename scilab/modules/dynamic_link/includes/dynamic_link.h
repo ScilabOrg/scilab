@@ -21,25 +21,6 @@
 #define ENTRYMAX 500
 
 /**
-* Initialize tables 
-*/
-DYNAMIC_LINK_IMPEXP void initializeLink(void);
-
-/**
-* check that a routine name is a loaded
-* if *ilib == -1 
-*    checks if routinename is a loaded
-*    entry point 
-*    the result is -1 if false 
-*    or the number in the function table 
-* 
-* @param[in] routinename
-* @param[in/out] ilib number in the function table (-1 if FALSE)
-* @return a BOOL
-*/
-DYNAMIC_LINK_IMPEXP BOOL c_link(char *routinename,int *ilib);
-
-/**
 * OBSOLETE 
 * if *ilib == -1 
 *    checks if routinename is a loaded
@@ -68,11 +49,6 @@ DYNAMIC_LINK_IMPEXP void GetDynFunc(int ii, void (**realop) ());
 DYNAMIC_LINK_IMPEXP int SearchInDynLinks(char *op, void (**realop) ());
 
 /**
-* Show the linked files 
-*/
-DYNAMIC_LINK_IMPEXP void ShowDynLinks(void);
-
-/**
 * unlink all linked files 
 */
 DYNAMIC_LINK_IMPEXP void unlinkallsharedlib(void);
@@ -90,14 +66,21 @@ DYNAMIC_LINK_IMPEXP void unlinksharedlib(int *i);
 * return value is == -1 if the LoadDynLibrary failed 
 * @param loaded_file
 */
-DYNAMIC_LINK_IMPEXP int Sci_dlopen( char *loaded_file);
+DYNAMIC_LINK_IMPEXP int Sci_dlopen(wchar_t* _pwstDynLibPath);
+
+/**
+* unload a shared library by calling FreeDynLibrary
+* return value is == 0 if the FreeDynLibrary failed 
+* @param loaded_file
+*/
+DYNAMIC_LINK_IMPEXP int Sci_dlclose(unsigned long _hLib);
 
 /**
 * This routine load the entryname ename 
 * from shared lib ishared 
 * @return TRUE or FALSE
 */
-DYNAMIC_LINK_IMPEXP BOOL Sci_dlsym(char *ename,int ishared,char *strf);
+DYNAMIC_LINK_IMPEXP BOOL Sci_dlsym(wchar_t* _pwstEntryPointName, int _iLibID, BOOL _bFortran);
 
 /**
 * Delete entry points associated with shared lib ishared
@@ -114,25 +97,15 @@ DYNAMIC_LINK_IMPEXP char **getNamesOfFunctionsInSharedLibraries(int *sizearray);
 
 /**
 * call link for scilab
-* @param idsharedlibrary
-* @param filename (dynamic library name)
-* @param subnamesarray (list of functions name in dynamic library)
-* @param sizesubnamesarray
-* @param fflag
-* @param ierr (last error)
-* @return id 
+* @param _iLibID                : Id of an existing shared lib otherwise -1
+* @param _pwstLibraryName       : Dynamic library name
+* @param _pwstEntryPointName    : List of functions name in dynamic library
+* @param _iEntryPointSize       : Size of _pwstEntryPointName
+* @param _bFortran              : Is a link on a fortran function
+* @param _piErr                 : Error Id
+* @return id                    : Dynamic Library ID
 */
-DYNAMIC_LINK_IMPEXP int scilabLink(int idsharedlibrary,
-			   char *filename,
-			   char **subnamesarray,int sizesubnamesarray,
-			   BOOL fflag,int *ierr);
-
-/**
-* get list of all Id of shared lib
-* @param size of returned list
-* @return list of Id
-*/
-DYNAMIC_LINK_IMPEXP int *getAllIdSharedLib(int *sizeList);
+DYNAMIC_LINK_IMPEXP int scilabLink(int _iLibID, wchar_t* _pwstLibraryName, wchar_t** _pwstEntryPointName, int _iEntryPointSize, BOOL _bFortran ,int *_piErr);
 
 #endif /* __DYNAMIC_LINK_H__ */
 /*-----------------------------------------------------------------------------------*/
