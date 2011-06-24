@@ -15,11 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.LogFactory;
-import org.scilab.modules.types.ScilabDouble;
-import org.scilab.modules.types.ScilabList;
-import org.scilab.modules.xcos.Xcos;
-import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.BasicPort.Type;
 import org.scilab.modules.xcos.port.command.CommandPort;
@@ -28,7 +23,6 @@ import org.scilab.modules.xcos.port.input.ExplicitInputPort;
 import org.scilab.modules.xcos.port.input.ImplicitInputPort;
 import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
 import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
-import org.scilab.modules.xcos.utils.BlockPositioning;
 
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
@@ -85,10 +79,6 @@ public final class SplitBlock extends BasicBlock {
 		setInterfaceFunctionName("SPLIT_f");
 		setStyle(getInterfaceFunctionName());
 		setSimulationFunctionName("lsplit");
-		setRealParameters(new ScilabDouble());
-		setIntegerParameters(new ScilabDouble());
-		setObjectsParameters(new ScilabList());
-		setExprs(new ScilabDouble());
 	}
 
 	/**
@@ -96,6 +86,7 @@ public final class SplitBlock extends BasicBlock {
 	 * 
 	 * @param child the port to add
 	 * @param index index where to put the child
+	 * @return the inserted cell
 	 */
 	@Override
 	public mxICell insert(mxICell child, int index) {
@@ -108,7 +99,7 @@ public final class SplitBlock extends BasicBlock {
 	 */
 	@SuppressWarnings("unchecked")
 	public BasicPort getIn() {
-		return getChild(0, Arrays.asList(ExplicitInputPort.class,ImplicitInputPort.class, ControlPort.class), 1);
+		return getChild(0, Arrays.asList(ExplicitInputPort.class, ImplicitInputPort.class, ControlPort.class), 1);
 	}
 
 	/**
@@ -134,13 +125,13 @@ public final class SplitBlock extends BasicBlock {
 	 * @param ordering the ordering of the port
 	 * @return the found port or null.
 	 */
-	private BasicPort getChild(int startIndex, List<Class<? extends BasicPort>> kind, int ordering) {
+	private BasicPort getChild(int startIndex, List<Class< ? extends BasicPort>> kind, int ordering) {
 		final int size = children.size();
 
 		int loopCount = size;
 		for (int i = startIndex; loopCount > 0; i = (i + 1) % size, loopCount--) {
 			Object child = children.get(i);
-			for (Class<? extends BasicPort> klass : kind) {
+			for (Class< ? extends BasicPort> klass : kind) {
 				if (klass.isInstance(child)) {
 					BasicPort port = klass.cast(child);
 
@@ -153,29 +144,6 @@ public final class SplitBlock extends BasicBlock {
 		}
 		LogFactory.getLog(SplitBlock.class).error("Unable to find a child.");
 		return null;
-	}
-
-	/**
-	 * delete split block child before delete
-	 */
-	public void unlinkAndClean() {
-		XcosDiagram graph = getParentDiagram();
-		if (graph == null) {
-			setParentDiagram(Xcos.findParent(this));
-			graph = getParentDiagram();
-			LogFactory.getLog(getClass()).error("Parent diagram was null");
-		}
-		
-		Object[] objs = graph.getAllEdges(
-				new Object[] {getChildAt(0), getChildAt(1), getChildAt(2)});
-		getParentDiagram().getModel().beginUpdate();
-		for (Object obj : objs) {
-			if (obj instanceof BasicLink) {
-				BasicLink link = (BasicLink) obj;
-				graph.getModel().remove(link);
-			}
-		}
-		graph.getModel().endUpdate();
 	}
 
 	/**
