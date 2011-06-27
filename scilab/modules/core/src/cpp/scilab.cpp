@@ -116,6 +116,7 @@ using std::string;
 
 void Add_i(void);
 void Add_pi(void);
+void Add_eps(void);
 void Add_s(void);
 void Add_z(void);
 void Add_true(void);
@@ -671,6 +672,7 @@ int InitializeEnvironnement(void)
 void Add_All_Variables(void)
 {
     Add_pi();
+    Add_eps();
     Add_i();
     Add_s();
     Add_z();
@@ -713,6 +715,17 @@ void Add_true(void)
 void Add_pi(void)
 {
     Add_Double_Constant(L"%pi", 3.1415926535897931159980, 0, false);
+}
+
+void Add_eps(void)
+{
+    double epsilon = 1.0;
+    do
+    {
+       epsilon /= 2.0;
+    }
+    while ((double)(1.0 + (epsilon/2.0)) != 1.0);
+    Add_Double_Constant(L"%eps", epsilon, 0, false);
 }
 
 void Add_i(void)
