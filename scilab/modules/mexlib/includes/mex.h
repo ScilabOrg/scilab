@@ -52,11 +52,7 @@ extern "C" {
     void C2F(mexprintf)(char *error_msg, int len);
 
     /* mexPutFull: NOT IN MATLAB API - V4 compatible */
-    /** Put a matrix in Scilab Workspace */
-    // FIXME
-//#define mexPutFull(name,m,n,ptrM,tag)                                 \
-//    if ( ! C2F(cwritemat)(name,(c_local=m,&c_local),(c1_local=n,&c1_local),ptrM,strlen(name))) { \
-//        mexErrMsgTxt(_("mexPutFull failed\n"));return; }
+    int mexPutFull(char *name, int m, int n, double *pr, double *pi);
 
     /* prototypes */
 

@@ -50,8 +50,9 @@
 #include <limits>
 
 #include "yaspio.hxx"
-
 #include "context.hxx"
+#include "symbol.hxx"
+#include "call_scilab.h"
 
 #include "types.hxx"
 #include "int8.hxx"
@@ -414,7 +415,7 @@ void *mxGetImagData(const mxArray *ptr)
 
 void mexErrMsgTxt(const char *error_msg)
 {
-    // FIXME: Try to use ScilabException.
+    throw new ast::ScilabException(error_msg);
 }
 
 void mxAssert(int expr, char *error_message)
@@ -543,13 +544,6 @@ mxChar *mxGetChars(mxArray *array_ptr)
     }
     wchar_t *chars = ((types::String *) array_ptr)->get(0);
     return (mxChar *) chars;
-}
-
-
-int IsReference(mxArray *array_ptr)
-{
-    // FIXME
-    return 0;
 }
 
 mxArray *mxCreateNumericArray(int ndim, const int *dims, mxClassID CLASS, mxComplexity complexFlag)
@@ -787,11 +781,21 @@ void mxFreeMatrix(mxArray *ptr)
 }
 
 bool mexIsGlobal(const mxArray *ptr)
-{
+ {
     // FIXME
-    return false;
+    // TODO: really need iterate in symbols?
+    symbol::Context *context = symbol::Context::getInstance();
+    int size = symbol::Symbol::map_size();
+    wchar_t **keys = symbol::Symbol::get_all();
+    for (int i = 0; i < size; i++) {
+        symbol::Symbol *s = new symbol::Symbol(keys[i]);
+        types::InternalType *value = context->get(*s);
+        if (value == (types::InternalType *) ptr) {
+            return context->isGlobalVisible(*s);
+        }
+    }
+     return false;
 }
-
 
 mxArray *mxDuplicateArray(const mxArray *ptr)
 {
@@ -799,16 +803,47 @@ mxArray *mxDuplicateArray(const mxArray *ptr)
     return (mxArray *) newPtr;
 }
 
-mxArray *UnrefStruct(mxArray *ptr)
-{
-    // FIXME
-    return NULL;
-}
-
 void mxDestroyArray(mxArray *ptr)
 {
-    /* No need */
-    // FIXME: is it true?
+    if (mxIsDouble(ptr)) {
+        delete ((types::Double *) ptr);
+    }
+    if (mxIsChar(ptr)) {
+        delete ((types::String *) ptr);
+    }
+    if (mxIsSparse(ptr)) {
+        // TODO: sparse
+    }
+    if (mxIsInt8(ptr)) {
+        delete ((types::Int8 *) ptr);
+    }
+    if (mxIsInt16(ptr)) {
+        delete ((types::Int16 *) ptr);
+    }
+    if (mxIsInt32(ptr)) {
+        delete ((types::Int32 *) ptr);
+    }
+    if (mxIsInt64(ptr)) {
+        delete ((types::Int64 *) ptr);
+    }
+    if (mxIsUint8(ptr)) {
+        delete ((types::UInt8 *) ptr);
+    }
+    if (mxIsUint16(ptr)) {
+        delete ((types::UInt16 *) ptr);
+    }
+    if (mxIsUint32(ptr)) {
+        delete ((types::UInt32 *) ptr);
+    }
+    if (mxIsUint64(ptr)) {
+        delete ((types::UInt64 *) ptr);
+    }
+    if (mxIsCell(ptr)) {
+        delete ((types::Cell *) ptr);
+    }
+    if (mxIsStruct(ptr)) {
+        delete ((types::Struct *) ptr);
+    }
 }
 
 void mxFree(void *ptr)
@@ -819,7 +854,6 @@ void mxFree(void *ptr)
 int mexAtExit(mxArray *ptr)
 {
     // FIXME
-    /* XXXXX To be done....*/
     return 0;
 }
 
@@ -868,7 +902,7 @@ bool mxIsLogicalScalar(mxArray *pa)
   in Scilab window
 */
 
-void mexPrintf (const char *fmt, ...)
+void mexPrintf(const char *fmt, ...)
 {
     va_list args;
     char buf[2048];
@@ -898,8 +932,13 @@ int mexCallMATLAB(int nlhs, mxArray **plhs, int nrhs, mxArray **prhs, const char
 
 int mxCalcSingleSubscript(const mxArray *ptr, int nsubs, const int *subs)
 {
-    // FIXME
-    return 0;
+    int retval = 0, coeff = 1;
+    int *dims = mxGetDimensions(ptr);
+    for  (int i = 0; i < nsubs; i++) {
+        retval += subs[i] * coeff;
+        coeff *= dims[i];
+    }
+    return retval;
 }
 
 int C2F(mexcallscilab)(int *nlhs, mxArray **plhs, int *nrhs, mxArray **prhs, char *name, int namelen)
@@ -915,7 +954,45 @@ const char *mexFunctionName(void)
 
 int mxGetElementSize(const mxArray *ptr)
 {
-    // FIXME
+    if (mxIsDouble(ptr)) {
+        return sizeof(types::Double *);
+    }
+    if (mxIsChar(ptr)) {
+        return sizeof(types::String *);
+    }
+    if (mxIsSparse(ptr)) {
+        // TODO: sparse
+    }
+    if (mxIsInt8(ptr)) {
+        return sizeof(types::Int8 *);
+    }
+    if (mxIsInt16(ptr)) {
+        return sizeof(types::Int16 *);
+    }
+    if (mxIsInt32(ptr)) {
+        return sizeof(types::Int32 *);
+    }
+    if (mxIsInt64(ptr)) {
+        return sizeof(types::Int64 *);
+    }
+    if (mxIsUint8(ptr)) {
+        return sizeof(types::UInt8 *);
+    }
+    if (mxIsUint16(ptr)) {
+        return sizeof(types::UInt16 *);
+    }
+    if (mxIsUint32(ptr)) {
+        return sizeof(types::UInt32 *);
+    }
+    if (mxIsUint64(ptr)) {
+        return sizeof(types::UInt64 *);
+    }
+    if (mxIsCell(ptr)) {
+        return sizeof(types::Cell *);
+    }
+    if (mxIsStruct(ptr)) {
+        return sizeof(types::Struct *);
+    }
     return 0;
 }
 
@@ -930,28 +1007,22 @@ mxArray *mxCreateCharMatrixFromStrings(int m, const char **str)
     return (mxArray *) ptr;
 }
 
-int mexEvalString(const char *name)
+int mexEvalString(const char *command)
 {
-    // FIXME : Better use directly YaSp engine here.
-    // double *val ;
-    // int rep;
-    // mxArray *ppr[3];mxArray *ppl[1];
-    // int nlhs;     int nrhs;
-    // ppr[0] = mxCreateString(name);
-    // ppr[1] = mxCreateString("errcatch");
-    // ppr[2] = mxCreateString("m");
-    // nrhs=3;nlhs=1;
-    // rep = mexCallSCI(nlhs, ppl, nrhs, ppr, "execstr",0);
-    // /* check returned value */
-    // val = mxGetPr(ppl[0]);
-    // mxFreeMatrix(ppl[0]);
-    // mxFreeMatrix(ppr[2]);
-    // mxFreeMatrix(ppr[1]);
-    // mxFreeMatrix(ppr[0]);
-    // if ( rep == 1 || (int) (*val) != 0 )
-    // {
-    //     errjump();
-    // }
+    #ifdef _MSC_VER
+        if (StartScilab(NULL, NULL, NULL) == FALSE)
+    #else
+        if (StartScilab(getenv("SCI"), NULL, NULL) == FALSE)
+    #endif
+    {
+        mexErrMsgTxt("Error while calling StartScilab\n");
+        return -1;
+    }
+    SendScilabJob((char *) command);
+    if (TerminateScilab(NULL) == FALSE) {
+        mexErrMsgTxt("Error while calling TerminateScilab\n");
+        return -2;
+    }
     return 0;
 }
 
@@ -1011,12 +1082,20 @@ int mexPutVariable(const char *workspace, char *var_name, mxArray *array_ptr)
     return NULL;
 }
 
+int mexPutFull(char *name, int m, int n, double *pr, double *pi) {
+    mxArray *array_ptr = mxCreateDoubleMatrix(m, n, pi == NULL ? mxREAL : mxCOMPLEX);
+    mxSetPr(array_ptr, pr);
+    mxSetPi(array_ptr, pi);
+    mexPutVariable("caller", name, array_ptr);
+    return 0;
+}
+
 void mxSetName(mxArray *array_ptr, const char *name)
 {
     /* obsolete */
     // FIXME
     mexErrMsgTxt(_("Routine mxSetName not implemented !\n"));
-    exit(1);  /* TO BE DONE */
+    exit(1);
 }
 
 void mxSetData(mxArray *array_ptr, void *data_ptr)
@@ -1073,7 +1152,7 @@ const char *mxGetName(const mxArray *array_ptr)
     // FIXME
     mexPrintf(_("Routine mxGetName not implemented.\n"));
     exit(1);
-	return 0;
+    return 0;
 }
 
 int mxSetDimensions(mxArray *array_ptr, const int *dims, int ndim)
