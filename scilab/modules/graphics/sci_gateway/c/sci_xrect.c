@@ -29,14 +29,16 @@
 
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
+#include "CurrentFigure.h"
+#include "CurrentSubwin.h"
 
 /*--------------------------------------------------------------------------*/
 int sci_xrect( char *fname, unsigned long fname_len )
 {
   long hdl;
   int m1,n1,l1,m2,n2,l2,m3,n3,l3,m4,n4,l4;
-  sciPointObj * psubwin = NULL;
-  sciPointObj * pFigure = NULL;
+  char* psubwinUID = NULL;
+  char* pfigureUID = NULL;
 
   int foreground = 0;
   int *piForeground = &foreground;
@@ -48,8 +50,8 @@ int sci_xrect( char *fname, unsigned long fname_len )
   startGraphicDataWriting();
 #endif
 
-  pFigure = sciGetCurrentFigure();
-  psubwin = sciGetCurrentSubWin();
+  pfigureUID = getCurrentFigure();
+  psubwinUID = getCurrentSubWin();
 
     /* Deactivated (synchronization) */
 #if 0
@@ -67,7 +69,7 @@ int sci_xrect( char *fname, unsigned long fname_len )
     startFigureDataWriting(pFigure);
 #endif
 
-    getGraphicObjectProperty(psubwin->UID, __GO_LINE_COLOR__, jni_int, &piForeground);
+    getGraphicObjectProperty(psubwinUID, __GO_LINE_COLOR__, jni_int, &piForeground);
 
     if (strcmp(fname,"xrect")==0)
     {
@@ -107,7 +109,7 @@ int sci_xrect( char *fname, unsigned long fname_len )
       endFigureDataReading(pFigure);
 #endif
 
-      getGraphicObjectProperty(psubwin->UID, __GO_LINE_COLOR__, jni_int, &piForeground);
+      getGraphicObjectProperty(psubwinUID, __GO_LINE_COLOR__, jni_int, &piForeground);
 
       GetRhsVar(1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l1); CheckScalar(1,m1,n1);
       GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m2,&n2,&l2); CheckScalar(2,m2,n2);
