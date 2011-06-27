@@ -1,24 +1,11 @@
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO
+//
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution.  The terms
-// are also available at
+// are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-
-// 'syredi' unit tests
-
-test_path = pathconvert(SCI + '/modules/signal_processing/tests/unit_tests');
-
-// requires test_utilities.sci
-exec(test_path + 'test_utilities.sci');
-
-// ****************************************************************
-// * Part I: defining the tests                                   *
-// * Part II: performing the tests                                *
-// ****************************************************************
-//  This file is distributed under the same license as the Scilab package.
-// =============================================================================
-
-// **** Part I: defining the tests ****
 
 // old tests wrapped
 function test_syredi_old()
@@ -37,7 +24,8 @@ if or(size(zpoles)<>[1 5]) then pause,end;
 endfunction
 
 function test_syredi_new()
-load(test_path + 'syredi.dat', 'fact1_ref', 'b21_ref', 'b11_ref', 'b01_ref', 'c11_ref', 'c01_ref', 'zzeros1_ref', 'zpoles1_ref', 'fact2_ref', 'b22_ref', 'b12_ref', 'b02_ref', 'c12_ref', 'c02_ref', 'zzeros2_ref', 'zpoles2_ref');
+//load(test_path + 'syredi.dat', 'fact1_ref', 'b21_ref', 'b11_ref', 'b01_ref', 'c11_ref', 'c01_ref', 'zzeros1_ref', 'zpoles1_ref', 'fact2_ref', 'b22_ref', 'b12_ref', 'b02_ref', 'c12_ref', 'c02_ref', 'zzeros2_ref', 'zpoles2_ref');
+import_from_hdf5(test_path+"syredi.h5");
 [fact1, b21, b11, b01, c11, c01, zzeros1, zpoles1] = syredi(1, 4, [1, 2, 0, 0], 0.02, 0.001);
 check(list(fact1, b21, b11, b01, c11, c01, zzeros1, zpoles1), list(fact1_ref,b21_ref,b11_ref,b01_ref,c11_ref,c01_ref,zzeros1_ref,zpoles1_ref));
 [fact2, b22, b12, b02, c12, c02, zzeros2, zpoles2] = syredi(3, 4, [1, 2, 3, 3.01], 0.1, 0.001);

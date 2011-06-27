@@ -68,25 +68,34 @@ src/fortran/desi00.f \
 src/fortran/desi21.f \
 src/fortran/dfftmx.f
 
+GATEWAY_CPP_SOURCES =   sci_gateway/cpp/signal_gw.cpp \
+                        sci_gateway/cpp/sci_rpem.cpp
+
 GATEWAY_C_SOURCES = sci_gateway/c/sci_remez.c \
-sci_gateway/c/sci_rpem.c \
-sci_gateway/c/sci_corr.c \
-sci_gateway/c/sci_amell.c \
-sci_gateway/c/gw_signal.c \
-sci_gateway/c/sci_delip.c \
-sci_gateway/c/sci_fft.c \
-sci_gateway/c/sci_syredi.c
+                    sci_gateway/c/sci_corr.c \
+                    sci_gateway/c/sci_amell.c \
+                    sci_gateway/c/gw_signal.c \
+                    sci_gateway/c/sci_delip.c \
+                    sci_gateway/c/sci_fft.c \
+                    sci_gateway/c/sci_syredi.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/bgetx.f \
-sci_gateway/fortran/bgety.f \
-sci_gateway/fortran/Ex-corr.f
+GATEWAY_FORTRAN_SOURCES =   sci_gateway/fortran/bgetx.f \
+                            sci_gateway/fortran/bgety.f \
+                            sci_gateway/fortran/Ex-corr.f
 
-libscisignal_processing_la_CFLAGS=  	-I$(srcdir)/includes/ \
-					-I$(top_srcdir)/modules/output_stream/includes \
-					-I$(top_srcdir)/modules/dynamic_link/includes \
-					-I$(top_srcdir)/modules/api_scilab/includes \
-					-I$(top_srcdir)/modules/statistics/includes \
-					-I$(top_srcdir)/modules/operations/includes
+libscisignal_processing_la_CFLAGS=  -I$(srcdir)/includes/ \
+                                    -I$(top_srcdir)/modules/output_stream/includes \
+                                    -I$(top_srcdir)/modules/dynamic_link/includes \
+                                    -I$(top_srcdir)/modules/api_scilab/includes \
+                                    -I$(top_srcdir)/modules/statistics/includes \
+                                    -I$(top_srcdir)/modules/operations/includes
+
+libscisignal_processing_la_CPPFLAGS=    -I$(srcdir)/includes/ \
+                                        -I$(top_srcdir)/modules/output_stream/includes \
+                                        -I$(top_srcdir)/modules/types/includes \
+                                        -I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+                                        -I$(top_srcdir)/modules/functions_manager/includes \
+                                        -I$(top_srcdir)/modules/symbol/includes
 
 pkglib_LTLIBRARIES = libscisignal_processing.la
 noinst_LTLIBRARIES = libscisignal_processing-algo.la
@@ -94,14 +103,14 @@ noinst_LTLIBRARIES = libscisignal_processing-algo.la
 libscisignal_processing_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
 
 libscisignal_processing_algo_la_SOURCES = $(SIGNAL_PROCESSING_FORTRAN_SOURCES) $(SIGNAL_PROCESSING_C_SOURCES)
-libscisignal_processing_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES)
+libscisignal_processing_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscisignal_processing_algo_la_CFLAGS = $(libscisignal_processing_la_CFLAGS)
 
 # For the code check (splint)
 CHECK_SRC= $(SIGNAL_PROCESSING_C_SOURCES) $(GATEWAY_C_SOURCES)
 INCLUDE_FLAGS = $(libscisignal_processing_la_CFLAGS)
 
-libscisignal_processing_la_LIBADD = libscisignal_processing-algo.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/dynamic_link/libscidynamic_link.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la  $(top_builddir)/modules/output_stream/libscioutput_stream.la
+libscisignal_processing_la_LIBADD = libscisignal_processing-algo.la $(top_builddir)/modules/elementary_functions/libscielementary_functions.la $(top_builddir)/modules/dynamic_link/libscidynamic_link.la $(top_builddir)/modules/arnoldi/libsciarnoldi.la $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 #### Target ######
 modulename=signal_processing
