@@ -42,14 +42,16 @@ endfunction
 
 function test_fft_1d()
 // TODO: add checks for reverse fft
-load(test_path + 'fft_1dim.dat', 'y_ref');
+//load(test_path + 'fft_1dim.dat', 'y_ref');
+import_from_hdf5(test_path+"fft_1dim.h5");
 a = [1 2 3 4 5 6 7 8 9 10 11 12];
 check(fft(a), y_ref);
 endfunction
 
 function test_fft_2d()
 // TODO: add checks for reverse fft
-load(test_path + 'fft_2dim.dat', 'y1_ref', 'y2_ref', 'y3_ref', 'y4_ref');
+//load(test_path + 'fft_2dim.dat', 'y1_ref', 'y2_ref', 'y3_ref', 'y4_ref');
+import_from_hdf5(test_path+"fft_2dim.h5");
 // rows number and cols number power of 2
 a1 = [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16];
 check(y1_ref, fft(a1));
@@ -67,7 +69,8 @@ endfunction
 function test_fft_ndim()
 // these tests may be improperly tailored...
 // TODO: add tests for forward fft
-load(test_path + 'fft_ndim.dat', 'y1_ref', 'y2_ref', 'y3_ref');
+//load(test_path + 'fft_ndim.dat', 'y1_ref', 'y2_ref', 'y3_ref');
+import_from_hdf5(test_path+"fft_ndim.h5");
 a1 = [1 2 3 4 5 6 7 8 9 10 11 12];
 check(y1_ref, fft(a1, -1, 3, 2));
 a2 = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30];
