@@ -59,7 +59,7 @@ GRAPHICS_IMPEXP char * ConstructText (char * pparentsubwinUID, char ** text, int
                                     BOOL isboxed, BOOL isline, BOOL isfilled, sciTextAlignment align ) ;
 
 
-GRAPHICS_IMPEXP sciPointObj *ConstructLegend (sciPointObj * pparentfigure, char *text[], long long tabofhandles[],
+GRAPHICS_IMPEXP char *ConstructLegend (char * pparentsubwinUID, char *text[], long long tabofhandles[],
 				     int nblegends);  /* BUILD */
 
 GRAPHICS_IMPEXP char *ConstructPolyline (char* pparentsubwinUID, double *pvecx, double *pvecy, double *pvecz,
