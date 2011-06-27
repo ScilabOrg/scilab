@@ -10,12 +10,14 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  */
 
-#include "api_scilab.h"
 #include "gw_signal.h"
 #include "stack-c.h"
 #include "MALLOC.h"
 #include "Scierror.h"
 #include "localization.h"
+
+#include "api_scilab.h"
+#include "api_oldstack.h"
 
 extern void C2F(delip)(int *length,
 		       double *output_real, double *output_imaginary,

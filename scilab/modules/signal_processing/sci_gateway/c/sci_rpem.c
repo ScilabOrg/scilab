@@ -11,12 +11,15 @@
  *
  */
 
-#include "api_scilab.h"
 #include "gw_signal.h"
 #include "MALLOC.h"
 #include "stack-c.h"
 #include "Scierror.h"
 #include "localization.h"
+
+#include "api_scilab.h"
+#include "api_oldstack.h"
+#include "api_common.h"
 
 extern void C2F(rpem)(double theta[], double p[],
 		      int *order,
@@ -34,7 +37,7 @@ int sci_rpem(char *fname, int* _piKey)
   double lambda = 0.950l, alpha = 0.990l, beta = 0.01l, kappa = 0.000l, mu = 0.980l, nu = 0.020l, c = 1000.0l;
   int rows, cols, type, order, dimension, istab2, u_length, i;
   int *arg, *it, *res;
-
+    SciErr scierr;
 
   /*** arguments capture ***/
 
@@ -43,7 +46,10 @@ int sci_rpem(char *fname, int* _piKey)
 
   /* arg1: w0 = list(theta, p, l, phi, psi) */
   getVarAddressFromPosition(_piKey, 1, &arg);
-  getListItemNumber(_piKey, arg, &rows);
+  scierr =  getListItemNumber(_piKey, arg, &rows);
+    if(scierr.iErr != 0)
+        printf("err : %d\n",scierr.iErr);
+printf("rows : %d\n",rows);
 	getVarType(_piKey, arg, &type);
   if (type != sci_list || rows != 5) {
     Scierror(999, _("%s: Wrong size for input argument #%d: %d-element list expected.\n"), fname, 1, 5);

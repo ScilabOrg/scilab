@@ -18,18 +18,30 @@ end
 endfunction
 
 // overload minus operator for lists
-deff('x = %l_s_l(l1,l2)', 'x = list_substract(l1,l2)');
-
-// absolute value on lists
-function r=list_abs(l)
-r=list()
-for i=1:length(l)
-  r(i) = abs(l(i))
-end
+//deff('x = %l_s_l(l1,l2)', 'x = list_substract(l1,l2)');
+function  x = %l_s_l(l1,l2)
+    x = list_substract(l1,l2)
 endfunction
 
+
+// absolute value on lists
+//function r=list_abs(l)
+//r=list()
+//for i=1:length(l)
+//  r(i) = abs(l(i))
+//end
+//endfunction
+
 // overload absolute value on lists
-deff('y = %l_abs(x)', 'y = list_abs(x)');
+//deff('y = %l_abs(x)', 'y = list_abs(x)');
+
+//function  y = %l_abs(x)
+function y=list_abs(x)
+y=list()
+for i=1:length(x)
+    y = abs(x(i))
+end
+endfunction
 
 // overall maximum on structured objects
 // list(list(1,2,3),list(2,list(7,11),4)) -> 11
@@ -56,7 +68,7 @@ function r=match(a,b,epsilon)
 if ~isdef('epsilon') then
   epsilon = %eps;
 end
-r = (list_max(abs(a-b)) <= 2*epsilon);
+r = (list_max(list_abs(a-b)) <= 2*epsilon);
 endfunction
 
 // because of test mechanism restrictions...
