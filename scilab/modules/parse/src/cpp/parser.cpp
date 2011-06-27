@@ -140,6 +140,7 @@ void ParserSingleInstance::parse(char *command)
     char* pstTmpDIr = getTMPDIR();
     sprintf(szFile, "%s\\%s", pstTmpDIr, "command.temp");
     FREE(pstTmpDIr);
+	fclose(yyin);
 	fopen_s(&yyin, szFile, "w");
 	fwrite(command, sizeof(char), strlen(command), yyin);
 	fclose(yyin);
@@ -148,10 +149,10 @@ void ParserSingleInstance::parse(char *command)
 
 #ifdef __APPLE__
 	char szFile[PATH_MAX];
-    char* pstTmpDIr = "/tmp";
-    //char* pstTmpDIr = NSTemporaryDirectory();
+    char* pstTmpDIr = getTMPDIR();
     sprintf(szFile, "%s/%s", pstTmpDIr, "command.temp");
-    // FREE(pstTmpDIr);
+    FREE(pstTmpDIr);
+	fclose(yyin);
 	yyin = fopen(szFile, "w");
 	fwrite(command, 1, strlen(command), yyin);
 	fclose(yyin);
@@ -173,7 +174,7 @@ void ParserSingleInstance::parse(char *command)
 
     yyparse();
 
-    fclose(yyin);
+    //fclose(yyin);
 #ifdef _MSC_VER
 	DeleteFileA(szFile);
 #endif
