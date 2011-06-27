@@ -18,7 +18,7 @@ if max(abs(y - [0.500 0.852 0.000 0.000])) > 0.001 then pause, end
 nc=21;
 ngrid=nc*250;
 fgrid=.5*(0:(ngrid-1))/(ngrid-1);
-mag(1:ngrid/2)=ones(1:ngrid/2);
+mag=ones(1:ngrid/2);
 mag(ngrid/2+1:ngrid)=0*ones(1:ngrid/2);
 weight=ones(fgrid);
 guess=round(1:ngrid/nc:ngrid);
