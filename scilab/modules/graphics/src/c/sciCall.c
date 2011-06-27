@@ -44,6 +44,7 @@
 #include "setGraphicObjectProperty.h"
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
+
 #include "CurrentFigure.h"
 #include "CurrentSubwin.h"
 #include "CurrentObject.h"
@@ -73,31 +74,31 @@ void Objrect ( double * x         ,
                BOOL     isline    ,
                long   * hdl       )
 {
-// ???
-#if 0
-  sciPointObj * newObj = NULL;
-  sciPointObj *psubwin;
-  sciPointObj * pFigure = sciGetCurrentFigure();
+    char* newObjUID = NULL;
+    char* psubwinUID = NULL;
+    char* pFigureUID = NULL;
 
-  psubwin = sciGetCurrentSubWin();
-  /* check if the auto_clear property is on and then erase everything */
-  checkRedrawing();
-  newObj = ConstructRectangle(psubwin ,*x,*y,*height, *width,
+    pFigureUID = getCurrentFigure();
+    psubwinUID = getCurrentSubWin();
+
+    /* check if the auto_clear property is on and then erase everything */
+    checkRedrawing();
+    newObjUID = ConstructRectangle(psubwinUID ,*x,*y,*height, *width,
                               foreground, background, isfilled, isline);
 
-  if ( newObj == NULL )
-  {
-    /* Deactivated for now (synchronization) */
-    endFigureDataWriting(pFigure);
-    /* an error occured */
-
-    *hdl = -1;
-    return;
-  }
-
-  sciSetCurrentObj( newObj );
-  *hdl=sciGetHandle( newObj );
+    if (newObjUID == NULL)
+    {
+        /* Deactivated for now (synchronization) */
+#if 0
+        endFigureDataWriting(pFigure);
 #endif
+        /* an error occured */
+        *hdl = -1;
+        return;
+    }
+
+    setCurrentObject(newObjUID);
+    *hdl = getHandle(newObjUID);
 }
 
 
