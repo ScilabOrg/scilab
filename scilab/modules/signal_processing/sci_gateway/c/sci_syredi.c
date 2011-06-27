@@ -11,13 +11,15 @@
  *
  */
 
-#include "api_scilab.h"
 #include "gw_signal.h"
 #include "MALLOC.h"
 #include "stack-c.h"
 #include "Scierror.h"
 #include "localization.h"
 #include <math.h>
+
+#include "api_scilab.h"
+#include "api_oldstack.h"
 
 extern void C2F(syredi)(int *maxdeg, int *ityp, int *iapro,
 			double *om, double *adelp, double *adels,
