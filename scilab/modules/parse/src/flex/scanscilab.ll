@@ -21,16 +21,20 @@ static std::string program_name;
 
 static std::string *pstBuffer;
 
- static bool rejected = false;
+static bool rejected = false;
 
 #define YY_USER_ACTION                          \
  yylloc.last_column += yyleng;
+
 /* -*- Verbose Special Debug -*- */
 //#define DEV
 //#define TOKENDEV
 
-//#define DEBUG(x) std::cout << "[DEBUG] " << x << std::endl;
+#ifdef DEV
+#define DEBUG(x) std::cout << "[DEBUG] " << x << std::endl;
+#else
 #define DEBUG(x) /* Nothing */
+#endif
 
 %}
 
@@ -327,6 +331,10 @@ assign			"="
         BEGIN(BEGINID);
 }
 
+<INITIAL><<EOF>> {
+    yyterminate();
+}
+
 <BEGINID>
 {
     {id}                        {
@@ -338,7 +346,6 @@ assign			"="
             str += "' to UTF-8";
             exit_status = SCAN_ERROR;
             scan_error("can not convert string to UTF-8");
-            yyterminate();
         }
         yylval.str = new std::wstring(pwText);
         if (symbol::Context::getInstance()->get(*new symbol::Symbol(*yylval.str)) != NULL
@@ -573,7 +580,6 @@ assign			"="
         str += "' to UTF-8";
         exit_status = SCAN_ERROR;
         scan_error("can not convert string to UTF-8");
-        yyterminate();
     }
     yylval.str = new std::wstring(pwText);
 #ifdef TOKENDEV
@@ -600,6 +606,7 @@ assign			"="
 
 <INITIAL,MATRIX,SHELLMODE>{dquote}		{
   pstBuffer = new std::string();
+  DEBUG("dquote => yy_push_state(DOUBLESTRING)");
   yy_push_state(DOUBLESTRING);
 }
 
@@ -673,7 +680,6 @@ assign			"="
     str += "'";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yyterminate();
 }
 
 
@@ -806,7 +812,6 @@ assign			"="
     str += "' within a matrix.";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yyterminate();
   }
 
   {next}{spaces}*{newline}          {
@@ -890,7 +895,6 @@ assign			"="
         str += "' to UTF-8";
         exit_status = SCAN_ERROR;
         scan_error("can not convert string to UTF-8");
-        yyterminate();
     }
     yylval.str = new std::wstring(pwText);
 #ifdef TOKENDEV
@@ -910,7 +914,6 @@ assign			"="
     str += "' within a matrix.";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yyterminate();
   }
 }
 
@@ -948,8 +951,6 @@ assign			"="
     str += "' after line break with .. or ...";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 }
 
@@ -981,7 +982,6 @@ assign			"="
             str += "' to UTF-8";
             exit_status = SCAN_ERROR;
             scan_error("can not convert string to UTF-8");
-            yyterminate();
         }
         yylval.comment = new std::wstring(pwstBuffer);
         delete pstBuffer;
@@ -1000,7 +1000,6 @@ assign			"="
         str += "' to UTF-8";
         exit_status = SCAN_ERROR;
         scan_error("can not convert string to UTF-8");
-        yyterminate();
     }
     yylval.comment = new std::wstring(pwstBuffer);
     delete pstBuffer;
@@ -1048,8 +1047,6 @@ assign			"="
     std::string str = "unexpected end of file in a comment";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 }
 
@@ -1083,7 +1080,6 @@ assign			"="
         str += "' to UTF-8";
         exit_status = SCAN_ERROR;
         scan_error("can not convert string to UTF-8");
-        yyterminate();
     }
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
@@ -1095,8 +1091,6 @@ assign			"="
     std::string str = "Heterogeneous string detected, starting with ' and ending with \".";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 
   {next}{newline}           {
@@ -1109,16 +1103,12 @@ assign			"="
     scan_error(str);
     yylloc.last_line += 1;
     yylloc.last_column = 1;
-    yy_pop_state();
-    yyterminate();
   }
 
   <<EOF>>					{
     std::string str = "unexpected end of file in a string.";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 
   .						{
@@ -1157,7 +1147,6 @@ assign			"="
         str += "' to UTF-8";
         exit_status = SCAN_ERROR;
         scan_error("can not convert string to UTF-8");
-        yyterminate();
     }
     yylval.str = new std::wstring(pwstBuffer);
     delete pstBuffer;
@@ -1169,8 +1158,6 @@ assign			"="
     std::string str = "Heterogeneous string detected, starting with \" and ending with '.";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 
   {next}{newline}           {
@@ -1183,20 +1170,17 @@ assign			"="
     scan_error(str);
     yylloc.last_line += 1;
     yylloc.last_column = 1;
-    yyterminate();
   }
 
   <<EOF>>   {
     std::string str = "unexpected end of file in a string";
     exit_status = SCAN_ERROR;
     scan_error(str);
-    yy_pop_state();
-    yyterminate();
   }
 
   .         {
-    scan_step();
-    *pstBuffer += yytext;
+   scan_step();
+   *pstBuffer += yytext;
   }
 }
 
@@ -1257,12 +1241,15 @@ void scan_step() {
 
 void scan_error(std::string msg)
 {
-  wchar_t* pstMsg = to_wide_string(msg.c_str());
+    wchar_t* pstMsg = to_wide_string(msg.c_str());
 
-  //std::wcerr << pstMsg << std::endl;
-  ParserSingleInstance::PrintError(pstMsg);
-  ParserSingleInstance::setExitStatus(Parser::Failed);
-  FREE(pstMsg);
+    //std::wcerr << pstMsg << std::endl;
+    ParserSingleInstance::PrintError(pstMsg);
+    ParserSingleInstance::setExitStatus(Parser::Failed);
+    ParserSingleInstance::resetControlStatus();
+    FREE(pstMsg);
+    last_token = YYEOF;
+    BEGIN(INITIAL);
 }
 
 /*
