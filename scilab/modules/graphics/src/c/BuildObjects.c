@@ -1088,6 +1088,7 @@ char* allocatePolyline(char* pparentsubwinUID, double *pvecx, double *pvecy, dou
      * Initializes the contour properties (background, foreground, etc)
      * to the default values (those of the parent Axes).
      */
+    cloneGraphicContext(pparentsubwinUID, pobjUID);
 
     // FIXME ???
     //sciInitGraphicContext(pobj);
