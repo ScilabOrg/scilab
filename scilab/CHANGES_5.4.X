@@ -311,4 +311,6 @@ Bug fixes:
 
 * bug 9571 fixed - "error(144)" returned a wrong variable name.
 
+* bug 9659 fixed - "error(246)" returned a bad message for overloading.
+
 
