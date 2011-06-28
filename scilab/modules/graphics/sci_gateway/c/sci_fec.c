@@ -24,6 +24,11 @@
 #include "DefaultCommandArg.h"
 #include "localization.h"
 #include "Scierror.h"
+
+#include "CurrentFigure.h"
+#include "CurrentSubwin.h"
+#include "callJoGLView.h"
+
 /*--------------------------------------------------------------------------*/
 int sci_fec(char *fname,unsigned long fname_len)
 {
@@ -39,6 +44,8 @@ int sci_fec(char *fname,unsigned long fname_len)
                             {-1,"zminmax","?",0,0,0},
                             {-1,NULL,NULL,0,0}        } ;
 
+  char* pfigureUID = NULL;
+  char* psubwinUID = NULL;
   char * strf = NULL ;
   char * legend = NULL ;
   double * rect = NULL ;
@@ -99,7 +106,14 @@ int sci_fec(char *fname,unsigned long fname_len)
   GetColOut(fname,11,opts,&colOut);
   GetWithMesh(fname,12,opts,&withMesh);
 
-  SciWin();
+  psubwinUID = getCurrentSubWin();
+  if (psubwinUID == NULL)
+  {
+      /* No default figure nor axes: create one */
+      pfigureUID = createNewFigureWithAxes();
+      createJoGLView(pfigureUID);
+      psubwinUID = getCurrentSubWin();
+  }
 
   if ( isDefStrf ( strf ) ) {
     char strfl[4];
