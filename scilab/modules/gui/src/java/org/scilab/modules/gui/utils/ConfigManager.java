@@ -16,9 +16,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -33,6 +30,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.scilab.modules.commons.ScilabCommons;
+import org.scilab.modules.commons.ScilabCommonsUtils;
 import org.scilab.modules.commons.xml.ScilabDocumentBuilderFactory;
 import org.scilab.modules.commons.xml.ScilabTransformerFactory;
 import org.w3c.dom.Document;
@@ -100,12 +98,7 @@ public final class ConfigManager {
         File fileConfig = new File(USER_CONFIG_FILE);
         if (!fileConfig.exists() || (fileConfig.length() == 0) || checkVersion()) {
             /* Create a local copy of the configuration file */
-            try {
-                copyFile(new File(SCILAB_CONFIG_FILE), new File(USER_CONFIG_FILE));
-                updated = true;
-            } catch (FileNotFoundException e) {
-                System.out.println(ERROR_READ + USER_CONFIG_FILE);
-            }
+            updated = ScilabCommonsUtils.copyFile(new File(SCILAB_CONFIG_FILE), new File(USER_CONFIG_FILE));
         }
     }
 
@@ -184,29 +177,6 @@ public final class ConfigManager {
 
             /* Save changes */
             writeDocument();
-        }
-    }
-
-    /**
-     * Copy a file
-     * @param in src file
-     * @param out dest file
-     * @throws FileNotFoundException
-     */
-    private static void copyFile(File in, File out) throws FileNotFoundException {
-        FileInputStream fis = new FileInputStream(in);
-        FileOutputStream fos = new FileOutputStream(out);;
-
-        byte[] buf = new byte[BUFSIZE];
-        int i = 0;
-        try {
-            while ((i = fis.read(buf)) != -1) {
-                fos.write(buf, 0, i);
-            }
-            fis.close();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
