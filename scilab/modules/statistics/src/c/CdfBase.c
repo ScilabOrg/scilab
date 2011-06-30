@@ -20,6 +20,9 @@
 #include "sci_string_matrix.h"
 #include <string.h>
 
+#include "api_scilab.h"
+#include "api_oldstack.h"
+
 int mod(int a, int b);
 int rotate(int i, int step, int length);
 char *cdf_options(struct cdf_descriptor const * const desc);
