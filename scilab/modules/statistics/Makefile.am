@@ -84,12 +84,21 @@ sci_gateway/c/sci_cdfbet.c \
 sci_gateway/c/sci_cdfnbn.c \
 sci_gateway/c/sci_cdfnor.c
 
-libscistatistics_la_CFLAGS=  	-I$(srcdir)/includes/ \
-				-I$(srcdir)/src/c/ \
-				-I$(top_srcdir)/modules/output_stream/includes \
-				-I$(top_srcdir)/modules/api_scilab/includes \
-				-I$(top_srcdir)/modules/operations/includes \
-				-I$(top_srcdir)/modules/output_stream/includes
+GATEWAY_CPP_SOURCES = sci_gateway/cpp/statistics_gw.cpp
+
+libscistatistics_la_CFLAGS= -I$(srcdir)/includes/ \
+                            -I$(srcdir)/src/c/ \
+                            -I$(top_srcdir)/modules/output_stream/includes \
+                            -I$(top_srcdir)/modules/api_scilab/includes \
+                            -I$(top_srcdir)/modules/operations/includes \
+                            -I$(top_srcdir)/modules/output_stream/includes
+
+libscistatistics_la_CPPFLAGS =  -I$(srcdir)/includes/ \
+                                -I$(top_srcdir)/modules/api_scilab/includes \
+                                -I$(top_srcdir)/modules/symbol/includes \
+                                -I$(top_srcdir)/modules/types/includes \
+                                -I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+                                -I$(top_srcdir)/modules/operations/includes
 
 pkglib_LTLIBRARIES = libscistatistics.la
 noinst_LTLIBRARIES = libscistatistics-algo.la
@@ -97,7 +106,7 @@ noinst_LTLIBRARIES = libscistatistics-algo.la
 libscistatistics_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
 
 libscistatistics_algo_la_SOURCES = $(STATISTICS_C_SOURCES) $(STATISTICS_FORTRAN_SOURCES)
-libscistatistics_la_SOURCES = $(GATEWAY_C_SOURCES)
+libscistatistics_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscistatistics_algo_la_CFLAGS = $(libscistatistics_la_CFLAGS)
 
 # For the code check (splint)

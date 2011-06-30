@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2006 - INRIA - Antoine ELIAS
+ * Copyright (C) 2006 - INRIA - Allan CORNET
+ * Copyright (C) 2011 - DIGITEO - Antoine ELIAS
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -11,125 +12,134 @@
  */
 /*--------------------------------------------------------------------------*/
 #include "elem_func_gw.hxx"
-#include "funcmanager.hxx"
-#include "context.hxx"
-#include "types.hxx"
+#include "function.hxx"
+#include "double.hxx"
 #include "string.hxx"
-#include "container.hxx"
+#include "overload.hxx"
+#include "execvisitor.hxx"
 
 extern "C"
 {
 #include "Scierror.h"
 #include "localization.h"
+#include "charEncoding.h"
+#include "basic_functions.h"
 }
 
 int getProcessMode(types::typed_list &in, int _iProcess, int _iRef);
 
 using namespace types;
 /*--------------------------------------------------------------------------*/
-Function::ReturnValue sci_size(types::typed_list &in, int _iRetCount, types::typed_list &out)
+Function::ReturnValue sci_sum(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
-    if(in.size() < 1)
+    int iMode = 0;
+
+    if(in.size() < 1 && in.size() > 3)
     {
-        Scierror(999,_("%s: Wrong number of input arguments: At least %d expected.\n"), "size", 1);
+        Scierror(999,_("%s: Wrong number of input arguments: %d or %d expected.\n"), L"sum", 1, 2);
         return Function::Error;
     }
 
-    switch(in[0]->getType())
+    if(in[0]->isDouble() == false && in[0]->isPoly() == false /*&& in[0]->isSparse() == false*/)
+    {//call overload
+        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_sum";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+    }
+
+    //don't care of 3rd paramter for double or equivalent type
+    if(in.size() >= 2)
     {
-        // Dedicated case for lists.
-    case InternalType::RealList:
-    case InternalType::RealMList:
-    case InternalType::RealTList:
+         iMode = getProcessMode(in, 1, 0);
+    }
+
+    if(in[0]->isDouble())
+    {
+        Double* pIn = in[0]->getAs<Double>();
+        if(pIn->isEmpty())
         {
-            if(in.size() > 1)
+            if(iMode == 0)
             {
-                Scierror(999, _("%s: Wrong number of input argument(s): %d expected.\n"), "size", 1);
-                return Function::Error;
-            }
-
-            Double* pD = new Double(in[0]->getAsContainer()->getSize());
-            out.push_back(pD);
-            break;
-        }
-    default :
-        // All types inherits of GenericType, so have this algorithm as default.
-        {
-            int iMode = -1;
-
-            if(in.size() > 2)
-            {
-                Scierror(77,_("%s: Wrong number of input argument(s): %d to %d expected.\n"), "size", 1, 2);
-                return Function::Error;
-            }
-
-            if(in.size() == 2)
-            {
-                iMode = getProcessMode(in, 1, 0);
-                if(iMode == -2)
-                {
-                    return Function::Error;
-                }
-            }
-
-            int iDims   = in[0]->getAsGenericType()->getDims();
-            int* piDims = in[0]->getAsGenericType()->getDimsArray();
-
-            if(_iRetCount == 1)
-            {
-                int iRowsOut = 1;
-                int iColsOut = 0;
-                double* pdblReal = NULL;
-
-                switch(iMode)
-                {
-                case -1 : //lhs == 1
-                    iColsOut = iDims;
-                    break;
-                default : //"*"
-                    iColsOut = 1;
-                    break;
-                }
-
-                Double* pD = new Double(iRowsOut, iColsOut);
-
-                double* pdbl = pD->getReal();
-
-                switch(iMode)
-                {
-                case -1 : //lhs == 1
-                    for(int i = 0 ; i < iDims ; i++)
-                    {
-                        pdbl[i] = piDims[i];
-                    }
-                    break;
-                case 0 : //"*"
-                    pdbl[0] = in[0]->getAsGenericType()->getSize();
-                    break;
-                default : //"r"
-                    if(iMode > iDims)
-                    {
-                        ScierrorW(999, _W("%ls: Wrong value for input argument #%d.\n"), L"size", 2);
-                        return Function::Error;
-                    }
-
-                    iColsOut = 1;
-                    pdbl[0] = piDims[iMode - 1];
-                    break;
-                }
-                out.push_back(pD);
+                out.push_back(new Double(0));
             }
             else
             {
-                for(int i = 0 ; i < Min(_iRetCount, iDims) ; i++)
+                out.push_back(Double::Empty());
+            }
+        }
+        else
+        {
+            Double* pOut = NULL;
+            if(iMode == 0)
+            {
+                double dblR = 0;
+                double dblI = 0;
+
+                for(int i = 0 ; i < pIn->getSize() ; i++)
                 {
-                    Double* pD = new Double(piDims[i]);
-                    out.push_back(pD);
+                    dblR += pIn->get(i);
+                }
+
+                pOut = new Double(dblR);
+                if(pIn->isComplex())
+                {
+                    pOut->setComplex(true);
+                    for(int i = 0 ; i < pIn->getSize() ; i++)
+                    {
+                        dblI += pIn->getImg(i);
+                    }
+                    pOut->setImg(0, dblI);
                 }
             }
-            break;
+            else
+            {
+                int iDims = pIn->getDims();
+                int* piDims = new int[iDims];
+
+                for(int i = 0 ; i < iDims ; i++)
+                {
+                    if(iMode == i + 1)
+                    {
+                        piDims[i] = 1;
+                    }
+                    else
+                    {
+                        piDims[i] = pIn->getDimsArray()[i];
+                    }
+                }
+
+                pOut = new Double(iDims, piDims);
+                pOut->setZeros();
+
+                double* pdblIn  = pIn->get();
+                double* pdblOut = pOut->get();
+
+                int* piIndex = new int[iDims];
+
+                for(int i = 0 ; i < pIn->getSize() ; i++)
+                {
+                    //get value
+                    double dbl = pdblIn[i];
+
+                    //get array of dim
+                    pIn->getIndexes(i, piIndex);
+
+                    //convert indexes for result
+                    piIndex[iMode - 1] = 0;
+                    int iIndex = pOut->getIndex(piIndex);
+                    pdblOut[iIndex] += dbl;
+                }
+            }
+
+            out.push_back(pOut);
         }
     }
+    else if(in[0]->isPoly())
+    {
+    }
+    //else if(in[0]->isSparse())
+    //{
+    //}
+
     return Function::OK;
 }
 /*--------------------------------------------------------------------------*/
