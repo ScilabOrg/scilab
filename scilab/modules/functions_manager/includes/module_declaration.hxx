@@ -34,5 +34,6 @@
 #include "../../hdf5/includes/hdf5_gw.hxx"
 #include "../../dynamic_link/includes/dynamic_link_gw.hxx"
 #include "../../action_binding/includes/action_binding_gw.hxx"
+#include "../../statistics/includes/statistics_gw.hxx"
 
 #endif /* !__MODULE_DECLARATION_HXX__ */
