@@ -153,7 +153,8 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
                     String tip = null;
                     TableModel model = ((JTable) e.getSource()).getModel();
                     java.awt.Point p = e.getPoint();
-                    int rowIndex = rowAtPoint(p);
+                    int rowIndex = convertRowIndexToModel(rowAtPoint(p));
+
                     if (rowIndex >= 0 && rowIndex < model.getRowCount()) {
                         
                         int colIndex = columnAtPoint(p);
