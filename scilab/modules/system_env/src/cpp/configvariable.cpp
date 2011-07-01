@@ -184,6 +184,23 @@ int ConfigVariable::getConsoleWidth(void)
 {
     return m_iConsoleWidth;
 }
+
+/*
+** Screen console lines number
+** \{
+*/
+
+int ConfigVariable::m_iConsoleLine = 0;
+
+void ConfigVariable::setConsoleLine(int _iConsoleLine)
+{
+    m_iConsoleLine = _iConsoleLine;
+}
+
+int ConfigVariable::getConsoleLine(void)
+{
+    return m_iConsoleLine;
+}
 /*
 ** \}
 */
@@ -609,7 +626,7 @@ int ConfigVariable::addDynamicLibrary(ConfigVariable::DynamicLibraryStr* _pDynam
     }
 
     m_DynLibList.push_back(_pDynamicLibrary);
-    return m_DynLibList.size() - 1;
+    return (int)m_DynLibList.size() - 1;
 }
 
 void ConfigVariable::removeDynamicLibrary(int _iDynamicLibraryIndex)
@@ -728,7 +745,7 @@ wchar_t** ConfigVariable::getCommandLineArgs(int* _piCount)
         pwstArgs[i] = os_wcsdup(m_Args[i].c_str());
     }
 
-    *_piCount = m_Args.size();
+    *_piCount = (int)m_Args.size();
     return pwstArgs;
 }
 

@@ -298,11 +298,6 @@ lib /DEF:"$(ProjectDir)ui_data_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfor
     <ClCompile Include="more.c" />
     <ClCompile Include="prompt.c" />
     <ClCompile Include="promptecho.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_clc.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_iswaitingforinput.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_lines.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_prompt.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_tohome.c" />
     <ClCompile Include="scilines.c" />
     <ClCompile Include="windows\TermCommand.c" />
     <ClCompile Include="windows\TermCompletion.c" />

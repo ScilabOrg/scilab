@@ -15,19 +15,19 @@
 /*--------------------------------------------------------------------------*/
 #include "dynlib_shell.h"
 #include "api_scilab.h"
+#include "c_gateway_prototype.h"
 /*--------------------------------------------------------------------------*/
 SHELL_IMPEXP int gw_shell(void);
 /*--------------------------------------------------------------------------*/
+
 /* Declaration of all the profile function declared and */
+
 /* used in sci_gateway */
-SHELL_IMPEXP int sci_clc(char *fname,unsigned long fname_len);
-SHELL_IMPEXP int sci_tohome(char *fname,unsigned long fname_len);
-SHELL_IMPEXP int sci_prompt(char *fname,unsigned long fname_len);
-SHELL_IMPEXP int sci_iswaitingforinput(char *fname,unsigned long fname_len);
-
-// YaSp
-SHELL_IMPEXP int sci_lines(char *fname, int* pvApiCtx);
-
+//SHELL_IMPEXP int sci_clc(char *fname,unsigned long fname_len); -> c++
+//SHELL_IMPEXP int sci_tohome(char *fname,unsigned long fname_len); -> c++
+//SHELL_IMPEXP int sci_lines(char *fname,unsigned long fname_len); -> c++
+//SHELL_IMPEXP int sci_prompt(char *fname,unsigned long fname_len); -> c++
+//SHELL_IMPEXP int sci_iswaitingforinput(char *fname,unsigned long fname_len); -> c++
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_SHELL_H__ */
 
