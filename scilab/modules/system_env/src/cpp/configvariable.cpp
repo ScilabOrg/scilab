@@ -184,6 +184,23 @@ int ConfigVariable::getConsoleWidth(void)
 {
     return m_iConsoleWidth;
 }
+
+/*
+** Screen console lines number
+** \{
+*/
+
+int ConfigVariable::m_iConsoleLine = 0;
+
+void ConfigVariable::setConsoleLine(int _iConsoleLine)
+{
+    m_iConsoleLine = _iConsoleLine;
+}
+
+int ConfigVariable::getConsoleLine(void)
+{
+    return m_iConsoleLine;
+}
 /*
 ** \}
 */
