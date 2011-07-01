@@ -313,4 +313,6 @@ Bug fixes:
 
 * bug 9571 fixed - "error(144)" returned a wrong variable name.
 
+* bug 9675 fixed - iir generated bad results.
+
 
