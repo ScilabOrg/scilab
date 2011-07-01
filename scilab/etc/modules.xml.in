@@ -41,5 +41,6 @@
     <module name="dynamic_link" activate="yes"/>
     <module name="action_binding" activate="yes"/>
     <module name="mexlib" activate="yes"/>
+    <module name="shell" activate="yes"/>
 </modules>
 

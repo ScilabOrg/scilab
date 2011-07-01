@@ -9,7 +9,6 @@
 SHELL_C_SOURCES = src/c/clc.c \
 src/c/tohome.c \
 src/c/more.c \
-src/c/scilines.c \
 src/c/GetCommandLine.c \
 src/c/others/zzledt.c \
 src/c/others/gotoxy_nw.c \
@@ -20,24 +19,35 @@ src/c/prompt.c \
 src/c/promptecho.c
 
 # List of the gateway c files
-GATEWAY_C_SOURCES = sci_gateway/c/gw_shell.c \
-sci_gateway/c/sci_clc.c \
-sci_gateway/c/sci_tohome.c \
-sci_gateway/c/sci_lines.c \
-sci_gateway/c/sci_prompt.c \
-sci_gateway/c/sci_iswaitingforinput.c
+GATEWAY_C_SOURCES = sci_gateway/c/gw_shell.c
+
+# List of the gateway cpp files
+GATEWAY_CPP_SOURCES=    sci_gateway/cpp/shell_gw.cpp \
+                        sci_gateway/cpp/sci_clc.cpp \
+                        sci_gateway/cpp/sci_lines.cpp \
+                        sci_gateway/cpp/sci_tohome.cpp \
+                        sci_gateway/cpp/sci_prompt.cpp \
+                        sci_gateway/cpp/sci_iswaitingforinput.cpp
 
 # Includes need for the compilation
-libscishell_la_CPPFLAGS =  $(JAVA_JNI_INCLUDE) \
--I$(top_srcdir)/modules/api_scilab/includes \
--I$(srcdir)/includes/ \
--I$(srcdir)/src/cpp/ -I$(srcdir)/src/c/ \
--I$(srcdir)/src/c/others/ \
--I$(top_srcdir)/modules/ui_data/includes/ \
--I$(top_srcdir)/libs/MALLOC/includes/
+libscishell_la_CPPFLAGS=  $(JAVA_JNI_INCLUDE) \
+                        -I$(top_srcdir)/modules/api_scilab/includes \
+                        -I$(srcdir)/includes/ \
+                        -I$(srcdir)/src/c/ \
+                        -I$(srcdir)/src/c/others/ \
+                        -I$(top_srcdir)/modules/ui_data/includes/ \
+                        -I$(top_srcdir)/libs/MALLOC/includes/ \
+                        -I$(top_srcdir)/modules/symbol/includes/ \
+                        -I$(top_srcdir)/modules/types/includes/ \
+                        -I$(top_srcdir)/modules/operations/includes/ \
+                        -I$(top_srcdir)/modules/output_stream/includes \
+                        -I$(top_srcdir)/modules/console/includes/ \
+                        -I$(top_srcdir)/modules/system_env/includes \
+                        -I$(top_srcdir)/modules/abstractSyntaxTree/includes/
 
 # Includes need for the compilation
-libscishell_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \
+libscishell_la_CFLAGS= 	\
+                        $(JAVA_JNI_INCLUDE) \
 			-Iincludes/ \
 			-Isrc/c/ \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
@@ -55,7 +65,7 @@ libscishell_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/string/includes/ \
 			-I$(top_srcdir)/modules/fileio/includes/ \
 			-I$(top_srcdir)/modules/ui_data/includes/ \
-            -I$(top_srcdir)/modules/threads/includes/ \
+                        -I$(top_srcdir)/modules/threads/includes/ \
 			-I$(top_srcdir)/modules/types/includes/
 
 if IS_MACOSX
@@ -71,7 +81,7 @@ libscishell_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(TERMCAP_LIB
 
 # All the sources needed by libscishell.la
 libscishell_algo_la_SOURCES = $(SHELL_C_SOURCES)
-libscishell_la_SOURCES = $(GATEWAY_C_SOURCES)
+libscishell_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
 libscishell_algo_la_CFLAGS = $(libscishell_la_CFLAGS)
 
 # For the code check (splint)
@@ -80,12 +90,12 @@ INCLUDE_FLAGS = $(libscishell_la_CFLAGS)
 
 ## Libraries necessary
 # cyclic dep $(top_builddir)/modules/console/libsciconsole.la
-libscishell_la_LIBADD = libscishell-algo.la \
+libscishell_la_LIBADD = \
+        libscishell-algo.la \
 	$(top_builddir)/modules/history_manager/libscihistory_manager.la \
 	$(top_builddir)/modules/threads/libscithreads.la \
 	$(top_builddir)/libs/MALLOC/libscimalloc.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la
-
 
 modulename=shell
 

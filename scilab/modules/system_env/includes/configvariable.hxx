@@ -93,6 +93,14 @@ public :
     static void setConsoleWidth(int _iConsoleWidth);
     static int getConsoleWidth(void);
 
+    // Screen console number line
+private :
+    static int m_iConsoleLine;
+
+public :
+    static void setConsoleLine(int _iConsoleLine);
+    static int getConsoleLine(void);
+
     // Scilab mode
 private :
     static int m_iScilabMode;
