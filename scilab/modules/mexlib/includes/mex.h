@@ -26,6 +26,7 @@ extern "C" {
 #include <stdio.h>
 #include "machine.h"
 //#include "stack-c.h"
+
     typedef int Matrix;
     typedef unsigned long int vraiptrst;
 
@@ -55,11 +56,7 @@ extern "C" {
     void C2F(mexprintf)(char *error_msg, int len);
 
     /* mexPutFull: NOT IN MATLAB API - V4 compatible */
-    /** Put a matrix in Scilab Workspace */
-    // FIXME
-//#define mexPutFull(name,m,n,ptrM,tag)                                 \
-//    if ( ! C2F(cwritemat)(name,(c_local=m,&c_local),(c1_local=n,&c1_local),ptrM,strlen(name))) { \
-//        mexErrMsgTxt(_("mexPutFull failed\n"));return; }
+    int mexPutFull(char *name, int m, int n, double *pr, double *pi);
 
     /* prototypes */
 
@@ -207,7 +204,7 @@ extern "C" {
 
     mxArray *mxGetFieldByNumber(const mxArray *ptr, int index, int field_number);
     const char *mxGetFieldNameByNumber(const mxArray *array_ptr, int field_number);
-    mxLogical* mxGetLogicals (const mxArray *ptr);
+    mxLogical* mxGetLogicals(const mxArray *ptr);
 
     typedef enum {
         mxCELL_CLASS = 1,
@@ -225,6 +222,8 @@ extern "C" {
         mxUINT32_CLASS,
         mxINT64_CLASS,
         mxUINT64_CLASS,
+        mxLOGICAL_CLASS,
+        mxFUNCTION_CLASS,
         mxUNKNOWN_CLASS = 0
     } mxClassID;
 
