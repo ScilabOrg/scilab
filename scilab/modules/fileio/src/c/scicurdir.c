@@ -17,9 +17,9 @@
 #include <direct.h>
 #include <errno.h>
 #else
-	#include <errno.h>
-	#include <unistd.h>
-	#define GETCWD(x,y) getcwd(x,y)
+#include <errno.h>
+#include <unistd.h>
+#define GETCWD(x,y) getcwd(x,y)
 #endif
 #include "sciprint.h"
 #include "scicurdir.h"
@@ -28,30 +28,30 @@
 #include "charEncoding.h"
 #include "warningmode.h"
 #include "PATH_MAX.h"
+#include "FileBrowserChDir.h"
 /*--------------------------------------------------------------------------*/
 int scichdirW(wchar_t *wcpath)
 {
-#ifndef _MSC_VER
     char *path = NULL;
-    if (wcpath == NULL)
-    {
-        return 1;
-    }
-
     path = wide_string_to_UTF8(wcpath);
     if (path == NULL)
     {
         return 1;
     }
 
-	if (chdir(path) == -1)
-	{
-		if ( getWarningMode() ) sciprint(_("Can't go to directory %s: %s\n"), path, strerror(errno));
-		if (path) {FREE(path); path = NULL;}
-		return 1;
-	}
+#ifndef _MSC_VER
+    if (wcpath == NULL)
+    {
+        return 1;
+    }
 
-    if (path) {FREE(path); path = NULL;}
+    if (chdir(path) == -1)
+    {
+        if ( getWarningMode() ) sciprint(_("Can't go to directory %s: %s\n"), path, strerror(errno));
+        FREE(path);
+	path = NULL;
+        return 1;
+    }
 
 #else
     if (wcpath == NULL)
@@ -64,32 +64,36 @@ int scichdirW(wchar_t *wcpath)
         switch (errno)
         {
         case ENOENT:
+        {
+            if ( getWarningMode() )
             {
-                if ( getWarningMode() ) 
+                if (path)
                 {
-                    char *path = wide_string_to_UTF8(wcpath);
-                    if (path)
-                    {
-                        sciprint(_("Can't go to directory %s.\n"), path);
-                        FREE(path);
-                        path = NULL;
-                    }
+                    sciprint(_("Can't go to directory %s.\n"), path);
+                    FREE(path);
+                    path = NULL;
                 }
             }
-            break;
+        }
+        break;
         case EINVAL:
-            {
-                if ( getWarningMode() ) sciprint(_("Invalid buffer.\n"));
-            }
-            break;
+        {
+            if ( getWarningMode() ) sciprint(_("Invalid buffer.\n"));
+        }
+        break;
         default:
-            {
-                if ( getWarningMode() ) sciprint(_("Unknown error.\n"));
-            }
+        {
+            if ( getWarningMode() ) sciprint(_("Unknown error.\n"));
+        }
         }
         return 1;
     }
 #endif
+
+    FileBrowserChDir(path);
+
+    if (path) {FREE(path); path = NULL;}
+
     return 0;
 }
 /*--------------------------------------------------------------------------*/

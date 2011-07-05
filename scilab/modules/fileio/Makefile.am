@@ -118,7 +118,8 @@ libscifileio_la_CFLAGS=		-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/io/includes \
 				-I$(top_srcdir)/modules/api_scilab/includes \
 				-I$(top_srcdir)/modules/string/includes \
-				-I$(top_srcdir)/modules/localization/includes
+				-I$(top_srcdir)/modules/localization/includes \
+				-I$(top_srcdir)/modules/ui_data/includes
 
 noinst_LTLIBRARIES = libscifileio-algo.la
 pkglib_LTLIBRARIES = libscifileio.la
