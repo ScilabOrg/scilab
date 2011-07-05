@@ -45,4 +45,5 @@ public class CommonFileUtilsJNI {
   }
 
   public final static native int isEmptyDirectory(String jarg1);
+  public final static native long[] getFileProperties(String jarg1);
 }

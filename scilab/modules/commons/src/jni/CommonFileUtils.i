@@ -21,6 +21,11 @@
 #include "../../includes/fileutils.h"
 %}
 
+%include "arrays_java.i" 
+%typemap(out) unsigned long[] 
+%{$result = SWIG_JavaArrayOutUlong(jenv, $1, 6); %} 
+%apply unsigned long[] {unsigned long *getFileProperties} 
+
 /* JavaDoc for CommonFileUtilsJNI class */
 %pragma(java) jniclassclassmodifiers=%{
 /* It is generated code. Disable checkstyle */
@@ -83,7 +88,7 @@ public class";
  }";
 
 /* JavaDoc */
-%javamethodmodifiers getSCIHOME() "
+%javamethodmodifiers isEmptyDirectory(String dirName) "
  /**
    * Test if a directory is empty or not
    * @param dirName the directory name
@@ -91,3 +96,13 @@ public class";
    */
 public";
 int isEmptyDirectory(char * dirName);
+
+/* JavaDoc */
+%javamethodmodifiers getFileProperties(String path) "
+ /**
+   * Test if a directory is empty or not
+   * @param dirName the directory name
+   * @return true if it is a directory
+   */
+public";
+unsigned long *getFileProperties(char * path);

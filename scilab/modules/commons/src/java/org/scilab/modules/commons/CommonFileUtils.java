@@ -26,4 +26,8 @@ public class CommonFileUtils {
     return CommonFileUtilsJNI.isEmptyDirectory(dirName);
   }
 
+  public static long[] getFileProperties(String path) {
+    return CommonFileUtilsJNI.getFileProperties(path);
+  }
+
 }
