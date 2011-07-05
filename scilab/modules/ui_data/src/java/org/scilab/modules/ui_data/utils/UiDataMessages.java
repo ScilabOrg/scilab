@@ -66,6 +66,17 @@ public final class UiDataMessages {
     public static final String UNDO = Messages.gettext("Undo");
     public static final String REDO = Messages.gettext("Redo");
 
+    public static final String FILE_BROWSER = Messages.gettext("File Browser");
+    public static final String NAME_COLUMN = Messages.gettext("Name");
+    public static final String SIZE_COLUMN = Messages.gettext("Size");
+    public static final String TYPE_COLUMN = Messages.gettext("Type");
+    public static final String LASTMODIF_COLUMN = Messages.gettext("Last modified");
+    public static final String DIRECTORY = Messages.gettext("Directory");
+    public static final String FILETYPE = Messages.gettext("%s File");
+
+    public static final String CANNOTREAD = Messages.gettext("Cannot edit the file %s");
+    public static final String CANNOTOPEN = Messages.gettext("Cannot open the file %s");
+
     /** This class is a static singleton, thus it must not be instantiated */
     private UiDataMessages() { }
 
