@@ -13,5 +13,8 @@
 #define __FILEUTILS_H__
 /*--------------------------------------------------------------------------*/
 int isEmptyDirectory(char * dirName);
+
+unsigned long * getFileProperties(char * path);
+
 /*--------------------------------------------------------------------------*/
 #endif /* __FILEUTILS_H__ */
