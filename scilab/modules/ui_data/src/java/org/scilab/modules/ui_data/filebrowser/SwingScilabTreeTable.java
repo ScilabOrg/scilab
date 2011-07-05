@@ -1,0 +1,515 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Calixte DENIZET
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+package org.scilab.modules.ui_data.filebrowser;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Enumeration;
+
+import javax.swing.AbstractCellEditor;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import javax.swing.Timer;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.Border;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeWillExpandListener;
+import javax.swing.plaf.TreeUI;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+
+import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
+import org.scilab.modules.gui.events.callback.CallBack;
+import org.scilab.modules.ui_data.filebrowser.actions.ChangeCWDAction;
+import org.scilab.modules.ui_data.filebrowser.actions.EditFileWithDefaultAppAction;
+import org.scilab.modules.ui_data.filebrowser.actions.ExecuteFileInConsoleAction;
+import org.scilab.modules.ui_data.filebrowser.actions.ExecuteFileInXcosAction;
+import org.scilab.modules.ui_data.filebrowser.actions.LoadFileAsGraphAction;
+import org.scilab.modules.ui_data.filebrowser.actions.LoadFileInScilabAction;
+import org.scilab.modules.ui_data.filebrowser.actions.OpenFileInSciNotesAction;
+import org.scilab.modules.ui_data.filebrowser.actions.OpenFileWithDefaultAppAction;
+import org.scilab.modules.ui_data.filebrowser.actions.ValidateAction;
+
+import java.awt.*;
+
+/**
+ * The tree table model abstract implementation
+ * @author Calixte DENIZET
+ */
+public class SwingScilabTreeTable extends JTable {
+
+    private static final int TIMETOREFRESH = 1000;
+    private static final Insets INSETS = new Insets(0, 2, 0, 0);
+
+    private static final Border BORDER = new AbstractBorder() {
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                g.setColor(Color.LIGHT_GRAY);
+                g.drawLine(x, y, x, y + height);
+            }
+
+            public Insets getBorderInsets(Component c) {
+                return INSETS;
+            }
+
+            public Insets getBorderInsets(Component c, Insets insets) {
+                return INSETS;
+            }
+        };
+
+    private Timer refreshTimer;
+    private SwingWorker worker;
+
+    protected ScilabTreeTableCellRenderer tree;
+    protected ScilabFileSelectorComboBox combobox;
+
+    public SwingScilabTreeTable(ScilabTreeTableModel treeTableModel, ScilabFileSelectorComboBox combobox) {
+        super();
+        this.combobox = combobox;
+        tree = new ScilabTreeTableCellRenderer(treeTableModel);
+        super.setModel(new ScilabTreeTableModelAdapter(treeTableModel, tree));
+
+        /* Force the JTable and JTree to share their row selection models.
+           And let the table to handle the selection rather than the tree; */
+        tree.setSelectionModel(new DefaultTreeSelectionModel() {
+                    {
+                        SwingScilabTreeTable.this.setSelectionModel(listSelectionModel);
+                    }
+
+                public void setSelectionPaths(TreePath[] pPaths) { }
+
+                public void addSelectionPaths(TreePath[] paths) { }
+
+                public void removeSelectionPaths(TreePath[] paths) { }
+            });
+
+        // Install the tree editor renderer and editor.
+        setDefaultRenderer(ScilabTreeTableModel.class, tree);
+        setDefaultEditor(ScilabTreeTableModel.class, new ScilabTreeTableCellEditor());
+
+        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer() {
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                                                               boolean selected, boolean focus,
+                                                               int row, int col) {
+                    Component c = super.getTableCellRendererComponent(table, value, selected, focus, row, col);
+                    if (col == 1) {
+                        JLabel jl = (JLabel) c;
+                        jl.setBorder(BORDER);
+                    }
+                    return c;
+                }
+            };
+        dtcr.setHorizontalTextPosition(DefaultTableCellRenderer.LEFT);
+        setDefaultRenderer(ScilabFileBrowserModel.FileSize.class, dtcr);
+
+        setShowGrid(false);
+        setIntercellSpacing(new Dimension(0, 0));
+        setRowSorter(new FileBrowserRowSorter(tree, this));
+        setAutoResizeMode(AUTO_RESIZE_NEXT_COLUMN);
+
+        tree.setEditable(true);
+
+        addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    /* Crappy workaround (the repaint()) to avoid weird painting of the jtree when
+                       the user click on a row and outside the label and its expand icon */
+                    int col = columnAtPoint(new Point(e.getX(), e.getY()));
+                    if (getColumnClass(col) == ScilabTreeTableModel.class) {
+                        editingRow = tree.getClosestRowForLocation(e.getX(), e.getY());
+                        repaint();
+                    }
+                }
+
+                public void mouseClicked(MouseEvent e) {
+                    /* Workaround to guarantee that the table will have the focus to allow keyboard navigation */
+                    int col = columnAtPoint(new Point(e.getX(), e.getY()));
+                    if (getColumnClass(col) == ScilabTreeTableModel.class) {
+                        requestFocus();
+                    }
+                }
+            });
+
+        initActions();
+        refreshTimer = new Timer(TIMETOREFRESH, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    tree.startRefresh();
+                }
+            });
+    }
+
+    public JTree getTree() {
+        return tree;
+    }
+
+    public ScilabFileSelectorComboBox getComboBox() {
+        return combobox;
+    }
+
+    public String[] getSelectedPaths() {
+        int[] rows = getSelectedRows();
+        String[] paths = new String[rows.length];
+        for (int i = 0; i < rows.length; i++) {
+            TreePath path = tree.getPathForRow(rows[i]);
+            FileNode fn = (FileNode) path.getLastPathComponent();
+            paths[i] = fn.getFile().getAbsolutePath();
+        }
+
+        return paths;
+    }
+
+    public File[] getSelectedFiles() {
+        int[] rows = getSelectedRows();
+        File[] files = new File[rows.length];
+        for (int i = 0; i < rows.length; i++) {
+            TreePath path = tree.getPathForRow(rows[i]);
+            FileNode fn = (FileNode) path.getLastPathComponent();
+            files[i] = fn.getFile();
+        }
+
+        return files;
+    }
+
+    public int getRowHeight(int row) {
+        return getRowHeight();
+    }
+
+    public boolean isOpaque() {
+        return false;
+    }
+
+    public void setBaseDir(String baseDir) {
+        ScilabFileBrowserModel model = (ScilabFileBrowserModel) tree.getModel();
+        combobox.setBaseDir(baseDir);
+        if (!baseDir.equals(model.getBaseDir())) {
+            refreshTimer.stop();
+            if (worker != null) {
+                worker.cancel(true);
+                worker = null;
+            }
+            TreePath path = new TreePath(model.getRoot());
+            tree.collapsePath(path);
+            model.setBaseDir(baseDir, this);
+        }
+    }
+
+    public void reload() {
+        ScilabFileBrowserModel model = (ScilabFileBrowserModel) tree.getModel();
+        tree.setModel(model);
+        tree.setRowHeight(getRowHeight());
+        tree.setLargeModel(true);
+        TreePath path = new TreePath(model.getRoot());
+        tree.collapsePath(path);
+        tree.expandPath(path);
+        editingRow = 0;
+        refreshTimer.start();
+    }
+
+    /* Workaround for BasicTableUI anomaly. Make sure the UI never tries to
+     * paint the editor. The UI currently uses different techniques to
+     * paint the renderers and editors and overriding setBounds() below
+     * is not the right thing to do for an editor. Returning -1 for the
+     * editing row in this case, ensures the editor is never painted.
+     */
+    public int getEditingRow() {
+        if (getColumnClass(editingColumn) == ScilabTreeTableModel.class) {
+            return -1;
+        } else {
+            return editingRow;
+        }
+    }
+
+    public class ScilabTreeTableCellRenderer extends JTree implements TableCellRenderer {
+
+        protected int visibleRow;
+        private Thread thread;
+        private boolean isActive;
+        private int nbInvalidate;
+
+        /**
+         * {@inheritdoc}
+         */
+        public ScilabTreeTableCellRenderer(TreeModel model) {
+            super(model);
+            DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer() {
+
+                    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected,
+                                                                  boolean expanded, boolean leaf, int row, boolean hasFocus) {
+                        FileNode fn = (FileNode) value;
+                        super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+                        if (leaf) {
+                            if (fn instanceof ScilabFileBrowserModel.ParentNode) {
+                                this.setLeafIcon(FileUtils.getUpDirIcon());
+                            } else {
+                                this.setLeafIcon(fn.getIcon());
+                            }
+                        } else if (fn.isUserHome()) {
+                            this.setClosedIcon(FileUtils.getClosedUserHomeIcon());
+                            this.setOpenIcon(FileUtils.getOpenUserHomeIcon());
+                        } else {
+                            this.setClosedIcon(FileUtils.getClosedDirIcon());
+                            this.setOpenIcon(FileUtils.getOpenDirIcon());
+                        }
+
+                        return this;
+                    }
+                };
+            setCellRenderer(renderer);
+            setRootVisible(true);
+            setRowHeight(SwingScilabTreeTable.this.getRowHeight());
+            setLargeModel(true);
+            setEditable(true);
+            setToggleClickCount(0);
+
+            addTreeWillExpandListener(new TreeWillExpandListener() {
+                    public void treeWillCollapse(TreeExpansionEvent event) { }
+
+                    public void treeWillExpand(TreeExpansionEvent event) {
+                        Container win = SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTreeTable.this);
+                        if (win != null) {
+                            win.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        }
+                    }
+                });
+            addTreeExpansionListener(new TreeExpansionListener() {
+                    public void treeCollapsed(TreeExpansionEvent event) { }
+
+                    public void treeExpanded(TreeExpansionEvent event) {
+                        Container win = SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTreeTable.this);
+                        if (win != null) {
+                            win.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                        }
+                    }
+                });
+
+            addMouseListener(new MouseAdapter() {
+                    public void mousePressed(MouseEvent e) {
+                        int selRow = tree.getRowForLocation(e.getX(), e.getY());
+                        TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+                        if (selRow != -1) {
+                            switch (e.getClickCount()) {
+                            case 1 :
+                                /*int sel = SwingScilabTreeTable.this.getSelectedRow();
+                                  System.out.println(sel+":::"+selRow+":::"+isEditable());
+                                  if (sel == selRow) {
+                                  System.out.println(getCellEditor().getTreeCellEditorComponent(ScilabTreeTableCellRenderer.this, getCellEditor().getCellEditorValue(), true, false, true, selRow));
+                                  }
+                                  e.consume();*/
+                                break;
+                            case 2:
+                                ((CallBack) SwingScilabTreeTable.this.getActionMap().get("validate")).callBack();
+                                e.consume();
+                            }
+                        }
+                    }
+
+                    public void mouseReleased(MouseEvent e) {
+                        //if (isEditing()) {
+                        int selRow = tree.getRowForLocation(e.getX(), e.getY());
+                        TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+                        //SwingScilabTreeTable.this.clearSelection();
+                        //startEditingAtPath(selPath);
+                        //e.consume();
+                        //}
+                    }
+                });
+        }
+
+        protected TreeModelListener createTreeModelListener() {
+            return new TreeModelListener() {
+                public void treeNodesChanged(TreeModelEvent e) { }
+
+                public void treeNodesInserted(TreeModelEvent e) { }
+
+                public void treeStructureChanged(TreeModelEvent e) { }
+
+                public void treeNodesRemoved(TreeModelEvent e) { }
+            };
+        }
+
+        public void treeDidChange() { }
+
+        public void startRefresh() {
+            final ScilabFileBrowserModel model = (ScilabFileBrowserModel) getModel();
+            final TreePath[] paths;
+            try {
+                paths = getPathBetweenRows(0, getRowCount() - 1);
+            } catch (Exception e) {
+                return;
+            }
+
+	    int[] selectedRows = SwingScilabTreeTable.this.getSelectedRows();
+	    final TreePath[] selectedPaths = new TreePath[selectedRows.length];
+	    for (int i = 0; i < selectedRows.length; i++) {
+		selectedPaths[i] = getPathForRow(selectedRows[i]);
+	    }
+            final List<TreePath> list = new ArrayList<TreePath>();
+            worker = new SwingWorker<Void, Void>() {
+
+                protected Void doInBackground() throws Exception {
+                    for (TreePath path : paths) {
+                        FileNode fn = (FileNode) path.getLastPathComponent();
+                        if (fn.hasChanged()) {
+                            fn.reset();
+                            list.add(path);
+                        }
+                    }
+                    for (TreePath path : list) {
+                        Object[] p = path.getPath();
+                        model.fireTreeStructureChanged(model, p, new int[]{0}, new Object[]{p[p.length - 1]});
+                    }
+
+                    return null;
+                }
+
+                protected void done() {
+                    for (TreePath path : list) {
+                        TreePath parent = path.getParentPath();
+                        if (parent == null) {
+                            parent = path;
+			}
+			collapsePath(parent);
+			expandPath(parent);
+		    }
+		    for (TreePath path : selectedPaths) {
+			int r = getRowForPath(path);
+			if (r != -1) {
+			    SwingScilabTreeTable.this.addRowSelectionInterval(r, r);
+			}
+		    }
+		}
+	    };
+	    
+	    worker.execute();
+	}
+
+            /**
+             * {@inheritdoc}
+             */
+            public void setBounds(int x, int y, int w, int h) {
+                super.setBounds(x, 0, w, SwingScilabTreeTable.this.getHeight());
+            }
+
+            /**
+             * {@inheritdoc}
+             */
+            public void paint(Graphics g) {
+                g.translate(0, -visibleRow * getRowHeight());
+                try {
+                    ui.update(g, this);
+                } catch (NullPointerException e) {
+                    // Occurs sometimes...
+                    g.translate(0, visibleRow * getRowHeight());
+                    paint(g);
+                }
+            }
+
+            /**
+             * {@inheritdoc}
+             */
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (isSelected) {
+                    setBackground(table.getSelectionBackground());
+                } else {
+                    setBackground(table.getBackground());
+                }
+                visibleRow = row;
+
+                return this;
+            }
+        }
+
+        public class ScilabTreeTableCellEditor extends AbstractCellEditor implements TableCellEditor {
+
+            /**
+             * {@inheritdoc}
+             */
+            public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int r, int c) {
+                return tree;
+            }
+
+            /**
+             * {@inheritdoc}
+             */
+            public Object getCellEditorValue() {
+                return null;
+            }
+
+
+            public boolean isCellEditable(java.util.EventObject e) {
+                if (e instanceof MouseEvent) {
+                    for (int counter = getColumnCount() - 1; counter >= 0;
+                         counter--) {
+                        if (getColumnClass(counter) == ScilabTreeTableModel.class) {
+                            MouseEvent me = (MouseEvent) e;
+                            MouseEvent newME = new MouseEvent(tree, me.getID(),
+                                                              me.getWhen(), me.getModifiers(),
+                                                              me.getX() - getCellRect(0, counter, true).x,
+                                                              me.getY(), me.getClickCount(),
+                                                              me.isPopupTrigger());
+                            tree.dispatchEvent(newME);
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+
+        }
+
+        private void initActions() {
+            ActionMap actions = getActionMap();
+            actions.put("scinotes", new OpenFileInSciNotesAction(this));
+            actions.put("xcos", new ExecuteFileInXcosAction(this));
+            actions.put("console", new ExecuteFileInConsoleAction(this));
+            actions.put("load", new LoadFileInScilabAction(this));
+            actions.put("graph", new LoadFileAsGraphAction(this));
+            actions.put("cwd", new ChangeCWDAction(this));
+            if (EditFileWithDefaultAppAction.isSupported()) {
+                actions.put("edit", new EditFileWithDefaultAppAction(this));
+            }
+            if (OpenFileWithDefaultAppAction.isSupported()) {
+                actions.put("open", new OpenFileWithDefaultAppAction(this));
+            }
+            actions.put("validate", new ValidateAction(this));
+
+            combobox.setAction((CallBack) actions.get("cwd"));
+            InputMap map = getInputMap();
+            //map.put(
+        }
+    }
