@@ -1913,7 +1913,6 @@ int mxSetDimensions(mxArray *array_ptr, const int *dims, int ndim)
     {
         ((types::UInt64 *) array_ptr)->resize((int *) dims, ndim);
     }
-
     return 0;
 }
 
