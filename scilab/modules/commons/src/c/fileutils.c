@@ -23,6 +23,7 @@
 #include "fileutils.h"
 #include "MALLOC.h"
 
+/*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
 int isEmptyDirectory(char * dirName)
 {
@@ -34,10 +35,10 @@ int isEmptyDirectory(char * dirName)
     wcpath = to_wide_string(dirName);
 
     hFile = FindFirstFileW(wcpath, &FileInformation);
+    FREE(wcpath);
 
     if (hFile != INVALID_HANDLE_VALUE)
     {
-        FREE(wcpath);
         return 0;
     }
 
@@ -52,18 +53,19 @@ int isEmptyDirectory(char * dirName)
         break;
     } while (FindNextFileW(hFile, &FileInformation) == TRUE);
 
-    FREE(wcpath);
     FindClose(hFile);
 
     return ret;
 }
+/*--------------------------------------------------------------------------*/
 #else
+/*--------------------------------------------------------------------------*/
 int isEmptyDirectory(char * dirName)
 {
     DIR *dir = NULL;
 #ifdef __APPLE__
-  struct dirent *ptr;
-  struct dirent *result;
+    struct dirent *ptr;
+    struct dirent *result;
 #else
     struct dirent64 *ptr;
     struct dirent64 *result;
@@ -90,17 +92,17 @@ int isEmptyDirectory(char * dirName)
 #ifdef __APPLE__
     while ((readdir_r(dir, ptr, &result) == 0)  && (result != NULL))
 #else
-    while ((readdir64_r(dir, ptr, &result) == 0)  && (result != NULL))
+        while ((readdir64_r(dir, ptr, &result) == 0)  && (result != NULL))
 #endif
-    {
-        if (!strcmp(ptr->d_name, ".") || !strcmp(ptr->d_name, ".."))
         {
-            continue;
-        }
+            if (!strcmp(ptr->d_name, ".") || !strcmp(ptr->d_name, ".."))
+            {
+                continue;
+            }
 
-        ret = 0;
-        break;
-    }
+            ret = 0;
+            break;
+        }
 
     FREE(ptr);
     closedir(dir);
