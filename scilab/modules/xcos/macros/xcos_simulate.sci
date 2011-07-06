@@ -50,6 +50,11 @@ end
   funcprot(prot);
   //-- end
 
+    // Hook according to SEP066
+    if isdef("pre_xcos_simulate") then
+        pre_xcos_simulate(scs_m, needcompile);
+    end
+
   //**---- prepare from and to workspace stuff ( "From workspace" block )
    xcos_workspace_init()
 
@@ -357,6 +362,11 @@ end
     execstr(files(i)+'=struct('"values'",x,'"time'",t)')
   end
   execstr(txt)
+
+    // Hook according to SEP066
+    if isdef("post_xcos_simulate") then
+        pre_xcos_simulate(%cpr, scs_m, needcompile);
+    end
 
   needreplay = resume(needreplay);
 endfunction
