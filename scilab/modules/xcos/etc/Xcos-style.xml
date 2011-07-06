@@ -43,8 +43,10 @@
     <add as="noLabel" value="0"/>
     <add as="strokeColor" value="white"/>
   </add>
-  <!-- Const -->
-  <add as="Const" extend="defaultVertex"/>
+  <!-- Print (Label as block) -->
+  <add as="Print" extend="blockWithLabel">
+    <add as="displayedLabel" value="%s"/>
+  </add>
   <!-- Gain -->
   <add as="Gain" extend="blockWithLabel">
     <add as="shape" value="triangle"/>
@@ -129,9 +131,9 @@
     <add as="strokeColor" value="blue"/>
   </add>
   <!-- SOURCES -->
-  <add as="CONST_m" extend="blockWithLabel"/>
-  <add as="CONST_f" extend="blockWithLabel"/>
-  <add as="CONST" extend="blockWithLabel"/>
+  <add as="CONST_m" extend="Print"/>
+  <add as="CONST_f" extend="Print"/>
+  <add as="CONST" extend="Print"/>
   <add as="GENSQR_f" extend="blockWithLabel">
     <add as="displayedLabel" value="Square wave&lt;BR&gt;         generator"/>
   </add>
@@ -403,14 +405,14 @@
     <add as="displayedLabel" value="Modelica&lt;BR;&gt;         generic"/>
   </add>
   <add as="FROMMO" extend="blockWithLabel">
-    <!-- FIXME : Show parameters over block  -->
     <add as="rounded" value="1"/>
     <add as="shape" value="rectangle"/>
+    <add as="displayedLabel" value="%s"/>
   </add>
   <add as="GOTOMO" extend="blockWithLabel">
-    <!-- FIXME : Show parameters over block  -->
     <add as="rounded" value="1"/>
     <add as="shape" value="rectangle"/>
+    <add as="displayedLabel" value="%s"/>
   </add>
   <add as="GotoTagVisibilityMO" extend="blockWithLabel">
     <!-- TODO: icon to be verified -->
