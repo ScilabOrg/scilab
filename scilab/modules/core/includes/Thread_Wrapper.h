@@ -1,15 +1,16 @@
 /*
-*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-*  Copyright (C) 2008-2008 - INRIA - Bruno JOFRET
-*  Copyright (C) 2008-2008 - INRIA - Allan CORNET
-*
-*  This file must be used under the terms of the CeCILL.
-*  This source file is licensed as described in the file COPYING, which
-*  you should have received as part of this distribution.  The terms
-*  are also available at
-*  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-*
-*/
+ *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2008-2008 - INRIA - Bruno JOFRET
+ *  Copyright (C) 2008-2008 - INRIA - Allan CORNET
+ *  Copyright (C) 2011-2011 - DIGITEO - Bruno JOFRET
+ *
+ *  This file must be used under the terms of the CeCILL.
+ *  This source file is licensed as described in the file COPYING, which
+ *  you should have received as part of this distribution.  The terms
+ *  are also available at
+ *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
 
 /*
 ** Thread wrapper to have an easy way to manage
@@ -19,6 +20,10 @@
 #ifndef __THREAD_WRAPPER_H__
 #define __THREAD_WRAPPER_H__
 
+
+/*
+** WINDOWS
+*/
 #ifdef _MSC_VER
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x500
@@ -26,115 +31,65 @@
 #include <Windows.h>
 #include <process.h>
 
-typedef DWORD				__threadKey;
-typedef HANDLE				__threadId;
-typedef HANDLE				__threadLock;
-typedef CRITICAL_SECTION	__threadSignalLock;
-typedef HANDLE				__threadSignal;
+typedef DWORD                           __threadKey;
+typedef HANDLE                          __threadId;
+typedef HANDLE                          __threadLock;
+typedef CRITICAL_SECTION                __threadSignalLock;
+typedef HANDLE                          __threadSignal;
+#define __StaticInitLock                NULL
 
-#define __InitSignalLock(lockName)				InitializeCriticalSection(lockName)
-
-#define __LockSignal(lockName)					EnterCriticalSection(lockName)
-
-#define __UnLockSignal(lockName)				LeaveCriticalSection(lockName)
-
-#define __InitLock(lockName)					(*(lockName)=CreateMutex(NULL, FALSE, NULL))
-
-#define __Lock(lockName)						WaitForSingleObject(*lockName, INFINITE)
-
-#define __UnLock(lockName)						ReleaseMutex(*lockName)
-
-#define __InitSignal(signalName)				(*signalName=CreateEvent(NULL, FALSE, FALSE, NULL))
-
-#define __Signal(signalName)					SetEvent(*signalName)
-
-#define __Wait(signalName, lockName)			{ResetEvent(*signalName); __UnLockSignal(lockName); WaitForSingleObject(*signalName, INFINITE); __LockSignal(lockName);};
-
-#define __CreateThread(threadId, threadKey, functionName)  *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, NULL, 0, threadKey)
-
-#define __CreateThreadWithParams(threadId, threadKey, functionName, params)  *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, params, 0, threadKey)
-
-#define __WaitThreadDie(threadId)				((WaitForSingleObject((threadId),INFINITE)!=WAIT_OBJECT_0) || !CloseHandle(threadId))
-
-#define __Terminate(threadId)					TerminateThread(threadId, 0)
-
-#define __StaticInitLock                                        NULL
-
-#define __StaticInitThreadSignal            NULL
-
-#define __GetCurrentThreadId                    GetCurrentThread
-
-#define __GetCurrentThreadKey                    GetCurrentThreadId
-
-#define __SuspendThread( ThreadId)              SuspendThread(ThreadId)
-
-#define __ResumeThread( ThreadId)               ResumeThread(ThreadId)
+#define __StaticInitThreadSignal        NULL
 
 #else
-
+/*
+** LINUX & Mac
+*/
 #include <pthread.h>
 #include <signal.h>
 
-typedef pthread_t __threadKey;
-typedef pthread_t __threadId;
-typedef pthread_mutex_t __threadLock;
-typedef pthread_mutex_t __threadSignalLock;
-typedef pthread_cond_t __threadSignal;
-
-#define __InitLock(lockName)			pthread_mutex_init(lockName, NULL)
-
-#define __Lock(lockName)			pthread_mutex_lock(lockName)
-
-#define __UnLock(lockName)			pthread_mutex_unlock(lockName)
-/* PTHREAD_MUTEX_ERRORCHECK needed for a safe release atexit when we try to release without knowing if we own the lock
-PTHREAD_PROCESS_SHARED needed for interprocess synch (plus alloc in shared mem thread_mutexattr_settype
-Linux uses PTHREAD_MUTEX_ERRORCHECK_NP other Posix use PTHREAD_MUTEX_ERRORCHECK
-*/
-#ifndef PTHREAD_MUTEX_ERRORCHECK
-#define PTHREAD_MUTEX_ERRORCHECK PTHREAD_MUTEX_ERRORCHECK_NP
-#endif
-#define __InitSignalLock(lockName) \
-    do { \
-    pthread_mutexattr_t attr; \
-    pthread_mutexattr_init (&attr); \
-    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK); \
-    pthread_mutexattr_setpshared (&attr, PTHREAD_PROCESS_SHARED); \
-    pthread_mutex_init(lockName, NULL); \
-    pthread_mutexattr_destroy(&attr); \
-    } while (0)
-
-
-#define __LockSignal(lockName)			pthread_mutex_lock(lockName)
-
-#define __UnLockSignal(lockName)		pthread_mutex_unlock(lockName)
-
-#define __InitSignal(signalName)		pthread_cond_init(signalName, NULL)
-
-#define __Signal(signalName)			pthread_cond_signal(signalName)
-
-#define __Wait(signalName, lockName)		pthread_cond_wait(signalName, lockName)
-
-#define __CreateThread(threadId, threadKey, functionName)  {pthread_create(threadId, NULL, functionName, NULL);*threadKey = *threadId;}
-
-#define __CreateThreadWithParams(threadId, threadKey, functionName, params)  {pthread_create(threadId, NULL, functionName, params); *threadKey = *threadId;}
-
-#define __WaitThreadDie(threadId)		pthread_join(threadId, NULL)
-
-#define __Terminate(threadId)			pthread_cancel(threadId)
-
+typedef pthread_t                       __threadKey;
+typedef pthread_t                       __threadId;
+typedef pthread_mutex_t                 __threadLock;
+typedef pthread_mutex_t                 __threadSignalLock;
+typedef pthread_cond_t                  __threadSignal;
 #define __StaticInitLock                PTHREAD_MUTEX_INITIALIZER
 
 #define __StaticInitThreadSignal        PTHREAD_COND_INITIALIZER
+#endif
 
-#define __GetCurrentThreadId            pthread_self
+void __InitLock(__threadLock *lockName);
 
-#define __GetCurrentThreadKey           pthread_self
+void __Lock(__threadLock *lockName);
 
-#define __SuspendThread(ThreadId)       pthread_kill(ThreadId, SIGUSR1)
+void __UnLock(__threadLock *lockName);
 
-#define __ResumeThread( ThreadId)       pthread_kill(ThreadId, SIGUSR2)
+void __InitSignalLock(__threadLock *lockName);
 
-#endif //_MSC_VER
+void __LockSignal(__threadSignalLock *lockName);
+
+void __UnLockSignal(__threadSignalLock *lockName);
+
+void __InitSignal(__threadSignal *signalName);
+
+void __Signal(__threadSignal *signalName);
+
+void __Wait(__threadSignal *signalName, __threadSignalLock *lockName);
+
+void __CreateThread(__threadId *threadId, __threadKey *threadKey, void *(*functionName) (void *));
+
+void __CreateThreadWithParams(__threadId *threadId, __threadKey *threadKey, void *(*functionName) (void *), void *params);
+
+void __WaitThreadDie(__threadId threadId);
+
+void __Terminate(__threadId threadId);
+
+__threadId __GetCurrentThreadId();
+
+__threadKey __GetCurrentThreadKey();
+
+void __SuspendThread(__threadId ThreadId);
+
+void __ResumeThread(__threadId ThreadId);
 
 #endif /* !__THREAD_WRAPPER_H__ */
 
