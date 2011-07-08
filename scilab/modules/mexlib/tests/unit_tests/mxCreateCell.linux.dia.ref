@@ -61,3 +61,6 @@ out1  =
   [0x0 constant]  [0x0 constant]
   [0x0 constant]  [0x0 constant]
 
+if size(out1) <> [2, 2] then pause end;
+
+if size(out2) <> [3, 3] then pause end;

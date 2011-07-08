@@ -50,13 +50,7 @@ out = setCell();
 
 if size(out) <> [3,3] then pause end;
 
-ref = {1,[],[];[],[],9;[],9,[]}
-ref  = 
-
-  [1x1 constant]  [0x0 constant]  [0x0 constant]
-  [0x0 constant]  [0x0 constant]  [1x1 constant]
-  [0x0 constant]  [1x1 constant]  [0x0 constant]
-
+ref = {1,[],[];[],[],9;[],9,[]};
 
 if out <> ref then pause end;
 

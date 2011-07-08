@@ -27,5 +27,5 @@ exec('loader.sce');
 out = setCell();
 if size(out) <> [3,3] then pause end;
 
-ref = {1,[],[];[],[],9;[],9,[]}
+ref = {1,[],[];[],[],9;[],9,[]};
 if out <> ref then pause end;

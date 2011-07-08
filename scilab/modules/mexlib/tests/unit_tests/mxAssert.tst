@@ -18,7 +18,11 @@ mputl(['#include ""mex.h""';
        '{';
        '    mxAssert(mxGetScalar(prhs[0]), mxGetChars(prhs[1]));';
        '}'],'mexAssert.c');
+<<<<<<< HEAD
 ilib_mex_build('libmextest',['assert','mexAssert','cmex'], 'mexAssert.c',[],'Makelib','','-D NDEBUG','');
+=======
+ilib_mex_build('libmextest',['assert','mexAssert','cmex'], 'mexAssert.c',[],'Makelib','','','');
+>>>>>>> Some mexlib unit tests.
 exec('loader.sce');
 
 assert(1, 'This is true');

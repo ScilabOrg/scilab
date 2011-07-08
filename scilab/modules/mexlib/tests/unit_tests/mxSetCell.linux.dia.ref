@@ -48,9 +48,10 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-out = setCell()
-out  = 
+out = setCell();
 
-  [1x1 constant]  [0x0 constant]  [0x0 constant]
-  [0x0 constant]  [0x0 constant]  [1x1 constant]
-  [0x0 constant]  [1x1 constant]  [0x0 constant]
+if size(out) <> [3,3] then pause end;
+
+ref = {1,[],[];[],[],9;[],9,[]};
+
+if out <> ref then pause end;
