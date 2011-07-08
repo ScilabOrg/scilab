@@ -46,6 +46,7 @@
  *     values = vector of doubles or int8-16-32 or char
  --------------------------------------------------------------------------*/
 #include <stdarg.h>
+#include <assert.h>
 
 #include <limits>
 
@@ -1314,13 +1315,13 @@ bool mxIsLogicalScalar(const mxArray *ptr)
 int mexPrintf(const char *format, ...)
 {
     // TODO: define this size limit
-    char string[1024];
+    int size = 1024;
+    char string[size];
     va_list arg_ptr;
     va_start(arg_ptr, format);
-    vsnprintf(string, 1024, format, arg_ptr);
+    vsnprintf(string, size, format, arg_ptr);
     va_end(arg_ptr);
     YaspWrite(string);
-    return 0;
 }
 
 void mexWarnMsgTxt(const char *error_msg)
