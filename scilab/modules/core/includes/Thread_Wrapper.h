@@ -46,6 +46,7 @@ typedef HANDLE                          __threadSignal;
 */
 #include <pthread.h>
 #include <signal.h>
+#include <stdlib.h> // malloc
 
 typedef pthread_t                       __threadKey;
 typedef pthread_t                       __threadId;

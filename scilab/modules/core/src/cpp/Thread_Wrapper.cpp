@@ -116,20 +116,36 @@ void __Wait(__threadSignal *signalName, __threadSignalLock *lockName)
 
 void __CreateThread(__threadId *threadId, __threadKey *threadKey, void *(*functionName) (void *))
 {
-#ifdef _MSC_VER
-    *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, NULL, 0, threadKey);
-#else
-    pthread_create(threadId, NULL, functionName, NULL);
-    *threadKey = *threadId;
-#endif
+    __CreateThreadWithParams(threadId, threadKey, functionName, NULL);
 }
 
 void __CreateThreadWithParams(__threadId *threadId, __threadKey *threadKey, void *(*functionName) (void *), void *params)
 {
 #ifdef _MSC_VER
-    *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, params, 0, threadKey);
+    *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, NULL, 0, threadKey);
 #else
-    pthread_create(threadId, NULL, functionName, params);
+
+    /*
+    ** We need to increase call stack under MacOSX && LINUX.
+    ** The default one is too small...
+    */
+    pthread_attr_t threadAttr;
+#ifdef __APPLE__
+    size_t setSize = 8388608; // Magic number based on Linux64
+    void *stackbase = (void *) malloc(setSize);
+    pthread_attr_init(&threadAttr);
+
+    pthread_attr_setstacksize(&threadAttr, setSize);
+    pthread_attr_setstackaddr(&threadAttr, stackbase);
+    pthread_create(threadId, &threadAttr, functionName, params);
+#else
+    size_t setSize = (unsigned int) (-1); // Linux64
+    void *stackbase = (void *) malloc(setSize);
+    pthread_attr_init(&threadAttr);
+
+    pthread_attr_setstack(&threadAttr, stackbase, setSize);
+    pthread_create(threadId, &threadAttr, functionName, params);
+#endif
     *threadKey = *threadId;
 #endif
 }
