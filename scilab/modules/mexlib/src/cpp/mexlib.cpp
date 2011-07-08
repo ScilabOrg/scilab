@@ -87,7 +87,12 @@ static char *the_current_mex_name;
 
 mxClassID mxGetClassID(const mxArray * ptr)
 {
-    types::InternalType::RealType type = ((types::InternalType *) ptr)->getType();
+    types::InternalType *pIT = (types::InternalType *) ptr;
+    if (pIT == NULL)
+    {
+        return mxUNKNOWN_CLASS;
+    }
+    types::InternalType::RealType type = pIT->getType();
 
     switch (type)
     {
@@ -115,57 +120,68 @@ mxClassID mxGetClassID(const mxArray * ptr)
         return mxLOGICAL_CLASS;
     case types::InternalType::RealFloat:
         return mxSINGLE_CLASS;
+    case types::InternalType::RealStruct:
+        return mxSTRUCT_CLASS;
+    case types::InternalType::RealCell:
+        return mxCELL_CLASS;
+    case types::InternalType::RealFunction:
+        return mxFUNCTION_CLASS;
     default:
         return mxUNKNOWN_CLASS;
     }
 }
 
-bool mxIsInt8(const mxArray * ptr)
+bool mxIsInt8(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxINT8_CLASS;
 }
 
-bool mxIsInt16(const mxArray * ptr)
+bool mxIsInt16(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxINT16_CLASS;
 }
 
-bool mxIsInt32(const mxArray * ptr)
+bool mxIsInt32(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxINT32_CLASS;
 }
 
-bool mxIsInt64(const mxArray * ptr)
+bool mxIsInt64(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxINT64_CLASS;
 }
 
-bool mxIsUint8(const mxArray * ptr)
+bool mxIsUint8(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxUINT8_CLASS;
 }
 
-bool mxIsUint16(const mxArray * ptr)
+bool mxIsUint16(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxUINT16_CLASS;
 }
 
-bool mxIsUint32(const mxArray * ptr)
+bool mxIsUint32(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxUINT32_CLASS;
 }
 
-bool mxIsUint64(const mxArray * ptr)
+bool mxIsUint64(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxUINT64_CLASS;
 }
 
+bool mxIsFunction(const mxArray *ptr)
+{
+    return mxGetClassID(ptr) == mxFUNCTION_CLASS;
+}
+
 double mxGetEps(void)
 {
-    types::InternalType * pITEps = symbol::Context::getInstance()->get(symbol::Symbol(L"%eps"));
+    types::InternalType *pITEps = symbol::Context::getInstance()->get(symbol::Symbol(L"%eps"));
     if (pITEps && pITEps->isDouble())
     {
-        return pITEps->getAs < types::Double > ()->get(0);
+        return pITEps->getAs<types::Double>()->get(0);
     }
 
     return -1;
@@ -173,10 +189,10 @@ double mxGetEps(void)
 
 double mxGetInf(void)
 {
-    types::InternalType * pITInf = symbol::Context::getInstance()->get(symbol::Symbol(L"%inf"));
+    types::InternalType *pITInf = symbol::Context::getInstance()->get(symbol::Symbol(L"%inf"));
     if (pITInf && pITInf->isDouble())
     {
-        return pITInf->getAs < types::Double > ()->get(0);
+        return pITInf->getAs<types::Double>()->get(0);
     }
 
     return -1;
@@ -184,11 +200,13 @@ double mxGetInf(void)
 
 double mxGetNaN(void)
 {
-    double x, y;
+    types::InternalType *pITInf = symbol::Context::getInstance()->get(symbol::Symbol(L"%nan"));
+    if (pITInf/* && pITInf->isDouble()*/)
+    {
+        return pITInf->getAs<types::Double>()->get(0);
+    }
 
-    x = mxGetInf();
-    y = x / x;
-    return y;
+    return -1;
 }
 
 bool mxIsInf(double x)
@@ -236,13 +254,13 @@ mxArray *mxCreateData(int m)
 
 int mxGetNumberOfElements(const mxArray * ptr)
 {
-    types::InternalType * pIT = (types::InternalType *) ptr;
+    types::InternalType *pIT = (types::InternalType *) ptr;
     if (pIT == NULL)
     {
         return 0;
     }
 
-    types::GenericType * pGT = dynamic_cast < types::GenericType * >(pIT);
+    types::GenericType *pGT = dynamic_cast<types::GenericType *>(pIT);
     if (pGT == NULL)
     {
         return 0;
@@ -251,15 +269,15 @@ int mxGetNumberOfElements(const mxArray * ptr)
     return pGT->getSize();
 }
 
-double *mxGetPr(const mxArray * ptr)
+double *mxGetPr(const mxArray *ptr)
 {
-    types::InternalType * pIT = (types::InternalType *) ptr;
+    types::InternalType *pIT = (types::InternalType *) ptr;
     if (pIT == NULL)
     {
         return NULL;
     }
 
-    types::Double * pD = dynamic_cast < types::Double * >(pIT);
+    types::Double *pD = dynamic_cast<types::Double *>(pIT);
     if (pD == NULL)
     {
         return NULL;
@@ -492,20 +510,7 @@ bool mxIsSparse(const mxArray * ptr)
 
 bool mxIsLogical(const mxArray * ptr)
 {
-    // TODO: review
-    types::InternalType * pIT = (types::InternalType *) ptr;
-    if (pIT == NULL)
-    {
-        return false;
-    }
-
-    return pIT->isBool();
-    //return mxGetClassID(ptr)==mxLOGICAL_CLASS;
-}
-
-bool mxIsLogicalScalar(const mxArray * ptr)
-{
-    return mxIsLogical(ptr) && mxGetNumberOfElements(ptr) == 1;
+    return mxGetClassID(ptr)==mxLOGICAL_CLASS;
 }
 
 void mxSetLogical(mxArray * ptr)
@@ -528,7 +533,7 @@ void mxClearLogical(mxArray * ptr)
     {
         return;
     }
-    int *pr = (int *)mxGetPr(ptr);
+    int *pr = (int *) mxGetPr(ptr);
     ptr = (mxArray *) new types::Double(mxGetNumberOfDimensions(ptr), mxGetDimensions(ptr));
 
     ((types::Bool *) ptr)->set(pr);
@@ -536,13 +541,13 @@ void mxClearLogical(mxArray * ptr)
 
 bool mxIsComplex(const mxArray * ptr)
 {
-    types::InternalType * pIT = (types::InternalType *) ptr;
+    types::InternalType *pIT = (types::InternalType *) ptr;
     if (pIT == NULL)
     {
         return false;
     }
 
-    types::GenericType * pGT = pIT->getAs < types::GenericType > ();
+    types::GenericType *pGT = pIT->getAs<types::GenericType>();
     if (pGT == NULL)
     {
         return false;
@@ -554,7 +559,7 @@ bool mxIsComplex(const mxArray * ptr)
 double mxGetScalar(const mxArray * ptr)
 {
     // TODO: review spec
-    types::InternalType * pIT = (types::InternalType *) ptr;
+    types::InternalType *pIT = (types::InternalType *) ptr;
     if (pIT == NULL)
     {
         return 0;
@@ -562,58 +567,58 @@ double mxGetScalar(const mxArray * ptr)
 
     switch (pIT->getType())
     {
-    case types::InternalType::RealDouble:
+        case types::InternalType::RealDouble:
         {
-            types::Double * pD = pIT->getAs < types::Double > ();
+            types::Double *pD = pIT->getAs<types::Double>();
             return pD->get(0);
         }
-    case types::InternalType::RealBool:
+        case types::InternalType::RealBool:
         {
-            types::Bool * pB = pIT->getAs < types::Bool > ();
+            types::Bool *pB = pIT->getAs<types::Bool>();
             return (double)pB->get(0);
         }
-    case types::InternalType::RealInt8:
+        case types::InternalType::RealInt8:
         {
-            types::Int8 * pI = pIT->getAs < types::Int8 > ();
+            types::Int8 *pI = pIT->getAs<types::Int8>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealUInt8:
+        case types::InternalType::RealUInt8:
         {
-            types::UInt8 * pI = pIT->getAs < types::UInt8 > ();
+            types::UInt8 *pI = pIT->getAs<types::UInt8>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealInt16:
+        case types::InternalType::RealInt16:
         {
-            types::Int16 * pI = pIT->getAs < types::Int16 > ();
+            types::Int16 *pI = pIT->getAs<types::Int16>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealUInt16:
+        case types::InternalType::RealUInt16:
         {
-            types::UInt16 * pI = pIT->getAs < types::UInt16 > ();
+            types::UInt16 *pI = pIT->getAs<types::UInt16>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealInt32:
+        case types::InternalType::RealInt32:
         {
-            types::Int32 * pI = pIT->getAs < types::Int32 > ();
+            types::Int32 *pI = pIT->getAs<types::Int32>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealUInt32:
+        case types::InternalType::RealUInt32:
         {
-            types::UInt32 * pI = pIT->getAs < types::UInt32 > ();
+            types::UInt32 *pI = pIT->getAs<types::UInt32>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealInt64:
+        case types::InternalType::RealInt64:
         {
-            types::Int64 * pI = pIT->getAs < types::Int64 > ();
+            types::Int64 *pI = pIT->getAs<types::Int64>();
             return (double)pI->get(0);
         }
-    case types::InternalType::RealUInt64:
+        case types::InternalType::RealUInt64:
         {
-            types::UInt64 * pI = pIT->getAs < types::UInt64 > ();
+            types::UInt64 *pI = pIT->getAs<types::UInt64>();
             return (double)pI->get(0);
         }
-    default:
-        return 0;
+        default:
+            return 0;
     }
 }
 
@@ -642,7 +647,7 @@ void mxAssert(int expr, char *error_message)
 
 mxArray *mxCreateDoubleMatrix(int m, int n, mxComplexity complexFlag)
 {
-    types::Double * ptr = new types::Double(m, n, complexFlag == mxCOMPLEX);
+    types::Double *ptr = new types::Double(m, n, complexFlag == mxCOMPLEX);
     return (mxArray *) ptr;
 }
 
@@ -654,81 +659,75 @@ mxArray *mxCreateDoubleScalar(double value)
     return ptr;
 }
 
-bool mxIsClass(const mxArray * ptr, const char *name)
+bool mxIsClass(const mxArray *ptr, const char *name)
 {
-    mxClassID classID = mxGetClassID(ptr);
-
     if (strcmp(name, "cell") == 0)
     {
-        return classID == mxCELL_CLASS;
+        return mxIsCell(ptr);
     }
     if (strcmp(name, "char") == 0)
     {
-        return classID == mxCHAR_CLASS;
+        return mxIsChar(ptr);
     }
     if (strcmp(name, "double") == 0)
     {
-        return classID == mxDOUBLE_CLASS;
+        return mxIsDouble(ptr);
     }
     if (strcmp(name, "function_handle") == 0)
     {
-        return classID == mxFUNCTION_CLASS;
+        return mxIsFunction(ptr);
     }
     if (strcmp(name, "int8") == 0)
     {
-        return classID == mxINT8_CLASS;
+        return mxIsInt8(ptr);
     }
     if (strcmp(name, "int16") == 0)
     {
-        return classID == mxINT16_CLASS;
+        return mxIsInt16(ptr);
     }
     if (strcmp(name, "int32") == 0)
     {
-        return classID == mxINT32_CLASS;
+        return mxIsInt32(ptr);
     }
     if (strcmp(name, "int64") == 0)
     {
-        return classID == mxINT64_CLASS;
+        return mxIsInt64(ptr);
     }
     if (strcmp(name, "logical") == 0)
     {
-        return classID == mxLOGICAL_CLASS;
+        return mxIsLogical(ptr);
     }
     if (strcmp(name, "single") == 0)
     {
-        return classID == mxSINGLE_CLASS;
+        return mxIsSingle(ptr);
     }
     if (strcmp(name, "struct") == 0)
     {
-        return classID == mxSTRUCT_CLASS;
+        return mxIsStruct(ptr);
     }
     if (strcmp(name, "uint8") == 0)
     {
-        return classID == mxUINT8_CLASS;
+        return mxIsUint8(ptr);
     }
     if (strcmp(name, "uint16") == 0)
     {
-        return classID == mxUINT16_CLASS;
+        return mxIsUint16(ptr);
     }
     if (strcmp(name, "uint32") == 0)
     {
-        return classID == mxUINT32_CLASS;
+        return mxIsUint32(ptr);
     }
     if (strcmp(name, "uint64") == 0)
     {
-        return classID == mxUINT64_CLASS;
+        return mxIsUint64(ptr);
     }
     // TODO: how to handle <class_name> and <class_id>?
-    if (strcmp(name, "unknown") == 0)
-    {
-        return classID == mxUNKNOWN_CLASS;
-    }
     return false;
 }
 
 mxArray *mxCreateStructArray(int ndim, const int *dims, int nfields, const char **field_names)
 {
-    types::Struct * ptr = new types::Struct(ndim, (int *)dims);
+    types::Struct *ptr = new types::Struct(ndim, (int *) dims);
     for (int i = 0; i < nfields; i++)
     {
         // TODO: is this cast right?
@@ -949,12 +948,12 @@ static void mxFree_m_all()
     // FIXME
 }
 
-bool mxIsCell(const mxArray * ptr)
+bool mxIsCell(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxCELL_CLASS;
 }
 
-bool mxIsStruct(const mxArray * ptr)
+bool mxIsStruct(const mxArray *ptr)
 {
     return mxGetClassID(ptr) == mxSTRUCT_CLASS;
 }
@@ -964,26 +963,28 @@ bool mxIsStruct(const mxArray * ptr)
 * string Matrix pointed to by ptr ( ptr is assumed to be a String Matrix )
 **************************************************************/
 
-int mxGetString(const mxArray * ptr, char *str, int strl)
+int mxGetString(const mxArray *ptr, char *str, int strl)
 {
     if (!mxIsChar(ptr))
     {
         return 1;
     }
-    types::String * pa = (types::String *) ptr;
-    int length = Min(strl - 1, pa->getSize());
+    types::String *pa = (types::String *) ptr;
+    wchar_t *to_copy = *pa->get();
+    int length = Min(strl - 1, wcslen(to_copy));
 
-    memcpy(str, pa->get(), length);
+    wcstombs(str, to_copy, length);
+    //memcpy(str, pa->get(), length);
     str[length] = '\0';
     return (length != pa->getSize())? 1 : 0;
 }
 
-char *mxArrayToString(const mxArray * array_ptr)
+char *mxArrayToString(const mxArray *array_ptr)
 {
     // TODO: review
     if (mxIsChar(array_ptr))
     {
-        types::String * pa = (types::String *) array_ptr;
+        types::String *pa = (types::String *) array_ptr;
         int buflen = pa->getSize() + 1;
         char *buf = (char *)mxCalloc(buflen, sizeof(char));
 
@@ -1017,18 +1018,18 @@ void mxFreeMatrix(mxArray * ptr)
     mxDestroyArray(ptr);
 }
 
-bool mexIsGlobal(const mxArray * ptr)
+bool mexIsGlobal(const mxArray *ptr)
 {
     // TODO: really need iterate in symbols?
-    symbol::Context * context = symbol::Context::getInstance();
+    symbol::Context *context = symbol::Context::getInstance();
     int size = symbol::Symbol::map_size();
     wchar_t **keys = symbol::Symbol::get_all();
 
     for (int i = 0; i < size; i++)
     {
-        symbol::Symbol * s = new symbol::Symbol(keys[i]);
-        types::InternalType * value = context->get(*s);
-        if (value == (types::InternalType *) ptr)
+        symbol::Symbol *s = new symbol::Symbol(keys[i]);
+        const mxArray *value = (const mxArray *) context->get(*s);
+        if (&value == &ptr)
         {
             return context->isGlobalVisible(*s);
         }
@@ -1045,12 +1046,6 @@ mxArray *mxDuplicateArray(const mxArray * ptr)
     }
 
     return (mxArray *) pIT->clone();
-}
-
-mxArray *UnrefStruct(mxArray * ptr)
-{
-    // FIXME
-    return NULL;
 }
 
 void mxDestroyArray(mxArray * ptr)
@@ -1150,7 +1145,7 @@ mxArray *mxCreateLogicalScalar(mxLogical value)
     return ptr;
 }
 
-bool mxIsLogicalScalarTrue(mxArray * ptr)
+bool mxIsLogicalScalarTrue(const mxArray *ptr)
 {
     if (mxIsLogicalScalar(ptr) == false)
     {
@@ -1165,7 +1160,7 @@ bool mxIsLogicalScalarTrue(mxArray * ptr)
     return true;
 }
 
-bool mxIsLogicalScalar(mxArray * ptr)
+bool mxIsLogicalScalar(const mxArray *ptr)
 {
     return mxIsLogical(ptr) && mxGetNumberOfElements(ptr) == 1;
 }
@@ -1175,15 +1170,16 @@ Print function which prints (format,args,....)
 in Scilab window
 */
 
-void mexPrintf(const char *fmt, ...)
+int mexPrintf(const char *format, ...)
 {
-    va_list args;
-    char buf[2048];
-
-    va_start(args, fmt);
-    sprintf(buf, fmt, args);
-    YaspWrite(fmt);
-    va_end(args);
+    // TODO: define this size limit
+    int size = 1024;
+    char string[size];
+    va_list arg_ptr;
+    va_start(arg_ptr, format);
+    vsnprintf(string, size, format, arg_ptr);
+    va_end(arg_ptr);
+    YaspWrite(string);
 }
 
 void mexWarnMsgTxt(const char *error_msg)
@@ -1343,10 +1339,10 @@ const mxArray *mexGetVariablePtr(const char *workspace, const char *var_name)
 mxArray *mexGetVariable(const char *workspace, const char *name)
 {
     symbol::Context * context = symbol::Context::getInstance();
-    wchar_t *dest;
+    wchar_t dest[100];
 
     mbstowcs(dest, name, strlen(name));
-    types::InternalType * value = NULL;
+    types::InternalType *value = NULL;
     if (strcmp(workspace, "base"))
     {
         value = context->get(*(new symbol::Symbol(dest)));
@@ -1393,7 +1389,6 @@ int mexPutVariable(const char *workspace, char *var_name, mxArray * array_ptr)
 int mexPutFull(char *name, int m, int n, double *pr, double *pi)
 {
     mxArray *array_ptr = mxCreateDoubleMatrix(m, n, pi == NULL ? mxREAL : mxCOMPLEX);
-
     mxSetPr(array_ptr, pr);
     mxSetPi(array_ptr, pi);
     mexPutVariable("caller", name, array_ptr);
@@ -1489,9 +1484,9 @@ int mxSetDimensions(mxArray * array_ptr, const int *dims, int ndim)
     {
         ((types::Double *) array_ptr)->resize((int *)dims, ndim);
     }
-    // else if (mxIsFunction(array_ptr)) {
-    //     ((types::Function *) array_ptr)->resize((int *) dims, ndim);
-    //}
+     else if (mxIsFunction(array_ptr)) {
+         //((types::Function *) array_ptr)->resize((int *) dims, ndim);
+    }
     // else if (mxIsSparse(array_ptr)) {
     //     TODO: we don't have Sparse classes yet
     // }
@@ -1594,6 +1589,10 @@ const char *mxGetClassName(const mxArray * ptr)
     {
         return "struct";
     }
+    if (mxIsFunction(ptr))
+    {
+        return "function_handle";
+    }
     return "unknown";
 }
 
@@ -1610,13 +1609,13 @@ int mxGetNzmax(const mxArray * ptr)
 
 mxLogical *mxGetLogicals(const mxArray * ptr)
 {
-    types::InternalType * pIT = (types::InternalType *) ptr;
+    types::InternalType *pIT = (types::InternalType *) ptr;
     if (pIT == NULL)
     {
         return NULL;
     }
 
-    types::Bool * pB = pIT->getAs < types::Bool > ();
+    types::Bool *pB = pIT->getAs<types::Bool>();
     if (pB == NULL)
     {
         return NULL;

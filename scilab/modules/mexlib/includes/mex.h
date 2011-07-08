@@ -53,7 +53,7 @@ extern "C"
     /* mexGetArray : NOT IN MATLAB API - V6.4 compatible */
 #define mexGetArrayPtr(name,type) mexGetArray(name,type)
 
-    void mexPrintf(const char *fmt, ...);
+    int mexPrintf(const char *format, ...);
     void C2F(mexprintf) (char *error_msg, int len);
 
     /* mexPutFull: NOT IN MATLAB API - V4 compatible */
@@ -96,6 +96,7 @@ extern "C"
     bool mxIsFinite(double x);
     int *mxGetDimensions(const mxArray * ptr);
     int mxCalcSingleSubscript(const mxArray * ptr, int nsubs, const int *subs);
+    const char *mexFunctionName(void);
     int mxGetNumberOfElements(const mxArray * ptr);
     int mxGetNumberOfDimensions(const mxArray * ptr);
     int mxGetNumberOfFields(const mxArray * ptr);
@@ -141,7 +142,7 @@ extern "C"
     bool mxIsLogical(const mxArray * ptr);
     mxArray *mxCreateLogicalScalar(mxLogical value);
     mxArray *mxCreateLogicalMatrix(int m, int n);
-    bool mxIsLogicalScalarTrue(mxArray * ptr);
+    bool mxIsLogicalScalarTrue(const mxArray * ptr);
     bool mxIsLogicalScalar(const mxArray * ptr);
     bool mexIsGlobal(const mxArray * ptr);
     /* mxsetlogical: NOT IN MATLAB API - v6.5 compatible */
@@ -153,6 +154,7 @@ extern "C"
     bool mxIsClass(const mxArray * ptr, const char *name);
     bool mxIsCell(const mxArray * ptr);
     bool mxIsStruct(const mxArray * ptr);
+    bool mxIsFunction(const mxArray * ptr);
 
     bool mxIsInt8(const mxArray * ptr);
     bool mxIsInt16(const mxArray * ptr);
@@ -281,3 +283,6 @@ extern "C"
     void mexFunction(int nlhs, mxArray * plhs[], int nrhs, const mxArray * prhs[]);
 }
 #endif
+
+void mxAssert(int expr, char *error_message);
+mxChar *mxGetChars(mxArray * array_ptr);
