@@ -119,7 +119,23 @@ void __CreateThread(__threadId *threadId, __threadKey *threadKey, void *(*functi
 #ifdef _MSC_VER
     *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, NULL, 0, threadKey);
 #else
+
+#ifdef __APPLE__
+    /*
+    ** We need to increase call stack under MacOSX.
+    ** The default one is too small...
+    */
+    pthread_attr_t threadAttr;
+    size_t setSize = 8388608; // Magic number based on Linux64
+    void *stackbase = (void *) malloc(setSize);
+    pthread_attr_init(&threadAttr);
+
+    pthread_attr_setstacksize(&threadAttr, setSize);
+    pthread_attr_setstackaddr(&threadAttr, stackbase);
+    pthread_create(threadId, &threadAttr, functionName, NULL);
+#else
     pthread_create(threadId, NULL, functionName, NULL);
+#endif
     *threadKey = *threadId;
 #endif
 }
@@ -129,7 +145,22 @@ void __CreateThreadWithParams(__threadId *threadId, __threadKey *threadKey, void
 #ifdef _MSC_VER
     *(threadId) = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)functionName, params, 0, threadKey);
 #else
+#ifdef __APPLE__
+    /*                                                                                                                                           
+    ** We need to increase call stack under MacOSX.                                                                                              
+    ** The default one is too small...                                                                                                           
+    */
+    pthread_attr_t threadAttr;
+    size_t setSize = 8388608; // Magic number based on Linux64                                                                                   
+    void *stackbase = (void *) malloc(setSize);
+    pthread_attr_init(&threadAttr);
+
+    pthread_attr_setstacksize(&threadAttr, setSize);
+    pthread_attr_setstackaddr(&threadAttr, stackbase);
+    pthread_create(threadId, &threadAttr, functionName, params);
+#else
     pthread_create(threadId, NULL, functionName, params);
+#endif
     *threadKey = *threadId;
 #endif
 }

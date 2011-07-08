@@ -46,6 +46,9 @@ typedef HANDLE                          __threadSignal;
 */
 #include <pthread.h>
 #include <signal.h>
+#ifdef __APPLE__
+#include <stdlib.h> // malloc
+#endif
 
 typedef pthread_t                       __threadKey;
 typedef pthread_t                       __threadId;
