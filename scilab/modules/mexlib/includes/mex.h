@@ -53,7 +53,7 @@ extern "C"
     /* mexGetArray : NOT IN MATLAB API - V6.4 compatible */
 #define mexGetArrayPtr(name,type) mexGetArray(name,type)
 
-    void mexPrintf(const char *fmt, ...);
+    int mexPrintf(const char *format, ...);
     void C2F(mexprintf) (char *error_msg, int len);
 
     /* mexPutFull: NOT IN MATLAB API - V4 compatible */
@@ -141,7 +141,7 @@ extern "C"
     bool mxIsLogical(const mxArray * ptr);
     mxArray *mxCreateLogicalScalar(mxLogical value);
     mxArray *mxCreateLogicalMatrix(int m, int n);
-    bool mxIsLogicalScalarTrue(mxArray * ptr);
+    bool mxIsLogicalScalarTrue(const mxArray * ptr);
     bool mxIsLogicalScalar(const mxArray * ptr);
     bool mexIsGlobal(const mxArray * ptr);
     /* mxsetlogical: NOT IN MATLAB API - v6.5 compatible */
@@ -281,3 +281,6 @@ extern "C"
     void mexFunction(int nlhs, mxArray * plhs[], int nrhs, const mxArray * prhs[]);
 }
 #endif
+
+void mxAssert(int expr, char *error_message);
+mxChar *mxGetChars(mxArray * array_ptr);
