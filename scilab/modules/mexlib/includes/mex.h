@@ -286,6 +286,7 @@ extern "C"
 //define mxAssert in order to benefit user compilation flag ( debug or not )
 #define mxAssert(/* int */expr, /*char* */error_message) if (!expr){mexPrintf("Assertion Error: %s\n", error_message); assert(expr);}
 //void mxAssert(int expr, char *error_message);
+
 void mxAssertS(int expr, char *error_message);
 mxChar *mxGetChars(mxArray *array_ptr);
 const char *mxGetClassName(const mxArray *ptr);
