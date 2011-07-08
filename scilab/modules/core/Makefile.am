@@ -189,7 +189,8 @@ CORE_CPP_SOURCES = \
     src/cpp/storeCommand.cpp \
     src/cpp/banner.cpp \
 	src/cpp/with_module.cpp \
-	src/cpp/runner.cpp
+	src/cpp/runner.cpp \
+	src/cpp/Thread_Wrapper.cpp
 
 if USE_DYNAMIC_STACK
 CORE_FORTRAN_SOURCES += src/fortran/relocstack.f
