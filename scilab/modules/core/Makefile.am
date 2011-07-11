@@ -288,10 +288,11 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/pvm/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
-        -I$(top_srcdir)/modules/string/includes \
-        -I$(top_srcdir)/modules/fileio/includes \
-        -I$(top_srcdir)/modules/shell/includes \
+    -I$(top_srcdir)/modules/string/includes \
+    -I$(top_srcdir)/modules/fileio/includes \
+    -I$(top_srcdir)/modules/shell/includes \
 	-I$(top_srcdir)/modules/operations/includes \
+	-I$(top_srcdir)/modules/commons/includes \
 	$(XML_FLAGS)
 
 libscicore_la_CPPFLAGS = \
@@ -311,7 +312,8 @@ libscicore_la_CPPFLAGS = \
 			-I$(top_srcdir)/modules/system_env/includes \
 			-I$(top_srcdir)/modules/string/includes/ \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
-	        -I$(top_srcdir)/modules/fileio/includes
+	        -I$(top_srcdir)/modules/fileio/includes \
+	        -I$(top_srcdir)/modules/commons/includes
 
 # Used by sci_getdebuginfo:
 if TCLTK
@@ -384,8 +386,7 @@ includes/stack3.h \
 includes/stackinfo.h \
 includes/stackTypeVariable.h \
 includes/version.h \
-includes/getversion.h \
-includes/Thread_Wrapper.h
+includes/getversion.h
 
 if GUI
 USEANT=1

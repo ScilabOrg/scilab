@@ -10,6 +10,9 @@
 ##
 ##
 
+SYSTEM_ENV_C_SOURCES 	= \
+    src/jni/ScilabCommons_wrap.c
+
 SYSTEM_ENV_CPP_SOURCES 	= \
 	src/cpp/setenvvar.cpp \
 	src/cpp/sci_path.cpp \
@@ -24,7 +27,7 @@ SYSTEM_ENV_CPP_SOURCES 	= \
 
 pkglib_LTLIBRARIES = libscisystem_env.la
 
-libscisystem_env_la_SOURCES = $(SYSTEM_ENV_CPP_SOURCES)
+libscisystem_env_la_SOURCES = $(SYSTEM_ENV_CPP_SOURCES) $(SYSTEM_ENV_C_SOURCES)
 
 libscisystem_env_la_CPPFLAGS = \
 	-I includes/ \
@@ -34,8 +37,17 @@ libscisystem_env_la_CPPFLAGS = \
 	-I $(top_srcdir)/modules/io/includes \
 	-I $(top_srcdir)/modules/fileio/includes \
 	-I $(top_srcdir)/modules/string/includes \
-	-I $(top_srcdir)/modules/abstractSyntaxTree/includes
+	-I $(top_srcdir)/modules/abstractSyntaxTree/includes \
+	-I $(top_srcdir)/modules/commons/includes
 
+libscisystem_env_la_CFLAGS = $(JAVA_JNI_INCLUDE)
+
+#### SWIG Declaration ####
+SWIG_WRAPPERS = src/jni/ScilabCommons.i
+
+if SWIG
+BUILT_SOURCES=swig
+endif
 
 libscisystem_env_la_includedir=$(pkgincludedir)/system_env
 

@@ -16,7 +16,7 @@ pkglib_LTLIBRARIES 	= libscifunctions_manager.la
 
 libscifunctions_manager_la_SOURCES 	= $(FUNCTION_MANAGER_CPP_SOURCES)
 
-libscifunctions_manager_la_CXXFLAGS	=	-I$(top_builddir)/modules/types/includes/ \
+libscifunctions_manager_la_CPPFLAGS	=	-I$(top_builddir)/modules/types/includes/ \
 						-I$(top_builddir)/modules/core/includes/ \
 						-I$(top_builddir)/modules/string/includes/ \
 						-I$(top_builddir)/modules/symbol/includes/ \
@@ -28,6 +28,7 @@ libscifunctions_manager_la_CXXFLAGS	=	-I$(top_builddir)/modules/types/includes/ 
 						-I$(top_builddir)/modules/abstractSyntaxTree/includes/ \
 						-I$(top_builddir)/modules/parse/includes/ \
 						-I$(top_builddir)/modules/output_stream/includes/ \
+						-I$(top_builddir)/modules/commons/includes/ \
 						-Iincludes/ \
 						-Isrc/cpp \
 						$(XML_FLAGS)

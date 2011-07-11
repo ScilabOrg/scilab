@@ -69,6 +69,7 @@ libsciio_la_CPPFLAGS= 	-I$(srcdir)/includes/ \
 			-I$(top_builddir)/modules/string/includes/ \
 			-I$(top_srcdir)/modules/system_env/includes \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
+			-I$(top_srcdir)/modules/commons/includes/ \
 			$(XML_FLAGS)
 
 
@@ -94,7 +95,7 @@ modulename=io
 
 #### io : Conf files ####
 libsciio_la_rootdir = $(mydatadir)
-libsciio_la_root_DATA =  license.txt 
+libsciio_la_root_DATA =  license.txt
 
 
 ####io : init scripts ####

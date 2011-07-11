@@ -76,7 +76,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../commons/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -104,7 +104,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../commons/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -129,7 +129,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../commons/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -156,7 +156,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../abstractSyntaxTree/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../commons/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -211,6 +211,22 @@
     <ClCompile Include="src\cpp\uint8.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="..\..\bin\blasplus.lib" />
+    <Library Include="..\..\bin\lapack.lib" />
+    <Library Include="..\..\bin\libintl.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\abstractSyntaxTree\abstractSyntaxTree-tools\abstractSyntaxTree-tools.vcxproj">
+      <Project>{1f4a0344-99ed-461b-bd53-1593788fb34d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\commons\src\c\commons.vcxproj">
+      <Project>{eca09a1e-6d12-4a47-92e1-a671c181df77}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="localization_Import.def" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="includes\alltypes.hxx" />
     <ClInclude Include="includes\anytype.hxx" />
     <ClInclude Include="includes\arrayof.hxx" />
@@ -224,6 +240,7 @@
     <ClInclude Include="includes\dollar.hxx" />
     <ClInclude Include="includes\double.hxx" />
     <ClInclude Include="includes\dynlib_types.h" />
+    <ClInclude Include="includes\dynlib_types_gw.h" />
     <ClInclude Include="includes\file.hxx" />
     <ClInclude Include="includes\float.hxx" />
     <ClInclude Include="includes\function.hxx" />
@@ -239,6 +256,8 @@
     <ClInclude Include="includes\listinsert.hxx" />
     <ClInclude Include="includes\listoperation.hxx" />
     <ClInclude Include="includes\listundefined.hxx" />
+    <ClInclude Include="includes\macro.hxx" />
+    <ClInclude Include="includes\macrofile.hxx" />
     <ClInclude Include="includes\mlist.hxx" />
     <ClInclude Include="includes\polynom.hxx" />
     <ClInclude Include="includes\singlepoly.hxx" />
@@ -249,24 +268,13 @@
     <ClInclude Include="includes\tlist.hxx" />
     <ClInclude Include="includes\tostring_common.hxx" />
     <ClInclude Include="includes\types.hxx" />
+    <ClInclude Include="includes\types_gw.hxx" />
     <ClInclude Include="includes\types_tools.hxx" />
     <ClInclude Include="includes\uint16.hxx" />
     <ClInclude Include="includes\uint32.hxx" />
     <ClInclude Include="includes\uint64.hxx" />
     <ClInclude Include="includes\uint8.hxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\bin\blasplus.lib" />
-    <Library Include="..\..\bin\lapack.lib" />
-    <Library Include="..\..\bin\libintl.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\abstractSyntaxTree\abstractSyntaxTree-tools\abstractSyntaxTree-tools.vcxproj">
-      <Project>{1f4a0344-99ed-461b-bd53-1593788fb34d}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="localization_Import.def" />
+    <ClInclude Include="includes\user.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

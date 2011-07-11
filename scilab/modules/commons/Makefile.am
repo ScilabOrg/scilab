@@ -1,11 +1,11 @@
 #
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) DIGITEO - 2010 - Allan CORNET
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 
@@ -15,7 +15,7 @@ modulename=commons
 
 #### commons : Conf files ####
 libscicommons_la_rootdir = $(mydatadir)
-libscicommons_la_root_DATA =  license.txt 
+libscicommons_la_root_DATA =  license.txt
 
 
 #### commons : init scripts ####
@@ -25,11 +25,13 @@ libscicommons_la_etc_DATA = etc/commons.quit \
 
 include $(top_srcdir)/Makefile.incl.am
 
-COMMONS_C_SOURCES =  src/jni/ScilabCommons_wrap.c
+COMMONS_CPP_SOURCES =  src/cpp/Thread_Wrapper.cpp
 
 COMMONS_FORTRAN_SOURCES = src/fortran/empty.f
 
 libscicommons_la_CFLAGS= $(JAVA_JNI_INCLUDE)
+
+libscicommons_la_CPPFLAGS= -I$(srcdir)/includes
 
 libscicommons_disable_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
 
@@ -38,7 +40,7 @@ libscicommons_disable_la_SOURCES = $(COMMONS_DISABLE_C_SOURCES)
 pkglib_LTLIBRARIES = libscicommons-disable.la
 
 if GUI
-pkglib_LTLIBRARIES += libscicommons.la 
+pkglib_LTLIBRARIES += libscicommons.la
 endif
 
 libscicommons_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
@@ -63,7 +65,7 @@ $(top_builddir)/modules/output_stream/libscioutput_stream.la
 
 #### commons : gateway declaration ####
 libscicommons_la_sci_gatewaydir = $(mydatadir)/sci_gateway
-libscicommons_la_sci_gateway_DATA = 
+libscicommons_la_sci_gateway_DATA =
 
 if GUI
 USEANT=1

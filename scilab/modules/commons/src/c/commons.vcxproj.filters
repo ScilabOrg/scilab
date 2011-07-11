@@ -26,12 +26,15 @@
     <ClCompile Include="DllmainCommons.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\jni\ScilabCommons_wrap.c">
+    <ClCompile Include="..\cpp\Thread_Wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_commons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\Thread_Wrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

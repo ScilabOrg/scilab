@@ -205,7 +205,8 @@ am_scilab_bin_OBJECTS = scilab_bin-scilab.$(OBJEXT) \
 	scilab_bin-tasks.$(OBJEXT) $(am__objects_1)
 scilab_bin_OBJECTS = $(am_scilab_bin_OBJECTS)
 am__DEPENDENCIES_1 =
-am__DEPENDENCIES_2 = $(top_builddir)/modules/shell/libscishell.la \
+am__DEPENDENCIES_2 = $(top_builddir)/modules/commons/libscicommons.la \
+	$(top_builddir)/modules/shell/libscishell.la \
 	$(top_builddir)/modules/core/libscicore.la \
 	$(top_builddir)/modules/completion/libscicompletion.la \
 	$(top_builddir)/modules/localization/libscilocalization.la \
@@ -630,7 +631,8 @@ scilab_bin_CFLAGS = -I$(top_srcdir)/modules/io/includes
 # libshell is mandatory here since main_linux.c depends on it.
 # Localization dep already exists because of the `exportLocaleToSystem' symbol
 # (causing issues on some platform)
-COMMON_LIBS = $(top_builddir)/modules/shell/libscishell.la \
+COMMON_LIBS = $(top_builddir)/modules/commons/libscicommons.la \
+$(top_builddir)/modules/shell/libscishell.la \
 $(top_builddir)/modules/core/libscicore.la \
 $(top_builddir)/modules/completion/libscicompletion.la \
 $(top_builddir)/modules/localization/libscilocalization.la \
@@ -655,7 +657,8 @@ COMMON_CPPFLAGS = -I$(top_srcdir)/modules/shell/includes/ \
 						-I$(top_srcdir)/modules/fileio/includes/ \
 						-I$(top_srcdir)/modules/string/includes/ \
 						-I$(top_srcdir)/modules/history_manager/includes/ \
-						-I$(top_srcdir)/modules/api_scilab/includes/
+						-I$(top_srcdir)/modules/api_scilab/includes/ \
+						-I$(top_srcdir)/modules/commons/includes/
 
 scilab_bin_SOURCES = $(top_srcdir)/modules/core/src/cpp/scilab.cpp \
 	$(top_srcdir)/modules/core/src/cpp/tasks.cpp $(am__append_3)
@@ -2033,7 +2036,7 @@ check-java:
 @GENERATE_LOCALIZATION_FILES_TRUE@		echo "Building $$LOCALE"; \
 @GENERATE_LOCALIZATION_FILES_TRUE@		echo "SCI=$(top_srcdir) php tools/localization/revcheck.php $$LOCALE > $$PATHTO/index.html"; \
 @GENERATE_LOCALIZATION_FILES_TRUE@		SCI=$(top_srcdir) php tools/localization/revcheck.php $$LOCALE > $$PATHTO/index.html; \
-@GENERATE_LOCALIZATION_FILES_TRUE@	done; 
+@GENERATE_LOCALIZATION_FILES_TRUE@	done;
 
 @GENERATE_LOCALIZATION_FILES_TRUE@install-data-local:
 @GENERATE_LOCALIZATION_FILES_TRUE@	@$(mkinstalldirs) $(DESTDIR)$(localedir); \

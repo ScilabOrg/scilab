@@ -356,6 +356,9 @@
       <Project>{6a6a6f76-ccc0-40c4-8aee-8a010f49a604}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\..\modules\commons\src\c\commons.vcxproj">
+      <Project>{eca09a1e-6d12-4a47-92e1-a671c181df77}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\modules\completion\src\c\completion.vcxproj">
       <Project>{ccce1ead-8e62-4dc0-ab17-972c06ef0c89}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

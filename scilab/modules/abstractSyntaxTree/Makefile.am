@@ -22,7 +22,7 @@ libsciabstractSyntaxTree_la_SOURCES = \
 				src/cpp/shortcutvisitor.cpp \
 				src/cpp/scilabexception.cpp
 
-libsciabstractSyntaxTree_la_CXXFLAGS = \
+libsciabstractSyntaxTree_la_CPPFLAGS = \
 			-I $(top_srcdir)/modules/symbol/includes \
 			-I $(top_srcdir)/modules/types/includes \
 			-I $(top_srcdir)/modules/functions_manager/includes \
@@ -33,7 +33,8 @@ libsciabstractSyntaxTree_la_CXXFLAGS = \
 			-I src/cpp \
 			-I $(top_srcdir)/modules/system_env/includes \
 			-I $(top_srcdir)/modules/api_scilab/includes \
-			-I $(top_srcdir)/modules/string/includes
+			-I $(top_srcdir)/modules/string/includes \
+			-I $(top_srcdir)/modules/commons/includes
 
 
 
