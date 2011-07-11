@@ -29,7 +29,7 @@ import javax.swing.text.Element;
     public MatchingBlockScanner(ScilabDocument doc) {
         this.doc = doc;
         this.elem = doc.getDefaultRootElement();
-        this.scilabLexer = doc.createLexer();
+        this.scilabLexer = new ScilabLexer(doc, null);
     }
 
     public MatchingPositions getMatchingBlock(int pos, boolean lr) {
@@ -115,7 +115,7 @@ qstring = (\"|\'){string}(\"|\')
 gnirtsq = \"{string}(\"|\')
 transp = ({spec} | ")" | "]" | "}") "'"
 
-openK = ("if" | "for" | "while" | "select" | "try" | "function")
+openK = ("if" | "for" | "while" | "select" | "try" | "function" | "switch")
 openKx = {openK}{spec}+
 
 elseif = "elseif" | "else"
@@ -126,7 +126,7 @@ closeKx = {closeK}{spec}+
 xcloseK = ({spec} | "%" ){closeK}
 closeS =  ")" | "]" | "}"
 
-esolcK = ("fi" | "rof" | "elihw" | "tceles" | "yrt" | "noitcnuf")
+esolcK = ("fi" | "rof" | "elihw" | "tceles" | "yrt" | "noitcnuf" | "hctiws")
 esolcKx = {spec}{esolcK}
 xesolcK = {esolcK}{spec}
 nepoK = ("dne" | "noitcnufdne")

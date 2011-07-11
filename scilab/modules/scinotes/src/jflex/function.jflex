@@ -5,6 +5,7 @@ package org.scilab.modules.scinotes;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 
 %%
@@ -23,14 +24,17 @@ import javax.swing.text.Element;
     List<String> argsValues;
     String functionName;
     int end;
+    int start;
 
     private ScilabDocument doc;
     private String id;
+    private MatchingBlockScanner matchBlock;
 
     public FunctionScanner(ScilabDocument doc) {
         this.doc = doc;
         returnValues = new ArrayList();
         argsValues = new ArrayList();
+	this.matchBlock = new MatchingBlockScanner(doc);
     }
 
     public String getFunctionName() {
@@ -49,6 +53,7 @@ import javax.swing.text.Element;
         try {
             returnValues = new ArrayList();
             argsValues = new ArrayList();
+	    start = p0;
             end = p1;
             yyreset(new ScilabDocumentReader(doc, p0, p1));
             yybegin(BROKEN);
@@ -61,7 +66,6 @@ import javax.swing.text.Element;
                    return ret | broken;
                 }
                 Element elem = doc.getDefaultRootElement();
-                int start = end + 1;
                 elem = elem.getElement(elem.getElementIndex(end + 1));
                 end = elem.getEndOffset();
                 yyreset(new ScilabDocumentReader(doc, elem.getStartOffset(), end));
@@ -112,6 +116,7 @@ rpar = ")"{comments}
 fun = {white}* "function" {white}
 funb = {white}* "function["
 endfun = {white}* "endfunction" {spec}
+end = "end"
 
 %x FUNCTION, TYPEID, FUNNAME, RETS, ARGS, BROKEN
 
@@ -127,7 +132,19 @@ endfun = {white}* "endfunction" {spec}
                                  }
 
   {endfun}                       {
-                                   return ScilabDocument.ScilabLeafElement.ENDFUN;
+  				   return ScilabDocument.ScilabLeafElement.ENDFUN;
+			         }
+
+  {end}				 {
+  				   MatchingBlockScanner.MatchingPositions pos = matchBlock.getMatchingBlock(start + yychar + yylength(), false);
+				   if (pos != null) {
+				      try {
+				      	 String match = doc.getText(pos.secondB, pos.secondE - pos.secondB);
+				      	 if (match.equals("function")) {
+					    return ScilabDocument.ScilabLeafElement.ENDFUN;
+					 }
+				      } catch (BadLocationException e) { }
+				   }
                                  }
 
   .                              |
