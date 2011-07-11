@@ -141,7 +141,7 @@ public final class HelpOnTypingManager implements KeyListener {
                         case ScilabLexerConstants.FKEYWORD :
                             /* We have 'function' or 'endfunction' */
                             if ("f".equals(doc.getText(kwe.getStart(), 1))) {
-                                doc.insertString(pos + 1, "()\nendfunction", null);
+                                doc.insertString(pos + 1, "()\nend", null);
                                 textPane.getIndentManager().indentDoc(pos + 3, pos + 14);
                                 textPane.setCaretPosition(pos + 1);
                             }

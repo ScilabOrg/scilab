@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Iterator;
 import java.io.IOException;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 
 %%
@@ -19,7 +20,7 @@ import javax.swing.text.Element;
 %unicode
 %char
 %type int
-%switch
+%pack
 
 %{
     public int start;
@@ -34,11 +35,19 @@ import javax.swing.text.Element;
     private boolean transposable;
     private Element elem;
     private boolean breakstring;
+    private boolean breakcomment;
+
+    private MatchingBlockScanner matchBlock;
 
     public ScilabLexer(ScilabDocument doc) {
+	this(doc, new MatchingBlockScanner(doc));
+    }
+
+    public ScilabLexer(ScilabDocument doc, MatchingBlockScanner matchBlock) {
         this.doc = doc;
         this.elem = doc.getDefaultRootElement();
         this.infile = doc.getFunctionsInDoc();
+	this.matchBlock = matchBlock;
 	update();
     }
 
@@ -58,8 +67,13 @@ import javax.swing.text.Element;
         breakstring = false;
         yyreset(new ScilabDocumentReader(doc, p0, p1));
         int currentLine = elem.getElementIndex(start);
-        if (currentLine != 0 && ((ScilabDocument.ScilabLeafElement) elem.getElement(currentLine - 1)).isBrokenString()) {
-           yybegin(QSTRING);
+        if (currentLine != 0) {
+	   ScilabDocument.ScilabLeafElement e = (ScilabDocument.ScilabLeafElement) elem.getElement(currentLine - 1);
+	   if (e.isBrokenString()) {
+              yybegin(QSTRING);
+	   } else if (e.isBlockComment()) {
+	      yybegin(BLOCKCOMMENT);
+	   }
         }
     }
 
@@ -69,11 +83,28 @@ import javax.swing.text.Element;
 
     public int scan() throws IOException {
         int ret = yylex();
-        if (start + yychar + yylength() == end - 1) {
+	int lastPos = start + yychar + yylength();
+        if (lastPos == end - 1) {
            ((ScilabDocument.ScilabLeafElement) elem.getElement(elem.getElementIndex(start))).setBrokenString(breakstring);
            breakstring = false;
+        } else if (lastPos == end) {
+	   ((ScilabDocument.ScilabLeafElement) elem.getElement(elem.getElementIndex(start))).setBlockComment(yystate() == BLOCKCOMMENT);
         }
-        return ret;
+	return ret;
+    }
+
+    public boolean isLineFinishedByBlockComment(int start, int end) {
+        this.start = start;
+	this.end = end;
+	try {		
+           yyreset(new ScilabDocumentReader(doc, start, end));
+	   int tok = 0;
+	   while (tok != ScilabLexerConstants.EOF) {
+	      tok = yylex();
+	   }
+        } catch (Exception e) { }
+	
+	return yystate() == BLOCKCOMMENT;
     }
 
     public int getKeyword(int pos, boolean strict) {
@@ -111,6 +142,8 @@ open = "[" | "(" | "{"
 close = "]" | ")" | "}"
 
 comment = "//"
+startcomment = ("/" "*"+)
+endcomment = ("*"+) "/"
 
 quote = "'"
 
@@ -118,15 +151,17 @@ dquote = "\""
 
 cstes = "%t" | "%T" | "%f" | "%F" | "%e" | "%pi" | "%inf" | "%i" | "%z" | "%s" | "%nan" | "%eps" | "SCI" | "WSCI" | "SCIHOME" | "TMPDIR"
 
-operator = ".'" | ".*" | "./" | ".\\" | ".^" | ".**" | "+" | "-" | "/" | "\\" | "*" | "^" | "**" | "==" | "~=" | "<>" | "<" | ">" | "<=" | ">=" | ".*." | "./." | ".\\." | "/." | "=" | "&" | "|" | "@" | "@=" | "~"
+operator = ".'" | ".*" | "./" | ".\\" | ".^" | ".**" | "+" | "-" | "/" | "\\" | "*" | "^" | "**" | "==" | "~=" | "<>" | "<" | ">" | "<=" | ">=" | ".*." | "./." | ".\\." | "/." | "=" | "&" | "|" | "@" | "@=" | "~" | "&&" | "||"
 
 functionKwds = "function" | "endfunction"
 
-structureKwds = "then" | "do" | "catch" | "case"
+structureKwds = "then" | "do" | "catch" | "case" | "otherwise"
 
 elseif = "elseif" | "else"
 
-openCloseStructureKwds = "if" | "for" | "while" | "try" | "select" | "end"
+openCloseStructureKwds = "if" | "for" | "while" | "try" | "select" | "switch"
+
+end = "end"
 
 controlKwds = "abort" | "break" | "quit" | "return" | "resume" | "pause" | "continue" | "exit"
 
@@ -143,7 +178,7 @@ id = ([a-zA-Z%_#!?][a-zA-Z0-9_#!$?]*)|("$"[a-zA-Z0-9_#!$?]+)
 
 badid = ([0-9$][a-zA-Z0-9_#!$?]+)
 whitabs = (" "+"\t" | "\t"+" ")[ \t]*
-badop = [+-]([\*\/\\\^] | "."[\*\+\-\/\\\^]) | ":=" | "->" | " !=" | "&&" | "||" | ([*+-/\\\^]"=")
+badop = [+-]([\*\/\\\^] | "."[\*\+\-\/\\\^]) | ":=" | "->" | " !=" | ("&&" "&"+) | ("||" "|"+) | ([*+-/\\\^]"=")
 
 dot = "."
 
@@ -157,7 +192,7 @@ digit = [0-9]
 exp = [dDeE][+-]?{digit}*
 number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
 
-%x QSTRING, COMMENT, FIELD, COMMANDS, COMMANDSWHITE, BREAKSTRING
+%x QSTRING, COMMENT, BLOCKCOMMENT, FIELD, COMMANDS, COMMANDSWHITE, BREAKSTRING
 
 %%
 
@@ -166,6 +201,12 @@ number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
                                    transposable = false;
                                    yypushback(2);
                                    yybegin(COMMENT);
+                                 }
+
+  {startcomment}                 {
+                                   transposable = false;
+                                   yypushback(2);
+                                   yybegin(BLOCKCOMMENT);
                                  }
 
   {operator}                     {
@@ -180,6 +221,22 @@ number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
 
   {openCloseStructureKwds}       {
                                    transposable = false;
+                                   return ScilabLexerConstants.OSKEYWORD;
+                                 }
+
+  {end}       			 {
+                                   transposable = false;
+				   if (matchBlock != null) {
+				      MatchingBlockScanner.MatchingPositions pos = matchBlock.getMatchingBlock(start + yychar + yylength(), false);
+				      if (pos != null) {
+				         try {
+				      	     String match = doc.getText(pos.secondB, pos.secondE - pos.secondB);
+				      	     if (match.equals("function")) {
+					        return ScilabLexerConstants.FKEYWORD;
+					     }
+				      	 } catch (BadLocationException e) { }
+				      }
+				   }
                                    return ScilabLexerConstants.OSKEYWORD;
                                  }
 
@@ -389,6 +446,42 @@ number = ({digit}+"."?{digit}*{exp}?)|("."{digit}+{exp}?)
   .                              |
   {eol}                          {
                                    return ScilabLexerConstants.DEFAULT;
+                                 }
+}
+
+<BLOCKCOMMENT> {
+  {authors}                      {
+                                   return ScilabLexerConstants.AUTHORS;
+                                 }
+
+  {url}                          {
+                                   return ScilabLexerConstants.URL;
+                                 }
+
+  {mail}                         {
+                                   return ScilabLexerConstants.MAIL;
+                                 }
+
+  {latex}                        {
+                                   return ScilabLexerConstants.LATEX;
+                                 }
+
+  " "                            {
+                                   return ScilabLexerConstants.WHITE_COMMENT;
+                                 }
+
+  "\t"                           {
+                                   return ScilabLexerConstants.TAB_COMMENT;
+                                 }
+
+  {endcomment}			 {
+				   yybegin(YYINITIAL);
+				   return ScilabLexerConstants.COMMENT;
+  				 }
+
+  .                              |
+  {eol}                          {
+                                   return ScilabLexerConstants.COMMENT;
                                  }
 }
 
