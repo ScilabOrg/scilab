@@ -94,7 +94,8 @@ libscioutput_stream_la_CPPFLAGS=  \
 	-I$(top_srcdir)/modules/symbol/includes \
 	-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
 	-I$(top_srcdir)/modules/system_env/includes \
-	-I$(top_srcdir)/modules/shell/includes
+	-I$(top_srcdir)/modules/shell/includes \
+	-I$(top_srcdir)/modules/commons/includes
 
 
 pkglib_LTLIBRARIES = libscioutput_stream.la
@@ -123,7 +124,7 @@ modulename=output_stream
 
 #### output_stream : Conf files ####
 libscioutput_stream_la_rootdir = $(mydatadir)
-libscioutput_stream_la_root_DATA =  license.txt 
+libscioutput_stream_la_root_DATA =  license.txt
 
 
 #### output_stream : init scripts ####

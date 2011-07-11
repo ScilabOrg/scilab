@@ -92,10 +92,6 @@ am__objects_1 = libscifunctions_manager_la-funcmanager.lo
 am_libscifunctions_manager_la_OBJECTS = $(am__objects_1)
 libscifunctions_manager_la_OBJECTS =  \
 	$(am_libscifunctions_manager_la_OBJECTS)
-libscifunctions_manager_la_LINK = $(LIBTOOL) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(libscifunctions_manager_la_CXXFLAGS) $(CXXFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 am_testFunctionManager_OBJECTS =  \
 	testFunctionManager-test-function.$(OBJEXT) \
 	testFunctionManager-foo.$(OBJEXT) \
@@ -393,7 +389,7 @@ yacc_present = @yacc_present@
 FUNCTION_MANAGER_CPP_SOURCES = src/cpp/funcmanager.cpp
 pkglib_LTLIBRARIES = libscifunctions_manager.la
 libscifunctions_manager_la_SOURCES = $(FUNCTION_MANAGER_CPP_SOURCES)
-libscifunctions_manager_la_CXXFLAGS = -I$(top_builddir)/modules/types/includes/ \
+libscifunctions_manager_la_CPPFLAGS = -I$(top_builddir)/modules/types/includes/ \
 						-I$(top_builddir)/modules/core/includes/ \
 						-I$(top_builddir)/modules/string/includes/ \
 						-I$(top_builddir)/modules/symbol/includes/ \
@@ -405,6 +401,7 @@ libscifunctions_manager_la_CXXFLAGS = -I$(top_builddir)/modules/types/includes/ 
 						-I$(top_builddir)/modules/abstractSyntaxTree/includes/ \
 						-I$(top_builddir)/modules/parse/includes/ \
 						-I$(top_builddir)/modules/output_stream/includes/ \
+						-I$(top_builddir)/modules/commons/includes/ \
 						-Iincludes/ \
 						-Isrc/cpp \
 						$(XML_FLAGS)
@@ -495,7 +492,7 @@ clean-pkglibLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libscifunctions_manager.la: $(libscifunctions_manager_la_OBJECTS) $(libscifunctions_manager_la_DEPENDENCIES) 
-	$(libscifunctions_manager_la_LINK) -rpath $(pkglibdir) $(libscifunctions_manager_la_OBJECTS) $(libscifunctions_manager_la_LIBADD) $(LIBS)
+	$(CXXLINK) -rpath $(pkglibdir) $(libscifunctions_manager_la_OBJECTS) $(libscifunctions_manager_la_LIBADD) $(LIBS)
 
 clean-checkPROGRAMS:
 	@list='$(check_PROGRAMS)'; test -n "$$list" || exit 0; \
@@ -542,11 +539,11 @@ distclean-compile:
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
 libscifunctions_manager_la-funcmanager.lo: src/cpp/funcmanager.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscifunctions_manager_la_CXXFLAGS) $(CXXFLAGS) -MT libscifunctions_manager_la-funcmanager.lo -MD -MP -MF $(DEPDIR)/libscifunctions_manager_la-funcmanager.Tpo -c -o libscifunctions_manager_la-funcmanager.lo `test -f 'src/cpp/funcmanager.cpp' || echo '$(srcdir)/'`src/cpp/funcmanager.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifunctions_manager_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscifunctions_manager_la-funcmanager.lo -MD -MP -MF $(DEPDIR)/libscifunctions_manager_la-funcmanager.Tpo -c -o libscifunctions_manager_la-funcmanager.lo `test -f 'src/cpp/funcmanager.cpp' || echo '$(srcdir)/'`src/cpp/funcmanager.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscifunctions_manager_la-funcmanager.Tpo $(DEPDIR)/libscifunctions_manager_la-funcmanager.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/funcmanager.cpp' object='libscifunctions_manager_la-funcmanager.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscifunctions_manager_la_CXXFLAGS) $(CXXFLAGS) -c -o libscifunctions_manager_la-funcmanager.lo `test -f 'src/cpp/funcmanager.cpp' || echo '$(srcdir)/'`src/cpp/funcmanager.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscifunctions_manager_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscifunctions_manager_la-funcmanager.lo `test -f 'src/cpp/funcmanager.cpp' || echo '$(srcdir)/'`src/cpp/funcmanager.cpp
 
 testFunctionManager-test-function.o: src/cpp/test-function.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testFunctionManager_CXXFLAGS) $(CXXFLAGS) -MT testFunctionManager-test-function.o -MD -MP -MF $(DEPDIR)/testFunctionManager-test-function.Tpo -c -o testFunctionManager-test-function.o `test -f 'src/cpp/test-function.cpp' || echo '$(srcdir)/'`src/cpp/test-function.cpp

@@ -43,7 +43,8 @@ scilab_bin_CFLAGS 		= -I$(top_srcdir)/modules/io/includes
 # libshell is mandatory here since main_linux.c depends on it.
 # Localization dep already exists because of the `exportLocaleToSystem' symbol
 # (causing issues on some platform)
-COMMON_LIBS = $(top_builddir)/modules/shell/libscishell.la \
+COMMON_LIBS = $(top_builddir)/modules/commons/libscicommons.la \
+$(top_builddir)/modules/shell/libscishell.la \
 $(top_builddir)/modules/core/libscicore.la \
 $(top_builddir)/modules/completion/libscicompletion.la \
 $(top_builddir)/modules/localization/libscilocalization.la \
@@ -69,7 +70,8 @@ COMMON_CPPFLAGS = 		-I$(top_srcdir)/modules/shell/includes/ \
 						-I$(top_srcdir)/modules/fileio/includes/ \
 						-I$(top_srcdir)/modules/string/includes/ \
 						-I$(top_srcdir)/modules/history_manager/includes/ \
-						-I$(top_srcdir)/modules/api_scilab/includes/
+						-I$(top_srcdir)/modules/api_scilab/includes/ \
+						-I$(top_srcdir)/modules/commons/includes/
 
 scilab_bin_SOURCES		= 	$(top_srcdir)/modules/core/src/cpp/scilab.cpp \
 							$(top_srcdir)/modules/core/src/cpp/tasks.cpp
@@ -374,7 +376,7 @@ localization-status:
 		echo "Building $$LOCALE"; \
 		echo "SCI=$(top_srcdir) php tools/localization/revcheck.php $$LOCALE > $$PATHTO/index.html"; \
 		SCI=$(top_srcdir) php tools/localization/revcheck.php $$LOCALE > $$PATHTO/index.html; \
-	done; 
+	done;
 
 endif
 
