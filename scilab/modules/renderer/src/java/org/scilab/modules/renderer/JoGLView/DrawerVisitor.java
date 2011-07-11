@@ -62,6 +62,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
 
     private ColorMap colorMap;
     private DrawingTools drawingTools = null;
+    private MyAnimator animator = new MyAnimator();
 
     public DrawerVisitor(Canvas canvas, Figure figure) {
         GraphicController.getController().register(this);
@@ -73,6 +74,8 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
         this.markManager = new MarkSpriteManager(canvas.getSpriteManager());
         this.textManager = new TextManager(canvas.getSpriteManager());
         this.axesDrawer = new AxesDrawer(this);
+
+        animator.start();
     }
 
     public DrawingTools getDrawingTools() {
@@ -830,13 +833,15 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
             markManager.disposeAll();
             textManager.disposeAll();
             axesDrawer.disposeAll();
-            canvas.redraw();
+            //canvas.redraw();
+            animator.redraw();
         } else if (isFigureChild(id)) {
             dataManager.update(id, property);
             markManager.update(id, property);
             textManager.update(id, property);
             axesDrawer.update(id, property);
-            canvas.redraw();
+            //canvas.redraw();
+            animator.redraw();
         }
     }
 
@@ -850,7 +855,8 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
         markManager.dispose(id);
         textManager.dispose(id);
         axesDrawer.dispose(id);
-        canvas.redraw();
+        //canvas.redraw();
+        animator.redraw();
     }
 
     /**
@@ -861,6 +867,42 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     private boolean isFigureChild(String id) {
         String parentFigureID = (String) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_PARENT_FIGURE__);
         return figure.getIdentifier().equals(parentFigureID);
+    }
+
+    /**
+     * Redrawing thread.
+     */
+    private class MyAnimator extends Thread {
+        private boolean drawNeeded = true;
+        private boolean sleeping = false;
+
+        @Override
+        public synchronized void run() {
+            try {
+                for(;;) {
+                    if (drawNeeded) {
+                        drawNeeded = false;
+                        canvas.redraw();
+                        wait(20);
+                    }
+                    sleeping = true;
+                    wait();
+                    sleeping = false;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * Notify for a change.
+         */
+        public synchronized void redraw() {
+            drawNeeded = true;
+            if (sleeping) {
+                notify();
+            }
+        }
     }
 }
 
