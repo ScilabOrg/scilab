@@ -123,6 +123,7 @@ libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/system_env/includes \
 				-I$(top_srcdir)/modules/io/includes \
 				-I$(top_srcdir)/modules/shell/includes \
+				-I$(top_srcdir)/modules/commons/includes \
 				$(HDF5_CFLAGS)
 
 libscifileio_la_CFLAGS=		-I$(srcdir)/includes/ \
@@ -164,7 +165,7 @@ modulename=fileio
 
 #### fileio : Conf files ####
 libscifileio_la_rootdir = $(mydatadir)
-libscifileio_la_root_DATA =  license.txt 
+libscifileio_la_root_DATA =  license.txt
 
 
 #### fileio : init scripts ####

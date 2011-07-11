@@ -48,6 +48,9 @@
     <ClCompile Include="src\cpp\setenvvar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\jni\ScilabCommons_wrap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\configvariable.hxx">

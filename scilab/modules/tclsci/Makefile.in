@@ -504,7 +504,8 @@ libscitclsci_la_CFLAGS = -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes \
 			-I$(top_srcdir)/modules/operations/includes \
 			-I$(top_srcdir)/modules/system_env/includes \
-			-I$(top_srcdir)/modules/string/includes
+			-I$(top_srcdir)/modules/string/includes \
+			-I$(top_srcdir)/modules/commons/includes
 
 libscitclsci_algo_la_SOURCES = $(TCLSCI_C_SOURCES)
 libscitclsci_la_SOURCES = $(GATEWAY_C_SOURCES)
@@ -522,7 +523,7 @@ modulename = tclsci
 
 #### tclsci : Conf files ####
 libscitclsci_la_rootdir = $(mydatadir)
-libscitclsci_la_root_DATA = license.txt 
+libscitclsci_la_root_DATA = license.txt
 
 #### tclsci : init scripts ####
 libscitclsci_la_etcdir = $(mydatadir)/etc

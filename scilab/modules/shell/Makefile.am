@@ -30,6 +30,7 @@ sci_gateway/c/sci_iswaitingforinput.c
 # Includes need for the compilation
 libscishell_la_CPPFLAGS =  $(JAVA_JNI_INCLUDE) \
 -I$(top_srcdir)/modules/api_scilab/includes \
+-I$(top_srcdir)/modules/commons/includes \
 -I$(srcdir)/includes/ \
 -I$(srcdir)/src/cpp/ -I$(srcdir)/src/c/ \
 -I$(srcdir)/src/c/others/ \
@@ -55,7 +56,8 @@ libscishell_la_CFLAGS= 	$(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/string/includes/ \
 			-I$(top_srcdir)/modules/fileio/includes/ \
 			-I$(top_srcdir)/modules/ui_data/includes/ \
-			-I$(top_srcdir)/modules/types/includes/
+			-I$(top_srcdir)/modules/types/includes/ \
+			-I$(top_srcdir)/modules/commons/includes/
 
 if IS_MACOSX
 libscishell_la_CFLAGS += -msse2
