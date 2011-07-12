@@ -336,11 +336,7 @@ src/c/zcross2.c
 SCICOS_BLOCKS_CPP_SOURCES = \
 src/cpp/affich2.cpp
 
-NON_BLOCK_C_SOURCES =  src/c/scoGetProperty.c \
-src/c/scoSetProperty.c \
-src/c/scoMisc.c \
-src/c/scoMemoryScope.c\
-src/c/scoWindowScope.c \
+NON_BLOCK_C_SOURCES =  src/c/scoUtils.c\
 src/c/scicos_evalhermite.c \
 src/c/scicos_indexfinder.c
 
@@ -421,7 +417,9 @@ libsciscicos_blocks_la_CFLAGS= -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/fileio/includes \
 			-I$(top_srcdir)/modules/string/includes \
 			-I$(top_srcdir)/modules/elementary_functions/includes \
-			-I$(top_srcdir)/modules/graphic_objects/includes
+			-I$(top_srcdir)/modules/graphic_objects/includes \
+			-I$(top_srcdir)/modules/localization/includes \
+			-I$(top_srcdir)/modules/gui/includes
 
 libsciscicos_blocks_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(srcdir)/includes/ \
