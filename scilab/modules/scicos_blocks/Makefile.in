@@ -265,7 +265,7 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absblk.c \
 	src/fortran/tcsltj.f src/fortran/timblk.f src/fortran/trash.f \
 	src/fortran/writef.f src/fortran/zcross.f \
 	src/c/scoGetProperty.c src/c/scoSetProperty.c src/c/scoMisc.c \
-	src/c/scoMemoryScope.c src/c/scoWindowScope.c \
+	src/c/scoMemoryScope.c src/c/scoWindowScope.c src/c/scoUtils.c \
 	src/c/scicos_evalhermite.c src/c/scicos_indexfinder.c \
 	src/jni/GiwsException.cpp src/jni/AfficheBlock.cpp \
 	src/cpp/affich2.cpp
@@ -597,6 +597,7 @@ am__libsciscicos_blocks_la_SOURCES_DIST = src/c/absblk.c \
 @XCOS_TRUE@	libsciscicos_blocks_la-scoMisc.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-scoMemoryScope.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-scoWindowScope.lo \
+@XCOS_TRUE@	libsciscicos_blocks_la-scoUtils.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-scicos_evalhermite.lo \
 @XCOS_TRUE@	libsciscicos_blocks_la-scicos_indexfinder.lo
 @XCOS_TRUE@am__objects_4 = libsciscicos_blocks_la-GiwsException.lo \
@@ -1296,6 +1297,7 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 @XCOS_TRUE@src/c/scoMisc.c \
 @XCOS_TRUE@src/c/scoMemoryScope.c\
 @XCOS_TRUE@src/c/scoWindowScope.c \
+@XCOS_TRUE@src/c/scoUtils.c \
 @XCOS_TRUE@src/c/scicos_evalhermite.c \
 @XCOS_TRUE@src/c/scicos_indexfinder.c
 
@@ -2017,6 +2019,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoMemoryScope.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoMisc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoSetProperty.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoUtils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-scoWindowScope.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-selector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsciscicos_blocks_la-selector_m.Plo@am__quote@
@@ -4310,6 +4313,13 @@ libsciscicos_blocks_la-scoWindowScope.lo: src/c/scoWindowScope.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scoWindowScope.c' object='libsciscicos_blocks_la-scoWindowScope.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-scoWindowScope.lo `test -f 'src/c/scoWindowScope.c' || echo '$(srcdir)/'`src/c/scoWindowScope.c
+
+libsciscicos_blocks_la-scoUtils.lo: src/c/scoUtils.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-scoUtils.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-scoUtils.Tpo -c -o libsciscicos_blocks_la-scoUtils.lo `test -f 'src/c/scoUtils.c' || echo '$(srcdir)/'`src/c/scoUtils.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libsciscicos_blocks_la-scoUtils.Tpo $(DEPDIR)/libsciscicos_blocks_la-scoUtils.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/scoUtils.c' object='libsciscicos_blocks_la-scoUtils.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -c -o libsciscicos_blocks_la-scoUtils.lo `test -f 'src/c/scoUtils.c' || echo '$(srcdir)/'`src/c/scoUtils.c
 
 libsciscicos_blocks_la-scicos_evalhermite.lo: src/c/scicos_evalhermite.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsciscicos_blocks_la_CPPFLAGS) $(CPPFLAGS) $(libsciscicos_blocks_la_CFLAGS) $(CFLAGS) -MT libsciscicos_blocks_la-scicos_evalhermite.lo -MD -MP -MF $(DEPDIR)/libsciscicos_blocks_la-scicos_evalhermite.Tpo -c -o libsciscicos_blocks_la-scicos_evalhermite.lo `test -f 'src/c/scicos_evalhermite.c' || echo '$(srcdir)/'`src/c/scicos_evalhermite.c

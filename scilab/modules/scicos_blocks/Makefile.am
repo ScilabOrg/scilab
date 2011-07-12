@@ -341,6 +341,7 @@ src/c/scoSetProperty.c \
 src/c/scoMisc.c \
 src/c/scoMemoryScope.c\
 src/c/scoWindowScope.c \
+src/c/scoUtils.c \
 src/c/scicos_evalhermite.c \
 src/c/scicos_indexfinder.c
 
