@@ -25,7 +25,9 @@ libscicommons_la_etc_DATA = etc/commons.quit \
 
 include $(top_srcdir)/Makefile.incl.am
 
-COMMONS_C_SOURCES =  src/jni/ScilabCommons_wrap.c
+COMMONS_C_SOURCES =  src/jni/ScilabCommons_wrap.c \
+		     src/jni/CommonFileUtils_wrap.c \
+		     src/c/fileutils.c
 
 COMMONS_FORTRAN_SOURCES = src/fortran/empty.f
 
@@ -51,7 +53,8 @@ INCLUDE_FLAGS = $(libscicommons_la_CFLAGS)
 
 
 #### SWIG Declaration ####
-SWIG_WRAPPERS = src/jni/ScilabCommons.i
+SWIG_WRAPPERS = src/jni/ScilabCommons.i \
+		src/jni/CommonFileUtils.i
 
 if SWIG
 BUILT_SOURCES=swig
