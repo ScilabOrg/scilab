@@ -110,7 +110,7 @@ AC_ARG_ENABLE(debug-linker,
 AC_ARG_ENABLE(code-coverage,
    AC_HELP_STRING([--enable-code-coverage],[Enable code coverage]))
 
-AC_ARG_ENABLE(stopOnWarning,
+AC_ARG_ENABLE(stop-on-warning,
    AC_HELP_STRING([--enable-stop-on-warning],[Stop the compilation on the first warning found in the C/C++ code]))
 
 AC_ARG_WITH(gcc,
@@ -510,7 +510,7 @@ case "$CXX" in
    fi
    CXXFLAGS="$CXXFLAGS -fno-stack-protector" # bug 3131
    ;;
-   clang-* | clang) 
+   clang-* | clang)
            # clang expect an explict declaration
            LDFLAGS="$LDFLAGS -lstdc++"
    ;;
@@ -691,8 +691,8 @@ AM_CONDITIONAL(USE_DYNAMIC_STACK, test $IS_64_BITS_CPU = true -o "$MACOSX" = "1"
 
 ################
 ## SSE
-## By default, for x86 CPU, enable the SSE. 
-## Note that it is already the case with 64 bits CPU 
+## By default, for x86 CPU, enable the SSE.
+## Note that it is already the case with 64 bits CPU
 ## (these extensions are enabled by default by gcc)
 ################
 
@@ -803,7 +803,7 @@ if test "$with_javasci" != no -o "$with_gui" != no -o "$enable_build_help" != no
         JAVA_JNI_INCLUDE=$ac_java_jvm_jni_include_flags
 
         case "$host_os" in
-             *Darwin* | *darwin*) 
+             *Darwin* | *darwin*)
                # Mac OS X does not link against the lib but uses -framework
                JAVA_JNI_LIBS="-framework JavaVM"
              ;;
@@ -1715,8 +1715,8 @@ AC_DEFINE_UNQUOTED([SHARED_LIB_EXT],["$shrext_cmds"],[Extension of a shared libr
 #
 dnl @TODO : -O0 is only to bypass Stack shit... Must be removed.
 if test "$enable_stop_on_warning" = yes; then
-   CFLAGS="$CFLAGS -Werror -O0"
-   CXXFLAGS="$CXXFLAGS -Werror -O0"
+   CFLAGS="$CFLAGS -Werror=implicit-function-declaration -O0"
+   CXXFLAGS="$CXXFLAGS -Werror=implicit-function-declaration -O0"
 fi
 
 AC_CONFIG_FILES([
