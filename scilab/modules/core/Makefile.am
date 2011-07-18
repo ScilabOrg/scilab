@@ -1,4 +1,4 @@
-# Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) 2006-2008 - INRIA - Sylvestre LEDRU
 #
 # This file must be used under the terms of the CeCILL.
@@ -270,7 +270,8 @@ GATEWAY_CPP_SOURCES = 	\
 	sci_gateway/cpp/sci_resume.cpp \
 	sci_gateway/cpp/sci_abort.cpp \
 	sci_gateway/cpp/sci_who.cpp \
-	sci_gateway/cpp/sci_stacksize.cpp
+	sci_gateway/cpp/sci_stacksize.cpp \
+	sci_gateway/cpp/sci_sciargs.cpp
 
 
 libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
