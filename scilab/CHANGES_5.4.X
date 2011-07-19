@@ -322,6 +322,8 @@ Bug fixes:
 
 * bug 9717 fixed - dllinfo.tst failed with Windows binary versions.
 
+* bug 9719 fixed - delip.tst was freezed on Windows.
+
 * bug 9728 fixed - SCI/modules/special_functions/src/fortran/special_functions_f.def
                    was not ignored (generated file)
 
