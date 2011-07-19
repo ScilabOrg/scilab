@@ -1068,22 +1068,27 @@ int mxGetNumberOfFields(const mxArray *ptr)
 
 void *mxRealloc(void *ptr, size_t nsize)
 {
-    // FIXME
-    return NULL;
+    // TODO: manage this memory
+    return REALLOC(ptr, nsize);
 }
 
 void *mxCalloc(size_t n, size_t size)
 {
-    // FIXME
-    return NULL;
+    // TODO: manage this memory
+    return CALLOC(n, size);
 }
 
-/*  void *mxMalloc(unsigned int nsize)  */
 void *mxMalloc(size_t nsize)
 {
-    // FIXME
-    return NULL;
+    // TODO: manage this memory
+    return MALLOC(nsize);
 }
+
+void mexMakeMemoryPersistent(void *ptr)
+{
+    // FIXME
+}
+
 
 void *mxCalloc_m(unsigned int n, unsigned int size)
 {
@@ -1095,11 +1100,6 @@ void *mxMalloc_m(unsigned int n)
 {
     // FIXME
     return NULL;
-}
-
-void mexMakeMemoryPersistent(void *ptr)
-{
-    // FIXME
 }
 
 /* free : explicit free of a mxCalloc_m allocated space
@@ -1137,23 +1137,52 @@ int mxGetString(const mxArray *ptr, char *str, int strl)
         return 1;
     }
     types::String *pa = (types::String *) ptr;
-    wchar_t *to_copy = *pa->get();
-    char *dest = wide_string_to_UTF8(to_copy);
-    memcpy(str, dest, strl-1);
-    str[strl-1] = '\0';
-    FREE(dest);
-    return (strl <= wcslen(to_copy) + 1) ? 1 : 0;
+    int items = mxGetM(ptr);
+    int index = 0;
+    int free_space = strl - 1;
+    for (int k = 0; k < items; k++)
+    {
+        wchar_t *to_copy = pa->get(k);
+        char *dest = wide_string_to_UTF8(to_copy);
+        int length = strlen(dest);
+        memcpy(str+index, dest, free_space);
+        index += Min(length, free_space);
+        free_space -= length;
+        FREE(dest);
+        if (free_space <= 0)
+        {
+            break;
+        }
+    }
+    str[index] = '\0';
+    return free_space >= 0 ? 0 : 1;
 }
 
-char *mxArrayToString(const mxArray *array_ptr)
+char *mxArrayToString(const mxArray *ptr)
 {
-    if (!mxIsChar(array_ptr))
+    if (!mxIsChar(ptr))
     {
         return (char *) 0;
     }
-    types::String *pa = (types::String *) array_ptr;
-    wchar_t *to_copy = *pa->get();
-    return wide_string_to_UTF8(to_copy);
+    types::String *pa = (types::String *) ptr;
+    int items = mxGetM(ptr);
+    int index = 0;
+    int length = 1; // one extra char to \0
+    wchar_t **wstrings = pa->get();
+    for (int k = 0; k < items; k++)
+    {
+        length += wcslen(wstrings[k]);
+    }
+    char *str = (char *) malloc(sizeof(char *) * length);
+    for (int k = 0; k < items; k++)
+    {
+        char *dest = wide_string_to_UTF8(wstrings[k]);
+        int dest_length = strlen(dest);
+        memcpy(str+index, dest, dest_length);
+        index += dest_length;
+    }
+    str[index] = '\0';
+    return str;
 }
 
 void mxFreeMatrix(mxArray *ptr)
@@ -1195,53 +1224,57 @@ void mxDestroyArray(mxArray *ptr)
 {
     if (mxIsDouble(ptr))
     {
-        delete((types::Double *) ptr);
+        delete (types::Double *) ptr;
     }
-    if (mxIsChar(ptr))
+    else if (mxIsChar(ptr))
     {
-        delete((types::String *) ptr);
+        delete (types::String *) ptr;
     }
-    if (mxIsSparse(ptr))
+    else if (mxIsLogical(ptr))
+    {
+        delete (types::Bool *) ptr;
+    }
+    else if (mxIsSparse(ptr))
     {
         // TODO: sparse
     }
-    if (mxIsInt8(ptr))
+    else if (mxIsInt8(ptr))
     {
-        delete((types::Int8 *) ptr);
+        delete (types::Int8 *) ptr;
     }
-    if (mxIsInt16(ptr))
+    else if (mxIsInt16(ptr))
     {
-        delete((types::Int16 *) ptr);
+        delete (types::Int16 *) ptr;
     }
-    if (mxIsInt32(ptr))
+    else if (mxIsInt32(ptr))
     {
-        delete((types::Int32 *) ptr);
+        delete(types::Int32 *) ptr;
     }
-    if (mxIsInt64(ptr))
+    else if (mxIsInt64(ptr))
     {
         delete((types::Int64 *) ptr);
     }
-    if (mxIsUint8(ptr))
+    else if (mxIsUint8(ptr))
     {
         delete((types::UInt8 *) ptr);
     }
-    if (mxIsUint16(ptr))
+    else if (mxIsUint16(ptr))
     {
         delete((types::UInt16 *) ptr);
     }
-    if (mxIsUint32(ptr))
+    else if (mxIsUint32(ptr))
     {
         delete((types::UInt32 *) ptr);
     }
-    if (mxIsUint64(ptr))
+    else if (mxIsUint64(ptr))
     {
         delete((types::UInt64 *) ptr);
     }
-    if (mxIsCell(ptr))
+    else if (mxIsCell(ptr))
     {
         delete((types::Cell *) ptr);
     }
-    if (mxIsStruct(ptr))
+    else if (mxIsStruct(ptr))
     {
         delete((types::Struct *) ptr);
     }
@@ -1249,7 +1282,8 @@ void mxDestroyArray(mxArray *ptr)
 
 void mxFree(void *ptr)
 {
-    // FIXME
+    // TODO: manage this memory
+    FREE(ptr);
 }
 
 int mexAtExit(mxArray *ptr)
@@ -1428,12 +1462,8 @@ int mxGetElementSize(const mxArray *ptr)
 
 mxArray *mxCreateCharMatrixFromStrings(int m, const char **str)
 {
-    int n = 0;
-    for (int k = 0; k < m; k++)
-    {
-        n = Max(n, ((int) strlen(str[k])));
-    }
-    wchar_t **strings = new wchar_t*[m];
+    int n = 1;
+    wchar_t *strings[m];
     for (int k = 0; k < m; k++)
     {
         strings[k] = to_wide_string(str[k]);

@@ -17,24 +17,27 @@
 
 // ============================================================================
 
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mexPutFull mex function
 
 // ============================================================================
 
 cd(TMPDIR);
-
 mputl([ '#include ""mex.h""';
         'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
         '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+        '    double pr[2] = {2, 5};';
+        '    double pi[2] = {3, 0};';
+        '    mexPutFull(""var1"", 2, 1, pr, NULL);';
+        '    plhs[0] = mexGetVariable(""caller"", ""var1"");';
+        '    mexPutFull(""var2"", 1, 2, pr, pi);';
+        '    plhs[1] = mexGetVariable(""caller"", ""var2"");';
+        '}'],'mexputFull.c');
+ilib_mex_build('libmextest', ['putFull', 'mexputFull', 'cmex'], 'mexputFull.c', [], 'Makelib', '', '', '');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexArrayToString.c to TMPDIR
+   ilib_gen_Make: Copy mexputFull.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,7 +48,16 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-arrayToString("hello world");
-hello world
-arrayToString(["two"; "lines"]);
-twolines
+[out1, out2] = putFull();
+
+if exists("var1") <> 1 then pause end
+
+if exists("var2") <> 1 then pause end
+
+if out1(1) <> 2 then pause end
+
+if out1(2) <> 5 then pause end
+
+if out2(1) <> complex(2, 3) then pause end
+
+if out2(2) <> 5 then pause end

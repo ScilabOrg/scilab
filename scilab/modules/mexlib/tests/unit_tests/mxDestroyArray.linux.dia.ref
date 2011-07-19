@@ -17,24 +17,29 @@
 
 // ============================================================================
 
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxDestroyArray mex function
 
 // ============================================================================
 
 cd(TMPDIR);
 
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    mxArray *d = prhs[0];'
+       '    mxDestroyArray(d);';
+       '    if (*d == NULL)';
+       '    {';
+       '        mexPrintf(""It works."");';
+       '    }';
+       '}'],'mexdestroyArray.c');
+
+ilib_mex_build('libmextest',['destroyArray','mexdestroyArray','cmex'], 'mexdestroyArray.c',[],'Makelib','','','');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexArrayToString.c to TMPDIR
+   ilib_gen_Make: Copy mexdestroyArray.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,7 +50,29 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-arrayToString("hello world");
-hello world
-arrayToString(["two"; "lines"]);
-twolines
+destroyArray(cell());
+It works.
+destroyArray('s');
+It works.
+destroyArray(double(1));
+It works.
+destroyArray(int8(1));
+It works.
+destroyArray(int16(1));
+It works.
+destroyArray(int32(1));
+It works.
+destroyArray(int64(1));
+It works.
+destroyArray(%t);
+It works.
+destroyArray(struct());
+It works.
+destroyArray(uint8(1));
+It works.
+destroyArray(uint16(1));
+It works.
+destroyArray(uint32(1));
+It works.
+destroyArray(uint64(1));
+It works.

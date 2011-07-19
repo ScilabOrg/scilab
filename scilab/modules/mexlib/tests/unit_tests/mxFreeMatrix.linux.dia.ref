@@ -17,24 +17,29 @@
 
 // ============================================================================
 
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxFreeMatrix mex function
 
 // ============================================================================
 
 cd(TMPDIR);
 
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    mxArray *d = prhs[0];'
+       '    mxFreeMatrix(d);';
+       '    if (*d == NULL)';
+       '    {';
+       '        mexPrintf(""It works."");';
+       '    }';
+       '}'],'mexfreeMatrix.c');
+
+ilib_mex_build('libmextest',['freeMatrix','mexfreeMatrix','cmex'], 'mexfreeMatrix.c',[],'Makelib','','','');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexArrayToString.c to TMPDIR
+   ilib_gen_Make: Copy mexfreeMatrix.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,7 +50,29 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-arrayToString("hello world");
-hello world
-arrayToString(["two"; "lines"]);
-twolines
+freeMatrix(cell());
+It works.
+freeMatrix('s');
+It works.
+freeMatrix(double(1));
+It works.
+freeMatrix(int8(1));
+It works.
+freeMatrix(int16(1));
+It works.
+freeMatrix(int32(1));
+It works.
+freeMatrix(int64(1));
+It works.
+freeMatrix(%t);
+It works.
+freeMatrix(struct());
+It works.
+freeMatrix(uint8(1));
+It works.
+freeMatrix(uint16(1));
+It works.
+freeMatrix(uint32(1));
+It works.
+freeMatrix(uint64(1));
+It works.

@@ -8,18 +8,18 @@
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
 // ============================================================================
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mexFunctionName mex function
 // ============================================================================
 
 cd(TMPDIR);
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    mexPrintf(""%s"", mexFunctionName());';
+       '}'],'mexfunctionName.c');
+
+ilib_mex_build('libmex',['func','mexfunctionName','cmex'], 'mexfunctionName.c',[],'Makelib','','','');
 exec('loader.sce');
 
-arrayToString("hello world");
-arrayToString(["two"; "lines"]);
+func();

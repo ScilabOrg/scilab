@@ -17,24 +17,30 @@
 
 // ============================================================================
 
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxSetLogical and mxClearLogical mex functions
 
 // ============================================================================
 
 cd(TMPDIR);
-
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    mxArray *pOut1 = prhs[0];'
+       '    mxArray *pOut2 = prhs[1];'
+       '    mxArray *pOut3 = prhs[2];'
+       '    mxSetLogical(pOut1);';
+       '    mxSetLogical(pOut2);';
+       '    mxClearLogical(pOut3);';
+       '    plhs[0] = pOut1;';
+       '    plhs[1] = pOut2;';
+       '    plhs[2] = pOut3;';
+       '}'],'mexsetClearLogical.c');
+ilib_mex_build('libmextest',['setClearLogical','mexsetClearLogical','cmex'], 'mexsetClearLogical.c',[],'Makelib','','','');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexArrayToString.c to TMPDIR
+   ilib_gen_Make: Copy mexsetClearLogical.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,7 +51,10 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-arrayToString("hello world");
-hello world
-arrayToString(["two"; "lines"]);
-twolines
+[out1, out2, out3] = setClearLogical([1 0], int32([1 0]), [%t %f]);
+
+if out1 <> [%t %f] then pause end
+
+if out2 <> [%t %f] then pause end
+
+if out3 <> [1 0] then pause end

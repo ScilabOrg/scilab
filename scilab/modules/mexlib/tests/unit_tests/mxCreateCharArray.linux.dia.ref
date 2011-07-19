@@ -17,24 +17,30 @@
 
 // ============================================================================
 
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxCreateCharArray mex function
 
 // ============================================================================
 
 cd(TMPDIR);
 
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+mputl(['#include ""mex.h""';
+       '#include <wchar.h>';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    int dims[2] = {1, 1};';
+       '    wchar_t *data[1];';
+       '    data[0] = L""hello world"";';
+       '    mxArray *pOut = mxCreateCharArray(2, dims);';
+       '    mxSetData(pOut, data);';
+       '    plhs[0] = pOut;';
+       '}'],'mexcreateCharArray.c');
+
+ilib_mex_build('libmextest',['createCharArray','mexcreateCharArray','cmex'], 'mexcreateCharArray.c',[],'Makelib','','','');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexArrayToString.c to TMPDIR
+   ilib_gen_Make: Copy mexcreateCharArray.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,7 +51,6 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-arrayToString("hello world");
-hello world
-arrayToString(["two"; "lines"]);
-twolines
+r = createCharArray();
+
+if r(1) <> "hello world" then pause end

@@ -8,18 +8,21 @@
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
 // ============================================================================
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxGetImagData and mxSetImagData mex functions
 // ============================================================================
 
 cd(TMPDIR);
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    void *data = mxGetImagData(prhs[0]);';
+       '    mxSetImagData(prhs[0], data);';
+       '    plhs[0] = prhs[0];';
+       '}'],'mexGetSetImagData.c');
+ilib_mex_build('libmextest',['getSetImagData','mexGetSetImagData','cmex'], 'mexGetSetImagData.c',[],'Makelib','','','');
 exec('loader.sce');
 
-arrayToString("hello world");
-arrayToString(["two"; "lines"]);
+r = getSetImagData(complex(1, 2));
+if r(1) <> complex(1, 2) then pause end
+
+// it should work with other data types?
