@@ -17,7 +17,7 @@
 
 // ============================================================================
 
-// Unitary tests for mexPutVariable mex function
+// Unitary tests for mexCallMATLAB mex function
 
 // ============================================================================
 
@@ -25,16 +25,14 @@ cd(TMPDIR);
 mputl([ '#include ""mex.h""';
         'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
         '{';
-        '    char *workspace = mxArrayToString(prhs[0]);';
-        '    char *name = mxArrayToString(prhs[1]);';
-        '    mxArray *pOut = mexPutVariable(workspace, name, prhs[2]);';
-        '}'],'mexputVariable.c');
-ilib_mex_build('libmextest', ['putVariable', 'mexputVariable', 'cmex'], 'mexputVariable.c', [], 'Makelib', '', '', '');
+        '    mexCallMATLAB(nlhs, plhs, nrhs, prhs, ""sum"");';
+        '}'],'mexcallMATLAB.c');
+ilib_mex_build('libmextest', ['callMATLAB', 'mexcallMATLAB', 'cmex'], 'mexcallMATLAB.c', [], 'Makelib', '', '', '');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexputVariable.c to TMPDIR
+   ilib_gen_Make: Copy mexcallMATLAB.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,32 +43,6 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-global globalvar;
+res = callMATLAB([1 2 3 4]);
 
-putVariable("global", "globalvar", 32);
-
-if globalvar <> 32 then pause end
-
-if isglobal('globalvar') <> %t then pause end
-
-othervar = 1;
-
-putVariable("base", "othervar", 3);
-
-if othervar <> 1 then pause end
-
-if isglobal('othervar') <> %f then pause end
-
-putVariable("caller", "othervar", 3);
-
-if othervar <> 3 then pause end
-
-if isglobal('othervar') <> %f then pause end
-
-putVariable("base", "base_defined_in_C", 0);
-
-if exists('base_defined_in_C') <> 1 then pause end
-
-putVariable("caller", "caller_defined_in_C", 0);
-
-if exists('caller_defined_in_C') <> 1 then pause end
+if res <> 10 then pause end

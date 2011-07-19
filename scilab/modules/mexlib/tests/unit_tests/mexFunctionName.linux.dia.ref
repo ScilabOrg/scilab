@@ -17,7 +17,7 @@
 
 // ============================================================================
 
-// Unitary tests for mxSetCell mex function
+// Unitary tests for mexFunctionName mex function
 
 // ============================================================================
 
@@ -26,30 +26,24 @@ cd(TMPDIR);
 mputl(['#include ""mex.h""';
        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
        '{';
-       '    mxArray *pOut = mxCreateCellMatrix(3, 3);';
-       '    mxSetCell(pOut, 0, mxCreateDoubleScalar(1));';
-       '    mxSetCell(pOut, 5, mxCreateDoubleScalar(9));';
-       '    mxSetCell(pOut, 7, mxGetCell(pOut, 5));';
-       '    plhs[0] = pOut;';
-       '}'],'mexsetCell.c');
+       '    mexPrintf(""%s"", mexFunctionName());';
+       '}'],'mexfunctionName.c');
 
-ilib_mex_build('libmextest',['setCell','mexsetCell','cmex'], 'mexsetCell.c',[],'Makelib','','','');
+ilib_mex_build('libmex',['func','mexfunctionName','cmex'], 'mexfunctionName.c',[],'Makelib','','','');
    Generate a gateway file
    Generate a loader file
-   Generate a Makefile: Makelib
+   Generate a Makefile
+   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
+   ilib_gen_Make: Copy mexFunctionName.c to TMPDIR
+   ilib_gen_Make: Copy libmex.c to TMPDIR
+   ilib_gen_Make: configure : Generate Makefile.
+   ilib_gen_Make: Modification of the Makefile in TMPDIR.
    Running the makefile
-   Compilation of mexsetCell.c
-   Building shared library (be patient)
    Generate a cleaner file
 
 exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-out = setCell();
-
-if size(out) <> [3,3] then pause end;
-
-ref = {1,[],[];[],[],9;[],9,[]};
-
-if out <> ref then pause end;
+func();
+func

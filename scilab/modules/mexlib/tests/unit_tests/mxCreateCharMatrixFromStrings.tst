@@ -8,18 +8,23 @@
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
 // ============================================================================
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxCreateCharMatrixFromStrings mex function
 // ============================================================================
 
 cd(TMPDIR);
 mputl([ '#include ""mex.h""';
         'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
         '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+        '    char *strings[2];';
+        '    strings[0] = ""value"";';
+        '    strings[1] = ""another value"";';
+        '    mxArray *pOut = mxCreateCharMatrixFromStrings(2, strings);';
+        '    char *res = mxArrayToString(pOut);';
+        '    plhs[0] = pOut;';
+        '}'],'mexcreateCharMatrixFromStrings.c');
+ilib_mex_build('libmextest', ['createCharMatrixFromStrings', 'mexcreateCharMatrixFromStrings', 'cmex'], 'mexcreateCharMatrixFromStrings.c', [], 'Makelib', '', '', '');
 exec('loader.sce');
 
-arrayToString("hello world");
-arrayToString(["two"; "lines"]);
+res = createCharMatrixFromStrings();
+if res(1) <> "value" then pause end
+if res(2) <> "another value" then pause end

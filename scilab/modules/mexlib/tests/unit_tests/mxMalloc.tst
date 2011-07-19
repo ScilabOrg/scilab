@@ -8,18 +8,23 @@
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
 // ============================================================================
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mxMalloc mex function
 // ============================================================================
 
 cd(TMPDIR);
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    double *data = mxMalloc(2 * sizeof(double *));';
+       '    data[0] = 1.0;';
+       '    data[1] = 3.2;';
+       '    plhs[0] = mxCreateDoubleMatrix(2, 1, mxREAL);'
+       '    mxSetPr(plhs[0], data);';
+       '}'],'mexmalloc.c');
+ilib_mex_build('libmextest',['malloc','mexmalloc','cmex'], 'mexmalloc.c',[],'Makelib','','','');
 exec('loader.sce');
 
-arrayToString("hello world");
-arrayToString(["two"; "lines"]);
+r = malloc();
+if r(1) <> 1 then pause end
+if r(2) <> 3.2 then pause end

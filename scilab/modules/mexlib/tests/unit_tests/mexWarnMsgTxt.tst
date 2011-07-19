@@ -8,18 +8,17 @@
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
 // ============================================================================
-// Unitary tests for mxArrayToString mex function
+// Unitary tests for mexWarnMsgTxt mex function
 // ============================================================================
 
 cd(TMPDIR);
-mputl([ '#include ""mex.h""';
-        'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
-        '{';
-        '    char *str = mxArrayToString(prhs[0]);';
-        '    mexPrintf(""%s"", str);';
-        '}'],'mexArrayToString.c');
-ilib_mex_build('libmextest', ['arrayToString', 'mexArrayToString', 'cmex'], 'mexArrayToString.c', [], 'Makelib', '', '', '');
+
+mputl(['#include ""mex.h""';
+       'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
+       '{';
+       '    mexWarnMsgTxt(""Do not panic!"");';
+       '}'],'mexwarnMsgTxt.c');
+ilib_mex_build('libmextest',['warnMsgTxt','mexwarnMsgTxt','cmex'], 'mexwarnMsgTxt.c',[],'Makelib','','','');
 exec('loader.sce');
 
-arrayToString("hello world");
-arrayToString(["two"; "lines"]);
+warnMsgTxt()

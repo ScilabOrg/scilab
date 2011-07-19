@@ -17,7 +17,7 @@
 
 // ============================================================================
 
-// Unitary tests for mexPutVariable mex function
+// Unitary tests for mxCreateCharMatrixFromStrings mex function
 
 // ============================================================================
 
@@ -25,16 +25,19 @@ cd(TMPDIR);
 mputl([ '#include ""mex.h""';
         'void mexFunction(int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[])';
         '{';
-        '    char *workspace = mxArrayToString(prhs[0]);';
-        '    char *name = mxArrayToString(prhs[1]);';
-        '    mxArray *pOut = mexPutVariable(workspace, name, prhs[2]);';
-        '}'],'mexputVariable.c');
-ilib_mex_build('libmextest', ['putVariable', 'mexputVariable', 'cmex'], 'mexputVariable.c', [], 'Makelib', '', '', '');
+        '    char *strings[2];';
+        '    strings[0] = ""value"";';
+        '    strings[1] = ""another value"";';
+        '    mxArray *pOut = mxCreateCharMatrixFromStrings(2, strings);';
+        '    char *res = mxArrayToString(pOut);';
+        '    plhs[0] = pOut;';
+        '}'],'mexcreateCharMatrixFromStrings.c');
+ilib_mex_build('libmextest', ['createCharMatrixFromStrings', 'mexcreateCharMatrixFromStrings', 'cmex'], 'mexcreateCharMatrixFromStrings.c', [], 'Makelib', '', '', '');
    Generate a gateway file
    Generate a loader file
    Generate a Makefile
    ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy mexputVariable.c to TMPDIR
+   ilib_gen_Make: Copy mexcreateCharMatrixFromStrings.c to TMPDIR
    ilib_gen_Make: Copy libmextest.c to TMPDIR
    ilib_gen_Make: configure : Generate Makefile.
    ilib_gen_Make: Modification of the Makefile in TMPDIR.
@@ -45,32 +48,6 @@ exec('loader.sce');
 Shared archive loaded.
 Link done.
 
-global globalvar;
-
-putVariable("global", "globalvar", 32);
-
-if globalvar <> 32 then pause end
-
-if isglobal('globalvar') <> %t then pause end
-
-othervar = 1;
-
-putVariable("base", "othervar", 3);
-
-if othervar <> 1 then pause end
-
-if isglobal('othervar') <> %f then pause end
-
-putVariable("caller", "othervar", 3);
-
-if othervar <> 3 then pause end
-
-if isglobal('othervar') <> %f then pause end
-
-putVariable("base", "base_defined_in_C", 0);
-
-if exists('base_defined_in_C') <> 1 then pause end
-
-putVariable("caller", "caller_defined_in_C", 0);
-
-if exists('caller_defined_in_C') <> 1 then pause end
+res = createCharMatrixFromStrings();
+if res(1) <> "value" then pause end
+if res(2) <> "another value" then pause end
