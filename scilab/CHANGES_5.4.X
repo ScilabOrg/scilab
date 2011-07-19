@@ -320,6 +320,8 @@ Bug fixes:
 
 * bug 9682 fixed - 3D assignment into a 2D array of integers issued an error.
 
+* bug 9716 fixed - amell.tst was freezed on Windows with reference lapack library.
+
 * bug 9717 fixed - dllinfo.tst failed with Windows binary versions.
 
 * bug 9728 fixed - SCI/modules/special_functions/src/fortran/special_functions_f.def
