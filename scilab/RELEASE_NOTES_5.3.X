@@ -28,5 +28,9 @@
   applications to work including Scilab. See bug #7012.
   Uninstall / disable Audio Hijack should fix this problem.
 
+- This version will not work under Mac OS X Lion (10.7). A new Scilab version
+  will be released for this operating system once the tools needed for Scilab
+  compilation under Mac OS X 10.7 will be available.
+
 Besides these points, do not hesitate to report bugs on:
 http://bugzilla.scilab.org/
