@@ -19,6 +19,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -39,6 +41,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -91,6 +94,8 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     private CommentManager com;
     private HelpOnTypingManager helpOnTyping;
     private TrailingWhiteManager trailingWhite;
+    private Timer timerForMatching;
+    private Timer timerToRemoveMatching;
     private boolean readonly;
     private boolean binary;
     private String infoBar = "";
@@ -245,6 +250,21 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
 
         addKeyListener(this);
         setTransferHandler(new CopyAsHTMLAction.HTMLTransferHandler());
+
+        timerForMatching = new Timer(40, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    enableMatchingKeywords(true);
+                    highlightMatchings();
+                }
+            });
+
+        timerToRemoveMatching = new Timer(80, new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    timerToRemoveMatching.stop();
+                    matchLR.removeHighlights();
+                    matchRL.removeHighlights();
+                }
+            });
     }
 
     /**
@@ -324,15 +344,18 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      */
     public void keyPressed(KeyEvent e) {
         // Workaround for bug 7238
+        ctrlHit = false;
+        int code = e.getKeyCode();
         if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
-            && e.getKeyCode() == KeyEvent.VK_DELETE
+            && code == KeyEvent.VK_DELETE
             && e.getKeyChar() != KeyEvent.VK_DELETE) {
             e.setKeyCode(KeyEvent.VK_DECIMAL);
-            ctrlHit = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+        } else if (code == KeyEvent.VK_CONTROL) {
             ctrlHit = true;
-        } else {
-            ctrlHit = false;
+        } else if (code == KeyEvent.VK_UP || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT) {
+            enableMatchingKeywords(false);
+            timerForMatching.start();
+            timerToRemoveMatching.start();
         }
     }
 
@@ -341,6 +364,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      * @param e the event
      */
     public void keyReleased(KeyEvent e) {
+        timerForMatching.stop();
         if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             ctrlHit = false;
         }
@@ -970,6 +994,21 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
     }
 
     /**
+     * Highlight the matching blocks
+     */
+    public void highlightMatchings() {
+        if (matchingEnable) {
+            timerToRemoveMatching.stop();
+            int pos = getCaretPosition();
+            int tok = lexer.getKeyword(pos, false);
+            matchLR.searchMatchingBlock(tok, lexer.start + lexer.yychar());
+            tok = lexer.getKeyword(pos, true);
+            matchRL.searchMatchingBlock(tok, lexer.start + lexer.yychar() + lexer.yylength());
+        }
+    }
+
+
+    /**
      * This class listens to the caret event
      * @param e event
      */
@@ -992,17 +1031,10 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
             repaint();
         }
 
-        int pos = getCaretPosition();
-
-        if (matchingEnable) {
-            int tok = lexer.getKeyword(pos, false);
-            matchLR.searchMatchingBlock(tok, lexer.start + lexer.yychar());
-            tok = lexer.getKeyword(pos, true);
-            matchRL.searchMatchingBlock(tok, lexer.start + lexer.yychar() + lexer.yylength());
-        }
+        highlightMatchings();
 
         if (!readonly && !binary) {
-            editor.getInfoBar().setText(((ScilabDocument) getDocument()).getCurrentFunction(pos));
+            editor.getInfoBar().setText(((ScilabDocument) getDocument()).getCurrentFunction(getCaretPosition()));
         }
     }
 

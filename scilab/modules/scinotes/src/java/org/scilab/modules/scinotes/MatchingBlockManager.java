@@ -230,6 +230,20 @@ public class MatchingBlockManager {
     }
 
     /**
+     * Remove the highlights
+     */
+    public void removeHighlights() {
+        if (first != null) {
+            highlighter.removeHighlight(first);
+            first = null;
+            if (second != null) {
+                highlighter.removeHighlight(second);
+                second = null;
+            }
+        }
+    }
+
+    /**
      * Create the highlights
      * @param mpos the position of the matching keywords
      * @param inside true if we look at the contents between the keywords
