@@ -327,4 +327,5 @@ Bug fixes:
 * bug 9728 fixed - SCI/modules/special_functions/src/fortran/special_functions_f.def
                    was not ignored (generated file)
 
+* bug 9749 fixed - expm reported non convergence problem.
 
