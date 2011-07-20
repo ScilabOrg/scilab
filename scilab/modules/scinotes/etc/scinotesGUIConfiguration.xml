@@ -77,6 +77,9 @@
       <menuitem action="SearchWordInFilesAction" label="Find word in files"/>
       <menuitem action="SearchFilesAction" label="Find files"/>
       <separator/>
+      <menuitem action="GotoNextMatchingAction" label="Go to next matching"/>
+      <menuitem action="GotoPreviousMatchingAction" label="Go to previous matching"/>
+      <separator/>
       <menuitem action="SetAnchorAction" label="Set anchor"/>
       <menuitem action="RemoveAnchorAction" label="Remove anchor"/>
       <menuitem action="GotoNextAnchorAction" label="Go to next anchor"/>

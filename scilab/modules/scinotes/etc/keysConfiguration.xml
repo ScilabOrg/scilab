@@ -61,6 +61,8 @@
   <entry key="RemoveAnchorAction">OSSCKEY shift M</entry>
   <entry key="GotoNextAnchorAction">OSSCKEY shift LESS</entry>
   <entry key="GotoPreviousAnchorAction">OSSCKEY LESS</entry>
+  <entry key="GotoNextMatchingAction">OSSCKEY RIGHT_PARENTHESIS</entry>
+  <entry key="GotoPreviousMatchingAction">OSSCKEY shift RIGHT_PARENTHESIS</entry>
   <entry key="CodeNavigatorAction">OSSCKEY G</entry>
   <entry key="SearchWordInFilesAction">OSSCKEY shift F</entry>
   <entry key="SearchFilesAction">OSSCKEY shift B</entry>

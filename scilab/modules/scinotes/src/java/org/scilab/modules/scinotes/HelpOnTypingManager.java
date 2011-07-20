@@ -152,7 +152,7 @@ public final class HelpOnTypingManager implements KeyListener {
                         System.err.println(exc);
                     }
                 }
-            } else if (openers) {
+            } else if (openers && e.getModifiers() == 0) {
                 try {
                     char ch = doc.getText(pos, 1).charAt(0);
                     if (c == ch && (c == ')' || c == ']' || c == '}' || c == '\"')) {

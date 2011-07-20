@@ -5,6 +5,9 @@
 SciNotes:
 =========
 
+* It is now possible to navigate between matching opening/closing keywords with
+  META ) or META SHIFT ).
+
 * In the find/grep tools, add the possibility to use ~ as a joker for user home
   dir. and SCI for Scilab data base dir.
 
