@@ -1182,3 +1182,15 @@ msgstr ""
 # File: macros/atomsShow.sci, line: 88
 msgid "WebSite"
 msgstr ""
+#
+# File: macros/atomsSystemUpdate.sci, line: 25
+msgid "Option offLine of ATOMS configuration is set to True. atomsSystemUpdate did not check the latest modules availables."
+msgstr ""
+#
+# File: macros/atomsRemove.sci, line 167
+msgid "\t%s (%s) will be removed from the ''%s'' section and its package fully deleted\n\n"
+msgstr ""
+#
+# File: macros/atomsRemove.sci, line 103
+msgid "%s: Wrong type for input argument #%d: A boolean or single string expected.\n"
+msgstr

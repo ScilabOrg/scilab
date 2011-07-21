@@ -233,6 +233,10 @@ ATOMS:
 
 * bug 8664 fixed - Message error updated for non supported OS.
 
+* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
+
+* bug 8648 fixed - possibility to delete tarball archives when uninstalling a module.
+
 Misc:
 =====
 
