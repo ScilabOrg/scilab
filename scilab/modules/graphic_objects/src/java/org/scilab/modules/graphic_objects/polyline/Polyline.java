@@ -37,7 +37,7 @@ public class Polyline extends ClippableContouredObject {
 	private double arrowSizeFactor;
 
 	/** Polyline drawing style (normal, staircase, bar, etc.) */
-	private int polylineStyle;
+	private int polylineStyle = 1;
 	
 	/** Interpolation color vector (3- or 4-element array) */
 	private int[] interpColorVector;
