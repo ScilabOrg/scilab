@@ -338,3 +338,6 @@ Bug fixes:
 
 * bug 9730 fixed - lines() returned an int32 and not a double value.
 
+* bug 9761 fixed - "NDEBUG" was not defined for dynamic link (by default) in
+                   release mode on Windows.
+
