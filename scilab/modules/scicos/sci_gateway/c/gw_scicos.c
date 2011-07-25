@@ -30,7 +30,7 @@
 
 
 /*--------------------------------------------------------------------------*/
-static gw_generic_table Tab[] = 
+static gw_generic_table Tab[] =
 {
 	{sci_var2vec,"var2vec"},
 	{sci_vec2var,"vec2var"},
@@ -56,7 +56,7 @@ static gw_generic_table Tab[] =
 	{sci_getscicosvars,"getscicosvars"},
 	{sci_curblockc,"curblockc"},
 	{sci_buildouttb,"buildouttb"},
-	{sci_permutobj,"permutobj"},
+	{NULL, ""}, // premutobj -> deleted old scicos editor
 	{sci_end_scicosim,"end_scicosim"},
 	{sci_coserror, "coserror"},
 	{sci_haltscicos, "sci_haltscicos"},
