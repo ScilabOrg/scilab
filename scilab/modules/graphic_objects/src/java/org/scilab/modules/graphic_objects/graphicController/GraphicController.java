@@ -168,8 +168,11 @@ public class GraphicController {
         DEBUG("create object : "+id);
         DEBUG("type is : " + getProperty(id, "Type"));
         for (GraphicView view : allViews) {
+        	DEBUG("-----------------------");
+        	DEBUG("VIEW is " + view.toString());
             view.createObject(id);
-        }
+        	DEBUG("-----------------------");
+       }
     }
 
     /**

@@ -12,6 +12,8 @@
 
 package org.scilab.modules.graphic_objects.figure;
 
+import javax.swing.SwingConstants;
+
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.IVisitor;
 
