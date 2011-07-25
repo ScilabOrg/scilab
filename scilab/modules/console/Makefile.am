@@ -95,7 +95,7 @@ INCLUDE_FLAGS = $(libsciconsole_la_CFLAGS)
 
 ## Libraries necessary
 ## Change to include other Scilab modules/lib
-libsciconsole_la_LIBADD =  	$(top_builddir)/modules/shell/libscishell.la \
+libsciconsole_la_LIBADD =  	$(top_builddir)/modules/console/libsciconsole.la \
 							$(top_builddir)/modules/fileio/libscifileio.la \
 							$(top_builddir)/libs/MALLOC/libscimalloc.la 
 # java code is needed $(top_builddir)/modules/jvm/libscijvm.la
