@@ -31,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
@@ -67,6 +68,7 @@ import org.scilab.modules.gui.console.Console;
 import org.scilab.modules.gui.dockable.Dockable;
 import org.scilab.modules.gui.editbox.EditBox;
 import org.scilab.modules.gui.events.callback.CallBack;
+import org.scilab.modules.gui.events.callback.ScilabCloseCallBack;
 import org.scilab.modules.gui.frame.Frame;
 import org.scilab.modules.gui.helpbrowser.HelpBrowser;
 import org.scilab.modules.gui.imagerenderer.ImageRenderer;
@@ -129,6 +131,8 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
 
     private Image icon;
 
+    private Action closeAction;
+   
     /**
      * Constructor
      * @param name the name of the tab (used to identify it)
@@ -1001,16 +1005,19 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      * @param callback the callback to set.
      */
     public void setCallback(CallBack callback) {
-        Action action;
+        if (closeAction != null) {
+            // TODO remove old action
+        }
+        
         if (callback != null) {
-            action = new SciClosingAction(this, callback);
+            closeAction = new SciClosingAction(this, callback);
         } else {
             this.addAction(DockingConstants.CLOSE_ACTION);
-            action = new SciClosingAction(this, this.getTitlebar().getAction(DockingConstants.CLOSE_ACTION));
+            closeAction = new SciClosingAction(this, this.getTitlebar().getAction(DockingConstants.CLOSE_ACTION));
         }
 
-        action.putValue(Action.NAME, DockingConstants.CLOSE_ACTION);
-        this.addAction(action);
+        closeAction.putValue(Action.NAME, DockingConstants.CLOSE_ACTION);
+        this.addAction(closeAction);
 
         /* Undock button */
         SciUndockingAction undockAction = new SciUndockingAction(this);
@@ -1215,9 +1222,20 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             Integer figureId = (Integer) GraphicController.getController().getProperty(getId(), __GO_ID__);
             updateTitle(name, figureId);
     	} else if (property.equals(__GO_ID__)) {
+    	    /* Update title */
     		Integer figureId = ((Integer) value);
             String name = (String) GraphicController.getController().getProperty(getId(), __GO_NAME__);
             updateTitle(name, figureId);
+            
+            /* Update callback */
+            String closingCommand =
+                "if (get_figure_handle(" + figureId + ") <> []) then"
+                +      "  if (get(get_figure_handle(" + figureId + "), 'event_handler_enable') == 'on') then"
+                +      "    execstr(get(get_figure_handle(" + figureId + "), 'event_handler')+'(" + figureId + ", -1, -1, -1000)', 'errcatch', 'm');"
+                +      "  end;"
+                +      "  delete(get_figure_handle(" + figureId + "));"
+                +      "end;";
+            setCallback(ScilabCloseCallBack.create(figureId, closingCommand));
     	}
     }
     
