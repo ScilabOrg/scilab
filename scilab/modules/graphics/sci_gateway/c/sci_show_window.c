@@ -16,6 +16,8 @@
 /* desc : interface for show_window routine                               */
 /*------------------------------------------------------------------------*/
 
+#include <string.h>
+
 #include "gw_graphics.h"
 #include "getPropertyAssignedValue.h"
 #include "HandleManagement.h"
@@ -26,10 +28,14 @@
 #include "localization.h"
 #include "Interaction.h"
 #include "FigureList.h"
+#include "CurrentFigure.h"
+#include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
+
 /*--------------------------------------------------------------------------*/
 int sci_show_window( char *fname,unsigned long fname_len )
 {
-	sciPointObj * shownFigure = NULL;
+	char* pFigureUID = NULL;
 
 	CheckRhs(0,1);
 	CheckLhs(0,1);
@@ -41,6 +47,7 @@ int sci_show_window( char *fname,unsigned long fname_len )
 		int nbRow        = 0 ;
 		int nbCol        = 0 ;
 		size_t stackPointer = 0 ;
+        char *type;
 
 		if ( isParameterHandle( paramType ) )
 		{
@@ -53,15 +60,16 @@ int sci_show_window( char *fname,unsigned long fname_len )
 				return -1 ;
 			}
 
-			shownFigure = sciGetPointerFromHandle( getHandleFromStack(stackPointer) );
+			pFigureUID = getObjectFromHandle( getHandleFromStack(stackPointer) );
 
-			if (shownFigure == NULL)
+			if (pFigureUID == NULL)
 			{
 				Scierror(999, _("%s: Handle does not or no longer exists.\n"),fname);
 				return -1 ;
 			}
 
-			if (sciGetEntityType(shownFigure) != SCI_FIGURE)
+            getGraphicObjectProperty(pFigureUID, __GO_TYPE__, jni_string, (void **) &type);
+			if (strcmp(type, __GO_FIGURE__) != 0)
 			{
 				Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' handle or a real scalar expected.\n"),fname, 1, "Figure");
 				return -1 ;
@@ -79,9 +87,9 @@ int sci_show_window( char *fname,unsigned long fname_len )
 			return -1 ;
 		}
 		winNum = (int) getDoubleFromStack(stackPointer);
-		shownFigure = getFigureFromIndex(winNum);
+		pFigureUID = getFigureFromIndex(winNum);
 
-		if (shownFigure == NULL)
+		if (pFigureUID == NULL)
 		{
 			/* No window with this number, create one */
 			if(sciSetUsedWindow(winNum) < 0)
@@ -89,7 +97,7 @@ int sci_show_window( char *fname,unsigned long fname_len )
 				Scierror(999, _("%s: Unable to create requested figure: No more memory.\n"), fname);
 				return -1;
 			}
-			shownFigure = sciGetCurrentFigure();
+			pFigureUID = getCurrentFigure();
 		}
 	}
 	else
@@ -102,21 +110,21 @@ int sci_show_window( char *fname,unsigned long fname_len )
 	{
 		/* Rhs == 0 */
 		/* raise current figure */
-		shownFigure = sciGetCurrentFigure();
+		pFigureUID = getCurrentFigure();
 	}
 
 	/* Check that the requested figure really exists */
-	if ( shownFigure == NULL )
+	if ( pFigureUID == NULL )
 	{
 		Scierror(999, _("%s: '%s' handle does not or no longer exists.\n"),fname,"Figure");
 		return -1 ;
 	}
 
 	/* Actually show the window */
-	showWindow(shownFigure);
+	showWindow(pFigureUID);
 
 	LhsVar(1) = 0;
-	C2F(putlhsvar)();
+	PutLhsVar();
 
 	return 0;
 }
