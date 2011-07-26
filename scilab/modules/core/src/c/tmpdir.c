@@ -59,6 +59,8 @@ void createScilabTMPDIR(void)
     else
     {
         wchar_t wctmp_dir[PATH_MAX+FILENAME_MAX+1];
+        wchar_t wctmpshort_dir[PATH_MAX+FILENAME_MAX+1];
+
         static wchar_t bufenv[PATH_MAX + 16];
         char *TmpDir = NULL;
         swprintf(wctmp_dir,PATH_MAX+FILENAME_MAX+1,L"%sSCI_TMP_%d_",wcTmpDirDefault,(int) _getpid());
@@ -88,6 +90,11 @@ void createScilabTMPDIR(void)
             }
         }
 
+        /* bug 9614 We force TMPDIR as a short pathname 8.3 */
+        if (GetShortPathNameW(wctmp_dir, wctmpshort_dir, PATH_MAX+FILENAME_MAX+1) != 0)
+        {
+            wcscpy(wctmp_dir, wctmpshort_dir);
+        }
         swprintf(bufenv,PATH_MAX + 16,L"TMPDIR=%s",wctmp_dir);
         _wputenv(bufenv);
 
