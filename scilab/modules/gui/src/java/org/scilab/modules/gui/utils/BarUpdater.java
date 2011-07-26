@@ -2,6 +2,7 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Bruno JOFRET
  * Copyright (C) 2010 - DIGITEO - Clément DAVID
+ * Copyright (C) 2011 - DIGITEO - Vincent COUVERT
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -23,8 +24,6 @@ import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.TextBox;
 import org.scilab.modules.gui.toolbar.ToolBar;
-import org.scilab.modules.gui.uielement.UIElement;
-import org.scilab.modules.gui.window.Window;
 
 /**
  * Handle window bar update on tab activation.
@@ -58,7 +57,7 @@ public final class BarUpdater implements PropertyChangeListener {
          * @param newInfoBar the new InfoBar to display.
          * @param newWindowTitle the new Title to display
          */
-        public static void updateBars(int parentWindowsID, MenuBar newMenuBar, ToolBar newToolBar, TextBox newInfoBar, String newWindowTitle) {
+        public static void updateBars(String parentWindowsID, MenuBar newMenuBar, ToolBar newToolBar, TextBox newInfoBar, String newWindowTitle) {
             updateBars(parentWindowsID, newMenuBar, newToolBar, newInfoBar, newWindowTitle, null);
         }
 
@@ -72,18 +71,18 @@ public final class BarUpdater implements PropertyChangeListener {
          * @param newWindowTitle the new Title to display
          * @param newIcon the new windows icon
          */
-        public static void updateBars(int parentWindowsID, MenuBar newMenuBar, ToolBar newToolBar, TextBox newInfoBar, String newWindowTitle, Image newIcon) {
-                UIElement element = UIElementMapper.getCorrespondingUIElement(parentWindowsID);
-                if (element != null) {
-                        element.addMenuBar(newMenuBar);
-                        element.addToolBar(newToolBar);
-                        element.addInfoBar(newInfoBar);
-                        ((Window) element).setTitle(newWindowTitle);
-                        /** The following line is used to update the menubar, toolbar, ... displayed on screen */
-                        ((SwingScilabWindow) ((Window) element).getAsSimpleWindow()).validate();
-                        if (newIcon != null) {
-                            ((SwingScilabWindow) ((Window) element).getAsSimpleWindow()).setIconImage(newIcon);
-                        }
+        public static void updateBars(String parentWindowsID, MenuBar newMenuBar, ToolBar newToolBar, TextBox newInfoBar, String newWindowTitle, Image newIcon) {
+                SwingScilabWindow parentWindow = SwingScilabWindow.allScilabWindows.get(parentWindowsID);
+                if (parentWindow != null) {
+                    parentWindow.addMenuBar(newMenuBar);
+                    parentWindow.addToolBar(newToolBar);
+                    parentWindow.addInfoBar(newInfoBar);
+                    parentWindow.setTitle(newWindowTitle);
+                    /** The following line is used to update the menubar, toolbar, ... displayed on screen */
+                    parentWindow.validate();
+                    if (newIcon != null) {
+                     	parentWindow.setIconImage(newIcon);
+                    }
                 }
         }
 

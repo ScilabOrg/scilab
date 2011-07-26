@@ -12,41 +12,6 @@
  */
 package org.scilab.modules.gui;
 
-import org.flexdock.docking.DockingManager;
-import org.flexdock.docking.activation.ActiveDockableTracker;
-import org.flexdock.view.View;
-import org.scilab.forge.scirenderer.Canvas;
-import org.scilab.forge.scirenderer.implementation.jogl.JoGLCanvasFactory;
-import org.scilab.modules.graphic_objects.figure.Figure;
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.graphic_objects.graphicView.GraphicView;
-import org.scilab.modules.gui.bridge.imagerenderer.SwingScilabImageRenderer;
-import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
-import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
-import org.scilab.modules.gui.bridge.uitable.SwingScilabUiTable;
-import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
-import org.scilab.modules.gui.events.callback.ScilabCloseCallBack;
-import org.scilab.modules.gui.graphicWindow.FigureInteraction;
-import org.scilab.modules.gui.graphicWindow.PanelLayout;
-import org.scilab.modules.gui.menubar.MenuBar;
-import org.scilab.modules.gui.textbox.ScilabTextBox;
-import org.scilab.modules.gui.textbox.TextBox;
-import org.scilab.modules.gui.toolbar.ToolBar;
-import org.scilab.modules.gui.utils.MenuBarBuilder;
-import org.scilab.modules.gui.utils.ToolBarBuilder;
-import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
-
-import java.awt.Component;
-import java.awt.Container;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.swing.ImageIcon;
-
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CHILDREN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_FIGURE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
@@ -69,6 +34,38 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_VERTICALALIGNMENT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VISIBLE__;
 import static org.scilab.modules.gui.utils.Debug.DEBUG;
+
+import java.awt.Component;
+import java.awt.Container;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.ImageIcon;
+
+import org.flexdock.docking.Dockable;
+import org.flexdock.docking.DockingManager;
+import org.flexdock.docking.activation.ActiveDockableTracker;
+import org.flexdock.view.View;
+import org.scilab.modules.graphic_objects.figure.Figure;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicView.GraphicView;
+import org.scilab.modules.gui.bridge.imagerenderer.SwingScilabImageRenderer;
+import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
+import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
+import org.scilab.modules.gui.bridge.uitable.SwingScilabUiTable;
+import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
+import org.scilab.modules.gui.events.callback.ScilabCloseCallBack;
+import org.scilab.modules.gui.menubar.MenuBar;
+import org.scilab.modules.gui.textbox.ScilabTextBox;
+import org.scilab.modules.gui.textbox.TextBox;
+import org.scilab.modules.gui.toolbar.ToolBar;
+import org.scilab.modules.gui.utils.MenuBarBuilder;
+import org.scilab.modules.gui.utils.ToolBarBuilder;
+import org.scilab.modules.gui.widget.Widget;
 
 /**
  * @author Bruno JOFRET
@@ -236,7 +233,7 @@ public final class SwingView implements GraphicView {
             
             tab.setWindowIcon(new ImageIcon(SCIDIR + "/modules/gui/images/icons/graphic-window.png").getImage());
 
-            tab.setParentWindowId(window.getElementId());
+            tab.setParentWindowId(window.getId());
             
             DockingManager.dock(tab, window.getDockingPort());
             ActiveDockableTracker.requestDockableActivation(tab);
@@ -288,7 +285,17 @@ public final class SwingView implements GraphicView {
     @Override
     public void deleteObject(String id) {
         TypedObject requestedObject = allObjects.get(id);
-
+        switch (requestedObject.getType()) {
+		case Figure:
+			SwingScilabTab tab = (SwingScilabTab) requestedObject.getValue();
+	        DockingManager.close(tab);
+	        DockingManager.unregisterDockable((Dockable) tab);
+	        tab.close();
+			break;
+		default:
+		    ((Widget) requestedObject.getValue()).destroy();
+			break;
+		}
 
     }
 
