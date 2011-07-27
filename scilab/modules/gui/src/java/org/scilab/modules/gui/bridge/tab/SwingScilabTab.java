@@ -15,8 +15,11 @@
 
 package org.scilab.modules.gui.bridge.tab;
 
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_ID__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_NAME__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_SIZE__;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -25,13 +28,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import javax.swing.Action;
-import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
@@ -190,6 +196,68 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         SwingScilabCanvas canvas = new SwingScilabCanvas(figureId, figure);
         setContentPane(canvas);
         canvas.setVisible(true);
+
+        addHierarchyBoundsListener(new HierarchyBoundsListener() {
+            public void ancestorResized(HierarchyEvent arg0) {
+            }
+
+            public void ancestorMoved(HierarchyEvent e) {
+                if (e.getChanged() instanceof SwingScilabWindow) {
+                    Position parentPosition =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getPosition();
+                    Integer[] newPosition = new Integer[2];
+                    newPosition[0] = parentPosition.getX();
+                    newPosition[1] = parentPosition.getY();
+                    //System.out.println("ancestorMoved x = " + newPosition[0] + " y = " + newPosition[1]);
+                    GraphicController.getController().setProperty(id, __GO_POSITION__, newPosition);
+                }
+            }
+        });
+
+        //        addAncestorListener(new AncestorListener() {
+        //            public void ancestorRemoved(AncestorEvent arg0) {
+        //            }
+        //
+        //            public void ancestorMoved(AncestorEvent e) {
+        //                Position parentPosition =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getPosition();
+        //                Integer[] newPosition = new Integer[2];
+        //                newPosition[0] = parentPosition.getX();
+        //                newPosition[1] = parentPosition.getY();
+        //                System.err.println("ancestorMoved x = " + newPosition[0] + " y = " + newPosition[1]);
+        //                GraphicController.getController().setProperty(id, __GO_POSITION__, newPosition);
+        //            }
+        //
+        //            public void ancestorAdded(AncestorEvent arg0) {
+        //            }
+        //        });
+
+        addComponentListener(new ComponentListener() {
+
+            public void componentShown(ComponentEvent arg0) {
+            }
+
+            public void componentResized(ComponentEvent arg0) {
+                /* Update the figure_size property */
+                Size parentSize =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
+                Integer[] newSize = new Integer[2];
+                newSize[0] = parentSize.getWidth();
+                newSize[1] = parentSize.getHeight();
+                GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
+
+                /* Update the axes_size property */
+                Dimension contentPaneSize = getContentPane().getSize();
+                Integer[] newAxesSize = new Integer[2];
+                newAxesSize[0] = contentPaneSize.width;
+                newAxesSize[1] = contentPaneSize.height;
+                GraphicController.getController().setProperty(id, __GO_AXES_SIZE__, newAxesSize);
+            }
+
+            public void componentMoved(ComponentEvent arg0) {
+                //System.out.println("componentMoved");
+            }
+
+            public void componentHidden(ComponentEvent arg0) {
+            }
+        });
     }
 
     /**
@@ -1005,7 +1073,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      * @param callback the callback to set.
      */
     public void setCallback(CallBack callback) {
-        
+
         if (closeAction != null) {
             this.getTitlebar().removeAction(closeAction);
         }
@@ -1238,6 +1306,27 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
                 +      "end;";
             setCallback(null);
             setCallback(ScilabCloseCallBack.create(figureId, closingCommand));
+        } else if (property.equals(__GO_SIZE__)) {
+            Integer[] size = (Integer[]) value;
+            Size parentSize = SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
+            //System.out.println("__GO_SIZE__" + size[0] + "x" + size[1]);
+            if (parentSize.getWidth() != size[0] || parentSize.getHeight() != size[1]) {
+                SwingScilabWindow.allScilabWindows.get(parentWindowId).setDims(new Size(size[0], size[1]));
+            }
+        } else if (property.equals(__GO_POSITION__)) {
+            Integer[] position = (Integer[]) value;
+            //Position parentPosition = SwingScilabWindow.allScilabWindows.get(parentWindowId).getPosition();
+            //System.out.println("__GO_POSITION__" + position[0] + "x" + position[1]);
+            SwingScilabWindow.allScilabWindows.get(parentWindowId).setPosition(new Position(position[0], position[1]));
+        } else if (property.equals(__GO_AXES_SIZE__)) {
+            Integer[] axesSize = (Integer[]) value;
+            Dimension contentPaneSize = getContentPane().getSize();
+            //System.out.println("__GO_AXES_SIZE__" + axesSize[0] + "x" + axesSize[1]);
+            if (contentPaneSize.width != axesSize[0] || contentPaneSize.height != axesSize[1]) {
+                this.getContentPane().setSize(axesSize[0], axesSize[1]);
+            }
+        } else {
+            System.out.println("SwingScilabtab.update(" + property + " not mapped");
         }
     }
 

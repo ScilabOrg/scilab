@@ -295,9 +295,13 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      * @see org.scilab.modules.gui.UIElement#setPosition(org.scilab.modules.gui.utils.Position)
      */
     public void setPosition(Position newWindowPosition) {
-        this.setLocation(newWindowPosition.getX(), newWindowPosition.getY());
-    }
-
+        if(!SwingUtilities.isEventDispatchThread()) {
+            if (getPosition().getX() != newWindowPosition.getX() || getPosition().getY() != newWindowPosition.getY()) {
+                this.setLocation(newWindowPosition.getX(), newWindowPosition.getY());
+            }   
+        }   
+    }   
+    
     /**
      * Gets the title of a swing Scilab window
      * @return the title of the window
