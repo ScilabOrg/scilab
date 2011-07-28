@@ -1,17 +1,16 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Allan CORNET
- *
+ * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at
+ * are also available at    
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 #include "InitScilab.h"
 #include "InitializeCore.h"
-#include "../../../shell/includes/InitializeShell.h"
 #include "../../../console/includes/InitializeConsole.h"
 #include "../../../tclsci/includes/InitializeTclTk.h"
 #include "../../../localization/includes/InitializeLocalization.h"
@@ -29,38 +28,34 @@
 int C2F(initscilab)(void)
 {
 
-    SetScilabEnvironment();
+	SetScilabEnvironment();
 
-    InitializeString();
+	InitializeString();
 
-    InitializeLocalization();
+	InitializeLocalization();
 
-#ifdef _MSC_VER
-    InitializeWindows_tools();
-#endif
+	#ifdef _MSC_VER
+	InitializeWindows_tools();
+	#endif
 
-    InitializeCore();
+	InitializeCore();
 
-    InitializeShell();
-
-    if ( getScilabMode() != SCILAB_NWNI )
-    {
-        InitializeJVM();
-
-        /* create needed data structure if not already created */
-        loadGraphicModule() ;
-
-        InitializeGUI();
-
-        /* Standard mode -> init Java Console */
-        if ( getScilabMode() == SCILAB_STD )
-        {
-            /* Initialize console: lines... */
-            InitializeConsole();
-        }
-
-        loadBackGroundClassPath();
+    if ( getScilabMode() != SCILAB_NWNI ) 
+	{
+		InitializeJVM();
+		InitializeGUI();
+		
+		/* create needed data structure if not already created */
+		loadGraphicModule() ;
     }
-    return 0;
+
+    /* Initialize console: lines... */
+    InitializeConsole();
+
+	if ( getScilabMode() != SCILAB_NWNI ) 
+    {
+		loadBackGroundClassPath();
+	}
+	return 0;
 }
 /*--------------------------------------------------------------------------*/
