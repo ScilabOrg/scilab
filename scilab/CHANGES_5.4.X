@@ -356,3 +356,5 @@ Bug fixes:
 * bug 9756 fixed - polelm.tst unitary test failed on Windows 64 bit.
 
 * bug 9765 fixed - remove ref to scicos_pal in sci_f_clear.f
+
+* bug 9791 fixed - toolbar visible state change crash Scilab in NW mode.
