@@ -300,7 +300,7 @@ public class SwingScilabTreeTable extends JTable {
      * @param baseDir the base directory
      * @param addInHistory if true the dir is add in the history
      */
-    public void setBaseDir(String baseDir, boolean addInHistory) {
+    public synchronized void setBaseDir(String baseDir, boolean addInHistory) {
         ScilabFileBrowserModel model = (ScilabFileBrowserModel) tree.getModel();
         combobox.setBaseDir(baseDir);
         File f = new File(baseDir);
