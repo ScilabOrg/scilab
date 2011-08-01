@@ -1326,22 +1326,6 @@ AM_CONDITIONAL(FFTW, test "$with_fftw" != no)
 #AM_CONDITIONAL(MPI, test "$with_mpi" = yes)
 
 #################
-## PVM
-#################
-
-AC_ARG_WITH(pvm,
-    AC_HELP_STRING([--without-pvm],[Disable the interface to the PVM library]))
-
-PVM_ENABLE=no
-if test "$with_pvm" != no; then
-   AC_PVM()
-   PVM_ENABLE=yes
-fi
-AC_SUBST(PVM_ENABLE)
-
-AM_CONDITIONAL(PVM, test "$with_pvm" != no)
-
-#################
 ## OpenMP
 #################
 
@@ -1767,7 +1751,6 @@ modules/graphic_export/Makefile
 modules/renderer/Makefile
 modules/action_binding/Makefile
 modules/gui/Makefile
-modules/pvm/Makefile
 modules/randlib/Makefile
 modules/tclsci/Makefile
 modules/windows_tools/Makefile
@@ -1908,9 +1891,6 @@ echo "  GNU gcc (--with-gcc) ............. =        $with_gcc"
 echo "  GNU Fortran 95 (--with-gfortran) . =        $with_gfortran"
 echo ""
 echo "Options:"
-echo "  Use PVM (--without-pvm) .......................... = $with_pvm"
-echo "  PVM include (--with-pvm-include) ................. = $PVMINCLUDE"
-echo "  PVM library (--with-pvm-library) ................. = $PVMLIBDIR"
 echo "  Do not use TCL/TK (--without-tk) ................. = $with_tk"
 echo "  TCL include (--with-tcl-include) ................. = $USER_TCL_INC_PATH"
 echo "  TCL library (--with-tcl-library) ................. = $USER_TCL_LIB_PATH"
