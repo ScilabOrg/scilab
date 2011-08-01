@@ -87,7 +87,8 @@ scinotes \
 parallel \
 modules_manager \
 ui_data \
-history_browser
+history_browser \
+xml
 
 #umfpack
 
@@ -191,7 +192,8 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/functions/libscifunctions.la \
 	$(top_builddir)/modules/hdf5/libscihdf5.la \
 	$(top_builddir)/modules/pvm/libscipvm.la \
-	$(top_builddir)/modules/fftw/libscifftw.la
+	$(top_builddir)/modules/fftw/libscifftw.la \
+	$(top_builddir)/modules/xml/libscixml.la
 
 
 # These libraries are loaded dynamically from Scilab.
