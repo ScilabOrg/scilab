@@ -10,8 +10,8 @@
  *
  */
 
-#ifndef TRIANGLE_MESH_FEC_DATA_H
-#define TRIANGLE_MESH_FEC_DATA_H
+#ifndef TRIANGLE_MESH_FEC_DATA_HXX
+#define TRIANGLE_MESH_FEC_DATA_HXX
 
 #include "Data3D.hxx"
 #include "TriangleMeshData.hxx"
@@ -39,11 +39,20 @@ private:
     double* fecValues;
 
 public:
+    /**
+     * Constructor
+     */
     TriangleMeshFecData(void);
 
-    /* To be implemented */
+    /**
+     * Constructor
+     * To be implemented
+     */
     TriangleMeshFecData(unsigned int numberVertices, unsigned int numberTriangles);
 
+    /**
+     * Destructor
+     */
     virtual ~TriangleMeshFecData();
 
     /**

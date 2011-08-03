@@ -10,8 +10,8 @@
  *
  */
 
-#ifndef TRIANGLE_MESH_DATA_H
-#define TRIANGLE_MESH_DATA_H
+#ifndef TRIANGLE_MESH_DATA_HXX
+#define TRIANGLE_MESH_DATA_HXX
 
 #include "Data3D.hxx"
 
@@ -53,11 +53,20 @@ protected:
     unsigned int numberTriangles;
 
 public:
+    /**
+     * Constructor
+     */
     TriangleMeshData(void);
 
-    /* To be implemented */
+    /**
+     * Constructor
+     * To be implemented
+     */
     TriangleMeshData(unsigned int numberVertices, unsigned int numberTriangles);
 
+    /**
+     * Destructor
+     */
     virtual ~TriangleMeshData();
 
     /**
@@ -178,7 +187,7 @@ public:
     /**
      * Converts a triangle vertex index as seen by Scilab to an internal format triangle vertex index
      * @param scilabIndex the Scilab index to convert
-     * @returns the internal format triangle vertex index
+     * @return the internal format triangle vertex index
      */
     static unsigned int scilabIndexToIndex(unsigned int scilabIndex);
 };
