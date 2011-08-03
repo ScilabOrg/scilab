@@ -210,7 +210,7 @@ int TriangleMeshData::setNumVertices(unsigned int numVertices)
 
         try
         {
-            newValues = new double[3*numVertices];
+            newValues = new double[numVertices];
         }
         catch (const std::exception& e)
         {
@@ -307,6 +307,11 @@ double* TriangleMeshData::getVertices(void)
 
 void TriangleMeshData::setVertices(double* vertices, unsigned int numElements)
 {
+    if (numElements > numberVertices)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         this->vertices[3*i] = vertices[3*i];
@@ -322,6 +327,11 @@ unsigned int* TriangleMeshData::getIndices(void)
 
 void TriangleMeshData::setIndices(unsigned int* indices, unsigned int numElements)
 {
+    if (numElements > numberTriangles)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         this->indices[3*i] = indices[3*i];
@@ -332,6 +342,11 @@ void TriangleMeshData::setIndices(unsigned int* indices, unsigned int numElement
 
 void TriangleMeshData::setDataX(double* data, unsigned int numElements)
 {
+    if (numElements > numberVertices)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         vertices[3*i] = data[i];
@@ -340,6 +355,11 @@ void TriangleMeshData::setDataX(double* data, unsigned int numElements)
 
 void TriangleMeshData::setDataY(double* data, unsigned int numElements)
 {
+    if (numElements > numberVertices)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         vertices[3*i+1] = data[i];
@@ -348,6 +368,11 @@ void TriangleMeshData::setDataY(double* data, unsigned int numElements)
 
 void TriangleMeshData::setDataZ(double* data, unsigned int numElements)
 {
+    if (numElements > numberVertices)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         vertices[3*i+2] = data[i];
@@ -356,6 +381,11 @@ void TriangleMeshData::setDataZ(double* data, unsigned int numElements)
 
 void TriangleMeshData::setValues(double* data, unsigned int numElements)
 {
+    if (numElements > numberVertices)
+    {
+        return;
+    }
+
     for (int i = 0; i < numElements; i++)
     {
         values[i] = data[i];
