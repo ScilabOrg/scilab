@@ -36,7 +36,7 @@ int C2F(sci_exit)(char *fname,unsigned long fname_len)
         int m1 = 0, n1 = 0;
         int iType1 = 0;
         int *piAddressVarOne = NULL;
-	double *pdVarOne = NULL;
+        double *pdVarOne = NULL;
 
         /* get Address of inputs */
         sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
@@ -84,8 +84,11 @@ int C2F(sci_exit)(char *fname,unsigned long fname_len)
         setExitCodeValue(iExit);
     }
 
-    // this value do quit in scirun
-    C2F(com).fun = -999;
+    if (canCloseMainScilabObject())
+    {
+        // this value do quit in scirun
+        C2F(com).fun = -999;
+    }
 
     LhsVar(1) = 0;
     C2F(putlhsvar)();
