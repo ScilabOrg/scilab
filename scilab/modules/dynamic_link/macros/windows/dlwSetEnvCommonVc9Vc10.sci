@@ -53,7 +53,12 @@ function bOK = dlwSetEnvCommonVc9Vc10(MSVSDir, IsExpress, bWin64)
     LIB = getNewLIBx86(LIB, MSVSDir, windowsSdkPath, IsExpress);
     LIBPATH = getNewLIBPATHx86(LIBPATH, MSVSDir, windowsSdkPath, IsExpress);
   end
-
+  
+  dotnetpath = dlwGetDotNetPath();
+  if dotnetpath <> [] then
+    PATH = dotnetpath + pathsep() + PATH;
+  end
+  
   err = setenv('PATH', PATH);
   if (err == %F) then
     bOK = %F;
