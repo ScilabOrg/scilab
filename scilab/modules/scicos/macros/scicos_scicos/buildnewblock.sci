@@ -138,8 +138,23 @@ function [ok]=buildnewblock(blknam, files, filestan, filesint, libs, rpat, ldfla
     // generate Block in TMPDIR (default)
     chdir(TMPDIR);
   end
-  
+
+  VC_mode = %f;
+  // Since all files Xcos generated files of all diagrams are in the same TEMP directory 
+  // VS generation requires to separate generation files in dedicated TEMP directories by diagram
+  // Here, we force to use "old" mode (VC makefile generation)
+  if getos() == "Windows" then
+    VC_mode = dlwCheckForceVCMakefile();
+    dlwForceVCMakefile(%t);
+  end
+
   ierr = execstr("libn =ilib_for_link(blknam,files,"""",""c"","""",""loader.sce"","""",ldflags,cflags)","errcatch");
+
+  // restore previous VS generation mode
+  if getos() == "Windows" then
+    dlwForceVCMakefile(VC_mode);
+  end
+  
   if ierr <> 0 then
     ok = %f;
     chdir(oldpath);
