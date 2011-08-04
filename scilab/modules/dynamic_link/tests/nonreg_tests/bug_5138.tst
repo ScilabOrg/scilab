@@ -21,7 +21,7 @@ if getos() == 'Windows' then
   copyfile(SCI+"/modules/api_scilab/tests/unit_tests/string_writing_api.c",pathconvert(TMPDIR+"/string_writing_api/string_writing_api.c",%F));
   cflags = "-I"+SCI+"/modules/localization/includes";
   ilib_build("string_writing",["write_string","write_string"],"string_writing_api.c",[],[],"",cflags);  
-  if isfile(TMPDIR+'/string_writing_api/makelib.mak') <> %T then pause,end
+  if ~isfile(TMPDIR+'/string_writing_api/makelib.mak') & ~isfile(TMPDIR+'/string_writing_api/string_writing.sln') then pause,end
 end
 
 // =============================================================================

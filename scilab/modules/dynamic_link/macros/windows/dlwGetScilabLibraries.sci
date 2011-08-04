@@ -26,7 +26,8 @@ function scilablibrarieslist = dlwGetScilabLibraries()
                         "call_scilab.lib"; ..
                         "time.lib"; ..
                         "api_scilab.lib"; ..
-                        "scilab_windows.lib"]; 
+                        "scilab_windows.lib"; ..
+                        "libscilab.lib"]; 
 
 endfunction
 //=============================================================================

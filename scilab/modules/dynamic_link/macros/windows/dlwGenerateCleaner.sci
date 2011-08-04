@@ -9,9 +9,31 @@
 //=============================================================================
 function dlwGenerateCleaner(fd, makename)
   make_command = dlwGetMakefileCmdCleaner(makename);
-  mfprintf(fd,"if fileinfo(''%s%s'') <> [] then\n", makename, dlwGetMakefileExt());
-  mfprintf(fd,"  unix_s(''%s'');\n", make_command);
-  mfprintf(fd,"  mdelete(''%s%s'');\n", makename, dlwGetMakefileExt());
+  if dlwIsVc10Express() | dlwIsVc10Pro() & ~dlwCheckForceVCMakefile() then
+    mfprintf(fd,"if fileinfo(''%s'') <> [] then\n", makename);
+    mfprintf(fd,"  unix_s(''%s'');\n", make_command);
+    mfprintf(fd,"  mdelete(''%s'');\n", makename);
+    vcxproj = strsubst(makename, ".sln", ".vcxproj");
+    vfproj = strsubst(makename, ".sln", ".vfproj");
+    mfprintf(fd,"  mdelete(''%s'');\n", vfproj);
+    mfprintf(fd,"  mdelete(''%s'');\n", vcxproj);
+    mfprintf(fd,"  mdelete(''%s'');\n", vcxproj + ".user");
+    mfprintf(fd,"  mdelete(''%s'');\n", vcxproj +  ".filters");    
+    mfprintf(fd,"  mdelete(''%s'');\n", strsubst(makename, ".sln", ".def"));
+    mfprintf(fd,"  mdelete(''%s'');\n", strsubst(makename, ".sln", ".lib"));
+    mfprintf(fd,"  mdelete(''%s'');\n", strsubst(makename, ".sln", ".exp"));
+    mfprintf(fd,"  mdelete(''%s'');\n", strsubst(makename, ".sln", ".u2d"));
+    if dlwCheckDebugMode() then
+      solutionConfig = "Debug";
+    else
+      solutionConfig = "Release";
+    end
+    mfprintf(fd,"  rmdir(''%s'', ''s'');\n", solutionConfig);
+  else
+    mfprintf(fd,"if fileinfo(''%s%s'') <> [] then\n", makename, dlwGetMakefileExt());
+    mfprintf(fd,"  unix_s(''%s'');\n", make_command);
+    mfprintf(fd,"  mdelete(''%s%s'');\n", makename, dlwGetMakefileExt());
+  end
   mfprintf(fd,"end\n");
   mfprintf(fd,"// ------------------------------------------------------\n");
 endfunction
