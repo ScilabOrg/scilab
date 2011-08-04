@@ -44,10 +44,8 @@ function ilib_gen_cleaner(makename,loadername,files)
     if ~ exists("dynamic_linkwindowslib") then
       load("SCI/modules/dynamic_link/macros/windows/lib");
     end
-
     dlwGenerateCleaner(fd, makename);
   end
-
   if files <> [] then
     for i = 1:size(files,'*')
       if ( files(i) <> '' ) then
@@ -58,7 +56,6 @@ function ilib_gen_cleaner(makename,loadername,files)
       end
     end
   end
-
   mfprintf(fd,"chdir(curdir);\n");
   mfprintf(fd,"// ------------------------------------------------------\n");
   mclose(fd);
