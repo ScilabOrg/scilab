@@ -1,4 +1,3 @@
-
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) DIGITEO - 2010-2011 - Allan CORNET
 //
@@ -10,29 +9,26 @@
 
 //=============================================================================
 function [make_command, lib_name_make, lib_name, path, makename, files] = ..
-             dlwGetParamsIlibCompil(lib_name, makename, files)
-  
-  files = unique(files);
-  k = strindex(makename,['/','\']);
-  
+             dlwGetParamsIlibCompil(lib_name, files)
 
-  if k~=[] then
-    path = part(makename,1:k($));
-    makename = part(makename,k($)+1:length(makename));
+
+  path = '';
+ 
+  if dlwIsVc10Express() | dlwIsVc10Pro() & ~dlwCheckForceVCMakefile() then
+    if dlwHaveMsBuild() & (dlwIsOnlyCppFiles(files) | dlwCheckForceF2c()) then
+      make_command = 'msbuild.exe '
+    else
+      make_command = 'devenv.exe /Build ';
+    end
+    makename = lib_name + '.sln';
+    lib_name = lib_name + getdynlibext();
+    lib_name_make = lib_name;
   else
-     path='';
-  end
-
-  lib_name = lib_name+getdynlibext();
-  lib_name_make = lib_name;
-
-  if (makename <> [] & makename <> '') then
-    makename = makename + dlwGetMakefileExt() ;
-  else
+    lib_name = lib_name + getdynlibext();
+    lib_name_make = lib_name;
     makename = dlwGetDefltMakefileName() + dlwGetMakefileExt() ;
+    make_command = 'nmake /Y /nologo /f ';
   end
-
-  make_command = 'nmake /Y /nologo /f ';
 
 endfunction
 //=============================================================================
