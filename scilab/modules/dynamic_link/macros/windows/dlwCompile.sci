@@ -7,7 +7,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 //=============================================================================
-function dlwCompile(files, make_command, makename)
+function dlwCompile(makename, files, make_command)
 
     nf = size(files,"*");
 
