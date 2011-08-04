@@ -284,6 +284,9 @@ Compilation:
 Dynamic link:
 =============
 
+* ilib_ functions generate a Visual studio 2010 solution on Windows
+  in release mode, build uses Multiple Processes.
+
 * bug 9432 fixed - link a 64 bit dynamic library on a 32 bit platform returned
                    a wrong error message on Windows.
 
