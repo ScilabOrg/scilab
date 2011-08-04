@@ -108,6 +108,14 @@ File input/output:
 * tempname function added (SEP 68).
 
 
+Dynamic link:
+=============
+
+* ilib_ functions generate a Visual studio 2010 solution on Windows
+  in release mode, build uses Multiple Processes.
+  
+
+
 New functions
 =============
 
