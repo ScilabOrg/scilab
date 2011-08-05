@@ -65,7 +65,7 @@ int sci_getshortpathname(char *fname,unsigned long l)
 			LhsVar(2) = Rhs + 2;
 		}
 
-		C2F(putlhsvar)();
+		PutLhsVar();;
 
 		freeArrayOfString(ShortNames, m1n1);
 		if (bOK) {FREE(bOK); bOK = NULL;}

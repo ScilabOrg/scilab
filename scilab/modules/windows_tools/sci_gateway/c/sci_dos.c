@@ -278,7 +278,7 @@ int sci_dos(char *fname,unsigned long l)
 			LhsVar(3) = Rhs + 3;
 		}
 
-		C2F(putlhsvar)();
+		PutLhsVar();;
 
 		if (StatusExit) {FREE(StatusExit); StatusExit = NULL;}
 		freeArrayOfString(Output, numberoflines);

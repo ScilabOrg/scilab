@@ -112,7 +112,7 @@ static int isasciiMatrix(char *fname,int *piAddressVarOne)
 			}
 
 			LhsVar(1) = Rhs + 1;
-			C2F(putlhsvar)();
+			PutLhsVar();;
 
 			if (bOutputMatrix)
 			{
@@ -140,7 +140,7 @@ static int isasciiMatrix(char *fname,int *piAddressVarOne)
 		}
 
 		LhsVar(1) = Rhs + 1;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 	}
 	return 0;
 }
@@ -253,7 +253,7 @@ static int isasciiStrings(char *fname,int *piAddressVarOne)
 			}
 
 			LhsVar(1) = Rhs + 1;
-			C2F(putlhsvar)();
+			PutLhsVar();;
 
 			if (lenStVarOne)
 			{

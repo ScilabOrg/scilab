@@ -349,7 +349,7 @@ int sci_fprintfMat(char *fname,unsigned long fname_len)
     case FPRINTFMAT_NO_ERROR:
         {
             LhsVar(1) = 0;
-            C2F(putlhsvar)();
+            PutLhsVar();;
         }
         break;
     case FPRINTFMAT_FOPEN_ERROR:

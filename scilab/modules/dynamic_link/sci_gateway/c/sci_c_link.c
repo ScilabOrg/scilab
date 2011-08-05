@@ -92,7 +92,7 @@ int sci_c_link(char *fname,unsigned long fname_len)
 				LhsVar(2)=Rhs+2;
 			}
 
-			C2F(putlhsvar)();
+			PutLhsVar();;
 			if (paramoutINT) {FREE(paramoutINT);paramoutINT=NULL;}
 			
 		}

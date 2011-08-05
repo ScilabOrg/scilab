@@ -44,7 +44,7 @@ int sci_strrev(char *fname,unsigned long fname_len)
 		{
 			CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE,&m1,&n1,OutputStrings);
 			LhsVar(1) = Rhs+1 ;
-			C2F(putlhsvar)();
+			PutLhsVar();;
 			freeArrayOfString(InputStrings,m1n1);
 			freeArrayOfString(OutputStrings,m1n1);
 		}

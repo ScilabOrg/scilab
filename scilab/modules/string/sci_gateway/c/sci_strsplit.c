@@ -153,7 +153,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 		}
 
 		LhsVar(1) = Rhs + 1;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 		return 0;
 	}
 
@@ -252,7 +252,7 @@ int sci_strsplit(char *fname,unsigned long fname_len)
 						}
 
 						LhsVar(1) = Rhs + 1;
-						C2F(putlhsvar)();
+						PutLhsVar();;
 
 						freeArrayOfWideString(results, m_out);
 					}

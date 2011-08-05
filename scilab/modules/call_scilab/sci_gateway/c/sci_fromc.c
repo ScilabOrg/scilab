@@ -35,7 +35,7 @@ int sci_fromc(char *fname,unsigned long fname_len)
 	n1=1;
 	CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &paramoutINT);
 	LhsVar(1)=Rhs+1;
-	C2F(putlhsvar)();
+	PutLhsVar();;
 	if (paramoutINT) {FREE(paramoutINT);paramoutINT=NULL;}
 
 	return 0;

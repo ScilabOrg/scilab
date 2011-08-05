@@ -350,7 +350,7 @@ static void returnMoveFileResultOnStack(int ierr, char *fname)
 
 	freeArrayOfWideString(sciError, 1);
 
-	C2F(putlhsvar)();
+	PutLhsVar();;
 }
 /*--------------------------------------------------------------------------*/
 

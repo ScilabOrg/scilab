@@ -35,7 +35,7 @@ int sci_addhistory(char *fname,unsigned long fname_len)
 		bOK = appendLinesToScilabHistory(lines,m1*n1);
 
 		LhsVar(1) = 0;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 
 		freeArrayOfString(lines, m1*n1);
 	}

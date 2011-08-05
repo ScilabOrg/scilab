@@ -50,7 +50,7 @@ int C2F(sci_getdebuginfo)(char *fname,unsigned long fname_len)
 		CreateVarFromPtr(Rhs+2,MATRIX_OF_STRING_DATATYPE, &m2, &n2, outputStaticList);
 		LhsVar(2) = Rhs+2;
 	}
-	C2F(putlhsvar)();
+	PutLhsVar();;
 
 	freeArrayOfString(outputDynamicList,m1);
 	freeArrayOfString(outputStaticList,m2);

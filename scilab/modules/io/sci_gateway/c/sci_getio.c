@@ -32,7 +32,7 @@ int sci_getio(char *fname,unsigned long fname_len)
 
 	CreateVarFromPtr(Rhs+1,MATRIX_OF_INTEGER_DATATYPE,&one,&four,&values);
 	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();
+	PutLhsVar();;
 
 	if (values) {FREE(values);values = NULL;}
 

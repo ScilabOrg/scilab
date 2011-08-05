@@ -62,7 +62,7 @@ int sci_fileext(char *fname,unsigned long fname_len)
 			}
 			CreateVarFromPtr( Rhs+1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, Output_extensions );
 			LhsVar(1)=Rhs+1;
-			C2F(putlhsvar)();
+			PutLhsVar();;
 			freeArrayOfString(Input_filenames, m1*n1);
 			freeArrayOfString(Output_extensions,m1*n1);
 		}

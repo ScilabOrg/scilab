@@ -84,7 +84,7 @@ static int sci_stacksizeNoRhs(char *fname)
     CreateVarFromPtr(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &n1, &m1, (int *)&paramoutINT);
 
     LhsVar(1) = Rhs + 1;
-    C2F(putlhsvar)();
+    PutLhsVar();;
 
     if (paramoutINT) {FREE(paramoutINT); paramoutINT = NULL;}
     return 0;
@@ -114,7 +114,7 @@ static int sci_stacksizeOneRhs(char *fname)
                         if (setStacksize(NEWMEMSTACKSIZE))
                         {
                             LhsVar(1) = 0;
-                            C2F(putlhsvar)();
+                            PutLhsVar();;
                             return 0;
                         }
                         else
@@ -178,7 +178,7 @@ static int sci_stacksizeMax(char *fname)
     if (setStacksizeMax(fname))
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        PutLhsVar();;
     }
     else
     {
@@ -192,7 +192,7 @@ static int sci_stacksizeMin(char *fname)
     if (setStacksizeMin(fname))
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        PutLhsVar();;
     }
     else
     {
@@ -232,7 +232,7 @@ static int setStacksizeMax(char *fname)
     if (maxmemfree <= backupSize)
     {
         LhsVar(1) = 0;
-        C2F(putlhsvar)();
+        PutLhsVar();;
         return 1;
     }
 
@@ -277,7 +277,7 @@ static int setStacksize(unsigned long newsize)
             if (ptr)
             {
                 LhsVar(1) = 0;
-                C2F(putlhsvar)();
+                PutLhsVar();;
 
                 C2F(adjuststacksize)(&newsize, &ptr);
                 return 1;

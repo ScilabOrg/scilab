@@ -29,7 +29,7 @@ int C2F(sci_sciargs)(char *fname,unsigned long fname_len)
 	ncol = nb_arguments;
 	CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &nrow, &ncol,arguments);
 	LhsVar(1)=Rhs+1;
-	C2F(putlhsvar)();
+	PutLhsVar();;
 
 	freeArrayOfString(arguments,nb_arguments);
 

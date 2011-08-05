@@ -93,7 +93,7 @@ int sci_TCL_GetVar(char *fname,unsigned long l)
 
 					CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &nb_lines, &nb_columns, ReturnArrayString);
 					LhsVar(1) = Rhs+1;
-					C2F(putlhsvar)();
+					PutLhsVar();;
 
 					freeArrayOfString(ReturnArrayString,nb_lines * nb_columns);
 					freeArrayOfString(index_list,nb_lines * nb_columns);
@@ -124,7 +124,7 @@ int sci_TCL_GetVar(char *fname,unsigned long l)
 				CreateVarFromPtr(Rhs+ 1,STRING_DATATYPE,(m1=(int)strlen(output), &m1),&n1,&output);
 
 				LhsVar(1) = Rhs+1;
-				C2F(putlhsvar)();
+				PutLhsVar();;
 
 				if (output) {FREE(output);output=NULL;}
 			}

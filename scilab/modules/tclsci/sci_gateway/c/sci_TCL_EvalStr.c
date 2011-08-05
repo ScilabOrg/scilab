@@ -136,7 +136,7 @@ int sci_TCL_EvalStr(char *fname,unsigned long l)
 	}
       CreateVarFromPtr(Rhs+1,MATRIX_OF_STRING_DATATYPE, &m1, &n1, ReturnArrayString);
       LhsVar(1)=Rhs+1;
-      C2F(putlhsvar)();
+      PutLhsVar();;
 
 	  freeArrayOfString(ReturnArrayString,m1*n1);
       freeArrayOfString(Str,m1*n1);

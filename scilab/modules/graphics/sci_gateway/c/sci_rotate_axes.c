@@ -55,7 +55,7 @@ int sci_rotate_axes(char *fname,unsigned long fname_len)
     {
       Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
       LhsVar(1) = 0;
-	  C2F(putlhsvar)();
+	  PutLhsVar();;
       return -1;
     }
 
@@ -65,7 +65,7 @@ int sci_rotate_axes(char *fname,unsigned long fname_len)
     {
       Scierror(999, _("%s: Wrong type for input argument #%d: Single Figure or Axes handle expected.\n"), fname, 1);
       LhsVar(1) = 0;
-	  C2F(putlhsvar)();
+	  PutLhsVar();;
       return -1;
     }
 
@@ -92,7 +92,7 @@ int sci_rotate_axes(char *fname,unsigned long fname_len)
   }
 
   LhsVar(1) = 0;
-  C2F(putlhsvar)();
+  PutLhsVar();;
 
   return 0;
 }

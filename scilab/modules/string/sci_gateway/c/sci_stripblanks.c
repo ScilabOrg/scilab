@@ -67,7 +67,7 @@ int sci_stripblanks(char *fname,unsigned long fname_len)
 					int l = 0;
 					CreateVar(Rhs+1,MATRIX_OF_DOUBLE_DATATYPE,&m1,&n1,&l);
 					LhsVar(1) = Rhs+1 ;
-					C2F(putlhsvar)();
+					PutLhsVar();;
 					return 0;
 				}
 				else
@@ -120,7 +120,7 @@ int sci_stripblanks(char *fname,unsigned long fname_len)
 	numCol   = n1;
 	CreateVarFromPtr( Rhs+1,MATRIX_OF_STRING_DATATYPE, &numRow, &numCol, Output_String_Matrix); /*@ Output*/
 	LhsVar(1) = Rhs+1 ;
-	C2F(putlhsvar)();
+	PutLhsVar();;
 
 	/* free pointers */
 	freeArrayOfString(Output_String_Matrix,mn);

@@ -103,7 +103,7 @@ int sci_strcmp(char *fname,unsigned long fname_len)
 					stk(outIndex)[x] = values[x];
 				}
 				LhsVar(1) = Rhs+1 ;
-				C2F(putlhsvar)();
+				PutLhsVar();;
 
 				freeArrayOfString(Input_Strings_One,m1n1);
 				freeArrayOfString(Input_Strings_Two,m2n2);

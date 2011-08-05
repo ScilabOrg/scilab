@@ -59,7 +59,7 @@ int sci_TCL_GetVersion(char *fname,unsigned long l)
 		if (output) {FREE(output);output=NULL;}
 
 		LhsVar(1) = Rhs+1;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 	}
 	else
 	{

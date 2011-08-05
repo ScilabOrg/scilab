@@ -42,7 +42,7 @@ int sci_pwd(char *fname,unsigned long fname_len)
 		n1 = 1;
 		CreateVarFromPtr(Rhs+1, STRING_DATATYPE, &m1, &n1, &path);
 		LhsVar(1) = Rhs+1;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 
 		if (path) {FREE(path); path = NULL;}
 	}

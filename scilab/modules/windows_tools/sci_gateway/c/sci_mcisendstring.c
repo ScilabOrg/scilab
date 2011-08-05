@@ -93,7 +93,7 @@ int sci_mcisendstring(char *fname,unsigned long l)
 			LhsVar(3)=Rhs+3;
 		}
 		
-		C2F(putlhsvar)();
+		PutLhsVar();;
 
 		if (Output) {FREE(Output);Output=NULL;}
 		if (BoolOutput) {FREE(BoolOutput);BoolOutput=NULL;}

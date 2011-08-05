@@ -36,7 +36,7 @@ int sci_win64(char *fname,unsigned long l)
 	CreateVarFromPtr(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &m1, &n1, &Status);
 	LhsVar(1)=Rhs+1;
 
-	C2F(putlhsvar)();
+	PutLhsVar();;
 	if (Status) {FREE(Status);Status=NULL;}
 	return 0;
 }

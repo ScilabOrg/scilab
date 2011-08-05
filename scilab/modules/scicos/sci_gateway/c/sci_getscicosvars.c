@@ -528,7 +528,7 @@ int sci_getscicosvars(char *fname,unsigned long fname_len)
 
 	/* put new variable in lsh argument */
 	LhsVar(1) = 2;
-	C2F(putlhsvar)();
+	PutLhsVar();;
 
 	/* end */
 	FREE(dyn_char);

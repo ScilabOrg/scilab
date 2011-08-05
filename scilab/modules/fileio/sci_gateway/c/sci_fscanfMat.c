@@ -268,7 +268,7 @@ int sci_fscanfMat(char *fname,unsigned long fname_len)
                     }
                 }
 
-                C2F(putlhsvar)();
+                PutLhsVar();;
             }
             break;
         case FSCANFMAT_MOPEN_ERROR:

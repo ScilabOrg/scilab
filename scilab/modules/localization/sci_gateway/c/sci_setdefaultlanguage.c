@@ -45,7 +45,7 @@ int sci_setdefaultlanguage(char *fname,unsigned long fname_len)
 		*istk(l1)=(int)(FALSE);
 
 		LhsVar(1) = Rhs+1;
-		C2F(putlhsvar)();
+		PutLhsVar();;
 	}
 	#else
 	{
@@ -65,7 +65,7 @@ int sci_setdefaultlanguage(char *fname,unsigned long fname_len)
 				CreateVar(Rhs+1, MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
 				*istk(l1) = (int)(FALSE);
 				LhsVar(1) = Rhs+1;
-				C2F(putlhsvar)();
+				PutLhsVar();;
 				if (newlang) { FREE(newlang); newlang = NULL; }
 				return 0;
 			}
@@ -79,7 +79,7 @@ int sci_setdefaultlanguage(char *fname,unsigned long fname_len)
 					CreateVar(Rhs+1, MATRIX_OF_BOOLEAN_DATATYPE, &n1, &n1, &l1);
 					*istk(l1) = (int)(TRUE);
 					LhsVar(1) = Rhs+1;
-					C2F(putlhsvar)();
+					PutLhsVar();;
 					if (newlang) { FREE(newlang); newlang = NULL; }
 					if (savedLanguage) { FREE(savedLanguage); savedLanguage = NULL; }
 					return 0;
@@ -93,7 +93,7 @@ int sci_setdefaultlanguage(char *fname,unsigned long fname_len)
 						CreateVar(Rhs+1, MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
 						*istk(l1) = (int)(FALSE);
 						LhsVar(1) = Rhs+1;
-						C2F(putlhsvar)();
+						PutLhsVar();;
 						if (newlang) { FREE(newlang); newlang = NULL; }
 						return 0;
 					}
@@ -113,7 +113,7 @@ int sci_setdefaultlanguage(char *fname,unsigned long fname_len)
 						else *istk(l1) = (int)FALSE;
 
 						LhsVar(1) = Rhs+1;
-						C2F(putlhsvar)();
+						PutLhsVar();;
 						if (newlang) { FREE(newlang); newlang = NULL; }
 						return 0;
 					}

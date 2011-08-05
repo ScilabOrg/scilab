@@ -38,7 +38,7 @@ int sci_haltscicos(char *fname,unsigned long fname_len)
   CheckLhs(0,1);
   CheckRhs(0,0);
   LhsVar(1)=0;
-  C2F(putlhsvar)();
+  PutLhsVar();;
 
   C2F(coshlt).halt = 1;
 

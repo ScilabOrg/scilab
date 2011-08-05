@@ -88,7 +88,7 @@ int sci_findfileassociation(char *fname,unsigned long l)
 	}
 		
 	LhsVar(1) = Rhs+1;
-	C2F(putlhsvar)();	
+	PutLhsVar();;	
 	if (Output) {FREE(Output);Output=NULL;}
 
 	return 0;

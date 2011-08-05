@@ -287,7 +287,7 @@ static int sci_strcat_three_rhs(char *fname)
         break;
 
     }
-    C2F(putlhsvar)();
+    PutLhsVar();;
     return 0;
 }
 /*-------------------------------------------------------------------------------------*/
@@ -351,7 +351,7 @@ static int sci_strcat_two_rhs(char *fname)
 
                     CreateVar(Rhs+1,STRING_DATATYPE,  &m1, &n1, &l1);
                     LhsVar(1)=Rhs+1;
-                    C2F(putlhsvar)();
+                    PutLhsVar();;
 
                     freeArrayOfString(Input_String_Two,Number_Inputs_Two);
                     freeArrayOfString(Input_String_One,Number_Inputs_One);
@@ -396,7 +396,7 @@ static int sci_strcat_two_rhs(char *fname)
                 }
 
                 LhsVar(1) = Rhs+1;
-                C2F(putlhsvar)();
+                PutLhsVar();;
                 freeArrayOfString(Input_String_One,Row_One*Col_One);
                 freeArrayOfString(Input_String_Two,Number_Inputs_Two);
             }
@@ -411,7 +411,7 @@ static int sci_strcat_two_rhs(char *fname)
                     CreateVar(Rhs+1,STRING_DATATYPE,&len,&one,&outIndex);
                     strcpy(cstk(outIndex),EMPTY_CHAR);
                     LhsVar(1) = Rhs+1 ;
-                    C2F(putlhsvar)();
+                    PutLhsVar();;
 
                     freeArrayOfString(Input_String_Two,Number_Inputs_Two);
                     freeArrayOfString(Input_String_One,Number_Inputs_One);
@@ -490,7 +490,7 @@ static int sci_strcat_one_rhs(char *fname)
                 FREE(lengths); lengths = NULL;
 
                 LhsVar(1) = Rhs+1;
-                C2F(putlhsvar)();
+                PutLhsVar();;
                 if (Input_String_One) freeArrayOfString(Input_String_One,mn);
             }
             else
@@ -524,7 +524,7 @@ static int sci_strcat_rhs_one_is_a_matrix(char *fname)
         CreateVar(Rhs+1,STRING_DATATYPE,&len,&one,&outIndex);
         strcpy(cstk(outIndex),EMPTY_CHAR);
         LhsVar(1) = Rhs+1 ;
-        C2F(putlhsvar)();
+        PutLhsVar();;
     }
     else
     {

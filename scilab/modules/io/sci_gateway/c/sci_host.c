@@ -46,7 +46,7 @@ int sci_host(char *fname,unsigned long fname_len)
 			*istk(l1) = (int) stat;
 
 			LhsVar(1)= Rhs+1;
-			C2F(putlhsvar)();
+			PutLhsVar();;
 			freeArrayOfString(Str,m1*n1);
 		}
 	}

@@ -101,7 +101,7 @@ int sci_glue( char * fname, unsigned long fname_len )
   CreateVar(Rhs+3,GRAPHICAL_HANDLE_DATATYPE,&numrow,&numcol,&outindex);
   hstk(outindex)[0] = sciGetHandle((sciPointObj *) sciGetCurrentObj());
   LhsVar(1) = Rhs+3;
-  C2F(putlhsvar)();
+  PutLhsVar();;
   FREE(handelsvalue);
   return 0;
 }
