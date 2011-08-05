@@ -48,6 +48,7 @@
 <module name="string" activate="yes"/>
 <module name="symbolic" activate="yes"/>
 <module name="time" activate="yes"/>
+<module name="windows_tools" activate="yes"/>
 <module name="statistics" activate="yes"/>
 <module name="arnoldi" activate="yes"/>
 <module name="compatibility_functions" activate="yes"/>
