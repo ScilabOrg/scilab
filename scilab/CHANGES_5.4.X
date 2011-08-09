@@ -247,6 +247,8 @@ ATOMS:
 
 * bug 8664 fixed - Message error updated for non supported OS.
 
+* bug 9763 fixed - comet3d did not check argument presence.
+
 Javasci:
 ========
 
