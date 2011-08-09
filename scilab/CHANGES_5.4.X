@@ -399,3 +399,4 @@ Bug fixes:
 * bug 9804 fixed - Starting Scilab with a external module emptied the
                    demo list menu.
 
+* bug 9214 fixed - abaque replaced by nicholschart in the black.sci comments
