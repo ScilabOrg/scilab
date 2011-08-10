@@ -402,3 +402,5 @@ Bug fixes:
 
 * bug 9804 fixed - Starting Scilab with a external module emptied the
                    demo list menu.
+
+* bug 9836 fixed - repfreq failed due to "singular problem".
