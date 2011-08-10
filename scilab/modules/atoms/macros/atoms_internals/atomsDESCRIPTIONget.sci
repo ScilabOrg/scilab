@@ -72,13 +72,13 @@ function [packages,categories_flat,categories] = atomsDESCRIPTIONget(update)
         if ~isdir(atoms_tmp_directory) then
             mkdir(atoms_tmp_directory);
         end
-
+        
         for i=1:size(repositories,"*")
 
             // Building url & file_out
             // ----------------------------------------
             url            = repositories(i)+"/TOOLBOXES/"+ARCH+"/"+OSNAME+".gz";
-            file_out       = pathconvert(atoms_tmp_directory+string(i)+"_TOOLBOXES.gz",%f);
+            file_out       = pathconvert(getshortpathname(fullpath(atoms_tmp_directory))+string(i)+"_TOOLBOXES.gz",%f);
 
             // Remove the existing file
             // ----------------------------------------
@@ -88,21 +88,26 @@ function [packages,categories_flat,categories] = atomsDESCRIPTIONget(update)
 
             // Launch the download
             // ----------------------------------------
-            atomsDownload(url,file_out);
+            atomsDownload(url, file_out);
+
+            // We check that file_out exists
+            // ----------------------------------------
+            if ~isfile(file_out) then
+              error(msprintf(gettext("%s: DESCRIPTION file (''%s'') does not exist.\n"),"atomsDESCRIPTIONget", file_out));
+            end
 
             // Extract It
             // ----------------------------------------
-
             if LINUX | MACOSX | SOLARIS | BSD then
                 extract_cmd = "gunzip "+ file_out;
-
             else
-                extract_cmd = getshortpathname(pathconvert(SCI+"/tools/gzip/gzip.exe",%F)) + " -d """ + file_out + """";
+                extract_cmd = getshortpathname(fullpath(pathconvert(SCI+"/tools/gzip/gzip.exe",%F))) + " -d """ + file_out + """";
             end
 
-            [rep,stat,err] = unix_g(extract_cmd);
+            [rep, stat ,err] = unix_g(extract_cmd);
 
             if stat ~= 0 then
+                disp(err);
                 error(msprintf(gettext("%s: Extraction of the DESCRIPTION file (''%s'') has failed.\n"),"atomsDESCRIPTIONget",file_out));
             end
 
