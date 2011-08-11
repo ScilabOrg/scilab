@@ -404,3 +404,6 @@ Bug fixes:
                    demo list menu.
 
 * bug 9838 fixed - evstr froze on some specific strings.
+
+* bug 9833 fixed - percent was bad formatted with Scierror function.
+

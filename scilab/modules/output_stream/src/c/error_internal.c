@@ -19,6 +19,8 @@
 #include "stack-def.h"
 #include "errmds.h"
 #include "lasterror.h"
+#include "MALLOC.h"
+#include "strsubst.h"
 /*--------------------------------------------------------------------------*/ 
 extern int C2F(errloc)(int *n); /* fortran */
 extern int C2F(errmgr)(); /* fortran */
@@ -78,7 +80,16 @@ int error_internal(int *n,char *buffer)
         C2F(msgstore)(buffer,&len);
 
         /* display error */
-        if (C2F(iop).lct[0] != -1) sciprint(buffer);
+        if (C2F(iop).lct[0] != -1) 
+        {
+            char *msgTmp = strsub(buffer, "%%", "%");
+            if (msgTmp)
+            {
+                sciprint("%s", msgTmp);
+                FREE(msgTmp);
+                msgTmp = NULL;
+            }
+        }
 
         C2F(iop).lct[0] = 0;
     }
