@@ -415,6 +415,11 @@ Bug fixes:
 
 * bug 9354 fixed - 'savematfile' could not save imbricated structures.
 
+* bug 9357 fixed - stdevf returned zero for row vector arguments.
+
+* bug 9432 fixed - link a 64 bit dynamic library on a 32 bit platform returned
+                   a wrong error message on Windows.
+
 * bug 9452 fixed - It was impossible to download Intel MKL throw a proxy.
 
 * bug 9479 fixed - Typo fixed (intput => input).
