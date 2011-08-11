@@ -189,6 +189,8 @@ Documentation:
 * Bug 9299 fixed - Fix a typo in the cspect, pspect and window help pages
                    (Hanning changed to Hann)
 
+* Bug 9320 fixed - analpf help page give wrong frequency units of omega (Hz instead of rd/s)
+
 * Bug 9417 fixed - In English, api_scilab polynom help pages updated to the word
                    polynomial
 
@@ -197,6 +199,7 @@ Documentation:
 * Bug 7133 fixed - help_from_sci function did not return the function template.
 
 * Bug 9790 fixed - windows_tools help were not available on all platforms.
+
 
 Removed functions (previously declared as obsolete):
 ====================================================
