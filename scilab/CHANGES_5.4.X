@@ -439,6 +439,33 @@ returns the value of the ScilabTypeEnum enum.
                    EDT was crashing the execution of a java program.
 
 
+CACSD and Signal processing
+==========================
+
+* bug 7895 fixed - fft2() was broken on Windows with MKL wrapper.
+
+* bug 8684 fixed - 'wfir' function produced an error message when used interactively.
+
+* bug 9098 fixed - demo CACSD --> Robust control failed on Windows 64 bit.
+
+* bug 9214 fixed - abaque replaced by nicholschart in the black.sci comments
+
+* bug 9266 fixed - fftw crashed on Windows when using MKL wrapper.
+
+* bug 9647 fixed - On Scilab startup, the variable fft was declared by default
+                   while it should not.
+
+* bug 9675 fixed - iir generated bad results.
+
+* bug 9716 fixed - amell.tst execution froze under Windows with reference lapack library.
+
+* bug 9719 fixed - delip.tst execution froze under Windows.
+
+* bug 9725 fixed - syredi.tst execution froze under Windows.
+
+* bug 9321 fixed - missing tests and help info for some CACSD functions
+
+
 Misc:
 =====
 
@@ -510,8 +537,6 @@ Bug fixes:
 
 * bug 9045 fixed - plot2d did not support overloading.
 
-* bug 9098 fixed - demo CACSD --> Robust control failed on Windows 64 bit.
-
 * bug 9056 fixed - An uicontrol could not be closed with <META>+W.
 
 * bug 9104 fixed - 'warning' used in a diary scilab session added timestamp
@@ -524,12 +549,8 @@ Bug fixes:
 
 * bug 9164 fixed - The unit tests now use the new assert functions.
 
-* bug 9214 fixed - abaque replaced by nicholschart in the black.sci comments
-
 * bug 9253 fixed - fscanfMat failed to read a file with some lines
                    of text at the end (backward compatibility).
-
-* bug 9266 fixed - fftw crashed on Windows when using MKL wrapper.
 
 * bug 9268 fixed - Scilab was overridding a predefined variable JAVA_HOME.
 
@@ -573,8 +594,6 @@ Bug fixes:
 
 * bug 9659 fixed - "error(246)" returned a bad message for overloading.
 
-* bug 9675 fixed - iir generated bad results.
-
 * bug 9682 fixed - 3D assignment into a 2D array of integers issued an error.
 
 * bug 9696 fixed - An error in an if expression inside a try make Scilab froze
@@ -588,10 +607,6 @@ Bug fixes:
 * bug 9716 fixed - amell.tst execution froze under Windows with reference lapack library.
 
 * bug 9717 fixed - dllinfo.tst failed with Windows binary versions.
-
-* bug 9719 fixed - delip.tst execution froze under Windows.
-
-* bug 9725 fixed - syredi.tst execution froze under Windows.
 
 * bug 9728 fixed - SCI/modules/special_functions/src/fortran/special_functions_f.def
                    was not ignored (generated file)
@@ -644,12 +659,10 @@ Bug fixes:
 
 * bug 9920 fixed - winqueryreg did not manage HKEY_CURRENT_CONFIG.
 
-<<<<<<< HEAD
-* bug 9971 fixed - GLoad macro not used and not documented is removed.
-=======
 * bug 9966 fixed - The default value of comptype in assert_checkalmostequal 
                    was wrongly chosen.
->>>>>>> 8e3e2d3... assert: bug 9966 fixed - Fixed assert_checkalmostequal
+
+* bug 9971 fixed - GLoad macro not used and not documented is removed.
 
 * bug 9979 fixed - The who_user() function printed a wrong message.
 
