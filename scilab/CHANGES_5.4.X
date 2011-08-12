@@ -157,6 +157,8 @@ Optimization:
 
 * Bug 8546 fixed - The neldermead functions may call f outside the bounds.
 
+* Bug 8547 fixed - The neldermead function called f outside the constraints.
+
 * Bug 8552 fixed - Improved fminsearch to provide Extra Parameters.
                    Help page updated with new section "The cost function".
                    Help page updated with new example "Passing extra parameters".
@@ -169,7 +171,6 @@ Optimization:
 
 * Bug 9578 fixed - The optimbase_configure function does not check the
                    values of input arguments.
-
 
 Documentation:
 ==============
