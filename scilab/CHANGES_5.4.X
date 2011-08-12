@@ -262,6 +262,30 @@ returns the value of the ScilabTypeEnum enum.
 * bug 9544 fixed - Calling graphic with Javasci from a SWING application from
                    EDT was crashing the execution of a java program.
 
+CACSD and Signal processing
+==========================
+* bug 7895 fixed - fft2() was broken on Windows with MKL wrapper.
+
+* bug 8684 fixed - 'wfir' function produced an error message when used interactively.
+
+* bug 9098 fixed - demo CACSD --> Robust control failed on Windows 64 bit.
+
+* bug 9214 fixed - abaque replaced by nicholschart in the black.sci comments
+
+* bug 9266 fixed - fftw crashed on Windows when using MKL wrapper.
+
+* bug 9647 fixed - On Scilab startup, the variable fft was declared by default
+                   while it should not.
+
+* bug 9675 fixed - iir generated bad results.
+
+* bug 9716 fixed - amell.tst execution froze under Windows with reference lapack library.
+
+* bug 9719 fixed - delip.tst execution froze under Windows.
+
+* bug 9725 fixed - syredi.tst execution froze under Windows.
+
+* bug 9321 fixed - missing tests and help info for some CACSD functions
 
 Misc:
 =====
@@ -296,22 +320,16 @@ Bug fixes:
 * bug 7358 fixed - Help pages of type and typeof have now links to the actual
                    description pages.
 
-* bug 7895 fixed - fft2() was broken on Windows with MKL wrapper.
-
 * bug 7901 fixed - besselh.tst failed on Windows.
 
 * bug 8608 fixed - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
                    and optimized.
-
-* bug 8684 fixed - 'wfir' function produced an error message when used interactively.
 
 * bug 8768 fixed - GetRhsVar(..., STRING_DATATYPE, ...) did not check size of input argument.
 
 * bug 8963 fixed - mtlb_mode test failed on Windows.
 
 * bug 9045 fixed - plot2d did not support overloading.
-
-* bug 9098 fixed - demo CACSD --> Robust control failed on Windows 64 bit.
 
 * bug 9056 fixed - An uicontrol could not be closed with <META>+W.
 
@@ -322,12 +340,8 @@ Bug fixes:
 
 * bug 9164 fixed - The unit tests now use the new assert functions.
 
-* bug 9214 fixed - abaque replaced by nicholschart in the black.sci comments
-
 * bug 9253 fixed - fscanfMat failed to read a file with some lines
                    of text at the end (backward compatibility).
-
-* bug 9266 fixed - fftw crashed on Windows when using MKL wrapper.
 
 * bug 9268 fixed - Scilab was overridding a predefined variable JAVA_HOME.
 
@@ -365,22 +379,11 @@ Bug fixes:
 * bug 9599 fixed - error message "at line ... of function ... called by" was
                    printed directly on the same line.
 
-* bug 9647 fixed - On Scilab startup, the variable fft was declared by default
-                   while it should not.
-
 * bug 9659 fixed - "error(246)" returned a bad message for overloading.
-
-* bug 9675 fixed - iir generated bad results.
 
 * bug 9682 fixed - 3D assignment into a 2D array of integers issued an error.
 
-* bug 9716 fixed - amell.tst execution froze under Windows with reference lapack library.
-
 * bug 9717 fixed - dllinfo.tst failed with Windows binary versions.
-
-* bug 9719 fixed - delip.tst execution froze under Windows.
-
-* bug 9725 fixed - syredi.tst execution froze under Windows.
 
 * bug 9728 fixed - SCI/modules/special_functions/src/fortran/special_functions_f.def
                    was not ignored (generated file)
