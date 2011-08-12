@@ -82,10 +82,14 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
     "Display" 
     "OutputFcn" 
     "PlotFcns" 
+    "TolFun"
+    "TolX"
     ]);
     fmsdata.Display = Display
     fmsdata.OutputFcn = OutputFcn
     fmsdata.PlotFcns = PlotFcns
+    fmsdata.TolFun=TolFun;
+    fmsdata.TolX=TolX;
     // Prepare the data structure to pass to the cost function
     fmsfundata = tlist(["T_FMINSEARCH" 
     "Fun" 
@@ -104,10 +108,7 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
     nm = neldermead_configure(nm,"-maxfunevals",MaxFunEvals);
     nm = neldermead_configure(nm,"-tolxmethod",%f);
     nm = neldermead_configure(nm,"-tolfunmethod",%f);
-    nm = neldermead_configure(nm,"-tolssizedeltafvmethod",%t);
     nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
-    nm = neldermead_configure(nm,"-toldeltafv",TolFun);
-    nm = neldermead_configure(nm,"-tolsimplexizeabsolute",TolX);
     nm = neldermead_configure(nm,"-checkcostfunction",%f);
     nm = neldermead_configure(nm,"-outputcommand",list(fminsearch_outputfun,fmsdata));
     //nm = neldermead_configure(nm,"-verbose",1);
@@ -133,10 +134,8 @@ function [x,fval,exitflag,output] = fminsearch ( varargin )
             mprintf(gettext(msg) , "fminsearch" , string(fval) )
         end
         exitflag = 0;
-    case "tolsizedeltafv" then
-        exitflag = 1;
     case "userstop" then
-        exitflag = -1;
+        exitflag = 1;
     else
         errmsg = msprintf(gettext("%s: Unknown status %s"), "fminsearch", status)
         error(errmsg)
@@ -221,9 +220,19 @@ function stop = fminsearch_outputfun ( state , data , fmsdata )
         end
     end
     //
-    // Process output functions
+    // See if we must stop
     //
     stop = %f
+    ssize = optimsimplex_size ( simplex , "sigmaplus" );
+    shiftfv = abs(optimsimplex_deltafvmax( simplex ))
+    if ( state == "iter") then
+        if ( ( ssize < fmsdata.TolX ) & ( shiftfv < fmsdata.TolFun ) ) then
+            stop = %t;
+        end
+    end
+    //
+    // Process output functions
+    //
     optimValues = struct(...
     "funccount" ,data.funccount , ...
     "fval" ,data.fval , ...

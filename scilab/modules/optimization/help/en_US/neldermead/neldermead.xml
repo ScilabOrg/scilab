@@ -2909,6 +2909,68 @@ nm = neldermead_destroy(nm);
     </programlisting>
   </refsection>
 
+<refsection>
+    <title>Example #7: Terminate the optimization</title>
+
+    <para>
+      In the following example, we solve Rosenbrock's test case. 
+      We create a customized output function, which takes as input arguments 
+      the absolute tolerance on the size of the simplex and an 
+      absolute tolerance on the difference of function values in the simplex. 
+      When both conditions are satisfied, the <literal>stop</literal> variable is 
+      set to true, which stops the optimization.
+    </para>
+
+
+    <programlisting role="example">
+      <![CDATA[ 
+function stop = myoutputcmd ( state, data, tolsimplexizeabsolute, toldeltafv )
+    simplex = data.simplex
+    ssize = optimsimplex_size ( simplex , "sigmaplus" );
+    shiftfv = abs(optimsimplex_deltafvmax( simplex ))
+    stop = %f
+    if ( state == "iter") then
+        if ( ( ssize < tolsimplexizeabsolute ) & ( shiftfv < toldeltafv ) ) then
+            stop = %t;
+            status = "mystopSizeF";
+        end
+    end
+endfunction
+
+function [ y , index ] = rosenbrock ( x , index )
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+endfunction
+
+//
+// Test with my own termination criteria 
+//
+nm = neldermead_new ();
+nm = neldermead_configure(nm,"-numberofvariables",2);
+nm = neldermead_configure(nm,"-function",rosenbrock);
+nm = neldermead_configure(nm,"-x0",[1.1 1.1]');
+nm = neldermead_configure(nm,"-maxiter",%inf);
+nm = neldermead_configure(nm,"-maxfunevals",%inf);
+nm = neldermead_configure(nm,"-method","variable");
+// Disable default terminations
+nm = neldermead_configure(nm,"-tolxmethod",%f);
+nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
+tolsimplexizeabsolute = 1.e-4;
+toldeltafv = 1.e-4;
+stopfun = list(myoutputcmd,tolsimplexizeabsolute,toldeltafv);
+nm = neldermead_configure(nm,"-outputcommand",stopfun);
+nm = neldermead_search(nm);
+xopt = neldermead_get(nm,"-xopt") // Should be [1.0 1.0]
+fopt = neldermead_get(nm,"-fopt") // Should be 0
+status = neldermead_get(nm,"-status") // // Should be "userstop"
+simplex = neldermead_get(nm,"-simplexopt");
+ssize = optimsimplex_size ( simplex , "sigmaplus" ) // Should be < 1.e-4
+shiftfv = abs(optimsimplex_deltafvmax( simplex )) // Should be < 1.e-4
+funevals = neldermead_get(nm,"-funevals") // Should be < 200
+nm = neldermead_destroy(nm);
+ ]]>
+    </programlisting>
+  </refsection>
+
   <refsection>
     <title>Changes in Scilab 5.4.1</title>
 
@@ -3060,6 +3122,43 @@ nm = neldermead_destroy(nm);
 
     <screen>
       nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
+    </screen>
+
+    <para>
+      Tagged -tolssizedeltafvmethod and -toldeltafv options as obsolete: will be
+      maintained for backward compatibility until 5.4.1.
+      The -outputcommand option can now be used to terminate the algorithm, 
+      with much more flexibility.
+      To update your code, replace:
+    </para>
+
+    <screen>
+      nm = neldermead_configure(nm,"-tolssizedeltafvmethod",%t);
+      nm = neldermead_configure(nm,"-tolsimplexizeabsolute",1.e-4);
+      nm = neldermead_configure(nm,"-toldeltafv",1.e-4);
+    </screen>
+
+    <para>
+      with:
+    </para>
+
+    <screen>
+function stop = myoutputcmd ( state, data, tolsimplexizeabsolute, toldeltafv )
+    simplex = data.simplex
+    ssize = optimsimplex_size ( simplex , "sigmaplus" )
+    shiftfv = abs(optimsimplex_deltafvmax( simplex ))
+    stop = %f
+    if ( state == "iter") then
+        if ( ( ssize &lt; tolsimplexizeabsolute ) &amp; ( shiftfv &lt; toldeltafv ) ) then
+            stop = %t
+        end
+    end
+endfunction
+[...]
+tolsimplexizeabsolute = 1.e-4;
+toldeltafv = 1.e-4;
+stopfun = list(myoutputcmd,tolsimplexizeabsolute,toldeltafv);
+nm = neldermead_configure(nm,"-outputcommand",stopfun);
     </screen>
 
   </refsection>

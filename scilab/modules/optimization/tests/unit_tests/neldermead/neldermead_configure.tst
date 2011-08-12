@@ -110,12 +110,6 @@ cmd = "nm = neldermead_configure(nm,''-tolsimplexizemethod'',''foo'')";
 assert_checkerror(cmd,"%s: Expected boolean but for variable %s at input #%d, got %s instead.",[],"nelmead_typeboolean","value",3,"string");
 nm = neldermead_destroy(nm);
 
-// Wrong -tolssizedeltafvmethod flag
-nm = neldermead_new ();
-cmd = "nm = neldermead_configure(nm,''-tolssizedeltafvmethod'',''foo'')";
-assert_checkerror(cmd,"%s: Expected boolean but for variable %s at input #%d, got %s instead.",[],"nelmead_typeboolean","value",3,"string");
-nm = neldermead_destroy(nm);
-
 //
 // Check wrong key for get method
 nm = neldermead_new ();

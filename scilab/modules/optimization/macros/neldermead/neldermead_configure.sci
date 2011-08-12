@@ -80,15 +80,6 @@ function this = neldermead_configure (this,key,value)
         nelmead_typeboolean ( value , "value" , 3 )
         nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
         this.tolsimplexizemethod = value;
-    case "-toldeltafv" then
-        nelmead_typereal ( value , "value" , 3 );
-        nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
-        nelmead_checkgreq ( "neldermead_configure" , value , "value" , 3 , 0 )
-        this.toldeltafv = value;
-    case "-tolssizedeltafvmethod" then
-        nelmead_typeboolean ( value , "value" , 3 )
-        nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
-        this.tolssizedeltafvmethod = value;
     case "-restartmax" then
         nelmead_typereal ( value , "value" , 3 );
         nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
@@ -222,6 +213,17 @@ function this = neldermead_configure (this,key,value)
         nelmead_warnoptobs ( "-myterminateflag" , "-outputcommand" , "5.4.1" )
         nelmead_typeboolean ( value , "value" , 3 );
         this.myterminateflag = value;
+    case "-tolssizedeltafvmethod" then
+        nelmead_warnoptobs ( "-tolssizedeltafvmethod" , "-outputcommand" , "5.4.1" )
+        nelmead_typeboolean ( value , "value" , 3 )
+        nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
+        this.tolssizedeltafvmethod = value;
+    case "-toldeltafv" then
+        nelmead_warnoptobs ( "-toldeltafv" , "-outputcommand" , "5.4.1" )
+        nelmead_typereal ( value , "value" , 3 );
+        nelmead_checkscalar ( "neldermead_configure" , value , "value" , 3 )
+        nelmead_checkgreq ( "neldermead_configure" , value , "value" , 3 , 0 )
+        this.toldeltafv = value;
     else
         // Delegate to the optimization object
         this.optbase = optimbase_configure ( this.optbase , key , value );

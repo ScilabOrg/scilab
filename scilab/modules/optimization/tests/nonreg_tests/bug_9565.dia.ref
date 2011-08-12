@@ -1,37 +1,34 @@
+// =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2008-2009 - INRIA - Michael Baudin
 // Copyright (C) 2011 - DIGITEO - Michael Baudin
 //
-// This file must be used under the terms of the CeCILL.
-// This source file is licensed as described in the file COPYING, which
-// you should have received as part of this distribution.  The terms
-// are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
 // <-- JVM NOT MANDATORY -->
-// <-- ENGLISH IMPOSED -->
-
-
-
-
-
-function stop = myoutputcmd ( state , data )
-  simplex = data.simplex
-  ssize = optimsimplex_size ( simplex , "sigmaplus" );
-  if ( ssize < 1.e-2 ) then
-    stop = %t;
-  else
+//
+// <-- Non-regression test for bug 9565 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=9565
+//
+// <-- Short Description -->
+// The tolssizedeltafvmethod and toldeltafv options of neldermead are unnecessary.
+//
+function stop = myoutputcmd ( state, data, tolsimplexizeabsolute, toldeltafv )
+    simplex = data.simplex
+    ssize = optimsimplex_size ( simplex , "sigmaplus" );
+    shiftfv = abs(optimsimplex_deltafvmax( simplex ))
     stop = %f
-  end
+    if ( state == "iter") then
+        if ( ( ssize < tolsimplexizeabsolute ) & ( shiftfv < toldeltafv ) ) then
+            stop = %t;
+            status = "mystopSizeF";
+        end
+    end
 endfunction
-
 function [ y , index ] = rosenbrock ( x , index )
-  y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
+    y = 100*(x(2)-x(1)^2)^2 + (1-x(1))^2;
 endfunction
-
-
-
-
 //
 // Test with my own termination criteria 
 //
@@ -45,7 +42,10 @@ nm = neldermead_configure(nm,"-method","variable");
 // Disable default terminations
 nm = neldermead_configure(nm,"-tolxmethod",%f);
 nm = neldermead_configure(nm,"-tolsimplexizemethod",%f);
-nm = neldermead_configure(nm,"-outputcommand",myoutputcmd);
+tolsimplexizeabsolute = 1.e-4;
+toldeltafv = 1.e-4;
+stopfun = list(myoutputcmd,tolsimplexizeabsolute,toldeltafv);
+nm = neldermead_configure(nm,"-outputcommand",stopfun);
 nm = neldermead_search(nm);
 // Check optimum point
 xopt = neldermead_get(nm,"-xopt");
@@ -59,10 +59,11 @@ assert_checkequal ( status , "userstop" );
 // Check simplex size
 simplex = neldermead_get(nm,"-simplexopt");
 ssize = optimsimplex_size ( simplex , "sigmaplus" );
-assert_checkequal ( ssize<1.e-1 , %t );
+assert_checkequal ( ssize<1.e-4 , %t );
+// Check function value shift
+shiftfv = abs(optimsimplex_deltafvmax( simplex ));
+assert_checkequal ( shiftfv<1.e-4 , %t );
 // Check function evaluations
 funevals = neldermead_get(nm,"-funevals");
 assert_checkequal ( funevals<200 , %t );
 nm = neldermead_destroy(nm);
-
-
