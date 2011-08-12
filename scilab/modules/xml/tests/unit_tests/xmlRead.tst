@@ -9,7 +9,7 @@
 
 xmlFile=xmlRead(SCI+"/etc/modules.xml");
 content=xmlDump(xmlFile);
-assert_checktrue(length(content)>0);
+assert_checktrue(size(content)>0);
 assert_checkequal(size(content),[1,1]);
 xmlClose(xmlFile)
 // Close the file a second time
@@ -21,9 +21,9 @@ xmlFile2=xmlRead(SCI+"/etc/classpath.xml");
 content=xmlDump(xmlFile);
 content2=xmlDump(xmlFile2);
 //assert_checkequal(content, content2);
-assert_checktrue(length(content)>0);
+assert_checktrue(size(content)>0);
 assert_checkequal(size(content),[1,1]);
-assert_checktrue(length(content2)>0);
+assert_checktrue(size(content2)>0);
 assert_checkequal(size(content2),[1,1]);
 xmlClose(xmlFile)
 xmlClose(xmlFile2)
@@ -36,10 +36,10 @@ assert_checkequal(xmlFile.root.name,"modules");
 assert_checkequal(xmlFile.root.type,"XML_ELEMENT_NODE");
 elements=xmlFile.root.children;
 assert_checktrue(size(elements)>0);
-for (i=1:length(elements))
-  assert_checktrue(length(xmlFile.root.children(i).attributes)>0);
+for (i=1:size(elements))
+  assert_checktrue(size(xmlFile.root.children(i).attributes)>0);
   if (xmlFile.root.children(i).type<>"XML_COMMENT_NODE")
-    assert_checktrue(length(xmlFile.root.children(i).attributes.name)> 0);
+    assert_checktrue(size(xmlFile.root.children(i).attributes.name)> 0);
 
     assert_checktrue(xmlFile.root.children(i).attributes.activate=="yes" ...
                    | xmlFile.root.children(i).attributes.activate=="no");
