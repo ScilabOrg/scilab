@@ -4,32 +4,298 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
+
 // <-- JVM NOT MANDATORY -->
+
 // unit tests for acos() function (element wise cosine inverse)
 // =============================================================================
+
 // 1. Interface
 // ============
-if execstr("acos()"   ,"errcatch") == 0 then bugmes();quit;end
-if execstr("acos(1,2)","errcatch") == 0 then bugmes();quit;end
+
+if execstr("acos()"   ,"errcatch") == 0 then bugmes();quit; end
+if execstr("acos(1,2)","errcatch") == 0 then bugmes();quit; end
+
+
 // 2. Singular Values
 // ==================
-rt2 = sqrt (2);
-rt3 = sqrt (3);
-v   = [0, %pi/6 , %pi/4 , %pi/3, %pi/2 , 2*%pi/3 , 3*%pi/4 , 5*%pi/6 , %pi];
-x   = [1, rt3/2 , rt2/2 , 1/2  , 0     , -1/2    , -rt2/2  , -rt3/2  , -1];
-if or(abs (acos (x) - v) > sqrt (%eps)) then bugmes();quit;end
+
+// List of variables used
+
+// hexInp		=> one column matrix of inputs in hexadecimal
+// hexOut		=> one column matrix of expected result in hexadecimal
+// lengthInp		=> size of hexInp i.e. the number of Input cases
+// doubleOut	 	=> the converted decimal values(double) of hexOut
+// computedResult	=> computed sine values of the data in hexInp
+// computedDigits 	=> number of digits common in the computed and expected results
+// expectedValue	=> the number of digits we expect to be common among the computed and exptected results for a positive result
+// expectedDigits 	=> a one column matrix of expectedValue
+
+
+hexInp = [
+'3FE297C587BF1E61'
+'3FEFFFFEF098CD9D'
+'3FEFFFFD94E09234'
+'3FEFFFFD06342E6A'
+'3FEFFFFFFB0D5090'
+'3FEFFFFFF07FBFAF'
+'3FEFFFFFFD7110E7'
+'3FEFFFFFFFA9B9AE'
+'3FEFFFFFFF092E7B'
+'3FEFFFFFFF482EA5'
+'3FEFFFFFFFDFCB84'
+'3FEFFFFFFFF94636'
+'3FEFFFFFFFF92D95'
+'3FEFFFFFFFFECEC6'
+'3FEFFFFFFFFC859E'
+'3FEFFFFFFFFDA901'
+'3FEFFFFFFFFD3309'
+'3FEFFFFFFFFF9FBD'
+'3FEE63A50440B91B'
+'3FEDCE3B4D53F901'
+'3FEFFFFFFFFFC43E'
+'3FEFFFFFFFFFD93D'
+'3FEFFFFFFFFFD2D0'
+'3FEFFFFFFFFFFF2B'
+'3FEFFFFFFFFFFF0D'
+'3FEFFFFFFFFFFFF3'
+'3FEFAAD6D27476D2'
+'3FEF335B29C05035'
+'3FEFEECA7AB99A61'
+'3FEFECE3319E4315'
+'3FEFD2FC398EE733'
+'3FEFFCEBB5298934'
+'3FEFFFA056E1DE78'
+'3FEFFF8602CD2DC0'
+'3FEFFF630DCB5242'
+'3FEFFF42BD16A254'
+'3FEFFF2475257BA0'
+'3FEFFFE5FB9E8E35'
+'3FEFFFE3E569B6F5'
+'3FEFFFFBD341CA3B'
+'3F5313FAEB270984'
+'3F5784165BB07615'
+'3F47239B57B9E41F'
+'3F47541208B069CD'
+'3F49787D818010A1'
+'3F4AA4A6197DBABB'
+'3F33FB7DC443BC04'
+'3F28602B333E9FBA'
+'3F28359520A26523'
+'3F17EF5B6B8D9C69'
+'3F0989DAFAE502E8'
+'3F0A9BF18DF252F1'
+'3F0635E74F2D5ADA'
+'3EF277E36864ACBD'
+'3EF28AC3B5A8A01D'
+'3EFBE56BFB36A47A'
+'3EFB848F4A3035B6'
+'3EE0B62B5CD6CABA'
+'3EDC8A488732283A'
+'3EC068D8EF862943'
+'3EB272EAE19C6573'
+'3EB4723101EC63F9'
+'3EBFD4E1B87C548A'
+'3E9D7DEB2D31A51B'
+'3E86EE3DA5634C2D'
+'3E7E1FE7F0C69887'
+'3E6567B0AF8D3130'
+'3E6E73BF758D312D'
+'3FA1F495F9DB9BB9'
+'3FA552609C6F3437'
+'3FA59D20F7F204A5'
+'3F9BB271EF23E5A8'
+'3F8D652A9B8F530C'
+'3F76EDED9A52B89B'
+'3F77560E989E0472'
+'3F7884D68A0873E1'
+'3F661191E4AD34AF'
+'3FC7AE1400000000'
+'3FD32E9100000000'
+'3FD9CA2400000000'
+'3FDF90B300000000'
+'3FE23ADC00000000'
+'3FE4781D00000000'
+'3FE647BB00000000'
+'3FE7BC8100000000'
+'3FE8F5C200000000'
+'3FC7AE1400000001'
+'3FD32E9100000001'
+'3FD9CA2400000001'
+'3FDF90B300000001'
+'3FE23ADC00000001'
+'3FE4781D00000001'
+'3FE647BB00000001'
+'3FE7BC8100000001'
+'3FE8F5C200000001'
+'3FC7AE13ffffffff'
+'3FD32E90ffffffff'
+'3FD9CA23ffffffff'
+'3FDF90B2ffffffff'
+'3FE23ADBffffffff'
+'3FE4781Cffffffff'
+'3FE647BAffffffff'
+'3FE7BC80ffffffff'
+'3FE8F5C1ffffffff'
+];
+
+hexOut = [
+'3FEE6D01F178BB48'
+'3F50796CDE517C20'
+'3F58E1D68E9F70BB'
+'3F5B99C4C093BE27'
+'3F21CB963F486A47'
+'3F2F7F3D4503EFBC'
+'3F1997783346A6E5'
+'3F0293AB61A8A8F9'
+'3F0F6BC0EC199FED'
+'3F0B1DAA974F9A83'
+'3EF6B32528D0AD4C'
+'3EE4BF4A030D7ADF'
+'3EE4E5242845C86C'
+'3ED178820DAE0668'
+'3EDDD6DB40E49582'
+'3ED879720FE10CDC'
+'3EDAC6B4FDAF8F8E'
+'3EC39F637497CF72'
+'3FD46487AB808FA9'
+'3FD7D6D7E84C63B4'
+'3EBEEBD86A7E0818'
+'3EB8E74FF86E4B93'
+'3EBAE37F2D5A8A2E'
+'3E8D3064DCC8AE77'
+'3E8F2D4A45635653'
+'3E6CD82B446159F4'
+'3FC278F94A153D2B'
+'3FCCABB034220AFC'
+'3FB098AFA65A1A05'
+'3FB17D94BDACCED0'
+'3FBAD979E726361B'
+'3F9C13D20B108A93'
+'3F838FB2E3E655B4'
+'3F8616FFA520E2C5'
+'3F890E47D6D22876'
+'3F8B83C1317BEAF0'
+'3F8DA259EFA0B49B'
+'3F74671E8C50077E'
+'3F75348B5E4A64FB'
+'3F605887AD8A4EA7'
+'3FF91D3655774E16'
+'3FF91C1A4E8B6369'
+'3FF91F16E0D52D6F'
+'3FF91F10D1FEF512'
+'3FF91ECC448E9C11'
+'3FF91EA6BF7AD54F'
+'3FF920BB9C6795C0'
+'3FF9213852EA8048'
+'3FF92139A79B158C'
+'3FF9219B96D67CA7'
+'3FF921C8408E36F8'
+'3FF921C61C6110D1'
+'3FF921CEE8758E85'
+'3FF921E8DC60C4B0'
+'3FF921E8C980776C'
+'3FF921DF6ED831D4'
+'3FF921DFCFB4E2DA'
+'3FF921F2F92E7EAD'
+'3FF921F431B20B4B'
+'3FF921F947290F28'
+'3FF921FA2D157EFF'
+'3FF921FA0D211CF9'
+'3FF921F956F61190'
+'3FF921FADE4C8064'
+'3FF921FB2667B1CD'
+'3FF921FB36244527'
+'3FF921FB499054C0'
+'3FF921FB450A4D5D'
+'3FF8924F19CCC408'
+'3FF8775BADC293A3'
+'3FF8750524261966'
+'3FF8B32E16F0C084'
+'3FF8E7307ABFA96A'
+'3FF90B0D5ED09B23'
+'3FF90AA53D657971'
+'3FF9097674216808'
+'3FF916F28A71EBD2'
+'3ff627d4e6aebaaa'
+'3ff4432cc777bc6d'
+'3ff27f28a9778f27'
+'3ff0e160fb695be7'
+'3feede9ba1492b14'
+'3fec0e3bda3f6bd0'
+'3fe99ebe5a6febce'
+'3fe785f9b11a0b20'
+'3fe5a2dd58639a11'
+'3ff627d4e6aebaa9'
+'3ff4432cc777bc6d'
+'3ff27f28a9778f27'
+'3ff0e160fb695be6'
+'3feede9ba1492b13'
+'3fec0e3bda3f6bcf'
+'3fe99ebe5a6febcd'
+'3fe785f9b11a0b1e'
+'3fe5a2dd58639a0f'
+'3ff627d4e6aebaaa'
+'3ff4432cc777bc6e'
+'3ff27f28a9778f27'
+'3ff0e160fb695be7'
+'3feede9ba1492b15'
+'3fec0e3bda3f6bd1'
+'3fe99ebe5a6febd0'
+'3fe785f9b11a0b21'
+'3fe5a2dd58639a12'
+];
+
+
+lengthInp = size(hexInp);
+
+// The double values of hex digits given in hexOut
+doubleOut = zeros(lengthInp(1,1), lengthInp(1,2));
+
+// The result we compute using the inputs in hexInp
+computedResult = zeros(lengthInp(1,1), lengthInp(1,2));
+
+//The number of digits common among the computed and expected results
+computedDigits = zeros(lengthInp(1,1), lengthInp(1,2));
+
+// the number of siginificant digits we wish to be matched for a positive result
+expectedValue = 52;
+
+expectedDigits = zeros(lengthInp(1,1), lengthInp(1,2)) + expectedValue;
+
+for i = 1:1:lengthInp(1,1)
+	computedResult(i,1) = acos(flps_hex2double(hexInp(i,1)));
+end
+
+for i = 1:1:lengthInp(1,1)
+	doubleOut(i,1) = flps_hex2double(hexOut(i,1));
+end
+
+computedDigits = assert_computedigits(computedResult, doubleOut, 2);
+
+assert_checktrue(computedDigits > expectedDigits);
+
+
 // 3. Not A Number
 // ===============
-if ~isnan(acos(%nan)) then bugmes();quit;end
-if ~isnan(acos(-%nan)) then bugmes();quit;end
+
+if ~isnan(acos(%nan)) then bugmes();quit; end
+if ~isnan(acos(-%nan)) then bugmes();quit; end
+
+
 // 4. Limit values
 // ===============
-if real(acos(%inf)) <> 0    then bugmes();quit;end
-if imag(acos(%inf)) <> %inf then bugmes();quit;end
-if real(acos(-%inf)) <> %pi  then bugmes();quit;end
-if imag(acos(-%inf)) <> -%inf then bugmes();quit;end
+
+if real(acos(%inf)) <> 0    then bugmes();quit; end
+if imag(acos(%inf)) <> %inf then bugmes();quit; end
+
+if real(acos(-%inf)) <> %pi  then bugmes();quit; end
+if imag(acos(-%inf)) <> -%inf then bugmes();quit; end
+
+
 // 5. Properties
 // =============
+
 // acos(-x) = asin(x) + pi/2
 A = rand(1000,1000);
-if or( acos(-A) - asin(A) - %pi/2 > 2*%eps ) then bugmes();quit;end
+if or( acos(-A) - asin(A) - %pi/2 > 2*%eps ) then bugmes();quit; end
