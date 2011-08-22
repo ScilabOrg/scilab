@@ -307,6 +307,9 @@ Bug fixes:
 
 * bug 8768 fixed - GetRhsVar(..., STRING_DATATYPE, ...) did not check size of input argument.
 
+* bug 8874 fixed - Display of Complex numbers with Inf or Nan for real or Imaginary 
+                   parts was broken.
+
 * bug 8963 fixed - mtlb_mode test failed on Windows.
 
 * bug 9045 fixed - plot2d did not support overloading.
