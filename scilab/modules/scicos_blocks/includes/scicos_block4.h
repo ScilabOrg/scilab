@@ -669,20 +669,4 @@ typedef enum
 */
 #define GetLabelPtrs(blk) (blk->label)
 
-#if _MSC_VER
-#ifdef min
-#undef min
-#endif
-#ifdef max
-#undef max
-#endif
-#endif
-
-#ifndef max
-#define max(a,b) ((a) >= (b) ? (a) : (b))
-#endif
-#ifndef min
-#define min(a,b) ((a) <= (b) ? (a) : (b))
-#endif
-
 #endif /* __SCICOS_BLOCK_H__ */
