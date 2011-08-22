@@ -251,6 +251,9 @@ ATOMS:
 
 * bug 8664 fixed - Message error updated for non supported OS.
 
+* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
+
 Javasci:
 ========
 
