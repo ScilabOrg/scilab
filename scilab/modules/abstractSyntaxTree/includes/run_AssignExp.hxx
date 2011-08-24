@@ -131,7 +131,7 @@ void visitprivate(const AssignExp  &e)
                     }
                     ostr << std::endl;
                     ostr << pOut->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth());
-                    YaspWriteW(ostr.str().c_str());
+                    scilabWriteW(ostr.str().c_str());
                 }
             }
             else
@@ -519,7 +519,7 @@ void visitprivate(const AssignExp  &e)
                     }
                     ostr << std::endl;
                     ostr << pOut->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth());
-                    YaspWriteW(ostr.str().c_str());
+                    scilabWriteW(ostr.str().c_str());
                 }
             }
             else
@@ -575,7 +575,7 @@ void visitprivate(const AssignExp  &e)
                 std::wostringstream ostr;
                 ostr << pVar->name_get().name_get() << L"  = " << std::endl << std::endl;
                 ostr << pIT->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth());
-                YaspWriteW(ostr.str().c_str());
+                scilabWriteW(ostr.str().c_str());
             }
         }
         else if(pList)
@@ -608,7 +608,7 @@ void visitprivate(const AssignExp  &e)
                     ostr << pListVar->name_get().name_get() << L"  = " << std::endl;
                     ostr << std::endl;
                     ostr << execMeR.result_get(i)->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth());
-                    YaspWriteW(ostr.str().c_str());
+                    scilabWriteW(ostr.str().c_str());
                 }
                 i--;
             }
@@ -708,7 +708,7 @@ void visitprivate(const AssignExp  &e)
                 std::wostringstream ostr;
                 ostr << *pstName << L"  = " << std::endl << std::endl;
                 ostr << symbol::Context::getInstance()->get(symbol::Symbol(*pstName))->toString(ConfigVariable::getFormat(), ConfigVariable::getConsoleWidth());
-                YaspWriteW(ostr.str().c_str());
+                scilabWriteW(ostr.str().c_str());
             }
         }
         else
