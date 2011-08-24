@@ -27,8 +27,8 @@ using namespace org_modules_xml;
 
 int sci_percent_XMLList_e(char * fname, unsigned long fname_len)
 {
-    XMLList * xmlList = 0;
-    XMLObject * elem;
+    XMLList * list = 0;
+    const XMLObject * elem;
     int id;
     SciErr err;
     double * dvalue = 0;
@@ -90,15 +90,15 @@ int sci_percent_XMLList_e(char * fname, unsigned long fname_len)
     }
 
     id = getXMLObjectId(mlistaddr);
-    xmlList = XMLObject::getFromId<XMLList>(id);
-    if (!xmlList)
+    list = XMLObject::getFromId<XMLList>(id);
+    if (!list)
     {
         Scierror(999, "%s: XML object do not exist\n", fname);
         return 0;
     }
 
     index = (int)(*dvalue);
-    elem = xmlList->getListElement(index);
+    elem = list->getListElement(index);
     if (!elem)
     {
         Scierror(999, "%s: Wrong index\n", fname);

@@ -43,9 +43,9 @@ int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    if (!isXMLList(addr))
+    if (!isXMLList(addr) && !isXMLSet(addr))
     {
-        Scierror(999, "%s: Wrong type for input argument %i: %s expected\n", fname, 1, "XMLDoc");
+        Scierror(999, "%s: Wrong type for input argument %i: XML List or XMLSet expected\n", fname, 1);
         return 0;
 
     }
@@ -58,7 +58,7 @@ int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    d = (double) list->getSize();
+    d = (double)list->getSize();
     createScalarDouble(pvApiCtx, Rhs + 1, d);
 
     LhsVar(1) = Rhs + 1;
