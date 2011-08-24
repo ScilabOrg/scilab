@@ -108,23 +108,25 @@ FILEIO_CPP_SOURCES = \
 	src/cpp/newest.cpp \
 	src/cpp/scilab_sscanf.cpp
 
-libscifileio_la_CPPFLAGS=	-I$(srcdir)/includes/ \
-				-I$(srcdir)/src/c/ \
-				-I$(srcdir)/src/cpp/ \
-				-I$(top_srcdir)/libs/MALLOC/includes/ \
-				-I$(top_srcdir)/modules/api_scilab/includes \
-				-I$(top_srcdir)/modules/output_stream/includes \
-				-I$(top_srcdir)/modules/operations/includes \
-				-I$(top_srcdir)/modules/types/includes \
-				-I$(top_srcdir)/modules/functions_manager/includes \
-				-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
-				-I$(top_srcdir)/modules/symbol/includes \
-				-I$(top_srcdir)/modules/string/includes \
-				-I$(top_srcdir)/modules/system_env/includes \
-				-I$(top_srcdir)/modules/io/includes \
-				-I$(top_srcdir)/modules/shell/includes \
-				-I$(top_srcdir)/modules/threads/includes \
-				$(HDF5_CFLAGS)
+libscifileio_la_CPPFLAGS= \
+    -I$(srcdir)/includes/ \
+	-I$(srcdir)/src/c/ \
+	-I$(srcdir)/src/cpp/ \
+	-I$(top_srcdir)/libs/MALLOC/includes/ \
+	-I$(top_srcdir)/modules/api_scilab/includes \
+	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/modules/operations/includes \
+	-I$(top_srcdir)/modules/types/includes \
+	-I$(top_srcdir)/modules/functions_manager/includes \
+	-I$(top_srcdir)/modules/abstractSyntaxTree/includes \
+	-I$(top_srcdir)/modules/symbol/includes \
+	-I$(top_srcdir)/modules/string/includes \
+	-I$(top_srcdir)/modules/system_env/includes \
+	-I$(top_srcdir)/modules/io/includes \
+	-I$(top_srcdir)/modules/shell/includes \
+	-I$(top_srcdir)/modules/threads/includes \
+	-I$(top_srcdir)/modules/console/includes \
+	$(HDF5_CFLAGS)
 
 libscifileio_la_CFLAGS=		-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \
