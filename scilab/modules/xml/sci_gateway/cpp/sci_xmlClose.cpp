@@ -31,9 +31,15 @@ int sci_xmlClose(char * fname, unsigned long fname_len)
     SciErr err;
     int * addr = 0;
     org_modules_xml::XMLDocument * doc;
+    char * com = 0;
 
     CheckLhs(1, 1);
-    CheckRhs(1, 1);
+
+    if (Rhs == 0)
+    {
+        Scierror(999, "%s: Bad number of arguments: one or more expected\n", fname);
+        return 0;
+    }
 
     err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
     if (err.iErr)
@@ -42,21 +48,43 @@ int sci_xmlClose(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    if (isXMLDoc(addr))
+    if (isStringType(pvApiCtx, addr))
     {
-        id = getXMLObjectId(addr);
-        doc = XMLObject::getFromId<org_modules_xml::XMLDocument>(id);
-        if (!doc)
+        getAllocatedSingleString(pvApiCtx, addr, &com);
+        if (!strcmp(com, "all"))
         {
-            Scierror(999, "%s: XML document does not exist\n", fname);
-            return 0;
+            XMLDocument::closeAllDocuments();
         }
-        delete doc;
+        freeAllocatedSingleString(com);
     }
     else
     {
-        Scierror(999, "%s: Wrong type for input argument %i: %s expected\n", fname, 1, "XMLDoc");
-        return 0;
+        for (int pos = 1; pos <= Rhs; pos++)
+        {
+            err = getVarAddressFromPosition(pvApiCtx, pos, &addr);
+            if (err.iErr)
+            {
+                printError(&err, 0);
+                return 0;
+            }
+
+            if (isXMLDoc(addr))
+            {
+                id = getXMLObjectId(addr);
+                doc = XMLObject::getFromId<XMLDocument>(id);
+                if (!doc)
+                {
+                    Scierror(999, "%s: XML document does not exist\n", fname);
+                    return 0;
+                }
+                delete doc;
+            }
+            else
+            {
+                Scierror(999, "%s: Wrong type for input argument %i: %s expected\n", fname, 1, "XMLDoc");
+                return 0;
+            }
+        }
     }
 
     LhsVar(1) = 0;

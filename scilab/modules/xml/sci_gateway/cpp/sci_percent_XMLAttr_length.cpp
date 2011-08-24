@@ -11,7 +11,7 @@
  */
 
 #include "XMLObject.hxx"
-#include "XMLList.hxx"
+#include "XMLAttr.hxx"
 
 extern "C"
 {
@@ -25,13 +25,13 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
+int sci_percent_XMLAttr_length(char * fname, unsigned long fname_len)
 {
     int id;
     SciErr err;
-    double d[2] = {1, 0};
+    double d;
     int * addr = 0;
-    XMLList * list;
+    XMLAttr * attrs;
 
     CheckLhs(1, 1);
     CheckRhs(1, 1);
@@ -43,28 +43,23 @@ int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    if (!isXMLList(addr) && !isXMLSet(addr))
+    if (!isXMLAttr(addr))
     {
-        Scierror(999, "%s: Wrong type for input argument %i: XMLList or XMLSet expected\n", fname, 1);
+        Scierror(999, "%s: Wrong type for input argument %i: XMLAttr expected\n", fname, 1);
         return 0;
 
     }
 
     id = getXMLObjectId(addr);
-    list = XMLObject::getFromId<XMLList>(id);
-    if (!list)
+    attrs = XMLObject::getFromId<XMLAttr>(id);
+    if (!attrs)
     {
-        Scierror(999, "%s: XML list does not exist\n", fname);
+        Scierror(999, "%s: XML Attributes does not exist\n", fname);
         return 0;
     }
 
-    d[1] = (double)list->getSize();
-    err = createMatrixOfDouble(pvApiCtx, Rhs + 1, 1, 2, d);
-    if (err.iErr)
-    {
-        printError(&err, 0);
-        return 0;
-    }
+    d = (double)attrs->getSize();
+    createScalarDouble(pvApiCtx, Rhs + 1, d);
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();

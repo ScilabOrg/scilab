@@ -35,7 +35,7 @@ int sci_print(char * fname, unsigned long fname_len)
     XMLObject * obj;
     int id;
     SciErr err;
-    int *mlistaddr = 0;
+    int * mlistaddr = 0;
 
     CheckRhs(1, 1);
 
@@ -54,9 +54,8 @@ int sci_print(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    std::string * str = obj->toString();
-    sciprint("%s\n", str->c_str());
-    delete str;
+    const std::string str = obj->toString();
+    sciprint("%s\n", str.c_str());
 
     return 0;
 }
@@ -82,6 +81,11 @@ int sci_percent_XMLList_p(char *fname, unsigned long fname_len)
 }
 /*--------------------------------------------------------------------------*/
 int sci_percent_XMLAttr_p(char *fname, unsigned long fname_len)
+{
+    return sci_print(fname, fname_len);
+}
+/*--------------------------------------------------------------------------*/
+int sci_percent_XMLSet_p(char *fname, unsigned long fname_len)
 {
     return sci_print(fname, fname_len);
 }

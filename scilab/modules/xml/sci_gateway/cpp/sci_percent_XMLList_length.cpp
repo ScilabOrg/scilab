@@ -25,11 +25,11 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
+int sci_percent_XMLList_length(char * fname, unsigned long fname_len)
 {
     int id;
     SciErr err;
-    double d[2] = {1, 0};
+    double d;
     int * addr = 0;
     XMLList * list;
 
@@ -58,13 +58,8 @@ int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    d[1] = (double)list->getSize();
-    err = createMatrixOfDouble(pvApiCtx, Rhs + 1, 1, 2, d);
-    if (err.iErr)
-    {
-        printError(&err, 0);
-        return 0;
-    }
+    d = (double)list->getSize();
+    createScalarDouble(pvApiCtx, Rhs + 1, d);
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();
