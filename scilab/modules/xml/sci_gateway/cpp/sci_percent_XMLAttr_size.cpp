@@ -11,7 +11,7 @@
  */
 
 #include "XMLObject.hxx"
-#include "XMLDocument.hxx"
+#include "XMLAttr.hxx"
 
 extern "C"
 {
@@ -25,13 +25,13 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlRead(char * fname, unsigned long fname_len)
+int sci_percent_XMLAttr_size(char * fname, unsigned long fname_len)
 {
-    XMLDocument * doc;
+    int id;
     SciErr err;
+    double d;
     int * addr = 0;
-    char * path = 0;
-    char * error = 0;
+    XMLAttr * attrs;
 
     CheckLhs(1, 1);
     CheckRhs(1, 1);
@@ -43,28 +43,23 @@ int sci_xmlRead(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    if (!isStringType(pvApiCtx, addr))
+    if (!isXMLAttr(addr))
     {
-        Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, 1);
+        Scierror(999, "%s: Wrong type for input argument %i: XML List or XMLSet expected\n", fname, 1);
+        return 0;
+
+    }
+
+    id = getXMLObjectId(addr);
+    attrs = XMLObject::getFromId<XMLAttr>(id);
+    if (!attrs)
+    {
+        Scierror(999, "%s: XML Attributes does not exist\n", fname);
         return 0;
     }
 
-    getAllocatedSingleString(pvApiCtx, addr, &path);
-
-    doc = new XMLDocument((const char *)path, &error);
-    freeAllocatedSingleString(path);
-
-    if (error)
-    {
-        delete doc;
-        Scierror(999, "%s: Cannot read the file:\n%s", fname, error);
-        return 0;
-    }
-
-    if (!doc->createOnStack(Rhs + 1))
-    {
-        return 0;
-    }
+    d = (double)attrs->getSize();
+    createScalarDouble(pvApiCtx, Rhs + 1, d);
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();

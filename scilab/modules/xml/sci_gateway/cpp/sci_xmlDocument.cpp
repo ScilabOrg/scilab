@@ -25,40 +25,42 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlRead(char * fname, unsigned long fname_len)
+int sci_xmlDocument(char * fname, unsigned long fname_len)
 {
-    XMLDocument * doc;
-    SciErr err;
     int * addr = 0;
-    char * path = 0;
-    char * error = 0;
+    SciErr err;
+    XMLDocument * doc = 0;
+    char * uri = 0;
+    char * version = 0;
+    int i = 0;
+    char ** vars[] = {&uri, &version};
 
     CheckLhs(1, 1);
-    CheckRhs(1, 1);
+    CheckRhs(0, 2);
 
-    err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
-    if (err.iErr)
+    for (; i < Rhs; i++)
     {
-        printError(&err, 0);
-        return 0;
+        err = getVarAddressFromPosition(pvApiCtx, i + 1, &addr);
+        if (err.iErr)
+        {
+            printError(&err, 0);
+            return 0;
+        }
+
+        if (!isStringType(pvApiCtx, addr))
+        {
+            Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, i + 1);
+            return 0;
+        }
+
+        getAllocatedSingleString(pvApiCtx, addr, vars[i]);
     }
 
-    if (!isStringType(pvApiCtx, addr))
+    doc = new XMLDocument(uri, version);
+
+    for (i = 0; i < Rhs; i++)
     {
-        Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, 1);
-        return 0;
-    }
-
-    getAllocatedSingleString(pvApiCtx, addr, &path);
-
-    doc = new XMLDocument((const char *)path, &error);
-    freeAllocatedSingleString(path);
-
-    if (error)
-    {
-        delete doc;
-        Scierror(999, "%s: Cannot read the file:\n%s", fname, error);
-        return 0;
+        freeAllocatedSingleString(*(vars[i]));
     }
 
     if (!doc->createOnStack(Rhs + 1))
@@ -68,6 +70,7 @@ int sci_xmlRead(char * fname, unsigned long fname_len)
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();
+
     return 0;
 }
 /*--------------------------------------------------------------------------*/

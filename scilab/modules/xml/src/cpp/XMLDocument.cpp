@@ -25,17 +25,12 @@ extern "C" {
 
 namespace org_modules_xml
 {
+
     std::string * XMLDocument::errorBuffer = 0;
     std::string * XMLDocument::errorXPathBuffer = 0;
     std::list<XMLDocument *> & XMLDocument::openDocs = *new std::list<XMLDocument *>();
 
-    /**
-     * Default constructor
-     * @param path the path to the file (can be an url)
-     * @param error will contain parsing errors if exists
-     */
-    XMLDocument::XMLDocument(const char * path, char ** error)
-        : XMLObject()
+    XMLDocument::XMLDocument(const char * path, char ** error) : XMLObject()
     {
         char * expandedPath = expandPathVariable(const_cast<char *>(path));
         document = readDocument(const_cast<const char *>(expandedPath), error);
@@ -44,14 +39,44 @@ namespace org_modules_xml
         {
             openDocs.push_back(this);
         }
-	scilabType = XMLDOCUMENT;
+        scope.registerPointers(document, this);
+        scilabType = XMLDOCUMENT;
     }
 
-    /**
-     * Destructor
-     */
+    XMLDocument::XMLDocument(const std::string & xmlCode, char ** error) : XMLObject()
+    {
+        document = readDocument(xmlCode, error);
+        if (document)
+        {
+            openDocs.push_back(this);
+        }
+        scope.registerPointers(document, this);
+        scilabType = XMLDOCUMENT;
+    }
+
+    XMLDocument::XMLDocument(char * uri, char * version)
+    {
+        char * newUri = 0;
+        if (!version)
+        {
+            version = const_cast<char *>("1.0");
+        }
+        document = xmlNewDoc((xmlChar *)version);
+        openDocs.push_back(this);
+        scope.registerPointers(document, this);
+        scilabType = XMLDOCUMENT;
+
+        if (uri && strlen(uri))
+        {
+            newUri = (char *)xmlMalloc(sizeof(char *) * (strlen(uri) + 1));
+            memcpy(newUri, uri, sizeof(char) * (strlen(uri) + 1));
+            document->URL = (xmlChar *)newUri;
+        }
+    }
+
     XMLDocument::~XMLDocument()
     {
+        scope.unregisterPointer(document);
         scope.removeId<XMLDocument>(id);
         if (document)
         {
@@ -70,7 +95,7 @@ namespace org_modules_xml
         }
     }
 
-    XMLXPath * XMLDocument::makeXPathQuery(const char * query, char ** error)
+    const XMLXPath * XMLDocument::makeXPathQuery(const char * query, char ** error)
     {
         if (errorXPathBuffer)
         {
@@ -100,44 +125,123 @@ namespace org_modules_xml
             return 0;
         }
 
-        return new XMLXPath(this, xpath);
+        return new XMLXPath(*this, xpath);
     }
 
-    XMLObject * XMLDocument::getXMLObjectParent()
+    const XMLObject * XMLDocument::getXMLObjectParent() const
     {
         return 0;
     }
 
-    std::string  * XMLDocument::toString()
+    const std::string XMLDocument::toString() const
     {
         std::string str = "XML Document\n";
         str += "URL: " + std::string(getDocumentURL());
 
-        return new std::string(str);
+        return str;
     }
 
-    std::string * XMLDocument::dump()
+    const std::string XMLDocument::dump() const
     {
         xmlChar * buffer = 0;
         int size = 0;
         xmlDocDumpFormatMemory(document, &buffer, &size, 1);
-        std::string * str = new std::string((const char *)buffer);
+        std::string str = std::string((const char *)buffer);
         xmlFree(buffer);
 
         return str;
     }
 
-    /**
-     * @return the root element of this XMLDocument
-     */
-    XMLElement * XMLDocument::getRoot(void)
+    const XMLElement * XMLDocument::getRoot() const
     {
-        return new XMLElement(this, xmlDocGetRootElement(document));
+        return new XMLElement(*this, xmlDocGetRootElement(document));
+    }
+
+    void XMLDocument::setRoot(const XMLElement & elem) const
+    {
+        xmlNode * root = xmlDocGetRootElement(document);
+        if (root != elem.getRealNode())
+        {
+            xmlNode * cpy = xmlCopyNodeList(elem.getRealNode());
+            xmlUnlinkNode(cpy);
+            xmlDocSetRootElement(document, cpy);
+        }
+    }
+
+    void XMLDocument::setRoot(const std::string & xmlCode, char ** error) const
+    {
+        XMLDocument doc = XMLDocument(xmlCode, error);
+
+        if (!*error)
+        {
+            setRoot(*doc.getRoot());
+        }
+
+        delete &xmlCode;
+    }
+
+    const char * XMLDocument::getDocumentURL() const
+    {
+        if (document->URL)
+        {
+            return (const char *)document->URL;
+        }
+        else
+        {
+            return "Undefined";
+        }
+    }
+
+    void XMLDocument::setDocumentURL(const std::string & url) const
+    {
+        const char * oldURL = 0;
+        char * newURL = 0;
+        oldURL = url.c_str();
+
+        xmlFree((void *)document->URL);
+        newURL = (char *)xmlMalloc(sizeof(char *) * (strlen(oldURL) + 1));
+        memcpy(newURL, oldURL, sizeof(char) * (strlen(oldURL) + 1));
+
+        document->URL = (xmlChar *)newURL;
     }
 
     std::list<XMLDocument *> & XMLDocument::getOpenDocuments()
     {
         return openDocs;
+    }
+
+    void XMLDocument::closeAllDocuments()
+    {
+        int size = openDocs.size();
+        XMLDocument * arr[size];
+        int j = 0;
+        for (std::list<XMLDocument *>::iterator i = openDocs.begin(); i != openDocs.end(); i++, j++)
+        {
+            arr[j] = *i;
+        }
+        for (j = 0; j < size; j++)
+        {
+            delete arr[j];
+        }
+    }
+
+    xmlDoc * XMLDocument::readDocument(const char * filename, char ** error)
+    {
+        xmlParserCtxt * ctxt = initContext(error);
+        xmlDoc * doc;
+
+        if (!ctxt)
+        {
+            return 0;
+        }
+
+        doc = xmlCtxtReadFile(ctxt, filename, 0, 0);
+        if (!doc)
+        {
+            *error = const_cast<char *>(errorBuffer->c_str());
+        }
+
+        return doc;
     }
 
     /**
@@ -146,10 +250,28 @@ namespace org_modules_xml
      * @param error a string where to write the parsing errors
      * @return a pointer on a xmlDoc
      */
-    xmlDoc * XMLDocument::readDocument(const char * filename, char **error)
+    xmlDoc * XMLDocument::readDocument(const std::string & xmlCode, char ** error)
     {
-        xmlParserCtxtPtr ctxt;
+        xmlParserCtxt * ctxt = initContext(error);
         xmlDoc * doc;
+
+        if (!ctxt)
+        {
+            return 0;
+        }
+
+        doc = xmlCtxtReadDoc(ctxt, (const xmlChar *)xmlCode.c_str(), 0, 0, 0);
+        if (!doc)
+        {
+            *error = const_cast<char *>(errorBuffer->c_str());
+        }
+
+        return doc;
+    }
+
+    xmlParserCtxt * XMLDocument::initContext(char ** error)
+    {
+        xmlParserCtxt * ctxt;
 
         if (errorBuffer)
         {
@@ -166,13 +288,7 @@ namespace org_modules_xml
 
         xmlSetGenericErrorFunc(ctxt, XMLDocument::errorFunction);
 
-        doc = xmlCtxtReadFile(ctxt, filename, 0, 0);
-        if (!doc)
-        {
-            *error = const_cast<char *>(errorBuffer->c_str());
-        }
-
-        return doc;
+        return ctxt;
     }
 
     /**
