@@ -12,6 +12,8 @@
 
 #include "XMLObject.hxx"
 #include "XMLDocument.hxx"
+#include "XMLRhsValue.hxx"
+#include <iostream>
 
 extern "C"
 {
@@ -25,12 +27,12 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlRead(char * fname, unsigned long fname_len)
+int sci_xmlReadStr(char * fname, unsigned long fname_len)
 {
     XMLDocument * doc;
     SciErr err;
     int * addr = 0;
-    char * path = 0;
+    std::string * code;
     char * error = 0;
 
     CheckLhs(1, 1);
@@ -49,15 +51,18 @@ int sci_xmlRead(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    getAllocatedSingleString(pvApiCtx, addr, &path);
+    if (!XMLRhsValue::get(fname, addr, &code))
+    {
+        return 0;
+    }
 
-    doc = new XMLDocument((const char *)path, &error);
-    freeAllocatedSingleString(path);
+    doc = new XMLDocument(*code, &error);
+    delete code;
 
     if (error)
     {
         delete doc;
-        Scierror(999, "%s: Cannot read the file:\n%s", fname, error);
+        Scierror(999, "%s: Cannot parse the string:\n%s", fname, error);
         return 0;
     }
 

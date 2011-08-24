@@ -10,10 +10,15 @@
  *
  */
 
-
-int xmlread(char *path, xmlDoc **doc) 
-{
-    LIBXML_TEST_VERSION
-
-    *doc = xmlReadFile(path, NULL, 0);
-}
+#ifndef __XML_OBJECTS__
+#define __XML_OBJECTS__
+#include "XMLObject.hxx"
+#include "XMLNodeList.hxx"
+#include "XMLNodeSet.hxx"
+#include "XMLAttr.hxx"
+#include "XMLNs.hxx"
+#include "XMLDocument.hxx"
+#include "XMLElement.hxx"
+#include "XMLNotHandledElement.hxx"
+#include "XMLXPath.hxx"
+#endif
