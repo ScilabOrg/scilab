@@ -7,6 +7,7 @@
 
 // <-- JVM NOT MANDATORY -->
 // <-- ENGLISH IMPOSED -->
+// <-- NOT FIXED -->
 // ============================================================================
 // Unitary tests for mxSetLogical and mxClearLogical mex functions
 // ============================================================================
