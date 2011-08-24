@@ -11,7 +11,7 @@
  */
 
 #include "XMLObject.hxx"
-#include "XMLDocument.hxx"
+#include "XMLList.hxx"
 
 extern "C"
 {
@@ -25,28 +25,41 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlGetOpenStreams(char *fname, unsigned long fname_len)
+int sci_percent_XMLList_length(char * fname, unsigned long fname_len)
 {
-    int j = 1;
+    int id;
     SciErr err;
-    int *addr = 0;
+    double d;
+    int * addr = 0;
+    XMLList * list;
 
     CheckLhs(1, 1);
-    CheckRhs(0, 0);
+    CheckRhs(1, 1);
 
-    std::list<XMLDocument *> & openDocs = XMLDocument::getOpenDocuments();
-
-    err = createList(pvApiCtx, Rhs + 1, openDocs.size(), &addr);
+    err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
     if (err.iErr)
     {
         printError(&err, 0);
         return 0;
     }
 
-    for (std::list<XMLDocument *>::iterator i = openDocs.begin(); i != openDocs.end(); i++, j++)
+    if (!isXMLList(addr) && !isXMLSet(addr))
     {
-        createXMLObjectAtPosInList(addr, Rhs + 1, XMLDOCUMENT, j, (*i)->getId());
+        Scierror(999, "%s: Wrong type for input argument %i: XMLList or XMLSet expected\n", fname, 1);
+        return 0;
+
     }
+
+    id = getXMLObjectId(addr);
+    list = XMLObject::getFromId<XMLList>(id);
+    if (!list)
+    {
+        Scierror(999, "%s: XML list does not exist\n", fname);
+        return 0;
+    }
+
+    d = (double)list->getSize();
+    createScalarDouble(pvApiCtx, Rhs + 1, d);
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();

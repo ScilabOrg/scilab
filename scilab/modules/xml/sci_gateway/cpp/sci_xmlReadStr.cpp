@@ -12,6 +12,8 @@
 
 #include "XMLObject.hxx"
 #include "XMLDocument.hxx"
+#include "XMLRhsValue.hxx"
+#include <iostream>
 
 extern "C"
 {
@@ -25,12 +27,12 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlRead(char * fname, unsigned long fname_len)
+int sci_xmlReadStr(char * fname, unsigned long fname_len)
 {
     XMLDocument * doc;
     SciErr err;
     int * addr = 0;
-    char * path = 0;
+    std::string * code;
     char * error = 0;
     bool validate = false;
     int validateParam;
@@ -50,21 +52,25 @@ int sci_xmlRead(char * fname, unsigned long fname_len)
         Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, 1);
         return 0;
     }
-    getAllocatedSingleString(pvApiCtx, addr, &path);
+
+    if (!XMLRhsValue::get(fname, addr, &code))
+    {
+        return 0;
+    }
 
     if (Rhs == 2)
     {
         err = getVarAddressFromPosition(pvApiCtx, 2, &addr);
         if (err.iErr)
         {
-            freeAllocatedSingleString(path);
+            delete code;
             printError(&err, 0);
             return 0;
         }
 
         if (!isBooleanType(pvApiCtx, addr))
         {
-            freeAllocatedSingleString(path);
+            delete code;
             Scierror(999, "%s: Wrong type for input argument %i: boolean expected\n", fname, 2);
             return 0;
         }
@@ -73,13 +79,13 @@ int sci_xmlRead(char * fname, unsigned long fname_len)
         validate = validateParam != 0;
     }
 
-    doc = new XMLDocument((const char *)path, validate, &error);
-    freeAllocatedSingleString(path);
+    doc = new XMLDocument(*code, validate, &error);
+    delete code;
 
     if (error)
     {
         delete doc;
-        Scierror(999, "%s: Cannot read the file:\n%s", fname, error);
+        Scierror(999, "%s: Cannot parse the string:\n%s", fname, error);
         return 0;
     }
 

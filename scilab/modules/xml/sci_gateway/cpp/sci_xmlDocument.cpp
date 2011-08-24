@@ -25,31 +25,52 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_xmlGetOpenStreams(char *fname, unsigned long fname_len)
+int sci_xmlDocument(char * fname, unsigned long fname_len)
 {
-    int j = 1;
+    int * addr = 0;
     SciErr err;
-    int *addr = 0;
+    XMLDocument * doc = 0;
+    char * uri = 0;
+    char * version = 0;
+    int i = 0;
+    char ** vars[] = {&uri, &version};
 
     CheckLhs(1, 1);
-    CheckRhs(0, 0);
+    CheckRhs(0, 2);
 
-    std::list<XMLDocument *> & openDocs = XMLDocument::getOpenDocuments();
-
-    err = createList(pvApiCtx, Rhs + 1, openDocs.size(), &addr);
-    if (err.iErr)
+    for (; i < Rhs; i++)
     {
-        printError(&err, 0);
-        return 0;
+        err = getVarAddressFromPosition(pvApiCtx, i + 1, &addr);
+        if (err.iErr)
+        {
+            printError(&err, 0);
+            return 0;
+        }
+
+        if (!isStringType(pvApiCtx, addr))
+        {
+            Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, i + 1);
+            return 0;
+        }
+
+        getAllocatedSingleString(pvApiCtx, addr, vars[i]);
     }
 
-    for (std::list<XMLDocument *>::iterator i = openDocs.begin(); i != openDocs.end(); i++, j++)
+    doc = new XMLDocument(uri, version);
+
+    for (i = 0; i < Rhs; i++)
     {
-        createXMLObjectAtPosInList(addr, Rhs + 1, XMLDOCUMENT, j, (*i)->getId());
+        freeAllocatedSingleString(*(vars[i]));
+    }
+
+    if (!doc->createOnStack(Rhs + 1))
+    {
+        return 0;
     }
 
     LhsVar(1) = Rhs + 1;
     PutLhsVar();
+
     return 0;
 }
 /*--------------------------------------------------------------------------*/

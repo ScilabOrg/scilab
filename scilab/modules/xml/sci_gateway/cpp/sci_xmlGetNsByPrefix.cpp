@@ -11,7 +11,8 @@
  */
 
 #include "XMLObject.hxx"
-#include "XMLList.hxx"
+#include "XMLElement.hxx"
+#include "XMLNs.hxx"
 
 extern "C"
 {
@@ -25,16 +26,16 @@ extern "C"
 using namespace org_modules_xml;
 
 /*--------------------------------------------------------------------------*/
-int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
+int sci_xmlGetNsByPrefix(char * fname, unsigned long fname_len)
 {
-    int id;
+    XMLElement * elem = 0;
+    const XMLNs * ns = 0;
+    char * href = 0;
     SciErr err;
-    double d[2] = {1, 0};
     int * addr = 0;
-    XMLList * list;
 
     CheckLhs(1, 1);
-    CheckRhs(1, 1);
+    CheckRhs(2, 2);
 
     err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
     if (err.iErr)
@@ -43,31 +44,49 @@ int sci_percent_XMLList_size(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    if (!isXMLList(addr) && !isXMLSet(addr))
+    if (!isXMLElem(addr))
     {
-        Scierror(999, "%s: Wrong type for input argument %i: XMLList or XMLSet expected\n", fname, 1);
-        return 0;
-
-    }
-
-    id = getXMLObjectId(addr);
-    list = XMLObject::getFromId<XMLList>(id);
-    if (!list)
-    {
-        Scierror(999, "%s: XML list does not exist\n", fname);
+        Scierror(999, "%s: Wrong type for input argument %i: XML Element expected\n", fname, 1);
         return 0;
     }
 
-    d[1] = (double)list->getSize();
-    err = createMatrixOfDouble(pvApiCtx, Rhs + 1, 1, 2, d);
+    elem = XMLObject::getFromId<XMLElement>(getXMLObjectId(addr));
+    if (!elem)
+    {
+        Scierror(999, "%s: XML Element does not exist\n", fname);
+        return 0;
+    }
+
+    err = getVarAddressFromPosition(pvApiCtx, 2, &addr);
     if (err.iErr)
     {
         printError(&err, 0);
         return 0;
     }
 
+    if (!isStringType(pvApiCtx, addr))
+    {
+        Scierror(999, "%s: Wrong type for input argument %i: String expected\n", fname, 2);
+        return 0;
+    }
+
+    getAllocatedSingleString(pvApiCtx, addr, &href);
+
+    if (!href || !strlen(href))
+    {
+        freeAllocatedSingleString(href);
+        Scierror(999, "%s: Bad input argument %i: Not empty string expected\n", fname, 2);
+        return 0;
+    }
+
+    ns = elem->getNamespaceByPrefix((const char *)href);
+    if (!ns->createOnStack(Rhs + 1))
+    {
+        return 0;
+    }
+
     LhsVar(1) = Rhs + 1;
     PutLhsVar();
+
     return 0;
 }
-/*--------------------------------------------------------------------------*/
