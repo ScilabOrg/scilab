@@ -10,8 +10,17 @@
  *
  */
 
-#include <stack>
+#ifndef __VARIABLESCOPE_HXX__
+#define __VARIABLESCOPE_HXX__
+
 #include <iostream>
+#include <map>
+#include <stack>
+
+extern "C"
+{
+#include <libxml/xmlmemory.h>
+}
 
 namespace org_modules_xml
 {
@@ -20,10 +29,12 @@ namespace org_modules_xml
     class VariableScope
     {
 
-        XMLObject **scope;
+        XMLObject ** scope;
         int position;
         int initialSize;
-        std::stack<int> *freePlaces;
+        std::stack<int> * freePlaces;
+        static std::map<void *, XMLObject *> * mapLibXMLToXMLObject;
+        static xmlFreeFunc XMLFreeFunc;
 
     public :
         VariableScope(int initialSize);
@@ -31,27 +42,35 @@ namespace org_modules_xml
 
         int getVariableId(const XMLObject & obj);
         XMLObject * getVariableFromId(int id);
-	
+
+        static void unregisterPointer(void * libxml);
+        static void registerPointers(void * libxml, XMLObject * obj);
+
         template <class T> void removeId(int id)
-	    {
-		if (id >= 0 && id < initialSize && scope[id])
-		{
-		    removeDependencies<T>(scope[id]);
-		    scope[id] = static_cast<XMLObject *>(0);
-		    freePlaces->push(id);
-		}
-	    }
+            {
+                if (id >= 0 && id < initialSize && scope[id])
+                {
+                    removeDependencies<T>(scope[id]);
+                    scope[id] = static_cast<XMLObject *>(0);
+                    freePlaces->push(id);
+                }
+            }
 
     private :
-	template <class T> void removeDependencies(XMLObject * obj)
-	    {
-		for (int i = 0; i <= position; i++)
-		{
-		    if (scope[i] && reinterpret_cast<T *>(scope[i])->getXMLObjectParent() == obj)
-		    {
-        		delete reinterpret_cast<T *>(scope[i]);
-		    }
-		}
-	    }
+        static void _xmlFreeFunc(void * mem);
+        static void initXMLMemory();
+        static xmlFreeFunc getFreeFunc(xmlFreeFunc freeFunc);
+        template <class T> void removeDependencies(XMLObject * obj)
+            {
+                for (int i = 0; i <= position; i++)
+                {
+                    if (scope[i] && reinterpret_cast<T *>(scope[i])->getXMLObjectParent() == obj)
+                    {
+                        delete reinterpret_cast<T *>(scope[i]);
+                    }
+                }
+            }
     };
 }
+
+#endif

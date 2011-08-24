@@ -10,6 +10,9 @@
  *
  */
 
+#ifndef __XMLNOTHANDLEDELEMENT_HXX__
+#define __XMLNOTHANDLEDELEMENT_HXX__
+
 #include <string>
 
 #include "xml.h"
@@ -17,17 +20,20 @@
 namespace org_modules_xml
 {
     class XMLObject;
-    
+
     class XMLNotHandledElement : public XMLObject
     {
-	XMLObject * parent;
-	xmlNode * node;
-	
+        const XMLObject & parent;
+        xmlNode * node;
+
     public:
-	XMLNotHandledElement(XMLObject * parent, xmlNode * node);
-	~XMLNotHandledElement();
-	
-	XMLObject * getXMLObjectParent();
-	std::string * toString();
+        XMLNotHandledElement(const XMLObject & parent, xmlNode * node);
+        ~XMLNotHandledElement();
+
+        const XMLObject * getXMLObjectParent() const;
+        const std::string toString() const;
     };
 }
+
+#endif
+

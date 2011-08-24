@@ -10,27 +10,35 @@
  *
  */
 
+#ifndef __XMLNS_HXX__
+#define __XMLNS_HXX__
+
 #include <string>
 
 #include "xml.h"
 
 namespace org_modules_xml
 {
+
     class XMLElement;
     class XMLObject;
-    
+
     class XMLNs : public XMLObject
     {
-	XMLObject * parent;
-	xmlNs * ns;
-	
+        const XMLObject & parent;
+        xmlNs * ns;
+
     public:
-	XMLNs(XMLObject * parent, xmlNs * ns);
-	~XMLNs();
-	
-	const char * getURI(void) { return ns == 0 ? "" : (const char *)ns->href; }
-	const char * getPrefix(void) { return ns == 0 ? "" : (const char *)ns->prefix; }
-	XMLObject * getXMLObjectParent();
-	std::string * toString();
+        XMLNs(const XMLObject & parent, xmlNs * ns);
+	XMLNs(const XMLElement & elem, char * prefix, char * uri);
+        ~XMLNs();
+
+        const char * getURI(void) const { return ns == 0 ? "" : (const char *)ns->href; }
+        const char * getPrefix(void) const { return ns == 0 ? "" : (const char *)ns->prefix; }
+	xmlNs * getRealNs() const { return ns; }
+        const XMLObject * getXMLObjectParent() const;
+        const std::string toString() const;
     };
 }
+
+#endif

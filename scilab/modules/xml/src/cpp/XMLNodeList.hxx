@@ -10,29 +10,49 @@
  *
  */
 
-#include "XMLList.hxx"
+#ifndef __XMLNODELIST_HXX__
+#define __XMLNODELIST_HXX__
 
+#include "XMLList.hxx"
 #include "xml.h"
 
 namespace org_modules_xml
 {
     class XMLElement;
-    
+    class XMLDocument;
+
     class XMLNodeList : public XMLList
     {
-	
-	XMLElement * elem;
-	int prev;
-	xmlNode * prevNode; 
+
+        const XMLDocument & doc;
+        xmlNode * parent;
+        int prev;
+        xmlNode * prevNode;
 
     public :
-	XMLNodeList(XMLElement * elem);
-	~XMLNodeList();
+        XMLNodeList(const XMLDocument & doc, xmlNode * parent);
+        ~XMLNodeList();
 
-	XMLObject * getListElement(int index);
-	XMLObject * getXMLObjectParent();
+        const std::string dump() const;
+        const XMLObject * getListElement(int index);
+        void removeElementAtPosition(int index);
+        void setElementAtPosition(double index, const XMLElement & elem);
+        void setElementAtPosition(double index, const XMLDocument & document);
+        void setElementAtPosition(double index, const std::string & xmlCode);
+	void setElementAtPosition(double index, const XMLNodeList & list);
+        xmlNode * getRealNode() const { return parent->children; }
+        const XMLObject * getXMLObjectParent() const;
+
+    protected :
+        void replaceAtIndex(int index, const XMLElement & elem);
+        void insertAtEnd(const XMLElement & elem);
+        void insertAtBeginning(const XMLElement & elem);
+        void insertAtIndex(int index, const XMLElement & elem);
 
     private :
-	static int getNodeListSize(xmlNode * node);
+        static int getNodeListSize(xmlNode * node);
+        xmlNode * getListNode(int index);
     };
 }
+
+#endif

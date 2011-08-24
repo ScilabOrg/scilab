@@ -10,8 +10,11 @@
  *
  */
 
-#include "xml.h"
+#ifndef __XMLNODESET_HXX__
+#define __XMLNODESET_HXX__
+
 #include "XMLList.hxx"
+#include "xml.h"
 
 namespace org_modules_xml
 {
@@ -21,14 +24,16 @@ namespace org_modules_xml
     class XMLNodeSet : public XMLList
     {
 
-        XMLDocument * doc;
+        const XMLDocument & doc;
         xmlNodeSet * nodeSet;
 
     public :
-        XMLNodeSet(XMLDocument * doc, xmlNodeSet * nodeSet);
+        XMLNodeSet(const XMLDocument & doc, xmlNodeSet * nodeSet);
         ~XMLNodeSet();
 
-	XMLObject * getXMLObjectParent();
-        XMLObject * getListElement(int index);
+        const XMLObject * getXMLObjectParent() const;
+        const XMLObject * getListElement(int index);
     };
 }
+
+#endif

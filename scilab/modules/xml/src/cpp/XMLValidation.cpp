@@ -10,21 +10,16 @@
  *
  */
 
-#include "XMLObject.hxx"
-#include "XMLList.hxx"
+#include "XMLDocument.hxx"
 
 namespace org_modules_xml
 {
-    XMLList::XMLList() : XMLObject()
+    
+    bool XMLValidation::validate(XMLDocument * doc, const char * method, const char * validationFile, char ** error)
     {
-	scilabType = XMLLIST;
+	if (!stricmp(method, "dtd"))
+	{
+	    return validateWithDTD(doc, 
     }
-
-    const std::string XMLList::toString() const
-    {
-	std::string str = "XML List\n";
-        str += "size: " + intToStr(getSize());
-	
-        return str;
-    }
+    
 }

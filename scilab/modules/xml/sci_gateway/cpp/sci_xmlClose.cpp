@@ -31,6 +31,7 @@ int sci_xmlClose(char * fname, unsigned long fname_len)
     SciErr err;
     int * addr = 0;
     XMLDocument * doc;
+    char * com = 0;
 
     CheckLhs(1, 1);
     CheckRhs(1, 1);
@@ -52,6 +53,15 @@ int sci_xmlClose(char * fname, unsigned long fname_len)
             return 0;
         }
         delete doc;
+    }
+    else if (isStringType(pvApiCtx, addr))
+    {
+        getAllocatedSingleString(pvApiCtx, addr, &com);
+        if (!strcmp(com, "all"))
+        {
+            XMLDocument::closeAllDocuments();
+        }
+        freeAllocatedSingleString(com);
     }
     else
     {

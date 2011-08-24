@@ -53,7 +53,7 @@ int createVariableOnStack(char * fname, XMLDocument & doc, const char * field, i
 {
     if (!strcmp("root", field))
     {
-	return doc.getRoot()->createOnStack(pos);
+        return doc.getRoot()->createOnStack(pos);
     }
     else if (!strcmp("url", field))
     {
@@ -72,7 +72,7 @@ int createVariableOnStack(char * fname, XMLElement & elem, const char * field, i
 {
     if (!strcmp("name", field))
     {
-        createStringOnStack(fname, elem.getNodeName(), pos);
+        return createStringOnStack(fname, elem.getNodeName(), pos);
     }
     else if (!strcmp("namespace", field))
     {
@@ -81,8 +81,9 @@ int createVariableOnStack(char * fname, XMLElement & elem, const char * field, i
     else if (!strcmp("content", field))
     {
         const char * content = elem.getNodeContent();
-        createStringOnStack(fname, content, pos);
+        int ret = createStringOnStack(fname, content, pos);
         xmlFree(const_cast<char *>(content));
+        return ret;
     }
     else if (!strcmp("type", field))
     {
@@ -98,7 +99,15 @@ int createVariableOnStack(char * fname, XMLElement & elem, const char * field, i
     }
     else if (!strcmp("children", field))
     {
-        return elem.getChildren()->createOnStack(pos);
+        const XMLNodeList * list = elem.getChildren();
+        if (list->getSize() == 0)
+        {
+            createMatrixOfDouble(pvApiCtx, pos, 0, 0, 0);
+            delete list;
+            return 1;
+        }
+
+        return list->createOnStack(pos);
     }
     else
     {
@@ -109,8 +118,6 @@ int createVariableOnStack(char * fname, XMLElement & elem, const char * field, i
 /*--------------------------------------------------------------------------*/
 int createVariableOnStack(char * fname, XMLNs & ns, const char * field, int pos)
 {
-    SciErr err;
-
     if (!strcmp("uri", field))
     {
         createStringOnStack(fname, ns.getURI(), pos);
@@ -131,13 +138,7 @@ int createVariableOnStack(char * fname, XMLNs & ns, const char * field, int pos)
 int createVariableOnStack(char * fname, XMLAttr & attr, const char * field, int pos)
 {
     const char * value = attr.getAttributeValue(field);
-    int ret = createStringOnStack(fname, value, pos);
-    if (value)
-    {
-        xmlFree(const_cast<char *>(value));
-    }
-
-    return ret;
+    return createStringOnStack(fname, value, pos);
 }
 /*--------------------------------------------------------------------------*/
 template<class T>
@@ -178,7 +179,6 @@ int sci_extraction(char * fname, unsigned long fname_len)
     id = getXMLObjectId(mlistaddr);
 
     t = XMLObject::getFromId<T>(id);
-
     if (!t)
     {
         Scierror(999, "%s: XML object does not exist\n", fname);

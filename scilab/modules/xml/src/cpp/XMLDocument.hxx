@@ -10,8 +10,12 @@
  *
  */
 
+#ifndef __XMLDOCUMENT_HXX__
+#define __XMLDOCUMENT_HXX__
+
 #include <cstdio>
 #include <list>
+#include <cstring>
 #include <string>
 
 #include "xml.h"
@@ -24,29 +28,39 @@ namespace org_modules_xml
 
     class XMLDocument : public XMLObject
     {
-	static std::list<XMLDocument *> & openDocs;
+        static std::list<XMLDocument *> & openDocs;
         xmlDoc * document;
-	
+
     public :
-        XMLDocument(const char * path, char **error);
-	~XMLDocument();
+        XMLDocument(const char * path, char ** error);
+        XMLDocument(const std::string & xmlCode, char ** error);
+        XMLDocument(char * uri, char * version);
+        ~XMLDocument();
 
-	static std::list<XMLDocument *> & getOpenDocuments();
+        static std::list<XMLDocument *> & getOpenDocuments();
+        static void closeAllDocuments();
 
-	xmlDoc * getRealDocument() { return document; }
-        XMLElement * getRoot();
-	XMLXPath * makeXPathQuery(const char * query, char ** error);
-        const char * getDocumentURL() { return (const char *)document->URL; }
-        XMLObject * getXMLObjectParent();
-	std::string * dump();
-	std::string * toString();
+        xmlDoc * getRealDocument() const { return document; }
+        const XMLElement * getRoot() const;
+        void setRoot(const XMLElement & value) const;
+        void setRoot(const std::string & xmlCode, char ** error) const;
+        const XMLXPath * makeXPathQuery(const char * query, char ** error);
+        const char * getDocumentURL() const;
+        void setDocumentURL(const std::string & value) const;
+        const XMLObject * getXMLObjectParent() const;
+        const std::string dump() const;
+        const std::string toString() const;
 
     private :
-	static void errorFunction(void * ctx, const char * msg, ...);
-	static void errorXPathFunction(void * ctx, xmlError * error);
-	static xmlDoc * readDocument(const char * filename, char ** error);
+        static void errorFunction(void * ctx, const char * msg, ...);
+        static void errorXPathFunction(void * ctx, xmlError * error);
+        static xmlDoc * readDocument(const char * filename, char ** error);
+        static xmlDoc * readDocument(const std::string & xmlCode, char ** error);
+        static xmlParserCtxt * initContext(char ** error);
 
-	static std::string * errorBuffer;
-	static std::string * errorXPathBuffer;
+        static std::string * errorBuffer;
+        static std::string * errorXPathBuffer;
     };
 }
+
+#endif

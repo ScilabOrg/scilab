@@ -10,6 +10,9 @@
  *
  */
 
+#ifndef __XMLLIST_HXX__
+#define __XMLLIST_HXX__
+
 #include <string>
 
 #include "xml.h"
@@ -22,15 +25,41 @@ namespace org_modules_xml
     {
 
     public :
-	XMLList();
+        XMLList();
 
-	virtual XMLObject * getListElement(int index) = 0;
+        virtual const XMLObject * getListElement(int index) = 0;
 
-	int getSize() { return size; }
-	std::string * toString();
+        int getSize() const { return size; }
+        const std::string toString() const;
 
     protected :
-	int size;
+        int size;
 
+        template <typename T>
+        T * getListElement(int index, int * prev, T ** prevElem) const
+            {
+                if (index >= 1 && index <= size)
+                {
+                    if (index != *prev)
+                    {
+                        if (index < *prev)
+                        {
+                            for (int i = *prev; i > index; i--, *prevElem = (*prevElem)->prev);
+                        }
+                        else
+                        {
+                            for (int i = *prev; i < index; i++, *prevElem = (*prevElem)->next);
+                        }
+                        *prev = index;
+                    }
+
+                    return *prevElem;
+                }
+
+                return 0;
+            }
     };
 }
+
+#endif
+

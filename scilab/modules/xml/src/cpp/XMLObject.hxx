@@ -10,8 +10,12 @@
  *
  */
 
+#ifndef __XMLOBJECTS_HXX__
+#define __XMLOBJECTS_HXX__
+
 #include <string>
 #include <sstream>
+#include <typeinfo>
 
 extern "C" {
 #include "xml_mlist.h"
@@ -23,36 +27,37 @@ namespace org_modules_xml
 
     class XMLObject
     {
-	
+
     public :
         XMLObject();
         virtual ~XMLObject() { }
 
-        virtual XMLObject * getXMLObjectParent() = 0;
-	virtual std::string * toString() { }
-	virtual std::string * dump() { return new std::string(""); }
+        virtual const XMLObject * getXMLObjectParent() const { return 0; }
+        virtual const std::string toString() const { return std::string(""); }
+        virtual const std::string dump() const { return std::string(""); }
 
-	int getId() { return id; }
-	int createOnStack(int pos);
+        int getId() const { return id; }
+        int createOnStack(int pos) const;
 
         template <class T>
-        static T* getFromId(int id) { return static_cast<T*>(getVariableFromId(id)); }
-	
-	static std::string intToStr(int n)
-	    {
-		std::stringstream oss;
-		oss << n;
-		return oss.str();
-	    }
+        static T * getFromId(int id) { return static_cast<T *>(getVariableFromId(id)); }
+
+        static const std::string intToStr(int n)
+            {
+                std::stringstream oss;
+                oss << n;
+                return oss.str();
+            }
 
     protected :
         int id;
-	int scilabType;
+        int scilabType;
 	
         static VariableScope & scope;
 
     private :
-        static XMLObject * getVariableFromId(int id);
-
+	static XMLObject * getVariableFromId(int id);
     };
 }
+
+#endif

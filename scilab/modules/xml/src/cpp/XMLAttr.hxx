@@ -10,6 +10,9 @@
  *
  */
 
+#ifndef __XMLATTR_HXX__
+#define __XMLATTR_HXX__
+
 #include <string>
 
 #include "xml.h"
@@ -21,15 +24,22 @@ namespace org_modules_xml
 
     class XMLAttr : public XMLObject
     {
-	XMLElement * elem;
+        const XMLElement & elem;
 
     public :
-	XMLAttr(XMLElement * elem);
-	~XMLAttr();
+        XMLAttr(const XMLElement & elem);
+        ~XMLAttr();
 
-	const char * getAttributeValue(const char * name);
-	const char * getAttributeValue(const char * prefix, const char * name);
-	XMLObject * getXMLObjectParent();
-	std::string * toString();
+	int getSize() const;
+	
+        const char * getAttributeValue(const char * name) const;
+        const char * getAttributeValue(const char * prefix, const char * name) const;
+	void setAttributeValue(const char * prefix, const char * name, const char * value);
+        void setAttributeValue(const char * name, const char * value);
+        const XMLObject * getXMLObjectParent() const;
+        const XMLElement & getElement() const { return elem; }
+        const std::string toString() const;
     };
 }
+
+#endif

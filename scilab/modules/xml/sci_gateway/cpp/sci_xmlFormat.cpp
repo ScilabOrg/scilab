@@ -10,21 +10,20 @@
  *
  */
 
-#include "XMLObject.hxx"
-#include "XMLList.hxx"
-
-namespace org_modules_xml
+extern "C"
 {
-    XMLList::XMLList() : XMLObject()
-    {
-	scilabType = XMLLIST;
-    }
+#include "gw_xml.h"
+#include "stack-c.h"
+#include "api_scilab.h"
+}
 
-    const std::string XMLList::toString() const
-    {
-	std::string str = "XML List\n";
-        str += "size: " + intToStr(getSize());
-	
-        return str;
-    }
+/*--------------------------------------------------------------------------*/
+int sci_xmlFormat(char *fname, unsigned long fname_len)
+{
+    CheckRhs(1, 1);
+    CheckLhs(1, 1);
+
+    OverLoad(1);
+
+    return 0;
 }

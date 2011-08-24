@@ -21,7 +21,7 @@ namespace org_modules_xml
 
     XMLObject::XMLObject()
     {
-	this->id = scope.getVariableId(*this);
+	id = scope.getVariableId(*this);
 	scilabType = -1;
     }
 
@@ -30,7 +30,7 @@ namespace org_modules_xml
 	return scope.getVariableFromId(id);
     }
 
-    int XMLObject::createOnStack(int pos)
+    int XMLObject::createOnStack(int pos) const
     {
 	if (scilabType != -1)
 	{

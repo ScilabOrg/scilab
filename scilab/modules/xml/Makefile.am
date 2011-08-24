@@ -47,13 +47,27 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_xml.c
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_xmlRead.cpp \
                       sci_gateway/cpp/sci_xmlXPath.cpp \
 		      sci_gateway/cpp/sci_extraction.cpp \
+		      sci_gateway/cpp/sci_insertion.cpp \
 		      sci_gateway/cpp/sci_print.cpp \
 		      sci_gateway/cpp/sci_xmlGetOpenStreams.cpp \
 		      sci_gateway/cpp/sci_xmlClose.cpp \
 		      sci_gateway/cpp/sci_xmlDump.cpp \
+		      sci_gateway/cpp/sci_xmlReadStr.cpp \
+		      sci_gateway/cpp/sci_xmlFormat.cpp \
 		      sci_gateway/cpp/sci_percent_XMLList_e.cpp \
 		      sci_gateway/cpp/sci_percent_XMLAttr_e.cpp \
-		      sci_gateway/cpp/sci_percent_XMLList_size.cpp
+		      sci_gateway/cpp/sci_percent_XMLList_size.cpp \
+		      sci_gateway/cpp/sci_percent_XMLAttr_size.cpp \
+		      sci_gateway/cpp/sci_percent_c_i_XMLAttr.cpp \
+		      sci_gateway/cpp/sci_percent_s_i_XMLList.cpp \
+		      sci_gateway/cpp/sci_xmlElement.cpp \
+		      sci_gateway/cpp/sci_xmlDocument.cpp \
+		      sci_gateway/cpp/sci_xmlNs.cpp \
+		      sci_gateway/cpp/sci_xmlAddNs.cpp \
+		      sci_gateway/cpp/sci_xmlGetNsByHref.cpp \
+		      sci_gateway/cpp/sci_xmlGetNsByPrefix.cpp \
+		      sci_gateway/cpp/sci_xmlWrite.cpp \
+		      sci_gateway/cpp/sci_percent_foo_i_XMLList.cpp
 
 libscixml_la_CFLAGS= -I$(srcdir)/includes/ \
 		     -I$(top_srcdir)/libs/MALLOC/includes/ \

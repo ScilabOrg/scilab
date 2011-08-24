@@ -16,6 +16,7 @@
 #define XMLNAMESPACE 4
 #define XMLLIST 5
 #define XMLNOTHANDLED 6
+#define XMLSET 7
 
 #ifndef XML_MLIST_H
 #define XML_MLIST_H
@@ -28,6 +29,7 @@ int isXMLNs(int * mlist);
 int isXMLList(int * mlist);
 int isXMLObject(int * mlist);
 int isXMLNotHandled(int * mlist);
+int isXMLSet(int * mlist);
 int getXMLObjectId(int * mlist);
 
 #endif

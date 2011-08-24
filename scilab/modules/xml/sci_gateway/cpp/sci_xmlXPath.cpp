@@ -32,14 +32,10 @@ int sci_xmlXPath(char * fname, unsigned long fname_len)
     int id;
     SciErr err;
     XMLDocument * doc;
-    XMLXPath * xpath;
-    XMLNodeSet * set;
-    int b;
-    double d;
-    const char * str;
-    int *addr = 0;
+    const XMLXPath * xpath;
+    int * addr = 0;
     char * query = 0;
-    char *error = 0;
+    char * error = 0;
 
     CheckLhs(1, 1);
     CheckRhs(2, 2);
@@ -59,7 +55,6 @@ int sci_xmlXPath(char * fname, unsigned long fname_len)
 
     id = getXMLObjectId(addr);
     doc = XMLObject::getFromId<XMLDocument>(id);
-
     if (!doc)
     {
         Scierror(999, "%s: XML document does not exist\n", fname);
@@ -80,42 +75,51 @@ int sci_xmlXPath(char * fname, unsigned long fname_len)
     }
 
     getAllocatedSingleString(pvApiCtx, addr, &query);
-
     xpath = doc->makeXPathQuery(const_cast<const char *>(query), &error);
-
     if (error)
     {
-	Scierror(999, "%s: Bad XPath query:\n%s", fname, error);
+        Scierror(999, "%s: Bad XPath query:\n%s", fname, error);
         return 0;
     }
 
     switch (xpath->getResultType())
     {
-    case XPATH_NODESET :;
-	set = xpath->getNodeSet();
-	id = set->getId();
-        if (!createXMLObjectAtPos(XMLLIST, Rhs + 1, id))
+    case XPATH_NODESET :
+    {
+        const XMLNodeSet * set = xpath->getNodeSet();
+        if (set->getSize() == 0)
         {
-            return 0;
+            createMatrixOfDouble(pvApiCtx, Rhs + 1, 0, 0, 0);
         }
-	break;
-    case XPATH_BOOLEAN :;
-	b = xpath->getBooleanValue();
-	createScalarBoolean(pvApiCtx, Rhs + 1, b);
-	break;
-    case XPATH_NUMBER :;
-	d = xpath->getFloatValue();
-	createScalarDouble(pvApiCtx, Rhs + 1, d);
-	break;
-    case XPATH_STRING :;
-	str = xpath->getStringValue();
-	createSingleString(pvApiCtx, Rhs + 1, str);
-	break;
-    default :;
-	Scierror(999, "%s: XPath query returned a not handled type: %i\n", fname, xpath->getResultType());
+        set->createOnStack(Rhs + 1);
+        break;
+    }
+    case XPATH_BOOLEAN :
+    {
+        int b = xpath->getBooleanValue();
+        createScalarBoolean(pvApiCtx, Rhs + 1, b);
+        break;
+    }
+    case XPATH_NUMBER :
+    {
+        double d = xpath->getFloatValue();
+        createScalarDouble(pvApiCtx, Rhs + 1, d);
+        break;
+    }
+    case XPATH_STRING :
+    {
+        const char * str = xpath->getStringValue();
+        createSingleString(pvApiCtx, Rhs + 1, str);
+        break;
+    }
+    default :
+	delete xpath;
+        Scierror(999, "%s: XPath query returned a not handled type: %i\n", fname, xpath->getResultType());
         return 0;
     }
-    
+
+    delete xpath;
+
     LhsVar(1) = Rhs + 1;
     PutLhsVar();
     return 0;
