@@ -21,6 +21,7 @@
 * @return characters 
 */
 CONSOLE_IMPEXP char *getConsoleInputLine(void);
+CONSOLE_IMPEXP char *YaspRead();
 
 /*--------------------------------------------------------------------------*/
 #endif /* __GETCOMMANDLINE_H__ */
