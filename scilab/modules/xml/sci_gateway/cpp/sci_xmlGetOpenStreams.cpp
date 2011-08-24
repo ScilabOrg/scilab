@@ -27,7 +27,6 @@ using namespace org_modules_xml;
 /*--------------------------------------------------------------------------*/
 int sci_xmlGetOpenStreams(char *fname, unsigned long fname_len)
 {
-    int id;
     int j = 1;
     SciErr err;
     int *addr = 0;

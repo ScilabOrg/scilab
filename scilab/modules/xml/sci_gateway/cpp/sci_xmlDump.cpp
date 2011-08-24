@@ -10,6 +10,8 @@
  *
  */
 
+#include <vector>
+
 #include "XMLObject.hxx"
 #include "XMLDocument.hxx"
 #include "XMLElement.hxx"
@@ -34,8 +36,9 @@ int sci_xmlDump(char *fname, unsigned long fname_len)
     int type;
     SciErr err;
     int *addr = 0;
-    const char * dump;
-    std::string * str;
+    char * dump;
+    std::string str;
+    std::vector<char *> vector;
 
     CheckLhs(1, 1);
     CheckRhs(1, 1);
@@ -50,16 +53,31 @@ int sci_xmlDump(char *fname, unsigned long fname_len)
     type = isXMLObject(addr);
     if (!type)
     {
-	Scierror(999, "%s: Wrong type for input argument %i: %s expected\n", fname, 1, "XML object");
-	return 0;
+        Scierror(999, "%s: Wrong type for input argument %i: %s expected\n", fname, 1, "XML object");
+        return 0;
     }
 
     id = getXMLObjectId(addr);
     str = XMLObject::getFromId<XMLObject>(id)->dump();
-    dump = str->c_str();
-    
-    err = createMatrixOfString(pvApiCtx, Rhs + 1, 1, 1, const_cast<const char * const *>(&dump));
-    delete str;
+    dump = const_cast<char *>(str.c_str());
+    vector = std::vector<char *>();
+
+    dump = strtok(dump, "\n\r");
+    while (dump)
+    {
+        vector.push_back(dump);
+        dump = strtok(0, "\n\r");
+    }
+
+    if (vector.size())
+    {
+        err = createMatrixOfString(pvApiCtx, Rhs + 1, vector.size(), 1, const_cast<const char * const *>(&(vector[0])));
+    }
+    else
+    {
+        err = createMatrixOfDouble(pvApiCtx, Rhs + 1, 0, 0, 0);
+    }
+
     if (err.iErr)
     {
         printError(&err, 0);
