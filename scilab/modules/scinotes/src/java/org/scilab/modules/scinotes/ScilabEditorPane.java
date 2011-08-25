@@ -189,13 +189,13 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                                         text = null;
                                     }
 
-                                    if (text != null) {
+                                    if (text != null && ScilabEditorPane.this.editor != null) {
                                         ScilabEditorPane.this.editor.getInfoBar().setText(text + url);
                                         infoBarChanged = true;
                                     }
                                 }
                             } catch (BadLocationException ex) { }
-                        } else {
+                        } else if (ScilabEditorPane.this.editor != null) {
                             ScilabEditorPane.this.editor.getInfoBar().setText(SciNotesMessages.CLICKABLE_URL);
                             infoBarChanged = true;
                         }
@@ -204,7 +204,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                             setCursor(TEXTCURSOR);
                             hand = false;
                         }
-                        if (infoBarChanged) {
+                        if (infoBarChanged && ScilabEditorPane.this.editor != null) {
                             ScilabEditorPane.this.editor.getInfoBar().setText(infoBar);
                             infoBarChanged = false;
                         }
@@ -231,7 +231,9 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
                             ctrlHit = false;
                             infoBarChanged = false;
                             setCursor(TEXTCURSOR);
-                            ScilabEditorPane.this.editor.getInfoBar().setText(infoBar);
+			    if (ScilabEditorPane.this.editor != null) {
+				ScilabEditorPane.this.editor.getInfoBar().setText(infoBar);
+			    }
                             String url = ((ScilabDocument) getDocument()).getText(e.getStart(), e.getLength());
                             if (ScilabLexerConstants.URL == e.getType() || ScilabLexerConstants.MAIL == e.getType()) {
                                 WebBrowser.openUrl(url);
@@ -456,11 +458,13 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
         focused = this;
         doc.getUndoManager().enableUndoRedoButtons();
 
-        if (checkExternalModif()) {
-            editor.getInfoBar().setText(SciNotesMessages.EXTERNAL_MODIFICATION_INFO);
-        } else {
-            editor.getInfoBar().setText(getInfoBarText());
-        }
+	if (editor != null) {
+	    if (checkExternalModif()) {
+		editor.getInfoBar().setText(SciNotesMessages.EXTERNAL_MODIFICATION_INFO);
+	    } else {
+		editor.getInfoBar().setText(getInfoBarText());
+	    }
+	}
     }
 
     /**
@@ -491,7 +495,9 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      */
     public void setInfoBarText(String text) {
         this.infoBar = text;
-        editor.getInfoBar().setText(getInfoBarText());
+	if (editor != null) {
+	    editor.getInfoBar().setText(getInfoBarText());
+	}
     }
 
     /**
@@ -636,7 +642,9 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
      * Update the title of current tab
      */
     public void updateTitle() {
-        editor.updateTabTitle();
+        if (editor != null) {
+	    editor.updateTabTitle();
+	}
     }
 
     /**
@@ -1001,7 +1009,7 @@ public class ScilabEditorPane extends JEditorPane implements Highlighter.Highlig
             matchRL.searchMatchingBlock(tok, lexer.start + lexer.yychar() + lexer.yylength());
         }
 
-        if (!readonly && !binary) {
+        if (!readonly && !binary && editor != null) {
             editor.getInfoBar().setText(((ScilabDocument) getDocument()).getCurrentFunction(pos));
         }
     }
