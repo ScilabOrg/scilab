@@ -408,3 +408,9 @@ Bug fixes:
                    demo list menu.
 
 * bug 9838 fixed - evstr froze on some specific strings.
+
+* bug 9879 fixed - Fix some minor issues in the isdir help pages.
+
+* bug 9880 fixed - Fix in the help page a page referencing itself.
+
+* bug 9881 fixed - Fix a mistake in the help page of call.
