@@ -7,21 +7,21 @@
 # are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-THREADS_CPP_SOURCES = \
-	src/cpp/Thread_Wrapper.cpp
+THREADS_C_SOURCES = \
+	src/c/Thread_Wrapper.c
 
-libscithreads_la_CPPFLAGS= \
+libscithreads_la_CFLAGS= \
 	-I$(srcdir)/includes/
 
 pkglib_LTLIBRARIES = libscithreads.la
 
 libscithreads_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) -lpthread
 
-libscithreads_la_SOURCES = $(THREADS_CPP_SOURCES)
+libscithreads_la_SOURCES = $(THREADS_C_SOURCES)
 
 # For the code check (splint)
-CHECK_SRC= $(THREADS_CPP_SOURCES)
-INCLUDE_FLAGS = $(libscithreads_la_CPPFLAGS)
+CHECK_SRC= $(THREADS_C_SOURCES)
+INCLUDE_FLAGS = $(libscithreads_la_CFLAGS)
 
 # Many stuff depends on this one ... commented
 # libscithreads_la_LIBADD =  libscithreads.la
