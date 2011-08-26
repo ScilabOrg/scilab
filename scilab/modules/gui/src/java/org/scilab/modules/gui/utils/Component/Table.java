@@ -30,7 +30,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import org.scilab.modules.gui.utils.XChooser;
 import org.scilab.modules.gui.utils.XCommonManager;
@@ -51,8 +50,6 @@ public class Table extends JPanel implements XComponent, XChooser, ListSelection
      */
     private static final long serialVersionUID = -6127289363733321914L;
 
-    private final CustomTableCellRenderer customTableCellRenderer = new CustomTableCellRenderer();
-    
     /** Define the set of actuators.
     *
     * @return array of actuator names.
@@ -142,8 +139,16 @@ public class Table extends JPanel implements XComponent, XChooser, ListSelection
             }
         }
         switch (id) {
-        case 0: break;
-        case 1: break;
+        case 0:
+            // Add new row
+            if (actionListener != null) {
+                ActionEvent transmit  = new ActionEvent(this, 0,"tableAdd", e.getWhen(), 0);
+                actionListener.actionPerformed(transmit);
+            }
+            break;
+        case 1: 
+            // Move row upper
+            break;
         case 2:
             table.getSelectionModel().clearSelection();
             for (int i=0; i<controls.length; i++) {
@@ -151,7 +156,14 @@ public class Table extends JPanel implements XComponent, XChooser, ListSelection
             }
             break;
         case 3: break;
-        case 4: break;
+        case 4:
+            // Delete row
+                System.out.println("[DEBUG] calling actionPerformed(deleteRow)");
+            if (actionListener != null) {
+                ActionEvent transmit  = new ActionEvent(this, 0,"tableDel", e.getWhen(), 0);
+                actionListener.actionPerformed(transmit);
+            }
+        break;
         }
     }
     //end Dynamic_controller
@@ -272,7 +284,7 @@ public class Table extends JPanel implements XComponent, XChooser, ListSelection
         if (externalChange) {
             openControls();
             if (actionListener != null) {
-                ActionEvent transmit  = new ActionEvent(this, 0,"Row change", table.getSelectedRow() + 1, 0);
+                ActionEvent transmit  = new ActionEvent(this, 0,"tableSelect", table.getSelectedRow() + 1, 0);
                 actionListener.actionPerformed(transmit);
             }
         }
