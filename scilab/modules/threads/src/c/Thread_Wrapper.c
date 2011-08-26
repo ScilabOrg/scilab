@@ -12,10 +12,7 @@
  *
  */
 
-extern "C"
-{
 #include "Thread_Wrapper.h"
-}
 
 void __InitLock(__threadLock *lockName)
 {
