@@ -233,6 +233,8 @@ Compilation:
 
 * Force the Java class version target to version 6 (or 1.6).
 
+* Add Java 7 in the Debian & Ubuntu search path under GNU/Linux.
+
 * bug 9782 fixed - configure with --without-gui was failing.
 
 
