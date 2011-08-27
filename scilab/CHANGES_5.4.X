@@ -419,6 +419,8 @@ Bug fixes:
 
 * bug 9838 fixed - evstr froze on some specific strings.
 
+* bug 9843 fixed - colormaps with 2 colors could not be created.
+
 * bug 9879 fixed - Fix some minor issues in the isdir help pages.
 
 * bug 9880 fixed - Fix in the help page a page referencing itself.

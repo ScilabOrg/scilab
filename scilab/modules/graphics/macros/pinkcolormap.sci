@@ -21,11 +21,6 @@ function cmap = pinkcolormap(varargin)
 		error(msprintf(gettext("%s: Wrong size for input argument #%d: An integer expected.\n"),"pinkcolormap",1));
 	end
 
-  // Check value of input argument
-	if n<3 then
-		error(msprintf(gettext("%s: Wrong value for input argument #%d: An integer greater or equal than %d expected.\n"),"pinkcolormap",1,3));
-	end
-	
 	red_1   = (0:n-1)'/(n-1);
 	green_1 = (0:n-1)'/(n-1);
 	blue_1  = (0:n-1)'/(n-1);

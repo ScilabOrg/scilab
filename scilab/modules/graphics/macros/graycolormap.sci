@@ -22,10 +22,5 @@ function cmap = graycolormap(varargin)
 		error(msprintf(gettext("%s: Wrong size for input argument #%d: An integer expected.\n"),"graycolormap",1));
 	end
 
-  // Check value of input argument
-	if n<3 then
-		error(msprintf(gettext("%s: Wrong value for input argument #%d: An integer greater or equal than %d expected.\n"),"graycolormap",1,3));
-	end
-
 cmap=((0:n-1)'/(n-1))*[1 1 1];
 endfunction

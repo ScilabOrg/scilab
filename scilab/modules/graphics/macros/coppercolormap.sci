@@ -21,11 +21,6 @@ function cmap = coppercolormap(varargin)
 		error(msprintf(gettext("%s: Wrong size for input argument #%d: An integer expected.\n"),"coppercolormap",1));
 	end
 
-  // Check value of input argument
-	if n<3 then
-		error(msprintf(gettext("%s: Wrong value for input argument #%d: An integer greater or equal than %d expected.\n"),"coppercolormap",1,3));
-	end
-	
 	x = linspace (0, 1, n)';
 	
 	red   = (x<0.8) .* (1.25*x) + (x >= 0.8);

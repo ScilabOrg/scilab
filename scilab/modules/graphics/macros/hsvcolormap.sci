@@ -19,10 +19,5 @@ function c=hsvcolormap(varargin)
 		error(msprintf(gettext("%s: Wrong size for input argument #%d: An integer expected.\n"),"hsvcolormap",1));
 	end
 
-  // Check value of input argument
-	if n<3 then
-		error(msprintf(gettext("%s: Wrong value for input argument #%d: An integer greater or equal than %d expected.\n"),"hsvcolormap",1,3));
-	end
-
   c = hsv2rgb([(0:n-1)'/n ones(n,2)]);
 endfunction

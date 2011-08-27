@@ -21,11 +21,6 @@ function cmap = hotcolormap(varargin)
 		error(msprintf(gettext("%s: Wrong size for input argument #%d: An integer expected.\n"),"hotcolormap",1));
 	end
 
-  // Check value of input argument
-	if n<3 then
-		error(msprintf(gettext("%s: Wrong value for input argument #%d: An integer greater or equal than %d expected.\n"),"hotcolormap",1,3));
-	end
-
 n1=fix(3/8*n);
 n2=n1
 n3=n-(n1+n2)
