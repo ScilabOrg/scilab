@@ -249,6 +249,8 @@ Graphics:
 ATOMS:
 ======
 
+* bug 5380 fixed - atomsShow() output was broken (separators are not aligned).
+
 * bug 8664 fixed - Message error updated for non supported OS.
 
 * bug 9127 fixed - "Home" item renamed to "Installed Modules".
