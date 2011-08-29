@@ -439,3 +439,5 @@ Bug fixes:
 * bug 9880 fixed - Fix in the help page a page referencing itself.
 
 * bug 9881 fixed - Fix a mistake in the help page of call.
+
+* bug 9885 fixed - user initialization scripts (scilab.ini, .scilab) did not work.
