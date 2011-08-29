@@ -3,13 +3,19 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 >	<!--
 		||
-		||   L E F T   P A N E L   M A N A G E M E N T 
+		||   L E F T   P A N E L   M A N A G E M E N T
 		||
 		-->
 
 	<xsl:template match="*" mode="left-panel">
 		<xsl:apply-templates mode="inner-left-panel"/>
-		<XCosPreview height="200" width="200"/>
+		<XCosPreview height="200" width="200">
+           <tableBlock>
+             <root>
+               <xsl:apply-templates select="." mode="preview"/>
+             </root>
+           </tableBlock>
+        </XCosPreview>
 		<!-- TODO -->
 	</xsl:template>
 
@@ -18,10 +24,10 @@
 			<Icon src="media-playback-start.png"/>
 			<xsl:choose>
 				<xsl:when test="local-name()=../@step">
-					<Label text="{local-name()}" background="#0000ff" foreground="#ffffff"/>	
+					<Label text="{local-name()}" background="#0000ff" foreground="#ffffff"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<Label text="{local-name()}" listener="MouseListener">	
+					<Label text="{local-name()}" listener="MouseListener">
 						<mouseClicked set="step" value="{local-name()}" context="/"/>
 					</Label>
 				</xsl:otherwise>
@@ -33,7 +39,7 @@
 
 	<!--
 		||
-		||   C O M M O N   M A I N   P A N E L S 
+		||   C O M M O N   M A I N   P A N E L S
 		||
 		-->
 
@@ -43,11 +49,11 @@
 				<Title text="{concat('User parameter [', @name, ']:')}">
 					<VBox>
 						<HBox>
-							Variable name: 
+							Variable name:
 							<Entry text="{@name}" listener="ActionListener">
 								<actionPerformed choose="name">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
 							Data-type:
 							<xsl:call-template name="Select">
@@ -58,31 +64,31 @@
 							</xsl:call-template>
 						</HBox>
 						<HBox>
-							Minimum: 
+							Minimum:
 							<Entry text="{@min}" listener="ActionListener">
 								<actionPerformed choose="min">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
-							Test: 
+							Test:
 							<Entry text="{@test}" listener="ActionListener">
 								<actionPerformed choose="test">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
-							Maximum: 
+							Maximum:
 							<Entry text="{@max}" listener="ActionListener">
 								<actionPerformed choose="max">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
 						</HBox>
 						<HBox>
-							Description: 					
+							Description:
 							<Entry text="{@description}" listener="ActionListener">
 								<actionPerformed choose="description">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
 						</HBox>
 						<HBox>
@@ -90,7 +96,7 @@
 							<Entry text="{@tooltip}" listener="ActionListener">
 								<actionPerformed choose="tooltip">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
 						</HBox>
 					</VBox>
@@ -103,7 +109,7 @@
 					</tableSelect>
 					<tableAdd>
 						<xsl:call-template name="context"/>
-						<item name="parameter"    type="double"  min="0.0" max="999.9" 
+						<item name="parameter"    type="double"  min="0.0" max="999.9"
           		test="0.0" tooltip="tooltip" description="A parameter"/>
 					</tableAdd>
 					<tableCol title="Name"        attr="name"/>
@@ -212,7 +218,7 @@
 				<Title text="{concat('Current setup: ', @title)}">
 					<VBox>
 						<HBox>
-							Color: 
+							Color:
 							<Glue/>
 							<Color color="{@color}" listener="ActionListener">
 								<actionPerformed choose="color">
@@ -310,7 +316,7 @@
 							<Entry text="{@text}" listener="ActionListener">
 								<actionPerformed choose="text">
 									<xsl:call-template name="context"/>
-								</actionPerformed>							
+								</actionPerformed>
 							</Entry>
 						</HBox>
 					</xsl:for-each>
@@ -321,7 +327,7 @@
 						<Textarea listener="DocumentListener" width="350" height="300">
 							<!--documentUpdate> TODO
 								<xsl:call-template name="context"/>
-							</documentUpdate>							
+							</documentUpdate>
 							<xsl:copy-of select="node()"/ -->
 						</Textarea >
 					</xsl:for-each>
