@@ -292,6 +292,8 @@ Bug fixes:
 
 * bug 1604 fixed - list extraction failed.
 
+* bug 4576 fixed - A example of ilib_build with arguments "cflags" was missing.
+
 * bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
                    is supplied by the 2nd input argument.
 
