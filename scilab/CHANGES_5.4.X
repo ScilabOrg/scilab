@@ -36,6 +36,8 @@ SciNotes:
 * bug 9597 fixed - It was not possible to navigate across the tabs with
                    <CTRL>+(PAGE_UP | PAGE_DOWN).
 
+* bug 9897 fixed - With Mac OS, eol was not replaced by \n when code was copyed
+                   from Word to SciNotes.
 
 Graphical User Interface:
 =========================
