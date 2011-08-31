@@ -441,3 +441,5 @@ Bug fixes:
 * bug 9880 fixed - Fix in the help page a page referencing itself.
 
 * bug 9881 fixed - Fix a mistake in the help page of call.
+
+* bug 9899 fixed - string(10*log10(1/10)) gave -0, instead of -10
