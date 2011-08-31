@@ -16,6 +16,7 @@
 
 extern "C"
 {
+#include <string.h>
 #include <stdio.h>
 #include "gw_xml.h"
 #include "stack-c.h"
@@ -24,6 +25,10 @@ extern "C"
 #include "api_scilab.h"
 #include "xml_mlist.h"
 #include "localization.h"
+#ifdef _MSC_VER
+#include "strdup_windows.h"
+#endif
+
 }
 
 using namespace org_modules_xml;

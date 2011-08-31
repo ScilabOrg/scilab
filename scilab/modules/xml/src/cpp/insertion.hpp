@@ -45,7 +45,7 @@ using namespace org_modules_xml;
  * @param value the new value
  */
 template <class T>
-bool setProperty(char * fname, XMLDocument & doc, const char * field, T & value)
+bool setProperty(char * fname, org_modules_xml::XMLDocument & doc, const char * field, T & value)
 {
     if (!strcmp("root", field))
     {
