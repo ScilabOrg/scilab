@@ -33,7 +33,7 @@ using namespace org_scilab_modules_ui_data;
 /*--------------------------------------------------------------------------*/
 int sci_editvar(char *fname,unsigned long fname_len)
 {
-    CheckRhs(1,1); /* TODO change this in the future */
+    CheckRhs(1,2); /* TODO change this in the future */
     CheckLhs(0,1);
     SciErr sciErr;
 
@@ -78,13 +78,6 @@ int sci_editvar(char *fname,unsigned long fname_len)
     int *piAddressVarOne = NULL;
     char *pStVarOne = NULL;
     int lenStVarOne = 0;
-
-    /*get input data*/
-    if(Rhs != 1)
-    {
-        Scierror(999,_("%s: Wrong number of input argument(s): %d expected.\n"), fname, 1);
-        return 0;
-    }
 
     /* get address */
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddressVarOne);
@@ -148,13 +141,26 @@ int sci_editvar(char *fname,unsigned long fname_len)
         return 0;
     }
 
-    /* get address of the variable*/
-    sciErr = getVarAddressFromName(pvApiCtx, pStVarOne, &piAddr);
-    if(sciErr.iErr)
+    if (Rhs == 1)
     {
-        Scierror(4,_("%s: Undefined variable %s.\n"), fname, pStVarOne);
-        FREE(pStVarOne);
-        return 0;
+        /* get address of the variable*/
+        sciErr = getVarAddressFromName(pvApiCtx, pStVarOne, &piAddr);
+        if(sciErr.iErr)
+        {
+            Scierror(4,_("%s: Undefined variable %s.\n"), fname, pStVarOne);
+            FREE(pStVarOne);
+            return 0;
+        }
+    }
+    else
+    {
+        sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr);
+        if(sciErr.iErr)
+        {
+            FREE(pStVarOne);
+            printError(&sciErr, 0);
+            return 0;
+        }
     }
 
     /* get type of the named variable */

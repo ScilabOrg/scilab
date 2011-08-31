@@ -1980,37 +1980,38 @@ function EditData(TheData,datastring)
   global ged_handle; h=ged_handle
 
   // I declare ged_tmp ged_tmp_string WINDOW as global
-  global ged_tmp;
-  global ged_tmp_string;
+  //global ged_tmp;
+  //global ged_tmp_string;
   global WINDOW;
 
-  ged_tmp_string = datastring;
+  //ged_tmp_string = datastring;
 
-  ged_tmp=TheData;
+  //ged_tmp=TheData;
+  //WINDOW = GEDeditvar("ged_tmp")
 
-  WINDOW = GEDeditvar("ged_tmp")
+  editvar(datastring, TheData);
 
 endfunction
 
 
-function CloseEditorSaveData()
+//function CloseEditorSaveData()
 // Called when closing data editor
 
-  global ged_handle; // To leave here because used when doing execstr(ged_tmp_string...
-  global ged_tmp;
-  global ged_tmp_string;
-  global WINDOW;
+//  global ged_handle; // To leave here because used when doing execstr(ged_tmp_string...
+//  global ged_tmp;
+//  global ged_tmp_string;
+//  global WINDOW;
 
-  Nan = %nan // to avoid error message because of special Nan display
+//  Nan = %nan // to avoid error message because of special Nan display
 
-  ged_tmp=GEDeditvar_get(WINDOW);
+//  ged_tmp=GEDeditvar_get(WINDOW);
+  
+//  execstr(ged_tmp_string+"= ged_tmp");
 
-  execstr(ged_tmp_string+"= ged_tmp");
+//  clearglobal ged_tmp ged_tmp_string WINDOW
+//  clear ged_tmp ged_tmp_string WINDOW
 
-  clearglobal ged_tmp ged_tmp_string WINDOW
-  clear ged_tmp ged_tmp_string WINDOW
-
-endfunction
+//endfunction
 
 
 function outvar=GEDeditvar_get(winId)
