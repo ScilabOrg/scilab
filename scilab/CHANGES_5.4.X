@@ -292,6 +292,8 @@ Misc:
 * PVM module moved as ATOMS module.
   atomsInstall('PVM')
 
+* predef('names') returns names of protected variables by predef.
+
 
 Bug fixes:
 ==========
