@@ -17,6 +17,8 @@
 #include "internal.hxx"
 #include "arrayof.hxx"
 #include "function.hxx"
+#include "double.hxx"
+#include "polynom.hxx"
 
 extern "C"
 {
@@ -307,20 +309,20 @@ int isVarComplex(void* _pvCtx, int* _piAddress)
         return 0;
     }
 
-/*
-  getVarType(_pvCtx, _piAddress, &iType);
-  switch(iType)
-  {
-  case sci_matrix :
-  iComplex = ((types::InternalType*)(_piAddress))->getAsDouble()->isComplex();
-  break;
-  case sci_poly :
-  iComplex = ((types::InternalType*)_piAddress)->getAs<types::Polynom>()->isComplex();
-  case sci_sparse :
-  //iComplex = ((InternalType*)_piAddress)->getAsSparse()->isComplex();
-  break;
-  }
-*/
+    getVarType(_pvCtx, _piAddress, &iType);
+    switch(iType)
+    {
+    case sci_matrix :
+        iComplex = ((types::InternalType*)(_piAddress))->getAs<types::Double>()->isComplex();
+        break;
+    case sci_poly :
+        iComplex = ((types::InternalType*)_piAddress)->getAs<types::Polynom>()->isComplex();
+        break;
+    case sci_sparse :
+    //iComplex = ((InternalType*)_piAddress)->getAsSparse()->isComplex();
+        break;
+    }
+
     return iComplex;
 }
 /*--------------------------------------------------------------------------*/
