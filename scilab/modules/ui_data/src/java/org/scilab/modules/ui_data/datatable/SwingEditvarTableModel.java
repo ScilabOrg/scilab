@@ -307,7 +307,7 @@ public class SwingEditvarTableModel extends DefaultTableModel {
      * Refresh the current matrix
      */
     public void refreshMatrix() {
-        execCommand("editvar(\"" + varName + "\");");
+        execCommand("editvar(\"" + varName + "\", " + varName + ");");
     }
 
     /**
@@ -422,7 +422,7 @@ public class SwingEditvarTableModel extends DefaultTableModel {
         command.append(",\"Variable editor\", \"error\", \"modal\");");
         command.append("end;");
         command.append("warning(L8625083632641564277);clear(\"L8625083632641564277\");");
-        command.append("editvar(\"" + varName + "\");");
+        command.append("editvar(\"" + varName + "\", " + varName + ");");
         return command.toString();
     }
 
