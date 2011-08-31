@@ -17,6 +17,7 @@
 #include <map>
 #include <string>
 #include "threadId.hxx"
+#include "callable.hxx"
 #include "cell.hxx"
 
 extern "C"
@@ -263,6 +264,13 @@ public :
     static void setCommandLineArgs(int _iArgs, char** _pstArgs);
     static wchar_t** getCommandLineArgs(int* _piCount);
 
+    //schur function
+private :
+    static types::Callable* m_schurFunction;
+
+public :
+    static void setSchurFunction(types::Callable* _schurFunction);
+    static types::Callable* getSchurFunction();
 
 
 };

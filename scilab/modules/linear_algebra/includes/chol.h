@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
+#include "doublecomplex.h"
 
 extern int iRealCholProduct(double *_pdblReal, int _iLeadDim);
 extern int iComplexCholProduct(doublecomplex *_poIn, int _iLeadDim);

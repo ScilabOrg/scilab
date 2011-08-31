@@ -178,6 +178,57 @@ if or(abs(spec(S(n+1:$,n+1:$)))<1) then pause,end
 if n<>25 then pause,end
 if or(real(spec(S(1:n,1:n)))>=0) then pause,end
 if or(real(spec(S(n+1:$,n+1:$)))<0) then pause,end
+
+// Lib part
+cd TMPDIR;
+// equal to schur(A, 'c');
+C=[ 'int mytest(double* _real, double* _img) {' 
+    'return *_real < 0 ? 1 : 0;}';];
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+[U,n]=schur(A,'mytest');S=U'*A*U;
+if n<>25 then pause,end
+if or(real(spec(S(1:n,1:n)))>=0) then pause,end
+if or(real(spec(S(n+1:$,n+1:$)))<0) then pause,end
+
+// equal to schur(A, 'd');
+C=[ 'extern double dpythags(double,double);' // YaSp function
+    'int mytest(double* _real, double* _img) {' 
+    'return dpythags(*_real, *_img) < 1 ? 1 : 0;}';];
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+[U,n]=schur(A,'mytest');S=U'*A*U;
+if n<>0 then pause,end
+if or(abs(spec(S(n+1:$,n+1:$)))<1) then pause,end
+
+// equal to schur(Ac, 'c');
+C=[ '#include ""doublecomplex.h"";'
+    'int mytest(doublecomplex* _complex) {'
+    'return _complex->r < 0 ? 1 : 0;}';]
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+[U,n]=schur(Ac,'c');S=U'*Ac*U;
+if n<>25 then pause,end
+if or(real(spec(S(1:n,1:n)))>=0) then pause,end
+if or(real(spec(S(n+1:$,n+1:$)))<0) then pause,end
+
+// equal to schur(Ac, 'd');
+C=[ '#include ""doublecomplex.h"";'
+    'extern double dpythags(double,double);' // YaSp function
+    'int mytest(doublecomplex* _complex) {'
+    'if(dpythags(_complex->r, _complex->i) < 1) {return 1;}'
+    'else{ return 0;} }';]
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+[U,n]=schur(Ac,'d');S=U'*Ac*U;
+if n<>0 then pause,end
+if or(abs(spec(S(n+1:$,n+1:$)))<1) then pause,end
+
+
 //==========================================================================
 //==============================    schur part II   ======================== 
 //==========================================================================
@@ -240,7 +291,7 @@ if Err(Z1-Z)>10*%eps then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if dim<>5 then pause,end
 
-[As,Es,Z,dim]=schur(A,E,'d');
+[As,Es,Z,dim]=schur(A,E,'c');
 if dim<>5 then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
@@ -307,7 +358,7 @@ if Err(Z1-Z)>10*%eps then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if dim<>5 then pause,end
 
-[As,Es,Z,dim]=schur(A,E,'d');
+[As,Es,Z,dim]=schur(A,E,'c');
 if dim<>5 then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
@@ -377,7 +428,7 @@ if Err(Z1-Z)>10*%eps then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if dim<>50 then pause,end
 
-[As,Es,Z,dim]=schur(A,E,'d');
+[As,Es,Z,dim]=schur(A,E,'c');
 if dim<>50 then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
@@ -407,7 +458,7 @@ function t=sel(Alpha,Beta)
 	t=real(Alpha)>-0.2*real(Beta)
 endfunction
 
-dim=schur(A,E,sel); // plante ici DGGES LAPACK 3.1
+dim=schur(A,E,sel);
 if dim<>12 then pause,end
 [Z,dim]=schur(A,E,sel);
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
@@ -423,6 +474,62 @@ if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
 if Err(As-Q'*A*Z) >200*%eps then pause,end
 if Err(Es-Q'*E*Z) >200*%eps then pause,end
+
+// Lib part
+cd TMPDIR;
+
+// equal to schur(A, E, 'c');
+C=[ 'int mytest(double* _real, double* _img, double* _beta) {' 
+    'extern double dlamch_(char *CMACH, unsigned long int);' // dlamch_ == C2F(dlamch)
+    'return (*_real < 0 && *_beta > 0) || '
+    '(*_real > 0 && *_beta < 0) &&'
+    '(fabs(*_beta) > fabs(*_real) * dlamch_((char*)""p"", 1L)) ? 1 : 0;}';];
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+
+dim=schur(A,E,'mytest');
+if dim<>50 then pause,end
+[Z,dim]=schur(A,E,'mytest');
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+
+[Q,Z1,dim]=schur(A,E,'mytest');
+if Err(Z1-Z)>10*%eps then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if dim<>50 then pause,end
+
+[As,Es,Z,dim]=schur(A,E,'mytest');
+if dim<>50 then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+if Err(As-Q'*A*Z) >200*%eps then pause,end
+if Err(Es-Q'*E*Z) >200*%eps then pause,end
+
+// equal to schur(A, E, 'd');
+C=[ 'extern double dpythags(double,double);' // YaSp function
+    'int mytest(double* _real, double* _img, double* _beta) {' 
+    'return dpythags(*_real, *_img) < fabs(*_beta) ? 1 : 0;}';];
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+
+dim=schur(A,E,'mytest');
+if dim<>50 then pause,end
+[Z,dim]=schur(A,E,'mytest');
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+
+[Q,Z1,dim]=schur(A,E,'mytest');
+if Err(Z1-Z)>10*%eps then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if dim<>50 then pause,end
+
+[As,Es,Z,dim]=schur(A,E,'mytest');
+if dim<>50 then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+if Err(As-Q'*A*Z) >200*%eps then pause,end
+if Err(Es-Q'*E*Z) >200*%eps then pause,end
+
 //----Complex------------
 A=testmat1(1+%i,50);E=testmat1(-2-3*%i,50) ;
 [As,Es,Q,Z]=schur(A,E);
@@ -446,7 +553,7 @@ if Err(Z1-Z)>10*%eps then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if dim<>50 then pause,end
 
-[As,Es,Z,dim]=schur(A,E,'d');
+[As,Es,Z,dim]=schur(A,E,'c');
 if dim<>50 then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
@@ -486,6 +593,58 @@ if dim<>32 then pause,end
 
 [As,Es,Z,dim]=schur(A,E,sel);
 if dim<>32 then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+if Err(As-Q'*A*Z) >1000*%eps then pause,end
+if Err(Es-Q'*E*Z) >1000*%eps then pause,end
+
+//Lib part
+// equal to schur(A, E, 'c');
+C=[ '#include ""doublecomplex.h"";'
+    'int mytest(doublecomplex* _complex) {'
+    'return _complex->r < 0 ? 1 : 0;}';]
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+
+dim=schur(A,E,'mytest');
+if dim<>50 then pause,end
+[Z,dim]=schur(A,E,'mytest');
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+
+[Q,Z1,dim]=schur(A,E,'mytest');
+if Err(Z1-Z)>10*%eps then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if dim<>50 then pause,end
+
+[As,Es,Z,dim]=schur(A,E,'mytest');
+if dim<>50 then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+if Err(As-Q'*A*Z) >1000*%eps then pause,end
+if Err(Es-Q'*E*Z) >1000*%eps then pause,end
+
+// equal to schur(A, E, 'd');
+C=[ '#include ""doublecomplex.h"";'
+    'extern double dpythags(double,double);' // YaSp function
+    'int mytest(doublecomplex* _alpha, doublecomplex* _beta) {'
+    'return dpythags(_alpha->r, _alpha->i) < dpythags(_beta->r, _beta->i) ? 1 : 0;}';]
+mputl(C,TMPDIR+'/mytest.c');
+lp=ilib_for_link('mytest','mytest.c',[],'c');
+exec loader.sce;
+
+dim=schur(A,E,'mytest');
+if dim<>50 then pause,end
+[Z,dim]=schur(A,E,'mytest');
+if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
+
+[Q,Z1,dim]=schur(A,E,'mytest');
+if Err(Z1-Z)>10*%eps then pause,end
+if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
+if dim<>50 then pause,end
+
+[As,Es,Z,dim]=schur(A,E,'mytest');
+if dim<>50 then pause,end
 if Err(Q*Q'-eye(Q)) >200*%eps then pause,end
 if Err(Z*Z'-eye(Z)) >200*%eps then pause,end
 if Err(As-Q'*A*Z) >1000*%eps then pause,end
