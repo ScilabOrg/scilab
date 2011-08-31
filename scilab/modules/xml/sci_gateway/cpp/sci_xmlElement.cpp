@@ -30,7 +30,7 @@ using namespace org_modules_xml;
 /*--------------------------------------------------------------------------*/
 int sci_xmlElement(char * fname, unsigned long fname_len)
 {
-    XMLDocument * doc = 0;
+    org_modules_xml::XMLDocument * doc = 0;
     XMLElement * elem = 0;
     SciErr err;
     int * addr = 0;
@@ -52,7 +52,7 @@ int sci_xmlElement(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    doc = XMLObject::getFromId<XMLDocument>(getXMLObjectId(addr));
+    doc = XMLObject::getFromId<org_modules_xml::XMLDocument>(getXMLObjectId(addr));
     if (!doc)
     {
         Scierror(999, gettext("%s: XML Document does not exist.\n"), fname);

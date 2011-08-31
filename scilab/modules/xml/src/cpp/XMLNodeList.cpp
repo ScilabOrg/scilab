@@ -172,7 +172,7 @@ namespace org_modules_xml
             setElementAtPosition(index, XMLElement(doc, list.getRealNode()));
             for (xmlNode * cur = list.getRealNode()->next; cur; cur = cur->next)
             {
-                setElementAtPosition((double)(pos++) + 0.5d, XMLElement(doc, cur));
+                setElementAtPosition((double)(pos++) + 0.5, XMLElement(doc, cur));
             }
         }
     }

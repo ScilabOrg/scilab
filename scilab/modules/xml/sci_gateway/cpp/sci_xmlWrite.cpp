@@ -33,7 +33,7 @@ using namespace org_modules_xml;
 /*--------------------------------------------------------------------------*/
 int sci_xmlWrite(char * fname, unsigned long fname_len)
 {
-    XMLDocument * doc = 0;
+    org_modules_xml::XMLDocument * doc = 0;
     xmlDoc * document = 0;
     SciErr err;
     int * addr = 0;
@@ -58,7 +58,7 @@ int sci_xmlWrite(char * fname, unsigned long fname_len)
         return 0;
     }
 
-    doc = XMLObject::getFromId<XMLDocument>(getXMLObjectId(addr));
+    doc = XMLObject::getFromId<org_modules_xml::XMLDocument>(getXMLObjectId(addr));
     if (!doc)
     {
         Scierror(999, gettext("%s: XML Document does not exist.\n"), fname);
@@ -103,7 +103,7 @@ int sci_xmlWrite(char * fname, unsigned long fname_len)
         expandedPath = strdup((const char *)document->URL);
     }
 
-    file = fopen(expandedPath, "w");
+    file = fopen(expandedPath, "wt");
     if (!file)
     {
         Scierror(999, gettext("%s: Cannot write the file: %s\n"), fname, expandedPath);

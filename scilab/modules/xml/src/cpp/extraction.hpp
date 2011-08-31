@@ -97,7 +97,7 @@ int createStringOnStack(char * fname, const char * str, int pos)
  * @param pos the stack position
  * @return 1 if all is ok, else 0
  */
-int createVariableOnStack(char * fname, XMLDocument & doc, const char * field, int pos)
+int createVariableOnStack(char * fname, org_modules_xml::XMLDocument & doc, const char * field, int pos)
 {
     if (!strcmp("root", field))
     {
