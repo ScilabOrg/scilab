@@ -159,17 +159,20 @@ function process_module {
     fi
 
     $XGETTEXT $XGETTEXT_OPTIONS -p $TARGETDIR/ -o $MODULE_NAME.pot.tmp $FILES > /dev/null
-
-    # We need C strings format to be used as gettext key
-    # "" -> \"
-    # '' -> '
-    # '" -> \"
-    # "' -> '
-    sed -e "s/\"\"/\\\"/g" -e "s/''/'/g" -e "s/'\"/\\\"/g" -e "s/\"'/'/g" $TARGETDIR/$MODULE_NAME.pot.tmp > $TARGETDIR/$MODULE_NAME.pot.tmp2
-    # We introduced invalid tag [msgstr "] and [msgid "]
-    # restore them [msgstr ""] and [msgid ""]
-    sed -e "s/msgstr \"$/msgstr \"\"/" -e "s/msgid \"$/msgid \"\"/" $TARGETDIR/$MODULE_NAME.pot.tmp2 > $TARGETDIR/$MODULE_NAME.pot.tmp
-    rm $TARGETDIR/$MODULE_NAME.pot.tmp2 2> /dev/null
+    if test ! -f $MODULE_NAME.pot.tmp -a $IS_MACROS -eq 1; then
+        # Empty file => no string found
+        # We are modifing on the fly Scilab localization files
+        # 
+        # We need C strings format to be used as gettext key
+        # "" -> \"
+        # '' -> '
+        # '" -> \"
+        # "' -> ' -e "s/\"'/'/g" 
+        sed -i -e "s/\"\"/\\\"/g" -e "s/''/'/g" -e "s/'\"/\\\"/g" $TARGETDIR/$MODULE_NAME.pot.tmp
+        # We introduced invalid tag [msgstr "] and [msgid "]
+        # restore them [msgstr ""] and [msgid ""]
+        sed -i -e "s/msgstr \"$/msgstr \"\"/" -e "s/msgid \"$/msgid \"\"/" $TARGETDIR/$MODULE_NAME.pot.tmp
+    fi
 
     if test  -z "$CreationDate"; then
         # File not existing before ... Set the current date a POT-Creation-Date
@@ -177,13 +180,18 @@ function process_module {
     else
         sed -e "s/MODULE/$MODULE_NAME/" -e "s/CREATION-DATE/$CreationDate/" -e "s/REVISION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" $HEADER_TEMPLATE > $LOCALIZATION_FILE_US
     fi
-    cat $LOCALIZATION_FILE_US.tmp >> $LOCALIZATION_FILE_US
+    echo "LOCALIZATION_FILE_US : $LOCALIZATION_FILE_US"
+    msguniq -u $LOCALIZATION_FILE_US.tmp >> $LOCALIZATION_FILE_US
     rm $LOCALIZATION_FILE_US.tmp 2> /dev/null
+    MSGOUTPUT=$(msgcat $LOCALIZATION_FILE_US)
+    if test $? -ne 0; then
+        echo "Badly formated localization files"
+        exit 32
+    fi
     if test -z "$(msgcat $LOCALIZATION_FILE_US)"; then
         # empty template. Kill it!
         rm $LOCALIZATION_FILE_US
     fi
-
     # Remove fake file used to extract string from XML
     rm $FAKE_C_FILE 2> /dev/null
 
