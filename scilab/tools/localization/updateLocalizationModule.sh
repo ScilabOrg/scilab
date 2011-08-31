@@ -45,10 +45,8 @@ fi
 
 XGETTEXT=/usr/bin/xgettext
 FROM_CODE=ISO-8859-1
-EXTENSIONS=( 'c' 'h' 'cpp' 'hxx' 'java' )
-EXTENSIONS_MACROS=( sci sce start quit )
+EXTENSIONS=( 'c' 'h' 'cpp' 'hxx' 'java' 'sci' 'sce' 'start' 'quit' )
 TARGETDIR=locales/
-TARGETDIR_MACROS=locales_macros/
 HEADER_TEMPLATE=$SCI/modules/localization/data/header.pot
 GUI_FILES="etc/*.xml"
 FAKE_C_FILE=scilab_fake_localization_file.c
@@ -106,20 +104,9 @@ fi
 
 function process_module {
 
-    IS_MACROS=0
-    if test "$1" == "macros"; then
-        IS_MACROS=1
-    fi
-
 # Extract label from xml files
     process_XML_files
-    if test $IS_MACROS -eq 1; then
-        generate_find_command EXTENSIONS_MACROS
-        local TARGETDIR=$TARGETDIR_MACROS
-        if test ! -d $TARGETDIR; then mkdir $TARGETDIR; fi
-    else
-        generate_find_command EXTENSIONS
-    fi
+    generate_find_command EXTENSIONS
 
     FILES=`eval $FILESCMD|tr "\n" " "|sort`
 
@@ -129,22 +116,15 @@ function process_module {
     fi
 
     # Also extract string straight from the XML because we have some gettext calls in it
-    if test -n "$(ls $GUI_FILES 2>/dev/null)" -a $IS_MACROS -ne 1; then
+    if test -n "$(ls $GUI_FILES 2>/dev/null)"; then
         FILES="$FILES `ls $GUI_FILES`"
     fi
     MODULE_NAME=`echo $MODULE|sed -e 's|./||'` # avoid to have ./module_name
 
-    if test $IS_MACROS -eq 1; then
-        echo "..... Parsing all Scilab macros in $PATHTOPROCESS"
-    else
-        echo "..... Parsing all sources in $PATHTOPROCESS"
-    fi
+    echo "..... Parsing all sources in $PATHTOPROCESS"
 # Parse all the sources and get the string which should be localized
 
 
-    if test $IS_MACROS -eq 1; then
-        MODULE_NAME=$MODULE_NAME-macros
-    fi
     LOCALIZATION_FILE_US=$TARGETDIR/$MODULE_NAME.pot
 
     if test -f $LOCALIZATION_FILE_US; then
@@ -153,37 +133,42 @@ function process_module {
     fi
 
     echo "........ Generate the English localization file by parsing the code"
-    if test $IS_MACROS -eq 1; then
-        # It is Scilab code... xgettext does not how to process it
-        XGETTEXT_OPTIONS="$XGETTEXT_OPTIONS --language=C"
-    fi
 
     $XGETTEXT $XGETTEXT_OPTIONS -p $TARGETDIR/ -o $MODULE_NAME.pot.tmp $FILES > /dev/null
-
+    
+    if test -f $MODULE_NAME.pot.tmp; then
+        # Empty file => no string found
     # We need C strings format to be used as gettext key
     # "" -> \"
     # '' -> '
     # '" -> \"
-    # "' -> '
-    sed -e "s/\"\"/\\\"/g" -e "s/''/'/g" -e "s/'\"/\\\"/g" -e "s/\"'/'/g" $TARGETDIR/$MODULE_NAME.pot.tmp > $TARGETDIR/$MODULE_NAME.pot.tmp2
+    # "' -> '  -e "s/\"'/'/g"
+        sed -e "s/\"\"/\\\"/g" -e "s/''/'/g" -e "s/'\"/\\\"/g" $TARGETDIR/$MODULE_NAME.pot.tmp > $TARGETDIR/$MODULE_NAME.pot.tmp2
     # We introduced invalid tag [msgstr "] and [msgid "]
     # restore them [msgstr ""] and [msgid ""]
-    sed -e "s/msgstr \"$/msgstr \"\"/" -e "s/msgid \"$/msgid \"\"/" $TARGETDIR/$MODULE_NAME.pot.tmp2 > $TARGETDIR/$MODULE_NAME.pot.tmp
-    rm $TARGETDIR/$MODULE_NAME.pot.tmp2 2> /dev/null
+        sed -e "s/msgstr \"$/msgstr \"\"/" -e "s/msgid \"$/msgid \"\"/" $TARGETDIR/$MODULE_NAME.pot.tmp2 > $TARGETDIR/$MODULE_NAME.pot.tmp
+        rm $TARGETDIR/$MODULE_NAME.pot.tmp2 2> /dev/null
 
-    if test  -z "$CreationDate"; then
+        if test  -z "$CreationDate"; then
         # File not existing before ... Set the current date a POT-Creation-Date
-        sed -e "s/MODULE/$MODULE_NAME/" -e "s/CREATION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" -e "s/REVISION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" $HEADER_TEMPLATE > $LOCALIZATION_FILE_US
-    else
-        sed -e "s/MODULE/$MODULE_NAME/" -e "s/CREATION-DATE/$CreationDate/" -e "s/REVISION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" $HEADER_TEMPLATE > $LOCALIZATION_FILE_US
-    fi
-    cat $LOCALIZATION_FILE_US.tmp >> $LOCALIZATION_FILE_US
-    rm $LOCALIZATION_FILE_US.tmp 2> /dev/null
-    if test -z "$(msgcat $LOCALIZATION_FILE_US)"; then
-        # empty template. Kill it!
-        rm $LOCALIZATION_FILE_US
-    fi
+            sed -e "s/MODULE/$MODULE_NAME/" -e "s/CREATION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" -e "s/REVISION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" $HEADER_TEMPLATE > $LOCALIZATION_FILE_US
+        else
+            sed -e "s/MODULE/$MODULE_NAME/" -e "s/CREATION-DATE/$CreationDate/" -e "s/REVISION-DATE/`date +'%Y-%m-%d %H:%M'`$TIMEZONE/" $HEADER_TEMPLATE > $LOCALIZATION_FILE_US
+        fi
+        msguniq $LOCALIZATION_FILE_US.tmp >> $LOCALIZATION_FILE_US
 
+        rm $LOCALIZATION_FILE_US.tmp 2> /dev/null
+        
+        MSGOUTPUT=$(msgcat $LOCALIZATION_FILE_US)
+        if test $? -ne 0; then
+            echo "Badly formated localization files"
+            exit 32
+        fi
+        if test -z "$MSGOUTPUT"; then
+        # empty template. Kill it!
+            rm $LOCALIZATION_FILE_US
+        fi
+    fi 
     # Remove fake file used to extract string from XML
     rm $FAKE_C_FILE 2> /dev/null
 
@@ -201,7 +186,6 @@ for MODULE in $MODULES; do
 
     cd $PATHTOPROCESS
     process_module "src"
-    process_module "macros"
 
     cd $SCI/
 done # Browse modules
