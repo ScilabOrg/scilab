@@ -136,6 +136,7 @@ scilab-cli &lt;Options&gt;</synopsis>
           <literal>file</literal> is executed first (just after startup file
           execution) into Scilab. <literal>-e</literal> and
           <literal>-f</literal> options are mutually exclusive.</para>
+          <para>A file with .xcos extension will open it in xcos.</para>
         </listitem>
       </varlistentry>
 
