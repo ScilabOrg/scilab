@@ -485,6 +485,12 @@ SciErr createCommonNamedMatrixOfInteger(void* _pvCtx, const char* _pstName, int 
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonNamedMatrixOfInteger");
+        return sciErr;
+    }
+
 	C2F(str2name)(_pstName, iVarID, (int)strlen(_pstName));
     Top = Top + Nbvars + 1;
 

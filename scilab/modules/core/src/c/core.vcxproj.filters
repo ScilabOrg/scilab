@@ -185,9 +185,6 @@
     <ClCompile Include="parse.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="predef.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="readGateway.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -449,6 +446,9 @@
     <ClCompile Include="xscion.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\cpp\predef_variables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="banier.h">
@@ -619,9 +619,6 @@
     <ClInclude Include="..\..\includes\PATH_MAX.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="predef.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="readGateway.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -740,6 +737,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\xscion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cpp\predef_variables.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

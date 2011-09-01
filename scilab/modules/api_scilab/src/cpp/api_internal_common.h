@@ -65,5 +65,12 @@ int checkNamedVarType(void* _pvCtx, const char *_pstName, int _iType);
 */
 int checkNamedVarFormat(void* _pvCtx, const char *_pstName);
 
+/**
+* Check if the named variable type is protected by predef
+* @param[in] _pstName variable name
+* @return if predefined 1 otherwise 0
+*/
+int isNamedVarProtected(void* _pvCtx, const char *_pstName);
+
 #endif /* __INTERNAL_COMMON_API__ */
 

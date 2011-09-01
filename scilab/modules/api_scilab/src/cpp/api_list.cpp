@@ -193,6 +193,12 @@ static SciErr createCommonNamedList(void* _pvCtx, const char* _pstName, int _iLi
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -483,6 +489,12 @@ SciErr createCommonListInNamedList(void* _pvCtx, const char* _pstName, int* _piP
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonListInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
 	Top = Top + Nbvars + 1;
 
@@ -544,6 +556,12 @@ SciErr createVoidInNamedList(void* _pvCtx, const char* _pstName, int* _piParent,
     if (!checkNamedVarFormat(_pvCtx, _pstName))
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createVoidInNamedList");
+        return sciErr;
+    }
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createVoidInNamedList");
         return sciErr;
     }
 
@@ -609,6 +627,12 @@ SciErr createUndefinedInNamedList(void* _pvCtx, const char* _pstName, int* _piPa
     if (!checkNamedVarFormat(_pvCtx, _pstName))
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createUndefinedInNamedList");
+        return sciErr;
+    }
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createUndefinedInNamedList");
         return sciErr;
     }
 
@@ -852,6 +876,12 @@ SciErr createComplexZMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstNam
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createComplexZMatrixOfDoubleInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -903,6 +933,12 @@ SciErr createCommomMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstName,
     if (!checkNamedVarFormat(_pvCtx, _pstName))
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createCommomMatrixOfDoubleInNamedList");
+        return sciErr;
+    }
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommomMatrixOfDoubleInNamedList");
         return sciErr;
     }
 
@@ -1137,6 +1173,12 @@ SciErr createMatrixOfStringInNamedList(void* _pvCtx, const char* _pstName, int* 
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createMatrixOfStringInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
 	Top = Top + Nbvars + 1;
 
@@ -1335,7 +1377,13 @@ SciErr createMatrixOfBooleanInNamedList(void* _pvCtx, const char* _pstName, int*
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createMatrixOfBooleanInNamedList");
         return sciErr;
     }
-    
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createMatrixOfBooleanInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -1575,6 +1623,12 @@ SciErr createCommonMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, i
     if (!checkNamedVarFormat(_pvCtx, _pstName))
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createCommonMatrixOfPolyInNamedList");
+        return sciErr;
+    }
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonMatrixOfPolyInNamedList");
         return sciErr;
     }
 
@@ -1891,6 +1945,12 @@ static SciErr createCommonMatrixOfIntegerInNamedList(void* _pvCtx, const char* _
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonMatrixOfIntegerInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -2162,6 +2222,12 @@ SciErr createCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, i
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonSparseMatrixInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -2419,6 +2485,12 @@ SciErr createBooleanSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, 
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createBooleanSparseMatrixInNamedList");
+        return sciErr;
+    }
+
     C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
@@ -2660,6 +2732,12 @@ SciErr createPointerInNamedList(void* _pvCtx, const char* _pstName, int* _piPare
     if (!checkNamedVarFormat(_pvCtx, _pstName))
     {
         addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createPointerInNamedList");
+        return sciErr;
+    }
+
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createPointerInNamedList");
         return sciErr;
     }
 

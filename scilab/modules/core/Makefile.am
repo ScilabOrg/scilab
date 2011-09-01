@@ -76,7 +76,6 @@ src/c/setPrecisionFPU.c \
 src/c/LaunchScilabSignal.c \
 src/c/getos.c \
 src/c/mode_exec.c \
-src/c/predef.c \
 src/c/transposeMatrix.c \
 src/c/recursionFunction.c \
 src/c/typename.c \
@@ -93,6 +92,7 @@ src/c/signal_mgmt.c
 
 CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
 src/cpp/namstr.cpp \
+src/cpp/predef_variables.cpp \
 src/cpp/search_functions.cpp
 
 if USE_DYNAMIC_STACK
