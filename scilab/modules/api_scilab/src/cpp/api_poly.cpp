@@ -270,6 +270,12 @@ SciErr createCommonNamedMatrixOfPoly(void* _pvCtx, const char* _pstName, char* _
         return sciErr;
     }
 
+    if (isNamedVarProtected(_pvCtx, _pstName))
+    {
+        addErrorMessage(&sciErr, API_ERROR_NAMED_PREDEFINED_VAR, _("%s: Predefined variable name."), "createCommonNamedMatrixOfPoly");
+        return sciErr;
+    }
+
 	C2F(str2name)(_pstName, iVarID, (unsigned long)strlen(_pstName));
     Top = Top + Nbvars + 1;
 
