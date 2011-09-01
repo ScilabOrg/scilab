@@ -27,6 +27,7 @@
 #include "Scierror.h"
 #include "localization.h"
 #include "MALLOC.h"
+#include "predef.h"
 
 /*Global structure for scilab 5.x*/
 extern "C"
@@ -1149,5 +1150,10 @@ int checkNamedVarFormat(void* _pvCtx, const char *_pstName)
     // add here some others rules
 
     return iRet;
+}
+/*--------------------------------------------------------------------------*/
+int isNamedVarProtected(void* _pvCtx, const char *_pstName)
+{
+    return isPredefinedVariable(_pvCtx, _pstName);
 }
 /*--------------------------------------------------------------------------*/

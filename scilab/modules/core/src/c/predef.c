@@ -65,9 +65,9 @@ void predefAll(void)
     }
 }
 /*--------------------------------------------------------------------------*/
-BOOL isPredefinedVariable(const char *variablename)
+BOOL isPredefinedVariable(void* _pvCtx, const char *variablename)
 {
-    if (!isNamedVarExist(pvApiCtx, variablename))
+    if (isNamedVarExist(pvApiCtx, variablename))
     {
         int nbPredefined = getNumberPredefVariablesProtected() - 1; // remove ans
         if (nbPredefined > 0)

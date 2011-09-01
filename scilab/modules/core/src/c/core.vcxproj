@@ -383,6 +383,7 @@ cd.. &gt;nul
     <ClCompile Include="xscion.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\includes\predef.h" />
     <ClInclude Include="banier.h" />
     <ClInclude Include="..\..\includes\BOOL.h" />
     <ClInclude Include="callDynamicGateway.h" />
@@ -439,7 +440,6 @@ cd.. &gt;nul
     <ClInclude Include="parse.h" />
     <ClInclude Include="..\cpp\partition.hxx" />
     <ClInclude Include="..\..\includes\PATH_MAX.h" />
-    <ClInclude Include="predef.h" />
     <ClInclude Include="readGateway.h" />
     <ClInclude Include="..\..\includes\realmain.h" />
     <ClInclude Include="..\..\includes\recursionFunction.h" />

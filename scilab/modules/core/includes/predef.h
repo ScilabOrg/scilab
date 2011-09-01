@@ -15,6 +15,10 @@
 #ifndef __PREDEF_H__
 #define __PREDEF_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "BOOL.h"
 
 /**
@@ -44,7 +48,7 @@ void predefAll(void);
 * @param[in] variable name
 * @return TRUE (protected) or FALSE
 */
-BOOL isPredefinedVariable(const char *variablename);
+BOOL isPredefinedVariable(void* _pvCtx, const char *variablename);
 
 /**
 * get variables name protected by predef
@@ -52,6 +56,10 @@ BOOL isPredefinedVariable(const char *variablename);
 * @return array of strings predef variable
 */
 char **getPredefinedVariablesName(int *iReturnedSize);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __PREDEF_H__ */
 /*--------------------------------------------------------------------------*/
