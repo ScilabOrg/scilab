@@ -51,7 +51,7 @@ namespace org_modules_xml
          * Gets the list of open docs
          * @return the list
          */
-        static std::list<XMLDocument *> & getOpenDocuments();
+        static const std::list<XMLDocument *> & getOpenDocuments();
 
         /**
          * Closes all the open documents

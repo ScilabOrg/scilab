@@ -14,6 +14,7 @@
 #include "XMLDocument.hxx"
 #include "XMLElement.hxx"
 #include "XMLXPath.hxx"
+#include "XMLValidation.hxx"
 #include "VariableScope.hxx"
 
 extern "C" {
@@ -89,7 +90,7 @@ namespace org_modules_xml
         if (document)
         {
             openDocs.remove(this);
-            if (openDocs.size() == 0)
+            if (openDocs.size() == 0 && XMLValidation::getOpenValidationFiles().size() == 0)
             {
                 resetScope();
             }
@@ -233,7 +234,7 @@ namespace org_modules_xml
         }
     }
 
-    std::list<XMLDocument *> & XMLDocument::getOpenDocuments()
+    const std::list<XMLDocument *> & XMLDocument::getOpenDocuments()
     {
         return openDocs;
     }
@@ -276,6 +277,7 @@ namespace org_modules_xml
             *error = const_cast<char *>(errorBuffer->c_str());
         }
 
+	xmlSetGenericErrorFunc(ctxt, 0);
         xmlFreeParserCtxt(ctxt);
 
         return doc;
@@ -309,6 +311,7 @@ namespace org_modules_xml
             *error = const_cast<char *>(errorBuffer->c_str());
         }
 
+	xmlSetGenericErrorFunc(ctxt, 0);
         xmlFreeParserCtxt(ctxt);
 
         return doc;
