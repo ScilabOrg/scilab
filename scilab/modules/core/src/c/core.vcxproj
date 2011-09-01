@@ -235,6 +235,7 @@ cd.. &gt;nul
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\cpp\predef_variables.cpp" />
     <ClCompile Include="banier.c" />
     <ClCompile Include="callDynamicGateway.c" />
     <ClCompile Include="callFunctionFromGateway.c" />
@@ -293,7 +294,6 @@ cd.. &gt;nul
     <ClCompile Include="mode_exec.c" />
     <ClCompile Include="..\cpp\namstr.cpp" />
     <ClCompile Include="parse.c" />
-    <ClCompile Include="predef.c" />
     <ClCompile Include="readGateway.c" />
     <ClCompile Include="realmain.c" />
     <ClCompile Include="recursionFunction.c" />
@@ -383,6 +383,7 @@ cd.. &gt;nul
     <ClCompile Include="xscion.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\cpp\predef_variables.h" />
     <ClInclude Include="banier.h" />
     <ClInclude Include="..\..\includes\BOOL.h" />
     <ClInclude Include="callDynamicGateway.h" />
@@ -439,7 +440,6 @@ cd.. &gt;nul
     <ClInclude Include="parse.h" />
     <ClInclude Include="..\cpp\partition.hxx" />
     <ClInclude Include="..\..\includes\PATH_MAX.h" />
-    <ClInclude Include="predef.h" />
     <ClInclude Include="readGateway.h" />
     <ClInclude Include="..\..\includes\realmain.h" />
     <ClInclude Include="..\..\includes\recursionFunction.h" />

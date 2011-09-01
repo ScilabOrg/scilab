@@ -15,7 +15,7 @@
 #include "api_scilab.h"
 #include "localization.h"
 #include "Scierror.h"
-#include "predef.h"
+#include "predef_variables.h"
 #include "MALLOC.h"
 #include "freeArrayOfString.h"
 /*--------------------------------------------------------------------------*/
