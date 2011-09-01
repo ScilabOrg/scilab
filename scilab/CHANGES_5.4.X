@@ -473,3 +473,8 @@ Bug fixes:
                    getAllocatedMatrixOfWideString, getAllocatedNamedMatrixOfString,
                    and getAllocatedNamedMatrixOfWideString.
 
+* bug 9799 fixed - pol2str did not manage matrix of polynomials and input argument
+                   type was not checked.
+
+
+
