@@ -76,7 +76,7 @@ Xcos:
 * bug 9478 fixed - Block structure was not checked while adding them to a new
                    palette.
 
-* Bug 9501 fixed - With a localized TMPDIR, block edition could throw an HDF5 
+* Bug 9501 fixed - With a localized TMPDIR, block edition could throw an HDF5
                    exception.
 
 * bug 9506 fixed - some libraries dependencies were not loaded for xcos_skeleton startup.
@@ -288,16 +288,23 @@ Graphics:
 ATOMS:
 ======
 
+
 * bug 5380 fixed - atomsShow() output was broken (separators were not aligned).
+
+* bug 8648 fixed - We did not delete the tarball when removing a module (SEP 71).
 
 * bug 8664 fixed - Message error updated for non supported OS.
 
+* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
 * bug 9127 fixed - "Home" item renamed to "Installed Modules".
+
+* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
 
 * bug 9805 fixed - atomsSystemUpdate() failed on some Windows.
 
 
-* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
 
 
 Javasci:
@@ -311,8 +318,6 @@ returns the value of the ScilabTypeEnum enum.
 * bug 9544 fixed - Calling graphic with Javasci from a SWING application from
                    EDT was crashing the execution of a java program.
 
-
-* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
 
 Misc:
 =====
