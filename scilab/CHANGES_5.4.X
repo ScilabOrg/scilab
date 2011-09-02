@@ -516,6 +516,8 @@ ATOMS:
 
 * bug 5380 fixed - atomsShow() output was broken (separators were not aligned).
 
+* bug 8648 fixed - We did not delete the tarball when removing a module (SEP 71).
+
 * bug 8664 fixed - Message error updated for non supported OS.
 
 * bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
@@ -524,13 +526,21 @@ ATOMS:
 
 * bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
 
+<<<<<<< HEAD
 * bug 8942, 9805 fixed - atomsSystemUpdate() failed on some Windows.
+=======
+* bug 9805 fixed - atomsSystemUpdate() failed on some Windows.
+>>>>>>> 0845f88... bug fix 8648 - delete the tarball when uninstalling
 
 * bug 9967 fixed - windows UAC causing trouble with atomsRepositorySetOfl (internal function)
 
+<<<<<<< HEAD
 * bug 10025 fixed - wrong url in some examples from help files
 
 * bug 10031 fixed - atomsDisp did not work with Verbose option set to True and "\n" in messages.
+=======
+
+>>>>>>> 0845f88... bug fix 8648 - delete the tarball when uninstalling
 
 
 Javasci:
@@ -545,6 +555,7 @@ returns the value of the ScilabTypeEnum enum.
                    EDT was crashing the execution of a java program.
 
 
+<<<<<<< HEAD
 CACSD and Signal processing
 ==========================
 
@@ -574,6 +585,8 @@ CACSD and Signal processing
 * bug 9321 fixed - missing tests and help info for some CACSD functions
 
 
+=======
+>>>>>>> 0845f88... bug fix 8648 - delete the tarball when uninstalling
 Misc:
 =====
 
