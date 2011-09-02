@@ -149,6 +149,8 @@ Xcos:
 
 * Bug 9386 fixed - Diagram root cell could be invalid on hierarchical diagrams.
 
+* Bug 9501 fixed - With a localized TMPDIR, block edition could throw an HDF5 
+                   exception.
 
 Packaging:
 ==========
