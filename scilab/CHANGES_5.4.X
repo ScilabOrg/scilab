@@ -279,14 +279,21 @@ Graphics:
 ATOMS:
 ======
 
+* We can now delete the tarball when removing a module. 
+See bug 8648 and SEP_71.
+
 * bug 8664 fixed - Message error updated for non supported OS.
 
+* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
 * bug 9127 fixed - "Home" item renamed to "Installed Modules".
+
+* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
 
 * bug 9805 fixed - atomsSystemUpdate() failed on some Windows.
 
 
-* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
 
 
 Javasci:
@@ -300,8 +307,6 @@ returns the value of the ScilabTypeEnum enum.
 * bug 9544 fixed - Calling graphic with Javasci from a SWING application from
                    EDT was crashing the execution of a java program.
 
-
-* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
 
 Misc:
 =====
