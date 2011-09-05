@@ -3223,7 +3223,7 @@ function Code=make_standalone42()
     Code=[Code
           '/* Code prototype for standalone use  */'
           'int C2F('+rdnom+'simblk)(double , double *, double *);'
-          'extern  int C2F(dset)();'
+          'extern int cosdset(int *n, double *dx, double *dy, int *incy);'
           'int ode1();'
           'int ode2();'
           'int ode4();'
@@ -4090,7 +4090,7 @@ function Code=make_standalone42()
           '  int nport;'
           '  int nevprt=1;'
           '  double *args[100];'
-          '  C2F(dset)(&neq, &c_b14,xd , &c__1);'
+          '  cosdset(&neq, &c_b14,xd , &c__1);'
           '']
 
     Code=[Code;

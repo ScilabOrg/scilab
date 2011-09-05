@@ -136,4 +136,11 @@ void end_scicos_sim(void);
 */
 void Coserror(const char *fmt, ...);
 
+
+/**
+* cosdset is a alias of dset of elementary_functions
+* see bug 9732 it remove dependency on elementary_functions
+*/
+int cosdset(int *n, double *dx, double *dy, int *incy);
+
 #endif 

@@ -5194,4 +5194,11 @@ static int CallKinsol(double *told)
 	return status;
 } /* CallKinSol_ */ 
 /*--------------------------------------------------------------------------*/
+int cosdset(int *n, double *dx, double *dy, int *incy)
+{
+    /* this alias allows to remove direct dependency on elementary_functions */
+    /* see bug 9732 */
+    return C2F(dset)(n, dx, dy, incy);
+}
+/*--------------------------------------------------------------------------*/
 
