@@ -17,6 +17,7 @@
 #include "listinsert.hxx"
 #include "types_tools.hxx"
 #include "scilabexception.hxx"
+#include "inspector.hxx"
 
 extern "C"
 {
@@ -32,6 +33,9 @@ namespace types
     List::List() : Container()
     {
         m_plData = new std::vector<InternalType *>();
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     List::~List()
@@ -45,6 +49,9 @@ namespace types
             }
             delete m_plData;
         }
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
     }
 
     /**
@@ -62,6 +69,9 @@ namespace types
         }
 
         m_iSize = static_cast<int>(m_plData->size());
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     std::vector<InternalType *> *List::getData()

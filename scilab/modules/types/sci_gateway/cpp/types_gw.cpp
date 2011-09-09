@@ -29,6 +29,11 @@ int TypesModule::Load()
     symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"isfield", &sci_isfield, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"getfield", &sci_getfield, MODULE_NAME));
     symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"fieldnames", &sci_fieldnames, MODULE_NAME));
-
+#ifdef __ENABLE_INSPECTOR__
+    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"inspectorGetItemCount", &sci_inspectorGetItemCount, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"inspectorShowItem", &sci_inspectorShowItem, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"inspectorGetItem", &sci_inspectorGetItem, MODULE_NAME));
+    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"inspectorGetUnreferencedItem", &sci_inspectorGetUnreferencedItem, MODULE_NAME));
+#endif
     return 1;
 }

@@ -16,6 +16,7 @@
 #include "list.hxx"
 #include "tlist.hxx"
 #include "listundefined.hxx"
+#include "inspector.hxx"
 
 namespace types
 {
@@ -24,8 +25,17 @@ namespace types
     */
     TList::TList() : List()
     {
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
+    TList::~TList()
+    {
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
+    }
     /**
     ** Private Copy Constructor and data Access
     */
@@ -41,6 +51,9 @@ namespace types
         }
 
         m_iSize = static_cast<int>(m_plData->size());
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     /**

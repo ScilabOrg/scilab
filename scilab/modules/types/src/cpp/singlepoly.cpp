@@ -14,7 +14,7 @@
 #include "singlepoly.hxx"
 #include "double.hxx"
 #include "tostring_common.hxx"
-
+#include "inspector.hxx"
 extern "C"
 {
 #include "log.h"

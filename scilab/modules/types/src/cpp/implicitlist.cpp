@@ -22,12 +22,13 @@
 #include "uint16.hxx"
 #include "uint32.hxx"
 #include "uint64.hxx"
+#include "inspector.hxx"
 
-#include "core_math.h"
 #include "tostring_common.hxx"
 
 extern "C"
 {
+    #include "core_math.h"
     #include "elem_common.h"
 }
 
@@ -69,11 +70,17 @@ namespace types
                 }
             }
         }
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
     }
 
     ImplicitList::ImplicitList()
     {
         m_bComputed = false;
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     ImplicitList::ImplicitList(InternalType* _poStart, InternalType* _poStep, InternalType* _poEnd)
@@ -84,6 +91,9 @@ namespace types
         setStep(_poStep);
         setEnd(_poEnd);
         compute();
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     InternalType* ImplicitList::clone()

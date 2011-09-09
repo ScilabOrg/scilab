@@ -26,7 +26,12 @@ extern "C"
 namespace types
 {
 
-    ThreadId::~ThreadId() { }
+    ThreadId::~ThreadId()
+    {
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
+    }
 
     ThreadId::ThreadId(__threadId _id, __threadKey _key)
     {
@@ -34,6 +39,9 @@ namespace types
         m_threadKey = _key;
         __InitLock(&m_threadLock);
         m_threadStatus = Running;
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     __threadId ThreadId::getId()

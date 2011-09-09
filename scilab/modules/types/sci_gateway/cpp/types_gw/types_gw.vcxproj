@@ -77,7 +77,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\..\includes;..\..\..\..\functions_manager\includes;..\..\..\..\symbol\includes;..\..\..\..\types\includes;..\..\..\..\operations\includes;..\..\..\..\core\includes;../../../../ast/includes;../../../../api_scilab/includes;../../../../elementary_functions/includes;../../../../output_stream/includes;../../../../localization/includes;../../../../../libs/intl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_GW_EXPORTS;__ENABLE_INSPECTOR__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -105,7 +105,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\..\includes;..\..\..\..\functions_manager\includes;..\..\..\..\symbol\includes;..\..\..\..\types\includes;..\..\..\..\operations\includes;..\..\..\..\core\includes;../../../../ast/includes;../../../../api_scilab/includes;../../../../elementary_functions/includes;../../../../output_stream/includes;../../../../localization/includes;../../../../../libs/intl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_GW_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_GW_EXPORTS;__ENABLE_INSPECTOR__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -190,6 +190,10 @@
     <ClCompile Include="..\sci_fieldnames.cpp" />
     <ClCompile Include="..\sci_getfield.cpp" />
     <ClCompile Include="..\sci_insert.cpp" />
+    <ClCompile Include="..\sci_inspectorGetItem.cpp" />
+    <ClCompile Include="..\sci_inspectorGetItemCount.cpp" />
+    <ClCompile Include="..\sci_inspectorGetUnreferencedItem.cpp" />
+    <ClCompile Include="..\sci_inspectorShowItem.cpp" />
     <ClCompile Include="..\sci_isfield.cpp" />
     <ClCompile Include="..\sci_list.cpp" />
     <ClCompile Include="..\sci_makecell.cpp" />
