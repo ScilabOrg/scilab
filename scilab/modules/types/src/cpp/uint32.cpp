@@ -27,6 +27,9 @@ namespace types
         {
             deleteAll();
         }
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
     }
 
     UInt32::UInt32(int _iRows, int _iCols)
@@ -34,6 +37,9 @@ namespace types
         int piDims[2]           = {_iRows, _iCols};
         unsigned int *puiVal   = NULL;
         create(piDims, 2, &puiVal, NULL);
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     UInt32::UInt32(unsigned int _uiVal)
@@ -42,18 +48,27 @@ namespace types
         unsigned int *puiVal  = NULL;
         create(piDims, 2, &puiVal, NULL);
         puiVal[0] = _uiVal;
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     UInt32::UInt32(int _iRows, int _iCols, unsigned int** _puiVal)
     {
         int piDims[2]   = {_iRows, _iCols};
         create(piDims, 2, _puiVal, NULL);
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     UInt32::UInt32(int _iDims, int* _piDims)
     {
         unsigned int *puiVal    = NULL;
         create(_piDims, _iDims, &puiVal, NULL);
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
     }
 
     InternalType* UInt32::clone()
