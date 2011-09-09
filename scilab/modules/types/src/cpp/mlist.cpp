@@ -12,6 +12,7 @@
 
 #include <sstream>
 #include "mlist.hxx"
+#include "inspector.hxx"
 
 namespace types
 {
@@ -20,5 +21,15 @@ namespace types
     */
     MList::MList() : List()
     {
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::addItem(this);
+#endif
+    }
+
+    MList::~MList()
+    {
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
     }
 }

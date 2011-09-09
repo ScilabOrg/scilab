@@ -14,6 +14,7 @@
 #include <sstream>
 #include <vector>
 #include "function.hxx"
+#include "inspector.hxx"
 
 extern "C"
 {
@@ -58,6 +59,9 @@ namespace types
     {
         setName(_stName);
         setModule(_stModule);
+//#ifdef __ENABLE_INSPECTOR__
+//        Inspector::addItem(this);
+//#endif
     }
 
     Function::~Function()
@@ -65,6 +69,9 @@ namespace types
         if(isDeletable() == true)
         {
         }
+//#ifdef __ENABLE_INSPECTOR__
+//        Inspector::removeItem(this);
+//#endif
     }
 
     Function* Function::getAsFunction(void)

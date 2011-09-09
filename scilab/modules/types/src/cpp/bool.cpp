@@ -27,6 +27,9 @@ namespace types
         {
             deleteAll();
         }
+#ifdef __ENABLE_INSPECTOR__
+        Inspector::removeItem(this);
+#endif
     }
 
     Bool::Bool(int _iRows, int _iCols)
