@@ -77,7 +77,7 @@ fortransource=['      subroutine rosenf(ind,n,x,f,g,izs,rzs,dzs)'
 '      end'];
 mputl(fortransource,'rosenf.f');
 // compile the Fortran code
-libpath=ilib_for_link('rosenf','rosenf.c',[],'f');
+libpath=ilib_for_link('rosenf','rosenf.f',[],'f');
 // incremental linking
 linkid=link(libpath,'rosenf','f');
 chdir(cur_dir);
