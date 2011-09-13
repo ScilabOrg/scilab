@@ -515,3 +515,5 @@ Bug fixes:
                    and getAllocatedNamedMatrixOfWideString.
 
 * bug 9920 fixed - winqueryreg did not manage HKEY_CURRENT_CONFIG.
+
+* bug 9950 fixed - It was possible to select several texts in the console.
