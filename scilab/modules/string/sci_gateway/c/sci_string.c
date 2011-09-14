@@ -14,8 +14,10 @@
 #include <string.h>
 #include "gw_string.h"
 #include "stack-c.h"
+#include "stack-def.h"
 #include "localization.h"
 #include "Scierror.h"
+#include "api_scilab.h"
 /*--------------------------------------------------------------------------*/
 extern int C2F(intstring) (void); /* fortran routine */
 /*--------------------------------------------------------------------------*/
@@ -82,7 +84,18 @@ int sci_string(char *fname,unsigned long fname_len)
 			/* macros */
 			if (Lhs == 3)
 			{
-				C2F(intstring)();
+                char varname[nlgh];
+                SciErr sciErr = getVarNameFromPosition(pvApiCtx, 1, varname);
+                if (!sciErr.iErr)
+                {
+                    /* Bug 7249 */
+                    if (createSingleString(pvApiCtx, 1, varname) != 0)
+                    {
+                        Scierror(999,_("%s: Memory allocation error.\n"), fname);
+                        return 0;
+                    }
+                    OverLoad(1);
+                }
 			}
 			else SciError(41);
 		}

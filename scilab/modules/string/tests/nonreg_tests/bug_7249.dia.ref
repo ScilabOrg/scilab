@@ -1,0 +1,42 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Allan CORNET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- JVM NOT MANDATORY -->
+//
+// <-- Non-regression test for bug 7249 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=7249
+//
+// <-- Short Description -->
+// 'string' function did not work with a macro as input argument.
+//
+// =============================================================================
+function myFunc
+   disp("myFunc called");
+endfunction
+[in, out, txt] = string(myFunc);
+assert_checkequal(out, []);
+assert_checkequal(in, []);
+assert_checkequal(txt, fun2string(myFunc, 'myFunc'));
+// =============================================================================
+deff('y = mymacro(x)', 'y = x + 1');
+[out, in, text] = string(mymacro);
+assert_checkequal(out, 'y');
+assert_checkequal(in, 'x');
+assert_checkequal(text, fun2string(mymacro, 'mymacro'));
+// =============================================================================
+deff('y = mymacrob(x)', 'y = x + 1', 'n');
+[out, in, text] = string(mymacrob);
+assert_checkequal(out, 'y');
+assert_checkequal(in, 'x');
+assert_checkequal(text, fun2string(mymacrob, 'mymacrob'));
+// =============================================================================
+[out, in, text] = string(sinc);
+assert_checkequal(out, 'y');
+assert_checkequal(in, ['x'; 'fl']);
+assert_checkequal(text, fun2string(sinc, 'sinc'));
+// =============================================================================
