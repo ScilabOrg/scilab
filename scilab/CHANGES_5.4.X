@@ -270,6 +270,10 @@ Bug fixes:
 * bug 4847 fixed - In uigetfile, there was no way to select files with a given
                    pattern.
 
+* bug 6408 fixed - prompt() removed trailing whites.
+
+* bug 6819 fixed - prompt() interpreted '<...>' as html
+
 * bug 6875 fixed - test_run() could not run at once on the +3000 tests of
                    Scilab.
 
@@ -279,6 +283,8 @@ Bug fixes:
 
 * bug 7358 fixed - Help pages of type and typeof have now links to the actual
                    description pages.
+
+* bug 7815 fixed - tohome() worked too much.
 
 * bug 7895 fixed - fft2() was broken on Windows with MKL wrapper.
 
