@@ -73,7 +73,8 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 @ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorGetItemCount.cpp \
 @ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorGetUnreferencedItem.cpp \
 @ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorShowItem.cpp \
-@ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp
+@ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp \
+@ENABLE_DEBUG_TRUE@	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 
 @GUI_TRUE@am__append_4 = libscitypes.la
 check_PROGRAMS = testTypes$(EXEEXT)
@@ -142,13 +143,15 @@ am__libscitypes_algo_la_SOURCES_DIST = sci_gateway/cpp/types_gw.cpp \
 	sci_gateway/cpp/sci_inspectorGetItemCount.cpp \
 	sci_gateway/cpp/sci_inspectorGetUnreferencedItem.cpp \
 	sci_gateway/cpp/sci_inspectorShowItem.cpp \
-	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp
+	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp \
+	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 @ENABLE_DEBUG_TRUE@am__objects_1 = libscitypes_algo_la-sci_inspectorDeleteUnreferencedItems.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorGetItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorGetItemCount.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorGetUnreferencedItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorShowItem.lo \
-@ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorShowUnreferencedItem.lo
+@ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorShowUnreferencedItem.lo \
+@ENABLE_DEBUG_TRUE@	libscitypes_algo_la-sci_inspectorGetFunctionList.lo
 am__objects_2 = libscitypes_algo_la-types_gw.lo \
 	libscitypes_algo_la-sci_list.lo \
 	libscitypes_algo_la-sci_struct.lo \
@@ -782,6 +785,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_getfield.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_insert.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_inspectorDeleteUnreferencedItems.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_inspectorGetFunctionList.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_inspectorGetItem.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_inspectorGetItemCount.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sci_inspectorGetUnreferencedItem.Plo@am__quote@
@@ -994,6 +998,13 @@ libscitypes_algo_la-sci_inspectorShowUnreferencedItem.lo: sci_gateway/cpp/sci_in
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp' object='libscitypes_algo_la-sci_inspectorShowUnreferencedItem.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-sci_inspectorShowUnreferencedItem.lo `test -f 'sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp
+
+libscitypes_algo_la-sci_inspectorGetFunctionList.lo: sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-sci_inspectorGetFunctionList.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-sci_inspectorGetFunctionList.Tpo -c -o libscitypes_algo_la-sci_inspectorGetFunctionList.lo `test -f 'sci_gateway/cpp/sci_inspectorGetFunctionList.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-sci_inspectorGetFunctionList.Tpo $(DEPDIR)/libscitypes_algo_la-sci_inspectorGetFunctionList.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_inspectorGetFunctionList.cpp' object='libscitypes_algo_la-sci_inspectorGetFunctionList.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-sci_inspectorGetFunctionList.lo `test -f 'sci_gateway/cpp/sci_inspectorGetFunctionList.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 
 libscitypes_la-types.lo: src/cpp/types.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_la-types.lo -MD -MP -MF $(DEPDIR)/libscitypes_la-types.Tpo -c -o libscitypes_la-types.lo `test -f 'src/cpp/types.cpp' || echo '$(srcdir)/'`src/cpp/types.cpp

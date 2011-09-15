@@ -154,8 +154,14 @@ void execAstTask(ast::Exp* tree, bool timed, bool ASTtimed)
         exec = new ast::ExecVisitor();
     }
 
+    int iItems = types::Inspector::getItemCount();
+    int iUItems = types::Inspector::getUnreferencedItemCount();
+
     Runner::execAndWait(tree, exec);
     //delete exec;
+
+    iItems = types::Inspector::getItemCount();
+    iUItems = types::Inspector::getUnreferencedItemCount();
 
     if(timed)
     {
