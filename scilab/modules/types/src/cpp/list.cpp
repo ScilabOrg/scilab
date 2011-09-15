@@ -46,6 +46,10 @@ namespace types
             for (itValues = m_plData->begin() ; itValues != m_plData->end() ; ++itValues)
             {
                 (*itValues)->DecreaseRef();
+                if((*itValues)->isDeletable())
+                {
+                    delete *itValues;
+                }
             }
             delete m_plData;
         }

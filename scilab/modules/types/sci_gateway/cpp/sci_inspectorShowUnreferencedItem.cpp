@@ -19,7 +19,7 @@
 
 extern "C"
 {
-#include "scierror.h"
+#include "Scierror.h"
 #include "localization.h"
 #include "os_swprintf.h"
 }
