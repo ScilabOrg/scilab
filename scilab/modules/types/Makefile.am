@@ -103,7 +103,8 @@ GATEWAY_CPP_SOURCES += \
 	sci_gateway/cpp/sci_inspectorGetItemCount.cpp \
 	sci_gateway/cpp/sci_inspectorGetUnreferencedItem.cpp \
 	sci_gateway/cpp/sci_inspectorShowItem.cpp \
-	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp
+	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp \
+	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 endif
 
 libscitypes_la_CFLAGS=
