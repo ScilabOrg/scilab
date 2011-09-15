@@ -13,6 +13,10 @@
 #include "inspector.hxx"
 #include "types.hxx"
 
+extern "C"
+{
+#include <stdio.h>
+}
 namespace types
 {
 #ifndef NDEBUG

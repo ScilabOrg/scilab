@@ -78,7 +78,7 @@
     <ClCompile Include="..\sci_inspectorShowUnreferencedItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_inspectorGetFunctionList.cpp">
+    <ClCompile Include="..\sci_inspectorGetFunctionList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
