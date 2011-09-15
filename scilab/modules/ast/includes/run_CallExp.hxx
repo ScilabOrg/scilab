@@ -59,14 +59,14 @@ void visitprivate(const CallExp &e)
             if(execVar[j].is_single_result())
             {
                 in.push_back(execVar[j].result_get());
-                execVar[j].result_get()->IncreaseRef();
+                //execVar[j].result_get()->IncreaseRef();
             }
             else
             {
                 for(int i = 0 ; i < execVar[j].result_getSize() ; i++)
                 {
                     in.push_back(execVar[j].result_get(i));
-                    execVar[j].result_get(i)->IncreaseRef();
+                    //execVar[j].result_get(i)->IncreaseRef();
                 }
             }
         }
@@ -116,7 +116,7 @@ void visitprivate(const CallExp &e)
             {
                 if(execVar[k].result_get() != NULL)
                 {
-                    execVar[k].result_get()->DecreaseRef();
+                    //execVar[k].result_get()->DecreaseRef();
                 }
             }
 
