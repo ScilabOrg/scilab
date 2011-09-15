@@ -57,7 +57,7 @@ t1=log(1+%i)/dt;
 t2=log(2-3*%i)/dt;
 wnref=[0;log(2);abs(t1);abs(t1);abs(t2);abs(t2);%inf];
 zetaref=[-1;-1;-real(t1)/abs(t1);-real(t1)/abs(t1);-real(t2)/abs(t2);-real(t2)/abs(t2);%nan];
-assert_checkalmostequal (wn,wnref);
+assert_checkalmostequal (wn,wnref,[],1.e-14);
 assert_checkalmostequal (zeta,zetaref);
 
 dt=1;
@@ -66,7 +66,7 @@ t1=log(1+%i)/dt;
 t2=log(2-3*%i)/dt;
 wnref=[0;log(2);abs(t1);abs(t1);abs(t2);abs(t2);%inf];
 zetaref=[1;-1;-real(t1)/abs(t1);-real(t1)/abs(t1);-real(t2)/abs(t2);-real(t2)/abs(t2);%nan];
-assert_checkalmostequal (wn,wnref);
+assert_checkalmostequal (wn,wnref,[],1.e-14);
 assert_checkalmostequal (zeta,zetaref);
 
 //transfer function
@@ -82,7 +82,7 @@ t1=log(1+%i)/dt;
 t2=log(2-3*%i)/dt;
 wnref=[0;log(2);abs(t1);abs(t1);abs(t2);abs(t2);%inf];
 zetaref=[1;-1;-real(t1)/abs(t1);-real(t1)/abs(t1);-real(t2)/abs(t2);-real(t2)/abs(t2);%nan];
-assert_checkalmostequal (wn,wnref);
+assert_checkalmostequal (wn,wnref,[],1.e-14);
 assert_checkalmostequal (zeta,zetaref);
 
 //state-space
@@ -98,7 +98,7 @@ t1=log(1+%i)/dt;
 t2=log(2-3*%i)/dt;
 wnref=[0;log(2);abs(t1);abs(t1);abs(t2);abs(t2);%inf];
 zetaref=[1;-1;-real(t1)/abs(t1);-real(t1)/abs(t1);-real(t2)/abs(t2);-real(t2)/abs(t2);%nan];
-assert_checkalmostequal (wn,wnref) ;
+assert_checkalmostequal (wn,wnref,[],1.e-14);
 assert_checkalmostequal (zeta,zetaref) ;
 
 //invalid calls
