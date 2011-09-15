@@ -36,6 +36,16 @@ SciNotes:
 * bug 9597 fixed - It was not possible to navigate across the tabs with
                    <CTRL>+(PAGE_UP | PAGE_DOWN).
 
+* bug 9740 fixed - There was no way to have \n in replacement string.
+
+* bug 9854 fixed - There was a miscolorization with strings containing several
+                   dots: 'abc..'.
+
+* bug 9897 fixed - With Mac OS, eol was not replaced by \n when code was copyed
+                   from Word to SciNotes.
+
+* bug 9878 fixed - Add a shortcut "Correct indentation" in right click menu.
+
 
 Graphical User Interface:
 =========================
@@ -48,7 +58,11 @@ Xcos:
 
 * xcos_skeleton will not be loaded if you have not installed Xcos.
 
+* scilab -f file.xcos opens xcos diagram in xcos.
+
 * Error reporting has been improved to print warnings on blocks into Xcos.
+
+* bug 7985 fixed - dmmul.c did not use dgemm routine optimized by BLAS.
 
 * bug 8421 fixed - CLKFROM and CLKGOTO were not part of the "Signal Routing"
                    palette.
@@ -67,6 +81,9 @@ Xcos:
 * bug 9478 fixed - Block structure was not checked while adding them to a new
                    palette.
 
+* Bug 9501 fixed - With a localized TMPDIR, block edition could throw an HDF5
+                   exception.
+
 * bug 9506 fixed - some libraries dependencies were not loaded for xcos_skeleton startup.
 
 * bug 9532 fixed - Users defined blocks had no icons when saved
@@ -75,11 +92,22 @@ Xcos:
 
 * bug 9590 fixed - xcos examples were not embeded in binary version on Windows.
 
+* bug 9810 fixed - MATINV wrong simulation values errors has been improved.
+
+
+
+Localization:
+=============
+
+* Czech localization by Zbyněk Schwarz
+
 
 File input/output:
 ==================
 
 * mgetl, exec, fscanfMat functions manage files encoded as UTF-8 with BOM.
+
+* tempname function added (SEP 68).
 
 
 New functions
@@ -127,6 +155,11 @@ Optimization:
   See the help page of neldermead for details to update your
   code, if required.
 
+* bug 9566 fixed - The tolvarianceflag, tolabsolutevariance, 
+  tolrelativevariance options of neldermead are now obsolete.
+  See the help page of neldermead for details to update your
+  code, if required.
+
 * readmps - Created unit test.
             Fixed bug in the management of error messages.
             Fixed bug in the reading of a test file.
@@ -138,6 +171,8 @@ Optimization:
 
 * Bug 7889 fixed - The tolerance on x for neldermead was too small.
                    Updated -tolxrelative default value from %eps to sqrt(%eps).
+
+* Bug 8243 fixed - xgeom renamed to geom3d.
 
 * Bug 8805 fixed - The 'neldermead' function, algorithm box, wrongly used
                    the output function.
@@ -155,6 +190,8 @@ Optimization:
 
 * Bug 8546 fixed - The neldermead functions may call f outside the bounds.
 
+* Bug 8547 fixed - The neldermead function called f outside the constraints.
+
 * Bug 8552 fixed - Improved fminsearch to provide Extra Parameters.
                    Help page updated with new section "The cost function".
                    Help page updated with new example "Passing extra parameters".
@@ -167,6 +204,21 @@ Optimization:
 
 * Bug 9578 fixed - The optimbase_configure function does not check the
                    values of input arguments.
+
+* Bug 9607 fixed - The optimsimplex_new function poorly managed the
+                   variable number of arguments.
+
+Statistics:
+==============
+
+* bug 9357 fixed - stdevf returned zero for row vector arguments.
+
+* bug 9846 fixed - stdevf() gives zero result when a single row matrix is evaluated.
+
+Linear Algebra:
+==============
+
+* bug 9749 fixed - expm reported non convergence problem.
 
 
 Documentation:
@@ -184,8 +236,12 @@ Documentation:
 * Management of the revhistory / revision tag to provide information about
   the history of the function.
 
+* Bug 3431 fixed - some helptools functions were obsoletes and not removed.
+
 * Bug 9299 fixed - Fix a typo in the cspect, pspect and window help pages
                    (Hanning changed to Hann)
+
+* Bug 9320 fixed - analpf help page give wrong frequency units of omega (Hz instead of rd/s)
 
 * Bug 9417 fixed - In English, api_scilab polynom help pages updated to the word
                    polynomial
@@ -195,6 +251,7 @@ Documentation:
 * Bug 7133 fixed - help_from_sci function did not return the function template.
 
 * Bug 9790 fixed - windows_tools help were not available on all platforms.
+
 
 Removed functions (previously declared as obsolete):
 ====================================================
@@ -219,6 +276,8 @@ Performance:
 * bug 8608 fixed - dec2hex, hex2dec, dec2oct, oct2dec, code have been simplified
                    and optimized.
 
+* Performances of function pareto_filter (Genetic algorithms) improved.
+
 
 Compilation:
 ============
@@ -229,12 +288,32 @@ Compilation:
   as a static library (only available in the source tree).
   This will avoid an important dependency tree for unitary testing.
 
+* Force the Java class version target to version 6 (or 1.6).
+
+* Add Java 7 in the Debian & Ubuntu search path under GNU/Linux.
+
+* bug 9409 fixed - warning "remark #8291" removed with Intel Fortran 2011 compiler.
+
+* bug 9500 fixed - Explicit the GUI module manifest class-path to make Debian
+                   checking tool happy.
+
 * bug 9782 fixed - configure with --without-gui was failing.
+
+
+Dynamic link:
+=============
+
+* bug 9432 fixed - link a 64 bit dynamic library on a 32 bit platform returned
+                   a wrong error message on Windows.
+
+* bug 9761 fixed - "NDEBUG" was not defined for dynamic link (by default) in
+                   release mode on Windows.
+
+* bug 9930 fixed - ilib_build did not display all filenames used.
 
 
 Graphics:
 =========
-
 
 * bug 9330 fixed - delete() called overloading instead of deleting the current
                    graphic entity.
@@ -245,9 +324,18 @@ Graphics:
 ATOMS:
 ======
 
-* bug 9127 fixed - "Home" item renamed to "Installed Modules".
+* bug 5380 fixed - atomsShow() output was broken (separators were not aligned).
 
 * bug 8664 fixed - Message error updated for non supported OS.
+
+* bug 8763 fixed - ATOMS installation path was shared on Windows 64 with 32 bits.
+
+* bug 9127 fixed - "Home" item renamed to "Installed Modules".
+
+* bug 9679 fixed - atomsSystemUpdate checks that Scilab is not in offLine mode, else writes a message.
+
+* bug 9805 fixed - atomsSystemUpdate() failed on some Windows.
+
 
 Javasci:
 ========
@@ -266,7 +354,7 @@ Misc:
 
 * Change the buffering display mode.
 
-* SEP 67: lines(0) by default at startup.
+* SEP #67: lines(0) by default at startup.
 
 * Options -disable-exception-catching added under GNU/Linux & Mac OS X.
   Disables the Scilab exception catching system.
@@ -274,11 +362,17 @@ Misc:
 * PVM module moved as ATOMS module.
   atomsInstall('PVM')
 
+* SEP #69: predef('names') returns names of protected variables by predef.
+
 
 Bug fixes:
 ==========
 
 * bug 1604 fixed - list extraction failed.
+
+* bug 3291 fixed - SCI/modules/tclsci/tcl/BWidget-1.8.0/ moved as prerequirements.
+
+* bug 4576 fixed - An example of ilib_build with "cflags" argument was missing.
 
 * bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
                    is supplied by the 2nd input argument.
@@ -298,10 +392,14 @@ Bug fixes:
 
 * bug 7901 fixed - besselh.tst failed on Windows.
 
+* bug 8245 fixed - gsort() did not allow overloading with not managed types.
+
 * bug 8608 fixed - dec2hex, hex2dec, dec2oct and oct2dec code have been simplified
                    and optimized.
 
 * bug 8684 fixed - 'wfir' function produced an error message when used interactively.
+
+* bug 8688 fixed - fillMatrixOfString did not check available memory on stack.
 
 * bug 8768 fixed - GetRhsVar(..., STRING_DATATYPE, ...) did not check size of input argument.
 
@@ -312,6 +410,9 @@ Bug fixes:
 * bug 9098 fixed - demo CACSD --> Robust control failed on Windows 64 bit.
 
 * bug 9056 fixed - An uicontrol could not be closed with <META>+W.
+
+* bug 9104 fixed - 'warning' used in a diary scilab session added timestamp
+                   twice in the diary.
 
 * bug 9129 fixed - Completion on field did not propose graphics handle fields
                    by default.
@@ -332,9 +433,6 @@ Bug fixes:
 * bug 9277 fixed - escape character "\" did not work with msprintf.
 
 * bug 9354 fixed - 'savematfile' could not save imbricated structures.
-
-* bug 9432 fixed - link a 64 bit dynamic library on a 32 bit platform returned
-                   a wrong error message on Windows.
 
 * bug 9452 fixed - It was impossible to download Intel MKL throw a proxy.
 
@@ -363,12 +461,22 @@ Bug fixes:
 * bug 9599 fixed - error message "at line ... of function ... called by" was
                    printed directly on the same line.
 
+* bug 9635 fixed - some temp. variables were not removed when we used test_run.
+
 * bug 9647 fixed - On Scilab startup, the variable fft was declared by default
                    while it should not.
+
+* bug 9659 fixed - "error(246)" returned a bad message for overloading.
 
 * bug 9675 fixed - iir generated bad results.
 
 * bug 9682 fixed - 3D assignment into a 2D array of integers issued an error.
+
+* bug 9696 fixed - An error in an if expression inside a try make Scilab froze
+
+* bug 9707 fixed - createNamedXXX did not check variable name.
+
+* bug 9708 fixed - createNamedXXX did not check length of variable name.
 
 * bug 9716 fixed - amell.tst execution froze under Windows with reference lapack library.
 
@@ -387,9 +495,6 @@ Bug fixes:
 
 * bug 9756 fixed - polelm.tst unitary test failed on Windows 64 bit.
 
-* bug 9761 fixed - "NDEBUG" was not defined for dynamic link (by default) in
-                   release mode on Windows.
-
 * bug 9763 fixed - comet3d did not check input argument presence.
 
 * bug 9765 fixed - remove ref to scicos_pal in sci_f_clear.f
@@ -398,5 +503,37 @@ Bug fixes:
 
 * bug 9791 fixed - toolbar visible state change crash Scilab in NW mode.
 
+* bug 9799 fixed - pol2str did not manage matrix of polynomials and input argument
+                   type was not checked.
+
 * bug 9804 fixed - Starting Scilab with a external module emptied the
                    demo list menu.
+
+* bug 9833 fixed - percent was badly formatted by Scierror function.
+
+* bug 9836 fixed - repfreq failed due to "singular problem".
+
+* bug 9838 fixed - evstr froze on some specific strings.
+
+* bug 9843 fixed - colormaps with 2 colors could not be created.
+
+* bug 9858 fixed - length() could not be overloaded with mlist.
+
+* bug 9869 fixed - fscanf did not check number of input arguments.
+
+* bug 9879 fixed - Fix some minor issues in the isdir help pages.
+
+* bug 9880 fixed - Fix in the help page a page referencing itself.
+
+* bug 9881 fixed - Fix a mistake in the help page of call.
+
+* bug 9885 fixed - user initialization scripts (scilab.ini, .scilab) did not work.
+
+* bug 9899 fixed - string(10*log10(1/10)) gave -0, instead of -10
+
+* bug 9900 fixed - There was a memory leak in getAllocatedMatrixOfString,
+                   getAllocatedMatrixOfWideString, getAllocatedNamedMatrixOfString,
+                   and getAllocatedNamedMatrixOfWideString.
+
+* bug 9920 fixed - winqueryreg did not manage HKEY_CURRENT_CONFIG.
+
