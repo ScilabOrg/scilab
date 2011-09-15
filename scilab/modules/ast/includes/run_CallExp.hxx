@@ -59,14 +59,14 @@ void visitprivate(const CallExp &e)
             if(execVar[j].is_single_result())
             {
                 in.push_back(execVar[j].result_get());
-                execVar[j].result_get()->IncreaseRef();
+                //execVar[j].result_get()->IncreaseRef();
             }
             else
             {
                 for(int i = 0 ; i < execVar[j].result_getSize() ; i++)
                 {
                     in.push_back(execVar[j].result_get(i));
-                    execVar[j].result_get(i)->IncreaseRef();
+                    //execVar[j].result_get(i)->IncreaseRef();
                 }
             }
         }
@@ -77,6 +77,9 @@ void visitprivate(const CallExp &e)
         {
             T execCall;
             Function::ReturnValue Ret = pCall->call(in, iRetCount, out, &execCall);
+
+            //clear input parameters
+            delete[] execVar;
 
             if(Ret == Callable::OK)
             {
@@ -110,19 +113,6 @@ void visitprivate(const CallExp &e)
                 ConfigVariable::setLastErrorLine(e.location_get().first_line);
                 throw ScilabError();
             }
-
-
-            for (unsigned int k = 0; k < e.args_get().size(); k++)
-            {
-                if(execVar[k].result_get() != NULL)
-                {
-                    execVar[k].result_get()->DecreaseRef();
-                }
-            }
-
-            //std::cout << "before delete[]" << std::endl;
-            delete[] execVar;
-            //std::cout << "after delete[]" << std::endl;
 
             if(out.size() == 1)
             {//unprotect output values

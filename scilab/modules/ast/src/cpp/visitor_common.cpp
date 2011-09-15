@@ -628,8 +628,8 @@ bool getStructFromExp(const Exp* _pExp, types::Struct** _pMain, types::Struct** 
             *_pMain = pMain;
             *_pCurrent = pCurrent;
 
-            //clean pReturnedArgs return by GetArgumentList
-            for(int iArg = 0 ; iArg < pArgs->size() ; iArg++)
+            //clean pArgs return by getStructFromExp
+            for(int iArg = 0 ; pArgs != NULL && iArg < pArgs->size() ; iArg++)
             {
                 if((*pArgs)[iArg]->isDeletable())
                 {
@@ -637,6 +637,7 @@ bool getStructFromExp(const Exp* _pExp, types::Struct** _pMain, types::Struct** 
                 }
             }
             delete pArgs;
+            return true;
         }
         else
         {

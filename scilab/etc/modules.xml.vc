@@ -35,6 +35,7 @@
     <module name="jvm" activate="yes"/>
     <module name="helptools" activate="yes"/>
     <module name="hdf5" activate="yes"/>
+    <!--<module name="xcos" activate="yes"/>-->
     <module name="dynamic_link" activate="yes"/>
     <module name="action_binding" activate="yes"/>
     <module name="mexlib" activate="yes"/>
