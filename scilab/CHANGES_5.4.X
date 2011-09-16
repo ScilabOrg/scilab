@@ -492,6 +492,10 @@ Misc:
 
 * SEP #69: predef('names') returns names of protected variables by predef.
 
+* printf moved as alias on mprintf function.
+
+* sprintf moved as alias on msprintf function.
+
 
 Bug fixes:
 ==========
