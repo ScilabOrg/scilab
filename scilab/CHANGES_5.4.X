@@ -134,7 +134,7 @@ Optimization:
 
 * neldermead: Added a demo - search for largest smallest polygon.
 
-* Improved clarity of examples in the help pages of the 
+* Improved clarity of examples in the help pages of the
   optimization module.
   Avoid unnecessary calls to "deff".
   Avoid the "all statements in whole line" style.
@@ -163,7 +163,7 @@ Optimization:
   See the help page of neldermead for details to update your
   code, if required.
 
-* bug 9566 fixed - The tolvarianceflag, tolabsolutevariance, 
+* bug 9566 fixed - The tolvarianceflag, tolabsolutevariance,
   tolrelativevariance options of neldermead are now obsolete.
   See the help page of neldermead for details to update your
   code, if required.
@@ -379,6 +379,8 @@ Bug fixes:
 * bug 1604 fixed - list extraction failed.
 
 * bug 3291 fixed - SCI/modules/tclsci/tcl/BWidget-1.8.0/ moved as prerequirements.
+
+* bug 4240 fixed - Some unexpected blank lines was displayed with the "dir" function.
 
 * bug 4576 fixed - An example of ilib_build with "cflags" argument was missing.
 
