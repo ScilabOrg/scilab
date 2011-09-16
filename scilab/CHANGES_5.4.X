@@ -400,6 +400,9 @@ Bug fixes:
 
 * bug 7901 fixed - besselh.tst failed on Windows.
 
+* bug 8086 fixed - Wrong error message was displayed when no input argument
+                   provided.
+
 * Bug 8243 fixed - xgeom demonstration renamed to geom3d.
 
 * bug 8245 fixed - gsort() did not allow overloading with not managed types.
