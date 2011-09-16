@@ -198,97 +198,97 @@ let yynames_block = "\
 
 let yyact = [|
   (fun _ -> failwith "parser")
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : 'definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : 'definition) in
     Obj.repr(
 # 65 "xMLParser.mly"
                                                                 ( _1 )
 # 207 "xMLParser.ml"
                : XMLTree.t))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'model_definition) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'model_definition) in
     Obj.repr(
 # 69 "xMLParser.mly"
                                                                 ( _2 )
 # 214 "xMLParser.ml"
                : 'definition))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 3 : 'name) in
-    let _2 = (Parsing.peek_val __caml_parser_env 2 : 'elements_definition) in
-    let _3 = (Parsing.peek_val __caml_parser_env 1 : 'equations_definition) in
-    let _4 = (Parsing.peek_val __caml_parser_env 0 : 'when_clauses_definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 3 : 'name) in
+    let _2 = (peek_val parser_env 2 : 'elements_definition) in
+    let _3 = (peek_val parser_env 1 : 'equations_definition) in
+    let _4 = (peek_val parser_env 0 : 'when_clauses_definition) in
     Obj.repr(
 # 74 "xMLParser.mly"
                                                                 ( { name = _1; elements = _2; equations = _3; when_clauses = _4 } )
 # 224 "xMLParser.ml"
                : 'model_definition))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'element_list) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'element_list) in
     Obj.repr(
 # 78 "xMLParser.mly"
                                                                 ( List.rev _2 )
 # 231 "xMLParser.ml"
                : 'elements_definition))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 82 "xMLParser.mly"
                                                                 ( [] )
 # 237 "xMLParser.ml"
                : 'element_list))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : 'element_list) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'element_definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : 'element_list) in
+    let _2 = (peek_val parser_env 0 : 'element_definition) in
     Obj.repr(
 # 83 "xMLParser.mly"
                                                                 ( _2 :: _1 )
 # 245 "xMLParser.ml"
                : 'element_list))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'struct_contents) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'struct_contents) in
     Obj.repr(
 # 87 "xMLParser.mly"
                                                                 ( Struct _2 )
 # 252 "xMLParser.ml"
                : 'element_definition))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'terminal_contents) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'terminal_contents) in
     Obj.repr(
 # 89 "xMLParser.mly"
                                                                 ( Terminal _2 )
 # 259 "xMLParser.ml"
                : 'element_definition))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : 'name) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'subnodes_definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : 'name) in
+    let _2 = (peek_val parser_env 0 : 'subnodes_definition) in
     Obj.repr(
 # 93 "xMLParser.mly"
                                                                 ( { struct_name = _1; subnodes = _2 } )
 # 267 "xMLParser.ml"
                : 'struct_contents))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : string) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : string) in
     Obj.repr(
 # 97 "xMLParser.mly"
                                                                     ( _2 )
 # 274 "xMLParser.ml"
                : 'name))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'element_list) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'element_list) in
     Obj.repr(
 # 102 "xMLParser.mly"
                                                                 ( List.rev _2 )
 # 281 "xMLParser.ml"
                : 'subnodes_definition))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 8 : 'name) in
-    let _2 = (Parsing.peek_val __caml_parser_env 7 : 'kind) in
-    let _3 = (Parsing.peek_val __caml_parser_env 6 : 'id) in
-    let _4 = (Parsing.peek_val __caml_parser_env 5 : 'fixed_value) in
-    let _5 = (Parsing.peek_val __caml_parser_env 4 : 'initial_value_value) in
-    let _6 = (Parsing.peek_val __caml_parser_env 3 : 'nominal_value_value) in
-    let _7 = (Parsing.peek_val __caml_parser_env 2 : 'comment_value) in
-    let _8 = (Parsing.peek_val __caml_parser_env 1 : 'output) in
-    let _9 = (Parsing.peek_val __caml_parser_env 0 : 'select) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 8 : 'name) in
+    let _2 = (peek_val parser_env 7 : 'kind) in
+    let _3 = (peek_val parser_env 6 : 'id) in
+    let _4 = (peek_val parser_env 5 : 'fixed_value) in
+    let _5 = (peek_val parser_env 4 : 'initial_value_value) in
+    let _6 = (peek_val parser_env 3 : 'nominal_value_value) in
+    let _7 = (peek_val parser_env 2 : 'comment_value) in
+    let _8 = (peek_val parser_env 1 : 'output) in
+    let _9 = (peek_val parser_env 0 : 'select) in
     Obj.repr(
 # 108 "xMLParser.mly"
                                           ( { terminal_name = _1;
@@ -302,8 +302,8 @@ let yyact = [|
                                               fixed = _4 } )
 # 304 "xMLParser.ml"
                : 'terminal_contents))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : string) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : string) in
     Obj.repr(
 # 121 "xMLParser.mly"
                                                                 ( match _2 with
@@ -315,173 +315,173 @@ let yyact = [|
                                                                     | _ -> raise Parsing.Parse_error )
 # 317 "xMLParser.ml"
                : 'kind))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : string) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : string) in
     Obj.repr(
 # 132 "xMLParser.mly"
                                                                 ( _2 )
 # 324 "xMLParser.ml"
                : 'id))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 136 "xMLParser.mly"
                                                                 ( "" )
 # 330 "xMLParser.ml"
                : 'comment_value))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 137 "xMLParser.mly"
                                                                 ( _1 )
 # 337 "xMLParser.ml"
                : 'comment_value))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 141 "xMLParser.mly"
                                                                 ( "" )
 # 343 "xMLParser.ml"
                : 'initial_value_value))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 142 "xMLParser.mly"
                                                                 ( _1 )
 # 350 "xMLParser.ml"
                : 'initial_value_value))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 146 "xMLParser.mly"
                                                                 ( "" )
 # 356 "xMLParser.ml"
                : 'fixed_value))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 147 "xMLParser.mly"
                                                                 ( _1 )
 # 363 "xMLParser.ml"
                : 'fixed_value))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 151 "xMLParser.mly"
                                                                 ( "" )
 # 369 "xMLParser.ml"
                : 'nominal_value_value))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 152 "xMLParser.mly"
                                                                 ( _1 )
 # 376 "xMLParser.ml"
                : 'nominal_value_value))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 156 "xMLParser.mly"
                                                                 ( false )
 # 382 "xMLParser.ml"
                : 'output))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 157 "xMLParser.mly"
                                                                 ( true )
 # 388 "xMLParser.ml"
                : 'output))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 161 "xMLParser.mly"
                                                                 ( false )
 # 394 "xMLParser.ml"
                : 'select))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 162 "xMLParser.mly"
                                                                 ( true )
 # 400 "xMLParser.ml"
                : 'select))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'equation_list) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'equation_list) in
     Obj.repr(
 # 166 "xMLParser.mly"
                                                                 ( List.rev _2 )
 # 407 "xMLParser.ml"
                : 'equations_definition))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 170 "xMLParser.mly"
                                                                 ( [] )
 # 413 "xMLParser.ml"
                : 'equation_list))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : 'equation_list) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'equation_definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : 'equation_list) in
+    let _2 = (peek_val parser_env 0 : 'equation_definition) in
     Obj.repr(
 # 171 "xMLParser.mly"
                                                                 ( _2 :: _1 )
 # 421 "xMLParser.ml"
                : 'equation_list))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 175 "xMLParser.mly"
                                                                 ( _1 )
 # 428 "xMLParser.ml"
                : 'equation_definition))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 179 "xMLParser.mly"
                                                                 ( [] )
 # 434 "xMLParser.ml"
                : 'when_clauses_definition))
-; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 1 : 'when_clause_list) in
+; (fun parser_env ->
+    let _2 = (peek_val parser_env 1 : 'when_clause_list) in
     Obj.repr(
 # 180 "xMLParser.mly"
                                                                 ( List.rev _2 )
 # 441 "xMLParser.ml"
                : 'when_clauses_definition))
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 184 "xMLParser.mly"
                                                                 ( [] )
 # 447 "xMLParser.ml"
                : 'when_clause_list))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : 'when_clause_list) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : 'when_clause_definition) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : 'when_clause_list) in
+    let _2 = (peek_val parser_env 0 : 'when_clause_definition) in
     Obj.repr(
 # 185 "xMLParser.mly"
                                                                 ( _2 :: _1 )
 # 455 "xMLParser.ml"
                : 'when_clause_list))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 189 "xMLParser.mly"
                                                                 ( _1 )
 # 462 "xMLParser.ml"
                : 'when_clause_definition))
 (* Entry xML_definition_eof *)
-; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))
+; (fun parser_env -> raise (YYexit (peek_val parser_env 0)))
 |]
 let yytables =
-  { Parsing.actions=yyact;
-    Parsing.transl_const=yytransl_const;
-    Parsing.transl_block=yytransl_block;
-    Parsing.lhs=yylhs;
-    Parsing.len=yylen;
-    Parsing.defred=yydefred;
-    Parsing.dgoto=yydgoto;
-    Parsing.sindex=yysindex;
-    Parsing.rindex=yyrindex;
-    Parsing.gindex=yygindex;
-    Parsing.tablesize=yytablesize;
-    Parsing.table=yytable;
-    Parsing.check=yycheck;
-    Parsing.error_function=parse_error;
-    Parsing.names_const=yynames_const;
-    Parsing.names_block=yynames_block }
+  { actions=yyact;
+    transl_const=yytransl_const;
+    transl_block=yytransl_block;
+    lhs=yylhs;
+    len=yylen;
+    defred=yydefred;
+    dgoto=yydgoto;
+    sindex=yysindex;
+    rindex=yyrindex;
+    gindex=yygindex;
+    tablesize=yytablesize;
+    table=yytable;
+    check=yycheck;
+    error_function=parse_error;
+    names_const=yynames_const;
+    names_block=yynames_block }
 let xML_definition_eof (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
-   (Parsing.yyparse yytables 1 lexfun lexbuf : XMLTree.t)
+   (yyparse yytables 1 lexfun lexbuf : XMLTree.t)
 ;;
 # 192 "xMLParser.mly"
 

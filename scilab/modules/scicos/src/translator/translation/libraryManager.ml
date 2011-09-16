@@ -2,7 +2,7 @@
  *  Translator from Modelica 2.x to flat Modelica
  *
  *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -56,10 +56,14 @@ and parse_file lib_syns file_name =
 
 and modelica_file_names_of lib_path =
   let rec modelica_file_names_of' acc lib_path =
-    let base_name = basename lib_path
-    and dir_name = dirname lib_path in
+    let base_name = Filename.basename lib_path
+    and dir_name = Filename.dirname lib_path in
     let lib_path = Filename.concat dir_name base_name in
-    match is_directory lib_path with
+    let is_directory =
+      try
+        Sys.is_directory lib_path
+      with _ -> false in
+    match is_directory with
     | true ->
         let names = Array.to_list (Sys.readdir lib_path) in
         let lib_paths =
@@ -68,19 +72,4 @@ and modelica_file_names_of lib_path =
     | false when Filename.check_suffix lib_path ".mo" -> lib_path :: acc
     | false -> acc in
   modelica_file_names_of' [] lib_path
-
-and basename lib_path =
-  match Filename.basename lib_path with
-  | "." -> basename (Filename.dirname lib_path)
-  | s -> s
-
-and dirname lib_path =
-  match Filename.basename lib_path with
-  | "." -> dirname (Filename.dirname lib_path)
-  | _ -> Filename.dirname lib_path
-
-and is_directory dirname =
-  try
-    Sys.is_directory dirname
-  with _ -> false
 

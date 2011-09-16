@@ -1,8 +1,8 @@
 (*
  *  Modelicac
  *
- *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  Copyright (C) 2005 - 2007 Imagine S.A. and INRIA Metalau
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -40,9 +40,9 @@ module Make(G: CODEGENERATOR): S =
       "@(#)Modelicac Copyright (C)\n\
         2003-2004 TNI-Valiosys,\n\
         2005-2007 Imagine,\n\
-        2007-2009 LMS-Imagine"
+        2007-2010 LMS-Imagine INRIA-Metalau"
 
-    let version = "1.12.1"
+    let version = "1.12.2"
 
     let path = ref ""
 
