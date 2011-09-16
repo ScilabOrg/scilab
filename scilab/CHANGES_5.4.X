@@ -554,3 +554,6 @@ Bug fixes:
 
 * bug 9920 fixed - winqueryreg did not manage HKEY_CURRENT_CONFIG.
 
+* bug 9971 fixed - GLoad macro not used and not documented is removed.
+
+

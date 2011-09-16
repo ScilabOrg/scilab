@@ -1894,7 +1894,6 @@ ndims
 IsAScalar
 acsc
 log2
-GLoad
 perms
 csc
 tanh
