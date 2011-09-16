@@ -53,49 +53,49 @@ let yynames_block = "\
 
 let yyact = [|
   (fun _ -> failwith "parser")
-; (fun __caml_parser_env ->
+; (fun parser_env ->
     Obj.repr(
 # 38 "stringParser.mly"
                             ( "" )
 # 61 "stringParser.ml"
                : string))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 39 "stringParser.mly"
                             ( _1 )
 # 68 "stringParser.ml"
                : string))
-; (fun __caml_parser_env ->
-    let _1 = (Parsing.peek_val __caml_parser_env 1 : string) in
-    let _2 = (Parsing.peek_val __caml_parser_env 0 : string) in
+; (fun parser_env ->
+    let _1 = (peek_val parser_env 1 : string) in
+    let _2 = (peek_val parser_env 0 : string) in
     Obj.repr(
 # 40 "stringParser.mly"
                             ( _1 ^ _2 )
 # 76 "stringParser.ml"
                : string))
 (* Entry parse_string *)
-; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))
+; (fun parser_env -> raise (YYexit (peek_val parser_env 0)))
 |]
 let yytables =
-  { Parsing.actions=yyact;
-    Parsing.transl_const=yytransl_const;
-    Parsing.transl_block=yytransl_block;
-    Parsing.lhs=yylhs;
-    Parsing.len=yylen;
-    Parsing.defred=yydefred;
-    Parsing.dgoto=yydgoto;
-    Parsing.sindex=yysindex;
-    Parsing.rindex=yyrindex;
-    Parsing.gindex=yygindex;
-    Parsing.tablesize=yytablesize;
-    Parsing.table=yytable;
-    Parsing.check=yycheck;
-    Parsing.error_function=parse_error;
-    Parsing.names_const=yynames_const;
-    Parsing.names_block=yynames_block }
+  { actions=yyact;
+    transl_const=yytransl_const;
+    transl_block=yytransl_block;
+    lhs=yylhs;
+    len=yylen;
+    defred=yydefred;
+    dgoto=yydgoto;
+    sindex=yysindex;
+    rindex=yyrindex;
+    gindex=yygindex;
+    tablesize=yytablesize;
+    table=yytable;
+    check=yycheck;
+    error_function=parse_error;
+    names_const=yynames_const;
+    names_block=yynames_block }
 let parse_string (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
-   (Parsing.yyparse yytables 1 lexfun lexbuf : string)
+   (yyparse yytables 1 lexfun lexbuf : string)
 ;;
 # 43 "stringParser.mly"
 

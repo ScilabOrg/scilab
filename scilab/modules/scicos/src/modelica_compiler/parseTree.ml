@@ -1,8 +1,8 @@
 (*
  *  Modelicac
  *
- *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  Copyright (C) 2005 - 2007 Imagine S.A. and INRIA Metalau
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -19,6 +19,19 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  *)
+
+(* To be extended like:
+type 'a node =
+  {
+    location : location option ;
+    value : 'a
+  }
+
+and type t =
+  | StoredDefinition of within node * definition node list
+...
+and so on. Hence, location information will be added to the parse tree
+to generate accurate error messages. *)
 
 type t =
   | StoredDefinition of within * definition list

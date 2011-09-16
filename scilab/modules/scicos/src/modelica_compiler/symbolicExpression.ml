@@ -1,8 +1,8 @@
 (*
  *  Modelicac
  *
- *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  Copyright (C) 2005 - 2007 Imagine S.A. and INRIA Metalau
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -734,7 +734,7 @@ and symbolic_cos node =
 
 and symbolic_cosh node =
   if node == zero then one
-  else create_arcHyperbolicCosine node
+  else create_hyperbolicCosine node
 
 and symbolic_derive node' num = match num with
   | Int 0 -> node'
