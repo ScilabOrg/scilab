@@ -84,6 +84,8 @@ typedef struct
     void **work;
     int nmode;
     int *mode;
+    double *alpha;
+    double *beta;
 } scicos_block;
 
 /** define scicos flag number */
@@ -112,6 +114,8 @@ double Get_Jacobian_ci(void);
 double Get_Scicos_SQUR(void);
 void Set_Jacobian_flag(int flag);
 
+#define SetAjac(blk,n) (Set_Jacobian_flag( n))
+
 int Convert_number(char *, double *);
 void homotopy(double *);
 int hfjac_(double *, double *, int *);
@@ -122,7 +126,7 @@ int read_xml_initial_states(int nvar, const char *xmlfile, char **ids, double *s
 int write_xml_states(int, const char *, char **, double *);
 
 /** Define scicos simulator data type number (_N) */
-typedef enum
+typedef enum scicos_datatype_number
 {
     SCSREAL_N = 10,
     SCSCOMPLEX_N = 11,
@@ -135,7 +139,7 @@ typedef enum
     SCSUINT16_N = 812,
     SCSUINT32_N = 814,
     SCSUNKNOW_N = -1
-} scicos_datatype_number;
+};
 
 /* Define scicos simulator data type C operators (_COP) */
 #define SCSREAL_COP double
@@ -684,5 +688,28 @@ typedef enum
 #ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #endif
+
+///////////// Modelica compiler 1.12.2 ////////
+#define GetOutPtrs(blk) (blk->outptr)
+#define SetBlockError(block,val)    (set_block_error(val))
+#define GetInPtrs(blk) (blk->inptr)
+typedef enum
+{ PHASE_MESHPOINT = 0, PHASE_DISCRETE = 1, PHASE_TRY_MFX = 2 } PHASE_SIMULATOR;
+
+#define areModesFixed(block)        ( GetSimulationPhase(block)==PHASE_TRY_MFX )
+#define GetSimulationPhase(block)   (get_phase_simulation())
+#define GetPtrWorkPtrs(blk) (blk->work)
+#define GetScicosTime(block)        (get_scicos_time())
+
+/**
+\brief Get pointer of alpha register.
+*/
+#define GetAlphaPt(blk) (blk->alpha)
+
+/**
+\brief Get pointer of beta register.
+*/
+#define GetBetaPt(blk) (blk->beta)
+////////////
 
 #endif /* __SCICOS_BLOCK_H__ */

@@ -1,4 +1,4 @@
-# 23 "linenum.mll"
+# 23 "src/translator/parsing/linenum.mll"
  
 
 (** Convert {! Parser.location } to line and column numbers. *)
@@ -7,7 +7,7 @@ let linenum = ref 0
 let linebeg = ref 0
 
 
-# 11 "linenum.ml"
+# 11 "src/translator/parsing/linenum.ml"
 let __ocaml_lex_tables = {
   Lexing.lex_base = 
    "\000\000\254\255\001\000\255\255";
@@ -98,28 +98,28 @@ let __ocaml_lex_tables = {
 }
 
 let rec skip_line lexbuf =
-    __ocaml_lex_skip_line_rec lexbuf 0
+  __ocaml_lex_skip_line_rec lexbuf 0
 and __ocaml_lex_skip_line_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 34 "linenum.mll"
+# 34 "src/translator/parsing/linenum.mll"
       ( incr linenum;
         linebeg := Lexing.lexeme_start lexbuf;
         Lexing.lexeme_end lexbuf )
-# 110 "linenum.ml"
+# 110 "src/translator/parsing/linenum.ml"
 
   | 1 ->
-# 38 "linenum.mll"
+# 38 "src/translator/parsing/linenum.mll"
       ( incr linenum;
         linebeg := Lexing.lexeme_start lexbuf;
         raise End_of_file )
-# 117 "linenum.ml"
+# 117 "src/translator/parsing/linenum.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf; __ocaml_lex_skip_line_rec lexbuf __ocaml_lex_state
 
 ;;
 
-# 42 "linenum.mll"
+# 42 "src/translator/parsing/linenum.mll"
  
 
 let for_position file loc =
@@ -135,4 +135,4 @@ let for_position file loc =
   (!linenum - 1, !linebeg)
 
 
-# 139 "linenum.ml"
+# 139 "src/translator/parsing/linenum.ml"

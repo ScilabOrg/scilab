@@ -1,30 +1,4 @@
-#  Scicos
-#
-#  Copyright (C) INRIA - scilab 
-#  Copyright (C) DIGITEO - 2009 - Allan CORNET
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-# See the file ./license.txt
-
-!IF "$(OCAMLLIB)" == ""
 OCAMLPATH=C:\Program Files\Objective Caml
-!ELSE
-OCAMLPATH=$(OCAMLLIB)\..
-!ENDIF
-
 OCAMLPATHBIN=$(OCAMLPATH)\bin
 OCAMLPATHLIB=$(OCAMLPATH)\lib
 OCAMLC=ocamlc
@@ -35,9 +9,7 @@ OCAMLYACC=ocamlyacc
 OCAMLLEX=ocamllex
 RM=del
 EXEC=modelicac.exe
-OCAMLLIBS=nums.cmxa
-PARSER_SRC=parser.mly
-LEXER_SRC=lexer.mll
+TRANSLATOR=translator.exe
 
 MLS=parseTree.ml linenum.ml parser.ml lexer.ml\
 	precompilation.ml compilation.ml instantiation.ml\
@@ -46,6 +18,7 @@ MLS=parseTree.ml linenum.ml parser.ml lexer.ml\
 	causalityGraph.ml\
 	optimization.ml xMLCodeGeneration.ml optimizingCompiler.ml\
 	scicosCodeGeneration.ml scicosOptimizingCompiler.ml
+
     
 CMACMO=linenum.cmo nums.cma parseTree.cmo parser.cmo \
        lexer.cmo precompilation.cmo compilation.cmo \
@@ -54,28 +27,31 @@ CMACMO=linenum.cmo nums.cma parseTree.cmo parser.cmo \
        causalityGraph.cmo optimization.cmo scicosCodeGeneration.cmo \
        xMLCodeGeneration.cmo optimizingCompiler.cmo
 
-CMX=parseTree.cmx linenum.cmx parser.cmx lexer.cmx \
-	precompilation.cmx compilation.cmx instantiation.cmx \
-	graphNodeSet.cmx symbolicExpression.cmx squareSparseMatrix.cmx \
-	bipartiteGraph.cmx hungarianMethod.cmx causalityGraph.cmx \
-	optimization.cmx xMLCodeGeneration.cmx optimizingCompiler.cmx \
-	scicosCodeGeneration.cmx scicosOptimizingCompiler.cmx
+CMXACMX=linenum.cmx nums.cmxa parseTree.cmx parser.cmx \
+       lexer.cmx precompilation.cmx compilation.cmx \
+       instantiation.cmx graphNodeSet.cmx symbolicExpression.cmx \
+       squareSparseMatrix.cmx bipartiteGraph.cmx hungarianMethod.cmx \
+       causalityGraph.cmx optimization.cmx scicosCodeGeneration.cmx \
+       xMLCodeGeneration.cmx optimizingCompiler.cmx	
 
-all:: step1 step2 step3 step4 step5 step6
+all:: step1 step2 step3 step4 step5 step6 translatorall
+
+translatorall:
+	@cd moca_v2\modelica;$(MAKE) depend;$(MAKE) opt;copy translation\$(TRANSLATOR) ..\..\..\bin\$(TRANSLATOR)	
 
 
 step1: 
-	@"$(OCAMLPATHBIN)\$(OCAMLLEX)" linenum.mll
-	@"$(OCAMLPATHBIN)\$(OCAMLYACC)" $(PARSER_SRC)
+  @"$(OCAMLPATHBIN)\$(OCAMLLEX)" linenum.mll
+	@"$(OCAMLPATHBIN)\$(OCAMLYACC)" parser.mly
 	@$(RM) parser.mli
-	@"$(OCAMLPATHBIN)\$(OCAMLLEX)" $(LEXER_SRC)
+	@"$(OCAMLPATHBIN)\$(OCAMLLEX)" lexer.mll
 	
-	
+
 step2:
 	@"$(OCAMLPATHBIN)\$(OCAMLDEP)" $(MLS)
-	
+
 step3: 
-	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c linenum.ml
+  @"$(OCAMLPATHBIN)\$(OCAMLC)" -c linenum.ml
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c parseTree.mli
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c parseTree.ml
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c parser.ml
@@ -108,10 +84,8 @@ step3:
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c scicosCodeGeneration.ml
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -c scicosOptimizingCompiler.ml
 	
-	
 step4:
 	@"$(OCAMLPATHBIN)\$(OCAMLC)" -o $(EXEC) $(CMACMO) scicosOptimizingCompiler.ml
-	
 	
 step5:
 	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -c linenum.ml
@@ -132,31 +106,34 @@ step5:
 	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -c scicosCodeGeneration.ml
 	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -c optimizingCompiler.ml
 	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -c scicosOptimizingCompiler.ml
-	
+
 	
 step6:
-	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -o $(EXEC) $(OCAMLLIBS) $(CMX)
-	@copy  $(EXEC) ..\..\..\..\bin\$(EXEC)
+	@"$(OCAMLPATHBIN)\$(OCAMLOPT)" -o $(EXEC) $(CMXACMX) scicosOptimizingCompiler.ml
+	@copy  $(EXEC) ..\bin\$(EXEC)	
+	
 	
 clean::
-	@-$(RM)  *.cmi
-	@-$(RM)  *.cmo
-	@-$(RM)  *.cmx
-	@-$(RM)  *.obj
-	@-$(RM)  parser.ml
-	@-$(RM)  lexer.ml
-	@-$(RM)  linenum.ml
-	@-$(RM)  *.exe
-	@-$(RM)  ..\..\..\..\bin\$(EXEC)
-	
-	
+	-$(RM)  *.cmi
+	-$(RM)  *.cmo
+	-$(RM)  *.cmx
+	-$(RM)  *.obj
+	-$(RM)  parser.ml
+	-$(RM)  lexer.ml
+	-$(RM)  linenum.ml
+	-$(RM)  *.exe
+	-$(RM)  ..\bin\$(EXEC)
+	@cd moca_v2\modelica;$(MAKE) clean; 
+	-$(RM)  ..\bin\$(TRANSLATOR)
+
+
 distclean::
-	@-$(RM)  *.cmi
-	@-$(RM)  *.cmo
-	@-$(RM)  *.cmx
-	@-$(RM)  *.obj
-	@-$(RM)  parser.ml
-	@-$(RM)  lexer.ml
-	@-$(RM)  linenum.ml
-	@-$(RM)  *.exe
-	
+	-$(RM)  *.cmi
+	-$(RM)  *.cmo
+	-$(RM)  *.cmx
+	-$(RM)  *.obj
+	-$(RM)  parser.ml
+	-$(RM)  lexer.ml
+	-$(RM)  linenum.ml
+	-$(RM)  *.exe
+
