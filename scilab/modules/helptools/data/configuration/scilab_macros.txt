@@ -1930,6 +1930,12 @@ intersect
 hex2dec
 ndims
 acosd
+%sp_gsort
+IsAScalar
+acsc
+log2
+perms
+csc
 tanh
 cellstr
 cell2mat
