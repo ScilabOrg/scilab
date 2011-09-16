@@ -1,8 +1,8 @@
 (*
  *  Modelicac
  *
- *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  Copyright (C) 2005 - 2007 Imagine S.A. and INRIA Metalau
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@
  *)
 
 open Num
-open SymbolicExpression
+open SymbolicExpression 
 open Optimization
 
 
@@ -88,12 +88,13 @@ let postprocess_residue model =
       | ders' -> add_to ders ders', nequs + 1
   in
   let postprocess_residue' () =
-    let cj = create_blackBox "Get_Jacobian_parameter" [] in
+(*    let cj = create_blackBox "Get_Jacobian_cj" [] in*)
+    let cj = create_constant ("(1.0)") in
     Array.iter
       (fun equ ->
         if not equ.solved && derivatives_of equ.expression = [] then
           equ.expression <- symbolic_mult cj equ.expression)
-      model.equations
+      model.equations 
   in
   let ders, nequs = Array.fold_left accumulate_derivatives ([], 0) model.equations in
   if nequs <> 0 && List.length ders = nequs then postprocess_residue' ()
@@ -315,7 +316,7 @@ let rec bufferize_rhs model_info tabs modes_on lhs expr =
       if j <> -1 then Printf.bprintf model_info.code_buffer "spar[%d]" j
       else
         let j = model_info.final_index_of_real_parameters.(i) in
-        if j <> -1 then Printf.bprintf model_info.code_buffer "rpar[%d]" j
+        if j <> -1 then Printf.bprintf model_info.code_buffer "(*GetRealOparPtrs(block,%d))" (j+1)
         else assert false in
   let rec precedence expr =
     if has_alias_binding expr model_info then 14
@@ -374,7 +375,7 @@ let rec bufferize_rhs model_info tabs modes_on lhs expr =
     | Derivative _ -> assert false
     | Equality (expr', expr'') ->
         bufferize_infix_operator expr "==" [expr'; expr'']
-    | Exponential expr' -> bufferize_unary_function expr "exp" expr'
+    | Exponential expr' -> bufferize_unary_function expr "exp_" expr'
     | Floor expr' -> bufferize_unary_function expr "floor" expr'
     | Greater (expr', expr'') ->
         bufferize_infix_operator expr ">" [expr'; expr'']
@@ -394,7 +395,7 @@ let rec bufferize_rhs model_info tabs modes_on lhs expr =
               Printf.bprintf model_info.code_buffer "z[%d]" i
           | _ -> assert false
         end
-    | Logarithm expr' -> bufferize_unary_function expr "log" expr'
+    | Logarithm expr' -> bufferize_unary_function expr "log_" expr'
     | Multiplication exprs' -> bufferize_multiplication expr exprs'
     | Not expr' -> bufferize_prefix_operator expr "!" expr'
     | Number num -> bufferize_float (float_of_num num) model_info
@@ -407,7 +408,7 @@ let rec bufferize_rhs model_info tabs modes_on lhs expr =
     | Sine expr' -> bufferize_unary_function expr "sin" expr'
     | String s -> Printf.bprintf model_info.code_buffer "\"%s\"" s
     | Tangent expr' -> bufferize_unary_function expr "tan" expr'
-    | TimeVariable -> bufferize_n_ary_function expr "get_scicos_time" []
+    | TimeVariable ->  Printf.bprintf model_info.code_buffer "GetScicosTime(block)"
     | Variable i ->
         let j = model_info.final_index_of_variables.(i) in
         Printf.bprintf model_info.code_buffer "x[%d]" j
@@ -616,7 +617,7 @@ let rec bufferize_rhs model_info tabs modes_on lhs expr =
         bufferize_expression expr';
         Printf.bprintf model_info.code_buffer ", %d)" (int_of_num num);
       end else begin
-        Printf.bprintf model_info.code_buffer "pow(";
+        Printf.bprintf model_info.code_buffer "pow_(";
         bufferize_expression expr';
         Printf.bprintf model_info.code_buffer ", ";
         bufferize_float (float_of_num num) model_info;
@@ -766,8 +767,9 @@ let bufferize_jacobian nb_vars model_info =
       0
       model.variables
   in
-  let cj = create_blackBox "Get_Jacobian_parameter" []
-  and dx = create_blackBox "Get_Scicos_SQUR" [] in
+(*let dx = create_blackBox "GetSQRU(block)" [] *)
+let dx = create_constant ("GetSQRU(block)")
+in
   let jacobian_matrix =
     Array.init (nx + ny) (fun _ -> Array.make (nx + nu) zero)
   in
@@ -778,6 +780,9 @@ let bufferize_jacobian nb_vars model_info =
           let _ =
             Array.fold_left
               (fun (j, k) variable ->
+                   let alpha = create_constant ("alpha["^string_of_int(j)^"]")
+		   and beta  = create_constant ("beta["^string_of_int(j)^"]")
+		   in 
                 if not model.equations.(k).solved then begin
                   let dfdx =
                     symbolic_partial_derivative_with
@@ -793,8 +798,8 @@ let bufferize_jacobian nb_vars model_info =
                           (create_derivative (create_variable k) (Num.Int 1))
                           equation.expression
                       in
-                      symbolic_add dfdx (symbolic_mult cj dfdxd)
-                    else dfdx;
+                      symbolic_add  (symbolic_mult (alpha) dfdx) (symbolic_mult beta dfdxd)
+                     else (symbolic_mult alpha dfdx);             
                   j + 1, k + 1
                 end else j, k + 1)
               (0, 0)
@@ -830,15 +835,32 @@ let bufferize_jacobian nb_vars model_info =
           let _ =
             Array.fold_left
               (fun (j, l) variable ->
+                 let alpha = create_constant ("alpha["^string_of_int(j)^"]")
+		   and beta  = create_constant ("beta["^string_of_int(j)^"]")
+		   in 
                 if not model.equations.(l).solved then begin
-                  jacobian_matrix.(nx + i).(j) <-
+		let dgdx =
                     if equation.solved then
                       symbolic_partial_derivative_with
                         dx
                         (create_variable l)
                         equation.expression
-                    else if k = l then one
-                    else zero;
+                    else if k = l then (symbolic_add one one)
+                    else zero
+                in 
+                jacobian_matrix.(nx + i).(j) <-
+                    if variable.state then
+                       let dgdxd =
+                         if equation.solved then
+                           symbolic_partial_derivative_with
+                           dx
+                          (create_derivative (create_variable l) (Num.Int 1))
+                           equation.expression
+                         else if k = l then one
+                         else zero;
+                       in 
+                       symbolic_add  (symbolic_mult (alpha) dgdx) (symbolic_mult beta dgdxd)
+                    else (symbolic_mult alpha dgdx); 
                   j + 1, l + 1
                 end else j, l + 1)
               (0, 0)
@@ -883,13 +905,17 @@ let bufferize_jacobian nb_vars model_info =
   model_info.current_index <- -1;
   for j = 0 to nx - 1 do
     for i = 0 to nx - 1 do
+      if ( jacobian_matrix.(i).(j) == zero) then   ()
+      else 
       let lhs = "res[" ^ (string_of_int ((j * nx) + i)) ^ "] = " in
       bufferize_rhs model_info 2 true lhs jacobian_matrix.(i).(j);
-      Printf.bprintf model_info.code_buffer ";\n"
+        Printf.bprintf model_info.code_buffer ";\n"
     done;
   done;
   for j = nx to nx + nu - 1 do
     for i = 0 to nx - 1 do
+      if ( jacobian_matrix.(i).(j) == zero) then   ()
+      else 
       let lhs = "res[" ^ (string_of_int ((j * nx) + i)) ^ "] = " in
       bufferize_rhs model_info 2 true lhs jacobian_matrix.(i).(j);
       Printf.bprintf model_info.code_buffer ";\n"
@@ -898,6 +924,8 @@ let bufferize_jacobian nb_vars model_info =
   let offset = nx * (nx + nu) in
   for j = 0 to nx - 1 do
     for i = nx to nx + ny - 1 do
+      if ( jacobian_matrix.(i).(j) == zero) then   ()
+      else 
       let lhs =
         "res[" ^ (string_of_int (offset + (j * ny) + (i - nx))) ^ "] = "
       in
@@ -907,6 +935,8 @@ let bufferize_jacobian nb_vars model_info =
   done;
   for j = nx to nx + nu - 1 do
     for i = nx to nx + ny - 1 do
+      if ( jacobian_matrix.(i).(j) == zero) then   ()
+      else 
       let lhs =
         "res[" ^ (string_of_int (offset + (j * ny) + (i - nx))) ^ "] = "
       in
@@ -914,7 +944,7 @@ let bufferize_jacobian nb_vars model_info =
       Printf.bprintf model_info.code_buffer ";\n"
     done;
   done;
-  Printf.bprintf model_info.code_buffer "\t\tset_block_error(0);\n"
+  Printf.bprintf model_info.code_buffer "\t\t\n"
 
 let bufferize_outputs model_info =
   let bufferize_outputs' modes_on =
@@ -949,7 +979,7 @@ let bufferize_outputs model_info =
     model_info.model.equations;
   model_info.current_index <- -1;
   Printf.bprintf model_info.code_buffer
-    "\t\tif (get_phase_simulation() == 1) {\n";
+    "\t\tif (!areModesFixed(block)) {\n";
   bufferize_outputs' false;
   ExpressionTable.clear model_info.occurrence_table;
   Array.iteri
@@ -994,7 +1024,7 @@ let bufferize_when_equations model_info =
             add_to_occurrence_table false expr model_info)
           when_exprs;
         model_info.current_index <- -1;
-        List.iter
+        List.iter 
           (function
             | Assign (expr, expr') ->
                 begin match nature expr with
@@ -1047,7 +1077,37 @@ let bufferize_surfaces model_info =
     | [] -> ()
     | _ ->
         Printf.bprintf model_info.code_buffer
-          "\t\tif (get_phase_simulation() == 1) {\n";
+          "\t\tif (!areModesFixed(block)) {\n";
+        let _ =
+          List.fold_left
+            (fun i cond -> 
+              let lhs = "mode[" ^ (string_of_int i) ^ "] = " in
+              bufferize_rhs model_info 3 false lhs cond;
+              Printf.bprintf model_info.code_buffer " ? 1 : 2;\n";
+              i + 1)
+            0
+            model_info.surfaces
+        in ();
+        Printf.bprintf model_info.code_buffer "\t\t}\n"
+
+(* added mby Masoud in order to update modes at macro-phase*)
+let bufferize_surfaces_ph model_info =
+  ExpressionTable.clear model_info.occurrence_table;
+ List.iter
+    (fun cond ->
+      add_to_occurrence_table false cond model_info;
+      bufferize_surface_expression model_info cond)
+    model_info.surfaces;
+  List.iter
+    (fun (expr, _) -> bufferize_surface_expression model_info expr)
+    model_info.model.when_clauses;
+  model_info.current_index <- -1;
+
+  match model_info.surfaces with
+    | [] -> ()
+    | _ ->
+        Printf.bprintf model_info.code_buffer
+          "\t\tif (!areModesFixed(block)) {\n";
         let _ =
           List.fold_left
             (fun i cond ->
@@ -1059,6 +1119,7 @@ let bufferize_surfaces model_info =
             model_info.surfaces
         in ();
         Printf.bprintf model_info.code_buffer "\t\t}\n"
+(* added mby masoud in order to update modes at macro-phase*)
 
 let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
   let start_value = function
@@ -1107,6 +1168,16 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
           Printf.bprintf model_info.code_buffer " = %s" variable.v_comment;
         Printf.bprintf model_info.code_buffer " */\n")
     model_info.model.variables;
+
+  if fst init = None  then
+  Printf.bprintf model_info.code_buffer
+     "\t\tif (GetNopar(block)<%d){ 
+       \t\t\tSetBlockError(block,-21);
+       \t\t\treturn;
+       \t\t}\n"
+     nb_pars;
+  (* This was added to detect the case where the number of parameter provided by Scicos is less than that expected by the C code generated by Modelica compiler. This is active only for dynamic code C. In initialization, this check is not necessary.*)
+
   match fst init with
   | Some xml_filename ->
       begin
@@ -1115,7 +1186,7 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
             model_info.code_buffer
             "\t\tif ((*work = scicos_malloc(%d * sizeof(double))) == NULL) \
             {\n\
-            \t\t\tset_block_error(-16);\n\
+            \t\t\tSetBlockError(block,-16);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_pars;
@@ -1123,7 +1194,7 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
           Printf.bprintf
             model_info.code_buffer
             "\t\tif (read_xml_initial_states(%d, \"%s\", var_ids, x)) {\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_vars
@@ -1132,7 +1203,7 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
           Printf.bprintf
             model_info.code_buffer
             "\t\tif (read_xml_initial_states(%d, \"%s\", disc_var_ids, z)) {\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_dvars
@@ -1141,7 +1212,7 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
           Printf.bprintf
             model_info.code_buffer
             "\t\tif (read_xml_initial_states(%d, \"%s\", der_ids, der_values)) {\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_ders
@@ -1163,11 +1234,11 @@ let bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info =
         if nb_pars > 0 then
           Printf.bprintf
             model_info.code_buffer
-            "\t\tspars = *work;\n\
-            \t\tif (read_xml_initial_states(%d, \"%s\", par_ids, spars)) {\n\
+            "\t\trpar = *work;\n\
+            \t\tif (read_xml_initial_states(%d, \"%s\", par_ids, rpar)) {\n\
             \t\t\tscicos_free(*work);\n\
             \t\t\t*work = NULL;\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_pars
@@ -1183,8 +1254,8 @@ let bufferize_variable_store init nb_pars nb_dvars nb_ders model_info =
   match snd init with
   | Some xml_filename ->
       begin
-        if Array.length model_info.model.variables + nb_dvars > 0 then begin
-          ExpressionTable.clear model_info.occurrence_table;
+      if Array.length model_info.model.variables + nb_dvars > 0 then begin
+       ExpressionTable.clear model_info.occurrence_table;
           Array.iteri
             (fun i equation ->
               if equation.solved then
@@ -1214,7 +1285,7 @@ let bufferize_variable_store init nb_pars nb_dvars nb_ders model_info =
           Printf.bprintf
             model_info.code_buffer
             "\t\tif (write_xml_states(%d, \"%s\", all_var_ids, all_var_values)) {\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             (Array.length model_info.model.variables)
@@ -1237,7 +1308,7 @@ let bufferize_variable_store init nb_pars nb_dvars nb_ders model_info =
           Printf.bprintf
             model_info.code_buffer
             "\t\tif (write_xml_states(%d, \"%s\", der_ids, der_values)) {\n\
-            \t\t\tset_block_error(-19);\n\
+            \t\t\tSetBlockError(block,-19);\n\
             \t\t\treturn;\n\
             \t\t}\n"
             nb_ders
@@ -1251,21 +1322,16 @@ let bufferize_work_deallocation init nb_pars model_info =
     Printf.bprintf
       model_info.code_buffer
       "\t\tif (*work != NULL) {\n\
-      \t\t\tspars = *work;\n\
-      \t\t\tfor (i = 0; i < %d; i++) block->rpar[i] = spars[i];\n\
       \t\t\tscicos_free(*work);\n\
       \t\t\t*work = NULL;\n\
       \t\t}\n"
-      nb_pars
 
 let bufferize_parameter_value init nb_pars model_info =
   if fst init <> None then begin
     if nb_pars > 0 then
       Printf.bprintf
         model_info.code_buffer
-        "\t\tspars = *work;\n\
-        \t\tfor (i = 0; i < %d; i++) block->rpar[i] = spars[i];\n"
-        nb_pars
+        "\t\trpar = *work;\n"
   end
 
 let bufferize_variable_nature nb_vars model_info =
@@ -1276,7 +1342,7 @@ let bufferize_variable_nature nb_vars model_info =
         if not equation.solved then begin
           Printf.bprintf
             model_info.code_buffer
-            "\t\tblock->xprop[%d] = %s; /* %s"
+            "\t\txprop[%d] = %s; /* %s"
             model_info.final_index_of_variables.(i)
             (if variable.state then "1" else "-1")
             variable.v_name;
@@ -1398,14 +1464,14 @@ let generate_code path filename fun_name model with_jac _ init =
     nb_modes
     (List.length model.when_clauses + nb_modes)
     (if model.io_dependency then "true" else "false");
-  Printf.fprintf oc "#include <math.h>\n#include <scicos_block.h>\n";
+  Printf.fprintf oc "#include <math.h>\n#include <scicos_block4.h>\n";
   List.iter
     (fun (name, in_types, out_types) ->
       generate_c_function_prototype oc (last name) in_types out_types)
     model.external_functions;
   Printf.fprintf oc "\n\n/* Utility functions */\n\n";
   Printf.fprintf oc
-    "static double ipow_(double x, int n)\n\
+    "double ipow_(double x, int n)\n\
      {\n\
      \tdouble y;\n\
      \ty = n %% 2 ? x : 1;\n\
@@ -1416,7 +1482,7 @@ let generate_code path filename fun_name model with_jac _ init =
      \treturn y;\n\
      }\n\
      \n\
-     static double ipow(double x, int n)\n\
+     double ipow(double x, int n)\n\
      {\n\
      \t/* NaNs propagation */\n\
      \tif (x != x || (x == 0.0 && n == 0)) return exp((double)n * log(x));\n\
@@ -1430,19 +1496,25 @@ let generate_code path filename fun_name model with_jac _ init =
     fun_name;
   Printf.fprintf oc
     "{\n\
-     \tint *ipar = block->ipar;\n\
-     \tdouble *rpar = block->rpar;\n\
-     \tdouble *z = block->z;\n\
-     \tdouble *x = block->x;\n\
-     \tdouble *xd = block->xd;\n\
-     \tdouble **y = block->outptr;\n\
-     \tdouble **u = block->inptr;\n\
-     \tdouble **work = (double **)block->work;\n\
-     \tdouble *g = block->g;\n\
-     \tdouble *res = block->res;\n\
-     \tint *jroot = block->jroot;\n\
-     \tint *mode = block->mode;\n\
-     \tint nevprt = block->nevprt;\n";
+     \tint    *ipar = GetIparPtrs(block);\n\
+     \tdouble *rpar = GetRparPtrs(block);\n\
+     \tdouble *z    = GetDstate( block);\n\
+     \tdouble *x    = GetState(block);\n\
+     \tdouble *xd   = GetDerState(block);\n\
+     \tdouble *res  = GetResState(block);\n\
+     \tdouble **y   = GetOutPtrs(block);\n\
+     \tdouble **u   = GetInPtrs(block);\n\
+     \tdouble **work= GetPtrWorkPtrs(block);\n\
+     \tdouble *g    = GetGPtrs(block);\n\
+     \tdouble *alpha= NULL;\n\
+     \tdouble *beta = NULL;\n\
+     \tint *jroot   = GetJrootPtrs(block);\n\
+     \tint *mode    = GetModePtrs( block);\n\
+     \tint nevprt   = GetNevIn( block);\n\
+     \tint *xprop   = GetXpropPtrs(block);\n\
+     \t\n";
+
+
   if model_info.real_array_store_size > 0 then
     Printf.fprintf oc "\tdouble real_buffer[%d];\n"
       model_info.real_array_store_size;
@@ -1450,9 +1522,9 @@ let generate_code path filename fun_name model with_jac _ init =
     if nb_pars > 0 then begin
       Printf.fprintf oc
         "\tint i;\n\
-        \tdouble *spars;\n\
-        \tchar *par_ids[] =\n\
-        \t\t{\n";
+        \tchar *par_ids[%d] =\n\
+        \t\t{\n"
+        nb_pars;
       let first = ref true in
       Array.iter
         (fun parameter ->
@@ -1502,7 +1574,7 @@ let generate_code path filename fun_name model with_jac _ init =
         "\n\
         \t\t};\n";
     end;
-    if nb_dvars > 0 then begin
+   if nb_dvars > 0 then begin
       Printf.fprintf oc
         "\tchar *disc_var_ids[] =\n\
         \t\t{\n";
@@ -1537,6 +1609,7 @@ let generate_code path filename fun_name model with_jac _ init =
   end;
   Printf.fprintf oc "\n";
   Printf.bprintf model_info.code_buffer "\tif (flag == 0) {\n";
+  bufferize_surfaces_ph model_info;
   bufferize_parameter_value init nb_pars model_info;
   bufferize_equations model_info;
   Printf.bprintf model_info.code_buffer "\t} else if (flag == 1) {\n";
@@ -1557,12 +1630,15 @@ let generate_code path filename fun_name model with_jac _ init =
           filename
   end;
   bufferize_initializations init nb_pars nb_dvars nb_vars nb_ders model_info;
-  if with_jac then begin
-    Printf.bprintf model_info.code_buffer "\t\tSet_Jacobian_flag(1);\n";
-  end;
+  if with_jac then 
+    Printf.bprintf model_info.code_buffer "\t\t  SetAjac(block,1);\n"
+   else
+    Printf.bprintf model_info.code_buffer "\t\t  SetAjac(block,0);\n"
+  ;
   Printf.bprintf model_info.code_buffer "\t} else if (flag == 5) {\n";
-  bufferize_work_deallocation init nb_pars model_info;
+  bufferize_parameter_value init nb_pars model_info;
   bufferize_variable_store init nb_pars nb_dvars nb_ders model_info;
+  bufferize_work_deallocation init nb_pars model_info;
   Printf.bprintf model_info.code_buffer "\t} else if (flag == 6) {\n";
   bufferize_parameter_value init nb_pars model_info;
   Printf.bprintf model_info.code_buffer "\t} else if (flag == 7) {\n";
@@ -1574,6 +1650,8 @@ let generate_code path filename fun_name model with_jac _ init =
   if with_jac then begin
     Printf.bprintf model_info.code_buffer "\t} else if (flag == 10) {\n";
     bufferize_parameter_value init nb_pars model_info;
+    Printf.bprintf model_info.code_buffer "\t     alpha=GetAlphaPt(block); \n";
+    Printf.bprintf model_info.code_buffer "\t     beta =GetBetaPt(block); \n";
     bufferize_jacobian nb_vars model_info;
   end;
   Printf.bprintf model_info.code_buffer "\t}\n";

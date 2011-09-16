@@ -2,7 +2,7 @@
  *  XML to Modelica
  *
  *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -54,7 +54,15 @@ let generate_attributes oc attribs =
 let generate_code init filename model =
   let generate_type_specifier oc t = match t.kind, t.output with
     | Input, _ -> Printf.fprintf oc "  input Real"
-    | (FixedParameter | Parameter), _ -> Printf.fprintf oc "  parameter Real"
+    (* | (FixedParameter | Parameter), _ -> Printf.fprintf oc "  parameter Real" *)
+       | (FixedParameter | Parameter), _ -> if init then 
+                                                Printf.fprintf oc " Real"
+                                            else begin
+                                                if t.fixed<> "true" then
+                                                   Printf.fprintf oc "  parameter Real"
+                                                else
+                                                   Printf.fprintf oc "  Real";
+                                            end
     | Variable, true -> Printf.fprintf oc "  output Real"
     | DiscreteVariable, _ when init -> Printf.fprintf oc "  Real"
     | DiscreteVariable, _ -> Printf.fprintf oc "  discrete Real"
@@ -65,7 +73,7 @@ let generate_code init filename model =
     Printf.fprintf oc " \"%s\";\n" (decode_spc t.comment) in
   let generate_start_attribute oc t = match t.kind with
     | _ when t.initial_value = "" -> ()
-    | Variable | DiscreteVariable when t.fixed <> "true"  ->
+    | Variable | DiscreteVariable when t.fixed <> "true" or not init ->
         generate_attributes oc [ "start", t.initial_value ]
     | Variable | DiscreteVariable ->
         let equ =
@@ -75,8 +83,10 @@ let generate_code init filename model =
         let equ =
           Printf.sprintf "`%s` = %s;" (decode_spc t.id) t.initial_value in
         start_equations := equ :: !start_equations
-    | FixedParameter | Parameter ->
-        Printf.fprintf oc " = %s" t.initial_value
+    | FixedParameter | Parameter -> if init then 
+                                       Printf.fprintf oc " (start = %s)" t.initial_value
+                                    else
+                                       Printf.fprintf oc " = %s" t.initial_value
     | Input -> () in
   let rec generate_sub_elements oc = function
     | [] -> ()

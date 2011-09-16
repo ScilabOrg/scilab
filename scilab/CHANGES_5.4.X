@@ -100,6 +100,8 @@ Xcos:
 
 * The style of the block can be changed on the interface function.
 
+* Update to the version 1.12.2 of the modelica compiler.
+
 * bug 7985 fixed - dmmul.c did not use dgemm routine optimized by BLAS.
 
 * bug 8421 fixed - CLKFROM and CLKGOTO were not part of the "Signal Routing"

@@ -2,7 +2,7 @@
  *  Translator from Modelica 2.x to flat Modelica
  *
  *  Copyright (C) 2005 - 2007 Imagine S.A.
- *  For more information or commercial use please contact us at www.amesim.com
+ *  For more information please contact us at www.amesim.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -44,7 +44,7 @@
       and abstract relations in a file named filename_relations.xml.
       {ul
         {- [ generate_flatten_XML ]: Generates an XML description of initialization problem }
-        {- [ generate_relations ]: Generates an XML description of abstract relations and other information }
+        {- [ generate_relations ]: Generates an XML description of abstract relations and other informations }
       }
     }
     }
@@ -80,7 +80,7 @@ and element =
     id: string;
     comment: string;
     initial_value: Instantiation.expression option;
-    nominal_value: Instantiation.expression option; 
+    nominal_value: Instantiation.expression option;
     output: bool;
     fixed: bool option
   }
@@ -1273,7 +1273,7 @@ and build_tree vars =
       id = id;
       comment = cpnt_desc.Instantiation.comment;
       initial_value = variable_initial_value cpnt_desc;
-      nominal_value = variable_nominal_value cpnt_desc; 
+      nominal_value = variable_nominal_value cpnt_desc;
       output = is_output caus;
       fixed = fixed cpnt_desc
     } in
@@ -1294,7 +1294,7 @@ and print_tree ctx fun_defs oc ts =
     | Some expr -> string_of_expression ctx fun_defs expr in
   let string_of_nominal_value elt = match elt.nominal_value with
     | None -> ""
-    | Some expr -> string_of_expression ctx fun_defs expr in 
+    | Some expr -> string_of_expression ctx fun_defs expr in
   let string_of_fixed elt = match elt.fixed with
     | None -> ""
     | Some true -> "true"
@@ -1316,11 +1316,11 @@ and print_tree ctx fun_defs oc ts =
         Printf.fprintf oc "<initial_value value=\"%s\"/>\n"
           (hide_spc (unbraced (string_of_initial_value elt)));
         Printf.fprintf oc "<nominal_value value=\"%s\"/>\n"
-          (hide_spc (unbraced (string_of_nominal_value elt))); 
+          (hide_spc (unbraced (string_of_nominal_value elt)));
         Printf.fprintf oc "<comment value=\"%s\"/>\n" (hide_spc elt.comment);
         if elt.output then
           Printf.fprintf oc "<output/>\n";
-        (* if elt.kind <> Parameter && elt.initial_value <> None then
+        (*if elt.kind <> Parameter && elt.initial_value <> None then
           Printf.fprintf oc "<selected value=\"y\" />\n";*)
         Printf.fprintf oc "</terminal>\n"
   in
