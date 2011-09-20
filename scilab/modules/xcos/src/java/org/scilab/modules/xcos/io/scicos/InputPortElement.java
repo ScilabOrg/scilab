@@ -216,7 +216,7 @@ public class InputPortElement extends AbstractElement<InputPort> {
 	 */
 	private void decodeGraphics(InputPort port) {
 		// protection against previously stored blocks
-		if (graphics.size() <= GRAPHICS_INSTYLE_INDEX) {
+		if (graphics.size() <= GRAPHICS_INSTYLE_INDEX || graphics.get(GRAPHICS_INSTYLE_INDEX).isEmpty()) {
 			return;
 		}
 		
