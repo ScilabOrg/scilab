@@ -246,6 +246,8 @@ Optimization:
 * Bug 9607 fixed - The optimsimplex_new function poorly managed the
                    variable number of arguments.
 
+* Bug 9612 fixed - The quapro help page has been removed.
+
 Statistics:
 ==============
 
