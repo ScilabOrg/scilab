@@ -26,7 +26,7 @@
   <refnamediv>
     <refname>xclick</refname>
 
-    <refpurpose>Attend un appui sur un bouton de la souris.</refpurpose>
+    <refpurpose>Attend une action d'un bouton de la souris, du clavier dans une fenêtre graphique.</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -52,8 +52,9 @@
         <term>xccord</term>
 
         <listitem>
-          <para>Scalaire réel: abscisse du pointeur de la souris au moment du
-          clic, à l'échelle graphique courante.</para>
+          <para>Scalaire réel: abscisse du pointeur de la souris au
+          moment du clic, à l'échelle graphique courante (voir <link
+          linkend="gca">gca()</link>).</para>
         </listitem>
       </varlistentry>
 
@@ -61,8 +62,9 @@
         <term>ycoord</term>
 
         <listitem>
-          <para>Scalaire réel: ordonnée du pointeur de la souris au moment du
-          clic, à l'échelle graphique courante.</para>
+          <para>Scalaire réel: ordonnée du pointeur de la souris au
+          moment du clic, à l'échelle graphique courante (voir <link
+          linkend="gca">gca()</link>).</para>
         </listitem>
       </varlistentry>
 
@@ -111,7 +113,10 @@
 
     <para>Avec 4 ou 5 arguments en sortie, l'appui sur un bouton de la souris
     est attendu dans toutes les fenêtres graphiques.</para>
-
+    <para>Attention, les coordonnées  <literal>xcoord</literal>,
+    <literal>ycoord</literal> renvoyées par la fonction sont  relatives au système d'axes courant (voir <link
+    linkend="gca">gca()</link>).
+    </para>
     <para>Les valeurs de <literal>ibutton</literal> sont décrites ci-dessous
     :</para>
 
@@ -249,6 +254,8 @@
 <title>Voir aussi</title>
 
     <simplelist type="inline">
+     <member><link linkend="gca">gca</link></member>
+
       <member><link linkend="locate">locate</link></member>
 
       <member><link linkend="xgetmouse">xgetmouse</link></member>
