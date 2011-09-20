@@ -246,6 +246,8 @@ Optimization:
 * Bug 9607 fixed - The optimsimplex_new function poorly managed the
                    variable number of arguments.
 
+* Bug 8676 fixed - The pack/unpack functions had no help pages.
+
 Statistics:
 ==============
 
