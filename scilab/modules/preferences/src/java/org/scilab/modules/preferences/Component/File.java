@@ -10,7 +10,7 @@
  *
  */
 
-package org.scilab.modules.gui.utils.Component;
+package org.scilab.modules.preferences.Component;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
