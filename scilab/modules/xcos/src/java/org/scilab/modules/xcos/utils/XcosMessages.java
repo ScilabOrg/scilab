@@ -375,14 +375,15 @@ public final class XcosMessages {
     public static final String BLOCK_GOTO = "Goto %s";
 
     /* Errors */
-    public static final String ERROR_UNABLE_TO_COMPILE_THIS_SUPER_BLOCK = Messages
-            .gettext("Error: unable to compile this SuperBlock");
-    public static final String WRONG_PORT_NUMBER = Messages
-            .gettext("Wrong port number");
-
-    // CSON: JavadocVariable
-    // CSON: LineLength
-    // CSON: MultipleStringLiterals
+	public static final String ERROR_UNABLE_TO_COMPILE_THIS_SUPER_BLOCK = Messages.gettext("Error: unable to compile this SuperBlock");
+	public static final String WRONG_PORT_NUMBER =  Messages.gettext("Wrong port number");
+    
+	/* Compilation errors */
+	public static final String LINK_NOT_CONNECTED = Messages.gettext("<html><body>Compilation error: link ignored because it is not connected. <br/>Please reconnect it.</body></html>");
+	
+// CSON: JavadocVariable
+// CSON: LineLength
+// CSON: MultipleStringLiterals
 
     /** This class is a static singleton, thus it must not be instantiated */
     private XcosMessages() {
