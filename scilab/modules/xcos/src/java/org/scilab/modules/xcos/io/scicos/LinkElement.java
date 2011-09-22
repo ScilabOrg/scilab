@@ -427,7 +427,7 @@ public class LinkElement extends AbstractElement<BasicLink> {
 
 		// non-connected link
 		if ((start == null) || (end == null)) { return null; }
-
+		
 		final mxICell srcBlock = start.getParent();
 		final mxICell endBlock = end.getParent();
 
