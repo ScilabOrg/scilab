@@ -158,5 +158,32 @@ if getscilabmode() == "STD" then
   toolbar(-1, "on");
 end
 
+if getscilabmode() <> "NWNI" then
+  global %toolboxes;
+  global %toolboxes_dir;
+  tbx_dir = pathconvert(%toolboxes_dir);
+  if %toolboxes <> [] then
+    tbx_path = tbx_dir + %toolboxes;
+  else
+    tbx_path = [];
+  end
+  if %toolboxes <> [] then
+    conf_tbx_path = tbx_dir + %toolboxes + "/etc/" + %toolboxes + ".xml";
+  else
+    conf_tbx_path = [];
+  end
+  a = atomsGetInstalled();
+  atoms_paths = pathconvert(a(:,4));
+  if a <> [] then
+    conf_atoms_path = atoms_paths + a(:,1) + "/etc/" + a(:,1) + ".xml";
+  else
+    conf_atoms_path = [];
+  end
+   
+  _setAtomsTbxInfos(%toolboxes, tbx_path, conf_tbx_path, a(:,1), atoms_paths + a(:,1), conf_atoms_path);
+  clearfun("_setAtomsTbxInfos");
+  clear %toolboxes %toolboxes_dir tbx_dir tbx_path a atomsGetInstalled atoms_paths conf_tbx_path conf_atoms_path
+end
+
 // ====================================================================
 clear ans
