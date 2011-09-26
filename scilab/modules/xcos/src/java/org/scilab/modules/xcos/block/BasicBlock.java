@@ -1025,6 +1025,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 		setODState(modifiedBlock.getODState());
 
 		setEquations(modifiedBlock.getEquations());
+		setStyle(modifiedBlock.getStyle());
 	}
 
 	/**
