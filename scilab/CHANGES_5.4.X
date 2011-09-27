@@ -399,6 +399,7 @@ ATOMS:
 
 * bug 9967 fixed - windows UAC causing trouble with atomsRepositorySetOfl (internal function)
 
+* bug 10025 fixed - wrong url in some examples from help files
 
 Javasci:
 ========
