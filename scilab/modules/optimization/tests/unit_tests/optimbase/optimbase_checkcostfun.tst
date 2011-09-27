@@ -34,8 +34,8 @@ opt = optimbase_configure(opt,"-numberofvariables",2);
 opt = optimbase_configure(opt,"-x0",[1.1 1.1]');
 opt = optimbase_configure(opt,"-function",rosenbrock2);
 cmd = "opt = optimbase_checkcostfun(opt);";
-lclmsg = "%s: Cannot evaluate cost function with ""%s"".";
-assert_checkerror(cmd,lclmsg,[],"optimbase_checkcostfun","[f,index]=costf(x0,1)");
+lclmsg = "%s: Cannot evaluate cost function with ""%s"": %s";
+assert_checkerror(cmd,lclmsg,[],"optimbase_checkcostfun","[f,index]=costf(x0,1)","Undefined variable: fdsmklqfjdsf");
 opt = optimbase_destroy(opt);
 
 //
