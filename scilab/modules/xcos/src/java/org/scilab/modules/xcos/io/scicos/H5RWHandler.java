@@ -260,6 +260,43 @@ public class H5RWHandler {
 			LOG.trace("End of writing block to " + h5File);
 		}
 	}
+	
+	/**
+	 * Encode an Scilab List. Adds to existing H5File, otherwise creates a new H5File
+	 * 
+	 * @param targetOptions
+	 * 			  the ScilabList
+	 */
+	public void writeScilabList(ScilabList scilabList) {
+
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Writing scilablist to " + h5File);
+		}
+
+		try {
+			int fileId;
+			if (h5File.length() == 0) {
+				fileId = H5Write.createFile(h5File);
+			} else {
+				fileId = H5Write.openFile(h5File);
+			}
+						
+			//Write scilablist
+			H5Write.writeInDataSet(fileId, "codegeneration", scilabList);
+
+			H5Write.closeFile(fileId);
+		} catch (HDF5Exception e) {
+			LOG.error(e);
+		} catch (java.lang.NullPointerException e) {
+			LOG.error(e);
+		} catch (java.lang.IndexOutOfBoundsException e) {
+			LOG.error(e);
+		}
+		
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("End of writing scilablist to " + h5File);
+		}
+	}
 
 	/**
 	 * Encode an Xcos context

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codegenerationtarget>
+  <name>XCos default codegeneration</name>
+  <macroDirectory>xcosCodeGeneration/macros</macroDirectory>
+  <macroName>xcosCodeGeneration</macroName>
+  <description>
+	Generates C-code representing superblock functionallity.
+	</description>
+  <options>
+    <option type="TEXT">New block's name:</option>
+    <option type="DIRECTORY">Created files Path:</option>
+    <option type="TEXT">Other object files to link with (if any):</option>
+  </options>
+</codegenerationtarget>

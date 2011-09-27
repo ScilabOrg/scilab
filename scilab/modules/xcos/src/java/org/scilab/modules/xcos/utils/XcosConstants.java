@@ -12,6 +12,8 @@
 
 package org.scilab.modules.xcos.utils;
 
+import java.io.File;
+
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
 
 /**
@@ -47,7 +49,12 @@ public final class XcosConstants extends ScilabGraphConstants {
     
     /* SCI environment */
     /** Path from SCI or SCIHOME to the Xcos configuration directory */
-    public static final String XCOS_ETC = "/modules/xcos/etc";
+    public static final String XCOS_ETC = File.separator + "modules"
+    		+ File.separator + "xcos" + File.separator + "etc";
+    
+    /** Path from SCI or SCIHOME to the Xcos codegeneration directory */
+    public static final String XCOS_CODEGENERATION = File.separator + "contrib"
+    		+ File.separator + "codegeneration";
     
     /** This class is a static singleton, thus it must not be instantiated */
     private XcosConstants() { }

@@ -1,3 +1,4 @@
+package org.scilab.modules.hdf5.write;
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Bruno JOFRET
@@ -9,7 +10,6 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-package org.scilab.modules.hdf5.write;
 
 import ncsa.hdf.hdf5lib.H5;
 import ncsa.hdf.hdf5lib.HDF5Constants;
@@ -31,6 +31,20 @@ public class H5Write {
 	public static int createFile(String fileName) {
 		try {
 			return H5.H5Fcreate(fileName,  HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+		} catch (HDF5LibraryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public static int openFile(String fileName) {
+		try {
+			return H5.H5Fopen(fileName,  HDF5Constants.H5F_ACC_RDWR, HDF5Constants.H5P_DEFAULT);
 		} catch (HDF5LibraryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

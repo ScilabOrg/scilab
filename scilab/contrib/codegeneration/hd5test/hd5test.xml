@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codegenerationtarget>
+  <name>hd5 test target</name>
+  <macroDirectory>hd5test/macros</macroDirectory>
+  <macroName>hd5test</macroName>
+  <description>
+	Test writing to scicos by means of H5 file
+	</description>
+  <options>
+    <option type="TEXT">String text:</option>
+    <option type="DIRECTORY">Directory:</option>
+  </options>
+</codegenerationtarget>

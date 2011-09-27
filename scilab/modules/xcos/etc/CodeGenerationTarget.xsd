@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="codegenerationtarget" type="CodegenerationTarget" />
+
+    <xs:complexType name="CodegenerationTarget">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"  />
+            <xs:element name="macroDirectory" type="xs:string" />
+            <xs:element name="macroName" type="xs:string" />
+            <xs:element name="description" type="xs:string" />
+            <xs:element name="options" type="Options" nillable="true" />
+        </xs:sequence>
+    </xs:complexType>
+
+	<xs:complexType name="Options">
+		<xs:choice maxOccurs="unbounded">
+		  <xs:element name="option" type="Option"/>
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:complexType name="Option" mixed="true">
+		<xs:attribute name="type">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:enumeration value="DIRECTORY"/>
+			  <xs:enumeration value="TEXT"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	
+</xs:schema>

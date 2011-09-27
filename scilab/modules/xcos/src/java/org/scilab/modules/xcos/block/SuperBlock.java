@@ -28,7 +28,8 @@ import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
-import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
+import org.scilab.modules.xcos.actions.CodeGenerationWizardAction;
+import org.scilab.modules.xcos.block.actions.RegionToSuperblockAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskCreateAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskCustomizeAction;
 import org.scilab.modules.xcos.block.actions.SuperblockMaskRemoveAction;
@@ -282,7 +283,7 @@ public final class SuperBlock extends BasicBlock {
 		} else {
 			menu = createContextMenu(graph);
 			menu.getAsSimpleContextMenu().addSeparator();
-			menu.add(CodeGenerationAction.createMenu(graph));
+			menu.add(CodeGenerationWizardAction.createMenu(graph));
 
 			Menu maskMenu = ScilabMenu.createMenu();
 			maskMenu.setText(XcosMessages.SUPERBLOCK_MASK);

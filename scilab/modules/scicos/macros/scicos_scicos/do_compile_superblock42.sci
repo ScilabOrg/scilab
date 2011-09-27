@@ -1312,36 +1312,17 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof] = do_compile_superblock4
   //***********************************
   // Get the name of the file
   //***********************************
-  foo=3;
-  okk=%f;
-  rdnom='foo';
-  rpat=pwd();
-  libs='';
-  label1=[hname;pwd()+'/'+hname;''];
-
-  while %t do
-    ok=%t  // to avoid infinite loop
-    [okk,..
-     rdnom,..
-     rpat,..
-     libs,..
-     label1]=scicos_getvalue('Set code generator parameters :',..
-                      ['New block''s name :';
-                       'Created files Path :';
-                       'Other object files to link with (if any)'],..
-                       list('str',1,'str',1,'str',1),label1);
-    if okk==%f then
-      ok=%f
-      return
-    end
-    rpat=stripblanks(rpat);
+  rdnom=codegeneration(1);
+  rpat=codegeneration(2);
+  libs=codegeneration(3);
+  
+  rpat=stripblanks(rpat);
 
     //** 1/07/06 Alan trying to solve multiple libraries during week-end
     if strindex(libs,'''')<>[] | strindex(libs,'""')<>[] then
       ierr=execstr('libs=evstr(libs)','errcatch')
       if ierr<>0  then
         message(['Can''t solve other files to link'])
-        ok=%f;
         return
       end
     end
@@ -1375,16 +1356,12 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof] = do_compile_superblock4
         messagebox('Directory '+rpat+' cannot be created',"modal","info");
       end
     elseif filetype(dirinfo(2))<>'Directory' then
-      ok=%f;
       messagebox(rpat+' is not a directory',"modal","error");
     end
 
     if stripblanks(rdnom)==emptystr() then
-      ok=%f;
       messagebox('sorry C file name not defined',"modal","error");
     end
-    if ok then break,end
-  end
 
   //////////////////////////////////////////////////
   maxnrpar=max(rpptr(2:$)-rpptr(1:$-1))
@@ -3223,7 +3200,7 @@ function Code=make_standalone42()
     Code=[Code
           '/* Code prototype for standalone use  */'
           'int C2F('+rdnom+'simblk)(double , double *, double *);'
-          'int dset(int *n, double *dx, double *dy, int *incy);'
+          'extern  int C2F(dset)();'
           'int ode1();'
           'int ode2();'
           'int ode4();'
@@ -4090,7 +4067,7 @@ function Code=make_standalone42()
           '  int nport;'
           '  int nevprt=1;'
           '  double *args[100];'
-          '  dset(&neq, &c_b14,xd , &c__1);'
+          '  C2F(dset)(&neq, &c_b14,xd , &c__1);'
           '']
 
     Code=[Code;
@@ -4115,26 +4092,6 @@ function Code=make_standalone42()
     Code=[Code
           ''
           '  return 0;'
-          '}'
-          ''
-          'int dset(int *n, double *dx, double *dy, int *incy)'
-          '{'
-          '    int iMax = 0;'
-          '    int i = 0, iy = 0;'
-          '    --dy;'
-          '    if (*n <= 0) return 0;'
-          '    iy = 1;'
-          '    if (*incy < 0)'
-          '    {'
-          '      iy = (-(*n) + 1) * *incy + 1;'
-          '    }'
-          '    iMax = *n;'
-          '    for (i = 1; i <= iMax; ++i)'
-          '    {'
-          '      dy[iy] = *dx;'
-          '      iy += *incy;'
-          '    }'
-          '    return 0;'
           '}'
           ''
           '/* Euler''s Method */'

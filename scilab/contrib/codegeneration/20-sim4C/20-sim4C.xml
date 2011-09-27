@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codegenerationtarget>
+  <name>20-sim 4C codegeneration</name>
+  <macroDirectory>20-sim4C/macros</macroDirectory>
+  <macroName>forCCodeGeneration</macroName>
+  <description>
+	Generates C-code and configuration files for 20-sim 4C.
+	</description>
+  <options>
+    <option type="TEXT">Model name:</option>
+    <option type="DIRECTORY">Output directory:</option>
+  </options>
+</codegenerationtarget>

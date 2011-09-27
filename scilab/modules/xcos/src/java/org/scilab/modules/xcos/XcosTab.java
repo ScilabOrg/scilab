@@ -59,6 +59,7 @@ import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.xcos.actions.AboutXcosAction;
 import org.scilab.modules.xcos.actions.CloseAction;
 import org.scilab.modules.xcos.actions.CloseViewportAction;
+import org.scilab.modules.xcos.actions.CodeGenerationWizardAction;
 import org.scilab.modules.xcos.actions.CompileAction;
 import org.scilab.modules.xcos.actions.DebugLevelAction;
 import org.scilab.modules.xcos.actions.DiagramBackgroundAction;
@@ -376,7 +377,7 @@ public class XcosTab extends ScilabTab {
 		tools.setMnemonic('T');
 		menuBar.add(tools);
 
-		tools.add(CodeGenerationAction.createMenu(diagram));
+		tools.add(CodeGenerationWizardAction.createMenu(diagram));
 
 		/** Help menu */
 		help = ScilabMenu.createMenu();
