@@ -37,6 +37,7 @@ ilib_verbose(0);
 // checking it's arguments size only
 function [result]=x_mdialog(title, labelsv, labelsh, default_inputs_vector)
     [lhs, rhs] = argn();
+    assert_checkequal(size(labelsv), size(labelsh));
     if rhs == 3 then
         default_inputs_vector = labelsh;
         result = x_dialog(labelsv, default_inputs_vector);
