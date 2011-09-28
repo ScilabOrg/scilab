@@ -31,13 +31,13 @@ function atomsDisp(str)
 
     if isdef("ATOMSVERBOSE") then
         if ATOMSVERBOSE then
-            mprintf(str);
+            disp(str);
             if size(str,"*")>1 then
                 mprintf("\n");
             end
         end
     elseif strcmpi(atomsGetConfig("Verbose"),"True") == 0
-        mprintf(str);
+        disp(str);
         if size(str,"*")>1 then
             mprintf("\n");
         end
