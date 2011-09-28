@@ -399,6 +399,7 @@ ATOMS:
 
 * bug 9967 fixed - windows UAC causing trouble with atomsRepositorySetOfl (internal function)
 
+* bug 10031 fixed - atomsDisp not working with Verbose True and "\n"
 
 Javasci:
 ========
