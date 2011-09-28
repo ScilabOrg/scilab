@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="xcosValidate_blockSet">
+  <refnamediv>
+    <refname>xcosValidate_blockSet</refname>
+    <refpurpose>Function to validate Xcos Block interface function.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>[status, message] = xcosValidate_blockSet(interfFunctionName)</synopsis>
+  </refsynopsisdiv>
+  <refsection id="Parameters_xcosValidate_blockSet">
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry><term>interfFunctionName</term>: A Xcos block interface function name.
+        <para/></varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection id="Module_xcosValidate_blockSet">
+    <title>Module</title>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <link linkend="xcos">xcos</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+  <refsection id="Description_xcosValidate_blockSet"><title>Description</title>
+    This function is used to test if a Block interface function will not
+    fail while called by xcos simulation process.
+
+    <para>
+      Function will try to perform a <literal>define</literal> then a <literal>set</literal> job
+      on the given interface function name like the xcos simulation do.
+      Function override some configuration functions: <literal>getvalue</literal>, <literal>x_mdialog</literal>, ...
+    </para>
+  </refsection>
+  <refsection id="Filecontent_xcosValidate_blockSet">
+    <title>File content</title>
+    <itemizedlist>
+      <listitem>
+        <para> SCI/modules/xcos/macros/xcosValidate_blockSet.sci</para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+  <refsection id="Examples_xcosValidate_blockSet">
+    <title>Examples</title>
+    <para>
+      <programlisting role="example"><![CDATA[
+      loadXcosLibs();
+      [status, message] = xcosValidate_blockSet("SPLIT_f");
+      [status, message] = xcosValidate_blockSet("CONST_m");
+      [status, message] = xcosValidate_blockSet("foo");
+      ]]></programlisting>
+    </para>
+  </refsection>
+  <refsection id="SeeAlso_xcosValidate_blockSet">
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="scicos_diagram">scs_m structure</link>
+      </member>
+      <member>
+        <link linkend="xcos">xcos: Block diagram editor and GUI for the hybrid simulator</link>
+      </member>
+    </simplelist>
+  </refsection>
+</refentry>
