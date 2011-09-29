@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
+ * Copyright (C) 2011-2011 - Scilab Enterprises - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -24,23 +25,26 @@ import org.scilab.modules.xcos.modelica.ModelicaMessages;
  */
 public final class FixDerivativesAction extends AbstractAction {
 	private final ModelicaController controller;
-	
+
 	/**
 	 * Default constructor
-	 * @param controller the associated controller
+	 * 
+	 * @param controller
+	 *            the associated controller
 	 */
 	public FixDerivativesAction(ModelicaController controller) {
 		super();
-		
+
 		putValue(NAME, ModelicaMessages.FIX_DERIVATIVES);
 		this.controller = controller;
 	}
-	
+
 	/**
 	 * Update the not fixed derivatives variable to 1.0 and not fixed state
-	 * variables to 0.0 
+	 * variables to 0.0
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override

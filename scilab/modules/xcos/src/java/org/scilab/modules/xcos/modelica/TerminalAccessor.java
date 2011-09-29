@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
+ * Copyright (C) 2011-2011 - Scilab Enterprises - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -422,38 +423,38 @@ public enum TerminalAccessor {
 			}
 		}
 	}
-	
+
 	private static final String VARIABLE = "variable";
 	private static final String FIXED_PARAMETER = "fixed_parameter";
 
 	private static ChangeSupport pcs = new ChangeSupport();
-	
+
 	/**
 	 * static constructor used to setup the Terminal change support
 	 */
 	static {
 		// update the fixed state on update
-//		WEIGHT.addChangeListener(new ChangeListener() {
-//					@Override
-//					public void change(TerminalAccessor.ChangeEvent event) {
-//						final Terminal terminal = event.getTerminal();
-//
-//						if (terminal.getKind().equals(FIXED_PARAMETER)
-//								|| terminal.getKind().equals(VARIABLE)) {
-//							if (((Double) getData(WEIGHT,terminal)) >= 1.0) {
-//								FIXED.setData(Boolean.TRUE,
-//										terminal);
-//							} else {
-//								FIXED.setData(Boolean.FALSE,
-//										terminal);
-//							}
-//						} else {
-//							FIXED.setData(Boolean.FALSE,
-//									terminal);
-//						}
-//					}
-//				});
-		
+		// WEIGHT.addChangeListener(new ChangeListener() {
+		// @Override
+		// public void change(TerminalAccessor.ChangeEvent event) {
+		// final Terminal terminal = event.getTerminal();
+		//
+		// if (terminal.getKind().equals(FIXED_PARAMETER)
+		// || terminal.getKind().equals(VARIABLE)) {
+		// if (((Double) getData(WEIGHT,terminal)) >= 1.0) {
+		// FIXED.setData(Boolean.TRUE,
+		// terminal);
+		// } else {
+		// FIXED.setData(Boolean.FALSE,
+		// terminal);
+		// }
+		// } else {
+		// FIXED.setData(Boolean.FALSE,
+		// terminal);
+		// }
+		// }
+		// });
+
 		// set a default initial value on weight change
 		TerminalAccessor.WEIGHT.addChangeListener(new ChangeListener() {
 			@Override
@@ -466,7 +467,7 @@ public enum TerminalAccessor {
 	}
 
 	private String name;
-	private Class< ? > klass;
+	private Class<?> klass;
 	private boolean editable;
 
 	/**
@@ -479,7 +480,7 @@ public enum TerminalAccessor {
 	 * @param editable
 	 *            is editable flag
 	 */
-	private TerminalAccessor(String name, Class< ? > klass, boolean editable) {
+	private TerminalAccessor(String name, Class<?> klass, boolean editable) {
 		this.name = name;
 		this.klass = klass;
 		this.editable = editable;
@@ -511,7 +512,7 @@ public enum TerminalAccessor {
 	/**
 	 * @return the klass
 	 */
-	public Class< ? > getKlass() {
+	public Class<?> getKlass() {
 		return klass;
 	}
 

@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
+ * Copyright (C) 2011-2011 - Scilab Enterprises - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -94,34 +95,41 @@ public final class TerminalTableModel extends AbstractTableModel {
 	/**
 	 * Pass {@link TerminalAccessor} change events to {@link TableModelEvent}.
 	 */
-	private static class ModelChangeListener implements TerminalAccessor.ChangeListener {
+	private static class ModelChangeListener implements
+			TerminalAccessor.ChangeListener {
 		private final TerminalTableModel model;
-		
+
 		/**
 		 * Default Constructor
-		 * @param model the model
+		 * 
+		 * @param model
+		 *            the model
 		 */
 		public ModelChangeListener(TerminalTableModel model) {
-			this.model = model; 
+			this.model = model;
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
 		public void change(ChangeEvent event) {
-			final TerminalAccessor source = (TerminalAccessor) event.getSource();
+			final TerminalAccessor source = (TerminalAccessor) event
+					.getSource();
 			final Terminal terminal = event.getTerminal();
-			
-			final int columnIndex = Arrays.asList(TerminalAccessor.values()).indexOf(source);
+
+			final int columnIndex = Arrays.asList(TerminalAccessor.values())
+					.indexOf(source);
 			final int rowIndex = model.getTerminals().indexOf(terminal);
-			if (rowIndex < model.getRowCount() && columnIndex < model.getColumnCount()) {
-				model.fireTableChanged(new TableModelEvent(model, rowIndex, rowIndex, columnIndex));
+			if (rowIndex < model.getRowCount()
+					&& columnIndex < model.getColumnCount()) {
+				model.fireTableChanged(new TableModelEvent(model, rowIndex,
+						rowIndex, columnIndex));
 			}
 		}
-		
+
 	}
-	
+
 	private List<Terminal> terminals;
 
 	/**
@@ -129,7 +137,7 @@ public final class TerminalTableModel extends AbstractTableModel {
 	 */
 	public TerminalTableModel() {
 		setTerminals(null);
-		
+
 		for (int i = 0; i < TerminalAccessor.values().length; i++) {
 			final TerminalAccessor row = TerminalAccessor.values()[i];
 			row.addChangeListener(new ModelChangeListener(this));
@@ -197,7 +205,7 @@ public final class TerminalTableModel extends AbstractTableModel {
 	 * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
 	 */
 	@Override
-	public Class< ? > getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
 		return values()[columnIndex].getKlass();
 	}
 

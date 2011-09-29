@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2010-2010 - DIGITEO - Clément DAVID <clement.david@scilab.org>
+ * Copyright (C) 2011-2011 - Scilab Enterprises - Clément DAVID
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -14,9 +15,7 @@ package org.scilab.modules.xcos.modelica;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,7 +87,6 @@ public final class ModelicaController {
 	private final ModelStatistics statistics = new ModelStatistics();
 
 	private boolean compileNeeded;
-	private String error;
 	private boolean valid;
 	private boolean parameterEmbedded;
 	private boolean jacobianEnable;
@@ -113,17 +111,8 @@ public final class ModelicaController {
 				final ModelStatistics stats = (ModelStatistics) e.getSource();
 
 				// Validate equation >= (unknowns + discretes)
-				setValid(stats.getEquations() >= (stats.getUnknowns() + stats.getDiscreteStates()));
-			}
-		});
-
-		// set error message on validity update
-		addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				if (!isSquare()) {
-					setError(ModelicaMessages.UNKNOWNS_NEQ_EQUATIONS);
-				}
+				setValid(stats.getEquations() >= (stats.getUnknowns() + stats
+						.getDiscreteStates()));
 			}
 		});
 
@@ -166,7 +155,7 @@ public final class ModelicaController {
 	public Model getRoot() {
 		return root;
 	}
-	
+
 	/**
 	 * @return the compileNeeded flag
 	 */
@@ -238,47 +227,6 @@ public final class ModelicaController {
 	public void setValid(boolean valid) {
 		if (this.valid != valid) {
 			this.valid = valid;
-
-			fireChange();
-		}
-	}
-
-	/**
-	 * @return the error
-	 */
-	public String getError() {
-		return error;
-	}
-
-	/**
-	 * @return the error state
-	 */
-	public boolean isError() {
-		return error == null || error.isEmpty();
-	}
-
-	/**
-	 * @param error
-	 *            the error to set
-	 */
-	public void setError(String error) {
-		final boolean update;
-		if (this.error == null) {
-			if (error != null) {
-				update = true;
-			} else {
-				update = false;
-			}
-		} else {
-			if (!this.error.equals(error)) {
-				update = true;
-			} else {
-				update = false;
-			}
-		}
-
-		if (update) {
-			this.error = error;
 
 			fireChange();
 		}
@@ -430,12 +378,17 @@ public final class ModelicaController {
 				/*
 				 * The first access will update the value.
 				 */
-				final Boolean notUsed1 = TerminalAccessor.getData(TerminalAccessor.FIXED, terminal);
-				final Double notUsed2 = TerminalAccessor.getData(TerminalAccessor.WEIGHT, terminal);
-				final Double notUsed3 = TerminalAccessor.getData(TerminalAccessor.INITIAL, terminal);
+				final Boolean notUsed1 = TerminalAccessor.getData(
+						TerminalAccessor.FIXED, terminal);
+				final Double notUsed2 = TerminalAccessor.getData(
+						TerminalAccessor.WEIGHT, terminal);
+				final Double notUsed3 = TerminalAccessor.getData(
+						TerminalAccessor.INITIAL, terminal);
 
-				final Double notUsed4 = TerminalAccessor.getData(TerminalAccessor.MAX, terminal);
-				final Double notUsed5 = TerminalAccessor.getData(TerminalAccessor.MIN, terminal);
+				final Double notUsed4 = TerminalAccessor.getData(
+						TerminalAccessor.MAX, terminal);
+				final Double notUsed5 = TerminalAccessor.getData(
+						TerminalAccessor.MIN, terminal);
 
 			} else {
 				// recursive call
@@ -491,7 +444,8 @@ public final class ModelicaController {
 				final Matcher matcher = DERIVATIVE_REGEX.matcher(id);
 				if (matcher.matches()) {
 					// store the Terminal as derivative
-					final String relatedVar = matcher.group(1) + matcher.group(2);
+					final String relatedVar = matcher.group(1)
+							+ matcher.group(2);
 					derivatives.put(relatedVar, terminal);
 				} else {
 					// store the Terminal as state
@@ -502,22 +456,22 @@ public final class ModelicaController {
 				updateWeight((Struct) child, derivativeValue, stateValue);
 			}
 		}
-		
+
 		/*
 		 * Set the derivative and state values
 		 */
-		
+
 		// iterate on derivatives only
 		for (String var : derivatives.keySet()) {
 			assert derivatives.containsKey(var);
 			assert states.containsKey(var);
-			
+
 			final Terminal derivative = derivatives.get(var);
 			final Terminal state = states.get(var);
-			
+
 			TerminalAccessor.WEIGHT.setData(stateValue, state);
 			TerminalAccessor.WEIGHT.setData(derivativeValue, derivative);
-			
+
 			TerminalAccessor.FIXED.setData(Boolean.TRUE, state);
 			TerminalAccessor.FIXED.setData(Boolean.TRUE, derivative);
 		}
@@ -568,4 +522,4 @@ public final class ModelicaController {
 		}
 	}
 }
-//CSON: ClassDataAbstractionCoupling
+// CSON: ClassDataAbstractionCoupling
