@@ -209,7 +209,6 @@ int C2F(graphicsmodels) (void)
     paxesmdlUID = createGraphicObject(__GO_AXES__);
     setAxesModel(paxesmdlUID);
     /* Axes Model properties */
-
     result = InitAxesModel();
 
     if (result < 0)
@@ -832,6 +831,10 @@ int InitFigureModel( void )
 
 int InitAxesModel()
 {
+  char* xLabelUID;
+  char* yLabelUID;
+  char* zLabelUID;
+  char* titleUID;
   int cubeScaling;
   int logFlag;
   int ticksColor;
@@ -883,14 +886,6 @@ int InitAxesModel()
   /* 0: point, 1: tabulated */
   int markSizeUnit = 1;
 
-  /*
-   * Not needed any more since the MVC equivalent is now used
-   * To be deleted
-   */
-#if 0
-  sciSubWindow * ppaxesmdl = pSUBWIN_FEATURE (paxesmdl);
-#endif
-
 #if 0
   char linLogFlags[3] = {'n','n','n'};
 #endif
@@ -898,11 +893,22 @@ int InitAxesModel()
 
   /* These functions have been adapted to the MVC framework */
 //  sciInitGraphicContext (paxesmdl);
-//  sciInitGraphicMode (paxesmdl);
 //  sciInitFontContext (paxesmdl);  /* F.Leray 10.06.04 */
 
   char *pfiguremdlUID = getFigureModel();
   char *paxesmdlUID = getAxesModel();
+
+  /* Sets the Axes model's Labels' parents */
+  getGraphicObjectProperty(paxesmdlUID, __GO_X_AXIS_LABEL__, jni_string, &xLabelUID);
+  getGraphicObjectProperty(paxesmdlUID, __GO_Y_AXIS_LABEL__, jni_string, &yLabelUID);
+  getGraphicObjectProperty(paxesmdlUID, __GO_Z_AXIS_LABEL__, jni_string, &zLabelUID);
+  getGraphicObjectProperty(paxesmdlUID, __GO_TITLE__, jni_string, &titleUID);
+
+  setGraphicObjectProperty(xLabelUID, __GO_PARENT__, paxesmdlUID, jni_string, 1);
+  setGraphicObjectProperty(yLabelUID, __GO_PARENT__, paxesmdlUID, jni_string, 1);
+  setGraphicObjectProperty(zLabelUID, __GO_PARENT__, paxesmdlUID, jni_string, 1);
+  setGraphicObjectProperty(titleUID, __GO_PARENT__, paxesmdlUID, jni_string, 1);
+
 
   sciInitGraphicMode(paxesmdlUID);
 

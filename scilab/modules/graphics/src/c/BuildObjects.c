@@ -75,6 +75,11 @@ char *createNewFigureWithAxes()
     char *pFigureUID = NULL;
     char *pAxesUID = NULL;
 
+    char* xLabelUID;
+    char* yLabelUID;
+    char* zLabelUID;
+    char* titleUID;
+
     pFigureUID = cloneGraphicObject(getFigureModel());
     setGraphicObjectProperty(pFigureUID, __GO_ID__, &iID, jni_int, 1);
     /*
@@ -82,6 +87,17 @@ char *createNewFigureWithAxes()
      * attached to the newly created Figure.
      */
     pAxesUID = cloneGraphicObject(getAxesModel());
+
+    /* The new Axes' Labels' parents must be set, as it is not done by cloneGraphicObject. */
+    getGraphicObjectProperty(pAxesUID, __GO_X_AXIS_LABEL__, jni_string, &xLabelUID);
+    getGraphicObjectProperty(pAxesUID, __GO_Y_AXIS_LABEL__, jni_string, &yLabelUID);
+    getGraphicObjectProperty(pAxesUID, __GO_Z_AXIS_LABEL__, jni_string, &zLabelUID);
+    getGraphicObjectProperty(pAxesUID, __GO_TITLE__, jni_string, &titleUID);
+
+    setGraphicObjectProperty(xLabelUID, __GO_PARENT__, pAxesUID, jni_string, 1);
+    setGraphicObjectProperty(yLabelUID, __GO_PARENT__, pAxesUID, jni_string, 1);
+    setGraphicObjectProperty(zLabelUID, __GO_PARENT__, pAxesUID, jni_string, 1);
+    setGraphicObjectProperty(titleUID, __GO_PARENT__, pAxesUID, jni_string, 1);
 
     /* Sets the parent-child relationship within the MVC */
     setGraphicObjectRelationship(pFigureUID, pAxesUID);
@@ -127,6 +143,10 @@ ConstructSubWin(char * pparentfigureUID)
 {
     char* parentType;
     char *pCloneUID = (char*) NULL;
+    char* xLabelUID;
+    char* yLabelUID;
+    char* zLabelUID;
+    char* titleUID;
     char * paxesmdlUID = getAxesModel();
 
     getGraphicObjectProperty(pparentfigureUID, __GO_TYPE__, jni_string, &parentType);
@@ -145,6 +165,17 @@ ConstructSubWin(char * pparentfigureUID)
 //        FREE(pClone);
 //        return (sciPointObj*) NULL;
 //    }
+
+    /* The new Axes' Labels' parents must be set, as it is not done by cloneGraphicObject. */
+    getGraphicObjectProperty(pCloneUID, __GO_X_AXIS_LABEL__, jni_string, &xLabelUID);
+    getGraphicObjectProperty(pCloneUID, __GO_Y_AXIS_LABEL__, jni_string, &yLabelUID);
+    getGraphicObjectProperty(pCloneUID, __GO_Z_AXIS_LABEL__, jni_string, &zLabelUID);
+    getGraphicObjectProperty(pCloneUID, __GO_TITLE__, jni_string, &titleUID);
+
+    setGraphicObjectProperty(xLabelUID, __GO_PARENT__, pCloneUID, jni_string, 1);
+    setGraphicObjectProperty(yLabelUID, __GO_PARENT__, pCloneUID, jni_string, 1);
+    setGraphicObjectProperty(zLabelUID, __GO_PARENT__, pCloneUID, jni_string, 1);
+    setGraphicObjectProperty(titleUID, __GO_PARENT__, pCloneUID, jni_string, 1);
 
     setGraphicObjectRelationship(pparentfigureUID, pCloneUID);
 
