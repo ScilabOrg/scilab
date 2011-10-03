@@ -22,7 +22,7 @@ import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.actions.base.GraphActionManager;
 import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
-import org.scilab.modules.xcos.graph.XcosDiagram;
+import org.scilab.modules.xcos.actions.workers.ScilabGraphWorker;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -39,7 +39,8 @@ public class StopAction extends DefaultAction {
 	public static final int ACCELERATOR_KEY = 0;
 
 	/**
-	 * @param scilabGraph graph
+	 * @param scilabGraph
+	 *            graph
 	 */
 	public StopAction(ScilabGraph scilabGraph) {
 		super(scilabGraph);
@@ -47,7 +48,8 @@ public class StopAction extends DefaultAction {
 	}
 
 	/**
-	 * @param scilabGraph graph
+	 * @param scilabGraph
+	 *            graph
 	 * @return push button
 	 */
 	public static PushButton createButton(ScilabGraph scilabGraph) {
@@ -55,7 +57,8 @@ public class StopAction extends DefaultAction {
 	}
 
 	/**
-	 * @param scilabGraph graph
+	 * @param scilabGraph
+	 *            graph
 	 * @return menu item
 	 */
 	public static MenuItem createMenu(ScilabGraph scilabGraph) {
@@ -64,18 +67,17 @@ public class StopAction extends DefaultAction {
 
 	/**
 	 * Action !!!
-	 * @param e source event
+	 * 
+	 * @param e
+	 *            source event
 	 * @see org.scilab.modules.gui.events.callback.CallBack#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!GraphActionManager.getEnable(StartAction.class)) {
-		ScilabInterpreterManagement.requestScilabExec("haltscicos");
-		
-		((XcosDiagram) getGraph(null)).info(XcosMessages.EMPTY_INFO);
-		GraphActionManager.setEnable(StartAction.class, true);
-		GraphActionManager.setEnable(StopAction.class, false);
-		((XcosDiagram) getGraph(null)).setReadOnly(false);
+			ScilabInterpreterManagement.requestScilabExec("haltscicos");
+
+			ScilabGraphWorker.stop();
 		}
 	}
 }
