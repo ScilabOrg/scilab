@@ -28,6 +28,10 @@
     <refpurpose>return scilab integer codes associated with a character
     string</refpurpose>
   </refnamediv>
+  
+  <refsection>
+    <para>Obsolete in Scilab 5.4.1</para>
+  </refsection>
 
   <refsynopsisdiv>
     <title>Calling Sequence</title>
