@@ -10,12 +10,16 @@
 */
 
 #ifndef		CHAR_CTL_H_
-# define	CHAR_CTL_H_
+#define	CHAR_CTL_H_
 
 #include	"reader.h"
+/* TODO comment */
+int add_letter(t_list_cmd ** cmd, int key);
 
-int		add_letter(t_list_cmd **cmd, int key);
-int		rm_letter(t_list_cmd **cmd, int key);
-int		delete_line_from_curs(t_list_cmd **cmd, int key);
+/* TODO comment */
+int rm_letter(t_list_cmd ** cmd, int key);
 
-#endif	/* !CHAR_CTL_H_*/
+/* TODO comment */
+int delete_line_from_curs(t_list_cmd ** cmd, int key);
+
+#endif /* !CHAR_CTL_H_ */

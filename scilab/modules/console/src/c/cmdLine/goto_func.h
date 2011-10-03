@@ -10,13 +10,20 @@
 */
 
 #ifndef		GOTO_FUNC_H_
-# define	GOTO_FUNC_H_
+#define	GOTO_FUNC_H_
 
 #include	"reader.h"
 
-int		goto_right(t_list_cmd **cmd, int key);
-int		goto_left(t_list_cmd **cmd, int key);
-int		end_line(t_list_cmd **cmd, int key);
-int		beg_line(t_list_cmd **cmd, int key);
+/* TODO document */
+int goto_right(t_list_cmd ** cmd, int key);
+
+/* TODO document */
+int goto_left(t_list_cmd ** cmd, int key);
+
+/* TODO document */
+int end_line(t_list_cmd ** cmd, int key);
+
+/* TODO document */
+int beg_line(t_list_cmd ** cmd, int key);
 
 #endif /* !GOTO_FUNC_H_ */

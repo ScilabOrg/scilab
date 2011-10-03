@@ -18,48 +18,49 @@
 #include	"aff_prompt.h"
 #include	"reader.h"
 
-int		previous_cmd(t_list_cmd **cmd, int key)
+int previous_cmd(t_list_cmd ** cmd, int key)
 {
-  int		prompt_size;
+    int prompt_size;
 
-  key = 0;
-  if ((*cmd)->previous)
+    key = 0;
+    if ((*cmd)->previous)
     {
-      while ((*cmd)->index)
-	goto_left(cmd, key);
-      cap_str("up");
-      cap_str("do");
-      cap_str("cd");
-      prompt_size = getPrompt(WRT_PRT);
-      (*cmd) = (*cmd)->previous;
-      printf("%ls", (*cmd)->cmd);
-      fflush(stdout);
-      (*cmd)->index = (*cmd)->line;
-      if (!(((*cmd)->index + prompt_size) % tgetnum("co")))
-      	cap_str("do");
+        while ((*cmd)->index)
+            goto_left(cmd, key);
+        cap_str("up");
+        cap_str("do");
+        cap_str("cd");
+        prompt_size = getPrompt(WRT_PRT);
+        (*cmd) = (*cmd)->previous;
+        printf("%ls", (*cmd)->cmd);
+        fflush(stdout);
+        (*cmd)->index = (*cmd)->line;
+/* TODO comment */
+        if (!(((*cmd)->index + prompt_size) % tgetnum("co")))
+            cap_str("do");
     }
-  return (key);
+    return (key);
 }
 
-int		next_cmd(t_list_cmd **cmd, int key)
+int next_cmd(t_list_cmd ** cmd, int key)
 {
-  int		prompt_size;
+    int prompt_size;
 
-  key = 0;
-  if ((*cmd)->next)
+    key = 0;
+    if ((*cmd)->next)
     {
-      while ((*cmd)->index)
-	goto_left(cmd, key);
-      cap_str("up");
-      cap_str("do");
-      cap_str("cd");
-      (*cmd) = (*cmd)->next;
-      prompt_size = getPrompt(WRT_PRT);
-      printf("%ls", (*cmd)->cmd);
-      fflush(stdout);
-      (*cmd)->index = (*cmd)->line;
-      if (!(((*cmd)->index + prompt_size) % tgetnum("co")))
-	cap_str("do");
+        while ((*cmd)->index)
+            goto_left(cmd, key);
+        cap_str("up");
+        cap_str("do");
+        cap_str("cd");
+        (*cmd) = (*cmd)->next;
+        prompt_size = getPrompt(WRT_PRT);
+        printf("%ls", (*cmd)->cmd);
+        fflush(stdout);
+        (*cmd)->index = (*cmd)->line;
+        if (!(((*cmd)->index + prompt_size) % tgetnum("co")))
+            cap_str("do");
     }
-  return (key);
+    return (key);
 }

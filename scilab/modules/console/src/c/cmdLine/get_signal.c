@@ -18,16 +18,17 @@
 #include	"cap_func.h"
 #include	"aff_prompt.h"
 
-void		get_new_term(int signum)
+void get_new_term(int signum)
 {
-  char		*term_env;
+    char *term_env;
 
-  cap_str("cl");
-  if ((term_env = getenv("TERM")) == NULL)
-    exit(EXIT_FAILURE);
-  if (tgetent(NULL, term_env) == ERR)
-    exit(EXIT_FAILURE);
-  getPrompt(WRT_PRT);
-  mem_cmd(NULL);
-  signal(signum, get_new_term);
+    cap_str("cl");
+/* TODO: same as usual */
+    if ((term_env = getenv("TERM")) == NULL)
+        exit(EXIT_FAILURE);
+    if (tgetent(NULL, term_env) == ERR)
+        exit(EXIT_FAILURE);
+    getPrompt(WRT_PRT);
+    mem_cmd(NULL);
+    signal(signum, get_new_term);
 }

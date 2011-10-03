@@ -14,30 +14,33 @@
 #include		<wchar.h>
 #include		<wctype.h>
 
-wchar_t			*catstr(wchar_t *wcs1, wchar_t *wcs2)
+wchar_t *catstr(wchar_t * wcs1, wchar_t * wcs2)
 {
-  wchar_t		*wcs;
-  int			i;
-  int			n;
+    wchar_t *wcs;
+    int i;
+    int n;
 
-  wcs = malloc(sizeof(*wcs) * (1 + wcslen(wcs1) + wcslen(wcs2)));
-  if (wcs == NULL)
-    exit(EXIT_FAILURE);
-  n = 0;
-  i = 0;
-  while (wcs1[i])
+    wcs = malloc(sizeof(*wcs) * (1 + wcslen(wcs1) + wcslen(wcs2)));
+    if (wcs == NULL)
+/* TODO remove that */
+        exit(EXIT_FAILURE);
+    n = 0;
+    i = 0;
+/* TODO comment */
+    while (wcs1[i])
     {
-      wcs[n] = wcs1[i];
-      i++;
-      n++;
+        wcs[n] = wcs1[i];
+        i++;
+        n++;
     }
-  i = 0;
-  while (wcs2[i])
+    i = 0;
+/* TODO comment */
+    while (wcs2[i])
     {
-      wcs[n] = wcs2[i];
-      i++;
-      n++;
+        wcs[n] = wcs2[i];
+        i++;
+        n++;
     }
-  wcs[n] = '\0';
-  return (wcs);
+    wcs[n] = '\0';
+    return (wcs);
 }

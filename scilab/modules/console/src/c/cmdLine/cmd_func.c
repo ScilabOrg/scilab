@@ -26,18 +26,18 @@
 #include		"aff_prompt.h"
 #include		"goto_words.h"
 
-int			caseHomeOrEndKey(t_list_cmd **list_cmd)
+int caseHomeOrEndKey(t_list_cmd ** list_cmd)
 {
-  switch (getwchar())
+    switch (getwchar())
     {
     case L'H':
-     return (beg_line(list_cmd, SHRD_HOME));
+        return (beg_line(list_cmd, SHRD_HOME));
     case L'F':
-     return (end_line(list_cmd, SHRD_END));
+        return (end_line(list_cmd, SHRD_END));
     default:
-     printf("\a");
-     fflush(stdout);
-     return (0);
+        printf("\a");
+        fflush(stdout);
+        return (0);
     }
 }
 
@@ -46,47 +46,49 @@ int			caseHomeOrEndKey(t_list_cmd **list_cmd)
  * It mean this an arrow key or delete key.
  */
 
-int			caseDelOrArrowKey(t_list_cmd **list_cmd)
+int caseDelOrArrowKey(t_list_cmd ** list_cmd)
 {
-  switch (getwchar())
+    switch (getwchar())
     {
     case L'A':
-     return (previous_cmd(list_cmd, SHRD_UP));
+        return (previous_cmd(list_cmd, SHRD_UP));
     case L'B':
-     return (next_cmd(list_cmd, SHRD_DOWN));
+        return (next_cmd(list_cmd, SHRD_DOWN));
     case L'C':
-     return (goto_right(list_cmd, SHRD_RIGHT));
+        return (goto_right(list_cmd, SHRD_RIGHT));
     case L'D':
-     return (goto_left(list_cmd, SHRD_LEFT));
+        return (goto_left(list_cmd, SHRD_LEFT));
     case L'3':
-     if (getwchar() == L'~')
-       return (rm_letter(list_cmd, SHRD_DELETE));
+        if (getwchar() == L'~')
+            return (rm_letter(list_cmd, SHRD_DELETE));
     default:
-     printf("\a");
-     fflush(stdout);
-     return (0);
+        printf("\a");
+        fflush(stdout);
+        return (0);
     }
 }
 
 /*
  * If last key was Meta...
  */
-int			caseMetaKey(t_list_cmd **_list_cmd)
+int caseMetaKey(t_list_cmd ** _list_cmd)
 {
-  switch (getwchar())
+    switch (getwchar())
     {
-    case L'f': case L'F':
-     return (nextWord(_list_cmd, META_F));
-    case L'b': case L'B':
-     return (previousWord(_list_cmd, META_B));
+    case L'f':
+    case L'F':
+        return (nextWord(_list_cmd, META_F));
+    case L'b':
+    case L'B':
+        return (previousWord(_list_cmd, META_B));
     case L'[':
-     return (caseDelOrArrowKey(_list_cmd));
+        return (caseDelOrArrowKey(_list_cmd));
     case L'O':
-     return (caseHomeOrEndKey(_list_cmd));
+        return (caseHomeOrEndKey(_list_cmd));
     default:
-     printf("\a");
-     fflush(stdout);
-     return (0);
+        printf("\a");
+        fflush(stdout);
+        return (0);
     }
 }
 
@@ -94,35 +96,35 @@ int			caseMetaKey(t_list_cmd **_list_cmd)
  * Read keyboard a first time.
  */
 
-int			getKey(t_list_cmd **list_cmd)
+int getKey(t_list_cmd ** list_cmd)
 {
-  int			key;
+    int key;
 
-  key = getwchar();
-  switch (key)
+    key = getwchar();
+    switch (key)
     {
     case CTRL_A:
-     return (beg_line(list_cmd, key));
+        return (beg_line(list_cmd, key));
     case CTRL_B:
-     return (goto_left(list_cmd, key));
+        return (goto_left(list_cmd, key));
     case CTRL_E:
-     return (end_line(list_cmd, key));
+        return (end_line(list_cmd, key));
     case CTRL_F:
-     return (goto_right(list_cmd, key));
+        return (goto_right(list_cmd, key));
     case CTRL_K:
-     return (delete_line_from_curs(list_cmd, key));
+        return (delete_line_from_curs(list_cmd, key));
     case CTRL_N:
-     return (next_cmd(list_cmd, key));
+        return (next_cmd(list_cmd, key));
     case CTRL_P:
-     return (previous_cmd(list_cmd, key));
+        return (previous_cmd(list_cmd, key));
     case ESCAPE:
-     return (caseMetaKey(list_cmd));
+        return (caseMetaKey(list_cmd));
     case SHRD_BACKSPACE:
-       return (rm_letter(list_cmd, SHRD_BACKSPACE));
+        return (rm_letter(list_cmd, SHRD_BACKSPACE));
     default:
-     if (key == L'\n')
-       return ('\n');
-     return (add_letter(list_cmd, key));
+        if (key == L'\n')
+            return ('\n');
+        return (add_letter(list_cmd, key));
     }
 }
 
@@ -130,91 +132,92 @@ int			getKey(t_list_cmd **list_cmd)
  * If there is a string the function save it.
  * else The function write the saved str.
  */
-
-void			mem_cmd(t_list_cmd **cmd)
+void mem_cmd(t_list_cmd ** cmd)
 {
-  static t_list_cmd	**mem_list;
-  static int		i;
+    static t_list_cmd **mem_list;
+    static int i;
 
-  if (cmd != NULL)
+    if (cmd != NULL)
     {
-      mem_list = cmd;
-      i = (*cmd)->index;
+        mem_list = cmd;
+        i = (*cmd)->index;
     }
-  else
+    else
     {
-      i = (*mem_list)->index;
-      (*mem_list)->index = (*mem_list)->line;
-      printf("%ls", (*mem_list)->cmd);
-      fflush(stdout);
-      while ((*mem_list)->index != i)
-        goto_left(mem_list, 0);
+/* TODO comment */
+        i = (*mem_list)->index;
+        (*mem_list)->index = (*mem_list)->line;
+        printf("%ls", (*mem_list)->cmd);
+/* TODO probably useless. We are doing a buffering word by word */
+        fflush(stdout);
+        while ((*mem_list)->index != i)
+            goto_left(mem_list, 0);
     }
 }
 
-t_list_cmd		*get_new_cmd(t_list_cmd *last_cmd)
+t_list_cmd *get_new_cmd(t_list_cmd * last_cmd)
 {
-  t_list_cmd		*new_cmd;
+    t_list_cmd *new_cmd;
 
-  new_cmd = malloc(sizeof(*new_cmd));
-  if (new_cmd == NULL)
-    exit(EXIT_FAILURE);
-  if (last_cmd != NULL)
+    new_cmd = malloc(sizeof(*new_cmd));
+    if (new_cmd == NULL)
+        exit(EXIT_FAILURE);
+    if (last_cmd != NULL)
     {
-      last_cmd->next = new_cmd;
-      last_cmd->bin = 1;
+        last_cmd->next = new_cmd;
+        last_cmd->bin = 1;
     }
-  new_cmd->previous = last_cmd;
-  new_cmd->next = NULL;
-  new_cmd->line = 0;
-  new_cmd->bin = 0;
-  new_cmd->nbr_line = 0;
-  return (new_cmd);
+    new_cmd->previous = last_cmd;
+    new_cmd->next = NULL;
+    new_cmd->line = 0;
+    new_cmd->bin = 0;
+    new_cmd->nbr_line = 0;
+    return (new_cmd);
 }
 
-void			get_cmd(t_list_cmd **list_cmd, int *key)
+void get_cmd(t_list_cmd ** list_cmd, int *key)
 {
-  int			bin;
+    int bin;
 
-  (*list_cmd)->index = 0;
-  *key = 0;
-  bin = 1;
-  while (bin)
+    (*list_cmd)->index = 0;
+    *key = 0;
+    bin = 1;
+    while (bin)
     {
-      mem_cmd(list_cmd);
-      if (getKey(list_cmd) == '\n')
+        mem_cmd(list_cmd);
+        if (getKey(list_cmd) == '\n')
         {
-          putchar('\n');
-          bin = 0;
+            putchar('\n');
+            bin = 0;
         }
     }
 }
 
-t_list_cmd		*free_cmd(t_list_cmd **cmd)
+t_list_cmd *free_cmd(t_list_cmd ** cmd)
 {
-  t_list_cmd		*save;
+    t_list_cmd *save;
 
-  save = *cmd;
-  *cmd = (*cmd)->previous;
-  free(save->cmd);
-  free(save);
-  if (*cmd)
-    (*cmd)->next = NULL;
-  return (*cmd);
+    save = *cmd;
+    *cmd = (*cmd)->previous;
+    free(save->cmd);
+    free(save);
+    if (*cmd)
+        (*cmd)->next = NULL;
+    return (*cmd);
 }
 
-void			suppress_history(t_list_cmd *cmd, int limit)
+void suppress_history(t_list_cmd * cmd, int limit)
 {
-  while (limit && cmd->previous)
+    while (limit && cmd->previous)
     {
-      cmd = cmd->previous;
-      limit--;
+        cmd = cmd->previous;
+        limit--;
     }
-  if (!limit)
+    if (!limit)
     {
-      cmd = cmd->next;
-      free(cmd->previous->cmd);
-      free(cmd->previous);
-      cmd->previous = NULL;
+        cmd = cmd->next;
+        free(cmd->previous->cmd);
+        free(cmd->previous);
+        cmd->previous = NULL;
     }
 }

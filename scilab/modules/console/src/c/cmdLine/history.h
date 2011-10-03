@@ -10,11 +10,14 @@
 */
 
 #ifndef		HISTORY_H_
-# define	HISTORY_H_
+#define	HISTORY_H_
 
 #include	"reader.h"
 
-int		previous_cmd(t_list_cmd **cmd, int key);
-int		next_cmd(t_list_cmd **cmd, int key);
+/* TODO comment */
+int previous_cmd(t_list_cmd ** cmd, int key);
 
-#endif	/* !HISTORY_H_ */
+/* TODO comment */
+int next_cmd(t_list_cmd ** cmd, int key);
+
+#endif /* !HISTORY_H_ */

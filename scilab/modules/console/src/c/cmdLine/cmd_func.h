@@ -10,14 +10,23 @@
 */
 
 #ifndef		CMD_FUNC_H_
-# define	CMD_FUNC_H_
+#define	CMD_FUNC_H_
 
 #include		"reader.h"
 
-t_list_cmd		*get_new_cmd(t_list_cmd *_last_cmd);
-void			get_cmd(t_list_cmd **_list_cmd, int *_key);
-t_list_cmd		*free_cmd(t_list_cmd **cmd);
-void			suppress_history(t_list_cmd *_cmd, int _limit);
-void			mem_cmd(t_list_cmd *_list_cmd);
+/* TODO comment */
+t_list_cmd *get_new_cmd(t_list_cmd * _last_cmd);
 
-#endif		/* !CMD_FUNC_H_ */
+/* TODO comment */
+void get_cmd(t_list_cmd ** _list_cmd, int *_key);
+
+/* TODO comment */
+t_list_cmd *free_cmd(t_list_cmd ** cmd);
+
+/* TODO comment */
+void suppress_history(t_list_cmd * _cmd, int _limit);
+
+/* TODO comment */
+void mem_cmd(t_list_cmd * _list_cmd);
+
+#endif /* !CMD_FUNC_H_ */

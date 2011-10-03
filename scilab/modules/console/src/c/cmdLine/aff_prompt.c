@@ -25,13 +25,13 @@
  * The function return the current saved prompt.
  */
 
-wchar_t		*setPrompt(wchar_t *wcs)
+wchar_t *setPrompt(wchar_t * wcs)
 {
-  static wchar_t	*prompt = NULL;
+    static wchar_t *prompt = NULL;
 
-  if (wcs != NULL)
-    prompt = wcs;
-  return (prompt);
+    if (wcs != NULL)
+        return wcs;
+    return prompt;
 }
 
 /*
@@ -41,17 +41,18 @@ wchar_t		*setPrompt(wchar_t *wcs)
  * Function return size of the prompt.
  */
 
-int		getPrompt(int token)
+int getPrompt(int token)
 {
-  wchar_t		*prompt;
+    wchar_t *prompt;
 
-  prompt = setPrompt(NULL);
-  if (prompt == NULL)
-    prompt = setPrompt(L"-->");
-  if (token == WRT_PRT)
+    prompt = setPrompt(NULL);
+    if (prompt == NULL)
+/* Use SCIPROMPT from prompt.h */
+        prompt = setPrompt(L"-->");
+    if (token == WRT_PRT)
     {
-      printf("%ls", prompt);
-      fflush(stdout);
+        printf("%ls", prompt);
+        fflush(stdout);
     }
-  return (wcslen(prompt));
+    return wcslen(prompt);
 }

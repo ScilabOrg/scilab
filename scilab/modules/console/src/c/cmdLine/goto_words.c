@@ -12,30 +12,35 @@
 #include	"reader.h"
 #include	"goto_func.h"
 
-int		nextWord(t_list_cmd **_cmd, int _key)
+int nextWord(t_list_cmd ** _cmd, int _key)
 {
-  while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] != L' ')
+/* TODO comment (why there is almost ttwice the same thing */
+/* Factorize (*_cmd)->cmd[(*_cmd)->index] */
+    while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] != L' ')
     {
-      goto_right(_cmd, _key);
+        goto_right(_cmd, _key);
     }
-  while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] == L' ') /* then passing through spaces */
+    while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] == L' ')    /* then passing through spaces */
     {
-      goto_right(_cmd, _key);
+        goto_right(_cmd, _key);
     }
-  _key = 0;
-  return (_key);
+    /* what is the point of the two declaration ? */
+    _key = 0;
+    return (_key);
 }
 
-int		previousWord(t_list_cmd **_cmd, int _key)
+int previousWord(t_list_cmd ** _cmd, int _key)
 {
-  while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] == L' ')
+/* Idem */
+    while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] == L' ')
     {
-      goto_left(_cmd, _key);
+        goto_left(_cmd, _key);
     }
-  while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] != L' ')
+    while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] != L' ')
     {
-      goto_left(_cmd, _key);
+        goto_left(_cmd, _key);
     }
-  _key = 0;
-  return (_key);
+    _key = 0;
+    /* what is the point of the two declaration ? */
+    return (_key);
 }

@@ -10,11 +10,14 @@
 */
 
 #ifndef		GOTO_WORDS_H_
-# define	GOTO_WORDS_H_
+#define	GOTO_WORDS_H_
 
 #include	"reader.h"
 
-int		nextWord(t_list_cmd **_cmd, int _key);
-int		previousWord(t_list_cmd **_cmd, int _key);
+/* TODO comment */
+int nextWord(t_list_cmd ** _cmd, int _key);
+
+/* TODO comment */
+int previousWord(t_list_cmd ** _cmd, int _key);
 
 #endif /* !GOTO_WORDS_H_ */
