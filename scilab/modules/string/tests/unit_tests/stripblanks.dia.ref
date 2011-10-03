@@ -56,11 +56,11 @@ if ( r <> [TAB_CHAR + '  123   '+TAB_CHAR,'xyz'] ) then bugmes();quit;end
 //===============================
 STRING = ' '+ascii(9)+' '+'S'+' '+ascii(9)+'C'+' '+ascii(9)+'I'+' '+ascii(9)+'L'+' '+ascii(9)+'A'+' '+ascii(9)+'B'+' '+ascii(9)+' ';
 //===============================
-R1 = str2code('!'+stripblanks(STRING,%T)+'!');
+R1 = _str2code('!'+stripblanks(STRING,%T)+'!');
 W1 = [  38.;  - 28.;    40.;  - 40.;  - 12.;    40.;  - 40.;  - 18.;    40.;  - 40.;  - 21.;    40.;  - 40.;  - 10.; 40.;  - 40.;  - 11.;    38];
 if (R1 <> W1) then bugmes();quit;end
 //===============================
-R2 = str2code('!'+stripblanks(STRING,%F)+'!');
+R2 = _str2code('!'+stripblanks(STRING,%F)+'!');
 W2 = [38.;  - 40.;   40.;  - 28.;    40.;  - 40.;  - 12.;    40.;  - 40.;  - 18.;    40.;  - 40.;  - 21.;    40.;  - 40.;  - 10.;    40.;  - 40.;  - 11.;    40.;  - 40.;    38.];
 if (R2 <> W2) then bugmes();quit;end
 // = strings with only blank character =========================================

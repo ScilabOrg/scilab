@@ -336,6 +336,13 @@ Documentation:
                    coordinates
 
 
+Obsolete Functions:
+===================
+
+* 'code2str' and 'str2code' are obsolete and will be removed on 5.4.1, please use
+  'ascii' instead.
+
+
 Removed functions (previously declared as obsolete):
 ====================================================
 
