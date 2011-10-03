@@ -449,6 +449,9 @@ Obsolete Functions:
 * 'oemtochar' and 'chartooem' functions (windows_tools) are obsolete and will be
    removed on 5.4.1
 
+* 'code2str' and 'str2code' are obsolete and will be removed on 5.4.1, please use
+  'ascii' instead.
+
 
 Removed functions (previously declared as obsolete):
 ====================================================
@@ -887,6 +890,9 @@ Bug fixes:
 * bug 9804 fixed - Starting Scilab with a external module emptied the
                    demo list menu.
 
+* bug 9825 fixed - The assert_computedigits function generously
+                   gives too large correct digits.
+
 * bug 9833 fixed - percent was badly formatted by Scierror function.
 
 * bug 9836 fixed - repfreq failed due to "singular problem".
@@ -918,9 +924,6 @@ Bug fixes:
 * bug 9950 fixed - It was possible to select several texts in the console.
 
 * bug 9957 fixed - msprintf("%d\r", 2) returned '2r'.
-
-* bug 9825 fixed - The assert_computedigits function generously
-                   gives too large correct digits.
 
 * bug 9963 fixed - The assert_computedigits function was not vectorized.
 
