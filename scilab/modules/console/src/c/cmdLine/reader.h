@@ -10,33 +10,39 @@
 */
 
 #ifndef		READER_H_
-# define	READER_H_
+#define	READER_H_
 
 #include	<wchar.h>
 
 typedef struct s_list_cmd t_list_cmd;
 
-struct		s_list_cmd
+/* TODO: remove and use ./libs/doublylinkedlist/includes/DoublyLinkedList.h instead */
+struct s_list_cmd
 {
-  int			index;
-  int			line;
-  int			nbr_line;
-  int			bin;
-  wchar_t		*cmd;
-  struct s_list_cmd	*next;
-  struct s_list_cmd	*previous;
+    int index;
+    int line;
+    int nbr_line;
+    int bin;
+    wchar_t *cmd;
+    struct s_list_cmd *next;
+    struct s_list_cmd *previous;
 };
 
-typedef struct	s_func_key
+/* TODO: document */
+typedef struct s_func_key
 {
-  int		key1;
-  int		key2;
-  int		(*ptr_func)(t_list_cmd **cmd, int key);
-}		t_func_key;
+    int key1;
+    int key2;
+    int (*ptr_func) (t_list_cmd ** cmd, int key);
+} t_func_key;
 
-int	putstr(wchar_t *);
-char	*reader(t_list_cmd **);
+/* TODO: document */
+int putstr(wchar_t *);
 
-t_list_cmd	*core_reader(t_list_cmd *list_cmd);
+/* TODO: document */
+char *reader(t_list_cmd **);
 
-#endif	/* !READER_H_ */
+/* TODO: document */
+t_list_cmd *core_reader(t_list_cmd * list_cmd);
+
+#endif /* !READER_H_ */

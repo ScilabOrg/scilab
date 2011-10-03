@@ -17,16 +17,17 @@
 #include		<unistd.h>
 #include		<stdio.h>
 
-void	cap_str(char *str)
+void cap_str(char *str)
 {
-  char	*cap_str;
+    char *cap_str;
 
-  cap_str = tgetstr(str, NULL);
-  if (cap_str != NULL)
-    tputs(cap_str, 1, putchar);
+    cap_str = tgetstr(str, NULL);
+    if (cap_str != NULL)
+        tputs(cap_str, 1, putchar);
 }
 
-void	cap_goto(int col, int li)
+void cap_goto(int col, int li)
 {
-  tputs(tgoto(tgetstr("cm", NULL), col, li), 1, putchar);
+/* TODO please avoid inclusion. You don't check any return code */
+    tputs(tgoto(tgetstr("cm", NULL), col, li), 1, putchar);
 }

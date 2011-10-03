@@ -10,8 +10,8 @@
 */
 
 #ifndef		GET_SIGNAL_H_
-# define	GET_SIGNAL_H_
+#define	GET_SIGNAL_H_
+/* TODO: comment */
+void get_new_term(int signum);
 
-void		get_new_term(int signum);
-
-#endif		/* !SIGNAL_H_ */
+#endif /* !SIGNAL_H_ */

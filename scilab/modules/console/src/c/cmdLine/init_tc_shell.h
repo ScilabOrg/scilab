@@ -10,12 +10,17 @@
 */
 
 #ifndef		INIT_TC_SHELL_H_
-# define	INIT_TC_SHELL_H_
+#define	INIT_TC_SHELL_H_
 
+/* please comment */
 #define		CANON	1
+/* please comment */
 #define		RAW	0
 
-int			init_shell(int);
-void			set_attr(int bin);
+/* please comment */
+int init_shell(int);
 
-#endif	/* !INIT_TC_SHELL_H_ */
+/* please comment */
+void set_attr(int bin);
+
+#endif /* !INIT_TC_SHELL_H_ */

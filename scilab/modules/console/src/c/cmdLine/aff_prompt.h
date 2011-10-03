@@ -10,14 +10,19 @@
 */
 
 #ifndef		AFF_PROMPT_H_
-# define	AFF_PROMPT_H_
+#define	AFF_PROMPT_H_
 
-# define WRT_PRT	1
-# define NOWRT_PRT	-1
+/* TODO comment */
+#define WRT_PRT	1
+/* TODO comment */
+#define NOWRT_PRT	-1
 
 #include    <wchar.h>
 
-wchar_t	*setPrompt(wchar_t *);
-int	getPrompt(int);
+/* TODO comment */
+wchar_t *setPrompt(wchar_t *);
 
-#endif		/* !AFF_PROMPT_H_ */
+/* TODO comment */
+int getPrompt(int);
+
+#endif /* !AFF_PROMPT_H_ */

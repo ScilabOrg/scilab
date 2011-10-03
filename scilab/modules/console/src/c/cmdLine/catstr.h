@@ -10,10 +10,11 @@
 */
 
 #ifndef		CATSTR_H_
-# define	CATSTR_H_
+#define	CATSTR_H_
 
 #include	<wchar.h>
 
-wchar_t		*catstr(wchar_t *str1, wchar_t *str2);
+/* TODO comment */
+wchar_t *catstr(wchar_t * str1, wchar_t * str2);
 
-#endif		/* !CATSTR_H_ */
+#endif /* !CATSTR_H_ */
