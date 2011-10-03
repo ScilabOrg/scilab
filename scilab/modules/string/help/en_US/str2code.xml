@@ -28,6 +28,10 @@
     <refpurpose>return scilab integer codes associated with a character
     string</refpurpose>
   </refnamediv>
+  
+  <refsection>
+    <para>Obsolete in Scilab 5.4.1</para>
+  </refsection>
 
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -82,4 +86,15 @@ code2str([-28 12 18 21 10 11])
       <member><link linkend="ascii">ascii</link></member>
     </simplelist>
   </refsection>
+
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function will be removed in Scilab 5.4.1</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+  
 </refentry>
