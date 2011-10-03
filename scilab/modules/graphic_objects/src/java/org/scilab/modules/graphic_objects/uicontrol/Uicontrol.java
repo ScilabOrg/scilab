@@ -17,6 +17,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_STYLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICONTROL__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_BACKGROUNDCOLOR__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_CHECKBOX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_COLUMNNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_COLUMNNAMES_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
@@ -144,6 +145,7 @@ public class Uicontrol extends GraphicObject {
 	 * All uicontrol styles
 	 */
 	private enum UicontrolStyle {
+	    CHECKBOX,
 		IMAGERENDERER,
 		PUSHBUTTON,
 		RADIOBUTTON,
@@ -166,8 +168,8 @@ public class Uicontrol extends GraphicObject {
 	private String styleEnumToString(UicontrolStyle style) {
 	    String stringStyle = null;
 	    switch(style) {
-	    case TABLE:
-	        stringStyle = __GO_UI_TABLE__;
+	    case CHECKBOX:
+	        stringStyle = __GO_UI_CHECKBOX__;
 	        break;
 	    case IMAGERENDERER:
 	        stringStyle = __GO_UI_IMAGERENDERER__;
@@ -177,6 +179,9 @@ public class Uicontrol extends GraphicObject {
             break;
         case RADIOBUTTON:
             stringStyle = __GO_UI_RADIOBUTTON__;
+            break;
+        case TABLE:
+            stringStyle = __GO_UI_TABLE__;
             break;
 	    case TEXT:
 	        stringStyle = __GO_UI_TEXT__;
@@ -195,14 +200,16 @@ public class Uicontrol extends GraphicObject {
 	 */
 	private UicontrolStyle stringToStyleEnum(String style) {
 	    UicontrolStyle enumStyle = null;
-		if (style.equals(__GO_UI_TABLE__)) {
-		    enumStyle = UicontrolStyle.TABLE;
+		if (style.equals(__GO_UI_CHECKBOX__)) {
+		    enumStyle = UicontrolStyle.CHECKBOX;
 		} else if (style.equals(__GO_UI_IMAGERENDERER__)) {
 		    enumStyle = UicontrolStyle.IMAGERENDERER;
 		} else if (style.equals(__GO_UI_PUSHBUTTON__)) {
 		    enumStyle = UicontrolStyle.PUSHBUTTON;
         } else if (style.equals(__GO_UI_RADIOBUTTON__)) {
             enumStyle = UicontrolStyle.RADIOBUTTON;
+        } else if (style.equals(__GO_UI_TABLE__)) {
+                enumStyle = UicontrolStyle.TABLE;
 		} else if (style.equals(__GO_UI_TEXT__)) {
             enumStyle = UicontrolStyle.TEXT;
         }
