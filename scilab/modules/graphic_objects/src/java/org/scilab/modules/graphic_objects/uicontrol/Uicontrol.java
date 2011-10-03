@@ -33,6 +33,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MIN__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_MAX__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_PUSHBUTTON__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RADIOBUTTON__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_RELIEF__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ROWNAMES__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ROWNAMES_SIZE__;
@@ -144,6 +145,7 @@ public class Uicontrol extends GraphicObject {
 	private enum UicontrolStyle {
 		IMAGERENDERER,
 		PUSHBUTTON,
+		RADIOBUTTON,
 		TABLE,
 		TEXT
 	};
@@ -161,19 +163,28 @@ public class Uicontrol extends GraphicObject {
 	 * @return the uicontrol style as a string
 	 */
 	private String styleEnumToString(UicontrolStyle style) {
-		if (style == UicontrolStyle.TABLE) {
-			return __GO_UI_TABLE__;
-		}
-		if (style == UicontrolStyle.IMAGERENDERER) {
-			return __GO_UI_IMAGERENDERER__;
-		}
-		if (style == UicontrolStyle.PUSHBUTTON) {
-			return __GO_UI_PUSHBUTTON__;
-		}
-        if (style == UicontrolStyle.TEXT) {
-            return __GO_UI_TEXT__;
-        }
-		return null;
+	    String stringStyle = null;
+	    switch(style) {
+	    case TABLE:
+	        stringStyle = __GO_UI_TABLE__;
+	        break;
+	    case IMAGERENDERER:
+	        stringStyle = __GO_UI_IMAGERENDERER__;
+            break;
+	    case PUSHBUTTON:
+	        stringStyle = __GO_UI_PUSHBUTTON__;
+            break;
+        case RADIOBUTTON:
+            stringStyle = __GO_UI_RADIOBUTTON__;
+            break;
+	    case TEXT:
+	        stringStyle = __GO_UI_TEXT__;
+            break;
+	    default:
+	       stringStyle = null;
+           break;
+	    }
+	    return stringStyle;
 	}
 
 	/**
@@ -182,19 +193,19 @@ public class Uicontrol extends GraphicObject {
 	 * @return the uicontrol style as an enum element
 	 */
 	private UicontrolStyle stringToStyleEnum(String style) {
+	    UicontrolStyle enumStyle = null;
 		if (style.equals(__GO_UI_TABLE__)) {
-			return UicontrolStyle.TABLE;
-		}
-		if (style.equals(__GO_UI_IMAGERENDERER__)) {
-			return UicontrolStyle.IMAGERENDERER;
-		}
-		if (style.equals(__GO_UI_PUSHBUTTON__)) {
-			return UicontrolStyle.PUSHBUTTON;
-		}
-        if (style.equals(__GO_UI_TEXT__)) {
-            return UicontrolStyle.TEXT;
+		    enumStyle = UicontrolStyle.TABLE;
+		} else if (style.equals(__GO_UI_IMAGERENDERER__)) {
+		    enumStyle = UicontrolStyle.IMAGERENDERER;
+		} else if (style.equals(__GO_UI_PUSHBUTTON__)) {
+		    enumStyle = UicontrolStyle.PUSHBUTTON;
+        } else if (style.equals(__GO_UI_RADIOBUTTON__)) {
+            enumStyle = UicontrolStyle.RADIOBUTTON;
+		} else if (style.equals(__GO_UI_TEXT__)) {
+            enumStyle = UicontrolStyle.TEXT;
         }
-		return null;
+		return enumStyle;
 	}
 	
 	/**
