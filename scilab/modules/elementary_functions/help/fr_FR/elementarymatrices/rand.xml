@@ -19,13 +19,18 @@
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
 
-    <synopsis>rand(m1,m2,.. [,key])
-rand(x [, key])
-rand()
+    <synopsis>
+      r = rand()
+      r = rand(m1,m2,...)
+      r = rand(m1,m2,...,key)
+      r = rand(x)
+      r = rand(x,key)
 
-rand(key)
-rand("seed" [,n])
-rand("info")
+      s = rand("seed")
+      rand("seed",s)
+
+      rand(key)
+      key = rand("info")
 </synopsis>
   </refsynopsisdiv>
 
@@ -46,7 +51,7 @@ rand("info")
 
         <listitem>
           <para>chaîne de caractères, <literal>"uniform"</literal> ou
-          <literal>"normal"</literal> ("uniform" par défaut)</para>
+          <literal>"normal"</literal> (par défaut: <literal>key="uniform"</literal>)</para>
         </listitem>
       </varlistentry>
 
@@ -58,19 +63,46 @@ rand("info")
           compte.</para>
         </listitem>
       </varlistentry>
+
+
+      <varlistentry>
+        <term>r</term>
+        <listitem>
+          <para>
+            une matrice de doubles de taille m1-par-m2-par-... avec des valeurs aléatoires.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>s</term>
+        <listitem>
+          <para>
+            un entier positive, la graine (par défaut: <literal>s=0</literal>).
+          </para>
+        </listitem>
+      </varlistentry>
+
     </variablelist>
   </refsection>
 
   <refsection>
     <title>Description</title>
 
-    <para>Générateur de nombres aléatoires.</para>
+    <para>
+      Le but de cette fonction est de retourner une matrix 
+	  de doubles dont les valeurs sont des nombres aléatoires 
+	  réels ou complexes.
+	  En fonction des arguments d'entrée, la fonction peut renvoyer une 
+	  matrice de doubles aléatoires or peut configurer ou récupérer la distribution des nombres 
+	  aléatoires ou peut configurer ou récupérer la graine du générateur 
+	  aléatoire.
+	</para>
 
-    <para>Attention: sans souche, la séquence générée restera la même
-      d'une session à l'autre.</para>
-    <para>Au début de chaque script utilisant la fonction rand, vous
-    devriez utiliser:</para>
-    <programlisting role="example"><![CDATA[rand('seed',getdate('s'))]]></programlisting>
+  </refsection>
+
+  <refsection>
+    <title>Générer des nombres aléatoires</title>
 
     <para>Sans l'argument <literal>key</literal> la syntaxe ci-dessous produit
     une matrice aléatoire dont chaque élément est la réalisation d'une
@@ -78,8 +110,17 @@ rand("info")
     [0,1]).</para>
 
     <variablelist>
+
       <varlistentry>
-        <term>rand(m1,m2)</term>
+        <term>r=rand()</term>
+
+        <listitem>
+          <para>renvoit un scalaire aléatoire.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>r=rand(m1,m2)</term>
 
         <listitem>
           <para>est une matrice aléatoire de dimensions <literal>m1</literal>
@@ -88,7 +129,7 @@ rand("info")
       </varlistentry>
 
       <varlistentry>
-        <term>rand(m1,m2,..,mn)</term>
+        <term>r=rand(m1,m2,..,mn)</term>
 
         <listitem>
           <para>est une matrice aléatoire de dimensions <literal>m1</literal>
@@ -97,7 +138,7 @@ rand("info")
       </varlistentry>
 
       <varlistentry>
-        <term>rand(a)</term>
+        <term>r=rand(a)</term>
 
         <listitem>
           <para>est une matrice aléatoire de mêmes dimensions que a.
@@ -107,12 +148,19 @@ rand("info")
       </varlistentry>
     </variablelist>
 
-    <para>S'il est présent, l'argument <literal>key</literal> permet de
-    spécifier la loi suivie par défaut par la variable aléatoire.</para>
+  </refsection>
+
+  <refsection>
+    <title>Changer la distribution des nombres aléatoires</title>
+	
+    <para>
+	S'il est présent, l'argument <literal>key</literal> permet de
+    spécifier la loi suivie par défaut par la variable aléatoire.
+	</para>
 
     <variablelist>
       <varlistentry>
-        <term>rand('uniform')</term>
+        <term>rand("uniform")</term>
 
         <listitem>
           <para>La loi par défaut est uniforme sur l'intervalle [0,1].</para>
@@ -120,7 +168,7 @@ rand("info")
       </varlistentry>
 
       <varlistentry>
-        <term>rand('normal')</term>
+        <term>rand("normal")</term>
 
         <listitem>
           <para>La loi par défaut est une loi normale centrée réduite (moyenne
@@ -129,33 +177,37 @@ rand("info")
       </varlistentry>
 
       <varlistentry>
-        <term>str=rand('info')</term>
+        <term>key=rand("info")</term>
 
         <listitem>
-          <para>renvoie 'uniform' ou 'normal' suivant la loi définie par
-          défaut (voir ci-dessus).</para>
+          <para>renvoie la distribution courante, c'est à dire "uniform" ou "normal".</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
+  </refsection>
+
+  <refsection>
+    <title>Récupérer ou changer la graine</title>
+	
     <para>Il est possible de réinitialiser l'état interne du générateur
     aléatoire (spécifié par un entier de l'intervalle [0,2^31-1]) ):</para>
 
     <variablelist>
       <varlistentry>
-        <term>rand('seed')</term>
+        <term>s=rand("seed")</term>
 
         <listitem>
-          <para>Renvoie la valeur courante de l'état interne.</para>
+          <para>Renvoie la valeur courante de la graine.</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term>rand('seed',n)</term>
+        <term>rand("seed",s)</term>
 
         <listitem>
-          <para>Impose la valeur <literal>n</literal> pour l'état interne (par
-          défaut l'état est initialisé à <literal>n=0</literal> au premier
+          <para>Configure la valeur <literal>s</literal> de la graine (par
+          défaut la graine est initialisée à <literal>s=0</literal> au premier
           appel).</para>
         </listitem>
       </varlistentry>
@@ -163,24 +215,59 @@ rand("info")
   </refsection>
 
   <refsection>
-    <title>Remarque</title>
-
-    <para>Il est conseillé d'utiliser plutôt la fonction <link
-    linkend="grand">grand</link> qui permet aussi de simuler les lois les plus
-    classiques (binomiale, poisson, ....).</para>
-  </refsection>
-
-  <refsection>
     <title>Exemples</title>
 
     <programlisting role="example"><![CDATA[ 
-x=rand(10,10,'uniform')
-rand('normal')
-rand('info')
-y=rand(x,'normal');
+x=rand(10,10,"uniform")
+rand("normal")
+rand("info")
+y=rand(x,"normal");
 x=rand(2,2,2)
  ]]></programlisting>
   </refsection>
+
+  <refsection>
+    <title>Obtenir des nombres aléatoires prévisibles ou moins prévisibles</title>
+
+    <para>
+      Le générateur pseudo-aléatoire "uniform" est une séquence déterministe 
+      dont le but est de reproduire une séquence de nombres aléatoire, indépendents 
+      et identiquement distribués dans l'intervalle (0,1).
+    </para>
+    <para>
+      Dans le but de pouvoir obtenir des simulations reproductibles, 
+	  la graine initiale du générateur est zéro, de telle sorte que la séquence est 
+	  la même d'une session à l'autre. 
+	  En d'autres terms, les premiers nombres produits 
+	  par <literal>rand</literal> sont toujours : 0.2113249,  0.7560439, ...
+    </para>
+    <para>
+      Dans certains cas, nous pourrions vouloir initialiser la 
+	  graine du générateur dans le but de produire des séquences moins prévisibles. 
+	  Dans ce cas, nous pouvons initialiser la graine avec la sortie de la 
+	  fonction <literal>getdate</literal>, comme dans l'exemple suivant:
+    </para>
+    <programlisting role="example">
+      <![CDATA[  
+n=getdate("s");
+rand("seed",s);
+ ]]>
+    </programlisting>
+  </refsection>
+
+
+  <refsection>
+    <title>Remarque</title>
+
+    <para>
+	La fonction <link linkend="grand">grand</link> dispose de générateurs aléatoire produisant 
+	des séquences de nombres qui possèdent de meilleures qualités statistiques. 
+	Par conséquent, dans les situations où la qualité statistique des séquences de 
+	nombres aléatoires est importante, nous devrions plutôt utiliser la fonction <literal>grand</literal>.
+	De plus, la fonction <literal>grand</literal> fournit davantage de fonctionnalités. 
+	</para>
+  </refsection>
+
 
   <refsection role="see also">
 <title>Voir aussi</title>
