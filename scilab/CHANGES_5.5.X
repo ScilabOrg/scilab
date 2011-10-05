@@ -817,6 +817,17 @@ Scilab Bug Fixes
 * Bug #4042 fixed - squeeze returned a hypermatrix instead of a matrix when at least one
                     dimension was equal to 1.
 
+* Bug #4083 fixed - The numdiff function was a quasi-duplicate for derivative.
+                    The numdiff function is tagged as obsolete: will be maintained for backward
+                    compatibility until 6.0.
+                    The derivative function is tagged as obsolete: will be maintained for backward
+                    compatibility until 6.0.
+                    The new numderivative function is created, which replaces both
+                    derivative and numdiff.
+                    The motivations for these changes are presented in the SEP #102.
+                    See the help page of numdiff and derivative for details to update your
+                    code, if required.
+
 * Bug #4085 fixed - num2cell help page added.
 
 * Bug #4229 fixed - delip did not return an error if one element of its first input
