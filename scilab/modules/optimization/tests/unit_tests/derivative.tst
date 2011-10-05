@@ -114,16 +114,16 @@ assert_checkalmostequal ( Hcomputed , Hexpected , %eps );
 
 // 5. Test h parameter
 // Test a case where the default step h is very small ~ 1.e-9,
-// but, because the function is very flat in the neighbourhood of the 
+// but, because the function is very flat in the neighbourhood of the
 // point, a larger step ~ 1.e-4 reduces the error.
-// This means that this test cannot pass if the right step is 
+// This means that this test cannot pass if the right step is
 // not taken into account, therefore testing the feature "h is used correctly".
 myn = 1.e5;
 function y = myfunction3 (x)
   y = x^(2/myn);
 endfunction
 x = 1.0;
-h = 6.055454e-006
+h = 6.055454e-006;
 Jexpected = (2/myn) * x^(2/myn-1);
 Hexpected = (2/myn) * (2/myn-1) * x^(2/myn-2);
 [Jcomputed , Hcomputed] = derivative(myfunction3 , x , h = 1.e-4 , order = 1 );
@@ -132,4 +132,3 @@ assert_checkalmostequal ( Hcomputed , Hexpected , 1.e-3 );
 
 // 6. Test Q parameter
 // TODO !
-

@@ -142,6 +142,7 @@ Scilab
  - unwrap - Unwraps/unfolds a Y(x) profile
  - getPreferencesValue/setPreferencesValue - Get or set values in the preferences file.
  - htmlDump/htmlRead/htmlReadStr/htmlWrite - Read and write data from/in HTML files.
+ - numderivative - Approximate derivatives of a function (Jacobian or Hessian).
 
 * modulo() and pmodulo() now support integers & hypermatrices (See bug #13002).
 
@@ -197,9 +198,13 @@ Obsolete & Removed Functions
   Please use delip instead.
 
 * jmat tagged as obsolete. Will be removed in Scilab 5.5.1.
-  Please use flipdim instead
+  Please use flipdim instead.
 
 * perl tagged as obsolete. Will be removed in Scilab 6.0.0.
+
+* numdiff and derivative tagged as obsolete. Will be removed in Scilab 6.0.0.
+  Please use numderivative instead.
+
 
 Compilation
 ============
@@ -242,6 +247,17 @@ Scilab Bug Fixes
 * Bug #2345 fixed - Use of operators => and =< did not lead to an error.
 
 * Bug #2802 fixed - convstr did not convert non ascii chars.
+
+* Bug #4083 fixed - The numdiff and derivative functions were a quasi-duplicate for derivative.
+                    The numdiff function is tagged as obsolete: will be maintained for backward
+                    compatibility until 6.0.
+                    The derivative function is tagged as obsolete: will be maintained for backward
+                    compatibility until 6.0.
+                    The new numderivative function is created, which replaces both
+                    derivative and numdiff.
+                    The motivations for these changes are presented in the SEP #130.
+                    See the help page of numdiff and derivative for details to update your
+                    code, if required.
 
 * Bug #4177 fixed - find function moved to the "elementary_functions" module.
 
