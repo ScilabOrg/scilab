@@ -12,30 +12,35 @@
 #include	"reader.h"
 #include	"goto_func.h"
 
-int		nextWord(t_list_cmd **_cmd, int _key)
+int nextWord(t_list_cmd ** _cmd, int _key)
 {
-  while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] != L' ')
+    /* Factorize (*_cmd)->cmd[(*_cmd)->index] */
+    /* Passing current word... */
+    while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] != L' ')
     {
-      goto_right(_cmd, _key);
+        gotoRight(_cmd, _key);
     }
-  while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] == L' ') /* then passing through spaces */
+    /* ... then passing through spaces */
+    while ((*_cmd)->cmd[(*_cmd)->index] && (*_cmd)->cmd[(*_cmd)->index] == L' ')
     {
-      goto_right(_cmd, _key);
+        gotoRight(_cmd, _key);
     }
-  _key = 0;
-  return (_key);
+    _key = 0;
+    return (_key);
 }
 
-int		previousWord(t_list_cmd **_cmd, int _key)
+int previousWord(t_list_cmd ** _cmd, int _key)
 {
-  while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] == L' ')
+    /* Passing through spaces... */
+    while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] == L' ')
     {
-      goto_left(_cmd, _key);
+        gotoLeft(_cmd, _key);
     }
-  while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] != L' ')
+    /* ... then going to the beginning of the word */
+    while ((*_cmd)->index && (*_cmd)->cmd[(*_cmd)->index - 1] != L' ')
     {
-      goto_left(_cmd, _key);
+        gotoLeft(_cmd, _key);
     }
-  _key = 0;
-  return (_key);
+    _key = 0;
+    return (_key);
 }
