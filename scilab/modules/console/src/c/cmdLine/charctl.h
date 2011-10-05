@@ -13,13 +13,30 @@
 #define	CHAR_CTL_H_
 
 #include	"reader.h"
-/* TODO comment */
-int add_letter(t_list_cmd ** cmd, int key);
 
-/* TODO comment */
-int rm_letter(t_list_cmd ** cmd, int key);
+/**
+ * Add a character in the command line at the cursor position.
+ * @param current edited line.
+ * @param user input.
+ * @return user input.
+ */
+int addLetter(t_list_cmd ** cmd, int _key);
 
-/* TODO comment */
-int delete_line_from_curs(t_list_cmd ** cmd, int key);
+/**
+ * Remove a character in the command line at the cursor position if SCI_DELETE is passed as key.
+ * Remove a character in the command line at the cursor position if SCI_BACKSPACE is passed as key.
+ * @param current edited line.
+ * @param user input.
+ * @return user input.
+ */
+int rmLetter(t_list_cmd ** cmd, int _key);
+
+/**
+ * Add a character in the command line at the cursor position.
+ * @param current edited line.
+ * @param user input.
+ * @return user input.
+ */
+int deleteLineFromCurs(t_list_cmd ** cmd, int _key);
 
 #endif /* !CHAR_CTL_H_ */

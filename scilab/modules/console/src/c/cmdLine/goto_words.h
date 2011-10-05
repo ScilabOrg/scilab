@@ -14,10 +14,20 @@
 
 #include	"reader.h"
 
-/* TODO comment */
+/**
+ * Move cursor to the beginning of the next word or to the end of the string if none were found.
+ * @param current edited line
+ * @param user Input
+ * @return user Input
+ */
 int nextWord(t_list_cmd ** _cmd, int _key);
 
-/* TODO comment */
+/**
+ * Move cursor to the beginning of the previous word or to the beginning of the string if none were found.
+ * @param current edited line
+ * @param user Input
+ * @return user Input
+ */
 int previousWord(t_list_cmd ** _cmd, int _key);
 
 #endif /* !GOTO_WORDS_H_ */

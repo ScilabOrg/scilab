@@ -19,6 +19,7 @@
 #include	<curses.h>
 
 #include	"aff_prompt.h"
+#include	"prompt.h"
 
 /*
  * If there's a string, the function save it.
@@ -30,13 +31,15 @@ wchar_t *setPrompt(wchar_t * wcs)
     static wchar_t *prompt = NULL;
 
     if (wcs != NULL)
+    {
         return wcs;
+    }
     return prompt;
 }
 
 /*
  * The function get the current prompt
- * If none are set, function set it to the basic prompt ("-->")
+ * If none are set, function set it to the basic prompt SCIPROMPT ("-->")
  * If Argument pass is WRT_PRT (1), it write prompt (NOWRT_PRT (-1) not to write prompt)
  * Function return size of the prompt.
  */
@@ -47,8 +50,9 @@ int getPrompt(int token)
 
     prompt = setPrompt(NULL);
     if (prompt == NULL)
-/* Use SCIPROMPT from prompt.h */
-        prompt = setPrompt(L"-->");
+    {
+        prompt = setPrompt(WSCIPROMPT);
+    }
     if (token == WRT_PRT)
     {
         printf("%ls", prompt);

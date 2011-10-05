@@ -18,6 +18,7 @@
 #include		<termios.h>
 #include		<term.h>
 #include		<signal.h>
+#include                "MALLOC.h"
 #include		"cmd_func.h"
 #include		"history.h"
 #include		"reader.h"
@@ -29,102 +30,113 @@
 #include		"get_signal.h"
 #include		"charEncoding.h"
 
-wchar_t *cmddup(t_list_cmd * cmd, wchar_t * wcs)
+/* comment */
+wchar_t *cmdDup(t_list_cmd * _cmd, wchar_t * _wcs)
 {
-    wchar_t *dup_cmd;
+    wchar_t *dupCmd;
 
-    /* TODO: Document + use a define instead of 1024 hardcoded twice */
-    dup_cmd = malloc(sizeof(*dup_cmd) * (((cmd->line / 1024) + 1) * 1024));
-    if (dup_cmd == NULL)
-        /* TODO: NEVER use an exit link that. fprintf(stderr is way better */
-        exit(EXIT_FAILURE);
-    dup_cmd[cmd->line] = L'\0';
-/* TODO comment the line under... What is t about ?*/
-    cmd->nbr_line = 1 + (cmd->line + getPrompt(NOWRT_PRT)) / tgetnum("co");
-    if (wcs != NULL)
-/* TODO missing { } */
-        wcscpy(dup_cmd, wcs);
+    /* TODO: Document */
+    dupCmd = MALLOC(sizeof(*dupCmd) * (_cmd->line + 1));
+    dupCmd[_cmd->line] = L'\0';
+    /*
+     * Get the number of line the command line has:
+     * Add the size of the prompt and the size of the command line
+     * then divid it by the number of column in the windows.
+     */
+    _cmd->nbr_line = 1 + (_cmd->line + getPrompt(NOWRT_PRT)) / tgetnum("co");
+    if (_wcs != NULL)
+    {
+        wcscpy(dupCmd, _wcs);
+    }
     else
-        wcscpy(dup_cmd, cmd->cmd);
-    return (dup_cmd);
+    {
+        wcscpy(dupCmd, _cmd->cmd);
+    }
+    return (dupCmd);
 }
 
-t_list_cmd *get_new_hist(t_list_cmd * cmd)
+/* Create a new link for the history. */
+t_list_cmd *getNewHist(t_list_cmd * _cmd)
 {
-    t_list_cmd *last_cmd;
+    t_list_cmd *lastCmd;
 
-    last_cmd = cmd;
-    while (last_cmd->bin)
-        last_cmd = last_cmd->next;
-    last_cmd->line = cmd->line;
-    last_cmd->nbr_line = cmd->nbr_line;
-    last_cmd->cmd = cmddup(cmd, NULL);
-    return (last_cmd);
+    lastCmd = _cmd;
+    while (lastCmd->bin)
+    {
+        lastCmd = lastCmd->next;
+    }
+    lastCmd->line = _cmd->line;
+    lastCmd->nbr_line = _cmd->nbr_line;
+    lastCmd->cmd = cmdDup(_cmd, NULL);
+    return (lastCmd);
 }
 
-/* TODO rename the function epur is not english */
-void *epur_cmd(t_list_cmd * cmd)
+/*
+ * Take all spaces ans tabulations at the beginning of the command line out.
+ * return the cleaned command line.
+ */
+void *cleanVoidCharInCmd(t_list_cmd * _cmd)
 {
     int i;
-    wchar_t *dup_cmd;
+    wchar_t *dupCmd;
 
     i = 0;
-/* TODO comment + missing {} */
-    while (cmd->cmd[i] && (cmd->cmd[i] == L' ' || cmd->cmd[i] == L'\t'))
+    /* Passing all void character at the beginning of the command line... */
+    while (_cmd->cmd[i] && (_cmd->cmd[i] == L' ' || _cmd->cmd[i] == L'\t'))
+    {
         i++;
-
-    cmd->line = wcslen(&cmd->cmd[i]);
-    dup_cmd = cmddup(cmd, &cmd->cmd[i]);
-    free(cmd->cmd);
-    cmd->cmd = dup_cmd;
-    return (dup_cmd);
+    }
+    /* ... then create the new command line. */
+    _cmd->line = wcslen(&_cmd->cmd[i]);
+    dupCmd = cmdDup(_cmd, &_cmd->cmd[i]);
+    free(_cmd->cmd);
+    _cmd->cmd = dupCmd;
+    return (dupCmd);
 }
 
-/* TODO rename the function... */
-t_list_cmd *core_reader(t_list_cmd * list_cmd)
+/*
+ * Initialise current line edited
+ * Return the line sent by user
+ */
+t_list_cmd *initUsrInput(t_list_cmd * _listCmd)
 {
     int key;
     int ret;
 
-    list_cmd = get_new_cmd(list_cmd);
+    _listCmd = getNewCmd(_listCmd);
     getPrompt(WRT_PRT);
     key = 0;
-    list_cmd->line = 0;
+    _listCmd->line = 0;
 /* Hardcoded value */
-    list_cmd->cmd = malloc(sizeof(*list_cmd->cmd) * 1024);
-    if (list_cmd->cmd == NULL)
-        exit(EXIT_FAILURE);
-    list_cmd->cmd[0] = L'\0';
+    _listCmd->cmd = MALLOC(sizeof(*_listCmd->cmd) * 1024);
+    _listCmd->cmd[0] = L'\0';
     ret = 0;
 /* please comment */
-    get_cmd(&list_cmd, &key);
+    getCmd(&_listCmd, &key);
     if (key == CTRL_D)
         return (NULL);
-    epur_cmd(list_cmd);
-    if (list_cmd->bin)
-        list_cmd = get_new_hist(list_cmd);
-    suppress_history(list_cmd, 200);
-    return (list_cmd);
+    cleanVoidCharInCmd(_listCmd);
+    if (_listCmd->bin)
+    {
+        _listCmd = getNewHist(_listCmd);
+    }
+    deleteHistory(_listCmd, 200);
+    return (_listCmd);
 }
 
-/* TODO: rename */
-char *reader(t_list_cmd ** history)
+/*
+ * Get final command line, then convert wchar to multi-byte char
+ * return a string or NULL in case there's an error.
+ */
+char *getCmdLine(t_list_cmd ** history)
 {
     char *dest;
 
-/* please comment */
-
-    signal(SIGWINCH, get_new_term);
-    *history = core_reader(*history);
+    /* TODO: Catch SIGINT */
+    signal(SIGWINCH, getNewTerm);
+    *history = initUsrInput(*history);
     if (*history == NULL)
         return (NULL);
-    while (!wcscmp((*history)->cmd, L""))
-    {
-        free_cmd(history);
-        *history = core_reader(*history);
-        if (*history == NULL)
-            return (NULL);
-    }
-    dest = wide_string_to_UTF8((*history)->cmd);
+    dest = strdup(wide_string_to_UTF8((*history)->cmd));
     return (dest);
 }

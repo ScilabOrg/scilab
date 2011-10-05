@@ -9,12 +9,22 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#ifndef		CATSTR_H_
+#ifndef	CATSTR_H_
 #define	CATSTR_H_
 
 #include	<wchar.h>
 
-/* TODO comment */
-wchar_t *catstr(wchar_t * str1, wchar_t * str2);
+/**
+ * Malloc and concatenate 2 wide char string.
+ * @param first wide char string to concatenate with the second one.
+ * @param second wide char string to concatenate with the first one.
+ * @return Concatenation of both @param.
+ */
+wchar_t *catStr(wchar_t * str1, wchar_t * str2);
+/*
+ * Note: returned wide char string will be like that:
+ * wcs1wcs2
+ * Just like strcat.
+ */
 
 #endif /* !CATSTR_H_ */

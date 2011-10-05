@@ -18,13 +18,13 @@
 t_list_cmd *get_new_cmd(t_list_cmd * _last_cmd);
 
 /* TODO comment */
-void get_cmd(t_list_cmd ** _list_cmd, int *_key);
+void getCmd(t_list_cmd ** _list_cmd, int *_key);
 
 /* TODO comment */
 t_list_cmd *free_cmd(t_list_cmd ** cmd);
 
 /* TODO comment */
-void suppress_history(t_list_cmd * _cmd, int _limit);
+void delteHistory(t_list_cmd * _cmd, int _limit);
 
 /* TODO comment */
 void mem_cmd(t_list_cmd * _list_cmd);

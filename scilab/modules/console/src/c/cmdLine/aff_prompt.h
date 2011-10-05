@@ -12,17 +12,28 @@
 #ifndef		AFF_PROMPT_H_
 #define	AFF_PROMPT_H_
 
-/* TODO comment */
-#define WRT_PRT	1
-/* TODO comment */
-#define NOWRT_PRT	-1
-
 #include    <wchar.h>
 
-/* TODO comment */
+/* Token to indicate getPrompt what to do */
+
+/* Display the prompt */
+#define WRT_PRT	1
+/* Don't display the prompt */
+#define NOWRT_PRT -1
+
+/**
+ * Save a prompt.
+ * @param prompt that will be saved
+ * or NULL if you don't want to saved any prompt
+ * @return last saved prompt
+ */
 wchar_t *setPrompt(wchar_t *);
 
-/* TODO comment */
+/**
+ * Get the current saved prompt.
+ * @param token to indicate if prompt must be displayed or not
+ * @return size of the prompt.
+ */
 int getPrompt(int);
 
 #endif /* !AFF_PROMPT_H_ */

@@ -9,7 +9,7 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#ifndef		READER_H_
+#ifndef	READER_H_
 #define	READER_H_
 
 #include	<wchar.h>
@@ -28,21 +28,15 @@ struct s_list_cmd
     struct s_list_cmd *previous;
 };
 
-/* TODO: document */
-typedef struct s_func_key
-{
-    int key1;
-    int key2;
-    int (*ptr_func) (t_list_cmd ** cmd, int key);
-} t_func_key;
+/**
+ * Get the command line.
+ * @param pointer of adress of the structure.
+ * mean the value of the adress may change.
+ * @return command line put by user.
+ */
+char *getCmdLine(t_list_cmd **);
 
 /* TODO: document */
-int putstr(wchar_t *);
-
-/* TODO: document */
-char *reader(t_list_cmd **);
-
-/* TODO: document */
-t_list_cmd *core_reader(t_list_cmd * list_cmd);
+t_list_cmd *initUserInput(t_list_cmd * list_cmd);
 
 #endif /* !READER_H_ */
