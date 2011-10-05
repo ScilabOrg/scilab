@@ -17,17 +17,23 @@
 #include	"cmd_func.h"
 #include	"cap_func.h"
 #include	"aff_prompt.h"
+#include	"get_signal.h"
 
-void		get_new_term(int signum)
+/*
+ * Get new terminfo
+ * sighandler_t called by signal SIGWINCH.
+ */
+void getNewTerm(int _signum)
 {
-  char		*term_env;
+    char *term_env;
 
-  cap_str("cl");
-  if ((term_env = getenv("TERM")) == NULL)
-    exit(EXIT_FAILURE);
-  if (tgetent(NULL, term_env) == ERR)
-    exit(EXIT_FAILURE);
-  getPrompt(WRT_PRT);
-  mem_cmd(NULL);
-  signal(signum, get_new_term);
+    capStr("cl");
+    /* get new terminfo */
+    if (((term_env = getenv("TERM")) == NULL) && (tgetent(NULL, term_env) == ERR))
+    {
+        fprintf(stderr, "\nCannot get terminfo databases. Termcaps are no longer available\n");
+    }
+    getPrompt(WRT_PRT);
+    mem_cmd(NULL);
+    signal(_signum, getNewTerm);
 }

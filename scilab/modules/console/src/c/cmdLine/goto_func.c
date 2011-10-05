@@ -17,85 +17,104 @@
 #include	"cap_func.h"
 #include	"aff_prompt.h"
 
-int		goto_right(t_list_cmd **cmd, int key)
+/* Move cursor to the right */
+int gotoRight(t_list_cmd ** _cmd, int _key)
 {
-  int		nbr_col;
-  int		prompt_size;
+    int nbrCol;
+    int promptSize;
 
-  prompt_size = getPrompt(NOWRT_PRT);
-  key = 0;
-  nbr_col = tgetnum("co");
-  if ((*cmd)->index != (*cmd)->line)
+    promptSize = getPrompt(NOWRT_PRT);
+    _key = 0;
+    nbrCol = tgetnum("co");
+    /* if the cursor is not at the end of the command line */
+    if ((*_cmd)->index != (*_cmd)->line)
     {
-      if (!(((*cmd)->index + prompt_size + 1) % nbr_col))
-	cap_str("do");
-      else
-      cap_str("nd");
-      ((*cmd)->index)++;
+        /* If the cursor is on the last column... */
+        if (!(((*_cmd)->index + promptSize + 1) % nbrCol))
+        {
+            /* move the cursor down. */
+            capStr("do");
+        }
+        else
+        {
+            /* else, move it to the right */
+            capStr("nd");
+        }
+        ((*_cmd)->index)++;
     }
-  else if (!(((*cmd)->index + prompt_size) % nbr_col))
-    cap_str("do");
-  return (key);
+    /* else, if the cursor is next to the last column of the window, move it down a line */
+    else if (!(((*_cmd)->index + promptSize) % nbrCol))
+    {
+        capStr("do");
+    }
+    return (_key);
 }
 
-
-/*
- * go to the last column of the current line
- *
- */
-
-void		find_end_line(int i, int prompt_size, int nbr_col)
+/* go to the last column of the current line */
+void findEndLine(int _i, int _promptSize, int _nbrCol)
 {
-  if (!((i + prompt_size) % nbr_col))
+    if (!((_i + _promptSize) % _nbrCol))
     {
-      cap_str("up");
-      while (nbr_col)
-	{
-	  cap_str("nd");
-	  --nbr_col;
-	}
+        capStr("up");
+        while (_nbrCol)
+        {
+            capStr("nd");
+            --_nbrCol;
+        }
     }
-  else
-    cap_str("le");
+    else
+    {
+        capStr("le");
+    }
 }
 
-int		goto_left(t_list_cmd **cmd, int key)
+/* Move cursor to the left */
+int gotoLeft(t_list_cmd ** _cmd, int _key)
 {
-  int		nbr_col;
-  int		prompt_size;
-  int		i;
+    int nbrCol;
+    int promptSize;
+    int i = 0;
 
-  if (cmd != NULL)
-    i = (*cmd)->index;
-  prompt_size = getPrompt(NOWRT_PRT);
-  key = 0;
-  (void)cmd;
-  nbr_col = tgetnum("co");
-  if (i)
+    if (_cmd != NULL)
     {
-      find_end_line(i, prompt_size, nbr_col);
-      i--;
+        i = (*_cmd)->index;
     }
-  if (cmd != NULL)
+    promptSize = getPrompt(NOWRT_PRT);
+    _key = 0;
+    nbrCol = tgetnum("co");
+    if (i)
     {
-      (*cmd)->index = i;
-      return (key);
+        findEndLine(i, promptSize, nbrCol);
+        i--;
     }
-  return (i);
+    if (_cmd != NULL)
+    {
+        (*_cmd)->index = i;
+        return (_key);
+    }
+    return (i);
 }
 
-int		beg_line(t_list_cmd **cmd, int key)
+/* Move cursor to the beginning of a line */
+int begLine(t_list_cmd ** _cmd, int _key)
 {
-  key = 0;
-  while ((*cmd)->index)
-    goto_left(cmd, key);
-  return (key);
+    _key = 0;
+/* While the index is not zero (meaning it's the beginning of th line) */
+    while ((*_cmd)->index)
+    {
+        gotoLeft(_cmd, _key);
+    }
+    return (_key);
 }
 
-int		end_line(t_list_cmd **cmd, int key)
+/* Move cursor to the end of a line */
+int endLine(t_list_cmd ** _cmd, int _key)
 {
-  key = 0;
-  while ((*cmd)->line - ((*cmd)->index))
-    goto_right(cmd, key);
-  return (key);
+    _key = 0;
+/* While the index is different of the size of the line */
+    while ((*_cmd)->line - ((*_cmd)->index))
+    {
+        gotoRight(_cmd, _key);
+    }
+    return (_key);
 }

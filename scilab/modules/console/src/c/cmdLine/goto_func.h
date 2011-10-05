@@ -9,14 +9,41 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#ifndef		GOTO_FUNC_H_
-# define	GOTO_FUNC_H_
+#ifndef	GOTO_FUNC_H_
+#define	GOTO_FUNC_H_
 
 #include	"reader.h"
 
-int		goto_right(t_list_cmd **cmd, int key);
-int		goto_left(t_list_cmd **cmd, int key);
-int		end_line(t_list_cmd **cmd, int key);
-int		beg_line(t_list_cmd **cmd, int key);
+/**
+ * Move the cursor to the right.
+ * @param Current edited line
+ * @param user Input
+ * @return user Input
+ */
+int gotoRight(t_list_cmd ** cmd, int key);
+
+/**
+ * Move the cursor to the left.
+ * @param Current edited line
+ * @param user Input
+ * @return user Input
+ */
+int gotoLeft(t_list_cmd ** cmd, int key);
+
+/**
+ * Move the cursor to the end of the current edited line.
+ * @param Current edited line
+ * @param user Input
+ * @return user Input
+ */
+int endLine(t_list_cmd ** cmd, int key);
+
+/**
+ * Move the cursor to the beginning of the current edited line.
+ * @param Current edited line
+ * @param user Input
+ * @return user Input
+ */
+int begLine(t_list_cmd ** cmd, int key);
 
 #endif /* !GOTO_FUNC_H_ */
