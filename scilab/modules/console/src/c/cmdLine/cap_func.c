@@ -17,16 +17,30 @@
 #include		<unistd.h>
 #include		<stdio.h>
 
-void	cap_str(char *str)
+/* Simplify termcap activation */
+void capStr(char *_capacity)
 {
-  char	*cap_str;
+    char *capStr;
 
-  cap_str = tgetstr(str, NULL);
-  if (cap_str != NULL)
-    tputs(cap_str, 1, putchar);
+    capStr = tgetstr(_capacity, NULL);
+    if (capStr != NULL)
+    {
+        tputs(capStr, 1, putchar);
+    }
 }
 
-void	cap_goto(int col, int li)
+/* Move cursor to the column _col and the line _li */
+void capGoto(int _col, int _li)
 {
-  tputs(tgoto(tgetstr("cm", NULL), col, li), 1, putchar);
+    char *capStr;
+
+    capStr = tgetstr("cm", NULL);
+    if (capStr != NULL)
+    {
+        capStr = tgoto(capStr, _col, _li);
+    }
+    if (capStr != NULL)
+    {
+        capStr = tputs(capStr, 1, putchar);
+    }
 }
