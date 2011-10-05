@@ -123,7 +123,7 @@ function y = myfunction3 (x)
   y = x^(2/myn);
 endfunction
 x = 1.0;
-h = 6.055454e-006
+h = 6.055454e-006;
 Jexpected = (2/myn) * x^(2/myn-1);
 Hexpected = (2/myn) * (2/myn-1) * x^(2/myn-2);
 [Jcomputed , Hcomputed] = derivative(myfunction3 , x , h = 1.e-4 , order = 1 );
