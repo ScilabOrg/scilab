@@ -131,7 +131,14 @@ void createScilabTMPDIR(void)
 
         /* XXXXXX will be randomized by mkdtemp */
         char *tmp_dir_strdup = strdup(tmp_dir); /* Copy to avoid to have the same buffer as input and output for sprintf */
-        sprintf(tmp_dir, "%s/SCI_TMP_%d_XXXXXX", tmp_dir_strdup, (int) getpid());
+        if (tmp_dir_strdup[strlen(tmp_dir_strdup)-1] == '/')
+        {
+            sprintf(tmp_dir, "%sSCI_TMP_%d_XXXXXX", tmp_dir_strdup, (int) getpid());
+        }
+        else
+        {  
+            sprintf(tmp_dir, "%s/SCI_TMP_%d_XXXXXX", tmp_dir_strdup, (int) getpid());
+        }
         free(tmp_dir_strdup);
 
         if(mkdtemp(tmp_dir) == NULL)
