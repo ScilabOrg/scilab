@@ -817,7 +817,7 @@ plot(xopt(1) , xopt(2) , "r*")
     <para>
       It is possible to optimize a problem without an explicit
       knowledge of the derivative of the cost function.
-      For this purpose, we can use the numdiff or derivative function
+      For this purpose, we can use the <literal>numderivative</literal> function
       to compute a numerical derivative of the cost function.
     </para>
 
@@ -834,32 +834,10 @@ function f = rosenbrock ( x )
 endfunction
 function [ f , g , ind ] = rosenbrockCost ( x , ind )
   f = rosenbrock ( x );
-  g= numdiff ( rosenbrock , x );
+  g= numderivative ( rosenbrock , x );
 endfunction
 x0 = [-1.2 1.0];
 [ fopt , xopt ] = optim ( rosenbrockCost , x0 )
-]]>
-    </programlisting>
-
-    <para>
-      In the following example, we use the derivative function to
-      solve Rosenbrock's problem. Given that the step computation strategy
-      is not the same in numdiff and derivative, this might lead to improved
-      results.
-    </para>
-
-
-    <programlisting role="example">
-      <![CDATA[ 
-function f = rosenbrock ( x )
-  f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
-endfunction
-function [ f , g , ind ] = rosenbrockCost2 ( x , ind )
-  f = rosenbrock ( x );
-  g= derivative ( rosenbrock , x.' , order = 4 );
-endfunction
-x0 = [-1.2 1.0];
-[ fopt , xopt ] = optim ( rosenbrockCost2 , x0 )
 ]]>
     </programlisting>
 
@@ -1072,10 +1050,10 @@ d = 4.0;
     <para>
       In the following example, we give a false implementation of Rosenbrock's
       gradient. In order to check the computation of the derivatives,
-      we use the <literal>derivative</literal> function. We define the
+      we use the <literal>numderivative</literal> function. We define the
       <literal>simplified</literal> function, which delegates the computation of <literal>f</literal>
       to the rosenbrock function. The <literal>simplified</literal> function is passed
-      as an input argument of the <literal>derivative</literal> function.
+      as an input argument of the <literal>numderivative</literal> function.
     </para>
 
     <programlisting role="example">
@@ -1095,7 +1073,7 @@ endfunction
 x0 = [-1.2 1];
 index = 1;
 [ f , g , index ] = rosenbrock ( x0 , index );
-gnd = derivative ( simplified , x0.' );
+gnd = numderivative ( simplified , x0.' );
 mprintf ( "Exact derivative:[%s]\n" , strcat ( string(g) , " " ));
 mprintf ( "Numerical derivative:[%s]\n" , strcat ( string(gnd) , " " ));
 ]]>
@@ -1382,11 +1360,7 @@ fortransource=['subroutine rosenf(ind,n,x,f,g,izs,rzs,dzs)'
       </member>
 
       <member>
-        <link linkend="numdiff">numdiff</link>
-      </member>
-
-      <member>
-        <link linkend="derivative">derivative</link>
+        <link linkend="numderivative">numderivative</link>
       </member>
 
       <member>
