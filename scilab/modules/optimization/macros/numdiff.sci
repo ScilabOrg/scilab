@@ -8,6 +8,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function %g=numdiff(%__func,%x,%dx)
+   warnobsolete("numderivative","5.4.1")
 // given a function %__func from R^n to R^p
 //computes the matrix g such as 
 //    [   d f    ]

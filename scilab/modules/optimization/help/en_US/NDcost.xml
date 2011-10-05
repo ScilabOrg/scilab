@@ -201,7 +201,7 @@ xtitle("Least square fit to identify ode parameters")
 
       <member><link linkend="external">external</link></member>
 
-      <member><link linkend="derivative">derivative</link></member>
+      <member><link linkend="numderivative">numderivative</link></member>
     </simplelist>
   </refsection>
 </refentry>
