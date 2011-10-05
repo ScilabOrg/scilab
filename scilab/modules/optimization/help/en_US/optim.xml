@@ -795,10 +795,10 @@
         <title>Example: Optimizing with numerical derivatives</title>
         <para>It is possible to optimize a problem without an explicit knowledge
             of the derivative of the cost function. For this purpose, we can use the
-            numdiff or derivative function to compute a numerical derivative of the
+            <literal>numderivative</literal> function to compute a numerical derivative of the
             cost function.
         </para>
-        <para>In the following example, we use the numdiff function to solve
+        <para>In the following example, we use the <literal>numderivative</literal> function to solve
             Rosenbrock's problem.
         </para>
         <programlisting role="example">function f = rosenbrock ( x )
@@ -807,29 +807,12 @@
             
             function [ f , g , ind ] = rosenbrockCost ( x , ind )
             f = rosenbrock ( x );
-            g= numdiff ( rosenbrock , x );
+            g = numderivative ( rosenbrock , x );
             endfunction
             
             x0 = [-1.2 1.0];
             
             [ fopt , xopt ] = optim ( rosenbrockCost , x0 )    
-        </programlisting>
-        <para>In the following example, we use the derivative function to solve
-            Rosenbrock's problem. Given that the step computation strategy is not the
-            same in numdiff and derivative, this might lead to improved
-            results.
-        </para>
-        <programlisting role="example">function f = rosenbrock ( x )
-            f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
-            endfunction
-            
-            function [ f , g , ind ] = rosenbrockCost2 ( x , ind )
-            f = rosenbrock ( x );
-            g = derivative ( rosenbrock , x.' , order = 4 );
-            endfunction
-            
-            x0 = [-1.2 1.0];
-            [fopt , xopt] = optim ( rosenbrockCost2 , x0 )    
         </programlisting>
     </refsection>
     <refsection>
@@ -1001,11 +984,11 @@
         </para>
         <para>In the following example, we give a false implementation of
             Rosenbrock's gradient. In order to check the computation of the
-            derivatives, we use the <literal>derivative</literal> function. We define
+            derivatives, we use the <literal>numderivative</literal> function. We define
             the <literal>simplified</literal> function, which delegates the
             computation of <literal>f</literal> to the rosenbrock function. The
             <literal>simplified</literal> function is passed as an input argument of
-            the <literal>derivative</literal> function.
+            the <literal>numderivative</literal> function.
         </para>
         <programlisting role="example">function [ f , g , index ] = rosenbrock ( x , index )
             f = 100.0 *(x(2)-x(1)^2)^2 + (1-x(1))^2;
@@ -1024,7 +1007,7 @@
             x0 = [-1.2 1];
             index = 1;
             [ f , g , index ] = rosenbrock ( x0 , index );
-            gnd = derivative ( simplified , x0.' );
+            gnd = numderivative ( simplified , x0.' );
             mprintf("Exact derivative:[%s]\n" , strcat ( string(g) , " " ));
             mprintf("Numerical derivative:[%s]\n" , strcat ( string(gnd) , " " ));    
         </programlisting>
@@ -1266,10 +1249,7 @@
                 <link linkend="leastsq">leastsq</link>
             </member>
             <member>
-                <link linkend="numdiff">numdiff</link>
-            </member>
-            <member>
-                <link linkend="derivative">derivative</link>
+                <link linkend="numderivative">numderivative</link>
             </member>
             <member>
                 <link linkend="NDcost">NDcost</link>
