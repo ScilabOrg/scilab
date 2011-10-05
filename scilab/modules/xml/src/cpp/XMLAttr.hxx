@@ -69,6 +69,11 @@ namespace org_modules_xml
         void setAttributeValue(const char * prefix, const char * name, const char * value) const;
 
         /**
+         * @return the names of the attributes
+         */
+        const char ** getNames() const;
+
+        /**
          * Gets the element associated with this object
          * @return the associated object
          */
