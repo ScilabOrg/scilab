@@ -351,6 +351,117 @@ should be used with caution in this specific case.
 
   </refsection>
 
+  <refsection>
+    <title>History</title>
+
+    <para>
+      Starting from Scilab 5.4.0, the <literal>derivative</literal> function is
+      obsolete.
+      Please use the <literal>numderivative</literal> function instead.
+    </para>
+
+    <para>
+      We now discuss how a script using the <literal>derivative</literal> function can be
+      updated to use the <literal>numderivative</literal> function.
+    </para>
+
+    <para>
+      Consider the function:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function y=F(x)
+  f1 = sin(x(1)*x(2))+exp(x(2)*x(3)+x(1)) 
+  f2 = sum(x.^3)
+  y=[f1; f2];
+endfunction
+]]>
+    </programlisting>
+
+    <para>
+      and the point:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x=[1;2;3];
+]]>
+    </programlisting>
+
+    <para>
+      Therefore, the statement:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=derivative(F,x)
+]]>
+    </programlisting>
+
+    <para>
+      can be replaced with
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=numderivative(F,x)
+]]>
+    </programlisting>
+
+    <para>
+      The statement:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=derivative(F,x,order=4)
+]]>
+    </programlisting>
+
+    <para>
+      can be replaced by:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=numderivative(F,x,[],4)
+]]>
+    </programlisting>
+
+    <para>
+      The statement:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=derivative(F,x,H_form="blockmat")
+]]>
+    </programlisting>
+
+    <para>
+      can be replaced by:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+[J,H]=numderivative(F,x,[],[],"blockmat")
+]]>
+    </programlisting>
+
+    <para>
+      We emphasize that <literal>numderivative</literal> and <literal>derivative</literal> do not
+      use the same strategy for the choice of the default step <literal>h</literal>.
+      Hence, in general, the functions <literal>numderivative</literal> and <literal>derivative</literal>
+      will not produce exactly the same outputs.
+      Still, in general, we expect that <literal>numderivative</literal> is more accurate.
+      It is not easy to get the same step in <literal>numderivative</literal> as in <literal>derivative</literal>,
+      because the choice of the step depends on the degree of
+      differenciation (Jacobian or Hessian) and the order of the formula.
+    </para>
+
+  </refsection>
+
   <refsection role="see also">
 <title>See Also</title>
 

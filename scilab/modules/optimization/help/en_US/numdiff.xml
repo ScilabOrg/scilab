@@ -139,6 +139,85 @@ exact2=c*(x+a)^(c-1)
  ]]></programlisting>
   </refsection>
 
+  <refsection>
+    <title>History</title>
+
+    <para>
+      Starting from Scilab 5.4.0, the <literal>numdiff</literal> function is
+      obsolete.
+      Please use the <literal>numdiff</literal> function instead.
+    </para>
+
+    <para>
+      We now discuss how a script using the <literal>numdiff</literal> function can be
+      updated to use the <literal>numdiff</literal> function.
+    </para>
+
+    <para>
+      In this section, we discuss how a script using the <literal>numdiff</literal> function can
+      be updated to use the <literal>numderivative</literal> function.
+    </para>
+
+    <para>
+      Consider the function:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+function f=myfun(x)
+  f=x(1)*x(1)+x(1)*x(2)
+endfunction
+ ]]>
+    </programlisting>
+
+    <para>
+      and the point:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x=[5 8]
+ ]]>
+    </programlisting>
+
+    <para>
+      Therefore, the statement:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+g1=numdiff(myfun,x)
+ ]]>
+    </programlisting>
+
+    <para>
+      can be replaced with
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+g2=numderivative(myfun,x)
+ ]]>
+    </programlisting>
+
+    <para>
+      If having exactly the same step is important, we force the step to the same value as in <literal>numdiff</literal>:
+    </para>
+
+    <programlisting role="example">
+      <![CDATA[ 
+x=[5 8];
+h=sqrt(%eps)*(1+1d-3*abs(x))
+g1=numdiff(myfun,x)
+g2=numderivative(myfun,x,h)
+g1==g2
+ ]]>
+    </programlisting>
+
+
+  </refsection>
+
+
   <refsection role="see also">
 <title>See Also</title>
 

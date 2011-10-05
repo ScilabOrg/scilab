@@ -23,7 +23,7 @@ function demo_derivative()
     end
 
     if ((ind == 1) | (ind == 4)) then
-      g = derivative ( rosenbrock , x.' , order = 4 );
+      g = numderivative ( rosenbrock , x.' , order = 4 );
     end
 
   endfunction
