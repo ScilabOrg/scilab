@@ -28,3 +28,20 @@ assert_checkequal(f.rotation_style, "unary")
 assert_checkequal(f.event_handler, "")
 assert_checkequal(f.event_handler_enable, "off")
 assert_checkequal(f.user_data, [])
+
+
+//
+// Check getting some current figure sequentially works:
+// - All figures are different (ensured by UID)
+// - All figures open as 0;
+//
+oldUID = f.UID;
+delete(f);
+for i = 1:100
+    f = gcf();
+    assert_checkequal(winsid(), 0);
+    assert_checkfalse(f.UID == oldUID);
+    oldUID = f.UID;
+    delete(f);
+    assert_checkequal(winsid(), []);
+end
