@@ -26,7 +26,7 @@ import javax.swing.JScrollPane;
 
 import org.scilab.modules.gui.SwingScilabWidget;
 import org.scilab.modules.gui.SwingViewObject;
-import org.scilab.modules.gui.events.callback.CallBack;
+import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.imagerenderer.SimpleImageRenderer;
 import org.scilab.modules.gui.menubar.MenuBar;
 import org.scilab.modules.gui.textbox.TextBox;
@@ -174,7 +174,7 @@ public class SwingScilabImageRenderer extends JScrollPane implements SwingViewOb
 	 * Add a callback to the ImageRenderer
 	 * @param callback the callback to set.
 	 */
-	public void setCallback(CallBack callback) {
+	public void setCallback(CommonCallBack callback) {
 		// Nothing to do...
 	}
 
@@ -370,6 +370,6 @@ public class SwingScilabImageRenderer extends JScrollPane implements SwingViewOb
 	 * @param value property value
 	 */
 	public void update(String property, Object value) {
-		SwingScilabWidget.update(this, property, value);
+		SwingScilabWidget.update(this, uid, property, value);
 	}
 }
