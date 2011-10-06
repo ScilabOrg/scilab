@@ -324,8 +324,9 @@ localization:
 	EXTENSION="*.po"; \
 	rm modules/*/locales/*~ 2> /dev/null; \
 	for LOCALE in $(ALL_LINGUAS); do \
+		if test "$$LOCALE" = "en_US"; then TPLT="*.pot"; else TPLT="$$LOCALE$$EXTENSION"; fi; \
 		echo "        -- Building for $$LOCALE --"; \
-		FILES=`ls $$MASK/$$LOCALE$$EXTENSION`; \
+		FILES=`ls $$MASK/$$TPLT`; \
 		PATHTO=$(top_builddir)/locale/$$LOCALE/$$LC/; \
 		if test ! -d $$PATHTO; then \
 			echo "        Creating $$PATHTO"; \
