@@ -55,7 +55,7 @@ function [s]=variancef(x,fre,orien)
   elseif orien=='c'|orien==2,
     sumfre=sum(fre,'c')
     if or(sumfre==0) then error(msprintf(gettext("%s: Wrong value for input argument #%d: Must be > %d.\n"),"variancef",2,1)),end
-    s=(sum((x-(meanf(x,fre,'c')*ones(1,size(x,'c')))).^2,'c'))./..
+    s=(sum((x-(meanf(x,fre,'c')*ones(1,size(x,'c')))).^2,'c'))./ ..
       (sumfre-1)
   else error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'', ''%s'', ''%s'', %d or %d expected.\n"),"variancef",3,"*","c","r",1,2))
   end
