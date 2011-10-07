@@ -16,6 +16,9 @@
 
 typedef struct s_list_cmd t_list_cmd;
 
+#define SCI_PRINT_WSTRING "%ls"
+#define SCI_PRINT_WCHAR "%lc"
+
 /* TODO: remove and use ./libs/doublylinkedlist/includes/DoublyLinkedList.h instead */
 struct s_list_cmd
 {
@@ -37,6 +40,6 @@ struct s_list_cmd
 char *getCmdLine(t_list_cmd **);
 
 /* TODO: document */
-t_list_cmd *initUserInput(t_list_cmd * list_cmd);
+t_list_cmd *initUserInput(t_list_cmd * listCmd);
 
 #endif /* !READER_H_ */

@@ -31,43 +31,43 @@
 #include		"charEncoding.h"
 
 /* comment */
-wchar_t *cmdDup(t_list_cmd * _cmd, wchar_t * _wcs)
+wchar_t *cmdDup(t_list_cmd * cmd, wchar_t * wcs)
 {
     wchar_t *dupCmd;
 
     /* TODO: Document */
-    dupCmd = MALLOC(sizeof(*dupCmd) * (_cmd->line + 1));
-    dupCmd[_cmd->line] = L'\0';
+    dupCmd = MALLOC(sizeof(*dupCmd) * (cmd->line + 1));
+    dupCmd[cmd->line] = L'\0';
     /*
      * Get the number of line the command line has:
      * Add the size of the prompt and the size of the command line
      * then divid it by the number of column in the windows.
      */
-    _cmd->nbr_line = 1 + (_cmd->line + getPrompt(NOWRT_PRT)) / tgetnum("co");
-    if (_wcs != NULL)
+    cmd->nbr_line = 1 + (cmd->line + getPrompt(NOWRT_PRT)) / tgetnum("co");
+    if (wcs != NULL)
     {
-        wcscpy(dupCmd, _wcs);
+        wcscpy(dupCmd, wcs);
     }
     else
     {
-        wcscpy(dupCmd, _cmd->cmd);
+        wcscpy(dupCmd, cmd->cmd);
     }
     return (dupCmd);
 }
 
 /* Create a new link for the history. */
-t_list_cmd *getNewHist(t_list_cmd * _cmd)
+t_list_cmd *getNewHist(t_list_cmd * cmd)
 {
     t_list_cmd *lastCmd;
 
-    lastCmd = _cmd;
+    lastCmd = cmd;
     while (lastCmd->bin)
     {
         lastCmd = lastCmd->next;
     }
-    lastCmd->line = _cmd->line;
-    lastCmd->nbr_line = _cmd->nbr_line;
-    lastCmd->cmd = cmdDup(_cmd, NULL);
+    lastCmd->line = cmd->line;
+    lastCmd->nbr_line = cmd->nbr_line;
+    lastCmd->cmd = cmdDup(cmd, NULL);
     return (lastCmd);
 }
 
@@ -75,22 +75,22 @@ t_list_cmd *getNewHist(t_list_cmd * _cmd)
  * Take all spaces ans tabulations at the beginning of the command line out.
  * return the cleaned command line.
  */
-void *cleanVoidCharInCmd(t_list_cmd * _cmd)
+void *cleanVoidCharInCmd(t_list_cmd * cmd)
 {
     int i;
     wchar_t *dupCmd;
 
     i = 0;
     /* Passing all void character at the beginning of the command line... */
-    while (_cmd->cmd[i] && (_cmd->cmd[i] == L' ' || _cmd->cmd[i] == L'\t'))
+    while (cmd->cmd[i] && (cmd->cmd[i] == L' ' || cmd->cmd[i] == L'\t'))
     {
         i++;
     }
     /* ... then create the new command line. */
-    _cmd->line = wcslen(&_cmd->cmd[i]);
-    dupCmd = cmdDup(_cmd, &_cmd->cmd[i]);
-    free(_cmd->cmd);
-    _cmd->cmd = dupCmd;
+    cmd->line = wcslen(&cmd->cmd[i]);
+    dupCmd = cmdDup(cmd, &cmd->cmd[i]);
+    free(cmd->cmd);
+    cmd->cmd = dupCmd;
     return (dupCmd);
 }
 
@@ -98,30 +98,30 @@ void *cleanVoidCharInCmd(t_list_cmd * _cmd)
  * Initialise current line edited
  * Return the line sent by user
  */
-t_list_cmd *initUsrInput(t_list_cmd * _listCmd)
+t_list_cmd *initUsrInput(t_list_cmd * listCmd)
 {
     int key;
     int ret;
 
-    _listCmd = getNewCmd(_listCmd);
+    listCmd = getNewCmd(listCmd);
     getPrompt(WRT_PRT);
     key = 0;
-    _listCmd->line = 0;
+    listCmd->line = 0;
 /* Hardcoded value */
-    _listCmd->cmd = MALLOC(sizeof(*_listCmd->cmd) * 1024);
-    _listCmd->cmd[0] = L'\0';
+    listCmd->cmd = MALLOC(sizeof(*listCmd->cmd) * 1024);
+    listCmd->cmd[0] = L'\0';
     ret = 0;
 /* please comment */
-    getCmd(&_listCmd, &key);
+    getCmd(&listCmd, &key);
     if (key == CTRL_D)
         return (NULL);
-    cleanVoidCharInCmd(_listCmd);
-    if (_listCmd->bin)
+    cleanVoidCharInCmd(listCmd);
+    if (listCmd->bin)
     {
-        _listCmd = getNewHist(_listCmd);
+        listCmd = getNewHist(listCmd);
     }
-    deleteHistory(_listCmd, 200);
-    return (_listCmd);
+    deleteHistory(listCmd, 200);
+    return (listCmd);
 }
 
 /*
@@ -136,7 +136,9 @@ char *getCmdLine(t_list_cmd ** history)
     signal(SIGWINCH, getNewTerm);
     *history = initUsrInput(*history);
     if (*history == NULL)
+    {
         return (NULL);
-    dest = strdup(wide_string_to_UTF8((*history)->cmd));
+    }
+    dest = wide_string_to_UTF8((*history)->cmd);
     return (dest);
 }

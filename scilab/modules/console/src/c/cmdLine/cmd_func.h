@@ -14,19 +14,38 @@
 
 #include		"reader.h"
 
-/* TODO comment */
-t_list_cmd *get_new_cmd(t_list_cmd * _last_cmd);
+/**
+ * Create and initialise a new link.
+ * @param list of all commands.
+ * @return pointer to new link.
+ */
+t_list_cmd *getNewCmd(t_list_cmd * lastCmd);
 
-/* TODO comment */
-void getCmd(t_list_cmd ** _list_cmd, int *_key);
+/**
+ * Read standard input then call the good function.
+ * @param list of all commands.
+ * @param input stored.
+ */
+void getCmd(t_list_cmd ** listCmd, int *key);
 
-/* TODO comment */
-t_list_cmd *free_cmd(t_list_cmd ** cmd);
+/**
+ * Free allocated links.
+ * @param list of all commands.
+ * @return left command line.
+ */
+t_list_cmd *freeCmd(t_list_cmd ** cmd);
 
-/* TODO comment */
-void delteHistory(t_list_cmd * _cmd, int _limit);
+/**
+ * Delete links in the list of commands.
+ * @param list of all commands.
+ * @param number if links to keep before delete links.
+ */
+void deleteHistory(t_list_cmd * cmd, int limit);
 
-/* TODO comment */
-void mem_cmd(t_list_cmd * _list_cmd);
+/**
+ * Save a command if listCmd is not NULL, else, display it.
+ * @param list of command.
+ */
+void memCmd(t_list_cmd ** listCmd);
 
 #endif /* !CMD_FUNC_H_ */

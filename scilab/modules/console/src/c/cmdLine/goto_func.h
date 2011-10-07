@@ -46,4 +46,20 @@ int endLine(t_list_cmd ** cmd, int key);
  */
 int begLine(t_list_cmd ** cmd, int key);
 
+/**
+ * Move cursor to the beginning of the next word or to the end of the string if none were found.
+ * @param current edited line
+ * @param user Input
+ * @return user Input
+ */
+int nextWord(t_list_cmd ** cmd, int key);
+
+/**
+ * Move cursor to the beginning of the previous word or to the beginning of the string if none were found.
+ * @param current edited line
+ * @param user Input
+ * @return user Input
+ */
+int previousWord(t_list_cmd ** cmd, int key);
+
 #endif /* !GOTO_FUNC_H_ */
