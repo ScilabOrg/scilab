@@ -48,10 +48,16 @@ InternalType *GenericPower(InternalType *_pLeftOperand, InternalType *_pRightOpe
         Polynom *pL			= _pLeftOperand->getAs<Polynom>();
         Double *pR			= _pRightOperand->getAs<Double>();
 
-        int iResult = PowerPolyByDouble(pL, pR, (Polynom**)&pResult);
-        if(iResult)
+        int iResult = PowerPolyByDouble(pL, pR, &pResult);
+        switch(iResult)
         {
+        case 1 :
             throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
+        case 2 :
+            throw ast::ScilabError(_W("Invalid exponent.\n"));
+        default:
+            //OK
+            break;
         }
 
         return pResult;
@@ -91,12 +97,17 @@ InternalType *GenericDotPower(InternalType *_pLeftOperand, InternalType *_pRight
         Polynom *pL			= _pLeftOperand->getAs<Polynom>();
         Double *pR			= _pRightOperand->getAs<Double>();
 
-        int iResult = PowerPolyByDouble(pL, pR, (Polynom**)&pResult);
-        if(iResult)
+        int iResult = PowerPolyByDouble(pL, pR, &pResult);
+        switch(iResult)
         {
+        case 1 :
             throw ast::ScilabError(_W("Inconsistent row/column dimensions.\n"));
+        case 2 :
+            throw ast::ScilabError(_W("Invalid exponent.\n"));
+        default:
+            //OK
+            break;
         }
-
         return pResult;
     }
 
@@ -259,8 +270,92 @@ int PowerDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDoubleO
 	return 0;
 }
 
-int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, Polynom** _pPolyOut)
+int PowerPolyByDouble(Polynom* _pPoly, Double* _pDouble, InternalType** _pOut)
 {
+	bool bComplex1  = _pPoly->isComplex();
+	bool bComplex2  = _pDouble->isComplex();
+    bool bScalar1   = _pPoly->isScalar();
+    bool bScalar2   = _pDouble->isScalar();
+    bool bIdentity2 = _pDouble->isIdentity();
+
+    int iComplex = 1;
+
+    if(bComplex2)
+    {//invalid exponent.
+        return 2;
+    }
+
+    if(_pDouble->isEmpty())
+    {//p ** []
+        *_pOut = Double::Empty();
+        return 0;
+    }
+    
+    if(bScalar1 && (bScalar2 || bIdentity2))
+    {//p ** x or p ** eye() -> p ** eye_coeff
+
+        //two specials case, p^1 and p^0
+        if(_pDouble->get(0) == 0)
+        {
+            *_pOut = new Double(1);
+            return 0;
+        }
+        else if(_pDouble->get(0) == 1)
+        {
+            *_pOut = _pPoly;
+            return 0;
+        }
+
+        int* piRank = new int[_pPoly->getMaxRank()];
+        _pPoly->getRank(piRank);
+        piRank[0] = ((piRank[0] - 1) * (int)_pDouble->get(0)) + 1;
+        Polynom* pOut = new Polynom(_pPoly->getVariableName(), 1, 1, piRank);
+        pOut->setComplex(bComplex1);
+
+        Double* pCoeff = _pPoly->get(0)->getCoef();
+        Double* pCoeffOut = pOut->get(0)->getCoef();
+
+        if(bComplex1 == false && bComplex2 == false)
+        {
+            int iRank       = _pPoly->getMaxRank() - 1;
+            int iNewRank    = iRank;
+
+            for(int i = 0 ; i < pCoeff->getSize() ; i++)
+            {//copy initial values to result
+                pCoeffOut->set(i, pCoeff->get(i));
+            }
+
+            for(int i = 1 ; i < _pDouble->get(0) ; i++)
+            {
+                C2F(dpmul1)(pCoeffOut->get(), &iNewRank, pCoeff->get(), &iRank, pCoeffOut->get());
+                iNewRank += iRank;
+            }
+            *_pOut = pOut;
+        }
+        else if(bComplex1 == true && bComplex2 == false)
+        {
+            int iRank       = _pPoly->getMaxRank() - 1;
+            int iNewRank    = iRank;
+
+            for(int i = 0 ; i < pCoeff->getSize() ; i++)
+            {//copy initial values to result
+                pCoeffOut->set(i, pCoeff->get(i));
+                pCoeffOut->setImg(i, pCoeff->getImg(i));
+            }
+
+            for(int i = 1 ; i < _pDouble->get(0) ; i++)
+            {
+                C2F(wpmul1)(pCoeffOut->get(),pCoeffOut->getImg(), &iNewRank, pCoeff->get(), pCoeff->getImg(), &iRank, pCoeffOut->get(), pCoeffOut->getImg());
+                iNewRank += iRank;
+            }
+            *_pOut = pOut;
+
+        }
+
+    }
+
+
+
 	return 0;
 }
 
