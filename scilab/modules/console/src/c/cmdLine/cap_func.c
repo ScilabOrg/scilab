@@ -16,31 +16,31 @@
 #include		<stdlib.h>
 #include		<unistd.h>
 #include		<stdio.h>
-
+#include                "cap_func.h"
 /* Simplify termcap activation */
-void capStr(char *_capacity)
+void capStr(const char * capacity)
 {
-    char *capStr;
+    char *stringCapStr;
 
-    capStr = tgetstr(_capacity, NULL);
-    if (capStr != NULL)
+    stringCapStr = tgetstr(capacity, NULL);
+    if (stringCapStr != NULL)
     {
-        tputs(capStr, 1, putchar);
+        tputs(stringCapStr, 1, putchar);
     }
 }
 
 /* Move cursor to the column _col and the line _li */
-void capGoto(int _col, int _li)
+void capGoto(int col, int li)
 {
-    char *capStr;
+    char *stringCapStr;
 
-    capStr = tgetstr("cm", NULL);
-    if (capStr != NULL)
+    stringCapStr = tgetstr("cm", NULL);
+    if (stringCapStr != NULL)
     {
-        capStr = tgoto(capStr, _col, _li);
+        stringCapStr = tgoto(stringCapStr, col, li);
     }
-    if (capStr != NULL)
+    if (stringCapStr != NULL)
     {
-        capStr = tputs(capStr, 1, putchar);
+        stringCapStr = tputs(stringCapStr, 1, putchar);
     }
 }

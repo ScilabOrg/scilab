@@ -17,75 +17,76 @@
 #include	"goto_func.h"
 #include	"aff_prompt.h"
 #include	"reader.h"
+#include	"history.h"
 
 /* Get the previous command line */
-int previousCmd(t_list_cmd ** _cmd, int _key)
+int previousCmd(t_list_cmd ** cmd, int key)
 {
     int promptSize;
 
-    _key = 0;
-    if ((*_cmd)->previous)
+    key = 0;
+    if ((*cmd)->previous)
     {
         /* Go the beginning of the current edited line then clearn the screen from */
-        while ((*_cmd)->index)
-        {
-            gotoLeft(_cmd, _key);
-        }
+        while ((*cmd)->index)
+	{
+            gotoLeft(cmd, key);
+	}
         capStr("up");
         capStr("do");
         capStr("cd");
         /* Get the new command line then display it */
         promptSize = getPrompt(WRT_PRT);
-        (*_cmd) = (*_cmd)->previous;
-        printf("%ls", (*_cmd)->cmd);
+        (*cmd) = (*cmd)->previous;
+        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
         fflush(stdout);
-        (*_cmd)->index = (*_cmd)->line;
-        /*
-         * if the last character is on the last column of the window,
-         * put the cursor on the first column of the next line.
-         *
-         * Must be done, else the cursor disappear and bug.
-         */
-        if (!(((*_cmd)->index + promptSize) % tgetnum("co")))
-        {
+        (*cmd)->index = (*cmd)->line;
+	/*
+	 * if the last character is on the last column of the window,
+	 * put the cursor on the first column of the next line.
+	 *
+	 * Must be done, else the cursor disappear and bug.
+	 */
+        if (!(((*cmd)->index + promptSize) % tgetnum("co")))
+	{
             capStr("do");
         }
     }
-    return (_key);
+    return (key);
 }
 
 /* Get the next command line */
-int nextCmd(t_list_cmd ** _cmd, int _key)
+int nextCmd(t_list_cmd ** cmd, int key)
 {
     int promptSize;
 
-    _key = 0;
-    if ((*_cmd)->next)
+    key = 0;
+    if ((*cmd)->next)
     {
         /* Go the beginning of the current edited line then clearn the screen from */
-        while ((*_cmd)->index)
-        {
-            gotoLeft(_cmd, _key);
-        }
+        while ((*cmd)->index)
+	{
+            gotoLeft(cmd, key);
+	}
         capStr("up");
         capStr("do");
         capStr("cd");
-        /* Get the new command line then display it */
-        (*_cmd) = (*_cmd)->next;
+	/* Get the new command line then display it */
+        (*cmd) = (*cmd)->next;
         promptSize = getPrompt(WRT_PRT);
-        printf("%ls", (*_cmd)->cmd);
+        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
         fflush(stdout);
-        (*_cmd)->index = (*_cmd)->line;
-        /*
-         * if the last character is on the last column of the window,
-         * put the cursor on the first column of the next line.
-         *
-         * Must be done, else the cursor disappear and bug.
-         */
-        if (!(((*_cmd)->index + promptSize) % tgetnum("co")))
-        {
+        (*cmd)->index = (*cmd)->line;
+	/*
+	 * if the last character is on the last column of the window,
+	 * put the cursor on the first column of the next line.
+	 *
+	 * Must be done, else the cursor disappear and bug.
+	 */
+        if (!(((*cmd)->index + promptSize) % tgetnum("co")))
+	{
             capStr("do");
         }
     }
-    return (_key);
+    return (key);
 }

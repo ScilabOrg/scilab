@@ -38,14 +38,15 @@
  * Turn a capacity on, Useful to simplify termcap use.
  * @param capacity to activate.
  */
-void capStr(const char *_str);
+void capStr(const char *str);
 
 /**
  * Move cursor using termcap, Useful to simplify termcap use.
  * @param column where cursor will move
  * @param line where cursor will move
  */
-void capGoto(int _col, int _li);
+
+void capGoto(int col, int li);
 
 /* Note: Can be consider as x,y coordinates. */
 

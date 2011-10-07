@@ -13,6 +13,7 @@
 #define	HISTORY_H_
 
 #include	"reader.h"
+#include	"history.h"
 
 /**
  * Change current editing line to previous editing line

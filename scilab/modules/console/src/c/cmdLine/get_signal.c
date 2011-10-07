@@ -23,17 +23,17 @@
  * Get new terminfo
  * sighandler_t called by signal SIGWINCH.
  */
-void getNewTerm(int _signum)
+void getNewTerm(int signum)
 {
-    char *term_env;
+    char *termEnv;
 
     capStr("cl");
     /* get new terminfo */
-    if (((term_env = getenv("TERM")) == NULL) && (tgetent(NULL, term_env) == ERR))
+    if (((termEnv = getenv("TERM")) == NULL) && (tgetent(NULL, termEnv) == ERR))
     {
         fprintf(stderr, "\nCannot get terminfo databases. Termcaps are no longer available\n");
     }
     getPrompt(WRT_PRT);
-    mem_cmd(NULL);
-    signal(_signum, getNewTerm);
+    memCmd(NULL);
+    signal(signum, getNewTerm);
 }

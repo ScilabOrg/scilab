@@ -24,16 +24,17 @@
 #include		"charctl.h"
 #include		"init_tc_shell.h"
 #include		"aff_prompt.h"
-#include		"goto_words.h"
+#include		"cmd_func.h"
+#include		"MALLOC.h"
 
-int caseHomeOrEndKey(t_list_cmd ** _listCmd)
+static int caseHomeOrEndKey(t_list_cmd ** listCmd)
 {
     switch (getwchar())
     {
     case L'H':
-        return (begLine(_listCmd, 0));
+        return (begLine(listCmd, 0));
     case L'F':
-        return (endLine(_listCmd, 0));
+        return (endLine(listCmd, 0));
     default:
         printf("\a");
         fflush(stdout);
@@ -46,21 +47,21 @@ int caseHomeOrEndKey(t_list_cmd ** _listCmd)
  * It mean this an arrow key or delete key.
  */
 
-int caseDelOrArrowKey(t_list_cmd ** _listCmd)
+static int caseDelOrArrowKey(t_list_cmd ** listCmd)
 {
     switch (getwchar())
     {
     case L'A':
-        return (previousCmd(_listCmd, 0));
+        return (previousCmd(listCmd, 0));
     case L'B':
-        return (nextCmd(_listCmd, 0));
+        return (nextCmd(listCmd, 0));
     case L'C':
-        return (gotoRight(_listCmd, 0));
+        return (gotoRight(listCmd, 0));
     case L'D':
-        return (gotoLeft(_listCmd, 0));
+        return (gotoLeft(listCmd, 0));
     case L'3':
         if (getwchar() == L'~')
-            return (rmLetter(_listCmd, SCI_DELETE));
+            return (rmChar(listCmd, SCI_DELETE));
     default:
         printf("\a");
         fflush(stdout);
@@ -71,20 +72,20 @@ int caseDelOrArrowKey(t_list_cmd ** _listCmd)
 /*
  * If last key was Meta...
  */
-int caseMetaKey(t_list_cmd ** _listCmd)
+static int caseMetaKey(t_list_cmd ** listCmd)
 {
     switch (getwchar())
     {
     case L'f':
     case L'F':
-        return (nextWord(_listCmd, 0));
+        return (nextWord(listCmd, 0));
     case L'b':
     case L'B':
-        return (previousWord(_listCmd, 0));
+        return (previousWord(listCmd, 0));
     case L'[':
-        return (caseDelOrArrowKey(_listCmd));
+        return (caseDelOrArrowKey(listCmd));
     case L'O':
-        return (caseHomeOrEndKey(_listCmd));
+        return (caseHomeOrEndKey(listCmd));
     default:
         printf("\a");
         fflush(stdout);
@@ -96,7 +97,7 @@ int caseMetaKey(t_list_cmd ** _listCmd)
  * Read keyboard a first time.
  */
 
-int getKey(t_list_cmd ** _listCmd)
+static int getKey(t_list_cmd ** listCmd)
 {
     int key;
 
@@ -104,70 +105,70 @@ int getKey(t_list_cmd ** _listCmd)
     switch (key)
     {
     case CTRL_A:
-        return (begLine(_listCmd, key));
+        return (begLine(listCmd, key));
     case CTRL_B:
-        return (gotoLeft(_listCmd, key));
+        return (gotoLeft(listCmd, key));
     case CTRL_E:
-        return (endLine(_listCmd, key));
+        return (endLine(listCmd, key));
     case CTRL_F:
-        return (gotoRight(_listCmd, key));
+        return (gotoRight(listCmd, key));
     case CTRL_K:
-        return (deleteLineFromCurs(_listCmd, key));
+        return (deleteLineFromCurs(listCmd, key));
     case CTRL_N:
-        return (nextCmd(_listCmd, key));
+        return (nextCmd(listCmd, key));
     case CTRL_P:
-        return (previousCmd(_listCmd, key));
+        return (previousCmd(listCmd, key));
     case ESCAPE:
-        return (caseMetaKey(_listCmd));
+        return (caseMetaKey(listCmd));
     case SCI_BACKSPACE:
-        return (rmLetter(_listCmd, SCI_BACKSPACE));
+        return (rmChar(listCmd, SCI_BACKSPACE));
     default:
         if (key == L'\n')
             return ('\n');
-        return (addLetter(_listCmd, key));
+        return (addChar(listCmd, key));
     }
 }
 
 /*
  * If there is a string the function save it.
- * else The function write the saved str.
+ * else The function write the saved string.
  */
-void mem_cmd(t_list_cmd ** _cmd)
+void memCmd(t_list_cmd ** cmd)
 {
-    static t_list_cmd **mem_list;
+    static t_list_cmd **memList;
     static int i;
 
-    if (_cmd != NULL)
+    if (cmd != NULL)
     {
-        mem_list = _cmd;
-        i = (*_cmd)->index;
+        memList = cmd;
+        i = (*cmd)->index;
     }
     else
     {
 /* TODO comment */
-        i = (*mem_list)->index;
-        (*mem_list)->index = (*mem_list)->line;
-        printf("%ls", (*mem_list)->cmd);
+        i = (*memList)->index;
+        (*memList)->index = (*memList)->line;
+        printf(SCI_PRINT_WSTRING, (*memList)->cmd);
 /* TODO probably useless. We are doing a buffering word by word */
         fflush(stdout);
-        while ((*mem_list)->index != i)
-        {
-            gotoLeft(mem_list, 0);
-        }
+        while ((*memList)->index != i)
+	{
+            gotoLeft(memList, 0);
+	}
     }
 }
 
-t_list_cmd *getNewCmd(t_list_cmd * _lastCmd)
+t_list_cmd *getNewCmd(t_list_cmd * lastCmd)
 {
     t_list_cmd *newCmd;
 
     newCmd = MALLOC(sizeof(*newCmd));
-    if (_lastCmd != NULL)
+    if (lastCmd != NULL)
     {
-        _lastCmd->next = newCmd;
-        _lastCmd->bin = 1;
+        lastCmd->next = newCmd;
+        lastCmd->bin = 1;
     }
-    newCmd->previous = _lastCmd;
+    newCmd->previous = lastCmd;
     newCmd->next = NULL;
     newCmd->line = 0;
     newCmd->bin = 0;
@@ -175,17 +176,17 @@ t_list_cmd *getNewCmd(t_list_cmd * _lastCmd)
     return (newCmd);
 }
 
-void getCmd(t_list_cmd ** _listCmd, int *_key)
+void getCmd(t_list_cmd ** listCmd, int *key)
 {
     int bin;
 
-    (*_listCmd)->index = 0;
-    *_key = 0;
+    (*listCmd)->index = 0;
+    *key = 0;
     bin = 1;
     while (bin)
     {
-        mem_cmd(_listCmd);
-        if (getKey(_listCmd) == '\n')
+        memCmd(listCmd);
+        if (getKey(listCmd) == '\n')
         {
             putchar('\n');
             bin = 0;
@@ -193,31 +194,31 @@ void getCmd(t_list_cmd ** _listCmd, int *_key)
     }
 }
 
-t_list_cmd *free_cmd(t_list_cmd ** _cmd)
+t_list_cmd *freeCmd(t_list_cmd ** cmd)
 {
     t_list_cmd *save;
 
-    save = *_cmd;
-    *_cmd = (*_cmd)->previous;
+    save = *cmd;
+    *cmd = (*cmd)->previous;
     free(save->cmd);
     free(save);
-    if (*_cmd)
-        (*_cmd)->next = NULL;
-    return (*_cmd);
+    if (*cmd)
+        (*cmd)->next = NULL;
+    return (*cmd);
 }
 
-void deleteHistory(t_list_cmd * _cmd, int _limit)
+void deleteHistory(t_list_cmd * cmd, int limit)
 {
-    while (_limit && _cmd->previous)
+    while (limit && cmd->previous)
     {
-        _cmd = _cmd->previous;
-        _limit--;
+        cmd = cmd->previous;
+        limit--;
     }
-    if (!_limit)
+    if (!limit)
     {
-        _cmd = _cmd->next;
-        free(_cmd->previous->cmd);
-        free(_cmd->previous);
-        _cmd->previous = NULL;
+        cmd = cmd->next;
+        free(cmd->previous->cmd);
+        free(cmd->previous);
+        cmd->previous = NULL;
     }
 }
