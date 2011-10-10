@@ -946,6 +946,7 @@ the the JNI libraries."])],
                 AC_JAVA_CHECK_PACKAGE([jrosetta-engine],[com.artenum.rosetta.core.action.AbstractConsoleAction],[JRosetta : Console Core Artenum / Scilab])
                 JROSETTA_ENGINE=$PACKAGE_JAR_FILE
                 AC_SUBST(JROSETTA_ENGINE)
+                AC_JAVA_CHECK_VERSION_PACKAGE([jrosetta-engine],[import com.artenum.rosetta.util.ConfigurationBuilder;],$JROSETTA_ENGINE,[1.0.4],[ConfigurationBuilder.getVersion()])
 
 
                 # MathML rendering solution
