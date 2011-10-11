@@ -47,7 +47,9 @@ JNIEnv * EditVar::getCurrentEnv() {
 JNIEnv * curEnv = NULL;
 jint res=this->jvm->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 if (res != JNI_OK) {
-throw GiwsException::JniException(getCurrentEnv());
+std::cerr << "Could not retrieve the current JVM." << std::endl;
+exit(EXIT_FAILURE);
+
 }
 return curEnv;
 }
@@ -73,7 +75,9 @@ JNIEnv * curEnv = getCurrentEnv();
 
 localClass = curEnv->FindClass( this->className().c_str() ) ;
 if (localClass == NULL) {
-  throw GiwsException::JniClassNotFoundException(curEnv, this->className());
+std::cerr << "Could not get the Class " << this->className() <<  std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
 }
 
 this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
@@ -82,23 +86,31 @@ this->instanceClass = static_cast<jclass>(curEnv->NewGlobalRef(localClass));
 curEnv->DeleteLocalRef(localClass);
 
 if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+std::cerr << "Could not create a Global Ref of " << this->className() <<  std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
 }
 
 
 constructObject = curEnv->GetMethodID( this->instanceClass, construct.c_str() , param.c_str() ) ;
 if(constructObject == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+std::cerr << "Could not retrieve the constructor of the class " << this->className() << " with the profile : " << construct << param << std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
 }
 
 localInstance = curEnv->NewObject( this->instanceClass, constructObject ) ;
 if(localInstance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+std::cerr << "Could not instantiate the object " << this->className() << " with the constructor : " << construct << param << std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
 }
  
 this->instance = curEnv->NewGlobalRef(localInstance) ;
 if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+std::cerr << "Could not create a new global ref of " << this->className() << std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
 }
 /* localInstance not needed anymore */
 curEnv->DeleteLocalRef(localInstance);
@@ -114,6 +126,16 @@ voidopenVariableEditorInteger16jobjectArray__shortjstringjava_lang_StringID=NULL
 voidopenVariableEditorUInteger16jobjectArray__intjstringjava_lang_StringID=NULL;
 voidopenVariableEditorInteger32jobjectArray__intjstringjava_lang_StringID=NULL;
 voidopenVariableEditorUInteger32jobjectArray__longjstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorDoublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorComplexjobjectArray__doublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorStringjobjectArray__java_lang_StringjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorBooleanjobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger8jobjectArray__bytejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger8jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger16jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger16jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger32jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger32jobjectArray__longjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
 voidcloseVariableEditorID=NULL;
 
 
@@ -129,12 +151,18 @@ jclass localClass = curEnv->GetObjectClass(JObj);
         curEnv->DeleteLocalRef(localClass);
 
         if (this->instanceClass == NULL) {
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+
+std::cerr << "Could not create a Global Ref of " << this->className() <<  std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
         }
 
         this->instance = curEnv->NewGlobalRef(JObj) ;
         if(this->instance == NULL){
-throw GiwsException::JniObjectCreationException(curEnv, this->className());
+
+std::cerr << "Could not create a new global ref of " << this->className() << std::endl;
+curEnv->ExceptionDescribe();
+exit(EXIT_FAILURE);
         }
         /* Methods ID set to NULL */
         voidopenVariableEditorDoublejobjectArray__doublejstringjava_lang_StringID=NULL;
@@ -147,6 +175,16 @@ voidopenVariableEditorInteger16jobjectArray__shortjstringjava_lang_StringID=NULL
 voidopenVariableEditorUInteger16jobjectArray__intjstringjava_lang_StringID=NULL;
 voidopenVariableEditorInteger32jobjectArray__intjstringjava_lang_StringID=NULL;
 voidopenVariableEditorUInteger32jobjectArray__longjstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorDoublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorComplexjobjectArray__doublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorStringjobjectArray__java_lang_StringjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorBooleanjobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger8jobjectArray__bytejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger8jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger16jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger16jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorInteger32jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
+voidrefreshVariableEditorUInteger32jobjectArray__longjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID=NULL;
 voidcloseVariableEditorID=NULL;
 
 
@@ -156,13 +194,17 @@ voidcloseVariableEditorID=NULL;
 
 void EditVar::synchronize() {
 if (getCurrentEnv()->MonitorEnter(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "EditVar");
+std::cerr << "Fail to enter monitor." << std::endl;
+exit(EXIT_FAILURE);
+
 }
 }
 
 void EditVar::endSynchronize() {
 if ( getCurrentEnv()->MonitorExit(instance) != JNI_OK) {
-throw GiwsException::JniMonitorException(getCurrentEnv(), "EditVar");
+
+std::cerr << "Fail to exit monitor." << std::endl;
+exit(EXIT_FAILURE);
 }
 }
 // Method(s)
@@ -175,27 +217,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorDoublejobjectArray__doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorDouble", "([[DLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorDoublejobjectArray__doublejstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorDouble");
+std::cerr << "Could not access to the method " << "openVariableEditorDouble" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[D"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jdoubleArray dataLocal = curEnv->NewDoubleArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetDoubleArrayRegion( dataLocal, 0, dataSizeCol, (jdouble*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -205,7 +237,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -214,8 +247,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorComplex (JavaVM * jvm_, double** realData, int realDataSize, int realDataSizeCol, double** imgData, int imgDataSize, int imgDataSizeCol, char * variableName){
@@ -226,27 +260,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorComplexjobjectArray__doublejobjectArray__doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorComplex", "([[D[[DLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorComplexjobjectArray__doublejobjectArray__doublejstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorComplex");
+std::cerr << "Could not access to the method " << "openVariableEditorComplex" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray realData_ = curEnv->NewObjectArray(realDataSize, curEnv->FindClass("[D"),NULL);
 
-if (realData_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<realDataSize; i++){
 
 jdoubleArray realDataLocal = curEnv->NewDoubleArray( realDataSizeCol ) ;
-
-if (realDataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(realData_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetDoubleArrayRegion( realDataLocal, 0, realDataSizeCol, (jdouble*)(realData[i]) ) ;
 curEnv->SetObjectArrayElement(realData_, i, realDataLocal);
@@ -255,22 +279,9 @@ curEnv->DeleteLocalRef(realDataLocal);
 
  jobjectArray imgData_ = curEnv->NewObjectArray(imgDataSize, curEnv->FindClass("[D"),NULL);
 
-if (imgData_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<imgDataSize; i++){
 
 jdoubleArray imgDataLocal = curEnv->NewDoubleArray( imgDataSizeCol ) ;
-
-if (imgDataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(imgData_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetDoubleArrayRegion( imgDataLocal, 0, imgDataSizeCol, (jdouble*)(imgData[i]) ) ;
 curEnv->SetObjectArrayElement(imgData_, i, imgDataLocal);
@@ -280,7 +291,8 @@ curEnv->DeleteLocalRef(imgDataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -290,8 +302,9 @@ curEnv->DeleteLocalRef(imgData_);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorString (JavaVM * jvm_, char *** data, int dataSize, int dataSizeCol, char * variableName){
@@ -302,14 +315,18 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorStringjobjectArray__java_lang_Stringjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorString", "([[Ljava/lang/String;Ljava/lang/String;)V" ) ;
 if (voidopenVariableEditorStringjobjectArray__java_lang_Stringjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorString");
+std::cerr << "Could not access to the method " << "openVariableEditorString" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 jclass stringArrayClass = curEnv->FindClass("java/lang/String");
 // create java array of array of strings.
 jobjectArray data_ = curEnv->NewObjectArray( dataSize, curEnv->FindClass("[Ljava/lang/String;"), NULL);
 if (data_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not allocate Java string array, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 for ( int i = 0; i < dataSize; i++)
@@ -321,7 +338,8 @@ jstring TempString = curEnv->NewStringUTF( data[i][j] );
 
 if (TempString == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 curEnv->SetObjectArrayElement( dataLocal, j, TempString);
@@ -336,7 +354,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -346,8 +365,9 @@ curEnv->DeleteLocalRef(data_);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorBoolean (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, char * variableName){
@@ -358,27 +378,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorBooleanjobjectArray__intjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorBoolean", "([[ILjava/lang/String;)V" ) ;
 if (voidopenVariableEditorBooleanjobjectArray__intjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorBoolean");
+std::cerr << "Could not access to the method " << "openVariableEditorBoolean" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -388,7 +398,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -397,8 +408,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorInteger8 (JavaVM * jvm_, byte** data, int dataSize, int dataSizeCol, char * variableName){
@@ -409,27 +421,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorInteger8jobjectArray__bytejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorInteger8", "([[BLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorInteger8jobjectArray__bytejstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorInteger8");
+std::cerr << "Could not access to the method " << "openVariableEditorInteger8" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[B"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jbyteArray dataLocal = curEnv->NewByteArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetByteArrayRegion( dataLocal, 0, dataSizeCol, (jbyte*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -439,7 +441,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -448,8 +451,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorUInteger8 (JavaVM * jvm_, short** data, int dataSize, int dataSizeCol, char * variableName){
@@ -460,27 +464,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorUInteger8jobjectArray__shortjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorUInteger8", "([[SLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorUInteger8jobjectArray__shortjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorUInteger8");
+std::cerr << "Could not access to the method " << "openVariableEditorUInteger8" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[S"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jshortArray dataLocal = curEnv->NewShortArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetShortArrayRegion( dataLocal, 0, dataSizeCol, (jshort*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -490,7 +484,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -499,8 +494,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorInteger16 (JavaVM * jvm_, short** data, int dataSize, int dataSizeCol, char * variableName){
@@ -511,27 +507,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorInteger16jobjectArray__shortjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorInteger16", "([[SLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorInteger16jobjectArray__shortjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorInteger16");
+std::cerr << "Could not access to the method " << "openVariableEditorInteger16" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[S"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jshortArray dataLocal = curEnv->NewShortArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetShortArrayRegion( dataLocal, 0, dataSizeCol, (jshort*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -541,7 +527,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -550,8 +537,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorUInteger16 (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, char * variableName){
@@ -562,27 +550,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorUInteger16jobjectArray__intjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorUInteger16", "([[ILjava/lang/String;)V" ) ;
 if (voidopenVariableEditorUInteger16jobjectArray__intjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorUInteger16");
+std::cerr << "Could not access to the method " << "openVariableEditorUInteger16" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -592,7 +570,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -601,8 +580,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorInteger32 (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, char * variableName){
@@ -613,27 +593,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorInteger32jobjectArray__intjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorInteger32", "([[ILjava/lang/String;)V" ) ;
 if (voidopenVariableEditorInteger32jobjectArray__intjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorInteger32");
+std::cerr << "Could not access to the method " << "openVariableEditorInteger32" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -643,7 +613,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -652,8 +623,9 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 void EditVar::openVariableEditorUInteger32 (JavaVM * jvm_, long long** data, int dataSize, int dataSizeCol, char * variableName){
@@ -664,27 +636,17 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidopenVariableEditorUInteger32jobjectArray__longjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "openVariableEditorUInteger32", "([[JLjava/lang/String;)V" ) ;
 if (voidopenVariableEditorUInteger32jobjectArray__longjstringjava_lang_StringID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "openVariableEditorUInteger32");
+std::cerr << "Could not access to the method " << "openVariableEditorUInteger32" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
  jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[J"),NULL);
 
-if (data_ == NULL)
-{
-// check that allocation succeed
-throw GiwsException::JniBadAllocException(curEnv);
-}
-
  for (int i=0; i<dataSize; i++){
 
 jlongArray dataLocal = curEnv->NewLongArray( dataSizeCol ) ;
-
-if (dataLocal == NULL)
-{
-// check that allocation succeed
-curEnv->DeleteLocalRef(data_);
-throw GiwsException::JniBadAllocException(curEnv);
-}
 
 curEnv->SetLongArrayRegion( dataLocal, 0, dataSizeCol, (jlong*)(data[i]) ) ;
 curEnv->SetObjectArrayElement(data_, i, dataLocal);
@@ -694,7 +656,8 @@ curEnv->DeleteLocalRef(dataLocal);
 jstring variableName_ = curEnv->NewStringUTF( variableName );
 if (variableName != NULL && variableName_ == NULL)
 {
-throw GiwsException::JniBadAllocException(curEnv);
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
 }
 
 
@@ -703,8 +666,591 @@ throw GiwsException::JniBadAllocException(curEnv);
 curEnv->DeleteLocalRef(variableName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
+}
+
+void EditVar::refreshVariableEditorDouble (JavaVM * jvm_, double** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorDoublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorDouble", "([[D[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorDoublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorDouble" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[D"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jdoubleArray dataLocal = curEnv->NewDoubleArray( dataSizeCol ) ;
+
+curEnv->SetDoubleArrayRegion( dataLocal, 0, dataSizeCol, (jdouble*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorDoublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorComplex (JavaVM * jvm_, double** realData, int realDataSize, int realDataSizeCol, double** imgData, int imgDataSize, int imgDataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorComplexjobjectArray__doublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorComplex", "([[D[[D[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorComplexjobjectArray__doublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorComplex" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray realData_ = curEnv->NewObjectArray(realDataSize, curEnv->FindClass("[D"),NULL);
+
+ for (int i=0; i<realDataSize; i++){
+
+jdoubleArray realDataLocal = curEnv->NewDoubleArray( realDataSizeCol ) ;
+
+curEnv->SetDoubleArrayRegion( realDataLocal, 0, realDataSizeCol, (jdouble*)(realData[i]) ) ;
+curEnv->SetObjectArrayElement(realData_, i, realDataLocal);
+curEnv->DeleteLocalRef(realDataLocal);
+}
+
+ jobjectArray imgData_ = curEnv->NewObjectArray(imgDataSize, curEnv->FindClass("[D"),NULL);
+
+ for (int i=0; i<imgDataSize; i++){
+
+jdoubleArray imgDataLocal = curEnv->NewDoubleArray( imgDataSizeCol ) ;
+
+curEnv->SetDoubleArrayRegion( imgDataLocal, 0, imgDataSizeCol, (jdouble*)(imgData[i]) ) ;
+curEnv->SetObjectArrayElement(imgData_, i, imgDataLocal);
+curEnv->DeleteLocalRef(imgDataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorComplexjobjectArray__doublejobjectArray__doublejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,realData_, imgData_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(realData_);
+curEnv->DeleteLocalRef(imgData_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorString (JavaVM * jvm_, char *** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorStringjobjectArray__java_lang_StringjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorString", "([[Ljava/lang/String;[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorStringjobjectArray__java_lang_StringjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorString" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+// create java array of array of strings.
+jobjectArray data_ = curEnv->NewObjectArray( dataSize, curEnv->FindClass("[Ljava/lang/String;"), NULL);
+if (data_ == NULL)
+{
+std::cerr << "Could not allocate Java string array, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+for ( int i = 0; i < dataSize; i++)
+{
+jobjectArray dataLocal = curEnv->NewObjectArray( dataSizeCol, stringArrayClass, NULL);
+// convert each char * to java strings and fill the java array.
+for ( int j = 0; j < dataSizeCol; j++) {
+jstring TempString = curEnv->NewStringUTF( data[i][j] );
+
+if (TempString == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+curEnv->SetObjectArrayElement( dataLocal, j, TempString);
+
+// avoid keeping reference on to many strings
+curEnv->DeleteLocalRef(TempString);
+}
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+
+}
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorStringjobjectArray__java_lang_StringjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(stringArrayClass);
+curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorBoolean (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorBooleanjobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorBoolean", "([[I[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorBooleanjobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorBoolean" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
+
+curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorBooleanjobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorInteger8 (JavaVM * jvm_, byte** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorInteger8jobjectArray__bytejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorInteger8", "([[B[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorInteger8jobjectArray__bytejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorInteger8" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[B"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jbyteArray dataLocal = curEnv->NewByteArray( dataSizeCol ) ;
+
+curEnv->SetByteArrayRegion( dataLocal, 0, dataSizeCol, (jbyte*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorInteger8jobjectArray__bytejdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorUInteger8 (JavaVM * jvm_, short** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorUInteger8jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorUInteger8", "([[S[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorUInteger8jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorUInteger8" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[S"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jshortArray dataLocal = curEnv->NewShortArray( dataSizeCol ) ;
+
+curEnv->SetShortArrayRegion( dataLocal, 0, dataSizeCol, (jshort*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorUInteger8jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorInteger16 (JavaVM * jvm_, short** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorInteger16jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorInteger16", "([[S[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorInteger16jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorInteger16" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[S"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jshortArray dataLocal = curEnv->NewShortArray( dataSizeCol ) ;
+
+curEnv->SetShortArrayRegion( dataLocal, 0, dataSizeCol, (jshort*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorInteger16jobjectArray__shortjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorUInteger16 (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorUInteger16jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorUInteger16", "([[I[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorUInteger16jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorUInteger16" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
+
+curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorUInteger16jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorInteger32 (JavaVM * jvm_, int** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorInteger32jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorInteger32", "([[I[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorInteger32jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorInteger32" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[I"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jintArray dataLocal = curEnv->NewIntArray( dataSizeCol ) ;
+
+curEnv->SetIntArrayRegion( dataLocal, 0, dataSizeCol, (jint*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorInteger32jobjectArray__intjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
+}
+
+void EditVar::refreshVariableEditorUInteger32 (JavaVM * jvm_, long long** data, int dataSize, int dataSizeCol, double* rowsIndex, int rowsIndexSize, double* colsIndex, int colsIndexSize, char * variableName){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidrefreshVariableEditorUInteger32jobjectArray__longjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "refreshVariableEditorUInteger32", "([[J[D[DLjava/lang/String;)V" ) ;
+if (voidrefreshVariableEditorUInteger32jobjectArray__longjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID == NULL) {
+std::cerr << "Could not access to the method " << "refreshVariableEditorUInteger32" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
+}
+
+ jobjectArray data_ = curEnv->NewObjectArray(dataSize, curEnv->FindClass("[J"),NULL);
+
+ for (int i=0; i<dataSize; i++){
+
+jlongArray dataLocal = curEnv->NewLongArray( dataSizeCol ) ;
+
+curEnv->SetLongArrayRegion( dataLocal, 0, dataSizeCol, (jlong*)(data[i]) ) ;
+curEnv->SetObjectArrayElement(data_, i, dataLocal);
+curEnv->DeleteLocalRef(dataLocal);
+}
+
+jdoubleArray rowsIndex_ = curEnv->NewDoubleArray( rowsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( rowsIndex_, 0, rowsIndexSize, (jdouble*)(rowsIndex) ) ;
+
+
+jdoubleArray colsIndex_ = curEnv->NewDoubleArray( colsIndexSize ) ;
+
+curEnv->SetDoubleArrayRegion( colsIndex_, 0, colsIndexSize, (jdouble*)(colsIndex) ) ;
+
+
+jstring variableName_ = curEnv->NewStringUTF( variableName );
+if (variableName != NULL && variableName_ == NULL)
+{
+std::cerr << "Could not convert C string to Java UTF string, memory full." << std::endl;
+exit(EXIT_FAILURE);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidrefreshVariableEditorUInteger32jobjectArray__longjdoubleArray_doublejdoubleArray_doublejstringjava_lang_StringID ,data_, rowsIndex_, colsIndex_, variableName_);
+                        curEnv->DeleteLocalRef(data_);
+curEnv->DeleteLocalRef(rowsIndex_);
+curEnv->DeleteLocalRef(colsIndex_);
+curEnv->DeleteLocalRef(variableName_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+curEnv->ExceptionDescribe() ;
+}
+
 }
 
 void EditVar::closeVariableEditor (JavaVM * jvm_){
@@ -715,14 +1261,18 @@ jclass cls = curEnv->FindClass( className().c_str() );
 
 jmethodID voidcloseVariableEditorID = curEnv->GetStaticMethodID(cls, "closeVariableEditor", "()V" ) ;
 if (voidcloseVariableEditorID == NULL) {
-throw GiwsException::JniMethodNotFoundException(curEnv, "closeVariableEditor");
+std::cerr << "Could not access to the method " << "closeVariableEditor" << std::endl;
+curEnv->ExceptionDescribe();
+
+exit(EXIT_FAILURE);
 }
 
                          curEnv->CallStaticVoidMethod(cls, voidcloseVariableEditorID );
                         curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
-throw GiwsException::JniCallMethodException(curEnv);
+curEnv->ExceptionDescribe() ;
 }
+
 }
 
 }
