@@ -13,6 +13,8 @@
 
 package org.scilab.modules.ui_data.variableeditor.renderers;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
 import javax.swing.table.DefaultTableCellRenderer;
@@ -24,15 +26,63 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class ScilabComplexRenderer extends DefaultTableCellRenderer {
 
+    public static final int SHORT = 0;
+    public static final int SHORTE = 1;
+    public static final int LONG = 2;
+    public static final int LONGE = 3;
+
     private static final NumberFormat NUMBERFORMAT = NumberFormat.getInstance();
+    private static final DecimalFormatSymbols SYMBOLS = DecimalFormatSymbols.getInstance();
+    private static final DecimalFormat SHORTFORMAT = new DecimalFormat("#.####");
+    private static final DecimalFormat SHORTEFORMAT = new DecimalFormat("#.####E00");
+    private static final DecimalFormat LONGFORMAT = new DecimalFormat("#.###############");
+    private static final DecimalFormat LONGEFORMAT = new DecimalFormat("#.###############E00");
     private static final String I = "i";
     private static final String PLUS = "+";
+
+    static {
+        SYMBOLS.setInfinity("\u221E");
+        SYMBOLS.setNaN("Nan");
+        SYMBOLS.setExponentSeparator("e");
+        SHORTFORMAT.setDecimalFormatSymbols(SYMBOLS);
+        SHORTEFORMAT.setDecimalFormatSymbols(SYMBOLS);
+        LONGFORMAT.setDecimalFormatSymbols(SYMBOLS);
+        LONGEFORMAT.setDecimalFormatSymbols(SYMBOLS);
+    }
+
+    private static NumberFormat numberFormat = SHORTFORMAT;
+    private static NumberFormat numberFormatE = SHORTEFORMAT;
 
     /**
      * Constructor
      */
     public ScilabComplexRenderer() {
         super();
+    }
+
+    /**
+     * Set the format.
+     * @param format SHORT, SHORTE, LONG or LONGE.
+     */
+    public static void setFormat(int format) {
+        switch (format) {
+        case SHORT:
+            numberFormat = SHORTFORMAT;
+            numberFormatE = SHORTFORMAT;
+            break;
+        case SHORTE:
+            numberFormat = SHORTEFORMAT;
+            numberFormatE = SHORTEFORMAT;
+            break;
+        case LONG:
+            numberFormat = LONGFORMAT;
+            numberFormatE = LONGEFORMAT;
+            break;
+        case LONGE:
+            numberFormat = LONGEFORMAT;
+            numberFormatE = LONGEFORMAT;
+            break;
+        }
     }
 
     /**
@@ -49,29 +99,24 @@ public class ScilabComplexRenderer extends DefaultTableCellRenderer {
     }
 
     /**
-     * @param newValue the number of digits after the dot.
-     */
-    public void setMaximumFractionDigits(int newValue) {
-        NUMBERFORMAT.setMaximumFractionDigits(newValue);
-    }
-
-    /**
      * Convert a finite double, %nan or +/-%inf
      * @param d the double to convert
      * @return the double into String
      */
     protected static String convertDouble(Double d) {
-        if (d.isNaN()) {
-            return "Nan";
-        } else if (d.isInfinite()) {
-            if (d.doubleValue() < 0) {
-                return "-Inf";
-            } else {
-                return "Inf";
-            }
+        double dd = d.doubleValue();
+        if ((Math.abs(dd) < 1000 && Math.abs(dd) > 0.001) || dd == 0) {
+            return addSignToExponent(numberFormat.format(dd));
         } else {
-            return NUMBERFORMAT.format(d.doubleValue());
+            return addSignToExponent(numberFormatE.format(dd));
         }
+    }
+
+    /**
+     * Add a + for the exponential notation
+     */
+    private static String addSignToExponent(String number) {
+        return number.replaceAll("e([0-9])", "e+$1");
     }
 
     /**
@@ -82,26 +127,34 @@ public class ScilabComplexRenderer extends DefaultTableCellRenderer {
         String re = "";
         String im = "";
         if (comp[0] == 0 && comp[1] == 0) {
-            re = "0";
+            return "0";
         } else {
+            StringBuilder buf = new StringBuilder();
+            if (comp[0] != 0) {
+                buf.append(convertDouble(comp[0]));
+            }
+
             if (comp[1] != 0) {
                 if (comp[1] == 1) {
-                    im = "+i";
+		    if (comp[0] == 0) {
+			buf.append("i");
+		    } else {
+			buf.append("+i");
+		    }
                 } else if (comp[1] == -1) {
-                    im = "-i";
+                    buf.append("-i");
                 } else if (comp[1] < 0) {
-                    im = convertDouble(comp[1]) + I;
+                    buf.append(convertDouble(comp[1]));
+                    buf.append("i");
                 } else {
-                    im = PLUS + convertDouble(comp[1]) + I;
+                    if (comp[0] != 0) {
+                        buf.append("+");
+                    }
+                    buf.append(convertDouble(comp[1]));
+                    buf.append("i");
                 }
             }
-            if (comp[0] != 0) {
-                re = convertDouble(comp[0]);
-            } else if (im.startsWith(PLUS)) {
-                im = im.substring(1);
-            }
+            return buf.toString();
         }
-
-        return re + im;
     }
 }
