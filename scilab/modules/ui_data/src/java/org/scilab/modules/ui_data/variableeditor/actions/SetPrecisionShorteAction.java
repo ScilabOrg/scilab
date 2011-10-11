@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - Calixte DENIZET
+ * Copyright (C) 2011 - DIGITEO - Calixte DENIZET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -14,6 +14,7 @@ package org.scilab.modules.ui_data.variableeditor.actions;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.util.Vector;
 
 import javax.swing.KeyStroke;
 import javax.swing.ImageIcon;
@@ -28,24 +29,27 @@ import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.gui.pushbutton.ScilabPushButton;
 import org.scilab.modules.ui_data.datatable.SwingEditvarTableModel;
 import org.scilab.modules.ui_data.variableeditor.SwingScilabVariableEditor;
+import org.scilab.modules.ui_data.variableeditor.renderers.ScilabComplexRenderer;
 
 /**
- * RefreshAction class
+ * Set Precision Action class
  * @author Calixte DENIZET
  */
-public final class CopyAction extends CallBack {
+public final class SetPrecisionShorteAction extends CallBack {
 
-    private static final String KEY = "OSSCKEY C";
-    private static final String COPY = "Copy";
+    private static final String KEY = "OSSCKEY shift S";
+    private static final String PRECISION = "Short E Precision";
 
     private SwingScilabVariableEditor editor;
+
+    protected int precision;
 
     /**
      * Constructor
      * @param editor the editor
      * @param name the name of the action
      */
-    private CopyAction(SwingScilabVariableEditor editor, String name) {
+    public SetPrecisionShorteAction(SwingScilabVariableEditor editor, String name) {
         super(name);
         this.editor = editor;
     }
@@ -55,37 +59,16 @@ public final class CopyAction extends CallBack {
      * @param table where to put the action
      */
     public static void registerAction(SwingScilabVariableEditor editor, JTable table) {
-        table.getActionMap().put(COPY, new CopyAction(editor, COPY));
-        table.getInputMap().put(ScilabKeyStroke.getKeyStroke(KEY), COPY);
+        table.getActionMap().put(PRECISION, new SetPrecisionShorteAction(editor, PRECISION));
+        table.getInputMap().put(ScilabKeyStroke.getKeyStroke(KEY), PRECISION);
     }
 
     /**
      * {@inheritDoc}
      */
     public void callBack() {
-        JTable table = editor.getCurrentTable();
-        int[] cols = table.getSelectedColumns();
-        int[] rows = table.getSelectedRows();
-        if (cols.length > 0 && rows.length > 0) {
-            table.setColumnSelectionInterval(cols[0], cols[cols.length - 1]);
-            table.setRowSelectionInterval(rows[0], rows[rows.length - 1]);
-            StringBuffer buf = new StringBuffer();
-            SwingEditvarTableModel model = (SwingEditvarTableModel) table.getModel();
-            for (int i = rows[0]; i <= rows[rows.length - 1]; i++) {
-                for (int j = cols[0]; j <= cols[cols.length - 1]; j++) {
-                    String val = model.getScilabValueAt(i, j, false);
-                    if (val != null) {
-                        buf.append(val);
-                    }
-                    if (j < cols[cols.length - 1]) {
-                        buf.append("\t");
-                    }
-                }
-                buf.append("\n");
-            }
-            StringSelection sel  = new StringSelection(buf.toString());
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel, sel);
-        }
+        ScilabComplexRenderer.setFormat(ScilabComplexRenderer.SHORTE);
+        editor.getCurrentTable().repaint();
     }
 
     /**
@@ -96,9 +79,9 @@ public final class CopyAction extends CallBack {
      */
     public static PushButton createButton(SwingScilabVariableEditor editor, String title) {
         PushButton button = ScilabPushButton.createPushButton();
-        ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new CopyAction(editor, title));
+        ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new SetPrecisionShorteAction(editor, title));
         button.setToolTipText(title);
-        ImageIcon imageIcon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/edit-copy.png");
+        ImageIcon imageIcon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/16x16/actions/shorte.png");
         ((SwingScilabPushButton) button.getAsSimplePushButton()).setIcon(imageIcon);
 
         return button;
@@ -112,7 +95,7 @@ public final class CopyAction extends CallBack {
      */
     public static JMenuItem createMenuItem(SwingScilabVariableEditor editor, String title) {
         JMenuItem mi = new JMenuItem(title);
-        mi.addActionListener(new CopyAction(editor, title));
+        mi.addActionListener(new SetPrecisionShorteAction(editor, title));
         mi.setAccelerator(ScilabKeyStroke.getKeyStroke(KEY));
 
         return mi;

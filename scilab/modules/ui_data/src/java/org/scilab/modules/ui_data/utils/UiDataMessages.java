@@ -63,6 +63,14 @@ public final class UiDataMessages {
     public static final String CUT = Messages.gettext("Cut");
     public static final String UNDO = Messages.gettext("Undo");
     public static final String REDO = Messages.gettext("Redo");
+    public static final String FIT = Messages.gettext("Size columns to fit");
+
+    public static final String SHORT = Messages.gettext("Short format");
+    public static final String SHORTE = Messages.gettext("ShortE format");
+    public static final String LONG = Messages.gettext("Long format");
+    public static final String LONGE = Messages.gettext("LongE format");
+
+    public static final String CREATE = Messages.gettext("Create variable from selection");
 
     /** This class is a static singleton, thus it must not be instantiated */
     private UiDataMessages() { }

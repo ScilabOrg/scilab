@@ -298,6 +298,12 @@ images/icons/16x16/actions/execute-all.png \
 images/icons/16x16/actions/go-bottom.png \
 images/icons/16x16/actions/go-top.png \
 images/icons/16x16/actions/view-refresh.png \
+images/icons/16x16/actions/SizeColumnsToFit.png \
+images/icons/16x16/actions/long.png \
+images/icons/16x16/actions/longe.png \
+images/icons/16x16/actions/short.png \
+images/icons/16x16/actions/shorte.png \
+images/icons/16x16/actions/variable-new.png \
 images/icons/16x16/search/folder.png \
 images/icons/16x16/search/file.png \
 images/icons/16x16/search/line-found.png \

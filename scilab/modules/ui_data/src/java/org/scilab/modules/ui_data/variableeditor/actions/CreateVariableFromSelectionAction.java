@@ -14,7 +14,6 @@ package org.scilab.modules.ui_data.variableeditor.actions;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
-import java.util.Vector;
 
 import javax.swing.KeyStroke;
 import javax.swing.ImageIcon;
@@ -34,10 +33,10 @@ import org.scilab.modules.ui_data.variableeditor.SwingScilabVariableEditor;
  * RefreshAction class
  * @author Calixte DENIZET
  */
-public final class CutAction extends CallBack {
+public final class CreateVariableFromSelectionAction extends CallBack {
 
-    private static final String KEY = "OSSCKEY X";
-    private static final String CUT = "Cut";
+    private static final String KEY = "OSSCKEY K";
+    private static final String CREATE = "Create";
 
     private SwingScilabVariableEditor editor;
 
@@ -46,7 +45,7 @@ public final class CutAction extends CallBack {
      * @param editor the editor
      * @param name the name of the action
      */
-    public CutAction(SwingScilabVariableEditor editor, String name) {
+    private CreateVariableFromSelectionAction(SwingScilabVariableEditor editor, String name) {
         super(name);
         this.editor = editor;
     }
@@ -56,8 +55,8 @@ public final class CutAction extends CallBack {
      * @param table where to put the action
      */
     public static void registerAction(SwingScilabVariableEditor editor, JTable table) {
-        table.getActionMap().put(CUT, new CutAction(editor, CUT));
-        table.getInputMap().put(ScilabKeyStroke.getKeyStroke(KEY), CUT);
+        table.getActionMap().put(CREATE, new CreateVariableFromSelectionAction(editor, CREATE));
+        table.getInputMap().put(ScilabKeyStroke.getKeyStroke(KEY), CREATE);
     }
 
     /**
@@ -70,50 +69,19 @@ public final class CutAction extends CallBack {
         if (cols.length > 0 && rows.length > 0) {
             table.setColumnSelectionInterval(cols[0], cols[cols.length - 1]);
             table.setRowSelectionInterval(rows[0], rows[rows.length - 1]);
-            StringBuffer buf = new StringBuffer();
-            Object oldValue;
+
             SwingEditvarTableModel model = (SwingEditvarTableModel) table.getModel();
-            int oldRows = model.getScilabMatrixRowCount();
-            int oldCols = model.getScilabMatrixColCount();
-	    
-	    if (rows[0] >= oldRows || cols[0] >= oldCols) {
-		return;
-	    }
+            int rowC = model.getScilabMatrixRowCount();
+            int colC = model.getScilabMatrixColCount();
 
-            if ((cols.length == 1 && rows.length == 1) || (rows.length >= 2 && cols.length >= 2 && rows[1] >= oldRows && cols[1] >= oldCols)) {
-                oldValue = model.getValueAt(rows[0], cols[0]);
-            } else {
-                oldValue = (Vector) model.cloneDatas();
+            if (rows[0] >= rowC || cols[0] >= colC) {
+                return;
             }
 
-            for (int i = rows[0]; i <= rows[rows.length - 1]; i++) {
-                for (int j = cols[0]; j <= cols[cols.length - 1]; j++) {
-                    String val = model.getScilabValueAt(i, j, false);
-                    if (val != null) {
-                        buf.append(val);
-                    }
-                    model.emptyValueAt(i, j);
-                    if (j < cols[cols.length - 1]) {
-                        buf.append("\t");
-                    }
-                }
-                buf.append("\n");
-            }
-            for (int i = rows[rows.length - 1]; i >= rows[0]; i--) {
-                model.removeRow(i, cols[0], cols[cols.length - 1]);
-            }
-            for (int j = cols[cols.length - 1]; j >= cols[0]; j--) {
-                model.removeCol(j, rows[0], rows[rows.length - 1]);
-            }
+            int rowE = Math.min(rows[rows.length - 1], rowC);
+            int colE = Math.min(cols[cols.length - 1], colC);
 
-            if (oldValue instanceof Vector) {
-                model.updateFullMatrix(oldValue, oldRows, oldCols);
-            } else {
-                model.updateMatrix(oldValue, rows[0], cols[0]);
-            }
-
-            StringSelection sel = new StringSelection(buf.toString());
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel, sel);
+            model.createVariable(rows[0], rowE, cols[0], colE);
         }
     }
 
@@ -125,9 +93,9 @@ public final class CutAction extends CallBack {
      */
     public static PushButton createButton(SwingScilabVariableEditor editor, String title) {
         PushButton button = ScilabPushButton.createPushButton();
-        ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new CutAction(editor, title));
+        ((SwingScilabPushButton) button.getAsSimplePushButton()).addActionListener(new CreateVariableFromSelectionAction(editor, title));
         button.setToolTipText(title);
-        ImageIcon imageIcon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/edit-cut.png");
+        ImageIcon imageIcon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/16x16/actions/variable-new.png");
         ((SwingScilabPushButton) button.getAsSimplePushButton()).setIcon(imageIcon);
 
         return button;
@@ -141,7 +109,7 @@ public final class CutAction extends CallBack {
      */
     public static JMenuItem createMenuItem(SwingScilabVariableEditor editor, String title) {
         JMenuItem mi = new JMenuItem(title);
-        mi.addActionListener(new CutAction(editor, title));
+        mi.addActionListener(new CreateVariableFromSelectionAction(editor, title));
         mi.setAccelerator(ScilabKeyStroke.getKeyStroke(KEY));
 
         return mi;
