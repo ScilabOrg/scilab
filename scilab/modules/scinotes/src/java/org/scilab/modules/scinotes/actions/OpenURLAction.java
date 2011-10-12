@@ -65,8 +65,9 @@ public class OpenURLAction extends DefaultAction {
      */
     public static MenuItem createMenu(String label, final SciNotes editor, KeyStroke key) {
         final MenuItem menuitem = createMenu(label, null, new OpenURLAction(label, editor), key);
-        ((JMenuItem) menuitem.getAsSimpleMenuItem()).addPropertyChangeListener(new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent e) {
+        ((JMenuItem) menuitem.getAsSimpleMenuItem()).addComponentListener(new java.awt.event.ComponentAdapter() {
+                public void componentShown(java.awt.event.ComponentEvent e) {
+		    System.out.println(e);
                     if (editor.getTextPane() != null) {
                         String keyword = editor.getTextPane().getSelectedText();
                         if (keyword == null) {
