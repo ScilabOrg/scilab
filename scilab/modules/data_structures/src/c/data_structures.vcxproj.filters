@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -71,6 +71,9 @@
     <ClCompile Include="stcreate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="strpos.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_data_structures.h">
@@ -99,15 +102,6 @@
     <None Include="..\..\data_structures.iss" />
     <None Include="..\..\sci_gateway\data_structures_gateway.xml" />
     <None Include="..\..\Makefile.am" />
-    <None Include="linpack_f_Import.def">
-      <Filter>Libraries Dependencies\Imports</Filter>
-    </None>
-    <None Include="polynomials_f_Import.def">
-      <Filter>Libraries Dependencies\Imports</Filter>
-    </None>
-    <None Include="..\..\locales\data_structures.pot">
-      <Filter>localization</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="data_structures.rc">

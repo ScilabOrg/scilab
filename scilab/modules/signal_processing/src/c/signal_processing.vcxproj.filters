@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -57,9 +57,6 @@
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\signal_processing.iss" />
     <None Include="..\..\sci_gateway\signal_processing_gateway.xml" />
-    <None Include="..\..\locales\signal_processing.pot">
-      <Filter>localization</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="signal_processing.rc">

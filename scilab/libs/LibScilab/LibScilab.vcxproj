@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -84,50 +84,36 @@
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
       <TypeLibraryName>$(Configuration)/LibScilab.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_;LIBSCILAB_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <OpenMPSupport>false</OpenMPSupport>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <CompileAs>Default</CompileAs>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040c</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>
-      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalOptions>/FORCE:MULTIPLE  %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(IFORT_COMPILER12)compiler\lib\ia32\ifconsol.lib;$(SolutionDir)bin\elementary_functions_f.lib;$(SolutionDir)bin\double_f.lib;$(SolutionDir)bin\linpack_f.lib;$(SolutionDir)bin\sparse_f.lib;$(SolutionDir)bin\integer_f.lib;$(SolutionDir)bin\string_f.lib;$(SolutionDir)bin\polynomials_f.lib;$(SolutionDir)bin\data_structures_f.lib;$(SolutionDir)bin\boolean_f.lib;$(SolutionDir)bin\output_stream_f.lib;$(SolutionDir)bin\io_f.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libifcoremdd.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libmmdd.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libirc.lib;$(IFORT_COMPILER12)compiler\lib\ia32\svml_disp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/LibScilab.dll</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>..\LibScilab.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
       <ImportLibrary>../../bin/LibScilab.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
@@ -141,7 +127,6 @@
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
       <TypeLibraryName>$(Configuration)/LibScilab.tlb</TypeLibraryName>
       <HeaderFileName>
@@ -151,39 +136,27 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_;LIBSCILAB_EXPORTS;_DEBUG;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <OpenMPSupport>false</OpenMPSupport>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <CompileAs>Default</CompileAs>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040c</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>
-      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalOptions>/FORCE:MULTIPLE  %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(IFORT_COMPILER12)compiler\lib\intel64\ifconsol.lib;$(SolutionDir)bin\elementary_functions_f.lib;$(SolutionDir)bin\double_f.lib;$(SolutionDir)bin\sparse_f.lib;$(SolutionDir)bin\integer_f.lib;$(SolutionDir)bin\string_f.lib;$(SolutionDir)bin\linpack_f.lib;$(SolutionDir)bin\polynomials_f.lib;$(SolutionDir)bin\data_structures_f.lib;$(SolutionDir)bin\boolean_f.lib;$(SolutionDir)bin\output_stream_f.lib;$(SolutionDir)bin\io_f.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libifcoremdd.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libmmdd.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libirc.lib;$(IFORT_COMPILER12)compiler\lib\intel64\svml_disp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/LibScilab.dll</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>..\LibScilab.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
       <ImportLibrary>../../bin/LibScilab.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
@@ -197,34 +170,23 @@
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
       <TypeLibraryName>$(Configuration)/LibScilab.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_;LIBSCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
@@ -232,23 +194,14 @@
       <Culture>0x040c</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>
-      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalOptions>/FORCE:MULTIPLE  %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(IFORT_COMPILER12)compiler\lib\ia32\ifconsol.lib;$(SolutionDir)bin\elementary_functions_f.lib;$(SolutionDir)bin\double_f.lib;$(SolutionDir)bin\linpack_f.lib;$(SolutionDir)bin\sparse_f.lib;$(SolutionDir)bin\integer_f.lib;$(SolutionDir)bin\string_f.lib;$(SolutionDir)bin\polynomials_f.lib;$(SolutionDir)bin\data_structures_f.lib;$(SolutionDir)bin\boolean_f.lib;$(SolutionDir)bin\output_stream_f.lib;$(SolutionDir)bin\io_f.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libifcoremd.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libmmd.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libirc.lib;$(IFORT_COMPILER12)compiler\lib\ia32\svml_disp.lib;$(IFORT_COMPILER12)compiler\lib\ia32\libiomp5md.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/LibScilab.dll</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>..\LibScilab.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>$(Configuration)/LibScilab.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
       <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
       <ImportLibrary>../../bin/LibScilab.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
@@ -263,7 +216,6 @@
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
       <TypeLibraryName>$(Configuration)/LibScilab.tlb</TypeLibraryName>
       <HeaderFileName>
@@ -271,25 +223,16 @@
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_;LIBSCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
@@ -297,22 +240,14 @@
       <Culture>0x040c</Culture>
     </ResourceCompile>
     <PreLinkEvent>
-      <Command>
-      </Command>
     </PreLinkEvent>
     <Link>
       <AdditionalOptions>/FORCE:MULTIPLE  %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>$(IFORT_COMPILER12)compiler\lib\intel64\ifconsol.lib;$(SolutionDir)bin\elementary_functions_f.lib;$(SolutionDir)bin\double_f.lib;$(SolutionDir)bin\sparse_f.lib;$(SolutionDir)bin\integer_f.lib;$(SolutionDir)bin\string_f.lib;$(SolutionDir)bin\polynomials_f.lib;$(SolutionDir)bin\data_structures_f.lib;$(SolutionDir)bin\boolean_f.lib;$(SolutionDir)bin\output_stream_f.lib;$(SolutionDir)bin\io_f.lib;$(SolutionDir)bin\linpack_f.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libifcoremd.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libmmd.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libirc.lib;$(IFORT_COMPILER12)compiler\lib\intel64\svml_disp.lib;$(IFORT_COMPILER12)compiler\lib\intel64\libiomp5md.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../bin/LibScilab.dll</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>..\LibScilab.def</ModuleDefinitionFile>
       <ProgramDatabaseFile>$(Configuration)/LibScilab.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
       <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
       <ImportLibrary>../../bin/LibScilab.lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
@@ -424,18 +359,6 @@
       <Project>{c7865caa-ec7c-41eb-8324-2b81c384ca20}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\modules\interpolation\src\c\interpolation.vcxproj">
-      <Project>{22f14f8f-67c6-49b1-a730-ce70ffe9eb61}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\intersci\src\exe\intersciexe\intersciexe.vcxproj">
-      <Project>{73aa7612-4297-4339-b521-8c2870e7bec1}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\intersci\src\exe\interscin\interscin.vcxproj">
-      <Project>{53aab5bc-2c08-4bba-9793-c36140a404f8}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\modules\intersci\src\lib\intersci.vcxproj">
       <Project>{dfa0d75b-f7ef-4d02-b33f-486829405315}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -480,48 +403,13 @@
       <Project>{620d8fa7-3704-438e-bb1e-391c84401a2e}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\modules\randlib\src\c\randlib.vcxproj">
-      <Project>{34f8e361-d2d9-43b0-93d2-f6cf5faf6ceb}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\signal_processing\src\c\signal_processing.vcxproj">
-      <Project>{a3ad381e-c0dd-45bb-acb2-c0a0db33a606}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\sound\sound.vcxproj">
-      <Project>{03773159-155a-48e0-9b26-119d0bf35b2b}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\modules\sparse\src\c\sparse.vcxproj">
       <Project>{51240b08-5e4e-439b-b745-c870d5b513bf}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\spreadsheet\spreadsheet.vcxproj">
-      <Project>{ce521770-0466-4743-b9f6-38f8aeb93888}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\statistics\src\c\statistics.vcxproj">
-      <Project>{fe9eb721-b3c1-41d8-b585-3fb3a0083cec}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\modules\string\src\c\string.vcxproj">
       <Project>{8d45767a-9b03-4905-97f6-d2f3f79141ea}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\symbolic\src\c\symbolic.vcxproj">
-      <Project>{a2207388-fb55-46b2-a24d-d76c0fe796f8}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\symbol\symbol.vcxproj">
-      <Project>{2c60033b-0dbd-4ca4-80d3-176c9be9ce2f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\system_env\system_env.vcxproj">
-      <Project>{7ca60aef-9afa-4d06-af28-613c0aa27640}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\modules\threads\threads.vcxproj">
-      <Project>{50a1ffc8-adc2-4d9e-a2d0-5dcd63188ae9}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\modules\time\time.vcxproj">
       <Project>{05d8f60b-332a-4161-b946-b8ab30ed439c}</Project>
