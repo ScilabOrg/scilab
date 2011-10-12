@@ -22,252 +22,253 @@ import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 public class ScilabGraphWorker extends SwingWorker<Void, String> {
-    private final XcosDiagram graph;
-    private final Action action;
-    private Action state = Action.DUMP;
+	private final XcosDiagram graph;
+	private final Action action;
+	private Action state = Action.DUMP;
 
-    private static ScilabGraphWorker currentWorker;
+	private static ScilabGraphWorker currentWorker;
+	private static final Log log = LogFactory.getLog(ScilabGraphWorker.class);
 
-    /**
-     * Available action mode of the worker
-     */
-    public static enum Action {
-        DUMP, COMPILE, SIMULATE
-    }
+	/**
+	 * Available action mode of the worker
+	 */
+	public static enum Action {
+		DUMP, COMPILE, SIMULATE
+	}
 
-    public static synchronized void start(final XcosDiagram graph, Action action) {
-        if (currentWorker == null) {
-            currentWorker = new ScilabGraphWorker(graph, action);
-            currentWorker.execute();
-        } else {
-            throw new IllegalStateException();
-        }
-    }
+	public static synchronized void start(final XcosDiagram graph, Action action) {
+		if (currentWorker == null) {
+			log.trace("start a new worker");
 
-    private static synchronized void clearState() {
-        currentWorker = null;
-    }
+			currentWorker = new ScilabGraphWorker(graph, action);
+			currentWorker.execute();
+		} else {
+			log.error("there is an existing worker.");
+		}
+	}
 
-    public static synchronized void stop() {
-        if (currentWorker != null) {
-            final ScilabGraphWorker worker = currentWorker;
+	private static synchronized void clearState() {
+		log.trace("clear the worker");
+		currentWorker = null;
+	}
 
-            // will clear the currentWorker (fire a state=DONE event).
-            worker.cancel(true);
+	public static synchronized void stop() {
+		if (currentWorker != null) {
+			final ScilabGraphWorker worker = currentWorker;
+			log.trace("stop the worker");
 
-            switch (worker.state) {
-            case DUMP:
-            case COMPILE:
-                
-                break;
-            case SIMULATE:
-                ScilabInterpreterManagement.requestScilabExec("haltscicos ();");
-                break;
-            }
-        } else {
-            throw new IllegalStateException();
-        }
-    }
+			// will clear the currentWorker (fire a state=DONE event).
+			worker.cancel(true);
 
-    public ScilabGraphWorker(final XcosDiagram graph, Action action) {
-        super();
-        this.graph = graph;
-        this.action = action;
+			switch (worker.state) {
+			case DUMP:
+			case COMPILE:
 
-        addPropertyChangeListener(new PropertyChangeListener() {
+				break;
+			case SIMULATE:
+				ScilabInterpreterManagement
+						.requestScilabExec("; haltscicos();");
+				break;
+			}
+		} else {
+			log.error("there is no worker.");
+		}
+	}
 
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("state".equals(evt.getPropertyName())) {
-                    switch (getState()) {
-                    case PENDING:
-                    case STARTED:
-                        if (!graph.isReadonly()) {
-                            graph.setReadOnly(true);
-                        }
+	public ScilabGraphWorker(final XcosDiagram graph, Action action) {
+		super();
+		this.graph = graph;
+		this.action = action;
 
-                        GraphActionManager.setEnable(StartAction.class, false);
-                        GraphActionManager.setEnable(StopAction.class, true);
-                        break;
+		addPropertyChangeListener(new PropertyChangeListener() {
 
-                    case DONE:
-                        clearState();
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if ("state".equals(evt.getPropertyName())) {
+					switch (getState()) {
+					case PENDING:
+						log.trace(evt);
+					case STARTED:
+						log.trace(evt);
+						if (!graph.isReadonly()) {
+							graph.setReadOnly(true);
+						}
 
-                        graph.setReadOnly(false);
-                        graph.info(XcosMessages.EMPTY_INFO);
+						GraphActionManager.setEnable(StartAction.class, false);
+						GraphActionManager.setEnable(StopAction.class, true);
+						break;
 
-                        GraphActionManager.setEnable(StartAction.class, true);
-                        GraphActionManager.setEnable(StopAction.class, false);
-                        break;
+					case DONE:
+						log.trace(evt);
+						clearState();
 
-                    default:
-                        break;
-                    }
-                }
+						graph.setReadOnly(false);
+						graph.info(XcosMessages.EMPTY_INFO);
 
-            }
-        });
-    }
+						GraphActionManager.setEnable(StartAction.class, true);
+						GraphActionManager.setEnable(StopAction.class, false);
+						break;
 
-    @Override
-    protected Void doInBackground() throws Exception {
-        String cmd;
+					default:
+						break;
+					}
+				}
 
-        if (isCancelled()) {
-            return null;
-        }
-        publish(XcosMessages.EXPORT_IN_PROGRESS);
-        setProgress(20);
-        cmd = createDumpCommand(graph);
-        if (isCancelled()) {
-            return null;
-        }
-        publish(XcosMessages.IMPORT_IN_PROGRESS);
-        setProgress(40);
-        state = Action.DUMP;
+			}
+		});
+	}
 
-        if (action != Action.DUMP) {
-            synchronousScilabExec(cmd);
+	@Override
+	protected Void doInBackground() throws Exception {
+		String cmd;
 
-            cmd = createCompilationCommand(graph);
-            if (isCancelled()) {
-                return null;
-            }
-            publish(XcosMessages.COMPILATION_IN_PROGRESS);
-            setProgress(60);
-            state = Action.COMPILE;
-        }
+		if (isCancelled()) {
+			return null;
+		}
+		publish(XcosMessages.EXPORT_IN_PROGRESS);
+		setProgress(20);
+		cmd = createDumpCommand(graph);
+		if (isCancelled()) {
+			return null;
+		}
+		publish(XcosMessages.IMPORT_IN_PROGRESS);
+		setProgress(40);
+		state = Action.DUMP;
 
-        if (action != Action.DUMP && action != Action.COMPILE) {
-            synchronousScilabExec(cmd);
+		if (action != Action.DUMP) {
+			synchronousScilabExec(cmd);
 
-            cmd = createSimulationCommand(graph);
-            if (isCancelled()) {
-                return null;
-            }
-            publish(XcosMessages.SIMULATION_IN_PROGRESS);
-            setProgress(80);
-            state = Action.SIMULATE;
-        }
+			cmd = createCompilationCommand(graph);
+			if (isCancelled()) {
+				return null;
+			}
+			publish(XcosMessages.COMPILATION_IN_PROGRESS);
+			setProgress(60);
+			state = Action.COMPILE;
+		}
 
-        synchronousScilabExec(cmd);
+		if (action != Action.DUMP && action != Action.COMPILE) {
+			synchronousScilabExec(cmd);
 
-        publish(XcosMessages.EMPTY_INFO);
-        setProgress(100);
-        return null;
-    }
+			cmd = createSimulationCommand(graph);
+			if (isCancelled()) {
+				return null;
+			}
+			publish(XcosMessages.SIMULATION_IN_PROGRESS);
+			setProgress(80);
+			state = Action.SIMULATE;
+		}
 
-    @Override
-    protected void process(List<String> chunks) {
-        final String msg;
-        if (chunks.size() > 0) {
-            msg = chunks.get(chunks.size() - 1);
-        } else {
-            msg = XcosMessages.EMPTY_INFO;
-        }
+		synchronousScilabExec(cmd);
 
-        graph.info(msg);
-    }
+		publish(XcosMessages.EMPTY_INFO);
+		setProgress(100);
+		return null;
+	}
 
-    @Override
-    protected void done() {
-        try {
-            if (!isCancelled()) {
-                get();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	protected void process(List<String> chunks) {
+		final String msg;
+		if (chunks.size() > 0) {
+			msg = chunks.get(chunks.size() - 1);
+		} else {
+			msg = XcosMessages.EMPTY_INFO;
+		}
 
-    /**
-     * Create the dump command String
-     * 
-     * @param diagram
-     *            the working diagram
-     * @return the command string
-     * @throws IOException
-     *             when temporary files must not be created.
-     */
-    private static String createDumpCommand(final XcosDiagram diagram)
-            throws IOException {
-        String cmd;
-        final StringBuilder command = new StringBuilder();
+		log.trace(msg);
+		graph.info(msg);
+	}
 
-        /*
-         * Log compilation info
-         */
-        final Log log = LogFactory.getLog(StartAction.class);
-        log.trace("start export");
+	@Override
+	protected void done() {
+		try {
+			if (!isCancelled()) {
+				get();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
 
-        /*
-         * Import a valid scs_m structure into Scilab
-         */
-        final String temp = FileUtils.createTempFile();
-        diagram.dumpToHdf5File(temp);
+	/**
+	 * Create the dump command String
+	 * 
+	 * @param diagram
+	 *            the working diagram
+	 * @return the command string
+	 * @throws IOException
+	 *             when temporary files must not be created.
+	 */
+	private static String createDumpCommand(final XcosDiagram diagram)
+			throws IOException {
+		String cmd;
+		final StringBuilder command = new StringBuilder();
 
-        command.append(buildCall("import_from_hdf5", temp));
+		log.trace("start export");
 
-        cmd = command.toString();
-        return cmd;
-    }
+		/*
+		 * Import a valid scs_m structure into Scilab
+		 */
+		final String temp = FileUtils.createTempFile();
+		diagram.dumpToHdf5File(temp);
+		if (log.isTraceEnabled()) {
+			log.trace("export to " + temp);
+		}
 
-    /**
-     * Create the compilation command String
-     * 
-     * @param diagram
-     *            the working diagram
-     * @return the command string
-     * @throws IOException
-     *             when temporary files must not be created.
-     */
-    private static String createCompilationCommand(final XcosDiagram diagram)
-            throws IOException {
-        String cmd;
-        final StringBuilder command = new StringBuilder();
+		command.append(buildCall("import_from_hdf5", temp));
 
-        /*
-         * Log compilation info
-         */
-        final Log log = LogFactory.getLog(StartAction.class);
-        log.trace("start compilation");
+		cmd = command.toString();
+		return cmd;
+	}
 
-        command.append(buildCall("scicos_debug", diagram.getScicosParameters()
-                .getDebugLevel()));
-        command.append("; %cpr=xcos_compile(scs_m); ");
+	/**
+	 * Create the compilation command String
+	 * 
+	 * @param diagram
+	 *            the working diagram
+	 * @return the command string
+	 * @throws IOException
+	 *             when temporary files must not be created.
+	 */
+	private static String createCompilationCommand(final XcosDiagram diagram)
+			throws IOException {
+		String cmd;
+		final StringBuilder command = new StringBuilder();
 
-        cmd = command.toString();
-        return cmd;
-    }
+		log.trace("start compilation");
 
-    /**
-     * Create the simulation command String
-     * 
-     * @param diagram
-     *            the working diagram
-     * @return the command string
-     * @throws IOException
-     *             when temporary files must not be created.
-     */
-    private static String createSimulationCommand(final XcosDiagram diagram)
-            throws IOException {
-        String cmd;
-        final StringBuilder command = new StringBuilder();
+		command.append(buildCall("scicos_debug", diagram.getScicosParameters()
+				.getDebugLevel()));
+		command.append("; %cpr=xcos_compile(scs_m); ");
 
-        /*
-         * Log compilation info
-         */
-        final Log log = LogFactory.getLog(StartAction.class);
-        log.trace("start simulation");
+		cmd = command.toString();
+		return cmd;
+	}
 
-        /*
-         * Simulate
-         */
-        command.append("xcos_simulate(scs_m, 0); ");
+	/**
+	 * Create the simulation command String
+	 * 
+	 * @param diagram
+	 *            the working diagram
+	 * @return the command string
+	 * @throws IOException
+	 *             when temporary files must not be created.
+	 */
+	private static String createSimulationCommand(final XcosDiagram diagram)
+			throws IOException {
+		String cmd;
+		final StringBuilder command = new StringBuilder();
 
-        cmd = command.toString();
-        return cmd;
-    }
+		log.trace("start simulation");
+
+		/*
+		 * Simulate
+		 */
+		command.append("; xcos_simulate(scs_m, 0); ");
+
+		cmd = command.toString();
+		return cmd;
+	}
 }
