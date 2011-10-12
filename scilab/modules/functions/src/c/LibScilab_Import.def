@@ -17,10 +17,5 @@ objptr_
 getLocalNamefromId
 getvariablesinfo_
 gettype_
-getrhsvar_
-createvar_
-stack_
-createvarfromptr_
-vartype_
-getLocalVariablesName
-;
+funtab_
+cvname_

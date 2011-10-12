@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -135,15 +135,6 @@
     <None Include="..\..\linear_algebra.iss" />
     <None Include="..\..\sci_gateway\linear_algebra_gateway.xml" />
     <None Include="..\..\Makefile.am" />
-    <None Include="elementary_functions_f_Import.def">
-      <Filter>Libraries Dependencies\Imports</Filter>
-    </None>
-    <None Include="slicot_f_Import.def">
-      <Filter>Libraries Dependencies\Imports</Filter>
-    </None>
-    <None Include="..\..\locales\linear_algebra.pot">
-      <Filter>localization</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="linear_algebra.rc">

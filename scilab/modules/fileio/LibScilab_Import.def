@@ -27,3 +27,4 @@ freeArrayOfString
 transposeMatrixDouble
 GetData
 freeArrayOfWideString
+getTMPDIRW

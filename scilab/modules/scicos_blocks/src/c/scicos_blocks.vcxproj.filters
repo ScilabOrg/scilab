@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -429,9 +429,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gainblk_ui8s.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\jni\GiwsException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hystheresis.c">
@@ -997,9 +994,6 @@
     <ClInclude Include="..\..\includes\blocks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\jni\GiwsException.hxx">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\includes\scicos_block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1058,8 +1052,11 @@
     </None>
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\scicos_blocks.iss" />
-    <None Include="..\..\locales\scicos_blocks.pot">
-      <Filter>localization</Filter>
+    <None Include="elementary_functions_f_Import.def">
+      <Filter>Libraries Dependencies\Import</Filter>
+    </None>
+    <None Include="polynomials_f_Import.def">
+      <Filter>Libraries Dependencies\Import</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
