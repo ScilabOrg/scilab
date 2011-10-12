@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -591,5 +591,15 @@
     <ClInclude Include="..\..\includes\xscion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\locales\en_US\core.pot">
+      <Filter>localization</Filter>
+    </None>
+    <None Include="..\..\core.iss" />
+    <None Include="..\..\Makefile.am" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\includes\machine.h.vc" />
   </ItemGroup>
 </Project>

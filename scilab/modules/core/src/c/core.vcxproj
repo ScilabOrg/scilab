@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -72,23 +72,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/MALLOC/includes;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../pvm/includes;../../../console/includes;../../../../libs/intl;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../operations/includes;../../../parse/includes;../../../ast/includes;../../../types/includes;../../../symbol/includes;../../../system_env/includes;../../../io/includes;../../../threads/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;WITH_ATLAS;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/intl;../../../../libs/MALLOC/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <CompileAs>Default</CompileAs>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -114,21 +104,12 @@ cd.. &gt;nul
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/MALLOC/includes;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../pvm/includes;../../../console/includes;../../../../libs/intl;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../operations/includes;../../../parse/includes;../../../ast/includes;../../../types/includes;../../../symbol/includes;../../../system_env/includes;../../../io/includes;../../../threads/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;WITH_ATLAS;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/intl;../../../../libs/MALLOC/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <CompileAs>Default</CompileAs>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -150,26 +131,16 @@ cd.. &gt;nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/MALLOC/includes;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../pvm/includes;../../../console/includes;../../../../libs/intl;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../operations/includes;../../../parse/includes;../../../ast/includes;../../../types/includes;../../../symbol/includes;../../../system_env/includes;../../../io/includes;../../../threads/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;WITH_ATLAS;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/intl;../../../../libs/MALLOC/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
@@ -196,24 +167,15 @@ cd.. &gt;nul
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/MALLOC/includes;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../pvm/includes;../../../console/includes;../../../../libs/intl;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../operations/includes;../../../parse/includes;../../../ast/includes;../../../types/includes;../../../symbol/includes;../../../system_env/includes;../../../io/includes;../../../threads/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;WITH_ATLAS;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;../../includes;../../../../libs/dynamiclibrary/includes;../../../../libs/doublylinkedlist/includes;../../../../libs/intl;../../../../libs/MALLOC/includes;../../../../libs/libxml2;../../../../libs/libxml2/libxml;../../../mexlib/includes;../../../gui/src/c/wsci;../../../api_scilab/includes;../../../string/includes;../../../functions/includes;../../../dynamic_link/includes;../../../action_binding/includes;../../../output_stream/includes;../../../fileio/includes;../../../elementary_functions/includes;../../../tclsci/includes;../../../localization/includes;../../../tclsci/includes/tcltk;../../../windows_tools/includes;../../../windows_tools/src/c/scilab_windows;../../../intersci/includes;../../../call_scilab/includes;../../../call_scilab/src/c;../../../graphics/includes;../../../io/includes;../../../console/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WITH_TK;__STDC__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>
-      </PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(Configuration)/</ObjectFileName>
-      <ProgramDataBaseFileName>$(Configuration)/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
@@ -355,19 +317,6 @@ cd.. &gt;nul
     <ClCompile Include="xscion.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\core.iss" />
-    <None Include="..\..\locales\core.pot" />
-    <None Include="..\..\sci_gateway\core_gateway.xml" />
-    <CustomBuildStep Include="..\..\includes\machine.h.vc">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <None Include="..\..\Makefile.am" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\tools\Dumpexts\Dumpexts.vcxproj">
       <Project>{3170e4c2-1173-4264-a222-7ee8ccb3ddf7}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -450,6 +399,25 @@ cd.. &gt;nul
     <ClInclude Include="..\..\includes\version.h" />
     <ClInclude Include="..\..\includes\with_module.h" />
     <ClInclude Include="..\..\includes\xscion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\locales\core.pot" />
+    <None Include="..\..\core.iss" />
+    <None Include="..\..\sci_gateway\core_gateway.xml" />
+    <CustomBuildStep Include="..\..\includes\machine.h.vc">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <None Include="..\..\Makefile.am" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\tools\Dumpexts\Dumpexts.vcxproj">
+      <Project>{3170e4c2-1173-4264-a222-7ee8ccb3ddf7}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
