@@ -12,7 +12,7 @@
 #ifndef	GOTO_FUNC_H_
 #define	GOTO_FUNC_H_
 
-#include	"reader.h"
+#include "reader.h"
 
 /**
  * Move the cursor to the right.

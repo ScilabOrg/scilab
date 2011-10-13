@@ -12,7 +12,7 @@
 #ifndef	CHAR_CTL_H_
 #define	CHAR_CTL_H_
 
-#include	"reader.h"
+#include "reader.h"
 
 /**
  * Add a character in the command line at the cursor position.

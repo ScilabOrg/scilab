@@ -9,16 +9,16 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include	<termios.h>
-#include	<curses.h>
-#include	<term.h>
-#include	<string.h>
-#include	<wchar.h>
-#include	<wctype.h>
-#include	"reader.h"
-#include	"cap_func.h"
-#include	"aff_prompt.h"
-#include	"goto_func.h"
+#include <termios.h>
+#include <curses.h>
+#include <term.h>
+#include <string.h>
+#include <wchar.h>
+#include <wctype.h>
+#include "reader.h"
+#include "cap_func.h"
+#include "aff_prompt.h"
+#include "goto_func.h"
 
 /* Move cursor to the right */
 int gotoRight(t_list_cmd * cmd, unsigned int *cursorLocation)
@@ -100,6 +100,7 @@ int gotoLeft(t_list_cmd * cmd, unsigned int *cursorLocation)
 }
 
 /* Move cursor to the beginning of a line */
+/* TODO: rename begLine by something longer ... */
 int begLine(t_list_cmd * cmd, unsigned int *cursorLocation)
 {
 /* While the index is not zero (meaning it's the beginning of th line) */
@@ -153,6 +154,5 @@ int previousWord(t_list_cmd * cmd, unsigned int *cursorLocation)
     {
         gotoLeft(cmd, cursorLocation);
     }
-    /* what is the point of the two declaration ? */
     return *cursorLocation;
 }

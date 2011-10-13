@@ -9,15 +9,15 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include	<stdio.h>
-#include	<unistd.h>
-#include	<term.h>
-#include	<termios.h>
-#include	"cap_func.h"
-#include	"goto_func.h"
-#include	"aff_prompt.h"
-#include	"reader.h"
-#include	"history.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <term.h>
+#include <termios.h>
+#include "cap_func.h"
+#include "goto_func.h"
+#include "aff_prompt.h"
+#include "reader.h"
+#include "history.h"
 
 /* Get the previous command line */
 int previousCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
@@ -31,14 +31,14 @@ int previousCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
         {
             gotoLeft(*cmd, cursorLocation);
         }
-        capStr("up");
+        capStr("up");           /* TODO: rename this function */
         capStr("do");
         capStr("cd");
         /* Get the new command line then display it */
         promptSize = getPrompt(WRT_PRT);
         (*cmd) = (*cmd)->previous;
         *cursorLocation = wcslen((*cmd)->cmd);
-        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
+        printf("%ls", (*cmd)->cmd);
         fflush(stdout);
         /*
          * if the last character is on the last column of the window,
@@ -73,8 +73,8 @@ int nextCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
         (*cmd) = (*cmd)->next;
         *cursorLocation = wcslen((*cmd)->cmd);
         promptSize = getPrompt(WRT_PRT);
-        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
-        fflush(stdout);
+        printf("%ls", (*cmd)->cmd);
+        fflush(stdout);         /* TODO: please remove that or justify it to me */
         /*
          * if the last character is on the last column of the window,
          * put the cursor on the first column of the next line.
