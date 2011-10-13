@@ -9,14 +9,14 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<termios.h>
-#include		<curses.h>
-#include		<term.h>
-#include		<unistd.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<locale.h>
-#include		"init_tc_shell.h"
+#include 	<termios.h>
+#include 	<curses.h>
+#include 	<term.h>
+#include 	<unistd.h>
+#include 	<stdlib.h>
+#include 	<stdio.h>
+#include 	<locale.h>
+#include 	"init_tc_shell.h"
 
 void canonicMode(struct termios *t)
 {

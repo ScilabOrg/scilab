@@ -9,11 +9,11 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<unistd.h>
-#include		<stdlib.h>
-#include		<wchar.h>
-#include		<wctype.h>
-#include                "MALLOC.h"
+#include 	<unistd.h>
+#include 	<stdlib.h>
+#include 	<wchar.h>
+#include 	<wctype.h>
+#include        "MALLOC.h"
 
 /* Concatenate 2 wide char string then return it */
 wchar_t *catStr(wchar_t * _wcs1, wchar_t * _wcs2)

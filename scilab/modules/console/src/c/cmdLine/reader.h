@@ -12,13 +12,11 @@
 #ifndef	READER_H_
 #define	READER_H_
 
-#include	<wchar.h>
+#include <wchar.h>
 
 typedef struct s_list_cmd t_list_cmd;
 
-#define SCI_PRINT_WSTRING "%ls"
-#define SCI_PRINT_WCHAR "%lc"
-
+#warning "Karim, please remove that"
 /* TODO: remove and use ./libs/doublylinkedlist/includes/DoublyLinkedList.h instead */
 struct s_list_cmd
 {

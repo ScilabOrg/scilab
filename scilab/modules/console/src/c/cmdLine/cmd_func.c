@@ -9,23 +9,23 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<wchar.h>
-#include		<wctype.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<unistd.h>
-#include		<curses.h>
-#include		<termios.h>
-#include		<term.h>
-#include		"history.h"
-#include		"reader.h"
-#include		"cap_func.h"
-#include		"goto_func.h"
-#include		"charctl.h"
-#include		"init_tc_shell.h"
-#include		"aff_prompt.h"
-#include		"cmd_func.h"
-#include		"MALLOC.h"
+#include 	<wchar.h>
+#include 	<wctype.h>
+#include 	<stdlib.h>
+#include 	<stdio.h>
+#include 	<unistd.h>
+#include 	<curses.h>
+#include 	<termios.h>
+#include 	<term.h>
+#include 	"history.h"
+#include 	"reader.h"
+#include 	"cap_func.h"
+#include 	"goto_func.h"
+#include 	"charctl.h"
+#include 	"init_tc_shell.h"
+#include 	"aff_prompt.h"
+#include 	"cmd_func.h"
+#include 	"MALLOC.h"
 
 static int caseHomeOrEndKey(t_list_cmd ** listCmd)
 {
@@ -149,7 +149,7 @@ void memCmd(t_list_cmd ** cmd)
 /* TODO comment */
         i = (*memList)->index;
         (*memList)->index = wcslen((*memList)->cmd);
-        printf(SCI_PRINT_WSTRING, (*memList)->cmd);
+        printf("%ls", (*memList)->cmd);
 /* TODO probably useless. We are doing a buffering word by word */
         fflush(stdout);
         while ((*memList)->index != i)

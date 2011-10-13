@@ -9,26 +9,26 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<wchar.h>
-#include		<wctype.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<unistd.h>
-#include		<curses.h>
-#include		<termios.h>
-#include		<term.h>
-#include		<signal.h>
-#include                "MALLOC.h"
-#include		"cmd_func.h"
-#include		"history.h"
-#include		"reader.h"
-#include		"cap_func.h"
-#include		"goto_func.h"
-#include		"charctl.h"
-#include		"init_tc_shell.h"
-#include		"aff_prompt.h"
-#include		"get_signal.h"
-#include		"charEncoding.h"
+#include <wchar.h>
+#include <wctype.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <curses.h>
+#include <termios.h>
+#include <term.h>
+#include <signal.h>
+#include "MALLOC.h"
+#include "cmd_func.h"
+#include "history.h"
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "charctl.h"
+#include "init_tc_shell.h"
+#include "aff_prompt.h"
+#include "get_signal.h"
+#include "charEncoding.h"
 
 /* comment */
 wchar_t *cmdDup(t_list_cmd * cmd, wchar_t * wcs)

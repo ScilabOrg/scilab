@@ -9,18 +9,18 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include	<curses.h>
-#include	<stdlib.h>
-#include	<term.h>
-#include	<termios.h>
-#include	<unistd.h>
-#include	<wchar.h>
-#include	<wctype.h>
-#include	"reader.h"
-#include	"cap_func.h"
-#include	"goto_func.h"
-#include	"aff_prompt.h"
-#include	"charctl.h"
+#include <curses.h>
+#include <stdlib.h>
+#include <term.h>
+#include <termios.h>
+#include <unistd.h>
+#include <wchar.h>
+#include <wctype.h>
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "aff_prompt.h"
+#include "charctl.h"
 
 /* Add a character to a command line */
 int addChar(t_list_cmd ** cmd, int cursorLocation)
@@ -54,7 +54,7 @@ int addChar(t_list_cmd ** cmd, int cursorLocation)
         }
         /* Add the new character to the command line. */
         (*cmd)->cmd[(*cmd)->index] = (wchar_t) cursorLocation;
-        printf(SCI_PRINT_WCHAR, (*cmd)->cmd[(*cmd)->index]);
+        printf("%lc", (*cmd)->cmd[(*cmd)->index]);
         sizeOfCmd++;
         (*cmd)->cmd[sizeOfCmd] = L'\0';
         (*cmd)->index++;
