@@ -39,6 +39,7 @@
 #define __GO_UICONTROL__                   "uicontrol"
 #define __GO_UIMENU__                      "uimenu"
 
+
 #define __GO_CHILDREN__                    "Children"
 #define __GO_CHILDREN_COUNT__              "ChildrenCount"
 #define __GO_PARENT__                      "Parent"
@@ -346,5 +347,7 @@
 
 #define __GO_UI_CHECKED__                  "UIChecked"
 #define __GO_UI_LABEL__                    "UILabel"
+
+#define __GO_ROOT__                        "Root"
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */

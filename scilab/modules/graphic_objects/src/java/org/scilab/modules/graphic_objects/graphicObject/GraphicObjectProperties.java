@@ -349,4 +349,6 @@ public static final String __GO_UI_SOLID_RELIEF__ =        "solid";
 public static final String __GO_UI_CHECKED__ =             "UIChecked";
 public static final String __GO_UI_LABEL__ =               "UILabel";
 
+public static final String __GO_ROOT__ =                   "Root";
+
 }

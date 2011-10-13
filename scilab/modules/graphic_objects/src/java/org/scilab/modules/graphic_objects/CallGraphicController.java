@@ -15,6 +15,7 @@ package org.scilab.modules.graphic_objects;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicView.ScilabView;
+import org.scilab.modules.graphic_objects.root.Root;
 
 /**
  * This is a static class to access all controller capabilities
@@ -180,4 +181,7 @@ public final class CallGraphicController {
         GraphicController.getController().register(new ScilabView());
     }
 
+    public static String getRootIdentifier() {
+        return Root.getRoot().getIdentifier();
+    }
 }
