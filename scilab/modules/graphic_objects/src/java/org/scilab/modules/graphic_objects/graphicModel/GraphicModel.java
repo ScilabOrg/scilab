@@ -29,6 +29,7 @@ import org.scilab.modules.graphic_objects.label.Label;
 import org.scilab.modules.graphic_objects.legend.Legend;
 import org.scilab.modules.graphic_objects.polyline.Polyline;
 import org.scilab.modules.graphic_objects.rectangle.Rectangle;
+import org.scilab.modules.graphic_objects.root.Root;
 import org.scilab.modules.graphic_objects.surface.Fac3d;
 import org.scilab.modules.graphic_objects.surface.Plot3d;
 import org.scilab.modules.graphic_objects.textObject.Text;
@@ -250,6 +251,10 @@ public final class GraphicModel {
             /* UIMENU */
             case UIMENU:
                 createdObject = new Uimenu();
+                break;
+            /* Create Scilab root object */
+            case ROOT:
+                createdObject = Root.getRoot();
                 break;
             case UNKNOWNOBJECT:
                 createdObject = null;
