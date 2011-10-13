@@ -21,6 +21,7 @@
 #include "goto_func.h"
 #include "aff_prompt.h"
 #include "charctl.h"
+#include "getNbrLine.h"
 
 /* Add a character to a command line */
 int addChar(t_list_cmd ** cmd, int cursorLocation)
@@ -64,7 +65,7 @@ int addChar(t_list_cmd ** cmd, int cursorLocation)
         }
         capStr("ei");
     }
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* Delete a character in the command line */
@@ -99,7 +100,7 @@ int rmChar(t_list_cmd ** cmd, int cursorLocation)
         (*cmd)->cmd[indexToMoveChar] = L'\0';
     }
     cursorLocation = 0;
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* Delete all characters from cursor to the end. */
@@ -107,7 +108,9 @@ int deleteLineFromCurs(t_list_cmd ** cmd, int cursorLocation)
 {
     /* The character at the cursor is '\0' mean this is the last */
     while ((*cmd)->cmd[(*cmd)->index])
+    {
         rmChar(cmd, SCI_DELETE);
-    cursorLocation = 0;
-    return (cursorLocation);
+    }
+    cursorLocation = 0;         /* ??? */
+    return cursorLocation;
 }

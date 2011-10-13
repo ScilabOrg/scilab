@@ -14,7 +14,7 @@
 #include <term.h>
 #include <curses.h>
 #include "aff_prompt.h"
-#include        "getNbrLine.h"
+#include "getNbrLine.h"
 
 /* Get the number of line the string passed take in the window */
 int getNbrLine(wchar_t * string)
@@ -34,5 +34,5 @@ int getNbrLine(wchar_t * string)
      * Plus one.
      */
     nbrLine = 1 + (sizeString + promptSize + 1) / tgetnum("co");
-    return (nbrLine);
+    return nbrLine;
 }

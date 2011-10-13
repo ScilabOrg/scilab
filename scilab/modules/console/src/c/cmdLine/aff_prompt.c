@@ -17,8 +17,7 @@
 #include <wchar.h>
 #include <wctype.h>
 #include <curses.h>
-
-#include        "reader.h"
+#include "reader.h"
 #include "aff_prompt.h"
 #include "prompt.h"
 
@@ -59,5 +58,5 @@ int getPrompt(int token)
         printf("%ls", prompt);
         fflush(stdout);
     }
-    return (wcslen(prompt));
+    return wcslen(prompt);
 }

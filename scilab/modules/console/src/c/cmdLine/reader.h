@@ -16,7 +16,6 @@
 
 typedef struct s_list_cmd t_list_cmd;
 
-#warning "Karim, please remove that"
 /* TODO: remove and use ./libs/doublylinkedlist/includes/DoublyLinkedList.h instead */
 struct s_list_cmd
 {

@@ -31,7 +31,7 @@ int previousCmd(t_list_cmd ** cmd, int cursorLocation)
         {
             gotoLeft(cmd, cursorLocation);
         }
-        capStr("up");
+        capStr("up");           /* TODO: rename this function */
         capStr("do");
         capStr("cd");
         /* Get the new command line then display it */
@@ -74,7 +74,7 @@ int nextCmd(t_list_cmd ** cmd, int cursorLocation)
         (*cmd)->index = wcslen((*cmd)->cmd);
         promptSize = getPrompt(WRT_PRT);
         printf("%ls", (*cmd)->cmd);
-        fflush(stdout);
+        fflush(stdout);         /* TODO: please remove that or justify it to me */
         /*
          * if the last character is on the last column of the window,
          * put the cursor on the first column of the next line.

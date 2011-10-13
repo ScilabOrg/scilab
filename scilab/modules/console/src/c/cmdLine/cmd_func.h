@@ -9,10 +9,10 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#ifndef		CMD_FUNC_H_
+#ifndef CMD_FUNC_H_
 #define	CMD_FUNC_H_
 
-#include 	"reader.h"
+#include "reader.h"
 
 /**
  * Create and initialise a new link.
