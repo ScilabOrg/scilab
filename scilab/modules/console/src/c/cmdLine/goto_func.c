@@ -9,16 +9,16 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include	<termios.h>
-#include	<curses.h>
-#include	<term.h>
-#include	<string.h>
-#include	<wchar.h>
-#include	<wctype.h>
-#include	"reader.h"
-#include	"cap_func.h"
-#include	"aff_prompt.h"
-#include	"goto_func.h"
+#include <termios.h>
+#include <curses.h>
+#include <term.h>
+#include <string.h>
+#include <wchar.h>
+#include <wctype.h>
+#include "reader.h"
+#include "cap_func.h"
+#include "aff_prompt.h"
+#include "goto_func.h"
 
 /* Move cursor to the right */
 int gotoRight(t_list_cmd ** cmd, int cursorLocation)
@@ -28,7 +28,7 @@ int gotoRight(t_list_cmd ** cmd, int cursorLocation)
     int promptSize;
 
     promptSize = getPrompt(NOWRT_PRT);
-    cursorLocation = 0;
+    cursorLocation = 0;         /* TODO: What is the point of having this variable ? */
     nbrCol = tgetnum("co");
     /* if the cursor is not at the end of the command line */
     if ((*cmd)->index != wcslen((*cmd)->cmd))
@@ -51,7 +51,7 @@ int gotoRight(t_list_cmd ** cmd, int cursorLocation)
     {
         capStr("do");
     }
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* go to the last column of the current line */
@@ -86,7 +86,7 @@ int gotoLeft(t_list_cmd ** cmd, int cursorLocation)
         i = (*cmd)->index;
     }
     promptSize = getPrompt(NOWRT_PRT);
-    cursorLocation = 0;
+    cursorLocation = 0;         /* TODO: idem. ??? */
     nbrCol = tgetnum("co");
     if (i)
     {
@@ -96,21 +96,22 @@ int gotoLeft(t_list_cmd ** cmd, int cursorLocation)
     if (cmd != NULL)
     {
         (*cmd)->index = i;
-        return (cursorLocation);
+        return cursorLocation;
     }
-    return (i);
+    return i;
 }
 
 /* Move cursor to the beginning of a line */
+/* TODO: rename begLine by something longer ... */
 int begLine(t_list_cmd ** cmd, int cursorLocation)
 {
-    cursorLocation = 0;
+    cursorLocation = 0;         /* TODO: idem. ??? */
 /* While the index is not zero (meaning it's the beginning of th line) */
     while ((*cmd)->index)
     {
         gotoLeft(cmd, cursorLocation);
     }
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* Move cursor to the end of a line */
@@ -119,13 +120,13 @@ int endLine(t_list_cmd ** cmd, int cursorLocation)
     int sizeOfCmd = 0;
 
     sizeOfCmd = wcslen((*cmd)->cmd);
-    cursorLocation = 0;
+    cursorLocation = 0;         /* TODO: idem. ??? */
 /* While the index is different of the size of the line */
     while (sizeOfCmd - ((*cmd)->index))
     {
         gotoRight(cmd, cursorLocation);
     }
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 int nextWord(t_list_cmd ** cmd, int cursorLocation)
@@ -143,7 +144,7 @@ int nextWord(t_list_cmd ** cmd, int cursorLocation)
     }
     /* what is the point of the two declaration ? */
     cursorLocation = 0;
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 int previousWord(t_list_cmd ** cmd, int cursorLocation)
@@ -159,6 +160,6 @@ int previousWord(t_list_cmd ** cmd, int cursorLocation)
         gotoLeft(cmd, cursorLocation);
     }
     cursorLocation = 0;
-    /* what is the point of the two declaration ? */
-    return (cursorLocation);
+    /* TODO: what is the point of the two declaration ? */
+    return cursorLocation;
 }

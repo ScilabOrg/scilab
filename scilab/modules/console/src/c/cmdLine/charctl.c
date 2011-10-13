@@ -9,18 +9,19 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include	<curses.h>
-#include	<stdlib.h>
-#include	<term.h>
-#include	<termios.h>
-#include	<unistd.h>
-#include	<wchar.h>
-#include	<wctype.h>
-#include	"reader.h"
-#include	"cap_func.h"
-#include	"goto_func.h"
-#include	"aff_prompt.h"
-#include	"charctl.h"
+#include <curses.h>
+#include <stdlib.h>
+#include <term.h>
+#include <termios.h>
+#include <unistd.h>
+#include <wchar.h>
+#include <wctype.h>
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "aff_prompt.h"
+#include "charctl.h"
+#include "getNbrLine.h"
 
 /* Add a character to a command line */
 int addChar(t_list_cmd ** cmd, int cursorLocation)
@@ -54,7 +55,7 @@ int addChar(t_list_cmd ** cmd, int cursorLocation)
         }
         /* Add the new character to the command line. */
         (*cmd)->cmd[(*cmd)->index] = (wchar_t) cursorLocation;
-        printf(SCI_PRINT_WCHAR, (*cmd)->cmd[(*cmd)->index]);
+        printf("%lc", (*cmd)->cmd[(*cmd)->index]);
         sizeOfCmd++;
         (*cmd)->cmd[sizeOfCmd] = L'\0';
         (*cmd)->index++;
@@ -64,7 +65,7 @@ int addChar(t_list_cmd ** cmd, int cursorLocation)
         }
         capStr("ei");
     }
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* Delete a character in the command line */
@@ -99,7 +100,7 @@ int rmChar(t_list_cmd ** cmd, int cursorLocation)
         (*cmd)->cmd[indexToMoveChar] = L'\0';
     }
     cursorLocation = 0;
-    return (cursorLocation);
+    return cursorLocation;
 }
 
 /* Delete all characters from cursor to the end. */
@@ -107,7 +108,9 @@ int deleteLineFromCurs(t_list_cmd ** cmd, int cursorLocation)
 {
     /* The character at the cursor is '\0' mean this is the last */
     while ((*cmd)->cmd[(*cmd)->index])
+    {
         rmChar(cmd, SCI_DELETE);
-    cursorLocation = 0;
-    return (cursorLocation);
+    }
+    cursorLocation = 0;         /* ??? */
+    return cursorLocation;
 }
