@@ -377,6 +377,8 @@ public class XcosTab extends ScilabTab {
 		menuBar.add(tools);
 
 		tools.add(CodeGenerationAction.createMenu(diagram));
+		
+		// Simple mod to test push
 
 		/** Help menu */
 		help = ScilabMenu.createMenu();
