@@ -176,19 +176,6 @@ File input/output:
 * tempname function added (SEP 68).
 
 
-Graphics:
-=========
-
-* datatips tool improved on several aspects:
-  - It is now possible to manage directional arrows as well as
-    square marks markers.
-  - The automatic label placement has been improved to avoid avoid the
-    overlapping with the curve.
-  - It is now possible to have  painted box or box free labels.
-  - Markers can now be selected and moved using the arrow keys
-    or deleted with the "Del" key.
-
-
 New functions
 =============
 
@@ -439,6 +426,22 @@ Dynamic link:
 
 Graphics:
 =========
+
+* datatips tool improved on several aspects:
+  - It is now possible to manage directional arrows as well as
+    square marks markers.
+  - The automatic label placement has been improved to avoid avoid the
+    overlapping with the curve.
+  - It is now possible to have  painted box or box free labels.
+  - Markers can now be selected and moved using the arrow keys
+    or deleted with the "Del" key.
+
+* bug 7412 fixed - Better management of datatips activation/deactivation.
+
+* bug 7419 fixed - datatips(): customization is now available through a GUI.
+
+* bug 8239 fixed - Activation of datatips overwrote and destroyed any event_handler
+                   formerly defined.
 
 * bug 9330 fixed - delete() called overloading instead of deleting the current
                    graphic entity.
