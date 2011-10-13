@@ -54,12 +54,6 @@
     <ClCompile Include="coshin.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cupro.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cuproi.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cusum.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,13 +111,7 @@
     <ClCompile Include="dmprod.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dmsum.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="drdiv.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dsearch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dset.c">
@@ -237,9 +225,6 @@
     <ClCompile Include="psi.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pythag.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="rat.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -279,16 +264,10 @@
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_cos.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_cumprod.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_cumsum.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_diag.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_dsearch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_exp.c">
@@ -313,9 +292,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_int.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_isequal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_isreal.c">
@@ -373,9 +349,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_sqrt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_sum.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_tan.c">
@@ -522,6 +495,9 @@
     <ClCompile Include="wwrdiv.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="old_pythag.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="arcosh.f">
@@ -555,12 +531,6 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="coshin.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="cupro.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="cuproi.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="cusum.f">
@@ -620,13 +590,7 @@
     <f2c_rule Include="dmprod.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
-    <f2c_rule Include="dmsum.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
     <f2c_rule Include="drdiv.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="dsearch.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="dset.f">
@@ -740,9 +704,6 @@
     <f2c_rule Include="psi.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
-    <f2c_rule Include="pythag.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
     <f2c_rule Include="rat.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
@@ -782,16 +743,10 @@
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_cos.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_cumprod.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_cumsum.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_diag.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_dsearch.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_exp.f">
@@ -816,9 +771,6 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_int.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_isequal.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_isreal.f">
@@ -876,9 +828,6 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_sqrt.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_sum.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_tan.f">
@@ -1023,6 +972,9 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="wwrdiv.f">
+      <Filter>Fortran files</Filter>
+    </f2c_rule>
+    <f2c_rule Include="old_pythag.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
   </ItemGroup>

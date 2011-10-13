@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\sci_gateway\fortran\intwrite4b.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="newsave.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="v2cunit.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="..\..\sci_gateway\fortran\intwrite4b.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="newsave.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="v2cunit.f">

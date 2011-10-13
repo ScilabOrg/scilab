@@ -270,7 +270,6 @@ cd ..
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsC</CompileAs>
     </ClCompile>
     <ClCompile Include="..\..\sci_gateway\fortran\intwrite4b.c" />
-    <ClCompile Include="newsave.c" />
     <ClCompile Include="v2cunit.c" />
     <ClCompile Include="v2unit.c" />
   </ItemGroup>
@@ -282,7 +281,6 @@ cd ..
     <f2c_rule Include="..\..\sci_gateway\fortran\intwritb.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\intwrite.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\intwrite4b.f" />
-    <f2c_rule Include="newsave.f" />
     <f2c_rule Include="v2cunit.f" />
     <f2c_rule Include="v2unit.f" />
   </ItemGroup>

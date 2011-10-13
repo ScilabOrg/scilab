@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -726,7 +726,6 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     </ProjectReference>
     <ProjectReference Include="..\renderer\renderer.vcxproj">
       <Project>{b23b01c1-a545-4ba0-9950-7bcade201c5b}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\system_env\system_env.vcxproj">
       <Project>{7ca60aef-9afa-4d06-af28-613c0aa27640}</Project>

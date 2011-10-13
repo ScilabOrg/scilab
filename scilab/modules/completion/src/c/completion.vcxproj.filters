@@ -123,7 +123,9 @@
     <None Include="..\..\completion.iss" />
     <None Include="..\..\sci_gateway\completion_gateway.xml" />
     <None Include="..\..\Makefile.am" />
-    <None Include="..\..\locales\completion.pot" />
+    <None Include="..\..\locales\completion.pot">
+      <Filter>localization</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="completion.rc">
