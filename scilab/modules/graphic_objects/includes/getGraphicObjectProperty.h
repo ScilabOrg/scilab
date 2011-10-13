@@ -22,7 +22,12 @@
 ** Retrieve Graphic object property from Model.
 ** Specify type expected as parameter for JNI.
 */
-
 GRAPHIC_OBJECTS_IMPEXP void getGraphicObjectProperty(char *_pstID, char *_pstName, enum _ReturnType_ _returnType, void **_pvData);
+
+/*
+** Retrieve Graphic object property from Model.
+** Specify type expected as parameter for JNI.
+*/
+GRAPHIC_OBJECTS_IMPEXP char *getRootIdentifier(void);
 
 #endif /* !__GETGRAPHICOBJECTPROPERTY_H__ */

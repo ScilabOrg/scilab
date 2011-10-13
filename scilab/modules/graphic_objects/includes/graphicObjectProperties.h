@@ -347,4 +347,6 @@
 #define __GO_UI_CHECKED__                  "UIChecked"
 #define __GO_UI_LABEL__                    "UILabel"
 
+#define __GO_ROOT__                        "Root"
+
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
