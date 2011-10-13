@@ -9,36 +9,36 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<wchar.h>
-#include		<wctype.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<unistd.h>
-#include		<curses.h>
-#include		<termios.h>
-#include		<term.h>
-#include		"history.h"
-#include		"reader.h"
-#include		"cap_func.h"
-#include		"goto_func.h"
-#include		"charctl.h"
-#include		"init_tc_shell.h"
-#include		"aff_prompt.h"
-#include		"cmd_func.h"
-#include		"MALLOC.h"
+#include <wchar.h>
+#include <wctype.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <curses.h>
+#include <termios.h>
+#include <term.h>
+#include "history.h"
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "charctl.h"
+#include "init_tc_shell.h"
+#include "aff_prompt.h"
+#include "cmd_func.h"
+#include "MALLOC.h"
 
 static int caseHomeOrEndKey(t_list_cmd ** listCmd)
 {
     switch (getwchar())
     {
     case L'H':
-        return (begLine(listCmd, 0));
+        return begLine(listCmd, 0);
     case L'F':
-        return (endLine(listCmd, 0));
+        return endLine(listCmd, 0);
     default:
         printf("\a");
-        fflush(stdout);
-        return (0);
+        fflush(stdout);         /* TODO: why flush ? */
+        return 0;
     }
 }
 
@@ -52,20 +52,22 @@ static int caseDelOrArrowKey(t_list_cmd ** listCmd)
     switch (getwchar())
     {
     case L'A':
-        return (previousCmd(listCmd, 0));
+        return previousCmd(listCmd, 0);
     case L'B':
-        return (nextCmd(listCmd, 0));
+        return nextCmd(listCmd, 0);
     case L'C':
-        return (gotoRight(listCmd, 0));
+        return gotoRight(listCmd, 0);
     case L'D':
-        return (gotoLeft(listCmd, 0));
+        return gotoLeft(listCmd, 0);
     case L'3':
         if (getwchar() == L'~')
-            return (rmChar(listCmd, SCI_DELETE));
+        {
+            return rmChar(listCmd, SCI_DELETE);
+        }
     default:
         printf("\a");
         fflush(stdout);
-        return (0);
+        return 0;
     }
 }
 
@@ -78,18 +80,18 @@ static int caseMetaKey(t_list_cmd ** listCmd)
     {
     case L'f':
     case L'F':
-        return (nextWord(listCmd, 0));
+        return nextWord(listCmd, 0);
     case L'b':
     case L'B':
-        return (previousWord(listCmd, 0));
+        return previousWord(listCmd, 0);
     case L'[':
-        return (caseDelOrArrowKey(listCmd));
+        return caseDelOrArrowKey(listCmd);
     case L'O':
-        return (caseHomeOrEndKey(listCmd));
+        return caseHomeOrEndKey(listCmd);
     default:
         printf("\a");
         fflush(stdout);
-        return (0);
+        return 0;
     }
 }
 
@@ -105,27 +107,29 @@ static int getKey(t_list_cmd ** listCmd)
     switch (key)
     {
     case CTRL_A:
-        return (begLine(listCmd, key));
+        return begLine(listCmd, key);
     case CTRL_B:
-        return (gotoLeft(listCmd, key));
+        return gotoLeft(listCmd, key);
     case CTRL_E:
-        return (endLine(listCmd, key));
+        return endLine(listCmd, key);
     case CTRL_F:
-        return (gotoRight(listCmd, key));
+        return gotoRight(listCmd, key);
     case CTRL_K:
-        return (deleteLineFromCurs(listCmd, key));
+        return deleteLineFromCurs(listCmd, key);
     case CTRL_N:
-        return (nextCmd(listCmd, key));
+        return nextCmd(listCmd, key);
     case CTRL_P:
-        return (previousCmd(listCmd, key));
+        return previousCmd(listCmd, key);
     case ESCAPE:
-        return (caseMetaKey(listCmd));
+        return caseMetaKey(listCmd);
     case SCI_BACKSPACE:
-        return (rmChar(listCmd, SCI_BACKSPACE));
+        return rmChar(listCmd, SCI_BACKSPACE);
     default:
         if (key == L'\n')
-            return ('\n');
-        return (addChar(listCmd, key));
+        {
+            return '\n';
+        }
+        return addChar(listCmd, key);
     }
 }
 
@@ -149,7 +153,7 @@ void memCmd(t_list_cmd ** cmd)
 /* TODO comment */
         i = (*memList)->index;
         (*memList)->index = wcslen((*memList)->cmd);
-        printf(SCI_PRINT_WSTRING, (*memList)->cmd);
+        printf("%ls", (*memList)->cmd);
 /* TODO probably useless. We are doing a buffering word by word */
         fflush(stdout);
         while ((*memList)->index != i)
@@ -172,7 +176,7 @@ t_list_cmd *getNewCmd(t_list_cmd * lastCmd)
     newCmd->previous = lastCmd;
     newCmd->next = NULL;
     newCmd->bin = 0;
-    return (newCmd);
+    return newCmd;
 }
 
 void getCmd(t_list_cmd ** listCmd)
@@ -201,8 +205,10 @@ t_list_cmd *freeCmd(t_list_cmd ** cmd)
     free(save->cmd);
     free(save);
     if (*cmd)
+    {
         (*cmd)->next = NULL;
-    return (*cmd);
+    }
+    return *cmd;
 }
 
 void deleteHistory(t_list_cmd * cmd, int limit)

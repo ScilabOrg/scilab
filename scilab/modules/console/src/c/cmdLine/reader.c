@@ -9,26 +9,26 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<wchar.h>
-#include		<wctype.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<unistd.h>
-#include		<curses.h>
-#include		<termios.h>
-#include		<term.h>
-#include		<signal.h>
-#include                "MALLOC.h"
-#include		"cmd_func.h"
-#include		"history.h"
-#include		"reader.h"
-#include		"cap_func.h"
-#include		"goto_func.h"
-#include		"charctl.h"
-#include		"init_tc_shell.h"
-#include		"aff_prompt.h"
-#include		"get_signal.h"
-#include		"charEncoding.h"
+#include <wchar.h>
+#include <wctype.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <curses.h>
+#include <termios.h>
+#include <term.h>
+#include <signal.h>
+#include "MALLOC.h"
+#include "cmd_func.h"
+#include "history.h"
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "charctl.h"
+#include "init_tc_shell.h"
+#include "aff_prompt.h"
+#include "get_signal.h"
+#include "charEncoding.h"
 
 /* comment */
 wchar_t *cmdDup(t_list_cmd * cmd, wchar_t * wcs)
@@ -49,7 +49,7 @@ wchar_t *cmdDup(t_list_cmd * cmd, wchar_t * wcs)
     {
         wcscpy(dupCmd, cmd->cmd);
     }
-    return (dupCmd);
+    return dupCmd;
 }
 
 /* Create a new link for the history. */
@@ -63,7 +63,7 @@ t_list_cmd *getNewHist(t_list_cmd * cmd)
         lastCmd = lastCmd->next;
     }
     lastCmd->cmd = cmdDup(cmd, NULL);
-    return (lastCmd);
+    return lastCmd;
 }
 
 /*
@@ -86,7 +86,7 @@ void *cleanVoidCharInCmd(t_list_cmd * cmd)
     dupCmd = cmdDup(cmd, &cmd->cmd[i]);
     free(cmd->cmd);
     cmd->cmd = dupCmd;
-    return (dupCmd);
+    return dupCmd;
 }
 
 /*
@@ -99,11 +99,11 @@ t_list_cmd *initUsrInput(t_list_cmd * listCmd)
 
     listCmd = getNewCmd(listCmd);
     getPrompt(WRT_PRT);
-/* Hardcoded value */
+/* TODO: Hardcoded value */
     listCmd->cmd = MALLOC(sizeof(*listCmd->cmd) * 1024);
     listCmd->cmd[0] = L'\0';
     ret = 0;
-/* please comment */
+/* TODO: please comment */
     getCmd(&listCmd);
     cleanVoidCharInCmd(listCmd);
     if (listCmd->bin)
@@ -111,7 +111,7 @@ t_list_cmd *initUsrInput(t_list_cmd * listCmd)
         listCmd = getNewHist(listCmd);
     }
     deleteHistory(listCmd, 200);
-    return (listCmd);
+    return listCmd;
 }
 
 /*
@@ -120,15 +120,14 @@ t_list_cmd *initUsrInput(t_list_cmd * listCmd)
  */
 char *getCmdLine(t_list_cmd ** history)
 {
-    char *dest;
 
     /* TODO: Catch SIGINT */
     signal(SIGWINCH, getNewTerm);
     *history = initUsrInput(*history);
     if (*history == NULL)
     {
-        return (NULL);
+        return NULL;
     }
-    dest = wide_string_to_UTF8((*history)->cmd);
-    return (dest);
+    return wide_string_to_UTF8((*history)->cmd);
+
 }
