@@ -31,7 +31,13 @@ function [t] = acosh(z)
   end
 
   if type(z)<>1 then
-   error(msprintf(gettext("%s: Wrong type for input argument #%d: Real or complex matrix expected.\n"),"acosh",1));
+	b = overload_exists("acosh",z)
+	if ( b ) then
+		t = overload_funeval("acosh",z)
+		return
+	else
+		overload_error("acosh",z)
+	end
   end
 
   if isreal(z) then

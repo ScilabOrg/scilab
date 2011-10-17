@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Michael Baudin
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry version="5.0-subset Scilab" xml:id="overloading_exists" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer, 26 mar 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>overloading_exists</refname>
+
+    <refpurpose>See if an overloading function exists.</refpurpose>
+  </refnamediv>
+
+    <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      b = overloading_exists(funname,x)
+      [b,overfun] = overloading_exists(funname,x)
+
+    </synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Parameters</title>
+    <variablelist>
+      <varlistentry>
+        <term>funname:</term>
+        <listitem>
+          <para> a 1-by-1 matrix of strings, the function name.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>x :</term>
+        <listitem>
+          <para>the point where to compute the function.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>b:</term>
+        <listitem>
+          <para> a 1-by-1 matrix of booleans, true if the function <literal>funname</literal> exists for the 
+		  argument <literal>x</literal>, false if not.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>overfun:</term>
+        <listitem>
+          <para> a 1-by-1 matrix of strings, the name of the overloaded function.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>
+	This function can be used to provide overloading to macros. 
+	</para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <para>
+	In the following example, we check that the <literal>acosh</literal> function has been 
+	defined for the variable <literal>x</literal>, with type "ZDYF4WCD".
+	</para>
+
+    <programlisting role="example"><![CDATA[ 
+function z = %ZDYF4WCD_acosh(x)
+  v = acosh(x.v)
+  dv = 1 ./ sqrt(x.v.^2-1).*x.dv
+  z = mlist(["ZDYF4WCD";"v";"dv"],v,dv)
+endfunction
+
+b = overloading_exists("acosh",x)
+ ]]></programlisting>
+  </refsection>
+
+  <refsection role="see also">
+<title>See Also</title>
+
+    <simplelist type="inline">
+      <member><link linkend="overloading_error">overloading_error</link></member>
+
+      <member><link linkend="overloading_funeval">overloading_funeval</link></member>
+    </simplelist>
+  </refsection>
+</refentry>

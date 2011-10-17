@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Michael Baudin
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry version="5.0-subset Scilab" xml:id="overloading_funeval" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <pubdate>$LastChangedDate: 2008-03-26 09:50:39 +0100 (mer, 26 mar 2008)
+    $</pubdate>
+  </info>
+
+  <refnamediv>
+    <refname>overloading_funeval</refname>
+
+    <refpurpose>Returns the output of an overloaded function.</refpurpose>
+  </refnamediv>
+
+    <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      y = overloading_funeval(funname,x)
+
+    </synopsis>
+  </refsynopsisdiv>
+
+  <refsection>
+    <title>Parameters</title>
+    <variablelist>
+      <varlistentry>
+        <term>funname:</term>
+        <listitem>
+          <para> a 1-by-1 matrix of strings, the function name.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>x :</term>
+        <listitem>
+          <para>the point where to compute the function.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>y:</term>
+        <listitem>
+          <para>the output of the function <literal>funname</literal>, for the input argument 
+		  argument <literal>x</literal>.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+
+  <refsection>
+    <title>Description</title>
+
+    <para>
+	This function can be used to provide overloading to macros. 
+	</para>
+  </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <para>
+	In the following example, we overload the <literal>acosh</literal> function for the variable 
+	<literal>x</literal>, with type "ZDYF4WCD".
+	</para>
+
+    <programlisting role="example"><![CDATA[ 
+function z = %ZDYF4WCD_acosh(x)
+  v = acosh(x.v)
+  dv = 1 ./ sqrt(x.v.^2-1).*x.dv
+  z = mlist(["ZDYF4WCD";"v";"dv"],v,dv)
+endfunction
+
+x = mlist(["ZDYF4WCD";"v";"dv"],0.5,0.5);
+t = overloading_funeval("acosh",x)
+ ]]></programlisting>
+ 
+    <para>
+	In the following example, we define the <literal>myoverfun</literal> function, which 
+	authorizes overloading. 
+	If the input argument <literal>x</literal> is not a matrix of doubles, 
+	we check if an overloding function exists. 
+	If an overloding function exists, we evaluate this function and return. 
+	If not, an error is generated.
+	</para>
+
+    <programlisting role="example"><![CDATA[ 
+function y = myoverfun(x)
+  if type(x)<>1 then
+    b = overload_exists("myoverfun",x)
+    if ( b ) then
+      y = overload_funeval("myoverfun",x)
+      return
+    else
+      overload_error("myoverfun",x)
+    end
+  end
+  y = 2*x
+endfunction
+
+function y = %ZDYF4WCD_myoverfun(x)
+  v = 2*x.v
+  dv = 2*ones(v)
+  y = mlist(["ZDYF4WCD";"v";"dv"],v,dv)
+endfunction
+
+function z = %s_m_ZDYF4WCD(x,y)
+  v = x*y.v
+  dv = x*y.dv
+  z = mlist(["ZDYF4WCD";"v";"dv"],v,dv)
+endfunction
+
+// Classical call
+x = zeros(3,3);
+y = myoverfun(x)
+
+// Overloaded call
+x = mlist(["ZDYF4WCD";"v";"dv"],0,1);
+y = myoverfun(x)
+
+// Not overloaded call
+x = mlist(["FOOFOO";"v";"dv"],0,1);
+y = myoverfun(x)
+ ]]></programlisting>
+
+  </refsection>
+
+  <refsection role="see also">
+<title>See Also</title>
+
+    <simplelist type="inline">
+      <member><link linkend="overloading_exists">overloading_exists</link></member>
+
+      <member><link linkend="overloading_funeval">overloading_funeval</link></member>
+    </simplelist>
+  </refsection>
+</refentry>
