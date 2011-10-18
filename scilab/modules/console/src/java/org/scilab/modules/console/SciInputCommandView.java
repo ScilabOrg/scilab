@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
@@ -48,275 +49,335 @@ import com.artenum.rosetta.util.StringConstants;
 
 /**
  * Scilab UI that contains the line edited by the user
+ * 
  * @author Vincent COUVERT
  * @author Calixte DENIZET
  */
-public class SciInputCommandView extends ConsoleTextPane implements InputCommandView, CaretListener {
+public class SciInputCommandView extends ConsoleTextPane implements
+		InputCommandView, CaretListener {
 
-    private static final long serialVersionUID = 1L;
-    private static final String END_LINE = "\n";
-    private static final Point ERROR_POINT = new Point(0, 0);
-    private static final int TOP_BORDER = 1;
-    private static final int BOTTOM_BORDER = 2;
+	private static final long serialVersionUID = 1L;
+	private static final String END_LINE = "\n";
+	private static final Point ERROR_POINT = new Point(0, 0);
+	private static final int TOP_BORDER = 1;
+	private static final int BOTTOM_BORDER = 2;
 
-    // A clearest pattern: ['"] \$ [^\\\$'"]* (( [\\].? | ['"]{2} ) [^\\\$'"]* )+
-    private static final Pattern latexPattern = Pattern.compile("[\'\"]\\$[^\\\\\\$\'\"]*(?:(?:[\\\\].?|[\'\"]{2})[^\\\\\\$\'\"]*)*");
+	// A clearest pattern: ['"] \$ [^\\\$'"]* (( [\\].? | ['"]{2} ) [^\\\$'"]*
+	// )+
+	private static final Pattern latexPattern = Pattern
+			.compile("[\'\"]\\$[^\\\\\\$\'\"]*(?:(?:[\\\\].?|[\'\"]{2})[^\\\\\\$\'\"]*)*");
 
-    private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
-    private static BlockingQueue<Boolean> displayQueue = new LinkedBlockingQueue<Boolean>();
+	private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+	private static BlockingQueue<Boolean> displayQueue = new LinkedBlockingQueue<Boolean>();
 
-    private Thread concurrentThread = null;
+	private Thread concurrentThread = null;
 
-    private SciConsole console;
-    private int height = -1;
-    private int width = -1;
-    private boolean isLatex;
+	private SciConsole console;
+	private int height = -1;
+	private int width = -1;
+	private boolean isLatex;
 
-    /**
-     * Constructor
-     */
-    public SciInputCommandView() {
-        super();
-        setBorder(BorderFactory.createEmptyBorder(TOP_BORDER, 0, BOTTOM_BORDER, 0));
+	/**
+	 * Constructor
+	 */
+	public SciInputCommandView() {
+		super();
+		setBorder(BorderFactory.createEmptyBorder(TOP_BORDER, 0, BOTTOM_BORDER,
+				0));
 
-        // Input command line is not editable when created
-        this.setEditable(false);
-        ScilabCaret caret = new ScilabCaret(this) {
-                public void mousePressed(MouseEvent e) {
-                    ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
-                    super.mousePressed(e);
-                }
-            };
-        caret.setBlinkRate(getCaret().getBlinkRate());
-        setCaret(caret);
-        addCaretListener(this);
-        setFocusTraversalPolicy(new java.awt.DefaultFocusTraversalPolicy() {
-                public java.awt.Component getComponentAfter(java.awt.Container aContainer, java.awt.Component aComponent) {
-                    return SciInputCommandView.this;
-                }
-            });
-        setFocusCycleRoot(true);
-    }
+		// Input command line is not editable when created
+		this.setEditable(false);
+		ScilabCaret caret = new ScilabCaret(this) {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				((SciOutputView) console.getConfiguration().getOutputView())
+						.removeSelection();
+				super.mousePressed(e);
+			}
+		};
+		caret.setBlinkRate(getCaret().getBlinkRate());
+		setCaret(caret);
+		addCaretListener(this);
+		setFocusTraversalPolicy(new java.awt.DefaultFocusTraversalPolicy() {
+			@Override
+			public java.awt.Component getComponentAfter(
+					java.awt.Container aContainer, java.awt.Component aComponent) {
+				return SciInputCommandView.this;
+			}
+		});
+		setFocusCycleRoot(true);
+	}
 
-    /**
-     * Gets the location of the caret in the UI
-     * @return the location as a Point object
-     * @see com.artenum.rosetta.interfaces.ui.InputCommandView#getCaretLocation()
-     */
-    public Point getCaretLocation() {
-        FontMetrics fontMetric = getFontMetrics(getFont());
-        String[] lines = null;
-        try {
-            lines = getStyledDocument().getText(0, getCaretPosition()).split(END_LINE);
-        } catch (BadLocationException e1) {
-            e1.printStackTrace();
-            return ERROR_POINT;
-        }
+	/**
+	 * Gets the location of the caret in the UI
+	 * 
+	 * @return the location as a Point object
+	 * @see com.artenum.rosetta.interfaces.ui.InputCommandView#getCaretLocation()
+	 */
+	@Override
+	public Point getCaretLocation() {
+		FontMetrics fontMetric = getFontMetrics(getFont());
+		String[] lines = null;
+		try {
+			lines = getStyledDocument().getText(0, getCaretPosition()).split(
+					END_LINE);
+		} catch (BadLocationException e1) {
+			e1.printStackTrace();
+			return ERROR_POINT;
+		}
 
-        Point result = new Point(fontMetric.stringWidth(lines[lines.length - 1]), (lines.length * fontMetric.getHeight()));
+		Point result = new Point(
+				fontMetric.stringWidth(lines[lines.length - 1]),
+				(lines.length * fontMetric.getHeight()));
 
-        // Translate for absolute coordinates
-        Component currentComponent = this;
-        while (currentComponent != null) {
-            result.translate(currentComponent.getLocation().x, currentComponent.getLocation().y);
-            currentComponent = currentComponent.getParent();
-            if (currentComponent instanceof JPanel) {
-                return result;
-            }
-        }
-        return result;
-    }
+		// Translate for absolute coordinates
+		Component currentComponent = this;
+		while (currentComponent != null) {
+			result.translate(currentComponent.getLocation().x,
+					currentComponent.getLocation().y);
+			currentComponent = currentComponent.getParent();
+			if (currentComponent instanceof JPanel) {
+				return result;
+			}
+		}
+		return result;
+	}
 
-    /**
-     * Unselect text if selected one exists
-     */
-    public void removeSelection() {
-        if (getSelectionStart() != getSelectionEnd()) {
-            setSelectionStart(getSelectionEnd());
-        }
-    }
+	/**
+	 * Unselect text if selected one exists
+	 */
+	public void removeSelection() {
+		if (getSelectionStart() != getSelectionEnd()) {
+			setSelectionStart(getSelectionEnd());
+		}
+	}
 
-    /**
-     * Gets the command buffer
-     * @return the command buffer
-     */
-    public String getCmdBuffer() {
-        String command = null;
-        try {
-            if (concurrentThread == null) {
-                concurrentThread = Thread.currentThread();
-            }
-            else {
-                concurrentThread.interrupt();
-            }
-            command = queue.take();
-            if (displayQueue.take()) {
-                OutputView outputView = console.getConfiguration().getOutputView();
-                PromptView promptView = console.getConfiguration().getPromptView();
-                outputView.append(StringConstants.NEW_LINE + promptView.getDefaultPrompt() + command + StringConstants.NEW_LINE);
-            }
-        } catch (InterruptedException e) {
-            /*
-             * If we have concurrent access let's interrupt the first one, then allow
-             * the second to return the command.
-             */
-            return "";
-        }
-        concurrentThread = null;
-        return command;
-    }
+	/**
+	 * Gets the command buffer
+	 * 
+	 * @return the command buffer
+	 */
+	public String getCmdBuffer() {
+		final String command;
+		try {
+			if (concurrentThread == null) {
+				concurrentThread = Thread.currentThread();
+			} else {
+				concurrentThread.interrupt();
+			}
 
-    /**
-     * Sets the command buffer after a user input in input command view
-     * @param command the string to set to the buffer
-     * @param displayFlag boolean indicating if the command has to be displayed
-     */
-    public void setCmdBuffer(String command, boolean displayFlag) {
-        try {
-            queue.put(command);
-            displayQueue.put(displayFlag);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+			command = queue.take();
+			if (displayQueue.take()) {
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						OutputView outputView = console.getConfiguration()
+								.getOutputView();
+						PromptView promptView = console.getConfiguration()
+								.getPromptView();
+						outputView.append(StringConstants.NEW_LINE
+								+ promptView.getDefaultPrompt() + command
+								+ StringConstants.NEW_LINE);
+					}
+				});
+			}
+		} catch (InterruptedException e) {
+			/*
+			 * If we have concurrent access let's interrupt the first one, then
+			 * allow the second to return the command.
+			 */
+			return "";
+		}
+		concurrentThread = null;
+		return command;
+	}
 
-    /**
-     * Sets the console object containing this input view
-     * @param c the console associated
-     */
-    public void setConsole(SciConsole c) {
-        console = c;
+	/**
+	 * Sets the command buffer after a user input in input command view
+	 * 
+	 * @param command
+	 *            the string to set to the buffer
+	 * @param displayFlag
+	 *            boolean indicating if the command has to be displayed
+	 */
+	public void setCmdBuffer(String command, boolean displayFlag) {
+		try {
+			queue.put(command);
+			displayQueue.put(displayFlag);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
-        // Drag n' Drop handling
-        this.setDropTarget(new DropTarget(this, DnDConstants.ACTION_COPY_OR_MOVE, new SciDropTargetListener(console)));
+	/**
+	 * Sets the console object containing this input view
+	 * 
+	 * @param c
+	 *            the console associated
+	 */
+	public void setConsole(SciConsole c) {
+		console = c;
 
-        // BUG 2510 fix: automatic validation of pasted lines
-        this.getDocument().addDocumentListener(new DocumentListener() {
-                public void changedUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
+		// Drag n' Drop handling
+		this.setDropTarget(new DropTarget(this,
+				DnDConstants.ACTION_COPY_OR_MOVE, new SciDropTargetListener(
+						console)));
 
-                public void insertUpdate(DocumentEvent e) {
-                    // Validates commands if followed by a carriage return
-                    String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
-                    if ((e.getLength()) > 1 && (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt.length() - 1))) {
-                        EventQueue.invokeLater(new Runnable() {
-                                public void run() {
-                                    String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
-                                    console.sendCommandsToScilab(wholeTxt, true, true);
-                                };
-                            });
-                    }
-                }
+		// BUG 2510 fix: automatic validation of pasted lines
+		this.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// Nothing to do in Scilab
+			}
 
-                public void removeUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// Validates commands if followed by a carriage return
+				String wholeTxt = console.getConfiguration()
+						.getInputParsingManager().getCommandLine();
+				if ((e.getLength()) > 1
+						&& (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt
+								.length() - 1))) {
+					EventQueue.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							String wholeTxt = console.getConfiguration()
+									.getInputParsingManager().getCommandLine();
+							console.sendCommandsToScilab(wholeTxt, true, true);
+						};
+					});
+				}
+			}
 
-        this.addKeyListener(new KeyListener() {
-                public void keyPressed (KeyEvent e) {
-                    if (e.getKeyCode() != KeyEvent.VK_UP && e.getKeyCode() != KeyEvent.VK_DOWN && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT) {
-                        if (console.getConfiguration().getHistoryManager().isInHistory()) {
-                            console.getConfiguration().getHistoryManager().setInHistory(false);
-                        }
-                    }
-                    if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
-                        && e.getKeyCode() == KeyEvent.VK_DELETE
-                        && e.getKeyChar() != KeyEvent.VK_DELETE) {
-                        // Fix for bug 7238
-                        e.setKeyCode(KeyEvent.VK_DECIMAL);
-                    }
-                }
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// Nothing to do in Scilab
+			}
+		});
 
-                public void keyReleased (KeyEvent e) {
-                    // Nothing to do in Scilab
-                }
+		this.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() != KeyEvent.VK_UP
+						&& e.getKeyCode() != KeyEvent.VK_DOWN
+						&& e.getKeyCode() != KeyEvent.VK_LEFT
+						&& e.getKeyCode() != KeyEvent.VK_RIGHT) {
+					if (console.getConfiguration().getHistoryManager()
+							.isInHistory()) {
+						console.getConfiguration().getHistoryManager()
+								.setInHistory(false);
+					}
+				}
+				if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
+						&& e.getKeyCode() == KeyEvent.VK_DELETE
+						&& e.getKeyChar() != KeyEvent.VK_DELETE) {
+					// Fix for bug 7238
+					e.setKeyCode(KeyEvent.VK_DECIMAL);
+				}
+			}
 
-                public void keyTyped (KeyEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
-    }
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// Nothing to do in Scilab
+			}
 
-    /**
-     * This class listens to the caret event
-     * @param e event
-     */
-    public void caretUpdate(CaretEvent e) {
-        ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Nothing to do in Scilab
+			}
+		});
+	}
 
-        String str = getText().substring(0, e.getDot());
-        int lastPos = str.lastIndexOf("\"$");
-        if (lastPos != -1) {
-            str = str.substring(lastPos);
-        }
+	/**
+	 * This class listens to the caret event
+	 * 
+	 * @param e
+	 *            event
+	 */
+	@Override
+	public void caretUpdate(CaretEvent e) {
+		((SciOutputView) console.getConfiguration().getOutputView())
+				.removeSelection();
 
-        Matcher matcher = latexPattern.matcher(str);
-        if (matcher.find() && matcher.end() == str.length()) {
-            String latex = matcher.group().replace("\'\'", "\'").replace("\"\"", "\"");
-            latex = latex.substring(2, latex.length());
-            int hl = ScilabLaTeXViewer.displayExpression(this, Integer.MAX_VALUE, latex, lastPos, e.getDot()) + 2;
-            int y = 0;
-            try {
-                Rectangle rect = modelToView(getCaretPosition());
-                y = (int) (rect.height + rect.y + 1);
-            } catch (BadLocationException ex) { }
+		String str = getText().substring(0, e.getDot());
+		int lastPos = str.lastIndexOf("\"$");
+		if (lastPos != -1) {
+			str = str.substring(lastPos);
+		}
 
-            int sheight = height;
-            height = y + hl;
-            if (height != sheight) {
-                validate();
-                console.updateScrollPosition();
-            }
-            isLatex = true;
-        } else {
-            if (isLatex) {
-                ScilabLaTeXViewer.removeLaTeXViewer(this);
-                if (height != -1) {
-                    height = -1;
-                    validate();
-                }
-                isLatex = false;
-            }
-        }
-    }
+		Matcher matcher = latexPattern.matcher(str);
+		if (matcher.find() && matcher.end() == str.length()) {
+			String latex = matcher.group().replace("\'\'", "\'")
+					.replace("\"\"", "\"");
+			latex = latex.substring(2, latex.length());
+			int hl = ScilabLaTeXViewer.displayExpression(this,
+					Integer.MAX_VALUE, latex, lastPos, e.getDot()) + 2;
+			int y = 0;
+			try {
+				Rectangle rect = modelToView(getCaretPosition());
+				y = (rect.height + rect.y + 1);
+			} catch (BadLocationException ex) {
+			}
 
-    /**
-     * Set the height of this text component.
-     * @param height the height, -1 to have the natural preferred height
-     */
-    public void setPreferredHeight(int height) {
-        this.height = height;
-    }
+			int sheight = height;
+			height = y + hl;
+			if (height != sheight) {
+				validate();
+				console.updateScrollPosition();
+			}
+			isLatex = true;
+		} else {
+			if (isLatex) {
+				ScilabLaTeXViewer.removeLaTeXViewer(this);
+				if (height != -1) {
+					height = -1;
+					validate();
+				}
+				isLatex = false;
+			}
+		}
+	}
 
-    /**
-     * Set the width of this text component.
-     * @param width the width, -1 to have the natural preferred width
-     */
-    public void setPreferredWidth(int width) {
-        this.width = width;
-    }
+	/**
+	 * Set the height of this text component.
+	 * 
+	 * @param height
+	 *            the height, -1 to have the natural preferred height
+	 */
+	public void setPreferredHeight(int height) {
+		this.height = height;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public Dimension getPreferredSize() {
-        Dimension dim;
-        try {
-            dim = super.getPreferredSize();
-        } catch (Exception e) {
-            // workaround bug 9442
-            // Should be removed with JDK 7
-            dim = new Dimension(0, 0);
-        }
+	/**
+	 * Set the width of this text component.
+	 * 
+	 * @param width
+	 *            the width, -1 to have the natural preferred width
+	 */
+	public void setPreferredWidth(int width) {
+		this.width = width;
+	}
 
-        if (height != -1) {
-            dim.height = Math.max(height, dim.height);
-        }
-        if (width != -1) {
-            dim.width = Math.max(width, dim.width);
-        }
-        return dim;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Dimension getPreferredSize() {
+		Dimension dim;
+		try {
+			dim = super.getPreferredSize();
+		} catch (Exception e) {
+			// workaround bug 9442
+			// Should be removed with JDK 7
+			dim = new Dimension(0, 0);
+		}
+
+		if (height != -1) {
+			dim.height = Math.max(height, dim.height);
+		}
+		if (width != -1) {
+			dim.width = Math.max(width, dim.width);
+		}
+		return dim;
+	}
 }
