@@ -12,23 +12,23 @@
 #ifndef		HISTORY_H_
 #define	HISTORY_H_
 
-#include	"reader.h"
-#include	"history.h"
+#include "reader.h"
+#include "history.h"
 
 /**
- * Change current editing line to previous editing line
+ * Change current editing line to prev editing line
  * @param list of all command lines.
- * @param user input
+ * @param cursor location in the command line.
  * @return user input
  */
-int previousCmd(t_list_cmd ** cmd, unsigned int *cursorLocation);
+int previousCmd(DoublyLinkedList ** cmd, unsigned int *cursorLocation);
 
 /**
  * Change current editing line to next editing line
  * @param list of all command lines.
- * @param user input
+ * @param cursor location in the command line.
  * @return user input
  */
-int nextCmd(t_list_cmd ** cmd, unsigned int *cursorLocation);
+int nextCmd(DoublyLinkedList ** cmd, unsigned int *cursorLocation);
 
 #endif /* !HISTORY_H_ */

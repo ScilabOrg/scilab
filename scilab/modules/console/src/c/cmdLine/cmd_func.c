@@ -9,106 +9,117 @@
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 */
 
-#include		<wchar.h>
-#include		<wctype.h>
-#include		<stdlib.h>
-#include		<stdio.h>
-#include		<unistd.h>
-#include		<curses.h>
-#include		<termios.h>
-#include		<term.h>
-#include		"history.h"
-#include		"reader.h"
-#include		"cap_func.h"
-#include		"goto_func.h"
-#include		"charctl.h"
-#include		"init_tc_shell.h"
-#include		"aff_prompt.h"
-#include		"cmd_func.h"
-#include		"MALLOC.h"
+#include <wchar.h>
+#include <wctype.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <curses.h>
+#include <termios.h>
+#include <term.h>
+#include "history.h"
+#include "reader.h"
+#include "cap_func.h"
+#include "goto_func.h"
+#include "charctl.h"
+#include "init_tc_shell.h"
+#include "aff_prompt.h"
+#include "cmd_func.h"
+#include "MALLOC.h"
 
-/* Remplacer "\a" par define */
+/*
+ * If last key was '1'
+ * it means this could be arrow key plus control key
+ */
+static void caseCtrlAndArrowKey(DoublyLinkedList * listCmd, unsigned int *cursorLocation)
+{
+    if (getwchar() == L';' && getwchar() == L'5')
+    {
+        switch (getwchar())
+        {
+        case L'C':
+            nextWord(listCmd->data, cursorLocation);
+            break;
+        case L'D':
+            previousWord(listCmd->data, cursorLocation);
+            break;
+        }
+    }
+}
 
-static int caseHomeOrEndKey(t_list_cmd * listCmd, unsigned int *cursorLocation)
+static void caseHomeOrEndKey(DoublyLinkedList * listCmd, unsigned int *cursorLocation)
 {
     switch (getwchar())
     {
     case L'H':
-        begLine(listCmd, cursorLocation);
-        return 0;
+        begLine(listCmd->data, cursorLocation);
+        break;
     case L'F':
-        endLine(listCmd, cursorLocation);
-        return 0;
-    default:
-        printf("\a");
-        fflush(stdout);
-        return 0;
+        endLine(listCmd->data, cursorLocation);
+        break;
     }
 }
 
 /*
  * If second key was L'['
- * It mean this could be an arrow key or delete key.
+ * It means this could be an arrow key or delete key.
  */
-
-static int caseDelOrArrowKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
+static void caseDelOrArrowKey(DoublyLinkedList ** listCmd, unsigned int *cursorLocation)
 {
     switch (getwchar())
     {
     case L'A':
         previousCmd(listCmd, cursorLocation);
-        return 0;
+        break;
     case L'B':
         nextCmd(listCmd, cursorLocation);
-        return 0;
+        break;
     case L'C':
-        gotoRight(*listCmd, cursorLocation);
-        return 0;
+        gotoRight((*listCmd)->data, cursorLocation);
+        break;
     case L'D':
-        gotoLeft(*listCmd, cursorLocation);
-        return 0;
+        gotoLeft((*listCmd)->data, cursorLocation);
+        break;
+    case L'1':
+        caseCtrlAndArrowKey(*listCmd, cursorLocation);
+        break;
     case L'3':
         if (getwchar() == L'~')
         {
-            rmChar(*listCmd, SCI_DELETE, cursorLocation);
-            return 0;
+            rmChar((*listCmd)->data, SCI_DELETE, cursorLocation);
+            break;
         }
-    default:
-        printf("\a");
-        fflush(stdout);
-        return 0;
     }
 }
 
 /*
  * If last key was Meta...
  */
-static int caseMetaKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
+static void caseMetaKey(DoublyLinkedList ** listCmd, unsigned int *cursorLocation)
 {
     switch (getwchar())
     {
     case L'f':
     case L'F':
-        nextWord(*listCmd, cursorLocation);
-        return 0;
+        nextWord((*listCmd)->data, cursorLocation);
+        break;
     case L'b':
     case L'B':
-        previousWord(*listCmd, cursorLocation);
-        return 0;
+        previousWord((*listCmd)->data, cursorLocation);
+        break;
     case L'[':
-        return caseDelOrArrowKey(listCmd, cursorLocation);
+        caseDelOrArrowKey(listCmd, cursorLocation);
+        break;
     case L'O':
-        return caseHomeOrEndKey(*listCmd, cursorLocation);
-    default:
-        return 0;
+        caseHomeOrEndKey(*listCmd, cursorLocation);
+        break;
     }
 }
 
 /*
  * Read keyboard a first time.
  */
-
-static int getKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
+static int getKey(DoublyLinkedList ** listCmd, unsigned int *cursorLocation)
 {
     int key;
 
@@ -116,19 +127,19 @@ static int getKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
     switch (key)
     {
     case CTRL_A:
-        begLine(*listCmd, cursorLocation);
+        begLine((*listCmd)->data, cursorLocation);
         return 0;
     case CTRL_B:
-        gotoLeft(*listCmd, cursorLocation);
+        gotoLeft((*listCmd)->data, cursorLocation);
         return 0;
     case CTRL_E:
-        endLine(*listCmd, cursorLocation);
+        endLine((*listCmd)->data, cursorLocation);
         return 0;
     case CTRL_F:
-        gotoRight(*listCmd, cursorLocation);
+        gotoRight((*listCmd)->data, cursorLocation);
         return 0;
     case CTRL_K:
-        deleteLineFromCurs(*listCmd, cursorLocation);
+        deleteLineFromCurs((*listCmd)->data, cursorLocation);
         return 0;
     case CTRL_N:
         nextCmd(listCmd, cursorLocation);
@@ -137,14 +148,15 @@ static int getKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
         previousCmd(listCmd, cursorLocation);
         return 0;
     case ESCAPE:
-        return caseMetaKey(listCmd, cursorLocation);
+        caseMetaKey(listCmd, cursorLocation);
+        break;
     case SCI_BACKSPACE:
-        rmChar(*listCmd, SCI_BACKSPACE, cursorLocation);
+        rmChar((*listCmd)->data, SCI_BACKSPACE, cursorLocation);
         return 0;
     default:
         if (key == L'\n')
             return '\n';
-        addChar(*listCmd, key, cursorLocation);
+        addChar((*listCmd)->data, key, cursorLocation);
         return 0;
     }
 }
@@ -153,9 +165,9 @@ static int getKey(t_list_cmd ** listCmd, unsigned int *cursorLocation)
  * If there is a string the function save it.
  * else The function write the saved string.
  */
-void memCmd(t_list_cmd * cmd, int cursorLocation)
+void memCmd(DoublyLinkedList * cmd, int cursorLocation)
 {
-    static t_list_cmd *memList;
+    static DoublyLinkedList *memList;
 
     static int i;
 
@@ -168,10 +180,8 @@ void memCmd(t_list_cmd * cmd, int cursorLocation)
     {
 /* TODO comment */
         i = cursorLocation;
-        cursorLocation = wcslen(memList->cmd);
-        printf(SCI_PRINT_WSTRING, memList->cmd);
-/* TODO probably useless. We are doing a buffering word by word */
-        fflush(stdout);
+        cursorLocation = wcslen(memList->data);
+        printf("%ls", memList->data);
         while (cursorLocation != i)
         {
             gotoLeft(memList, 0);
@@ -179,27 +189,25 @@ void memCmd(t_list_cmd * cmd, int cursorLocation)
     }
 }
 
-t_list_cmd *getNewCmd(t_list_cmd * lastCmd)
+DoublyLinkedList *getNewCmd(DoublyLinkedList * lastCmd)
 {
-    t_list_cmd *newCmd;
+    DoublyLinkedList *newCmd;
 
-    newCmd = MALLOC(sizeof(*newCmd));
+    newCmd = MALLOC(sizeof(wchar_t));
     if (lastCmd != NULL)
     {
         lastCmd->next = newCmd;
-        lastCmd->bin = 1;
     }
-    newCmd->previous = lastCmd;
+    newCmd->prev = lastCmd;
     newCmd->next = NULL;
-    newCmd->bin = 0;
     return newCmd;
 }
 
-void getCmd(t_list_cmd ** listCmd)
+void getCmd(DoublyLinkedList ** listCmd)
 {
     int bin;
 
-    int cursorLocation = 0;
+    unsigned int cursorLocation = 0;
 
     bin = 1;
     while (bin)
@@ -213,31 +221,33 @@ void getCmd(t_list_cmd ** listCmd)
     }
 }
 
-t_list_cmd *freeCmd(t_list_cmd ** cmd)
+DoublyLinkedList *freeCmd(DoublyLinkedList ** cmd)
 {
-    t_list_cmd *save;
+    DoublyLinkedList *save;
 
     save = *cmd;
-    *cmd = (*cmd)->previous;
-    free(save->cmd);
+    *cmd = (*cmd)->prev;
+    free(save->data);
     free(save);
     if (*cmd)
+    {
         (*cmd)->next = NULL;
+    }
     return *cmd;
 }
 
-void deleteHistory(t_list_cmd * cmd, int limit)
+void deleteHistory(DoublyLinkedList * cmd, int limit)
 {
-    while (limit && cmd->previous)
+    while (limit && cmd->prev)
     {
-        cmd = cmd->previous;
+        cmd = cmd->prev;
         limit--;
     }
     if (!limit)
     {
         cmd = cmd->next;
-        free(cmd->previous->cmd);
-        free(cmd->previous);
-        cmd->previous = NULL;
+        free(cmd->prev->data);
+        free(cmd->prev);
+        cmd->prev = NULL;
     }
 }
