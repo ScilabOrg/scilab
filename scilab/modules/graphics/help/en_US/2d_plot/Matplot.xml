@@ -275,7 +275,7 @@ Matplot((1:xget("lastpattern")))
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="colormap">colormap</link>
@@ -288,6 +288,9 @@ Matplot((1:xget("lastpattern")))
       </member>
       <member>
         <link linkend="Matplot_properties">Matplot_properties</link>
+      </member>
+      <member>
+        <link linkend="plotsparse">plotsparse</link>
       </member>
     </simplelist>
   </refsection>

@@ -53,7 +53,7 @@ A=full(sp)
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="sparse">sparse</link>
@@ -63,6 +63,9 @@ A=full(sp)
       </member>
       <member>
         <link linkend="speye">speye</link>
+      </member>
+      <member>
+        <link linkend="plotsparse">plotsparse</link>
       </member>
     </simplelist>
   </refsection>
