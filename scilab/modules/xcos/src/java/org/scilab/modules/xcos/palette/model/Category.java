@@ -15,13 +15,9 @@ package org.scilab.modules.xcos.palette.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.tree.TreeNode;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -55,135 +51,163 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @XmlType(name = "Category", propOrder = { "node" })
 public class Category extends PaletteNode {
-	private static final transient
-		Map<String, List<PaletteNode>> SAVED_NODELIST = new HashMap<String, List<PaletteNode>>();
-	
-	@XmlElement(nillable = true)
-	private List<PaletteNode> node;
+    @XmlElement(nillable = true)
+    private List<PaletteNode> node;
 
-	/**
-	 * Default constructor
-	 */
-	public Category() {
-	}
+    /**
+     * Default constructor
+     */
+    public Category() {
+    }
 
-	/**
-	 * Gets the value of the node property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the node property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getNode().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list
-	 * {@link PaletteNode }
-	 * 
-	 * @return the non-null children list.
-	 */
-	public List<PaletteNode> getNode() {
-		if (node == null) {
-			node = new ArrayList<PaletteNode>();
-		}
-		return node;
-	}
+    /**
+     * Gets the value of the node property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the node property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * 
+     * <pre>
+     * getNode().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PaletteNode }
+     * 
+     * @return the non-null children list.
+     */
+    public List<PaletteNode> getNode() {
+        if (node == null) {
+            node = new ArrayList<PaletteNode>();
+        }
+        return node;
+    }
 
-	/*
-	 * TreeNode method implementation
-	 */
+    /*
+     * TreeNode method implementation
+     */
 
-	/**
-	 * @return the children
-	 * @see javax.swing.tree.TreeNode#children()
-	 */
-	@Override
-	public Enumeration<PaletteNode> children() {
-		return Collections.enumeration(getNode());
-	}
+    /**
+     * @return the children
+     * @see javax.swing.tree.TreeNode#children()
+     */
+    @Override
+    public Enumeration<PaletteNode> children() {
+        return Collections.enumeration(getNode());
+    }
 
-	/**
-	 * @return true
-	 * @see javax.swing.tree.TreeNode#getAllowsChildren()
-	 */
-	@Override
-	public boolean getAllowsChildren() {
-		return true;
-	}
+    /**
+     * @return true
+     * @see javax.swing.tree.TreeNode#getAllowsChildren()
+     */
+    @Override
+    public boolean getAllowsChildren() {
+        return true;
+    }
 
-	/**
-	 * @param childIndex
-	 *            the selected child index
-	 * @return the child at the specified index
-	 * @see javax.swing.tree.TreeNode#getChildAt(int)
-	 */
-	@Override
-	public TreeNode getChildAt(int childIndex) {
-		return getNode().get(childIndex);
-	}
+    /**
+     * @param childIndex
+     *            the selected child index
+     * @return the child at the specified index
+     * @see javax.swing.tree.TreeNode#getChildAt(int)
+     */
+    @Override
+    public TreeNode getChildAt(int childIndex) {
+        return getNode().get(childIndex);
+    }
 
-	/**
-	 * @return the number of child
-	 * @see javax.swing.tree.TreeNode#getChildCount()
-	 */
-	@Override
-	public int getChildCount() {
-		return getNode().size();
-	}
+    /**
+     * @return the number of child
+     * @see javax.swing.tree.TreeNode#getChildCount()
+     */
+    @Override
+    public int getChildCount() {
+        return getNode().size();
+    }
 
-	/**
-	 * @param node
-	 *            the node
-	 * @return the index of the node
-	 * @see javax.swing.tree.TreeNode#getIndex(javax.swing.tree.TreeNode)
-	 */
-	@Override
-	public int getIndex(TreeNode node) {
-		return getNode().indexOf(node);
-	}
+    /**
+     * @param node
+     *            the node
+     * @return the index of the node
+     * @see javax.swing.tree.TreeNode#getIndex(javax.swing.tree.TreeNode)
+     */
+    @Override
+    public int getIndex(TreeNode node) {
+        return getNode().indexOf(node);
+    }
 
-	/**
-	 * @return false
-	 * @see javax.swing.tree.TreeNode#isLeaf()
-	 */
-	@Override
-	public boolean isLeaf() {
-		return false;
-	}
+    /**
+     * @return false
+     * @see javax.swing.tree.TreeNode#isLeaf()
+     */
+    @Override
+    public boolean isLeaf() {
+        return false;
+    }
 
-	/*
-	 * Customize the marshalling operation
-	 */
+    /*
+     * Utils
+     */
 
-	/**
-	 * Invoked by Marshaller after it has created an instance of this object.
-	 * @param m the marshaller
-	 */
-	void beforeMarshal(Marshaller m) {
-		SAVED_NODELIST.put(getName(), new ArrayList<PaletteNode>(node));
-		
-		for (Iterator<PaletteNode> it = node.iterator(); it.hasNext();) {
-			if (it.next() instanceof PreLoaded.Dynamic) {
-				it.remove();
-			}
-		}
-	}
+    /**
+     * Filter out dynamic nodes
+     * 
+     * @return a view of this category with filtered nodes
+     */
+    public Category filter() {
+        return filterPreloaded(this);
+    }
 
-	/**
-	 * Invoked by Marshaller after it has marshalled all properties of this
-	 * object.
-	 *
-	 * @param m the marshaller
-	 */
-	void afterMarshal(Marshaller m) {
-		node = SAVED_NODELIST.get(getName());
-	}
+    /**
+     * Filter out dynamic nodes
+     * 
+     * @param node
+     *            the input node
+     * @return a filtered output node or null if this is an invalid node.
+     */
+    private Category filterPreloaded(Category node) {
+        final List<PaletteNode> originals = node.getNode();
+        final List<PaletteNode> filtereds = new ArrayList<PaletteNode>(
+                originals.size());
+
+        for (PaletteNode paletteNode : originals) {
+            // filter dynamics
+            if (paletteNode instanceof PreLoaded.Dynamic) {
+                continue;
+            }
+
+            // filter sub category
+            if (paletteNode instanceof Category) {
+                paletteNode = filterPreloaded((Category) paletteNode);
+                if (paletteNode == null) {
+                    continue;
+                }
+            }
+
+            /*
+             * Keep others
+             */
+            filtereds.add(paletteNode);
+        }
+
+        final Category c;
+        if (filtereds.isEmpty()) {
+            c = null;
+        } else {
+            c = new Category();
+            c.setName(node.getName());
+            c.setEnable(node.isEnable());
+
+            c.node = filtereds;
+        }
+
+        return c;
+    }
 }

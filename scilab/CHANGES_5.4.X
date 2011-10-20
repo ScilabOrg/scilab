@@ -158,6 +158,7 @@ Xcos:
 
 * bug 10069 fixed - AFFICH_m block did not update its display at
                     re-initialization.
+* bug 10081 fixed - Palette saving could produce an invalid file.
 
 
 Localization:
