@@ -237,19 +237,19 @@ msgid "Scilab UMFPACK module not installed.\n"
 msgstr "未安裝 Scilab UMFPACK 模組.\n"
 
 #
-# File: macros/PlotSparse.sci, line: 74
+# File: macros/plotsparse.sci, line: 74
 #, c-format
 msgid "%s: Wrong number of input argument(s).\n"
 msgstr "%s: 輸入參數之數目錯誤(s).\n"
 
 #
-# File: macros/PlotSparse.sci, line: 81
+# File: macros/plotsparse.sci, line: 81
 #, c-format
 msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
 msgstr "%s: 第 %d 個輸入參數型態錯誤: 應為一方陣.\n"
 
 #
-# File: macros/PlotSparse.sci, line: 88
+# File: macros/plotsparse.sci, line: 88
 # File: macros/ReadHBSparse.sci, line: 81
 #, c-format
 msgid "%s: Wrong type for input argument #%d: String expected.\n"

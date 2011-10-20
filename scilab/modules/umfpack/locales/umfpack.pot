@@ -240,19 +240,19 @@ msgstr ""
 msgid "Scilab UMFPACK module not installed.\n"
 msgstr ""
 
-# File: macros/PlotSparse.sci, line: 74
+# File: macros/plotsparse.sci, line: 74
 #, c-format
 msgid "%s: Wrong number of input argument(s).\n"
 msgstr ""
 
 #
-# File: macros/PlotSparse.sci, line: 81
+# File: macros/plotsparse.sci, line: 81
 #, c-format
 msgid "%s: Wrong type for input argument #%d: sparse matrix expected.\n"
 msgstr ""
 
 #
-# File: macros/PlotSparse.sci, line: 88
+# File: macros/plotsparse.sci, line: 88
 # File: macros/ReadHBSparse.sci, line: 81
 #, c-format
 msgid "%s: Wrong type for input argument #%d: String expected.\n"

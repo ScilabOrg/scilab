@@ -115,7 +115,7 @@ sp=sparse(dense)
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="full">full</link>
@@ -131,6 +131,9 @@ sp=sparse(dense)
       </member>
       <member>
         <link linkend="lufact">lufact</link>
+      </member>
+      <member>
+        <link linkend="plotsparse">plotsparse</link>
       </member>
     </simplelist>
   </refsection>

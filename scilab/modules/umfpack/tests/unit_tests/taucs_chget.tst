@@ -19,7 +19,7 @@ full(A(p,p) - Ct'*Ct);  // this must be near the null matrix
 taucs_chdel(Cp);
 
 // Example #2 a real example
-stacksize(3000000);  // the last PlotSparse need memory
+stacksize(3000000);  // the last plotsparse need memory
 // first load a sparse matrix
 [A] = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
 // compute the factorisation
@@ -28,14 +28,14 @@ Cptr = taucs_chfact(A);
 [Ct, p] = taucs_chget(Cptr);
 // plot the initial matrix
 xset("window",0) ; clf();
-PlotSparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)");
+plotsparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)");
 // plot the permuted matrix
 B = A(p,p);
 xset("window",1) ; clf();
-PlotSparse(B) ; xtitle("Permuted matrix B = A(p,p)");
+plotsparse(B) ; xtitle("Permuted matrix B = A(p,p)");
 // plot the upper triangle Ct
 xset("window",2) ; clf();
-PlotSparse(Ct) ; xtitle("The pattern of Ct (A(p,p) = C*Ct)");
+plotsparse(Ct) ; xtitle("The pattern of Ct (A(p,p) = C*Ct)");
 // retrieve cnz
 [OK, n, cnz] = taucs_chinfo(Cptr);
 // cnz is superior to the realnumber of non zeros elements of C :

@@ -461,6 +461,9 @@ Graphics:
   - Markers can now be selected and moved using the arrow keys
     or deleted with the "Del" key.
 
+* The function "PlotSparse" has been renamed to version "plotsparse".
+  PlotSparse will be removed in the version 6.0
+
 * bug 7412 fixed - Better management of datatips activation/deactivation.
 
 * bug 7419 fixed - datatips(): customization is now available through a GUI.

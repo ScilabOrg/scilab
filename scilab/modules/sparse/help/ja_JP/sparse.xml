@@ -112,6 +112,9 @@ x=rand(2,2);abs(x)-full(abs(sparse(x)))
       <member>
         <link linkend="lufact">lufact</link>
       </member>
+      <member>
+        <link linkend="plotsparse">plotsparse</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

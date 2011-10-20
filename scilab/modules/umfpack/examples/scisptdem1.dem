@@ -31,26 +31,26 @@ mode(-1)
 messagebox(["To see the pattern of non zeros elements";
 	   "you may use the function :              ";
 	   "                                        ";
-	   "         PlotSparse                     ";
+	   "         plotsparse                     ";
 	   "                                        ";
 	   "  here we will display the 4 matrices   "],"modal","info");
 
 mode(1)
 
 scf(num1)
-PlotSparse(A1,"y+")
+plotsparse(A1,"y+")
 xtitle(ref1+"."+mtype1+" : "+descr1)
 
 scf(num2)
-PlotSparse(A2)
+plotsparse(A2)
 xtitle(ref2+"."+mtype2+" : "+descr2)
 
 scf(num3)
-PlotSparse(A3,"c.")
+plotsparse(A3,"c.")
 xtitle(ref3+"."+mtype3+" : "+descr3)
 
 scf(num4)
-PlotSparse(A4,"r.")
+plotsparse(A4,"r.")
 xtitle(ref4+"."+mtype4+" : "+descr4)
 
 mode(-1)

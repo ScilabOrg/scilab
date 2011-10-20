@@ -65,6 +65,9 @@ A=full(sp)
       <member>
         <link linkend="speye">speye</link>
       </member>
+      <member>
+        <link linkend="plotsparse">plotsparse</link>
+      </member>
     </simplelist>
   </refsection>
 </refentry>

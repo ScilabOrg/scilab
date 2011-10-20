@@ -41,7 +41,7 @@
     pattern  of the Cholesky factorization (or if you  code something which
     use the factors). Traditionnaly, the factorization is written :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 P A P' = C C'
  ]]></programlisting>
     <para>
@@ -49,7 +49,7 @@ P A P' = C C'
     As we get the upper triangle Ct (= C'), in scilab syntax we
     can write :
   </para>
-    <programlisting role = ""><![CDATA[ 
+    <programlisting role=""><![CDATA[ 
 A(p,p) = Ct' * Ct
  ]]></programlisting>
   </refsection>
@@ -68,7 +68,7 @@ full(A(p,p) - Ct'*Ct)  // this must be near the null matrix
 taucs_chdel(Cp)
 
 // Example #2 a real example
-stacksize(3000000)  // the last PlotSparse need memory
+stacksize(3000000)  // the last plotsparse need memory
 // first load a sparse matrix
 [A] = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
 // compute the factorisation
@@ -77,14 +77,14 @@ Cptr = taucs_chfact(A);
 [Ct, p] = taucs_chget(Cptr);
 // plot the initial matrix
 xset("window",0) ; clf()
-PlotSparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)")
+plotsparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)")
 // plot the permuted matrix
 B = A(p,p);
 xset("window",1) ; clf()
-PlotSparse(B) ; xtitle("Permuted matrix B = A(p,p)")
+plotsparse(B) ; xtitle("Permuted matrix B = A(p,p)")
 // plot the upper triangle Ct
 xset("window",2) ; clf()
-PlotSparse(Ct) ; xtitle("The pattern of Ct (A(p,p) = C*Ct)")
+plotsparse(Ct) ; xtitle("The pattern of Ct (A(p,p) = C*Ct)")
 // retrieve cnz
 [OK, n, cnz] = taucs_chinfo(Cptr)
 // cnz is superior to the realnumber of non zeros elements of C :
@@ -94,7 +94,7 @@ taucs_chdel(Cptr)
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="taucs_chfact">taucs_chfact</link>

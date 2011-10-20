@@ -31,7 +31,7 @@
 
 function [col, mark] = ana_style(style)
   //
-  //  an utility for PlotSparse
+  //  an utility for plotsparse
   //
   tab_col  = ["k" "b" "r" "g" "c" "m" "y" "t" "G"]
   num_col  = [ 1   2   5   3   4   6  32  16  13 ]
