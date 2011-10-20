@@ -15,14 +15,14 @@
 #include "machine.h"
 
 /** 
- * TODO : comment
+ * Display the banner in the console
  */
 void banner(void);
 
 /** 
- * TODO : comment
- * @param flag
+ * Call the banner from fortran
+ * @param flag if flang == 999, do not show the banner
  */
-int C2F(banier)(int *flag);
+int C2F(banier) (int *flag);
 
 #endif /* __BANNER_H__ */
