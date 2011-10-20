@@ -14,6 +14,7 @@
 #include		<wchar.h>
 #include		<wctype.h>
 #include                "MALLOC.h"
+#include                "catstr.h"
 
 /* Concatenate 2 wide char string then return it */
 wchar_t *catStr(wchar_t * wcs1, wchar_t * wcs2)

@@ -12,6 +12,7 @@
 #ifndef	GOTO_FUNC_H_
 #define	GOTO_FUNC_H_
 
+#include <wchar.h>
 #include	"reader.h"
 
 /**
@@ -20,7 +21,7 @@
  * @param user Input
  * @return user Input
  */
-int gotoRight(t_list_cmd * cmd, unsigned int *cursorLocation);
+int gotoRight(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 /**
  * Move the cursor to the left.
@@ -28,7 +29,7 @@ int gotoRight(t_list_cmd * cmd, unsigned int *cursorLocation);
  * @param user Input
  * @return user Input
  */
-int gotoLeft(t_list_cmd * cmd, unsigned int *cursorLocation);
+int gotoLeft(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 /**
  * Move the cursor to the end of the current edited line.
@@ -36,7 +37,7 @@ int gotoLeft(t_list_cmd * cmd, unsigned int *cursorLocation);
  * @param user Input
  * @return user Input
  */
-int endLine(t_list_cmd * cmd, unsigned int *cursorLocation);
+int endLine(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 /**
  * Move the cursor to the beginning of the current edited line.
@@ -44,7 +45,7 @@ int endLine(t_list_cmd * cmd, unsigned int *cursorLocation);
  * @param user Input
  * @return user Input
  */
-int begLine(t_list_cmd * cmd, unsigned int *cursorLocation);
+int begLine(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 /**
  * Move cursor to the beginning of the next word or to the end of the string if none were found.
@@ -52,14 +53,14 @@ int begLine(t_list_cmd * cmd, unsigned int *cursorLocation);
  * @param user Input
  * @return user Input
  */
-int nextWord(t_list_cmd * cmd, unsigned int *cursorLocation);
+int nextWord(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 /**
- * Move cursor to the beginning of the previous word or to the beginning of the string if none were found.
+ * Move cursor to the beginning of the prev word or to the beginning of the string if none were found.
  * @param current edited line
  * @param user Input
  * @return user Input
  */
-int previousWord(t_list_cmd * cmd, unsigned int *cursorLocation);
+int previousWord(wchar_t * CommandLine, unsigned int *cursorLocation);
 
 #endif /* !GOTO_FUNC_H_ */

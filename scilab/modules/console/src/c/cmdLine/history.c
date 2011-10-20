@@ -19,26 +19,26 @@
 #include	"reader.h"
 #include	"history.h"
 
-/* Get the previous command line */
-int previousCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
+/* Get the prev command line */
+int previousCmd(DoublyLinkedList ** cmd, unsigned int *cursorLocation)
 {
     int promptSize;
 
-    if ((*cmd)->previous)
+    if ((*cmd)->prev)
     {
         /* Go the beginning of the current edited line then clearn the screen from */
         while (*cursorLocation)
         {
-            gotoLeft(*cmd, cursorLocation);
+            gotoLeft((*cmd)->data, cursorLocation);
         }
         capStr("up");
         capStr("do");
         capStr("cd");
         /* Get the new command line then display it */
         promptSize = getPrompt(WRT_PRT);
-        (*cmd) = (*cmd)->previous;
-        *cursorLocation = wcslen((*cmd)->cmd);
-        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
+        (*cmd) = (*cmd)->prev;
+        *cursorLocation = wcslen((*cmd)->data);
+        printf(SCI_PRINT_WSTRING, (*cmd)->data);
         fflush(stdout);
         /*
          * if the last character is on the last column of the window,
@@ -55,7 +55,7 @@ int previousCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
 }
 
 /* Get the next command line */
-int nextCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
+int nextCmd(DoublyLinkedList ** cmd, unsigned int *cursorLocation)
 {
     int promptSize;
 
@@ -64,16 +64,16 @@ int nextCmd(t_list_cmd ** cmd, unsigned int *cursorLocation)
         /* Go the beginning of the current edited line then clearn the screen from */
         while (*cursorLocation)
         {
-            gotoLeft(*cmd, cursorLocation);
+            gotoLeft((*cmd)->data, cursorLocation);
         }
         capStr("up");
         capStr("do");
         capStr("cd");
         /* Get the new command line then display it */
         (*cmd) = (*cmd)->next;
-        *cursorLocation = wcslen((*cmd)->cmd);
+        *cursorLocation = wcslen((*cmd)->data);
         promptSize = getPrompt(WRT_PRT);
-        printf(SCI_PRINT_WSTRING, (*cmd)->cmd);
+        printf(SCI_PRINT_WSTRING, (*cmd)->data);
         fflush(stdout);
         /*
          * if the last character is on the last column of the window,
