@@ -30,7 +30,7 @@
   <refsynopsisdiv>
     <title>Calling Sequence</title>
 
-    <synopsis>M = read_csv(fname [,sep])</synopsis>
+    <synopsis>M = read_csv(fname [,sep [,m]])</synopsis>
   </refsynopsisdiv>
 
   <refsection>
@@ -54,6 +54,15 @@
 
           <para>ascii(9) or "\t" for a tabulation separator are
           accepted.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>m</term>
+
+        <listitem>
+          <para>an integer. Number of line read, the whole file is read if negative. Default value is
+          -1.</para>
         </listitem>
       </varlistentry>
 

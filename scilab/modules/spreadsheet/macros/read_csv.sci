@@ -1,6 +1,7 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA
 // Copyright (C) 2009-2010 - DIGITEO - Allan CORNET
+// Copyright (C) 2011-2011 - Scilab Enterprises - Clément DAVID
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -9,7 +10,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 
-function mat = read_csv(fname, sep)
+function mat = read_csv(fname, sep, m)
 // Given an ascii  file created by Excel using "Text and comma" format
 // read_csv(fname) returns the corresponding Scilab matrix of strings.
 
@@ -33,6 +34,18 @@ function mat = read_csv(fname, sep)
     error(msprintf(gettext("%s: Wrong size for input argument #%d: a string expected.\n"), "read_csv", 2));
   end
 
+  if argn(2)<3 then
+    m = "-1";
+  end
+
+  if (type(m) <> 1) then
+    error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"), "read_csv", 3));
+  end
+
+  if (size(m, "*")<> 1) then
+    error(msprintf(gettext("%s: Wrong type for input argument #%d: Integer expected.\n"), "read_csv", 3));
+  end
+
   if sep == "\t" then
     sep = ascii(9);
   end
@@ -41,7 +54,7 @@ function mat = read_csv(fname, sep)
     error(msprintf(gettext("%s: file %s does not exist.\n"), "read_csv", fname));
   end
 
-  v = mgetl(fname);
+  v = mgetl(fname, m);
   v(v == "") = [];
   ns = length(sep);
   mat = [];
