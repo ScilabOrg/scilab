@@ -84,7 +84,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;../../../../libs/dynamiclibrary/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
@@ -108,7 +108,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;../../../../libs/dynamiclibrary/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
@@ -130,7 +130,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;../../../../libs/dynamiclibrary/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
@@ -157,7 +157,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../includes;../../../symbol/includes;../../../types/includes;../../../core/includes;../../../localization/includes;../../../ast/includes;../../../api_scilab/includes;../../../../libs/intl;../../../operations/includes;../../../../libs/dynamiclibrary/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>

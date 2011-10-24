@@ -9,22 +9,3 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
-#include "hdf5_gw.hxx"
-#include "context.hxx"
-
-#define MODULE_NAME L"hdf5"
-
-extern "C"
-{
-	#include "gw_fileio.h"
-}
-
-using namespace types;
-
-int Hdf5Module::Load()
-{
-    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"export_to_hdf5", &sci_export_to_hdf5, MODULE_NAME));
-    symbol::Context::getInstance()->AddFunction(Function::createFunction(L"import_from_hdf5", &sci_import_from_hdf5, MODULE_NAME));
-    return 1;
-}

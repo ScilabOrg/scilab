@@ -50,8 +50,8 @@ libsciboolean_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/core/includes \
     -I$(top_srcdir)/modules/operations/includes \
     -I$(top_srcdir)/modules/output_stream/includes \
-    -I$(top_srcdir)/modules/api_scilab/includes
-
+    -I$(top_srcdir)/modules/api_scilab/includes \
+    -I$(top_srcdir)/libs/dynamiclibrary/includes
 
 
 pkglib_LTLIBRARIES = libsciboolean.la

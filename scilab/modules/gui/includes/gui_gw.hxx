@@ -34,6 +34,6 @@ public :
 	EXTERN_GUI_GW static int Load();
 };
 
-CPP_GATEWAY_PROTOTYPE(sci_helpbrowser);
+CPP_GATEWAY_PROTOTYPE(sci_helpbrowser, EXTERN_GUI_GW);
 
 #endif /* !__GUI_GW_HXX__ */

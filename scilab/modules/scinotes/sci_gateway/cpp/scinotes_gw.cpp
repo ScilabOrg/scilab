@@ -9,34 +9,3 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
-#include "scinotes_gw.hxx"
-#include "funcmanager.hxx"
-#include "context.hxx"
-
-#define MODULE_NAME L"scinotes"
-
-extern "C"
-{
-#include "gw_scinotes.h"
-#include "loadOnUseClassPath.h"
-}
-
-bool ScinotesModule::loadedDep = false;
-
-void ScinotesModule::LoadDeps(void)
-{
-    if (loadedDep == false)
-    {
-        loadOnUseClassPath("SciNotes");
-        loadedDep = true;
-    }
-}
-
-int ScinotesModule::Load()
-{
-    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"editor", &sci_scinotes, &ScinotesModule::LoadDeps, MODULE_NAME));
-    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"closeEditor", &sci_closeSciNotesFromScilab, &ScinotesModule::LoadDeps, MODULE_NAME));
-    
-    return 1;
-}

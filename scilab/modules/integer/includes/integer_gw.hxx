@@ -26,7 +26,7 @@ public :
 	INTEGER_GW_IMPEXP static int Load();
 };
 
-CPP_GATEWAY_PROTOTYPE(sci_inttype);
-CPP_GATEWAY_PROTOTYPE(sci_double);
+CPP_GATEWAY_PROTOTYPE(sci_inttype, INTEGER_GW_IMPEXP);
+CPP_GATEWAY_PROTOTYPE(sci_double, INTEGER_GW_IMPEXP);
 
 #endif /* __INTEGER_GW_HXX__ */

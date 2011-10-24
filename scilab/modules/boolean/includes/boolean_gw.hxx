@@ -29,6 +29,6 @@ public :
 	BOOLEAN_GW_IMPEXP static int Load();
 };
 
-CPP_GATEWAY_PROTOTYPE(sci_bool2s);
+CPP_GATEWAY_PROTOTYPE(sci_bool2s, BOOLEAN_GW_IMPEXP);
 
 #endif /* __BOOLEAN_GW_HXX__ */

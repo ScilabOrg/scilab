@@ -9,35 +9,3 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
-#include "helptools_gw.hxx"
-
-extern "C"
-{
-#include "loadOnUseClassPath.h"
-}
-
-#define MODULE_NAME L"helptools"
-
-extern "C"
-{
-    #include "gw_helptools.h"
-}
-
-bool HelptoolsModule::loadedDep = false;
-
-void HelptoolsModule::LoadDeps(void)
-{
-    if (loadedDep == false)
-    {
-        loadOnUseClassPath("documentationGeneration");
-        loadedDep = true;
-    }
-}
-
-int HelptoolsModule::Load()
-{
-    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"buildDoc", &sci_buildDoc, &HelptoolsModule::LoadDeps, MODULE_NAME));
-    symbol::Context::getInstance()->AddFunction(types::Function::createFunction(L"buildDocv2", &sci_buildDocv2, &HelptoolsModule::LoadDeps, MODULE_NAME));
-    return 1;
-}
