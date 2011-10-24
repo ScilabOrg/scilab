@@ -28,6 +28,16 @@ function main_builder()
     error(msprintf(gettext('%s module not installed."), 'modules_manager'));
   end
 
+
+  if ~isdir(toolbox_dir+filesep()+"images"+filesep()+"h5")
+      [status, msg] = mkdir(toolbox_dir+filesep()+"images"+filesep()+"h5");
+      if and(status <> [1 2])
+          disp("Fail to create "+toolbox_dir+filesep()+"images"+filesep()+"h5");
+          disp(msg);
+          return;
+      end
+  end
+
 // Action
 // =============================================================================
 
