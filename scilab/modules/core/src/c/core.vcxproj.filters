@@ -17,9 +17,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="callDynamicGateway.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="callFunctionFromGateway.c">
       <Filter>Source Files</Filter>
     </ClCompile>

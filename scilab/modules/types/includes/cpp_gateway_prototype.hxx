@@ -16,6 +16,6 @@
 #include "types.hxx"
 #include "callable.hxx"
 
-#define CPP_GATEWAY_PROTOTYPE(__gateway__) extern "C" types::Callable::ReturnValue (__gateway__)(types::typed_list &in, int _iRetCount, types::typed_list &out)
+#define CPP_GATEWAY_PROTOTYPE(__gateway__, __export__) extern "C" __export__ types::Callable::ReturnValue (__gateway__)(types::typed_list &in, int _iRetCount, types::typed_list &out)
 
 #endif /* !__CPP_GATEWAY_PROTOTYPE_HXX__ */

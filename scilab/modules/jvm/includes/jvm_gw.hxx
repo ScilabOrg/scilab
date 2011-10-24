@@ -29,6 +29,6 @@ private :
 public :
   JVM_GW_IMPEXP static int Load();
 };
-CPP_GATEWAY_PROTOTYPE(sci_system_getproperty);
+CPP_GATEWAY_PROTOTYPE(sci_system_getproperty, JVM_GW_IMPEXP);
 
 #endif /* !__JVM_GW_HXX__ */

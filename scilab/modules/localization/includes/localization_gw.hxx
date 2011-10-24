@@ -30,10 +30,10 @@ private :
 public :
   LOCALIZATION_GW_IMPEXP static int Load();
 };
-CPP_GATEWAY_PROTOTYPE(sci_gettext);
-CPP_GATEWAY_PROTOTYPE(sci_setdefaultlanguage);
-CPP_GATEWAY_PROTOTYPE(sci_getdefaultlanguage);
-CPP_GATEWAY_PROTOTYPE(sci_setlanguage);
-CPP_GATEWAY_PROTOTYPE(sci_getlanguage);
+CPP_GATEWAY_PROTOTYPE(sci_gettext, LOCALIZATION_GW_IMPEXP);
+CPP_GATEWAY_PROTOTYPE(sci_setdefaultlanguage, LOCALIZATION_GW_IMPEXP);
+CPP_GATEWAY_PROTOTYPE(sci_getdefaultlanguage, LOCALIZATION_GW_IMPEXP);
+CPP_GATEWAY_PROTOTYPE(sci_setlanguage, LOCALIZATION_GW_IMPEXP);
+CPP_GATEWAY_PROTOTYPE(sci_getlanguage, LOCALIZATION_GW_IMPEXP);
 
 #endif /* !__LOCALIZATION_GW_HXX__ */
