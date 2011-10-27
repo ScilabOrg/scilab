@@ -349,6 +349,11 @@ Linear Algebra:
 * bug 9749 fixed - expm reported non convergence problem.
 
 
+Sparse Matrices:
+==============
+
+* Organized help pages into sub-sections.
+
 Documentation:
 ==============
 
