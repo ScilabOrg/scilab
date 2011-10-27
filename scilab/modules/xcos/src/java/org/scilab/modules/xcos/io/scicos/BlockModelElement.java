@@ -141,24 +141,28 @@ class BlockModelElement extends BlockPartsElement {
                 .get(CMD_PORT_INDEX);
 
         if (dataNbControlPort.getRealPart() != null) {
+            final int baseIndex = into.getChildCount();
+
             int nbControlPort = dataNbControlPort.getHeight();
             for (int i = 0; i < nbControlPort; i++) {
                 final BasicPort port = new ControlPort();
 
                 // do not use BasicPort#addPort() to avoid the view update
                 port.setOrdering(i + 1);
-                into.insert(port, i);
+                into.insert(port, baseIndex + i);
             }
         }
 
         if (dataNbCommandPort.getRealPart() != null) {
+            final int baseIndex = into.getChildCount();
+
             int nbCommandPort = dataNbCommandPort.getHeight();
             for (int i = 0; i < nbCommandPort; i++) {
                 final BasicPort port = new CommandPort();
 
                 // do not use BasicPort#addPort() to avoid the view update
                 port.setOrdering(i + 1);
-                into.insert(port, i);
+                into.insert(port, baseIndex + i);
             }
         }
     }
