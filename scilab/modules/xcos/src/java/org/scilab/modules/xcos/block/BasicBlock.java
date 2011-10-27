@@ -1200,12 +1200,16 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         Collections.sort(children, new Comparator<Object>() {
             @Override
             public int compare(Object o1, Object o2) {
+                final int o1Base = calcBaseIncrement(o1);
+                final int o2Base = calcBaseIncrement(o2);
+
+                int diff = o1Base - o2Base;
                 if (o1 instanceof BasicPort && o2 instanceof BasicPort) {
-                    return ((BasicPort) o1).getOrdering()
+                    diff = diff + ((BasicPort) o1).getOrdering()
                             - ((BasicPort) o2).getOrdering();
-                } else {
-                    return 0;
                 }
+
+                return diff;
             }
         });
 
@@ -1227,6 +1231,32 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         }
 
         return oldPorts;
+    }
+
+    /**
+     * Internal method to get a base index to compare with depending on the cell
+     * type.
+     * 
+     * @param cell
+     *            the cell
+     * @return the base index
+     */
+    private int calcBaseIncrement(Object cell) {
+        final int base;
+
+        if (cell instanceof InputPort) {
+            base = 0;
+        } else if (cell instanceof OutputPort) {
+            base = Integer.MAX_VALUE / 4;
+        } else if (cell instanceof ControlPort) {
+            base = Integer.MAX_VALUE / 2;
+        } else if (cell instanceof CommandPort) {
+            base = 3 * Integer.MAX_VALUE / 4;
+        } else {
+            base = Integer.MAX_VALUE;
+        }
+
+        return base;
     }
 
     /**

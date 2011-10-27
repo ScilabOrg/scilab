@@ -152,7 +152,7 @@ public class BlockElement extends AbstractElement<BasicBlock> {
 
             // do not use BasicPort#addPort() to avoid the view update
             port.setOrdering(i + 1);
-            block.insert(port, i);
+            block.insert(port, numberOfInputPorts + i);
         }
 
         /*
@@ -405,6 +405,7 @@ public class BlockElement extends AbstractElement<BasicBlock> {
         final OutputPortElement outElement = new OutputPortElement(data);
         final int numberOfPorts = from.getChildCount();
 
+        // assume the children are sorted by type
         for (int i = 0; i < numberOfPorts; i++) {
             final Object instance = from.getChildAt(i);
 
