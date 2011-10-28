@@ -1,0 +1,8 @@
+<package name="Test">
+
+  <object name="ScilabVariablesHandlerTest">
+    <method name="startTest" returnType="int" modifier="static" />
+    <method name="endTest" returnType="void" modifier="static" />
+    <method name="getTestResult" returnType="String" modifier="static" />
+  </object>
+</package>

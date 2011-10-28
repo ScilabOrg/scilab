@@ -1,0 +1,1 @@
+<project><target name="compile"><javac srcdir="/home/calixte/git/tmp/scilab/scilab/modules/types/tests/utilities/" destdir="/home/calixte/git/tmp/scilab/scilab/modules/types/tests/utilities/" classpath="/home/calixte/git/tmp/scilab/scilab/modules/types/jar/org.scilab.modules.types.jar" /></target></project>
