@@ -371,15 +371,15 @@ public class ScicosParametersElement extends AbstractElement<ScicosParameters> {
          * fill the tol field
          */
         int field = 0;
-        final double[][] tolField = new double[1][TOL_SIZE];
+        final double[][] tolField = new double[TOL_SIZE][1];
 
-        tolField[0][field++] = from.getIntegratorAbsoluteTolerance();
-        tolField[0][field++] = from.getIntegratorRelativeTolerance();
-        tolField[0][field++] = from.getToleranceOnTime();
-        tolField[0][field++] = from.getMaxIntegrationTimeInterval();
-        tolField[0][field++] = from.getRealTimeScaling();
-        tolField[0][field++] = from.getSolver();
-        tolField[0][field++] = from.getMaximumStepSize();
+        tolField[field++][0] = from.getIntegratorAbsoluteTolerance();
+        tolField[field++][0] = from.getIntegratorRelativeTolerance();
+        tolField[field++][0] = from.getToleranceOnTime();
+        tolField[field++][0] = from.getMaxIntegrationTimeInterval();
+        tolField[field++][0] = from.getRealTimeScaling();
+        tolField[field++][0] = from.getSolver();
+        tolField[field++][0] = from.getMaximumStepSize();
 
         assert field == TOL_SIZE;
 
@@ -394,7 +394,12 @@ public class ScicosParametersElement extends AbstractElement<ScicosParameters> {
         /*
          * fill the context
          */
-        data.set(CONTEXT_INDEX, new ScilabString(from.getContext()));
+        String[] realCtx = from.getContext();
+        String[][] ctx = new String[realCtx.length][];
+        for (int i = 0; i < ctx.length; i++) {
+            ctx[i] = new String[] { realCtx[i] };
+        }
+        data.set(CONTEXT_INDEX, new ScilabString(ctx));
 
         data = (ScilabTList) afterEncode(from, data);
 
