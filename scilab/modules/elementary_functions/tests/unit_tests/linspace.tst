@@ -39,3 +39,8 @@ if linspace(10,1,1)<>1 then pause; end
 if linspace(10,1,-1)<>1 then pause; end
 if linspace(10,1,0)<>1 then pause; end
 
+// Vector input
+assert_checkequal(size(linspace([0;2],[2;5],5)),[2,5]);
+assert_checkequal(size(linspace([0;2],[2;5],2)),[2,2]);
+assert_checkequal(linspace([0;2],[2;5],2),[0,2;2,5]);
+assert_checkalmostequal(linspace([-1;2],[2;6],6), [-1,-0.4,0.2,0.8,1.4,2; 2,2.8,3.6,4.4,5.2,6]);
