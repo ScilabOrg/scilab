@@ -600,6 +600,8 @@ Misc:
 
 * sprintf moved as alias on msprintf function.
 
+* bug 9929 fixed - improve integration with Gnome shell and Unity.
+
 
 Bug fixes:
 ==========
