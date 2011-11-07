@@ -17,12 +17,14 @@ import java.awt.event.KeyEvent;
 
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.gui.menuitem.MenuItem;
-import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
  * Set the text of a link.
+ * 
+ * @deprecated since 5.4.0
  */
+@Deprecated
 public class TextAction extends StyleAction {
     /** Name of the action */
     public static final String NAME = XcosMessages.EDIT;
@@ -61,11 +63,11 @@ public class TextAction extends StyleAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        BasicLink[] links = getLinks();
+        final ScilabGraph graph = getGraph(e);
+        final Object[] links = graph.getAllEdges(graph.getSelectionCells());
 
         if (links.length == 1) {
-            BasicLink link = links[0];
-            getGraph(e).getAsComponent().startEditingAtCell(link, e);
+            graph.getAsComponent().startEditingAtCell(links[0], e);
         }
     }
 
