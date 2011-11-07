@@ -16,6 +16,7 @@ import java.awt.MouseInfo;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.scilab.modules.graph.ScilabGraph;
@@ -31,17 +32,10 @@ import org.scilab.modules.xcos.block.actions.BorderColorAction;
 import org.scilab.modules.xcos.link.actions.StyleHorizontalAction;
 import org.scilab.modules.xcos.link.actions.StyleStraightAction;
 import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
-import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
-import org.scilab.modules.xcos.link.explicit.ExplicitLink;
-import org.scilab.modules.xcos.link.implicit.ImplicitLink;
-import org.scilab.modules.xcos.port.BasicPort;
-import org.scilab.modules.xcos.port.BasicPort.Type;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxRectangle;
 
 /**
  * Root base class for links.
@@ -50,9 +44,6 @@ import com.mxgraph.util.mxRectangle;
  */
 // CSOFF: ClassDataAbstractionCoupling
 public abstract class BasicLink extends ScilabGraphUniqueObject {
-    private static final mxGeometry DEFAULT_GEOMETRY = new mxGeometry(0, 0, 80,
-            80);
-    private static final int DETECTION_RECTANGLE_DIMENSION = 10;
     private transient int ordering;
 
     /**
@@ -94,11 +85,6 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         if (index < getGeometry().getPoints().size()) {
             getGeometry().getPoints().remove(index);
         }
-    }
-
-    /** Remove all the points */
-    private void removePoints() {
-        getGeometry().setPoints(new ArrayList<mxPoint>());
     }
 
     /**
@@ -203,76 +189,6 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         return findPos;
     }
 
-    /**
-     * Add a point at the position
-     * 
-     * @param x
-     *            X coordinate
-     * @param y
-     *            Y coordinate
-     */
-    public void addPoint(double x, double y) {
-        mxPoint point = new mxPoint(x, y);
-        if (getGeometry().getPoints() == null) {
-            getGeometry().setPoints(new ArrayList<mxPoint>());
-        }
-        getGeometry().getPoints().add(point);
-    }
-
-    /**
-     * Insert point on the nearest link
-     * 
-     * @param point
-     *            the point to add
-     */
-    public void insertPoint(mxPoint point) {
-
-        // if it is a loop link, change coordinate origin to block instead of
-        // diagram
-        if (isLoopLink()) {
-            mxGeometry geo = getSource().getParent().getGeometry();
-            point.setX(point.getX() - geo.getX());
-            point.setY(point.getY() - geo.getY());
-        }
-
-        if (getGeometry() == null) {
-            setGeometry(DEFAULT_GEOMETRY);
-        }
-
-        if (getGeometry().getPoints() == null) {
-            getGeometry().setPoints(new ArrayList<mxPoint>());
-            getGeometry().getPoints().add(point);
-        } else {
-            // check to delete an old point before try to insert
-            for (int i = 0; i < getGeometry().getPoints().size(); i++) {
-                mxPoint oldPoint = getGeometry().getPoints().get(i);
-                mxRectangle rect = new mxRectangle(oldPoint.getX()
-                        - (DETECTION_RECTANGLE_DIMENSION / 2), oldPoint.getY()
-                        - (DETECTION_RECTANGLE_DIMENSION / 2),
-                        DETECTION_RECTANGLE_DIMENSION,
-                        DETECTION_RECTANGLE_DIMENSION);
-                if (rect.contains(point.getX(), point.getY())) {
-                    getGeometry().getPoints().remove(i);
-                    return;
-                }
-            }
-
-            int insertPos = findNearestSegment(point);
-            getGeometry().getPoints().add(insertPos, point);
-        }
-    }
-
-    /** @return True if the link is on the same block, false otherwise */
-    private boolean isLoopLink() {
-        if (getSource() != null && getTarget() != null) {
-            if (getSource().getParent() == getParent()
-                    && getTarget().getParent() == getParent()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /** @return The scicos color and type values */
     public abstract double[][] getColorAndType();
 
@@ -311,43 +227,6 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         menu.setVisible(true);
     }
 
-    /**
-     * Create a typed link
-     * 
-     * @param from
-     *            The source
-     * @param to
-     *            The target
-     * @return The new link
-     * @deprecated Prefer using
-     *             {@link org.scilab.modules.xcos.graph.XcosDiagram#createEdge(Object, String, Object, Object, Object, String)}
-     */
-    @Deprecated
-    public static BasicLink createLinkFromPorts(BasicPort from, BasicPort to) {
-        // Pre-conditions
-        if (to == null || from == null) {
-            throw new NullPointerException();
-        }
-
-        BasicLink instance;
-
-        boolean isFromImplicit = (from.getType() == Type.IMPLICIT);
-        boolean isToImplicit = (to.getType() == Type.IMPLICIT);
-
-        boolean isFromExplicit = (from.getType() == Type.EXPLICIT);
-        boolean isToExplicit = (to.getType() == Type.EXPLICIT);
-
-        if (isFromImplicit && isToImplicit) {
-            instance = new ImplicitLink();
-        } else if (isFromExplicit && isToExplicit) {
-            instance = new ExplicitLink();
-        } else {
-            instance = new CommandControlLink();
-        }
-
-        return instance;
-    }
-
     /** Invert the source and target of the link */
     public void invertDirection() {
         // invert source and destination and all points.
@@ -359,10 +238,7 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         setTarget(linkSource);
 
         if (points != null) {
-            removePoints();
-            for (int i = points.size() - 1; i >= 0; i--) {
-                addPoint(points.get(i).getX(), points.get(i).getY());
-            }
+            Collections.reverse(points);
         }
     }
 
@@ -388,18 +264,37 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         final StringBuilder str = new StringBuilder();
         final String linkSep = " -> ";
 
-        str.append(source);
-
-        str.append(linkSep);
         if (getChildCount() > 0) {
             // append the label
             str.append(getChildAt(0).getValue());
         } else {
             str.append(getClass().getSimpleName());
         }
+        str.append(": ");
+
+        str.append(source);
         str.append(linkSep);
 
+        List<mxPoint> points = getGeometry().getPoints();
+        if (points != null) {
+            for (mxPoint p : points) {
+                str.append("[" + p.getX() + ", " + p.getY() + "]");
+                str.append(linkSep);
+            }
+        }
+
         str.append(target);
+        return str.toString();
+    }
+
+    /**
+     * @return the tooltip text
+     */
+    public String getToolTipText() {
+        final StringBuilder str = new StringBuilder();
+
+        str.append(getStyle()).append("\n");
+        str.append(getGeometry().getPoints()).append("\n");
 
         return str.toString();
     }

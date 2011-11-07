@@ -177,31 +177,36 @@ public class GraphHandler extends mxGraphHandler {
      *            the link
      */
     private void clickOnLink(MouseEvent e, BasicLink cell) {
-        // getting the point list
-        List<mxPoint> points = graphComponent.getGraph().getCellGeometry(cell)
-                .getPoints();
-        if (points == null) {
-            points = new ArrayList<mxPoint>();
-            cell.getGeometry().setPoints(points);
-        }
-
-        // get the point
-        final mxPoint pt = graphComponent.getPointForEvent(e);
-
-        // translate the point if it is a loop link
-        if (cell.getSource() != null && cell.getTarget() != null
-                && cell.getSource().getParent() == cell.getTarget().getParent()
-                && cell.getSource().getParent() != null) {
-            final mxGeometry parent = cell.getSource().getParent()
-                    .getGeometry();
-            pt.setX(pt.getX() - parent.getX());
-            pt.setY(pt.getY() - parent.getY());
-        }
-
-        // add or remove the point to the list and fire event
         final mxIGraphModel model = graphComponent.getGraph().getModel();
         model.beginUpdate();
         try {
+
+            // getting the point list
+            List<mxPoint> points = graphComponent.getGraph()
+                    .getCellGeometry(cell).getPoints();
+            if (points == null) {
+                points = new ArrayList<mxPoint>();
+                cell.getGeometry().setPoints(points);
+            }
+
+            // get the point
+            final mxPoint pt = graphComponent.getPointForEvent(e);
+
+            // translate the point if it is a loop link
+            if (cell.getSource() != null
+                    && cell.getTarget() != null
+                    && cell.getSource().getParent() == cell.getTarget()
+                            .getParent()
+                    && cell.getSource().getParent() != null) {
+                final mxGeometry parent = cell.getSource().getParent()
+                        .getGeometry();
+                pt.setX(pt.getX() - parent.getX());
+                pt.setY(pt.getY() - parent.getY());
+            }
+
+            // change link style if horizontal
+
+            // add or remove the point to the list and fire event
             final int index = cell.findNearestSegment(pt);
             if (index < points.size()
                     && points.get(index).getPoint().distanceSq(pt.getPoint()) == 0) {
@@ -210,6 +215,7 @@ public class GraphHandler extends mxGraphHandler {
                 points.add(index, pt);
             }
             model.setGeometry(cell, (mxGeometry) cell.getGeometry().clone());
+
         } finally {
             model.endUpdate();
         }

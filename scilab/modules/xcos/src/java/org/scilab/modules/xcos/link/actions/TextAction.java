@@ -22,7 +22,10 @@ import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
  * Set the text of a link.
+ * 
+ * @deprecated since 5.4.0
  */
+@Deprecated
 public class TextAction extends StyleAction {
     /** Name of the action */
     public static final String NAME = XcosMessages.EDIT;

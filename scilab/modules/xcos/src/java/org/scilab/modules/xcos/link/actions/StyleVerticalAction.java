@@ -61,14 +61,20 @@ public class StyleVerticalAction extends StyleAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        BasicLink[] links = getLinks();
+        final BasicLink[] links = getLinks();
+        final ScilabGraph graph = getGraph(e);
 
-        getGraph(e).setCellStyles(mxConstants.STYLE_NOEDGESTYLE, "0", links);
-        getGraph(e).setCellStyles(mxConstants.STYLE_EDGE,
-                mxConstants.EDGESTYLE_ELBOW, links);
-        getGraph(e).setCellStyles(mxConstants.STYLE_ELBOW,
-                mxConstants.ELBOW_VERTICAL, links);
+        graph.getModel().beginUpdate();
+        try {
+            graph.setCellStyles(mxConstants.STYLE_NOEDGESTYLE, "0", links);
+            graph.setCellStyles(mxConstants.STYLE_EDGE,
+                    mxConstants.EDGESTYLE_ELBOW, links);
+            graph.setCellStyles(mxConstants.STYLE_ELBOW,
+                    mxConstants.ELBOW_VERTICAL, links);
 
-        removePointsOnLinks(links);
+            removePointsOnLinks(links);
+        } finally {
+            graph.getModel().endUpdate();
+        }
     }
 }

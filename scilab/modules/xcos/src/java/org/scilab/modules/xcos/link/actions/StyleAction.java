@@ -20,6 +20,9 @@ import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.xcos.link.BasicLink;
 
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxIGraphModel;
+
 /**
  * base class for changing the link style
  */
@@ -42,7 +45,7 @@ public abstract class StyleAction extends DefaultAction {
      */
     protected BasicLink[] getLinks() {
         Object[] cells = getGraph(null).getSelectionModel().getCells();
-        List<BasicLink> links = new ArrayList<BasicLink>(cells.length);
+        List<BasicLink> links = new ArrayList<BasicLink>();
 
         for (Object object : cells) {
             if (object instanceof BasicLink) {
@@ -60,13 +63,18 @@ public abstract class StyleAction extends DefaultAction {
      *            the links to work on
      */
     protected void removePointsOnLinks(BasicLink[] links) {
-        getGraph(null).getModel().beginUpdate();
-        for (BasicLink link : links) {
-            int numberOfPoints = link.getPointCount();
-            for (int j = numberOfPoints - 1; j >= 0; j--) {
-                link.removePoint(j);
+        final mxIGraphModel model = getGraph(null).getModel();
+
+        model.beginUpdate();
+        try {
+            for (BasicLink link : links) {
+                final mxGeometry geo = link.getGeometry();
+                geo.setPoints(null);
+
+                model.setGeometry(link, (mxGeometry) geo.clone());
             }
+        } finally {
+            model.endUpdate();
         }
-        getGraph(null).getModel().endUpdate();
     }
 }
