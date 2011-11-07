@@ -61,10 +61,15 @@ public class StyleStraightAction extends StyleAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        BasicLink[] links = getLinks();
+        final BasicLink[] links = getLinks();
+        final ScilabGraph graph = getGraph(e);
 
-        getGraph(e).setCellStyles(mxConstants.STYLE_NOEDGESTYLE, "1", links);
-
-        removePointsOnLinks(links);
+        graph.getModel().beginUpdate();
+        try {
+            graph.setCellStyles(mxConstants.STYLE_NOEDGESTYLE, "1", links);
+            removePointsOnLinks(links);
+        } finally {
+            graph.getModel().endUpdate();
+        }
     }
 }
