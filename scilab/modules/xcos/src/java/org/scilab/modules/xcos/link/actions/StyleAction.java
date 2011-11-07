@@ -42,7 +42,7 @@ public abstract class StyleAction extends DefaultAction {
      */
     protected BasicLink[] getLinks() {
         Object[] cells = getGraph(null).getSelectionModel().getCells();
-        List<BasicLink> links = new ArrayList<BasicLink>(cells.length);
+        List<BasicLink> links = new ArrayList<BasicLink>();
 
         for (Object object : cells) {
             if (object instanceof BasicLink) {
@@ -53,20 +53,11 @@ public abstract class StyleAction extends DefaultAction {
         return links.toArray(new BasicLink[links.size()]);
     }
 
-    /**
-     * Remove all point on the links
-     * 
-     * @param links
-     *            the links to work on
-     */
-    protected void removePointsOnLinks(BasicLink[] links) {
-        getGraph(null).getModel().beginUpdate();
-        for (BasicLink link : links) {
-            int numberOfPoints = link.getPointCount();
-            for (int j = numberOfPoints - 1; j >= 0; j--) {
-                link.removePoint(j);
-            }
+    protected void reset(final ScilabGraph graph, final Object[] edges) {
+        for (Object edge : edges) {
+            graph.resetEdge(edge);
         }
-        getGraph(null).getModel().endUpdate();
+
+        graph.getSelectionModel().setCells(edges);
     }
 }
