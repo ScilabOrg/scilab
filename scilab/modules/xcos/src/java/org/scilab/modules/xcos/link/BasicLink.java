@@ -14,8 +14,8 @@ package org.scilab.modules.xcos.link;
 
 import java.awt.MouseInfo;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.scilab.modules.graph.ScilabGraph;
@@ -31,17 +31,10 @@ import org.scilab.modules.xcos.block.actions.BorderColorAction;
 import org.scilab.modules.xcos.link.actions.StyleHorizontalAction;
 import org.scilab.modules.xcos.link.actions.StyleStraightAction;
 import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
-import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
-import org.scilab.modules.xcos.link.explicit.ExplicitLink;
-import org.scilab.modules.xcos.link.implicit.ImplicitLink;
-import org.scilab.modules.xcos.port.BasicPort;
-import org.scilab.modules.xcos.port.BasicPort.Type;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
-import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.util.mxPoint;
-import com.mxgraph.util.mxRectangle;
 
 /**
  * Root base class for links.
@@ -50,9 +43,6 @@ import com.mxgraph.util.mxRectangle;
  */
 // CSOFF: ClassDataAbstractionCoupling
 public abstract class BasicLink extends ScilabGraphUniqueObject {
-    private static final mxGeometry DEFAULT_GEOMETRY = new mxGeometry(0, 0, 80,
-            80);
-    private static final int DETECTION_RECTANGLE_DIMENSION = 10;
     private transient int ordering;
 
     /**
@@ -96,41 +86,6 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         }
     }
 
-    /** Remove all the points */
-    private void removePoints() {
-        getGeometry().setPoints(new ArrayList<mxPoint>());
-    }
-
-    /**
-     * Get all the points
-     * 
-     * @param index
-     *            the start index
-     * @param fromStart
-     *            if true, get the 0 - index range; get the index - max range
-     *            otherwise
-     * @return The points
-     */
-    public List<mxPoint> getPoints(int index, boolean fromStart) {
-
-        if (getGeometry() == null || getGeometry().getPoints() == null) {
-            return new ArrayList<mxPoint>();
-        }
-
-        final List<mxPoint> points = getGeometry().getPoints();
-        if (fromStart) {
-            return new ArrayList<mxPoint>(points.subList(0,
-                    Math.min(points.size(), index)));
-        } else {
-            if (index < points.size()) {
-                return new ArrayList<mxPoint>(points.subList(index,
-                        points.size()));
-            } else {
-                return new ArrayList<mxPoint>();
-            }
-        }
-    }
-
     /** @return the number of points in this link */
     public int getPointCount() {
         if (getGeometry() == null || getGeometry().getPoints() == null) {
@@ -140,137 +95,63 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
     }
 
     /**
-     * Find the nearest link point of the point
+     * Split the link points into a before and after collections
      * 
-     * @param point
-     *            The base point
-     * @return the nearest point index in the point list.
+     * @param split
+     *            the split point
+     * @param before
+     *            all points before
+     * @param after
+     *            all points at and after the split
      */
-    public int findNearestSegment(mxPoint point) {
-
+    public void splitPoints(mxPoint split, List<mxPoint> before,
+            List<mxPoint> after) {
         if (getGeometry() == null || getGeometry().getPoints() == null) {
-            return 0;
+            return;
         }
 
-        double startX = (getSource().getParent().getGeometry().getX() + getSource()
-                .getGeometry().getX());
-        double startY = (getSource().getParent().getGeometry().getY() + getSource()
-                .getGeometry().getY());
+        final mxPoint start = new mxPoint(getSource().getParent().getGeometry()
+                .getX()
+                + getSource().getGeometry().getX(), getSource().getParent()
+                .getGeometry().getY()
+                + getSource().getGeometry().getY());
+        final mxPoint end = new mxPoint(getTarget().getParent().getGeometry()
+                .getX()
+                + getTarget().getGeometry().getX(), getTarget().getParent()
+                .getGeometry().getY()
+                + getTarget().getGeometry().getY());
 
-        double endX = (getTarget().getParent().getGeometry().getX() + getTarget()
-                .getGeometry().getX());
-        double endY = (getTarget().getParent().getGeometry().getY() + getTarget()
-                .getGeometry().getY());
+        final ArrayList<mxPoint> work = new ArrayList<mxPoint>();
+        work.add(start);
+        work.addAll(getGeometry().getPoints());
+        work.add(end);
 
-        double saveDist = -1;
-        int findPos = 0;
+        double minDist = Double.MAX_VALUE;
+        int minDistIndex = 0;
+        for (int i = 1; i < work.size(); i++) {
+            final mxPoint p1 = work.get(i - 1);
+            final mxPoint p2 = work.get(i);
 
-        for (int i = 0; i < getGeometry().getPoints().size() + 1; i++) {
-            Point2D.Double point1 = null;
-            Point2D.Double point2 = null;
+            final double ptSegDistSq = Line2D.ptSegDistSq(p1.getX(), p1.getY(),
+                    p2.getX(), p2.getY(), split.getX(), split.getY());
 
-            if (i == 0) { // first block
-                point1 = new Point2D.Double(startX, startY);
-            } else {
-                point1 = new Point2D.Double(
-                        (int) (getGeometry().getPoints().get(i - 1)).getX(),
-                        (int) (getGeometry().getPoints().get(i - 1)).getY());
-            }
-
-            if (i == getGeometry().getPoints().size()) {
-                point2 = new Point2D.Double(endX, endY);
-            } else {
-                point2 = new Point2D.Double(
-                        (int) (getGeometry().getPoints().get(i)).getX(),
-                        (int) (getGeometry().getPoints().get(i)).getY());
-            }
-
-            Point2D.Double addPoint = new Point2D.Double(point.getX(),
-                    point.getY());
-            Line2D.Double line = new Line2D.Double(point1, point2);
-
-            if (saveDist == -1) {
-                saveDist = line.ptSegDist(addPoint);
-                findPos = i;
-            } else {
-                double dist = line.ptSegDist(addPoint);
-                if (dist < saveDist) {
-                    saveDist = dist;
-                    findPos = i;
-                }
+            if (ptSegDistSq < minDist) {
+                minDist = ptSegDistSq;
+                minDistIndex = i - 1;
             }
         }
-        return findPos;
-    }
 
-    /**
-     * Add a point at the position
-     * 
-     * @param x
-     *            X coordinate
-     * @param y
-     *            Y coordinate
-     */
-    public void addPoint(double x, double y) {
-        mxPoint point = new mxPoint(x, y);
-        if (getGeometry().getPoints() == null) {
-            getGeometry().setPoints(new ArrayList<mxPoint>());
-        }
-        getGeometry().getPoints().add(point);
-    }
-
-    /**
-     * Insert point on the nearest link
-     * 
-     * @param point
-     *            the point to add
-     */
-    public void insertPoint(mxPoint point) {
-
-        // if it is a loop link, change coordinate origin to block instead of
-        // diagram
-        if (isLoopLink()) {
-            mxGeometry geo = getSource().getParent().getGeometry();
-            point.setX(point.getX() - geo.getX());
-            point.setY(point.getY() - geo.getY());
-        }
-
-        if (getGeometry() == null) {
-            setGeometry(DEFAULT_GEOMETRY);
-        }
-
-        if (getGeometry().getPoints() == null) {
-            getGeometry().setPoints(new ArrayList<mxPoint>());
-            getGeometry().getPoints().add(point);
+        if (minDistIndex <= 0) {
+            // first segment
+            after.addAll(getGeometry().getPoints());
+        } else if (minDistIndex >= work.size() - 2) {
+            // last segment
+            before.addAll(getGeometry().getPoints());
         } else {
-            // check to delete an old point before try to insert
-            for (int i = 0; i < getGeometry().getPoints().size(); i++) {
-                mxPoint oldPoint = getGeometry().getPoints().get(i);
-                mxRectangle rect = new mxRectangle(oldPoint.getX()
-                        - (DETECTION_RECTANGLE_DIMENSION / 2), oldPoint.getY()
-                        - (DETECTION_RECTANGLE_DIMENSION / 2),
-                        DETECTION_RECTANGLE_DIMENSION,
-                        DETECTION_RECTANGLE_DIMENSION);
-                if (rect.contains(point.getX(), point.getY())) {
-                    getGeometry().getPoints().remove(i);
-                    return;
-                }
-            }
-
-            int insertPos = findNearestSegment(point);
-            getGeometry().getPoints().add(insertPos, point);
+            // between two points
+            before.addAll(work.subList(1, minDistIndex + 1));
+            after.addAll(work.subList(minDistIndex + 1, work.size() - 1));
         }
-    }
-
-    /** @return True if the link is on the same block, false otherwise */
-    private boolean isLoopLink() {
-        if (getSource() != null && getTarget() != null) {
-            if (getSource().getParent() == getParent()
-                    && getTarget().getParent() == getParent()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /** @return The scicos color and type values */
@@ -311,43 +192,6 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         menu.setVisible(true);
     }
 
-    /**
-     * Create a typed link
-     * 
-     * @param from
-     *            The source
-     * @param to
-     *            The target
-     * @return The new link
-     * @deprecated Prefer using
-     *             {@link org.scilab.modules.xcos.graph.XcosDiagram#createEdge(Object, String, Object, Object, Object, String)}
-     */
-    @Deprecated
-    public static BasicLink createLinkFromPorts(BasicPort from, BasicPort to) {
-        // Pre-conditions
-        if (to == null || from == null) {
-            throw new NullPointerException();
-        }
-
-        BasicLink instance;
-
-        boolean isFromImplicit = (from.getType() == Type.IMPLICIT);
-        boolean isToImplicit = (to.getType() == Type.IMPLICIT);
-
-        boolean isFromExplicit = (from.getType() == Type.EXPLICIT);
-        boolean isToExplicit = (to.getType() == Type.EXPLICIT);
-
-        if (isFromImplicit && isToImplicit) {
-            instance = new ImplicitLink();
-        } else if (isFromExplicit && isToExplicit) {
-            instance = new ExplicitLink();
-        } else {
-            instance = new CommandControlLink();
-        }
-
-        return instance;
-    }
-
     /** Invert the source and target of the link */
     public void invertDirection() {
         // invert source and destination and all points.
@@ -359,10 +203,7 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         setTarget(linkSource);
 
         if (points != null) {
-            removePoints();
-            for (int i = points.size() - 1; i >= 0; i--) {
-                addPoint(points.get(i).getX(), points.get(i).getY());
-            }
+            Collections.reverse(points);
         }
     }
 
@@ -388,19 +229,26 @@ public abstract class BasicLink extends ScilabGraphUniqueObject {
         final StringBuilder str = new StringBuilder();
         final String linkSep = " -> ";
 
-        str.append(source);
-
-        str.append(linkSep);
         if (getChildCount() > 0) {
             // append the label
             str.append(getChildAt(0).getValue());
         } else {
             str.append(getClass().getSimpleName());
         }
+        str.append(": ");
+
+        str.append(source);
         str.append(linkSep);
 
-        str.append(target);
+        List<mxPoint> points = getGeometry().getPoints();
+        if (points != null) {
+            for (mxPoint p : points) {
+                str.append("[" + p.getX() + ", " + p.getY() + "]");
+                str.append(linkSep);
+            }
+        }
 
+        str.append(target);
         return str.toString();
     }
 }

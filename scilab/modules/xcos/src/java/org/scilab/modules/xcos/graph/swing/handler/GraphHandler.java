@@ -202,13 +202,33 @@ public class GraphHandler extends mxGraphHandler {
         final mxIGraphModel model = graphComponent.getGraph().getModel();
         model.beginUpdate();
         try {
-            final int index = cell.findNearestSegment(pt);
-            if (index < points.size()
-                    && points.get(index).getPoint().distanceSq(pt.getPoint()) == 0) {
-                points.remove(index);
+            List<mxPoint> before = new ArrayList<mxPoint>(points.size());
+            List<mxPoint> after = new ArrayList<mxPoint>(points.size());
+            cell.splitPoints(pt, before, after);
+
+            // first remove all points
+            points.clear();
+
+            //
+            if (after.size() > 0) {
+                final double x = after.get(0).getX();
+                final double y = after.get(0).getY();
+
+                if (!graphComponent.isSignificant(x - pt.getX(), y - pt.getY())) {
+                    // at the point of a segment, remove it
+                    after.remove(0);
+                } else {
+                    // not at the point of a segment, add it to the list
+                    before.add(pt);
+                }
             } else {
-                points.add(index, pt);
+                // on the last segment, add it to the list
+                after.add(pt);
             }
+
+            points.addAll(before);
+            points.addAll(after);
+
             model.setGeometry(cell, (mxGeometry) cell.getGeometry().clone());
         } finally {
             model.endUpdate();
