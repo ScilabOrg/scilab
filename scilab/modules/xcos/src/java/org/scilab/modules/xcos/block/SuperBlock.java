@@ -14,7 +14,8 @@ package org.scilab.modules.xcos.block;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -412,48 +413,34 @@ public final class SuperBlock extends BasicBlock {
     }
 
     /**
+     * Sort the blocks per first integer parameter value
+     * 
      * @param blocks
-     *            in/output blocks
-     * @return greater block value
+     *            the block list
      */
-    protected int getBlocksConsecutiveUniqueValueCount(
-            List<? extends BasicBlock> blocks) {
-        if (blocks == null) {
-            return 0;
-        }
+    private void iparSort(List<? extends BasicBlock> blocks) {
+        Collections.sort(blocks, new Comparator<BasicBlock>() {
 
-        int count = blocks.size();
-        int[] array = new int[blocks.size()];
+            @Override
+            public int compare(BasicBlock o1, BasicBlock o2) {
+                final ScilabDouble data1 = (ScilabDouble) o1
+                        .getIntegerParameters();
+                final ScilabDouble data2 = (ScilabDouble) o2
+                        .getIntegerParameters();
 
-        // initialize
-        for (int i = 0; i < array.length; i++) {
-            array[i] = 0;
-        }
+                int value1 = 0;
+                int value2 = 0;
 
-        // populate
-        for (int i = 0; i < array.length; i++) {
-            final ScilabDouble data = (ScilabDouble) ((BasicBlock) blocks
-                    .get(i)).getIntegerParameters();
+                if (data1.getWidth() >= 1 && data1.getHeight() >= 1) {
+                    value1 = (int) data1.getRealPart()[0][0];
+                }
+                if (data2.getWidth() >= 1 && data2.getHeight() >= 1) {
+                    value2 = (int) data2.getRealPart()[0][0];
+                }
 
-            if (data.getWidth() < 1 || data.getHeight() < 1) {
-                continue;
+                return value1 - value2;
             }
-            final int index = (int) data.getRealPart()[0][0];
-
-            if (index <= array.length) {
-                array[index - 1] = 1;
-            }
-        }
-
-        // parse
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == 0) {
-                count = i;
-                break;
-            }
-        }
-
-        return count;
+        });
     }
 
     /**
@@ -469,7 +456,7 @@ public final class SuperBlock extends BasicBlock {
         updateBlocksColor(getAllTypedBlock(EventInBlock.class));
         updateBlocksColor(getAllTypedBlock(EventOutBlock.class));
 
-        child.getAsComponent().validate();
+        child.getAsComponent().updateComponents();
         child.getView().validate();
     }
 
@@ -485,32 +472,28 @@ public final class SuperBlock extends BasicBlock {
                 return;
             }
 
-            final int countUnique = getBlocksConsecutiveUniqueValueCount(blocks);
-            boolean[] isDone = new boolean[countUnique];
+            iparSort(blocks);
 
-            // Initialize
-            Arrays.fill(isDone, false);
-
-            for (int i = 0; i < blocks.size(); i++) {
-                final ScilabDouble data = (ScilabDouble) ((BasicBlock) blocks
-                        .get(i)).getIntegerParameters();
-
+            int previousValue = 0;
+            for (BasicBlock b : blocks) {
+                final ScilabDouble data = (ScilabDouble) b
+                        .getIntegerParameters();
                 if (data.getWidth() < 1 || data.getHeight() < 1) {
                     continue;
                 }
-                final int index = (int) data.getRealPart()[0][0];
+                final int value = (int) data.getRealPart()[0][0];
 
-                if (index > countUnique || isDone[index - 1]) {
-                    child.getAsComponent().setCellWarning(blocks.get(i),
-                            XcosMessages.WRONG_PORT_NUMBER);
-                    child.getView().invalidate(blocks.get(i));
+                if (value > previousValue) {
+                    // clear any previous warning
+                    child.getAsComponent().clearCellOverlays(b);
                 } else {
-                    isDone[index - 1] = true;
-                    child.getAsComponent().setCellWarning(blocks.get(i), null);
-                    child.getView().invalidate(blocks.get(i));
+                    // warn
+                    child.getAsComponent().setCellWarning(b,
+                            XcosMessages.WRONG_PORT_NUMBER);
                 }
-            }
 
+                previousValue = value;
+            }
         } finally {
             child.getModel().endUpdate();
         }
