@@ -192,6 +192,9 @@ Xcos:
 
 * bug 10096 fixed - Set [1;-1;] on a product block thrown an exception.
 
+* bug 10194 fixed - Horizontal or vertical link style was not preserved when
+                    adding a split edge. 
+
 
 Localization:
 =============
