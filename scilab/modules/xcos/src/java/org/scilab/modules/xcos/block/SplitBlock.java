@@ -54,7 +54,7 @@ public final class SplitBlock extends BasicBlock {
      * @param source
      *            the type of the split
      */
-    public void addConnection(BasicPort source) {
+    public void setupPorts(BasicPort source) {
         if (source.getType() == Type.EXPLICIT) {
             addPort(new ExplicitInputPort());
             addPort(new ExplicitOutputPort());
