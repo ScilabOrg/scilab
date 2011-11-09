@@ -46,6 +46,8 @@ namespace org_modules_xml
 
         void * getRealXMLPointer() const;
 
+        void remove() const;
+
         const XMLObject * getXMLObjectParent() const;
         const XMLObject * getListElement(int index);
     };

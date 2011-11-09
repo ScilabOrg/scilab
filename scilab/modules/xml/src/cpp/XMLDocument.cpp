@@ -143,11 +143,13 @@ namespace org_modules_xml
         xmlXPathCompExpr * expr = xmlXPathCtxtCompile(ctxt, (const xmlChar *)query);
         if (!expr)
         {
+            xmlSetStructuredErrorFunc(ctxt, 0);
             *error = *errorXPathBuffer;
             return 0;
         }
 
         xmlXPathObject * xpath = xmlXPathCompiledEval(expr, ctxt);
+        xmlSetStructuredErrorFunc(ctxt, 0);
         if (!xpath)
         {
             *error = *errorXPathBuffer;
@@ -268,7 +270,7 @@ namespace org_modules_xml
     xmlDoc * XMLDocument::readDocument(const char * filename, bool validate, std::string * error)
     {
         xmlParserCtxt * ctxt = initContext(error, validate);
-        xmlDoc * doc;
+        xmlDoc * doc = 0;
         int options = XML_PARSE_NSCLEAN;
 
         if (validate)
@@ -278,6 +280,7 @@ namespace org_modules_xml
 
         if (!ctxt)
         {
+            xmlSetGenericErrorFunc(ctxt, 0);
             return 0;
         }
 
@@ -296,7 +299,7 @@ namespace org_modules_xml
     xmlDoc * XMLDocument::readDocument(const std::string & xmlCode, bool validate, std::string * error)
     {
         xmlParserCtxt * ctxt = initContext(error, validate);
-        xmlDoc * doc;
+        xmlDoc * doc = 0;
         int options = XML_PARSE_NSCLEAN;
 
         if (validate)
@@ -306,6 +309,7 @@ namespace org_modules_xml
 
         if (!ctxt)
         {
+            xmlSetGenericErrorFunc(ctxt, 0);
             return 0;
         }
 

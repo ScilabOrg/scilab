@@ -42,6 +42,18 @@ namespace org_modules_xml
         return static_cast<void *>(parent->children);
     }
 
+    void XMLNodeList::remove() const
+    {
+        xmlNode * cur = parent->children;
+
+        while (cur)
+        {
+            xmlUnlinkNode(cur);
+            xmlFreeNode(cur);
+            cur = parent->children;
+        }
+    }
+
     const XMLObject * XMLNodeList::getXMLObjectParent() const
     {
         return &doc;
@@ -94,6 +106,7 @@ namespace org_modules_xml
                     parent->children = 0;
                 }
                 prevNode = parent->children;
+                scope->registerPointers(parent->children, this);
                 prev = 1;
             }
             else
