@@ -154,6 +154,8 @@ namespace org_modules_xml
             return 0;
         }
 
+        xmlSetStructuredErrorFunc(ctxt, 0);
+
         return new XMLXPath(*this, xpath);
     }
 
@@ -268,7 +270,7 @@ namespace org_modules_xml
     xmlDoc * XMLDocument::readDocument(const char * filename, bool validate, std::string * error)
     {
         xmlParserCtxt * ctxt = initContext(error, validate);
-        xmlDoc * doc;
+        xmlDoc * doc = 0;
         int options = XML_PARSE_NSCLEAN;
 
         if (validate)
@@ -296,7 +298,7 @@ namespace org_modules_xml
     xmlDoc * XMLDocument::readDocument(const std::string & xmlCode, bool validate, std::string * error)
     {
         xmlParserCtxt * ctxt = initContext(error, validate);
-        xmlDoc * doc;
+        xmlDoc * doc = 0;
         int options = XML_PARSE_NSCLEAN;
 
         if (validate)
