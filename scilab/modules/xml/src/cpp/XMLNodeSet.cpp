@@ -51,6 +51,16 @@ namespace org_modules_xml
         return static_cast<void *>(nodeSet);
     }
 
+    void XMLNodeSet::remove() const
+    {
+        for (int i = 0; i < size; i++)
+        {
+            xmlNode * node = nodeSet->nodeTab[i];
+            xmlUnlinkNode(node);
+            xmlFreeNode(node);
+        }
+    }
+
     const XMLObject * XMLNodeSet::getXMLObjectParent() const
     {
         return &doc;
