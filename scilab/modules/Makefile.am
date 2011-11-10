@@ -66,7 +66,6 @@ functions \
 overloading \
 maple2scilab \
 m2sci \
-texmacs \
 development_tools \
 compatibility_functions \
 helptools \
