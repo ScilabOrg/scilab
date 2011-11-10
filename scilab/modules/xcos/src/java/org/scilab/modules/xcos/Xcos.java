@@ -121,7 +121,7 @@ public final class Xcos {
         }
 
         /* Check the dependencies at startup time */
-        checkDependencies();
+        // checkDependencies();
 
         /*
          * Allocate synchronized communications data

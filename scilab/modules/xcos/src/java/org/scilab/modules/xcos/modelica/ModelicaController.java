@@ -110,9 +110,13 @@ public final class ModelicaController {
             public void stateChanged(ChangeEvent e) {
                 final ModelStatistics stats = (ModelStatistics) e.getSource();
 
-                // Validate equation >= (unknowns + discretes)
-                setValid(stats.getEquations() >= (stats.getUnknowns() + stats
-                        .getDiscreteStates()));
+                /*
+                 * Validate: equation >= (unknowns + discretes + inputs +
+                 * outputs)
+                 */
+                setValid(stats.getEquations() >= (stats.getUnknowns()
+                        + stats.getDiscreteStates() + stats.getInputs() + stats
+                        .getOutputs()));
             }
         });
 
@@ -122,10 +126,12 @@ public final class ModelicaController {
     /**
      * Show a dialog for a file
      * 
-     * @param f
-     *            the file
+     * @param init
+     *            the initialisation file
+     * @param relation
+     *            the relation file
      */
-    public static void showDialog(final File f) {
+    public static void showDialog(final File init, final File relation) {
         JDialog dialog = new JDialog();
         dialog.setTitle(ModelicaMessages.MODELICA_SETTINGS);
         dialog.setAlwaysOnTop(false);
@@ -134,7 +140,11 @@ public final class ModelicaController {
 
         ModelicaController controller;
         try {
-            controller = new ModelicaController(Modelica.getInstance().load(f));
+            final Model initModel = Modelica.getInstance().load(init);
+            final Model relationModel = Modelica.getInstance().load(relation);
+
+            controller = new ModelicaController(Modelica.getInstance().merge(
+                    initModel, relationModel));
             dialog.add(new MainPanel(controller));
 
             dialog.setVisible(true);
@@ -347,6 +357,8 @@ public final class ModelicaController {
             statistics.incDiscreteStates();
         } else if ("input".equals(kind)) {
             statistics.incInputs();
+        } else if ("output".equals(kind)) {
+            statistics.incOutputs();
         }
     }
 
