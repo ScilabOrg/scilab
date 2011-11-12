@@ -133,6 +133,8 @@ am__objects_3 = libscixml_algo_la-VariableScope.lo \
 am_libscixml_algo_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	$(am__objects_3)
 libscixml_algo_la_OBJECTS = $(am_libscixml_algo_la_OBJECTS)
+@MAINTAINER_MODE_FALSE@am_libscixml_algo_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscixml_algo_la_rpath =
 libscixml_la_DEPENDENCIES = libscixml-algo.la
 am__objects_4 = libscixml_la-gw_xml.lo
 am__objects_5 = libscixml_la-sci_xmlRead.lo \
@@ -164,6 +166,8 @@ libscixml_la_OBJECTS = $(am_libscixml_la_OBJECTS)
 libscixml_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(libscixml_la_LDFLAGS) $(LDFLAGS) -o $@
+@MAINTAINER_MODE_FALSE@am_libscixml_la_rpath =
+@MAINTAINER_MODE_TRUE@am_libscixml_la_rpath = -rpath $(pkglibdir)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -452,7 +456,7 @@ libscixml_la_root_DATA = license.txt
 #### scinotes : init scripts & configuration files ####
 libscixml_la_etcdir = $(mydatadir)/etc
 libscixml_la_etc_DATA = etc/xml.quit \
-				etc/xml.start
+                etc/xml.start
 
 
 # Where all the Scilab stuff is installed (macros, help, ...)
@@ -520,8 +524,8 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 XML_JNI_SOURCES = 
 XML_C_SOURCES = src/c/XMLMlistsManagement.c
 XML_CPP_SOURCES = src/cpp/VariableScope.cpp \
-		  src/cpp/XMLObject.cpp \
-		  src/cpp/XMLDocument.cpp \
+          src/cpp/XMLObject.cpp \
+          src/cpp/XMLDocument.cpp \
           src/cpp/XMLElement.cpp \
           src/cpp/XMLAttr.cpp \
           src/cpp/XMLNs.cpp \
@@ -531,50 +535,50 @@ XML_CPP_SOURCES = src/cpp/VariableScope.cpp \
           src/cpp/XMLList.cpp \
           src/cpp/XMLNotHandledElement.cpp \
           src/cpp/XMLValidation.cpp \
-		  src/cpp/XMLValidationDTD.cpp \
-		  src/cpp/XMLValidationSchema.cpp \
-		  src/cpp/XMLValidationRelaxNG.cpp
+          src/cpp/XMLValidationDTD.cpp \
+          src/cpp/XMLValidationSchema.cpp \
+          src/cpp/XMLValidationRelaxNG.cpp
 
 GATEWAY_C_SOURCES = sci_gateway/c/gw_xml.c
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_xmlRead.cpp \
               sci_gateway/cpp/sci_xmlXPath.cpp \
-		      sci_gateway/cpp/sci_extraction.cpp \
-		      sci_gateway/cpp/sci_insertion.cpp \
-		      sci_gateway/cpp/sci_print.cpp \
-		      sci_gateway/cpp/sci_xmlGetOpenStreams.cpp \
-		      sci_gateway/cpp/sci_xmlClose.cpp \
-		      sci_gateway/cpp/sci_xmlDump.cpp \
-		      sci_gateway/cpp/sci_xmlReadStr.cpp \
-		      sci_gateway/cpp/sci_xmlFormat.cpp \
-		      sci_gateway/cpp/sci_percent_XMLList_e.cpp \
-		      sci_gateway/cpp/sci_percent_XMLAttr_e.cpp \
-		      sci_gateway/cpp/sci_percent_XMLList_size.cpp \
-		      sci_gateway/cpp/sci_percent_XMLAttr_size.cpp \
-		      sci_gateway/cpp/sci_percent_XMLList_length.cpp \
-		      sci_gateway/cpp/sci_percent_XMLAttr_length.cpp \
-		      sci_gateway/cpp/sci_percent_c_i_XMLAttr.cpp \
-		      sci_gateway/cpp/sci_percent_s_i_XMLList.cpp \
-		      sci_gateway/cpp/sci_xmlElement.cpp \
-		      sci_gateway/cpp/sci_xmlDocument.cpp \
-		      sci_gateway/cpp/sci_xmlNs.cpp \
-		      sci_gateway/cpp/sci_xmlAddNs.cpp \
-		      sci_gateway/cpp/sci_xmlGetNsByHref.cpp \
-		      sci_gateway/cpp/sci_xmlGetNsByPrefix.cpp \
-		      sci_gateway/cpp/sci_xmlWrite.cpp \
-		      sci_gateway/cpp/sci_percent_foo_i_XMLList.cpp \
-		      sci_gateway/cpp/sci_xmlValidationFile.cpp \
-		      sci_gateway/cpp/sci_xmlValidate.cpp \
-		      sci_gateway/cpp/sci_xmlIsValidObject.cpp \
-		      sci_gateway/cpp/sci_xmlAsNumber.cpp \
-		      sci_gateway/cpp/sci_xmlAsText.cpp
+              sci_gateway/cpp/sci_extraction.cpp \
+              sci_gateway/cpp/sci_insertion.cpp \
+              sci_gateway/cpp/sci_print.cpp \
+              sci_gateway/cpp/sci_xmlGetOpenStreams.cpp \
+              sci_gateway/cpp/sci_xmlClose.cpp \
+              sci_gateway/cpp/sci_xmlDump.cpp \
+              sci_gateway/cpp/sci_xmlReadStr.cpp \
+              sci_gateway/cpp/sci_xmlFormat.cpp \
+              sci_gateway/cpp/sci_percent_XMLList_e.cpp \
+              sci_gateway/cpp/sci_percent_XMLAttr_e.cpp \
+              sci_gateway/cpp/sci_percent_XMLList_size.cpp \
+              sci_gateway/cpp/sci_percent_XMLAttr_size.cpp \
+              sci_gateway/cpp/sci_percent_XMLList_length.cpp \
+              sci_gateway/cpp/sci_percent_XMLAttr_length.cpp \
+              sci_gateway/cpp/sci_percent_c_i_XMLAttr.cpp \
+              sci_gateway/cpp/sci_percent_s_i_XMLList.cpp \
+              sci_gateway/cpp/sci_xmlElement.cpp \
+              sci_gateway/cpp/sci_xmlDocument.cpp \
+              sci_gateway/cpp/sci_xmlNs.cpp \
+              sci_gateway/cpp/sci_xmlAddNs.cpp \
+              sci_gateway/cpp/sci_xmlGetNsByHref.cpp \
+              sci_gateway/cpp/sci_xmlGetNsByPrefix.cpp \
+              sci_gateway/cpp/sci_xmlWrite.cpp \
+              sci_gateway/cpp/sci_percent_foo_i_XMLList.cpp \
+              sci_gateway/cpp/sci_xmlValidationFile.cpp \
+              sci_gateway/cpp/sci_xmlValidate.cpp \
+              sci_gateway/cpp/sci_xmlIsValidObject.cpp \
+              sci_gateway/cpp/sci_xmlAsNumber.cpp \
+              sci_gateway/cpp/sci_xmlAsText.cpp
 
 libscixml_la_CFLAGS = -I$(srcdir)/includes/ \
-		     -I$(top_srcdir)/libs/MALLOC/includes/ \
-                     -I$(top_srcdir)/modules/core/includes \
-	             -I$(top_srcdir)/modules/api_scilab/includes \
-	             -I$(top_srcdir)/modules/output_stream/includes \
-		     -I$(top_srcdir)/modules/string/includes \
-	             -I$(top_srcdir)/modules/fileio/includes
+             -I$(top_srcdir)/libs/MALLOC/includes/ \
+             -I$(top_srcdir)/modules/core/includes \
+             -I$(top_srcdir)/modules/api_scilab/includes \
+             -I$(top_srcdir)/modules/output_stream/includes \
+             -I$(top_srcdir)/modules/string/includes \
+             -I$(top_srcdir)/modules/fileio/includes
 
 libscixml_la_CPPFLAGS = -I$(srcdir)/includes/ \
     -I$(srcdir)/src/cpp/ \
@@ -585,8 +589,9 @@ libscixml_la_CPPFLAGS = -I$(srcdir)/includes/ \
     -I$(top_srcdir)/modules/fileio/includes \
     $(XML_FLAGS)
 
-pkglib_LTLIBRARIES = libscixml.la 
-noinst_LTLIBRARIES = libscixml-algo.la 
+@MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libscixml.la 
+@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscixml-algo.la libscixml.la 
+@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscixml-algo.la 
 libscixml_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 libscixml_algo_la_SOURCES = $(XML_C_SOURCES) $(XML_JNI_SOURCES) $(XML_CPP_SOURCES)
 libscixml_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES) 
@@ -679,9 +684,9 @@ clean-pkglibLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libscixml-algo.la: $(libscixml_algo_la_OBJECTS) $(libscixml_algo_la_DEPENDENCIES) 
-	$(CXXLINK)  $(libscixml_algo_la_OBJECTS) $(libscixml_algo_la_LIBADD) $(LIBS)
+	$(CXXLINK) $(am_libscixml_algo_la_rpath) $(libscixml_algo_la_OBJECTS) $(libscixml_algo_la_LIBADD) $(LIBS)
 libscixml.la: $(libscixml_la_OBJECTS) $(libscixml_la_DEPENDENCIES) 
-	$(libscixml_la_LINK) -rpath $(pkglibdir) $(libscixml_la_OBJECTS) $(libscixml_la_LIBADD) $(LIBS)
+	$(libscixml_la_LINK) $(am_libscixml_la_rpath) $(libscixml_la_OBJECTS) $(libscixml_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
