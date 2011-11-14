@@ -21,7 +21,7 @@
  * @param cursor position in the string.
  * @return user input.
  */
-int addChar(wchar_t * CommandLine, int key, unsigned int *cursorLocation);
+int addChar(wchar_t ** CommandLine, int key, unsigned int *cursorLocation);
 
 /**
  * Remove a character in the command line at the cursor position if SCI_DELETE is passed as key.

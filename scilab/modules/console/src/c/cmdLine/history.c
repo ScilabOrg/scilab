@@ -28,7 +28,11 @@ int previousCmd(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
     int promptSize;
 
+    int newSizeToAlloc = 0;
+
     char *multiByteString = NULL;
+
+    wchar_t *wideString = NULL;
 
     /* Go the beginning of the current edited line then clearn the screen from */
     while (*cursorLocation)
@@ -43,8 +47,19 @@ int previousCmd(wchar_t ** commandLine, unsigned int *cursorLocation)
     multiByteString = getPreviousLineInScilabHistory();
     if (multiByteString != NULL)
     {
-        *commandLine = to_wide_string(multiByteString);
+        wideString = to_wide_string(multiByteString);
+        if (wideString != NULL)
+        {
+            /* Allocation by a multiple of 1024 */
+            newSizeToAlloc = wcslen(wideString) / 1024 + 1;
+            *commandLine = MALLOC(sizeof(**commandLine) * (newSizeToAlloc * 1024));
+            if (*commandLine != NULL)
+            {
+                wcscpy(*commandLine, wideString);
+            }
+        }
         FREE(multiByteString);
+        FREE(wideString);
     }
     *cursorLocation = wcslen(*commandLine);
     printf("%ls", *commandLine);
@@ -66,7 +81,11 @@ int nextCmd(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
     int promptSize;
 
+    int newSizeToAlloc = 0;
+
     char *multiByteString = NULL;
+
+    wchar_t *wideString = NULL;
 
     /* Go the beginning of the current edited line then clearn the screen from */
     while (*cursorLocation)
@@ -81,8 +100,19 @@ int nextCmd(wchar_t ** commandLine, unsigned int *cursorLocation)
     multiByteString = getNextLineInScilabHistory();
     if (multiByteString != NULL)
     {
-        *commandLine = to_wide_string(multiByteString);
+        wideString = to_wide_string(multiByteString);
+        if (wideString != NULL)
+        {
+            /* Allocation by a multiple of 1024 */
+            newSizeToAlloc = wcslen(wideString) / 1024 + 1;
+            *commandLine = MALLOC(sizeof(**commandLine) * (newSizeToAlloc * 1024));
+            if (*commandLine != NULL)
+            {
+                wcscpy(*commandLine, wideString);
+            }
+        }
         FREE(multiByteString);
+        FREE(wideString);
     }
     *cursorLocation = wcslen(*commandLine);
     printf("%ls", *commandLine);

@@ -120,7 +120,7 @@ static void getCommandLine(void)
         initConsoleMode(RAW);
         /* Call Term Management for NW and NWNI to get a string */
         __CommandLine = getCmdLine();
-        initConsoleMode(CANON);
+        /*initConsoleMode(CANON); */
     }
 }
 

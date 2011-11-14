@@ -29,8 +29,9 @@
 #include "HistoryManager.h"
 #include "charEncoding.h"
 #include "aff_prompt.h"
+#include "setCharDisplay.h"
 
-void autoCompletionInConsoleMode(wchar_t ** commandLine, int *cursorLocation);
+void autoCompletionInConsoleMode(wchar_t ** commandLine, unsigned int *cursorLocation);
 
 /*
  * If last key was '1'
@@ -121,16 +122,45 @@ static void caseMetaKey(wchar_t ** commandLine, unsigned int *cursorLocation)
     }
 }
 
+static void setCBreak(bool cbk)
+{
+    struct termios t;
+
+    tcgetattr(0, &t);
+    if (cbk)
+    {
+        t.c_cc[VMIN] = 0;       /* TODO: comment */
+        t.c_cc[VTIME] = 0;      /* TODO: comment */
+    }
+    else
+    {
+        t.c_cc[VMIN] = 0;       /* TODO: comment */
+        t.c_cc[VTIME] = 0;      /* TODO: comment */
+    }
+    tcsetattr(0, 0, &t);
+}
+
+static int endCopyPast(wchar_t * commandLine)
+{
+    int sizeOfCmd = 0;
+
+    sizeOfCmd = wcslen(commandLine);
+    if (commandLine[sizeOfCmd - 1] == L'\n')
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 /*
  * Read keyboard a first time.
  */
 int getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
     int key;
-
-    char *charString = NULL;
-
-    int cursorMax = 0;
 
     key = getwchar();
     switch (key)
@@ -171,15 +201,72 @@ int getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
     case SCI_BACKSPACE:
         rmChar(*commandLine, SCI_BACKSPACE, cursorLocation);
         break;
+    case WEOF:
+        setCBreak(1);
+        return endCopyPast(*commandLine);
     default:
+/* Different keys are not in different case because it add char to the command line */
         if (key == L'\n')
         {
-            return 1;
+            setCBreak(0);
+            setCharDisplay(FAINT);
         }
-        addChar(*commandLine, key, cursorLocation);
+        addChar(commandLine, key, cursorLocation);
         break;
     }
-    return 0;
+    return 1;
+}
+
+char *getCmdLine(void)
+{
+    int bin = 1;
+
+    char *multiByteString = NULL;
+
+    unsigned int cursorLocation = 0;
+
+    static wchar_t *wideString = NULL;
+
+    static int nextLineLocationInWideString = 0;
+
+    getPrompt(WRT_PRT);
+    setCharDisplay(BRIGHT);
+    if (wideString == NULL || wideString[nextLineLocationInWideString] == L'\0')
+    {
+        /*if (wideString != NULL) */
+        /*{ */
+        /*FREE(wideString); */
+        /*} */
+        wideString = MALLOC(1024 * sizeof(*wideString));
+        *wideString = L'\0';
+        nextLineLocationInWideString = 0;
+    }
+    else
+    {
+        bin = 2;
+    }
+    setSearchedTokenInScilabHistory(NULL);
+    while (bin == 1)
+    {
+        bin = getKey(&wideString, &cursorLocation);
+    }
+    cursorLocation = nextLineLocationInWideString;
+    while (wideString[cursorLocation] != L'\n' && wideString[cursorLocation] != L'\0')
+    {
+        cursorLocation++;
+    }
+    wideString[cursorLocation] = L'\0';
+    if (bin == 2)
+    {
+        printf("%ls\n", &wideString[nextLineLocationInWideString]);
+    }
+    /* What if copy/paste then up arrow ? */
+    multiByteString = wide_string_to_UTF8(&wideString[nextLineLocationInWideString]);
+    nextLineLocationInWideString = cursorLocation + 1;
+    appendLineToScilabHistory(multiByteString);
+    setSearchedTokenInScilabHistory(NULL);
+    setCharDisplay(RESET);
+    return multiByteString;
 }
 
 /*
@@ -208,33 +295,4 @@ void memCmd(wchar_t * cmd, int cursorLocation)
             gotoLeft(memList, &cursorLocation);
         }
     }
-}
-
-char *getCmdLine(void)
-{
-    int bin = 1;
-
-    char *multiByteString = NULL;
-
-    unsigned int cursorLocation = 0;
-
-    wchar_t *wideString = NULL;
-
-    wideString = MALLOC(1024 * sizeof(*wideString));
-    *wideString = L'\0';
-    getPrompt(WRT_PRT);
-    setSearchedTokenInScilabHistory(NULL);
-    while (bin)
-    {
-        memCmd(wideString, cursorLocation);
-        if (getKey(&wideString, &cursorLocation))
-        {
-            putchar('\n');
-            bin = 0;
-        }
-    }
-    multiByteString = wide_string_to_UTF8(wideString);
-    appendLineToScilabHistory(multiByteString);
-    setSearchedTokenInScilabHistory(NULL);
-    return multiByteString;
 }
