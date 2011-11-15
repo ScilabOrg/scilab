@@ -143,11 +143,13 @@ namespace org_modules_xml
         xmlXPathCompExpr * expr = xmlXPathCtxtCompile(ctxt, (const xmlChar *)query);
         if (!expr)
         {
+            xmlXPathFreeContext(ctxt);
             *error = *errorXPathBuffer;
             return 0;
         }
 
         xmlXPathObject * xpath = xmlXPathCompiledEval(expr, ctxt);
+        xmlXPathFreeContext(ctxt);
         if (!xpath)
         {
             *error = *errorXPathBuffer;
