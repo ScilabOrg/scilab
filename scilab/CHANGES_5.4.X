@@ -830,3 +830,5 @@ Bug fixes:
 * bug 10105 fixed - Focus was not given to the prompt when outputview had it.
 
 * bug 10126 fixed - Wrong (or failing) insertion in a sparse matrix.
+
+* bug 10179 fixed - Weird behaviour with evstr.
