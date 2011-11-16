@@ -440,7 +440,6 @@ detect_java_vm() {
                 echo "Have not been able to find any Java VM on this computer. Some features may be broken."
             fi
         else
-
             PATH_SEPARATOR=:
             as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
             if test $SCIVERBOSE -ne 0; then
@@ -620,7 +619,16 @@ if test $IS_SCILAB_BINARY -eq 1; then
             export PATH
             ;;
     esac
-
+    case $OS in
+        *darwin* | *Darwin*)
+    # Precache the libraries
+            cat $SCIBINARYBASE/lib/scilab/*.jnilib $SCIBINARYBASE/thirdparty/scilab/*.jnilib $SCIBINARYBASE/lib/scilab/*.dylib $SCIBINARYBASE/thirdparty/scilab/*.dylib  > /dev/null
+            ;;
+        *)
+            cat $SCIBINARYBASE/lib/scilab/*.so $SCIBINARYBASE/thirdparty/scilab/*.so > /dev/null
+            ;;
+    esac
+    
 else
     PATH="$SCI:$SCI/bin:$PATH"
 fi

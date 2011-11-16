@@ -1425,6 +1425,13 @@ ACX_LAPACK(
         AC_MSG_ERROR([Impossible to find the LAPACK library.])
         )
 
+AC_MSG_CHECKING([if ARPACK is available])
+echo ""
+ACX_ARPACK(
+        [AC_MSG_RESULT([$ARPACK_TYPE found])],
+        AC_MSG_ERROR([Impossible to find the ARPACK library.])
+        )
+
 #################
 ## UMFPACK
 #################
@@ -1999,7 +2006,7 @@ echo "  BLAS LIBS ............. = $BLAS_LIBS"
 echo "  BLAS TYPE ............. = $BLAS_TYPE"
 echo "  LAPACK LIBS ........... = $LAPACK_LIBS"
 echo "  LAPACK TYPE ........... = $LAPACK_TYPE"
-
+echo "  ARPACK LIBS ........... = $ARPACK_LIBS"
 echo ""
 
 #if test "$with_mpi" = yes; then
