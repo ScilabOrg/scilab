@@ -100,6 +100,8 @@ SciNotes:
 
 * bug 9878 fixed - Add a shortcut "Correct indentation" in right click menu.
 
+* bug 10236 fixed - exit(n) asked confirmation to exit.
+
 * bug 10252 fixed - Could not change the font when SciNotes was docked with the
                     console.
 
