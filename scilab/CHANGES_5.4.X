@@ -834,3 +834,7 @@ Bug fixes:
                     Icons renamed from XPM to PNG.
 
 * bug 10105 fixed - Focus was not given to the prompt when outputview had it.
+
+* bug 10250 fixed - Customized detection of the Java VM were failing in some
+                    cases.
+
