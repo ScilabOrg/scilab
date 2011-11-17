@@ -264,7 +264,6 @@ sci_gateway/fortran/sci_f_ieee.f \
 sci_gateway/fortran/sci_f_macrovar.f \
 sci_gateway/fortran/sci_f_exists.f \
 sci_gateway/fortran/sci_f_errcatch.f \
-sci_gateway/fortran/sci_f_clear.f \
 sci_gateway/fortran/sci_f_argn.f \
 sci_gateway/fortran/sci_f_setbpt.f \
 sci_gateway/fortran/sci_f_clearglobal.f \
