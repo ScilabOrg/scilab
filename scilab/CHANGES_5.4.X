@@ -900,6 +900,13 @@ Bug fixes:
 
 * bug 9929 fixed - Improve integration with Gnome shell and Unity.
 
+* bug 9934 fixed - clear returned some non standard error message.
+                   example: clear(["A","1"])
+
+* bug 9935 fixed - clear() did not clear all variables.
+
+* bug 9936 fixed - clear("to+to") or clear to+to did not return a error.
+
 * bug 9950 fixed - It was possible to select several texts in the console.
 
 * bug 9957 fixed - msprintf("%d\r", 2) returned '2r'.
@@ -933,11 +940,11 @@ Bug fixes:
 
 * bug 10179 fixed - Weird behaviour with evstr.
 
+* bug 10278 fixed - clear(1) returned a wrong error message
+
 * bug 10289 fixed - xload returns a better error message when a file does
                     not exist.
 
 * bug 10292 fixed - Improved description of the help page of modulo.
 
 * bug 10293 fixed - Improved description of the help page of bvode.
-
-

@@ -264,7 +264,6 @@ sci_gateway/fortran/sci_f_ieee.f \
 sci_gateway/fortran/sci_f_macrovar.f \
 sci_gateway/fortran/sci_f_exists.f \
 sci_gateway/fortran/sci_f_errcatch.f \
-sci_gateway/fortran/sci_f_clear.f \
 sci_gateway/fortran/sci_f_argn.f \
 sci_gateway/fortran/sci_f_setbpt.f \
 sci_gateway/fortran/sci_f_clearglobal.f \
@@ -287,6 +286,7 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/output_stream/includes \
 	-I$(top_srcdir)/modules/localization/includes \
 	-I$(top_srcdir)/modules/io/includes \
+	-I$(top_srcdir)/modules/functions/includes \
 	-I$(top_srcdir)/modules/tclsci/includes \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \

@@ -1,38 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="fr" xml:id="clear">
+<refentry version="5.0-subset Scilab" xml:id="clear" xml:lang="fr"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
+
   <refnamediv>
     <refname>clear</refname>
-    <refpurpose> suppression de variables  </refpurpose>
+
+    <refpurpose>suppression de variables</refpurpose>
   </refnamediv>
+
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
+
     <synopsis>clear a</synopsis>
+
+    <synopsis>clear a b c</synopsis>
+
+    <synopsis>clear('a')</synopsis>
+
+    <synopsis>clear('a', 'b', 'c')</synopsis>
   </refsynopsisdiv>
+
   <refsection>
     <title>Description</title>
-    <para>
-    Cette commande supprime des variables non-protégées. Elle supprime de l'environnement les variables dont les noms sont spécifiés.
-    Sans argument <literal>clear</literal> supprime toutes les variables sauf celles qui ont été protégées par <literal>predef</literal>. La succession des commandes <literal>predef(0)</literal> et <literal>clear</literal> supprime toutes les variables. 
-  </para>
-    <para>
-    Habituellement, les variables protégées sont les bibliothèques standard et les variables dont le nom commence par le caractère "%".
-  </para>
-    <para>
-    Notez la syntaxe particulière :  <literal>clear a</literal> et non <literal>clear(a)</literal>. Notez aussi que <literal>a=[]</literal> ne supprime pas <literal>a</literal> mais affecte à <literal>a</literal> une matrice vide.
-  </para>
+
+    <para>Cette commande supprime des variables non-protégées. Elle supprime
+    de l'environnement les variables dont les noms sont spécifiés. Sans
+    argument <literal>clear</literal> supprime toutes les variables sauf
+    celles qui ont été protégées par <literal>predef</literal>. La succession
+    des commandes <literal>predef(0)</literal> et <literal>clear</literal>
+    supprime toutes les variables.</para>
+
+    <para>Habituellement, les variables protégées sont les bibliothèques
+    standard et les variables dont le nom commence par le caractère
+    "%".</para>
+
+    <para>Notez la syntaxe particulière : <literal>clear a</literal> ou
+    <literal>clear('a')</literal>et NON pas
+    <literal>clear(a)</literal>.</para>
+
+    <para>Notez aussi que <literal>a=[]</literal> ne supprime pas
+    <literal>a</literal> mais affecte à <literal>a</literal> une matrice
+    vide.</para>
+
   </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role="example">      A = 3
+      isdef('A')
+      clear A
+      isdef('A')
+
+      A = 3, B = 'example', C = 4
+      clear
+      isdef('A')
+      isdef('B')
+      isdef('C')
+
+      Z = 3
+      Z = []
+      isdef('Z')
+      clear Z
+      isdef('Z')
+   </programlisting>
+  </refsection>
+
   <refsection role="see also">
-<title>Voir aussi</title>
+    <title>Voir aussi</title>
+
     <simplelist type="inline">
-      <member>
-        <link linkend="predef">predef</link>
-      </member>
-      <member>
-        <link linkend="who">who</link>
-      </member>
+      <member><link linkend="predef">predef</link></member>
+
+      <member><link linkend="who">who</link></member>
+
+      <member><link linkend="isdef">isdef</link></member>
     </simplelist>
   </refsection>
+
 </refentry>

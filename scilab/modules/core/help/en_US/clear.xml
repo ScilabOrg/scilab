@@ -1,40 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="clear">
+<refentry version="5.0-subset Scilab" xml:id="clear" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
+
   <refnamediv>
     <refname>clear</refname>
-    <refpurpose> kills variables</refpurpose>
+
+    <refpurpose>kills variables</refpurpose>
   </refnamediv>
+
   <refsynopsisdiv>
     <title>Calling Sequence</title>
+
     <synopsis>clear a</synopsis>
+
+    <synopsis>clear a b c</synopsis>
+
+    <synopsis>clear('a')</synopsis>
+
+    <synopsis>clear('a', 'b', 'c')</synopsis>
   </refsynopsisdiv>
+
   <refsection>
     <title>Description</title>
-    <para>
-    This command kills variables which are not protected.
-    It removes the named variables from the environment.
-    By itself <literal>clear</literal> kills all the variables except the variables
-    protected by <literal>predef</literal>. Thus the two commands <literal>predef(0)</literal> and <literal>clear</literal>
-    remove all the variables.</para>
-    <para>
-    Normally, protected variables are standard libraries and variables with
-    the percent prefix.</para>
-    <para>
-    Note the particular syntax <literal>clear a</literal> and not <literal>clear(a)</literal>. Note also
-    that <literal>a=[]</literal> does not kill <literal>a</literal> but sets <literal>a</literal> to an empty matrix.</para>
+
+    <para>This command kills variables which are not protected. It removes the
+    named variables from the environment. By itself <literal>clear</literal>
+    kills all the variables except the variables protected by
+    <literal>predef</literal>. Thus the two commands
+    <literal>predef(0)</literal> and <literal>clear</literal> remove all the
+    variables.</para>
+
+    <para>Normally, protected variables are standard libraries and variables
+    with the percent prefix.</para>
+
+    <para>Note the particular syntax <literal>clear a</literal> or
+    <literal>clear('a')</literal>and NOT <literal>clear(a)</literal>.</para>
+
+    <para>Note also that <literal>a=[]</literal> does not kill
+    <literal>a</literal> but sets <literal>a</literal> to an empty
+    matrix.</para>
+
   </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role="example">      A = 3
+      isdef('A')
+      clear A
+      isdef('A')
+
+      A = 3, B = 'example', C = 4
+      clear
+      isdef('A')
+      isdef('B')
+      isdef('C')
+
+      Z = 3
+      Z = []
+      isdef('Z')
+      clear Z
+      isdef('Z')
+
+</programlisting>
+  </refsection>
+
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
+
     <simplelist type="inline">
-      <member>
-        <link linkend="predef">predef</link>
-      </member>
-      <member>
-        <link linkend="who">who</link>
-      </member>
+      <member><link linkend="predef">predef</link></member>
+
+      <member><link linkend="who">who</link></member>
+
+      <member><link linkend="isdef">isdef</link></member>
     </simplelist>
   </refsection>
 </refentry>
