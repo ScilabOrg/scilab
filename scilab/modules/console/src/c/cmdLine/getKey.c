@@ -29,6 +29,7 @@
 #include "HistoryManager.h"
 #include "charEncoding.h"
 #include "aff_prompt.h"
+#include "setCharDisplay.h"
 
 void autoCompletionInConsoleMode(wchar_t ** commandLine, unsigned int *cursorLocation);
 
@@ -208,6 +209,7 @@ int getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
         if (key == L'\n')
         {
             setCBreak(0);
+            setCharDisplay(FAINT);
         }
         addChar(commandLine, key, cursorLocation);
         /*setSearchedTokenInScilabHistory(*commandLine); */
@@ -229,6 +231,7 @@ char *getCmdLine(void)
     static int nextLineLocationInWideString = 0;
 
     getPrompt(WRT_PRT);
+    setCharDisplay(BRIGHT);
     if (wideString == NULL || wideString[nextLineLocationInWideString] == L'\0')
     {
         /*if (wideString != NULL) */
@@ -263,6 +266,7 @@ char *getCmdLine(void)
     nextLineLocationInWideString = cursorLocation + 1;
     appendLineToScilabHistory(multiByteString);
     setSearchedTokenInScilabHistory(NULL);
+    setCharDisplay(CHAR_RESET);
     return multiByteString;
 }
 
