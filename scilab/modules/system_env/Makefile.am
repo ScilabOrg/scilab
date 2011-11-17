@@ -20,6 +20,7 @@ SYSTEM_ENV_CPP_SOURCES 	= \
 	src/cpp/sci_mode.cpp \
 	src/cpp/configvariable.cpp \
 	src/cpp/lasterror.cpp \
+	src/cpp/differentialequationfunctions.cpp \
 	src/cpp/promptmode.cpp
 
 pkglib_LTLIBRARIES = libscisystem_env.la
@@ -36,7 +37,12 @@ libscisystem_env_la_CPPFLAGS = \
 	-I $(top_srcdir)/modules/string/includes \
 	-I $(top_srcdir)/modules/threads/includes \
 	-I $(top_srcdir)/modules/ast/includes \
-    -I$(top_srcdir)/libs/dynamiclibrary/includes
+    -I $(top_srcdir)/libs/dynamiclibrary/includes \
+	-I $(top_srcdir)/modules/operations/includes \
+	-I $(top_srcdir)/modules/elementary_functions/includes \
+	-I $(top_srcdir)/modules/differential_equations/includes \
+	-I $(top_srcdir)/modules/api_scilab/includes \
+	-I $(top_srcdir)/modules/output_stream/includes
 
 
 libscisystem_env_la_includedir=$(pkgincludedir)/system_env
