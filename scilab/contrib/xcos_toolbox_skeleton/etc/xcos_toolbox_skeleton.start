@@ -21,7 +21,8 @@ function xcos_skeletonlib = startModule()
 // force to load some libraries (dependancies)
   loadScicos();
 // =============================================================================
-  etc_tlbx  = get_absolute_file_path("xcos_toolbox_skeleton.start");
+  start_filename  = "xcos_toolbox_skeleton.start";
+  etc_tlbx  = get_absolute_file_path(start_filename);
   etc_tlbx  = getshortpathname(etc_tlbx);
   root_tlbx = strncpy( etc_tlbx, length(etc_tlbx)-length("\etc\") );
 
@@ -40,12 +41,16 @@ function xcos_skeletonlib = startModule()
   gifFiles = gsort(ls(root_tlbx + "/images/gif/*.gif"));
   svgFiles = gsort(ls(root_tlbx + "/images/svg/*.svg"));
 
+  if or(size(h5Files, '*') <> [size(gifFiles, '*') size(svgFiles, '*')]) then
+    error(gettext("%s: Wrong images list size.", start_filename))
+  end
+
   for i=1:size(h5Files, "*")
     pal = xcosPalAddBlock(pal, h5Files(i), gifFiles(i), svgFiles(i));
   end
 
   if ~xcosPalAdd(pal) then
-    error(msprintf(gettext("%s: Unable to export %s.\n"), "xcos_toolbox_skeleton.start", "pal"));
+    error(msprintf(gettext("%s: Unable to export %s.\n"), start_filename, "pal"));
   end
 
 // Load simulation functions
