@@ -16,9 +16,10 @@
 #include <list>
 #include <map>
 #include <string>
-#include "threadId.hxx"
 #include "callable.hxx"
+#include "threadId.hxx"
 #include "cell.hxx"
+#include "differentialequationfunctions.hxx"
 
 extern "C"
 {
@@ -272,7 +273,6 @@ public :
     static void setCommandLineArgs(int _iArgs, char** _pstArgs);
     static wchar_t** getCommandLineArgs(int* _piCount);
 
-
 //    //input function
 //private :
 //    static SCILAB_INPUT_METHOD m_pInputMethod;
@@ -295,6 +295,14 @@ public :
     static void setSchurFunction(types::Callable* _schurFunction);
     static types::Callable* getSchurFunction();
 
+    // differential equation functions
+private :
+    static std::map<__threadId, DifferentialEquationFunctions*> m_mapDifferentialEquationFunctions;
+
+public :
+    static void addDifferentialEquationFunctions(DifferentialEquationFunctions* _deFunction);
+    static void removeDifferentialEquationFunctions();
+    static DifferentialEquationFunctions* getDifferentialEquationFunctions();
 
 };
 
