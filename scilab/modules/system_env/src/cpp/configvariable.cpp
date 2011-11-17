@@ -17,6 +17,7 @@ extern "C"
 #include "strsubst.h"
 #include "os_wcsdup.h"
 #include "MALLOC.h"
+#include "elem_common.h"
 }
 /*
 ** Module List
@@ -757,7 +758,6 @@ wchar_t** ConfigVariable::getCommandLineArgs(int* _piCount)
 ** \}
 */
 
-
 ///*
 //** Input Method
 //** \{
@@ -820,3 +820,36 @@ types::Callable* ConfigVariable::getSchurFunction()
 /*
 ** \}
 */
+
+/*
+** differential equation functions
+** \{
+*/
+
+// need the current thread, not the last running thread.
+
+std::map<__threadId, DifferentialEquationFunctions*> ConfigVariable::m_mapDifferentialEquationFunctions;
+
+void ConfigVariable::addDifferentialEquationFunctions(DifferentialEquationFunctions* _deFunction)
+{
+    types::ThreadId* pThread = ConfigVariable::getLastRunningThread();
+    m_mapDifferentialEquationFunctions[pThread->getKey()] = _deFunction;
+}
+
+void ConfigVariable::removeDifferentialEquationFunctions()
+{
+    types::ThreadId* pThread = ConfigVariable::getLastRunningThread();
+    m_mapDifferentialEquationFunctions.erase(pThread->getId());
+}
+
+DifferentialEquationFunctions* ConfigVariable::getDifferentialEquationFunctions()
+{
+    types::ThreadId* pThread = ConfigVariable::getLastRunningThread();
+    return m_mapDifferentialEquationFunctions[pThread->getId()];
+}
+
+
+/*
+** \}
+*/
+
