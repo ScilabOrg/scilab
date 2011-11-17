@@ -47,7 +47,7 @@
         <term>y0</term>
 
         <listitem>
-          <para>real vector or matrix, the initial conditions.</para>
+          <para>real column vector, the initial conditions.</para>
         </listitem>
       </varlistentry>
 

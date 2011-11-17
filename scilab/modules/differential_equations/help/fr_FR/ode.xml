@@ -33,7 +33,7 @@ y=ode("discrete",y0,k0,kvect,f)</synopsis>
         <term>y0</term>
 
         <listitem>
-          <para>vecteur ou matrice réelle (conditions initiales).</para>
+          <para>vecteur colonne réel (conditions initiales).</para>
         </listitem>
       </varlistentry>
 

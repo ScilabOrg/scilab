@@ -339,7 +339,11 @@ typedef struct {
 
 IMPORT LSA001_struct C2F(lsa001);
 
+typedef struct {
+    int mesflg, lunit;
+} EH0001_struct;
 
+IMPORT EH0001_struct C2F(eh0001);
 
 /**
  * @TODO : add comment 

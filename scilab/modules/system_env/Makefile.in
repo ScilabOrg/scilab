@@ -94,6 +94,7 @@ am__objects_1 = libscisystem_env_la-setenvvar.lo \
 	libscisystem_env_la-sci_mode.lo \
 	libscisystem_env_la-configvariable.lo \
 	libscisystem_env_la-lasterror.lo \
+	libscisystem_env_la-differentialequationfunctions.lo \
 	libscisystem_env_la-promptmode.lo
 am_libscisystem_env_la_OBJECTS = $(am__objects_1)
 libscisystem_env_la_OBJECTS = $(am_libscisystem_env_la_OBJECTS)
@@ -380,6 +381,7 @@ SYSTEM_ENV_CPP_SOURCES = \
 	src/cpp/sci_mode.cpp \
 	src/cpp/configvariable.cpp \
 	src/cpp/lasterror.cpp \
+	src/cpp/differentialequationfunctions.cpp \
 	src/cpp/promptmode.cpp
 
 pkglib_LTLIBRARIES = libscisystem_env.la
@@ -394,7 +396,12 @@ libscisystem_env_la_CPPFLAGS = \
 	-I $(top_srcdir)/modules/string/includes \
 	-I $(top_srcdir)/modules/threads/includes \
 	-I $(top_srcdir)/modules/ast/includes \
-    -I$(top_srcdir)/libs/dynamiclibrary/includes
+    -I $(top_srcdir)/libs/dynamiclibrary/includes \
+	-I $(top_srcdir)/modules/operations/includes \
+	-I $(top_srcdir)/modules/elementary_functions/includes \
+	-I $(top_srcdir)/modules/differential_equations/includes \
+	-I $(top_srcdir)/modules/api_scilab/includes \
+	-I $(top_srcdir)/modules/output_stream/includes
 
 libscisystem_env_la_includedir = $(pkgincludedir)/system_env
 libscisystem_env_la_include_HEADERS = includes/setenvvar.hxx
@@ -473,6 +480,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisystem_env_la-configvariable.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisystem_env_la-differentialequationfunctions.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisystem_env_la-home.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisystem_env_la-lasterror.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscisystem_env_la-promptmode.Plo@am__quote@
@@ -566,6 +574,13 @@ libscisystem_env_la-lasterror.lo: src/cpp/lasterror.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/lasterror.cpp' object='libscisystem_env_la-lasterror.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisystem_env_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscisystem_env_la-lasterror.lo `test -f 'src/cpp/lasterror.cpp' || echo '$(srcdir)/'`src/cpp/lasterror.cpp
+
+libscisystem_env_la-differentialequationfunctions.lo: src/cpp/differentialequationfunctions.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisystem_env_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscisystem_env_la-differentialequationfunctions.lo -MD -MP -MF $(DEPDIR)/libscisystem_env_la-differentialequationfunctions.Tpo -c -o libscisystem_env_la-differentialequationfunctions.lo `test -f 'src/cpp/differentialequationfunctions.cpp' || echo '$(srcdir)/'`src/cpp/differentialequationfunctions.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscisystem_env_la-differentialequationfunctions.Tpo $(DEPDIR)/libscisystem_env_la-differentialequationfunctions.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/differentialequationfunctions.cpp' object='libscisystem_env_la-differentialequationfunctions.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisystem_env_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscisystem_env_la-differentialequationfunctions.lo `test -f 'src/cpp/differentialequationfunctions.cpp' || echo '$(srcdir)/'`src/cpp/differentialequationfunctions.cpp
 
 libscisystem_env_la-promptmode.lo: src/cpp/promptmode.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscisystem_env_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscisystem_env_la-promptmode.lo -MD -MP -MF $(DEPDIR)/libscisystem_env_la-promptmode.Tpo -c -o libscisystem_env_la-promptmode.lo `test -f 'src/cpp/promptmode.cpp' || echo '$(srcdir)/'`src/cpp/promptmode.cpp
