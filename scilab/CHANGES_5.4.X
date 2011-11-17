@@ -811,6 +811,13 @@ Bug fixes:
 
 * bug 9929 fixed - Improve integration with Gnome shell and Unity.
 
+* bug 9934 fixed - clear returned some non standard error message.
+                   example: clear(["A","1"])
+
+* bug 9935 fixed - clear() did not clear all variables.
+
+* bug 9936 fixed - clear("to+to") or clear to+to did not return a error.
+
 * bug 9950 fixed - It was possible to select several texts in the console.
 
 * bug 9957 fixed - msprintf("%d\r", 2) returned '2r'.
@@ -834,3 +841,7 @@ Bug fixes:
                     Icons renamed from XPM to PNG.
 
 * bug 10105 fixed - Focus was not given to the prompt when outputview had it.
+
+* bug 10277 fixed - clear(M) did not allow overload on mlist (with M a mlist)
+
+* bug 10278 fixed - clear(1) returned a wrong error message

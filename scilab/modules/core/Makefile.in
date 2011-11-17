@@ -317,9 +317,9 @@ am__objects_6 = libscicore_la-sci_stacksize.lo \
 am__objects_7 = sci_f_global.lo sci_f_mtlb_mode.lo sci_f_resume.lo \
 	sci_f_dispbpt.lo sci_f_intppty.lo sci_f_ieee.lo \
 	sci_f_macrovar.lo sci_f_exists.lo sci_f_errcatch.lo \
-	sci_f_clear.lo sci_f_argn.lo sci_f_setbpt.lo \
-	sci_f_clearglobal.lo sci_f_delbpt.lo where.lo sci_f_iserror.lo \
-	sci_f_debug.lo sci_f_comp.lo sci_f_isglobal.lo
+	sci_f_argn.lo sci_f_setbpt.lo sci_f_clearglobal.lo \
+	sci_f_delbpt.lo where.lo sci_f_iserror.lo sci_f_debug.lo \
+	sci_f_comp.lo sci_f_isglobal.lo
 am_libscicore_la_OBJECTS = $(am__objects_6) $(am__objects_7)
 libscicore_la_OBJECTS = $(am_libscicore_la_OBJECTS)
 libscicore_la_LINK = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) \
@@ -751,7 +751,6 @@ sci_gateway/fortran/sci_f_ieee.f \
 sci_gateway/fortran/sci_f_macrovar.f \
 sci_gateway/fortran/sci_f_exists.f \
 sci_gateway/fortran/sci_f_errcatch.f \
-sci_gateway/fortran/sci_f_clear.f \
 sci_gateway/fortran/sci_f_argn.f \
 sci_gateway/fortran/sci_f_setbpt.f \
 sci_gateway/fortran/sci_f_clearglobal.f \
@@ -773,6 +772,7 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ -I$(srcdir)/src/c/ \
 	-I$(top_srcdir)/modules/output_stream/includes \
 	-I$(top_srcdir)/modules/localization/includes \
 	-I$(top_srcdir)/modules/io/includes \
+	-I$(top_srcdir)/modules/functions/includes \
 	-I$(top_srcdir)/modules/tclsci/includes \
 	-I$(top_srcdir)/modules/dynamic_link/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
@@ -2493,9 +2493,6 @@ sci_f_exists.lo: sci_gateway/fortran/sci_f_exists.f
 
 sci_f_errcatch.lo: sci_gateway/fortran/sci_f_errcatch.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_errcatch.lo `test -f 'sci_gateway/fortran/sci_f_errcatch.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_errcatch.f
-
-sci_f_clear.lo: sci_gateway/fortran/sci_f_clear.f
-	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_clear.lo `test -f 'sci_gateway/fortran/sci_f_clear.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_clear.f
 
 sci_f_argn.lo: sci_gateway/fortran/sci_f_argn.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_argn.lo `test -f 'sci_gateway/fortran/sci_f_argn.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_argn.f
