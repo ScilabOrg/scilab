@@ -89,6 +89,7 @@ src/c/dynamic_tclsci.c \
 src/c/dynamic_parallel.c \
 src/c/storeCommand.c \
 src/c/backtrace.c \
+src/c/clear \
 src/c/signal_mgmt.c
 
 CORE_CPP_SOURCES = src/cpp/hashtable_core.cpp \
@@ -264,7 +265,6 @@ sci_gateway/fortran/sci_f_ieee.f \
 sci_gateway/fortran/sci_f_macrovar.f \
 sci_gateway/fortran/sci_f_exists.f \
 sci_gateway/fortran/sci_f_errcatch.f \
-sci_gateway/fortran/sci_f_clear.f \
 sci_gateway/fortran/sci_f_argn.f \
 sci_gateway/fortran/sci_f_setbpt.f \
 sci_gateway/fortran/sci_f_clearglobal.f \

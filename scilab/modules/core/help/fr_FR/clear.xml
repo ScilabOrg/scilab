@@ -1,38 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="fr" xml:id="clear">
+<refentry version="5.0-subset Scilab" xml:id="clear" xml:lang="fr"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
   <info>
     <pubdate>$LastChangedDate$</pubdate>
   </info>
+
   <refnamediv>
     <refname>clear</refname>
-    <refpurpose> suppression de variables  </refpurpose>
+
+    <refpurpose>suppression de variables</refpurpose>
   </refnamediv>
+
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
+
     <synopsis>clear a</synopsis>
+
+    <synopsis>clear a b c</synopsis>
+
+    <synopsis>clear('a')</synopsis>
+
+    <synopsis>clear('a', 'b', 'c')</synopsis>
   </refsynopsisdiv>
+
   <refsection>
     <title>Description</title>
-    <para>
-    Cette commande supprime des variables non-protégées. Elle supprime de l'environnement les variables dont les noms sont spécifiés.
-    Sans argument <literal>clear</literal> supprime toutes les variables sauf celles qui ont été protégées par <literal>predef</literal>. La succession des commandes <literal>predef(0)</literal> et <literal>clear</literal> supprime toutes les variables. 
-  </para>
-    <para>
-    Habituellement, les variables protégées sont les bibliothèques standard et les variables dont le nom commence par le caractère "%".
-  </para>
-    <para>
-    Notez la syntaxe particulière :  <literal>clear a</literal> et non <literal>clear(a)</literal>. Notez aussi que <literal>a=[]</literal> ne supprime pas <literal>a</literal> mais affecte à <literal>a</literal> une matrice vide.
-  </para>
+
+    <para>Cette commande supprime des variables non-protégées. Elle supprime
+    de l'environnement les variables dont les noms sont spécifiés. Sans
+    argument <literal>clear</literal> supprime toutes les variables sauf
+    celles qui ont été protégées par <literal>predef</literal>. La succession
+    des commandes <literal>predef(0)</literal> et <literal>clear</literal>
+    supprime toutes les variables.</para>
+
+    <para>Habituellement, les variables protégées sont les bibliothèques
+    standard et les variables dont le nom commence par le caractère
+    "%".</para>
+
+    <para>Notez la syntaxe particulière : <literal>clear a</literal> ou
+    <literal>clear('a')</literal>et NON pas
+    <literal>clear(a)</literal>.</para>
+
+    <para>Notez aussi que <literal>a=[]</literal> ne supprime pas
+    <literal>a</literal> mais affecte à <literal>a</literal> une matrice
+    vide.</para>
+
+    <para>clear(M) avec M de type mlist appelle la fonction de surcharge
+    %TYPE_clear (si celle-ci existe) puis effectue le 'clear' de la
+    variable.</para>
   </refsection>
+
+  <refsection>
+    <title>Examples</title>
+
+    <programlisting role="example">      A = 3
+      isdef('A')
+      clear A
+      isdef('A')
+
+      A = 3, B = 'example', C = 4
+      clear
+      isdef('A')
+      isdef('B')
+      isdef('C')
+
+      // overload on mlist as input argument
+      M = mlist(['V','name','value'],['a','b';'c' 'd'],[1 2; 3 4])
+      isdef('M')
+
+      function %V_clear(varargin)
+      [lhs,rhs]=argn(0)
+      if type(varargin(1)) == 17 then
+        disp('call %V_clear overload: OK')
+      else
+        disp('call %V_clear overload: NOK')
+      end
+      endfunction
+
+      clear(M)
+      isdef('M')
+
+      Z = 3
+      Z = []
+      isdef('Z')
+      clear Z
+      isdef('Z')
+   </programlisting>
+  </refsection>
+
   <refsection role="see also">
-<title>Voir aussi</title>
+    <title>Voir aussi</title>
+
     <simplelist type="inline">
-      <member>
-        <link linkend="predef">predef</link>
-      </member>
-      <member>
-        <link linkend="who">who</link>
-      </member>
+      <member><link linkend="predef">predef</link></member>
+
+      <member><link linkend="who">who</link></member>
+
+      <member><link linkend="isdef">isdef</link></member>
     </simplelist>
+  </refsection>
+
+  <refsection>
+    <title>Historique</title>
+
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+
+        <revremark>Bogue 10277: Autorise la surcharge pour le type mlist (voir
+        l'exemple)</revremark>
+      </revision>
+    </revhistory>
   </refsection>
 </refentry>
