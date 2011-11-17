@@ -7,7 +7,7 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [hzt]=trans(pd,zd,gd,tr_type,frq)
+function [hzt,zt,gt]=trans(pd,zd,gd,tr_type,frq)
 //hzt=trans(pd,zd,gd,tr_type,frq)
 //macro for transforming standardized low-pass filter into
 //one of the following filters:
@@ -87,5 +87,10 @@ function [hzt]=trans(pd,zd,gd,tr_type,frq)
     den=(k+1)*z^2-2*alpha*z+(1-k);
   end
   [pt,zt,gt]=bilt(pd,zd,gd,num,den);
-  hzt=rlist(gt*real(poly(zt,'z')),real(poly(pt,'z')),'d');
+  if argn(1)==1 then
+    hzt=rlist(gt*real(poly(zt,'z')),real(poly(pt,'z')),'d');
+  else
+    hzt=pt(:)
+    zt=zt(:)
+  end
 endfunction

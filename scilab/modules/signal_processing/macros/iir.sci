@@ -7,7 +7,7 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function hz=iir(n,ftype,fdesign,frq,delta)
+function [hz,zz,gz]=iir(n,ftype,fdesign,frq,delta)
 // hz=iir(n,ftype,fdesign,frq,delta)
 //macro which designs an iir digital filter
 //using analog filter designs.
@@ -70,5 +70,10 @@ function hz=iir(n,ftype,fdesign,frq,delta)
   //make digital low-pass filter from analog low-pass filter
   z=poly(0,'z');[pd,zd,gd]=bilt(pc,zc,gc,2*(z-1),(z+1));
   //do change of variables to obtain general digital filter
-  hz=trans(pd,zd,gd,ftype,frq);
+  if argn(1)==1 then
+    hz=trans(pd,zd,gd,ftype,frq);
+  else
+    [pz,zz,gz]=trans(pd,zd,gd,ftype,frq);
+    hz=pz
+  end
 endfunction
