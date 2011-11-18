@@ -7,6 +7,8 @@
 
 // <-- JVM NOT MANDATORY -->
 
+version = getversion("scilab");
+
  // to check that ode works
  // ---------- Simple one dimension ODE (Scilab function external)
  // dy/dt=y^2-y sin(t)+cos(t), y(0)=0
@@ -14,3 +16,362 @@
  y0=0;t0=0;t=0:0.1:%pi;
  y=ode(y0,t0,t,f);
  if size(y) <> [1 32] then pause,end
+clear y;
+clear t;
+//*************************** function F and lsoda ********************************/
+// create functions
+cd TMPDIR;
+
+CC=['void fex1(int* neq, double* t, double* y, double* ydot)'
+    '{'
+    '   ydot[0] = -0.04*y[0] + 1.0e+4*y[1]*y[2];'
+    '   ydot[2] = 3.0e+7*y[1]*y[1];'
+    '   ydot[1] = -ydot[0] - ydot[2];'
+    '}'];
+mputl(CC,TMPDIR+'/fex1.c');
+ilib_for_link('fex1','fex1.c',[],'c');
+exec loader.sce;
+
+C=[ 'void fex2(int* neq, double* t, double* y, double* ydot)'
+    '{'
+    '   ydot[0] = y[4]*y[0] + y[5]*y[1]*y[2];'
+    '   ydot[2] = y[3]*y[1]*y[1];'
+    '   ydot[1] = -ydot[0] - ydot[2];'
+    '}'];
+
+mputl(C,TMPDIR+'/fex2.c');
+ilib_for_link('fex2','fex2.c',[],'c');
+exec loader.sce;
+
+function ydot = f(t,yin)
+    ydot(1)=-0.040*yin(1) + 1.0D4*yin(2)*yin(3);
+    ydot(3)=3.0D7*yin(2)**2;
+    ydot(2)=-ydot(1) - ydot(3);
+endfunction
+
+function ydot = f1(t,yin,a,b,c)
+    ydot(1)=b*yin(1) + c*yin(2)*yin(3);
+    ydot(3)=a*yin(2)**2;
+    ydot(2)=-ydot(1) - ydot(3);
+endfunction
+
+function ydot = f2(t,yin,a)
+    ydot(1)=a(2)*yin(1) + a(3)*yin(2)*yin(3);
+    ydot(3)=a(1)*yin(2)**2;
+    ydot(2)=-ydot(1) - ydot(3);
+endfunction
+
+// init variables
+y(1)    = 1;
+y(2)    = 0;
+y(3)    = 0;
+t       = 0;
+tout    = 0.4*exp((0:11)*log(10));
+rtol    = 1.0d-4;
+atol(1) = 1.0d-6;
+atol(2) = 1.0d-10;
+atol(3) = 1.0d-6;
+
+// result provide by lsoda documentation.
+// on a cdc-7600 in single precision.
+//   at t =  4.0000e-01
+resDoc(:,1) = [ 9.851712e-01 ; 3.386380e-05 ; 1.479493e-02 ];
+//   at t =  4.0000e+00
+resDoc(:,2) = [ 9.055333e-01 ; 2.240655e-05 ; 9.444430e-02 ];
+//   at t =  4.0000e+01
+resDoc(:,3) = [ 7.158403e-01 ; 9.186334e-06 ; 2.841505e-01 ];
+//   at t =  4.0000e+02
+resDoc(:,4) = [ 4.505250e-01 ; 3.222964e-06 ; 5.494717e-01 ];
+//   at t =  4.0000e+03
+resDoc(:,5) = [ 1.831975e-01 ; 8.941774e-07 ; 8.168016e-01 ];
+//   at t =  4.0000e+04
+resDoc(:,6) = [ 3.898730e-02 ; 1.621940e-07 ; 9.610125e-01 ];
+//   at t =  4.0000e+05
+resDoc(:,7) = [ 4.936363e-03 ; 1.984221e-08 ; 9.950636e-01 ];
+//   at t =  4.0000e+06
+resDoc(:,8) = [ 5.161831e-04 ; 2.065786e-09 ; 9.994838e-01 ];
+//   at t =  4.0000e+07
+resDoc(:,9) = [ 5.179817e-05 ; 2.072032e-10 ; 9.999482e-01 ];
+//   at t =  4.0000e+08
+resDoc(:,10) = [ 5.283401e-06 ; 2.113371e-11 ; 9.999947e-01 ];
+//   at t =  4.0000e+09
+resDoc(:,11) = [ 4.659031e-07 ; 1.863613e-12 ; 9.999995e-01 ];
+//   at t =  4.0000e+10
+resDoc(:,12) = [ 1.404280e-08 ; 5.617126e-14 ; 1.000000e+00 ];
+
+// f as a string (dynamic link function)
+res  = ode(y, t,tout, rtol, atol, 'fex1');
+// f as a list(string,...
+if version(1) > 5 then
+    res2 = ode(y, t, tout, rtol, atol, list('fex2', 3.0d+7, -0.04, 1.0d+4));
+end
+// f as a macro
+res3 = ode(y, t, tout, rtol, atol, f);
+// f as a list(macro,...
+res4 = ode(y, t, tout, rtol, atol, list(f1, 3.0d+7, -0.04, 1.0d+4));
+args = [ 3.0d+7, -0.04, 1.0d+4 ];
+res5 = ode(y, t, tout, rtol, atol, list(f2, args));
+// f as a string (static link function)
+res6  = ode(y, t,tout, rtol, atol, 'fex');
+
+// check results
+if norm(resDoc - res) > 2.0D-7 then pause end; // There are a little diff between resDoc and res
+if version(1) > 5 then
+    if norm(res - res2)   > 2.0D-8 then pause end; // because results provides by lsoda 
+end
+if norm(res - res3)   > 2.0D-8 then pause end; // documentation are in single precision.
+if norm(res - res4)   > 2.0D-8 then pause end;
+if norm(res - res5)   > 2.0D-8 then pause end;
+if norm(res - res6)   > 2.0D-8 then pause end;
+
+//*************************** w iw ********************************/
+if version(1) > 5 then
+    tout2 = 0.4*exp(12*log(10));
+    tout3 = 0.4*exp((0:12)*log(10));
+    [yout w iw] = ode(y, t, tout, rtol, atol, f);
+    yout1 = ode(y, t, tout2, rtol, atol, f, w, iw);
+    yout2 = ode(y, t, tout3, rtol, atol, f);
+
+    if norm(yout2(3*12+1:3*13) - yout1) <> 0 then pause; end
+end
+//*************************** Polynom ********************************/
+//y(1) = 1;
+//y(2) = 2;
+//y(3) = 3;
+//yy   = 1+2*%s+3*%s*%s;
+
+//res  = ode(y, t,tout, rtol, atol, 'fex1');
+
+//res6  = ode(yy, t, tout, rtol, atol, 'fex1');
+//for i=1:12, if poly(res(:,i), "s", "coeff") - res6(i) <> 0 then pause; end end
+//res7 = ode(yy, t, tout, rtol, atol, list('fex2', 3.0d+7, -0.04, 1.0d+4));
+//for i=1:12, if poly(res(:,i), "s", "coeff") - res7(i) <> 0 then pause; end end
+
+//*************************** function Jac and lsode ********************************/
+CC=['void jac(int* neq, double* t, double* y, int* mu, int* ml, double* j, int nj)'
+    '{'
+    '  j[0] = y[6]; '
+    '  j[1] = y[7]; '
+    '  j[2] = y[8]; '
+    '  j[3] = y[9]; '
+    '}'];
+
+mputl(CC,TMPDIR+'/jac.c');
+ilib_for_link('jac','jac.c',[],'c');
+exec loader.sce;
+
+CC=['void jac2(int* neq, double* t, double* y, int* mu, int* ml, double* j, int nj)'
+    '{'
+    '  j[0] = 10; '
+    '  j[1] = 0; '
+    '  j[2] = 0; '
+    '  j[3] = -1; '
+    '}'];
+mputl(CC,TMPDIR+'/jac2.c');
+ilib_for_link('jac2','jac2.c',[],'c');
+exec loader.sce;
+
+// ydot = A * y
+C=[ 'void fext(int* neq, double* t, double* y, double* ydot)'
+    '{'
+    '   ydot[0] = y[2]*y[0] + y[4]*y[1];'
+    '   ydot[1] = y[3]*y[0] + y[5]*y[1];'
+    '}'];
+
+mputl(C,TMPDIR+'/fext.c');
+ilib_for_link('fext','fext.c',[],'c');
+exec loader.sce;
+
+C=[ 'void fext2(int* neq, double* t, double* y, double* ydot)'
+    '{'
+    '   ydot[0] = 10*y[0] + 0*y[1];'
+    '   ydot[1] = 0*y[0] + (-1)*y[1];'
+    '}'];
+
+mputl(C,TMPDIR+'/fext2.c');
+ilib_for_link('fext2','fext2.c',[],'c');
+exec loader.sce;
+
+function ydot=f(t, y)
+    ydot=A*y
+endfunction
+
+function J=Jacobian(t, y)
+    J=A
+endfunction
+
+A=[10,0;0,-1];
+y0=[0;1];
+t0=0;
+t=1;
+
+res  = ode("stiff", y0, t0, t, f, Jacobian);
+if version(1) > 5 then
+    res1 = ode("stiff", y0, t0, t, list('fext', 10, 0, 0,-1), list('jac', A));
+end
+res2 = ode("stiff", y0, t0, t, 'fext2', 'jac2');
+res3 = ode("stiff", y0, t0, t, f, 'jac2');
+res4 = ode("stiff", y0, t0, t, 'fext2', Jacobian);
+
+if norm(res - expm(A*t)*y0) > 1.0D-7 then pause; end
+if version(1) > 5 then
+    if norm(res - res1) <> 0 then pause; end
+end
+if norm(res - res2) <> 0 then pause; end
+if norm(res - res3) <> 0 then pause; end
+if norm(res - res4) <> 0 then pause; end
+
+//*************************** discrete ********************************/
+function yp=a_function(k,y)
+    yp=A*y+B*u(k);
+endfunction
+
+y1 = [1;2;3];
+A  = diag([0.2,0.5,0.9]);
+B  = [1;1;1];
+u  = 1:10;
+n  = 5;
+
+y =ode("discrete", y1, 1, 1:n, a_function);
+for i = 1:4, y1(:,i+1) = A * y1(:,i) + B * u(i); end
+if norm(y - y1) <> 0 then pause; end
+
+// Now y evaluates  at [y3,y5,y7,y9]
+y1 = [1;2;3];
+t  = 3:2:9;
+y  = ode("discrete", y1, 1, t, a_function);
+for i=1:9, y1(:,i+1) = A * y1(:,i) + B * u(i); end
+y1 = y1(:,t);
+if norm(y - y1) <> 0 then pause; end
+
+//*************************** root ********************************/
+y0=1;
+ng=1;
+
+C=[ 'void fextern(int* neq, double* t, double* y, double* ydot)'
+    '{'
+    'int i = 0;'
+    'for( i = 0; i < *neq; i++)'
+    '   ydot[i] = y[i];'
+    '}'];
+
+mputl(C,TMPDIR+'/fextern.c');
+ilib_for_link('fextern','fextern.c',[],'c');
+exec loader.sce;
+
+function ydot=f(t,y)
+    ydot=y;
+endfunction
+
+// check rd result
+function z=g(t,y)
+z=y-2;
+endfunction
+[y,rd]=ode("root",y0,0,2,f,ng,g);
+if rd(2) <> 1 then pause; end
+
+function z=g(t,y)
+z=y-[2;2;33];
+endfunction
+[y,rd]=ode("root",y0,0,2,f,3,g);
+if rd(2) <> 1 then pause; end
+if rd(3) <> 2 then pause; end
+
+function z=g(t,y)
+z=y-[2;2;2];
+endfunction
+[y,rd]=ode("root",y0,0,2,f,3,g);
+if rd(2) <> 1 then pause; end
+if rd(3) <> 2 then pause; end
+if rd(4) <> 3 then pause; end
+
+function z=g(t,y)
+z=y-[2;6;2;2];
+endfunction
+[y,rd]=ode("root",y0,0,2,f,4,g);
+if rd(2) <> 1 then pause; end
+if rd(3) <> 3 then pause; end
+if rd(4) <> 4 then pause; end
+
+// check y result
+
+// result provide by lsodar documentation.
+// on a cdc-7600 in single precision.
+//   at t =  2.6400e-01
+resDocRoot(:,1) = [ 9.899653e-01 ; 3.470563e-05 ; 1.000000e-02 ];
+//        the above line is a root,  jroot =    0    1
+//   at t =  4.0000e-01
+resDoc(:,1) = [ 9.851712e-01 ; 3.386380e-05 ; 1.479493e-02 ];
+//   at t =  4.0000e+00
+resDoc(:,2) = [ 9.055333e-01 ; 2.240655e-05 ; 9.444430e-02 ];
+//   at t =  4.0000e+01
+resDoc(:,3) = [ 7.158403e-01 ; 9.186334e-06 ; 2.841505e-01 ];
+//   at t =  4.0000e+02
+resDoc(:,4) = [ 4.505250e-01 ; 3.222964e-06 ; 5.494717e-01 ];
+//   at t =  4.0000e+03
+resDoc(:,5) = [ 1.831975e-01 ; 8.941774e-07 ; 8.168016e-01 ];
+//   at t =  4.0000e+04
+resDoc(:,6) = [ 3.898730e-02 ; 1.621940e-07 ; 9.610125e-01 ];
+//   at t =  4.0000e+05
+resDoc(:,7) = [ 4.936363e-03 ; 1.984221e-08 ; 9.950636e-01 ];
+//   at t =  4.0000e+06
+resDoc(:,8) = [ 5.161831e-04 ; 2.065786e-09 ; 9.994838e-01 ];
+//   at t =  2.0745e+07
+resDocRoot(:,2) = [ 1.000000e-04 ; 4.000395e-10 ; 9.999000e-01 ];
+//        the above line is a root,  jroot =    1    0
+//   at t =  4.0000e+07
+resDoc(:,9) = [ 5.179817e-05 ; 2.072032e-10 ; 9.999482e-01 ];
+//   at t =  4.0000e+08
+resDoc(:,10) = [ 5.283401e-06 ; 2.113371e-11 ; 9.999947e-01 ];
+//   at t =  4.0000e+09
+resDoc(:,11) = [ 4.659031e-07 ; 1.863613e-12 ; 9.999995e-01 ];
+//   at t =  4.0000e+10
+resDoc(:,12) = [ 1.404280e-08 ; 5.617126e-14 ; 1.000000e+00 ];
+
+G=[ 'void gex(int* neq, double* t, double* y, int* ng, double* gout)'
+    '{'
+        'gout[0] = y[0] - 1.0e-4;'
+        'gout[1] = y[2] - 1.0e-2;'
+    '}'];
+
+mputl(G,TMPDIR+'/gex.c');
+ilib_for_link('gex','gex.c',[],'c');
+exec loader.sce;
+
+y(1) = 1;
+y(2) = 0;
+y(3) = 0;
+t0   = 0;
+
+[yout1,rd1,w,iw] = ode("root", y, t0, tout, 'fex1', 2, 'gex');
+if rd1(1) < 2.64d-01 then pause; end
+if rd1(1) > 2.65d-01 then pause; end
+[yout2,rd2,w,iw] = ode("root", y, t0, tout, 'fex1', 2, 'gex', w, iw);
+if rd2(1) < 2.06d+07 then pause; end
+if rd2(1) > 2.08d+07 then pause; end
+err = execstr("[yout3,rd,w,iw] = ode(""root"", y, t0, tout, ""fex1"", 2, ""gex"", w, iw);","errcatch");
+if err == 0 then pause end;
+
+// check results
+if norm(resDocRoot(:,1) - yout1)      > 2.0D-8 then pause end;
+if norm(resDocRoot(:,2) - yout2(:,9)) > 2.0D-8 then pause end;
+if norm(resDoc(:,1:8) - yout2(:,1:8)) > 2.0D-4 then pause end;
+
+//*************************** rk/rkf/fix ********************************/
+function ydot=functionF(t, y)
+    ydot=y^2-y*sin(t)+cos(t)
+endfunction
+
+y0 = 0;
+t0 = 0;
+t  = 0:0.1:%pi;
+
+yout = ode(y0, t0, t, functionF);
+rk   = ode("rk",  y0, t0, t, functionF);
+rkf  = ode("rkf", y0, t0, t, functionF);
+fixx = ode("fix", y0, t0, t, functionF);
+
+if fixx <> yout  then pause; end
+if fixx <> rk    then pause; end
+if fixx <> rkf   then pause; end
+
