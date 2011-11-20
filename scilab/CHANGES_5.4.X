@@ -840,3 +840,7 @@ Bug fixes:
                     Icons renamed from XPM to PNG.
 
 * bug 10105 fixed - Focus was not given to the prompt when outputview had it.
+
+* bug 10292 fixed - Improved description of the help page of modulo.
+
+* bug 10292 fixed - Improved description of the help page of bvode.
