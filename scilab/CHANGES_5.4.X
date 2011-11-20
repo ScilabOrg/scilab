@@ -524,6 +524,9 @@ Graphics:
   - Markers can now be selected and moved using the arrow keys
     or deleted with the "Del" key.
 
+* bug 2043 fixed - The graphic function copy() did not manage axes. Thanks to
+                   Samuel Gougeon for the fix.
+
 * bug 7412 fixed - Better management of datatips activation/deactivation.
 
 * bug 7419 fixed - datatips(): customization is now available through a GUI.
@@ -536,6 +539,8 @@ Graphics:
 
 * bug 9455 fixed - The contourf and contourf 2 demos displayed unwanted dots.
 
+* bug 10121 fixed - polyline.interp_color_vector where not saved/recoverabled
+                    by xsave/xload. Thanks to Samuel Gougeon for the fix.
 
 ATOMS:
 ======
