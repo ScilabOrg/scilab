@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_ACTION_BINDING_H__
 #define __DYNLIB_ACTION_BINDING_H__
 
@@ -21,8 +21,8 @@
 #define ACTION_BINDING_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define ACTION_BINDING_IMPEXP
+#define ACTION_BINDING_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_ACTION_BINDING_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

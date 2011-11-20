@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_UI_DATA_H__
 #define __DYNLIB_UI_DATA_H__
 
 #ifdef _MSC_VER
-	#ifdef UI_DATA_EXPORTS
-		#define UI_DATA_IMPEXP __declspec(dllexport)
-	#else
-		#define UI_DATA_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef UI_DATA_EXPORTS
+#define UI_DATA_IMPEXP __declspec(dllexport)
 #else
-	#define UI_DATA_IMPEXP
+#define UI_DATA_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define UI_DATA_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_UI_DATA_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

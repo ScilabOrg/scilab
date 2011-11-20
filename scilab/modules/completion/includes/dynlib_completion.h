@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_COMPLETION_H__
 #define __DYNLIB_COMPLETION_H__
 
@@ -21,9 +21,8 @@
 #define COMPLETION_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define COMPLETION_IMPEXP
+#define COMPLETION_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_COMPLETION_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

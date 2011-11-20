@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_DATA_STRUCTURES_H__
 #define __DYNLIB_DATA_STRUCTURES_H__
 
 #ifdef _MSC_VER
-	#ifdef DATA_STRUCTURES_EXPORTS
-		#define DATA_STRUCTURES_IMPEXP __declspec(dllexport)
-	#else
-		#define DATA_STRUCTURES_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef DATA_STRUCTURES_EXPORTS
+#define DATA_STRUCTURES_IMPEXP __declspec(dllexport)
 #else
-	#define DATA_STRUCTURES_IMPEXP
+#define DATA_STRUCTURES_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define DATA_STRUCTURES_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_DATA_STRUCTURES_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

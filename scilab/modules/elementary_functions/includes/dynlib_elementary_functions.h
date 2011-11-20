@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_ELEMENTARY_FUNCTIONS_H__
 #define __DYNLIB_ELEMENTARY_FUNCTIONS_H__
 
 #ifdef _MSC_VER
-	#ifdef ELEMENTARY_FUNCTIONS_EXPORTS
-		#define ELEMENTARY_FUNCTIONS_IMPEXP __declspec(dllexport)
-	#else
-		#define ELEMENTARY_FUNCTIONS_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef ELEMENTARY_FUNCTIONS_EXPORTS
+#define ELEMENTARY_FUNCTIONS_IMPEXP __declspec(dllexport)
 #else
-	#define ELEMENTARY_FUNCTIONS_IMPEXP
+#define ELEMENTARY_FUNCTIONS_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define ELEMENTARY_FUNCTIONS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_ELEMENTARY_FUNCTIONS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

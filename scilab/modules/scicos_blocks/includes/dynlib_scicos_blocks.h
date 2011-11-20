@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SCICOS_BLOCKS_H__
 #define __DYNLIB_SCICOS_BLOCKS_H__
 
@@ -21,8 +21,8 @@
 #define SCICOS_BLOCKS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define SCICOS_BLOCKS_IMPEXP
+#define SCICOS_BLOCKS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SCICOS_BLOCKS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

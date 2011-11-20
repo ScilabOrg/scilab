@@ -20,7 +20,7 @@
 #define SCI_VERSION_REVISION 0
 #define SCI_VERSION_TIMESTAMP 0
 
-void disp_scilab_version(void);
+__attribute__ ((visibility ("default"))) void disp_scilab_version(void);
 
 /* for compatibility */
 /* Deprecated */

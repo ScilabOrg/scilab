@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_INTERSCI_H__
 #define __DYNLIB_INTERSCI_H__
 
@@ -21,8 +21,8 @@
 #define INTERSCI_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define INTERSCI_IMPEXP
+#define INTERSCI_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_INTERSCI_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

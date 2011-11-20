@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_POLYNOMIALS_H__
 #define __DYNLIB_POLYNOMIALS_H__
 
@@ -21,8 +21,8 @@
 #define POLYNOMIALS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define POLYNOMIALS_IMPEXP
+#define POLYNOMIALS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_POLYNOMIALS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

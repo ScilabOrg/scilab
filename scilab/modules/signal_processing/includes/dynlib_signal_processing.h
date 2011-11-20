@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SIGNAL_PROCESSING_H__
 #define __DYNLIB_SIGNAL_PROCESSING_H__
 
@@ -21,9 +21,8 @@
 #define SIGNAL_PROCESSING_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define SIGNAL_PROCESSING_IMPEXP
+#define SIGNAL_PROCESSING_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SIGNAL_PROCESSING_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

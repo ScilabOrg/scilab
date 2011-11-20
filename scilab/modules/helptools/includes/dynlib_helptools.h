@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_HELPTOOLS_H__
 #define __DYNLIB_HELPTOOLS_H__
 
@@ -21,8 +21,8 @@
 #define HELPTOOLS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define HELPTOOLS_IMPEXP
+#define HELPTOOLS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_HELPTOOLS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

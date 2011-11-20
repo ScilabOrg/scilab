@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_GRAPHICS_H__
 #define __DYNLIB_GRAPHICS_H__
 
@@ -21,9 +21,8 @@
 #define GRAPHICS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define GRAPHICS_IMPEXP
+#define GRAPHICS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_GRAPHICS_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

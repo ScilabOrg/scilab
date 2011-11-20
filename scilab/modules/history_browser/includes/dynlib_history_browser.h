@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_HISTORY_BROWSER_H__
 #define __DYNLIB_HISTORY_BROWSER_H__
 
@@ -21,8 +21,8 @@
 #define HISTORY_BROWSER_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define HISTORY_BROWSER_IMPEXP
+#define HISTORY_BROWSER_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_HISTORY_MANAGER_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

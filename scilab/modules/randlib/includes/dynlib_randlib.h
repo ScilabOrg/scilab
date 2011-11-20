@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_RANDLIB_H__
 #define __DYNLIB_RANDLIB_H__
 
@@ -21,8 +21,8 @@
 #define RANDLIB_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define RANDLIB_IMPEXP
+#define RANDLIB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_RANDLIB_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

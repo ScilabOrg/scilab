@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_OPTIMIZATION_H__
 #define __DYNLIB_OPTIMIZATION_H__
 
@@ -21,8 +21,8 @@
 #define OPTIMIZATION_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define OPTIMIZATION_IMPEXP
+#define OPTIMIZATION_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_OPTIMIZATION_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

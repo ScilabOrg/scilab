@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_LINEAR_ALGEBRA_H__
 #define __DYNLIB_LINEAR_ALGEBRA_H__
 
@@ -21,8 +21,8 @@
 #define LINEAR_ALGEBRA_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define LINEAR_ALGEBRA_IMPEXP
+#define LINEAR_ALGEBRA_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_LINEAR_ALGEBRA_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

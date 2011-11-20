@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_LOCALIZATION_H__
 #define __DYNLIB_LOCALIZATION_H__
 
@@ -21,8 +21,8 @@
 #define LOCALIZATION_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define LOCALIZATION_IMPEXP
+#define LOCALIZATION_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_LOCALIZATION_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

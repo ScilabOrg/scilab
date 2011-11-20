@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_CALL_SCILAB_H__
 #define __DYNLIB_CALL_SCILAB_H__
 
@@ -18,15 +18,15 @@
 #ifdef CALL_SCILAB_EXPORTS
 #define CALL_SCILAB_IMPEXP __declspec(dllexport)
 #else
-	#ifdef _LIB
-		#define CALL_SCILAB_IMPEXP
-	#else
-		#define CALL_SCILAB_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef _LIB
+#define CALL_SCILAB_IMPEXP
+#else
+#define CALL_SCILAB_IMPEXP __declspec(dllimport)
+#endif
 #endif
 #else
-#define CALL_SCILAB_IMPEXP
+#define CALL_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_CALL_SCILAB_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

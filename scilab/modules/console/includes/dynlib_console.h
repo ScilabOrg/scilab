@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_CONSOLE_H__
 #define __DYNLIB_CONSOLE_H__
 
@@ -21,9 +21,8 @@
 #define CONSOLE_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define CONSOLE_IMPEXP
+#define CONSOLE_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_CONSOLE_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

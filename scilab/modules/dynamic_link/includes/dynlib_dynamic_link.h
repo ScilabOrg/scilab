@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_DYNAMIC_LINK_H__
 #define __DYNLIB_DYNAMIC_LINK_H__
 
@@ -21,9 +21,8 @@
 #define DYNAMIC_LINK_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define DYNAMIC_LINK_IMPEXP
+#define DYNAMIC_LINK_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_DYNAMIC_LINK_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

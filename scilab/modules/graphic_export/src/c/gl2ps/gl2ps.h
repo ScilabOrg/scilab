@@ -41,21 +41,21 @@
 /* Define GL2PSDLL at compile time to build a Windows DLL */
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-#  if defined(_MSC_VER)
-#    pragma warning(disable:4115)
-#  endif
-#  include <windows.h>
-#  if defined(GL2PSDLL)
-#    if defined(GL2PSDLL_EXPORTS)
-#      define GL2PSDLL_API __declspec(dllexport)
-#    else
-#      define GL2PSDLL_API __declspec(dllimport)
-#    endif
-#  else
-#    define GL2PSDLL_API
-#  endif
+#if defined(_MSC_VER)
+#pragma warning(disable:4115)
+#endif
+#include <windows.h>
+#if defined(GL2PSDLL)
+#if defined(GL2PSDLL_EXPORTS)
+#define GL2PSDLL_API __declspec(dllexport)
 #else
-#  define GL2PSDLL_API
+#define GL2PSDLL_API __declspec(dllimport)
+#endif
+#else
+#define GL2PSDLL_API
+#endif
+#else
+#define GL2PSDLL_API __attribute__ ((visibility ("default")))
 #endif
 
 //#if defined(__APPLE__) || defined(HAVE_OPENGL_GL_H)
@@ -68,10 +68,10 @@
    images in SVG */
 
 #if defined(HAVE_ZLIB) || defined(HAVE_LIBZ)
-#  define GL2PS_HAVE_ZLIB
-#  if defined(HAVE_LIBPNG) || defined(HAVE_PNG)
-#    define GL2PS_HAVE_LIBPNG
-#  endif
+#define GL2PS_HAVE_ZLIB
+#if defined(HAVE_LIBPNG) || defined(HAVE_PNG)
+#define GL2PS_HAVE_LIBPNG
+#endif
 #endif
 
 /* Version number */
@@ -155,48 +155,41 @@
 typedef float GL2PSrgba[4];
 
 #if defined(__cplusplus)
-extern "C" {
+extern "C"
+{
 #endif
 
-GL2PSDLL_API int gl2psBeginPage(const char *title, const char *producer, 
-                                  int viewport[4], int format, int sort,
-                                  int options, int colormode,
-                                  int colorsize, GL2PSrgba *colormap, 
-                                  int nr, int ng, int nb, int buffersize,
-                                  FILE *stream, const char *filename);
-GL2PSDLL_API int gl2psEndPage(void);
-GL2PSDLL_API int gl2psSetOptions(int options);
-GL2PSDLL_API int gl2psBeginViewport(int viewport[4]);
-GL2PSDLL_API int gl2psEndViewport(void);
-GL2PSDLL_API int gl2psText(const char *str, const char *fontname, 
-                             short fontsize);
-GL2PSDLL_API int gl2psTextOpt(const char *str, const char *fontname, 
-                                short fontsize, int align, float angle);
-GL2PSDLL_API int gl2psSpecial(int format, const char *str);
-GL2PSDLL_API int gl2psDrawPixels(int width, int height,
-                                   int xorig, int yorig,
-                                   int format, int type, const void *pixels);
-GL2PSDLL_API int gl2psEnable(int mode);
-GL2PSDLL_API int gl2psDisable(int mode);
-GL2PSDLL_API int gl2psPointSize(float value);
+    GL2PSDLL_API int gl2psBeginPage(const char *title, const char *producer,
+                                    int viewport[4], int format, int sort,
+                                    int options, int colormode,
+                                    int colorsize, GL2PSrgba * colormap, int nr, int ng, int nb, int buffersize, FILE * stream, const char *filename);
+    GL2PSDLL_API int gl2psEndPage(void);
+    GL2PSDLL_API int gl2psSetOptions(int options);
+    GL2PSDLL_API int gl2psBeginViewport(int viewport[4]);
+    GL2PSDLL_API int gl2psEndViewport(void);
+    GL2PSDLL_API int gl2psText(const char *str, const char *fontname, short fontsize);
+    GL2PSDLL_API int gl2psTextOpt(const char *str, const char *fontname, short fontsize, int align, float angle);
+    GL2PSDLL_API int gl2psSpecial(int format, const char *str);
+    GL2PSDLL_API int gl2psDrawPixels(int width, int height, int xorig, int yorig, int format, int type, const void *pixels);
+    GL2PSDLL_API int gl2psEnable(int mode);
+    GL2PSDLL_API int gl2psDisable(int mode);
+    GL2PSDLL_API int gl2psPointSize(float value);
 
 /**
  * Added by scilab team.
  **/
-GL2PSDLL_API int gl2psLineStipple(int factor, int pattern);
+    GL2PSDLL_API int gl2psLineStipple(int factor, int pattern);
 
-GL2PSDLL_API int gl2psLineWidth(float value);
-GL2PSDLL_API int gl2psBlendFunc(int sfactor, int dfactor);
+    GL2PSDLL_API int gl2psLineWidth(float value);
+    GL2PSDLL_API int gl2psBlendFunc(int sfactor, int dfactor);
 
 /* undocumented */
-GL2PSDLL_API int gl2psDrawImageMap(int width, int height,
-                                     const float position[3],
-                                     const unsigned char *imagemap);
-GL2PSDLL_API const char *gl2psGetFileExtension(int format);
-GL2PSDLL_API const char *gl2psGetFormatDescription(int format);
+    GL2PSDLL_API int gl2psDrawImageMap(int width, int height, const float position[3], const unsigned char *imagemap);
+    GL2PSDLL_API const char *gl2psGetFileExtension(int format);
+    GL2PSDLL_API const char *gl2psGetFormatDescription(int format);
 
 #if defined(__cplusplus)
 }
 #endif
 
-#endif /* __GL2PS_H__ */
+#endif                          /* __GL2PS_H__ */

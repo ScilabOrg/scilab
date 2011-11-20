@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SPREADSHEET_H__
 #define __DYNLIB_SPREADSHEET_H__
 
@@ -21,8 +21,8 @@
 #define SPREADSHEET_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define SPREADSHEET_IMPEXP
+#define SPREADSHEET_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SPREADSHEET_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

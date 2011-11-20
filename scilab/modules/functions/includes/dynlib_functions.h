@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_FUNCTIONS_H__
 #define __DYNLIB_FUNCTIONS_H__
 
 #ifdef _MSC_VER
-	#ifdef FUNCTIONS_EXPORTS
-		#define FUNCTIONS_SCILAB_IMPEXP __declspec(dllexport)
-	#else
-		#define FUNCTIONS_SCILAB_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef FUNCTIONS_EXPORTS
+#define FUNCTIONS_SCILAB_IMPEXP __declspec(dllexport)
 #else
-	#define FUNCTIONS_SCILAB_IMPEXP
+#define FUNCTIONS_SCILAB_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define FUNCTIONS_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_FUNCTIONS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

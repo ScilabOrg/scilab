@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_DIFFERENTIAL_EQUATIONS_H__
 #define __DYNLIB_DIFFERENTIAL_EQUATIONS_H__
 
 #ifdef _MSC_VER
-	#ifdef DIFFERENTIAL_EQUATIONS_EXPORTS
-		#define DIFFERENTIAL_EQUATIONS_IMPEXP __declspec(dllexport)
-	#else
-		#define DIFFERENTIAL_EQUATIONS_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef DIFFERENTIAL_EQUATIONS_EXPORTS
+#define DIFFERENTIAL_EQUATIONS_IMPEXP __declspec(dllexport)
 #else
-	#define DIFFERENTIAL_EQUATIONS_IMPEXP
+#define DIFFERENTIAL_EQUATIONS_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define DIFFERENTIAL_EQUATIONS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_DIFFERENTIAL_EQUATIONS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

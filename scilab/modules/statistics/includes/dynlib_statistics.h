@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_STATISTICS_H__
 #define __DYNLIB_STATISTICS_H__
 
@@ -21,9 +21,8 @@
 #define STATISTICS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define STATISTICS_IMPEXP
+#define STATISTICS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_STATISTICS_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

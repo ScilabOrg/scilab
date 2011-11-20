@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_API_SCILAB_H__
 #define __DYNLIB_API_SCILAB_H__
 
@@ -21,8 +21,8 @@
 #define API_SCILAB_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define API_SCILAB_IMPEXP
+#define API_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /*__DYNLIB_API_SCILAB_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

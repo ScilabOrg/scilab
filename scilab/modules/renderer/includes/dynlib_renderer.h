@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_RENDERER_H__
 #define __DYNLIB_RENDERER_H__
 
 #ifdef _MSC_VER
-	#ifdef RENDERER_EXPORTS
-		#define RENDERER_IMPEXP __declspec(dllexport)
-	#else
-		#define RENDERER_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef RENDERER_EXPORTS
+#define RENDERER_IMPEXP __declspec(dllexport)
 #else
-	#define RENDERER_IMPEXP
+#define RENDERER_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define RENDERER_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_RENDERER_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

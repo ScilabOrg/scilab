@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_UMFPACK_H__
 #define __DYNLIB_UMFPACK_H__
 
 #ifdef _MSC_VER
-	#ifdef UMFPACK_EXPORTS
-		#define UMFPACK_IMPEXP __declspec(dllexport)
-	#else
-		#define UMFPACK_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef UMFPACK_EXPORTS
+#define UMFPACK_IMPEXP __declspec(dllexport)
 #else
-	#define UMFPACK_IMPEXP
+#define UMFPACK_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define UMFPACK_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_UMFPACK_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

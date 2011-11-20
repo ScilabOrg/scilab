@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SCINOTES_H__
 #define __DYNLIB_SCINOTES_H__
 
 #ifdef _MSC_VER
-	#ifdef SCINOTES_EXPORTS
-		#define SCINOTES_IMPEXP __declspec(dllexport)
-	#else
-		#define SCINOTES_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef SCINOTES_EXPORTS
+#define SCINOTES_IMPEXP __declspec(dllexport)
 #else
-	#define SCINOTES_IMPEXP
+#define SCINOTES_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define SCINOTES_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SCINOTES_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

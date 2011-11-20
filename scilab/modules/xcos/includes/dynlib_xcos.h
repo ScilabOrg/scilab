@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_XCOS_H__
 #define __DYNLIB_XCOS_H__
 
 #ifdef _MSC_VER
-	#ifdef XCOS_EXPORTS
-		#define XCOS_IMPEXP __declspec(dllexport)
-	#else
-		#define XCOS_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef XCOS_EXPORTS
+#define XCOS_IMPEXP __declspec(dllexport)
 #else
-	#define XCOS_IMPEXP
+#define XCOS_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define XCOS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_XCOS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

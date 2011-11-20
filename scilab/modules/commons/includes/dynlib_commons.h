@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_COMMONS_H__
 #define __DYNLIB_COMMONS_H__
 
 #ifdef _MSC_VER
-	#ifdef COMMONS_EXPORTS
-		#define COMMONS_IMPEXP __declspec(dllexport)
-	#else
-		#define COMMONS_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef COMMONS_EXPORTS
+#define COMMONS_IMPEXP __declspec(dllexport)
 #else
-	#define COMMONS_IMPEXP
+#define COMMONS_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define COMMONS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_COMMONS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_GRAPHIC_EXPORT_H__
 #define __DYNLIB_GRAPHIC_EXPORT_H__
 
@@ -21,9 +21,8 @@
 #define GRAPHIC_EXPORT_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define GRAPHIC_EXPORT_IMPEXP
+#define GRAPHIC_EXPORT_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_GRAPHIC_EXPORT_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

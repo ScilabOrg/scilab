@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_PARALLEL_H__
 #define __DYNLIB_PARALLEL_H__
 
@@ -21,8 +21,8 @@
 #define PARALLEL_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define PARALLEL_IMPEXP
+#define PARALLEL_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_PARALLEL_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

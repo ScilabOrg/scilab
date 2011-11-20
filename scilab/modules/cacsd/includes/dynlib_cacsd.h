@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_CACSD_H__
 #define __DYNLIB_CACSD_H__
 
 #ifdef _MSC_VER
-    #ifdef CACSD_EXPORTS
-        #define CACSD_IMPEXP __declspec(dllexport)
-    #else
-        #define CACSD_IMPEXP __declspec(dllimport)
-    #endif
+#ifdef CACSD_EXPORTS
+#define CACSD_IMPEXP __declspec(dllexport)
 #else
-    #define CACSD_IMPEXP
+#define CACSD_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define CACSD_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_CACSD_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

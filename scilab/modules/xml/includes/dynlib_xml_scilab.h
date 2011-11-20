@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_XML_SCILAB_H__
 #define __DYNLIB_XML_SCILAB_H__
 
 #ifdef _MSC_VER
-	#ifdef XML_SCILAB_EXPORTS
-		#define XML_SCILAB_IMPEXP __declspec(dllexport)
-	#else
-		#define XML_SCILAB_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef XML_SCILAB_EXPORTS
+#define XML_SCILAB_IMPEXP __declspec(dllexport)
 #else
-	#define XML_SCILAB_IMPEXP
+#define XML_SCILAB_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define XML_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_XML_SCILAB_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

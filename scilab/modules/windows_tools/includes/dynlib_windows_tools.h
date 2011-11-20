@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_WINDOWS_TOOLS_H__
 #define __DYNLIB_WINDOWS_TOOLS_H__
 
@@ -21,8 +21,8 @@
 #define WINDOWS_TOOLS_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define WINDOWS_TOOLS_IMPEXP
+#define WINDOWS_TOOLS_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_WINDOWS_TOOLS_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

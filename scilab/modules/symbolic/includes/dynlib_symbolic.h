@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SYMBOLIC_H__
 #define __DYNLIB_SYMBOLIC_H__
 
@@ -21,9 +21,8 @@
 #define SYMBOLIC_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define SYMBOLIC_IMPEXP
+#define SYMBOLIC_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SYMBOLIC_H__ */
-/*--------------------------------------------------------------------------*/ 
-
+/*--------------------------------------------------------------------------*/

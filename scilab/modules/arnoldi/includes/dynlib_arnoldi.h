@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_ARNOLDI_H__
 #define __DYNLIB_ARNOLDI_H__
 
@@ -21,8 +21,8 @@
 #define ARNOLDI_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define ARNOLDI_IMPEXP
+#define ARNOLDI_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_ARNOLDI_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

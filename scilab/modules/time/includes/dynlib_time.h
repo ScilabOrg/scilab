@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_TIME_H__
 #define __DYNLIB_TIME_H__
 
 #ifdef _MSC_VER
-	#ifdef TIME_EXPORTS
-		#define TIME_IMPEXP __declspec(dllexport)
-	#else
-		#define TIME_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef TIME_EXPORTS
+#define TIME_IMPEXP __declspec(dllexport)
 #else
-	#define TIME_IMPEXP
+#define TIME_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define TIME_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_TIME_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

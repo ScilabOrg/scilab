@@ -513,9 +513,10 @@ case "$CXX" in
       CXXFLAGS="$CXXFLAGS -DNDEBUG"
    fi
    CXXFLAGS="$CXXFLAGS -fno-stack-protector" # bug 3131
+   CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
    ;;
    clang-* | clang)
-           # clang expect an explict declaration
+           # clang expects an explict declaration
            LDFLAGS="$LDFLAGS -lstdc++"
    ;;
 esac
@@ -556,6 +557,7 @@ case "$CC" in
       CFLAGS="$CFLAGS  -DNDEBUG"
    fi
    CFLAGS="$CFLAGS -fno-stack-protector" # bug 3131
+   CFLAGS="$CFLAGS -fvisibility=hidden"
 
    # Explictly disable the as needed. It was disable by default but Ubuntu
    # activated it by default since release 11.04. See bug #8961.

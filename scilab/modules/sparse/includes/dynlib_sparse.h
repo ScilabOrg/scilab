@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_SPARSE_H__
 #define __DYNLIB_SPARSE_H__
 
 #ifdef _MSC_VER
-	#ifdef SPARSE_EXPORTS
-		#define SPARSE_IMPEXP __declspec(dllexport)
-	#else
-		#define SPARSE_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef SPARSE_EXPORTS
+#define SPARSE_IMPEXP __declspec(dllexport)
 #else
-	#define SPARSE_IMPEXP
+#define SPARSE_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define SPARSE_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_SPARSE_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

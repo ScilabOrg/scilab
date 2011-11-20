@@ -10,7 +10,7 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_OUTPUT_STREAM_H__
 #define __DYNLIB_OUTPUT_STREAM_H__
 
@@ -21,8 +21,8 @@
 #define OUTPUT_STREAM_IMPEXP __declspec(dllimport)
 #endif
 #else
-#define OUTPUT_STREAM_IMPEXP
+#define OUTPUT_STREAM_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_OUTPUT_STREAM_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

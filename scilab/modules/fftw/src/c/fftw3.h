@@ -57,14 +57,14 @@
 #ifdef __cplusplus
 extern "C"
 {
-#endif /* __cplusplus */
+#endif                          /* __cplusplus */
 
 /* If <complex.h> is included, use the C99 complex type.  Otherwise
    define a type bit-compatible with C99 complex */
 #if !defined(FFTW_NO_Complex) && defined(_Complex_I) && defined(complex) && defined(I)
-#  define FFTW_DEFINE_COMPLEX(R, C) typedef R _Complex C
+#define FFTW_DEFINE_COMPLEX(R, C) typedef R _Complex C
 #else
-#  define FFTW_DEFINE_COMPLEX(R, C) typedef R C[2]
+#define FFTW_DEFINE_COMPLEX(R, C) typedef R C[2]
 #endif
 
 #define FFTW_CONCAT(prefix, name) prefix ## name
@@ -82,27 +82,29 @@ extern "C"
    command-line flag.  This is not necessary under MinGW/Cygwin, where
    libtool does the imports/exports automatically. */
 #if defined(FFTW_DLL) && (defined(_WIN32) || defined(__WIN32__))
-   /* annoying Windows syntax for shared-library declarations */
-#  if defined(COMPILING_FFTW) /* defined in api.h when compiling FFTW */
-#    define FFTW_EXTERN extern __declspec(dllexport) 
-#  else /* user is calling FFTW; import symbol */
-#    define FFTW_EXTERN extern __declspec(dllimport) 
-#  endif
+    /* annoying Windows syntax for shared-library declarations */
+#if defined(COMPILING_FFTW)     /* defined in api.h when compiling FFTW */
+#define FFTW_EXTERN extern __declspec(dllexport)
+#else                           /* user is calling FFTW; import symbol */
+#define FFTW_EXTERN extern __declspec(dllimport)
+#endif
 #else
-#  define FFTW_EXTERN extern
+#define FFTW_EXTERN extern __attribute__ ((visibility ("default")))
 #endif
 
-enum fftw_r2r_kind_do_not_use_me {
-     FFTW_R2HC=0, FFTW_HC2R=1, FFTW_DHT=2,
-     FFTW_REDFT00=3, FFTW_REDFT01=4, FFTW_REDFT10=5, FFTW_REDFT11=6,
-     FFTW_RODFT00=7, FFTW_RODFT01=8, FFTW_RODFT10=9, FFTW_RODFT11=10
-};
+    enum fftw_r2r_kind_do_not_use_me
+    {
+        FFTW_R2HC = 0, FFTW_HC2R = 1, FFTW_DHT = 2,
+        FFTW_REDFT00 = 3, FFTW_REDFT01 = 4, FFTW_REDFT10 = 5, FFTW_REDFT11 = 6,
+        FFTW_RODFT00 = 7, FFTW_RODFT01 = 8, FFTW_RODFT10 = 9, FFTW_RODFT11 = 10
+    };
 
-struct fftw_iodim_do_not_use_me {
-     int n;                     /* dimension size */
-     int is;			/* input stride */
-     int os;			/* output stride */
-};
+    struct fftw_iodim_do_not_use_me
+    {
+        int n;                  /* dimension size */
+        int is;                 /* input stride */
+        int os;                 /* output stride */
+    };
 
 /*
   huge second-order macro that defines prototypes for all API
@@ -288,28 +290,22 @@ FFTW_EXTERN const char X(version)[];					   \
 FFTW_EXTERN const char X(cc)[];						   \
 FFTW_EXTERN const char X(codelet_optim)[];
 
-
 /* end of FFTW_DEFINE_API macro */
 
-FFTW_DEFINE_API(FFTW_MANGLE_DOUBLE, double, fftw_complex)
-FFTW_DEFINE_API(FFTW_MANGLE_FLOAT, float, fftwf_complex)
-FFTW_DEFINE_API(FFTW_MANGLE_LONG_DOUBLE, long double, fftwl_complex)
-
+      FFTW_DEFINE_API(FFTW_MANGLE_DOUBLE, double, fftw_complex)
+        FFTW_DEFINE_API(FFTW_MANGLE_FLOAT, float, fftwf_complex) FFTW_DEFINE_API(FFTW_MANGLE_LONG_DOUBLE, long double, fftwl_complex)
 #define FFTW_FORWARD (-1)
 #define FFTW_BACKWARD (+1)
-
 #define FFTW_NO_TIMELIMIT (-1.0)
-
 /* documented flags */
 #define FFTW_MEASURE (0U)
 #define FFTW_DESTROY_INPUT (1U << 0)
 #define FFTW_UNALIGNED (1U << 1)
 #define FFTW_CONSERVE_MEMORY (1U << 2)
-#define FFTW_EXHAUSTIVE (1U << 3) /* NO_EXHAUSTIVE is default */
-#define FFTW_PRESERVE_INPUT (1U << 4) /* cancels FFTW_DESTROY_INPUT */
-#define FFTW_PATIENT (1U << 5) /* IMPATIENT is default */
+#define FFTW_EXHAUSTIVE (1U << 3)   /* NO_EXHAUSTIVE is default */
+#define FFTW_PRESERVE_INPUT (1U << 4)   /* cancels FFTW_DESTROY_INPUT */
+#define FFTW_PATIENT (1U << 5)  /* IMPATIENT is default */
 #define FFTW_ESTIMATE (1U << 6)
-
 /* undocumented beyond-guru flags */
 #define FFTW_ESTIMATE_PATIENT (1U << 7)
 #define FFTW_BELIEVE_PCOST (1U << 8)
@@ -325,9 +321,8 @@ FFTW_DEFINE_API(FFTW_MANGLE_LONG_DOUBLE, long double, fftwl_complex)
 #define FFTW_NO_SLOW (1U << 18)
 #define FFTW_NO_FIXED_RADIX_LARGE_N (1U << 19)
 #define FFTW_ALLOW_PRUNING (1U << 20)
-
 #ifdef __cplusplus
-}  /* extern "C" */
-#endif /* __cplusplus */
+}                               /* extern "C" */
+#endif                          /* __cplusplus */
 
-#endif /* FFTW3_H */
+#endif                          /* FFTW3_H */

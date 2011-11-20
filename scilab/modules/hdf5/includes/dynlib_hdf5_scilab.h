@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_HDF5_SCILAB_H__
 #define __DYNLIB_HDF5_SCILAB_H__
 
 #ifdef _MSC_VER
-	#ifdef HDF5_SCILAB_EXPORTS
-		#define HDF5_SCILAB_IMPEXP __declspec(dllexport)
-	#else
-		#define HDF5_SCILAB_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef HDF5_SCILAB_EXPORTS
+#define HDF5_SCILAB_IMPEXP __declspec(dllexport)
 #else
-	#define HDF5_SCILAB_IMPEXP
+#define HDF5_SCILAB_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define HDF5_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_HDF5_SCILAB_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/

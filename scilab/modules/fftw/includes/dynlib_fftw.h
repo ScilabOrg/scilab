@@ -10,19 +10,19 @@
 *
 */
 
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #ifndef __DYNLIB_FTTW_H__
 #define __DYNLIB_FTTW_H__
 
 #ifdef _MSC_VER
-	#ifdef FFTW_EXPORTS
-		#define FTTW_SCILAB_IMPEXP __declspec(dllexport)
-	#else
-		#define FTTW_SCILAB_IMPEXP __declspec(dllimport)
-	#endif
+#ifdef FFTW_EXPORTS
+#define FTTW_SCILAB_IMPEXP __declspec(dllexport)
 #else
-	#define FTTW_SCILAB_IMPEXP
+#define FTTW_SCILAB_IMPEXP __declspec(dllimport)
+#endif
+#else
+#define FTTW_SCILAB_IMPEXP __attribute__ ((visibility ("default")))
 #endif
 
 #endif /* __DYNLIB_FTTW_H__ */
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
