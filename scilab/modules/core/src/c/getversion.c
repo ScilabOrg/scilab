@@ -57,7 +57,7 @@ int *getScilabVersion(int *sizeArrayReturned)
 /*--------------------------------------------------------------------------*/
 char *getScilabVersionAsString(void)
 {
-	return strdup(SCI_VERSION_STRING);
+	return getVersionString();
 }
 /*--------------------------------------------------------------------------*/
 int* getModuleVersion(char *modulename, int *sizeArrayReturned)
