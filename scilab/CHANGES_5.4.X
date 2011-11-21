@@ -859,6 +859,8 @@ Bug fixes:
 
 * bug 9957 fixed - msprintf("%d\r", 2) returned '2r'.
 
+* bug 9960 fixed - There was no simplified assert_checkerror calling sequence.
+
 * bug 9966 fixed - The default value of comptype in assert_checkalmostequal
                    was wrongly chosen.
 
