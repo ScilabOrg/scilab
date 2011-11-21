@@ -19,6 +19,7 @@ import static org.scilab.modules.xcos.utils.FileUtils.exists;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.LogManager;
 
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
@@ -33,16 +35,23 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.graph.utils.ScilabExported;
+import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
+import org.scilab.modules.gui.tabfactory.AbstractScilabTabFactory;
+import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
+import org.scilab.modules.gui.utils.ClosingOperationsManager;
+import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.localization.Messages;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.configuration.ConfigurationManager;
+import org.scilab.modules.xcos.configuration.model.DocumentType;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.palette.PaletteBlockCtrl;
 import org.scilab.modules.xcos.palette.PaletteManager;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.model.PreLoaded;
+import org.scilab.modules.xcos.palette.view.PaletteManagerView;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
@@ -54,7 +63,7 @@ import com.mxgraph.view.mxStylesheet;
  */
 // CSOFF: ClassFanOutComplexity
 // CSOFF: ClassDataAbstractionCoupling
-public final class Xcos {
+public final class Xcos extends AbstractScilabTabFactory {
     /**
      * The current Xcos version
      */
@@ -63,6 +72,9 @@ public final class Xcos {
      * The current Xcos tradename
      */
     public static final String TRADENAME = "Xcos";
+    public static final ImageIcon ICON = new ImageIcon(
+            System.getenv("SCI")
+                    + "/modules/gui/images/icons/32x32/apps/utilities-system-monitor.png");
 
     private static final String LOAD_XCOS_LIBS_LOAD_SCICOS = "loadXcosLibs(); loadScicos();";
 
@@ -102,6 +114,11 @@ public final class Xcos {
     private final ConfigurationManager configuration;
     private final mxStylesheet styleSheet;
 
+    /*
+     * Cache
+     */
+    private DocumentType cachedDocumentType;
+
     /**
      * Construct an Xcos instance.
      * 
@@ -121,12 +138,17 @@ public final class Xcos {
         }
 
         /* Check the dependencies at startup time */
-        checkDependencies();
+        // checkDependencies();
 
         /*
          * Allocate synchronized communications data
          */
         diagrams = Collections.synchronizedList(new Vector<XcosDiagram>());
+
+        /*
+         * Register as an AbstractScilabTabFactory
+         */
+        ScilabTabFactory.getInstance().addTabFactory(this);
 
         /*
          * get the handlers instance
@@ -140,6 +162,8 @@ public final class Xcos {
         } catch (final IOException e) {
             LOG.error(e);
         }
+
+        ScilabTabFactory.getInstance().addTabFactory(this);
     }
 
     /**
@@ -318,26 +342,21 @@ public final class Xcos {
              */
             diag = new XcosDiagram();
             diag.installListeners();
-            final XcosTab tab = new XcosTab(diag);
 
             if (filename != null) {
                 // wait the end of the load before displaying the tab.
                 diag = diag.openDiagramFromFile(filename);
-            } else {
-                // empty tab, display it
-                tab.setVisible(true);
             }
 
             if (diag != null) {
                 diagrams.add(diag);
             }
-        } else {
-
-            /*
-             * Focus on an existing diagram
-             */
-            diag.getParentTab().setCurrent();
         }
+
+        /*
+         * Create a visible window
+         */
+        XcosTab.restore(diag);
     }
 
     /**
@@ -368,7 +387,7 @@ public final class Xcos {
             } else {
                 // we must also close the session is no diagram is visible
                 for (final XcosDiagram diag : diagrams) {
-                    if (diag.getParentTab() != null) {
+                    if (XcosTab.get(diag) != null) {
                         return true;
                     }
                 }
@@ -409,10 +428,8 @@ public final class Xcos {
             instance.close(diagrams.get(i), true);
         }
 
-        if (instance.palette.getView() != null
-                && instance.palette.getView().isVisible()) {
-            instance.palette.getView().close();
-            instance.palette.setView(null);
+        if (PaletteManagerView.get() != null) {
+            PaletteManagerView.close(null);
         }
 
         /* terminate any remaining simulation */
@@ -461,8 +478,8 @@ public final class Xcos {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                instance.open(null);
                 PaletteManager.setVisible(true);
+                instance.open(null);
             }
         });
     }
@@ -605,7 +622,7 @@ public final class Xcos {
                             /*
                              * Focus on an existing diagram
                              */
-                            parent.getParentTab().setCurrent();
+                            XcosTab.restore(parent);
                         }
                     });
 
@@ -826,6 +843,172 @@ public final class Xcos {
             }
         }
         return null;
+    }
+
+    /*
+     * @see org.scilab.modules.gui.tabfactory.AbstractScilabTabFactory
+     */
+
+    /**
+     * Create/restore a tab for a given uuid
+     * 
+     * @param uuid
+     *            the specific uuid
+     * @return the tab instance
+     */
+    @Override
+    public synchronized SwingScilabTab getTab(String uuid) {
+        if (uuid == null) {
+            return null;
+        }
+
+        SwingScilabTab tab = ScilabTabFactory.getInstance().getFromCache(uuid);
+
+        // Palette manager restore
+        if (tab == null) {
+
+            if (PaletteManagerView.UUID.equals(uuid)) {
+                PaletteManagerView.restore(null);
+                tab = PaletteManagerView.get();
+            }
+        }
+
+        // diagram (tab or viewport) restore
+        if (tab == null) {
+            cache(uuid);
+            if (cachedDocumentType == null) {
+                return null;
+            }
+
+            final XcosDiagram graph = loadDiagram();
+            if (uuid.equals(cachedDocumentType.getUuid())) {
+                XcosTab.restore(graph);
+                tab = XcosTab.get(graph);
+
+                ClosingOperationsManager.addDependencyWithRoot(tab);
+            } else if (uuid.equals(cachedDocumentType.getViewport())) {
+                ViewPortTab.restore(graph);
+                tab = ViewPortTab.get(graph);
+
+                ClosingOperationsManager.addDependency(
+                        (SwingScilabTab) XcosTab.get(graph), tab);
+                WindowsConfigurationManager.makeDependency(
+                        graph.getDiagramTab(), tab.getPersistentId());
+            } else {
+                return null;
+            }
+        }
+
+        if (uuid != null) {
+            WindowsConfigurationManager.restorationFinished(tab);
+        }
+        ScilabTabFactory.getInstance().addToCache(tab);
+
+        return tab;
+    }
+
+    /**
+     * Load the diagram according to the cachedDocumentType
+     * 
+     * @return the loaded diagram or null on error
+     */
+    private XcosDiagram loadDiagram() {
+        final URL url;
+        final File f;
+        try {
+            url = new URL(cachedDocumentType.getUrl());
+            f = new File(url.toURI());
+        } catch (Exception e) {
+            return null;
+        }
+
+        XcosDiagram graph = new XcosDiagram();
+        graph = graph.openDiagramFromFile(f);
+
+        if (cachedDocumentType.getPath() != null) {
+            final String[] path = cachedDocumentType.getPath().split("/");
+            for (String id : path) {
+                final Object cell = ((mxGraphModel) graph.getModel())
+                        .getCell(id);
+
+                if (cell instanceof SuperBlock) {
+                    SuperBlock b = (SuperBlock) cell;
+
+                    b.openBlockSettings(null);
+                    graph = b.getChild();
+                }
+            }
+
+        }
+
+        return graph;
+    }
+
+    @Override
+    public synchronized boolean isAValidUUID(String uuid) {
+        // check the Palette manager view (static uuid)
+        if (PaletteManagerView.UUID.equals(uuid)) {
+            return true;
+        }
+
+        /*
+         * Cache and check against cache to ease next getTab(uuid) call
+         */
+        cache(uuid);
+        return cachedDocumentType != null;
+    }
+
+    /**
+     * Cache the {@link DocumentType} for the specific uuid
+     * 
+     * @param uuid
+     *            the uuid
+     */
+    private void cache(String uuid) {
+        /*
+         * Handle a non null cache
+         */
+        if (cachedDocumentType != null) {
+            final boolean isTab = uuid.equals(cachedDocumentType.getUuid());
+            final boolean isViewport = uuid.equals(cachedDocumentType
+                    .getViewport());
+
+            if (isTab || isViewport) {
+                return;
+            } else {
+                cachedDocumentType = null;
+            }
+        }
+
+        /*
+         * Invalid cache, look for the right one
+         */
+        final ConfigurationManager config = ConfigurationManager.getInstance();
+        final List<DocumentType> docs = config.getSettings().getTab();
+        for (DocumentType d : docs) {
+            final boolean isTab = uuid.equals(d.getUuid());
+            final boolean isViewport = uuid.equals(d.getViewport());
+
+            if (isTab || isViewport) {
+                cachedDocumentType = d;
+                break;
+            }
+        }
+    }
+
+    @Override
+    public String getPackage() {
+        return TRADENAME;
+    }
+
+    @Override
+    public String getClassName() {
+        return Xcos.class.getName();
+    }
+
+    @Override
+    public String getApplication() {
+        return TRADENAME;
     }
 }
 // CSON: ClassDataAbstractionCoupling

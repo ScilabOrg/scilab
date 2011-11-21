@@ -226,14 +226,13 @@ public final class SuperBlock extends BasicBlock {
             /*
              * Construct the view or set it visible.
              */
-            if (!getChild().isVisible()) {
-                updateAllBlocksColor();
-                getChild().setModifiedNonRecursively(false);
+            XcosTab.restore(getChild());
 
-                new XcosTab(getChild()).setVisible(true);
-                getChild().fireEvent(new mxEventObject(mxEvent.ROOT));
-                getChild().getView().invalidate();
-            }
+            updateAllBlocksColor();
+            getChild().setModifiedNonRecursively(false);
+
+            getChild().fireEvent(new mxEventObject(mxEvent.ROOT));
+            getChild().getView().invalidate();
 
             /*
              * Update the cells from the context values.
@@ -266,12 +265,9 @@ public final class SuperBlock extends BasicBlock {
         /*
          * Hide the current child window
          */
-        if (getChild().getParentTab() != null) {
-            getChild().getParentTab().close();
-            getChild().setParentTab(null);
+        XcosTab.close(getChild());
 
-            getChild().setComponent(null);
-        }
+        // FIXME check if we can remove the next statements
 
         /* Remove only when the instance cannot be modified anymore */
         if (getChild().canClose()) {

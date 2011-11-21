@@ -26,11 +26,13 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -113,7 +115,9 @@ public final class ConfigurationManager {
                     FileUtils.forceCopy(base, f);
                 }
 
-                return (SettingType) unmarshaller.unmarshal(f);
+                final JAXBElement<SettingType> config = unmarshaller.unmarshal(
+                        new StreamSource(f), SettingType.class);
+                return config.getValue();
             } catch (JAXBException e) {
                 LogFactory.getLog(ConfigurationManager.class).warn(
                         "user configuration file is not valid.\n"
@@ -125,18 +129,22 @@ public final class ConfigurationManager {
                 try {
                     f = new File(ScilabConstants.SCI.getAbsoluteFile()
                             + XcosConstants.XCOS_ETC + INSTANCE_FILENAME);
-                    return (SettingType) unmarshaller.unmarshal(f);
+                    final JAXBElement<SettingType> config = unmarshaller
+                            .unmarshal(new StreamSource(f), SettingType.class);
+                    return config.getValue();
                 } catch (JAXBException ex) {
                     LogFactory.getLog(ConfigurationManager.class).error(
                             "base configuration file corrupted.\n" + ex);
-                    return null;
                 }
             }
 
         } catch (JAXBException e) {
             e.printStackTrace();
-            return null;
         }
+
+        // in case of error, create an empty configuration
+        return new org.scilab.modules.xcos.configuration.model.ObjectFactory()
+                .createSettingType();
     }
 
     /**
@@ -224,7 +232,7 @@ public final class ConfigurationManager {
      *            the file path to add
      */
     public void addToRecentFiles(File string) {
-        List<DocumentType> files = getSettings().getRecentFiles().getDocument();
+        List<DocumentType> files = getSettings().getRecent();
 
         /*
          * Create the url
@@ -303,7 +311,7 @@ public final class ConfigurationManager {
     public static void configureCurrentDirectory(JFileChooser fc) {
         final ConfigurationManager manager = ConfigurationManager.getInstance();
         final Iterator<DocumentType> recentFiles = manager.getSettings()
-                .getRecentFiles().getDocument().iterator();
+                .getRecent().iterator();
 
         File lastFile = null;
         if (recentFiles.hasNext()) {

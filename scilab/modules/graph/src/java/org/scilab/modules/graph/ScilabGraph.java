@@ -23,9 +23,6 @@ import java.util.List;
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
 import org.scilab.modules.graph.utils.ScilabGraphMessages;
 import org.scilab.modules.graph.view.ScilabGraphView;
-import org.scilab.modules.gui.tab.Tab;
-import org.scilab.modules.gui.utils.UIElementMapper;
-import org.scilab.modules.gui.window.ScilabWindow;
 
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
@@ -53,347 +50,293 @@ import com.mxgraph.view.mxGraphView;
  * modification state management, Tab association, etc...
  */
 public class ScilabGraph extends mxGraph {
-	/**
-	 * The default component of a scilab graph
-	 */
-	private ScilabComponent component;
-	
-	private final mxUndoManager undoManager = new mxUndoManager();
+    /**
+     * The default component of a scilab graph
+     */
+    private ScilabComponent component;
 
-	private String title = ScilabGraphMessages.UNTITLED;
-	private File savedFile;
-	private boolean modified;
-	private Tab parentTab;
-	private boolean opened;
-	private boolean readOnly;
+    private final mxUndoManager undoManager = new mxUndoManager();
 
-	private transient mxRubberband rubberBand;
+    private String title = ScilabGraphMessages.UNTITLED;
+    private File savedFile;
+    private boolean modified;
+    private boolean opened;
+    private boolean readOnly;
 
-	/**
-	 * Manage the modification state on change
-	 */
-	private final mxIEventListener changeTracker = new mxIEventListener() {
-		@Override
-		public void invoke(Object source, mxEventObject evt) {
-			setModified(true);
-		}
-	};
+    private transient mxRubberband rubberBand;
 
-	/**
-	 * Manage the undo/redo on change
-	 */
-	private final mxIEventListener undoHandler = new mxIEventListener() {
-		@Override
-		public void invoke(Object source, mxEventObject evt) {
-			undoManager.undoableEditHappened((mxUndoableEdit) evt
-						.getProperty(ScilabGraphConstants.EVENT_CHANGE_EDIT));
-		}
-	};
+    /**
+     * Manage the modification state on change
+     */
+    private final mxIEventListener changeTracker = new mxIEventListener() {
+        @Override
+        public void invoke(Object source, mxEventObject evt) {
+            setModified(true);
+        }
+    };
 
-	/**
-	 * Remove the undo handler from the component
-	 */
-	public void removeUndoHandler() {
-		getModel().removeListener(undoHandler, mxEvent.UNDO);
-	}
-	
-	/**
-	 * Register the undo handler on the right component
-	 */
-	public void registerUndoHandler() {
-		// Undo / Redo capabilities
-		getModel().addListener(mxEvent.UNDO, undoHandler);
-	}
+    /**
+     * Manage the undo/redo on change
+     */
+    private final mxIEventListener undoHandler = new mxIEventListener() {
+        @Override
+        public void invoke(Object source, mxEventObject evt) {
+            undoManager.undoableEditHappened((mxUndoableEdit) evt
+                    .getProperty(ScilabGraphConstants.EVENT_CHANGE_EDIT));
+        }
+    };
 
-	/**
-	 * Update the selection on undo/redo
-	 */
-	private final mxIEventListener selectionHandler = new mxIEventListener() {
-		@Override
-		public void invoke(Object source, mxEventObject evt) {
-			List<mxUndoableChange> changes = ((mxUndoableEdit) evt.getProperty(ScilabGraphConstants.EVENT_CHANGE_EDIT)).getChanges();
-			getSelectionModel().setCells(getSelectionCellsForChanges(changes));
-		}
-	};
-	
-	/**
-	 * Update the component when the graph is locked
-	 */
-	private final PropertyChangeListener cellLockBackgroundUpdater = new PropertyChangeListener() {
-		@Override
-		public void propertyChange(PropertyChangeEvent evt) {
-			if (evt.getPropertyName().equals("cellsLocked")) {
-				getAsComponent().getGraphControl().repaint();
-			}
-		}
-	};
-	
-	/**
-	
-	/**
-	 * Default constructor: - disable unused actions - install listeners -
-	 * Replace JGraphX components by specialized components if needed.
-	 */
-	public ScilabGraph() {
-		super();
+    /**
+     * Remove the undo handler from the component
+     */
+    public void removeUndoHandler() {
+        getModel().removeListener(undoHandler, mxEvent.UNDO);
+    }
 
-		// Disabling the default connected action and event listeners.
-		mxGraphActions.getSelectNextAction().setEnabled(false);
-		mxGraphActions.getSelectPreviousAction().setEnabled(false);
-		mxGraphActions.getSelectChildAction().setEnabled(false);
-		mxGraphActions.getSelectParentAction().setEnabled(false);
-		
-		registerUndoHandler();
+    /**
+     * Register the undo handler on the right component
+     */
+    public void registerUndoHandler() {
+        // Undo / Redo capabilities
+        getModel().addListener(mxEvent.UNDO, undoHandler);
+    }
 
-		// Keeps the selection in sync with the command history
-		undoManager.addListener(mxEvent.UNDO, selectionHandler);
-		undoManager.addListener(mxEvent.REDO, selectionHandler);
+    /**
+     * Update the selection on undo/redo
+     */
+    private final mxIEventListener selectionHandler = new mxIEventListener() {
+        @Override
+        public void invoke(Object source, mxEventObject evt) {
+            List<mxUndoableChange> changes = ((mxUndoableEdit) evt
+                    .getProperty(ScilabGraphConstants.EVENT_CHANGE_EDIT))
+                    .getChanges();
+            getSelectionModel().setCells(getSelectionCellsForChanges(changes));
+        }
+    };
 
-		setComponent(new ScilabComponent(this));
-		
-		// graph locked change support
-		changeSupport.addPropertyChangeListener(cellLockBackgroundUpdater);
+    /**
+     * Update the component when the graph is locked
+     */
+    private final PropertyChangeListener cellLockBackgroundUpdater = new PropertyChangeListener() {
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if (evt.getPropertyName().equals("cellsLocked")) {
+                getAsComponent().getGraphControl().repaint();
+            }
+        }
+    };
 
-		// Modified property change
-		getModel().addListener(mxEvent.CHANGE, changeTracker);
-	}
+    /**
+     * /** Default constructor: - disable unused actions - install listeners -
+     * Replace JGraphX components by specialized components if needed.
+     */
+    public ScilabGraph() {
+        super();
 
-	/**
-	 * @return The previously saved file or null.
-	 */
-	public File getSavedFile() {
-		return savedFile;
-	}
+        // Disabling the default connected action and event listeners.
+        mxGraphActions.getSelectNextAction().setEnabled(false);
+        mxGraphActions.getSelectPreviousAction().setEnabled(false);
+        mxGraphActions.getSelectChildAction().setEnabled(false);
+        mxGraphActions.getSelectParentAction().setEnabled(false);
 
-	/**
-	 * @param savedFile
-	 *            The new saved file
-	 */
-	public void setSavedFile(File savedFile) {
-		this.savedFile = savedFile;
-		
-		// register the saved dir as the image base path (for relative images location).
-		getAsComponent().getCanvas().setImageBasePath(savedFile.getParentFile().toURI().toASCIIString());
-	}
+        registerUndoHandler();
 
-	/**
-	 * @return true, if the graph has been modified ; false otherwise.
-	 */
-	public boolean isModified() {
-		return modified;
-	}
+        // Keeps the selection in sync with the command history
+        undoManager.addListener(mxEvent.UNDO, selectionHandler);
+        undoManager.addListener(mxEvent.REDO, selectionHandler);
 
-	/**
-	 * Modify the state of the diagram.
-	 * 
-	 * @param modified
-	 *            The new modified state.
-	 * @category UseEvent
-	 */
-	public void setModified(boolean modified) {
-		boolean oldValue = this.modified;
-		this.modified = modified;
+        setComponent(new ScilabComponent(this));
 
-		if (getAsComponent() != null) {
-			getAsComponent().firePropertyChange("modified", oldValue, modified);
-		}
-	}
+        // graph locked change support
+        changeSupport.addPropertyChangeListener(cellLockBackgroundUpdater);
 
-	/**
-	 * @param title
-	 *            The new title of the tab
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+        // Modified property change
+        getModel().addListener(mxEvent.CHANGE, changeTracker);
+    }
 
-	/**
-	 * @return The current Tab title
-	 */
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * @return The previously saved file or null.
+     */
+    public File getSavedFile() {
+        return savedFile;
+    }
 
-	/**
-	 * @return The component associated with the current graph.
-	 */
-	public mxGraphComponent getAsComponent() {
-		return component;
-	}
-	
-	/**
-	 * @param component The graphical component associated with this graph
-	 */
-	public void setComponent(ScilabComponent component) {
-		this.component = component;
-		
-		if (component != null) {
-			// Adds rubberband selection
-			rubberBand = new mxRubberband(component);
-		} else {
-			rubberBand = null;
-		}
-	}
+    /**
+     * @param savedFile
+     *            The new saved file
+     */
+    public void setSavedFile(File savedFile) {
+        this.savedFile = savedFile;
 
-	/**
-	 * @return The associated Tab
-	 */
-	public Tab getParentTab() {
-		return parentTab;
-	}
+        // register the saved dir as the image base path (for relative images
+        // location).
+        getAsComponent().getCanvas().setImageBasePath(
+                savedFile.getParentFile().toURI().toASCIIString());
+    }
 
-	/**
-	 * @param parentTab
-	 *            The new associated Tab
-	 */
-	public void setParentTab(Tab parentTab) {
-		this.parentTab = parentTab;
-	}
+    /**
+     * @return true, if the graph has been modified ; false otherwise.
+     */
+    public boolean isModified() {
+        return modified;
+    }
 
-	/**
-	 * The instance can be not visible but used (when using SuperBlock). The
-	 * openned flag is true in this case and also when the Window/Tab is
-	 * visible.
-	 * 
-	 * @param opened
-	 *            Openned state
-	 */
-	public void setOpened(boolean opened) {
-		this.opened = opened;
-	}
+    /**
+     * Modify the state of the diagram.
+     * 
+     * @param modified
+     *            The new modified state.
+     * @category UseEvent
+     */
+    public void setModified(boolean modified) {
+        boolean oldValue = this.modified;
+        this.modified = modified;
 
-	/**
-	 * @return Openned state
-	 */
-	public boolean isOpened() {
-		return opened;
-	}
+        if (getAsComponent() != null) {
+            getAsComponent().firePropertyChange("modified", oldValue, modified);
+        }
+    }
 
-	/**
-	 * Set the associated Window/Tab visible or not.
-	 * 
-	 * @param visible
-	 *            State of visibility
-	 */
-	public void setVisible(boolean visible) {
-		if (parentTab != null) {
-			ScilabWindow xcosWindow = (ScilabWindow) UIElementMapper
-					.getCorrespondingUIElement(parentTab.getParentWindowId());
-			xcosWindow.setVisible(visible);
-		}
-	}
+    /**
+     * @param title
+     *            The new title of the tab
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	/**
-	 * Check if the associated Window/Tab is visible
-	 * 
-	 * @return State of visibility
-	 */
-	public boolean isVisible() {
-		if (parentTab != null) {
-			ScilabWindow xcosWindow = (ScilabWindow) UIElementMapper
-					.getCorrespondingUIElement(parentTab.getParentWindowId());
-			return xcosWindow.isVisible();
-		}
+    /**
+     * @return The current Tab title
+     */
+    public String getTitle() {
+        return title;
+    }
 
-		return false;
-	}
+    /**
+     * @return The component associated with the current graph.
+     */
+    public mxGraphComponent getAsComponent() {
+        return component;
+    }
 
-	/**
-	 * A read-only state will disable all actions in the graph.
-	 * 
-	 * @param readOnly
-	 *            Read-only state
-	 */
-	public void setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
+    /**
+     * @param component
+     *            The graphical component associated with this graph
+     */
+    public void setComponent(ScilabComponent component) {
+        this.component = component;
 
-		setCellsLocked(readOnly);
-	}
+        if (component != null) {
+            // Adds rubberband selection
+            rubberBand = new mxRubberband(component);
+        } else {
+            rubberBand = null;
+        }
+    }
 
-	/**
-	 * @return True if actions are not allowed, false otherwise.
-	 */
-	public boolean isReadonly() {
-		return readOnly;
-	}
+    /**
+     * The instance can be not visible but used (when using SuperBlock). The
+     * openned flag is true in this case and also when the Window/Tab is
+     * visible.
+     * 
+     * @param opened
+     *            Openned state
+     */
+    public void setOpened(boolean opened) {
+        this.opened = opened;
+    }
 
-	/**
-	 * @return The associated RubberBand
-	 * @see com.mxgraph.swing.handler.mxRubberband
-	 */
-	public mxRubberband getRubberBand() {
-		return rubberBand;
-	}
+    /**
+     * @return Openned state
+     */
+    public boolean isOpened() {
+        return opened;
+    }
 
-	/**
-	 * @return The undo manager associated with this graph
-	 */
-	public final mxUndoManager getUndoManager() {
-		return undoManager;
-	}
-	
-	/**
-	 * @return the newly allocated graph
-	 * @see com.mxgraph.view.mxGraph#createGraphView()
-	 */
-	@Override
-	protected mxGraphView createGraphView() {
-		return new ScilabGraphView(this);
-	}
-	
-	/*
-	 * Utils
-	 */
-	/**
-	 * Returns the cells to be selected for the given list of changes.
-	 * @param changes the changes
-	 * @param model the model to work on
-	 * @return the cells
-	 */
-	public static Object[] getSelectionCellsForChanges(final List<mxUndoableChange> changes, final mxGraphModel model)
-	{
-		List<Object> cells = new ArrayList<Object>();
-		Iterator<mxUndoableChange> it = changes.iterator();
+    /**
+     * A read-only state will disable all actions in the graph.
+     * 
+     * @param readOnly
+     *            Read-only state
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
 
-		while (it.hasNext())
-		{
-			Object change = it.next();
+        setCellsLocked(readOnly);
+    }
 
-			if (change instanceof mxChildChange)
-			{
-				cells.add(((mxChildChange) change).getChild());
-			}
-			else if (change instanceof mxTerminalChange)
-			{
-				cells.add(((mxTerminalChange) change).getCell());
-			}
-			else if (change instanceof mxValueChange)
-			{
-				cells.add(((mxValueChange) change).getCell());
-			}
-			else if (change instanceof mxStyleChange)
-			{
-				cells.add(((mxStyleChange) change).getCell());
-			}
-			else if (change instanceof mxGeometryChange)
-			{
-				cells.add(((mxGeometryChange) change).getCell());
-			}
-			else if (change instanceof mxCollapseChange)
-			{
-				cells.add(((mxCollapseChange) change).getCell());
-			}
-			else if (change instanceof mxVisibleChange)
-			{
-				mxVisibleChange vc = (mxVisibleChange) change;
+    /**
+     * @return True if actions are not allowed, false otherwise.
+     */
+    public boolean isReadonly() {
+        return readOnly;
+    }
 
-				if (vc.isVisible())
-				{
-					cells.add(((mxVisibleChange) change).getCell());
-				}
-			}
-		}
+    /**
+     * @return The associated RubberBand
+     * @see com.mxgraph.swing.handler.mxRubberband
+     */
+    public mxRubberband getRubberBand() {
+        return rubberBand;
+    }
 
-		return mxGraphModel.getTopmostCells(model, cells.toArray());
-	}
+    /**
+     * @return The undo manager associated with this graph
+     */
+    public final mxUndoManager getUndoManager() {
+        return undoManager;
+    }
+
+    /**
+     * @return the newly allocated graph
+     * @see com.mxgraph.view.mxGraph#createGraphView()
+     */
+    @Override
+    protected mxGraphView createGraphView() {
+        return new ScilabGraphView(this);
+    }
+
+    /*
+     * Utils
+     */
+    /**
+     * Returns the cells to be selected for the given list of changes.
+     * 
+     * @param changes
+     *            the changes
+     * @param model
+     *            the model to work on
+     * @return the cells
+     */
+    public static Object[] getSelectionCellsForChanges(
+            final List<mxUndoableChange> changes, final mxGraphModel model) {
+        List<Object> cells = new ArrayList<Object>();
+        Iterator<mxUndoableChange> it = changes.iterator();
+
+        while (it.hasNext()) {
+            Object change = it.next();
+
+            if (change instanceof mxChildChange) {
+                cells.add(((mxChildChange) change).getChild());
+            } else if (change instanceof mxTerminalChange) {
+                cells.add(((mxTerminalChange) change).getCell());
+            } else if (change instanceof mxValueChange) {
+                cells.add(((mxValueChange) change).getCell());
+            } else if (change instanceof mxStyleChange) {
+                cells.add(((mxStyleChange) change).getCell());
+            } else if (change instanceof mxGeometryChange) {
+                cells.add(((mxGeometryChange) change).getCell());
+            } else if (change instanceof mxCollapseChange) {
+                cells.add(((mxCollapseChange) change).getCell());
+            } else if (change instanceof mxVisibleChange) {
+                mxVisibleChange vc = (mxVisibleChange) change;
+
+                if (vc.isVisible()) {
+                    cells.add(((mxVisibleChange) change).getCell());
+                }
+            }
+        }
+
+        return mxGraphModel.getTopmostCells(model, cells.toArray());
+    }
 }
