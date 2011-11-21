@@ -78,8 +78,7 @@ assert_checkequal(lst,lst_reference);
 // mlist
 M_ref=mlist(['V','name','value'],['a','b';'c' 'd'],[1 2; 3 4]);
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/mlist.h5");
-// Commented because of bug 9531
-//assert_checkequal(M_ref,M);
+assert_checkequal(M_ref,M);
 
 // hypermatrices
 import_from_hdf5(SCI+"/modules/hdf5/tests/sample_scilab_data/hypermatrix.h5");
