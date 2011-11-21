@@ -22,6 +22,12 @@
 
 void disp_scilab_version(void);
 
+/**
+* returns Scilab version string
+* @return a string (must be freed)
+*/
+char *getVersionString(void);
+
 /* for compatibility */
 /* Deprecated */
 #define SCI_VERSION SCI_VERSION_STRING
