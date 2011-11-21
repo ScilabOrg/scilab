@@ -26,11 +26,13 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -39,14 +41,19 @@ import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.xcos.actions.OpenAction;
+import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.configuration.model.DocumentType;
 import org.scilab.modules.xcos.configuration.model.ObjectFactory;
 import org.scilab.modules.xcos.configuration.model.SettingType;
 import org.scilab.modules.xcos.configuration.utils.ConfigurationConstants;
+import org.scilab.modules.xcos.graph.SuperBlockDiagram;
+import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosMessages;
 import org.xml.sax.SAXException;
+
+import com.mxgraph.model.mxGraphModel;
 
 /**
  * Entry point to manage the configuration
@@ -113,7 +120,9 @@ public final class ConfigurationManager {
                     FileUtils.forceCopy(base, f);
                 }
 
-                return (SettingType) unmarshaller.unmarshal(f);
+                final JAXBElement<SettingType> config = unmarshaller.unmarshal(
+                        new StreamSource(f), SettingType.class);
+                return config.getValue();
             } catch (JAXBException e) {
                 LogFactory.getLog(ConfigurationManager.class).warn(
                         "user configuration file is not valid.\n"
@@ -125,18 +134,22 @@ public final class ConfigurationManager {
                 try {
                     f = new File(ScilabConstants.SCI.getAbsoluteFile()
                             + XcosConstants.XCOS_ETC + INSTANCE_FILENAME);
-                    return (SettingType) unmarshaller.unmarshal(f);
+                    final JAXBElement<SettingType> config = unmarshaller
+                            .unmarshal(new StreamSource(f), SettingType.class);
+                    return config.getValue();
                 } catch (JAXBException ex) {
                     LogFactory.getLog(ConfigurationManager.class).error(
                             "base configuration file corrupted.\n" + ex);
-                    return null;
                 }
             }
 
         } catch (JAXBException e) {
             e.printStackTrace();
-            return null;
         }
+
+        // in case of error, create an empty configuration
+        return new org.scilab.modules.xcos.configuration.model.ObjectFactory()
+                .createSettingType();
     }
 
     /**
@@ -178,7 +191,8 @@ public final class ConfigurationManager {
                 f = new File(ScilabConstants.SCIHOME.getAbsoluteFile()
                         + INSTANCE_FILENAME);
                 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                marshaller.marshal(getSettings(), f);
+                marshaller.marshal(
+                        new ObjectFactory().createSettings(getSettings()), f);
             } catch (JAXBException e) {
                 LogFactory.getLog(ConfigurationManager.class).warn(
                         "Unable to save user configuration file.\n" + e);
@@ -224,7 +238,7 @@ public final class ConfigurationManager {
      *            the file path to add
      */
     public void addToRecentFiles(File string) {
-        List<DocumentType> files = getSettings().getRecentFiles().getDocument();
+        List<DocumentType> files = getSettings().getRecent();
 
         /*
          * Create the url
@@ -294,6 +308,126 @@ public final class ConfigurationManager {
     }
 
     /**
+     * Add the graph to the recent tab file saved.
+     * 
+     * @param graph
+     *            the graph configuration to store
+     */
+    public void addToRecentTabs(XcosDiagram graph) {
+        if (graph.getSavedFile() == null) {
+            return;
+        }
+
+        final DocumentType doc = allocate(graph);
+
+        /*
+         * Store the file name
+         */
+        try {
+            doc.setUrl(graph.getSavedFile().toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+        }
+
+        /*
+         * Store the internal path if applicable
+         */
+        savePath(graph, doc);
+
+        /*
+         * Store uuids
+         */
+        doc.setUuid(graph.getDiagramTab());
+        doc.setViewport(graph.getViewPortTab());
+
+    }
+
+    private DocumentType allocate(XcosDiagram graph) {
+        final List<DocumentType> tabs = getSettings().getTab();
+        DocumentType doc = null;
+
+        for (DocumentType d : tabs) {
+            if (d.getUuid().equals(graph.getDiagramTab())) {
+                doc = d;
+                break;
+            }
+        }
+
+        if (doc == null) {
+            doc = new ObjectFactory().createDocumentType();
+            tabs.add(doc);
+        }
+
+        return doc;
+    }
+
+    /**
+     * Load the diagram according to the doc
+     * 
+     * @param doc
+     *            the document to load
+     * @return the loaded diagram or null on error
+     */
+    public XcosDiagram loadDiagram(DocumentType doc) {
+        final URL url;
+        final File f;
+        try {
+            url = new URL(doc.getUrl());
+            f = new File(url.toURI());
+        } catch (Exception e) {
+            return null;
+        }
+
+        XcosDiagram graph = new XcosDiagram();
+        graph = graph.openDiagramFromFile(f);
+
+        graph = loadPath(doc, graph);
+
+        return graph;
+    }
+
+    private XcosDiagram loadPath(final DocumentType doc, final XcosDiagram root) {
+        final String path = doc.getPath();
+        if (path == null || path.isEmpty()) {
+            return root;
+        }
+
+        XcosDiagram graph = root;
+        for (String id : path.split("/")) {
+            final Object cell = ((mxGraphModel) root.getModel()).getCell(id);
+
+            if (cell instanceof SuperBlock) {
+                SuperBlock b = (SuperBlock) cell;
+
+                b.openBlockSettings(null);
+                graph = b.getChild();
+            }
+        }
+        return graph;
+    }
+
+    private void savePath(XcosDiagram graph, final DocumentType doc) {
+        if (!(graph instanceof SuperBlockDiagram)) {
+            return;
+        }
+
+        SuperBlock block = ((SuperBlockDiagram) graph).getContainer();
+        XcosDiagram parent = block.getParentDiagram();
+
+        final StringBuilder str = new StringBuilder();
+        str.append(block.getId());
+        while (parent instanceof SuperBlockDiagram) {
+            block = ((SuperBlockDiagram) parent).getContainer();
+
+            str.append("/");
+            str.append(block.getId());
+
+            parent = block.getParentDiagram();
+        }
+
+        doc.setPath(str.toString());
+    }
+
+    /**
      * Configure the file chooser to use the Xcos current directory (path of the
      * last saved directory).
      * 
@@ -303,7 +437,7 @@ public final class ConfigurationManager {
     public static void configureCurrentDirectory(JFileChooser fc) {
         final ConfigurationManager manager = ConfigurationManager.getInstance();
         final Iterator<DocumentType> recentFiles = manager.getSettings()
-                .getRecentFiles().getDocument().iterator();
+                .getRecent().iterator();
 
         File lastFile = null;
         if (recentFiles.hasNext()) {
