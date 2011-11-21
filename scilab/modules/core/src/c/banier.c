@@ -28,16 +28,22 @@ static void centerPrint(char *str);
 /*--------------------------------------------------------------------------*/
 void banner(void)
 {
-    sciprint("%s\n",line);
+    char *version_string = getVersionString();
+    sciprint("%s\n", line);
 
-    centerPrint(SCI_VERSION_STRING);
+    if (version_string)
+    {
+        centerPrint(version_string);
+        FREE(version_string);
+        version_string = NULL;
+    }
     sciprint("\n\n");
 
     centerPrint(_("Consortium Scilab (DIGITEO)\n"));
     centerPrint(_("Copyright (c) 1989-2011 (INRIA)\n"));
     centerPrint(_("Copyright (c) 1989-2007 (ENPC)\n"));
 
-    sciprint("%s\n",line);
+    sciprint("%s\n", line);
 }
 /*--------------------------------------------------------------------------*/
 static void centerLine(char *str)
