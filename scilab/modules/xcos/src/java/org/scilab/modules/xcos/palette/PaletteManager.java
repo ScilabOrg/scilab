@@ -29,8 +29,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.commons.ScilabConstants;
+import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
+import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
+import org.scilab.modules.gui.utils.ClosingOperationsManager;
+import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
 import org.scilab.modules.xcos.utils.FileUtils;
@@ -59,26 +63,12 @@ public final class PaletteManager {
     private static Marshaller marshaller;
     private static Unmarshaller unmarshaller;
 
-    private PaletteManagerView view;
     private Category root;
     private final PropertyChangeSupport pcs;
 
     /** Default constructor */
     private PaletteManager() {
         pcs = new PropertyChangeSupport(this);
-    }
-
-    /**
-     * @param view
-     *            the view to set
-     */
-    public void setView(final PaletteManagerView view) {
-        this.view = view;
-    }
-
-    /** @return the view */
-    public PaletteManagerView getView() {
-        return view;
     }
 
     /**
@@ -128,8 +118,8 @@ public final class PaletteManager {
 
     /** @return true if the palette window is visible, false otherwise */
     public static boolean isVisible() {
-        return (getInstance().getView() != null)
-                && getInstance().getView().isVisible();
+        return ScilabTabFactory.getInstance().getFromCache(
+                PaletteManagerView.UUID) != null;
     }
 
     /**
@@ -139,10 +129,19 @@ public final class PaletteManager {
      *            true to set visible, false to hide.
      */
     public static void setVisible(final boolean status) {
-        if (getInstance().getView() == null) {
-            getInstance().setView(new PaletteManagerView(getInstance()));
+        final PaletteManagerView tab = PaletteManagerView.get();
+
+        if (status && tab == null) {
+            final boolean view = WindowsConfigurationManager
+                    .restoreUUID(PaletteManagerView.UUID);
+            if (!view) {
+                PaletteManagerView.restore(null, true);
+            }
+        } else {
+            ClosingOperationsManager
+                    .startClosingOperation((SwingScilabTab) PaletteManagerView
+                            .get());
         }
-        getInstance().getView().setVisible(status);
 
         getInstance().pcs.firePropertyChange("visible", !status, status);
     }
@@ -174,7 +173,7 @@ public final class PaletteManager {
                 LOG.warn("user palette configuration file is not valid.\n"
                         + "Switching to the default one." + e);
 
-                ScilabModalDialog.show(getView(),
+                ScilabModalDialog.show(PaletteManagerView.get(),
                         XcosMessages.ERR_CONFIG_PALETTE_INVALID,
                         XcosMessages.XCOS_ERROR, IconType.ERROR_ICON);
 
