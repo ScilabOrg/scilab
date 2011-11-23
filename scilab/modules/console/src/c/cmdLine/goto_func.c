@@ -118,7 +118,7 @@ int gotoLeft(wchar_t * CommandLine, unsigned int *cursorLocation)
 /* Move cursor to the beginning of a line */
 int begLine(wchar_t * CommandLine, unsigned int *cursorLocation)
 {
-/* While the index is not zero (meaning it's the beginning of th line) */
+    /* While the index is not zero (meaning it's the beginning of th line) */
     while (*cursorLocation)
     {
         gotoLeft(CommandLine, cursorLocation);
@@ -132,7 +132,7 @@ int endLine(wchar_t * CommandLine, unsigned int *cursorLocation)
     int sizeOfCmd = 0;
 
     sizeOfCmd = wcslen(CommandLine);
-/* While the index is different of the size of the line */
+    /* While the index is different of the size of the line */
     while (sizeOfCmd - (*cursorLocation))
     {
         gotoRight(CommandLine, cursorLocation);
@@ -140,16 +140,35 @@ int endLine(wchar_t * CommandLine, unsigned int *cursorLocation)
     return *cursorLocation;
 }
 
+static int isAWideCharToJump(wchar_t wideCharToTest)
+{
+    /* List of characters for cursor moving word by word. */
+    switch (wideCharToTest)
+    {
+    case L' ':
+    case L'\t':
+    case L'[':
+    case L']':
+    case L'{':
+    case L'}':
+    case L'(':
+    case L')':
+    case L'.':
+        return 1;
+    default:
+        return 0;
+    }
+}
+
 int nextWord(wchar_t * CommandLine, unsigned int *cursorLocation)
 {
-    /* Factorize CommandLine[*cursorLocation] */
     /* Passing current word... */
-    while (CommandLine[*cursorLocation] && CommandLine[*cursorLocation] != L' ')
+    while (CommandLine[*cursorLocation] && !isAWideCharToJump(CommandLine[*cursorLocation]))
     {
         gotoRight(CommandLine, cursorLocation);
     }
-    /* ... then passing through spaces */
-    while (CommandLine[*cursorLocation] && CommandLine[*cursorLocation] == L' ')
+    /* ... then passing through characters to jump */
+    while (CommandLine[*cursorLocation] && isAWideCharToJump(CommandLine[*cursorLocation]))
     {
         gotoRight(CommandLine, cursorLocation);
     }
@@ -159,13 +178,13 @@ int nextWord(wchar_t * CommandLine, unsigned int *cursorLocation)
 
 int previousWord(wchar_t * CommandLine, unsigned int *cursorLocation)
 {
-    /* Passing through spaces... */
-    while (*cursorLocation && CommandLine[*cursorLocation - 1] == L' ')
+    /* Passing through characters to jump... */
+    while (*cursorLocation && isAWideCharToJump(CommandLine[*cursorLocation - 1]))
     {
         gotoLeft(CommandLine, cursorLocation);
     }
     /* ... then going to the beginning of the word */
-    while (*cursorLocation && CommandLine[*cursorLocation - 1] != L' ')
+    while (*cursorLocation && !isAWideCharToJump(CommandLine[*cursorLocation - 1]))
     {
         gotoLeft(CommandLine, cursorLocation);
     }
