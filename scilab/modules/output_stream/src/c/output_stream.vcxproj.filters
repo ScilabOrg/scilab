@@ -222,6 +222,12 @@
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\output_stream.iss" />
     <None Include="..\..\sci_gateway\output_stream_gateway.xml" />
+    <None Include="Call_scilab_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="javasci_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="output_stream.rc">
