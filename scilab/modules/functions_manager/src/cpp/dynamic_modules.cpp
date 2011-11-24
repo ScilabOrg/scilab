@@ -264,3 +264,24 @@ int ActionBindingModule::Load()
     return 1;
 }
 
+//Spreadsheet module
+int SpreadsheetModule::Load()
+{
+    wstring wstPath = L"spreadsheet";
+#ifdef _MSC_VER
+    wstring wstModuleName = L"spreadsheet_gw";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_1);
+#else
+    wstring wstModuleName = L"spreadsheet";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+    vectGateway vect = loadGatewaysName(wstPath);
+
+    for(int i = 0 ; i < vect.size() ; i++)
+    {
+        symbol::Context::getInstance()->AddFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstModuleName));
+    }
+
+    return 1;
+}
+
