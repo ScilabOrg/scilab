@@ -54,6 +54,12 @@
     <ClCompile Include="src\c\javasci_SciStringArray.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\jni\JavasciOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\printToSystemOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\c\javasci2_helper.h">
