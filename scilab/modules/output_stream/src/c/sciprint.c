@@ -21,6 +21,8 @@
 #endif
 #include "MALLOC.h"
 #include "charEncoding.h"
+#include "printToSystemOut.h"
+#include "fromjava.h"
 /*--------------------------------------------------------------------------*/
 #ifdef _MSC_VER
   #define vsnprintf _vsnprintf
@@ -71,6 +73,10 @@ static void printf_scilab(char *buffer)
 		if (getScilabMode() == SCILAB_STD)
 		{
 			ConsolePrintf(buffer);
+		}
+		else if (IsFromJava())
+		{
+		        printToSystemOut(buffer);
 		}
 		else
 		{

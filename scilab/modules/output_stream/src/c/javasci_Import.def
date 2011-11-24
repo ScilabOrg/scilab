@@ -1,0 +1,6 @@
+	LIBRARY    javasci.dll
+
+
+EXPORTS
+  printToSystemOut
+  
