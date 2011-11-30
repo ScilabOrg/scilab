@@ -29,7 +29,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
  * This class manage scilab text entity drawing.
  *
  *
- * TODO, Manage: {text_box, text_box_mode, auto_dimensionning, font_angle, clip_state, clip_box}
+ * TODO, Manage: {text_box, text_box_mode, auto_dimensionning, clip_state, clip_box}
  *
  *
  * @author Pierre Lando
@@ -63,7 +63,9 @@ public class TextManager {
      */
     public final void draw(final DrawingTools drawingTools, final ColorMap colorMap, final Text text) {
         Sprite sprite = getSprite(colorMap, text);
-        drawingTools.draw(sprite, SpriteAnchorPosition.LOWER_LEFT, new Vector3d(text.getPosition()));
+
+        /* The Text object's rotation direction convention is opposite to the standard one, its angle is expressed in radians. */
+        drawingTools.draw(sprite, SpriteAnchorPosition.LOWER_LEFT, new Vector3d(text.getPosition()), -180.0*text.getFontAngle()/Math.PI);
     }
 
     /**
@@ -100,7 +102,7 @@ public class TextManager {
      */
     private Sprite createSprite(final ColorMap colorMap, final Text textObject) {
         TextSpriteDrawer spriteDrawer = new TextSpriteDrawer(spriteManager, colorMap, textObject);
-        Sprite sprite = spriteManager.createSprite(spriteDrawer.getWidth(), spriteDrawer.getHeight());
+        Sprite sprite = spriteManager.createRotatableSprite(spriteDrawer.getWidth(), spriteDrawer.getHeight());
         sprite.setDrawer(spriteDrawer);
         return sprite;
     }
