@@ -681,6 +681,8 @@ CACSD and Signal processing
 
 * bug 10008 fixed - Wrong unit in the datatip for bode function.
 
+* bug 10044 fixed - wfir_gui function rewritten based on uicontrol and documented.
+
 * bug 10169 fixed - bad clipping option in evans.
 
 
