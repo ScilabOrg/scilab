@@ -936,7 +936,7 @@ Bug fixes:
 
 * bug 10179 fixed - Weird behaviour with evstr.
 
-* bug 10282 fixed - repmat did not work for scalar input on dims greater than 2 
+* bug 10282 fixed - repmat did not work for scalar input on dims greater than 2
                     neither for N-D arrays.
 
 * bug 10289 fixed - xload returns a better error message when a file does
@@ -946,6 +946,8 @@ Bug fixes:
 
 * bug 10293 fixed - Improved description of the help page of bvode.
 
+* bug 10324 fixed - format(m) where m is a vector did not work but the
+                    documentation states it can be used.
 
 
 
