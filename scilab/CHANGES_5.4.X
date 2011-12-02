@@ -828,6 +828,8 @@ Bug fixes:
 
 * bug 9571 fixed - "error(144)" returned a wrong variable name.
 
+* bug 9581 fixed - cleaner.sce in toolbox_skeleton did not remove all generated files.
+
 * bug 9599 fixed - error message "at line ... of function ... called by" was
                    printed directly on the same line.
 
