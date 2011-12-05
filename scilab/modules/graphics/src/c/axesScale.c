@@ -435,12 +435,12 @@ void updateSubwinScale(sciPointObj * pSubwin)
   sciJavaUpdateSubwinScale(pSubwin);
 }
 /*------------------------------------------------------------------------------*/
-void updateTextBounds(sciPointObj * pText)
+void updateTextBounds(char *pText)
 {
   /* update coordinates transformation if needed */
-  updateSubwinScale(sciGetParentSubwin(pText));
+  //updateSubwinScale(sciGetParentSubwin(pText));
 
   /* compute the boundign box of the text */
-  sciJavaUpdateTextBoundingBox(pText);
+  //sciJavaUpdateTextBoundingBox(pText);
 }
 /*------------------------------------------------------------------------------*/
