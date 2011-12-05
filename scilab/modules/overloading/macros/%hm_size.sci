@@ -13,24 +13,36 @@ function varargout=%hm_size(M,job)
 [lhs,rhs]=argn(0)
 dims=matrix(double(M.dims),1,-1)
 if rhs==2 then
-  if job=='*' then
-    varargout(1)=prod(dims)
+  if type(job)==10 then
+    select job
+    case '*' then
+      varargout(1)=prod(dims)
+    case 'r' then
+       varargout(1)=dims(1)
+    case 'c' then
+       varargout(1)=dims(2)
+    else
+      error(msprintf(_("%s: Wrong value for input argument #%d: ''%s'', ''%s'' or ''%s'' expected.\n"), fname, 2, "r", "c", "*"))
+    end
     return
   elseif type(job)==1 then
-    if size(job,'*') >1 then error('Second argument is incorrect');end
-    if job<=0|job>size(dims,'*') then 
-      error('Second argument is incorrect'); 
+    if size(job,'*')>1| job<=0  then 
+      error(msprintf(_("%s: Wrong value for input argument #%d: Scalar positive integer expected.\n"),"size", 2)); 
     end
-    varargout(1)=dims(job)
+    if job<=size(dims,'*') then
+      varargout(1)=dims(job)
+    else
+      varargout(1)=1
+    end
   else
-    error('Second argument is incorrect')
+     error(msprintf(_("%s: Wrong value for input argument #%d: Scalar positive integer or character string expected.\n"),"size", 2));
   end
   return
 end
 if lhs==1 then
   varargout(1)=matrix(dims,1,-1)
 else
-  if lhs>size(dims,'*') then error('Too many LHS args'),end
+  if lhs>size(dims,'*') then dims($+1:lhs)=1,end
   for k=1:lhs
     varargout(k)=dims(k)
   end

@@ -86,6 +86,11 @@ int sci_size(char *fname, unsigned long fname_len)
                     if (getScalarDouble(pvApiCtx, piAddressVarTwo, &dValue) == 0)
                     {
                         iValue = (int)(dValue);
+                            if (iValue <=0)
+                              {
+                                Scierror(44, _("%s: Wrong value for input argument #%d: Scalar positive integer expected.\n"), fname, 2);
+                                return 0;
+                              }
                     }
                 }
                 else            // string
@@ -104,17 +109,19 @@ int sci_size(char *fname, unsigned long fname_len)
                                 iValue = I_SIZE_ROWCOL;
                             freeAllocatedSingleString(pStr);
                             pStr = NULL;
+                            if ((iValue != I_SIZE_ROW) && (iValue != I_SIZE_COL) && (iValue != I_SIZE_ROWCOL))
+                              {
+                                /* compatilibity with previous error code 44 */
+                                Scierror(44, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"), fname, 2, "r", "c", "*");
+                                return 0;
+                              }
+                            
                         }
 
                     }
                 }
 
-                if ((iValue != I_SIZE_ROW) && (iValue != I_SIZE_COL) && (iValue != I_SIZE_ROWCOL))
-                {
-                    /* compatilibity with previous error code 44 */
-                    Scierror(44, _("%s: Wrong value for input argument #%d: '%s', '%s' or '%s' expected.\n"), fname, 2, "r", "c", "*");
-                    return 0;
-                }
+
             }
             else
             {
