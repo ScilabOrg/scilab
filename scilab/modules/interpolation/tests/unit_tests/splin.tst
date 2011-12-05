@@ -6,7 +6,10 @@
 // =============================================================================
 
 
-deff("y=runge(x)","y=1 ./(1 + x.^2)")
+function y=runge(x)
+    y=1 ./(1 + x.^2)
+endfunction
+
 a = -5; b = 5; n = 11; m = 400;
 x = linspace(a, b, n)';
 y = runge(x);
@@ -19,11 +22,12 @@ if or(size(d) <> [11 1]) then pause,end
 if d(6) <> 0 then pause,end
 if d(7:11) > 0 then pause,end
 
-a = 0; b = 1;        // interval of interpolation
-n = 10;              // nb of interpolation  points
-m = 800;             // discretisation for evaluation
-x = linspace(a,b,n)'; // abscissae of interpolation points
-y = rand(x);          // ordinates of interpolation points
+a = 0;                  // interval of interpolation
+b = 1;
+n = 10;                 // nb of interpolation  points
+m = 800;                // discretisation for evaluation
+x = linspace(a,b,n)';   // abscissae of interpolation points
+y = rand(x);            // ordinates of interpolation points
 xx = linspace(a,b,m)';
 
 yk = interp(xx, x, y, splin(x,y,"not_a_knot"));
