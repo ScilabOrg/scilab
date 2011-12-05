@@ -72,7 +72,7 @@ int sci_stringbox( char * fname, unsigned long fname_len )
     int m;
     int n;
     /* A text handle should be specified */
-    sciPointObj * pText = NULL ;
+    char * pstText = NULL ;
     if ( VarType(1) != sci_handles )
     {
       Scierror(999,_("%s: Wrong type for input argument #%d: A 'Text' handle expected.\n"), fname, 1);
@@ -88,31 +88,32 @@ int sci_stringbox( char * fname, unsigned long fname_len )
     }
 
     /* Get the handle and check that this is a text handle */
-    pText = sciGetPointerFromHandle( getHandleFromStack(stackPointer) ) ;
-
-    if ( pText == NULL )
+    pstText = getObjectFromHandle( getHandleFromStack(stackPointer) ) ;
+#if 0
+    if ( pstText == NULL )
     {
       Scierror(999,_("%s: The handle is not valid.\n"),fname);
       return 0 ;
     }
 
-    if ( sciGetEntityType( pText ) == SCI_LABEL )
+
+    if ( sciGetEntityType( pstText ) == SCI_LABEL )
     {
       // a label, get the real text
-      pText = pLABEL_FEATURE( pText )->text ;
+      pstText = pLABEL_FEATURE( pstText )->text ;
     }
-    else if ( sciGetEntityType( pText ) != SCI_TEXT )
+    else if ( sciGetEntityType( pstText ) != SCI_TEXT )
     {
       Scierror(999,_("%s: Wrong type for input argument #%d: A 'Text' handle expected.\n"), fname, 1);
       return 0 ;
     }
 
     /* update stringbox */
-    updateTextBounds(pText);
+    updateTextBounds(pstText);
 
     /* get the string box */
-    sciGet2dViewBoundingBox( pText, corners[0], corners[1], corners[2], corners[3]) ;
-
+    sciGet2dViewBoundingBox( pstText, corners[0], corners[1], corners[2], corners[3]) ;
+#endif
   }
   else if (Rhs == 2)
   {
@@ -121,6 +122,7 @@ int sci_stringbox( char * fname, unsigned long fname_len )
   }
   else
   {
+#if 0
     sciPointObj * parentSubwin = sciGetCurrentSubWin();
     char ** text = NULL;
     int textNbRow;
@@ -168,6 +170,7 @@ int sci_stringbox( char * fname, unsigned long fname_len )
     /* compute the box */
     getTextBoundingBox(text, textNbRow, textNbCol, xPos, yPos, angle, fontId, fontSize, corners);
     freeArrayOfString(text, textNbRow*textNbCol);
+#endif
   }
 
 
