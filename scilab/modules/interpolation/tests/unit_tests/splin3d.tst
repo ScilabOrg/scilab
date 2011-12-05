@@ -5,11 +5,14 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-func =  "v=cos(2*%pi*x).*sin(2*%pi*y).*cos(2*%pi*z)";
-deff("v=f(x,y,z)",func);
+
+function v=f(x,y,z)
+    v=cos(2*%pi*x).*sin(2*%pi*y).*cos(2*%pi*z)
+endfunction
+
 n = 10;  // n x n x n  interpolation points
 x = linspace(0,1,n); y=x; z=x; // interpolation grid
-[X,Y,Z] = ndgrid(x,y,z);
+[X,Y,Z] = ndgrid(x,y,z);        //=> crash because ndgrid uses the function matrix() wich not manage hypermatrix yet. (in YaSp)
 V = f(X,Y,Z);
 tl = splin3d(x,y,z,V,[5 5 5]);
 if type(tl)<> 16 then pause,end

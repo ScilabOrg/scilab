@@ -5,14 +5,31 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-deff("v=f(x,y,z)","v=cos(x).*sin(y).*cos(z)");
-deff("v=fx(x,y,z)","v=-sin(x).*sin(y).*cos(z)");
-deff("v=fxy(x,y,z)","v=-sin(x).*cos(y).*cos(z)");
-deff("v=fxyz(x,y,z)","v=sin(x).*cos(y).*sin(z)");
-deff("v=fxxyz(x,y,z)","v=cos(x).*cos(y).*sin(z)");
+function v=f(x,y,z)
+    v=cos(x).*sin(y).*cos(z);
+endfunction
+
+function v=fx(x,y,z)
+    v=-sin(x).*sin(y).*cos(z)
+endfunction
+
+function v=fxy(x,y,z)
+    v=-sin(x).*cos(y).*cos(z)
+endfunction
+
+function v=fxyz(x,y,z)
+    v=sin(x).*cos(y).*sin(z)
+endfunction
+
+function v=fxxyz(x,y,z)
+    v=cos(x).*cos(y).*sin(z)
+endfunction
+
 n = 20;  // n x n x n  interpolation points
-x = linspace(0,2*%pi,n); y=x; z=x; // interpolation grid
-[X,Y,Z] = ndgrid(x,y,z); V = f(X,Y,Z);
+x = linspace(0,2*%pi,n);
+y=x; z=x; // interpolation grid
+[X,Y,Z] = ndgrid(x,y,z);        //=> crash because ndgrid uses the function matrix() wich not manage hypermatrix yet. (in YaSp)
+V = f(X,Y,Z);
 tl = splin3d(x,y,z,V,[5 5 5]);
 
 // compute f and some derivates on a point
