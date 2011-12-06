@@ -114,6 +114,8 @@ Graphical User Interface:
 
 * The variable browser now refresh itself automatically (See bug 9446).
 
+* bug 4978 fixed - Icons did not follow the Tango norm.
+
 
 Call_Scilab:
 ============

@@ -132,16 +132,63 @@ $(top_srcdir)/Readme_Visual.txt \
 $(top_srcdir)/README_Windows.txt \
 $(top_builddir)/Version.incl
 
+
 iconsdir=$(pkgdatadir)/desktop/
-icons_DATA = $(top_srcdir)/desktop/scilab.png \
-$(top_srcdir)/desktop/puffin_128.png \
-$(top_srcdir)/desktop/puffin_256.png \
-$(top_srcdir)/desktop/puffin_32.png \
-$(top_srcdir)/desktop/puffin_48.png \
-$(top_srcdir)/desktop/puffin.png \
-$(top_srcdir)/desktop/puffin.icns \
-$(top_srcdir)/desktop/scilab.xml \
-$(top_srcdir)/desktop/scilab.icns
+icons_DATA = $(top_srcdir)/desktop/images/icons/16x16/apps/scilab.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-bin.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-cosf.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-cos.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-dem.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-graph.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-sav.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-sce.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-sci.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-tst.png \
+$(top_srcdir)/desktop/images/icons/16x16/mimetypes/application-x-scilab-xcos.png \
+$(top_srcdir)/desktop/images/icons/24x24/apps/scilab.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-bin.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-cosf.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-cos.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-dem.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-graph.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-sav.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-sce.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-sci.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-tst.png \
+$(top_srcdir)/desktop/images/icons/24x24/mimetypes/application-x-scilab-xcos.png \
+$(top_srcdir)/desktop/images/icons/256x256/apps/scilab.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-bin.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-cosf.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-cos.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-dem.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-graph.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-sav.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-sce.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-sci.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-tst.png \
+$(top_srcdir)/desktop/images/icons/256x256/mimetypes/application-x-scilab-xcos.png \
+$(top_srcdir)/desktop/images/icons/32x32/apps/scilab.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-bin.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-cosf.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-cos.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-dem.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-graph.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-sav.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-sce.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-sci.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-tst.png \
+$(top_srcdir)/desktop/images/icons/32x32/mimetypes/application-x-scilab-xcos.png \
+$(top_srcdir)/desktop/images/icons/48x48/apps/scilab.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-bin.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-cosf.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-cos.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-dem.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-graph.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-sav.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-sce.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-sci.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-tst.png \
+$(top_srcdir)/desktop/images/icons/48x48/mimetypes/application-x-scilab-xcos.png
 
 valgrinddir=$(pkgdatadir)/tools/profiling
 valgrind_DATA = $(top_srcdir)/tools/profiling/valgrind.supp
