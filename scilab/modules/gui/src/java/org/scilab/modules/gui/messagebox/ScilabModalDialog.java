@@ -21,7 +21,7 @@ import org.scilab.modules.localization.Messages;
 /**
  * Standard class to manage dialogs inside Scilab applications such as Xcos et
  * Editor
- * 
+ *
  * @author Antoine ELIAS
  */
 public final class ScilabModalDialog {
@@ -31,7 +31,7 @@ public final class ScilabModalDialog {
      */
     public enum ButtonType {
         OK, OK_CANCEL, YES_NO, YES_NO_CANCEL, CANCEL_OR_SAVE_AND_EXECUTE
-    }
+            }
 
     /**
      * Message box button type
@@ -39,11 +39,11 @@ public final class ScilabModalDialog {
 
     public enum IconType {
         ERROR_ICON, INFORMATION_ICON, PASSWORD_ICON, QUESTION_ICON, WARNING_ICON, SCILAB_ICON
-    }
+            }
 
     public enum AnswerOption {
         OK_OPTION, CANCEL_OPTION, YES_OPTION, NO_OPTION, SAVE_EXECUTE_OPTION
-    }
+            }
 
     /**
      * private constructor, only static functions
@@ -63,7 +63,7 @@ public final class ScilabModalDialog {
      */
     public static AnswerOption show(Tab parent, String[] messages) {
         return show(parent, messages, Messages.gettext("Scilab Message"),
-                IconType.SCILAB_ICON, ButtonType.OK);
+                    IconType.SCILAB_ICON, ButtonType.OK);
     }
 
     /**
@@ -78,8 +78,8 @@ public final class ScilabModalDialog {
      */
     public static AnswerOption show(Tab parent, String message) {
         return show(parent, new String[] { message },
-                Messages.gettext("Scilab Message"), IconType.SCILAB_ICON,
-                ButtonType.OK);
+                    Messages.gettext("Scilab Message"), IconType.SCILAB_ICON,
+                    ButtonType.OK);
     }
 
     /**
@@ -94,7 +94,7 @@ public final class ScilabModalDialog {
      */
     public static AnswerOption show(Tab parent, String[] messages, String title) {
         return show(parent, messages, title, IconType.SCILAB_ICON,
-                ButtonType.OK);
+                    ButtonType.OK);
     }
 
     /**
@@ -109,7 +109,7 @@ public final class ScilabModalDialog {
      */
     public static AnswerOption show(Tab parent, String message, String title) {
         return show(parent, new String[] { message }, title,
-                IconType.SCILAB_ICON, ButtonType.OK);
+                    IconType.SCILAB_ICON, ButtonType.OK);
     }
 
     /**
@@ -124,7 +124,7 @@ public final class ScilabModalDialog {
      * @return index of the selected button
      */
     public static AnswerOption show(Tab parent, String[] messages,
-            String title, ScilabModalDialog.IconType iconType) {
+                                    String title, ScilabModalDialog.IconType iconType) {
         return show(parent, messages, title, iconType, ButtonType.OK);
     }
 
@@ -140,9 +140,9 @@ public final class ScilabModalDialog {
      * @return index of the selected button
      */
     public static AnswerOption show(Tab parent, String message, String title,
-            ScilabModalDialog.IconType iconType) {
+                                    ScilabModalDialog.IconType iconType) {
         return show(parent, new String[] { message }, title, iconType,
-                ButtonType.OK);
+                    ButtonType.OK);
     }
 
     /**
@@ -159,10 +159,10 @@ public final class ScilabModalDialog {
      * @return index of the selected button
      */
     public static AnswerOption show(Tab parent, String message, String title,
-            ScilabModalDialog.IconType iconType,
-            ScilabModalDialog.ButtonType buttonType) {
+                                    ScilabModalDialog.IconType iconType,
+                                    ScilabModalDialog.ButtonType buttonType) {
         return show(parent, new String[] { message }, title, iconType,
-                buttonType);
+                    buttonType);
     }
 
     /**
@@ -179,8 +179,8 @@ public final class ScilabModalDialog {
      * @return index of the selected button
      */
     public static AnswerOption show(Tab parent, String[] messages,
-            String title, ScilabModalDialog.IconType iconType,
-            ScilabModalDialog.ButtonType buttonType) {
+                                    String title, ScilabModalDialog.IconType iconType,
+                                    ScilabModalDialog.ButtonType buttonType) {
         final Component c;
         if (parent == null) {
             c = null;
@@ -204,8 +204,8 @@ public final class ScilabModalDialog {
      * @return index of the selected button
      */
     public static AnswerOption show(Component parent, String[] messages,
-            String title, ScilabModalDialog.IconType iconType,
-            ScilabModalDialog.ButtonType buttonType) {
+                                    String title, ScilabModalDialog.IconType iconType,
+                                    ScilabModalDialog.ButtonType buttonType) {
 
         MessageBox messageBox = ScilabMessageBox.createMessageBox();
         messageBox.setTitle(title);
@@ -219,19 +219,19 @@ public final class ScilabModalDialog {
             break;
         case OK_CANCEL:
             labels = new String[] { Messages.gettext("OK"),
-                    Messages.gettext("Cancel") };
+                                    Messages.gettext("Cancel") };
             break;
         case YES_NO:
             labels = new String[] { Messages.gettext("Yes"),
-                    Messages.gettext("No") };
+                                    Messages.gettext("No") };
             break;
         case YES_NO_CANCEL:
             labels = new String[] { Messages.gettext("Yes"),
-                    Messages.gettext("No"), Messages.gettext("Cancel") };
+                                    Messages.gettext("No"), Messages.gettext("Cancel") };
             break;
         case CANCEL_OR_SAVE_AND_EXECUTE:
             labels = new String[] { Messages.gettext("Cancel"),
-                    Messages.gettext("Save and execute") };
+                                    Messages.gettext("Save and execute") };
             break;
         }
 
@@ -261,9 +261,7 @@ public final class ScilabModalDialog {
 
         messageBox.setIcon(iconName);
 
-        if (parent == null)
-            ((SwingScilabMessageBox) messageBox.getAsSimpleMessageBox())
-                    .setParentForLocation(parent);
+        ((SwingScilabMessageBox) messageBox.getAsSimpleMessageBox()).setParentForLocation(parent);
 
         messageBox.displayAndWait();
         int choice = (messageBox.getSelectedButton() - 1); // zero indexed
