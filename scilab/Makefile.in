@@ -70,6 +70,7 @@ bin_PROGRAMS = scilab-bin$(EXEEXT) scilab-cli-bin$(EXEEXT) \
 #  The user wants to compile the localization files
 @GENERATE_LOCALIZATION_FILES_TRUE@am__append_4 = localization
 @COMPILATION_TESTS_TRUE@am__append_5 = check-java
+@HAS_IMAGEMAGICK_TRUE@am__append_6 = create-icons
 DIST_COMMON = $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/scilab-lib-doc.properties.in \
 	$(srcdir)/scilab-lib.properties.in $(srcdir)/scilab.pc.in \
@@ -125,8 +126,9 @@ CONFIG_CLEAN_VPATH_FILES =
 @ENABLE_STATIC_TRUE@am__EXEEXT_1 = scilab-static-bin$(EXEEXT)
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(iconsdir)" \
-	"$(DESTDIR)$(infofilesdir)" "$(DESTDIR)$(pkgconfigdir)" \
-	"$(DESTDIR)$(rootdir)" "$(DESTDIR)$(valgrinddir)"
+	"$(DESTDIR)$(infofilesdir)" "$(DESTDIR)$(mimedir)" \
+	"$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(rootdir)" \
+	"$(DESTDIR)$(valgrinddir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_call_scilab_c_OBJECTS = call_scilab_c-myprog.$(OBJEXT)
 call_scilab_c_OBJECTS = $(am_call_scilab_c_OBJECTS)
@@ -286,7 +288,7 @@ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	install-pdf-recursive install-ps-recursive install-recursive \
 	installcheck-recursive installdirs-recursive pdf-recursive \
 	ps-recursive uninstall-recursive
-DATA = $(desktop_DATA) $(icons_DATA) $(infofiles_DATA) \
+DATA = $(desktop_DATA) $(icons_DATA) $(infofiles_DATA) $(mime_DATA) \
 	$(pkgconfig_DATA) $(root_DATA) $(valgrind_DATA)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
@@ -355,6 +357,7 @@ CHECKSTYLE = @CHECKSTYLE@
 COMMONS_BEANUTILS = @COMMONS_BEANUTILS@
 COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
+CONVERT = @CONVERT@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -617,7 +620,7 @@ scilab_cli_bin_LDADD = $(COMMON_LIBS) $(SCILAB_CLI_LIB) $(FLIBS)
 @ENABLE_STATIC_TRUE@scilab_static_bin_LDADD = $(top_builddir)/modules/libscilab.la
 @ENABLE_STATIC_TRUE@scilab_static_bin_SOURCES = $(scilab_bin_SOURCES)
 LANG_DOMAIN = scilab
-TARGETS_ALL = macros $(am__append_4) $(am__append_5)
+TARGETS_ALL = macros $(am__append_4) $(am__append_5) $(am__append_6)
 rootdir = $(pkgdatadir)/etc/
 root_DATA = $(top_srcdir)/etc/scilab.start \
 $(top_srcdir)/etc/scilab.quit \
@@ -652,13 +655,8 @@ $(top_builddir)/Version.incl
 
 iconsdir = $(pkgdatadir)/desktop/
 icons_DATA = $(top_srcdir)/desktop/scilab.png \
-$(top_srcdir)/desktop/puffin_128.png \
-$(top_srcdir)/desktop/puffin_256.png \
-$(top_srcdir)/desktop/puffin_32.png \
-$(top_srcdir)/desktop/puffin_48.png \
 $(top_srcdir)/desktop/puffin.png \
 $(top_srcdir)/desktop/puffin.icns \
-$(top_srcdir)/desktop/scilab.xml \
 $(top_srcdir)/desktop/scilab.icns
 
 valgrinddir = $(pkgdatadir)/tools/profiling
@@ -671,6 +669,11 @@ desktop_DATA = $(top_srcdir)/desktop/scilab-adv-cli.desktop \
 $(top_srcdir)/desktop/scilab-cli.desktop \
 $(top_srcdir)/desktop/scilab.desktop
 
+
+# Mime types descriptor file
+# Note that here, it is datadir and NOT pkgdatadir
+mimedir = $(datadir)/mime/packages
+mime_DATA = $(top_srcdir)/desktop/scilab.xml
 
 # Used for mac os x because it needs to remove the charset=UTF-8 because it is breaking the accents.
 @IS_MACOSX_TRUE@MACOSX = 1
@@ -1177,6 +1180,26 @@ uninstall-infofilesDATA:
 	test -n "$$files" || exit 0; \
 	echo " ( cd '$(DESTDIR)$(infofilesdir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(infofilesdir)" && rm -f $$files
+install-mimeDATA: $(mime_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(mimedir)" || $(MKDIR_P) "$(DESTDIR)$(mimedir)"
+	@list='$(mime_DATA)'; test -n "$(mimedir)" || list=; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(mimedir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(mimedir)" || exit $$?; \
+	done
+
+uninstall-mimeDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(mime_DATA)'; test -n "$(mimedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	test -n "$$files" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(mimedir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(mimedir)" && rm -f $$files
 install-pkgconfigDATA: $(pkgconfig_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(pkgconfigdir)" || $(MKDIR_P) "$(DESTDIR)$(pkgconfigdir)"
@@ -1556,7 +1579,7 @@ check: check-recursive
 all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(DATA) all-local
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(iconsdir)" "$(DESTDIR)$(infofilesdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(rootdir)" "$(DESTDIR)$(valgrinddir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(iconsdir)" "$(DESTDIR)$(infofilesdir)" "$(DESTDIR)$(mimedir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(rootdir)" "$(DESTDIR)$(valgrinddir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -1585,6 +1608,8 @@ maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 @GENERATE_LOCALIZATION_FILES_FALSE@install-data-local:
+@HAS_IMAGEMAGICK_FALSE@install-data-hook:
+@HAS_IMAGEMAGICK_FALSE@uninstall-hook:
 clean: clean-recursive
 
 clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
@@ -1610,9 +1635,10 @@ info: info-recursive
 info-am:
 
 install-data-am: install-data-local install-desktopDATA \
-	install-iconsDATA install-infofilesDATA install-pkgconfigDATA \
-	install-rootDATA install-valgrindDATA
-
+	install-iconsDATA install-infofilesDATA install-mimeDATA \
+	install-pkgconfigDATA install-rootDATA install-valgrindDATA
+	@$(NORMAL_INSTALL)
+	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
 install-dvi: install-dvi-recursive
 
 install-dvi-am:
@@ -1661,11 +1687,14 @@ ps-am:
 
 uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	uninstall-desktopDATA uninstall-iconsDATA \
-	uninstall-infofilesDATA uninstall-pkgconfigDATA \
-	uninstall-rootDATA uninstall-valgrindDATA
-
+	uninstall-infofilesDATA uninstall-mimeDATA \
+	uninstall-pkgconfigDATA uninstall-rootDATA \
+	uninstall-valgrindDATA
+	@$(NORMAL_INSTALL)
+	$(MAKE) $(AM_MAKEFLAGS) uninstall-hook
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) check-am \
-	ctags-recursive install-am install-strip tags-recursive
+	ctags-recursive install-am install-data-am install-strip \
+	tags-recursive uninstall-am
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
 	all all-am all-local am--refresh check check-am check-local \
@@ -1677,10 +1706,11 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	distdir distuninstallcheck dvi dvi-am html html-am info \
 	info-am install install-am install-binPROGRAMS \
 	install-binSCRIPTS install-data install-data-am \
-	install-data-local install-desktopDATA install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-iconsDATA install-info install-info-am \
-	install-infofilesDATA install-man install-pdf install-pdf-am \
+	install-data-hook install-data-local install-desktopDATA \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-iconsDATA install-info \
+	install-info-am install-infofilesDATA install-man \
+	install-mimeDATA install-pdf install-pdf-am \
 	install-pkgconfigDATA install-ps install-ps-am \
 	install-rootDATA install-strip install-valgrindDATA \
 	installcheck installcheck-am installdirs installdirs-am \
@@ -1688,9 +1718,10 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
 	uninstall-binPROGRAMS uninstall-binSCRIPTS \
-	uninstall-desktopDATA uninstall-iconsDATA \
-	uninstall-infofilesDATA uninstall-pkgconfigDATA \
-	uninstall-rootDATA uninstall-valgrindDATA
+	uninstall-desktopDATA uninstall-hook uninstall-iconsDATA \
+	uninstall-infofilesDATA uninstall-mimeDATA \
+	uninstall-pkgconfigDATA uninstall-rootDATA \
+	uninstall-valgrindDATA
 
 
 # Don't do it for scilab_cli_bin. We want to be able to call it without
@@ -1701,6 +1732,40 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 @IS_SOLARIS_TRUE@	scilab_bin_LDADD += $(BLAS_LIBS)
 
 all-local: $(TARGETS_ALL)
+
+install-icons:
+@HAS_IMAGEMAGICK_TRUE@	for icon in $$(ls $(top_srcdir)/desktop/icons/*_*_*_*.png); do \
+@HAS_IMAGEMAGICK_TRUE@		THEME=`echo $$icon | cut -d_ -f1`; \
+@HAS_IMAGEMAGICK_TRUE@		CONTEXT=`echo $$icon | cut -d_ -f2`; \
+@HAS_IMAGEMAGICK_TRUE@		SIZE=`echo $$icon | cut -d_ -f3`; \
+@HAS_IMAGEMAGICK_TRUE@		ICONFILE=`echo $$icon | cut -d_ -f4`; \
+@HAS_IMAGEMAGICK_TRUE@		mkdir -p $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
+@HAS_IMAGEMAGICK_TRUE@		$(INSTALL_DATA) $(srcdir)/$$icon $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
+@HAS_IMAGEMAGICK_TRUE@	done;
+
+uninstall-icons:
+@HAS_IMAGEMAGICK_TRUE@	@for icon in $$(ls $(top_srcdir)/desktop/icons/*_*_*_*.png); do \
+@HAS_IMAGEMAGICK_TRUE@		THEME=`echo $$icon | cut -d_ -f1`; \
+@HAS_IMAGEMAGICK_TRUE@		CONTEXT=`echo $$icon | cut -d_ -f2`; \
+@HAS_IMAGEMAGICK_TRUE@		SIZE=`echo $$icon | cut -d_ -f3`; \
+@HAS_IMAGEMAGICK_TRUE@		ICONFILE=`echo $$icon | cut -d_ -f4`; \
+@HAS_IMAGEMAGICK_TRUE@		rm -f $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
+@HAS_IMAGEMAGICK_TRUE@	done;
+
+create-icons:
+@HAS_IMAGEMAGICK_TRUE@	@echo "Build applications and mimetypes icons." ; \
+@HAS_IMAGEMAGICK_TRUE@	for ICON in $$(ls $(top_srcdir)/modules/windows_tools/src/c/resources/*.ico); do \
+@HAS_IMAGEMAGICK_TRUE@		OUTFILE=$(top_srcdir)/desktop/icons/hicolor_mimetypes_%[filename:descriptor].png; \
+@HAS_IMAGEMAGICK_TRUE@		convert $$ICON -set filename:descriptor "%wx%h_application-%t" $$OUTFILE; \
+@HAS_IMAGEMAGICK_TRUE@	done; \
+@HAS_IMAGEMAGICK_TRUE@	for ICON in $$(ls $(top_srcdir)/desktop/icons/hicolor_*_*_application-scilab.png); do \
+@HAS_IMAGEMAGICK_TRUE@		SIZE=`echo $$ICON | cut -d_ -f3`; \
+@HAS_IMAGEMAGICK_TRUE@		mv $$ICON $(top_srcdir)/desktop/icons/hicolor_apps_$$SIZE_scilab.png; \
+@HAS_IMAGEMAGICK_TRUE@	done;
+@HAS_IMAGEMAGICK_FALSE@	@echo "Cannot build mime icons. Install ImageMagick if you want to build them."
+
+@HAS_IMAGEMAGICK_TRUE@install-data-hook: install-icons
+@HAS_IMAGEMAGICK_TRUE@uninstall-hook: uninstall-icons
 
 macros:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
 	-@( cd $(top_builddir) ; \

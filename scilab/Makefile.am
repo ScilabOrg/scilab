@@ -134,13 +134,8 @@ $(top_builddir)/Version.incl
 
 iconsdir=$(pkgdatadir)/desktop/
 icons_DATA = $(top_srcdir)/desktop/scilab.png \
-$(top_srcdir)/desktop/puffin_128.png \
-$(top_srcdir)/desktop/puffin_256.png \
-$(top_srcdir)/desktop/puffin_32.png \
-$(top_srcdir)/desktop/puffin_48.png \
 $(top_srcdir)/desktop/puffin.png \
 $(top_srcdir)/desktop/puffin.icns \
-$(top_srcdir)/desktop/scilab.xml \
 $(top_srcdir)/desktop/scilab.icns
 
 valgrinddir=$(pkgdatadir)/tools/profiling
@@ -152,6 +147,57 @@ desktopdir = $(datadir)/applications
 desktop_DATA = $(top_srcdir)/desktop/scilab-adv-cli.desktop \
 $(top_srcdir)/desktop/scilab-cli.desktop \
 $(top_srcdir)/desktop/scilab.desktop
+
+# Mime types descriptor file
+# Note that here, it is datadir and NOT pkgdatadir
+mimedir = $(datadir)/mime/packages
+mime_DATA = $(top_srcdir)/desktop/scilab.xml
+
+install-icons:
+if HAS_IMAGEMAGICK
+	for icon in $$(ls $(top_srcdir)/desktop/icons/*_*_*_*.png); do \
+		THEME=`echo $$icon | cut -d_ -f1`; \
+		CONTEXT=`echo $$icon | cut -d_ -f2`; \
+		SIZE=`echo $$icon | cut -d_ -f3`; \
+		ICONFILE=`echo $$icon | cut -d_ -f4`; \
+		mkdir -p $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
+		$(INSTALL_DATA) $(srcdir)/$$icon $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
+	done;
+endif
+
+uninstall-icons:
+if HAS_IMAGEMAGICK
+	@for icon in $$(ls $(top_srcdir)/desktop/icons/*_*_*_*.png); do \
+		THEME=`echo $$icon | cut -d_ -f1`; \
+		CONTEXT=`echo $$icon | cut -d_ -f2`; \
+		SIZE=`echo $$icon | cut -d_ -f3`; \
+		ICONFILE=`echo $$icon | cut -d_ -f4`; \
+		rm -f $(DESTDIR)$(datadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
+	done;
+endif
+
+create-icons:
+if HAS_IMAGEMAGICK
+	@echo "Build applications and mimetypes icons." ; \
+	for ICON in $$(ls $(top_srcdir)/modules/windows_tools/src/c/resources/*.ico); do \
+		OUTFILE=$(top_srcdir)/desktop/icons/hicolor_mimetypes_%[filename:descriptor].png; \
+		convert $$ICON -set filename:descriptor "%wx%h_application-%t" $$OUTFILE; \
+	done; \
+	for ICON in $$(ls $(top_srcdir)/desktop/icons/hicolor_*_*_application-scilab.png); do \
+		SIZE=`echo $$ICON | cut -d_ -f3`; \
+		mv $$ICON $(top_srcdir)/desktop/icons/hicolor_apps_$$SIZE_scilab.png; \
+	done;
+else
+	@echo "Cannot build mime icons. Install ImageMagick if you want to build them."
+endif
+if HAS_IMAGEMAGICK
+TARGETS_ALL += create-icons
+endif
+
+if HAS_IMAGEMAGICK
+install-data-hook: install-icons
+uninstall-hook: uninstall-icons
+endif
 
 macros:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
 	-@( cd $(top_builddir) ; \

@@ -1696,6 +1696,13 @@ if test x"$CCACHE" != x; then
   CXX="ccache $CXX"
 fi
 
+##########
+##### Desktop icons generation
+#####   Provided by ImageMagick
+##########
+AC_PATH_PROG(CONVERT, convert)
+AM_CONDITIONAL(HAS_IMAGEMAGICK, test -x "$CONVERT")
+
 #######################
 ###### Creation of the header file (machine.h)
 #######################

@@ -316,6 +316,7 @@ CHECKSTYLE = @CHECKSTYLE@
 COMMONS_BEANUTILS = @COMMONS_BEANUTILS@
 COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
+CONVERT = @CONVERT@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -856,25 +857,20 @@ libscigui_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscigui_la_sci_gateway_DATA = sci_gateway/gui_gateway.xml
 
 #### gui : icons files ####
-#
+
+# Specific pattern rule to generate png files from ico files
+AVAILABLE_SIZE = 16x16 24x24 32x32 48x48 256x256
+PNG_FILES = $(addprefix images/icons/hicolor_mimetypes_,$(addsuffix _application-%.png, $(AVAILABLE_SIZE)))
+
 # Generated with:
 #    $ find images/ -type f -printf "%p \\\\\n" -name *.svg -or -name *.gif -or -name *.jpg -or -name *.png |sort -u
 libscigui_la_iconsdir = $(mydatadir)/
-nobase_libscigui_la_icons_DATA = images/icons/32x32/apps/accessories-text-editor.png \
-images/icons/32x32/actions/edit-clear.png \
-images/icons/32x32/apps/rrze_table.png \
-images/icons/32x32/apps/utilities-system-monitor.png \
-images/icons/32x32/apps/system-search.png \
-images/icons/16x16/actions/edit-clear.png \
+nobase_libscigui_la_icons_DATA = images/icons/16x16/actions/edit-clear.png \
 images/icons/16x16/actions/execute-all.png \
 images/icons/16x16/actions/go-bottom.png \
 images/icons/16x16/actions/go-top.png \
-images/icons/16x16/actions/view-refresh.png \
-images/icons/16x16/search/folder.png \
-images/icons/16x16/search/file.png \
-images/icons/16x16/search/line-found.png \
-images/icons/16x16/search/scilab-file.png \
 images/icons/16x16/actions/save-and-execute.png \
+images/icons/16x16/actions/view-refresh.png \
 images/icons/16x16/filebrowser/application-pdf.png \
 images/icons/16x16/filebrowser/binary.png \
 images/icons/16x16/filebrowser/dynamic-blue-up.png \
@@ -895,12 +891,21 @@ images/icons/16x16/filebrowser/text-html.png \
 images/icons/16x16/filebrowser/text-x-generic.png \
 images/icons/16x16/filebrowser/text-xml.png \
 images/icons/16x16/filebrowser/user-home.png \
+images/icons/16x16/search/file.png \
+images/icons/16x16/search/folder.png \
+images/icons/16x16/search/line-found.png \
+images/icons/16x16/search/scilab-file.png \
+images/icons/32x32/actions/edit-clear.png \
+images/icons/32x32/apps/accessories-text-editor.png \
+images/icons/32x32/apps/rrze_table.png \
+images/icons/32x32/apps/system-search.png \
+images/icons/32x32/apps/utilities-system-monitor.png \
 images/icons/aboutscilab.png \
 images/icons/accessories-text-editor.png \
 images/icons/applications-system.png \
 images/icons/check-icon.png \
-images/icons/close-tab.png \
 images/icons/close-tab-on.png \
+images/icons/close-tab.png \
 images/icons/datatips.png \
 images/icons/document-new.png \
 images/icons/document-open.png \
@@ -922,6 +927,56 @@ images/icons/folder.png \
 images/icons/format-text-bold.png \
 images/icons/graphic-window.png \
 images/icons/help-browser.png \
+images/icons/hicolor_mimetypes_16x16_application-bin.png \
+images/icons/hicolor_mimetypes_16x16_application-cosf.png \
+images/icons/hicolor_mimetypes_16x16_application-cos.png \
+images/icons/hicolor_mimetypes_16x16_application-dem.png \
+images/icons/hicolor_mimetypes_16x16_application-graph.png \
+images/icons/hicolor_mimetypes_16x16_application-sav.png \
+images/icons/hicolor_mimetypes_16x16_application-sce.png \
+images/icons/hicolor_mimetypes_16x16_application-sci.png \
+images/icons/hicolor_mimetypes_16x16_application-tst.png \
+images/icons/hicolor_mimetypes_16x16_application-xcos.png \
+images/icons/hicolor_mimetypes_24x24_application-bin.png \
+images/icons/hicolor_mimetypes_24x24_application-cosf.png \
+images/icons/hicolor_mimetypes_24x24_application-cos.png \
+images/icons/hicolor_mimetypes_24x24_application-dem.png \
+images/icons/hicolor_mimetypes_24x24_application-graph.png \
+images/icons/hicolor_mimetypes_24x24_application-sav.png \
+images/icons/hicolor_mimetypes_24x24_application-sce.png \
+images/icons/hicolor_mimetypes_24x24_application-sci.png \
+images/icons/hicolor_mimetypes_24x24_application-tst.png \
+images/icons/hicolor_mimetypes_24x24_application-xcos.png \
+images/icons/hicolor_mimetypes_256x256_application-bin.png \
+images/icons/hicolor_mimetypes_256x256_application-cosf.png \
+images/icons/hicolor_mimetypes_256x256_application-cos.png \
+images/icons/hicolor_mimetypes_256x256_application-dem.png \
+images/icons/hicolor_mimetypes_256x256_application-graph.png \
+images/icons/hicolor_mimetypes_256x256_application-sav.png \
+images/icons/hicolor_mimetypes_256x256_application-sce.png \
+images/icons/hicolor_mimetypes_256x256_application-sci.png \
+images/icons/hicolor_mimetypes_256x256_application-tst.png \
+images/icons/hicolor_mimetypes_256x256_application-xcos.png \
+images/icons/hicolor_mimetypes_32x32_application-bin.png \
+images/icons/hicolor_mimetypes_32x32_application-cosf.png \
+images/icons/hicolor_mimetypes_32x32_application-cos.png \
+images/icons/hicolor_mimetypes_32x32_application-dem.png \
+images/icons/hicolor_mimetypes_32x32_application-graph.png \
+images/icons/hicolor_mimetypes_32x32_application-sav.png \
+images/icons/hicolor_mimetypes_32x32_application-sce.png \
+images/icons/hicolor_mimetypes_32x32_application-sci.png \
+images/icons/hicolor_mimetypes_32x32_application-tst.png \
+images/icons/hicolor_mimetypes_32x32_application-xcos.png \
+images/icons/hicolor_mimetypes_48x48_application-bin.png \
+images/icons/hicolor_mimetypes_48x48_application-cosf.png \
+images/icons/hicolor_mimetypes_48x48_application-cos.png \
+images/icons/hicolor_mimetypes_48x48_application-dem.png \
+images/icons/hicolor_mimetypes_48x48_application-graph.png \
+images/icons/hicolor_mimetypes_48x48_application-sav.png \
+images/icons/hicolor_mimetypes_48x48_application-sce.png \
+images/icons/hicolor_mimetypes_48x48_application-sci.png \
+images/icons/hicolor_mimetypes_48x48_application-tst.png \
+images/icons/hicolor_mimetypes_48x48_application-xcos.png \
 images/icons/media-floppy.png \
 images/icons/media-playback-start.png \
 images/icons/package-x-generic.png \
@@ -2712,6 +2767,10 @@ distclean-local:
 	rm -f $(builddir)/help/*/.last_successful_build_javaHelp $(builddir)/help/*/.list_*
 
 .PHONY: macros java swig giws
+$(PNG_FILES): $(top_srcdir)/modules/windows_tools/src/c/resources/%.ico
+@HAS_IMAGEMAGICK_TRUE@	OUTFILE=images/icons/hicolor_mimetypes_%[filename:descriptor].png; \
+@HAS_IMAGEMAGICK_TRUE@	convert $$ICON -set filename:descriptor "%wx%h_application-%t" $$OUTFILE;
+@HAS_IMAGEMAGICK_FALSE@	@echo "Cannot build mimetypes icons. Install ImageMagick if you want to build them."
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
