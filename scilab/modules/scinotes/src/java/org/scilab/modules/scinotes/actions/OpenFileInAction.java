@@ -20,10 +20,11 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.commons.CommonFileUtils;
+import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
-import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
+import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.gui.pushbutton.PushButton;
 import org.scilab.modules.scinotes.SciNotes;
 import org.scilab.modules.scinotes.utils.ConfigSciNotesManager;
@@ -94,6 +95,8 @@ public final class OpenFileInAction extends OpenAction {
             path = System.getenv(SCI);
         } else if (path.equals("MODULES")) {
             path = System.getenv(SCI) + "/modules";
+        } else if (path.equals("CWD")) {
+            path = CommonFileUtils.getCWD();
         }
 
         return createButton(tt + path, icon, new OpenFileInAction(path, editor));
