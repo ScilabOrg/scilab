@@ -67,6 +67,7 @@ import org.scilab.modules.xcos.actions.InitModelicaAction;
 import org.scilab.modules.xcos.actions.NewDiagramAction;
 import org.scilab.modules.xcos.actions.NormalViewAction;
 import org.scilab.modules.xcos.actions.OpenAction;
+import org.scilab.modules.xcos.actions.OpenInSciAction;
 import org.scilab.modules.xcos.actions.PrintAction;
 import org.scilab.modules.xcos.actions.QuitAction;
 import org.scilab.modules.xcos.actions.RecentFileAction;
@@ -122,8 +123,7 @@ import com.mxgraph.swing.mxGraphOutline;
 public class XcosTab extends ScilabTab {
 
     static {
-        DefaultAction.addIconPath(new File(ScilabConstants.SCI,
-                "/modules/xcos/images/icons/"));
+        DefaultAction.addIconPath(new File(ScilabConstants.SCI, "/modules/xcos/images/icons/"));
     }
 
     /*
@@ -171,25 +171,19 @@ public class XcosTab extends ScilabTab {
 
         initComponents(diagram);
 
-        ((SwingScilabTab) getAsSimpleTab())
-                .setWindowIcon(new ImageIcon(
-                        System.getenv("SCI")
-                                + "/modules/gui/images/icons/32x32/apps/utilities-system-monitor.png")
-                        .getImage());
+        ((SwingScilabTab) getAsSimpleTab()).setWindowIcon(new ImageIcon(System.getenv("SCI")
+                + "/modules/gui/images/icons/32x32/apps/utilities-system-monitor.png").getImage());
 
         // No SimpleTab.addMember(ScilabComponent ...) so perform a raw
         // association.
-        ((SwingScilabTab) getAsSimpleTab()).setContentPane(diagram
-                .getAsComponent());
+        ((SwingScilabTab) getAsSimpleTab()).setContentPane(diagram.getAsComponent());
 
         // Get the palette window position and align on it.
         if (PaletteManager.isVisible()) {
-            final Window win = PaletteManager.getInstance().getView()
-                    .getParentWindow();
+            final Window win = PaletteManager.getInstance().getView().getParentWindow();
             final Position palPosition = win.getPosition();
             final Size palSize = win.getDims();
-            final Position mainPosition = new Position(palPosition.getX()
-                    + palSize.getWidth(), palPosition.getY());
+            final Position mainPosition = new Position(palPosition.getX() + palSize.getWidth(), palPosition.getY());
             getParentWindow().setPosition(mainPosition);
         }
 
@@ -230,8 +224,7 @@ public class XcosTab extends ScilabTab {
         addInfoBar(ScilabTextBox.createTextBox());
 
         window.addTab(this);
-        BarUpdater.updateBars(getParentWindowId(), getMenuBar(), getToolBar(),
-                getInfoBar(), getName());
+        BarUpdater.updateBars(getParentWindowId(), getMenuBar(), getToolBar(), getInfoBar(), getName());
     }
 
     /**
@@ -252,8 +245,8 @@ public class XcosTab extends ScilabTab {
         fileMenu.setMnemonic('F');
 
         fileMenu.add(NewDiagramAction.createMenu(diagram));
-
         fileMenu.add(OpenAction.createMenu(diagram));
+        fileMenu.add(OpenInSciAction.createMenu(diagram));
         fileMenu.addSeparator();
         fileMenu.add(SaveAction.createMenu(diagram));
         fileMenu.add(SaveAsAction.createMenu(diagram));
@@ -305,8 +298,7 @@ public class XcosTab extends ScilabTab {
         view.addSeparator();
         view.add(ViewPaletteBrowserAction.createCheckBoxMenu(diagram));
         view.add(ViewDiagramBrowserAction.createMenu(diagram));
-        final CheckBoxMenuItem menu = ViewViewportAction
-                .createCheckBoxMenu(diagram);
+        final CheckBoxMenuItem menu = ViewViewportAction.createCheckBoxMenu(diagram);
         view.add(menu);
         (diagram).setViewPortMenuItem(menu);
         view.add(ViewDetailsAction.createMenu(diagram));
@@ -365,8 +357,7 @@ public class XcosTab extends ScilabTab {
         format.addSeparator();
 
         format.add(DiagramBackgroundAction.createMenu(diagram));
-        final CheckBoxMenuItem gridMenu = ViewGridAction
-                .createCheckBoxMenu(diagram);
+        final CheckBoxMenuItem gridMenu = ViewGridAction.createCheckBoxMenu(diagram);
         format.add(gridMenu);
 
         /** Tools menu */
@@ -407,8 +398,7 @@ public class XcosTab extends ScilabTab {
         recent.setText(XcosMessages.RECENT_FILES);
 
         final ConfigurationManager manager = ConfigurationManager.getInstance();
-        final List<DocumentType> recentFiles = manager.getSettings()
-                .getRecentFiles().getDocument();
+        final List<DocumentType> recentFiles = manager.getSettings().getRecentFiles().getDocument();
         for (int i = 0; i < recentFiles.size(); i++) {
             URL url;
             try {
@@ -420,36 +410,30 @@ public class XcosTab extends ScilabTab {
             recent.add(RecentFileAction.createMenu(url));
         }
 
-        ConfigurationManager.getInstance().addPropertyChangeListener(
-                ConfigurationConstants.RECENT_FILES_CHANGED,
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(final PropertyChangeEvent evt) {
-                        assert evt.getPropertyName().equals(
-                                ConfigurationConstants.RECENT_FILES_CHANGED);
+        ConfigurationManager.getInstance().addPropertyChangeListener(ConfigurationConstants.RECENT_FILES_CHANGED, new PropertyChangeListener() {
+            @Override
+            public void propertyChange(final PropertyChangeEvent evt) {
+                assert evt.getPropertyName().equals(ConfigurationConstants.RECENT_FILES_CHANGED);
 
-                        /*
-                         * We only handle menu creation there. Return when this
-                         * is not the case.
-                         */
-                        if (evt.getOldValue() != null) {
-                            return;
-                        }
+                /*
+                 * We only handle menu creation there. Return when this is not
+                 * the case.
+                 */
+                if (evt.getOldValue() != null) {
+                    return;
+                }
 
-                        URL url;
-                        try {
-                            url = new URL(((DocumentType) evt.getNewValue())
-                                    .getUrl());
-                        } catch (final MalformedURLException e) {
-                            LogFactory.getLog(XcosTab.class).error(e);
-                            return;
-                        }
+                URL url;
+                try {
+                    url = new URL(((DocumentType) evt.getNewValue()).getUrl());
+                } catch (final MalformedURLException e) {
+                    LogFactory.getLog(XcosTab.class).error(e);
+                    return;
+                }
 
-                        ((SwingScilabMenu) recent.getAsSimpleMenu()).add(
-                                (SwingScilabMenu) RecentFileAction.createMenu(
-                                        url).getAsSimpleMenu(), 0);
-                    }
-                });
+                ((SwingScilabMenu) recent.getAsSimpleMenu()).add((SwingScilabMenu) RecentFileAction.createMenu(url).getAsSimpleMenu(), 0);
+            }
+        });
 
         return recent;
     }
@@ -469,6 +453,8 @@ public class XcosTab extends ScilabTab {
 
         openAction = OpenAction.createButton(diagram);
         toolBar.add(openAction);
+
+        toolBar.add(OpenInSciAction.createButton(diagram));
 
         toolBar.addSeparator();
 
@@ -519,8 +505,7 @@ public class XcosTab extends ScilabTab {
 
         toolBar.addSeparator();
 
-        xcosDemonstrationAction = XcosDemonstrationsAction
-                .createButton(diagram);
+        xcosDemonstrationAction = XcosDemonstrationsAction.createButton(diagram);
         toolBar.add(xcosDemonstrationAction);
         xcosDocumentationAction = XcosDocumentationAction.createButton(diagram);
         toolBar.add(xcosDocumentationAction);
@@ -553,13 +538,11 @@ public class XcosTab extends ScilabTab {
         ((XcosDiagram) xcosDiagramm).setViewPort(outlineTab);
 
         // Creates the graph outline component
-        final mxGraphOutline graphOutline = new mxGraphOutline(
-                xcosDiagramm.getAsComponent());
+        final mxGraphOutline graphOutline = new mxGraphOutline(xcosDiagramm.getAsComponent());
 
         graphOutline.setDrawLabels(true);
 
-        ((SwingScilabTab) outlineTab.getAsSimpleTab())
-                .setContentPane(graphOutline);
+        ((SwingScilabTab) outlineTab.getAsSimpleTab()).setContentPane(graphOutline);
         outline.addTab(outlineTab);
         outline.setVisible(false);
         outlineTab.setVisible(false);
