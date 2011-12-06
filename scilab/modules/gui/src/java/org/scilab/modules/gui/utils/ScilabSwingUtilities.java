@@ -21,17 +21,24 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -89,6 +96,7 @@ public final class ScilabSwingUtilities {
         final Component componentF = component;
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
                     public void run() {
                         componentF.setVisible(false);
                         Container parent = componentF.getParent();
@@ -202,6 +210,138 @@ public final class ScilabSwingUtilities {
         return Toolkit.getDefaultToolkit().createCustomCursor(compatibleIcon, new Point(0, 0), cursorName);
     }
 
+    /*
+     * freedesktop icon lookup mechanism
+     * http://standards.freedesktop.org/icon-theme
+     * -spec/icon-theme-spec-latest.html#icon_lookup
+     */
+
+    /**
+     * Look for the icon associated with the name.
+     * 
+     * @param icon
+     *            the name to look for
+     * @return the loaded image icon
+     */
+    public static ImageIcon findIcon(final String icon) {
+        return findIcon(icon, "16x16");
+    }
+
+    /**
+     * Look for the icon associated with the name for a specific module.
+     * 
+     * @param name
+     *            the name to look for
+     * @param size
+     *            the size to look for
+     * @return the loaded image icon
+     */
+    public static ImageIcon findIcon(final String icon, final String size) {
+        final String filename = findIconHelper(icon, size, "Tango");
+        if (filename != null) {
+            return new ImageIcon(filename);
+        }
+
+        return new ImageIcon(lookupFallbackIcon(icon));
+    }
+
+    private static String findIconHelper(final String icon, final String size, final String theme) {
+        String filename = lookupIcon(icon, size, theme);
+        if (filename != null) {
+            return filename;
+        }
+
+        /*
+         * always look for hicolor in case of invalid theme.
+         */
+        return findIconHelper(icon, size, "hicolor");
+    }
+
+    private static final String SCI = System.getenv("SCI");
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String DOT = ".";
+    private static final List<String> THEME_BASENAME;
+    private static final List<String> ICONS_EXTENSIONS = Arrays.asList("png", "svg", "xpm");
+    static {
+        THEME_BASENAME = new ArrayList<String>();
+
+        /*
+         * Append modules/xxx/images/icons dirs first
+         */
+        Iterator<Path> modules;
+        try {
+            modules = Files.newDirectoryStream(new File(SCI + SEP + "modules").toPath()).iterator();
+
+            while (modules.hasNext()) {
+                final Path p = modules.next();
+                final File f = new File(p.toFile(), "images" + SEP + "icons");
+
+                if (f.exists() && f.isDirectory()) {
+                    THEME_BASENAME.add(f.getAbsolutePath());
+                }
+            }
+        } catch (IOException e) {
+        }
+
+        /*
+         * FIXME: we are not compliant with the spec there.
+         * 
+         * 
+         * THEME_BASENAME.add("~/.icons");
+         * THEME_BASENAME.add("/usr/share/icons");
+         * THEME_BASENAME.add("/usr/share/pixmaps");
+         */
+    }
+
+    private static String lookupIcon(final String iconname, final String size, final String theme) {
+        for (String directory : THEME_BASENAME) {
+            /*
+             * FIXME: we are not compliant with the spec there.
+             * 
+             * look on theme/size/iconname.xxx or theme/size/subdir/iconname.xxx
+             * only
+             */
+            final Path rootDir = new File(directory + SEP + theme + SEP + size).toPath();
+            for (String extension : ICONS_EXTENSIONS) {
+                final String filename = rootDir.toString() + SEP + iconname + DOT + extension;
+
+                if (new File(filename).exists()) {
+                    return filename;
+                }
+            }
+
+            try {
+                Iterator<Path> it = Files.newDirectoryStream(rootDir).iterator();
+                while (it.hasNext()) {
+                    final Path p = it.next();
+
+                    for (String extension : ICONS_EXTENSIONS) {
+                        final File f = new File(p.toFile(), iconname + DOT + extension);
+                        if (f.exists()) {
+                            return f.getAbsolutePath();
+                        }
+                    }
+                }
+            } catch (IOException e) {
+            }
+
+        }
+        return null;
+    }
+
+    private static String lookupFallbackIcon(final String icon) {
+        for (String directory : THEME_BASENAME) {
+            for (String extension : ICONS_EXTENSIONS) {
+                final File f = new File(directory + SEP + icon + DOT + extension);
+                if (f.exists()) {
+                    return f.getAbsolutePath();
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Add an action to close the window when the ESCAPE key is hit.
      * @param window the window where to add the action, it must be an instance of
@@ -212,6 +352,7 @@ public final class ScilabSwingUtilities {
         KeyStroke ctrlw = ScilabKeyStroke.getKeyStroke("OSSCKEY W");
 
         ActionListener listener = new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     WindowListener[] listeners = window.getWindowListeners();
                     for (int i = 0; i < listeners.length; i++) {
