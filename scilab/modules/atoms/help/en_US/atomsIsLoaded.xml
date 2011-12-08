@@ -130,7 +130,9 @@
     <programlisting role="example"><![CDATA[
 
 atomsSetConfig("Verbose","True");
-atomsRepositoryAdd("http://scene2.test.atoms.scilab.org");
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
+atomsRepositoryAdd("http://scene12."+version+".test.atoms.scilab.org");
 
 // Install toolbox_4, both 1.0 and 1.1 version
 atomsInstall(["toolbox_4" "1.0"],"user");
@@ -149,7 +151,7 @@ atomsIsLoaded(["toolbox_4" "1.0"])
 atomsIsLoaded( ["toolbox_4" "1.0" ; "toolbox_4" "1.1" ; "toolbox_1" "1.0" ] )
 
 // Some cleaning ...
-atomsRepositoryDel("http://scene2.test.atoms.scilab.org");
+atomsRepositoryDel("http://scene12."+version+".test.atoms.scilab.org");
 atomsRemove("toolbox_2");
 
  ]]></programlisting>

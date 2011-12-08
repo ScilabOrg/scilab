@@ -16,9 +16,9 @@ config_autoload = atomsGetConfig("autoloadAddAfterInstall");
 config_Verbose  = atomsGetConfig("Verbose");
 atomsSetConfig("autoloadAddAfterInstall","False");
 atomsSetConfig("Verbose" ,"False");
-
+version=getversion("scilab");
 // Load the 1st scenario : See scene10.test.atoms.scilab.org.txt
-atomsRepositorySetOfl("http://scene10.test.atoms.scilab.org");
+atomsRepositorySetOfl("http://scene10."+code2str(version(:,1))+"."+code2str(version(:,2))+".test.atoms.scilab.org");
 
 // Install toolbox 5
 atomsInstall("toolbox_5");
@@ -27,7 +27,7 @@ atomsInstall("toolbox_5");
 atomsDepTreeShow("toolbox_5");
 
 // Load the 2nd scenario : See scene11.test.atoms.scilab.org.txt
-atomsRepositorySetOfl("http://scene11.test.atoms.scilab.org");
+atomsRepositorySetOfl("http://scene11."+code2str(version(:,1))+"."+code2str(version(:,2))+".test.atoms.scilab.org");
 
 // Update modules
 atomsUpdate();

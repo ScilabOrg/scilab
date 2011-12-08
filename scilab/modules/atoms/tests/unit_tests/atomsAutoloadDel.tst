@@ -19,9 +19,9 @@ config_autoload = atomsGetConfig("autoloadAddAfterInstall");
 config_Verbose  = atomsGetConfig("Verbose");
 atomsSetConfig("autoloadAddAfterInstall","False");
 atomsSetConfig("Verbose" ,"False");
-
+version=getversion("scilab");
 // Load the 1st scenario : See scene10.test.atoms.scilab.org.txt
-atomsRepositorySetOfl("http://scene10.test.atoms.scilab.org");
+atomsRepositorySetOfl("http://scene10."+code2str(version(:,1))+"."+code2str(version(:,2))+".test.atoms.scilab.org");
 
 // 1st test case
 // =============================================================================

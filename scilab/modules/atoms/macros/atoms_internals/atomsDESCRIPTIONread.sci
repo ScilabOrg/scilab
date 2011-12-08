@@ -121,18 +121,26 @@ function description_out = atomsDESCRIPTIONread(file_in,additional)
                 end
 
                 // Register the current toolbox : Check the mandatory fields
+
                 missingfield = atomsCheckFields( current_toolbox );
                 if ~ isempty(missingfield) then
-                    error(msprintf(gettext("%s: The file ""%s"" is not well formated, the toolbox ""%s - %s"" doesn''t contain the %s field\n"), ..
+                    // Compatibility 5.3 -> 5.4
+                    if missingfield == "ScilabLowerVersion" & isfield(current_toolbox,"ScilabVersion") then
+                        current_toolbox("ScilabLowerVersion") = current_toolbox("ScilabVersion");
+                        current_toolbox("ScilabHigherVersion") = "";
+                    else
+                        error(msprintf(gettext("%s: The file ""%s"" is not well formated, the toolbox ""%s - %s"" doesn''t contain the %s field\n"), ..
                         "atomsDESCRIPTIONread",..
                         file_in,current_toolbox("Toolbox"),..
                         current_toolbox("Version"),..
                         missingfield));
+                    end
                 end
 
                 // Register the current toolbox : Check the scilab version
                 // comptability
-                if atomsIsCompatible(current_toolbox("ScilabVersion")) then
+
+                if atomsIsCompatible(current_toolbox("ScilabLowerVersion"),current_toolbox("ScilabHigherVersion")) then
                     if isfield(current_toolbox,"PackagingVersion") then
                         current_toolbox("Version") = current_toolbox("Version") + "-" + current_toolbox("PackagingVersion");
                         this_toolbox(current_toolbox("Version")) = current_toolbox;
@@ -167,16 +175,22 @@ function description_out = atomsDESCRIPTIONread(file_in,additional)
                     // Register the current toolbox : Check the mandatory fields
                     missingfield = atomsCheckFields( current_toolbox );
                     if ~ isempty(missingfield) then
-                        error(msprintf(gettext("%s: The file ""%s"" is not well formated, the toolbox ""%s - %s"" doesn''t contain the %s field\n"), ..
-                            "atomsDESCRIPTIONread",..
-                            file_in,current_toolbox("Toolbox"),..
-                            current_toolbox("Version"),..
-                            missingfield));
+                        if missingfield == "ScilabLowerVersion" & isfield(current_toolbox,"ScilabVersion") then
+                            current_toolbox("ScilabLowerVersion") = current_toolbox("ScilabVersion");
+                            current_toolbox("ScilabHigherVersion") = "";
+                        else
+                            error(msprintf(gettext("%s: The file ""%s"" is not well formated, the toolbox ""%s - %s"" doesn''t contain the %s field\n"), ..
+                               "atomsDESCRIPTIONread",..
+                                file_in,current_toolbox("Toolbox"),..
+                                current_toolbox("Version"),..
+                                missingfield));
+                        end
                     end
 
                     // Register the current toolbox : Check the scilab version
                     // comptability
-                    if atomsIsCompatible(current_toolbox("ScilabVersion")) then
+                    if atomsIsCompatible(current_toolbox("ScilabLowerVersion"),current_toolbox("ScilabHigherVersion")) then
+                        //compatibility 5.3 -> 5.4
                         if isfield(current_toolbox,"PackagingVersion") then
                             current_toolbox("Version") = current_toolbox("Version") + "-" + current_toolbox("PackagingVersion");
                             this_toolbox(current_toolbox("Version")) = current_toolbox;
@@ -374,9 +388,9 @@ function field = atomsCheckFields( module )
         "Category"          ; ..
         "Entity"            ; ..
         "License"           ; ..
-        "ScilabVersion"     ; ..
         "Depends"           ; ..
-        "Date"              ];
+        "Date"              ; ..
+        "ScilabLowerVersion"];
 
     for i=1:size(mandatory,"*")
         if ~ isfield(module,mandatory(i)) then

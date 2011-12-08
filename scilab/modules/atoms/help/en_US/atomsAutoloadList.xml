@@ -140,7 +140,9 @@
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[
-atomsRepositoryAdd('http://scene1.test.atoms.scilab.org');
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
+atomsRepositoryAdd('http://scene10."+version+".test.atoms.scilab.org');
 atomsInstall("toolbox_1");
 
 atomsAutoloadList('user')
@@ -148,7 +150,7 @@ atomsAutoloadList('allusers')
 atomsAutoloadList('all')
 
 atomsRemove("toolbox_1");
-atomsRepositoryDel('http://scene1.test.atoms.scilab.org');
+atomsRepositoryDel('http://scene10."+version+".test.atoms.scilab.org');
  ]]></programlisting>
   </refsection>
   <!-- ===================================================================== -->

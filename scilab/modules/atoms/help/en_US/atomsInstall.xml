@@ -247,9 +247,10 @@
     <programlisting role="example"><![CDATA[
 // Display some additionnal informations
 atomsSetConfig("Verbose","True");
-
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
 // Load the test repository
-atomsRepositoryAdd("http://scene1.test.atoms.scilab.org");
+atomsRepositoryAdd("http://scene10."+version+".test.atoms.scilab.org");
 
 // Install a module
 atomsInstall("toolbox_1");
@@ -278,6 +279,8 @@ atomsRemove(["toolbox_1"; ..
              "toolbox_4"; ..
              "toolbox_5"; ..
              "toolbox_6"]);
+             
+atomsRepositoryDel("http://scene10."+version+".test.atoms.scilab.org");
 
 ]]>
 </programlisting>
@@ -291,7 +294,6 @@ atomsRemove(["toolbox_1"; ..
     <programlisting role="example"><![CDATA[
 // Display some additionnal informations
 atomsSetConfig("Verbose","True");
-
 // Install a module
 atomsInstall(SCI+"/modules/atoms/tests/unit_tests/toolbox_7_1.0-1.bin.zip");
 

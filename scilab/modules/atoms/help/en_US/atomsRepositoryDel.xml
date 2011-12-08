@@ -101,10 +101,12 @@
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
 atomsRepositoryList()
-atomsRepositoryAdd("http://scene1.test.atoms.scilab.org")
+atomsRepositoryAdd("http://scene10."+version+".test.atoms.scilab.org")
 atomsRepositoryList()
-atomsRepositoryDel("http://scene1.test.atoms.scilab.org")
+atomsRepositoryDel("http://scene10."+version+".test.atoms.scilab.org")
 atomsRepositoryList()
  ]]></programlisting>
   </refsection>

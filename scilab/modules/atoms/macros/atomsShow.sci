@@ -87,8 +87,8 @@ function atomsShow(package)
     fields_map = [ fields_map ; "Entity"         gettext("Entity")         ];
     fields_map = [ fields_map ; "WebSite"        gettext("WebSite")        ];
     fields_map = [ fields_map ; "License"        gettext("License")        ];
-    fields_map = [ fields_map ; "ScilabVersion"  gettext("Scilab Version") ];
-
+    fields_map = [ fields_map ; "ScilabLowerVersion"  gettext("Scilab Lower Version") ];
+    fields_map = [ fields_map ; "ScilabHigherVersion"  gettext("Scilab Higher Version") ];
     fields_map = [ fields_map ; "Status"         gettext("Status")         ];
 
     if atomsIsInstalled(package) then
@@ -136,7 +136,7 @@ function atomsShow(package)
         // Scilab Version
         //
 
-        if fields_map(i,1)=="ScilabVersion" then
+        if fields_map(i,1)=="ScilabLowerVersion" then
             if regexp( details(fields_map(i,1)) , "/^~/" , "o" )<>[] then
                 value = "any";
             else

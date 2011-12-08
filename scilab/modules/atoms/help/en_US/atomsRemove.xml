@@ -228,9 +228,10 @@ the sources will also be deleted. This includes the dependencies' archives files
 
 // Display some additionnal informations
 atomsSetConfig("Verbose","True");
-
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
 // Load the test repository
-atomsRepositoryAdd("http://scene2.test.atoms.scilab.org");
+atomsRepositoryAdd("http://scene12."+version+".test.atoms.scilab.org");
 
 // install toolbox_4 : both 1.0 and 1.1 versions
 
@@ -274,7 +275,7 @@ atomsInstall("toolbox_4");
 atomsRemove("toolbox_4","user",%T);
 
 // Unload the test repository
-atomsRepositoryDel("http://scene2.test.atoms.scilab.org");
+atomsRepositoryDel("http://scene12."+version+".test.atoms.scilab.org");
 
 ]]></programlisting>
   </refsection>

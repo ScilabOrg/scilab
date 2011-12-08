@@ -109,13 +109,16 @@
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
 atomsSetConfig("Verbose","True");
-atomsRepositoryAdd("http://scene1.test.atoms.scilab.org");
+version=getversion("scilab");
+version=code2str(version(:,1))+'.'+code2str(version(:,2));
+atomsRepositoryAdd("http://scene10."+version+".test.atoms.scilab.org");
 atomsInstall("toolbox_5");
 atomsLoad("toolbox_5");
 
 path = atomsGetLoadedPath("toolbox_5");
 
 atomsRemove("toolbox_5");
+atomsRepositoryDel("http://scene10."+version+".test.atoms.scilab.org");
  ]]></programlisting>
   </refsection>
   <!-- ===================================================================== -->
