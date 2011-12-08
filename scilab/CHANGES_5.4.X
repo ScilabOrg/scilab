@@ -25,9 +25,11 @@ Bug fixes
 
 * Bug #9811 fixed - Output message of fminsearch was wrongly set.
 
+* bug #9834 fixed - external modules was not managed by test_run
+                   example: test_run('SCI/contrib/toolbox_skeleton')
+
 * Bug #10017 fixed - The unitary test for bdiag used a "strange" comparison
                      operator.
-
 
 
  	    Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
@@ -202,7 +204,7 @@ Xcos
 * Bug #9506 fixed - Some libraries dependencies were not loaded at
                    xcos_toolbox_skeleton startup.
 
-* Bug #9532 fixed Ð User-defined blocks had no icons when saved.
+* Bug #9532 fixed - User-defined blocks had no icons when saved.
 
 * Bug #9547 fixed - The about box was not localized due to a multi-line string.
 
@@ -246,6 +248,7 @@ Localization
 =============
 
 * Czech localization by ZbynÄk Schwarz
+
 
 * Bug #10032 fixed - Force the unset of the environment variable LANGUAGE to
                     tackle some issues. Mac OS X locale detection did not take into account
@@ -415,7 +418,7 @@ Statistics
 
 * Bug #9846 fixed - stdevf() gave zero result when a single row matrix was evaluated.
 
-* Bug #7387 fixed Ð The help pages for rand and grand functions gave wrong advice.
+* Bug #7387 fixed - The help pages for rand and grand functions gave wrong advice.
 
 
 Linear Algebra
@@ -886,7 +889,7 @@ Bug Fixes
 
 * Bug #9659 fixed - "error(246)" returned a bad message for overloading.
 
-* Bug #9682 fixed Ð 3-D assignment into a 2-D array of integers issued an error.
+* Bug #9682 fixed � 3-D assignment into a 2-D array of integers issued an error.
 
 * Bug #9696 fixed - An error in an if expression inside a try make Scilab froze.
 
@@ -1023,4 +1026,3 @@ Known Issues
   Uninstall / disable Audio Hijack should fix this problem.
   Airfoil, also developed by Rogue Amoeba, has been reported as also breaking
   Scilab.
-
