@@ -72,7 +72,9 @@
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
 atomsSetConfig("Verbose","True");
-atomsRepositoryAdd("http://scene1.test.atoms.scilab.org");
+version=getversion("scilab");
+version=string(version(:,1))+'.'+string(version(:,2));
+atomsRepositoryAdd("http://scene10."+version+".test.atoms.scilab.org");
 atomsInstall(["toolbox_2" "1.0"]);
 atomsInstall(["toolbox_2" "2.0"]);
 

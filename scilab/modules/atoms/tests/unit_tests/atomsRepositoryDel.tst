@@ -8,9 +8,9 @@
 // <-- JVM NOT MANDATORY -->
 
 if isempty([ atomsRepositoryList("user") ; atomsRepositoryList("allusers")]) then
-	
-	rep1 = "http://scene10.test.atoms.scilab.org";
-	rep2 = "http://scene11.test.atoms.scilab.org";
+	version=getversion("scilab");
+	rep1 = "http://scene10."+string(version(:,1))+"."+string(version(:,2))+".test.atoms.scilab.org";
+	rep2 = "http://scene11."+string(version(:,1))+"."+string(version(:,2))+".test.atoms.scilab.org";
 	
 	if atomsRepositoryAdd(rep1,"user")     <> 1 then pause, end
 	if atomsRepositoryAdd(rep2,"allusers") <> 1 then pause, end

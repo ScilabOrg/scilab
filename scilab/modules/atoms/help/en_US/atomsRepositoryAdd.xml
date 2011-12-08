@@ -93,8 +93,11 @@
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
 atomsRepositoryList()
-atomsRepositoryAdd(["http://scene1.test.atoms.scilab.org"])
+version=getversion("scilab");
+version=string(version(:,1))+'.'+string(version(:,2));
+atomsRepositoryAdd(["http://scene10."+version+".test.atoms.scilab.org"])
 atomsRepositoryList()
+atomsRepositoryDel(["http://scene10."+version+".test.atoms.scilab.org"]);
  ]]></programlisting>
   </refsection>
   <!-- ===================================================================== -->

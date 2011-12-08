@@ -8,9 +8,9 @@
 // <-- JVM NOT MANDATORY -->
 
 load("SCI/modules/atoms/macros/atoms_internals/lib");
-
+version=getversion("scilab");
 // Load the 1st scenario : See scene10.test.atoms.scilab.org.txt
-atomsRepositorySetOfl("http://scene10.test.atoms.scilab.org");
+atomsRepositorySetOfl("http://scene10."+string(version(:,1))+"."+string(version(:,2))+".test.atoms.scilab.org");
 
 // Do not use the autoload system
 config_autoload = atomsGetConfig("autoloadAddAfterInstall");

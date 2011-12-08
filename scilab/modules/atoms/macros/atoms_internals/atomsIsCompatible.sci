@@ -12,33 +12,39 @@
 // Returns True if the version string is compatible with the current scilab version
 // else, returns false
 
-function result = atomsIsCompatible(version_str)
+function result = atomsIsCompatible(lower_version_str,higher_version_str)
 
     rhs = argn(2);
 
     // Check number of input arguments
     // =========================================================================
-    if rhs <> 1 then
-        error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"atomsIsCompatible",1));
+    if rhs <> 2 then
+        error(msprintf(gettext("%s: Wrong number of input argument: %d expected.\n"),"atomsIsCompatible",2));
     end
 
     // Check input parameter type
     // =========================================================================
-    if type(version_str) <> 10 then
+    if type(lower_version_str) <> 10 then
         error(msprintf(gettext("%s: Wrong type for input argument #%d: Single string expected.\n"),"atomsIsCompatible",1));
+    end
+    if type(higher_version_str) <> 10 then
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: Single string expected.\n"),"atomsIsCompatible",2));
     end
 
     // Check input parameter dimension
     // =========================================================================
 
-    if size(version_str,"*") <> 1 then
+    if size(lower_version_str,"*") <> 1 then
         error(msprintf(gettext("%s: Wrong size for input argument #%d: Single string expected.\n"),"atomsIsCompatible",1));
+    end
+    if size(higher_version_str,"*") <> 1 then
+        error(msprintf(gettext("%s: Wrong size for input argument #%d: Single string expected.\n"),"atomsIsCompatible",2));
     end
 
     // If version_str == 'any', no need to continue
     // =========================================================================
 
-    if version_str == "any" then
+    if lower_version_str == "any" then
         result = %T;
         return;
     end
@@ -46,7 +52,7 @@ function result = atomsIsCompatible(version_str)
     // Check input parameters value
     // =========================================================================
 
-    if regexp(version_str,"/^(>=|>|<=|<|=|==|~)\s/","o") == [] then
+    if regexp(lower_version_str,"/^(>=|>|<=|<|=|==|~)\s/","o") == [] then
         error(msprintf(gettext("%s: Wrong value for input argument #%d: This is not a valid version/dependency.\n"),"atomsIsCompatible",1));
     end
 
@@ -58,13 +64,13 @@ function result = atomsIsCompatible(version_str)
 
     // Get the dependency operator and version
     // =========================================================================
-    operator_length  = regexp(version_str,"/\s/","o");
-    dep_operator     = part(version_str,1:operator_length-1);
+    operator_length  = regexp(lower_version_str,"/\s/","o");
+    dep_operator     = part(lower_version_str,1:operator_length-1);
     if dep_operator == "~" then
         result = %T;
         return;
     end
-    dep_version      = stripblanks(part(version_str,operator_length+1:length(version_str)));
+    dep_version      = stripblanks(part(lower_version_str,operator_length+1:length(lower_version_str)));
 
     // Compare sciversion and the specified version
     // =========================================================================
