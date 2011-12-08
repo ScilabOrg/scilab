@@ -889,6 +889,9 @@ Bug fixes:
 
 * bug 9833 fixed - percent was badly formatted by Scierror function.
 
+* bug 9834 fixed - external modules was not managed by test_run
+                   example: test_run('SCI/contrib/toolbox_skeleton')
+
 * bug 9836 fixed - repfreq failed due to "singular problem".
 
 * bug 9838 fixed - evstr froze on some specific strings.
