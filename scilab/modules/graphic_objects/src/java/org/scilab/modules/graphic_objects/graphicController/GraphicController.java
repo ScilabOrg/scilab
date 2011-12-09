@@ -103,20 +103,11 @@ public class GraphicController {
      * @return true if the property has been set, false otherwise
      */
     public boolean setProperty(String id, String prop, Object value) {
-        try {
-            if (GraphicModel.getModel().setProperty(id, prop, value)) {
-                objectUpdate(id, prop);
-                return true;
-            }
-            return false;
+        if (GraphicModel.getModel().setProperty(id, prop, value)) {
+            objectUpdate(id, prop);
+            return true;
         }
-        catch (Exception e) {
-            System.err.println("====== Exception caught ======");
-            DEBUG("setProperty : " + id + " " + prop);
-            e.printStackTrace();
-            System.err.println("====== Exception caught ======");
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -126,16 +117,7 @@ public class GraphicController {
      * @return the property value
      */
     public Object getProperty(String id, String prop) {
-        try {
             return GraphicModel.getModel().getProperty(id, prop);
-        }
-        catch (Exception e) {
-            System.err.println("====== Exception caught ======");
-            DEBUG("getProperty : [" + id + "] " + prop);
-            e.printStackTrace();
-            System.err.println("====== Exception caught ======");
-            return null;
-        }
     }
 
     /**
@@ -154,20 +136,11 @@ public class GraphicController {
      * @return the created object's id
      */
     public String askObject(Type type) {
-        try {
-            UID id = createUID();
-            GraphicModel.getModel().createObject(id.toString(), type);
-            objectCreated(id.toString());
+        UID id = createUID();
+        GraphicModel.getModel().createObject(id.toString(), type);
+        objectCreated(id.toString());
 
-            return id.toString();
-        }
-        catch (Exception e) {
-            System.err.println("====== Exception caught ======");
-            e.printStackTrace();
-            System.err.println("====== Exception caught ======");
-            return "";
-        }
-
+        return id.toString();
     }
 
     /**
@@ -176,19 +149,11 @@ public class GraphicController {
      * @return the id of the clone.
      */
     public String cloneObject(String id) {
-        try {
-            UID newId = createUID();
-            GraphicModel.getModel().cloneObject(id, newId.toString());
-            objectCreated(newId.toString());
+        UID newId = createUID();
+        GraphicModel.getModel().cloneObject(id, newId.toString());
+        objectCreated(newId.toString());
 
-            return newId.toString();
-        }
-        catch (Exception e) {
-            System.err.println("====== Exception caught ======");
-            e.printStackTrace();
-            System.err.println("====== Exception caught ======");
-            return "";
-        }
+        return newId.toString();
     }
 
     /**
@@ -196,15 +161,8 @@ public class GraphicController {
      * @param id the deleted object's id
      */
     public void deleteObject(String id) {
-        try {
-            objectDeleted(id);
-            GraphicModel.getModel().deleteObject(id);
-        }
-        catch (Exception e) {
-            System.err.println("====== Exception caught ======");
-            e.printStackTrace();
-            System.err.println("====== Exception caught ======");
-        }
+        objectDeleted(id);
+        GraphicModel.getModel().deleteObject(id);
     }
 
     /**
