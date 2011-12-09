@@ -1,0 +1,59 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - DIGITEO - Antoine ELIAS
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Short Description -->
+// If the input of import_from_hdf5 was a matrix of string, a segfault occurred
+//
+myFiles=ls(SCI+"/modules/types/tests/java/org/scilab/tests/modules/types/referenceData/*")
+ myFiles  =
+ 
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/TList.data                 !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int64.signed.data          !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int64.data                 !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/string.data                !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int32.signed.data          !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/double.data                !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int16.data                 !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/double.complex.data        !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int32.data                 !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/MList.data                 !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/List.data                  !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int8.signed.data           !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int8.data                  !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Boolean.data               !
+!                                                                      !
+!SCI/modules/types/tests/java/org/sci!
+!     lab/tests/modules/types/referenceData/Int16.signed.data          !
+// Used to segfault
+assert_checkerror("import_from_hdf5(myFiles)",[],999);
