@@ -30,13 +30,6 @@
 #include "dynlib_graphics.h"
 #include "ObjectStructure.h"
 
-GRAPHICS_IMPEXP sciPointObj *CloneText (sciPointObj * pthis); /* CLONE */
-GRAPHICS_IMPEXP sciPointObj *sciCloneObj (sciPointObj * pobj); /* CLONE */
-
-GRAPHICS_IMPEXP sciPointObj *CloneRectangle (sciPointObj * pthis);
-GRAPHICS_IMPEXP sciPointObj *ClonePolyline (sciPointObj * pthis);
-GRAPHICS_IMPEXP sciPointObj *CloneArc (sciPointObj * pthis);
-
 /*--------------------------------------------------------------------------*/
 /**
  * copy the ContouredObject properties of a source object to a destination object
