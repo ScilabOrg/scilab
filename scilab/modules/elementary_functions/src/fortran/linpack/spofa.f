@@ -44,7 +44,7 @@ C
 C     INTERNAL VARIABLES
 C
       DOUBLE PRECISION sdot,t
-      DOUBLE PRECISION s
+      DOUBLE PRECISION s, toto
       INTEGER j,jm1,k
 C     BEGIN BLOCK WITH ...EXITS TO 40
 C
@@ -55,14 +55,23 @@ C
           jm1 = j - 1
           IF (jm1.LT.1) GO TO 20
           DO 10 k = 1,jm1
-              t = a(k,j) - sdot(k-1,a(1,k),1,a(1,j),1)
+              write (*,'(A, F8.3)') 'a(k,j) = ', a(k,j)
+              write (*,'(A, I2)') 'k = ', k
+              write (*,'(A, F8.3)') 'a(1,k) = ', a(1,k)
+              write (*,'(A, F8.3)') 'a(1,j) = ', a(1,j)
+              toto = sdot(k-1,a(1,k),1,a(1,j),1)
+              write (*,'(A, F8.3)') 'sdot = ', toto
+              t = a(k,j) - toto
+              write (*,'(A, F8.3)') 't1 = ', t
               t = t/a(k,k)
               a(k,j) = t
+              write (*,'(A, F8.3)') 't2 = ', t
               s = s + t*t
    10     CONTINUE
    20     CONTINUE
           s = a(j,j) - s
 C     ......EXIT
+          write (*,'(A, F8.3)') 's = ', s
           IF (s.LE.0.0E0) GO TO 40
           a(j,j) = sqrt(s)
    30 CONTINUE

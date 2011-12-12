@@ -81,7 +81,7 @@ C      CALL spofa(covm,p,p,info)
       ierr=0
       IF (.NOT. (info.NE.0)) GO TO 30
       call basout(io,wte,"Rand: COV not positive definite")
-      ierr=1
+      ierr=info
       return
    30 icount = p + 1
 C
