@@ -264,3 +264,22 @@ int ActionBindingModule::Load()
     return 1;
 }
 
+int RandlibModule::Load()
+{
+    wstring wstPath = L"randlib";
+#ifdef _MSC_VER
+    wstring wstModuleName = L"randlib_gw";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_2);
+#else
+    wstring wstModuleName = L"randlib";
+    wchar_t* pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+    vectGateway vect = loadGatewaysName(wstPath);
+
+    for(int i = 0 ; i < vect.size() ; i++)
+    {
+        symbol::Context::getInstance()->AddFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstModuleName));
+    }
+
+    return 1;
+}
