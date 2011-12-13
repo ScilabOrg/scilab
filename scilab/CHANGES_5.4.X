@@ -194,6 +194,9 @@ Xcos:
 * bug 9988 fixed - CLKSOMV_f has a wrong interface function after loading from
                    a file.
 
+* bug 10107 fixed - Default value of the Integrator Absolute Tolerance was too 
+                    large. It has been reduced to 1e-6.
+
 * bug 10003 fixed - The MAXMIN block did not update its display according to
                     the settings.
 
