@@ -40,4 +40,5 @@
 #include "../../linear_algebra/includes/linear_algebra_gw.hxx"
 //#include "../../statistics/includes/statistics_gw.hxx"
 #include "dynamic_modules.hxx"
+#include "../../randlib/includes/randlib_gw.hxx"
 #endif /* !__MODULE_DECLARATION_HXX__ */
