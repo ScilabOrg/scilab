@@ -154,6 +154,9 @@
       <submenu label="&amp;Mailing lists">
         <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.openMailingList" type="3"/>
       </submenu>
+      <submenu label="ML &amp;archives">
+        <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.openMailingListArchives" type="3"/>
+      </submenu>
       <separator/>
       <submenu label="&amp;Forge">
         <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.openForge" type="3"/>
@@ -165,6 +168,10 @@
     <separator/>
     <submenu label="&amp;About Scilab..." accelerator="shift F1">
       <callback instruction="about()" type="0"/>
+    </submenu>
+    <separator/>
+    <submenu label="&amp;Scilab Enterprises">
+      <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.openSE" type="3"/>
     </submenu>
   </menu>
 </menubar>
