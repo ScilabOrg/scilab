@@ -17,6 +17,9 @@ In this context, a file browser component has been developped and fully
 integrated in Scilab Desktop and all other components have been improved
 to provide the best user experience for Scilab's users.
 
+Editvar had a important refreshment. It allows plot and subplot, manages
+almost all Scilab variables and is as fast as the light.
+
 Scilab Desktop provides various predefined layouts:
  - Simple      The standard Scilab console
                => Scilab 5.3.3 (and previous versions) defaults.
