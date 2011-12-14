@@ -732,6 +732,9 @@ Bug fixes:
 
 * bug 4576 fixed - An example of ilib_build with "cflags" argument was missing.
 
+* bug 4806 fixed - If A is a sparse matrix, A^0 returned A and not the identity 
+                   matrix as expected.
+
 * bug 4833 fixed - msprintf() interpreted "\n" as a carriage return even if "\n"
                    is supplied by the 2nd input argument.
 
