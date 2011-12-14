@@ -14,11 +14,12 @@
 #include <stdio.h>
 #include <signal.h>
 
-#include "aff_prompt.h"
-#include "setCharDisplay.h"
+#include "cliPrompt.h"
+#include "cliDisplayManagement.h"
 #include "HistoryManager.h"
-#include "init_tc_shell.h"
+#include "initConsoleMode.h"
 #include "suspendProcess.h"
+#include "scilabmode.h"
 
 /*
  * Function called by signal when SIGTSTP is caught.
@@ -44,12 +45,15 @@ void suspendProcess(int signum)
         setCharDisplay(DISP_RESET);
         /* Suspend Scilab. */
         if (kill(getpid(), SIGTSTP))
-          {
+        {
             fprintf(stderr, "\nCannot suspend scilab\n");
-          }
-        sleep(1);
-        /* Set back handler to reset settings if Scilab is suspended a new time. */
-        sigaction(SIGTSTP, &lastSignalSettings, NULL);
+        }
+        else
+        {
+            sleep(1);
+            /* Set back handler to reset settings if Scilab is suspended a new time. */
+            sigaction(SIGTSTP, &lastSignalSettings, NULL);
+        }
     }
     else
     {
