@@ -491,6 +491,27 @@ void visitprivate(const OpExp &e)
                 result_set(pResult);
                 break;
             }
+        case OpExp::krontimes :
+            {
+                try
+                {
+                    pResult = GenericKrontimes(pITL, pITR);
+                }
+                catch (ScilabException *pSE)
+                {
+                    pSE->SetErrorLocation(e.right_get().location_get());
+                    throw pSE;
+                }
+
+                if (pResult == NULL)
+                {
+                    // We did not have any algorithm matching, so we try to call OverLoad
+                    pResult = callOverload(e.oper_get(), pITL, pITR);
+
+                }
+                result_set(pResult);
+                break;
+            }
         default :
             // By default call overload if we do not know this operator ...
             result_set(callOverload(e.oper_get(), pITL, pITR));
