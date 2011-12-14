@@ -29,7 +29,7 @@
 #endif
 #include "../../../gui/includes/TerminateGui.h"
 #include "scilabmode.h"
-#include "init_tc_shell.h"
+#include "initConsoleMode.h"
 /*--------------------------------------------------------------------------*/
 int ExitScilab(void)
 {
