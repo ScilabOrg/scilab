@@ -87,7 +87,7 @@ import org.scilab.modules.xcos.graph.PaletteDiagram;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.BasicBlockInfo;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.port.command.CommandPort;
@@ -1280,7 +1280,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
                         graph.getModel().beginUpdate();
                         try {
 
-                            BasicBlock modifiedBlock = new H5RWHandler(
+                            BasicBlock modifiedBlock = new RWHandler(
                                     tempInput).readBlock();
                             updateBlockSettings(modifiedBlock);
 
@@ -1334,7 +1334,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
             File f = new File(tempOutput);
             f.deleteOnExit();
 
-            new H5RWHandler(tempOutput).writeBlock(this);
+            new RWHandler(tempOutput).writeBlock(this);
             return tempOutput;
         } catch (IOException e) {
             e.printStackTrace();

@@ -28,7 +28,7 @@ import org.scilab.modules.gui.menuitem.MenuItem;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SplitBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
@@ -101,7 +101,7 @@ public final class ViewDetailsAction extends VertexSelectionDependantAction {
         String temp;
         try {
             temp = FileUtils.createTempFile();
-            new H5RWHandler(temp).writeBlock(data);
+            new RWHandler(temp).writeBlock(data);
         } catch (IOException e1) {
             LogFactory.getLog(ViewDetailsAction.class).error(e1);
             return;

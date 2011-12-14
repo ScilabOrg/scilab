@@ -30,7 +30,7 @@ import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
@@ -99,7 +99,7 @@ public class CodeGenerationAction extends SuperBlockSelectedAction {
             /*
              * Export data
              */
-            new H5RWHandler(tempOutput).writeBlock(block);
+            new RWHandler(tempOutput).writeBlock(block);
 
             /*
              * Prepare command and callback
@@ -165,7 +165,7 @@ public class CodeGenerationAction extends SuperBlockSelectedAction {
      */
     private static void doAction(final SuperBlock block, final String tempInput) {
         try {
-            BasicBlock modifiedBlock = new H5RWHandler(tempInput).readBlock();
+            BasicBlock modifiedBlock = new RWHandler(tempInput).readBlock();
 
             block.updateBlockSettings(modifiedBlock);
             block.setInterfaceFunctionName(modifiedBlock

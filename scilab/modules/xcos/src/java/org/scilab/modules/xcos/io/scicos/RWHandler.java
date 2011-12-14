@@ -13,6 +13,7 @@
 package org.scilab.modules.xcos.io.scicos;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,10 +24,14 @@ import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.hdf5.read.H5Read;
 import org.scilab.modules.hdf5.write.H5Write;
+import org.scilab.modules.javasci.ScilabVariablesJavasci;
+import org.scilab.modules.types.GetScilabVariable;
 import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
+import org.scilab.modules.types.ScilabVariables;
+import org.scilab.modules.types.ScilabVariablesHandler;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.VersionMismatchException;
@@ -36,22 +41,15 @@ import org.scilab.modules.xcos.utils.XcosMessages;
  * Implement useful methods to easily import or export Scicos data.
  */
 // CSOFF: ClassDataAbstractionCoupling
-public class H5RWHandler {
+public class RWHandler {
     private static final String CONTEXT = "context";
     private static final String SCS_M = "scs_m";
-    private static final Log LOG = LogFactory.getLog(H5RWHandler.class);
+    private static final Log LOG = LogFactory.getLog(RWHandler.class);
 
+    private static int id = -1;
+    private static final Map<Thread, ScilabType> map = new HashMap<Thread, ScilabType>();
+    
     private final String h5File;
-
-    /**
-     * Constructor a new instance with a file.
-     * 
-     * @param hdf5file
-     *            the file path.
-     */
-    public H5RWHandler(File hdf5file) {
-        h5File = hdf5file.getAbsolutePath();
-    }
 
     /**
      * Construct a new instance with the file path.
@@ -59,10 +57,32 @@ public class H5RWHandler {
      * @param hdf5file
      *            the file path.
      */
-    public H5RWHandler(String hdf5file) {
+    public RWHandler(String hdf5file) {
         h5File = hdf5file;
     }
 
+    /*
+     * Utilities
+     */
+	private ScilabType getScilabVariable(String variableName) {
+		final Thread t = Thread.currentThread();
+		
+		if (id == -1) {
+			id = ScilabVariables
+					.addScilabVariablesHandler(new ScilabVariablesHandler() {
+						@Override
+						public void handle(ScilabType var) {
+							map.put(t, var);
+						}
+					});
+		}
+
+		GetScilabVariable.getScilabVariable(variableName, 1, id);
+		final ScilabType data = map.get(t);
+		map.remove(t);
+		return data;
+	}
+    
     /*
      * Read methods
      */
@@ -87,37 +107,27 @@ public class H5RWHandler {
      * @throws ScicosFormatException
      *             on decoding error
      */
-    public BasicBlock readBlock(BasicBlock into) throws ScicosFormatException {
-        final ScilabMList data = new ScilabMList();
-        final BlockElement element = new BlockElement();
-        BasicBlock instance;
+	public BasicBlock readBlock(BasicBlock into) throws ScicosFormatException {
+		final BlockElement element = new BlockElement();
+		BasicBlock instance;
 
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Reading block from " + h5File);
-        }
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Reading block from " + h5File);
+		}
 
-        try {
-            int fileId = H5Read.openFile(h5File);
-            H5Read.readDataFromFile(fileId, data);
-            H5Read.closeFile(fileId);
+		final ScilabType data = getScilabVariable(SCS_M);
+		instance = element.decode(data, into);
+		
+		StyleMap style = new StyleMap(instance.getInterfaceFunctionName());
+		style.putAll(instance.getStyle());
+		instance.setStyle(style.toString());
 
-            instance = element.decode(data, into);
-            StyleMap style = new StyleMap(instance.getInterfaceFunctionName());
-            style.putAll(instance.getStyle());
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("End of reading block from " + h5File);
+		}
 
-            instance.setStyle(style.toString());
-
-        } catch (HDF5Exception e) {
-            LOG.error(e);
-            instance = null;
-        }
-
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("End of reading block from " + h5File);
-        }
-
-        return instance;
-    }
+		return instance;
+	}
 
     /**
      * Decode an evaluated Xcos context
@@ -125,22 +135,20 @@ public class H5RWHandler {
      * @return the decoded context
      */
     public Map<String, String> readContext() {
-        final ScilabList list = new ScilabList();
+        final ScilabList list;
         final Map<String, String> result = new LinkedHashMap<String, String>();
 
         if (LOG.isTraceEnabled()) {
             LOG.trace("Reading context from " + h5File);
         }
 
-        try {
-            int handle = H5Read.openFile(h5File);
-            if (handle >= 0) {
-                H5Read.readDataFromFile(handle, list);
-            }
-        } catch (HDF5Exception e) {
-            LOG.error(e);
-            return result;
+        final ScilabType data = getScilabVariable(CONTEXT);
+        if (data instanceof ScilabList) {
+        	list = (ScilabList) data;
+        } else {
+        	list = new ScilabList();
         }
+        
 
         // We are starting at 2 because a struct is composed of
         // - the fields names (ScilabString)
@@ -179,7 +187,6 @@ public class H5RWHandler {
      * @return the decoded diagram
      */
     public XcosDiagram readDiagram(XcosDiagram instance) {
-        final ScilabMList data = new ScilabMList();
         final DiagramElement element = new DiagramElement();
 
         XcosDiagram diagram;
@@ -196,11 +203,9 @@ public class H5RWHandler {
         }
 
         try {
-            int fileId = H5Read.openFile(h5File);
-
-            H5Read.readDataFromFile(fileId, data);
-            H5Read.closeFile(fileId);
-            element.decode(data, diagram);
+        	
+    		final ScilabType data = getScilabVariable(SCS_M);
+    		instance = element.decode(data, diagram);
         } catch (ScicosFormatException e) {
             if (e instanceof VersionMismatchException) {
                 /*
@@ -214,8 +219,6 @@ public class H5RWHandler {
                 // rethrow
                 throw new RuntimeException(e);
             }
-        } catch (HDF5Exception e) {
-            throw new RuntimeException(e);
         } finally {
             diagram.getModel().endUpdate();
         }

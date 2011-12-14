@@ -77,7 +77,7 @@ import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
 import org.scilab.modules.xcos.io.XcosCodec;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
@@ -1643,7 +1643,7 @@ public class XcosDiagram extends ScilabGraph {
             writeFile = fc.getSelection()[0];
         }
 
-        new H5RWHandler(writeFile).writeDiagram(this);
+        new RWHandler(writeFile).writeDiagram(this);
     }
 
     /**
@@ -2206,7 +2206,7 @@ public class XcosDiagram extends ScilabGraph {
             break;
 
         case HDF5:
-            final H5RWHandler handler = new H5RWHandler(fileToLoad);
+            final RWHandler handler = new RWHandler(fileToLoad);
             handler.readDiagram(this);
             generateUID();
             updateTabTitle();
@@ -2392,7 +2392,7 @@ public class XcosDiagram extends ScilabGraph {
                             + str.toString() + ", struct());"
                             + "export_to_hdf5('" + temp + "', 'vars');");
 
-            result = new H5RWHandler(temp).readContext();
+            result = new RWHandler(temp).readContext();
         } catch (final IOException e) {
             info("Unable to create file");
             e.printStackTrace();

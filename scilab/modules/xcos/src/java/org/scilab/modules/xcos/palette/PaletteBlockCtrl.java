@@ -30,7 +30,7 @@ import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.palette.listener.PaletteBlockMouseListener;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
@@ -163,7 +163,7 @@ public final class PaletteBlockCtrl {
         if (model.getName().compareTo("TEXT_f") != 0) {
             // Load the block from the file
             String realPath = model.getData().getEvaluatedPath();
-            block = new H5RWHandler(realPath).readBlock();
+            block = new RWHandler(realPath).readBlock();
 
             // invalid block case
             if (block == null) {

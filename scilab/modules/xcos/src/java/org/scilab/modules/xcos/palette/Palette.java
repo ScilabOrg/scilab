@@ -32,7 +32,7 @@ import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
@@ -400,7 +400,7 @@ public final class Palette {
             final String iconPath) throws IOException {
         BasicBlock block;
         try {
-            block = new H5RWHandler(blockPath).readBlock();
+            block = new RWHandler(blockPath).readBlock();
         } catch (ScicosFormatException e) {
             throw new IOException(e);
         }
