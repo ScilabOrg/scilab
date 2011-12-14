@@ -210,6 +210,9 @@ Xcos:
 
 * bug 10302 fixed - Latex labels were not rendered.
 
+* bug 10340 fixed - Exception occured while moving the palette split pane to
+                    hide the block list and while using a palette diagram.
+
 
 Localization:
 =============
