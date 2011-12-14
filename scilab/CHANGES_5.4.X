@@ -155,6 +155,13 @@ Compilation
 
 * "make check" will now launch the most important unitary tests (level 1).
 
+
+Elementary Functions
+====================
+
+* Add 'dec2base' built-in (see SEP 75).
+
+
 Bug fixes
 =========
 
@@ -165,10 +172,14 @@ Bug fixes
 
 * Bug #8050 fixed - A weird error message was displayed in some cases.
 
+* Bug #8608 fixed - dec2hex, hex2dec, dec2oct, oct2dec, base2dec code have been
+                    simplified and optimized.
+
 * Bug #8682 fixed - funcprot did not return the previous value when called with
                     an argument.
 
 * Bug #8724 fixed - Sometimes, there was a critical error with uiget(file|dir).
+
 
 * Bug #8859 fixed - Some comparison operators between hypermatrices and 2-D arrays
                     were missing.
