@@ -768,6 +768,8 @@ Bug fixes:
 
 * bug 7815 fixed - tohome() worked too much.
 
+* bug 8050 fixed - Weird error message.
+
 * bug 8086 fixed - Some functions displayed a wrong error message when called
                    without input argument.
 
