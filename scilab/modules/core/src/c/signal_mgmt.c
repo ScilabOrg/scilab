@@ -39,6 +39,7 @@
 #include "machine.h"
 #include "Scierror.h"
 #include "suspendProcess.h"
+#include "windowsChangeManagement.h"
 extern jmp_buf jmp_env;
 
 /*----------------------------------------------------------------------------
@@ -489,6 +490,8 @@ void base_error_init(void)
 
     struct sigaction ToContinue;
 
+    /* Initialise windows change Signal */
+    signal(SIGWINCH, getNewTerm);
     /* Initialise Suspend Signal (CTRL-Z) */
     ToSuspend.sa_handler = suspendProcess;
     ToSuspend.sa_flags = 0;
