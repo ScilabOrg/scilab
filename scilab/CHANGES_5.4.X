@@ -93,6 +93,12 @@ Compatibility Functions
 * 'mtlb_conv' obsolete. Please use 'conv' instead.
 
 
+Elementary Functions
+====================
+
+* Add 'dec2base' built-in (see SEP 74).
+
+
 Bug fixes
 =========
 
@@ -102,6 +108,9 @@ Bug fixes
 * Bug #4813 fixed - Description of type 0 added in type help page.
 
 * Bug #8050 fixed - A weird error message was displayed in some cases.
+
+* Bug #8608 fixed - dec2hex, hex2dec, dec2oct, oct2dec, base2dec code have been
+                    simplified and optimized.
 
 * Bug #8859 fixed - Some comparison operators between hypermatrices and 2-D arrays
                     were missing.
