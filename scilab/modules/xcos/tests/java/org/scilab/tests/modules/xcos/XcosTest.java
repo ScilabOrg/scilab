@@ -34,7 +34,7 @@ public class XcosTest {
         assert Xcos.VERSION.compareTo("1.0") == 0;
     }
 
-    @Test
+    //@Test
     public void launchWithoutFilename() throws InterruptedException,
             InvocationTargetException {
         Xcos.xcos();

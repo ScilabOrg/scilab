@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 
 public class DiagramComparatorTest {
 
-    @Test
+    //@Test
     public void addXcosDiagrams() {
         final PriorityQueue<XcosDiagram> sorted = new PriorityQueue<XcosDiagram>(
                 1, DiagramComparator.getInstance());
@@ -58,7 +58,7 @@ public class DiagramComparatorTest {
         }
     }
 
-    @Test
+    //@Test
     public void addSuperBlocksDiagrams() {
         final PriorityQueue<XcosDiagram> sorted = new PriorityQueue<XcosDiagram>(
                 1, DiagramComparator.getInstance());
@@ -89,7 +89,7 @@ public class DiagramComparatorTest {
         }
     }
 
-    @Test
+    //@Test
     public void checkOneHierarchy() {
         final Collection<XcosDiagram> sorted = Xcos.getInstance()
                 .createDiagramCollection();
