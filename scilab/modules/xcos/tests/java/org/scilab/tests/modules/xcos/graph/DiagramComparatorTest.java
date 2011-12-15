@@ -12,10 +12,11 @@
 package org.scilab.tests.modules.xcos.graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
-import java.util.PriorityQueue;
 
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.SuperBlock;
@@ -27,11 +28,64 @@ import org.testng.annotations.Test;
 
 public class DiagramComparatorTest {
 
+    private static class ComparatorChecker<T> implements Comparator<T> {
+        private final Comparator<T> c;
+
+        public ComparatorChecker(Comparator<T> c) {
+            this.c = c;
+        }
+
+        @Override
+        public int compare(T o1, T o2) {
+
+            int comp = c.compare(o1, o2);
+            int invert = c.compare(o2, o1);
+
+            assert sgn(comp) == -sgn(invert);
+            return comp;
+        }
+
+        private static int sgn(int expr) {
+            if (expr == 0) {
+                return expr;
+            }
+
+            return expr > 0 ? -1 : 1;
+        }
+    }
+
+    private static final void assertCoherent(Collection<XcosDiagram> sorted, Collection<XcosDiagram> expected, Collection<XcosDiagram> checked) {
+        /*
+         * No diagrams should be lost
+         */
+        assert sorted.size() == expected.size();
+        assert sorted.size() == checked.size();
+
+        /*
+         * No diagrams should be created / removed
+         */
+        assert sorted.containsAll(expected);
+        assert sorted.containsAll(checked);
+        assert expected.containsAll(sorted);
+        assert expected.containsAll(checked);
+        assert checked.containsAll(sorted);
+        assert checked.containsAll(expected);
+
+        /*
+         * Sorted twice keep the same order
+         */
+        final XcosDiagram[] sortedTwice = new XcosDiagram[sorted.size()];
+        sorted.toArray(sortedTwice);
+        Arrays.sort(sortedTwice, DiagramComparator.getInstance());
+
+        Assert.assertEquals(sortedTwice, sorted.toArray());
+    }
+
     @Test
     public void addXcosDiagrams() {
-        final PriorityQueue<XcosDiagram> sorted = new PriorityQueue<XcosDiagram>(
-                1, DiagramComparator.getInstance());
+        final Collection<XcosDiagram> sorted = Xcos.getInstance().createDiagramCollection();
         final ArrayList<XcosDiagram> testVector = new ArrayList<XcosDiagram>();
+        final ArrayList<XcosDiagram> checkVector = new ArrayList<XcosDiagram>();
 
         /*
          * Init test vector
@@ -45,24 +99,20 @@ public class DiagramComparatorTest {
          */
         sorted.addAll(testVector);
 
-        assert sorted.size() == testVector.size();
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
 
         /*
          * Assert
          */
-        for (int i = testVector.size() - 1; i >= 0; i--) {
-            final XcosDiagram s = sorted.poll();
-            final XcosDiagram ref = testVector.get(i);
-
-            assert s == ref;
-        }
+        assertCoherent(sorted, testVector, checkVector);
     }
 
     @Test
     public void addSuperBlocksDiagrams() {
-        final PriorityQueue<XcosDiagram> sorted = new PriorityQueue<XcosDiagram>(
-                1, DiagramComparator.getInstance());
+        final Collection<XcosDiagram> sorted = Xcos.getInstance().createDiagramCollection();
         final ArrayList<XcosDiagram> testVector = new ArrayList<XcosDiagram>();
+        final ArrayList<XcosDiagram> checkVector = new ArrayList<XcosDiagram>();
 
         /*
          * Init test vector
@@ -76,17 +126,13 @@ public class DiagramComparatorTest {
          */
         sorted.addAll(testVector);
 
-        assert sorted.size() == testVector.size();
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
 
         /*
          * Assert
          */
-        for (int i = testVector.size() - 1; i >= 0; i--) {
-            final XcosDiagram s = sorted.poll();
-            final XcosDiagram ref = testVector.get(i);
-
-            assert s == ref;
-        }
+        assertCoherent(sorted, testVector, checkVector);
     }
 
     @Test
@@ -94,6 +140,7 @@ public class DiagramComparatorTest {
         final Collection<XcosDiagram> sorted = Xcos.getInstance()
                 .createDiagramCollection();
         final ArrayList<XcosDiagram> testVector = new ArrayList<XcosDiagram>();
+        final ArrayList<XcosDiagram> checkVector = new ArrayList<XcosDiagram>();
 
         /*
          * Init test vector
@@ -133,18 +180,31 @@ public class DiagramComparatorTest {
          */
         sorted.addAll(testVector);
 
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
+
         ArrayList<XcosDiagram> expected = new ArrayList<XcosDiagram>();
         expected.add(root1);
         expected.add(root2);
         expected.add(r1diag1);
         expected.add(r1diag1b1diag1);
 
-        Assert.assertEquals(sorted, expected);
+        assertCoherent(sorted, testVector, checkVector);
 
+        /*
+         * Try with a shuffled vector
+         */
         sorted.clear();
+        checkVector.clear();
+
         Collections.shuffle(testVector);
+
         sorted.addAll(testVector);
-        Assert.assertEquals(sorted, expected);
+
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
+
+        assertCoherent(sorted, testVector, checkVector);
     }
 
     @Test
@@ -152,6 +212,7 @@ public class DiagramComparatorTest {
         final Collection<XcosDiagram> sorted = Xcos.getInstance()
                 .createDiagramCollection();
         final ArrayList<XcosDiagram> testVector = new ArrayList<XcosDiagram>();
+        final ArrayList<XcosDiagram> checkVector = new ArrayList<XcosDiagram>();
 
         /*
          * Init test vector
@@ -205,8 +266,11 @@ public class DiagramComparatorTest {
          * test
          */
         sorted.addAll(testVector);
-        assert sorted.size() == testVector.size();
 
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
+
+        assertCoherent(sorted, testVector, checkVector);
         assertOnTwoFilesHierarchy(sorted, root1, root2);
 
         /*
@@ -218,6 +282,7 @@ public class DiagramComparatorTest {
             sorted.clear();
             sorted.addAll(testVector);
 
+            assertCoherent(sorted, testVector, checkVector);
             assertOnTwoFilesHierarchy(sorted, root1, root2);
         }
 
@@ -244,6 +309,7 @@ public class DiagramComparatorTest {
         final Collection<XcosDiagram> sorted = Xcos.getInstance()
                 .createDiagramCollection();
         final ArrayList<XcosDiagram> testVector = new ArrayList<XcosDiagram>();
+        final ArrayList<XcosDiagram> checkVector = new ArrayList<XcosDiagram>();
 
         /*
          * Init test vector
@@ -283,7 +349,10 @@ public class DiagramComparatorTest {
          */
         sorted.addAll(testVector);
 
-        assert sorted.size() == testVector.size();
+        checkVector.addAll(testVector);
+        Collections.sort(checkVector, new ComparatorChecker<XcosDiagram>(DiagramComparator.getInstance()));
+
+        assertCoherent(sorted, testVector, checkVector);
 
         /*
          * Assert
