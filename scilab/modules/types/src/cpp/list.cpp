@@ -154,6 +154,8 @@ namespace types
             return outList;
         }
 
+        // check if _pArgs contain only a types::Double ??? lst=list(1,2); lst("a") => seg fault
+
         typed_list pArg;
         int iDims           = (int)_pArgs->size();
 

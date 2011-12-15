@@ -71,6 +71,9 @@ namespace types
             }
             else if(pIT->isString())
             {//see later for extract from struct or Tlist
+                printf("is string !!!\n");
+                bUndefine = true;
+                break;
             }
             else if(pIT->isPoly())
             {//$

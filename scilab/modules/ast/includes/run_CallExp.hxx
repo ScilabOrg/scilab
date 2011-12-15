@@ -201,37 +201,45 @@ void visitprivate(const CallExp &e)
         else if(pIT->isTList())
         {
             list<wstring> stFields;
-            list<Exp*>::const_iterator it1;
-
+            typed_list iFields;
             InternalType::RealType rtIndex = InternalType::RealInternal;
             bool bTypeSet = false;
-            for(it1 = e.args_get().begin() ; it1 != e.args_get().end() ; it1++)
+
+            if(e.args_get().size() != 1)
             {
-                (*it1)->accept(*this);
+                std::wostringstream os;
+                os << L"Wrong number of input argument(s): 1 expected.\n";
+                throw ScilabError(os.str(), 999, (*e.args_get().begin())->location_get());
+            }
 
-                if(bTypeSet && result_get()->getType() != rtIndex)
-                {//TODO: error
-                    scilabWriteW(L"merdouille");
-                }
+            ast::Exp* exp= e.args_get().front();
+            exp->accept(*this);
 
-                if(result_get()->isString())
+          /*  if(bTypeSet && result_get()->getType() != rtIndex)
+            {//TODO: error
+                scilabWriteW(L"merdouille");
+            }
+*/
+            if(result_get()->isString())
+            {
+                rtIndex = InternalType::RealString;
+                bTypeSet = true;
+                InternalType* pVar  = result_get();
+                String *pString = pVar->getAs<types::String>();
+                for(int i = 0 ; i < pString->getSize() ; i++)
                 {
-                    rtIndex = InternalType::RealString;
-                    bTypeSet = true;
-                    InternalType* pVar  = result_get();
-                    String *pString = pVar->getAs<types::String>();
-                    for(int i = 0 ; i < pString->getSize() ; i++)
-                    {
-                        stFields.push_back(pString->get(i));
-                    }
-                }
-                else if(result_get()->isDouble())
-                {//manage error
-                    rtIndex = InternalType::RealDouble;
-                    bTypeSet = true;
-                    break;
+                    stFields.push_back(pString->get(i));
                 }
             }
+            else if(result_get()->isDouble())
+            {
+                rtIndex = InternalType::RealDouble;
+                bTypeSet = true;
+                InternalType* pVar  = result_get();
+                Double* pDbl = pVar->getAs<types::Double>();
+                iFields.push_back(pDbl);
+            }
+
             result_set(NULL);
 
             if(rtIndex  == InternalType::RealDouble)
@@ -259,7 +267,7 @@ void visitprivate(const CallExp &e)
                 //        throw ScilabError(os.str(), 999, e.name_get().location_get());
                 //    }
                 //}
-                //ResultList = pIT->getAsTList()->extract(iTotalCombi, piIndexSeq, piMaxDim, iDims, piDimSize, bSeeAsVector);
+                ResultList = pIT->getAsTList()->extract(&iFields);
             }
             else if(rtIndex  == InternalType::RealString)
             {
