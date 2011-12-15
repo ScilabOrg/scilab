@@ -65,6 +65,9 @@ public final class ScilabCommonsUtils {
         boolean success = false;
 
         try {
+            inFile.getParentFile().mkdirs();
+            outFile.getParentFile().mkdirs();
+
             in = new FileInputStream(inFile);
             out = new FileOutputStream(outFile);
             byte[] buffer = new byte[BUFFERSIZE];
