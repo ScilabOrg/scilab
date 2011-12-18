@@ -13,7 +13,7 @@ package org.scilab.modules.types;
    * Connector for Javasci v2.
    * This class should <b>not</b> be used directly
    * @see org.scilab.modules.javasci.Scilab
-   * @author DIGITEO - Sylvestre LEDRU
+   * @author Scilab Enterprises - Calixte Denizet
    */
 public class GetScilabVariable {
 

@@ -25,18 +25,5 @@ class GetScilabVariableJNI {
   protected GetScilabVariableJNI() {
     throw new UnsupportedOperationException();
   }
-
-  static {
-    try {
-        System.loadLibrary("scitypes");
-    } catch (SecurityException e) {
-        System.err.println("A security manager exists and does not allow the loading of the specified dynamic library :");
-        e.printStackTrace(System.err);
-    } catch (UnsatisfiedLinkError e)    {
-        System.err.println("The native library commons does not exist or cannot be found.");
-        e.printStackTrace(System.err);
-    }
-  }
-
   public final static native void getScilabVariable(String jarg1, int jarg2, int jarg3);
 }
