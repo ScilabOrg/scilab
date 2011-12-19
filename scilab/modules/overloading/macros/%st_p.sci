@@ -50,7 +50,11 @@ function %st_p(s)
       str=tp
     else
       sz=size(value)
-      if sz(1)==1&type(value)<>9 then // This line can avoid some stacksize error when field contains a big matrix
+      // If number of elements in value is greater than 90 (default line length for sci2exp returned value)
+      // then we do not call sci2exp
+      // because the returned value will be ignored at line 64: size(str,"*")==1
+      // Note that 45 elements could be the max because of colon, semi-colon and brackets added between elements by sci2exp
+      if sz(1)==1 & type(value) <> 9 & size(value, "*") < 90 then // This line can avoid some stacksize error when field contains a big matrix
         str=sci2exp(value,ll(1))
       else
         str="["+strcat(string(size(value)),"x")+" "+tp+"]"
