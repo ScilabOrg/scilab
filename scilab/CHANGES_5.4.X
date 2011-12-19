@@ -946,6 +946,9 @@ Bug Fixes
 
 * Bug #10016 fixed - The damp function unit test failed under Windows.
 
+* Bug #10017 fixed - The unitary test for bdiag used a "strange" comparison
+                     operator.
+
 * Bug #10019 fixed - 'exec' crashed with error 113 for too long lines.
 
 * Bug #10037 fixed - checkalmostequal.tst unitary test failed under Linux x64.
