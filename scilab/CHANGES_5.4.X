@@ -23,7 +23,8 @@ Bug fixes
 
 * Bug #9811 fixed - Output message of fminsearch was wrongly set.
 
-
+* Bug #10396 fixed - Display of a structure with large matrix took a long time.
+                     Thanks to Guillaume AZEMA for the fix.
 
 
 

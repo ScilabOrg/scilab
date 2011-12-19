@@ -50,7 +50,7 @@ function %st_p(s)
       str=tp
     else
       sz=size(value)
-      if sz(1)==1&type(value)<>9 then // This line can avoid some stacksize error when field contains a big matrix
+      if sz(1)==1 & type(value) <> 9 & multi > 1 then // This line can avoid some stacksize error when field contains a big matrix
         str=sci2exp(value,ll(1))
       else
         str="["+strcat(string(size(value)),"x")+" "+tp+"]"
