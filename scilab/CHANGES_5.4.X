@@ -26,9 +26,7 @@ Bug fixes
 * Bug #10017 fixed - The unitary test for bdiag used a "strange" comparison
                      operator.
 
-
-
-
+* Bug #4813 fixed - Description of type 0 added in type help page.
 
 
  	    Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
