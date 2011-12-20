@@ -136,7 +136,6 @@ libscitypes_disable_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(libscitypes_disable_la_LDFLAGS) $(LDFLAGS) -o $@
 libscitypes_la_DEPENDENCIES =  \
 	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
 	$(top_builddir)/modules/jvm/libscijvm.la
 am__objects_4 = libscitypes_la-getScilabVariable_wrap.lo
 am__objects_5 = libscitypes_la-ScilabToJava.lo \
@@ -542,7 +541,6 @@ libscitypes_algo_la_SOURCES = $(TYPES_C_SOURCES) $(TYPES_JNI_SOURCES) $(TYPES_CP
 libscitypes_algo_la_CFLAGS = $(libscitypes_la_CFLAGS)
 libscitypes_algo_la_CPPFLAGS = $(libscitypes_la_CPPFLAGS)
 libscitypes_la_LIBADD = $(top_builddir)/modules/commons/libscicommons.la \
-			$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
 			$(top_builddir)/modules/jvm/libscijvm.la
 
 pkglib_LTLIBRARIES = libscitypes-disable.la $(am__append_2)
