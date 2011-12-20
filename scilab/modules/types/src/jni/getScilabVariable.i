@@ -26,6 +26,7 @@
 
 /* JavaDoc for GetScilabVariableJNI class */
 %pragma(java) jniclassclassmodifiers=%{
+
 /* It is generated code. Disable checkstyle */
 //CHECKSTYLE:OFF
  /**
@@ -48,6 +49,7 @@ class%}
 /* static load of library */
 %pragma(java) jniclasscode=%{
   static {
+   if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
     try {
         System.loadLibrary("scitypes");
     } catch (SecurityException e) {
@@ -57,6 +59,7 @@ class%}
         System.err.println("The native library commons does not exist or cannot be found.");
         e.printStackTrace(System.err);
     }
+   }
   }
 %}
 
