@@ -1785,6 +1785,7 @@ modules/randlib/Makefile
 modules/tclsci/Makefile
 modules/windows_tools/Makefile
 modules/core/Makefile
+modules/libscilab-cli/Makefile
 modules/api_scilab/Makefile
 modules/call_scilab/Makefile
 modules/types/Makefile
