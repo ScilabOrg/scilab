@@ -40,6 +40,7 @@ import javax.swing.SpinnerNumberModel;
 
 import org.scilab.modules.commons.ScilabConstants;
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.scinotes.IndentManager;
 import org.scilab.modules.scinotes.SciNotes;
 import org.scilab.modules.scinotes.ScilabDocument;
@@ -84,8 +85,9 @@ public class ConfigTabulationsAction extends DefaultAction {
     /**
      * doAction
      */
+    @Override
     public void doAction() {
-        ScilabEditorPane sep = (ScilabEditorPane) getEditor().getTextPane();
+        ScilabEditorPane sep = getEditor().getTextPane();
         openConfTabWindow();
     }
 
@@ -123,10 +125,11 @@ public class ConfigTabulationsAction extends DefaultAction {
         TabManager.Tabulation tabProps = ConfigSciNotesManager.getDefaultTabulation();
 
         mainFrame = new JFrame();
-        mainFrame.setIconImage(new ImageIcon(SCI + "/modules/gui/images/icons/scilab.png").getImage());
+        mainFrame.setIconImage(new ImageIcon(ScilabSwingUtilities.findIcon("scilab")).getImage());
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE , 0), ESCAPE);
         mainFrame.getRootPane().getActionMap().put(ESCAPE, new AbstractAction() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     closeConfTabWindow();
                 }
@@ -184,6 +187,7 @@ public class ConfigTabulationsAction extends DefaultAction {
 
         contentPanel.add(panelRepresentation);
         useWhitesCheckBox.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     boolean b = !useWhitesCheckBox.isSelected();
                     for (Component c : panelRepresentation.getComponents()) {
@@ -205,6 +209,7 @@ public class ConfigTabulationsAction extends DefaultAction {
         mainFrame.setContentPane(framePanel);
 
         cancelButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     ConfigTabulationsAction.windowAlreadyExist = false;
                     mainFrame.dispose();
@@ -212,6 +217,7 @@ public class ConfigTabulationsAction extends DefaultAction {
             });
 
         okButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     ConfigTabulationsAction.windowAlreadyExist = false;
                     refreshPane();
@@ -220,6 +226,7 @@ public class ConfigTabulationsAction extends DefaultAction {
             });
 
         applyButton.addActionListener(new ActionListener() {
+                @Override
                 public void actionPerformed(ActionEvent e) {
                     ScilabEditorPane sep = getEditor().getTextPane();
                     IndentManager indent = sep.getIndentManager();
@@ -238,16 +245,23 @@ public class ConfigTabulationsAction extends DefaultAction {
             });
 
         mainFrame.addWindowListener(new WindowListener() {
+                @Override
                 public void windowClosed(WindowEvent arg0) { }
+                @Override
                 public void windowDeiconified(WindowEvent arg0) { }
+                @Override
                 public void windowActivated(WindowEvent arg0) { }
 
+                @Override
                 public void windowClosing(WindowEvent arg0) {
                     closeConfTabWindow();
                 }
 
+                @Override
                 public void windowDeactivated(WindowEvent arg0) { }
+                @Override
                 public void windowIconified(WindowEvent arg0) { };
+                @Override
                 public void windowOpened(WindowEvent arg0) { }
             });
 

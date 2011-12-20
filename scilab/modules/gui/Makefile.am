@@ -313,6 +313,7 @@ images/icons/16x16/actions/edit-find.png \
 images/icons/16x16/actions/edit-find-replace.png \
 images/icons/16x16/actions/edit-paste.png \
 images/icons/16x16/actions/edit-redo.png \
+images/icons/16x16/actions/edit-select-all.png \
 images/icons/16x16/actions/edit-undo.png \
 images/icons/16x16/actions/execute-all.png \
 images/icons/16x16/actions/filter.png \
