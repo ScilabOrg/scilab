@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - Scilab Enterprises - Sylvestre LEDRU
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<project name="build-all-jar">
+  <!-- Call World 
+The main idea is to build at once all the var files
+-->
+  <ant antfile="../history_manager/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../localization/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../commons/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../jvm/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../action_binding/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../renderer/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../completion/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../console/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../graphic_export/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../gui/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../core/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../helptools/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../types/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../hdf5/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../graph/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../xcos/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../scinotes/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../ui_data/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../history_browser/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+  <ant antfile="../javasci/build.xml" target="jar" inheritRefs="false" inheritAll="false"/>
+</project>
