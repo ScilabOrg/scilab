@@ -26,6 +26,8 @@
 
 /* JavaDoc for GetScilabVariableJNI class */
 %pragma(java) jniclassclassmodifiers=%{
+import org.scilab.modules.commons.OS;
+
 /* It is generated code. Disable checkstyle */
 //CHECKSTYLE:OFF
  /**

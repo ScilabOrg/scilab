@@ -65,7 +65,7 @@ host_triplet = @host@
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(top_srcdir)/Makefile.incl.am
 @NEED_JAVA_TRUE@am__append_1 = java
-@GUI_TRUE@am__append_2 = libscitypes.la
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am__append_2 = libscitypes.la
 subdir = modules/types
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/backtrace.m4 \
@@ -126,7 +126,8 @@ am__objects_3 = libscitypes_algo_la-ScilabToJava.lo \
 am_libscitypes_algo_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	$(am__objects_3)
 libscitypes_algo_la_OBJECTS = $(am_libscitypes_algo_la_OBJECTS)
-@GUI_TRUE@am_libscitypes_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscitypes_algo_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscitypes_algo_la_rpath =
 libscitypes_disable_la_LIBADD =
 am_libscitypes_disable_la_OBJECTS = $(am__objects_2)
 libscitypes_disable_la_OBJECTS = $(am_libscitypes_disable_la_OBJECTS)
@@ -134,10 +135,7 @@ libscitypes_disable_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libscitypes_disable_la_CFLAGS) $(CFLAGS) \
 	$(libscitypes_disable_la_LDFLAGS) $(LDFLAGS) -o $@
-libscitypes_la_DEPENDENCIES =  \
-	$(top_builddir)/modules/commons/libscicommons.la \
-	$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
-	$(top_builddir)/modules/jvm/libscijvm.la
+libscitypes_la_LIBADD =
 am__objects_4 = libscitypes_la-getScilabVariable_wrap.lo
 am__objects_5 = libscitypes_la-ScilabToJava.lo \
 	libscitypes_la-ScilabVariables.lo \
@@ -149,7 +147,9 @@ libscitypes_la_OBJECTS = $(am_libscitypes_la_OBJECTS)
 libscitypes_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(libscitypes_la_LDFLAGS) $(LDFLAGS) -o $@
-@GUI_TRUE@am_libscitypes_la_rpath = -rpath $(pkglibdir)
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@am_libscitypes_la_rpath =
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@am_libscitypes_la_rpath = -rpath \
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@	$(pkglibdir)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/modules/core/includes
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
@@ -541,12 +541,9 @@ libscitypes_disable_la_SOURCES = $(TYPES_DISABLE_C_SOURCES)
 libscitypes_algo_la_SOURCES = $(TYPES_C_SOURCES) $(TYPES_JNI_SOURCES) $(TYPES_CPP_SOURCES)
 libscitypes_algo_la_CFLAGS = $(libscitypes_la_CFLAGS)
 libscitypes_algo_la_CPPFLAGS = $(libscitypes_la_CPPFLAGS)
-libscitypes_la_LIBADD = $(top_builddir)/modules/commons/libscicommons.la \
-			$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
-			$(top_builddir)/modules/jvm/libscijvm.la
-
 pkglib_LTLIBRARIES = libscitypes-disable.la $(am__append_2)
-@GUI_TRUE@noinst_LTLIBRARIES = libscitypes-algo.la
+@GUI_TRUE@@MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libscitypes.la libscitypes-algo.la
+@GUI_TRUE@@MAINTAINER_MODE_TRUE@noinst_LTLIBRARIES = libscitypes-algo.la
 libscitypes_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 libscitypes_la_SOURCES = $(TYPES_C_SOURCES) $(TYPES_JNI_SOURCES) $(TYPES_CPP_SOURCES)
 #libscitypes_algo_la_SOURCES = $(GATEWAY_C_SOURCES) $(GATEWAY_CPP_SOURCES)
