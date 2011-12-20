@@ -15,8 +15,18 @@
 #include "dynlib_operations.hxx"
 #include "double.hxx"
 
+// DOUBLE .*. DOUBLE
 EXTERN_OP types::InternalType *GenericKrontimes(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand);
 
 int KroneckerMultiplyDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut);
 
+// DOUBLE ./. DOUBLE
+EXTERN_OP types::InternalType *GenericKronrdivide(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand);
+
+int KroneckerRDivideDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut);
+
+// DOUBLE .\. DOUBLE
+EXTERN_OP types::InternalType *GenericKronldivide(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand);
+
+int KroneckerLDivideDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut);
 #endif /* __TYPES_KRONECKER_HXX__ */

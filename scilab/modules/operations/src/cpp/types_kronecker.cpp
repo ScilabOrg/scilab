@@ -16,15 +16,13 @@ extern "C"{
 #include "matrix_kronecker.h"
 }
 
+// DOUBLE .*. DOUBLE
 types::InternalType *GenericKrontimes(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand)
 {
     types::Double *pResult = NULL;
     types::GenericType::RealType TypeL = _pLeftOperand->getType();
     types::GenericType::RealType TypeR = _pRightOperand->getType();
 
-    /*
-    ** DOUBLE *.* DOUBLE
-    */
     if(TypeL == types::GenericType::RealDouble && TypeR == types::GenericType::RealDouble)
     {
         types::Double *pL = _pLeftOperand->getAs<types::Double>();
@@ -39,11 +37,8 @@ types::InternalType *GenericKrontimes(types::InternalType *_pLeftOperand, types:
         return pResult;
     }
 
-    /*
-    ** Default case : Return NULL will Call Overloading.
-    */
+    // Default case : Return NULL will Call Overloading.
     return NULL;
-
 }
 
 int KroneckerMultiplyDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut)
@@ -58,14 +53,11 @@ int KroneckerMultiplyDoubleByDouble(types::Double* _pDouble1, types::Double* _pD
     bool bComplexOut = bComplex1 || bComplex2;
     (*_pDoubleOut)   = new types::Double(iRowResult, iColResult, bComplexOut);
 
-    double *pReal   = (*_pDoubleOut)->getReal();
-    double *pImg    = (*_pDoubleOut)->getImg();
-
     if(bComplex1 && bComplex2) // Complex .*. Complex
     {
         vKronC( _pDouble1->getReal(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getRows(), _pDouble1->getCols(),
                 _pDouble2->getReal(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getRows(), _pDouble2->getCols(),
-        (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getImg(), iRowResult);
+                (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getImg(), iRowResult);
     }
     else if(bComplex1) // Complex .*. Real
     {
@@ -96,3 +88,175 @@ int KroneckerMultiplyDoubleByDouble(types::Double* _pDouble1, types::Double* _pD
 
     return 0; //No Error;
 }
+
+// DOUBLE ./. DOUBLE
+types::InternalType *GenericKronrdivide(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand)
+{
+    types::Double *pResult = NULL;
+    types::GenericType::RealType TypeL = _pLeftOperand->getType();
+    types::GenericType::RealType TypeR = _pRightOperand->getType();
+
+    if(TypeL == types::GenericType::RealDouble && TypeR == types::GenericType::RealDouble)
+    {
+        types::Double *pL = _pLeftOperand->getAs<types::Double>();
+        types::Double *pR = _pRightOperand->getAs<types::Double>();
+
+        int iErr = KroneckerRDivideDoubleByDouble(pL, pR, &pResult);
+        if(iErr == 1)
+        {
+            throw ast::ScilabError(_W("Division by zero...\n"));
+        }
+        else if(iErr == 2)
+        {
+            throw ast::ScilabError(_W("Bad value in the left or right operand.\n"));
+        }
+        else if(iErr == 3)
+        {
+            throw ast::ScilabError(_W("Bad size for left or right operand.\n"));
+        }
+
+        return pResult;
+    }
+
+    // Default case : Return NULL will Call Overloading.
+    return NULL;
+}
+
+int KroneckerRDivideDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut)
+{
+/*
+    int iErr = 0;
+    types::Double* clone = _pDouble2->clone()->getAs<types::Double>();
+
+    if(_pDouble2->isComplex())
+    {
+        iErr = conv_img_input(clone->getReal(), clone->getImg(), clone->getSize());
+    }
+    else
+    {
+        iErr = conv_real_input(clone->get(), clone->getSize());
+    }
+
+    if(iErr)
+    {
+        delete clone;
+        return iErr;
+    }
+
+    iErr = KroneckerMultiplyDoubleByDouble(_pDouble1, clone, _pDoubleOut);
+    delete clone;
+
+    return iErr;
+*/
+    bool bComplex1 = _pDouble1->isComplex();
+    bool bComplex2 = _pDouble2->isComplex();
+
+    if((_pDouble1->getRows() < _pDouble2->getRows()) || (_pDouble1->getCols() < _pDouble2->getCols()))
+    {
+        return 3;
+    }
+
+    if((_pDouble1->getRows() % _pDouble2->getRows()) || (_pDouble1->getCols() % _pDouble2->getCols()))
+    {
+        return 3;
+    }
+
+    int iRowResult = _pDouble1->getRows() / _pDouble2->getRows();
+    int iColResult = _pDouble1->getCols() / _pDouble2->getCols();
+
+    //Output variables
+    bool bComplexOut = bComplex1 || bComplex2;
+    (*_pDoubleOut)   = new types::Double(iRowResult, iColResult, bComplexOut);
+
+    if(bComplex1 && bComplex2) // Complex ./. Complex
+    {
+        return iRDivideKronC(_pDouble1->getReal(), _pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                            _pDouble2->getReal(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                            (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getImg(), (*_pDoubleOut)->getRows(), (*_pDoubleOut)->getCols());
+    }
+    else if(bComplex1) // Complex ./. Real
+    {
+        int ret = iRDivideKronR(_pDouble1->getReal(), _pDouble1->getRows(), _pDouble1->getCols(),
+                            _pDouble2->getReal(), _pDouble2->getRows(), _pDouble2->getCols(),
+                            (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getRows(), (*_pDoubleOut)->getCols());
+        if(ret)
+        {
+            return ret;
+        }
+
+        return iRDivideKronR(_pDouble1->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                            _pDouble2->getReal(), _pDouble2->getRows(), _pDouble2->getCols(),
+                            (*_pDoubleOut)->getImg(), (*_pDoubleOut)->getRows(), (*_pDoubleOut)->getCols());
+    }
+    else if(bComplex2) // Real ./. Complex
+    {
+        types::Double* pDblComplexify = _pDouble1->clone()->getAs<types::Double>();
+        pDblComplexify->setComplex(true);
+        return iRDivideKronC(pDblComplexify->getReal(), pDblComplexify->getImg(), _pDouble1->getRows(), _pDouble1->getCols(),
+                            _pDouble2->getReal(), _pDouble2->getImg(), _pDouble2->getRows(), _pDouble2->getCols(),
+                            (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getImg(), (*_pDoubleOut)->getRows(), (*_pDoubleOut)->getCols());
+    }
+    else // Real ./. Real
+    {
+        return iRDivideKronR(_pDouble1->getReal(), _pDouble1->getRows(), _pDouble1->getCols(),
+                            _pDouble2->getReal(), _pDouble2->getRows(), _pDouble2->getCols(),
+                            (*_pDoubleOut)->getReal(), (*_pDoubleOut)->getRows(), (*_pDoubleOut)->getCols());
+    }
+
+    return 0; //No Error;
+}
+
+// DOUBLE .\. DOUBLE
+types::InternalType *GenericKronldivide(types::InternalType *_pLeftOperand, types::InternalType *_pRightOperand)
+{
+    types::Double *pResult = NULL;
+    types::GenericType::RealType TypeL = _pLeftOperand->getType();
+    types::GenericType::RealType TypeR = _pRightOperand->getType();
+
+    if(TypeL == types::GenericType::RealDouble && TypeR == types::GenericType::RealDouble)
+    {
+        types::Double *pL = _pLeftOperand->getAs<types::Double>();
+        types::Double *pR = _pRightOperand->getAs<types::Double>();
+
+        int iErr = KroneckerLDivideDoubleByDouble(pL, pR, &pResult);
+        if(iErr == 1)
+        {
+            throw ast::ScilabError(_W("Division by zero...\n"));
+        }
+        else if(iErr == 2)
+        {
+            throw ast::ScilabError(_W("Bad value in the left operand.\n"));
+        }
+
+        return pResult;
+    }
+
+    // Default case : Return NULL will Call Overloading.
+    return NULL;
+}
+
+int KroneckerLDivideDoubleByDouble(types::Double* _pDouble1, types::Double* _pDouble2, types::Double** _pDoubleOut)
+{
+    int iErr = 0;
+    types::Double* clone = _pDouble1->clone()->getAs<types::Double>();
+    if(_pDouble1->isComplex())
+    {
+        iErr = conv_img_input(clone->getReal(), clone->getImg(), clone->getSize());
+    }
+    else
+    {
+        iErr = conv_real_input(clone->get(), clone->getSize());
+    }
+
+    if(iErr)
+    {
+        delete clone;
+        return iErr;
+    }
+
+    iErr = KroneckerMultiplyDoubleByDouble(clone, _pDouble2, _pDoubleOut);
+    delete clone;
+
+    return iErr;
+}
+

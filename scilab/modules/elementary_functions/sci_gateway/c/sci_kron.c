@@ -218,45 +218,4 @@ int sci_kron(char *fname,int* _piKey)
 	PutLhsVar();
 	return 0;
 }
-
-int conv_real_input(double* _pdblData, int _iSize)
-{
-	int i;
-	for(i = 0 ; i < _iSize ; i++)
-	{
-		if(_pdblData[i] != 0)
-		{
-			_pdblData[i] = 1.0 / _pdblData[i];
-		}
-		else
-		{
-			SciError(27);
-			return 1;
-		}
-	}
-	return 0;
-}
-
-int conv_img_input(double* _pdblReal, double* _pdblImg, int _iSize)
-{
-	int i;
-	for(i = 0 ; i < _iSize ; i++)
-	{
-		double dblR			= _pdblReal[i];
-		double dblI			= _pdblImg[i];
-
-		double dblTemp	= dblR * dblR + dblI + dblI;
-		if(dblTemp != 0)
-		{
-			_pdblReal[i]	= _pdblReal[i]	/ dblTemp;
-			_pdblImg[i]	= - _pdblImg[i] / dblTemp;
-		}
-		else
-		{
-			SciError(27);
-			return 1;
-		}
-	}
-	return 0;
-}
 /*--------------------------------------------------------------------------*/

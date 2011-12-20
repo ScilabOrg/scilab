@@ -18,3 +18,14 @@ void vKronC(double* _pdblRealIn1, double* _pdblImgIn1, int _iIncIn1, int _iRowsI
             double* _pdblRealIn2, double* _pdblImgIn2, int _iIncIn2, int _iRowsIn2, int _iColsIn2,
             double* _pdblRealOut, double* _pdblImgOut, int _iIncOut);
 
+int iRDivideKronR(  double* _pdblRealIn1, int _iRowsIn1, int _iColsIn1,
+                    double* _pdblRealIn2, int _iRowsIn2, int _iColsIn2,
+                    double* _pdblRealOut, int _iRowsOut, int _iColsOut);
+
+int iRDivideKronC(  double* _pdblRealIn1, double* _pdblImgIn1, int _iRowsIn1, int _iColsIn1,
+                    double* _pdblRealIn2, double* _pdblImgIn2, int _iRowsIn2, int _iColsIn2,
+                    double* _pdblRealOut, double* _pdblImgOut, int _iRowsOut, int _iColsOut);
+
+int conv_real_input(double* _pdblData, int _iSize);
+int conv_img_input(double* _pdblReal, double* _pdblImg, int _iSize);
+

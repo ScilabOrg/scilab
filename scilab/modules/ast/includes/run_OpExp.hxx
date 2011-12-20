@@ -507,7 +507,46 @@ void visitprivate(const OpExp &e)
                 {
                     // We did not have any algorithm matching, so we try to call OverLoad
                     pResult = callOverload(e.oper_get(), pITL, pITR);
+                }
+                result_set(pResult);
+                break;
+            }
+        case OpExp::kronrdivide :
+            {
+                try
+                {
+                    pResult = GenericKronrdivide(pITL, pITR);
+                }
+                catch (ScilabException *pSE)
+                {
+                    pSE->SetErrorLocation(e.right_get().location_get());
+                    throw pSE;
+                }
 
+                if (pResult == NULL)
+                {
+                    // We did not have any algorithm matching, so we try to call OverLoad
+                    pResult = callOverload(e.oper_get(), pITL, pITR);
+                }
+                result_set(pResult);
+                break;
+            }
+        case OpExp::kronldivide :
+            {
+                try
+                {
+                    pResult = GenericKronldivide(pITL, pITR);
+                }
+                catch (ScilabException *pSE)
+                {
+                    pSE->SetErrorLocation(e.right_get().location_get());
+                    throw pSE;
+                }
+
+                if (pResult == NULL)
+                {
+                    // We did not have any algorithm matching, so we try to call OverLoad
+                    pResult = callOverload(e.oper_get(), pITL, pITR);
                 }
                 result_set(pResult);
                 break;
