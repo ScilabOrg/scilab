@@ -7,7 +7,7 @@
  * ----------------------------------------------------------------------------- */
 
 package org.scilab.modules.types;
-
+import org.scilab.modules.commons.OS;
 
 /* It is generated code. Disable checkstyle */
 //CHECKSTYLE:OFF
@@ -27,6 +27,7 @@ class GetScilabVariableJNI {
   }
 
   static {
+   if (OS.get() == OS.WINDOWS) {
     try {
         System.loadLibrary("scitypes");
     } catch (SecurityException e) {
@@ -36,6 +37,7 @@ class GetScilabVariableJNI {
         System.err.println("The native library commons does not exist or cannot be found.");
         e.printStackTrace(System.err);
     }
+   }
   }
 
   public final static native void getScilabVariable(String jarg1, int jarg2, int jarg3);
