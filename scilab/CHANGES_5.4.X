@@ -29,6 +29,9 @@ able to retrieve a struct but not to send it to Scilab).
 Xcos
 ====
 
+* Bug #10081 fixed - Palette configuration saving could produce an invalid
+                     file.
+
 * Bug #10333 fixed - Labeling I/O blocks on a Super block produced wrong port
                      labeling when ports had not the same types.
 
