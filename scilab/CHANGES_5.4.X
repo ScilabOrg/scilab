@@ -26,6 +26,12 @@ a sparse but not to send it to Scilab).
 able to retrieve a struct but not to send it to Scilab).
 
 
+Compilation
+===========
+
+* Enforce a minimal version of JLaTeXMath (0.9.7).
+
+
 Bug fixes
 ========= 
 
