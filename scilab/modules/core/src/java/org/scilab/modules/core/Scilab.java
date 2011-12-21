@@ -36,9 +36,7 @@ import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.ConfigManager;
 import org.scilab.modules.gui.utils.LookAndFeelManager;
-import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
-import org.scilab.modules.gui.window.Window;
 
 /**
  * Main Class for Scilab
@@ -51,10 +49,6 @@ import org.scilab.modules.gui.window.Window;
  */
 public class Scilab {
 
-    private static final String CLASS_NOT_FOUND = "Could not find class: ";
-
-    private static final String SEE_DEFAULT_PATHS = "See SCI/etc/classpath.xml for default paths.";
-
     /** Index of windows vista version */
     private static final double VISTA_VERSION = 6.0;
 
@@ -65,8 +59,6 @@ public class Scilab {
     private static final String OSNAME = "os.name";
     private static final String MACOS = "mac";
 
-    private static String SCIDIR;
-
     private static boolean success;
     private static boolean finish;
     private static boolean exitCalled;
@@ -74,8 +66,6 @@ public class Scilab {
 
     private static List<Runnable> finalhooks = new ArrayList<Runnable>();
     private static List<Runnable> initialhooks = new ArrayList<Runnable>();
-
-    private Window mainView;
 
     /**
      * Constructor Scilab Class.
@@ -91,8 +81,6 @@ public class Scilab {
          * race condition. See bug #4419
          */
         try {
-            SCIDIR = System.getenv("SCI");
-
             /*
              * Set Java directories to Scilab ones
              */
@@ -176,7 +164,6 @@ public class Scilab {
 
             SwingScilabConsole sciConsole = ((SwingScilabConsole) ScilabConsole.getConsole().getAsSimpleConsole());
             SwingScilabTab consoleTab = (SwingScilabTab) sciConsole.getParent();
-            mainView = (Window) UIElementMapper.getCorrespondingUIElement(consoleTab.getParentWindowId());
         }
     }
 
