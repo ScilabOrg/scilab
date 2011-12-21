@@ -122,7 +122,6 @@ bool2s
 browsevar
 bsplin3val
 buildDoc
-buildDocv2
 buildouttb
 bvode
 c_link
