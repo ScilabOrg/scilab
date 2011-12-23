@@ -76,7 +76,6 @@ simulated_annealing \
 parameters \
 matio \
 atoms \
-types \
 hdf5 \
 graph\
 xcos \
@@ -101,11 +100,20 @@ SUBDIRS += scicos
 
 SUBDIRS += .
 
+# type is builting after the other. The reason is the following:
+# * since libscilab-cli.la is a single library with all of other
+# Javasci is loading this lib + libscitypes.*
+# However, scitypes is loaded by System.loadLibrary(xxx) of Java, it needs
+# the symbols to be found. Types needs to be explictly linked against
+# libscilab.la (see modules/types/Makefile.am for that)
+SUBDIRS += types
+
 # javasci should be compile at the end because it needs libscilab.la
 # Don't forget that the order in subdirs does matter !!!
 if JAVASCI
 SUBDIRS += javasci
 endif
+
 
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)
