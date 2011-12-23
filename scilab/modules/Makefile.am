@@ -76,7 +76,6 @@ simulated_annealing \
 parameters \
 matio \
 atoms \
-types \
 hdf5 \
 graph\
 xcos \
@@ -101,11 +100,14 @@ SUBDIRS += scicos
 
 SUBDIRS += .
 
+SUBDIRS += types
+
 # javasci should be compile at the end because it needs libscilab.la
 # Don't forget that the order in subdirs does matter !!!
 if JAVASCI
 SUBDIRS += javasci
 endif
+
 
 #### Basic files ####
 libscilab_la_rootdir = $(mydatadir)

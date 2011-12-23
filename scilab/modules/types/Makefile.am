@@ -68,9 +68,7 @@ libscitypes_algo_la_SOURCES = $(TYPES_C_SOURCES) $(TYPES_JNI_SOURCES) $(TYPES_CP
 libscitypes_algo_la_CFLAGS = $(libscitypes_la_CFLAGS)
 libscitypes_algo_la_CPPFLAGS = $(libscitypes_la_CPPFLAGS)
 
-libscitypes_la_LIBADD = $(top_builddir)/modules/commons/libscicommons.la \
-			$(top_builddir)/modules/api_scilab/libsciapi_scilab.la \
-			$(top_builddir)/modules/jvm/libscijvm.la
+libscitypes_la_LIBADD = $(top_builddir)/modules/libscilab.la
 
 pkglib_LTLIBRARIES = libscitypes-disable.la
 
