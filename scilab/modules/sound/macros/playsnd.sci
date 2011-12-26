@@ -44,14 +44,20 @@ function [] = playsnd(y, rate, bits, aplay)
     PlaySound(TMPDIR+'/_playsnd_.wav');      
     return 
   else
+      
     // We should use a external C library here
     if aplay <> '/dev/audio' then
       savewave(TMPDIR+'/_playsnd_.wav', y, rate);
-      cmd = msprintf("%s  %s > /dev/null 2>&1", aplay, TMPDIR + '/_playsnd_.wav');
-      [res, stat] = unix_g(cmd);
-      if (stat <> 0) then
-        error(strcat(err, ascii(10)));
+      if getos() == 'Darwin' then
+         cmd = msprintf("%s  %s", 'afplay', TMPDIR + '/_playsnd_.wav');
+      else
+         cmd = msprintf("%s  %s > /dev/null 2>&1", aplay, TMPDIR + '/_playsnd_.wav');
       end
+      [res, stat, stderr] = unix_g(cmd);
+      if (stat <> 0) then
+           error(msprintf(_("%s: Failed to play the sound with command: %s.\n"), 'playsnd',  cmd));
+      end
+
     else
       [fp, www] = mopen('/dev/audio','wb', 0);
       if www < 0 then 
