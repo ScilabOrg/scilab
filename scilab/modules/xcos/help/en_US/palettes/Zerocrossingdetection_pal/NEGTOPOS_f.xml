@@ -144,6 +144,16 @@ positive slope.
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_NEGTOPOS_f">
+    <title>NEGTOPOS_f Example</title>
+    <link type="scilab" linkend="scilab.xcos/xcos/examples/zerocrossingdetection_pal/NEGTOPOS_f_Example.xcos">
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata align="center" fileref="../../../examples/zerocrossingdetection_pal/NEGTOPOS_f_Example.png" valign="middle"/>
+        </imageobject>
+      </inlinemediaobject>
+    </link>
+  </refsection>
   <refsection id="Interfacingfunction_NEGTOPOS_f">
     <title>Interfacing function</title>
     <itemizedlist>
