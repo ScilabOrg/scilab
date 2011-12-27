@@ -186,6 +186,16 @@ the delay and <inlinemediaobject><imageobject><imagedata fileref="../../../image
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_EVTDLY_c">
+    <title>EVTDLY_c Example</title>
+    <link type="scilab" linkend="scilab.xcos/xcos/examples/events_pal/EVTDLY_c_Example.xcos">
+      <inlinemediaobject>
+        <imageobject>
+          <imagedata align="center" fileref="../../../examples/events_pal/EVTDLY_c_Example.png" valign="middle"/>
+        </imageobject>
+      </inlinemediaobject>
+    </link>
+  </refsection>
   <refsection id="Interfacingfunction_EVTDLY_c">
     <title>Interfacing function</title>
     <itemizedlist>
