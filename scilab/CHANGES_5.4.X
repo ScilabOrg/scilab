@@ -93,6 +93,8 @@ Elementary functions
 
 * logspace deprecates the usage of non integer values as third input argument.
 
+* The toeplitz macro was not vectorized.
+
 
 Unitary testing
 ===============
