@@ -1,0 +1,127 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2011 - Scilab Enterprises - Bruno JOFRET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH GRAPHIC -->
+
+// test xget
+
+f = gcf();
+a = gca();
+
+r = xget("fpf");
+assert_checkequal(r, "");
+
+r = xget("auto clear");
+assert_checkequal(r, "off");
+
+r = xget("colormap");
+assert_checkequal(r, f.color_map);
+
+r = xget("mark");
+
+
+r = xget("mark size");
+assert_checkequal(r, a.mark_size);
+
+r = xget("line style");
+assert_checkequal(r, a.line_style);
+
+r = xget("clipping");
+if (a.clip_state == "on" ) then
+    assert_checkequal(r, a.clip_box);
+else
+    assert_checkequal(r, [0, 0, 0, 0]);
+end
+
+r = xget("font");
+assert_checkequal(r, [a.font_style, a.font_size]);
+
+r = xget("font size");
+assert_checkequal(r, a.font_size);
+
+r = xget("dashes");
+assert_checkequal(r, a.line_style);
+
+r = xget("hidden3d");
+assert_checkequal(r, a.hiddencolor);
+
+r = xget("window");
+assert_checkequal(r, f.figure_id);
+
+r = xget("figure")
+assert_checkequal(r, f.figure_id);
+
+r = xget("thickness")
+assert_checkequal(r, a.thickness);
+
+r = xget("wdim")
+assert_checkequal(r, [f.position(3) f.position(4)]);
+
+r = xget("wpdim")
+assert_checkequal(r, [f.position(3) f.position(4)]);
+
+r = xget("wpos")
+assert_checkequal(r, [f.position(1) f.position(2)]);
+
+r = xget("viewport");
+assert_checkequal(r, f.viewport);
+
+r = xget("background");
+// Waiting for Bug #10417
+//assert_checkequal(r, a.background);
+
+r = xget("color");
+// Waiting for Bug #10417
+//assert_checkequal(r, a.foreground);
+
+r = xget("foreground");
+// Waiting for Bug #10417
+//assert_checkequal(r, a.foreground);
+
+r = xget("pattern");
+// Waiting for Bug #10417
+//assert_checkequal(r, a.foreground);
+
+r = xget("lastpattern");
+assert_checkequal(r, size(f.color_map, 'r'));
+
+r = xget("line mode");
+if a.line_mode == "on" then
+    assert_checkequal(r, 1);
+else
+    assert_checkequal(r, 0);
+end
+
+r = xget("pixmap");
+if f.pixmap == "on"
+    assert_checkequal(r, 1);
+else
+    assert_checkequal(r, 0);
+end
+
+r = xget("white");
+// ???
+
+r = xget("wresize");
+
+r = xget("clipgrf")
+if a.clip_state == "on"
+    assert_checkequal(r, 1);
+else
+    assert_checkequal(r, 0);
+end
+
+r = xget("clipoff")
+if a.clip_state == "off"
+    assert_checkequal(r, 1);
+else
+    assert_checkequal(r, 0);
+end
+
+
+
+
