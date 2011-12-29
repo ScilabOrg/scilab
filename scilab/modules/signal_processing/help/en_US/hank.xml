@@ -43,8 +43,9 @@
   <refsection>
     <title>Description</title>
     <para>
-    this function builds the hankel matrix of size <literal>(m*d,n*d)</literal>
-    from the covariance sequence of a vector process</para>
+    This function builds the hankel matrix of size <literal>(m*d,n*d)</literal>
+    from the covariance sequence of a vector process. More precisely:</para>
+    <para><latex> <![CDATA[ \mathrm{hank}(m, n, [R_0, R_1, R_2, \ldots])=m\mbox{ blocks}\left\{\vphantom{\begin{matrix}R_0\cr R_1\cr R_2\cr\vdots\end{matrix}}\right.\left(\vphantom{\begin{matrix}R_0\cr R_1\cr R_2\cr\vdots\end{matrix}}\right.\overbrace{\begin{matrix}R_0 & R_1 & R_2 & \cdots\cr R_1 & R_2 & \cdots &\cr R_2 & \cdots &&\cr \vdots&&&\cr\end{matrix}}^{n \mbox{ blocks}}\left.\vphantom{\begin{matrix}R_0\cr R_1\cr R_2\cr\vdots\end{matrix}}\right) ]]> </latex></para> 
   </refsection>
   <refsection>
     <title>Examples</title>
