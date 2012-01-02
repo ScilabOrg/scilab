@@ -28,7 +28,10 @@ Example: test_run('SCI/contrib/toolbox_skeleton')
 Graphical User Interface
 ========================
 
-* Bug 4978 fixed - Icons did not follow the Tango norm.
+
+* Bug #4978 fixed - Icons did not follow the Tango norm.
+
+* Bug #10421 fixed - Size of scilab icons in file browser were wrong
 
 Scinotes
 ========
