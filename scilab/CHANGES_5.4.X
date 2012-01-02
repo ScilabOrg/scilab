@@ -54,6 +54,9 @@ Xcos
 * Bug #10419 fixed - Exception occured while refusing to create a new empty
                      file.
 
+* Bug #10422 fixed - Exception occured when exporting with an unspecified
+                     format.
+
 
 Bug fixes
 ========= 
