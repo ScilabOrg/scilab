@@ -39,7 +39,8 @@ able to retrieve a struct but not to send it to Scilab).
 Xcos
 ====
 
-* Bug #8744 fixed - Solving the initialization problem more than once crash Scilab.
+* Bug #8744 fixed - Solving the initialization problem more than once crash
+                    Scilab.
 
 * Bug #10107 fixed - Default value of the Integrator Absolute Tolerance was
                      too large. It has been reduced to 1e-6.
@@ -50,8 +51,8 @@ Xcos
 * Bug #10340 fixed - Exception occured while moving the palette split pane to
                      hide the block list and while using a palette diagram.
 
-* bug #10384 fixed - On exit, "Close Console" was proposed rather than "Close
-                     Scilab".
+* Bug #10419 fixed - Exception occured while refusing to create a new empty
+                     file.
 
 
 Bug fixes
@@ -65,6 +66,9 @@ Bug fixes
                      operator.
 
 * bug #10044 fixed - wfir_gui function rewritten based on uicontrol and documented.
+
+* Bug #10384 fixed - On exit, "Close Console" was proposed rather than "Close
+                     Scilab".
 
 * Bug #10402 fixed - FileBrowser threw an exception when a filter was set
                      and the tree was expanded. 
