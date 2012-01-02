@@ -18,7 +18,8 @@ Example: test_run('SCI/contrib/toolbox_skeleton')
 Graphical User Interface
 ========================
 
-* bug 4978 fixed - Icons did not follow the Tango norm.
+* Bug #4978 fixed - Icons did not follow the Tango norm.
+
 
 Scinotes
 ========
