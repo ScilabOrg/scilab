@@ -72,6 +72,7 @@ Bug fixes
 * Bug #10418 fixed - Playsound was failing under Mac OS X. Thanks to
                      Pierre-Henri Jondot for the patch.
 
+* Bug #10440 fixed - wfir_gui misc bug fixes
 
  	    Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
