@@ -253,13 +253,18 @@ public class XcosTab extends SwingScilabTab implements Tab {
      * 
      * @param graph
      *            the graph
-     * @return the tab
+     * @return the tab (can be null)
      */
     public static XcosTab get(XcosDiagram graph) {
+        if (graph == null) {
+            return null;
+        }
+
         final String uuid = graph.getDiagramTab();
         if (uuid == null) {
             return null;
         }
+
         return (XcosTab) ScilabTabFactory.getInstance().getFromCache(uuid);
     }
 
