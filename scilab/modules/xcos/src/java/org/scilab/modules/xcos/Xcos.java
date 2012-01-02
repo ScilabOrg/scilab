@@ -433,7 +433,7 @@ public final class Xcos {
         /*
          * Create a visible window
          */
-        if (XcosTab.get(diag) == null) {
+        if (diag != null && XcosTab.get(diag) == null) {
             XcosTab.restore(diag);
         }
 
