@@ -53,6 +53,9 @@ Xcos
 * bug #10384 fixed - On exit, "Close Console" was proposed rather than "Close
                      Scilab".
 
+* Bug #10422 fixed - Exception occured when exporting with an unspecified
+                     format.
+
 
 Bug fixes
 ========= 
