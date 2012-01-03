@@ -89,6 +89,7 @@ Bug fixes
 
 * Bug #10431 fixed - The user could not navigate in history using CTRL+P or CTRL+N.
 
+* Wish #6009 fixed - conv2, convol2d and conv function added.
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
