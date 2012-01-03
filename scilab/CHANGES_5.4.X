@@ -106,6 +106,7 @@ Bug fixes
 * Bug #10440 fixed - 'wfir_gui' generated errors if the view checkbox was selected
                      and an erronous value was entered.
 
+* Wish #6009 fixed - conv2, convol2d and conv function added.
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
