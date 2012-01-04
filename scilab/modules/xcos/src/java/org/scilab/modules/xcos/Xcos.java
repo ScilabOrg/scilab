@@ -132,6 +132,9 @@ public final class Xcos {
      * There must be only one Xcos instance per Scilab application
      */
     private Xcos(final XcosTabFactory factory) {
+        /* load scicos libraries (macros) */
+        InterpreterManagement.requestScilabExec(LOAD_XCOS_LIBS_LOAD_SCICOS);
+
         /*
          * Read the configuration to support dynamic (before Xcos launch)
          * settings.
