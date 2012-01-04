@@ -2212,7 +2212,9 @@ public class XcosDiagram extends ScilabGraph {
             handler.readDiagram(this);
             generateUID();
             updateTabTitle();
-            XcosTab.restore(this);
+            if (XcosTab.get(this) == null) {
+                XcosTab.restore(this);
+            }
             result = true;
             break;
 
