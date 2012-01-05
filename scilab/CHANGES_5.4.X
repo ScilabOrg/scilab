@@ -98,6 +98,8 @@ Bug fixes
 
 * Bug #8050 fixed - A weird error message was displayed in some cases.
 
+* Bug #9502 fixed - 'toolbox' replaces by 'module' in assert help.
+
 * Bug #9811 fixed - Output message of fminsearch was wrongly set.
 
 * Bug #10017 fixed - The unitary test for bdiag used a "strange" comparison
