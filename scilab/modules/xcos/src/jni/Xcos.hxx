@@ -85,6 +85,8 @@ jmethodID voidcloseXcosFromScilabID; // cache method id
 jmethodID jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_StringjbooleanbooleanID; // cache method id
 jmethodID voidxcosDiagramOpenjobjectArray_java_lang_StringID; // cache method id
 jmethodID voidxcosDiagramClosejobjectArray_java_lang_StringID; // cache method id
+jmethodID voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID; // cache method id
+jmethodID voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID; // cache method id
 
 
 
@@ -154,6 +156,10 @@ static int xcosDiagramToHDF5(JavaVM * jvm_, char * xcosFile, char * h5File, bool
 static void xcosDiagramOpen(JavaVM * jvm_, char ** UID, int UIDSize);
 
 static void xcosDiagramClose(JavaVM * jvm_, char ** UID, int UIDSize);
+
+static void addToolsMenu(JavaVM * jvm_, char * label, char * command);
+
+static void updateBlock(JavaVM * jvm_, char ** h5File, int h5FileSize, char ** uid, int uidSize);
 
 
                         /**
