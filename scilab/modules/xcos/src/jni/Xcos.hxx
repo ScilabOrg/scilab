@@ -66,7 +66,11 @@ typedef signed char byte;
 #     define GIWSEXPORT __declspec(dllexport)
 #   endif
 # else
+#   if __GNUC__ >= 4
+#     define GIWSEXPORT __attribute__ ((visibility ("default")))
+#   else
 #     define GIWSEXPORT
+#   endif
 # endif
 #endif
 
@@ -85,6 +89,7 @@ jmethodID voidcloseXcosFromScilabID; // cache method id
 jmethodID jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_StringjbooleanbooleanID; // cache method id
 jmethodID voidxcosDiagramOpenjobjectArray_java_lang_StringID; // cache method id
 jmethodID voidxcosDiagramClosejobjectArray_java_lang_StringID; // cache method id
+jmethodID voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID; // cache method id
 
 
 
@@ -154,6 +159,8 @@ static int xcosDiagramToHDF5(JavaVM * jvm_, char * xcosFile, char * h5File, bool
 static void xcosDiagramOpen(JavaVM * jvm_, char ** UID, int UIDSize);
 
 static void xcosDiagramClose(JavaVM * jvm_, char ** UID, int UIDSize);
+
+static void addToolsMenu(JavaVM * jvm_, char * label, char * command);
 
 
                         /**
