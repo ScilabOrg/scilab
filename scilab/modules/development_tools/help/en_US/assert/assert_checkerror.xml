@@ -52,7 +52,7 @@
       <varlistentry>
         <term>expectedmsg :</term>
         <listitem>
-          <para> a 1-by-1 matrix of strings, the error message to be produced</para>
+          <para> a vector of strings, the error message to be produced</para>
         </listitem>
       </varlistentry>
       <varlistentry>
