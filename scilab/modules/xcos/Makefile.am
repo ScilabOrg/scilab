@@ -65,7 +65,8 @@ GATEWAY_CPP_SOURCES = \
 	sci_gateway/cpp/sci_xcosPalEnable.cpp \
 	sci_gateway/cpp/sci_xcosPalDisable.cpp \
 	sci_gateway/cpp/sci_xcosPalGenerateIcon.cpp \
-	sci_gateway/cpp/sci_xcosConfigureXmlFile.cpp
+	sci_gateway/cpp/sci_xcosConfigureXmlFile.cpp \
+	sci_gateway/cpp/sci_xcosAddToolsMenu.cpp
 
 libscixcos_la_CFLAGS= $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/libs/MALLOC/includes/ \
