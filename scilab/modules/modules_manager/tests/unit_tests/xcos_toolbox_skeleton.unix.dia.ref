@@ -9,47 +9,48 @@
 // Test the Xcos toolbox skeleton in SCI/contrib/
 //  - Building/Compilation
 //  - Loading
+//  - Tests
 // Xcos external module skeleton
 status = copyfile(SCI + "/contrib/xcos_toolbox_skeleton/", TMPDIR + "/xcos_toolbox_skeleton/");
 assert_checkequal(status, 1);
 exec("TMPDIR/xcos_toolbox_skeleton/builder.sce");
-Building macros...
--- Creation of [xcos_toolbox_skeletonlib] (Macros) --
-genlib: Processing file: TBX_SUM_c.sci
-genlib: Processing file: TBX_MUT_STYLE.sci
-genlib: Regenerate names and lib
-Building blocks...
-Building sources...
-   Generate a loader file
-   Generate a Makefile
-   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy block_sum.c to TMPDIR
-   ilib_gen_Make: Copy business_sum.c to TMPDIR
-   ilib_gen_Make: configure : Generate Makefile.
-   ilib_gen_Make: Modification of the Makefile in TMPDIR.
-   Running the Makefile
-   Generate a cleaner file
-Building gateway...
-   Generate a gateway file
-   Generate a loader file
-   Generate a Makefile
-   ilib_gen_Make: Copy compilation files (Makefile*, libtool...) to TMPDIR
-   ilib_gen_Make: Copy libxcos_toolbox_skeleton_c.c to TMPDIR
-   ilib_gen_Make: Copy sci_tbx_sum.c to TMPDIR
-   ilib_gen_Make: configure : Generate Makefile.
-   ilib_gen_Make: Modification of the Makefile in TMPDIR.
-   Running the makefile
-   Generate a cleaner file
-Generating loader_gateway.sce...
-Generating cleaner_gateway.sce...
-Building help...
+Création des macros...
+-- Création de [xcos_toolbox_skeletonlib] (Macros) --
+genlib : Traitement du fichier : TBX_MUT_STYLE.sci
+genlib : Traitement du fichier : TBX_SUM_c.sci
+genlib : Régénère les noms et les bibliothèques
+Création des blocs...
+Création des sources...
+   Génère un fichier loader
+   Génère un Makefile
+   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
+   ilib_gen_Make : Copie block_sum.c vers TMPDIR
+   ilib_gen_Make : Copie business_sum.c vers TMPDIR
+   ilib_gen_Make : Configure : Génère le Makefile.
+   ilib_gen_Make : Modification du Makefile dans TMPDIR.
+   Exécute le Makefile
+   Génère un fichier cleaner
+Création de la passerelle...
+   Génère un fichier gateway
+   Génère un fichier loader
+   Génère un Makefile
+   ilib_gen_Make : Copie les fichiers de compilation (Makefile*, libtool...) vers TMPDIR
+   ilib_gen_Make : Copie libxcos_toolbox_skeleton_c.c vers TMPDIR
+   ilib_gen_Make : Copie sci_tbx_sum.c vers TMPDIR
+   ilib_gen_Make : Configure : Génère le Makefile.
+   ilib_gen_Make : Modification du Makefile dans TMPDIR.
+   Exécute le makefile
+   Génère un fichier cleaner
+Génération de loader_gateway.sce...
+Génération de cleaner_gateway.sce...
+Création des fichiers d'aide...
 
-Building the master document:
+Génération du document maître :
 	TMPDIR/xcos_toolbox_skeleton/help/en_US
 
-Building the manual file [javaHelp] in TMPDIR/xcos_toolbox_skeleton/help/en_US.
-Generating loader.sce...
-Generating cleaner.sce...
+Génération du fichier d'aide [javaHelp] in TMPDIR/xcos_toolbox_skeleton/help/en_US.
+Génération de loader.sce...
+Génération de cleaner.sce...
 exec("TMPDIR/xcos_toolbox_skeleton/loader.sce");
 Start Xcos toolbox skeleton
 	Load macros
@@ -58,3 +59,20 @@ Start Xcos toolbox skeleton
 	Load gateways
 	Load help
 	Load demos
+test_run("TMPDIR/xcos_toolbox_skeleton/");
+   TMPDIR = TMPDIR
+
+   001/001 - [TMPDIR/xcos_toolbox_skeleton/] : 
+
+   001/001 - [TMPDIR/xcos_toolbox_skeleton/] tbx_sum............passed
+
+
+   --------------------------------------------------------------------------
+   Summary
+
+   tests              1 - 100 % 
+   passed             1 - 100 % 
+   failed             0 -   0 % 
+   skipped              0 -   0 % 
+   length              2.53 sec 
+   --------------------------------------------------------------------------
