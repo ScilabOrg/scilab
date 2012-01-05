@@ -17,28 +17,32 @@
 #include "dynlib_xcos.h"
 /*--------------------------------------------------------------------------*/
 XCOS_IMPEXP int gw_xcos(void);
+
 /*--------------------------------------------------------------------------*/
-int sci_Xcos(char* fname, unsigned long l);
-int sci_xcosNotify(char* fname, unsigned long l);
-int sci_warnBlockByUID(char* fname, unsigned long l);
-int sci_closeXcosFromScilab(char* fname, unsigned long l);
-int sci_xcosDiagramToHDF5(char* fname, unsigned long l);
-int sci_xcosDiagramOpen(char* fname, unsigned long l);
-int sci_xcosDiagramClose(char* fname, unsigned long l);
-int sci_xcosPalLoad(char* fname, unsigned long l);
-int sci_xcosPalCategoryAdd(char* fname, unsigned long l);
-int sci_xcosPalDelete(char* fname, unsigned long l);
-int sci_xcosPalMove(char* fname, unsigned long l);
-int sci_xcosPalEnable(char* fname, unsigned long l);
-int sci_xcosPalDisable(char* fname, unsigned long l);
-int sci_xcosPalGenerateIcon(char* fname, unsigned long l);
-int sci_xcosConfigureXmlFile(char* fname, unsigned long l);
+int sci_Xcos(char *fname, unsigned long l);
+int sci_xcosNotify(char *fname, unsigned long l);
+int sci_warnBlockByUID(char *fname, unsigned long l);
+int sci_closeXcosFromScilab(char *fname, unsigned long l);
+int sci_xcosDiagramToHDF5(char *fname, unsigned long l);
+int sci_xcosDiagramOpen(char *fname, unsigned long l);
+int sci_xcosDiagramClose(char *fname, unsigned long l);
+int sci_xcosPalLoad(char *fname, unsigned long l);
+int sci_xcosPalCategoryAdd(char *fname, unsigned long l);
+int sci_xcosPalDelete(char *fname, unsigned long l);
+int sci_xcosPalMove(char *fname, unsigned long l);
+int sci_xcosPalEnable(char *fname, unsigned long l);
+int sci_xcosPalDisable(char *fname, unsigned long l);
+int sci_xcosPalGenerateIcon(char *fname, unsigned long l);
+int sci_xcosConfigureXmlFile(char *fname, unsigned long l);
+int sci_xcosAddToolsMenu(char *fname, unsigned long l);
+
 /*--------------------------------------------------------------------------*/
 /**
 * xcos already started
 * @return 1 if xcos started else 0
 */
 int xcosStarted(void);
+
 /*--------------------------------------------------------------------------*/
 #endif /* __GW_XCOS__ */
 /*--------------------------------------------------------------------------*/

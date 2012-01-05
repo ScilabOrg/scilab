@@ -20,6 +20,8 @@ Xcos
   - SELECT_m - Selector block
   - NEGTOPOS_f - Threshold negative to positive
 
+* xcosAddToolsMenu function added (SEP #074)
+
 * Bug #8744 fixed - Solving the initialization problem more than once crash
                     Scilab.
 
