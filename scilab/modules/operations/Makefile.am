@@ -3,40 +3,45 @@
 ### INRIA - Scilab 2008
 ##########
 
-OPERATIONS_C_SOURCES = 	src/c/doublecomplex.c \
-			src/c/matrix_multiplication.c \
-			src/c/matrix_addition.c \
-			src/c/matrix_substraction.c \
-			src/c/matrix_division.c \
-			src/c/matrix_power.c \
-			src/c/matrix_finite.c \
-			src/c/operations_tools.c
+OPERATIONS_C_SOURCES = \
+src/c/doublecomplex.c \
+src/c/matrix_multiplication.c \
+src/c/matrix_addition.c \
+src/c/matrix_substraction.c \
+src/c/matrix_division.c \
+src/c/matrix_power.c \
+src/c/matrix_finite.c \
+src/c/matrix_kronecker.c \
+src/c/operations_tools.c
 
-OPERATIONS_CPP_SOURCES =  src/cpp/operations.cpp \
-			src/cpp/types_substraction.cpp \
-			src/cpp/types_multiplication.cpp \
-			src/cpp/types_divide.cpp \
-			src/cpp/types_addition.cpp \
-			src/cpp/types_power.cpp \
-			src/cpp/types_finite.cpp \
-			src/cpp/types_comparison_equal.cpp \
-			src/cpp/types_comparison_non_equal.cpp
+OPERATIONS_CPP_SOURCES = \
+src/cpp/operations.cpp \
+src/cpp/types_substraction.cpp \
+src/cpp/types_multiplication.cpp \
+src/cpp/types_divide.cpp \
+src/cpp/types_addition.cpp \
+src/cpp/types_power.cpp \
+src/cpp/types_finite.cpp \
+src/cpp/types_kronecker.cpp \
+src/cpp/types_comparison_equal.cpp \
+src/cpp/types_comparison_non_equal.cpp
 
 pkglib_LTLIBRARIES = libscioperations.la
 
 libscioperations_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
-libscioperations_la_CFLAGS = 	-I$(top_srcdir)/modules/operations/includes \
-				-I$(top_srcdir)/modules/elementary_functions/includes \
-				-I$(top_srcdir)/modules/output_stream/includes
+libscioperations_la_CFLAGS = \
+-I$(top_srcdir)/modules/operations/includes \
+-I$(top_srcdir)/modules/elementary_functions/includes \
+-I$(top_srcdir)/modules/output_stream/includes
 
-libscioperations_la_CXXFLAGS = 	-I$(top_srcdir)/modules/operations/includes \
-						-I$(top_srcdir)/modules/types/includes \
-						-I$(top_srcdir)/modules/symbol/includes \
-						-I$(top_srcdir)/modules/ast/includes \
-						-I$(top_srcdir)/modules/core/includes \
-						-I$(top_srcdir)/modules/string/includes
-
+libscioperations_la_CXXFLAGS = \
+-I$(top_srcdir)/modules/operations/includes \
+-I$(top_srcdir)/modules/types/includes \
+-I$(top_srcdir)/modules/symbol/includes \
+-I$(top_srcdir)/modules/ast/includes \
+-I$(top_srcdir)/modules/core/includes \
+-I$(top_srcdir)/modules/string/includes
 
 libscioperations_la_SOURCES = $(OPERATIONS_C_SOURCES) $(OPERATIONS_CPP_SOURCES)
 

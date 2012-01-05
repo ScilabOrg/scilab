@@ -39,6 +39,7 @@
 #include "types_power.hxx"
 #include "types_comparison_equal.hxx"
 #include "types_comparison_non_equal.hxx"
+#include "types_kronecker.hxx"
 #include "configvariable.hxx"
 #include "overload.hxx"
 #include "scilabexception.hxx"
