@@ -57,6 +57,8 @@ able to retrieve a struct but not to send it to Scilab).
 Xcos
 ====
 
+* Bug #6733 fixed - Each call to xcos created an empty diagram.
+
 * Bug #8744 fixed - Solving the initialization problem more than once crash
                     Scilab.
 

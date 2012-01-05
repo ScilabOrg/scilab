@@ -115,6 +115,7 @@ public final class Xcos {
 
     static {
         Scilab.registerInitialHook(new Runnable() {
+                @Override
                 public void run() {
                     /* load scicos libraries (macros) */
                     InterpreterManagement.requestScilabExec(LOAD_XCOS_LIBS_LOAD_SCICOS);
@@ -412,14 +413,18 @@ public final class Xcos {
 
         if (filename != null && filename.exists()) {
             configuration.addToRecentFiles(filename);
+        }
 
-            /*
-             * looking for an already opened diagram
-             */
-            final Collection<XcosDiagram> diags = diagrams.get(filename);
-            if (diags != null && !diags.isEmpty()) {
-                diag = diags.iterator().next();
-            }
+        /*
+         * looking for an already opened diagram
+         */
+        final Collection<XcosDiagram> diags = diagrams.get(filename);
+        if (diags != null && !diags.isEmpty()) {
+            diag = diags.iterator().next();
+        }
+        // if unsaved and empty, reuse it. Allocate otherwise.
+        if (filename == null && diag.getModel().getChildCount(diag.getDefaultParent()) > 0) {
+            diag = null;
         }
 
         if (diag == null) {
