@@ -111,6 +111,7 @@ voidcloseXcosFromScilabID=NULL;
 jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_StringjbooleanbooleanID=NULL;
 voidxcosDiagramOpenjobjectArray_java_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_StringID=NULL;
+voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
 
 
 }
@@ -140,6 +141,7 @@ voidcloseXcosFromScilabID=NULL;
 jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_StringjbooleanbooleanID=NULL;
 voidxcosDiagramOpenjobjectArray_java_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_StringID=NULL;
+voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
 
 
 }
@@ -387,6 +389,40 @@ curEnv->DeleteLocalRef(TempString);
                          curEnv->CallStaticVoidMethod(cls, voidxcosDiagramClosejobjectArray_java_lang_StringID ,UID_);
                         curEnv->DeleteLocalRef(stringArrayClass);
 curEnv->DeleteLocalRef(UID_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+}
+
+void Xcos::addToolsMenu (JavaVM * jvm_, char * label, char * command){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID = curEnv->GetStaticMethodID(cls, "addToolsMenu", "(Ljava/lang/String;Ljava/lang/String;)V" ) ;
+if (voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "addToolsMenu");
+}
+
+jstring label_ = curEnv->NewStringUTF( label );
+if (label != NULL && label_ == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+
+jstring command_ = curEnv->NewStringUTF( command );
+if (command != NULL && command_ == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+
+                         curEnv->CallStaticVoidMethod(cls, voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID ,label_, command_);
+                        curEnv->DeleteLocalRef(label_);
+curEnv->DeleteLocalRef(command_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);

@@ -16,6 +16,7 @@ package org.scilab.modules.xcos;
 import static org.scilab.modules.xcos.utils.FileUtils.delete;
 import static org.scilab.modules.xcos.utils.FileUtils.exists;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.LogManager;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -39,6 +41,8 @@ import org.apache.commons.logging.LogFactory;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.core.Scilab;
 import org.scilab.modules.graph.utils.ScilabExported;
+import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
+import org.scilab.modules.gui.bridge.menubar.SwingScilabMenuBar;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
@@ -46,10 +50,12 @@ import org.scilab.modules.gui.messagebox.ScilabModalDialog.ButtonType;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.gui.tabfactory.AbstractScilabTabFactory;
 import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
+import org.scilab.modules.gui.utils.BarUpdater;
 import org.scilab.modules.gui.utils.ClosingOperationsManager;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.gui.utils.WindowsConfigurationManager;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.xcos.actions.ExternalAction;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.configuration.ConfigurationManager;
@@ -136,6 +142,8 @@ public final class Xcos {
     private final PaletteManager palette;
     private final ConfigurationManager configuration;
     private final mxStylesheet styleSheet;
+    private final List<ExternalAction> externalActions;
+
     private final XcosTabFactory factory;
 
     /**
@@ -172,6 +180,7 @@ public final class Xcos {
         palette = PaletteManager.getInstance();
         configuration = ConfigurationManager.getInstance();
         styleSheet = new mxStylesheet();
+        externalActions = new ArrayList<ExternalAction>();
 
         try {
             FileUtils.decodeStyle(styleSheet);
@@ -679,6 +688,13 @@ public final class Xcos {
     }
 
     /**
+     * @return the external action list
+     */
+    public List<ExternalAction> getExternalActions() {
+        return externalActions;
+    }
+
+    /**
      * Close the current xcos session.
      *
      * This method must be called on the EDT thread. For other use, please use
@@ -980,6 +996,52 @@ public final class Xcos {
         }
 
         return 0;
+    }
+
+    /**
+     * Add a menu into xcos
+     * 
+     * @param label
+     *            the label to use
+     * @param command
+     *            the callback (as a Scilab executable String)
+     */
+    @ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
+    public static void addToolsMenu(final String label, final String command) {
+        final ExternalAction action = new ExternalAction(null, command);
+        action.putValue(Action.NAME, label);
+        final Xcos instance = Xcos.getInstance();
+
+        /*
+         * Store for future tabs
+         */
+        instance.externalActions.add(action);
+        
+        /*
+         * Update opened tabs
+         */
+        for (final XcosDiagram d : instance.openedDiagrams()) {
+            final String uuid = d.getDiagramTab();
+            final SwingScilabTab tab = ScilabTabFactory.getInstance().getFromCache(uuid);
+
+            if (tab != null) {
+                final SwingScilabMenuBar bar = ((SwingScilabMenuBar) tab.getMenuBar().getAsSimpleMenuBar());
+                
+                final Component[] comps = bar.getComponents();
+                for (Component component : comps) {
+                    if (component instanceof SwingScilabMenu) {
+                        final SwingScilabMenu menu = (SwingScilabMenu) component;
+                        
+                        if (menu.getText() == XcosMessages.TOOLS) {
+                            menu.add(new ExternalAction(action, d));
+                        }
+                    }
+                }
+
+                // Also update the parent window toolbar
+                BarUpdater.updateBars(tab.getParentWindowId(), tab.getMenuBar(), tab.getToolBar(), tab.getInfoBar(), tab.getName(), tab.getWindowIcon());
+            }
+        }
     }
 
     /**
