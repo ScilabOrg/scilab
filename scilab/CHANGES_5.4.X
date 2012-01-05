@@ -37,6 +37,8 @@ Xcos
   - SELECT_m - Selector block
   - NEGTOPOS_f - Threshold negative to positive
 
+* xcosAddToolsMenu function added (SEP #074)
+
 * Bug #6733 fixed - Each call to xcos created an empty diagram.
 
 * Bug #8744 fixed - Solving the initialization problem more than once crash
