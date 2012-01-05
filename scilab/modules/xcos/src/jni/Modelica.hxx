@@ -66,11 +66,7 @@ typedef signed char byte;
 #     define GIWSEXPORT __declspec(dllexport)
 #   endif
 # else
-#   if __GNUC__ >= 4
-#     define GIWSEXPORT __attribute__ ((visibility ("default")))
-#   else
 #     define GIWSEXPORT
-#   endif
 # endif
 #endif
 
