@@ -3,6 +3,8 @@
 //
 // This file is released under the 3-clause BSD license. See COPYING-BSD.
 
+function diazepam_demo()
+
 my_test_fig = figure(99999);
 my_test_fig.figure_name = "Display of a molecule of diazepam from a CML file (XML)";
 
@@ -88,4 +90,13 @@ end
 drawnow();
 
 xmlDelete(xmlAtomsColors, xmlFile);
-clear my_test_fig listDisplayed xmlAtomsColors xmlFile bonds nbBonds coords f bondCouple order x1 x2 u i
+
+
+filename = 'diazepam.dem.sce';
+dname = get_absolute_file_path(filename);
+editor ( dname + filename, "readonly" );
+
+endfunction
+
+diazepam_demo();
+clear diazepam_demo;
