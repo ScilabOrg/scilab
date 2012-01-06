@@ -143,6 +143,8 @@ Bug fixes
 
 * Bug #10457 fixed - Reference in the fftw help page pointed to wrong version.
 
+* Bug #10465 fixed - 'has' rather than 'as' in isreal help page.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
