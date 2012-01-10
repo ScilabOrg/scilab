@@ -10,11 +10,13 @@
 a = chdir(TMPDIR);
 if(a <> %T) then pause, end
 
+copyfile(SCI+"/modules/localization/tests/unit_tests/CreateDir.class.bin", TMPDIR + "/CreateDir.class");
 if getos() == 'Windows' then
-	unix_w(jre_path()+"\bin\java.exe -cp "+SCI+"\modules\localization\tests\unit_tests CreateDir");
+	unix_w(jre_path()+"\bin\java.exe -cp " + TMPDIR + " CreateDir");
 else
-	unix_w(jre_path()+"/bin/java -classpath "+SCI+"/modules/localization/tests/unit_tests CreateDir");
+	unix_w(jre_path()+"/bin/java -classpath " + TMPDIR + " CreateDir");
 end
+
 
 b = chdir("dir_азеазея");
 if(b <> %T) then pause, end

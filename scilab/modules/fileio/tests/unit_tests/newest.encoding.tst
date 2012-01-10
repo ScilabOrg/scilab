@@ -9,11 +9,13 @@
 
 chdir(TMPDIR);
 
+copyfile(SCI+"/modules/localization/tests/unit_tests/CreateDir.class.bin", TMPDIR + "/CreateDir.class");
 if getos() == 'Windows' then
-	unix_w(jre_path()+"\bin\java.exe -cp "+SCI+"\modules\localization\tests\unit_tests CreateDir");
+	unix_w(jre_path()+"\bin\java.exe -cp " + TMPDIR + " CreateDir");
 else
-	unix_w(jre_path()+"/bin/java -classpath "+SCI+"/modules/localization/tests/unit_tests CreateDir");
+	unix_w(jre_path()+"/bin/java -classpath " + TMPDIR + " CreateDir");
 end
+
 
 tab_ref = [
 "世界您好",
