@@ -16,10 +16,12 @@
 #include "DecompositionUtils.hxx"
 #include "PolylineDecomposer.hxx"
 #include "Triangulator.hxx"
+#include "ColorComputer.hxx"
 
 extern "C"
 {
 #include <math.h>
+#include <string.h>
 
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
@@ -666,6 +668,74 @@ void PolylineDecomposer::fillHorizontalBarsDecompositionVertices(char* id, float
 
 }
 
+/* To do: implement for the other relevant polyline style values */
+void PolylineDecomposer::fillColors(char* id, float* buffer, int bufferLength, int elementsSize)
+{
+    char* parent;
+    char* parentFigure;
+
+    int interpColorMode = 0;
+    int* piInterpColorMode = &interpColorMode;
+    int polylineStyle = 0;
+    int* piPolylineStyle = &polylineStyle;
+    int nPoints = 0;
+    int *piNPoints = &nPoints;
+    int colormapSize = 0;
+    int* piColormapSize = &colormapSize;
+    int bufferOffset = 0;
+    int* interpColorVector;
+
+    double* colormap;
+
+    getGraphicObjectProperty(id, __GO_INTERP_COLOR_MODE__, jni_bool, (void**) &piInterpColorMode);
+
+    if (interpColorMode == 0)
+    {
+        return;
+    }
+
+    getGraphicObjectProperty(id, __GO_POLYLINE_STYLE__, jni_int, (void**) &piPolylineStyle);
+
+    if (polylineStyle  != 1)
+    {
+        return;
+    }
+
+    getGraphicObjectProperty(id, __GO_DATA_MODEL_NUM_ELEMENTS__, jni_int, (void**) &piNPoints);
+    getGraphicObjectProperty(id, __GO_INTERP_COLOR_VECTOR__, jni_int_vector, (void**) &interpColorVector);
+
+    getGraphicObjectProperty(id, __GO_PARENT__, jni_string, (void**) &parent);
+
+    /* Temporary: to avoid getting a null parent_figure property when the object is built */
+    if (strcmp(parent, "") == 0)
+    {
+        return;
+    }
+
+    getGraphicObjectProperty(id, __GO_PARENT_FIGURE__, jni_string, (void**) &parentFigure);
+
+    getGraphicObjectProperty(parentFigure, __GO_COLORMAP__, jni_double_vector, (void**) &colormap);
+    getGraphicObjectProperty(parentFigure, __GO_COLORMAP_SIZE__, jni_int, (void**) &piColormapSize);
+
+    /* The interpolated color vector is a 3- or 4-element vector. */
+    if (nPoints != 3 && nPoints != 4)
+    {
+        return;
+    }
+
+    for (int i = 0; i < nPoints; i++)
+    {
+        ColorComputer::getDirectColor((double) interpColorVector[i] - 1.0, colormap, colormapSize, &buffer[bufferOffset]);
+
+        if (elementsSize == 4)
+        {
+            buffer[bufferOffset+3] = 1.0;
+        }
+
+        bufferOffset += elementsSize;
+    }
+}
+
 /*
  * To do: see fillIndices
  * -take into account polyline_style.
@@ -769,10 +839,6 @@ int PolylineDecomposer::fillIndices(char* id, int* buffer, int bufferLength, int
     return 0;
 }
 
-/*
- * To do:
- * -take into account the interpolation color vector for nPoints=3 or 4.
- */
 int PolylineDecomposer::fillTriangleIndices(char* id, int* buffer, int bufferLength,
     int logMask, double* coordinates, int nPoints, double* xshift, double* yshift, double* zshift, int fillMode)
 {
