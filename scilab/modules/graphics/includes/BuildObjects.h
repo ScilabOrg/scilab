@@ -87,8 +87,6 @@ GRAPHICS_IMPEXP char *ConstructLabel(char *pparentsubwinUID, char *text, int typ
 
 GRAPHICS_IMPEXP sciPointObj *sciStandardBuildOperations(sciPointObj * pObj, sciPointObj * parent);
 
-GRAPHICS_IMPEXP void createDefaultRelationShip(sciPointObj * pObj);
-
 GRAPHICS_IMPEXP void initUserData(sciPointObj * pObj);
 
 #endif /* __SCI_BUILD__ */
