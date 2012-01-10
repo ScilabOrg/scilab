@@ -57,9 +57,9 @@ subdir = modules/operations
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/backtrace.m4 \
 	$(top_srcdir)/m4/compiler.m4 $(top_srcdir)/m4/docbook.m4 \
-	$(top_srcdir)/m4/fftw.m4 $(top_srcdir)/m4/fortran.m4 \
-	$(top_srcdir)/m4/giws.m4 $(top_srcdir)/m4/hdf5.m4 \
-	$(top_srcdir)/m4/intel_compiler.m4 \
+	$(top_srcdir)/m4/eigen.m4 $(top_srcdir)/m4/fftw.m4 \
+	$(top_srcdir)/m4/fortran.m4 $(top_srcdir)/m4/giws.m4 \
+	$(top_srcdir)/m4/hdf5.m4 $(top_srcdir)/m4/intel_compiler.m4 \
 	$(top_srcdir)/m4/java-thirdparty.m4 $(top_srcdir)/m4/java.m4 \
 	$(top_srcdir)/m4/largefile.m4 $(top_srcdir)/m4/lib-ld.m4 \
 	$(top_srcdir)/m4/libsmath.m4 $(top_srcdir)/m4/libtool.m4 \
@@ -116,8 +116,9 @@ am__objects_2 = libscioperations_la-operations.lo \
 	libscioperations_la-types_addition.lo \
 	libscioperations_la-types_power.lo \
 	libscioperations_la-types_finite.lo \
-	libscioperations_la-types_comparison_equal.lo \
-	libscioperations_la-types_comparison_non_equal.lo
+	libscioperations_la-types_comparison_lt_le_gt_ge.lo \
+	libscioperations_la-types_comparison_eq.lo \
+	libscioperations_la-types_comparison_ne.lo
 am_libscioperations_la_OBJECTS = $(am__objects_1) $(am__objects_2)
 libscioperations_la_OBJECTS = $(am_libscioperations_la_OBJECTS)
 libscioperations_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -183,6 +184,7 @@ CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEMOTOOLS_ENABLE = @DEMOTOOLS_ENABLE@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 DOCBOOK_ROOT = @DOCBOOK_ROOT@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
@@ -190,6 +192,7 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
+EIGEN_CPPFLAGS = @EIGEN_CPPFLAGS@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
@@ -264,6 +267,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MATIO_CFLAGS = @MATIO_CFLAGS@
 MATIO_ENABLE = @MATIO_ENABLE@
 MATIO_LIBS = @MATIO_LIBS@
@@ -354,6 +358,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -424,8 +429,9 @@ OPERATIONS_CPP_SOURCES = src/cpp/operations.cpp \
 			src/cpp/types_addition.cpp \
 			src/cpp/types_power.cpp \
 			src/cpp/types_finite.cpp \
-			src/cpp/types_comparison_equal.cpp \
-			src/cpp/types_comparison_non_equal.cpp
+			src/cpp/types_comparison_lt_le_gt_ge.cpp \
+			src/cpp/types_comparison_eq.cpp \
+			src/cpp/types_comparison_ne.cpp
 
 pkglib_LTLIBRARIES = libscioperations.la
 libscioperations_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
@@ -592,8 +598,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-operations.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-operations_tools.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_addition.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_comparison_equal.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_comparison_non_equal.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_comparison_eq.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_comparison_lt_le_gt_ge.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_comparison_ne.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_divide.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_finite.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscioperations_la-types_multiplication.Plo@am__quote@
@@ -747,19 +754,26 @@ libscioperations_la-types_finite.lo: src/cpp/types_finite.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_finite.lo `test -f 'src/cpp/types_finite.cpp' || echo '$(srcdir)/'`src/cpp/types_finite.cpp
 
-libscioperations_la-types_comparison_equal.lo: src/cpp/types_comparison_equal.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -MT libscioperations_la-types_comparison_equal.lo -MD -MP -MF $(DEPDIR)/libscioperations_la-types_comparison_equal.Tpo -c -o libscioperations_la-types_comparison_equal.lo `test -f 'src/cpp/types_comparison_equal.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_equal.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioperations_la-types_comparison_equal.Tpo $(DEPDIR)/libscioperations_la-types_comparison_equal.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/types_comparison_equal.cpp' object='libscioperations_la-types_comparison_equal.lo' libtool=yes @AMDEPBACKSLASH@
+libscioperations_la-types_comparison_lt_le_gt_ge.lo: src/cpp/types_comparison_lt_le_gt_ge.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -MT libscioperations_la-types_comparison_lt_le_gt_ge.lo -MD -MP -MF $(DEPDIR)/libscioperations_la-types_comparison_lt_le_gt_ge.Tpo -c -o libscioperations_la-types_comparison_lt_le_gt_ge.lo `test -f 'src/cpp/types_comparison_lt_le_gt_ge.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_lt_le_gt_ge.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioperations_la-types_comparison_lt_le_gt_ge.Tpo $(DEPDIR)/libscioperations_la-types_comparison_lt_le_gt_ge.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/types_comparison_lt_le_gt_ge.cpp' object='libscioperations_la-types_comparison_lt_le_gt_ge.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_comparison_equal.lo `test -f 'src/cpp/types_comparison_equal.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_equal.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_comparison_lt_le_gt_ge.lo `test -f 'src/cpp/types_comparison_lt_le_gt_ge.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_lt_le_gt_ge.cpp
 
-libscioperations_la-types_comparison_non_equal.lo: src/cpp/types_comparison_non_equal.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -MT libscioperations_la-types_comparison_non_equal.lo -MD -MP -MF $(DEPDIR)/libscioperations_la-types_comparison_non_equal.Tpo -c -o libscioperations_la-types_comparison_non_equal.lo `test -f 'src/cpp/types_comparison_non_equal.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_non_equal.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioperations_la-types_comparison_non_equal.Tpo $(DEPDIR)/libscioperations_la-types_comparison_non_equal.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/types_comparison_non_equal.cpp' object='libscioperations_la-types_comparison_non_equal.lo' libtool=yes @AMDEPBACKSLASH@
+libscioperations_la-types_comparison_eq.lo: src/cpp/types_comparison_eq.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -MT libscioperations_la-types_comparison_eq.lo -MD -MP -MF $(DEPDIR)/libscioperations_la-types_comparison_eq.Tpo -c -o libscioperations_la-types_comparison_eq.lo `test -f 'src/cpp/types_comparison_eq.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_eq.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioperations_la-types_comparison_eq.Tpo $(DEPDIR)/libscioperations_la-types_comparison_eq.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/types_comparison_eq.cpp' object='libscioperations_la-types_comparison_eq.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_comparison_non_equal.lo `test -f 'src/cpp/types_comparison_non_equal.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_non_equal.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_comparison_eq.lo `test -f 'src/cpp/types_comparison_eq.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_eq.cpp
+
+libscioperations_la-types_comparison_ne.lo: src/cpp/types_comparison_ne.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -MT libscioperations_la-types_comparison_ne.lo -MD -MP -MF $(DEPDIR)/libscioperations_la-types_comparison_ne.Tpo -c -o libscioperations_la-types_comparison_ne.lo `test -f 'src/cpp/types_comparison_ne.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_ne.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscioperations_la-types_comparison_ne.Tpo $(DEPDIR)/libscioperations_la-types_comparison_ne.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/types_comparison_ne.cpp' object='libscioperations_la-types_comparison_ne.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscioperations_la_CXXFLAGS) $(CXXFLAGS) -c -o libscioperations_la-types_comparison_ne.lo `test -f 'src/cpp/types_comparison_ne.cpp' || echo '$(srcdir)/'`src/cpp/types_comparison_ne.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo

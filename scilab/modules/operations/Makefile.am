@@ -19,8 +19,9 @@ OPERATIONS_CPP_SOURCES =  src/cpp/operations.cpp \
 			src/cpp/types_addition.cpp \
 			src/cpp/types_power.cpp \
 			src/cpp/types_finite.cpp \
-			src/cpp/types_comparison_equal.cpp \
-			src/cpp/types_comparison_non_equal.cpp
+			src/cpp/types_comparison_lt_le_gt_ge.cpp \
+			src/cpp/types_comparison_eq.cpp \
+			src/cpp/types_comparison_ne.cpp
 
 pkglib_LTLIBRARIES = libscioperations.la
 
