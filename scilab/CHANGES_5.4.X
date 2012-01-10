@@ -148,6 +148,8 @@ Bug fixes
 
 * Bug #10465 fixed - Fix typo in isreal help page ('has' rather than 'as').
 
+* Bug #10471 fixed - %helps_modules was not ignored by default by browsevar.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
