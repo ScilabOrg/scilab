@@ -381,7 +381,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
 
                 @Override
                 public ElementsBuffer getColors() {
-                    return null;
+                    if (polyline.getInterpColorMode()) {
+                        return dataManager.getColorBuffer(polyline.getIdentifier());
+                    } else {
+                        return null;
+                    }
                 }
 
                 @Override
@@ -445,7 +449,10 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
 
 
             Appearance trianglesAppearance = new Appearance();
-            trianglesAppearance.setFillColor(ColorFactory.createColor(colorMap, polyline.getBackground()));
+
+            if (!polyline.getInterpColorMode()) {
+                trianglesAppearance.setFillColor(ColorFactory.createColor(colorMap, polyline.getBackground()));
+            }
 
             drawingTools.draw(triangles, trianglesAppearance);
 
