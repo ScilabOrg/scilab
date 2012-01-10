@@ -2,11 +2,11 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) ENPC - Jean-Philippe Chancelier
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
@@ -16,8 +16,8 @@
   </info>
   <refnamediv>
     <refname>xset</refname>
-    <refpurpose>set values of the graphics
-  context. This function is obsolete.</refpurpose>
+    <refpurpose>set values of the graphics context.<emphasis
+    role="bold">This function is obsolete</emphasis>..</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -43,7 +43,8 @@ xset()</synopsis>
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>Warning this function is obsolete. Use the Scilab graphic objetcs representation
+    <para><emphasis role="bold">Warning this function is obsolete</emphasis>
+    Use the Scilab graphic objetcs representation
     instead (see the
     <link linkend="set">set</link> and <link linkend="get">get</link>
     functions as well as the <link
@@ -57,15 +58,6 @@ xset()</synopsis>
     fonts used.</para>
     <para/>
     <variablelist>
-      <varlistentry>
-        <term>xset("alufunction",number)</term>
-        <listitem>
-          <para>Used to set the logical function for drawing. The logical
-        function used is set by <literal>x1</literal>. Usual values are: 3 for
-        copying (default), 6 for animation and 0 for clearing. See
-        alufunctions for more details.</para>
-        </listitem>
-      </varlistentry>
       <varlistentry>
         <term>xset("auto clear","on"|"off")</term>
         <listitem>
@@ -268,7 +260,7 @@ xset()</synopsis>
         <listitem>
           <para>If flag=1 then the graphic is automatically resized to fill the
         graphics window.</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role = ""><![CDATA[
 xdel();
 xset("wresize",1);
 plot2d();
@@ -277,7 +269,7 @@ xset("wdim",1000,500)
           <para>If flag=0 the scale of the graphic is left unchanged when the
         graphics window is resized. Top left panner or keyboard arrows may be
         used to scroll over the graphic.</para>
-          <programlisting role = ""><![CDATA[ 
+          <programlisting role = ""><![CDATA[
 xdel();
 plot2d();
 xset("wresize",0);
