@@ -36,6 +36,7 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import javax.xml.transform.TransformerException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -121,6 +122,7 @@ public final class Xcos {
 
     static {
         Scilab.registerInitialHook(new Runnable() {
+                @Override
                 public void run() {
                     /* load scicos libraries (macros) */
                     InterpreterManagement.requestScilabExec(LOAD_XCOS_LIBS_LOAD_SCICOS);
@@ -994,8 +996,12 @@ public final class Xcos {
                     @Override
                     public void run() {
                         final XcosDiagram diagram = new XcosDiagram();
-                        diagram.openDiagramFromFile(file);
+                    try {
+                        diagram.load(file);
                         diagram.dumpToHdf5File(h5File);
+                    } catch (TransformerException e) {
+                        throw new RuntimeException(e);
+                    }
                     }
                 });
         } catch (final InterruptedException e) {

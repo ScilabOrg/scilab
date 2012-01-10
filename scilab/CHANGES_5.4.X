@@ -42,6 +42,8 @@ Xcos
 * Bug #10422 fixed - Exception occured when exporting with an unspecified
                      format.
 
+* Bug #10486 fixed - importXcosDiagram openned a tab.
+
 
 Unitary testing
 ===============
