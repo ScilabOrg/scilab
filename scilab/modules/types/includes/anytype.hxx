@@ -14,8 +14,6 @@
 #define __ANY_TYPES_HXX__
 
 
-#define bsiz 4096
-
 namespace types
 {
     class String;
@@ -54,6 +52,8 @@ namespace types
     class MList;
     class File;
     class ThreadId;
+    //class Sparse;
+    //class SparseBool;
 }
 
 
