@@ -162,6 +162,9 @@ Bug fixes
 
 * Bug #10482 fixed - Wrong error message in format function fixed.
 
+* Bug #10500 fixed - ATOMS module without DESCRIPTION file returned a wrong
+                     error message.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
