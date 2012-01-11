@@ -726,25 +726,24 @@ public final class Xcos {
         /*
          * Try to close all opened files
          */
+        boolean status = true;
         final Xcos instance = sharedInstance;
-        try {
-            instance.onDiagramIteration = true;
 
-            for (Iterator<File> iterator = instance.diagrams.keySet().iterator(); iterator.hasNext();) {
-                File file = iterator.next();
-                instance.close(file, ask);
-                iterator.remove();
-            }
-        } finally {
-            instance.onDiagramIteration = false;
+        for (Iterator<File> iterator = instance.diagrams.keySet().iterator(); status && iterator.hasNext();) {
+            final File file = iterator.next();
+            status &= instance.close(file, ask);
         }
+        if (status) {
+            instance.diagrams.keySet().clear();
+            instance.addDiagram(null, null);
 
-        /* terminate any remaining simulation */
-        InterpreterManagement.requestScilabExec("haltscicos");
+            /* terminate any remaining simulation */
+            InterpreterManagement.requestScilabExec("haltscicos");
 
-        /* Saving modified data */
-        instance.palette.saveConfig();
-        instance.configuration.saveConfig();
+            /* Saving modified data */
+            instance.palette.saveConfig();
+            instance.configuration.saveConfig();
+        }
     }
 
     /*
