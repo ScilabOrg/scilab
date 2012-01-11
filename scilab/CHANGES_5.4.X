@@ -40,6 +40,8 @@ Xcos
 * Bug #10422 fixed - Exception occured when exporting with an unspecified
                      format.
 
+* Bug #10496 fixed - Fix a wrong error message on xcosValidateBlockSet.
+
 
 Unitary testing
 ===============
