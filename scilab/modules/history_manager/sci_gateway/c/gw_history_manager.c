@@ -35,7 +35,8 @@ static gw_generic_table Tab[] =
 	{sci_sethistoryfile,"sethistoryfile"},
 	{sci_removelinehistory,"removelinehistory"},
 	{sci_historysize,"historysize"},
-	{sci_historymanager,"historymanager"}
+	{sci_historymanager,"historymanager"},
+	{sci_browsehistory,"browsehistory"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_history_manager(void)

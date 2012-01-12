@@ -25,7 +25,8 @@ sci_gateway/c/sci_saveafterncommands.c  \
 sci_gateway/c/sci_saveconsecutivecommands.c  \
 sci_gateway/c/sci_savehistory.c  \
 sci_gateway/c/sci_sethistoryfile.c  \
-sci_gateway/c/sci_historymanager.c
+sci_gateway/c/sci_historymanager.c \
+sci_gateway/c/sci_browsehistory.c
 
 if GUI
 
