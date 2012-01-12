@@ -1316,8 +1316,15 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof] = do_compile_superblock4
   okk=%f;
   rdnom='foo';
   rpat=pwd();
+  [fd, err] = mopen(rpat, "w");
+  if err <> 0 then
+    rpat = TMPDIR;
+  else
+    mclose(fd);
+  end
+
   libs='';
-  label1=[hname;pwd()+'/'+hname;''];
+  label1=[hname;rpat+'/'+hname;''];
 
   while %t do
     ok=%t  // to avoid infinite loop

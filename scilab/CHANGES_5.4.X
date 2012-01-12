@@ -20,6 +20,8 @@ Xcos
   - SELECT_m - Selector block
   - NEGTOPOS_f - Threshold negative to positive
 
+* Bug #7863 fixed - Default path for code generation was SCI .
+
 * Bug #8744 fixed - Solving the initialization problem more than once crash
                     Scilab.
 
