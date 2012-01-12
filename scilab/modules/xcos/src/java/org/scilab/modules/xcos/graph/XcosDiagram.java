@@ -598,6 +598,8 @@ public class XcosDiagram extends ScilabGraph {
                 BlockPositioning.updateBlockView(updatedBlock);
 
                 diagram.getView().clear(updatedBlock, true, true);
+
+                diagram.getAsComponent().validateGraph();
                 diagram.getView().validate();
             } finally {
                 diagram.getModel().endUpdate();
