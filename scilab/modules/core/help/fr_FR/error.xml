@@ -10,9 +10,11 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Séquence d'appel</title>
-    <synopsis>error(message [,n])
+    <synopsis>error(message)
+error(message, n)
 error(n)
-error(n,pos)</synopsis>
+error(n, message)
+error(n, pos)</synopsis>
   </refsynopsisdiv>
   <refsection>
     <title>Paramètres</title>
@@ -20,7 +22,7 @@ error(n,pos)</synopsis>
       <varlistentry>
         <term>message</term>
         <listitem>
-          <para>une chaîne de caractères. Le message à  visualiser.</para>
+          <para>une chaîne de caractères ou un vecteur de chaines de caracteres. Le message à  visualiser.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -60,11 +62,11 @@ error(n,pos)</synopsis>
   </refsection>
   <refsection>
     <title>Exemples</title>
-    <programlisting role="example"><![CDATA[ 
-error('Mon message')
+    <programlisting role="example"><![CDATA[error('my error message')
 error(43)
-error(52,3)
- ]]></programlisting>
+error(52, 3)
+error(10001, ['A'; 'multi';'line';'error';'message'])
+lasterror()]]></programlisting>
   </refsection>
   <refsection role="see also">
 <title>Voir aussi</title>
@@ -82,5 +84,14 @@ error(52,3)
         <link linkend="lasterror">lasterror</link>
       </member>
     </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function manages vector of strings as input argument</revremark>
+      </revision>
+    </revhistory>
   </refsection>
 </refentry>
