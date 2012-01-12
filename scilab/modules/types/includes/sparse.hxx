@@ -13,8 +13,6 @@
 #ifndef __SPARSE_HH__
 #define __SPARSE_HH__
 
-#define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
-
 //#define EIGEN_SUPERLU_SUPPORT
 #include <Eigen/Core>
 #include <Eigen/Sparse>
