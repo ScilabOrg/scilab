@@ -9,6 +9,14 @@ XML
 
 * Bug #10185 fixed - Add xmlDelete("all") in xml.quit.
 
+
+Help
+====
+
+* Add Docbook tags <note>, <caution>, <warning>, <important> and <tip>.
+  See bug #10505.
+
+
 Xcos
 ====
 
