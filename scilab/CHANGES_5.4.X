@@ -66,6 +66,12 @@ Graphical User Interface
 * Bug #4978 fixed - Icons did not follow the Tango norm.
 
 
+History Browser
+===============
+
+* Add a function browsehistory() to open history browser.
+
+
 Scinotes
 ========
 
