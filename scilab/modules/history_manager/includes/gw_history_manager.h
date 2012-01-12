@@ -34,5 +34,6 @@ HISTORY_MANAGER_IMPEXP int sci_sethistoryfile(char *fname,unsigned long fname_le
 HISTORY_MANAGER_IMPEXP int sci_removelinehistory(char *fname,unsigned long fname_len);
 HISTORY_MANAGER_IMPEXP int sci_historysize(char *fname,unsigned long fname_len);
 HISTORY_MANAGER_IMPEXP int sci_historymanager(char *fname,unsigned long fname_len);
+HISTORY_MANAGER_IMPEXP int sci_browsehistory(char *fname, unsigned long fname_len);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_HISTORY_MANAGER_H__ */
