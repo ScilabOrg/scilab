@@ -172,6 +172,8 @@ Bug fixes
 
 * Bug #10482 fixed - Wrong error message in format function fixed.
 
+* Bug #10505 fixed - Docbook tag <note> was not handled.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
