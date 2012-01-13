@@ -29,5 +29,6 @@
 #include "api_boolean_sparse.h"
 #include "api_pointer.h"
 #include "api_list.h"
+#include "stack-c.h"
 
 #endif /* __VARIABLE_API__ */
