@@ -96,6 +96,9 @@
       <literal>1</literal>.
       </listitem>
     </itemizedlist>
+      <para>
+        Note that <link linkend="convol">convol</link> can be more efficient for large arrays.
+    </para>
   </refsection>
   <refsection>
     <title>Examples</title>

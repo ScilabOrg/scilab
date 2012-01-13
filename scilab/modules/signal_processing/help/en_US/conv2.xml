@@ -85,28 +85,37 @@
   </refsection>
   <refsection><title>Description</title><para><literal>conv2</literal> uses a straightforward formal
        implementation of the two-dimensional convolution equation in
-       spatial form.
-    </para><para><literal>C=conv2(A,B [,shape])</literal> computes the
+       spatial form.</para>
+       <para><literal>C=conv2(A,B [,shape])</literal> computes the
       two-dimensional convolution of the arrays <literal>A</literal>
-    and <literal>B</literal>:</para><itemizedlist><listitem> With <literal>shape=="full"</literal> the
-      dimensions of the result<literal>C</literal> are given by
-      <literal>size(A)+size(B)+1</literal>. The indices of the
-      center element of <literal>B</literal> are defined as
+       and <literal>B</literal>:</para>
+       <itemizedlist>
+         <listitem> With <literal>shape=="full"</literal> the
+         dimensions of the result<literal>C</literal> are given by
+         <literal>size(A)+size(B)+1</literal>. The indices of the
+         center element of <literal>B</literal> are defined as
+         <literal>floor((size(B)+1)/2)</literal>.
+      </listitem>
+      <listitem> With <literal>shape=="same"</literal> the dimensions
+      of the result<literal>C</literal> are given by
+      <literal>size(A)</literal>. The indices of the center element of
+      <literal>B</literal> are defined as
       <literal>floor((size(B)+1)/2)</literal>.
-      </listitem><listitem> With <literal>shape=="same"</literal> the
-      dimensions of the result<literal>C</literal> are given by
-      <literal>size(A)</literal>. The indices of the
-      center element of <literal>B</literal> are defined as
-      <literal>floor((size(B)+1)/2)</literal>.
-      </listitem><listitem> With <literal>shape=="valid"</literal> the dimensions
+      </listitem>
+      <listitem> With <literal>shape=="valid"</literal> the dimensions
       of the result <literal>C</literal> are given by
       <literal>size(A)-size(B)+1)</literal> if
       <literal>and(size(A)-size(B))&gt;=0</literal> else
       <literal>C</literal> is empty . The indices of the center
-      element of <literal>B</literal> are defined as
-      <literal>[1 1]</literal>.
-      </listitem></itemizedlist><para>
+      element of <literal>B</literal> are defined as <literal>[1
+      1]</literal>.
+      </listitem>
+      </itemizedlist>
+      <para>
       The separable form <literal>C=conv2(hrow,hcol,B [,shape])</literal>is equivalent to <literal>C=conv2(hrow(:)*hcol(:).',B [,shape])</literal></para>.
+      <para>
+        Note that <link linkend="convol2d">convol2d</link> can be more efficient for large arrays.
+    </para>
   </refsection>
   <refsection>
     <title>Examples</title>
