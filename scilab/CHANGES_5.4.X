@@ -122,6 +122,11 @@ Compatibility Functions
 * 'mtlb_conv' obsolete. Please use 'conv' instead.
 
 
+Compilation
+===========
+
+* Enforce a minimal version of flexdock (1.1.1).
+
 Bug fixes
 =========
 
