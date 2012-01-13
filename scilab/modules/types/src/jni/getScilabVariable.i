@@ -49,7 +49,7 @@ class%}
 %pragma(java) jniclasscode=%{
   static {
     try {
-        System.loadLibrary("scitypes");
+        System.loadLibrary("scilab");
     } catch (SecurityException e) {
         System.err.println("A security manager exists and does not allow the loading of the specified dynamic library :");
         e.printStackTrace(System.err);

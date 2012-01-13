@@ -86,8 +86,9 @@ modules_manager \
 ui_data \
 history_browser \
 xml \
-libscilab-cli \
-types
+types \
+libscilab-cli
+
 
 if XCOS
 SUBDIRS += scicos_blocks
@@ -221,7 +222,7 @@ libscilab_la_LIBADD += $(NO_GUI_LIBS)
 endif
 
 # Core modules
-libscilab_la_LIBADD += $(top_builddir)/modules/libscilab-cli/libscilab-cli.la $(OTHER_LIBS) $(EXTERNAL_LIBS)
+libscilab_la_LIBADD += $(top_builddir)/modules/libscilab-cli/libscilab-cli.la $(OTHER_LIBS) $(EXTERNAL_LIBS) $(top_builddir)/modules/types/libscitypes.la
 
 if ENABLE_STATIC
 libscilab_la_LIBADD += $(ALL_LIBS)
