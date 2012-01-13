@@ -17,26 +17,29 @@
           xmlns:ns5="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
           xmlns:db="http://docbook.org/ns/docbook">
-    <refnamediv>
-        <refname>string example</refname>
+  <refnamediv>
+    <refname>string example</refname>
+    
+    <refpurpose>
+      String use case.
+    </refpurpose>
+  </refnamediv>
+  
+  <refsection>
+    <title>Description</title>
+    <para>This example shows how to get a string variable and return it to Scilab.</para>
+  </refsection>
+  <refsection>
+    <!--File_gateway: SCI/modules/api_scilab/tests/unit_tests/stringExample.c-->
+    <!--File_scilab: SCI/modules/api_scilab/tests/unit_tests/stringExample.tst-->
+    <!--Lib_name: stringExample-->
+    <!--Func_list: stringExample-->
+    <title>Gateway Source</title>
+    <programlisting role="code_gateway">
+      <![CDATA[ 
+#include "api_scilab.h"
+#include "stack-c.h"
 
-        <refpurpose>
-            String use case.
-        </refpurpose>
-    </refnamediv>
-
-    <refsection>
-        <title>Description</title>
-        <para>This example shows how to get a string variable and return it to Scilab.</para>
-    </refsection>
-    <refsection>
-        <!--File_gateway: SCI/modules/api_scilab/tests/unit_tests/stringExample.c-->
-        <!--File_scilab: SCI/modules/api_scilab/tests/unit_tests/stringExample.tst-->
-        <!--Lib_name: stringExample-->
-        <!--Func_list: stringExample-->
-        <title>Gateway Source</title>
-        <programlisting role="code_gateway">
-            <![CDATA[ 
 int stringExample(char *fname,unsigned long fname_len)
 {
 	SciErr sciErr;
@@ -107,17 +110,17 @@ int stringExample(char *fname,unsigned long fname_len)
 	return 0;
 }
  ]]>
-        </programlisting>
-    </refsection>
-    <refsection>
-        <title>Scilab test script</title>
-        <programlisting role="code_scilab">
-            <![CDATA[ 
+    </programlisting>
+  </refsection>
+  <refsection>
+    <title>Scilab test script</title>
+    <programlisting role="code_scilab">
+      <![CDATA[ 
 a = "Scilab";
 b = ["New","Scilab";"API","functions"];
 if stringExample(a) <> a then pause, end
 if stringExample(b) <> b then pause, end
  ]]>
-        </programlisting>
-    </refsection>
+    </programlisting>
+  </refsection>
 </refentry>

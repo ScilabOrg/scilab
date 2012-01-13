@@ -17,26 +17,29 @@
           xmlns:ns5="http://www.w3.org/1999/xhtml"
           xmlns:mml="http://www.w3.org/1998/Math/MathML"
           xmlns:db="http://docbook.org/ns/docbook">
-	<refnamediv>
-		<refname>boolean sparse example</refname>
+  <refnamediv>
+    <refname>boolean sparse example</refname>
+    
+    <refpurpose>
+      Boolean sparse use case.
+    </refpurpose>
+  </refnamediv>
+  
+  <refsection>
+    <title>Description</title>
+    <para>This example shows how to get a boolean sparse variable and return it to Scilab.</para>
+  </refsection>
+  <refsection>
+    <!--File_gateway: SCI/modules/api_scilab/tests/unit_tests/booleanSparseExample.c-->
+    <!--File_scilab: SCI/modules/api_scilab/tests/unit_tests/booleanSparseExample.tst-->
+    <!--Lib_name: booleanSparseExample-->
+    <!--Func_list: booleanSparseExample-->
+    <title>Gateway Source</title>
+    <programlisting role="code_gateway">
+      <![CDATA[ 
+#include "api_scilab.h"
+#include "stack-c.h"
 
-		<refpurpose>
-			Boolean sparse use case.
-		</refpurpose>
-	</refnamediv>
-
-	<refsection>
-		<title>Description</title>
-		<para>This example shows how to get a boolean sparse variable and return it to Scilab.</para>
-	</refsection>
-	<refsection>
-		<!--File_gateway: SCI/modules/api_scilab/tests/unit_tests/booleanSparseExample.c-->
-		<!--File_scilab: SCI/modules/api_scilab/tests/unit_tests/booleanSparseExample.tst-->
-		<!--Lib_name: booleanSparseExample-->
-		<!--Func_list: booleanSparseExample-->
-		<title>Gateway Source</title>
-		<programlisting role="code_gateway">
-			<![CDATA[ 
 int booleanSparseExample(char *fname,unsigned long fname_len)
 {
 	SciErr sciErr;
@@ -83,16 +86,16 @@ int booleanSparseExample(char *fname,unsigned long fname_len)
 	return 0;
 }
  ]]>
-		</programlisting>
-	</refsection>
-
-	<refsection>
-		<title>Scilab test script</title>
-		<programlisting role="code_scilab">
-			<![CDATA[ 
+    </programlisting>
+  </refsection>
+  
+  <refsection>
+    <title>Scilab test script</title>
+    <programlisting role="code_scilab">
+      <![CDATA[ 
 bsp = sparse([1,1;2,2;3,3],[%t,%t,%t]);
 or(booleanSparseExample(bsp) == bsp)
  ]]>
-		</programlisting>
-	</refsection>
+    </programlisting>
+  </refsection>
 </refentry>
