@@ -22,6 +22,7 @@ Help
 * Management of Docbook tags <note>, <caution>, <warning>, <important> and
  <tip>. See bug #10505.
 
+* Bug #10518 fixed - odeoptions help page was inaccurate.
 
 Xcos
 ====
