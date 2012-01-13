@@ -22,14 +22,14 @@ libscitypes_la_root_DATA =  license.txt
 #### types : init scripts ####
 libscitypes_la_etcdir = $(mydatadir)/etc
 libscitypes_la_etc_DATA = etc/types.quit \
-				etc/types.start
+			  etc/types.start
 
 include $(top_srcdir)/Makefile.incl.am
 
 
 TYPES_JNI_SOURCES =
 
-TYPES_C_SOURCES =
+TYPES_C_SOURCES = src/jni/getScilabVariable_wrap.c
 
 TYPES_CPP_SOURCES = \
 			src/cpp/types.cpp \
@@ -66,13 +66,17 @@ TYPES_CPP_SOURCES = \
 			src/cpp/int64.cpp \
 			src/cpp/uint64.cpp \
             src/cpp/sparse.cpp \
-            src/cpp/types_tools.cpp
+            src/cpp/types_tools.cpp \
+			src/cpp/ScilabToJava.cpp \
+	        src/jni/ScilabVariables.cpp \
+	        src/jni/ScilabVariablesRefresh.cpp \
+		    src/jni/ScilabPolynomialToJava.cpp
 
 if ENABLE_DEBUG
 TYPES_CPP_SOURCES += src/cpp/inspector.cpp
 endif
 
-GIWS_WRAPPERS =
+GIWS_WRAPPERS = src/jni/ScilabVariables.giws.xml
 
 if GIWS
 BUILT_SOURCES=giws
@@ -119,10 +123,18 @@ GATEWAY_CPP_SOURCES += \
 	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 endif
 
-libscitypes_la_CFLAGS=
+libscitypes_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
+			-I$(srcdir)/includes
 
 libscitypes_la_CPPFLAGS = \
-    -Iincludes/ \
+	$(JAVA_JNI_INCLUDE) \
+	-I$(srcdir)/src/jni \
+    -I$(srcdir)/src/cpp \
+	-I$(srcdir)/includes \
+	-I$(top_srcdir)/modules/commons/src/jni/ \
+	-I$(top_srcdir)/modules/jvm/includes/ \
+	-I$(top_srcdir)/modules/output_stream/includes \
+	-I$(top_srcdir)/modules/api_scilab/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/symbol/includes \
@@ -140,10 +152,22 @@ libscitypes_la_CPPFLAGS = \
 libscitypes_algo_la_CPPFLAGS = $(libscitypes_la_CPPFLAGS)
 
 pkglib_LTLIBRARIES = libscitypes.la
-
 noinst_LTLIBRARIES = libscitypes-algo.la
 
-libscitypes_la_LIBADD = libscitypes-algo.la
+# Without the types module
+libscitypes_disable_la_CFLAGS =
+
+TYPES_DISABLE_C_SOURCES =
+libscitypes_disable_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)
+libscitypes_disable_la_SOURCES = $(TYPES_DISABLE_C_SOURCES)
+libscitypes_algo_la_SOURCES = $(TYPES_C_SOURCES) $(TYPES_JNI_SOURCES) $(TYPES_CPP_SOURCES)
+libscitypes_algo_la_CFLAGS = $(libscitypes_la_CFLAGS)
+libscitypes_algo_la_CPPFLAGS = $(libscitypes_la_CPPFLAGS)
+
+libscitypes_la_LIBADD = libscitypes-algo.la \
+			$(top_builddir)/modules/commons/libscicommons.la \
+			$(top_builddir)/modules/jvm/libscijvm.la \
+			$(top_builddir)/modules/libscilab-cli/libscilab-cli.la
 
 libscitypes_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION) $(LD_FLAGS)  $(X_LIBS) $(X_EXTRA_LIBS)
 
@@ -156,13 +180,17 @@ INCLUDE_FLAGS = $(libscitypes_la_CFLAGS)
 
 
 #### SWIG Declaration ####
-SWIG_WRAPPERS = src/jni/sci_types.i
+SWIG_WRAPPERS = src/jni/sci_types.i \
+		src/jni/getScilabVariable.i
 
 
 if SWIG
 BUILT_SOURCES=swig
 endif
 
+if GIWS
+BUILT_SOURCES += giws-exception
+endif
 
 #### types : gateway declaration ####
 libscitypes_la_sci_gatewaydir = $(mydatadir)/sci_gateway

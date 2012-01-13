@@ -40,6 +40,9 @@
     <ClInclude Include="..\..\includes\gw_signal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="conv2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LibScilab_Import.def">
