@@ -135,7 +135,50 @@ bool execScilabStart(void);
 
 int StartScilabEngine(int argc, char*argv[], int iFileIndex, int iLangIndex);
 static Parser::ControlStatus processCommand(char* _pstCommand);
+/*
+ * Private function to check any linker errors
+ */
 
+extern "C"
+{
+/* Defined without include to avoid useless header dependency */
+extern BOOL isItTheDisabledLib(void);
+}
+
+static void checkForLinkerErrors(void)
+{
+/*
+   Depending on the linking order, sometime, libs are not loaded the right way.
+   This can cause painful debugging tasks for packager or developer, we are
+   doing the check to help them.
+*/
+#define LINKER_ERROR_1 "Scilab startup function detected that the function proposed to the engine is the wrong one. Usually, it comes from a linker problem in your distribution/OS.\n"
+#define LINKER_ERROR_2 "If you do not know what it means, please report a bug on http://bugzilla.scilab.org/. If you do, you probably know that you should change the link order in SCI/modules/Makefile.am\n"
+    if (getScilabMode() != SCILAB_NWNI)
+    {
+        if (isItTheDisabledLib())
+        {
+            fprintf(stderr, LINKER_ERROR_1);
+            fprintf(stderr, "Here, Scilab should have 'libscijvm' defined but gets 'libscijvm-disable' instead.\n");
+            fprintf(stderr, LINKER_ERROR_2);
+            exit(1);
+
+        }
+    }
+    else
+    {
+        /* NWNI mode */
+        if (!isItTheDisabledLib())
+        {
+            fprintf(stderr, LINKER_ERROR_1);
+            fprintf(stderr, "Here, Scilab should have 'libscijvm-disable' defined but gets 'libscijvm' instead.\n");
+            fprintf(stderr, LINKER_ERROR_2);
+            exit(1);
+        }
+    }
+#undef LINKER_ERROR_1
+#undef LINKER_ERROR_2
+}
 /*
 ** Usage
 **
@@ -307,6 +350,7 @@ static int interactiveMain (void)
     char *command = NULL;
     Parser::ControlStatus controlStatus = Parser::AllControlClosed;
 
+    checkForLinkerErrors();
     if(noBanner == false)
     {
         //banner();
