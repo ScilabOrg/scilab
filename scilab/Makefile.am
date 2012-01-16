@@ -56,7 +56,7 @@ COMMON_LIBS = \
 SCILAB_LIB=$(top_builddir)/modules/libscilab.la
 SCILAB_CLI_LIB=$(top_builddir)/modules/libscilab-cli.la
 
-COMMON_CPPFLAGS = \ 
+COMMON_CPPFLAGS = \
     -I$(top_srcdir)/modules/console/includes/ \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
     -I$(top_srcdir)/modules/parse/includes/ \
