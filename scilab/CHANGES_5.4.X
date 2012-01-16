@@ -71,7 +71,7 @@ Xcos
 * Bug #10499 fixed - lincos example in help file returned warning and error.
 
 * Bug #10520 fixed - The fact that ceil(x), floor(x), round(x) or fix(x) could
-                     manage complex matrices has not clearly stated in the doc.
+                     manage complex matrices was not clearly stated in the doc.
 
 
 Unitary testing
@@ -227,6 +227,9 @@ Bug fixes
                      was not square.
 
 * Bug #10526 fixed - A string was in French in the English help page of cumprod.
+
+* Bug #10532 fixed - In some rare cases, browsevar crashed with some rare
+                     Scilab types.
 
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
