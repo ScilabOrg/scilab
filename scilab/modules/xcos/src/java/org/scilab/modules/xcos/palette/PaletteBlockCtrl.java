@@ -12,6 +12,9 @@
 
 package org.scilab.modules.xcos.palette;
 
+import static org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.buildCall;
+import static org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.synchronousScilabExec;
+
 import java.awt.Point;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
@@ -23,6 +26,7 @@ import java.awt.event.MouseListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.localization.Messages;
@@ -30,8 +34,8 @@ import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.block.BlockFactory.BlockInterFunction;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
+import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.palette.listener.PaletteBlockMouseListener;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.view.PaletteBlockView;
@@ -59,10 +63,8 @@ public final class PaletteBlockCtrl {
     private static final MouseListener MOUSE_LISTENER = new PaletteBlockMouseListener();
     private static final Log LOG = LogFactory.getLog(PaletteBlockCtrl.class);
 
-    private static final String UNABLE_TO_LOAD_BLOCK = Messages
-            .gettext("Unable to load block from %s .");
-    private static final String LOADING_THE_BLOCK = Messages
-            .gettext("Loading the block") + XcosMessages.DOTS;
+    private static final String UNABLE_TO_LOAD_BLOCK = Messages.gettext("Unable to load block : %s .");
+    private static final String LOADING_THE_BLOCK = Messages.gettext("Loading the block") + XcosMessages.DOTS;
 
     private static PaletteBlockCtrl previouslySelected;
 
@@ -73,7 +75,7 @@ public final class PaletteBlockCtrl {
 
     /**
      * Default constructor
-     * 
+     *
      * @param model
      *            the block data
      */
@@ -108,12 +110,12 @@ public final class PaletteBlockCtrl {
 
     /**
      * This function is the only access to get the block.
-     * 
+     *
      * @return the transferable object
      * @throws ScicosFormatException
      *             on decoding error
      */
-    public Transferable getTransferable() throws ScicosFormatException {
+    public synchronized Transferable getTransferable() throws ScicosFormatException {
         if (transferable == null) {
             /* Load the block from the H5 file */
             BasicBlock block;
@@ -125,8 +127,7 @@ public final class PaletteBlockCtrl {
             }
             if (block == null) {
                 if (LOG.isInfoEnabled()) {
-                    LOG.info(String.format(UNABLE_TO_LOAD_BLOCK, getModel()
-                            .getData().getEvaluatedPath()));
+                    LOG.info(String.format(UNABLE_TO_LOAD_BLOCK, getModel().getName()));
                 }
                 getView().setEnabled(false);
                 throw new InvalidDnDOperationException();
@@ -142,10 +143,8 @@ public final class PaletteBlockCtrl {
 
             INTERNAL_GRAPH.updateCellSize(block, false);
 
-            mxGraphTransferHandler handler = ((mxGraphTransferHandler) INTERNAL_GRAPH
-                    .getAsComponent().getTransferHandler());
-            transferable = handler.createTransferable(INTERNAL_GRAPH
-                    .getAsComponent());
+            mxGraphTransferHandler handler = ((mxGraphTransferHandler) INTERNAL_GRAPH.getAsComponent().getTransferHandler());
+            transferable = handler.createTransferable(INTERNAL_GRAPH.getAsComponent());
 
             INTERNAL_GRAPH.removeCells();
         }
@@ -160,9 +159,14 @@ public final class PaletteBlockCtrl {
     private BasicBlock loadBlock() throws ScicosFormatException {
         BasicBlock block;
         if (model.getName().compareTo("TEXT_f") != 0) {
-            // Load the block from the file
-            String realPath = model.getData().getEvaluatedPath();
-            block = new H5RWHandler(realPath).readBlock();
+            // Load the block with a reference instance
+            try {
+                synchronousScilabExec(ScilabDirectHandler.BLK + " = " + buildCall(model.getName(), "define"));
+                block = new ScilabDirectHandler().readBlock();
+            } catch (InterpreterException e1) {
+                LOG.error(e1);
+                block = null;
+            }
 
             // invalid block case
             if (block == null) {
@@ -182,13 +186,12 @@ public final class PaletteBlockCtrl {
      * This function load the block and render it on the hidden diagram. This
      * can be time-consuming and each block should be cached on the caller when
      * possible.
-     * 
+     *
      * @return a rendered block
      */
     public BasicBlock getBlock() {
         try {
-            return (BasicBlock) ((mxGraphTransferable) getTransferable())
-                    .getCells()[0];
+            return (BasicBlock) ((mxGraphTransferable) getTransferable()).getCells()[0];
         } catch (ScicosFormatException e) {
             LogFactory.getLog(PaletteBlockCtrl.class).error(e);
             return null;
@@ -229,25 +232,21 @@ public final class PaletteBlockCtrl {
                 }
                 final PaletteManagerView winView = PaletteManagerView.get();
                 final DragGestureEvent event = e;
-                final String msg = String.format(UNABLE_TO_LOAD_BLOCK,
-                        getModel().getData().getEvaluatedPath());
+                final String msg = String.format(UNABLE_TO_LOAD_BLOCK, getModel().getName());
 
                 winView.setInfo(LOADING_THE_BLOCK);
                 try {
                     Transferable transfer = getTransferable();
 
                     if (transfer != null) {
-                        event.startDrag(null, null,
-                                new Point(), transfer, null);
+                        event.startDrag(null, null, new Point(), transfer, null);
                     } else {
                         throw new InvalidDnDOperationException();
                     }
                 } catch (InvalidDnDOperationException exception) {
-                    ScilabModalDialog.show(winView, msg,
-                            XcosMessages.XCOS_ERROR, IconType.ERROR_ICON);
+                    ScilabModalDialog.show(winView, msg, XcosMessages.XCOS_ERROR, IconType.ERROR_ICON);
                 } catch (ScicosFormatException ex) {
-                    ScilabModalDialog.show(winView, ex.getMessage(),
-                            XcosMessages.XCOS_ERROR, IconType.ERROR_ICON);
+                    ScilabModalDialog.show(winView, ex.getMessage(), XcosMessages.XCOS_ERROR, IconType.ERROR_ICON);
                 } finally {
                     winView.setInfo(XcosMessages.EMPTY_INFO);
                 }
@@ -256,7 +255,6 @@ public final class PaletteBlockCtrl {
         };
 
         DragSource dragSource = DragSource.getDefaultDragSource();
-        dragSource.createDefaultDragGestureRecognizer(this.getView(),
-                DnDConstants.ACTION_COPY, dragGestureListener);
+        dragSource.createDefaultDragGestureRecognizer(this.getView(), DnDConstants.ACTION_COPY, dragGestureListener);
     }
 }
