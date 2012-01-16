@@ -52,6 +52,7 @@
     <pathelement location="${library.types.dir}/${library.types.name}"/>
     <pathelement location="${library.graph.dir}/${library.graph.name}"/>
     <pathelement location="${library.xcos.dir}/${library.xcos.name}"/>
+    <pathelement location="${library.ui_data.dir}/${library.ui_data.name}"/>
     <pathelement location="${library.hdf5.dir}/${library.hdf5.name}"/>
     <pathelement location="${library.scinotes.dir}/${library.scinotes.name}"/>
     <pathelement location="${library.localization.dir}/${library.localization.name}"/>
