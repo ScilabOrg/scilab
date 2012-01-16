@@ -50,7 +50,7 @@
         <term>y</term>
         
         <listitem>
-          <para>integer or complex (with integer real and imag) matrix</para>
+          <para>Real or complex matrix with integer values</para>
         </listitem>
       </varlistentry>
     </variablelist>

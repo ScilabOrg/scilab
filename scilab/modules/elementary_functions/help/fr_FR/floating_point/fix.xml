@@ -36,7 +36,8 @@
       <varlistentry>
         <term>y  </term>
         <listitem>
-          <para>matrice d'entiers ou de complexes
+          <para>matrice d'entiers ou d'entiers complexes
+            
           </para>
         </listitem>
       </varlistentry>

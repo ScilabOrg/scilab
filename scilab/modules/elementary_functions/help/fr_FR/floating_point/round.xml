@@ -38,8 +38,7 @@
         <term>y</term>
         
         <listitem>
-          <para>matrice entière (ou complexe avec parties réelle et imaginaire
-            entières)
+          <para>matrice d'entiers ou d'entiers complexes
           </para>
         </listitem>
       </varlistentry>

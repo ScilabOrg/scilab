@@ -71,7 +71,7 @@ Xcos
 * Bug #10499 fixed - lincos example in help file returned warning and error.
 
 * Bug #10520 fixed - The fact that ceil(x), floor(x), round(x) or fix(x) could
-                     manage complex matrices has not clearly stated in the doc.
+                     manage complex matrices was not clearly stated in the doc.
 
 
 Unitary testing
