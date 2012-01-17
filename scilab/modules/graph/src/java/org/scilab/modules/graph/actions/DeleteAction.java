@@ -16,6 +16,7 @@ package org.scilab.modules.graph.actions;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import org.scilab.modules.graph.ScilabComponent;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.OneSelectionDependantAction;
 import org.scilab.modules.graph.utils.ScilabGraphMessages;
@@ -68,7 +69,15 @@ public final class DeleteAction extends OneSelectionDependantAction {
 	 */
 	@Override
     public void actionPerformed(ActionEvent e) {
-    	getGraph(e).removeCells(getGraph(e).getSelectionCells());
+		final ScilabGraph graph = getGraph(e);
+
+		// action disabled when the cell is edited
+		final ScilabComponent comp = ((ScilabComponent) graph.getAsComponent());
+		if (comp.isEditing()) {
+			return;
+		}
+
+		graph.removeCells(graph.getSelectionCells());
 	}
 
 }

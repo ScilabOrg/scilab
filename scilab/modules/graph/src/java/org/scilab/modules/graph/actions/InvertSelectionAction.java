@@ -15,6 +15,7 @@ package org.scilab.modules.graph.actions;
 
 import java.awt.event.ActionEvent;
 
+import org.scilab.modules.graph.ScilabComponent;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.VertexSelectionDependantAction;
 import org.scilab.modules.graph.utils.ScilabGraphMessages;
@@ -56,8 +57,16 @@ public final class InvertSelectionAction extends VertexSelectionDependantAction 
 	 * @see org.scilab.modules.gui.events.callback.CallBack#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent e) {
-		Object[] all = getGraph(e).getSelectionCells();
-		getGraph(e).selectAll();
-		getGraph(e).removeSelectionCells(all);
+		final ScilabGraph graph = getGraph(e);
+
+		// action disabled when the cell is edited
+		final ScilabComponent comp = ((ScilabComponent) graph.getAsComponent());
+		if (comp.isEditing()) {
+			return;
+		}
+		
+		Object[] all = graph.getSelectionCells();
+		graph.selectAll();
+		graph.removeSelectionCells(all);
 	}
 }
