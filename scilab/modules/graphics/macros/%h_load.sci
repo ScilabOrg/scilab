@@ -57,7 +57,7 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     [lnums, fnames] = where();
     ind = grep(fnames, 'xload');
     xload_mode = (ind ~= []);
-
+  disp(typ);
   select typ
   case "Figure"
     if xload_mode then
@@ -619,9 +619,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
 
     if is_higher_than([3 0 0 0]) then
       if ascii(mget(1,characterFormat,fd))=='t' then // mark_size_unit
-	msu='tabulated' ;
+          msu='tabulated' ;
       else
-	msu='point';
+          msu='point';
       end
       mark_foreground=mget(1,'il',fd) // mark_foreground
       mark_background=mget(1,'il',fd) // mark_background
