@@ -5,6 +5,8 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // <-- JVM NOT MANDATORY -->
 
 // <-- Non-regression test for bug 4734 -->
@@ -21,6 +23,7 @@ for i=1:1000
   t = [t string(i)];
 end
 t = t';
+warning("off");
 save(TMPDIR + filesep() + 'pb.dat',t);
 clear t;
 
