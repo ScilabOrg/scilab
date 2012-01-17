@@ -7,6 +7,8 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // <-- Non-regression test for bug 6665 -->
 //
 // <-- Bugzilla URL -->
@@ -17,7 +19,7 @@
 plot2d();
 legend(['a';'b';'c']);
 f=gcf();
-save(TMPDIR+'/foo.scg',f);
+save(TMPDIR+'/foo.scg','f');
 clf();
 load(TMPDIR+'/foo.scg');
 if f.children.children(1).type<>'Legend' then pause,end

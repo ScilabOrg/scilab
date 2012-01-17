@@ -5,6 +5,7 @@
 //// This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK ERROR OUTPUT -->
 //
 // <-- Non-regression test for bug 4811 -->
 //
@@ -16,7 +17,7 @@
 plot3d();
 h = gcf();
 tmp_file=pathconvert(TMPDIR+'/nonreg_test_bug4811.dat',%f);
-save(tmp_file,h);
+save(tmp_file,"h");
 // close the figure
 delete(h);
 load(tmp_file);

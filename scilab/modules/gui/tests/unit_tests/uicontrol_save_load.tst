@@ -12,6 +12,8 @@
 //  - SCI/modules/graphics/macros/%h_save.sci
 //  - SCI/modules/graphics/macros/%h_load.sci
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // Create an uimenu
 f = scf(0);
 h = uicontrol("parent", f, "style", "frame"); // Default style is pushbutton
@@ -42,7 +44,7 @@ h.user_data = list("hello", "Scilab", 5);
 h.tag = "My uimenu tag"; // Default is ""
 
 // Save figure contents
-save(TMPDIR + "/uicontrol.scg", h);
+save(TMPDIR + "/uicontrol.scg", "h");
 
 hsaved = h;
 clear h;

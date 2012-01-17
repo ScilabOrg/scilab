@@ -12,6 +12,8 @@
 //  - SCI/modules/graphics/macros/%h_save.sci
 //  - SCI/modules/graphics/macros/%h_load.sci
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // Create an uimenu
 f = scf(0);
 h = uimenu("parent", f);
@@ -25,7 +27,7 @@ h.callback_type = 1; // Default is 0
 h.tag = "My uimenu tag"; // Default is ""
 
 // Save figure contents
-save(TMPDIR + "/uimenu.scg", h);
+save(TMPDIR + "/uimenu.scg", "h");
 
 hsaved = h;
 clear h;

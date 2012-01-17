@@ -7,6 +7,8 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // <-- Non-regression test for bug 4236 -->
 //
 // <-- Bugzilla URL -->
@@ -20,7 +22,8 @@ x = [1:2]';
 y = [1:4];
 z = cos(x)*cos(y);
 grayplot(x,y,z);
-save(TMPDIR + "/save.scg", gcf());
+f = gcf();
+save(TMPDIR + "/save.scg", "f");
 close
 load(TMPDIR + "/save.scg");
 e = gce();

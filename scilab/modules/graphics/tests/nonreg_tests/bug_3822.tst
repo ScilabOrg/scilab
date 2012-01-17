@@ -7,6 +7,8 @@
 
 // <-- TEST WITH GRAPHIC -->
 
+// <-- NO CHECK ERROR OUTPUT -->
+
 // <-- Non-regression test for bug 3822 -->
 //
 // <-- Bugzilla URL -->
@@ -20,7 +22,7 @@ f = gcf();
 f.auto_resize='off';
 f.figure_size = [300 300];
 f.viewport = [110 130];
-save('foo.sav',f);
+save('foo.sav',"f");
 delete(f)
 load('foo.sav')
 f = gcf();

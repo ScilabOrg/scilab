@@ -5,6 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK ERROR OUTPUT -->
 // <-- Non-regression test for bug 3975 -->
 //
 // <-- Bugzilla URL -->
@@ -15,7 +16,7 @@
 // into the current one
 f13 = scf(13);
 plot(1:5);
-save(TMPDIR + "/save.scg", f13);
+save(TMPDIR + "/save.scg", "f13");
 f6 = scf(6);
 xload(TMPDIR + "/save.scg");
 // Check whether the curve's compound object has been loaded

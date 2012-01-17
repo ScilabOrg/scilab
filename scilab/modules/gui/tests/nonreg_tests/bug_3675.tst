@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH GRAPHIC -->
+// <-- NO CHECK ERROR OUTPUT -->
 
 //
 // <-- Non-regression test for bug 3675 -->
@@ -15,6 +16,8 @@
 //
 // <-- Short Description -->
 //    Scilab 5.0.2 has issues when saving/loading gui (uicontrols,figure...)
+
+warning("off");
 
 f=figure();
 
