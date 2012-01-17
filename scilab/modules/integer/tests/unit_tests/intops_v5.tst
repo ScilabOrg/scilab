@@ -7,6 +7,8 @@
 
 // <-- NO CHECK ERROR OUTPUT -->
 
+warning("off");
+
 funcprot(0);
 
 //extractions
@@ -415,20 +417,20 @@ deff('y=INT(x)','y=uint8(x)')
 X=round(10*rand(1,30));
 x=INT(X);
 
-save(TMPDIR+'/foo','x')
+save(TMPDIR+'/foo',x)
 clear x;load(TMPDIR+'/foo');if or(x<>INT(X)) then pause,end
 
-x=list(1,x,2);save(TMPDIR+'/foo','x')
+x=list(1,x,2);save(TMPDIR+'/foo',x)
 clear x;load(TMPDIR+'/foo');if or(x<>list(1,INT(X),2)) then pause,end
 
 deff('y=INT(x)','y=int32(x)')
 X=round(10*rand(1,30));
 x=INT(X);
 
-save(TMPDIR+'/foo','x')
+save(TMPDIR+'/foo',x)
 clear x;load(TMPDIR+'/foo');if or(x<>INT(X)) then pause,end
 
-x=list(1,x,2);save(TMPDIR+'/foo','x')
+x=list(1,x,2);save(TMPDIR+'/foo',x)
 clear x;load(TMPDIR+'/foo');if or(x<>list(1,INT(X),2)) then pause,end
 
 
