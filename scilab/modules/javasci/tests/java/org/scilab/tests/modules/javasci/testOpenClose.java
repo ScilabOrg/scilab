@@ -12,6 +12,8 @@
 package org.scilab.tests.modules.javasci;
 
 import org.testng.annotations.*;
+import static org.testng.AssertJUnit.*;
+
 import java.io.IOException;
 
 import org.scilab.modules.javasci.Scilab;
@@ -36,67 +38,67 @@ public class testOpenClose {
     @BeforeMethod
     public void openTest() throws NullPointerException, JavasciException {
         sci = new Scilab();
-        assert sci.open() == true;
+        assertTrue(sci.open());
     }
 
     @Test(sequential = true)
     public void multipleOpenCloseTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
-        assert sci.open() == true;
-        assert sci.close() == true;
+        assertEquals(sci.close(), true);
+        assertTrue(sci.open());
+        assertEquals(sci.close(), true);
     }
 
     @Test(sequential = true, expectedExceptions = JavasciException.class)
     public void specificWrongSCIPathTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
+        assertEquals(sci.close(), true);
         sci = new Scilab(System.getProperty("java.io.tmpdir")+"/non-existing-directory-scilab/");
     }
 
 
     @Test(sequential = true)
     public void specificPropertySCIPathTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
+        assertEquals(sci.close(), true);
         sci = new Scilab(System.getProperty("SCI"));
     }
 
     @Test(sequential = true)
     public void specificEnvSCIPathTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
+        assertEquals(sci.close(), true);
         String SCIPath = System.getProperty("SCI"); // Temp backup to set it again
         System.clearProperty("SCI"); // Remove the property to check it is using the variable
         sci = new Scilab();
-        assert sci.open("a=42*2;") == true;
+        assertEquals(sci.open("a=42*2;") , true);
 
     }
 
     @Test(sequential = true)
     public void OpenWithJobTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
-        assert sci.open("a=42*2;") == true;
+        assertEquals(sci.close(), true);
+        assertEquals(sci.open("a=42*2;") , true);
 
         ScilabType a = sci.get("a");
 
-        assert ((ScilabDouble)a).getRealPart()[0][0] == 84.0;
+        assertEquals(((ScilabDouble)a).getRealPart()[0][0] , 84.0);
     }
 
     @Test(sequential = true)
     public void OpenWithJobsTest() throws NullPointerException, JavasciException {
-        assert sci.close() == true;
-        assert sci.open(new String[]{"a=42*2;","b=44*2", "c=(a==b)"}) == true;
+        assertEquals(sci.close(), true);
+        assertEquals(sci.open(new String[]{"a=42*2;","b=44*2", "c=(a==b)"}) , true);
 
         ScilabType a = sci.get("a");
-        assert ((ScilabDouble)a).getRealPart()[0][0] == 84.0;
+        assertEquals(((ScilabDouble)a).getRealPart()[0][0] , 84.0);
 
         ScilabType b = sci.get("b");
-        assert ((ScilabDouble)b).getRealPart()[0][0] == 88.0;
+        assertEquals(((ScilabDouble)b).getRealPart()[0][0] , 88.0);
 
         ScilabType c = sci.get("c");
-        assert ((ScilabBoolean)c).getData()[0][0] == false;
+        assertEquals(((ScilabBoolean)c).getData()[0][0] , false);
     }
 
     @Test(sequential = true, expectedExceptions = JavasciException.class)
     public void OpenMultipleTimeTest() throws NullPointerException, JavasciException {
-        assert sci.open("a=42*2;") == true;
+        assertEquals(sci.open("a=42*2;") , true);
 
     }
 
