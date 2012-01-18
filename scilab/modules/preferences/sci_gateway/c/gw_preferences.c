@@ -24,8 +24,8 @@ static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/
 static gw_generic_table Tab[]=
 {
-    {sci_addToolboxInfos, "addToolboxInfos"},
-    {sci_removeToolboxInfos, "removeToolboxInfos"}
+    {sci_addToolboxInfos, "addModulePreferences"},
+    {sci_removeToolboxInfos, "removeModulePreferences"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_preferences(void)
