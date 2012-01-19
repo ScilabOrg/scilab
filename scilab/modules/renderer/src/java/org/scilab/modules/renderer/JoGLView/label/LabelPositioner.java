@@ -14,6 +14,7 @@ package org.scilab.modules.renderer.JoGLView.label;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
+import org.scilab.forge.scirenderer.tranformations.DegenerateMatrixException;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.Vector3d;
@@ -175,7 +176,8 @@ public abstract class LabelPositioner {
          * Returns the label's user position.
          * @return the label user position.
          */
-        public Vector3d getLabelUserPosition() {
+        public Vector3d
+        getLabelUserPosition() {
                 return labelUserPosition;
         }
 
@@ -405,37 +407,43 @@ public abstract class LabelPositioner {
          * @return the label's lower-left corner position.
          */
         public Vector3d getLowerLeftCornerPosition() {
-                Transformation canvasProjection = drawingTools.getTransformationManager().getCanvasProjection();
-                Vector3d labelPoint = new Vector3d(anchorPoint);
+            Transformation canvasProjection = drawingTools.getTransformationManager().getCanvasProjection();
+            Vector3d labelPoint = new Vector3d(anchorPoint);
 
-                /*
-                 * Ought to be -rotationAngle as positive angle values are measured clockwise for labels.
-                 * Apparently uses the same convention as the labels (clockwise positive directions).
-                 * To be verified.
-                 */
-                Transformation winRotation = TransformationFactory.getRotationTransformation(rotationAngle, 0.0, 0.0, 1.0);
+            /*
+             * Ought to be -rotationAngle as positive angle values are measured clockwise for labels.
+             * Apparently uses the same convention as the labels (clockwise positive directions).
+             * To be verified.
+             */
+            Transformation winRotation = null;
+            try {
+                winRotation = TransformationFactory.getRotationTransformation(rotationAngle, 0.0, 0.0, 1.0);
+            } catch (DegenerateMatrixException e) {
+                // Should never happen, as long as the rotation axes is (0, 0, 1) and not zero.
+                winRotation = TransformationFactory.getIdentity();
+            }
 
-                Vector3d projHalfWidth = new Vector3d(0.5 * (double) labelSprite.getWidth(), 0.0, 0.0);
-                Vector3d projHalfHeight = new Vector3d(0.0, 0.5 * (double) labelSprite.getHeight(), 0.0);
+            Vector3d projHalfWidth = new Vector3d(0.5 * (double) labelSprite.getWidth(), 0.0, 0.0);
+            Vector3d projHalfHeight = new Vector3d(0.0, 0.5 * (double) labelSprite.getHeight(), 0.0);
 
-                projHalfWidth = winRotation.projectDirection(projHalfWidth);
-                projHalfHeight = winRotation.projectDirection(projHalfHeight);
+            projHalfWidth = winRotation.projectDirection(projHalfWidth);
+            projHalfHeight = winRotation.projectDirection(projHalfHeight);
 
-                Vector3d projLabelPoint = canvasProjection.project(labelPoint);
+            Vector3d projLabelPoint = canvasProjection.project(labelPoint);
 
-                Vector3d projRightPoint = projLabelPoint.plus(projHalfWidth);
-                Vector3d unprojRightPoint = canvasProjection.unproject(projRightPoint);
+            Vector3d projRightPoint = projLabelPoint.plus(projHalfWidth);
+            Vector3d unprojRightPoint = canvasProjection.unproject(projRightPoint);
 
-                Vector3d halfWidth = unprojRightPoint.minus(labelPoint);
+            Vector3d halfWidth = unprojRightPoint.minus(labelPoint);
 
-                Vector3d projUpperPoint = projLabelPoint.plus(projHalfHeight);
-                Vector3d unprojUpperPoint = canvasProjection.unproject(projUpperPoint);
+            Vector3d projUpperPoint = projLabelPoint.plus(projHalfHeight);
+            Vector3d unprojUpperPoint = canvasProjection.unproject(projUpperPoint);
 
-                Vector3d halfHeight = unprojUpperPoint.minus(labelPoint);
+            Vector3d halfHeight = unprojUpperPoint.minus(labelPoint);
 
-                Vector3d cornerPosition = computeLowerLeftCornerPosition(halfWidth, halfHeight);
+            Vector3d cornerPosition = computeLowerLeftCornerPosition(halfWidth, halfHeight);
 
-                return cornerPosition;
+            return cornerPosition;
         }
 
 }
