@@ -64,16 +64,19 @@ import org.scilab.modules.xcos.graph.DiagramComparator;
 import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.H5RWHandler;
+import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.palette.PaletteBlockCtrl;
 import org.scilab.modules.xcos.palette.PaletteManager;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.model.PreLoaded;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
+import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosFileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
+import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.util.mxEvent;
 import com.mxgraph.util.mxEventObject;
@@ -848,10 +851,7 @@ public final class Xcos {
             SwingUtilities.invokeAndWait(new Runnable() {
                     @Override
                     public void run() {
-                        final ArrayDeque<String> deque = new ArrayDeque<String>(
-                            Arrays.asList(uid));
-
-                        warnCellByUID(deque, message);
+                        getInstance().warnCell(uid, message);
                     }
                 });
         } catch (final InterruptedException e) {
@@ -868,61 +868,17 @@ public final class Xcos {
         }
     }
 
-    private static void warnCellByUID(final ArrayDeque<String> deque, final String message) {
-        String id;
-        BasicBlock block = null;
-        Collection<XcosDiagram> diags = null;
-
-        // specific case with an empty array
-        if (deque.isEmpty()) {
-            return;
-        }
-
-        // first element
-        id = deque.pop();
-        try {
-            getInstance().onDiagramIteration = true;
-
-            for (Collection<XcosDiagram> ds : getInstance().diagrams.values()) {
-                if (ds.isEmpty()) {
-                    continue;
-                }
-
-                final XcosDiagram root = ds.iterator().next();
-
-                block = (BasicBlock) ((mxGraphModel) root.getModel()).getCell(id);
-                if (block != null) {
-                    diags = ds;
-                    break;
-                }
-            }
-        } finally {
-            getInstance().onDiagramIteration = false;
-        }
-
-        // loop to get only the last diagram
-        while (block instanceof SuperBlock && !deque.isEmpty()) {
-            block.getParentDiagram().warnCellByUID(block.getId(), XcosMessages.ERROR_UNABLE_TO_COMPILE_THIS_SUPER_BLOCK);
-
-            final SuperBlock superBlock = (SuperBlock) block;
-            id = deque.pop();
-
-            if (!diags.contains(superBlock.getChild()) || !superBlock.getChild().isOpened()) {
-                block.openBlockSettings(null);
-            }
-
-            final mxGraphModel model = ((mxGraphModel) superBlock.getChild().getModel());
-            block = (BasicBlock) model.getCell(id);
-        }
+    private void warnCell(final String[] uid, final String message) {
+        final mxCell cell = (mxCell) lookupForCell(uid);
 
         // We are unable to find the block with the right id
-        if (block == null) {
+        if (cell == null) {
             return;
         }
 
         // finally perform the action on the last block
-        final XcosDiagram parent = findParent(block);
-        parent.warnCellByUID(block.getId(), message);
+        final XcosDiagram parent = findParent(cell);
+        parent.warnCellByUID(cell.getId(), message);
 
         SwingUtilities.invokeLater(new Runnable() {
                 @Override
@@ -934,8 +890,117 @@ public final class Xcos {
                 }
             });
     }
+    
+    private Object lookupForCell(final String[] uid) {
+        final ArrayDeque<String> deque = new ArrayDeque<String>(Arrays.asList(uid));
+        
+        // specific case with an empty array
+        if (deque.isEmpty()) {
+            return null;
+        }
+    	
+        // first element
+        Object cell = null;
+        Collection<XcosDiagram> diags = null;
+        String id = deque.pop();
+        try {
+            onDiagramIteration = true;
 
-    /**
+            for (Collection<XcosDiagram> ds : diagrams.values()) {
+                if (ds.isEmpty()) {
+                    continue;
+                }
+
+                final XcosDiagram root = ds.iterator().next();
+
+                cell = ((mxGraphModel) root.getModel()).getCell(id);
+                if (cell != null) {
+                    diags = ds;
+                    break;
+                }
+            }
+        } finally {
+            onDiagramIteration = false;
+        }
+        
+        // loop to get only the last diagram
+        while (cell instanceof SuperBlock && !deque.isEmpty()) {
+            final SuperBlock block = (SuperBlock) cell;
+            
+            block.getParentDiagram().warnCellByUID(block.getId(), XcosMessages.ERROR_UNABLE_TO_COMPILE_THIS_SUPER_BLOCK);
+
+            id = deque.pop();
+
+            if (!diags.contains(block.getChild()) || !block.getChild().isOpened()) {
+                block.openBlockSettings(null);
+            }
+
+            final mxGraphModel model = ((mxGraphModel) block.getChild().getModel());
+            cell = model.getCell(id);
+        }
+        
+        return cell;
+    }
+
+    @ScilabExported(module="xcos", filename="Xcos.giws.xml")
+    public static void updateBlock(final String h5File, final String[] uid) {
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        getInstance().updateCell(h5File, uid);
+                    }
+                });
+        } catch (final InterruptedException e) {
+            LOG.error(e);
+        } catch (final InvocationTargetException e) {
+            Throwable throwable = e;
+            String firstMessage = null;
+            while (throwable != null) {
+                firstMessage = throwable.getLocalizedMessage();
+                throwable = throwable.getCause();
+            }
+
+            throw new RuntimeException(firstMessage, e);
+        }
+    }
+    
+    private void updateCell(final String h5File, final String[] uid) {
+    	final BasicBlock block = (BasicBlock) lookupForCell(uid);
+    	
+    	if (block == null) {
+    		final StringBuilder str = new StringBuilder();
+    		for (String id : uid) {
+				str.append(id);
+			}
+    		
+    		throw new RuntimeException(String.format(Messages.gettext("unable to find %s ."), str.toString()));
+    	}
+    	
+        BasicBlock modifiedBlock;
+		try {
+			modifiedBlock = new H5RWHandler(h5File).readBlock();
+		} catch (ScicosFormatException e) {
+			throw new RuntimeException(e);
+		}
+
+        block.updateBlockSettings(modifiedBlock);
+        block.setInterfaceFunctionName(modifiedBlock
+                .getInterfaceFunctionName());
+        block.setSimulationFunctionName(modifiedBlock
+                .getSimulationFunctionName());
+        block.setSimulationFunctionType(modifiedBlock
+                .getSimulationFunctionType());
+        if (block instanceof SuperBlock) {
+        	((SuperBlock) block).setChild(null);
+        }
+
+        block.setStyle(block.getStyle() + ";blockWithLabel");
+        block.setValue(block.getSimulationFunctionName());
+        BlockPositioning.updateBlockView(block);
+	}
+
+	/**
      * This function convert a Xcos diagram to Scilab variable.
      *
      * This method invoke Xcos operation on the EDT thread.

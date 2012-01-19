@@ -39,6 +39,8 @@ Xcos
 
 * xcosAddToolsMenu function added (SEP #074)
 
+* xcosUpdateBlock function added
+
 * Bug #6733 fixed - Each call to xcos created an empty diagram.
 
 * Bug #7863 fixed - Default path for code generation was SCI.

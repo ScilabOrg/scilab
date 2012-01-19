@@ -112,6 +112,7 @@ jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_Stringjbooleanboole
 voidxcosDiagramOpenjobjectArray_java_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_StringID=NULL;
 voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
+voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID=NULL;
 
 
 }
@@ -142,6 +143,7 @@ jintxcosDiagramToHDF5jstringjava_lang_Stringjstringjava_lang_Stringjbooleanboole
 voidxcosDiagramOpenjobjectArray_java_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_StringID=NULL;
 voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
+voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID=NULL;
 
 
 }
@@ -423,6 +425,71 @@ throw GiwsException::JniBadAllocException(curEnv);
                          curEnv->CallStaticVoidMethod(cls, voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID ,label_, command_);
                         curEnv->DeleteLocalRef(label_);
 curEnv->DeleteLocalRef(command_);
+curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+}
+
+void Xcos::updateBlock (JavaVM * jvm_, char ** h5File, int h5FileSize, char ** uid, int uidSize){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID = curEnv->GetStaticMethodID(cls, "updateBlock", "([Ljava/lang/String;[Ljava/lang/String;)V" ) ;
+if (voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "updateBlock");
+}
+jclass stringArrayClass = curEnv->FindClass("java/lang/String");
+
+// create java array of strings.
+jobjectArray h5File_ = curEnv->NewObjectArray( h5FileSize, stringArrayClass, NULL);
+if (h5File_ == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+// convert each char * to java strings and fill the java array.
+for ( int i = 0; i < h5FileSize; i++)
+{
+jstring TempString = curEnv->NewStringUTF( h5File[i] );
+if (TempString == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+curEnv->SetObjectArrayElement( h5File_, i, TempString);
+
+// avoid keeping reference on to many strings
+curEnv->DeleteLocalRef(TempString);
+}
+
+// create java array of strings.
+jobjectArray uid_ = curEnv->NewObjectArray( uidSize, stringArrayClass, NULL);
+if (uid_ == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+// convert each char * to java strings and fill the java array.
+for ( int i = 0; i < uidSize; i++)
+{
+jstring TempString = curEnv->NewStringUTF( uid[i] );
+if (TempString == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
+curEnv->SetObjectArrayElement( uid_, i, TempString);
+
+// avoid keeping reference on to many strings
+curEnv->DeleteLocalRef(TempString);
+}
+                         curEnv->CallStaticVoidMethod(cls, voidupdateBlockjobjectArray_java_lang_StringjobjectArray_java_lang_StringID ,h5File_, uid_);
+                        curEnv->DeleteLocalRef(stringArrayClass);
+curEnv->DeleteLocalRef(h5File_);
+curEnv->DeleteLocalRef(uid_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);

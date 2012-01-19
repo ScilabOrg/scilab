@@ -25,5 +25,9 @@
       <parameter name="label" type="String"/>
       <parameter name="command" type="String"/>
     </method>
+    <method name="updateBlock" returnType="void" modifier="static">
+      <parameter name="h5File" type="String[]"/>
+      <parameter name="uid" type="String[]"/>
+    </method>
   </object>
 </package>
