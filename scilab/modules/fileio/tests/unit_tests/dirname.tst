@@ -9,7 +9,10 @@
 // Unitary tests for dirname function
 // ============================================================================
 //
-REF = pathconvert(getlongpathname(SCI + '/modules/fileio/macros'), %F);
+pwm = warning('query'); // remove warning obsolete
+warning('off');
+
+REF = pathconvert(getlongpathname(SCI + '/modules/fileio/macros'), %F,%F);
 pathRes = dirname('SCI/modules/fileio/macros/.myfile');
 assert_checkequal(pathRes, REF);
 
@@ -53,3 +56,5 @@ assert_checkequal(ierr, 999);
 
 ierr = execstr('dirname(SCI,%t,1)','errcatch');
 assert_checkequal(ierr, 999);
+
+warning(pwm);

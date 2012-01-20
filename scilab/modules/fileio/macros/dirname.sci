@@ -13,9 +13,11 @@ function [files]= dirname(files,flag,flagexpand)
 // according to getos() == 'Windows'. if flagexpand is also true 
 // HOME SCI or ~ are also expanded. 
 // the returned directory names are not terminated by sep 
-  [lhs,rhs]=argn(0) 
+  [lhs, rhs] = argn(0) 
   if rhs <= 1 then flag = %t ; end 
   if rhs <= 2 then flagexpand = %t ; end 
+  
+  warnobsolete('fileparts', '5.4.1')
   
   if flag == %t then 
     files = pathconvert(files,%f,flagexpand); 
