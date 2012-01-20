@@ -124,6 +124,8 @@ CACSD & Signal Processing
 
 * Bug #6009 fixed - conv, conv2 and convol2d and conv functions were missing.
 
+* Bug #10562 fixed - The "CACSD/Robust Control" demo failed.
+
 
 Compatibility Functions
 =======================

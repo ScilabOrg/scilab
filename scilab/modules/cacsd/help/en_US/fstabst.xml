@@ -86,7 +86,7 @@ A=h_cl(P,r,K); spec(A)
  ]]></programlisting>
   </refsection>
   <refsection role="see also">
-<title>See Also</title>
+    <title>See Also</title>
     <simplelist type="inline">
       <member>
         <link linkend="obscont">obscont</link>
@@ -101,5 +101,17 @@ A=h_cl(P,r,K); spec(A)
         <link linkend="lqg2stan">lqg2stan</link>
       </member>
     </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark> <literal>Sl</literal> is now checked for
+        continuous time linear dynamical system.  This modification
+        has been introduced by this <ulink
+        url="http://gitweb.scilab.org/?p=scilab.git;a=commit;h=3d7083daae3339813ba747c8adcda1f9599bb80d">commit</ulink></revremark>
+      </revision>
+    </revhistory>
   </refsection>
 </refentry>
