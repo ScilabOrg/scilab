@@ -1,6 +1,7 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2008 - INRIA - Michael Baudin
+// Copyright (C) 2012 - Scilab Enterprises - Sylvestre Ledru
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -25,5 +26,10 @@ assert_checkalmostequal(linspace([-1;2],[2;6],6), [-1,-0.4,0.2,0.8,1.4,2; 2,2.8,
 
 // Perform a check on the size of the input arguments
 assert_checktrue(execstr('linspace(2,[2,2])','errcatch')<>0);
-// Perform a check on invalid n value
-assert_checktrue(execstr('linspace(1,2,0)','errcatch')<>0);
+
+
+assert_checkequal(linspace(1,2,0),2);
+assert_checkequal(linspace(1,2,1),2);
+assert_checkequal(linspace(1,2,2),[1,2]);
+assert_checkalmostequal(linspace(1,2,2.2), [1,1.833333333333]);
+
