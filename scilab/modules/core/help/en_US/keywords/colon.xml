@@ -63,6 +63,7 @@
         </listitem>
       </varlistentry>
     </variablelist>
+    <para>Please note that if j, k or d are double, the integer part will be used.</para>
   </refsection>
   <refsection role="see also">
 <title>See Also</title>

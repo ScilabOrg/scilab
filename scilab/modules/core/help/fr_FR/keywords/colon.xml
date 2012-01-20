@@ -81,6 +81,7 @@
         </listitem>
       </varlistentry>
     </variablelist>
+    <para>Merci de noter que si j, k ou d sont des doubles, la partie entière sera utilisée.</para>
   </refsection>
   <refsection role="see also">
 <title>Voir aussi</title>
