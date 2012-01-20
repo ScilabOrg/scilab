@@ -266,6 +266,9 @@ Bug fixes
 
 * Bug #10558 fixed - Tcl/Tk demonstrations did not start.
 
+* Bug #10564 fixed - atan graphic demo was failing due to a too strong test 
+                     in the linspace function.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
