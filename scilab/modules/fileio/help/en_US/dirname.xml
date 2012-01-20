@@ -48,6 +48,7 @@
   </refsection>
   <refsection>
     <title>Description</title>
+    <para> This function is obsolete see <link linkend="fileparts">fileparts(files, 'path')</link></para>
     <para><literal>dirname</literal> return the dirname of the file entries given in files.</para>
     <para>
     If <literal>flag</literal> is true the files are first converted to the target 
@@ -60,13 +61,16 @@
     pathnames given in files do not follow the convention 
     given by the <literal>getos() == 'Windows'</literal> variable.</para>
   </refsection>
+  
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
-files=dirname('SCI/modules/fileio/macros/poo.sci')
+    <programlisting role="example"><![CDATA[files=dirname('SCI/modules/fileio/macros/poo.sci')
 files=dirname('SCI/modules\fileio/macros/poo.sci')
 files=dirname('SCI/modules\fileio/macros/poo.sci.k')
- ]]></programlisting>
+
+files = fileparts('SCI/modules/fileio/macros/poo.sci', 'path')
+files = fileparts('SCI/modules\fileio/macros/poo.sci', 'path')
+files = fileparts('SCI/modules\fileio/macros/poo.sci.k', 'path')]]></programlisting>
   </refsection>
   <refsection role="see also">
 <title>See Also</title>
@@ -80,6 +84,18 @@ files=dirname('SCI/modules\fileio/macros/poo.sci.k')
       <member>
         <link linkend="pathconvert">pathconvert</link>
       </member>
+      <member>
+        <link linkend="fileparts">fileparts</link>
+      </member>
     </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function will be removed in Scilab 5.4.1</revremark>
+      </revision>
+    </revhistory>
   </refsection>
 </refentry>

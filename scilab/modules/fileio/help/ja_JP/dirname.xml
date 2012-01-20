@@ -67,11 +67,13 @@
   </refsection>
   <refsection>
     <title>例</title>
-    <programlisting role="example"><![CDATA[ 
-files=dirname('SCI/modules/fileio/macros/poo.sci')
+    <programlisting role="example"><![CDATA[files=dirname('SCI/modules/fileio/macros/poo.sci')
 files=dirname('SCI/modules\fileio/macros/poo.sci')
 files=dirname('SCI/modules\fileio/macros/poo.sci.k')
- ]]></programlisting>
+
+files = fileparts('SCI/modules/fileio/macros/poo.sci', 'path')
+files = fileparts('SCI/modules\fileio/macros/poo.sci', 'path')
+files = fileparts('SCI/modules\fileio/macros/poo.sci.k', 'path')]]></programlisting>
   </refsection>
   <refsection role="see also">
     <title>参照</title>
@@ -85,6 +87,10 @@ files=dirname('SCI/modules\fileio/macros/poo.sci.k')
       <member>
         <link linkend="pathconvert">pathconvert</link>
       </member>
+      <member>
+        <link linkend="fileparts">fileparts</link>
+      </member>
+      
     </simplelist>
   </refsection>
 </refentry>

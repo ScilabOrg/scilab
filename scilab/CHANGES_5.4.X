@@ -139,6 +139,13 @@ Compilation
 * Enforce a minimal version of Flexdock (1.1.1).
 
 
+Obsolete Functions
+==================
+
+* 'dirname' function is obsolete and will be removed in Scilab 5.4.1.
+  Please replaces 'dirname' by 'fileparts'.
+
+
 Bug fixes
 =========
 
