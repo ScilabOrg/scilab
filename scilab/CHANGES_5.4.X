@@ -79,6 +79,8 @@ Xcos
 * Bug #10533 fixed - Some action shortcuts were not disabled when editing a text
                      block.
 
+* Bug #10570 fixed - In browservar, 'ans' was displayed.
+
 
 Unitary testing
 ===============
