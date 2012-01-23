@@ -167,18 +167,21 @@ int sci_xmlXPath(char * fname, unsigned long fname_len)
     {
         int b = xpath->getBooleanValue();
         createScalarBoolean(pvApiCtx, Rhs + 1, b);
+        xmlXPathFreeObject(static_cast<xmlXPathObject *>(xpath->getRealXMLPointer()));
         break;
     }
     case XPATH_NUMBER :
     {
         double d = xpath->getFloatValue();
         createScalarDouble(pvApiCtx, Rhs + 1, d);
+        xmlXPathFreeObject(static_cast<xmlXPathObject *>(xpath->getRealXMLPointer()));
         break;
     }
     case XPATH_STRING :
     {
         const char * str = xpath->getStringValue();
         createSingleString(pvApiCtx, Rhs + 1, str);
+        xmlXPathFreeObject(static_cast<xmlXPathObject *>(xpath->getRealXMLPointer()));
         break;
     }
     default :
