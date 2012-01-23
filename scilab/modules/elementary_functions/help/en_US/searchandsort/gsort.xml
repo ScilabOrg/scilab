@@ -230,4 +230,15 @@ gsort(v,'lc','i')
     Sort Function". Software---Practice and Experience,
     23(11):1249-1265</para>
   </refsection>
+
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function allows overloading a not managed type (others than a real, an integer or a character string vector/matrix or a sparse vector.)</revremark>
+      </revision>
+    </revhistory>
+  </refsection>  
+  
 </refentry>

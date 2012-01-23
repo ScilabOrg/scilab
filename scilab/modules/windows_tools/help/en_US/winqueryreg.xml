@@ -64,4 +64,14 @@ end
       <member>A.C</member>
     </simplelist>
   </refsection>
+  
+ <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function manages also 'HKEY_CURRENT_CONFIG' key.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>      
 </refentry>

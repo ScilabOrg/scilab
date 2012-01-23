@@ -191,4 +191,13 @@ end
       <member><link linkend="api_scilab">api_scilab</link></member>
     </simplelist>
   </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>This function no more accept files with ".o" or ".obj" extensions  for source files.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>  
 </refentry>
