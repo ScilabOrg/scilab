@@ -224,4 +224,16 @@ gsort(A,'lc','i')
     Sort Function". Software---Practice and Experience,
     23(11):1249-1265</para>
   </refsection>
+  
+
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Cette fonction permet la surcharge pour les types autres que vecteur ou matrice de nombres réels, entiers ou de chaînes de caractères ou vecteur creux est possible.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>    
+  
 </refentry>
