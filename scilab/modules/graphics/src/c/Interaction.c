@@ -20,6 +20,7 @@
  *    This file contains all functions used to INTERACT with the graphic
  *    window (zoom by pressing button, callbacks...)
  --------------------------------------------------------------------------*/
+#include <stdio.h>
 #include <string.h>
 #include "Interaction.h"
 #include "SetProperty.h"
@@ -454,6 +455,34 @@ static int moveObj(char* pobjUID, double displacement[], int displacementSize)
         pdblData[1] += y;
         pdblData[2] += z;
         setGraphicObjectProperty(pobjUID, __GO_UPPER_LEFT_POINT__, pdblData, jni_double_vector, 3);
+
+        return 0;
+    }
+    // Segs.
+    else if (strcmp(pstType, __GO_SEGS__) == 0)
+    {
+        double* pdblDirection;
+
+        getGraphicObjectProperty(pobjUID, __GO_NUMBER_ARROWS__, jni_int, &piNum);
+        getGraphicObjectProperty(pobjUID, __GO_BASE__, jni_double_vector, &pdblData);
+        getGraphicObjectProperty(pobjUID, __GO_DIRECTION__, jni_double_vector, &pdblDirection);
+
+        for (i = 0; i < iNum; i++)
+        {
+            pdblData[3*i] += x;
+            pdblData[3*i+1] += y;
+            pdblData[3*i+2] += z;
+        }
+
+        for (i = 0; i < iNum; i++)
+        {
+            pdblDirection[3*i] += x;
+            pdblDirection[3*i+1] += y;
+            pdblDirection[3*i+2] += z;
+        }
+
+        setGraphicObjectProperty(pobjUID, __GO_BASE__, pdblData, jni_double_vector, 3*iNum);
+        setGraphicObjectProperty(pobjUID, __GO_DIRECTION__, pdblDirection, jni_double_vector, 3*iNum);
 
         return 0;
     }
