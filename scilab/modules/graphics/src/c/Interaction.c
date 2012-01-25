@@ -414,6 +414,8 @@ static int moveObj(char* pobjUID, double displacement[], int displacementSize)
     int iNum;
     int *piNum = &iNum;
     double* pdblData;
+    double* pdblDataY;
+    double* pdblDataZ;
     char* pstType;
 
     int iChildrenCount = 0;
@@ -443,6 +445,43 @@ static int moveObj(char* pobjUID, double displacement[], int displacementSize)
         pdblData[1] += y;
         pdblData[2] += z;
         setGraphicObjectProperty(pobjUID, __GO_UPPER_LEFT_POINT__, pdblData, jni_double_vector, 3);
+
+        return 0;
+    }
+    // Champ.
+    else if (strcmp(pstType, __GO_CHAMP__) == 0)
+    {
+        int *champDimensions = NULL;
+
+        getGraphicObjectProperty(pobjUID, __GO_CHAMP_DIMENSIONS__, jni_int_vector, &champDimensions);
+
+        getGraphicObjectProperty(pobjUID, __GO_BASE_X__, jni_double_vector, &pdblData);
+        getGraphicObjectProperty(pobjUID, __GO_BASE_Y__, jni_double_vector, &pdblDataY);
+
+        for (i = 0; i < champDimensions[0]; i++)
+        {
+            pdblData[i] += x;
+        }
+
+        for (i = 0; i < champDimensions[1]; i++)
+        {
+            pdblDataY[i] += y;
+        }
+
+        setGraphicObjectProperty(pobjUID, __GO_BASE_X__, pdblData, jni_double_vector, champDimensions[0]);
+        setGraphicObjectProperty(pobjUID, __GO_BASE_Y__, pdblDataY, jni_double_vector, champDimensions[1]);
+
+        if (displacementSize == 3)
+        {
+            getGraphicObjectProperty(pobjUID, __GO_BASE_Z__, jni_double_vector, &pdblDataZ);
+
+            for (i = 0; i < champDimensions[0]*champDimensions[1]; i++)
+            {
+                pdblDataZ[i] += z;
+            }
+
+            setGraphicObjectProperty(pobjUID, __GO_BASE_Z__, pdblDataZ, jni_double_vector, champDimensions[0]*champDimensions[1]);
+        }
 
         return 0;
     }
