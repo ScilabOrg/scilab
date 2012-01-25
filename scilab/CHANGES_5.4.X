@@ -166,6 +166,8 @@ Bug fixes
 * Bug #8859 fixed - Some comparison operators between hypermatrices and 2-D arrays
                     were missing.
 
+# Bug #9090 fixed - 'atomsSetConfig' did not check input arguments.
+
 * Bug #9197 fixed - Unitary test examples in toolbox_skeleton
                     and xcos_toolbox_skeleton did not use assert functions.
 

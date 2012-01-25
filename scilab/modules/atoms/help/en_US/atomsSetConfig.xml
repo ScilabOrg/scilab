@@ -173,7 +173,7 @@
 				</tr>
 				
 				<tr>
-					<td>verbose</td>
+					<td>Verbose</td>
 					<td>Display or not extra-informations</td>
 					<td>True/<emphasis role="strong">False</emphasis></td>
 				</tr>
@@ -213,5 +213,14 @@ atomsSetConfig('autoload','False')
     <simplelist type="vert">
       <member>Pierre MARECHAL - DIGITEO</member>
     </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Input arguments types and value are checked</revremark>
+      </revision>
+    </revhistory>
   </refsection>
 </refentry>
