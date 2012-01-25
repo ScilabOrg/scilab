@@ -9,11 +9,11 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
+#include <Windows.h>
 #include <stdio.h>
 #include <string.h>
 #include <memory.h>
-#include "../includes/win_mem_alloc.h"
+#include "win_mem_alloc.h"
 /*-----------------------------------------------------------------------------------*/
 /* an interesting article about HeapAlloc,malloc, and OctAlloc */
 /* bench show that HeapAlloc is faster than malloc on Windows */
@@ -23,7 +23,7 @@
 /*-----------------------------------------------------------------------------------*/
 #define FREE_FLAGS 0
 /*-----------------------------------------------------------------------------------*/
-IMPORT_EXPORT_MALLOC_DLL LPVOID MyHeapRealloc(LPVOID lpAddress,SIZE_T dwSize,char *fichier,int ligne)
+IMPORT_EXPORT_MALLOC_DLL void *MyHeapRealloc(void *lpAddress, size_t dwSize,char *fichier,int ligne)
 {
 	LPVOID NewPointer = NULL;
 	SIZE_T precSize = 0;
@@ -55,7 +55,7 @@ IMPORT_EXPORT_MALLOC_DLL LPVOID MyHeapRealloc(LPVOID lpAddress,SIZE_T dwSize,cha
 	return NewPointer;
 }
 /*-----------------------------------------------------------------------------------*/
-IMPORT_EXPORT_MALLOC_DLL LPVOID MyHeapAlloc(SIZE_T dwSize,char *fichier,int ligne)
+IMPORT_EXPORT_MALLOC_DLL void *MyHeapAlloc(size_t dwSize,char *fichier,int ligne)
 {
 	LPVOID NewPointer = NULL;
 
@@ -98,7 +98,7 @@ IMPORT_EXPORT_MALLOC_DLL LPVOID MyHeapAlloc(SIZE_T dwSize,char *fichier,int lign
 	return NewPointer;
 }
 /*-----------------------------------------------------------------------------------*/
-IMPORT_EXPORT_MALLOC_DLL void MyHeapFree(LPVOID lpAddress,char *fichier,int ligne)
+IMPORT_EXPORT_MALLOC_DLL void MyHeapFree(void *lpAddress,char *fichier,int ligne)
 {
 	_try
 	{
@@ -114,7 +114,7 @@ IMPORT_EXPORT_MALLOC_DLL void MyHeapFree(LPVOID lpAddress,char *fichier,int lign
 	}
 }
 /*-----------------------------------------------------------------------------------*/
-IMPORT_EXPORT_MALLOC_DLL LPVOID MyVirtualAlloc(SIZE_T dwSize,char *fichier,int ligne)
+IMPORT_EXPORT_MALLOC_DLL void *MyVirtualAlloc(size_t dwSize,char *fichier,int ligne)
 {
 	LPVOID NewPointer = NULL;
 
@@ -160,7 +160,7 @@ IMPORT_EXPORT_MALLOC_DLL LPVOID MyVirtualAlloc(SIZE_T dwSize,char *fichier,int l
 	return NewPointer;
 }
 /*-----------------------------------------------------------------------------------*/
-IMPORT_EXPORT_MALLOC_DLL void MyVirtualFree(LPVOID lpAddress,char *fichier,int ligne)
+IMPORT_EXPORT_MALLOC_DLL void MyVirtualFree(void *lpAddress,char *fichier,int ligne)
 {
 	if (lpAddress) 
 	{

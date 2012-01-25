@@ -144,6 +144,9 @@ Compilation
 
 * Enforce a minimal version of Flexdock (1.1.1).
 
+* Bug #10372 fixed - remove dependencies of MALLOC.h on Windows.h and machine.h
+                     on Windows.
+
 
 Bug fixes
 =========

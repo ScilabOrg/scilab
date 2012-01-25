@@ -11,12 +11,13 @@
  *
  */
 
-#include "gw_matio.h"
-#include "GetMatlabVariable.h"
-
 #ifdef _MSC_VER
+#include <windows.h>
 #include "strdup_Windows.h"
 #endif
+
+#include "gw_matio.h"
+#include "GetMatlabVariable.h"
 #include "stack-c.h"
 #include "api_scilab.h"
 
