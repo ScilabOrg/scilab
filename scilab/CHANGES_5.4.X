@@ -164,6 +164,8 @@ Bug fixes
 * Bug #9197 fixed - Unitary test examples in toolbox_skeleton
                     and xcos_toolbox_skeleton did not use assert functions.
 
+* Bug #9289 fixed - Example of readxls failed.
+
 * Bug #9502 fixed - 'toolbox' was badly used in assert help pages (replaced by 'module').
 
 * Bug #9572 fixed - assert_checkerror did not check multi lines errors.
@@ -272,7 +274,7 @@ Bug fixes
 
 * Bug #10558 fixed - Tcl/Tk demonstrations did not start.
 
-* Bug #10564 fixed - atan graphic demo was failing due to a too strong test 
+* Bug #10564 fixed - atan graphic demo was failing due to a too strong test
                      in the linspace function.
 
 * Bug #10576 fixed - getdate (on Windows) did not manage dates after January 19, 2038

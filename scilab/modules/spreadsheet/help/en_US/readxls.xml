@@ -47,7 +47,7 @@
     <para>Given an Excel file path this function returns an <literal>mlist</literal> data structure
       of type <literal>xls</literal>, with one field named <literal>sheets</literal>. The
       <literal>sheets</literal> field itself contains a list of sheet data structure.</para>
-    <para><literal>sheet=mlist(['xlssheet','name','text','value'],sheetname,Text,Value)</literal> where 
+    <para><literal>sheet=mlist(['xlssheet','name','text','value'],sheetname,Text,Value)</literal> where
       <literal>sheetname</literal> is a character string containing the name of the sheet,
       <literal>Text</literal> is a matrix of string which contains the cell's
       strings and  <literal>Value</literal> is a matrix of numberswhich contains the cell's
@@ -56,7 +56,7 @@
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="example"><![CDATA[
 Sheets = readxls('SCI/modules/spreadsheet/demos/xls/t1.xls')
 // some basic operations on Sheets
 typeof(Sheets)
@@ -65,10 +65,7 @@ typeof(s1)
 s1.value //get the first sheet value field
 s1.text  //get the first sheet text field
 s1(2,:)  //get the 2 row of the sheet
-typeof(s1(2,:))
-
-editvar s1
- ]]></programlisting>
+typeof(s1(2,:))]]></programlisting>
   </refsection>
   <refsection role="see also">
 <title>See Also</title>

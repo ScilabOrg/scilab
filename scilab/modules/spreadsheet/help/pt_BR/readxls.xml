@@ -79,7 +79,7 @@
   <refsection>
     <title>Exemplos</title>
 
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="example"><![CDATA[
 Sheets = readxls('SCI/modules/spreadsheet/demos/xls/t1.xls')
 // algumas operações básicas sobre Sheets
 typeof(Sheets)
@@ -88,10 +88,7 @@ typeof(s1)
 s1.value //obtendo o campo do valor da primeira folha
 s1.text  //obtendo o campo do texto da primeira folha
 s1(2,:)  //obtendo a segunda linha da folha
-typeof(s1(2,:))
-
-editvar s1
- ]]></programlisting>
+typeof(s1(2,:))]]></programlisting>
   </refsection>
 
   <refsection role="see also">

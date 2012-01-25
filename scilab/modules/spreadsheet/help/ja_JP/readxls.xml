@@ -36,8 +36,8 @@
       <varlistentry>
         <term>sheets</term>
         <listitem>
-          <para><literal>xls</literal>型の<literal>mlist</literal>で, 
-		<literal>sheets</literal>という名前のフィールドを有します
+          <para><literal>xls</literal>型の<literal>mlist</literal>で,
+    <literal>sheets</literal>という名前のフィールドを有します
        </para>
         </listitem>
       </varlistentry>
@@ -46,21 +46,21 @@
   <refsection>
     <title>説明</title>
     <para>Excelファイルのパスを指定すると,この関数は
-	<literal>sheets</literal>という名前のフィールドを有する
-	<literal>xls</literal>
-	型の <literal>mlist</literal>データ構造体を返します.
+  <literal>sheets</literal>という名前のフィールドを有する
+  <literal>xls</literal>
+  型の <literal>mlist</literal>データ構造体を返します.
       この<literal>sheets</literal> フィールドはそれ自体 sheetデータ構造体の
-	リストです.</para>
+  リストです.</para>
     <para><literal>sheet=mlist(['xlssheet','name','text','value'],sheetname,Text,Value)</literal> ただし,
       <literal>sheetname</literal>はシートの名前を有する文字列です.
       <literal>Text</literal> はセルの文字列を有する文字列の行列,
-	<literal>Value</literal>はセルの値を有する数値の行列です.
-	</para>
+  <literal>Value</literal>はセルの値を有する数値の行列です.
+  </para>
     <para> BIFF8 Excelファイル(最近のExcelファイルのバージョン)のみが処理可能です.</para>
   </refsection>
   <refsection>
     <title>例</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="example"><![CDATA[
 Sheets = readxls('SCI/modules/spreadsheet/demos/xls/t1.xls')
 // シートへの基本的な処理
 typeof(Sheets)
@@ -69,10 +69,7 @@ typeof(s1)
 s1.value //最初のシートのvalueフィールドを取得
 s1.text  //最初のシートのtextフィールドを取得
 s1(2,:)  //シートの2番目の行を取得
-typeof(s1(2,:))
-
-editvar s1
- ]]></programlisting>
+typeof(s1(2,:))]]></programlisting>
   </refsection>
   <refsection role="see also">
     <title>参照</title>
