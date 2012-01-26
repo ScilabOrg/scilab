@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+
+<tests>
+  <level severity="1">
+    <module name="core">
+      <test>clear</test>
+      <test>colon</test>
+      <test>type</test>
+    </module>
+    <module name="string">
+      <test>evstr</test>
+    </module>
+    
+  </level>
+  
+  <level severity="2">
+    <module name="core">
+      <test>lasterror</test>
+      <test>who</test>
+      <test>stacksize</test>
+    </module>
+    
+    <module name="string">
+      <test>tokens</test>
+    </module>
+  </level>
+  
+</tests>
