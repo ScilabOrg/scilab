@@ -14,17 +14,17 @@ package org.scilab.modules.xcos.io;
 
 import java.util.Map;
 
+import org.scilab.modules.graph.io.ScilabObjectCodec;
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
 import org.scilab.modules.graph.utils.StyleMap;
 import org.w3c.dom.Node;
 
-import com.mxgraph.io.mxCellCodec;
 import com.mxgraph.io.mxCodec;
 
 /**
  * Codec for any xcos object
  */
-public class XcosObjectCodec extends mxCellCodec {
+public class XcosObjectCodec extends ScilabObjectCodec {
     /**
      * Refs field for codecs
      */
@@ -115,5 +115,14 @@ public class XcosObjectCodec extends mxCellCodec {
     protected void trace(mxCodec enc, Node node, String msg, Object... format) {
         node.appendChild(enc.getDocument().createComment(
                 String.format(msg, format)));
+    }
+
+    /**
+     * Restore the
+     */
+    @Override
+    public Object afterDecode(mxCodec dec, Node node, Object obj) {
+
+        return super.afterDecode(dec, node, obj);
     }
 }
