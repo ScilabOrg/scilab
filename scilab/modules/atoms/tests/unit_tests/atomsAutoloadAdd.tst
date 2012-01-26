@@ -13,10 +13,17 @@ load("SCI/modules/atoms/macros/atoms_internals/lib");
 // =============================================================================
 if ~isempty( atomsGetInstalled() ) then pause, end 
 
+// If previous test did not end properly, restore, else backup config file
+config_downloadTool = atomsGetConfig("downloadTool");
+if isfile(atomsPath("system","user")+"config.bak") then
+        movefile(atomsPath("system","user")+"config.bak",atomsPath("system","user")+"config");
+end
+if isfile(atomsPath("system","user")+"config") then
+        movefile(atomsPath("system","user")+"config",atomsPath("system","user")+"config.bak");
+end
+
 // Set some parameters for the test
 // =============================================================================
-config_autoload = atomsGetConfig("autoloadAddAfterInstall");
-config_Verbose  = atomsGetConfig("Verbose");
 atomsSetConfig("autoloadAddAfterInstall","False");
 atomsSetConfig("Verbose" ,"False");
 
@@ -137,6 +144,13 @@ if ~isempty( atomsGetInstalled() ) then pause, end
 
 // Restore original values
 // =============================================================================
-atomsSetConfig("autoloadAddAfterInstall",config_autoload);
-atomsSetConfig("Verbose" ,config_Verbose);
+if isfile(atomsPath("system","user")+"config.bak") then
+        movefile(atomsPath("system","user")+"config.bak",atomsPath("system","user")+"config");
+else
+        deletefile(atomsPath("system","user")+"config");
+end
+if isfile(atomsPath("system","user")+"config.bak") then
+        deletefile(atomsPath("system","user")+"config.bak");
+end
+
 atomsRepositorySetOfl(mgetl(SCI+"/modules/atoms/tests/unit_tests/repositories.orig"));

@@ -7,11 +7,19 @@
 
 // <-- JVM NOT MANDATORY -->
 
+
 load("SCI/modules/atoms/macros/atoms_internals/lib");
 
+// If previous test did not end properly, restore, else backup config file
+config_downloadTool = atomsGetConfig("downloadTool");
+if isfile(atomsPath("system","user")+"config.bak") then
+        movefile(atomsPath("system","user")+"config.bak",atomsPath("system","user")+"config");
+end
+if isfile(atomsPath("system","user")+"config") then
+        movefile(atomsPath("system","user")+"config",atomsPath("system","user")+"config.bak");
+end
+
 // Do not use the autoload system
-config_autoload = atomsGetConfig("autoloadAddAfterInstall");
-config_Verbose  = atomsGetConfig("Verbose");
 atomsSetConfig("autoloadAddAfterInstall","False");
 atomsSetConfig("Verbose" ,"False");
 
@@ -54,6 +62,13 @@ atomsRemove("toolbox_2","user");
 
 // Restore original values
 // =============================================================================
-atomsSetConfig("autoloadAddAfterInstall",config_autoload);
-atomsSetConfig("Verbose" ,config_Verbose);
+if isfile(atomsPath("system","user")+"config.bak") then
+        movefile(atomsPath("system","user")+"config.bak",atomsPath("system","user")+"config");
+else
+        deletefile(atomsPath("system","user")+"config");
+end
+if isfile(atomsPath("system","user")+"config.bak") then
+        deletefile(atomsPath("system","user")+"config.bak");
+end
+
 atomsRepositorySetOfl(mgetl(SCI+"/modules/atoms/tests/unit_tests/repositories.orig"));
