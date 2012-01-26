@@ -12,7 +12,6 @@
 
 package org.scilab.modules.graph.io;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -127,7 +126,7 @@ public abstract class ScilabObjectCodec extends mxObjectCodec {
 				}
 			}
 		}
-		return obj;
+        return super.afterDecode(dec, node, obj);
 	}
 	
 	/**
