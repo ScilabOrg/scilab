@@ -115,6 +115,11 @@ public :
      */
     double* getBounds(void);
 
+    /**
+     * Returns the Matplot type
+     * @return the Matplot type value
+     */
+    int getType(void);
 
     /**
      * Sets the grid's z data
