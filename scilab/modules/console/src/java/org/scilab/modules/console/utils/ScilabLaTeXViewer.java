@@ -157,3 +157,4 @@ public final class ScilabLaTeXViewer extends JPanel {
         return height + 2 * INSET;
     }
 }
+

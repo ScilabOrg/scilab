@@ -25,51 +25,51 @@ import org.scilab.modules.types.ScilabType;
  */
 public final class ScilabVariablesJavasci implements ScilabVariablesHandler {
 
-    private static final Map<Thread, ScilabType> map = new HashMap<Thread, ScilabType>();
+	private static final Map<Thread, ScilabType> map = new HashMap<Thread, ScilabType>();
 
-    private static int id = -1;
+	private static int id = -1;
 
-    /**
-     * Constructor
-     */
-    private ScilabVariablesJavasci() { }
+	/**
+	 * Constructor
+	 */
+	private ScilabVariablesJavasci() { }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void handle(ScilabType var) {
-        map.put(Thread.currentThread(), var);
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void handle(ScilabType var) {
+		map.put(Thread.currentThread(), var);
+	}
 
-    /**
-     * Get a Scilab variable with a given name
-     * @param name the variable name
-     * @param swapRowCol if true the returned data will be stored row by row
-     * @return the corresponding ScilabType object
-     */
-    public static final ScilabType getScilabVariable(String name, boolean swapRowCol) {
-        if (id == -1) {
-            id = ScilabVariables.addScilabVariablesHandler(new ScilabVariablesJavasci());
-        }
+	/**
+	 * Get a Scilab variable with a given name
+	 * @param name the variable name
+	 * @param swapRowCol if true the returned data will be stored row by row
+	 * @return the corresponding ScilabType object
+	 */
+	public static final ScilabType getScilabVariable(String name, boolean swapRowCol) {
+		if (id == -1) {
+			id = ScilabVariables.addScilabVariablesHandler(new ScilabVariablesJavasci());
+		}
 
-        if (name != null && !name.isEmpty()) {
-            GetScilabVariable.getScilabVariable(name, swapRowCol ? 1 : 0, id);
-            Thread t = Thread.currentThread();
-            ScilabType var = map.get(t);
-            map.remove(t);
+		if (name != null && !name.isEmpty()) {
+			GetScilabVariable.getScilabVariable(name, swapRowCol ? 1 : 0, id);
+			Thread t = Thread.currentThread();
+			ScilabType var = map.get(t);
+			map.remove(t);
 
-            return var;
-        }
+			return var;
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Get a Scilab variable with a given name
-     * @param name the variable name
-     * @return the corresponding ScilabType object where the data are stored row by row
-     */
-    public static final ScilabType getScilabVariable(String name) {
-        return getScilabVariable(name, true);
-    }
+	/**
+	 * Get a Scilab variable with a given name
+	 * @param name the variable name
+	 * @return the corresponding ScilabType object where the data are stored row by row
+	 */
+	public static final ScilabType getScilabVariable(String name) {
+		return getScilabVariable(name, true);
+	}
 }
