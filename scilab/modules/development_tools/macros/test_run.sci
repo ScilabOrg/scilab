@@ -47,6 +47,7 @@ function status = test_run(varargin)
   params.test_failed_percent    = 0;
   params.test_skipped_percent   = 0;
   params.full_summary           = %t;
+  params.show_error             = %f;
 
 // =======================================================
 // Gestion des types de tests à lancer et des options
@@ -101,6 +102,11 @@ function status = test_run(varargin)
 // Summary display management
     params.full_summary = assign_option(option_mat, "short_summary", %f, params.full_summary);
     option_mat          = clean_option(option_mat, "short_summary");
+
+// Show diff errors or not
+    params.show_error = assign_option(option_mat, "show_error", %t, params.show_error);
+    option_mat          = clean_option(option_mat, "show_error");
+    disp("params.show_error " +string(params.show_error))
 
     if option_mat <> [] then
       printf("\nUnrecognized option(s): \n\n");
@@ -914,7 +920,7 @@ if ( (reference=="check") & (_module.reference=="check") ) | (_module.reference=
       end
 
     else
-      error(sprintf(gettext("The ref file (%s) doesn''t exist"), path_dia_ref));
+      error(sprintf(gettext("The ref file (%s) does not exist"), path_dia_ref));
     end
   end
 end
@@ -928,6 +934,7 @@ function msg = checkthefile( filename )
 // Workaround for bug #4827
   msg(1) = "   Check the following file :"
   msg(2) = "   - "+filename
+  // TODO with show_error, display the last XXX line of filename
 endfunction
 
 // launchthecommand
@@ -975,6 +982,10 @@ function msg = comparethefiles ( filename1 , filename2 )
   msg(1) = "   Compare the following files :"
   msg(2) = "   - "+filename1
   msg(3) = "   - "+filename2
+// TODO retrieve the content of the output and put it into msg(4)
+  if params.show_error == %t then
+    host("diff -u " + filename1 + " " + filename2);
+  end
 endfunction
 
 function directories = getDirectories(directory)
