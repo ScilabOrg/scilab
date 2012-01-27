@@ -47,15 +47,18 @@ function unix_w(cmd)
     tmp=TMPDIR+'/unix.out';
     cmd1='('+cmd+')>'+ tmp +' 2>'+TMPDIR+'/unix.err;';
     stat=host(cmd1);
-    
+
     select stat
      case 0 then
-      write(%io(2),read(tmp,-1,1,'(a)'))
+      write(%io(2),read(tmp,-1,1,'(a)'));
      case -1 then // host failed
-      error(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_w"))
+      error(msprintf(gettext("%s: The system interpreter does not answer..."),"unix_w"));
     else
-      msg=read(TMPDIR+'/unix.err',-1,1,'(a)')
-      error('unix_w: '+msg(1))
+      msg=read(TMPDIR+'/unix.err',-1,1,'(a)');
+      if (size(msg,"*") == 0) then // If the program does not return anything
+          msg=""
+      end
+      error(msprintf(gettext('%s: The command failed with the error code ""%s"" and message ""%s""'),"unix_w",string(stat),string(msg)));
     end
     deletefile(tmp);
   end 
