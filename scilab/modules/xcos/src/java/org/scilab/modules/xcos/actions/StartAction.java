@@ -20,6 +20,9 @@ import static org.scilab.modules.action_binding.highlevel.ScilabInterpreterManag
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -137,13 +140,23 @@ public class StartAction extends OneBlockDependantAction {
         /*
          * Log compilation info
          */
-        final Log log = LogFactory.getLog(StartAction.class);
-        log.trace("start simulation");
+        final Logger log = Logger.getLogger(StartAction.class.getName());
+        final boolean shouldLog = log.isLoggable(Level.FINE);
+        // log on the console because disp is used for scilab commands
+        if (shouldLog) {
+            System.err.println("Start : " + new Date().getTime());
+        }
 
         /*
          * Import a valid scs_m structure into Scilab
          */
         new ScilabDirectHandler().writeDiagram(diagram);
+
+        // log on the console because disp is used for scilab commands
+        if (shouldLog) {
+            System.err.println("diagram written : " + new Date().getTime());
+        }
+
         command.append(buildCall("scicos_debug", diagram.getScicosParameters()
                                  .getDebugLevel()));
 
@@ -151,6 +164,10 @@ public class StartAction extends OneBlockDependantAction {
          * Simulate
          */
         command.append("xcos_simulate(scs_m, 4); ");
+        // log on the console because disp is used for scilab commands
+        if (shouldLog) {
+            command.append(buildCall("disp(getdate('s')), "));
+        }
 
         cmd = command.toString();
         return cmd;
