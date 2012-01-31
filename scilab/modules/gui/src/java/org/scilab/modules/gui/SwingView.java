@@ -341,7 +341,7 @@ public final class SwingView implements GraphicView {
             window.addToolBar(tab.getToolBar());
             window.addInfoBar(tab.getInfoBar());
 
-            tab.setWindowIcon(new ImageIcon(SCIDIR + "/modules/gui/images/icons/graphic-window.png").getImage());
+            tab.setWindowIcon("graphic-window");
 
             tab.setParentWindowId(window.getId());
 
