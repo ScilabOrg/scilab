@@ -304,14 +304,14 @@ public class DataManager {
             int length = MainDataLoader.getDataSize(id);
             FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
             MainDataLoader.fillVertices(id, data, 4, 0x1 | 0x2 | 0x4 | 0x8, DEFAULT_SCALE, DEFAULT_TRANSLATE, DEFAULT_LOG_MASK);
-            vertexBuffer.setData(data, 4);
+            vertexBuffer.setData(data);
     }
 
     private void fillColorBuffer(ElementsBuffer colorBuffer, String id) {
             int length = MainDataLoader.getDataSize(id);
             FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
             MainDataLoader.fillColors(id, data, 4);
-            colorBuffer.setData(data, 4);
+            colorBuffer.setData(data);
     }
 
     private void fillIndexBuffer(IndicesBuffer indexBuffer, String id) {

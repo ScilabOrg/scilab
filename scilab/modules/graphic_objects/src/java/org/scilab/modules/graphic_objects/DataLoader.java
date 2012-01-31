@@ -35,6 +35,7 @@ public class DataLoader {
     assert BUFF.isDirect() : "Buffer must be allocated direct.";
     {
       return DataLoaderJNI.fillIndices(id, BUFF, bufferLength, logMask);
+        //return 0;
     }
   }
 
@@ -46,6 +47,7 @@ public class DataLoader {
     assert BUFF.isDirect() : "Buffer must be allocated direct.";
     {
       return DataLoaderJNI.fillWireIndices(id, BUFF, bufferLength, logMask);
+        //return 0;
     }
   }
 
@@ -57,6 +59,7 @@ public class DataLoader {
     assert BUFF.isDirect() : "Buffer must be allocated direct.";
     {
       return DataLoaderJNI.fillMarkIndices(id, BUFF, bufferLength);
+      //  return 0;
     }
   }
 
