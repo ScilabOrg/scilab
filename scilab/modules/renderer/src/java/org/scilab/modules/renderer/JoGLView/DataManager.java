@@ -301,10 +301,11 @@ public class DataManager {
     }
 
     private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id) {
-            int length = MainDataLoader.getDataSize(id);
-            FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
-            MainDataLoader.fillVertices(id, data, 4, 0x1 | 0x2 | 0x4 | 0x8, DEFAULT_SCALE, DEFAULT_TRANSLATE, DEFAULT_LOG_MASK);
-            vertexBuffer.setData(data, 4);
+        int logMask = MainDataLoader.getLogMask(id);
+        int length = MainDataLoader.getDataSize(id);
+        FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
+        MainDataLoader.fillVertices(id, data, 4, 0x1 | 0x2 | 0x4 | 0x8, DEFAULT_SCALE, DEFAULT_TRANSLATE, logMask);
+        vertexBuffer.setData(data, 4);
     }
 
     private void fillColorBuffer(ElementsBuffer colorBuffer, String id) {
