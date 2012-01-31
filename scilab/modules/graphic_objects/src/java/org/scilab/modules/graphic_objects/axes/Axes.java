@@ -1805,6 +1805,22 @@ public class Axes extends GraphicObject {
                     }
                 }
             }
+
+            if (getXAxisLogFlag()) {
+                bounds[0] = Math.log10(bounds[0]);
+                bounds[1] = Math.log10(bounds[1]);
+            }
+
+            if (getYAxisLogFlag()) {
+                bounds[2] = Math.log10(bounds[2]);
+                bounds[3] = Math.log10(bounds[3]);
+            }
+
+            if (getZAxisLogFlag()) {
+                bounds[4] = Math.log10(bounds[4]);
+                bounds[5] = Math.log10(bounds[5]);
+            }
+
             return bounds;
         }
 
