@@ -22,6 +22,11 @@ extern "C" {
 /*   list functions   */
 /**********************/
 
+void pushListAddress(int * addr);
+void popListAddress();
+void cleanStackListAddress();
+void pushVariable(const char * varName);
+
 /**
  * Get the number of items in a list
  * @param[in] _piAddress list address
