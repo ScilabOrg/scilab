@@ -13,6 +13,8 @@
  * still available and supported in Scilab 6.
  */
 
+#include <vector>
+
 #include "stdio.h"
 #include "MALLOC.h"
 #include "stack-c.h"
@@ -69,6 +71,45 @@ static SciErr fillCommonMatrixOfStringInList(void* _pvCtx, int _iVar, int* _piPa
 static SciErr readCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int* _piRows, int* _piCols, int* _piNbItem, int* _piNbItemRow, int* _piColPos, double* _pdblReal, double* _pdblImg);
 static SciErr createCommonSparseMatrixInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iComplex, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal, const double* _pdblImg);
 static SciErr createCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, int* _piParent, int _iItemPos, int _iComplex, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal, const double* _pdblImg);
+
+
+// Stack which contains the lists addresses.
+static std::vector<int*> stackListPosition;
+
+// Push a list address on the stackListPosition
+void pushListAddress(int *addr)
+{
+    stackListPosition.push_back(addr);
+}
+
+// Pop a list address from the stackListPosition
+void popListAddress()
+{
+    if (!stackListPosition.empty())
+    {
+	stackListPosition.pop_back();
+    }
+}
+
+// Clean the stackListPosition
+void cleanStackListAddress()
+{
+    stackListPosition.clear();
+}
+
+// Push the newly created variable on the Scilab stack
+void pushVariable(const char* varName)
+{
+    int sTop = Top;
+    int sRhs = Rhs;
+    int iVarID[nsiz];
+
+    C2F(str2name)(varName, iVarID, (unsigned long)strlen(varName));
+    Top = Top + Nbvars + 1;
+    createNamedVariable(iVarID);
+    Top = sTop;
+    Rhs = sRhs;
+}
 
 char* getListTypeName(int _iType)
 {
@@ -174,6 +215,22 @@ SciErr createNamedTList(void* _pvCtx, const char* _pstName, int _iNbItem, int** 
 }
 
 SciErr createNamedMList(void* _pvCtx, const char* _pstName, int _iNbItem, int** _piAddress)
+{
+	return createCommonNamedList(_pvCtx, _pstName, sci_mlist, _iNbItem, _piAddress);
+}
+
+SciErr createNamedList(void* _pvCtx, const char* _pstName, int _iNbItem, int** _piAddress, bool useStack)
+{
+    
+	return createCommonNamedList(_pvCtx, _pstName, sci_list, _iNbItem, _piAddress);
+}
+
+SciErr createNamedTList(void* _pvCtx, const char* _pstName, int _iNbItem, int** _piAddress, bool useStack)
+{
+	return createCommonNamedList(_pvCtx, _pstName, sci_tlist, _iNbItem, _piAddress);
+}
+
+SciErr createNamedMList(void* _pvCtx, const char* _pstName, int _iNbItem, int** _piAddress, bool useStack)
 {
 	return createCommonNamedList(_pvCtx, _pstName, sci_mlist, _iNbItem, _piAddress);
 }
@@ -495,9 +552,10 @@ SciErr createCommonListInNamedList(void* _pvCtx, const char* _pstName, int* _piP
 
 	if(_iNbItem == 0 && _iItemPos == _piParent[1])
 	{
-		int* piEnd = *_piAddress + 4;
-		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
+	    if (stackListPosition.empty())
+	    {
 		createNamedVariable(iVarID);
+	    }
 	}
 
 	Top = iSaveTop;
@@ -586,7 +644,10 @@ SciErr createVoidInNamedList(void* _pvCtx, const char* _pstName, int* _piParent,
     if(_iItemPos == _piParent[1])
     {
         updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-        createNamedVariable(iVarID);
+	if (stackListPosition.empty())
+	{
+	    createNamedVariable(iVarID);
+	}
     }
 
     Top = iSaveTop;
@@ -651,7 +712,10 @@ SciErr createUndefinedInNamedList(void* _pvCtx, const char* _pstName, int* _piPa
     if(_iItemPos == _piParent[1])
     {
         updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-        createNamedVariable(iVarID);
+        if (stackListPosition.empty())
+	{
+	    createNamedVariable(iVarID);
+	}
     }
 
     Top = iSaveTop;
@@ -879,7 +943,10 @@ SciErr createComplexZMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstNam
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -937,7 +1004,10 @@ SciErr createCommomMatrixOfDoubleInNamedList(void* _pvCtx, const char* _pstName,
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -1159,7 +1229,10 @@ SciErr createMatrixOfStringInNamedList(void* _pvCtx, const char* _pstName, int* 
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -1362,7 +1435,10 @@ SciErr createMatrixOfBooleanInNamedList(void* _pvCtx, const char* _pstName, int*
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -1605,7 +1681,10 @@ SciErr createCommonMatrixOfPolyInNamedList(void* _pvCtx, const char* _pstName, i
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 
@@ -1919,7 +1998,10 @@ static SciErr createCommonMatrixOfIntegerInNamedList(void* _pvCtx, const char* _
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -2188,7 +2270,10 @@ SciErr createCommonSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, i
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -2444,7 +2529,10 @@ SciErr createBooleanSparseMatrixInNamedList(void* _pvCtx, const char* _pstName, 
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -2687,7 +2775,10 @@ SciErr createPointerInNamedList(void* _pvCtx, const char* _pstName, int* _piPare
 	if(_iItemPos == _piParent[1])
 	{
 		updateNamedListOffset(_pvCtx, Top, _piParent, _iItemPos, piEnd);
-		createNamedVariable(iVarID);
+		if (stackListPosition.empty())
+		{
+		    createNamedVariable(iVarID);
+		}
 	}
 
 	Top = iSaveTop;
@@ -2723,12 +2814,21 @@ static void updateCommunListOffset(void* _pvCtx, int _iVar, int *_piCurrentNode,
 	int iMaxDepth			= 0; //we are already in a list
 	int **piParent			= NULL;
 
-	getParentList(_pvCtx, piRoot, _piCurrentNode, &iDepth, NULL);
-	piParent = (int**)MALLOC(sizeof(int*) * iDepth);
-	iMaxDepth = iDepth;
-	iDepth = 1;
-	piParent[0] = piRoot;
-	getParentList(_pvCtx, piRoot, _piCurrentNode, &iDepth, piParent);
+	if (stackListPosition.empty())
+	{
+	    getParentList(_pvCtx, piRoot, _piCurrentNode, &iDepth, NULL);
+	    piParent = (int**)MALLOC(sizeof(int*) * iDepth);
+	    iMaxDepth = iDepth;
+	    iDepth = 1;
+	    piParent[0] = piRoot;
+	    getParentList(_pvCtx, piRoot, _piCurrentNode, &iDepth, piParent);
+	}
+	else
+	{
+        piParent = &(stackListPosition[0]);
+	    iMaxDepth = stackListPosition.size();
+	}
+
 	for(i = iMaxDepth - 2 ; i >= 0 ; i--)
 	{
 		int j					=	0;
@@ -2756,7 +2856,10 @@ static void updateCommunListOffset(void* _pvCtx, int _iVar, int *_piCurrentNode,
 		}
 	}
 
-	FREE(piParent);
+	if (stackListPosition.empty())
+	{
+	    FREE(piParent);
+	}
 }
 
 static void closeList(int _iVar, int *_piEnd)
