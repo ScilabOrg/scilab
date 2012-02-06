@@ -140,6 +140,7 @@ public class StartAction extends OneBlockDependantAction {
         final Log log = LogFactory.getLog(StartAction.class);
         log.trace("start simulation");
 
+        long startTime = System.currentTimeMillis();
         /*
          * Import a valid scs_m structure into Scilab
          */
@@ -147,6 +148,8 @@ public class StartAction extends OneBlockDependantAction {
         command.append(buildCall("scicos_debug", diagram.getScicosParameters()
                                  .getDebugLevel()));
 
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        System.out.println("elapsedTime : " + elapsedTime);
         /*
          * Simulate
          */
