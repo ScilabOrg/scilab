@@ -19,9 +19,13 @@
 extern "C"
 {
 #include "BasicAlgos.h"
+#include "getScilabJavaVM.h"
 }
 
+#include "CallRenderer.hxx"
+
 using namespace sciGraphics;
+using namespace org_scilab_modules_renderer;
 
 /*---------------------------------------------------------------------------------*/
 void sciGetJavaColormap(sciPointObj * pFigure, double rgbMat[])
@@ -80,9 +84,19 @@ void sciGetJava2dViewPixelCoordinates(sciPointObj * pSubwin, const double userCo
 }
 
 /*---------------------------------------------------------------------------------*/
-void sciGetJava2dViewCoordinates(sciPointObj * pSubwin, const double userCoords3D[3], double userCoords2D[2])
+void sciGetJava2dViewCoordinates(char * pSubwinUID, const double userCoords3D[3], double userCoords2D[2])
 {
-    getSubwinDrawer(pSubwin)->getCamera()->get2dViewCoordinates(userCoords3D, userCoords2D);
+    double *tmp;
+    double mycoords[3];
+
+    mycoords[0] = userCoords3D[0];
+    mycoords[1] = userCoords3D[1];
+    mycoords[2] = userCoords3D[2];
+
+    tmp = CallRenderer::get2dViewCoordinates(getScilabJavaVM(), pSubwinUID, mycoords, 3);
+
+    userCoords2D[0] = tmp[0];
+    userCoords2D[1] = tmp[1];
 }
 
 /*---------------------------------------------------------------------------------*/
