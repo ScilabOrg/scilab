@@ -161,7 +161,7 @@ public class AxesRulerDrawer {
             xAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(xticksdir[0], xticksdir[1], 0.0));
 
             if (axes.getXAxisGridColor() != -1) {
-                FloatBuffer vertexData = getXGridData(values, rulerModel);
+                FloatBuffer vertexData = getXGridData(rulerDrawingResult.getSubTicksValues(), rulerModel);
                 vertexBuffer.setData(vertexData, 4);
 
                 Transformation mirror;
@@ -254,7 +254,7 @@ public class AxesRulerDrawer {
             yAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(yticksdir[0], yticksdir[1], 0.0));
 
             if (axes.getYAxisGridColor() != -1) {
-                FloatBuffer vertexData = getYGridData(values, rulerModel);
+                FloatBuffer vertexData = getYGridData(rulerDrawingResult.getSubTicksValues(), rulerModel);
                 vertexBuffer.setData(vertexData, 4);
 
                 Transformation mirror;
@@ -338,7 +338,7 @@ public class AxesRulerDrawer {
                 zAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(zticksdir[0], zticksdir[1], 0.0));
 
                 if (axes.getZAxisGridColor() != -1 || !axes.getZAxisVisible()) {
-                    FloatBuffer vertexData = getZGridData(values, rulerModel);
+                    FloatBuffer vertexData = getZGridData(rulerDrawingResult.getSubTicksValues(), rulerModel);
                     vertexBuffer.setData(vertexData, 4);
 
                     Transformation mirror;
