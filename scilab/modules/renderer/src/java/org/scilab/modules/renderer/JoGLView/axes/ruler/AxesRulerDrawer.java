@@ -154,11 +154,10 @@ public class AxesRulerDrawer {
             axes.setXAxisSubticks(rulerDrawingResult.getSubTicksDensity() - 1);
 
             distanceRatio  = rulerDrawingResult.getMaxDistToTicksDirNorm();
-            double [] xticksdir = rulerDrawingResult.getNormalizedTicksDirection();
 
             xAxisLabelPositioner.setTicksDirection(xTicksDirection);
             xAxisLabelPositioner.setDistanceRatio(distanceRatio);
-            xAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(xticksdir[0], xticksdir[1], 0.0));
+            xAxisLabelPositioner.setProjectedTicksDirection(rulerDrawingResult.getNormalizedTicksDirection());
 
             if (axes.getXAxisGridColor() != -1) {
                 FloatBuffer vertexData = getXGridData(values, rulerModel);
@@ -247,11 +246,10 @@ public class AxesRulerDrawer {
             Vector3d yTicksDirection = rulerModel.getTicksDirection();
 
             distanceRatio = rulerDrawingResult.getMaxDistToTicksDirNorm();
-            double [] yticksdir = rulerDrawingResult.getNormalizedTicksDirection();
 
             yAxisLabelPositioner.setTicksDirection(yTicksDirection);
             yAxisLabelPositioner.setDistanceRatio(distanceRatio);
-            yAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(yticksdir[0], yticksdir[1], 0.0));
+            yAxisLabelPositioner.setProjectedTicksDirection(rulerDrawingResult.getNormalizedTicksDirection());
 
             if (axes.getYAxisGridColor() != -1) {
                 FloatBuffer vertexData = getYGridData(values, rulerModel);
@@ -331,11 +329,10 @@ public class AxesRulerDrawer {
                 axes.setZAxisSubticks(rulerDrawingResult.getSubTicksDensity() - 1);
 
                 distanceRatio = rulerDrawingResult.getMaxDistToTicksDirNorm();
-                double [] zticksdir = rulerDrawingResult.getNormalizedTicksDirection();
 
                 zAxisLabelPositioner.setTicksDirection(new Vector3d(TICKS_SIZE * txs, TICKS_SIZE * tys, 0.0));
                 zAxisLabelPositioner.setDistanceRatio(distanceRatio);
-                zAxisLabelPositioner.setProjectedTicksDirection(new Vector3d(zticksdir[0], zticksdir[1], 0.0));
+                zAxisLabelPositioner.setProjectedTicksDirection(rulerDrawingResult.getNormalizedTicksDirection());
 
                 if (axes.getZAxisGridColor() != -1 || !axes.getZAxisVisible()) {
                     FloatBuffer vertexData = getZGridData(values, rulerModel);
