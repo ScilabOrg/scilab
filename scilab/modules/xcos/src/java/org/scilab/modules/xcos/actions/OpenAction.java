@@ -2,11 +2,11 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
  * Copyright (C) 2011 - Scilab Enterprises - Clement DAVID
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -32,6 +32,8 @@ import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.utils.XcosFileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
+import com.mxgraph.swing.mxGraphComponent;
+
 /**
  * File opening management
  */
@@ -48,7 +50,7 @@ public final class OpenAction extends DefaultAction {
 
     /**
      * Constructor
-     * 
+     *
      * @param scilabGraph
      *            associated Scilab Graph
      */
@@ -58,7 +60,7 @@ public final class OpenAction extends DefaultAction {
 
     /**
      * Create a menu to add in Scilab Graph menu bar
-     * 
+     *
      * @param scilabGraph
      *            associated Scilab Graph
      * @return the menu
@@ -69,7 +71,7 @@ public final class OpenAction extends DefaultAction {
 
     /**
      * Create a button to add in Scilab Graph tool bar
-     * 
+     *
      * @param scilabGraph
      *            associated Scilab Graph
      * @return the button
@@ -85,18 +87,42 @@ public final class OpenAction extends DefaultAction {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        SwingScilabFileChooser fc = ((SwingScilabFileChooser) ScilabFileChooser
-                .createFileChooser().getAsSimpleFileChooser());
-
-        fc.setTitle(XcosMessages.OPEN);
-        fc.setUiDialogType(JFileChooser.OPEN_DIALOG);
-        fc.setMultipleSelection(true);
+        final SwingScilabFileChooser fc = createFileChooser();
 
         /* Configure the file chooser */
         configureFileFilters(fc);
         ConfigurationManager.configureCurrentDirectory(fc);
 
-        int status = fc.showOpenDialog(getGraph(e).getAsComponent());
+        displayAndOpen(fc, getGraph(e).getAsComponent());
+    }
+
+    /*
+     * Helpers functions to share file chooser code
+     */
+
+    protected static SwingScilabFileChooser createFileChooser() {
+        SwingScilabFileChooser fc = ((SwingScilabFileChooser) ScilabFileChooser
+                                     .createFileChooser().getAsSimpleFileChooser());
+
+        fc.setTitle(XcosMessages.OPEN);
+        fc.setUiDialogType(JFileChooser.OPEN_DIALOG);
+        fc.setMultipleSelection(true);
+        return fc;
+    }
+
+    protected static void configureFileFilters(JFileChooser fc) {
+        fc.setAcceptAllFileFilterUsed(true);
+
+        final FileFilter[] filters = XcosFileType.getValidFilters();
+        for (FileFilter fileFilter : filters) {
+            fc.addChoosableFileFilter(fileFilter);
+        }
+        fc.setFileFilter(filters[0]);
+    }
+
+    protected static void displayAndOpen(SwingScilabFileChooser fc,
+                                         final java.awt.Component component) {
+        int status = fc.showOpenDialog(component);
         if (status != JFileChooser.APPROVE_OPTION) {
             return;
         }
@@ -112,19 +138,5 @@ public final class OpenAction extends DefaultAction {
                 Xcos.getInstance().open(file);
             }
         }
-    }
-
-    /*
-     * Helpers functions to configure file chooser
-     */
-
-    private static void configureFileFilters(JFileChooser fc) {
-        fc.setAcceptAllFileFilterUsed(true);
-
-        final FileFilter[] filters = XcosFileType.getValidFilters();
-        for (FileFilter fileFilter : filters) {
-            fc.addChoosableFileFilter(fileFilter);
-        }
-        fc.setFileFilter(filters[0]);
     }
 }
