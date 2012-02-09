@@ -327,6 +327,8 @@ Bug fixes
 
 * Bug #10631 fixed - The # sign was missing in some error cases.
 
+* Bug #10632 fixed - Navigation buttons in file browser did not change the cwd.
+
 * Bug #10634 fixed - dsearch help page referenced an invalid input argument
                      name.
 
