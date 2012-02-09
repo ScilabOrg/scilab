@@ -395,13 +395,12 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
                 ((SwingScilabToolBar) toolBar).close();
             }
             if (menuBar != null) {
-                UIElementMapper.removeMapping(menuBar.getElementId());
+		((SwingScilabMenuBar) menuBar).close();
             }
-            UIElementMapper.removeMapping(this.elementId);
 
             // clean all
             this.removeAll();
-            this.dispose();
+	    close();
 
             // disable docking port
             ActiveDockableTracker.getTracker(this).setActive(null);
@@ -534,7 +533,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
     @Override
     public void close() {
         dispose();
-        allScilabWindows.remove(this);
+        allScilabWindows.remove(windowUID);
     }
 
     /**

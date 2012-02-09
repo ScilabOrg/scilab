@@ -166,6 +166,9 @@ public class SwingScilabMenuBar extends JMenuBar implements SimpleMenuBar {
         }
 
         return label.replaceAll("&&", "&");
+    }
 
+    public void close() {
+	UIElementMapper.removeMapping(elementId);
     }
 }
