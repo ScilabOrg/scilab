@@ -1,11 +1,11 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Marouane BEN JELLOUL
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -98,7 +98,7 @@ public class SwingScilabMenuBar extends JMenuBar implements SimpleMenuBar {
      * @param status true to set the menu enabled
      */
     public void setSubMenuEnabled(String parentMenuName, int menuItemPosition, boolean status) {
-        JMenu parentMenu = null; 
+        JMenu parentMenu = null;
 
         for (int menuIndex = 0; menuIndex < this.getMenuCount(); menuIndex++) {
             // Check the name of each menu until one matches the name
@@ -158,7 +158,7 @@ public class SwingScilabMenuBar extends JMenuBar implements SimpleMenuBar {
                     // Have to remove the & used to set a Mnemonic
                     String firstPart = menuName.substring(0, Math.max(charIndex, 0)); // Before &
                     String secondPart = menuName.substring(Math.min(charIndex + 1, menuName.length()), menuName.length());
-                    label = firstPart + secondPart; 
+                    label = firstPart + secondPart;
                     break;
                 }
 
@@ -166,6 +166,9 @@ public class SwingScilabMenuBar extends JMenuBar implements SimpleMenuBar {
         }
 
         return label.replaceAll("&&", "&");
+    }
 
+    public void close() {
+        UIElementMapper.removeMapping(elementId);
     }
 }
