@@ -149,7 +149,7 @@ public class Polyline extends ClippableContouredObject {
 	 * @param value the property value
 	 * @return true if the property has been set, false otherwise
 	 */
-	public boolean setProperty(Object property, Object value) {
+	public UpdateStatus setProperty(Object property, Object value) {
 		if (property == PolylineProperty.CLOSED) {
 			setClosed((Boolean) value);
 		} else if (property == PolylineProperty.ARROWSIZEFACTOR) {
@@ -174,7 +174,7 @@ public class Polyline extends ClippableContouredObject {
 			return super.setProperty(property, value);
 		}
 
-		return true;
+		return UpdateStatus.Success;
 	}
 
 	/**
