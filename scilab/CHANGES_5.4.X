@@ -207,6 +207,8 @@ Bug fixes
 
 * Bug #9572 fixed - assert_checkerror did not check multi lines errors.
 
+* Bug #9643 fixed - genetic algorithms demo was not vectorized.
+
 * Bug #9811 fixed - Output message of fminsearch was wrongly set.
 
 * Bug #9892 fixed - "-noatomsautoload" startup option added.
