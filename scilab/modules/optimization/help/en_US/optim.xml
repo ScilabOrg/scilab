@@ -759,16 +759,8 @@ x0 = [-1.2 1.0];
     <literal>mydata</literal> is used to store the number of function
     evaluations as well as the number of iterations.</para>
 
-    <programlisting role="example">xref = [1;2;3];
-x0 = [1;-1;1];
-global _MYDATA_
-_MYDATA_ = tlist ( ["T_MYDATA","niter","nfevals"]);
-_MYDATA_.niter = 0;
-_MYDATA_.nfevals = 0;
-
-function [f, g, ind] = cost(x, ind)
+    <programlisting role="example">function [f, g, ind] = cost(x, ind,xref)
   global _MYDATA_
-  disp(ind)
   if ( ind == 1 )
     _MYDATA_.niter = _MYDATA_.niter + 1
   end
@@ -776,10 +768,15 @@ function [f, g, ind] = cost(x, ind)
   f = 0.5 * norm(x - xref)^2;
   g = x - xref;
 endfunction
-
-[f, xopt] = optim(cost, x0, imp = -1)
+xref = [1; 2; 3];
+x0 = [1; -1; 1];
+global _MYDATA_
+_MYDATA_ = tlist ( ["T_MYDATA", "niter", "nfevals"])
+_MYDATA_.niter = 0
+_MYDATA_.nfevals = 0
+[f, xopt] = optim(list(cost, xref), x0, imp = -1)
 mprintf("Number of function evaluations:%d\n", _MYDATA_.nfevals)
-mprintf("Number of iterations:%d\n", _MYDATA_.niter)    </programlisting>
+mprintf("Number of iterations:%d\n", _MYDATA_.niter) </programlisting>
 
     <para>While the previous example perfectly works, there is a risk that the
     same variable <literal>_MYDATA_</literal> is used by some internal
