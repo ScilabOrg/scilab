@@ -342,6 +342,9 @@ public class AxesRulerDrawer {
             if (y == 0) {
                 y = +1;
             }
+        } else if (axisLocation.equals(AxisProperty.AxisLocation.MIDDLE)) {
+            z = -Math.signum(matrix[9]);  // First : switch Z such that Y was minimal.
+            y = -Math.signum(matrix[6]) * z * Math.signum(matrix[10]);
         } else {
             z = Math.signum(matrix[9]);  // First : switch Z such that Y was maximal.
             y = -Math.signum(matrix[6]) * z * Math.signum(matrix[10]);
@@ -360,6 +363,9 @@ public class AxesRulerDrawer {
             if (x == 0) {
                 x = +1;
             }
+        } else if (axisLocation.equals(AxisProperty.AxisLocation.MIDDLE)) {
+            z = -Math.signum(matrix[9]);  // First : switch Z such that Y was minimal.
+            x = -Math.signum(matrix[2]) * z * Math.signum(matrix[10]);
         } else {
             z = Math.signum(matrix[9]);  // First : switch Z such that Y was minimal.
             x = -Math.signum(matrix[2]) * z * Math.signum(matrix[10]); // Then switch X such that Z max but not in the middle.
