@@ -15,6 +15,8 @@ package org.scilab.modules.xcos.utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -52,15 +54,23 @@ public enum XcosFileType {
 
         @Override
         public void load(String file, XcosDiagram into) throws TransformerException {
+            LOG.entering(XcosFileType.class.getName(), "load");
+
             final XcosCodec codec = new XcosCodec();
             final TransformerFactory tranFactory = ScilabTransformerFactory.newInstance();
             final Transformer aTransformer = tranFactory.newTransformer();
+
+            LOG.finest("initialization done");
 
             final StreamSource src = new StreamSource(file);
             final DOMResult result = new DOMResult();
             aTransformer.transform(src, result);
 
+            LOG.finest("DOM available");
+
             codec.decode(result.getNode().getFirstChild(), into);
+
+            LOG.exiting(XcosFileType.class.getName(), "load");
         }
     },
     /**
@@ -110,13 +120,14 @@ public enum XcosFileType {
 
     private static final String BEFORE_EXT = " (*.";
     private static final String AFTER_EXT = ")";
+    private static final Logger LOG = Logger.getLogger(XcosFileType.class.getName());
 
     private String extension;
     private String description;
 
     /**
      * Default constructor
-     * 
+     *
      * @param extension
      *            file extension (without the dot)
      * @param description
@@ -157,7 +168,7 @@ public enum XcosFileType {
 
     /**
      * Find a filetype by the filename extension
-     * 
+     *
      * @param theFile
      *            Current file
      * @return The determined filetype
@@ -188,7 +199,7 @@ public enum XcosFileType {
 
     /**
      * Check the XML header
-     * 
+     *
      * @param theFile
      *            the file to check
      * @return the found file type
@@ -237,7 +248,7 @@ public enum XcosFileType {
 
     /**
      * Convert the file passed as an argument to Hdf5.
-     * 
+     *
      * @param file
      *            The file to convert
      * @return The created file
@@ -248,7 +259,7 @@ public enum XcosFileType {
 
     /**
      * Load a file into an XcosDiagram instance
-     * 
+     *
      * @param file
      *            the file to load
      * @param into
@@ -274,7 +285,7 @@ public enum XcosFileType {
 
     /**
      * Get a valid file mask (useable by file selector)
-     * 
+     *
      * @return A valid file mask
      */
     public static String[] getValidFileMask() {
@@ -289,7 +300,7 @@ public enum XcosFileType {
 
     /**
      * Get a valid file description (useable by file selector)
-     * 
+     *
      * @return A valid file mask
      */
     public static String[] getValidFileDescription() {
@@ -297,7 +308,7 @@ public enum XcosFileType {
 
         for (int i = 0; i < result.length; i++) {
             result[i] = XcosFileType.values()[i].getDescription() + BEFORE_EXT
-                    + XcosFileType.values()[i].getExtension() + AFTER_EXT;
+                        + XcosFileType.values()[i].getExtension() + AFTER_EXT;
         }
 
         return result;
@@ -305,7 +316,7 @@ public enum XcosFileType {
 
     /**
      * Convert a Scicos diagram (scs_m scilab script) to an hdf5 file
-     * 
+     *
      * @param filename
      *            The file to execute in scilab.
      * @return The exported data in hdf5.
