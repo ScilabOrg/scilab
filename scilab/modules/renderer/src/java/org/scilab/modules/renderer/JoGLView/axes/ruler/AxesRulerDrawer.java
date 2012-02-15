@@ -403,18 +403,14 @@ public class AxesRulerDrawer {
      */
     private FloatBuffer getXGridData(double[] values, RulerModel rulerModel) {
         FloatBuffer vertexData = FloatBuffer.allocate(values.length * 16);
-        int limit = 0;
         for (double value : values) {
             float p = (float) rulerModel.getPosition(value).getX();
-            if ((p != -1) && (p!=1)) {
-                vertexData.put(p); vertexData.put(+1); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(p); vertexData.put(-1); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(p); vertexData.put(+1); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(p); vertexData.put(+1); vertexData.put(-1); vertexData.put(1);
-                limit += 16;
-            }
+            vertexData.put(p); vertexData.put(+1); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(p); vertexData.put(-1); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(p); vertexData.put(+1); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(p); vertexData.put(+1); vertexData.put(-1); vertexData.put(1);
         }
-        vertexData.limit(limit);
+        vertexData.rewind();
         return vertexData;
     }
 
@@ -426,18 +422,14 @@ public class AxesRulerDrawer {
      */
     private FloatBuffer getYGridData(double[] values, RulerModel rulerModel) {
         FloatBuffer vertexData = FloatBuffer.allocate(values.length * 16);
-        int limit = 0;
         for (double value : values) {
             float p = (float) rulerModel.getPosition(value).getY();
-            if ((p != -1) && (p!=1)) {
-                vertexData.put(+1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(-1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(+1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
-                vertexData.put(+1); vertexData.put(p); vertexData.put(-1); vertexData.put(1);
-                limit += 16;
-            }
+            vertexData.put(+1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(-1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(+1); vertexData.put(p); vertexData.put(+1); vertexData.put(1);
+            vertexData.put(+1); vertexData.put(p); vertexData.put(-1); vertexData.put(1);
         }
-        vertexData.limit(limit);
+        vertexData.rewind();
         return vertexData;
     }
 
@@ -452,13 +444,11 @@ public class AxesRulerDrawer {
         int limit = 0;
         for (double value : values) {
             float p = (float) rulerModel.getPosition(value).getZ();
-            if ((p != -1) && (p!=1)) {
-                vertexData.put(+1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
-                vertexData.put(-1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
-                vertexData.put(+1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
-                vertexData.put(+1); vertexData.put(-1); vertexData.put(p); vertexData.put(1);
-                limit += 16;
-            }
+            vertexData.put(+1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
+            vertexData.put(-1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
+            vertexData.put(+1); vertexData.put(+1); vertexData.put(p); vertexData.put(1);
+            vertexData.put(+1); vertexData.put(-1); vertexData.put(p); vertexData.put(1);
+            limit += 16;
         }
         vertexData.limit(limit);
         return vertexData;
