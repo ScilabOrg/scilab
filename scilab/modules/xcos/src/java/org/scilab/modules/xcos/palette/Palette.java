@@ -32,8 +32,8 @@ import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
+import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.palette.model.Category;
 import org.scilab.modules.xcos.palette.model.PaletteBlock;
 import org.scilab.modules.xcos.palette.model.PaletteNode;
@@ -55,14 +55,12 @@ public final class Palette {
     public static final String NAME = "name";
 
     /** Error message used on invalid path */
-    public static final String WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH = Messages
-            .gettext("Wrong input argument \"%s\": invalid tree path.\n");
+    public static final String WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH = Messages.gettext("Wrong input argument \"%s\": invalid tree path.\n");
     /** Error message used on invalid node */
     public static final String WRONG_INPUT_ARGUMENT_S_INVALID_NODE = Messages
             .gettext("Wrong input argument \"%s\": invalid node, use 'xcosPalDisable' instead.\n");
     /** "Unable to import" string */
-    public static final String UNABLE_TO_IMPORT = Messages
-            .gettext("Unable to import %s .\n");
+    public static final String UNABLE_TO_IMPORT = Messages.gettext("Unable to import %s .\n");
 
     private static final Log LOG = LogFactory.getLog(Palette.class);
     private static final String XCOS = "xcos";
@@ -76,7 +74,7 @@ public final class Palette {
 
     /**
      * Get the {@link PaletteNode} of the path.
-     * 
+     *
      * @param path
      *            the path
      * @param create
@@ -84,30 +82,25 @@ public final class Palette {
      *            otherwise it will not.
      * @return the selected node
      */
-    private static PaletteNode getPathNode(final String[] path,
-            final boolean create) {
+    private static PaletteNode getPathNode(final String[] path, final boolean create) {
 
         if (!SwingUtilities.isEventDispatchThread()) {
-            throw new RuntimeException(
-                    "Unable to manipulate palette outside the EDT thread.");
+            throw new RuntimeException("Unable to manipulate palette outside the EDT thread.");
         }
 
         Category node = PaletteManager.getInstance().getRoot();
 
-        if (path == null || path.length == 0
-                || (path.length == 1 && path[0].isEmpty())) {
+        if (path == null || path.length == 0 || (path.length == 1 && path[0].isEmpty())) {
             return node;
         }
 
         for (int categoryCounter = 0; categoryCounter < path.length; categoryCounter++) {
 
             for (final PaletteNode next : node.getNode()) {
-                if (next.getName().equals(path[categoryCounter])
-                        && next instanceof Category) {
+                if (next.getName().equals(path[categoryCounter]) && next instanceof Category) {
                     node = (Category) next;
                     break;
-                } else if (next.getName().equals(path[categoryCounter])
-                        && (categoryCounter == path.length - 1)) {
+                } else if (next.getName().equals(path[categoryCounter]) && (categoryCounter == path.length - 1)) {
                     return next; // found the terminal Palette instance
                 }
             }
@@ -132,7 +125,7 @@ public final class Palette {
 
     /**
      * Load an xcos palette into the palette manager
-     * 
+     *
      * @param path
      *            full path to the scilab exported palette
      * @param category
@@ -163,34 +156,31 @@ public final class Palette {
                     /*
                      * Decode the style part of the palette
                      */
-                    final mxStylesheet styleSheet = Xcos.getInstance()
-                            .getStyleSheet();
+                    final mxStylesheet styleSheet = Xcos.getInstance().getStyleSheet();
                     try {
                         new StyleElement().decode(data, styleSheet);
                     } catch (final ScicosFormatException e) {
                         throw new RuntimeException(e);
                     }
-                    
+
                     // reload all the opened diagram (clear states)
                     for (final XcosDiagram d : Xcos.getInstance().openedDiagrams()) {
-                    	if (d != null) {
-                    		final mxGraphView view = d.getView();
-                    		if (view != null) {
-                    			view.reload();
-                    		}
-                    		
-                    		final mxGraphComponent comp = d.getAsComponent();
-                    		if (comp != null) {
-                    			comp.refresh();
-                    		}
-                    	}
-					}
+                        if (d != null) {
+                            final mxGraphView view = d.getView();
+                            if (view != null) {
+                                view.reload();
+                            }
+
+                            final mxGraphComponent comp = d.getAsComponent();
+                            if (comp != null) {
+                                comp.refresh();
+                            }
+                        }
+                    }
 
                     final PaletteNode node = getPathNode(category, true);
                     if (!(node instanceof Category)) {
-                        throw new RuntimeException(String.format(
-                                WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH,
-                                "category"));
+                        throw new RuntimeException(String.format(WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, "category"));
                     }
                     final Category cat = (Category) node;
 
@@ -199,8 +189,7 @@ public final class Palette {
                      */
                     PreLoaded pal;
                     try {
-                        pal = new PreLoadedElement().decode(data,
-                                new PreLoaded.Dynamic());
+                        pal = new PreLoadedElement().decode(data, new PreLoaded.Dynamic());
                     } catch (final ScicosFormatException e) {
                         throw new RuntimeException(e);
                     }
@@ -226,7 +215,7 @@ public final class Palette {
 
     /**
      * Load an xcos palette into the palette manager at the root category.
-     * 
+     *
      * @param path
      *            full path to the scilab exported palette
      */
@@ -237,7 +226,7 @@ public final class Palette {
 
     /**
      * Add a category into the palette manager
-     * 
+     *
      * @param name
      *            TreePath of the palette
      * @param visible
@@ -253,8 +242,7 @@ public final class Palette {
                     if (node instanceof Category) {
                         node.setEnable(visible);
                     } else {
-                        throw new RuntimeException(String.format(
-                                WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, NAME));
+                        throw new RuntimeException(String.format(WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, NAME));
                     }
 
                     PaletteNode.refreshView(node.getParent());
@@ -276,7 +264,7 @@ public final class Palette {
 
     /**
      * Remove a palette or a category of the palette manager
-     * 
+     *
      * @param name
      *            TreePath of the palette
      */
@@ -306,7 +294,7 @@ public final class Palette {
 
     /**
      * Remove a palette or a category of the palette manager
-     * 
+     *
      * @param name
      *            TreePath of the palette or category
      * @param status
@@ -320,8 +308,7 @@ public final class Palette {
                 public void run() {
                     final PaletteNode node = getPathNode(name, false);
                     if (node == null) {
-                        throw new RuntimeException(String.format(
-                                WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, NAME));
+                        throw new RuntimeException(String.format(WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, NAME));
                     }
 
                     node.setEnable(status);
@@ -345,7 +332,7 @@ public final class Palette {
 
     /**
      * Move a palette or a category of the palette manager
-     * 
+     *
      * @param source
      *            TreePath of the palette or category
      * @param target
@@ -360,21 +347,16 @@ public final class Palette {
 
                     final PaletteNode src = getPathNode(source, false);
                     if (src == null) {
-                        throw new RuntimeException(String.format(
-                                WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH,
-                                "source"));
+                        throw new RuntimeException(String.format(WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, "source"));
                     }
 
                     final PaletteNode trg = getPathNode(target, true);
                     if (trg == null || !(trg instanceof Category)) {
-                        throw new RuntimeException(String.format(
-                                WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH,
-                                "target"));
+                        throw new RuntimeException(String.format(WRONG_INPUT_ARGUMENT_S_INVALID_TREE_PATH, "target"));
                     }
                     final Category destination = (Category) trg;
 
-                    final Category[] toBeReloaded = new Category[] {
-                            src.getParent(), destination };
+                    final Category[] toBeReloaded = new Category[] { src.getParent(), destination };
 
                     if (toBeReloaded[0] != null) {
                         toBeReloaded[0].getNode().remove(src);
@@ -403,7 +385,7 @@ public final class Palette {
     /**
      * Generate a palette block image from a block saved instance (need a valid
      * style).
-     * 
+     *
      * @param blockPath
      *            the HDF5 block instance
      * @param iconPath
@@ -412,11 +394,10 @@ public final class Palette {
      *             in case of write errors
      */
     @ScilabExported(module = XCOS, filename = PALETTE_GIWS_XML)
-    public static void generatePaletteIcon(final String blockPath,
-            final String iconPath) throws IOException {
+    public static void generatePaletteIcon(final String blockPath, final String iconPath) throws IOException {
         BasicBlock block;
         try {
-            block = new H5RWHandler(blockPath).readBlock();
+            block = new ScilabDirectHandler().readBlock();
         } catch (ScicosFormatException e) {
             throw new IOException(e);
         }
@@ -446,21 +427,16 @@ public final class Palette {
         final double height = bounds.getHeight();
 
         final double scale;
-        if (width > XcosConstants.PALETTE_BLOCK_WIDTH
-                || height > XcosConstants.PALETTE_BLOCK_HEIGHT) {
-            scale = Math.min(XcosConstants.PALETTE_BLOCK_WIDTH / width,
-                    XcosConstants.PALETTE_BLOCK_HEIGHT / height)
-                    / XcosConstants.PALETTE_BLOCK_ICON_RATIO;
+        if (width > XcosConstants.PALETTE_BLOCK_WIDTH || height > XcosConstants.PALETTE_BLOCK_HEIGHT) {
+            scale = Math.min(XcosConstants.PALETTE_BLOCK_WIDTH / width, XcosConstants.PALETTE_BLOCK_HEIGHT / height) / XcosConstants.PALETTE_BLOCK_ICON_RATIO;
         } else {
             scale = 1.0;
         }
 
-        final BufferedImage image = mxCellRenderer.createBufferedImage(graph,
-                null, scale, graphComponent.getBackground(),
-                graphComponent.isAntiAlias(), null, graphComponent.getCanvas());
+        final BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, scale, graphComponent.getBackground(), graphComponent.isAntiAlias(), null,
+                                    graphComponent.getCanvas());
 
-        final String extension = iconPath
-                .substring(iconPath.lastIndexOf('.') + 1);
+        final String extension = iconPath.substring(iconPath.lastIndexOf('.') + 1);
         ImageIO.write(image, extension, new File(iconPath));
 
         if (LOG.isTraceEnabled()) {
@@ -471,7 +447,7 @@ public final class Palette {
     /**
      * Helper function used to regenerate palette block images from block
      * instance.
-     * 
+     *
      * This method is not export to scilab but is needed for internal purpose
      * (palette block image generation)
      */
@@ -497,20 +473,17 @@ public final class Palette {
 
                 /**
                  * Generate PreLoaded icon file.
-                 * 
+                 *
                  * @param current
                  *            the current node
                  */
                 private void generatePreLoadedIcon(final PreLoaded current) {
                     final List<PaletteBlock> blocks = current.getBlock();
                     for (final PaletteBlock paletteBlock : blocks) {
-                        final String file = paletteBlock.getIcon()
-                                .getEvaluatedPath();
+                        final String file = paletteBlock.getIcon().getEvaluatedPath();
 
                         try {
-                            generatePaletteIcon(paletteBlock.getData()
-                                    .getEvaluatedPath(), paletteBlock.getIcon()
-                                    .getEvaluatedPath());
+                            generatePaletteIcon(paletteBlock.getData().getEvaluatedPath(), paletteBlock.getIcon().getEvaluatedPath());
                         } catch (final IOException e) {
                             LOG.error(file);
                             LOG.error(e);
