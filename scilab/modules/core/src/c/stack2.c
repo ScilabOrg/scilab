@@ -2852,13 +2852,16 @@ int C2F(putlhsvar) ()
 
     for (k = 1; k <= Lhs; k++)
     {
-        plhsk = *Lstk(LhsVar(k) + Top - Rhs);
-        if (*istk(iadr(plhsk)) < 0)
-        {
-            if (*Lstk(Bot) > *Lstk(*istk(iadr(plhsk) + 2)))
-                LhsVar(k) = *istk(iadr(plhsk) + 2);
-            /* lcres = 0 */
-        }
+	if (LhsVar(k))
+	{
+	    plhsk = *Lstk(LhsVar(k) + Top - Rhs);
+	    if (*istk(iadr(plhsk)) < 0)
+	    {
+		if (*Lstk(Bot) > *Lstk(*istk(iadr(plhsk) + 2)))
+		    LhsVar(k) = *istk(iadr(plhsk) + 2);
+		/* lcres = 0 */
+	    }
+	}
     }
 
     if (Err > 0 || C2F(errgst).err1 > 0)
