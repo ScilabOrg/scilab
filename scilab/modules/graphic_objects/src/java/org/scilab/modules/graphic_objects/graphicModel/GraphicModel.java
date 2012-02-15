@@ -105,9 +105,12 @@ public final class GraphicModel {
      */
     public Object getProperty(String id, String property) {
         GraphicObject object = allObjects.get(id);
-        Object propertyType = object.getPropertyFromName(property);
 
-        return object.getProperty(propertyType);
+        if (object != null) {
+            Object propertyType = object.getPropertyFromName(property);
+            return object.getProperty(propertyType);
+        }
+        return null;
     }
 
     /**

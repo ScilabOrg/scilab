@@ -16,6 +16,7 @@ import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 import org.scilab.modules.graphic_objects.MainDataLoader;
+import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 
@@ -158,7 +159,7 @@ public class DataManager {
      * @param id the given object Id.
      * @return the vertex buffer of the given object.
      */
-    public ElementsBuffer getVertexBuffer(String id) {
+    public ElementsBuffer getVertexBuffer(String id) throws ObjectRemovedException {
         if (vertexBufferMap.containsKey(id)) {
             return vertexBufferMap.get(id);
         } else {
@@ -174,7 +175,7 @@ public class DataManager {
      * @param id the given object Id.
      * @return the color buffer of the given object.
      */
-    public ElementsBuffer getColorBuffer(String id) {
+    public ElementsBuffer getColorBuffer(String id) throws ObjectRemovedException {
         if (colorBufferMap.containsKey(id)) {
             return colorBufferMap.get(id);
         } else {
@@ -190,7 +191,7 @@ public class DataManager {
      * @param id the given object Id.
      * @return the index buffer of the given object.
      */
-    public IndicesBuffer getIndexBuffer(String id) {
+    public IndicesBuffer getIndexBuffer(String id) throws ObjectRemovedException {
         if (indexBufferMap.containsKey(id)) {
             return indexBufferMap.get(id);
         } else {
@@ -221,8 +222,9 @@ public class DataManager {
      * Update the data if needed.
      * @param id the modified object.
      * @param property the changed property.
+     * @throws ObjectRemovedException 
      */
-    public void update(String id, String property) {
+    public void update(String id, String property) throws ObjectRemovedException {
         String type = (String) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_TYPE__);
         if (vertexBufferMap.containsKey(id)) {
             if ((type.equals(GraphicObjectProperties.__GO_FAC3D__) && FAC3D_DATA_PROPERTIES.contains(property))
@@ -235,7 +237,12 @@ public class DataManager {
                || (type.equals(GraphicObjectProperties.__GO_CHAMP__) && CHAMP_DATA_PROPERTIES.contains(property))
                || (type.equals(GraphicObjectProperties.__GO_RECTANGLE__) && RECTANGLE_DATA_PROPERTIES.contains(property))
                || (type.equals(GraphicObjectProperties.__GO_SEGS__) && SEGS_DATA_PROPERTIES.contains(property))) {
-                fillBuffers(id);
+                try {
+                    fillBuffers(id);
+                } catch (ObjectRemovedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
         if (property.equals(GraphicObjectProperties.__GO_X_AXIS_LOG_FLAG__)) {
@@ -255,8 +262,9 @@ public class DataManager {
      * Update vertex buffer of the given object and is descendant.
      * @param id the id of the object.
      * @param coordinateMask the coordinateMask to use.
+     * @throws ObjectRemovedException 
      */
-    private void updateChildrenVertex(String id, int coordinateMask) {
+    private void updateChildrenVertex(String id, int coordinateMask) throws ObjectRemovedException {
         ElementsBuffer vertexBuffer = vertexBufferMap.get(id);
         if (vertexBuffer != null) {
             updateVertexBuffer(vertexBuffer, id, coordinateMask);
@@ -305,7 +313,7 @@ public class DataManager {
      * of a given object.
      * @param id the object id.
      */
-    private void fillBuffers(String id) {
+    private void fillBuffers(String id) throws ObjectRemovedException {
         ElementsBuffer vertexBuffer = vertexBufferMap.get(id);
         if (vertexBuffer != null) {
             fillVertexBuffer(vertexBuffer, id);
@@ -327,11 +335,11 @@ public class DataManager {
         }
     }
 
-    private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id) {
+    private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id) throws ObjectRemovedException {
         fillVertexBuffer(vertexBuffer, id, 0x01 | 0x02 | 0x04 | 0x08);
     }
 
-    private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id, int coordinateMask) {
+    private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id, int coordinateMask) throws ObjectRemovedException {
         int logMask = MainDataLoader.getLogMask(id);
         int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
@@ -339,22 +347,22 @@ public class DataManager {
         vertexBuffer.setData(data, 4);
     }
 
-    private void updateVertexBuffer(ElementsBuffer vertexBuffer, String id, int coordinateMask) {
+    private void updateVertexBuffer(ElementsBuffer vertexBuffer, String id, int coordinateMask) throws ObjectRemovedException {
         int logMask = MainDataLoader.getLogMask(id);
-        int length = MainDataLoader.getDataSize(id);
+        //int length = MainDataLoader.getDataSize(id);
         FloatBuffer data = vertexBuffer.getData();
         MainDataLoader.fillVertices(id, data, 4, coordinateMask, DEFAULT_SCALE, DEFAULT_TRANSLATE, logMask);
         vertexBuffer.setData(data, 4);
     }
 
-    private void fillColorBuffer(ElementsBuffer colorBuffer, String id) {
+    private void fillColorBuffer(ElementsBuffer colorBuffer, String id) throws ObjectRemovedException {
             int length = MainDataLoader.getDataSize(id);
             FloatBuffer data = BufferUtil.newFloatBuffer(length * 4);
             MainDataLoader.fillColors(id, data, 4);
             colorBuffer.setData(data, 4);
     }
 
-    private void fillIndexBuffer(IndicesBuffer indexBuffer, String id) {
+    private void fillIndexBuffer(IndicesBuffer indexBuffer, String id) throws ObjectRemovedException {
         int length = MainDataLoader.getIndicesSize(id);
         IntBuffer data = BufferUtil.newIntBuffer(length);
 

@@ -12,6 +12,7 @@
 
 package org.scilab.modules.graphic_objects.imageplot;
 
+import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.graphicObject.IVisitor;
 
 /**
@@ -27,7 +28,7 @@ public class Matplot extends Imageplot {
 	}
 
     @Override
-    public void accept(IVisitor visitor) {
+    public void accept(IVisitor visitor) throws ObjectRemovedException {
         visitor.visit(this);
     }
 

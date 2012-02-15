@@ -12,6 +12,7 @@
 
 package org.scilab.modules.graphic_objects.fec;
 
+import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.contouredObject.ClippableContouredObject;
 import org.scilab.modules.graphic_objects.graphicObject.IVisitor;
 
@@ -46,7 +47,7 @@ public class Fec extends ClippableContouredObject {
 	}
 
     @Override
-    public void accept(IVisitor visitor) {
+    public void accept(IVisitor visitor) throws ObjectRemovedException {
         visitor.visit(this);
     }
 

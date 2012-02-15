@@ -21,6 +21,7 @@ import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
 import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
 import org.scilab.forge.scirenderer.tranformations.DegenerateMatrixException;
+import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.arc.Arc;
 import org.scilab.modules.graphic_objects.axes.Axes;
 import org.scilab.modules.graphic_objects.axis.Axis;
@@ -162,7 +163,13 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
             for (int i = childrenId.length - 1 ; i >= 0 ; --i) {
                 GraphicObject child = GraphicController.getController().getObjectFromId(childrenId[i]);
                 if (child != null) {
+                    try {
                     child.accept(this);
+                    } catch (ObjectRemovedException e) {
+                        System.err.println("[DEBUG] Try to draw an already removed object");
+                        System.err.println("[DEBUG] " + e);
+                        System.err.println("[DEBUG] Skipped...");
+                    }
                 }
             }
         }
@@ -206,7 +213,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
      * -use polygon offset for wireframe rendering.
      */
     @Override
-    public void visit(final Fec fec) {
+    public void visit(final Fec fec) throws ObjectRemovedException {
         if (fec.getVisible()) {
             DefaultGeometry triangles = new DefaultGeometry();
             triangles.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
@@ -252,7 +259,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     }
 
     @Override
-    public void visit(final Grayplot grayplot) {
+    public void visit(final Grayplot grayplot) throws ObjectRemovedException {
         if (grayplot.getVisible()) {
             DefaultGeometry triangles = new DefaultGeometry();
             triangles.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
@@ -266,7 +273,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     }
 
     @Override
-    public void visit(final Matplot matplot) {
+    public void visit(final Matplot matplot) throws ObjectRemovedException {
         if (matplot.getVisible()) {
             DefaultGeometry triangles = new DefaultGeometry();
             triangles.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
@@ -293,7 +300,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     }
 
     @Override
-    public void visit(final Polyline polyline) {
+    public void visit(final Polyline polyline) throws ObjectRemovedException {
         if (polyline.getVisible()) {
 
             DefaultGeometry triangles = new DefaultGeometry();
@@ -350,7 +357,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
      *  as they are mostly similar.
      */
     @Override
-    public void visit(final Fac3d fac3d) {
+    public void visit(final Fac3d fac3d) throws ObjectRemovedException {
         if (fac3d.getVisible()) {
 
             DefaultGeometry triangles = new DefaultGeometry();
@@ -416,7 +423,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     }
 
     @Override
-    public void visit(final Plot3d plot3d) {
+    public void visit(final Plot3d plot3d) throws ObjectRemovedException {
         if (plot3d.getVisible()) {
 
             DefaultGeometry triangles = new DefaultGeometry();
@@ -510,7 +517,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
      * To do: -arrow tip rendering.
      */
     @Override
-    public void visit(final Champ champ) {
+    public void visit(final Champ champ) throws ObjectRemovedException {
         if (champ.getVisible()) {
             DefaultGeometry segments = new DefaultGeometry();
             segments.setDrawingMode(Geometry.DrawingMode.SEGMENTS);
@@ -542,7 +549,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
      * To do: -arrow tip rendering.
      */
     @Override
-    public void visit(final Segs segs) {
+    public void visit(final Segs segs) throws ObjectRemovedException {
         if (segs.getVisible()) {
             DefaultGeometry segments = new DefaultGeometry();
             segments.setDrawingMode(Geometry.DrawingMode.SEGMENTS);
@@ -581,7 +588,12 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
             axesDrawer.disposeAll();
             canvas.redraw();
         } else if (isFigureChild(id)) {
-            dataManager.update(id, property);
+            try {
+                dataManager.update(id, property);
+            } catch (ObjectRemovedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             markManager.update(id, property);
             textManager.update(id, property);
             labelManager.update(id, property);
