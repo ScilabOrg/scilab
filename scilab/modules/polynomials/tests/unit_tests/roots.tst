@@ -499,7 +499,7 @@ PI(9)=0;
 PI(10)=P(10);
 PI(11)=9.094947017729282D-13;
 P = complex(P,PI);
-R = roots(P)
+R = roots(P);
 E = (1+%i)*2.^((0:-1:-9)');
 E = sortmyroots(E);
 R = sortmyroots(R);
@@ -535,7 +535,7 @@ PI(9)=-2352;
 PI(10)=504;
 PI(11)=0;
 P = complex(P,PI);
-R = roots(P)
+R = roots(P);
 E = [
 1
 1
@@ -588,7 +588,7 @@ PI(11)=0;
 PI(12)=24576;
 PI(13)=0;
 P = complex(P,PI);
-R = roots(P)
+R = roots(P);
 S3=sqrt(3);
 E = [
 -1 + 2*%i
@@ -605,5 +605,5 @@ E = [
 (1/2)*(S3+5*%i)
 ];
 E = sortmyroots(E);
-R = sortmyroots(R);
+R = sortmyroots(R, sqrt(%eps), 1.e-11);
 assert_close ( R, E, 1.e-8 );
