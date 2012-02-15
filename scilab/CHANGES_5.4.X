@@ -89,6 +89,8 @@ Xcos
 
 * Bug #10658 fixed - Typos fixed in the bloc2exp help page.
 
+* Bug #10679 fixed - blocks_link.tst failed.
+
 
 Elementary functions
 ====================
