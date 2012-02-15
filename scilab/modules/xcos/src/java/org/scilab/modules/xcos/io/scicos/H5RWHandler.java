@@ -67,7 +67,9 @@ public class H5RWHandler implements Handler {
      * Read methods
      */
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.scilab.modules.xcos.io.scicos.RWHandler#readBlock()
      */
     @Override
@@ -75,8 +77,12 @@ public class H5RWHandler implements Handler {
         return readBlock(null);
     }
 
-    /* (non-Javadoc)
-     * @see org.scilab.modules.xcos.io.scicos.RWHandler#readBlock(org.scilab.modules.xcos.block.BasicBlock)
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.scilab.modules.xcos.io.scicos.RWHandler#readBlock(org.scilab.modules
+     * .xcos.block.BasicBlock)
      */
     @Override
     public BasicBlock readBlock(BasicBlock into) throws ScicosFormatException {
@@ -111,7 +117,9 @@ public class H5RWHandler implements Handler {
         return instance;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.scilab.modules.xcos.io.scicos.RWHandler#readContext()
      */
     @Override
@@ -151,7 +159,9 @@ public class H5RWHandler implements Handler {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.scilab.modules.xcos.io.scicos.RWHandler#readDiagram()
      */
     @Override
@@ -159,8 +169,12 @@ public class H5RWHandler implements Handler {
         return readDiagram(null);
     }
 
-    /* (non-Javadoc)
-     * @see org.scilab.modules.xcos.io.scicos.RWHandler#readDiagram(org.scilab.modules.xcos.graph.XcosDiagram)
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.scilab.modules.xcos.io.scicos.RWHandler#readDiagram(org.scilab.modules
+     * .xcos.graph.XcosDiagram)
      */
     @Override
     public XcosDiagram readDiagram(XcosDiagram instance) {
@@ -192,9 +206,7 @@ public class H5RWHandler implements Handler {
                  * On version mismatch alert the user but the current instance
                  * contains the partially decoded data so continue.
                  */
-                diagram.error(XcosMessages.UNKNOW_VERSION
-                              + ((VersionMismatchException) e).getWrongVersion()
-                              + "\n" + XcosMessages.TRY_TO_CONTINUE);
+                diagram.error(XcosMessages.UNKNOW_VERSION + ((VersionMismatchException) e).getWrongVersion() + "\n" + XcosMessages.TRY_TO_CONTINUE);
             } else {
                 // rethrow
                 throw new RuntimeException(e);
@@ -218,10 +230,15 @@ public class H5RWHandler implements Handler {
      * Write methods
      */
 
-    /* (non-Javadoc)
-     * @see org.scilab.modules.xcos.io.scicos.RWHandler#writeBlock(org.scilab.modules.xcos.block.BasicBlock)
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.scilab.modules.xcos.io.scicos.RWHandler#writeBlock(org.scilab.modules
+     * .xcos.block.BasicBlock)
      */
     @Override
+    @Deprecated
     public void writeBlock(BasicBlock block) {
         final BlockElement element = new BlockElement();
         final ScilabType data = element.encode(block, null);
@@ -251,10 +268,15 @@ public class H5RWHandler implements Handler {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.scilab.modules.xcos.io.scicos.RWHandler#writeContext(java.lang.String[])
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.scilab.modules.xcos.io.scicos.RWHandler#writeContext(java.lang.String
+     * [])
      */
     @Override
+    @Deprecated
     public void writeContext(String[] context) {
         final ScilabString string = new ScilabString(context);
 
@@ -277,10 +299,15 @@ public class H5RWHandler implements Handler {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.scilab.modules.xcos.io.scicos.RWHandler#writeDiagram(org.scilab.modules.xcos.graph.XcosDiagram)
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.scilab.modules.xcos.io.scicos.RWHandler#writeDiagram(org.scilab.modules
+     * .xcos.graph.XcosDiagram)
      */
     @Override
+    @Deprecated
     public void writeDiagram(XcosDiagram diagram) {
         final DiagramElement element = new DiagramElement();
         final ScilabType data = element.encode(diagram, null);

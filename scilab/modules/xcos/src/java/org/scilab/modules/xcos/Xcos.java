@@ -34,7 +34,6 @@ import java.util.logging.LogManager;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,11 +64,8 @@ import org.scilab.modules.xcos.graph.SuperBlockDiagram;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
-import org.scilab.modules.xcos.palette.PaletteBlockCtrl;
+import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
 import org.scilab.modules.xcos.palette.PaletteManager;
-import org.scilab.modules.xcos.palette.model.Category;
-import org.scilab.modules.xcos.palette.model.PaletteBlock;
-import org.scilab.modules.xcos.palette.model.PreLoaded;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
@@ -105,18 +101,14 @@ public final class Xcos {
      * Dependencies version
      */
     private static final List<String> MXGRAPH_VERSIONS = null;
-    private static final List<String> HDF5_VERSIONS = Arrays.asList(
-                "[1, 8, 4]", "[1, 8, 5]", "[1, 8, 6]", "[1, 8, 7]", "[1, 8, 8]");
+    private static final List<String> HDF5_VERSIONS = Arrays.asList("[1, 8, 4]", "[1, 8, 5]", "[1, 8, 6]", "[1, 8, 7]", "[1, 8, 8]");
     private static final List<String> BATIK_VERSIONS = Arrays.asList("1.7");
 
-    private static final String UNABLE_TO_LOAD_JGRAPHX = Messages
-            .gettext("Unable to load the jgraphx library.\nExpecting version %s ; Getting version %s .");
+    private static final String UNABLE_TO_LOAD_JGRAPHX = Messages.gettext("Unable to load the jgraphx library.\nExpecting version %s ; Getting version %s .");
     private static final String UNABLE_TO_LOAD_JHDF5 = Messages
             .gettext("Unable to load the hdf5-java (jhdf5) library. \nExpecting version %s ; Getting version %s .");
-    private static final String UNABLE_TO_LOAD_HDF5 = Messages
-            .gettext("Unable to load the native HDF5 library.");
-    private static final String UNABLE_TO_LOAD_BATIK = Messages
-            .gettext("Unable to load the Batik library. \nExpecting version %s ; Getting version %s .");
+    private static final String UNABLE_TO_LOAD_HDF5 = Messages.gettext("Unable to load the native HDF5 library.");
+    private static final String UNABLE_TO_LOAD_BATIK = Messages.gettext("Unable to load the Batik library. \nExpecting version %s ; Getting version %s .");
 
     private static final String CALLED_OUTSIDE_THE_EDT_THREAD = "Called outside the EDT thread.";
     private static final Log LOG = LogFactory.getLog(Xcos.class);
@@ -220,16 +212,13 @@ public final class Xcos {
         String mxGraphVersion = "";
         try {
             final Class<?> klass = loader.loadClass("com.mxgraph.view.mxGraph");
-            mxGraphVersion = (String) klass.getDeclaredField("VERSION").get(
-                                 null);
+            mxGraphVersion = (String) klass.getDeclaredField("VERSION").get(null);
 
-            if (MXGRAPH_VERSIONS != null
-                    && !MXGRAPH_VERSIONS.contains(mxGraphVersion)) {
+            if (MXGRAPH_VERSIONS != null && !MXGRAPH_VERSIONS.contains(mxGraphVersion)) {
                 throw new Exception();
             }
         } catch (final Throwable e) {
-            throw new RuntimeException(String.format(UNABLE_TO_LOAD_JGRAPHX,
-                                       MXGRAPH_VERSIONS.get(0), mxGraphVersion), e);
+            throw new RuntimeException(String.format(UNABLE_TO_LOAD_JGRAPHX, MXGRAPH_VERSIONS.get(0), mxGraphVersion), e);
         }
 
         /* HDF5 */
@@ -238,8 +227,7 @@ public final class Xcos {
             final Class<?> klass = loader.loadClass("ncsa.hdf.hdf5lib.H5");
 
             /* hdf5-java */
-            int ret = (Integer) klass.getMethod("H5get_libversion",
-                                                libVersion.getClass()).invoke(null, libVersion);
+            int ret = (Integer) klass.getMethod("H5get_libversion", libVersion.getClass()).invoke(null, libVersion);
             if (ret < 0) {
                 throw new Exception();
             }
@@ -249,17 +237,14 @@ public final class Xcos {
             }
 
             /* hdf5 */
-            ret = (Integer) klass.getMethod("H5check_version", int.class,
-                                            int.class, int.class).invoke(null, libVersion[0],
-                                                    libVersion[1], libVersion[2]);
+            ret = (Integer) klass.getMethod("H5check_version", int.class, int.class, int.class).invoke(null, libVersion[0], libVersion[1], libVersion[2]);
             if (ret < 0) {
                 throw new RuntimeException(UNABLE_TO_LOAD_HDF5);
             }
 
         } catch (final Throwable e) {
             if (!(e instanceof RuntimeException)) {
-                throw new RuntimeException(String.format(UNABLE_TO_LOAD_JHDF5,
-                                           HDF5_VERSIONS.get(0), Arrays.toString(libVersion)), e);
+                throw new RuntimeException(String.format(UNABLE_TO_LOAD_JHDF5, HDF5_VERSIONS.get(0), Arrays.toString(libVersion)), e);
             }
         }
 
@@ -267,16 +252,14 @@ public final class Xcos {
         String batikVersion = null;
         try {
             final Class<?> klass = loader.loadClass("org.apache.batik.Version");
-            batikVersion = klass.getPackage().getImplementationVersion()
-                           .split("\\+")[0];
+            batikVersion = klass.getPackage().getImplementationVersion().split("\\+")[0];
 
             if (!BATIK_VERSIONS.contains(batikVersion)) {
                 throw new Exception();
             }
 
         } catch (final Throwable e) {
-            throw new RuntimeException(String.format(UNABLE_TO_LOAD_BATIK,
-                                       BATIK_VERSIONS.get(0), batikVersion), e);
+            throw new RuntimeException(String.format(UNABLE_TO_LOAD_BATIK, BATIK_VERSIONS.get(0), batikVersion), e);
         }
     }
 
@@ -298,29 +281,6 @@ public final class Xcos {
     private static synchronized Xcos getInstance(final XcosTabFactory factory) {
         if (sharedInstance == null) {
             sharedInstance = new Xcos(factory);
-
-            /*
-             * Lazy loading of HDF5 libraries to avoid first drag lag.
-             */
-            (new SwingWorker<Void, Void>() {
-
-                @Override
-                protected Void doInBackground() throws Exception {
-                    try {
-                        final Category root = PaletteManager.getInstance()
-                                              .getRoot();
-
-                        final PaletteBlock b = ((PreLoaded) root.getNode().get(
-                                                    0)).getBlock().get(0);
-                        new PaletteBlockCtrl(b).getTransferable();
-                    } catch (IndexOutOfBoundsException e) {
-                        LOG.debug(e);
-                    } catch (ClassCastException e) {
-                        LOG.debug(e);
-                    }
-                    return null;
-                }
-            }).execute();
 
             LOG.trace("Session started");
         }
@@ -437,8 +397,7 @@ public final class Xcos {
             diag = diags.iterator().next();
         }
         // if unsaved and empty, reuse it. Allocate otherwise.
-        if (filename == null && diag != null &&
-                diag.getModel().getChildCount(diag.getDefaultParent()) > 0) {
+        if (filename == null && diag != null && diag.getModel().getChildCount(diag.getDefaultParent()) > 0) {
             diag = null;
         }
 
@@ -539,8 +498,7 @@ public final class Xcos {
              */
             for (XcosDiagram graph : it) {
                 if (graph instanceof SuperBlockDiagram) {
-                    final XcosDiagram parent = ((SuperBlockDiagram) graph)
-                                               .getContainer().getParentDiagram();
+                    final XcosDiagram parent = ((SuperBlockDiagram) graph).getContainer().getParentDiagram();
 
                     // As "it" is sorted according to the hierarchy, "removed"
                     // is also ordered.
@@ -602,9 +560,8 @@ public final class Xcos {
         }
 
         if (!canClose) {
-            final AnswerOption ans = ScilabModalDialog.show(XcosTab.get(graph),
-                                     XcosMessages.DIAGRAM_MODIFIED, XcosMessages.XCOS,
-                                     IconType.QUESTION_ICON, ButtonType.YES_NO_CANCEL);
+            final AnswerOption ans = ScilabModalDialog.show(XcosTab.get(graph), XcosMessages.DIAGRAM_MODIFIED, XcosMessages.XCOS, IconType.QUESTION_ICON,
+                                     ButtonType.YES_NO_CANCEL);
 
             switch (ans) {
                 case YES_OPTION:
@@ -653,8 +610,7 @@ public final class Xcos {
      *            the diagram to check
      * @return diagram name for the "Are your sure ?" dialog
      */
-    public String askForClosing(final XcosDiagram graph,
-                                final List<SwingScilabTab> list) {
+    public String askForClosing(final XcosDiagram graph, final List<SwingScilabTab> list) {
         final String msg;
 
         if (wasLastOpened(list)) {
@@ -949,7 +905,7 @@ public final class Xcos {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    getInstance().updateBlockInstance(h5File);
+                    getInstance().updateBlockInstance();
                 }
             });
         } catch (final InterruptedException e) {
@@ -966,13 +922,16 @@ public final class Xcos {
         }
     }
 
-    private void updateBlockInstance(final String h5File) {
+    private void updateBlockInstance() {
         // get the cell
         BasicBlock modifiedBlock;
         try {
-            modifiedBlock = new H5RWHandler(h5File).readBlock();
+            modifiedBlock = new ScilabDirectHandler().readBlock();
         } catch (ScicosFormatException e) {
             throw new RuntimeException(e);
+        }
+        if (modifiedBlock == null) {
+            return;
         }
 
         // diagram lookup
@@ -1013,8 +972,7 @@ public final class Xcos {
      * @return Not used (compatibility)
      */
     @ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
-    public static int xcosDiagramToHDF5(final String xcosFile,
-                                        final String h5File, final boolean overwrite) {
+    public static int xcosDiagramToHDF5(final String xcosFile, final String h5File, final boolean overwrite) {
         final File file = new File(xcosFile);
 
         if (exists(h5File)) {
@@ -1204,8 +1162,7 @@ public final class Xcos {
                 return null;
             }
 
-            SwingScilabTab tab = ScilabTabFactory.getInstance().getFromCache(
-                                     uuid);
+            SwingScilabTab tab = ScilabTabFactory.getInstance().getFromCache(uuid);
 
             // Palette manager restore
             if (tab == null) {
@@ -1223,8 +1180,7 @@ public final class Xcos {
                 }
 
                 final boolean isTab = uuid.equals(cachedDocumentType.getUuid());
-                final boolean isViewport = uuid.equals(cachedDocumentType
-                                                       .getViewport());
+                final boolean isViewport = uuid.equals(cachedDocumentType.getViewport());
 
                 final XcosDiagram graph = getDiagram(isTab, isViewport);
                 if (graph != null && isTab) {
@@ -1235,10 +1191,8 @@ public final class Xcos {
                     ViewPortTab.restore(graph, false);
                     tab = ViewPortTab.get(graph);
 
-                    ClosingOperationsManager.addDependency(
-                        (SwingScilabTab) XcosTab.get(graph), tab);
-                    WindowsConfigurationManager.makeDependency(
-                        graph.getDiagramTab(), tab.getPersistentId());
+                    ClosingOperationsManager.addDependency((SwingScilabTab) XcosTab.get(graph), tab);
+                    WindowsConfigurationManager.makeDependency(graph.getDiagramTab(), tab.getPersistentId());
                 } else {
                     return null;
                 }
@@ -1254,14 +1208,11 @@ public final class Xcos {
             XcosDiagram graph = null;
             if (isTab) {
                 // load a new diagram
-                graph = getInstance().configuration
-                        .loadDiagram(cachedDocumentType);
+                graph = getInstance().configuration.loadDiagram(cachedDocumentType);
             } else if (isViewport) {
                 // get the cached diagram
-                final File f = getInstance().configuration
-                               .getFile(cachedDocumentType);
-                final Collection<XcosDiagram> diags = getInstance().diagrams
-                                                      .get(f);
+                final File f = getInstance().configuration.getFile(cachedDocumentType);
+                final Collection<XcosDiagram> diags = getInstance().diagrams.get(f);
 
                 for (XcosDiagram d : diags) {
                     final String id = d.getDiagramTab();
@@ -1301,8 +1252,7 @@ public final class Xcos {
              */
             if (cachedDocumentType != null) {
                 final boolean isTab = uuid.equals(cachedDocumentType.getUuid());
-                final boolean isViewport = uuid.equals(cachedDocumentType
-                                                       .getViewport());
+                final boolean isViewport = uuid.equals(cachedDocumentType.getViewport());
 
                 if (isTab || isViewport) {
                     return;
