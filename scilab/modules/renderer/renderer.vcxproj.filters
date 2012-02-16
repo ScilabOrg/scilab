@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -16,9 +16,6 @@
     </Filter>
     <Filter Include="Source Files\GraphicSynchronization">
       <UniqueIdentifier>{6d58a5f2-29bf-4e82-a543-67ba20db8512}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ArcDrawing">
-      <UniqueIdentifier>{bf7b01ce-234f-4f9f-aba3-bd1abb0ebfe5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\TextDrawing">
       <UniqueIdentifier>{07f93c17-ae84-4408-9e2e-26dc0bcf0353}</UniqueIdentifier>
@@ -59,9 +56,6 @@
     </Filter>
     <Filter Include="Header Files\GraphicSynchronization">
       <UniqueIdentifier>{7775e038-d4c9-4769-9918-d5b01de96e74}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ArcDrawing">
-      <UniqueIdentifier>{510712c8-b4d3-47cf-9e5a-957e2ee46058}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\FigureDrawing">
       <UniqueIdentifier>{5a5b65bc-4d68-4c1e-a1c7-1d994b2ae2f5}</UniqueIdentifier>
@@ -515,45 +509,6 @@
     </ClCompile>
     <ClCompile Include="src\cpp\GraphicSynchronization\LocalSynchronizer.cpp">
       <Filter>Source Files\GraphicSynchronization</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\ArcFillDrawerGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcFillDrawerJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcFillDrawerJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\ArcLineDrawerGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcLineDrawerJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcLineDrawerJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ConcreteDrawableArc.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArc.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcBridgeFactory.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcFactory.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\DrawableArcGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
     </ClCompile>
     <ClCompile Include="src\jni\CenteredTextDrawerGL.cpp">
       <Filter>Source Files\TextDrawing</Filter>
@@ -1267,51 +1222,6 @@
     </ClInclude>
     <ClInclude Include="src\cpp\GraphicSynchronization\LocalSynchronizer.h">
       <Filter>Header Files\GraphicSynchronization</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jni\ArcFillDrawerGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\ArcFillDrawerJavaMapper.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\ArcFillDrawerJoGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jni\ArcLineDrawerGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\ArcLineDrawerJavaMapper.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\ArcLineDrawerJoGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\ConcreteDrawableArc.h">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArc.h">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArcBridge.h">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArcBridgeFactory.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArcFactory.h">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jni\DrawableArcGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArcJavaMapper.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawableArcJoGL.hxx">
-      <Filter>Header Files\ArcDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cpp\arcDrawing\DrawArcStrategy.h">
-      <Filter>Header Files\ArcDrawing</Filter>
     </ClInclude>
     <ClInclude Include="src\cpp\figureDrawing\ConcreteDrawableFigure.h">
       <Filter>Header Files\FigureDrawing</Filter>
