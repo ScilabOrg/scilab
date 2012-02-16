@@ -17,9 +17,6 @@
     <Filter Include="Source Files\GraphicSynchronization">
       <UniqueIdentifier>{6d58a5f2-29bf-4e82-a543-67ba20db8512}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ArcDrawing">
-      <UniqueIdentifier>{bf7b01ce-234f-4f9f-aba3-bd1abb0ebfe5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\TextDrawing">
       <UniqueIdentifier>{07f93c17-ae84-4408-9e2e-26dc0bcf0353}</UniqueIdentifier>
     </Filter>
@@ -515,45 +512,6 @@
     </ClCompile>
     <ClCompile Include="src\cpp\GraphicSynchronization\LocalSynchronizer.cpp">
       <Filter>Source Files\GraphicSynchronization</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\ArcFillDrawerGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcFillDrawerJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcFillDrawerJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\ArcLineDrawerGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcLineDrawerJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ArcLineDrawerJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\ConcreteDrawableArc.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArc.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcBridgeFactory.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcFactory.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jni\DrawableArcGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcJavaMapper.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\arcDrawing\DrawableArcJoGL.cpp">
-      <Filter>Source Files\ArcDrawing</Filter>
     </ClCompile>
     <ClCompile Include="src\jni\CenteredTextDrawerGL.cpp">
       <Filter>Source Files\TextDrawing</Filter>
