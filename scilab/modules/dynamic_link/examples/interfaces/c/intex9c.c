@@ -1,7 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) INRIA -
- * 
+ *
  * This file is released under the 3-clause BSD license. See COPYING-BSD.
  */
 
@@ -15,19 +15,22 @@ int as2osc (char *thechain);
  * A string argument passed to as2osc
  *--------------------------------------------------------*/
 
+/* ************ This code is deprecated. See api_scilab ************* */
+
 int intex9c(char* fname)
-{ 
-  int l1,m1,n1;
-  static int minlhs=1, minrhs=1, maxlhs=1, maxrhs=1;
+{
+    int l1, m1, n1;
+    static int minlhs = 1, minrhs = 1, maxlhs = 1, maxrhs = 1;
 
-  CheckRhs(minrhs,maxrhs) ;
-  CheckLhs(minlhs,maxlhs) ;
+    CheckRhs(minrhs, maxrhs) ;
+    CheckLhs(minlhs, maxlhs) ;
+#pragma message("Deprecated code. See help('api_scilab')")
 
-  GetRhsVar( 1,STRING_DATATYPE, &m1, &n1, &l1);
+    GetRhsVar( 1, STRING_DATATYPE, &m1, &n1, &l1);
 
-  as2osc(cstk(l1));
+    as2osc(cstk(l1));
 
-  LhsVar(1) = 1;
-  return(0);
+    LhsVar(1) = 1;
+    return(0);
 }
 
