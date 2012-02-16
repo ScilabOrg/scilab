@@ -12,6 +12,7 @@
 
 package org.scilab.modules.gui.utils;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -31,7 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
-import org.scilab.modules.commons.ScilabCommons;
+import org.scilab.modules.gui.console.ScilabConsole;
 import org.scilab.modules.localization.Messages;
 
 /**
@@ -40,6 +41,8 @@ import org.scilab.modules.localization.Messages;
  */
 public class ScilabAboutBox {
 
+    public static final String SCIDIR = System.getenv("SCI");
+    public static final String IMAGEPATH = SCIDIR + "/modules/gui/images/icons/aboutscilab.png";
     private static Icon scilabIcon = new ImageIcon(ScilabSwingUtilities.findIcon("scilab", "256x256"));
     private static Image imageForIcon = ((ImageIcon) scilabIcon).getImage();
 
@@ -50,20 +53,29 @@ public class ScilabAboutBox {
         throw new UnsupportedOperationException(); /* Prevents calls from subclass */
     }
 
+    /**
+     * Display the about box
+     */
     public static void displayAndWait() {
 
-        String filename = System.getenv("SCI") + "/ACKNOWLEDGEMENTS"; // Source version
+        String filename = SCIDIR + "/ACKNOWLEDGEMENTS"; // Source version
         if (!new File(filename).exists()) {
-            filename = System.getenv("SCI") + "/../../ACKNOWLEDGEMENTS"; // Linux binary version
+            filename = SCIDIR + "/../../ACKNOWLEDGEMENTS"; // Linux binary version
         }
 
-        createAboutBox(Messages.gettext("About Scilab..."), null, filename, Messages.gettext("Acknowledgements"));
+        createAboutBox(Messages.gettext("About Scilab..."), filename, Messages.gettext("Acknowledgements"));
 
     }
 
-    public static void createAboutBox(String aboutTitle, String[] contents, String ackFile, String ackTitle) {
+    /**
+     * Create the about box
+     * @param aboutTitle title for the Window
+     * @param ackFile path to acknowledgements file
+     * @param ackTitle Title for acknowledgements button and window
+     */
+    public static void createAboutBox(String aboutTitle, String ackFile, String ackTitle) {
 
-        ImageIcon icon = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/aboutscilab.png");
+        ImageIcon icon = new ImageIcon(IMAGEPATH);
         icon.setImage(icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), 0));
 
         final JFrame ackBox = new JFrame();
@@ -82,14 +94,6 @@ public class ScilabAboutBox {
         ScilabSwingUtilities.closeOnEscape(ackBox);
 
         ImagePanel text = new ImagePanel();
-
-        String theText = new String("\n\n\n\n\n\n");
-        if (contents != null) {
-            for (int i = 0; i < contents.length; i++) {
-                theText += "\n\t" + contents[i];
-            }
-            text.setText(theText);
-        }
 
         text.setOpaque(false);
         text.setEditable(false);
@@ -155,8 +159,12 @@ public class ScilabAboutBox {
 
                     text.setEditable(false);
 
-                    ackBox.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (aboutBox.getWidth() / 2),
-                                       (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (aboutBox.getHeight() / 2));
+                    if (ScilabConsole.isExistingConsole()) {
+                        ackBox.setLocationRelativeTo((Component) ScilabConsole.getConsole().getAsSimpleConsole());
+                    } else {
+                        ackBox.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (aboutBox.getWidth() / 2),
+                                           (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (aboutBox.getHeight() / 2));
+                    }
                     ackBox.setVisible(true);
                 }
             });
@@ -167,8 +175,12 @@ public class ScilabAboutBox {
             acknowledgements.setFont(ackFont.deriveFont(ackFont.getSize2D() * 0.7f));
         }
 
-        aboutBox.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (aboutBox.getWidth() / 2),
-                             (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (aboutBox.getHeight() / 2));
+        if (ScilabConsole.isExistingConsole()) {
+            aboutBox.setLocationRelativeTo((Component) ScilabConsole.getConsole().getAsSimpleConsole());
+        } else {
+            aboutBox.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - (aboutBox.getWidth() / 2),
+                                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - (aboutBox.getHeight() / 2));
+        }
         aboutBox.setVisible(true);
 
     }
@@ -179,7 +191,7 @@ final class ImagePanel extends JTextPane {
 
     private static final long serialVersionUID = -4896563054481112056L;
 
-    private Image background = new ImageIcon(System.getenv("SCI") + "/modules/gui/images/icons/aboutscilab.png").getImage();
+    private Image background = new ImageIcon(ScilabAboutBox.IMAGEPATH).getImage();
 
     @Override
     public void paintComponent(Graphics g) {
