@@ -1,6 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2010 - DIGITEO - Pierre Lando
+ * Copyright (C) 2009-2012 - DIGITEO - Pierre Lando
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,8 +10,11 @@
  */
 package org.scilab.modules.gui.graphicWindow;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
+import org.scilab.modules.graphic_objects.axes.Axes;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
+import org.scilab.modules.gui.events.GlobalEventWatcher;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
@@ -22,11 +25,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import org.scilab.modules.graphic_objects.axes.Axes;
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
-import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
-import org.scilab.modules.gui.events.GlobalEventWatcher;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
 
 /**
  * This class manage figure interaction.
@@ -34,7 +34,9 @@ import org.scilab.modules.gui.events.GlobalEventWatcher;
  * @author Pierre Lando
  */
 public class FigureInteraction {
-
+    /**
+     * The box size is multiply by this value.
+     */
     private static final double ZOOM_FACTOR = 1.02;
 
     private final MouseListener mouseListener;
@@ -48,6 +50,11 @@ public class FigureInteraction {
 
     private MouseEvent previousEvent;
 
+    /**
+     * Default constructor.
+     * @param component Component to listen.
+     * @param figureId the Scilab figure Id.
+     */
     public FigureInteraction(Component component, String figureId) {
         this.component = component;
         this.figureId = figureId;
@@ -120,7 +127,7 @@ public class FigureInteraction {
         if (axes.getZoomEnabled()) {
             return axes.getZoomBox();
         } else {
-            return axes.getDataBounds();
+            return axes.getMaximalDisplayedBounds();
         }
     }
 
@@ -133,7 +140,7 @@ public class FigureInteraction {
      */
     private boolean tightZoomBounds(Axes axes, Double[] zoomBounds) {
         boolean zoomed = false;
-        Double[] dataBounds = axes.getDataBounds();
+        Double[] dataBounds = axes.getMaximalDisplayedBounds();
         for (int i : new int[] {0, 2, 4}) {
             if (zoomBounds[i] < dataBounds[i]) {
                 zoomBounds[i] = dataBounds[i];
@@ -162,9 +169,7 @@ public class FigureInteraction {
                 for (String child : children) {
                     GraphicObject object = GraphicController.getController().getObjectFromId(child);
                     if (object instanceof Axes) {
-
                         double scale = Math.pow(ZOOM_FACTOR, e.getUnitsToScroll());
-                        System.out.println(scale);
 
                         Axes axes = (Axes) object;
                         Double[] bounds = getCurrentBounds(axes);
@@ -203,7 +208,7 @@ public class FigureInteraction {
      */
     private boolean tightZoomBoxToDataBounds(Axes axes, Double[] zoomBounds) {
         boolean zoomed = false;
-        Double[] dataBounds = axes.getDataBounds();
+        Double[] dataBounds = axes.getMaximalDisplayedBounds();
         for (int i : new int[] {0, 2, 4}) {
             if (zoomBounds[i] < dataBounds[i]) {
                 double delta = dataBounds[i] - zoomBounds[i];
