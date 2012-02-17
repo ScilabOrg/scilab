@@ -35,7 +35,7 @@ Help
 Xcos
 ====
 
-* Major performance improvements on the simulation startup. On big schemas, 
+* Major performance improvements on the simulation startup. On big schemas,
   the gain is very important (minutes to milliseconds).
 
 * New examples are provided in the documentation for the blocks:
@@ -229,11 +229,11 @@ Bug fixes
 
 * Bug #9643 fixed - genetic algorithms demo was not vectorized.
 
-* Bug #9654 fixed - an example of 'optim' help was poorly implemented. 
+* Bug #9654 fixed - an example of 'optim' help was poorly implemented.
 
 * Bug #9700 fixed - optim help page had a mistake about bounds management.
 
-* Bug #9734 fixed - intsplin help pages moved from interpolation to 
+* Bug #9734 fixed - intsplin help pages moved from interpolation to
                     elementary functions chapter.
 
 * Bug #9811 fixed - Output message of fminsearch was wrongly set.
@@ -366,6 +366,8 @@ Bug fixes
 
 * Bug #10565 fixed - demo simulation --> bicycle simulation --> unstable
                      trajectory failed.
+
+* Bug #10574 fixed - Runge-Kutta-Method failed for vector [x, 1] with x > 9.
 
 * Bug #10576 fixed - getdate (on Windows) did not manage dates after January 19, 2038
 
