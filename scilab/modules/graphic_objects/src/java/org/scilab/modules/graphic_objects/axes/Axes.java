@@ -1792,22 +1792,32 @@ public class Axes extends GraphicObject {
             if (getZoomEnabled()) {
                 bounds = getZoomBox();
             } else {
-                bounds = getDataBounds();
+                bounds = getMaximalDisplayedBounds();
+            }
 
-                /**
-                 * Remove 0 sized bounds
-                 */
-                for (int i = 0 ; i < 6 ; i += 2) {
-                    if (bounds[i].equals(bounds[i + 1])) {
-                        bounds[i]--;
-                        bounds[i + 1]++;
-                    }
+            return bounds;
+        }
+
+        /**
+         * Maximal possible displayed bounds getter.
+         * @return the maximal possible displayed bounds.
+         */
+        public Double[] getMaximalDisplayedBounds() {
+            Double[] bounds = getDataBounds();
+
+            /**
+             * Remove 0 sized bounds
+             */
+            for (int i = 0 ; i < 6 ; i += 2) {
+                if (bounds[i].equals(bounds[i + 1])) {
+                    bounds[i]--;
+                    bounds[i + 1]++;
                 }
+            }
 
-                if (!getTightLimits()) {
-                    for (int i = 0 ; i < 6 ; i++) {
-                        bounds[i] = round(bounds[i]);
-                    }
+            if (!getTightLimits()) {
+                for (int i = 0 ; i < 6 ; i++) {
+                    bounds[i] = round(bounds[i]);
                 }
             }
 
