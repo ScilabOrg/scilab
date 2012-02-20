@@ -22,6 +22,9 @@ import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
 import org.scilab.forge.scirenderer.sprite.Sprite;
 import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
 import org.scilab.forge.scirenderer.tranformations.DegenerateMatrixException;
+import org.scilab.forge.scirenderer.tranformations.Transformation;
+import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
+import org.scilab.forge.scirenderer.tranformations.TransformationStack;
 import org.scilab.modules.graphic_objects.arc.Arc;
 import org.scilab.modules.graphic_objects.axes.Axes;
 import org.scilab.modules.graphic_objects.axis.Axis;
@@ -64,6 +67,7 @@ import java.util.Map;
 public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     private final Canvas canvas;
     private final Figure figure;
+    private final TextureManager textureManager;
     private final DataManager dataManager;
     private final MarkSpriteManager markManager;
     private final TextManager textManager;
@@ -90,6 +94,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
         this.figure = figure;
 
         this.dataManager = new DataManager(canvas);
+        this.textureManager = new TextureManager(this);
         this.markManager = new MarkSpriteManager(canvas.getSpriteManager());
         this.textManager = new TextManager(canvas.getSpriteManager());
         this.labelManager = new LabelManager(canvas.getSpriteManager());
@@ -273,14 +278,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     @Override
     public void visit(final Matplot matplot) {
         if (matplot.getVisible()) {
-            DefaultGeometry triangles = new DefaultGeometry();
-            triangles.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
-            triangles.setVertices(dataManager.getVertexBuffer(matplot.getIdentifier()));
-            triangles.setColors(dataManager.getColorBuffer(matplot.getIdentifier()));
-            triangles.setIndices(dataManager.getIndexBuffer(matplot.getIdentifier()));
-            triangles.setFaceCullingMode(Geometry.FaceCullingMode.BOTH);
-            Appearance trianglesAppearance = new Appearance();
-            drawingTools.draw(triangles, trianglesAppearance);
+            TransformationStack modelViewStack = drawingTools.getTransformationManager().getModelViewStack();
+            Transformation t = TransformationFactory.getTranslateTransformation(.5, .5 , 0);
+            modelViewStack.pushRightMultiply(t);
+            drawingTools.draw(textureManager.getTexture(matplot.getIdentifier()));
+            modelViewStack.pop();
         }
     }
 

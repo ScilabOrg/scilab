@@ -1,7 +1,7 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- *  Copyright (C) 2010 - DIGITEO - Pierre Lando
  *  Copyright (C) 2011-2012 - DIGITEO - Manuel Juliachs
+ *  Copyright (C) 2011-2012 - DIGITEO - Pierre Lando
  *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
@@ -15,6 +15,7 @@
 
 #include "DataLoader.hxx"
 
+#include "MatPlotDecomposer.hxx"
 #include "Fac3DDecomposer.hxx"
 #include "NgonGridGrayplotDataDecomposer.hxx"
 #include "NgonGridMatplotDataDecomposer.hxx"
@@ -29,6 +30,77 @@ extern "C"
 }
 
 // TODO: switch using the Type
+
+
+int getTextureWidth(char* id)
+{
+  char* type;
+  getGraphicObjectProperty(id, __GO_TYPE__, jni_string, (void**) &type);
+  if (strcmp(type, __GO_MATPLOT__) == 0)
+  {
+    return MatPlotDecomposer::getTextureWidth(id);
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+int getTextureHeight(char* id)
+{
+  char* type;
+  getGraphicObjectProperty(id, __GO_TYPE__, jni_string, (void**) &type);
+  if (strcmp(type, __GO_MATPLOT__) == 0)
+  {
+    return MatPlotDecomposer::getTextureHeight(id);
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+int fillTextureData(char* id, float* buffer, int bufferLength)
+{
+  char* type;
+  getGraphicObjectProperty(id, __GO_TYPE__, jni_string, (void**) &type);
+  if (strcmp(type, __GO_MATPLOT__) == 0)
+  {
+    return MatPlotDecomposer::fillTextureData(id, buffer, bufferLength);
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+int fillSubTextureData(char* id, float* buffer, int bufferLength, int x, int y, int width, int height)
+{
+  char* type;
+  getGraphicObjectProperty(id, __GO_TYPE__, jni_string, (void**) &type);
+  if (strcmp(type, __GO_MATPLOT__) == 0)
+  {
+    return MatPlotDecomposer::fillTextureData(id, buffer, bufferLength, x, y, width, height);
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+int fillTextureCoordinates(char* id, float* buffer, int bufferLength)
+{
+  char* type;
+  getGraphicObjectProperty(id, __GO_TYPE__, jni_string, (void**) &type);
+  if (strcmp(type, __GO_MATPLOT__) == 0)
+  {
+    return MatPlotDecomposer::fillTextureCoordinates(id, buffer, bufferLength);
+  }
+  else
+  {
+    return 0;
+  }
+}
 
 int getDataSize(char* id)
 {
@@ -50,7 +122,7 @@ int getDataSize(char* id)
     }
     else if (strcmp(type, __GO_MATPLOT__) == 0)
     {
-        return NgonGridMatplotDataDecomposer::getDataSize(id);
+        return MatPlotDecomposer::getDataSize(id);
     }
     else if (strcmp(type, __GO_PLOT3D__) == 0)
     {
@@ -87,7 +159,7 @@ void fillVertices(char* id, float* buffer, int bufferLength, int elementsSize, i
     }
     else if (strcmp(type, __GO_MATPLOT__) == 0)
     {
-        NgonGridMatplotDataDecomposer::fillVertices(id, buffer, bufferLength, elementsSize, coordinateMask, scale, translation, logMask);
+        MatPlotDecomposer::fillVertices(id, buffer, bufferLength, elementsSize, coordinateMask, scale, translation, logMask);
     }
     else if (strcmp(type, __GO_PLOT3D__) == 0)
     {
@@ -116,10 +188,6 @@ void fillColors(char* id, float* BUFF, int bufferLength, int elementsSize)
     else if (strcmp(type, __GO_GRAYPLOT__) == 0)
     {
         NgonGridGrayplotDataDecomposer::fillColors(id, BUFF, bufferLength, elementsSize);
-    }
-    else if (strcmp(type, __GO_MATPLOT__) == 0)
-    {
-        NgonGridMatplotDataDecomposer::fillColors(id, BUFF, bufferLength, elementsSize);
     }
     else if (strcmp(type, __GO_PLOT3D__) == 0)
     {
@@ -152,7 +220,7 @@ int getIndicesSize(char* id)
     }
     else if (strcmp(type, __GO_MATPLOT__) == 0)
     {
-        return NgonGridMatplotDataDecomposer::getIndicesSize(id);
+        return MatPlotDecomposer::getIndicesSize(id);
     }
     else if (strcmp(type, __GO_PLOT3D__) == 0)
     {
@@ -187,7 +255,7 @@ int fillIndices(char* id, int* buffer, int bufferLength, int logMask)
     }
     else if (strcmp(type, __GO_MATPLOT__) == 0)
     {
-        return NgonGridMatplotDataDecomposer::fillIndices(id, buffer, bufferLength, logMask);
+        return MatPlotDecomposer::fillIndices(id, buffer, bufferLength, logMask);
     }
     else if (strcmp(type, __GO_PLOT3D__) == 0)
     {

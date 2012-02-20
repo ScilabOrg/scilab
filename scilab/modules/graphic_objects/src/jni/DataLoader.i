@@ -67,6 +67,12 @@ NIO_BUFFER_TYPEMAP(float, BUFF, java.nio.FloatBuffer);
 %apply int   *BUFF {int   *buffer};
 
 %inline %{
+    extern int getTextureWidth(char* id);
+    extern int getTextureHeight(char* id);
+    extern int fillTextureData(char* id, float* buffer, int bufferLength);
+    extern int fillSubTextureData(char* id, float* buffer, int bufferLength, int x, int y, int width, int height);
+    extern int fillTextureCoordinates(char* id, float* buffer);
+    
     extern int getDataSize(char* id);
     extern void fillVertices(char* id, float* buffer, int bufferLength, int elementsSize, int coordinateMask, double scale[], double translation[], int logMask);
     extern void fillColors(char* id, float* buffer, int bufferLength, int elementsSize);
@@ -80,4 +86,3 @@ NIO_BUFFER_TYPEMAP(float, BUFF, java.nio.FloatBuffer);
     extern int getMarkIndicesSize(char* id);
     extern int fillMarkIndices(char* id, int* BUFF, int bufferLength);
 %}
-
