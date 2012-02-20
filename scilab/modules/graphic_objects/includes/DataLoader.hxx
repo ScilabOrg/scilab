@@ -16,6 +16,11 @@
 extern "C"
 {
 
+  int getTextureWidth(char* id);
+  int getTextureHeight(char* id);
+  int fillTextureData(char *id, float* buffer, int bufferLength);
+  int fillTextureCoordinates(char *id, float* buffer, int bufferLength);
+
   /**
    * Return the number of data elements for the given object.
    * @param[in] the given object id.
@@ -97,4 +102,5 @@ extern "C"
 
 }
 
-#endif DATA_LOADER_HXX
+#endif /* DATA_LOADER_HXX */
+
