@@ -63,6 +63,7 @@ import java.util.Map;
 public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     private final Canvas canvas;
     private final Figure figure;
+    private final TextureManager textureManager;
     private final DataManager dataManager;
     private final MarkSpriteManager markManager;
     private final TextManager textManager;
@@ -89,6 +90,7 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
         this.figure = figure;
 
         this.dataManager = new DataManager(canvas);
+        this.textureManager = new TextureManager(this);
         this.markManager = new MarkSpriteManager(canvas.getSpriteManager());
         this.textManager = new TextManager(canvas.getSpriteManager());
         this.labelManager = new LabelManager(canvas.getSpriteManager());
@@ -268,21 +270,25 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
     @Override
     public void visit(final Matplot matplot) {
         if (matplot.getVisible()) {
-            DefaultGeometry triangles = new DefaultGeometry();
-            triangles.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
-            triangles.setVertices(dataManager.getVertexBuffer(matplot.getIdentifier()));
-            triangles.setColors(dataManager.getColorBuffer(matplot.getIdentifier()));
-            triangles.setIndices(dataManager.getIndexBuffer(matplot.getIdentifier()));
-            triangles.setFaceCullingMode(Geometry.FaceCullingMode.BOTH);
-            Appearance trianglesAppearance = new Appearance();
-            drawingTools.draw(triangles, trianglesAppearance);
+            Appearance appearance = new Appearance();
+            appearance.setTexture(textureManager.getTexture(matplot.getIdentifier()));
+
+            DefaultGeometry geometry = new DefaultGeometry();
+            geometry.setFaceCullingMode(Geometry.FaceCullingMode.BOTH);
+            geometry.setDrawingMode(Geometry.DrawingMode.TRIANGLES);
+
+            geometry.setVertices(dataManager.getVertexBuffer(matplot.getIdentifier()));
+            geometry.setIndices(dataManager.getIndexBuffer(matplot.getIdentifier()));
+            geometry.setTextureCoordinates(dataManager.getTextureCoordinateBuffer(matplot.getIdentifier()));
+
+            drawingTools.draw(geometry, appearance);
         }
     }
 
     @Override
     public void visit(Label label) {
         // TODO
-        System.out.println("How can I draw a label ?");
+        //System.out.println("How can I draw a label ?");
     }
 
     @Override
