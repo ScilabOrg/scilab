@@ -348,10 +348,12 @@ function %cpr = xcos_simulate(scs_m, needcompile)
     end
 
   end
-  ierr = execstr(txt, "errcatch")
-  if ierr <> 0
-      str_err = split_lasterror(lasterror());
-      message(['Simulation problem while executing <'+txt+'>:';str_err]);
+  if ~isempty(txt)
+      ierr = execstr(txt, "errcatch")
+      if ierr <> 0
+          str_err = split_lasterror(lasterror());
+          message(['Simulation problem while executing <'+txt+'>:';str_err]);
+      end
   end
 
     // Hook according to SEP066
