@@ -13,6 +13,7 @@ package org.scilab.modules.renderer.JoGLView.legend;
 
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.DrawingTools;
+import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.buffers.IndicesBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
@@ -139,8 +140,9 @@ public class LegendDrawer {
         /**
          * Draws the given Legend.
          * @param legend the Legend to draw.
+         * @throws org.scilab.forge.scirenderer.SciRendererException if the draw is not possible.
          */
-        public void draw(Legend legend) {
+        public void draw(Legend legend) throws SciRendererException {
                 /* The coordinates of the legend box's lower-left corner */
                 double [] legendCorner = new double[]{0.25, 0.75, Z_FRONT};
 
@@ -376,20 +378,20 @@ public class LegendDrawer {
                 barVertexData[12] = barVertexData[4];
                 barVertexData[13] = barVertexData[9];
 
-                for (int i = 0; i < links.length; i++) {
-                        Polyline currentLine = (Polyline) GraphicController.getController().getObjectFromId(links[i]);
+                for (String link : links) {
+                    Polyline currentLine = (Polyline) GraphicController.getController().getObjectFromId(link);
 
-                        drawLegendItem(drawingTools, colorMap, currentLine, barVertexData, lineVertexData);
+                    drawLegendItem(drawingTools, colorMap, currentLine, barVertexData, lineVertexData);
 
-                        /* Update the vertex data's vertical position */
-                        lineVertexData[1] += deltaHeight;
-                        lineVertexData[5] += deltaHeight;
-                        lineVertexData[9] += deltaHeight;
+                    /* Update the vertex data's vertical position */
+                    lineVertexData[1] += deltaHeight;
+                    lineVertexData[5] += deltaHeight;
+                    lineVertexData[9] += deltaHeight;
 
-                        barVertexData[1] += deltaHeight;
-                        barVertexData[5] += deltaHeight;
-                        barVertexData[9] += deltaHeight;
-                        barVertexData[13] += deltaHeight;
+                    barVertexData[1] += deltaHeight;
+                    barVertexData[5] += deltaHeight;
+                    barVertexData[9] += deltaHeight;
+                    barVertexData[13] += deltaHeight;
                 }
 
                 /* Legend text */
@@ -416,8 +418,8 @@ public class LegendDrawer {
                         axesDims[1] = 1.0;
                 }
 
-                legendPosition[0] = (double) ((legendCorner[0] - axesPos[0])/axesDims[0]);
-                legendPosition[1] = 1.0 - (double) ((legendCorner[1] + legendDims[1] - axesPos[1])/axesDims[1]);
+                legendPosition[0] = (legendCorner[0] - axesPos[0]) / axesDims[0];
+                legendPosition[1] = 1.0 - (legendCorner[1] + legendDims[1] - axesPos[1]) / axesDims[1];
 
                 if (legendLocation != LegendLocation.BY_COORDINATES) {
                         legend.setPosition(legendPosition);
@@ -432,8 +434,9 @@ public class LegendDrawer {
          * @param polyline the given polyline.
          * @param barVertexData a bar's vertex data (4 consecutive (x,y,z,w) quadruplets: lower-left, lower-right, upper-left and upper-right corners.
          * @param lineVertexData a line's vertex data (3 consecutive (x,y,z,w) quadruplets: left, middle and right vertices).
+         * @throws org.scilab.forge.scirenderer.SciRendererException if the draw is not possible.
          */
-        private void drawLegendItem(DrawingTools drawingTools, ColorMap colorMap, Polyline polyline, float[] barVertexData, float[] lineVertexData) {
+        private void drawLegendItem(DrawingTools drawingTools, ColorMap colorMap, Polyline polyline, float[] barVertexData, float[] lineVertexData) throws SciRendererException {
             int polylineStyle = polyline.getPolylineStyle();
 
             int lineColor = polyline.getLineColor();
@@ -441,7 +444,7 @@ public class LegendDrawer {
             short linePattern = polyline.getLineStyleAsEnum().asPattern();
 
             boolean isBar = (polylineStyle == 6) || (polylineStyle == 7);
-            boolean barDrawn = isBar || (!isBar && polyline.getFillMode());
+            boolean barDrawn = isBar || polyline.getFillMode();
 
             /* Draw a bar if the curve is a bar or if is is filled */
             if (barDrawn) {
@@ -469,7 +472,7 @@ public class LegendDrawer {
                 barOutline.setVertices(barVertices);
                 barOutline.setIndices(rectangleOutlineIndices);
 
-                if (isBar || (!isBar && polyline.getLineMode())) {
+                if (isBar || polyline.getLineMode()) {
                     drawingTools.draw(barOutline, barOutlineAppearance);
                 }
             }
