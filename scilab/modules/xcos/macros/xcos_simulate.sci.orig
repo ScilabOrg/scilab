@@ -268,7 +268,7 @@ function %cpr = xcos_simulate(scs_m, needcompile)
   end
 
   //** scicos simulation
-  tf = scs_m.props.tf
+  tf = scs_m.props.tf;
 
   //** run scicosim via 'start' flag
   ierr = execstr('[state,t]=scicosim(%cpr.state,%tcur,tf,%cpr.sim,'+..
@@ -344,23 +344,30 @@ function %cpr = xcos_simulate(scs_m, needcompile)
     end
 
   end
+<<<<<<< HEAD
+  if ~isempty(txt)
+      ierr = execstr(txt, "errcatch")
+      if ierr <> 0
+          str_err = split_lasterror(lasterror());
+          message(['Simulation problem while executing <'+txt+'>:';str_err]);
+      end
+=======
 
   // Hook according to SEP066
   if isdef("post_xcos_simulate") then
     try
-      post_xcos_simulate(%cpr, scs_m, needcompile);
+    post_xcos_simulate(%cpr, scs_m, needcompile);
     catch
-      disp(_("Error in post_xcos_simulate: ending simulation."))
+    disp(_("Error in post_xcos_simulate: ending simulation."))
     end
   end
 
   // finally restore the exported variables on the parent context
-  if ~isempty(txt) then
-    ierr = execstr(txt, "errcatch")
-    if ierr <> 0 then
-        str_err = split_lasterror(lasterror());
-        message(['Simulation problem while executing <'+txt+'>:';str_err]);
-    end
+  ierr = execstr(txt, "errcatch")
+  if ierr <> 0
+      str_err = split_lasterror(lasterror());
+      message(['Simulation problem while executing <'+txt+'>:';str_err]);
+>>>>>>> 1aef2f1... * Bug #10697 fixed - post_xcos_simulate function did not work if a TOWS_c block
   end
 endfunction
 
