@@ -14,6 +14,7 @@ package org.scilab.modules.renderer.JoGLView;
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
+import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.geometry.DefaultGeometry;
@@ -164,7 +165,11 @@ public class DrawerVisitor implements IVisitor, Drawer, GraphicView {
             for (int i = childrenId.length - 1 ; i >= 0 ; --i) {
                 GraphicObject child = GraphicController.getController().getObjectFromId(childrenId[i]);
                 if (child != null) {
-                    child.accept(this);
+                    try {
+                        child.accept(this);
+                    } catch (SciRendererException e) {
+                        System.err.println("A '" + child.getType() + "' is not drawable because: '" + e.getMessage() + "'");
+                    }
                 }
             }
         }
