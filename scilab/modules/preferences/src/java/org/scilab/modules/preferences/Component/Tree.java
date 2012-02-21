@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XChooser;
 import org.scilab.modules.preferences.XCommonManager;
 import org.scilab.modules.preferences.XComponent;
@@ -73,7 +74,7 @@ public class Tree extends Panel implements XComponent, XChooser, TreeSelectionLi
      * @return array of actuator names.
      */
     public final String[] actuators() {
-        String[] actuators = {"item"};
+        String[] actuators = {};
         return actuators;
     }
 
@@ -195,7 +196,7 @@ class XAdapterNode {
     }
 
     public String toString() {
-        return XCommonManager.getAttribute(peer, "name", "");
+        return Messages.gettext(XCommonManager.getAttribute(peer, "name", ""));
     }
 
     public String content() {

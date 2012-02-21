@@ -14,40 +14,39 @@ package org.scilab.modules.preferences.Component;
 
 import java.awt.Cursor;
 
-import org.scilab.modules.preferences.XConfigManager;
-
 import org.w3c.dom.Node;
 
-/** 
+import org.scilab.modules.preferences.XConfigManager;
+
+/**
  * Implementation of Link compliant with extended management.
  * @author Vincent COUVERT
  */
 public class Link extends Label {
 
-	private static final long serialVersionUID = -8915028261763299611L;
+    private static final long serialVersionUID = -8915028261763299611L;
 
-	/** 
-	 * Constructor.
-	 * @param peer : associated view DOM node.
-	 */
-	public Link(final Node peer) {
-		super(peer);
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	}
+    /**
+     * Constructor.
+     * @param peer : associated view DOM node.
+     */
+    public Link(final Node peer) {
+        super(peer);
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
 
-	/**
-	 * Refresh the component by the use of actuators.
-	 * @param peer the corresponding view DOM node
-	 */
-	public void refresh(final Node peer) {
-		super.refresh(peer);
-		/* Force text to be underlined */
-		String text = "<HTML><U>" + XConfigManager.getAttribute(peer , "text") + "</U></HTML>";
-		if (!text.equals(text())) {
-			text(text);
-		}
-		/* Force text to be blue */
-		foreground("#0000FF");
-	}
+    /**
+     * Refresh the component by the use of actuators.
+     * @param peer the corresponding view DOM node
+     */
+    public void refresh(final Node peer) {
+        super.refresh(peer);
+        /* Force text to be underlined */
+        String text = "<HTML><U>" + XConfigManager.getAttribute(peer , "text") + "</U></HTML>";
+        if (!text.equals(text())) {
+            text(text);
+        }
+        /* Force text to be blue */
+        foreground("#0000FF");
+    }
 }
-

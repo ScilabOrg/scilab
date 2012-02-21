@@ -23,10 +23,11 @@ import javax.swing.JPanel;
 
 import org.w3c.dom.Node;
 
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XComponent;
 import org.scilab.modules.preferences.XConfigManager;
 
-/** 
+/**
  * Implementation of Title compliant with extended management.
  *
  * @author Pierre GRADIT
@@ -38,24 +39,24 @@ public class Title extends Panel implements XComponent {
      *
      */
     private static final long serialVersionUID = 6183280975436648612L;
-    
+
     /** Define the set of actuators.
-    *
-    * @return array of actuator names.
-    */
+     *
+     * @return array of actuator names.
+     */
     public String[] actuators() {
         return new String[]{};
     }
 
     /** Constructor.
-    *
-    * @param peer : associated view DOM node.
-    */
+     *
+     * @param peer : associated view DOM node.
+     */
     public Title(final Node peer) {
         super(peer);
         String text = XConfigManager.getAttribute(peer, "text");
-        TitledBorder title = BorderFactory.createTitledBorder(text);
-	title.setTitleFont(title.getTitleFont().deriveFont(Font.BOLD));
+        TitledBorder title = BorderFactory.createTitledBorder(Messages.gettext(text));
+        title.setTitleFont(title.getTitleFont().deriveFont(Font.BOLD));
         setBorder(title);
         XConfigManager.setDimension(this, peer);
         setLayout(new BorderLayout());
@@ -69,15 +70,15 @@ public class Title extends Panel implements XComponent {
     }
 
     /** Refresh the component by the use of actuators.
-    *
-    * @param peer the corresponding view DOM node
-    */
+     *
+     * @param peer the corresponding view DOM node
+     */
     public void refresh(final Node peer) { }
 
     /** Developer serialization method.
-    *
-    * @return equivalent signature.
-    */
+     *
+     * @return equivalent signature.
+     */
     public final String toString() {
         return "Title";
     }

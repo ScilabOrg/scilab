@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 import org.w3c.dom.Node;
 
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XCommonManager;
 import org.scilab.modules.preferences.XComponent;
 import org.scilab.modules.preferences.XConfigManager;
@@ -36,12 +37,15 @@ public class Label extends JLabel implements XComponent {
      */
     private static final long serialVersionUID = -4842434795956015957L;
 
+    private String text = XConfigManager.NAV;
+    private String tooltip;
+
     /** Define the set of actuators.
      *
      * @return array of actuator names.
      */
-    public final String [] actuators() {
-        String [] actuators = {"text", "foreground", "background", "tooltip", "font-family", "font-face", "font-size", "enable"};
+    public final String[] actuators() {
+        String[] actuators = {"text", "foreground", "background", "tooltip", "font-family", "font-face", "font-size", "enable"};
         return actuators;
     }
 
@@ -134,7 +138,7 @@ public class Label extends JLabel implements XComponent {
      * @return the attribute value.
      */
     public final String text() {
-        return getText();
+        return this.text;
     }
 
     /** Sensor for 'tooltip' attribute.
@@ -142,11 +146,10 @@ public class Label extends JLabel implements XComponent {
      * @return the attribute value.
      */
     public final String tooltip() {
-        String tooltip = getToolTipText();
-        if (tooltip == null) {
+        if (this.tooltip == null) {
             return "";
         }
-        return tooltip;
+        return this.tooltip;
     }
 
     /** Sensor for 'foreground' attribute.
@@ -241,10 +244,7 @@ public class Label extends JLabel implements XComponent {
      * @return the attribute value.
      */
     public final void fontFace(String fontFace) {
-        Font font = new Font(
-            getFont().getFamily(),
-            getStyle(fontFace),
-            getFont().getSize());
+        Font font = new Font(getFont().getFamily(), getStyle(fontFace), getFont().getSize());
         setFont(font);
     }
 
@@ -253,7 +253,8 @@ public class Label extends JLabel implements XComponent {
      * @param text : the attribute value.
      */
     public final void text(final String text) {
-        setText(text);
+        this.text = text;
+        setText(Messages.gettext(text));
     }
 
     /** Actuator for 'tooltip' attribute.
@@ -261,12 +262,13 @@ public class Label extends JLabel implements XComponent {
      * @param text : the attribute value.
      */
     public final void tooltip(String tooltip) {
-        if (tooltip.equals(XCommonManager.NAV)
-            || tooltip.equals("")
-            ) {
-            tooltip = null;
+        if (tooltip.equals(XCommonManager.NAV) || tooltip.equals("")) {
+            this.tooltip = null;
+            setToolTipText(null);
+        } else {
+            this.tooltip = tooltip;
+            setToolTipText(Messages.gettext(tooltip));
         }
-        setToolTipText(tooltip);
     }
 
     /** Actuator for 'foreground' attribute.
@@ -278,7 +280,6 @@ public class Label extends JLabel implements XComponent {
             setForeground(null);
         } else {
             Color color = XConfigManager.getColor(foreground);
-            //System.err.println("foreground:" + actuator + " = " + color);
             setForeground(color);
         }
     }
@@ -293,7 +294,6 @@ public class Label extends JLabel implements XComponent {
             setBackground(null);
         } else {
             Color color = XConfigManager.getColor(background);
-            //System.err.println("background:" + actuator + " = " + color);
             setOpaque(true);
             setBackground(color);
         }
@@ -327,4 +327,3 @@ public class Label extends JLabel implements XComponent {
         return signature;
     }
 }
-

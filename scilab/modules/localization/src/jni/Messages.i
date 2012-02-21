@@ -90,6 +90,8 @@ public class";
 */
 public";
 
+%typemap(javain, pre="if ($javainput == null || $javainput.isEmpty()) return \"\";") char* "$javainput"
+
 /* Thanks to rename, gettext is the Java method and in the native code, 
 we are calling the C function scigettext */
 %rename(gettext) scigettext;

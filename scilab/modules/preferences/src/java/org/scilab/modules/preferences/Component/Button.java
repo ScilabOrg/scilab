@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import org.w3c.dom.Node;
 
 import org.scilab.modules.gui.bridge.pushbutton.SwingScilabPushButton;
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XCommonManager;
 import org.scilab.modules.preferences.XComponent;
 import org.scilab.modules.preferences.XConfigManager;
@@ -26,7 +27,6 @@ import org.scilab.modules.preferences.XConfigManager;
  * @author Pierre GRADIT
  *
  */
-//public class Button extends JButton implements XComponent {
 public class Button extends JButton implements XComponent {
 
     /** Universal identifier for serialization.
@@ -34,15 +34,15 @@ public class Button extends JButton implements XComponent {
      */
     private static final long serialVersionUID = -3412653691044553310L;
 
-    
     private String cachedStatus = "enabled";
-    
+    private String text = XConfigManager.NAV;
+
     /** Define the set of actuators.
-    *
-    * @return array of actuator names.
-    */
-    public final String [] actuators() {
-        String [] actuators = {"enable", "text"};
+     *
+     * @return array of actuator names.
+     */
+    public final String[] actuators() {
+        String[] actuators = {"enable", "text"};
         return actuators;
     }
 
@@ -52,16 +52,16 @@ public class Button extends JButton implements XComponent {
      */
     public Button(final Node peer) {
         super();
-	setRequestFocusEnabled(true);
+        setRequestFocusEnabled(true);
         setFocusable(true);
 
         refresh(peer);
     }
 
     /** Refresh the component by the use of actuators.
-    *
-    * @param peer the corresponding view DOM node
-    */
+     *
+     * @param peer the corresponding view DOM node
+     */
     public final void refresh(final Node peer) {
         String text = XCommonManager.getAttribute(peer, "text", XCommonManager.NAV);
         if (!text.equals(text())) {
@@ -77,7 +77,7 @@ public class Button extends JButton implements XComponent {
      * @return the attribute value.
      */
     public final String text() {
-        return getText();
+        return text;
     }
 
     /** Actuator for 'text' attribute.
@@ -85,10 +85,11 @@ public class Button extends JButton implements XComponent {
      * @param text : the attribute value.
      */
     public final void text(final String text) {
-        setText(text);
+        this.text = text;
+        setText(Messages.gettext(text));
     }
 
-   /** Developer serialization method.
+    /** Developer serialization method.
      *
      * @return equivalent signature.
      */
@@ -101,8 +102,4 @@ public class Button extends JButton implements XComponent {
 
         return signature;
     }
-
-
 }
-
-

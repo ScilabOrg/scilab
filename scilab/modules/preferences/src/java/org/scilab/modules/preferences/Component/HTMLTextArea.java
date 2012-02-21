@@ -27,6 +27,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XCommonManager;
 import org.scilab.modules.preferences.XComponent;
 import org.scilab.modules.preferences.XConfigManager;
@@ -39,21 +40,21 @@ import org.scilab.modules.preferences.XConfigManager;
  */
 public class HTMLTextArea extends JTextPane implements XComponent {
 
-    /** Universal identifier for serialization.
-     *
+    /**
+     * Universal identifier for serialization.
      */
     private static final long serialVersionUID = -4842434795956015958L;
 
-    /** Define the set of actuators.
-     *
+    /**
+     * Define the set of actuators.
      * @return array of actuator names.
      */
     public final String [] actuators() {
         return new String[]{};
     }
 
-    /** Constructor.
-     *
+    /**
+     * Constructor.
      * @param peer : associated view DOM node.
      */
     public HTMLTextArea(final Node peer) {
@@ -64,9 +65,14 @@ public class HTMLTextArea extends JTextPane implements XComponent {
         setEditable(false);
         setBackground(new java.awt.Color(0,0,0,0));
 
-        setText(dumpNode(peer));
+        setText(Messages.gettext(dumpNode(peer)));
     }
 
+    /**
+     * Dump a node
+     * @param node the node to dump
+     * @return dumped node
+     */
     private static String dumpNode(final Node node) {
         NodeList list = node.getChildNodes();
         Node nodeToDump = null;
@@ -92,19 +98,19 @@ public class HTMLTextArea extends JTextPane implements XComponent {
         return node.getTextContent();
     }
 
-    /** Refresh the component by the use of actuators.
-     *
+    /**
+     * Refresh the component by the use of actuators.
      * @param peer the corresponding view DOM node
      */
     public void refresh(final Node peer) {
         String s = dumpNode(peer);
         if (!s.equals(getText())) {
-            setText(s);
+            setText(Messages.gettext(s));
         }
     }
 
-    /** Developer serialization method.
-     *
+    /**
+     * Developer serialization method.
      * @return equivalent signature.
      */
     public final String toString() {

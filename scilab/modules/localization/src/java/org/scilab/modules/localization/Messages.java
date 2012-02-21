@@ -22,7 +22,10 @@ public class Messages {
     throw new UnsupportedOperationException();
  }
   public static String gettext(String key) {
-    return MessagesJNI.gettext(key);
+if (key == null || key.isEmpty()) return "";
+    {
+      return MessagesJNI.gettext(key);
+    }
   }
 
 }

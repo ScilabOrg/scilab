@@ -13,6 +13,7 @@
 package org.scilab.modules.preferences.Component;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.scilab.modules.localization.Messages;
 import org.scilab.modules.preferences.XChooser;
 import org.scilab.modules.preferences.XCommonManager;
 import org.scilab.modules.preferences.XComponent;
@@ -101,13 +103,13 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
         setupOpenMask(peer);
         setupControls(peer);
 
-        column = XCommonManager.getAttribute(peer , "column");
+        column = XCommonManager.getAttribute(peer, "column");
 
-        if (XCommonManager.getAttribute(peer , "mode").equals("select")) {
+        if (XCommonManager.getAttribute(peer, "mode").equals("select")) {
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
 
-        if (XCommonManager.getAttribute(peer , "mode").equals("cell")) {
+        if (XCommonManager.getAttribute(peer, "mode").equals("cell")) {
             table.setCellSelectionEnabled(true);
             table.setColumnSelectionAllowed(false);
             table.setRowSelectionAllowed(true);
@@ -121,21 +123,21 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
      *
      * @return array of actuator names.
      */
-    public final String [] actuators() {
-        String [] actuators = {"item"};
+    public final String[] actuators() {
+        String[] actuators = {"item"};
         return actuators;
     }
 
     public void setupOpenMask(Node peer) {
-        if (XCommonManager.getAttribute(peer , "location").equals("fixed")) {
+        if (XCommonManager.getAttribute(peer, "location").equals("fixed")) {
             openMask[1] = false;
         } else {
             openMask[1] = model.getRowCount() > 1;
         }
-        if (XCommonManager.getAttribute(peer , "mode").equals("select")) {
+        if (XCommonManager.getAttribute(peer, "mode").equals("select")) {
             openMask[2] = false;
         }
-        if (XCommonManager.getAttribute(peer , "location").equals("fixed")) {
+        if (XCommonManager.getAttribute(peer, "location").equals("fixed")) {
             openMask[3] = false;
         } else {
             openMask[3] = model.getRowCount() > 1;
@@ -144,14 +146,14 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
     }
 
     public void setupControls(Node peer) {
-        if (XCommonManager.getAttribute(peer , "size").equals("dynamic")) {
-            JPanel panel = new JPanel(new GridLayout(5,1));
-            for (int i=0; i<controls.length; i++) {
+        if (XCommonManager.getAttribute(peer, "size").equals("dynamic")) {
+            JPanel panel = new JPanel(new GridLayout(5, 1));
+            for (int i = 0; i < controls.length; i++) {
                 panel.add(controls[i]);
                 controls[i].addActionListener((ActionListener) this);
                 controls[i].setEnabled(false);
             }
-            if (model.getRowCount()==0) {
+            if (model.getRowCount() == 0) {
                 controls[0].setEnabled(true);
             }
             this.add(panel, BorderLayout.EAST);
@@ -159,7 +161,7 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
     }
 
     public void openControls() {
-        for (int i=0; i<controls.length; i++) {
+        for (int i = 0; i < controls.length; i++) {
             controls[i].setEnabled(openMask[i]);
         }
     }
@@ -168,7 +170,7 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
     public void actionPerformed(ActionEvent e) {
         int id;
         JButton src = (JButton) e.getSource();
-        for ( id = 0; id < controls.length; id++) {
+        for (id = 0; id < controls.length; id++) {
             if (controls[id] == src) {
                 break;
             }
@@ -186,30 +188,28 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
             break;
         case 2:
             table.getSelectionModel().clearSelection();
-            for (int i=0; i<controls.length; i++) {
+            for (int i = 0; i < controls.length; i++) {
                 controls[i].setEnabled(false);
             }
             break;
         case 3: break;
         case 4:
             // Delete row
-            System.out.println("[DEBUG] calling actionPerformed(deleteRow)");
             if (actionListener != null) {
-                ActionEvent transmit  = new ActionEvent(this, 0,"tableDel", e.getWhen(), 0);
+                ActionEvent transmit = new ActionEvent(this, 0, "tableDel", e.getWhen(), 0);
                 actionListener.actionPerformed(transmit);
             }
             break;
         }
     }
-    //end Dynamic_controller
 
     private final class CustomTableCellRenderer extends DefaultTableCellRenderer{
         public Component getTableCellRendererComponent (JTable table,
                                                         Object obj, boolean isSelected, boolean hasFocus, int row, int column) {
             Component cell = super.getTableCellRendererComponent(table, obj, isSelected, hasFocus, row, column);
-            if (obj instanceof java.awt.Color) {
-                cell.setBackground((java.awt.Color) obj);
-                cell.setForeground((java.awt.Color) obj);
+            if (obj instanceof Color) {
+                cell.setBackground((Color) obj);
+                cell.setForeground((Color) obj);
             }
 
             return cell;
@@ -244,7 +244,7 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
      */
     public final void refresh(final Node peer) {
         model.setNodeList(peer.getChildNodes());
-        String item = XCommonManager.getAttribute(peer , "item", "-1");
+        String item = XCommonManager.getAttribute(peer, "item", "-1");
         setupOpenMask(peer);
         if (!item.equals(item())) {
             item(item);
@@ -265,10 +265,10 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
      * @return the chosen value.
      */
     public final Object choose() {
-        if (! column.equals(XCommonManager.NAV)) {
-            int row      = table.getSelectedRow();
-            Node record  = model.getRowRecord(row);
-            String value = XCommonManager.getAttribute(record , column);
+        if (!column.equals(XCommonManager.NAV)) {
+            int row = table.getSelectedRow();
+            Node record = model.getRowRecord(row);
+            String value = XCommonManager.getAttribute(record, column);
             return value;
         }
         return item();
@@ -313,7 +313,7 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
             table.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
             openControls();
         }
-        externalChange  = true;
+        externalChange = true;
     }
 
     /** Developer serialization method.
@@ -336,8 +336,8 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
             Element element = (Element) actions[i];
             int row = event.getFirstRow();
             int col = event.getColumn();
-            String value    = src.getValueAt(row, col).toString();
-            String attr     = src.getColumnAttr(col);
+            String value = src.getValueAt(row, col).toString();
+            String attr = src.getColumnAttr(col);
             String context  = element.getAttribute("context");
             element.setAttribute("set", attr);
             element.setAttribute("value", value);
@@ -345,7 +345,6 @@ public class Table extends Panel implements XComponent, XChooser, ListSelectionL
             element.setAttribute("context", context + (row + 1) + "/");
         }
     }
-
 }
 
 /** Scans DOM nodes and translate it into table model.
@@ -461,7 +460,7 @@ class Model extends AbstractTableModel {
     public String getColumnAttr(final int col) {
         Node record = getColumnRecord(col);
         if (record != null) {
-            return XCommonManager.getAttribute(record , "attr");
+            return XCommonManager.getAttribute(record, "attr");
         }
         return XCommonManager.NAV;
     }
@@ -470,16 +469,16 @@ class Model extends AbstractTableModel {
     public String getColumnName(final int col) {
         Node record = getColumnRecord(col);
         if (record != null) {
-            return XCommonManager.getAttribute(record , "title");
+            return Messages.gettext(XCommonManager.getAttribute(record, "title"));
         }
         return XCommonManager.NAV;
     }
 
     @Override
     public Object getValueAt(final int row, final int col) {
-        String attr  = getColumnAttr(col);
-        Node record  = getRowRecord(row);
-        String value = XCommonManager.getAttribute(record , attr);
+        String attr = getColumnAttr(col);
+        Node record = getRowRecord(row);
+        String value = XCommonManager.getAttribute(record, attr);
         if (value.startsWith("#"))
         {
             return XCommonManager.getColor(value);
@@ -490,8 +489,8 @@ class Model extends AbstractTableModel {
     @Override
     public void setValueAt(final Object value, final int row, final int col) {
         // temporary storage of value
-        String attr     = getColumnAttr(col);
-        Element record  = (Element) getRowRecord(row);
+        String attr = getColumnAttr(col);
+        Element record = (Element) getRowRecord(row);
         record.setAttribute(attr, value.toString());
         // event firing
         TableModelEvent event = new TableModelEvent(this, row, row, col);
@@ -502,8 +501,7 @@ class Model extends AbstractTableModel {
     @Override
     public boolean isCellEditable(final int row, final int col) {
         Node record  = getColumnRecord(col);
-        String value = XCommonManager.getAttribute(
-            record , "editable", "false");
+        String value = XCommonManager.getAttribute(record, "editable", "false");
         return value == "true";
     }
 
