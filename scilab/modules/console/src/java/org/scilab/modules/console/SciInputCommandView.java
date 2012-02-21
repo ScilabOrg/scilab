@@ -43,7 +43,6 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultCaret;
 import javax.swing.text.Element;
 import javax.swing.text.PlainView;
 import javax.swing.text.StyledEditorKit;
@@ -52,6 +51,7 @@ import javax.swing.text.ViewFactory;
 
 import org.scilab.modules.commons.gui.ScilabCaret;
 import org.scilab.modules.console.utils.ScilabLaTeXViewer;
+import org.scilab.modules.core.Scilab;
 
 import com.artenum.rosetta.interfaces.ui.InputCommandView;
 import com.artenum.rosetta.interfaces.ui.OutputView;
@@ -61,6 +61,7 @@ import com.artenum.rosetta.util.StringConstants;
 
 /**
  * Scilab UI that contains the line edited by the user
+ *
  * @author Vincent COUVERT
  * @author Calixte DENIZET
  */
@@ -72,7 +73,8 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
     private static final int TOP_BORDER = 1;
     private static final int BOTTOM_BORDER = 2;
 
-    // A clearest pattern: ['"] \$ [^\\\$'"]* (( [\\].? | ['"]{2} ) [^\\\$'"]* )+
+    // A clearest pattern: ['"] \$ [^\\\$'"]* (( [\\].? | ['"]{2} ) [^\\\$'"]*
+    // )+
     private static final Pattern latexPattern = Pattern.compile("[\'\"]\\$[^\\\\\\$\'\"]*(?:(?:[\\\\].?|[\'\"]{2})[^\\\\\\$\'\"]*)*");
 
     private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
@@ -94,38 +96,59 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
     public SciInputCommandView() {
         super();
 
-        setEditorKit(new StyledEditorKit() {
-                public ViewFactory getViewFactory() {
-                    return SciInputCommandView.this;
+        Scilab.registerFinalHook(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (SciInputCommandView.this) {
+                    try {
+                        queue.put("");
+                        displayQueue.put(false);
+
+                        queue = null;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
+            }
+        });
+
+        setEditorKit(new StyledEditorKit() {
+            @Override
+            public ViewFactory getViewFactory() {
+                return SciInputCommandView.this;
+            }
+        });
 
         setBorder(BorderFactory.createEmptyBorder(TOP_BORDER, 0, BOTTOM_BORDER, 0));
 
         // Input command line is not editable when created
         this.setEditable(false);
         ScilabCaret caret = new ScilabCaret(this) {
-                public void mousePressed(MouseEvent e) {
-                    ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
-                    super.mousePressed(e);
-                }
-            };
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
+                super.mousePressed(e);
+            }
+        };
         caret.setBlinkRate(getCaret().getBlinkRate());
         setCaret(caret);
         addCaretListener(this);
         setFocusTraversalPolicy(new java.awt.DefaultFocusTraversalPolicy() {
-                public java.awt.Component getComponentAfter(java.awt.Container aContainer, java.awt.Component aComponent) {
-                    return SciInputCommandView.this;
-                }
-            });
+            @Override
+            public java.awt.Component getComponentAfter(java.awt.Container aContainer, java.awt.Component aComponent) {
+                return SciInputCommandView.this;
+            }
+        });
         setFocusCycleRoot(true);
     }
 
     /**
      * Gets the location of the caret in the UI
+     *
      * @return the location as a Point object
      * @see com.artenum.rosetta.interfaces.ui.InputCommandView#getCaretLocation()
      */
+    @Override
     public Point getCaretLocation() {
         FontMetrics fontMetric = getFontMetrics(getFont());
         String[] lines = null;
@@ -161,6 +184,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
     /**
      * Gets the command buffer
+     *
      * @return the command buffer
      */
     public String getCmdBuffer() {
@@ -168,8 +192,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
         try {
             if (concurrentThread == null) {
                 concurrentThread = Thread.currentThread();
-            }
-            else {
+            } else {
                 concurrentThread.interrupt();
             }
             command = queue.take();
@@ -180,8 +203,8 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
             }
         } catch (InterruptedException e) {
             /*
-             * If we have concurrent access let's interrupt the first one, then allow
-             * the second to return the command.
+             * If we have concurrent access let's interrupt the first one, then
+             * allow the second to return the command.
              */
             return "";
         }
@@ -191,8 +214,11 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
     /**
      * Sets the command buffer after a user input in input command view
-     * @param command the string to set to the buffer
-     * @param displayFlag boolean indicating if the command has to be displayed
+     *
+     * @param command
+     *            the string to set to the buffer
+     * @param displayFlag
+     *            boolean indicating if the command has to be displayed
      */
     public void setCmdBuffer(String command, boolean displayFlag) {
         try {
@@ -205,7 +231,9 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
     /**
      * Sets the console object containing this input view
-     * @param c the console associated
+     *
+     * @param c
+     *            the console associated
      */
     public void setConsole(SciConsole c) {
         console = c;
@@ -215,62 +243,72 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
         // BUG 2510 fix: automatic validation of pasted lines
         this.getDocument().addDocumentListener(new DocumentListener() {
-                public void changedUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // Nothing to do in Scilab
+            }
 
-                public void insertUpdate(DocumentEvent e) {
-                    // Validates commands if followed by a carriage return
-                    final String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
-                    if ((e.getLength()) > 1 && (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt.length() - 1))) {
-                        EventQueue.invokeLater(new Runnable() {
-                                public void run() {
-                                    console.sendCommandsToScilab(wholeTxt, true, true);
-                                };
-                            });
-                    }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                // Validates commands if followed by a carriage return
+                final String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
+                if ((e.getLength()) > 1 && (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt.length() - 1))) {
+                    EventQueue.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            console.sendCommandsToScilab(wholeTxt, true, true);
+                        };
+                    });
                 }
+            }
 
-                public void removeUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                // Nothing to do in Scilab
+            }
+        });
 
         this.addKeyListener(new KeyListener() {
-                public void keyPressed (KeyEvent e) {
-                    if (keysForHistory == null) {
-                        getKeysForHistory();
-                    }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (keysForHistory == null) {
+                    getKeysForHistory();
+                }
 
-                    // key char is equal to 65535 when the hit key is only shift, meta, alt,...
-                    if (e.getKeyChar() != 65535 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && !keysForHistory.contains(KeyStroke.getKeyStrokeForEvent(e))) {
-                        if (console.getConfiguration().getHistoryManager().isInHistory()) {
-                            console.getConfiguration().getHistoryManager().setInHistory(false);
-                        }
-                    }
-
-                    if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
-                        && e.getKeyCode() == KeyEvent.VK_DELETE
-                        && e.getKeyChar() != KeyEvent.VK_DELETE) {
-                        // Fix for bug 7238
-                        e.setKeyCode(KeyEvent.VK_DECIMAL);
+                // key char is equal to 65535 when the hit key is only shift,
+                // meta, alt,...
+                if (e.getKeyChar() != 65535 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT
+                && !keysForHistory.contains(KeyStroke.getKeyStrokeForEvent(e))) {
+                    if (console.getConfiguration().getHistoryManager().isInHistory()) {
+                        console.getConfiguration().getHistoryManager().setInHistory(false);
                     }
                 }
 
-                public void keyReleased (KeyEvent e) {
-                    // Nothing to do in Scilab
+                if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && e.getKeyCode() == KeyEvent.VK_DELETE && e.getKeyChar() != KeyEvent.VK_DELETE) {
+                    // Fix for bug 7238
+                    e.setKeyCode(KeyEvent.VK_DECIMAL);
                 }
+            }
 
-                public void keyTyped (KeyEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Nothing to do in Scilab
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Nothing to do in Scilab
+            }
+        });
     }
 
     /**
      * This class listens to the caret event
-     * @param e event
+     *
+     * @param e
+     *            event
      */
+    @Override
     public void caretUpdate(CaretEvent e) {
         ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
 
@@ -288,8 +326,9 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
             int y = 0;
             try {
                 Rectangle rect = modelToView(getCaretPosition());
-                y = (int) (rect.height + rect.y + 1);
-            } catch (BadLocationException ex) { }
+                y = (rect.height + rect.y + 1);
+            } catch (BadLocationException ex) {
+            }
 
             int sheight = height;
             height = y + hl;
@@ -316,7 +355,9 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
     /**
      * Set the height of this text component.
-     * @param height the height, -1 to have the natural preferred height
+     *
+     * @param height
+     *            the height, -1 to have the natural preferred height
      */
     public void setPreferredHeight(int height) {
         this.height = height;
@@ -324,7 +365,9 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
     /**
      * Set the width of this text component.
-     * @param width the width, -1 to have the natural preferred width
+     *
+     * @param width
+     *            the width, -1 to have the natural preferred width
      */
     public void setPreferredWidth(int width) {
         this.width = width;
@@ -333,6 +376,7 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
     /**
      * {@inheritDoc}
      */
+    @Override
     public Dimension getPreferredSize() {
         Dimension dim;
         try {
@@ -352,14 +396,17 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
         return dim;
     }
 
+    @Override
     public void setForeground(Color fg) {
         super.setForeground(fg);
         setCaretColor(fg);
         repaint();
     }
 
+    @Override
     public View create(Element e) {
         return new PlainView(e) {
+            @Override
             public Container getContainer() {
                 return SciInputCommandView.this;
             }
