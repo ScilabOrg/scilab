@@ -29,7 +29,7 @@ function %cpr = xcos_simulate(scs_m, needcompile)
         return
       end
       catch
-      disp(_("Error occurred in pre_xcos_simulate: Cancelling simulation."))
+      disp(gettext("Error occurred in pre_xcos_simulate: Cancelling simulation."))
       %cpr = []
       return
       end
@@ -330,7 +330,7 @@ function %cpr = xcos_simulate(scs_m, needcompile)
       //** get error cmd for the block
       get_errorcmd(path,gettext("Simulation problem"),str_err);
     else //** simulateur error
-      message(['Simulation problem:';str_err])
+      message([gettext("Simulation problem:");str_err])
       //scf(curwin);
     end
     ok = %f;
@@ -344,14 +344,14 @@ function %cpr = xcos_simulate(scs_m, needcompile)
     ierr = execstr(files(i)+'=struct('"values'",x,'"time'",t)', "errcatch")
     if ierr <> 0
        str_err = split_lasterror(lasterror());
-       message(['Simulation problem:';str_err]);
+       message([gettext("Simulation problem:");str_err]);
     end
 
   end
   ierr = execstr(txt, "errcatch")
   if ierr <> 0
       str_err = split_lasterror(lasterror());
-      message(['Simulation problem while executing <'+txt+'>:';str_err]);
+      message([gettext("Simulation problem while executing") + ' <'+txt+'>:';str_err]);
   end
 
     // Hook according to SEP066
@@ -359,7 +359,7 @@ function %cpr = xcos_simulate(scs_m, needcompile)
       try
       post_xcos_simulate(%cpr, scs_m, needcompile);
       catch
-      disp(_("Error in post_xcos_simulate: ending simulation."))
+      disp(gettext("Error in post_xcos_simulate: ending simulation."))
       end
     end
 
