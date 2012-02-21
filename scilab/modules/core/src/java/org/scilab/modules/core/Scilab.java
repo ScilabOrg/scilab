@@ -19,7 +19,6 @@ package org.scilab.modules.core;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +43,7 @@ import org.scilab.modules.gui.window.Window;
 
 /**
  * Main Class for Scilab
+ *
  * @author Allan CORNET
  * @author Jean-Baptiste SILVY
  * @author Vincent COUVERT
@@ -79,27 +79,35 @@ public class Scilab {
 
     /**
      * Constructor Scilab Class.
-     * @param mode Mode Scilab -NW -NWNI -STD -API
+     *
+     * @param mode
+     *            Mode Scilab -NW -NWNI -STD -API
      */
     public Scilab(int mode) {
         Scilab.mode = mode;
         DockingManager.setDockableFactory(ScilabTabFactory.getInstance());
 
         /*
-         * Set Scilab directory. Note that it is done in the constructor
-         * and not as directly when setting the member because we had some
-         * race condition. See bug #4419
+         * Set Scilab directory. Note that it is done in the constructor and not
+         * as directly when setting the member because we had some race
+         * condition. See bug #4419
          */
         try {
             /*
              * Set Java directories to Scilab ones
              */
             if (mode != 1) {
-            /* only modify these properties if Scilab is not called by another application */
-            /* In this case, we let the calling application to use its own properties */
-            System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
-            System.setProperty("user.home", ScilabConstants.SCIHOME.getCanonicalPath());
-          }
+                /*
+                 * only modify these properties if Scilab is not called by
+                 * another application
+                 */
+                /*
+                 * In this case, we let the calling application to use its own
+                 * properties
+                 */
+                System.setProperty("java.io.tmpdir", ScilabConstants.TMPDIR.getCanonicalPath());
+                System.setProperty("user.home", ScilabConstants.SCIHOME.getCanonicalPath());
+            }
 
         } catch (Exception e) {
             System.err.println("Cannot retrieve the variable SCI. Please report on http://bugzilla.scilab.org/");
@@ -108,19 +116,19 @@ public class Scilab {
         }
 
         /*
-         * Set options for JOGL
-         * they must be set before creating GUI
+         * Set options for JOGL they must be set before creating GUI
          */
         setJOGLFlags();
 
         /*
-         * if not API mode
-         * bug 3673 by default in API mode we dont modify look n feel
-         * If SCI_JAVA_ENABLE_HEADLESS is set, do not set the look and feel.
-         * (needed when building the documentation under *ux)
+         * if not API mode bug 3673 by default in API mode we dont modify look n
+         * feel If SCI_JAVA_ENABLE_HEADLESS is set, do not set the look and
+         * feel. (needed when building the documentation under *ux)
          */
         if (mode != 1 && System.getenv("SCI_JAVA_ENABLE_HEADLESS") == null) {
-            /* http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html */
+            /*
+             * http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/plaf.html
+             */
             try {
 
                 String scilabLookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel";
@@ -140,8 +148,7 @@ public class Scilab {
                     if (!GraphicsEnvironment.isHeadless()) {
                         try {
                             Toolkit xToolkit = Toolkit.getDefaultToolkit();
-                            java.lang.reflect.Field awtAppClassNameField =
-                                xToolkit.getClass().getDeclaredField("awtAppClassName");
+                            java.lang.reflect.Field awtAppClassNameField = xToolkit.getClass().getDeclaredField("awtAppClassName");
                             awtAppClassNameField.setAccessible(true);
 
                             awtAppClassNameField.set(xToolkit, "Scilab");
@@ -152,8 +159,10 @@ public class Scilab {
                     }
                 }
 
-                /* Init the LookAndFeelManager all the time since we can
-                 * create windows in the NW mode */
+                /*
+                 * Init the LookAndFeelManager all the time since we can create
+                 * windows in the NW mode
+                 */
                 if (!GraphicsEnvironment.isHeadless()) {
                     LookAndFeelManager lookAndFeel = new LookAndFeelManager();
 
@@ -191,7 +200,9 @@ public class Scilab {
 
     /**
      * Sets the prompt displayed in Scilab console
-     * @param prompt the prompt to be displayed as a String
+     *
+     * @param prompt
+     *            the prompt to be displayed as a String
      */
     public void setPrompt(String prompt) {
         ScilabConsole.getConsole().setPrompt(prompt);
@@ -207,7 +218,7 @@ public class Scilab {
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         // Uneash OpenGL power
         // Not yet
-        //System.setProperty(ENABLE_JAVA2D_OPENGL_PIPELINE, ENABLE_WITH_DEBUG);
+        // System.setProperty(ENABLE_JAVA2D_OPENGL_PIPELINE, ENABLE_WITH_DEBUG);
         System.setProperty(ENABLE_JAVA2D_OPENGL_PIPELINE, DISABLE);
 
         if (OS.get() == OS.WINDOWS) {
@@ -222,18 +233,19 @@ public class Scilab {
 
     /**
      * Call from canCloseMainScilabObject (call itself from sci_exit)
+     *
      * @return true if the console is closed
      */
     public static boolean canClose() {
         SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    exitCalled = true;
-                    success = ClosingOperationsManager.startClosingOperationOnRoot();
-                    exitCalled = false;
-                    finish = true;
-                }
-            });
+            @Override
+            public void run() {
+                exitCalled = true;
+                success = ClosingOperationsManager.startClosingOperationOnRoot();
+                exitCalled = false;
+                finish = true;
+            }
+        });
 
         while (!finish) {
             try {
@@ -256,8 +268,9 @@ public class Scilab {
     }
 
     /**
-     * Register a hook to execute just before the JVM shutdown.
-     * A hook should not contain threads, there is no warranty that they will be fully executed.
+     * Register a hook to execute just before the JVM shutdown. A hook should
+     * not contain threads, there is no warranty that they will be fully
+     * executed.
      */
     public static void registerFinalHook(Runnable hook) {
         finalhooks.add(hook);
@@ -277,11 +290,14 @@ public class Scilab {
         for (Runnable hook : finalhooks) {
             hook.run();
         }
+
+        System.err.println("exiting");
     }
 
     /**
-     * Register a hook to execute after the Scilab initialization.
-     * A hook should not contain threads, there is no warranty that they will be fully executed.
+     * Register a hook to execute after the Scilab initialization. A hook should
+     * not contain threads, there is no warranty that they will be fully
+     * executed.
      */
     public static void registerInitialHook(Runnable hook) {
         initialhooks.add(hook);
