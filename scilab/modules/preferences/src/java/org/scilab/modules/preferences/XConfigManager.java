@@ -108,7 +108,7 @@ public final class XConfigManager extends XCommonManager {
 
         // Let the show begin!
         if (refreshDisplay()) {
-	    // Center the dialog on the parent window
+            // Center the dialog on the parent window
             Frame topWindow = XCommonManager.getTopLevel();
             int x = topWindow.getX() + (topWindow.getWidth() - dialog.getWidth()) / 2;
             int y = topWindow.getY() + (topWindow.getHeight() - dialog.getHeight()) / 2;
@@ -131,7 +131,6 @@ public final class XConfigManager extends XCommonManager {
     /** Read files to modify (and possibly create it).
      */
     private static void readUserDocuments() {
-        createUserCopy(SCILAB_CONFIG_FILE, USER_CONFIG_FILE);
         document = readDocument(USER_CONFIG_FILE);
         NodeList toolboxes = document.getElementsByTagName("toolboxes");
         if (toolboxes.getLength() != 1) {
