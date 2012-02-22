@@ -142,13 +142,13 @@ public class ExportOptionWindow extends JDialog implements ActionListener {
             exportData.setExportProperties(properties);
             optionDialog.dispose();
 
-            int figId = exportData.getFigureId();
+            String figUID = exportData.getFigureId();
             String fileName = exportData.getExportName();
             int fileType = ExportRenderer.types.get(exportData.getExportExtension());
             int orientation = exportData.getExportProperties().elementAt(0).equalsIgnoreCase("landscape") ? ExportRenderer.LANDSCAPE : ExportRenderer.PORTRAIT;
 
             parentWindow.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            String err = FileExporter.fileExport(figId, fileName, fileType, 1f, orientation);// 1f is the jpeg quality compression and it is useless here
+            String err = FileExporter.fileExport(figUID, fileName, fileType, 1f, orientation);// 1f is the jpeg quality compression and it is useless here
             parentWindow.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
             if (err.length() != 0) {

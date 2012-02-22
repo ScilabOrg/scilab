@@ -104,7 +104,7 @@ throw GiwsException::JniObjectCreationException(curEnv, this->className());
 curEnv->DeleteLocalRef(localInstance);
 
                 /* Methods ID set to NULL */
-jstringfileExportjintintjstringjava_lang_StringjintintjfloatfloatjintintID=NULL;
+jstringfileExportjstringjava_lang_Stringjstringjava_lang_StringjintintjfloatfloatjintintID=NULL;
 
 
 }
@@ -127,7 +127,7 @@ throw GiwsException::JniObjectCreationException(curEnv, this->className());
 throw GiwsException::JniObjectCreationException(curEnv, this->className());
         }
         /* Methods ID set to NULL */
-        jstringfileExportjintintjstringjava_lang_StringjintintjfloatfloatjintintID=NULL;
+        jstringfileExportjstringjava_lang_Stringjstringjava_lang_StringjintintjfloatfloatjintintID=NULL;
 
 
 }
@@ -147,16 +147,23 @@ throw GiwsException::JniMonitorException(getCurrentEnv(), "FileExporter");
 }
 // Method(s)
 
-char * FileExporter::fileExport (JavaVM * jvm_, int figureIndex, char * fileName, int fileType, float jpegCompressionQuality, int orientation){
+char * FileExporter::fileExport (JavaVM * jvm_, char * figureUID, char * fileName, int fileType, float jpegCompressionQuality, int orientation){
 
 JNIEnv * curEnv = NULL;
 jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
 jclass cls = curEnv->FindClass( className().c_str() );
 
-jmethodID jstringfileExportjintintjstringjava_lang_StringjintintjfloatfloatjintintID = curEnv->GetStaticMethodID(cls, "fileExport", "(ILjava/lang/String;IFI)Ljava/lang/String;" ) ;
-if (jstringfileExportjintintjstringjava_lang_StringjintintjfloatfloatjintintID == NULL) {
+jmethodID jstringfileExportjstringjava_lang_Stringjstringjava_lang_StringjintintjfloatfloatjintintID = curEnv->GetStaticMethodID(cls, "fileExport", "(Ljava/lang/String;Ljava/lang/String;IFI)Ljava/lang/String;" ) ;
+if (jstringfileExportjstringjava_lang_Stringjstringjava_lang_StringjintintjfloatfloatjintintID == NULL) {
 throw GiwsException::JniMethodNotFoundException(curEnv, "fileExport");
 }
+
+jstring figureUID_ = curEnv->NewStringUTF( figureUID );
+if (figureUID != NULL && figureUID_ == NULL)
+{
+throw GiwsException::JniBadAllocException(curEnv);
+}
+
 
 jstring fileName_ = curEnv->NewStringUTF( fileName );
 if (fileName != NULL && fileName_ == NULL)
@@ -165,7 +172,7 @@ throw GiwsException::JniBadAllocException(curEnv);
 }
 
 
-                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringfileExportjintintjstringjava_lang_StringjintintjfloatfloatjintintID ,figureIndex, fileName_, fileType, jpegCompressionQuality, orientation));
+                        jstring res =  static_cast<jstring>( curEnv->CallStaticObjectMethod(cls, jstringfileExportjstringjava_lang_Stringjstringjava_lang_StringjintintjfloatfloatjintintID ,figureUID_, fileName_, fileType, jpegCompressionQuality, orientation));
                         if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
 }
@@ -175,6 +182,7 @@ char * myStringBuffer = new char[strlen(tempString) + 1];
 strcpy(myStringBuffer, tempString);
 curEnv->ReleaseStringUTFChars(res, tempString);
 curEnv->DeleteLocalRef(res);
+curEnv->DeleteLocalRef(figureUID_);
 curEnv->DeleteLocalRef(fileName_);
 curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {

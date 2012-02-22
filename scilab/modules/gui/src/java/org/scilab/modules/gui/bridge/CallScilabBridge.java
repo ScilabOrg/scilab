@@ -1204,11 +1204,11 @@ public class CallScilabBridge {
     /**
      * Create a new Graphic Export File Chooser in Scilab GUIs
      * @param figureId id of the figure to export
-     * @return the ID of the File Chooser in the UIElementMapper
+     * @return 0
      */
 
-    public static int newExportFileChooser(int figureId) {
-        FileChooser fileChooser = ScilabFileChooser.createExportFileChooser(figureId);
+    public static int newExportFileChooser(String figureUID) {
+        ScilabBridge.createExportFileChooser(figureUID);
         return 0;
         //return UIElementMapper.add(fileChooser);
     }
@@ -2507,8 +2507,8 @@ public class CallScilabBridge {
      * @param figID the ID of the figure to print
      * @return execution status
      */
-    public static boolean printFigure(int figID) {
-        return printFigure(figID, true, true);
+    public static boolean printFigure(String figureUID) {
+        return printFigure(figureUID, true, true);
     }
 
     /**
@@ -2518,8 +2518,8 @@ public class CallScilabBridge {
      * @param displayDialog true to display a print setup dialog
      * @return execution status
      */
-    public static boolean printFigure(int figID, boolean postScript, boolean displayDialog) {
-        final int figureID = figID;
+    public static boolean printFigure(String figureUID, boolean postScript, boolean displayDialog) {
+        final int figureID = 0;
         // Get the PrinterJob object
         PrinterJob printerJob = PrinterJob.getPrinterJob();
 
@@ -2550,11 +2550,11 @@ public class CallScilabBridge {
                     String tmpPrinterFile = File.createTempFile("scilabfigure","").getAbsolutePath();
                     /** Export image to PostScript */
                     if (((PrintRequestAttribute) scilabPageFormat.get(OrientationRequested.class)) == OrientationRequested.PORTRAIT) {
-                        FileExporter.fileExport(figureID,
+                        FileExporter.fileExport(figureUID,
                                 tmpPrinterFile + fileExtension,
                                 exportRendererMode, 1, 0); /* 1 is the quality. Useless in this context */
                     } else {
-                        FileExporter.fileExport(figureID,
+                        FileExporter.fileExport(figureUID,
                                 tmpPrinterFile + fileExtension,
                                 exportRendererMode, 1, 1); /* 1 is the quality. Useless in this context */
                     }

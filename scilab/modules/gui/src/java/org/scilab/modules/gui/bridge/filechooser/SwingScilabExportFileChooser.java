@@ -25,6 +25,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
+import org.scilab.modules.gui.SwingView;
 import org.scilab.modules.gui.graphicWindow.ScilabRendererProperties;
 import org.scilab.modules.gui.tab.SimpleTab;
 import org.scilab.modules.gui.tab.Tab;
@@ -68,16 +71,16 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
 
     private String exportName;
     private String extensionSelected;
-    private int figureId;
+    private String figureUID;
 
     /**
      * Default constructor
      * @param figureId id of the exported figure
      */
-    public SwingScilabExportFileChooser(int figureId) {
+    public SwingScilabExportFileChooser(String figureUID) {
         super();
-        this.figureId = figureId;
-        exportCustomFileChooser(figureId);
+        this.figureUID = figureUID;
+        exportCustomFileChooser();
     }
 
     /**
@@ -85,7 +88,7 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
      * by adding format selection
      * @param figureId exported figure number
      */
-    public void exportCustomFileChooser(int figureId) {
+    private void exportCustomFileChooser() {
         ArrayList<FileMask> v = new ArrayList<FileMask>(NB_FILE_MASKS);  /* The order does matter */
         v.add(new FileMask(bmp, bmpDesc));
         v.add(new FileMask(gif, gifDesc));
@@ -104,8 +107,6 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
         File exportFile = new File(Messages.gettext("Untitled-export"));
         super.setSelectedFile(exportFile);
         super.setAcceptAllFileFilterUsed(false);
-
-        this.figureId = figureId;
 
         for (int i = 0; i < v.size(); i++) {
             FileMask fm = v.get(i);
@@ -134,9 +135,10 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
         accessoryPanel.setVisible(true);
         super.setAccessory(accessoryPanel);
 
-        Tab tab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab();
-        Window parentWindow = (Window) SwingUtilities.getAncestorOfClass(Window.class, (JComponent) tab.getAsSimpleTab());
-
+        //Tab tab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab();
+        //Window parentWindow = (Window) SwingUtilities.getAncestorOfClass(Window.class, (JComponent) tab.getAsSimpleTab());
+        Window parentWindow = null;
+        
         int selection = super.showSaveDialog(parentWindow);
         if (selection == JFileChooser.APPROVE_OPTION) {
 
@@ -258,7 +260,7 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
      * @param userExtension extension caught by the user
      */
     public void bitmapExport(String userExtension) {
-        ExportData exportData = new ExportData(figureId, this.exportName, userExtension, null);
+        ExportData exportData = new ExportData(figureUID, this.exportName, userExtension, null);
 
         String actualFilename = exportData.getExportName();
         if (this.getExtension(actualFilename) == null) {
@@ -267,6 +269,8 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
             actualFilename += "." + userExtension;
         }
 
+        Integer figureId = (Integer) GraphicController.getController().getProperty(figureUID, GraphicObjectProperties.__GO_ID__);
+        
         //the export instruction for the selected format
         String exportcmd = "xs2" + exportData.getExportExtension()
             + "(" + figureId + ", '" + actualFilename + "');";
@@ -278,10 +282,10 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
      * @param userExtension extension caught by the user
      */
     public void vectorialExport(String userExtension) {
-        SimpleTab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab().getAsSimpleTab();
-        ExportData exportData = new ExportData(figureId, this.exportName, userExtension, null);
+        //SimpleTab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab().getAsSimpleTab();
+        ExportData exportData = new ExportData(figureUID, this.exportName, userExtension, null);
         ExportOptionWindow exportOptionWindow = new ExportOptionWindow(exportData);
-        exportOptionWindow.displayOptionWindow(parentTab);
+        //exportOptionWindow.displayOptionWindow(parentTab);
         exportOptionWindow.landscapePortraitOption();
     }
 }

@@ -29,9 +29,9 @@ public class ScilabFileChooser implements FileChooser {
 	 * @param isExportFileChooser if is an graphic export file chooser
 	 * @param figureId id of the exported figure
 	 */
-	protected ScilabFileChooser(boolean isExportFileChooser, int figureId) {
+	protected ScilabFileChooser(boolean isExportFileChooser, String figureUID) {
 		if (isExportFileChooser) {
-			component = ScilabBridge.createExportFileChooser(figureId);
+			component = ScilabBridge.createExportFileChooser(figureUID);
 		} else {
 			component = ScilabBridge.createFileChooser();
 		}
@@ -42,7 +42,7 @@ public class ScilabFileChooser implements FileChooser {
 	 * @return the created file chooser
 	 */
 	public static FileChooser createFileChooser() {
-		return new ScilabFileChooser(false, 0);
+		return new ScilabFileChooser(false, null);
 	}
 	
 	/**
@@ -50,8 +50,8 @@ public class ScilabFileChooser implements FileChooser {
 	 * @param figureId int
 	 * @return the created export file chooser
 	 */
-	public static FileChooser createExportFileChooser(int figureId) {
-		return new ScilabFileChooser(true, figureId);
+	public static FileChooser createExportFileChooser(String figureUID) {
+		return new ScilabFileChooser(true, figureUID);
 	}
 	
 

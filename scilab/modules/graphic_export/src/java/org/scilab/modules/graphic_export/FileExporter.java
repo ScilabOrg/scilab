@@ -50,11 +50,12 @@ public class FileExporter {
      * @return 0 if everything worked fine, a non null integer if an exception occured
      *         depending on the kind of error
      */
-    public static String fileExport(int figureIndex, String fileName, int fileType, float jpegCompressionQuality, int fileOrientation) {
+    public static String fileExport(String figureUID, String fileName, int fileType, float jpegCompressionQuality, int fileOrientation) {
         int saveFileType = -1;
         String saveFileName = "";
 
-        DrawableFigureGL exportedFig = FigureMapper.getCorrespondingFigure(figureIndex);
+        //DrawableFigureGL exportedFig = FigureMapper.getCorrespondingFigure(figureIndex);
+        DrawableFigureGL exportedFig = null;
 
         if (exportedFig == null) {
             // figure no longer exists
@@ -111,8 +112,8 @@ public class FileExporter {
             fileType = ExportRenderer.SVG_EXPORT;
         }
 
-        ExportRenderer export;
-        export = ExportRenderer.createExporter(figureIndex, fileName, fileType, jpegCompressionQuality, fileOrientation);
+        // FIXME: 0 shoud be replaced by figureUID
+        ExportRenderer export = ExportRenderer.createExporter(0, fileName, fileType, jpegCompressionQuality, fileOrientation);
 
         // To be sure that their is a GLContext active for export
         exportedFig.openGraphicCanvas();

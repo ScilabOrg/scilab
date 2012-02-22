@@ -30,14 +30,17 @@
 #include "freeArrayOfString.h"
 #include "GraphicSynchronizerInterface.h"
 #include "../../../graphics/src/c/getHandleProperty/getPropertyAssignedValue.h"
+
+#include "graphicObjectProperties.h"
+#include "getGraphicObjectProperty.h"
+
 /*--------------------------------------------------------------------------*/
 static BOOL isVectorialExport(ExportFileType fileType);
 /*--------------------------------------------------------------------------*/
 int xs2file(char * fname, ExportFileType fileType )
 {
-    // FIXME
-    abort();
-#if 0
+    char* pstType;
+
     /* Check input and output sizes */
     CheckLhs(0,1);
     if (isVectorialExport(fileType) || fileType == JPG_EXPORT)
@@ -67,7 +70,7 @@ int xs2file(char * fname, ExportFileType fileType )
         int out_n = 0;
         int m1 = 0, n1 = 0, l1 = 0;
         int figurenum = -1;
-        sciPointObj* figurePtr = NULL;
+        char *pstFigureUID = NULL;
         char *status = NULL;
 
         /* get handle by figure number */
@@ -86,7 +89,7 @@ int xs2file(char * fname, ExportFileType fileType )
                 Scierror(999, "%s: Input argument #%d must be a valid figure_id.\n",fname, 1);
                 return 0;
             }
-            figurePtr = getFigureFromIndex(figurenum);
+            pstFigureUID = getFigureFromIndex(figurenum);
         }
         /* check given handle */
         if(GetType(1) == sci_handles)
@@ -97,20 +100,23 @@ int xs2file(char * fname, ExportFileType fileType )
                 Scierror(999,_("%s: Wrong size for input argument #%d: A graphic handle expected.\n"),fname, 1);
                 return 0;
             }
-            figurePtr = sciGetPointerFromHandle(getHandleFromStack(l1));
+            pstFigureUID = getObjectFromHandle(getHandleFromStack(l1));
 
-            if(figurePtr == NULL)
+            if(pstFigureUID == NULL)
             {
                 Scierror(999, "%s: Input argument #%d must be a valid handle.\n",fname, 1);
                 return 0;
             }
-            startFigureDataReading(figurePtr);
-            if(sciGetEntityType(figurePtr)!=SCI_FIGURE)
+
+            // Get type
+            getGraphicObjectProperty(pstFigureUID, __GO_TYPE__, jni_string, &pstType);
+
+            if(strcmp(pstType, __GO_FIGURE__) != 0)
             {
                 Scierror(999, "%s: Input argument #%d must be a handle on a figure.\n", fname, 1);
                 return 0;
             }
-            endFigureDataReading(figurePtr);
+
         }
 
         /* get file name */
@@ -183,7 +189,7 @@ int xs2file(char * fname, ExportFileType fileType )
             real_filename = expandPathVariable(fileName[0]);
 
             /* Call the function for exporting file */
-            status = exportToFile(figurePtr, real_filename, fileType, jpegCompressionQuality, orientation);
+            status = exportToFile(pstFigureUID, real_filename, fileType, jpegCompressionQuality, orientation);
 
             /* free pointers no more used */
             if (real_filename)
@@ -215,7 +221,6 @@ int xs2file(char * fname, ExportFileType fileType )
 
     LhsVar(1) = 0;
     PutLhsVar();
-#endif
     return 0;
 }
 /*--------------------------------------------------------------------------*/

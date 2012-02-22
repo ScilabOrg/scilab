@@ -2,11 +2,11 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) INRIA   - 2008 - Sylvestre Ledru
 # Copyright (C) DIGITEO - 2009 - Pierre MARECHAL
-# 
+#
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
-# are also available at    
+# are also available at
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 
@@ -16,7 +16,7 @@ modulename=graphic_export
 
 #### graphic_export : Conf files ####
 libscigraphic_export_la_rootdir = $(mydatadir)
-libscigraphic_export_la_root_DATA =  license.txt 
+libscigraphic_export_la_root_DATA =  license.txt
 
 #### graphic_export : init scripts ####
 libscigraphic_export_la_etcdir = $(mydatadir)/etc
@@ -49,6 +49,8 @@ sci_gateway/c/sci_xs2png.c \
 sci_gateway/c/sci_xs2eps.c \
 sci_gateway/c/sci_xs2pdf.c
 
+libscigraphic_export_la_CFLAGS = \
+				-I$(top_srcdir)/modules/graphic_objects/includes
 
 # Includes need for the compilation
 libscigraphic_export_la_CPPFLAGS =  	$(JAVA_JNI_INCLUDE) \
@@ -103,7 +105,7 @@ libscigraphic_export_disable_la_SOURCES = src/nographic_export/nographic_export.
 
 libscigraphic_export_disable_la_CPPFLAGS = -I$(top_srcdir)/modules/output_stream/includes \
 	-I$(top_srcdir)/modules/api_scilab/includes \
-	-I$(srcdir)/includes/ 
+	-I$(srcdir)/includes/
 
 # Name of the future library (.la will be replace by .so, .a, etc regarding
 # the system)
@@ -111,8 +113,8 @@ pkglib_LTLIBRARIES = libscigraphic_export-disable.la
 
 if GUI
 USEANT=1
-pkglib_LTLIBRARIES += libscigraphic_export.la 
-noinst_LTLIBRARIES = libscigraphic_export-algo.la 
+pkglib_LTLIBRARIES += libscigraphic_export.la
+noinst_LTLIBRARIES = libscigraphic_export-algo.la
 endif
 
 libscigraphic_export_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
