@@ -175,7 +175,8 @@ public class AxesRulerDrawer {
                 gridAppearance.setLineColor(ColorFactory.createColor(colorMap, axes.getXAxisGridColor()));
                 drawingTools.getTransformationManager().getModelViewStack().pushRightMultiply(mirror);
                 DefaultGeometry gridGeometry = new DefaultGeometry();
-                gridGeometry.setDrawingMode(Geometry.DrawingMode.SEGMENTS);
+                gridGeometry.setFillDrawingMode(Geometry.FillDrawingMode.NONE);
+                gridGeometry.setLineDrawingMode(Geometry.LineDrawingMode.SEGMENTS);
                 gridGeometry.setVertices(vertexBuffer);
                 drawingTools.draw(gridGeometry, gridAppearance);
                 drawingTools.getTransformationManager().getModelViewStack().pop();
@@ -242,7 +243,8 @@ public class AxesRulerDrawer {
                 gridAppearance.setLineColor(ColorFactory.createColor(colorMap, axes.getYAxisGridColor()));
                 drawingTools.getTransformationManager().getModelViewStack().pushRightMultiply(mirror);
                 DefaultGeometry gridGeometry = new DefaultGeometry();
-                gridGeometry.setDrawingMode(Geometry.DrawingMode.SEGMENTS);
+                gridGeometry.setFillDrawingMode(Geometry.FillDrawingMode.NONE);
+                gridGeometry.setLineDrawingMode(Geometry.LineDrawingMode.SEGMENTS);
                 gridGeometry.setVertices(vertexBuffer);
                 drawingTools.draw(gridGeometry, gridAppearance);
                 drawingTools.getTransformationManager().getModelViewStack().pop();
@@ -324,7 +326,8 @@ public class AxesRulerDrawer {
                     gridAppearance.setLineColor(ColorFactory.createColor(colorMap, axes.getZAxisGridColor()));
                     drawingTools.getTransformationManager().getModelViewStack().pushRightMultiply(mirror);
                     DefaultGeometry gridGeometry = new DefaultGeometry();
-                    gridGeometry.setDrawingMode(Geometry.DrawingMode.SEGMENTS);
+                    gridGeometry.setFillDrawingMode(Geometry.FillDrawingMode.NONE);
+                    gridGeometry.setLineDrawingMode(Geometry.LineDrawingMode.SEGMENTS);
                     gridGeometry.setVertices(vertexBuffer);
                     drawingTools.draw(gridGeometry, gridAppearance);
                     drawingTools.getTransformationManager().getModelViewStack().pop();
