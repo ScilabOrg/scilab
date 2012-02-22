@@ -1,17 +1,18 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Bruno JOFRET
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
 
 package org.scilab.modules.xcos.io;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
@@ -20,6 +21,7 @@ import org.w3c.dom.Node;
 
 import com.mxgraph.io.mxCellCodec;
 import com.mxgraph.io.mxCodec;
+import com.mxgraph.io.mxObjectCodec;
 import com.mxgraph.model.mxICell;
 
 /**
@@ -45,7 +47,7 @@ public class XcosObjectCodec extends mxCellCodec {
 
     /**
      * The constructor used on for configuration
-     * 
+     *
      * @param template
      *            Prototypical instance of the object to be encoded/decoded.
      * @param exclude
@@ -56,15 +58,28 @@ public class XcosObjectCodec extends mxCellCodec {
      * @param mapping
      *            Optional mapping from field- to attributenames.
      */
-    public XcosObjectCodec(Object template, String[] exclude, String[] idrefs,
-            Map<String, String> mapping) {
+    public XcosObjectCodec(Object template, String[] exclude, String[] idrefs, Map<String, String> mapping) {
         super(template, exclude, idrefs, mapping);
 
     }
 
     /**
+     * Shortcut {@link mxObjectCodec#getFieldTemplate} for performance
+     */
+    @Override
+    protected Field getField(Object obj, String fieldname) {
+        Field field = null;
+        try {
+            field = obj.getClass().getField(fieldname);
+        } catch (SecurityException e) {
+        } catch (NoSuchFieldException e) {
+        }
+        return field;
+    }
+
+    /**
      * Apply compatibility pattern to the decoded object
-     * 
+     *
      * @param dec
      *            Codec that controls the decoding process.
      * @param node
@@ -123,14 +138,13 @@ public class XcosObjectCodec extends mxCellCodec {
         }
 
         if (!style.containsKey(ScilabGraphConstants.STYLE_MIRROR)) {
-            style.put(ScilabGraphConstants.STYLE_MIRROR,
-                    Boolean.FALSE.toString());
+            style.put(ScilabGraphConstants.STYLE_MIRROR, Boolean.FALSE.toString());
         }
     }
 
     /**
      * Trace any msg to the xml document.
-     * 
+     *
      * @param enc
      *            the current encoder
      * @param node
@@ -141,7 +155,6 @@ public class XcosObjectCodec extends mxCellCodec {
      *            the format
      */
     protected void trace(mxCodec enc, Node node, String msg, Object... format) {
-        node.appendChild(enc.getDocument().createComment(
-                String.format(msg, format)));
+        node.appendChild(enc.getDocument().createComment(String.format(msg, format)));
     }
 }

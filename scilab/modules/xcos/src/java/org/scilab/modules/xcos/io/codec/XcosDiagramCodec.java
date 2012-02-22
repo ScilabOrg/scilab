@@ -101,6 +101,20 @@ public class XcosDiagramCodec extends ScilabGraphCodec {
     }
 
     /**
+     * Shortcut {@link import com.mxgraph.io.mxObjectCodec#getFieldTemplate} for performance
+     */
+    @Override
+    protected Field getField(Object obj, String fieldname) {
+        Field field = null;
+        try {
+            field = obj.getClass().getField(fieldname);
+        } catch (SecurityException e) {
+        } catch (NoSuchFieldException e) {
+        }
+        return field;
+    }
+
+    /**
      * Encode the fieldname value.
      *
      * This method encode the 'scicosParameters' variable to the parent node.
