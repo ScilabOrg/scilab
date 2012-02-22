@@ -79,6 +79,9 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
     @Override
     public Sprite create(double value, DecimalFormat adaptedFormat, SpriteManager spriteManager) {
         //System.out.println((axisProperty.getAutoTicks() ? "auto-" : "mano-") + (axisProperty.getLogFlag() ? "log" : "lin") + " @" + value);
+        if (value == -0) {
+            value = +0;
+        }
         if (axisProperty.getAutoTicks()) {
             setScilabStyle(adaptedFormat);
             if (axisProperty.getLogFlag()) {
