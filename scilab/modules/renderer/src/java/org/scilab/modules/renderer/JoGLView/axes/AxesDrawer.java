@@ -731,7 +731,7 @@ public class AxesDrawer {
      * in the AWT's 2d coordinate frame.
      * @param axes the given Axes.
      * @param coordinates the 2d view coordinates (3-element array: x, y, z).
-     * @returns the pixel coordinates (2-element array: x, y).
+     * @return the pixel coordinates (2-element array: x, y).
      */
     public static double[] computePixelFrom2dViewCoordinates(Axes axes, double[] coordinates) {
         DrawerVisitor currentVisitor;
