@@ -43,4 +43,12 @@ x=[1,%i,-1,-%i]
 cos(acos(x))
  ]]></programlisting>
   </refsection>
+  <refsection role="see also">
+    <title>Voir aussi</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="cos">cos</link>
+      </member>
+    </simplelist>
+  </refsection>
 </refentry>
