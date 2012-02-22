@@ -85,6 +85,35 @@ void ColorComputer::getColor(double s, double smin, double srange, double indexO
     }
 }
 
+int ColorComputer::getIndex(double s, double smin, double srange, double indexOffset, int minIndex, int maxIndex)
+{
+    double value;
+    int index;
+
+    if (!DecompositionUtils::isANumber(s))
+    {
+        /* Black is output if s is a Nan */
+        index = MIN_COMPONENT_VALUE;
+    }
+    else
+    {
+        value = (s - smin) / (srange);
+        index = (int) ((double)(maxIndex - minIndex)*value + indexOffset + (double) minIndex);
+
+        /* Clamp */
+        if (index < minIndex)
+        {
+            index = minIndex;
+        }
+        else if (index > maxIndex)
+        {
+            index = maxIndex;
+        }
+    }
+    
+    return index;
+}
+
 void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize, float* returnedColor)
 {
     int index;

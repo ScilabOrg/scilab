@@ -104,6 +104,8 @@ public :
      * @param[in] the number of components taken by one element in the buffer (3 or 4).
      */
     static void fillColors(char* id, float* buffer, int bufferLength, int elementsSize);
+    
+    static void fillTextureCoordinates(char* id, float* BUFF, int bufferLength);
 
     /**
      * Returns the number of indices for the given object.
