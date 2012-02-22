@@ -25,10 +25,8 @@ import org.scilab.forge.scirenderer.tranformations.Vector3d;
 import org.scilab.forge.scirenderer.tranformations.Vector4d;
 import org.scilab.modules.graphic_objects.axes.Axes;
 import org.scilab.modules.graphic_objects.axes.Box;
-import org.scilab.modules.graphic_objects.axes.Camera;
 import org.scilab.modules.graphic_objects.contouredObject.Line;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
-import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 import org.scilab.modules.renderer.JoGLView.axes.ruler.AxesRulerDrawer;
 import org.scilab.modules.renderer.JoGLView.label.AxisLabelPositioner;
@@ -730,7 +728,7 @@ public class AxesDrawer {
      * in the AWT's 2d coordinate frame.
      * @param axes the given Axes.
      * @param coordinates the 2d view coordinates (3-element array: x, y, z).
-     * @returns the pixel coordinates (2-element array: x, y).
+     * @return the pixel coordinates (2-element array: x, y).
      */
     public static double[] computePixelFrom2dViewCoordinates(Axes axes, double[] coordinates) {
         DrawerVisitor currentVisitor;
