@@ -71,7 +71,6 @@ public class AxisDrawer {
             rulerModel.setUserGraduation(new AxisGraduation(axis, xTicksValues, xMinAndMax));
         }
 
-        // TODO : RulerModel should be an interface.
         rulerModel.setAutoTicks(false);
         rulerModel.setFirstValue(0);
         rulerModel.setSecondValue(1);
