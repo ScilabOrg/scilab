@@ -66,6 +66,7 @@ acosd(x)
     <simplelist type="inline">
       <member>
         <link linkend="acos">acos</link>
+        <link linkend="cos">cos</link>
       </member>
     </simplelist>
   </refsection>
