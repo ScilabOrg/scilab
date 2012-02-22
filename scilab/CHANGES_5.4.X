@@ -38,6 +38,8 @@ Xcos
 * Major performance improvements on the simulation startup. On big schemas,
   the gain is very important (minutes to milliseconds).
 
+* Performance improvements on the diagram saving/loading.
+
 * New examples are provided in the documentation for the blocks:
   - ABS_VALUE - Absolute value
   - EVTDLY_c - Event delay
