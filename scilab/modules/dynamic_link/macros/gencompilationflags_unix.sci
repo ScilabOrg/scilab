@@ -24,6 +24,10 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
   end
 
   cmd='-D__SCILAB_TOOLBOX__'
+  if getenv('__USE_DEPRECATED_STACK_FUNCTIONS__', 'NO') == "YES" then
+    cmd = cmd + " -D__USE_DEPRECATED_STACK_FUNCTIONS__";
+  end
+  
 
   // CFLAGS
   if cflags <> '' then
