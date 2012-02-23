@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
@@ -28,7 +29,8 @@
       <varlistentry>
         <term>c</term>
         <listitem>
-          <para>cell array, the components of <literal>c</literal> must have the same type and can be
+          <para>
+            cell array, the components of <literal>c</literal> must have the same type and can be
             scalars or matrices
           </para>
         </listitem>
@@ -43,24 +45,19 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>Returns a matrix which is the concatenation of all components of the
+    <para>cell2mat(c) returns a matrix which is the concatenation of all components of the
       cell array <literal>c</literal>.
     </para>
-    <variablelist>
-      <varlistentry>
-        <term>cell2mat(c)</term>
-        <listitem>
-          <para>all components of <literal>c</literal> must have the same data type (strings or
-            doubles or integers or booleans). For each row <literal>i
-            </literal>
-            of <literal>c</literal>, <literal>cell2mat</literal>
-            concatenates all the components of the <literal>i</literal>th row of
-            the cell array <literal>c</literal>.
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-    <para>Note that if the components of the cell array input <literal>c</literal>
+    <para>
+      All components of <literal>c</literal> must have the same data type (strings or
+      doubles or integers or booleans). For each row <literal>i
+      </literal>
+       of <literal>c</literal>, <literal>cell2mat</literal>
+      concatenates all the components of the <literal>i</literal>th row of
+      the cell array <literal>c</literal>.
+    </para>
+    <para>
+      Note that if the components of the cell array input <literal>c</literal>
       are strings then <literal>cell2mat(c)</literal> returns a column
       vector of strings concatenation.
     </para>
