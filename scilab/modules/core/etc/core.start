@@ -13,6 +13,9 @@ function corelib = startModule()
 // =============================================================================
 // Load functions libraries
 // =============================================================================
+  if ~isfile('SCI/modules/core/macros/lib') then
+    error(gettext("Please check that macros are built."));
+  end
   load('SCI/modules/core/macros/lib');
 endfunction
 
