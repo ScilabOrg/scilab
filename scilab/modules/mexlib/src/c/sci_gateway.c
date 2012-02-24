@@ -12,7 +12,8 @@
 */
 /*-----------------------------------------------------------------------------------*/
 #include <string.h>
-#include "stack-c.h"
+#include "BOOL.h"
+#include "api_scilab.h"
 #include "sci_gateway.h"
 /*-----------------------------------------------------------------------------------*/
 static int callExternalFunction(char *fname, GatefuncS F,BOOL withPutLhsVar);
