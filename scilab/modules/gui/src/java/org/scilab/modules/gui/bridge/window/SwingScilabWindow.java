@@ -40,6 +40,7 @@ import org.flexdock.docking.defaults.DefaultDockingPort;
 import org.flexdock.docking.defaults.DefaultDockingStrategy;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.commons.gui.ScilabKeyStroke;
+import org.scilab.modules.core.Scilab;
 import org.scilab.modules.gui.bridge.menubar.SwingScilabMenuBar;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.bridge.textbox.SwingScilabTextBox;
@@ -98,6 +99,13 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
         this.uuid = UUID.randomUUID().toString();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        Scilab.registerFinalHook(new Runnable() {
+            @Override
+            public void run() {
+                dispose();
+            }
+        });
 
         // By default ctrl+w close the window
         ActionListener listener = new ActionListener() {

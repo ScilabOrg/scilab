@@ -63,7 +63,7 @@ public class ClosingOperationsManager {
      *            the closing operation
      */
     public static void registerClosingOperation(SwingScilabTab tab,
-                                                ClosingOperation op) {
+            ClosingOperation op) {
         closingOps.put(tab, op);
     }
 
@@ -521,6 +521,9 @@ public class ClosingOperationsManager {
                         } else {
                             toRemove.add(win);
                         }
+
+                        // dispose the window to release resources
+                        win.dispose();
                     }
                     windowsToClose.removeAll(toRemove);
                 }
@@ -599,10 +602,10 @@ public class ClosingOperationsManager {
             }
         }
         switch (apps.size()) {
-        case 0:
-            return null;
-        case 1:
-            return String.format(EXIT_CONFIRM, apps.get(0));
+            case 0:
+                return null;
+            case 1:
+                return String.format(EXIT_CONFIRM, apps.get(0));
         }
 
         String str = apps.remove(0);
@@ -623,7 +626,7 @@ public class ClosingOperationsManager {
      *            the list
      */
     private static final void collectTabsToClose(SwingScilabTab tab,
-                                                 List<SwingScilabTab> list) {
+            List<SwingScilabTab> list) {
         List<SwingScilabTab> children = deps.get(tab);
         if (children != null) {
             for (SwingScilabTab t : children) {

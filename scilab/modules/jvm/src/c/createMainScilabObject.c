@@ -62,6 +62,7 @@ jobject getScilabObject(void)
 /*--------------------------------------------------------------------------*/
 BOOL finishMainScilabObject(void)
 {
+    BOOL retValue = FALSE;
     JNIEnv * currentENV = getScilabJNIEnv();
     JavaVM * currentJVM = getScilabJavaVM();
 
@@ -83,14 +84,17 @@ BOOL finishMainScilabObject(void)
 
             (*currentENV)->DeleteGlobalRef(currentENV, ScilabObject);
             ScilabObject = NULL;
-            return TRUE;
+            retValue = TRUE;
         }
+
+        (*currentJVM)->DetachCurrentThread(currentJVM);
     }
-    return FALSE;
+    return retValue;
 }
 /*--------------------------------------------------------------------------*/
 BOOL canCloseMainScilabObject(void)
 {
+    BOOL retValue = FALSE;
     JNIEnv * currentENV = getScilabJNIEnv();
     JavaVM * currentJVM = getScilabJavaVM();
 
@@ -106,13 +110,15 @@ BOOL canCloseMainScilabObject(void)
             mid = (*currentENV)->GetStaticMethodID(currentENV, cls, "canClose", "()Z");
             if (mid)
             {
-                return (*currentENV)->CallStaticBooleanMethod(currentENV, cls, mid);
+                retValue = (*currentENV)->CallStaticBooleanMethod(currentENV, cls, mid);
             }
             catchIfJavaException(_("Error with Scilab.canClose():\n"));
         }
+
+        (*currentJVM)->DetachCurrentThread(currentJVM);
     }
 
-    return FALSE;
+    return retValue;
 }
 /*--------------------------------------------------------------------------*/
 
