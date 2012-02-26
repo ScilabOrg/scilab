@@ -266,6 +266,9 @@ Bug fixes
 
 * Bug #10236 fixed - exit(-1) prompted for exiting Scilab.
 
+* Bug #10250 fixed - Fix a bug in the detection of the Java path under
+                     GNU/Linux.
+
 * Bug #10267 fixed - The help browser did not use the default language on restoration.
 
 * Bug #10303 fixed - test_run ignored "enable_lt" option.
