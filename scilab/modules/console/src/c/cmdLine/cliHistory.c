@@ -129,3 +129,4 @@ int nextCmd(wchar_t ** commandLine, unsigned int *cursorLocation)
     }
     return 0;
 }
+

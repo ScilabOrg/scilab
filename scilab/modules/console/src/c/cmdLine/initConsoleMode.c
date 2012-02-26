@@ -109,3 +109,4 @@ int initConsoleMode(int bin)
 
     return setAttr(bin);
 }
+

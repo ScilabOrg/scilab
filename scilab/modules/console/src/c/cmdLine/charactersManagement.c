@@ -82,10 +82,10 @@ int rmChar(wchar_t * CommandLine, int key, unsigned int *cursorLocation)
     unsigned int sizeOfCmd = 0;
 
     sizeOfCmd = wcslen(CommandLine);
-/*
- * Case Backspace is pressed -> cursor must not be at the beginning of the command line
- * Case Delete is pressed -> cursor must not be at the end of line
- */
+    /*
+     * Case Backspace is pressed -> cursor must not be at the beginning of the command line
+     * Case Delete is pressed -> cursor must not be at the end of line
+     */
     if ((*cursorLocation && key == SCI_BACKSPACE) || ((sizeOfCmd != *cursorLocation) && key == SCI_DELETE))
     {
         if (key == SCI_BACKSPACE)
@@ -148,3 +148,4 @@ int deletePreviousWordFromCurs(wchar_t * CommandLine, unsigned int *cursorLocati
     }
     return 0;
 }
+

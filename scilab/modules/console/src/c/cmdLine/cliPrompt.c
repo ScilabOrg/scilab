@@ -60,3 +60,4 @@ int getPrompt(int token)
     }
     return wcslen(prompt);
 }
+

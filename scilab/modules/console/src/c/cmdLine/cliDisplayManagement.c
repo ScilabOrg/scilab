@@ -61,3 +61,4 @@ void setBackgroundColor(int color)
     charColor[2] = '\0';
     setCharDisplay(charColor);
 }
+

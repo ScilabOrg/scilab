@@ -36,3 +36,4 @@ int getNbrLine(wchar_t * string)
     nbrLine = 1 + (sizeString + promptSize + 1) / tgetnum("co");
     return nbrLine;
 }
+

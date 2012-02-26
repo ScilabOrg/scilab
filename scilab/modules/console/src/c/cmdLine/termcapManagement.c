@@ -44,3 +44,4 @@ void capGoto(int col, int li)
         tputs(stringCap, 1, putchar);
     }
 }
+

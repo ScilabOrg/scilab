@@ -29,3 +29,4 @@ wchar_t *catStr(wchar_t * wcs1, wchar_t * wcs2)
     catWcs[sizeOfCatWcs] = L'\0';
     return catWcs;
 }
+
