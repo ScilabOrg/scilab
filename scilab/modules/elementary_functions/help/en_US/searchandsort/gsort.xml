@@ -2,11 +2,11 @@
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  -->
@@ -150,18 +150,17 @@
       the indices of the sorted values in <literal>A</literal>. If
       <literal>[B,k]=gsort(A,'g')</literal> one has <literal>B==A(k)</literal>.
       <emphasis role="bold">The algorithme preserve the relative order of
-        records with equal values. 
+        records with equal values.
       </emphasis>
     </para>
     <para>
       When <literal>v</literal> is complex, the elements are sorted by
-      magnitude, i.e., abs(<literal>v</literal>) . Only <literal>'g'</literal>
-      as second argument is managed with complex.
+      magnitude, i.e., abs(<literal>v</literal>) .
     </para>
     <para>
       With complex numbers, <literal>gsort</literal> can be overloaded
     </para>
-    <para>see macro:
+    <para>Create macro:
       SCI/modules/elementary_functions/macros/%_gsort.sci
     </para>
     <para>Overloading for not managed type (others than a real, an integer or a character
@@ -170,26 +169,26 @@
     <para>
       if <literal>v</literal> have <literal>%nan</literal> or
       <literal>%inf</literal> as elements. gsort places these at the beginning
-      with <literal>'i'</literal> or at the end with <literal>'d'</literal>
+      with <literal>'d'</literal> or at the end with <literal>'i'</literal>
       argument.
     </para>
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"> 
+    <programlisting role="example">
       alr=[1,2,2;
       1,2,1;
       1,1,2;
       1,1,1];
       [alr1,k]=gsort(alr,'lr','i')
       [alr1,k]=gsort(alr,'lc','i')
-      
+
       v=int32(alr)
-      
+
       gsort(v)
       gsort(v,'lr','i')
       gsort(v,'lc','i')
-      
+
       v=['Scilab' '2.6'
       'Scilab' '2.7'
       'xcos' '2.7'
@@ -197,7 +196,7 @@
       'xcos' '3.1'
       'xcos' '4.0'
       'Scilab' '4.0']
-      
+
       gsort(v,'lr','i')
       gsort(v,'lc','i')
     </programlisting>
