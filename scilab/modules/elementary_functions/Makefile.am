@@ -15,9 +15,6 @@ ELEMENTARY_FUNCTIONS_C_SOURCES = \
     src/c/scidcopy.c \
     src/c/int2db.c \
     src/c/rea2db.c \
-    src/c/idmax.c \
-    src/c/idmin.c \
-    src/c/gsort.c \
     src/c/qsort.c \
     src/c/qsort-char.c \
     src/c/qsort-double.c \
@@ -277,72 +274,43 @@ ELEMENTARY_FUNCTIONS_FORTRAN_SOURCES = \
     src/fortran/old_pythag.f
 
 ELEMENTARY_FUNCTIONS_CPP_SOURCES = \
-    src/cpp/getmode.cpp
+    src/cpp/getmode.cpp \
+    src/cpp/cumsum.cpp \
+    src/cpp/cumprod.cpp \
+    src/cpp/diag.cpp \
+    src/cpp/gsort.cpp \
+    src/cpp/max.cpp
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/sci_matrix.c \
     sci_gateway/c/sci_prod.c \
-    sci_gateway/c/sci_expm.c \
     sci_gateway/c/sci_tril.c \
-    sci_gateway/c/sci_ceil.c \
-    sci_gateway/c/sci_imag.c \
-    sci_gateway/c/sci_log.c \
-    sci_gateway/c/sci_log1p.c \
-    sci_gateway/c/sci_clean.c \
-    sci_gateway/c/sci_tan.c \
-    sci_gateway/c/sci_atan.c \
     sci_gateway/c/sci_triu.c \
-    sci_gateway/c/sci_frexp.c \
-    sci_gateway/c/sci_acos.c \
-    sci_gateway/c/sci_cos.c \
-    sci_gateway/c/sci_sin.c \
     sci_gateway/c/sci_sqrt.c \
-    sci_gateway/c/sci_asin.c \
     sci_gateway/c/sci_sign.c \
     sci_gateway/c/sci_rat.c \
     sci_gateway/c/gw_elementary_functions.c \
     sci_gateway/c/sci_number_properties.c \
-    sci_gateway/c/sci_diag.c \
     sci_gateway/c/sci_testmatrix.c \
-    sci_gateway/c/sci_abs.c \
     sci_gateway/c/sci_spones.c \
-    sci_gateway/c/sci_kron.c \
-    sci_gateway/c/sci_cumprod.c \
-    sci_gateway/c/sci_cumsum.c \
-    sci_gateway/c/sci_dsearch.c \
     sci_gateway/c/sci_nearfloat.c \
-    sci_gateway/c/sci_isreal.c \
-    sci_gateway/c/sci_floor.c \
     sci_gateway/c/sci_real.c \
     sci_gateway/c/sci_round.c \
-    sci_gateway/c/sci_conj.c \
-    sci_gateway/c/sci_int.c \
-    sci_gateway/c/sci_imult.c \
-    sci_gateway/c/sci_exp.c \
-    sci_gateway/c/sci_maxi.c \
-    sci_gateway/c/sci_gsort.c \
     sci_gateway/c/sci_chinesehat.c \
     sci_gateway/c/sci_isequalbitwise.c
 
 GATEWAY_FORTRAN_SOURCES =  \
-    sci_gateway/fortran/sci_f_maxi.f \
     sci_gateway/fortran/sci_f_testmatrix.f \
     sci_gateway/fortran/sci_f_prod.f \
     sci_gateway/fortran/sci_f_matrix.f \
-    sci_gateway/fortran/sci_f_expm.f \
     sci_gateway/fortran/sci_f_size.f \
     sci_gateway/fortran/sci_f_tril.f \
     sci_gateway/fortran/sci_f_ceil.f \
     sci_gateway/fortran/sci_f_rat.f \
-    sci_gateway/fortran/sci_f_imag.f \
-    sci_gateway/fortran/sci_f_log.f \
-    sci_gateway/fortran/sci_f_log1p.f \
     sci_gateway/fortran/sci_f_clean.f \
     sci_gateway/fortran/sci_f_eye.f \
     sci_gateway/fortran/sci_f_tan.f \
     sci_gateway/fortran/sci_f_atan.f \
     sci_gateway/fortran/sci_f_triu.f \
-    sci_gateway/fortran/sci_f_frexp.f \
     sci_gateway/fortran/sci_f_cos.f \
     sci_gateway/fortran/sci_f_rand.f \
     sci_gateway/fortran/sci_f_acos.f \
@@ -354,20 +322,12 @@ GATEWAY_FORTRAN_SOURCES =  \
     sci_gateway/fortran/sci_f_ones.f \
     sci_gateway/fortran/sci_f_diag.f \
     sci_gateway/fortran/sci_f_number_properties.f \
-    sci_gateway/fortran/sci_f_abs.f \
     sci_gateway/fortran/sci_f_spones.f \
-    sci_gateway/fortran/sci_f_kron.f \
-    sci_gateway/fortran/sci_f_cumsum.f \
     sci_gateway/fortran/sci_f_nearfloat.f \
-    sci_gateway/fortran/sci_f_isreal.f \
-    sci_gateway/fortran/sci_f_floor.f \
     sci_gateway/fortran/sci_f_real.f \
     sci_gateway/fortran/sci_f_round.f \
     sci_gateway/fortran/sci_f_conj.f \
-    sci_gateway/fortran/sci_f_int.f \
-    sci_gateway/fortran/sci_f_imult.f \
-    sci_gateway/fortran/sci_f_chinesehat.f \
-    sci_gateway/fortran/sci_f_exp.f
+    sci_gateway/fortran/sci_f_chinesehat.f
 
 GATEWAY_CPP_SOURCES =  \
 	sci_gateway/cpp/sci_isequal.cpp \
@@ -377,8 +337,36 @@ GATEWAY_CPP_SOURCES =  \
     sci_gateway/cpp/sci_rand.cpp \
     sci_gateway/cpp/sci_sum.cpp \
     sci_gateway/cpp/sci_zeros.cpp \
-    sci_gateway/cpp/sci_ones.cpp
-
+    sci_gateway/cpp/sci_ones.cpp \
+    sci_gateway/cpp/sci_matrix.cpp \
+    sci_gateway/cpp/sci_abs.cpp \
+    sci_gateway/cpp/sci_acos.cpp \
+    sci_gateway/cpp/sci_asin.cpp \
+    sci_gateway/cpp/sci_atan.cpp \
+    sci_gateway/cpp/sci_ceil.cpp \
+    sci_gateway/cpp/sci_clean.cpp \
+    sci_gateway/cpp/sci_conj.cpp \
+    sci_gateway/cpp/sci_cos.cpp \
+    sci_gateway/cpp/sci_sin.cpp \
+    sci_gateway/cpp/sci_tan.cpp \
+    sci_gateway/cpp/sci_cumsum.cpp \
+    sci_gateway/cpp/sci_cumprod.cpp \
+    sci_gateway/cpp/sci_diag.cpp \
+    sci_gateway/cpp/sci_dsearch.cpp \
+    sci_gateway/cpp/sci_exp.cpp \
+    sci_gateway/cpp/sci_expm.cpp \
+    sci_gateway/cpp/sci_floor.cpp \
+    sci_gateway/cpp/sci_frexp.cpp \
+    sci_gateway/cpp/sci_gsort.cpp \
+    sci_gateway/cpp/sci_imag.cpp \
+    sci_gateway/cpp/sci_imult.cpp \
+    sci_gateway/cpp/sci_int.cpp \
+    sci_gateway/cpp/sci_isreal.cpp \
+    sci_gateway/cpp/sci_kron.cpp \
+    sci_gateway/cpp/sci_log.cpp \
+    sci_gateway/cpp/sci_log1p.cpp \
+    sci_gateway/cpp/sci_max.cpp \
+    sci_gateway/cpp/sci_min.cpp
 
 EISPACK_SOURCES = \
 	src/fortran/eispack/balbak.f

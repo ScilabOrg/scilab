@@ -69,4 +69,6 @@ ELEMENTARY_FUNCTIONS_IMPEXP void magic_matrix(int _iSize, double *_pData);
 
 ELEMENTARY_FUNCTIONS_IMPEXP void deyes(double *_pdblOut, int _iRows, int _iCols);
 
+ELEMENTARY_FUNCTIONS_IMPEXP int mtlsel(int* dimsArray, int dims);
+
 #endif //__BASIC_FUNCTION__

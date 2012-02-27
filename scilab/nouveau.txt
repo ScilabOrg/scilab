@@ -1,0 +1,216 @@
+    types::Int64* pOut = NULL;
+
+    int iTimes      = 1;
+    int iItem       = 0;
+    int iPos        = 0;
+    int iPosSet     = 0;
+    int iPosGet     = 0;
+    int iOffset1    = 1;
+    int iOffset2    = 1;
+
+    long long* piIn = pIn->get();
+
+    double* pdblInd = pDblInd ? pDblInd->get() : NULL;
+
+    bool (*pFuncWay)(std::pair<std::pair<int, int>, long long> left,
+                     std::pair<std::pair<int, int>, long long> right);
+
+    bool (*pFuncWayL)(std::pair<int, std::pair<long long*, long long*> > left,
+                      std::pair<int, std::pair<long long*, long long*> > right);
+
+    if(wstrWay == L"i")
+    {
+        pFuncWay  = &(increasing);
+        pFuncWayL = &(increasing);
+    }
+    else // strWay == L"d"
+    {
+        pFuncWay  = &(descendent);
+        pFuncWayL = &(descendent);
+    }
+
+    if(wstrProcess == L"g")
+    {
+        iItem = pIn->getSize();
+    }
+    else if(wstrProcess == L"c" || wstrProcess == L"lr")
+    {
+        iTimes   = pIn->getRows();
+        iItem    = pIn->getCols();
+        iOffset1 = pIn->getRows();
+    }
+    else if(wstrProcess == L"r" || wstrProcess == L"lc")
+    {
+        iTimes   = pIn->getCols();
+        iItem    = pIn->getRows();
+        iOffset2 = pIn->getRows();
+    }
+
+    if(wstrProcess == L"r" || wstrProcess == L"c" || wstrProcess == L"g")
+    {
+        if(pDblInd)
+        {
+            pOut = new types::Int64(pIn->getDims(), pIn->getDimsArray());
+            long long* piOut = pOut->get();
+
+            std::vector<std::pair<std::pair<int, int>, long long> > V;
+            std::vector<std::pair<std::pair<int, int>, long long> >::iterator it;
+
+            for(int i = 0; i < iTimes; i++)
+            {
+                for(int j = 0; j < iItem; j++)
+                {
+                    iPos = i * iOffset2 + j * iOffset1;
+                    V.push_back(std::pair<std::pair<int, int>, long long>(std::pair<int, int>(iPos, j), piIn[iPos]));
+                }
+
+                std::sort(V.begin(), V.end(), (*pFuncWay));
+
+                int j = 0;
+                for(it = V.begin(); it != V.end(); it++, j++)
+                {
+                    iPosSet = i * iOffset2 + j * iOffset1;
+                    piOut[iPosSet] = (*it).second;
+                    pdblInd[iPosSet] = static_cast<double>((*it).first.second + 1);
+                }
+                V.clear();
+            }
+        }
+        else
+        {
+            if(wstrProcess == L"g")
+            {
+                pOut = pIn->clone()->getAs<types::Int64>();
+                long long* piOut = pOut->get();
+                if(wstrWay == L"i")
+                {
+                    std::sort(piOut, piOut + pOut->getSize());
+                }
+                else // strWay == L"d"
+                {
+                    std::sort(piOut, piOut + pOut->getSize(), std::greater<long long>());
+                }
+            }
+            else if(wstrProcess == L"c")
+            {
+                pOut = new types::Int64(pIn->getCols(), pIn->getRows());
+                long long* piOut = pOut->get();
+
+                // transpose input in output
+                int iRows = pIn->getRows();
+                int iCols = pIn->getCols();
+                for(int i = 0; i < pIn->getSize(); i++)
+                {
+                    iPos = (i % iRows) * iCols + (i / iRows);
+                    piOut[iPos] = piIn[i];
+                }
+
+                // sort output
+                if(wstrWay == L"i")
+                {
+                    for(int i = 0; i < iTimes; i++)
+                    {
+                        std::sort(piOut + (iItem * i), piOut + (iItem * (i + 1)));
+                    }
+                }
+                else // strWay == L"d"
+                {
+                    for(int i = 0; i < iTimes; i++)
+                    {
+                        std::sort(piOut + (iItem * i), piOut + (iItem * (i + 1)), std::greater<long long>());
+                    }
+                }
+
+                // transpose output
+                types::Int64* pTemp = pOut;
+                long long* piTemp = pTemp->get();
+                pOut = new types::Int64(pTemp->getCols(), pTemp->getRows());
+                piOut = pOut->get();
+                iRows = pTemp->getRows();
+                iCols = pTemp->getCols();
+
+                for(int i = 0; i < pTemp->getSize(); i++)
+                {
+                    iPos = (i % iRows) * iCols + (i / iRows);
+                    piOut[iPos] = piTemp[i];
+                }
+
+                delete pTemp;
+            }
+            else //wstrProcess == L"r"
+            {
+                pOut = pIn->clone()->getAs<types::Int64>();
+                long long* piOut = pOut->get();
+
+                if(wstrWay == L"i")
+                {
+                    for(int i = 0; i < iTimes; i++)
+                    {
+                        std::sort(piOut + (iItem * i), piOut + (iItem * (i + 1)));
+                    }
+                }
+                else // strWay == L"d"
+                {
+                    for(int i = 0; i < iTimes; i++)
+                    {
+                        std::sort(piOut + (iItem * i), piOut + (iItem * (i + 1)), std::greater<long long>());
+                    }
+                }
+            }
+        }
+    }
+    else// wstrProcess == L"lr" and wstrProcess == L"lc"
+    {
+        pOut = new types::Int64(pIn->getDims(), pIn->getDimsArray());
+        long long* piOut = pOut->get();
+
+        std::vector<std::pair<int, std::pair<long long*, long long*> > > V;
+        std::vector<std::pair<int, std::pair<long long*, long long*> > >::iterator it;
+
+        if(wstrProcess == L"lr")
+        {
+            // transpose matrix pIn
+            types::Int64* pTemp = pIn;
+            long long* piTemp = pTemp->get();
+            pIn = new types::Int64(pTemp->getCols(), pTemp->getRows());
+            piIn = pIn->get();
+            int iRows = pTemp->getRows();
+            int iCols = pTemp->getCols();
+
+            for(int i = 0; i < pTemp->getSize(); i++)
+            {
+                iPos = (i % iRows) * iCols + (i / iRows);
+                piIn[iPos] = piTemp[i];
+            }
+        }
+
+        for(int i = 0; i < iTimes; i++)
+        {
+            V.push_back(std::pair<int, std::pair<long long*, long long*> >(i, std::pair<long long*, long long*>(piIn + i * iItem, piIn + (i+1) * iItem)));
+        }
+
+        std::sort(V.begin(), V.end(), (*pFuncWayL));
+
+        int j = 0;
+        for(it = V.begin(); it != V.end(); it++, j++)
+        {
+            for(int i = 0; i < iItem; i++)
+            {
+                iPosSet = i * iOffset1 + j * iOffset2;
+                piOut[iPosSet] = ((*it).second.first)[i];
+            }
+
+            if(pDblInd)
+            {
+                pdblInd[j] = static_cast<double>((*it).first + 1);
+            }
+        }
+
+        V.clear();
+        if(wstrProcess == L"lr")
+        {
+            delete pIn;
+        }
+    }
+
+    return pOut;
