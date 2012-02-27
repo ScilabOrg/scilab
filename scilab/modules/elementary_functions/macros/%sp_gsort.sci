@@ -8,20 +8,14 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function A = %sp_gsort(A, optsort, directionsort)
-  [ij, v, mn] = spget(A);
-  if mn(2) == 1 then
-    last = find( v<0 );
-    first = find( v>0 );
-    nn = size(v, '*');
-    v([1:size(first, '*'), nn-size(last, '*')+1:nn]) = [gsort(v(first));gsort(v(last))];
-    A = sparse(ij, v, mn);
-  elseif mn(1) == 1 then
-    last = find( v<0 );
-    first = find( v>0 );
-    nn = size(v, '*');
-    v([1:size(first, '*'),nn-size(last, '*')+1:nn]) = [gsort(v(first));gsort(v(last))];
-    A = sparse(ij, v, mn);  
-  else
-    error(999,msprintf(_("%s: Wrong size for input argument #%d: sparse vectors expected.\n"),'gsort',1));
-  end
+    if ~exists("optsort") then optsort = 'g'; end
+    if ~exists("directionsort") then directionsort = 'd'; end
+
+    [ij, v, mn] = spget(A);
+    if mn(2) == 1 | mn(1) == 1 then
+        v = gsort(v,'g',directionsort);
+        A = sparse(ij, v, mn);
+    else
+        error(999,msprintf(_("%s: Wrong size for input argument #%d: sparse vectors expected.\n"),'gsort',1));
+    end
 endfunction
