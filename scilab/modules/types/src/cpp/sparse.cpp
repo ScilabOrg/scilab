@@ -652,6 +652,102 @@ bool Sparse::resize(int _iNewRows, int _iNewCols)
     }
     return res;
 }
+
+bool Sparse::reshape(int* _piDims, int _iDims)
+{
+    bool bOk = false;
+    int iCols = 1;
+
+    if(_iDims == 2)
+    {
+        iCols = _piDims[1];
+    }
+
+    if(_iDims <= 2)
+    {
+        bOk = reshape(_piDims[0], iCols);
+    }
+
+    return bOk;
+}
+
+bool Sparse::reshape(int _iNewRows, int _iNewCols)
+{
+    if(_iNewRows * _iNewCols != getRows() * getCols())
+    {
+        return false;
+    }
+
+    bool res = false;
+    try
+    {
+        if(matrixReal)
+        {
+            RealSparse_t *newReal = new RealSparse_t(_iNewRows, _iNewCols);
+
+            //item count
+            size_t iNonZeros = nonZeros();
+
+            //coords
+            double* pRows = new double[iNonZeros * 2];
+            outputRowCol(pRows);
+            double* pCols = pRows + iNonZeros;
+
+            //values
+            double* pNonZeroR = new double[iNonZeros];
+            double* pNonZeroI = new double[iNonZeros];
+            outputValues(pNonZeroR, pNonZeroI);
+
+            //compute new positions
+            for(size_t i = 0 ; i < iNonZeros ; i++)
+            {
+                int iCurrentPos = ((int)pCols[i] - 1) * getRows() + ((int)pRows[i] - 1);
+                newReal->insert((int)(iCurrentPos % _iNewRows), (int)(iCurrentPos / _iNewRows)) = pNonZeroR[i];
+            }
+
+            delete matrixReal;
+            matrixReal = newReal;
+        }
+        else
+        {
+            CplxSparse_t *newCplx = new CplxSparse_t(_iNewRows, _iNewCols);
+
+            //item count
+            size_t iNonZeros = nonZeros();
+
+            //coords
+            double* pRows = new double[iNonZeros * 2];
+            outputRowCol(pRows);
+            double* pCols = pRows + iNonZeros;
+
+            //values
+            double* pNonZeroR = new double[iNonZeros];
+            double* pNonZeroI = new double[iNonZeros];
+            outputValues(pNonZeroR, pNonZeroI);
+
+            //compute new positions
+            for(size_t i = 0 ; i < iNonZeros ; i++)
+            {
+                int iCurrentPos = ((int)pCols[i] - 1) * getRows() + ((int)pRows[i] - 1);
+                newCplx->insert((int)(iCurrentPos % _iNewRows), (int)(iCurrentPos / _iNewRows)) = std::complex<double>(pNonZeroR[i], pNonZeroI[i]);
+            }
+
+            delete matrixCplx;
+            matrixCplx = newCplx;
+        }
+
+        m_iRows = _iNewRows;
+        m_iCols = _iNewCols;
+        m_iSize = _iNewRows * _iNewCols;
+        res = true;
+    }
+    catch(...)
+    {
+        res = false;
+    }
+    return res;
+}
+
 // TODO decide if a complex matrix with 0 imag can be == to a real matrix
 // not true for dense (cf double.cpp)
 bool Sparse::operator==(const InternalType& it) CONST

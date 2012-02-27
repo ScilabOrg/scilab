@@ -1,0 +1,22 @@
+/*
+*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Copyright (C) 2012 - DIGITEO - cedric delamarre
+*
+*  This file must be used under the terms of the CeCILL.
+*  This source file is licensed as described in the file COPYING, which
+*  you should have received as part of this distribution.  The terms
+*  are also available at
+*  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*/
+
+#ifndef __CUMSUM_H__
+#define __CUMSUM_H__
+
+#include "double.hxx"
+#include "polynom.hxx"
+
+int cumsum(types::Double* pIn,  int iOrientation, types::Double* pOut);
+int cumsum(types::Polynom* pIn,  int iOrientation, types::Polynom* pOut);
+
+#endif /* __CUMSUM_H__ */

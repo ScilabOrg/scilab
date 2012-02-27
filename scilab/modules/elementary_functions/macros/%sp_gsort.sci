@@ -1,11 +1,11 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) DIGITEO - 2009 - Allan CORNET
 // Copyrifht (C) 2012 - Scilab Enterprises - Adeline CARNIS
-// 
+//
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution.  The terms
-// are also available at    
+// are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function A = %sp_gsort(A, optsort, directionsort)
@@ -30,10 +30,10 @@ function A = %sp_gsort(A, optsort, directionsort)
         if mn(2) == 1 then
             dif = mn(1) - length(v);
             v = gsort(v, optsort, directionsort);
-            
+
             last = find(v<0);
             first = find(v>0);
-            
+
             if last == [] & first <> [] then
                 if strcmp(directionsort, 'i')== 0 then
                     ij(:,1) = first(:) + dif;
@@ -49,14 +49,14 @@ function A = %sp_gsort(A, optsort, directionsort)
                     ij(:,1) = [first(:); last(:) + dif];
                 end
             end
-            
+
         elseif mn(1) == 1 then
             dif = mn(2) - length(v);
             v = gsort(v, optsort, directionsort);
-            
+
             last = find(v<0);
             first = find(v>0);
-            
+
             if last == [] & first <> [] then
                 if strcmp(directionsort, 'i')== 0 then
                     ij(:,2) = first(:) + dif;
@@ -72,12 +72,9 @@ function A = %sp_gsort(A, optsort, directionsort)
                     ij(:,2) = [first(:); last(:) + dif];
                 end
             end
-            
+
         end
         A = sparse(ij, v, mn)
     end
 
 endfunction
-
-
-
