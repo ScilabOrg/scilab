@@ -15,6 +15,8 @@
 
 extern "C"
 {
+#include <math.h>
+
 #include "getGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 }
@@ -103,6 +105,8 @@ double ColorComputer::getIndex(double s, double smin, double srange, double inde
         value = (s - smin) / (srange);
         index = (double)(maxIndex - minIndex)*value + indexOffset + (double) minIndex;
 
+        index = floor(index);
+
         /* Clamp */
         if (index < (double) minIndex)
         {
@@ -148,6 +152,33 @@ void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize,
         returnedColor[1] = (float)colormap[colormapSize+index];
         returnedColor[2] = (float)colormap[2*colormapSize+index];
     }
+}
+
+double ColorComputer::getClampedDirectIndex(double s, int colormapSize)
+{
+    double index = s;
+
+    if (!DecompositionUtils::isANumber(s))
+    {
+        /* Black is output if s is a Nan */
+        index = 0.0; // TODO add black and white in texture.
+    }
+    else
+    {
+        index = floor(index);
+
+        /* Clamp */
+        if (s < 0.0)
+        {
+            index = 0.0;
+        }
+        else if (s > (double)(colormapSize - 1))
+        {
+            index = (double) (colormapSize - 1);
+        }
+    }
+
+    return index;
 }
 
 void ColorComputer::getClampedDirectColor(double s, double* colormap, int colormapSize, float* returnedColor)
