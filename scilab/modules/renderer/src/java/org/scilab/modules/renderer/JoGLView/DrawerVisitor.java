@@ -590,7 +590,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
                 if (segs.getLineMode()) {
                     Appearance segmentAppearance = new Appearance();
-                    segmentAppearance.setLineColor(ColorFactory.createColor(colorMap, segs.getLineColor()));
+                    //segmentAppearance.setLineColor(ColorFactory.createColor(colorMap, segs.getLineColor()));
+                    segmentAppearance.setLineColor(null);
                     segmentAppearance.setLineWidth(segs.getLineThickness().floatValue());
                     segmentAppearance.setLinePattern(segs.getLineStyleAsEnum().asPattern());
                     drawingTools.draw(segments, segmentAppearance);
