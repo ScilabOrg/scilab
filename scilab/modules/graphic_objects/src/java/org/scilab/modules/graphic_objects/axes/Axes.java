@@ -1812,8 +1812,9 @@ public class Axes extends GraphicObject {
             }
 
             if (!getTightLimits()) {
-                for (int i = 0 ; i < 6 ; i++) {
-                    bounds[i] = round(bounds[i]);
+                for (int i = 0 ; i < 6 ; i += 2) {
+                    bounds[i] = round(bounds[i], -1);
+                    bounds[i + 1] = round(bounds[i + 1], 1);
                 }
             }
 
@@ -1840,20 +1841,27 @@ public class Axes extends GraphicObject {
          *   s = +1 or -1
          *   a is in [1, 10[
          *   n an integer
-         * Round return s*ceil(a)*10^n
+         * Round return s*ceil(a)*10^n if direction is >= 0
+         * And s*floor(a)*10^n if direction is >= 0
+         *
+         * for example:
+         * - 3,14 will be rounded to 3 or 4 depending on the direction.
+         * - 5,3x10^11 will be rounded to 5x10^11 or 6x10^11 depending on the direction
+         *
          * @param value the given value.
+         * @param direction the rounding direction.
          * @return the 'rounded' value.
          */
-        private double round(Double value) {
+        private double round(Double value, double direction) {
             if ((value == 0) || value.isNaN() || value.isInfinite()) {
                 return value;
             } else {
-                double s = Math.signum(value);
-                double log10 = Math.log10(s*value);
-                double n = Math.floor(log10);
-                double tenPowN = Math.pow(10, n);
-                double a = s * value / tenPowN;
-                return s * Math.ceil(a) * tenPowN;
+                double tenPowN = Math.pow(10, Math.floor(Math.log10(Math.abs(value))));
+                if (direction < 0) {
+                    return Math.floor(value / tenPowN) * tenPowN;
+                } else {
+                    return Math.ceil(value / tenPowN) * tenPowN;
+                }
             }
         }
 
