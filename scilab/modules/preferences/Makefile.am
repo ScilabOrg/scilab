@@ -20,7 +20,14 @@ libscipreferences_la_root_DATA =  license.txt
 
 #### preferences : init scripts & configuration files ####
 libscipreferences_la_etcdir = $(mydatadir)/etc
-libscipreferences_la_etc_DATA = 
+libscipreferences_la_etc_DATA = \
+	etc/preferences.quit \
+	etc/preferences.start \
+	etc/XConfiguration.xml \
+	etc/XWizard-expression.xml \
+	etc/XWizard-function.xml \
+	etc/XWizard-xcos.xml \
+	etc/XWizard.xml
 
 include $(top_srcdir)/Makefile.incl.am
 
