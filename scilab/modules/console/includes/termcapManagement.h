@@ -30,6 +30,7 @@
 #define CTRL_H          0x08
 #define	CTRL_I          0x09
 #define	CTRL_K          0x0B
+#define	CTRL_L          0x0C
 #define	CTRL_M          0x0D
 #define	CTRL_N          0x0E
 #define	CTRL_P          0x10

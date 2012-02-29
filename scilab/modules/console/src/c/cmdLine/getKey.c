@@ -1,13 +1,13 @@
 /*
-* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-* Copyright (C) 2011 - DIGITEO - Karim Mamode
-*
-* This file must be used under the terms of the CeCILL.
-* This source file is licensed as described in the file COPYING, which
-* you should have received as part of this distribution.  The terms
-* are also available at
-* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-*/
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2011 - DIGITEO - Karim Mamode
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ */
 
 #include <wchar.h>
 #include <wctype.h>
@@ -29,6 +29,7 @@
 #include "charEncoding.h"
 #include "cliDisplayManagement.h"
 #include "autoCompletionCli.h"
+#include "../tohome.h"
 
 /* Set new token in order to get string changement in history */
 static void updateTokenInScilabHistory(wchar_t ** commandLine)
@@ -50,12 +51,12 @@ static void caseCtrlAndArrowKey(wchar_t * commandLine, unsigned int *cursorLocat
     {
         switch (getwchar())
         {
-            case L'C':
-                nextWord(commandLine, cursorLocation);
-                break;
-            case L'D':
-                previousWord(commandLine, cursorLocation);
-                break;
+        case L'C':
+            nextWord(commandLine, cursorLocation);
+            break;
+        case L'D':
+            previousWord(commandLine, cursorLocation);
+            break;
         }
     }
     else
@@ -72,12 +73,12 @@ static void caseHomeOrEndKey(wchar_t * commandLine, unsigned int *cursorLocation
 {
     switch (getwchar())
     {
-        case L'H':
-            begLine(commandLine, cursorLocation);
-            break;
-        case L'F':
-            endLine(commandLine, cursorLocation);
-            break;
+    case L'H':
+        begLine(commandLine, cursorLocation);
+        break;
+    case L'F':
+        endLine(commandLine, cursorLocation);
+        break;
     }
 }
 
@@ -89,28 +90,28 @@ static void caseDelOrArrowKey(wchar_t ** commandLine, unsigned int *cursorLocati
 {
     switch (getwchar())
     {
-        case L'A':
-            previousCmd(commandLine, cursorLocation);
+    case L'A':
+        previousCmd(commandLine, cursorLocation);
+        break;
+    case L'B':
+        nextCmd(commandLine, cursorLocation);
+        break;
+    case L'C':
+        gotoRight(*commandLine, cursorLocation);
+        break;
+    case L'D':
+        gotoLeft(*commandLine, cursorLocation);
+        break;
+    case L'1':
+        caseCtrlAndArrowKey(*commandLine, cursorLocation);
+        break;
+    case L'3':
+        if (getwchar() == L'~')
+        {
+            rmChar(*commandLine, SCI_DELETE, cursorLocation);
+            updateTokenInScilabHistory(commandLine);
             break;
-        case L'B':
-            nextCmd(commandLine, cursorLocation);
-            break;
-        case L'C':
-            gotoRight(*commandLine, cursorLocation);
-            break;
-        case L'D':
-            gotoLeft(*commandLine, cursorLocation);
-            break;
-        case L'1':
-            caseCtrlAndArrowKey(*commandLine, cursorLocation);
-            break;
-        case L'3':
-            if (getwchar() == L'~')
-            {
-                rmChar(*commandLine, SCI_DELETE, cursorLocation);
-                updateTokenInScilabHistory(commandLine);
-                break;
-            }
+        }
     }
 }
 
@@ -121,20 +122,20 @@ static void caseMetaKey(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
     switch (getwchar())
     {
-        case L'f':
-        case L'F':
-            nextWord(*commandLine, cursorLocation);
-            break;
-        case L'b':
-        case L'B':
-            previousWord(*commandLine, cursorLocation);
-            break;
-        case L'[':
-            caseDelOrArrowKey(commandLine, cursorLocation);
-            break;
-        case L'O':
-            caseHomeOrEndKey(*commandLine, cursorLocation);
-            break;
+    case L'f':
+    case L'F':
+        nextWord(*commandLine, cursorLocation);
+        break;
+    case L'b':
+    case L'B':
+        previousWord(*commandLine, cursorLocation);
+        break;
+    case L'[':
+        caseDelOrArrowKey(commandLine, cursorLocation);
+        break;
+    case L'O':
+        caseHomeOrEndKey(*commandLine, cursorLocation);
+        break;
     }
 }
 
@@ -212,68 +213,73 @@ static void getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
     }
     switch (key)
     {
-        case CTRL_A:
-            begLine(*commandLine, cursorLocation);
-            break;
-        case CTRL_B:
-            gotoLeft(*commandLine, cursorLocation);
-            break;
-        case CTRL_D:
-            rmChar(*commandLine, SCI_DELETE, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case CTRL_E:
-            endLine(*commandLine, cursorLocation);
-            break;
-        case CTRL_F:
-            gotoRight(*commandLine, cursorLocation);
-            break;
-        case CTRL_H:
-            rmChar(*commandLine, SCI_BACKSPACE, cursorLocation);
-            break;
-        case CTRL_K:
-            deleteFromCursToEndLine(*commandLine, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case CTRL_N:
-            nextCmd(commandLine, cursorLocation);
-            break;
-        case CTRL_P:
-            previousCmd(commandLine, cursorLocation);
-            break;
-        case CTRL_U:
-            deleteFromCursToBeginningLine(*commandLine, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case CTRL_W:
-            deletePreviousWordFromCurs(*commandLine, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case '\t':
-            autoCompletionInConsoleMode(commandLine, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case ESCAPE:
-            caseMetaKey(commandLine, cursorLocation);
-            break;
-        case SCI_BACKSPACE:
-            rmChar(*commandLine, SCI_BACKSPACE, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
-        case WEOF:
-            setCBreak(1);
-            endCopyPast(*commandLine);
-            break;
-        default:
-            /* Different keys are not in different case when it add characters to the command line */
-            if (key == L'\n')
-            {
-                setCBreak(0);
-                setCharDisplay(DISP_FAINT);
-            }
-            addChar(commandLine, key, cursorLocation);
-            updateTokenInScilabHistory(commandLine);
-            break;
+    case CTRL_A:
+        begLine(*commandLine, cursorLocation);
+        break;
+    case CTRL_B:
+        gotoLeft(*commandLine, cursorLocation);
+        break;
+    case CTRL_D:
+        rmChar(*commandLine, SCI_DELETE, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case CTRL_E:
+        endLine(*commandLine, cursorLocation);
+        break;
+    case CTRL_F:
+        gotoRight(*commandLine, cursorLocation);
+        break;
+    case CTRL_H:
+        rmChar(*commandLine, SCI_BACKSPACE, cursorLocation);
+        break;
+    case CTRL_K:
+        deleteFromCursToEndLine(*commandLine, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case CTRL_L:
+        tohome();
+        printPrompt(WRITE_PROMPT);
+        printf("%ls",*commandLine);
+        break;
+    case CTRL_N:
+        nextCmd(commandLine, cursorLocation);
+        break;
+    case CTRL_P:
+        previousCmd(commandLine, cursorLocation);
+        break;
+    case CTRL_U:
+        deleteFromCursToBeginningLine(*commandLine, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case CTRL_W:
+        deletePreviousWordFromCurs(*commandLine, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case '\t':
+        autoCompletionInConsoleMode(commandLine, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case ESCAPE:
+        caseMetaKey(commandLine, cursorLocation);
+        break;
+    case SCI_BACKSPACE:
+        rmChar(*commandLine, SCI_BACKSPACE, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
+    case WEOF:
+        setCBreak(1);
+        endCopyPast(*commandLine);
+        break;
+    default:
+        /* Different keys are not in different case when it add characters to the command line */
+        if (key == L'\n')
+        {
+            setCBreak(0);
+            setCharDisplay(DISP_FAINT);
+        }
+        addChar(commandLine, key, cursorLocation);
+        updateTokenInScilabHistory(commandLine);
+        break;
     }
 }
 
