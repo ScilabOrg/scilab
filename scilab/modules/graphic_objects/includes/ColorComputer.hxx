@@ -83,6 +83,14 @@ public :
     static void getClampedDirectColor(double s, double* colormap, int colormapSize, float* returnedColor);
 
     /**
+     * Return the given index clamped to the colormap size.
+     * @param[in] the scalar value used as an index.
+     * @param[in] the colormap's size.
+     * @param[out] the scalar value clamped to the colormap size.
+     */
+    static double getClampedDirectIndex(double s, int colormapSize);
+
+    /**
      * Returns a colormap index mapped to a scalar value s belonging to an [smin, smax] interval.
      * The index belongs to an [imin, imax] interval which is linearly mapped to s, smin and smax respectively
      * corresponding to the imin and imax indices. The index is computed and returned as a floating-point
