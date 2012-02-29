@@ -107,7 +107,7 @@ double Fac3DColorComputer::getOutputFacetColor(int facetIndex, int vertexIndex)
 }
 
 /* To do:
- * -rename getFacetColor to getFacetValue.
+ * -rename getFacetColor to getFacetValue. or getVertexColorIndex
  * -streamline.
  */
 double Fac3DColorComputer::getFacetColor(int facetIndex, int vertexIndex)

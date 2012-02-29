@@ -223,17 +223,18 @@ void Fac3DDecomposer::fillNormalizedZColors(float* buffer, int bufferLength, int
         /* Per-face average */
         double zavg = 0.0;
 
-        float colorret[3];
+//        float colorret[3];
 
         zavg = computeAverageValue(&z[i*numVerticesPerGon], numVerticesPerGon);
 
-        ColorComputer::getColor(zavg, zMin, zRange, Z_COLOR_OFFSET, colormap, colormapSize, colorret);
+//        ColorComputer::getColor(zavg, zMin, zRange, Z_COLOR_OFFSET, colormap, colormapSize, colorret);
+        float index = ColorComputer::getIndex(zavg, zMin, zRange, Z_COLOR_OFFSET, 0, colormapSize - 1) / (float) (colormapSize);
 
         for (j = 0; j < numVerticesPerGon; j++)
         {
-            buffer[bufferOffset] = colorret[0];
-            buffer[bufferOffset+1] = colorret[1];
-            buffer[bufferOffset+2] = colorret[2];
+            buffer[bufferOffset] = index;
+            buffer[bufferOffset+1] = 0;
+            buffer[bufferOffset+2] = 0;
 
             if (elementsSize == 4)
             {
@@ -254,13 +255,13 @@ void Fac3DDecomposer::fillConstantColors(float* buffer, int bufferLength, int el
 
     float color[3];
 
-    ColorComputer::getClampedDirectColor(colorValue - 1.0, colormap, colormapSize, color);
+    double index = ColorComputer::getClampedDirectIndex(colorValue - 1.0, colormapSize);
 
     for (i = 0; i < numGons*numVerticesPerGon; i++)
     {
-        buffer[bufferOffset] = color[0];
-        buffer[bufferOffset+1] = color[1];
-        buffer[bufferOffset+2] = color[2];
+        buffer[bufferOffset] = index / (float) (colormapSize);
+        buffer[bufferOffset+1] = 0;
+        buffer[bufferOffset+2] = 0;
 
         if (elementsSize == 4)
         {
@@ -313,16 +314,23 @@ void Fac3DDecomposer::fillDataColors(float* buffer, int bufferLength, int elemen
             if (dataMapping == 1)
             {
                 double tmpColor = DecompositionUtils::getAbsoluteValue(color);
-                ColorComputer::getDirectColor(tmpColor - 1.0, colormap, colormapSize, &buffer[bufferOffset]);
+//                ColorComputer::getDirectColor(tmpColor - 1.0, colormap, colormapSize, &buffer[bufferOffset]);
+                buffer[bufferOffset] = (tmpColor - .5) / (float) (colormapSize);
+                buffer[bufferOffset + 1] = 0;
+                buffer[bufferOffset + 2] = 0;
             }
             else if (dataMapping == 0)
             {
-                ColorComputer::getColor(color, colMin, colRange, COLOR_OFFSET, colormap, colormapSize, &buffer[bufferOffset]);
+                //ColorComputer::getColor(color, colMin, colRange, COLOR_OFFSET, colormap, colormapSize, &buffer[bufferOffset]);
+                double index = ColorComputer::getIndex(color, colMin, colRange, COLOR_OFFSET, 0, colormapSize - 1) / (float) (colormapSize);
+                buffer[bufferOffset] = index;
+                buffer[bufferOffset + 1] = 0;
+                buffer[bufferOffset + 2] = 0;
             }
 
             if (elementsSize == 4)
             {
-                buffer[bufferOffset +3] = 1.0;
+                buffer[bufferOffset + 3] = 1.0;
             }
 
             bufferOffset += elementsSize;

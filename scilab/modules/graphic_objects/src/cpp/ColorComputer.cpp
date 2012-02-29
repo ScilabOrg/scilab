@@ -150,6 +150,31 @@ void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize,
     }
 }
 
+double ColorComputer::getClampedDirectIndex(double s, int colormapSize)
+{
+    double index;
+
+    if (!DecompositionUtils::isANumber(s))
+    {
+        /* Black is output if s is a Nan */
+        index = 0.0; // TODO add black and white in texture.
+    }
+    else
+    {
+        /* Clamp */
+        if (s < 0.0)
+        {
+            index = 0.0;
+        }
+        else if (s > (double)(colormapSize - 1))
+        {
+            index = (double) (colormapSize - 1);
+        }
+    }
+
+    return index;
+}
+
 void ColorComputer::getClampedDirectColor(double s, double* colormap, int colormapSize, float* returnedColor)
 {
     int index;

@@ -422,7 +422,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                         if (fac3d.getColorFlag() == 0) {
                             appearance.setFillColor(ColorFactory.createColor(colorMap, Math.abs(fac3d.getColorMode())));
                         } else if (fac3d.getColorFlag() > 0) {
-                            geometry.setColors(dataManager.getColorBuffer(fac3d.getIdentifier()));
+                            geometry.setTextureCoordinates(dataManager.getColorBuffer(fac3d.getIdentifier()));
+                            appearance.setTexture(getColorMapTexture());
                         } else {
                             geometry.setColors(null);
                         }
