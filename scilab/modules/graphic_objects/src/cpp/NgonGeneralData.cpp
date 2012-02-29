@@ -179,6 +179,7 @@ double* NgonGeneralData::getDataZ(void)
  * Only partially implemented
  * Must be made consistent with setNumElementsArray
  */
+ /*
 void NgonGeneralData::setData(double* data, int numElements)
 {
     if (numElements != numGons*numVerticesPerGon)
@@ -193,6 +194,19 @@ void NgonGeneralData::setData(double* data, int numElements)
         coordinates[i] = data[i];
     }
 }
+*/
+
+void NgonGeneralData::setData(double* data, int numElements)
+{
+    double* oldCoordinate = coordinates;
+    double* newCoordinates = new double[3*numElements];
+    
+    memcpy(newCoordinates, data, 3 * numElements * sizeof(double));
+    
+    coordinates = newCoordinates;
+    delete [] oldCoordinate;
+}
+
 
 void NgonGeneralData::setDataX(double* data, int numElements)
 {
