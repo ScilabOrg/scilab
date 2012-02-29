@@ -81,6 +81,7 @@ public :
      * @param[out] a pointer to the array into which the resulting color is output (its R, G, B components are written consecutively).
      */
     static void getClampedDirectColor(double s, double* colormap, int colormapSize, float* returnedColor);
+    static double getClampedDirectIndex(double s, int colormapSize);
 
     /**
      * Returns a colormap index mapped to a scalar value s belonging to an [smin, smax] interval.
