@@ -150,7 +150,7 @@ ATOMS
 * tbx_build_loader generates also a unloader.sce to allow to call .quit file of
    an ATOMS module.
 
-* Bug #9798 fixed - .quit script of atoms modules were not evaluated when 
+* Bug #9798 fixed - .quit script of atoms modules were not evaluated when
                     leaving Scilab.
 
 * Bug #10494 fixed - atomsInstall and atomsLoad were not clearly distinguished
@@ -392,6 +392,8 @@ Bug fixes
 * Bug #10744 fixed - Typos fixed in the help page of sinh.
 
 * Bug #10745 fixed - Typos fixed in the help page of tand.
+
+* Bug #10782 fixed - 'iconvert' did not check input arguments.
 
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
