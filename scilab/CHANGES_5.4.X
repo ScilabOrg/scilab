@@ -141,10 +141,10 @@ Scinotes
 
 * Add shortcuts META+(UP|DOWN) to navigate between paragraphs
 
-* Bug #10442 fixed : Sometimes a crash occured at startup when Scinotes was
+* Bug #10442 fixed - Sometimes a crash occured at startup when Scinotes was
                      restoring.
 
-* Bug #10647 fixed : An error message did not repect Scilab localization standard.
+* Bug #10647 fixed - An error message did not repect Scilab localization standard.
 
 
 api_scilab
@@ -166,6 +166,9 @@ Javasci
 
 * If Scilab fails to start because of a memory issues (stacksize), triggers an
   InitializationException Java exception.
+
+* Bug #10784 fixed - Scilab built on an Ubuntu 11.10, javasci was failing to
+                     load with an undefined symbol
 
 
 CACSD & Signal Processing
