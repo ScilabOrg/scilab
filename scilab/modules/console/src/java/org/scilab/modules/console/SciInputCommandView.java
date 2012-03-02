@@ -28,8 +28,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,10 +75,9 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
     // A clearest pattern: ['"] \$ [^\\\$'"]* (( [\\].? | ['"]{2} ) [^\\\$'"]* )+
     private static final Pattern latexPattern = Pattern.compile("[\'\"]\\$[^\\\\\\$\'\"]*(?:(?:[\\\\].?|[\'\"]{2})[^\\\\\\$\'\"]*)*");
 
-    private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
-    private static BlockingQueue<Boolean> displayQueue = new LinkedBlockingQueue<Boolean>();
-
-    private Thread concurrentThread = null;
+    private static final Object queueLock = new Object();
+    private static Deque<String> queue = new LinkedList<String>();
+    private static Deque<Boolean> displayQueue = new LinkedList<Boolean>();
 
     private SciConsole console;
     private int height = -1;
@@ -95,29 +94,29 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
         super();
 
         setEditorKit(new StyledEditorKit() {
-                public ViewFactory getViewFactory() {
-                    return SciInputCommandView.this;
-                }
-            });
+            public ViewFactory getViewFactory() {
+                return SciInputCommandView.this;
+            }
+        });
 
         setBorder(BorderFactory.createEmptyBorder(TOP_BORDER, 0, BOTTOM_BORDER, 0));
 
         // Input command line is not editable when created
         this.setEditable(false);
         ScilabCaret caret = new ScilabCaret(this) {
-                public void mousePressed(MouseEvent e) {
-                    ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
-                    super.mousePressed(e);
-                }
-            };
+            public void mousePressed(MouseEvent e) {
+                ((SciOutputView) console.getConfiguration().getOutputView()).removeSelection();
+                super.mousePressed(e);
+            }
+        };
         caret.setBlinkRate(getCaret().getBlinkRate());
         setCaret(caret);
         addCaretListener(this);
         setFocusTraversalPolicy(new java.awt.DefaultFocusTraversalPolicy() {
-                public java.awt.Component getComponentAfter(java.awt.Container aContainer, java.awt.Component aComponent) {
-                    return SciInputCommandView.this;
-                }
-            });
+            public java.awt.Component getComponentAfter(java.awt.Container aContainer, java.awt.Component aComponent) {
+                return SciInputCommandView.this;
+            }
+        });
         setFocusCycleRoot(true);
     }
 
@@ -164,28 +163,28 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
      * @return the command buffer
      */
     public String getCmdBuffer() {
-        String command = null;
+        String command = "";
+
         try {
-            if (concurrentThread == null) {
-                concurrentThread = Thread.currentThread();
-            }
-            else {
-                concurrentThread.interrupt();
-            }
-            command = queue.take();
-            if (displayQueue.take()) {
-                OutputView outputView = console.getConfiguration().getOutputView();
-                PromptView promptView = console.getConfiguration().getPromptView();
-                outputView.append(StringConstants.NEW_LINE + promptView.getDefaultPrompt() + command + StringConstants.NEW_LINE);
+            synchronized (queueLock) {
+                while (queue.isEmpty()) {
+                    queueLock.wait();
+                }
+
+                command = queue.pollFirst();
+                if (displayQueue.pollFirst()) {
+                    OutputView outputView = console.getConfiguration().getOutputView();
+                    PromptView promptView = console.getConfiguration().getPromptView();
+                    outputView.append(StringConstants.NEW_LINE + promptView.getDefaultPrompt() + command + StringConstants.NEW_LINE);
+                }
             }
         } catch (InterruptedException e) {
             /*
              * If we have concurrent access let's interrupt the first one, then allow
              * the second to return the command.
              */
-            return "";
         }
-        concurrentThread = null;
+
         return command;
     }
 
@@ -194,12 +193,12 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
      * @param command the string to set to the buffer
      * @param displayFlag boolean indicating if the command has to be displayed
      */
-    public void setCmdBuffer(String command, boolean displayFlag) {
-        try {
-            queue.put(command);
-            displayQueue.put(displayFlag);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void setCmdBuffer(final String command, final boolean displayFlag) {
+        synchronized (queueLock) {
+            queue.addLast(command);
+            displayQueue.addLast(displayFlag);
+
+            queueLock.notify();
         }
     }
 
@@ -215,56 +214,56 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
 
         // BUG 2510 fix: automatic validation of pasted lines
         this.getDocument().addDocumentListener(new DocumentListener() {
-                public void changedUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
+            public void changedUpdate(DocumentEvent e) {
+                // Nothing to do in Scilab
+            }
 
-                public void insertUpdate(DocumentEvent e) {
-                    // Validates commands if followed by a carriage return
-                    final String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
-                    if ((e.getLength()) > 1 && (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt.length() - 1))) {
-                        EventQueue.invokeLater(new Runnable() {
-                                public void run() {
-                                    console.sendCommandsToScilab(wholeTxt, true, true);
-                                };
-                            });
-                    }
+            public void insertUpdate(DocumentEvent e) {
+                // Validates commands if followed by a carriage return
+                final String wholeTxt = console.getConfiguration().getInputParsingManager().getCommandLine();
+                if ((e.getLength()) > 1 && (wholeTxt.lastIndexOf(StringConstants.NEW_LINE) == (wholeTxt.length() - 1))) {
+                    EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            console.sendCommandsToScilab(wholeTxt, true, true);
+                        };
+                    });
                 }
+            }
 
-                public void removeUpdate(DocumentEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
+            public void removeUpdate(DocumentEvent e) {
+                // Nothing to do in Scilab
+            }
+        });
 
         this.addKeyListener(new KeyListener() {
-                public void keyPressed (KeyEvent e) {
-                    if (keysForHistory == null) {
-                        getKeysForHistory();
-                    }
+            public void keyPressed (KeyEvent e) {
+                if (keysForHistory == null) {
+                    getKeysForHistory();
+                }
 
-                    // key char is equal to 65535 when the hit key is only shift, meta, alt,...
-                    if (e.getKeyChar() != 65535 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && !keysForHistory.contains(KeyStroke.getKeyStrokeForEvent(e))) {
-                        if (console.getConfiguration().getHistoryManager().isInHistory()) {
-                            console.getConfiguration().getHistoryManager().setInHistory(false);
-                        }
+                // key char is equal to 65535 when the hit key is only shift, meta, alt,...
+                if (e.getKeyChar() != 65535 && e.getKeyCode() != KeyEvent.VK_LEFT && e.getKeyCode() != KeyEvent.VK_RIGHT && !keysForHistory.contains(KeyStroke.getKeyStrokeForEvent(e))) {
+                    if (console.getConfiguration().getHistoryManager().isInHistory()) {
+                        console.getConfiguration().getHistoryManager().setInHistory(false);
                     }
+                }
 
-                    if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
+                if (e.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD
                         && e.getKeyCode() == KeyEvent.VK_DELETE
-                        && e.getKeyChar() != KeyEvent.VK_DELETE) {
-                        // Fix for bug 7238
-                        e.setKeyCode(KeyEvent.VK_DECIMAL);
-                    }
+                && e.getKeyChar() != KeyEvent.VK_DELETE) {
+                    // Fix for bug 7238
+                    e.setKeyCode(KeyEvent.VK_DECIMAL);
                 }
+            }
 
-                public void keyReleased (KeyEvent e) {
-                    // Nothing to do in Scilab
-                }
+            public void keyReleased (KeyEvent e) {
+                // Nothing to do in Scilab
+            }
 
-                public void keyTyped (KeyEvent e) {
-                    // Nothing to do in Scilab
-                }
-            });
+            public void keyTyped (KeyEvent e) {
+                // Nothing to do in Scilab
+            }
+        });
     }
 
     /**
