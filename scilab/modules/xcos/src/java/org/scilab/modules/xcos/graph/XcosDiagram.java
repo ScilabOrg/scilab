@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
@@ -1960,15 +1961,32 @@ public class XcosDiagram extends ScilabGraph {
             });
 
             @Override
-            protected XcosDiagram doInBackground() throws Exception {
+            protected XcosDiagram doInBackground() {
                 t.start();
-                XcosDiagram.this.setReadOnly(true);
+                XcosDiagram diag = XcosDiagram.this;
+
+                diag.setReadOnly(true);
+
 
                 /*
-                 * Load
+                 * Load, log errors and notify
                  */
-                filetype.load(file, XcosDiagram.this);
-                return XcosDiagram.this;
+                final Xcos instance = Xcos.getInstance();
+                try {
+                    filetype.load(file, diag);
+                    instance.setLastError("");
+                } catch (Exception e) {
+                    Throwable ex = e;
+                    while (ex instanceof RuntimeException) {
+                        ex = ex.getCause();
+                    }
+                    instance.setLastError(ex.getMessage());
+                }
+                synchronized (instance) {
+                    instance.notify();
+                }
+
+                return diag;
             }
 
             @Override
