@@ -13,6 +13,12 @@ GUI:
 * New uicontrols added: TODO
 
 
+Bug fixes
+=========
+
+* Bug #10797 fixed - contour, contour2d, contourf did not check input arguments.
+
+
 Scilab Desktop
 ==============
 
