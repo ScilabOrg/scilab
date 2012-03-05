@@ -408,6 +408,8 @@ Bug fixes
 
 * Bug #10745 fixed - Typos fixed in the help page of tand.
 
+* Bug #10809, #10810 fixed - error_table help page was not up-to-date.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
