@@ -51,7 +51,10 @@ public class Axes extends GraphicObject {
         ZAXISTICKS, ZAXISAUTOTICKS, ZAXISNUMBERTICKS, ZAXISTICKSLOCATIONS, ZAXISTICKSLABELS, ZAXISSUBTICKS,
         AUTOSUBTICKS,
         FONT_STYLE, FONT_SIZE, FONT_COLOR, FONT_FRACTIONAL,
-        GRIDPOSITION, TITLE, AUTOCLEAR, FILLED, BACKGROUND,
+        GRIDPOSITION, TITLE, AUTOCLEAR,
+        /** FILLED and FILL_MODE are the same things. FILLED is not standard and should be removed **/
+        FILLED, FILL_MODE,
+        BACKGROUND,
         MARGINS, AXESBOUNDS,
         HIDDENCOLOR };
 
@@ -297,7 +300,9 @@ public class Axes extends GraphicObject {
                 return AxesProperty.TITLE;
             } else if (propertyName.equals(__GO_AUTO_CLEAR__)) {
                 return AxesProperty.AUTOCLEAR;
-            } else if (propertyName.equals(__GO_FILLED__)) {
+            } else if (propertyName.equals(__GO_FILLED__)) { // TODO: remove filled after 5.4
+                return AxesProperty.FILLED;
+            } else if (propertyName.equals(__GO_FILL_MODE__)) {
                 return AxesProperty.FILLED;
             } else if (propertyName.equals(__GO_BACKGROUND__)) {
                 return AxesProperty.BACKGROUND;
