@@ -269,8 +269,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
 
     private String blockType = "c";
 
-    private int ordering;
-    private boolean locked;
+    private transient int ordering;
+    private transient boolean locked;
 
     /**
      * Represent a simulation function type compatible with Scilab/Scicos
