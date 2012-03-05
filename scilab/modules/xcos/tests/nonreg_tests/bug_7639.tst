@@ -29,18 +29,11 @@ loadXcosLibs();
 status = importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_7639.xcos");
 if ~status then pause, end
 
-hdf5FileToLoad = TMPDIR + "/in.h5";
-hdf5FileToSave = TMPDIR + "/out.h5";
-
 // export the Superblock to the file
-scs_m = scs_m.objs(4);
+blk = scs_m.objs(4);
 // Check we are refering the right block.
-assert_checkequal(scs_m.gui, "SUPER_f");
-export_to_hdf5(hdf5FileToLoad, "scs_m");
+assert_checkequal(blk.gui, "SUPER_f");
 
-// call and check for a message error (the out file will not be created on error)
-xcosCodeGeneration(hdf5FileToLoad, hdf5FileToSave)
-if isfile(hdf5FileToSave) then pause, end
-
-deletefile(hdf5FileToLoad);
-
+// call and check for a message error (the out blk will be empty on error)
+new_blk = xcosCodeGeneration(blk);
+if new_blk <> [] then pause, end
