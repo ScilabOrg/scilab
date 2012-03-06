@@ -95,7 +95,7 @@
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="interactive-example"><![CDATA[ 
 // copy - paste in scilab
 
 function example_mode( level_mode )

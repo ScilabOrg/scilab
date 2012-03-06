@@ -98,7 +98,7 @@
             <literal>-f</literal> options are mutually exclusive.
           </para>
           <para>Note that several instructions can be used in with -e.</para>
-          <programlisting>scilab-cli -e  "a=1+%i; aPlusPi=a+%pi; disp(aPlusPi);exit;" -nb</programlisting>
+          <programlisting role="no-scilab-exec">scilab-cli -e  "a=1+%i; aPlusPi=a+%pi; disp(aPlusPi);exit;" -nb</programlisting>
         </listitem>
       </varlistentry>
       <varlistentry>
@@ -133,7 +133,7 @@
             UTF-8 fonts.
           </para>
           <para>Scilab can be also called the following way:</para>
-          <programlisting>LANG=ja_JP scilab
+          <programlisting role="no-scilab-exec">LANG=ja_JP scilab
             # equivalent to
             scilab -l ja_JP
           </programlisting>
@@ -345,7 +345,7 @@
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="no-scilab-exec"><![CDATA[ 
 # Let's start Scilab in profiling mode without attaching a gdb one a SIGSEGV is meet.
 # We are under Bash shell
 export SCILAB_VALGRIND_OPT="--deb-attach=no --log-file=myfile.txt"
@@ -359,7 +359,7 @@ echo "handle SIGSEGV nostop" &> debug.txt
 export SCILAB_GDB_OPT="--command=debug.txt"
 # Start Scilab in debug mode
 scilab -debug]]></programlisting>
-    <programlisting role="example-cli"><![CDATA[
+    <programlisting role="no-scilab-exec"><![CDATA[
 # Under GNU/Linux, Mac OS X or Unix:
 $ echo "disp(%pi)"|scilab-cli
 or
