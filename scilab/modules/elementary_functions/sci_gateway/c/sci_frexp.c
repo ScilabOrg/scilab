@@ -11,14 +11,9 @@
  */
 /*--------------------------------------------------------------------------*/
 #include "gw_elementary_functions.h"
-#include "stack-c.h"
-#include "basic_functions.h"
-#include "sciprint.h"
-#include "localization.h"
 #include "api_scilab.h"
 #include "Scierror.h"
-#include "api_oldstack.h"
-
+#include "localization.h"
 /*--------------------------------------------------------------------------*/
 int sci_frexp(char *fname, void* pvApiCtx)
 {

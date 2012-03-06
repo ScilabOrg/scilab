@@ -274,6 +274,7 @@ libscicore_la_CFLAGS = -I$(srcdir)/includes/ \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/console/includes \
 	-I$(top_srcdir)/modules/threads/includes \
+	-I$(top_srcdir)/modules/history_manager/includes \
 	$(XML_FLAGS)
 
 libscicore_la_CPPFLAGS = \

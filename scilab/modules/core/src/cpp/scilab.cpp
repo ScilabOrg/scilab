@@ -70,7 +70,7 @@ extern "C"
 /*
 ** HACK HACK HACK
 */
-    extern char *TermReadAndProcess(void);
+    extern char *getCmdLine(void);
 }
 
 #include "string.hxx"
@@ -324,7 +324,7 @@ extern "C"
 #ifndef _MSC_VER
 #include <unistd.h>
 #endif
-    extern char *TermReadAndProcess(void);
+    extern char *getCmdLine(void);
     extern void ConsolePrintf(char *);
 }
 
@@ -568,7 +568,7 @@ int main(int argc, char *argv[])
 #ifndef WITHOUT_GUI
     if (consoleMode)
     {
-        setScilabInputMethod(&TermReadAndProcess);
+        setScilabInputMethod(&getCmdLine);
         setScilabOutputMethod(&TermPrintf);
 #if defined(__APPLE__)
         if (!noJvm)
@@ -589,7 +589,7 @@ int main(int argc, char *argv[])
 #endif // !defined(__APPLE__)
     }
 #else
-    setScilabInputMethod(&TermReadAndProcess);
+    setScilabInputMethod(&getCmdLine);
     setScilabOutputMethod(&TermPrintf);
     return StartScilabEngine(argc, argv, iFileIndex, iLangIndex);
 #endif // defined(WITHOUT_GUI)
