@@ -60,7 +60,7 @@
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[ 
+    <programlisting role="interactive-example"><![CDATA[ 
 edit('edit')  //opens editor with text of this function
 edit('myfunction')  //opens editor for a new function
 edit('/home/foo/bar.sci') //opens the file bar.sci
