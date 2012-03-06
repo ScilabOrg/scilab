@@ -211,8 +211,7 @@ class FecDrawer {
             } else if (outsideColor[0] > 0) {
                 buffer.put(ColorFactory.createRGBAColor(colorMap, outsideColor[0]));
             } else {
-                // TODO: transparency.
-                buffer.put(ColorFactory.createRGBAColor(colorMap, -2));
+                buffer.put(new float[] {0, 0, 0, 0});
             }
 
             for (int i = min; i <= max; i++) {
@@ -224,8 +223,7 @@ class FecDrawer {
             } else if (outsideColor[1] > 0) {
                 buffer.put(ColorFactory.createRGBAColor(colorMap, outsideColor[1]));
             } else {
-                // TODO: transparency.
-                buffer.put(ColorFactory.createRGBAColor(colorMap, -2));
+                buffer.put(new float[] {0, 0, 0, 0});
             }
 
             buffer.rewind();
