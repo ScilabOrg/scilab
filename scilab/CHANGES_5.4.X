@@ -104,6 +104,7 @@ Xcos
 
 * Bug #10800 fixed - xcosPalAddBlock help example did not work.
 
+* Bug #10819 fixed - Superbloc mask locked Scilab.
 
 
 Unitary testing
