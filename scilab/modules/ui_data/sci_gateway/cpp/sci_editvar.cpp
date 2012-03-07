@@ -362,10 +362,10 @@ int sci_editvar(char * fname, unsigned long fname_len)
                     {
                         /* Launch Java Variable Editor through JNI */
                         EditVar::openVariableEditorComplex(getScilabJavaVM(),
-                                                           ppdblRealMatrix,
+                                                           (const double**)ppdblRealMatrix,
                                                            iRows,
                                                            iCols,
-                                                           ppdblImgMatrix,
+                                                           (const double**)ppdblImgMatrix,
                                                            iRows,
                                                            iCols,
                                                            pStVarOne);
@@ -374,10 +374,10 @@ int sci_editvar(char * fname, unsigned long fname_len)
                     {
                         /* Launch Java Variable Editor through JNI */
                         EditVar::refreshVariableEditorComplex(getScilabJavaVM(),
-                                                              ppdblRealMatrix,
+                                                              (const double**)ppdblRealMatrix,
                                                               iRows,
                                                               iCols,
-                                                              ppdblImgMatrix,
+                                                              (const double**)ppdblImgMatrix,
                                                               iRows,
                                                               iCols,
                                                               rowsIndex,
@@ -417,11 +417,11 @@ int sci_editvar(char * fname, unsigned long fname_len)
                 {
                     if (nbRowsIndex == 0 || nbColsIndex == 0)
                     {
-                        EditVar::openVariableEditorDouble(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, pStVarOne);
+                        EditVar::openVariableEditorDouble(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, pStVarOne);
                     }
                     else
                     {
-                        EditVar::refreshVariableEditorDouble(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
+                        EditVar::refreshVariableEditorDouble(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
                     }
                 }
                 catch (const GiwsException::JniException & e)
@@ -486,11 +486,11 @@ int sci_editvar(char * fname, unsigned long fname_len)
             {
                 if (nbRowsIndex == 0 || nbColsIndex == 0)
                 {
-                    EditVar::openVariableEditorString(getScilabJavaVM(), ppstData, iRows, iCols, pStVarOne);
+                    EditVar::openVariableEditorString(getScilabJavaVM(), (const char***)ppstData, iRows, iCols, pStVarOne);
                 }
                 else
                 {
-                    EditVar::refreshVariableEditorString(getScilabJavaVM(), ppstData, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
+                    EditVar::refreshVariableEditorString(getScilabJavaVM(), (const char***)ppstData, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
                 }
             }
             catch (const GiwsException::JniException & e)
@@ -527,11 +527,11 @@ int sci_editvar(char * fname, unsigned long fname_len)
             {
                 if (nbRowsIndex == 0 || nbColsIndex == 0)
                 {
-                    EditVar::openVariableEditorBoolean(getScilabJavaVM(), ppiBool, iRows, iCols, pStVarOne);
+                    EditVar::openVariableEditorBoolean(getScilabJavaVM(), (const int**)ppiBool, iRows, iCols, pStVarOne);
                 }
                 else
                 {
-                    EditVar::refreshVariableEditorBoolean(getScilabJavaVM(), ppiBool, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
+                    EditVar::refreshVariableEditorBoolean(getScilabJavaVM(), (const int**)ppiBool, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
                 }
             }
             catch (const GiwsException::JniException & e)
@@ -808,11 +808,11 @@ int sci_editvar(char * fname, unsigned long fname_len)
                 {
                     if (nbRowsIndex == 0 || nbColsIndex == 0)
                     {
-                        EditVar::openVariableEditorComplexSparse(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, ppdblImgMatrix, iRows, iCols, pStVarOne);
+                        EditVar::openVariableEditorComplexSparse(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, (const double**)ppdblImgMatrix, iRows, iCols, pStVarOne);
                     }
                     else
                     {
-                        EditVar::refreshVariableEditorComplexSparse(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, ppdblImgMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
+                        EditVar::refreshVariableEditorComplexSparse(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, (const double**)ppdblImgMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
                     }
                 }
                 catch (const GiwsException::JniException & e)
@@ -841,11 +841,11 @@ int sci_editvar(char * fname, unsigned long fname_len)
                 {
                     if (nbRowsIndex == 0 || nbColsIndex == 0)
                     {
-                        EditVar::openVariableEditorSparse(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, pStVarOne);
+                        EditVar::openVariableEditorSparse(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, pStVarOne);
                     }
                     else
                     {
-                        EditVar::refreshVariableEditorSparse(getScilabJavaVM(), ppdblRealMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
+                        EditVar::refreshVariableEditorSparse(getScilabJavaVM(), (const double**)ppdblRealMatrix, iRows, iCols, rowsIndex, nbRowsIndex, colsIndex, nbColsIndex, pStVarOne);
                     }
                 }
                 catch (const GiwsException::JniException & e)

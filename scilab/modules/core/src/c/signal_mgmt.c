@@ -47,7 +47,7 @@ extern jmp_buf jmp_env;
  * Print a stack trace
  *----------------------------------------------------------------------------*/
 
-static char *backtrace_print(int niv_debut)
+char *backtrace_print(int niv_debut)
 {
     size_t ind;
 

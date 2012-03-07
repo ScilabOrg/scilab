@@ -22,6 +22,7 @@ IMPORT_EXPORT_MALLOC_DLL void * MyReAlloc(void * lpAddress, size_t dwSize, const
     if (NewPointer == NULL)
     {
 #ifndef NDEBUG
+        backtrace_print(0);
         printf("REALLOC returns NULL Error File %s Line %d \n", file, line);
         fflush(NULL);
 #endif
@@ -39,6 +40,7 @@ IMPORT_EXPORT_MALLOC_DLL void * MyAlloc(size_t dwSize, const char *file, int lin
         {
 #ifndef NDEBUG
             printf("MALLOC returns NULL Error File %s Line %d \n", file, line);
+            backtrace_print(0);
             fflush(NULL);
 #endif
         }
@@ -65,6 +67,7 @@ IMPORT_EXPORT_MALLOC_DLL void * MyCalloc(size_t x, size_t y, const char *file, i
         {
 #ifndef NDEBUG
             printf("CALLOC returns NULL Error File %s Line %d \n", file, line);
+            backtrace_print(0);
             fflush(NULL);
 #endif
         }

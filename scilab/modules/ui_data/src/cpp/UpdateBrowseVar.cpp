@@ -101,7 +101,7 @@ void UpdateBrowseVar(BOOL update)
         pstAllVariableVisibility[i] = strdup("local");
 
         if (scilabDefaultVariablesSet.find(string(pstAllVariableNames[i])) == scilabDefaultVariablesSet.end() && piAllVariableTypes[i] != sci_c_function    /*TODO: voir si je fais sauter ou pas */
-            && piAllVariableTypes[i] != sci_lib)
+                && piAllVariableTypes[i] != sci_lib)
         {
             piAllVariableFromUser[i] = TRUE;
         }
@@ -137,7 +137,7 @@ void UpdateBrowseVar(BOOL update)
         pstAllVariableVisibility[i] = strdup("global");
 
         if (scilabDefaultVariablesSet.find(string(pstAllVariableNames[i])) == scilabDefaultVariablesSet.end()
-            && piAllVariableTypes[i] != sci_c_function && piAllVariableTypes[i] != sci_lib)
+                && piAllVariableTypes[i] != sci_c_function && piAllVariableTypes[i] != sci_lib)
         {
             piAllVariableFromUser[i] = TRUE;
         }
@@ -150,11 +150,11 @@ void UpdateBrowseVar(BOOL update)
     // Launch Java Variable Browser through JNI
     BrowseVar::openVariableBrowser(getScilabJavaVM(),
                                    BOOLtobool(update),
-                                   pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   (const char **)pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed,
                                    piAllVariableBytes, iLocalVariablesUsed + iGlobalVariablesUsed,
                                    piAllVariableTypes, iLocalVariablesUsed + iGlobalVariablesUsed,
-                                   pstAllVariableSizes, iLocalVariablesUsed + iGlobalVariablesUsed,
-                                   pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   (const char **)pstAllVariableSizes, iLocalVariablesUsed + iGlobalVariablesUsed,
+                                   (const char **)pstAllVariableVisibility, iLocalVariablesUsed + iGlobalVariablesUsed,
                                    piAllVariableFromUser, iLocalVariablesUsed + iGlobalVariablesUsed);
 
     freeArrayOfString(pstAllVariableNames, iLocalVariablesUsed + iGlobalVariablesUsed);
@@ -182,40 +182,40 @@ void UpdateBrowseVar(BOOL update)
 static std::set < string > createScilabDefaultVariablesSet()
 {
     string arr[] = { "home",
-        "PWD",
-        "%tk",
-        "%pvm",
-        "MSDOS",
-        "%F",
-        "%T",
-        "%f",
-        "%t",
-        "%e",
-        "%pi",
-        "%modalWarning",
-        "%exportFileName",
-        "%nan",
-        "%inf",
-        "SCI",
-        "WSCI",
-        "SCIHOME",
-        "TMPDIR",
-        "%gui",
-        "%fftw",
-        "%helps",
-        "%eps",
-        "%io",
-        "%i",
-        "demolist",
-        "%z",
-        "%s",
-        "$",
-        "%driverName",
-        "%toolboxes",
-        "%toolboxes_dir",
-        "TICTOC",
-        "%helps_modules"
-    };
+                     "PWD",
+                     "%tk",
+                     "%pvm",
+                     "MSDOS",
+                     "%F",
+                     "%T",
+                     "%f",
+                     "%t",
+                     "%e",
+                     "%pi",
+                     "%modalWarning",
+                     "%exportFileName",
+                     "%nan",
+                     "%inf",
+                     "SCI",
+                     "WSCI",
+                     "SCIHOME",
+                     "TMPDIR",
+                     "%gui",
+                     "%fftw",
+                     "%helps",
+                     "%eps",
+                     "%io",
+                     "%i",
+                     "demolist",
+                     "%z",
+                     "%s",
+                     "$",
+                     "%driverName",
+                     "%toolboxes",
+                     "%toolboxes_dir",
+                     "TICTOC",
+                     "%helps_modules"
+                   };
     int i = 0;
 
 #define NBELEMENT 33
