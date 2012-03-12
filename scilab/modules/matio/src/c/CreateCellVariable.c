@@ -36,6 +36,9 @@ int CreateCellVariable(int iVar, matvar_t *matVariable, int * parent, int item_p
   matvar_t ** allData = NULL;
   SciErr _SciErr;
 
+  int *piDims = NULL;
+  int i = 0;
+
   /* Returned mlist initialization */
   if (parent==NULL)
     {
@@ -49,18 +52,26 @@ int CreateCellVariable(int iVar, matvar_t *matVariable, int * parent, int item_p
   /* FIRST LIST ENTRY: fieldnames */
   _SciErr = createMatrixOfStringInList(pvApiCtx, iVar, cell_addr, 1, 1, nbFields, (char **)fieldNames); MATIO_ERROR;
   
+  piDims = (int *) MALLOC(matVariable->rank * sizeof(int));
+  for (i = 0 ; i < matVariable->rank ; ++i)
+  {
+    piDims[i] = matVariable->dims[i]; // Copy dims to make size_t values fit int
+  }
+
   /* SECOND LIST ENTRY: Dimensions (int32 type) */
   if(matVariable->rank==2) /* Two dimensions */
     {
-      _SciErr = createMatrixOfInteger32InList(pvApiCtx, iVar, cell_addr, 2, 1, matVariable->rank, matVariable->dims); MATIO_ERROR;
+      _SciErr = createMatrixOfInteger32InList(pvApiCtx, iVar, cell_addr, 2, 1, matVariable->rank, piDims); MATIO_ERROR;
     }
   else /* 3 or more dimensions -> Scilab HyperMatrix */
     {
       type = I_INT32;
       CreateHyperMatrixVariable(iVar, MATRIX_OF_VARIABLE_SIZE_INTEGER_DATATYPE, 
-				&type, &matVariable->rank, matVariable->dims, matVariable->data,
+				&type, &matVariable->rank, piDims, matVariable->data,
 				NULL, cell_addr, 2);
     }
+
+  FREE(piDims);
 
   /* ALL OTHER ENTRIES: Fields data */
   prodDims = 1;
