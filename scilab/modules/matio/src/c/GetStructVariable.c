@@ -1,13 +1,13 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - INRIA - Vincent COUVERT 
+ * Copyright (C) 2008 - INRIA - Vincent COUVERT
  * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
  * Copyright (C) 2011 - DIGITEO - Vincent COUVERT
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -21,6 +21,7 @@ matvar_t *GetStructVariable(int iVar, const char *name, int matfile_version, cha
     int fieldIndex = 0;
     int valueIndex = 0;
     int K = 0;
+    size_t *pszDims = NULL;
     int prodDims = 1;
     matvar_t *dimensionsVariable = NULL;
     matvar_t **structEntries = NULL;
@@ -45,17 +46,27 @@ matvar_t *GetStructVariable(int iVar, const char *name, int matfile_version, cha
     /* FIRST LIST ENTRY: fieldnames --> NO NEED TO BE READ */
 
     /* SECOND LIST ENTRY: dimensions */
-    /* Second input argument = "data" beacause we do not need to give the format because this variable is just temp */ 
+    /* Second input argument = "data" because we do not need to give the format because this variable is just temp */ 
     dimensionsVariable = GetMatlabVariable(iVar, "data", 0, var_addr, 2);
+
+    pszDims = (size_t*) MALLOC(dimensionsVariable->rank * sizeof(size_t));
+    if (pszDims == NULL)
+    {
+        Scierror(999, _("%s: No more memory.\n"), "GetStructVariable");
+        freeArrayOfString(fieldNames, nbFields);
+        return NULL;
+    }
 
     /* Total number of entries */
     for (K=0; K<dimensionsVariable->rank; K++)
     {
-        prodDims *= ((int *)dimensionsVariable->data)[K];
+        prodDims *= ((int*)dimensionsVariable->data)[K];
+        pszDims[K] = ((int*)dimensionsVariable->data)[K];
     }
 
     /* OTHERS LIST ENTRIES: ALL STRUCT VALUES */
-    if ((structEntries = (matvar_t **) MALLOC (sizeof(matvar_t*)*(prodDims*(nbFields-2)+1))) == NULL)
+    structEntries = (matvar_t **) MALLOC (sizeof(matvar_t*)*(prodDims*(nbFields-2)+1));
+    if (structEntries == NULL)
     {
         Scierror(999, _("%s: No more memory.\n"), "GetStructVariable");
         freeArrayOfString(fieldNames, nbFields);
@@ -94,5 +105,5 @@ matvar_t *GetStructVariable(int iVar, const char *name, int matfile_version, cha
         }
     }
 
-    return Mat_VarCreate(name, MAT_C_STRUCT, MAT_T_STRUCT, dimensionsVariable->rank, dimensionsVariable->data, structEntries, 0);
+    return Mat_VarCreate(name, MAT_C_STRUCT, MAT_T_STRUCT, dimensionsVariable->rank, pszDims, structEntries, 0);
 }

@@ -1,12 +1,12 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - INRIA - Vincent COUVERT 
- * Copyright (C) 2010 - DIGITEO - Yann COLLETTE 
- * 
+ * Copyright (C) 2008 - INRIA - Vincent COUVERT
+ * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -18,13 +18,13 @@
 
 /*
  * Create a Scilab variable on stack from a Matlab variable
- * This function write nothing on stack but calls the function which 
+ * This function write nothing on stack but calls the function which
  * does the work according to Matlab Variable type
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -33,12 +33,12 @@ int CreateMatlabVariable(int iVar, matvar_t *matVariable, int * parent, int item
 
 /*
  * Create a Scilab Integer variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param integerType Scilab int type (See stack-c.h)
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -46,7 +46,7 @@ int CreateIntegerVariable(int iVar, int integerType, matvar_t *matVariable, int 
 
 /*
  * Create a Scilab HyperMatrix variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param type contents data type
  * @param iscomplex TRUE if the variable is Complex
@@ -55,7 +55,7 @@ int CreateIntegerVariable(int iVar, int integerType, matvar_t *matVariable, int 
  * @param realdata pointer to real data
  * @param complexdata pointer to complex data
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -63,11 +63,11 @@ int CreateHyperMatrixVariable(int iVar, const char *type, int *iscomplex, int * 
 
 /*
  * Create a Scilab Struct variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -75,11 +75,11 @@ int CreateStructVariable(int iVar, matvar_t *matVariable, int * parent, int item
 
 /*
  * Create a Scilab Cell variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -87,11 +87,11 @@ int CreateCellVariable(int iVar, matvar_t *matVariable, int * parent, int item_p
 
 /*
  * Create a Scilab Char variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -99,11 +99,11 @@ int CreateCharVariable(int iVar, matvar_t *matVariable, int * parent, int item_p
 
 /*
  * Create a Scilab Sparse variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -111,11 +111,11 @@ int CreateSparseVariable(int iVar, matvar_t *matVariable, int * parent, int item
 
 /*
  * Create a Scilab Double variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */
@@ -123,11 +123,11 @@ int CreateDoubleVariable(int iVar, matvar_t *matVariable, int * parent, int item
 
 /*
  * Create a Scilab Boolean variable on stack from a Matlab variable
- * 
+ *
  * @param iVar position on the stack
  * @param matVariable Matlab variable (See MATIO library)
  * @param parent parent mlist. If NULL, a normal variable is created.
- * @parem item_position position of the variable in the mlist. Only effective if parent !=NULL
+ * @param item_position position of the variable in the mlist. Only effective if parent !=NULL
  *
  * @return TRUE if the variable has been written without problem
  */

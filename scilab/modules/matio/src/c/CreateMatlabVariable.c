@@ -1,12 +1,12 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2008 - INRIA - Vincent COUVERT 
+ * Copyright (C) 2008 - INRIA - Vincent COUVERT
  * Copyright (C) 2010 - DIGITEO - Yann COLLETTE
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -16,7 +16,7 @@
 
 int CreateMatlabVariable(int iVar, matvar_t *matVariable, int * parent, int item_position)
 {
-  SciErr _SciErr;
+  SciErr sciErr;
 
   /* To be sure isComplex is 0 or 1 */
   matVariable->isComplex =  matVariable->isComplex != 0;
@@ -24,13 +24,13 @@ int CreateMatlabVariable(int iVar, matvar_t *matVariable, int * parent, int item
   switch(matVariable->class_type)
     {
     case MAT_C_CELL: /* 1 */
-      CreateCellVariable(iVar, matVariable, parent, item_position);
-      break;
+        CreateCellVariable(iVar, matVariable, parent, item_position);
+        break;
     case MAT_C_STRUCT: /* 2 */
       CreateStructVariable(iVar, matVariable, parent, item_position);
       break;
     case MAT_C_CHAR: /* 4 */
-      CreateCharVariable(iVar, matVariable, parent, item_position);
+        CreateCharVariable(iVar, matVariable, parent, item_position);
       break;
     case MAT_C_SPARSE: /* 5 */
       CreateSparseVariable(iVar, matVariable, parent, item_position);
@@ -71,13 +71,18 @@ int CreateMatlabVariable(int iVar, matvar_t *matVariable, int * parent, int item
     default:
       /* Empty matrix returned */
       if (parent==NULL)
-	{
-	  createEmptyMatrix(pvApiCtx, iVar);
-	}
+      {
+          createEmptyMatrix(pvApiCtx, iVar);
+      }
       else
-	{
-	  _SciErr = createMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, 0, 0, NULL);
-	}
+      {
+          sciErr = createMatrixOfDoubleInList(pvApiCtx, iVar, parent, item_position, 0, 0, NULL);
+          if(sciErr.iErr)
+          {
+              printError(&sciErr, 0);
+              return 0;
+          }
+      }
       return FALSE;
     }
 
