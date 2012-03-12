@@ -91,6 +91,10 @@ if COMPILATION_TESTS
 TARGETS_ALL+=check-java
 endif
 
+# check is performed with scilab
+TESTS_ENVIRONMENT = LANG=C $(top_builddir)/bin/scilab -nwni -nb -noatomsautoload -f
+TESTS = $(top_srcdir)/modules/development_tools/tests/unit_tests/test_run_level_1.tst
+
 all-local: $(TARGETS_ALL)
 
 rootdir=$(pkgdatadir)/etc/
@@ -194,18 +198,6 @@ check-help:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
 		echo "Cannot find Scilab binary"; \
 	fi
 
-check-recursive: check-local
-	@echo "Check resursive disabled"
-check-local:
-	@if test -x $(top_builddir)/scilab-bin; then \
-		COMMAND="try test_run_level(1);catch exit(-1);end;exit(0)";\
-		export LANG=C;\
-		echo "LANG=C $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -e \"$$COMMAND\""; \
-		time $(top_builddir)/bin/scilab-cli -nb -noatomsautoload -e "$$COMMAND"; \
-	else \
-		echo "Cannot find Scilab binary"; \
-	fi
-
 code-coverage:
 if CODE_COVERAGE
 	@if test ! -d $(top_builddir)/coverage/; then \
@@ -282,14 +274,7 @@ endif
 
 # For each module, build and call Java unitary tests
 # If fails, stops the call
-check-java:
-	@echo "-- Launch all TestNG (Java) unitary tests"; \
-	MASK="$(top_srcdir)/modules/*/tests/java/"; \
-	MODULES=`ls -d $$MASK`; \
-	for M in $$MODULES; do \
-		BASE=`echo $$M|sed -e "s|tests/java/$$||g"`; \
-		$(ANT) -buildfile $$BASE/build.xml test || exit $$?; \
-	done
+check-java: check-recursive
 
 # The user wants to compile the localization files
 # Please note that ALL_LINGUAS is defined in configure.ac
