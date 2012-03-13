@@ -267,7 +267,7 @@ Bug fixes
                     of "/".
 
 * Bug #8592 fixed - Add a explicit error message if macros are not available.
- 
+
 * Bug #8608 fixed - dec2hex, hex2dec, dec2oct, oct2dec, base2dec code have been
                     simplified and optimized.
 
@@ -535,6 +535,9 @@ t.
 
 * Bug #10828 fixed - Developer arguments were not displayed in the help of
                      Scilab scripts.
+
+* Bug #10847 fixed - dec2base returned a wrong error message with a complex
+                     number as input argument.
 
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
