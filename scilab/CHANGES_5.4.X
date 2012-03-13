@@ -536,6 +536,8 @@ t.
 * Bug #10828 fixed - Developer arguments were not displayed in the help of
                      Scilab scripts.
 
+* Bug #10839 fixed - dec2hex function was limited to 32 bits.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
