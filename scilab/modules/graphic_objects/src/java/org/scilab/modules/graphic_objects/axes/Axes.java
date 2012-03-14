@@ -24,10 +24,13 @@ import org.scilab.modules.graphic_objects.contouredObject.Line.LineType;
 import org.scilab.modules.graphic_objects.contouredObject.Mark;
 import org.scilab.modules.graphic_objects.contouredObject.Mark.MarkPropertyType;
 import org.scilab.modules.graphic_objects.contouredObject.Mark.MarkSizeUnitType;
+import org.scilab.modules.graphic_objects.figure.Figure;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty;
 import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty.ClipStateType;
 import org.scilab.modules.graphic_objects.graphicObject.ClippableProperty.ClippablePropertyType;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicObject.Visitor;
 import org.scilab.modules.graphic_objects.textObject.FormattedText;
 
@@ -1994,7 +1997,23 @@ public class Axes extends GraphicObject {
          * @param rotationAngles the rotation angles to set
          */
         public void setRotationAngles(Double[] rotationAngles) {
-            camera.setRotationAngles(rotationAngles);
+            if (camera.setRotationAngles(rotationAngles)) {
+                try {
+                    Figure figure = (Figure) GraphicController.getController().getObjectFromId(getParentFigure());
+                    if (figure.getRotationAsEnum().equals(Figure.RotationType.MULTIPLE)) {
+                        for (String child : figure.getChildren()) {
+                            if (child != null) {
+                                GraphicController.getController().setProperty(
+                                        child,
+                                        GraphicObjectProperties.__GO_ROTATION_ANGLES__,
+                                        rotationAngles);
+                            }
+                        }
+                    }
+                } catch (ClassCastException ignored) {                    
+                } catch (NullPointerException ignored) {
+                }
+            }
         }
 
         /**
