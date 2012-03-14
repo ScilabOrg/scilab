@@ -10,7 +10,11 @@ Graphic capabilities
 GUI:
 ====
 
-* New uicontrols added: TODO
+* TODO add full description of:
+  - New uicontrols added
+  - Hidden handles management
+  - Console & graphic figure menus are now uimenus (hidden by default)
+  - 'ShwoHiddenHandles' property
 
 * Bug #7380 fixed - 'Value' property for uicontrol was rounded.
 
