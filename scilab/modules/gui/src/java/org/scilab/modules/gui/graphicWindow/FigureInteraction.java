@@ -250,6 +250,7 @@ public class FigureInteraction {
         }
 
         private void doRotation(MouseEvent e) {
+            GraphicController controller = GraphicController.getController();
             int dx = e.getX() - previousEvent.getX();
             int dy = e.getY() - previousEvent.getY();
 
@@ -257,7 +258,16 @@ public class FigureInteraction {
                 Double[] angles = currentAxes.getRotationAngles();
                 angles[0] -= dy / 4.0;
                 angles[1] -= Math.signum(Math.sin(Math.toRadians(angles[0]))) * (dx / 4.0);
-                GraphicController.getController().setProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_ROTATION_ANGLES__, angles);
+                if (figure.getRotationAsEnum() == Figure.RotationType.UNARY) {
+                    controller.setProperty(currentAxes.getIdentifier(), GraphicObjectProperties.__GO_ROTATION_ANGLES__, angles);
+                } else {
+                    for (String child : figure.getChildren()) {
+                        Object type = controller.getProperty(child, GraphicObjectProperties.__GO_TYPE__);
+                        if (GraphicObjectProperties.__GO_AXES__.equals(type)) {
+                            controller.setProperty(child, GraphicObjectProperties.__GO_ROTATION_ANGLES__, angles);
+                        }
+                    }
+                }
             }
         }
 
