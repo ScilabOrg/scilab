@@ -12,16 +12,16 @@ This software is a computer program whose purpose is to hide the complexity
 of accessing Java objects/methods from C++ code.
 
 This software is governed by the CeCILL-B license under French law and
-abiding by the rules of distribution of free software.  You can  use, 
+abiding by the rules of distribution of free software.  You can  use,
 modify and/ or redistribute the software under the terms of the CeCILL-B
 license as circulated by CEA, CNRS and INRIA at the following URL
-"http://www.cecill.info". 
+"http://www.cecill.info".
 
 As a counterpart to the access to the source code and  rights to copy,
 modify and redistribute granted by the license, users are provided only
 with a limited warranty  and the software's author,  the holder of the
 economic rights,  and the successive licensors  have only  limited
-liability. 
+liability.
 
 In this respect, the user's attention is drawn to the risks associated
 with loading,  using,  modifying and/or developing or reproducing the
@@ -30,9 +30,9 @@ that may mean  that it is complicated to manipulate,  and  that  also
 therefore means  that it is reserved for developers  and  experienced
 professionals having in-depth computer knowledge. Users are therefore
 encouraged to load and test the software's suitability as regards their
-requirements in conditions enabling the security of their systems and/or 
-data to be ensured and,  more generally, to use and operate it in the 
-same conditions as regards security. 
+requirements in conditions enabling the security of their systems and/or
+data to be ensured and,  more generally, to use and operate it in the
+same conditions as regards security.
 
 The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-B license and that you accept its terms.
@@ -70,98 +70,103 @@ typedef signed char byte;
 # endif
 #endif
 
-namespace org_scilab_modules_renderer {
-class GIWSEXPORT CallRenderer {
+namespace org_scilab_modules_renderer
+{
+class GIWSEXPORT CallRenderer
+{
 
 private:
-JavaVM * jvm;
+    JavaVM * jvm;
 
 protected:
-jmethodID voidupdateTextBoundsjstringjava_lang_StringID; // cache method id
-jmethodID voidupdateSubwinScalejstringjava_lang_StringID; // cache method id
-jmethodID jdoubleArray_get2dViewCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
-jmethodID jdoubleArray_getPixelFrom2dViewCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
-jmethodID jdoubleArray_get2dViewFromPixelCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
-jmethodID jdoubleArray_getViewingAreajstringjava_lang_StringID; // cache method id
+    jmethodID voidstartInteractiveZoomjstringjava_lang_StringID; // cache method id
+    jmethodID voidupdateTextBoundsjstringjava_lang_StringID; // cache method id
+    jmethodID voidupdateSubwinScalejstringjava_lang_StringID; // cache method id
+    jmethodID jdoubleArray_get2dViewCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
+    jmethodID jdoubleArray_getPixelFrom2dViewCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
+    jmethodID jdoubleArray_get2dViewFromPixelCoordinatesjstringjava_lang_StringjdoubleArray_doubleID; // cache method id
+    jmethodID jdoubleArray_getViewingAreajstringjava_lang_StringID; // cache method id
 
 
 
-jobject instance;
-jclass instanceClass; // cache class
+    jobject instance;
+    jclass instanceClass; // cache class
 
 
-/**
-* Get the environment matching to the current thread.
-*/
-virtual JNIEnv * getCurrentEnv();
+    /**
+    * Get the environment matching to the current thread.
+    */
+    virtual JNIEnv * getCurrentEnv();
 
 public:
-// Constructor
-/**
-* Create a wrapping of the object from a JNIEnv.
-* It will call the default constructor
-* @param JEnv_ the Java Env
-*/
-CallRenderer(JavaVM * jvm_);
+    // Constructor
+    /**
+    * Create a wrapping of the object from a JNIEnv.
+    * It will call the default constructor
+    * @param JEnv_ the Java Env
+    */
+    CallRenderer(JavaVM * jvm_);
 
-/**
-* Create a wrapping of an already existing object from a JNIEnv.
-* The object must have already been instantiated
-* @param JEnv_ the Java Env
-* @param JObj the object
-*/
-CallRenderer(JavaVM * jvm_, jobject JObj);
+    /**
+    * Create a wrapping of an already existing object from a JNIEnv.
+    * The object must have already been instantiated
+    * @param JEnv_ the Java Env
+    * @param JObj the object
+    */
+    CallRenderer(JavaVM * jvm_, jobject JObj);
 
 
-/** 
-* This is a fake constructor to avoid the constructor
-* chaining when dealing with extended giws classes 
-*/
+    /**
+    * This is a fake constructor to avoid the constructor
+    * chaining when dealing with extended giws classes
+    */
 #ifdef FAKEGIWSDATATYPE
-CallRenderer(fakeGiwsDataType::fakeGiwsDataType /* unused */) {}
+    CallRenderer(fakeGiwsDataType::fakeGiwsDataType /* unused */) {}
 #endif
 
-// Destructor
-~CallRenderer();
+    // Destructor
+    ~CallRenderer();
 
-// Generic method
-// Synchronization methods
-/**
-* Enter monitor associated with the object.
-* Equivalent of creating a "synchronized(obj)" scope in Java.
-*/
-void synchronize();
+    // Generic method
+    // Synchronization methods
+    /**
+    * Enter monitor associated with the object.
+    * Equivalent of creating a "synchronized(obj)" scope in Java.
+    */
+    void synchronize();
 
-/**
-* Exit monitor associated with the object.
-* Equivalent of ending a "synchronized(obj)" scope.
-*/
-void endSynchronize();
+    /**
+    * Exit monitor associated with the object.
+    * Equivalent of ending a "synchronized(obj)" scope.
+    */
+    void endSynchronize();
 
-// Methods
-static void updateTextBounds(JavaVM * jvm_, char * id);
+    // Methods
+    static void startInteractiveZoom(JavaVM * jvm_, char * id);
 
-static void updateSubwinScale(JavaVM * jvm_, char * id);
+    static void updateTextBounds(JavaVM * jvm_, char * id);
 
-static double* get2dViewCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
+    static void updateSubwinScale(JavaVM * jvm_, char * id);
 
-static double* getPixelFrom2dViewCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
+    static double* get2dViewCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
 
-static double* get2dViewFromPixelCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
+    static double* getPixelFrom2dViewCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
 
-static double* getViewingArea(JavaVM * jvm_, char * id);
+    static double* get2dViewFromPixelCoordinates(JavaVM * jvm_, char * id, double* coords, int coordsSize);
+
+    static double* getViewingArea(JavaVM * jvm_, char * id);
 
 
-                        /**
-                        * Get class name to use for static methods
-                        * @return class name to use for static methods
-                        */
-                        
-                static const std::string className()
-                {
-                return "org/scilab/modules/renderer/CallRenderer";
-                }
-                
+    /**
+    * Get class name to use for static methods
+    * @return class name to use for static methods
+    */
+
+    static const std::string className()
+    {
+        return "org/scilab/modules/renderer/CallRenderer";
+    }
+
 };
 
 
