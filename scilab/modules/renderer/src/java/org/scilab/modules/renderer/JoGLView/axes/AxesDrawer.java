@@ -1,7 +1,6 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009-2010 - DIGITEO - Pierre Lando
- * Copyright (C) 2011-2012 - DIGITEO - Manuel Juliachs
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -788,12 +787,30 @@ public class AxesDrawer {
 
             Transformation projection2d = axesDrawer.getProjection2dView(axes.getIdentifier());
             point = projection2d.unproject(point);
-
-            coords2dView[0] = point.getX();
-            coords2dView[1] = point.getY();
+            coords2dView = point.getData();
         }
 
         return coords2dView;
+    }
+
+    /**
+     * Un-project the given point from AWT coordinate to given axes coordinate.
+     * @param axes returned coordinate are relative to this axes.
+     * @param point un-projected point.
+     * @return The un-projected point.
+     */
+    public static Vector3d unproject(Axes axes, Vector3d point) {
+        DrawerVisitor currentVisitor = DrawerVisitor.getVisitor(axes.getParentFigure());
+
+        if (currentVisitor != null) {
+            AxesDrawer axesDrawer = currentVisitor.getAxesDrawer();
+            double height = currentVisitor.getCanvas().getHeight() - 1;
+
+            Transformation projection2d = axesDrawer.getProjection(axes.getIdentifier());
+            return projection2d.unproject(new Vector3d(point.getX(), height - point.getY(), point.getZ()));
+        } else {
+            return new Vector3d(0, 0, 0);
+        }
     }
 
     /**

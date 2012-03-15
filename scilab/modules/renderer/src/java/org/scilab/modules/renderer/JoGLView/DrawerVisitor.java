@@ -15,8 +15,10 @@ import com.sun.opengl.util.BufferUtil;
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
+import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
+import org.scilab.forge.scirenderer.shapes.appearance.Color;
 import org.scilab.forge.scirenderer.shapes.geometry.DefaultGeometry;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
 import org.scilab.forge.scirenderer.sprite.Sprite;
@@ -27,6 +29,7 @@ import org.scilab.forge.scirenderer.texture.TextureDataProvider;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.TransformationStack;
+import org.scilab.forge.scirenderer.utils.shapes.geometry.CubeFactory;
 import org.scilab.modules.graphic_objects.ObjectRemovedException;
 import org.scilab.modules.graphic_objects.arc.Arc;
 import org.scilab.modules.graphic_objects.axes.Axes;
@@ -55,19 +58,24 @@ import org.scilab.modules.graphic_objects.vectfield.Segs;
 import org.scilab.modules.renderer.JoGLView.arrowDrawing.ArrowDrawer;
 import org.scilab.modules.renderer.JoGLView.axes.AxesDrawer;
 import org.scilab.modules.renderer.JoGLView.contouredObject.ContouredObjectDrawer;
+import org.scilab.modules.renderer.JoGLView.interaction.InteractionManager;
 import org.scilab.modules.renderer.JoGLView.label.LabelManager;
 import org.scilab.modules.renderer.JoGLView.legend.LegendDrawer;
 import org.scilab.modules.renderer.JoGLView.mark.MarkSpriteManager;
+import org.scilab.modules.renderer.JoGLView.postRendering.PostRendered;
 import org.scilab.modules.renderer.JoGLView.text.TextManager;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 import org.scilab.modules.renderer.utils.textRendering.FontManager;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -103,10 +111,10 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             GraphicObjectProperties.__GO_Z_AXIS_SUBTICKS__
     ));
 
-
-
+    private final Component component;
     private final Canvas canvas;
     private final Figure figure;
+    private final InteractionManager interactionManager;
 
     private final ColorMapTextureDataProvider colorMapTextureDataProvider;
 
@@ -123,6 +131,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private final ArrowDrawer arrowDrawer;
     private final FecDrawer fecDrawer;
 
+    /** True if the figure should be redrawn entirely */
+    private boolean figureUpdate;
+
     private DrawingTools drawingTools = null;
     private Texture colorMapTexture;
     private ColorMap colorMap;
@@ -135,13 +146,16 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      * renderer module is accessed from another thread than the AWT's.
      */
     private final static Map<String, DrawerVisitor> visitorMap = new HashMap<String, DrawerVisitor>();
+    private final List<PostRendered> postRenderedList = new LinkedList<PostRendered>();
 
-    public DrawerVisitor(Canvas canvas, Figure figure) {
+    public DrawerVisitor(Component component, Canvas canvas, Figure figure) {
         GraphicController.getController().register(this);
 
+        this.component = component;
         this.canvas = canvas;
         this.figure = figure;
 
+        this.interactionManager = new InteractionManager(this);
         this.dataManager = new DataManager(canvas);
         this.textureManager = new TextureManager(this);
         this.markManager = new MarkSpriteManager(canvas.getSpriteManager());
@@ -154,6 +168,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         this.legendDrawer = new LegendDrawer(this, canvas.getSpriteManager(), this.markManager);
         this.fecDrawer = new FecDrawer(this);
         this.colorMapTextureDataProvider = new ColorMapTextureDataProvider();
+        figureUpdate = true;
 
         /*
          * Forces font loading from the main thread. This is done because
@@ -205,6 +220,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         return colorMap;
     }
 
+
     /**
      * Returns the visitor corresponding to the Figure identifier.
      * @param figureId the figure identifier.
@@ -213,15 +229,40 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     public static DrawerVisitor getVisitor(String figureId) {
         return visitorMap.get(figureId);
     }
+    
+    public void addPostRendering(PostRendered postRendered) {
+        if (postRendered != null) {
+            postRenderedList.add(postRendered);
+        }
+    }
+
+    public void removePostRendering(PostRendered postRendered) {
+        postRenderedList.remove(postRendered);
+    }
 
     @Override
     public void draw(DrawingTools drawingTools) {
-        //long start = System.currentTimeMillis();
         this.drawingTools = drawingTools;
-        figure.accept(this);
-        //long end = System.currentTimeMillis();
-        //long delta = end - start;
-        //System.out.println(delta + "ms | " + 1000.0 / delta + " FPS");
+        if (figureUpdate) {
+            figureUpdate = false;
+            figure.accept(this);
+            drawingTools.getSnapShotManager().save(0);
+        } else {
+            drawingTools.clearDepthBuffer();
+            drawingTools.clear(new Color(.3f, .4f, .5f));
+            drawingTools.getSnapShotManager().load(0);
+        }
+
+        drawingTools.clearDepthBuffer();
+        drawingTools.getTransformationManager().useWindowCoordinate();
+        for(PostRendered postRendered : postRenderedList) {
+            try {
+                postRendered.draw(drawingTools);
+            } catch (SciRendererException e) {
+                System.err.println("A 'PostRendered' is not drawable because: '" + e.getMessage() + "'");
+            }
+        }
+        drawingTools.getTransformationManager().useSceneCoordinate();
     }
 
     /**
@@ -682,6 +723,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     legendDrawer.update(id, property);
                     fecDrawer.update(id, property);
                 }
+
+                figureUpdate = true;
                 canvas.redraw();
             }
         } catch (ObjectRemovedException e) {
@@ -744,6 +787,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             visitorMap.remove(id);
         }
 
+        figureUpdate = true;
         canvas.redraw();
     }
 
@@ -777,8 +821,32 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      * Figure getter.
      * @return the figure this visitor draw.
      */
-    Figure getFigure() {
+    public Figure getFigure() {
         return figure;
+    }
+
+    private Geometry cube;
+    public Geometry getCube() {
+        if (cube == null) {
+            cube = CubeFactory.createCube(canvas);
+        }
+        return cube;
+    }
+
+    /**
+     * Component getter.
+     * @return return the attached component.
+     */
+    public Component getComponent() {
+        return component;
+    }
+
+    /**
+     * Interaction manager getter
+     * @return the interaction manager.
+     */
+    public InteractionManager getInteractionManager() {
+        return interactionManager;
     }
 
     private class ColorMapTextureDataProvider extends AbstractDataProvider<Texture> implements TextureDataProvider {
