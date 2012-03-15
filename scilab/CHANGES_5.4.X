@@ -132,6 +132,9 @@ Elementary functions
 
 * The toeplitz macro was not vectorized.
 
+* Bug #10835 fixed - a typo that make the function unusable.
+
+
 CLI console:
 ============
 
