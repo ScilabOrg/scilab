@@ -11,6 +11,14 @@
  */
 
 #include "JavaInteraction.h"
+#include "getScilabJavaVM.h"
+
+#include "CallRenderer.hxx"
+
+void startInteractiveZoom(char *pstObjUID)
+{
+    org_scilab_modules_renderer::CallRenderer::startInteractiveZoom(getScilabJavaVM(), pstObjUID);
+}
 
 /*---------------------------------------------------------------------------------*/
 void javaRubberBox(sciPointObj * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton)

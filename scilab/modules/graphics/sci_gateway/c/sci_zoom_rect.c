@@ -3,11 +3,11 @@
  * Copyright (C) 2006 - ENPC - Jean-Philipe Chancelier
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -26,6 +26,8 @@
 #include "GetProperty.h"
 #include "SetPropertyStatus.h"
 #include "HandleManagement.h"
+
+#incldue "JavaInteraction.h"
 
 /*--------------------------------------------------------------------------*/
 static sciPointObj * getZoomedObject(const char * fname);
@@ -76,12 +78,13 @@ static BOOL getZoomRect(const char * fname, int attribPos, double rect[4])
  * @return NULL if the input argument is not correct,
  *              the object to zoom otherwise
  */
-static sciPointObj * getZoomedObject(const char * fname)
+static char * getZoomedObject(const char * fname)
 {
   int nbRow;
   int nbCol;
   size_t stackPointer = 0;
-  sciPointObj * res = NULL;
+  char *res = NULL;
+  char *pstType;
   /* if a handle is specified it must be the first input argument */
   GetRhsVar(1, GRAPHICAL_HANDLE_DATATYPE, &nbRow, &nbCol, &stackPointer);
 
@@ -92,16 +95,21 @@ static sciPointObj * getZoomedObject(const char * fname)
     return NULL;
   }
 
-  res = sciGetPointerFromHandle(getHandleFromStack(stackPointer));
+  res = getObjectFromHandle(getHandleFromStack(stackPointer));
 
-  if (sciGetEntityType(res) != SCI_SUBWIN && sciGetEntityType(res) != SCI_FIGURE)
+  if(res == NULL)
   {
     Scierror(999, _("%s: Wrong type for input argument #%d: Figure or Axes handle expected.\n"), fname, 1);
     return NULL;
   }
 
-  /* chack bounds */
+  getGraphicObjectProperty(res, __GO_TYPE__, jni_string, &pstType);
 
+  if (strcmp(pstType, __GO_FIGURE__) <> 0 && strcmp(pstType, __GO_AXES__))
+  {
+    Scierror(999, _("%s: Wrong type for input argument #%d: Figure or Axes handle expected.\n"), fname, 1);
+    return NULL;
+  }
 
   return res;
 
@@ -112,7 +120,7 @@ int sci_zoom_rect(char *fname,unsigned long fname_len)
 {
   CheckRhs(0,2) ;
   CheckLhs(0,1) ;
-  if (Rhs == 0) 
+  if (Rhs == 0)
   {
     /* zoom_rect() */
     sciDefaultInteractiveZoom();
@@ -123,12 +131,12 @@ int sci_zoom_rect(char *fname,unsigned long fname_len)
     /* with handle a figure or subwindow */
     if (GetType(1) == sci_handles)
     {
-      sciPointObj * zoomedObject = getZoomedObject(fname);
-      if (zoomedObject == NULL)
+      char * pstZoomedObject = getZoomedObject(fname);
+      if (pstZoomedObject == NULL)
       {
         return -1;
       }
-      sciInteractiveZoom(zoomedObject);
+      sciInteractiveZoom(pstZoomedObject);
     }
     else if (GetType(1) == sci_matrix)
     {
@@ -183,8 +191,8 @@ int sci_zoom_rect(char *fname,unsigned long fname_len)
     }
   }
 
-  LhsVar(1)=0; 
+  LhsVar(1)=0;
 	PutLhsVar();
   return 0;
-} 
+}
 /*--------------------------------------------------------------------------*/

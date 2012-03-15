@@ -26,7 +26,12 @@ import org.scilab.modules.renderer.JoGLView.text.TextManager;
  * See SCI/modules/renderer/src/jni/renderer.giws.xml for other details.
  **/
 public final class CallRenderer {
-
+	
+	public static void startInteractiveZoom(String id) {
+		// TODO : Plug interactive zoom here
+		System.out.println("[DEBUG] startInteractiveZoom("+id+")");
+	}
+	
     /**
      * Updates the coordinate transformation of the Axes object given by the identifier.
      * @param id the Axes' identifier.
