@@ -273,6 +273,9 @@
     <None Include="Localization_Import.def">
       <Filter>Libraries Dependencies\Imports</Filter>
     </None>
+    <None Include="elementary_functions_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="scicos.rc">
@@ -281,8 +284,5 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\bin\blasplus.lib" />
-    <Library Include="..\..\..\..\bin\scicos_f.lib" />
-    <Library Include="..\..\..\..\bin\elementary_functions_f.lib" />
-    <Library Include="..\..\..\..\bin\scicos_blocks_f.lib" />
   </ItemGroup>
 </Project>

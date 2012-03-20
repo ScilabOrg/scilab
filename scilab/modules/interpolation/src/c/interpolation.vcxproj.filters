@@ -96,15 +96,16 @@
     <None Include="..\..\interpolation.iss" />
     <None Include="..\..\sci_gateway\interpolation_gateway.xml" />
     <None Include="..\..\Makefile.am" />
+    <None Include="elementary_functions_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="slatec_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="interpolation.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\..\..\bin\interpolation_f.lib" />
-    <Library Include="..\..\..\..\bin\slatec_f.lib" />
-    <Library Include="..\..\..\..\bin\elementary_functions_f.lib" />
   </ItemGroup>
 </Project>

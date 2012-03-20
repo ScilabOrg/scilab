@@ -134,7 +134,6 @@ lib /DEF:&quot;$(InputDir)integer_Import.def&quot; /SUBSYSTEM:WINDOWS /MACHINE:X
 		<File RelativePath=".\dmsum.f"/>
 		<File RelativePath=".\drdiv.f"/>
 		<File RelativePath=".\dsearch.f"/>
-		<File RelativePath=".\dset.f"/>
 		<File RelativePath=".\dsort.f"/>
 		<File RelativePath=".\dsum.f"/>
 		<File RelativePath=".\dtild.f"/>

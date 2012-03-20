@@ -1,0 +1,14 @@
+	LIBRARY    Libscilab.dll
+
+
+EXPORTS
+;
+;core
+;
+scirun_
+inisci_
+InitializeLaunchScilabSignal
+settmpdir_
+setCommandLineArgs
+freeArrayOfString
+ExitScilab

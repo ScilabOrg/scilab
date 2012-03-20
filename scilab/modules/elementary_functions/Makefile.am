@@ -8,6 +8,7 @@ ELEMENTARIES_FUNCTIONS_C_SOURCES = src/c/sci_tools.c \
 src/c/finite.c \
 src/c/vfinite.c \
 src/c/cmp.c \
+src/c/dset.c \
 src/c/vceil.c \
 src/c/xerhlt.c \
 src/c/vfloor.c \
@@ -244,7 +245,6 @@ src/fortran/infinity.f \
 src/fortran/dwpow1.f \
 src/fortran/wmul.f \
 src/fortran/dad.f \
-src/fortran/dset.f \
 src/fortran/dtild.f \
 src/fortran/i1mach.f \
 src/fortran/dclmat.f \

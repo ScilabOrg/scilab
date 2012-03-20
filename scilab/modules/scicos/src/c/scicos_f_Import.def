@@ -3,3 +3,27 @@ LIBRARY    scicos_f.dll
 
 EXPORTS
 ;
+	coselm_
+	ftree2_
+	ftree3_
+	ftree4_
+	list2vars_
+	ltopadj_
+	scierr_
+	scifunc_
+	scitod_
+	scitoi_
+	scitovv_
+	intctree_
+	intcurblk_
+	scicosdebugcount_
+	intgetlabel_
+	scicosdebug_
+	intree2_
+	intree3_
+	intree4_
+	intvar2vec_
+	intvec2var_
+	sctree_
+	skipvars_
+	vvtosci_

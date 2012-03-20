@@ -4,3 +4,4 @@ LIBRARY    elementary_functions.dll
 EXPORTS
 unsfdcopy_
 int2db_
+dset_

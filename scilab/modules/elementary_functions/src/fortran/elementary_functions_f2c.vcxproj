@@ -115,6 +115,7 @@ cd ..
       <TargetMachine>MachineX86</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -160,6 +161,7 @@ cd ..
       <TargetMachine>MachineX64</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -205,6 +207,7 @@ cd ..
       <TargetMachine>MachineX86</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -253,6 +256,7 @@ cd ..
       <TargetMachine>MachineX64</TargetMachine>
       <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -291,7 +295,6 @@ cd ..
     <ClCompile Include="dmsum.c" />
     <ClCompile Include="drdiv.c" />
     <ClCompile Include="dsearch.c" />
-    <ClCompile Include="dset.c" />
     <ClCompile Include="dsort.c" />
     <ClCompile Include="dsum.c" />
     <ClCompile Include="dtild.c" />
@@ -459,7 +462,6 @@ cd ..
     <f2c_rule Include="dmsum.f" />
     <f2c_rule Include="drdiv.f" />
     <f2c_rule Include="dsearch.f" />
-    <f2c_rule Include="dset.f" />
     <f2c_rule Include="dsort.f" />
     <f2c_rule Include="dsum.f" />
     <f2c_rule Include="dtild.f" />

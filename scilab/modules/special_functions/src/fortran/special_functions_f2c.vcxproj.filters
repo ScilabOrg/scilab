@@ -108,6 +108,9 @@
     <None Include="output_stream_Import.def">
       <Filter>Libraries Dependencies</Filter>
     </None>
+    <None Include="elementary_functions_Import.def">
+      <Filter>Libraries Dependencies</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\bin\blasplus.lib" />

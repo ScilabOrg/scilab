@@ -90,6 +90,15 @@
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\special_functions.iss" />
     <None Include="..\..\sci_gateway\special_functions_gateway.xml" />
+    <None Include="elementary_functions_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="slatec_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
+    <None Include="dcd_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="special_functions.rc">
@@ -99,8 +108,5 @@
   <ItemGroup>
     <Library Include="..\..\..\..\bin\blasplus.lib" />
     <Library Include="..\..\..\..\bin\lapack.lib" />
-    <Library Include="..\..\..\..\bin\elementary_functions_f.lib" />
-    <Library Include="..\..\..\..\bin\slatec_f.lib" />
-    <Library Include="..\..\..\..\bin\dcd_f.lib" />
   </ItemGroup>
 </Project>

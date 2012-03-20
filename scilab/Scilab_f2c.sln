@@ -26,9 +26,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "elementary_functions_f", "m
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "statistics", "modules\statistics\src\c\statistics.vcxproj", "{FE9EB721-B3C1-41D8-B585-3FB3A0083CEC}"
-	ProjectSection(ProjectDependencies) = postProject
-		{18F043DA-1DB5-464F-B67D-CF1C23BE7EA0} = {18F043DA-1DB5-464F-B67D-CF1C23BE7EA0}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibScilab", "libs\LibScilab\LibScilab_f2c.vcxproj", "{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -42,7 +39,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibScilab", "libs\LibScilab
 		{53A01263-92BE-4C87-AA9A-79297F882310} = {53A01263-92BE-4C87-AA9A-79297F882310}
 		{C352587B-F5E4-457C-80EE-A1AEAB176C8E} = {C352587B-F5E4-457C-80EE-A1AEAB176C8E}
 		{AB1EEB8F-86F7-45B7-8CEC-B18C8E97EEFF} = {AB1EEB8F-86F7-45B7-8CEC-B18C8E97EEFF}
-		{F0F55692-0355-4BC3-BE9D-552C8AAC5238} = {F0F55692-0355-4BC3-BE9D-552C8AAC5238}
 		{8091E9B6-4C08-4218-A63D-742867CCFE9F} = {8091E9B6-4C08-4218-A63D-742867CCFE9F}
 		{28E4E9CA-3EEC-43EE-9F15-56259C6677B8} = {28E4E9CA-3EEC-43EE-9F15-56259C6677B8}
 		{E60B43CC-73EA-457E-8DEE-31D0B2BDFA4B} = {E60B43CC-73EA-457E-8DEE-31D0B2BDFA4B}
@@ -85,9 +81,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gui", "modules\gui\src\c\gui.vcxproj", "{45CA5B12-7601-4968-AE16-16069FD1A152}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "optimization", "modules\optimization\src\c\optimization.vcxproj", "{425B887B-9FC5-4CD2-B632-DBFC000E3E25}"
-	ProjectSection(ProjectDependencies) = postProject
-		{13082624-97F9-47DB-A9A1-AD7D6BF3856A} = {13082624-97F9-47DB-A9A1-AD7D6BF3856A}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "optimization_f", "modules\optimization\src\fortran\optimization_f2c.vcxproj", "{1D219098-007C-4F76-9AE6-271ABBB7D393}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -104,10 +97,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "polynomials_f", "modules\po
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "randlib", "modules\randlib\src\c\randlib.vcxproj", "{34F8E361-D2D9-43B0-93D2-F6CF5FAF6CEB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
-		{BB8D4E6F-F09E-49FC-8BCB-9F496F639F60} = {BB8D4E6F-F09E-49FC-8BCB-9F496F639F60}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "randlib_f", "modules\randlib\src\fortran\randlib_f2c.vcxproj", "{BB8D4E6F-F09E-49FC-8BCB-9F496F639F60}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -116,11 +105,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "randlib_f", "modules\randli
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scicos", "modules\scicos\src\c\scicos.vcxproj", "{B7A0273E-8E71-4663-8497-0895945ED54D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
-		{566E524B-D327-4416-A865-9C83503FAB7B} = {566E524B-D327-4416-A865-9C83503FAB7B}
-		{2F7B6080-8D84-43A7-A967-13FC8AA83DEB} = {2F7B6080-8D84-43A7-A967-13FC8AA83DEB}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scicos_f", "modules\scicos\src\fortran\scicos_f2c.vcxproj", "{566E524B-D327-4416-A865-9C83503FAB7B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -144,10 +128,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fileio", "modules\fileio\fileio.vcxproj", "{4FC72D4A-80EE-4B1A-8724-0201C1A35621}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sparse", "modules\sparse\src\c\sparse.vcxproj", "{51240B08-5E4E-439B-B745-C870D5B513BF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
-		{13082624-97F9-47DB-A9A1-AD7D6BF3856A} = {13082624-97F9-47DB-A9A1-AD7D6BF3856A}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sparse_f", "modules\sparse\src\fortran\sparse_f2c.vcxproj", "{13082624-97F9-47DB-A9A1-AD7D6BF3856A}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -189,9 +169,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tclsci", "modules\tclsci\tclsci.vcxproj", "{C456D5B8-8A32-496A-A2EE-164B0D734126}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Javasci", "modules\javasci\Javasci.vcxproj", "{0BD503EF-5CB6-4277-BAC4-8955C97F247D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942} = {8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuildChm", "modules\helptools\src\BuildChm\BuildChm.vcxproj", "{D319F719-F429-4842-A6F9-B1227FE2A54D}"
 EndProject
@@ -263,18 +240,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "linear_algebra_f", "modules
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "linear_algebra", "modules\linear_algebra\src\c\linear_algebra.vcxproj", "{BC462A57-C5B3-4F93-8067-80363827DCDA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
-		{C4C3EA58-1C27-4EFB-A5BF-0DB24EC5F87A} = {C4C3EA58-1C27-4EFB-A5BF-0DB24EC5F87A}
-		{3735EFF9-925B-45B1-82CF-762658E69E70} = {3735EFF9-925B-45B1-82CF-762658E69E70}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "special_functions", "modules\special_functions\src\c\special_functions.vcxproj", "{C8C13A46-DEB8-44AA-8BF8-C9BBC7FA0B46}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
-		{EAF0949C-28D2-497C-954F-FC13B32FF2F3} = {EAF0949C-28D2-497C-954F-FC13B32FF2F3}
-		{18F043DA-1DB5-464F-B67D-CF1C23BE7EA0} = {18F043DA-1DB5-464F-B67D-CF1C23BE7EA0}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "special_functions_f", "modules\special_functions\src\fortran\special_functions_f2c.vcxproj", "{E3A01BE7-815F-4A06-9F0A-C95E80873966}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -322,10 +289,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interpolation", "modules\in
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "data_structures", "modules\data_structures\src\c\data_structures.vcxproj", "{B7A168A0-DFC0-4C6D-B0CC-6079912A4A76}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F0F55692-0355-4BC3-BE9D-552C8AAC5238} = {F0F55692-0355-4BC3-BE9D-552C8AAC5238}
-		{3A72C3ED-98F7-49C7-B59C-2C6C47FF9390} = {3A72C3ED-98F7-49C7-B59C-2C6C47FF9390}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "data_structures_f", "modules\data_structures\src\fortran\data_structures_f2c.vcxproj", "{8091E9B6-4C08-4218-A63D-742867CCFE9F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -336,7 +299,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "data_structures_f", "module
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "interpolation_f", "modules\interpolation\src\fortran\interpolation_f2c.vcxproj", "{D98B0986-14E4-44FD-B006-CACE4B291F38}"
 	ProjectSection(ProjectDependencies) = postProject
-		{DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D} = {DBC45B0D-6E0A-4107-B284-5A3B0C5BB50D}
 		{EAF0949C-28D2-497C-954F-FC13B32FF2F3} = {EAF0949C-28D2-497C-954F-FC13B32FF2F3}
 		{3170E4C2-1173-4264-A222-7EE8CCB3DDF7} = {3170E4C2-1173-4264-A222-7EE8CCB3DDF7}
 	EndProjectSection

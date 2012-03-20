@@ -52,10 +52,10 @@
   <ItemGroup>
     <None Include="..\..\sci_gateway\interpolation_gateway.xml" />
     <None Include="..\..\Makefile.am" />
-    <None Include="interpolation_Import.def">
+    <None Include="LibScilab_Import.def">
       <Filter>Libraries Dependencies</Filter>
     </None>
-    <None Include="LibScilab_Import.def">
+    <None Include="elementary_functions_Import.def">
       <Filter>Libraries Dependencies</Filter>
     </None>
   </ItemGroup>
