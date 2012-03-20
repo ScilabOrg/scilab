@@ -561,6 +561,8 @@ t.
 
 * Bug #10861 fixed - debug([]) returned a wrong error message.
 
+* Bug #10869 fixed - dset rewritten in C to remove a wrong dependency on Windows.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================

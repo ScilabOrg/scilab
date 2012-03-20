@@ -93,6 +93,9 @@
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\statistics.iss" />
     <None Include="..\..\sci_gateway\statistics_gateway.xml" />
+    <None Include="dcd_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="statistics.rc">
@@ -101,6 +104,5 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\bin\lapack.lib" />
-    <Library Include="..\..\..\..\bin\dcd_f.lib" />
   </ItemGroup>
 </Project>

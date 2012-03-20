@@ -5,7 +5,6 @@ EXPORTS
 ;
 ;elementary_functions_f
 iset_
-dset_
 getorient_
 mtlbsel_
 orientandtype_

@@ -6,3 +6,4 @@ EXPORTS
 ;elementary_functions
 unsfdcopy_
 int2db_
+dset_

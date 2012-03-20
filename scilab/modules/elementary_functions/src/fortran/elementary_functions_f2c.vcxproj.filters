@@ -126,9 +126,6 @@
     <ClCompile Include="dsearch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dset.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dsort.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -624,9 +621,6 @@
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="dsearch.f">
-      <Filter>Fortran files</Filter>
-    </f2c_rule>
-    <f2c_rule Include="dset.f">
       <Filter>Fortran files</Filter>
     </f2c_rule>
     <f2c_rule Include="dsort.f">

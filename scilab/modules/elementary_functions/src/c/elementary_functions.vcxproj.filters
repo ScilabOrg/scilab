@@ -251,6 +251,9 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_dec2base.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_elementary_functions.h">

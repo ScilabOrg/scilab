@@ -87,6 +87,9 @@
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\optimization.iss" />
     <None Include="..\..\sci_gateway\optimization_gateway.xml" />
+    <None Include="Sparse_f_Import.def">
+      <Filter>Libraries Dependencies\Imports</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="optimization.rc">
@@ -96,6 +99,5 @@
   <ItemGroup>
     <Library Include="..\..\..\..\bin\blasplus.lib" />
     <Library Include="..\..\..\..\bin\lapack.lib" />
-    <Library Include="..\..\..\..\bin\sparse_f.lib" />
   </ItemGroup>
 </Project>

@@ -154,6 +154,7 @@ am__objects_4 = libscielementary_functions_algo_la-sci_tools.lo \
 	libscielementary_functions_algo_la-finite.lo \
 	libscielementary_functions_algo_la-vfinite.lo \
 	libscielementary_functions_algo_la-cmp.lo \
+	libscielementary_functions_algo_la-dset.lo \
 	libscielementary_functions_algo_la-vceil.lo \
 	libscielementary_functions_algo_la-xerhlt.lo \
 	libscielementary_functions_algo_la-vfloor.lo \
@@ -189,9 +190,9 @@ am__objects_5 = psi.lo wasum.lo dexpm1.lo wwdiv.lo wdotcr.lo iset.lo \
 	orthes.lo waxpy.lo coef.lo dwdiv.lo arcosh.lo wasin.lo \
 	wexpm1.lo ddpowe.lo nearfloat.lo dmprod.lo wwpowe.lo wdotci.lo \
 	dmcopy.lo wexchn.lo isoval.lo dwrdiv.lo wipow.lo wlog.lo \
-	infinity.lo dwpow1.lo wmul.lo dad.lo dset.lo dtild.lo \
-	i1mach.lo dclmat.lo ortran.lo bdiag.lo wvmul.lo dmmul.lo \
-	wsqrt.lo israt.lo rat.lo
+	infinity.lo dwpow1.lo wmul.lo dad.lo dtild.lo i1mach.lo \
+	dclmat.lo ortran.lo bdiag.lo wvmul.lo dmmul.lo wsqrt.lo \
+	israt.lo rat.lo
 am__objects_6 =
 am_libscielementary_functions_algo_la_OBJECTS = $(am__objects_1) \
 	$(am__objects_2) $(am__objects_3) $(am__objects_4) \
@@ -600,6 +601,7 @@ ELEMENTARIES_FUNCTIONS_C_SOURCES = src/c/sci_tools.c \
 src/c/finite.c \
 src/c/vfinite.c \
 src/c/cmp.c \
+src/c/dset.c \
 src/c/vceil.c \
 src/c/xerhlt.c \
 src/c/vfloor.c \
@@ -836,7 +838,6 @@ src/fortran/infinity.f \
 src/fortran/dwpow1.f \
 src/fortran/wmul.f \
 src/fortran/dad.f \
-src/fortran/dset.f \
 src/fortran/dtild.f \
 src/fortran/i1mach.f \
 src/fortran/dclmat.f \
@@ -1149,11 +1150,11 @@ clean-pkglibLTLIBRARIES:
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
-libdummy-elementary_functions.la: $(libdummy_elementary_functions_la_OBJECTS) $(libdummy_elementary_functions_la_DEPENDENCIES) $(EXTRA_libdummy_elementary_functions_la_DEPENDENCIES) 
+libdummy-elementary_functions.la: $(libdummy_elementary_functions_la_OBJECTS) $(libdummy_elementary_functions_la_DEPENDENCIES) 
 	$(libdummy_elementary_functions_la_LINK)  $(libdummy_elementary_functions_la_OBJECTS) $(libdummy_elementary_functions_la_LIBADD) $(LIBS)
-libscielementary_functions-algo.la: $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_DEPENDENCIES) $(EXTRA_libscielementary_functions_algo_la_DEPENDENCIES) 
+libscielementary_functions-algo.la: $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_DEPENDENCIES) 
 	$(F77LINK) $(am_libscielementary_functions_algo_la_rpath) $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_LIBADD) $(LIBS)
-libscielementary_functions.la: $(libscielementary_functions_la_OBJECTS) $(libscielementary_functions_la_DEPENDENCIES) $(EXTRA_libscielementary_functions_la_DEPENDENCIES) 
+libscielementary_functions.la: $(libscielementary_functions_la_OBJECTS) $(libscielementary_functions_la_DEPENDENCIES) 
 	$(libscielementary_functions_la_LINK) $(am_libscielementary_functions_la_rpath) $(libscielementary_functions_la_OBJECTS) $(libscielementary_functions_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
@@ -1166,6 +1167,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-IsEqualVar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-cmp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-convertbase.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-dset.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-finite.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-gsort.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-idmax.Plo@am__quote@
@@ -1286,6 +1288,13 @@ libscielementary_functions_algo_la-cmp.lo: src/c/cmp.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/cmp.c' object='libscielementary_functions_algo_la-cmp.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscielementary_functions_algo_la_CFLAGS) $(CFLAGS) -c -o libscielementary_functions_algo_la-cmp.lo `test -f 'src/c/cmp.c' || echo '$(srcdir)/'`src/c/cmp.c
+
+libscielementary_functions_algo_la-dset.lo: src/c/dset.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscielementary_functions_algo_la_CFLAGS) $(CFLAGS) -MT libscielementary_functions_algo_la-dset.lo -MD -MP -MF $(DEPDIR)/libscielementary_functions_algo_la-dset.Tpo -c -o libscielementary_functions_algo_la-dset.lo `test -f 'src/c/dset.c' || echo '$(srcdir)/'`src/c/dset.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscielementary_functions_algo_la-dset.Tpo $(DEPDIR)/libscielementary_functions_algo_la-dset.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/dset.c' object='libscielementary_functions_algo_la-dset.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscielementary_functions_algo_la_CFLAGS) $(CFLAGS) -c -o libscielementary_functions_algo_la-dset.lo `test -f 'src/c/dset.c' || echo '$(srcdir)/'`src/c/dset.c
 
 libscielementary_functions_algo_la-vceil.lo: src/c/vceil.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libscielementary_functions_algo_la_CFLAGS) $(CFLAGS) -MT libscielementary_functions_algo_la-vceil.lo -MD -MP -MF $(DEPDIR)/libscielementary_functions_algo_la-vceil.Tpo -c -o libscielementary_functions_algo_la-vceil.lo `test -f 'src/c/vceil.c' || echo '$(srcdir)/'`src/c/vceil.c
@@ -2421,9 +2430,6 @@ wmul.lo: src/fortran/wmul.f
 
 dad.lo: src/fortran/dad.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dad.lo `test -f 'src/fortran/dad.f' || echo '$(srcdir)/'`src/fortran/dad.f
-
-dset.lo: src/fortran/dset.f
-	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dset.lo `test -f 'src/fortran/dset.f' || echo '$(srcdir)/'`src/fortran/dset.f
 
 dtild.lo: src/fortran/dtild.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dtild.lo `test -f 'src/fortran/dtild.f' || echo '$(srcdir)/'`src/fortran/dtild.f

@@ -549,7 +549,7 @@ void CheckCreateOrder()
 
 void WriteFortranCall(FILE * f)
 {
-    int i, ind;
+    int i = 0;
     IVAR ivar, iivar;
     char call[MAXCALL];
 

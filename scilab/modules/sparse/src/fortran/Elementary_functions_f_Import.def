@@ -5,7 +5,6 @@ EXPORTS
 ;
 ;elementary_functions_f
 iset_
-dset_
 wwpow_
 dwpow_
 ddpow_

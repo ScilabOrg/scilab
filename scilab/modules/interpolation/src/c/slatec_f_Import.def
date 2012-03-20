@@ -1,0 +1,8 @@
+	LIBRARY    slatec_f.dll
+
+
+EXPORTS
+;slatec
+db3ink_
+dpchim_ 
+db3val_
