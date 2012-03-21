@@ -11,17 +11,16 @@
 
 package org.scilab.modules.renderer.JoGLView;
 
-import com.sun.opengl.util.BufferUtil;
 import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
+import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
+import org.scilab.forge.scirenderer.data.AbstractDataProvider;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.geometry.DefaultGeometry;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
-import org.scilab.forge.scirenderer.sprite.Sprite;
-import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
-import org.scilab.forge.scirenderer.texture.AbstractDataProvider;
+import org.scilab.forge.scirenderer.texture.AnchorPosition;
 import org.scilab.forge.scirenderer.texture.Texture;
 import org.scilab.forge.scirenderer.texture.TextureDataProvider;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
@@ -63,8 +62,7 @@ import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 import org.scilab.modules.renderer.utils.textRendering.FontManager;
 
 import java.awt.Dimension;
-import java.nio.Buffer;
-import java.nio.FloatBuffer;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -110,7 +108,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
     private final ColorMapTextureDataProvider colorMapTextureDataProvider;
 
-    private final TextureManager textureManager;
+    private final ScilabTextureManager textureManager;
     private final MarkSpriteManager markManager;
     private final LabelManager labelManager;
     private final DataManager dataManager;
@@ -143,15 +141,15 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         this.figure = figure;
 
         this.dataManager = new DataManager(canvas);
-        this.textureManager = new TextureManager(this);
-        this.markManager = new MarkSpriteManager(canvas.getSpriteManager());
-        this.textManager = new TextManager(canvas.getSpriteManager());
-        this.labelManager = new LabelManager(canvas.getSpriteManager());
+        this.textureManager = new ScilabTextureManager(this);
+        this.markManager = new MarkSpriteManager(canvas.getTextureManager());
+        this.textManager = new TextManager(canvas.getTextureManager());
+        this.labelManager = new LabelManager(canvas.getTextureManager());
         this.axesDrawer = new AxesDrawer(this);
         this.axisDrawer = new AxisDrawer(this);
         this.arrowDrawer = new ArrowDrawer(this);
         this.contouredObjectDrawer = new ContouredObjectDrawer(this, this.dataManager, this.markManager);
-        this.legendDrawer = new LegendDrawer(this, canvas.getSpriteManager(), this.markManager);
+        this.legendDrawer = new LegendDrawer(this);
         this.fecDrawer = new FecDrawer(this);
         this.colorMapTextureDataProvider = new ColorMapTextureDataProvider();
 
@@ -185,6 +183,14 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      */
     public TextManager getTextManager() {
         return textManager;
+    }
+
+    /**
+     * Mark manager getter.
+     * @return the mark manager.
+     */
+    public MarkSpriteManager getMarkManager() {
+        return markManager;
     }
 
     /**
@@ -363,7 +369,11 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     @Override
     public void visit(Label label) {
         if (label.getVisible()) {
-            labelManager.draw(drawingTools, colorMap, label, axesDrawer);
+            try {
+                labelManager.draw(drawingTools, colorMap, label, axesDrawer);
+            } catch (Exception e) {
+                System.err.println("A '" + label.getType() + "' is not drawable because: '" + e.getMessage() + "'");
+            }
         }
     }
 
@@ -418,9 +428,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 }
 
                 if (polyline.getMarkMode()) {
-                    Sprite sprite = markManager.getMarkSprite(polyline, colorMap);
+                    Texture sprite = markManager.getMarkSprite(polyline, colorMap);
                     ElementsBuffer positions = dataManager.getVertexBuffer(polyline.getIdentifier());
-                    drawingTools.draw(sprite, SpriteAnchorPosition.CENTER, positions);
+                    drawingTools.draw(sprite, AnchorPosition.CENTER, positions);
                 }
 
                 axesDrawer.disableClipping(polyline.getClipProperty());
@@ -501,9 +511,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 }
 
                 if (fac3d.getMarkMode()) {
-                    Sprite sprite = markManager.getMarkSprite(fac3d, colorMap);
+                    Texture texture = markManager.getMarkSprite(fac3d, colorMap);
                     ElementsBuffer positions = dataManager.getVertexBuffer(fac3d.getIdentifier());
-                    drawingTools.draw(sprite, SpriteAnchorPosition.CENTER, positions);
+                    drawingTools.draw(texture, AnchorPosition.CENTER, positions);
                 }
                 axesDrawer.disableClipping(fac3d.getClipProperty());
             } catch (Exception e) {
@@ -569,9 +579,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 }
 
                 if (plot3d.getMarkMode()) {
-                    Sprite sprite = markManager.getMarkSprite(plot3d, colorMap);
+                    Texture texture = markManager.getMarkSprite(plot3d, colorMap);
                     ElementsBuffer positions = dataManager.getVertexBuffer(plot3d.getIdentifier());
-                    drawingTools.draw(sprite, SpriteAnchorPosition.CENTER, positions);
+                    drawingTools.draw(texture, AnchorPosition.CENTER, positions);
                 }
 
                 axesDrawer.disableClipping(plot3d.getClipProperty());
@@ -588,9 +598,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         if (text.getVisible()) {
             try {
                 axesDrawer.enableClipping(currentAxes, text.getClipProperty());
-                textManager.draw(drawingTools, colorMap, text, axesDrawer);
+                textManager.draw(drawingTools, colorMap, text);
                 axesDrawer.disableClipping(text.getClipProperty());
-            } catch (Exception e) {
+            } catch (SciRendererException e) {
                 System.err.println("A '" + text.getType() + "' is not drawable because: '" + e.getMessage() + "'");
             }
         }
@@ -673,9 +683,9 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                  * in order to obtain the latter's Mark (all arrows are supposed to have the same contour properties for now).
                  */
                 if (segs.getMarkMode()) {
-                    Sprite sprite = markManager.getMarkSprite(segs.getIdentifier(), segs.getArrows().get(0).getMark(), colorMap);
+                    Texture texture = markManager.getMarkSprite(segs.getIdentifier(), segs.getArrows().get(0).getMark(), colorMap);
                     ElementsBuffer positions = dataManager.getVertexBuffer(segs.getIdentifier());
-                    drawingTools.draw(sprite, SpriteAnchorPosition.CENTER, positions);
+                    drawingTools.draw(texture, AnchorPosition.CENTER, positions);
                 }
 
                 /* Draw the arrows */
@@ -813,8 +823,8 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     }
 
     private class ColorMapTextureDataProvider extends AbstractDataProvider<Texture> implements TextureDataProvider {
-        float[] whiteColor = {1.0f, 1.0f, 1.0f, 1.0f};
-        float[] blackColor = {0.0f, 0.0f, 0.0f, 1.0f};
+        byte[] whiteColor = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
+        byte[] blackColor = {0x00, 0x00, 0x00, (byte) 0xFF};
 
         @Override
         public Dimension getTextureSize() {
@@ -822,26 +832,26 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         }
 
         @Override
-        public Buffer getData() {
+        public ByteBuffer getData() {
             Double[] data = colorMap.getData();
-            FloatBuffer buffer = BufferUtil.newFloatBuffer(4 * ((data.length / 3) + 2));
+            ByteBuffer buffer = ByteBuffer.allocate(4 * ((data.length / 3) + 2));
 
             /* White and black are written in the first and second positions */
             buffer.put(whiteColor);
             buffer.put(blackColor);
 
             for (int i = 0 ; i < data.length / 3 ; i++) {
-                buffer.put(data[i].floatValue());
-                buffer.put(data[i + colorMap.getSize()].floatValue());
-                buffer.put(data[i + 2 * colorMap.getSize()].floatValue());
-                buffer.put(1);
+                buffer.put(toByte(data[i]));
+                buffer.put(toByte(data[i + colorMap.getSize()].floatValue()));
+                buffer.put(toByte(data[i + 2 * colorMap.getSize()].floatValue()));
+                buffer.put(toByte(1));
             }
             buffer.rewind();
             return buffer;
         }
 
         @Override
-        public Buffer getSubData(int x, int y, int width, int height) {
+        public ByteBuffer getSubData(int x, int y, int width, int height) {
             /*
              * For the moment, we presuppose that x and y are 0 and that
              * width is equal to the colormap's total size (with height == 1).

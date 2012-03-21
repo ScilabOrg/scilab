@@ -13,23 +13,24 @@
 package org.scilab.modules.renderer.JoGLView.text;
 
 import org.scilab.forge.scirenderer.DrawingTools;
-import org.scilab.forge.scirenderer.sprite.Sprite;
-import org.scilab.forge.scirenderer.sprite.SpriteAnchorPosition;
-import org.scilab.forge.scirenderer.sprite.SpriteManager;
+import org.scilab.forge.scirenderer.SciRendererException;
+import org.scilab.forge.scirenderer.texture.Texture;
+import org.scilab.forge.scirenderer.texture.AnchorPosition;
+import org.scilab.forge.scirenderer.texture.TextureManager;
 import org.scilab.forge.scirenderer.tranformations.DegenerateMatrixException;
 import org.scilab.forge.scirenderer.tranformations.Transformation;
 import org.scilab.forge.scirenderer.tranformations.TransformationFactory;
 import org.scilab.forge.scirenderer.tranformations.Vector3d;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
 import org.scilab.modules.graphic_objects.textObject.Text;
-import org.scilab.modules.renderer.JoGLView.axes.AxesDrawer;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 
+import java.awt.Dimension;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_FONT_ANGLE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 
 /**
  *
@@ -46,20 +47,20 @@ public class TextManager {
     /**
      * The {@see Map} off existing {@see TextEntity}.
      */
-    private final Map<String, Sprite> spriteMap = new ConcurrentHashMap<String, Sprite>();
+    private final Map<String, Texture> spriteMap = new ConcurrentHashMap<String, Texture>();
 
     /**
-     * The used sprite manager.
+     * The used texture manager.
      */
-    private final SpriteManager spriteManager;
+    private final TextureManager textureManager;
 
 
     /**
      * Default constructor.
-     * @param spriteManager the sprite manager.
+     * @param textureManager the texture manager.
      */
-    public TextManager(SpriteManager spriteManager) {
-        this.spriteManager = spriteManager;
+    public TextManager(TextureManager textureManager) {
+        this.textureManager = textureManager;
     }
 
     /**
@@ -67,26 +68,25 @@ public class TextManager {
      * @param drawingTools the given {@see DrawingTools}.
      * @param colorMap the current {@see ColorMap}
      * @param text the given Scilab {@see Text}
-     * @throws DegenerateMatrixException 
+     * @throws SciRendererException if draw fail.
      */
-    public final void draw(final DrawingTools drawingTools, final ColorMap colorMap, final Text text, final AxesDrawer axesDrawer) throws DegenerateMatrixException {
-        Sprite sprite = getSprite(colorMap, text);
+    public final void draw(final DrawingTools drawingTools, final ColorMap colorMap, final Text text) throws SciRendererException {
+        Texture texture = getTexture(colorMap, text);
 
         Transformation projection = drawingTools.getTransformationManager().getCanvasProjection();
 
         /* Compute the text's position and draw in window coordinates */
-        Vector3d textPosition = new Vector3d(text.getPosition());
-        textPosition = computeTextPosition(projection, text, sprite.getWidth(), sprite.getHeight());
+        Vector3d textPosition = computeTextPosition(projection, text, texture.getDataProvider().getTextureSize());
 
         drawingTools.getTransformationManager().useWindowCoordinate();
 
-        /* The Text object's rotation direction convention is opposite to the standard one, its angle is expressed in radians. */
-        drawingTools.draw(sprite, SpriteAnchorPosition.LOWER_LEFT, textPosition, -180.0*text.getFontAngle()/Math.PI);
+        /* The Text object's rotation direction convention is opposite to the standard one, its angle is expressed in degree. */
+        drawingTools.draw(texture, AnchorPosition.LOWER_LEFT, textPosition, -Math.toDegrees(text.getFontAngle()));
 
         drawingTools.getTransformationManager().useSceneCoordinate();
 
         /* Compute the corners of the text's bounding box in window coordinates */
-        Vector3d[] projCorners = computeProjCorners(projection, new Vector3d(text.getPosition()), text.getFontAngle(), sprite.getWidth(), sprite.getHeight());
+        Vector3d[] projCorners = computeProjCorners(projection, new Vector3d(text.getPosition()), text.getFontAngle(), texture.getDataProvider().getTextureSize());
 
         Vector3d[] corners = computeCorners(projection, projCorners);
         Double[] coordinates = cornersToCoordinateArray(corners);
@@ -102,12 +102,11 @@ public class TextManager {
      * If the text box mode is set to off, the returned position is the text's unmodified projected position.
      * @param projection the projection from object coordinates to window coordinates.
      * @param text the Scilab {@see Text}.
-     * @param spriteWidth the text sprite's width (in pixels).
-     * @param spriteHeight the text sprite's height (in pixels).
+     * @param textureDimension the text texture's size (in pixels).
      * @return the position of the Scilab {@see Text}'s text box.
-     * @throws DegenerateMatrixException.
+     * @throws DegenerateMatrixException if projection fail.
      */
-    private Vector3d computeTextPosition(Transformation projection, Text text, int spriteWidth, int spriteHeight) throws DegenerateMatrixException {
+    private Vector3d computeTextPosition(Transformation projection, Text text, Dimension textureDimension) throws DegenerateMatrixException {
         Vector3d textPosition = new Vector3d(text.getPosition());
 
         textPosition = projection.project(textPosition);
@@ -122,7 +121,7 @@ public class TextManager {
             textBoxWidth = projection.projectDirection(textBoxWidth);
             textBoxHeight = projection.projectDirection(textBoxHeight);
 
-            Vector3d[] projCorners = computeProjCorners(textPosition, text.getFontAngle(), spriteWidth, spriteHeight);
+            Vector3d[] projCorners = computeProjCorners(textPosition, text.getFontAngle(), textureDimension);
 
             Vector3d textWidth = projCorners[1].minus(projCorners[0]);
             Vector3d textHeight = projCorners[2].minus(projCorners[0]);
@@ -151,17 +150,16 @@ public class TextManager {
      * @param canvasProj the projection from object coordinates to window coordinates.
      * @param position the text's position in object coordinates.
      * @param fontAngle the text's font angle (radians).
-     * @param spriteWidth the text sprite's width (in pixels).
-     * @param spriteHeight the text sprite's height (in pixels).
+     * @param textureDimension the text texture's dimension (in pixels).
      * @return the corners' window coordinates (4-element array).
-     * @throws DegenerateMatrixException.
+     * @throws DegenerateMatrixException if projection fail.
      */
-    private Vector3d[] computeProjCorners(Transformation canvasProj, Vector3d position, double fontAngle, int spriteWidth, int spriteHeight) throws DegenerateMatrixException {
+    private Vector3d[] computeProjCorners(Transformation canvasProj, Vector3d position, double fontAngle, Dimension textureDimension) throws DegenerateMatrixException {
         Vector3d[] projCorners = new Vector3d[4];
 
         position = canvasProj.project(position);
 
-        projCorners = computeProjCorners(position, fontAngle, spriteWidth, spriteHeight);
+        projCorners = computeProjCorners(position, fontAngle, textureDimension);
 
         return projCorners;
     }
@@ -171,12 +169,11 @@ public class TextManager {
      * The returned corners are in the following order: lower-left, lower-right, upper-left and upper-right.
      * @param projPosition the text's position in window coordinates.
      * @param fontAngle the text's font angle (radians).
-     * @param spriteWidth the text sprite's width (in pixels).
-     * @param spriteHeight the text sprite's height (in pixels).
+     * @param textureDimension the text texture's dimension (in pixels).
      * @return the corners' window coordinates (4-element array).
-     * @throws DegenerateMatrixException.
+     * @throws DegenerateMatrixException if projection fail.
      */
-    private Vector3d[] computeProjCorners(Vector3d projPosition, double fontAngle, int spriteWidth, int spriteHeight) throws DegenerateMatrixException {
+    private Vector3d[] computeProjCorners(Vector3d projPosition, double fontAngle, Dimension textureDimension) throws DegenerateMatrixException {
         Vector3d[] projCorners = new Vector3d[4];
 
         /*
@@ -188,8 +185,8 @@ public class TextManager {
 
         projCorners[0] = projPosition;
 
-        Vector3d width = new Vector3d((double) spriteWidth, 0.0, 0.0);
-        Vector3d height = new Vector3d(0.0, (double) spriteHeight, 0.0);
+        Vector3d width = new Vector3d(textureDimension.getWidth(), 0.0, 0.0);
+        Vector3d height = new Vector3d(0.0, textureDimension.getHeight(), 0.0);
 
         width = projRotation.projectDirection(width);
         height = projRotation.projectDirection(height);
@@ -260,64 +257,58 @@ public class TextManager {
     }
 
     /**
-     * Return the SciRenderer {@see Sprite} corresponding to the given Scilab {@see Text}.
+     * Return the SciRenderer {@see Texture} corresponding to the given Scilab {@see Text}.
      * @param colorMap the current color map.
      * @param text the given Scilab {@see Text}.
-     * @return the SciRenderer {@see Sprite} corresponding to the given Scilab {@see Text}.
+     * @return the SciRenderer {@see Texture} corresponding to the given Scilab {@see Text}.
      */
-    private Sprite getSprite(final ColorMap colorMap, final Text text) {
-        Sprite sprite = spriteMap.get(text.getIdentifier());
-        if (sprite == null) {
-            sprite = createSprite(colorMap, text);
-            spriteMap.put(text.getIdentifier(), sprite);
+    private Texture getTexture(final ColorMap colorMap, final Text text) {
+        Texture texture = spriteMap.get(text.getIdentifier());
+        if (texture == null) {
+            texture = createSprite(colorMap, text);
+            spriteMap.put(text.getIdentifier(), texture);
         }
-        return sprite;
+        return texture;
     }
 
     /**
-     * Returns the dimensions of the SciRenderer {@see Sprite} corresponding to the given Scilab {@see Text}.
+     * Returns the dimensions of the SciRenderer {@see Texture} corresponding to the given Scilab {@see Text}.
      * The dimensions are in pixels (width, height).
      * @param colorMap the current color map.
      * @param text the given Scilab {@see Text}.
-     * @return the sprite's dimensions (2-element array)
+     * @return the texture's dimensions (2-element array)
      */
-    private int[] getSpriteDims(final ColorMap colorMap, final Text text) {
-        int[] spriteDims = new int[2];
-        Sprite sprite = spriteMap.get(text.getIdentifier());
-        if (sprite == null) {
-            TextSpriteDrawer spriteDrawer = new TextSpriteDrawer(spriteManager, colorMap, text);
-
-            spriteDims[0] = spriteDrawer.getWidth();
-            spriteDims[1] = spriteDrawer.getHeight();
+    private Dimension getSpriteDims(final ColorMap colorMap, final Text text) {
+        Texture texture = spriteMap.get(text.getIdentifier());
+        if (texture == null) {
+            TextSpriteDrawer spriteDrawer = new TextSpriteDrawer(colorMap, text);
+            return spriteDrawer.getTextureSize();
         } else {
-            spriteDims[0] = sprite.getWidth();
-            spriteDims[1] = sprite.getHeight();
+            return texture.getDataProvider().getTextureSize();
         }
-
-        return spriteDims;
     }
 
     /**
-     * Create a sprite for the given text object.
+     * Create a texture for the given text object.
      * @param colorMap the current colormap.
      * @param textObject the given text object.
-     * @return a new sprite for the given text object.
+     * @return a new texture for the given text object.
      */
-    private Sprite createSprite(final ColorMap colorMap, final Text textObject) {
-        TextSpriteDrawer spriteDrawer = new TextSpriteDrawer(spriteManager, colorMap, textObject);
-        Sprite sprite = spriteManager.createRotatableSprite(spriteDrawer.getWidth(), spriteDrawer.getHeight());
-        sprite.setDrawer(spriteDrawer);
-        return sprite;
+    private Texture createSprite(final ColorMap colorMap, final Text textObject) {
+        TextSpriteDrawer spriteDrawer = new TextSpriteDrawer(colorMap, textObject);
+        Texture texture = textureManager.createTexture();
+        texture.setDrawer(spriteDrawer);
+        return texture;
     }
 
     /**
-     * Dispose the sprite corresponding to the given id.
+     * Dispose the texture corresponding to the given id.
      * @param id the given id.
      */
     public void dispose(String id) {
-        Sprite sprite = spriteMap.get(id);
-        if (sprite != null) {
-            spriteManager.dispose(sprite);
+        Texture texture = spriteMap.get(id);
+        if (texture != null) {
+            textureManager.dispose(texture);
             spriteMap.remove(id);
         }
     }
@@ -326,7 +317,7 @@ public class TextManager {
      * Dispose all the text sprites.
      */
     public void disposeAll() {
-        spriteManager.dispose(spriteMap.values());
+        textureManager.dispose(spriteMap.values());
         spriteMap.clear();
     }
 
@@ -340,13 +331,13 @@ public class TextManager {
         DrawerVisitor currentVisitor = DrawerVisitor.getVisitor(text.getParentFigure());
         Transformation currentProj = currentVisitor.getAxesDrawer().getProjection(text.getParentAxes());
 
-        int[] spriteDims = currentVisitor.getTextManager().getSpriteDims(currentVisitor.getColorMap(), text);
+        Dimension spriteDims = currentVisitor.getTextManager().getSpriteDims(currentVisitor.getColorMap(), text);
         Vector3d textPosition = new Vector3d(text.getPosition());
 
         /* Compute the corners */
         try {
-            textPosition = currentVisitor.getTextManager().computeTextPosition(currentProj, text, spriteDims[0], spriteDims[1]);
-            projCorners = currentVisitor.getTextManager().computeProjCorners(textPosition, text.getFontAngle(), spriteDims[0], spriteDims[1]);
+            textPosition = currentVisitor.getTextManager().computeTextPosition(currentProj, text, spriteDims);
+            projCorners = currentVisitor.getTextManager().computeProjCorners(textPosition, text.getFontAngle(), spriteDims);
         } catch (DegenerateMatrixException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

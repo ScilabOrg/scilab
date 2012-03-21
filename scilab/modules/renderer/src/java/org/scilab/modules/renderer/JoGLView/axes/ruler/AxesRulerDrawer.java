@@ -61,7 +61,7 @@ public class AxesRulerDrawer {
     private final RulerDrawerManager rulerDrawerManager;
 
     public AxesRulerDrawer(Canvas canvas) {
-        this.rulerDrawerManager = new RulerDrawerManager(canvas.getSpriteManager());
+        this.rulerDrawerManager = new RulerDrawerManager(canvas.getTextureManager());
     }
 
     /**

@@ -13,7 +13,7 @@ package org.scilab.modules.renderer.JoGLView;
 
 import com.sun.opengl.util.BufferUtil;
 import org.scilab.forge.scirenderer.Canvas;
-import org.scilab.forge.scirenderer.texture.AbstractDataProvider;
+import org.scilab.forge.scirenderer.data.AbstractDataProvider;
 import org.scilab.forge.scirenderer.texture.Texture;
 import org.scilab.forge.scirenderer.texture.TextureDataProvider;
 import org.scilab.modules.graphic_objects.MainDataLoader;
@@ -22,18 +22,19 @@ import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 
 import java.awt.Dimension;
 import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 
 /**
  * @author Pierre Lando
  */
-public class TextureManager {
+public class ScilabTextureManager {
 
     private final HashMap<String, Texture> hashMap = new HashMap<String, Texture>();
     private final Canvas canvas;
 
-    public TextureManager(DrawerVisitor drawerVisitor) {
+    public ScilabTextureManager(DrawerVisitor drawerVisitor) {
         this.canvas = drawerVisitor.getCanvas();
     }
 
@@ -87,11 +88,11 @@ public class TextureManager {
         }
 
         @Override
-        public Buffer getData() {
+        public ByteBuffer getData() {
             int bufferLength = dimension.width * dimension.height * 4;
-            FloatBuffer buffer;
+            ByteBuffer buffer;
             try {
-                buffer = BufferUtil.newFloatBuffer(bufferLength);
+                buffer = ByteBuffer.allocate(bufferLength);
             } catch (OutOfMemoryError error) {
                 // TODO: Scilab error.
                 System.out.println("Java heap space to small, can't get " + bufferLength / (1024*1024) + "MBytes");
@@ -103,11 +104,11 @@ public class TextureManager {
         }
 
         @Override
-        public Buffer getSubData(int x, int y, int width, int height) {
+        public ByteBuffer getSubData(int x, int y, int width, int height) {
             int bufferLength = width * height * 4;
-            FloatBuffer buffer;
+            ByteBuffer buffer;
             try {
-                buffer = BufferUtil.newFloatBuffer(bufferLength);
+                buffer = ByteBuffer.allocate(bufferLength);
             } catch (OutOfMemoryError error) {
                 // TODO: Scilab error.
                 System.out.println("Java heap space to small, can't get " + bufferLength / (1024*1024) + "MBytes");

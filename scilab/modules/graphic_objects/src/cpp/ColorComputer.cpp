@@ -151,6 +151,16 @@ void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize,
     }
 }
 
+void ColorComputer::getDirectByteColor(double s, double* colormap, int colormapSize, char* returnedColor)
+{
+  float color[3];
+  getDirectColor(s, colormap, colormapSize, color);
+
+  returnedColor[0] = color[0] * 255;
+  returnedColor[1] = color[1] * 255;
+  returnedColor[2] = color[2] * 255;
+}
+
 double ColorComputer::getClampedDirectIndex(double s, int colormapSize)
 {
     double index = s;
