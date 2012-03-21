@@ -17,6 +17,7 @@ import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
@@ -65,11 +66,11 @@ public class MainDataLoader {
         DataLoader.fillTextureCoordinates(id, buffer, bufferLength);
     }
 
-    public static void fillTextureData(String id, FloatBuffer buffer, int bufferLength) {
+    public static void fillTextureData(String id, ByteBuffer buffer, int bufferLength) {
         DataLoader.fillTextureData(id, buffer, bufferLength);
     }
 
-    public static void fillTextureData(String identifier, FloatBuffer buffer, int bufferLength, int x, int y, int width, int height) {
+    public static void fillTextureData(String identifier, ByteBuffer buffer, int bufferLength, int x, int y, int width, int height) {
         DataLoader.fillSubTextureData(identifier, buffer, bufferLength, x, y, width, height);
     }
 

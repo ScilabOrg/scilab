@@ -759,8 +759,8 @@ jdoubleArray SWIG_JavaArrayOutDouble (JNIEnv *jenv, double *result, jsize sz) {
 
     extern int getTextureWidth(char* id);
     extern int getTextureHeight(char* id);
-    extern int fillTextureData(char* id, float* buffer, int bufferLength);
-    extern int fillSubTextureData(char* id, float* buffer, int bufferLength, int x, int y, int width, int height);
+    extern int fillTextureData(char* id, char* buffer, int bufferLength);
+    extern int fillSubTextureData(char* id, char* buffer, int bufferLength, int x, int y, int width, int height);
 
     extern int getDataSize(char* id);
     extern void fillVertices(char* id, float* buffer, int bufferLength, int elementsSize, int coordinateMask, double scale[], double translation[], int logMask);
@@ -822,7 +822,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_g
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_fillTextureData(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg3) {
   jint jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  float *arg2 = (float *) 0 ;
+  char *arg2 = (char *) 0 ;
   int arg3 ;
   int result;
   
@@ -843,6 +843,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   result = (int)fillTextureData(arg1,arg2,arg3);
   jresult = (jint)result; 
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
+  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
   return jresult;
 }
 
@@ -850,7 +851,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
 SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_fillSubTextureData(JNIEnv *jenv, jclass jcls, jstring jarg1, jobject jarg2, jint jarg3, jint jarg4, jint jarg5, jint jarg6, jint jarg7) {
   jint jresult = 0 ;
   char *arg1 = (char *) 0 ;
-  float *arg2 = (float *) 0 ;
+  char *arg2 = (char *) 0 ;
   int arg3 ;
   int arg4 ;
   int arg5 ;
@@ -879,6 +880,7 @@ SWIGEXPORT jint JNICALL Java_org_scilab_modules_graphic_1objects_DataLoaderJNI_f
   result = (int)fillSubTextureData(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
   jresult = (jint)result; 
   if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
+  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
   return jresult;
 }
 
