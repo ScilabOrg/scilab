@@ -37,7 +37,7 @@ extern "C"
    * @param[in] the buffer length in number of elements.
    * @return the length of writed data.
    */
-  int fillTextureData(char *id, float* buffer, int bufferLength);
+  int fillTextureData(char *id, char* buffer, int bufferLength);
 
   /**
    * Fill the given buffer with sub-texture data.
@@ -50,7 +50,7 @@ extern "C"
    * @param[in] the length of the sub-texture.
    * @return the length of writed data.
    */
-  int fillSubTextureData(char* id, float* buffer, int bufferLength, int x, int y, int width, int height);
+  int fillSubTextureData(char* id, char* buffer, int bufferLength, int x, int y, int width, int height);
 
   /**
    * Return the number of data elements for the given object.
