@@ -14,8 +14,7 @@ package org.scilab.modules.renderer.JoGLView.text;
 
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.appearance.Color;
-import org.scilab.forge.scirenderer.sprite.SpriteDrawer;
-import org.scilab.forge.scirenderer.sprite.SpriteManager;
+import org.scilab.forge.scirenderer.texture.TextureDrawer;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
 import org.scilab.modules.graphic_objects.textObject.Text;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
@@ -27,19 +26,18 @@ import java.awt.Font;
  * A {@see SpriteDrawer} who draw a Scilab {@see Text} object.
  * @author Pierre Lando
  */
-class TextSpriteDrawer extends TextObjectSpriteDrawer implements SpriteDrawer {
+class TextSpriteDrawer extends TextObjectSpriteDrawer implements TextureDrawer {
 
     /** The scale factor. */
     private double scaleFactor = 1.0;
 
     /**
      * Default constructor.
-     * @param spriteManager the sprite manager to use.
      * @param colorMap the color map to use.
      * @param textObject the scilab {@see Text} to draw.
      */
-    TextSpriteDrawer(final SpriteManager spriteManager, final ColorMap colorMap, final Text textObject) {
-        super(spriteManager, colorMap, textObject);
+    TextSpriteDrawer(final ColorMap colorMap, final Text textObject) {
+        super(colorMap, textObject);
         setAlignmentFactor(computeAlignmentFactor(textObject));
         Appearance appearance = computeAppearance(colorMap, textObject);
         

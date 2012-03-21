@@ -17,14 +17,14 @@ public class DataLoader {
     return DataLoaderJNI.getTextureHeight(id);
   }
 
-  public static int fillTextureData(String id, java.nio.FloatBuffer buffer, int bufferLength) {
+  public static int fillTextureData(String id, java.nio.ByteBuffer buffer, int bufferLength) {
     assert buffer.isDirect() : "Buffer must be allocated direct.";
     {
       return DataLoaderJNI.fillTextureData(id, buffer, bufferLength);
     }
   }
 
-  public static int fillSubTextureData(String id, java.nio.FloatBuffer buffer, int bufferLength, int x, int y, int width, int height) {
+  public static int fillSubTextureData(String id, java.nio.ByteBuffer buffer, int bufferLength, int x, int y, int width, int height) {
     assert buffer.isDirect() : "Buffer must be allocated direct.";
     {
       return DataLoaderJNI.fillSubTextureData(id, buffer, bufferLength, x, y, width, height);
