@@ -12,8 +12,9 @@
 
 #include "matio_gw.hxx"
 
+#ifdef WITH_MATIO
 bool MatioModule::Load()
 {
-  return true;
+    return true;
 }
-
+#endif
