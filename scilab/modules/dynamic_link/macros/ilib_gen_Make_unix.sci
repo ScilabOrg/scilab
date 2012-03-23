@@ -150,7 +150,7 @@ function ilib_gen_Make_unix(names,   ..
                 end
                 
                 if ~isfile(file_name + file_extension) then
-                  error(999, msprintf(_("%s: Wrong value for input argument #%d: existing file(s) expected.\n"), "ilib_gen_Make_unix", 2));
+                  error(999, msprintf(_("%s: Wrong value for input argument #%d: existing file(s) expected. Provided: %s\n"), "ilib_gen_Make_unix", 2, file_name + file_extension));
                 end
                 
                 filelist = filelist + " " + file_name + file_extension;
