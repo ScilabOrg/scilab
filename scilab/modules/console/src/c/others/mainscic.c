@@ -96,6 +96,36 @@ int main(int argc, char **argv)
     setScilabMode(SCILAB_STD);
 #endif
 
+    if (!isatty(fileno(stdin)) && getScilabMode() != SCILAB_STD)
+    {
+        /*
+         * if not an interactive terminal
+         * then, we are disabling the banner
+         * Since the banner is disabled in the scilab script checking
+         * with the function sciargs is -nb is present, I add this argument
+         * by hand
+         */
+
+        char **pNewArgv = (char **)malloc((argc + 1) * sizeof(char *));
+
+        for (i = 0; i < argc; i++)
+        {
+            pNewArgv[i] = (char *)malloc((strlen(argv[i]) + 1) * sizeof(char));
+            strcpy(pNewArgv[i], argv[i]);
+        }
+
+#define NB_ARG "-nb"
+        pNewArgv[i] = (char *)malloc((strlen(NB_ARG) + 1) * sizeof(char));
+        strcpy(pNewArgv[i], NB_ARG);
+        i++;
+
+        argv = pNewArgv;
+        argc = argc + 1;
+
+    }
+
+    setCommandLineArgs(argv, argc);
+
     /* scanning options */
     for (i = 1; i < argc; i++)
     {
@@ -173,31 +203,6 @@ int main(int argc, char **argv)
         }
     }
 
-    if (!isatty(fileno(stdin)) && getScilabMode() != SCILAB_STD)
-    {
-
-        /* if not an interactive terminal
-         * then, we are disabling the banner
-         * Since the banner is disabled in the scilab script checking
-         * with the function sciargs is -nb is present, I add this argument
-         * by hand
-         */
-
-        char **pNewArgv = (char **)malloc((argc + 1) * sizeof(char *));
-
-        for (i = 0; i < argc; i++)
-        {
-            pNewArgv[i] = (char *)malloc((strlen(argv[i]) + 1) * sizeof(char));
-            strcpy(pNewArgv[i], argv[i]);
-        }
-        pNewArgv[i] = (char *)malloc((strlen("-nb") + 1) * sizeof(char));
-        strcpy(pNewArgv[i], "-nb");
-        setCommandLineArgs(pNewArgv, argc + 1);
-    }
-    else
-    {
-        setCommandLineArgs(argv, argc);
-    }
 
 #ifndef WITH_GUI
     if (getScilabMode() != SCILAB_NWNI)
