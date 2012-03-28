@@ -18,14 +18,21 @@ import org.scilab.forge.scirenderer.sprite.SpriteDrawer;
 import org.scilab.forge.scirenderer.sprite.SpriteManager;
 import org.scilab.modules.graphic_objects.figure.ColorMap;
 import org.scilab.modules.graphic_objects.textObject.Text;
+import org.scilab.modules.graphic_objects.textObject.TextObject;
 import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 import org.scilab.modules.renderer.JoGLView.util.TextObjectSpriteDrawer;
+import org.scilab.modules.renderer.utils.textRendering.FontManager;
+
+import java.awt.Font;
 
 /**
  * A {@see SpriteDrawer} who draw a Scilab {@see Text} object.
  * @author Pierre Lando
  */
 class TextSpriteDrawer extends TextObjectSpriteDrawer implements SpriteDrawer {
+
+    /** The scale factor. */
+    private double scaleFactor = 1.0;
 
     /**
      * Default constructor.
@@ -41,7 +48,26 @@ class TextSpriteDrawer extends TextObjectSpriteDrawer implements SpriteDrawer {
         setAppearance(appearance);
         setThickness((int) Math.ceil(appearance.getLineWidth()));
     }
-    
+
+    /**
+     * Constructor.
+     * Specifies a scale factor used to scale the text matrix.
+     * @param spriteManager the sprite manager to use.
+     * @param colorMap the color map to use.
+     * @param textObject the Scilab {@link Text} to draw.
+     * @param scaleFactor the scale factor to apply.
+     */
+    TextSpriteDrawer(final SpriteManager spriteManager, final ColorMap colorMap, final Text textObject, double scaleFactor) {
+        super(spriteManager, colorMap, textObject, scaleFactor);
+        setAlignmentFactor(computeAlignmentFactor(textObject));
+        Appearance appearance = computeAppearance(colorMap, textObject);
+        
+        setAppearance(appearance);
+        setThickness((int) Math.ceil(appearance.getLineWidth()));
+
+        this.scaleFactor = scaleFactor;
+    }
+
     /**
      * Compute and return an {@see Appearance} adapted to the given scilab text.
      * @param colorMap the current scilab color map.
@@ -68,4 +94,19 @@ class TextSpriteDrawer extends TextObjectSpriteDrawer implements SpriteDrawer {
 
         return a;
     }
+
+    /**
+     * Returns the margin modified by the scale factor.
+     */
+    public int getMargin() {
+        return (int)(scaleFactor*(double)super.getMargin());
+    }
+
+    /**
+     * Returns the space width modified by the scale factor.
+     */
+    public int getSpaceWidth() {
+        return (int)(scaleFactor*(double)super.getSpaceWidth());
+    }
+
 }
