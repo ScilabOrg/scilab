@@ -578,6 +578,8 @@ t.
 
 * Bug #10881 fixed - Typo in ftest and ftuneq fixed.
 
+* Bug #10904 fixed - error messages of and(), or() builtin were not standard.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
