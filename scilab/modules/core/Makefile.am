@@ -184,7 +184,6 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_mtlb_mode.c \
     sci_gateway/c/sci_where.c \
     sci_gateway/c/sci_errcatch.c \
-    sci_gateway/c/sci_format.c \
     sci_gateway/c/sci_getmemory.c \
     sci_gateway/c/sci_havewindow.c \
     sci_gateway/c/sci_delbpt.c \
@@ -253,6 +252,7 @@ GATEWAY_CPP_SOURCES = 	\
 	sci_gateway/cpp/sci_abort.cpp \
 	sci_gateway/cpp/sci_who.cpp \
 	sci_gateway/cpp/sci_stacksize.cpp \
+	sci_gateway/cpp/sci_format.cpp \
 	sci_gateway/cpp/sci_sciargs.cpp
 
 
