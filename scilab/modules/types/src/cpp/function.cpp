@@ -96,7 +96,7 @@ namespace types
         std::cout << "types::Function";
     }
 
-    std::wstring Function::toString(int _iPrecision, int _iLineLen)
+    std::wstring Function::toString()
     {
         std::wostringstream ostr;
 
