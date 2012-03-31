@@ -1,0 +1,11 @@
+--- scilab/modules/core/help/en_US/keywords/case.xml
++++ scilab/modules/core/help/en_US/keywords/case.xml
+@@ -34,7 +34,7 @@
+   </refsection>
+   <refsection>
+     <title>Examples</title>
+-    <programlisting><![CDATA[ 
++    <programlisting role="example"><![CDATA[ 
+ OS=getos()
+ select OS
+ case "Windows" then

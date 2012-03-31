@@ -35,7 +35,7 @@ end
   </refsection>
   <refsection>
     <title>Examples</title>
-    <programlisting role="example"><![CDATA[
+    <programlisting><![CDATA[
 OS=getos()
 select OS
 case "Windows" then
