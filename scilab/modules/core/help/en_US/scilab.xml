@@ -346,9 +346,9 @@
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[ 
-# Let's start Scilab in profiling mode without attaching a gdb one a SIGSEGV is meet.
+# Let's start Scilab in profiling mode without attaching a gdb once a SIGSEGV is met.
 # We are under Bash shell
-export SCILAB_VALGRIND_OPT="--deb-attach=no --log-file=myfile.txt"
+export SCILAB_VALGRIND_OPT="--db-attach=no --log-file=myfile.txt"
 scilab -profiling
 
 # Let's start Scilab in debug mode without stopping after each SIGSEGV
