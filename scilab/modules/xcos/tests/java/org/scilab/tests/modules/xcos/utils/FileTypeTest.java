@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.scilab.modules.xcos.utils.XcosFileType;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 /**
  * Test the {@link XcosFileType} class.

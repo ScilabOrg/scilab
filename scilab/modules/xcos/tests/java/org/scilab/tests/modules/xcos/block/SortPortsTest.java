@@ -27,7 +27,7 @@ import org.scilab.modules.xcos.port.output.ExplicitOutputPort;
 import org.scilab.modules.xcos.port.output.ImplicitOutputPort;
 import org.scilab.modules.xcos.port.output.OutputPort;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.*;
 
 public class SortPortsTest {
 
