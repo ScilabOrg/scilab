@@ -272,6 +272,8 @@ ATOMS
 
 * Bug #10707 fixed - atomsInstall failed to use the path shortcut.
 
+* Bug #10864 fixed - atomsRemove required a network connection to remove a package.
+
 
 Documentation
 =============
