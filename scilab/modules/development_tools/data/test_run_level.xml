@@ -87,12 +87,6 @@
       <test>test_run_withgraphics</test>
     </module>
     
-    
-    <module name="dynamic_link">
-      <test>ilib_for_link</test>
-      <test>ilib_build</test>
-    </module>
-    
     <!-- 
 Randomly fail ...
 
