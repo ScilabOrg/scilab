@@ -141,6 +141,8 @@ Graphical User Interface
 Elementary functions
 ====================
 
+* The nthroot function returns real nth root of real numbers (See SEP #78).
+
 * dec2base function added (See SEP #75).
 
 * linspace deprecates the usage of non integer values as third input argument.
@@ -150,6 +152,7 @@ Elementary functions
 * The toeplitz macro was not vectorized.
 
 * Bug #10835 fixed - Typo that made the 'atanm' function unusable fixed.
+
 
 
 CLI console:
@@ -441,6 +444,8 @@ Bug fixes
                     functions returning no value (lines, modes, banner, ...).
 
 * Bug #9424 fixed - gettext("") did not return "".
+
+* Bug #9549 fixed - Add nthroot function.
 
 * Bug #9572 fixed - assert_checkerror did not check multi lines errors.
 
@@ -874,7 +879,7 @@ New Functions
 
 * The damp function in CACSD module computes the natural pulsation
   and damping factor of linear dynamical systems.
-
+  
 
 Optimization
 =============
