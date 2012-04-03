@@ -435,6 +435,8 @@ Bug fixes
 
 * Bug #9424 fixed - gettext("") did not return "".
 
+* Bug #9549 fixed - Add nthroot function.
+
 * Bug #9572 fixed - assert_checkerror did not check multi lines errors.
 
 * Bug #9643 fixed - genetic algorithms demo was not vectorized.
@@ -864,6 +866,8 @@ New Functions
 
 * The damp function in CACSD module computes the natural pulsation
   and damping factor of linear dynamical systems.
+  
+* The nthroot function returns real nth root of real numbers.
 
 
 Optimization
