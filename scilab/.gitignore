@@ -19,9 +19,9 @@ Makefile
 modules/*/build
 modules/jar
 modules/*/jar
-modules/*/test-output
-junit-report
-
+# Unitary tests and codevorage
+reports/
+cobertura.ser
 #
 # Documentation generation output files
 #
