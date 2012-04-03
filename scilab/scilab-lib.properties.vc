@@ -26,6 +26,8 @@ checkstyle.jar=${thirdparty.dir}/checkstyle/checkstyle-5.3-all.jar
 
 junit4.jar=${thirdparty.dir}/junit4.jar
 
+cobertura.jar=${thirdparty.dir}/cobertura.jar
+
 ; To build the export through the Java
 avalon-framework.jar=${thirdparty.dir}/avalon-framework.jar
 
