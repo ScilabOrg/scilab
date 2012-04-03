@@ -360,6 +360,7 @@ CCACHE = @CCACHE@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CHECKSTYLE = @CHECKSTYLE@
+COBERTURA = @COBERTURA@
 COMMONS_BEANUTILS = @COMMONS_BEANUTILS@
 COMMONS_IO = @COMMONS_IO@
 COMMONS_LOGGING = @COMMONS_LOGGING@
@@ -1879,6 +1880,16 @@ check-java:
 	for M in $$MODULES; do \
 		BASE=`echo $$M|sed -e "s|tests/java/$$||g"`; \
 		$(ANT) -buildfile $$BASE/build.xml test || exit $$?; \
+	done
+
+codecoverage-java:
+	@grep "build.debug=on" $(top_srcdir)/scilab.properties; if test $? -ne 0; then echo "Java code be build with --enable-debug-java"; exit 10; fi; \
+	echo "-- Launch all Junit (Java) unitary tests + code coverage"; \
+	MASK="$(top_srcdir)/modules/*/tests/java/"; \
+	MODULES=`ls -d $$MASK`; \
+	for M in $$MODULES; do \
+		BASE=`echo $$M|sed -e "s|tests/java/$$||g"`; \
+		$(ANT) -buildfile $$BASE/build.xml codecoverage || exit $$?; \
 	done
 
 # The user wants to compile the localization files

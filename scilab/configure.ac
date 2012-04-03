@@ -1052,6 +1052,11 @@ the the JNI libraries."])],
         JUNIT4=$PACKAGE_JAR_FILE
         AC_SUBST(JUNIT4)
 
+        # Cobertura (java code coverage)
+        AC_JAVA_CHECK_PACKAGE([cobertura],[net.sourceforge.cobertura.merge.Main],[cobertura - Java code coverage],"yes")
+        COBERTURA=$PACKAGE_JAR_FILE
+        AC_SUBST(COBERTURA)
+
     else
         AC_MSG_WARN([Sun javac not found: I will not build the java interface])
         if test "$ac_java_jvm_name" != ""; then
@@ -2122,6 +2127,7 @@ echo "  Checkstyle .......... = $CHECKSTYLE"
 echo "  Commons-beanutils ... = $COMMONS_BEANUTILS"
 echo "  Antlr ............... = $ANTLR"
 echo "  Junit4 .............. = $JUNIT4"
+echo "  Cobertura ........... = $COBERTURA"
 echo "  splint .............. = $SPLINT"
 
 echo ""
