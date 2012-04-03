@@ -283,6 +283,16 @@ check-java:
 		$(ANT) -buildfile $$BASE/build.xml test || exit $$?; \
 	done
 
+codecoverage-java:
+	@grep "build.debug=on" $(top_srcdir)/scilab.properties; if test $? -ne 0; then echo "Java code be build with --enable-debug-java"; exit 10; fi; \
+	echo "-- Launch all Junit (Java) unitary tests + code coverage"; \
+	MASK="$(top_srcdir)/modules/*/tests/java/"; \
+	MODULES=`ls -d $$MASK`; \
+	for M in $$MODULES; do \
+		BASE=`echo $$M|sed -e "s|tests/java/$$||g"`; \
+		$(ANT) -buildfile $$BASE/build.xml codecoverage || exit $$?; \
+	done
+
 # The user wants to compile the localization files
 # Please note that ALL_LINGUAS is defined in configure.ac
 if GENERATE_LOCALIZATION_FILES
