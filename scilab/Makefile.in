@@ -1881,6 +1881,15 @@ check-java:
 		$(ANT) -buildfile $$BASE/build.xml test || exit $$?; \
 	done
 
+codecoverage-java:
+	@echo "-- Launch all Junit (Java) unitary tests + code coverage"; \
+	MASK="$(top_srcdir)/modules/*/tests/java/"; \
+	MODULES=`ls -d $$MASK`; \
+	for M in $$MODULES; do \
+		BASE=`echo $$M|sed -e "s|tests/java/$$||g"`; \
+		$(ANT) -buildfile $$BASE/build.xml codecoverage || exit $$?; \
+	done
+
 # The user wants to compile the localization files
 # Please note that ALL_LINGUAS is defined in configure.ac
 @GENERATE_LOCALIZATION_FILES_TRUE@localization:
