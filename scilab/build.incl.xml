@@ -15,15 +15,21 @@
   <property name="classes.dir" location="${build.dir}/classes"/>
   <!-- Where builded test classes will be generated -->
   <property name="classes.test.dir" location="${build.test.dir}/classes"/>
+  <property name="instrumented.classes.test.dir" location="${build.test.dir}/instrumented-classes"/>
   <!-- Where we store cache files -->
   <property name="cache.dir" location="${build.dir}/cachefile"/>
   <!-- Where we can find the sources -->
   <property name="src.dir" location="src/java/"/>
+  
   <!-- Where we can find the test sources -->
-  <property name="src.test.dir" location="tests/java/"/>
-  <property name="report.test.dir" location="${base.dir}/junit-report/"/>
+  <property name="test.dir" location="tests/"/>
+  <property name="src.test.dir" location="${test.dir}/java/"/>
+  <property name="report.test.dir" location="${base.dir}/reports/"/>
   <property name="report.xml.test.dir" location="${report.test.dir}/xml/"/>
   <property name="report.html.test.dir" location="${report.test.dir}/html/"/>
+  <property name="report.codecoverage.dir" location="${report.test.dir}/codecoverage/"/>
+  <property name="report.codecoverage.html.dir" location="${report.test.dir}/html-codecoverage/"/>
+  
   <!-- Check style definitions -->
   <property name="checkstyle.config.file" value="${base.dir}/checkstyle/scilab_checkstyle_convention.xml"/>
   <property name="checkstyle.stylesheet" value="${thirdparty.dir}/checkstyle/contrib/checkstyle-noframes-sorted.xsl"/>
@@ -47,11 +53,11 @@
   </path>
   <path id="unittest.classpath">
     <pathelement location="${junit4.jar}"/>
-    <pathelement location="${jcommander.jar}"/>
-    <pathelement location="${bsh.jar}"/>
-    <pathelement location="${junit.jar}"/>
-    <pathelement location="${qdox.jar}"/>
   </path>
+  <path id="cobertura_classpath">
+    <pathelement location="${cobertura.jar}"/>
+  </path>
+  
   <path id="compile.classpath">
     <pathelement location="${library.types.dir}/${library.types.name}"/>
     <pathelement location="${library.graph.dir}/${library.graph.name}"/>
@@ -121,53 +127,13 @@
     <isset property="junit.forkMode" />
   </condition>
   
-  <target name="detectForkMode" unless="forkModeAlreadySet">
-    <property name="junit.forkMode" value="perBatch"/>
-  </target>
-  
-  
-  <target name="test" depends="existing-tests, compile-test, validate, detectForkMode" if="test-present">
-    <mkdir dir="${report.xml.test.dir}" />
-    <mkdir dir="${report.html.test.dir}" />
-    
-    <junit fork="yes" forkmode="${junit.forkMode}" failureproperty="junit.failure">
-      <classpath>
-        <path refid="unittest.classpath"/>
-        <path refid="compile.classpath"/>
-        <pathelement location="${classes.test.dir}"/>
-      </classpath>
-      
-      <!-- Where ${basedir} is the module base directory -->
-      <env key="SCI" value="${basedir}/../.."/>
-      <jvmarg value="-DtestngTests=1"/>
-      <jvmarg value="-Djava.library.path=${base.dir}/modules/.libs/:${base.dir}/modules/javasci/.libs/:${base.dir}/modules/types/.libs/:${base.dir}/modules/localization/.libs/:${base.dir}/modules/commons/.libs/:${base.dir}/modules/action_binding/.libs/:${base.dir}/thirdparty/:${base.dir}/bin/:/usr/lib/jni/:/usr/lib64/jni:/usr/lib/java/:/usr/lib64/java:"/>
-      
-      <formatter type="brief" useFile="no" />
-      <formatter type="xml" />
-      
-      
-      <batchtest fork="yes" todir="${report.xml.test.dir}" >
-        <fileset dir="tests/java">
-          <include name="**/*.java"/>
-        </fileset>
-      </batchtest>
-      
-    </junit>
-    <junitreport todir="${report.xml.test.dir}">
-      <fileset dir="${report.xml.test.dir}">
-        <include name="*.xml"/>
-      </fileset>
-      <report format="frames" todir="${report.html.test.dir}"/>
-    </junitreport>
-    <fail if="junit.failure" message="Unit test(s) failed. See the report"/>
-  </target>
   <target name="validate">
     <!-- Empty target to be override by other build.xml -->
   </target>
   <target name="init">
     <!-- Check the version of Java. If it changes after the configure
          or if there is a mistake in the build system
-     -->
+    -->
     <fail message="JDK 1.6 or 1.7 required">
       <condition>
         <not>
@@ -230,4 +196,80 @@
       </manifest>
     </jar>
   </target>
+  
+  <!--  Unitary testing + code coverage -->
+  
+  <taskdef classpathref="cobertura_classpath" resource="tasks.properties" />
+  
+  <target name="instrument">
+    <cobertura-instrument todir="${instrumented.classes.test.dir}">
+      <fileset dir="${classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </cobertura-instrument>
+  </target>
+  
+  <target name="codecoverage" depends="compile-test, instrument, test">
+    <cobertura-merge>
+      <fileset dir="${report.test.dir}">
+        <include name="*.ser" />
+      </fileset>
+    </cobertura-merge>
+    
+    <cobertura-report format="html" srcdir="${src.dir}" destdir="${report.codecoverage.html.dir}" />
+    
+  </target>
+  
+  
+  <target name="detectForkMode" unless="forkModeAlreadySet">
+    <property name="junit.forkMode" value="perBatch"/>
+  </target>
+  
+  <target name="test" depends="existing-tests, compile-test, validate, detectForkMode" if="test-present">
+    <mkdir dir="${report.xml.test.dir}" />
+    <mkdir dir="${report.html.test.dir}" />
+    <mkdir dir="${report.codecoverage.dir}/" />
+    <junit fork="yes" forkmode="${junit.forkMode}" failureproperty="junit.failure">
+      <sysproperty key="net.sourceforge.cobertura.datafile"
+                   file="${report.test.dir}/${library.name}.ser" />
+      
+      
+      <classpath location="${instrumented.classes.test.dir}"/>
+      <classpath location="${classes.test.dir}"/>
+      
+      <classpath>
+        <path refid="unittest.classpath"/>
+        <path refid="compile.classpath"/>
+        <pathelement location="${cobertura.jar}"/>
+        <pathelement location="${classes.test.dir}"/>
+        <pathelement location="${classes.dir}"/>
+      </classpath>
+      
+      
+      <!-- Where ${basedir} is the module base directory -->
+      <env key="SCI" value="${basedir}/../.."/>
+      <jvmarg value="-DtestngTests=1"/>
+      <jvmarg value="-Djava.library.path=${base.dir}/modules/.libs/:${base.dir}/modules/javasci/.libs/:${base.dir}/modules/types/.libs/:${base.dir}/modules/localization/.libs/:${base.dir}/modules/commons/.libs/:${base.dir}/modules/action_binding/.libs/:${base.dir}/thirdparty/:${base.dir}/bin/:/usr/lib/jni/:/usr/lib64/jni:/usr/lib/java/:/usr/lib64/java:"/>
+      
+      <formatter type="brief" useFile="no" />
+      <formatter type="xml" />
+      
+      <batchtest fork="yes" todir="${report.xml.test.dir}" >
+        <fileset dir="tests/java/">
+          <include name="**/*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    
+    <junitreport todir="${report.xml.test.dir}">
+      <fileset dir="${report.xml.test.dir}">
+        <include name="*.xml"/>
+      </fileset>
+      <report format="frames" todir="${report.html.test.dir}"/>
+    </junitreport>
+    
+    <fail if="junit.failure" message="Unit test(s) failed. See the report"/>
+  </target>
+  
+  
 </project>

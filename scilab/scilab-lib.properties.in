@@ -23,6 +23,8 @@ checkstyle.jar=@CHECKSTYLE@
 
 junit4.jar=@JUNIT4@
 
+cobertura.jar=@COBERTURA@
+
 commons-beanutils.jar=@COMMONS_BEANUTILS@
 
 antlr.jar=@ANTLR@
