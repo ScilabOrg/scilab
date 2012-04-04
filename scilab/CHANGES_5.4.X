@@ -641,9 +641,14 @@ CACSD & Signal Processing
 
 * 'mtlb_conv' compatibility function is now obsolete. Please use 'conv' instead.
 
+* Updated and improved fft function based on fftw, taking data symmetry into account, hard coded multivariate fft.
+
+* Bug #6009 fixed - conv, conv2 and convol2d and conv functions were missing.
+
 * Bug #10562 fixed - The "CACSD/Robust Control" demo failed.
 
 * Bug #11340 fixed - bode, gainplot, nyquist and plzr without arguments did not show an example.
+
 
 ATOMS
 =======
