@@ -11,15 +11,12 @@
  *
  */
 
+#include "stack-c.h"
 #include "fftw_utilities.h"
 #include "callfftw.h"
 #include "MALLOC.h"
 #include "gw_fftw.h"
 /*--------------------------------------------------------------------------*/
-extern FFTW_Plan_struct Sci_Forward_Plan;
-extern FFTW_Plan_struct Sci_Backward_Plan;
-/*--------------------------------------------------------------------------*/
-
 /* Reset fftw wisdom
  *
  * Scilab Calling sequence :
@@ -30,12 +27,13 @@ extern FFTW_Plan_struct Sci_Backward_Plan;
  * Output : Nothing
  *
  */
+/*--------------------------------------------------------------------------*/
 int sci_fftw_forget_wisdom(char *fname,unsigned long fname_len)
 {
  CheckRhs(0,0);
 
- FreeFFTWPlan(&Sci_Backward_Plan);
- FreeFFTWPlan(&Sci_Forward_Plan);
+ FreeFFTWPlan(getSci_Backward_Plan());
+ FreeFFTWPlan(getSci_Forward_Plan());
 
  call_fftw_forget_wisdom();
 

@@ -447,6 +447,14 @@ CACSD & Signal Processing
 
 * 'mtlb_conv' compatibility function is now obsolete. Please use 'conv' instead.
 
+* Bug #6009 fixed - conv, conv2 and convol2d and conv functions were missing.
+
+* Updated and improved fft function based on fftw, taking data symmetry into account, hard coded multivariate fft,...
+
+Compatibility Functions
+=======================
+.
+
 
 ATOMS
 =======
