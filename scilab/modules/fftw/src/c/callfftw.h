@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Allan CORNET
+ * Copyright (C) 2012 - INRIA - Serge STEER
  * 
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -24,7 +25,19 @@ BOOL DisposeFFTWLibrary(void);
 /*--------------------------------------------------------------------------*/
 void call_fftw_execute_split_dft (const fftw_plan p, double *ri, double *ii, double *ro, double *io); 
 /*--------------------------------------------------------------------------*/
+void call_fftw_execute_split_dft_c2r (const fftw_plan p, double *ri, double *ii, double *ro);
+/*--------------------------------------------------------------------------*/
+void call_fftw_execute_split_dft_r2c (const fftw_plan p, double *ri, double *ro, double *io); 
+/*--------------------------------------------------------------------------*/
+void call_fftw_execute_split_dft_r2r (const fftw_plan p, double *ri, double *ro); 
+/*--------------------------------------------------------------------------*/
 fftw_plan call_fftw_plan_guru_split_dft (int rank, const fftw_iodim *dims, int howmany_rank, const fftw_iodim *howmany_dims, double *ri, double *ii, double *ro, double *io, unsigned flags) ;
+/*--------------------------------------------------------------------------*/
+fftw_plan call_fftw_plan_guru_split_dft_c2r (int rank, const fftw_iodim *dims, int howmany_rank, const fftw_iodim *howmany_dims, double *ri, double *ii, double *ro,  unsigned flags); 
+/*--------------------------------------------------------------------------*/
+fftw_plan call_fftw_plan_guru_split_dft_r2c (int rank, const fftw_iodim *dims, int howmany_rank, const fftw_iodim *howmany_dims, double *ri, double *ro, double *io, unsigned flags);
+/*--------------------------------------------------------------------------*/
+fftw_plan call_fftw_plan_guru_split_dft_r2r (int rank, const fftw_iodim *dims, int howmany_rank, const fftw_iodim *howmany_dims, double *ri, double *ro, fftw_r2r_kind *kind, unsigned flags);
 /*--------------------------------------------------------------------------*/
 void call_fftw_destroy_plan (fftw_plan p); 
 /*--------------------------------------------------------------------------*/
