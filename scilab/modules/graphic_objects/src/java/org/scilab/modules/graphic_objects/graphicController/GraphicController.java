@@ -102,6 +102,16 @@ public class GraphicController {
     }
 
     /**
+     * Register a view that will receive notification
+     * of any model changes.
+     * @param view The view to register.
+     */
+    public void unregister(GraphicView view) {
+        INFO("Unregister view : " + view.toString());
+        allViews.remove(view);
+    }
+
+    /**
      * Creates a UID
      * @return the created UID
      */

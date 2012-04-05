@@ -19,5 +19,9 @@
       <parameter name="jpegCompressionQuality" type="float"/>
       <parameter name="orientation" type="int"/>
     </method>
+    <method name="fileExport2" returnType="void" modifier="static">
+      <parameter name="uid" type="String"/>
+      <parameter name="fileName" type="String"/>
+    </method>
   </object>
 </package>

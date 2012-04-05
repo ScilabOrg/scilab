@@ -64,14 +64,16 @@ public class DragZoomRotateInteraction extends FigureInteraction {
     @Override
     protected void changeEnable(boolean isEnable) {
         Component component = getDrawerVisitor().getComponent();
-        if (isEnable) {
-            component.addMouseListener(mouseListener);
-            component.addMouseWheelListener(mouseWheelListener);
-        } else {
-            component.removeMouseListener(mouseListener);
-            component.removeMouseMotionListener(mouseMotionListener);
-            component.removeMouseWheelListener(mouseWheelListener);
-        }
+	if (component != null) {
+	    if (isEnable) {
+		component.addMouseListener(mouseListener);
+		component.addMouseWheelListener(mouseWheelListener);
+	    } else {
+		component.removeMouseListener(mouseListener);
+		component.removeMouseMotionListener(mouseMotionListener);
+		component.removeMouseWheelListener(mouseWheelListener);
+	    }
+	}
     }
 
     /**

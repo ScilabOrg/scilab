@@ -16,11 +16,21 @@ package org.scilab.modules.graphic_export;
 
 import java.lang.reflect.Method;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import org.scilab.modules.commons.ScilabCommonsUtils;
 import org.scilab.modules.renderer.FigureMapper;
 import org.scilab.modules.renderer.figureDrawing.DrawableFigureGL;
+
+import org.scilab.forge.scirenderer.Canvas;
+import org.scilab.forge.scirenderer.implementation.g2d.G2DCanvasFactory;
+import org.scilab.modules.graphic_objects.figure.Figure;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import java.awt.Graphics2D;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 
 /**
  * Static class used to create file export of graphic figures
@@ -51,84 +61,28 @@ public class FileExporter {
      *         depending on the kind of error
      */
     public static String fileExport(int figureIndex, String fileName, int fileType, float jpegCompressionQuality, int fileOrientation) {
-        int saveFileType = -1;
-        String saveFileName = "";
+//	export(figureIndex, fileName, fileType, jpegCompressionQuality, fileOrientation);
+	return "";
+    }
 
-        DrawableFigureGL exportedFig = FigureMapper.getCorrespondingFigure(figureIndex);
-
-        if (exportedFig == null) {
-            // figure no longer exists
-            return ExportRenderer.errors.get(ExportRenderer.IOEXCEPTION_ERROR);
-        }
-
-        if (fileType == ExportRenderer.SVG_EXPORT) {
-            ScilabCommonsUtils.loadOnUse(CLASSPATH_SVG_EXPORT_NAME);
-        }
-
-        //When the graphic-export is too long, we inform the user that the figure is exporting
-        String oldInfoMessage = exportedFig.getInfoMessage();
-        exportedFig.setInfoMessage(exportingMessage);
-        if (fileType == ExportRenderer.PDF_EXPORT || fileType == ExportRenderer.EPS_EXPORT || fileType == ExportRenderer.PS_EXPORT ) {
-            ScilabCommonsUtils.loadOnUse(CLASSPATH_PDF_PS_EPS_EXPORT_NAME);
-
-            String ext = "";
-
-            switch (fileType) {
-            case ExportRenderer.PDF_EXPORT:
-                ext = ".pdf";
-                break;
-            case ExportRenderer.EPS_EXPORT:
-                ext = ".eps";
-                break;
-            case ExportRenderer.PS_EXPORT:
-                ext = ".ps";
-                break;
-            default: /* Do not the extension. Probably an error */
-                return ExportRenderer.errors.get(ExportRenderer.IOEXCEPTION_ERROR);
-            }
-
-            String name = new File(fileName).getName();
-            int dotPosition = name.lastIndexOf(".");
-            if (dotPosition > 0) {
-                name = name.substring(0, dotPosition);
-                saveFileName = fileName.substring(0, fileName.lastIndexOf(".")) + ext;
-            } else {
-                saveFileName = fileName + ext;
-            }
-
-            try {
-                /* Temporary SVG file which will be used to convert to PDF */
-                /* fileName prefix must be at least 3 characters */
-                while (name.length() < 3) {
-                    name = "_" + name;
-                }
-                fileName = File.createTempFile(name,".svg").getAbsolutePath();
-            } catch (IOException e) {
-                System.err.println("Could not create temporary file " + e.getLocalizedMessage());
-            }
-
-            saveFileType = fileType;
-            fileType = ExportRenderer.SVG_EXPORT;
-        }
-
-        ExportRenderer export;
-        export = ExportRenderer.createExporter(figureIndex, fileName, fileType, jpegCompressionQuality, fileOrientation);
-
-        // To be sure that their is a GLContext active for export
-        exportedFig.openGraphicCanvas();
-
-        exportedFig.getRenderingTarget().addGLEventListener(export);
-        exportedFig.drawCanvas();
-        exportedFig.getRenderingTarget().removeGLEventListener(export);
-
-        //Put back the old infoMessage
-        exportedFig.setInfoMessage(oldInfoMessage);
-
-        if (saveFileType != -1 && ExportRenderer.getErrorNumber() == ExportRenderer.SUCCESS) {
-            ConvertSVG.SVGTo(fileName, saveFileName, saveFileType);
-            new File(fileName).delete();
-        }
-
-        return ExportRenderer.errors.get(ExportRenderer.getErrorNumber());
+    public static void fileExport2(String uid, String fileName) {
+	Figure figure = (Figure) GraphicController.getController().getObjectFromId(uid);
+	Integer[] dims = figure.getAxesSize();
+	BufferedImage image = new BufferedImage(dims[0], dims[1], BufferedImage.TYPE_INT_ARGB);
+	Graphics2D g2d = image.createGraphics();
+	g2d.setColor(java.awt.Color.WHITE);
+	g2d.fillRect(0, 0, dims[0], dims[1]);
+	Canvas canvas = G2DCanvasFactory.createCanvas(g2d, dims[0], dims[1]);
+	DrawerVisitor visitor = new DrawerVisitor(null, canvas, figure);
+	canvas.setMainDrawer(visitor);
+	canvas.redraw();
+	GraphicController.getController().unregister(visitor);
+	
+	
+	File file = new File(fileName);
+	try {
+	    ImageIO.write(image, "png", file.getAbsoluteFile());
+	} catch (IOException ex) { }
+	g2d.dispose();
     }
 }

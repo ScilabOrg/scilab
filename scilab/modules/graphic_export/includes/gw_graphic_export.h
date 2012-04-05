@@ -25,10 +25,12 @@ GRAPHIC_EXPORT_IMPEXP int sci_xs2eps( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2gif( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2jpg( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2pdf( char * fname, unsigned long fname_len ) ;
-GRAPHIC_EXPORT_IMPEXP int sci_xs2png( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2ppm( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2svg( char * fname, unsigned long fname_len ) ;
 GRAPHIC_EXPORT_IMPEXP int sci_xs2ps( char * fname, unsigned long fname_len ) ;
+
+int sci_xs2png( char * fname, unsigned long fname_len ) ;
+
 /*--------------------------------------------------------------------------*/ 
 #endif /* __GW_GRAPHIC_EXPORT__ */
 /*--------------------------------------------------------------------------*/ 
