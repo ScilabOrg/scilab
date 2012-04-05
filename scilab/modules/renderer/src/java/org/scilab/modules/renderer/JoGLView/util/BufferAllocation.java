@@ -11,9 +11,8 @@
 
 package org.scilab.modules.renderer.JoGLView.util;
 
-import com.sun.opengl.util.BufferUtil;
-
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -36,8 +35,7 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static ByteBuffer newByteBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length);
-        ByteBuffer buffer = BufferUtil.newByteBuffer(length);
+        ByteBuffer buffer = getByteBuffer(length);
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }
@@ -51,8 +49,7 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static IntBuffer newIntBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length * Integer.SIZE / Byte.SIZE);
-        IntBuffer buffer = BufferUtil.newIntBuffer(length);
+        IntBuffer buffer = getByteBuffer(length * Integer.SIZE / Byte.SIZE).asIntBuffer();
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }
@@ -66,8 +63,7 @@ public final class BufferAllocation {
      * @throws OutOfMemoryException if java heap space is to small.
      */
     public static FloatBuffer newFloatBuffer(int length) throws OutOfMemoryException {
-        haveFreeMemory(length * Float.SIZE / Byte.SIZE);
-        FloatBuffer buffer = BufferUtil.newFloatBuffer(length);
+        FloatBuffer buffer = getByteBuffer(length * Float.SIZE / Byte.SIZE).asFloatBuffer();
         if (buffer.limit() != length) {
             throw new OutOfMemoryException();
         }
@@ -78,8 +74,9 @@ public final class BufferAllocation {
      * Check if the java heap space have enough memory.
      * @param length the memory needed (in bytes).
      * @throws OutOfMemoryException if there was not enough memory.
+     * @return a byte buffer of given length.
      */
-    private static void haveFreeMemory(int length) throws OutOfMemoryException {
+    private static ByteBuffer getByteBuffer(int length) throws OutOfMemoryException {
         long free = Runtime.getRuntime().freeMemory();
         if (free < length + REMAINING_MEMORY) {
             Runtime.getRuntime().gc();
@@ -89,5 +86,9 @@ public final class BufferAllocation {
         if (free < length + REMAINING_MEMORY) {
             throw new OutOfMemoryException();
         }
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(length);
+        buffer.order(ByteOrder.nativeOrder());
+        return buffer;
     }
 }
