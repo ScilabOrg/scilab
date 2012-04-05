@@ -12,13 +12,13 @@
 
 package org.scilab.modules.graphic_export;
 
+import com.sun.opengl.util.FileUtil;
+
+import javax.media.opengl.GLEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.media.opengl.GLEventListener;
-import com.sun.opengl.util.FileUtil;
 
 /**
  * Main export class
@@ -126,7 +126,7 @@ public abstract class ExportRenderer implements GLEventListener {
         case PDF_EXPORT:
         case SVG_EXPORT:
         case PS_EXPORT:
-            return new GL2PSRenderer(figureIndex, fileName, fileType, fileOrientation);
+            return null;
         default: System.err.println(ExportRenderer.INVALID_FILE);
         }
         return null;

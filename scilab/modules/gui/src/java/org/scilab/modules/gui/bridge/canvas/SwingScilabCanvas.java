@@ -23,12 +23,10 @@ import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.gui.bridge.tab.SwingScilabAxes;
 import org.scilab.modules.gui.canvas.SimpleCanvas;
 import org.scilab.modules.gui.events.GlobalEventWatcher;
-import org.scilab.modules.gui.events.ScilabRubberBox;
 import org.scilab.modules.gui.graphicWindow.PanelLayout;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
-import org.scilab.modules.renderer.utils.RenderingCapabilities;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLCanvas;
@@ -216,20 +214,10 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
 	 * @see org.scilab.modules.gui.canvas.SimpleCanvas#setDims(org.scilab.modules.gui.utils.Size)
 	 */
 	public void setDims(Size newSize) {
-		// get the greatest size we can use
-		int[] maxSize = RenderingCapabilities.getMaxCanvasSize();
-
 		// make suze size is not greater than the max size
-		Dimension finalDim = new Dimension(Math.min(newSize.getWidth(), maxSize[0]),
-										   Math.min(newSize.getHeight(), maxSize[1]));
+		Dimension finalDim = new Dimension(newSize.getWidth(), newSize.getHeight());
 
 		setSize(finalDim);
-
-		// if the size is too large, throw an exception
-		if (newSize.getWidth() > maxSize[0] || newSize.getHeight() > maxSize[1]) {
-			throw new IllegalArgumentException();
-		}
-
 	}
 
 
@@ -262,19 +250,6 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
 	 */
 	public void setBackgroundColor(double red, double green, double blue) {
 		this.setBackground(new Color((float) red, (float) green, (float) blue));
-	}
-
-	/**
-	 * Create an interactive selection rectangle and return its pixel coordinates
-	 * @param isClick specify whether the rubber box is selected by one click for each one of the two edge
-	 *                or a sequence of press-release
-	 * @param isZoom specify if the rubber box is used for a zoom and then change the mouse cursor.
-	 * @param initialRect if not null specify the initial rectangle to draw
-	 * @param endRect array [x1,y1,x2,y2] containing the result of rubberbox
-	 * @return Scilab code of the pressed button
-	 */
-	public int rubberBox(boolean isClick, boolean isZoom, int[] initialRect, int[] endRect) {
-		return ScilabRubberBox.getRectangle(this, isClick, isZoom, initialRect, endRect);
 	}
 
 	/**

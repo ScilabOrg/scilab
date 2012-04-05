@@ -12,9 +12,10 @@
  */
 package org.scilab.modules.gui.bridge.filechooser;
 
-import java.awt.Window;
-import java.io.File;
-import java.util.ArrayList;
+import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.gui.tab.Tab;
+import org.scilab.modules.gui.utils.ConfigManager;
+import org.scilab.modules.localization.Messages;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -23,14 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
-
-import org.scilab.modules.action_binding.InterpreterManagement;
-import org.scilab.modules.gui.graphicWindow.ScilabRendererProperties;
-import org.scilab.modules.gui.tab.SimpleTab;
-import org.scilab.modules.gui.tab.Tab;
-import org.scilab.modules.gui.utils.ConfigManager;
-import org.scilab.modules.localization.Messages;
-import org.scilab.modules.renderer.FigureMapper;
+import java.awt.Window;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * This is the son of the usual Scilab file chooser,
@@ -134,7 +130,7 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
         accessoryPanel.setVisible(true);
         super.setAccessory(accessoryPanel);
 
-        Tab tab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab();
+        Tab tab = null; //((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab();
         Window parentWindow = (Window) SwingUtilities.getAncestorOfClass(Window.class, (JComponent) tab.getAsSimpleTab());
 
         int selection = super.showSaveDialog(parentWindow);
@@ -278,10 +274,12 @@ public class SwingScilabExportFileChooser extends SwingScilabFileChooser {
      * @param userExtension extension caught by the user
      */
     public void vectorialExport(String userExtension) {
+        /*
         SimpleTab parentTab = ((ScilabRendererProperties) FigureMapper.getCorrespondingFigure(figureId).getRendererProperties()).getParentTab().getAsSimpleTab();
         ExportData exportData = new ExportData(figureId, this.exportName, userExtension, null);
         ExportOptionWindow exportOptionWindow = new ExportOptionWindow(exportData);
         exportOptionWindow.displayOptionWindow(parentTab);
         exportOptionWindow.landscapePortraitOption();
+        */
     }
 }
