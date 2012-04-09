@@ -21,16 +21,7 @@ c====================================================================
       integer        ierr,ini1,vsizr
       include 'stack.h'
       parameter (nz1=nsiz-1,nz2=nsiz-2)
-c     
 c
-c     common for scicos debug mode
-
-cDEC$ IF DEFINED (FORDLL)
-cDEC$ ATTRIBUTES DLLIMPORT:: /cosdebug/
-cDEC$ ENDIF 
-      common /cosdebug/ cosd
-      integer cosd
-
 c     common for Control-C interruptions
       logical iflag,interruptible
 cDEC$ IF DEFINED (FORDLL)
@@ -166,9 +157,6 @@ c     .  ------------------
       ddt = 0
 
 c
-c     .  scicos initial debug mode
-      cosd = 0
-c      
 c     .  initial type names
 c     .  ------------------
       call inittypenames()
