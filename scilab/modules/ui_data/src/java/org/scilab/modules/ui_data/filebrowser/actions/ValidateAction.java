@@ -19,22 +19,25 @@ import java.util.Map;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 
+import org.scilab.modules.gui.events.callback.CallBack;
 import org.scilab.modules.ui_data.filebrowser.FileUtils;
 import org.scilab.modules.ui_data.filebrowser.SwingScilabTreeTable;
-import org.scilab.modules.gui.events.callback.CallBack;
 
 /**
  * Action to validate a file
+ *
  * @author Calixte DENIZET
  */
 public class ValidateAction extends CallBack {
 
-    private SwingScilabTreeTable table;
-    private Map<String, Action> ext = new HashMap<String, Action>();
+    private final SwingScilabTreeTable table;
+    private final Map<String, Action> ext = new HashMap<String, Action>();
 
     /**
      * Default constructor
-     * @param table the table associated with this action
+     *
+     * @param table
+     *            the table associated with this action
      */
     public ValidateAction(SwingScilabTreeTable table) {
         super(null);
@@ -44,6 +47,7 @@ public class ValidateAction extends CallBack {
         ext.put("sci", actions.get("scinotes"));
         ext.put("tst", actions.get("scinotes"));
         ext.put("dem", actions.get("scinotes"));
+        ext.put("zcos", actions.get("xcos"));
         ext.put("xcos", actions.get("xcos"));
         ext.put("cos", actions.get("xcos"));
         ext.put("cosf", actions.get("xcos"));
@@ -63,6 +67,7 @@ public class ValidateAction extends CallBack {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void callBack() {
         File[] files = table.getSelectedFiles();
         if (files[0].isDirectory() && files[0].canRead()) {
