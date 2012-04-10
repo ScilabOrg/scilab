@@ -40,15 +40,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
-import org.scilab.modules.commons.xml.ScilabTransformerFactory;
 import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.utils.ScilabGraphConstants;
 import org.scilab.modules.gui.bridge.filechooser.SwingScilabFileChooser;
@@ -72,9 +67,10 @@ import org.scilab.modules.xcos.block.TextBlock;
 import org.scilab.modules.xcos.block.io.ContextUpdate;
 import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
-import org.scilab.modules.xcos.io.XcosCodec;
+import org.scilab.modules.xcos.io.XcosFileType;
 import org.scilab.modules.xcos.io.scicos.DiagramElement;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
+import org.scilab.modules.xcos.io.spec.XcosPackage;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.link.commandcontrol.CommandControlLink;
 import org.scilab.modules.xcos.link.explicit.ExplicitLink;
@@ -93,7 +89,6 @@ import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.XcosConstants;
 import org.scilab.modules.xcos.utils.XcosDialogs;
 import org.scilab.modules.xcos.utils.XcosEvent;
-import org.scilab.modules.xcos.utils.XcosFileType;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 import com.mxgraph.model.mxCell;
@@ -1764,7 +1759,7 @@ public class XcosDiagram extends ScilabGraph {
             ConfigurationManager.getInstance().addToRecentFiles(writeFile);
             setModified(false);
             isSuccess = true;
-        } catch (final TransformerException e) {
+        } catch (final IOException e) {
             LOG.severe(e.toString());
 
             XcosDialogs.couldNotSaveFile(this);
@@ -1779,17 +1774,26 @@ public class XcosDiagram extends ScilabGraph {
      *
      * @param file
      *            the file
-     * @throws TransformerException
+     * @throws IOException
      *             on error
      */
-    private void save(final File file) throws TransformerException {
-        final XcosCodec codec = new XcosCodec();
-        final TransformerFactory tranFactory = ScilabTransformerFactory.newInstance();
-        final Transformer aTransformer = tranFactory.newTransformer();
+    private void save(final File file) throws IOException {
+        XcosPackage p;
+        try {
+            p = new XcosPackage(file);
+        } catch (ParserConfigurationException e) {
+            throw new IOException(e);
+        }
 
-        final DOMSource src = new DOMSource(codec.encode(this));
-        final StreamResult result = new StreamResult(file);
-        aTransformer.transform(src, result);
+        /*
+         * Set data
+         */
+        p.setContent(getRootDiagram());
+
+        /*
+         * Store to file
+         */
+        p.store();
     }
 
     /**

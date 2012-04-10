@@ -21,30 +21,30 @@ import javax.swing.ScrollPaneConstants;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SplitBlock;
 import org.scilab.modules.xcos.block.TextBlock;
+import org.scilab.modules.xcos.io.XcosFileType;
 import org.scilab.modules.xcos.link.BasicLink;
 import org.scilab.modules.xcos.palette.view.PaletteComponent;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.XcosConstants;
-import org.scilab.modules.xcos.utils.XcosFileType;
 
 import com.mxgraph.model.mxGeometry;
 
 /**
  * @author Antoine ELIAS
- * 
+ *
  */
 public class PaletteDiagram extends XcosDiagram {
 
     private static final int BLOCK_MAX_WIDTH = (int) (XcosConstants.PALETTE_BLOCK_WIDTH * 0.8); // 80%
-                                                                                                // of
-                                                                                                // the
-                                                                                                // max
-                                                                                                // size
+    // of
+    // the
+    // max
+    // size
     private static final int BLOCK_MAX_HEIGHT = (int) (XcosConstants.PALETTE_BLOCK_HEIGHT * 0.8); // 80%
-                                                                                                  // of
-                                                                                                  // the
-                                                                                                  // max
-                                                                                                  // size
+    // of
+    // the
+    // max
+    // size
     private String name;
     private String fileName;
     private double windowWidth;
@@ -191,7 +191,7 @@ public class PaletteDiagram extends XcosDiagram {
 
     /**
      * Always return false as we cannot draw links on the palette diagram.
-     * 
+     *
      * @param cell
      *            the cell we are workling on
      * @return always false

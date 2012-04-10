@@ -10,8 +10,9 @@
  *
  */
 
-package org.scilab.modules.xcos.utils;
+package org.scilab.modules.xcos.io;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -29,16 +31,31 @@ import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement;
 import org.scilab.modules.action_binding.highlevel.ScilabInterpreterManagement.InterpreterException;
 import org.scilab.modules.commons.xml.ScilabTransformerFactory;
 import org.scilab.modules.xcos.graph.XcosDiagram;
-import org.scilab.modules.xcos.io.XcosCodec;
+import org.scilab.modules.xcos.io.codec.XcosCodec;
 import org.scilab.modules.xcos.io.scicos.H5RWHandler;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
+import org.scilab.modules.xcos.io.spec.XcosPackage;
+import org.scilab.modules.xcos.utils.XcosMessages;
+import org.xml.sax.SAXException;
 
 /**
  * All the filetype recognized by Xcos.
  */
 public enum XcosFileType {
     /**
-     * Represent the Xcos XML format.
+     * Represent the Xcos (a la ODT) format.
+     */
+    XCOS_COMPRESSED("xcos", XcosMessages.FILE_XCOS_COMPRESSED) {
+        @Override
+        public void load(String file, XcosDiagram into) throws TransformerException, IOException, SAXException, ParserConfigurationException {
+            XcosPackage p = new XcosPackage(new File(file));
+            p.setContent(into);
+
+            p.load();
+        }
+    },
+    /**
+     * Represent the Xcos XML flat format.
      */
     XCOS("xcos", XcosMessages.FILE_XCOS) {
         @Override
@@ -154,26 +171,29 @@ public enum XcosFileType {
         }
 
         /* Validate xml header */
-        if (retValue == XCOS) {
-            retValue = checkXmlHeader(theFile);
+        if (retValue == XCOS || retValue == XCOS_COMPRESSED) {
+            retValue = checkHeader(theFile);
         }
 
         return retValue;
     }
 
     /**
-     * Check the XML header
+     * Check the Xcos file header
      *
      * @param theFile
      *            the file to check
      * @return the found file type
      */
-    private static XcosFileType checkXmlHeader(String theFile) {
+    private static XcosFileType checkHeader(String theFile) {
         XcosFileType retValue = null;
 
         final byte[] xmlMagic = "<?xml".getBytes();
         final byte[] readMagic = new byte[xmlMagic.length];
 
+        /*
+         * Check if the file is an xml one
+         */
         FileInputStream stream = null;
         try {
             stream = new FileInputStream(theFile);
@@ -193,6 +213,20 @@ public enum XcosFileType {
                 }
             }
         }
+
+        /*
+         * Check if the file is a valid zip file
+         */
+        if (retValue == null) {
+            try {
+                new XcosPackage(new File(theFile)).checkHeader();
+                retValue = XCOS_COMPRESSED;
+            } catch (IOException e) {
+            } catch (ParserConfigurationException e) {
+            } catch (TransformerException e) {
+            }
+        }
+
         return retValue;
     }
 
@@ -200,7 +234,7 @@ public enum XcosFileType {
      * @return the Xcos default filetype
      */
     public static XcosFileType getDefault() {
-        return XcosFileType.XCOS;
+        return XcosFileType.XCOS_COMPRESSED;
     }
 
     /**

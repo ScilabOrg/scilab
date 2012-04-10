@@ -16,8 +16,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.scilab.modules.xcos.utils.XcosFileType;
-import org.junit.*;
+import org.junit.Test;
+import org.scilab.modules.xcos.io.XcosFileType;
 
 /**
  * Test the {@link XcosFileType} class.
@@ -28,7 +28,7 @@ public class FileTypeTest {
     @Test
     public void checkSupportedType() {
         assert XcosFileType.values().length == 4;
-        assert XcosFileType.getDefault() == XcosFileType.XCOS;
+        assert XcosFileType.getDefault() == XcosFileType.XCOS_COMPRESSED;
     }
 
     @Test
