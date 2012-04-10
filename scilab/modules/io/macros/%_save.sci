@@ -9,7 +9,7 @@
 
 //called by save function, transform handle in tlist and save result
 function %_save(filename, varargin)
-
+return
     varList = list();
     for i = 1:size(varargin)
         temp = evstr(varargin(i));
@@ -27,7 +27,7 @@ function %_save(filename, varargin)
         end
     end
 
-    result = export_to_hdf5(filename, varargin(:));
+    //result = export_to_hdf5(filename, varargin(:));
 
 endfunction
 
@@ -44,7 +44,7 @@ function result = isList(var)
 endfunction
 
 function result = inspectList(l)
-
+if typeof(l)=="list" then
     result = list();
     for i = 1:size(l)
         if typeof(l(i)) == "handle" then
@@ -55,6 +55,19 @@ function result = inspectList(l)
             result(i) = l(i);
         end
     end
+else
+    fieldNb = size(getfield(1, l), "*");
+    for kField = 2:fieldNb // Do not inspect first field (field names)
+        fieldValue = getfield(kField, l);
+        if typeof(fieldValue) == "handle" then
+            fieldValue = extractMatrixHandle(fieldValue);
+        elseif isList(fieldValue) then
+            fieldValue = inspectList(fieldValue);
+        end
+        setfield(kField, fieldValue, l);
+    end
+    result = l;
+end
 endfunction
 
 function matrixHandle = extractMatrixHandle(h)
