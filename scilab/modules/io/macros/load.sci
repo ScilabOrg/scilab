@@ -32,6 +32,9 @@ global %__varargin__ %__filename__
 if %__ierr__<>0 then
     %__isHdf5Format__ = %F;
     %_load(%__filename__, %__varargin__(:));
+else
+    %__isHdf5Format__ = %T;
+    import_from_hdf5(pathconvert(%__filename__, %F, %T));
 end
 clear %__ierr__ ans // ans is the output status of import_from_hdf5
 %__namesAfter__ = who("get");
@@ -47,7 +50,9 @@ if %__isHdf5Format__ then
     [%__createdNames__, %__createdValues__] = %__selectVariables__(%__createdNames__, %__createdValues__, %__varargin__);
 end
 
-execstr("[" + strcat(%__createdNames__, ",") + "] = resume(%__createdValues__(:))");
+if ~isempty(%__createdNames__) then
+    execstr("[" + strcat(%__createdNames__, ",") + "] = resume(%__createdValues__(:))");
+end
 
 // Clear temporary variables input arguments from global variables
 clearglobal %__varargin__ %__filename__
@@ -103,13 +108,26 @@ function result = isList(var)
 endfunction
 
 function varValue = inspectList(varValue)
-for i = 1:size(varValue)
-    if typeof(varValue(i)) == "ScilabMatrixHandle" then
-        varValue(i) = createMatrixHandle(varValue(i));
-    elseif isList(varValue(i)) then
-        varValue(i) = inspectList(varValue(i));
-    else
-        varValue(i) = varValue(i);
+if typeof(varValue)=="list" then
+    for i = 1:size(varValue)
+        if typeof(varValue(i)) == "ScilabMatrixHandle" then
+            varValue(i) = createMatrixHandle(varValue(i));
+        elseif isList(varValue(i)) then
+            varValue(i) = inspectList(varValue(i));
+        else
+            varValue(i) = varValue(i);
+        end
+    end
+else
+    fieldNb = size(getfield(1, varValue), "*");
+    for kField = 2:fieldNb // Do not inspect first field (field names)
+        fieldValue = getfield(kField, varValue);
+        if typeof(fieldValue) == "ScilabMatrixHandle" then
+            fieldValue = createMatrixHandle(fieldValue);
+        elseif isList(fieldValue) then
+            fieldValue = inspectList(fieldValue);
+        end
+        setfield(kField, fieldValue, varValue);
     end
 end
 endfunction
