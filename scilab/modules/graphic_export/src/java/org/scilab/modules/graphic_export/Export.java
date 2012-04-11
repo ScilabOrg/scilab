@@ -433,7 +433,9 @@ public class Export {
             DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
             Document document = domImpl.createDocument("http://www.w3.org/2000/svg", "svg", null);
             SVGGeneratorContext ctx = SVGGeneratorContext.createDefault(document);
-            g2d = new SVGGraphics2D(ctx, false);
+	    // TODO: better handle of LaTeX fonts (should remove the 'true' below and include the font in the SVG) 
+	    // same thing for PDF & co...
+            g2d = new SVGGraphics2D(ctx, true);
             if (params.orientation == ExportParams.LANDSCAPE) {
                 g2d.setSVGCanvasSize(new Dimension(height, width));
                 AffineTransform transf = AffineTransform.getRotateInstance(Math.PI / 2);
@@ -472,7 +474,7 @@ public class Export {
             this.file = file;
             try {
                 out = new BufferedOutputStream(new FileOutputStream(file));
-                g2d = new PDFDocumentGraphics2D(false);
+                g2d = new PDFDocumentGraphics2D(true);
                 g2d.setGraphicContext(new GraphicContext());
                 if (params.orientation == ExportParams.LANDSCAPE) {
                     g2d.setupDocument(out, height, width);
@@ -517,7 +519,7 @@ public class Export {
             this.file = file;
             try {
                 out = new BufferedOutputStream(new FileOutputStream(file));
-                g2d = new PSDocumentGraphics2D(false, out, width, height) {
+                g2d = new PSDocumentGraphics2D(true, out, width, height) {
                         @Override
                         protected void writePageHeader() throws IOException {
                             super.writePageHeader();
@@ -557,7 +559,7 @@ public class Export {
             this.file = file;
             try {
                 out = new BufferedOutputStream(new FileOutputStream(file));
-                g2d = new EPSDocumentGraphics2D(false) {
+                g2d = new EPSDocumentGraphics2D(true) {
                         @Override
                         protected void writePageHeader() throws IOException {
                             super.writePageHeader();
