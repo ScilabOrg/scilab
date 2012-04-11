@@ -167,6 +167,13 @@ Elementary functions
 
 * nthroot function added (See SEP #78).
 
+Sparse
+======
+
+* qmr function modified. If A is a function which returns A*x, 
+it is deprecated to define an other function which returns A'*x. 
+Idem for M1 and M2.
+
 
 CLI console:
 ============
@@ -416,6 +423,8 @@ Documentation
 * Bug #10879 fixed - Typo in the dec2base help page.
 
 * Bug #10881 fixed - Typo in ftest and ftuneq fixed.
+
+* Bug #10938 fixed - Add an example in qmr documentation.
 
 
 Bug fixes
