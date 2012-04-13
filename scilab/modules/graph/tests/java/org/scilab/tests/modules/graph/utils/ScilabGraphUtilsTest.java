@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import javax.swing.Icon;
+import java.awt.GraphicsEnvironment;
 
 import org.apache.batik.gvt.GraphicsNode;
 import org.scilab.forge.jlatexmath.ParseException;
@@ -47,6 +48,9 @@ public class ScilabGraphUtilsTest {
      */
     @Test
     public void escapingUnformattedText() {
+        if (GraphicsEnvironment.isHeadless()) {
+            return;
+        }
         StringBuilder str = new StringBuilder(TEXT);
         ScilabGraphUtils.unescape(str, 0);
 
@@ -58,6 +62,10 @@ public class ScilabGraphUtilsTest {
      */
     @Test
     public void escapingUnescapingText() {
+        if (GraphicsEnvironment.isHeadless()) {
+            return;
+        }
+
         StringBuilder str = new StringBuilder(ScilabGraphUtils.getBodyMarkup(SOME_HTML_SYMBOLS, true));
         ScilabGraphUtils.unescape(str, 0);
 
@@ -85,6 +93,10 @@ public class ScilabGraphUtilsTest {
      */
     @Test
     public void removeBlanks() {
+        if (GraphicsEnvironment.isHeadless()) {
+            return;
+        }
+
         StringBuilder str = new StringBuilder(TEXT_WITH_BLANKS);
         ScilabGraphUtils.removeBlanks(str);
         assert str.toString().equals(TEXT);
@@ -116,6 +128,10 @@ public class ScilabGraphUtilsTest {
      */
     @Test
     public void checkSampleSVG() throws IOException {
+        if (GraphicsEnvironment.isHeadless()) {
+            return;
+        }
+
         File validSvgFile;
         File invalidSvgFile;
 
