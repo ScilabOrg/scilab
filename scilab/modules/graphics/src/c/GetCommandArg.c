@@ -164,21 +164,23 @@ int get_rect_arg(char *fname,int pos,rhs_opts opts[], double ** rect )
 	return 1;
 }
 /*--------------------------------------------------------------------------*/
-int get_strf_arg(char *fname,int pos,rhs_opts opts[], char ** strf )
+int get_strf_arg(char* fname, int pos, rhs_opts opts[], char** strf)
 {
-  int m,n,l,first_opt=FirstOpt(),kopt;
+  int argPos;
+  int m, n, l, first_opt = FirstOpt(), kopt;
 
   if (pos < first_opt)
   {
+    argPos = pos;
     if (VarType(pos))
     {
 	    GetRhsVar(pos,STRING_DATATYPE, &m, &n, &l);
-	    if ( m * n != 3 )
+	    if ((m * n) != 3)
       {
-		  Scierror(999,_("%s: Wrong size for input argument #%d: String of %d characters expected.\n"),fname,pos, 3);
+  		  Scierror(999, _("%s: Wrong size for input argument #%d: String of %d characters expected.\n"), fname, pos, 3);
 	      return 0;
 	    }
-	  *strf = cstk(l);
+	    *strf = cstk(l);
     }
     else
 	  {
@@ -187,13 +189,14 @@ int get_strf_arg(char *fname,int pos,rhs_opts opts[], char ** strf )
       *strf = getDefStrf() ;
 	  }
   }
-  else if ((kopt=FindOpt("strf",opts)))
+  else if (kopt = FindOpt("strf", opts))
   {
-    GetRhsVar(kopt,STRING_DATATYPE, &m, &n, &l);
-    if (m * n != 3)
+    argPos = kopt;
+    GetRhsVar(kopt, STRING_DATATYPE, &m, &n, &l);
+    if ((m * n) != 3)
     {
-		Scierror(999,_("%s: Wrong size for input argument #%d: String of %d characters expected.\n"),fname,kopt,3);
-		return 0;
+		  Scierror(999, _("%s: Wrong size for input argument #%d: String of %d characters expected.\n"), fname, kopt, 3);
+		  return 0;
     }
     *strf = cstk(l);
   }
@@ -205,6 +208,28 @@ int get_strf_arg(char *fname,int pos,rhs_opts opts[], char ** strf )
     *strf = getDefStrf() ;
 
   }
+
+  /** Check if fisrt character is in {0, 1} */
+  if (((*strf)[0] < '0') || ((*strf)[0] > '1'))
+  {
+		Scierror(999,_("%s: Wrong value for input argument #%d: {%s} expected for character #%d.\n"),fname, argPos, "0, 1", 1);
+		return 0;
+  }
+
+  /** Check if second character is in {0, 8} */
+  if (((*strf)[1] < '0') || ((*strf)[1] > '8'))
+  {
+		Scierror(999,_("%s: Wrong value for input argument #%d: {%s} expected for character #%d.\n"),fname, argPos, "0..8", 2);
+		return 0;
+  }
+
+  /** Check if third character is in {0, 5} */
+  if (((*strf)[2] < '0') || ((*strf)[2] > '5'))
+  {
+		Scierror(999,_("%s: Wrong value for input argument #%d: {%s} expected for character #%d.\n"),fname, argPos, "0..5", 3);
+		return 0;
+  }
+
   return 1;
 }
 
