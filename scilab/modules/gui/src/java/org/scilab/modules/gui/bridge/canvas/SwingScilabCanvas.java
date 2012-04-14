@@ -31,8 +31,8 @@ import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 import org.scilab.modules.renderer.utils.RenderingCapabilities;
 
 import javax.media.opengl.GL;
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLJPanel;
+import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.awt.GLJPanel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.Color;
@@ -100,6 +100,10 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
 	{
 	    super(new PanelLayout());
         this.figure = figure;
+
+	try {
+	    System.loadLibrary("gluegen2-rt");
+	} catch (Exception e) { System.err.println(e); }
 
 	    /*
 	     * Even with the good Java 1.6 version
