@@ -128,7 +128,7 @@ if (rhs >= 6),
     end
   end
   if (precondType == 0),
-    M = varargin(3);
+    M = varargin(5);
   end
 else
   precondType = 2; // no preconditionning
