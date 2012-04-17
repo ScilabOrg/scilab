@@ -144,7 +144,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private Axes currentAxes;
 
     private Timer timer;
-    private static final int TIME_TO_REDRAW = 10; // in milliseconds
+    private static final int TIME_TO_REDRAW = 5; // in milliseconds
 
     /**
      * The map between the existing Figures' identifiers and their corresponding Visitor.
@@ -358,7 +358,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                 /** Set the current {@see ColorMap}. */
                 colorMap = figure.getColorMap();
 
-                drawingTools.clear(ColorFactory.createColor(colorMap, figure.getBackground()));
+                //drawingTools.clear(ColorFactory.createColor(colorMap, figure.getBackground()));
                 drawingTools.clearDepthBuffer();
 
                 if (figure.getImmediateDrawing()) {
@@ -788,22 +788,23 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
      * After a call to redraw all the following are ignored until TIME_TO_REDRAW
      */
     private void redraw() {
-        synchronized(canvas) {
+	canvas.redraw();
+        /*synchronized(canvas) {
             if (timer == null) {
                 timer = new Timer(TIME_TO_REDRAW, new ActionListener() {
 
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             synchronized(canvas) {
-                                canvas.redraw();
                                 timer = null;
-                            }
+				canvas.redraw();
+                                }
                         }
                     });
                 timer.setRepeats(false);
                 timer.start();
             }
-        }
+	    }*/
     }
 
     /**
@@ -853,7 +854,6 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
     @Override
     public void deleteObject(String id) {
-        //System.out.println(GraphicController.getController().getObjectFromId(id));
         dataManager.dispose(id);
         markManager.dispose(id);
         textManager.dispose(id);
