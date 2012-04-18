@@ -153,25 +153,25 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
 
         texture.setDrawer(new TextureDrawer() {
 
-            @Override
-            public void draw(TextureDrawingTools drawingTools) {
-                drawingTools.draw(mantissaTextEntity, 0, exponentSize.height);
-                drawingTools.draw(exponentTextEntity, mantissaSize.width, 0);
-            }
+                @Override
+                public void draw(TextureDrawingTools drawingTools) {
+                    drawingTools.draw(mantissaTextEntity, 0, exponentSize.height);
+                    drawingTools.draw(exponentTextEntity, mantissaSize.width, 0);
+                }
 
-            @Override
-            public Dimension getTextureSize() {
-                return new Dimension(
+                @Override
+                public Dimension getTextureSize() {
+                    return new Dimension(
                         exponentSize.width + mantissaSize.width,
                         exponentSize.height + mantissaSize.height
-                );
-            }
+                        );
+                }
 
-            @Override
-            public TextureDrawer.OriginPosition getOriginPosition() {
-                return TextureDrawer.OriginPosition.UPPER_LEFT;
-            }
-        });
+                @Override
+                public TextureDrawer.OriginPosition getOriginPosition() {
+                    return TextureDrawer.OriginPosition.UPPER_LEFT;
+                }
+            });
 
         return texture;
     }
@@ -193,21 +193,21 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
         Texture texture = textureManager.createTexture();
         texture.setDrawer(new TextureDrawer() {
 
-            @Override
-            public void draw(TextureDrawingTools drawingTools) {
-                drawingTools.draw(textEntity, 0, 0);
-            }
+                @Override
+                public void draw(TextureDrawingTools drawingTools) {
+                    drawingTools.draw(textEntity, 0, 0);
+                }
 
-            @Override
-            public Dimension getTextureSize() {
-                return textEntity.getSize();
-            }
+                @Override
+                public Dimension getTextureSize() {
+                    return textEntity.getSize();
+                }
 
-            @Override
-            public TextureDrawer.OriginPosition getOriginPosition() {
-                return TextureDrawer.OriginPosition.UPPER_LEFT;
-            }
-        });
+                @Override
+                public TextureDrawer.OriginPosition getOriginPosition() {
+                    return TextureDrawer.OriginPosition.UPPER_LEFT;
+                }
+            });
 
         return texture;
     }
@@ -218,18 +218,20 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
      * @return the user defined {@see FormattedText} ticks label corresponding to the given value.
      */
     private FormattedText getTextAtValue(double value) {
-        Double[] locations = axisProperty.getTicksLocations();
-        int index = -1;
-        for (int i = 0 ; i < locations.length ; i++) {
-            if (locations[i] == value) {
-                index = i;
-                break;
+        synchronized(axisProperty) {
+            Double[] locations = axisProperty.getTicksLocations();
+            int index = -1;
+            for (int i = 0 ; i < locations.length ; i++) {
+                if (locations[i] == value) {
+                    index = i;
+                    break;
+                }
             }
-        }
-        if (index == -1) {
-            return null;
-        } else {
-            return axisProperty.getTicksLabels().get(index);
+            if (index == -1 || index >= axisProperty.getTicksLabels().size()) {
+                return null;
+            } else {
+                return axisProperty.getTicksLabels().get(index);
+            }
         }
     }
 }
