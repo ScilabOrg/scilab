@@ -16,6 +16,8 @@
 /*        assigned to handles properties from the stack                   */
 /*------------------------------------------------------------------------*/
 
+#include <strings.h>
+
 #include "getPropertyAssignedValue.h"
 #include "stack-c.h"
 #include "localization.h"
@@ -23,7 +25,6 @@
 #include "BasicAlgos.h"
 #include "freeArrayOfString.h"
 #include "Scierror.h"
-#include "stricmp.h"
 /*--------------------------------------------------------------------------*/
 BOOL isParameterHandle( int type )
 {
@@ -129,7 +130,7 @@ unsigned long getHandleFromStack( size_t stackPointer )
 /*--------------------------------------------------------------------------*/
 BOOL isStringParamEqual( size_t stackPointer, const char * str )
 {
-    if ( stricmp( getStringFromStack( stackPointer ), str ) == 0 )
+    if ( strcasecmp( getStringFromStack( stackPointer ), str ) == 0 )
     {
         return TRUE ;
     }
