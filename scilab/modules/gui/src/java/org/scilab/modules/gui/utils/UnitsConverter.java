@@ -150,6 +150,7 @@ public final class UnitsConverter {
                 return (int) value;
             case NORMALIZED:
                 if (parentType.equals(__GO_FIGURE__)) { /* Figure */
+<<<<<<< HEAD
                     Integer[] parentSize = (Integer[]) GraphicController.getController().getProperty(parentId, __GO_AXES_SIZE__);
 
                     if (widthAsRef) {
@@ -164,6 +165,22 @@ public final class UnitsConverter {
                         refSize = parentSize[2].intValue();
                     } else {
                         refSize = parentSize[3].intValue();
+=======
+                    parentSize = (double[]) GraphicController.getController().getProperty(uicontrolAsView.getId(), __GO_SIZE__);
+
+                    if (widthAsRef) {
+                        refSize = (int) parentSize[0];
+                    } else {
+                        refSize = (int) parentSize[1];
+                    }
+                } else { /* Frame */
+                    parentSize = (double[]) GraphicController.getController().getProperty(uicontrolAsView.getId(), __GO_POSITION__);
+
+                    if (widthAsRef) {
+                        refSize = (int) parentSize[2];
+                    } else {
+                        refSize = (int) parentSize[3];
+>>>>>>> dcfb953... Fix some java warnings (redundant cast)
                     }
                 }
                 return (int) (value * refSize * POINT_PER_INCH / CallScilabBridge.getScreenResolution());
@@ -210,6 +227,7 @@ public final class UnitsConverter {
         }
     }
 
+<<<<<<< HEAD
     public static Double[] convertPositionToPixels(Double[] position, UicontrolUnits oldUnit, Widget uicontrol) {
         Double[] convertedPosition = new Double[4];
         convertedPosition[0] = new Double(convertToPixel(position[0].doubleValue(), oldUnit, uicontrol, true));
@@ -217,6 +235,13 @@ public final class UnitsConverter {
         convertedPosition[2] = new Double(convertToPixel(position[2].doubleValue(), oldUnit, uicontrol, true));
         convertedPosition[3] = new Double(convertToPixel(position[3].doubleValue(), oldUnit, uicontrol, false));
         return convertedPosition;
+=======
+    public static Double[] convertPositionToPixels(Double[] position, UicontrolUnits oldUnit, Widget uicontrol, boolean widthAsRef) {
+        for (int i = 0; i < 4; i++) {
+            position[i] = new Double(convertToPixel(position[i].doubleValue(), oldUnit, uicontrol, widthAsRef));
+        }
+        return position;
+>>>>>>> dcfb953... Fix some java warnings (redundant cast)
     }
 
 }
