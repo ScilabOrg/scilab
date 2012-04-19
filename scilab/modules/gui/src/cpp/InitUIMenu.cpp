@@ -126,7 +126,7 @@ int setMenuParent(char *pobjUID, size_t stackPointer, int valueType, int nbRow, 
         setGraphicObjectRelationship(getConsoleIdentifier(), pobjUID);
         return SET_PROPERTY_SUCCEED;
     }
-
+    return SET_PROPERTY_SUCCEED;
 }
 
 void EnableMenu(char *pParentId, char *name, BOOL status)
