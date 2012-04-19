@@ -945,14 +945,14 @@ function ok=gen_ccode42();
 
               // Fead timetable
               for (j = 1:readGlobalTimeSize(i))
-                  mputl(['    global_'+readGlobal(i)+'_Time['+string(j-1)+'] = ' + ...
+                  mputl(['        global_'+readGlobal(i)+'_Time['+string(j-1)+'] = ' + ...
                          strsubst(string(evstr(readGlobal(i)+'.time('+string(j)+')')), "D", "E")+';'
                         ], fd)
               end
               // Fead data
               for (j = 1:readGlobalTimeSize(i))
                   for (k = 1:readGlobalSize(i))
-                  mputl(['    global_'+readGlobal(i)+'['+string(j-1)+']['+string(k-1)+'] = ' + ...
+                  mputl(['        global_'+readGlobal(i)+'['+string(j-1)+']['+string(k-1)+'] = ' + ...
                          strsubst(string(evstr(readGlobal(i)+'.values('+string(j)+', '+string(k)+')')), "D", "E")+';'
                       ], fd)
 
@@ -1304,7 +1304,7 @@ function  [ok,XX,alreadyran,flgcdgen,szclkINTemp,freof] = do_compile_superblock4
           bllst(i).sim(1) = 'readGlobal_' + fromwsObj.graphics.exprs(1);
           readGlobal = [readGlobal fromwsObj.graphics.exprs(1)];
           readGlobalTimeSize = [readGlobalTimeSize evstr("size(" + fromwsObj.graphics.exprs(1) + ".time, ""*"")")]
-          readGlobalSize = [readGlobalSize evstr("size(" + fromwsObj.graphics.exprs(1) + ".values(1), ""*"")")]
+          readGlobalSize = [readGlobalSize evstr("size(" + fromwsObj.graphics.exprs(1) + ".values(1, :), ""*"")")]
       end
   end
 
