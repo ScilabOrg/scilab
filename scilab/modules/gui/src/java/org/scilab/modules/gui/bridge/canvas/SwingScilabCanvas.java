@@ -87,10 +87,10 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
         public void removeNotify() {
             final MacOSXGLJPanel panel = this;
             SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        panel.superRemoveNotify();
-                    }
-                });
+                public void run() {
+                    panel.superRemoveNotify();
+                }
+            });
         }
     }
 
@@ -100,7 +100,9 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
 
         try {
             System.loadLibrary("gluegen2-rt");
-        } catch (Exception e) { System.err.println(e); }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
 
         /*
          * Even with the good Java 1.6 version
@@ -119,16 +121,21 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
             rendererCanvas.setMainDrawer(drawerVisitor);
 
             drawableComponent.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        GlobalEventWatcher.setAxesUID(figure.getIdentifier());
-                    }
-                });
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    GlobalEventWatcher.setAxesUID(figure.getIdentifier());
+                }
+            });
         } else {
-	    GLCapabilities caps = new GLCapabilities(GLProfile.getDefault());
-	    caps.setDoubleBuffered(true);
-            GLCanvas glCanvas = new GLCanvas(caps);
-	    drawableComponent = glCanvas;
+            GLProfile profile = GLProfile.getDefault();
+            GLCapabilities capabilities = new GLCapabilities(profile);
+
+            // The two following line defines the antialiasing.
+            capabilities.setSampleBuffers(true);
+            capabilities.setNumSamples(4);
+            GLCanvas glCanvas = new GLCanvas(capabilities);
+
+            drawableComponent = glCanvas;
             glCanvas.setEnabled(true);
             add(glCanvas, PanelLayout.GL_CANVAS);
 
@@ -137,11 +144,11 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
             rendererCanvas.setMainDrawer(drawerVisitor);
 
             drawableComponent.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        GlobalEventWatcher.setAxesUID(figure.getIdentifier());
-                    }
-                });
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    GlobalEventWatcher.setAxesUID(figure.getIdentifier());
+                }
+            });
         }
     }
 
