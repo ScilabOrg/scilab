@@ -766,12 +766,19 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     legendDrawer.update(id, property);
                     fecDrawer.update(id, property);
                 }
-                canvas.redraw();
+
+                redraw();
             }
         } catch (OutOfMemoryException e) {
             invalidate(GraphicController.getController().getObjectFromId(id), e);
         } catch (ObjectRemovedException e) {
             // Object has been removed before draw : do nothing.
+        }
+    }
+
+    private void redraw() {
+        if (figure.getImmediateDrawing()) {
+            canvas.redraw();
         }
     }
 
@@ -835,7 +842,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
             visitorMap.remove(id);
         }
 
-        canvas.redraw();
+        redraw();
     }
 
     /**

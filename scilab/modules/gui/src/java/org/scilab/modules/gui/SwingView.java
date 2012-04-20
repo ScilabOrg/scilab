@@ -323,6 +323,7 @@ public final class SwingView implements GraphicView {
                 return edit;
             case Figure:
                 Figure figure = (Figure) GraphicController.getController().getObjectFromId(id);
+                figure.setImmediateDrawing(false);
                 String figureTitle = figure.getName();
                 Integer figureId = figure.getId();
                 if ((figureTitle != null) && (figureId != null)) {
@@ -368,6 +369,7 @@ public final class SwingView implements GraphicView {
                 tab.update(__GO_POSITION__, (Integer[]) GraphicController.getController().getProperty(id, __GO_POSITION__));
                 tab.update(__GO_AXES_SIZE__, (Integer[]) GraphicController.getController().getProperty(id, __GO_AXES_SIZE__));
                 // TODO set other default properties
+                figure.setImmediateDrawing(true);
                 return tab;
             case Frame:
                 SwingScilabFrame frame = new SwingScilabFrame();
@@ -726,7 +728,8 @@ public final class SwingView implements GraphicView {
                 }
             }
         }
-        if (needRevalidate && updatedComponent != null) {
+        Figure figure = (Figure) GraphicController.getController().getObjectFromId(id);
+        if (needRevalidate && updatedComponent != null && figure.getImmediateDrawing()) {
             ((View) updatedComponent).revalidate();
         }
     }
