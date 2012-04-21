@@ -42,7 +42,6 @@ int sci_xgetmouse( char *fname,unsigned long fname_len )
     int sel[2],m,n;
 
     int pixelCoords[2];
-    double userCoords2D[2] = {0.0, 0.0};
     sciPointObj * clickedSubwin = NULL;
 
     int selPosition = 0;
@@ -109,12 +108,8 @@ int sci_xgetmouse( char *fname,unsigned long fname_len )
     }
     else
     {
-        // Convert pixel coordinates to user coordinates
-        //clickedSubwin = sciGetFirstTypedSelectedSon(getFigureFromIndex(windowsID), SCI_SUBWIN);
-        //updateSubwinScale(clickedSubwin);
-        //sciGet2dViewCoordFromPixel(clickedSubwin, pixelCoords, userCoords2D);
-        *stk(l1) = userCoords2D[0];
-        *stk(l1+1) = userCoords2D[1];
+        *stk(l1) = pixelCoords[0];
+        *stk(l1+1) = pixelCoords[1];
         *stk(l1+2) = (double) mouseButtonNumber;
     }
     LhsVar(1) = Rhs+1;
