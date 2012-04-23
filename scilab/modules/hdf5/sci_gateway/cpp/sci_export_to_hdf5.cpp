@@ -639,7 +639,7 @@ static bool export_ints(int _iH5File, int *_piVar, char* _pstName)
                 printError(&sciErr, 0);
                 return false;
             }
-            iRet = writeInterger8Matrix(_iH5File, _pstName, iRows, iCols, (char*)piData);
+            iRet = writeInteger8Matrix(_iH5File, _pstName, iRows, iCols, (char*)piData);
             break;
         case SCI_UINT8 :
             sciErr = getMatrixOfUnsignedInteger8(pvApiCtx, _piVar, &iRows, &iCols, (unsigned char**)&piData);
@@ -657,7 +657,7 @@ static bool export_ints(int _iH5File, int *_piVar, char* _pstName)
                 printError(&sciErr, 0);
                 return false;
             }
-            iRet = writeInterger16Matrix(_iH5File, _pstName, iRows, iCols, (short*)piData);
+            iRet = writeInteger16Matrix(_iH5File, _pstName, iRows, iCols, (short*)piData);
             break;
         case SCI_UINT16 :
             sciErr = getMatrixOfUnsignedInteger16(pvApiCtx, _piVar, &iRows, &iCols, (unsigned short**)&piData);
@@ -675,7 +675,7 @@ static bool export_ints(int _iH5File, int *_piVar, char* _pstName)
                 printError(&sciErr, 0);
                 return false;
             }
-            iRet = writeInterger32Matrix(_iH5File, _pstName, iRows, iCols, (int*)piData);
+            iRet = writeInteger32Matrix(_iH5File, _pstName, iRows, iCols, (int*)piData);
             break;
         case SCI_UINT32 :
             sciErr = getMatrixOfUnsignedInteger32(pvApiCtx, _piVar, &iRows, &iCols, (unsigned int**)&piData);
@@ -693,7 +693,7 @@ static bool export_ints(int _iH5File, int *_piVar, char* _pstName)
             //	printError(&sciErr, 0);
             //	return false;
             //}
-            //iRet = writeInterger64Matrix(_iH5File, _pstName, iRows, iCols, (long long*)piData);
+            //iRet = writeInteger64Matrix(_iH5File, _pstName, iRows, iCols, (long long*)piData);
             //break;
         case SCI_UINT64 :
             //sciErr = getMatrixOfUnsignedInteger64(_piVar, &iRows, &iCols, (unsigned long long**)&piData);

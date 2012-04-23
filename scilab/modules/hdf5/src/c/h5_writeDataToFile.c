@@ -27,55 +27,55 @@ static hid_t enableCompression(int _iLevel, int _iRank, const hsize_t * _piDims)
     int iLevel = _iLevel;*/
 
     return H5P_DEFAULT;
-/*
-  if(iLevel < 0)
-    {
-        iLevel = 0;
-    }
-
-  if(iLevel > 9)
-    {
-        iLevel = 9;
-    }
-
-    if(iLevel)
-    {
-        iRet = H5Pcreate(H5P_DATASET_CREATE);
-        if(iRet < 0)
+    /*
+      if(iLevel < 0)
         {
-            iRet = 0;
+            iLevel = 0;
         }
-        else
+
+      if(iLevel > 9)
         {
-            if(H5Pset_layout(iRet,H5D_COMPACT)<0)
+            iLevel = 9;
+        }
+
+        if(iLevel)
+        {
+            iRet = H5Pcreate(H5P_DATASET_CREATE);
+            if(iRet < 0)
             {
-                H5Pclose(iRet);
                 iRet = 0;
             }
             else
             {
-                if(H5Pset_chunk(iRet,_iRank, _piDims)<0)
+                if(H5Pset_layout(iRet,H5D_COMPACT)<0)
                 {
                     H5Pclose(iRet);
                     iRet = 0;
                 }
                 else
                 {
-                    if(H5Pset_deflate(iRet,iLevel)<0)
+                    if(H5Pset_chunk(iRet,_iRank, _piDims)<0)
                     {
                         H5Pclose(iRet);
                         iRet = 0;
                     }
+                    else
+                    {
+                        if(H5Pset_deflate(iRet,iLevel)<0)
+                        {
+                            H5Pclose(iRet);
+                            iRet = 0;
+                        }
+                    }
                 }
             }
         }
-    }
-    else
-    {
-        iRet = H5Pcopy(H5P_DEFAULT);
-    }
-    return iRet;
-*/
+        else
+        {
+            iRet = H5Pcopy(H5P_DEFAULT);
+        }
+        return iRet;
+    */
 }
 
 static herr_t addIntAttribute(int _iDatasetId, const char *_pstName, const int _iVal)
@@ -521,7 +521,7 @@ int writeUndefined(int _iFile, char *_pstDatasetName)
 }
 
 static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char *_pstDatasetName, int _iIndex, int _iRows, int _iCols,
-                                          double *_pdblData)
+        double *_pdblData)
 {
     hid_t space;
     hid_t dset;
@@ -1051,7 +1051,7 @@ int writePolyComplexMatrix(int _iFile, char *_pstDatasetName, char *_pstVarName,
     return writeCommonPolyMatrix(_iFile, _pstDatasetName, _pstVarName, 1, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-int writeInterger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, char *_pcData)
+int writeInteger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, char *_pcData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1122,7 +1122,7 @@ int writeInterger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCo
     return 0;
 }
 
-int writeInterger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, short *_psData)
+int writeInteger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, short *_psData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1192,7 +1192,7 @@ int writeInterger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iC
     return 0;
 }
 
-int writeInterger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, int *_piData)
+int writeInteger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, int *_piData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1264,7 +1264,7 @@ int writeInterger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iC
     return 0;
 }
 
-int writeInterger64Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, long long *_pllData)
+int writeInteger64Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, long long *_pllData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1657,7 +1657,7 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
 
     //Create each sub dataset and insert data
     pstRowPath = createPathName(pstGroupName, 0);
-    status = writeInterger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
+    status = writeInteger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
     if (status < 0)
     {
         return -1;
@@ -1670,7 +1670,7 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     }
 
     pstColPath = createPathName(pstGroupName, 1);
-    status = writeInterger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
+    status = writeInteger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
     if (status < 0)
     {
         return -1;
@@ -1823,9 +1823,10 @@ int writeBooleanSparseMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
 
     //Create each sub dataset and insert data
     pstRowPath = createPathName(pstGroupName, 0);
-    status = writeInterger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
+    status = writeInteger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
     if (status < 0)
     {
+        free(pstRowPath);
         return -1;
     }
 
@@ -1836,7 +1837,7 @@ int writeBooleanSparseMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
     }
 
     pstColPath = createPathName(pstGroupName, 1);
-    status = writeInterger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
+    status = writeInteger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
     if (status < 0)
     {
         return -1;
@@ -1957,17 +1958,17 @@ int closeList(int _iFile, void *_pvList, char *_pstListName, int _iNbItem, int _
 
     switch (_iVarType)
     {
-    case sci_list:
-        pcstClass = g_SCILAB_CLASS_LIST;
-        break;
-    case sci_tlist:
-        pcstClass = g_SCILAB_CLASS_TLIST;
-        break;
-    case sci_mlist:
-        pcstClass = g_SCILAB_CLASS_MLIST;
-        break;
-    default:
-        return 1;
+        case sci_list:
+            pcstClass = g_SCILAB_CLASS_LIST;
+            break;
+        case sci_tlist:
+            pcstClass = g_SCILAB_CLASS_TLIST;
+            break;
+        case sci_mlist:
+            pcstClass = g_SCILAB_CLASS_MLIST;
+            break;
+        default:
+            return 1;
     }
 
     if (_iNbItem == 0)
