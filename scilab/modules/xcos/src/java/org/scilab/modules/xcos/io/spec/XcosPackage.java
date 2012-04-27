@@ -12,6 +12,7 @@
 
 package org.scilab.modules.xcos.io.spec;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,6 +42,7 @@ import javax.xml.xpath.XPathFactory;
 
 import org.scilab.modules.commons.xml.ScilabDocumentBuilderFactory;
 import org.scilab.modules.commons.xml.ScilabTransformerFactory;
+import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,7 +63,9 @@ public class XcosPackage {
     private static final byte[] MIME_BYTES = MIME.getBytes();
 
     private static final String INVALID_MIMETYPE = "Invalid mimetype";
-    private static final Entry[] AVAILABLE_ENTRIES = { new ContentEntry(), new DictionaryEntry() };
+    private static final Entry[] AVAILABLE_ENTRIES = { new ContentEntry() };
+
+    private static final String DICTIONARY_PATH = "dictionary/dictionary.ser";
 
     /**
      * Specific InputStream implementation to use entry closing instead of
@@ -157,15 +161,18 @@ public class XcosPackage {
             checkHeader();
         }
 
+	ScilabList dictionary = getDictionary();
+
         final FileInputStream fis = new FileInputStream(file);
         final ZipInputStream zin = new ZipInputStream(fis);
         // input stream without close operation
         final EntryInputStream ein = new EntryInputStream(zin);
 
+
         ZipEntry entry;
         try {
             while ((entry = zin.getNextEntry()) != null) {
-                final Node root = manifest.getFirstChild();
+		final Node root = manifest.getFirstChild();
                 for (Node n = root.getFirstChild(); n != null; n = n.getNextSibling()) {
                     // node precondition
                     if (n.getNodeType() != Node.ELEMENT_NODE) {
@@ -179,16 +186,19 @@ public class XcosPackage {
                     final String path = n.getAttributes().getNamedItem("manifest:full-path").getNodeValue();
 
                     // path should be the entry one, if not continue
-                    if (!path.equals(entry.getName())) {
+                    if (!path.equals(entry.getName()) || path.equals(DICTIONARY_PATH)) {
                         continue;
                     }
 
                     // select the right entry decoder
                     for (final Entry e : AVAILABLE_ENTRIES) {
-                        if (media.equals(e.getMediaType()) && path.matches(e.getFullPath())) {
-                            e.setup(this);
-                            e.load(entry, ein);
-                            break;
+                        if (media.equals(e.getMediaType()) && path.matches(e.getFullPath())) { 
+			    if (dictionary != null) {
+				((ContentEntry) e).setDictionary(dictionary);
+			    }
+			    e.setup(this);
+                            e.load(entry, new BufferedInputStream(ein));
+			    break;
                         }
                     }
                 }
@@ -197,7 +207,31 @@ public class XcosPackage {
         } finally {
             zin.close();
         }
+    }
 
+    public ScilabList getDictionary() throws IOException {
+	final FileInputStream fis = new FileInputStream(file);
+        final ZipInputStream zin = new ZipInputStream(fis);
+
+        ZipEntry entry;
+	BufferedInputStream bis = new BufferedInputStream(zin);
+
+        try {
+            while ((entry = zin.getNextEntry()) != null) {
+                final String name = entry.getName();
+		if (name.equals(DICTIONARY_PATH)) {
+		    DictionaryEntry e = new DictionaryEntry();
+		    e.setup(this);
+		    e.load(entry, bis);
+		    return e.getDictionary();
+		}
+	    }
+	} finally {
+	    bis.close();
+	    zin.close();
+	}
+
+	return null;
     }
 
     /**
@@ -238,10 +272,12 @@ public class XcosPackage {
 
                     // take care: to avoid closing input stream as the
                     // transformer will close the input stream.
-                    final StreamSource src = new StreamSource(new EntryInputStream(zin));
+		    BufferedInputStream bis = new BufferedInputStream(new EntryInputStream(zin));
+                    final StreamSource src = new StreamSource(bis);
                     final DOMResult result = new DOMResult();
                     aTransformer.transform(src, result);
                     manifest = (Document) result.getNode();
+		    //bis.close();
                 }
             }
         } finally {

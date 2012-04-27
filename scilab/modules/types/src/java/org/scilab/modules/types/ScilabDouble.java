@@ -14,6 +14,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 
 /**
@@ -41,6 +44,8 @@ public class ScilabDouble implements ScilabType {
 
     private static final long serialVersionUID = 879624048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_matrix;
+
+    private static final int VERSION = 0;
 
     private double[][] realPart;
     private double[][] imaginaryPart;
@@ -273,6 +278,29 @@ public class ScilabDouble implements ScilabType {
         }
     }
 
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            realPart = (double[][]) in.readObject();
+            imaginaryPart = (double[][]) in.readObject();
+            varName = (String) in.readObject();
+            swaped = in.readBoolean();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabDouble with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeObject(realPart);
+        out.writeObject(imaginaryPart);
+        out.writeObject(varName);
+        out.writeBoolean(swaped);
+    }
 
     /**
      * Display the representation in the Scilab language of the type<br />
@@ -286,17 +314,19 @@ public class ScilabDouble implements ScilabType {
         StringBuilder result = new StringBuilder();
 
         if (isEmpty()) {
-            result.append("[]");
-            return result.toString();
+            return "[]";
         }
 
         result.append("[");
         for (int i = 0; i < getHeight(); ++i) {
             for (int j = 0; j < getWidth(); ++j) {
                 if (isReal()) {
-                    result.append(getRealPart()[i][j]);
+                    result.append(Double.toString(realPart[i][j]));
                 } else {
-                    result.append(getRealPart()[i][j] + " + " + getImaginaryPart()[i][j] + " * %i");
+                    result.append(Double.toString(realPart[i][j]));
+		    result.append(" + ");
+		    result.append(Double.toString(imaginaryPart[i][j]));
+		    result.append(" * %i");
                 }
                 if (j != getWidth() - 1) {
                     result.append(", ");

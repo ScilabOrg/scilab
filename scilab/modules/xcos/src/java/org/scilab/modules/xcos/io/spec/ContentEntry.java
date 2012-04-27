@@ -16,6 +16,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.scilab.modules.commons.xml.ScilabTransformerFactory;
+import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.codec.XcosCodec;
 import org.w3c.dom.Document;
@@ -27,6 +28,12 @@ public class ContentEntry implements Entry {
 
     private Document manifest;
     private XcosDiagram content;
+    private XcosPackage pack;
+    private ScilabList dictionary;
+
+    public void setDictionary(ScilabList dictionary) {
+        this.dictionary = dictionary;
+    }
 
     @Override
     public String getMediaType() {
@@ -40,6 +47,7 @@ public class ContentEntry implements Entry {
 
     @Override
     public void setup(XcosPackage p) {
+        pack = p;
         manifest = p.getManifest();
         content = p.getContent();
     }
@@ -59,7 +67,13 @@ public class ContentEntry implements Entry {
             LOG.exiting("Transformer", "transform");
 
             LOG.entering("XcosCodec", "decode");
-            codec.decode(result.getNode().getFirstChild(), content);
+            if (dictionary == null) {
+                codec.decode(result.getNode().getFirstChild(), content);
+            } else {
+                XcosCodec.enableBinarySerialization(dictionary);
+                codec.decode(result.getNode().getFirstChild(), content);
+                XcosCodec.disableBinarySerialization();
+            }
             LOG.exiting("XcosCodec", "decode");
 
         } catch (TransformerConfigurationException e) {
@@ -87,7 +101,13 @@ public class ContentEntry implements Entry {
             final Transformer aTransformer = tranFactory.newTransformer();
 
             LOG.entering("XcosCodec", "encode");
-            final Node doc = codec.encode(content);
+            Object lock = XcosCodec.enableBinarySerialization(null);
+            final Node doc;
+            final ScilabList dictionary;
+            synchronized(lock) {
+                doc = codec.encode(content);
+                dictionary = XcosCodec.disableBinarySerialization();
+            }
             LOG.exiting("XcosCodec", "encode");
 
             final DOMSource src = new DOMSource(doc);
@@ -97,6 +117,10 @@ public class ContentEntry implements Entry {
             aTransformer.transform(src, result);
             LOG.exiting("Transformer", "transform");
 
+            DictionaryEntry dictEntry = new DictionaryEntry(dictionary);
+            dictEntry.setup(pack);
+            dictEntry.store(stream);
+
             /*
              * Add an entry to the manifest file
              */
@@ -104,7 +128,6 @@ public class ContentEntry implements Entry {
             e.setAttribute("manifest:media-type", getMediaType());
             e.setAttribute("manifest:full-path", getFullPath());
             manifest.getFirstChild().appendChild(e);
-
         } catch (TransformerConfigurationException e) {
             Logger.getLogger(ContentEntry.class.getName()).severe(e.getMessageAndLocation());
         } catch (TransformerException e) {

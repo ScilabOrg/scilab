@@ -13,6 +13,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 
 /**
@@ -32,6 +35,8 @@ public class ScilabString implements ScilabType {
 
     private static final long serialVersionUID = 359802519980180085L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_strings;
+
+    private static final int VERSION = 0;
 
     private String[][] data;
     private String varName;
@@ -186,6 +191,28 @@ public class ScilabString implements ScilabType {
         return data;
     }
 
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            data = (String[][]) in.readObject();
+            varName = (String) in.readObject();
+            swaped = in.readBoolean();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabString with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeObject(data);
+        out.writeObject(varName);
+        out.writeBoolean(swaped);
+    }
+
     /**
      * Display the representation in the Scilab language of the type<br />
      * Note that the representation can be copied/pasted straight into Scilab
@@ -195,18 +222,16 @@ public class ScilabString implements ScilabType {
      */
     @Override
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         if (isEmpty()) {
-            result.append("[]");
-            return result.toString();
+            return "[]";
         }
 
         result.append("[");
         for (int i = 0; i < getHeight(); ++i) {
             for (int j = 0; j < getWidth(); ++j) {
-
                 result.append('"');
-                result.append(getData()[i][j].replaceAll("\"", "\"\"").replaceAll("\'", "\'\'"));
+                result.append(data[i][j].replaceAll("[\"\']", "\"\""));
                 result.append('"');
 
                 if (j != getWidth() - 1) {

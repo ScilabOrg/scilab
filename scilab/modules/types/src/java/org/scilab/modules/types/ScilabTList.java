@@ -13,6 +13,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,6 +39,8 @@ public class ScilabTList extends ArrayList<ScilabType> implements ScilabType {
 
     private static final long serialVersionUID = 8080160982092586620L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_tlist;
+
+    private static final int VERSION = 0;
 
     private String varName;
 
@@ -207,6 +212,34 @@ public class ScilabTList extends ArrayList<ScilabType> implements ScilabType {
         return items;
     }
 
+    @Override
+        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            int size = in.readInt();
+            ensureCapacity(size + 1);
+            ArrayList list = (ArrayList) this;
+            for (int i = 0; i < size; i++) {
+                list.add(in.readObject());
+            }
+            varName = (String) in.readObject();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabTList with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+        public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeInt(size());
+        for (Object var : (ArrayList) this) {
+            out.writeObject(var);
+        }
+        out.writeObject(varName);
+    }
+
     /**
      * Display the representation in the Scilab language of the type<br />
      * Note that the representation can be copied/pasted straight into Scilab
@@ -216,7 +249,6 @@ public class ScilabTList extends ArrayList<ScilabType> implements ScilabType {
      */
     @Override
         public String toString() {
-
         StringBuffer result = new StringBuffer();
         if (isEmpty()) {
             result.append("tlist()");

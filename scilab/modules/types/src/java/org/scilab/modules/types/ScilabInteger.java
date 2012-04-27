@@ -13,6 +13,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 
 /**
@@ -32,6 +35,8 @@ public class ScilabInteger implements ScilabType {
 
     private static final long serialVersionUID = 1759633801332932450L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_ints;
+
+    private static final int VERSION = 0;
 
     private long[][] longData = null;
     private short[][] shortData = null;
@@ -358,7 +363,6 @@ public class ScilabInteger implements ScilabType {
      * @return the converted type to ScilabIntegerTypeEnum. null is cannot convert
      */
     public static ScilabIntegerTypeEnum convertOldType(String typeName, boolean unsigned) {
-
         if (typeName.equals("TYPE8")) {
             if (unsigned) {
                 return ScilabIntegerTypeEnum.sci_uint8;
@@ -525,29 +529,75 @@ public class ScilabInteger implements ScilabType {
         }
     }
 
+    private Object getCorrectData() {
+        switch (this.getPrec()) {
+        case sci_int8:
+            return byteData;
+        case sci_uint8:
+            return byteData;
+        case sci_int16:
+            return shortData;
+        case sci_uint16:
+            return shortData;
+        case sci_int32:
+            return intData;
+        case sci_uint32:
+            return intData;
+        case sci_int64:
+            return longData;
+        case sci_uint64:
+            return longData;
+        }
+        return null;
+    }
+
     /**
      * {@inheritDoc}
      */
     public Object getSerializedObject() {
-        switch (this.getPrec()) {
-        case sci_int8:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, byteData};
-        case sci_uint8:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, byteData};
-        case sci_int16:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, shortData};
-        case sci_uint16:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, shortData};
-        case sci_int32:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, intData};
-        case sci_uint32:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, intData};
-        case sci_int64:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, longData};
-        case sci_uint64:
-            return new Object[]{new int[]{this.getPrec().swigValue()}, longData};
+        return new Object[]{new int[]{this.getPrec().swigValue()}, getCorrectData()};
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            precision = ScilabIntegerTypeEnum.swigToEnum(in.readInt());
+            Object data = in.readObject();
+            switch (precision) {
+            case sci_int8:
+            case sci_uint8:
+                byteData = (byte[][]) data;
+                break;
+            case sci_int16:
+            case sci_uint16:
+                shortData = (short[][]) data;
+                break;
+            case sci_int32:
+            case sci_uint32:
+                intData = (int[][]) data;
+                break;
+            case sci_int64:
+            case sci_uint64:
+                longData = (long[][]) data;
+                break;
+            }
+            varName = (String) in.readObject();
+            swaped = in.readBoolean();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabInteger with a version " + version + " does not exists");
         }
-        return null;
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeInt(getPrec().swigValue());
+        out.writeObject(getCorrectData());
+        out.writeObject(varName);
+        out.writeBoolean(swaped);
     }
 
     /**
@@ -560,7 +610,6 @@ public class ScilabInteger implements ScilabType {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-
 
         if (isEmpty()) {
             result.append("int([])");
