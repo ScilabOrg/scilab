@@ -24831,13 +24831,12 @@ fi
    CFLAGS="$CFLAGS $MATIO_CFLAGS"
    LIBS="$LIBS $MATIO_LIBS"
 
-   for ac_header in matio.h matioConfig.h
+   for ac_header in matio.h
 do :
-  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
-ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
-if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
+  ac_fn_c_check_header_mongrel "$LINENO" "matio.h" "ac_cv_header_matio_h" "$ac_includes_default"
+if test "x$ac_cv_header_matio_h" = xyes; then :
   cat >>confdefs.h <<_ACEOF
-#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
+#define HAVE_MATIO_H 1
 _ACEOF
 
 else
@@ -24978,7 +24977,7 @@ $as_echo_n "checking saxon... " >&6; }
             export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 24981 "configure"
+// #line 24980 "configure"
 import com.icl.saxon.Loader;
 
 public class conftest {
@@ -25074,7 +25073,7 @@ $as_echo_n "checking jlatexmath-fop... " >&6; }
             export ac_java_classpath="$jar_resolved:$ac_java_classpath"
 
     cat << \EOF > conftest.java
-// #line 25077 "configure"
+// #line 25076 "configure"
 import org.scilab.forge.jlatexmath.fop.JLaTeXMathObj;
 
 public class conftest {
@@ -31373,7 +31372,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 31376 "configure"
+#line 31375 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -31479,7 +31478,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 31482 "configure"
+#line 31481 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
