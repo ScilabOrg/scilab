@@ -13,6 +13,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -37,7 +40,9 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
     private static final long serialVersionUID = 3224510024213901841L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_mlist;
 
-    private String varName;
+    private static final int VERSION = 0;
+
+    private String varName = "";
 
     /**
      * Construct an empty mlist.
@@ -205,6 +210,34 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
         items[0] = types;
 
         return items;
+    }
+
+    @Override
+        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            int size = in.readInt();
+            ensureCapacity(size + 1);
+            ArrayList list = (ArrayList) this;
+            for (int i = 0; i < size; i++) {
+                list.add(in.readObject());
+            }
+            varName = (String) in.readObject();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabMList with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+        public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeInt(size());
+        for (Object var : (ArrayList) this) {
+            out.writeObject(var);
+        }
+        out.writeObject(varName);
     }
 
     /**

@@ -12,6 +12,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 
 /**
@@ -27,6 +30,8 @@ public class ScilabPolynomial implements ScilabType {
 
     private static final long serialVersionUID = 870624048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_poly;
+
+    private static final int VERSION = 0;
 
     private double[][][] realPart;
     private double[][][] imaginaryPart;
@@ -305,6 +310,32 @@ public class ScilabPolynomial implements ScilabType {
         } else {
             return new Object[]{polyVarName, realPart, imaginaryPart};
         }
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            realPart = (double[][][]) in.readObject();
+            imaginaryPart = (double[][][]) in.readObject();
+            varName = (String) in.readObject();
+            polyVarName = in.readUTF();
+            swaped = in.readBoolean();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabPolynomial with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeObject(realPart);
+        out.writeObject(imaginaryPart);
+        out.writeObject(varName);
+        out.writeUTF(polyVarName);
+        out.writeBoolean(swaped);
     }
 
     /**

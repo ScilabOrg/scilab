@@ -12,6 +12,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +32,8 @@ public class ScilabBooleanSparse implements ScilabType {
 
     private static final long serialVersionUID = 879625048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_boolean_sparse;
+
+    private static final int VERSION = 0;
 
     private int rows;
     private int cols;
@@ -290,8 +295,8 @@ public class ScilabBooleanSparse implements ScilabType {
         if (obj instanceof ScilabBooleanSparse) {
             ScilabBooleanSparse sciSparse = (ScilabBooleanSparse) obj;
             return this.getNbNonNullItems() == sciSparse.getNbNonNullItems() &&
-                   ScilabSparse.compareNbItemRow(this.getNbItemRow(), sciSparse.getNbItemRow()) &&
-                   Arrays.equals(this.getColPos(), sciSparse.getColPos());
+                ScilabSparse.compareNbItemRow(this.getNbItemRow(), sciSparse.getNbItemRow()) &&
+                Arrays.equals(this.getColPos(), sciSparse.getColPos());
         } else {
             return false;
         }
@@ -302,6 +307,34 @@ public class ScilabBooleanSparse implements ScilabType {
      */
     public Object getSerializedObject() {
         return new Object[]{new int[]{rows, cols}, nbItemRow, getScilabColPos()};
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            rows = in.readInt();
+            cols = in.readInt();
+            nbItem = in.readInt();
+            nbItemRow = (int[]) in.readObject();
+            colPos = (int[]) in.readObject();
+            varName = (String) in.readObject();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabBooleanSparse with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeInt(rows);
+        out.writeInt(cols);
+        out.writeInt(nbItem);
+        out.writeObject(nbItemRow);
+        out.writeObject(colPos);
+        out.writeObject(varName);
     }
 
     /**

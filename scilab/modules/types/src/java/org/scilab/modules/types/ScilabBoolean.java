@@ -14,6 +14,9 @@
 
 package org.scilab.modules.types;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 
 /**
@@ -33,6 +36,8 @@ public class ScilabBoolean implements ScilabType {
 
     private static final long serialVersionUID = 6511497080095473901L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_boolean;
+
+    private static final int VERSION = 0;
 
     /* the boolean data */
     private boolean[][] data;
@@ -172,6 +177,28 @@ public class ScilabBoolean implements ScilabType {
      */
     public Object getSerializedObject() {
         return data;
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int version = in.readInt();
+        switch (version) {
+        case 0 :
+            data = (boolean[][]) in.readObject();
+            varName = (String) in.readObject();
+            swaped = in.readBoolean();
+            break;
+        default :
+            throw new ClassNotFoundException("A class ScilabBoolean with a version " + version + " does not exists");
+        }
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(VERSION);
+        out.writeObject(data);
+        out.writeObject(varName);
+        out.writeBoolean(swaped);
     }
 
     /**
