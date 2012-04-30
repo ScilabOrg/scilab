@@ -193,6 +193,8 @@ SCICOS_BLOCKS_IMPEXP void cevscpe(scicos_block * block, scicos_flag flag)
 
             t = get_scicos_time();
 
+            startFigureDataWriting(pFigureUID);
+
             // select only the masked indexes
             for (i = 0; i < nclk; i++)
             {
@@ -209,6 +211,8 @@ SCICOS_BLOCKS_IMPEXP void cevscpe(scicos_block * block, scicos_flag flag)
                     }
                 }
             }
+
+            endFigureDataWriting(pFigureUID);
             break;
 
         case Ending:

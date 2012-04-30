@@ -173,6 +173,8 @@ SCICOS_BLOCKS_IMPEXP void bouncexy(scicos_block * block, scicos_flag flag)
                 break;
             }
 
+            startFigureDataWriting(pFigureUID);
+
             appendData(block, (double *)block->inptr[0], (double *)block->inptr[1]);
             for (j = 0; j < block->insz[0]; j++)
             {
@@ -183,6 +185,8 @@ SCICOS_BLOCKS_IMPEXP void bouncexy(scicos_block * block, scicos_flag flag)
                     break;
                 }
             }
+
+            endFigureDataWriting(pFigureUID);
             break;
 
         case Ending:

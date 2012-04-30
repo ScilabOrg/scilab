@@ -210,6 +210,9 @@ SCICOS_BLOCKS_IMPEXP void cfscope(scicos_block * block, scicos_flag flag)
             }
             C2F(getouttb) (&links_count, links_indexes, u);
 
+
+            startFigureDataWriting(pFigureUID);
+
             /*
              * Append the data (copy) then free
              */
@@ -225,6 +228,8 @@ SCICOS_BLOCKS_IMPEXP void cfscope(scicos_block * block, scicos_flag flag)
                     break;
                 }
             }
+
+            endFigureDataWriting(pFigureUID);
             break;
 
         case Ending:

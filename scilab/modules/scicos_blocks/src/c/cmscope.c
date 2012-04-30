@@ -206,6 +206,8 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
                 break;
             }
 
+            startFigureDataWriting(pFigureUID);
+
             t = get_scicos_time();
             for (i = 0; i < block->nin; i++)
             {
@@ -222,6 +224,8 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
                     }
                 }
             }
+
+            endFigureDataWriting(pFigureUID);
             break;
 
         case Ending:

@@ -195,8 +195,9 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
             t = get_scicos_time();
             u = GetRealInPortPtrs(block, 1);
 
-            appendData(block, 0, t, u);
+            startFigureDataWriting(pFigureUID);
 
+            appendData(block, 0, t, u);
             for (i = 0; i < block->insz[0]; i++)
             {
                 result = pushData(block, 0, i);
@@ -206,6 +207,8 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
                     break;
                 }
             }
+
+            endFigureDataWriting(pFigureUID);
             break;
 
         case Ending:
