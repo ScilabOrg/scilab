@@ -168,47 +168,52 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
     switch (flag)
     {
 
-        case Initialization:
-            sco = getScoData(block);
-            if (sco == NULL)
-            {
-                set_block_error(-5);
-            }
-            pFigureUID = getFigure(block);
-            if (pFigureUID == NULL)
-            {
-                // allocation error
-                set_block_error(-5);
-            }
-            break;
+    case Initialization:
+        sco = getScoData(block);
+        if (sco == NULL)
+        {
+            set_block_error(-5);
+        }
+        pFigureUID = getFigure(block);
+        if (pFigureUID == NULL)
+        {
+            // allocation error
+            set_block_error(-5);
+        }
+        break;
 
-        case StateUpdate:
-            pFigureUID = getFigure(block);
+    case StateUpdate:
+        pFigureUID = getFigure(block);
+	
+	startFigureDataWriting(pFigureUID);
 
-            t = get_scicos_time();
-            for (i = 0; i < block->nin; i++)
+        t = get_scicos_time();
+        for (i = 0; i < block->nin; i++)
+        {
+            u = (double *)block->inptr[i];
+
+            appendData(block, i, t, u);
+            for (j = 0; j < block->insz[i]; j++)
             {
-                u = (double *)block->inptr[i];
-
-                appendData(block, i, t, u);
-                for (j = 0; j < block->insz[i]; j++)
+                result = pushData(block, i, j);
+                if (result == FALSE)
                 {
-                    result = pushData(block, i, j);
-                    if (result == FALSE)
-                    {
-                        Coserror("%s: unable to push some data.", "cmscope");
-                        break;
-                    }
+                    Coserror("%s: unable to push some data.", "cmscope");
+                    break;
                 }
             }
-            break;
+        }
 
-        case Ending:
-            freeScoData(block);
-            break;
+	endFigureDataWriting(pFigureUID);
 
-        default:
-            break;
+        break;
+
+    case Ending:
+        freeScoData(block);
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -582,6 +587,7 @@ static char *getFigure(scicos_block * block)
     if (pFigureUID == NULL)
     {
         pFigureUID = createNewFigureWithAxes();
+        startFigureDataWriting(pFigureUID);
         setGraphicObjectProperty(pFigureUID, __GO_ID__, &figNum, jni_int, 1);
 
         // set configured parameters
@@ -604,6 +610,7 @@ static char *getFigure(scicos_block * block)
 
             setPolylinesBounds(block, i, 0);
         }
+        endFigureDataWriting(pFigureUID);
     }
 
     sco->scope.cachedFigureUID = pFigureUID;
@@ -728,6 +735,7 @@ static char *getPolyline(char *pAxeUID, scicos_block * block, int input, int row
     {
         sco->scope.cachedPolylinesUIDs[input][row] = pPolyline;
     }
+
     return pPolyline;
 }
 

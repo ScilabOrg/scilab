@@ -166,6 +166,7 @@ SCICOS_BLOCKS_IMPEXP void canimxy3d(scicos_block * block, scicos_flag flag)
 
         case StateUpdate:
             pFigureUID = getFigure(block);
+	    startFigureDataWriting(pFigureUID);
 
             appendData(block, (double *)block->inptr[0], (double *)block->inptr[1], (double *)block->inptr[2]);
             for (j = 0; j < block->insz[0]; j++)
@@ -177,6 +178,9 @@ SCICOS_BLOCKS_IMPEXP void canimxy3d(scicos_block * block, scicos_flag flag)
                     break;
                 }
             }
+
+	    endFigureDataWriting(pFigureUID);
+
             break;
 
         case Ending:
@@ -462,6 +466,7 @@ static char *getFigure(scicos_block * block)
     if (pFigureUID == NULL)
     {
         pFigureUID = createNewFigureWithAxes();
+	startFigureDataWriting(pFigureUID);
         setGraphicObjectProperty(pFigureUID, __GO_ID__, &figNum, jni_int, 1);
 
         // set configured parameters
@@ -483,6 +488,7 @@ static char *getFigure(scicos_block * block)
         setGraphicObjectProperty(pAxe, __GO_Z_AXIS_VISIBLE__, &i__1, jni_bool, 1);
 
         setPolylinesBounds(block);
+	endFigureDataWriting(pFigureUID);
     }
 
     if (sco->scope.cachedFigureUID == NULL)
