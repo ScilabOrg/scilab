@@ -41,7 +41,7 @@
         <term>str</term>
         <listitem>
           <para>文字列の行列.</para>
-          <para>Scilab 5.2以降, <link linkend="math_rendering_features_in_graphic">
+          <para>Scilab 5.2以降, <link linkend="math rendering features in graphic">
               LaTeX または MathML 式
             </link>
             を書くことができます.

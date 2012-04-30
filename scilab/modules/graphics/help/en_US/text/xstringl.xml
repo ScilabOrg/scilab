@@ -46,7 +46,7 @@
         <listitem>
           <para>matrix of strings.</para>
           <para>
-            Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.
+            Starting from Scilab 5.2, it is possible to write <link linkend="math rendering features in graphic">LaTeX or MathML expression</link>.
           </para>
         </listitem>
       </varlistentry>

@@ -239,6 +239,8 @@ Documentation
 
 * Bug #11010 fixed - Examples of preconditioning added in gmres documentation.
 
+* Bug #11058 fixed - Bad display of %eps, %i, ...
+ 
 
 Xcos
 ====

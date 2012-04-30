@@ -482,7 +482,11 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     public String handleRefentry(final Map<String, String> attributes, final String contents) throws SAXException {
         String id = attributes.get("id");
         if (id != null) {
-            currentId = id;
+            if (!id.startsWith("percent") || id.equals("percent")) {
+                currentId = id;
+            } else {
+                currentId = id.replaceAll("percent", "%");
+            }
         }
         String fileName = mapId.get(currentId);
         createHTMLFile(currentId, fileName, refpurpose, contents);

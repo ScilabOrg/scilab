@@ -292,7 +292,7 @@
                   corresponding<literal> x_ticks.locations</literal> real vector too.
                 </para>
                 <para>
-                  Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.
+                  Starting from Scilab 5.2, it is possible to write <link linkend="math rendering features in graphic">LaTeX or MathML expression</link>.
                 </para>
               </listitem>
             </varlistentry>
@@ -306,7 +306,7 @@
                   corresponding<literal> y_ticks.locations</literal> real vector too.
                 </para>
                 <para>
-                  Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.
+                  Starting from Scilab 5.2, it is possible to write <link linkend="math rendering features in graphic">LaTeX or MathML expression</link>.
                 </para>
               </listitem>
             </varlistentry>
@@ -320,7 +320,7 @@
                   corresponding<literal> z_ticks.locations</literal> real vector too.
                 </para>
                 <para>
-                  Starting from Scilab 5.2, it is possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML expression</link>.
+                  Starting from Scilab 5.2, it is possible to write <link linkend="math rendering features in graphic">LaTeX or MathML expression</link>.
                 </para>
               </listitem>
             </varlistentry>

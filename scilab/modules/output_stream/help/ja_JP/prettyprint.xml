@@ -79,7 +79,7 @@
       形式はTeX, LaTeX または MathMLです.
       これらはサードパーティアプリケーションだけでなく,
       Scilab内でも多くの
-      <link linkend="math_rendering_features_in_graphic">Scilabグラフィック機能</link>で
+      <link linkend="math rendering features in graphic">Scilabグラフィック機能</link>で
       使用できます.
       以下の型がこの関数で処理できます:
     </para>
@@ -128,7 +128,7 @@ xstring(0.2,0.2,prettyprint(G*s-1)); // LaTeX表現により多項式を表示
     <title>参照</title>
     <simplelist type="inline">
       <member>
-        <link linkend="math_rendering_features_in_graphic">math_rendering_features_in_graphic</link>
+        <link linkend="math rendering features in graphic">math rendering features in graphic</link>
       </member>
       <member>
         <link linkend="xtitle">xtitle</link>

@@ -61,7 +61,7 @@
             水平に表示され,列は縦方向に表示されます.
           </para>
           <para>
-            Scilab 5.2以降,<link linkend="math_rendering_features_in_graphic">LaTeX または MathML 式</link>
+            Scilab 5.2以降,<link linkend="math rendering features in graphic">LaTeX または MathML 式</link>
             を指定することができます.
           </para>
         </listitem>

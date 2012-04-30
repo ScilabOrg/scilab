@@ -131,7 +131,7 @@
         <para>
           In this tab, you can modify your text and its appearance with the font size, family and style. You can also use
           some HTML tags to control you text displaying. Starting from Scilab 5.2, it is also
-          possible to write <link linkend="math_rendering_features_in_graphic">LaTeX or MathML</link> expressions.
+          possible to write <link linkend="math rendering features in graphic">LaTeX or MathML</link> expressions.
         </para>
       </listitem>
       <listitem>
@@ -235,7 +235,7 @@
     <title>See also</title>
     <itemizedlist>
       <listitem>
-        <link linkend="math_rendering_features_in_graphic">Math rendering</link>
+        <link linkend="math rendering features in graphic">Math rendering</link>
       </listitem>
     </itemizedlist>
   </refsection>

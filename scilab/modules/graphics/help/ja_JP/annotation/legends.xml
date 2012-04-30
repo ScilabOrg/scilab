@@ -31,7 +31,7 @@
         <listitem>
           <para>文字列のベクトルで, strings(i) は i番目の曲線の凡例となります.</para>
           <para>Scilab 5.2 以降, 
-            <link linkend="math_rendering_features_in_graphic">LaTeX または
+            <link linkend="math rendering features in graphic">LaTeX または
               MathML 式
             </link>
             を記述することが可能です.

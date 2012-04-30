@@ -120,7 +120,7 @@
         <para>
           Dans cet onglet, vous pouvez modifier votre texte et son apparence avec la taille, la famille et le style de police,
           Vous pouvez aussi utiliser certaines balises HTML pour contrôler l'affichage de votre texte. Depuis la version 5.2 de
-          Scilab, il est possible d'écrire des expressions <link linkend="math_rendering_features_in_graphic">
+          Scilab, il est possible d'écrire des expressions <link linkend="math rendering features in graphic">
             LaTeX or MathML
           </link>
           .
@@ -227,7 +227,7 @@
     <title>Voir aussi</title>
     <itemizedlist>
       <listitem>
-        <link linkend="math_rendering_features_in_graphic">Rendu mathématique</link>
+        <link linkend="math rendering features in graphic">Rendu mathématique</link>
       </listitem>
     </itemizedlist>
   </refsection>

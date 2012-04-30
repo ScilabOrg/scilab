@@ -26,7 +26,7 @@
         <listitem>
           <para>matrice de chaînes de caractères.</para>
           <para>
-            A partir de la version Scilab 5.2, il est possible d'utiliser les expressions <link linkend="math_rendering_features_in_graphic">LaTeX ou MathML</link>
+            A partir de la version Scilab 5.2, il est possible d'utiliser les expressions <link linkend="math rendering features in graphic">LaTeX ou MathML</link>
           </para>
         </listitem>
       </varlistentry>

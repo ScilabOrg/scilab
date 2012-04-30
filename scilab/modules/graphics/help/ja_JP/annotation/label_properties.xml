@@ -62,7 +62,7 @@
           <para>オブジェクトの文字列を有する行列.行列の行は水平に表示され,列は垂直に表示されます.
           </para>
           <para>
-            Scilab 5.2以降, <link linkend="math_rendering_features_in_graphic">LaTeX または MathML 式</link>を書くことが可能です.
+            Scilab 5.2以降, <link linkend="math rendering features in graphic">LaTeX または MathML 式</link>を書くことが可能です.
           </para>
         </listitem>
       </varlistentry>

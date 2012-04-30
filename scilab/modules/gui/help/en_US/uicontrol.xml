@@ -526,7 +526,7 @@ h.fontsize=20
         <link linkend="uimenu">uimenu</link>
       </member>
       <member>
-        <link linkend="math_rendering_features_in_graphic">LaTeX and MathML</link>
+        <link linkend="math rendering features in graphic">LaTeX and MathML</link>
       </member>
     </simplelist>
   </refsection>

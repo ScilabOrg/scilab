@@ -79,7 +79,7 @@
       Taking a variable, the prettyprint function will provide a formated representation of it.
       Formats can be TeX, LaTeX or MathML.
       They can be used in third party applications but also within Scilab with the most of the
-      <link linkend="math_rendering_features_in_graphic">Scilab graphic features</link>.
+      <link linkend="math rendering features in graphic">Scilab graphic features</link>.
       The following types are handled by this function:
     </para>
     <itemizedlist>
@@ -127,7 +127,7 @@ xstring(0.2,0.2,prettyprint(G*s-1)); // Show a polynomial through a LaTeX repres
     <title>See Also</title>
     <simplelist type="inline">
       <member>
-        <link linkend="math_rendering_features_in_graphic">math_rendering_features_in_graphic</link>
+        <link linkend="math rendering features in graphic">math rendering features in graphic</link>
       </member>
       <member>
         <link linkend="xtitle">xtitle</link>
