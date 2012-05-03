@@ -401,23 +401,18 @@ char *createGroupName(char *_pstGroupName)
     return pstGroupName;
 }
 
-char* createPathName(char *_pstGroupName, int _iIndex)
+char *createPathName(char *_pstGroupName, int _iIndex)
 {
     char *pstName = NULL;
     char *pstPathName = NULL;
 
-    int iNameLen = (int)log10((double)_iIndex + 1) + 1;
-    iNameLen += 2; //for both '#'
-    iNameLen += 1; //for null termanation
-
-    pstName = (char *)MALLOC(iNameLen * sizeof(char));
+    pstName = (char *)MALLOC(((int)log10((double)(_iIndex + 1)) + 3) * sizeof(char));
     //1 for null termination, 2 for '#' characters
     sprintf(pstName, "#%d#", _iIndex);
 
     pstPathName = (char *)MALLOC((strlen(_pstGroupName) + strlen(pstName) + 2) * sizeof(char));
     //1 for null termination, 1 for separator, 2 for '#' characters
     sprintf(pstPathName, "%s/%s", _pstGroupName, pstName);
-    FREE(pstName);
     return pstPathName;
 }
 
@@ -535,6 +530,11 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
     herr_t status = 0;
     hobj_ref_t iRef = 0;
 
+    char *pstPathName = NULL;
+
+    //createGroupe and dataset name
+    pstPathName = createPathName(_pstGroupName, _iIndex);
+
     if (_iRows * _iCols == 0)
     {
         double dblZero = 0;
@@ -580,8 +580,6 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
     }
     else
     {
-        char *pstPathName = NULL;
-
         //Create dataspace.  Setting maximum size to NULL sets the maximum
         //size to be the current size.
         space = H5Screate_simple(1, dims, NULL);
@@ -590,22 +588,17 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
             return (hobj_ref_t) (-1);
         }
 
-        //createGroupe and dataset name
-        pstPathName = createPathName(_pstGroupName, _iIndex);
-
         //Create the dataset and write the array data to it.
         iCompress = enableCompression(9, 1, dims);
         dset = H5Dcreate(_iFile, pstPathName, H5T_NATIVE_DOUBLE, space, iCompress);
         if (dset < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
 
         status = H5Dwrite(dset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, _pdblData);
         if (status < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
 
@@ -613,7 +606,6 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
         status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
         if (status < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
 
@@ -621,7 +613,6 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
         status = addIntAttribute(dset, g_SCILAB_CLASS_ROWS, _iRows);
         if (status < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
 
@@ -629,7 +620,6 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
         status = addIntAttribute(dset, g_SCILAB_CLASS_COLS, _iCols);
         if (status < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
 
@@ -637,11 +627,8 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
         status = H5Rcreate(&iRef, _iFile, pstPathName, H5R_OBJECT, -1);
         if (status < 0)
         {
-            FREE(pstPathName);
             return (hobj_ref_t) (-1);
         }
-
-        FREE(pstPathName);
     }
 
     //Close and release resources.
@@ -656,6 +643,8 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
     {
         return (hobj_ref_t) (-1);
     }
+
+    FREE(pstPathName);
 
     return iRef;
 }
@@ -775,13 +764,11 @@ int writeDoubleComplexMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
 
     if (status < 0)
     {
-        FREE(pstGroupName);
         return -1;
     }
 
     pRef[0] = writeCommomDoubleMatrix(_iFile, pstGroupName, _pstDatasetName, 0, _iRows, _iCols, _pdblReal);
     pRef[1] = writeCommomDoubleMatrix(_iFile, pstGroupName, _pstDatasetName, 1, _iRows, _iCols, _pdblImg);
-    FREE(pstGroupName);
     if (pRef[0] == 0 || pRef[1] == 0)
     {
         return 1;
@@ -849,6 +836,7 @@ int writeDoubleComplexMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
         return -1;
     }
 
+    FREE(pstGroupName);
     return 0;
 }
 
@@ -930,11 +918,13 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
     hid_t iCompress = 0;
     hobj_ref_t *pData = 0;
 
+    char *pstName = NULL;
     char *pstPathName = NULL;
+
     char *pstGroupName = NULL;
 
     // Create ref matrix
-    pData = (hobj_ref_t *)MALLOC(dims[0] * sizeof(hobj_ref_t));
+    pData = (hobj_ref_t *) MALLOC(_iRows * _iCols * sizeof(hobj_ref_t));
 
     // Generate groupname #<dataSetName>#
     pstGroupName = createGroupName(_pstDatasetName);
@@ -944,7 +934,7 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
     status = H5Gclose(group);
 
     //Now create each String as a dedicated DataSet.
-    for (i = 0 ; i < dims[0] ; i++)
+    for (i = 0; i < _iRows * _iCols; i++)
     {
         pstPathName = createPathName(pstGroupName, i);
 
@@ -960,31 +950,23 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
 
         if (status < 0)
         {
-            FREE(pstPathName);
-            FREE(pstGroupName);
-            FREE(pData);
             return -1;
         }
-
         // create the ref
         status = H5Rcreate(&pData[i], _iFile, pstPathName, H5R_OBJECT, -1);
         if (status < 0)
         {
-            FREE(pstPathName);
-            FREE(pstGroupName);
-            FREE(pData);
             return -1;
         }
 
+        FREE(pstName);
         FREE(pstPathName);
     }
 
-    FREE(pstGroupName);
     //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
     space = H5Screate_simple(1, dims, NULL);
     if (status < 0)
     {
-        FREE(pData);
         return -1;
     }
 
@@ -993,18 +975,14 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
     dset = H5Dcreate(_iFile, _pstDatasetName, H5T_STD_REF_OBJ, space, iCompress);
     if (dset < 0)
     {
-        FREE(pData);
         return -1;
     }
 
     status = H5Dwrite(dset, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, pData);
     if (status < 0)
     {
-        FREE(pData);
         return -1;
     }
-
-    FREE(pData);
     //Add attribute SCILAB_Class = poly to dataset
     status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_POLY);
     if (status < 0)
@@ -1056,6 +1034,9 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
         return -1;
     }
 
+    FREE(pstGroupName);
+    FREE(pData);
+
     return 0;
 }
 
@@ -1070,7 +1051,7 @@ int writePolyComplexMatrix(int _iFile, char *_pstDatasetName, char *_pstVarName,
     return writeCommonPolyMatrix(_iFile, _pstDatasetName, _pstVarName, 1, _iRows, _iCols, _piNbCoef, _pdblReal, _pdblImg);
 }
 
-int writeInteger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, char *_pcData)
+int writeInterger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, char *_pcData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1141,7 +1122,7 @@ int writeInteger8Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCol
     return 0;
 }
 
-int writeInteger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, short *_psData)
+int writeInterger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, short *_psData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1211,7 +1192,7 @@ int writeInteger16Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCo
     return 0;
 }
 
-int writeInteger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, int *_piData)
+int writeInterger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, int *_piData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1283,7 +1264,7 @@ int writeInteger32Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCo
     return 0;
 }
 
-int writeInteger64Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, long long *_pllData)
+int writeInterger64Matrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, long long *_pllData)
 {
     hsize_t piDims[1] = { _iRows * _iCols };
     herr_t status = 0;
@@ -1652,12 +1633,16 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     hid_t dset = 0;
     hid_t group = 0;
     hid_t iCompress = 0;
-    hobj_ref_t pDataRef[3] = {0};
+    hobj_ref_t *pDataRef = 0;
 
     char *pstRowPath = NULL;
     char *pstColPath = NULL;
     char *pstDataPath = NULL;
     char *pstGroupName = NULL;
+
+    // Create ref matrix
+    //3 refs : 1 for data, 1 for Number Item by row ( row size ) and 1 for column position
+    pDataRef = (hobj_ref_t *) MALLOC(3 * sizeof(hobj_ref_t));
 
     // Generate groupname #<dataSetName>#
     pstGroupName = createGroupName(_pstDatasetName);
@@ -1667,44 +1652,33 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     status = H5Gclose(group);
     if (status < 0)
     {
-        FREE(pstGroupName);
         return -1;
     }
 
     //Create each sub dataset and insert data
     pstRowPath = createPathName(pstGroupName, 0);
-    status = writeInteger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
+    status = writeInterger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     status = H5Rcreate(&pDataRef[0], _iFile, pstRowPath, H5R_OBJECT, -1);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     pstColPath = createPathName(pstGroupName, 1);
-    status = writeInteger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
+    status = writeInterger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     status = H5Rcreate(&pDataRef[1], _iFile, pstColPath, H5R_OBJECT, -1);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstGroupName);
         return -1;
     }
 
@@ -1717,23 +1691,14 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     {
         status = writeDoubleMatrix(_iFile, pstDataPath, 1, _iNbItem, _pdblReal);
     }
-
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstDataPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     status = H5Rcreate(&pDataRef[2], _iFile, pstDataPath, H5R_OBJECT, -1);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstDataPath);
-        FREE(pstGroupName);
         return -1;
     }
 
@@ -1741,7 +1706,6 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     FREE(pstRowPath);
     FREE(pstColPath);
     FREE(pstDataPath);
-    FREE(pstGroupName);
 
     //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
     space = H5Screate_simple(1, dims, NULL);
@@ -1812,6 +1776,8 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
         return -1;
     }
 
+    FREE(pstGroupName);
+
     return 0;
 }
 
@@ -1834,11 +1800,15 @@ int writeBooleanSparseMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
     hid_t dset = 0;
     hid_t group = 0;
     hid_t iCompress = 0;
-    hobj_ref_t pDataRef[2] = {0};
+    hobj_ref_t *pDataRef = 0;
 
     char *pstRowPath = NULL;
     char *pstColPath = NULL;
     char *pstGroupName = NULL;
+
+    // Create ref matrix
+    //2 refs : 1 for data, 1 for Number Item by row ( row size ) and 1 for column position
+    pDataRef = (hobj_ref_t *) MALLOC(2 * sizeof(hobj_ref_t));
 
     // Generate groupname #<dataSetName>#
     pstGroupName = createGroupName(_pstDatasetName);
@@ -1848,51 +1818,39 @@ int writeBooleanSparseMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
     status = H5Gclose(group);
     if (status < 0)
     {
-        FREE(pstGroupName);
         return -1;
     }
 
     //Create each sub dataset and insert data
     pstRowPath = createPathName(pstGroupName, 0);
-    status = writeInteger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
+    status = writeInterger32Matrix(_iFile, pstRowPath, 1, _iRows, _piNbItemRow);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     status = H5Rcreate(&pDataRef[0], _iFile, pstRowPath, H5R_OBJECT, -1);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     pstColPath = createPathName(pstGroupName, 1);
-    status = writeInteger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
+    status = writeInterger32Matrix(_iFile, pstColPath, 1, _iNbItem, _piColPos);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     status = H5Rcreate(&pDataRef[1], _iFile, pstColPath, H5R_OBJECT, -1);
     if (status < 0)
     {
-        FREE(pstRowPath);
-        FREE(pstColPath);
-        FREE(pstGroupName);
         return -1;
     }
 
     //FREE group names
     FREE(pstRowPath);
     FREE(pstColPath);
-    FREE(pstGroupName);
 
     //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
     space = H5Screate_simple(1, dims, NULL);
@@ -1951,6 +1909,9 @@ int writeBooleanSparseMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
     {
         return -1;
     }
+
+    FREE(pstGroupName);
+    FREE(pDataRef);
 
     return 0;
 }
