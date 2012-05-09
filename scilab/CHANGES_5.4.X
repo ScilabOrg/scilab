@@ -708,6 +708,8 @@ t.
 * Bug #10966 fixed - linspace was producing some numerical errors on the last
                      element.
 
+* Bug #11076 fixed -  mlist('r'), tlist('r') returned a wrong error message
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
