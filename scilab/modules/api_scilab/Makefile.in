@@ -149,9 +149,6 @@ am__objects_1 = libsciapi_scilab_la-api_boolean.lo \
 	libsciapi_scilab_la-api_error.lo
 am_libsciapi_scilab_la_OBJECTS = $(am__objects_1)
 libsciapi_scilab_la_OBJECTS = $(am_libsciapi_scilab_la_OBJECTS)
-libsciapi_scilab_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(libsciapi_scilab_la_LDFLAGS) $(LDFLAGS) -o $@
 @MAINTAINER_MODE_FALSE@am_libsciapi_scilab_la_rpath =
 @MAINTAINER_MODE_TRUE@am_libsciapi_scilab_la_rpath = -rpath \
 @MAINTAINER_MODE_TRUE@	$(pkglibdir)
@@ -431,7 +428,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-API_SCILAB_CPP_SOURCES = src/cpp/api_boolean.cpp \
+API_SCILAB_CXX_SOURCES = src/cpp/api_boolean.cpp \
 src/cpp/api_boolean_sparse.cpp \
 src/cpp/api_common.cpp \
 src/cpp/api_double.cpp \
@@ -443,32 +440,23 @@ src/cpp/api_string.cpp \
 src/cpp/api_pointer.cpp \
 src/cpp/api_error.cpp
 
-libsciapi_scilab_la_CFLAGS = -I$(srcdir)/includes/ \
--I$(srcdir)/src/c/ \
--I$(top_srcdir)/modules/core/includes \
--I$(top_srcdir)/modules/call_scilab/includes \
--I$(top_srcdir)/libs/MALLOC/includes/ \
--I$(top_srcdir)/modules/localization/includes \
--I$(top_srcdir)/modules/output_stream/includes \
--I$(top_srcdir)/modules/string/includes
-
 libsciapi_scilab_la_CPPFLAGS = -I$(srcdir)/includes/ \
 -I$(srcdir)/src/cpp/ \
--I$(top_srcdir)/modules/core/includes \
--I$(top_srcdir)/modules/call_scilab/includes \
+-I$(top_srcdir)/modules/core/includes/ \
+-I$(top_srcdir)/modules/call_scilab/includes/ \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
--I$(top_srcdir)/modules/localization/includes \
--I$(top_srcdir)/modules/output_stream/includes \
--I$(top_srcdir)/modules/string/includes
+-I$(top_srcdir)/modules/localization/includes/ \
+-I$(top_srcdir)/modules/output_stream/includes/ \
+-I$(top_srcdir)/modules/string/includes/ \
+$(AM_CPPFLAGS)
 
 @MAINTAINER_MODE_TRUE@pkglib_LTLIBRARIES = libsciapi_scilab.la
 @MAINTAINER_MODE_FALSE@noinst_LTLIBRARIES = libsciapi_scilab.la
-libsciapi_scilab_la_LDFLAGS = -version-number $(SCILAB_LIBRARY_VERSION)
-libsciapi_scilab_la_SOURCES = $(API_SCILAB_C_SOURCES) $(API_SCILAB_CPP_SOURCES)
+libsciapi_scilab_la_SOURCES = $(API_SCILAB_C_SOURCES) $(API_SCILAB_CXX_SOURCES)
 
 # For the code check (splint)
 CHECK_SRC = $(libsciapi_scilab_la_SOURCES)
-INCLUDE_FLAGS = $(libsciapi_scilab_la_CFLAGS) 
+INCLUDE_FLAGS = $(libsciapi_scilab_la_CPPFLAGS) 
 libsciapi_scilab_la_LIBADD = 
 #
 
@@ -501,6 +489,16 @@ includes/api_scilab.h
 
 # Where all the Scilab stuff is installed (macros, help, ...)
 mydatadir = $(pkgdatadir)/modules/$(modulename)
+
+# Set AM_* SCI detected settings
+AM_CPPFLAGS = $(SCI_CPPFLAGS)
+AM_CFLAGS = $(SCI_CFLAGS)
+AM_CXXFLAGS = $(SCI_CXXFLAGS)
+# append includes to AM_FFLAGS to manage fortran includes
+AM_FFLAGS = $(SCI_FFLAGS) -I$(top_srcdir)/modules/core/includes/
+
+# Tag shared libraries with the Scilab version
+AM_LDFLAGS = $(SCI_LDFLAGS) -version-number $(SCILAB_LIBRARY_VERSION)
 
 # splint options
 SPLINT_OPTIONS = -weak -booltype BOOL
@@ -638,7 +636,7 @@ clean-pkglibLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libsciapi_scilab.la: $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_DEPENDENCIES) $(EXTRA_libsciapi_scilab_la_DEPENDENCIES) 
-	$(libsciapi_scilab_la_LINK) $(am_libsciapi_scilab_la_rpath) $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_LIBADD) $(LIBS)
+	$(CXXLINK) $(am_libsciapi_scilab_la_rpath) $(libsciapi_scilab_la_OBJECTS) $(libsciapi_scilab_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
