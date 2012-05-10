@@ -425,7 +425,7 @@ msgid "%s : '%s' must be set\n"
 msgstr "%s : '%s' debe ser establecido\n"
 
 #, c-format
-msgid "%s: Wrong number of input argument %d expected.\n"
+msgid "%s: Wrong number of input argument: %d expected.\n"
 msgstr ""
 
 #, c-format

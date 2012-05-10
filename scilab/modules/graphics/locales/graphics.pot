@@ -608,7 +608,7 @@ msgstr ""
 # File: sci_gateway/c/sci_xset.c, line: 268
 # File: sci_gateway/c/sci_xset.c, line: 282
 #, c-format
-msgid "%s: Wrong number of input argument %d expected.\n"
+msgid "%s: Wrong number of input argument: %d expected.\n"
 msgstr ""
 
 #

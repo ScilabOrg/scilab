@@ -348,7 +348,7 @@ msgid "%s : '%s' must be set\n"
 msgstr "%s : '%s' を設定してください\n"
 
 #, c-format
-msgid "%s: Wrong number of input argument %d expected.\n"
+msgid "%s: Wrong number of input argument: %d expected.\n"
 msgstr ""
 
 #, c-format
