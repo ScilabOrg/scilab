@@ -14,6 +14,7 @@ package org.scilab.modules.gui.bridge.tab;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.ScrollPane;
 import java.awt.event.ComponentEvent;
@@ -23,10 +24,16 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
+import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
 
 
 /**
  * Scroll pane based on AWT technology
+ *
+ * TO DO:
+ * -update the corresponding Figure's viewport property when scrolling and its axes_size
+ *  property when switching to auto_resize == 'on'.
+ * 
  * @author Jean-Baptiste silvy
  */
 public class AwtScilabScrollPane implements ScilabScrollPane {
@@ -47,14 +54,14 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 	private class AwtCustomScrollPane extends ScrollPane implements ComponentListener {
 		
 		private static final long serialVersionUID = -127053010360658684L;
-		private SwingScilabAxes axes;
+		private SwingScilabCanvas axes;
 		
 		/**
 		 * Constructor
 		 * @param axes axes to scroll
 		 * @param scrollBarPolicy if the scrollpane should have scrollbars or not
 		 */
-		public AwtCustomScrollPane(SwingScilabAxes axes, int scrollBarPolicy) {
+		public AwtCustomScrollPane(SwingScilabCanvas axes, int scrollBarPolicy) {
 			super(scrollBarPolicy);
 			this.axes = axes;
 			addComponentListener(this);
@@ -92,11 +99,14 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 		 * @param event generated event
 		 */
 		public void componentResized(ComponentEvent event) {
+                // TO DO: update the Figure's axes_size property if auto resize is on
+/*
 			if (axes.getAutoResizeMode()) {
 				// in auto resize mode the viewport axes
 				// fill the tab and then the view
 				axes.setSize(scrolling.getViewportSize());
 			}
+*/
 			
 		}
 		
@@ -109,7 +119,7 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 		/**
 		 * @return the scrolled axes
 		 */
-		public SwingScilabAxes getAxes() {
+		public SwingScilabCanvas getAxes() {
 			return axes;
 		}
 		
@@ -120,13 +130,16 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 	 * @param axes axes to scroll
 	 * @param parentTab parentTab of the scrollPane
 	 */
-	public AwtScilabScrollPane(SwingScilabAxes axes, SwingScilabTab parentTab) {
+	public AwtScilabScrollPane(SwingScilabCanvas axes, SwingScilabTab parentTab, boolean autoResize) {
 		//super(ScrollPane.SCROLLBARS_AS_NEEDED);
-		if (axes.getAutoResizeMode()) {
+
+                if (autoResize) {
 			this.scrolling = new AwtCustomScrollPane(axes, ScrollPane.SCROLLBARS_NEVER);
+                        axes.setPreferredSize(new Dimension(1,1));
 		} else {
 			this.scrolling = new AwtCustomScrollPane(axes, ScrollPane.SCROLLBARS_AS_NEEDED);
 		}
+
 		this.parentTab = parentTab;
 		// use the axes background as default one
 		setRealBackground(scrolling.getAxes().getBackground());
@@ -181,15 +194,26 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 	public void paint(Graphics g) {
 		scrolling.paint(g);
 	}
+
+	public void setAutoResizeMode(boolean autoResizeMode) {
+
+	}
 	
 	/**
-	 * Enable or disable auto resize mode
-	 * @param autoResizeMode true if autoresize is on
+         * Enables or disables auto resize mode and sets the scrolled canvas' preferred size
+         * if auto resize is set to off.
+         * To be implemented.
+         * @param autoResizeMode true if autoresize is on
+         * @param the preferred width and height.
 	 */
-	public void setAutoResizeMode(boolean autoResizeMode) {
-		final SwingScilabAxes movedAxes = scrolling.getAxes();
+	public void setAutoResizeMode(boolean autoResizeMode, final Integer[] size) {
+		final SwingScilabCanvas movedAxes = scrolling.getAxes();
 		final boolean autoResizeModeF = autoResizeMode;
-		if (autoResizeMode != movedAxes.getAutoResizeMode()) {
+
+        // To do: take into account when the previous and new values are identical.
+	//	if (autoResizeMode != movedAxes.getAutoResizeMode()) {
+
+                if (true) {
 			try {
     			SwingUtilities.invokeAndWait(new Runnable() {
     				public void run() {
@@ -198,10 +222,13 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
     					if (autoResizeModeF) {
     						// switch to auto resize mode
     						scrolling = new AwtCustomScrollPane(movedAxes, ScrollPane.SCROLLBARS_NEVER);
+
+                                                movedAxes.setPreferredSize(new Dimension(1, 1));
     					} else {
     						scrolling = new AwtCustomScrollPane(movedAxes, ScrollPane.SCROLLBARS_AS_NEEDED);
+                                                movedAxes.setPreferredSize(new Dimension(size[0], size[1]));
     					}
-    					movedAxes.setAutoResizeMode(autoResizeModeF);
+    		//			movedAxes.setAutoResizeMode(autoResizeModeF);
     					// set the new axes
     					parentTab.setContentPane(scrolling);
     					parentTab.revalidate();
@@ -215,13 +242,26 @@ public class AwtScilabScrollPane implements ScilabScrollPane {
 			
 		}
 	}
-	
+
+        /**
+         * Sets the scrolled canvas' preferred size.
+         * @param the preferred width and height.
+         */
+	public void setCanvasSize(Integer[] size) {
+		scrolling.getAxes().setPreferredSize(new Dimension(size[0], size[1]));
+
+		// Experimental: might be incorrect
+		parentTab.setContentPane(scrolling);
+		parentTab.revalidate();
+	}
+
 	/**
 	 * Enable or disable auto resize mode
 	 * @return true if autoresize is on
 	 */
 	public boolean getAutoResizeMode() {
-		return scrolling.getAxes().getAutoResizeMode();
+	//	return scrolling.getAxes().getAutoResizeMode();
+            return true;
 	}
 	
 	/**

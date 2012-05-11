@@ -31,12 +31,8 @@ import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 import javax.media.opengl.GL;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.awt.GLJPanel;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -53,21 +49,21 @@ import java.awt.image.BufferedImage;
  * @author Marouane BEN JELLOUL
  * @author Jean-Baptiste Silvy
  */
-public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
+public class SwingScilabCanvas extends JScrollPane implements SimpleCanvas {
 
     private static final long serialVersionUID = 6101347094617535625L;
 
     /** The renderer canvas */
-    private final Canvas rendererCanvas;
+    private Canvas rendererCanvas;
 
     /** The drawn figure */
     private final Figure figure;
 
     /** The drawer visitor used to draw the figure */
-    private final DrawerVisitor drawerVisitor;
+    private DrawerVisitor drawerVisitor;
 
     /** The drawable component where the draw is performed */
-    private final Component drawableComponent;
+    private Component drawableComponent;
 
     /*
      * Using GLJPanel for MacOSX may lead to a deadlock on deletion.
@@ -93,7 +89,7 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
     }
 
     public SwingScilabCanvas(int figureId, final Figure figure) {
-        super(new PanelLayout());
+        //super(new PanelLayout());
         this.figure = figure;
 
         try {
@@ -110,7 +106,8 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
             GLJPanel glCanvas = new MacOSXGLJPanel();
             drawableComponent = glCanvas;
             glCanvas.setEnabled(true);
-            add(glCanvas, PanelLayout.GL_CANVAS);
+            //add(glCanvas, PanelLayout.GL_CANVAS);
+            setViewportView(glCanvas);
 
             rendererCanvas = JoGLCanvasFactory.createCanvas(glCanvas);
             drawerVisitor = new DrawerVisitor(drawableComponent, rendererCanvas, figure);
@@ -126,7 +123,8 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
             GLCanvas glCanvas = new GLCanvas();
             drawableComponent = glCanvas;
             glCanvas.setEnabled(true);
-            add(glCanvas, PanelLayout.GL_CANVAS);
+            //add(glCanvas, PanelLayout.GL_CANVAS);
+            setViewportView(glCanvas);
 
             rendererCanvas = JoGLCanvasFactory.createCanvas(glCanvas);
             drawerVisitor = new DrawerVisitor(drawableComponent, rendererCanvas, figure);
@@ -138,6 +136,29 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
                         GlobalEventWatcher.setAxesUID(figure.getIdentifier());
                     }
                 });
+        }
+        setAutoResize(true, null);
+    }
+
+    /**
+     * Enable or disable auto-resize.
+     * @param autoResize
+     */
+    public void setAutoResize(boolean autoResize, final Integer[] size) {
+        if (autoResize) {
+            drawableComponent.setPreferredSize(new Dimension(1, 1));
+            setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            setLayout(new ScrollPaneLayout());
+        } else {
+            drawableComponent.setSize(size[0], size[1]);
+            drawableComponent.setPreferredSize(new Dimension(size[0], size[1]));
+            drawableComponent.setMaximumSize(new Dimension(size[0], size[1]));
+            drawableComponent.setMinimumSize(new Dimension(size[0], size[1]));
+            setLayout(null);
+
+            setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+            setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         }
     }
 

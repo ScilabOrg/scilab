@@ -48,6 +48,20 @@ public interface ScilabScrollPane {
 	 * @param autoResizeMode true if autoresize is on
 	 */
 	void setAutoResizeMode(boolean autoResizeMode);
+
+        /**
+	 * Enables or disables auto resize mode and sets the scrolled canvas' preferred size
+         * if auto resize is set to off.
+	 * @param autoResizeMode true if autoresize is on.
+         * @param the preferred width and height.
+         */
+        void setAutoResizeMode(boolean autoResizeMode, final Integer[] size);
+
+        /**
+         * Sets the scrolled canvas' preferred size.
+         * @param the preferred width and height.
+         */
+        void setCanvasSize(Integer[] size);
 	
 	/**
 	 * Enable or disable auto resize mode

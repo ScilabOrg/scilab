@@ -15,6 +15,7 @@
 
 package org.scilab.modules.gui.bridge.tab;
 
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AUTORESIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CALLBACK__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CHILDREN__;
@@ -23,6 +24,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_POSITION__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_SIZE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_TYPE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_VIEWPORT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICHECKEDMENU__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UICHILDMENU__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UIMENU__;
@@ -31,6 +33,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_EVENTHANDLER_NAME__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_EVENTHANDLER_ENABLE__;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -38,6 +41,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.ScrollPane;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
@@ -51,6 +55,10 @@ import java.util.Iterator;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.ScrollPaneConstants;
 
 import org.flexdock.docking.DockingConstants;
 import org.flexdock.docking.DockingPort;
@@ -262,8 +270,13 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         /* OpenGL context */
         SwingScilabCanvas canvas = new SwingScilabCanvas(figureId, figure);
         contentCanvas = canvas;
-        setContentPane(canvas);
-        canvas.setVisible(true);
+
+        /*
+         * To do: create a SwingScilabScrollPane or an AwtScilabScrollPane depending on the actual
+         * rendering component used by SwingScilabCanvas (GLJPanel or GLCanvas).
+         */
+        scrolling = new AwtScilabScrollPane(canvas, this, isAutoResize(figure.getIdentifier()));
+        setContentPane(scrolling.getAsContainer());
 
         /* Manage figure_position property */
         addHierarchyBoundsListener(new HierarchyBoundsListener() {
@@ -294,12 +307,15 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
                 newSize[0] = parentSize.getWidth();
                 newSize[1] = parentSize.getHeight();
                 GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
-                /* Update the axes_size property */
-                Dimension contentPaneSize = getContentPane().getSize();
-                Integer[] newAxesSize = new Integer[2];
-                newAxesSize[0] = contentPaneSize.width;
-                newAxesSize[1] = contentPaneSize.height;
-                GraphicController.getController().setProperty(id, __GO_AXES_SIZE__, newAxesSize);
+
+                if (isAutoResize(getId())) {
+                    /* Update the axes_size property */
+                    Dimension contentPaneSize = getContentPane().getSize();
+                    Integer[] newAxesSize = new Integer[2];
+                    newAxesSize[0] = contentPaneSize.width;
+                    newAxesSize[1] = contentPaneSize.height;
+                    GraphicController.getController().setProperty(id, __GO_AXES_SIZE__, newAxesSize);
+                }
             }
 
             public void componentMoved(ComponentEvent arg0) {
@@ -520,7 +536,9 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
                 SwingUtilities.invokeAndWait(new Runnable() {
                     @Override
                     public void run() {
-                        scrolling = new AwtScilabScrollPane(contentPane, thisF);
+              //          scrolling = new AwtScilabScrollPane(contentPane, thisF);
+// TO DO
+                        scrolling = null;
                         setContentPane(scrolling.getAsContainer());
                         revalidate();
 
@@ -553,7 +571,8 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
                 SwingUtilities.invokeAndWait(new Runnable() {
                     @Override
                     public void run() {
-                        scrolling = new SwingScilabScrollPane(contentPane);
+               // TO DO
+               //         scrolling = new SwingScilabScrollPane(contentPane);
                         setContentPane(scrolling.getAsContainer());
                         revalidate();
                     }
@@ -1449,17 +1468,32 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             SwingScilabWindow.allScilabWindows.get(parentWindowId).setPosition(new Position(position[0], position[1]));
         } else if (property.equals(__GO_AXES_SIZE__)) {
             Integer[] axesSize = (Integer[]) value;
-            Dimension oldAxesSize = getContentPane().getSize();
-            if (oldAxesSize.getWidth() != axesSize[0] || oldAxesSize.getHeight() != axesSize[1]) {
-                // Autoresize == "on" management
-                // TODO manage scrolling in with autoresize mode set to "off"
-                // TODO manage tabs when there are docked (do not change the window size if more than one tab docked)
-                int deltaX = axesSize[0] - (int) oldAxesSize.getWidth();
-                int deltaY = axesSize[1] - (int) oldAxesSize.getHeight();
-                Size parentWindowSize = SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
-                SwingScilabWindow.allScilabWindows.get(parentWindowId).setDims(
-                    new Size(parentWindowSize.getWidth() + deltaX, parentWindowSize.getHeight() + deltaY));
+
+            if (isAutoResize(getId())) {
+                Dimension oldAxesSize = getContentPane().getSize();
+                if (oldAxesSize.getWidth() != axesSize[0] || oldAxesSize.getHeight() != axesSize[1]) {
+                    // Autoresize == "on" management
+                    // TODO manage scrolling in with autoresize mode set to "off"
+                    // TODO manage tabs when there are docked (do not change the window size if more than one tab docked)
+                    int deltaX = axesSize[0] - (int) oldAxesSize.getWidth();
+                    int deltaY = axesSize[1] - (int) oldAxesSize.getHeight();
+                    Size parentWindowSize = SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
+                    SwingScilabWindow.allScilabWindows.get(parentWindowId).setDims(
+                        new Size(parentWindowSize.getWidth() + deltaX, parentWindowSize.getHeight() + deltaY));
+                }
+            } else {
+                Dimension contentPaneSize = getContentPane().getSize();
+                Integer[] newAxesSize = new Integer[2];
+                newAxesSize[0] = contentPaneSize.width;
+                newAxesSize[1] = contentPaneSize.height;
+                scrolling.setCanvasSize(axesSize);
             }
+        } else if (property.equals(__GO_AUTORESIZE__)) {
+            Integer[] axesSize = (Integer[]) GraphicController.getController().getProperty(getId(), __GO_AXES_SIZE__);
+            scrolling.setAutoResizeMode(isAutoResize(getId()), axesSize);
+        } else if (property.equals(__GO_VIEWPORT__)) {
+            Integer[] viewport = (Integer[]) value;
+            scrolling.setViewPosition(viewport[0], viewport[1]);
         } else if (property.equals(__GO_INFO_MESSAGE__)) {
             getInfoBar().setText((String) value);
         } else if (property.equals(__GO_EVENTHANDLER_ENABLE__)) {
@@ -1469,6 +1503,10 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             String eventHandlerName = (String) GraphicController.getController().getProperty(getId(), __GO_EVENTHANDLER_NAME__);
             setEventHandler(eventHandlerName);
         }
+    }
+
+    private boolean isAutoResize(String figId) {
+        return GraphicController.getController().getProperty(figId, __GO_AUTORESIZE__) == Boolean.TRUE;
     }
 
     /**

@@ -20,6 +20,8 @@ import java.awt.Rectangle;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import org.scilab.modules.gui.bridge.canvas.SwingScilabCanvas;
+
 /**
  * Scroll pane based on Swing technology
  * @author Jean-Baptiste silvy
@@ -30,13 +32,13 @@ public class SwingScilabScrollPane extends JScrollPane implements
 	/** Needed */
 	private static final long serialVersionUID = -4262585651413643814L;
 	
-	private SwingScilabAxes axes;
+	private SwingScilabCanvas axes;
 
 	/**
 	 * Create a new Scroll pane around an axes.
 	 * @param axes axes to scroll
 	 */
-	public SwingScilabScrollPane(SwingScilabAxes axes) {
+	public SwingScilabScrollPane(SwingScilabCanvas axes) {
 		super(axes);
 		this.axes = axes;
 		// use the axes background as default one
@@ -89,7 +91,10 @@ public class SwingScilabScrollPane extends JScrollPane implements
 	 * @param autoResizeMode true if autoresize is on
 	 */
 	public void setAutoResizeMode(boolean autoResizeMode) {
+// TO DO
+/*
 		axes.setAutoResizeMode(autoResizeMode);
+*/
 		if (autoResizeMode) {
 			// hide scroll bars
 			setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -103,13 +108,34 @@ public class SwingScilabScrollPane extends JScrollPane implements
 		}
 		
 	}
+
+        /**
+         * Enables or disables auto resize mode and sets the scrolled canvas' preferred size
+         * if auto resize is set to off.
+	 * To be implemented.
+         * @param autoResizeMode true if autoresize is on
+	 * @param the preferred width and height.
+         */
+        public void setAutoResizeMode(boolean autoResizeMode, final Integer[] size) {
+
+	}
+
+        /**
+         * Sets the scrolled canvas' preferred size.
+	 * To be implemented.
+         * @param the preferred width and height.
+         */
+        public void setCanvasSize(Integer[] size) {
+
+	}
 	
 	/**
 	 * Enable or disable auto resize mode
 	 * @return true if autoresize is on
 	 */
 	public boolean getAutoResizeMode() {
-		return axes.getAutoResizeMode();
+	//	return axes.getAutoResizeMode();
+            return true;
 	}
 	
 	/**
