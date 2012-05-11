@@ -757,6 +757,16 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                     axesDrawer.disposeAll();
                     fecDrawer.updateAll();
                     colorMapTextureDataProvider.update();
+                } else if (property.equals(GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__)) {
+                    Boolean value = (Boolean) GraphicController.getController().getProperty(id, GraphicObjectProperties.__GO_IMMEDIATE_DRAWING__);
+                    if (!value) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                canvas.waitImage();
+                            }
+                        }).start();
+                    }
                 } else {
                     labelManager.update(id, property);
                     dataManager.update(id, property);
