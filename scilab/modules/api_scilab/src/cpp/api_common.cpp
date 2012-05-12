@@ -40,6 +40,7 @@ extern "C"
 /* *jobptr==1: Get C-string from Scilab codes */
 
     extern int C2F(stackp) (int *, int *);
+    extern int C2F(funs) (int *);
 };
 
 /*--------------------------------------------------------------------------*/
@@ -698,83 +699,83 @@ SciErr getDimFromVar(void *_pvCtx, int *_piAddress, int *_piVal)
         switch (iPrec)
         {
         case SCI_INT8:
-            {
-                char *pcData = NULL;
+        {
+            char *pcData = NULL;
 
-                sciErr = getMatrixOfInteger8(_pvCtx, _piAddress, &iRows, &iCols, &pcData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = pcData[0];
+            sciErr = getMatrixOfInteger8(_pvCtx, _piAddress, &iRows, &iCols, &pcData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = pcData[0];
+        }
+        break;
         case SCI_UINT8:
-            {
-                unsigned char *pucData = NULL;
+        {
+            unsigned char *pucData = NULL;
 
-                sciErr = getMatrixOfUnsignedInteger8(_pvCtx, _piAddress, &iRows, &iCols, &pucData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = pucData[0];
+            sciErr = getMatrixOfUnsignedInteger8(_pvCtx, _piAddress, &iRows, &iCols, &pucData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = pucData[0];
+        }
+        break;
         case SCI_INT16:
-            {
-                short *psData = NULL;
+        {
+            short *psData = NULL;
 
-                sciErr = getMatrixOfInteger16(_pvCtx, _piAddress, &iRows, &iCols, &psData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = psData[0];
+            sciErr = getMatrixOfInteger16(_pvCtx, _piAddress, &iRows, &iCols, &psData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = psData[0];
+        }
+        break;
         case SCI_UINT16:
-            {
-                unsigned short *pusData = NULL;
+        {
+            unsigned short *pusData = NULL;
 
-                sciErr = getMatrixOfUnsignedInteger16(_pvCtx, _piAddress, &iRows, &iCols, &pusData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = pusData[0];
+            sciErr = getMatrixOfUnsignedInteger16(_pvCtx, _piAddress, &iRows, &iCols, &pusData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = pusData[0];
+        }
+        break;
         case SCI_INT32:
-            {
-                int *piData = NULL;
+        {
+            int *piData = NULL;
 
-                sciErr = getMatrixOfInteger32(_pvCtx, _piAddress, &iRows, &iCols, &piData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = piData[0];
+            sciErr = getMatrixOfInteger32(_pvCtx, _piAddress, &iRows, &iCols, &piData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = piData[0];
+        }
+        break;
         case SCI_UINT32:
-            {
-                unsigned int *puiData = NULL;
+        {
+            unsigned int *puiData = NULL;
 
-                sciErr = getMatrixOfUnsignedInteger32(_pvCtx, _piAddress, &iRows, &iCols, &puiData);
-                if (sciErr.iErr)
-                {
-                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
-                    return sciErr;
-                }
-                *_piVal = puiData[0];
+            sciErr = getMatrixOfUnsignedInteger32(_pvCtx, _piAddress, &iRows, &iCols, &puiData);
+            if (sciErr.iErr)
+            {
+                addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                return sciErr;
             }
-            break;
+            *_piVal = puiData[0];
+        }
+        break;
         }
     }
     else
@@ -1253,11 +1254,24 @@ int createNamedEmptyMatrix(void *_pvCtx, const char *_pstName)
 int isNamedVarExist(void *_pvCtx, const char *_pstName)
 {
     SciErr sciErr;
+    int iVarID[nsiz];
     int *piAddr = NULL;
+    int funs = C2F(com).fun;
 
     sciErr = getVarAddressFromName(_pvCtx, _pstName, &piAddr);
     if (sciErr.iErr || piAddr == NULL)
     {
+        Fin = -1;
+        C2F(str2name)(_pstName, iVarID, (int)strlen(_pstName));
+        C2F(funs)(iVarID);
+        if (Fin > 0)
+        {
+            Fin = 1;
+            C2F(com).fun = funs;
+
+            return 1;
+        }
+
         return 0;
     }
 
@@ -1267,7 +1281,7 @@ int isNamedVarExist(void *_pvCtx, const char *_pstName)
 /*--------------------------------------------------------------------------*/
 int checkNamedVarFormat(void* _pvCtx, const char *_pstName)
 {
-    #define FORBIDDEN_CHARS " */\\.,;:^@><!=+-&|()~\n\t'\""
+#define FORBIDDEN_CHARS " */\\.,;:^@><!=+-&|()~\n\t'\""
     int iRet = 1;
 
     // check pointer
