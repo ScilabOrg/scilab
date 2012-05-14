@@ -55,11 +55,6 @@ if(sciErr.iErr)
 	printError(&sciErr, 0);
 }
 
-/*
- * Prior to Scilab 5.2
- * C2F(cwritechain)(variableName, &sizeOfMyString  , myString, strlen(variableName), sizeOfMyString); 
-*/
-
 printf("Display from Scilab of A:\n");
 SendScilabJob("disp(A);"); /* Display A */
  ]]></programlisting>
@@ -133,12 +128,6 @@ free(pstData);
       </member>
       <member>
         <link linkend="api_scilab">api Scilab</link>
-      </member>
-      <member>
-        <link linkend="cwritechain">cwritechain</link>
-      </member>
-      <member>
-        <link linkend="creadchain">creadchain</link>
       </member>
       <member>
         <link linkend="SendScilabJob">SendScilabJob</link>
