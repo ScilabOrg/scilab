@@ -14,46 +14,46 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2012-04-17 11:10+0100\n"
+"Revision-Date: 2012-05-15 08:58+0100\n"
 
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 79
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 81
 #, c-format
 msgid "%s: Wrong number of input argument(s): At most %d expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 98
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 100
 #, c-format
 msgid "%s: Wrong value for input argument #%d: Defined variable expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 112
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 116
 #, c-format
 msgid "%s: Wrong value for input argument #%d: \"%s\" is a directory"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 116
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 120
 #, c-format
 msgid "%s: Cannot open file %s.\n"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 837
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 844
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A string expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 850
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 857
 # File: sci_gateway/cpp/sci_import_from_hdf5.cpp, line: 85
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A string expected.\n"
 msgstr ""
 
 #
-# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 851
+# File: sci_gateway/cpp/sci_export_to_hdf5.cpp, line: 858
 #, c-format
 msgid "%s: Type: %dx%d\n"
 msgstr ""
