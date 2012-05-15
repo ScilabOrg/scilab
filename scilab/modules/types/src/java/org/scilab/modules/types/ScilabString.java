@@ -32,7 +32,7 @@ import java.util.Arrays;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabString implements ScilabType {
+public class ScilabString extends ScilabType {
 
     private static final long serialVersionUID = 359802519980180085L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_strings;
@@ -66,7 +66,7 @@ public class ScilabString implements ScilabType {
      * @param data
      *            the associated data.
      */
-    public ScilabString(String varName, String[][] data, boolean swaped) {
+    protected ScilabString(String varName, String[][] data, boolean swaped) {
         this.varName = varName;
         this.data = data;
         this.swaped = swaped;
@@ -130,20 +130,6 @@ public class ScilabString implements ScilabType {
      */
     public String[][] getData() {
         return data;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getVarName() {
-        return varName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isSwaped() {
-        return swaped;
     }
 
     /**

@@ -1,6 +1,7 @@
 /*
  *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  *  Copyright (C) 2009-2009 - DIGITEO - Bruno JOFRET
+ *  Copyright (C) 2012-2012 - Scilab Enterprises - Bruno JOFRET
  *
  *  This file must be used under the terms of the CeCILL.
  *  This source file is licensed as described in the file COPYING, which
@@ -22,50 +23,61 @@ import java.io.Serializable;
  * load and store of data (Xcos files, Javasci saved data, etc...).<br>
  * <br>
  */
-public interface ScilabType extends Externalizable, Serializable, Cloneable {
+public abstract class ScilabType implements Externalizable, Serializable, Cloneable {
 
+    private String varName;
+    private boolean swaped;
+    
+    protected ScilabType() {
+        varName = null;
+        swaped = false;
+    }
+            
+    protected ScilabType(String varName, boolean swaped) {
+        this.varName = varName;
+        this.swaped = swaped;
+    }
+    
+    protected void setVarName(String varName) {
+        this.varName = varName;
+    }
+    
+    protected String getVarName() {
+        return varName;
+    }
+    
+    protected boolean isSwaped() {
+        return swaped;
+    }
+    
     /**
      * Return the type of Scilab
      *
      * @return the type of Scilab
      * @since 5.4.0
      */
-    public ScilabTypeEnum getType();
+    public abstract ScilabTypeEnum getType();
 
     /**
      * Return the width (number of elements) of the stored data
      *
      * @return the width
      */
-    int getWidth();
+    public abstract int getWidth();
 
     /**
      * Return the height (number of elements) of the stored data
      *
      * @return the height
      */
-    int getHeight();
+    public abstract int getHeight();
 
     /**
      * Check if the current instance is empty.
      *
      * @return true, the there is no data; false otherwise.
      */
-    boolean isEmpty();
-
-    /**
-     * Get the variable name or null if it has not a name
-     *
-     * @return the name
-     */
-    String getVarName();
-
-    /**
-     * Get the how the matrix is stored
-     *
-     * @return true if the matrix is stored row by row
-     */
-    boolean isSwaped();
+    public abstract boolean isEmpty();
 
     /**
      * Compare if obj is the same object or not
@@ -74,7 +86,7 @@ public interface ScilabType extends Externalizable, Serializable, Cloneable {
      *            the object we want to compare
      * @return true if the two objects are equals, false otherwise
      */
-    public boolean equals(Object obj);
+    public abstract boolean equals(Object obj);
 
     /**
      * Get a single object used to easily rebuild a Scilab variable from the
@@ -82,7 +94,7 @@ public interface ScilabType extends Externalizable, Serializable, Cloneable {
      *
      * @return an very simple object reflecting this ScilabType.
      */
-    public Object getSerializedObject();
+    public abstract Object getSerializedObject();
 
     /**
      * Display the representation in the Scilab language of the type<br />
@@ -90,5 +102,5 @@ public interface ScilabType extends Externalizable, Serializable, Cloneable {
      *
      * @return the pretty print
      */
-    String toString();
+    public abstract String toString();
 }

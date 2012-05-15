@@ -40,7 +40,7 @@ import java.util.Arrays;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabDouble implements ScilabType {
+public class ScilabDouble extends ScilabType {
 
     private static final long serialVersionUID = 879624048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_matrix;
@@ -127,7 +127,7 @@ public class ScilabDouble implements ScilabType {
      * @param imagData
      *            the imaginary part of the data
      */
-    public ScilabDouble(String varName, double[][] realData, double[][] imagData, boolean swaped) {
+    protected ScilabDouble(String varName, double[][] realData, double[][] imagData, boolean swaped) {
         this(realData, imagData);
         this.varName = varName;
         this.swaped = swaped;

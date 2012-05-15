@@ -34,14 +34,10 @@ import java.util.Collection;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabList extends ArrayList<ScilabType> implements ScilabType {
+public class ScilabList extends ScilabGenericList {
 
     private static final long serialVersionUID = 6884293176289980909L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_list;
-
-    private static final int VERSION = 0;
-
-    private String varName;
 
     /**
      * Construct an empty Scilab list.
@@ -67,35 +63,8 @@ public class ScilabList extends ArrayList<ScilabType> implements ScilabType {
      * Note that the first element of this collection is the header used by
      * Scilab to find each field name.
      */
-    public ScilabList(String varName) {
-        super();
-        this.varName = varName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getVarName() {
-        return varName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isSwaped() {
-        return false;
-    }
-
-    /**
-     * @return 1 when there is data on the list, 0 otherwise.
-     * @see org.scilab.modules.types.ScilabType#getHeight()
-     */
-    @Override
-    public int getHeight() {
-        if (isEmpty()) {
-            return 0;
-        }
-        return 1;
+    protected ScilabList(String varName) {
+        super(varName);
     }
 
     /**
@@ -109,67 +78,7 @@ public class ScilabList extends ArrayList<ScilabType> implements ScilabType {
         return type;
     }
 
-    /**
-     * @return 1 when there is data on the list, 0 otherwise.
-     * @see org.scilab.modules.types.ScilabType#getWidth()
-     */
-    @Override
-    public int getWidth() {
-        if (isEmpty()) {
-            return 0;
-        }
-        return size();
-    }
 
-    /**
-     * Get a serialized list; The format is the following: i) returned[0] is an
-     * array of integers containing the Scilab type (ScilabTypeEunm) of the
-     * different elements of the list. ii) returned[i] for i&gt;=1 contains the
-     * serialized form of each items.
-     *
-     * @return a serialized SiclabList/
-     */
-    public Object[] getSerializedObject() {
-        int[] types = new int[size()];
-        Object[] items = new Object[types.length + 1];
-
-        for (int i = 0; i < types.length; i++) {
-            ScilabType var = get(i);
-            types[i] = var.getType().swigValue();
-            items[i + 1] = var.getSerializedObject();
-        }
-        items[0] = types;
-
-        return items;
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        int version = in.readInt();
-        switch (version) {
-            case 0:
-                int size = in.readInt();
-                ensureCapacity(size + 1);
-                ArrayList list = (ArrayList) this;
-                for (int i = 0; i < size; i++) {
-                    list.add(in.readObject());
-                }
-                varName = (String) in.readObject();
-                break;
-            default:
-                throw new ClassNotFoundException("A class ScilabList with a version " + version + " does not exists");
-        }
-    }
-
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(VERSION);
-        out.writeInt(size());
-        for (Object var : (ArrayList) this) {
-            out.writeObject(var);
-        }
-        out.writeObject(varName);
-    }
 
     /**
      * Display the representation in the Scilab language of the type<br />
@@ -180,21 +89,6 @@ public class ScilabList extends ArrayList<ScilabType> implements ScilabType {
      */
     @Override
     public String toString() {
-        StringBuffer result = new StringBuffer();
-        if (isEmpty()) {
-            result.append("list()");
-            return result.toString();
-        }
-
-        result.append("list(");
-        for (int i = 0; i < size(); i++) {
-            result.append(get(i));
-            if (i != size() - 1) {
-                result.append(", ");
-            }
-        }
-        result.append(")");
-
-        return result.toString();
-    }
+        return super.toString("list");
+    } 
 }

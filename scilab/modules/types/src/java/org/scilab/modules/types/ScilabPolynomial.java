@@ -27,7 +27,7 @@ import java.util.Arrays;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabPolynomial implements ScilabType {
+public class ScilabPolynomial extends ScilabType {
 
     private static final long serialVersionUID = 870624048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_poly;
@@ -162,7 +162,7 @@ public class ScilabPolynomial implements ScilabType {
      * @param swaped
      *            if true the matrix is stored row by row
      */
-    public ScilabPolynomial(String varName, String polyVarName, double[][][] realData, double[][][] imagData, boolean swaped) {
+    protected ScilabPolynomial(String varName, String polyVarName, double[][][] realData, double[][][] imagData, boolean swaped) {
         this.varName = varName;
         this.polyVarName = polyVarName;
         this.swaped = swaped;
@@ -254,14 +254,14 @@ public class ScilabPolynomial implements ScilabType {
     /**
      * {@inheritDoc}
      */
-    public String getVarName() {
+    protected String getVarName() {
         return varName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isSwaped() {
+    protected boolean isSwaped() {
         return swaped;
     }
 

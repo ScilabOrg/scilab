@@ -33,7 +33,7 @@ import java.util.Arrays;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabBoolean implements ScilabType {
+public class ScilabBoolean extends ScilabType {
 
     private static final long serialVersionUID = 6511497080095473901L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_boolean;
@@ -68,7 +68,7 @@ public class ScilabBoolean implements ScilabType {
      * @param data
      *            the array of boolean
      */
-    public ScilabBoolean(String varName, boolean[][] data, boolean swaped) {
+    protected ScilabBoolean(String varName, boolean[][] data, boolean swaped) {
         this.varName = varName;
         this.data = data;
         this.swaped = swaped;
@@ -107,14 +107,14 @@ public class ScilabBoolean implements ScilabType {
     /**
      * {@inheritDoc}
      */
-    public String getVarName() {
+    protected String getVarName() {
         return varName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isSwaped() {
+    protected boolean isSwaped() {
         return swaped;
     }
 

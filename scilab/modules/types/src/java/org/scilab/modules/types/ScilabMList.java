@@ -13,10 +13,6 @@
 
 package org.scilab.modules.types;
 
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,14 +32,10 @@ import java.util.Map;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
+public class ScilabMList extends ScilabGenericList {
 
     private static final long serialVersionUID = 3224510024213901841L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_mlist;
-
-    private static final int VERSION = 0;
-
-    private String varName = "";
 
     /**
      * Construct an empty mlist.
@@ -61,9 +53,8 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
      * Note that the first element of this collection is the header used by
      * Scilab to find each field name.
      */
-    public ScilabMList(String varName) {
-        super();
-        this.varName = varName;
+    protected ScilabMList(String varName) {
+        super(varName);
     }
 
     /**
@@ -76,7 +67,7 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
         super();
         String[][] typesData = new String[1][types.length];
         typesData[0] = types;
-        add(new ScilabString(typesData));
+        super.add(new ScilabString(typesData));
     }
 
     /**
@@ -94,23 +85,9 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
 
         String[][] namesData = new String[1][names.length];
         namesData[0] = names;
-        add(new ScilabString(namesData));
+        super.add(new ScilabString(namesData));
 
-        addAll(c);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getVarName() {
-        return varName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isSwaped() {
-        return false;
+        super.addAll(c);
     }
 
     /**
@@ -124,15 +101,15 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
             return map;
         }
 
-        ScilabString mat = (ScilabString) get(0);
+        ScilabString mat = (ScilabString) data.get(0);
         if (mat.isEmpty()) {
             return map;
         }
 
         String[] fields = mat.getData()[0];
         for (int i = 1; i < fields.length; i++) {
-            if (i < size()) {
-                map.put(fields[i], get(i));
+            if (i < data.size()) {
+                map.put(fields[i], data.get(i));
             } else {
                 map.put(fields[i], null);
             }
@@ -151,24 +128,12 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
             return null;
         }
 
-        ScilabString mat = (ScilabString) get(0);
+        ScilabString mat = (ScilabString) data.get(0);
         if (mat.isEmpty()) {
             return null;
         }
 
         return mat.getData()[0][0];
-    }
-
-    /**
-     * @return 1 when there is data on the list, 0 otherwise.
-     * @see org.scilab.modules.types.ScilabType#getHeight()
-     */
-    @Override
-    public int getHeight() {
-        if (isEmpty()) {
-            return 0;
-        }
-        return 1;
     }
 
     /**
@@ -183,68 +148,6 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
     }
 
     /**
-     * @return 1 when there is data on the list, 0 otherwise.
-     * @see org.scilab.modules.types.ScilabType#getWidth()
-     */
-    @Override
-    public int getWidth() {
-        if (isEmpty()) {
-            return 0;
-        }
-        return size();
-    }
-
-    /**
-     * Get a serialized list; The format is the following: i) returned[0] is an
-     * array of integers containing the Scilab type (ScilabTypeEunm) of the
-     * different elements of the list. ii) returned[i] for i&gt;=1 contains the
-     * serialized form of each items.
-     *
-     * @return a serialized SiclabList/
-     */
-    public Object[] getSerializedObject() {
-        int[] types = new int[size()];
-        Object[] items = new Object[types.length + 1];
-
-        for (int i = 0; i < types.length; i++) {
-            ScilabType var = get(i);
-            types[i] = var.getType().swigValue();
-            items[i + 1] = var.getSerializedObject();
-        }
-        items[0] = types;
-
-        return items;
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        int version = in.readInt();
-        switch (version) {
-            case 0:
-                int size = in.readInt();
-                ensureCapacity(size + 1);
-                ArrayList list = (ArrayList) this;
-                for (int i = 0; i < size; i++) {
-                    list.add(in.readObject());
-                }
-                varName = (String) in.readObject();
-                break;
-            default:
-                throw new ClassNotFoundException("A class ScilabMList with a version " + version + " does not exists");
-        }
-    }
-
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeInt(VERSION);
-        out.writeInt(size());
-        for (Object var : (ArrayList) this) {
-            out.writeObject(var);
-        }
-        out.writeObject(varName);
-    }
-
-    /**
      * Display the representation in the Scilab language of the type<br />
      * Note that the representation can be copied/pasted straight into Scilab
      *
@@ -253,23 +156,6 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
      */
     @Override
     public String toString() {
-
-        StringBuffer result = new StringBuffer();
-        if (isEmpty()) {
-            result.append("mlist()");
-            return result.toString();
-        }
-
-        result.append("mlist(");
-        for (int i = 0; i < size(); i++) {
-            result.append(get(i));
-            if (i != size() - 1) {
-                result.append(", ");
-            }
-
-        }
-        result.append(")");
-
-        return result.toString();
+        return super.toString("mlist");
     }
 }

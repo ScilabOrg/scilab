@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabSparse implements ScilabType {
+public class ScilabSparse extends ScilabType {
 
     private static final long serialVersionUID = 879625048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_sparse;
@@ -350,7 +350,7 @@ public class ScilabSparse implements ScilabType {
      * @param imag
      *            the non null imaginary data
      */
-    public ScilabSparse(String varName, int rows, int cols, int nbItem, int[] nbItemRow, int[] colPos, double[] real, double[] imag) {
+    protected ScilabSparse(String varName, int rows, int cols, int nbItem, int[] nbItemRow, int[] colPos, double[] real, double[] imag) {
         this(rows, cols, nbItem, nbItemRow, colPos, real, imag);
         this.varName = varName;
     }
@@ -496,14 +496,14 @@ public class ScilabSparse implements ScilabType {
     /**
      * {@inheritDoc}
      */
-    public String getVarName() {
+    protected String getVarName() {
         return varName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isSwaped() {
+    protected boolean isSwaped() {
         return false;
     }
 

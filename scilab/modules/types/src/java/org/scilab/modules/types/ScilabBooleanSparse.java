@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabBooleanSparse implements ScilabType {
+public class ScilabBooleanSparse extends ScilabType {
 
     private static final long serialVersionUID = 879625048944109684L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_boolean_sparse;
@@ -156,7 +156,7 @@ public class ScilabBooleanSparse implements ScilabType {
      * @param colPos
      *            the column position of each true
      */
-    public ScilabBooleanSparse(String varName, int rows, int cols, int nbItem, int[] nbItemRow, int[] colPos) {
+    protected ScilabBooleanSparse(String varName, int rows, int cols, int nbItem, int[] nbItemRow, int[] colPos) {
         this(rows, cols, nbItem, nbItemRow, colPos);
         this.varName = varName;
     }
@@ -255,14 +255,14 @@ public class ScilabBooleanSparse implements ScilabType {
     /**
      * {@inheritDoc}
      */
-    public String getVarName() {
+    protected String getVarName() {
         return varName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isSwaped() {
+    protected boolean isSwaped() {
         return false;
     }
 

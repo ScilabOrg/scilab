@@ -32,7 +32,7 @@ import java.util.Arrays;
  *
  * @see org.scilab.modules.javasci.Scilab
  */
-public class ScilabInteger implements ScilabType {
+public class ScilabInteger extends ScilabType {
 
     private static final long serialVersionUID = 1759633801332932450L;
     private static final ScilabTypeEnum type = ScilabTypeEnum.sci_ints;
@@ -110,7 +110,7 @@ public class ScilabInteger implements ScilabType {
      * @param bUnsigned
      *            true, if the values are unsigned; false if they are signed.
      */
-    public ScilabInteger(String varName, byte[][] data, boolean bUnsigned, boolean swaped) {
+    protected ScilabInteger(String varName, byte[][] data, boolean bUnsigned, boolean swaped) {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
@@ -124,7 +124,7 @@ public class ScilabInteger implements ScilabType {
      * @param bUnsigned
      *            true, if the values are unsigned; false if they are signed.
      */
-    public ScilabInteger(String varName, short[][] data, boolean bUnsigned, boolean swaped) {
+    protected ScilabInteger(String varName, short[][] data, boolean bUnsigned, boolean swaped) {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
@@ -138,7 +138,7 @@ public class ScilabInteger implements ScilabType {
      * @param bUnsigned
      *            true, if the values are unsigned; false if they are signed.
      */
-    public ScilabInteger(String varName, int[][] data, boolean bUnsigned, boolean swaped) {
+    protected ScilabInteger(String varName, int[][] data, boolean bUnsigned, boolean swaped) {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
@@ -152,7 +152,7 @@ public class ScilabInteger implements ScilabType {
      * @param bUnsigned
      *            true, if the values are unsigned; false if they are signed.
      */
-    public ScilabInteger(String varName, long[][] data, boolean bUnsigned, boolean swaped) {
+    protected ScilabInteger(String varName, long[][] data, boolean bUnsigned, boolean swaped) {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
@@ -542,14 +542,14 @@ public class ScilabInteger implements ScilabType {
     /**
      * {@inheritDoc}
      */
-    public String getVarName() {
+    protected String getVarName() {
         return varName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isSwaped() {
+    protected boolean isSwaped() {
         return swaped;
     }
 
