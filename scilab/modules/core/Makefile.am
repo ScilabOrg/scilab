@@ -19,24 +19,18 @@ CORE_C_SOURCES = \
     src/c/IsAScalar.c \
     src/c/texmacs.c \
     src/c/sciquit.c \
-    src/c/stack1.c \
-    src/c/stack3.c \
-    src/c/str2sci.c \
     src/c/getmodules.c \
     src/c/getmemory.c \
-    src/c/Funtab.c \
     src/c/csignal.c \
     src/c/callinterf.c \
     src/c/scimem.c \
     src/c/isanan.c \
     src/c/timer.c \
-    src/c/stack2.c \
     src/c/xscion.c \
     src/c/returnanan.c \
     src/c/LoadFunctionsTab.c \
     src/c/loadversion.c \
     src/c/version.c \
-    src/c/stackinfo.c \
     src/c/InitializeCore.c \
     src/c/TerminateCore.c \
     src/c/coretable.c \
@@ -45,7 +39,6 @@ CORE_C_SOURCES = \
     src/c/GetXmlFileEncoding.c \
     src/c/islittleendian.c \
     src/c/terme.c \
-    src/c/ifexpr.c \
     src/c/getcommandlineargs.c \
     src/c/callFunctionFromGateway.c \
     src/c/getvariablesname.c \
@@ -73,7 +66,6 @@ CORE_C_SOURCES = \
     src/c/dynamic_tclsci.c \
     src/c/dynamic_parallel.c \
     src/c/backtrace.c \
-    src/c/scirun.c \
     src/c/signal_mgmt.c \
     src/c/suspendProcess.c
 
@@ -84,85 +76,73 @@ endif
 
 CORE_FORTRAN_SOURCES = \
     src/fortran/clunit.f \
-    src/fortran/getlin.f \
-    src/fortran/allowptr.f \
-    src/fortran/isany.f \
-    src/fortran/hmcreate.f \
-    src/fortran/nextj.f \
+     \
+     \
+     \
+     \
     src/fortran/setgetmode.f \
-    src/fortran/showstack.f \
+     \
     src/fortran/iseye.f \
     src/fortran/chkvar.f \
     src/fortran/setippty.f \
-    src/fortran/compil.f \
     src/fortran/funnam.f \
     src/fortran/isnum.f \
-    src/fortran/cmdstr.f \
-    src/fortran/logops.f \
+     \
+     \
     src/fortran/atome.f \
-    src/fortran/hndlops.f \
-    src/fortran/cmplxt.f \
+     \
+     \
     src/fortran/skpins.f \
     src/fortran/folhp.f \
-    src/fortran/cvname.f \
-    src/fortran/typ2cod.f \
-    src/fortran/prompt.f \
-    src/fortran/intstr.f \
-    src/fortran/createref.f \
-    src/fortran/btof.f \
-    src/fortran/matzs.f \
+     \
+     \
+     \
+     \
     src/fortran/getnum.f \
-    src/fortran/btofm.f \
+     \
     src/fortran/getsym.f \
     src/fortran/findequal.f \
-    src/fortran/stackg.f \
     src/fortran/find.f \
     src/fortran/setlnb.f \
     src/fortran/mrknmd.f \
-    src/fortran/ref2val.f \
-    src/fortran/stack.f \
+     \
     src/fortran/isbrk.f \
     src/fortran/majmin.f \
     src/fortran/xerbla.f \
-    src/fortran/dtosci.f \
-    src/fortran/bexec.f \
-    src/fortran/varfunptr.f \
-    src/fortran/getfun.f \
-    src/fortran/savlod.f \
-    src/fortran/error.f \
+     \
+     \
+     \
+     \
+     \
+     \
     src/fortran/cvdm.f \
-    src/fortran/tradsl.f \
+     \
     src/fortran/mkindx.f \
     src/fortran/whatln.f \
     src/fortran/errmgr.f \
     src/fortran/defmat.f \
     src/fortran/mklist.f \
-    src/fortran/sigbas.f \
-    src/fortran/indxg.f \
-    src/fortran/matz.f \
-    src/fortran/istrue.f \
-    src/fortran/inisci.f \
-    src/fortran/getfunction.f \
-    src/fortran/extlarg.f \
-    src/fortran/getstr.f \
+     \
+     \
+     \
+     \
+     \
+     \
+     \
     src/fortran/cvwm.f \
-    src/fortran/storeglobal.f \
-    src/fortran/lst2vars.f \
-    src/fortran/basnms.f \
-    src/fortran/matc.f \
+     \
+     \
+     \
+     \
     src/fortran/ptrback.f \
     src/fortran/getch.f \
-    src/fortran/ftob.f \
+     \
     src/fortran/seteol.f \
-    src/fortran/compcl.f \
     src/fortran/termf.f \
     src/fortran/expsum.f \
     src/fortran/copyvar.f \
     src/fortran/putid.f \
-    src/fortran/itosci.f \
-    src/fortran/stackr2d.f \
-    src/fortran/stacki2d.f \
-    src/fortran/stackc2i.f \
+     \
     src/fortran/isinstring.f
 
 CORE_CPP_SOURCES = \
@@ -176,8 +156,7 @@ CORE_CPP_SOURCES = \
 	src/cpp/runner.cpp
 
 if USE_DYNAMIC_STACK
-CORE_FORTRAN_SOURCES += \
-    src/fortran/relocstack.f
+CORE_FORTRAN_SOURCES += 
 endif
 
 GATEWAY_C_SOURCES = \
@@ -366,15 +345,11 @@ includes/machine.h \
 includes/mode_exec.h \
 includes/PATH_MAX.h \
 includes/scilabDefaults.h \
-includes/scisparse.h \
 includes/sciquit.h \
 includes/stack-c.h \
 includes/sci_types.h \
 includes/stack-def.h \
 includes/stack.h \
-includes/stack1.h \
-includes/stack2.h \
-includes/stack3.h \
 includes/stackinfo.h \
 includes/stackTypeVariable.h \
 includes/version.h \
