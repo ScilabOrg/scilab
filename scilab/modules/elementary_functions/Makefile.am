@@ -282,11 +282,9 @@ ELEMENTARY_FUNCTIONS_CPP_SOURCES = \
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_matrix.c \
     sci_gateway/c/sci_prod.c \
-    sci_gateway/c/sci_expm.c \
     sci_gateway/c/sci_tril.c \
     sci_gateway/c/sci_ceil.c \
     sci_gateway/c/sci_imag.c \
-    sci_gateway/c/sci_log.c \
     sci_gateway/c/sci_log1p.c \
     sci_gateway/c/sci_clean.c \
     sci_gateway/c/sci_tan.c \
