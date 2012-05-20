@@ -346,7 +346,6 @@ cd ..
     <ClCompile Include="bexec.c" />
     <ClCompile Include="btof.c" />
     <ClCompile Include="btofm.c" />
-    <ClCompile Include="chkvar.c" />
     <ClCompile Include="clause.c" />
     <ClCompile Include="clunit.c" />
     <ClCompile Include="cmdstr.c" />

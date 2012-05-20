@@ -45,9 +45,6 @@
     <ClCompile Include="btofm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="chkvar.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="clause.c">
       <Filter>Source Files</Filter>
     </ClCompile>
