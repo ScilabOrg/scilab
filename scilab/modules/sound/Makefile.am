@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the Scilab package.
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_sound.c \
+GATEWAY_C_SOURCES =  \
 sci_gateway/c/sci_beep.c \
 sci_gateway/c/sci_PlaySound.c
 

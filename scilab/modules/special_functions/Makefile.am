@@ -30,13 +30,9 @@ sci_gateway/c/sci_besseli.c \
 sci_gateway/c/sci_besselj.c \
 sci_gateway/c/sci_besselk.c \
 sci_gateway/c/sci_calerf.c \
-sci_gateway/c/gw_special_functions.c \
+ \
 sci_gateway/c/sci_lgamma.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_dlgamma.f \
-sci_gateway/fortran/sci_f_lgamma.f \
-sci_gateway/fortran/sci_f_gamma.f \
-sci_gateway/fortran/sci_f_calerf.f
 
 # Includes need for the compilation
 libscispecial_functions_la_FFLAGS= -I$(srcdir)/includes/

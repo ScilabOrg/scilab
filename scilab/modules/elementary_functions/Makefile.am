@@ -282,11 +282,9 @@ ELEMENTARY_FUNCTIONS_CPP_SOURCES = \
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_matrix.c \
     sci_gateway/c/sci_prod.c \
-    sci_gateway/c/sci_expm.c \
     sci_gateway/c/sci_tril.c \
     sci_gateway/c/sci_ceil.c \
     sci_gateway/c/sci_imag.c \
-    sci_gateway/c/sci_log.c \
     sci_gateway/c/sci_log1p.c \
     sci_gateway/c/sci_clean.c \
     sci_gateway/c/sci_tan.c \
@@ -300,7 +298,7 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_asin.c \
     sci_gateway/c/sci_sign.c \
     sci_gateway/c/sci_rat.c \
-    sci_gateway/c/gw_elementary_functions.c \
+     \
     sci_gateway/c/sci_number_properties.c \
     sci_gateway/c/sci_diag.c \
     sci_gateway/c/sci_testmatrix.c \
@@ -324,50 +322,6 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_chinesehat.c \
     sci_gateway/c/sci_isequalbitwise.c
 
-GATEWAY_FORTRAN_SOURCES =  \
-    sci_gateway/fortran/sci_f_maxi.f \
-    sci_gateway/fortran/sci_f_testmatrix.f \
-    sci_gateway/fortran/sci_f_prod.f \
-    sci_gateway/fortran/sci_f_matrix.f \
-    sci_gateway/fortran/sci_f_expm.f \
-    sci_gateway/fortran/sci_f_size.f \
-    sci_gateway/fortran/sci_f_tril.f \
-    sci_gateway/fortran/sci_f_ceil.f \
-    sci_gateway/fortran/sci_f_rat.f \
-    sci_gateway/fortran/sci_f_imag.f \
-    sci_gateway/fortran/sci_f_log.f \
-    sci_gateway/fortran/sci_f_log1p.f \
-    sci_gateway/fortran/sci_f_clean.f \
-    sci_gateway/fortran/sci_f_eye.f \
-    sci_gateway/fortran/sci_f_tan.f \
-    sci_gateway/fortran/sci_f_atan.f \
-    sci_gateway/fortran/sci_f_triu.f \
-    sci_gateway/fortran/sci_f_frexp.f \
-    sci_gateway/fortran/sci_f_cos.f \
-    sci_gateway/fortran/sci_f_rand.f \
-    sci_gateway/fortran/sci_f_acos.f \
-    sci_gateway/fortran/sci_f_sin.f \
-    sci_gateway/fortran/sci_f_sqrt.f \
-    sci_gateway/fortran/sci_f_asin.f \
-    sci_gateway/fortran/sci_f_sign.f \
-    sci_gateway/fortran/sci_f_zeros.f \
-    sci_gateway/fortran/sci_f_ones.f \
-    sci_gateway/fortran/sci_f_diag.f \
-    sci_gateway/fortran/sci_f_number_properties.f \
-    sci_gateway/fortran/sci_f_abs.f \
-    sci_gateway/fortran/sci_f_spones.f \
-    sci_gateway/fortran/sci_f_kron.f \
-    sci_gateway/fortran/sci_f_cumsum.f \
-    sci_gateway/fortran/sci_f_nearfloat.f \
-    sci_gateway/fortran/sci_f_isreal.f \
-    sci_gateway/fortran/sci_f_floor.f \
-    sci_gateway/fortran/sci_f_real.f \
-    sci_gateway/fortran/sci_f_round.f \
-    sci_gateway/fortran/sci_f_conj.f \
-    sci_gateway/fortran/sci_f_int.f \
-    sci_gateway/fortran/sci_f_imult.f \
-    sci_gateway/fortran/sci_f_chinesehat.f \
-    sci_gateway/fortran/sci_f_exp.f
 
 GATEWAY_CPP_SOURCES =  \
 	sci_gateway/cpp/sci_isequal.cpp \

@@ -11,7 +11,7 @@ FUNCTIONS_C_SOURCES = src/c/getmacroslist.c \
 
 FUNCTIONS_FORTRAN_SOURCES = src/fortran/whereis.f
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_functions.c \
+GATEWAY_C_SOURCES =  \
 sci_gateway/c/sci_lib.c \
 sci_gateway/c/sci_deff.c \
 sci_gateway/c/sci_librarieslist.c \
@@ -26,9 +26,6 @@ sci_gateway/cpp/sci_getCurrentThreadId.cpp \
 sci_gateway/cpp/sci_mode.cpp \
 sci_gateway/cpp/sci_getThreads.cpp
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/intlib.f \
-sci_gateway/fortran/intexecstr.f \
-sci_gateway/fortran/intexec.f
 
 libscifunctions_la_CFLAGS=		-I$(srcdir)/includes/ \
 				-I$(srcdir)/src/c/ \

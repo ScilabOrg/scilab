@@ -14,7 +14,7 @@
 
 #PARALLEL_C_SOURCES =
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_parallel.c
+GATEWAY_C_SOURCES = 
 #					sci_gateway/c/sci_parallel_concurrency.c
 
 

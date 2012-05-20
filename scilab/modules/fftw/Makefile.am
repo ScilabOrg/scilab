@@ -38,7 +38,7 @@ src/c/fftwlibname.c \
 src/c/fftw_utilities.c \
 src/c/with_fftw.c
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_fftw.c \
+GATEWAY_C_SOURCES =  \
 	sci_gateway/c/sci_fftwlibraryisloaded.c \
 	sci_gateway/c/sci_disposefftwlibrary.c \
 	sci_gateway/c/sci_fftw.c \

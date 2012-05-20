@@ -47,7 +47,7 @@ FILEIO_C_SOURCES = \
 
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_fileio.c \
+     \
     sci_gateway/c/sci_fprintfMat.c \
     sci_gateway/c/sci_fscanfMat.c \
     sci_gateway/c/sci_chdir.c \

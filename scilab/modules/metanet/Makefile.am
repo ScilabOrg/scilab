@@ -62,58 +62,8 @@ src/fortran/knapsk.f \
 src/fortran/dijkst.f \
 src/fortran/ford.f
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_metanet.c
+GATEWAY_C_SOURCES = 
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_m6bandred.f \
-sci_gateway/fortran/sci_m6bmatch.f \
-sci_gateway/fortran/sci_m6busack.f \
-sci_gateway/fortran/sci_m6cent.f \
-sci_gateway/fortran/sci_m6chcm.f \
-sci_gateway/fortran/sci_m6clique1.f \
-sci_gateway/fortran/sci_m6clique.f \
-sci_gateway/fortran/sci_m6compc.f \
-sci_gateway/fortran/sci_m6compfc.f \
-sci_gateway/fortran/sci_m6concom.f \
-sci_gateway/fortran/sci_m6deumesh.f \
-sci_gateway/fortran/sci_m6dfs2.f \
-sci_gateway/fortran/sci_m6dfs.f \
-sci_gateway/fortran/sci_m6diam.f \
-sci_gateway/fortran/sci_m6dijkst.f \
-sci_gateway/fortran/sci_m6dmtree.f \
-sci_gateway/fortran/sci_m6edge2st.f \
-sci_gateway/fortran/sci_m6findiso.f \
-sci_gateway/fortran/sci_m6flomax.f \
-sci_gateway/fortran/sci_m6floqua.f \
-sci_gateway/fortran/sci_m6ford.f \
-sci_gateway/fortran/sci_m6fordfulk.f \
-sci_gateway/fortran/sci_m6frang.f \
-sci_gateway/fortran/sci_m6hamil.f \
-sci_gateway/fortran/sci_m6hullcvex.f \
-sci_gateway/fortran/sci_m6johns.f \
-sci_gateway/fortran/sci_m6kilter.f \
-sci_gateway/fortran/sci_m6knapsk.f \
-sci_gateway/fortran/sci_m6loadg.f \
-sci_gateway/fortran/sci_m6lp2tad.f \
-sci_gateway/fortran/sci_m6lp2tau.f \
-sci_gateway/fortran/sci_m6mesh2b.f \
-sci_gateway/fortran/sci_m6meshmesh.f \
-sci_gateway/fortran/sci_m6ns2p.f \
-sci_gateway/fortran/sci_m6p2ns.f \
-sci_gateway/fortran/sci_m6pcchna.f \
-sci_gateway/fortran/sci_m6permuto.f \
-sci_gateway/fortran/sci_m6prevn2p.f \
-sci_gateway/fortran/sci_m6prevn2st.f \
-sci_gateway/fortran/sci_m6prfmatch.f \
-sci_gateway/fortran/sci_m6relax.f \
-sci_gateway/fortran/sci_m6saveg.f \
-sci_gateway/fortran/sci_m6sconcom.f \
-sci_gateway/fortran/sci_m6ta2lpd.f \
-sci_gateway/fortran/sci_m6ta2lpu.f \
-sci_gateway/fortran/sci_m6tconex.f \
-sci_gateway/fortran/sci_m6transc.f \
-sci_gateway/fortran/sci_m6umtree1.f \
-sci_gateway/fortran/sci_m6umtree.f \
-sci_gateway/fortran/sci_m6visitor.f
 
 libscimetanet_la_CFLAGS=  	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes/ \

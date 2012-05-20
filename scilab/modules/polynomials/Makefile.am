@@ -64,42 +64,7 @@ src/fortran/calcsc.f \
 src/fortran/writebufsfact.f
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_polynomials.c \
-sci_gateway/c/sci_sfact.c \
-sci_gateway/c/sci_cleanp.c \
-sci_gateway/c/sci_sum.c \
-sci_gateway/c/sci_prod.c \
-sci_gateway/c/sci_diag.c \
-sci_gateway/c/sci_simp_mode.c \
-sci_gateway/c/sci_roots.c \
-sci_gateway/c/sci_varn.c \
-sci_gateway/c/sci_simp.c \
-sci_gateway/c/sci_bezout.c \
-sci_gateway/c/sci_tril.c \
-sci_gateway/c/sci_div.c \
-sci_gateway/c/sci_coeff.c \
-sci_gateway/c/sci_poly.c \
-sci_gateway/c/sci_triu.c \
-sci_gateway/c/sci_degree.c
-
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_simp.f \
-sci_gateway/fortran/sci_f_poly.f \
-sci_gateway/fortran/sci_f_varn.f \
-sci_gateway/fortran/sci_f_sum.f \
-sci_gateway/fortran/sci_f_div.f \
-sci_gateway/fortran/sci_f_diag.f \
-sci_gateway/fortran/sci_f_prod.f \
-sci_gateway/fortran/polops.f \
-sci_gateway/fortran/sci_f_bezout.f \
-sci_gateway/fortran/sci_f_triu_tril.f \
-sci_gateway/fortran/sci_f_roots.f \
-sci_gateway/fortran/sci_f_psimp.f \
-sci_gateway/fortran/sci_f_rsimp.f \
-sci_gateway/fortran/sci_f_coeff.f \
-sci_gateway/fortran/sci_f_degree.f \
-sci_gateway/fortran/sci_f_pclean.f \
-sci_gateway/fortran/sci_f_sfact.f \
-sci_gateway/fortran/sci_f_simpmd.f
+GATEWAY_C_SOURCES =
 
 
 libscipolynomials_la_CFLAGS= \
@@ -146,6 +111,5 @@ libscipolynomials_la_etc_DATA = etc/polynomials.quit etc/polynomials.start
 #### polynomials : gateway declaration ####
 libscipolynomials_la_sci_gatewaydir = $(mydatadir)/sci_gateway
 libscipolynomials_la_sci_gateway_DATA = sci_gateway/polynomials_gateway.xml
-
 
 include $(top_srcdir)/Makefile.incl.am

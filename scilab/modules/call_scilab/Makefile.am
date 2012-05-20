@@ -11,8 +11,7 @@ CALLSCILAB_C_SOURCES = src/c/call_scilab.c \
 		src/c/SendScilabJobs.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_fromjava.c \
-		sci_gateway/c/sci_fromc.c \
-		sci_gateway/c/gw_call_scilab.c
+		sci_gateway/c/sci_fromc.c
 
 libscicall_scilab_la_CFLAGS=  	-I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \

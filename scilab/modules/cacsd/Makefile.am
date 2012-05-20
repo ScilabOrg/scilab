@@ -153,51 +153,14 @@ src/fortran/calsca.f \
 src/fortran/qitz.f \
 src/fortran/front.f
 
-GATEWAY_C_SOURCES = sci_gateway/c/sci_arl2.c \
-sci_gateway/c/sci_rtitr.c \
-sci_gateway/c/sci_ereduc.c \
-sci_gateway/c/sci_ppol.c \
-sci_gateway/c/sci_tzer.c \
+GATEWAY_C_SOURCES = \
 sci_gateway/c/sci_contr.c \
-sci_gateway/c/sci_fstair.c \
-sci_gateway/c/sci_residu.c \
-sci_gateway/c/gw_slicot.c \
-sci_gateway/c/gw_cacsd0.c \
-sci_gateway/c/sci_freq.c \
-sci_gateway/c/gw_cacsd1.c \
-sci_gateway/c/sci_rankqr.c \
-sci_gateway/c/sci_ltitr.c \
-sci_gateway/c/sci_ldiv.c \
-sci_gateway/c/gw_cacsd2.c \
-sci_gateway/c/gw_cacsd3.c
-#sci_gateway/c/sci_gschur.c => obsolete
-#sci_gateway/c/sci_gspec.c => obsolete
+ \
+ \
+ \
+sci_gateway/c/sci_rankqr.c
 
-GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_hinf.f \
-sci_gateway/fortran/sci_f_zrankqr.f \
-sci_gateway/fortran/sci_f_tzer.f \
-sci_gateway/fortran/sci_f_residu.f \
-sci_gateway/fortran/sci_f_sylv.f \
-sci_gateway/fortran/sci_f_ppol.f \
-sci_gateway/fortran/sci_f_freq.f \
-sci_gateway/fortran/sci_f_ldiv.f \
-sci_gateway/fortran/sci_f_ricc.f \
-sci_gateway/fortran/sci_f_sident.f \
-sci_gateway/fortran/sci_f_lyap.f \
-sci_gateway/fortran/sci_f_rtitr.f \
-sci_gateway/fortran/sci_f_sorder.f \
-sci_gateway/fortran/sci_f_mucomp.f \
-sci_gateway/fortran/sci_f_ltitr.f \
-sci_gateway/fortran/sci_f_dhinf.f \
-sci_gateway/fortran/sci_f_ricc2.f \
-sci_gateway/fortran/sci_f_arl2.f \
-sci_gateway/fortran/sci_f_ereduc.f \
-sci_gateway/fortran/sci_f_findbd.f \
-sci_gateway/fortran/sci_f_fstair.f \
-sci_gateway/fortran/sci_f_linmeq.f \
-sci_gateway/fortran/sci_f_rankqr.f
-#sci_gateway/fortran/sci_f_gschur.f => obsolete
-#sci_gateway/fortran/sci_f_gspec.f => obsolete
+
 
 libscicacsd_la_FFLAGS= -I$(srcdir)/includes/
 libscicacsd_la_CFLAGS= 	-I$(srcdir)/includes/ \

@@ -65,8 +65,8 @@ LINEAR_ALGEBRA_FORTRAN_SOURCES = \
 GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_backslash.c \
     sci_gateway/c/sci_slash.c \
-    sci_gateway/c/gw_linear_algebra2.c \
-    sci_gateway/c/gw_linear_algebra.c \
+     \
+     \
     sci_gateway/c/assembleEigenvectors.c \
     sci_gateway/c/sci_dgeev.c \
     sci_gateway/c/sci_dggev.c \
@@ -75,8 +75,6 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_zggev.c \
     sci_gateway/c/sci_zheev.c
 
-GATEWAY_FORTRAN_SOURCES = \
-    sci_gateway/fortran/bschur.f
 
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/linear_algebra_gw.cpp \

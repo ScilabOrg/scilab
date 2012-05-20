@@ -45,7 +45,7 @@ XML_CPP_SOURCES = src/cpp/VariableScope.cpp \
           src/cpp/XMLValidationSchema.cpp \
           src/cpp/XMLValidationRelaxNG.cpp
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_xml.c
+GATEWAY_C_SOURCES = 
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_xmlRead.cpp \
               sci_gateway/cpp/sci_xmlXPath.cpp \

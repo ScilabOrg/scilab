@@ -13,8 +13,7 @@ HISTORY_MANAGER_C_SOURCES = \
     src/c/getCommentDateSession.c
 
 # List of the gateway c files
-GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_history_manager.c
+GATEWAY_C_SOURCES =    
 #sci_gateway/c/sci_displayhistory.c  \
 #sci_gateway/c/sci_gethistory.c  \
 #sci_gateway/c/sci_gethistoryfile.c  \

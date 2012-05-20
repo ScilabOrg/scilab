@@ -86,8 +86,7 @@ src/fortran/i_cumprod.f \
 src/fortran/i_cumsum.f \
 src/fortran/i_kron.f
 
-GATEWAY_C_SOURCES = \
-				sci_gateway/c/gw_integer.c
+GATEWAY_C_SOURCES =
 
 GATEWAY_CPP_SOURCES = \
 				sci_gateway/cpp/integer_gw.cpp \
@@ -98,29 +97,6 @@ GATEWAY_CPP_SOURCES = \
 # List of the cpp files
 INTEGER_CPP_SOURCES =
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_i_matrix.f \
-sci_gateway/fortran/sci_i_mput.f \
-sci_gateway/fortran/sci_i_max.f \
-sci_gateway/fortran/sci_int32.f \
-sci_gateway/fortran/sci_int16.f \
-sci_gateway/fortran/sci_i_mini.f \
-sci_gateway/fortran/sci_mgeti.f \
-sci_gateway/fortran/sci_i_maxi.f \
-sci_gateway/fortran/sci_i_p.f \
-sci_gateway/fortran/sci_uint8.f \
-sci_gateway/fortran/sci_i_sum.f \
-sci_gateway/fortran/sci_i_prod.f \
-sci_gateway/fortran/sci_i_cumsum.f \
-sci_gateway/fortran/sci_i_diag.f \
-sci_gateway/fortran/sci_i_abs.f \
-sci_gateway/fortran/sci_i_cumprod.f \
-sci_gateway/fortran/sci_i_tril.f \
-sci_gateway/fortran/sci_int8.f \
-sci_gateway/fortran/sci_uint32.f \
-sci_gateway/fortran/sci_uint16.f \
-sci_gateway/fortran/sci_i_triu.f \
-sci_gateway/fortran/sci_i_min.f \
-sci_gateway/fortran/sci_inttype.f
 
 libsciinteger_la_CFLAGS=  \
 				-I$(srcdir)/includes/ \

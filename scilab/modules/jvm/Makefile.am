@@ -82,7 +82,7 @@ includes/getScilabObject.h
 GATEWAY_C_SOURCES = sci_gateway/c/sci_system_setproperty.c \
 sci_gateway/c/sci_with_embedded_jre.c \
 sci_gateway/c/sci_javaclasspath.c \
-sci_gateway/c/gw_jvm.c \
+ \
 sci_gateway/c/sci_javalibrarypath.c
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_system_getproperty.cpp \

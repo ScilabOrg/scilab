@@ -39,7 +39,6 @@ differential_equations \
 double \
 elementary_functions \
 integer \
-intersci \
 io \
 linear_algebra \
 localization \
@@ -185,7 +184,6 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/double/libscidouble.la \
 	$(top_builddir)/modules/elementary_functions/libscielementary_functions.la \
 	$(top_builddir)/modules/integer/libsciinteger.la \
-	$(top_builddir)/modules/intersci/libsciintersci.la \
 	$(top_builddir)/modules/io/libsciio.la \
 	$(top_builddir)/modules/linear_algebra/libscilinear_algebra.la \
 	$(top_builddir)/modules/localization/libscilocalization.la \
@@ -244,13 +242,15 @@ ENGINE_LIBS_DYNAMIC_LOAD = \
 libscilab_la_LIBADD =
 
 if GUI
-libscilab_la_LIBADD += $(GUI_LIBS)
+libscilab_la_LIBADD += $(GUI_LIBS) \
+	$(top_builddir)/modules/types/libscitypes-java.la
 else
 libscilab_la_LIBADD += $(NO_GUI_LIBS)
 endif
 
 # Core modules
-libscilab_la_LIBADD += $(OTHER_LIBS) $(EXTERNAL_LIBS) $(top_builddir)/modules/types/libscitypes-java.la $(top_builddir)/modules/libscilab-cli.la
+libscilab_la_LIBADD += $(OTHER_LIBS) $(EXTERNAL_LIBS) \
+	$(top_builddir)/modules/libscilab-cli.la
 
 ################## libscilab-cli  ##################
 

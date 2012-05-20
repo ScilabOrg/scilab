@@ -26,7 +26,6 @@ GATEWAY_C_SOURCES = \
     sci_gateway/c/sci_and.c \
     sci_gateway/c/sci_or.c
 
-GATEWAY_FORTRAN_SOURCES =
 
 libsciboolean_la_CFLAGS= \
     -I$(srcdir)/includes/ \

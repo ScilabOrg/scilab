@@ -74,7 +74,7 @@ STATISTICS_FORTRAN_SOURCES = \
     src/dcdflib/cdfbet.f
 
 GATEWAY_C_SOURCES = \
-	sci_gateway/c/gw_statistics.c \
+	 \
 	sci_gateway/c/sci_cdfchi.c \
 	sci_gateway/c/sci_cdft.c \
 	sci_gateway/c/sci_cdfgam.c \

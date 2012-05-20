@@ -59,7 +59,7 @@ if GIWS
 endif
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_preferences.c
+GATEWAY_C_SOURCES = 
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_addModulePreferences.cpp \
                       sci_gateway/cpp/sci_removeModulePreferences.cpp

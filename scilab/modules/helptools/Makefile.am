@@ -11,7 +11,7 @@ USEANT=1
 HELPTOOLS_SOURCES = src/jni/BuildDocObject.cpp \
 	src/jni/SciDocMain.cpp
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_helptools.c
+GATEWAY_C_SOURCES = 
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_buildDocv2.cpp
 

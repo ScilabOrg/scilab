@@ -13,8 +13,7 @@ sci_gateway/c/sci_timer.c \
 sci_gateway/c/sci_calendar.c \
 sci_gateway/c/sci_xpause.c \
 sci_gateway/c/sci_sleep.c \
-sci_gateway/c/sci_getdate.c \
-sci_gateway/c/gw_time.c
+sci_gateway/c/sci_getdate.c
 
 GATEWAY_CPP_SOURCES = 	sci_gateway/cpp/time_gw.cpp \
 						sci_gateway/cpp/sci_tictoc.cpp

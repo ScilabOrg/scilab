@@ -14,7 +14,7 @@ DYNAMIC_LINK_CPP_SOURCES = \
     src/cpp/addinter.cpp
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_dynamic_link.c \
+     \
     sci_gateway/c/sci_call.c
 
 GATEWAY_CPP_SOURCES = \
@@ -27,8 +27,6 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_addinter.cpp
 
 
-GATEWAY_FORTRAN_SOURCES = \
-    sci_gateway/fortran/sci_fort.f
 
 libscidynamic_link_la_CFLAGS = \
     -I$(top_srcdir)/modules/output_stream/includes \

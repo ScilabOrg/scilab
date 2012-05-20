@@ -38,7 +38,7 @@ UMFPACK_C_SOURCES = src/c/taucs_scilab.c \
 src/c/common_umfpack.c \
 src/c/with_umfpack.c
 
-GATEWAY_C_SOURCES =  sci_gateway/c/gw_umfpack.c \
+GATEWAY_C_SOURCES =   \
 sci_gateway/c/sci_res_with_prec.c \
 sci_gateway/c/sci_taucs_chdel.c \
 sci_gateway/c/sci_taucs_chfact.c \

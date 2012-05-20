@@ -5,7 +5,6 @@
 
 SPARSE_C_SOURCES = \
 src/c/spUtils.c \
-src/c/mspelm.c \
 src/c/lu.c \
 src/c/spFactor.c \
 src/c/spBuild.c \
@@ -87,7 +86,6 @@ src/fortran/dspe2.f \
 src/fortran/wspasp.f \
 src/fortran/wij2sp.f \
 src/fortran/wspcsp.f \
-src/fortran/lspops.f \
 src/fortran/spifp.f \
 src/fortran/isort1.f \
 src/fortran/dspis.f \
@@ -105,52 +103,8 @@ src/fortran/dspmin.f \
 src/fortran/writebuf.f \
 src/fortran/ta2lpd.f
 
-GATEWAY_C_SOURCES = \
-sci_gateway/c/sci_blkslvi.c \
-sci_gateway/c/sci_inpnvi.c \
-sci_gateway/c/sci_ludel.c \
-sci_gateway/c/sci_spmatrix.c \
-sci_gateway/c/sci_blkfc1i.c \
-sci_gateway/c/sci_bfinit.c \
-sci_gateway/c/sci_lufact.c \
-sci_gateway/c/sci_symfcti.c \
-sci_gateway/c/sci_mfull.c \
-sci_gateway/c/sci_luget.c \
-sci_gateway/c/sci_ordmmd.c \
-sci_gateway/c/sci_spclean.c \
-sci_gateway/c/sci_spmin.c \
-sci_gateway/c/sci_spchol.c \
-sci_gateway/c/sci_spmax.c \
-sci_gateway/c/sci_lusolve.c \
-sci_gateway/c/sci_fadj2sp.c \
-sci_gateway/c/gw_sparse.c \
-sci_gateway/c/sci_sfinit.c \
-sci_gateway/c/sci_sparse.c \
-sci_gateway/c/sci_mspget.c
+GATEWAY_C_SOURCES =
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_spcompa.f \
-sci_gateway/fortran/sci_f_sparse.f \
-sci_gateway/fortran/sci_f_full.f \
-sci_gateway/fortran/sci_f_blkslvi.f \
-sci_gateway/fortran/sci_f_inpnvi.f \
-sci_gateway/fortran/sci_f_nnz.f \
-sci_gateway/fortran/sci_f_ludel.f \
-sci_gateway/fortran/sci_f_bfinit.f \
-sci_gateway/fortran/spops.f \
-sci_gateway/fortran/sci_f_spmatrix.f \
-sci_gateway/fortran/sci_f_blkfc1i.f \
-sci_gateway/fortran/sci_f_lufact.f \
-sci_gateway/fortran/sci_f_symfcti.f \
-sci_gateway/fortran/sci_f_luget.f \
-sci_gateway/fortran/sci_f_ordmmd.f \
-sci_gateway/fortran/sci_f_spget.f \
-sci_gateway/fortran/sci_f_spclean.f \
-sci_gateway/fortran/sci_f_spchol.f \
-sci_gateway/fortran/sci_f_spmax.f \
-sci_gateway/fortran/sci_f_lusolve.f \
-sci_gateway/fortran/sci_f_fadj2sp.f \
-sci_gateway/fortran/sci_f_sfinit.f \
-sci_gateway/fortran/sci_f_ta2lpd.f
 
 libscisparse_la_CFLAGS=  	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes \

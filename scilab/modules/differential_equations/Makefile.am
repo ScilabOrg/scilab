@@ -74,16 +74,6 @@ src/fortran/odeint.f \
 src/fortran/rkqc.f \
 src/fortran/writbufode.f
 
-GATEWAY_FORTRAN_SOURCES = \
-sci_gateway/fortran/Ex-odedc.f \
-sci_gateway/fortran/Ex-ode.f \
-sci_gateway/fortran/Ex-impl.f \
-sci_gateway/fortran/Ex-int2d.f \
-sci_gateway/fortran/Ex-int3d.f \
-sci_gateway/fortran/Ex-intg.f \
-sci_gateway/fortran/Ex-dasrt.f \
-sci_gateway/fortran/Ex-dassl.f \
-sci_gateway/fortran/Ex-bvode.f
 
 GATEWAY_CPP_SOURCES = \
 sci_gateway/cpp/sci_int2d.cpp \

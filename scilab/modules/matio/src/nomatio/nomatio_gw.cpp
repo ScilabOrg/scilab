@@ -11,9 +11,11 @@
  */
 
 #include "matio_gw.hxx"
+#include "machine.h"
 
+#ifdef WITH_MATIO
 bool MatioModule::Load()
 {
-  return true;
+    return true;
 }
-
+#endif

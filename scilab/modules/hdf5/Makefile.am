@@ -30,7 +30,7 @@ else
 FORCE_LOAD_SOURCES =
 endif
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_hdf5.c
+GATEWAY_C_SOURCES = 
 
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_export_to_hdf5.cpp \

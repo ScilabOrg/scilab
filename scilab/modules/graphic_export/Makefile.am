@@ -38,7 +38,7 @@ src/jni/GL2PSWrapping_wrap.c \
 src/c/gl2ps/gl2ps.c
 
 # List of the gateway c files
-GATEWAY_C_SOURCES = sci_gateway/c/gw_graphic_export.c \
+GATEWAY_C_SOURCES =  \
 sci_gateway/c/sci_xs2bmp.c \
 sci_gateway/c/sci_xs2gif.c \
 sci_gateway/c/sci_xs2ppm.c \

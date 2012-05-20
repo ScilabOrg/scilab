@@ -18,7 +18,7 @@ GATEWAY_C_SOURCES = sci_gateway/c/sci_lsq_splin.c \
 sci_gateway/c/sci_interp.c \
 sci_gateway/c/sci_interp2d.c \
 sci_gateway/c/sci_splin.c \
-sci_gateway/c/gw_interpolation.c \
+ \
 sci_gateway/c/sci_cshep2d.c \
 sci_gateway/c/sci_interp3d.c \
 sci_gateway/c/sci_linear_interpn.c \

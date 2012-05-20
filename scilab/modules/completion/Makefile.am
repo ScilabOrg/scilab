@@ -32,8 +32,7 @@ src/cpp/completionDictionary.cpp
 
 # List of the gateway c files
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/sci_completion.c \
-    sci_gateway/c/gw_completion.c
+    sci_gateway/c/sci_completion.c    
 
 # Includes need for the compilation
 libscicompletion_la_CFLAGS=  	$(JAVA_JNI_INCLUDE) \

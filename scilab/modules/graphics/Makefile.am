@@ -395,7 +395,7 @@ sci_gateway/c/sci_champ.c \
 sci_gateway/c/sci_set.c \
 sci_gateway/c/sci_showalluimenushandles.c \
 sci_gateway/c/sci_unglue.c \
-sci_gateway/c/gw_graphics.c \
+ \
 sci_gateway/c/sci_zoom_rect.c \
 sci_gateway/c/sci_delete.c \
 sci_gateway/c/sci_plot2d.c \

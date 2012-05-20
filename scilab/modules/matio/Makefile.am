@@ -9,7 +9,7 @@ include $(top_srcdir)/Makefile.incl.am
 if MATIO
 
 #### List of the gateway files ####
-GATEWAY_C_SOURCES = sci_gateway/c/gw_matio.c \
+GATEWAY_C_SOURCES =  \
 		    sci_gateway/c/sci_matfile_open.c \
 		    sci_gateway/c/sci_matfile_close.c \
 		    sci_gateway/c/sci_matfile_listvar.c \

@@ -8,16 +8,12 @@
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_symbolic.c \
+GATEWAY_C_SOURCES =  \
 sci_gateway/c/sci_mulf.c \
 sci_gateway/c/sci_ldivf.c \
 sci_gateway/c/sci_addsubf.c \
 sci_gateway/c/sci_rdivf.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_addsubf.f \
-sci_gateway/fortran/sci_f_mulf.f \
-sci_gateway/fortran/sci_f_ldivf.f \
-sci_gateway/fortran/sci_f_rdivf.f
 
 libscisymbolic_la_CFLAGS=  	-I$(srcdir)/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes \

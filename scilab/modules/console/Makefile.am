@@ -92,8 +92,7 @@ CONSOLE_GATEWAY_CPP_SOURCES = \
 
 
 # List of the gateway c files
-CONSOLE_GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_console.c
+CONSOLE_GATEWAY_C_SOURCES =    
 
 GIWS_WRAPPERS = src/jni/CallScilabBridge.giws.xml
 
@@ -118,7 +117,7 @@ libsciconsole_disable_la_SOURCES = \
     sci_gateway/cpp/sci_lines.cpp \
     sci_gateway/cpp/sci_prompt.cpp \
     sci_gateway/cpp/sci_iswaitingforinput.cpp \
-    sci_gateway/c/gw_console.c \
+     \
     src/c/clc.c \
     src/c/tohome.c \
     src/c/more.c \

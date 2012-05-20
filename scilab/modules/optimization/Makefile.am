@@ -100,25 +100,13 @@ src/fortran/minpack/r1mpyq.f
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_semidef.c \
 sci_gateway/c/sci_qld.c \
-sci_gateway/c/gw_optimization.c \
+ \
 sci_gateway/c/sci_optim.c \
 sci_gateway/c/sci_fsolv.c \
 sci_gateway/c/sci_sqrsolve.c \
-sci_gateway/c/sci_qp_solve.c \
 sci_gateway/c/sci_readmps.c
+#sci_gateway/c/sci_qp_solve.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_semidef.f \
-sci_gateway/fortran/sci_f_fsolve.f \
-sci_gateway/fortran/sci_f_optim.f \
-sci_gateway/fortran/boptim.f \
-sci_gateway/fortran/bsolv.f \
-sci_gateway/fortran/bjlsqrsolv.f \
-sci_gateway/fortran/blsqrsolv.f \
-sci_gateway/fortran/bjsolv.f \
-sci_gateway/fortran/intlsqrsolve.f \
-sci_gateway/fortran/Ex-optim.f \
-sci_gateway/fortran/Ex-fsolve.f \
-sci_gateway/fortran/Ex-lsqrsolve.f
 
 libscioptimization_la_CFLAGS=  	-I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes \

@@ -33,7 +33,7 @@ src/c/stringToDouble.c
 STRING_FORTRAN_SOURCES =
 
 GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_string.c \
+     \
     sci_gateway/c/sci_strsplit.c \
     sci_gateway/c/sci_isdigit.c \
     sci_gateway/c/sci_isalphanum.c \
@@ -65,8 +65,6 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_strtok.cpp \
     sci_gateway/cpp/sci_strspn.cpp
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_string.f \
-sci_gateway/fortran/strops.f
 
 libscistring_la_CFLAGS= $(PCRE_CFLAGS) \
 	-I$(srcdir)/src/c \

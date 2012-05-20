@@ -50,7 +50,7 @@ BUILT_SOURCES=giws
 endif
 
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_ui_data.c
+GATEWAY_C_SOURCES = 
 
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_editvar.cpp \

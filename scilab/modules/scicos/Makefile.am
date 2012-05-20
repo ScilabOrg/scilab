@@ -58,7 +58,7 @@ src/fortran/ftree4.f \
 src/fortran/scitoi.f \
 src/fortran/scifunc.f
 
-GATEWAY_C_SOURCES = sci_gateway/c/gw_scicos.c \
+GATEWAY_C_SOURCES =  \
 sci_gateway/c/sci_buildouttb.c \
 sci_gateway/c/sci_callblk.c \
 sci_gateway/c/sci_coserror.c \
@@ -93,16 +93,6 @@ sci_gateway/c/sci_var2vec.c \
 sci_gateway/c/sci_vec2var.c
 
 
-GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_ctree.f \
-sci_gateway/fortran/sci_f_curblock.f \
-sci_gateway/fortran/sci_f_debug_count.f \
-sci_gateway/fortran/sci_f_getblocklabel.f \
-sci_gateway/fortran/sci_f_scicos_debug.f \
-sci_gateway/fortran/sci_f_tree2.f \
-sci_gateway/fortran/sci_f_tree3.f \
-sci_gateway/fortran/sci_f_tree4.f \
-sci_gateway/fortran/sci_f_var2vec.f \
-sci_gateway/fortran/sci_f_vec2var.f
 
 #CLEANFILES=includes/blocks.h build/Cblocknames build/Fblocknames
 

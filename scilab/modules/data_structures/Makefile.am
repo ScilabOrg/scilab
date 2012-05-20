@@ -5,7 +5,6 @@
 
 
 DATA_STRUCTURES_C_SOURCES = src/c/stcreate.c \
-src/c/hmops.c \
 src/c/strpos.c
 
 DATA_STRUCTURES_FORTRAN_SOURCES = src/fortran/extractfields.f \
@@ -25,16 +24,12 @@ sci_gateway/c/sci_getfield.c \
 sci_gateway/c/sci_setfield.c \
 sci_gateway/c/sci_lstcat.c \
 sci_gateway/c/sci_list.c \
-sci_gateway/c/gw_data_structures1.c \
-sci_gateway/c/gw_data_structures2.c \
+ \
+ \
 sci_gateway/c/sci_lstsize.c \
 sci_gateway/c/sci_rlist.c \
 sci_gateway/c/sci_tlist.c
 
-GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_definedfields.f \
-sci_gateway/fortran/sci_f_lstsize.f \
-sci_gateway/fortran/sci_f_lstcat.f \
-sci_gateway/fortran/sci_f_list.f
 
 libscidata_structures_la_CFLAGS=  	-I$(srcdir)/includes/ \
 -I$(top_srcdir)/libs/MALLOC/includes/ \
