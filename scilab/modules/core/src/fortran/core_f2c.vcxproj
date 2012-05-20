@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -458,7 +458,6 @@ cd ..
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_setbpt.f" />
     <f2c_rule Include="allops.f" />
     <f2c_rule Include="allowptr.f" />
-    <f2c_rule Include="atome.f" />
     <f2c_rule Include="basin.f" />
     <f2c_rule Include="basnms.f" />
     <f2c_rule Include="bexec.f" />
