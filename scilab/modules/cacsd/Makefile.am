@@ -146,7 +146,6 @@ src/fortran/fout.f \
 src/fortran/deg1l2.f \
 src/fortran/modul.f \
 src/fortran/scapol.f \
-src/fortran/dlslv.f \
 src/fortran/giv.f \
 src/fortran/storl2.f \
 src/fortran/calsca.f \
