@@ -730,6 +730,8 @@ t.
 
 * Bug #11115 fixed - A graphic window was opened on with two xend().
 
+* Bug #11138 fixed - a = list() crashed on Windows x64.
+
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
             =========================================================
