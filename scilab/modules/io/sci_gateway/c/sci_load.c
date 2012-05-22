@@ -22,7 +22,7 @@ int sci_load(char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int* piAddr = NULL;
-    sciprint("[in]sci_load\n");
+
     //check first input argument type ( double can be file descriptor )
     sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
     if (sciErr.iErr)
@@ -43,19 +43,18 @@ int sci_load(char *fname, unsigned long fname_len)
         }
         C2F(intload)(&Val, &k1);
     }
-    else //if(isStringType(pvApiCtx, piAddr))
+    else if (isStringType(pvApiCtx, piAddr))
     {
         int lw = 0;
         //call "overload" to prepare data to export_to_hdf5 function.
         C2F(overload) (&lw, "sodload", (unsigned long)strlen("sodload"));
     }
-    /*else
+    else
     {
-        int Val=40;
-        int k1=0;
-        C2F(intload)(&Val,&k1);
-        }*/
-    sciprint("[out]sci_load\n");
+        int Val = 40;
+        int k1 = 0;
+        C2F(intload)(&Val, &k1);
+    }
 
     return 0;
 }
@@ -64,9 +63,7 @@ int sci_percent_load(char *fname, unsigned long fname_len)
 {
     int Val = 40;
     int k1 = 0;
-    sciprint("[IN]sci_percent_load\n");
     C2F(intload)(&Val, &k1);
-    sciprint("[OUT]sci_percent_load\n");
     return 0;
 }
 /*--------------------------------------------------------------------------*/
