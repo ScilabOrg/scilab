@@ -25,6 +25,7 @@ extern "C"
 #include "h5_fileManagement.h"
 #include "h5_writeDataToFile.h"
 #include "h5_readDataFromFile.h"
+#include "h5_attributeConstants.h"
 #include "freeArrayOfString.h"
 #ifdef _MSC_VER
 #include "strdup_windows.h"
@@ -140,9 +141,15 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
         return 1;
     }
 
-
     if(bAppendMode)
     {
+        int iVersion = getHdf5FormatAttribute(iH5File);
+        if(iVersion != -1 && iVersion != HDF5_SCILAB_FILE_VERSION)
+        {
+            Scierror(999, _("%s: Wrong hdf5 file format version. Expected: %d from file: %d\n"), fname, HDF5_SCILAB_FILE_VERSION, iVersion);
+            return 1;
+        }
+
         //check if variable already exists
         int iNbItem = getVariableNames(iH5File, NULL);
         if(iNbItem)
@@ -186,6 +193,22 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
         if (bExport == false)
         {
             break;
+        }
+    }
+
+    if(bExport)
+    {
+        //add or update scilab version and file version in hdf5 file
+        if(updateScilabVersion(iH5File) < 0)
+        {
+            Scierror(999, _("%s: Unable to update Scilab version in \"%s\"."), fname, pstNameList[0]);
+            return 1;
+        }
+
+        if(updateFileVersion(iH5File) < 0)
+        {
+            Scierror(999, _("%s: Unable to update HDF5 format version in \"%s\"."), fname, pstNameList[0]);
+            return 1;
         }
     }
 

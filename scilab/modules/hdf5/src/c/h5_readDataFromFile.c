@@ -81,19 +81,19 @@ static int readIntAttribute(int _iDatasetId, const char *_pstName)
     iAttributeId = H5Aopen_name(_iDatasetId, _pstName);
     if (iAttributeId < 0)
     {
-        return 0;
+        return -1;
     }
 
     status = H5Aread(iAttributeId, H5T_NATIVE_INT, &iVal);
     if (status < 0)
     {
-        return 0;
+        return -1;
     }
 
     status = H5Aclose(iAttributeId);
     if (status < 0)
     {
-        return 0;
+        return -1;
     }
 
     return iVal;
@@ -102,7 +102,7 @@ static int readIntAttribute(int _iDatasetId, const char *_pstName)
 /*
 ** WARNING : this function returns an allocated value that must be freed.
 */
-static char *readAttribute(int _iDatasetId, const char *_pstName)
+static char* readAttribute(int _iDatasetId, const char *_pstName)
 {
     hid_t iAttributeId;
     hid_t iFileType, memtype, iSpace;
@@ -211,6 +211,19 @@ static int checkAttribute(int _iDatasetId, char *_pstAttribute, char *_pstValue)
         FREE(pstScilabClass);
     }
     return iRet;
+}
+
+/*
+** WARNING : this function returns an allocated value that must be freed.
+*/
+char* getScilabVersionAttribute(int _iFile)
+{
+    return readAttribute(_iFile, g_SCILAB_CLASS_SCI_VERSION);
+}
+
+int getHdf5FormatAttribute(int _iFile)
+{
+    return readIntAttribute(_iFile, g_SCILAB_CLASS_HDF5_VERSION);
 }
 
 int getDatasetDimension(int _iDatasetId, int *_piRows, int *_piCols)

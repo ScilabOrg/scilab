@@ -21,6 +21,9 @@
 #define sci_undefined   -1
 #define sci_void        0
 
+char* getScilabVersionAttribute(int _iFile);
+int getHdf5FormatAttribute(int _iFile);
+
 HDF5_SCILAB_IMPEXP int isComplexData(int _iDatasetId);
 
 HDF5_SCILAB_IMPEXP int getVariableNames(int _iFile, char **pstNameList);
