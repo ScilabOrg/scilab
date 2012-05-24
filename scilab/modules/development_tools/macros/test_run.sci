@@ -556,7 +556,8 @@ function status = test_single(_module, _testPath, _testName)
     execMode = "NW";
   end
 
-  if ~isempty(grep(sciFile, "<-- JVM NOT MANDATORY -->")) then
+  if ~isempty(grep(sciFile, "<-- CLI TEST -->")) | ...
+        ~isempty(grep(sciFile, "<-- CLI TEST -->")) then
     jvm = %F;
     execMode = "NWNI";
   end

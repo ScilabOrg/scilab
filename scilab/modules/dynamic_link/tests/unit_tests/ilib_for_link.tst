@@ -7,7 +7,7 @@
 // =============================================================================
 
 // <-- ENGLISH IMPOSED -->
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 if getos() == 'Windows' then
   TMP_OS_DIR = getenv('TMP','err');

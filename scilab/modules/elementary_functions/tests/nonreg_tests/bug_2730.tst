@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 ref = ["aaaaaaaaa","aaaaacccc";"aaaaaaaaaaaaaaab","aaaabbbbccc"];
 A = [ "aaaabbbbccc" "aaaaaaaaa" ; "aaaaacccc" "aaaaaaaaaaaaaaab" ];

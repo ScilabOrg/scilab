@@ -13,7 +13,7 @@
 // <-- Short Description -->
 //   incorrect clause uncorrectly handled under errcatch
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 mkdir(TMPDIR,'b2072');
 
