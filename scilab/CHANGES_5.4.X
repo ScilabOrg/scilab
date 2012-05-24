@@ -752,6 +752,8 @@ t.
 
 * Bug #11126 fixed - Improve some error messages.
 
+* Bug #11129 fixed - lapackscilab.sce can be run outside of file location.
+
 * Bug #11138 fixed - a = list() crashed on Windows x64.
 
 * Bug #11186 fixed - 'typeof' of a type 130 returned an error.
