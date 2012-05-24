@@ -1,4 +1,4 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+y// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) 2007-2008 - INRIA - Pierre MARECHAL
 // Copyright (C) 2009-2011 - DIGITEO - Michael Baudin
 // Copyright (C) 2010-2012 - DIGITEO - Antoine ELIAS
@@ -556,7 +556,8 @@ function status = test_single(_module, _testPath, _testName)
     execMode = "NW";
   end
 
-  if ~isempty(grep(sciFile, "<-- JVM NOT MANDATORY -->")) then
+  if ~isempty(grep(sciFile, "<-- JVM NOT MANDATORY -->")) | ...
+        ~isempty(grep(sciFile, "<-- CLI TEST -->")) then
     jvm = %F;
     execMode = "NWNI";
   end

@@ -7,7 +7,7 @@
 
 // <-- NOT FIXED -->
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 m = 200;
 n = 400;

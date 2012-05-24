@@ -7,7 +7,7 @@
 
 // <-- Non-regression test for bug 6781 -->
 //
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 //
 // <-- ENGLISH IMPOSED -->
 //

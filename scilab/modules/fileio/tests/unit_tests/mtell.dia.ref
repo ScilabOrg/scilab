@@ -7,7 +7,7 @@
 //
 // <-- ENGLISH IMPOSED -->
 //
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 //
 testFile=TMPDIR + '/testFile.bin';
 fd = mopen(testFile,'wb');
