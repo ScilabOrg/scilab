@@ -8,7 +8,7 @@
 
 // <-- Non-regression test for bug 7805 -->
 //
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 //
 // <-- INTERACTIVE TEST -->
 

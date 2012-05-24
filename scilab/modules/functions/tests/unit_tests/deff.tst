@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 deff('[x] = myplus(y,z)','x=y+z');
 if isdef('myplus') <> %t then pause,end

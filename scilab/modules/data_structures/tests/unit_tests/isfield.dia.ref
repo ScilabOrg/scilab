@@ -5,7 +5,7 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 // unit tests for isfield function
 // =============================================================================
 my_struct = struct("field_1",123,"field_2",456);

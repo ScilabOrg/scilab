@@ -6,7 +6,7 @@
 // =============================================================================
 
 // <-- TEST WITH ATOMS -->
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 //
 // <-- Non-regression test for bug 7149 -->
 //

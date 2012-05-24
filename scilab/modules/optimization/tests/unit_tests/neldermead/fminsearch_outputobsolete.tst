@@ -9,7 +9,7 @@
 
 // <-- ENGLISH IMPOSED -->
 // <-- NO CHECK REF -->
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 
 // This test is designed to produce a warning:

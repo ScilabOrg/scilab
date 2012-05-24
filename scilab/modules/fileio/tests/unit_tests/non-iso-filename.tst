@@ -7,7 +7,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // ============================================================================
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 //
 // Script to thest file name, path name of Scilab command

@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 A = spzeros(3,2);
 A(3,1) = 2;

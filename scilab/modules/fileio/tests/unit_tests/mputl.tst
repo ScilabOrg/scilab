@@ -5,7 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 // =============================================================================
 // Unitary tests for mputl function

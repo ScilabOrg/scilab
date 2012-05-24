@@ -7,7 +7,7 @@
 //
 // <-- Non-regression test for bug 10324 -->
 //
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 //
 // 
 // <-- Bugzilla URL -->
