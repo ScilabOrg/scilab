@@ -15,7 +15,7 @@
 // it will only returns commands
 
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 w = "";
 c = ["commands","macros"];

@@ -10,7 +10,7 @@
 //
 //
 
-// <-- JVM NOT MANDATORY -->
+// <-- CLI TEST -->
 
 // <-- ENGLISH IMPOSED -->
 
