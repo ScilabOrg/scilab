@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyWrapAsRef" xml:lang="en">
+  <info>
+    <pubdate>$LastChangedDate$</pubdate>
+  </info>
+  <refnamediv>
+    <refname>pyWrapAsRef</refname>
+    <refpurpose>Wrap as reference (no copy) a Scilab variable</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      X = pyWrapAsRef(varName)
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>varName</term>
+        <listitem>
+          <para>A string.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>X</term>
+        <listitem>
+          <para>A Python object</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>The function requires that Numpy wrapping is enabled with pyUseNumpy(%t).</para>
+    <para>Rows or matrices of doubles (not complexes), integers and booleans corresponding to the variable named varName are wrapped as a reference (i.e. no copy is made, the Numpy array is built with a pointer on the Scilab stack). Single data are not passed by references. Strings and complex data cannot be passed by reference since the Scilab corresponding structure is different from the Numpy one.</para> 
+    <para>The main advantage is that is possible to avoid copy (so it is faster). A Scilab matrix can be allocated and fill on the Python side.</para>
+    <para>This function must be used very carefully. If the Scilab variable is cleared, the pointer becomes invalid.</para>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    pyImport numpy
+
+    pyUseScilabIndex(%t);
+    pyUseNumpy(%t);
+
+    a = zeros(3, 3);
+    A = pyWrapAsRef("a");
+    
+    // We modify a and look at A
+    a(2, 2) = 1234;
+    A
+
+    // We modify A (in using the Scilab way to index)
+    A(3, 3) = 4321;
+    a
+
+    pyRemove numpy A
+    ]]></programlisting>
+  </refsection>
+  <refsection role="see also">
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="pyWrap">pyWrap</link>
+      </member>
+      <member>
+        <link linkend="pyUnwrap">pyUnwrap</link>
+      </member>
+      <member>
+        <link linkend="pyByCopy">pyByCopy</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Python module.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+</refentry>
