@@ -88,7 +88,8 @@ ui_data \
 history_browser \
 preferences \
 xml \
-types
+types \
+external_objects
 
 if XCOS
 SUBDIRS += scicos_blocks
