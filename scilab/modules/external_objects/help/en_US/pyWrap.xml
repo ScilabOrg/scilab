@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyWrap" xml:lang="en">
+  <info>
+    <pubdate>$LastChangedDate$</pubdate>
+  </info>
+  <refnamediv>
+    <refname>pyWrap</refname>
+    <refpurpose>Wrap a Scilab data into a Python object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      X = pyWrap(x)
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>x</term>
+        <listitem>
+          <para>A double or boolean or integer or string matrix.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>X</term>
+        <listitem>
+          <para>A Python object</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>The Scilab data is converted into a Python one. By default, a row is converted into a list and a matrix into a list of lists. All the integer data are converted into a Python long.</para>
+    <para>It is possible to use a Numpy wrapping in enabling it with pyUseNumpy. But take care: a single data (like 123 or 'foo') is always wrapped with a basic Python type (never an instance of ndarray).</para>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    pyImport math
+    a = math.sqrt(144);
+    // a is Python number wrapped in an External Object (_EObj)
+    typeof(a)
+    // we can unwrap a
+    A = pyUnwrap(a);
+    // A is a Scilab double
+    typeof(A)
+
+    // Now we enable auto-unwrapping
+    pyAutounwrap(%t)
+    b = math.sqrt(144)
+    typeof(b)
+    
+    pyAutounwrap(%f)
+    pyRemove math a
+    ]]></programlisting>
+  </refsection>
+  <refsection role="see also">
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="pyAutounwrap">pyAutounwrap</link>
+      </member>
+      <member>
+        <link linkend="pyUnwrap">pyUnwrap</link>
+      </member>
+      <member>
+        <link linkend="pyWrapAsRef">pyWrapAsRef</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Python module.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+</refentry>
