@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Calixte Denizet
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<!DOCTYPE GATEWAY SYSTEM "../../functions/xml/gateway.dtd">
+<GATEWAY name="external_objects">
+  
+  <!--
+ Scilab
+ Interface description. In this file, we define the list of the function which
+ will be available into Scilab and the link to the "native" function.
+
+ gatewayId is the position in the hashtable 'Interfaces' defined in the
+ file SCI/modules/core/src/c/callinterf.h
+
+ primitiveId is the position in the hashtable '<module>Table Tab[]' defined
+ in the file modules/<module>/sci_gateway/c/gw_<module>.c
+
+ primitiveName is the name of the Scilab function
+
+ Don't touch if you do not know what you are doing
+
+-->
+  <PRIMITIVE gatewayId="71" primitiveId="1" primitiveName="%_EObj_e" />
+  <PRIMITIVE gatewayId="71" primitiveId="2" primitiveName="%_EObj_p" />
+  <PRIMITIVE gatewayId="71" primitiveId="3" primitiveName="%_EClass_e" />
+  <PRIMITIVE gatewayId="71" primitiveId="4" primitiveName="%_EClass_p" />
+  <PRIMITIVE gatewayId="71" primitiveId="5" primitiveName="%c_i__EObj" />
+  <PRIMITIVE gatewayId="71" primitiveId="6" primitiveName="%s_i__EObj" />
+  <PRIMITIVE gatewayId="71" primitiveId="7" primitiveName="%b_i__EObj" />
+  <PRIMITIVE gatewayId="71" primitiveId="8" primitiveName="%i_i__EObj" />
+  <PRIMITIVE gatewayId="71" primitiveId="9" primitiveName="invoke_lu" />
+  <PRIMITIVE gatewayId="71" primitiveId="10" primitiveName="!!_invoke_" />
+  <PRIMITIVE gatewayId="71" primitiveId="11" primitiveName="%_EObj_disp" />
+  <PRIMITIVE gatewayId="71" primitiveId="12" primitiveName="pyImport" />
+  <PRIMITIVE gatewayId="71" primitiveId="13" primitiveName="pyAutounwrap" />
+  <PRIMITIVE gatewayId="71" primitiveId="14" primitiveName="pyGetMethods" />
+  <PRIMITIVE gatewayId="71" primitiveId="15" primitiveName="pyGetFields" />
+  <PRIMITIVE gatewayId="71" primitiveId="16" primitiveName="pyDeff" />
+  <PRIMITIVE gatewayId="71" primitiveId="17" primitiveName="pyGetRepr" />
+  <PRIMITIVE gatewayId="71" primitiveId="18" primitiveName="pyExists" />
+  <PRIMITIVE gatewayId="71" primitiveId="19" primitiveName="pyGetField" />
+  <PRIMITIVE gatewayId="71" primitiveId="20" primitiveName="pyRemove" />
+  <PRIMITIVE gatewayId="71" primitiveId="21" primitiveName="pyUnwrap" />
+  <PRIMITIVE gatewayId="71" primitiveId="22" primitiveName="pyWrap" />
+  <PRIMITIVE gatewayId="71" primitiveId="23" primitiveName="pyAllowClassReloading" />
+  <PRIMITIVE gatewayId="71" primitiveId="24" primitiveName="pyGetInfos" />
+  <PRIMITIVE gatewayId="71" primitiveId="25" primitiveName="pyGetPath" />
+  <PRIMITIVE gatewayId="71" primitiveId="26" primitiveName="pyAddToPath" />
+  <PRIMITIVE gatewayId="71" primitiveId="27" primitiveName="pyTuple" />
+  <PRIMITIVE gatewayId="71" primitiveId="28" primitiveName="pyDict" />
+  <PRIMITIVE gatewayId="71" primitiveId="29" primitiveName="pyList" />
+  <PRIMITIVE gatewayId="71" primitiveId="30" primitiveName="pySet" />
+  <PRIMITIVE gatewayId="71" primitiveId="31" primitiveName="pyXrange" />
+  <PRIMITIVE gatewayId="71" primitiveId="32" primitiveName="pySlice" />
+  <PRIMITIVE gatewayId="71" primitiveId="33" primitiveName="pyGetName" />
+  <PRIMITIVE gatewayId="71" primitiveId="34" primitiveName="pyEvalStr" />
+  <PRIMITIVE gatewayId="71" primitiveId="35" primitiveName="pyWrapAsRef" />
+  <PRIMITIVE gatewayId="71" primitiveId="36" primitiveName="pyUnwrapRem" />
+</GATEWAY>
