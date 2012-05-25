@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyGetField" xml:lang="en">
+  <info>
+    <pubdate>$LastChangedDate$</pubdate>
+  </info>
+  <refnamediv>
+    <refname>pyGetField</refname>
+    <refpurpose>Get the value of the field of a Python object.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      val = pyGetField(obj, name [, mustUnwrap])
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>obj</term>
+        <listitem>
+          <para>A Python object or a wrappable Scilab variable.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>name</term>
+        <listitem>
+          <para>A string</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>mustUnwrap</term>
+        <listitem>
+          <para>A boolean</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>val</term>
+        <listitem>
+          <para>Scilab data or Python object</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>Get the value of a field if the field name exists. If mustUnwrap is set to true, then the returned value is unwrapped when it is possible.</para>
+    <para>
+      By default, the fields starting with an underscore cannot be read, but this behaviour can be changed in using <link linkend="pyShowPrivate">pyShowPrivate</link>.
+    </para>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    pyImport os
+    // return a Python object
+    s = pyGetField(os, "name")
+    
+    // return a Scilab string
+    s = pyGetField(os, "name", %t)
+
+    pyRemove os s
+    ]]></programlisting>
+  </refsection>
+  <refsection role="see also">
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="pyGetFields">pyGetFields</link>
+      </member>
+      <member>
+        <link linkend="pyShowPrivate">pyShowPrivate</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Python module.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+</refentry>
