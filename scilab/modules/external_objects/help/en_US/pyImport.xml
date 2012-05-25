@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyImport" xml:lang="en">
+  <info>
+    <pubdate>$LastChangedDate$</pubdate>
+  </info>
+  <refnamediv>
+    <refname>pyImport</refname>
+    <refpurpose>Import a module in Scilab environment</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      [mod =] pyImport(moduleName [, isNewVar]])
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>moduleName</term>
+        <listitem>
+          <para>a string containing the module name.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>isNewVar</term>
+        <listitem>
+          <para>a a boolean.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>Import a Python module in the Scilab environment. It is possible to append the module path to sys.path in using pyAddToPath. If isNewVar is true or omitted a new Scilab variable with the base module name (the name is the string before the first dot) is created, else a variable is returned.</para>
+    <para>It is possible to attach the module in Python environment as if 'import' was called in calling pyAttachModule(%t). In this case all the module name can be used. In the case where %T is given as second argument, the value of pyAttachModule as no effect.</para>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    pyImport urllib;
+    // a variable named urllib has been created
+    s = urllib.quote("hello world")
+
+    // a way to have an equivalent of the 'as' keyword
+    // import urllib2 as foo
+    foo = pyImport("urllib2", %f)
+    t = foo.unquote(s)
+
+    pyRemove urllib s foo t
+    ]]></programlisting>
+    <programlisting role="example"><![CDATA[
+    pyAttachModule(%t)
+    pyImport os.path;
+    s = os.path.getsize(pathconvert("SCI/modules/elementary_functions/macros/cosh.sci", %f))
+
+    // In Python environment you can use os.path
+    pyEvalStr("print os.path.getsize(""" + pathconvert("SCI/modules/elementary_functions/macros/cosh.sci", %f) + """)");
+
+    pyRemove(os.path)
+    pyRemove s os
+    ]]></programlisting>
+  </refsection>
+  <refsection role="see also">
+    <title>See Also</title>
+    <simplelist type="inline">
+      <member>
+        <link linkend="pyAddToPath">pyAddToPath</link>
+      </member>
+      <member>
+        <link linkend="pyAttachModule">pyAttachModule</link>
+      </member>
+    </simplelist>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Python module.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+</refentry>
