@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyInvoke" xml:lang="en">
+  <info>
+    <pubdate>$LastChangedDate$</pubdate>
+  </info>
+  <refnamediv>
+    <refname>pyInvoke</refname>
+    <refpurpose>Invoke a Python callable object.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>
+      X = pyInvoke(callable [, arg_1 [, arg_2 ...]])
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection>
+    <title>Arguments</title>
+    <variablelist>
+      <varlistentry>
+        <term>callable</term>
+        <listitem>
+          <para>A Python object.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>arg_i</term>
+        <listitem>
+          <para>A Python object or a Scilab wrappable data.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>X</term>
+        <listitem>
+          <para>A Python object.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsection>
+  <refsection>
+    <title>Description</title>
+    <para>Invoke the callable object with the given arguments.</para>
+  </refsection>
+  <refsection>
+    <title>Examples</title>
+    <programlisting role="example"><![CDATA[
+    pyUseNumpy(%t);
+    pyImport numpy math
+
+    r = rand(10, 10);
+    sr = sqrt(r);
+    R = pyWrap(r);
+    
+    py_sqrt = pyGetAttr(math, "sqrt");
+    np_sqrt = numpy.vectorize(py_sqrt);
+    
+    SR = pyUnwrapRem(pyInvoke(np_sqrt, R));
+    
+    // We should have true ...
+    and(sr == SR)
+
+    pyRemove numpy math R py_sqrt n_sqrt
+    pyUseNumpy(%f)
+    ]]></programlisting>
+  </refsection>
+  <refsection>
+    <title>History</title>
+    <revhistory>
+      <revision>
+        <revnumber>5.4.0</revnumber>
+        <revremark>Python module.</revremark>
+      </revision>
+    </revhistory>
+  </refsection>
+</refentry>
