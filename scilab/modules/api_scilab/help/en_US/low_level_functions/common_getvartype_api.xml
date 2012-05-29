@@ -58,7 +58,7 @@
             Scilab type of the variable (sci_matrix, sci_strings, sci_ints, ...). 
           </para>
           <para>
-            Note that the list of the different variable types is available as an enum in stack-c.h.
+            Note that the list of the different variable types is available as an enum in sci_types.h.
           </para>
         </listitem>
       </varlistentry>
@@ -242,4 +242,12 @@ l = list(l1,l2,l3,l4,l5);
 common_function(l(1:$))
  ]]></programlisting>
   </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="sci_types">sci_types</link>
+            </member>
+        </simplelist>
+    </refsection>
 </refentry>
