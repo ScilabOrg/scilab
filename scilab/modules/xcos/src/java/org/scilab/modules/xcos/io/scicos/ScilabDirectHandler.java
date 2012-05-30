@@ -14,6 +14,7 @@ package org.scilab.modules.xcos.io.scicos;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 import org.scilab.modules.graph.utils.StyleMap;
@@ -45,9 +46,66 @@ public class ScilabDirectHandler implements Handler {
     public static final String BLK = "blk";
 
     private static final Logger LOG = Logger.getLogger(ScilabDirectHandler.class.getPackage().getName());
+    private static final ScilabDirectHandler INSTANCE = new ScilabDirectHandler();
 
-    public ScilabDirectHandler() {
+    private final ReentrantLock lock = new ReentrantLock();
+
+    private ScilabDirectHandler() {
     }
+
+    /*
+     * Lock management to avoid multiple actions
+     */
+
+    /**
+     * Get the current instance of a ScilabDirectHandler.
+     *
+     * Please note that after calling {@link #getInstance()} and performing
+     * action, you should release the instance using {@link #release()}.
+     *
+     * <p>
+     * It is recommended practice to <em>always</em> immediately follow a call
+     * to {@code getInstance()} with a {@code try} block, most typically in a
+     * before/after construction such as:
+     *
+     * <pre>
+     * class X {
+     *
+     *     // ...
+     *
+     *     public void m() {
+     *         final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
+     *         try {
+     *             // ... method body
+     *         } finally {
+     *             handler.release();
+     *         }
+     *     }
+     * }
+     * </pre>
+     *
+     * @see #release()
+     * @return the instance
+     */
+    public static ScilabDirectHandler getInstance() {
+        synchronized (INSTANCE.lock) {
+            INSTANCE.lock.lock();
+        }
+        return INSTANCE;
+    }
+
+    /**
+     * Release the instance
+     */
+    public void release() {
+        synchronized (lock) {
+            lock.unlock();
+        }
+    }
+
+    /*
+     * Handler implementation
+     */
 
     @Override
     public BasicBlock readBlock() throws ScicosFormatException {

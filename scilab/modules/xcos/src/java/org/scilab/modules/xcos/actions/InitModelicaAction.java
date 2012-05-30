@@ -90,9 +90,10 @@ public class InitModelicaAction extends DefaultAction {
             return;
         }
 
+        final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
         graph.info(XcosMessages.INITIALIZING_MODELICA_COMPILER);
 
-        new ScilabDirectHandler().writeDiagram(graph.getRootDiagram());
+        handler.writeDiagram(graph.getRootDiagram());
 
         final String cmd = buildCall("xcosConfigureModelica");
 
@@ -100,6 +101,7 @@ public class InitModelicaAction extends DefaultAction {
             @Override
             public void actionPerformed(ActionEvent e) {
                 graph.info(XcosMessages.EMPTY_INFO);
+                handler.release();
             }
         };
 
@@ -107,6 +109,7 @@ public class InitModelicaAction extends DefaultAction {
             asynchronousScilabExec(action, cmd);
         } catch (InterpreterException e1) {
             Logger.getLogger(InitModelicaAction.class.getName()).severe(e.toString());
+            handler.release();
         }
     }
 }

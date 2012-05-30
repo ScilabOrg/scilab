@@ -975,10 +975,14 @@ public final class Xcos {
     private void updateBlockInstance() {
         // get the cell
         BasicBlock modifiedBlock;
+
+        final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
         try {
-            modifiedBlock = new ScilabDirectHandler().readBlock();
+            modifiedBlock = handler.readBlock();
         } catch (ScicosFormatException e) {
             throw new RuntimeException(e);
+        } finally {
+            handler.release();
         }
         if (modifiedBlock == null) {
             return;
@@ -1038,7 +1042,12 @@ public final class Xcos {
                             LOG.finest("xcosDiagramToScilab: initialized");
                             filetype.load(xcosFile, diagram);
                             LOG.finest("xcosDiagramToScilab: loaded");
-                            new ScilabDirectHandler().writeDiagram(diagram);
+                            final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
+                            try {
+                                handler.writeDiagram(diagram);
+                            } finally {
+                                handler.release();
+                            }
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

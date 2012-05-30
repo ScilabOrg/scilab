@@ -411,12 +411,15 @@ public enum XcosFileType {
         cmd.append(filename);
         cmd.append("\");");
 
+        final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
         try {
             ScilabInterpreterManagement.synchronousScilabExec(cmd.toString());
+
+            handler.readDiagram(into);
         } catch (InterpreterException e) {
             e.printStackTrace();
+        } finally {
+            handler.release();
         }
-
-        new ScilabDirectHandler().readDiagram(into);
     }
 }

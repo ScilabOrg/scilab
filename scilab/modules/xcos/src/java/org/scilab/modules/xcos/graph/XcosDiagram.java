@@ -1982,7 +1982,12 @@ public class XcosDiagram extends ScilabGraph {
                             filetype.load(file, XcosDiagram.this);
                         }
                         if (variable != null) {
-                            new ScilabDirectHandler().readDiagram(XcosDiagram.this, variable);
+                            final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
+                            try {
+                                handler.readDiagram(XcosDiagram.this, variable);
+                            } finally {
+                                handler.release();
+                            }
                         }
                         instance.setLastError("");
                     } catch (Exception e) {
@@ -2163,18 +2168,21 @@ public class XcosDiagram extends ScilabGraph {
     public Map<String, String> evaluateContext() {
         Map<String, String> result = null;
 
+        final ScilabDirectHandler handler = ScilabDirectHandler.getInstance();
         try {
             // first write the context strings
-            new ScilabDirectHandler().writeContext(getContext());
+            handler.writeContext(getContext());
 
             // evaluate using script2var
             ScilabInterpreterManagement.synchronousScilabExec(ScilabDirectHandler.CONTEXT + " = script2var(" + ScilabDirectHandler.CONTEXT + ", struct());");
 
             // read the structure
-            result = new ScilabDirectHandler().readContext();
+            result = handler.readContext();
         } catch (final InterpreterException e) {
             info("Unable to evaluate the contexte");
             e.printStackTrace();
+        } finally {
+            handler.release();
         }
 
         return result;
