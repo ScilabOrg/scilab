@@ -20,6 +20,8 @@ import org.scilab.forge.scirenderer.Canvas;
 import org.scilab.forge.scirenderer.implementation.jogl.JoGLCanvasFactory;
 import org.scilab.modules.commons.OS;
 import org.scilab.modules.graphic_objects.figure.Figure;
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 import org.scilab.modules.gui.bridge.tab.SwingScilabAxes;
 import org.scilab.modules.gui.canvas.SimpleCanvas;
 import org.scilab.modules.gui.events.GlobalEventWatcher;
@@ -27,23 +29,21 @@ import org.scilab.modules.gui.graphicWindow.PanelLayout;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
+import org.scilab.modules.renderer.JoGLView.util.ColorFactory;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.awt.GLJPanel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AUTORESIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_AXES_SIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_BACKGROUND__;
 
 /**
  * Swing implementation for Scilab Canvas in GUIs This implementation requires
@@ -107,38 +107,71 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
          * lead to deadlock on deletion.
          */
         if (OS.get() == OS.MAC) {
-            GLJPanel glCanvas = new MacOSXGLJPanel();
-            drawableComponent = glCanvas;
-            glCanvas.setEnabled(true);
-            add(glCanvas, PanelLayout.GL_CANVAS);
-
-            rendererCanvas = JoGLCanvasFactory.createCanvas(glCanvas);
-            drawerVisitor = new DrawerVisitor(drawableComponent, rendererCanvas, figure);
-            rendererCanvas.setMainDrawer(drawerVisitor);
-
-            drawableComponent.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        GlobalEventWatcher.setAxesUID(figure.getIdentifier());
-                    }
-                });
+            drawableComponent = new MacOSXGLJPanel();
         } else {
-            GLCanvas glCanvas = new GLCanvas();
-            drawableComponent = glCanvas;
-            glCanvas.setEnabled(true);
-            add(glCanvas, PanelLayout.GL_CANVAS);
-
-            rendererCanvas = JoGLCanvasFactory.createCanvas(glCanvas);
-            drawerVisitor = new DrawerVisitor(drawableComponent, rendererCanvas, figure);
-            rendererCanvas.setMainDrawer(drawerVisitor);
-
-            drawableComponent.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        GlobalEventWatcher.setAxesUID(figure.getIdentifier());
-                    }
-                });
+            drawableComponent = new GLCanvas();
         }
+
+        final Panel panel = new Panel(new LayoutManager() {
+            @Override
+            public void addLayoutComponent(String name, Component comp) {}
+
+            @Override
+            public void removeLayoutComponent(Component comp) {}
+
+            @Override
+            public Dimension preferredLayoutSize(Container parent) {
+                return drawableComponent.getPreferredSize();
+            }
+
+            @Override
+            public Dimension minimumLayoutSize(Container parent) {
+                return drawableComponent.getPreferredSize();
+            }
+
+            @Override
+            public void layoutContainer(Container parent) {}
+        });
+
+        panel.setBackground(ColorFactory.createColor(figure.getColorMap(), figure.getBackground()));
+        panel.add(drawableComponent);
+        final ScrollPane scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
+        scrollPane.add(panel);
+        drawableComponent.setEnabled(true);
+
+        GraphicController.getController().register(new GraphicView() {
+            @Override
+            public void updateObject(String id, String property) {
+                if (figure.getIdentifier().equals(id) && __GO_AXES_SIZE__.equals(property)) {
+                    Dimension d = new Dimension(figure.getAxesSize()[0] - 2, figure.getAxesSize()[1] - 2);
+                    drawableComponent.setPreferredSize(d);
+                    drawableComponent.setSize(d);
+                    scrollPane.doLayout();
+                }
+
+                if (figure.getIdentifier().equals(id) && __GO_BACKGROUND__.equals(property)) {
+                    panel.setBackground(ColorFactory.createColor(figure.getColorMap(), figure.getBackground()));
+                }
+            }
+
+            @Override
+            public void createObject(String id) {}
+
+            @Override
+            public void deleteObject(String id) {}
+        });
+
+        add(scrollPane, PanelLayout.GL_CANVAS);
+
+        rendererCanvas = JoGLCanvasFactory.createCanvas((GLAutoDrawable) drawableComponent);
+        drawerVisitor = new DrawerVisitor(drawableComponent, rendererCanvas, figure);
+        rendererCanvas.setMainDrawer(drawerVisitor);
+        drawableComponent.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                GlobalEventWatcher.setAxesUID(figure.getIdentifier());
+            }
+        });
     }
 
     /**
