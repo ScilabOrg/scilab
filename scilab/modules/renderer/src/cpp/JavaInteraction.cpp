@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy
+ * Copyright (C) 2012 - Scilab Enterprises - Bruno JOFRET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -22,7 +23,7 @@ void startInteractiveZoom(char *pstObjUID)
 }
 
 /*---------------------------------------------------------------------------------*/
-void javaRubberBox(sciPointObj * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton)
+void javaRubberBox(char *pFigureUID, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton)
 {
     //getFigureDrawer(pFigure)->rubberBox((isClick == TRUE), initialRect, endRect, usedButton);
 }

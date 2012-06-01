@@ -42,7 +42,7 @@ RENDERER_IMPEXP void startInteractiveZoom(char *pstObjUID);
  *                     the rubber box
  * @param[out] usedButton Scilab code of the button used to terminate the rubber box
  */
-RENDERER_IMPEXP void javaRubberBox(sciPointObj * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton);
+RENDERER_IMPEXP void javaRubberBox(char * pFigure, BOOL isClick, const int initialRect[4], int endRect[4], int * usedButton);
 
 /**
  * Perform an interactive zoom of the figure using a rectangular selection.
