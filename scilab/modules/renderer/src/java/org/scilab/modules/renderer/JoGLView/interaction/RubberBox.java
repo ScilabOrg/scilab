@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009-2010 - DIGITEO - Pierre Lando
+ * Copyright (C) 2012 - Scilab Enterprises - Bruno JOFRET
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -10,6 +11,17 @@
  */
 
 package org.scilab.modules.renderer.JoGLView.interaction;
+
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.text.DecimalFormat;
+
+import javax.swing.event.EventListenerList;
 
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.SciRendererException;
@@ -33,16 +45,6 @@ import org.scilab.modules.renderer.JoGLView.interaction.util.PointComputer;
 import org.scilab.modules.renderer.JoGLView.interaction.util.PointDComputer;
 import org.scilab.modules.renderer.JoGLView.postRendering.PostRendered;
 
-import javax.swing.event.EventListenerList;
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.text.DecimalFormat;
-
 /**
  * @author Pierre Lando
  */
@@ -64,10 +66,10 @@ public class RubberBox extends FigureInteraction implements PostRendered, MouseL
     /** Rubber box status */
     public static enum Status {
         WAIT_POINT_A,
-            WAIT_POINT_B,
-            WAIT_POINT_C,
-            WAIT_POINT_D,
-            }
+        WAIT_POINT_B,
+        WAIT_POINT_C,
+        WAIT_POINT_D,
+    }
 
     /** Rubber box color */
     private static final Color RUBBER_BOX_COLOR = new Color(.2f, .3f, .4f);
@@ -100,16 +102,16 @@ public class RubberBox extends FigureInteraction implements PostRendered, MouseL
     private DefaultGeometry cubeGeometry;
 
     /** Current status */
-    private Status status;
+    protected Status status;
 
-    private Axes axes;
+    protected Axes axes;
 
     private PointAComputer pointAComputer;
     private PointBComputer pointBComputer;
     private PointCComputer pointCComputer;
     private PointDComputer pointDComputer;
-    private Vector3d firstPoint;
-    private Vector3d secondPoint;
+    protected Vector3d firstPoint;
+    protected Vector3d secondPoint;
 
     /**
      * Default constructor.
@@ -212,7 +214,7 @@ public class RubberBox extends FigureInteraction implements PostRendered, MouseL
             case WAIT_POINT_B:
                 setPointB(e.getPoint());
                 if (pointBComputer.is2D()) {
-                    setZoomBox();
+                    process();
                     setEnable(false);
                     fireRubberBoxEnd();
                 } else {
@@ -225,7 +227,7 @@ public class RubberBox extends FigureInteraction implements PostRendered, MouseL
                 break;
             case WAIT_POINT_D:
                 setPointD(e.getPoint());
-                setZoomBox();
+                process();
                 setEnable(false);
                 fireRubberBoxEnd();
                 break;
@@ -327,23 +329,14 @@ public class RubberBox extends FigureInteraction implements PostRendered, MouseL
     }
 
     /**
-     * Actually set the zoom box depending on current value of firstPoint and secondPoint.
+     * Process action on RupperBox
+     * Do nothing by default 
      */
-    private void setZoomBox() {
-        Double[] bounds = {
-            Math.min(firstPoint.getX(), secondPoint.getX()), Math.max(firstPoint.getX(), secondPoint.getX()),
-            Math.min(firstPoint.getY(), secondPoint.getY()), Math.max(firstPoint.getY(), secondPoint.getY()),
-            Math.min(firstPoint.getZ(), secondPoint.getZ()), Math.max(firstPoint.getZ(), secondPoint.getZ()),
-        };
-
-        if (bounds[0].compareTo(bounds[1]) != 0 && bounds[2].compareTo(bounds[3]) != 0 && bounds[4].compareTo(bounds[5]) != 0) {
-            Boolean zoomed = tightZoomBounds(axes, bounds);
-            GraphicController.getController().setProperty(axes.getIdentifier(), GraphicObjectProperties.__GO_ZOOM_BOX__, bounds);
-            GraphicController.getController().setProperty(axes.getIdentifier(), GraphicObjectProperties.__GO_ZOOM_ENABLED__, zoomed);
-            getDrawerVisitor().getCanvas().redraw();
-        }
+    protected void process()
+    {
+        // Do nothint
     }
-
+    
     /**
      * Set the first point.
      * @param point first point AWT coordinate.
