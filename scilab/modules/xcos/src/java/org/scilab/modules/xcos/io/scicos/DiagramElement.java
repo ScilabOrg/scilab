@@ -220,7 +220,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
      */
     private void decodeObjs(XcosDiagram diag) throws ScicosFormatException {
         final int nbOfObjs = ((ScilabList) base.get(OBJS_INDEX)).size();
-        final BlockElement blockElement = new BlockElement();
+        final BlockElement blockElement = new BlockElement(diag);
         final LinkElement linkElement = new LinkElement(blocks);
         final LabelElement labelElement = new LabelElement();
 
@@ -522,7 +522,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
      *            the objs field number
      */
     private void fillObjs(XcosDiagram from, int field) {
-        final BlockElement blockElement = new BlockElement();
+        final BlockElement blockElement = new BlockElement(from);
         final LinkElement linkElement = new LinkElement(null);
         final ScilabList data = (ScilabList) base.get(field);
 

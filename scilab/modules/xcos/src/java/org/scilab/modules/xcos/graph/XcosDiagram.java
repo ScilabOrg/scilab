@@ -116,6 +116,17 @@ public class XcosDiagram extends ScilabGraph {
     private static final String MODIFIED = "modified";
     private static final String CELLS = "cells";
 
+    /**
+     * Prefix used to tag text node.
+     */
+    public static final String HASH_IDENTIFIER = "#identifier";
+
+    /**
+     * Default geometry used while adding a label to a block (on the middle and
+     * below the bottom of the parent block)
+     */
+    private static final mxGeometry DEFAULT_LABEL_GEOMETRY = new mxGeometry(0.5, 1.1, 0.0, 0.0);
+
     /*
      * diagram data
      */
@@ -1440,6 +1451,52 @@ public class XcosDiagram extends ScilabGraph {
     @Override
     public boolean isCellEditable(final Object cell) {
         return (cell instanceof TextBlock) && super.isCellDeletable(cell);
+    }
+
+    /**
+     * Return the identifier for the cell
+     *
+     * @param cell
+     *            the cell to check
+     * @param model
+     *            the current model
+     * @return the identifier cell
+     */
+    public mxCell getCellIdentifier(final mxCell cell) {
+        final mxGraphModel graphModel = (mxGraphModel) getModel();
+
+        final mxCell identifier;
+        final String cellId = cell.getId() + HASH_IDENTIFIER;
+        if (graphModel.getCell(cellId) == null) {
+            // create the identifier
+            identifier = createCellIdentifier(cell);
+
+            // add the identifier
+            graphModel.add(cell, identifier, cell.getChildCount());
+        } else {
+            identifier = (mxCell) graphModel.getCell(cellId);
+        }
+        return identifier;
+    }
+
+    /**
+     * Create a cell identifier for a specific cell
+     *
+     * @param cell
+     *            the cell
+     * @return the cell identifier.
+     */
+    public mxCell createCellIdentifier(final mxCell cell) {
+        final mxCell identifier;
+        final String cellId = cell.getId() + HASH_IDENTIFIER;
+
+        identifier = new mxCell(null, (mxGeometry) DEFAULT_LABEL_GEOMETRY.clone(), "noLabel=0;opacity=0;");
+        identifier.getGeometry().setRelative(true);
+        identifier.setVertex(true);
+        identifier.setConnectable(false);
+        identifier.setId(cellId);
+
+        return identifier;
     }
 
     /**
