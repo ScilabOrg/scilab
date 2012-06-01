@@ -35,7 +35,7 @@ class OptionsHelper
 
 public:
 
-    OptionsHelper() : useLastName(true), methodOfConv(false), allowReload(false), autoUnwrap(false), useCopy(true), useScilabIndex(false), newAllowed(true) { }
+    OptionsHelper() : useLastName(true), methodOfConv(false), allowReload(false), autoUnwrap(true), useCopy(true), useScilabIndex(false), newAllowed(true) { }
 
     ~OptionsHelper() { }
 
