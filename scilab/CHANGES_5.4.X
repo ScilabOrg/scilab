@@ -769,6 +769,8 @@ t.
 
 * Bug #11138 fixed - a = list() crashed on Windows x64.
 
+* Bug #11166 fixed - datatipRemove example does not work.
+
 * Bug #11186 fixed - 'typeof' of a type 130 returned an error.
 
 
