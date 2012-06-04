@@ -421,6 +421,7 @@ characters.
 
 * Bug #6804 fixed - Prompt was removed in cli mode when playing with arrow keys.
 
+* Bug #10777 fixed - Home and end keys work in the cli mode with Xterm
 
 Scinotes
 ========

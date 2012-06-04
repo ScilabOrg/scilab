@@ -284,6 +284,23 @@ detect_scilab_path() {
 }
 
 
+set_xterm_shortcut () {
+    if test $SCIVERBOSE -ne 0; then
+        echo "Set xterm shortcuts for Home & End"
+    fi
+
+    echo "*VT100*Translations:       #override  \
+              <Key>Home: string(0x01)\n\
+              <Key>End:  string(0x05)\n" |xrdb -load &> /dev/null
+}
+
+unset_xterm_shortcut () {
+    if test $SCIVERBOSE -ne 0; then
+        echo "Remove xterm shortcuts for Home & End"
+    fi
+    xrdb -remove "*VT100*Translations"
+}
+
 set_macosx_java_vm () {
     # For Mac OS X, Since path are different from the JVM normal tree,
     # don't need to detect the CPU
@@ -595,6 +612,11 @@ fi
 # If we are calling scilab-cli, no need to detect java.
 if test $DISABLE_JAVA_DETECTION -ne 1; then
     detect_java_vm
+fi
+
+if test "$TERM" = "xterm" -a "$SCILAB_MODE" != "gui"; then
+    set_xterm_shortcut
+
 fi
 
 if test $IS_SCILAB_BINARY -eq 1; then
@@ -1043,3 +1065,7 @@ if test "$rest" = "yes"; then
         fi # not debug kdbg
     fi # not debug
 fi # if rest
+
+if test "$TERM" = "xterm" -a "$SCILAB_MODE" != "gui"; then
+    unset_xterm_shortcut
+fi
