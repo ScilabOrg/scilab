@@ -24,9 +24,12 @@ import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
+import org.scilab.modules.commons.xml.XConfiguration;
 import org.scilab.modules.gui.menu.Menu;
 import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.scinotes.SciNotes;
+import org.scilab.modules.scinotes.SciNotesOptions;
+import org.scilab.modules.scinotes.SciNotesLineNumberPanel;
 import org.scilab.modules.scinotes.utils.ConfigSciNotesManager;
 
 /**
@@ -50,15 +53,20 @@ public final class LineNumbersAction extends DefaultAction {
      */
     public LineNumbersAction(String name, SciNotes editor) {
         super(name, editor);
-        state = ConfigSciNotesManager.getLineNumberingState();
+        state = SciNotesLineNumberPanel.getState(SciNotesOptions.getSciNotesDisplay().showLineNumbers, SciNotesOptions.getSciNotesDisplay().whereami);
     }
 
     /**
      * doAction
      */
     public void doAction() {
-        SciNotes.setWhereamiLineNumbering(state);
-        ConfigSciNotesManager.saveLineNumberingState(state);
+        boolean[] states = SciNotesLineNumberPanel.getState(state);
+        SciNotesOptions.getSciNotesDisplay().showLineNumbers = states[0];
+        SciNotesOptions.getSciNotesDisplay().whereami = states[1];
+        System.out.println(states[0] + ":::" + states[1]);
+        XConfiguration.set(XConfiguration.getXConfigurationDocument(), SciNotesOptions.DISPLAYPATH + "/@show-line-numbers", Boolean.toString(states[0]));
+        XConfiguration.set(XConfiguration.getXConfigurationDocument(), SciNotesOptions.DISPLAYPATH + "/@whereami", Boolean.toString(states[1]));
+        SciNotes.setWhereamiLineNumbering();
     }
 
     /**
@@ -77,7 +85,7 @@ public final class LineNumbersAction extends DefaultAction {
 
         LineNumbersAction ln = new LineNumbersAction(labelLineNumbering, editor);
         final JRadioButtonMenuItem[] arr = new JRadioButtonMenuItem[3];
-        String[] labels = new String[]{labelOff, labelNormal, labelWhereami};
+        String[] labels = new String[] {labelOff, labelNormal, labelWhereami};
 
         final Menu menu = ScilabMenu.createMenu();
         menu.setText(labelLineNumbering);
@@ -95,10 +103,10 @@ public final class LineNumbersAction extends DefaultAction {
         arr[ln.state].setSelected(true);
 
         ((JMenu) menu.getAsSimpleMenu()).addPropertyChangeListener(new PropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent e) {
-                    arr[ConfigSciNotesManager.getLineNumberingState()].setSelected(true);
-                }
-            });
+            public void propertyChange(PropertyChangeEvent e) {
+                arr[ConfigSciNotesManager.getLineNumberingState()].setSelected(true);
+            }
+        });
 
         return menu;
     }
@@ -113,11 +121,11 @@ public final class LineNumbersAction extends DefaultAction {
     private static JRadioButtonMenuItem createRadioButtonMenuItem(final LineNumbersAction ln, String title, final int state) {
         JRadioButtonMenuItem radio = new JRadioButtonMenuItem(title);
         radio.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0) {
-                    ln.state = state;
-                    ln.doAction();
-                }
-            });
+            public void actionPerformed(ActionEvent arg0) {
+                ln.state = state;
+                ln.doAction();
+            }
+        });
 
         return radio;
     }

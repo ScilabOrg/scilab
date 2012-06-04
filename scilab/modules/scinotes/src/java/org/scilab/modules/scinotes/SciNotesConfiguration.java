@@ -1,0 +1,60 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2012 - Scilab Enterprises - Calixte DENIZET
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+package org.scilab.modules.scinotes;
+
+import java.util.Set;
+
+import org.scilab.modules.commons.xml.XConfigurationEvent;
+import org.scilab.modules.commons.xml.XConfigurationListener;
+
+public class SciNotesConfiguration implements XConfigurationListener {
+
+    public SciNotesConfiguration() { }
+
+    /**
+     * Prevent the listener that configuration has changed
+     *
+     * @param e the event
+     */
+    public void configurationChanged(XConfigurationEvent e) {
+        System.out.println(e.getModifiedPaths());
+        Conf conf = new Conf(e.getModifiedPaths());
+        if (conf.changed()) {
+            SciNotesOptions.invalidate(conf);
+            SciNotes.configurationChanged(conf);
+        }
+    }
+
+    static class Conf {
+
+        boolean preferences;
+        boolean display;
+        boolean autosave;
+        boolean colors;
+        boolean systemfont;
+        boolean font;
+
+        public Conf(Set<String> path) {
+            preferences = path.contains(SciNotesOptions.PREFERENCESPATH);
+            display = path.contains(SciNotesOptions.DISPLAYPATH);
+            autosave = path.contains(SciNotesOptions.AUTOSAVEPATH);
+            colors = path.contains(ScilabContext.COLORSPATH);
+            systemfont = path.contains(ScilabContext.SYSTEMFONTPATH);
+            font = path.contains(ScilabContext.FONTPATH);
+        }
+
+        public boolean changed() {
+            return preferences || display || autosave || colors || systemfont || font;
+        }
+    }
+}
