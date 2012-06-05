@@ -73,10 +73,10 @@ static void caseHomeOrEndKey(wchar_t * commandLine, unsigned int *cursorLocation
 {
     switch (getwchar())
     {
-        case L'H':
+        case L'H': /* "^[OH" beginning-of-line */
             begLine(commandLine, cursorLocation);
             break;
-        case L'F':
+        case L'F': /* "^[OF" end-of-line */
             endLine(commandLine, cursorLocation);
             break;
     }
@@ -85,10 +85,13 @@ static void caseHomeOrEndKey(wchar_t * commandLine, unsigned int *cursorLocation
 /*
  * If second key was L'['
  * It means this could be an arrow key or delete key.
+ * but, with xterm, also home or end
  */
 static void caseDelOrArrowKey(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
-    switch (getwchar())
+    wint_t specialKey = getwchar();
+    //    printf("dedans %lc\n", specialKey);
+    switch (specialKey) //getwchar())
     {
         case L'A':
             previousCmd(commandLine, cursorLocation);
@@ -112,6 +115,15 @@ static void caseDelOrArrowKey(wchar_t ** commandLine, unsigned int *cursorLocati
                 updateTokenInScilabHistory(commandLine);
                 break;
             }
+            break;
+        case L'H':
+            //            printf(" ICI \n");
+            begLine(commandLine, cursorLocation);
+            break;
+        case L'F': /* "^[OF" end-of-line */
+            //            printf(" ICI 2\n");
+            endLine(commandLine, cursorLocation);
+            break;
     }
 }
 
@@ -120,22 +132,30 @@ static void caseDelOrArrowKey(wchar_t ** commandLine, unsigned int *cursorLocati
  */
 static void caseMetaKey(wchar_t ** commandLine, unsigned int *cursorLocation)
 {
-    switch (getwchar())
+    wint_t specialKey = getwchar();
+    switch (specialKey)
     {
         case L'f':
         case L'F':
+            //            printf("plop 1 %lc\n", specialKey);
             nextWord(*commandLine, cursorLocation);
             break;
         case L'b':
         case L'B':
+            //            printf("plop 2 %lc\n", specialKey);
             previousWord(*commandLine, cursorLocation);
             break;
         case L'[':
             caseDelOrArrowKey(commandLine, cursorLocation);
             break;
         case L'O':
+            //            printf("plop 4 %lc\n", specialKey);
             caseHomeOrEndKey(*commandLine, cursorLocation);
             break;
+        default :
+            //            printf("plop %lc\n", specialKey);
+            break;
+
     }
 }
 
@@ -290,7 +310,7 @@ char *getCmdLine(void)
 
     unsigned int cursorLocation = 0;
 
-    static wchar_t *wideString = NULL;
+    static wchar_t *commandLine = NULL;
 
     static int nextLineLocationInWideString = 0;
 
@@ -302,14 +322,14 @@ char *getCmdLine(void)
     }
     setTokenInteruptExecution(RESET_TOKEN);
 
-    if (wideString == NULL || wideString[nextLineLocationInWideString] == L'\0')
+    if (commandLine == NULL || commandLine[nextLineLocationInWideString] == L'\0')
     {
-        if (wideString != NULL)
+        if (commandLine != NULL)
         {
-            FREE(wideString);
+            FREE(commandLine);
         }
-        wideString = MALLOC(1024 * sizeof(*wideString));
-        *wideString = L'\0';
+        commandLine = MALLOC(1024 * sizeof(*commandLine));
+        *commandLine = L'\0';
         nextLineLocationInWideString = 0;
     }
     else
@@ -320,23 +340,23 @@ char *getCmdLine(void)
 
     while (getTokenInteruptExecution() == CONTINUE_COMMAND)
     {
-        getKey(&wideString, &cursorLocation);
+        getKey(&commandLine, &cursorLocation);
     }
 
     cursorLocation = nextLineLocationInWideString;
-    while (wideString[cursorLocation] != L'\n' && wideString[cursorLocation] != L'\0')
+    while (commandLine[cursorLocation] != L'\n' && commandLine[cursorLocation] != L'\0')
     {
         cursorLocation++;
     }
 
-    wideString[cursorLocation] = L'\0';
+    commandLine[cursorLocation] = L'\0';
 
     if (getTokenInteruptExecution() == SEND_MULTI_COMMAND)
     {
-        printf("%ls\n", &wideString[nextLineLocationInWideString]);
+        printf("%ls\n", &commandLine[nextLineLocationInWideString]);
     }
 
-    multiByteString = wide_string_to_UTF8(&wideString[nextLineLocationInWideString]);
+    multiByteString = wide_string_to_UTF8(&commandLine[nextLineLocationInWideString]);
 
     nextLineLocationInWideString = cursorLocation + 1;
 
