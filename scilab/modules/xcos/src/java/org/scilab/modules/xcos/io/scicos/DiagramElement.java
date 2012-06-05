@@ -41,6 +41,7 @@ import org.scilab.modules.xcos.io.scicos.ScicosFormatException.VersionMismatchEx
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.link.BasicLink;
+import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
@@ -282,6 +283,7 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
         mxGraphModel.filterDescendants(model, new mxGraphModel.Filter() {
             @Override
             public boolean filter(Object cell) {
+                updateMinimalSize(cell, model);
                 translate(cell, model, minY);
                 updateLabels(cell, model);
 
@@ -291,11 +293,41 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
         });
     }
 
+    // update the cell size to be at least selectable
+    private static void updateMinimalSize(final Object cell, final mxIGraphModel model) {
+        final double min = 7.0;
+
+        final mxGeometry geom = model.getGeometry(cell);
+        if (geom == null) {
+            return;
+        }
+
+        final double dx;
+        if (geom.getWidth() < min) {
+            dx = (geom.getWidth() - min) / 2;
+            geom.setWidth(min);
+        } else {
+            dx = 0.0;
+        }
+        final double dy;
+        if (geom.getHeight() < min) {
+            dy = (geom.getHeight() - min) / 2;
+            geom.setHeight(min);
+        } else {
+            dy = 0.0;
+        }
+
+        geom.translate(-dx, -dy);
+    }
+
     // Translate the y axis for blocks and links
     private static void translate(final Object cell, final mxIGraphModel model, final double minY) {
-        final mxGeometry geom = model.getGeometry(cell);
+        if (cell instanceof BasicPort) {
+            return;
+        }
 
-        if (geom != null && (cell instanceof BasicBlock || cell instanceof BasicLink)) {
+        final mxGeometry geom = model.getGeometry(cell);
+        if (geom != null) {
             geom.translate(H_MARGIN, minY);
         }
     }
