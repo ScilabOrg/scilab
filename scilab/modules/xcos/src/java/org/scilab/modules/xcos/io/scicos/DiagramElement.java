@@ -41,6 +41,7 @@ import org.scilab.modules.xcos.io.scicos.ScicosFormatException.VersionMismatchEx
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongStructureException;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException.WrongTypeException;
 import org.scilab.modules.xcos.link.BasicLink;
+import org.scilab.modules.xcos.port.BasicPort;
 import org.scilab.modules.xcos.utils.BlockPositioning;
 import org.scilab.modules.xcos.utils.FileUtils;
 import org.scilab.modules.xcos.utils.XcosMessages;
@@ -51,6 +52,7 @@ import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxGraphModel.Filter;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
+import com.mxgraph.util.mxPoint;
 
 /**
  * Perform a diagram transformation between Scicos and Xcos.
@@ -227,7 +229,8 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
         final LinkElement linkElement = new LinkElement(blocks);
         final LabelElement labelElement = new LabelElement();
 
-        double minimalYaxisValue = 0.0;
+        double minimalYaxisValue = Double.POSITIVE_INFINITY;
+        double minimalXaxisValue = Double.POSITIVE_INFINITY;
 
         /*
          * Decode blocks
@@ -244,10 +247,12 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
                 BlockPositioning.updateBlockView(block);
 
                 minimalYaxisValue = Math.min(minimalYaxisValue, ((mxCell) cell).getGeometry().getY());
+                minimalXaxisValue = Math.min(minimalXaxisValue, ((mxCell) cell).getGeometry().getX());
             } else if (labelElement.canDecode(data)) {
                 cell = labelElement.decode(data, null);
 
                 minimalYaxisValue = Math.min(minimalYaxisValue, ((mxCell) cell).getGeometry().getY());
+                minimalXaxisValue = Math.min(minimalXaxisValue, ((mxCell) cell).getGeometry().getX());
             }
 
             if (cell != null) {
@@ -266,7 +271,11 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
                 BasicLink link = linkElement.decode(data, null);
                 cell = link;
 
-                minimalYaxisValue = Math.min(minimalYaxisValue, ((mxCell) cell).getGeometry().getY());
+                final List<mxPoint> points = ((mxCell) cell).getGeometry().getPoints();
+                for (final mxPoint p : points) {
+                    minimalYaxisValue = Math.min(minimalYaxisValue, p.getY());
+                    minimalXaxisValue = Math.min(minimalXaxisValue, p.getX());
+                }
             }
 
             if (cell != null) {
@@ -278,11 +287,13 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
          * Perform post-calculus
          */
         final double minY = -minimalYaxisValue + V_MARGIN;
+        final double minX = -minimalXaxisValue + H_MARGIN;
         final mxIGraphModel model = diag.getModel();
         mxGraphModel.filterDescendants(model, new mxGraphModel.Filter() {
             @Override
             public boolean filter(Object cell) {
-                translate(cell, model, minY);
+                updateMinimalSize(cell, model);
+                translate(cell, model, minX, minY);
                 updateLabels(cell, model);
 
                 // never store the cell
@@ -291,12 +302,46 @@ public class DiagramElement extends AbstractElement<XcosDiagram> {
         });
     }
 
-    // Translate the y axis for blocks and links
-    private static void translate(final Object cell, final mxIGraphModel model, final double minY) {
-        final mxGeometry geom = model.getGeometry(cell);
+    // update the cell size to be at least selectable
+    private static void updateMinimalSize(final Object cell, final mxIGraphModel model) {
+        if (!(cell instanceof BasicBlock)) {
+            return;
+        }
 
-        if (geom != null && (cell instanceof BasicBlock || cell instanceof BasicLink)) {
-            geom.translate(H_MARGIN, minY);
+        final double min = 7.0;
+
+        final mxGeometry geom = model.getGeometry(cell);
+        if (geom == null) {
+            return;
+        }
+
+        final double dx;
+        if (geom.getWidth() < min) {
+            dx = (geom.getWidth() - min) / 2;
+            geom.setWidth(min);
+        } else {
+            dx = 0.0;
+        }
+        final double dy;
+        if (geom.getHeight() < min) {
+            dy = (geom.getHeight() - min) / 2;
+            geom.setHeight(min);
+        } else {
+            dy = 0.0;
+        }
+
+        geom.translate(dx, dy);
+    }
+
+    // Translate the y axis for blocks and links
+    private static void translate(final Object cell, final mxIGraphModel model, final double minX, final double minY) {
+        if (cell instanceof BasicPort) {
+            return;
+        }
+
+        final mxGeometry geom = model.getGeometry(cell);
+        if (geom != null) {
+            geom.translate(minX, minY);
         }
     }
 

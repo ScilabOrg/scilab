@@ -63,8 +63,6 @@ class BlockGraphicElement extends BlockPartsElement {
 
     /** Size factor use to scale Xcos-Scicos dimensions */
     private static final double SIZE_FACTOR = 20.0;
-    /** Minimal side length use for any Xcos block */
-    private static final double MINIMAL_SIZE = 8.0;
 
     /** Mutable field to easily get the data through methods */
     private ScilabMList data;
@@ -298,9 +296,9 @@ class BlockGraphicElement extends BlockPartsElement {
         }
 
         /*
-         * Invert y-axis and translate it.
+         * Invert the y-axis value and translate it.
          */
-        y = -y - into.getGeometry().getWidth();
+        y = -y - into.getGeometry().getHeight();
 
         /*
          * fill parameter
@@ -335,9 +333,6 @@ class BlockGraphicElement extends BlockPartsElement {
             h *= SIZE_FACTOR;
             w *= SIZE_FACTOR;
         }
-
-        h = Math.max(h, MINIMAL_SIZE);
-        w = Math.max(w, MINIMAL_SIZE);
 
         /*
          * fill parameter
