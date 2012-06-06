@@ -24,6 +24,7 @@ import org.scilab.modules.gui.menu.ScilabMenu;
 import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabList;
 import org.scilab.modules.types.ScilabMList;
+import org.scilab.modules.types.ScilabType;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.block.actions.CodeGenerationAction;
@@ -144,6 +145,15 @@ public final class SuperBlock extends BasicBlock {
         setBlockType("h");
         setNbZerosCrossing(new ScilabDouble(0));
         setNmode(new ScilabDouble(0));
+    }
+
+    @Override
+    public ScilabType getRealParameters() {
+        if (getChild() == null) {
+            return super.getRealParameters();
+        }
+
+        return new DiagramElement().encode(getChild());
     }
 
     /**
@@ -306,16 +316,18 @@ public final class SuperBlock extends BasicBlock {
      */
     public boolean createChildDiagram(boolean generatedUID) {
         if (child == null) {
+            final ScilabType rpar = getRealParameters();
+
             child = new SuperBlockDiagram(this);
             child.installListeners();
 
             final DiagramElement element = new DiagramElement();
-            if (!element.canDecode(getRealParameters())) {
+            if (!element.canDecode(rpar)) {
                 return false;
             }
 
             try {
-                element.decode(getRealParameters(), child, false);
+                element.decode(rpar, child, false);
             } catch (ScicosFormatException e) {
                 Logger.getLogger(SuperBlock.class.getName()).severe(e.toString());
                 return false;

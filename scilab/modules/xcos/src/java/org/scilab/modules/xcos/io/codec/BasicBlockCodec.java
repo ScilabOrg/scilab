@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.scilab.modules.graph.utils.StyleMap;
+import org.scilab.modules.types.ScilabMList;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.BasicBlock.SimulationFunctionType;
 import org.scilab.modules.xcos.block.BlockFactory;
@@ -92,6 +93,20 @@ public class BasicBlockCodec extends XcosObjectCodec {
         mxCodecRegistry.addAlias("ConstBlock", BASIC_BLOCK);
         mxCodecRegistry.addAlias("GainBlock", BASIC_BLOCK);
         mxCodecRegistry.addAlias("PrintBlock", BASIC_BLOCK);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Overloaded to avoid a {@link SuperBlock#getRealParameters()} call.
+     */
+    @Override
+    protected Object getFieldTemplate(Object obj, String fieldname, Node child) {
+        if (obj instanceof SuperBlock && BasicBlock.REAL_PARAMETERS.equals(fieldname)) {
+            return new ScilabMList();
+        }
+
+        return super.getFieldTemplate(obj, fieldname, child);
     }
 
     /**

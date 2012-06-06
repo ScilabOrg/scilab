@@ -2089,22 +2089,23 @@ public class XcosDiagram extends ScilabGraph {
         for (int i = 0; i < getModel().getChildCount(getDefaultParent()); ++i) {
             if (getModel().getChildAt(getDefaultParent(), i) instanceof BasicBlock) {
                 final BasicBlock block = (BasicBlock) getModel().getChildAt(getDefaultParent(), i);
-                if (block.getRealParameters() instanceof ScilabMList) {
-                    if (block instanceof SuperBlock) {
-                        final SuperBlock parent = ((SuperBlock) block);
 
-                        // generate a child diagram with UID
-                        parent.createChildDiagram(true);
+                if (block instanceof SuperBlock) {
+                    final SuperBlock parent = ((SuperBlock) block);
 
-                    } else {
-                        // we have a hidden SuperBlock, create a real one
-                        final SuperBlock newSP = (SuperBlock) BlockFactory.createBlock(SuperBlock.INTERFUNCTION_NAME);
-                        newSP.setRealParameters(block.getRealParameters());
-                        newSP.createChildDiagram(true);
-                        newSP.setParentDiagram(this);
-                        block.setRealParameters(new DiagramElement().encode(newSP.getChild()));
-                    }
-                } else if (block.getId() == null || block.getId().compareTo("") == 0) {
+                    // generate a child diagram with UID
+                    parent.createChildDiagram(true);
+                } else if (block.getRealParameters() instanceof ScilabMList) {
+                    // we have a hidden SuperBlock, create a real one
+                    final SuperBlock newSP = (SuperBlock) BlockFactory.createBlock(SuperBlock.INTERFUNCTION_NAME);
+                    newSP.setRealParameters(block.getRealParameters());
+                    newSP.createChildDiagram(true);
+                    newSP.setParentDiagram(this);
+
+                    block.setRealParameters(newSP.getRealParameters());
+                }
+
+                if (block.getId() == null || block.getId().compareTo("") == 0) {
                     block.generateId();
                 }
             }
