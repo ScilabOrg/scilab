@@ -802,6 +802,8 @@ t.
 
 * Bug #11186 fixed - 'typeof' of a type 130 returned an error.
 
+* Bug #11205 fixed - Remove a rare exception at Scilab startup.
+
 * Bug #11223 fixed - Deletion of datatips.
 
 
