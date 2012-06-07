@@ -20,9 +20,8 @@
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
-    <synopsis>load(filename [,x1,...,xn])
-      load(fd [,x1,...,xn])
-    </synopsis>
+      <synopsis>load(filename [,x1,...,xn])</synopsis>
+      <synopsis>load(fd [,x1,...,xn]) </synopsis><emphasis role="bold">This prototype is obsolete. It will be removed in Scilab 6.</emphasis>
   </refsynopsisdiv>
   <refsection>
     <title>Arguments</title>
