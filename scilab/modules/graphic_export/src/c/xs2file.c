@@ -31,6 +31,9 @@
 #include "freeArrayOfString.h"
 #include "../../../graphics/src/c/getHandleProperty/getPropertyAssignedValue.h"
 #include "HandleManagement.h"
+#include "getGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
+
 /*--------------------------------------------------------------------------*/
 static BOOL isVectorialExport(ExportFileType fileType);
 /*--------------------------------------------------------------------------*/
@@ -87,17 +90,26 @@ int xs2file(char * fname, ExportFileType fileType )
         /* check given handle */
         if(GetType(1) == sci_handles)
         {
+            char* pstHandleType = NULL;
             GetRhsVar(1,GRAPHICAL_HANDLE_DATATYPE,&m1,&n1,&l1);
             if(m1*n1 != 1)
             {
                 Scierror(999,_("%s: Wrong size for input argument #%d: A graphic handle expected.\n"),fname, 1);
                 return 0;
             }
-            figureUID = getObjectFromHandle(getHandleFromStack(l1));
 
+            figureUID = getObjectFromHandle(getHandleFromStack(l1));
             if(figureUID == NULL)
             {
                 Scierror(999, "%s: Input argument #%d must be a valid handle.\n",fname, 1);
+                return 0;
+            }
+
+            getGraphicObjectProperty(figureUID, __GO_TYPE__, jni_string, (void**)&pstHandleType);
+
+            if(strcmp(pstHandleType, __GO_FIGURE__))
+            {
+                Scierror(999, "%s: Input argument #%d must be a figure handle.\n",fname, 1);
                 return 0;
             }
         }
