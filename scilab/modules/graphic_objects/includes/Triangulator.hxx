@@ -58,6 +58,9 @@ private:
     /** The polygon's number of points. */
     int numPoints;
 
+    /** The polygons's initial number of points, including colinear vertices. */
+    int numInitPoints;
+
     /**
      * Specifies which of the polygon's axes is the smallest. 0, 1 and 2
      * respectively correspond to the x, y, and z axes.
@@ -79,6 +82,9 @@ private:
 
     /** The list of vertex indices. */
     std::list<int> vertexIndices;
+
+    /** The list of actual vertex indices. */
+    std::vector<int> actualVertexIndices;
 
     /** The list of ear vertex indices. */
     std::list<int> earList;
@@ -107,6 +113,9 @@ private:
     /** The number of ear tests performed. */
     int numEarTests;
 
+    /** The number of colinear vertices. */
+    int numColinearVertices;
+
 private:
     /**
      * Determines the polygon's smallest axis and its two largest axes.
@@ -132,6 +141,11 @@ private:
      * Fills the list of vertex indices, depending on their order.
      */
     void fillVertexIndices(void);
+
+    /**
+     * Removes colinear vertices.
+     */
+    void removeColinearVertices(void);
 
     /**
      * Fills the list of convex vertices, determining whether each vertex vi is convex or not.
@@ -271,5 +285,10 @@ public:
      */
     void clear(void);
 };
+
+/**
+ * A tolerance value used to determine colinear edges.
+ */
+#define TOLERANCE 0.0000001
 
 #endif
