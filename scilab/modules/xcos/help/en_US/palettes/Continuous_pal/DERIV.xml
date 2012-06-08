@@ -219,6 +219,18 @@
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_DERIV">
+    <title>Example</title>
+    <para>
+      <link type="scilab" linkend="scilab.xcos/xcos/examples/continuous_pal/DERIV_Example.xcos">
+        <inlinemediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="../../../../examples/continuous_pal/DERIV_Example.png" valign="middle"/>
+          </imageobject>
+        </inlinemediaobject>
+      </link>
+    </para>
+  </refsection>
   <refsection id="Computationalfunction_DERIV">
     <title>Computational function</title>
     <itemizedlist>
