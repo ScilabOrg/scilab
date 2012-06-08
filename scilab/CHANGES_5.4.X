@@ -46,6 +46,8 @@ Graphic capabilities
 
 * Bug #10360 fixed - Default format for export is now PNG instead of BMP.
 
+* Bug #10395 fixed - xset("clipping", [1,2,3,4]) has returned an error.
+
 * Bug #10637 fixed - xs2svg want a figure handle at first parameter
                      otherwise trigger an error.
 
