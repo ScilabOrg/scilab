@@ -12,6 +12,7 @@
 package org.scilab.tests.modules.types;
 
 import org.junit.*;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -127,7 +128,7 @@ public class testSerialization {
 
         double [][]a = {{21.2, 22.0, 42.0, 39.0}, {23.2, 24.0, 44.0, 40.0}};
         ScilabDouble aMatrix = new ScilabDouble(a);
-        assert aMatrix.equals(readFromFile(scilabDoubleFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabDoubleFile)) == true);
     }
 
     @Test
@@ -137,7 +138,7 @@ public class testSerialization {
         double [][]aImg = {{210.2, 220.0, 420.0, 390.0}, {230.2, 240.0, 440.0, 400.0}};
 
         ScilabDouble aMatrix = new ScilabDouble(a, aImg);
-        assert aMatrix.equals(readFromFile(scilabDoubleComplexFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabDoubleComplexFile)) == true);
     }
 
 
@@ -146,7 +147,7 @@ public class testSerialization {
 
         String [][]a = {{"This", "is", "my", "string"}, {"and", "I want to", "compare", " them"}};
         ScilabString aMatrix = new ScilabString(a);
-        assert aMatrix.equals(readFromFile(scilabStringFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabStringFile)));
     }
 
     private String scilabInt8File = "Int8.data";
@@ -165,7 +166,7 @@ public class testSerialization {
     public void readJavaSerializedInt8Test() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, true);
-        assert aMatrix.equals(readFromFile(scilabInt8File)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt8File)) == true);
     }
 
     // Uncomment to regenerate a new reference file
@@ -181,7 +182,7 @@ public class testSerialization {
     public void readJavaSerializedInt8SignedTest() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, false);
-        assert aMatrix.equals(readFromFile(scilabInt8SignedFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt8SignedFile)) == true);
     }
 
     private String scilabInt16File = "Int16.data";
@@ -200,7 +201,7 @@ public class testSerialization {
     public void readJavaSerializedInt16Test() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, true);
-        assert aMatrix.equals(readFromFile(scilabInt16File)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt16File)) == true);
     }
 
     // Uncomment to regenerate a new reference file
@@ -216,7 +217,7 @@ public class testSerialization {
     public void readJavaSerializedInt16SignedTest() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, false);
-        assert aMatrix.equals(readFromFile(scilabInt16SignedFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt16SignedFile)) == true);
     }
 
 
@@ -236,7 +237,7 @@ public class testSerialization {
     public void readJavaSerializedInt32Test() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, true);
-        assert aMatrix.equals(readFromFile(scilabInt32File)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt32File)) == true);
     }
 
     // Uncomment to regenerate a new reference file
@@ -252,7 +253,7 @@ public class testSerialization {
     public void readJavaSerializedInt32SignedTest() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, false);
-        assert aMatrix.equals(readFromFile(scilabInt32SignedFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt32SignedFile)) == true);
     }
 
     private String scilabInt64File = "Int64.data";
@@ -271,7 +272,7 @@ public class testSerialization {
     public void readJavaSerializedInt64Test() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, true);
-        assert aMatrix.equals(readFromFile(scilabInt64File)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt64File)) == true);
     }
 
     // Uncomment to regenerate a new reference file
@@ -287,7 +288,7 @@ public class testSerialization {
     public void readJavaSerializedInt64SignedTest() throws IOException {
         byte [][]a = {{32, 42, 41}, {12, 13, 32}};
         ScilabInteger aMatrix = new ScilabInteger(a, false);
-        assert aMatrix.equals(readFromFile(scilabInt64SignedFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabInt64SignedFile)) == true);
     }
     private String scilabBooleanFile = "Boolean.data";
 
@@ -304,7 +305,7 @@ public class testSerialization {
     public void readJavaSerializedBooleanTest() throws IOException {
         boolean [][]a = {{true, false, true}, {true, true, true}};
         ScilabBoolean aMatrix = new ScilabBoolean(a);
-        assert aMatrix.equals(readFromFile(scilabBooleanFile)) == true;
+        assertTrue(aMatrix.equals(readFromFile(scilabBooleanFile)) == true);
     }
 
     private String scilabListFile = "List.data";
@@ -327,7 +328,7 @@ public class testSerialization {
         data.add(new ScilabDouble(2));
         data.add(new ScilabDouble(51));
         data.add(new ScilabString("hello"));
-        assert data.equals(readFromFile(scilabListFile)) == true;
+        assertTrue(data.equals(readFromFile(scilabListFile)) == true);
     }
 
     private String scilabTListFile = "TList.data";
@@ -350,7 +351,7 @@ public class testSerialization {
         data.add(new ScilabDouble(2));
         data.add(new ScilabDouble(51));
 
-        assert data.equals(readFromFile(scilabTListFile)) == true;
+        assertTrue(data.equals(readFromFile(scilabTListFile)));
     }
     private String scilabMListFile = "MList.data";
 
@@ -371,7 +372,7 @@ public class testSerialization {
         data.add(new ScilabString("hello"));
         data.add(new ScilabDouble(2));
         data.add(new ScilabDouble(51));
-        assert data.equals(readFromFile(scilabMListFile)) == true;
+        assertTrue(data.equals(readFromFile(scilabMListFile)) == true);
     }
 
 }
