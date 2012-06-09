@@ -215,4 +215,16 @@
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_TIME_DELAY">
+    <title>Exemple</title>
+    <para>
+      <link type="scilab" linkend="scilab.xcos/xcos/examples/continuous_pal/TIME_DELAY_Example.xcos">
+        <inlinemediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="../../../../examples/continuous_pal/TIME_DELAY_Example.png" valign="middle"/>
+          </imageobject>
+        </inlinemediaobject>
+      </link>
+    </para>
+  </refsection>
 </refentry>
