@@ -239,4 +239,17 @@
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_TOWS_c">
+    <title>Example</title>
+    <para>
+      <link type="scilab" linkend="scilab.xcos/xcos/examples/sinks_pal/TOWS_c_Example.xcos">
+        <inlinemediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="../../../../examples/sinks_pal/TOWS_c_Example.png" valign="middle"/>
+          </imageobject>
+        </inlinemediaobject>
+      </link>
+    </para>
+  </refsection>
+  
 </refentry>
