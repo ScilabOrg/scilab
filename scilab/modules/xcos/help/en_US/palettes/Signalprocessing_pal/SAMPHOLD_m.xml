@@ -209,4 +209,16 @@
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_PID">
+    <title>Example</title>
+    <para>
+      <link type="scilab" linkend="scilab.xcos/xcos/examples/signalrouting_pal/SAMPHOLD_m_Example.xcos">
+        <inlinemediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="../../../../examples/signalrouting_pal/SAMPHOLD_m_Example.png" valign="middle"/>
+          </imageobject>
+        </inlinemediaobject>
+      </link>
+    </para>
+  </refsection>
 </refentry>
