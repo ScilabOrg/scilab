@@ -229,4 +229,16 @@
       </listitem>
     </itemizedlist>
   </refsection>
+  <refsection id="Example_BACKLASH">
+    <title>Example</title>
+    <para>
+      <link type="scilab" linkend="scilab.xcos/xcos/examples/discontinuous_pal/BACKLASH_Example.xcos">
+        <inlinemediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="../../../../examples/discontinuous_pal/BACKLASH_Example.png" valign="middle"/>
+          </imageobject>
+        </inlinemediaobject>
+      </link>
+    </para>
+  </refsection>
 </refentry>
