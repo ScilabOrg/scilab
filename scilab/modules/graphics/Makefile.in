@@ -252,6 +252,7 @@ am__objects_1 = libscigraphics_algo_la-GetCommandArg.lo \
 	libscigraphics_algo_la-get_event_handler_enable_property.lo \
 	libscigraphics_algo_la-get_arc_drawing_method_property.lo \
 	libscigraphics_algo_la-get_fractional_font_property.lo \
+	libscigraphics_algo_la-get_antialiased_font_property.lo \
 	libscigraphics_algo_la-get_links_property.lo \
 	libscigraphics_algo_la-get_legend_location_property.lo \
 	libscigraphics_algo_la-get_filled_property.lo \
@@ -387,6 +388,7 @@ am__objects_1 = libscigraphics_algo_la-GetCommandArg.lo \
 	libscigraphics_algo_la-set_event_handler_enable_property.lo \
 	libscigraphics_algo_la-set_arc_drawing_method_property.lo \
 	libscigraphics_algo_la-set_fractional_font_property.lo \
+	libscigraphics_algo_la-set_antialiased_font_property.lo \
 	libscigraphics_algo_la-set_links_property.lo \
 	libscigraphics_algo_la-set_legend_location_property.lo \
 	libscigraphics_algo_la-set_filled_property.lo \
@@ -909,6 +911,7 @@ src/c/getHandleProperty/get_event_handler_property.c \
 src/c/getHandleProperty/get_event_handler_enable_property.c \
 src/c/getHandleProperty/get_arc_drawing_method_property.c \
 src/c/getHandleProperty/get_fractional_font_property.c \
+src/c/getHandleProperty/get_antialiased_font_property.c \
 src/c/getHandleProperty/get_links_property.c \
 src/c/getHandleProperty/get_legend_location_property.c \
 src/c/getHandleProperty/get_filled_property.c \
@@ -1044,6 +1047,7 @@ src/c/getHandleProperty/set_event_handler_property.c \
 src/c/getHandleProperty/set_event_handler_enable_property.c \
 src/c/getHandleProperty/set_arc_drawing_method_property.c \
 src/c/getHandleProperty/set_fractional_font_property.c \
+src/c/getHandleProperty/set_antialiased_font_property.c \
 src/c/getHandleProperty/set_links_property.c \
 src/c/getHandleProperty/set_legend_location_property.c \
 src/c/getHandleProperty/set_filled_property.c \
@@ -1437,6 +1441,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-getPropertyAssignedValue.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_alignment_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_anti_aliasing_property.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_antialiased_font_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_arc_drawing_method_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_arrow_size_factor_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-get_arrow_size_property.Plo@am__quote@
@@ -1580,6 +1585,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-setGetHashTable.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_alignment_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_anti_aliasing_property.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_antialiased_font_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_arc_drawing_method_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_arrow_size_factor_property.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscigraphics_algo_la-set_arrow_size_property.Plo@am__quote@
@@ -2684,6 +2690,13 @@ libscigraphics_algo_la-get_fractional_font_property.lo: src/c/getHandleProperty/
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscigraphics_algo_la-get_fractional_font_property.lo `test -f 'src/c/getHandleProperty/get_fractional_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_fractional_font_property.c
 
+libscigraphics_algo_la-get_antialiased_font_property.lo: src/c/getHandleProperty/get_antialiased_font_property.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscigraphics_algo_la-get_antialiased_font_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_algo_la-get_antialiased_font_property.Tpo -c -o libscigraphics_algo_la-get_antialiased_font_property.lo `test -f 'src/c/getHandleProperty/get_antialiased_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_antialiased_font_property.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscigraphics_algo_la-get_antialiased_font_property.Tpo $(DEPDIR)/libscigraphics_algo_la-get_antialiased_font_property.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/get_antialiased_font_property.c' object='libscigraphics_algo_la-get_antialiased_font_property.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscigraphics_algo_la-get_antialiased_font_property.lo `test -f 'src/c/getHandleProperty/get_antialiased_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_antialiased_font_property.c
+
 libscigraphics_algo_la-get_links_property.lo: src/c/getHandleProperty/get_links_property.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscigraphics_algo_la-get_links_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_algo_la-get_links_property.Tpo -c -o libscigraphics_algo_la-get_links_property.lo `test -f 'src/c/getHandleProperty/get_links_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/get_links_property.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscigraphics_algo_la-get_links_property.Tpo $(DEPDIR)/libscigraphics_algo_la-get_links_property.Plo
@@ -3628,6 +3641,13 @@ libscigraphics_algo_la-set_fractional_font_property.lo: src/c/getHandleProperty/
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/set_fractional_font_property.c' object='libscigraphics_algo_la-set_fractional_font_property.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscigraphics_algo_la-set_fractional_font_property.lo `test -f 'src/c/getHandleProperty/set_fractional_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_fractional_font_property.c
+
+libscigraphics_algo_la-set_antialiased_font_property.lo: src/c/getHandleProperty/set_antialiased_font_property.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscigraphics_algo_la-set_antialiased_font_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_algo_la-set_antialiased_font_property.Tpo -c -o libscigraphics_algo_la-set_antialiased_font_property.lo `test -f 'src/c/getHandleProperty/set_antialiased_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_antialiased_font_property.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscigraphics_algo_la-set_antialiased_font_property.Tpo $(DEPDIR)/libscigraphics_algo_la-set_antialiased_font_property.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='src/c/getHandleProperty/set_antialiased_font_property.c' object='libscigraphics_algo_la-set_antialiased_font_property.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscigraphics_algo_la-set_antialiased_font_property.lo `test -f 'src/c/getHandleProperty/set_antialiased_font_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_antialiased_font_property.c
 
 libscigraphics_algo_la-set_links_property.lo: src/c/getHandleProperty/set_links_property.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscigraphics_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscigraphics_algo_la-set_links_property.lo -MD -MP -MF $(DEPDIR)/libscigraphics_algo_la-set_links_property.Tpo -c -o libscigraphics_algo_la-set_links_property.lo `test -f 'src/c/getHandleProperty/set_links_property.c' || echo '$(srcdir)/'`src/c/getHandleProperty/set_links_property.c

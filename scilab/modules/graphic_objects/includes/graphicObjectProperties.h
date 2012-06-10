@@ -235,6 +235,7 @@
 #define __GO_FONT_SIZE__                   "FontSize"
 #define __GO_FONT_COLOR__                  "FontColor"
 #define __GO_FONT_FRACTIONAL__             "FontFractional"
+#define __GO_FONT_ANTIALIASED__            "FontAntialiased"
 
 #define __GO_Z_BOUNDS__                    "ZBounds"
 #define __GO_OUTSIDE_COLOR__               "OutsideColor"
