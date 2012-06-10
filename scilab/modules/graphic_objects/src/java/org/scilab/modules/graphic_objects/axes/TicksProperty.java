@@ -256,7 +256,28 @@ public class TicksProperty {
             }
         }
 
+        /**
+         * Supposes all ticks labels have the same font antialiasing.
+         * To be corrected.
+         * @return the ticks labels font antialiasing
+         */
+        public Boolean getFontAntialiased() {
+            if (!labels.isEmpty()) {
+                return labels.get(0).getFont().getAntialiased();
+            }
+            return false;
+        }
 
+        /**
+         * Supposes all ticks labels have the same font antialiasing.
+         * To be corrected.
+         * @param fontAntialiased the ticks labels font antialiasing to set
+         */
+        public void setFontAntialiased(Boolean fontAntialiased) {
+            for (int i = 0; i < labels.size(); i++) {
+                labels.get(i).getFont().setAntialiased(fontAntialiased);
+            }
+        }
     }
 
     /** Automatic ticks */
@@ -552,6 +573,43 @@ public class TicksProperty {
         	automaticTicks.setFontFractional(fontFractional);
         } else {
         	userTicks.setFontFractional(fontFractional);
+        }
+        */
+    }
+
+    /**
+     * Supposes all automatic and user ticks labels have the same font antialiasing.
+     * To be corrected (commented out block) when the associated C get function is completed.
+     * @return the ticks labels font antialising
+     */
+    public Boolean getFontAntialiased() {
+        return automaticTicks.getFontAntialiased();
+
+        /*
+        if (auto) {
+        	return automaticTicks.getFontAntialiased();
+        } else {
+        	return userTicks.getFontAntialiased();
+        }
+        */
+    }
+
+    /**
+     * Supposes all automatic and user ticks labels have the same font antialiasing.
+     * To be corrected (commented out block) when the associated C set function is completed.
+     * @param fontAntialiased the ticks labels font antialiasing to set
+     */
+    public void setFontAntialiased(Boolean fontAntialiased) {
+        defaultFont.setAntialiased(fontAntialiased);
+
+        automaticTicks.setFontAntialiased(fontAntialiased);
+        userTicks.setFontAntialiased(fontAntialiased);
+
+        /*
+        if (auto) {
+        	automaticTicks.setFontAntialiased(fontAntialiased);
+        } else {
+        	userTicks.setFontAntialiased(fontAntialiased);
         }
         */
     }

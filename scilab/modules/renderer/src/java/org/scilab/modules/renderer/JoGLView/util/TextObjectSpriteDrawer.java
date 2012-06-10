@@ -75,10 +75,11 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
         this.entities = new Object[columnNumber][lineNumber];
 
         boolean fractionalFont = textObject.getFontFractional();
+        boolean antialiasedFont = textObject.getFontAntialiased();
         Color textColor = ColorFactory.createColor(colorMap, textObject.getFont().getColor());
         Font font = computeFont(textObject);
 
-        fillEntityMatrix(stringArray, fractionalFont, textColor, font);
+        fillEntityMatrix(stringArray, fractionalFont, antialiasedFont, textColor, font);
 
         this.width  = sum(columnWidth) + MARGIN * (columnNumber + 1) + 2 * thickness + spaceWidth * (columnNumber - 1);
         this.height = sum(lineHeight)  + MARGIN * (lineNumber + 1) + 2 * thickness;
@@ -106,11 +107,12 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
         this.entities = new Object[columnNumber][lineNumber];
 
         boolean fractionalFont = textObject.getFontFractional();
+        boolean antialiasedFont = textObject.getFontAntialiased();
         Color textColor = ColorFactory.createColor(colorMap, textObject.getFont().getColor());
         Font font = computeFont(textObject, scaleFactor);
 
         /* Fill the entity matrix */
-        fillEntityMatrix(stringArray, fractionalFont, textColor, font);
+        fillEntityMatrix(stringArray, fractionalFont, antialiasedFont, textColor, font);
 
         this.width  = (int)((double)sum(columnWidth) + scaleFactor * (double)(MARGIN * (columnNumber + 1)) + 2 * thickness + scaleFactor * (double)(spaceWidth * (columnNumber - 1)));
         this.height = (int)((double)sum(lineHeight)  + scaleFactor * (double)(MARGIN * (lineNumber + 1)) + 2 * thickness);
@@ -120,10 +122,11 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
      * Fills the entity matrix
      * @param stringArray the matrix of text strings used to fill the entity matrix.
      * @param fractionalFont specifies whether a fractional font is used or not.
+     * @param antialiasedFont specifies whether an antialiased font is used or not.
      * @param textColor the text color.
      * @param font the font to use.
      */
-    protected void fillEntityMatrix(String[][] stringArray, boolean fractionalFont, Color textColor, Font font) {
+    protected void fillEntityMatrix(String[][] stringArray, boolean fractionalFont, boolean antialiasedFont, Color textColor, Font font) {
         int line = 0;
         for (String[] textLine : stringArray) {
             int column = 0;
@@ -145,7 +148,7 @@ public class TextObjectSpriteDrawer implements TextureDrawer {
                     } else {
                         TextEntity textEntity = new TextEntity(text);
                         textEntity.setTextUseFractionalMetrics(fractionalFont);
-                        textEntity.setTextAntiAliased(false);
+                        textEntity.setTextAntiAliased(antialiasedFont);
                         textEntity.setTextColor(textColor);
                         textEntity.setFont(font);
                         entities[column][line] = textEntity;

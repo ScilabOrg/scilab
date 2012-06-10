@@ -34,17 +34,18 @@ class RulerDrawerManager {
      * Set of properties that affect ruler sprites.
      */
     private static final Set<String> SPRITE_PROPERTIES = new HashSet<String>(Arrays.asList(
-            GraphicObjectProperties.__GO_FONT_SIZE__,
-            GraphicObjectProperties.__GO_FONT_COLOR__,
-            GraphicObjectProperties.__GO_FONT_STYLE__,
-            GraphicObjectProperties.__GO_FONT_FRACTIONAL__,
-            GraphicObjectProperties.__GO_X_AXIS_AUTO_TICKS__,
-            GraphicObjectProperties.__GO_Y_AXIS_AUTO_TICKS__,
-            GraphicObjectProperties.__GO_Z_AXIS_AUTO_TICKS__,
-            GraphicObjectProperties.__GO_X_AXIS_LOG_FLAG__,
-            GraphicObjectProperties.__GO_Y_AXIS_LOG_FLAG__,
-            GraphicObjectProperties.__GO_Z_AXIS_LOG_FLAG__
-    ));
+                GraphicObjectProperties.__GO_FONT_SIZE__,
+                GraphicObjectProperties.__GO_FONT_COLOR__,
+                GraphicObjectProperties.__GO_FONT_STYLE__,
+                GraphicObjectProperties.__GO_FONT_FRACTIONAL__,
+                GraphicObjectProperties.__GO_FONT_ANTIALIASED__,
+                GraphicObjectProperties.__GO_X_AXIS_AUTO_TICKS__,
+                GraphicObjectProperties.__GO_Y_AXIS_AUTO_TICKS__,
+                GraphicObjectProperties.__GO_Z_AXIS_AUTO_TICKS__,
+                GraphicObjectProperties.__GO_X_AXIS_LOG_FLAG__,
+                GraphicObjectProperties.__GO_Y_AXIS_LOG_FLAG__,
+                GraphicObjectProperties.__GO_Z_AXIS_LOG_FLAG__
+            ));
 
     /**
      * Map of up to date {@see RulerSpriteManager}
@@ -71,7 +72,7 @@ class RulerDrawerManager {
     public RulerDrawer[] get(Axes axes) {
         RulerDrawer[] rulerSpriteManager = rulerSpriteManagerMap.get(axes.getIdentifier());
         if (rulerSpriteManager == null) {
-            rulerSpriteManager = new RulerDrawer[]{new RulerDrawer(textureManager), new RulerDrawer(textureManager), new RulerDrawer(textureManager)};
+            rulerSpriteManager = new RulerDrawer[] {new RulerDrawer(textureManager), new RulerDrawer(textureManager), new RulerDrawer(textureManager)};
             rulerSpriteManager[0].setSpriteFactory(new AxesRulerSpriteFactory(axes, 0));
             rulerSpriteManager[1].setSpriteFactory(new AxesRulerSpriteFactory(axes, 1));
             rulerSpriteManager[2].setSpriteFactory(new AxesRulerSpriteFactory(axes, 2));

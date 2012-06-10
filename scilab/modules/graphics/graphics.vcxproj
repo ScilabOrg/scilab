@@ -209,6 +209,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="src\c\FeC.c" />
     <ClCompile Include="src\c\Format.c" />
     <ClCompile Include="src\c\getHandleProperty\get_alignment_property.c" />
+    <ClCompile Include="src\c\getHandleProperty\get_antialiased_font_property.c" />
     <ClCompile Include="src\c\getHandleProperty\get_anti_aliasing_property.c" />
     <ClCompile Include="src\c\getHandleProperty\get_arc_drawing_method_property.c" />
     <ClCompile Include="src\c\getHandleProperty\get_arrow_size_factor_property.c" />
@@ -312,6 +313,7 @@ lib /DEF:"$(ProjectDir)elementary_functions_f_Import.def" /SUBSYSTEM:WINDOWS /MA
     <ClCompile Include="src\c\getHandleProperty\get_text_box_property.c" />
     <ClCompile Include="src\c\getHandleProperty\get_text_property.c" />
     <ClCompile Include="src\c\getHandleProperty\get_thickness_property.c" />
+    <ClCompile Include="src\c\getHandleProperty\set_antialiased_font_property.c" />
     <ClCompile Include="src\c\getHandleProperty\set_figure_resizefcn_property.c" />
     <ClCompile Include="src\c\getHandleProperty\set_tag_property.c" />
     <ClCompile Include="src\c\get_ticks_utils.c" />
