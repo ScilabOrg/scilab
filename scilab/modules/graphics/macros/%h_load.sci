@@ -198,6 +198,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     if is_higher_than([4 1 2 0]) then
       set(titl,"font_foreground", mget(1,'il',fd)); // title.font_foreground
       set(titl,"fractional_font", toggle(mget(1,characterFormat,fd))); //title.fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+        set(titl,"antialiased_font", toggle(mget(1,characterFormat,fd))); //title.antialiased_font
+      end
     end
     set(titl,"foreground", mget(1,'il',fd)); // title.foreground
     if is_higher_than([3 1 0 0]) then
@@ -227,6 +230,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     if is_higher_than([4 1 2 0]) then
       set(x_label,"font_foreground", mget(1,'il',fd)); // x_label.font_foreground
       set(x_label,"fractional_font", toggle(mget(1,characterFormat,fd))); //x_label.fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+        set(x_label,"antialiased_font", toggle(mget(1,characterFormat,fd))); //x_label.antialiased_font
+      end
     end
     set(x_label,"foreground", mget(1,'il',fd)); // x_label.foreground
     if is_higher_than([3 0 0 0]) then
@@ -255,6 +261,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     if is_higher_than([4 1 2 0]) then
       set(y_label,"font_foreground", mget(1,'il',fd)); // y_label.font_foreground
       set(y_label,"fractional_font", toggle(mget(1,characterFormat,fd))); //y_label.fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+        set(y_label,"antialiased_font", toggle(mget(1,characterFormat,fd))); //y_label.antialiased_font
+      end
     end
     set(y_label,"foreground"     , mget(1,'il',fd));
     if is_higher_than([3 0 0 0]) then
@@ -283,8 +292,11 @@ function [h,immediate_drawing] = load_graphichandle(fd)
 	set(z_label,"text"      , ascii(mget(mget(1,characterFormat,fd),characterFormat,fd))) // title.text
       end
       if is_higher_than([4 1 2 0]) then
-	set(z_label,"font_foreground", mget(1,'il',fd)); // z_label.font_foreground
+	    set(z_label,"font_foreground", mget(1,'il',fd)); // z_label.font_foreground
         set(z_label,"fractional_font", toggle(mget(1,characterFormat,fd))); //z_label.fractional_font
+        if is_higher_than([5 3 3 0]) then //5.4.0 min
+          set(z_label,"antialiased_font", toggle(mget(1,characterFormat,fd))); //z_label.antialiased_font
+        end
       end
       set(z_label,"foreground"     , mget(1,'il',fd));
       if is_higher_than([3 0 0 0]) then
@@ -353,6 +365,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     set(a,"font_color"           , mget(1,'il',fd)); // font_color
     if is_higher_than([4 1 2 0]) then
       set(a,"fractional_font", toggle(mget(1,characterFormat,fd))); // fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+          set(a,"antialiased_font", toggle(mget(1,characterFormat,fd))); //antialiased_font
+      end
     end
     set(a,"isoview"              , toggle(mget(1,characterFormat,fd))) // isoview
 
@@ -472,27 +487,28 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       //get handles from paths
       links=get_links_from_path(a,%LEG.paths)
       if links<>[] then
-	L=captions(links,%LEG.text)
-	L.visible         = %LEG.visible
-	L.font_style      = %LEG.font_style
-	L.font_size       = %LEG.font_size
-	L.font_color      = %LEG.font_color
-	L.fractional_font = %LEG.fractional_font
-	L.mark_mode       = 'off';
-	L.legend_location = %LEG.legend_location
-	L.position        = %LEG.position
-	L.line_mode       = %LEG.line_mode
-	L.thickness       = %LEG.thickness
-	L.foreground      = %LEG.foreground
-	L.fill_mode       = %LEG.fill_mode
-	L.background      = %LEG.background
-	L.clip_state      = %LEG.clip_state
-	if %LEG.clip_state=='on' then
-	  L.clip_box      = %LEG.clip_box
-	end
-	L.user_data       = %LEG.user_data
+	    L=captions(links,%LEG.text)
+	    L.visible           = %LEG.visible
+	    L.font_style        = %LEG.font_style
+	    L.font_size         = %LEG.font_size
+	    L.font_color        = %LEG.font_color
+	    L.fractional_font   = %LEG.fractional_font
+	    L.antialiased_font  = %LEG.antialiased_font
+	    L.mark_mode         = 'off';
+	    L.legend_location   = %LEG.legend_location
+	    L.position          = %LEG.position
+	    L.line_mode         = %LEG.line_mode
+	    L.thickness         = %LEG.thickness
+	    L.foreground        = %LEG.foreground
+	    L.fill_mode         = %LEG.fill_mode
+	    L.background        = %LEG.background
+	    L.clip_state        = %LEG.clip_state
+	    if %LEG.clip_state=='on' then
+	      L.clip_box      = %LEG.clip_box
+	    end
+	    L.user_data       = %LEG.user_data
       else
-	 warning(msprintf(_("%s: Legend does not fit with the current context. Skipped\n"),"load"));
+	    warning(msprintf(_("%s: Legend does not fit with the current context. Skipped\n"),"load"));
       end
     end
     clearglobal %LEG
@@ -1194,6 +1210,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       %LEG.font_size       = mget(1,characterFormat,fd); // font_size
       %LEG.font_color      = mget(1,'il',fd); // font_size
       %LEG.fractional_font = toggle(mget(1,characterFormat,fd)); // fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+        %LEG.antialiased_font = toggle(mget(1,characterFormat,fd)); //antialiased_font
+      end
       nlegends             = mget(1,characterFormat,fd);
       paths = list()
       for kl=1:nlegends
@@ -1248,7 +1267,10 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       set(h,"font_style", mget(1,characterFormat,fd)); // font_style
       set(h,"font_size" , mget(1,characterFormat,fd)); // font_size
       if is_higher_than( [4 1 2 0] ) then
-	set(h,"fractional_font" , toggle(mget(1,characterFormat,fd))); // fractional_font
+	    set(h,"fractional_font" , toggle(mget(1,characterFormat,fd))); // fractional_font
+        if is_higher_than([5 3 3 0]) then //5.4.0 min
+          set(h,"antialiased_font", toggle(mget(1,characterFormat,fd))); //antialiased_font
+        end
       end
       clip_state     = ascii(mget(mget(1,characterFormat,fd),characterFormat,fd)) // clip_state
       if clip_state=='on' then
@@ -1306,6 +1328,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
     if is_higher_than( [4 1 2 0] ) then
       set( h, "alignment", ascii(mget(mget(1,characterFormat,fd),characterFormat,fd)  ) ) ; // alignment
       set( h, "fractional_font", toggle( mget( 1, characterFormat, fd ) ) ) ; // fractional_font
+      if is_higher_than([5 3 3 0]) then //5.4.0 min
+        set(h, "antialiased_font", toggle(mget(1,characterFormat,fd))); //antialiased_font
+      end
     end
 
     clip_state     = ascii(mget(mget(1,characterFormat,fd),characterFormat,fd)) // clip_state
@@ -1354,6 +1379,9 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       h.labels_font_color= mget(1,'il',fd); // labels_font_color
       if is_higher_than( [4 1 2 0] ) then
         set( h, "fractional_font", toggle( mget( 1, characterFormat, fd ) ) ) ; // fractional_font
+          if is_higher_than([5 3 3 0]) then //5.4.0 min
+            set(h, "antialiased_font", toggle(mget(1,characterFormat,fd))); //antialiased_font
+          end
       end
       // h.tics_style=tics_style // jb Silvy apparently strange
 

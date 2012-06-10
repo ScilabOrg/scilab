@@ -1121,6 +1121,12 @@
     <ClCompile Include="src\c\getHandleProperty\set_figure_resizefcn_property.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\c\getHandleProperty\get_antialiased_font_property.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\c\getHandleProperty\set_antialiased_font_property.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Axes.h">

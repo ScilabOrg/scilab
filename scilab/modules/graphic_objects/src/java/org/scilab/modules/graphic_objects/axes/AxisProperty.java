@@ -22,418 +22,437 @@ import java.util.ArrayList;
  * @author Manuel JULIACHS
  */
 public class AxisProperty {
-	/**
-	 * AxisProperty properties names
-	 */
-	public enum AxisPropertyProperty { VISIBLE, REVERSE, GRIDCOLOR, LABEL, AXISLOCATION,
-		LOGFLAG, UNKNOWNPROPERTY }
+    /**
+     * AxisProperty properties names
+     */
+    public enum AxisPropertyProperty { VISIBLE, REVERSE, GRIDCOLOR, LABEL, AXISLOCATION,
+                                       LOGFLAG, UNKNOWNPROPERTY
+                                     }
 
-	/**
-	 * Axis location type
-	 * BOTTOM, TOP, MIDDLE, ORIGIN are allowed for an x-axis,
-	 * LEFT, RIGHT, MIDDLE or ORIGIN are allowed for a y-axis
-	 */
-	public static enum AxisLocation { BOTTOM, TOP, MIDDLE, ORIGIN, LEFT, RIGHT;
+    /**
+     * Axis location type
+     * BOTTOM, TOP, MIDDLE, ORIGIN are allowed for an x-axis,
+     * LEFT, RIGHT, MIDDLE or ORIGIN are allowed for a y-axis
+     */
+    public static enum AxisLocation { BOTTOM, TOP, MIDDLE, ORIGIN, LEFT, RIGHT;
 
 
-		/**
-		* Converts an integer to the corresponding enum
-		* @param intValue the integer value
-		* @return the axis location enum
-		*/
-		public static AxisLocation intToEnum(Integer intValue) {
-			switch (intValue) {
-				case 0:
-					return AxisLocation.BOTTOM;
-				case 1:
-					return AxisLocation.TOP;
-				case 2:
-					return AxisLocation.MIDDLE;
-				case 3:
-					return AxisLocation.ORIGIN;
-				case 4:
-					return AxisLocation.LEFT;
-				case 5:
-					return AxisLocation.RIGHT;
-				default:
-					return null;
-			}
-		}
-	}
+                                      /**
+                                      * Converts an integer to the corresponding enum
+                                      * @param intValue the integer value
+                                      * @return the axis location enum
+                                      */
+    public static AxisLocation intToEnum(Integer intValue) {
+        switch (intValue) {
+            case 0:
+                return AxisLocation.BOTTOM;
+            case 1:
+                return AxisLocation.TOP;
+            case 2:
+                return AxisLocation.MIDDLE;
+            case 3:
+                return AxisLocation.ORIGIN;
+            case 4:
+                return AxisLocation.LEFT;
+            case 5:
+                return AxisLocation.RIGHT;
+            default:
+                return null;
+        }
+    }
+                                    }
 
-	/** Specifies whether the axis is visible or not */
-	private boolean visible;
-	
-	/** Specifies whether the axis is reversed or not */
-	private boolean reverse;
-	
-	/** Grid color */
-	private int gridColor;
+    /** Specifies whether the axis is visible or not */
+    private boolean visible;
 
-	/** Axis label UID */
-	private String label;
+    /** Specifies whether the axis is reversed or not */
+    private boolean reverse;
 
-	/** Axis location */
-	private AxisLocation axisLocation;
+    /** Grid color */
+    private int gridColor;
 
-	/** Specifies whether logarithmic coordinates are used or not */
-	private boolean logFlag;
+    /** Axis label UID */
+    private String label;
 
-	/** Ticks property */
-	private TicksProperty ticks;
+    /** Axis location */
+    private AxisLocation axisLocation;
 
-	/** Constructor */
-	public AxisProperty() {
-		visible = false;
-		reverse = false;
-		gridColor = 0;
+    /** Specifies whether logarithmic coordinates are used or not */
+    private boolean logFlag;
 
-                /* Sets the label to the null object */
-                label = "";
+    /** Ticks property */
+    private TicksProperty ticks;
 
-		axisLocation = AxisLocation.ORIGIN;
-		ticks = new TicksProperty();
-		logFlag = false;
-	}
+    /** Constructor */
+    public AxisProperty() {
+        visible = false;
+        reverse = false;
+        gridColor = 0;
 
-	/**
-	 * Copy constructor
-	 * @param axisProperty the AxisProperty to copy
-	 */
-	public AxisProperty(AxisProperty axisProperty) {
-		visible = axisProperty.visible;
-		reverse = axisProperty.reverse;
-		gridColor = axisProperty.gridColor;
+        /* Sets the label to the null object */
+        label = "";
 
-                label = "";
+        axisLocation = AxisLocation.ORIGIN;
+        ticks = new TicksProperty();
+        logFlag = false;
+    }
 
-		axisLocation = axisProperty.axisLocation;
-		ticks = new TicksProperty(axisProperty.ticks);
-		logFlag = axisProperty.logFlag;
-	}
+    /**
+     * Copy constructor
+     * @param axisProperty the AxisProperty to copy
+     */
+    public AxisProperty(AxisProperty axisProperty) {
+        visible = axisProperty.visible;
+        reverse = axisProperty.reverse;
+        gridColor = axisProperty.gridColor;
 
-	/**
-	 * Returns the enum associated to a property name
-	 * @param propertyName the property name
-	 * @return the property enum
-	 */
-	public Object getPropertyFromName(String propertyName) {
-		if (propertyName.equals("Visible")) {
-			return AxisPropertyProperty.VISIBLE;
-		} else if (propertyName.equals("Reverse")) {
-			return AxisPropertyProperty.REVERSE;
-		} else if (propertyName.equals("GridColor")) {
-			return AxisPropertyProperty.GRIDCOLOR;
-		} else if (propertyName.equals("Label")) {
-			return AxisPropertyProperty.LABEL;
-		} else if (propertyName.equals("AxisLocation")) {
-			return AxisPropertyProperty.AXISLOCATION;
-		} else if (propertyName.equals("LogFlag")) {
-			return AxisPropertyProperty.LOGFLAG;
-		} else {
-			return AxisPropertyProperty.UNKNOWNPROPERTY;
-		}
-	}
-	
-	/**
-	 * Fast property get method
-	 * @param property the property to get
-	 * @return the property value
-	 */
-	public Object getProperty(Object property) {
-		if (property == AxisPropertyProperty.VISIBLE) {
-			return getVisible();
-		} else if (property == AxisPropertyProperty.REVERSE) {
-			return getReverse();
-		} else if (property == AxisPropertyProperty.GRIDCOLOR) {
-			return getGridColor();
-		} else if (property == AxisPropertyProperty.LABEL) {
-			return getLabel();
-		} else if (property == AxisPropertyProperty.AXISLOCATION) {
-			return getAxisLocation();
-		} else if (property == AxisPropertyProperty.LOGFLAG) {
-			return getLogFlag();
-		} else {
-			return null;
-		}
-	}
+        label = "";
 
-	/**
-	 * Fast property set method
-	 * @param property the property to set
-	 * @param value the property value
-	 * @return true if the property has been set, false otherwise
-	 */
-	public boolean setProperty(Object property, Object value) {
-		if (property == AxisPropertyProperty.VISIBLE) {
-			setVisible((Boolean) value);
-		} else if (property == AxisPropertyProperty.REVERSE) {
-			setReverse((Boolean) value);
-		} else if (property == AxisPropertyProperty.GRIDCOLOR) {
-			setGridColor((Integer) value);
-		} else if (property == AxisPropertyProperty.LABEL) {
-			setLabel((String) value);
-		} else if (property == AxisPropertyProperty.AXISLOCATION) {
-			setAxisLocation((AxisLocation) value);
-		} else if (property == AxisPropertyProperty.LOGFLAG) {
-			setLogFlag((Boolean) value);
-		}
+        axisLocation = axisProperty.axisLocation;
+        ticks = new TicksProperty(axisProperty.ticks);
+        logFlag = axisProperty.logFlag;
+    }
 
-		return true;
-	}
-	
-	/**
-	 * @return the axisLocation
-	 */
-	public AxisLocation getAxisLocationAsEnum() {
-		return axisLocation;
-	}
+    /**
+     * Returns the enum associated to a property name
+     * @param propertyName the property name
+     * @return the property enum
+     */
+    public Object getPropertyFromName(String propertyName) {
+        if (propertyName.equals("Visible")) {
+            return AxisPropertyProperty.VISIBLE;
+        } else if (propertyName.equals("Reverse")) {
+            return AxisPropertyProperty.REVERSE;
+        } else if (propertyName.equals("GridColor")) {
+            return AxisPropertyProperty.GRIDCOLOR;
+        } else if (propertyName.equals("Label")) {
+            return AxisPropertyProperty.LABEL;
+        } else if (propertyName.equals("AxisLocation")) {
+            return AxisPropertyProperty.AXISLOCATION;
+        } else if (propertyName.equals("LogFlag")) {
+            return AxisPropertyProperty.LOGFLAG;
+        } else {
+            return AxisPropertyProperty.UNKNOWNPROPERTY;
+        }
+    }
 
-	/**
-	 * @return the axisLocation
-	 */
-	public AxisLocation getAxisLocation() {
-		return axisLocation;
-	}
+    /**
+     * Fast property get method
+     * @param property the property to get
+     * @return the property value
+     */
+    public Object getProperty(Object property) {
+        if (property == AxisPropertyProperty.VISIBLE) {
+            return getVisible();
+        } else if (property == AxisPropertyProperty.REVERSE) {
+            return getReverse();
+        } else if (property == AxisPropertyProperty.GRIDCOLOR) {
+            return getGridColor();
+        } else if (property == AxisPropertyProperty.LABEL) {
+            return getLabel();
+        } else if (property == AxisPropertyProperty.AXISLOCATION) {
+            return getAxisLocation();
+        } else if (property == AxisPropertyProperty.LOGFLAG) {
+            return getLogFlag();
+        } else {
+            return null;
+        }
+    }
 
-	/**
-	 * @param axisLocation the axisLocation to set
-	 */
-	public void setAxisLocation(AxisLocation axisLocation) {
-		this.axisLocation = axisLocation;
-	}
+    /**
+     * Fast property set method
+     * @param property the property to set
+     * @param value the property value
+     * @return true if the property has been set, false otherwise
+     */
+    public boolean setProperty(Object property, Object value) {
+        if (property == AxisPropertyProperty.VISIBLE) {
+            setVisible((Boolean) value);
+        } else if (property == AxisPropertyProperty.REVERSE) {
+            setReverse((Boolean) value);
+        } else if (property == AxisPropertyProperty.GRIDCOLOR) {
+            setGridColor((Integer) value);
+        } else if (property == AxisPropertyProperty.LABEL) {
+            setLabel((String) value);
+        } else if (property == AxisPropertyProperty.AXISLOCATION) {
+            setAxisLocation((AxisLocation) value);
+        } else if (property == AxisPropertyProperty.LOGFLAG) {
+            setLogFlag((Boolean) value);
+        }
 
-	/**
-	 * @return the gridColor
-	 */
-	public Integer getGridColor() {
-		return gridColor;
-	}
+        return true;
+    }
 
-	/**
-	 * @param gridColor the gridColor to set
-	 */
-	public void setGridColor(Integer gridColor) {
-		this.gridColor = gridColor;
-	}
+    /**
+     * @return the axisLocation
+     */
+    public AxisLocation getAxisLocationAsEnum() {
+        return axisLocation;
+    }
 
-	/**
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
+    /**
+     * @return the axisLocation
+     */
+    public AxisLocation getAxisLocation() {
+        return axisLocation;
+    }
 
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    /**
+     * @param axisLocation the axisLocation to set
+     */
+    public void setAxisLocation(AxisLocation axisLocation) {
+        this.axisLocation = axisLocation;
+    }
 
-	/**
-	 * @return the logFlag
-	 */
-	public Boolean getLogFlag() {
-		return logFlag;
-	}
+    /**
+     * @return the gridColor
+     */
+    public Integer getGridColor() {
+        return gridColor;
+    }
 
-	/**
-	 * @param logFlag the logFlag to set
-	 */
-	public void setLogFlag(Boolean logFlag) {
-		this.logFlag = logFlag;
-	}
+    /**
+     * @param gridColor the gridColor to set
+     */
+    public void setGridColor(Integer gridColor) {
+        this.gridColor = gridColor;
+    }
 
-	/**
-	 * @return the reverse
-	 */
-	public Boolean getReverse() {
-		return reverse;
-	}
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
 
-	/**
-	 * @param reverse the reverse to set
-	 */
-	public void setReverse(Boolean reverse) {
-		this.reverse = reverse;
-	}
+    /**
+     * @param label the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	/**
-	 * @return the ticks
-	 */
-	public TicksProperty getTicks() {
-		return ticks;
-	}
+    /**
+     * @return the logFlag
+     */
+    public Boolean getLogFlag() {
+        return logFlag;
+    }
 
-	/**
-	 * @param ticks the ticks to set
-	 */
-	public void setTicks(TicksProperty ticks) {
-		this.ticks = ticks;
-	}
+    /**
+     * @param logFlag the logFlag to set
+     */
+    public void setLogFlag(Boolean logFlag) {
+        this.logFlag = logFlag;
+    }
 
-	/**
-	 * @return the visible
-	 */
-	public Boolean getVisible() {
-		return visible;
-	}
+    /**
+     * @return the reverse
+     */
+    public Boolean getReverse() {
+        return reverse;
+    }
 
-	/**
-	 * @param visible the visible to set
-	 */
-	public void setVisible(Boolean visible) {
-		this.visible = visible;
-	}
+    /**
+     * @param reverse the reverse to set
+     */
+    public void setReverse(Boolean reverse) {
+        this.reverse = reverse;
+    }
 
-	/**
-	 * @return the autoticks
-	 */
-	public Boolean getAutoTicks() {
-		return ticks.getAuto();
-	}
+    /**
+     * @return the ticks
+     */
+    public TicksProperty getTicks() {
+        return ticks;
+    }
 
-	/**
-	 * @param autoticks the autoticks to set
-	 */
-	public void setAutoTicks(Boolean autoticks) {
-		ticks.setAuto(autoticks);
-	}
+    /**
+     * @param ticks the ticks to set
+     */
+    public void setTicks(TicksProperty ticks) {
+        this.ticks = ticks;
+    }
 
-	/**
-	 * @return the number of ticks
-	 */
-	public Integer getNumberOfTicks() {
-		return ticks.getNumber();
-	}
+    /**
+     * @return the visible
+     */
+    public Boolean getVisible() {
+        return visible;
+    }
 
-	/**
-	 * @return the ticks locations
-	 */
-	public Double[] getTicksLocations() {
-		return ticks.getLocations();
-	}
+    /**
+     * @param visible the visible to set
+     */
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 
-	/**
-	 * @param ticksLocations the ticks locations to set
-	 */
-	public void setTicksLocations(Double[] ticksLocations) {
-		ticks.setLocations(ticksLocations);
-	}
+    /**
+     * @return the autoticks
+     */
+    public Boolean getAutoTicks() {
+        return ticks.getAuto();
+    }
 
-	/**
-	 * @return the ticks labels
-	 */
-	public ArrayList<FormattedText> getTicksLabels() {
-		return ticks.getLabels();
-	}
+    /**
+     * @param autoticks the autoticks to set
+     */
+    public void setAutoTicks(Boolean autoticks) {
+        ticks.setAuto(autoticks);
+    }
 
-	/**
-	 * @param labels the labels to set
-	 */
-	public void setTicksLabels(ArrayList<FormattedText> labels) {
-		ticks.setLabels(labels);
-	}
+    /**
+     * @return the number of ticks
+     */
+    public Integer getNumberOfTicks() {
+        return ticks.getNumber();
+    }
 
-	/**
-	 * @return the ticks labels
-	 */
-	public String[] getTicksLabelsStrings() {
-		return ticks.getLabelsStrings();
-	}
+    /**
+     * @return the ticks locations
+     */
+    public Double[] getTicksLocations() {
+        return ticks.getLocations();
+    }
 
-	/**
-	 * @param labels the labels strings to set
-	 */
-	public void setTicksLabelsStrings(String[] labels) {
-		ticks.setLabelsStrings(labels);
-	}
+    /**
+     * @param ticksLocations the ticks locations to set
+     */
+    public void setTicksLocations(Double[] ticksLocations) {
+        ticks.setLocations(ticksLocations);
+    }
 
-	/**
-	 * @return the number of subticks
-	 */
-	public Integer getSubticks() {
-		return ticks.getSubticks();
-	}
+    /**
+     * @return the ticks labels
+     */
+    public ArrayList<FormattedText> getTicksLabels() {
+        return ticks.getLabels();
+    }
 
-	/**
-	 * @param subticks the number of subticks to set
-	 */
-	public void setSubticks(Integer subticks) {
-		ticks.setSubticks(subticks);
-	}
+    /**
+     * @param labels the labels to set
+     */
+    public void setTicksLabels(ArrayList<FormattedText> labels) {
+        ticks.setLabels(labels);
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font style.
-	 * To be corrected.
-	 * @return the ticks labels font style
-	 */
-	public Integer getFontStyle() {
-		return ticks.getFontStyle();
-	}
+    /**
+     * @return the ticks labels
+     */
+    public String[] getTicksLabelsStrings() {
+        return ticks.getLabelsStrings();
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font style.
-	 * To be corrected.
-	 * @param fontStyle the ticks labels font style to set
-	 */
-	public void setFontStyle(Integer fontStyle) {
-		ticks.setFontStyle(fontStyle);
-	}
+    /**
+     * @param labels the labels strings to set
+     */
+    public void setTicksLabelsStrings(String[] labels) {
+        ticks.setLabelsStrings(labels);
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font size.
-	 * To be corrected.
-	 * @return the ticks labels font size
-	 */
-	public Double getFontSize() {
-		return ticks.getFontSize();
-	}
+    /**
+     * @return the number of subticks
+     */
+    public Integer getSubticks() {
+        return ticks.getSubticks();
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font size.
-	 * To be corrected.
-	 * @param fontSize the ticks labels font size to set
-	 */
-	public void setFontSize(Double fontSize) {
-		ticks.setFontSize(fontSize);
-	}
+    /**
+     * @param subticks the number of subticks to set
+     */
+    public void setSubticks(Integer subticks) {
+        ticks.setSubticks(subticks);
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font color.
-	 * To be corrected.
-	 * @return the ticks labels font color
-	 */
-	public Integer getFontColor() {
-		return ticks.getFontColor();
-	}
+    /**
+     * Supposes all ticks labels have the same font style.
+     * To be corrected.
+     * @return the ticks labels font style
+     */
+    public Integer getFontStyle() {
+        return ticks.getFontStyle();
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font color.
-	 * To be corrected.
-	 * @param fontColor the ticks labels font color to set
-	 */
-	public void setFontColor(Integer fontColor) {
-		ticks.setFontColor(fontColor);
-	}
+    /**
+     * Supposes all ticks labels have the same font style.
+     * To be corrected.
+     * @param fontStyle the ticks labels font style to set
+     */
+    public void setFontStyle(Integer fontStyle) {
+        ticks.setFontStyle(fontStyle);
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font fractional.
-	 * To be corrected.
-	 * @return the ticks labels font fractional
-	 */
-	public Boolean getFontFractional() {
-		return ticks.getFontFractional();
-	}
+    /**
+     * Supposes all ticks labels have the same font size.
+     * To be corrected.
+     * @return the ticks labels font size
+     */
+    public Double getFontSize() {
+        return ticks.getFontSize();
+    }
 
-	/**
-	 * Supposes all ticks labels have the same font fractional.
-	 * To be corrected.
-	 * @param fontFractional the ticks labels font fractional to set
-	 */
-	public void setFontFractional(Boolean fontFractional) {
-		ticks.setFontFractional(fontFractional);
-	}
+    /**
+     * Supposes all ticks labels have the same font size.
+     * To be corrected.
+     * @param fontSize the ticks labels font size to set
+     */
+    public void setFontSize(Double fontSize) {
+        ticks.setFontSize(fontSize);
+    }
+
+    /**
+     * Supposes all ticks labels have the same font color.
+     * To be corrected.
+     * @return the ticks labels font color
+     */
+    public Integer getFontColor() {
+        return ticks.getFontColor();
+    }
+
+    /**
+     * Supposes all ticks labels have the same font color.
+     * To be corrected.
+     * @param fontColor the ticks labels font color to set
+     */
+    public void setFontColor(Integer fontColor) {
+        ticks.setFontColor(fontColor);
+    }
+
+    /**
+     * Supposes all ticks labels have the same font fractional.
+     * To be corrected.
+     * @return the ticks labels font fractional
+     */
+    public Boolean getFontFractional() {
+        return ticks.getFontFractional();
+    }
+
+    /**
+     * Supposes all ticks labels have the same font fractional.
+     * To be corrected.
+     * @param fontFractional the ticks labels font fractional to set
+     */
+    public void setFontFractional(Boolean fontFractional) {
+        ticks.setFontFractional(fontFractional);
+    }
+
+    /**
+     * Supposes all ticks labels have the same font antialiasing.
+     * To be corrected.
+     * @return the ticks labels font antialiasing
+     */
+    public Boolean getFontAntialiased() {
+        return ticks.getFontAntialiased();
+    }
+
+    /**
+     * Supposes all ticks labels have the same font antialiasing.
+     * To be corrected.
+     * @param fontAntialiased the ticks labels font antialiasing to set
+     */
+    public void setFontAntialiased(Boolean fontAntialiased) {
+        ticks.setFontAntialiased(fontAntialiased);
+    }
 
 }

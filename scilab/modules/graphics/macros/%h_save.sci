@@ -112,6 +112,7 @@ function save_graphichandle(h,fd)
     save_text_matrix( l.text, fd ) ;
     mput(l.font_foreground,'il',fd); // title_label.font_foreground
     mput(bool2s(l.fractional_font=='on'),characterFormat,fd) // title.fractional_font
+    mput(bool2s(l.antialiased_font=='on'),characterFormat,fd) // title.antialiased_font
     mput(l.foreground,'il',fd) // title.foreground
     mput(l.background,'il',fd) // title.background
     mput(bool2s(l.fill_mode=='on'),characterFormat,fd) // title.fill_mode
@@ -129,6 +130,7 @@ function save_graphichandle(h,fd)
     save_text_matrix( l.text, fd ) ;
     mput(l.font_foreground,'il',fd); // x_label.font_foreground
     mput(bool2s(l.fractional_font=='on'),characterFormat,fd) // x_label.fractional_font
+    mput(bool2s(l.antialiased_font=='on'),characterFormat,fd) // x_label.antialiased_font
     mput(l.foreground,'il',fd) // x_label.foreground
     mput(l.background,'il',fd) // x_label.background
     mput(bool2s(l.fill_mode=='on'),characterFormat,fd) // x_label.fill_mode
@@ -146,6 +148,7 @@ function save_graphichandle(h,fd)
     save_text_matrix( l.text, fd ) ;
     mput(l.font_foreground,'il',fd); // y_label.font_foreground
     mput(bool2s(l.fractional_font=='on'),characterFormat,fd) // y_label.fractional_font
+    mput(bool2s(l.antialiased_font=='on'),characterFormat,fd) // y_label.antialiased_font
     mput(l.foreground,'il',fd) // y_label.foreground
     mput(l.background,'il',fd) // y_label.background
     mput(bool2s(l.fill_mode=='on'),characterFormat,fd) // y_label.fill_mode
@@ -164,6 +167,7 @@ function save_graphichandle(h,fd)
       save_text_matrix( l.text, fd ) ;
       mput(l.font_foreground,'il',fd); // z_label.font_foreground
       mput(bool2s(l.fractional_font=='on'),characterFormat,fd) // z_label.fractional_font
+      mput(bool2s(l.antialiased_font=='on'),characterFormat,fd) // z_label.antialiased_font
       mput(l.foreground,'il',fd) // z_label.foreground
       mput(l.background,'il',fd) // z_label.background
       mput(bool2s(l.fill_mode=='on'),characterFormat,fd) // z_label.fill_mode
@@ -210,6 +214,7 @@ function save_graphichandle(h,fd)
     mput(h.font_size,characterFormat,fd) //font_size
     mput(h.font_color,'il',fd) // font_color
     mput(bool2s(h.fractional_font=='on'),characterFormat,fd) // fractional_font
+    mput(bool2s(h.antialiased_font=='on'),characterFormat,fd) // antialiased_font
     mput(bool2s(h.isoview=='on'),characterFormat,fd)    // isoview
     mput(bool2s(h.cube_scaling=='on'),characterFormat,fd) // cube_scaling
     mput(h.rotation_angles,'dl',fd) // rotation_angles
@@ -533,6 +538,7 @@ function save_graphichandle(h,fd)
     mput(h.font_size,characterFormat,fd) // font_size
     mput(h.font_color,'il',fd) // font_color
     mput(bool2s(h.fractional_font=='on'),characterFormat,fd) // fractional_font
+    mput(bool2s(h.antialiased_font=='on'),characterFormat,fd) // antialiased_font
     //replace links by a path relative to the parent axes
     links=h.links;nlegends=size(links,'*');
     mput(nlegends,characterFormat,fd)
@@ -584,6 +590,7 @@ function save_graphichandle(h,fd)
     mput(length(h.alignment),characterFormat,fd);
     mput(ascii(h.alignment),characterFormat,fd) ; // alignment
     mput(bool2s(h.fractional_font=='on'),characterFormat,fd) // fractional_font
+    mput(bool2s(h.antialiased_font=='on'),characterFormat,fd) // antialiased_font
     
     mput(length(h.clip_state),characterFormat,fd); // clip_state
     mput(ascii(h.clip_state),characterFormat,fd);
@@ -609,6 +616,7 @@ function save_graphichandle(h,fd)
     mput(h.labels_font_size,'il',fd) // label_font_size
     mput(h.labels_font_color,'il',fd) // labels_font_color
     mput(bool2s(h.fractional_font=='on'),characterFormat,fd) // fractional_font
+    mput(bool2s(h.antialiased_font=='on'),characterFormat,fd) // antialiased_font
     mput(length(h.clip_state),characterFormat,fd); // clip_state
     mput(ascii(h.clip_state),characterFormat,fd);
     if h.clip_state=='on' then

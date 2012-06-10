@@ -55,7 +55,7 @@ public class Axes extends GraphicObject {
         ZAXISVISIBLE, ZAXISREVERSE, ZAXISGRIDCOLOR, ZAXISLABEL, ZAXISLOCATION, ZAXISLOGFLAG,
         ZAXISTICKS, ZAXISAUTOTICKS, ZAXISNUMBERTICKS, ZAXISTICKSLOCATIONS, ZAXISTICKSLABELS, ZAXISSUBTICKS,
         AUTOSUBTICKS,
-        FONT_STYLE, FONT_SIZE, FONT_COLOR, FONT_FRACTIONAL,
+        FONT_STYLE, FONT_SIZE, FONT_COLOR, FONT_FRACTIONAL, FONT_ANTIALIASED,
         GRIDPOSITION, TITLE, AUTOCLEAR, FILLED, BACKGROUND,
         MARGINS, AXESBOUNDS,
         HIDDENCOLOR
@@ -297,6 +297,8 @@ public class Axes extends GraphicObject {
             return AxesProperty.FONT_COLOR;
         } else if (propertyName.equals(__GO_FONT_FRACTIONAL__)) {
             return AxesProperty.FONT_FRACTIONAL;
+        } else if (propertyName.equals(__GO_FONT_ANTIALIASED__)) {
+            return AxesProperty.FONT_ANTIALIASED;
         } else if (propertyName.equals(__GO_GRID_POSITION__)) {
             return AxesProperty.GRIDPOSITION;
         } else if (propertyName.equals(__GO_TITLE__)) {
@@ -462,6 +464,8 @@ public class Axes extends GraphicObject {
             return getFontColor();
         } else if (property == AxesProperty.FONT_FRACTIONAL) {
             return getFontFractional();
+        } else if (property == AxesProperty.FONT_ANTIALIASED) {
+            return getFontAntialiased();
         } else if (property == AxesProperty.GRIDPOSITION) {
             return getGridPosition();
         } else if (property == AxesProperty.TITLE) {
@@ -622,6 +626,8 @@ public class Axes extends GraphicObject {
             setFontColor((Integer) value);
         } else if (property == AxesProperty.FONT_FRACTIONAL) {
             setFontFractional((Boolean) value);
+        } else if (property == AxesProperty.FONT_ANTIALIASED) {
+            setFontAntialiased((Boolean) value);
         } else if (property == AxesProperty.GRIDPOSITION) {
             setGridPosition((Integer) value);
         } else if (property == AxesProperty.TITLE) {
@@ -1445,6 +1451,30 @@ public class Axes extends GraphicObject {
     public void setFontFractional(Boolean fontFractional) {
         for (int i = 0; i < axes.length; i++) {
             axes[i].setFontFractional(fontFractional);
+        }
+    }
+
+    /**
+     * Gets the ticks labels font antialiasing.
+     * It supposes all ticks labels within a single axis have the same font antialiasing value
+     * and that this value is the same for the 3 axes.
+     * To be corrected.
+     * @return the ticks labels font fractional
+     */
+    public Boolean getFontAntialiased() {
+        return axes[0].getFontAntialiased();
+    }
+
+    /**
+     * Sets the ticks labels font antialiasing.
+     * It supposes all ticks labels within a single axis have the same font antialiasing value
+     * and that this value is the same for the 3 axes.
+     * To be corrected.
+     * @param fontAntialiased the ticks labels font antialiasing to set
+     */
+    public void setFontAntialiased(Boolean fontAntialiased) {
+        for (int i = 0; i < axes.length; i++) {
+            axes[i].setFontAntialiased(fontAntialiased);
         }
     }
 
