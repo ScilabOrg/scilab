@@ -237,24 +237,25 @@ function [varValues] = %__convertHandles__(varValues)
             links=getlinksfrompath(h, %LEG.paths)
             if ~isempty(links) then
                 L = captions(links, %LEG.text)
-                L.visible         = %LEG.visible
-                L.font_style      = %LEG.font_style
-                L.font_size       = %LEG.font_size
-                L.font_color      = %LEG.font_color
-                L.fractional_font = %LEG.fractional_font
-                L.mark_mode       = 'off';
-                L.legend_location = %LEG.legend_location
-                L.position        = %LEG.position
-                L.line_mode       = %LEG.line_mode
-                L.thickness       = %LEG.thickness
-                L.foreground      = %LEG.foreground
-                L.fill_mode       = %LEG.fill_mode
-                L.background      = %LEG.background
-                if %LEG.clip_state=="on" then
+                L.visible           = %LEG.visible
+                L.font_style        = %LEG.font_style
+                L.font_size         = %LEG.font_size
+                L.font_color        = %LEG.font_color
+                L.fractional_font   = %LEG.fractional_font
+                L.antialiased_font  = %LEG.antialiased_font
+                L.mark_mode         = 'off';
+                L.legend_location   = %LEG.legend_location
+                L.position          = %LEG.position
+                L.line_mode         = %LEG.line_mode
+                L.thickness         = %LEG.thickness
+                L.foreground        = %LEG.foreground
+                L.fill_mode         = %LEG.fill_mode
+                L.background        = %LEG.background
+                if %LEG.clip_state == "on" then
                     L.clip_box      = %LEG.clip_box
                 end
-                L.clip_state      = %LEG.clip_state
-                L.user_data       = %LEG.user_data
+                L.clip_state        = %LEG.clip_state
+                L.user_data         = %LEG.user_data
             else
                 warning(msprintf(_("%s: Legend does not fit with the current context. Skipped\n"), "load"));
             end
