@@ -124,6 +124,7 @@ int cloneFontContext(char* sourceIdentifier, char* destIdentifier)
     int fontColor = 0;
     int fontStyle = 0;
     int fontFractional = 0;
+    int fontAntialiased = 0;
     int iTmp = 0;
     int *piTmp = &iTmp;
 
@@ -135,11 +136,14 @@ int cloneFontContext(char* sourceIdentifier, char* destIdentifier)
     fontSize = dblTmp;
     getGraphicObjectProperty(sourceIdentifier, __GO_FONT_FRACTIONAL__, jni_bool, &piTmp);
     fontFractional = iTmp;
+    getGraphicObjectProperty(sourceIdentifier, __GO_FONT_ANTIALIASED__, jni_bool, &piTmp);
+    fontAntialiased = iTmp;
 
     setGraphicObjectProperty(destIdentifier, __GO_FONT_COLOR__, &fontColor, jni_int, 1);
     setGraphicObjectProperty(destIdentifier, __GO_FONT_STYLE__, &fontStyle, jni_int, 1);
     setGraphicObjectProperty(destIdentifier, __GO_FONT_SIZE__, &fontSize, jni_double, 1);
     setGraphicObjectProperty(destIdentifier, __GO_FONT_FRACTIONAL__, &fontFractional, jni_bool, 1);
+    setGraphicObjectProperty(destIdentifier, __GO_FONT_ANTIALIASED__, &fontAntialiased, jni_bool, 1);
 
     return 0;
 }

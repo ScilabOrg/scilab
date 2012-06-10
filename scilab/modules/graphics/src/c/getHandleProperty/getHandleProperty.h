@@ -172,6 +172,7 @@ int get_event_handler_enable_property(char *pobjUID);
 int get_event_handler_property(char *pobjUID);
 int get_arc_drawing_method_property(char *pobjUID);
 int get_fractional_font_property(char *pobjUID);
+int get_antialiased_font_property(char *pobjUID);
 int get_links_property(char *pobjUID);
 int get_legend_location_property(char *pobjUID);
 int get_filled_property(char *pobjUID);

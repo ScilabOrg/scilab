@@ -58,7 +58,8 @@
 
 static char error_message[70];  /* DJ.A 08/01/04 */
 
-unsigned short defcolors[] = {
+unsigned short defcolors[] =
+{
     0, 0, 0,                    /* Black: DEFAULTBLACK */
     0, 0, 255,                  /* Blue */
     0, 255, 0,                  /* Green */
@@ -281,7 +282,7 @@ int sciInitGraphicContext(sciPointObj * pobj)
 
     getGraphicObjectProperty(pobj->UID, __GO_TYPE__, jni_string, &type);
 
-//  switch (sciGetEntityType (pobj))
+    //  switch (sciGetEntityType (pobj))
     {
 
         /*
@@ -465,20 +466,20 @@ int sciInitGraphicContext(sciPointObj * pobj)
         /* Deactivated for now */
         /* This must be implemented within the MVC */
 #if 0
-case SCI_ARC:
-case SCI_SEGS:
-case SCI_FEC:
-case SCI_GRAYPLOT:
-case SCI_POLYLINE:
-case SCI_RECTANGLE:
-case SCI_SURFACE:
-case SCI_AXES:
-case SCI_LEGEND:               /* Adding a graphic context to legend object F.Leray 21.01.05 */
-case SCI_TEXT:
+    case SCI_ARC:
+    case SCI_SEGS:
+    case SCI_FEC:
+    case SCI_GRAYPLOT:
+    case SCI_POLYLINE:
+    case SCI_RECTANGLE:
+    case SCI_SURFACE:
+    case SCI_AXES:
+    case SCI_LEGEND:               /* Adding a graphic context to legend object F.Leray 21.01.05 */
+    case SCI_TEXT:
         cloneGraphicContext(sciGetParent(pobj), pobj);
         return 0;
         break;
-case SCI_LABEL:                /* F.Leray 28.05.04, modif JB.Silvy 03/2006 */
+    case SCI_LABEL:                /* F.Leray 28.05.04, modif JB.Silvy 03/2006 */
         if (sciGetParent(pobj) == paxesmdl)
         {
             /* this is a label model */
@@ -491,29 +492,29 @@ case SCI_LABEL:                /* F.Leray 28.05.04, modif JB.Silvy 03/2006 */
 
             switch (pLABEL_FEATURE(pobj)->ptype)
             {
-            case 1:
-                plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_title;
-                break;
-            case 2:
-                plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_x_label;
-                break;
-            case 3:
-                plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_y_label;
-                break;
-            case 4:
-                plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_z_label;
-                break;
-            default:
-                /* arrgh */
-                return -1;
-                break;
+                case 1:
+                    plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_title;
+                    break;
+                case 2:
+                    plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_x_label;
+                    break;
+                case 3:
+                    plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_y_label;
+                    break;
+                case 4:
+                    plabelmdl = pSUBWIN_FEATURE(paxesmdl)->mon_z_label;
+                    break;
+                default:
+                    /* arrgh */
+                    return -1;
+                    break;
             }
             cloneGraphicContext(plabelmdl, pobj);
             return 0;
         }
-case SCI_AGREG:
-case SCI_UIMENU:
-default:
+    case SCI_AGREG:
+    case SCI_UIMENU:
+    default:
         return -1;
         break;
 #endif
@@ -558,20 +559,20 @@ int sciInitFontContext(sciPointObj * pobj)
 
     getGraphicObjectProperty(pobj->UID, __GO_TYPE__, jni_string, &type);
 
-//  switch (sciGetEntityType (pobj))
+    //  switch (sciGetEntityType (pobj))
 
-/* Deactivated for now */
-/* This must be implemented within the MVC */
+    /* Deactivated for now */
+    /* This must be implemented within the MVC */
 #if 0
     {
-case SCI_TEXT:
-case SCI_LEGEND:
-case SCI_AXES:
+    case SCI_TEXT:
+    case SCI_LEGEND:
+    case SCI_AXES:
         {
             initFCfromCopy(sciGetParent(pobj), pobj);
         }
         break;
-case SCI_LABEL:                /* Re-init here must be better F.Leray 28.05.04 */
+    case SCI_LABEL:                /* Re-init here must be better F.Leray 28.05.04 */
         if (sciGetParent(pobj) == paxesmdl)
         {
             initFCfromCopy(sciGetParent(pobj), pobj);
@@ -615,6 +616,7 @@ case SCI_LABEL:                /* Re-init here must be better F.Leray 28.05.04 *
                 int fontColor = -1;
                 double fontSize = 1.0;
                 int fontFractional = 0;
+                int fontAntialiased = 1;
 
                 /* 6: Helvetica */
                 int fontStyle = 6;
@@ -622,6 +624,7 @@ case SCI_LABEL:                /* Re-init here must be better F.Leray 28.05.04 *
                 setGraphicObjectProperty(pobj->UID, __GO_FONT_COLOR__, &fontColor, jni_int, 1);
                 setGraphicObjectProperty(pobj->UID, __GO_FONT_SIZE__, &fontSize, jni_double, 1);
                 setGraphicObjectProperty(pobj->UID, __GO_FONT_FRACTIONAL__, &fontFractional, jni_bool, 1);
+                setGraphicObjectProperty(pobj->UID, __GO_FONT_ANTIALIASED__, &fontAntialiased, jni_bool, 1);
                 setGraphicObjectProperty(pobj->UID, __GO_FONT_STYLE__, &fontStyle, jni_int, 1);
 
                 /* Deactivated for now since it causes a crash */
@@ -685,16 +688,16 @@ case SCI_LABEL:                /* Re-init here must be better F.Leray 28.05.04 *
 
         /* Deactivated for now */
 #if 0
-case SCI_ARC:
-case SCI_SEGS:
-case SCI_FEC:
-case SCI_GRAYPLOT:
-case SCI_POLYLINE:
-case SCI_RECTANGLE:
-case SCI_SURFACE:
-case SCI_AGREG:
-case SCI_UIMENU:
-default:
+    case SCI_ARC:
+    case SCI_SEGS:
+    case SCI_FEC:
+    case SCI_GRAYPLOT:
+    case SCI_POLYLINE:
+    case SCI_RECTANGLE:
+    case SCI_SURFACE:
+    case SCI_AGREG:
+    case SCI_UIMENU:
+    default:
         return -1;
         break;
     }
@@ -773,9 +776,9 @@ int InitAxesModel()
 #endif
 
     /* These functions have been adapted to the MVC framework */
-//  sciInitGraphicContext (paxesmdl);
-//  sciInitGraphicMode (paxesmdl);
-//  sciInitFontContext (paxesmdl);  /* F.Leray 10.06.04 */
+    //  sciInitGraphicContext (paxesmdl);
+    //  sciInitGraphicMode (paxesmdl);
+    //  sciInitFontContext (paxesmdl);  /* F.Leray 10.06.04 */
 
     char *labelUID = NULL;
 
@@ -1053,7 +1056,7 @@ int sciInitGraphicMode(char *pobjUID)
 
     getGraphicObjectProperty(pobjUID, __GO_TYPE__, jni_string, &type);
 
-//  switch (sciGetEntityType (pobj))
+    //  switch (sciGetEntityType (pobj))
 
     /*
      * The GO_FIGURE block is never reached as InitFigureModel

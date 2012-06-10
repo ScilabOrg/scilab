@@ -325,6 +325,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
             if is_higher_than([4 1 2 0]) then
                 totalSize = seekInt(fd, totalSize); // font_foreground
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
             end
 
             totalSize = seekInt(fd, totalSize); // foreground
@@ -355,6 +358,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
             if is_higher_than([4 1 2 0]) then
                 totalSize = seekInt(fd, totalSize); // font_foreground
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
             end
 
             totalSize = seekInt(fd, totalSize); // foreground
@@ -385,6 +391,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
             if is_higher_than([4 1 2 0]) then
                 totalSize = seekInt(fd, totalSize); // font_foreground
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
             end
 
             totalSize = seekInt(fd, totalSize); // foreground
@@ -416,6 +425,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
                 if is_higher_than([4 1 2 0]) then
                     totalSize = seekInt(fd, totalSize); // font_foreground
                     totalSize = seekBool(fd, totalSize); // fractional_font
+                    if is_higher_than([5 3 3 0]) then
+                        totalSize = seekBool(fd, totalSize); // antialiased_font
+                    end
                 end
 
                 totalSize = seekInt(fd, totalSize); // foreground
@@ -489,6 +501,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
 
             if is_higher_than([4 1 2 0]) then
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
             end
 
             totalSize = seekBool(fd, totalSize); // isoview
@@ -914,6 +929,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
                 totalSize = seekBool(fd, totalSize); // font_size
                 totalSize = seekInt(fd, totalSize); // font_color
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
                 [totalSize, count] = readBool(fd, totalSize); // legends size
                 for i = 1 : count
                     totalSize = seekIntInt(fd, totalSize); // legends
@@ -981,6 +999,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
             if is_higher_than( [4 1 2 0] ) then
                 totalSize = seekString(fd, totalSize); // alignment
                 totalSize = seekBool(fd, totalSize); // fractional_font
+                if is_higher_than([5 3 3 0]) then
+                    totalSize = seekBool(fd, totalSize); // antialiased_font
+                end
             end
 
             [totalSize, state] = readString(fd, totalSize); // clip_state
@@ -1006,6 +1027,9 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
 
                 if is_higher_than( [4 1 2 0] ) then
                     totalSize = seekBool(fd, totalSize); // fractional_font
+                    if is_higher_than([5 3 3 0]) then
+                        totalSize = seekBool(fd, totalSize); // antialiased_font
+                    end
                 end
                 
                 [totalSize, state] = readString(fd, totalSize); // clip_state

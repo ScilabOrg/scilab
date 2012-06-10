@@ -171,6 +171,7 @@ int set_event_handler_enable_property(char *pobj, size_t stackPointer, int value
 int set_event_handler_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
 int set_arc_drawing_method_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
 int set_fractional_font_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
+int set_antialiased_font_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
 int set_links_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
 int set_legend_location_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);
 int set_filled_property(char *pobj, size_t stackPointer, int valueType, int nbRow, int nbCol);

@@ -236,6 +236,7 @@ public class GraphicObjectProperties {
     public static final String __GO_FONT_SIZE__ =              "FontSize";
     public static final String __GO_FONT_COLOR__ =             "FontColor";
     public static final String __GO_FONT_FRACTIONAL__ =        "FontFractional";
+    public static final String __GO_FONT_ANTIALIASED__ =       "FontAntialiased";
 
     public static final String __GO_Z_BOUNDS__ =               "ZBounds";
     public static final String __GO_OUTSIDE_COLOR__ =          "OutsideColor";
