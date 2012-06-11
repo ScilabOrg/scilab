@@ -20,7 +20,6 @@
 #include "core_math.h"
 #include "elementary_functions.h"
 
-#include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 #include "createGraphicObject.h"
@@ -239,8 +238,12 @@ static void freeScoData(scicos_block * block)
 
     if (sco != NULL)
     {
-        FREE(sco);
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedFigureUID);
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedAxeUID);
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedPlot3dUID);
     }
+
+    FREE(sco);
 }
 
 static BOOL pushData(scicos_block * block, double *data)

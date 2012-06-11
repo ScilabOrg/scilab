@@ -21,7 +21,6 @@
 #include "MALLOC.h"
 #include "elementary_functions.h"
 
-#include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 #include "createGraphicObject.h"
@@ -281,18 +280,13 @@ static void freeScoData(scicos_block * block)
         FREE(sco->internal.data);
         FREE(sco->internal.ballsSize);
 
-        //      Commented due to the C++ allocation
-        //      see http://bugzilla.scilab.org/show_bug.cgi?id=9747
-        //      FREE(sco->scope.cachedFigureUID);
-        //      sco->scope.cachedFigureUID = NULL;
-        //      for (i=0; i<block->nin; i++) {
-        //          for (j=0; j<block->insz[i]; j++) {
-        //              FREE(sco->scope.cachedArcsUIDs[i][j]);
-        //              sco->scope.cachedArcsUIDs[i][j] = NULL;
-        //          }
-        //          FREE(sco->scope.cachedAxeUID[i]);
-        //          sco->scope.cachedAxeUID[i] = NULL;
-        //      }
+
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedFigureUID);
+        for (i = 0; i < block->insz[0]; i++)
+        {
+            releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedArcsUIDs[i]);
+        }
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedAxeUID);
 
         FREE(sco);
     }

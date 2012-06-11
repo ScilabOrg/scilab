@@ -24,4 +24,11 @@
 */
 GRAPHIC_OBJECTS_IMPEXP void getGraphicObjectProperty(char const* _pstID, char const* _pstName, enum _ReturnType_ _returnType, void **_pvData);
 
+/**
+ * Release a Graphic object property from the Model.
+ *
+ * Data are free/delete if they are passed by copy.
+ */
+GRAPHIC_OBJECTS_IMPEXP void releaseGraphicObjectProperty(char const* _pstName, enum _ReturnType_ _returnType, void *_pvData);
+
 #endif /* !__GETGRAPHICOBJECTPROPERTY_H__ */

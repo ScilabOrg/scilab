@@ -44,7 +44,6 @@ char *findChildWithKindAt(char *parent, const char *type, const int position)
     int typeCount;
 
     int *pChildrenCount = &childrenCount;
-
     getGraphicObjectProperty(parent, __GO_CHILDREN_COUNT__, jni_int, (void **)&pChildrenCount);
     getGraphicObjectProperty(parent, __GO_CHILDREN__, jni_string_vector, (void **)&children);
 
@@ -56,9 +55,8 @@ char *findChildWithKindAt(char *parent, const char *type, const int position)
         {
             typeCount++;
         }
-        //      Commented due to the C++ allocation
-        //      see http://bugzilla.scilab.org/show_bug.cgi?id=9747
-        //      FREE(childType);
+
+        releaseGraphicObjectProperty(__GO_TYPE__, jni_string, childType);
 
         if (typeCount == (position + 1))
         {
@@ -68,12 +66,8 @@ char *findChildWithKindAt(char *parent, const char *type, const int position)
         }
     }
 
-    //  Commented due to the C++ allocation
-    //  see http://bugzilla.scilab.org/show_bug.cgi?id=9747
-    //  for (; i>=0; i--) {
-    //      FREE(children[i]);
-    //  }
-    //  FREE(children);
+    releaseGraphicObjectProperty(__GO_CHILDREN__, jni_string_vector, children);
+    releaseGraphicObjectProperty(__GO_CHILDREN_COUNT__, jni_int, childrenCount);
 
     return child;
 };
@@ -102,9 +96,7 @@ BOOL setLabel(char *pAxeUID, const char *_pstName, const char *label)
     }
 
     FREE(rwLabel);
-    //  Commented due to the C++ allocation
-    //  see http://bugzilla.scilab.org/show_bug.cgi?id=9747
-    //  FREE(pLabelUID);
+    releaseGraphicObjectProperty(_pstName, jni_string, pLabelUID);
 
     return result && pLabelUID != NULL;
 }

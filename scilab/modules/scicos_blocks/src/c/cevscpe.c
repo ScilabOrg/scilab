@@ -17,7 +17,6 @@
 #include "elementary_functions.h"
 #include "string.h"
 
-#include "getGraphicObjectProperty.h"
 #include "setGraphicObjectProperty.h"
 #include "graphicObjectProperties.h"
 #include "createGraphicObject.h"
@@ -338,18 +337,12 @@ static void freeScoData(scicos_block * block)
         FREE(sco->internal.maxNumberOfPoints);
         FREE(sco->internal.numberOfPoints);
 
-        //      Commented due to the C++ allocation
-        //      see http://bugzilla.scilab.org/show_bug.cgi?id=9747
-        //      FREE(sco->scope.cachedFigureUID);
-        //      FREE(sco->scope.cachedAxeUID);
-        //      sco->scope.cachedFigureUID = NULL;
-        //      for (i=0; i<nclk; i++) {
-        //              FREE(sco->scope.cachedPolylinesUIDs[i]);
-        //              sco->scope.cachedPolylinesUIDs[i] = NULL;
-        //      }
-        //      sco->scope.cachedAxeUID = NULL;
-
-        FREE(sco->scope.cachedSegsUIDs);
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedFigureUID);
+        for (i = 0; i < nclk; i++)
+        {
+            releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedSegsUIDs[i]);
+        }
+        releaseGraphicObjectProperty(__GO_PARENT__, jni_string, sco->scope.cachedAxeUID);
 
         FREE(sco);
     }
