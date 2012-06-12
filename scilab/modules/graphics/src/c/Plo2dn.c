@@ -4,6 +4,7 @@
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2010-2011 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
+ * Copyright (C) 2012 - Scilab Enterprises - Cedric Delamarre
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -45,6 +46,8 @@
 #include "CurrentFigure.h"
 #include "CurrentSubwin.h"
 #include "CurrentObject.h"
+
+#include "getPropertyAssignedValue.h"
 
 /*--------------------------------------------------------------------
  *  plot2dn(ptype,Logflags,x,y,n1,n2,style,strflag,legend,brect,aaint,lstr1,lstr2)
@@ -283,11 +286,81 @@ int plot2dn(int ptype, char *logflags, double *x, double *y, int *n1, int *n2, i
 
         if (logFlags[0] == 0 && logFlags[1] == 0)
         {
-            int autoTicks;
+            int autoTicks = 0;
+            int i = 0;
 
-            autoTicks = 0;
             setGraphicObjectProperty(psubwinUID, __GO_X_AXIS_AUTO_TICKS__, &autoTicks, jni_bool, 1);
             setGraphicObjectProperty(psubwinUID, __GO_Y_AXIS_AUTO_TICKS__, &autoTicks, jni_bool, 1);
+
+            double* dXGrads = malloc(aaint[1] * sizeof(double));
+            double* dYGrads = malloc(aaint[3] * sizeof(double));
+
+            // Compute X grads
+            dXGrads[0] = brect[0];
+            if(aaint[1] > 1)
+            {
+                double pas = (brect[2] - brect[0]) / (aaint[1] - 1);
+                for(i = 0; i < aaint[1]; i++)
+                {
+                    dXGrads[i] = brect[0] + pas * i;
+                }
+            }
+
+            setGraphicObjectProperty(psubwinUID, __GO_X_AXIS_TICKS_LOCATIONS__, dXGrads, jni_double_vector, aaint[1]);
+
+            // Compute Y grads
+            dYGrads[0] = brect[1];
+            if(aaint[3] > 1)
+            {
+                double pas = (brect[3] - brect[1]) / (aaint[3] - 1);
+                for(i = 0; i < aaint[3]; i++)
+                {
+                    dYGrads[i] = brect[1] + pas * i;
+                }
+            }
+
+            setGraphicObjectProperty(psubwinUID, __GO_Y_AXIS_TICKS_LOCATIONS__, dYGrads, jni_double_vector, aaint[3]);
+
+            // Create X Labels
+            char** stringVector = malloc(aaint[1] * sizeof(char*));
+            for (i = 0; i < aaint[1]; i++)
+            {
+                stringVector[i] = malloc(5 * sizeof(char)); // size of "%.3f" => 5*sizeof(char)
+                sprintf(stringVector[i], "%.3f", dXGrads[i]);
+            }
+
+            setGraphicObjectProperty(psubwinUID, __GO_X_AXIS_TICKS_LABELS__, stringVector, jni_string_vector, aaint[1]);
+
+            for (i = 0; i < aaint[1]; i++)
+            {
+                free(stringVector[i]);
+            }
+
+            free(stringVector);
+            stringVector = NULL;
+
+            // Create Y Labels
+            stringVector = malloc(aaint[3] * sizeof(char*));
+            for (i = 0; i < aaint[3]; i++)
+            {
+                stringVector[i] = malloc(5 * sizeof(char)); // size of "%.3f" => 5*sizeof(char)
+                sprintf(stringVector[i], "%.3f", dYGrads[i]);
+            }
+
+            setGraphicObjectProperty(psubwinUID, __GO_Y_AXIS_TICKS_LABELS__, stringVector, jni_string_vector, aaint[3]);
+
+            for (i = 0; i < aaint[3]; i++)
+            {
+                free(stringVector[i]);
+            }
+
+            free(stringVector);
+            free(dXGrads);
+            free(dYGrads);
+
+            // X and Y subticks
+            setGraphicObjectProperty(psubwinUID, __GO_X_AXIS_SUBTICKS__, aaint, jni_int, 1);
+            setGraphicObjectProperty(psubwinUID, __GO_Y_AXIS_SUBTICKS__, &aaint[2], jni_int, 1);
 
             /*
              * Creates user-defined ticks using the Nax values
