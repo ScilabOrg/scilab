@@ -31,6 +31,8 @@ Graphic capabilities
 
 * Bug #4818 fixed - Scilab could not export graphics with a lot of information.
 
+* Bug #6582 fixed - handle copy did not keep foreground property.
+
 * Bug #8241 fixed - Graphical properties were not always inherit.
 
 * Bug #8250, #10567, #10614 fixed - Drop artefacts on the
