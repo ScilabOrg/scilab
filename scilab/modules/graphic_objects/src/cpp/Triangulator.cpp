@@ -139,7 +139,8 @@ void Triangulator::removeColinearVertices(void)
 
         dp = computeDotProduct(*vim1, *vi, *vip1);
 
-        if (fabs(dp) < TOLERANCE)
+        if ((!compareVertices(points[*vim1], points[*vi]) && !compareVertices(points[*vi], points[*vip1])) &&
+            fabs(dp) < TOLERANCE)
         {
             numColinear++;
         }
@@ -650,11 +651,13 @@ void Triangulator::triangulate(void)
     {
         int v0 = 0, v1 = 0, v2 = 0;
         int v0actual = 0, v1actual = 0, v2actual = 0;
+        int vertexIndex = 0;
 
         it = earList.begin();
 
         /* If not found, we should break out of the loop. To be checked. */
         vertex = find(vertexIndices.begin(), vertexIndices.end(), *it);
+        vertexIndex = *vertex;
 
         getAdjacentVertices(vertex, pred, succ);
 
@@ -667,8 +670,7 @@ void Triangulator::triangulate(void)
 
         triIndex = *pred;
         v0 = triIndex;
-        triIndex = *vertex;
-        v1 = triIndex;
+        v1 = vertexIndex;
         triIndex = *succ;
         v2 = triIndex;
 
