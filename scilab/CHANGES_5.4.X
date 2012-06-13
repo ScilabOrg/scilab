@@ -21,6 +21,12 @@ Javasci
 * Javasci version 1 removed (deprecated in Scilab 5.3.0).
 
 
+Unitary tests
+=============
+
+* A fourth argument added to test_run to export test results to XUnit format.
+
+
 Bug Fixes
 =========
 
