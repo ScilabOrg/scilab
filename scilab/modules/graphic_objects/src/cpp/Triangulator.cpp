@@ -139,7 +139,8 @@ void Triangulator::removeColinearVertices(void)
 
         dp = computeDotProduct(*vim1, *vi, *vip1);
 
-        if (fabs(dp) < TOLERANCE)
+        if ((!compareVertices(points[*vim1], points[*vi]) && !compareVertices(points[*vi], points[*vip1])) &&
+            fabs(dp) < TOLERANCE)
         {
             numColinear++;
         }
