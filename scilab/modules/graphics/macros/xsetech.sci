@@ -54,7 +54,20 @@ function []=xsetech(wrect, frect, logflag, arect)
         end
     end
 
-    a = newaxes();
+    // Check if an existing axes matches wrect
+    curFig = gcf();
+    allAxes = curFig.children;
+    found = %F;
+    for kAxes = 1:size(allAxes, "*")
+        if and(allAxes(kAxes).axes_bounds(:)==wrect(:)) then
+            sca(allAxes(kAxes));
+            break;
+        end
+    end
+
+    if ~found then
+        a = newaxes();
+    end
     a.axes_bounds = wrect;
     a.data_bounds = frect;
     a.log_flags = logflag;
