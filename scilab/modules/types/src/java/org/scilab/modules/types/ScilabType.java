@@ -53,6 +53,11 @@ public interface ScilabType extends Externalizable, Cloneable {
     boolean isEmpty();
 
     /**
+     * Check if the variable is a reference on a Scilab variable
+     */
+    boolean isReference();
+
+    /**
      * Get the variable name or null if it has not a name
      *
      * @return the name

@@ -60,6 +60,7 @@ public class testReadWrite {
         assertTrue(aFromScilab.equals(aOriginal));
     }
 
+    @Test()
     public void putAndGetDoubleTest() throws NullPointerException, JavasciException {
         double [][]a = {{21.2, 22.0, 42.0, 39.0}, {23.2, 24.0, 44.0, 40.0}};
         ScilabDouble aOriginal = new ScilabDouble(a);
@@ -82,7 +83,6 @@ public class testReadWrite {
         ScilabDouble aFromScilab = (ScilabDouble)sci.get("a");
         assertTrue(aFromScilab.equals(aOriginal));
     }
-
 
     @Test()
     public void putAndGetBooleanTest() throws NullPointerException, JavasciException {

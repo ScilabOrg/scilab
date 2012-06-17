@@ -15,6 +15,7 @@ package org.scilab.modules.types;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +37,10 @@ public class ScilabBooleanSparse implements ScilabType {
 
     private static final int VERSION = 0;
 
+    private IntBuffer nbItemBuffer;
+    private IntBuffer colPosBuffer;
+    private final boolean byref;
+
     private int rows;
     private int cols;
     private int nbItem;
@@ -47,6 +52,7 @@ public class ScilabBooleanSparse implements ScilabType {
      * Default constructor
      */
     public ScilabBooleanSparse() {
+        this.byref = false;
     }
 
     /**
@@ -62,6 +68,7 @@ public class ScilabBooleanSparse implements ScilabType {
             nbItemRow = new int[] { 1 };
             colPos = new int[] { 0 };
         }
+        this.byref = false;
     }
 
     /**
@@ -107,6 +114,7 @@ public class ScilabBooleanSparse implements ScilabType {
         this.nbItem = nbItem;
         this.nbItemRow = nbItemRow;
         this.colPos = colPos;
+        this.byref = false;
     }
 
     /**
@@ -138,6 +146,7 @@ public class ScilabBooleanSparse implements ScilabType {
                 colPos[i++] = c;
             }
         }
+        this.byref = false;
     }
 
     /**
@@ -162,6 +171,36 @@ public class ScilabBooleanSparse implements ScilabType {
     }
 
     /**
+     * Constructor
+     *
+     * @param varName
+     *            the variable name
+     * @param rows
+     *            the number of rows
+     * @param cols
+     *            the number of cols
+     * @param nbItem
+     *            the number of true items
+     * @param nbItemRow
+     *            contains the number of true in each rows
+     * @param colPos
+     *            the column position of each true
+     */
+    public ScilabBooleanSparse(String varName, int rows, int cols, int nbItem, IntBuffer nbItemRow, IntBuffer colPos) {
+        this.varName = varName;
+        this.rows = rows;
+        this.cols = cols;
+        this.nbItem = nbItem;
+        this.nbItemBuffer = nbItemRow;
+        this.colPosBuffer = colPos;
+        this.byref = true;
+    }
+
+    public final boolean isReference() {
+        return byref;
+    }
+
+    /**
      * Return the type of Scilab
      *
      * @return the type of Scilab
@@ -180,6 +219,38 @@ public class ScilabBooleanSparse implements ScilabType {
     @Override
     public boolean isEmpty() {
         return rows == 0 && cols == 0;
+    }
+
+    public final int getColPosElement(final int i) {
+        if (byref) {
+            return colPosBuffer.get(i);
+        } else {
+            return colPos[i];
+        }
+    }
+
+    public final void setColPosElement(final int i, final int x) {
+        if (byref) {
+            colPosBuffer.put(i, x);
+        } else {
+            colPos[i] = x;
+        }
+    }
+
+    public final int getNbItemElement(final int i) {
+        if (byref) {
+            return nbItemBuffer.get(i);
+        } else {
+            return nbItemRow[i];
+        }
+    }
+
+    public final void setNbItemElement(final int i, final int x) {
+        if (byref) {
+            nbItemBuffer.put(i, x);
+        } else {
+            nbItemRow[i] = x;
+        }
     }
 
     /**
@@ -207,7 +278,14 @@ public class ScilabBooleanSparse implements ScilabType {
      * @return the real part.
      */
     public int[] getNbItemRow() {
-        return nbItemRow;
+        if (byref) {
+            int[] i = new int[nbItemBuffer.capacity()];
+            nbItemBuffer.clear();
+            nbItemBuffer.get(i);
+            return i;
+        } else {
+            return nbItemRow;
+        }
     }
 
     /**
@@ -217,7 +295,29 @@ public class ScilabBooleanSparse implements ScilabType {
      *            the real part.
      */
     public void setNbItemRow(int[] nbItemRow) {
-        this.nbItemRow = nbItemRow;
+        if (byref) {
+            nbItemBuffer.clear();
+            nbItemBuffer.put(nbItemRow);
+        } else {
+            this.nbItemRow = nbItemRow;
+        }
+    }
+
+    public int[] getScilabColPos() {
+        int[] cp = new int[colPos.length];
+        if (byref) {
+            colPosBuffer.clear();
+            colPosBuffer.get(cp);
+            for (int i = 0; i < colPos.length; i++) {
+                cp[i]++;
+            }
+        } else {
+            for (int i = 0; i < colPos.length; i++) {
+                cp[i] = colPos[i] + 1;
+            }
+        }
+
+        return cp;
     }
 
     /**
@@ -225,31 +325,30 @@ public class ScilabBooleanSparse implements ScilabType {
      *
      * @return an integer array.
      */
-    public int[] getScilabColPos() {
-        int[] cp = new int[colPos.length];
-        for (int i = 0; i < colPos.length; i++) {
-            cp[i] = colPos[i] + 1;
-        }
-        return cp;
-    }
-
-    /**
-     * Get the real part of the data.
-     *
-     * @return the real part.
-     */
     public int[] getColPos() {
-        return colPos;
+        if (byref) {
+            int[] i = new int[colPosBuffer.capacity()];
+            colPosBuffer.clear();
+            colPosBuffer.get(i);
+            return i;
+        } else {
+            return colPos;
+        }
     }
 
     /**
-     * Set the real part of the data.
+     * Set the column positions of the non null items.
      *
      * @param colPos
-     *            the real part.
+     *            an integer array.
      */
     public void setColPos(int[] colPos) {
-        this.colPos = colPos;
+        if (byref) {
+            colPosBuffer.clear();
+            colPosBuffer.put(colPos);
+        } else {
+            this.colPos = colPos;
+        }
     }
 
     /**
@@ -275,11 +374,21 @@ public class ScilabBooleanSparse implements ScilabType {
         int prev = 0;
         int j = 0;
         boolean[][] b = new boolean[rows][cols];
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
-                b[i][colPos[j]] = true;
+        if (byref) {
+            for (int i = 0; i < nbItemBuffer.capacity(); i++) {
+                final int n = nbItemBuffer.get(i);
+                for (; j < prev + n; j++) {
+                    b[i][colPosBuffer.get(j)] = true;
+                }
+                prev += n;
             }
-            prev += nbItemRow[i];
+        } else {
+            for (int i = 0; i < nbItemRow.length; i++) {
+                for (; j < prev + nbItemRow[i]; j++) {
+                    b[i][colPos[j]] = true;
+                }
+                prev += nbItemRow[i];
+            }
         }
 
         return b;
@@ -320,18 +429,44 @@ public class ScilabBooleanSparse implements ScilabType {
     public boolean equals(Object obj) {
         if (obj instanceof ScilabBooleanSparse) {
             ScilabBooleanSparse sciSparse = (ScilabBooleanSparse) obj;
-            return this.getNbNonNullItems() == sciSparse.getNbNonNullItems() && ScilabSparse.compareNbItemRow(this.getNbItemRow(), sciSparse.getNbItemRow())
-                   && Arrays.equals(this.getColPos(), sciSparse.getColPos());
-        } else {
-            return false;
+            if (this.getNbNonNullItems() == sciSparse.getNbNonNullItems()) {
+                if (byref && sciSparse.byref) {
+                    nbItemBuffer.clear();
+                    sciSparse.nbItemBuffer.clear();
+                    if (!nbItemBuffer.equals(sciSparse.nbItemBuffer)) {
+                        return false;
+                    }
+                    colPosBuffer.clear();
+                    sciSparse.colPosBuffer.clear();
+                    if (!colPosBuffer.equals(sciSparse.colPosBuffer)) {
+                        return false;
+                    }
+                } else if (!byref && !sciSparse.byref) {
+                    if (!ScilabSparse.compareNbItemRow(this.nbItemRow, sciSparse.nbItemRow) || !Arrays.equals(this.colPos, sciSparse.colPos)) {
+                        return false;
+                    }
+                } else if (byref && !sciSparse.byref) {
+                    if (!ScilabSparse.compareNbItemRow(sciSparse.nbItemRow, this.nbItemBuffer) || !ScilabSparse.equals(this.colPosBuffer, sciSparse.getScilabColPos())) {
+                        return false;
+                    }
+                } else {
+                    if (!ScilabSparse.compareNbItemRow(this.nbItemRow, sciSparse.nbItemBuffer) || !ScilabSparse.equals(sciSparse.colPosBuffer, this.getScilabColPos())) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
         }
+
+        return false;
     }
 
     /**
      * {@inheritDoc}
      */
     public Object getSerializedObject() {
-        return new Object[] { new int[] { rows, cols }, nbItemRow, getScilabColPos() };
+        return new Object[] { new int[] { rows, cols }, getNbItemRow(), getScilabColPos() };
     }
 
     @Override
@@ -381,16 +516,18 @@ public class ScilabBooleanSparse implements ScilabType {
         result.append("sparse([");
         int j = 0;
         int prev = 0;
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
+        final int len = byref ? nbItemBuffer.capacity() : nbItemRow.length;
+        for (int i = 0; i < len; i++) {
+            final int n = getNbItemElement(i);
+            for (; j < prev + n; j++) {
                 result.append(Integer.toString(i + 1));
                 result.append(", ");
-                result.append(Integer.toString(colPos[j] + 1));
+                result.append(Integer.toString(getColPosElement(j) + 1));
                 if (j < nbItem - 1) {
                     result.append(" ; ");
                 }
             }
-            prev += nbItemRow[i];
+            prev += n;
         }
 
         result.append("], [");

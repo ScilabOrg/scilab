@@ -16,6 +16,10 @@ package org.scilab.modules.types;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.LongBuffer;
+import java.nio.ShortBuffer;
 import java.util.Arrays;
 
 /**
@@ -39,10 +43,18 @@ public class ScilabInteger implements ScilabType {
 
     private static final int VERSION = 0;
 
-    private long[][] longData = null;
-    private short[][] shortData = null;
-    private int[][] intData = null;
-    private byte[][] byteData = null;
+    private LongBuffer longBuffer;
+    private IntBuffer intBuffer;
+    private ShortBuffer shortBuffer;
+    private ByteBuffer byteBuffer;
+    private final boolean byref;
+    private final int nbRows;
+    private final int nbCols;
+
+    private long[][] longData;
+    private short[][] shortData;
+    private int[][] intData;
+    private byte[][] byteData;
     private ScilabIntegerTypeEnum precision;
     private String varName;
     private boolean swaped;
@@ -51,7 +63,9 @@ public class ScilabInteger implements ScilabType {
      * Default constructor
      */
     public ScilabInteger() {
-
+        byref = false;
+        nbRows = 0;
+        nbCols = 0;
     }
 
     /**
@@ -64,6 +78,9 @@ public class ScilabInteger implements ScilabType {
      */
     public ScilabInteger(byte[][] data, boolean bUnsigned) {
         this.setData(data, bUnsigned);
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -76,6 +93,9 @@ public class ScilabInteger implements ScilabType {
      */
     public ScilabInteger(short[][] data, boolean bUnsigned) {
         this.setData(data, bUnsigned);
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -88,6 +108,9 @@ public class ScilabInteger implements ScilabType {
      */
     public ScilabInteger(int[][] data, boolean bUnsigned) {
         this.setData(data, bUnsigned);
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -100,6 +123,9 @@ public class ScilabInteger implements ScilabType {
      */
     public ScilabInteger(long[][] data, boolean bUnsigned) {
         this.setData(data, bUnsigned);
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -114,6 +140,9 @@ public class ScilabInteger implements ScilabType {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -128,6 +157,9 @@ public class ScilabInteger implements ScilabType {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -142,6 +174,9 @@ public class ScilabInteger implements ScilabType {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -156,6 +191,81 @@ public class ScilabInteger implements ScilabType {
         this.setData(data, bUnsigned);
         this.varName = varName;
         this.swaped = swaped;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
+    }
+
+    /**
+     * Constructor with values
+     *
+     * @param data
+     *            the values
+     * @param bUnsigned
+     *            true, if the values are unsigned; false if they are signed.
+     */
+    ScilabInteger(String varName, ByteBuffer data, int nbRows, int nbCols, boolean bUnsigned) {
+        this.varName = varName;
+        this.byteBuffer = data;
+        this.nbRows = nbRows;
+        this.nbCols = nbCols;
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint8 : ScilabIntegerTypeEnum.sci_int8;
+        this.byref = true;
+        this.swaped = false;
+    }
+
+    /**
+     * Constructor with values
+     *
+     * @param data
+     *            the values
+     * @param bUnsigned
+     *            true, if the values are unsigned; false if they are signed.
+     */
+    ScilabInteger(String varName, ShortBuffer data, int nbRows, int nbCols, boolean bUnsigned) {
+        this.varName = varName;
+        this.shortBuffer = data;
+        this.nbRows = nbRows;
+        this.nbCols = nbCols;
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint16 : ScilabIntegerTypeEnum.sci_int16;
+        this.byref = true;
+        this.swaped = false;
+    }
+
+    /**
+     * Constructor with values
+     *
+     * @param data
+     *            the values
+     * @param bUnsigned
+     *            true, if the values are unsigned; false if they are signed.
+     */
+    ScilabInteger(String varName, IntBuffer data, int nbRows, int nbCols, boolean bUnsigned) {
+        this.varName = varName;
+        this.intBuffer = data;
+        this.nbRows = nbRows;
+        this.nbCols = nbCols;
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint32 : ScilabIntegerTypeEnum.sci_int32;
+        this.byref = true;
+        this.swaped = false;
+    }
+
+    /**
+     * Constructor with values
+     *
+     * @param data
+     *            the values
+     * @param bUnsigned
+     *            true, if the values are unsigned; false if they are signed.
+     */
+    ScilabInteger(String varName, LongBuffer data, int nbRows, int nbCols, boolean bUnsigned) {
+        this.varName = varName;
+        this.longBuffer = data;
+        this.nbRows = nbRows;
+        this.nbCols = nbCols;
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint64 : ScilabIntegerTypeEnum.sci_int64;
+        this.byref = true;
+        this.swaped = false;
     }
 
     /**
@@ -168,6 +278,9 @@ public class ScilabInteger implements ScilabType {
         this.byteData = new byte[1][1];
         this.byteData[0][0] = value;
         this.precision = ScilabIntegerTypeEnum.sci_int8;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -180,6 +293,9 @@ public class ScilabInteger implements ScilabType {
         this.shortData = new short[1][1];
         this.shortData[0][0] = value;
         this.precision = ScilabIntegerTypeEnum.sci_int16;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -192,6 +308,9 @@ public class ScilabInteger implements ScilabType {
         this.intData = new int[1][1];
         this.intData[0][0] = value;
         this.precision = ScilabIntegerTypeEnum.sci_int32;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
     }
 
     /**
@@ -204,6 +323,160 @@ public class ScilabInteger implements ScilabType {
         this.longData = new long[1][1];
         this.longData[0][0] = value;
         this.precision = ScilabIntegerTypeEnum.sci_int64;
+        this.byref = false;
+        this.nbRows = 0;
+        this.nbCols = 0;
+    }
+
+    /**
+     * Constructor with single signed value
+     *
+     * @param value
+     *            the unique value
+     */
+    public ScilabInteger(byte value, boolean bUnsigned) {
+        this(value);
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint8 : ScilabIntegerTypeEnum.sci_int8;
+    }
+
+    /**
+     * Constructor with single signed value
+     *
+     * @param value
+     *            the unique value
+     */
+    public ScilabInteger(short value, boolean bUnsigned) {
+        this(value);
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint16 : ScilabIntegerTypeEnum.sci_int16;
+    }
+
+    /**
+     * Constructor with single signed value
+     *
+     * @param value
+     *            the unique value
+     */
+    public ScilabInteger(int value, boolean bUnsigned) {
+        this(value);
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint32 : ScilabIntegerTypeEnum.sci_int32;
+    }
+
+    /**
+     * Constructor with single signed value
+     *
+     * @param value
+     *            the unique value
+     */
+    public ScilabInteger(long value, boolean bUnsigned) {
+        this(value);
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint64 : ScilabIntegerTypeEnum.sci_int64;
+    }
+
+    public final boolean isReference() {
+        return byref;
+    }
+
+    public final byte getByteElement(final int i, final int j) {
+        if (byref) {
+            return byteBuffer.get(i + nbRows * j);
+        } else {
+            return byteData[i][j];
+        }
+    }
+
+    public final short getShortElement(final int i, final int j) {
+        if (byref) {
+            return shortBuffer.get(i + nbRows * j);
+        } else {
+            return shortData[i][j];
+        }
+    }
+
+    public final int getIntElement(final int i, final int j) {
+        if (byref) {
+            return intBuffer.get(i + nbRows * j);
+        } else {
+            return intData[i][j];
+        }
+    }
+
+    public final long getLongElement(final int i, final int j) {
+        if (byref) {
+            return longBuffer.get(i + nbRows * j);
+        } else {
+            return longData[i][j];
+        }
+    }
+
+    public final long getElement(final int i, final int j) {
+        switch (this.getPrec()) {
+            case sci_int8:
+            case sci_uint8:
+                return (long) getByteElement(i, j);
+            case sci_int16:
+            case sci_uint16:
+                return (long) getShortElement(i, j);
+            case sci_int32:
+            case sci_uint32:
+                return (long) getIntElement(i, j);
+            case sci_int64:
+            case sci_uint64:
+                return getLongElement(i, j);
+        }
+
+        return 0;
+    }
+
+    public final void setByteElement(final int i, final int j, final byte x) {
+        if (byref) {
+            byteBuffer.put(i + nbRows * j, x);
+        } else {
+            byteData[i][j] = x;
+        }
+    }
+
+    public final void setShortElement(final int i, final int j, final short x) {
+        if (byref) {
+            shortBuffer.put(i + nbRows * j, x);
+        } else {
+            shortData[i][j] = x;
+        }
+    }
+
+    public final void setIntElement(final int i, final int j, final int x) {
+        if (byref) {
+            intBuffer.put(i + nbRows * j, x);
+        } else {
+            intData[i][j] = x;
+        }
+    }
+
+    public final void setLongElement(final int i, final int j, final long x) {
+        if (byref) {
+            longBuffer.put(i + nbRows * j, x);
+        } else {
+            longData[i][j] = x;
+        }
+    }
+
+    public final void setElement(final int i, final int j, final long x) {
+        switch (this.getPrec()) {
+            case sci_int8:
+            case sci_uint8:
+                setByteElement(i, j, (byte) x);
+                break;
+            case sci_int16:
+            case sci_uint16:
+                setShortElement(i, j, (short) x);
+                break;
+            case sci_int32:
+            case sci_uint32:
+                setIntElement(i, j, (int) x);
+                break;
+            case sci_int64:
+            case sci_uint64:
+                setLongElement(i, j, x);
+        }
     }
 
     /**
@@ -215,12 +488,12 @@ public class ScilabInteger implements ScilabType {
      *            true, if these values are unsigned; false otherwise.
      */
     public void setData(byte[][] data, boolean bUnsigned) {
-        this.byteData = data;
-        if (bUnsigned) {
-            this.precision = ScilabIntegerTypeEnum.sci_uint8;
+        if (byref) {
+            setPart(byteBuffer, data);
         } else {
-            this.precision = ScilabIntegerTypeEnum.sci_int8;
+            this.byteData = data;
         }
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint8 : ScilabIntegerTypeEnum.sci_int8;
     }
 
     /**
@@ -232,12 +505,12 @@ public class ScilabInteger implements ScilabType {
      *            true, if these values are unsigned; false otherwise.
      */
     public void setData(short[][] data, boolean bUnsigned) {
-        this.shortData = data;
-        if (bUnsigned) {
-            this.precision = ScilabIntegerTypeEnum.sci_uint16;
+        if (byref) {
+            setPart(shortBuffer, data);
         } else {
-            this.precision = ScilabIntegerTypeEnum.sci_int16;
+            this.shortData = data;
         }
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint16 : ScilabIntegerTypeEnum.sci_int16;
     }
 
     /**
@@ -249,12 +522,12 @@ public class ScilabInteger implements ScilabType {
      *            true, if these values are unsigned; false otherwise.
      */
     public void setData(int[][] data, boolean bUnsigned) {
-        this.intData = data;
-        if (bUnsigned) {
-            this.precision = ScilabIntegerTypeEnum.sci_uint32;
+        if (byref) {
+            setPart(intBuffer, data);
         } else {
-            this.precision = ScilabIntegerTypeEnum.sci_int32;
+            this.intData = data;
         }
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint32 : ScilabIntegerTypeEnum.sci_int32;
     }
 
     /**
@@ -266,11 +539,99 @@ public class ScilabInteger implements ScilabType {
      *            true, if these values are unsigned; false otherwise.
      */
     public void setData(long[][] data, boolean bUnsigned) {
-        this.longData = data;
-        if (bUnsigned) {
-            this.precision = ScilabIntegerTypeEnum.sci_uint64;
+        if (byref) {
+            setPart(longBuffer, data);
         } else {
-            this.precision = ScilabIntegerTypeEnum.sci_int64;
+            this.longData = data;
+        }
+        this.precision = bUnsigned ? ScilabIntegerTypeEnum.sci_uint64 : ScilabIntegerTypeEnum.sci_int64;
+    }
+
+    private static final void setPart(final ByteBuffer buffer, final byte[][] part) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.put(part[i]);
+            }
+        }
+    }
+
+    private static final void setPart(final ShortBuffer buffer, final short[][] part) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.put(part[i]);
+            }
+        }
+    }
+
+    private static final void setPart(final IntBuffer buffer, final int[][] part) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.put(part[i]);
+            }
+        }
+    }
+
+    private static final void setPart(final LongBuffer buffer, final long[][] part) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.put(part[i]);
+            }
+        }
+    }
+
+    private static final void setBuffer(final byte[][] part, final ByteBuffer buffer) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.get(part[i]);
+            }
+        }
+    }
+
+    private static final void setBuffer(final short[][] part, final ShortBuffer buffer) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.get(part[i]);
+            }
+        }
+    }
+
+    private static final void setBuffer(final int[][] part, final IntBuffer buffer) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.get(part[i]);
+            }
+        }
+    }
+
+    private static final void setBuffer(final long[][] part, final LongBuffer buffer) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.get(part[i]);
+            }
         }
     }
 
@@ -293,30 +654,32 @@ public class ScilabInteger implements ScilabType {
      * @return the values
      */
     public long[][] getData() {
-        long[][] convertedMatrix = new long[this.getHeight()][this.getWidth()];
-        switch (this.getPrec()) {
+        final int h = this.getHeight();
+        final int w = this.getWidth();
+        long[][] convertedMatrix = new long[h][w];
 
+        switch (this.getPrec()) {
             case sci_int8:
             case sci_uint8:
-                for (int i = 0; i < this.getHeight(); i++) {
-                    for (int j = 0; j < this.getWidth(); j++) {
-                        convertedMatrix[i][j] = Long.valueOf(byteData[i][j]);
+                for (int i = 0; i < h; i++) {
+                    for (int j = 0; j < w; j++) {
+                        convertedMatrix[i][j] = Long.valueOf(getByteElement(i, j));
                     }
                 }
                 return convertedMatrix;
             case sci_int16:
             case sci_uint16:
-                for (int i = 0; i < this.getHeight(); i++) {
-                    for (int j = 0; j < this.getWidth(); j++) {
-                        convertedMatrix[i][j] = Long.valueOf(shortData[i][j]);
+                for (int i = 0; i < h; i++) {
+                    for (int j = 0; j < w; j++) {
+                        convertedMatrix[i][j] = Long.valueOf(getShortElement(i, j));
                     }
                 }
                 return convertedMatrix;
             case sci_int32:
             case sci_uint32:
-                for (int i = 0; i < this.getHeight(); i++) {
-                    for (int j = 0; j < this.getWidth(); j++) {
-                        convertedMatrix[i][j] = Long.valueOf(intData[i][j]);
+                for (int i = 0; i < h; i++) {
+                    for (int j = 0; j < w; j++) {
+                        convertedMatrix[i][j] = Long.valueOf(getIntElement(i, j));
                     }
                 }
                 return convertedMatrix;
@@ -333,7 +696,13 @@ public class ScilabInteger implements ScilabType {
      * @return the values as short
      */
     public short[][] getDataAsShort() {
-        return shortData;
+        if (byref) {
+            short[][] d = new short[nbRows][nbCols];
+            setBuffer(d, shortBuffer);
+            return d;
+        } else {
+            return shortData;
+        }
     }
 
     /**
@@ -342,7 +711,13 @@ public class ScilabInteger implements ScilabType {
      * @return the values as byte
      */
     public byte[][] getDataAsByte() {
-        return byteData;
+        if (byref) {
+            byte[][] d = new byte[nbRows][nbCols];
+            setBuffer(d, byteBuffer);
+            return d;
+        } else {
+            return byteData;
+        }
     }
 
     /**
@@ -351,7 +726,13 @@ public class ScilabInteger implements ScilabType {
      * @return the values as int
      */
     public int[][] getDataAsInt() {
-        return intData;
+        if (byref) {
+            int[][] d = new int[nbRows][nbCols];
+            setBuffer(d, intBuffer);
+            return d;
+        } else {
+            return intData;
+        }
     }
 
     /**
@@ -360,7 +741,49 @@ public class ScilabInteger implements ScilabType {
      * @return the values as long
      */
     public long[][] getDataAsLong() {
-        return longData;
+        if (byref) {
+            long[][] d = new long[nbRows][nbCols];
+            setBuffer(d, longBuffer);
+            return d;
+        } else {
+            return longData;
+        }
+    }
+
+    /**
+     * Returns the value as the form of short
+     *
+     * @return the values as short
+     */
+    public ShortBuffer getDataAsShortBuffer() {
+        return shortBuffer;
+    }
+
+    /**
+     * Returns the value as the form of byte
+     *
+     * @return the values as byte
+     */
+    public ByteBuffer getDataAsByteBuffer() {
+        return byteBuffer;
+    }
+
+    /**
+     * Returns the value as the form of int
+     *
+     * @return the values as int
+     */
+    public IntBuffer getDataAsIntBuffer() {
+        return intBuffer;
+    }
+
+    /**
+     * Returns the value as the form of long Only for Scilab 6.X
+     *
+     * @return the values as long
+     */
+    public LongBuffer getDataAsLongBuffer() {
+        return longBuffer;
     }
 
     /**
@@ -401,35 +824,19 @@ public class ScilabInteger implements ScilabType {
      */
     public static ScilabIntegerTypeEnum convertOldType(String typeName, boolean unsigned) {
         if (typeName.equals("TYPE8")) {
-            if (unsigned) {
-                return ScilabIntegerTypeEnum.sci_uint8;
-            } else {
-                return ScilabIntegerTypeEnum.sci_int8;
-            }
+            return unsigned ? ScilabIntegerTypeEnum.sci_uint8 : ScilabIntegerTypeEnum.sci_int8;
         }
         if (typeName.equals("TYPE16")) {
-            if (unsigned) {
-                return ScilabIntegerTypeEnum.sci_uint16;
-            } else {
-                return ScilabIntegerTypeEnum.sci_int16;
-            }
+            return unsigned ? ScilabIntegerTypeEnum.sci_uint16 : ScilabIntegerTypeEnum.sci_int16;
         }
         if (typeName.equals("TYPE32")) {
-            if (unsigned) {
-                return ScilabIntegerTypeEnum.sci_uint32;
-            } else {
-                return ScilabIntegerTypeEnum.sci_int32;
-            }
+            return unsigned ? ScilabIntegerTypeEnum.sci_uint32 : ScilabIntegerTypeEnum.sci_int32;
         }
         if (typeName.equals("TYPE64")) {
-            if (unsigned) {
-                return ScilabIntegerTypeEnum.sci_uint64;
-            } else {
-                return ScilabIntegerTypeEnum.sci_int64;
-            }
+            return unsigned ? ScilabIntegerTypeEnum.sci_uint64 : ScilabIntegerTypeEnum.sci_int64;
         }
-        return null;
 
+        return null;
     }
 
     /**
@@ -441,6 +848,11 @@ public class ScilabInteger implements ScilabType {
         if (this.getPrec() == null) {
             return 0;
         }
+
+        if (byref) {
+            return nbRows;
+        }
+
         switch (this.getPrec()) {
             case sci_int8:
             case sci_uint8:
@@ -480,6 +892,11 @@ public class ScilabInteger implements ScilabType {
         if (this.getPrec() == null) {
             return 0;
         }
+
+        if (byref) {
+            return nbCols;
+        }
+
         switch (this.getPrec()) {
             case sci_int8:
             case sci_uint8:
@@ -524,16 +941,16 @@ public class ScilabInteger implements ScilabType {
         switch (this.getPrec()) {
             case sci_int8:
             case sci_uint8:
-                return byteData == null;
+                return byref ? byteBuffer == null : byteData == null;
             case sci_int16:
             case sci_uint16:
-                return shortData == null;
+                return byref ? shortBuffer == null : shortData == null;
             case sci_int32:
             case sci_uint32:
-                return intData == null;
+                return byref ? intBuffer == null : intData == null;
             case sci_int64:
             case sci_uint64:
-                return longData == null;
+                return byref ? longBuffer == null : longData == null;
             default:
                 return true;
         }
@@ -559,30 +976,84 @@ public class ScilabInteger implements ScilabType {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ScilabInteger) {
-            return Arrays.deepEquals(this.getData(), ((ScilabInteger) obj).getData());
-        } else {
-            return false;
+            ScilabInteger sciInteger = (ScilabInteger) obj;
+            if (getPrec() != sciInteger.getPrec()) {
+                return false;
+            }
+
+            switch (getPrec()) {
+                case sci_int8:
+                case sci_uint8:
+                    if (byref && sciInteger.byref) {
+                        byteBuffer.clear();
+                        sciInteger.byteBuffer.clear();
+                        return byteBuffer.equals(sciInteger.byteBuffer);
+                    } else if (!byref && !sciInteger.byref) {
+                        return Arrays.deepEquals(byteData, sciInteger.byteData);
+                    } else if (byref && !sciInteger.byref) {
+                        return ScilabTypeUtils.equals(byteBuffer, nbRows, nbCols, sciInteger.byteData, sciInteger.swaped);
+                    } else {
+                        return ScilabTypeUtils.equals(sciInteger.byteBuffer, sciInteger.nbRows, sciInteger.nbCols, byteData, this.swaped);
+                    }
+                case sci_int16:
+                case sci_uint16:
+                    if (byref && sciInteger.byref) {
+                        shortBuffer.clear();
+                        sciInteger.shortBuffer.clear();
+                        return shortBuffer.equals(sciInteger.shortBuffer);
+                    } else if (!byref && !sciInteger.byref) {
+                        return Arrays.deepEquals(shortData, sciInteger.shortData);
+                    } else if (byref && !sciInteger.byref) {
+                        return ScilabTypeUtils.equals(shortBuffer, nbRows, nbCols, sciInteger.shortData, sciInteger.swaped);
+                    } else {
+                        return ScilabTypeUtils.equals(sciInteger.shortBuffer, sciInteger.nbRows, sciInteger.nbCols, shortData, this.swaped);
+                    }
+                case sci_int32:
+                case sci_uint32:
+                    if (byref && sciInteger.byref) {
+                        intBuffer.clear();
+                        sciInteger.intBuffer.clear();
+                        return intBuffer.equals(sciInteger.intBuffer);
+                    } else if (!byref && !sciInteger.byref) {
+                        return Arrays.deepEquals(intData, sciInteger.intData);
+                    } else if (byref && !sciInteger.byref) {
+                        return ScilabTypeUtils.equals(intBuffer, nbRows, nbCols, sciInteger.intData, sciInteger.swaped);
+                    } else {
+                        return ScilabTypeUtils.equals(sciInteger.intBuffer, sciInteger.nbRows, sciInteger.nbCols, intData, this.swaped);
+                    }
+                case sci_int64:
+                case sci_uint64:
+                    if (byref && sciInteger.byref) {
+                        longBuffer.clear();
+                        sciInteger.longBuffer.clear();
+                        return longBuffer.equals(sciInteger.longBuffer);
+                    } else if (!byref && !sciInteger.byref) {
+                        return Arrays.deepEquals(longData, sciInteger.longData);
+                    } else if (byref && !sciInteger.byref) {
+                        return ScilabTypeUtils.equals(longBuffer, nbRows, nbCols, sciInteger.longData, sciInteger.swaped);
+                    } else {
+                        return ScilabTypeUtils.equals(sciInteger.longBuffer, sciInteger.nbRows, sciInteger.nbCols, longData, this.swaped);
+                    }
+            }
         }
+
+        return false;
     }
 
     private Object getCorrectData() {
         switch (this.getPrec()) {
             case sci_int8:
-                return byteData;
             case sci_uint8:
-                return byteData;
+                return getDataAsByte();
             case sci_int16:
-                return shortData;
             case sci_uint16:
-                return shortData;
+                return getDataAsShort();
             case sci_int32:
-                return intData;
             case sci_uint32:
-                return intData;
+                return getDataAsInt();
             case sci_int64:
-                return longData;
             case sci_uint64:
-                return longData;
+                return getDataAsLong();
         }
         return null;
     }
@@ -696,19 +1167,19 @@ public class ScilabInteger implements ScilabType {
      *            the current buffer
      */
     private void appendData(StringBuilder result) {
-        for (int i = 0; i < getHeight(); ++i) {
-            for (int j = 0; j < getWidth(); ++j) {
+        final int h = getHeight();
+        final int w = getWidth();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                result.append(getElement(i, j));
 
-                result.append(getData()[i][j]);
-
-                if (j != getWidth() - 1) {
+                if (j != w - 1) {
                     result.append(", ");
                 }
             }
-            if (i != getHeight() - 1) {
+            if (i != h - 1) {
                 result.append(" ; ");
             }
         }
     }
-
 }
