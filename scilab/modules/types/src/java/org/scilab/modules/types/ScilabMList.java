@@ -67,6 +67,15 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
     }
 
     /**
+     * @param varName the variable name
+     * @param size the initial list size
+     */
+    public ScilabMList(String varName, int size) {
+        super(size);
+        this.varName = varName;
+    }
+
+    /**
      * Construct an mlist with a specified header.
      *
      * @param types
@@ -97,6 +106,10 @@ public class ScilabMList extends ArrayList<ScilabType> implements ScilabType {
         add(new ScilabString(namesData));
 
         addAll(c);
+    }
+
+    public final boolean isReference() {
+        return false;
     }
 
     /**

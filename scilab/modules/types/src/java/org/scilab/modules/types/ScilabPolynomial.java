@@ -170,6 +170,10 @@ public class ScilabPolynomial implements ScilabType {
         imaginaryPart = imagData;
     }
 
+    public final boolean isReference() {
+        return false;
+    }
+
     /**
      * Return the type of Scilab
      *

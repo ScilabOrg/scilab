@@ -15,4 +15,6 @@
 
 void getScilabVariable(const char * scilabVarName, int swapRowCol, int handlerId);
 
+void getScilabVariableAsReference(const char * variableName, int handlerId);
+
 #endif

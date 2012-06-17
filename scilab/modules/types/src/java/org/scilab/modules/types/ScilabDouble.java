@@ -17,6 +17,7 @@ package org.scilab.modules.types;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.nio.DoubleBuffer;
 import java.util.Arrays;
 
 /**
@@ -47,6 +48,12 @@ public class ScilabDouble implements ScilabType {
 
     private static final int VERSION = 0;
 
+    private DoubleBuffer realBuffer;
+    private DoubleBuffer imaginaryBuffer;
+    private final boolean byref;
+    private final int nbRows;
+    private final int nbCols;
+
     private double[][] realPart;
     private double[][] imaginaryPart;
     private String varName;
@@ -58,6 +65,9 @@ public class ScilabDouble implements ScilabType {
     public ScilabDouble() {
         realPart = new double[0][];
         imaginaryPart = new double[0][];
+        byref = false;
+        nbRows = 0;
+        nbCols = 0;
     }
 
     /**
@@ -70,6 +80,9 @@ public class ScilabDouble implements ScilabType {
         realPart = new double[1][1];
         realPart[0][0] = data;
         imaginaryPart = new double[0][];
+        byref = false;
+        nbRows = 0;
+        nbCols = 0;
     }
 
     /**
@@ -85,6 +98,9 @@ public class ScilabDouble implements ScilabType {
         realPart[0][0] = realData;
         imaginaryPart = new double[1][1];
         imaginaryPart[0][0] = imagData;
+        byref = false;
+        nbRows = 0;
+        nbCols = 0;
     }
 
     /**
@@ -117,6 +133,9 @@ public class ScilabDouble implements ScilabType {
                 imaginaryPart = imagData;
             }
         }
+        byref = false;
+        nbRows = 0;
+        nbCols = 0;
     }
 
     /**
@@ -131,6 +150,86 @@ public class ScilabDouble implements ScilabType {
         this(realData, imagData);
         this.varName = varName;
         this.swaped = swaped;
+    }
+
+    /**
+     * Constructor with a matrix of complex numbers
+     *
+     * @param realData
+     *            the real part of the data
+     * @param imagData
+     *            the imaginary part of the data
+     */
+    ScilabDouble(String varName, DoubleBuffer realBuffer, DoubleBuffer imagBuffer, int nbRows, int nbCols) {
+        this.realBuffer = realBuffer;
+        this.imaginaryBuffer = imagBuffer;
+        this.nbRows = nbRows;
+        this.nbCols = nbCols;
+        this.varName = varName;
+        this.byref = true;
+        this.swaped = false;
+    }
+
+    public final boolean isReference() {
+        return byref;
+    }
+
+    public final double getRealElement(final int i, final int j) {
+        if (byref) {
+            return realBuffer.get(i + nbRows * j);
+        } else {
+            return realPart[i][j];
+        }
+    }
+
+    public final double getImaginaryElement(final int i, final int j) {
+        if (byref) {
+            return imaginaryBuffer.get(i + nbRows * j);
+        } else {
+            return imaginaryPart[i][j];
+        }
+    }
+
+    public final double[] getElement(final int i, final int j) {
+        if (byref) {
+            if (isReal()) {
+                return new double[] {realBuffer.get(i + nbRows * j), 0};
+            } else {
+                return new double[] {realBuffer.get(i + nbRows * j), imaginaryBuffer.get(i + nbRows * j)};
+            }
+        } else {
+            if (isReal()) {
+                return new double[] {realPart[i][j], 0};
+            } else {
+                return new double[] {realPart[i][j], imaginaryPart[i][j]};
+            }
+        }
+    }
+
+    public final void setRealElement(final int i, final int j, final double x) {
+        if (byref) {
+            realBuffer.put(i + nbRows * j, x);
+        } else {
+            realPart[i][j] = x;
+        }
+    }
+
+    public final void setImaginaryElement(final int i, final int j, final double x) {
+        if (byref) {
+            imaginaryBuffer.put(i + nbRows * j, x);
+        } else {
+            imaginaryPart[i][j] = x;
+        }
+    }
+
+    public final void setElement(final int i, final int j, final double x, final double y) {
+        if (byref) {
+            realBuffer.put(i + nbRows * j, x);
+            imaginaryBuffer.put(i + nbRows * j, y);
+        } else {
+            realPart[i][j] = x;
+            imaginaryPart[i][j] = y;
+        }
     }
 
     /**
@@ -151,7 +250,11 @@ public class ScilabDouble implements ScilabType {
      */
     @Override
     public boolean isEmpty() {
-        return realPart == null || realPart.length == 0;
+        if (byref) {
+            return nbRows == 0 && nbCols == 0;
+        } else {
+            return realPart == null || realPart.length == 0;
+        }
     }
 
     /**
@@ -160,7 +263,20 @@ public class ScilabDouble implements ScilabType {
      * @return true, if the data are real only.
      */
     public boolean isReal() {
-        return imaginaryPart == null || imaginaryPart.length == 0;
+        if (byref) {
+            return imaginaryBuffer == null || imaginaryBuffer.capacity() == 0;
+        } else {
+            return imaginaryPart == null || imaginaryPart.length == 0;
+        }
+    }
+
+    /**
+     * Get the real part of the data.
+     *
+     * @return the real part.
+     */
+    public DoubleBuffer getRealBuffer() {
+        return realBuffer;
     }
 
     /**
@@ -169,7 +285,13 @@ public class ScilabDouble implements ScilabType {
      * @return the real part.
      */
     public double[][] getRealPart() {
-        return realPart;
+        if (byref) {
+            double[][] d = new double[nbRows][nbCols];
+            setBuffer(d, realBuffer);
+            return d;
+        } else {
+            return realPart;
+        }
     }
 
     /**
@@ -179,7 +301,25 @@ public class ScilabDouble implements ScilabType {
      *            the real part.
      */
     public void setRealPart(double[][] realPart) {
-        this.realPart = realPart;
+        if (byref) {
+            setPart(realBuffer, realPart);
+        } else {
+            this.realPart = realPart;
+        }
+    }
+
+    /**
+     * Set the real part of the data.
+     *
+     * @param realPart
+     *            the real part.
+     */
+    public void setRealPart(DoubleBuffer buffer) {
+        if (byref) {
+            realBuffer.put(buffer);
+        } else {
+            setBuffer(realPart, buffer);
+        }
     }
 
     /**
@@ -188,7 +328,36 @@ public class ScilabDouble implements ScilabType {
      * @return the imaginary part.
      */
     public double[][] getImaginaryPart() {
-        return imaginaryPart;
+        if (byref) {
+            double[][] d = new double[nbRows][nbCols];
+            setBuffer(d, imaginaryBuffer);
+            return d;
+        } else {
+            return imaginaryPart;
+        }
+    }
+
+    /**
+     * Get the real part of the data.
+     *
+     * @return the real part.
+     */
+    public DoubleBuffer getImaginaryBuffer() {
+        return imaginaryBuffer;
+    }
+
+    /**
+     * Set the real part of the data.
+     *
+     * @param realPart
+     *            the real part.
+     */
+    public void setImaginaryPart(double[][] imaginaryPart) {
+        if (byref) {
+            setPart(imaginaryBuffer, imaginaryPart);
+        } else {
+            this.imaginaryPart = imaginaryPart;
+        }
     }
 
     /**
@@ -197,8 +366,43 @@ public class ScilabDouble implements ScilabType {
      * @param imaginaryPart
      *            the imaginary part.
      */
-    public void setImaginaryPart(double[][] imaginaryPart) {
-        this.imaginaryPart = imaginaryPart;
+    public void setImaginaryPart(DoubleBuffer buffer) {
+        if (byref) {
+            imaginaryBuffer.put(buffer);
+        } else {
+            setBuffer(imaginaryPart, buffer);
+        }
+    }
+
+    /**
+     * Set the part of the data.
+     */
+    private static final void setPart(final DoubleBuffer buffer, final double[][] part) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.put(part[i]);
+            }
+        }
+    }
+
+    /**
+     * Set the real part of the data.
+     *
+     * @param realPart
+     *            the real part.
+     */
+    private static final void setBuffer(final double[][] part, final DoubleBuffer buffer) {
+        final int c = part.length;
+        final int r = c > 0 ? part[0].length : 0;
+        if (r * c == buffer.capacity()) {
+            buffer.clear();
+            for (int i = 0; i < c; i++) {
+                buffer.get(part[i]);
+            }
+        }
     }
 
     /**
@@ -225,8 +429,8 @@ public class ScilabDouble implements ScilabType {
         double[] serializedComplexMatrix = new double[size * 2];
         for (int i = 0; i < this.getHeight(); i++) {
             for (int j = 0; j < this.getWidth(); j++) {
-                serializedComplexMatrix[j * this.getHeight() + i] = realPart[i][j];
-                serializedComplexMatrix[size + j * this.getHeight() + i] = imaginaryPart[i][j];
+                serializedComplexMatrix[j * this.getHeight() + i] = getRealElement(i, j);;
+                serializedComplexMatrix[size + j * this.getHeight() + i] = getImaginaryElement(i, j);
             }
         }
 
@@ -238,9 +442,9 @@ public class ScilabDouble implements ScilabType {
      */
     public Object getSerializedObject() {
         if (isReal()) {
-            return new Object[] { realPart };
+            return new Object[] { getRealPart() };
         } else {
-            return new Object[] { realPart, imaginaryPart };
+            return new Object[] { getRealPart(), getImaginaryPart() };
         }
     }
 
@@ -253,7 +457,11 @@ public class ScilabDouble implements ScilabType {
         if (isEmpty()) {
             return 0;
         }
-        return realPart.length;
+        if (byref) {
+            return nbRows;
+        } else {
+            return realPart.length;
+        }
     }
 
     /**
@@ -265,8 +473,11 @@ public class ScilabDouble implements ScilabType {
         if (isEmpty()) {
             return 0;
         }
-
-        return realPart[0].length;
+        if (byref) {
+            return nbCols;
+        } else {
+            return realPart[0].length;
+        }
     }
 
     /**
@@ -281,15 +492,38 @@ public class ScilabDouble implements ScilabType {
             }
 
             if (this.isReal() && sciDouble.isReal()) {
-                return Arrays.deepEquals(this.getRealPart(), sciDouble.getRealPart());
-            } else {
-                /* Complex */
-                return Arrays.deepEquals(this.getRealPart(), sciDouble.getRealPart())
-                       && Arrays.deepEquals(this.getImaginaryPart(), sciDouble.getImaginaryPart());
+                if (byref && sciDouble.byref) {
+                    realBuffer.clear();
+                    sciDouble.realBuffer.clear();
+                    return realBuffer.equals(sciDouble.realBuffer);
+                } else if (!byref && !sciDouble.byref) {
+                    return Arrays.deepEquals(this.getRealPart(), sciDouble.getRealPart());
+                } else if (byref && !sciDouble.byref) {
+                    return ScilabTypeUtils.equals(realBuffer, nbRows, nbCols, sciDouble.realPart, sciDouble.swaped);
+                } else {
+                    return ScilabTypeUtils.equals(sciDouble.realBuffer, sciDouble.nbRows, sciDouble.nbCols, realPart, this.swaped);
+                }
             }
-        } else {
-            return false;
+            if ((this.isReal() && !sciDouble.isReal()) || (!this.isReal() && sciDouble.isReal())) {
+                return false;
+            } else {
+                if (byref && sciDouble.byref) {
+                    realBuffer.clear();
+                    sciDouble.realBuffer.clear();
+                    imaginaryBuffer.clear();
+                    sciDouble.imaginaryBuffer.clear();
+                    return realBuffer.equals(sciDouble.realBuffer) && imaginaryBuffer.equals(sciDouble.imaginaryBuffer);
+                } else if (!byref && !sciDouble.byref) {
+                    return Arrays.deepEquals(this.getRealPart(), sciDouble.getRealPart()) && Arrays.deepEquals(this.getImaginaryPart(), sciDouble.getImaginaryPart());
+                } else if (byref && !sciDouble.byref) {
+                    return ScilabTypeUtils.equals(realBuffer, nbRows, nbCols, sciDouble.realPart, sciDouble.swaped) && ScilabTypeUtils.equals(imaginaryBuffer, nbRows, nbCols, sciDouble.imaginaryPart, sciDouble.swaped);
+                } else {
+                    return ScilabTypeUtils.equals(sciDouble.realBuffer, sciDouble.nbRows, sciDouble.nbCols, realPart, this.swaped) && ScilabTypeUtils.equals(sciDouble.imaginaryBuffer, sciDouble.nbRows, sciDouble.nbCols, imaginaryPart, this.swaped);
+                }
+            }
         }
+
+        return false;
     }
 
     @Override
@@ -310,8 +544,8 @@ public class ScilabDouble implements ScilabType {
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(VERSION);
-        out.writeObject(realPart);
-        out.writeObject(imaginaryPart);
+        out.writeObject(getRealPart());
+        out.writeObject(getImaginaryPart());
         out.writeObject(varName);
         out.writeBoolean(swaped);
     }
@@ -335,11 +569,11 @@ public class ScilabDouble implements ScilabType {
         for (int i = 0; i < getHeight(); ++i) {
             for (int j = 0; j < getWidth(); ++j) {
                 if (isReal()) {
-                    result.append(Double.toString(realPart[i][j]));
+                    result.append(Double.toString(getRealElement(i, j)));
                 } else {
-                    result.append(Double.toString(realPart[i][j]));
+                    result.append(Double.toString(getRealElement(i, j)));
                     result.append(" + ");
-                    result.append(Double.toString(imaginaryPart[i][j]));
+                    result.append(Double.toString(getImaginaryElement(i, j)));
                     result.append(" * %i");
                 }
                 if (j != getWidth() - 1) {

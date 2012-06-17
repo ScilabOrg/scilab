@@ -60,6 +60,7 @@ public class testReadWrite {
         assertTrue(aFromScilab.equals(aOriginal));
     }
 
+    @Test()
     public void putAndGetDoubleTest() throws NullPointerException, JavasciException {
         double [][]a = {{21.2, 22.0, 42.0, 39.0}, {23.2, 24.0, 44.0, 40.0}};
         ScilabDouble aOriginal = new ScilabDouble(a);
@@ -69,6 +70,136 @@ public class testReadWrite {
         ScilabDouble aFromScilab = (ScilabDouble)sci.get("a");
 
         assertTrue(aFromScilab.equals(aOriginal));
+    }
+
+    @Test()
+    public void putAndGetRefDoubleTest() throws NullPointerException, JavasciException {
+        double [][]a = {{21.2, 22.0, 42.0, 39.0}, {23.2, 24.0, 44.0, 40.0}};
+        ScilabDouble aOriginal = new ScilabDouble(a);
+        sci.put("a", aOriginal);
+
+        ScilabDouble aFromScilab = (ScilabDouble)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=12345;"));
+        assertTrue(aFromScilab.getRealElement(1, 2) == 12345);
+        aFromScilab.setRealElement(1, 2, 3.14159);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabDouble bFromScilab = (ScilabDouble)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabDouble(3.14159)));
+    }
+
+    @Test()
+    public void putAndGetRefComplexDoubleTest() throws NullPointerException, JavasciException {
+        double [][]a = {{21.2, 22.0, 42.0, 39.0}, {23.2, 24.0, 44.0, 40.0}};
+        double [][]aImg = {{212.2, 221.0, 423.0, 393.0}, {234.2, 244.0, 441.0, 407.0}};
+        ScilabDouble aOriginal = new ScilabDouble(a, aImg);
+        sci.put("a", aOriginal);
+
+        ScilabDouble aFromScilab = (ScilabDouble)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=12345+%i*5.4321;"));
+        assertTrue(aFromScilab.getRealElement(1, 2) == 12345 && aFromScilab.getImaginaryElement(1, 2) == 5.4321);
+        aFromScilab.setRealElement(1, 2, 3.14159);
+        aFromScilab.setImaginaryElement(1, 2, 2.71828);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabDouble bFromScilab = (ScilabDouble)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabDouble(3.14159, 2.71828)));
+    }
+
+    @Test()
+    public void putAndGetRefInt8Test() throws NullPointerException, JavasciException {
+        byte[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, false);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=123;"));
+        assertTrue(aFromScilab.getElement(1, 2) == 123);
+        aFromScilab.setElement(1, 2, (byte) - 98);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((byte) - 98, false)));
+    }
+
+    @Test()
+    public void putAndGetRefUInt8Test() throws NullPointerException, JavasciException {
+        byte[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, true);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=253;"));
+        assertTrue(aFromScilab.getElement(1, 2) == (byte)253);
+        aFromScilab.setElement(1, 2, (byte)189);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((byte)189, true)));
+    }
+
+    @Test()
+    public void putAndGetRefInt16Test() throws NullPointerException, JavasciException {
+        short[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, false);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=123;"));
+        assertTrue(aFromScilab.getElement(1, 2) == 123);
+        aFromScilab.setElement(1, 2, (short) - 98);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((short) - 98, false)));
+    }
+
+    @Test()
+    public void putAndGetRefUInt16Test() throws NullPointerException, JavasciException {
+        short[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, true);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=253;"));
+        assertTrue(aFromScilab.getElement(1, 2) == (short)253);
+        aFromScilab.setElement(1, 2, (short)189);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((short)189, true)));
+    }
+
+    @Test()
+    public void putAndGetRefInt32Test() throws NullPointerException, JavasciException {
+        int[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, false);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=123;"));
+        assertTrue(aFromScilab.getElement(1, 2) == 123);
+        aFromScilab.setElement(1, 2, (int) - 98);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((int) - 98, false)));
+    }
+
+    @Test()
+    public void putAndGetRefUInt32Test() throws NullPointerException, JavasciException {
+        int[][] a = {{1, 2, 3, 4}, {5, 6, 7, 8}};
+        ScilabInteger aOriginal = new ScilabInteger(a, true);
+        sci.put("a", aOriginal);
+
+        ScilabInteger aFromScilab = (ScilabInteger)sci.getByReference("a");
+        assertTrue(aFromScilab.equals(aOriginal));
+        assertTrue(sci.exec("a(2,3)=253;"));
+        assertTrue(aFromScilab.getElement(1, 2) == (int)253);
+        aFromScilab.setElement(1, 2, (int)189);
+        assertTrue(sci.exec("b=a(2,3);"));
+        ScilabInteger bFromScilab = (ScilabInteger)sci.get("b");
+        assertTrue(bFromScilab.equals(new ScilabInteger((int)189, true)));
     }
 
     @Test()
@@ -82,7 +213,6 @@ public class testReadWrite {
         ScilabDouble aFromScilab = (ScilabDouble)sci.get("a");
         assertTrue(aFromScilab.equals(aOriginal));
     }
-
 
     @Test()
     public void putAndGetBooleanTest() throws NullPointerException, JavasciException {
