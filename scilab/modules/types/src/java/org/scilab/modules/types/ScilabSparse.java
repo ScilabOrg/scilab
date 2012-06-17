@@ -15,6 +15,8 @@ package org.scilab.modules.types;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.nio.DoubleBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,12 @@ public class ScilabSparse implements ScilabType {
 
     private static final int VERSION = 0;
 
+    private IntBuffer nbItemBuffer;
+    private IntBuffer colPosBuffer;
+    private DoubleBuffer realBuffer;
+    private DoubleBuffer imaginaryBuffer;
+    private final boolean byref;
+
     private int rows;
     private int cols;
     private int nbItem;
@@ -49,6 +57,7 @@ public class ScilabSparse implements ScilabType {
      * Default constructor
      */
     public ScilabSparse() {
+        this.byref = false;
     }
 
     /**
@@ -65,6 +74,7 @@ public class ScilabSparse implements ScilabType {
             colPos = new int[] { 0 };
             realPart = new double[] { data };
         }
+        this.byref = false;
     }
 
     /**
@@ -84,6 +94,7 @@ public class ScilabSparse implements ScilabType {
             realPart = new double[] { realData };
             imaginaryPart = new double[] { imagData };
         }
+        this.byref = false;
     }
 
     /**
@@ -138,6 +149,7 @@ public class ScilabSparse implements ScilabType {
         this.nbItemRow = nbItemRow;
         this.colPos = colPos;
         this.realPart = real;
+        this.byref = false;
     }
 
     /**
@@ -281,6 +293,7 @@ public class ScilabSparse implements ScilabType {
                 realPart[i++] = x;
             }
         }
+        this.byref = false;
     }
 
     /**
@@ -328,6 +341,7 @@ public class ScilabSparse implements ScilabType {
                 this.imaginaryPart[i++] = x;
             }
         }
+        this.byref = false;
     }
 
     /**
@@ -356,6 +370,42 @@ public class ScilabSparse implements ScilabType {
     }
 
     /**
+     * Constructor
+     *
+     * @param varName
+     *            the variable name
+     * @param rows
+     *            the number of rows
+     * @param cols
+     *            the number of cols
+     * @param nbItem
+     *            the number of non null items
+     * @param nbItemRow
+     *            contains the number of true in each rows
+     * @param colPos
+     *            the column position of each non null item
+     * @param real
+     *            the non null real data
+     * @param imag
+     *            the non null imaginary data
+     */
+    public ScilabSparse(String varName, int rows, int cols, int nbItem, IntBuffer nbItemRow, IntBuffer colPos, DoubleBuffer real, DoubleBuffer imag) {
+        this.varName = varName;
+        this.rows = rows;
+        this.cols = cols;
+        this.nbItem = nbItem;
+        this.nbItemBuffer = nbItemRow;
+        this.colPosBuffer = colPos;
+        this.realBuffer = real;
+        this.imaginaryBuffer = imag;
+        this.byref = true;
+    }
+
+    public final boolean isReference() {
+        return byref;
+    }
+
+    /**
      * Return the type of Scilab
      *
      * @return the type of Scilab
@@ -376,13 +426,116 @@ public class ScilabSparse implements ScilabType {
         return rows == 0 && cols == 0;
     }
 
+    public final int getColPosElement(final int i) {
+        if (byref) {
+            return colPosBuffer.get(i);
+        } else {
+            return colPos[i];
+        }
+    }
+
+    public final void setColPosElement(final int i, final int x) {
+        if (byref) {
+            colPosBuffer.put(i, x);
+        } else {
+            colPos[i] = x;
+        }
+    }
+
+    public final int getNbItemElement(final int i) {
+        if (byref) {
+            return nbItemBuffer.get(i);
+        } else {
+            return nbItemRow[i];
+        }
+    }
+
+    public final void setNbItemElement(final int i, final int x) {
+        if (byref) {
+            nbItemBuffer.put(i, x);
+        } else {
+            nbItemRow[i] = x;
+        }
+    }
+
+    public final double getRealElement(final int i) {
+        if (byref) {
+            return realBuffer.get(i);
+        } else {
+            return realPart[i];
+        }
+    }
+
+    public final double getImaginaryElement(final int i) {
+        if (byref) {
+            return imaginaryBuffer.get(i);
+        } else {
+            return imaginaryPart[i];
+        }
+    }
+
+    public final double[] getElement(final int i) {
+        if (byref) {
+            if (isReal()) {
+                return new double[] {realBuffer.get(i), 0};
+            } else {
+                return new double[] {realBuffer.get(i), imaginaryBuffer.get(i)};
+            }
+        } else {
+            if (isReal()) {
+                return new double[] {realPart[i], 0};
+            } else {
+                return new double[] {realPart[i], imaginaryPart[i]};
+            }
+        }
+    }
+
+    public final void setRealElement(final int i, final double x) {
+        if (byref) {
+            realBuffer.put(i, x);
+        } else {
+            realPart[i] = x;
+        }
+    }
+
+    public final void setImaginaryElement(final int i, final double x) {
+        if (byref) {
+            imaginaryBuffer.put(i, x);
+        } else {
+            imaginaryPart[i] = x;
+        }
+    }
+
+    public final void setElement(final int i, final double x, final double y) {
+        if (byref) {
+            realBuffer.put(i, x);
+            imaginaryBuffer.put(i, y);
+        } else {
+            realPart[i] = x;
+            imaginaryPart[i] = y;
+        }
+    }
+
     /**
      * Check if the current data doesn't have an imaginary part.
      *
      * @return true, if the data are real only.
      */
     public boolean isReal() {
-        return (imaginaryPart == null);
+        if (byref) {
+            return imaginaryBuffer == null;
+        } else {
+            return (imaginaryPart == null);
+        }
+    }
+
+    /**
+     * Get the real part of the data.
+     *
+     * @return the real part.
+     */
+    public DoubleBuffer getRealBuffer() {
+        return realBuffer;
     }
 
     /**
@@ -391,7 +544,14 @@ public class ScilabSparse implements ScilabType {
      * @return the real part.
      */
     public double[] getRealPart() {
-        return realPart;
+        if (byref) {
+            double[] d = new double[realBuffer.capacity()];
+            realBuffer.clear();
+            realBuffer.get(d);
+            return d;
+        } else {
+            return realPart;
+        }
     }
 
     /**
@@ -401,7 +561,21 @@ public class ScilabSparse implements ScilabType {
      *            the real part.
      */
     public void setRealPart(double[] realPart) {
-        this.realPart = realPart;
+        if (byref) {
+            realBuffer.clear();
+            realBuffer.put(realPart);
+        } else {
+            this.realPart = realPart;
+        }
+    }
+
+    /**
+     * Get the imaginary part of the data.
+     *
+     * @return the imaginary part.
+     */
+    public DoubleBuffer getImaginaryBuffer() {
+        return imaginaryBuffer;
     }
 
     /**
@@ -410,7 +584,14 @@ public class ScilabSparse implements ScilabType {
      * @return the imaginary part.
      */
     public double[] getImaginaryPart() {
-        return imaginaryPart;
+        if (byref) {
+            double[] d = new double[imaginaryBuffer.capacity()];
+            imaginaryBuffer.clear();
+            imaginaryBuffer.get(d);
+            return d;
+        } else {
+            return imaginaryPart;
+        }
     }
 
     /**
@@ -420,7 +601,12 @@ public class ScilabSparse implements ScilabType {
      *            the imaginary part.
      */
     public void setImaginaryPart(double[] imaginaryPart) {
-        this.imaginaryPart = imaginaryPart;
+        if (byref) {
+            imaginaryBuffer.clear();
+            imaginaryBuffer.put(imaginaryPart);
+        } else {
+            this.imaginaryPart = imaginaryPart;
+        }
     }
 
     /**
@@ -448,7 +634,14 @@ public class ScilabSparse implements ScilabType {
      * @return an integer array.
      */
     public int[] getNbItemRow() {
-        return nbItemRow;
+        if (byref) {
+            int[] i = new int[nbItemBuffer.capacity()];
+            nbItemBuffer.clear();
+            nbItemBuffer.get(i);
+            return i;
+        } else {
+            return nbItemRow;
+        }
     }
 
     /**
@@ -458,7 +651,12 @@ public class ScilabSparse implements ScilabType {
      *            an integer array.
      */
     public void setNbItemRow(int[] nbItemRow) {
-        this.nbItemRow = nbItemRow;
+        if (byref) {
+            nbItemBuffer.clear();
+            nbItemBuffer.put(nbItemRow);
+        } else {
+            this.nbItemRow = nbItemRow;
+        }
     }
 
     /**
@@ -468,9 +666,15 @@ public class ScilabSparse implements ScilabType {
      */
     public int[] getScilabColPos() {
         int[] cp = new int[colPos.length];
-        for (int i = 0; i < colPos.length; i++) {
-            cp[i] = colPos[i] + 1;
+        if (byref) {
+            colPosBuffer.clear();
+            colPosBuffer.get(cp);
+        } else {
+            for (int i = 0; i < colPos.length; i++) {
+                cp[i] = colPos[i] + 1;
+            }
         }
+
         return cp;
     }
 
@@ -480,7 +684,17 @@ public class ScilabSparse implements ScilabType {
      * @return an integer array.
      */
     public int[] getColPos() {
-        return colPos;
+        if (byref) {
+            int[] i = new int[colPosBuffer.capacity()];
+            colPosBuffer.clear();
+            colPosBuffer.get(i);
+            for (int k = 0; k < i.length; k++) {
+                i[k]--;
+            }
+            return i;
+        } else {
+            return colPos;
+        }
     }
 
     /**
@@ -490,7 +704,16 @@ public class ScilabSparse implements ScilabType {
      *            an integer array.
      */
     public void setColPos(int[] colPos) {
-        this.colPos = colPos;
+        if (byref) {
+            int[] cp = new int[colPos.length];
+            for (int i = 0; i < colPos.length; i++) {
+                cp[i] = colPos[i] + 1;
+            }
+            colPosBuffer.clear();
+            colPosBuffer.put(cp);
+        } else {
+            this.colPos = colPos;
+        }
     }
 
     /**
@@ -516,11 +739,22 @@ public class ScilabSparse implements ScilabType {
         int prev = 0;
         int j = 0;
         double[][] d = new double[rows][cols];
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
-                d[i][colPos[j]] = realPart[j];
+        if (byref) {
+            realBuffer.clear();
+            for (int i = 0; i < nbItemBuffer.capacity(); i++) {
+                final int n = nbItemBuffer.get(i);
+                for (; j < prev + n; j++) {
+                    d[i][colPosBuffer.get(j) - 1] = realBuffer.get(j);
+                }
+                prev += n;
             }
-            prev += nbItemRow[i];
+        } else {
+            for (int i = 0; i < nbItemRow.length; i++) {
+                for (; j < prev + nbItemRow[i]; j++) {
+                    d[i][colPos[j]] = realPart[j];
+                }
+                prev += nbItemRow[i];
+            }
         }
 
         return d;
@@ -535,13 +769,23 @@ public class ScilabSparse implements ScilabType {
         int prev = 0;
         int j = 0;
         double[][] d = new double[rows][cols];
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
-                d[i][colPos[j]] = imaginaryPart[j];
+        if (byref) {
+            imaginaryBuffer.clear();
+            for (int i = 0; i < nbItemBuffer.capacity(); i++) {
+                final int n = nbItemBuffer.get(i);
+                for (; j < prev + n; j++) {
+                    d[i][colPosBuffer.get(j) - 1] = imaginaryBuffer.get(j);
+                }
+                prev += n;
             }
-            prev += nbItemRow[i];
+        } else {
+            for (int i = 0; i < nbItemRow.length; i++) {
+                for (; j < prev + nbItemRow[i]; j++) {
+                    d[i][colPos[j]] = imaginaryPart[j];
+                }
+                prev += nbItemRow[i];
+            }
         }
-
         return d;
     }
 
@@ -556,12 +800,26 @@ public class ScilabSparse implements ScilabType {
         int prev = 0;
         int j = 0;
         double[][][] d = new double[2][rows][cols];
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
-                d[0][i][colPos[j]] = realPart[j];
-                d[1][i][colPos[j]] = imaginaryPart[j];
+        if (byref) {
+            realBuffer.clear();
+            imaginaryBuffer.clear();
+            for (int i = 0; i < nbItemBuffer.capacity(); i++) {
+                final int n = nbItemBuffer.get(i);
+                for (; j < prev + n; j++) {
+                    final int p = colPosBuffer.get(j) - 1;
+                    d[0][i][p] = realBuffer.get(j);
+                    d[1][i][p] = imaginaryBuffer.get(j);
+                }
+                prev += n;
             }
-            prev += nbItemRow[i];
+        } else {
+            for (int i = 0; i < nbItemRow.length; i++) {
+                for (; j < prev + nbItemRow[i]; j++) {
+                    d[0][i][colPos[j]] = realPart[j];
+                    d[1][i][colPos[j]] = imaginaryPart[j];
+                }
+                prev += nbItemRow[i];
+            }
         }
 
         return d;
@@ -595,6 +853,16 @@ public class ScilabSparse implements ScilabType {
         return cols;
     }
 
+    static final boolean equals(final DoubleBuffer buffer, final double[] data) {
+        buffer.clear();
+        return buffer.equals(DoubleBuffer.wrap(data));
+    }
+
+    static final boolean equals(final IntBuffer buffer, final int[] data) {
+        buffer.clear();
+        return buffer.equals(IntBuffer.wrap(data));
+    }
+
     /**
      * @see org.scilab.modules.types.ScilabType#equals(Object)
      */
@@ -602,20 +870,66 @@ public class ScilabSparse implements ScilabType {
     public boolean equals(Object obj) {
         if (obj instanceof ScilabSparse) {
             ScilabSparse sciSparse = (ScilabSparse) obj;
-            if (this.getNbNonNullItems() == sciSparse.getNbNonNullItems() && compareNbItemRow(this.getNbItemRow(), sciSparse.getNbItemRow())
-                    && Arrays.equals(this.getColPos(), sciSparse.getColPos())) {
-                if (this.isReal() && sciSparse.isReal()) {
-                    return Arrays.equals(this.getRealPart(), sciSparse.getRealPart());
+            if (this.getNbNonNullItems() == sciSparse.getNbNonNullItems()) {
+                if (byref && sciSparse.byref) {
+                    nbItemBuffer.clear();
+                    sciSparse.nbItemBuffer.clear();
+                    if (!nbItemBuffer.equals(sciSparse.nbItemBuffer)) {
+                        return false;
+                    }
+                    colPosBuffer.clear();
+                    sciSparse.colPosBuffer.clear();
+                    if (!colPosBuffer.equals(sciSparse.colPosBuffer)) {
+                        return false;
+                    }
+                } else if (!byref && !sciSparse.byref) {
+                    if (!compareNbItemRow(this.nbItemRow, sciSparse.nbItemRow) || !Arrays.equals(this.colPos, sciSparse.colPos)) {
+                        return false;
+                    }
+                } else if (byref && !sciSparse.byref) {
+                    if (!compareNbItemRow(sciSparse.nbItemRow, this.nbItemBuffer) || !equals(this.colPosBuffer, sciSparse.getScilabColPos())) {
+                        return false;
+                    }
                 } else {
-                    /* Complex */
-                    return Arrays.equals(this.getRealPart(), sciSparse.getRealPart()) && Arrays.equals(this.getImaginaryPart(), sciSparse.getImaginaryPart());
+                    if (!compareNbItemRow(this.nbItemRow, sciSparse.nbItemBuffer) || !equals(sciSparse.colPosBuffer, this.getScilabColPos())) {
+                        return false;
+                    }
                 }
-            } else {
-                return false;
             }
-        } else {
-            return false;
+
+            if (this.isReal() && sciSparse.isReal()) {
+                if (byref && sciSparse.byref) {
+                    realBuffer.clear();
+                    sciSparse.realBuffer.clear();
+                    return realBuffer.equals(sciSparse.realBuffer);
+                } else if (!byref && !sciSparse.byref) {
+                    return Arrays.equals(this.getRealPart(), sciSparse.getRealPart());
+                } else if (byref && !sciSparse.byref) {
+                    return equals(this.realBuffer, sciSparse.getRealPart());
+                } else {
+                    return equals(sciSparse.realBuffer, this.getRealPart());
+                }
+            }
+            if ((this.isReal() && !sciSparse.isReal()) || (!this.isReal() && sciSparse.isReal())) {
+                return false;
+            } else {
+                if (byref && sciSparse.byref) {
+                    realBuffer.clear();
+                    imaginaryBuffer.clear();
+                    sciSparse.realBuffer.clear();
+                    sciSparse.imaginaryBuffer.clear();
+                    return realBuffer.equals(sciSparse.realBuffer) && imaginaryBuffer.equals(sciSparse.imaginaryBuffer);
+                } else if (!byref && !sciSparse.byref) {
+                    return Arrays.equals(this.getRealPart(), sciSparse.getRealPart()) && Arrays.equals(this.getImaginaryPart(), sciSparse.getImaginaryPart());
+                } else if (byref && !sciSparse.byref) {
+                    return equals(this.realBuffer, sciSparse.getRealPart()) && equals(this.imaginaryBuffer, sciSparse.getImaginaryPart());
+                } else {
+                    return equals(sciSparse.realBuffer, this.getRealPart()) && equals(sciSparse.imaginaryBuffer, this.getImaginaryPart());
+                }
+            }
         }
+
+        return false;
     }
 
     /**
@@ -629,16 +943,8 @@ public class ScilabSparse implements ScilabType {
      * @return true if the arrays are equal
      */
     static final boolean compareNbItemRow(final int[] a, final int[] b) {
-        if (Arrays.equals(a, b)) {
-            return true;
-        }
-
-        if (a.length == b.length) {
-            return false;
-        }
-
         int[] c, d;
-        if (a.length < b.length) {
+        if (a.length <= b.length) {
             c = a;
             d = b;
         } else {
@@ -663,13 +969,62 @@ public class ScilabSparse implements ScilabType {
     }
 
     /**
+     * Compare two arrays containing the number of items by row. For example {1,
+     * 2, 3, 4} is equal to {1, 2, 3, 4, 0, 0, 0, 0}/
+     *
+     * @param a
+     *            an array
+     * @param b
+     *            an other array
+     * @return true if the arrays are equal
+     */
+    static final boolean compareNbItemRow(final int[] a, final IntBuffer b) {
+        b.clear();
+        final int n = b.capacity();
+        if (a.length == n) {
+            return b.equals(IntBuffer.wrap(a));
+        }
+
+        if (a.length < n) {
+            b.limit(a.length);
+            boolean eq = b.equals(IntBuffer.wrap(a));
+            if (!eq) {
+                b.clear();
+                return false;
+            }
+
+            int[] zeros = new int[n - a.length];
+            b.position(a.length);
+            b.limit(n);
+            eq = b.equals(IntBuffer.wrap(zeros));
+            b.clear();
+
+            return eq;
+        } else {
+            IntBuffer buf = IntBuffer.wrap(a);
+            buf.limit(n);
+            boolean eq = b.equals(buf);
+            if (!eq) {
+                return false;
+            }
+
+            int[] zeros = new int[a.length - n];
+            buf.position(n);
+            buf.limit(a.length);
+            eq = buf.equals(IntBuffer.wrap(zeros));
+
+            return eq;
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public Object getSerializedObject() {
         if (isReal()) {
-            return new Object[] { new int[] { getHeight(), getWidth() }, nbItemRow, getScilabColPos(), realPart };
+            return new Object[] { new int[] { getHeight(), getWidth() }, getNbItemRow(), getScilabColPos(), getRealPart() };
         } else {
-            return new Object[] { new int[] { getHeight(), getWidth() }, nbItemRow, getScilabColPos(), realPart, imaginaryPart };
+            return new Object[] { new int[] { getHeight(), getWidth() }, getNbItemRow(), getScilabColPos(), getRealPart(), getImaginaryPart() };
         }
     }
 
@@ -698,10 +1053,10 @@ public class ScilabSparse implements ScilabType {
         out.writeInt(rows);
         out.writeInt(cols);
         out.writeInt(nbItem);
-        out.writeObject(nbItemRow);
-        out.writeObject(colPos);
-        out.writeObject(realPart);
-        out.writeObject(imaginaryPart);
+        out.writeObject(getNbItemRow());
+        out.writeObject(getColPos());
+        out.writeObject(getRealPart());
+        out.writeObject(getImaginaryPart());
         out.writeObject(varName);
     }
 
@@ -724,27 +1079,31 @@ public class ScilabSparse implements ScilabType {
         result.append("sparse([");
         int j = 0;
         int prev = 0;
-        for (int i = 0; i < nbItemRow.length; i++) {
-            for (; j < prev + nbItemRow[i]; j++) {
+        final int inc = byref ? 0 : 1;
+        final int len = byref ? nbItemBuffer.capacity() : nbItemRow.length;
+        for (int i = 0; i < len; i++) {
+            final int n = getNbItemElement(i);
+            for (; j < prev + n; j++) {
                 result.append(Integer.toString(i + 1));
                 result.append(", ");
-                result.append(Integer.toString(colPos[j] + 1));
+                result.append(Integer.toString(getColPosElement(j) + inc));
                 if (j < nbItem - 1) {
                     result.append(" ; ");
                 }
             }
-            prev += nbItemRow[i];
+            prev += n;
         }
 
         result.append("], [");
         for (int i = 0; i < nbItem; i++) {
             if (isReal()) {
-                result.append(Double.toString(realPart[i]));
+                result.append(Double.toString(getRealElement(i)));
             } else {
-                result.append(Double.toString(realPart[i]));
-                if (imaginaryPart[i] != 0) {
+                result.append(Double.toString(getRealElement(i)));
+                final double im = getImaginaryElement(i);
+                if (im != 0) {
                     result.append("+");
-                    result.append(Double.toString(imaginaryPart[i]));
+                    result.append(Double.toString(im));
                     result.append("*%i");
                 }
             }

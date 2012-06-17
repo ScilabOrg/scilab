@@ -73,6 +73,19 @@ public class ScilabList extends ArrayList<ScilabType> implements ScilabType {
     }
 
     /**
+     * @param varName the variable name
+     * @param size the initial list size
+     */
+    public ScilabList(String varName, int size) {
+        super(size);
+        this.varName = varName;
+    }
+
+    public final boolean isReference() {
+        return false;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String getVarName() {

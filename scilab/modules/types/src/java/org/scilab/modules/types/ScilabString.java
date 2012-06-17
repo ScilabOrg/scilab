@@ -104,6 +104,10 @@ public class ScilabString implements ScilabType {
         this.data[0][0] = string;
     }
 
+    public final boolean isReference() {
+        return false;
+    }
+
     /**
      * Set the values.
      *
