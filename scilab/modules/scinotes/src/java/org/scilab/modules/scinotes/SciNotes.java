@@ -141,6 +141,7 @@ public class SciNotes extends SwingScilabTab {
 
     private static List<SciNotes> scinotesList = new ArrayList<SciNotes>();
     private static SciNotes editor;
+    private static boolean mustWrapLines;
 
     private SwingScilabWindow parentWindow;
     private UUID uuid;
@@ -187,7 +188,8 @@ public class SciNotes extends SwingScilabTab {
         editor = this;
         scinotesList.add(this);
         numberOfUntitled = 0;
-        editorKit = new ScilabEditorKit(!ConfigSciNotesManager.getHorizontalWrap());
+        mustWrapLines = SciNotesOptions.getSciNotesDisplay().wrapLines;
+        editorKit = new ScilabEditorKit(!mustWrapLines);
         protectOpenFileList = false;
         contentPane = new SciNotesContents(this);
         tabPane = contentPane.getScilabTabbedPane();
@@ -222,6 +224,8 @@ public class SciNotes extends SwingScilabTab {
     public static void configurationChanged(SciNotesConfiguration.Conf conf) {
         setWhereamiLineNumbering();
         setAutoIndent();
+        setHorizontalWrap();
+        setDefaultTabulation();
         updatePanes(conf);
     }
 
@@ -1358,7 +1362,7 @@ public class SciNotes extends SwingScilabTab {
      *            the pane to init
      */
     public void initPane(ScilabEditorPane pane) {
-        initPane(pane, !ConfigSciNotesManager.getHorizontalWrap());
+        initPane(pane, !SciNotesOptions.getSciNotesDisplay().wrapLines);
     }
 
     /**
@@ -1831,34 +1835,37 @@ public class SciNotes extends SwingScilabTab {
      * @param b
      *            true to activate horizontal wrapping mode
      */
-    public static void setHorizontalWrap(boolean b) {
-        for (SciNotes ed : scinotesList) {
-            int n = ed.getTabPane().getTabCount();
-            for (int i = 0; i < n; i++) {
-                ScilabEditorPane sep = ed.getTextPane(i);
-                if (sep.getOtherPaneInSplit() == null) {
-                    ScilabEditorPane pane = new ScilabEditorPane(editor);
-                    ed.initPane(pane, !b);
-                    sep.copyProps(pane);
-                    pane.setDocument(sep.getDocument());
-                    pane.setCaretPosition(sep.getCaretPosition());
-                    pane.getXln().setWhereamiLineNumbering(SciNotesOptions.getSciNotesDisplay().showLineNumbers, SciNotesOptions.getSciNotesDisplay().whereami);
-                    ed.tabPane.setComponentAt(i, pane.getEditorComponent());
-                    ed.activateHelpOnTyping(pane);
-                    ed.initInputMap(pane);
-                    if (((ScilabDocument) sep.getDocument()).getBinary()) {
-                        pane.setBinary(true);
+    public static void setHorizontalWrap() {
+        if (SciNotesOptions.getSciNotesDisplay().wrapLines != mustWrapLines) {
+            mustWrapLines = SciNotesOptions.getSciNotesDisplay().wrapLines;
+            for (SciNotes ed : scinotesList) {
+                int n = ed.getTabPane().getTabCount();
+                for (int i = 0; i < n; i++) {
+                    ScilabEditorPane sep = ed.getTextPane(i);
+                    if (sep.getOtherPaneInSplit() == null) {
+                        ScilabEditorPane pane = new ScilabEditorPane(editor);
+                        ed.initPane(pane, !mustWrapLines);
+                        sep.copyProps(pane);
+                        pane.setDocument(sep.getDocument());
+                        pane.setCaretPosition(sep.getCaretPosition());
+                        pane.getXln().setWhereamiLineNumbering(SciNotesOptions.getSciNotesDisplay().showLineNumbers, SciNotesOptions.getSciNotesDisplay().whereami);
+                        ed.tabPane.setComponentAt(i, pane.getEditorComponent());
+                        ed.activateHelpOnTyping(pane);
+                        ed.initInputMap(pane);
+                        if (((ScilabDocument) sep.getDocument()).getBinary()) {
+                            pane.setBinary(true);
+                        }
+                        ed.getInfoBar().setText(pane.getInfoBarText());
                     }
-                    ed.getInfoBar().setText(pane.getInfoBarText());
                 }
             }
         }
     }
 
     /**
-         * Set a line numbering compatible with the whereami function
-         * @param state 0 for nothing, 1 for normal and 2 for whereami
-         */
+     * Set a line numbering compatible with the whereami function
+     * @param state 0 for nothing, 1 for normal and 2 for whereami
+     */
 
     /**
      * Enable the highlighted line in this editor
@@ -1871,9 +1878,9 @@ public class SciNotes extends SwingScilabTab {
             int n = ed.getTabPane().getTabCount();
             for (int i = 0; i < n; i++) {
                 ScilabEditorPane sep = ed.getTextPane(i);
-                sep.enableHighlightedLine(b);
+                sep.enableHighlightedLine(SciNotesOptions.getSciNotesDisplay().highlightCurrentLine);
                 if (sep.getOtherPaneInSplit() != null) {
-                    sep.getOtherPaneInSplit().enableHighlightedLine(b);
+                    sep.getOtherPaneInSplit().enableHighlightedLine(SciNotesOptions.getSciNotesDisplay().highlightCurrentLine);
                 }
             }
         }
@@ -1911,7 +1918,8 @@ public class SciNotes extends SwingScilabTab {
      * @param c
      *            Color
      */
-    public static void setDefaultTabulation(TabManager.Tabulation tab) {
+    public static void setDefaultTabulation() {
+        TabManager.Tabulation tab = new TabManager.Tabulation();
         for (SciNotes ed : scinotesList) {
             int n = ed.getTabPane().getTabCount();
             for (int i = 0; i < n; i++) {
@@ -1957,14 +1965,14 @@ public class SciNotes extends SwingScilabTab {
      * @param c
      *            Color
      */
-    public static void setHighlightedLineColor(Color c) {
+    public static void setHighlightedLineColor() {
         for (SciNotes ed : scinotesList) {
             int n = ed.getTabPane().getTabCount();
             for (int i = 0; i < n; i++) {
                 ScilabEditorPane sep = ed.getTextPane(i);
-                sep.setHighlightedLineColor(c);
+                sep.setHighlightedLineColor(SciNotesOptions.getSciNotesDisplay().currentLineColor);
                 if (sep.getOtherPaneInSplit() != null) {
-                    sep.getOtherPaneInSplit().setHighlightedLineColor(c);
+                    sep.getOtherPaneInSplit().setHighlightedLineColor(SciNotesOptions.getSciNotesDisplay().currentLineColor);
                 }
             }
         }
@@ -1976,14 +1984,14 @@ public class SciNotes extends SwingScilabTab {
      * @param c
      *            Color
      */
-    public static void setHighlightedContourColor(Color c) {
+    public static void setHighlightedContourColor() {
         for (SciNotes ed : scinotesList) {
             int n = ed.getTabPane().getTabCount();
             for (int i = 0; i < n; i++) {
                 ScilabEditorPane sep = ed.getTextPane(i);
-                sep.setHighlightedContourColor(c);
+                sep.setHighlightedContourColor(null);
                 if (sep.getOtherPaneInSplit() != null) {
-                    sep.getOtherPaneInSplit().setHighlightedContourColor(c);
+                    sep.getOtherPaneInSplit().setHighlightedContourColor(null);
                 }
             }
         }
@@ -1996,10 +2004,9 @@ public class SciNotes extends SwingScilabTab {
      *            ScilabEditorPane
      */
     public static void setHighlight(ScilabEditorPane sep) {
-        sep.enableHighlightedLine(ConfigSciNotesManager.getHighlightState());
-        Color[] arr = ConfigSciNotesManager.getHighlightColors();
-        sep.setHighlightedLineColor(arr[0]);
-        sep.setHighlightedContourColor(arr[1]);
+        sep.enableHighlightedLine(SciNotesOptions.getSciNotesDisplay().highlightCurrentLine);
+        sep.setHighlightedLineColor(SciNotesOptions.getSciNotesDisplay().currentLineColor);
+        sep.setHighlightedContourColor(null);
     }
 
     /**

@@ -70,6 +70,10 @@ public class ScilabEditorKit extends DefaultEditorKit {
         this.plain = plain;
     }
 
+    public boolean isPlain() {
+        return plain;
+    }
+
     /**
      * @return the mime type
      */

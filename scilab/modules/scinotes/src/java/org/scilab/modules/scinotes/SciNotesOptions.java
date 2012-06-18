@@ -80,19 +80,21 @@ public class SciNotesOptions {
         public boolean keywordsOnmouseover;
         public boolean whereami;
         public int tabSize;
+        public int tabRepresentation;
         public boolean useSpaces;
         public int indentSize;
         public boolean automaticIndent;
 
         private Display() { }
 
-        @XConfAttribute(tag = "scinotes-display", attributes = {"highlight-current-line", "current-line-color", "show-line-numbers", "wrap-lines", "keywordsColorization", "highlight-brackets", "brackets-color", "brackets-highlightment", "brackets-onmouseover", "highlight-keywords", "keywords-color", "keywords-highlightment", "keywords-onmouseover", "whereami", "tab-size", "use-spaces", "indent-size", "automatic-indent"})
-        private void set(boolean highlightCurrentLine, Color currentLineColor, boolean showLineNumbers, boolean wrapLines, boolean keywordsColorization, boolean highlightBrackets, Color bracketsColor, String bracketsHighlightment, boolean bracketsOnmouseover, boolean highlightKeywords, Color keywordsColor, String keywordsHighlightment, boolean keywordsOnmouseover, boolean whereami, int tabSize, boolean useSpaces, int indentSize, boolean automaticIndent) {
+        @XConfAttribute(tag = "scinotes-display", attributes = {"highlight-current-line", "current-line-color", "show-line-numbers", "wrap-lines", "keywords-colorization", "highlight-brackets", "brackets-color", "brackets-highlightment", "brackets-onmouseover", "highlight-keywords", "keywords-color", "keywords-highlightment", "keywords-onmouseover", "whereami", "tab-size", "tab-representation", "use-spaces", "indent-size", "automatic-indent"})
+        private void set(boolean highlightCurrentLine, Color currentLineColor, boolean showLineNumbers, boolean wrapLines, boolean keywordsColorization, boolean highlightBrackets, Color bracketsColor, String bracketsHighlightment, boolean bracketsOnmouseover, boolean highlightKeywords, Color keywordsColor, String keywordsHighlightment, boolean keywordsOnmouseover, boolean whereami, int tabSize, String tabRepresentation, boolean useSpaces, int indentSize, boolean automaticIndent) {
             this.highlightCurrentLine = highlightCurrentLine;
             this.currentLineColor = currentLineColor;
             this.showLineNumbers = showLineNumbers;
             this.wrapLines = wrapLines;
             this.keywordsColorization = keywordsColorization;
+
             this.highlightBrackets = highlightBrackets;
             this.bracketsColor = bracketsColor;
             this.bracketsOnmouseover = bracketsOnmouseover;
@@ -101,6 +103,15 @@ public class SciNotesOptions {
             this.keywordsOnmouseover = keywordsOnmouseover;
             this.whereami = whereami;
             this.tabSize = tabSize;
+            if (tabRepresentation.equalsIgnoreCase("chevrons")) {
+                this.tabRepresentation = ScilabView.TABDOUBLECHEVRONS;
+            } else if (tabRepresentation.equalsIgnoreCase("hrule")) {
+                this.tabRepresentation = ScilabView.TABHORIZONTAL;
+            } else if (tabRepresentation.equalsIgnoreCase("vrule")) {
+                this.tabRepresentation = ScilabView.TABVERTICAL;
+            } else {
+                this.tabRepresentation = ScilabView.TABNOTHING;
+            }
             this.useSpaces = useSpaces;
             this.indentSize = indentSize;
             this.automaticIndent = automaticIndent;

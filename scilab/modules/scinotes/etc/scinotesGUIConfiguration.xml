@@ -100,6 +100,10 @@
       <menuitem action="scinotes-default-encoding" label="Default SciNotes file encoding;UTF-8;Windows 1252 (ANSI);ISO-8859-1"/>
       <menuitem action="scinotes-eof" label="Line Endings"/>
       <separator/>
+      <menu label="Auto-completion on">
+        <menuitem action="scinotes-autocomplete-openers" label="(, [, ..."/>
+        <menuitem action="scinotes-autocomplete-keyword" label="if, function, ..."/>
+      </menu>
       <menuitem action="scinotes-line-numbering" label="Line numbering;Off;Normal;Whereami compatible"/>
       <!--menuitem action="HighlightCurrentLineAction" label="Highlight current line"/>
       <menuitem action="AutoIndentAction" label="Enable Auto Reformat"/>

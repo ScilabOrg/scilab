@@ -247,13 +247,31 @@
 	    <xsl:call-template name="context"/>
 	  </actionPerformed>
 	</Checkbox>
-	<Checkbox checked="{@automatic-indent}" selected-value="true" unselected-value="false" listener="ActionListener" text="Enable auto indentation" gridx="1" gridy="2" fill="none" weightx="0" anchor="west">
+
+	<Label text="Representation:" gridx="1" gridy="2" weightx="0"/>
+	<Radiobutton value="{@tab-representation}" expected-value="chevrons" listener="ActionListener" text="Chevrons" gridx="2" gridy="2" fill="none" weightx="0" anchor="west" enable="true">
+	  <actionPerformed choose="tab-representation">
+	    <xsl:call-template name="context"/>
+	  </actionPerformed>
+	</Radiobutton>
+	<Radiobutton value="{@tab-representation}" expected-value="hrule" listener="ActionListener" text="Horizontal rule" gridx="3" gridy="2" fill="none" weightx="0" anchor="west" enable="true">
+	  <actionPerformed choose="tab-representation">
+	    <xsl:call-template name="context"/>
+	  </actionPerformed>
+	</Radiobutton>
+	<Radiobutton value="{@tab-representation}" expected-value="vrule" listener="ActionListener" text="Vertical rule" gridx="4" gridy="2" fill="none" weightx="0" anchor="west" enable="true">
+	  <actionPerformed choose="tab-representation">
+	    <xsl:call-template name="context"/>
+	  </actionPerformed>
+	</Radiobutton>
+
+	<Checkbox checked="{@automatic-indent}" selected-value="true" unselected-value="false" listener="ActionListener" text="Enable auto indentation" gridx="1" gridy="3" fill="none" weightx="0" anchor="west">
 	  <actionPerformed choose="use-spaces">
 	    <xsl:call-template name="context"/>
 	  </actionPerformed>
 	</Checkbox>
-        <Label gridy="3" text="Indent size:"/>
-        <Panel gridy="3" gridx="2" >
+        <Label gridy="4" text="Indent size:"/>
+        <Panel gridy="4" gridx="2" >
           <xsl:call-template name="Select">
             <xsl:with-param name="among">
               <option indent-size="2"/>
