@@ -71,4 +71,4 @@ if ( norm(scifun1(33) - .0160328) > 1 ) then pause,end
 ulink();
 
 //remove TMP_DIR
-rmdir(TMP_DIR,'s');
+//rmdir(TMP_DIR,'s');
