@@ -71,6 +71,8 @@
             <xsl:call-template name="context"/>
           </actionPerformed>
         </NumericalSpinner>
+        <Label text="(modify this option requires to restart Scilab)" font-face="bold" gridx="1" gridy="2" anchor="west" weightx="0"/>
+	<Panel gridx="2" gridy="2" weightx="1" fill="both"/>	
       </Grid>
     </Title>
 

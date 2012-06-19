@@ -153,7 +153,8 @@ libscijvm_algo_la_OBJECTS = $(am_libscijvm_algo_la_OBJECTS)
 libscijvm_disable_la_LIBADD =
 am_libscijvm_disable_la_OBJECTS = libscijvm_disable_la-nojvm.lo
 libscijvm_disable_la_OBJECTS = $(am_libscijvm_disable_la_OBJECTS)
-libscijvm_la_DEPENDENCIES = libscijvm-algo.la
+libscijvm_la_DEPENDENCIES = libscijvm-algo.la \
+	$(top_builddir)/modules/preferences/libscipreferences-algo.la
 am__objects_2 = libscijvm_la-sci_system_getproperty.lo \
 	libscijvm_la-sci_system_setproperty.lo \
 	libscijvm_la-sci_with_embedded_jre.lo \
@@ -464,6 +465,7 @@ libscijvm_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/call_scilab/includes/ \
 			-I$(top_srcdir)/modules/fileio/includes/ \
+			-I$(top_srcdir)/modules/preferences/src/c \
 			$(AM_CPPFLAGS)
 
 pkglib_LTLIBRARIES = libscijvm-disable.la $(am__append_1)
@@ -471,7 +473,9 @@ pkglib_LTLIBRARIES = libscijvm-disable.la $(am__append_1)
 @GUI_TRUE@noinst_LTLIBRARIES = libscijvm-algo.la
 libscijvm_la_LDFLAGS = -lpthread $(XML_LIBS) $(JAVA_JNI_LIBS) \
 	$(AM_LDFLAGS) $(am__append_2)
-libscijvm_la_LIBADD = libscijvm-algo.la
+libscijvm_la_LIBADD = libscijvm-algo.la \
+		      $(top_builddir)/modules/preferences/libscipreferences-algo.la
+
 
 #### jvm : gateway declaration ####
 libscijvm_la_sci_gatewaydir = $(mydatadir)/sci_gateway
@@ -523,6 +527,7 @@ libscijvm_disable_la_CPPFLAGS = -I$(srcdir)/includes/ \
 			-I$(top_srcdir)/modules/localization/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/output_stream/includes/ \
+			-I$(top_srcdir)/modules/preferences/src/c \
 			$(AM_CPPFLAGS)
 
 libscijvm_algo_la_SOURCES = $(JVM_C_SOURCES)

@@ -46,7 +46,7 @@ libscipreferences_la_src_xslt_xwizard_DATA = \
 
 PREFERENCES_JNI_SOURCES = src/jni/ScilabPreferences.cpp
 
-PREFERENCES_C_SOURCES =
+PREFERENCES_C_SOURCES = src/c/getScilabPreference.c
 
 PREFERENCES_CXX_SOURCES =
 
@@ -60,6 +60,7 @@ libscipreferences_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
     -I$(srcdir)/src/cpp/ \
     -I$(srcdir)/src/c/ \
     -I$(srcdir)/src/jni/ \
+    $(XML_FLAGS) \
     -I$(top_srcdir)/libs/MALLOC/includes/ \
     -I$(top_srcdir)/modules/commons/src/jni \
     -I$(top_srcdir)/modules/jvm/includes/ \
@@ -69,6 +70,7 @@ libscipreferences_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
     -I$(top_srcdir)/modules/api_scilab/includes/ \
     -I$(top_srcdir)/modules/core/includes/ \
     -I$(top_srcdir)/modules/functions/includes/ \
+    -I$(top_srcdir)/modules/string/includes/ \
     $(AM_CPPFLAGS)
 
 # Without the preferences module 
@@ -79,6 +81,8 @@ libscipreferences_disable_la_CPPFLAGS = -I$(srcdir)/includes/ \
 
 PREFERENCES_DISABLE_C_SOURCES = src/nopreferences/nopreferences.c
 libscipreferences_disable_la_SOURCES = $(PREFERENCES_DISABLE_C_SOURCES)
+
+libscipreferences_la_LDFLAGS = -lpthread $(XML_LIBS) $(JAVA_JNI_LIBS) $(AM_LDFLAGS)
 
 pkglib_LTLIBRARIES = libscipreferences-disable.la
 
