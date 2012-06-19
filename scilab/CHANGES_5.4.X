@@ -827,6 +827,8 @@ t.
 * Bug #10966 fixed - linspace was producing some numerical errors on the last
                      element.
 
+* Bug #10979 fixed - Very different rendering of the same graphic code between 5.3.3 and master.
+
 * Bug #10982 fixed - completion failed when space are used before the command.
 
 * Bug #11055 fixed - 'string' function did not manage implicit size type as
