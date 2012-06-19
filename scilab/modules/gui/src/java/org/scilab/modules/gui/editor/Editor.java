@@ -23,6 +23,8 @@ import org.scilab.modules.gui.editor.ScilabClipboard;
 import org.scilab.modules.gui.editor.SystemClipboard;
 import org.scilab.modules.gui.editor.PolylineHandler;
 
+import org.scilab.modules.localization.Messages;
+
 
 /**
 * Point and click figure editor.
@@ -41,15 +43,16 @@ public class Editor {
 
     JPopupMenu menu;
     JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy;
-    String[] names = {"Copy", "Cut", "Paste", "Delete", "Clear", "Hide", "Unhide All", "Copy to Clipboard"};
-    String[] hint = {"Copy selected polyline.",
-                     "Cut selected polyline.",
-                     "Paste copied polyline to this figure.",
-                     "Delete selected polyline.",
-                     "Clear figure.",
-                     "Hide selected polyline.",
-                     "Unhide all polylines.",
-                     "Copy figure to system clipboard."
+
+    String[] names = {Messages.gettext("Copy"), Messages.gettext("Cut"), Messages.gettext("Paste"), Messages.gettext("Delete"), Messages.gettext("Clear"), Messages.gettext("Hide"), Messages.gettext("Unhide All"), Messages.gettext("Copy to Clipboard")};
+    String[] hint = {Messages.gettext("Copy selected polyline."),
+                     Messages.gettext("Cut selected polyline."),
+                     Messages.gettext("Paste copied polyline to this figure."),
+                     Messages.gettext("Delete selected polyline."),
+                     Messages.gettext("Clear figure."),
+                     Messages.gettext("Hide selected polyline."),
+                     Messages.gettext("Unhide all polylines."),
+                     Messages.gettext("Copy figure to system clipboard.")
                     };
 
     String selected = null;
@@ -64,7 +67,7 @@ public class Editor {
     }
 
     /**
-    * On right mouse click set popup menu visible.
+    * On right mouse click, set popup menu visible.
     * @param event MouseEvent to retrieve click positon in figure.
     */
     public void mouseDown(MouseEvent event) {
@@ -78,10 +81,11 @@ public class Editor {
     }
 
     /**
-    * On right mouse click set popup menu visible.
+    * On right mouse click, set popup menu visible.
     * @param event MouseEvent to retrieve click positon in figure.
     */
     public void mouseUp(MouseEvent event) {
+        /* TODO: please create a private method to factorize this code */
         if (event.isPopupTrigger()) {
             boolean b = ScilabClipboard.getInstance().canPaste();
             paste.setEnabled(b);
@@ -98,7 +102,8 @@ public class Editor {
     * and set the properly action for each menu item.
     */
     public void init() {
-
+        /* TODO If it is used at only one place, please move the names & hint declaration here */
+        /* TODO it could be even more interesting to directory set the value here without going through an array */
         menu = new JPopupMenu();
 
         copy = new JMenuItem(names[0]);
@@ -172,10 +177,13 @@ public class Editor {
         menu.add(copy);
         menu.add(cut);
         menu.add(paste);
+        /* TODO add separator */
         menu.add(delete);
         menu.add(clear);
+        /* TODO add separator */
         menu.add(hide);
         menu.add(unhide);
+        /* TODO add separator */
         menu.add(clipboardCopy);
     }
 
@@ -187,7 +195,6 @@ public class Editor {
     *
     * @param uid polyline unique identifier. Null uid unselect previous selection.
     */
-
     public void setSelected(String uid) {
 
         if (selected != null) {

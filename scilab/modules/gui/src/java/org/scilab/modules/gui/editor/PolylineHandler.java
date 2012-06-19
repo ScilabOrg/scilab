@@ -97,6 +97,8 @@ public class PolylineHandler {
                 delete(dup);
             }
         } catch (Exception e) {
+            /* TODO Please avoid to catch just Exception */
+            /* TODO please provide better error management */
             System.out.println("Exception at Duplicate!" + e);
         }
         return dup;

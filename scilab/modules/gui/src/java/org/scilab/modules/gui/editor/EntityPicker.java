@@ -119,7 +119,8 @@ public class EntityPicker {
 
     private boolean isInRange(Double x0, Double x1, Double y0, Double y1, Double x, Double y) {
 
-        /*Double xmin, xmax, ymin, ymax;
+        /*TODO: remove if useless
+          Double xmin, xmax, ymin, ymax;
         if (x0 < x1) {
         	xmin = x0; xmax = x1;
         }
@@ -157,6 +158,7 @@ public class EntityPicker {
     */
     private boolean binarySearch(String uid, Double x, Double y) {
 
+        /* TODO remove */
         System.out.println("BinarySearch");
 
         double[] datax = (double[])PolylineData.getDataX(uid);
@@ -165,6 +167,7 @@ public class EntityPicker {
 
         int begin = 0, end = size - 1;
 
+        /* TODO please detail what you are doing here */
         while ((end - begin) > 1) {
             int m = ((begin + end) / 2);
             if (x <= datax[m]) {
@@ -182,6 +185,7 @@ public class EntityPicker {
         }
     }
 
+    /* TODO rename this method */
     private boolean isOverLerp(Double x0, Double x1, Double y0, Double y1, Double x, Double y) {
 
         Double ca = (y1 - y0) / (x1 - x0);

@@ -27,13 +27,13 @@ import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.renderer.JoGLView.DrawerVisitor;
 
 /**
-* implements the system clipboard, where a figure of scilab goes to the clipboard as an image
-*
-* @author Caio Souza <caioc2bolado@gmail.com>
-* @author Pedro Souza <bygrandao@gmail.com>
-*
-* @since 2012-06-01
-*/
+ * implements the system clipboard, where a figure of scilab goes to the clipboard as an image
+ *
+ * @author Caio Souza <caioc2bolado@gmail.com>
+ * @author Pedro Souza <bygrandao@gmail.com>
+ *
+ * @since 2012-06-01
+ */
 
 public class SystemClipboard {
 
@@ -47,7 +47,11 @@ public class SystemClipboard {
         return instance;
     }
 
-
+    /**
+     * @TODO add comment
+     *
+     * @param uid
+     */
     public static void copyToSysClipboard(String uid) {
         BufferedImage image = bufferFromUID(uid);
         ImageTransfer img = new ImageTransfer((Image)image);
@@ -55,6 +59,9 @@ public class SystemClipboard {
         System.out.println("Image copied to clipboard!");
     }
 
+    /**
+     * @TODO add comment
+     */
     public static class ImageTransfer implements Transferable {
 
         private Image image;
@@ -63,14 +70,31 @@ public class SystemClipboard {
             this.image = image;
         }
 
+        /**
+         * @TODO add comment
+         *
+         */
         public DataFlavor[] getTransferDataFlavors() {
             return new DataFlavor[] { DataFlavor.imageFlavor };
         }
 
+        /**
+         * @TODO add comment
+         *
+         * @param flavor
+         * @return <ReturnValue>
+         */
         public boolean isDataFlavorSupported(DataFlavor flavor) {
             return DataFlavor.imageFlavor.equals(flavor);
         }
 
+
+        /**
+         * @TODO add comment
+         *
+         * @param flavor
+         * @return <ReturnValue>
+         */
         public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
             if (!DataFlavor.imageFlavor.equals(flavor)) {
                 throw new UnsupportedFlavorException(flavor);
@@ -96,6 +120,11 @@ public class SystemClipboard {
     }
 
 
+    /**
+     * @TODO add comment
+     *
+     * @param uid
+     */
     public static void copyToSysClipboardB(String uid) {
 
         List<File> image = new ArrayList<File>();
@@ -109,18 +138,40 @@ public class SystemClipboard {
 
         private List<File> image;
 
+        /**
+         * @TODO add comment
+         *
+         * @param image
+         */
         public FileTransfer(List<File> image) {
             this.image = image;
         }
 
+        /**
+         * @TODO add comment
+         *
+         * @return
+         */
         public DataFlavor[] getTransferDataFlavors() {
             return new DataFlavor[] { DataFlavor.javaFileListFlavor  };
         }
 
+        /**
+         * @TODO add comment
+         *
+         * @param flavor
+         * @return
+         */
         public boolean isDataFlavorSupported(DataFlavor flavor) {
             return DataFlavor.javaFileListFlavor .equals(flavor);
         }
 
+        /**
+         * @TODO add comment
+         *
+         * @param flavor
+         * @return <ReturnValue>
+         */
         public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
             if (!DataFlavor.javaFileListFlavor .equals(flavor)) {
                 throw new UnsupportedFlavorException(flavor);
@@ -140,6 +191,7 @@ public class SystemClipboard {
         if (joglCanvas != null) {
             try {
                 BufferedImage image = joglCanvas.getImage();
+                /* TODO  Use File.createTempFile instead */
                 File f = new File("temp.png").getAbsoluteFile();
                 joglCanvas.destroy();
                 ImageIO.write(image, name, f);

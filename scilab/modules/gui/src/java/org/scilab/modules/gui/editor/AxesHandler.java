@@ -70,6 +70,11 @@ public class AxesHandler {
 
 
 
+    /**
+     * @TODO add comment
+     *
+     * @param axes
+     */
     public static void setAxesVisible(String axes) {
 
         GraphicController.getController().setProperty(axes, GraphicObjectProperties.__GO_X_AXIS_VISIBLE__, true);
@@ -78,6 +83,13 @@ public class AxesHandler {
         GraphicController.getController().setProperty(axes, GraphicObjectProperties.__GO_VISIBLE__, true);
     }
 
+    /**
+     * @TODO add comment
+     *
+     * @param figureUid
+     * @param axes
+     * @return <ReturnValue>
+     */
     public static String duplicateAxes(String figureUid, String axes) {
 
         String newAxes = GraphicController.getController().cloneObject(axes);
@@ -86,6 +98,12 @@ public class AxesHandler {
         return newAxes;
     }
 
+    /**
+     * @TODO add comment
+     *
+     * @param axesFrom
+     * @param axesTo
+     */
     public static void axesBound(String axesFrom, String axesTo) {
 
         Double[] axesFB = (Double[])GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_DATA_BOUNDS__);

@@ -30,7 +30,7 @@ public class ScilabClipboard {
     static ScilabClipboard instance = null;
     String polylineUid = null;
     Integer copiedColor = 0;
-    boolean needDup = false;
+    boolean needDuplication = false;
 
 
     public static ScilabClipboard getInstance() {
@@ -46,7 +46,7 @@ public class ScilabClipboard {
     */
     public void copy(String polyline) {
         polylineUid = polyline;
-        needDup = true;
+        needDuplication = true;
     }
 
     /**
@@ -59,11 +59,12 @@ public class ScilabClipboard {
         String axesFrom = (new ObjectSearcher()).searchParent(polyline, "Axes");
 
         if (axesFrom == null) {
+            /* TODO Please remove that */
             System.out.println("Null axesFrom!");
             return;
         }
 
-        if (needDup == true ) {
+        if (needDuplication == true ) {
             polyline = PolylineHandler.getInstance().duplicate(polylineUid);
         } else {
             PolylineHandler.getInstance().cut(polyline);
@@ -72,18 +73,19 @@ public class ScilabClipboard {
         PolylineHandler.getInstance().setColor(polyline, copiedColor);
 
         String axesTo = AxesHandler.clickedAxes(figure, position);
-        if (axesTo != null) {
+        if (axesTo != null) { /* TODO Comment this case */
             AxesHandler.axesBound(axesFrom, axesTo);
             AxesHandler.setAxesVisible(axesTo);
             PolylineHandler.getInstance().insert(axesTo, polyline);
             polylineUid = null;
-        } else {
+        } else { /* TODO Comment this case */
             axesTo = AxesHandler.duplicateAxes(figure, axesFrom);
-            if (axesTo != null) {
+            if (axesTo != null) { /* TODO Comment this case */
                 AxesHandler.axesBound(axesFrom, axesTo);
                 PolylineHandler.getInstance().insert(axesTo, polyline);
                 polylineUid = null;
             }
+            /* TODO Please remove or change that to send an actual Scilab error */
             System.out.println("Failed duplicating Axes");
         }
     }
@@ -94,7 +96,7 @@ public class ScilabClipboard {
     */
     public void cut(String polyline) {
         polylineUid = polyline;
-        needDup = false;
+        needDuplication = false;
     }
 
     /**
