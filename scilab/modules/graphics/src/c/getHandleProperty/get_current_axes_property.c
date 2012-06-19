@@ -31,11 +31,15 @@
 #include "CurrentFigure.h"
 #include "CurrentSubwin.h"
 
+#include "setGraphicObjectProperty.h"
+#include "graphicObjectProperties.h"
+
 /*------------------------------------------------------------------------*/
 int get_current_axes_property(char *pobjUID)
 {
     char *pFigureUID = NULL;
     char *pSubWinUID = NULL;
+    int firstPlot = 0;
 
     if (pobjUID != NULL)
     {
@@ -52,6 +56,8 @@ int get_current_axes_property(char *pobjUID)
         setCurrentFigure(pFigureUID);
     }
 
+    pSubWinUID = getCurrentSubWin();
+    setGraphicObjectProperty(pSubWinUID, __GO_FIRST_PLOT__, &firstPlot, jni_bool, 1);
 
     return sciReturnHandle(getHandle(getCurrentSubWin())) ;
 }
