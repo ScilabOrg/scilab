@@ -375,6 +375,7 @@ public class AxesDrawer {
     private Transformation computeBoxTransformation(Axes axes, Canvas canvas, boolean use2dView) throws DegenerateMatrixException {
         Double[] bounds = axes.getDisplayedBounds();
 
+
         double alpha;
         double theta;
 
@@ -408,7 +409,7 @@ public class AxesDrawer {
             tmpX = (bounds[1] - bounds[0]);
             tmpY = (bounds[3] - bounds[2]);
             tmpZ = (bounds[5] - bounds[4]);
-
+            
             /**
              * Here, we should divide the values by their maximum.
              * But the next operation will automatically.
@@ -426,8 +427,9 @@ public class AxesDrawer {
         // Scale projected data to fit in the cube.
         Transformation isoScale;
         if (axes.getIsoview()) {
-            double minScale = Math.min(tmpX, tmpY);
-            isoScale = TransformationFactory.getScaleTransformation(minScale, minScale, tmpZ);
+        	Double[] axesBounds = axes.getAxesBounds();
+            double minScale = Math.min(tmpX*axesBounds[2], tmpY*axesBounds[3]);
+            isoScale = TransformationFactory.getScaleTransformation(minScale/axesBounds[2] , minScale/axesBounds[3] , tmpZ);
         } else {
             isoScale = TransformationFactory.getScaleTransformation(tmpX, tmpY, tmpZ);
         }
