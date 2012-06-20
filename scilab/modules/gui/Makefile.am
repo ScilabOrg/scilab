@@ -33,7 +33,8 @@ libscigui_la_etc_DATA = \
 	etc/main_menubar.xml \
 	etc/main_toolbar.xml \
 	etc/flexdock-themes.xml \
-	etc/windowsConfiguration.xml \
+	etc/integratedConfiguration.xml \
+	etc/simpleConfiguration.xml \
 	etc/XConfiguration-colors.xml \
 	etc/XConfiguration-colors.xsl \
 	etc/XConfiguration-font.xml \
