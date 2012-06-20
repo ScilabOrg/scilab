@@ -26,6 +26,10 @@
       <callback instruction="if iswaitingforinput() then printf(&quot;\n%s\n\n%s\n&quot;,prompt(),pwd()); else printf(&quot;\n\n%s\n\n&quot;,pwd());end" type="0"/>
     </submenu>
     <separator/>
+    <submenu label="P&amp;references">
+      <callback instruction='org.scilab.modules.preferences.XConfigManager.openPreferences' type="3"/>
+    </submenu>
+    <separator/>
     <submenu label="P&amp;age setup...">
       <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.pageSetup" type="3"/>
     </submenu>
@@ -56,12 +60,7 @@
     <submenu label="&amp;Select all" accelerator="OSSCKEY A" icon="edit-select-all">
       <callback instruction="org.scilab.modules.gui.bridge.CallScilabBridge.selectAllConsoleContents" type="3"/>
     </submenu>
-    <submenu label="P&amp;references">
-      <callback instruction='org.scilab.modules.preferences.XConfigManager.openPreferences' type="3"/>
-    </submenu>
-  </menu>
-  <!-- Preferences menu -->
-  <menu label="&amp;Preferences" enabled="false">
+    <separator/>
     <submenu label="Show/Hide &amp;Toolbar">
       <callback instruction="                 if toolbar(-1)==&quot;on&quot; then                   toolbar(-1, &quot;off&quot;);                 else                   toolbar(-1, &quot;on&quot;);                 end" type="0"/>
     </submenu>
