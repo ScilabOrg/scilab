@@ -13,6 +13,14 @@
       </tools>
     </body>
   </confirmation-dialogs>
+  <desktop-layout title="Desktop layout">
+    <body>
+      <layouts name="default">
+        <layout name="default" path="$SCI/modules/gui/etc/defaultConfiguration.xml" image="http://www.scilab.org/var/ezwebin_site/storage/images/media/images/download/puffin-logo/1771-1-eng-GB/Puffin-Logo_medium.png"/>
+        <layout name="Sly layout" path="$SCI/modules/gui/etc/slyConfiguration.xml" image="http://penta.debconf.org/dc11_schedule/images/person-1430-128x128.png"/>
+      </layouts>
+    </body>
+  </desktop-layout>
   <shortcuts title="Shortcuts">
     <body>
       <actions active="scilab" name="Console" item="1" browse="--choose a file --" filter="">
