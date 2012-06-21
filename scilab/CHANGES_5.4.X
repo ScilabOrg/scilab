@@ -204,6 +204,9 @@ Xcos
 
 * Bug #9131 fixed - PULSE_SC has been added to the Source palette.
 
+* Bug #9496 fixed - Xcos flag 5 (ending) was not called if simulation is
+                    stopped from user interface.
+
 * Bug #10081 fixed - Palette configuration saving could produce an invalid
                      file.
 
@@ -307,7 +310,7 @@ CLI Console (GNU/Linux and Mac OS X only)
             the line.
   - UP or Ctrl+P recalls previous line.
   - DOWN or Ctrl+N recalls next line.
-  - TAB: completion Scilab displays a list of all names (functions, variables…) that 
+  - TAB: completion Scilab displays a list of all names (functions, variables) that 
     start with the characters already typed by the user.
   - Ctrl + A or HOME moves to beginning of current line.
   - Ctrl + B or LEFT moves the cursor one character to the left.
