@@ -116,6 +116,7 @@ ScilabPreferences::ScilabPreferences(JavaVM * jvm_)
     /* Methods ID set to NULL */
     voidaddToolboxInfosjstringjava_lang_Stringjstringjava_lang_Stringjstringjava_lang_StringID = NULL;
     voidremoveToolboxInfosjstringjava_lang_StringID = NULL;
+    voidopenPreferencesID = NULL;
 
 
 }
@@ -143,6 +144,7 @@ ScilabPreferences::ScilabPreferences(JavaVM * jvm_, jobject JObj)
     /* Methods ID set to NULL */
     voidaddToolboxInfosjstringjava_lang_Stringjstringjava_lang_Stringjstringjava_lang_StringID = NULL;
     voidremoveToolboxInfosjstringjava_lang_StringID = NULL;
+    voidopenPreferencesID = NULL;
 
 
 }
@@ -233,6 +235,27 @@ void ScilabPreferences::removeToolboxInfos (JavaVM * jvm_, char const* path)
 
     curEnv->CallStaticVoidMethod(cls, voidremoveToolboxInfosjstringjava_lang_StringID , path_);
     curEnv->DeleteLocalRef(path_);
+    curEnv->DeleteLocalRef(cls);
+    if (curEnv->ExceptionCheck())
+    {
+        throw GiwsException::JniCallMethodException(curEnv);
+    }
+}
+
+void ScilabPreferences::openPreferences (JavaVM * jvm_)
+{
+
+    JNIEnv * curEnv = NULL;
+    jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+    jclass cls = curEnv->FindClass( className().c_str() );
+
+    jmethodID voidopenPreferencesID = curEnv->GetStaticMethodID(cls, "openPreferences", "()V" ) ;
+    if (voidopenPreferencesID == NULL)
+    {
+        throw GiwsException::JniMethodNotFoundException(curEnv, "openPreferences");
+    }
+
+    curEnv->CallStaticVoidMethod(cls, voidopenPreferencesID );
     curEnv->DeleteLocalRef(cls);
     if (curEnv->ExceptionCheck())
     {

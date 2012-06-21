@@ -21,12 +21,18 @@ import java.util.Map;
 import org.scilab.modules.localization.Messages;
 
 /**
- * Class to get the toolboxes informations
  * @author Calixte DENIZET
  */
 public class ScilabPreferences {
 
     private static Map<String, ToolboxInfos> tbxs = new HashMap<String, ToolboxInfos>();
+
+    /**
+     * Open the preferences window
+     */
+    public static void openPreferences() {
+        XConfigManager.openPreferences();
+    }
 
     /**
      * @param name the toolbox name
