@@ -524,7 +524,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      */
     @Override
     public void close() {
-        dispose();
+		try {
+			dispose();
+		} catch (IllegalStateException e) {
+			enableInputMethods(false);
+		}
         allScilabWindows.remove(windowUID);
     }
 
