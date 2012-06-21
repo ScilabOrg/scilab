@@ -23,6 +23,8 @@ void InitializePreferences()
 {
     const ScilabPreferences * prefs = getScilabPreferences();
     int ieee = 0;
+    int lines = 0;
+    int cols = 0;
     int formatWidth = 0;
     int historyLines = 0;
 
@@ -42,6 +44,7 @@ void InitializePreferences()
         setformat(prefs->format, formatWidth);
     }
 
+    // Set history
     if (prefs->historyEnable)
     {
         if (!stricmp(prefs->historyEnable, "true"))
@@ -62,6 +65,19 @@ void InitializePreferences()
             TerminateHistoryManager();
         }
     }
+
+    // Set lines
+    if (prefs->adaptToDisplay && prefs->columnsToDisplay && prefs->linesToDisplay)
+    {
+        if (stricmp(prefs->adaptToDisplay, "true"))
+        {
+            // it is not true so ...
+            lines = (int)atof(prefs->linesToDisplay);
+            cols = (int)atof(prefs->columnsToDisplay);
+            setlines(lines, cols);
+        }
+    }
+
 
     clearScilabPreferences();
 }
