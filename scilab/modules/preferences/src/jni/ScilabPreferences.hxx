@@ -80,6 +80,7 @@ private:
 protected:
     jmethodID voidaddToolboxInfosjstringjava_lang_Stringjstringjava_lang_Stringjstringjava_lang_StringID; // cache method id
     jmethodID voidremoveToolboxInfosjstringjava_lang_StringID; // cache method id
+    jmethodID voidopenPreferencesID; // cache method id
 
 
 
@@ -142,6 +143,8 @@ public:
     static void addToolboxInfos(JavaVM * jvm_, char const* name, char const* path, char const* prefFile);
 
     static void removeToolboxInfos(JavaVM * jvm_, char const* path);
+
+    static void openPreferences(JavaVM * jvm_);
 
 
     /**
