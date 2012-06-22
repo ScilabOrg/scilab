@@ -28,6 +28,12 @@ import org.scilab.modules.graphic_objects.graphicObject.*;
 import org.scilab.modules.gui.editor.Editor;
 import org.scilab.modules.gui.editor.PolylineHandler;
 
+import java.awt.MouseInfo;
+
+import java.util.ArrayList;
+
+import org.scilab.modules.gui.datatip.*;
+
 /**
 * Event listener for the figure editor.
 *
@@ -43,6 +49,11 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     String windowUid;
     Editor editor;
     boolean isInRotation = false;
+    public static String picked;
+    public static ArrayList<String> PolylineUIDRedraw = new ArrayList<String>();
+    public static ArrayList<Integer> CoordXRedraw = new ArrayList<Integer>();
+    public static ArrayList<Integer> CoordYRedraw = new ArrayList<Integer>();
+    public static int NumberCreatedDatatips = 0;
 
     public EditorEventListener(String uid) {
         windowUid = uid;
@@ -54,11 +65,11 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     }
 
     public void keyReleased(KeyEvent arg0) {
-    /* TODO add copy/cut/paste by keyboard shortcut*/
+        /* TODO add copy/cut/paste by keyboard shortcut*/
         if (arg0.isControlDown()) {
             if (arg0.getKeyCode() == KeyEvent.VK_C) {
                 if (editor.getSelected() != null) {
-                    
+
                 }
             }
         }
@@ -88,7 +99,17 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
             EntityPicker ep = new EntityPicker();
             String picked = ep.pick( windowUid, arg0.getX(), arg0.getY() );
             editor.setSelected(picked);
+            int XCoord = MouseInfo.getPointerInfo().getLocation().x;
+            int YCoord = MouseInfo.getPointerInfo().getLocation().y;
+            if (picked != null) {
+                new DatatipCreate (XCoord, YCoord, picked);
+                PolylineUIDRedraw.add(picked);
+                CoordXRedraw.add(XCoord);
+                CoordYRedraw.add(YCoord);
+                NumberCreatedDatatips++;
+            }
         } else if (arg0.getButton() == 3) {
+            new DatatipContextMenu ();
         }
     }
 
@@ -100,7 +121,7 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     public void mouseReleased(MouseEvent arg0) {
         if (arg0.getButton() == 3) {
             if (!isInRotation) {
-                editor.onMouseClick(arg0);
+                //editor.onMouseClick(arg0);
             }
         }
         isInRotation = false;
