@@ -23,7 +23,7 @@ import java.awt.event.MouseMotionListener;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
 import org.scilab.modules.graphic_objects.graphicObject.*;
-
+import org.scilab.modules.graphic_objects.ged.*;
 
 import org.scilab.modules.gui.editor.Editor;
 import org.scilab.modules.gui.editor.PolylineHandler;
@@ -88,6 +88,17 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
             EntityPicker ep = new EntityPicker();
             String picked = ep.pick( windowUid, arg0.getX(), arg0.getY() );
             editor.setSelected(picked);
+	    /**
+            * Part responsible for the exchange of properties of the GED.
+            * If the GED is open, so the code is executed.
+            */
+            if (Inspector.window != null) {
+		if(picked == null) {
+			new Swap("axes" , windowUid);
+		} else {
+			new Swap("curve" , picked);
+		}
+            }
         } else if (arg0.getButton() == 3) {
         }
     }
@@ -112,6 +123,7 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
 
     public void mouseMoved(MouseEvent arg0) {
     }
-
+    
+	
 }
 

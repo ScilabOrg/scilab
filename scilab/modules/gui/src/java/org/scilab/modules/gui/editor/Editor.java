@@ -23,6 +23,8 @@ import org.scilab.modules.gui.editor.ScilabClipboard;
 import org.scilab.modules.gui.editor.SystemClipboard;
 import org.scilab.modules.gui.editor.PolylineHandler;
 
+import org.scilab.modules.graphic_objects.ged.*;
+
 import org.scilab.modules.localization.Messages;
 
 
@@ -42,7 +44,7 @@ import org.scilab.modules.localization.Messages;
 public class Editor {
 
     JPopupMenu menu;
-    JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy;
+    JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy, ged;
 
     String selected = null;
     String figureUid = null;
@@ -97,7 +99,7 @@ public class Editor {
         unhide.setToolTipText(Messages.gettext("Unhide all curves."));
         clipboardCopy = new JMenuItem(Messages.gettext("Copy to Clipboard"));
         clipboardCopy.setToolTipText(Messages.gettext("Copy figure to system clipboard."));
-
+	ged = new JMenuItem("Open GED");
 
         copy.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -147,6 +149,12 @@ public class Editor {
             }
         });
 
+	ged.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                onClickged();
+            }
+        });
+
 
 
         menu.add(copy);
@@ -160,6 +168,7 @@ public class Editor {
         menu.add(unhide);
         menu.addSeparator();
         menu.add(clipboardCopy);
+	menu.add(ged);
     }
 
 
@@ -174,7 +183,7 @@ public class Editor {
     */
     public void setSelected(String uid) {
 
-        if (selected != null) {
+        if (PolylineHandler.getInstance().polylineExists(selected)) {
             PolylineHandler.getInstance().setColor(selected, oriColor);
         }
 
@@ -200,7 +209,12 @@ public class Editor {
     * @return selected polyline uid or null if there isn't any selected.
     */
     public String getSelected() {
-        return selected;
+        if (PolylineHandler.getInstance().polylineExists(selected)) {
+            return selected;
+        } else {
+            setSelected(null);
+            return null;
+        }
     }
 
     /**
@@ -215,7 +229,7 @@ public class Editor {
     * Implements copy menu item action(Callback).
     */
     public void onClickCopy() {
-        ScilabClipboard.getInstance().copy(selected);
+        ScilabClipboard.getInstance().copy(getSelected());
         ScilabClipboard.getInstance().setCopiedColor(oriColor);
     }
 
@@ -230,19 +244,23 @@ public class Editor {
     * Implements cut menu item action
     */
     public void onClickCut() {
-        String s = selected;
-        setSelected(null);
-        ScilabClipboard.getInstance().cut(s);
-        ScilabClipboard.getInstance().setCopiedColor(oriColor);
+        String s = getSelected();
+        if (s != null) {
+            setSelected(null);
+            ScilabClipboard.getInstance().cut(s);
+            ScilabClipboard.getInstance().setCopiedColor(oriColor);
+        }
     }
 
     /**
     * Implements delete menu item action(Callback).
     */
     public void onClickDelete() {
-        String toDelete = selected;
-        setSelected(null);
-        PolylineHandler.getInstance().delete(toDelete);
+        String toDelete = getSelected();
+        if (toDelete != null) {
+            setSelected(null);
+            PolylineHandler.getInstance().delete(toDelete);
+        }
     }
 
     /**
@@ -260,7 +278,7 @@ public class Editor {
     * Implements hide menu item action(Callback).
     */
     public void onClickHide() {
-        if (selected != null) {
+        if (getSelected() != null) {
             PolylineHandler.getInstance().visible(selected, false);
             setSelected(null);
         }
@@ -279,5 +297,9 @@ public class Editor {
     public void onClickCCopy() {
         SystemClipboard.copyToSysClipboard(figureUid);
     }
+
+	public void onClickged() {
+		Inspector.createGuiInspector("figure" , figureUid);
+	}
 }
 
