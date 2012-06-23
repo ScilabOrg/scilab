@@ -41,7 +41,7 @@ public class HTMLSVGHandler extends ExternalXMLHandler {
     public HTMLSVGHandler(String outputDir, String baseDir) {
         this.outputDir = outputDir + File.separator + baseDir;
         this.baseDir = baseDir + "/";
-     }
+    }
 
     /**
      * {@inheritDoc}
@@ -71,7 +71,7 @@ public class HTMLSVGHandler extends ExternalXMLHandler {
             File f = new File(outputDir, BASENAME + (compt++) + ".png");
             Map<String, String> attributes = new HashMap();
 
-            String ret = ImageConverter.getImageByCode(buffer.toString(), attributes, "image/svg", f, baseDir + f.getName());
+            String ret = ImageConverter.getImageByCode(getConverter().getCurrentFileName(), buffer.toString(), attributes, "image/svg", f, baseDir + f.getName());
             buffer.setLength(0);
 
             return ret;

@@ -21,13 +21,13 @@ import org.xml.sax.Attributes;
 import org.scilab.modules.helptools.image.ImageConverter;
 
 /**
- * Handle the included SVG code
+ * Handle the included SCILAB code
  * @author Calixte DENIZET
  */
-public class HTMLMathMLHandler extends ExternalXMLHandler {
+public class HTMLScilabHandler extends ExternalXMLHandler {
 
-    private static final String MATH = "math";
-    private static final String BASENAME = "Equation_MathML_";
+    private static final String SCILAB = "image";
+    private static final String BASENAME = "Image_SCILAB_";
 
     private int compt;
     private StringBuilder buffer = new StringBuilder(8192);
@@ -38,7 +38,7 @@ public class HTMLMathMLHandler extends ExternalXMLHandler {
      * Constructor
      * @param baseDir the base directory where to put the generated images
      */
-    public HTMLMathMLHandler(String outputDir, String baseDir) {
+    public HTMLScilabHandler(String outputDir, String baseDir) {
         this.outputDir = outputDir + File.separator + baseDir;
         this.baseDir = baseDir + "/";
     }
@@ -47,7 +47,7 @@ public class HTMLMathMLHandler extends ExternalXMLHandler {
      * {@inheritDoc}
      */
     public String getURI() {
-        return "http://www.w3.org/1998/Math/MathML";
+        return "http://www.scilab.org";
     }
 
     /**
@@ -55,7 +55,7 @@ public class HTMLMathMLHandler extends ExternalXMLHandler {
      */
     public StringBuilder startExternalXML(String localName, Attributes attributes) {
         recreateTag(buffer, localName, attributes);
-        if (MATH.equals(localName)) {
+        if (SCILAB.equals(localName)) {
             return buffer;
         }
 
@@ -66,13 +66,12 @@ public class HTMLMathMLHandler extends ExternalXMLHandler {
      * {@inheritDoc}
      */
     public String endExternalXML(String localName) {
-        if (MATH.equals(localName)) {
+        if (SCILAB.equals(localName)) {
             recreateTag(buffer, localName, null);
             File f = new File(outputDir, BASENAME + (compt++) + ".png");
-            Map<String, String> attributes = new HashMap();
-            attributes.put("fontsize", "16");
+            Map<String, String> attributes = new HashMap<String, String>();
 
-            String ret = ImageConverter.getImageByCode(getConverter().getCurrentFileName(), buffer.toString(), attributes, "image/mathml", f, baseDir + f.getName());
+            String ret = ImageConverter.getImageByCode(getConverter().getCurrentFileName(), buffer.toString(), attributes, "image/scilab", f, baseDir + f.getName());
             buffer.setLength(0);
 
             return ret;
