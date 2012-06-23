@@ -44,6 +44,7 @@ public final class ImageConverter {
         mimeMap.addMimeTypes("type=image/latex exts=tex,latex");
         mimeMap.addMimeTypes("type=image/mathml exts=mml,mathml");
         mimeMap.addMimeTypes("type=image/svg exts=svg");
+        mimeMap.addMimeTypes("type=image/scilab exts=sce");
     }
 
     /**
@@ -171,8 +172,7 @@ public final class ImageConverter {
             dest.transferFrom(src, 0, src.size());
         } catch (IOException e) {
             System.err.println(e);
-        }
-        finally {
+        } finally {
             try {
                 if (src != null) {
                     src.close();
