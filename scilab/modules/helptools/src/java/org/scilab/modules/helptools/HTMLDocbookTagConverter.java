@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 import org.scilab.modules.helptools.image.ImageConverter;
 import org.scilab.modules.helptools.image.LaTeXImageConverter;
 import org.scilab.modules.helptools.image.MathMLImageConverter;
+import org.scilab.modules.helptools.image.ScilabImageConverter;
 import org.scilab.modules.helptools.image.SVGImageConverter;
 import org.scilab.modules.helptools.scilab.ScilabLexer;
 import org.scilab.modules.helptools.scilab.HTMLScilabCodeHandler;
@@ -117,27 +118,27 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         this.isToolbox = isToolbox;
         if (isToolbox) {// we generate a toolbox's help
             HTMLScilabCodeHandler.setLinkWriter(new AbstractScilabCodeHandler.LinkWriter() {
-                    public String getLink(String id) {
-                        if (id.length() > 0 && id.charAt(0) == '%') {
-                            id = id.replace("%", "percent");
-                        }
-                        String link = mapId.get(id);
-                        if (link == null) {
-                            return HTMLDocbookTagConverter.this.urlBase + id;
-                        } else {
-                            return link;
-                        }
+                public String getLink(String id) {
+                    if (id.length() > 0 && id.charAt(0) == '%') {
+                        id = id.replace("%", "percent");
                     }
-                });
+                    String link = mapId.get(id);
+                    if (link == null) {
+                        return HTMLDocbookTagConverter.this.urlBase + id;
+                    } else {
+                        return link;
+                    }
+                }
+            });
         } else {// we generate Scilab's help
             HTMLScilabCodeHandler.setLinkWriter(new AbstractScilabCodeHandler.LinkWriter() {
-                    public String getLink(String id) {
-                        if (id.length() > 0 && id.charAt(0) == '%') {
-                            id = id.replace("%", "percent");
-                        }
-                        return mapId.get(id);
+                public String getLink(String id) {
+                    if (id.length() > 0 && id.charAt(0) == '%') {
+                        id = id.replace("%", "percent");
                     }
-                });
+                    return mapId.get(id);
+                }
+            });
         }
 
         xmlLexer = new XMLLexer();
@@ -148,6 +149,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         ImageConverter.registerExternalImageConverter(LaTeXImageConverter.getInstance());
         ImageConverter.registerExternalImageConverter(MathMLImageConverter.getInstance());
         ImageConverter.registerExternalImageConverter(SVGImageConverter.getInstance());
+        ImageConverter.registerExternalImageConverter(ScilabImageConverter.getInstance());
     }
 
     /**
@@ -493,7 +495,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             hasExamples = false;
         }
         String rp = encloseContents("span", "refentry-description", refpurpose);
-        String str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "refentry"}, currentId) + " &#8212; " + rp);
+        String str = encloseContents("li", encloseContents("a", new String[] {"href", fileName, "class", "refentry"}, currentId) + " &#8212; " + rp);
         refpurpose = "";
         refname = "";
         currentId = null;
@@ -514,7 +516,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         String title = encloseContents("h3", "title-section", sectionTitle);
         createHTMLFile(attributes.get("id"), fileName, sectionTitle, title + "\n" + str);
 
-        str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "section"}, sectionTitle) + "\n" + str);
+        str = encloseContents("li", encloseContents("a", new String[] {"href", fileName, "class", "section"}, sectionTitle) + "\n" + str);
         sectionTitle = "";
 
         return str;
@@ -543,7 +545,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             System.err.println("Total generated html files: " + nbFiles);
         }
 
-        return encloseContents("li", encloseContents("a", new String[]{"href", indexFilename, "class", "part"}, bookTitle) + "\n" + str);
+        return encloseContents("li", encloseContents("a", new String[] {"href", indexFilename, "class", "part"}, bookTitle) + "\n" + str);
     }
 
     /**
@@ -559,7 +561,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         String title = encloseContents("h3", "title-part", partTitle);
         createHTMLFile(attributes.get("id"), fileName, partTitle, title + "\n" + str);
 
-        str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "part"}, partTitle) + "\n" + str);
+        str = encloseContents("li", encloseContents("a", new String[] {"href", fileName, "class", "part"}, partTitle) + "\n" + str);
         partTitle = "";
 
         return str;
@@ -578,7 +580,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         String title = encloseContents("h3", "title-chapter", chapterTitle);
         createHTMLFile(attributes.get("id"), fileName, chapterTitle, title + "\n" + str);
 
-        str = encloseContents("li", encloseContents("a", new String[]{"href", fileName, "class", "chapter"}, chapterTitle) + "\n" + str);
+        str = encloseContents("li", encloseContents("a", new String[] {"href", fileName, "class", "chapter"}, chapterTitle) + "\n" + str);
         chapterTitle = "";
 
         return str;
@@ -887,15 +889,15 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
                 if (role != null && role.equals("see also")) {
                     String purpose = mapIdPurpose.get(link);
                     if (purpose != null) {
-                        return encloseContents("a", new String[]{"href", id, "class", "link"}, contents) + " &#8212; " + purpose;
+                        return encloseContents("a", new String[] {"href", id, "class", "link"}, contents) + " &#8212; " + purpose;
                     } else {
-                        return encloseContents("a", new String[]{"href", id, "class", "link"}, contents);
+                        return encloseContents("a", new String[] {"href", id, "class", "link"}, contents);
                     }
                 }
             }
         }
 
-        return encloseContents("a", new String[]{"href", id, "class", "link"}, contents);
+        return encloseContents("a", new String[] {"href", id, "class", "link"}, contents);
     }
 
     /**
@@ -948,7 +950,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             throw new SAXException("No url attribute in tag ulink");
         }
 
-        return encloseContents("a", new String[]{"href", link, "class", "ulink"}, contents);
+        return encloseContents("a", new String[] {"href", link, "class", "ulink"}, contents);
     }
 
     /**
@@ -971,7 +973,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             return null;
         }
 
-        return encloseContents("a", new String[]{"href", id, "class", "xref"}, contents);
+        return encloseContents("a", new String[] {"href", id, "class", "xref"}, contents);
     }
 
     /**
@@ -1105,7 +1107,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
     public String handleTd(final Map<String, String> attributes, final String contents) throws SAXException {
         String align = attributes.get("align");
         if (align == null) {
-            return encloseContents("td", new String[]{"align", align}, contents);
+            return encloseContents("td", new String[] {"align", align}, contents);
         }
         return encloseContents("td", contents);
     }
@@ -1132,9 +1134,9 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
             width = "";
         }
         if (id != null) {
-            return "<a name=\"" + id + "\"></a>" + encloseContents("table", new String[]{"class", "informaltable", "border", border, "cellpadding", cellpadding, "width", width}, contents);
+            return "<a name=\"" + id + "\"></a>" + encloseContents("table", new String[] {"class", "informaltable", "border", border, "cellpadding", cellpadding, "width", width}, contents);
         } else {
-            return encloseContents("table", new String[]{"class", "informaltable", "border", border, "cellpadding", cellpadding, "width", width}, contents);
+            return encloseContents("table", new String[] {"class", "informaltable", "border", border, "cellpadding", cellpadding, "width", width}, contents);
         }
     }
 
@@ -1264,9 +1266,9 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
 
         String id = attributes.get("id");
         if (id != null) {
-            return "<a name=\"" + id + "\"></a>" + encloseContents("ol", new String[]{"type", numeration}, contents);
+            return "<a name=\"" + id + "\"></a>" + encloseContents("ol", new String[] {"type", numeration}, contents);
         } else {
-            return encloseContents("ol", new String[]{"type", numeration}, contents);
+            return encloseContents("ol", new String[] {"type", numeration}, contents);
         }
     }
 
