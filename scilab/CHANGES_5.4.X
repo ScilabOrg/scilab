@@ -382,6 +382,7 @@ CACSD & Signal Processing
 
 * Bug #10562 fixed - The "CACSD/Robust Control" demo failed.
 
+* Bug #11340 fixed - bode without arguments did not show an example.
 
 ATOMS
 =======
