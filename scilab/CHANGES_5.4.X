@@ -1,5 +1,13 @@
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
             ===============================================================
+			
+
+Bugs Fixes
+==========
+
+* Bug #11346 fixed - Add error messages in the cosm function.
+
+
 
 
             Changes between version 5.4.0-alpha-1 and 5.4.0-beta-1 of Scilab
