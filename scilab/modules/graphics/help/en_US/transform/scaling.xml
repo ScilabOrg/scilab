@@ -11,9 +11,6 @@
  *
  -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:lang="en" xml:id="scaling">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>scaling</refname>
     <refpurpose> affine transformation of a set of points</refpurpose>
@@ -53,8 +50,12 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para><literal>scaling</literal> performs an affine transformation on the set of points defined
-    by the coordinates <literal>xy</literal>:</para>
-    <para><literal>xy1(:,i) = scalingFactor * (xy(:,i) - orig) + orig</literal>.</para>
+    <para>
+      <literal>scaling</literal> performs an affine transformation on the set of points defined
+      by the coordinates <literal>xy</literal>:
+    </para>
+    <para>
+      <literal>xy1(:,i) = scalingFactor * (xy(:,i) - orig) + orig</literal>.
+    </para>
   </refsection>
 </refentry>
