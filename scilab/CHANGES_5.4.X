@@ -1,6 +1,11 @@
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
             ===============================================================
 
+Bug Fixes
+=========
+
+* Bug #10904 fixed - Test failed for other language than en_US.
+
 
             Changes between version 5.4.0-alpha-1 and 5.4.0-beta-1 of Scilab
             ================================================================
