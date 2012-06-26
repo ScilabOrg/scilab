@@ -9,6 +9,12 @@ Xcos
                     stopped from user interface.
 
 
+Documentation
+=============
+
+* Bug #11360 fixed -  f in synopses was named mtx in the parameter section.
+
+
 Bug Fixes
 =========
 
