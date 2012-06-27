@@ -169,11 +169,18 @@ private:
     void getAdjacentVertices(std::list<int>::iterator vi, std::list<int>::iterator& vim1, std::list<int>::iterator& vip1);
 
     /**
+     * Determines whether a vertex is convex or not.
+     * @param[in] the vertex's iterator.
+     * @return true if the vertex is convex, false if it is not.
+     */
+    bool isConvex(std::list<int>::iterator vertex);
+
+    /**
      * Determines whether a vertex is an ear vertex.
      * @param[in] the vertex's iterator.
-     * @return 1 if it is an ear, 0 it not.
+     * @return true if it is an ear, false if not.
      */
-    int isAnEar(std::list<int>::iterator vertexIndex);
+    bool isAnEar(std::list<int>::iterator vertex);
 
     /**
      * Updates a vertex's state due to the next/previous vertex
@@ -201,9 +208,9 @@ private:
      * @param[in] the triangle's first point.
      * @param[in] the triangle's second point.
      * @param[in] the triangle's third point.
-     * @return 1 if P is located within ABC, 0 if not.
+     * @return true if P is located within ABC, false if not.
      */
-    int pointInTriangle(Vector3d A, Vector3d B, Vector3d C, Vector3d P);
+    bool pointInTriangle(Vector3d A, Vector3d B, Vector3d C, Vector3d P);
 
     /**
      * Subtracts the second input vector from the first one and returns the result.
