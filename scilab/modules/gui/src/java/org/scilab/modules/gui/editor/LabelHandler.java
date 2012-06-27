@@ -1,0 +1,65 @@
+package org.scilab.modules.gui.editor;
+
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
+import org.scilab.modules.graphic_objects.graphicObject.*;
+import org.scilab.modules.gui.editor.AxesHandler;
+/**
+* Implements all Label manipulation functions for the editor.
+*
+* @author Caio Souza <caioc2bolado@gmail.com>
+* @author Pedro Souza <bygrandao@gmail.com>
+*
+* @since 2012-06-01
+*/
+public class LabelHandler {
+
+
+    /**
+    * Set the text of label x, y or z.
+    *
+    * @param axes The axes that will recieve the label.
+    * @param text An array of text to set.
+    * @param axis The axis to set x, y or z.
+    */
+
+    public static void setLabel(String axes, String[] text, int axis) {
+
+        String label = null;
+        if (axis == AxesHandler.__X__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_X_AXIS_LABEL__);
+        } else if (axis == AxesHandler.__Y__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_Y_AXIS_LABEL__);
+        } else if (axis == AxesHandler.__Z__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_Z_AXIS_LABEL__);
+        }
+        if (label != null) {
+            GraphicController.getController().setProperty(label, GraphicObjectProperties.__GO_TEXT_STRINGS__, text);
+        }
+    }
+
+    /**
+    * Get the text of the label x, y or z.
+    *
+    * @param axes The axes where is the label.
+    * @param axis The axis of the label (x, y or z).
+    * @return The text of the label.
+    */
+
+    public static String getLabelText(String axes, int axis) {
+
+        String label = null;
+        if (axis == AxesHandler.__X__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_X_AXIS_LABEL__);
+        } else if (axis == AxesHandler.__Y__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_Y_AXIS_LABEL__);
+        } else if (axis == AxesHandler.__Z__) {
+            label = (String)GraphicController.getController().getProperty(axes, GraphicObjectProperties.__GO_Z_AXIS_LABEL__);
+        }
+        String[] text = (String[])GraphicController.getController().getProperty(label, GraphicObjectProperties.__GO_TEXT_STRINGS__);
+        if (text != null) {
+            return text[0];
+        }
+        return null;
+    }
+}

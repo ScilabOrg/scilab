@@ -13,7 +13,6 @@
 
 package org.scilab.modules.gui.editor;
 
-
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject.Type;
 import org.scilab.modules.graphic_objects.graphicObject.*;
@@ -34,9 +33,15 @@ import java.lang.Math;
 */
 public class AxesHandler {
 
+	public static final int __X__ = 0;
+	public static final int __Y__ = 1;
+	public static final int __Z__ = 2;
+
     private static String[] searchAxes(String uid) {
         return (new ObjectSearcher()).search(uid, GraphicObjectProperties.__GO_AXES__);
     }
+
+	
 
     /**
     * Given a mouse coordinate point (x, y) in pixels
@@ -187,7 +192,7 @@ public class AxesHandler {
      * @param objectID Object unique identifier.
      * @return True if there is any object visible, false otherwise.
      */
-	private static boolean isBlank(String objectID) {
+    private static boolean isBlank(String objectID) {
 
         String type = (String)GraphicController.getController().getProperty(objectID, GraphicObjectProperties.__GO_TYPE__);
         boolean flag = (Boolean) GraphicController.getController().getProperty(objectID, GraphicObjectProperties.__GO_VISIBLE__);
@@ -208,5 +213,6 @@ public class AxesHandler {
         }
         return false;
     }
+
 }
 

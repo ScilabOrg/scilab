@@ -90,6 +90,7 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
             editor.setSelected(picked);
         } else if (arg0.getButton() == 3) {
         }
+        editor.onClick(arg0);
     }
 
     /**
