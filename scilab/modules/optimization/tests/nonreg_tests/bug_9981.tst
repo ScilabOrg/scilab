@@ -1,0 +1,47 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 9981 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=9981
+//
+// <-- Short Description -->
+// Qpsolve is failing to find a solution
+//
+
+//Find x in R^6 such that:
+//C1*x = b1 (3 equality constraints i.e me=3)
+C1= [1,-1,1,0,3,1;
+    -1,0,-3,-4,5,6;
+     2,5,3,0,1,0];
+b1=[1;2;3];
+
+//C2*x <= b2 (2 inequality constraints)
+C2=[0,1,0,1,2,-1;
+    -1,0,2,1,1,0];
+b2=[-1;2.5];
+
+//with  x between ci and cs:
+ci=[-1000;-10000;0;-1000;-1000;-1000];
+cs=[0;0;0;0;0;0];
+
+//and minimize 0.5*x'*Q*x + p'*x with
+p=[1;2;3;4;5;6]; Q=eye(6,6);
+
+//No initial point is given;
+C=[C1;C2];
+b=[b1;b2];
+me=0;
+
+// Was "qp_solve: The minimization problem has no solution."
+[x,iact,iter,f]=qpsolve(Q,p,C,b,ci,cs,me)
+assert_checkequal(x, [-1;-2;0;-4;-5;-6]);
+assert_checkequal(iact,  [8;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0] );
+assert_checkequal(iter, [2;0]);
+assert_checkequal(f, -41);

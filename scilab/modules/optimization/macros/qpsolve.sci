@@ -9,20 +9,26 @@
 //
 
 function [x, iact, iter, f]=qpsolve(Q,p,C,b,ci,cs,me)
-  Cb=[];bb=[];
+  Cb=[];
+  bb=[];
   isCsparse=typeof(C)=='sparse'|ci<>[]|cs<>[]
   C(me+1:$,:)=-C(me+1:$,:);
   b(me+1:$)=-b(me+1:$);
   // replace boundary contraints by linear constraints
-  Cb=[];bb=[];
+  Cb=[];
+  bb=[];
+
   if ci<>[] then
-    Cb=[Cb;speye(Q)]
-    bb=[bb;ci]
+    Cb=[Cb; speye(Q)]
+    bb=[bb; ci]
   end
+
   if cs<>[] then
-    Cb=[Cb;speye(Q)]
-    bb=[bb;-cs]
+    Cb=[Cb; -speye(Q)]
+    bb=[bb; -cs]
   end
-  C=[C;Cb];b=[b;bb]
+
+  C=[C;Cb];
+  b=[b;bb]
   [x, iact, iter, f]=qp_solve(Q,-p,C',b,me)
 endfunction

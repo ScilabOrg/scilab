@@ -12,6 +12,8 @@ Xcos
 Bug Fixes
 =========
 
+* Bug #9981 fixed - Qpsolve is failing to find a solution
+
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
 
