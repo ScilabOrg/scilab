@@ -12,6 +12,8 @@ Xcos
 Bug Fixes
 =========
 
+* Bug #9830 fixed - leastsq did not match the information of optim.
+
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
 
