@@ -21,7 +21,7 @@
  * 
  * See the file ./license.txt
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="DERIV">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns3="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" version="5.0-subset Scilab" xml:id="DERIV">
   <refnamediv>
     <refname>DERIV</refname>
     <refpurpose>Derivative</refpurpose>
@@ -211,9 +211,13 @@
     <para>
       <inlinemediaobject>
         <imageobject>
-          <imagedata align="center" fileref="../../../examples/derivative_diag.png" valign="middle"/>
+          <imagedata align="center" fileref="../../../../examples/continuous_pal/DERIV_Example.png" valign="middle"/>
         </imageobject>
       </inlinemediaobject>
+      <scilab:image><![CDATA[
+importXcosDiagram(SCI + "/modules/xcos/examples/continuous_pal/DERIV_Example.xcos");
+xcos_simulate(scs_m, 4);
+   ]]></scilab:image>
     </para>
   </refsection>
   <refsection id="Interfacingfunction_DERIV">
