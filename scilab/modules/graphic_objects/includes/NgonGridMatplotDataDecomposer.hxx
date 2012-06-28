@@ -60,6 +60,7 @@ protected :
      * edge validity being therefore irrelevant.
      * @param[in] the grid z-coordinate array.
      * @param[in] the grid value array.
+     * @param[in] a flag indicating whether grid values are defined per node (1) or per facet (0).
      * @param[in] the grid's number of vertices along the x-axis.
      * @param[in] the grid's number of vertices along the y-axis.
      * @param[in] the lower-left corner's x index.
@@ -76,6 +77,7 @@ protected :
      * For a Matplot object, edge validity is irrelevant, it is therefore always equal to 1.
      * @param[in] the grid z-coordinate array.
      * @param[in] the grid value array.
+     * @param[in] a flag indicating whether grid values are defined per node (1) or per facet (0).
      * @param[in] the grid's number of vertices along the x-axis.
      * @param[in] the grid's number of vertices along the y-axis.
      * @param[in] the lower-left corner's x index.

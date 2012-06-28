@@ -369,7 +369,11 @@ int NgonGridMatplotDataDecomposer::fillIndices(char* id, int* buffer, int buffer
 
     getGraphicObjectProperty(id, __GO_DATA_MODEL_Z_COORDINATES_SHIFT__, jni_double, (void**) &pdZShift);
 
-    numberIndices = decomposer->fillTriangleIndices(buffer, bufferLength, logMask, x, y, &zShift, z, numX, numY);
+    /*
+     * The per-node value flag is set to 0 as for Matplot objects values are specified per-facet.
+     * However, it not used at all when determining facet validity and hence is only informative.
+     */
+    numberIndices = decomposer->fillTriangleIndices(buffer, bufferLength, logMask, x, y, &zShift, z, 0, numX, numY);
 
     return numberIndices;
 }
