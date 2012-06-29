@@ -28,6 +28,8 @@ import org.scilab.modules.graphic_objects.graphicObject.*;
 import org.scilab.modules.gui.editor.Editor;
 import org.scilab.modules.gui.editor.PolylineHandler;
 
+import org.scilab.modules.gui.datatip.DatatipCreate;
+
 /**
 * Event listener for the figure editor.
 *
@@ -88,6 +90,12 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
             EntityPicker ep = new EntityPicker();
             String picked = ep.pick( windowUid, arg0.getX(), arg0.getY() );
             editor.setSelected(picked);
+	    if (picked != null) {   
+		Integer[] newDatatipPosition = { 0 , 0 };
+		newDatatipPosition[0] = arg0.getX();
+		newDatatipPosition[1] = arg0.getY();
+		DatatipCreate.createDatatip(windowUid, newDatatipPosition);
+	    }
         } else if (arg0.getButton() == 3) {
         }
     }
