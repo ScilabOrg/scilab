@@ -8,6 +8,10 @@ Xcos
 * Bug #9496 fixed - Xcos flag 5 (ending) was not called if simulation is
                     stopped from user interface.
 
+Documentation:
+==============
+
+* Buf #10150 fixed - Completion help page moved to the console chapter.
 
 Bug Fixes
 =========
