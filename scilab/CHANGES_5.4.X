@@ -17,6 +17,8 @@ Preferences
 Bug Fixes
 =========
 
+* Bug #10595 fixed - In SciNotes, <TAB> didn't go to the next tab position.
+
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
 
