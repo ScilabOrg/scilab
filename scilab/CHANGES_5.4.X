@@ -17,6 +17,9 @@ Preferences
 Bug Fixes
 =========
 
+* Bug #10868 fixed - In SciNotes, string containing latex disappeared when
+                     executed.
+
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
 
