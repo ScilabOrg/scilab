@@ -49,8 +49,20 @@ Bug Fixes
 
 * Bug #11349 fixed - There was an error when path to external editor contained
                      white spaces.
+                     
+* Bug #11398 fixed - newest() produced an incomprehensible error message when
+                     called with a string vector as second input argument.
 
 * Bug #11403 fixed - toprint() did not work and and menu Print too.
+
+
+Known Incompatibilities
+=======================
+
+* In previous versions, the newest() function could be called with a string vector
+  as second (up to last) input argument. In these cases, only the first string of 
+  the vector was taken into account. These calls now return an error. See bug #11398.
+
 
 
             Changes between version 5.4.0-alpha-1 and 5.4.0-beta-1 of Scilab
