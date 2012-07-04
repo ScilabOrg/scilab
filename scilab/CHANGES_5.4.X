@@ -24,6 +24,9 @@ Javasci
 Bug Fixes
 =========
 
+* Bug #9884 fixed - Add in prefs the possibility to add a default header on
+      	    	    new files in SciNotes.
+
 * Buf #10150 fixed - Completion help page moved to the console chapter.
 
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
