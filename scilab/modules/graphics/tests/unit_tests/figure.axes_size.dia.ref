@@ -10,12 +10,46 @@
 // Create a default figure
 my_figure = scf();
 clf(my_figure,"reset");
+sleep(200)
 // Get default values
-my_default_figure_size = my_figure.figure_size;
-my_default_axes_size   = my_figure.axes_size;
+my_default_axes_size   = my_figure.axes_size
+ my_default_axes_size  =
+ 
+    610.    460.  
+my_default_figure_size = my_figure.figure_size
+ my_default_figure_size  =
+ 
+    612.    594.  
 // auto_resize = "on"
 my_figure.auto_resize = "on";
-my_figure.axes_size = my_default_axes_size + 200;
+my_figure.axes_size = my_default_axes_size + 200
+ my_figure  =
+ 
+Handle of type "Figure" with properties:
+========================================
+children: "Axes"
+figure_position = [200,200]
+figure_size = [612,594]
+axes_size = [810,660]
+auto_resize = "on"
+viewport = [0,0]
+figure_name = "Graphic window number %d"
+figure_id = 0
+info_message = ""
+color_map= matrix 32x3
+pixmap = "off"
+pixel_drawing_mode = "copy"
+anti_aliasing = "off"
+immediate_drawing = "on"
+background =  -2
+visible = "on"
+rotation_style = "unary"
+event_handler = ""
+event_handler_enable = "off"
+user_data = []
+resizefcn = ""
+tag = ""
+sleep(200)
 if or( my_figure.figure_size <> (my_default_figure_size + 200) ) then bugmes();quit;end
 if or( my_figure.axes_size   <> (my_default_axes_size   + 200) ) then bugmes();quit;end
 // Delete
