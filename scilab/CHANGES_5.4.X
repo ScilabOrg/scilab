@@ -52,6 +52,9 @@ Bug Fixes
 
 * Bug #11403 fixed - toprint() did not work and and menu Print too.
 
+* Bug #11423 fixed - When selected the variable "a" all the a were highlighted
+                     rather than only the variable "a".
+
 
             Changes between version 5.4.0-alpha-1 and 5.4.0-beta-1 of Scilab
             ================================================================
