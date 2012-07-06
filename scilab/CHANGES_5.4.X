@@ -33,6 +33,8 @@ Bug Fixes
 
 * Bug #10150 fixed - Completion help page moved to the console chapter.
 
+* Bug #10385 fixed - It was not possible to configure default web browser.
+
 * Bug #10595 fixed - In SciNotes, <TAB> didn't go to the next tab position.
 
 * Bugs #10827, #10868 fixed - In SciNotes, strings containing latex disappeared
