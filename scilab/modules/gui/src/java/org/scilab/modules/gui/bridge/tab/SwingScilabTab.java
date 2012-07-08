@@ -50,6 +50,7 @@ import java.util.Iterator;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import org.flexdock.docking.DockingConstants;
@@ -189,6 +190,8 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         getTitlebar().addFocusListener(this);
         addFocusListener(this);
         setCallback(null);
+
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F5"), ACTION_TOGGLE_PREVIOUS);
     }
 
     /**
@@ -219,6 +222,8 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
         getTitlebar().addFocusListener(this);
         addFocusListener(this);
         setCallback(null);
+
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F5"), ACTION_TOGGLE_PREVIOUS);
     }
 
     /**
