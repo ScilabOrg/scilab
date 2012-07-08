@@ -36,6 +36,7 @@ import org.flexdock.docking.activation.ActiveDockableTracker;
 import org.flexdock.docking.state.LayoutNode;
 import org.flexdock.perspective.persist.xml.LayoutNodeSerializer;
 import org.flexdock.perspective.persist.xml.PersistenceConstants;
+import org.flexdock.util.SwingUtility;
 import org.scilab.modules.commons.ScilabCommons;
 import org.scilab.modules.commons.ScilabCommonsUtils;
 import org.scilab.modules.commons.xml.ScilabXMLUtilities;
@@ -383,6 +384,7 @@ public class WindowsConfigurationManager implements XConfigurationListener {
             }
 
             if (requestFocus) {
+                SwingUtility.focus(mainTab);
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -399,15 +401,6 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                                     }
                                 }
 
-                                // Be sure that te main tab or one of its subcomponent
-                                // will have the focus on start-up
-                                Component owner = null;
-                                while (owner == null && !mainTab.isAncestorOf(owner)) {
-                                    mainTab.requestFocus();
-                                    Thread.yield();
-
-                                    owner = window.getFocusOwner();
-                                }
                                 ActiveDockableTracker.requestDockableActivation(mainTab);
                                 window.toFront();
                             }
