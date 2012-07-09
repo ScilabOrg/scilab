@@ -226,6 +226,12 @@
     <submenu label="Stop datatip manager">
       <callback instruction='datatipManagerMode([SCILAB_FIGURE_ID],"off");' type="0"/>
     </submenu>
+    <separator/>
+    <submenu label="Scilab Graphic Editor - GED">
+      <submenu label="&amp;Quick Editor">
+        <callback instruction="org.scilab.modules.gui.ged.StartGED.quickGED" type="3"/>
+      </submenu>
+    </submenu>
   </menu>
   
   <!--

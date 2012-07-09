@@ -31,6 +31,9 @@ import org.scilab.modules.gui.datatip.DatatipActivateCallBack;
 import org.scilab.modules.gui.datatip.DatatipCreate;
 import org.scilab.modules.gui.datatip.MarkerCreate;
 
+import org.scilab.modules.gui.ged.Inspector;
+import org.scilab.modules.gui.ged.Swap;
+
 import java.util.ArrayList;
 
 /**
@@ -45,7 +48,7 @@ import java.util.ArrayList;
 
 public class EditorEventListener implements KeyListener, MouseListener, MouseMotionListener {
 
-    String windowUid;
+    public static String windowUid;
     Editor editor;
     String picked;
     EntityPicker ep;
@@ -120,11 +123,18 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     */
     public void mousePressed(MouseEvent arg0) {
         if (arg0.getButton() == 1) {
-            picked = ep.pick( windowUid, arg0.getX(), arg0.getY() );
+            picked = ep.pick(windowUid, arg0.getX(), arg0.getY());
             editor.setSelected(picked);
-        } else if (arg0.getButton() == 3) {
-
-        }
+            // Part responsible for the exchange of properties of the GED.
+            //If the GED is open, so the code is executed.
+            if (Inspector.window != null) {
+                if (picked == null) {
+                    new Swap("axes or figure", windowUid, (Integer) arg0.getX(), (Integer) arg0.getY());
+		} else {
+                    new Swap("curve", picked, 0, 0);
+		}
+            }
+        } else if (arg0.getButton() == 3) { }
     }
 
     /**
