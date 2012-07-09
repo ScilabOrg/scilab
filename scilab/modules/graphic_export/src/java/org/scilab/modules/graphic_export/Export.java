@@ -135,9 +135,9 @@ public class Export {
         DrawerVisitor visitor = DrawerVisitor.getVisitor(uid);
         if (visitor != null) {
             Canvas canvas = visitor.getCanvas();
-            if (canvas instanceof JoGLCanvas && isBitmapFormat(types[type])) {
+            if (isBitmapFormat(types[type])) {
                 try {
-                    return exportBitmap(uid, type, extendedFilename, true, params);
+                    return exportBitmap(uid, type, extendedFilename, !headless, params);
                 } catch (OutOfMemoryError e) {
                     return MEMORY_ERROR;
                 } catch (Throwable e) {
