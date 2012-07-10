@@ -55,6 +55,8 @@ Bug Fixes
 
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
+* Bug #8399 fixed - setlanguage didn't work when only fr_FR.UTF-8 was available.
+
 * Bug #9830 fixed - leastsq did not match the information of optim.
 
 * Bug #9884 fixed - Add in prefs the possibility to add a default header on

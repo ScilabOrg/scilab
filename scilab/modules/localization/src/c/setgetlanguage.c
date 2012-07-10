@@ -74,7 +74,28 @@ BOOL setlanguage(char *lang)
                 /* Load the locale from the system */
 #if !defined(_MSC_VER) && !defined(__APPLE__)
                 //for mbstowcs
+                char *newlang = NULL;
                 char *ret = setlocale(LC_CTYPE, lang);
+                if (ret == NULL)
+                {
+                    // On some OSes we need to precise the charset (e.g. on Debian, fr_FR is not accepted but fr_FR.UTF-8 is)
+                    int i = 0;
+                    for (; i < NumberOfCharsets; i++)
+                    {
+                        newlang = (char*)MALLOC(strlen(lang) + strlen(CHARSETS[i]) + 1 + 1);
+                        sprintf(newlang, "%s.%s", lang, CHARSETS[i]);
+                        ret = setlocale(LC_CTYPE, newlang);
+                        if (ret == NULL)
+                        {
+                            FREE(newlang);
+                            newlang = NULL;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
 
                 if (ret == NULL)
                 {
@@ -84,7 +105,14 @@ BOOL setlanguage(char *lang)
                 }
 
                 //for gettext
-                ret = setlocale(LC_MESSAGES, lang);
+                if (newlang)
+                {
+                    ret = setlocale(LC_MESSAGES, newlang);
+                }
+                else
+                {
+                    ret = setlocale(LC_MESSAGES, lang);
+                }
 #else
                 /* Load the user locale from the system */
                 char *ret = getLocaleUserInfo();
@@ -127,6 +155,12 @@ BOOL setlanguage(char *lang)
 #endif
 
                 exportLocaleToSystem(CURRENTLANGUAGESTRING);
+
+                if (newlang)
+                {
+                    FREE(newlang);
+                }
+
                 return TRUE;
             }
 #ifndef _MSC_VER
