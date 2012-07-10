@@ -619,7 +619,7 @@ public abstract class SciConsole extends JPanel {
      * @param font the font to set
      */
     public void setFont(Font font) {
-        if (sciConsole != null) {
+        if (sciConsole != null && !font.equals(getFont())) {
             sciConsole.setFont(font);
 
             /* Have to update the output view contents with new font */

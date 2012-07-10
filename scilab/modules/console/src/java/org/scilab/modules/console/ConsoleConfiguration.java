@@ -52,7 +52,8 @@ public class ConsoleConfiguration implements XConfigurationListener {
                 display = true;
                 keymap = true;
             } else {
-                font = path.contains(ConsoleOptions.FONTPATH);
+                System.out.println(path);
+                font = path.contains(ConsoleOptions.CONSOLEFONTPATH) || path.contains(ConsoleOptions.FONTPATH);
                 color = path.contains(ConsoleOptions.COLORSPATH);
                 display = path.contains(ConsoleOptions.DISPLAYPATH);
                 keymap = path.contains(ConsoleOptions.KEYMAPPATH);
