@@ -21,10 +21,17 @@ Javasci
 * Javasci version 1 removed (deprecated in Scilab 5.3.0).
 
 
+Documentation
+=============
+
+* Bug #7251 fixed - Fix an error in the qp_solve documentation.
+
+* Bug #7912 fixed - convert_to_float did not have documentation.
+
+
 Bug Fixes
 =========
 
-* Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
 * Bug #9830 fixed - leastsq did not match the information of optim.
 
