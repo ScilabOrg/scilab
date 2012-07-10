@@ -12,42 +12,76 @@
       <Grid>
         <Label gridx="1" gridy="1" weightx="0" text="Floating point exception (ieee): "/>
         <Panel gridx="2" gridy="1" weightx="1"/>
-        <Panel gridx="3" gridy="1" weightx="0">
-          <xsl:call-template name="Select">
-            <xsl:with-param name="among">
-              <xsl:for-each select="fpe">
-                <option fpe="{@floating-point-exception}"/>
-              </xsl:for-each>
-            </xsl:with-param>
-          </xsl:call-template>
-        </Panel>
+        <Select gridx="3" gridy="1" listener="ActionListener">
+          <xsl:variable name="fpe" select="@fpe"/>
+          <actionPerformed choose="fpe">
+            <xsl:call-template name="context"/>
+          </actionPerformed>
+          <xsl:for-each select="fpe">
+            <option value="{@floating-point-exception}" key="{@code}">
+              <xsl:if test="@code=$fpe">
+                <xsl:attribute name="selected">selected</xsl:attribute>
+              </xsl:if>
+            </option>
+          </xsl:for-each>
+        </Select>
+
         <Label gridx="1" gridy="2" weightx="0" text="Printing format: "/>
-        <Panel gridx="2" gridy="2" weightx="1"/>
-        <Panel gridx="3" gridy="2" weightx="0">
-          <xsl:call-template name="Select">
-            <xsl:with-param name="among">
-              <option printing-format="Scientific format"/>
-              <option printing-format="Variable format"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </Panel>
+        <Select gridx="3" gridy="2" listener="ActionListener">
+          <xsl:variable name="pf" select="@printing-format"/>
+          <actionPerformed choose="printing-format">
+            <xsl:call-template name="context"/>
+          </actionPerformed>
+          <xsl:for-each select="printing-format">
+            <option value="{@format}" key="{@code}">
+              <xsl:if test="@code=$pf">
+                <xsl:attribute name="selected">selected</xsl:attribute>
+              </xsl:if>
+            </option>
+          </xsl:for-each>
+        </Select>
         <Label gridx="1" gridy="3" weightx="0" text="Width: "/>
-        <Panel gridx="2" gridy="3" weightx="1"/>
         <NumericalSpinner gridx="3"
                           gridy="3"
                           weightx="0"
-                          min-value = "2"
-			  max-value = "25"
-                          increment = "1"
-                          length = "3"
-                          listener = "ActionListener"
-                          value = "{@width}">
+                          min-value="2"
+                          max-value="25"
+                          increment="1"
+                          length="3"
+                          listener="ActionListener"
+                          value="{@width}">
           <actionPerformed choose="width">
             <xsl:call-template name="context"/>
           </actionPerformed>
         </NumericalSpinner>
       </Grid>
     </Title>
+  </xsl:template>
+
+  <xsl:template match="languages">
+    <xsl:if test="$OS='Windows'">
+      <VSpace height="10"/>
+      <Title text="Language setting">
+        <Grid>
+          <Label text="Default language:" gridx="1" gridy="1" anchor="baseline" weightx="0"/>
+          <Panel gridx="2" gridy="1" weightx="1"/>
+          <Select gridx="3" gridy="1" listener="ActionListener">
+            <actionPerformed choose="lang">
+              <xsl:call-template name="context"/>
+            </actionPerformed>
+            <xsl:for-each select="language">
+              <option value="{@desc}" key="{@code}">
+                <xsl:if test="@code=$SCILAB_LANGUAGE">
+                  <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+              </option>
+            </xsl:for-each>
+          </Select>
+          <Label text="(This requires a restart of Scilab)" font-face="bold" gridx="1" gridy="2" anchor="west" weightx="0"/>
+          <Panel gridx="2" gridy="2" weightx="1" fill="both"/>
+        </Grid>
+      </Title>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="java-heap-memory" mode="tooltip"> and java heap size.</xsl:template>
@@ -57,18 +91,18 @@
       <Grid>
         <Label text="Select the memory (in MB) available in Java: " gridx="1" gridy="1" anchor="baseline" weightx="0"/>
         <Panel gridx="2" gridy="1" weightx="1"/>
-        <NumericalSpinner min-value = "0"
-                          increment = "128"
-                          length = "6"
-                          listener = "ActionListener"
-                          value = "{@heap-size}"
+        <NumericalSpinner min-value="0"
+                          increment="128"
+                          length="6"
+                          listener="ActionListener"
+                          value="{@heap-size}"
                           gridx="3" gridy="1" anchor="baseline" weightx="0">
           <actionPerformed choose="heap-size">
             <xsl:call-template name="context"/>
           </actionPerformed>
         </NumericalSpinner>
         <Label text="(This requires a restart of Scilab)" font-face="bold" gridx="1" gridy="2" anchor="west" weightx="0"/>
-	<Panel gridx="2" gridy="2" weightx="1" fill="both"/>	
+        <Panel gridx="2" gridy="2" weightx="1" fill="both"/>
       </Grid>
     </Title>
 
@@ -79,11 +113,11 @@
       <Grid>
         <xsl:for-each select="tool">
           <Checkbox
-              gridy    = "{position() + 1}"
-              gridx    = "1"
-              listener = "ActionListener"
-              checked  = "{@state}"
-              text     = "{@description}">
+              gridy="{position() + 1}"
+              gridx="1"
+              listener="ActionListener"
+              checked="{@state}"
+              text="{@description}">
             <actionPerformed choose="state">
               <xsl:call-template name="context"/>
             </actionPerformed>
@@ -108,16 +142,16 @@
             </xsl:with-param>
           </xsl:call-template>
         </Panel>
-	<Label text="(modify the layout requires to restart Scilab)" font-face="bold" gridx="1" gridy="2" anchor="west" weightx="0"/>
-	<Panel gridx="1" gridy="3">
-	  <VSpace height="10"/>
-	</Panel>
+        <Label text="(modify the layout requires to restart Scilab)" font-face="bold" gridx="1" gridy="2" anchor="west" weightx="0"/>
+        <Panel gridx="1" gridy="3">
+          <VSpace height="10"/>
+        </Panel>
         <Image gridx="1" gridy="4" gridwidth="3">
           <xsl:attribute name="url">
             <xsl:value-of select="layout[@name=$name]/@image"/>
           </xsl:attribute>
         </Image>
-	
+
       </Grid>
     </Title>
   </xsl:template>
