@@ -194,8 +194,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_useeditor.cpp" />
     <ClCompile Include="..\cpp\GetConsoleShowHiddenHandles.cpp" />
     <ClCompile Include="..\cpp\SetConsoleShowHiddenHandles.cpp" />
+    <ClCompile Include="..\jni\EditorManager.cpp" />
     <ClCompile Include="..\jni\ScilabTermination_wrap.c" />
     <ClCompile Include="..\jni\SwingView.cpp" />
     <ClCompile Include="addmenu.c" />
@@ -325,6 +327,7 @@
     <ClInclude Include="..\..\includes\SetUiobjectEnable.h" />
     <ClInclude Include="..\..\includes\UiDisplayTree.h" />
     <ClInclude Include="..\..\includes\UiTable.h" />
+    <ClInclude Include="..\jni\EditorManager.hxx" />
     <ClInclude Include="..\jni\SwingView.hxx" />
     <ClInclude Include="buildMainWindowTitle.h" />
     <ClInclude Include="..\cpp\CallClipboard.hxx" />

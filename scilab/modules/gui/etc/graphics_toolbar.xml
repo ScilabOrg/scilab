@@ -19,6 +19,9 @@
   <button icon="datatips" tooltiptext="toggle datatip mode">
     <callback instruction="org.scilab.modules.gui.datatip.DatatipManagerMode.setDatatipManagerModeToggle" type="3"/>
   </button>
+  <button icon="cursor16" tooltiptext="Toggle editor mode">
+    <callback instruction="useeditor([SCILAB_FIGURE_ID])" type="-2"/>
+  </button>
   <separator/>
   <!-- Help -->
   <button icon="help-browser" tooltiptext="Help Browser">

@@ -49,10 +49,8 @@ import org.scilab.modules.gui.editor.AxesHandler;
 public class EditorEventListener implements KeyListener, MouseListener, MouseMotionListener {
 
     public static String windowUid;
-    Editor editor;
     String picked;
     EntityPicker ep;
-    boolean isInRotation = false;
     Integer[] newDatatipPosition = { 0 , 0 };
     public static String axesUid;
     double[] pixelMouseCoordDouble = { 0.0 , 0.0 };
@@ -64,28 +62,31 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     Integer[] newClickPosition = { 0 , 0 };
     public static Integer indexToDelete;
 
+
+    Editor editor;
+    boolean isInRotation = false;
+    boolean isLeftButtonPressed = false;
+
     public EditorEventListener(String uid) {
         windowUid = uid;
-        editor = new Editor();
+
+        editor = EditorManager.newEditor(uid);
         ep = new EntityPicker();
-        editor.setFigure(uid);
+
         saveDatatipCoord = new ArrayList<Double>();
         saveDatatipUid = new ArrayList<String>();
         saveMarkerUid = new ArrayList<String>();
+    }
+
+    public void onExit() {
+        EditorManager.deleteEditor(editor.getFigureUid());
     }
 
     public void keyPressed(KeyEvent keyEvent) {
     }
 
     public void keyReleased(KeyEvent arg0) {
-        /* TODO add copy/cut/paste by keyboard shortcut*/
-        if (arg0.isControlDown()) {
-            if (arg0.getKeyCode() == KeyEvent.VK_C) {
-                if (editor.getSelected() != null) {
-
-                }
-            }
-        }
+        editor.onKeyTyped(arg0);
     }
 
     public void keyTyped(KeyEvent arg0) {
@@ -147,16 +148,13 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     }
 
     /**
-    * On left mouse press: check if the user clicked over
-    * a polyline and set it selected.
+    * On left mouse press: pass event to editor.
     * @param arg0 MouseEvent
     */
     public void mousePressed(MouseEvent arg0) {
         if (arg0.getButton() == 1) {
-            picked = ep.pick( windowUid, arg0.getX(), arg0.getY() );
-            editor.setSelected(picked);
-        } else if (arg0.getButton() == 3) {
-
+            isLeftButtonPressed = true;
+            editor.onLeftMouseDown(arg0);
         }
     }
 
@@ -169,15 +167,22 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
         if (arg0.getButton() == 3) {
             if (!isInRotation) {
                 if (!DatatipManagerMode.getDatatipManagerMode()) {
-                    editor.onMouseClick(arg0);
+                    editor.onRightMouseClick(arg0);
                 }
             }
         }
         isInRotation = false;
+        isLeftButtonPressed = false;
     }
 
+    /**On left mouse dragged: pass event to editor.*/
     public void mouseDragged(MouseEvent arg0) {
-        isInRotation = true;
+        if (isLeftButtonPressed) {
+            editor.onMouseDragged(arg0);
+        }
+        else {
+            isInRotation = true;
+        }
     }
 
     public void mouseMoved(MouseEvent arg0) {

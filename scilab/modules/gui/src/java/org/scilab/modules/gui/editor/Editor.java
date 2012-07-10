@@ -17,6 +17,7 @@ package org.scilab.modules.gui.editor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JMenu;
@@ -52,10 +53,16 @@ public class Editor {
     JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy, labelX, labelY, labelZ, insert, remove;
     JMenu labels, legends;
 
+    boolean isLegend = false;
+    boolean enabled = false;
+    EntityPicker.LegendInfo selectedLegend = null;
     String selected = null;
     String figureUid = null;
     Integer oriColor = 0;
     Integer[] lastClick = { 0, 0 };
+    EntityPicker entityPicker;
+    DataEditor dataEditor;
+    boolean dataEditEnabled = false;
 
     Component dialogComponent;
 
@@ -63,31 +70,161 @@ public class Editor {
         init();
         setSelected(null);
         setFigure(null);
+
+        entityPicker = new EntityPicker();
+        dataEditor = new DataEditor();
+        dataEditor.setLeaveAction(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                leaveDataEditor();
+            }
+        });
     }
 
     /**
-    * On right mouse click, set popup menu visible.
-    * @param event MouseEvent to retrieve click positon in figure.
-    */
-    public void onMouseClick(MouseEvent event) {
-        boolean b = ScilabClipboard.getInstance().canPaste();
-        paste.setEnabled(b);
-
-        boolean notBlank = AxesHandler.isAxesNotBlank(figureUid);
-        clipboardCopy.setEnabled(notBlank);
-
-        menu.show(event.getComponent(), event.getX(), event.getY());
-        lastClick[0] = event.getX();
-        lastClick[1] = event.getY();
-        dialogComponent = (Component)event.getComponent();
+     * Enable / disable the editor
+     * @param b true to enable, false to disable.
+     */
+    public void setEnabled(boolean b) {
+        enabled = b;
+        if (!enabled) {
+            leaveDataEditor();
+            setSelected(null);
+        }
     }
 
     /**
-    * Initializes the popup menu.
-    *
-    * Create the popup menu and all popup menu items
-    * and set the properly action for each menu item.
-    */
+     * Returns if the editor is enabled or not.
+     * @return True if enabled, false otherwise.
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * On right mouse click, set popup menu visible.
+     * @param event MouseEvent to retrieve click positon in figure.
+     */
+    public void onRightMouseClick(MouseEvent event) {
+        if (isEnabled()) {
+            if (!dataEditEnabled) {
+                boolean b = ScilabClipboard.getInstance().canPaste();
+                paste.setEnabled(b);
+
+                boolean notBlank = AxesHandler.isAxesNotBlank(figureUid);
+                clipboardCopy.setEnabled(notBlank);
+
+                menu.show(event.getComponent(), event.getX(), event.getY());
+                lastClick[0] = event.getX();
+                lastClick[1] = event.getY();
+                dialogComponent = (Component)event.getComponent();
+            } else {
+                dataEditor.onRightClick(event);
+            }
+        }
+    }
+
+    /**
+     * Check if the user clicked over a polyline.
+     *
+     * @param event the mouse event.
+     */
+    public void onLeftMouseDown(MouseEvent event) {
+        if (isEnabled()) {
+            lastClick[0] = event.getX();
+            lastClick[1] = event.getY();
+
+            if (!dataEditEnabled) {
+                switch(event.getClickCount()) {
+                    case 1:
+                        /*try pick a legend*/
+                        selectedLegend = entityPicker.pickLegend(figureUid, lastClick);
+                        if (selectedLegend != null) {
+                            isLegend = true;
+                            setSelected(selectedLegend.legend);
+                        } else {
+                            /*try pick a polyline*/
+                            isLegend = false;
+                              setSelected(entityPicker.pick(figureUid, lastClick[0], lastClick[1]));
+                        }
+                        break;
+                    case 2:
+                        /*there is a polyline selected? if yes start dataEditor*/
+                        if (selected != null && !isLegend) {
+                            dataEditor.beginEdit(selected);
+                            dataEditEnabled = true;
+                        }
+                        /*on double click over a legend or label open dialog*/
+                        else if (selectedLegend != null) {
+                            onClickInsert(selectedLegend.polyline);
+                        } else {
+                            /*try pick a label and open the dialog*/
+                            onClickLabel(entityPicker.pickLabel(figureUid, lastClick));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } else { /*data editor is enabled, pass event to it*/
+                switch(event.getClickCount()) {
+                    case 1:
+                        dataEditor.onLeftMouseDown(event);
+                        break;
+                    case 2:
+                        dataEditor.onLeftDoubleClick(event);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    /**
+     * On drag move the selected object, if dataEditor 
+     * is enabled pass event to it.
+     * @param event The mouse event.
+     */
+    public void onMouseDragged(MouseEvent event) {
+        Integer[] newClick = { event.getX(), event.getY() };
+        
+        if (!dataEditEnabled) {
+            String objUID = getSelected();
+            if (objUID != null) {
+                if (isLegend) {
+                    LegendHandler.dragLegend(objUID, lastClick, newClick);
+                } else {
+                    PolylineHandler.getInstance().dragPolyline(objUID, lastClick, newClick);
+                }
+            }
+        } else {
+            dataEditor.onDrag(lastClick, newClick);
+        }
+        lastClick[0] = newClick[0];
+        lastClick[1] = newClick[1];
+    }
+
+    /**
+     * On ESC typed if dataEditor is enabled,
+     * back to normal editor else leave editor mode.
+     * is enabled pass event to it.
+     * @param event The Key event.
+     */
+    void onKeyTyped(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (dataEditEnabled) {
+                leaveDataEditor();
+            } else {
+                setEnabled(false);
+            }
+        }
+    }
+    
+    /**
+     * Initializes the popup menu.
+     *
+     * Create the popup menu and all popup menu items
+     * and set the properly action for each menu item.
+     */
     public void init() {
         menu = new JPopupMenu();
         labels = new JMenu(Messages.gettext("Label"));
@@ -188,7 +325,7 @@ public class Editor {
 
         insert.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                onClickInsert();
+                onClickInsert(getSelected());
             }
         });
 
@@ -218,18 +355,17 @@ public class Editor {
         menu.addSeparator();
         menu.add(labels);
         menu.add(legends);
-
     }
 
 
     /**
-    * Set the current selected polyline, change its color,
-    * if there is a previous selected polyline restores its color,
-    * enable/disable popup menu items if there is/isn't
-    * a polyline selected.
-    *
-    * @param uid polyline unique identifier. Null uid unselect previous selection.
-    */
+     * Set the current selected object, change its color,
+     * if there is a previous selected object restores its color,
+     * enable/disable popup menu items if there is/isn't
+     * a object selected.
+     *
+     * @param uid polyline/legend unique identifier. Null uid unselect previous selection.
+     */
     public void setSelected(String uid) {
 
         if (PolylineHandler.getInstance().polylineExists(selected)) {
@@ -239,13 +375,17 @@ public class Editor {
         selected = uid;
 
         if (selected != null) {
-            copy.setEnabled(true);
-            cut.setEnabled(true);
+            oriColor = PolylineHandler.getInstance().setColor(selected, -3);
+            if(!isLegend) {
+                copy.setEnabled(true);
+                cut.setEnabled(true);
+                delete.setEnabled(true);
+                hide.setEnabled(true);
+                legends.setEnabled(true);
+            }
             delete.setEnabled(true);
-            hide.setEnabled(true);
-            legends.setEnabled(true);
-            oriColor = PolylineHandler.getInstance().setColor(selected, 12);
-        } else {
+        }
+        else {
             copy.setEnabled(false);
             cut.setEnabled(false);
             delete.setEnabled(false);
@@ -255,47 +395,58 @@ public class Editor {
     }
 
     /**
-    * Returns selected polyline unique identifier.
-    * @return selected polyline uid or null if there isn't any selected.
-    */
+     * Returns selected object unique identifier.
+     * @return selected object uid or null if there isn't any selected.
+     */
     public String getSelected() {
         if (PolylineHandler.getInstance().polylineExists(selected)) {
             return selected;
-        } else {
+        } 
+        else {
             setSelected(null);
             return null;
         }
     }
 
     /**
-    * Set the figure uid wich the editor belongs.
-    * @param uid Figure unique identifier.
-    */
+     * Set the figure uid wich the editor belongs.
+     * @param uid Figure unique identifier.
+     */
     public void setFigure(String uid) {
         figureUid = uid;
     }
 
     /**
+     * Get the figure uid wich the editor belongs.
+     * @return figure uid.
+     */
+     public String getFigureUid() {
+         return figureUid;
+     }
+
+    /**
     * Implements copy menu item action(Callback).
     */
     public void onClickCopy() {
-        ScilabClipboard.getInstance().copy(getSelected());
-        ScilabClipboard.getInstance().setCopiedColor(oriColor);
+        if (!isLegend) {
+            ScilabClipboard.getInstance().copy(getSelected());
+            ScilabClipboard.getInstance().setCopiedColor(oriColor);
+        }
     }
 
     /**
-    * Implements paste menu item action(Callback).
-    */
+     * Implements paste menu item action(Callback).
+     */
     public void onClickPaste() {
         ScilabClipboard.getInstance().paste(figureUid, lastClick);
     }
 
     /**
-    * Implements cut menu item action
-    */
+     * Implements cut menu item action
+     */
     public void onClickCut() {
         String s = getSelected();
-        if (s != null) {
+        if (s != null && !isLegend) {
             setSelected(null);
             ScilabClipboard.getInstance().cut(s);
             ScilabClipboard.getInstance().setCopiedColor(oriColor);
@@ -303,8 +454,8 @@ public class Editor {
     }
 
     /**
-    * Implements delete menu item action(Callback).
-    */
+     * Implements delete menu item action(Callback).
+     */
     public void onClickDelete() {
         String toDelete = getSelected();
         if (toDelete != null) {
@@ -335,27 +486,27 @@ public class Editor {
     }
 
     /**
-    * Implements unhide menu item action(Callback).
-    */
+     * Implements unhide menu item action(Callback).
+     */
     public void onClickUnhide() {
         PolylineHandler.getInstance().visible(figureUid, true);
     }
 
     /**
-    * Implements clipboard copy menu item action(Callback).
-    */
+     * Implements clipboard copy menu item action(Callback).
+     */
     public void onClickCCopy() {
         SystemClipboard.copyToSysClipboard(figureUid);
     }
 
     /**
-    * Implements label insert action(Callback).
-    * @param axis axis number.
-    */
+     * Implements label insert action(Callback).
+     * @param axis axis number.
+     */
     public void onClickLabel(AxesHandler.axisTo axis) {
 
         String axes = AxesHandler.clickedAxes(figureUid, lastClick);
-        if (axes != null) {
+        if (axes != null && axis != null) {
             String text = LabelHandler.getLabelText(axes, axis);
             String s = (String)JOptionPane.showInputDialog(
                         dialogComponent,
@@ -363,7 +514,7 @@ public class Editor {
                         Messages.gettext("Set label text"),
                         JOptionPane.PLAIN_MESSAGE,
                         null,
-                        null, /*edit text possibilities*/
+                        null,
                         text);
             if (s != null) {
                 String tmp[] = {s};
@@ -373,13 +524,14 @@ public class Editor {
     }
 
     /**
-    * Implements legend insert action(Callback).
-    */
-    public void onClickInsert() {
+     * Implements legend insert action(Callback).
+     * @param polyline Polyline to be inserted in the legend.
+     */
+    public void onClickInsert(String polyline) {
 
         String axes = AxesHandler.clickedAxes(figureUid, lastClick);
         if (axes != null) {
-            String text = LegendHandler.getLegendText(axes, getSelected());
+            String text = LegendHandler.getLegendText(axes, polyline);
             String s = (String)JOptionPane.showInputDialog(
                         dialogComponent,
                         Messages.gettext("Enter the text"),
@@ -389,18 +541,28 @@ public class Editor {
                         null,
                         text);
             if (s != null) {
-                LegendHandler.setLegend(axes, getSelected(), s);
+                LegendHandler.setLegend(axes, polyline, s);
             }
         }
     }
 
     /**
-    * Implements legend remove action(Callback).
-    */
+     * Implements legend remove action(Callback).
+     */
     public void onClickRemove() {
 
         String axesTo = AxesHandler.clickedAxes(figureUid, lastClick);
         LegendHandler.removeLegend(axesTo, selected);
+    }
+    
+    /**
+     * Leave data editor mode.
+     */
+    public void leaveDataEditor() {
+        if (dataEditEnabled) {
+            dataEditor.endEdit();
+            dataEditEnabled = false;
+        }
     }
 }
 

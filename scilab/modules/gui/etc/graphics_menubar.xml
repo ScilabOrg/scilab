@@ -226,6 +226,12 @@
     <submenu label="Stop datatip manager">
       <callback instruction='org.scilab.modules.gui.datatip.DatatipManagerMode.setDatatipManagerModeButtonOff' type="3"/>
     </submenu>
+    <submenu label="Start interactive editor" icon="cursor16">
+      <callback instruction='useeditor([SCILAB_FIGURE_ID], %t);' type="0"/>
+    </submenu>
+    <submenu label="Stop interactive editor">
+      <callback instruction='useeditor([SCILAB_FIGURE_ID], %f);' type="0"/>
+    </submenu>
   </menu>
   
   <!--

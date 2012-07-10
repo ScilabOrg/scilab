@@ -383,6 +383,12 @@
     <ClCompile Include="..\jni\SwingView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\jni\EditorManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_useeditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buildMainWindowTitle.h">
@@ -908,6 +914,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="checkColorRange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\jni\EditorManager.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
