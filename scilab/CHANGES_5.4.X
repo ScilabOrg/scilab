@@ -24,6 +24,8 @@ Javasci
 Documentation
 =============
 
+* help_from_sci updated to manage recent changes in docbook Scilab files.
+
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
 * Bug #7912 fixed - convert_to_float did not have documentation.
