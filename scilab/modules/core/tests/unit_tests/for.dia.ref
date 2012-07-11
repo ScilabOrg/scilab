@@ -1,0 +1,363 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) ????-2008 - INRIA Michael Baudin
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// for.tst --
+//   Test "for" for several data types : integer, string, vector, matrix,
+//   polynomials, and complex polynomials.
+//
+// Loop over an integer range
+computed=0
+ computed  =
+ 
+    0.  
+for i=1:5
+  computed=computed+i
+end
+ computed  =
+ 
+    1.  
+ computed  =
+ 
+    3.  
+ computed  =
+ 
+    6.  
+ computed  =
+ 
+    10.  
+ computed  =
+ 
+    15.  
+expected=1+2+3+4+5
+ expected  =
+ 
+    15.  
+if computed<>expected then bugmes();quit;end
+// Loop over a vector of integers
+computed=0
+ computed  =
+ 
+    0.  
+values=[1 3 5 7 9]
+ values  =
+ 
+    1.    3.    5.    7.    9.  
+for i=values
+  computed=computed+i
+end
+ computed  =
+ 
+    1.  
+ computed  =
+ 
+    4.  
+ computed  =
+ 
+    9.  
+ computed  =
+ 
+    16.  
+ computed  =
+ 
+    25.  
+expected=1+3+5+7+9
+ expected  =
+ 
+    25.  
+if computed<>expected then bugmes();quit;end
+// Loop over an integer with n1:step:n2 syntax
+computed=0
+ computed  =
+ 
+    0.  
+step=2
+ step  =
+ 
+    2.  
+for i=1:step:10
+  computed=computed+i
+end
+ computed  =
+ 
+    1.  
+ computed  =
+ 
+    4.  
+ computed  =
+ 
+    9.  
+ computed  =
+ 
+    16.  
+ computed  =
+ 
+    25.  
+expected=1+3+5+7+9
+ expected  =
+ 
+    25.  
+if computed<>expected then bugmes();quit;end
+// Loop over a vector of strings (test also concatenation of strings)
+computed=""
+ computed  =
+ 
+    
+values=["this+" "is+" "my+" "string"]
+ values  =
+ 
+!this+  is+  my+  string  !
+for i=values
+  computed=computed+i
+end
+ computed  =
+ 
+ this+   
+ computed  =
+ 
+ this+is+   
+ computed  =
+ 
+ this+is+my+   
+ computed  =
+ 
+ this+is+my+string   
+expected="this+is+my+string"
+ expected  =
+ 
+ this+is+my+string   
+if computed<>expected then bugmes();quit;end
+// Loop over a row vector of real values
+computed=0.
+ computed  =
+ 
+    0.  
+values=[1. 2. 3. 4. 5.]
+ values  =
+ 
+    1.    2.    3.    4.    5.  
+for x=values
+  computed=computed+x
+end
+ computed  =
+ 
+    1.  
+ computed  =
+ 
+    3.  
+ computed  =
+ 
+    6.  
+ computed  =
+ 
+    10.  
+ computed  =
+ 
+    15.  
+expected=1.+2.+3.+4.+5.
+ expected  =
+ 
+    15.  
+if computed<>expected then bugmes();quit;end
+// Loop over a list of real vectors
+computed=[0. 0. 0.]
+ computed  =
+ 
+    0.    0.    0.  
+mylist=list([1. 2. 3.],[4. 5. 6.],[7. 8. 9.])
+ mylist  =
+ 
+ 
+       mylist(1)
+ 
+    1.    2.    3.  
+ 
+       mylist(2)
+ 
+    4.    5.    6.  
+ 
+       mylist(3)
+ 
+    7.    8.    9.  
+for v=mylist
+  computed=computed+v
+end
+ computed  =
+ 
+    1.    2.    3.  
+ computed  =
+ 
+    5.    7.    9.  
+ computed  =
+ 
+    12.    15.    18.  
+expected=[(1.+4.+7.) (2.+5.+8.) (3.+6.+9.)]
+ expected  =
+ 
+    12.    15.    18.  
+if computed<>expected then bugmes();quit;end
+// Loop over a vector of real polynomials
+computed=0.
+ computed  =
+ 
+    0.  
+myvector=[(1.+2*%s) (3.+4.*%s)]
+ myvector  =
+ 
+    1 + 2s     3 + 4s   
+for v=myvector
+  computed=computed+v
+end
+ computed  =
+ 
+    1 + 2s   
+ computed  =
+ 
+    4 + 6s   
+expected=4.+6.*%s
+ expected  =
+ 
+    4 + 6s   
+if computed<>expected then bugmes();quit;end
+// Loop over a vector of complex polynomials
+computed=0.
+ computed  =
+ 
+    0.  
+p1=1.+2.*%i+3*%s
+ p1  =
+ 
+Partie réelle
+
+ 
+    1 + 3s   
+Partie imaginaire
+
+ 
+    2   
+p2=4.+5.*%i+6*%s
+ p2  =
+ 
+Partie réelle
+
+ 
+    4 + 6s   
+Partie imaginaire
+
+ 
+    5   
+myvector=[p1 p2]
+ myvector  =
+ 
+Partie réelle
+
+ 
+    1 + 3s     4 + 6s   
+Partie imaginaire
+
+ 
+    2     5   
+for p=myvector
+  computed=computed+p
+end
+ computed  =
+ 
+Partie réelle
+
+ 
+    1 + 3s   
+Partie imaginaire
+
+ 
+    2   
+ computed  =
+ 
+Partie réelle
+
+ 
+    5 + 9s   
+Partie imaginaire
+
+ 
+    7   
+expected=5.+7*%i+9*%s
+ expected  =
+ 
+Partie réelle
+
+ 
+    5 + 9s   
+Partie imaginaire
+
+ 
+    7   
+if computed<>expected then bugmes();quit;end
+// Loop over a column vector of real values
+// Note : there is only one loop here
+computed=[0;0;0;0;0]
+ computed  =
+ 
+    0.  
+    0.  
+    0.  
+    0.  
+    0.  
+values=[1.;2.;3.;4.;5.]
+ values  =
+ 
+    1.  
+    2.  
+    3.  
+    4.  
+    5.  
+for x=values
+  computed=computed+x
+end
+ computed  =
+ 
+    1.  
+    2.  
+    3.  
+    4.  
+    5.  
+expected=[1.;2.;3.;4.;5.]
+ expected  =
+ 
+    1.  
+    2.  
+    3.  
+    4.  
+    5.  
+if computed<>expected then bugmes();quit;end
+// Loop over a matrix of real values
+// Note : the loop is over the columns
+computed=[0;0]
+ computed  =
+ 
+    0.  
+    0.  
+values=[1. 2.;3. 4.]
+ values  =
+ 
+    1.    2.  
+    3.    4.  
+for x=values
+  computed=computed+x
+end
+ computed  =
+ 
+    1.  
+    3.  
+ computed  =
+ 
+    3.  
+    7.  
+expected=[3.;7.]
+ expected  =
+ 
+    3.  
+    7.  
+if computed<>expected then bugmes();quit;end

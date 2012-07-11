@@ -4,10 +4,9 @@
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
-// <-- NOT FIXED -->
 //
 // for.tst --
-//   Test "for" for several data types : integer, string, vector, matrix, 
+//   Test "for" for several data types : integer, string, vector, matrix,
 //   polynomials, and complex polynomials.
 //
 
