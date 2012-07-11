@@ -9,14 +9,14 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  * Please note that piece of code will be rewrited for the Scilab 6 family
- * However, the API (profile of the functions in the header files) will be 
+ * However, the API (profile of the functions in the header files) will be
  * still available and supported in Scilab 6.
  */
 
 extern "C"
 {
 #include "MALLOC.h"
-#include <stdio.h> 
+#include <stdio.h>
 #include "api_scilab.h"
 #include "sciprint.h"
 #include "Scierror.h"

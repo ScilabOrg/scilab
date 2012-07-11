@@ -12,14 +12,9 @@
  */
 
 #include <string.h>
+#include "BOOL.h"
 #include "gw_gui.h"
-#include "sci_mode.h"
-#include "api_scilab.h"
-#include "MALLOC.h"
 #include "callFunctionFromGateway.h"
-#include "localization.h"
-#include "Scierror.h"
-#include "loadOnUseClassPath.h"
 /*--------------------------------------------------------------------------*/
 static BOOL loadedDep = FALSE;
 /*--------------------------------------------------------------------------*/
