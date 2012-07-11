@@ -219,7 +219,8 @@ public class Export {
             }
         } else {
             DrawerVisitor visitor = DrawerVisitor.getVisitor(uid);
-            Canvas canvas = visitor.getCanvas();
+            G2DCanvas canvas = (G2DCanvas) visitor.getCanvas();
+            canvas.enableDraw();
             Exporter exporter = null;
             try {
                 canvas.redraw();
@@ -335,12 +336,8 @@ public class Export {
         params.setParamsOnGraphics(g2d);
 
         G2DCanvas canvas = G2DCanvasFactory.createCanvas(g2d, width, height);
-        DrawerVisitor visitor = new DrawerVisitor(null, canvas, figure) {
-            @Override
-            public void updateObject(String id, String property) {
-                // Don't update during the export
-            }
-        };
+        canvas.disableDraw();
+        DrawerVisitor visitor = new DrawerVisitor(null, canvas, figure);
         visitor.setDrawingTools(canvas.getDrawingTools());
         canvas.setMainDrawer(visitor);
         visitorsToExp.put(visitor, exporter);
