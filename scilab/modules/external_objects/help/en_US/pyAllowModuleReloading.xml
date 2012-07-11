@@ -11,9 +11,6 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyAllowModuleReloading" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyAllowModuleReloading</refname>
     <refpurpose>Allow to reload a module</refpurpose>
@@ -44,7 +41,7 @@
   <refsection>
     <title>Description</title>
     <para>Allow to reload a module when it is imported. If some modifications have been made on the source file, it could be useful to reload it.</para>
-    <para>With no arguments, the function returns the current state.</para> 
+    <para>With no argument, the function returns the current state.</para>
   </refsection>
   <refsection>
     <title>Examples</title>
