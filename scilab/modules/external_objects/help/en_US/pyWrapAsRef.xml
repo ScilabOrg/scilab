@@ -11,9 +11,6 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyWrapAsRef" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyWrapAsRef</refname>
     <refpurpose>Wrap as reference (no copy) a Scilab variable</refpurpose>
@@ -44,7 +41,7 @@
   <refsection>
     <title>Description</title>
     <para>The function requires that Numpy wrapping is enabled with pyUseNumpy(%t).</para>
-    <para>Rows or matrices of doubles (not complexes), integers and booleans corresponding to the variable named varName are wrapped as a reference (i.e. no copy is made, the Numpy array is built with a pointer on the Scilab stack). Single data are not passed by references. Strings and complex data cannot be passed by reference since the Scilab corresponding structure is different from the Numpy one.</para> 
+    <para>Rows or matrices of doubles (not complexes), integers and booleans corresponding to the variable named varName are wrapped as a reference (i.e. no copy is made, the Numpy array is built with a pointer on the Scilab stack). Single data are not passed by references. Strings and complex data cannot be passed by reference since the Scilab corresponding structure is different from the Numpy one.</para>
     <para>The main advantage is that is possible to avoid copy (so it is faster). A Scilab matrix can be allocated and fill on the Python side.</para>
     <para>This function must be used very carefully. If the Scilab variable is cleared, the pointer becomes invalid.</para>
   </refsection>

@@ -11,9 +11,6 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyByCopy" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyByCopy</refname>
     <refpurpose>Enable/disable the copy of function arguments.</refpurpose>
@@ -44,9 +41,9 @@
   <refsection>
     <title>Description</title>
     <para>When set to false, Numpy wrapping must be enabled with pyUseNumpy(%t).</para>
-    <para>By default all the Scilab data are copied in the Python environment. In setting byCopy to false, all the arguments (when it is possible) will be passed by reference in using a Numpy wrapping.</para> 
+    <para>By default all the Scilab data are copied in the Python environment. In setting byCopy to false, all the arguments (when it is possible) will be passed by reference in using a Numpy wrapping.</para>
     <para>
-      More informations can be found in <link linkend="pyWrapAsRef">pyWrapAsRef</link>.
+      More information can be found in <link linkend="pyWrapAsRef">pyWrapAsRef</link>.
     </para>
   </refsection>
   <refsection role="see also">
