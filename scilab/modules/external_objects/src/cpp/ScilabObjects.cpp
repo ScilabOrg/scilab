@@ -677,7 +677,7 @@ int ScilabObjects::getArgumentId(int * addr, int * tmpvars, const bool isRef, co
         default :
         {
             removeTemporaryVars(envId, tmpvars);
-            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap"));
+            throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("Unable to wrap. Unmanaged datatype ?"));
         }
     }
 }
@@ -786,7 +786,7 @@ char * ScilabObjects::getSingleString(int pos, void * pvApiCtx)
 
     if (!isStringType(pvApiCtx, addr))
     {
-        throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("A single String expected"));
+        throw ScilabAbstractEnvironmentException(__LINE__, __FILE__, gettext("A single string expected"));
     }
 
     if (!isScalar(pvApiCtx, addr))

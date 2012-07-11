@@ -11,9 +11,6 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyShowPrivate" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyShowPrivate</refname>
     <refpurpose>Enable/disable the possibility to use "private" fields or methods.</refpurpose>
@@ -43,8 +40,8 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>By convention, all the Python objets with a name starting with an underscore are considered like private.</para>
-    <para>In using this function, one can bypass this convention.</para>
+    <para>By convention, all the Python objets with a name starting (prefixed) with an underscore (_) are considered as private.</para>
+    <para>By using this function, one can bypass this convention.</para>
   </refsection>
   <refsection role="see also">
     <title>See Also</title>

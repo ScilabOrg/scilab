@@ -11,12 +11,9 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyTrace" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyTrace</refname>
-    <refpurpose>Enable/disable log informations.</refpurpose>
+    <refpurpose>Enable/disable log information.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
     <title>Calling Sequence</title>
@@ -37,14 +34,14 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>To enable logging, a correct file name must be given. Several informations are written and could be useful to help the debugging.</para>
+    <para>To enable logging, a correct file name must be given. Several information are written and could be useful to help the debugging.</para>
     <para>To disable logging (or stop it), pyTrace without any arguments must be used.</para>
   </refsection>
   <refsection>
     <title>Examples</title>
     <programlisting role="example"><![CDATA[
     // Start logging
-    pyTrace("/tmp/foo.log")
+    pyTrace(TMPDIR+"/foo.log")
     a = pyWrap(1:10);
     b = a + (20:30);
     

@@ -11,9 +11,6 @@
 *
 -->
 <refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="pyNpWrap" xml:lang="en">
-  <info>
-    <pubdate>$LastChangedDate$</pubdate>
-  </info>
   <refnamediv>
     <refname>pyNpWrap</refname>
     <refpurpose>Wrap a Scilab variable in using systematically Numpy.</refpurpose>
@@ -49,7 +46,7 @@
   </refsection>
   <refsection>
     <title>Description</title>
-    <para>The Scilab data are wrapped with a Numpy array (even for matrix 1x1). When byCopy is set to false, the Numpy array will use and a keep a C pointer on the Scilab data, this is why it should be uesd very carefully.</para> 
+    <para>The Scilab data are wrapped with a Numpy array (even for matrix 1x1). When byCopy is set to false, the Numpy array will use and a keep a C pointer on the Scilab data, this is why it should be uesd very carefully.</para>
   </refsection>
   <refsection>
     <title>Examples</title>
