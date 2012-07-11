@@ -50,5 +50,5 @@ char * getUnnamedVariable(void)
     }
     while (isNamedVarExist(NULL, buffer));
 
-    return strdup(buffer);
+    return os_strdup(buffer);
 }

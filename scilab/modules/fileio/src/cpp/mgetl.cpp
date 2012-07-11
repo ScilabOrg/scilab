@@ -16,6 +16,7 @@
 
 extern "C"
 {
+#include <Windows.h>
 #include "mgetl.h"
 #include "filesmanagement.h"
 #include "mopen.h"
