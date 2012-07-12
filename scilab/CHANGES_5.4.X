@@ -33,6 +33,9 @@ Documentation
 Bug Fixes
 =========
 
+* Bug #6538 fixed - unobs() ignores its 'tol' argument when it is present,
+                    always calculating its own, arbitrary, internal value.
+
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
 * Bug #7912 fixed - convert_to_float did not have documentation.
@@ -93,7 +96,7 @@ Known Incompatibilities
 =======================
 
 * In previous versions, the newest() function could be called with a string vector
-  as second (up to last) input argument. In these cases, only the first string of 
+  as second (up to last) input argument. In these cases, only the first string of
   the vector was taken into account. These calls now return an error. See bug #11398.
 
 
