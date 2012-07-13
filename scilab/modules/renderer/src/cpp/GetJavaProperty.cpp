@@ -13,12 +13,8 @@
  *
  */
 
-#include "GetJavaProperty.h"
-#include "BasicAlgos.hxx"
-
 extern "C"
 {
-#include "BasicAlgos.h"
 #include "getScilabJavaVM.h"
 }
 

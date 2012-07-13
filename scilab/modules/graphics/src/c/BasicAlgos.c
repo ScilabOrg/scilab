@@ -2,11 +2,11 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -162,11 +162,6 @@ void destroyStringArray( char * src[], int nbStrings )
 	freeArrayOfString(src, nbStrings);
 }
 /*--------------------------------------------------------------------------*/
-void destroyCppString(char * string)
-{
-  destroyRendererString(string);
-}
-/*--------------------------------------------------------------------------*/
 double * createDoubleArrayCopy( const double src[], int nbElement )
 {
   double * res = MALLOC( nbElement * sizeof(double) ) ;
@@ -184,12 +179,12 @@ double * createDoubleArrayCopy( const double src[], int nbElement )
 int * createIntArrayCopy( const int src[], int nbElement )
 {
   int * res = MALLOC( nbElement * sizeof(int) ) ;
-  
+
   if ( res == NULL )
   {
     return NULL ;
   }
-  
+
   memcpy( res, src, nbElement * sizeof(int) ) ;
 
   return res ;
