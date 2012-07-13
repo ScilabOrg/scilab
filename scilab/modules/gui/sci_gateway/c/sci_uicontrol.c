@@ -34,7 +34,7 @@
 #include "BuildObjects.h"
 #include "api_scilab.h"
 /*--------------------------------------------------------------------------*/
-#define NBPROPERTIES 27
+#define NBPROPERTIES 28
 #define MAXPROPERTYNAMELENGTH 20
 /*--------------------------------------------------------------------------*/
 int sci_uicontrol(char *fname, unsigned long fname_len)
@@ -64,7 +64,7 @@ int sci_uicontrol(char *fname, unsigned long fname_len)
     {
         "style", "parent", "backgroundcolor", "foregroundcolor", "string", "units", "fontweight", "min", "max", "tag", "position", "relief",
         "horizontalalignment", "verticalalignment", "sliderstep", "fontname", "callback", "fontangle", "fontunits", "fontsize", "listboxtop", "user_data", "value", "userdata", "visible", "enable",
-        "callback_type"
+        "callback_type", "tooltipstring"
     };
     int *propertiesValuesIndices = NULL;
     int lw = 0;
