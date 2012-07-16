@@ -31,6 +31,7 @@ import org.scilab.modules.gui.datatip.DatatipCreate;
 import org.scilab.modules.gui.datatip.MarkerCreate;
 import org.scilab.modules.gui.datatip.DatatipSelect;
 import org.scilab.modules.gui.datatip.DatatipDelete;
+import org.scilab.modules.gui.datatip.DatatipMove;
 import org.scilab.modules.gui.datatip.DatatipManagerMode;
 
 import java.util.ArrayList;
@@ -61,8 +62,10 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
     ArrayList<Double> saveDatatipCoord;
     ArrayList<String> saveDatatipUid;
     ArrayList<String> saveMarkerUid;
+    ArrayList<String> savePolylineUid;
     Integer[] newClickPosition = { 0 , 0 };
     public static Integer indexToDelete;
+    public static Integer indexToMove;
 
     public EditorEventListener(String uid) {
         windowUid = uid;
@@ -72,9 +75,19 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
         saveDatatipCoord = new ArrayList<Double>();
         saveDatatipUid = new ArrayList<String>();
         saveMarkerUid = new ArrayList<String>();
+        savePolylineUid = new ArrayList<String>();
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
+    public void keyPressed(KeyEvent arg0) {
+        if (DatatipManagerMode.getDatatipManagerMode()) {
+            if (indexToMove != null) {
+                if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    saveDatatipCoord = DatatipMove.moveRight (windowUid, savePolylineUid, indexToMove, saveDatatipCoord, saveDatatipUid, saveMarkerUid);
+                } else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+                    saveDatatipCoord = DatatipMove.moveLeft (windowUid, savePolylineUid, indexToMove, saveDatatipCoord, saveDatatipUid, saveMarkerUid);
+                }
+            }
+        }
     }
 
     public void keyReleased(KeyEvent arg0) {
@@ -116,9 +129,15 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
                         saveDatatipCoord.add(datatipGraphicCoord[1]);
                         saveDatatipUid.add(newDatatip);
                         saveMarkerUid.add(newMarker);
+                        savePolylineUid.add(picked);
                     }
                 } else if (arg0.getClickCount() == 2) {
-                
+                    if (DatatipManagerMode.getDatatipManagerMode()) {
+                        newClickPosition[0] = arg0.getX();
+                        newClickPosition[1] = arg0.getY();
+                        axesUid = DatatipCreate.datatipAxesHandler(windowUid, newClickPosition);
+                        indexToMove = DatatipSelect.selectDatatip(windowUid, axesUid, newClickPosition, saveDatatipCoord, saveDatatipUid, saveMarkerUid);
+                    }
                 }
             }
         } else if (arg0.getButton() == 3) {
@@ -134,6 +153,8 @@ public class EditorEventListener implements KeyListener, MouseListener, MouseMot
                         saveDatatipCoord.remove(indexToDelete+1-1);
                         saveDatatipUid.remove(indexToDelete/2);
                         saveMarkerUid.remove(indexToDelete/2);
+                        savePolylineUid.remove(indexToDelete/2);
+                        indexToMove = null;
                     }
                 }
             }
