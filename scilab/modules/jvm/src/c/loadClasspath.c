@@ -67,7 +67,7 @@ BOOL LoadClasspath(char *xmlfilename)
 			/* Xpath Query :
 			 * Retrieve all the path which are not disabled in our mode 
 			 */
-			#define XPATH "//classpaths/path[not(@disableUnderMode='%s')]"
+#define XPATH "//classpaths/path[not(@disableUnderMode='%s')]"
 			char * XPath=(char*)MALLOC(sizeof(char)*(strlen(XPATH)+strlen(currentMode)-2+1)); /* -2 = strlen(%s) */
 			sprintf(XPath,XPATH,currentMode);
 
@@ -136,7 +136,7 @@ BOOL LoadClasspath(char *xmlfilename)
 
 					if ( (classpath) && (strlen(classpath) > 0) && (strncmp(classpath,"@",1) != 0) ) /* If it starts by a @ that means it hasn't been able to find it... which is normal... for example with the documentation */
 					{
-						#define KEYWORDSCILAB "$SCILAB" 
+#define KEYWORDSCILAB "$SCILAB" 
 						char *sciPath = getSCI();
 						char *FullClasspath = NULL;
 						
@@ -191,7 +191,7 @@ BOOL LoadClasspath(char *xmlfilename)
 	}
 	if (errorOnLoad)
 	{
-		fprintf(stderr,_("Some problems during the loading of the Java libraries occured.\nThis could lead to inconsistent behaviours.\nPlease check SCI/etc/classpath.xml.\n"));
+		fprintf(stderr,_("Some problems during the loading of the Java libraries occurred.\nThis could lead to inconsistent behaviours.\nPlease check SCI/etc/classpath.xml.\n"));
 	}
 
 	return bOK;
