@@ -92,6 +92,17 @@ public class ClosingOperationsManager {
     }
 
     /**
+     * Unregister a closing operation for a tab
+     *
+     * @param tab the associated tab
+     */
+    public static void unregisterClosingOperation(SwingScilabTab tab) {
+        if (tab != null) {
+            closingOps.remove(tab);
+        }
+    }
+
+    /**
      * Start a closing operation on root
      *
      * @return true if the closing operation succeeded
@@ -300,6 +311,19 @@ public class ClosingOperationsManager {
             }
             children.add(child);
         }
+    }
+
+    /**
+     * Remove the given children from its parent
+     * @param child teh child to remove
+     */
+    public static void removeDependency(SwingScilabTab child) {
+	for (SwingScilabTab tab : deps.keySet()) {
+	    List<SwingScilabTab> children = deps.get(tab);
+	    if (children != null) {
+		children.remove(child);
+	    }
+	}
     }
 
     /**
