@@ -113,6 +113,9 @@ Bug Fixes
 
 * Bug #11466 fixed - fscanf was not set as obsolete but called an obsolete function.
 
+* Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
+                     something in the console.
+
 
 
 Known Incompatibilities
