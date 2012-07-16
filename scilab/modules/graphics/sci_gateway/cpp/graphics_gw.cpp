@@ -10,21 +10,19 @@
  *
  */
 
-#ifndef __GUI_GW_HXX__
-#define __GUI_GW_HXX__
+#include "graphics_gw.hxx"
+#include "function.hxx"
+#include "context.hxx"
 
-#include "cpp_gateway_prototype.hxx"
-#include "dynlib_gui_gw.h"
-
-class GuiModule
+#define MODULE_NAME L"graphics"
+extern "C"
 {
-private :
-	GuiModule(){};
-	~GuiModule(){};
-public :
-	GUI_GW_IMPEXP static int Load();
-};
+	#include "gw_graphics.h"
+}
 
-CPP_GATEWAY_PROTOTYPE(sci_helpbrowser);
+using namespace types;
 
-#endif /* !__GUI_GW_HXX__ */
+int GraphicsModule::Load()
+{
+    return 1;
+}
