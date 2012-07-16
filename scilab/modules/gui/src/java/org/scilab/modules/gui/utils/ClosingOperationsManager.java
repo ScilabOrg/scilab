@@ -92,6 +92,17 @@ public class ClosingOperationsManager {
     }
 
     /**
+     * Unregister a closing operation for a tab
+     *
+     * @param tab the associated tab
+     */
+    public static void unregisterClosingOperation(SwingScilabTab tab) {
+        if (tab != null) {
+            closingOps.remove(tab);
+        }
+    }
+
+    /**
      * Start a closing operation on root
      *
      * @return true if the closing operation succeeded
