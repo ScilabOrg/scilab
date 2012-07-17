@@ -31,7 +31,7 @@
         <listitem>
           <para>
           Строка Scilab'а. Она определяет символьную строку,
-          сочетающую символы со специкациями преобразования.
+          сочетающую символы со спецификациями преобразования.
 </para>
         </listitem>
       </varlistentry>
@@ -40,7 +40,7 @@
         <listitem>
           <para>
             определяет данные, которые должны быть преобразованы в
-            соответствием с параметром формата <literal>format</literal>.
+            соответствии с параметром формата <varname>format</varname>.
 </para>
         </listitem>
       </varlistentry>
@@ -52,7 +52,7 @@
             логического блока (см. <link linkend="file">file</link>).
           </para>
           <para>
-            Заметьте, что, если file=0, то сообщение будет
+	    Заметьте, что, если <varname>file</varname>=0, то сообщение будет
             отображено в стандартном потоке вывода сообщений об ошибках (stderr).
           </para>
         </listitem>
@@ -65,17 +65,17 @@
       <caution>
         Эта функция устарела, лучше использовать функцию <link
         linkend="mfprintf">mfprintf</link>, которая гораздо более
-        совместима с возможностями C-функции <literal>fprintf</literal>.
+        совместима с возможностями C-функции <function>fprintf</function>.
       </caution>
     </para>
     <para>
-      Функция <literal>fprintf</literal> преобразует, форматирует и
-      записывает свои параметры <literal>value</literal> под
-      управлением параметра <literal>format</literal> в файл,
-      определённый своим параметром <literal>file</literal>.
+      Функция <function>fprintf</function> преобразует, форматирует и
+      записывает свои параметры <varname>value</varname> под
+      управлением параметра <varname>format</varname> в файл,
+      определённый своим параметром <varname>file</varname>.
     </para>
     <para>
-      Параметр <literal>format</literal> является символьной строкой,
+      Параметр <varname>format</varname> является символьной строкой,
       которая содержит два типа объектов:
     </para>
     <variablelist>
@@ -91,15 +91,15 @@
           <para>
             каждый из которых заставляет получать ноль или более
             пунктов из списка параметров
-            <literal>value</literal>. См. <link
+            <varname>value</varname>. См. <link
             linkend="printf_conversion">printf_conversion</link>. 
           </para>
         </listitem>
       </varlistentry>
     </variablelist>
     <para>
-      Если остались какие-либо <literal>value</literal> после того как
-      весь <literal>format</literal> был обработан, они игнорируются.
+      Если остались какие-либо <varname>value</varname> после того как
+      весь <varname>format</varname> был обработан, они игнорируются.
     </para>
   </refsection>
   <refsection>
