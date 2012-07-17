@@ -647,12 +647,12 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
     // plot Im(z)
     // ============================================
 
-    my_IM_axes = newaxes();
-    my_IM_axes.axes_bounds = [1/3+0.05,0,1/3,1];
-    my_IM_axes.margins     = [ 0.2 0.2 0.2 0.2 ];
-
+    subplot(211)
     plot3d(xi,yi,zi,theta,alpha,"Re(z)@Im(z)@",[2 6 4]);
 
+    my_IM_axes = gca();
+    my_IM_axes.axes_bounds = [0.1, 0.05, 1, 0.5];
+    my_IM_axes.margins     = [0.2, 0.2, 0.2, 0.2];
     my_IM_plot             = my_IM_axes.children;
     my_IM_plot.color_flag  = 1;
 
@@ -661,12 +661,12 @@ function []=PlotCmplxFunc(R,e,TypeDomain,TypeCut,n,StrFunc,theta,alpha,DomReal)
     // plot Re(z) + the real restriction
     // ============================================
 
-    my_RE_axes = newaxes();
-    my_RE_axes.axes_bounds = [2/3+0.05,0,1/3,1];
+    subplot(212)
+    plot3d(xr,yr,zr,theta,alpha,"Re(z)@Im(z)@",[2 6 4]);
+
+    my_RE_axes = gca();
+    my_RE_axes.axes_bounds = [0.1, 0.5, 1, 0.5];
     my_RE_axes.margins     = [ 0.2 0.2 0.2 0.2 ];
-
-    plot3d(xr,yr,zr,theta,alpha,"Re(z)@Im(z)@",[ 2 6 4]);
-
     my_RE_plot             = my_RE_axes.children;
     my_RE_plot.color_flag  = 1;
 
