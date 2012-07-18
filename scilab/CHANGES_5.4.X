@@ -29,6 +29,8 @@ Documentation
 
 * help_from_sci updated to manage recent changes in docbook Scilab files.
 
+* Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
+                     were missing some closures tags in the exemples.
 
 GUI
 ===
