@@ -1315,6 +1315,9 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName)
     int iVarID[nsiz];
     int iZero = 0;
     int il;
+    int sRhs = Rhs;
+    int sLhs = Lhs;
+    int sTop = Top;
 
     if(isNamedVarExist(_pvCtx, _pstName) == 0)
     {
@@ -1338,6 +1341,9 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName)
 
     //Replace existing value by null matrix to delete it
     C2F(stackp) (iVarID, &iZero);
+    Rhs = sRhs;
+    Lhs = sLhs;
+    Top = sTop;
     if(C2F(iop).err > 0/* || C2F(errgst).err1 > 0*/)
     {
         return 0;
