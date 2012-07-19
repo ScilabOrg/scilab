@@ -891,7 +891,7 @@ SciErr createUndefinedInNamedList(void* _pvCtx, const char* _pstName, int* /*_pi
     piChildAddr[3]  = 0;
 
     piOffset            = piParent + 2;
-    piOffset[_iItemPos] = piOffset[_iItemPos - 1];
+    piOffset[_iItemPos] = piOffset[_iItemPos - 1] + 2;
 
     piEnd = piChildAddr + 4;
     closeList(Top, piEnd);
