@@ -31,6 +31,8 @@ Documentation
 
 * help_from_sci updated to manage recent changes in docbook Scilab files.
 
+* Create categories for statistics help pages. See bug #9108
+
 
 GUI
 ===
