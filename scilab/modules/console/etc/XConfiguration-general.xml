@@ -147,7 +147,7 @@
           <action key="OSSCKEY F1" description="Help on keyword" name="scinotes-help-keyword"/>
           <action key="OSSCKEY L" description="Load in Scilab" name="scinotes-load-scilab"/>
           <action key="OSSCKEY Shift E" description="Execute in Scilab" name="scinotes-execute-scilab"/>
-          <action key="OSSCKEY E" description="Evalute selection" name="scinotes-evaluate-selection"/>
+          <action key="OSSCKEY E" description="Evaluate selection" name="scinotes-evaluate-selection"/>
           <action key="F5" description="Save and execute" name="scinotes-save-execute"/>
           <action key="OSSCKEY F5" description="Save and execute all" name="scinotes-save-execute-all"/>
           <action key="OSSCKEY F" description="Find" name="scinotes-find"/>
