@@ -35,6 +35,23 @@ extern "C"
 #ifdef _MSC_VER
 #include "getenvc.h"
 #include "dllinfo.h"
+
+	/* struct used by fortran (F2C) */
+/* required to be defined in C */
+
+typedef struct {
+    char name[nlgh+1];
+} CINTER_struct;
+
+__declspec (dllexport) CINTER_struct C2F(cinter);
+
+/* struct used by fortran (F2C) */
+/* required to be defined in C */
+typedef struct {
+    int ibuf[lsiz];
+} IBFU_struct;
+__declspec (dllexport) CINTER_struct C2F(ibfu);
+
 #endif
 #include "getshortpathname.h"
 #include "BOOL.h"
