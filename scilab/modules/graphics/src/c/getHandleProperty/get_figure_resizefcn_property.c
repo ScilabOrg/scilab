@@ -47,6 +47,6 @@ int get_figure_resizefcn_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, strdup(resizeFcn));
+    return sciReturnString(_pvCtx, resizeFcn);
 }
 /*------------------------------------------------------------------------*/
