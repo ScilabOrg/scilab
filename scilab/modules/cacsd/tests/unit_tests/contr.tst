@@ -1,9 +1,24 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) ????-2008 - INRIA - Serge Steer
+// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
+assert_checkfalse(execstr("contr()", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong number of input argument(s): 2 to 3 expected."), "errcatch") == 0);
+A = ones(3,3) + 0 * %i;
+B = ones(3,3) * 2;
+assert_checkfalse(execstr("contr(A, B)", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #1:  A real matrix expected."), "errcatch") == 0);
+A = ones(3,3);
+assert_checkfalse(execstr("contr(A, complex(B))", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #2:  A real matrix expected."), "errcatch") == 0);
+assert_checkfalse(execstr("contr(sparse(A), B)", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #1:  A real matrix expected."), "errcatch") == 0);
+assert_checkfalse(execstr("contr(A, sparse(B)", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #2:  A real matrix expected."), "errcatch") == 0);
+
 a = [0.8604043 , 0.0070020 , 0.6223373 , -1.356213 , -4.2301775
      0.159714 ,  0.0857791 , -0.2367751 , 0.4958580 , 0.6398817
      -4.3054931 , -0.0365878 , 2.1784911 , 0.0314793 , 2.3728994
@@ -29,8 +44,13 @@ if norm(U'*a*U-Ac,1)>1d-6 then pause,end
 if norm(U'*b*V-Bc)>1d-10 then pause,end
 
 
+assert_checkfalse(execstr("contr(a,1)", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong values for input arguments #1 and #2."), "errcatch") == 0);
+assert_checkfalse(execstr("contr(a+%s,b)", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #1:  A real matrix expected."), "errcatch") == 0);
+assert_checkfalse(execstr("contr(a,b,''ee'')", "errcatch") == 0);
+lasterror(execstr(msprintf("contr: Wrong type for input argument #3:  A real scalar expected."), "errcatch") == 0);
+
 if contr(a',c',0.0001)<>3 then pause,end
-if execstr('contr(a)','errcatch')<>77 then pause,end
-if execstr('contr(a,1)','errcatch')<>999 then pause,end
-if execstr('contr(a,b,''ee'')','errcatch')<>246 then pause,end
-if execstr('contr(a+%s,b)','errcatch')<>246 then pause,end
+
+
