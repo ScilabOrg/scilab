@@ -7,5 +7,5 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-add_help_chapter("Statistics",SCI+"/modules/statistics/help/ja_JP",%T);
+add_help_chapter("Statistics",SCI+"/modules/statistics/help/en_US",%T);
 
