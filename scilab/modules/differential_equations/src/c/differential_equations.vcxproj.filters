@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -45,6 +45,33 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\cpp\differentialequationfunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="int2dtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="int3dtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="intgtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fydottable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dassltable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="colnewtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fevaltable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fydot2table.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impltable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -194,9 +194,18 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\cpp\differentialequationfunctions.cpp" />
     <ClCompile Include="..\cpp\scifunctions.cpp" />
     <ClCompile Include="arnol.c" />
+    <ClCompile Include="colnewtable.c" />
     <ClCompile Include="dassl.c" />
+    <ClCompile Include="dassltable.c" />
     <ClCompile Include="DllmainDifferential_equations.c" />
     <ClCompile Include="feval.c" />
+    <ClCompile Include="fevaltable.c" />
+    <ClCompile Include="fydot2table.c" />
+    <ClCompile Include="fydottable.c" />
+    <ClCompile Include="impltable.c" />
+    <ClCompile Include="int2dtable.c" />
+    <ClCompile Include="int3dtable.c" />
+    <ClCompile Include="intgtable.c" />
     <ClCompile Include="rk4.c" />
   </ItemGroup>
   <ItemGroup>
