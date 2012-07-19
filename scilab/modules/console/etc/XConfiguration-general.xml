@@ -147,7 +147,7 @@
           <action key="OSSCKEY F1" description="Help on keyword" name="scinotes-help-keyword"/>
           <action key="OSSCKEY L" description="Load in Scilab" name="scinotes-load-scilab"/>
           <action key="OSSCKEY Shift E" description="Execute in Scilab" name="scinotes-execute-scilab"/>
-          <action key="OSSCKEY E" description="Evalute selection" name="scinotes-evaluate-selection"/>
+          <action key="OSSCKEY E" description="Evaluate selection" name="scinotes-evaluate-selection"/>
           <action key="F5" description="Save and execute" name="scinotes-save-execute"/>
           <action key="OSSCKEY F5" description="Save and execute all" name="scinotes-save-execute-all"/>
           <action key="OSSCKEY F" description="Find" name="scinotes-find"/>
@@ -161,7 +161,7 @@
           <action key="OSSCKEY G" description="Start Code Navigator" name="scinotes-code-navigator"/>
           <action key="OSSCKEY Shift F" description="Search word in file" name="scinotes-word-file"/>
           <action key="OSSCKEY Shift B" description="Search files" name="scinotes-search-files"/>
-          <action key="OSSCKEY SPACE" description="Keyword cmppletion" name="scinotes-completion"/>
+          <action key="OSSCKEY SPACE" description="Keyword completion" name="scinotes-completion"/>
           <action key="F1" description="Help" name="scinotes-help"/>
           <action key="Shift F1" description="About" name="scinotes-about"/>
           <action key="OSSCKEY PAGE_DOWN" description="Next tab" name="scinotes-next-tab"/>
