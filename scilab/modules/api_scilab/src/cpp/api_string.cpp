@@ -15,9 +15,10 @@
  */
 
 /*--------------------------------------------------------------------------*/
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "string.hxx"
 #include "double.hxx"
+#include "context.hxx"
 
 extern "C"
 {
@@ -26,7 +27,6 @@ extern "C"
 #include "machine.h"
 #include "charEncoding.h"
 #include "api_scilab.h"
-#include "api_internal_string.h"
 #include "api_internal_common.h"
 #include "localization.h"
 #include "MALLOC.h"
@@ -152,93 +152,36 @@ SciErr createMatrixOfString(void* _pvCtx, int _iVar, int _iRows, int _iCols, con
 	return sciErr;
 }
 /*--------------------------------------------------------------------------*/
-SciErr fillMatrixOfString(void* _pvCtx, int* _piAddress, int _iRows, int _iCols, const char* const* _pstStrings, int* _piTotalLen)
-{
-	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-	int* piOffset = NULL;
-	int* piData		= NULL;
-	int iOffset		= 0;
-
-	_piAddress[0]	= sci_strings;
-	_piAddress[1] = _iRows;
-	_piAddress[2] = _iCols;
-	_piAddress[3] = 0; //always 0
-
-	piOffset	= _piAddress + 4;
-	piOffset[0] = 1; //Always 1
-	piData		= piOffset + _iRows * _iCols + 1;
-
-	if(_pstStrings == NULL)
-	{
-		addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "fillMatrixOfString");
-		return sciErr;
-	}
-
-	for(int i = 0 ; i < _iRows * _iCols ; i++)
-	{
-		if(_pstStrings[i] == NULL)
-		{
-			addErrorMessage(&sciErr, API_ERROR_INVALID_SUBSTRING_POINTER, _("%s: Invalid argument address"), "getMatrixOfString");
-			return sciErr;
-		}
-
-		int iLen = (int)strlen(_pstStrings[i]);
-		iOffset += iLen;
-		piData[iOffset] = 0;
-		piOffset[i + 1] = piOffset[i] + iLen;
-	}
-
-	*_piTotalLen	= piOffset[_iRows * _iCols] - 1;
-	return sciErr;
-}
-/*--------------------------------------------------------------------------*/
 SciErr createNamedMatrixOfString(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const char* const* _pstStrings)
 {
 	SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-#if 0
-	int iVarID[nsiz];
-	int iSaveRhs			= api_Rhs((int*)_pvCtx);
-	int iSaveTop			= api_Top((int*)_pvCtx);
-	int *piAddr				= NULL;
-
-	int iTotalLen	= 0;
-
-    //return named empty matrix
+    //return empty matrix
     if(_iRows == 0 && _iCols == 0)
     {
-        double dblReal = 0;
-        sciErr = createNamedMatrixOfDouble(_pvCtx, _pstName, 0, 0, &dblReal);
-        if (sciErr.iErr)
+        
+        if(createNamedEmptyMatrix(_pvCtx, _pstName))
         {
-            addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_EMPTY_MATRIX, _("%s: Unable to create variable in Scilab memory"), "createNamedEmptyMatrix");
+            addErrorMessage(&sciErr, API_ERROR_CREATE_EMPTY_MATRIX, _("%s: Unable to create variable in Scilab memory"), "createEmptyMatrix");
+            return sciErr;
         }
+
         return sciErr;
     }
 
-    if(!checkNamedVarFormat(_pvCtx, _pstName))
-    {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Invalid variable name."), "createNamedMatrixOfString");
-        return sciErr;
-    }
-
-    C2F(str2name)(_pstName, iVarID, (int)strlen(_pstName));
-	Top = Top + Nbvars + 1;
-
-	//write matrix information
-	sciErr = fillMatrixOfString(_pvCtx, piAddr, _iRows, _iCols, _pstStrings, &iTotalLen);
-	if(sciErr.iErr)
+	String* pS = new String(_iRows, _iCols);
+	if(pS == NULL)
 	{
-		addErrorMessage(&sciErr, API_ERROR_CREATE_NAMED_STRING, _("%s: Unable to create %s named \"%s\""), "createNamedMatrixOfString", _("matrix of string"), _pstName);
+		addErrorMessage(&sciErr, API_ERROR_NO_MORE_MEMORY, _("%s: No more memory to allocated variable"), "createMatrixOfString");
 		return sciErr;
 	}
 
-	//update "variable index"
+	for(int i = 0 ; i < pS->getSize() ; i++)
+	{
+        wchar_t* pstTemp = to_wide_string(_pstStrings[i]);
+		pS->set(i, pstTemp);
+        FREE(pstTemp);
+	}
 
-
-	//Add name in stack reference list
-	createNamedVariable(iVarID);
-
-#endif
 	return sciErr;
 }
 /*--------------------------------------------------------------------------*/

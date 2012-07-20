@@ -16,8 +16,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "double.hxx"
+#include "context.hxx"
 
 extern "C"
 {
@@ -200,28 +201,6 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, int _iComplex, int _iR
     return sciErr;
 }
 
-SciErr fillCommonMatrixOfDouble(void* _pvCtx, int* _piAddress, int _iComplex, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg)
-{
-    SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-    _piAddress[0]		= sci_matrix;
-    _piAddress[1]		= Min(_iRows, _iRows * _iCols);
-    _piAddress[2]		= Min(_iCols, _iRows * _iCols);
-    _piAddress[3]		= _iComplex;
-
-
-    if(_pdblReal != NULL)
-    {
-        *_pdblReal		= (double*)(_piAddress + 4);
-    }
-
-    if(_iComplex != 0 && _pdblImg != NULL)
-    {
-        *_pdblImg	= *_pdblReal + _iRows * _iCols;
-    }
-
-    return sciErr;
-}
-
 SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const double* _pdblReal)
 {
     SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
@@ -293,14 +272,45 @@ SciErr createNamedComplexMatrixOfDouble(void* _pvCtx, const char* _pstName, int 
 SciErr createNamedComplexZMatrixOfDouble(void* _pvCtx, const char* _pstName, int _iRows, int _iCols, const doublecomplex* _pdblData)
 {
     SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-    // FIXME
+
+    wchar_t* pwstName           = to_wide_string(_pstName);
+    int iOne					= 1;
+    int iTwo					= 2;
+    int iSize					= _iRows * _iCols;
+
+    Double* pDbl = new Double(_iRows, _iCols, true);
+
+    double* pdblReal = pDbl->get();
+        double* pdblImg = pDbl->getImg();
+    C2F(dcopy)(&iSize, const_cast<double*>(&_pdblData->r), &iTwo, pdblReal, &iOne);
+    C2F(dcopy)(&iSize, const_cast<double*>(&_pdblData->i), &iOne, pdblImg, &iOne);
+
+    symbol::Context::getInstance()->put(symbol::Symbol(pwstName), *pDbl);
+    FREE(pwstName);
     return sciErr;
 }
 
 SciErr createCommonNamedMatrixOfDouble(void* _pvCtx, const char* _pstName, int _iComplex, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg)
 {
     SciErr sciErr; sciErr.iErr = 0; sciErr.iMsgCount = 0;
-    // FIXME
+
+    wchar_t* pwstName           = to_wide_string(_pstName);
+    int iOne					= 1;
+    int iSize					= _iRows * _iCols;
+
+    Double* pDbl = new Double(_iRows, _iCols, _iComplex == 1);
+
+    double* pdblReal = pDbl->get();
+    C2F(dcopy)(&iSize, const_cast<double*>(_pdblReal), &iOne, pdblReal, &iOne);
+
+    if(_iComplex)
+    {
+        double* pdblImg = pDbl->getImg();
+        C2F(dcopy)(&iSize, const_cast<double*>(_pdblImg), &iOne, pdblImg, &iOne);
+    }
+
+    symbol::Context::getInstance()->put(symbol::Symbol(pwstName), *pDbl);
+    FREE(pwstName);
     return sciErr;
 }
 
