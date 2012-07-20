@@ -13,7 +13,7 @@
  * still available and supported in Scilab 6.
  */
 
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "polynom.hxx"
 
 extern "C"

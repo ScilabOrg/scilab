@@ -1549,14 +1549,24 @@ namespace types
     {
         return  matrixBool->nonZeros() ;
     }
+
     std::size_t SparseBool::nbTrue(std::size_t r) const
     {
         int* piIndex = matrixBool->outerIndexPtr();
         return piIndex[r + 1]-piIndex[r];
     }
 
+    int* SparseBool::getNbItemByRow()
+    {
+        return matrixBool->outerIndexPtr();
+    }
 
-    double* SparseBool::outputRowCol(double* out)const
+    int* SparseBool::getColPos()
+    {
+        return matrixBool->innerIndexPtr();
+    }
+
+    double* SparseBool::outputRowCol(double* out) const
     {
         return sparseTransform(*matrixBool, sparseTransform(*matrixBool, out, GetRow<BoolSparse_t>()), GetCol<BoolSparse_t>());
     }

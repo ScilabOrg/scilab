@@ -26,7 +26,6 @@ extern "C"
 #include "api_internal_common.h"
 #include "api_internal_double.h"
 #include "api_internal_string.h"
-#include "api_internal_boolean.h"
 #include "api_internal_poly.h"
 #include "api_internal_int.h"
 #include "api_internal_sparse.h"
@@ -1048,7 +1047,7 @@ SciErr allocMatrixOfBooleanInList(void* _pvCtx, int _iVar, int* /*_piParent*/, i
 static SciErr fillMatrixOfBoolInList(void* _pvCtx, int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int** _piBool)
 {
     SciErr sciErr;
-    sciErr.iErr = 0;
+/*    sciErr.iErr = 0;
     sciErr.iMsgCount = 0;
     int iNbItem    = 0;
     int* piOffset   = NULL;
@@ -1086,7 +1085,7 @@ static SciErr fillMatrixOfBoolInList(void* _pvCtx, int _iVar, int* _piParent, in
     piOffset      = _piParent + 2;
     piOffset[_iItemPos] = piOffset[_iItemPos - 1] + ((3 + _iRows * _iCols + !((_iRows * _iCols) % 2)) / 2);
 
-    return sciErr;
+*/    return sciErr;
 }
 
 SciErr createMatrixOfBooleanInNamedList(void* _pvCtx, const char* _pstName, int* /*_piParent*/, int _iItemPos, int _iRows, int _iCols, const int* _piBool)

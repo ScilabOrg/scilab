@@ -14,6 +14,7 @@
 #include <sstream>
 #include <vector>
 #include "function.hxx"
+#include "gatewaystruct.hxx"
 
 extern "C"
 {
@@ -24,6 +25,7 @@ extern "C"
 #include "sci_path.h"
 #include "MALLOC.h"
 #include "os_swprintf.h"
+#include "dynamiclibrary.h"
 }
 
 namespace types
@@ -143,7 +145,7 @@ namespace types
         int iRet ;
         GatewayStruct gStr;
         _iRetCount = Max(1, _iRetCount);
-        gStr.m_iIn = in.size();
+        gStr.m_iIn = (int)in.size();
         gStr.m_iOut = _iRetCount;
         gStr.m_pIn = &in;
         typed_list::value_type tmpOut[MAX_OUTPUT_VARIABLE];
