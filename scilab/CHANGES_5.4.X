@@ -134,6 +134,8 @@ Bug Fixes
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
 
+* Bug #11490 fixed - comet2d produced wrong display with matrix imputs.
+
 * Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
                      were missing some closure tags in the examples.
 
