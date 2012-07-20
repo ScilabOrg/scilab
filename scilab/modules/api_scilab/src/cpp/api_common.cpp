@@ -18,11 +18,13 @@
 #include "internal.hxx"
 #include "double.hxx"
 #include "polynom.hxx"
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "double.hxx"
 #include "polynom.hxx"
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "overload.hxx"
+#include "context.hxx"
+#include "symbol.hxx"
 
 extern "C"
 {
@@ -136,11 +138,11 @@ int checkInputArgument(void* _pvCtx, int _iMin, int _iMax)
     {
         if (_iMin == _iMax)
         {/* No optional argument */
-            ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d expected.\n"), pStr->m_pstName, _iMax);
+            ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMax);
         }
         else
         {
-            ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), pStr->m_pstName, _iMin, _iMax);
+            ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMax);
         }
         return 0;
     }
@@ -159,7 +161,7 @@ int checkInputArgumentAtLeast(void* _pvCtx, int _iMin)
         return 1;
     }
 
-    Scierror(77, _("%s: Wrong number of input argument(s): at least %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMin);
+    ScierrorW(77, _W("%ls: Wrong number of input argument(s): at least %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMin);
     return 0;
 }
 
@@ -175,7 +177,7 @@ int checkInputArgumentAtMost(void* _pvCtx, int _iMax)
         return 1;
     }
 
-    Scierror(77, _("%s: Wrong number of input argument(s): at most %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMax);
+    ScierrorW(77, _W("%ls: Wrong number of input argument(s): at most %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMax);
     return 0;
 }
 
@@ -194,11 +196,11 @@ int checkOutputArgument(void* _pvCtx, int _iMin, int _iMax)
 
     if(_iMax == _iMin)
     {
-        Scierror(78, _("%s: Wrong number of output argument(s): %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMax);
+        ScierrorW(78, _W("%ls: Wrong number of output argument(s): %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMax);
     }
     else
     {
-        Scierror(78, _("%s: Wrong number of output argument(s): %d to %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMin, _iMax);
+        ScierrorW(78, _W("%ls: Wrong number of output argument(s): %d to %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMin, _iMax);
     }
 
     return 0;
@@ -216,7 +218,7 @@ int checkOutputArgumentAtLeast(void* _pvCtx, int _iMin)
         return 1;
     }
 
-    Scierror(78, _("%s: Wrong number of output argument(s): at least %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMin);
+    ScierrorW(78, _W("%ls: Wrong number of output argument(s): at least %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMin);
     return 0;
 }
 
@@ -232,7 +234,7 @@ int checkOutputArgumentAtMost(void* _pvCtx, int _iMax)
         return 1;
     }
 
-    Scierror(78, _("%s: Wrong number of output argument(s): at most %d expected.\n"), ((StrCtx *) _pvCtx)->pstName, _iMax);
+    ScierrorW(78, _W("%ls: Wrong number of output argument(s): at most %d expected.\n"), ((GatewayStruct*)_pvCtx)->m_pstName, _iMax);
     return 0;
 }
 
@@ -262,7 +264,7 @@ int callOverloadFunction(void* _pvCtx, int _iVar, char* _pstName, unsigned int _
         for (it = tlReturnedValues.begin() ; it != tlReturnedValues.end() ; ++it, ++i)
         {
             (pStr->m_pOut)[i] = *it;
-            pStr->m_pOutOrder[i] = pStr->m_pIn->size() + i + 1;
+            pStr->m_pOutOrder[i] = (int)pStr->m_pIn->size() + i + 1;
         }
     }
     return 0;
@@ -277,13 +279,13 @@ SciErr getVarDimension(void *_pvCtx, int *_piAddress, int *_piRows, int *_piCols
 
     if (_piAddress != NULL && isVarMatrixType(_pvCtx, _piAddress))
     {
-        *_piRows        = ((types::InternalType*)_piAddress)->getAs<GenericType>()->getRows();
-        *_piCols        = ((types::InternalType*)_piAddress)->getAs<GenericType>()->getCols();
+        *_piRows = ((InternalType*)_piAddress)->getAs<GenericType>()->getRows();
+        *_piCols = ((InternalType*)_piAddress)->getAs<GenericType>()->getCols();
     }
     else
     {
-        *_piRows        = 0;
-        *_piCols        = 0;
+        *_piRows = 0;
+        *_piCols = 0;
         if(_piAddress == NULL)
         {
             addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getVarDimension");
@@ -337,8 +339,8 @@ SciErr getVarAddressFromPosition(void *_pvCtx, int _iVar, int **_piAddress)
         return sciErr;
     }
 
-    types::GatewayStruct* pStr = (types::GatewayStruct*)_pvCtx;
-    types::typed_list in = *pStr->m_pIn;
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    typed_list in = *pStr->m_pIn;
     int*    piRetCount = pStr->m_piRetCount;
     wchar_t* pstName = pStr->m_pstName;
 
@@ -350,7 +352,7 @@ SciErr getVarAddressFromPosition(void *_pvCtx, int _iVar, int **_piAddress)
         return sciErr;
     }
 
-    *_piAddress        = (int*)in[_iVar - 1];
+    *_piAddress = (int*)in[_iVar - 1];
     return sciErr;
 }
 
@@ -378,6 +380,20 @@ SciErr getVarAddressFromName(void *_pvCtx, const char *_pstName, int **_piAddres
 	sciErr.iMsgCount = 0;
     // FIXME
 
+    wchar_t* pwstName = to_wide_string(_pstName);
+    symbol::Context* pCtx = symbol::Context::getInstance();
+    InternalType* pVar = pCtx->get(symbol::Symbol(pwstName));
+    FREE(pwstName);
+
+    if(pVar == NULL)
+    {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_NAME, _("%s: Unable to get address of variable \"%s\""), "getVarAddressFromName", _pstName);
+    }
+    else
+    {
+        *_piAddress = (int*)pVar;
+    }
+
     return sciErr;
 }
 
@@ -394,15 +410,15 @@ SciErr getVarType(void *_pvCtx, int *_piAddress, int *_piType)
         return sciErr;
     }
 
-    switch(((types::InternalType*)_piAddress)->getType())
+    switch(((InternalType*)_piAddress)->getType())
     {
     case GenericType::RealDouble :
         *_piType = sci_matrix;
         break;
-    case types::GenericType::RealPoly :
+    case GenericType::RealPoly :
         *_piType = sci_poly;
         break;
-    case types::GenericType::RealBool :
+    case GenericType::RealBool :
         *_piType = sci_boolean;
         break;
     case GenericType::RealSparse :
@@ -424,9 +440,9 @@ SciErr getVarType(void *_pvCtx, int *_piAddress, int *_piType)
     case GenericType::RealUInt64 :
         *_piType = sci_ints;
         break;
-        //case GenericType::RealHandle :
-        //    *_piType = sci_handles;
-        //    break;
+    case GenericType::RealHandle :
+        *_piType = sci_handles;
+        break;
     case GenericType::RealString :
         *_piType = sci_strings;
         break;
@@ -464,7 +480,6 @@ SciErr getVarType(void *_pvCtx, int *_piAddress, int *_piType)
     default :
         *_piType = 0;
     }
-
 
     return sciErr;
 }
@@ -504,15 +519,15 @@ int isVarComplex(void *_pvCtx, int *_piAddress)
 
     if(_piAddress == NULL)
     {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getVarType");
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "isVarComplex");
         return 0;
     }
 
-    types::InternalType* pIT = (types::InternalType*)_piAddress;
-    types::GenericType* pGT = dynamic_cast<types::GenericType*>(pIT);
+    InternalType* pIT = (InternalType*)_piAddress;
+    GenericType* pGT = dynamic_cast<GenericType*>(pIT);
     if(pGT == NULL)
     {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "getVarType");
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "isVarComplex");
         return 0;
     }
 
@@ -530,6 +545,7 @@ int isNamedVarComplex(void *_pvCtx, const char *_pstName)
     sciErr = getVarAddressFromName(_pvCtx, _pstName, &piAddr);
     if (sciErr.iErr)
     {
+        addErrorMessage(&sciErr, API_ERROR_INVALID_POINTER, _("%s: Invalid argument address"), "isNamedVarComplex");
         return 0;
     }
     return isVarComplex(_pvCtx, piAddr);
@@ -538,20 +554,20 @@ int isNamedVarComplex(void *_pvCtx, const char *_pstName)
 /*--------------------------------------------------------------------------*/
 void createNamedVariable(int *_piVarID)
 {
-    // FIXME
+    //deprecated
 }
 
 /*--------------------------------------------------------------------------*/
 int updateInterSCI(int _iVar, char _cType, int _iSCIAddress, int _iSCIDataAddress)
 {
-    // FIXME
+    //deprecated
     return 0;
 }
 
 /*--------------------------------------------------------------------------*/
 int updateLstk(int _iNewpos, int _iSCIDataAddress, int _iVarSize)
 {
-    // FIXME
+    //deprecated
     return 0;
 }
 
@@ -702,18 +718,28 @@ SciErr getProcessMode(void *_pvCtx, int _iPos, int *_piAddRef, int *_piMode)
     }
 
     if (iMode == ROW_LETTER || iMode == BY_ROWS)
+    {
         *_piMode = BY_ROWS;
+    }
     else if (iMode == COL_LETTER || iMode == BY_COLS)
+    {
         *_piMode = BY_COLS;
+    }
     else if (iMode == STAR_LETTER || iMode == BY_ALL)
+    {
         *_piMode = BY_ALL;
+    }
     else if (iMode == MTLB_LETTER || iMode == BY_MTLB)
     {
         *_piMode = 0;
         if (iRows1 > 1)
+        {
             *_piMode = 1;
+        }
         else if (iCols1 > 1)
+        {
             *_piMode = 2;
+        }
     }
     else
     {
@@ -865,6 +891,34 @@ SciErr getDimFromVar(void *_pvCtx, int *_piAddress, int *_piVal)
                 *_piVal = puiData[0];
             }
             break;
+#ifdef __SCILAB_INT64__
+            case SCI_INT64:
+            {
+                long long *pllData = NULL;
+
+                sciErr = getMatrixOfInteger64(_pvCtx, _piAddress, &iRows, &iCols, &pllData);
+                if (sciErr.iErr)
+                {
+                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                    return sciErr;
+                }
+                *_piVal = (int)pllData[0];
+            }
+            break;
+            case SCI_UINT64:
+            {
+                unsigned long long *pullData = NULL;
+
+                sciErr = getMatrixOfUnsignedInteger64(_pvCtx, _piAddress, &iRows, &iCols, &pullData);
+                if (sciErr.iErr)
+                {
+                    addErrorMessage(&sciErr, API_ERROR_GET_DIMFROMVAR, _("%s: Unable to get argument data"), "getDimFromVar");
+                    return sciErr;
+                }
+                *_piVal = (int)pullData[0];
+            }
+            break;
+#endif
         }
     }
     else
@@ -906,18 +960,18 @@ SciErr getDimFromNamedVar(void *_pvCtx, const char *_pstName, int *_piVal)
 /*--------------------------------------------------------------------------*/
 int getRhsFromAddress(void *_pvCtx, int *_piAddress)
 {
-    //int i = 0;
-    //   types::GatewayStruct* pStr = (types::GatewayStruct*)_pvCtx;
-    //   types::typed_list in = *pStr->m_pIn;
+    int i = 0;
+    GatewayStruct* pStr = (GatewayStruct*)_pvCtx;
+    typed_list in = *pStr->m_pIn;
 
-    //for(i = 0 ; i < Rhs ; i++)
-    //{
-    //    if(_piAddress == (int*)in[i])
-    //    {
-    //        return i + 1;
-    //    }
-    //}
-    return 0;
+    for(i = 0 ; i < in.size() ; i++)
+    {
+        if(_piAddress == (int*)in[i])
+        {
+            return i + 1;
+        }
+    }
+    return -1;
 }
 
 /*short cut functions*/
@@ -1419,7 +1473,7 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName)
     sciErr.iErr = 0;
     sciErr.iMsgCount = 0;
     int iZero = 0;
-    int il;
+    //int il;
     //int sRhs = Rhs;
     //int sLhs = Lhs;
     //int sTop = Top;

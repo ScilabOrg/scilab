@@ -19,16 +19,17 @@
 #pragma warning(disable: 4251)
 #endif
 
-#include <string>
-#include "types.hxx"
-#include "callable.hxx"
-#include "dynlib_types.h"
-
 extern "C"
 {
 #include "c_gateway_prototype.h"
 #include "dynamiclibrary.h"
 }
+
+#include <string>
+#include "types.hxx"
+#include "callable.hxx"
+#include "dynlib_types.h"
+
 
 #define MAX_OUTPUT_VARIABLE		64
 
@@ -120,22 +121,6 @@ namespace types
 
     private :
         MEXGW_FUNC              m_pOldFunc;
-    };
-
-    class GatewayStruct
-    {
-    public :
-        typed_list*             m_pIn;
-        InternalType**          m_pOut;
-        int                     m_iIn;
-        int                     m_iOut;
-        int*                    m_piRetCount;
-        wchar_t*                m_pstName;
-        int*                    m_pOutOrder;
-        ast::ConstVisitor*      m_pVisitor;
-
-                                GatewayStruct(){};
-                                ~GatewayStruct(){};
     };
 
     class DynamicFunction : public Function
