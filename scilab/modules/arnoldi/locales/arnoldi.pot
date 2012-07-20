@@ -137,7 +137,7 @@ msgstr ""
 # File: sci_gateway/c/sci_eigs.c, line: 242
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: k must be int the range 1 to N.\n"
+"%s: Wrong type for input argument #%d: k must be in the range 1 to N.\n"
 msgstr ""
 
 #

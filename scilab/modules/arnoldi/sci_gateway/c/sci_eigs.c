@@ -240,7 +240,7 @@ int sci_eigs(char *fname, unsigned long fname_len)
 
     if (!finite(dblNEV))
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: k must be int the range 1 to N.\n"), fname, 3);
+        Scierror(999, _("%s: Wrong type for input argument #%d: k must be in the range 1 to N.\n"), fname, 3);
         return 0;
     }
 
