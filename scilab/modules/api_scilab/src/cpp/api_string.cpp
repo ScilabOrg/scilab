@@ -15,7 +15,7 @@
  */
 
 /*--------------------------------------------------------------------------*/
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "string.hxx"
 #include "double.hxx"
 

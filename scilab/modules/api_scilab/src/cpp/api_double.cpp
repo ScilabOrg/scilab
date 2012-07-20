@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "function.hxx"
+#include "gatewaystruct.hxx"
 #include "double.hxx"
 
 extern "C"
