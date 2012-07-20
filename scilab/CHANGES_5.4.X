@@ -4,14 +4,12 @@
 
 Xcos
 ====
-
 * Bug #9290 fixed - HALT blocks displayed STOP
 
 * Bug #9496 fixed - Xcos flag 5 (ending) was not called if simulation is
                     stopped from user interface.
 
-* Bug #11494 fixed - Xcos PDE block could not open UIcontrol to set parameter 
-
+* Bug #11494 fixed - Xcos PDE block could not open UIcontrol to set parameter.
 
 Preferences
 ===========
@@ -33,10 +31,10 @@ Documentation
 
 * help_from_sci updated to manage recent changes in docbook Scilab files.
 
+
 * Categories have been created for the following modules help pages:
     - statistics. See bug #9108.
     - genetic algorithms. See bug #11514.
-
 
 GUI
 ===
@@ -53,7 +51,6 @@ Obsolete Functions
 * createpopup function is now obsolete. Please use 'uicontextmenu' instead.
 
 * uipopup function is now obsolete. Please use 'uicontextmenu' instead.
-
 
 Arnoldi Package
 ====================
@@ -88,6 +85,7 @@ Bug Fixes
 
 * Bug #10479 fixed - The max and min functions where incorrect for N-D arrays.
 
+
 * Bug #10595 fixed - In SciNotes, <TAB> didn't go to the next tab position.
 
 * Bug #10711 fixed - The textbox of datatip was not displayed in graphics using
@@ -105,7 +103,10 @@ Bug Fixes
 * Bug #11048 fixed - In SciNotes, comment/uncomment actions did not work
                      correctly.
 
-* Bug #11203 fixed - Description for info output parameter was wrong in lsqrsolve help page.
+* Bug #11203 fixed - Description for info output parameter was wrong in 
+                     lsqrsolve help page.
+
+* Bug #11333 fixed - Missing argument number checking in comet added.
 
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
@@ -135,7 +136,6 @@ Bug Fixes
 
 * Bug #11443 fixed - There was no way to set default language via prefs under
                      Windows.
-
 * Bug #11452 fixed - The use of diag optional argument in lsqrsolve produced an error.
 
 * Bug #11459 fixed - Docbook tags varname, command, constant and option were not
@@ -146,13 +146,19 @@ Bug Fixes
 
 * Bug #11466 fixed - fscanf was not set as obsolete but called an obsolete function.
 
-* Bug #11469 fixed - The drawing, using xfpolys, was incremental instead of draw at the end of the update.
+* Bug #11469 fixed - The drawing, using xfpolys, was incremental instead of draw at 
+                     the end of the update.
+
+* Bug #11484 fixed - display was shorten for lists including elements whose display
+                     is overloaded
 
 * Bug #11486 & #11487 fixed - Segfault or infinite loop when a list was inserted
                               into itself.
 
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
+
+* Bug #11490 fixed - comet produced wrong display with matrix imputs.
 
 * Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
                      were missing some closure tags in the examples.
@@ -165,8 +171,6 @@ Known Incompatibilities
   as second (up to last) input argument. In these cases, only the first string of
   the vector was taken into account. These calls now return an error. See bug #11398.
 
-
-
             Changes between version 5.4.0-alpha-1 and 5.4.0-beta-1 of Scilab
             ================================================================
 
@@ -177,22 +181,18 @@ Graphics
 * Entire refactoring of Scilab graphic capabilities in order to solve the known issues
   of graphical cards compatibilities and many Scilab crashes.
 
-* Based on SciRenderer (rendering library based on JoGL), Scilab graphics have
-  been rewritten to provide new graphic functionalities with:
-  - better performances,
-  - better stability,
-  - 2-D zoom using the mouse wheel,
-  - new 3-D zoom capabilities,
-  - rotation available through the mouse right-click.
-  SciRenderer is a free and open-source library developed by Scilab Enterprises
-  for 2-D and 3-D rendering of scientific data.
+* Bug #11222 fixed - Links added between xdel, close and delete help pages.
 
-* Improved graphic exports:
-  - Off-screen export (Scilab will not open a window to export with driver).
-  - New bitmap formats supported: PNG, JPEG and BMP in the driver function.
-  - New vectorial formats supported: PDF and SVG in the driver function.
-  - Many portability issues fixed.
+* Bug #11223 fixed - Deletion of datatips.
 
+* Bug #11265 fixed - msprintf crashed on a huge string.
+
+* Bug #11281 fixed - References to x_left & y_top were false in reversed axes
+                   cases in rubberbox help page.
+
+* Bug #11289 fixed - swap_handles function modified the properties.
+
+* Bug #11461 fixed - api_list was not able to create lists and sub lists with undefined items.
 
 * Bug #4289 fixed - Graphic exports were not working when the drawlater or the
                     pixmap modes were activated.
@@ -1050,8 +1050,6 @@ Bug Fixes
                      cases in rubberbox help page.
 
 * Bug #11289 fixed - swap_handles function modified the properties.
-
-* Bug #11461 fixed - api_list was not able to create lists and sub lists with undefined items.
 
 
             Changes between version 5.3.3 and 5.4.0-alpha-1 of Scilab
