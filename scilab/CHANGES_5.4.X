@@ -122,6 +122,8 @@ Bug Fixes
 * Bug #11385 fixed - length() returned a wrong error message when called without
                      input argument.
 
+* Bug #11396 fixed - Overloading : Operation toto([])=[] with toto being an mlist failed.
+
 * Bug #11398 fixed - newest() produced an incomprehensible error message when
                      called with a string vector as second input argument.
 
