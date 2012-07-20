@@ -412,7 +412,6 @@ static int interactiveMain(void)
 #endif
 #endif
 
-    //    checkForLinkerErrors();
     if (noBanner == false)
     {
         //banner();
@@ -660,6 +659,8 @@ int StartScilabEngine(int argc, char *argv[], int iFileIndex, int iLangIndex)
     int iMainRet = 0;
 
     Runner::init();
+
+    checkForLinkerErrors();
 
     /* Scilab Startup */
     InitializeEnvironnement();
