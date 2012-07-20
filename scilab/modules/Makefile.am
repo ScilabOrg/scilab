@@ -235,7 +235,7 @@ ENGINE_LIBS_DYNAMIC_LOAD = \
 # Core modules
 #libscilab_cli_la_LIBADD = $(ENGINE_LIBS) $(NO_GUI_LIBS) $(OTHER_LIBS) $(EXTERNAL_LIBS)
 
-libscilab_la_LIBADD =
+libscilab_la_LIBADD = 	$(top_builddir)/modules/jvm/libscijvm.la
 
 if GUI
 libscilab_la_LIBADD += $(GUI_LIBS)
