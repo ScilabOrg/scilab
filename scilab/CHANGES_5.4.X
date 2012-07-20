@@ -88,6 +88,8 @@ Bug Fixes
 * Bug #11048 fixed - In SciNotes, comment/uncomment actions did not work
                      correctly.
 
+* Bug #11333 fixed - Missing argument number checking in comet added?
+
 * Bug #11346 fixed - Add error messages in the cosm function in case of bad
                      usage.
 
@@ -133,6 +135,8 @@ Bug Fixes
 
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
+
+* Bug #11490 fixed - comet produced wrong display with matrix imputs.
 
 * Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
                      were missing some closure tags in the examples.
