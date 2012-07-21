@@ -671,7 +671,7 @@ opts.issym = 0;
 d1 = eigs(fn, n, [], k, 2, opts );
 assert_checkalmostequal(gsort(abs(d1)), gsort(abs(d0($-1:-1:$-k))), 1.e-10);
 
-
+
 clear opts
 // Full matrix tests
 n = 20;
@@ -788,4 +788,4 @@ opts.issym = 0;
 
 d1 = eigs(fn, n, [], k, 2, opts );
 assert_checkalmostequal(gsort(abs(d1)), gsort(abs(d0($-1:-1:$-k))), 1.e-10);
-
+
