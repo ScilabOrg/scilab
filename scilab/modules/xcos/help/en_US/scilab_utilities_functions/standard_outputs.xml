@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scicos
+ * 
+ * Copyright (C) INRIA - METALAU Project <scicos@inria.fr> (HTML version)
+ * Copyright (C) DIGITEO - Scilab Consortium (XML Docbook version)
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * 
+ * See the file ./license.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" version="5.0-subset Scilab" xml:id="standard_outputs">
+  <refnamediv>
+    <refname>standard_outputs</refname>
+    <refpurpose>Get the position of the output ports of a block in Xcos editor</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <title>Calling Sequence</title>
+    <synopsis>[x,y,typ] = standard_outputs(block)
+    </synopsis>
+  </refsynopsisdiv>
+  <refsection id="Module_standard_outputs">
+    <title>Module</title>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <link linkend="xcos">xcos</link>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+  <refsection id="Description_standard_outputs">
+    <title>Description</title>
+    <para>
+      This Scilab function is used to get the position (x,y) of each output port of an Xcos block.
+      The returned typ variable is used to make the difference between standard output ports and clock output ports. 
+      The typ variable can take the following values: 1 if this is a standard output port; -1 if this is a clock output port
+    </para>
+    <para>
+    </para>
+    <programlisting role="example"><![CDATA[ 
+loadXcosLibs();
+o = DELAYV_f("define");
+[x,y,typ] = standard_outputs(o)
+ ]]></programlisting>
+  </refsection>
+  <refsection id="Parameters_standard_outputs">
+    <title>Arguments</title>
+    <itemizedlist>
+      <listitem>
+        <para>
+          <emphasis role="bold">block :</emphasis> xcos block
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis role="bold">x :</emphasis> x position of the port. When multiple ports are described, x is a float vector of x positions.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis role="bold">y :</emphasis> y position of the port. When multiple ports are described, y is a float vector of y position.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <emphasis role="bold">typ :</emphasis> determine the type of ports. It can take the following values : 1 if this is a standard port; -1 if this is a clock port. When multiple ports are described, typ is a vector.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </refsection>
+</refentry>
