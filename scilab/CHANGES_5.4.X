@@ -14,6 +14,7 @@ Xcos
 
 * Bug #11518 fixed - CLR block-text left box when zooming.
 
+
 Preferences
 ===========
 
@@ -57,7 +58,7 @@ Obsolete Functions
 
 
 Arnoldi Package
-====================
+===============
 
 * New function:
   - eigs function added (See SEP #82)
@@ -67,6 +68,15 @@ Unitary tests
 =============
 
 * A fourth argument added to test_run to export test results to XUnit format.
+
+
+Statistics
+==========
+
+* General improvements of the show_pca function:
+  - Data bounds fixed in the left graph
+  - Improve the correlation circle graph
+  - Improve the eigenvalues graph
 
 
 Bug Fixes
