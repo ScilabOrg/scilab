@@ -475,16 +475,16 @@ function [res_d, res_v] = speigs(A, B, nev, which, maxiter, tol, ncv, cholB, res
     //NCV :
     //*************************
     if(typeof(ncv) <> "constant")
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "speigs", 7, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "speigs", 7, "opts.ncv"));
     end
 
     //check if ncv is complex?
     if(~isreal(ncv))
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "speigs", 7, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "speigs", 7, "opts.ncv"));
     end
 
     if(size(ncv, "*") > 1 | ncv <> floor(ncv) | (ncv <> [] & ncv <= 0))
-        error(msprintf(gettext("%s: Wrong dimension for input argument #%d: %s must be a integer scalar.\n"), "speigs", 7, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong dimension for input argument #%d: %s must be an integer scalar.\n"), "speigs", 7, "opts.ncv"));
     end
 
     if(isempty(ncv))
@@ -509,12 +509,12 @@ function [res_d, res_v] = speigs(A, B, nev, which, maxiter, tol, ncv, cholB, res
     //CHOL :
     //*************************
     if(typeof(cholB) <> "constant")
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "speigs", 8, "opts.cholB"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "speigs", 8, "opts.cholB"));
     end
 
     //check if chol is complex?
     if(~isreal(cholB))
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "speigs", 8, "opts.cholB"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "speigs", 8, "opts.cholB"));
     end
 
     if(size(cholB, "*") <> 1 | cholB <> floor(cholB) | cholB > 1)
@@ -522,7 +522,7 @@ function [res_d, res_v] = speigs(A, B, nev, which, maxiter, tol, ncv, cholB, res
     end
 
     if(cholB <> floor(cholB) | cholB > 1)
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "speigs", 8, "opts.cholB"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "speigs", 8, "opts.cholB"));
     end
 
     //*************************
@@ -809,7 +809,7 @@ function [res_d, res_v] = feigs(A_fun, nA, B, nev, which, maxiter, tol, ncv, cho
     //Third variable B :
     //*************************
     if((typeof(B) <> "constant") & (typeof(B) <> "sparse"))
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: aa empty matrix or full or sparse square matrix expected.\n"), "feigs", 3));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: An empty matrix or full or sparse square matrix expected.\n"), "feigs", 3));
     end
     [mB, nB] = size(B);
 
@@ -931,16 +931,16 @@ function [res_d, res_v] = feigs(A_fun, nA, B, nev, which, maxiter, tol, ncv, cho
     //NCV :
     //*************************
     if(typeof(ncv) <> "constant")
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "feigs", 8, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "feigs", 8, "opts.ncv"));
     end
 
     //check if ncv is complex?
     if(~isreal(ncv))
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "feigs", 8, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "feigs", 8, "opts.ncv"));
     end
 
     if(size(ncv,'*') > 1 | ncv <> floor(ncv) | (ncv <> [] & ncv <= 0))
-        error(msprintf(gettext("%s: Wrong dimension for input argument #%d: %s must be a integer scalar.\n"), "feigs", 8, "opts.ncv"));
+        error(msprintf(gettext("%s: Wrong dimension for input argument #%d: %s must be an integer scalar.\n"), "feigs", 8, "opts.ncv"));
     end
 	
 
@@ -971,12 +971,12 @@ function [res_d, res_v] = feigs(A_fun, nA, B, nev, which, maxiter, tol, ncv, cho
     //CHOL :
     //*************************
     if(typeof(cholB) <> "constant")
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "feigs", 9, "opts.cholB"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "feigs", 9, "opts.cholB"));
     end
 
     //check if chol is complex?
     if(~isreal(cholB))
-        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"), "feigs", 9, "opts.cholB"));
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"), "feigs", 9, "opts.cholB"));
     end
 
     if(size(cholB,'*') <> 1 | cholB <> floor(cholB) | cholB > 1)

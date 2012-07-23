@@ -216,7 +216,7 @@ msgstr ""
 #
 # File: sci_gateway/c/sci_eigs.c, line: 397
 #, c-format
-msgid "%s: Wrong type for input argument #%d: %s must be a integer scalar..\n"
+msgid "%s: Wrong type for input argument #%d: %s must be an integer scalar..\n"
 msgstr ""
 
 #
@@ -224,14 +224,14 @@ msgstr ""
 # File: sci_gateway/c/sci_eigs.c, line: 412
 # File: sci_gateway/c/sci_eigs.c, line: 428
 #, c-format
-msgid "%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"
+msgid "%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"
 msgstr ""
 
 #
 # File: sci_gateway/c/sci_eigs.c, line: 449
 #, c-format
 msgid ""
-"%s: Wrong dimension for input argument #%d: %s must be a integer scalar.\n"
+"%s: Wrong dimension for input argument #%d: %s must be an integer scalar.\n"
 msgstr ""
 
 #
@@ -501,7 +501,7 @@ msgstr ""
 # File: macros/eigs.sci, line: 491
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: opts.nev must be a integer scalar.\n"
+"%s: Wrong type for input argument #%d: opts.nev must be an integer scalar.\n"
 msgstr ""
 
 #
@@ -616,7 +616,7 @@ msgstr ""
 # File: macros/eigs.sci, line: 820
 #, c-format
 msgid ""
-"%s: Wrong type for input argument #%d: a empty matrix or full or sparse "
+"%s: Wrong type for input argument #%d: An empty matrix or full or sparse "
 "square matrix expected.\n"
 msgstr ""
 
@@ -653,7 +653,7 @@ msgstr ""
 #
 # File: macros/eigs.sci, line: 988
 #, c-format
-msgid "%s: Wrong type for input argument #%d: %s must be a integer scalar.\n"
+msgid "%s: Wrong type for input argument #%d: %s must be an integer scalar.\n"
 msgstr ""
 
 #
