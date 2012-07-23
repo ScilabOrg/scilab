@@ -38,7 +38,6 @@ data_structures \
 differential_equations \
 elementary_functions \
 integer \
-intersci \
 io \
 linear_algebra \
 localization \
