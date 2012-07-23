@@ -99,6 +99,9 @@ Bug Fixes
 
 * Bug #10479 fixed - The max and min functions where incorrect for N-D arrays.
 
+* Bug #10497 fixed - Some special charaters were causing issues in the phaseplot
+                     localization.
+
 * Bug #10595 fixed - In SciNotes, <TAB> didn't go to the next tab position.
 
 * Bug #10711 fixed - The textbox of datatip was not displayed in graphics using
