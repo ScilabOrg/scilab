@@ -160,6 +160,9 @@ Bug Fixes
 * Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
                      were missing some closure tags in the examples.
 
+* Bug #11529 fixed - Only 512 chars could be entered in the console, now it is
+                     fixed to 4096.
+
 
 Known Incompatibilities
 =======================
