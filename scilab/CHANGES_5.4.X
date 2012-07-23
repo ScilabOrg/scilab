@@ -195,6 +195,9 @@ Bug Fixes
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
 
+* Bug #11537 fixed - In SciNotes it was not possible to modify font size with
+                     ctrl+scroll.
+
 
 Known Incompatibilities
 =======================
