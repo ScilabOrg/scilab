@@ -158,6 +158,7 @@ Bug Fixes
 * Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
                      were missing some closure tags in the examples.
 
+* Bug #11519 fixed - The colored lines in the legend of nyquist plot was inverted.
 
 Known Incompatibilities
 =======================
