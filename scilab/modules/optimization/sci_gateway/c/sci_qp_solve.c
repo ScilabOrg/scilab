@@ -1,6 +1,7 @@
 /*
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) 2008 - INRIA - Serge Steer
+* Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
 * 
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
@@ -69,18 +70,18 @@ int sci_qp_solve(char *fname,unsigned long fname_len)
 	issparse =  (GetType(3)==5);
 	if (!issparse) 
 	{
-		GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE, &nbis, &m, &C);
+		GetRhsVar(3,MATRIX_OF_DOUBLE_DATATYPE, &m, &nbis, &C);
 	}
 	else 
 	{
-		GetRhsVar(3,SPARSE_MATRIX_DATATYPE, &nbis, &m, &Sp);
+		GetRhsVar(3,SPARSE_MATRIX_DATATYPE, &m, &nbis, &Sp);
 	}
 
-	if (( nbis != n ) && (m > 0))
+	if ( nbis != n )
 	{
-		Scierror(205,_("%s: Argument 3: wrong number of columns %d expected\n"), fname, n);
+		Scierror(999,_("%s: Wrong size for input argument #%d: n columns expected for matrix C.\n"), fname, 3);
 		return 0;
-        }
+    }
 
 	/*   Variable 4 (b)   */
 	GetRhsVar(4,MATRIX_OF_DOUBLE_DATATYPE, &mbis, &unbis, &b);
@@ -91,8 +92,7 @@ int sci_qp_solve(char *fname,unsigned long fname_len)
 	CheckScalar(5,pipo,unbis);
 	if ((*istk(me)<0) || (*istk(me)>n))
 	{
-		Err = 7;
-		SciError(116);
+        Scierror(999,_("%s: Wrong value for input argument #%d: me must be a integer in the range 0 to rows number of matrix Q.\n"), fname, 5);
 		return 0;
 	}
 
