@@ -418,6 +418,22 @@ public class AxesDrawer {
             transformation = transformation.rightTimes(cubeScale);
         }
 
+        if (axes.getIsoview()) {
+            Double[] axesMargins = axes.getMargins();
+            Double marginsX = axesMargins[0] + axesMargins[1];
+            Double marginsY = axesMargins[2] + axesMargins[3];
+
+            tmpX = (bounds[1] - bounds[0]);
+            tmpY = (bounds[3] - bounds[2]);
+            tmpZ = (bounds[5] - bounds[4]);
+
+            tmpX = tmpX - tmpX * marginsY;
+            tmpY = tmpY - tmpY * marginsX;
+
+            Transformation cubeScale = TransformationFactory.getScaleTransformation(tmpX, tmpY, tmpZ);
+            transformation = transformation.rightTimes(cubeScale);
+        }
+
         // Compute bounds of projected data.
         double[] matrix = transformation.getMatrix();
         tmpX = 1 / (Math.abs(matrix[0]) + Math.abs(matrix[4]) + Math.abs(matrix[8]));
@@ -429,7 +445,7 @@ public class AxesDrawer {
         if (axes.getIsoview()) {
             Double[] axesBounds = axes.getAxesBounds();
             double minScale = Math.min(tmpX * axesBounds[2], tmpY * axesBounds[3]);
-            isoScale = TransformationFactory.getScaleTransformation(minScale / axesBounds[2] , minScale / axesBounds[3] , tmpZ);
+            isoScale = TransformationFactory.getScaleTransformation(minScale / axesBounds[2], minScale / axesBounds[3], tmpZ);
         } else {
             isoScale = TransformationFactory.getScaleTransformation(tmpX, tmpY, tmpZ);
         }
