@@ -105,6 +105,8 @@ Bug Fixes
 
 * Bug #3244 fixed - Change error messages in the qpsolve and qp_solve functions.
 
+* Bug #3787 fixed - Change the calling sequence in the schur help page.
+
 * Bug #6538 fixed - unobs() ignored its 'tol' argument when it was present,
                     was always calculated its own, arbitrary, internal value.
 
