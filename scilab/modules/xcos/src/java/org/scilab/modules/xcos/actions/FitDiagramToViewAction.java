@@ -2,11 +2,11 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Vincent COUVERT
  * Copyright (C) 2009 - DIGITEO - Clement DAVID
- * 
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -27,6 +27,7 @@ import org.scilab.modules.xcos.utils.XcosMessages;
 /**
  * Use maximum of space inside the diagram
  */
+@SuppressWarnings(value = { "serial" })
 public final class FitDiagramToViewAction extends OneBlockDependantAction {
     /** Name of the action */
     public static final String NAME = XcosMessages.FIT_DIAGRAM_TO_VIEW;
@@ -39,7 +40,7 @@ public final class FitDiagramToViewAction extends OneBlockDependantAction {
 
     /**
      * Constructor
-     * 
+     *
      * @param scilabGraph
      *            associated diagram
      */
@@ -49,7 +50,7 @@ public final class FitDiagramToViewAction extends OneBlockDependantAction {
 
     /**
      * Menu to add to the menubar
-     * 
+     *
      * @param scilabGraph
      *            associated diagram
      * @return the menu
@@ -60,7 +61,7 @@ public final class FitDiagramToViewAction extends OneBlockDependantAction {
 
     /**
      * Button to add to the toolbar
-     * 
+     *
      * @param scilabGraph
      *            associated diagram
      * @return the button
@@ -83,7 +84,7 @@ public final class FitDiagramToViewAction extends OneBlockDependantAction {
         if (comp.isEditing()) {
             return;
         }
-        
+
         // If diagram is empty (has one default child) : do nothing.
         if (graph.getModel().getChildCount(graph.getDefaultParent()) < 1) {
             return;
