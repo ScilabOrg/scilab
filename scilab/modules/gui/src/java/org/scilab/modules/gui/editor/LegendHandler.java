@@ -215,4 +215,30 @@ public class LegendHandler {
         GraphicController.getController().setProperty(legend, GraphicObjectProperties.__GO_POSITION__, legendPos);
     }
 
+    public static String[] getLinks(String legend) {
+
+        if (legend == null) {
+            return null;
+        } else {
+            return (String[])GraphicController.getController().getProperty(legend, GraphicObjectProperties.__GO_LINKS__);
+        }
+    }
+
+    public static String[] getText(String legend) {
+
+        if (legend == null) {
+            return null;
+        } else {
+            return (String[])GraphicController.getController().getProperty(legend, GraphicObjectProperties.__GO_TEXT_STRINGS__);
+        }
+    }
+
+    public static Double[] getPosition(String legend) {
+
+        if (legend == null) {
+            return null;
+        } else {
+            return (Double[])GraphicController.getController().getProperty(legend, GraphicObjectProperties.__GO_POSITION__);
+        }
+   }
 }

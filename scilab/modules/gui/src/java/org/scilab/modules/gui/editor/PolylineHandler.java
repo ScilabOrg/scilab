@@ -277,5 +277,10 @@ public class PolylineHandler {
             GraphicController.getController().setProperty(polyline, GraphicObjectProperties.__GO_DATA_MODEL__, polyline);
         }
     }
+
+    public String getParent(String object) {
+		
+        return (String)GraphicController.getController().getProperty(object, GraphicObjectProperties.__GO_PARENT__);
+    }
 }
 

@@ -31,6 +31,7 @@ import org.scilab.modules.gui.editor.LabelHandler;
 import org.scilab.modules.gui.editor.LegendHandler;
 import org.scilab.modules.gui.ged.Inspector;
 import org.scilab.modules.localization.Messages;
+import org.scilab.modules.gui.editor.action.*;
 
 
 
@@ -50,7 +51,7 @@ import org.scilab.modules.localization.Messages;
 public class Editor {
 
     JPopupMenu menu;
-    JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy, labelX, labelY, labelZ, insert, remove, ged, editdata;
+    JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy, labelX, labelY, labelZ, insert, remove, ged, editdata, undo, redo;
     JMenu labels, legends;
 
     EntityPicker.LegendInfo selectedLegend = null;
@@ -58,11 +59,13 @@ public class Editor {
     String figureUid = null;
     Integer oriColor = 0;
     Integer[] lastClick = { 0, 0 };
+    Integer[] dragClick = { 0, 0 };
     EntityPicker entityPicker;
     DataEditor dataEditor;
     boolean isLegend = false;
     boolean dataModifyEnabled = false;
     boolean dataEditEnabled = false;
+    EditorHistory editorHistory;
 
     Component dialogComponent;
 
@@ -70,7 +73,7 @@ public class Editor {
         init();
         setSelected(null);
         setFigure(null);
-
+        editorHistory = new EditorHistory();
         entityPicker = new EntityPicker();
         dataEditor = new DataEditor();
         dataEditor.setLeaveAction(new ActionListener() {
@@ -112,6 +115,9 @@ public class Editor {
 
             boolean notBlank = AxesHandler.isAxesNotBlank(figureUid);
             clipboardCopy.setEnabled(notBlank);
+
+            undo.setEnabled(editorHistory.isUndoEnabled());
+            redo.setEnabled(editorHistory.isRedoEnabled());
 
             menu.show(event.getComponent(), event.getX(), event.getY());
             lastClick[0] = event.getX();
@@ -174,10 +180,18 @@ public class Editor {
                     break;
             }
         }
+        dragClick[0] = lastClick[0];
+        dragClick[1] = lastClick[1];
     }
 
     public void onLeftMouseRelease(MouseEvent event) {
-        dataEditor.onLeftMouseRelease(event);
+
+        String object = getSelected();
+        if (dataModifyEnabled && !dataEditEnabled && object != null) { 
+            editorHistory.addAction(new ActionMove(object, lastClick, dragClick, isLegend));
+        } else {
+            dataEditor.onLeftMouseRelease(event);
+        }
     }
 
     /**
@@ -192,17 +206,17 @@ public class Editor {
                 String objUID = getSelected();
                 if (objUID != null) {
                     if (isLegend) {
-                        LegendHandler.dragLegend(objUID, lastClick, newClick);
+                        LegendHandler.dragLegend(objUID, dragClick, newClick);
                     } else {
-                        PolylineHandler.getInstance().dragPolyline(objUID, lastClick, newClick);
+                        PolylineHandler.getInstance().dragPolyline(objUID, dragClick, newClick);
                     }
                 }
             } else {
-                dataEditor.onDrag(lastClick, newClick);
+                dataEditor.onDrag(dragClick, newClick);
             }
         }
-        lastClick[0] = newClick[0];
-        lastClick[1] = newClick[1];
+        dragClick[0] = newClick[0];
+        dragClick[1] = newClick[1];
     }
 
     /**
@@ -258,6 +272,10 @@ public class Editor {
         ged.setToolTipText(Messages.gettext("Initialize the graphics editor"));
         editdata = new JMenuItem(Messages.gettext("Edit curve data"));
         editdata.setToolTipText(Messages.gettext("Enables curve data modify"));
+        undo = new JMenuItem(Messages.gettext("Undo"));
+        undo.setToolTipText(Messages.gettext("Undo last action"));
+        redo = new JMenuItem(Messages.gettext("Redo"));
+        redo.setToolTipText(Messages.gettext("Redo last undo action"));
 
         copy.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -349,6 +367,18 @@ public class Editor {
             }
         });
 
+        undo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                onClickUndo();
+            }
+        });
+
+        redo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                onClickRedo();
+            }
+        });
+
 
         labels.add(labelX);
         labels.add(labelY);
@@ -361,6 +391,8 @@ public class Editor {
         menu.addSeparator();
         menu.add(delete);
         menu.add(clear);
+        menu.add(undo);
+        menu.add(redo);
         menu.addSeparator();
         menu.add(hide);
         menu.add(unhide);
@@ -474,7 +506,18 @@ public class Editor {
      * Implements paste menu item action(Callback).
      */
     public void onClickPaste() {
-        ScilabClipboard.getInstance().paste(figureUid, lastClick);
+
+        String currentObject, newObject, currentParent, newParent;
+        boolean isDuplicated = false;
+
+        currentObject = ScilabClipboard.getInstance().getCurrentObject();
+        currentParent = PolylineHandler.getInstance().getParent(currentObject);
+        newObject = ScilabClipboard.getInstance().paste(figureUid, lastClick);
+        newParent = PolylineHandler.getInstance().getParent(newObject);
+        if (newObject == currentObject) {
+	        isDuplicated = false;
+	    }
+        editorHistory.addAction(new ActionPaste(newObject, currentParent, newParent, isDuplicated));
     }
 
     /**
@@ -496,7 +539,8 @@ public class Editor {
         String toDelete = getSelected();
         if (toDelete != null) {
             setSelected(null);
-            PolylineHandler.getInstance().delete(toDelete);
+            editorHistory.addAction(new ActionDelete(toDelete, PolylineHandler.getInstance().getParent(toDelete)));
+            PolylineHandler.getInstance().cut(toDelete);
         }
     }
 
@@ -554,7 +598,9 @@ public class Editor {
                         text);
             if (s != null) {
                 String tmp[] = {s};
-                LabelHandler.setLabel(axes, tmp, axis);
+                String[] oldText = {text};
+                String label = LabelHandler.setLabel(axes, tmp, axis);
+                editorHistory.addAction(new ActionTextEdit(label, oldText, tmp));
             }
         }
     }
@@ -577,7 +623,12 @@ public class Editor {
                         null,
                         text);
             if (s != null) {
+                String legend = LegendHandler.searchLegend(axes);
+                String[] links = LegendHandler.getLinks(legend);
+                String[] texts = LegendHandler.getText(legend);
+                Double[] position = LegendHandler.getPosition(legend);
                 LegendHandler.setLegend(axes, polyline, s);
+                editorHistory.addAction(new ActionLegend(axes,links,texts,position));
             }
         }
     }
@@ -588,7 +639,12 @@ public class Editor {
     public void onClickRemove() {
 
         String axesTo = AxesHandler.clickedAxes(figureUid, lastClick);
+        String legend = LegendHandler.searchLegend(axesTo);
+        String[] links = LegendHandler.getLinks(legend);
+        String[] text = LegendHandler.getText(legend);
+        Double[] position = LegendHandler.getPosition(legend);
         LegendHandler.removeLegend(axesTo, selected);
+        editorHistory.addAction(new ActionLegend(axesTo,links,text,position));
     }
     
     /**
@@ -616,5 +672,13 @@ public class Editor {
     */
     public void onClickGED() {
         Inspector.getInspector("Figure" , figureUid);
+    }
+
+    public void onClickUndo() {
+        editorHistory.undo();
+    }
+
+    public void onClickRedo() {
+        editorHistory.redo();
     }
 }
