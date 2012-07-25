@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xcos title="Xcos">
   <body>
-    <xcos/>
+    <xcos-preferences />
   </body>
+  <display title="Edition">
+    <body>
+      <xcos-edition />
+    </body>
+  </display>
+  <display title="Simulation">
+    <body>
+      <xcos-simulation final-integration-time="1.0E05" real-time-scaling="0.0" integrator-absolute-tolerance="1.0E-06" integrator-relative-tolerance="1.0E-06" tolerance-on-time="1.0E-10" max-integration-interval="1.0E05" solver="2" max-step-size="0.0">
+        <!-- <solver code="0" solver-description="lsodar - BDF - NEWTON "/> -->
+        <solver code="1" solver-description="Sundials/CVODE - BDF - NEWTON"/>
+        <solver code="2" solver-description="Sundials/CVODE - BDF - FUNCTIONAL"/>
+        <solver code="3" solver-description="Sundials/CVODE - ADAMS - NEWTON"/>
+        <solver code="4" solver-description="Sundials/CVODE - ADAMS - FUNCTIONAL"/>
+        <!-- <solver code="5" solver-description="DOPRI5 - Runge-Kutta 4(5)"/> -->
+        <solver code="100" solver-description="Sundials/IDA"/>
+        
+        <trace code="0" trace-description="No trace nor debug printing"/>
+        <trace code="1" trace-description="Light Simulation trace (Discrete and Continuous part switches)"/>
+        <trace code="2" trace-description="Per block execution trace and Debug block calls"/>
+        <trace code="3" trace-description="Debug block calls without trace"/>
+      </xcos-simulation>
+    </body>
+  </display>
 </xcos>
+

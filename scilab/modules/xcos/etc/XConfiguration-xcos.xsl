@@ -1,21 +1,104 @@
 <?xml version='1.0' encoding='utf-8'?>
-<xsl:stylesheet version ="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
->
+<xsl:stylesheet version ="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <!-- Default settings for Xcos -->
+	<xsl:template match="xcos-preferences">
+		<HBox>
+			Xcos Preferences window.
+			<Glue />
+		</HBox>
+	</xsl:template>
 
-	<xsl:template match="xcos">
+    <!-- Customize Xcos editing behavior-->
+	<xsl:template match="xcos-edition">
 		<HBox>
-			Click the button below to launch the Xcos Preferences window.
-			<Glue/>
+			Xcos edition window.
+			<Glue />
 		</HBox>
-		<HBox>
-			<Glue/>
-			<Button text="Launch Xcos Preferences" listener="ActionListener">
-				<actionPerformed   callback="XcosPreferences"/>
-			</Button>
-		</HBox>
-		<VSpace height="300"/>
+	</xsl:template>
+
+    <!-- Simulation settings for Xcos -->
+	<xsl:template match="xcos-simulation">
+        <Title text="Default simulation settings">    
+            <Grid>
+                <Label gridx="1" gridy="1" text="Final integration time"/>
+                <ScilabDoubleEntry gridx="2" gridy="1" text="{@final-integration-time}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="2" text="Real time scaling"/>
+                <ScilabDoubleEntry gridx="2" gridy="2" text="{@real-time-scaling}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="3" text="Integrator absolute tolerance"/>
+                <ScilabDoubleEntry gridx="2" gridy="3" text="{@integrator-absolute-tolerance}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="4" text="Integrator relative tolerance"/>
+                <ScilabDoubleEntry gridx="2" gridy="4" text="{@integrator-relative-tolerance}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="5" text="Tolerance on time"/>
+                <ScilabDoubleEntry gridx="2" gridy="5" text="{@tolerance-on-time}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="6" text="Max integration time interval"/>
+                <ScilabDoubleEntry gridx="2" gridy="6" text="{@max-integration-interval}" listener="propertyChangeListener">
+                    <propertyChange choose="filter">
+                        <xsl:call-template name="context"/>
+                    </propertyChange>
+                </ScilabDoubleEntry>
+                <Label gridx="1" gridy="7" text="Solver kind"/>
+                    <Select gridx="2" gridy="7" listener="ActionListener">
+                        <xsl:variable name="solver" select="@solver"/>
+                        <actionPerformed choose="solver">
+                            <xsl:call-template name="context"/>
+                        </actionPerformed>
+                        <xsl:for-each select="solver">
+                            <option value="{@solver-description}" key="{@code}">
+                                <xsl:if test="@code=$solver">
+                                    <xsl:attribute name="selected">selected</xsl:attribute>
+                                </xsl:if>
+                            </option>
+                        </xsl:for-each>
+                    </Select>
+                <Label gridx="1" gridy="8" text="Maximum step size (0 means no limit)"/>
+                <NumericalSpinner gridx="2" gridy="8"
+                          min-value = "0"
+                          increment = "1"
+                          length = "4"
+                          listener = "ActionListener"
+                          value = "{@max-step-size}">
+                    <actionPerformed choose="max-step-size">
+                        <xsl:call-template name="context"/>
+                    </actionPerformed>
+                </NumericalSpinner>
+            </Grid>
+        </Title>
+        <VSpace height="10"/>
+        <Title text="Default trace settings">
+                    <Select listener="ActionListener">
+                        <xsl:variable name="trace" select="@trace"/>
+                        <actionPerformed choose="trace">
+                            <xsl:call-template name="context"/>
+                        </actionPerformed>
+                        <xsl:for-each select="trace">
+                            <option value="{@trace-description}" key="{@code}">
+                                <xsl:if test="@code=$trace">
+                                    <xsl:attribute name="selected">selected</xsl:attribute>
+                                </xsl:if>
+                            </option>
+                        </xsl:for-each>
+                    </Select>
+        </Title>
 	</xsl:template>
 
 </xsl:stylesheet>
-
