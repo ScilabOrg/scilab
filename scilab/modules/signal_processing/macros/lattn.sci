@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA - 1989 - G. Le Vey
+// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
 // 
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -58,7 +59,7 @@ function [la,lb]=lattn(n,p,cov)
    if type(p)<>1 then
      error(msprintf(gettext("%s: Wrong type for input argument #%d: Array of floating point numbers expected.\n"),'lattn',2))
    end
-   if  size(n,'*')<>2 then
+   if  size(p,'*')<>1 then
      error(msprintf(gettext("%s: Wrong size for input argument #%d: A scalar expected.\n"),'lattn',2))
    end
    if  p<-1|p<>round(p) then
@@ -113,3 +114,4 @@ function [la,lb]=lattp(n,p,cov)
     la(j+1)=a;
   end;
 endfunction
+
