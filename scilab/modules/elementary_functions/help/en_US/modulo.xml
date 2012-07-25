@@ -61,6 +61,12 @@
       </literal>
       ,the answer is positive or zero.
     </para>
+    <para>
+      <literal>modulo(x,0)</literal> returns x.
+    </para>
+    <para>
+      <literal>pmodulo(x,0)</literal> returns x.
+    </para>
   </refsection>
   <refsection>
     <title>Examples</title>

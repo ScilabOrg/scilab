@@ -130,6 +130,8 @@ Bug Fixes
 
 * Bug #6702 fixed - the max and min functions returned a scalar in k when the input 
                     argument was the last column of an hypermatrix.
+                    
+* Bug #7216 fixed - modulo(x,0) and pmodulo(x,0) return x.
 
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
