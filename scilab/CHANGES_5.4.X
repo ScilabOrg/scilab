@@ -111,6 +111,9 @@ Bug Fixes
 
 * Bug #6538 fixed - unobs() ignored its 'tol' argument when it was present,
                     was always calculated its own, arbitrary, internal value.
+                    
+* Bug #6702 fixed - the max and min function return a scalar in k when the input argument is
+                    the last column of an hypermatrix.
 
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
