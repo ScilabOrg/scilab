@@ -216,6 +216,8 @@ Bug Fixes
 
 * Bug #11481 fixed - The title axes was in front of plots.
 
+* Bug #11472 fixed - Old menus were not removed before adding the new.
+
 * Bug #11482 fixed - The 2 plots of demo "Graphics/Complex elementary function/Custom"
                      were too small.
 
