@@ -205,6 +205,8 @@ Bug Fixes
 * Bug #11469 fixed - The drawing, using xfpolys, was incremental instead of draw
                      at the end of the update.
 
+* Bug #11472 fixed - Old menus were not removed before added the new.
+
 * Bug #11482 fixed - The 2 plots of demo "Graphics/Complex elementary function/Custom"
                      were too small.
 
