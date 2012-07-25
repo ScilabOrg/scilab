@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WScilex", "modules\windows_tools\src\c\WScilex\WScilex.vcxproj", "{CCD80549-EB9C-42AA-9B86-D687377E94F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A9A2020D-5541-44F2-B080-DF3C9426C409} = {A9A2020D-5541-44F2-B080-DF3C9426C409}
@@ -566,6 +566,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjvm_gw", "modules\jvm\sci_gateway\cpp\libjvm_gw.vcxproj", "{2D02DD0E-CBF5-493E-AA06-1E289ED24666}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ast", "modules\ast\ast.vcxproj", "{0D3FA25B-8116-44EC-A45E-260789DAA3D9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parallel", "modules\parallel\src\c\parallel.vcxproj", "{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ant-all", "Visual-Studio-settings\ant-all\ant-all.vcxproj", "{A9A2020D-5541-44F2-B080-DF3C9426C409}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1F4A0344-99ED-461B-BD53-1593788FB34D} = {1F4A0344-99ED-461B-BD53-1593788FB34D}
 		{7CA60AEF-9AFA-4D06-AF28-613C0AA27640} = {7CA60AEF-9AFA-4D06-AF28-613C0AA27640}
@@ -625,10 +629,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-level", "Visual-Studio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nographic_objects", "modules\graphic_objects\src\nographic_objects\nographic_objects.vcxproj", "{A910BD0C-8FAF-4382-B06A-F767E4752733}"
 EndProject
+<<<<<<< HEAD
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gui_gw", "modules\gui\sci_gateway\cpp\gui_gw.vcxproj", "{83C04253-B152-4EF6-BB36-35A7B0FDFB98}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphics_gw", "modules\graphics\sci_gateway\cpp\graphics_gw.vcxproj", "{61B23D9B-3F73-4204-98F7-6F41218F4564}"
 EndProject
+=======
+>>>>>>> origin/master
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "external_objects", "modules\external_objects\external_objects.vcxproj", "{3142E52C-309A-41D9-BD12-7B7E9E3BDD44}"
 EndProject
 Global
@@ -1795,6 +1802,7 @@ Global
 		{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}.Debug|x64.ActiveCfg = Debug|x64
 		{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}.Release|Win32.ActiveCfg = Release|Win32
 		{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}.Release|x64.ActiveCfg = Release|x64
+<<<<<<< HEAD
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Debug|Win32.ActiveCfg = Debug|Win32
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Debug|Win32.Build.0 = Debug|Win32
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Debug|x64.ActiveCfg = Debug|x64
@@ -1803,6 +1811,35 @@ Global
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Release|Win32.Build.0 = Release|Win32
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Release|x64.ActiveCfg = Release|x64
 		{CE49C183-2ECE-4EA4-B289-D74E2E664164}.Release|x64.Build.0 = Release|x64
+=======
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|Win32.ActiveCfg = Debug|Win32
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|Win32.Build.0 = Debug|Win32
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|x64.ActiveCfg = Debug|x64
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|x64.Build.0 = Debug|x64
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|Win32.ActiveCfg = Release|Win32
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|x64.ActiveCfg = Release|x64
+		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|x64.Build.0 = Release|x64
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|Win32.Build.0 = Debug|Win32
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|x64.ActiveCfg = Debug|x64
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|x64.Build.0 = Debug|x64
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Release|Win32.ActiveCfg = Release|Win32
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Release|Win32.Build.0 = Release|Win32
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Release|x64.ActiveCfg = Release|x64
+		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Release|x64.Build.0 = Release|x64
+		{85303A11-CF6B-432F-B3FD-24DEFFB51025}.Debug|Win32.ActiveCfg = Debug|Win32
+		{85303A11-CF6B-432F-B3FD-24DEFFB51025}.Debug|x64.ActiveCfg = Debug|x64
+		{85303A11-CF6B-432F-B3FD-24DEFFB51025}.Release|Win32.ActiveCfg = Release|Win32
+		{85303A11-CF6B-432F-B3FD-24DEFFB51025}.Release|x64.ActiveCfg = Release|x64
+		{88E95224-A931-4B3E-AC6C-5A40B3961421}.Debug|Win32.ActiveCfg = Debug|Win32
+		{88E95224-A931-4B3E-AC6C-5A40B3961421}.Debug|x64.ActiveCfg = Debug|x64
+		{88E95224-A931-4B3E-AC6C-5A40B3961421}.Release|Win32.ActiveCfg = Release|Win32
+		{88E95224-A931-4B3E-AC6C-5A40B3961421}.Release|x64.ActiveCfg = Release|x64
+		{439D04EC-A444-48BE-8E55-8CD2BB66B782}.Debug|Win32.ActiveCfg = Debug|Win32
+		{439D04EC-A444-48BE-8E55-8CD2BB66B782}.Debug|x64.ActiveCfg = Debug|x64
+		{439D04EC-A444-48BE-8E55-8CD2BB66B782}.Release|Win32.ActiveCfg = Release|Win32
+		{439D04EC-A444-48BE-8E55-8CD2BB66B782}.Release|x64.ActiveCfg = Release|x64
+>>>>>>> origin/master
 		{337A52F8-310E-49E3-A2BA-F19CA32EB617}.Debug|Win32.ActiveCfg = Debug|Win32
 		{337A52F8-310E-49E3-A2BA-F19CA32EB617}.Debug|Win32.Build.0 = Debug|Win32
 		{337A52F8-310E-49E3-A2BA-F19CA32EB617}.Debug|x64.ActiveCfg = Debug|x64
@@ -1903,6 +1940,7 @@ Global
 		{A910BD0C-8FAF-4382-B06A-F767E4752733}.Release|Win32.Build.0 = Release|Win32
 		{A910BD0C-8FAF-4382-B06A-F767E4752733}.Release|x64.ActiveCfg = Release|x64
 		{A910BD0C-8FAF-4382-B06A-F767E4752733}.Release|x64.Build.0 = Release|x64
+<<<<<<< HEAD
 		{83C04253-B152-4EF6-BB36-35A7B0FDFB98}.Debug|Win32.ActiveCfg = Debug|Win32
 		{83C04253-B152-4EF6-BB36-35A7B0FDFB98}.Debug|Win32.Build.0 = Debug|Win32
 		{83C04253-B152-4EF6-BB36-35A7B0FDFB98}.Debug|x64.ActiveCfg = Debug|x64
@@ -1919,6 +1957,8 @@ Global
 		{61B23D9B-3F73-4204-98F7-6F41218F4564}.Release|Win32.Build.0 = Release|Win32
 		{61B23D9B-3F73-4204-98F7-6F41218F4564}.Release|x64.ActiveCfg = Release|x64
 		{61B23D9B-3F73-4204-98F7-6F41218F4564}.Release|x64.Build.0 = Release|x64
+=======
+>>>>>>> origin/master
 		{3142E52C-309A-41D9-BD12-7B7E9E3BDD44}.Debug|Win32.ActiveCfg = Debug|Win32
 		{3142E52C-309A-41D9-BD12-7B7E9E3BDD44}.Debug|Win32.Build.0 = Debug|Win32
 		{3142E52C-309A-41D9-BD12-7B7E9E3BDD44}.Debug|x64.ActiveCfg = Debug|x64
