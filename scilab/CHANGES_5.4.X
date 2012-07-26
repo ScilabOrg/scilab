@@ -272,6 +272,9 @@ Bug Fixes
 * Bug #11529 fixed - Only 512 chars could be entered in the console, now it is
                      fixed to 4096.
 
+* Bug #11553 fixed - The uicontextmenu handles (and their children) were not
+                     destroyed at the end of execution.
+
 
 Known Incompatibilities
 =======================
