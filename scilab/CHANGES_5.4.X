@@ -259,6 +259,9 @@ Bug Fixes
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
 
+* Bug #11515 fixed - Add checkVarDimension documentation page.
+                     Update getNbInputArgument and getNbOutputArgument pages.
+
 * Bug #11519 fixed - The colored lines in the legend of nyquist plot were inverted.
 
 * Bug #11537 fixed - In SciNotes it was not possible to modify font size with
