@@ -283,11 +283,15 @@ Bug Fixes
 
 * Bug #11519 fixed - The colored lines in the legend of nyquist plot were inverted.
 
+* Bug #11529 fixed - Only 512 chars could be entered in the console, now it is
+                     fixed to 4096.
+
 * Bug #11537 fixed - In SciNotes it was not possible to modify font size with
                      CTRL+scroll.
 
-* Bug #11529 fixed - Only 512 chars could be entered in the console, now it is
-                     fixed to 4096.
+* Bug #11538 fixed - xxxWideString functions in api_scilab, check to_wide_string
+                     convertion.
+
 
 
 Known Incompatibilities
