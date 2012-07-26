@@ -18,6 +18,9 @@ Xcos
 
 * Bug #11518 fixed - CLR block-text left box when zooming.
 
+* Bug #11550 fixed - Closing the scope graph while running simulation led to a
+                     segfault.
+
 
 Preferences
 ===========
