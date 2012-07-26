@@ -141,6 +141,9 @@ Bug Fixes
 
 * Bug #7251 fixed - Fix an error in the qp_solve documentation.
 
+* Bug #7763 fixed - The mtlb_max and mtlb_min function did not manage the complex at 
+                    null imaginary part.
+
 * Bug #8785 fixed - Check input arguments in the modulo and pmodulo functions.
 
 * Bug #9830 fixed - leastsq did not match the information of optim.
