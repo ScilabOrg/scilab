@@ -363,6 +363,11 @@ public final class SwingView implements GraphicView {
 
                 tab.setParentWindowId(window.getId());
 
+                if (figure.getEventHandlerEnable()) {
+                    tab.setEventHandler(figure.getEventHandlerString());
+                    tab.setEventHandlerEnabled(true);
+                }
+
                 DockingManager.dock(tab, window.getDockingPort());
                 ActiveDockableTracker.requestDockableActivation(tab);
 
@@ -531,9 +536,9 @@ public final class SwingView implements GraphicView {
                             SwingScilabTab tab = (SwingScilabTab) requestedObject.getValue();
                             DockingManager.close(tab);
                             DockingManager.unregisterDockable((Dockable) tab);
-			    ClosingOperationsManager.unregisterClosingOperation(tab);
-			    ClosingOperationsManager.removeDependency(tab);
-			    ClosingOperationsManager.checkTabForClosing(tab);
+                            ClosingOperationsManager.unregisterClosingOperation(tab);
+                            ClosingOperationsManager.removeDependency(tab);
+                            ClosingOperationsManager.checkTabForClosing(tab);
                             tab.close();
                         }
                     });
