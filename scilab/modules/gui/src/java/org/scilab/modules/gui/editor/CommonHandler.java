@@ -19,6 +19,7 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 
 import org.scilab.modules.graphic_objects.PolylineData;
+import org.scilab.modules.graphic_objects.SurfaceData;
 
 
 /**
@@ -138,6 +139,7 @@ public class CommonHandler {
             ret = PolylineData.createPolylineData(uid, dup);
         }
         else if (typeName == GraphicObjectProperties.__GO_PLOT3D__) {
+            ret = SurfaceData.createObject3dData(uid, dup, GraphicObjectProperties.__GO_PLOT3D__);
         }
 
         if (ret == null) {
