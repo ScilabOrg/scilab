@@ -43,6 +43,8 @@ Documentation
     - statistics. See bug #9108.
     - genetic algorithms. See bug #11514.
 
+* Bug #11547 fixed - _() moved into the gettext() help page.
+
 
 Signal Processing
 =================
