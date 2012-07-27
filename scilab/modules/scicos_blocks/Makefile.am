@@ -483,7 +483,6 @@ CLEANFILES=$(top_srcdir)/modules/scicos_blocks/includes/blocks.h \
 
 #### scicos_blocks : Conf files ####
 libsciscicos_blocks_la_rootdir = $(mydatadir)
-libsciscicos_blocks_la_root_DATA =  license.txt
 
 #### scicos_blocks : init scripts ####
 libsciscicos_blocks_la_etcdir = $(mydatadir)/etc
