@@ -56,7 +56,7 @@ import org.scilab.modules.gui.editor.action.ActionTextEdit;
 public class Editor {
 
     JPopupMenu menu;
-    JMenuItem copy, cut, paste, delete, clear, hide, unhide, clipboardCopy, labelX, labelY, labelZ, insert, remove, ged, editdata, undo, redo;
+    JMenuItem copy, copyStyle, cut, paste, pasteStyle, delete, clear, hide, unhide, clipboardCopy, labelX, labelY, labelZ, insert, remove, ged, editdata, undo, redo;
     JMenu labels, legends;
 
     EntityPicker.LegendInfo selectedLegend = null;
@@ -123,6 +123,7 @@ public class Editor {
 
             undo.setEnabled(editorHistory.isUndoEnabled());
             redo.setEnabled(editorHistory.isRedoEnabled());
+            pasteStyle.setEnabled(ScilabClipboard.getInstance().canPasteStyle());
 
             menu.show(event.getComponent(), event.getX(), event.getY());
             lastClick[0] = event.getX();
@@ -281,6 +282,10 @@ public class Editor {
         undo.setToolTipText(Messages.gettext("Undo last action"));
         redo = new JMenuItem(Messages.gettext("Redo"));
         redo.setToolTipText(Messages.gettext("Redo last undo action"));
+        copyStyle = new JMenuItem(Messages.gettext("Copy Style"));
+        copyStyle.setToolTipText(Messages.gettext("Copy the style of the axes"));
+        pasteStyle = new JMenuItem(Messages.gettext("Paste Style"));
+        pasteStyle.setToolTipText(Messages.gettext("Paste the style copied to this axes"));
 
         copy.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -384,6 +389,18 @@ public class Editor {
             }
         });
 
+        copyStyle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                onClickCopyStyle();
+            }
+        });
+
+        pasteStyle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                onClickPasteStyle();
+            }
+        });
+
 
         labels.add(labelX);
         labels.add(labelY);
@@ -393,6 +410,8 @@ public class Editor {
         menu.add(copy);
         menu.add(cut);
         menu.add(paste);
+        menu.add(copyStyle);
+        menu.add(pasteStyle);
         menu.addSeparator();
         menu.add(delete);
         menu.add(clear);
@@ -680,16 +699,34 @@ public class Editor {
     }
 
     /**
-    * Implements Undo action(callBAck)
+    * Implements Undo action(callback)
     */
     public void onClickUndo() {
         editorHistory.undo();
     }
 
     /**
-    * Implements Redo action(callBack)
+    * Implements Redo action(callback)
     */
     public void onClickRedo() {
         editorHistory.redo();
+    }
+
+    /**
+    * Implementes copyStyle action(callback)
+    */
+    public void onClickCopyStyle() {
+
+        String axes = AxesHandler.clickedAxes(figureUid, lastClick);
+        ScilabClipboard.getInstance().copyStyle(axes);
+    }
+
+    /**
+    * Implementes pasteStyle action(callback)
+    */
+    public void onClickPasteStyle() {
+
+        String axes = AxesHandler.clickedAxes(figureUid, lastClick);
+        ScilabClipboard.getInstance().pasteStyle(axes);
     }
 }

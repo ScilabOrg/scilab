@@ -17,6 +17,7 @@ import java.lang.Math;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.axes.Axes;
+import org.scilab.modules.graphic_objects.figure.ColorMap;
 
 import org.scilab.modules.gui.editor.ObjectSearcher;
 import org.scilab.modules.gui.editor.PolylineHandler;
@@ -217,5 +218,80 @@ public class AxesHandler {
         return false;
     }
 
-}
+    /**
+    * Copy the style from an axes to another
+    *
+    * @param axesFrom The axes from style comes
+    * @param axesTo The axes to paste the style
+    */
+    public static void copyAxesStyle(String axesFrom, String axesTo) {
 
+        if (axesFrom == null || axesTo == null) {
+            return;
+        }
+        boolean filled, visible, fontFractional, lineMode, markMode, autoScale, cubeScaling;
+        Integer background, figureBackground, hiddenColor, gridPosition, fontStyle, fontColor, lineStyle, lineColor, markStyle, markSize, markBackground, markForeground, clipState, boxType;
+        Double fontSize, lineThickness;
+        Double[] margins, clipBox, rotationAngles;
+        Double[] colorMap;
+        String figureFrom, figureTo;
+
+        figureFrom = (String)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_PARENT__);
+        colorMap = (Double[])GraphicController.getController().getProperty(figureFrom, GraphicObjectProperties.__GO_COLORMAP__);
+        filled = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_FILLED__);
+        visible = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_VISIBLE__);
+        fontFractional = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_FONT_FRACTIONAL__);
+        lineMode = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_LINE_MODE__);
+        markMode = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARK_MODE__);
+        autoScale = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_AUTO_SCALE__);
+        cubeScaling = (Boolean)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_CUBE_SCALING__);
+        background = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_BACKGROUND__);
+        figureBackground = (Integer)GraphicController.getController().getProperty(figureFrom, GraphicObjectProperties.__GO_BACKGROUND__);
+        hiddenColor = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_HIDDEN_COLOR__);
+        gridPosition = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_GRID_POSITION__);
+        fontStyle = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_FONT_STYLE__);
+        fontColor = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_FONT_COLOR__);
+        lineStyle = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_LINE_STYLE__);
+        lineColor = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_LINE_COLOR__);
+        markStyle = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARK_STYLE__);
+        markSize = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARK_SIZE__);
+        markBackground = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARK_BACKGROUND__);
+        markForeground = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARK_FOREGROUND__);
+        clipState = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_CLIP_STATE__); 
+        boxType = (Integer)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_BOX_TYPE__);
+        fontSize = (Double)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_FONT_SIZE__);
+        lineThickness = (Double)GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_LINE_THICKNESS__);
+        margins = (Double[])GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_MARGINS__);
+        clipBox = (Double[])GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_CLIP_BOX__);
+        rotationAngles = (Double[])GraphicController.getController().getProperty(axesFrom, GraphicObjectProperties.__GO_ROTATION_ANGLES__);
+
+        figureTo = (String)GraphicController.getController().getProperty(axesTo, GraphicObjectProperties.__GO_PARENT__);
+        GraphicController.getController().setProperty(figureTo, GraphicObjectProperties.__GO_COLORMAP__, colorMap);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_FILLED__, filled);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_VISIBLE__, visible);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_FONT_FRACTIONAL__, fontFractional);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_LINE_MODE__, lineMode);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARK_MODE__, markMode);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_AUTO_SCALE__, autoScale);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_CUBE_SCALING__, cubeScaling);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_BACKGROUND__, background);
+        GraphicController.getController().setProperty(figureTo, GraphicObjectProperties.__GO_BACKGROUND__, figureBackground);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_HIDDEN_COLOR__, hiddenColor);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_GRID_POSITION__, gridPosition);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_FONT_STYLE__, fontStyle);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_FONT_COLOR__, fontColor);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_LINE_STYLE__, lineStyle);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_LINE_COLOR__, lineColor);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARK_STYLE__, markStyle);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARK_SIZE__, markSize);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARK_BACKGROUND__, markBackground);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARK_FOREGROUND__, markForeground);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_CLIP_STATE__, clipState); 
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_BOX_TYPE__, boxType);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_FONT_SIZE__, fontSize);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_LINE_THICKNESS__, lineThickness);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_MARGINS__, margins);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_CLIP_BOX__, clipBox);
+        GraphicController.getController().setProperty(axesTo, GraphicObjectProperties.__GO_ROTATION_ANGLES__, rotationAngles);
+    }
+}
