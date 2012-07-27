@@ -31,7 +31,7 @@ public class ScilabClipboard {
     String objectUid = null;
     Integer copiedColor = 0;
     boolean needDuplication = false;
-
+    String copyStyle;
 
     public static ScilabClipboard getInstance() {
         if (instance == null) {
@@ -131,6 +131,41 @@ public class ScilabClipboard {
     public String getCurrentObject() {
 
         return objectUid;
+    }
+
+    /**
+    * Check if the object where the style will be copied exists
+    */
+    public boolean canPasteStyle() {
+
+        if (!CommonHandler.objectExists(copyStyle)) {
+        	copyStyle = null;
+            return false;
+        }
+        return true;
+    }
+
+    /**
+    * Copy store the object to copy style
+    *
+    * @param object The axes to store
+    */
+    public void copyStyle(String objectUID) {
+
+        copyStyle = objectUID;
+    }
+
+    /**
+    * Paste the Style of the object in the clipboard to a new object
+    *
+    * @param object The object to recieve the style
+    */
+    public void pasteStyle(String objectUID) {
+
+        if (!canPasteStyle()) {
+            return;
+        }
+        AxesHandler.copyAxesStyle(copyStyle, objectUID);
     }
 }
 
