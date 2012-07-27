@@ -19,6 +19,7 @@ import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 
 import org.scilab.modules.graphic_objects.PolylineData;
+import org.scilab.modules.graphic_objects.SurfaceData;
 
 
 /**
@@ -138,6 +139,7 @@ public class CommonHandler {
             ret = PolylineData.createPolylineData(uid, dup);
         }
         else if (typeName == GraphicObjectProperties.__GO_PLOT3D__) {
+            ret = SurfaceData.createObject3dData(uid, dup, GraphicObjectProperties.__GO_PLOT3D__);
         }
 
         if (ret == null) {
@@ -195,6 +197,32 @@ public class CommonHandler {
      */
     public static Boolean isVisible(String uid) {
         return (Boolean)GraphicController.getController().getProperty(uid, GraphicObjectProperties.__GO_VISIBLE__);
+    }
+
+    /**
+     * Change the visible status of
+     * the given object.
+     *
+     * @param uid object unique identifier.
+     * @param status true set object vidible false hide it.
+     */
+    public static void setVisible(String uid, boolean status) {
+       GraphicController.getController().setProperty(uid, GraphicObjectProperties.__GO_VISIBLE__, status);
+    }
+
+    /**
+     * Set all polylines and plot3d's status to visible.
+     *
+     * @param figure figure unique identifier.
+     */
+    public static void unhideAll(String figure) {
+       String[] types = {GraphicObjectProperties.__GO_POLYLINE__, GraphicObjectProperties.__GO_PLOT3D__};
+       String[] objs = (new ObjectSearcher()).searchMultiple(figure, types);
+       if (objs != null) {
+           for (int i = 0; i < objs.length; ++i) {
+               setVisible(objs[i], true);
+           }
+       }
     }
 
     /**
