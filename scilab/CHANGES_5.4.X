@@ -51,6 +51,8 @@ Documentation
     - Genetic algorithms. See bug #11514.
     - Simulated annealing. See bug #11560.
 
+* Bug #11547 fixed - _() moved into the gettext() help page.
+
 
 Signal Processing
 =================
