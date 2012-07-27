@@ -205,6 +205,8 @@ Bug Fixes
 * Bug #11048 fixed - In SciNotes, comment/uncomment actions did not work
                      properly.
 
+* Bug #11049 fixed - Add a link to intg help page in the ode help page.
+
 * Bug #11069 fixed - An axe could be wrongly set as parent for an uicontrol.
 
 * Bug #11203 fixed - Description for info output argument was wrong in lsqrsolve help page.
