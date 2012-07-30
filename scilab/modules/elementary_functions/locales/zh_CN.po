@@ -66,11 +66,11 @@ msgid ""
 msgstr "%s：第%d个输入参数的大小错误：应该为整数标量。\n"
 
 #, c-format
-msgid "%s: Wrong value for input argument #%d: A integer value expected.\n"
+msgid "%s: Wrong value for input argument #%d: An integer value expected.\n"
 msgstr "%s：第%d个输入参数的值错误：应该为整数。\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument #%d: A integer value expected.\n"
+msgid "%s: Wrong type for input argument #%d: An integer value expected.\n"
 msgstr "%s：第%d个输入参数的类型错误：应该为整数。\n"
 
 #, c-format
