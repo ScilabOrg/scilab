@@ -80,6 +80,12 @@ int* getNbInputArgument(void* _pvCtx)
     return &pStr->m_iIn;;
 }
 
+/* Replaces Top */
+int* getNbArgumentOnStack(void* _pvCtx)
+{
+    return &C2F(vstk).top;
+}
+
 /* Replaces Lhs */
 int* getNbOutputArgument(void* _pvCtx)
 {

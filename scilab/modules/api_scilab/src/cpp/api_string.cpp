@@ -309,14 +309,64 @@ SciErr getMatrixOfWideString(void* _pvCtx, int* _piAddress, int* _piRows, int* _
         _piwLength[i] = (int)wcslen(pS->get(i));
     }
 
-    if(_pwstStrings == NULL || *_pwstStrings == NULL)
-    {
-        return sciErr;
-    }
+	for(int i = 0; i < (*_piRows * *_piCols); i++)
+	{
+		wchar_t* wString = to_wide_string(pstStrings[i]);
+		if (wString)
+		{
+			_piwLength[i] = (int)wcslen(wString);
+			FREE(wString);
+			wString = NULL;
+		}
+		else
+		{
+            _piwLength[i] = 0;
+            addErrorMessage(&sciErr, API_ERROR_GET_WIDE_STRING, _("%s: Unable to convert to wide string #%d"), "getMatrixOfWideString", getRhsFromAddress(_pvCtx, _piAddress));
+            if (piLenStrings) {FREE(piLenStrings);piLenStrings = NULL;}
+            freeArrayOfString(pstStrings,strSize);
+            return sciErr;
+		}
+	}
 
-    for(int i = 0 ; i < pS->getSize() ; i++)
-    {
-		if(_pwstStrings[i] == NULL)
+	if ( (_pwstStrings == NULL) || (*_pwstStrings == NULL) )
+	{
+		if (piLenStrings) {FREE(piLenStrings);piLenStrings = NULL;}
+		freeArrayOfString(pstStrings,strSize);
+		return sciErr;
+	}
+	
+	for (int i = 0; i < (*_piRows * *_piCols); i++)
+	{
+		if (pstStrings[i])
+		{
+			wchar_t *wcstring = to_wide_string(pstStrings[i]);
+			if (wcstring)
+			{
+				if (_pwstStrings[i])
+				{
+					wcscpy(_pwstStrings[i], wcstring);
+					_piwLength[i] = (int)wcslen(_pwstStrings[i]);
+				}
+				else
+				{
+					_pwstStrings[i] = NULL;
+					_piwLength[i] = 0;
+				}
+				FREE(wcstring);
+				wcstring = NULL;
+			}
+			else
+			{
+				// case to_wide_string fails
+				_pwstStrings[i] = NULL;
+				_piwLength[i] = 0;
+                addErrorMessage(&sciErr, API_ERROR_GET_WIDE_STRING, _("%s: Unable to convert to wide string #%d"), "getMatrixOfWideString", getRhsFromAddress(_pvCtx, _piAddress));
+                if (piLenStrings) {FREE(piLenStrings);piLenStrings = NULL;}
+                freeArrayOfString(pstStrings,strSize);
+                return sciErr;
+			}
+		}
+		else
 		{
 			addErrorMessage(&sciErr, API_ERROR_INVALID_SUBSTRING_POINTER, _("%s: Invalid argument address"), "getMatrixOfString");
 			return sciErr;
@@ -466,6 +516,7 @@ int getAllocatedSingleString(void* _pvCtx, int* _piAddress, char** _pstData)
 
 	return 0;
 }
+
 /*--------------------------------------------------------------------------*/
 int getAllocatedSingleWideString(void* _pvCtx, int* _piAddress, wchar_t** _pwstData)
 {
