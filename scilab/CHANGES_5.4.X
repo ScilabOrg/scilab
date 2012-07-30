@@ -65,6 +65,8 @@ Compilation
 
 * Switch to flexdock 1.2.0.
 
+* Switch to Scirenderer 0.5.3.
+
 * Bug #9824 fixed - BLAS_LIBS variable was overloaded by the configure.
 
 
