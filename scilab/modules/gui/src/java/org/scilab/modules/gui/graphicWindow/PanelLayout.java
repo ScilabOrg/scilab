@@ -57,11 +57,11 @@ public class PanelLayout implements LayoutManager, Serializable {
     public void layoutContainer(Container parent) {
         for (Component child : parent.getComponents()) {
             if (child.equals(canvas)) {
-                if (((SwingScilabCanvas) canvas.getParent()).isAutoResize()) {
-                    canvas.setBounds(0, 0, parent.getWidth(), parent.getHeight());
-                } else {
-                    canvas.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-                }
+                //                if (((SwingScilabCanvas) canvas.getParent()).isAutoResize()) {
+                canvas.setBounds(0, 0, parent.getWidth(), parent.getHeight());
+                //                } else {
+                //                    canvas.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                //                }
                 //child.setPreferredSize(new Dimension(parent.getWidth(), parent.getHeight()));
                 parent.setComponentZOrder(child, parent.getComponentCount() - 1);
             }
