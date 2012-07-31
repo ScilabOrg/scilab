@@ -67,7 +67,7 @@ Compilation
 
 * Switch to Scirenderer 0.5.3.
 
-* Bug #9824 fixed - BLAS_LIBS variable was overloaded by the configure.
+* BLAS_LIBS variable can now be set by the user (See bug #9824).
 
 
 GUI
@@ -116,24 +116,6 @@ Statistics
   - Eigenvalues graph improved.
 
 
-Graphics
-========
-
-* Bug #10711 fixed - The textbox of datatip was not displayed in graphics using
-                     logarithm scale.
-
-* Bug #11330 fixed - oldplot function removed.
-
-* Bug #11332 fixed - Default usage of contour2d was producing some errors.
-
-* Bug #11333 fixed - Missing argument number checking in comet added.
-
-* Bug #11490 fixed - comet produced wrong display with matrix inputs.
-
-* Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
-                     were missing some closure tags in the examples.
-
-
 Bug Fixes
 =========
 
@@ -179,6 +161,8 @@ Bug Fixes
 
 * Bug #8785 fixed - modulo and pmodulo functions did not check input arguments.
 
+* Bug #9824 fixed - BLAS_LIBS variable was overloaded by the configure.
+
 * Bug #9830 fixed - leastsq did not match the information given in optim help page.
 
 * Bug #9884 fixed - Possibility to add a default header on new files in SciNotes
@@ -200,6 +184,9 @@ Bug Fixes
                      localization.
 
 * Bug #10595 fixed - In SciNotes, <TAB> did not go to the next tab position.
+
+* Bug #10711 fixed - The textbox of datatip was not displayed in graphics using
+                     logarithm scale.
 
 * Bugs #10827, #10868 fixed - In SciNotes, strings containing LaTeX disappeared
                               when executed.
@@ -242,7 +229,13 @@ Bug Fixes
 * Bug #11328 fixed - strsplit returned a wrong error message when the second input
                      argument contained wrong values.
 
+* Bug #11330 fixed - oldplot function removed.
+
 * Bug #11331 fixed - graypolarplot() returned an error about an unknown property.
+
+* Bug #11332 fixed - Default usage of contour2d was producing some errors.
+
+* Bug #11333 fixed - Missing argument number checking in comet added.
 
 * Bug #11346 fixed - Error messages added in cosm function in case of bad
                      usage.
@@ -314,8 +307,13 @@ Bug Fixes
 * Bug #11488 fixed - Java exception led to a segfault in -ns mode when entering
                      something in the console.
 
+* Bug #11490 fixed - comet produced wrong display with matrix inputs.
+
 * Bug #11502 fixed - Some Java debug information was displayed when playing with
                      graphics.
+
+* Bug #11506 fixed - "Rendu d'équations mathématiques dans le graphique Scilab"
+                     were missing some closure tags in the examples.
 
 * Bug #11515 fixed - checkVarDimension help page added and getNbInputArgument and
                      getNbOutputArgument help pages updated.
