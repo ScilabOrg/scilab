@@ -1060,6 +1060,9 @@ Bug Fixes
 
 * Bug #10558 fixed - Tcl/Tk demonstrations did not start.
 
+* Bug #10559 fixed - Restore old file ( < 5.4.0 format ) could fail due to 
+                     new mechanism in %_sodload.
+
 * Bug #10560 fixed - genetic algorithms demonstrations failed.
 
 * Bug #10564 fixed - atan graphic demonstration was failing due to a too restrictive test
