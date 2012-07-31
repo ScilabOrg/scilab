@@ -4,6 +4,9 @@
 Bug Fixes
 =========
 
+* Bug #7674 fixed - In all demos Optimization and Simulation, editor(script) was replaced
+                    by a messagebox which leaves the choice to the user to display the code or not.
+
 * Bug #8151 fixed - Under Mac OS X, item "Scilab/Quit Scilab" and "File/Quit" were
                     duplicates.
 
