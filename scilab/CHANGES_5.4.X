@@ -159,6 +159,9 @@ Bug Fixes
 
 * Bug #7251 fixed - Error fixed in qp_solve help page.
 
+* Bug #7674 fixed - In all demos Optimization and Simulation, editor(script) was replaced
+                    by a messagebox which leaves the choice to the user to display or no the code.
+
 * Bug #7763 fixed - The mtlb_max and mtlb_min functions did not manage the complex with 
                     null imaginary part.
 
