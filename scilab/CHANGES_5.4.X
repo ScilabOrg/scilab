@@ -149,6 +149,9 @@ Bug Fixes
 * Bug #7763 fixed - mtlb_max and mtlb_min functions did not manage complex
                     numbers with null imaginary part.
 
+* Bug #7674 fixed - In all demos Optimization and Simulation, editor(script) was replaced
+                    by a messagebox which leaves the choice to the user to display or no the code.
+
 * Bug #7855 fixed - It was not possible to change event function while
                     the event handler was enabled.
 
