@@ -176,6 +176,9 @@ Bug Fixes
 
 * Bug #8351 fixed - The integrate function did not manage properly the optional 
                     input arguments.
+                    
+* Bug #8640 fixed - The histplot function has failed when the data vector contains
+                    the same values.
 
 * Bug #8785 fixed - modulo and pmodulo functions did not check input arguments.
 
