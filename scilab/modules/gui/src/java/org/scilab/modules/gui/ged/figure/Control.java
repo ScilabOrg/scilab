@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -135,9 +137,9 @@ public class Control extends BaseProperties {
         cxposition.setToolTipText(MessagesGED.x_position_tooltip);
         cxposition.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cxposition.setPreferredSize(new Dimension(70, 20));
-        cxposition.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cxpositionActionPerformed(evt);
+        cxposition.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cxpositionFocusLost(evt);
             }
         });
 
@@ -152,9 +154,9 @@ public class Control extends BaseProperties {
         cyposition.setToolTipText(MessagesGED.y_position_tooltip);
         cyposition.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cyposition.setPreferredSize(new Dimension(70, 20));
-        cyposition.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cypositionActionPerformed(evt);
+        cyposition.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cypositionFocusLost(evt);
             }
         });
 
@@ -169,9 +171,9 @@ public class Control extends BaseProperties {
         cxsize.setToolTipText(MessagesGED.x_size_tooltip);
         cxsize.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cxsize.setPreferredSize(new Dimension(70, 20));
-        cxsize.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cxsizeActionPerformed(evt);
+        cxsize.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cxsizeFocusLost(evt);
             }
         });
 
@@ -186,9 +188,9 @@ public class Control extends BaseProperties {
         cysize.setToolTipText(MessagesGED.y_size_tooltip);
         cysize.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cysize.setPreferredSize(new Dimension(70, 20));
-        cysize.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cysizeActionPerformed(evt);
+        cysize.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cysizeFocusLost(evt);
             }
         });
    }
@@ -327,9 +329,9 @@ public class Control extends BaseProperties {
     /**
     * Updates the property: xPosition.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cxpositionActionPerformed(ActionEvent evt) {
+    private void cxpositionFocusLost(FocusEvent evt) {
         int setXposition = Integer.parseInt(cxposition.getText());
         int setYposition = Integer.parseInt(cyposition.getText());
         Integer[] setPosition = new Integer[2];
@@ -342,18 +344,18 @@ public class Control extends BaseProperties {
     /**
     * Updates the property: yPosition.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cypositionActionPerformed(ActionEvent evt) {
-        cxpositionActionPerformed(evt);
+    private void cypositionFocusLost(FocusEvent evt) {
+        cxpositionFocusLost(evt);
     }
 
     /**
     * Updates the property: xSize.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cxsizeActionPerformed(ActionEvent evt) {
+    private void cxsizeFocusLost(FocusEvent evt) {
         int setXsize = Integer.parseInt(cxsize.getText());
         int setYsize = Integer.parseInt(cysize.getText());
         Integer[] setSize = new Integer[2];
@@ -366,9 +368,9 @@ public class Control extends BaseProperties {
     /**
     * Updates the property: ySize.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cysizeActionPerformed(ActionEvent evt) {
-        cxsizeActionPerformed(evt);
+    private void cysizeFocusLost(FocusEvent evt) {
+        cxsizeFocusLost(evt);
     }
 }

@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -111,9 +113,9 @@ public class DataProperties extends Control {
         cFigureID.setToolTipText(MessagesGED.figure_id_tooltip);
         cFigureID.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cFigureID.setPreferredSize(new Dimension(70, 20));
-        cFigureID.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cFigureIDActionPerformed(evt);
+        cFigureID.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cFigureIDFocusLost(evt);
             }
         });
 
@@ -128,9 +130,9 @@ public class DataProperties extends Control {
         cFigureName.setToolTipText(MessagesGED.figure_name_tooltip);
         cFigureName.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cFigureName.setPreferredSize(new Dimension(93	, 20));
-        cFigureName.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cFigureNameActionPerformed(evt);
+        cFigureName.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cFigureNameFocusLost(evt);
             }
         });
 
@@ -245,9 +247,9 @@ public class DataProperties extends Control {
     /**
     * Updates the property: Figure ID.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cFigureIDActionPerformed(ActionEvent evt) {
+    private void cFigureIDFocusLost(FocusEvent evt) {
         int setfigureID = Integer.parseInt(cFigureID.getText());
         GraphicController.getController()
                 .setProperty(currentfigure, GraphicObjectProperties.__GO_ID__, setfigureID);
@@ -256,9 +258,9 @@ public class DataProperties extends Control {
     /**
     * Updates the property: Figure Name.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cFigureNameActionPerformed(ActionEvent evt) {
+    private void cFigureNameFocusLost(FocusEvent evt) {
         GraphicController.getController()
                 .setProperty(currentfigure, GraphicObjectProperties.__GO_NAME__, cFigureName.getText());
     }

@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -169,9 +171,9 @@ public class Position extends Label {
 
         cBoundsLeft.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cBoundsLeft.setPreferredSize(new Dimension(70, 20));
-        cBoundsLeft.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cBoundsLeftActionPerformed(evt);
+        cBoundsLeft.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cBoundsLeftFocusLost(evt);
             }
         });
 
@@ -183,9 +185,9 @@ public class Position extends Label {
 
         cBoundsUp.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cBoundsUp.setPreferredSize(new Dimension(70, 20));
-        cBoundsUp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cBoundsUpActionPerformed(evt);
+        cBoundsUp.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cBoundsUpFocusLost(evt);
             }
         });
 
@@ -197,9 +199,9 @@ public class Position extends Label {
 
         cBoundsWidth.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cBoundsWidth.setPreferredSize(new Dimension(70, 20));
-        cBoundsWidth.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cBoundsWidthActionPerformed(evt);
+        cBoundsWidth.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cBoundsWidthFocusLost(evt);
             }
         });
 
@@ -211,9 +213,9 @@ public class Position extends Label {
 
         cBoundsHeight.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cBoundsHeight.setPreferredSize(new Dimension(70, 20));
-        cBoundsHeight.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cBoundsHeightActionPerformed(evt);
+        cBoundsHeight.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cBoundsHeightFocusLost(evt);
             }
         });
 
@@ -297,9 +299,9 @@ public class Position extends Label {
 
         cMarginsLeft.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cMarginsLeft.setPreferredSize(new Dimension(70, 20));
-        cMarginsLeft.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cMarginsLeftActionPerformed(evt);
+        cMarginsLeft.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cMarginsLeftFocusLost(evt);
             }
         });
 
@@ -311,9 +313,9 @@ public class Position extends Label {
 
         cMarginsRight.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cMarginsRight.setPreferredSize(new Dimension(70, 20));
-        cMarginsRight.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cMarginsRightActionPerformed(evt);
+        cMarginsRight.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cMarginsRightFocusLost(evt);
             }
         });
 
@@ -325,9 +327,9 @@ public class Position extends Label {
 
         cMarginsTop.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cMarginsTop.setPreferredSize(new Dimension(70, 20));
-        cMarginsTop.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cMarginsTopActionPerformed(evt);
+        cMarginsTop.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cMarginsTopFocusLost(evt);
             }
         });
 
@@ -339,9 +341,9 @@ public class Position extends Label {
 
         cMarginsBottom.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cMarginsBottom.setPreferredSize(new Dimension(70, 20));
-        cMarginsBottom.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cMarginsBottomActionPerformed(evt);
+        cMarginsBottom.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cMarginsBottomFocusLost(evt);
             }
         });
 
@@ -562,9 +564,9 @@ public class Position extends Label {
     /**
     * Updates the property: Axes Bounds - Left.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cBoundsLeftActionPerformed(ActionEvent evt) {
+    private void cBoundsLeftFocusLost(FocusEvent evt) {
         Double[] value = new Double[4];
         value[0] = Double.parseDouble(cBoundsLeft.getText());
         value[1] = Double.parseDouble(cBoundsUp.getText());
@@ -578,36 +580,36 @@ public class Position extends Label {
     /**
     * Updates the property: Axes Bounds - Up.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cBoundsUpActionPerformed(ActionEvent evt) {
-        cBoundsLeftActionPerformed(evt);
+    private void cBoundsUpFocusLost(FocusEvent evt) {
+        cBoundsLeftFocusLost(evt);
     }
 
     /**
     * Updates the property: Axes Bounds - Width.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cBoundsWidthActionPerformed(ActionEvent evt) {
-        cBoundsLeftActionPerformed(evt);
+    private void cBoundsWidthFocusLost(FocusEvent evt) {
+        cBoundsLeftFocusLost(evt);
     }
 
     /**
     * Updates the property: Axes Bounds - Height.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cBoundsHeightActionPerformed(ActionEvent evt) {
-        cBoundsLeftActionPerformed(evt);
+    private void cBoundsHeightFocusLost(FocusEvent evt) {
+        cBoundsLeftFocusLost(evt);
     }
 
     /**
     * Updates the property: Margins - Left.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cMarginsLeftActionPerformed(ActionEvent evt) {
+    private void cMarginsLeftFocusLost(FocusEvent evt) {
         Double[] value = new Double[4];
         value[0] = Double.parseDouble(cMarginsLeft.getText());
         value[1] = Double.parseDouble(cMarginsRight.getText());
@@ -622,27 +624,27 @@ public class Position extends Label {
     /**
     * Updates the property: Margins - Right.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cMarginsRightActionPerformed(ActionEvent evt) {
-        cMarginsLeftActionPerformed(evt);
+    private void cMarginsRightFocusLost(FocusEvent evt) {
+        cMarginsLeftFocusLost(evt);
     }
 
     /**
     * Updates the property: Margins - Top.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cMarginsTopActionPerformed(ActionEvent evt) {
-        cMarginsLeftActionPerformed(evt);
+    private void cMarginsTopFocusLost(FocusEvent evt) {
+        cMarginsLeftFocusLost(evt);
     }
 
     /**
     * Updates the property: Margins - Bottom.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cMarginsBottomActionPerformed(ActionEvent evt) {
-        cMarginsLeftActionPerformed(evt);
+    private void cMarginsBottomFocusLost(FocusEvent evt) {
+        cMarginsLeftFocusLost(evt);
     }
 }

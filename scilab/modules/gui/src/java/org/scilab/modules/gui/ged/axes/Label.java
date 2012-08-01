@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -119,9 +121,9 @@ public class Label extends AxisRulers {
 
         cTitlePage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cTitlePage.setPreferredSize(new Dimension(70, 20));
-        cTitlePage.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cTitlePageActionPerformed(evt);
+        cTitlePage.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cTitlePageFocusLost(evt);
             }
         });
 
@@ -161,9 +163,9 @@ public class Label extends AxisRulers {
 
         cTitleX.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cTitleX.setPreferredSize(new Dimension(70, 20));
-        cTitleX.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cTitleXActionPerformed(evt);
+        cTitleX.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cTitleXFocusLost(evt);
             }
         });
 
@@ -175,9 +177,9 @@ public class Label extends AxisRulers {
 
         cTitleY.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cTitleY.setPreferredSize(new Dimension(70, 20));
-        cTitleY.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cTitleYActionPerformed(evt);
+        cTitleY.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cTitleYFocusLost(evt);
             }
         });
 
@@ -189,9 +191,9 @@ public class Label extends AxisRulers {
 
         cTitleZ.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
         cTitleZ.setPreferredSize(new Dimension(70, 20));
-        cTitleZ.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                cTitleZActionPerformed(evt);
+        cTitleZ.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                cTitleZFocusLost(evt);
             }
         });
 
@@ -366,9 +368,9 @@ public class Label extends AxisRulers {
     /**
     * Updates the property: x Title Axis.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cTitleXActionPerformed(ActionEvent evt) {
+    private void cTitleXFocusLost(FocusEvent evt) {
         String axisTitleX = (String) GraphicController.getController()
                 .getProperty(currentaxes, GraphicObjectProperties.__GO_X_AXIS_LABEL__);
         String[] text = new String[1];
@@ -382,9 +384,9 @@ public class Label extends AxisRulers {
     /**
     * Updates the property: y Title Axis.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cTitleYActionPerformed(ActionEvent evt) {
+    private void cTitleYFocusLost(FocusEvent evt) {
         String axisTitleY = (String) GraphicController.getController()
                 .getProperty(currentaxes, GraphicObjectProperties.__GO_Y_AXIS_LABEL__);
         String[] text = new String[1];
@@ -397,9 +399,9 @@ public class Label extends AxisRulers {
     /**
     * Updates the property: z Title Axis.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cTitleZActionPerformed(ActionEvent evt) {
+    private void cTitleZFocusLost(FocusEvent evt) {
         String axisTitleZ = (String) GraphicController.getController()
                 .getProperty(currentaxes, GraphicObjectProperties.__GO_Z_AXIS_LABEL__);
         String[] text = new String[1];
@@ -412,9 +414,9 @@ public class Label extends AxisRulers {
     /**
     * Updates the property: Title Page.
     *
-    * @param evt ActionEvent.
+    * @param evt FocusEvent.
     */
-    private void cTitlePageActionPerformed(ActionEvent evt) {
+    private void cTitlePageFocusLost(FocusEvent evt) {
         String titlePage = (String) GraphicController.getController()
                 .getProperty(currentaxes, GraphicObjectProperties.__GO_TITLE__);
         String[] text = new String[1];
