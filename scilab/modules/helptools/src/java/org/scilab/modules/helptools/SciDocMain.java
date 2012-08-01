@@ -114,8 +114,10 @@ public final class SciDocMain {
                 if (isToolbox) {
                     urlBase = conf.getWebSiteURL() + language + "/";
                 }
-                if (format.equalsIgnoreCase("html") || format.equalsIgnoreCase("web")) {
-                    converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, isToolbox, urlBase);
+                if (format.equalsIgnoreCase("html")) {
+                    converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, isToolbox, urlBase, HTMLDocbookTagConverter.GenerationType.HTML);
+                } else if (format.equalsIgnoreCase("web")) {
+                    converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, isToolbox, urlBase, HTMLDocbookTagConverter.GenerationType.WEB);
                 } else if (format.equalsIgnoreCase("chm")) {
                     converter = new CHMDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, conf.getWebSiteURL(), isToolbox, urlBase, language);
                 }
