@@ -135,6 +135,7 @@ for i=1:size(x,"*")
   
   [Color,CurColor] = setDefaultColor(CurColor);
   ei.background = Color;
+  ei.foreground = Color;
   ei.fill_mode = "on";
   a.isoview = 'on';
   a.box = 'off'; 
