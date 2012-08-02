@@ -4,6 +4,8 @@
 Bug Fixes
 =========
 
+* Bug #11592 fixed - In the documentation, example of bessel failed.
+
 * Bug #11604 fixed - Some items were not localized in "Scilab Preferences" window.
 
 
