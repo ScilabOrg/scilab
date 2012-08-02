@@ -118,10 +118,16 @@ public class ScilabImageConverter implements ExternalImageConverter {
         buffer.append("xend();\n");
         buffer.append("driver(__olddrv__);\n");
 
+        if (type == HTMLDocbookTagConverter.GenerationType.WEB) {
+            /* Prepare the code for the html inclusion */
+            code = code.trim().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br />");
+            /* Provide a tooltip */
+            return "<div rel='tooltip' title='" + code + "'><img src=\'" + imageName + "\'/></div>";
+        } else {
+            /* No tooltip in the javahelp browser ...
+             * too limited html capabilities */
+            return "<img src=\'" + imageName + "\'/>";
+        }
 
-        /* Prepare the code for the html inclusion */
-        code = code.trim().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br />");
-
-        return " <div rel='tooltip' title='" + code + "'><img src=\'" + imageName + "\'/></div>";
     }
 }
