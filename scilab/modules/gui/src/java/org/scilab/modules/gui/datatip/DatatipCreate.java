@@ -34,6 +34,7 @@ public class DatatipCreate {
     private static Integer[] datatipBounds = new Integer[2];
     public static Double[] datatipPosition = new Double[3];
     private static double[] pixelMouseCoordDouble = new double[2];
+    public static Integer[] pixelMouseCoordInteger = new Integer[2];
 
     /**
     * Given a mouse coordinate point x, y in pixels
@@ -44,9 +45,9 @@ public class DatatipCreate {
     * @param coordIntY Integer with pixel mouse position y.
     * @return Datatip handler string.
     */
-    public static String createDatatip(String figureUid, Integer coordIntX, Integer coordIntY) {
+    public static String createDatatip(String figureUid, int coordIntX, int coordIntY) {
 
-        Integer[] pixelMouseCoordInt = { coordIntX , coordIntY };
+        int[] pixelMouseCoordInt = { coordIntX , coordIntY };
         String axesUid = datatipAxesHandler(figureUid, pixelMouseCoordInt);
         double[] pixelMouseCoordDouble = transformPixelCoordToDouble(pixelMouseCoordInt);
         double[] graphicCoord = transformPixelCoordToGraphic(axesUid, pixelMouseCoordDouble);
@@ -73,9 +74,11 @@ public class DatatipCreate {
     * @param pixelMouseCoordInt Vector with pixel mouse position x and y.
     * @return Axes handler string.
     */
-    public static String datatipAxesHandler(String figureUid, Integer[] pixelMouseCoordInt) {
+    public static String datatipAxesHandler(String figureUid, int[] pixelMouseCoordInt) {
 
-        String axesUid = AxesHandler.clickedAxes(figureUid, pixelMouseCoordInt);
+        pixelMouseCoordInteger[0] = pixelMouseCoordInt[0];
+        pixelMouseCoordInteger[1] = pixelMouseCoordInt[1];
+        String axesUid = AxesHandler.clickedAxes(figureUid, pixelMouseCoordInteger);
         return axesUid;
     }
 
@@ -85,7 +88,7 @@ public class DatatipCreate {
     * @param pixelMouseCoordInt Vector with pixel mouse position x and y.
     * @return Pixel coordinates in double precision.
     */
-    public static double[] transformPixelCoordToDouble(Integer[] pixelMouseCoordInt) {
+    public static double[] transformPixelCoordToDouble(int[] pixelMouseCoordInt) {
 
         for (int i = 0 ; i < pixelMouseCoordInt.length ; i++) {
             pixelMouseCoordDouble[i] = (double) pixelMouseCoordInt[i];
