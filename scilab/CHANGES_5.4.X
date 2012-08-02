@@ -6,6 +6,8 @@ Bug Fixes
 
 * Bug #11604 fixed - Some items were not localized in "Scilab Preferences" window.
 
+* Bug #11606 fixed - exit() was too slow in nw mode when driver("png") was set.
+
 
 
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
