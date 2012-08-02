@@ -1,0 +1,9 @@
+<package name="org.scilab.modules.gui.datatip">
+  <object name="DatatipCreate">
+	<method name="createDatatip" returnType="String" modifier="static">
+      <parameter name="figureUid" type="String"/>
+      <parameter name="coordIntX" type="int"/>
+      <parameter name="coordIntY" type="int"/>
+    </method>
+  </object>
+</package>
