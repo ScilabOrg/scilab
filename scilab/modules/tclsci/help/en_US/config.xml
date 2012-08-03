@@ -15,7 +15,7 @@
     <refnamediv>
         <refname>config</refname>
         <refpurpose>
-             Scilab general configuration. <emphasis role="bold">This function is obsolete.</emphasis>
+            Scilab general configuration. <emphasis role="bold">This function is obsolete.</emphasis>
         </refpurpose>
     </refnamediv>
     <refsynopsisdiv>
