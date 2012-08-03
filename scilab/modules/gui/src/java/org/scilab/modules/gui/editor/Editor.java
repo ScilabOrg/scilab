@@ -36,6 +36,7 @@ import org.scilab.modules.gui.editor.action.ActionMove;
 import org.scilab.modules.gui.editor.action.ActionPaste;
 import org.scilab.modules.gui.editor.action.ActionTextEdit;
 import org.scilab.modules.gui.ged.Inspector;
+import org.scilab.modules.gui.ged.SwapObject;
 import org.scilab.modules.localization.Messages;
 
 
@@ -116,6 +117,7 @@ public class Editor {
      * @param event MouseEvent to retrieve click positon in figure.
      */
     public void onRightMouseClick(MouseEvent event) {
+
         if (!dataEditEnabled) {
             boolean b = ScilabClipboard.getInstance().canPaste();
             paste.setEnabled(b);
@@ -136,7 +138,7 @@ public class Editor {
     }
 
     /**
-     * Check if the user clicked over a polyline.
+     * Handles left mouse clicks.
      *
      * @param event the mouse event.
      */
@@ -148,22 +150,7 @@ public class Editor {
         if (!dataEditEnabled) {
             switch (event.getClickCount()) {
                 case 1:
-                    /*try pick a legend*/
-                    selectedLegend = entityPicker.pickLegend(figureUid, lastClick);
-                    if (selectedLegend != null) {
-                        selectedType = SelectionType.LEGEND;
-                        setSelected(selectedLegend.legend);
-                    } else {
-                        /*try pick a polyline*/
-                        String picked = entityPicker.pick(figureUid, lastClick[0], lastClick[1]);
-                        if (picked != null) {
-                            selectedType = SelectionType.POLYLINE;
-                            setSelected(picked);
-                        } else {
-                            selectedType = SelectionType.SURFACE;
-                            setSelected(entityPicker.pickSurface(figureUid, lastClick));
-                        }
-                    }
+                    setSelected(tryPickAnyObject(lastClick));
                     break;
                 case 2:
                     /*there is a polyline selected? if yes start dataEditor*/
@@ -438,8 +425,8 @@ public class Editor {
         if (selected != null) {
             oriColor = CommonHandler.setColor(selected, -3);
 
-            boolean spl = selectedType == SelectionType.SURFACE ||selectedType == SelectionType.POLYLINE || selectedType == SelectionType.LEGEND;
-            boolean sp = selectedType == SelectionType.SURFACE ||selectedType == SelectionType.POLYLINE;
+            boolean spl = selectedType == SelectionType.SURFACE || selectedType == SelectionType.POLYLINE || selectedType == SelectionType.LEGEND;
+            boolean sp = selectedType == SelectionType.SURFACE || selectedType == SelectionType.POLYLINE;
             boolean p = selectedType == SelectionType.POLYLINE;
             /* Enable delete if object is surface or polyline or legend*/
             delete.setEnabled(true && spl);
@@ -530,9 +517,9 @@ public class Editor {
         currentParent = CommonHandler.getParent(currentObject);
         String oldFigure = CommonHandler.getParentFigure(currentObject);
         if (!CommonHandler.cmpColorMap(figureUid, oldFigure)) {
-            String msg=  "The colormap from source figure seems to be different from the destination figure." +
-                         "\nThis may influence the final appearence from the object." +
-                         "\nDo you want copy the color map too?";
+            String msg =  "The colormap from source figure seems to be different from the destination figure." +
+                          "\nThis may influence the final appearence from the object." +
+                          "\nDo you want copy the color map too?";
             int i = JOptionPane.showConfirmDialog(dialogComponent, msg, "Warning", JOptionPane.YES_NO_OPTION);
 
             if (i == JOptionPane.YES_OPTION) {
@@ -699,7 +686,27 @@ public class Editor {
     * Starts the GED with the property of the Figure.
     */
     public void onClickGED() {
-        Inspector.getInspector("Figure" , figureUid);
+
+        String picked = tryPickAnyObject(lastClick);
+        if (picked != null) {
+            setSelected(picked);
+        }
+        if (getSelected() != null) {
+            switch (selectedType) {
+                case LEGEND:
+                    /*not implemented yet*/
+                    break;
+                case POLYLINE:
+                    Inspector.getInspector("curve" , selected, 0, 0);
+                    break;
+                case SURFACE:
+                    /*not implemented yet*/
+                    break;
+            }
+        } else {
+            Inspector.getInspector("axes or figure", figureUid, lastClick[0], lastClick[1]);
+        }
+
     }
 
     /**
@@ -714,5 +721,34 @@ public class Editor {
     */
     public void onClickRedo() {
         editorHistory.redo();
+    }
+
+    /**
+     * Test if the mouse position (pos)
+     * is over a polyline, legend or plot3d
+     * and return the selected object uid or null.
+     * @param pos Vector with position (x, y).
+     * @return The picked object uid or null otherwise.
+     */
+    private String tryPickAnyObject(Integer[] pos) {
+        /*try pick a legend*/
+        selectedLegend = entityPicker.pickLegend(figureUid, pos);
+        if (selectedLegend != null) {
+            selectedType = SelectionType.LEGEND;
+            return selectedLegend.legend;
+        } else {
+            /*try pick a polyline*/
+            String picked = entityPicker.pick(figureUid, pos[0], pos[1]);
+            if (picked != null) {
+                selectedType = SelectionType.POLYLINE;
+                return picked;
+            } else {
+                picked = entityPicker.pickSurface(figureUid, pos);
+                if (picked != null) {
+                    selectedType = SelectionType.SURFACE;
+                }
+                return picked;
+            }
+        }
     }
 }
