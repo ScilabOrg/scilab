@@ -16,6 +16,8 @@ Bug Fixes
 
 * Bug #11606 fixed - exit() was too slow in nw mode when driver("png") was set.
 
+* Bug #11618 fixed - If A is a complex sparse matrix, A(:) returned wrong values.
+
 
 
 
