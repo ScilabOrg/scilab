@@ -33,6 +33,12 @@ Bug Fixes
 * Bug #11618 fixed - A(:) returned wrong values when A was a complex sparse matrix.
 
 
+Compilation
+===========
+
+* Switch to Scirenderer 0.5.6.
+
+
 
 
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
