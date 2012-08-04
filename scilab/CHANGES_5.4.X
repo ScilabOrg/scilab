@@ -8,6 +8,12 @@ Obsolete functions
   Please use 'preferences' instead.
 
 
+Documentation
+=============
+
+* Bug #11641 fixed - Parsing of the CHAPTER files was too strict.
+
+
 Bug Fixes
 =========
 
