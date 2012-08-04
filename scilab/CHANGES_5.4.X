@@ -18,6 +18,12 @@ Documentation
     - Special functions. See bug #11643.
 
 
+Compilation
+===========
+
+* Switch to Scirenderer 0.5.6.
+
+
 Bug Fixes
 =========
 
