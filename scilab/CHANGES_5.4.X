@@ -17,6 +17,12 @@ Documentation
 * Bug #11654 fixed - Improve the rendering of the title of GA.
 
 
+Localization
+============
+
+* Bug #11647 fixed - The phrase "The system cannot find the file specified." in rmdir was not localized.
+
+
 Bug Fixes
 =========
 
