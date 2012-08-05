@@ -16,6 +16,8 @@ Documentation
 
 * Bug #11654 fixed - Improve the rendering of the title of GA.
 
+* Bug #11655 fixed - A help chapter was empty.
+
 
 Localization
 ============
