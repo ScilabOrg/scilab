@@ -12,6 +12,8 @@ Obsolete functions
 Documentation
 =============
 
+* Create a dedicated category for libraries functions (See bug #11642)
+
 * Bug #11641 fixed - Parsing of the CHAPTER files was too strict.
 
 * Bug #11654 fixed - Improve the rendering of the title of GA.
