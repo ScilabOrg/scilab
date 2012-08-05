@@ -1,6 +1,7 @@
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
 
+
 Obsolete functions
 ==================
 
@@ -12,6 +13,8 @@ Documentation
 =============
 
 * Bug #11641 fixed - Parsing of the CHAPTER files was too strict.
+
+* Bug #11654 fixed - Improve the rendering of the title of GA.
 
 
 Bug Fixes
