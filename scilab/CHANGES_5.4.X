@@ -51,6 +51,8 @@ Bug Fixes
 
 * Bug #11618 fixed - A(:) returned wrong values when A was a complex sparse matrix.
 
+* bug #11640 fixed - Plug back the same behavior as 5.3.3 when STDIN is closed.
+
 
 Compilation
 ===========
