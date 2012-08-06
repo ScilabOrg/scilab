@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Revision-Date: 2012-08-02 12:34+0100\n"
+"Revision-Date: 2012-08-06 10:19+0100\n"
 
 # File: sci_gateway/c/gw_gui.c, line: 73
 #, c-format
@@ -96,6 +96,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 218
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 254
 # File: sci_gateway/cpp/sci_usecanvas.cpp, line: 68
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 100
 #, c-format
 msgid "%s: No more memory.\n"
 msgstr ""
@@ -232,6 +233,7 @@ msgstr ""
 # File: sci_gateway/c/sci_uigetfont.c, line: 93
 # File: sci_gateway/c/sci_uigetfont.c, line: 115
 # File: sci_gateway/cpp/sci_usecanvas.cpp, line: 50
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 76
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A boolean expected.\n"
 msgstr ""
@@ -241,6 +243,7 @@ msgstr ""
 # File: sci_gateway/c/sci_uigetfont.c, line: 101
 # File: sci_gateway/c/sci_uigetfont.c, line: 123
 # File: sci_gateway/cpp/sci_usecanvas.cpp, line: 42
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 70
 #, c-format
 msgid "%s: Wrong type for input argument #%d: A boolean expected.\n"
 msgstr ""
@@ -576,6 +579,7 @@ msgstr ""
 # File: sci_gateway/cpp/sci_uiputfile.cpp, line: 187
 # File: sci_gateway/cpp/sci_usecanvas.cpp, line: 60
 # File: sci_gateway/cpp/sci_usecanvas.cpp, line: 78
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 93
 #, c-format
 msgid ""
 "%s: A Java exception arisen:\n"
@@ -711,6 +715,18 @@ msgstr ""
 # File: sci_gateway/cpp/sci_uigetfile.cpp, line: 224
 #, c-format
 msgid "%s: Wrong size for input argument #%d: A boolean matrix expected.\n"
+msgstr ""
+
+#
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 46
+#, c-format
+msgid "%s: Wrong type for input argument #%d: A integer expected.\n"
+msgstr ""
+
+#
+# File: sci_gateway/cpp/sci_useeditor.cpp, line: 54
+#, c-format
+msgid "%s: Wrong size for input argument #%d: A integer expected.\n"
 msgstr ""
 
 #
@@ -1189,6 +1205,7 @@ msgstr ""
 #
 # File: scilab_fake_localization_file.c, line: 104
 # File: src/java/org/scilab/modules/gui/bridge/console/SwingScilabConsole.java, line: 88
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 259
 msgid "Cut"
 msgstr ""
 
@@ -1196,12 +1213,14 @@ msgstr ""
 # File: scilab_fake_localization_file.c, line: 105
 # File: src/java/org/scilab/modules/gui/bridge/console/SwingScilabConsole.java, line: 95
 # File: src/java/org/scilab/modules/gui/bridge/helpbrowser/SwingScilabHelpBrowserViewer.java, line: 593
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 257
 msgid "Copy"
 msgstr ""
 
 #
 # File: scilab_fake_localization_file.c, line: 106
 # File: src/java/org/scilab/modules/gui/bridge/console/SwingScilabConsole.java, line: 102
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 261
 msgid "Paste"
 msgstr ""
 
@@ -1776,23 +1795,24 @@ msgid "Wrong value for '%s' property: '%s', '%s', or '%s' expected.\n"
 msgstr ""
 
 #
-# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2486
+# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2475
 msgid "Console Font..."
 msgstr ""
 
 #
-# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2505
+# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2494
 msgid "Console Background..."
 msgstr ""
 
 #
-# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2639
+# File: src/java/org/scilab/modules/gui/bridge/CallScilabBridge.java, line: 2628
 msgid "No print service found."
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 73
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 153
+#, c-format
 msgid ""
 "WARNING: Due to your configuration limitations, Scilab switched in a mode "
 "where mixing uicontrols and graphics is not available. Type %s for more "
@@ -1803,6 +1823,7 @@ msgstr ""
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 74
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 154
 # File: src/java/org/scilab/modules/gui/bridge/canvas/SwingScilabCanvasImpl.java, line: 164
+#, c-format
 msgid "In some cases, %s fixes the issue"
 msgstr ""
 
@@ -2077,6 +2098,578 @@ msgid "Tree Overview"
 msgstr ""
 
 #
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 147
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 279
+msgid "Insert"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 148
+msgid "Insert a new point here"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 149
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 281
+msgid "Remove"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 150
+msgid "Remove this point"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 151
+# File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 54
+msgid "Exit"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/DataEditor.java, line: 152
+msgid "Leave data editor mode"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 254
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 110
+msgid "Label"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 255
+msgid "Legend"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 258
+msgid "Copy selected curve."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 260
+msgid "Cut selected curve."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 262
+msgid "Paste copied curve to this figure."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 263
+msgid "Delete"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 264
+msgid "Delete selected curve."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 265
+msgid "Clear"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 266
+msgid "Clear figure."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 267
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 27
+msgid "Hide"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 268
+msgid "Hide selected curve."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 269
+msgid "Unhide all"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 270
+msgid "Unhide all curves."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 271
+msgid "Copy to Clipboard"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 272
+msgid "Copy figure to system clipboard."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 273
+msgid "Label X"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 274
+msgid "Insert a label in X axis"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 275
+msgid "Label Y"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 276
+msgid "Insert a label in Y axis"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 277
+msgid "Label Z"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 278
+msgid "Insert a label in Z axis"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 280
+msgid "Insert a legend to current selected item"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 282
+msgid "Remove a legend of current selected item"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 283
+msgid "Open Quick Editor"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 284
+msgid "Initialize the graphics editor"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 285
+msgid "Edit curve data"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 286
+msgid "Enables curve data modify"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 287
+msgid "Undo"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 288
+msgid "Undo last action"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 289
+msgid "Redo"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 290
+msgid "Redo last undo action"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 621
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 647
+msgid "Enter the text"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 622
+msgid "Set label text"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/editor/Editor.java, line: 648
+msgid "Set legend text"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 23
+# File: src/java/org/scilab/modules/gui/utils/ScilabAboutBox.java, line: 161
+msgid "Close"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 24
+msgid "File"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 26
+msgid "Quick GED"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 28
+msgid "Show"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 29
+msgid "Axes"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 30
+msgid "Curve"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 31
+msgid "Figure"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 34
+msgid "Visible"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 35
+msgid "Base Properties"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 36
+msgid "On"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 37
+msgid "Off"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 40
+msgid "Choose Background Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 41
+msgid "Choose Foreground Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 42
+msgid "Choose Font Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 45
+msgid "Style/Appearance"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 46
+msgid "Background Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 47
+msgid "Foreground Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 48
+msgid "Line Style"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 49
+msgid "solid"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 50
+msgid "dash"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 51
+msgid "dash dot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 52
+msgid "longdash dot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 53
+msgid "bigdash dot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 54
+msgid "bigdash longdash"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 55
+msgid "dot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 56
+msgid "double dot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 57
+msgid "Polyline Style"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 58
+msgid "interpolated"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 59
+msgid "staircase"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 60
+msgid "barplot"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 61
+msgid "bar"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 62
+msgid "arrowed"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 63
+msgid "filled"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 65
+msgid "Pixmap"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 66
+msgid "Pixel Drawing Mode"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 67
+msgid "Rotation Style"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 68
+msgid "unary"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 69
+msgid "multiple"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 71
+msgid "Font Color"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 72
+msgid "Font Style"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 75
+msgid "Data"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 76
+msgid "Figure ID"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 77
+msgid "Figure Name"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 78
+msgid "Units"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 81
+msgid "Number of current figure."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 82
+msgid "Enter a figure name."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 85
+msgid "Control"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 86
+msgid "Auto Resize"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 87
+msgid "X Position"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 88
+msgid "Y Position"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 89
+msgid "X Size"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 90
+msgid "Y Size"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 93
+msgid "Enter a x position."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 94
+msgid "Enter a y position."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 95
+msgid "Enter a x size."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 96
+msgid "Enter a y size."
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 99
+msgid "Axis Rulers"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 100
+msgid "Location"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 101
+msgid "bottom"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 102
+msgid "middle"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 103
+msgid "origin"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 104
+msgid "top"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 105
+msgid "left"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 106
+msgid "right"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 107
+msgid "Reverse"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 111
+msgid "Title Page"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 112
+msgid "Axis Title"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 115
+msgid "Position"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 116
+msgid "Axes Bounds"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 117
+msgid "Up"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 118
+msgid "Width"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 119
+msgid "Height"
+msgstr ""
+
+#
+# File: src/java/org/scilab/modules/gui/ged/MessagesGED.java, line: 120
+msgid "Margins"
+msgstr ""
+
+#
 # File: src/java/org/scilab/modules/gui/messagebox/ScilabModalDialog.java, line: 256
 # File: src/java/org/scilab/modules/gui/messagebox/ScilabModalDialog.java, line: 259
 msgid "OK"
@@ -2106,6 +2699,7 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/tabfactory/ScilabTabFactory.java, line: 40
+#, c-format
 msgid ""
 "The tab with uuid %s cannot be restored.\n"
 "Please report a bug with the previous message and in attaching the file %s."
@@ -2113,17 +2707,14 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 50
+#, c-format
 msgid "Are you sure you want to close %s ?"
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 51
+#, c-format
 msgid "Are you sure you want to close %s and %s ?"
-msgstr ""
-
-#
-# File: src/java/org/scilab/modules/gui/utils/ClosingOperationsManager.java, line: 54
-msgid "Exit"
 msgstr ""
 
 #
@@ -2209,17 +2800,13 @@ msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/SciFileFilter.java, line: 82
+#, c-format
 msgid "All %s files"
 msgstr ""
 
 #
 # File: src/java/org/scilab/modules/gui/utils/ScilabAboutBox.java, line: 67
 msgid "About Scilab..."
-msgstr ""
-
-#
-# File: src/java/org/scilab/modules/gui/utils/ScilabAboutBox.java, line: 161
-msgid "Close"
 msgstr ""
 
 #
@@ -2254,11 +2841,6 @@ msgstr ""
 #
 # File: demos/cb_uicontrol_plot3d.dem.sci, line: 67
 msgid "Control Plot3d"
-msgstr ""
-
-#
-# File: demos/cb_uicontrol_plot3d.dem.sci, line: 72
-msgid "File"
 msgstr ""
 
 #
