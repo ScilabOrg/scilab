@@ -93,6 +93,7 @@ Xcos
 * Bug #11550 fixed - Closing the scope graph while running simulation led to a
                      segfault.
 
+* Bug #11670 to 11676 fixed - Add examples in the signal processing help pages. 
 
 Preferences
 ===========
