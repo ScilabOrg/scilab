@@ -1,5 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA
+// Copyright (C) 2012 - Scilab Enterprises - Antoine ELIAS
 // 
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -7,17 +8,19 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function who_user()
+//2012/08/06 add return value with variable list.
+
+function ret = who_user()
 //get user variables
 [nams,mem]=who('get'); //get all variables
 p=predef(); //number of system variable
 st=stacksize()
 nams=nams(1:$-p+1);mem=mem(1:$-p+1);
 //modifiable system variables
-excluded=['demolist','%helps','%helps_modules','who_user'];
+excluded=['demolist','%helps','%helps_modules','home','who_user'];
 ke=grep(nams,excluded)
 nams(ke)=[];mem(ke)=[];
-
+ret = nams;
 n=size(nams,1);
 if n==0 then return,end
 
@@ -28,11 +31,10 @@ for k=1:max(m)
   if ks<>[] then nams(ks)=part(nams(ks),1:(k*10));end
 end
 
-
-
 nlc=lines(); nc=nlc(1)//window sizes
 
 txt=[]
+
 k=1
 while k<=n
   m=find(cumsum(length(nams(k:$)))<nc);

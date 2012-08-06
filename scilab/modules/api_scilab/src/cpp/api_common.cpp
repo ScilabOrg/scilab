@@ -269,12 +269,12 @@ SciErr getVarAddressFromPosition(void *_pvCtx, int _iVar, int **_piAddress)
     int iValType = 0;
 
     /* we accept a call to getVarAddressFromPosition after a create... call */
-    if (_iVar > Rhs && _iVar > Nbvars)
-    {
-        addErrorMessage(&sciErr, API_ERROR_INVALID_POSITION, _("%s: bad call to %s! (1rst argument).\n"), ((StrCtx *) _pvCtx)->pstName,
-                        "getVarAddressFromPosition");
-        return sciErr;
-    }
+    //if (_iVar > Rhs && _iVar > Nbvars)
+    //{
+    //    addErrorMessage(&sciErr, API_ERROR_INVALID_POSITION, _("%s: bad call to %s! (1rst argument).\n"), ((StrCtx *) _pvCtx)->pstName,
+    //                    "getVarAddressFromPosition");
+    //    return sciErr;
+    //}
 
     iAddr = iadr(*Lstk(Top - Rhs + _iVar));
     iValType = *istk(iAddr);

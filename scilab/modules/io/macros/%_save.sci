@@ -7,6 +7,8 @@
 // are also available at    
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
+//2012/08/06 transform macros to string to save it
+
 //called by save function, transform handle in tlist and save result
 function [] = %_save(filename, varargin)
 
@@ -16,6 +18,24 @@ function [] = %_save(filename, varargin)
         //16 : tlist
         //17 : mlist
         if or(type(var) == [15, 16, 17]) then
+            result  = %t;
+        else
+            result = %f;
+        end
+    endfunction
+
+    function result = isMacro(var)
+        //11 : sci_u_function
+        if or(type(var) == [11]) then
+            result  = %t;
+        else
+            result = %f;
+        end
+    endfunction
+
+    function result = isCompiledMacro(var)
+        //11 : sci_c_function
+        if or(type(var) == [13]) then
             result  = %t;
         else
             result = %f;
@@ -800,6 +820,16 @@ function [] = %_save(filename, varargin)
         parent=e.parent;
     end
     endfunction
+
+    function macro = extractMacro(macroPtr, macroName)
+        macroSt = fun2string(macroPtr, macroName);
+        oldMode = warning("query");
+        warning("off");
+        macro = tlist("ScilabMacro", isCompiledMacro(macroPtr), macroSt);
+        warning(oldMode);
+    endfunction
+
+    //main
     varList = list();
     for i = 1:size(varargin)
 
@@ -819,6 +849,11 @@ function [] = %_save(filename, varargin)
             value = extractMatrixHandle(temp);
             //update 
             execstr(varargin(i) + " = value");
+        elseif isMacro(temp) | isCompiledMacro(temp) then
+            //convert macro to tlist
+            value = extractMacro(temp, varargin(i));
+            //update 
+            execstr(varargin(i) + " = value");
         end
     end
 
@@ -826,3 +861,4 @@ function [] = %_save(filename, varargin)
 
 endfunction
 
+//            fun2string(temp, varargin(i));
