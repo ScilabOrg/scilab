@@ -302,6 +302,9 @@ Bug Fixes
 
 * Bug #11409 fixed - xpoly crashed on polyline allocation.
 
+* Bug #11411 fixed - save function used unsigned char to store length of string.
+                     Now it is an integer.
+
 * Bug #11420 fixed - When using the event_handler of the default figure, events were not trapped.
 
 * Bug #11422 fixed - datatips did not work when the figure contained uicontrols.
