@@ -9,24 +9,17 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
 package org.scilab.modules.gui.ged;
 
-import org.scilab.modules.gui.editor.Editor;
-import org.scilab.modules.gui.editor.EditorManager;
-
 /**
- * Manages the action of the buttons on the toolbar and menubar.
  *
  * @author Marcos CARDINOT <mcardinot@gmail.com>
  */
-public class StartGED {
-
-    /**
-    * Initializes the lightGED.
-    */
-    public static void quickGED(String uid) {
-        Editor instanceEditor = EditorManager.getFromUid(uid);
-        instanceEditor.onClickGED();
-    }
+public enum SelectionEnum {
+    POLYLINE,
+    LEGEND,
+    SURFACE,
+    FIGURE,
+    DATATIP,
+    AXES_OR_FIGURE;
 }
