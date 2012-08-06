@@ -72,23 +72,54 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
     SciErr sciErr;
 
-    CheckInputArgumentAtLeast(pvApiCtx, 2);
+    CheckInputArgumentAtLeast(pvApiCtx, 1);
     CheckLhs(0, 1);
 
 #ifndef _MSC_VER
     forceJHDF5load();
 #endif
 
-    pstNameList = (char**)MALLOC(sizeof(char*) * Rhs);
-    iNbVar = extractVarNameList(1, Rhs, pstNameList);
-    if (iNbVar == 0)
+    if(Rhs == 1)
     {
-        FREE(pstNameList);
-        return 1;
+        int indexVar = 1;
+        int iVar = Bot;
+        int iVarMax = C2F(vstk).bbot - 1;
+        iNbVar = ((iVarMax + 1) - iVar) + 1;
+        sciprint("min %d max %d total : %d\n", iVar, iVarMax, iNbVar);
+        pstNameList = (char**)MALLOC(sizeof(char*) * iNbVar);
+        //get filename in first argument
+        extractVarNameList(1, Rhs, pstNameList);
+
+        while(iVar <= iVarMax)
+        {
+
+            char pstName[50];
+            sciErr = getVarNameFromPosition(pvApiCtx, iVar, pstName);
+            if (sciErr.iErr)
+            {
+                printError(&sciErr, 0);
+                Scierror(999, _("%s: Unable to get stack variable.\n"), fname);
+                return 1;
+            }
+
+            sciprint("var %d : %s\n", iVar, pstName);
+            pstNameList[indexVar++] = strdup(pstName);
+            iVar++;
+        }
+    }
+    else
+    {
+        pstNameList = (char**)MALLOC(sizeof(char*) * Rhs);
+        iNbVar = extractVarNameList(1, Rhs, pstNameList);
+        if (iNbVar == 0)
+        {
+            FREE(pstNameList);
+            return 1;
+        }
     }
 
     piAddrList = (int**)MALLOC(sizeof(int*) * (iNbVar));
-    for (int i = 1 ; i < Rhs ; i++)
+    for (int i = 1 ; i < iNbVar ; i++)
     {
         if (strcmp(pstNameList[i], "-append") == 0)
         {
@@ -161,7 +192,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
             //import all data
             for (int i = 0 ; i < iNbItem ; i++)
             {
-                for (int j = 1 ; j < Rhs ; j++)
+                for (int j = 1 ; j < iNbVar ; j++)
                 {
                     if (strcmp(pstNameList[i], "-append") == 0)
                     {
@@ -182,7 +213,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
     }
 
     // export data
-    for (int i = 1 ; i < Rhs ; i++)
+    for (int i = 1 ; i < iNbVar ; i++)
     {
         if (strcmp(pstNameList[i], "-append") == 0)
         {
@@ -241,7 +272,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
 
     //free memory
-    for (int i = 0 ; i < Rhs ; i++)
+    for (int i = 0 ; i < iNbVar ; i++)
     {
         FREE(pstNameList[i]);
     }
