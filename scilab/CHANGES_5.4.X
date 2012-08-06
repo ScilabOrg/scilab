@@ -8,6 +8,13 @@ Obsolete functions
   Please use 'preferences' instead.
 
 
+Documentation
+=============
+
+* Categories have been created for the following modules help pages:
+   - Linear algebra. See bug #11565
+
+
 Bug Fixes
 =========
 
