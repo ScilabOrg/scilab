@@ -312,6 +312,8 @@ Bug Fixes
 * Bug #11423 fixed - When the variable "a" was selected, all the a characters were
                      highlighted rather than only the "a" variable.
 
+* Bug #11426 fixed - Save function showed warning message in case of "save environment".
+
 * Bug #11434 fixed - After having set the "auto_resize" default figure property
                      to "off", plot was no longer possible.
 
