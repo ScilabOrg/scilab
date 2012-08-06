@@ -28,9 +28,11 @@ Compilation
 
 * Switch to Scirenderer 0.5.6.
 
-
 Bug Fixes
 =========
+
+* Bug #4337 fixed - who_user did not returned user's variable names, they were
+                    only displayed.
 
 * Bug #7674 fixed - In all demos Optimization and Simulation, the source
                     code was displayed by default.
