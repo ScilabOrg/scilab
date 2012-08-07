@@ -32,13 +32,33 @@ void MPIErrHandler(MPI_Comm * comm, int *errorcode, ...)
     printf("Erreur mpi : %s\n", buffer);
 }
 
+BOOL mpi_initialized = FALSE;
+
+static void mpi_init_internal()
+{
+    int i = 0;
+    if (mpi_initialized == TRUE)
+    {
+        return;
+    }
+
+    request = (MPI_Request *)calloc(REQUEST_MAXSIZE, sizeof(MPI_Request));
+    for (i = 0; i < REQUEST_MAXSIZE; i++)
+    {
+        request[i++] = MPI_REQUEST_NULL;
+    }
+
+    mpi_initialized = TRUE;
+
+}
+
 int sci_mpi_init(char *fname, unsigned long fname_len)
 {
     int flag;
 
     CheckRhs(0, 0);
     CheckLhs(1, 1);
-
+    mpi_init_internal();
     MPI_Initialized(&flag);
     if (!flag)
     {

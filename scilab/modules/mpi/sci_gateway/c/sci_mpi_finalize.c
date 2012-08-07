@@ -16,6 +16,11 @@
  * SCILAB function : mpi_finalize, fin = 2
  ******************************************/
 
+static void mpi_finalize_internal()
+{
+    Free(request);
+}
+
 int sci_mpi_finalize(char *fname, unsigned long fname_len)
 {
     int iRet;
