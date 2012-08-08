@@ -478,8 +478,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "javasci-JAVA-tests", "modul
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuildJavadoc", "modules\helptools\src\javadoc\javadoc.vcxproj", "{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "parallel", "modules\parallel\src\c\parallel.vcxproj", "{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ant-all", "Visual-Studio-settings\ant-all\ant-all.vcxproj", "{A9A2020D-5541-44F2-B080-DF3C9426C409}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DD8A0506-8D31-4CF8-856A-C10ECE9C13A4} = {DD8A0506-8D31-4CF8-856A-C10ECE9C13A4}
