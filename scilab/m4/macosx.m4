@@ -3,7 +3,7 @@
 #
 AC_DEFUN([AC_GET_MACOSX_VERSION],[
     AC_MSG_CHECKING([Mac OS X Version])
-    [macosx_version=`system_profiler SPSoftwareDataType 2>&1 | grep 'System Version' | sed -e 's/.*\([0-9][0-9]\.[0-9]*\).*/\1/'`]
+    [macosx_version=`defaults read loginwindow SystemVersionStampAsString`]
     echo $macosx_version
     case "$macosx_version" in
          "10.8")

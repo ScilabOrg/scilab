@@ -180,6 +180,24 @@ case "$host" in
         ;;
 esac
 
+AC_ARG_WITH(min_macosx_version,
+AC_HELP_STRING([--with-min-macosx-version],[Force compilers to generate binaries compatible with MacOSX minimal version.]))
+case "$host" in
+    *darwin*)
+    if test -n "$with_min_macosx_version"; then
+       MIN_MACOSX_VERSION=$with_min_macosx_version
+       #Append to the default flags on Apple machines
+       ARCH_CFLAGS="-mmacosx-version-min=$MIN_MACOSX_VERSION"
+       ARCH_CXXFLAGS="-mmacosx-version-min=$MIN_MACOSX_VERSION"
+       ARCH_FFLAGS="-mmacosx-version-min=$MIN_MACOSX_VERSION"
+       ARCH_LDFLAGS="-mmacosx-version-min=$MIN_MACOSX_VERSION"
+       # We need this to be passed to all linker commands
+       LDFLAGS="$LDFLAGS -mmacosx-version-min=$MIN_MACOSX_VERSION"
+    fi
+;;
+esac
+
+
 #####################################################
 ## Look for pkg-config
 #####################################################
@@ -595,12 +613,11 @@ case "$CC" in
     ;;
 
   *-*-darwin*)
-    ARCH_CFLAGS="-no_compact_linkedit -mmacosx-version-min=10.5"
-    ARCH_CXXFLAGS="-no_compact_linkedit -mmacosx-version-min=10.5"
-    ARCH_FFLAGS="-mmacosx-version-min=10.5"
-    ARCH_LDFLAGS="-no_compact_linkedit -mmacosx-version-min=10.5"
+    ARCH_CFLAGS="$ARCH_CFLAGS -no_compact_linkedit"
+    ARCH_CXXFLAGS="$ARCH_CXXFLAGS -no_compact_linkedit"
+    ARCH_LDFLAGS="$ARCH_LDFLAGS -no_compact_linkedit"
     # We need this to be passed to all linker commands
-    LDFLAGS="$LDFLAGS -no_compact_linkedit -mmacosx-version-min=10.5"
+    LDFLAGS="$LDFLAGS -no_compact_linkedit"
 
     case "$F77" in
          gfortran-*|gfortran)
