@@ -1,5 +1,6 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
+c Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
 c 
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
@@ -71,6 +72,72 @@ c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
             endif
          endif
 c
+c        Bug #11612: index of the max value of a negative sparse is wrong
+         if (tv.eq.0.0d0) then
+            if (lhs.eq.2) then
+                im=0
+c               Data recovery of line items
+c               If a line is less than n1(columns number of sparse matrix)
+c               she contains one or several zeros
+c               Our aim is to recover the first zero
+                do 66 i=0,m1-1
+                    jm=istk(irc1+i)
+                    if (jm.ne.n1) then
+                        do 67 j=1,jm
+c                           With the columns position, look for what column
+c                           which contains zero
+                            poscol=istk(irc1+m1+n1*i+(j-1))
+                            if (poscol.ne.j) then
+                                im=j
+                                goto 68
+                            endif
+67                      continue
+                        if(im.eq.0) then
+                            im=n1
+                            goto 68 
+                        endif 
+                    endif
+66              continue
+            endif
+
+68          continue
+            istk(il1)=1
+            istk(il1+1)=1
+            istk(il1+2)=1
+            istk(il1+3)=0
+            l=sadr(il1+4)
+            stk(l)=tv
+            lstk(top+1)=l+1
+            if(lhs.eq.2) then
+                top=top+1
+                il2=iadr(lstk(top))
+                err=lstk(top)+4-lstk(bot)
+                if(err.gt.0) then
+                    call error(17)
+                    return
+                endif        
+                istk(il2)=1
+                l=sadr(il2+4)
+                istk(il2+3)=0                        
+                istk(il2+1)=1
+c               if the first argument is vector or matrix
+c               if it is vector, it returns unique index
+c               if it is matrix, it returns the two values (row & column)
+                if (n1.eq.1 .or. m1.eq.1) then
+                    istk(il2+2)=1
+                    stk(l)=im+i
+                    lstk(top+1)=l+1
+                else
+                    istk(il2+2)=2
+                    stk(l)=i+1
+                    stk(l+1)=im
+                    lstk(top+1)=l+2 
+                endif                       
+            endif
+            return
+         endif
+c        End Bug #11612
+
          if(lhs.eq.2) then
             if (nel1.ne.0) then
                jm=istk(irc1+m1+im)
@@ -104,9 +171,19 @@ c
             istk(il2+3)=0
             if (nel1.ne.0) then
                istk(il2+1)=1
-               istk(il2+2)=1
-               stk(l)=im+(jm-1)*m1
-               lstk(top+1)=l+1
+c               if the first argument is vector or matrix
+c               if it is vector, it returns unique index
+c               if it is matrix, it returns the two values (row & column)
+               if (n1.eq.1 .or. m1.eq.1) then
+                    istk(il2+2)=1
+                    stk(l)=im+(jm-1)*m1
+                    lstk(top+1)=l+1
+                else
+                    istk(il2+2)=2
+                    stk(l)=im
+                    stk(l+1)=jm
+                    lstk(top+1)=l+2 
+                endif             
             else
                istk(il2+1)=0
                istk(il2+2)=0
@@ -198,3 +275,4 @@ c
       return
       end
 c			======================================
+
