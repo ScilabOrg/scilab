@@ -126,6 +126,9 @@ tcllib
 _tmp_project.h
 scilab-bin
 scilab-cli-bin
+Scilex.exe
+e1cfunc
+e1cp1f
 tclmajor
 tclminor
 .libs
