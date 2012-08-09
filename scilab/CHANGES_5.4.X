@@ -6,6 +6,8 @@ Xcos
 
 * Bug #10781 fixed - DFlipflop incorrectly reported problem in port size or type
 
+* Bug #11556 fixed - Get rid of jhdf / java hdf.
+
 
 Obsolete functions
 ==================
