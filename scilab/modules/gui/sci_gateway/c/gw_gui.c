@@ -64,7 +64,8 @@ static gw_generic_table Tab[]=
 	{sci_useeditor,"useeditor"},
         {sci_fire_closing_finished,"fire_closing_finished"},
 	{sci_openged,"openged"},
-        {sci_datatipcreate,"datatipCreate"}
+        {sci_datatipcreate,"datatipCreate"},
+        {sci_datatipremove,"datatipRemove"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_gui(void)
