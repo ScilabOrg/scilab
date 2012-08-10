@@ -26,7 +26,11 @@ Documentation
 Compilation
 ===========
 
+* Java HDF removed is no longer necessary.
+
 * Switch to Scirenderer 0.5.6.
+
+* Switch to JOGL 2.0 rc9
 
 
 Bug Fixes
