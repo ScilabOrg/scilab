@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include "MALLOC.h"
 #include "sci_types.h"
+#include "stack3.h"
 #include "h5_attributeConstants.h"
 #include "h5_readDataFromFile.h"
 
@@ -44,7 +45,7 @@ static herr_t op_func(hid_t loc_id, const char *name, void *operator_data)
 {
     H5G_stat_t statbuf;
     herr_t status = 0;
-    int *pDataSetId = operator_data;
+    int *pDataSetId = (int*)operator_data;
 
     /*
      * Get type of the object and return only datasetId
@@ -233,15 +234,53 @@ int getSODFormatAttribute(int _iFile)
     return readIntAttribute(_iFile, g_SCILAB_CLASS_SOD_VERSION);
 }
 
-int getDatasetDimension(int _iDatasetId, int *_piRows, int *_piCols)
+int getDatasetInfo(int _iDatasetId, int* _iComplex, int* _iDims, int* _piDims)
 {
-    int iRet = 0;
-    int iDummy = 0;
+    hid_t data_type;
+    H5T_class_t data_class;
+    hid_t space = H5Dget_space(_iDatasetId);
+    if(space < 0)
+    {
+        return 1;
+    }
 
-    *_piRows = readIntAttribute(_iDatasetId, g_SCILAB_CLASS_ROWS);
-    *_piCols = readIntAttribute(_iDatasetId, g_SCILAB_CLASS_COLS);
+    data_type = H5Dget_type(_iDatasetId);
+    data_class = H5Tget_class(data_type);
+    if(data_class == H5T_COMPOUND) 
+    {
+        *_iComplex = 1;
+    }
+    else
+    {
+        *_iComplex = 0;
+    }
 
-    return iRet;
+    *_iDims = H5Sget_simple_extent_ndims(space);
+    if(*_iDims < 0)
+    {
+        H5Sclose(space);
+        return 1;
+    }
+
+    if(_piDims != 0)
+    {
+        int i = 0;
+        hsize_t* dims = (hsize_t*)MALLOC(sizeof(hsize_t) * *_iDims);
+        if(H5Sget_simple_extent_dims(space, dims, NULL) < 0)
+        {
+            return 1;
+        }
+
+        //reverse dimensions
+        for(i = 0 ; i < *_iDims ; i++)
+        {//reverse dimensions to improve rendering in external tools
+            _piDims[i] = (int)dims[*_iDims - 1 - i];
+        }
+
+    }
+
+    H5Sclose(space);
+    return 0;
 }
 
 int getSparseDimension(int _iDatasetId, int *_piRows, int *_piCols, int *_piNbItem)
@@ -405,13 +444,11 @@ int getDatasetDims(int _iDatasetId, int *_piRows, int *_piCols)
     return 0;
 }
 
-int readDouble(int _iDatasetId, int _iRows, int _iCols, double *_pdblData)
+int readDoubleMatrix(int _iDatasetId, double *_pdblData)
 {
     herr_t status;
 
-    /*
-     * Read the data.
-     */
+    //Read the data.
     status = H5Dread(_iDatasetId, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, _pdblData);
     if (status < 0)
     {
@@ -427,64 +464,45 @@ int readDouble(int _iDatasetId, int _iRows, int _iCols, double *_pdblData)
     return 0;
 }
 
-int readDoubleMatrix(int _iDatasetId, int _iRows, int _iCols, double *_pdblData)
+int readDoubleComplexMatrix(int _iDatasetId, double *_pdblReal, double *_pdblImg)
 {
+    hid_t compoundId;
     herr_t status;
+    int iDims = 0;
+    int* piDims = NULL;
+    int iComplex = 0;
+    int iSize = 1;
+    doublecomplex* pData = NULL;
+    int i = 0;
 
-    if (_iRows != 0 && _iCols != 0)
+    /*define compound dataset*/
+    compoundId = H5Tcreate(H5T_COMPOUND, sizeof(doublecomplex));
+    H5Tinsert(compoundId, "real", HOFFSET(doublecomplex, r), H5T_NATIVE_DOUBLE);
+    H5Tinsert(compoundId, "imag", HOFFSET(doublecomplex, i), H5T_NATIVE_DOUBLE);
+
+    //get dimension from dataset
+    getDatasetInfo(_iDatasetId, &iComplex, &iDims, NULL);
+    piDims = (int*)MALLOC(sizeof(int) * iDims);
+    getDatasetInfo(_iDatasetId, &iComplex, &iDims, piDims);
+
+    for(i = 0 ; i < iDims ; i++)
     {
-        hid_t obj;
-        hobj_ref_t Ref;
-
-        //Read the data.
-        status = H5Dread(_iDatasetId, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, &Ref);
-        if (status < 0)
-        {
-            return -1;
-        }
-
-        //Open the referenced object, get its name and type.
-        obj = H5Rdereference(_iDatasetId, H5R_OBJECT, &Ref);
-        readDouble(obj, _iRows, _iCols, _pdblData);
+        iSize *= piDims[i];
     }
 
-    status = H5Dclose(_iDatasetId);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    return 0;
-}
-
-int readDoubleComplexMatrix(int _iDatasetId, int _iRows, int _iCols, double *_pdblReal, double *_pdblImg)
-{
-    hid_t obj;
-    herr_t status;
-    hobj_ref_t pRef[2] = {0};
-
+    FREE(piDims);
+    //alloc temp array
+    pData = (doublecomplex*)MALLOC(sizeof(doublecomplex) * iSize);
     //Read the data.
-    status = H5Dread(_iDatasetId, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, pRef);
+    status = H5Dread(_iDatasetId, compoundId, H5S_ALL, H5S_ALL, H5P_DEFAULT, pData);
     if (status < 0)
     {
         return -1;
     }
 
-    //Open the referenced object, get its name and type.
-    obj = H5Rdereference(_iDatasetId, H5R_OBJECT, &pRef[0]);
-    status = readDouble(obj, _iRows, _iCols, _pdblReal);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    obj = H5Rdereference(_iDatasetId, H5R_OBJECT, &pRef[1]);
-    status = readDouble(obj, _iRows, _iCols, _pdblImg);
-    if (status < 0)
-    {
-        return -1;
-    }
-
+    
+    vGetPointerFromDoubleComplex(pData, iSize, _pdblReal, _pdblImg);
+    FREE(pData);
     status = H5Dclose(_iDatasetId);
     if (status < 0)
     {
@@ -762,7 +780,7 @@ static int readComplexPoly(int _iDatasetId, int *_piNbCoef, double **_pdblReal, 
     *_pdblImg = (double *)MALLOC(*_piNbCoef * sizeof(double));
 
     //Read the data and return result.
-    return readDoubleComplexMatrix(_iDatasetId, 1, *_piNbCoef, *_pdblReal, *_pdblImg);
+    return readDoubleComplexMatrix(_iDatasetId, *_pdblReal, *_pdblImg);
 }
 
 static int readPoly(int _iDatasetId, int *_piNbCoef, double **_pdblData)
@@ -777,7 +795,7 @@ static int readPoly(int _iDatasetId, int *_piNbCoef, double **_pdblData)
     *_pdblData = (double *)MALLOC(*_piNbCoef * sizeof(double));
 
     //Read the data and return result.
-    return readDoubleMatrix(_iDatasetId, 1, *_piNbCoef, *_pdblData);
+    return readDoubleMatrix(_iDatasetId, *_pdblData);
 }
 
 int readCommonPolyMatrix(int _iDatasetId, char *_pstVarname, int _iComplex, int _iRows, int _iCols, int *_piNbCoef, double **_pdblReal,
@@ -1059,11 +1077,11 @@ int readCommonSparseComplexMatrix(int _iDatasetId, int _iComplex, int _iRows, in
 
     if (_iComplex)
     {
-        status = readDoubleComplexMatrix(obj, 1, _iNbItem, _pdblReal, _pdblImg);
+        status = readDoubleComplexMatrix(obj, _pdblReal, _pdblImg);
     }
     else
     {
-        status = readDoubleMatrix(obj, 1, _iNbItem, _pdblReal);
+        status = readDoubleMatrix(obj, _pdblReal);
     }
 
     if (status < 0)

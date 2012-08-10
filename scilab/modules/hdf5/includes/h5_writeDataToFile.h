@@ -22,8 +22,8 @@ HDF5_SCILAB_IMPEXP char* createGroupName(char* _pstGroupName);
 HDF5_SCILAB_IMPEXP char* createPathName(char* _pstGroupName, int _iIndex);
 
 
-HDF5_SCILAB_IMPEXP int writeDoubleMatrix(int _iFile, char* _pstDatasetName, int _iRows, int _iCols, double *_pdblData);
-HDF5_SCILAB_IMPEXP int writeDoubleComplexMatrix(int _iFile, char* _pstDatasetName, int _iRows, int _iCols, double *_pdblReal, double *_pdblImg);
+HDF5_SCILAB_IMPEXP int writeDoubleMatrix(int _iFile, char* _pstDatasetName, int _iDims, int* _piDims, double *_pdblData);
+HDF5_SCILAB_IMPEXP int writeDoubleComplexMatrix(int _iFile, char* _pstDatasetName, int _iDims, int* _piDims, double *_pdblReal, double *_pdblImg);
 
 HDF5_SCILAB_IMPEXP int writeStringMatrix(int _iFile, char* _pstDatasetName, int _iRows, int _iCols, char **_pstData);
 

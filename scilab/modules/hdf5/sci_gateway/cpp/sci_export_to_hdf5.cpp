@@ -452,10 +452,9 @@ static bool export_list(int _iH5File, int *_piVar, char* _pstName, int _iVarType
 
 static bool export_double(int _iH5File, int *_piVar, char* _pstName)
 {
-    int iRet					= 0;
-    int iComplex			= isVarComplex(pvApiCtx, _piVar);
-    int iRows					= 0;
-    int iCols					= 0;
+    int iRet            = 0;
+    int iComplex        = isVarComplex(pvApiCtx, _piVar);
+    int piDims[2];
     int iType = 0;
     double *pdblReal	= NULL;
     double *pdblImg		= NULL;
@@ -474,25 +473,25 @@ static bool export_double(int _iH5File, int *_piVar, char* _pstName)
 
     if (iComplex)
     {
-        sciErr = getComplexMatrixOfDouble(pvApiCtx, _piVar, &iRows, &iCols, &pdblReal, &pdblImg);
+        sciErr = getComplexMatrixOfDouble(pvApiCtx, _piVar, &piDims[0], &piDims[1], &pdblReal, &pdblImg);
         if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return false;
         }
 
-        iRet = writeDoubleComplexMatrix(_iH5File, _pstName, iRows, iCols, pdblReal, pdblImg);
+        iRet = writeDoubleComplexMatrix(_iH5File, _pstName, 2, piDims, pdblReal, pdblImg);
     }
     else
     {
-        sciErr = getMatrixOfDouble(pvApiCtx, _piVar, &iRows, &iCols, &pdblReal);
+        sciErr = getMatrixOfDouble(pvApiCtx, _piVar, &piDims[0], &piDims[1], &pdblReal);
         if (sciErr.iErr)
         {
             printError(&sciErr, 0);
             return false;
         }
 
-        iRet = writeDoubleMatrix(_iH5File, _pstName, iRows, iCols, pdblReal);
+        iRet = writeDoubleMatrix(_iH5File, _pstName, 2, piDims, pdblReal);
     }
 
     if (iRet)
@@ -501,7 +500,7 @@ static bool export_double(int _iH5File, int *_piVar, char* _pstName)
     }
 
     char pstMsg[512];
-    sprintf(pstMsg, "double (%d x %d)", iRows, iCols);
+    sprintf(pstMsg, "double (%d x %d)", piDims[0], piDims[1]);
     print_type(pstMsg);
     return true;
 }
