@@ -32,6 +32,7 @@ HDF5_SCILAB_IMPEXP int getDataSetId(int  _iFile);
 
 HDF5_SCILAB_IMPEXP int getDataSetIdFromName(int _iFile, char *_pstName);
 
+HDF5_SCILAB_IMPEXP int getDatasetInfo(int _iDatasetId, int* _iComplex, int* _iDims, int* _piDims);
 HDF5_SCILAB_IMPEXP int getDatasetDims(int _iDatasetId, int *_piRows, int *_piCols);
 HDF5_SCILAB_IMPEXP int getListDims(int _iDatasetId, int *_piItem);
 
@@ -43,8 +44,8 @@ HDF5_SCILAB_IMPEXP int getSparseDimension(int _iDatasetId, int* _piRows, int * _
 
 HDF5_SCILAB_IMPEXP int readEmptyMatrix(int _iDatasetId);
 
-HDF5_SCILAB_IMPEXP int readDoubleMatrix(int _iDatasetId, int _iRows, int _iCols, double *_pdblData);
-HDF5_SCILAB_IMPEXP int readDoubleComplexMatrix(int _iDatasetId, int _iRows, int _iCols, double *_pdblReal, double *_pdblImg);
+HDF5_SCILAB_IMPEXP int readDoubleMatrix(int _iDatasetId, double *_pdblData);
+HDF5_SCILAB_IMPEXP int readDoubleComplexMatrix(int _iDatasetId, double *_pdblReal, double *_pdblImg);
 
 HDF5_SCILAB_IMPEXP int readStringMatrix(int _iDatasetId, int _iRows, int _iCols, char **_pstData);
 

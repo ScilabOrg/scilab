@@ -28,6 +28,7 @@ extern "C"
 #include "expandPathVariable.h"
 }
 #include "forceJHDF5load.hxx"
+#include "import_from_hdf5_v1.hxx"
 
 //#define PRINT_DEBUG
 //#define TIME_DEBUG
@@ -37,18 +38,18 @@ static int iCloseList = 0;
 
 void print_tree(char *_pstMsg);
 
-static bool import_variable(int _iFile, char* _pstVarName);
-static bool import_data(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_string(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_boolean(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_integer(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_sparse(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_boolean_sparse(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_poly(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_list(int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_void(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
-static bool import_undefined(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_variable(int _iFile, int _iVersion, char* _pstVarName);
+static bool import_data(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_double(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_string(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_boolean(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_integer(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_sparse(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_boolean_sparse(int _iDatasetId, int iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_poly(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_list(int _iDatasetId, int _iVersion, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_void(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
+static bool import_undefined(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname);
 
 int sci_import_from_hdf5(char *fname, unsigned long fname_len)
 {
@@ -124,7 +125,7 @@ int sci_import_from_hdf5(char *fname, unsigned long fname_len)
                 return 1;
             }
 
-            if (import_variable(iFile, pstVarName) == false)
+            if (import_variable(iFile, iVersion, pstVarName) == false)
             {
                 bImport = false;
                 break;
@@ -147,7 +148,7 @@ int sci_import_from_hdf5(char *fname, unsigned long fname_len)
             //import all data
             for (int i = 0; i < iNbItem; i++)
             {
-                if (import_variable(iFile, pstVarNameList[i]) == false)
+                if (import_variable(iFile, iVersion, pstVarNameList[i]) == false)
                 {
                     bImport = false;
                     break;
@@ -183,7 +184,7 @@ int sci_import_from_hdf5(char *fname, unsigned long fname_len)
     return 0;
 }
 
-static bool import_variable(int _iFile, char* _pstVarName)
+static bool import_variable(int _iFile, int _iVersion, char* _pstVarName)
 {
     int iDataSetId = getDataSetIdFromName(_iFile, _pstVarName);
     if (iDataSetId == 0)
@@ -191,10 +192,10 @@ static bool import_variable(int _iFile, char* _pstVarName)
         return false;
     }
 
-    return import_data(iDataSetId, 0, NULL, _pstVarName);
+    return import_data(iDataSetId, _iVersion, 0, NULL, _pstVarName);
 }
 
-static bool import_data(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_data(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     bool bRet = false;
 
@@ -205,54 +206,64 @@ static bool import_data(int _iDatasetId, int _iItemPos, int *_piAddress, char *_
     {
         case sci_matrix:
         {
-            bRet = import_double(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            if(_iVersion == SOD_FILE_VERSION)
+            {
+                bRet = import_double(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
+            }
+            else
+            {
+                if(_iVersion == 1)
+                {
+                    bRet = import_double_v1(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+                }
+            }
             break;
         }
         case sci_strings:
         {
-            bRet = import_string(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_string(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_list:
         case sci_tlist:
         case sci_mlist:
         {
-            bRet = import_list(_iDatasetId, iVarType, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_list(_iDatasetId, _iVersion, iVarType, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_boolean:
         {
-            bRet = import_boolean(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_boolean(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_poly:
         {
-            bRet = import_poly(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_poly(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_ints:
         {
-            bRet = import_integer(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_integer(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_sparse:
         {
-            bRet = import_sparse(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_sparse(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_boolean_sparse:
         {
-            bRet = import_boolean_sparse(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_boolean_sparse(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_void:             //void item only on list variable
         {
-            bRet = import_void(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_void(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         case sci_undefined:        //undefined item only on list variable
         {
-            bRet = import_undefined(_iDatasetId, _iItemPos, _piAddress, _pstVarname);
+            bRet = import_undefined(_iDatasetId, _iVersion, _iItemPos, _piAddress, _pstVarname);
             break;
         }
         default:
@@ -268,11 +279,10 @@ static bool import_data(int _iDatasetId, int _iItemPos, int *_piAddress, char *_
 #endif
         }
     }
-
     return bRet;
 }
 
-static bool import_void(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_void(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     SciErr sciErr;
 
@@ -293,7 +303,7 @@ static bool import_void(int _iDatasetId, int _iItemPos, int *_piAddress, char *_
     return true;
 }
 
-static bool import_undefined(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_undefined(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     SciErr sciErr;
 
@@ -314,14 +324,14 @@ static bool import_undefined(int _iDatasetId, int _iItemPos, int *_piAddress, ch
     return true;
 }
 
-static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_double(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
-    int iRet = 0;
-    double *pdblReal = NULL;
-    double *pdblImg = NULL;
-    int iRows = 0;
-    int iCols = 0;
-    int iComplex = 0;
+    int iRet            = 0;
+    double *pdblReal    = NULL;
+    double *pdblImg     = NULL;
+    int iDims           = 0;
+    int* piDims         = NULL;
+    int iComplex        = 0;
     SciErr sciErr;
 
 #ifdef TIME_DEBUG
@@ -331,31 +341,41 @@ static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     QueryPerformanceCounter(&iStart);
 #endif
 
-    iRet = getDatasetDims(_iDatasetId, &iRows, &iCols);
-    iComplex = isComplexData(_iDatasetId);
+    iRet = getDatasetInfo(_iDatasetId, &iComplex, &iDims, NULL);
     if (iRet)
     {
         return false;
     }
 
-    if (iRows * iCols != 0)
+    piDims = (int*)MALLOC(sizeof(int) * iDims);
+    iRet = getDatasetInfo(_iDatasetId, &iComplex, &iDims, piDims);
+    if (iRet)
+    {
+        return false;
+    }
+    
+    if (iDims == 2 && piDims[0] * piDims[1] != 0)
     {
         if (iComplex)
         {
-            pdblReal = (double *)MALLOC(iRows * iCols * sizeof(double));
-            pdblImg = (double *)MALLOC(iRows * iCols * sizeof(double));
-            iRet = readDoubleComplexMatrix(_iDatasetId, iRows, iCols, pdblReal, pdblImg);
+            pdblReal = (double *)MALLOC(piDims[0] * piDims[1] * sizeof(double));
+            pdblImg = (double *)MALLOC(piDims[0] * piDims[1] * sizeof(double));
+            iRet = readDoubleComplexMatrix(_iDatasetId, pdblReal, pdblImg);
         }
         else
         {
-            pdblReal = (double *)MALLOC(iRows * iCols * sizeof(double));
-            iRet = readDoubleMatrix(_iDatasetId, iRows, iCols, pdblReal);
+            pdblReal = (double *)MALLOC(piDims[0] * piDims[1] * sizeof(double));
+            iRet = readDoubleMatrix(_iDatasetId, pdblReal);
         }
 
         if (iRet)
         {
             return false;
         }
+    }
+    else if(iDims > 2)
+    {//hypermatrix
+        return false;
     }
     else
     {
@@ -371,22 +391,22 @@ static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     {
         if (iComplex)
         {
-            sciErr = createNamedComplexMatrixOfDouble(pvApiCtx, _pstVarname, iRows, iCols, pdblReal, pdblImg);
+            sciErr = createNamedComplexMatrixOfDouble(pvApiCtx, _pstVarname, piDims[0], piDims[1], pdblReal, pdblImg);
         }
         else
         {
-            sciErr = createNamedMatrixOfDouble(pvApiCtx, _pstVarname, iRows, iCols, pdblReal);
+            sciErr = createNamedMatrixOfDouble(pvApiCtx, _pstVarname, piDims[0], piDims[1], pdblReal);
         }
     }
-    else                        //if not null this variable is in a list
+    else //if not null this variable is in a list
     {
         if (iComplex)
         {
-            sciErr = createComplexMatrixOfDoubleInNamedList(pvApiCtx, _pstVarname, _piAddress, _iItemPos, iRows, iCols, pdblReal, pdblImg);
+            sciErr = createComplexMatrixOfDoubleInNamedList(pvApiCtx, _pstVarname, _piAddress, _iItemPos, piDims[0], piDims[1], pdblReal, pdblImg);
         }
         else
         {
-            sciErr = createMatrixOfDoubleInNamedList(pvApiCtx, _pstVarname, _piAddress, _iItemPos, iRows, iCols, pdblReal);
+            sciErr = createMatrixOfDoubleInNamedList(pvApiCtx, _pstVarname, _piAddress, _iItemPos, piDims[0], piDims[1], pdblReal);
         }
     }
 
@@ -399,7 +419,7 @@ static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char 
 #ifdef PRINT_DEBUG
     char pstMsg[512];
 
-    sprintf(pstMsg, "double_%d (%d x %d)", _iItemPos, iRows, iCols);
+    sprintf(pstMsg, "double_%d (%d x %d)", _iItemPos, piDims[0], piDims[1]);
     print_tree(pstMsg);
 #endif
 
@@ -428,7 +448,7 @@ static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     return true;
 }
 
-static bool import_string(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_string(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int i = 0;
@@ -520,7 +540,7 @@ static bool import_string(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     return true;
 }
 
-static bool import_integer(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_integer(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int iRows = 0;
@@ -738,7 +758,7 @@ static bool import_integer(int _iDatasetId, int _iItemPos, int *_piAddress, char
     return true;
 }
 
-static bool import_boolean(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_boolean(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int *piData = NULL;
@@ -797,7 +817,7 @@ static bool import_boolean(int _iDatasetId, int _iItemPos, int *_piAddress, char
     return true;
 }
 
-static bool import_poly(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_poly(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int i = 0;
@@ -890,7 +910,7 @@ static bool import_poly(int _iDatasetId, int _iItemPos, int *_piAddress, char *_
     return true;
 }
 
-static bool import_sparse(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_sparse(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int iRows = 0;
@@ -987,7 +1007,7 @@ static bool import_sparse(int _iDatasetId, int _iItemPos, int *_piAddress, char 
     return true;
 }
 
-static bool import_boolean_sparse(int _iDatasetId, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_boolean_sparse(int _iDatasetId, int _iVersion, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int iRows = 0;
@@ -1044,7 +1064,7 @@ static bool import_boolean_sparse(int _iDatasetId, int _iItemPos, int *_piAddres
     return true;
 }
 
-static bool import_list(int _iDatasetId, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname)
+static bool import_list(int _iDatasetId, int _iVersion, int _iVarType, int _iItemPos, int *_piAddress, char *_pstVarname)
 {
     int iRet = 0;
     int i = 0;
@@ -1131,7 +1151,7 @@ static bool import_list(int _iDatasetId, int _iVarType, int _iItemPos, int *_piA
             return false;
         }
 
-        bool bRet = import_data(iItemDataset, i + 1, piListAddr, _pstVarname);
+        bool bRet = import_data(iItemDataset, _iVersion, i + 1, piListAddr, _pstVarname);
 
         if (bRet == false)
         {

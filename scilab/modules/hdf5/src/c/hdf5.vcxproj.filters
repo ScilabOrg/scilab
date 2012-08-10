@@ -56,6 +56,12 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_is_hdf5_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="h5_readDataFromFile_v1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cpp\import_from_hdf5_v1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_hdf5_scilab.h">
@@ -80,6 +86,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\jni\jhdf5load.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\h5_readDataFromFile_v1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\import_from_hdf5_v1.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

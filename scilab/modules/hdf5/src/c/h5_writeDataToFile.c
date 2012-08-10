@@ -16,12 +16,15 @@
 #include <MALLOC.h>
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 #include "sci_types.h"
 #include "version.h"
 #include "core_math.h"
 #include "h5_writeDataToFile.h"
 #include "h5_readDataFromFile.h"
 #include "h5_attributeConstants.h"
+#include "doublecomplex.h"
+#include "stack3.h"
 
 static hid_t enableCompression(int _iLevel, int _iRank, const hsize_t * _piDims)
 {
@@ -78,6 +81,21 @@ static hid_t enableCompression(int _iLevel, int _iRank, const hsize_t * _piDims)
         }
         return iRet;
     */
+}
+
+static hsize_t* convertDims(int _iDims, int* _piDims, int* _piSize)
+{
+    int iSize = 1;
+    int i = 0;
+    hsize_t* piDims = (hsize_t*)malloc(sizeof(hsize_t) * _iDims);
+    for(i = 0 ; i < _iDims ; i++)
+    {//reverse dimensions to improve rendering in external tools
+        piDims[i] = _piDims[_iDims - 1 - i];
+        iSize *= (int)piDims[i];
+    }
+
+    *_piSize = iSize;
+    return piDims;
 }
 
 static herr_t addIntAttribute(int _iDatasetId, const char *_pstName, const int _iVal)
@@ -642,61 +660,37 @@ static hobj_ref_t writeCommomDoubleMatrix(int _iFile, char *_pstGroupName, char 
     return iRef;
 }
 
-int writeDoubleMatrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, double *_pdblData)
+int writeDoubleMatrix(int _iFile, char *_pstDatasetName, int _iDims, int* _piDims, double *_pdblData)
 {
     hid_t space = 0;
     hid_t dset = 0;
     herr_t status = 0;
-    hsize_t dims[1] = { 1 };
+    hsize_t *piDims = NULL;
     hid_t iCompress = 0;
-    hobj_ref_t pRef[1] = { 0 };
+    int i = 0;
+    int iSize = 0;
 
-    hid_t group = 0;
-    char *pstGroupName = NULL;
-
-    pstGroupName = createGroupName(_pstDatasetName);
-
-    //create sub group only for non empty matrix
-    if (_iRows * _iCols != 0)
-    {
-        group = H5Gcreate(_iFile, pstGroupName, H5P_DEFAULT);
-        status = H5Gclose(group);
-        if (status < 0)
-        {
-            FREE(pstGroupName);
-            return -1;
-        }
-    }
-
-    pRef[0] = writeCommomDoubleMatrix(_iFile, pstGroupName, _pstDatasetName, 0, _iRows, _iCols, _pdblData);
-
-    //don't create reference for empty matrix
-    if (_iRows * _iCols == 0)
-    {
-        return 0;
-    }
-
-    if (pRef[0] == 0)
-    {
-        return -1;
-    }
+    piDims = convertDims(_iDims, _piDims, &iSize);
 
     //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
-    space = H5Screate_simple(1, dims, NULL);
+    space = H5Screate_simple(_iDims, piDims, NULL);
     if (space < 0)
     {
+        free(piDims);
         return -1;
     }
 
     //Create the dataset and write the array data to it.
-    iCompress = enableCompression(9, 1, dims);
-    dset = H5Dcreate(_iFile, _pstDatasetName, H5T_STD_REF_OBJ, space, iCompress);
+    iCompress = enableCompression(9, _iDims, piDims);
+    free(piDims);
+
+    dset = H5Dcreate(_iFile, _pstDatasetName, H5T_NATIVE_DOUBLE, space, iCompress);
     if (dset < 0)
     {
         return -1;
     }
 
-    status = H5Dwrite(dset, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, pRef);
+    status = H5Dwrite(dset, H5T_NATIVE_DOUBLE, H5S_ALL, H5S_ALL, H5P_DEFAULT, _pdblData);
     if (status < 0)
     {
         return -1;
@@ -704,20 +698,6 @@ int writeDoubleMatrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols,
 
     //Add attribute SCILAB_Class = double to dataset
     status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    //Add attribute SCILAB_Class_rows = double to dataset
-    status = addIntAttribute(dset, g_SCILAB_CLASS_ROWS, _iRows);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    //Add attribute SCILAB_Class_cols = double to dataset
-    status = addIntAttribute(dset, g_SCILAB_CLASS_COLS, _iCols);
     if (status < 0)
     {
         return -1;
@@ -736,84 +716,62 @@ int writeDoubleMatrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols,
         return -1;
     }
 
-    FREE(pstGroupName);
     return status;
 }
 
-int writeDoubleComplexMatrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, double *_pdblReal, double *_pdblImg)
+int writeDoubleComplexMatrix(int _iFile, char *_pstDatasetName, int _iDims, int* _piDims, double *_pdblReal, double *_pdblImg)
 {
     hid_t space = 0;
     hid_t dset = 0;
     herr_t status = 0;
+    hsize_t *piDims = NULL;
     hid_t iCompress = 0;
-    hsize_t dims[1] = { 2 };
-    hobj_ref_t pRef[2] = { 0 };
+    int i = 0;
+    hid_t compoundId;
+    int iSize = 1;
+    doublecomplex* pData = NULL;
 
-    hid_t group = 0;
-    char *pstGroupName = NULL;
-
-    pstGroupName = createGroupName(_pstDatasetName);
-    group = H5Gcreate(_iFile, pstGroupName, H5P_DEFAULT);
-    status = H5Gclose(group);
-
-    if (status < 0)
-    {
-        FREE(pstGroupName);
+    //create sub group only for non empty matrix
+    if (_iDims == 2 && _piDims[0] == 0 && _piDims[1] == 0)
+    {// [] complex
+        //a revoir
         return -1;
     }
 
-    pRef[0] = writeCommomDoubleMatrix(_iFile, pstGroupName, _pstDatasetName, 0, _iRows, _iCols, _pdblReal);
-    pRef[1] = writeCommomDoubleMatrix(_iFile, pstGroupName, _pstDatasetName, 1, _iRows, _iCols, _pdblImg);
-    FREE(pstGroupName);
-    if (pRef[0] == 0 || pRef[1] == 0)
-    {
-        return 1;
-    }
+    compoundId = H5Tcreate (H5T_COMPOUND, sizeof(doublecomplex));
+    H5Tinsert(compoundId, "real", HOFFSET(doublecomplex, r), H5T_NATIVE_DOUBLE);
+    H5Tinsert(compoundId, "imag", HOFFSET(doublecomplex, i), H5T_NATIVE_DOUBLE);
+    piDims = convertDims(_iDims, _piDims, &iSize);
 
     //Create dataspace.  Setting maximum size to NULL sets the maximum size to be the current size.
-    space = H5Screate_simple(1, dims, NULL);
+    space = H5Screate_simple(_iDims, piDims, NULL);
     if (space < 0)
     {
+        free(piDims);
         return -1;
     }
 
     //Create the dataset and write the array data to it.
-    iCompress = enableCompression(9, 1, dims);
-    dset = H5Dcreate(_iFile, _pstDatasetName, H5T_STD_REF_OBJ, space, iCompress);
+    iCompress = enableCompression(9, _iDims, piDims);
+    free(piDims);
+
+    dset = H5Dcreate(_iFile, _pstDatasetName, compoundId, space, iCompress);
     if (dset < 0)
     {
-        printf("\nH5Dcreate\n");
         return -1;
     }
-    status = H5Dwrite(dset, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT, pRef);
+
+    //convert double data doublecomplex data
+    pData = oGetDoubleComplexFromPointer(_pdblReal, _pdblImg, iSize);
+    status = H5Dwrite(dset, compoundId, H5S_ALL, H5S_ALL, H5P_DEFAULT, pData);
+    FREE(pData);
     if (status < 0)
     {
-        printf("\nH5Dwrite\n");
         return -1;
     }
 
     //Add attribute SCILAB_Class = double to dataset
     status = addAttribute(dset, g_SCILAB_CLASS, g_SCILAB_CLASS_DOUBLE);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    //Add attribute SCILAB_Class_rows = double to dataset
-    status = addIntAttribute(dset, g_SCILAB_CLASS_ROWS, _iRows);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    //Add attribute SCILAB_Class_cols = double to dataset
-    status = addIntAttribute(dset, g_SCILAB_CLASS_COLS, _iCols);
-    if (status < 0)
-    {
-        return -1;
-    }
-
-    status = addAttribute(dset, g_SCILAB_CLASS_COMPLEX, "true");
     if (status < 0)
     {
         return -1;
@@ -832,7 +790,7 @@ int writeDoubleComplexMatrix(int _iFile, char *_pstDatasetName, int _iRows, int 
         return -1;
     }
 
-    return 0;
+    return status;
 }
 
 int writeBooleanMatrix(int _iFile, char *_pstDatasetName, int _iRows, int _iCols, int *_piData)
@@ -934,11 +892,11 @@ static int writeCommonPolyMatrix(int _iFile, char *_pstDatasetName, char *_pstVa
         // Write the string to ref
         if (_iComplex)
         {
-            status = writeDoubleComplexMatrix(_iFile, pstPathName, 1, _piNbCoef[i], _pdblReal[i], _pdblImg[i]);
+            status = writeDoubleComplexMatrix(_iFile, pstPathName, 1, &_piNbCoef[i], _pdblReal[i], _pdblImg[i]);
         }
         else
         {
-            status = writeDoubleMatrix(_iFile, pstPathName, 1, _piNbCoef[i], _pdblReal[i]);
+            status = writeDoubleMatrix(_iFile, pstPathName, 1, &(_piNbCoef[i]), _pdblReal[i]);
         }
 
         if (status < 0)
@@ -1694,11 +1652,11 @@ int writeCommonSparseComplexMatrix(int _iFile, char *_pstDatasetName, int _iComp
     pstDataPath = createPathName(pstGroupName, 2);
     if (_iComplex)
     {
-        status = writeDoubleComplexMatrix(_iFile, pstDataPath, 1, _iNbItem, _pdblReal, _pdblImg);
+        status = writeDoubleComplexMatrix(_iFile, pstDataPath, 1, &_iNbItem, _pdblReal, _pdblImg);
     }
     else
     {
-        status = writeDoubleMatrix(_iFile, pstDataPath, 1, _iNbItem, _pdblReal);
+        status = writeDoubleMatrix(_iFile, pstDataPath, 1, &_iNbItem, _pdblReal);
     }
 
     if (status < 0)
