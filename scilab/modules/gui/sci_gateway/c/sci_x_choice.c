@@ -11,6 +11,7 @@
  *
  */
 
+#include "api_scilab.h"
 #include "gw_gui.h"
 #include "MALLOC.h"
 #include "stack-c.h"
@@ -43,13 +44,26 @@ int sci_x_choice(char *fname, unsigned long fname_len)
 
     int K = 0;
 
-    CheckRhs(3, 3);
-    CheckLhs(0, 1);
+    SciErr sciErr;
+    CheckInputArgument(pvApiCtx, 3, 3);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     /* READ THE DEFAULT VALUES */
-    if (VarType(1) ==  sci_matrix)
+if (isDoubleType(pvApiCtx, TODO: ADDRESS_OF_1))
     {
-        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &nbRowDefaultValues, &nbColDefaultValues, &defaultValuesAdr);
+        //get variable address of the input argument
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr, &nbRowDefaultValues, &nbColDefaultValues, &defaultValuesAdr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
         defaultValues = stk(defaultValuesAdr);
 
         defaultValuesInt = (int *)MALLOC(nbRowDefaultValues * nbColDefaultValues * sizeof(int));
@@ -65,9 +79,48 @@ int sci_x_choice(char *fname, unsigned long fname_len)
     }
 
     /* READ THE MESSAGE */
-    if (VarType(2) == sci_strings)
+if (isStringType(pvApiCtx, TODO: ADDRESS_OF_2))
     {
-        GetRhsVar(2, MATRIX_OF_STRING_DATATYPE, &nbRow, &nbCol, &labelsAdr);
+
+        //get variable address
+        sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        //fisrt call to retrieve dimensions
+        sciErr = getMatrixOfString(pvApiCtx, piAddr, &nbRow, &nbCol, NULL, NULL);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        piLen = (int*)malloc(sizeof(int) * nbRow * nbCol);
+
+        //second call to retrieve length of each string
+        sciErr = getMatrixOfString(pvApiCtx, piAddr, &nbRow, &nbCol, piLen, NULL);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        labelsAdr = (char**)malloc(sizeof(char*) * nbRow * nbCol);
+        for (i = 0 ; i < nbRow * nbCol ; i++)
+        {
+            labelsAdr[i] = (char*)malloc(sizeof(char) * (piLen[i] + 1));//+ 1 for null termination
+        }
+
+        //third call to retrieve data
+        sciErr = getMatrixOfString(pvApiCtx, piAddr, &nbRow, &nbCol, piLen, labelsAdr);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
     }
     else
     {
@@ -87,7 +140,7 @@ int sci_x_choice(char *fname, unsigned long fname_len)
     freeArrayOfString(labelsAdr, nbRow * nbCol);
 
     /* READ THE LABELS */
-    if (VarType(3) ==  sci_strings)
+if (isStringType(pvApiCtx, TODO: ADDRESS_OF_3))
     {
         GetRhsVar(3, MATRIX_OF_STRING_DATATYPE, &nbRowLineLabels, &nbColLineLabels, &lineLabelsAdr);
         if (nbRow != 1 && nbCol != 1)
@@ -130,14 +183,21 @@ int sci_x_choice(char *fname, unsigned long fname_len)
             userValueDouble[K] = userValue[K];
         }
 
-        CreateVarFromPtr(Rhs + 1, MATRIX_OF_DOUBLE_DATATYPE, &nbRowDefaultValues, &nbColDefaultValues, &userValueDouble);
-        /* TO DO : do a delete []  getMessageBoxUserSelectedButton */
+        /* Create the matrix as return of the function */
+        sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, nbRowDefaultValues, nbColDefaultValues, userValueDouble);
+        free(userValueDouble); // Data have been copied into Scilab memory
+        if (sciErr.iErr)
+        {
+            free(userValueDouble); // Make sure everything is cleanup in case of error
+            printError(&sciErr, 0);
+            return 0;
+            /* TO DO : do a delete []  getMessageBoxUserSelectedButton */
+        }
+
+        FREE(defaultValuesInt);
+
+        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+        ReturnArguments(pvApiCtx);
+        return TRUE;
     }
-
-    FREE(defaultValuesInt);
-
-    LhsVar(1) = Rhs + 1;
-    PutLhsVar();
-    return TRUE;
-}
-/*--------------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------------*/
