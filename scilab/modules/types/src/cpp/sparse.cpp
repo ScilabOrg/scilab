@@ -1004,7 +1004,7 @@ namespace types
 
         return pOut;
     }
-    
+
     Sparse* Sparse::extract(int nbCoords, int CONST* coords, int CONST* maxCoords, int CONST* resSize, bool asVector) CONST
     {
         if( (asVector && maxCoords[0] > getSize()) ||
@@ -1378,7 +1378,7 @@ namespace types
         m_iCols= cols;
         m_iSize= m_iRows * m_iCols;
     }
-    
+
     SparseBool::SparseBool(SparseBool const& src) : GenericType(src),  matrixBool(new BoolSparse_t(*src.matrixBool))
     {
     }
@@ -1520,6 +1520,7 @@ namespace types
         }
         return pSp;
     }
+
     SparseBool* SparseBool::extract(int nbCoords, int CONST* coords, int CONST* maxCoords, int CONST* resSize, bool asVector) CONST
     {
         if( (asVector && maxCoords[0] > getSize()) ||
@@ -1544,6 +1545,96 @@ namespace types
 
         }
         return pSp;
+    }
+
+    /*
+     * create a new SparseBool of dims according to resSize and fill it from currentSparseBool (along coords)
+     */
+    InternalType* SparseBool::extract(typed_list* _pArgs)
+    {
+        SparseBool* pOut    = NULL;
+        int iDims           = (int)_pArgs->size();
+        typed_list pArg;
+
+        int* piMaxDim       = new int[iDims];
+        int* piCountDim     = new int[iDims];
+
+        //evaluate each argument and replace by appropriate value and compute the count of combinations
+        int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
+        if(iSeqCount == 0)
+        {
+            if(_pArgs->size() == 0)
+            {//a()
+                return this;
+            }
+            else
+            {//a([])
+                return Double::Empty();
+            }
+        }
+
+        if(iDims < 2)
+        {
+            if(piMaxDim[0] <= getSize())
+            {
+                int iNewRows = Max(pArg[0]->getAs<Double>()->getRows(), pArg[0]->getAs<Double>()->getCols());
+                int iNewCols = 1;
+
+                pOut = new SparseBool(iNewRows, iNewCols);
+                double* pIdx = pArg[0]->getAs<Double>()->get();
+                for(int i = 0 ; i < iSeqCount ; i++)
+                {
+                    int iRowRead = static_cast<int>(pIdx[i]-1) % getRows();
+                    int iColRead = static_cast<int>(pIdx[i]-1) / getRows();
+
+                    int iRowWrite = static_cast<int>(i) % iNewRows;
+                    int iColWrite = static_cast<int>(i) / iNewRows;
+
+                    bool bValue = get(iRowRead, iColRead);
+                    if(bValue)
+                    {//only non zero values
+                        pOut->set(iRowWrite, iColWrite, true);
+                    }
+                }
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+        else
+        {
+            if(piMaxDim[0] <= getRows() && piMaxDim[1] <= getCols())
+            {
+                double* pIdxRow = pArg[0]->getAs<Double>()->get();
+                double* pIdxCol = pArg[1]->getAs<Double>()->get();
+
+                int iNewRows = pArg[0]->getAs<Double>()->getSize();
+                int iNewCols = pArg[1]->getAs<Double>()->getSize();
+
+                pOut = new SparseBool(iNewRows, iNewCols);
+
+                int iPos = 0;
+                for(int iRow = 0 ; iRow < iNewRows ; iRow++)
+                {
+                    for(int iCol = 0 ; iCol < iNewCols ; iCol++)
+                    {
+                        bool bValue = get((int)pIdxRow[iRow] - 1, (int)pIdxCol[iCol] - 1);
+                        if(bValue)
+                        {//only non zero values
+                            pOut->set(iRow, iCol, true);
+                        }
+                        iPos++;
+                    }
+                }
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+
+        return pOut;
     }
 
     std::size_t SparseBool::nbTrue() const

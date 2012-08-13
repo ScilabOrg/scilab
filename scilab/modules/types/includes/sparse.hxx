@@ -468,6 +468,7 @@ namespace types
 
         static SparseBool* insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType CONST* _poSource, bool _bAsVector);
         SparseBool* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector) CONST;
+        InternalType* extract(typed_list* _pArgs);
 
         SparseBool* getColumnValues(int _iPos){return NULL;}
 
