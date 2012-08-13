@@ -1408,6 +1408,14 @@ namespace ast
 
                 result_set(pReturn);
             }
+            else if(result_get()->isSparse())
+            {
+                result_set(result_get()->getAs<types::Sparse>()->newTransposed());
+            }
+            else if(result_get()->isSparseBool())
+            {
+                result_set(result_get()->getAs<types::SparseBool>()->newTransposed());
+            }
         }
         /** \} */
 
