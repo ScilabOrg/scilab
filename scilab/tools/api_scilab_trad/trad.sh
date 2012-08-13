@@ -1,0 +1,135 @@
+#!/bin/sh
+
+if test $# -eq 0; then
+    echo "This script converts a stackX gateway to api_scilab.h"
+    echo "This is just a helper, not a magic tool"
+    echo "It expects at least one argument"
+    echo ""
+    echo "Syntax : $0 <path_to_a_file>"
+    exit 1
+fi
+
+FILES=$1
+
+echo "Converting $FILES"
+astyle --pad-header -n --pad-oper --indent-col1-comments --indent-switches --style=linux --indent=spaces=4 -A1  $FILES &> /dev/null
+sed -i -e "s|CheckRhs(\(.*\), \(.*\))|CheckInputArgument(pvApiCtx, \1, \2)|g" $FILES
+
+sed -i -e "s|CheckLhs(\(.*\), \(.*\))|CheckOutputArgument(pvApiCtx, \1, \2)|g" $FILES
+sed -i -e "s|PutLhsVar()|ReturnArguments(pvApiCtx)|g" $FILES
+
+
+###########################################
+
+grep '#include "api_scilab.h"' $FILES
+if test $? -ne 0; then # Could not file api_scilab
+    # add it
+    sed -i '0,/#include \"\(.*\)/s//#include \"api_scilab.h\"\n#include \"\1/' $FILES
+fi
+
+###########################################
+
+grep 'SciErr sciErr' $FILES
+if test $? -ne 0; then # Could not file SciErr
+    # add it
+    sed  -i "s/CheckInputArgument\(.*\)/SciErr sciErr;\CheckInputArgument\1/" $FILES
+
+fi
+
+#IN="GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m2,&n2,&l2);"
+
+getProfileDouble() {
+POSITION="$1"
+NBROW="$2"
+NBCOL="$3"
+VAR="$4"
+OUT="   //get variable address of the input argument\n    sciErr = getVarAddressFromPosition(pvApiCtx, $POSITION, \&piAddr);\n    if (sciErr.iErr)\n    {\n        printError(\&sciErr, 0);\n        return 0;\n    }\n    sciErr = getMatrixOfDouble(pvApiCtx, piAddr, \&$NBROW, \&$NBCOL, \&$VAR);\n    if (sciErr.iErr)\n    {\n        printError(\&sciErr, 0);\n        return 0;\n    }"
+
+}
+
+createProfileDouble() {
+POSITION="$1"
+NBROW="$2"
+NBCOL="$3"
+VAR="$4"
+OUT="/* Create the matrix as return of the function */\nsciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + $POSITION, $NBROW, $NBCOL, $VAR);\nfree($VAR); // Data have been copied into Scilab memory\nif (sciErr.iErr)\n{\n    free($VAR); // Make sure everything is cleanup in case of error\n    printError(\&sciErr, 0);\n    return 0;"
+}
+
+##########################################
+
+getProfileString() {
+POSITION="$1"
+NBROW="$2"
+NBCOL="$3"
+VAR="$4"
+SOURCE="tools/api_scilab_trad/stringtemplate.txt"
+sed -e "s|@POSITION@|$POSITION|g" -e "s|@NBROW@|$NBROW|g"  -e "s|@NBCOL@|$NBCOL|g" -e "s|@VAR@|$VAR|g" $SOURCE > foo.txt
+sed -i -n 'H;${g;s/\n/\\n/g;p}' foo.txt
+
+OUT=$(cat foo.txt)
+}
+
+##########################################
+
+INT="GetRhsVar"
+RHS=$(grep $INT $FILES|grep MATRIX_OF_DOUBLE_DATATYPE)
+if test "$RHS" != ""; then
+# Split the values
+ARGS=$(echo $RHS|sed -e "s|.*(\(.*\), .*, &\(.*\), &\(.*\), &\(.*\));|\1 \2 \3 \4|")
+getProfileDouble $ARGS
+sed -i -e "s|$RHS|$OUT|g" $FILES
+fi
+
+##########################################
+
+CREATEINT="CreateVarFromPtr"
+LHS=$(grep $CREATEINT $FILES|grep MATRIX_OF_DOUBLE_DATATYPE)
+if test "$LHS" != ""; then
+# Split the values
+ARGS=$(echo $LHS|sed -e "s|.*(.* + \(.*\), .*, &\(.*\), &\(.*\), &\(.*\));|\1 \2 \3 \4|")
+createProfileDouble $ARGS
+sed -i -e "s|$LHS|$OUT|g" $FILES
+fi
+
+##########################################
+
+CREATEINT="GetRhsVar"
+LHS="$(grep $CREATEINT $FILES|grep MATRIX_OF_STRING_DATATYPE|head -1)"
+
+if test "$LHS" != ""; then
+
+# Split the values
+    ARGS=$(echo $LHS|sed -e "s|.*(\(.*\), .*, &\(.*\), &\(.*\), &\(.*\));|\1 \2 \3 \4|")
+getProfileString $ARGS
+
+sed -i -e "s|$LHS|$OUT|g" $FILES
+
+fi
+
+
+##########################################
+
+
+sed -i -e "s|LhsVar(\(.*\))|AssignOutputVariable(pvApiCtx, \1)|g" $FILES
+sed -i -e "s| Rhs | nbInputArgument(pvApiCtx) |g" $FILES
+sed -i -e "s| Lhs | nbOutputArgument(pvApiCtx) |g" $FILES
+sed -i -e "s|(VarType(\(.*\)).*==.*sci_matrix)|(isDoubleType(pvApiCtx,TODO:ADDRESS_OF_\1))|g" $FILES
+sed -i  -e "s|(VarType(\(.*\)).*==.*sci_strings)|(isStringType(pvApiCtx,TODO:ADDRESS_OF_\1))|g" $FILES
+
+
+##########################################
+
+
+
+##########################################
+
+
+astyle --pad-header -n --pad-oper --indent-col1-comments --indent-switches --style=linux --indent=spaces=4 -A1  $FILES &> /dev/null
+
+#echo "$OUT"
+#perl -i -pe "s/$RHS/$OUT/g" $FILES
+#OUT="foo\naze"
+#OUT="   //get variable address of the input argument\n"
+#echo "$OUT"
+#echo "$RHS"
+#echo sed -e "s|GetRhsVar(2,MATRIX_OF_DOUBLE_DATATYPE,&m2,&n2,&l2);|$OUT|g" $FILES
