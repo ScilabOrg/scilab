@@ -1,11 +1,21 @@
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
 
+
 Obsolete functions
 ==================
 
 * config function is now obsolete and will be removed in Scilab 5.4.1.
   Please use 'preferences' instead.
+
+
+Documentation
+=============
+
+* Categories have been created for the following modules help pages:
+    - Functions (libraries sub-category). See bug #11642.
+    - Linear algebra. See bug #11562.
+    - Special functions. See bug #11643.
 
 
 Bug Fixes
@@ -18,6 +28,11 @@ Bug Fixes
 
 * Bug #8151 fixed - Under Mac OS X, item "Scilab/Quit Scilab" and "File/Quit" were
                     duplicates.
+
+* Bug #11411 fixed - save function used unsigned char to store length of string.
+                     Now it is an integer.
+
+* Bug #11426 fixed - Save function shew a warning message saving user environment.
 
 * Bug #11509 fixed - A progression bar was missing during Atoms operations.
 
@@ -32,7 +47,22 @@ Bug Fixes
 
 * Bug #11618 fixed - A(:) returned wrong values when A was a complex sparse matrix.
 
+* Bug #11628 fixed - Clearing a shortcut did not work is Preferences.
 
+* Bug #11640 fixed - Plug back the same behavior as 5.3.3 when STDIN is closed.
+
+* Bug #11641 fixed - In xmltoformat, parsing of the CHAPTER files was too strict.
+
+* Bug #11645 fixed - Short description was wrong in atomsGetLoadedPath help page.
+
+* Bug #11647 fixed - The phrase "The system cannot find the file specified." in
+                     rmdir was not localized.
+
+* Bug #11654 fixed - Rendering of the title of genetic algorithms help pages improved.
+
+* Bug #11655 fixed - external_object help chapter was empty.
+
+* Bug #11659 fixed - twinkle displayed warning messages about show_pixmap function.
 
 
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
