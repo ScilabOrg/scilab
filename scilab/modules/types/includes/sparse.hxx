@@ -142,14 +142,13 @@ namespace types
           @param  _bAsVector if _piSeqCoord contains 1D coords.
          */
         Sparse* insert(typed_list* _pArgs, InternalType* _pSource);
+
         /* append _poSource from coords _iRows, _iCols
            @param _iRows row to append from
            @param _iCols col to append from
            @param _poSource src data to append
          */
-        template<typename SrcType>
-        bool append(int _iRows, int _iCols, SrcType CONST* _poSource);
-
+        bool append(int r, int c, types::Sparse CONST* src);
 
         /*
           extract a submatrix
@@ -463,11 +462,11 @@ namespace types
         bool resize(int _iNewRows, int _iNewCols);
         bool insert(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType CONST* _poSource, bool _bAsVector);
 
-        template<typename SrcType>
-        bool append(int _iRows, int _iCols, SrcType CONST* _poSource);
+        bool append(int _iRows, int _iCols, SparseBool CONST* _poSource);
 
         static SparseBool* insert_new(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, GenericType CONST* _poSource, bool _bAsVector);
         SparseBool* extract(int _iSeqCount, int* _piSeqCoord, int* _piMaxDim, int* _piDimSize, bool _bAsVector) CONST;
+        InternalType* extract(typed_list* _pArgs);
 
         SparseBool* getColumnValues(int _iPos){return NULL;}
 

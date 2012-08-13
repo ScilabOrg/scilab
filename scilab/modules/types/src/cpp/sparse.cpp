@@ -1,14 +1,14 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- *  Copyright (C) 2010 - DIGITEO - Bernard HUGUENEY
- *
- *  This file must be used under the terms of the CeCILL.
- *  This source file is licensed as described in the file COPYING, which
- *  you should have received as part of this distribution.  The terms
- *  are also available at
- *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- *
- */
+*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Copyright (C) 2010 - DIGITEO - Bernard HUGUENEY
+*
+*  This file must be used under the terms of the CeCILL.
+*  This source file is licensed as described in the file COPYING, which
+*  you should have received as part of this distribution.  The terms
+*  are also available at
+*  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*/
 
 #include <sstream>
 #include <math.h>
@@ -30,19 +30,22 @@ extern "C"
 {
 #include "elem_common.h"
 }
-void dbg() {volatile int a=1;}
+void dbg()
+{
+    volatile int a = 1;
+}
 namespace
 {
 
     /* used for debuging output
-     */
+    */
     template<typename Os, typename In, typename Sz> Os& writeData(wchar_t const* title, In beg, Sz n, Os& os)
     {
-        os<<title;
+        os << title;
         /* TODO: use tostring_common (with a kind of std::boolalpha for boolean output)
-         */
+        */
         mycopy_n(beg, n, std::ostream_iterator<typename std::iterator_traits<In>::value_type, char>(os, L" "));
-        os<< std::endl;
+        os << std::endl;
         return os;
     }
 
@@ -52,15 +55,19 @@ namespace
         {
         }
         template<typename T>
-        std::wstring emptyName( /* */) const {return L" zero";}
+        std::wstring emptyName( /* */) const
+        {
+            return L" zero";
+        }
 
         template<typename T>
         std::wstring operator()(T const& t) const
-        {//never call ?
-          std::wostringstream ostr;
-          ostr.precision(p);
-          ostr<<t;
-          return ostr.str();
+        {
+            //never call ?
+            std::wostringstream ostr;
+            ostr.precision(p);
+            ostr << t;
+            return ostr.str();
         }
         int p;
     };
@@ -68,7 +75,7 @@ namespace
     template<>
     std::wstring Printer::operator()(bool const& b) const
     {
-        if(b)
+        if (b)
         {
             return L"T";
         }
@@ -100,7 +107,10 @@ namespace
     }
 
     template<>
-    std::wstring Printer::emptyName<bool>() const {return L"False"; }
+    std::wstring Printer::emptyName<bool>() const
+    {
+        return L"False";
+    }
 
 
     template<typename T> std::wstring toString(T const& m, int precision)
@@ -120,9 +130,9 @@ namespace
         ostr << L")";
 
         Printer p(precision);
-        if(!m.nonZeros())
+        if (!m.nonZeros())
         {
-            ostr<<( p.emptyName<typename Eigen::internal::traits<T>::Scalar>());
+            ostr << ( p.emptyName<typename Eigen::internal::traits<T>::Scalar>());
         }
         ostr << L" sparse matrix\n\n";
 
@@ -132,16 +142,17 @@ namespace
         int iRow = 0;
         int iCol = 0;
 
-        for(size_t j = 0 ; j < m.rows() ; j++)
+        for (size_t j = 0 ; j < m.rows() ; j++)
         {
             iRow = j;
-            for(size_t i = 0 ; i < m.nonZeros() ; i++)
+            for (size_t i = 0 ; i < m.nonZeros() ; i++)
             {
-                if(pInner[i] == j)
-                {//good row
-                    for(size_t k = 0 ; k < m.outerSize() + 1; k++)
+                if (pInner[i] == j)
+                {
+                    //good row
+                    for (size_t k = 0 ; k < m.outerSize() + 1; k++)
                     {
-                        if(pOuter[k] > i)
+                        if (pOuter[k] > i)
                         {
                             iCol = k;
                             break;
@@ -152,7 +163,7 @@ namespace
                     addUnsignedIntValue<unsigned long long>(&ostr, iRow + 1, iWidthRows);
                     ostr << L",";
                     addUnsignedIntValue<unsigned long long>(&ostr, iCol, iWidthCols);
-                    ostr << L")\t"<< p(m.valuePtr()[i]) << std::endl;
+                    ostr << L")\t" << p(m.valuePtr()[i]) << std::endl;
                 }
             }
         }
@@ -161,36 +172,37 @@ namespace
     }
 
     /** utility function to compare two Eigen::Sparse matrices to equality
-     */
+    */
     template<typename T> bool equal(T const& s1, T const& s2)
     {
         bool res(true);
-// only compares elts when both inner iterators are "defined", so we assert that we compared all the non zero values
-// i.e. the inner iterators where defined for the same values
+        // only compares elts when both inner iterators are "defined", so we assert that we compared all the non zero values
+        // i.e. the inner iterators where defined for the same values
         std::size_t nbElts(0);
 
-        for (int k=0; res && k != s1.outerSize(); ++k)
+        for (int k = 0; res && k != s1.outerSize(); ++k)
         {
-            for (typename T::InnerIterator it1(s1,k), it2(s2, k); res && it1 && it2 ; ++it1, ++it2, ++nbElts)
+            for (typename T::InnerIterator it1(s1, k), it2(s2, k); res && it1 && it2 ; ++it1, ++it2, ++nbElts)
             {
                 res = (it1.value() == it2.value()
-                       && it1.row() == it2.row()
-                       && it1.col() == it2.col());
+                    && it1.row() == it2.row()
+                    && it1.col() == it2.col());
             }
         }
         return res && (nbElts == s1.nonZeros()) && (nbElts == s2.nonZeros());
     }
     /**
-       utility function to set non zero values of an Eigen::Sparse matrix to a fixed values
-       @param s : sparse matrix to modify
-       @param v : value to set (default to 1.)
+    utility function to set non zero values of an Eigen::Sparse matrix to a fixed values
+    @param s : sparse matrix to modify
+    @param v : value to set (default to 1.)
     */
-    template<typename T> bool setNonZero(T& s, typename Eigen::internal::traits<T>::Scalar v= 1.) {
-        for (typename Eigen::internal::traits<T>::Index j=0; j<s.outerSize(); ++j)
+    template<typename T> bool setNonZero(T& s, typename Eigen::internal::traits<T>::Scalar v = 1.)
+    {
+        for (typename Eigen::internal::traits<T>::Index j = 0; j < s.outerSize(); ++j)
         {
             for (typename T::InnerIterator it(s, j); it; ++it)
             {
-                it.valueRef()= v;
+                it.valueRef() = v;
             }
         }
         return true;
@@ -204,35 +216,36 @@ namespace
         typedef typename Eigen::internal::traits<Sp>::Scalar data_t;
         Finalizer<Sp> f(dest);
         mycopy_n(makeMatrixIterator<data_t>(src, makeNonZerosIterator(src)), nonZeros(src)
-               , makeMatrixIterator<data_t>(dest, makeTranslatedIterator(makeNonZerosIterator(src), Coords2D(r,c))));
+            , makeMatrixIterator<data_t>(dest, makeTranslatedIterator(makeNonZerosIterator(src), Coords2D(r, c))));
     }
 
-// TODO : awaiting ggael's response to bug for [sp, sp]
+    // TODO : awaiting ggael's response to bug for [sp, sp]
     template<typename Scalar1, typename Scalar2>
     void doAppend(Eigen::SparseMatrix<Scalar1> CONST& src, int r, int c, Eigen::SparseMatrix<Scalar2>& dest)
     {
         typedef typename Eigen::SparseMatrix<Scalar1>::InnerIterator srcIt_t;
         typedef Eigen::SparseMatrix<Scalar2> dest_t;
         Finalizer<dest_t> f(dest);
-        for (std::size_t k=0; k != src.outerSize(); ++k)
+        for (std::size_t k = 0; k != src.outerSize(); ++k)
         {
-            for (srcIt_t it(src,k); it; ++it)
+            for (srcIt_t it(src, k); it; ++it)
             {
-                dest.insert( it.row()+r, it.col()+c)=  it.value();
+                dest.insert( it.row() + r, it.col() + c) =  it.value();
             }
         }
     }
-/*
-  Sp is an Eigen::SparseMatrix
- */
+    /*
+    Sp is an Eigen::SparseMatrix
+    */
     template<typename Sp, typename M>
     void cwiseInPlaceProduct(Sp& sp, M CONST& m)
-    {// should be a transform_n() over makeNonZerosIterator(src)
-        for(std::size_t k=0; k != sp.outerSize(); ++k)
+    {
+        // should be a transform_n() over makeNonZerosIterator(src)
+        for (std::size_t k = 0; k != sp.outerSize(); ++k)
         {
-            for (typename Sp::InnerIterator it(sp,k); it; ++it)
+            for (typename Sp::InnerIterator it(sp, k); it; ++it)
             {
-                it.valueRef()*=get<typename Eigen::internal::traits<Sp>::Scalar >(m, it.row(), it.col());
+                it.valueRef() *= get<typename Eigen::internal::traits<Sp>::Scalar >(m, it.row(), it.col());
             }
         }
 
@@ -242,13 +255,16 @@ namespace types
 {
 
     template<typename T, typename Arg>
-    T* create_new(Arg const& a) { return 0; }
+    T* create_new(Arg const& a)
+    {
+        return 0;
+    }
 
     template<>
     Double* create_new(double const& d)
     {
         Double* res(new Double(1, 1, false));
-        res->set(0,0,d);
+        res->set(0, 0, d);
         return res;
     }
 
@@ -256,8 +272,8 @@ namespace types
     Double* create_new(std::complex<double>const& c)
     {
         Double* res(new Double(1, 1, true));
-        res->set(0,0, c.real());
-        res->setImg(0,0, c.imag());
+        res->set(0, 0, c.real());
+        res->setImg(0, 0, c.imag());
         return res;
     }
 
@@ -278,8 +294,8 @@ namespace types
     }
 
     Sparse::Sparse( Sparse const& src) : GenericType(src)
-                                       , matrixReal(src.matrixReal ? new RealSparse_t(*src.matrixReal) : 0)
-                                       , matrixCplx(src.matrixCplx ? new CplxSparse_t(*src.matrixCplx) : 0)
+        , matrixReal(src.matrixReal ? new RealSparse_t(*src.matrixReal) : 0)
+        , matrixCplx(src.matrixCplx ? new CplxSparse_t(*src.matrixCplx) : 0)
 
     {
         m_iDims = 2;
@@ -288,12 +304,12 @@ namespace types
     }
 
     Sparse::Sparse(int _iRows, int _iCols, bool cplx)
-        : matrixReal(cplx ? 0: new RealSparse_t(_iRows, _iCols))
+        : matrixReal(cplx ? 0 : new RealSparse_t(_iRows, _iCols))
         , matrixCplx(cplx ? new CplxSparse_t(_iRows, _iCols) : 0)
     {
-        m_iRows =_iRows;
-        m_iCols =_iCols;
-        m_iSize =_iRows * _iCols;
+        m_iRows = _iRows;
+        m_iCols = _iCols;
+        m_iSize = _iRows * _iCols;
         m_iDims = 2;
         m_piDims[0] = _iRows;
         m_piDims[1] = _iCols;
@@ -308,30 +324,30 @@ namespace types
     {
         double CONST* const endOfRow(idx.getReal() + idx.getRows());
         create( static_cast<int>(*std::max_element(idx.getReal(), endOfRow))
-                , static_cast<int>(*std::max_element(endOfRow, endOfRow+idx.getRows()))
-                , src, makeIteratorFromVar(idx), idx.getSize()/2 );
+            , static_cast<int>(*std::max_element(endOfRow, endOfRow + idx.getRows()))
+            , src, makeIteratorFromVar(idx), idx.getSize() / 2 );
     }
 
     Sparse::Sparse(Double CONST& src, Double CONST& idx, Double CONST& dims)
     {
-        create(static_cast<int>(dims.getReal(0,0))
-               ,static_cast<int>(dims.getReal(0,1))
-               , src, makeIteratorFromVar(idx), idx.getSize()/2);
+        create(static_cast<int>(dims.getReal(0, 0))
+            , static_cast<int>(dims.getReal(0, 1))
+            , src, makeIteratorFromVar(idx), idx.getSize() / 2);
     }
 
     Sparse::Sparse(RealSparse_t* realSp, CplxSparse_t* cplxSp):  matrixReal(realSp), matrixCplx(cplxSp)
     {
-        if(realSp)
+        if (realSp)
         {
             m_iCols = realSp->cols();
             m_iRows = realSp->rows();
         }
         else
         {
-            m_iCols= cplxSp->cols();
-            m_iRows= cplxSp->rows();
+            m_iCols = cplxSp->cols();
+            m_iRows = cplxSp->rows();
         }
-        m_iSize= m_iCols * m_iRows;
+        m_iSize = m_iCols * m_iRows;
         m_iDims = 2;
         m_piDims[0] = m_iRows;
         m_piDims[1] = m_iCols;
@@ -353,21 +369,21 @@ namespace types
         m_piDims[0] = m_iRows;
         m_piDims[1] = m_iCols;
 
-        if(src.isComplex())
+        if (src.isComplex())
         {
-            matrixReal= 0;
-            matrixCplx=  new CplxSparse_t( rows, cols);
+            matrixReal = 0;
+            matrixCplx =  new CplxSparse_t( rows, cols);
             matrixCplx->reserve(n);
             Finalizer<CplxSparse_t> f(*matrixCplx);
             mycopy_n(makeMatrixIterator<std::complex<double> >(src, RowWiseFullIterator(src.getRows(), src.getCols())), n, makeMatrixIterator<std::complex<double> >(*matrixCplx, o));
         }
         else
         {
-            matrixReal= new RealSparse_t(rows, cols);
+            matrixReal = new RealSparse_t(rows, cols);
             matrixReal->reserve(n);
-            matrixCplx=  0;
+            matrixCplx =  0;
             mycopy_n(makeMatrixIterator<double >(src,  RowWiseFullIterator(src.getRows(), src.getCols())), n
-                   , makeMatrixIterator<double>(*matrixReal, o));
+                , makeMatrixIterator<double>(*matrixReal, o));
             Finalizer<RealSparse_t> f(*matrixReal);
         }
         finalize();
@@ -376,29 +392,29 @@ namespace types
     void Sparse::fill(Double& dest, int r, int c) CONST
     {
         Sparse& cthis(const_cast<Sparse&>(*this));
-        if(isComplex())
+        if (isComplex())
         {
             mycopy_n(makeMatrixIterator<std::complex<double> >(*matrixCplx, RowWiseFullIterator(cthis.getRows(), cthis.getCols())), cthis.getSize()
-                   ,makeMatrixIterator<std::complex<double> >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
+                , makeMatrixIterator<std::complex<double> >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
         }
         else
         {
             mycopy_n( makeMatrixIterator<double>(*matrixReal,  RowWiseFullIterator(cthis.getRows(), cthis.getCols())), cthis.getSize()
-                    , makeMatrixIterator<double >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
+                , makeMatrixIterator<double >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
         }
     }
 
     bool Sparse::set(int _iRows, int _iCols, std::complex<double> v)
     {
-        if(_iRows >= getRows() || _iCols >= getCols())
+        if (_iRows >= getRows() || _iCols >= getCols())
         {
             return false;
         }
 
-        if(matrixReal)
+        if (matrixReal)
         {
             double val = matrixReal->coeff(_iRows, _iCols);
-            if(val == 0)
+            if (val == 0)
             {
                 matrixReal->insert(_iRows, _iCols) = v.real();
             }
@@ -410,7 +426,7 @@ namespace types
         else
         {
             std::complex<double> val = matrixCplx->coeff(_iRows, _iCols);
-            if(val == std::complex<double>(0,0))
+            if (val == std::complex<double>(0, 0))
             {
                 matrixCplx->insert(_iRows, _iCols) = v;
             }
@@ -426,15 +442,15 @@ namespace types
 
     bool Sparse::set(int _iRows, int _iCols, double _dblReal)
     {
-        if(_iRows >= getRows() || _iCols >= getCols())
+        if (_iRows >= getRows() || _iCols >= getCols())
         {
             return false;
         }
 
-        if(matrixReal)
+        if (matrixReal)
         {
             double val = matrixReal->coeff(_iRows, _iCols);
-            if(val == 0)
+            if (val == 0)
             {
                 matrixReal->insert(_iRows, _iCols) = _dblReal;
             }
@@ -446,7 +462,7 @@ namespace types
         else
         {
             std::complex<double> val = matrixCplx->coeff(_iRows, _iCols);
-            if(val == std::complex<double>(0,0))
+            if (val == std::complex<double>(0, 0))
             {
                 matrixCplx->insert(_iRows, _iCols) = std::complex<double>(_dblReal, 0);
             }
@@ -462,7 +478,7 @@ namespace types
 
     void Sparse::finalize()
     {
-        if(isComplex())
+        if (isComplex())
         {
             matrixCplx->prune(&keepForSparse<std::complex<double> >);
             matrixCplx->finalize();
@@ -489,7 +505,7 @@ namespace types
     double Sparse::getReal(int _iRows, int _iCols) const
     {
         double res = 0;
-        if(matrixReal)
+        if (matrixReal)
         {
             res = matrixReal->coeff(_iRows, _iCols);
         }
@@ -503,7 +519,7 @@ namespace types
     std::complex<double> Sparse::getImg(int _iRows, int _iCols) const
     {
         std::complex<double> res;
-        if(matrixCplx)
+        if (matrixCplx)
         {
             res = matrixCplx->coeff(_iRows, _iCols);
         }
@@ -533,7 +549,7 @@ namespace types
     bool Sparse::zero_set()
     {
         bool res = false;
-        if(matrixReal)
+        if (matrixReal)
         {
             matrixReal->setZero();
         }
@@ -550,7 +566,7 @@ namespace types
     {
         int iPrecision = getFormatSize();
         std::wstring res;
-        if(matrixReal)
+        if (matrixReal)
         {
             res = ::toString(*matrixReal, iPrecision);
         }
@@ -565,15 +581,16 @@ namespace types
 
     bool Sparse::resize(int _iNewRows, int _iNewCols)
     {
-        if(_iNewRows <= getRows() && _iNewCols <= getCols())
-        {//nothing to do: hence we do NOT fail
+        if (_iNewRows <= getRows() && _iNewCols <= getCols())
+        {
+            //nothing to do: hence we do NOT fail
             return true;
         }
 
         bool res = false;
         try
         {
-            if(matrixReal)
+            if (matrixReal)
             {
                 RealSparse_t *newReal = new RealSparse_t(_iNewRows, _iNewCols);
 
@@ -590,7 +607,7 @@ namespace types
                 double* pNonZeroI = new double[iNonZeros];
                 outputValues(pNonZeroR, pNonZeroI);
 
-                for(size_t i = 0 ; i < iNonZeros ; i++)
+                for (size_t i = 0 ; i < iNonZeros ; i++)
                 {
                     newReal->insert((int)pRows[i] - 1, (int)pCols[i] - 1) = pNonZeroR[i];
                 }
@@ -615,7 +632,7 @@ namespace types
                 double* pNonZeroI = new double[iNonZeros];
                 outputValues(pNonZeroR, pNonZeroI);
 
-                for(size_t i = 0 ; i < iNonZeros ; i++)
+                for (size_t i = 0 ; i < iNonZeros ; i++)
                 {
                     newCplx->insert((int)pRows[i] - 1, (int)pCols[i] - 1) = std::complex<double>(pNonZeroR[i], pNonZeroI[i]);
                 }
@@ -629,7 +646,7 @@ namespace types
             m_iSize = _iNewRows * _iNewCols;
             res = true;
         }
-        catch(...)
+        catch (...)
         {
             res = false;
         }
@@ -642,27 +659,27 @@ namespace types
         Sparse* otherSparse = const_cast<Sparse*>(dynamic_cast<Sparse const*>(&it));/* types::GenericType is not const-correct :( */
         Sparse& cthis (const_cast<Sparse&>(*this));
 
-        if(otherSparse == NULL)
+        if (otherSparse == NULL)
         {
             return false;
         }
 
-        if(otherSparse->getRows() != cthis.getRows())
+        if (otherSparse->getRows() != cthis.getRows())
         {
             return false;
         }
 
-        if(otherSparse->getCols() != cthis.getCols())
+        if (otherSparse->getCols() != cthis.getCols())
         {
             return false;
         }
 
-        if(otherSparse->isComplex() != isComplex())
+        if (otherSparse->isComplex() != isComplex())
         {
             return false;
         }
 
-        if(isComplex())
+        if (isComplex())
         {
             return equal(*matrixCplx, *otherSparse->matrixCplx);
         }
@@ -674,7 +691,7 @@ namespace types
 
     bool Sparse::one_set()
     {
-        if(isComplex())
+        if (isComplex())
         {
             return setNonZero(*matrixCplx);
         }
@@ -686,14 +703,14 @@ namespace types
 
     void Sparse::toComplex()
     {
-        if(!isComplex())
+        if (!isComplex())
         {
             try
             {
                 matrixCplx = new CplxSparse_t(matrixReal->cast<std::complex<double> >());
                 delete matrixReal;
             }
-            catch(...)
+            catch (...)
             {
                 delete matrixCplx;
                 throw;
@@ -705,8 +722,9 @@ namespace types
     {
         bool bNeedToResize  = false;
         int iDims           = (int)_pArgs->size();
-        if(iDims > 2)
-        {//sparse are only in 2 dims
+        if (iDims > 2)
+        {
+            //sparse are only in 2 dims
             return NULL;
         }
 
@@ -722,38 +740,44 @@ namespace types
 
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
-        if(iSeqCount == 0)
+        if (iSeqCount == 0)
         {
             return this;
         }
 
-        if(iDims < 2)
-        {//see as vector
-            if(getRows() == 1 || getCols() == 1)
-            {//vector or scalar
+        if (iDims < 2)
+        {
+            //see as vector
+            if (getRows() == 1 || getCols() == 1)
+            {
+                //vector or scalar
                 bNeedToResize = true;
-                if(getSize() < piMaxDim[0])
-                {//need to enlarge sparse dimensions
-                    if(getCols() == 1 || getSize() == 0)
-                    {//column vector
+                if (getSize() < piMaxDim[0])
+                {
+                    //need to enlarge sparse dimensions
+                    if (getCols() == 1 || getSize() == 0)
+                    {
+                        //column vector
                         iNewRows    = piMaxDim[0];
                         iNewCols    = 1;
                     }
-                    else if(getRows() == 1)
-                    {//row vector
+                    else if (getRows() == 1)
+                    {
+                        //row vector
                         iNewRows    = 1;
                         iNewCols    = piMaxDim[0];
                     }
                 }
             }
-            else if(getSize() < piMaxDim[0])
-            {//out of range
+            else if (getSize() < piMaxDim[0])
+            {
+                //out of range
                 return NULL;
             }
         }
         else
         {
-            if(piMaxDim[0] > getRows() || piMaxDim[1] > getCols())
+            if (piMaxDim[0] > getRows() || piMaxDim[1] > getCols())
             {
                 bNeedToResize = true;
                 iNewRows = Max(getRows(), piMaxDim[0]);
@@ -762,37 +786,37 @@ namespace types
         }
 
         //check number of insertion
-        if(pSource->isScalar() == false && pSource->getSize() != iSeqCount)
+        if (pSource->isScalar() == false && pSource->getSize() != iSeqCount)
         {
             return NULL;
         }
 
         //now you are sure to be able to insert values
-        if(bNeedToResize)
+        if (bNeedToResize)
         {
-            if(resize(iNewRows, iNewCols) == false)
+            if (resize(iNewRows, iNewCols) == false)
             {
                 return NULL;
             }
         }
 
         //update complexity
-        if(pSource->isComplex() && isComplex() == false)
+        if (pSource->isComplex() && isComplex() == false)
         {
             toComplex();
         }
 
 
-        if(iDims == 1)
+        if (iDims == 1)
         {
             double* pIdx = pArg[0]->getAs<Double>()->get();
-            for(int i = 0 ; i < iSeqCount ; i++)
+            for (int i = 0 ; i < iSeqCount ; i++)
             {
-                int iRow = static_cast<int>(pIdx[i]-1) % getRows();
-                int iCol = static_cast<int>(pIdx[i]-1) / getRows();
-                if(pSource->isScalar())
+                int iRow = static_cast<int>(pIdx[i] - 1) % getRows();
+                int iCol = static_cast<int>(pIdx[i] - 1) / getRows();
+                if (pSource->isScalar())
                 {
-                    if(pSource->isComplex())
+                    if (pSource->isComplex())
                     {
                         set(iRow, iCol, std::complex<double>(pSource->get(0), pSource->getImg(0)));
                     }
@@ -803,7 +827,7 @@ namespace types
                 }
                 else
                 {
-                    if(pSource->isComplex())
+                    if (pSource->isComplex())
                     {
                         set(iRow, iCol, std::complex<double>(pSource->get(i), pSource->getImg(i)));
                     }
@@ -818,11 +842,11 @@ namespace types
         {
             double* pIdxRow = pArg[0]->getAs<Double>()->get();
             double* pIdxCol = pArg[1]->getAs<Double>()->get();
-            for(int i = 0 ; i < iSeqCount ; i++)
+            for (int i = 0 ; i < iSeqCount ; i++)
             {
-                if(pSource->isScalar())
+                if (pSource->isScalar())
                 {
-                    if(pSource->isComplex())
+                    if (pSource->isComplex())
                     {
                         set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, std::complex<double>(pSource->get(0), pSource->getImg(0)));
                     }
@@ -833,7 +857,7 @@ namespace types
                 }
                 else
                 {
-                    if(pSource->isComplex())
+                    if (pSource->isComplex())
                     {
                         set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, std::complex<double>(pSource->get(i), pSource->getImg(i)));
                     }
@@ -848,37 +872,16 @@ namespace types
         return this;
     }
 
-    template<typename SrcType>
-    bool Sparse::append(int r, int c, SrcType CONST* src)
-    {
-//        std::wcerr << L"to a sparse of size"<<getRows() << L","<<getCols() << L" should append @"<<r << L","<<c<< src->toString(32,80)<<std::endl;
-        if(src->isComplex())
-        {
-            toComplex();
-        }
-        if(isComplex())
-        {
-            doAppend(*src, r, c, *matrixCplx);
-        }
-        else
-        {
-            doAppend(*src, r, c, *matrixReal);
-        }
-
-        return true; // realloc is meaningless for sparse matrices
-    }
-
-    template<>
     bool Sparse::append(int r, int c, types::Sparse CONST* src)
     {
-//        std::wcerr << L"to a sparse of size"<<getRows() << L","<<getCols() << L" should append @"<<r << L","<<c<< "a sparse:"<< src->toString(32,80)<<std::endl;
-        if(src->isComplex())
+        //        std::wcerr << L"to a sparse of size"<<getRows() << L","<<getCols() << L" should append @"<<r << L","<<c<< "a sparse:"<< src->toString(32,80)<<std::endl;
+        if (src->isComplex())
         {
             toComplex();
         }
-        if(isComplex())
+        if (isComplex())
         {
-            if(src->isComplex())
+            if (src->isComplex())
             {
                 doAppend(*(src->matrixCplx), r, c, *matrixCplx);
             }
@@ -895,8 +898,8 @@ namespace types
     }
 
     /*
-     * create a new Sparse of dims according to resSize and fill it from currentSparse (along coords)
-     */
+    * create a new Sparse of dims according to resSize and fill it from currentSparse (along coords)
+    */
     InternalType* Sparse::extract(typed_list* _pArgs)
     {
         Sparse* pOut        = NULL;
@@ -908,47 +911,51 @@ namespace types
 
         //evaluate each argument and replace by appropriate value and compute the count of combinations
         int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
-        if(iSeqCount == 0)
+        if (iSeqCount == 0)
         {
-            if(_pArgs->size() == 0)
-            {//a()
+            if (_pArgs->size() == 0)
+            {
+                //a()
                 return this;
             }
             else
-            {//a([])
+            {
+                //a([])
                 return Double::Empty();
             }
         }
 
-        if(iDims < 2)
+        if (iDims < 2)
         {
-            if(piMaxDim[0] <= getSize())
+            if (piMaxDim[0] <= getSize())
             {
                 int iNewRows = Max(pArg[0]->getAs<Double>()->getRows(), pArg[0]->getAs<Double>()->getCols());
                 int iNewCols = 1;
 
                 pOut = new Sparse(iNewRows, iNewCols, isComplex());
                 double* pIdx = pArg[0]->getAs<Double>()->get();
-                for(int i = 0 ; i < iSeqCount ; i++)
+                for (int i = 0 ; i < iSeqCount ; i++)
                 {
-                    int iRowRead = static_cast<int>(pIdx[i]-1) % getRows();
-                    int iColRead = static_cast<int>(pIdx[i]-1) / getRows();
+                    int iRowRead = static_cast<int>(pIdx[i] - 1) % getRows();
+                    int iColRead = static_cast<int>(pIdx[i] - 1) / getRows();
 
                     int iRowWrite = static_cast<int>(i) % iNewRows;
                     int iColWrite = static_cast<int>(i) / iNewRows;
-                    if(isComplex())
+                    if (isComplex())
                     {
                         std::complex<double> dbl = getImg(iRowRead, iColRead);
-                        if(dbl.real() != 0 || dbl.imag() != 0)
-                        {//only non zero values
+                        if (dbl.real() != 0 || dbl.imag() != 0)
+                        {
+                            //only non zero values
                             pOut->set(iRowWrite, iColWrite, dbl);
                         }
                     }
                     else
                     {
                         double dbl = get(iRowRead, iColRead);
-                        if(dbl != 0)
-                        {//only non zero values
+                        if (dbl != 0)
+                        {
+                            //only non zero values
                             pOut->set(iRowWrite, iColWrite, dbl);
                         }
                     }
@@ -961,7 +968,7 @@ namespace types
         }
         else
         {
-            if(piMaxDim[0] <= getRows() && piMaxDim[1] <= getCols())
+            if (piMaxDim[0] <= getRows() && piMaxDim[1] <= getCols())
             {
                 double* pIdxRow = pArg[0]->getAs<Double>()->get();
                 double* pIdxCol = pArg[1]->getAs<Double>()->get();
@@ -972,23 +979,25 @@ namespace types
                 pOut = new Sparse(iNewRows, iNewCols, isComplex());
 
                 int iPos = 0;
-                for(int iRow = 0 ; iRow < iNewRows ; iRow++)
+                for (int iRow = 0 ; iRow < iNewRows ; iRow++)
                 {
-                    for(int iCol = 0 ; iCol < iNewCols ; iCol++)
+                    for (int iCol = 0 ; iCol < iNewCols ; iCol++)
                     {
-                        if(isComplex())
+                        if (isComplex())
                         {
                             std::complex<double> dbl = getImg((int)pIdxRow[iRow] - 1, (int)pIdxCol[iCol] - 1);
-                            if(dbl.real() != 0 || dbl.imag() != 0)
-                            {//only non zero values
+                            if (dbl.real() != 0 || dbl.imag() != 0)
+                            {
+                                //only non zero values
                                 pOut->set(iRow, iCol, dbl);
                             }
                         }
                         else
                         {
                             double dbl = get((int)pIdxRow[iRow] - 1, (int)pIdxCol[iCol] - 1);
-                            if(dbl != 0)
-                            {//only non zero values
+                            if (dbl != 0)
+                            {
+                                //only non zero values
                                 pOut->set(iRow, iCol, dbl);
                             }
                         }
@@ -1004,10 +1013,10 @@ namespace types
 
         return pOut;
     }
-    
+
     Sparse* Sparse::extract(int nbCoords, int CONST* coords, int CONST* maxCoords, int CONST* resSize, bool asVector) CONST
     {
-        if( (asVector && maxCoords[0] > getSize()) ||
+        if ( (asVector && maxCoords[0] > getSize()) ||
             (asVector == false && maxCoords[0] > getRows()) ||
             (asVector == false && maxCoords[1] > getCols()))
         {
@@ -1016,45 +1025,45 @@ namespace types
 
         bool const cplx(isComplex());
         Sparse* pSp (0);
-        if(asVector)
+        if (asVector)
         {
-            pSp= (getRows() == 1) ?  new Sparse(1, resSize[0], cplx) : new Sparse(resSize[0], 1, cplx);
+            pSp = (getRows() == 1) ?  new Sparse(1, resSize[0], cplx) : new Sparse(resSize[0], 1, cplx);
         }
         else
         {
             pSp = new Sparse(resSize[0], resSize[1], cplx);
         }
-//        std::cerr<<"extracted sparse:"<<pSp->getRows()<<", "<<pSp->getCols()<<"seqCount="<<nbCoords<<"maxDim="<<maxCoords[0] <<","<< maxCoords[1]<<std::endl;
-        if(! (asVector
-              ? copyToSparse(*this,  Coords<true>(coords, getRows()), nbCoords
-                             , *pSp, RowWiseFullIterator(pSp->getRows(), pSp->getCols()))
-              : copyToSparse(*this,  Coords<false>(coords), nbCoords
-                             , *pSp, RowWiseFullIterator(pSp->getRows(), pSp->getCols()))))
+        //        std::cerr<<"extracted sparse:"<<pSp->getRows()<<", "<<pSp->getCols()<<"seqCount="<<nbCoords<<"maxDim="<<maxCoords[0] <<","<< maxCoords[1]<<std::endl;
+        if (! (asVector
+            ? copyToSparse(*this,  Coords<true>(coords, getRows()), nbCoords
+            , *pSp, RowWiseFullIterator(pSp->getRows(), pSp->getCols()))
+            : copyToSparse(*this,  Coords<false>(coords), nbCoords
+            , *pSp, RowWiseFullIterator(pSp->getRows(), pSp->getCols()))))
         {
             delete pSp;
-            pSp= 0;
+            pSp = 0;
         }
         return pSp;
     }
     /*
-      coords are Scilab 1-based
-      extract std::make_pair(coords, asVector), rowIter
+    coords are Scilab 1-based
+    extract std::make_pair(coords, asVector), rowIter
     */
     template<typename Src, typename SrcTraversal, typename Sz, typename DestTraversal>
     bool Sparse::copyToSparse(Src CONST& src, SrcTraversal srcTrav, Sz n, Sparse& sp, DestTraversal destTrav)
     {
-        if(!(src.isComplex() || sp.isComplex()))
+        if (!(src.isComplex() || sp.isComplex()))
         {
             Finalizer<RealSparse_t> f(*sp.matrixReal);
             mycopy_n(makeMatrixIterator<double>(src, srcTrav), n
-                   , makeMatrixIterator<double>(*sp.matrixReal, destTrav));
+                , makeMatrixIterator<double>(*sp.matrixReal, destTrav));
         }
         else
         {
             sp.toComplex();
             Finalizer<CplxSparse_t> f(*sp.matrixCplx);
             mycopy_n(makeMatrixIterator<std::complex<double> >(src, srcTrav), n
-                   , makeMatrixIterator<std::complex<double> >(*sp.matrixCplx, destTrav));
+                , makeMatrixIterator<std::complex<double> >(*sp.matrixCplx, destTrav));
         }
         return true;
     }
@@ -1064,21 +1073,22 @@ namespace types
     {
         RealSparse_t* realSp(0);
         CplxSparse_t* cplxSp(0);
-        if(isComplex() == false && o.isComplex() == false)
-        {//R + R -> R
-            realSp = new RealSparse_t(*matrixReal + *(o.matrixReal));
-        }
-        else if(isComplex() == false && o.isComplex() == true)
+        if (isComplex() == false && o.isComplex() == false)
         {
-            cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() + *(o.matrixCplx));
+            //R + R -> R
+            realSp = new RealSparse_t(*matrixReal + * (o.matrixReal));
         }
-        else if(isComplex() == true && o.isComplex() == false)
+        else if (isComplex() == false && o.isComplex() == true)
+        {
+            cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() + * (o.matrixCplx));
+        }
+        else if (isComplex() == true && o.isComplex() == false)
         {
             cplxSp = new CplxSparse_t(*matrixCplx + o.matrixReal->cast<std::complex<double> >());
         }
-        else if(isComplex() == true && o.isComplex() == true)
+        else if (isComplex() == true && o.isComplex() == true)
         {
-            cplxSp = new CplxSparse_t(*matrixCplx + *(o.matrixCplx));
+            cplxSp = new CplxSparse_t(*matrixCplx + * (o.matrixCplx));
         }
 
         return new Sparse(realSp, cplxSp);
@@ -1089,21 +1099,25 @@ namespace types
     {
         RealSparse_t* realSp(0);
         CplxSparse_t* cplxSp(0);
-        if(isComplex() == false && o.isComplex() == false)
-        {//R - R -> R
-            realSp = new RealSparse_t(*matrixReal - *(o.matrixReal));
+        if (isComplex() == false && o.isComplex() == false)
+        {
+            //R - R -> R
+            realSp = new RealSparse_t(*matrixReal - * (o.matrixReal));
         }
-        else if(isComplex() == false && o.isComplex() == true)
-        {//R - C -> C
-            cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() - *(o.matrixCplx));
+        else if (isComplex() == false && o.isComplex() == true)
+        {
+            //R - C -> C
+            cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() - * (o.matrixCplx));
         }
-        else if(isComplex() == true && o.isComplex() == false)
-        {//C - R -> C
+        else if (isComplex() == true && o.isComplex() == false)
+        {
+            //C - R -> C
             cplxSp = new CplxSparse_t(*matrixCplx - o.matrixReal->cast<std::complex<double> >());
         }
-        else if(isComplex() == true && o.isComplex() == true)
-        {//C - C -> C
-            cplxSp = new CplxSparse_t(*matrixCplx - *(o.matrixCplx));
+        else if (isComplex() == true && o.isComplex() == true)
+        {
+            //C - C -> C
+            cplxSp = new CplxSparse_t(*matrixCplx - * (o.matrixCplx));
         }
 
         return new Sparse(realSp, cplxSp);
@@ -1111,14 +1125,14 @@ namespace types
 
     Sparse* Sparse::multiply(double s) const
     {
-        return new Sparse( isComplex() ? 0: new RealSparse_t((*matrixReal)*s)
-                           , isComplex() ? new CplxSparse_t((*matrixCplx)*s) : 0);
+        return new Sparse( isComplex() ? 0 : new RealSparse_t((*matrixReal)*s)
+            , isComplex() ? new CplxSparse_t((*matrixCplx)*s) : 0);
     }
 
     Sparse* Sparse::multiply(std::complex<double> s) const
     {
         return new Sparse( 0
-                           , isComplex() ? new CplxSparse_t((*matrixCplx) * s) : new CplxSparse_t((*matrixReal) * s));
+            , isComplex() ? new CplxSparse_t((*matrixCplx) * s) : new CplxSparse_t((*matrixReal) * s));
     }
 
     Sparse* Sparse::multiply(Sparse const& o) const
@@ -1126,19 +1140,19 @@ namespace types
         RealSparse_t* realSp(0);
         CplxSparse_t* cplxSp(0);
 
-        if(isComplex() == false && o.isComplex() == false)
+        if (isComplex() == false && o.isComplex() == false)
         {
             realSp = new RealSparse_t(*matrixReal * *(o.matrixReal));
         }
-        else if(isComplex() == false && o.isComplex() == true)
+        else if (isComplex() == false && o.isComplex() == true)
         {
-             cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() * *(o.matrixCplx));
+            cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >() * *(o.matrixCplx));
         }
-        else if(isComplex() == true && o.isComplex() == false)
+        else if (isComplex() == true && o.isComplex() == false)
         {
             cplxSp = new CplxSparse_t(*matrixCplx * o.matrixReal->cast<std::complex<double> >());
         }
-        else if(isComplex() == true && o.isComplex() == true)
+        else if (isComplex() == true && o.isComplex() == true)
         {
             cplxSp = new CplxSparse_t(*matrixCplx * *(o.matrixCplx));
         }
@@ -1150,19 +1164,19 @@ namespace types
     {
         RealSparse_t* realSp(0);
         CplxSparse_t* cplxSp(0);
-        if(isComplex() == false && o.isComplex() == false)
+        if (isComplex() == false && o.isComplex() == false)
         {
             realSp = new RealSparse_t(matrixReal->cwiseProduct(*(o.matrixReal)));
         }
-        else if(isComplex() == false && o.isComplex() == true)
+        else if (isComplex() == false && o.isComplex() == true)
         {
             cplxSp = new CplxSparse_t(matrixReal->cast<std::complex<double> >().cwiseProduct( *(o.matrixCplx)));
         }
-        else if(isComplex() == true && o.isComplex() == false)
+        else if (isComplex() == true && o.isComplex() == false)
         {
             cplxSp = new CplxSparse_t(matrixCplx->cwiseProduct(o.matrixReal->cast<std::complex<double> >()));
         }
-        else if(isComplex() == true && o.isComplex() == true)
+        else if (isComplex() == true && o.isComplex() == true)
         {
             cplxSp = new CplxSparse_t(matrixCplx->cwiseProduct(*(o.matrixCplx)));
         }
@@ -1173,11 +1187,11 @@ namespace types
     Sparse* Sparse::newTransposed() const
     {
         return new Sparse( matrixReal ? new RealSparse_t(matrixReal->transpose()) : 0
-                           ,matrixCplx ? new CplxSparse_t(matrixCplx->transpose()) : 0);
+            , matrixCplx ? new CplxSparse_t(matrixCplx->transpose()) : 0);
     }
     struct BoolCast
     {
-        BoolCast(std::complex<double> const& c): b(c.real() ||c.imag()){}
+        BoolCast(std::complex<double> const& c): b(c.real() || c.imag()) {}
         operator bool () const
         {
             return b;
@@ -1189,15 +1203,16 @@ namespace types
         bool b;
     };
     Sparse* Sparse::newOnes() const
-    { // result is never cplx
+    {
+        // result is never cplx
         return new Sparse( matrixReal
-                           ? new RealSparse_t(matrixReal->cast<bool>().cast<double>())
-                           : new RealSparse_t(matrixCplx->cast<BoolCast>().cast<double>())
-                           , 0);
+            ? new RealSparse_t(matrixReal->cast<bool>().cast<double>())
+            : new RealSparse_t(matrixCplx->cast<BoolCast>().cast<double>())
+            , 0);
     }
     std::size_t Sparse::nonZeros() const
     {
-        if(isComplex())
+        if (isComplex())
         {
             return matrixCplx->nonZeros();
         }
@@ -1209,15 +1224,15 @@ namespace types
     std::size_t Sparse::nonZeros(std::size_t r) const
     {
         std::size_t res;
-        if(matrixReal)
+        if (matrixReal)
         {
             int* piIndex = matrixReal->outerIndexPtr();
-            res = piIndex[r + 1]-piIndex[r];
+            res = piIndex[r + 1] - piIndex[r];
         }
         else
         {
             int* piIndex = matrixCplx->outerIndexPtr();
-            res = piIndex[r + 1]-piIndex[r];
+            res = piIndex[r + 1] - piIndex[r];
         }
 
         return res;
@@ -1251,14 +1266,14 @@ namespace types
         {
             double operator()(typename S::InnerIterator it) const
             {
-                return it.row()+1;
+                return it.row() + 1;
             }
         };
         template<typename S> struct GetCol: std::unary_function<typename S::InnerIterator, double>
         {
             double operator()(typename S::InnerIterator it) const
             {
-                return it.col()+1;
+                return it.col() + 1;
             }
         };
 
@@ -1266,7 +1281,7 @@ namespace types
         {
             for (std::size_t k(0); k < s.outerSize(); ++k)
             {
-                for (typename S::InnerIterator it(s,k); it; ++it, ++o)
+                for (typename S::InnerIterator it(s, k); it; ++it, ++o)
                 {
                     *o = f(it);
                 }
@@ -1280,7 +1295,7 @@ namespace types
         return matrixReal
             ? std::make_pair(sparseTransform(*matrixReal, outReal, GetReal<RealSparse_t>()), outImag)
             : std::make_pair(sparseTransform(*matrixCplx, outReal, GetReal<CplxSparse_t>())
-                             , sparseTransform(*matrixCplx, outImag, GetImag<CplxSparse_t>()));
+            , sparseTransform(*matrixCplx, outImag, GetImag<CplxSparse_t>()));
     }
 
     double* Sparse::outputRowCol(double* out)const
@@ -1291,7 +1306,7 @@ namespace types
     }
     double* Sparse::outputCols(double* out) const
     {
-        if(isComplex())
+        if (isComplex())
         {
             mycopy_n(matrixCplx->innerIndexPtr(), nonZeros(), out);
         }
@@ -1306,13 +1321,13 @@ namespace types
 
     void Sparse::opposite(void)
     {
-        if(isComplex())
+        if (isComplex())
         {
-            *matrixCplx=  matrixCplx->unaryExpr(std::negate<std::complex<double> >());
+            *matrixCplx =  matrixCplx->unaryExpr(std::negate<std::complex<double> >());
         }
         else
         {
-            *matrixReal=  matrixReal->unaryExpr(std::negate<double >());
+            *matrixReal =  matrixReal->unaryExpr(std::negate<double >());
         }
     }
 
@@ -1346,62 +1361,72 @@ namespace types
         return cwiseOp<std::equal_to>(*this, o);
     }
 
-//    SparseBool* SparseBool::new
+    //    SparseBool* SparseBool::new
 
     SparseBool::SparseBool(Bool CONST& src)
     {
         create(src.getRows(), src.getCols(), src, RowWiseFullIterator(src.getRows(), src.getCols()), src.getSize());
     }
-        /* @param src : Bool matrix to copy into a new sparse matrix
-           @param idx : Double matrix to use as indexes to get values from the src
-        **/
+    /* @param src : Bool matrix to copy into a new sparse matrix
+    @param idx : Double matrix to use as indexes to get values from the src
+    **/
     SparseBool::SparseBool(Bool CONST& src, Double CONST& idx)
     {
         double CONST* const endOfRow(idx.getReal() + idx.getRows());
         create( static_cast<int>(*std::max_element(idx.getReal(), endOfRow))
-                , static_cast<int>(*std::max_element(endOfRow, endOfRow+idx.getRows()))
-                , src, makeIteratorFromVar(idx), idx.getSize()/2 );
+            , static_cast<int>(*std::max_element(endOfRow, endOfRow + idx.getRows()))
+            , src, makeIteratorFromVar(idx), idx.getSize() / 2 );
     }
 
-        /* @param src : Bool matrix to copy into a new sparse matrix
-           @param idx : Double matrix to use as indexes to get values from the src
-           @param dims : Double matrix containing the dimensions of the new matrix
-        **/
+    /* @param src : Bool matrix to copy into a new sparse matrix
+    @param idx : Double matrix to use as indexes to get values from the src
+    @param dims : Double matrix containing the dimensions of the new matrix
+    **/
     SparseBool::SparseBool(Bool CONST& src, Double CONST& idx, Double CONST& dims)
     {
-        create((int)dims.getReal(0, 0) ,(int)dims.getReal(0,1) , src, makeIteratorFromVar(idx), (int)idx.getSize()/2);
+        create((int)dims.getReal(0, 0) , (int)dims.getReal(0, 1) , src, makeIteratorFromVar(idx), (int)idx.getSize() / 2);
     }
 
-    SparseBool::SparseBool(int rows, int cols) : matrixBool(new BoolSparse_t(rows, cols))
+    SparseBool::SparseBool(int _iRows, int _iCols) : matrixBool(new BoolSparse_t(_iRows, _iCols))
     {
-        m_iRows= rows;
-        m_iCols= cols;
-        m_iSize= m_iRows * m_iCols;
+        m_iRows = _iRows;
+        m_iCols = _iCols;
+        m_iSize = _iRows * _iCols;
+        m_iDims = 2;
+        m_piDims[0] = _iRows;
+        m_piDims[1] = _iCols;
     }
-    
+
     SparseBool::SparseBool(SparseBool const& src) : GenericType(src),  matrixBool(new BoolSparse_t(*src.matrixBool))
     {
+        m_iDims = 2;
+        m_piDims[0] = const_cast<SparseBool*>(&src)->getRows();
+        m_piDims[1] = const_cast<SparseBool*>(&src)->getCols();
     }
 
     SparseBool::SparseBool(BoolSparse_t* src) : matrixBool(src)
     {
-        m_iRows= src->rows();
-        m_iCols= src->cols();
-        m_iSize= m_iRows * m_iCols;
+        m_iRows = src->rows();
+        m_iCols = src->cols();
+        m_iSize = m_iRows * m_iCols;
     }
 
     template<typename DestIter>
     void SparseBool::create(int rows, int cols, Bool CONST& src, DestIter o, std::size_t n)
     {
-        m_iCols= cols;
-        m_iRows= rows;
-        m_iSize= cols*rows;
-        matrixBool= new BoolSparse_t(rows, cols);
+        m_iCols = cols;
+        m_iRows = rows;
+        m_iSize = cols * rows;
+        m_iDims = 2;
+        m_piDims[0] = m_iRows;
+        m_piDims[1] = m_iCols;
+
+        matrixBool = new BoolSparse_t(rows, cols);
 
         matrixBool->reserve(n);
         Finalizer<BoolSparse_t> f(*matrixBool);
-            mycopy_n(makeMatrixIterator<int>(src,  RowWiseFullIterator(src.getRows(), src.getCols())), n
-                   , makeMatrixIterator<bool>(*matrixBool, o));
+        mycopy_n(makeMatrixIterator<int>(src,  RowWiseFullIterator(src.getRows(), src.getCols())), n
+            , makeMatrixIterator<bool>(*matrixBool, o));
 
     }
 
@@ -1437,92 +1462,92 @@ namespace types
         int col      = 0;
         bool res(false);
         // invalid index < 1
-        if(*std::min_element(coords, coords+ (asVector ? 1:2)* nbCoords) < 1)
+        if (*std::min_element(coords, coords + (asVector ? 1 : 2)* nbCoords) < 1)
         {
             return false;
         }
-        switch(src->getType())
+        switch (src->getType())
         {
         case InternalType::RealBool :
-        {
-            res= false;
-            Finalizer<BoolSparse_t> f(*matrixBool);
-            if( asVector )
             {
-                mycopy_n(makeMatrixIterator<bool>(*src->getAs<Bool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
-                       , nbCoords
-                       , makeMatrixIterator<bool>(*matrixBool,  Coords<true>(coords, getRows())));
+                res = false;
+                Finalizer<BoolSparse_t> f(*matrixBool);
+                if ( asVector )
+                {
+                    mycopy_n(makeMatrixIterator<bool>(*src->getAs<Bool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
+                        , nbCoords
+                        , makeMatrixIterator<bool>(*matrixBool,  Coords<true>(coords, getRows())));
+                }
+                else
+                {
+                    mycopy_n(makeMatrixIterator<bool>(*src->getAs<Bool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
+                        , nbCoords
+                        , makeMatrixIterator<bool>(*matrixBool,  Coords<false>(coords)));
+                }
+                res = true;
+                break;
             }
-            else
-            {
-                mycopy_n(makeMatrixIterator<bool>(*src->getAs<Bool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
-                       , nbCoords
-                       , makeMatrixIterator<bool>(*matrixBool,  Coords<false>(coords)));
-            }
-            res= true;
-            break;
-        }
         case InternalType::RealSparseBool :
-        {
-            res= false;
-            if( asVector )
             {
-                mycopy_n(makeMatrixIterator<bool>(*src->getAs<SparseBool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
-                            , nbCoords
-                            , makeMatrixIterator<bool>(*matrixBool,  Coords<true>(coords, getRows())));
+                res = false;
+                if ( asVector )
+                {
+                    mycopy_n(makeMatrixIterator<bool>(*src->getAs<SparseBool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
+                        , nbCoords
+                        , makeMatrixIterator<bool>(*matrixBool,  Coords<true>(coords, getRows())));
+                }
+                else
+                {
+                    mycopy_n(makeMatrixIterator<bool>(*src->getAs<SparseBool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
+                        , nbCoords
+                        , makeMatrixIterator<bool>(*matrixBool,  Coords<false>(coords)));
+                }
+                res = true;
+                break;
             }
-            else
-            {
-                mycopy_n(makeMatrixIterator<bool>(*src->getAs<SparseBool>(), RowWiseFullIterator(src->getRows(), src->getCols()))
-                         , nbCoords
-                         , makeMatrixIterator<bool>(*matrixBool,  Coords<false>(coords)));
-            }
-            res= true;
-            break;
-        }
         default :
-        {
-            res= false;
-        }
+            {
+                res = false;
+            }
         }
         return res;
     }
 
-        template<typename SrcType>
-        bool SparseBool::append(int r, int c, SrcType CONST* src)
-        {
-             doAppend(*src, r, c, *matrixBool);
-             return true;
-        }
+    bool SparseBool::append(int r, int c, SparseBool CONST* src)
+    {
+        doAppend(*src, r, c, *matrixBool);
+        return true;
+    }
 
     SparseBool* SparseBool::insert_new(int nbCoords, int CONST* coords, int CONST* maxCoords, GenericType CONST* src, bool asVector)
     {
         SparseBool* pSp;
-        if(asVector)
+        if (asVector)
         {
-            if(src->getCols() == 1)
+            if (src->getCols() == 1)
             {
-                pSp= new SparseBool(maxCoords[0], 1);
+                pSp = new SparseBool(maxCoords[0], 1);
             }
             else
             {
-                pSp= (src->getRows() == 1) ? new SparseBool(1, maxCoords[0]) : 0;
+                pSp = (src->getRows() == 1) ? new SparseBool(1, maxCoords[0]) : 0;
             }
         }
         else
         {
-            pSp=  new SparseBool(maxCoords[0], maxCoords[1]);
+            pSp =  new SparseBool(maxCoords[0], maxCoords[1]);
         }
-        if( pSp && !pSp->insert(nbCoords, coords, maxCoords, src, asVector) )
+        if ( pSp && !pSp->insert(nbCoords, coords, maxCoords, src, asVector) )
         {
             delete pSp;
-            pSp= 0;
+            pSp = 0;
         }
         return pSp;
     }
+
     SparseBool* SparseBool::extract(int nbCoords, int CONST* coords, int CONST* maxCoords, int CONST* resSize, bool asVector) CONST
     {
-        if( (asVector && maxCoords[0] > getSize()) ||
+        if ( (asVector && maxCoords[0] > getSize()) ||
             (asVector == false && maxCoords[0] > getRows()) ||
             (asVector == false && maxCoords[1] > getCols()))
         {
@@ -1530,20 +1555,118 @@ namespace types
         }
 
         SparseBool* pSp (0);
-        if(asVector)
+        if (asVector)
         {
-            pSp= (getRows() == 1) ?  new SparseBool(1, resSize[0]) : new SparseBool(resSize[0], 1);
+            pSp = (getRows() == 1) ?  new SparseBool(1, resSize[0]) : new SparseBool(resSize[0], 1);
             mycopy_n(makeMatrixIterator<bool>(*this,  Coords<true>(coords, getRows())), nbCoords
-                   , makeMatrixIterator<bool>(*(pSp->matrixBool), RowWiseFullIterator(pSp->getRows(), pSp->getCols())));
+                , makeMatrixIterator<bool>(*(pSp->matrixBool), RowWiseFullIterator(pSp->getRows(), pSp->getCols())));
         }
         else
         {
             pSp = new SparseBool(resSize[0], resSize[1]);
             mycopy_n(makeMatrixIterator<bool>(*this,  Coords<false>(coords, getRows())), nbCoords
-                   , makeMatrixIterator<bool>(*(pSp->matrixBool), RowWiseFullIterator(pSp->getRows(), pSp->getCols())));
+                , makeMatrixIterator<bool>(*(pSp->matrixBool), RowWiseFullIterator(pSp->getRows(), pSp->getCols())));
 
         }
         return pSp;
+    }
+
+    /*
+    * create a new SparseBool of dims according to resSize and fill it from currentSparseBool (along coords)
+    */
+    InternalType* SparseBool::extract(typed_list* _pArgs)
+    {
+        SparseBool* pOut    = NULL;
+        int iDims           = (int)_pArgs->size();
+        typed_list pArg;
+
+        int* piMaxDim       = new int[iDims];
+        int* piCountDim     = new int[iDims];
+
+        //evaluate each argument and replace by appropriate value and compute the count of combinations
+        int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
+        if (iSeqCount == 0)
+        {
+            if (_pArgs->size() == 0)
+            {
+                //a()
+                return this;
+            }
+            else
+            {
+                //a([])
+                return Double::Empty();
+            }
+        }
+
+        if (iDims < 2)
+        {
+            // Check that we stay inside the input size.
+            if (piMaxDim[0] <= getSize())
+            {
+                int iNewRows = Max(pArg[0]->getAs<Double>()->getRows(), pArg[0]->getAs<Double>()->getCols());
+                int iNewCols = 1;
+
+                pOut = new SparseBool(iNewRows, iNewCols);
+                double* pIdx = pArg[0]->getAs<Double>()->get();
+                // Write in output all elements extract from input.
+                for (int i = 0 ; i < iSeqCount ; i++)
+                {
+                    int iRowRead = static_cast<int>(pIdx[i] - 1) % getRows();
+                    int iColRead = static_cast<int>(pIdx[i] - 1) / getRows();
+
+                    int iRowWrite = static_cast<int>(i) % iNewRows;
+                    int iColWrite = static_cast<int>(i) / iNewRows;
+
+                    bool bValue = get(iRowRead, iColRead);
+                    if (bValue)
+                    {
+                        //only non zero values
+                        pOut->set(iRowWrite, iColWrite, true);
+                    }
+                }
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+        else
+        {
+            // Check that we stay inside the input size.
+            if (piMaxDim[0] <= getRows() && piMaxDim[1] <= getCols())
+            {
+                double* pIdxRow = pArg[0]->getAs<Double>()->get();
+                double* pIdxCol = pArg[1]->getAs<Double>()->get();
+
+                int iNewRows = pArg[0]->getAs<Double>()->getSize();
+                int iNewCols = pArg[1]->getAs<Double>()->getSize();
+
+                pOut = new SparseBool(iNewRows, iNewCols);
+
+                int iPos = 0;
+                // Write in output all elements extract from input.
+                for (int iRow = 0 ; iRow < iNewRows ; iRow++)
+                {
+                    for (int iCol = 0 ; iCol < iNewCols ; iCol++)
+                    {
+                        bool bValue = get((int)pIdxRow[iRow] - 1, (int)pIdxCol[iCol] - 1);
+                        if (bValue)
+                        {
+                            //only non zero values
+                            pOut->set(iRow, iCol, true);
+                        }
+                        iPos++;
+                    }
+                }
+            }
+            else
+            {
+                return NULL;
+            }
+        }
+
+        return pOut;
     }
 
     std::size_t SparseBool::nbTrue() const
@@ -1553,7 +1676,7 @@ namespace types
     std::size_t SparseBool::nbTrue(std::size_t r) const
     {
         int* piIndex = matrixBool->outerIndexPtr();
-        return piIndex[r + 1]-piIndex[r];
+        return piIndex[r + 1] - piIndex[r];
     }
 
 
@@ -1566,9 +1689,9 @@ namespace types
     {
         SparseBool* otherSparse = const_cast<SparseBool*>(dynamic_cast<SparseBool const*>(&it));/* types::GenericType is not const-correct :( */
         return (otherSparse
-                && (otherSparse->getRows() != getRows())
-                && (otherSparse->getCols() != getCols())
-                && equal(*matrixBool, *otherSparse->matrixBool));
+            && (otherSparse->getRows() != getRows())
+            && (otherSparse->getCols() != getCols())
+            && equal(*matrixBool, *otherSparse->matrixBool));
     }
 
     bool SparseBool::operator!=(const InternalType& it) CONST
@@ -1595,7 +1718,7 @@ namespace types
     bool SparseBool::set(int _iRows, int _iCols, bool _bVal) CONST
     {
         bool val = matrixBool->coeff(_iRows, _iCols);
-        if(val)
+        if (val)
         {
             matrixBool->coeffRef(_iRows, _iCols) = _bVal;
         }
@@ -1611,7 +1734,7 @@ namespace types
     void SparseBool::fill(Bool& dest, int r, int c) CONST
     {
         mycopy_n(makeMatrixIterator<bool >(*matrixBool, RowWiseFullIterator(getRows(), getCols())), getSize()
-                   ,makeMatrixIterator<bool >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
+            , makeMatrixIterator<bool >(dest, RowWiseFullIterator(dest.getRows(), dest.getCols(), r, c)));
     }
 
     Sparse* SparseBool::newOnes() const
@@ -1639,12 +1762,3 @@ namespace types
         return cwiseOp<std::logical_and>(*this, o);
     }
 }
-
-//template
-//bool types::Sparse::append<types::Sparse>(int, int, types::Sparse*);
-template
-bool types::Sparse::append<types::Double>(int, int, types::Double*);
-template
-bool types::SparseBool::append<types::Bool>(int, int, types::Bool*);
-template
-bool types::SparseBool::append<types::SparseBool>(int, int, types::SparseBool*);
