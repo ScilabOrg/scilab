@@ -274,6 +274,12 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 		case types::GenericType::RealString :
 			poResult = new types::String(_iRows, _iCols);
 			break;
+        case types::GenericType::RealSparse :
+			poResult = new types::Sparse(_iRows, _iCols);
+			break;
+        case types::GenericType::RealSparseBool :
+			poResult = new types::SparseBool(_iRows, _iCols);
+			break;
 		case types::GenericType::RealPoly :
 			{
 				int* piRank = new int[_iRows * _iCols];
@@ -339,6 +345,58 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 
 				poResult->getAs<types::Polynom>()->setCoef(iCurRow, iCurCol, _poSource->getAs<types::Polynom>()->get(0)->getCoef());
 			}
+			else if(TypeSource == types::GenericType::RealSparse)
+			{
+			    types::Double* poDest = _poDest->getAs<types::Double>();
+			    types::Sparse* poSource = _poSource->getAs<types::Sparse>();
+			    types::Sparse* spResult = new types::Sparse(*poDest);
+                poResult = spResult;
+
+			    int nonZeros = static_cast<int>(poSource->nonZeros());
+                double* pRows = new double[nonZeros * 2];
+                poSource->outputRowCol(pRows);
+                double* pCols = pRows + nonZeros;
+                double* pNonZeroR = new double[nonZeros];
+                double* pNonZeroI = new double[nonZeros];
+                poSource->outputValues(pNonZeroR, pNonZeroI);
+
+                if(spResult->getRows() != poSource->getRows() || spResult->getCols() == 1)
+                {
+                    int iRowsLeftElem = spResult->getRows() - poSource->getRows();
+                    if(spResult->isComplex())
+                    {
+                        for(int i = 0; i < nonZeros; i++)
+                        {
+                            spResult->set((int)pRows[i]+iRowsLeftElem-1, (int)pCols[i]-1, std::complex<double>(pNonZeroR[i], pNonZeroI[i]));
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < nonZeros; i++)
+                        {
+                            spResult->set((int)pRows[i]+iRowsLeftElem-1, (int)pCols[i]-1, pNonZeroR[i]);
+                        }
+                    }
+                }
+                else if(spResult->getCols() != poSource->getCols() || spResult->getRows() == 1)
+                {
+                    int iColsLeftElem = spResult->getCols() - poSource->getCols();
+                    if(spResult->isComplex())
+                    {
+                        for(int i = 0; i < nonZeros; i++)
+                        {
+                            spResult->set((int)pRows[i]-1, (int)pCols[i]+iColsLeftElem-1, std::complex<double>(pNonZeroR[i], pNonZeroI[i]));
+                        }
+                    }
+                    else
+                    {
+                        for(int i = 0; i < nonZeros; i++)
+                        {
+                            spResult->set((int)pRows[i]-1, (int)pCols[i]+iColsLeftElem-1, pNonZeroR[i]);
+                        }
+                    }
+                }
+			}
 			break;
 		case types::GenericType::RealPoly :
 			if(TypeSource == types::GenericType::RealDouble)
@@ -348,6 +406,43 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 
 				pPolyOut->setRank(1);
                 pPolyOut->setCoef(_poSource->getAs<types::Double>());
+			}
+			break;
+        case types::GenericType::RealSparse :
+			if(TypeSource == types::GenericType::RealDouble)
+			{
+			    types::Double* poSource = _poSource->getAs<types::Double>();
+				types::Sparse* spResult = poResult->getAs<types::Sparse>();
+                if(spResult->getRows() != poSource->getRows() || spResult->getCols() == 1)
+                {
+                    int iRowsLeftElem = spResult->getRows() - poSource->getRows();
+                    for(int i = 0; i < poSource->getRows(); i++)
+                    {
+                        for(int j = 0; j < poSource->getCols(); j++)
+                        {
+                            double dbl = poSource->get(i, j);
+                            if(dbl != 0)
+                            {
+                                spResult->set(i + iRowsLeftElem, j, dbl);
+                            }
+                        }
+                    }
+                }
+                else if(spResult->getCols() != poSource->getCols() || spResult->getRows() == 1)
+                {
+                    int iColsLeftElem = spResult->getCols() - poSource->getCols();
+                    for(int i = 0; i < poSource->getRows(); i++)
+                    {
+                        for(int j = 0; j < poSource->getCols(); j++)
+                        {
+                            double dbl = poSource->get(i, j);
+                            if(dbl != 0)
+                            {
+                                spResult->set(i, j + iColsLeftElem, dbl);
+                            }
+                        }
+                    }
+                }
 			}
 			break;
 		default:
@@ -391,6 +486,12 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
 			break;
 		case types::GenericType::RealUInt64 :
 			poResult->getAs<types::UInt64>()->append(iCurRow, iCurCol, _poSource->getAs<types::UInt64>());
+			break;
+		case types::GenericType::RealSparse :
+			poResult->getAs<types::Sparse>()->append(iCurRow, iCurCol, _poSource->getAs<types::Sparse>());
+			break;
+		case types::GenericType::RealSparseBool :
+			poResult->getAs<types::SparseBool>()->append(iCurRow, iCurCol, _poSource->getAs<types::SparseBool>());
 			break;
 		case types::GenericType::RealString :
             {
