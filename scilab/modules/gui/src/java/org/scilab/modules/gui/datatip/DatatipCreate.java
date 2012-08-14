@@ -41,7 +41,7 @@ public class DatatipCreate {
     private static Integer[] datatipBounds = new Integer[2];
     public static Double[] datatipPosition = new Double[3];
     private static double[] pixelMouseCoordDouble = new double[2];
-    public static double[] coordDoubleXY = new double[]{0.0, 0.0};
+    public static double[] coordDoubleXY = new double[] {0.0, 0.0};
     static EntityPicker ep = new EntityPicker();
     public static double[] graphicCoord = new double[3];
     public static String newDatatip = null;
@@ -87,42 +87,42 @@ public class DatatipCreate {
             double[] DataY = (double[]) PolylineData.getDataY (polylineUid);
             double[] distAllPoints = new double[DataX.length];
             for (int i = 0 ; i < DataX.length ; i++) {
-                double distPoint = Math.sqrt(Math.pow((coordDoubleXY[0]-DataX[i]),2.0)+Math.pow((coordDoubleXY[1]-DataY[i]),2.0));
+                double distPoint = Math.sqrt(Math.pow((coordDoubleXY[0] - DataX[i]), 2.0) + Math.pow((coordDoubleXY[1] - DataY[i]), 2.0));
                 distAllPoints[i] = distPoint;
             }
             double minValue = distAllPoints[0];
             int posMin = 0;
-            for(int j = 1 ; j < distAllPoints.length ; j++){
-                if(distAllPoints[j] < minValue){
+            for (int j = 1 ; j < distAllPoints.length ; j++) {
+                if (distAllPoints[j] < minValue) {
                     minValue = distAllPoints[j];
                     posMin = j;
                 }
             }
 
-            String newDatatip = createDatatipProgramIndex(polylineUid, posMin+1);
+            String newDatatip = createDatatipProgramIndex(polylineUid, posMin + 1);
             return newDatatip;
 
         } else {
 
             int middleLineFactor = 0;
 
-            double[] graphCoordDouble = new double[]{0.0, 0.0, 0.0};
+            double[] graphCoordDouble = new double[] {0.0, 0.0, 0.0};
             graphCoordDouble[0] = coordDoubleXY[0];
             graphCoordDouble[1] = coordDoubleXY[1];
             graphCoordDouble[2] = 0.0;
 
-            double[] pixelCoordinates = new double[]{0.0, 0.0};
+            double[] pixelCoordinates = new double[] {0.0, 0.0};
             pixelCoordinates = CallRenderer.getPixelFrom2dViewCoordinates(axesUid, graphCoordDouble);
 
             int xInt = (int) pixelCoordinates[0];
             int yInt = (int) pixelCoordinates[1];
 
-            Integer[] coordInteger = new Integer[]{0, 0};
+            Integer[] coordInteger = new Integer[] {0, 0};
             coordInteger[0] = (Integer) xInt;
             coordInteger[1] = (Integer) yInt;
 
             int yVerify = 0;
-            Integer[] axesDimension = new Integer[]{0, 0};
+            Integer[] axesDimension = new Integer[] {0, 0};
             axesDimension = (Integer[])GraphicController.getController().getProperty(figureUid, GraphicObjectProperties.__GO_AXES_SIZE__);
 
             String polylineUidEnd = null;
@@ -151,14 +151,14 @@ public class DatatipCreate {
                 newX = coordInteger[0];
                 newY = yVerify + (middleLineFactor / 2);
 
-                Integer[] pixelMouseCoordInt = new Integer[]{0, 0};
+                Integer[] pixelMouseCoordInt = new Integer[] {0, 0};
                 pixelMouseCoordInt[0] = newX;
                 pixelMouseCoordInt[1] = newY;
 
-                double[] pixelMouseCoordDouble = new double[]{0.0, 0.0};
+                double[] pixelMouseCoordDouble = new double[] {0.0, 0.0};
                 pixelMouseCoordDouble = transformPixelCoordToDouble(pixelMouseCoordInt);
 
-                double[] graphicCoord = new double[]{0.0, 0.0, 0.0};
+                double[] graphicCoord = new double[] {0.0, 0.0, 0.0};
                 graphicCoord = transformPixelCoordToGraphic (axesUid, pixelMouseCoordDouble);
 
                 newDatatip = datatipProperties (graphicCoord, axesUid);

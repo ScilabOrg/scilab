@@ -835,42 +835,42 @@ public class Editor {
         String picked = null;
         String type = null;
         switch (num) {
-            /*try pick a polyline*/
+                /*try pick a polyline*/
             case 0:
                 picked = entityPicker.pick(figureUid, pos[0], pos[1]);
                 if (picked != null) {
                     selectedType = SelectionType.POLYLINE;
                     return picked;
                 }
-            /*try pick a surface - grayplot*/
+                /*try pick a surface - grayplot*/
             case 1:
                 picked = entityPicker.pickSurface(figureUid, pos);
                 type = (String) GraphicController.getController()
-                                        .getProperty(picked, GraphicObjectProperties.__GO_TYPE__);
+                       .getProperty(picked, GraphicObjectProperties.__GO_TYPE__);
                 if (picked != null && type == "Grayplot") {
                     selectedType = SelectionType.GRAYPLOT;
                     return picked;
                 }
-            /*try pick a surface - fac3d*/
+                /*try pick a surface - fac3d*/
             case 2:
                 if (picked != null && type == "Fac3d") {
                     selectedType = SelectionType.FAC3D;
                     return picked;
                 }
-            /*try pick a surface - plot3d*/
+                /*try pick a surface - plot3d*/
             case 3:
                 if (picked != null && type == "Plot3d") {
                     selectedType = SelectionType.PLOT3D;
                     return picked;
                 }
-            /*try pick a datatip*/
+                /*try pick a datatip*/
             case 4:
                 picked = DatatipSelect.selectDatatip(figureUid, pos[0], pos[1]);
                 if (picked != null) {
                     selectedType = SelectionType.DATATIP;
                     return picked;
                 }
-            /*try pick a legend*/
+                /*try pick a legend*/
             case 5:
                 selectedLegend = entityPicker.pickLegend(figureUid, pos);
                 if (selectedLegend != null) {
