@@ -23,6 +23,12 @@ Documentation
     - Special functions. See bug #11643.
 
 
+Graphics
+========
+
+* Graphic handle can now be compared. See bug #11658.
+
+
 Compilation
 ===========
 
