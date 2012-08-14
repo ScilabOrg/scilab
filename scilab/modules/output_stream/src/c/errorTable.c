@@ -11,6 +11,7 @@
  */
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include "localization.h"
 #include "stack-c.h"
@@ -1574,7 +1575,12 @@ int errorTable(int iErr)
             iValueReturned = Scierror(iErr, "");
         }
         break;
-
+         case 281:
+        {
+            char buf[64];
+            iValueReturned = Scierror(iErr, _("%s: Wrong value for input argument #%d: Must be %s.\n"), "lsqrsolve", 3, itoa(Err,buf,10));
+        }
+        break;
         default:
         {
             char *buffer = defaultStringError();

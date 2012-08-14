@@ -1,0 +1,28 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+//
+// <-- Non-regression test for bug 9985 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=9985
+//
+// <-- Short Description -->
+// lsqrsolve produces weird messages when f is complex
+//
+
+function y=f1(x)
+  y=1*(a*x+b)
+endfunction
+a=[1,7;
+   2,8
+   4 3];
+b=[10;11;-1];
+x0 = [100;100];
+assert_checkfalse(execstr("lsqrsolve(x0,f1,3)", "errcatch") == 0);
+refMsg = msprintf(_("%s: Wrong value for input argument #%d: Must be %s.\n"), "lsqrsolve", 3, string(6));
+assert_checkerror("lsqrsolve(x0,f1,3)",refMsg);

@@ -24,7 +24,8 @@ c
       hsize=4
       n=istk(il+1)*istk(il+2)*(istk(il+3)+1)
    40 if(n.ne.nx) then
-         call error(98)
+         err=n
+         call error(281)
          return
       endif
       lx=sadr(il+hsize)
