@@ -14,20 +14,6 @@ USEANT=1
 endif
 endif
 
-
-
-if NEED_JAVA
-
-# This is due to an ugly hack for bug #5481
-FORCE_LOAD_SOURCES = src/cpp/forceJHDF5load.cpp \
-src/jni/jhdf5load.hxx \
-src/jni/jhdf5load.cpp
-else
-
-# This is due to an ugly hack for bug #5481
-FORCE_LOAD_SOURCES =
-endif
-
 GATEWAY_C_SOURCES = sci_gateway/c/gw_hdf5.c
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_export_to_hdf5.cpp \
@@ -94,12 +80,6 @@ noinst_LTLIBRARIES =
 noinst_LTLIBRARIES += libscihdf5-algo.la
 
 # When Scilab is built with HDF5, we need some libraries for a workaround
-
-if NEED_JAVA
-noinst_LTLIBRARIES += libscihdf5-forceload.la
-endif
-
-pkglib_LTLIBRARIES += libscihdf5-forceload-disable.la
 
 libscihdf5_la_LDFLAGS = $(HDF5_LIBS) $(AM_LDFLAGS)
 
