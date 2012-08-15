@@ -215,7 +215,8 @@ static getHashTableCouple propertyTable[NB_PROPERTIES] =
     {"showhiddenhandles", GetConsoleShowHiddenHandles},
     {"resizefcn", get_figure_resizefcn_property},
     {"tooltipstring", GetUicontrolTooltipString},
-    {"closerequestfcn", get_figure_closerequestfcn_property}
+    {"closerequestfcn", get_figure_closerequestfcn_property},
+    {"datatips", get_datatips_property}
 };
 
 /*--------------------------------------------------------------------------*/

@@ -216,7 +216,8 @@ static setHashTableCouple propertyTable[NB_PROPERTIES] =
     {"showhiddenhandles", SetConsoleShowHiddenHandles},
     {"resizefcn", set_figure_resizefcn_property},
     {"tooltipstring", SetUicontrolTooltipString},
-    {"closerequestfcn", set_figure_closerequestfcn_property}
+    {"closerequestfcn", set_figure_closerequestfcn_property},
+    {"datatips", set_datatips_property}
 };
 
 /*--------------------------------------------------------------------------*/
