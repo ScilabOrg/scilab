@@ -29,7 +29,7 @@ public class Polyline extends ClippableContouredObject {
 	/** Polyline properties names */
 	private enum PolylineProperty { CLOSED, ARROWSIZEFACTOR, POLYLINESTYLE,
 		INTERPCOLORVECTOR, INTERPCOLORVECTORSET, INTERPCOLORMODE,
-		XSHIFT, YSHIFT, ZSHIFT, BARWIDTH };
+		XSHIFT, YSHIFT, ZSHIFT, BARWIDTH, DATATIPS };
 
 	/** Specifies whether the polyline is closed */
 	private boolean closed;
@@ -61,6 +61,9 @@ public class Polyline extends ClippableContouredObject {
 	/** Bar width */
 	private double barWidth;
 
+        /** Datatips property */
+	private int datatipsProperty;
+
 	/** Constructor */
 	public Polyline() {
 		super();
@@ -74,6 +77,7 @@ public class Polyline extends ClippableContouredObject {
 		yShift = null;
 		zShift = null;
 		barWidth = 0.0;
+                datatipsProperty = 0;
 	}
 
     @Override
@@ -107,6 +111,8 @@ public class Polyline extends ClippableContouredObject {
 			return PolylineProperty.ZSHIFT;
 		} else if (propertyName.equals(__GO_BAR_WIDTH__)) {
 			return PolylineProperty.BARWIDTH;
+		} else if (propertyName.equals(__GO_DATATIPS__)) {
+			return PolylineProperty.DATATIPS;
 		} else {
 			return super.getPropertyFromName(propertyName);
 		}
@@ -138,6 +144,8 @@ public class Polyline extends ClippableContouredObject {
 			return getZShift();
 		} else if (property == PolylineProperty.BARWIDTH) {
 			return getBarWidth();
+		} else if (property == PolylineProperty.DATATIPS) {
+			return getDatatipsProperty();
 		} else {
 			return super.getProperty(property);	
 		}
@@ -170,6 +178,8 @@ public class Polyline extends ClippableContouredObject {
 			setZShift((double[]) value);
 		} else if (property == PolylineProperty.BARWIDTH) {
 			setBarWidth((Double) value);
+		} else if (property == PolylineProperty.DATATIPS) {
+			setDatatipsProperty((Integer) value);
 		} else {
 			return super.setProperty(property, value);
 		}
@@ -326,6 +336,20 @@ public class Polyline extends ClippableContouredObject {
 	 */
 	public void setZShift(double[] shift) {
 		zShift = shift;
+	}
+
+        /**
+	 * @return the datatipsProperty
+	 */
+	public Integer getDatatipsProperty() {
+		return datatipsProperty;
+	}
+
+        /**
+	 * @param datatipsProperty the datatipsProperty to set
+	 */
+	public void setDatatipsProperty(Integer datatipsProperty) {
+		this.datatipsProperty = datatipsProperty;
 	}
 
 	/**

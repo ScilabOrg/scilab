@@ -22,7 +22,7 @@ function varargout=%_listvarinfile(fil)
       "sparse";
       "boolean sparse";
       "Matlab sparse";
-      "integer"
+      "integer"	
       "graphic handle"; //not yet done
       "string";
       "function";
@@ -622,6 +622,8 @@ function totalSize = getSingleHandleInfo(fd, totalSize)
             if is_higher_than([3 1 0 1]) then
                 totalSize = seekDouble(fd, totalSize); // bar_width
             end
+
+            totalSize = seekBool(fd, totalSize); // datatips_property
 
             [totalSize, state] = readString(fd, totalSize); // clip_state
             if state == "on" then

@@ -67,6 +67,7 @@ src/c/getHandleProperty/get_foreground_property.c \
 src/c/getHandleProperty/get_mark_style_property.c \
 src/c/getHandleProperty/get_color_map_property.c \
 src/c/getHandleProperty/get_polyline_style_property.c \
+src/c/getHandleProperty/get_datatips_property.c \
 src/c/getHandleProperty/get_font_angle_property.c \
 src/c/getHandleProperty/get_interp_color_vector.c \
 src/c/getHandleProperty/get_figure_name_property.c \
@@ -194,6 +195,7 @@ src/c/getHandleProperty/set_clip_box_property.c \
 src/c/getHandleProperty/set_z_shift_property.c \
 src/c/getHandleProperty/set_line_style_property.c \
 src/c/getHandleProperty/set_polyline_style_property.c \
+src/c/getHandleProperty/set_datatips_property.c \
 src/c/getHandleProperty/set_line_mode_property.c \
 src/c/getHandleProperty/set_thickness_property.c \
 src/c/getHandleProperty/set_font_foreground_property.c \

@@ -270,7 +270,7 @@ function save_graphichandle(h,fd)
     mput(h.line_style,characterFormat,fd) // line_style
     mput(h.thickness,'sl',fd) // thickness
     mput(h.arrow_size_factor,'sl',fd) // arrow_size_factor
-    mput(max(1,h.polyline_style),characterFormat,fd) // ployline_style
+    mput(max(1,h.polyline_style),characterFormat,fd) // polyline_style
     
     mput( size( h.interp_color_vector, '*' ), 'sl', fd ) ; // interp_color_vector
     mput( h.interp_color_vector, 'dl', fd ) ;
@@ -290,6 +290,7 @@ function save_graphichandle(h,fd)
     mput(size(h.z_shift,'*'),'sl',fd); mput(h.z_shift,'dl',fd); // z_shift
     
     mput( h.bar_width, 'dl', fd ) ; // bar_width
+    mput(max(1,h.datatips),characterFormat,fd) // datatips_property
     mput(length(h.clip_state),characterFormat,fd); // clip_state
     mput(ascii(h.clip_state),characterFormat,fd);
     if h.clip_state=='on' then

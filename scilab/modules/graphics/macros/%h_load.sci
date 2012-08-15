@@ -581,6 +581,8 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       bar_width = mget( 1, 'dl', fd ) ; // bar_width
     end
 
+    datatips = mget(1,characterFormat,fd); // datatips_property
+
     clip_state     = ascii(mget(mget(1,characterFormat,fd),characterFormat,fd)) // clip_state
 
     if clip_state=='on' then
@@ -629,6 +631,8 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       end
       set(h,"bar_width",bar_width);
     end
+
+    set(h,"datatips",max(1,datatips)),
 
     if clip_state =='' then clip_state='clipgrf',end
     if clip_state=='on' then set(h,"clip_box",clip_box),end
