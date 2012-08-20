@@ -12,6 +12,7 @@
  *
  */
 
+#include "api_scilab.h"
 #include "gw_gui.h"
 #include "stack-c.h"
 #include "HandleManagement.h"
@@ -28,9 +29,11 @@ int sci_exportUI(char * fname, unsigned long fname_len)
     int iRows = 0;
     int iCols = 0;
     size_t stackPointer = 0;
+    int *piAddr1;
 
-    CheckLhs(0, 1);
-    CheckRhs(1, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+    SciErr sciErr;
+    CheckInputArgument(pvApiCtx, 1, 1);
 
     if (GetType(1) == sci_handles) // exportUI(figHandle)
     {
@@ -55,29 +58,32 @@ int sci_exportUI(char * fname, unsigned long fname_len)
 
         getGraphicObjectProperty(pstFigureUID, __GO_ID__, jni_int, (void **)&piFigureId);
     }
-    else if (GetType(1) == sci_matrix) // exportUI(figId)
-    {
-        GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &iRows, &iCols, &stackPointer);
-        if (iRows * iCols != 1)
-        {
-            Scierror(999, _("%s: Wrong size for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-            return FALSE;
-        }
-
-        iFigureId = (int) * (stk(stackPointer));
-    }
     else
     {
-        Scierror(999, _("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
-        return FALSE;
-    }
+        //get variable address of the input argument
+        sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
 
+        if (isDoubleType(pvApiCtx, piAddr1)) // exportUI(figId)
+        {
+            getScalarDouble(pvApiCtx, piAddr1, iFigureId);
+        }
+        else
+        {
+            Scierror(999, _("%s: Wrong type for input argument #%d: A Real Scalar or a 'Figure' handle expected.\n"), fname, 1);
+            return FALSE;
+        }
+    }
     // call the export function
     exportUserInterface(iFigureId);
 
-    LhsVar(1) = 0;
+    AssignOutputVariable(pvApiCtx, 1) = 0;
 
-    PutLhsVar();
+    ReturnArguments(pvApiCtx);
 
     return 0;
 }
