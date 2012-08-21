@@ -34,6 +34,11 @@ Compilation
 
 * Switch to JOGL 2.0 rc9
 
+Linear Algebra
+==============
+
+* cond function updated (See SEP #85)
+
 
 Bug Fixes
 =========
@@ -53,6 +58,11 @@ Bug Fixes
                     several matrices.
 
 * Bug #9976 fixed - The inverse cdfbet function returned wrong value instead of 0.
+
+* bug #11390 fixed - When the cond function has one input argument, matrices can be
+                     non square. Moreover, the cond function has been updated to 
+                     give the possibility to use another norm than that imposed
+                     (by default 2-norm).
 
 * Bug #11411 fixed - save function used unsigned char to store length of string.
                      Now it is an integer.
