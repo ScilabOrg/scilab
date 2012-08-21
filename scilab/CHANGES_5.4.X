@@ -86,6 +86,8 @@ Bug Fixes
 
 * Bug #11618 fixed - A(:) returned wrong values when A was a complex sparse matrix.
 
+* Bug #11619 fixed - titlepage("Text"): the font size was no longer maximized to fit the figure's sizes.
+
 * Bug #11628 fixed - Clearing a shortcut did not work is Preferences.
 
 * Bug #11640 fixed - Plug back the same behavior as 5.3.3 when STDIN is closed.
@@ -103,7 +105,7 @@ Bug Fixes
 
 * Bug #11659 fixed - twinkle displayed warning messages about show_pixmap function.
 
-* Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages. 
+* Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages.
 
 * Bug #11697 fixed - ATOMS modules ar enow listed in the "Toolboxes" menu when
                      they are not auo-loaded.
