@@ -59,9 +59,11 @@ public class DatatipCreate {
     public static String createDatatip(String figureUid, Integer coordIntX, Integer coordIntY) {
 
         Integer[] pixelMouseCoordInt = { coordIntX , coordIntY };
+        String polylineUid = ep.pick (figureUid, coordIntX, coordIntY);
         String axesUid = datatipAxesHandler(figureUid, pixelMouseCoordInt);
         double[] pixelMouseCoordDouble = transformPixelCoordToDouble(pixelMouseCoordInt);
         graphicCoord = transformPixelCoordToGraphic(axesUid, pixelMouseCoordDouble);
+        insertPoint (polylineUid, graphicCoord[0], graphicCoord[1]);
         String newDatatip = datatipProperties (graphicCoord, axesUid);
         return newDatatip;
     }
@@ -98,7 +100,6 @@ public class DatatipCreate {
                     posMin = j;
                 }
             }
-
             String newDatatip = createDatatipProgramIndex(polylineUid, posMin+1);
             return newDatatip;
 
@@ -161,12 +162,13 @@ public class DatatipCreate {
                 double[] graphicCoord = new double[]{0.0, 0.0, 0.0};
                 graphicCoord = transformPixelCoordToGraphic (axesUid, pixelMouseCoordDouble);
 
+                insertPoint (polylineUid, graphicCoord[0], graphicCoord[1]);
                 newDatatip = datatipProperties (graphicCoord, axesUid);
                 newMarker = MarkerCreate.markerProperties (graphicCoord, axesUid);
                 return newDatatip;
 
             } else {
-
+                insertPoint (polylineUid, coordDoubleXY[0], coordDoubleXY[1]);
                 newDatatip = datatipProperties (coordDoubleXY, axesUid);
                 newMarker = MarkerCreate.markerProperties (coordDoubleXY, axesUid);
                 return newDatatip;
@@ -198,6 +200,7 @@ public class DatatipCreate {
         }
         coordDoubleXY[0] = DataX[indexPoint - 1];
         coordDoubleXY[1] = DataY[indexPoint - 1];
+        insertPoint (polylineUid, coordDoubleXY[0], coordDoubleXY[1]);
         String newDatatip = datatipProperties (coordDoubleXY, axesUid);
         String newMarker = MarkerCreate.markerProperties (coordDoubleXY, axesUid);
         return newDatatip;
@@ -338,5 +341,32 @@ public class DatatipCreate {
             String interpString = "";
             GraphicController.getController().setProperty(polylineUid, GraphicObjectProperties.__GO_TAG__, interpString);
         }
+    }
+
+    /**
+    * Insert the coordinates of a created datatip in the datatips field in the polyline
+    *
+    * @param polylineUid Polyline handler string.
+    * @param coordX Coordinate x of the datatip.
+    * @param coordY Coordinate y of the datatip.
+    */
+    private static void insertPoint (String polylineUid, double coordX, double coordY) {
+
+        Double[] currentDatatips = (Double[]) GraphicController.getController().getProperty(polylineUid, GraphicObjectProperties.__GO_DATATIPS__);
+        Integer numDatatips = (Integer) GraphicController.getController().getProperty(polylineUid, GraphicObjectProperties.__GO_DATATIPS_SIZE__);
+        int allocArray = (2*numDatatips) + 2;
+        Double[] newDatatips = new Double[allocArray];
+        int j = 0;
+        for (int i = 0 ; i < newDatatips.length ; i++) {
+            if (i == numDatatips) {
+                newDatatips[i] = coordX;
+            } else if (i == (newDatatips.length - 1)) {
+                newDatatips[i] = coordY;
+            } else {
+                newDatatips[i] = currentDatatips[j];
+                j++;
+            }
+        }
+        GraphicController.getController().setProperty(polylineUid, GraphicObjectProperties.__GO_DATATIPS__, newDatatips);
     }
 }
