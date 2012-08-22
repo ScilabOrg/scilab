@@ -36,8 +36,8 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_ENABLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTANGLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTNAME__;
-import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTUNITS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTSIZE__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTUNITS__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FONTWEIGHT__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FOREGROUNDCOLOR__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_UI_FRAME__;
@@ -61,6 +61,7 @@ import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProp
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_WAITBAR__;
 import static org.scilab.modules.gui.utils.Debug.DEBUG;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
@@ -76,6 +77,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.flexdock.docking.Dockable;
 import org.flexdock.docking.DockingManager;
@@ -239,6 +241,7 @@ public final class SwingView implements GraphicView {
                     || objectType.equals(__GO_PROGRESSIONBAR__)
                     || objectType.equals(__GO_WAITBAR__)) {
                 allObjects.put(id, CreateObjectFromType(objectType, id));
+                updateModelFromLookAndFeel(id);
                 return;
             }
 
@@ -466,6 +469,7 @@ public final class SwingView implements GraphicView {
      * @param id the uimenu id
      */
     private void setMenuDefaultProperties(Widget uiMenuObject, String id) {
+        /* DO NOT SET FOREGROUND PROPERTY TO AVOID THE ERASE LOOK&FEEL SETTING */
         SwingViewMenu.update(uiMenuObject, __GO_CHILDREN__,
                              (String[]) GraphicController.getController().getProperty(id, __GO_CHILDREN__));
         SwingViewMenu.update(uiMenuObject, __GO_CALLBACK__,
@@ -476,8 +480,6 @@ public final class SwingView implements GraphicView {
                              (Boolean) GraphicController.getController().getProperty(id, __GO_UI_CHECKED__));
         SwingViewMenu.update(uiMenuObject, __GO_UI_ENABLE__,
                              (Boolean) GraphicController.getController().getProperty(id, __GO_UI_ENABLE__));
-        SwingViewMenu.update(uiMenuObject, __GO_UI_FOREGROUNDCOLOR__,
-                             (Double[]) GraphicController.getController().getProperty(id, __GO_UI_FOREGROUNDCOLOR__));
         SwingViewMenu.update(uiMenuObject, __GO_UI_LABEL__,
                              (String) GraphicController.getController().getProperty(id, __GO_UI_LABEL__));
         SwingViewMenu.update(uiMenuObject, __GO_UI_ICON__,
@@ -719,10 +721,13 @@ public final class SwingView implements GraphicView {
                     switch (childAsTypedObject.getType()) {
                         case UiChildMenu:
                         case UiCheckedMenu:
+                            allObjects.remove(childId);
                             allObjects.put(childId, CreateObjectFromType(__GO_UIPARENTMENU__, childId));
+                            updateModelFromLookAndFeel(childId);
                             ((Container) ((SwingScilabTab) updatedComponent).getMenuBar().getAsSimpleMenuBar()).add((SwingScilabMenu) allObjects.get(childId).getValue());
                             break;
                         default: /* UiParentMenu */
+                            updateModelFromLookAndFeel(childId);
                             ((Container) ((SwingScilabTab) updatedComponent).getMenuBar().getAsSimpleMenuBar()).add((SwingScilabMenu) allObjects.get(childId).getValue());
                             break;
                     }
@@ -845,6 +850,7 @@ public final class SwingView implements GraphicView {
                         case UiChildMenu:
                         case UiCheckedMenu:
                             allObjects.put(childId, CreateObjectFromType(__GO_UIPARENTMENU__, childId));
+                            updateModelFromLookAndFeel(childId);
                             ((Container) ((SwingScilabTab) updatedObject.getValue()).getMenuBar().getAsSimpleMenuBar()).add((SwingScilabMenu) allObjects.get(childId).getValue());
                             break;
                         default: /* UiParentMenu */
@@ -914,6 +920,7 @@ public final class SwingView implements GraphicView {
                                     parent.remove((SwingScilabMenuItem) allObjects.get(id).getValue());
                                     newParent = CreateObjectFromType(__GO_UIPARENTMENU__, id);
                                     allObjects.put(id, newParent);
+                                    updateModelFromLookAndFeel(id);
                                     newParent.addChild(childId);
                                     parent.add((SwingScilabMenu) allObjects.get(id).getValue(), updatedObjectPosition);
                                     /* Update the created menu */
@@ -925,6 +932,7 @@ public final class SwingView implements GraphicView {
                                     parent.remove((SwingScilabCheckBoxMenuItem) allObjects.get(id).getValue());
                                     newParent = CreateObjectFromType(__GO_UIPARENTMENU__, id);
                                     allObjects.put(id, newParent);
+                                    updateModelFromLookAndFeel(id);
                                     newParent.addChild(childId);
                                     parent.add((SwingScilabMenu) allObjects.get(id).getValue(), updatedObjectPosition);
                                     /* Update the created menu */
@@ -945,6 +953,7 @@ public final class SwingView implements GraphicView {
                                     parent.remove((SwingScilabCheckBoxMenuItem) allObjects.get(id).getValue());
                                     newParent = CreateObjectFromType(__GO_UIPARENTMENU__, id);
                                     allObjects.put(id, newParent);
+                                    updateModelFromLookAndFeel(id);
                                     newParent.addChild(childId);
                                     parent.add((SwingScilabMenu) allObjects.get(id).getValue(), updatedObjectPosition);
                                     /* Update the created menu */
@@ -956,6 +965,7 @@ public final class SwingView implements GraphicView {
                                     parent.remove((SwingScilabCheckBoxMenuItem) allObjects.get(id).getValue());
                                     newParent = CreateObjectFromType(__GO_UIPARENTMENU__, id);
                                     allObjects.put(id, newParent);
+                                    updateModelFromLookAndFeel(id);
                                     newParent.addChild(childId);
                                     parent.add((SwingScilabMenu) allObjects.get(id).getValue(), updatedObjectPosition);
                                     /* Update the created menu */
@@ -1083,6 +1093,37 @@ public final class SwingView implements GraphicView {
         }
         if (needRevalidate && updatedComponent != null) {
             updatedComponent.validate();
+        }
+    }
+
+    /**
+     * Update model with Look&Feel settings for menus (See bug #11479)
+     * Get foreground color from UIManager (to be consistent with look&feel)
+     * @param id object uid
+     */
+    private void updateModelFromLookAndFeel(String id) {
+        String objectType = (String) GraphicController.getController().getProperty(id, __GO_TYPE__);
+        if (objectType.equals(__GO_UIMENU__) || objectType.equals(__GO_UIPARENTMENU__)) {
+            TypedObject createdObject = allObjects.get(id);
+            Color uiForegroundColor;
+            Double[] foregroundColor = new Double[3];
+            switch (createdObject.getType()) {
+                case UiChildMenu:
+                case UiCheckedMenu:
+                    uiForegroundColor = (Color) UIManager.getDefaults().getColor("MenuItem.foreground");
+                    break;
+                case UiParentMenu:
+                    uiForegroundColor = (Color) UIManager.getDefaults().getColor("Menu.foreground");
+                    break;
+                default:
+                    uiForegroundColor = Color.BLACK;
+                    break;
+            }
+            foregroundColor[0] = ((double) uiForegroundColor.getRed()) / 255;
+            foregroundColor[1] = ((double) uiForegroundColor.getGreen()) / 255;
+            foregroundColor[2] = ((double) uiForegroundColor.getBlue()) / 255;
+
+            GraphicController.getController().setProperty(id, __GO_UI_FOREGROUNDCOLOR__, foregroundColor);
         }
     }
 }
