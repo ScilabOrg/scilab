@@ -72,14 +72,14 @@ int xs2file(char * fname, ExportFileType fileType )
         /* get handle by figure number */
         if (GetType(1) == sci_matrix)
         {
-            GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
             if (m1*n1 != 1)
             {
                 Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
                 return 0;
             }
 
-            figurenum = *istk(l1);
+            figurenum = *stk(l1);
             if (!sciIsExistingFigure(figurenum))
             {
                 Scierror(999, "%s: Input argument #%d must be a valid figure_id.\n", fname, 1);
