@@ -32,7 +32,7 @@ public class Uimenu extends GraphicObject {
 
     private boolean checked;
     private boolean enable = true;
-    private Double[] foregroundColor = {0.0, 0.0, 0.0};
+    private Double[] foregroundColor = new Double[3];
     private String icon = "";
     private String label = "";
     private String mnemonic = "";
