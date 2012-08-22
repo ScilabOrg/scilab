@@ -1,6 +1,17 @@
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
 
+Xcos
+====
+
+* Bug #10041 fixed - WFILE_f block was not declared as deprecated
+
+* Bug #10781 fixed - DFlipflop incorrectly reported problem in port size or type
+
+* Bug #11737 fixed - Incompatibility between a xcos menu and its description in the help page
+
+* Bug #11746 fixed - Xcos : closing the palette window with the crossing box 
+                     did not update the checkbox in Xcos "Affichage" menu
 
 Obsolete functions
 ==================
@@ -13,13 +24,29 @@ Documentation
 =============
 
 * Categories have been created for the following modules help pages:
+    - Signal processing. See bug #11661.
     - Functions (libraries sub-category). See bug #11642.
     - Linear algebra. See bug #11562.
     - Special functions. See bug #11643.
+    - Functions. See bug #11722.
+    - Elementary functions better organization. See bug #11723.
+
+
+Compilation
+===========
+
+* Java HDF removed (was no longer necessary).
+
+* Switch to Scirenderer 0.5.6.
+
+* Switch to JOGL 2.0 rc9
 
 
 Bug Fixes
 =========
+
+* Bug #4337 fixed - who_user did not return user's variable names, they were
+                    only displayed.
 
 * Bug #7674 fixed - In all demos Optimization and Simulation, the source
                     code was displayed by default.
@@ -29,12 +56,28 @@ Bug Fixes
 * Bug #8151 fixed - Under Mac OS X, item "Scilab/Quit Scilab" and "File/Quit" were
                     duplicates.
 
+* Bug #8488 fixed - NaN values was propagated when we performed the min/max between
+                    several matrices.
+
+* Bug #9616 fixed - In the qp_solve help page, the input arguments in calling
+                    sequence did not match those in arguments section.
+
+* Bug #9693 fixed - The default value of epsg in optim help page is %eps.
+
+* Bug #9976 fixed - The inverse cdfbet function returned wrong value instead of 0.
+
 * Bug #11411 fixed - save function used unsigned char to store length of string.
                      Now it is an integer.
 
 * Bug #11426 fixed - Save function shew a warning message saving user environment.
 
 * Bug #11509 fixed - A progression bar was missing during Atoms operations.
+
+* Bug #11533, #11652 and #11653 fixed - typos in messages of eigs function fixed,
+                     eigs help page updated and optional booleans in eigs are boolean by
+                     default to be consistent with Scilab's own data types.
+
+* Bug #11554 fixed - After using xcosPalAdd, a message was printed on 'quit'.
 
 * Bug #11592 fixed - In the documentation, example of bessel failed.
 
@@ -44,6 +87,8 @@ Bug Fixes
 * Bug #11604 fixed - Some items were not localized in "Scilab Preferences" window.
 
 * Bug #11606 fixed - exit() was too slow in nw mode when driver("png") was set.
+
+* Bug #11612 fixed - Index of the max value of a negative sparse was wrong.
 
 * Bug #11618 fixed - A(:) returned wrong values when A was a complex sparse matrix.
 
@@ -63,6 +108,16 @@ Bug Fixes
 * Bug #11655 fixed - external_object help chapter was empty.
 
 * Bug #11659 fixed - twinkle displayed warning messages about show_pixmap function.
+
+* Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages. 
+
+* Bug #11697 fixed - ATOMS modules ar enow listed in the "Toolboxes" menu when
+                     they are not auo-loaded.
+
+* Bug #11701 fixed - Under Windows a CR was added in SciNotes each time the file
+                     is saved.
+
+* Bug #11703 fixed - Exception when select text in SciNotes color prefs.
 
 
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
