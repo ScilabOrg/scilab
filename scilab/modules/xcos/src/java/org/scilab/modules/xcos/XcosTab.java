@@ -107,6 +107,7 @@ import org.scilab.modules.xcos.link.actions.StyleStraightAction;
 import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
 import org.scilab.modules.xcos.palette.actions.ViewPaletteBrowserAction;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
+import org.scilab.modules.xcos.preferences.XcosOptions;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -514,6 +515,18 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
 
         final ConfigurationManager manager = ConfigurationManager.getInstance();
         final List<DocumentType> recentFiles = manager.getSettings().getRecent();
+
+        /*
+         * Update menu according to Xcos preference
+         */
+        final int numberOfRecentlyOpen = XcosOptions.getPreferences().getNumberOfRecentlyOpen();
+        final int diffNumberOfRecentlyOpen = recentFiles.size() - numberOfRecentlyOpen;
+        if (diffNumberOfRecentlyOpen > 0) {
+            for (int cpt = 0; cpt < diffNumberOfRecentlyOpen; cpt++) {
+                recentFiles.remove(recentFiles.size() - 1); 
+            }
+        }
+
         for (int i = 0; i < recentFiles.size(); i++) {
             URL url;
             try {
