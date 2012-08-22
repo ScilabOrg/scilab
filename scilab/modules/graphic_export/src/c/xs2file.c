@@ -72,7 +72,7 @@ int xs2file(char * fname, ExportFileType fileType )
         /* get handle by figure number */
         if (GetType(1) == sci_matrix)
         {
-            GetRhsVar(1, MATRIX_OF_INTEGER_DATATYPE, &m1, &n1, &l1);
+            GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &m1, &n1, &l1);
             if (m1*n1 != 1)
             {
                 Scierror(999, _("%s: Wrong size for input argument #%d: A scalar expected.\n"), fname, 1);
