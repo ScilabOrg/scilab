@@ -34,7 +34,6 @@ import org.scilab.modules.graph.actions.UndoAction;
 import org.scilab.modules.graph.actions.ZoomInAction;
 import org.scilab.modules.graph.actions.ZoomOutAction;
 import org.scilab.modules.graph.event.ArrowKeyListener;
-import org.scilab.modules.gui.bridge.menu.SwingScilabMenu;
 import org.scilab.modules.gui.bridge.menuitem.SwingScilabMenuItem;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
 import org.scilab.modules.gui.bridge.window.SwingScilabWindow;
@@ -107,6 +106,7 @@ import org.scilab.modules.xcos.link.actions.StyleStraightAction;
 import org.scilab.modules.xcos.link.actions.StyleVerticalAction;
 import org.scilab.modules.xcos.palette.actions.ViewPaletteBrowserAction;
 import org.scilab.modules.xcos.palette.view.PaletteManagerView;
+import org.scilab.modules.xcos.preferences.XcosOptions;
 import org.scilab.modules.xcos.utils.XcosMessages;
 
 /**
@@ -124,6 +124,8 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
     /*
      * Instance fields
      */
+    private PropertyChangeListener recentFilesListener;
+
     private MenuBar menuBar;
     private Menu fileMenu;
     private Menu recentsMenu;
@@ -168,6 +170,10 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
 
         @Override
         public void destroy() {
+            XcosTab tab = XcosTab.get(graph);
+            ConfigurationManager.getInstance().removePropertyChangeListener(ConfigurationConstants.RECENT_FILES_CHANGED,
+                                                                            tab.getRecentFilesListener());
+            tab.setRecentFilesListener(null);
             Xcos.getInstance().destroy(graph);
             graph.setOpened(false);
         }
@@ -356,7 +362,7 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
         fileMenu.add(SaveAsAction.createMenu(diagram));
         fileMenu.add(ExportAction.createMenu(diagram));
 
-        recentsMenu = createRecentMenu();
+        recentsMenu = createRecentMenu(diagram);
 
         fileMenu.add(recentsMenu);
 
@@ -504,16 +510,30 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
     /**
      * Create the recent menu from the previously opened files
      *
+     * @param diagram
+     *            the diagram
      * @return the recent menu
      */
-    private Menu createRecentMenu() {
-        final Menu recent;
+    private Menu createRecentMenu(final XcosDiagram diagram) {
+        Menu recent;
 
         recent = ScilabMenu.createMenu();
         recent.setText(XcosMessages.RECENT_FILES);
 
         final ConfigurationManager manager = ConfigurationManager.getInstance();
         final List<DocumentType> recentFiles = manager.getSettings().getRecent();
+
+        /*
+         * adapt the recent file list to match the size of Xcos preference
+         */
+        final int numberOfRecentlyOpen = XcosOptions.getPreferences().getNumberOfRecentlyOpen();
+        final int diffNumberOfRecentlyOpen = recentFiles.size() - numberOfRecentlyOpen;
+        if (diffNumberOfRecentlyOpen > 0) {
+            for (int cpt = 0; cpt < diffNumberOfRecentlyOpen; cpt++) {
+                recentFiles.remove(recentFiles.size() - 1);
+            }
+        }
+
         for (int i = 0; i < recentFiles.size(); i++) {
             URL url;
             try {
@@ -525,30 +545,19 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
             recent.add(RecentFileAction.createMenu(url));
         }
 
-        ConfigurationManager.getInstance().addPropertyChangeListener(ConfigurationConstants.RECENT_FILES_CHANGED, new PropertyChangeListener() {
-            @Override
-            public void propertyChange(final PropertyChangeEvent evt) {
-                assert evt.getPropertyName().equals(ConfigurationConstants.RECENT_FILES_CHANGED);
+        if (recentFilesListener == null) {
+            recentFilesListener = new PropertyChangeListener() {
+                @Override
+                public void propertyChange(final PropertyChangeEvent evt) {
+                    assert evt.getPropertyName().equals(ConfigurationConstants.RECENT_FILES_CHANGED);
 
-                /*
-                 * We only handle menu creation there. Return when this is not
-                 * the case.
-                 */
-                if (evt.getOldValue() != null) {
-                    return;
+                    MenuBar updatedMenuBar = createMenuBar(diagram);
+                    setMenuBar(updatedMenuBar);
                 }
+            };
 
-                URL url;
-                try {
-                    url = new URL(((DocumentType) evt.getNewValue()).getUrl());
-                } catch (final MalformedURLException e) {
-                    Logger.getLogger(XcosTab.class.getName()).severe(e.toString());
-                    return;
-                }
-
-                ((SwingScilabMenu) recent.getAsSimpleMenu()).add((SwingScilabMenu) RecentFileAction.createMenu(url).getAsSimpleMenu(), 0);
-            }
-        });
+            manager.addPropertyChangeListener(ConfigurationConstants.RECENT_FILES_CHANGED, recentFilesListener);
+        }
 
         return recent;
     }
@@ -660,6 +669,24 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
 
         win.addTab(this);
         return win;
+    }
+
+    /**
+     * Get assessor for recentFilesListener field
+     *
+     * @return PropertyChangeListener
+     */
+    private PropertyChangeListener getRecentFilesListener () {
+        return recentFilesListener;
+    }
+
+    /**
+     * Set assessor for recentFilesListener field
+     *
+     * @param propertyChangeListener
+     */
+    private void setRecentFilesListener (PropertyChangeListener propertyChangeListener) {
+        this.recentFilesListener = propertyChangeListener;
     }
 }
 

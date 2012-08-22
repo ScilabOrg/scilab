@@ -516,6 +516,23 @@ public final class ConfigurationManager {
         changeSupport.addPropertyChangeListener(propertyName, listener);
     }
 
+    /*
+     * Remove a PropertyChangeListener for a specific property. If listener
+     * was added more than once to the same event source for the specified
+     * property, it will be notified one less time after being removed.
+     * If propertyName is null, no exception is thrown and no action is taken.
+     * If listener is null, or was never added for the specified property,
+     * no exception is thrown and no action is taken.
+     *
+     * @param propertyName
+     *            The name of the property that was listened on.
+     * @param listener
+     *            The PropertyChangeListener to be removed.
+     */
+    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(propertyName, listener);
+    }
+
     /**
      * Report a bound property update to any registered listeners. No event is
      * fired if old and new are equal and non-null.

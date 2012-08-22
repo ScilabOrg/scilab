@@ -8,10 +8,14 @@ Xcos
 
 * Bug #10781 fixed - DFlipflop incorrectly reported problem in port size or type
 
+* Bug #11717 fixed - Xcos : setting recent opened file number preferences in scilab
+                     did not apply in Xcos menu
+
 * Bug #11737 fixed - Incompatibility between a xcos menu and its description in the help page
 
 * Bug #11746 fixed - Xcos : closing the palette window with the crossing box
                      did not update the checkbox in Xcos "Affichage" menu
+
 
 Obsolete functions
 ==================
