@@ -66,6 +66,9 @@ Bug Fixes
 
 * Bug #9976 fixed - The inverse cdfbet function returned wrong value instead of 0.
 
+* Bug #10178 fixed - The norm function returned the message: "division by zero" for
+                     some sparse matrices.
+
 * Bug #11411 fixed - save function used unsigned char to store length of string.
                      Now it is an integer.
 
