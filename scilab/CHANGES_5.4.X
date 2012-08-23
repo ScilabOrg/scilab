@@ -58,6 +58,8 @@ Bug Fixes
 
 * Bug #8488 fixed - NaN values was propagated when we performed the min/max between
                     several matrices.
+                    
+* Bug #9204 fixed - The Frobenius norm of a complex vector was numerically complex.
 
 * Bug #9616 fixed - In the qp_solve help page, the input arguments in calling
                     sequence did not match those in arguments section.
