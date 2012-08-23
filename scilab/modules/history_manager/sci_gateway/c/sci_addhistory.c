@@ -11,6 +11,7 @@
  */
 
 /*--------------------------------------------------------------------------*/
+#include "api_scilab.h"
 #include "gw_history_manager.h"
 #include "MALLOC.h"
 #include "stack-c.h"
@@ -23,15 +24,59 @@ int sci_addhistory(char *fname, unsigned long fname_len)
 {
     static int n1, m1;
 
-    CheckRhs(1, 1);
-    CheckLhs(0, 1);
+    SciErr sciErr;
+    int *piAddr1;
+    int *piLen;
+    int i;
 
-    if (GetType(1) == sci_strings)
+    char **lines = NULL;
+    BOOL bOK = FALSE;
+    CheckInputArgument(pvApiCtx, 1, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+
+
+
+    //get variable address
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
+    if (sciErr.iErr)
     {
-        char **lines = NULL;
-        BOOL bOK = FALSE;
+        printError(&sciErr, 0);
+        return 0;
+    }//
+    if (isStringType(pvApiCtx, piAddr1))
+    {
 
-        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &lines);
+        //fisrt call to retrieve dimensions
+        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, NULL, NULL);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        piLen = (int*)malloc(sizeof(int) * m1 * n1);
+
+        //second call to retrieve length of each string
+        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, NULL);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
+
+        lines = (char**)malloc(sizeof(char*) * m1 * n1);
+        for (i = 0 ; i < m1 * n1 ; i++)
+        {
+            lines[i] = (char*)malloc(sizeof(char) * (piLen[i] + 1));//+ 1 for null termination
+        }
+
+        //third call to retrieve data
+        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, lines);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 0;
+        }
         bOK = appendLinesToScilabHistory(lines, m1 * n1);
         freeArrayOfString(lines, m1 * n1);
 
@@ -42,8 +87,8 @@ int sci_addhistory(char *fname, unsigned long fname_len)
 
         }
 
-        LhsVar(1) = 0;
-        PutLhsVar();
+        AssignOutputVariable(pvApiCtx, 1) = 0;
+        ReturnArguments(pvApiCtx);
     }
     else
     {
