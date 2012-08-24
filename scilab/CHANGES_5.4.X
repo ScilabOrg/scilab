@@ -10,7 +10,7 @@ Xcos
 
 * Bug #11737 fixed - Incompatibility between a xcos menu and its description in the help page
 
-* Bug #11746 fixed - Xcos : closing the palette window with the crossing box 
+* Bug #11746 fixed - Xcos : closing the palette window with the crossing box
                      did not update the checkbox in Xcos "Affichage" menu
 
 Obsolete functions
@@ -109,7 +109,9 @@ Bug Fixes
 
 * Bug #11659 fixed - twinkle displayed warning messages about show_pixmap function.
 
-* Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages. 
+* Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages.
+
+* Bug #11689 fixed - The first display of a window was not the good axes size.
 
 * Bug #11697 fixed - ATOMS modules ar enow listed in the "Toolboxes" menu when
                      they are not auo-loaded.
