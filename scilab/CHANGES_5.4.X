@@ -128,6 +128,8 @@ Bug Fixes
 
 * Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages.
 
+* Bug #11689 fixed - The first display of a window was not the good axes size.
+
 * Bug #11697 fixed - ATOMS modules ar enow listed in the "Toolboxes" menu when
                      they are not auo-loaded.
 
