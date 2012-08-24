@@ -301,18 +301,20 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             }
 
             public void componentResized(ComponentEvent arg0) {
-
                 /* Update the figure_size property */
-                Size parentSize =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
-                Integer[] newSize = new Integer[] {parentSize.getWidth(), parentSize.getHeight()};
-                GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
+                // Make sure that the event is valid to avoid getting the wrong size of figure and axes.
+                if (arg0.getSource().toString().indexOf("invalid") < 0) {
+                    Size parentSize =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
+                    Integer[] newSize = new Integer[] {parentSize.getWidth(), parentSize.getHeight()};
+                    GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
 
-                Boolean autoreSize = (Boolean) GraphicController.getController().getProperty(id, __GO_AUTORESIZE__);
+                    Boolean autoreSize = (Boolean) GraphicController.getController().getProperty(id, __GO_AUTORESIZE__);
 
-                if (autoreSize != null && autoreSize) {
-                    /* Update the axes_size property */
-                    Integer[] newAxesSize = new Integer[] {getContentPane().getWidth(), getContentPane().getHeight()};
-                    GraphicController.getController().setProperty(id, __GO_AXES_SIZE__, newAxesSize);
+                    if (autoreSize != null && autoreSize) {
+                        /* Update the axes_size property */
+                        Integer[] newAxesSize = new Integer[] {getContentPane().getWidth(), getContentPane().getHeight()};
+                        GraphicController.getController().setProperty(id, __GO_AXES_SIZE__, newAxesSize);
+                    }
                 }
             }
 
