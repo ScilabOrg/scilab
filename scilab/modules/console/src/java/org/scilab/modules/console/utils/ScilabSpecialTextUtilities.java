@@ -98,14 +98,14 @@ public final class ScilabSpecialTextUtilities {
         if (!loadedLaTeX) {
             if (loadJLM == null) {
                 loadJLM = new Thread(new Runnable() {
-                    /* Create a thread in the background to avoid a lag in the loading of jar */
-                    public void run() {
-                        LoadClassPath.loadOnUse("graphics_latex_textrendering");
-                        LaTeXCompiler.compilePartial("", 0);
-                        loadedLaTeX = true;
-                        loadJLM = null;
-                    }
-                });
+                        /* Create a thread in the background to avoid a lag in the loading of jar */
+                        public void run() {
+                            LoadClassPath.loadOnUse("graphics_latex_textrendering");
+                            LaTeXCompiler.compilePartial("", 0);
+                            loadedLaTeX = true;
+                            loadJLM = null;
+                        }
+                    });
                 loadJLM.setPriority(Thread.MIN_PRIORITY);
                 loadJLM.start();
             }
@@ -218,14 +218,21 @@ public final class ScilabSpecialTextUtilities {
             LayoutContextImpl parameters = new LayoutContextImpl(LayoutContextImpl.getDefaultLayoutContext());
             parameters.setParameter(Parameter.MATHSIZE, fontSize);
             parameters.setParameter(Parameter.MATHCOLOR, fontColor);
+            if (!str.startsWith("<mathml>")) {
+                str = "<mathml>" + str + "</mathml>";
+            }
+
             Document doc = null;
             try {
                 doc = MathMLParserSupport.parseString(str);
             } catch (final SAXException e) {
+                System.err.println(e);
                 return null;
             } catch (final ParserConfigurationException e) {
+                System.err.println(e);
                 return null;
             } catch (final IOException e) {
+                System.err.println(e);
                 return null;
             }
 

@@ -146,6 +146,9 @@ Bug Fixes
 
 * Bug #11738 fixed - Rendering was bad and very slow when usign xsave/xload.
 
+* Bug #11761 fixed - Exception in rendering MathML:
+                     xstring(0,0.2,'<mi>x</mi><mn>3</mn>')
+
 * Bug #11764 fixed - The 'ispc' m2sci help page was not updated regarding the
                      MSDOS removal.
 
