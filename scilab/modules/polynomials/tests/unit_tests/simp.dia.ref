@@ -1,0 +1,101 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// =============================== polynomes ===================================
+// =============================== real ========================================
+s = poly(0,'s');
+num = 2 * s^2  + 1;
+den = 3*s;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = 3 * s^3 +4 * s^2 - s;
+den = 2 *s + 1;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+den = 2 * s;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = 5 * %z^2 + 4 * %z;
+den = 2 * %z;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [s, 2 * s^2];
+den = [s, s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [s; 2 * s^2];
+den = [s; s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [2 * s, 4 * s^3; s^2, s];
+den = [s, s^2; s^3, s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+// =============================== complex =====================================
+s = poly(0,'s');
+num = 2 * %i * s^2  + 1;
+den = 3 * %z;
+assert_checkfalse(execstr("[n, d] = simp(num, den)", "errcatch") == 0);
+refMsg = msprintf(_("%s: Wrong value for input argument #%d and #%d: variable name of the numerator and the denominator must be the same.\n"), "simp", 1, 2);
+assert_checkerror("[n, d] = simp(num, den)", refMsg);
+assert_checkfalse(execstr("num/den", "errcatch") == 0);
+refMsg = msprintf(_("%s: Wrong value for input argument #%d and #%d: variable name of the numerator and the denominator must be the same.\n"), "simp", 1, 2);
+assert_checkerror("num/den", refMsg);
+den = 3*s;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = 3 * s^3 +4 * s^2 - s;
+den = 2 * %i *s + 1;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+den = 2 * %i * s;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = 5 * %z^2 + 4 * %i * %z;
+den = 2 * %z;
+[N, D] = simp(num, den);
+res = num/den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [s, 2 * s^2];
+den = [%i * s, s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [s; 2 * s^2];
+den = [%i * s; s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
+num = [2 * s, 4 * %i * s^3; s^2, s];
+den = [%i * s, s^2; s^3, s];
+[N, D] = simp(num, den);
+res = num./den;
+assert_checkequal(N, res(2));
+assert_checkequal(D, res(3));
