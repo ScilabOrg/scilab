@@ -146,6 +146,9 @@ Bug Fixes
 
 * Bug #11738 fixed - Rendering was bad and very slow when usign xsave/xload.
 
+* Bug #11763 fixed - In SciNotes, number of recent open files set in prefs was
+                     not taken into account.
+
 * Bug #11764 fixed - The 'ispc' m2sci help page was not updated regarding the
                      MSDOS removal.
 
