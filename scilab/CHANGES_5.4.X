@@ -32,6 +32,7 @@ Documentation
     - Special functions. See bug #11643.
     - Functions. See bug #11722.
     - Elementary functions better organization. See bug #11723.
+    - Input/Output functions. See bug #11726.
 
 
 Compilation
@@ -96,6 +97,9 @@ Bug Fixes
 
 * Bug #11554 fixed - After using xcosPalAdd, a message was printed on 'quit'.
 
+* Bug #11568 fixed - In SciNotes, only N-1 whites were used for a tab when N
+                     was set.
+
 * Bug #11592 fixed - In the documentation, example of bessel failed.
 
 * Bug #11597 fixed - On Mac OS X, the Preferences windows was not accessible
@@ -128,6 +132,14 @@ Bug Fixes
 
 * Bugs #11666, #11667 and #11670 to 11676 fixed - Add examples in the signal processing help pages.
 
+* Bug #11683 fixed - The figure_properties help page did not explain what happens
+                     when the event_handler and the closerequestfcn properties were both set.
+
+* Bug #11685 fixed - gcbo variable was not defined when executing functions set
+                     as "closerequestfcn" and "resizefcn" properties.
+
+* Bug #11686 fixed - An error occurred when clicking outside of an uicontextmenu area.
+
 * Bug #11697 fixed - ATOMS modules ar enow listed in the "Toolboxes" menu when
                      they are not auo-loaded.
 
@@ -137,6 +149,16 @@ Bug Fixes
 * Bug #11703 fixed - Exception when select text in SciNotes color prefs.
 
 * Bug #11738 fixed - Rendering was bad and very slow when usign xsave/xload.
+
+* Bug #11745 fixed - Exporter didn't export in EPS but in PS.
+
+* Bug #11760 fixed - Exceptions were thrown when trying to display invalid
+                     latex or mathml.
+
+* Bug #11761 fixed - There was an exception in rendering MathML.
+
+* Bug #11764 fixed - The 'ispc' m2sci help page was not updated regarding the
+                     MSDOS removal.
 
 
             Changes between version 5.4.0-beta-1 and 5.4.0-beta-2 of Scilab
