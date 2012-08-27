@@ -78,8 +78,10 @@ Bug Fixes
 * Bug #10178 fixed - The norm function returned the message: "division by zero" for
                      some sparse matrices.
 
+* Bug #10677 fixed - %to_6=%to_e, crashed scilab on Windows 64 version (release).
+
 * Bug #11390 fixed - When the cond function has one input argument, matrices can be
-                     non square. Moreover, the cond function has been updated to 
+                     non square. Moreover, the cond function has been updated to
                      give the possibility to use another norm than that imposed
                      (by default 2-norm).
 
