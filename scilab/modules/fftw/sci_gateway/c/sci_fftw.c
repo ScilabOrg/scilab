@@ -845,7 +845,7 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
         Scierror(sciErr.iErr, getErrorMessage(sciErr));
         goto ERR;
     }
-    /* check values of Dim1[i} */
+    /* check values of Dim1[i] */
     pd = 1;
     for (i = 0; i < ndims; i++)
     {
@@ -1136,10 +1136,14 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
     /* input/output address for transform variables */
     double *ri = NULL, *ii = NULL, *ro = NULL, *io = NULL;
 
+    /* for MKL special cases */
+    int * dims1=NULL;
+    int * incr1=NULL;
 
     /* local variable */
     int one = 1;
     int i = 0;
+    int errflag = 0;
 
 
     for (i = 0; i < ndimsA; i++)
@@ -1304,24 +1308,106 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
             }
         }
     }
-    /* Set Plan */
-    p = GetFFTWPlan(type, &gdim, ri, ii, ro, io, getCurrentFftwFlags(), isn);
-    if (p == NULL)
-    {
-        Scierror(999, _("%s: No more memory.\n"), fname);
-        goto ERR;
-    }
+
     /* pre-treatment */
-    if (scale != None)
-    {
-        double ak = 1.0;
-        for (i = 0; i < gdim.rank; i++) ak = ak * ((double)(gdim.dims[i].n));
-        if (scale == Divide) ak = 1.0 / ak;
-        C2F(dscal)(&lA, &ak, ri, &one);
-        if (isrealA == 0) C2F(dscal)(&lA, &ak, ii, &one);
+    if (scale != None) {
+      double ak = 1.0;
+      for (i = 0; i < gdim.rank; i++) ak = ak * ((double)(gdim.dims[i].n));
+      if (scale == Divide) ak = 1.0 / ak;
+      C2F(dscal)(&lA, &ak, ri, &one);
+      if (isrealA == 0) C2F(dscal)(&lA, &ak, ii, &one);
     }
-    /* execute FFTW plan */
-    ExecuteFFTWPlan(type, p, ri, ii, ro, io);
+ 
+    if (!WITHMKL ||gdim.howmany_rank<=1) {
+      /* Set Plan */
+      p = GetFFTWPlan(type, &gdim, ri, ii, ro, io, getCurrentFftwFlags(), isn ,&errflag);
+      if (errflag == 1)
+        {
+          Scierror(999, _("%s: No more memory.\n"), fname);
+          goto ERR;
+        }
+      else if (errflag == 2) 
+        {
+          Scierror(999, _("%s: Creation of requested fftw plan failed.\n"), fname);
+          goto ERR;
+        }
+     /* execute FFTW plan */
+      ExecuteFFTWPlan(type, p, ri, ii, ro, io);
+    }
+    else { 
+      /*FFTW MKL does not implement yet guru plan with howmany_rank>1             */
+      /*   associated loops described in gdim.howmany_rank and  gdim.howmany_dims */ 
+      /*   are implemented here by a set of call with howmany_rank==1             */ 
+      fftw_iodim *howmany_dims = gdim.howmany_dims;
+      int howmany_rank = gdim.howmany_rank;
+      int i1 = 0,i2 = 0;
+      int nloop = 0;
+      int t = 0;
+
+
+      gdim.howmany_rank = 0;
+      gdim.howmany_dims = NULL;
+
+      p = GetFFTWPlan(type, &gdim, ri, ii, ro, io, getCurrentFftwFlags(), isn ,&errflag);
+      if (errflag == 1)
+        {
+          Scierror(999, _("%s: No more memory.\n"), fname);
+          goto ERRMKL;
+        }
+      else if (errflag == 2) 
+        {
+          Scierror(999, _("%s: Creation of requested fftw plan failed.\n"), fname);
+          goto ERRMKL;
+        }
+    
+      /* flatten  nested loops: replace howmany_rank nested loops by a single one*/
+      /* Build temporary arrays used by flatened loop */
+      if ((dims1 = (int *)MALLOC(sizeof(int)*howmany_rank))==NULL) {
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        goto ERRMKL;
+      }
+      dims1[0] = howmany_dims[0].n;
+      for (i=1;i<howmany_rank;i++) dims1[i]=dims1[i-1]*howmany_dims[i].n;
+      nloop = dims1[howmany_rank-1];
+
+      if ((incr1=(int *)MALLOC(sizeof(int)*howmany_rank))==NULL)
+        {
+          Scierror(999, _("%s: No more memory.\n"), fname);
+          goto ERRMKL;
+        }
+      t=1;
+      for (i=0;i<howmany_rank;i++)
+        {
+          t +=(howmany_dims[i].n-1)*howmany_dims[i].is;
+          incr1[i]=t;
+        }
+      /*loop on each "plan" */
+      i = 0; /*index on the first plan entry */
+      for (i1=1;i1<=nloop;i1++)
+        {
+          /* the input and output are assumed to be complex because
+             within MKL real cases are transformed to complex ones in
+             previous steps of sci_fft_gen*/
+          ExecuteFFTWPlan(type,p,&ri[i],&ii[i],&ro[i],&io[i]);
+          i +=howmany_dims[0].is;
+          /* check if  a loop ends*/
+          for (i2=howmany_rank-2; i2>=0; i2--) {
+            if ((i1%dims1[i2])==0) 
+              {
+                /*loop on dimension i2 ends, compute jump on the first plan entry index*/
+                i += howmany_dims[i2+1].is - incr1[i2];
+                break;
+              }
+          }
+        }
+      /* free temporary arrays */
+      FREE(dims1);
+      FREE(incr1);
+      /* reset initial value of gdim for post treatment*/
+      gdim.howmany_rank=howmany_rank;
+      gdim.howmany_dims=howmany_dims;
+      
+    }
     /* Post treatment */
     switch (type)
     {
@@ -1383,6 +1469,9 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
     }
 
     return(1);
-ERR:
+ ERRMKL:
+    FREE(dims1);
+    FREE(incr1);
+ ERR:
     return(0);
 }
