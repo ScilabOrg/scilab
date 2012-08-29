@@ -8,6 +8,8 @@ Xcos
 
 * Bug #10781 fixed - DFlipflop incorrectly reported problem for port size or type.
 
+* Bug #10943 fixed - Accented character in the file path broke file loading.
+
 * Bug #11735 fixed - Output sink name was not reported as figure name.
 
 * Bug #11737 fixed - Incompatibility between a Xcos menu and its help page description.
