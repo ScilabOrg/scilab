@@ -396,6 +396,8 @@ public class WindowsConfigurationManager implements XConfigurationListener {
                                                 }
                                             }
                                         }
+					
+					System.out.println("request focus");
 
                                         window.toFront();
                                         mainTab.requestFocusInWindow();
@@ -436,8 +438,10 @@ public class WindowsConfigurationManager implements XConfigurationListener {
      */
     public static final void restorationFinished(SwingScilabTab tab) {
         synchronized (currentlyRestored) {
-            currentlyRestored.remove(tab.getPersistentId());
-
+	    currentlyRestored.remove(tab.getPersistentId());
+	    System.out.println("size="+currentlyRestored.size());
+	    System.out.println(tab);
+    
             // notify after remove
             currentlyRestored.notify();
         }
