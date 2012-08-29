@@ -148,6 +148,8 @@ Bug Fixes
 * Bug #11683 fixed - figure_properties help page did not explain what happens
                      when the event_handler and closerequestfcn properties were both set.
 
+* Bug #11684 partiall fix - mfft failed
+
 * Bug #11685 fixed - gcbo variable was not defined when executing functions set
                      for "closerequestfcn" and "resizefcn" properties.
 

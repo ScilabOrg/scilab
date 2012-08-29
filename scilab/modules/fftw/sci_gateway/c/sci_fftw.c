@@ -1,17 +1,17 @@
 /*
-* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-* Copyright (C) 2006/2007 - INRIA - Alan LAYEC
-* Copyright (C) 2007 - INRIA - Allan CORNET
-* Copyright (C) 2012 - DIGITEO - Allan CORNET
-* Copyright (C) 2012 - INRIA - Serge STEER
-*
-* This file must be used under the terms of the CeCILL.
-* This source file is licensed as described in the file COPYING, which
-* you should have received as part of this distribution.  The terms
-* are also available at
-* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
-*
-*/
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2006/2007 - INRIA - Alan LAYEC
+ * Copyright (C) 2007 - INRIA - Allan CORNET
+ * Copyright (C) 2012 - DIGITEO - Allan CORNET
+ * Copyright (C) 2012 - INRIA - Serge STEER
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
 /*--------------------------------------------------------------------------*/
 #include "stack-c.h"
 #include "fftw_utilities.h"
@@ -39,38 +39,38 @@ static SciErr allocComplexArrayOfDouble(void* _pvCtx, int _iVar, int ndims, int 
 static SciErr getScalarIntArg(void* _pvCtx, int _iVar, char *fname, int *value);
 static SciErr getVectorIntArg(void* _pvCtx, int _iVar, char *fname, int *pndims, int **pDim);
 static BOOL isHyperMatrixMlist(void* _pvCtx, int *piAddressVar);
-static int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt, guru_dim_struct gdim);
-static int sci_fft_2args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
-static int sci_fft_3args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
-static int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
+static int sci_fft_gen(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt, guru_dim_struct gdim);
+static int sci_fft_2args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
+static int sci_fft_3args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
+static int sci_fft_4args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt);
 /*--------------------------------------------------------------------------*/
 
 int WITHMKL = 0;
 /* fftw function.
-*
-* Scilab Calling sequence :
-*   fftw(A [,option])
-*   fftw(A,sign [,option])
-*   fftw(A,sel,sign [,option])
-*   fftw(A,sign,dim,incr [,option])
-*
-* Input : A : a scilab double complex or real vector, matrix or hypermatrix
-*
-*         sign : a scilab double or integer scalar (-1 or 1): the sign
-*                  in the exponential component
-*
-*         sel : a scilab double or integer vector, the selection of dimensions
+ *
+ * Scilab Calling sequence :
+ *   fftw(A [,option])
+ *   fftw(A,sign [,option])
+ *   fftw(A,sel,sign [,option])
+ *   fftw(A,sign,dim,incr [,option])
+ *
+ * Input : A : a scilab double complex or real vector, matrix or hypermatrix
+ *
+ *         sign : a scilab double or integer scalar (-1 or 1): the sign
+ *                  in the exponential component
+ *
+ *         sel : a scilab double or integer vector, the selection of dimensions
 
-*         dim : a scilab double or integer vector: the dimensions
-*                  of the Fast Fourier Transform to perform
-*
-*         incr : a scilab double or integer vector: the increments
-*                  of the Fast Fourier Transform to perform
-*
-* Output : a scilab double complex or real array with same shape as A that
-*          gives the result of the transform.
-*
-*/
+ *         dim : a scilab double or integer vector: the dimensions
+ *                  of the Fast Fourier Transform to perform
+ *
+ *         incr : a scilab double or integer vector: the increments
+ *                  of the Fast Fourier Transform to perform
+ *
+ * Output : a scilab double complex or real array with same shape as A that
+ *          gives the result of the transform.
+ *
+ */
 int sci_fftw(char *fname, unsigned long fname_len)
 {
     SciErr sciErr;
@@ -87,8 +87,8 @@ int sci_fftw(char *fname, unsigned long fname_len)
     int isn = FFTW_FORWARD;
     WITHMKL = withMKL();
     /****************************************
-    * Basic constraints on rhs arguments  *
-    ****************************************/
+     * Basic constraints on rhs arguments  *
+     ****************************************/
 
     /* check min/max lhs/rhs arguments of scilab function */
     CheckRhs(1, 5);
@@ -111,7 +111,7 @@ int sci_fftw(char *fname, unsigned long fname_len)
     }
 
     if ((iTypeOne == sci_list) ||
-        (iTypeOne == sci_tlist))
+            (iTypeOne == sci_tlist))
     {
         OverLoad(1);
         return 0;
@@ -147,7 +147,7 @@ int sci_fftw(char *fname, unsigned long fname_len)
                 else
                 {
                     Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"),
-                        fname, Rhs, "\"symmetric\"", "\"nonsymmetric\"");
+                             fname, Rhs, "\"symmetric\"", "\"nonsymmetric\"");
                     freeAllocatedSingleString(option);
                     option = NULL;
                     return 0;
@@ -159,7 +159,7 @@ int sci_fftw(char *fname, unsigned long fname_len)
             else
             {
                 Scierror(999, _("%s: Wrong value for input argument #%d: '%s' or '%s' expected.\n"),
-                    fname, Rhs, "\"full\", \"same\"", "\"valid\"");
+                         fname, Rhs, "\"full\", \"same\"", "\"valid\"");
                 return 0;
             }
         }
@@ -183,7 +183,7 @@ int sci_fftw(char *fname, unsigned long fname_len)
         if ((isn !=  FFTW_FORWARD) && (isn !=  FFTW_BACKWARD))
         {
             Scierror(53, _("%s: Wrong value for input argument #%d: %d or %d expected.\n"),
-                fname, 2, FFTW_FORWARD, FFTW_BACKWARD);
+                     fname, 2, FFTW_FORWARD, FFTW_BACKWARD);
             return(0);
         }
     }
@@ -193,7 +193,7 @@ int sci_fftw(char *fname, unsigned long fname_len)
     if (!getArrayOfDouble(pvApiCtx, piAddr, &ndimsA, &dimsA, &Ar, &Ai))
     {
         Scierror(999, _("%s: Wrong type for argument #%d: Array of floating point numbers expected.\n"),
-            fname, 1);
+                 fname, 1);
         return 0;
     }
 
@@ -202,17 +202,17 @@ int sci_fftw(char *fname, unsigned long fname_len)
     if (rhs < 3)
     {
         /* fftw(A ,sign [,option])*/
-        sci_fft_2args(pvApiCtx, fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
+        sci_fft_2args(fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
     }
     else if (rhs == 3)
     {
         /* fftw(A ,sign ,sel [,option])*/
-        sci_fft_3args(pvApiCtx, fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
+        sci_fft_3args(fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
     }
     else if (rhs == 4)
     {
         /* fftw(A ,sign ,dim,incr [option])*/
-        sci_fft_4args(pvApiCtx, fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
+        sci_fft_4args(fname, ndimsA, dimsA, Ar, Ai, isn, iopt);
     }
 
     return 0;
@@ -406,32 +406,32 @@ SciErr getScalarIntArg(void* _pvCtx, int _iVar, char *fname, int *value)
 
         switch (iPrec)
         {
-        case SCI_INT8 :
+            case SCI_INT8 :
             {
                 getScalarInteger8(_pvCtx, piAddr, &t_c);
                 *value = (int)t_c;
             }
-        case SCI_INT16 :
+            case SCI_INT16 :
             {
                 getScalarInteger16(_pvCtx, piAddr, &t_s);
                 *value = (int)t_s;
             }
-        case SCI_INT32 :
+            case SCI_INT32 :
             {
                 getScalarInteger32(_pvCtx, piAddr, &t_i);
                 *value = (int)t_i;
             }
-        case SCI_UINT8 :
+            case SCI_UINT8 :
             {
                 getScalarUnsignedInteger8(_pvCtx, piAddr, &t_uc);
                 *value = (int)t_uc;
             }
-        case SCI_UINT16 :
+            case SCI_UINT16 :
             {
                 getScalarUnsignedInteger16(_pvCtx, piAddr, &t_us);
                 *value = (int)t_us;
             }
-        case SCI_UINT32 :
+            case SCI_UINT32 :
             {
                 getScalarUnsignedInteger32(_pvCtx, piAddr, &t_ui);
                 *value = (int)t_ui;
@@ -441,8 +441,8 @@ SciErr getScalarIntArg(void* _pvCtx, int _iVar, char *fname, int *value)
     else
     {
         addErrorMessage(&sciErr, API_ERROR_GET_INT,
-            _("%s: Wrong type for argument #%d: An integer or a floating point number expected.\n"),
-            fname, _iVar);
+                        _("%s: Wrong type for argument #%d: An integer or a floating point number expected.\n"),
+                        fname, _iVar);
         return sciErr;
     }
     return sciErr;
@@ -489,13 +489,13 @@ SciErr getVectorIntArg(void* _pvCtx, int _iVar, char *fname, int *pndims, int **
     if (ndims <= 0)
     {
         addErrorMessage(&sciErr, API_ERROR_GET_INT,
-            _("%s: Wrong size for input argument #%d.\n"), fname, _iVar);
+                        _("%s: Wrong size for input argument #%d.\n"), fname, _iVar);
         return sciErr;
     }
     if ((Dim = (int *)MALLOC(ndims * sizeof(int))) == NULL)
     {
         addErrorMessage(&sciErr, API_ERROR_GET_INT,
-            _("%s: Cannot allocate more memory.\n"), fname);
+                        _("%s: Cannot allocate more memory.\n"), fname);
         return sciErr;
     }
     *pDim = Dim;
@@ -509,30 +509,30 @@ SciErr getVectorIntArg(void* _pvCtx, int _iVar, char *fname, int *pndims, int **
         getMatrixOfIntegerPrecision(_pvCtx, piAddr, &iPrec);
         switch (iPrec)
         {
-        case SCI_INT8 :
-            getMatrixOfInteger8(_pvCtx, piAddr, &mDim, &nDim, &p_c);
-            for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_c[i]);
-            break;
-        case SCI_INT16 :
-            getMatrixOfInteger16(_pvCtx, piAddr, &mDim, &nDim, &p_s);
-            for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_s[i]);
-            break;
-        case SCI_INT32 :
-            getMatrixOfInteger32(_pvCtx, piAddr, &mDim, &nDim, &p_i);
-            for (i = 0; i < ndims; i++)  Dim[i]  = (int)(p_i[i]);
-            break;
-        case SCI_UINT8 :
-            getMatrixOfUnsignedInteger8(_pvCtx, piAddr, &mDim, &nDim, &p_uc);
-            for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_uc[i]);
-            break;
-        case SCI_UINT16 :
-            getMatrixOfUnsignedInteger16(_pvCtx, piAddr, &mDim, &nDim, &p_us);
-            for (i = 0; i < ndims; i++) Dim[i]  = (int) p_us[i];
-            break;
-        case SCI_UINT32 :
-            getMatrixOfUnsignedInteger32(_pvCtx, piAddr, &mDim, &nDim, &p_ui);
-            for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_ui[i]);
-            break;
+            case SCI_INT8 :
+                getMatrixOfInteger8(_pvCtx, piAddr, &mDim, &nDim, &p_c);
+                for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_c[i]);
+                break;
+            case SCI_INT16 :
+                getMatrixOfInteger16(_pvCtx, piAddr, &mDim, &nDim, &p_s);
+                for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_s[i]);
+                break;
+            case SCI_INT32 :
+                getMatrixOfInteger32(_pvCtx, piAddr, &mDim, &nDim, &p_i);
+                for (i = 0; i < ndims; i++)  Dim[i]  = (int)(p_i[i]);
+                break;
+            case SCI_UINT8 :
+                getMatrixOfUnsignedInteger8(_pvCtx, piAddr, &mDim, &nDim, &p_uc);
+                for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_uc[i]);
+                break;
+            case SCI_UINT16 :
+                getMatrixOfUnsignedInteger16(_pvCtx, piAddr, &mDim, &nDim, &p_us);
+                for (i = 0; i < ndims; i++) Dim[i]  = (int) p_us[i];
+                break;
+            case SCI_UINT32 :
+                getMatrixOfUnsignedInteger32(_pvCtx, piAddr, &mDim, &nDim, &p_ui);
+                for (i = 0; i < ndims; i++) Dim[i]  = (int)(p_ui[i]);
+                break;
         }
     }
     else
@@ -540,13 +540,13 @@ SciErr getVectorIntArg(void* _pvCtx, int _iVar, char *fname, int *pndims, int **
         FREE(Dim);
         Dim = NULL;
         addErrorMessage(&sciErr, API_ERROR_GET_INT,
-            _("%s: Wrong type for argument #%d: An array of floating point or integer numbers expected.\n"), fname, _iVar);
+                        _("%s: Wrong type for argument #%d: An array of floating point or integer numbers expected.\n"), fname, _iVar);
         return sciErr;
     }
     return sciErr;
 }
 
-int sci_fft_2args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
+int sci_fft_2args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
 {
     /*FFTW specific library variable */
     guru_dim_struct gdim = {0, NULL, 0, NULL};
@@ -572,8 +572,8 @@ int sci_fft_2args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     /* void or scalar input gives void output or scalar*/
     if (ndims == 0 )
     {
-        AssignOutputVariable(_pvCtx, 1) =  1;
-        ReturnArguments(_pvCtx);
+        LhsVar(1) =  1;
+        PutLhsVar();
         return(0);
     }
 
@@ -601,14 +601,14 @@ int sci_fft_2args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     gdim.howmany_dims = NULL;
 
 
-    if (!sci_fft_gen(_pvCtx, fname, ndimsA, dimsA,  Ar,  Ai, isn, iopt, gdim))  goto ERR;
+    if (!sci_fft_gen(fname, ndimsA, dimsA,  Ar,  Ai, isn, iopt, gdim))  goto ERR;
 
 
     /***********************************
-    * Return results in lhs argument *
-    ***********************************/
+     * Return results in lhs argument *
+     ***********************************/
 
-    ReturnArguments(_pvCtx);
+    PutLhsVar();
 ERR:
     FREE(gdim.dims);
     FREE(gdim.howmany_dims);
@@ -616,7 +616,7 @@ ERR:
 }
 
 
-int  sci_fft_3args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
+int  sci_fft_3args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
 {
     /* API variables */
     SciErr sciErr;
@@ -650,8 +650,8 @@ int  sci_fft_3args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar
     /* void or scalar input gives void output or scalar*/
     if (ndims == 0 )
     {
-        AssignOutputVariable(_pvCtx, 1) =  1;
-        ReturnArguments(_pvCtx);
+        LhsVar(1) =  1;
+        PutLhsVar();
         return(0);
     }
 
@@ -783,19 +783,19 @@ int  sci_fft_3args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar
         }
     }
 
-    if (!sci_fft_gen(_pvCtx, fname, ndimsA, dimsA, Ar,  Ai, isn, iopt, gdim))  goto ERR;
+    if (!sci_fft_gen(fname, ndimsA, dimsA, Ar,  Ai, isn, iopt, gdim))  goto ERR;
     /***********************************
-    * Return results in lhs argument *
-    ***********************************/
+     * Return results in lhs argument *
+     ***********************************/
 
-    ReturnArguments(_pvCtx);
+    PutLhsVar();
 ERR:
     FREE(gdim.dims);
     FREE(gdim.howmany_dims);
     return(0);
 }
 
-int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
+int sci_fft_4args(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt)
 {
     /* API variables */
     SciErr sciErr;
@@ -827,8 +827,8 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     /* void or scalar input gives void output or scalar*/
     if (lA <= 1 )
     {
-        AssignOutputVariable(_pvCtx, 1) =  1;
-        ReturnArguments(_pvCtx);
+        LhsVar(1) =  1;
+        PutLhsVar();
         return(0);
     }
 
@@ -922,7 +922,6 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     Dim[nd++] = Dim1[0];
     pd *= Dim1[0];
     Sel[0] = nd;
-
     for (k = 1; k < ndims; k++)
     {
         if (Incr[k] % pd != 0)
@@ -951,7 +950,6 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
 
     rank = ndims;
     ndims = nd;
-
     /* now one  same algorithm than sci_fft_3args applies */
     /* Create  gdim struct */
     gdim.rank = rank;
@@ -978,13 +976,14 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
     }
     /* Compute howmany_rank based on jumps in the Sel sequence */
     gdim.howmany_rank = 0;
-    if ((Sel[0] != 1) && (Sel[0] != ndims)) gdim.howmany_rank++;
+    if ((Sel[0] != 1) && (Sel[0] != ndims)) gdim.howmany_rank++; //Oui
 
     for (i = 1; i <= rank - 1; i++)
     {
         if (Sel[i] != Sel[i - 1] + 1) gdim.howmany_rank++;
     }
-    if ((Sel[rank - 1] != ndims) || (rank == 1)) gdim.howmany_rank++;
+    if ((Sel[rank - 1] != ndims) || (rank == 1)) gdim.howmany_rank++; //Oui
+
     /* Fill the howmany_dims struct */
     if (gdim.howmany_rank > 0)
     {
@@ -999,7 +998,7 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
         pd = 1;
         for (j = 1; j <= (Sel[0] - 1); j++) pd *= Dim[j - 1]; /*prod(Dims(1:(sel(1)-1)))*/
         ih = 0;
-        if ((Sel[0] != 1) && (Sel[0] != ndims))
+        if ((Sel[0] != 1) && (Sel[0] != ndims)) //Oui
         {
             /* First seleted dimension */
             gdim.howmany_dims[ih].is = 1;
@@ -1008,23 +1007,24 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
             ih++;
         }
         pd *= Dim[Sel[0] - 1]; /*prod(Dims(1:sel(1)))*/
-        for (i = 2; i <= rank; i++)
+        for (i = 1; i <= rank-1; i++)
         {
             /* intermediate selected dimensions */
-            if (Sel[i - 1] != Sel[i - 2] + 1)
+            if (Sel[i] != Sel[i - 1] + 1)
             {
                 pds = 1;
-                for (j = (Sel[i - 2] + 1); j <= (Sel[i - 1] - 1); j++) pds *= Dim[j - 1]; /*prod(Dims(sel(i-1)+1:(sel(i)-1)))*/
+                for (j = (Sel[i - 1] + 1); j <= (Sel[i] - 1); j++) pds *= Dim[j - 1]; /*prod(Dims(sel(i-1)+1:(sel(i)-1)))*/
                 gdim.howmany_dims[ih].is = pd;
                 gdim.howmany_dims[ih].os = pd;
                 gdim.howmany_dims[ih].n = pds;
                 ih++;
             }
-            pd *= pds * Dim[Sel[i - 1] - 1]; /*prod(Dims(1:sel(i)))*/
+            pd *= pds * Dim[Sel[i] - 1]; /*prod(Dims(1:sel(i)))*/
         }
 
         if (Sel[rank - 1] != ndims)
-        {
+          {
+         
             /* last selected dimension*/
             pds = 1;
             for (j = (Sel[rank - 1] + 1); j <= ndims; j++) pds *= Dim[j - 1]; /*prod(Dims(sel(i-1)+1:(sel(i)-1)))*/
@@ -1033,21 +1033,21 @@ int sci_fft_4args(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,
             gdim.howmany_dims[ih].n = pds;
             ih++;
         }
-        else if (rank == 1) /* the only selected dimension is the last one */
-        {
+        else if (rank == 1) /* the only selected dimension is the last one */ //oui
+          {
             gdim.howmany_dims[ih].is = 1;
             gdim.howmany_dims[ih].os = 1;
             gdim.howmany_dims[ih].n = pd / Dim[Sel[0] - 1];
             ih++;
-        }
+          }
     }
-    if (!sci_fft_gen(_pvCtx, fname, ndimsA, dimsA, Ar,  Ai, isn, iopt, gdim))  goto ERR;
+    if (!sci_fft_gen(fname, ndimsA, dimsA, Ar,  Ai, isn, iopt, gdim))  goto ERR;
 
     /***********************************
-    * Return results in lhs argument *
-    ***********************************/
+     * Return results in lhs argument *
+     ***********************************/
 
-    ReturnArguments(_pvCtx);
+    PutLhsVar();
 ERR:
     FREE(Dim1);
     FREE(Incr);
@@ -1118,7 +1118,7 @@ BOOL isHyperMatrixMlist(void* _pvCtx, int *piAddressVar)
     return FALSE;
 }
 /*--------------------------------------------------------------------------*/
-int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt, guru_dim_struct gdim)
+int sci_fft_gen(char *fname, int ndimsA, int *dimsA, double *Ar,  double *Ai, int isn, int iopt, guru_dim_struct gdim)
 {
     /* API variables */
     SciErr sciErr;
@@ -1167,8 +1167,7 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
     {
         issymA = 0;
     }
-
-    AssignOutputVariable(_pvCtx, 1) =  1;/* assume inplace transform*/
+    LhsVar(1) = 1; /* assume inplace transform*/
 
     if (WITHMKL)
     {
@@ -1179,7 +1178,7 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
             if (issymA)
             {
                 /* result will be real, the imaginary part of A can be allocated alone */
-                sciErr = allocMatrixOfDouble(pvApiCtx, *getNbInputArgument(_pvCtx) + 1, 1, lA, &Ai);
+                sciErr = allocMatrixOfDouble(pvApiCtx, Rhs + 1, 1, lA, &Ai);
                 if (sciErr.iErr)
                 {
                     Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
@@ -1190,7 +1189,7 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
             else
             {
                 /* result will be complex, realloc A for inplace computation */
-                sciErr = allocComplexArrayOfDouble(pvApiCtx, *getNbInputArgument(_pvCtx) + 1, ndimsA, dimsA, &ri, &Ai);
+                sciErr = allocComplexArrayOfDouble(pvApiCtx, Rhs + 1, ndimsA, dimsA, &ri, &Ai);
                 if (sciErr.iErr)
                 {
                     Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
@@ -1199,16 +1198,17 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
                 C2F(dcopy)(&lA, Ar, &one, ri, &one);
                 Ar = ri;
                 C2F(dset)(&lA, &dzero, Ai, &one);
-                AssignOutputVariable(_pvCtx, 1) =  nbInputArgument(_pvCtx) + 1;
-                isrealA = 0;
+                LhsVar(1) = Rhs + 1;
             }
+            isrealA = 0;
+
         }
     }
 
-    if (!isrealA && issymA) /* A is complex but result is real */
+    if (!isrealA_save && issymA) /* A is complex but result is real */
     {
         /* result will be complex, realloc real part of A for real part inplace computation */
-        sciErr = allocArrayOfDouble(pvApiCtx, *getNbInputArgument(_pvCtx) + 1, ndimsA, dimsA, &ri);
+        sciErr = allocArrayOfDouble(pvApiCtx, Rhs + 1, ndimsA, dimsA, &ri);
         if (sciErr.iErr)
         {
             Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
@@ -1216,7 +1216,7 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         }
         C2F(dcopy)(&lA, Ar, &one, ri, &one);
         Ar = ri;
-        AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(_pvCtx) + 1;
+        LhsVar(1) = Rhs + 1;
     }
 
     /* Set pointers on real and imaginary part of the input */
@@ -1225,15 +1225,15 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
 
     scale = None; /*no scaling needed */
     if (isn == FFTW_BACKWARD) scale = Divide;
-    if (isrealA & !WITHMKL) /* To have type = C2C_PLAN*/
+    if (isrealA)
     {
         /*A is real */
         if (issymA)
         {
             /*r2r =  isrealA &&  issymA*/
             /* there is no general plan able to compute r2r transform so it is tranformed into
-            a R2c plan. The computed imaginary part will be zero*/
-            sciErr = allocMatrixOfDouble(pvApiCtx, *getNbInputArgument(_pvCtx) + 1, 1, lA,  &io);
+               a R2c plan. The computed imaginary part will be zero*/
+            sciErr = allocMatrixOfDouble(pvApiCtx, Rhs + 1, 1, lA,  &io);
             if (sciErr.iErr)
             {
                 Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
@@ -1246,13 +1246,13 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         {
             /*r2c =  isrealA && ~issymA;*/
             /* transform cannot be done in place */
-            sciErr = allocComplexArrayOfDouble(pvApiCtx, *getNbInputArgument(_pvCtx) + 1, ndimsA, dimsA, &ro, &io);
+            sciErr = allocComplexArrayOfDouble(pvApiCtx, Rhs + 1, ndimsA, dimsA, &ro, &io);
             if (sciErr.iErr)
             {
                 Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
                 goto ERR;
             }
-            AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(_pvCtx) + 1;
+            LhsVar(1) = Rhs + 1;
             type = R2C_PLAN; /* fftw_plan_guru_split_dft_r2c plans for an FFTW_FORWARD transform*/
             if (isn == FFTW_BACKWARD)
             {
@@ -1284,7 +1284,6 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
         {
             /*c2c =  ~isrealA && ~issymA;*/
             /* use inplace transform*/
-            isrealA = 0;
             type = C2C_PLAN; /*  fftw_plan_guru_split_dft plans for an FFTW_FORWARD transform*/
             if (isn == FFTW_BACKWARD)
             {
@@ -1325,46 +1324,20 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
     /* Post treatment */
     switch (type)
     {
-    case R2R_PLAN:
-        if (complete_array(ro, NULL, gdim) == -1)
-        {
-            Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
-            goto ERR;
-        }
-        break;
-    case C2R_PLAN:
-        break;
-    case R2C_PLAN:
-        if (issymA)
-        {
-            /*R2C has been used to solve an r2r problem*/
+        case R2R_PLAN:
             if (complete_array(ro, NULL, gdim) == -1)
             {
                 Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
                 goto ERR;
             }
-        }
-        else
-        {
-            if (complete_array(ro, io, gdim) == -1)
+            break;
+        case C2R_PLAN:
+            break;
+        case R2C_PLAN:
+            if (issymA)
             {
-                Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
-                goto ERR;
-            }
-            if (isn == FFTW_BACKWARD)
-            {
-                /*conjugate result */
-                double ak = -1.0;
-                C2F(dscal)(&lA, &ak, io, &one);
-            }
-        }
-        break;
-    case C2C_PLAN:
-        if (WITHMKL && isrealA_save)
-        {
-            if (isn == FFTW_FORWARD)
-            {
-                if (complete_array(ro, io, gdim) == -1)
+                /*R2C has been used to solve an r2r problem*/
+                if (complete_array(ro, NULL, gdim) == -1)
                 {
                     Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
                     goto ERR;
@@ -1372,14 +1345,52 @@ int sci_fft_gen(void* _pvCtx, char *fname, int ndimsA, int *dimsA, double *Ar,  
             }
             else
             {
-                if (complete_array(io, ro, gdim) == -1)
+                if (complete_array(ro, io, gdim) == -1)
                 {
                     Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
                     goto ERR;
                 }
+                if (isn == FFTW_BACKWARD)
+                {
+                    /*conjugate result */
+                    double ak = -1.0;
+                    C2F(dscal)(&lA, &ak, io, &one);
+                }
             }
+            break;
+    case C2C_PLAN:
+      if (WITHMKL && isrealA_save) {
+        if (isn == FFTW_FORWARD) {
+          if(issymA) {
+            if (complete_array(ro, NULL, gdim) == -1) {
+              Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+              goto ERR;
+            }
+          }
+          else {
+            if (complete_array(ro, io, gdim) == -1) {
+              Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+              goto ERR;
+            }
+          }
         }
-        break;
+        else {
+          if(issymA) {
+            if (complete_array(ro, NULL, gdim) == -1) {
+              Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+              goto ERR;
+            }
+                 
+          }
+          else {
+            if (complete_array(io, ro, gdim) == -1) {
+              Scierror(999, _("%s: Cannot allocate more memory.\n"), fname);
+              goto ERR;
+            }
+          }
+        }
+      }
+      break;
     }
 
     return(1);
