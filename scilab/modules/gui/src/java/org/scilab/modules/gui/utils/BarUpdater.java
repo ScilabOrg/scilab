@@ -79,7 +79,7 @@ public final class BarUpdater implements PropertyChangeListener {
             parentWindow.addInfoBar(newInfoBar);
             parentWindow.setTitle(newWindowTitle);
             /** The following line is used to update the menubar, toolbar, ... displayed on screen */
-            parentWindow.validate();
+            parentWindow.getRootPane().revalidate();
             if (newIcon != null) {
                 parentWindow.setIconImage(newIcon);
             }
