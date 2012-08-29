@@ -113,11 +113,13 @@ int FreeFFTWPlan(FFTW_Plan_struct *Sci_Plan)
 fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
                       double *ri, double *ii,
                       double *ro, double *io,
-                      unsigned flags, int isn)
+                      unsigned flags, int isn, int *errflag)
 {
   FFTW_Plan_struct *Sci_Plan;
   int i=0;
   fftw_r2r_kind *kind = NULL;
+  
+  *errflag = 0;
 
   if (isn==-1) Sci_Plan = &Sci_Backward_Plan;
   else Sci_Plan = &Sci_Forward_Plan;
@@ -134,6 +136,7 @@ fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
           Sci_Plan->gdim.rank = gdim->rank;
           if ((Sci_Plan->gdim.dims = (fftw_iodim *) MALLOC(sizeof(fftw_iodim)*(gdim->rank)))==NULL)
             {
+              *errflag = 1;
               return(NULL);
             }
           for (i=0;i<gdim->rank;i++)
@@ -149,6 +152,7 @@ fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
           if ((Sci_Plan->gdim.howmany_dims = (fftw_iodim *) MALLOC(sizeof(fftw_iodim)*(gdim->howmany_rank)))==NULL)
             {
               FREE(Sci_Plan->gdim.dims);
+              *errflag = 1;
               return(NULL);
             }
           for (i=0;i<gdim->howmany_rank;i++)
@@ -160,6 +164,7 @@ fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
         }
 
       Sci_Plan->flags = cur_fftw_flags;
+
       switch (type)
         {
         case C2C_PLAN:
@@ -188,6 +193,7 @@ fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
         case R2R_PLAN:
           if ((kind=(fftw_r2r_kind *)MALLOC(sizeof(fftw_r2r_kind)*Sci_Plan->gdim.rank))==NULL)
             {
+              *errflag = 1;
               return(NULL);
             }
           for (i=0;i<Sci_Plan->gdim.rank;i++)
@@ -216,6 +222,7 @@ fftw_plan GetFFTWPlan(enum Plan_Type type, guru_dim_struct *gdim,
         }
 
     }
+  if (Sci_Plan->p==NULL)  *errflag = 2;
   return(Sci_Plan->p);
 }
 /*--------------------------------------------------------------------------*/
@@ -1142,13 +1149,13 @@ int complete_array(double *Ar,double *Ai, guru_dim_struct gdim)
   return 0;
 }
 /*--------------------------------------------------------------------------
- * Check if Scilab is linked with MKL library * Somme fftw functions
- * are not yet implemented in MKL in particular wisdom and guru_split
- * functions
+ * Check if Scilab is linked with MKL library * Some fftw functions
+ * are not yet implemented in MKL in particular wisdom; guru_split real case
+ * functions and  guru_split complex with homany_rank>1
  */
 
 int withMKL(void)
-{
-  return (call_fftw_export_wisdom_to_string()==NULL);
-  /*return 1;*/
+{ 
+  int r = (call_fftw_export_wisdom_to_string()==NULL);
+  return r;
 }/*--------------------------------------------------------------------------*/

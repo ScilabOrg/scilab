@@ -17,10 +17,11 @@ Bug Fixes
 
 * Bug #11558 fixed - Typo in helptools module fixed.
 
+* Bug #11684 fixed - mfft failed  due to MKL fftw libray restrictions.
+
 * Bug #11688 fixed - The example in example_run help page failed.
 
 * Bug #11794 fixed - Empty lists could not be saved/loaded to/from SOD files.
-
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
@@ -171,6 +172,7 @@ Bug Fixes
 
 * Bug #11683 fixed - figure_properties help page did not explain what happens
                      when the event_handler and closerequestfcn properties were both set.
+
 
 * Bug #11685 fixed - gcbo variable was not defined when executing functions set
                      for "closerequestfcn" and "resizefcn" properties.
