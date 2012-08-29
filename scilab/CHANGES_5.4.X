@@ -66,6 +66,8 @@ Bug Fixes
 * Bug #8488 fixed - NaN values was propagated when we performed the min/max between
                     several matrices.
 
+* Bug #8799 fixed - %hm_gsort added.
+
 * Bug #9204 fixed - The Frobenius norm of a complex vector was numerically complex.
 
 * Bug #9616 fixed - In the qp_solve help page, the input arguments in calling
@@ -79,7 +81,7 @@ Bug Fixes
                      some sparse matrices.
 
 * Bug #11390 fixed - When the cond function has one input argument, matrices can be
-                     non square. Moreover, the cond function has been updated to 
+                     non square. Moreover, the cond function has been updated to
                      give the possibility to use another norm than that imposed
                      (by default 2-norm).
 
