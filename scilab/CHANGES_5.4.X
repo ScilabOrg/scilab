@@ -8,6 +8,9 @@ Xcos
 
 * Bug #10781 fixed - DFlipflop incorrectly reported problem for port size or type.
 
+* Bug #11717 fixed - Xcos : setting recent opened file number preferences in scilab
+                     did not apply in Xcos menu
+
 * Bug #11735 fixed - Output sink name was not reported as figure name.
 
 * Bug #11737 fixed - Incompatibility between a Xcos menu and its help page description.
