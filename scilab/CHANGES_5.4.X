@@ -1,3 +1,14 @@
+            Changes between version 5.4.0-beta-3 and 5.4.0 of Scilab
+            ========================================================
+
+
+Bug Fixes
+=========
+
+* Bug #11558 fixed - Fix a typo in helptools.
+
+
+
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
 
