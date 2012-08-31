@@ -11,6 +11,8 @@ Xcos
 
 * Bug #11747 fixed - Modelica block text was visible under the block image.
 
+* Bug #11776 fixed - CMSCOPE did not take into account label&Id parameter
+
 
 Bug Fixes
 =========

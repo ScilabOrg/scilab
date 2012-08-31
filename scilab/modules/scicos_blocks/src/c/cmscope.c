@@ -125,6 +125,14 @@ static BOOL pushData(scicos_block * block, int input, int row);
 static char const* getFigure(scicos_block * block);
 
 /**
+ * Set figure title.
+ *
+ * \param pFigureUID the figure uid
+ * \param block the current block
+ */
+static void setFigureName(char const* pFigureUID, scicos_block * block);
+
+/**
  * Get (and allocate on demand) the axe associated with the input
  *
  * \param pFigureUID the parent figure UID
@@ -199,6 +207,10 @@ SCICOS_BLOCKS_IMPEXP void cmscope(scicos_block * block, scicos_flag flag)
                 // allocation error
                 set_block_error(-5);
                 break;
+            }
+            else
+            {
+                setFigureName(pFigureUID, block);
             }
             break;
 
@@ -582,6 +594,26 @@ static void setFigureSettings(char const* pFigureUID, scicos_block * block)
         setGraphicObjectProperty(pFigureUID, __GO_SIZE__, &win_dim, jni_int_vector, 2);
     }
 };
+
+/**
+ * Set figure title.
+ *
+ * \param pFigureUID the figure uid
+ * \param block the current block
+ */
+static void setFigureName(char const* pFigureUID, scicos_block * block)
+{
+    char *label = NULL;
+
+    label = GetLabelPtrs(block);
+    if (label != NULL)
+    {
+        if (strlen(label) > 0)
+        {
+            setGraphicObjectProperty(pFigureUID, __GO_NAME__, label, jni_string, 1);
+        }
+    }
+}
 
 /**
  * Set properties on the axes.
