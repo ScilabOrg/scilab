@@ -17,6 +17,8 @@ import java.awt.Dimension;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -118,7 +120,11 @@ public class WindowsConfigurationManager implements XConfigurationListener {
     }
 
     private WindowsConfigurationManager() {
-        XConfiguration.addXConfigurationListener(this);
+        try {
+	    XConfiguration.addXConfigurationListener(this);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     public void configurationChanged(XConfigurationEvent e) {
@@ -681,6 +687,7 @@ public class WindowsConfigurationManager implements XConfigurationListener {
         // We remove all the blanks and carriage return
         try {
             XPath xp = XPathFactory.newInstance().newXPath();
+
             NodeList nodes = (NodeList) xp.compile("//text()").evaluate(doc, XPathConstants.NODESET);
             for (int i = 0; i < nodes.getLength(); i++) {
                 nodes.item(i).getParentNode().removeChild(nodes.item(i));
