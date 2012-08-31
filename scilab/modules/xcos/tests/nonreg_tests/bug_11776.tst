@@ -1,0 +1,46 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - DIGITEO - Alexandre HERISSE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- TEST WITH XCOS -->
+//
+// <-- Non-regression test for bug 11776 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11776
+//
+// <-- Short Description -->
+// CMSCOPE did not take into account label&Id parameter 
+
+assert_checktrue(importXcosDiagram(SCI + "/modules/xcos/tests/nonreg_tests/bug_11776.xcos"));
+
+// compile and simulate
+xcos_simulate(scs_m, 4);
+
+// retrieve id of cscope and cmscope in xcos diagram
+cmscope_id = 0;
+cscope_id = 0;
+for cnt=1:size(scs_m.objs)
+    curObj = scs_m.objs(cnt);
+    if (typeof(curObj) == "Block") then
+        if (curObj.gui == "CMSCOPE") then
+            cmscope_id = cnt;
+        end
+        if (curObj.gui == "CSCOPE") then
+            cscope_id = cnt;
+        end
+    end
+end
+assert_checktrue(cmscope_id > 0);
+assert_checktrue(cscope_id > 0);
+
+// get figure properties of cscope and cmscope
+figure_cmscope = scf(20000 + cmscope_id);
+figure_cscope = scf(20000 + cscope_id);
+
+assert_checkequal(figure_cscope.figure_name, "CSCOPE");
+assert_checkequal(figure_cmscope.figure_name, "CMSCOPE");
+
