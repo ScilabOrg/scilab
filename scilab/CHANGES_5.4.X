@@ -9,6 +9,8 @@ Xcos
 * Bug #11717 fixed - Setting recent opened file number in preferences GUI
                      did not apply in Xcos menu.
 
+* Bug #11776 fixed - CMSCOPE did not take into account label&Id parameter
+
 
 Bug Fixes
 =========
