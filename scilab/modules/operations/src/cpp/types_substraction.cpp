@@ -961,6 +961,29 @@ int SubstractSparseToDouble(Sparse* _pSparse, Double* _pDouble, GenericType **_p
     bool bComplex1 = _pSparse->isComplex();
     bool bComplex2 = _pDouble->isComplex();
 
+    if(_pDouble->isIdentity())
+    {//convert to sp
+        Sparse* pS = new Sparse(_pSparse->getRows(), _pSparse->getCols(), _pDouble->isComplex());
+        if(pS->isComplex())
+        {
+            for(int i = 0 ; i < Min(_pSparse->getRows() , _pSparse->getCols()) ; i++)
+            {
+                pS->set(i, i, std::complex<double>(_pDouble->get(0), _pDouble->getImg(0)));
+            }
+        }
+        else
+        {
+            for(int i = 0 ; i < Min(_pSparse->getRows() , _pSparse->getCols()) ; i++)
+            {
+                pS->set(i, i, _pDouble->get(0));
+            }
+        }
+
+        SubstractSparseToSparse(_pSparse, pS, _pOut);
+        delete pS;
+        return 0;
+    }
+
     if(_pDouble->isEmpty())
     {//[] - SP
         Sparse* pS = _pSparse->clone();
