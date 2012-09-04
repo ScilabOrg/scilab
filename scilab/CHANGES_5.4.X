@@ -23,6 +23,9 @@ Bug Fixes
 
 * Bug #8799 fixed - gsort did not work with hypermatrices.
 
+* Bug #10346 fixed - An uicontrol was visible during few milliseconds even if its
+                     "Visible" property was set to "off".
+
 * Bug #11293 fixed - Line style was not taken into account.
 
 * Bug #11558 fixed - Typo in helptools module fixed.
