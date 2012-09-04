@@ -55,7 +55,6 @@ public class ScilabTreeTableCellRenderer extends JTree implements TableCellRende
 
             public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
                 FileNode fn = (FileNode) value;
-                super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
                 if (leaf) {
                     if (fn instanceof ScilabFileBrowserModel.ParentNode) {
                         this.setLeafIcon(FileUtils.getUpDirIcon());
@@ -72,7 +71,8 @@ public class ScilabTreeTableCellRenderer extends JTree implements TableCellRende
                     this.setClosedIcon(FileUtils.getClosedDirIcon());
                     this.setOpenIcon(FileUtils.getOpenDirIcon());
                 }
-
+		super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+                
                 return this;
             }
         };
