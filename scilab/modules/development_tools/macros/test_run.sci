@@ -105,7 +105,7 @@ function test_run_result = test_run(varargin)
 
     params.show_diff = assign_option(option_mat, "show_diff", %t, params.show_diff);
     option_mat          = clean_option(option_mat, "show_diff");
-    
+
     params.show_error = assign_option(option_mat, "show_error", %t, params.show_error);
     option_mat          = clean_option(option_mat, "show_error");
 
@@ -301,11 +301,11 @@ function test_run_result = test_run(varargin)
     printf("   Skipped: %4d\n", status.test_skipped_count);
     printf("   --------------------------------------------------------------------------\n");
   end
-  
+
 //   Returns %t if no error has been detected
 //   Returns %f if any error has been detected
   test_run_result = (status.test_failed_count == 0);
-  
+
 endfunction
 
 
@@ -684,7 +684,7 @@ head = [
 tail = [ "// <-- FOOTER START -->" ];
 
 if try_catch then
-  tail = [ 
+  tail = [
       tail;
       "catch";
       "   errmsg = ""<--""+""Error on the test script file""+""-->"";";
@@ -963,6 +963,9 @@ if ( (reference=="check") & (_module.reference=="check") ) | (_module.reference=
     if isfile(path_dia_ref) then
       deletefile(path_dia_ref)
     end
+
+// Delete empty line
+    dia = dia(find(dia <> ""))
 
     mputl(dia, path_dia_ref);
     status.id = 20;
