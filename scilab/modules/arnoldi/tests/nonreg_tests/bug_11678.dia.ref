@@ -1,0 +1,101 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - Scilab Enterprises - Adeline CARNIS
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+// <-- Non-regression test for bug 11678 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11678
+//
+// <-- Short Description -->
+//    The eigs function did not support extra parameters if Af is a function
+// =============================================================================
+// REAL & SYMMETRIC PROBLEM
+n = 10;
+k = 7;
+A            = diag(-7*ones(n,1));
+A(1:$-2,3:$) = A(1:$-2,3:$) + diag(-3*ones(n-2,1));
+A(3:$,1:$-2) = A(3:$,1:$-2) + diag(-3*ones(n-2,1));
+A(1:$-4,5:$) = A(1:$-4,5:$) + diag(0.5*ones(n-4,1));
+A(5:$,1:$-4) = A(5:$,1:$-4) + diag(0.5*ones(n-4,1));
+A1 = sparse(A);
+d0 = spec(A);
+function y = fn(x)
+    y = A1 * x;
+endfunction
+opts.isreal = %t;
+opts.issym = %t;
+d1 = eigs(fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(gsort(d1,'g','i'), d0(1:k), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(gsort(d1,'g','i'), d0(1:k), [], %eps);
+clear fn
+function y = fn(x)
+    y = A * x;
+endfunction
+d1 = eigs(fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(gsort(d1,'g','i'), d0(1:k), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(gsort(d1,'g','i'), d0(1:k), [], %eps);
+// REAL & NON SYMMETRIC PROBLEM
+B            = diag(7*ones(n,1));
+B(1:$-2,3:$) = B(1:$-2,3:$) + diag(3*ones(n-2,1));
+B(3:$,1:$-2) = B(3:$,1:$-2) + diag(3*ones(n-2,1));
+B(1:$-4,5:$) = B(1:$-4,5:$) + diag(0.5*ones(n-4,1));
+B(5:$,1:$-4) = B(5:$,1:$-4) + diag(-0.5*ones(n-4,1));
+B1 = sparse(B);
+d0 = spec(B);
+clear fn
+function y = fn(x)
+    y = B1 * x;
+endfunction
+opts.isreal = %t;
+opts.issym = %f;
+d1 = eigs(fn, n, [], k, 'LM', opts);
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-6:$)),'g','i'), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(abs(d1), gsort(abs(d0($-6:$)),'g','i'), [], %eps);
+clear fn
+function y = fn(x)
+    y = B * x;
+endfunction
+d1 = eigs(fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(d1, abs(d0(4:$)), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(d1, abs(d0(4:$)), [], %eps);
+// COMPLEX  PROBLEM
+C            = diag(-7*ones(n,1)+%i*ones(n,1));
+C(1:$-2,3:$) = C(1:$-2,3:$) + diag(-3*ones(n-2,1) - %i*ones(n-2,1));
+C(3:$,1:$-2) = C(3:$,1:$-2) + diag(-3*ones(n-2,1) - %i*ones(n-2,1));
+C(1:$-4,5:$) = C(1:$-4,5:$) + diag(0.5*ones(n-4,1));
+C(5:$,1:$-4) = C(5:$,1:$-4) + diag(0.5*ones(n-4,1));
+C1 = sparse(C);
+d0= spec(C);
+clear fn
+function y = fn(x)
+    y = C1 * x;
+endfunction
+opts.isreal = %f;
+opts.issym = %f;
+d1 = eigs(fn, n, [], k, 'LM', opts );
+d = gsort(abs(d0),'g','i');
+assert_checkalmostequal(abs(d1), d(4:$), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(abs(d1), d(4:$), [], %eps);
+clear fn
+function y = fn(x)
+    y = C * x;
+endfunction
+d1 = eigs(fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(abs(d1), d(4:$), [], %eps);
+l_fn = list(fn);
+d1 = eigs(l_fn, n, [], k, 'LM', opts );
+assert_checkalmostequal(abs(d1), d(4:$), [], %eps);

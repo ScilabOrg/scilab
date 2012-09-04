@@ -16,12 +16,12 @@ function [d, v] = eigs(varargin)
     end
 
     if(rhs >= 1)
-        if((typeof(varargin(1)) <> "constant")  & typeof(varargin(1)) <> "function" & (typeof(varargin(1)) <> "sparse") | varargin(1) == [])
-            error(msprintf(gettext("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function expected"), "eigs", 1));
+        if(and(typeof(varargin(1)) <> ["constant", "function", "list", "sparse"]) | varargin(1) == [])
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function or a list expected"), "eigs", 1));
         end
     end
 
-    if(rhs >= 1 & typeof(varargin(1)) <> "function")
+    if(rhs >= 1 & and(typeof(varargin(1)) <> ["function", "list"]))
         if(isreal(varargin(1)))
             resid = rand(size(varargin(1), "r"), 1);
         else
@@ -29,7 +29,7 @@ function [d, v] = eigs(varargin)
         end
     end
 
-    if(rhs > 1 & typeof(varargin(1)) ==  "function")
+    if(rhs > 1 & or(typeof(varargin(1)) ==  ["function", "list"]))
         if(size(varargin(2)) <> 1)
             error(msprintf(gettext("%s: Wrong type for input argument #%d: A positive integer expected if the first input argument is a function."), "eigs",2));
         end
@@ -56,7 +56,7 @@ function [d, v] = eigs(varargin)
     end
 
 
-    if(typeof(varargin(1)) <> "function")
+    if(and(typeof(varargin(1)) <> ["function", "list"]))
         select rhs
         case 1
             nev =  min(size(varargin(1), 'r'), 6)
@@ -769,6 +769,21 @@ function [res_d, res_v] = feigs(A_fun, nA, %_B, nev, which, maxiter, tol, ncv, c
         rvec = 1;
     end
 
+    //************************************
+    // First variable : list or function :
+    //************************************
+    if(type(A_fun) <> [13, 15])
+        error(msprintf(gettext("%s: Wrong type for input argument #%d: a list or a function expexcted.\n"), "eigs", 1));
+    end
+
+    if type(A_fun) == 15 then
+        tmp_function = A_fun;
+        %_matA = A_fun(1);
+        tmp_function(1) = null();
+    else
+        %_matA = A_fun;
+    end
+
     //**************************
     //Second variable nA :
     //**************************
@@ -1048,67 +1063,136 @@ function [res_d, res_v] = feigs(A_fun, nA, %_B, nev, which, maxiter, tol, ncv, c
             end
         end
 
-        if(ido == -1 | ido == 1 | ido == 2)
-            if(iparam(7) == 1)
-                if(matB == 0)
-                    ierr = execstr('A_fun(workd(ipntr(1):ipntr(1)+nA-1))', 'errcatch');
-                    if(ierr <> 0)
-                        break;
-                    end
-                    workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(1):ipntr(1)+nA-1));
-                else
-                    ierr = execstr('A_fun(inv(R) * workd(ipntr(1):ipntr(1)+nA-1))', 'errcatch');
-                    if(ierr <> 0)
-                        break;
-                    end
-                    workd(ipntr(2):ipntr(2)+nA-1) = inv(Rprime) * A_fun(inv(R) * workd(ipntr(1):ipntr(1)+nA-1));
-                end
-            elseif(iparam(7) == 3)
-                if(matB == 0)
-                    if(ido == 2)
-                        workd(ipntr(2):ipntr(2)+nA-1) = workd(ipntr(1):ipntr(1)+nA-1);
+        // case : list
+        if type(A_fun) == 15 then
+            if(ido == -1 | ido == 1 | ido == 2)
+                if(iparam(7) == 1)
+                    if(matB == 0)
+                        ierr = execstr('%_matA(workd(ipntr(1):ipntr(1)+nA-1), tmp_function(:))', 'errcatch');
+                        if(ierr <> 0)
+                            break;
+                        end
+                        workd(ipntr(2):ipntr(2)+nA-1) = %_matA(workd(ipntr(1):ipntr(1)+nA-1), tmp_function(:));
                     else
+                        ierr = execstr('%_matA(inv(R) * workd(ipntr(1):ipntr(1)+nA-1), tmp_function(:))', 'errcatch');
+                        if(ierr <> 0)
+                            break;
+                        end
+                        workd(ipntr(2):ipntr(2)+nA-1) = inv(Rprime) * %_matA(inv(R) * workd(ipntr(1):ipntr(1)+nA-1));
+                    end
+                elseif(iparam(7) == 3)
+                    if(matB == 0)
+                        if(ido == 2)
+                            workd(ipntr(2):ipntr(2)+nA-1) = workd(ipntr(1):ipntr(1)+nA-1);
+                        else
+                            ierr = execstr('%_matA(workd(ipntr(1):ipntr(1)+nA-1), tmp_function(:))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = %_matA(workd(ipntr(1):ipntr(1)+nA-1), tmp_function(:));
+                        end
+                    else
+                        if(ido == 2)
+                            if(cholB)
+                                workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
+                            else
+                                workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
+                            end
+                        elseif(ido == -1)
+                            if(cholB)
+                                workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
+                            else
+                                workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
+                            end
+                            ierr = execstr('%_matA(workd(ipntr(2):ipntr(2)+nA-1), tmp_function(:))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = %_matA(workd(ipntr(2):ipntr(2)+nA-1), tmp_function(:));
+                        else
+                            ierr = execstr('%_matA(workd(ipntr(3):ipntr(3)+nA-1), tmp_function(:))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = %matA(workd(ipntr(3):ipntr(3)+nA-1), tmp_function(:));
+                        end
+                    end
+                else
+                    if(a_real & Breal)
+                        if(a_sym)
+                            error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DSAUPD"));
+                        else
+                            error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DNAUPD"));
+                        end
+                    else
+                        error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "ZNAUPD"));
+                    end
+                end
+            end
+        // case A_fun is a function
+        else
+            if(ido == -1 | ido == 1 | ido == 2)
+                if(iparam(7) == 1)
+                    if(matB == 0)
                         ierr = execstr('A_fun(workd(ipntr(1):ipntr(1)+nA-1))', 'errcatch');
                         if(ierr <> 0)
                             break;
                         end
                         workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(1):ipntr(1)+nA-1));
-                    end
-                else
-                    if(ido == 2)
-                        if(cholB)
-                            workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
-                        else
-                            workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
-                        end
-                    elseif(ido == -1)
-                        if(cholB)
-                            workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
-                        else
-                            workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
-                        end
-                        ierr = execstr('A_fun(workd(ipntr(2):ipntr(2)+nA-1))', 'errcatch');
+                    else
+                        ierr = execstr('A_fun(inv(R) * workd(ipntr(1):ipntr(1)+nA-1))', 'errcatch');
                         if(ierr <> 0)
                             break;
                         end
-                        workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(2):ipntr(2)+nA-1));
-                    else
-                        ierr = execstr('A_fun(workd(ipntr(3):ipntr(3)+nA-1))', 'errcatch');
-                        if(ierr <> 0)
-                            break;
-                        end
-                        workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(3):ipntr(3)+nA-1));
+                        workd(ipntr(2):ipntr(2)+nA-1) = inv(Rprime) * A_fun(inv(R) * workd(ipntr(1):ipntr(1)+nA-1));
                     end
-                end
-            else
-                if(a_real & Breal)
-                    if(a_sym)
-                        error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DSAUPD"));
+                elseif(iparam(7) == 3)
+                    if(matB == 0)
+                        if(ido == 2)
+                            workd(ipntr(2):ipntr(2)+nA-1) = workd(ipntr(1):ipntr(1)+nA-1);
+                        else
+                            ierr = execstr('A_fun(workd(ipntr(1):ipntr(1)+nA-1))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(1):ipntr(1)+nA-1));
+                        end
                     else
-                        error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DNAUPD"));
+                        if(ido == 2)
+                            if(cholB)
+                                workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
+                            else
+                                workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
+                            end
+                        elseif(ido == -1)
+                            if(cholB)
+                                workd(ipntr(2):ipntr(2)+nA-1) = Rprime * R * workd(ipntr(1):ipntr(1)+nA-1);
+                            else
+                                workd(ipntr(2):ipntr(2)+nA-1) = %_B * workd(ipntr(1):ipntr(1)+nA-1);
+                            end
+                            ierr = execstr('A_fun(workd(ipntr(2):ipntr(2)+nA-1))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(2):ipntr(2)+nA-1));
+                        else
+                            ierr = execstr('A_fun(workd(ipntr(3):ipntr(3)+nA-1))', 'errcatch');
+                            if(ierr <> 0)
+                                break;
+                            end
+                            workd(ipntr(2):ipntr(2)+nA-1) = A_fun(workd(ipntr(3):ipntr(3)+nA-1));
+                        end
                     end
                 else
-                    error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "ZNAUPD"));
+                    if(a_real & Breal)
+                        if(a_sym)
+                            error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DSAUPD"));
+                        else
+                            error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "DNAUPD"));
+                        end
+                    else
+                        error(msprintf(gettext("%s: Error with %s: unknown mode returned.\n"), "eigs", "ZNAUPD"));
+                    end
                 end
             end
         end

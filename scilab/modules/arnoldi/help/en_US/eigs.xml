@@ -37,14 +37,14 @@
             <varlistentry>
                 <term>Af </term>
                 <listitem>
-                    <para>a function</para>
+                    <para>a function or a list</para>
                 </listitem>
             </varlistentry>
             <varlistentry>
                 <term>n </term>
                 <listitem>
                     <para>
-                        a scalar, defined only if <literal>A</literal> is a function
+                        a scalar, defined only if <literal>A</literal> is a function or a list
                     </para>
                 </listitem>
             </varlistentry>
@@ -495,6 +495,34 @@ d = eigs(fn, 10, [], k, 4, opts)
     ]]>
         </programlisting>
     </refsection>
+  <refsection>
+    <title>Example: Passing extra parameters</title>
+    <programlisting role="example">
+      <![CDATA[ 
+      n = 10;
+k = 7;
+A            = diag(-7*ones(n,1));
+A(1:$-2,3:$) = A(1:$-2,3:$) + diag(-3*ones(n-2,1));
+A(3:$,1:$-2) = A(3:$,1:$-2) + diag(-3*ones(n-2,1));
+A(1:$-4,5:$) = A(1:$-4,5:$) + diag(0.5*ones(n-4,1));
+A(5:$,1:$-4) = A(5:$,1:$-4) + diag(0.5*ones(n-4,1));
+
+    opts.isreal = %t;
+    opts.issym = %t;
+    
+    function y = fn(x, sigma, I)
+   y = (A - sigma * I) \ x;
+endfunction
+
+sigma = 4;
+I = eye(10,10);
+
+l_fn = list(fn ,sigma, I);
+
+d = eigs(l_fn, 10, [], k, sigma, opts)
+    ]]>
+    </programlisting>
+  </refsection>
     <refsection role="see also">
         <title>See Also</title>
         <simplelist type="inline">

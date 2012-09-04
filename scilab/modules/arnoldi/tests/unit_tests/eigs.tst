@@ -21,7 +21,7 @@ refMsg = msprintf(_("%s: Wrong type for input argument #%d: A square matrix expe
 assert_checkerror("eigs(1)", refMsg);
 
 assert_checkfalse(execstr("eigs([])", "errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function expected"), "eigs", 1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function or a list expected"), "eigs", 1);
 assert_checkerror("eigs([])", refMsg);
 
 assert_checkfalse(execstr("eigs(%nan)", "errcatch") == 0);
@@ -37,11 +37,11 @@ refMsg = msprintf(_("%s: Wrong type for input argument #%d: A square matrix expe
 assert_checkerror("eigs(%eps)", refMsg);
 
 assert_checkfalse(execstr("eigs([%f %f])", "errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function expected"), "eigs", 1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function or a list expected"), "eigs", 1);
 assert_checkerror("eigs([%f %f])", refMsg);
 
 assert_checkfalse(execstr("eigs(sparse([%f %f]))", "errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function expected"), "eigs", 1);
+refMsg = msprintf(_("%s: Wrong type for input argument #%d: A full or sparse square matrix or a function or a list expected"), "eigs", 1);
 assert_checkerror("eigs(sparse([%f %f]))", refMsg);
 
 assert_checkfalse(execstr("eigs([1 2])", "errcatch") == 0);
@@ -286,6 +286,9 @@ assert_checkerror("eigs(A, [], 4, which, opts)", refMsg);
 assert_checkfalse(execstr("eigs(sparse(A), [], 4, which ,opts)", "errcatch") == 0);
 refMsg = msprintf(_("%s: Wrong type for input argument #%d: %s must be a real scalar.\n"), "eigs", 6, "opts.tol");
 assert_checkerror("eigs(sparse(A), [], 4, which, opts)", refMsg);
+
+
+
 
 opts.tol  = %nan;
 assert_checkfalse(execstr("eigs(A, [], 4, which ,opts)", "errcatch") == 0);
@@ -895,7 +898,7 @@ d0 = spec(full(A));
 assert_checkalmostequal(d1, d0(($-k+1):$), 1.e-10);
 
 clear fn
-function y = fn(x)
+function y = fn(x, ind)
     y = A \x;
 endfunction
 
@@ -936,7 +939,7 @@ d0 = gsort(spec(full(A)));
 assert_checkalmostequal(abs(d1), abs(d0(k+2-1:-1:2)), 1.e-10);
 
 clear fn
-function y = fn(x)
+function y = fn(x, ind)
     y = A \x;
 endfunction
 
