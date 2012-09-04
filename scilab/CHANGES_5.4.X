@@ -32,8 +32,11 @@ Bug Fixes
 * Bug #11810 fixed - In EditVar, undesired data were added when the edition
                      is cancelled.
 
-* Bug #11810 fixed - In BrowseVar, contents of "visibility" column are left
+* Bug #11810 fixed - In BrowseVar, contents of "visibility" column were left
                      aligned.
+
+* Bug #11810 fixed - In Editvar, under mac OS, there was no vertical/horizontal
+                     lines.
 
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
