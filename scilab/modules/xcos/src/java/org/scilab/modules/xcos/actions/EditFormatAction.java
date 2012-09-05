@@ -37,6 +37,7 @@ import org.scilab.modules.graph.ScilabGraph;
 import org.scilab.modules.graph.actions.base.DefaultAction;
 import org.scilab.modules.graph.utils.StyleMap;
 import org.scilab.modules.gui.menuitem.MenuItem;
+import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.xcos.block.BasicBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.block.TextBlock;
@@ -509,32 +510,32 @@ public final class EditFormatAction extends DefaultAction {
         private mxCell cell;
 
         private final transient ChangeListener defaultChangeListener = new ChangeListener() {
-            /**
-             * Update the text area font
-             *
-             * @param e
-             *            the event parameters
-             * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-             */
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                updateFont();
-            }
-        };
+                /**
+                 * Update the text area font
+                 *
+                 * @param e
+                 *            the event parameters
+                 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+                 */
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    updateFont();
+                }
+            };
 
         private final transient ActionListener defaultActionListener = new ActionListener() {
-            /**
-             * Update the text area font
-             *
-             * @param e
-             *            the event parameters
-             * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateFont();
-            }
-        };
+                /**
+                 * Update the text area font
+                 *
+                 * @param e
+                 *            the event parameters
+                 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+                 */
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    updateFont();
+                }
+            };
 
         /**
          * Construct the dialog
@@ -546,6 +547,7 @@ public final class EditFormatAction extends DefaultAction {
             super(f, true);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setLocationRelativeTo(f);
+            ScilabSwingUtilities.closeOnEscape(this);
 
             initComponents();
         }
@@ -711,24 +713,24 @@ public final class EditFormatAction extends DefaultAction {
                                                  .createSequentialGroup()
                                                  .addContainerGap()
                                                  .addGroup(
-                                                         jPanel2Layout
-                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                         .addComponent(fontNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                 Short.MAX_VALUE)
-                                                         .addComponent(fontSizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                 Short.MAX_VALUE)
-                                                         .addComponent(fontStyleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                 Short.MAX_VALUE))
+                                                     jPanel2Layout
+                                                     .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                     .addComponent(fontNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                   Short.MAX_VALUE)
+                                                     .addComponent(fontSizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                   Short.MAX_VALUE)
+                                                     .addComponent(fontStyleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                   Short.MAX_VALUE))
                                                  .addGap(BORDER_SIZE)
                                                  .addGroup(
-                                                         jPanel2Layout
-                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                         .addComponent(fontNameComboBox, 0, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
-                                                         .addComponent(fontSizeSpinner, 0, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
-                                                         .addGroup(
-                                                                 jPanel2Layout.createSequentialGroup().addComponent(fontStyleBold)
-                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                 .addComponent(fontStyleItalic))).addContainerGap()));
+                                                     jPanel2Layout
+                                                     .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                     .addComponent(fontNameComboBox, 0, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                     .addComponent(fontSizeSpinner, 0, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                     .addGroup(
+                                                         jPanel2Layout.createSequentialGroup().addComponent(fontStyleBold)
+                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                         .addComponent(fontStyleItalic))).addContainerGap()));
             jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
                                                jPanel2Layout
                                                .createSequentialGroup()
@@ -736,27 +738,27 @@ public final class EditFormatAction extends DefaultAction {
                                                    jPanel2Layout
                                                    .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                    .addComponent(fontSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                    .addComponent(fontSizeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                                .addGap(BORDER_SIZE)
                                                .addGroup(
                                                    jPanel2Layout
                                                    .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                    .addComponent(fontNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                    .addComponent(fontNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                                .addGap(BORDER_SIZE)
                                                .addGroup(
                                                    jPanel2Layout
                                                    .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                    .addComponent(fontStyleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                    .addComponent(fontStyleBold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                    .addComponent(fontStyleItalic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                           javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
             textFormat.add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -784,95 +786,95 @@ public final class EditFormatAction extends DefaultAction {
             mainTab.addChangeListener(defaultChangeListener);
 
             cancelButton.addActionListener(new ActionListener() {
-                /**
-                 * On cancel close the window
-                 *
-                 * @param e
-                 *            the current event parameter
-                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-                 */
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    getDialog().dispose();
-                }
-            });
+                    /**
+                     * On cancel close the window
+                     *
+                     * @param e
+                     *            the current event parameter
+                     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        getDialog().dispose();
+                    }
+                });
 
             okButton.addActionListener(new ActionListener() {
-                /**
-                 * On OK, set the current parameter on the cell
-                 *
-                 * @param e
-                 *            the current parameters
-                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-                 */
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    graph.getModel().beginUpdate();
-                    EditFormatAction.updateFromDialog(getDialog(), borderColorChooser.getColor(), backgroundColorChooser.getColor(),
-                                                      (String) fontNameComboBox.getSelectedItem(), (Integer) fontSizeSpinner.getValue(), textColorChooser.getColor(),
-                                                      fontStyleBold.isSelected(), fontStyleItalic.isSelected(), textArea.getText(), imagePath.getText());
-                    graph.getModel().endUpdate();
-                    getDialog().dispose();
-                }
-            });
+                    /**
+                     * On OK, set the current parameter on the cell
+                     *
+                     * @param e
+                     *            the current parameters
+                     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        graph.getModel().beginUpdate();
+                        EditFormatAction.updateFromDialog(getDialog(), borderColorChooser.getColor(), backgroundColorChooser.getColor(),
+                                                          (String) fontNameComboBox.getSelectedItem(), (Integer) fontSizeSpinner.getValue(), textColorChooser.getColor(),
+                                                          fontStyleBold.isSelected(), fontStyleItalic.isSelected(), textArea.getText(), imagePath.getText());
+                        graph.getModel().endUpdate();
+                        getDialog().dispose();
+                    }
+                });
 
             resetButton.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    graph.getModel().beginUpdate();
-                    EditFormatAction.reset(getDialog());
-                    graph.getModel().endUpdate();
-                }
-            });
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        graph.getModel().beginUpdate();
+                        EditFormatAction.reset(getDialog());
+                        graph.getModel().endUpdate();
+                    }
+                });
 
             imageFileChooserBtn.addActionListener(new ActionListener() {
-                /**
-                 * On file chooser open the file chooser with image filter.
-                 *
-                 * @param e
-                 *            the event
-                 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-                 */
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
-                    javax.swing.filechooser.FileNameExtensionFilter filter = new javax.swing.filechooser.FileNameExtensionFilter("Images", "jpg", "png", "svg",
-                            "gif");
-                    chooser.setFileFilter(filter);
+                    /**
+                     * On file chooser open the file chooser with image filter.
+                     *
+                     * @param e
+                     *            the event
+                     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+                        javax.swing.filechooser.FileNameExtensionFilter filter = new javax.swing.filechooser.FileNameExtensionFilter("Images", "jpg", "png", "svg",
+                                                                                                                                     "gif");
+                        chooser.setFileFilter(filter);
 
-                    final String current = imagePath.getText();
-                    final File savedFile = getGraph().getSavedFile();
-                    if (current != null && !current.isEmpty()) {
-                        try {
-                            // try to handle an absolute URL
-                            final URI uri = new URI(current);
-                            chooser.setSelectedFile(new File(uri));
-                        } catch (URISyntaxException e1) {
-                            // this is a relative path
+                        final String current = imagePath.getText();
+                        final File savedFile = getGraph().getSavedFile();
+                        if (current != null && !current.isEmpty()) {
+                            try {
+                                // try to handle an absolute URL
+                                final URI uri = new URI(current);
+                                chooser.setSelectedFile(new File(uri));
+                            } catch (URISyntaxException e1) {
+                                // this is a relative path
+                                if (savedFile != null) {
+                                    final File parent = savedFile.getParentFile();
+                                    chooser.setSelectedFile(new File(parent, current));
+                                }
+                            }
+                        } else {
                             if (savedFile != null) {
-                                final File parent = savedFile.getParentFile();
-                                chooser.setSelectedFile(new File(parent, current));
+                                chooser.setCurrentDirectory(savedFile.getParentFile());
                             }
                         }
-                    } else {
-                        if (savedFile != null) {
-                            chooser.setCurrentDirectory(savedFile.getParentFile());
-                        }
-                    }
 
-                    int returnVal = chooser.showOpenDialog(mainTab);
-                    if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
-                        if (savedFile != null) {
-                            final String relativeChild = savedFile.getParentFile().toURI().relativize(chooser.getSelectedFile().toURI()).toASCIIString();
-                            imagePath.setText(relativeChild);
-                        } else {
-                            final String uri = chooser.getSelectedFile().toURI().toASCIIString();
-                            imagePath.setText(uri);
+                        int returnVal = chooser.showOpenDialog(mainTab);
+                        if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
+                            if (savedFile != null) {
+                                final String relativeChild = savedFile.getParentFile().toURI().relativize(chooser.getSelectedFile().toURI()).toASCIIString();
+                                imagePath.setText(relativeChild);
+                            } else {
+                                final String uri = chooser.getSelectedFile().toURI().toASCIIString();
+                                imagePath.setText(uri);
+                            }
                         }
                     }
-                }
-            });
+                });
 
             getRootPane().setDefaultButton(okButton);
 

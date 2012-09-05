@@ -50,16 +50,16 @@ public final class ModelicaController {
     public static enum ComputationMethod {
         /** the kinsol method */
         Kinsol("Kinsol"),
-        /** the ida method */
-        Ida("Ida (init)"),
-        /** the fsolve method */
-        Fsolve("Fsolve"),
-        /** the optim method */
-        Optim("Optim"),
-        /** the Nelder & Mead method */
-        NelderMead("Nelder_Mead"),
-        /** the hompack method */
-        Hompack77("Hompack77");
+            /** the ida method */
+            Ida("Ida (init)"),
+            /** the fsolve method */
+            Fsolve("Fsolve"),
+            /** the optim method */
+            Optim("Optim"),
+            /** the Nelder & Mead method */
+            NelderMead("Nelder_Mead"),
+            /** the hompack method */
+            Hompack77("Hompack77");
 
         private final String name;
 
@@ -78,7 +78,7 @@ public final class ModelicaController {
          * @see java.lang.Enum#toString()
          */
         @Override
-        public String toString() {
+            public String toString() {
             return name;
         }
     }
@@ -106,17 +106,17 @@ public final class ModelicaController {
 
         // update validity state
         statistics.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                final ModelStatistics stats = (ModelStatistics) e.getSource();
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    final ModelStatistics stats = (ModelStatistics) e.getSource();
 
-                /*
-                 * Validate: equation >= (unknowns + discretes + inputs +
-                 * outputs)
-                 */
-                setValid(stats.getEquations() >= (stats.getUnknowns() + stats.getDiscreteStates() + stats.getInputs() + stats.getOutputs()));
-            }
-        });
+                    /*
+                     * Validate: equation >= (unknowns + discretes + inputs +
+                     * outputs)
+                     */
+                    setValid(stats.getEquations() >= (stats.getUnknowns() + stats.getDiscreteStates() + stats.getInputs() + stats.getOutputs()));
+                }
+            });
 
         setDefaultValues();
     }
@@ -148,6 +148,7 @@ public final class ModelicaController {
             dialog.setVisible(true);
             dialog.pack();
             dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            ScilabSwingUtilities.closeOnEscape(dialog);
         } catch (JAXBException e) {
             Logger.getLogger(ModelicaController.class.getName()).severe(e.toString());
         }
