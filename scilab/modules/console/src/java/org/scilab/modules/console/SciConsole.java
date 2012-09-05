@@ -57,6 +57,7 @@ import com.artenum.rosetta.util.StringConstants;
 
 import org.scilab.modules.commons.xml.ScilabXMLUtilities;
 import org.scilab.modules.commons.xml.XConfiguration;
+import org.scilab.modules.gui.utils.HelpSearchField;
 
 /**
  * Main class for Scilab Console based on Generic Console from Artenum
@@ -120,6 +121,8 @@ public abstract class SciConsole extends JPanel {
 
     private boolean isToHome;
 
+    private HelpSearchField searchField;
+
     /**
      * Constructor
      * @param configFilePath the configuration file to use
@@ -141,6 +144,8 @@ public abstract class SciConsole extends JPanel {
         }
 
         sciConsole = ConsoleBuilder.buildConsole(config, this);
+        searchField = new HelpSearchField(this, (SciOutputView) config.getOutputView());
+
         XConfiguration.addXConfigurationListener(new org.scilab.modules.console.ConsoleConfiguration(this));
         sciConsole.setForeground(ConsoleOptions.getConsoleColor().foreground);
         sciConsole.setBackground(ConsoleOptions.getConsoleColor().background);
@@ -152,30 +157,30 @@ public abstract class SciConsole extends JPanel {
 
         BoundedRangeModel model = jSP.getVerticalScrollBar().getModel();
         jSP.getVerticalScrollBar().setModel(new DefaultBoundedRangeModel(model.getValue(), model.getExtent(), model.getMinimum(), model.getMaximum()) {
-            public void setRangeProperties(int newValue, int newExtent, int newMin, int newMax, boolean adjusting) {
-                // This method is overriden to keep the knob at the bottom during viewport resize
-                // and to keep the knob at an other place if the user decided it.
-                if (newMax != getMaximum()) {
-                    if (!adjusting) {
-                        if (atBottom) {
-                            super.setRangeProperties(newMax - newExtent, newExtent, newMin, newMax, false);
+                public void setRangeProperties(int newValue, int newExtent, int newMin, int newMax, boolean adjusting) {
+                    // This method is overriden to keep the knob at the bottom during viewport resize
+                    // and to keep the knob at an other place if the user decided it.
+                    if (newMax != getMaximum()) {
+                        if (!adjusting) {
+                            if (atBottom) {
+                                super.setRangeProperties(newMax - newExtent, newExtent, newMin, newMax, false);
+                            } else {
+                                super.setRangeProperties(newValue, newExtent, newMin, newMax, false);
+                            }
                         } else {
-                            super.setRangeProperties(newValue, newExtent, newMin, newMax, false);
+                            double percent = (double) Math.abs(newMax - newValue - newExtent) / (double) newMax;
+                            if (atBottom && percent <= 0.03) {
+                                super.setRangeProperties(newMax - newExtent, newExtent, newMin, newMax, true);
+                            } else {
+                                super.setRangeProperties(newValue, newExtent, newMin, newMax, true);
+                                atBottom = percent <= 0.01;
+                            }
                         }
                     } else {
-                        double percent = (double) Math.abs(newMax - newValue - newExtent) / (double) newMax;
-                        if (atBottom && percent <= 0.03) {
-                            super.setRangeProperties(newMax - newExtent, newExtent, newMin, newMax, true);
-                        } else {
-                            super.setRangeProperties(newValue, newExtent, newMin, newMax, true);
-                            atBottom = percent <= 0.01;
-                        }
+                        super.setRangeProperties(newValue, newExtent, newMin, newMax, adjusting);
                     }
-                } else {
-                    super.setRangeProperties(newValue, newExtent, newMin, newMax, adjusting);
                 }
-            }
-        });
+            });
 
         this.add(jSP, BorderLayout.CENTER);
 
@@ -198,16 +203,16 @@ public abstract class SciConsole extends JPanel {
 
         // Bug 8055 : update the lines/columns only when the console is resized
         addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        scilabLinesUpdate();
-                        jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
-                        jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
-                    }
-                });
-            }
-        });
+                public void componentResized(ComponentEvent evt) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                scilabLinesUpdate();
+                                jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
+                                jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
+                            }
+                        });
+                }
+            });
 
         sciConsole.invalidate();
         sciConsole.doLayout();
@@ -262,6 +267,9 @@ public abstract class SciConsole extends JPanel {
         while (iter.hasNext()) {
             KeyStroke key = iter.next();
             String actionName = map.get(key);
+            if (actionName.equals("console-search-field")) {
+                searchField.setKeyStroke(key);
+            }
             String action = actionToName.get(actionName);
             if (action != null) {
                 try {
@@ -368,10 +376,10 @@ public abstract class SciConsole extends JPanel {
         jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
         jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                jSP.getVerticalScrollBar().getModel().setValue(jSP.getVerticalScrollBar().getModel().getMaximum() - jSP.getVerticalScrollBar().getModel().getExtent());
-            }
-        });
+                public void run() {
+                    jSP.getVerticalScrollBar().getModel().setValue(jSP.getVerticalScrollBar().getModel().getMaximum() - jSP.getVerticalScrollBar().getModel().getExtent());
+                }
+            });
     }
 
     /**
@@ -459,15 +467,15 @@ public abstract class SciConsole extends JPanel {
             sciConsole.invalidate();
             sciConsole.doLayout();
             ((SciOutputView) config.getOutputView()).addComponentListener(new ComponentAdapter() {
-                public void componentResized(ComponentEvent evt) {
-                    if (evt.getComponent().getSize().height >= sciConsole.getSize().height) {
-                        evt.getComponent().removeComponentListener(this);
-                        sciConsole.setPreferredSize(null);
-                        sciConsole.invalidate();
-                        sciConsole.doLayout();
+                    public void componentResized(ComponentEvent evt) {
+                        if (evt.getComponent().getSize().height >= sciConsole.getSize().height) {
+                            evt.getComponent().removeComponentListener(this);
+                            sciConsole.setPreferredSize(null);
+                            sciConsole.invalidate();
+                            sciConsole.doLayout();
+                        }
                     }
-                }
-            });
+                });
 
             isToHome = false;
             jSP.getVerticalScrollBar().getModel().setValue(jSP.getVerticalScrollBar().getModel().getMaximum() - jSP.getVerticalScrollBar().getModel().getExtent());
@@ -547,7 +555,7 @@ public abstract class SciConsole extends JPanel {
             }
 
             ((SciInputCommandView) config.getInputCommandView())
-            .setCmdBuffer(linesToExec[nbStatements].replace(BACKSLASH_R, ""), displayCmdInOutput);
+                .setCmdBuffer(linesToExec[nbStatements].replace(BACKSLASH_R, ""), displayCmdInOutput);
             if (storeInHistory) {
                 ((SciHistoryManager) config.getHistoryManager()).addEntry(linesToExec[nbStatements].replace(BACKSLASH_R, ""));
             }

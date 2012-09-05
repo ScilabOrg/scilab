@@ -41,6 +41,9 @@ Bug Fixes
 * Bug #11810 fixed - In BrowseVar, contents of "visibility" column are left
                      aligned.
 
+* Bug #11841 fixed - There was no way to search a word in the console. It is
+                     now possible with F3.
+
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
