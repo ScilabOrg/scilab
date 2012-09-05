@@ -41,6 +41,8 @@ Bug Fixes
 * Bug #11810 fixed - In BrowseVar, contents of "visibility" column are left
                      aligned.
 
+* Bug #11842 fixed - CTRL+X did not work in console.
+
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
