@@ -227,6 +227,7 @@ am__objects_6 = libscielementary_functions_algo_la-getmode.lo \
 	libscielementary_functions_algo_la-cumprod.lo \
 	libscielementary_functions_algo_la-diag.lo \
 	libscielementary_functions_algo_la-gsort.lo \
+	libscielementary_functions_algo_la-sum.lo \
 	libscielementary_functions_algo_la-max.lo \
 	libscielementary_functions_algo_la-min.lo
 am_libscielementary_functions_algo_la_OBJECTS = $(am__objects_1) \
@@ -667,6 +668,7 @@ ELEMENTARIES_FUNCTIONS_CXX_SOURCES = \
     src/cpp/cumprod.cpp \
     src/cpp/diag.cpp \
     src/cpp/gsort.cpp \
+    src/cpp/sum.cpp \
     src/cpp/max.cpp \
     src/cpp/min.cpp
 
@@ -1246,6 +1248,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-sinh.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-sqrt.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-sub_vector.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-sum.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-tan.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-vceil.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-vfinite.Plo@am__quote@
@@ -1803,6 +1806,13 @@ libscielementary_functions_algo_la-gsort.lo: src/cpp/gsort.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/gsort.cpp' object='libscielementary_functions_algo_la-gsort.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscielementary_functions_algo_la-gsort.lo `test -f 'src/cpp/gsort.cpp' || echo '$(srcdir)/'`src/cpp/gsort.cpp
+
+libscielementary_functions_algo_la-sum.lo: src/cpp/sum.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscielementary_functions_algo_la-sum.lo -MD -MP -MF $(DEPDIR)/libscielementary_functions_algo_la-sum.Tpo -c -o libscielementary_functions_algo_la-sum.lo `test -f 'src/cpp/sum.cpp' || echo '$(srcdir)/'`src/cpp/sum.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscielementary_functions_algo_la-sum.Tpo $(DEPDIR)/libscielementary_functions_algo_la-sum.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/sum.cpp' object='libscielementary_functions_algo_la-sum.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscielementary_functions_algo_la-sum.lo `test -f 'src/cpp/sum.cpp' || echo '$(srcdir)/'`src/cpp/sum.cpp
 
 libscielementary_functions_algo_la-max.lo: src/cpp/max.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscielementary_functions_algo_la-max.lo -MD -MP -MF $(DEPDIR)/libscielementary_functions_algo_la-max.Tpo -c -o libscielementary_functions_algo_la-max.lo `test -f 'src/cpp/max.cpp' || echo '$(srcdir)/'`src/cpp/max.cpp

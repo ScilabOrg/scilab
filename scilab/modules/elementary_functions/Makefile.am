@@ -57,6 +57,7 @@ ELEMENTARIES_FUNCTIONS_CXX_SOURCES = \
     src/cpp/cumprod.cpp \
     src/cpp/diag.cpp \
     src/cpp/gsort.cpp \
+    src/cpp/sum.cpp \
     src/cpp/max.cpp \
     src/cpp/min.cpp
 
