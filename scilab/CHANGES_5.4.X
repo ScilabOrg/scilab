@@ -2965,6 +2965,9 @@ Bug Fixes
 
 * Bug #11840 fixed - In Xcos, dialogs could not be closed on escape.
 
+* Bug #11841 fixed - There was no way to search a word in the console. It is
+                     now possible with F3.
+
 * Bug #11842 fixed - CTRL+X did not work in Scilab console.
 
 * Bug #11861 fixed - An exception could occur when closing a figure.
