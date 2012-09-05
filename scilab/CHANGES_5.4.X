@@ -41,6 +41,8 @@ Bug Fixes
 * Bug #11810 fixed - In BrowseVar, contents of "visibility" column are left
                      aligned.
 
+* Bug #11838 fixed - Maximized state of a window was not saved in quitting.
+
 * Bug #11840 fixed - In Xcos, dialogs could not be closed on escape.
 
 
