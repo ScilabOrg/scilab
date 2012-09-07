@@ -65,6 +65,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -85,6 +86,7 @@ import org.scilab.modules.graphic_export.Driver;
 import org.scilab.modules.graphic_objects.console.Console;
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+import org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties;
 import org.scilab.modules.graphic_objects.graphicView.GraphicView;
 import org.scilab.modules.gui.bridge.checkbox.SwingScilabCheckBox;
 import org.scilab.modules.gui.bridge.checkboxmenuitem.SwingScilabCheckBoxMenuItem;
@@ -134,7 +136,7 @@ public final class SwingView implements GraphicView {
      */
     private SwingView() {
         GraphicController.getController().register(this);
-        allObjects = Collections.synchronizedMap(new HashMap<String, TypedObject>());
+        allObjects = Collections.synchronizedMap(new HashMap<String, TypedObject>(4096));
     }
 
     public static void registerSwingView() {
@@ -220,29 +222,42 @@ public final class SwingView implements GraphicView {
             return _children.contains(childUID);
         }
     };
-
+    
+    private static final Set<String> managedTypes = new HashSet<String>(Arrays.asList(
+            GraphicObjectProperties.__GO_FIGURE__,
+            GraphicObjectProperties.__GO_UICONTEXTMENU__,
+            GraphicObjectProperties.__GO_UIMENU__,
+            GraphicObjectProperties.__GO_CONSOLE__,
+            GraphicObjectProperties.__GO_PROGRESSIONBAR__,
+            GraphicObjectProperties.__GO_WAITBAR__,
+            GraphicObjectProperties.__GO_UICONTROL__
+            ));
     @Override
     public void createObject(String id) {
+        
+        String objectType = (String) GraphicController.getController().getProperty(id, __GO_TYPE__);
+        
+        if (managedTypes.contains(objectType) == false) {
+            return;
+        }
+        //System.err.println("[SwingWiew] Object Created : " + id + " with type : " + objectType);
         boolean isValid = (Boolean) GraphicController.getController().getProperty(id, __GO_VALID__);
         if (!isValid) {
             return;
         }
 
-        String objectType = (String) GraphicController.getController().getProperty(id, __GO_TYPE__);
-
         if (!headless && !GraphicsEnvironment.isHeadless()) {
-            DEBUG("SwingWiew", "Object Created : " + id + "with type : " + objectType);
-            if (objectType.equals(__GO_FIGURE__)
-                    || objectType.equals(__GO_UICONTEXTMENU__)
-                    || objectType.equals(__GO_UIMENU__)
-                    || objectType.equals(__GO_CONSOLE__)
-                    || objectType.equals(__GO_PROGRESSIONBAR__)
-                    || objectType.equals(__GO_WAITBAR__)) {
+            if (objectType.compareTo(__GO_FIGURE__) == 0
+                    || objectType.compareTo(__GO_UICONTEXTMENU__) == 0
+                    || objectType.compareTo(__GO_UIMENU__) == 0
+                    || objectType.compareTo(__GO_CONSOLE__) == 0
+                    || objectType.compareTo(__GO_PROGRESSIONBAR__) == 0
+                    || objectType.compareTo(__GO_WAITBAR__) == 0) {
                 allObjects.put(id, CreateObjectFromType(objectType, id));
                 return;
             }
 
-            if (objectType.equals(__GO_UICONTROL__)) {
+            if (objectType.compareTo(__GO_UICONTROL__) == 0) {
                 String style = (String) GraphicController.getController().getProperty(id, __GO_STYLE__);
                 DEBUG("SwingView", "__GO_STYLE__(" + style + ")");
                 if (style != null) {
@@ -252,7 +267,7 @@ public final class SwingView implements GraphicView {
                 }
             }
         } else {
-            if (objectType.equals(__GO_FIGURE__)) {
+            if (objectType.compareTo(__GO_FIGURE__) == 0) {
                 Driver.setDefaultVisitor(id);
             }
         }
@@ -557,8 +572,12 @@ public final class SwingView implements GraphicView {
     @Override
     public void updateObject(String id, String property) {
         TypedObject registeredObject = allObjects.get(id);
-        DEBUG("SwingView", "Update" + property);
 
+        if (registeredObject == null) {
+            return;
+        }
+        //System.err.println("[SwingView] Update " + property);
+        
         /* On uicontrol style is set after object creation */
         if (registeredObject == null && property.equals(__GO_STYLE__)) {
             String style = (String) GraphicController.getController().getProperty(id, __GO_STYLE__);
