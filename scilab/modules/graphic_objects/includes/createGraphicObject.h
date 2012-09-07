@@ -39,4 +39,6 @@ GRAPHIC_OBJECTS_IMPEXP char const* createDataObject(char const* _sId, char const
 */
 GRAPHIC_OBJECTS_IMPEXP void buildFigureMenuBar(char const* _sFigureId);
 
+GRAPHIC_OBJECTS_IMPEXP char * constructRectangles(char * pparentsubwinUID, double x, double y, double height, double width, int foreground, int background, int isfilled, int isline);
+
 #endif /* !__CREATEGRAPHICOBJECT_H__ */
