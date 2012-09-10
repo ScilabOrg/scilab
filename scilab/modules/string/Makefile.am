@@ -26,6 +26,8 @@ src/c/stringsCompare.c \
 src/c/isalphanum.c \
 src/c/StringConvert.c \
 src/c/scistrtostr.c \
+src/c/nan.c \
+src/c/inf.c \
 src/c/stringToDouble.c
 
 STRING_FORTRAN_SOURCES =
