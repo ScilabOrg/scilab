@@ -13,13 +13,20 @@
 
 #ifndef __GW_SPREADSHEET_H__
 #define __GW_SPREADSHEET_H__
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 #include "dynlib_spreadsheet.h"
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 SPREADSHEET_IMPEXP int gw_spreadsheet(void);
-/*--------------------------------------------------------------------------*/ 
-SPREADSHEET_IMPEXP int sci_xls_read(char *fname,unsigned long fname_len);
-SPREADSHEET_IMPEXP int sci_xls_open(char *fname,unsigned long fname_len);
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
+SPREADSHEET_IMPEXP int sci_xls_read(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_xls_open(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_default(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_isnum(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_read(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_stringtodouble(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_textscan(char *fname, unsigned long fname_len);
+SPREADSHEET_IMPEXP int sci_csv_write(char *fname, unsigned long fname_len);
+
+/*--------------------------------------------------------------------------*/
 #endif /*  __GW_SPREADSHEET_H__ */
 /*--------------------------------------------------------------------------*/
