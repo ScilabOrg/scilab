@@ -13,6 +13,7 @@
 
 /*--------------------------------------------------------------------------*/
 #include <string.h>
+#include "api_scilab.h"
 #include "stack-c.h"
 #include "sci_contr.h"
 #include "Scierror.h"
@@ -23,7 +24,7 @@
 extern double C2F(dlamch)(char *CMACH, unsigned long int);
 extern int C2F(ab01od)();
 /*--------------------------------------------------------------------------*/
-int intab01od(char* fname)
+int intab01od(char* fname, void* pvApiCtx)
 {
     int mA = 0;
     int nA = 0;
@@ -62,10 +63,15 @@ int intab01od(char* fname)
     char *JOBV = NULL;
     double theTOL = 0;;
 
+    int* piAddr1 = NULL;
+    int* piAddr2 = NULL;
+    int* piAddr3 = NULL;
+
     /*     [NCONT,U,KSTAIR,V,A,B]=ab01od(A,B,[TOL])   */
 
-    CheckRhs(2, 3);
-    CheckLhs(1, 6);
+    SciErr sciErr;
+    CheckInputArgument(pvApiCtx, 2, 3);
+    CheckOutputArgument(pvApiCtx, 1, 6);
 
     if (iIsComplex(1) || GetType(1) != sci_matrix)
     {
@@ -79,7 +85,7 @@ int intab01od(char* fname)
         return 0;
     }
 
-    if (Rhs == 3)
+    if (nbInputArgument(pvApiCtx) == 3)
     {
         if (iIsComplex(3) || GetType(3) != sci_matrix)
         {
@@ -89,11 +95,35 @@ int intab01od(char* fname)
     }
 
     theTOL = (double) C2F(dlamch)("e", 1L);
-    GetRhsVar(1, MATRIX_OF_DOUBLE_DATATYPE, &mA, &nA, &ptrA);
+    //get variable address of the input argument
+    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 1;
+    }//MYMARK1
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr1, &mA, &nA, &ptrA);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 1;
+    }
     A = 1;      /*     A */
     N = mA;
     theTOL = 0.2 * sqrt(2 * theTOL) * N;
-    GetRhsVar(2, MATRIX_OF_DOUBLE_DATATYPE, &mB, &nB, &ptrB);
+    //get variable address of the input argument
+    sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddr2);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 1;
+    }//MYMARK2
+    sciErr = getMatrixOfDouble(pvApiCtx, piAddr2, &mB, &nB, &ptrB);
+    if (sciErr.iErr)
+    {
+        printError(&sciErr, 0);
+        return 1;
+    }
     B = 2;      /*     B */
     M = nB;
 
@@ -102,10 +132,22 @@ int intab01od(char* fname)
         Scierror(999, _("%s: Wrong values for input arguments #%d and #%d.\n"), fname, 1, 2);
         return 0;
     }
-    if (Rhs == 3)
+    if (nbInputArgument(pvApiCtx) == 3)
     {
         /*    TOL is given:   ab01od(A,B,tol)   */
-        GetRhsVar(3, MATRIX_OF_DOUBLE_DATATYPE, &mtol, &ntol, &ptrTOL);
+        //get variable address of the input argument
+        sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddr3);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 1;
+        }//MYMARK3
+        sciErr = getMatrixOfDouble(pvApiCtx, piAddr3, &mtol, &ntol, &ptrTOL);
+        if (sciErr.iErr)
+        {
+            printError(&sciErr, 0);
+            return 1;
+        }
         theTOL = *stk(ptrTOL);  /*     TOL */
         if (theTOL > 1.0 || theTOL < 0.0)
         {
@@ -123,22 +165,46 @@ int intab01od(char* fname)
 
     /*     other parameters of AB01OD   */
     JOBU = "N";
-    if (Lhs >= 2)  JOBU = "I";
+    if (nbOutputArgument(pvApiCtx) >= 2)  JOBU = "I";
     JOBV = "N";
-    if (Lhs >= 4)  JOBV = "I";
+    if (nbOutputArgument(pvApiCtx) >= 4)  JOBV = "I";
 
     /*     creating NCONT,U,KSTAIR,V,IWORK,DWORK   */
     un = 1;
-    CreateVar(Rhs + 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &ptrNCONT);
-    NCONT = Rhs + 1;
-    CreateVar(Rhs + 2, MATRIX_OF_DOUBLE_DATATYPE, &N, &N, &ptrU);
-    U = Rhs + 2;
-    CreateVar(Rhs + 3, MATRIX_OF_INTEGER_DATATYPE, &un, &N, &ptrKSTAIR);
-    KSTAIR = Rhs + 3;
-    CreateVar(Rhs + 4, MATRIX_OF_DOUBLE_DATATYPE, &M, &M, &ptrV);
-    V = Rhs + 4;
-    CreateVar(Rhs + 5, MATRIX_OF_INTEGER_DATATYPE, &un, &M, &ptrIWORK);
-    CreateVar(Rhs + 6, MATRIX_OF_DOUBLE_DATATYPE, &un, &LDWORK, &ptrDWORK);
+    CreateVar(nbInputArgument(pvApiCtx) + 1, MATRIX_OF_INTEGER_DATATYPE, &un, &un, &ptrNCONT);
+    NCONT = nbInputArgument(pvApiCtx) + 1;
+    /* Create the matrix as return of the function */
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 2, N, N, ptrU);
+    free(ptrU); // Data have been copied into Scilab memory
+    if (sciErr.iErr)
+    {
+        free(ptrU); // Make sure everything is cleanup in case of error
+        printError(&sciErr, 0);
+        return 1;
+    }
+    U = nbInputArgument(pvApiCtx) + 2;
+    CreateVar(nbInputArgument(pvApiCtx) + 3, MATRIX_OF_INTEGER_DATATYPE, &un, &N, &ptrKSTAIR);
+    KSTAIR = nbInputArgument(pvApiCtx) + 3;
+    /* Create the matrix as return of the function */
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 4, M, M, ptrV);
+    free(ptrV); // Data have been copied into Scilab memory
+    if (sciErr.iErr)
+    {
+        free(ptrV); // Make sure everything is cleanup in case of error
+        printError(&sciErr, 0);
+        return 1;
+    }
+    V = nbInputArgument(pvApiCtx) + 4;
+    CreateVar(nbInputArgument(pvApiCtx) + 5, MATRIX_OF_INTEGER_DATATYPE, &un, &M, &ptrIWORK);
+    /* Create the matrix as return of the function */
+    sciErr = createMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 6, un, LDWORK, ptrDWORK);
+    free(ptrDWORK); // Data have been copied into Scilab memory
+    if (sciErr.iErr)
+    {
+        free(ptrDWORK); // Make sure everything is cleanup in case of error
+        printError(&sciErr, 0);
+        return 1;
+    }
     C2F(ab01od)( "A", JOBU, JOBV, &N, &M, stk(ptrA), &LDA,
                  stk(ptrB), &LDB, stk(ptrU), &LDU, stk(ptrV), &LDV,
                  istk(ptrNCONT), &INDCON, istk(ptrKSTAIR), &theTOL,
@@ -148,21 +214,21 @@ int intab01od(char* fname)
         C2F(errorinfo)("ab01od", &INFO, 6L);
         return 0;
     }
-    if (Lhs >= 3)
+    if (nbOutputArgument(pvApiCtx) >= 3)
     {
         /*     resizing KSTAIR      */
-        CreateVar(Rhs + 7, MATRIX_OF_INTEGER_DATATYPE, &un, &INDCON, &ptrJUNK);
-        KSTAIR = Rhs + 7;
+        CreateVar(nbInputArgument(pvApiCtx) + 7, MATRIX_OF_INTEGER_DATATYPE, &un, &INDCON, &ptrJUNK);
+        KSTAIR = nbInputArgument(pvApiCtx) + 7;
         one = 1;
         C2F(icopy)(&INDCON, istk(ptrKSTAIR), &un, istk(ptrJUNK), &one);
     }
     /*     lhs variables: [NCONT,U,KSTAIR,V,A,B]=ab01od(A,B)   */
-    LhsVar(1) = NCONT;
-    LhsVar(2) = U;
-    LhsVar(3) = KSTAIR;
-    LhsVar(4) = V;
-    LhsVar(5) = A;
-    LhsVar(6) = B;
+    AssignOutputVariable(pvApiCtx, 1) = NCONT;
+    AssignOutputVariable(pvApiCtx, 2) = U;
+    AssignOutputVariable(pvApiCtx, 3) = KSTAIR;
+    AssignOutputVariable(pvApiCtx, 4) = V;
+    AssignOutputVariable(pvApiCtx, 5) = A;
+    AssignOutputVariable(pvApiCtx, 6) = B;
     return 0;
 }
 /*--------------------------------------------------------------------------*/
