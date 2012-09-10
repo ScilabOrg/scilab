@@ -29,6 +29,14 @@
 
 <!DOCTYPE GATEWAY SYSTEM "../../functions/xml/gateway.dtd">
 <GATEWAY name="spreadsheet">
-<PRIMITIVE gatewayId="56" primitiveId="1" primitiveName="xls_open" />
-<PRIMITIVE gatewayId="56" primitiveId="2" primitiveName="xls_read" />
+    <PRIMITIVE gatewayId="56" primitiveId="1" primitiveName="xls_open" />
+    <PRIMITIVE gatewayId="56" primitiveId="2" primitiveName="xls_read" />
+    <PRIMITIVE gatewayId="56" primitiveId="3" primitiveName="csv_default" />
+    <PRIMITIVE gatewayId="56" primitiveId="4" primitiveName="csv_isnum" />
+    <PRIMITIVE gatewayId="56" primitiveId="5" primitiveName="csv_read" />
+    <PRIMITIVE gatewayId="56" primitiveId="6" primitiveName="csv_stringtodouble" />
+    <PRIMITIVE gatewayId="56" primitiveId="7" primitiveName="csv_textscan" />
+    <PRIMITIVE gatewayId="56" primitiveId="8" primitiveName="csv_write" />
+    <PRIMITIVE gatewayId="56" primitiveId="9" primitiveName="write_csv" />
+    <PRIMITIVE gatewayId="56" primitiveId="10" primitiveName="read_csv" />
 </GATEWAY>

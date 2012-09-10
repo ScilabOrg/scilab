@@ -1,0 +1,18 @@
+// =============================================================================
+// =============================================================================
+// <-- JVM NOT MANDATORY -->
+// =============================================================================
+// <-- Non-regression test for bug 674 -->
+//
+// <-- URL -->
+//  http://forge.scilab.org/index.php/p/csv-readwrite/issues/674/
+//
+// <-- Short Description -->
+// csv_default returns %f when used twice
+// =============================================================================
+assert_checkequal(csv_default('eol', 'linux'), %t)
+assert_checkequal(csv_default('eol', 'linux'), %t)
+assert_checkequal(csv_default('eol', 'freestyle'), %f)
+// =============================================================================
+
+

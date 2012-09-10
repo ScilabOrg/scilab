@@ -16,24 +16,32 @@
 #include "api_scilab.h"
 #include "MALLOC.h"
 #include "callFunctionFromGateway.h"
-/*--------------------------------------------------------------------------*/ 
-static gw_generic_table Tab[] = 
+/*--------------------------------------------------------------------------*/
+static gw_generic_table Tab[] =
 {
-	{sci_xls_open,"xls_open"},
-	{sci_xls_read,"xls_read"}
+    {sci_xls_open, "xls_open"},
+    {sci_xls_read, "xls_read"},
+    {sci_csv_default, "csv_default"},
+    {sci_csv_isnum, "csv_isnum"},
+    {sci_csv_read, "csv_read"},
+    {sci_csv_stringtodouble, "csv_stringtodouble"},
+    {sci_csv_textscan, "csv_textscan"},
+    {sci_csv_write, "csv_write"},
+    {sci_csv_write, "write_csv"},
+    {sci_csv_read, "read_csv"}
 };
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
 int gw_spreadsheet(void)
-{  
-	Rhs = Max(0, Rhs);
+{
+    Rhs = Max(0, Rhs);
 
-    if(pvApiCtx == NULL)
-	{
-		pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
-	}
+    if (pvApiCtx == NULL)
+    {
+        pvApiCtx = (StrCtx*)MALLOC(sizeof(StrCtx));
+    }
 
-	pvApiCtx->pstName = (char*)Tab[Fin-1].name;
-	callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
-	return 0;
+    pvApiCtx->pstName = (char*)Tab[Fin - 1].name;
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
+    return 0;
 }
-/*--------------------------------------------------------------------------*/ 
+/*--------------------------------------------------------------------------*/
