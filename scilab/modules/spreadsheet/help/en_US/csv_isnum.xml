@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) 2012 - INRIA - Allan CORNET
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ -->
+<refentry version="5.0-subset Scilab" xml:id="csv_isnum" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns5="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+    <info>
+        <pubdate>$LastChangedDate: 2006-08-08 16:57:13 +0200 (Tue, 08 Aug 2006)
+            $
+        </pubdate>
+    </info>
+    
+    <refnamediv>
+        <refname>csv_isnum</refname>
+        
+        <refpurpose>tests if a string represents a number</refpurpose>
+    </refnamediv>
+    
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        
+        <synopsis>res = csv_isnum(str)</synopsis>
+    </refsynopsisdiv>
+    
+    <refsection>
+        <title>Arguments</title>
+        
+        <variablelist>
+            <varlistentry>
+                <term>str</term>
+                
+                <listitem>
+                    <para>A character string or a matrix of character strings.</para>
+                </listitem>
+            </varlistentry>
+            
+            <varlistentry>
+                <term>res</term>
+                
+                <listitem>
+                    <para>A boolean matrix.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    
+    <refsection>
+        <title>Description</title>
+        
+        <para>
+            <literal>res = csv_isnum(str)</literal>returns %T if str represents
+            a number.
+        </para>
+        
+        <para>
+            <literal>csv_isnum</literal> is faster than default scilab function
+            isnum
+        </para>
+        
+        <programlisting role="example">tic(); isnum(string(ones(100, 100))); toc()
+            tic(); csv_isnum(string(ones(100, 100))); toc()
+        </programlisting>
+    </refsection>
+    
+    <refsection>
+        <title>Examples</title>
+        
+        <programlisting role="example">csv_isnum(['1' , ..
+            '-1.23' , ..
+            'Me', .. 
+            '1d+23' , ..
+            '%pi'])
+        </programlisting>
+    </refsection>
+    
+    <refsection role="see also">
+        <title>See Also</title>
+        
+        <simplelist type="inline">
+            <member>
+                <link linkend="scilab.help/isnum" type="scilab">isnum</link>
+                Default Scilab function
+            </member>
+        </simplelist>
+    </refsection>
+    
+</refentry>
+
