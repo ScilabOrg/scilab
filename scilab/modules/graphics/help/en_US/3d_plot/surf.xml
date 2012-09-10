@@ -123,6 +123,11 @@
             <literal>j</literal> such as :
         </para>
         <para>
+            <latex>
+                \begin{enumerate}
+                \end{enumerate}
+                
+            </latex>
             <inlinemediaobject>
                 <imageobject>
                     <imagedata fileref="../../images/surf_01.gif"/>
