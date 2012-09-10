@@ -21,6 +21,9 @@ Compilation
 Bug Fixes
 =========
 
+* Bug #7874 fixed - The help page of qp_solve did not give enough information
+                    about iact.
+
 * Bug #8799 fixed - gsort did not work with hypermatrices.
 
 * Bug #10346 fixed - An uicontrol was visible during few milliseconds even if its
