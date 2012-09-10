@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (C) 2010-2011 - INRIA - Allan CORNET
+ * Copyright (C) 2011 - INRIA - Michael Baudin
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ -->
+<refentry version="5.0-subset Scilab" xml:id="csv_stringtodouble"
+          xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:db="http://docbook.org/ns/docbook">
+    <refnamediv>
+        <refname>csv_stringtodouble</refname>
+        
+        <refpurpose>Convert a matrix of strings to a matrix of
+            doubles.
+        </refpurpose>
+    </refnamediv>
+    
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        
+        <synopsis>
+            r = csv_stringtodouble(strs)
+            r = csv_stringtodouble(strs,convertStrToNan)
+        </synopsis>
+    </refsynopsisdiv>
+    
+    <refsection>
+        <title>Parameters</title>
+        
+        <variablelist>
+            <varlistentry>
+                <term>strs</term>
+                
+                <listitem>
+                    <para>a m-by-n matrix of strings.</para>
+                </listitem>
+            </varlistentry>
+            
+            <varlistentry>
+                <term>convertStrToNan</term>
+                
+                <listitem>
+                    <para>a 1-by-1 matrix of booleans (default convertStrToNan=%t). If
+                        %t it converts no valid string to Nan. If %f a no valid string
+                        returns a error.
+                    </para>
+                </listitem>
+            </varlistentry>
+            
+            <varlistentry>
+                <term>r</term>
+                
+                <listitem>
+                    <para>a m-by-n matrix of doubles.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    
+    <refsection>
+        <title>Description</title>
+        
+        <para>Convert a matrix of strings to a matrix of double.</para>
+        
+        <para>This function is faster than evstr to convert a matrix convert a
+            matrix of strings to a matrix of double.
+        </para>
+        
+        <para>
+            The <literal>csv_stringtodouble</literal> converts any complex
+            number as a whole into a complex numeric field, converting the real and
+            imaginary parts to the specified numeric type.
+        </para>
+        
+        <para>Valid forms for a complex number are :</para>
+        
+        <informaltable border="1">
+            <tr>
+                <td>Form</td>
+                
+                <td>Example</td>
+            </tr>
+            
+            <tr>
+                <td>±&lt;real&gt;±&lt;imag&gt;i|j</td>
+                
+                <td>5.7-3.1i</td>
+            </tr>
+            
+            <tr>
+                <td>±&lt;imag&gt;i|%i|j</td>
+                
+                <td>-7j</td>
+            </tr>
+        </informaltable>
+    </refsection>
+    
+    <refsection>
+        <title>Examples</title>
+        
+        <programlisting role="example">      csv_stringtodouble("123.45e7")
+            csv_stringtodouble("123 + 45i")
+            csv_stringtodouble("123 + 45%i")
+            csv_stringtodouble("123 + 45*%i")
+            csv_stringtodouble("3.14159")
+            csv_stringtodouble(["2.71" "3.1415"])
+            
+            mA = string(1:100);
+            r = csv_stringtodouble(mA)
+            
+            r = csv_stringtodouble("2.6 + 3j")
+            r = csv_stringtodouble("2.6 + 3*%i")
+            r = csv_stringtodouble("2.6 + 3%i")
+            
+            csv_stringtodouble("not a number")
+            csv_stringtodouble("not a number", %t)
+            csv_stringtodouble("not a number", %f)    
+        </programlisting>
+        
+        <para>In the following script, we compare the performances of the
+            <literal>evstr</literal> and <literal>csv_stringtodouble</literal>
+            functions. Typical values of <literal>t1/t2</literal> are between 3 and
+            10.
+        </para>
+        
+        <programlisting role="example">      n=10000;
+            x = string(1:n);
+            tic();evstr(x);t1=toc()
+            tic();csv_stringtodouble(x);t2=toc()
+            t1/t2    
+        </programlisting>
+        
+        <para>
+            For large values of <literal>n</literal>, the previous script can
+            fail because of a lack of memory, while
+            <literal>csv_stringtodouble</literal> may succeed.
+        </para>
+    </refsection>
+</refentry>
