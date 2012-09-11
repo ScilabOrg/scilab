@@ -50,7 +50,9 @@ Bug Fixes
 
 * Bug #11840 fixed - In Xcos, dialogs could not be closed on escape.
 
-
+New Functions
+=============
+* dct and dst primitives added based on fftw library.
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
