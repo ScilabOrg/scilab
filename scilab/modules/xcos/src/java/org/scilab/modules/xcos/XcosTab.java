@@ -59,6 +59,7 @@ import org.scilab.modules.xcos.actions.CloseAction;
 import org.scilab.modules.xcos.actions.CompileAction;
 import org.scilab.modules.xcos.actions.DebugLevelAction;
 import org.scilab.modules.xcos.actions.DiagramBackgroundAction;
+import org.scilab.modules.xcos.actions.EditFormatAction;
 import org.scilab.modules.xcos.actions.ExportAction;
 import org.scilab.modules.xcos.actions.ExternalAction;
 import org.scilab.modules.xcos.actions.FitDiagramToViewAction;
@@ -136,6 +137,7 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
     private Menu linkStyle;
     private Menu tools;
     private Menu help;
+    private Menu hiddenMenu;
 
     private JCheckBoxMenuItem viewport;
 
@@ -496,6 +498,12 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
         help.add(XcosDemonstrationsAction.createMenu(diagram));
         help.addSeparator();
         help.add(AboutXcosAction.createMenu(diagram));
+
+        /** Hidden menu */
+        hiddenMenu = ScilabMenu.createMenu();
+        menuBar.add(hiddenMenu);
+        hiddenMenu.add(EditFormatAction.createMenu(diagram));
+        hiddenMenu.setVisible(false);
 
         return menuBar;
     }
