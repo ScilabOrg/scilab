@@ -59,6 +59,7 @@ import org.scilab.modules.xcos.actions.CloseAction;
 import org.scilab.modules.xcos.actions.CompileAction;
 import org.scilab.modules.xcos.actions.DebugLevelAction;
 import org.scilab.modules.xcos.actions.DiagramBackgroundAction;
+import org.scilab.modules.xcos.actions.EditFormatAction;
 import org.scilab.modules.xcos.actions.ExportAction;
 import org.scilab.modules.xcos.actions.ExternalAction;
 import org.scilab.modules.xcos.actions.FitDiagramToViewAction;
@@ -451,6 +452,9 @@ public class XcosTab extends SwingScilabTab implements SimpleTab {
 
         format.add(BorderColorAction.createMenu(diagram));
         format.add(FilledColorAction.createMenu(diagram));
+        format.addSeparator();
+
+        format.add(EditFormatAction.createMenu(diagram));
         format.addSeparator();
 
         linkStyle = ScilabMenu.createMenu();
