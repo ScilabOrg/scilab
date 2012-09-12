@@ -1,6 +1,16 @@
             Changes between version 5.4.0-beta-3 and 5.4.0 of Scilab
             ========================================================
 
+
+Windows version
+===============
+
+* Scilab can now be installed without administration rights.
+  In this case, the file association will not work.
+
+* ATOMS module is now mandatory and is installed in minimal version.
+
+
 Xcos
 ====
 
