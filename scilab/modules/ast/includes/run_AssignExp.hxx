@@ -494,6 +494,10 @@ void visitprivate(const AssignExp  &e)
                 {
                     pRet = pIT->getAs<Bool>()->insert(pArgs, pInsert);
                 }
+                else if (pIT->isSparse() && pInsert->isSparse())
+                {
+                    pRet = pIT->getAs<Sparse>()->insert(pArgs, pInsert->getAs<Sparse>());
+                }
                 else if (pIT->isSparse() && pInsert->isDouble())
                 {
                     pRet = pIT->getAs<Sparse>()->insert(pArgs, pInsert);

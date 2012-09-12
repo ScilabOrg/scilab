@@ -1101,19 +1101,22 @@ namespace types
         else
         {
             double* pIdxRow = pArg[0]->getAs<Double>()->get();
+            int iRowSize    = pArg[0]->getAs<Double>()->getSize();
             double* pIdxCol = pArg[1]->getAs<Double>()->get();
+            int iColSize    = pArg[1]->getAs<Double>()->getSize();
             int idx = 0;
+
             for (int i = 0 ; i < iSeqCount ; i++)
             {
                 if (_pSource->isScalar())
                 {
                     if (_pSource->isComplex())
                     {
-                        set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, _pSource->getImg(0, 0));
+                        set((int)pIdxRow[i % iRowSize] - 1, (int)pIdxCol[i % iColSize] - 1, _pSource->getImg(0, 0));
                     }
                     else
                     {
-                        set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, _pSource->get(0, 0));
+                        set((int)pIdxRow[i % iRowSize] - 1, (int)pIdxCol[i % iColSize] - 1, _pSource->get(0, 0));
                     }
                 }
                 else
@@ -1122,11 +1125,11 @@ namespace types
                     int iColOrig = idx / _pSource->getRows();
                     if (_pSource->isComplex())
                     {
-                        set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, _pSource->getImg(iRowOrig, iColOrig));
+                        set((int)pIdxRow[i % iRowSize] - 1, (int)pIdxCol[i % iColSize] - 1, _pSource->getImg(iRowOrig, iColOrig));
                     }
                     else
                     {
-                        set((int)pIdxRow[i % 2] - 1, (int)pIdxCol[i / 2] - 1, _pSource->get(iRowOrig, iColOrig));
+                        set((int)pIdxRow[i % iRowSize] - 1, (int)pIdxCol[i % iColSize] - 1, _pSource->get(iRowOrig, iColOrig));
                     }
                 }
                 idx++;
