@@ -147,7 +147,8 @@ am__objects_2 = libscitime_la-sci_realtime.lo \
 	libscitime_la-sci_timer.lo libscitime_la-sci_calendar.lo \
 	libscitime_la-sci_xpause.lo libscitime_la-sci_sleep.lo \
 	libscitime_la-sci_getdate.lo libscitime_la-gw_time.lo
-am__objects_3 = libscitime_la-time_gw.lo libscitime_la-sci_tictoc.lo
+am__objects_3 = libscitime_la-time_gw.lo libscitime_la-sci_sleepp.lo \
+	libscitime_la-sci_tictoc.lo
 am_libscitime_la_OBJECTS = $(am__objects_2) $(am__objects_3)
 libscitime_la_OBJECTS = $(am_libscitime_la_OBJECTS)
 @MAINTAINER_MODE_FALSE@am_libscitime_la_rpath =
@@ -451,7 +452,7 @@ yacc_present = @yacc_present@
 ### SOURCES ###
 TIME_C_SOURCES = src/c/realtime.c \
 src/c/timer.c \
-src/c/getdate.c 
+src/c/getdate.c
 
 GATEWAY_C_SOURCES = sci_gateway/c/sci_realtime.c \
 sci_gateway/c/sci_timer.c \
@@ -462,6 +463,7 @@ sci_gateway/c/sci_getdate.c \
 sci_gateway/c/gw_time.c
 
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/time_gw.cpp \
+                        sci_gateway/cpp/sci_sleepp.cpp \
 						sci_gateway/cpp/sci_tictoc.cpp
 
 libscitime_la_CPPFLAGS = -I$(srcdir)/includes/ \
@@ -495,7 +497,7 @@ modulename = time
 
 #### time : Conf files ####
 libscitime_la_rootdir = $(mydatadir)
-libscitime_la_root_DATA = license.txt 
+libscitime_la_root_DATA = license.txt
 
 #### time : init scripts ####
 libscitime_la_etcdir = $(mydatadir)/etc
@@ -678,6 +680,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_getdate.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_realtime.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_sleep.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_sleepp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_tictoc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_timer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitime_la-sci_xpause.Plo@am__quote@
@@ -801,6 +804,13 @@ libscitime_la-time_gw.lo: sci_gateway/cpp/time_gw.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/time_gw.cpp' object='libscitime_la-time_gw.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitime_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitime_la-time_gw.lo `test -f 'sci_gateway/cpp/time_gw.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/time_gw.cpp
+
+libscitime_la-sci_sleepp.lo: sci_gateway/cpp/sci_sleepp.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitime_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitime_la-sci_sleepp.lo -MD -MP -MF $(DEPDIR)/libscitime_la-sci_sleepp.Tpo -c -o libscitime_la-sci_sleepp.lo `test -f 'sci_gateway/cpp/sci_sleepp.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_sleepp.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitime_la-sci_sleepp.Tpo $(DEPDIR)/libscitime_la-sci_sleepp.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='sci_gateway/cpp/sci_sleepp.cpp' object='libscitime_la-sci_sleepp.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitime_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitime_la-sci_sleepp.lo `test -f 'sci_gateway/cpp/sci_sleepp.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_sleepp.cpp
 
 libscitime_la-sci_tictoc.lo: sci_gateway/cpp/sci_tictoc.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitime_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitime_la-sci_tictoc.lo -MD -MP -MF $(DEPDIR)/libscitime_la-sci_tictoc.Tpo -c -o libscitime_la-sci_tictoc.lo `test -f 'sci_gateway/cpp/sci_tictoc.cpp' || echo '$(srcdir)/'`sci_gateway/cpp/sci_tictoc.cpp
