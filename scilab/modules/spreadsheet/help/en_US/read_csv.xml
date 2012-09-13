@@ -90,5 +90,16 @@
             </member>
         </simplelist>
     </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.0</revnumber>
+                <revremark>
+                    <link linkend="csvRead">csvRead</link> provide a better replacement of read_csv.
+                </revremark>
+            </revision>
+        </revhistory>
+    </refsection>
 </refentry>
 
