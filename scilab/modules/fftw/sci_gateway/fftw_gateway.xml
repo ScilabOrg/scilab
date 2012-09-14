@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
 <!--
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) 2007 - INRIA - Allan CORNET
- * Copyright (C) 2007 - INRIA - Sylvestre LEDRU
- * 
- * This file must be used under the terms of the CeCILL.
- * This source file is licensed as described in the file COPYING, which
- * you should have received as part of this distribution.  The terms
- * are also available at    
- * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+/*
+ *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ *  Copyright (C) 2012 - Scilab Enterprises- Cedric DELAMARRE
  *
- -->
-
-<!DOCTYPE GATEWAY SYSTEM "../../functions/xml/gateway.dtd">
-<GATEWAY name="fftw">
-
-<!--
+ *  This file must be used under the terms of the CeCILL.
+ *  This source file is licensed as described in the file COPYING, which
+ *  you should have received as part of this distribution.  The terms
+ *  are also available at
+ *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
  Scilab
  Interface description. In this file, we define the list of the function which
  will be available into Scilab and the link to the "native" function.
 
- gatewayId is the position in the hashtable 'Interfaces' defined in the
- file SCI/modules/core/src/c/callinterf.h
-
- primitiveId is the position in the hashtable '<module>Table Tab[]' defined
- in the file modules/<module>/sci_gateway/c/gw_<module>.c
-
- primitiveName is the name of the Scilab function
-
  Don't touch if you do not know what you are doing
 -->
+<module name="fftw">
+    <gateway name="sci_sci_loadfftwlibrary" function="loadfftwlibrary"      type="0" />
+    <gateway name="sci_disposefftwlibrary"  function="disposefftwlibrary"   type="0" />
+    <gateway name="sci_fftwlibraryisloaded" function="fftwlibraryisloaded"  type="0" />
+    <gateway name="sci_fftw"                function="fftw"                 type="0" />
+    <gateway name="sci_fftw_flags"          function="fftw_flags"           type="0" />
+    <gateway name="sci_get_fftw_wisdom"     function="get_fftw_wisdom"      type="0" />
+    <gateway name="sci_set_fftw_wisdom"     function="set_fftw_wisdom"      type="0" />
+    <gateway name="sci_fftw_forget_wisdom"  function="fftw_forget_wisdom"   type="0" />
+    <gateway name="sci_dct"                 function="dct"                  type="0" />
+    <gateway name="sci_dst"                 function="dst"                  type="0" />
+</module>
 
-<PRIMITIVE gatewayId="51" primitiveId="1" primitiveName="loadfftwlibrary" />
-<PRIMITIVE gatewayId="51" primitiveId="2" primitiveName="disposefftwlibrary" />
-<PRIMITIVE gatewayId="51" primitiveId="3" primitiveName="fftwlibraryisloaded" />
-<PRIMITIVE gatewayId="51" primitiveId="4" primitiveName="fftw" />
-<PRIMITIVE gatewayId="51" primitiveId="5" primitiveName="fftw_flags" />
-<PRIMITIVE gatewayId="51" primitiveId="6" primitiveName="get_fftw_wisdom" />
-<PRIMITIVE gatewayId="51" primitiveId="7" primitiveName="set_fftw_wisdom" />
-<PRIMITIVE gatewayId="51" primitiveId="8" primitiveName="fftw_forget_wisdom" />
-<PRIMITIVE gatewayId="51" primitiveId="9" primitiveName="dct" />
-<PRIMITIVE gatewayId="51" primitiveId="10" primitiveName="dst" />
-</GATEWAY>
