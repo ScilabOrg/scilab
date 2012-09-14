@@ -11,11 +11,10 @@
 *
 */
 
-#include "stack-c.h"
 #include "fftw_utilities.h"
 #include "callfftw.h"
-#include "MALLOC.h"
 #include "gw_fftw.h"
+#include "api_scilab.h"
 /*--------------------------------------------------------------------------*/
 /* Reset fftw wisdom
 *
@@ -28,17 +27,15 @@
 *
 */
 /*--------------------------------------------------------------------------*/
-int sci_fftw_forget_wisdom(char *fname,unsigned long fname_len)
+int sci_fftw_forget_wisdom(char *fname, unsigned long fname_len)
 {
-    CheckRhs(0,0);
+    CheckInputArgument(pvApiCtx, 0, 0);
 
     FreeFFTWPlan(getSci_Backward_Plan());
     FreeFFTWPlan(getSci_Forward_Plan());
 
     call_fftw_forget_wisdom();
 
-    PutLhsVar();
-
-    return(0);
+    return 0;
 }
 /*--------------------------------------------------------------------------*/

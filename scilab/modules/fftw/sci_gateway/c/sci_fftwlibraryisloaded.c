@@ -11,27 +11,32 @@
 */
 #include "callfftw.h"
 #include "gw_fftw.h"
-#include "stack-c.h"
-/*--------------------------------------------------------------------------*/
-int sci_fftwlibraryisloaded(char *fname,unsigned long fname_len)
-{
-    static int l1,n1;
+#include "api_scilab.h"
+#include "localization.h"
 
-    n1=1;
+/*--------------------------------------------------------------------------*/
+int sci_fftwlibraryisloaded(char *fname, unsigned long fname_len)
+{
+    int iErr;
+
     if ( IsLoadedFFTW() )
     {
-        CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-        *istk(l1)=(int)(TRUE);
+        iErr = createScalarBoolean(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 1); // true
     }
     else
     {
-        CreateVar(Rhs+1,MATRIX_OF_BOOLEAN_DATATYPE, &n1,&n1,&l1);
-        *istk(l1)=(int)(FALSE);
+        iErr = createScalarBoolean(pvApiCtx, nbInputArgument(pvApiCtx) + 1, 0); // false
     }
 
-    LhsVar(1)=Rhs+1;
-    PutLhsVar();
+    if (iErr)
+    {
+        Scierror(999, _("%s: Memory allocation error.\n"), fname);
+        return iErr;
+    }
 
-    return(0);
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    ReturnArguments(pvApiCtx);
+
+    return 0;
 }
 /*--------------------------------------------------------------------------*/
