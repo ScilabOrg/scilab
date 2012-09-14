@@ -39,8 +39,3 @@ int C2F(withfftw)(int *rep)
     return 0;
 }
 /*--------------------------------------------------------------------------*/
-int FFTWModule::Load()
-{
-    /* Do Nothing */
-    return true;
-}
