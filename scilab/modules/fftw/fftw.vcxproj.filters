@@ -42,9 +42,6 @@
     <ClCompile Include="sci_gateway\c\sci_disposefftwlibrary.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_gateway\c\sci_fftw.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sci_gateway\c\sci_fftw_flags.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,16 +63,19 @@
     <ClCompile Include="src\c\with_fftw.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_gateway\c\sci_dct.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sci_gateway\c\sci_dst.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\c\sci_data_utilities.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci_gateway\cpp\fftw_gw.cpp">
+    <ClCompile Include="sci_gateway\cpp\sci_dct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sci_gateway\cpp\sci_dst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sci_gateway\cpp\sci_fftw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\fftw_common.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,6 +107,9 @@
     <ClInclude Include="includes\fftw_gw.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\cpp\fftw_common.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\c\fftw.rc">
@@ -126,6 +129,7 @@
     <None Include="locales\fftw.pot">
       <Filter>localization</Filter>
     </None>
+    <None Include="locales\fftw.pot" />
     <None Include="locales\fftw.pot" />
     <None Include="locales\fftw.pot" />
     <None Include="locales\fftw.pot" />
