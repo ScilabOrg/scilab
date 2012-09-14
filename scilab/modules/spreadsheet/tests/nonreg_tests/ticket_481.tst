@@ -22,6 +22,6 @@ csvWrite (neg , negFile);
 // Read from file
 n = csvRead(negFile);
 
-assert_checkequal(n, neg);
+assert_checkequal(evstr(n), neg);
 // =============================================================================
 
