@@ -17,5 +17,5 @@ ref_y = [    1.    0.    0.    0.    0.  ; ..
              0.    0.    1.    0.    0.];
 
 assert_checkequal (ref_x , x);
-assert_checkequal (ref_y , y);
+assert_checkequal (ref_y , evstr(y));
 // =============================================================================

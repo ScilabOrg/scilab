@@ -13,6 +13,8 @@
  *
  */
 #include <string.h>
+#include <stdio.h>
+
 #include "gw_csv_tools.h"
 #include "api_scilab.h"
 #include "Scierror.h"
@@ -202,7 +204,17 @@ int sci_csvRead(char *fname)
     }
     else
     {
-        conversion = strdup(getCsvDefaultConversion());
+        /* read_csv is using a 'string' conversion while csvRead is doing
+           a 'double' conversion */
+        if (strcmp(fname, "read_csv") == 0)
+        {
+            conversion = (char*)MALLOC((strlen("string") + 1) * sizeof(char));
+            strcpy(conversion, "string");
+        }
+        else
+        {
+            conversion = strdup(getCsvDefaultConversion());
+        }
     }
 
     if (Rhs >= 3)
