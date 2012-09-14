@@ -131,4 +131,10 @@ public :
     static int Load();
 };
 
+class SpecialFunctionModule : public GenericModule
+{
+public :
+    static int Load();
+};
+
 #endif /* !__DYNAMIC_MODULES_HXX_ */

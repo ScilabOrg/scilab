@@ -51,5 +51,6 @@
     <module name="interpolation" activate="yes"/>
     <module name="cacsd" activate="yes"/>
     <module name="sound" activate="yes"/>
+    <module name="special_functions" activate="yes"/>
 </modules>
 
