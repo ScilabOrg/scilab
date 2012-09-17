@@ -33,12 +33,11 @@ dynamic_gateway_error_code callDynamicGateway(char *moduleName,
 {
     if (*hlib == NULL)
     {
-        /* Under Linux/Unix, load thanks to dlopen */
 #ifdef _MSC_VER
         wchar_t *wcdynLibName = to_wide_string(dynLibName);
         if (wcdynLibName)
         {
-            *hlib = LoadDynLibraryW(wcdynLibName); 
+            *hlib = LoadDynLibraryW(wcdynLibName);
             FREE(wcdynLibName);
             wcdynLibName = NULL;
         }
@@ -47,52 +46,56 @@ dynamic_gateway_error_code callDynamicGateway(char *moduleName,
             return DYN_GW_LOAD_LIBRARY_ERROR;
         }
 #else
-        *hlib = LoadDynLibrary(dynLibName); 
 
-        if (*hlib == NULL) 
-        {
-            char *previousError = GetLastDynLibError();
-
-            /* Haven't been able to find the lib with dlopen... 
-            * This can happen for two reasons:
-            * - the lib must be dynamically linked
-            * - Some silly issues under Suse (see bug #2875)
-            * Note that we are handling only the "source tree build"
-            * because libraries are split (they are in the same directory 
-            * in the binary)
-            */
-            char *SciPath = getSCIpath();
+/* First step, we are considering that we are in the source tree.
+ * Therefor, the lib should be in modules/xxx/.libs/
+ *
+ * Otherwise, dlopen will search in various places (for example, the install specified
+ * by --prefix).
+ * This leads to serious and unexpected bugs like #8883
+ * The original bug report for this issue was the bug #2875
+ */
+        char *SciPath = getSCIpath();
 #define PATHTOMODULE "/modules/"
 #ifndef LT_OBJDIR
 #define LT_OBJDIR ".libs/"
 #endif
 
-            /* Build the full path to the library */
-            char *pathToLib=(char*) MALLOC((strlen(SciPath)+strlen(PATHTOMODULE)+strlen(moduleName)+strlen("/")+strlen(LT_OBJDIR)+strlen(dynLibName)+1)*sizeof(char));
-            sprintf(pathToLib,"%s%s%s/%s%s",SciPath,PATHTOMODULE,moduleName,LT_OBJDIR,dynLibName);
+        /* Build the full path to the library */
+        char *pathToLib=(char*) MALLOC((strlen(SciPath)+strlen(PATHTOMODULE)+strlen(moduleName)+strlen("/")+strlen(LT_OBJDIR)+strlen(dynLibName)+1)*sizeof(char));
+        sprintf(pathToLib,"%s%s%s/%s%s",SciPath,PATHTOMODULE,moduleName,LT_OBJDIR,dynLibName);
 
-            *hlib = LoadDynLibrary(pathToLib);
+        /* Load the library with the Scilab source-tree paths */
+        *hlib = LoadDynLibrary(pathToLib);
 
-            if (*hlib == NULL) 
-            {
+        if (*hlib == NULL) /* Load of the hardcoded path to the lib failed */
+        {
+
+            /* Under Linux/Unix, load thanks to dlopen on the system.
+             * In the binary, the LD_LIBRARY_PATH is declared in the startup script (ie bin/scilab*)
+             * Note that it is not possible to update the LD_LIBRARY_PATH at run time.
+             */
+            *hlib = LoadDynLibrary(dynLibName);
+            if (*hlib == NULL) {
+                char *previousError = GetLastDynLibError();
                 if (previousError != NULL)
                 {
                     sciprint("A previous error has been detected while loading %s: %s\n",dynLibName, previousError);
-                }
+                                                                                                                        }
                 if (SciPath) {FREE(SciPath); SciPath = NULL;}
                 if (pathToLib) {FREE(pathToLib); pathToLib = NULL;}
                 return DYN_GW_LOAD_LIBRARY_ERROR;
             }
-            if (SciPath) {FREE(SciPath); SciPath = NULL;}
-            if (pathToLib) {FREE(pathToLib); pathToLib = NULL;}
         }
+        if (SciPath) {FREE(SciPath); SciPath = NULL;}
+        if (pathToLib) {FREE(pathToLib); pathToLib = NULL;}
 #endif
     }
 
     if (*ptrGateway == NULL)
     {
         *ptrGateway = (PROC_GATEWAY) GetDynLibFuncPtr(*hlib,gw_name);
-        if (*ptrGateway == NULL) 
+        if (*ptrGateway == NULL)
         {
             return DYN_GW_PTR_FUNCTION_ERROR ;
         }

@@ -1,3 +1,6 @@
+* Bug 8883 fixed - In some cases, Scilab build from sources was looking for libraries at the wrong place.
+
+
             Changes between version 5.4.0-beta-3 and 5.4.0 of Scilab
             ========================================================
 
