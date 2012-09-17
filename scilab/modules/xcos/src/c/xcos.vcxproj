@@ -190,6 +190,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_scicosStarted.cpp" />
     <ClCompile Include="DllmainXCOS.c" />
     <ClCompile Include="..\..\sci_gateway\c\gw_xcos.c" />
     <ClCompile Include="..\jni\Modelica.cpp" />
