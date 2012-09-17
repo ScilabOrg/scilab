@@ -1138,6 +1138,15 @@ public final class Xcos {
     }
 
     /**
+     * Inform Xcos the simulator has just started
+     *
+     */
+    @ScilabExported(module = "xcos", filename = "Xcos.giws.xml")
+    public static void scicosStarted() {
+
+    }
+
+    /**
      * Look for the parent diagram of the cell in the diagram hierarchy.
      *
      * @param cell
