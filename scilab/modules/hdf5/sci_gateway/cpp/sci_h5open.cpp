@@ -10,10 +10,6 @@
  *
  */
 
-#include <set>
-#include <string>
-#include <vector>
-
 extern "C"
 {
 #include "gw_hdf5.h"
@@ -28,29 +24,15 @@ extern "C"
 using namespace org_modules_hdf5;
 
 /*--------------------------------------------------------------------------*/
-static void split(const std::string & str, std::vector<std::string> & lines)
-{
-    std::string::size_type lastPos = str.find_first_not_of("\n", 0);
-    std::string::size_type pos = str.find_first_of("\n", lastPos);
-
-    while (std::string::npos != pos || std::string::npos != lastPos)
-    {
-	lines.push_back(str.substr(lastPos, pos - lastPos));
-	lastPos = str.find_first_not_of("\n", pos);
-	pos = str.find_first_of("\n", lastPos);
-    }
-}
-/*--------------------------------------------------------------------------*/
-int sci_h5dump(char *fname, unsigned long fname_len)
+int sci_h5open(char *fname, unsigned long fname_len)
 {
     H5File * h5file = 0;
     SciErr err;
     int * addr = 0;
     char * path = 0;
-    std::set<haddr_t> visited;
 
     CheckLhs(1, 1);
-    CheckRhs(1, 1);
+    CheckRhs(1, 2);
 
     err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
     if (err.iErr)
@@ -86,14 +68,7 @@ int sci_h5dump(char *fname, unsigned long fname_len)
 
     try
     {
-	std::vector<std::string> lines;
-	split(h5file->dump(visited), lines);
-
-	for (unsigned int i = 0; i < lines.size(); i++)
-	{
-	    sciprint("%s\n", lines[i].c_str());
-	}
-	delete h5file;
+	h5file->createOnScilabStack(Rhs + 1, pvApiCtx);
     }
     catch (const H5Exception & e)
     {
@@ -102,7 +77,7 @@ int sci_h5dump(char *fname, unsigned long fname_len)
 	return 0;
     }
 
-    LhsVar(1) = 0;
+    LhsVar(1) = Rhs + 1;
     PutLhsVar();
 
     return 0;

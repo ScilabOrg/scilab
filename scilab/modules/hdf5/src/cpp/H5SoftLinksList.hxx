@@ -10,26 +10,28 @@
  *
  */
 
-#ifndef __H5DATASETSLIST_HXX__
-#define __H5DATASETSLIST_HXX__
+#ifndef __H5SOFTLINKSLIST_HXX__
+#define __H5SOFTLINKSLIST_HXX__
 
 #include "H5NamedObjectsList.hxx"
-#include "H5Dataset.hxx"
+#include "H5SoftLink.hxx"
+#include "H5Group.hxx"
 
 namespace org_modules_hdf5
 {
 
-    class H5Group;
-
-    class H5DatasetsList : public H5NamedObjectsList<H5Dataset>
+    class H5SoftLinksList : public H5NamedObjectsList<H5SoftLink>
     {
 
     public :
 	
-	H5DatasetsList(H5Group & _parent) : H5NamedObjectsList<H5Dataset>(_parent, H5G_DATASET, -1, "H5 Dataset") { }
+	H5SoftLinksList(H5Group & _parent) : H5NamedObjectsList(_parent, H5G_GROUP, H5L_TYPE_SOFT, "H5 Soft Link") { }
 	
-	~H5DatasetsList() { }
+	~H5SoftLinksList()
+	    {
+
+	    }
     };
 }
 
-#endif // __H5DATASETSLIST_HXX__
+#endif // __H5SOFTLINKSLIST_HXX__

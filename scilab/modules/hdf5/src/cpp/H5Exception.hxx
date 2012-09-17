@@ -32,7 +32,7 @@ extern "C"
 
 namespace org_modules_hdf5
 {
-    class H5Exception
+    class H5Exception : public std::exception
     {
 	std::string message;
 	std::string file;

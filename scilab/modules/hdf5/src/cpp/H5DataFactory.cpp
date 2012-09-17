@@ -111,11 +111,11 @@ namespace org_modules_hdf5
 
             else if (H5Tequal(type, H5T_NATIVE_LONG))
             {
-                return *new H5BasicData(parent, totalSize, dataSize, ndims, dims, (long long *)data, stride, offset, false);
+                return *new H5BasicData<long long>(parent, totalSize, dataSize, ndims, dims, (long long *)data, stride, offset, false);
             }
             else if (H5Tequal(type, H5T_NATIVE_ULONG))
             {
-                return *new H5BasicData(parent, totalSize, dataSize, ndims, dims, (unsigned long long *)data, stride, offset, false);
+                return *new H5BasicData<unsigned long long>(parent, totalSize, dataSize, ndims, dims, (unsigned long long *)data, stride, offset, false);
             }
 
 #endif // __SCILAB_INT64__
@@ -167,7 +167,7 @@ namespace org_modules_hdf5
                 hid_t mtype = H5Tget_member_type(type, i);
                 char * mname = H5Tget_member_name(type, i);
                 size_t offs = H5Tget_member_offset(type, i);
-                names[i] = std::string(mname);
+		names[i] = std::string(mname);
                 free(mname);
                 fields[i] = &getData(parent, totalSize, mtype, ndims, dims, data, stride, offset + offs, false);
             }
@@ -255,7 +255,7 @@ namespace org_modules_hdf5
 	{
 	    H5Tclose(nativeType);
 	    delete[] dims;
-	    FREE(data);
+	    delete[] static_cast<char *>(data);
 	    throw H5Exception(__LINE__, __FILE__, _("Unknown integer datatype."));
 	}
 
@@ -288,7 +288,7 @@ namespace org_modules_hdf5
 	{
 	    H5Tclose(nativeType);
 	    delete[] dims;
-	    FREE(data);
+	    delete[] static_cast<char *>(data);
 	    throw H5Exception(__LINE__, __FILE__, _("Unknown floating-point datatype."));
 	}
 
@@ -385,7 +385,6 @@ namespace org_modules_hdf5
         void * data = 0;
 
         getNativeData(obj, type, &totalSize, &dataSize, &ndims, &dims, &data, isAttribute);
-	std::cout << "ref size = " << ndims << std::endl; 
         return *new H5ReferenceData(parent, H5Tequal(type, H5T_STD_REF_DSETREG) > 0, totalSize, dataSize, ndims, dims, (char *)data);
     }
 
@@ -447,7 +446,7 @@ namespace org_modules_hdf5
 	const hid_t space = isAttribute ? H5Aget_space(obj) : H5Dget_space(obj);
         hsize_t size = H5Tget_size(nativeType);
 	*totalSize = 1;
-	*dims = new hsize_t[__SCILAB_HDF5_MAX_DIMS__ + 1];
+	*dims = new hsize_t[__SCILAB_HDF5_MAX_DIMS__ + 1]();
         *ndims = H5Sget_simple_extent_dims(space, *dims, 0);
 
         if (H5Tget_class(nativeType) == H5T_STRING && !H5Tis_variable_str(nativeType))
@@ -474,7 +473,7 @@ namespace org_modules_hdf5
             throw H5Exception(__LINE__, __FILE__, _("Memory to allocate is too big"));
         }
 
-        *data = MALLOC((size_t)size);
+        *data = static_cast<void *>(new char[(size_t)size]());
         if (!*data)
         {
 	    H5Tclose(type);
@@ -490,7 +489,7 @@ namespace org_modules_hdf5
 	    H5Tclose(type);
             H5Tclose(nativeType);
             H5Sclose(space);
-            FREE(*data);
+	    delete[] static_cast<char *>(*data);
             delete[] *dims;
             throw H5Exception(__LINE__, __FILE__, _("Cannot retrieve the data from the attribute"));
         }

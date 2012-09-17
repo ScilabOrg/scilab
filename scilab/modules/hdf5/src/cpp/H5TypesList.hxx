@@ -26,7 +26,7 @@ namespace org_modules_hdf5
 
     public :
 	
-	H5TypesList(H5Group & _parent) : H5NamedObjectsList(_parent, H5G_TYPE, "H5 Type") { }
+	H5TypesList(H5Group & _parent) : H5NamedObjectsList(_parent, H5G_TYPE, -1, "H5 Type") { }
 	
 	~H5TypesList()
 	    {

@@ -24,7 +24,7 @@ namespace org_modules_hdf5
 
     public :
 	
-	H5GroupsList(H5Group & _parent) : H5NamedObjectsList(_parent, H5G_GROUP, "H5 Group") { }
+	H5GroupsList(H5Group & _parent) : H5NamedObjectsList(_parent, H5G_GROUP, -1, "H5 Group") { }
 	
 	~H5GroupsList()
 	    {

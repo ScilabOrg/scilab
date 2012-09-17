@@ -43,18 +43,15 @@ namespace org_modules_hdf5
 		char * cdata = static_cast<char *>(data) + offset;
 		const char ** names = new const char*[totalSize];
 
-		std::cout << "total=" << totalSize << std::endl;
-
 		for (int i = 0; i < totalSize; i++)
 		{
 		    void * ref = &(((void **)cdata)[i]);
 		    hid_t obj = H5Rdereference(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
 		    H5O_info_t info;
 		    H5Oget_info(obj, &info);
-		    std::cout << "hello=" << (((void **)cdata)[i]) << "   " << &(((void **)cdata)[i]) << std::endl;
 		    H5Oclose(obj);
 		    ssize_t size = H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, 0, 0);
-		    char * name = (char *)MALLOC((size + 1) * sizeof(char));
+		    char * name = new char[size + 1];
 		    H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, name, size + 1);
 		    
 		    names[i] = name;
@@ -89,21 +86,19 @@ namespace org_modules_hdf5
 		delete[] objs;
 	    }
 
-	std::string dump(const unsigned int indentLevel) const
+	std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
 	    {
-		getReferencesName();
-		return H5DataConverter::dump(indentLevel, ndims, dims, (void **)getData(), *this);
-		//std::cout << "zarbi=" << ndims << std::endl;
-		//return "boujou chez toi";
+		return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this);
 	    }
 
-	virtual void printData(std::ostream & os, void * data) const
+	virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const
 	    {
-		void * ref = &data;
+		char * cdata = static_cast<char *>(data) + offset;
+		void ** ref = &(((void **)cdata)[pos]);
 		hid_t file = getFile().getH5Id();
 		hid_t obj = H5Rdereference(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref);
 		ssize_t size = H5Rget_name(file, datasetReference ? H5R_DATASET_REGION : H5R_OBJECT, ref, 0, 0);
-		char * name = (char *)MALLOC((size + 1) * sizeof(char));
+		char * name = new char[size + 1];
 		H5O_info_t info;
 		H5Oget_info(obj, &info);
 		H5Oclose(obj);
@@ -122,12 +117,12 @@ namespace org_modules_hdf5
 		    break;
 		case H5O_TYPE_UNKNOWN:
 		default:
-		    FREE(name);
+		    delete[] name;
 		    throw H5Exception(__LINE__, __FILE__, _("Unknown HDF5 object"));
 		}
 		
-		os << (haddr_t)data << " " << name;
-		FREE(name);
+		os << (haddr_t)(*ref) << " " << name;
+		delete[] name;
 	    }
     };
 }

@@ -18,6 +18,7 @@
 #include "H5Group.hxx"
 #include "H5Dataset.hxx"
 #include "H5Type.hxx"
+#include "H5Link.hxx"
 
 namespace org_modules_hdf5
 {
@@ -36,7 +37,7 @@ namespace org_modules_hdf5
 	H5Object & getObject(const int pos);
 	const unsigned int getSize() const;
 	
-	virtual std::string dump(const unsigned int indentLevel) const;
+	virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const;
         virtual std::string toString(const unsigned int indentLevel) const;
 
     private:

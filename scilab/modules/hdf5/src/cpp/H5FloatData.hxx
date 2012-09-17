@@ -59,6 +59,11 @@ namespace org_modules_hdf5
 		return transformedData;
 	    }
 
+	virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const
+	    {
+		os << transformedData[pos];
+	    }
+
         virtual void toScilab(void * pvApiCtx, const int lhsPosition, int * parentList = 0, const int listPosition = 0) const
             {
 		SciErr err;
@@ -84,9 +89,9 @@ namespace org_modules_hdf5
                 }
             }
 
-        virtual std::string dump(const unsigned int indentLevel) const
+        virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
             {
-		return H5DataConverter::dump(indentLevel, ndims, dims, static_cast<double *>(getData()), *this);
+		return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this);
 	    }
     };
 }

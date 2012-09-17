@@ -62,7 +62,7 @@ namespace org_modules_hdf5
 	switch (type)
 	{
 	case H5G_LINK:
-	    //obj = new H5Link(parent, name);
+	    obj = &H5Link::getLink(getParent(), name);
 	    break;
 	case H5G_GROUP:
 	    obj = new H5Group(getParent(), name);
@@ -78,7 +78,7 @@ namespace org_modules_hdf5
 	return *obj;
     }
 
-    std::string H5LinksList::dump(const unsigned int indentLevel) const
+    std::string H5LinksList::dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
     {
 	std::ostringstream os;
 	const unsigned int size = getSize();
@@ -86,7 +86,7 @@ namespace org_modules_hdf5
 	for (unsigned int i = 0; i < size; i++)
 	{
 	    const H5Object & obj = const_cast<H5LinksList *>(this)->getObject(i, false);
-	    os << obj.dump(indentLevel);
+	    os << obj.dump(alreadyVisited, indentLevel);
 
 	    delete &obj;
 	}
