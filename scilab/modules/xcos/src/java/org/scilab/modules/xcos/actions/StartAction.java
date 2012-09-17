@@ -75,6 +75,14 @@ public final class StartAction extends OneBlockDependantAction {
     }
 
     /**
+     * Scicos simulator started
+     * Updating start and stop action
+     */
+    public void scicosStarted() {
+        updateUI(true);
+    }
+
+    /**
      * Action !!!
      *
      * @param e
@@ -96,8 +104,6 @@ public final class StartAction extends OneBlockDependantAction {
         if (handler == null) {
             return;
         }
-
-        updateUI(true);
 
         try {
             cmd = createSimulationCommand(graph, handler);
