@@ -33,21 +33,20 @@ namespace org_modules_hdf5
 
     public:
 
-        template <typename T>
-        static std::string dump(const unsigned int indentLevel, const int ndims, const hsize_t * dims, T * data, const H5Data & obj)
+        static std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel, const int ndims, const hsize_t * dims, const H5Data & obj, const bool line = true)
             {
                 std::ostringstream os;
                 std::string indent = H5Object::getIndentString(indentLevel);
+		unsigned int pos = 0;
 
                 os << indent << "DATA {" << std::endl;
-		printData(indentLevel, indent + "(", os, ndims, dims, &data, obj);
+		printData(indentLevel, indent + "(", os, ndims, dims, &pos, obj, line);
                 os << indent << "}" << std::endl;
 
                 return os.str();
             }
 
-        template <typename T>
-        static void printData(const unsigned int indentLevel, const std::string & start, std::ostringstream & os, const int ndims, const hsize_t * dims, T ** data, const H5Data & obj)
+        static void printData(const unsigned int indentLevel, const std::string & start, std::ostringstream & os, const int ndims, const hsize_t * dims, unsigned int * pos, const H5Data & obj, const bool line)
             {
                 std::string indent = H5Object::getIndentString(indentLevel);
 
@@ -57,15 +56,30 @@ namespace org_modules_hdf5
 		}
                 else if (ndims == 1)
                 {
-                    os << start << "0): ";
-                    for (hsize_t i = 0; i < dims[0] - 1; i++)
-                    {
-			printOneData(os, (*data)[i], obj);
-                        os << ", ";
-                    }
-                    printOneData(os, (*data)[dims[0] - 1], obj);
-                    os << std::endl;
-                    *data += dims[0];
+		    if (line)
+		    {
+			os << start << "0): ";
+			for (hsize_t i = 0; i < dims[0] - 1; i++)
+			{
+			    obj.printData(os, *pos + i, 0);
+			    os << ", ";
+			}
+			obj.printData(os, *pos + dims[0] - 1, 0);
+		    }
+		    else
+		    {
+			for (hsize_t i = 0; i < dims[0] - 1; i++)
+			{
+			    os << start << i << "): ";
+			    obj.printData(os, *pos + i, indentLevel);
+			    os << ", " << std::endl;
+			}
+			os << start << dims[0] - 1 << "): ";
+			obj.printData(os, *pos + dims[0] - 1, indentLevel);
+		    }
+
+		    os << std::endl;
+                    *pos += dims[0];
                 }
                 else
                 {
@@ -73,26 +87,10 @@ namespace org_modules_hdf5
                     for (hsize_t i = 0; i < dims[0]; i++)
                     {
                         oss << start << (unsigned int)i << ",";
-                        printData(0, oss.str(), os, ndims - 1, dims + 1, data, obj);
+                        printData(indentLevel, oss.str(), os, ndims - 1, dims + 1, pos, obj, line);
                         oss.str("");
                     }
                 }
-            }
-
-        template <typename T>
-        static inline void printOneData(std::ostream & os, T data, const H5Data & obj)
-            {
-                os << data;
-            }
-
-        static inline void printOneData(std::ostream & os, char * data, const H5Data & obj)
-            {
-                os << "\"" << data << "\"";
-            }
-
-	static inline void printOneData(std::ostream & os, void * data, const H5Data & obj)
-            {
-		obj.printData(os, data);
             }
 
         static void toScilabString(void * pvApiCtx, const int position, const int ndims, const hsize_t * dims, char ** data);

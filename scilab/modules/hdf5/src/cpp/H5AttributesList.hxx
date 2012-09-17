@@ -19,7 +19,7 @@ namespace org_modules_hdf5
 {
     class H5Attribute;
 
-    class H5AttributesList : protected H5ListObject<H5Attribute>
+    class H5AttributesList : public H5ListObject<H5Attribute>
     {
 
     public :
@@ -32,7 +32,7 @@ namespace org_modules_hdf5
 	H5Attribute & getObject(const int pos);
 	const unsigned int getSize() const;
 	
-	virtual std::string dump(const unsigned int indentLevel) const;
+	virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const;
         virtual std::string toString(const unsigned int indentLevel) const;
 
     private:

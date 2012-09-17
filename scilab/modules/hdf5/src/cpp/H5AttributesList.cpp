@@ -57,7 +57,7 @@ namespace org_modules_hdf5
 	return *new H5Attribute(parent, parent.getH5Id(), (const unsigned int)pos);
     }
 
-    std::string H5AttributesList::dump(const unsigned int indentLevel) const
+    std::string H5AttributesList::dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
     {
 	std::ostringstream os;
 	unsigned int size = getSize();
@@ -65,7 +65,7 @@ namespace org_modules_hdf5
 	for (unsigned int i = 0; i < size; i++)
 	{
 	    const H5Attribute & attr = const_cast<H5AttributesList *>(this)->getObject(i, false);
-	    os << attr.dump(indentLevel);
+	    os << attr.dump(alreadyVisited, indentLevel);
 
 	    delete &attr;
 	}

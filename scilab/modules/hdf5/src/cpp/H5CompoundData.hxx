@@ -14,6 +14,7 @@
 #define __H5COMPOUNDDATA_HXX__
 
 #include "H5Data.hxx"
+#include "H5BasicData.hxx"
 
 namespace org_modules_hdf5
 {
@@ -37,7 +38,7 @@ namespace org_modules_hdf5
 		delete[] fieldsvalue;
 	    }
 
-	H5Data & getData(const std::string fieldname)
+	H5Data & getData(const std::string fieldname) const
 	    {
 		for (unsigned int i = 0; i < nfields; i++)
 		{
@@ -48,6 +49,26 @@ namespace org_modules_hdf5
 		}
 
 		throw H5Exception(__LINE__, __FILE__, _("Invalid field name: %s"), fieldname.c_str());
+	    }
+
+        virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
+            {
+		return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this, false);
+	    }
+
+	virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const
+	    {
+		os << "{" << std::endl;
+                std::string indent = H5Object::getIndentString(indentLevel + 2);
+		for (unsigned int i = 0; i < nfields - 1; i++)
+		{
+		    os << indent;
+		    fieldsvalue[i]->printData(os, pos, indentLevel + 2);
+		    os << ", " << std::endl;
+		}
+		os << indent;
+		fieldsvalue[nfields - 1]->printData(os, pos, indentLevel + 2);
+		os << std::endl << H5Object::getIndentString(indentLevel + 1) << "}";
 	    }
 
 	virtual void toScilab(void * pvApiCtx, const int lhsPosition, int * parentList = 0, const int listPosition = 0) const
@@ -64,14 +85,13 @@ namespace org_modules_hdf5
 		    _fieldsname[i + 2] = fieldsname[i].c_str();
 		}
 		
-                
 		if (parentList)
                 {
                     err = createMListInList(pvApiCtx, lhsPosition, parentList, listPosition, nfields + 1, &scilabStruct);
                 }
                 else
                 {
-                    err = createMList(pvApiCtx, lhsPosition, nfields + 1, &scilabStruct);
+                    err = createMList(pvApiCtx, lhsPosition, nfields + 2, &scilabStruct);
                 }
 
                 if (err.iErr)

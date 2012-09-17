@@ -16,7 +16,7 @@
 namespace org_modules_hdf5
 {
 
-    H5Attribute::H5Attribute(H5Object & _parent, const hid_t parentId, const unsigned int pos) : H5Object(_parent)
+    H5Attribute::H5Attribute(H5Object & _parent, const hid_t parentId, const unsigned int pos) : H5Object(_parent), name("")
     {
         attr = H5Aopen_by_idx(parentId, ".", H5_INDEX_NAME, H5_ITER_NATIVE, (hsize_t)pos, H5P_DEFAULT, H5P_DEFAULT);
         if (attr < 0)
@@ -25,15 +25,12 @@ namespace org_modules_hdf5
         }
 
         ssize_t size = H5Aget_name(attr, 0, 0);
-        if (size <= 0)
+        if (size > 0)
         {
-            name = strdup("");
-        }
-        else
-        {
-	    char * _name = (char *)MALLOC(sizeof(char) * (size + 1));
+	    char * _name = new char[size + 1];
             H5Aget_name(attr, size + 1, _name);
-	    name = const_cast<const char *>(_name);
+	    name = std::string(_name);
+	    delete[] _name;
         }
     }
 
@@ -43,7 +40,6 @@ namespace org_modules_hdf5
         {
             H5Aclose(attr);
         }
-        FREE(const_cast<char *>(name));
     }
 
     H5Data & H5Attribute::getData()
@@ -73,17 +69,50 @@ namespace org_modules_hdf5
         return *new H5Dataspace(*this, space);
     }
 
-    std::string H5Attribute::dump(const unsigned int indentLevel) const
+    void H5Attribute::getAccessibleAttribute(const std::string & _name, const int pos, void * pvApiCtx) const
+    {
+	SciErr err;
+	std::string lower(_name);
+	std::transform(_name.begin(), _name.end(), lower.begin(), tolower);
+
+	if (lower == "type")
+	{
+	    const H5Type & type = const_cast<H5Attribute *>(this)->getDataType();
+	    type.createOnScilabStack(pos, pvApiCtx);
+	    
+	    return;
+	}
+	else if (lower == "dataspace")
+	{
+	    const H5Dataspace & space = const_cast<H5Attribute *>(this)->getSpace();
+	    space.createOnScilabStack(pos, pvApiCtx);
+	    
+	    return;
+	}
+	else if (lower == "data")
+	{
+	    const H5Data & data = const_cast<H5Attribute *>(this)->getData();
+	    data.toScilab(pvApiCtx, pos);
+	    
+	    delete &data;
+	    
+	    return;
+	}
+	
+	H5Object::getAccessibleAttribute(_name, pos, pvApiCtx);
+    }
+
+    std::string H5Attribute::dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
     {
 	std::ostringstream os;
 	const H5Type & type = const_cast<H5Attribute *>(this)->getDataType();
 	const H5Dataspace & space = const_cast<H5Attribute *>(this)->getSpace();
 	const H5Data & data = const_cast<H5Attribute *>(this)->getData();
 
-	os << H5Object::getIndentString(indentLevel) << "ATTRIBUTE \"" << name << "\" {" << std::endl
-	   << type.dump(indentLevel + 1)
-	   << space.dump(indentLevel + 1)
-	   << data.dump(indentLevel + 1)
+	os << H5Object::getIndentString(indentLevel) << "ATTRIBUTE \"" << getName() << "\" {" << std::endl
+	   << type.dump(alreadyVisited, indentLevel + 1)
+	   << space.dump(alreadyVisited, indentLevel + 1)
+	   << data.dump(alreadyVisited, indentLevel + 1)
 	   << H5Object::getIndentString(indentLevel) << "}" << std::endl;
 
 	delete &type;
@@ -96,11 +125,12 @@ namespace org_modules_hdf5
     std::string H5Attribute::toString(const unsigned int indentLevel) const
     {
 	std::ostringstream os;
-	const std::string indentString = H5Object::getIndentString(indentLevel);
+	const std::string indentString = H5Object::getIndentString(indentLevel + 1);
 	const H5Type & type = const_cast<H5Attribute *>(this)->getDataType();
 	
-	os << indentString << _("Filename") << ": " << getFile().getFileName() << std::endl
-	   << indentString << _("Attribute name") << ": " << name << std::endl
+	os << H5Object::getIndentString(indentLevel) << "HDF5 Attribute" << std::endl
+	   << indentString << _("Filename") << ": " << getFile().getFileName() << std::endl
+	   << indentString << _("Attribute name") << ": " << getName() << std::endl
 	   << indentString << _("Attribute path") << ": " << getCompletePath() << std::endl
 	   << indentString << _("Value class") << ": " << type.getClassName();
 

@@ -29,7 +29,7 @@
             err = createMatrixOf##NAME(pvApiCtx, position, rows, cols, ptr); \
         }                                                               \
         if (err.iErr)                                                   \
-        {                                                               \
+        {           printError(&err, 0);				\
             throw H5Exception(__LINE__, __FILE__, "Cannot allocate memory"); \
         }                                                               \
     }
@@ -46,7 +46,7 @@
             err = allocMatrixOf##NAME(pvApiCtx, position, rows, cols, ptr); \
         }                                                               \
         if (err.iErr)                                                   \
-        {                                                               \
+        {           printError(&err, 0);                                                            \
             throw H5Exception(__LINE__, __FILE__, "Cannot allocate memory"); \
         }                                                               \
     }
@@ -80,7 +80,10 @@ namespace org_modules_hdf5
                 }
             }
 
-
+	virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const
+	    {
+		os << static_cast<T *>(getData())[pos];
+	    }
 
         virtual void copyData(T * dest) const
             {
@@ -120,8 +123,9 @@ namespace org_modules_hdf5
                 {
                     if (!transformedData)
                     {
-                        const_cast<H5BasicData *>(this)->transformedData = new T[totalSize];
-                        copyData(transformedData);
+			T * dest = new T[totalSize];
+                        copyData(dest);
+			const_cast<H5BasicData *>(this)->transformedData = dest;
                     }
 
                     return static_cast<void *>(transformedData);
@@ -153,9 +157,9 @@ namespace org_modules_hdf5
                 }
             }
 
-        virtual std::string dump(const unsigned int indentLevel) const
+        virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const
             {
-                return H5DataConverter::dump(indentLevel, ndims, dims, static_cast<T *>(getData()), *this);
+                return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this);
             }
 
         __SCILAB_ALLOCATORS_CREATORS__(double,Double)

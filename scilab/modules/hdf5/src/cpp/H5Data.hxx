@@ -44,13 +44,13 @@ namespace org_modules_hdf5
                 if (dataOwner)
                 {
                     delete[] dims;
-                    FREE(data);
+                    delete[] static_cast<char *>(data);
                 }
             }
 
         virtual void * getData() const { return data; }
 
-	virtual void printData(std::ostream & os, void * data) const { }
+	virtual void printData(std::ostream & os, const unsigned int pos, const unsigned int indentLevel) const {  }
 
         virtual void toScilab(void * pvApiCtx, const int lhsPosition, int * parentList = 0, const int listPosition = 0) const = 0;
 

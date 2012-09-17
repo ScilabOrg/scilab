@@ -10,10 +10,6 @@
  *
  */
 
-#include <set>
-#include <string>
-#include <vector>
-
 extern "C"
 {
 #include "gw_hdf5.h"
@@ -23,34 +19,20 @@ extern "C"
 #include "sciprint.h"
 }
 
-#include "H5File.hxx"
+#include "HDF5Scilab.hxx"
 
 using namespace org_modules_hdf5;
 
 /*--------------------------------------------------------------------------*/
-static void split(const std::string & str, std::vector<std::string> & lines)
+int sci_h5read(char *fname, unsigned long fname_len)
 {
-    std::string::size_type lastPos = str.find_first_not_of("\n", 0);
-    std::string::size_type pos = str.find_first_of("\n", lastPos);
-
-    while (std::string::npos != pos || std::string::npos != lastPos)
-    {
-	lines.push_back(str.substr(lastPos, pos - lastPos));
-	lastPos = str.find_first_not_of("\n", pos);
-	pos = str.find_first_of("\n", lastPos);
-    }
-}
-/*--------------------------------------------------------------------------*/
-int sci_h5dump(char *fname, unsigned long fname_len)
-{
-    H5File * h5file = 0;
     SciErr err;
     int * addr = 0;
     char * path = 0;
-    std::set<haddr_t> visited;
+    char * name = 0;
 
     CheckLhs(1, 1);
-    CheckRhs(1, 1);
+    CheckRhs(2, 2);
 
     err = getVarAddressFromPosition(pvApiCtx, 1, &addr);
     if (err.iErr)
@@ -72,37 +54,44 @@ int sci_h5dump(char *fname, unsigned long fname_len)
         return 0;
     }
 
+    err = getVarAddressFromPosition(pvApiCtx, 2, &addr);
+    if (err.iErr)
+    {
+	freeAllocatedSingleString(path);
+        printError(&err, 0);
+        Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 2);
+        return 0;
+    }
+
+    if (!isStringType(pvApiCtx, addr) || !checkVarDimension(pvApiCtx, addr, 1, 1))
+    {
+	freeAllocatedSingleString(path);
+        Scierror(999, gettext("%s: Wrong type for input argument #%d: A string expected.\n"), fname, 2);
+        return 0;
+    }
+
+    if (getAllocatedSingleString(pvApiCtx, addr, &name) != 0)
+    {
+	freeAllocatedSingleString(path);
+        Scierror(999, _("%s: No more memory.\n"), fname);
+        return 0;
+    }
+
     try
     {
-	h5file = new H5File((const char *)path);
+	HDF5Scilab::readData(path, name, Rhs + 1, pvApiCtx);
+	freeAllocatedSingleString(name);
 	freeAllocatedSingleString(path);
     }
     catch (const H5Exception & e)
     {
 	Scierror(999, _("%s: %s\n"), fname, e.what());
+	freeAllocatedSingleString(name);
 	freeAllocatedSingleString(path);
 	return 0;
     }
 
-    try
-    {
-	std::vector<std::string> lines;
-	split(h5file->dump(visited), lines);
-
-	for (unsigned int i = 0; i < lines.size(); i++)
-	{
-	    sciprint("%s\n", lines[i].c_str());
-	}
-	delete h5file;
-    }
-    catch (const H5Exception & e)
-    {
-	Scierror(999, _("%s: %s\n"), fname, e.what());
-	delete h5file;
-	return 0;
-    }
-
-    LhsVar(1) = 0;
+    LhsVar(1) = Rhs + 1;
     PutLhsVar();
 
     return 0;
