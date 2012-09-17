@@ -10,7 +10,6 @@
  *
  */
 
-#include <set>
 #include <string>
 
 extern "C"
@@ -19,7 +18,6 @@ extern "C"
 #include "Scierror.h"
 #include "api_scilab.h"
 #include "localization.h"
-#include "sciprint.h"
 #include "expandPathVariable.h"
 }
 
@@ -29,7 +27,7 @@ extern "C"
 using namespace org_modules_hdf5;
 
 /*--------------------------------------------------------------------------*/
-int sci_h5dump(char *fname, unsigned long fname_len)
+int sci_h5ls(char *fname, unsigned long fname_len)
 {
     H5File * h5file = 0;
     SciErr err;
@@ -37,7 +35,6 @@ int sci_h5dump(char *fname, unsigned long fname_len)
     char * path = 0;
     char * expandedPath = 0;
     char * name = 0;
-    std::set<haddr_t> visited;
 
     CheckLhs(1, 1);
     CheckRhs(1, 2);
@@ -125,7 +122,7 @@ int sci_h5dump(char *fname, unsigned long fname_len)
 
     try
     {
-        HDF5Scilab::scilabPrint(h5file->dump(visited));
+        HDF5Scilab::scilabPrint(h5file->ls());
         delete h5file;
     }
     catch (const H5Exception & e)
