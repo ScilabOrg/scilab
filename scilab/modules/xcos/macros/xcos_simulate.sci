@@ -219,6 +219,9 @@ function %cpr = xcos_simulate(scs_m, needcompile)
 
   //gh_win = gcf();
 
+  //** inform Xcos the simulator is going to run
+  xcosInformScicosimStart();
+
   //** scicos initialisation
   if needstart then
     //** if the simulation have already ran
