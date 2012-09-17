@@ -17,30 +17,49 @@
 
 namespace org_modules_hdf5
 {
-    class H5Group;
+class H5Group;
 
-    class H5File : public H5Object
+class H5File : public H5Object
+{
+    const std::string filename;
+    const std::string path;
+    const bool readonly;
+    hid_t file;
+
+public :
+
+    H5File(const char * _filename, const char * _path = "/", const bool _readonly = false);
+    H5File(const std::string & _filename, const std::string & _path = "/", const bool _readonly = false);
+
+    ~H5File();
+
+    H5Group & getRootGroup();
+    hid_t getH5Id() const
     {
-	const char * filename;
-	const char * path;
-	hid_t file;
-	H5Group * root;
+        return file;
+    }
+    virtual std::string getCompletePath() const;
+    const std::string & getFileName() const
+    {
+        return filename;
+    }
+    const std::string & getRootPath() const
+    {
+        return path;
+    }
+    hsize_t getFileSize() const;
+    void getFileHDF5Version(unsigned int * out) const;
 
-    public :
-	
-	H5File(const char * _filename, const char * _path = "/", const bool _readonly = false);
-	
-	~H5File();
+    virtual void getAccessibleAttribute(const std::string & name, const int pos, void * pvApiCtx) const;
 
-	H5Group & getRootGroup();
-	hid_t getH5Id() const { return file; }
-	virtual std::string getCompletePath() const;
-	const char * getFileName() const { return filename; }
-	const char * getRootPath() const { return path; }
+    virtual std::string toString(const unsigned int indentLevel) const;
+    virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel = 0) const;
 
-	virtual std::string toString(const unsigned int indentLevel) const;
-	virtual std::string dump(const unsigned int indentLevel = 0) const;
-    };
+private :
+
+    void init();
+
+};
 }
 
 #endif // __H5FILE_HXX__

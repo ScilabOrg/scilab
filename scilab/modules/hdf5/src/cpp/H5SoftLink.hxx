@@ -10,32 +10,31 @@
  *
  */
 
-#ifndef __H5DATASPACE_HXX__
-#define __H5DATASPACE_HXX__
+#ifndef __H5SOFTLINK_HXX__
+#define __H5SOFTLINK_HXX__
 
-#include "H5Object.hxx"
+#include "H5Link.hxx"
 
 namespace org_modules_hdf5
 {
 
-class H5Dataspace : public H5Object
+class H5SoftLink : public H5Link
 {
-    hid_t space;
-
 public:
 
-    H5Dataspace(H5Object & _parent, hid_t _space);
-    ~H5Dataspace();
+    H5SoftLink(H5Object & _parent, const char * name) : H5Link(_parent, name) { }
+    H5SoftLink(H5Object & _parent, const std::string & name) : H5Link(_parent, name) { }
 
-    virtual hid_t getH5Id();
-    virtual std::vector<unsigned int> getDims() const;
-    virtual std::string getTypeName() const;
+    virtual ~H5SoftLink() { }
 
-    virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel) const;
     virtual std::string toString(const unsigned int indentLevel) const;
+    virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel = 0) const;
+
+    std::string getLinkValue() const;
+    virtual std::string getLinkType() const;
 
     virtual void getAccessibleAttribute(const std::string & name, const int pos, void * pvApiCtx) const;
 };
 }
 
-#endif // __H5DATASPACE_HXX__
+#endif // __H5SOFTLINK_HXX__

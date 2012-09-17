@@ -15,6 +15,7 @@
 
 #include <hdf5.h>
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <set>
@@ -28,71 +29,136 @@ extern "C"
 #include "localization.h"
 }
 
+#include "H5VariableScope.hxx"
 #include "H5Exception.hxx"
 
 #define H5_INDENT_LENGTH 3
 
 namespace org_modules_hdf5
 {
-    class H5AttributesList;
-    class H5File;
+class H5AttributesList;
+class H5File;
 
-    class H5Object
+class H5Object
+{
+    static H5Object & root;
+
+    bool locked;
+    H5Object & parent;
+    int scilabId;
+    std::string name;
+
+    friend class H5AttributesList;
+    friend class H5LinkList;
+    friend class H5Dataset;
+
+public :
+
+    H5Object(H5Object & _parent);
+    virtual ~H5Object();
+
+    virtual hid_t getH5Id() const;
+    virtual H5AttributesList & getAttributes();
+
+    virtual H5O_info_t getInfo() const
     {
-	static H5Object & root;
+        H5O_info_t info;
+        H5Oget_info(getH5Id(), &info);
 
-	bool locked;
-	H5Object & parent;
+        return info;
+    }
 
-	friend class H5AttributesList;
-	friend class H5LinkList;
-	friend class H5Dataset;
+    virtual haddr_t getAddr() const
+    {
+        return getInfo().addr;
+    }
 
-    public :
-	
-	H5Object(H5Object & _parent);
-	virtual ~H5Object();
+    virtual const std::string & getName() const
+    {
+        return name;
+    }
+    virtual std::string getCompletePath() const;
+    virtual std::string dump(std::set<haddr_t> & alreadyVisited, const unsigned int indentLevel = 0) const
+    {
+        return "";
+    }
+    virtual std::string toString() const
+    {
+        return toString(0);
+    }
+    virtual std::string toString(const unsigned int indentLevel) const
+    {
+        return "";
+    }
+    virtual void getAccessibleAttribute(const std::string & _name, const int pos, void * pvApiCtx) const;
+    virtual void getAccessibleAttribute(const double index, const int pos, void * pvApiCtx) const
+    {
+        throw H5Exception(__LINE__, __FILE__, _("Invalid operation"));
+    }
 
-	virtual hid_t getH5Id() const;
-	virtual H5AttributesList & getAttributes();
+    virtual void setAccessibleAttribute(const std::string & name, const int pos, void * pvApiCtx) const
+    {
+        throw H5Exception(__LINE__, __FILE__, _("Invalid operation"));
+    }
 
-	virtual H5O_info_t getInfo() const
-	    {
-		H5O_info_t info;
-		H5Oget_info(getH5Id(), &info);
-		
-		return info;
-	    }
+    virtual void setAccessibleAttribute(const double index, const int pos, void * pvApiCtx) const
+    {
+        throw H5Exception(__LINE__, __FILE__, _("Invalid operation"));
+    }
 
-	virtual std::string getName() const { return ""; }
-	virtual std::string getCompletePath() const;
-	virtual std::string dump(const unsigned int indentLevel = 0) const { return ""; }
-	virtual std::string toString() const { return toString(0); } 
-	virtual std::string toString(const unsigned int indentLevel) const { return ""; } 
+    void setScilabId(const int id)
+    {
+        scilabId = id;
+    }
 
-	H5Object & getParent() const { return parent; }
-	H5File & getFile() const;
+    H5Object & getParent() const
+    {
+        return parent;
+    }
+    H5File & getFile() const;
 
-	static std::string getIndentString(const unsigned int indentLevel)
-	    {
-		return std::string((size_t)(H5_INDENT_LENGTH * indentLevel), ' ');
-	    }
+    virtual void createOnScilabStack(int pos, void * pvApiCtx) const;
+    virtual void createInScilabList(int * list, int stackPos, int pos, void * pvApiCtx) const;
 
-	static H5Object & getRoot()
-	    {
-		return root;
-	    }
+    static std::string getIndentString(const unsigned int indentLevel)
+    {
+        return std::string((size_t)(H5_INDENT_LENGTH * indentLevel), ' ');
+    }
 
-	static H5Object & getObject(H5Object & parent, hid_t obj);
+    static H5Object & getRoot()
+    {
+        return root;
+    }
 
-    protected :
-	std::set<H5Object *> children;
-	void registerChild(H5Object * child) { if (!locked) children.insert(child); }
-	void unregisterChild(H5Object * child) { if (!locked) children.erase(child); }
+    static H5Object & getObject(H5Object & parent, hid_t obj);
+    static H5Object & getObject(H5Object & parent, hid_t loc, const char * name);
+    static H5Object & getObject(H5Object & parent, hid_t loc, const std::string & name);
+    static void getLinksInfo(const H5Object & obj, std::vector<std::string> & linksName, std::vector<std::string> & types, std::vector<std::string> & linksType);
 
-    private :
-	H5Object() : parent(*this) { }
-    };
+protected :
+    std::set<H5Object *> children;
+    void registerChild(H5Object * child)
+    {
+        if (!locked) children.insert(child);
+    }
+    void unregisterChild(H5Object * child)
+    {
+        if (!locked) children.erase(child);
+    }
+
+private :
+
+    H5Object() : parent(*this) { }
+
+    typedef struct
+    {
+        std::vector<std::string> * name;
+        std::vector<std::string> * type;
+        std::vector<std::string> * linktype;
+    } LinksInfo_;
+
+    static herr_t iterateGetInfo(hid_t g_id, const char * name, const H5L_info_t * info, void * op_data);
+};
 }
 
 #undef H5_INDENT_LENGTH

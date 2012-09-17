@@ -22,6 +22,11 @@ HDF5_SCILAB_IMPEXP int sci_import_from_hdf5(char *fname,unsigned long fname_len)
 HDF5_SCILAB_IMPEXP int sci_listvar_in_hdf5(char *fname,unsigned long fname_len);
 HDF5_SCILAB_IMPEXP int sci_is_hdf5_file(char *fname,unsigned long fname_len);
 HDF5_SCILAB_IMPEXP int sci_h5dump(char *fname,unsigned long fname_len);
+HDF5_SCILAB_IMPEXP int sci_h5open(char *fname,unsigned long fname_len);
+HDF5_SCILAB_IMPEXP int sci_h5close(char *fname,unsigned long fname_len);
+HDF5_SCILAB_IMPEXP int sci_h5read(char *fname,unsigned long fname_len);
+HDF5_SCILAB_IMPEXP int sci_h5print(char *fname,unsigned long fname_len);
+HDF5_SCILAB_IMPEXP int sci_percent_H5Object_e(char *fname,unsigned long fname_len);
 /*--------------------------------------------------------------------------*/ 
 #endif /* __GW_HDF5_H__ */
 /*--------------------------------------------------------------------------*/
