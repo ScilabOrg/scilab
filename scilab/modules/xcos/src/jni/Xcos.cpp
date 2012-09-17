@@ -112,6 +112,7 @@ voidxcosDiagramOpenjobjectArray_java_lang_Stringjava_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_Stringjava_lang_StringID=NULL;
 voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
 voidupdateBlockjstringjava_lang_StringID=NULL;
+voidscicosStartedID=NULL;
 
 
 }
@@ -142,6 +143,7 @@ voidxcosDiagramOpenjobjectArray_java_lang_Stringjava_lang_StringID=NULL;
 voidxcosDiagramClosejobjectArray_java_lang_Stringjava_lang_StringID=NULL;
 voidaddToolsMenujstringjava_lang_Stringjstringjava_lang_StringID=NULL;
 voidupdateBlockjstringjava_lang_StringID=NULL;
+voidscicosStartedID=NULL;
 
 
 }
@@ -430,6 +432,24 @@ throw GiwsException::JniBadAllocException(curEnv);
                          curEnv->CallStaticVoidMethod(cls, voidupdateBlockjstringjava_lang_StringID ,h5File_);
                         curEnv->DeleteLocalRef(h5File_);
 curEnv->DeleteLocalRef(cls);
+if (curEnv->ExceptionCheck()) {
+throw GiwsException::JniCallMethodException(curEnv);
+}
+}
+
+void Xcos::scicosStarted (JavaVM * jvm_){
+
+JNIEnv * curEnv = NULL;
+jvm_->AttachCurrentThread(reinterpret_cast<void **>(&curEnv), NULL);
+jclass cls = curEnv->FindClass( className().c_str() );
+
+jmethodID voidscicosStartedID = curEnv->GetStaticMethodID(cls, "scicosStarted", "()V" ) ;
+if (voidscicosStartedID == NULL) {
+throw GiwsException::JniMethodNotFoundException(curEnv, "scicosStarted");
+}
+
+                         curEnv->CallStaticVoidMethod(cls, voidscicosStartedID );
+                        curEnv->DeleteLocalRef(cls);
 if (curEnv->ExceptionCheck()) {
 throw GiwsException::JniCallMethodException(curEnv);
 }
