@@ -204,8 +204,8 @@ public final class SwingViewWidget {
                 double minorSliderStep = sliderStep[0].doubleValue();
                 double majorSliderStep = sliderStep[1].doubleValue();
                 if (minValue <= maxValue) {
-                    ((SwingScilabSlider) uiControl).setMinorTickSpacing((int) (minorSliderStep * (maxValue - minValue)));
-                    ((SwingScilabSlider) uiControl).setMajorTickSpacing((int) (majorSliderStep * (maxValue - minValue)));
+                    ((SwingScilabSlider) uiControl).setMinorTickSpacing(minorSliderStep);
+                    ((SwingScilabSlider) uiControl).setMajorTickSpacing(majorSliderStep);
                 }
             } else if (uiControl instanceof SwingScilabListBox) {
                 // Enable/Disable multiple selection
@@ -228,8 +228,8 @@ public final class SwingViewWidget {
                 double minorSliderStep = sliderStep[0].doubleValue();
                 double majorSliderStep = sliderStep[1].doubleValue();
                 if (minValue <= maxValue) {
-                    ((SwingScilabSlider) uiControl).setMinorTickSpacing((int) (minorSliderStep * (maxValue - minValue)));
-                    ((SwingScilabSlider) uiControl).setMajorTickSpacing((int) (majorSliderStep * (maxValue - minValue)));
+                    ((SwingScilabSlider) uiControl).setMinorTickSpacing(minorSliderStep);
+                    ((SwingScilabSlider) uiControl).setMajorTickSpacing(majorSliderStep);
                 }
             } else if (uiControl instanceof SwingScilabListBox) {
                 // Enable/Disable multiple selection
