@@ -11,7 +11,6 @@
  */
 
 /*--------------------------------------------------------------------------*/
-#include "api_scilab.h"
 #include "gw_history_manager.h"
 #include "MALLOC.h"
 #include "stack-c.h"
@@ -24,73 +23,32 @@ int sci_addhistory(char *fname, unsigned long fname_len)
 {
     static int n1, m1;
 
-    SciErr sciErr;
-    int *piAddr1;
-    int *piLen;
-    int i;
+    CheckRhs(1, 1);
+    CheckLhs(0, 1);
 
-    char **lines = NULL;
-    BOOL bOK = FALSE;
-    CheckInputArgument(pvApiCtx, 1, 1);
-    CheckOutputArgument(pvApiCtx, 0, 1);
-
-    //get variable address
-    sciErr = getVarAddressFromPosition(pvApiCtx, 1, &piAddr1);
-    if (sciErr.iErr)
+    if (GetType(1) == sci_strings)
     {
-        printError(&sciErr, 0);
-        return 1;
-    }
+        char **lines = NULL;
+        BOOL bOK = FALSE;
 
-    if (isStringType(pvApiCtx, piAddr1))
-    {
-        //fisrt call to retrieve dimensions
-        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, NULL, NULL);
-        if (sciErr.iErr)
-        {
-            printError(&sciErr, 0);
-            return 1;
-        }
-
-        piLen = (int*)malloc(sizeof(int) * m1 * n1);
-
-        //second call to retrieve length of each string
-        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, NULL);
-        if (sciErr.iErr)
-        {
-            printError(&sciErr, 0);
-            return 1;
-        }
-
-        lines = (char**)malloc(sizeof(char*) * m1 * n1);
-        for (i = 0 ; i < m1 * n1 ; i++)
-        {
-            lines[i] = (char*)malloc(sizeof(char) * (piLen[i] + 1));//+ 1 for null termination
-        }
-
-        //third call to retrieve data
-        sciErr = getMatrixOfString(pvApiCtx, piAddr1, &m1, &n1, piLen, lines);
-        if (sciErr.iErr)
-        {
-            printError(&sciErr, 0);
-            return 1;
-        }
+        GetRhsVar(1, MATRIX_OF_STRING_DATATYPE, &m1, &n1, &lines);
         bOK = appendLinesToScilabHistory(lines, m1 * n1);
         freeArrayOfString(lines, m1 * n1);
 
         if (!bOK)
         {
             Scierror(999, _("%s: Could not add line to the history.\n"), fname, 1);
-            return 1;
+            return 0;
+
         }
 
-        AssignOutputVariable(pvApiCtx, 1) = 0;
-        ReturnArguments(pvApiCtx);
+        LhsVar(1) = 0;
+        PutLhsVar();
     }
     else
     {
         Scierror(999, _("%s: Wrong type for input argument #%d: String array expected.\n"), fname, 1);
-        return 1;
+        return 0;
     }
 
     return 0;
