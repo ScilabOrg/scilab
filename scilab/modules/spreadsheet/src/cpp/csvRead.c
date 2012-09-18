@@ -370,15 +370,7 @@ static int getNumbersOfColumnsInLine(const char *line, const char *separator)
         char **splittedStr = splitLineCSV(line, separator, &nbTokens, 0);
         if (splittedStr)
         {
-            if (nbTokens > 0)
-            {
-                if ( (nbTokens > 1) && ((int)strlen(splittedStr[nbTokens - 1]) == 0) )
-                {
-                    nbTokens--;
-                }
-            }
             freeArrayOfString(splittedStr, nbTokens);
-
             return nbTokens;
         }
         else
@@ -415,17 +407,7 @@ static char **getStringsFromLines(const char **lines, int sizelines,
             char **lineStrings = splitLineCSV(lines[i], separator, &nbTokens, 0);
             int j = 0;
 
-            if (lineStrings)
-            {
-                if (nbTokens > 0)
-                {
-                    if ((nbTokens > 1) && ((int)strlen(lineStrings[nbTokens - 1]) == 0))
-                    {
-                        nbTokens--;
-                    }
-                }
-            }
-            else
+            if (lineStrings == NULL)
             {
                 lineStrings = (char**)MALLOC(sizeof(char*) * 1);
                 lineStrings[0] = strdup(lines[i]);
