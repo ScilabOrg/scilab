@@ -322,8 +322,11 @@ static bool import_double(int _iDatasetId, int _iItemPos, int *_piAddress, char 
         return false;
     }
 
-    piDims = (int*)MALLOC(sizeof(int) * iDims);
-    iSize = getDatasetInfo(_iDatasetId, &iComplex, &iDims, piDims);
+    if (iDims > 0)
+    {
+        piDims = (int*)MALLOC(sizeof(int) * iDims);
+        iSize = getDatasetInfo(_iDatasetId, &iComplex, &iDims, piDims);
+    }
 
     if (iDims == 2 && piDims[0] * piDims[1] != 0)
     {
@@ -954,7 +957,7 @@ static bool import_boolean_sparse(int _iDatasetId, int _iItemPos, int *_piAddres
     }
 
     FREE(piNbItemRow);
-    if(piColPos)
+    if (piColPos)
     {
         FREE(piColPos);
     }
