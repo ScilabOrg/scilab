@@ -96,29 +96,29 @@ taucs_chdel(Cptr)
             Cptr = taucs_chfact(A);
             [Ct, p] = taucs_chget(Cptr);
             PlotSparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)")
-            <scilab:image>
-            </refsection>
-            <refsection role="see also">
-                <title>See Also</title>
-                <simplelist type="inline">
-                    <member>
-                        <link linkend="taucs_chfact">taucs_chfact</link>
-                    </member>
-                    <member>
-                        <link linkend="taucs_chsolve">taucs_chsolve</link>
-                    </member>
-                    <member>
-                        <link linkend="taucs_chdel">taucs_chdel</link>
-                    </member>
-                    <member>
-                        <link linkend="taucs_chinfo">taucs_chinfo</link>
-                    </member>
-                    <member>
-                        <link linkend="taucs_chget">taucs_chget</link>
-                    </member>
-                    <member>
-                        <link linkend="cond2sp">cond2sp</link>
-                    </member>
-                </simplelist>
-            </refsection>
-        </refentry>
+        </scilab:image>
+    </refsection>
+    <refsection role="see also">
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="taucs_chfact">taucs_chfact</link>
+            </member>
+            <member>
+                <link linkend="taucs_chsolve">taucs_chsolve</link>
+            </member>
+            <member>
+                <link linkend="taucs_chdel">taucs_chdel</link>
+            </member>
+            <member>
+                <link linkend="taucs_chinfo">taucs_chinfo</link>
+            </member>
+            <member>
+                <link linkend="taucs_chget">taucs_chget</link>
+            </member>
+            <member>
+                <link linkend="cond2sp">cond2sp</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
