@@ -16,6 +16,8 @@ CSV features
   - Write performances improved to a 100x factor.
   - Read performances improved to a 3x factor.
 
+* Bug #10203 fixed - Details the encoding of csv functions.
+
 
 Windows version
 ===============
