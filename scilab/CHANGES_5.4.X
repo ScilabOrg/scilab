@@ -16,6 +16,8 @@ CSV features
   - Write performances improved to a 100x factor.
   - Read performances improved from 3x to 200x factor.
 
+* Bug #8654 fixed - Use the standard separator for csv.
+
 * Bug #8656 fixed - Fix csv accuracy issues.
 
 * Bug #9969 fixed - Strong improvement of the performances.
