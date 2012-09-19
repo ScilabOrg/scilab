@@ -57,6 +57,27 @@ SciErr getComplexMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int
 SciErr getComplexZMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, doublecomplex** _pdblZ);
 
 /**
+ * Get double variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piReal return pointer to real data as integer
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr getMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int** _piReal);
+
+/**
+ * Get double variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piReal return pointer to real data as integer
+ * @param[out] _piImg return pointer to imaginary data as integer
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr geComplextMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int** _piReal, int** _piImg);
+
+/**
  * Allocate a double variable
  * @param[in] _iVar variable number
  * @param[in] _iRows number of rows
@@ -78,6 +99,27 @@ SciErr allocMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, doub
 SciErr allocComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, double** _pdblReal, double** _pdblImg);
 
 /**
+ * Allocate a double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[out] _piReal return pointer to integer real data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr allocMatrixOfDoubleAsInteger(void* _pvCtx, int _iVar, int _iRows, int _iCols, int** _piReal);
+
+/**
+ * Allocate a complex double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[out] _piReal return pointer to integer real data
+ * @param[out] _piImg return pointer to integer imaginary data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr allocComplexMatrixOfDoubleAsInteger(void* _pvCtx, int _iVar, int _iRows, int _iCols, int** _piReal, int** _piImg);
+
+/**
  * Create a double variable
  * @param[in] _iVar variable number
  * @param[in] _iRows number of rows
@@ -97,6 +139,27 @@ SciErr createMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, con
  * @return if the operation succeeded ( 0 ) or not ( !0 )
  */
 SciErr createComplexMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const double* _pdblReal, const double* _pdblImg);
+
+/**
+ * Create a double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piReal pointer to integer real data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr createMatrixOfDoubleAsInteger(void* _pvCtx, int _iVar, int _iRows, int _iCols, const int* _piReal);
+
+/**
+ * Create a complex double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piReal pointer to integer real data
+ * @param[in] _piImg pointer to integer imaginary data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr createComplexMatrixOfDoubleAsInteger(void* _pvCtx, int _iVar, int _iRows, int _iCols, const int* _piReal, const int* _piImg);
 
 /**
  * Create a complex double variable
