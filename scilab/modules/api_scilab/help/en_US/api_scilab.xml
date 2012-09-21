@@ -180,6 +180,12 @@
             <member>
                 <link linkend="String_management_writing_API">String management writing API</link>
             </member>
+            <member>
+                <link linkend="handle_reading_API">handle reading API</link>,
+            </member>
+            <member>
+                <link linkend="handle_writing_API">handle writing API</link>,
+            </member>
         </simplelist>
     </refsection>
     <refsection>
