@@ -128,6 +128,15 @@ H5File::~H5File()
     }
 }
 
+void H5File::flush(const bool local) const
+{
+    herr_t err = H5Fflush(file, local ? H5F_SCOPE_LOCAL : H5F_SCOPE_GLOBAL);
+    if (err < 0)
+    {
+        throw H5Exception(__LINE__, __FILE__, _("Error in flushing the file."));
+    }
+}
+
 H5Object & H5File::getRoot()
 {
     hid_t obj = H5Oopen(getH5Id(), path.c_str(), H5P_DEFAULT);
