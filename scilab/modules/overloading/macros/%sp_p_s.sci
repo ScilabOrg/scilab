@@ -1,4 +1,4 @@
-// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+e// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) BRUNO PINCON
 // 
 // This file must be used under the terms of the CeCILL.
