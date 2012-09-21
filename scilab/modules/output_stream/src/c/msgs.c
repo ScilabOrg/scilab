@@ -143,6 +143,7 @@ static int msg_112(int *n, int *ierr);
 static int msg_113(int *n, int *ierr);
 static int msg_114(int *n, int *ierr);
 static int msg_115(int *n, int *ierr);
+static int msg_116(int *n, int *ierr);
 
 static int msg_default(int *n, int *ierr);
 /*--------------------------------------------------------------------------*/
@@ -501,6 +502,9 @@ int C2F(msgs)(int *n, int *ierr)
 			break;
 		case 115:
 			msg_115(n,ierr);
+			break;
+		case 116:
+			msg_116(n,ierr);
 			break;
 		default:
 			msg_default(n,ierr);
@@ -1404,6 +1408,14 @@ static int msg_115(int *n, int *ierr)
 	sciprint(_("poly: variable name must be lesser than 5 characters long.\n"));
   return 0;
 }
+static int msg_116(int *n, int *ierr)
+{
+  C2F(showstack)();
+  sciprint(_("Warning: syntax \"vector ^ scalar\" is obsolete. It will be removed in scilab-6.\n  Use \"vector .^ scalar\" instead.\n"));
+
+  return 0;
+}
+
 /*--------------------------------------------------------------------------*/
 static int msg_default(int *n, int *ierr)
 {

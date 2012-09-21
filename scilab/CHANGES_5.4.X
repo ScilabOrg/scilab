@@ -122,6 +122,7 @@ Bug Fixes
 * Bug #11865 fixed - There was no information about a LaTeX error in doc
                      generation.
 
+* Bug #11524 fixed - The vector ^ scalar syntax declared obsolete
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
