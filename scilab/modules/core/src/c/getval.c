@@ -142,7 +142,7 @@
 #include "stack-c.h"
 #include "getval.h"
 #include "parserConstant.h"
-
+#include "localization.h"
 /* Table of constant values */
 #define EXPMAX 309
 #define EXPMIN -324
@@ -205,6 +205,18 @@ int C2F(getval)(double *s, int *dotdet)
     if (abs(C2F(com).char1) == dot) {
       detdot = TRUE;
       C2F(fortrangetch)();
+      if ((abs(C2F(com).char1) == slash)||(abs(C2F(com).char1) == bchar_slash))
+        {
+          int v=0;
+          
+          for (i = 0; i < ndgrec; ++i)  v = v * 10 + digit[i];
+          if (abs(C2F(com).char1) == slash)
+            sciprint(_("%s: \"%d.%s ...\" is interpreted as \"%d.0%s ...\". Use \"%d .%s ...\" for element wise operation \n") ,
+                     "Warning",v,"/",v,"/",v,"/");
+          else
+            sciprint(_("%s: \"%d.%s ...\" is interpreted as \"%d.0%s ...\". Use \"%d .%s ...\" for element wise operation \n") ,
+                     "Warning",v,"\\",v,"\\",v,"\\");
+        }
     }
   }
   /*first correction for the (future) exponent : if the first part 

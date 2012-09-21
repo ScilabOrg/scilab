@@ -122,6 +122,7 @@ Bug Fixes
 * Bug #11865 fixed - There was no information about a LaTeX error in doc
                      generation.
 
+* Warning added    - A warning has been added for 1./x and 1.\x syntax
 
             Changes between version 5.4.0-beta-2 and 5.4.0-beta-3 of Scilab
             ===============================================================
