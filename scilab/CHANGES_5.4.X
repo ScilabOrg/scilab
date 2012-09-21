@@ -1,8 +1,12 @@
                     Changes between version 5.4.0 and 5.4.1
                     =======================================
 
+Syntax changes
+===============
 
 * A warning has been added for 1./x and 1.\x syntax clarification.
+
+* Vector ^ scalar syntax declared obsolete. See bug #11524
 
 
 Bug fixes
