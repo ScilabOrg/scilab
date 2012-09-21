@@ -1,6 +1,8 @@
                     Changes between version 5.4.0 and 5.4.1
                     =======================================
 
+Syntax changes
+===============
 
 Improvements
 =============
@@ -38,6 +40,8 @@ Xcos
                      NullPointerException.
 
 * Bug #11998 fixed - listvar_in_hdf5 did not close the hdf5 file.
+
+* Vector ^ scalar syntax declared obsolete. See bug #11524
 
 
 Bug fixes
