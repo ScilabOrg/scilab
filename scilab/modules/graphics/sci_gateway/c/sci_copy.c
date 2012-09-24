@@ -21,7 +21,7 @@
 #include <stdlib.h>
 
 #include "gw_graphics.h"
-#include "stack-c.h"
+#include "api_scilab.h"
 #include "GetProperty.h"
 #include "CloneObjects.h"
 #include "localization.h"
@@ -34,6 +34,7 @@
 /*--------------------------------------------------------------------------*/
 int sci_copy(char *fname, unsigned long fname_len)
 {
+    SciErr sciErr;
     unsigned long hdl = 0, hdlparent = 0;
     char *pobjUID = NULL, *psubwinparenttargetUID = NULL, *pcopyobjUID = NULL;
     int m1 = 0, n1 = 0, l1 = 0, l2 = 0;
@@ -41,8 +42,8 @@ int sci_copy(char *fname, unsigned long fname_len)
     char* pstType = NULL;
     int isPolyline = 0;
 
-    CheckRhs(1, 2);
-    CheckLhs(0, 1);
+    CheckInputArgument(pvApiCtx, 1, 2);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
     /*  set or create a graphic window*/
     lw = 1 + Top - Rhs;
@@ -81,7 +82,7 @@ int sci_copy(char *fname, unsigned long fname_len)
         isPolyline = 0;
     }
 
-    if (Rhs > 1)
+    if (nbInputArgument(pvApiCtx) > 1)
     {
         GetRhsVar(2, GRAPHICAL_HANDLE_DATATYPE, &m1, &n1, &l2); /* Gets the command name */
         hdlparent = (unsigned long) * hstk(l2); /* on recupere le pointeur d'objet par le handle*/
@@ -109,7 +110,7 @@ int sci_copy(char *fname, unsigned long fname_len)
 
     numrow   = 1;
     numcol   = 1;
-    CreateVar(Rhs + 1, GRAPHICAL_HANDLE_DATATYPE, &numrow, &numcol, &outindex);
+    CreateVar(nbInputArgument(pvApiCtx) + 1, GRAPHICAL_HANDLE_DATATYPE, &numrow, &numcol, &outindex);
 
     if (isPolyline)
     {
@@ -125,8 +126,8 @@ int sci_copy(char *fname, unsigned long fname_len)
     setGraphicObjectRelationship(psubwinparenttargetUID, pcopyobjUID);
     releaseGraphicObjectProperty(__GO_PARENT__, pcopyobjUID, jni_string, 1);
 
-    LhsVar(1) = Rhs + 1;
-    PutLhsVar();
+    AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
+    ReturnArguments(pvApiCtx);
 
     return 0;
 }
