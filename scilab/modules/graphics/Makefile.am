@@ -343,7 +343,6 @@ sci_gateway/c/sci_geom3d.c \
 sci_gateway/c/sci_xset.c \
 sci_gateway/c/sci_unzoom.c \
 sci_gateway/c/sci_xsegs.c \
-sci_gateway/c/sci_clear_pixmap.c \
 sci_gateway/c/sci_glue.c \
 sci_gateway/c/sci_xarc.c \
 sci_gateway/c/sci_xpolys.c \
@@ -359,7 +358,6 @@ sci_gateway/c/sci_drawaxis.c \
 sci_gateway/c/sci_demo.c \
 sci_gateway/c/sci_plot2d1.c \
 sci_gateway/c/sci_xrect.c \
-sci_gateway/c/sci_draw.c \
 sci_gateway/c/sci_xarrows.c \
 sci_gateway/c/sci_plot3d.c \
 sci_gateway/c/sci_move.c \
@@ -390,7 +388,6 @@ sci_gateway/c/sci_fec.c \
 sci_gateway/c/sci_rubberbox.c \
 sci_gateway/c/sci_rotate_axes.c \
 sci_gateway/c/sci_is_handle_valid.c \
-sci_gateway/c/sci_show_pixmap.c \
 sci_gateway/c/sci_Legend.c
 
 libscigraphics_la_CPPFLAGS = \
