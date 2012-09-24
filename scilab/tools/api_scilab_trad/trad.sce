@@ -682,7 +682,7 @@ function result = replaceVarType(str)
     result = sed(result, "/[\s]*VarType\(([\S]*)\) != (\S[^\s)]*)/", "(!checkInputArgumentType(pvApiCtx, \1, \2))");
     //third
     //xx = VarType(x)
-    result = sed(result, "/ = VarType\((.*)\)/", " = getInputArgunmentType(pvApiCtx, \1)");
+    result = sed(result, "/ = VarType\((.*)\)/", " = getInputArgumentType(pvApiCtx, \1)");
 endfunction
 
 function result = replaceGetType(str)
@@ -696,7 +696,7 @@ function result = replaceGetType(str)
     result = sed(result, "/[\s]*GetType\(([\S]*)\) != (\S[^\s)]*)/", "(!checkInputArgumentType(pvApiCtx, \1, \2))");
     //third
     //xx = GetType(x)
-    result = sed(result, "/ = GetType\((.*)\)/", " = getInputArgunmentType(pvApiCtx, \1)");
+    result = sed(result, "/ = GetType\((.*)\)/", " = getInputArgumentType(pvApiCtx, \1)");
 endfunction
 
 
