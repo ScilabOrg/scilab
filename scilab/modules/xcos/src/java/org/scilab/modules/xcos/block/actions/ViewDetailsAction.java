@@ -116,8 +116,15 @@ public final class ViewDetailsAction extends VertexSelectionDependantAction {
             final String cmd = "tree_show(" + ScilabDirectHandler.BLK + ");";
             ScilabInterpreterManagement.synchronousScilabExec(cmd);
 
+            /*
+             * Wait a while to let scilab render the detail window
+             */
+            Thread.sleep(500);
+
         } catch (InterpreterException e1) {
             Logger.getLogger(ViewDetailsAction.class.getName()).severe(e1.toString());
+        } catch (InterruptedException e2) {
+            Logger.getLogger(ViewDetailsAction.class.getName()).severe(e2.toString());
         } finally {
             handler.release();
         }
