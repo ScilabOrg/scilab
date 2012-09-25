@@ -36,6 +36,7 @@ namespace types
                                 String(int _iRows, int _iCols);
                                 String(int _iDims, int* _piDims);
                                 String(int _iRows, int _iCols, wchar_t** _pstData);
+                                String(int _iRows, int _iCols, char** _pstData);
                                 String(const wchar_t *_pstData);
                             	String(const char *_pstData);
         virtual                 ~String();
