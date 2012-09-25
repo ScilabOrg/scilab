@@ -338,26 +338,31 @@ public class DataManager {
     public void dispose(String id) {
         if (vertexBufferMap.containsKey(id)) {
             canvas.getBuffersManager().dispose(vertexBufferMap.get(id));
+            vertexBufferMap.get(id).clear();
             vertexBufferMap.remove(id);
         }
 
         if (colorBufferMap.containsKey(id)) {
             canvas.getBuffersManager().dispose(colorBufferMap.get(id));
+            colorBufferMap.get(id).clear();
             colorBufferMap.remove(id);
         }
 
         if (texturesCoordinatesBufferMap.containsKey(id)) {
             canvas.getBuffersManager().dispose(texturesCoordinatesBufferMap.get(id));
+            texturesCoordinatesBufferMap.get(id).clear();
             texturesCoordinatesBufferMap.remove(id);
         }
 
         if (indexBufferMap.containsKey(id)) {
             canvas.getBuffersManager().dispose(indexBufferMap.get(id));
+            indexBufferMap.get(id).clear();
             indexBufferMap.remove(id);
         }
 
         if (wireIndexBufferMap.containsKey(id)) {
             canvas.getBuffersManager().dispose(wireIndexBufferMap.get(id));
+            wireIndexBufferMap.get(id).clear();
             wireIndexBufferMap.remove(id);
         }
     }
