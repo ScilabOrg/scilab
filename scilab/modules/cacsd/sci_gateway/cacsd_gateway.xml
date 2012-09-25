@@ -19,27 +19,34 @@
  Don't touch if you do not know what you are doing
 -->
 <module name="sci_cacsd">
-    <!--
-    <gateway name="intab01od"       function="contr"    type="0" />
-    <gateway name="sci_fstair"      function="fstair"   type="1" />
-    <gateway name="sci_ricc_old"    function="ricc_old" type="1" />
-    <gateway name="sci_ppol"        function="ppol"     type="1" />
-    <gateway name="sci_tr_zer"      function="tr_zer"   type="1" />
-    <gateway name="sci_freq"        function="freq"     type="1" />
-    <gateway name="sci_ltitr"       function="ltitr"    type="1" />
-    <gateway name="sci_rtitr"       function="rtitr"    type="1" />
-    <gateway name="sci_arl2_ius"    function="arl2_ius" type="1" />
-    <gateway name="sci_residu"      function="residu"   type="1" />
-    <gateway name="sci_ldiv"        function="ldiv"     type="1" />
-    <gateway name="sci_sident"      function="sident"   type="1" />
-    <gateway name="sci_sorder"      function="sorder"   type="1" />
-    <gateway name="sci_findBD"      function="findBD"   type="1" />
-    <gateway name="sci_rankqr"      function="rankqr"   type="1" />
-    <gateway name="sci_contr"       function="contr"    type="1" />
-    <gateway name="sci_mucomp"      function="mucomp"   type="1" />
-    <gateway name="sci_ricc"        function="ricc"     type="1" />
-    <gateway name="sci_hinf"        function="hinf"     type="1" />
-    <gateway name="sci_dhinf"       function="dhinf"    type="1" />
-    <gateway name="sci_linmeq"      function="linmeq"   type="1" />
--->
+    <!-- from gatewayId 8-->
+    <gateway name="intereduc"   library="cacsd_f"   function="ereduc"       type="3" />
+    <gateway name="intfstair"   library="cacsd_f"   function="fstair"       type="3" />
+
+    <!-- from gatewayId 9-->
+    <gateway name="intricc"     library="cacsd_f"   function="ricc_old"     type="3" />
+
+    <!-- from gatewayId 10-->
+    <gateway name="scippol"     library="cacsd_f"   function="ppol"         type="3" />
+    <gateway name="scitzer"     library="cacsd_f"   function="tz_zer"       type="3" />
+    <gateway name="scifreq"     library="cacsd_f"   function="freq"         type="3" />
+    <gateway name="sciltitr"    library="cacsd_f"   function="ltitr"        type="3" />
+    <gateway name="scirtitr"    library="cacsd_f"   function="rtitr"        type="3" />
+
+    <!-- from gatewayId 20-->
+    <gateway name="sciarl2"     library="cacsd_f"   function="arl2_ius"     type="3" />
+    <gateway name="sciresidu"   library="cacsd_f"   function="residu"       type="3" />
+    <gateway name="scildiv"     library="cacsd_f"   function="ldiv"         type="3" />
+
+    <!-- from gatewayId 28-->
+    <gateway name="sident"      library="cacsd_f"   function="sident"       type="4" />
+    <gateway name="sorder"      library="cacsd_f"   function="sorder"       type="4" />
+    <gateway name="findbd"      library="cacsd_f"   function="findBD"       type="4" />
+    <gateway name="intrankqr"   library="cacsd_f"   function="rankqr"       type="0" />
+    <gateway name="intab01od"   library="cacsd_f"   function="contr"        type="0" />
+    <gateway name="intmucomp"   library="cacsd_f"   function="mucomp"       type="3" />
+    <gateway name="intricc2"    library="cacsd_f"   function="pet_ricc"     type="3" />
+    <gateway name="inthinf"     library="cacsd_f"   function="hinf"         type="3" />
+    <gateway name="intdhinf"    library="cacsd_f"   function="dhinf"        type="3" />
+    <gateway name="intlinmeq"   library="cacsd_f"   function="linmeq"       type="3" />
 </module>

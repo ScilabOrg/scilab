@@ -169,7 +169,17 @@ am__libscitypes_algo_la_SOURCES_DIST = src/cpp/types.cpp \
 	src/cpp/int32.cpp src/cpp/uint32.cpp src/cpp/int64.cpp \
 	src/cpp/uint64.cpp src/cpp/sparse.cpp \
 	src/cpp/graphichandle.cpp src/cpp/types_tools.cpp \
-	src/cpp/inspector.cpp
+	src/cpp/ContextStackInterface.cpp src/cpp/inspector.cpp \
+	src/stackapi/stackapi_boolean.cpp \
+	src/stackapi/stackapi_boolean_sparse.cpp \
+	src/stackapi/stackapi_common.cpp \
+	src/stackapi/stackapi_double.cpp \
+	src/stackapi/stackapi_error.cpp src/stackapi/stackapi_int.cpp \
+	src/stackapi/stackapi_list.cpp \
+	src/stackapi/stackapi_pointer.cpp \
+	src/stackapi/stackapi_poly.cpp \
+	src/stackapi/stackapi_sparse.cpp \
+	src/stackapi/stackapi_string.cpp
 @ENABLE_DEBUG_TRUE@am__objects_1 = libscitypes_algo_la-inspector.lo
 am__objects_2 = libscitypes_algo_la-types.lo \
 	libscitypes_algo_la-string.lo libscitypes_algo_la-double.lo \
@@ -195,18 +205,30 @@ am__objects_2 = libscitypes_algo_la-types.lo \
 	libscitypes_algo_la-int64.lo libscitypes_algo_la-uint64.lo \
 	libscitypes_algo_la-sparse.lo \
 	libscitypes_algo_la-graphichandle.lo \
-	libscitypes_algo_la-types_tools.lo $(am__objects_1)
-am_libscitypes_algo_la_OBJECTS = $(am__objects_2)
+	libscitypes_algo_la-types_tools.lo \
+	libscitypes_algo_la-ContextStackInterface.lo $(am__objects_1)
+am__objects_3 = libscitypes_algo_la-stackapi_boolean.lo \
+	libscitypes_algo_la-stackapi_boolean_sparse.lo \
+	libscitypes_algo_la-stackapi_common.lo \
+	libscitypes_algo_la-stackapi_double.lo \
+	libscitypes_algo_la-stackapi_error.lo \
+	libscitypes_algo_la-stackapi_int.lo \
+	libscitypes_algo_la-stackapi_list.lo \
+	libscitypes_algo_la-stackapi_pointer.lo \
+	libscitypes_algo_la-stackapi_poly.lo \
+	libscitypes_algo_la-stackapi_sparse.lo \
+	libscitypes_algo_la-stackapi_string.lo
+am_libscitypes_algo_la_OBJECTS = $(am__objects_2) $(am__objects_3)
 libscitypes_algo_la_OBJECTS = $(am_libscitypes_algo_la_OBJECTS)
 libscitypes_java_la_DEPENDENCIES =  \
 	$(top_builddir)/modules/commons/libscicommons.la \
 	$(top_builddir)/modules/jvm/libscijvm.la
-am__objects_3 = libscitypes_java_la-getScilabVariable_wrap.lo
-am__objects_4 = libscitypes_java_la-ScilabToJava.lo \
+am__objects_4 = libscitypes_java_la-getScilabVariable_wrap.lo
+am__objects_5 = libscitypes_java_la-ScilabToJava.lo \
 	libscitypes_java_la-ScilabVariables.lo \
 	libscitypes_java_la-ScilabVariablesRefresh.lo \
 	libscitypes_java_la-ScilabPolynomialToJava.lo
-am_libscitypes_java_la_OBJECTS = $(am__objects_3) $(am__objects_4)
+am_libscitypes_java_la_OBJECTS = $(am__objects_4) $(am__objects_5)
 libscitypes_java_la_OBJECTS = $(am_libscitypes_java_la_OBJECTS)
 @GUI_TRUE@am_libscitypes_java_la_rpath = -rpath $(pkglibdir)
 libscitypes_la_DEPENDENCIES = libscitypes-algo.la
@@ -232,14 +254,14 @@ am__libscitypes_la_SOURCES_DIST = sci_gateway/cpp/types_gw.cpp \
 	sci_gateway/cpp/sci_inspectorShowItem.cpp \
 	sci_gateway/cpp/sci_inspectorShowUnreferencedItem.cpp \
 	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
-@ENABLE_DEBUG_TRUE@am__objects_5 = libscitypes_la-sci_inspectorDeleteUnreferencedItems.lo \
+@ENABLE_DEBUG_TRUE@am__objects_6 = libscitypes_la-sci_inspectorDeleteUnreferencedItems.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorGetItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorGetItemCount.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorGetUnreferencedItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorShowItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorShowUnreferencedItem.lo \
 @ENABLE_DEBUG_TRUE@	libscitypes_la-sci_inspectorGetFunctionList.lo
-am__objects_6 = libscitypes_la-types_gw.lo libscitypes_la-sci_list.lo \
+am__objects_7 = libscitypes_la-types_gw.lo libscitypes_la-sci_list.lo \
 	libscitypes_la-sci_struct.lo libscitypes_la-sci_insert.lo \
 	libscitypes_la-sci_null.lo libscitypes_la-sci_cell.lo \
 	libscitypes_la-sci_makecell.lo libscitypes_la-sci_usertype.lo \
@@ -251,8 +273,8 @@ am__objects_6 = libscitypes_la-types_gw.lo libscitypes_la-sci_list.lo \
 	libscitypes_la-sci_sp2adj.lo libscitypes_la-sci_sparse.lo \
 	libscitypes_la-sci_spcompack.lo libscitypes_la-sci_spget.lo \
 	libscitypes_la-sci_spzeros.lo libscitypes_la-sci_spones.lo \
-	$(am__objects_5)
-am_libscitypes_la_OBJECTS = $(am__objects_6)
+	$(am__objects_6)
+am_libscitypes_la_OBJECTS = $(am__objects_7)
 libscitypes_la_OBJECTS = $(am_libscitypes_la_OBJECTS)
 am_testTypes_OBJECTS = testTypes-test-types.$(OBJEXT)
 testTypes_OBJECTS = $(am_testTypes_OBJECTS)
@@ -659,7 +681,7 @@ TYPES_CPP_SOURCES = src/cpp/types.cpp src/cpp/string.cpp \
 	src/cpp/int32.cpp src/cpp/uint32.cpp src/cpp/int64.cpp \
 	src/cpp/uint64.cpp src/cpp/sparse.cpp \
 	src/cpp/graphichandle.cpp src/cpp/types_tools.cpp \
-	$(am__append_2)
+	src/cpp/ContextStackInterface.cpp $(am__append_2)
 TYPES_JAVA_CPP_SOURCES = src/cpp/ScilabToJava.cpp \
 	            src/jni/ScilabVariables.cpp \
 	            src/jni/ScilabVariablesRefresh.cpp \
@@ -682,6 +704,19 @@ TYPES_GATEWAY_CPP_SOURCES = sci_gateway/cpp/types_gw.cpp \
 	sci_gateway/cpp/sci_spcompack.cpp \
 	sci_gateway/cpp/sci_spget.cpp sci_gateway/cpp/sci_spzeros.cpp \
 	sci_gateway/cpp/sci_spones.cpp $(am__append_4)
+TYPES_STACKAPI_CPP_SOURCES = \
+	src/stackapi/stackapi_boolean.cpp \
+	src/stackapi/stackapi_boolean_sparse.cpp \
+	src/stackapi/stackapi_common.cpp \
+	src/stackapi/stackapi_double.cpp \
+	src/stackapi/stackapi_error.cpp \
+	src/stackapi/stackapi_int.cpp \
+	src/stackapi/stackapi_list.cpp \
+	src/stackapi/stackapi_pointer.cpp \
+	src/stackapi/stackapi_poly.cpp \
+	src/stackapi/stackapi_sparse.cpp \
+	src/stackapi/stackapi_string.cpp
+
 libscitypes_java_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(srcdir)/includes
 
@@ -698,6 +733,7 @@ libscitypes_java_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 
 libscitypes_la_CPPFLAGS = \
 	-I$(srcdir)/includes \
+	-I$(srcdir)/src/stackapi \
     -I$(top_srcdir)/libs/MALLOC/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
 	-I$(top_srcdir)/modules/localization/includes \
@@ -711,6 +747,7 @@ libscitypes_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/string/includes \
 	-I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/libs/dynamiclibrary/includes \
+    -I$(top_srcdir)/libs/string/includes \
 	-I src/cpp \
     $(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)
@@ -725,7 +762,7 @@ libscitypes_java_la_LIBADD = \
 			$(top_builddir)/modules/commons/libscicommons.la \
 			$(top_builddir)/modules/jvm/libscijvm.la
 
-libscitypes_algo_la_SOURCES = $(TYPES_CPP_SOURCES)
+libscitypes_algo_la_SOURCES = $(TYPES_CPP_SOURCES) $(TYPES_STACKAPI_CPP_SOURCES)
 libscitypes_java_la_SOURCES = $(TYPES_JAVA_C_SOURCES) $(TYPES_JAVA_CPP_SOURCES)
 libscitypes_la_SOURCES = $(TYPES_GATEWAY_CPP_SOURCES)
 
@@ -856,6 +893,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-ContextStackInterface.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-arrayof.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-bool.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-cell.Plo@am__quote@
@@ -882,6 +920,17 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-singlepoly.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-singlestruct.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-sparse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_boolean.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_boolean_sparse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_common.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_double.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_error.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_int.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_list.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_pointer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_poly.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_sparse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-stackapi_string.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-string.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-struct.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscitypes_algo_la-threadId.Plo@am__quote@
@@ -1231,12 +1280,96 @@ libscitypes_algo_la-types_tools.lo: src/cpp/types_tools.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-types_tools.lo `test -f 'src/cpp/types_tools.cpp' || echo '$(srcdir)/'`src/cpp/types_tools.cpp
 
+libscitypes_algo_la-ContextStackInterface.lo: src/cpp/ContextStackInterface.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-ContextStackInterface.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-ContextStackInterface.Tpo -c -o libscitypes_algo_la-ContextStackInterface.lo `test -f 'src/cpp/ContextStackInterface.cpp' || echo '$(srcdir)/'`src/cpp/ContextStackInterface.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-ContextStackInterface.Tpo $(DEPDIR)/libscitypes_algo_la-ContextStackInterface.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/ContextStackInterface.cpp' object='libscitypes_algo_la-ContextStackInterface.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-ContextStackInterface.lo `test -f 'src/cpp/ContextStackInterface.cpp' || echo '$(srcdir)/'`src/cpp/ContextStackInterface.cpp
+
 libscitypes_algo_la-inspector.lo: src/cpp/inspector.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-inspector.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-inspector.Tpo -c -o libscitypes_algo_la-inspector.lo `test -f 'src/cpp/inspector.cpp' || echo '$(srcdir)/'`src/cpp/inspector.cpp
 @am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-inspector.Tpo $(DEPDIR)/libscitypes_algo_la-inspector.Plo
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/inspector.cpp' object='libscitypes_algo_la-inspector.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-inspector.lo `test -f 'src/cpp/inspector.cpp' || echo '$(srcdir)/'`src/cpp/inspector.cpp
+
+libscitypes_algo_la-stackapi_boolean.lo: src/stackapi/stackapi_boolean.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_boolean.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_boolean.Tpo -c -o libscitypes_algo_la-stackapi_boolean.lo `test -f 'src/stackapi/stackapi_boolean.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_boolean.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_boolean.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_boolean.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_boolean.cpp' object='libscitypes_algo_la-stackapi_boolean.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_boolean.lo `test -f 'src/stackapi/stackapi_boolean.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_boolean.cpp
+
+libscitypes_algo_la-stackapi_boolean_sparse.lo: src/stackapi/stackapi_boolean_sparse.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_boolean_sparse.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_boolean_sparse.Tpo -c -o libscitypes_algo_la-stackapi_boolean_sparse.lo `test -f 'src/stackapi/stackapi_boolean_sparse.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_boolean_sparse.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_boolean_sparse.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_boolean_sparse.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_boolean_sparse.cpp' object='libscitypes_algo_la-stackapi_boolean_sparse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_boolean_sparse.lo `test -f 'src/stackapi/stackapi_boolean_sparse.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_boolean_sparse.cpp
+
+libscitypes_algo_la-stackapi_common.lo: src/stackapi/stackapi_common.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_common.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_common.Tpo -c -o libscitypes_algo_la-stackapi_common.lo `test -f 'src/stackapi/stackapi_common.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_common.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_common.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_common.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_common.cpp' object='libscitypes_algo_la-stackapi_common.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_common.lo `test -f 'src/stackapi/stackapi_common.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_common.cpp
+
+libscitypes_algo_la-stackapi_double.lo: src/stackapi/stackapi_double.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_double.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_double.Tpo -c -o libscitypes_algo_la-stackapi_double.lo `test -f 'src/stackapi/stackapi_double.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_double.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_double.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_double.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_double.cpp' object='libscitypes_algo_la-stackapi_double.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_double.lo `test -f 'src/stackapi/stackapi_double.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_double.cpp
+
+libscitypes_algo_la-stackapi_error.lo: src/stackapi/stackapi_error.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_error.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_error.Tpo -c -o libscitypes_algo_la-stackapi_error.lo `test -f 'src/stackapi/stackapi_error.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_error.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_error.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_error.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_error.cpp' object='libscitypes_algo_la-stackapi_error.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_error.lo `test -f 'src/stackapi/stackapi_error.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_error.cpp
+
+libscitypes_algo_la-stackapi_int.lo: src/stackapi/stackapi_int.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_int.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_int.Tpo -c -o libscitypes_algo_la-stackapi_int.lo `test -f 'src/stackapi/stackapi_int.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_int.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_int.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_int.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_int.cpp' object='libscitypes_algo_la-stackapi_int.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_int.lo `test -f 'src/stackapi/stackapi_int.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_int.cpp
+
+libscitypes_algo_la-stackapi_list.lo: src/stackapi/stackapi_list.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_list.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_list.Tpo -c -o libscitypes_algo_la-stackapi_list.lo `test -f 'src/stackapi/stackapi_list.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_list.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_list.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_list.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_list.cpp' object='libscitypes_algo_la-stackapi_list.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_list.lo `test -f 'src/stackapi/stackapi_list.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_list.cpp
+
+libscitypes_algo_la-stackapi_pointer.lo: src/stackapi/stackapi_pointer.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_pointer.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_pointer.Tpo -c -o libscitypes_algo_la-stackapi_pointer.lo `test -f 'src/stackapi/stackapi_pointer.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_pointer.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_pointer.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_pointer.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_pointer.cpp' object='libscitypes_algo_la-stackapi_pointer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_pointer.lo `test -f 'src/stackapi/stackapi_pointer.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_pointer.cpp
+
+libscitypes_algo_la-stackapi_poly.lo: src/stackapi/stackapi_poly.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_poly.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_poly.Tpo -c -o libscitypes_algo_la-stackapi_poly.lo `test -f 'src/stackapi/stackapi_poly.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_poly.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_poly.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_poly.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_poly.cpp' object='libscitypes_algo_la-stackapi_poly.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_poly.lo `test -f 'src/stackapi/stackapi_poly.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_poly.cpp
+
+libscitypes_algo_la-stackapi_sparse.lo: src/stackapi/stackapi_sparse.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_sparse.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_sparse.Tpo -c -o libscitypes_algo_la-stackapi_sparse.lo `test -f 'src/stackapi/stackapi_sparse.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_sparse.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_sparse.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_sparse.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_sparse.cpp' object='libscitypes_algo_la-stackapi_sparse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_sparse.lo `test -f 'src/stackapi/stackapi_sparse.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_sparse.cpp
+
+libscitypes_algo_la-stackapi_string.lo: src/stackapi/stackapi_string.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_algo_la-stackapi_string.lo -MD -MP -MF $(DEPDIR)/libscitypes_algo_la-stackapi_string.Tpo -c -o libscitypes_algo_la-stackapi_string.lo `test -f 'src/stackapi/stackapi_string.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_string.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscitypes_algo_la-stackapi_string.Tpo $(DEPDIR)/libscitypes_algo_la-stackapi_string.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/stackapi/stackapi_string.cpp' object='libscitypes_algo_la-stackapi_string.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscitypes_algo_la-stackapi_string.lo `test -f 'src/stackapi/stackapi_string.cpp' || echo '$(srcdir)/'`src/stackapi/stackapi_string.cpp
 
 libscitypes_java_la-ScilabToJava.lo: src/cpp/ScilabToJava.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscitypes_java_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscitypes_java_la-ScilabToJava.lo -MD -MP -MF $(DEPDIR)/libscitypes_java_la-ScilabToJava.Tpo -c -o libscitypes_java_la-ScilabToJava.lo `test -f 'src/cpp/ScilabToJava.cpp' || echo '$(srcdir)/'`src/cpp/ScilabToJava.cpp

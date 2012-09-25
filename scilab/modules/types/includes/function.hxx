@@ -39,9 +39,11 @@ namespace types
     public :
         enum FunctionType
         {
-            EntryPointC       = 0,
-            EntryPointCPP     = 1,
-            EntryPointMex     = 2
+            EntryPointC             = 0,
+            EntryPointCPP           = 1,
+            EntryPointCMex          = 2,
+            EntryPointFortran       = 3,
+            EntryPointFortranMex    = 4
         };
 
         typedef void (*LOAD_DEPS)(void);
@@ -58,9 +60,11 @@ namespace types
         static Function*        createFunction(std::wstring _wstName, GW_FUNC _pFunc, std::wstring _wstModule);
         static Function*        createFunction(std::wstring _wstName, OLDGW_FUNC _pFunc, std::wstring _wstModule);
         static Function*        createFunction(std::wstring _wstName, MEXGW_FUNC _pFunc, std::wstring _wstModule);
+        static Function*        createFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, std::wstring _wstModule);
         static Function*        createFunction(std::wstring _wstName, GW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule);
         static Function*        createFunction(std::wstring _wstName, OLDGW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule);
         static Function*        createFunction(std::wstring _wstName, MEXGW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule);
+        static Function*        createFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule);
 
         /*dynamic gateways*/
         static Function*        createFunction(std::wstring _wstFunctionName, std::wstring _wstEntryPointName, std::wstring _wstLibName, FunctionType _iType, LOAD_DEPS _pLoadDeps, std::wstring _wstModule, bool _bCloseLibAfterCall = false);
@@ -122,6 +126,22 @@ namespace types
         MEXGW_FUNC              m_pOldFunc;
     };
 
+    class WrapFortranFunction : public Function
+    {
+    private :
+                                WrapFortranFunction(WrapFortranFunction* _pWrapFunction);
+    public :
+                                WrapFortranFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule);
+
+                                Callable::ReturnValue call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc);
+        InternalType*           clone();
+
+        OLDGWF_FUNC             getFunc() { return m_pOldFunc; }
+
+    private :
+        OLDGWF_FUNC             m_pOldFunc;
+    };
+
     class GatewayStruct
     {
     public :
@@ -159,6 +179,7 @@ namespace types
         GW_FUNC                 m_pFunc;
         OLDGW_FUNC              m_pOldFunc;
         MEXGW_FUNC              m_pMexFunc;
+        OLDGWF_FUNC             m_pFortranFunc;
         Function*               m_pFunction;
         DynLibHandle            m_hLib;
     };
