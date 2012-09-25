@@ -1,0 +1,165 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Antoine ELIAS
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ */
+
+#ifndef __SPARSE_STACKAPI__
+#define __SPARSE_STACKAPI__
+
+#if !defined(__INTERNAL_API_SCILAB__)
+#error Do not include api_sparse.h. Include api_scilab.h instead.
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/*****************************/
+/*   sparse matrix functions */
+/*****************************/
+
+/**
+ * Get sparse variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbItem return number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column positions ( 1 indexed )
+ * @param[out] _pdblReal return pointer to real data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_getSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal);
+
+/**
+ * Get complex sparse variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbItem number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column positions ( 1 indexed )
+ * @param[out] _pdblReal return pointer to real parts
+ * @param[out] _pdblImg return pointer to imaginary parts
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_getComplexSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
+
+/**
+ * Allocate a sparse variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _iNbItem number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column position ( 1 indexed )
+ * @param[out] _pdblReal return pointer to data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_allocSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal);
+
+/**
+ * Allocate a complex sparse variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _iNbItem number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column positions ( 1 indexed )
+ * @param[out] _pdblReal return pointer to real parts
+ * @param[out] _pdblImg return pointer to imaginary parts
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_allocComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
+
+/**
+ * Create a sparse double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows nmber of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _iNbItem number of items
+ * @param[in] _piNbItemRow array of numbers of items for each row
+ * @param[in] _piColPos array of item column positions ( 1 indexed )
+ * @param[in] _pdblReal pointer to real data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_createSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal);
+
+/**
+ * Create a complex sparse double variable
+ * @param[in] _iVar variable number
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _iNbItem number of items
+ * @param[in] _piNbItemRow array of numbers of items for each row
+ * @param[in] _piColPos array of item column positions ( 1 indexed )
+ * @param[in] _pdblReal pointer to real parts
+ * @param[in] _pdblImg pointer to imaginary parts
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+SciErr stackapi_createComplexSparseMatrix(void* _pvCtx, int _iVar, int _iRows, int _iCols, int _iNbItem, const int* _piNbItemRow, const int* _piColPos, const double* _pdblReal, const double* _pdblImg);
+
+/* shortcut functions */
+
+/**
+ * Check if the variable type is sparse double
+ * @param[in] _piAddress variable address
+ * @return 1 for true and 0 for false
+ */
+int stackapi_isSparseType(void* _pvCtx, int* _piAddress);
+
+/**
+ * Get sparse variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbItem return number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column positions ( 1 indexed )
+ * @param[out] _pdblReal return pointer to real data
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal);
+
+/**
+ * Get complex sparse variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbItem return number of items
+ * @param[out] _piNbItemRow return array of numbers of items for each row
+ * @param[out] _piColPos return array of item column positions ( 1 indexed )
+ * @param[out] _pdblReal return pointer to real parts
+ * @param[out] _pdblImg return pointer to imaginary parts
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedComplexSparseMatrix(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbItem, int** _piNbItemRow, int** _piColPos, double** _pdblReal, double** _pdblImg);
+
+/**
+ * Free memory allocated for a sparse matrix (named or not) by shortcut functions 
+ * @param[in] _piNbItemRow array of numbers of items for each row
+ * @param[in] _piColPos array of item column position ( 1 indexed )
+ * @param[in] _pdblReal pointer to real data
+ */
+void stackapi_freeAllocatedSparseMatrix(int* _piNbItemRows, int* _piColPos, double* _pdblReal);
+
+/**
+ * Free memory allocated for a complex sparse matrix (named or not) by shortcut functions 
+ * @param[in] _piNbItemRow array of numbers of items for each row
+ * @param[in] _piColPos array of item column positions ( 1 indexed )
+ * @param[in] _pdblReal pointer to real parts
+ * @param[in] _pdblImg pointer to imaginary parts
+ */
+void stackapi_freeAllocatedComplexSparseMatrix(int* _piNbItemRows, int* _piColPos, double* _pdblReal, double* _pdblImg);
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* __SPARSE_STACKAPI__ */
