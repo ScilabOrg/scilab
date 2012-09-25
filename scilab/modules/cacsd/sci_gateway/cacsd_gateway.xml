@@ -19,7 +19,12 @@
  Don't touch if you do not know what you are doing
 -->
 <module name="sci_cacsd">
-    <!--
+  <gateway name="scifreq_"    library="cacsd_f"   function="freq"     type="3" />
+  <gateway name="intereduc_"  library="cacsd_f"   function="ereduc"   type="3" />
+  <gateway name="fortran_"    library="cacsd_f"   function="fortran"  type="3" />
+  <gateway name="intequil_"   library="cacsd_f"   function="equil"    type="3" />
+  <gateway name="sciarl2_"    library="cacsd_f"   function="arl2_ius" type="3" />
+  <!--
     <gateway name="intab01od"       function="contr"    type="0" />
     <gateway name="sci_fstair"      function="fstair"   type="1" />
     <gateway name="sci_ricc_old"    function="ricc_old" type="1" />

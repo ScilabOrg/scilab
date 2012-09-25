@@ -65,7 +65,8 @@ TYPES_CPP_SOURCES = \
 			src/cpp/uint64.cpp \
             src/cpp/sparse.cpp \
 			src/cpp/graphichandle.cpp \
-            src/cpp/types_tools.cpp
+            src/cpp/types_tools.cpp \
+            src/cpp/ContextStackInterface.cpp
 
 TYPES_JAVA_CPP_SOURCES = src/cpp/ScilabToJava.cpp \
 	            src/jni/ScilabVariables.cpp \
@@ -152,6 +153,7 @@ libscitypes_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/string/includes \
 	-I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/libs/dynamiclibrary/includes \
+    -I$(top_srcdir)/libs/string/includes \
 	-I src/cpp \
     $(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)

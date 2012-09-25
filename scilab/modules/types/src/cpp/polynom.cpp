@@ -420,19 +420,19 @@ namespace types
             if(isComplex())
             {
                 ostr << L"Real part" << endl << endl;
-                ostr << getMatrixString(_piDims, _iDims, false);
+                ostr << stackapi_getMatrixString(_piDims, _iDims, false);
                 ostr << L"Imaginary part" << endl << endl;
-                ostr << getMatrixString(_piDims, _iDims, true);
+                ostr << stackapi_getMatrixString(_piDims, _iDims, true);
             }
             else
             {
-                ostr << getMatrixString(_piDims, _iDims, false);
+                ostr << stackapi_getMatrixString(_piDims, _iDims, false);
             }
         }
         return true;
     }
 
-    wstring Polynom::getMatrixString(int* _piDims, int _iDims, bool _bComplex)
+    wstring Polynom::stackapi_getMatrixString(int* _piDims, int _iDims, bool _bComplex)
     {
         int iLineLen = getConsoleWidth();
 
