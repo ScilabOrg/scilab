@@ -19,7 +19,7 @@
  Don't touch if you do not know what you are doing
 -->
 <module name="sci_cacsd">
-    <gateway name="scifreq_"        library="cacsd_f" function="freq"     type="3" />
+    <gateway name="scifreq_"        function="freq"     type="3" />
     <!--
     <gateway name="intab01od"       function="contr"    type="0" />
     <gateway name="sci_fstair"      function="fstair"   type="1" />

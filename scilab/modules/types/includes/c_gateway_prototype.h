@@ -14,6 +14,7 @@
 
 #define C_GATEWAY_PROTOTYPE(__gateway__) int __gateway__(char* fname, void* pvApiCtx)
 typedef int (*OLDGW_FUNC)(char *fname, void* pvApiCtx);
+typedef int (*OLDGWF_FUNC)(char *fname, unsigned long fname_len);
 typedef int (*MEXGW_FUNC)(int nlhs, int* plhs[], int nrhs, int* prhs[]);
 
 #endif /* !__C_GATEWAY_PROTOTYPE_H__ */
