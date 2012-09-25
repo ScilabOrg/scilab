@@ -2,11 +2,11 @@ c     --------------------------
 
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
-c 
+c
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
 c you should have received as part of this distribution.  The terms
-c are also available at    
+c are also available at
 c http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 c     --------------------------
@@ -25,7 +25,7 @@ c
 c
       iadr(l)=l+l-1
       sadr(l)=(l/2)+1
-      
+
             if(top+lhs-rhs.ge.bot) then
          call error(18)
          return
@@ -117,7 +117,7 @@ c     Final degre parameter
       endif
       itmax=int(stk(l))
 c
-c     Initial point parameter 
+c     Initial point parameter
 c     (for arl2a it only gives le formal variable name)
       top=top-1
       lw=lstk(top+1)
@@ -203,9 +203,11 @@ c     too many solutions found
       istk(ilf+1)=1
       istk(ilf+2)=1
       l=l+itmax+1
-      lstk(top)=l+1
+      lstk(top+1)=l+1
       if(lhs.eq.1) goto 99
+      top = top + 1
       il=iadr(lstk(top))
+
       istk(il)=2
       istk(il+1)=1
       istk(il+2)=1
@@ -335,8 +337,7 @@ c     errors
 c     Putting in order the stack
       call unsfdcopy(lww-lw0,stk(lw0),1,stk(l0),1)
 c
-      
+
    99 return
       end
 c     ----------------------------
-      

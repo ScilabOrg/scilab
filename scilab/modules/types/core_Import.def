@@ -1,0 +1,21 @@
+LIBRARY    core.dll
+
+
+EXPORTS
+scimem_
+freemem_
+stack_
+vstk_
+iop_
+com_
+GetRhsCPolyVar
+CreateCPolyVarFromPtr
+getrhsvar_
+createcvarfromptr_
+createvarfromptr_
+gettype_
+getmat_
+crematvar_
+freeArrayOfString
+freeArrayOfWideString
+str2name_
