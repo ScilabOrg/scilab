@@ -288,6 +288,21 @@ void C2F(eventloopprompt) (char *buffer, int *buf_size, int *len_line, int *eof)
             {
                 __WaitThreadDie(WatchStoreCmdThread);
             }
+            if (getScilabMode() != SCILAB_NWNI)
+            {
+
+                char *cwd = NULL;
+
+                int err = 0;
+
+                UpdateBrowseVar(TRUE);
+                cwd = scigetcwd(&err);
+                if (cwd)
+                {
+                    FileBrowserChDir(cwd);
+                    FREE(cwd);
+                }
+            }
             __CreateThread(&WatchStoreCmdThread, &watchStoreCommand);
             WatchStoreCmdThreadAlive = TRUE;
         }
