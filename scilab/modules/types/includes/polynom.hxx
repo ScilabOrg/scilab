@@ -67,7 +67,7 @@ namespace types
 
         std::wstring            getRowString(int* _piDims, int _iDims, bool _bComplex);
         std::wstring            getColString(int* _piDims, int _iDims, bool _bComplex);
-        std::wstring            getMatrixString(int* _piDims, int _iDims, bool _bComplex);
+        std::wstring            stackapi_getMatrixString(int* _piDims, int _iDims, bool _bComplex);
 
 
         bool                    operator==(const InternalType& it);

@@ -65,7 +65,8 @@ TYPES_CPP_SOURCES = \
 			src/cpp/uint64.cpp \
             src/cpp/sparse.cpp \
 			src/cpp/graphichandle.cpp \
-            src/cpp/types_tools.cpp
+            src/cpp/types_tools.cpp \
+            src/cpp/ContextStackInterface.cpp
 
 TYPES_JAVA_CPP_SOURCES = src/cpp/ScilabToJava.cpp \
 	            src/jni/ScilabVariables.cpp \
@@ -122,6 +123,21 @@ TYPES_GATEWAY_CPP_SOURCES += \
 	sci_gateway/cpp/sci_inspectorGetFunctionList.cpp
 endif
 
+TYPES_STACKAPI_CPP_SOURCES = \
+	src/stackapi/stackapi_boolean.cpp \
+	src/stackapi/stackapi_boolean_sparse.cpp \
+	src/stackapi/stackapi_common.cpp \
+	src/stackapi/stackapi_double.cpp \
+	src/stackapi/stackapi_error.cpp \
+	src/stackapi/stackapi_int.cpp \
+	src/stackapi/stackapi_list.cpp \
+	src/stackapi/stackapi_pointer.cpp \
+	src/stackapi/stackapi_poly.cpp \
+	src/stackapi/stackapi_sparse.cpp \
+	src/stackapi/stackapi_string.cpp
+
+
+
 libscitypes_java_la_CFLAGS = $(JAVA_JNI_INCLUDE) \
 			-I$(srcdir)/includes
 
@@ -139,6 +155,7 @@ libscitypes_java_la_CPPFLAGS = $(JAVA_JNI_INCLUDE) \
 
 libscitypes_la_CPPFLAGS = \
 	-I$(srcdir)/includes \
+	-I$(srcdir)/src/stackapi \
     -I$(top_srcdir)/libs/MALLOC/includes \
 	-I$(top_srcdir)/modules/elementary_functions/includes \
 	-I$(top_srcdir)/modules/localization/includes \
@@ -152,9 +169,11 @@ libscitypes_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/string/includes \
 	-I$(top_srcdir)/modules/threads/includes \
     -I$(top_srcdir)/libs/dynamiclibrary/includes \
+    -I$(top_srcdir)/libs/string/includes \
 	-I src/cpp \
     $(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)
+
 
 pkglib_LTLIBRARIES = libscitypes.la
 if GUI
@@ -172,7 +191,7 @@ libscitypes_java_la_LIBADD = \
 			$(top_builddir)/modules/commons/libscicommons.la \
 			$(top_builddir)/modules/jvm/libscijvm.la
 
-libscitypes_algo_la_SOURCES = $(TYPES_CPP_SOURCES)
+libscitypes_algo_la_SOURCES = $(TYPES_CPP_SOURCES) $(TYPES_STACKAPI_CPP_SOURCES)
 libscitypes_java_la_SOURCES = $(TYPES_JAVA_C_SOURCES) $(TYPES_JAVA_CPP_SOURCES)
 libscitypes_la_SOURCES = $(TYPES_GATEWAY_CPP_SOURCES)
 

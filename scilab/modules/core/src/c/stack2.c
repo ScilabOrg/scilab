@@ -27,20 +27,19 @@
 #include <stdio.h>
 #include "os_strdup.h"
 #include "MALLOC.h"
-#include "stack-c.h"
 #include "sciprint.h"
 #include "stack2.h"
 #include "cvstr.h"
-#include "parse.h"
-#include "men_Sutils.h"
-#include "int2db.h"
-#include "rea2b.h"
+//#include "parse.h"
+//#include "men_Sutils.h"
+//#include "int2db.h"
+//#include "rea2b.h"
 #include "Scierror.h"
 #include "localization.h"
-#include "callinterf.h"
-#include "call_scilab.h"
+//#include "callinterf.h" -> warning call api_scilab and produce side effet on RHs, Lhs, ...
 #include "recursionFunction.h"
 #include "doublecomplex.h"
+#include "stack-c.h"
 
 #ifdef _MSC_VER
 #define abs(x) ((x) >= 0 ? (x) : -(x))  /* pour abs  C2F(mvfromto) line 2689 */
@@ -457,6 +456,120 @@ int C2F(isref) (int *number)
 
 int C2F(createvar) (int *lw, char *typex, int *m, int *n, int *lr, unsigned long type_len)
 {
+    int ix1, ix, it = 0, lw1, lcs, IT;
+    unsigned char Type = *typex;
+    char *fname = Get_Iname();
+
+    if (*lw > intersiz)
+    {
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createvar");
+        return FALSE;
+    }
+    Nbvars = Max(*lw, Nbvars);
+    lw1 = *lw + Top - Rhs;
+    if (*lw < 0)
+    {
+        Scierror(999, _("%s: bad call to %s! (1rst argument).\n"), fname, "createvar");
+        return FALSE;
+    }
+    switch (Type)
+    {
+        case 'c':
+            ix1 = *m * *n;
+            if (!C2F(cresmat2) (fname, &lw1, &ix1, lr, nlgh))
+                return FALSE;
+            *lr = cadr(*lr);
+            // Fill the string with spaces
+            for (ix = 0; ix < (*m) * (*n); ++ix)
+                *cstk(*lr + ix) = ' ';
+            *cstk(*lr + (*m) * (*n)) = '\0';
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'd':
+            if (!C2F(cremat) (fname, &lw1, &it, m, n, lr, &lcs, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'z':
+            IT = 1;
+            if (!(*Lstk(lw1) % 2))
+                *Lstk(lw1) = *Lstk(lw1) + 1;
+            if (!C2F(cremat) (fname, &lw1, &IT, m, n, lr, &lcs, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            *lr = sadr(*lr);
+            break;
+        case 'l':
+            C2F(crelist) (&lw1, m, lr);
+            C2F(intersci).ntypes[*lw - 1] = '$';
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 't':
+            C2F(cretlist) (&lw1, m, lr);
+            C2F(intersci).ntypes[*lw - 1] = '$';
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'm':
+            C2F(cremlist) (&lw1, m, lr);
+            C2F(intersci).ntypes[*lw - 1] = '$';
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'r':
+            if (!C2F(cremat) (fname, &lw1, &it, m, n, lr, &lcs, nlgh))
+                return FALSE;
+            *lr = iadr(*lr);
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'i':
+            if (!C2F(cremat) (fname, &lw1, &it, m, n, lr, &lcs, nlgh))
+                return FALSE;
+            *lr = iadr(*lr);
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'b':
+            if (!C2F(crebmat) (fname, &lw1, m, n, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'p':
+            if (!C2F(crepointer) (fname, &lw1, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = '$';
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'I':
+            it = *lr;               /* on entry lr gives the int type */
+            if (!C2F(creimat) (fname, &lw1, &it, m, n, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = '$';
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'h':
+            if (!C2F(crehmat) (fname, &lw1, m, n, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+            // TODO : add a default case
+    }
     return TRUE;
 }
 
@@ -473,6 +586,50 @@ int C2F(createvar) (int *lw, char *typex, int *m, int *n, int *lr, unsigned long
 
 int C2F(createcvar) (int *lw, char *typex, int *it, int *m, int *n, int *lr, int *lc, unsigned long type_len)
 {
+    unsigned char Type = *typex;
+    int lw1;
+    char *fname = Get_Iname();
+
+    if (*lw > intersiz)
+    {
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "createcvar");
+        return FALSE;
+    }
+    Nbvars = Max(*lw, Nbvars);
+    lw1 = *lw + Top - Rhs;
+    if (*lw < 0)
+    {
+        Scierror(999, _("%s: bad call to %s! (1rst argument).\n"), fname, "createcvar");
+        return FALSE;
+    }
+    switch (Type)
+    {
+        case 'd':
+            if (!C2F(cremat) (fname, &lw1, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'r':
+            if (!C2F(cremat) (fname, &lw1, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            *lr = iadr(*lr);
+            *lc = *lr + *m * *n;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+        case 'i':
+            if (!C2F(cremat) (fname, &lw1, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            *lr = iadr(*lr);
+            *lc = *lr + *m * *n;
+            C2F(intersci).ntypes[*lw - 1] = Type;
+            C2F(intersci).iwhere[*lw - 1] = *Lstk(lw1);
+            C2F(intersci).lad[*lw - 1] = *lr;
+            break;
+    }
     return TRUE;
 }
 
@@ -723,7 +880,234 @@ int C2F(getmatdims) (int *number, int *m, int *n)
 
 int C2F(getrhsvar) (int *number, char *typex, int *m, int *n, int *lr, unsigned long type_len)
 {
-    return FALSE;
+    int ierr = 0, il1 = 0, ild1 = 0, nn = 0;
+    int lrr = 0;
+    char *fname = Get_Iname();
+    char **items = NULL, namex[nlgh + 1];
+    unsigned char Type = *(unsigned char *)typex;
+    int topk = 0, ltype = 0, m1 = 0, n1 = 0, lc = 0, lr1 = 0, it = 0, lw = 0, ile = 0, ils = 0, ix1 = 0, ix2 = 0;
+    int mnel = 0, icol = 0;
+    SciSparse *Sp = NULL;
+    SciIntMat *Im = NULL;
+
+    /* we accept a call to getrhsvar after a createvarfromptr call */
+    if (*number > Rhs && *number > Nbvars)
+    {
+        Scierror(999, _("%s: bad call to %s! (1rst argument).\n"), fname, "getrhsvar");
+        return FALSE;
+    }
+
+    Nbvars = Max(Nbvars, *number);
+    lw = *number + Top - Rhs;
+
+    if (*number > intersiz)
+    {
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getrhsvar");
+        return FALSE;
+    }
+
+    if (overloadtype(&lw, fname, &Type) == 0)
+        return FALSE;
+
+    topk = Top;
+    switch (Type)
+    {
+        case 'c':
+            *n = 1;
+            if (!C2F(getsmat) (fname, &topk, &lw, &m1, &n1, &cx1, &cx1, lr, m, nlgh))
+            {
+                return FALSE;
+            }
+
+            if ((m1 != 1) || (n1 != 1))
+            {
+                /* bug 8768 check dimensions */
+                Scierror(999, _("%s: Wrong size for input argument #%d: A string expected.\n"), fname, *number);
+                return FALSE;
+            }
+
+            ix2 = *m * *n;
+            /* in case where ix2 is 0 in2str adds the \0 char after the end of
+             * the storage of the variable, so it writes over the next variable
+             * tp avoid this pb we shift up by one the location where the
+             * data is written */
+            lrr = *lr;
+            if (ix2 == 0)
+                lrr--;
+
+            C2F(in2str) (&ix2, istk(*lr), cstk(cadr(*lr)), ix2 + 1);
+            *lr = cadr(*lr);
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+
+        case 'd':
+            if (!C2F(getmat) (fname, &topk, &lw, &it, m, n, lr, &lc, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'z':
+            if (!C2F(getmat) (fname, &topk, &lw, &it, m, n, lr, &lc, nlgh))
+                return FALSE;
+            ix2 = *m * *n;
+            if ((it != 1) && (ix2 != 0))
+            {
+                Scierror(999, _("%s: Wrong type for argument: Complex expected.\n"), fname);
+                return FALSE;
+            };
+            if (!(*lr % 2))
+            {
+                /* bad adress (lr is even) shift up the stack */
+                double2z(stk(*lr), stk(*lr) - 1, ix2, ix2);
+                *istk(iadr(*lr) - 4) = 133;
+                *istk(iadr(*lr) - 3) = iadr(*lr + 2 * ix2 - 1);
+                *istk(iadr(*lr + 2 * ix2 - 1)) = *m;
+                *istk(iadr(*lr + 2 * ix2 - 1) + 1) = *n;
+                C2F(intersci).ntypes[*number - 1] = Type;
+                C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+                C2F(intersci).lad[*number - 1] = *lr - 1;
+                *lr = sadr(*lr - 1);
+            }
+            else
+            {
+                SciToF77(stk(*lr), ix2, ix2);
+                C2F(intersci).ntypes[*number - 1] = Type;
+                C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+                C2F(intersci).lad[*number - 1] = *lr;
+                *lr = sadr(*lr);
+            };
+            break;
+        case 'r':
+            if (!C2F(getmat) (fname, &topk, &lw, &it, m, n, lr, &lc, nlgh))
+                return FALSE;
+            ix1 = *m * *n;
+            C2F(simple) (&ix1, stk(*lr), sstk(iadr(*lr)));
+            *lr = iadr(*lr);
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'i':
+            if (!C2F(getmat) (fname, &topk, &lw, &it, m, n, lr, &lc, nlgh))
+                return FALSE;
+            ix1 = *m * *n;
+            C2F(entier) (&ix1, stk(*lr), istk(iadr(*lr)));
+            *lr = iadr(*lr);
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'b':
+            if (!C2F(getbmat) (fname, &topk, &lw, m, n, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'l':
+        case 't':
+        case 'm':
+            *n = 1;
+            if (!C2F(getilist) (fname, &topk, &lw, m, n, lr, nlgh))
+                return FALSE;
+            /* No data conversion for list members ichar(type)='$' */
+            Type = '$';
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'S':
+            /** getwsmat : must be back in stack1.c from xawelm.f */
+            if (!C2F(getwsmat) (fname, &topk, &lw, m, n, &il1, &ild1, nlgh))
+                return FALSE;
+            nn = (*m) * (*n);
+            ScilabMStr2CM(istk(il1), &nn, istk(ild1), &items, &ierr);
+            if (ierr == 1)
+                return FALSE;
+            Type = '$';
+            /*
+             * Warning : lr must have the proper size when calling getrhsvar
+             * char **Str1; .... GetRhsVar(...., &lr)
+             */
+            *((char ***)lr) = items;
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 's':
+            /* sparse matrices */
+            Sp = (SciSparse *) lr;
+            if (!C2F(getsparse) (fname, &topk, &lw, &it, m, n, &(Sp->nel), &mnel, &icol, &lr1, &lc, nlgh))
+                return FALSE;
+            Sp->m = *m;
+            Sp->n = *n;
+            Sp->it = it;
+            Sp->mnel = istk(mnel);
+            Sp->icol = istk(icol);
+            Sp->R = stk(lr1);
+            Sp->I = (it == 1) ? stk(lc) : NULL;
+            Type = '$';
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'I':
+            /* int matrices */
+            Im = (SciIntMat *) lr;
+            if (!C2F(getimat) (fname, &topk, &lw, &it, m, n, &lr1, nlgh))
+                return FALSE;
+            Im->m = *m;
+            Im->n = *n;
+            Im->it = it;
+            Im->l = lr1;
+            Im->D = istk(lr1);
+            Type = '$';
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'f':
+            /* XXXXXX : gros bug ici car getexternal a besoin de savoir
+             * pour quelle fonction on recupere un external
+             * or ici on presuppose que c'est setfeval
+             * de plus on ne sait pas exactement de quel type d'external il s'agit
+             */
+
+            /*      int function getrhsvar(number,type,m,n,lr) */
+            //            *lr = *Lstk(lw);
+            //            ils = iadr(*lr) + 1;
+            //            *m = *istk(ils);
+            //            ile = ils + *m * nsiz + 1;
+            //            *n = *istk(ile);
+            //            if (!C2F(getexternal) (fname, &topk, &lw, namex, &ltype, C2F(setfeval), nlgh, nlgh))
+            //            {
+            //                return FALSE;
+            //            }
+            //            Type = '$';
+            //            C2F(intersci).ntypes[*number - 1] = Type;
+            //            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            //            C2F(intersci).lad[*number - 1] = *lr;
+            printf("external was not more managed for old stack\n");
+            break;
+        case 'p':
+            if (!C2F(getpointer) (fname, &topk, &lw, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+        case 'h':
+            if (!C2F(gethmat) (fname, &topk, &lw, m, n, lr, nlgh))
+                return FALSE;
+            C2F(intersci).ntypes[*number - 1] = Type;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+            C2F(intersci).lad[*number - 1] = *lr;
+            break;
+    }
+    return TRUE;
 }
 
 /*---------------------------------------------------------------------
@@ -735,6 +1119,49 @@ int C2F(getrhsvar) (int *number, char *typex, int *m, int *n, int *lr, unsigned 
 
 int C2F(getrhscvar) (int *number, char *typex, int *it, int *m, int *n, int *lr, int *lc, unsigned long type_len)
 {
+    int ix1, lw, topk;
+    unsigned char Type = *typex;
+    char *fname = Get_Iname();
+
+    Nbvars = Max(Nbvars, *number);
+    lw = *number + Top - Rhs;
+    if (*number > Rhs)
+    {
+        Scierror(999, _("%s: bad call to %s! (1rst argument).\n"), fname, "getrhscvar");
+        return FALSE;
+    }
+    if (*number > intersiz)
+    {
+        Scierror(999, _("%s: (%s) too many arguments in the stack edit stack.h and enlarge intersiz.\n"), fname, "getrhscvar");
+        return FALSE;
+    }
+    topk = Top;
+    switch (Type)
+    {
+        case 'd':
+            if (!C2F(getmat) (fname, &topk, &lw, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            break;
+        case 'r':
+            if (!C2F(getmat) (fname, &topk, &lw, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            ix1 = *m * *n * (*it + 1);
+            C2F(simple) (&ix1, stk(*lr), sstk(iadr(*lr)));
+            *lr = iadr(*lr);
+            *lc = *lr + *m * *n;
+            break;
+        case 'i':
+            if (!C2F(getmat) (fname, &topk, &lw, it, m, n, lr, lc, nlgh))
+                return FALSE;
+            ix1 = *m * *n * (*it + 1);
+            C2F(entier) (&ix1, stk(*lr), istk(iadr(*lr)));
+            *lr = iadr(*lr);
+            *lc = *lr + *m * *n;
+            break;
+    }
+    C2F(intersci).ntypes[*number - 1] = Type;
+    C2F(intersci).iwhere[*number - 1] = *Lstk(lw);
+    C2F(intersci).lad[*number - 1] = *lr;
     return TRUE;
 }
 
@@ -785,6 +1212,69 @@ int C2F(getlistrhscvar) (int *lnumber, int *number, char *typex, int *it, int *m
 
 int C2F(createvarfromptr) (int *number, char *typex, int *m, int *n, void *iptr, unsigned long type_len)
 {
+    static int un = 1;
+    unsigned char Type = *typex;
+    int MN = (*m) * (*n), lr, it, lw1;
+    char *fname = Get_Iname();
+
+    lw1 = *number + Top - Rhs;
+    switch (Type)
+    {
+        case 'd':
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            C2F(dcopy) (&MN, *((double **)iptr), &un, stk(lr), &un);
+            break;
+        case 'i':
+        case 'b':
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            C2F(icopy) (&MN, *((int **)iptr), &un, istk(lr), &un);
+            break;
+        case 'r':
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            C2F(rcopy) (&MN, *((float **)iptr), &un, sstk(lr), &un);
+            break;
+        case 'c':
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            strcpy(cstk(lr), *((char **)iptr));
+            break;
+        case 'I':
+            /* on entry lr must gives the int type */
+            it = lr = ((SciIntMat *) iptr)->it;
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            C2F(tpconv) (&it, &it, &MN, ((SciIntMat *) iptr)->D, &un, istk(lr), &un);
+            break;
+        case 'p':
+            if (C2F(createvar) (number, typex, m, n, &lr, type_len) == FALSE)
+                return FALSE;
+            *stk(lr) = (double)((unsigned long int)iptr);
+            break;
+        case 'S':
+            /* special case: not taken into account in createvar */
+            Nbvars = Max(*number, Nbvars);
+            if (!cre_smat_from_str(fname, &lw1, m, n, (char **)iptr, nlgh))
+                return FALSE;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw1);
+            C2F(intersci).ntypes[*number - 1] = '$';
+            break;
+        case 's':
+            /* special case: not taken into account in createvar */
+            Nbvars = Max(*number, Nbvars);
+            if (!cre_sparse_from_ptr(fname, &lw1, m, n, (SciSparse *) iptr, nlgh))
+                return FALSE;
+            C2F(intersci).iwhere[*number - 1] = *Lstk(lw1);
+            C2F(intersci).ntypes[*number - 1] = '$';
+            break;
+        default:
+            Scierror(999, _("%s: (%s) bad second argument!\n"), fname, "createvarfromptr");
+
+            return FALSE;
+    }
+    /*     this object will be copied with a vcopyobj in putlhsvar */
     return TRUE;
 }
 
@@ -794,6 +1284,50 @@ int C2F(createvarfromptr) (int *number, char *typex, int *m, int *n, void *iptr,
 
 int C2F(createcvarfromptr) (int *number, char *typex, int *it, int *m, int *n, double *iptr, double *iptc, unsigned long type_len)
 {
+    unsigned char Type = *typex;
+    char *fname = Get_Iname();
+    int lw1, lcs, lrs, ix1;
+    int iOne = 1;
+
+    Nbvars = Max(Nbvars, *number);
+    if (*number > intersiz)
+    {
+        Scierror(999, _("%s: createcvarfromptr: too many arguments on the stack, enlarge intersiz.\n"), fname);
+        return FALSE;
+    }
+    lw1 = *number + Top - Rhs;
+    switch (Type)
+    {
+        case 'd':
+            if (!C2F(cremat) (fname, &lw1, it, m, n, &lrs, &lcs, nlgh))
+                return FALSE;
+            ix1 = *m * *n;
+            C2F(dcopy) (&ix1, iptr, &iOne, stk(lrs), &iOne);
+            if (*it == 1)
+            {
+                ix1 = *m * *n;
+                C2F(dcopy) (&ix1, iptc, &iOne, stk(lcs), &iOne);
+            }
+            break;
+        case 'i':
+            if (!C2F(cremat) (fname, &lw1, it, m, n, &lrs, &lcs, nlgh))
+                return FALSE;
+            ix1 = *m * *n;
+            memcpy(stk(lrs), iptr, sizeof(int) * ix1);
+            //C2F(cint) (&ix1, (int **)iptr, stk(lrs));
+            if (*it == 1)
+            {
+                memcpy(stk(lcs), iptc, sizeof(int) * ix1);
+                //C2F(cint) (&ix1, (int **)iptc, stk(lcs));
+            }
+            break;
+        default:
+            Scierror(999, _("%s: (%s) bad second argument!\n"), fname, "createcvarfromptr");
+
+            return FALSE;
+    }
+    /*     this object will be copied with a vcopyobj in putlhsvar */
+    C2F(intersci).ntypes[*number - 1] = '$';
     return TRUE;
 }
 

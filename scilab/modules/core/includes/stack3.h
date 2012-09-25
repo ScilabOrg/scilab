@@ -88,8 +88,8 @@ int iAllocComplexSparseMatrix(int _iNewVal, int _iComplex, int _iRows, int _iCol
 int iAllocMatrixOfBoolean(int _iNewVal, int _iRows, int _iCols, int** _piBoolData);
 int iAllocBooleanSparseMatrix(int _iNewVal, int _iRows, int _iCols, int _iTotalElem, int** _piElemByRow, int** _piColByRow);
 
-int iAllocMatrixOfString(int _iNewVal, int _iRows, int _iCols, int *_piLen, char** _piStringData);
-int iAllocMatrixOfStringToAddress(int _iAddr, int _iRows, int _iCols, int *_piLen, char **_piStringData);
+int iAllocMatrixOfString(int _iNewVal, int _iRows, int _iCols, int *_piLen, int** _piStringData);
+int iAllocMatrixOfStringToAddress(int _iAddr, int _iRows, int _iCols, int *_piLen, int** _piStringData);
 
 /*Get List Information*/
 /* Get Item Count and type of each item */
@@ -155,7 +155,7 @@ int iListAllocMatrixOfPoly(int _iVar, int* _piParent, int _iItemPos, int** _piVa
 int iListAllocComplexMatrixOfPoly(int _iVar, int* _piParent, int _iItemPos, int _iComplex, int** _piVarName, int _iRows, int _iCols, int *_piPow, double** _pdblRealData, double** _pdblImgData);
 
 /* Add string matrix in _iVar list */
-int iListAllocString(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int *_piLen, char** _pszData);
+int iListAllocString(int _iVar, int* _piParent, int _iItemPos, int _iRows, int _iCols, int *_piLen, int** _piStringData);
 
 /* Internal function automaticly call after the last insertion of data */
 void vListClose(int _iVar);
