@@ -22,11 +22,13 @@ struct GatewayStr
     {
         wstName = L"";
         wstFunction = L"";
+        wstLibName = L"";
         iType = types::Function::EntryPointC;
     }
 
     std::wstring wstName;
     std::wstring wstFunction;
+    std::wstring wstLibName;
     types::Function::FunctionType iType;
 };
 

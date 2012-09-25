@@ -77,6 +77,10 @@ vectGateway loadGatewaysName(wstring _wstModuleName)
                 {
                     str.iType = (types::Function::FunctionType)atoi((const char*)attrib->children->content);
                 }
+                else if (xmlStrEqual(attrib->name, (const xmlChar*)"library"))
+                {
+                    str.wstLibName = to_wide_string((const char*)attrib->children->content);
+                }
                 attrib = attrib->next;
             }
             vect.push_back(str);
@@ -384,6 +388,15 @@ int CacsdModule::Load()
 
     for (int i = 0 ; i < (int)vect.size() ; i++)
     {
+        if (vect[i].wstLibName != L"")
+        {
+#ifdef _MSC_VER
+            pwstLibName = buildModuleDynLibraryNameW(vect[i].wstLibName.c_str(), DYNLIB_NAME_FORMAT_1);
+#else
+            pwstLibName = buildModuleDynLibraryNameW(wstModuleName.c_str(), DYNLIB_NAME_FORMAT_3);
+#endif
+        }
+
         symbol::Context::getInstance()->AddFunction(types::Function::createFunction(vect[i].wstFunction, vect[i].wstName, pwstLibName, vect[i].iType, NULL, wstModuleName));
     }
 
