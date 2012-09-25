@@ -28,6 +28,7 @@ src/c/StringConvert.c \
 src/c/os_wcsdup.c \
 src/c/os_wcstok.c \
 src/c/scistrtostr.c \
+src/c/code2str.c \
 src/c/stringToDouble.c
 
 STRING_FORTRAN_SOURCES =

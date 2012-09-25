@@ -81,14 +81,28 @@ namespace types
 #endif
 	}
 
-    String::String(int _iRows, int _iCols, wchar_t** _pstData)
+    String::String(int _iRows, int _iCols, wchar_t** _pwstData)
     {
         wchar_t** pwsData = NULL;
         int piDims[] = {_iRows, _iCols};
 		create(piDims, 2, &pwsData, NULL);
         for(int i = 0 ; i < m_iSize ; i++)
         {
-            set(i, os_wcsdup(_pstData[i]));
+            set(i, os_wcsdup(_pwstData[i]));
+        }
+#ifndef NDEBUG
+        Inspector::addItem(this);
+#endif
+    }
+
+    String::String(int _iRows, int _iCols, char** _pstData)
+    {
+        wchar_t** pwsData = NULL;
+        int piDims[] = {_iRows, _iCols};
+		create(piDims, 2, &pwsData, NULL);
+        for(int i = 0 ; i < m_iSize ; i++)
+        {
+            set(i, to_wide_string(_pstData[i]));
         }
 #ifndef NDEBUG
         Inspector::addItem(this);
