@@ -1,22 +1,26 @@
 /*
- *  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- *  Copyright (C) 2008-2008 - DIGITEO - Antoine ELIAS
- *  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
- *
- *  This file must be used under the terms of the CeCILL.
- *  This source file is licensed as described in the file COPYING, which
- *  you should have received as part of this distribution.  The terms
- *  are also available at
- *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
- *
- */
+*  Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+*  Copyright (C) 2008-2008 - DIGITEO - Antoine ELIAS
+*  Copyright (C) 2010-2010 - DIGITEO - Bruno JOFRET
+*
+*  This file must be used under the terms of the CeCILL.
+*  This source file is licensed as described in the file COPYING, which
+*  you should have received as part of this distribution.  The terms
+*  are also available at
+*  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+*/
 
 #include <sstream>
 #include <vector>
 #include "function.hxx"
+#include "double.hxx"
+#include "context.hxx"
+#include "ContextStackInterface.hxx"
 
 extern "C"
 {
+#include "stdio.h"
 #include "core_math.h"
 #include "charEncoding.h"
 #include "Scierror.h"
@@ -24,7 +28,17 @@ extern "C"
 #include "sci_path.h"
 #include "MALLOC.h"
 #include "os_swprintf.h"
+#include "machine.h"
+#include "scimem.h"
+#include "stack-c.h"
+#include "formatmode.h"
+#include "formatmode.h"
+#include "context_get.h"
 }
+
+//definition for stack uses
+#define DEFAULTSTACKSIZE 1000000
+#define MIN_STACKSIZE 180000
 
 namespace types
 {
@@ -41,6 +55,11 @@ Function* Function::createFunction(std::wstring _wstName, OLDGW_FUNC _pFunc, std
 Function* Function::createFunction(std::wstring _wstName, MEXGW_FUNC _pFunc, std::wstring _wstModule)
 {
     return new WrapMexFunction(_wstName, _pFunc, NULL, _wstModule);
+}
+
+Function* Function::createFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, std::wstring _wstModule)
+{
+    return new WrapFortranFunction(_wstName, _pFunc, NULL, _wstModule);
 }
 
 Function* Function::createFunction(std::wstring _wstName, GW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule)
@@ -63,9 +82,9 @@ Function* Function::createFunction(std::wstring _wstFunctionName, std::wstring _
     return new DynamicFunction(_wstFunctionName, _wstEntryPointName, _wstLibName, _iType, _pLoadDeps, _wstModule, _bCloseLibAfterCall);
 }
 
-Function* Function::createFunction(std::wstring _wstFunctionName, std::wstring _wstEntryPointName, std::wstring _wstLibName, FunctionType _iType, std::wstring _wstLoadDepsName, std::wstring _wstModule, bool _bCloseLibAfterCall)
+Function* Function::createFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule)
 {
-    return new DynamicFunction(_wstFunctionName, _wstEntryPointName, _wstLibName, _iType, _wstLoadDepsName, _wstModule, _bCloseLibAfterCall);
+    return new WrapFortranFunction(_wstName, _pFunc, _pLoadDeps, _wstModule);
 }
 
 Function::Function(std::wstring _wstName, GW_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule) : Callable(), m_pFunc(_pFunc), m_pLoadDeps(_pLoadDeps)
@@ -244,6 +263,102 @@ Function::ReturnValue WrapMexFunction::call(typed_list &in, int _iRetCount, type
     return retVal;
 }
 
+WrapFortranFunction::WrapFortranFunction(std::wstring _wstName, OLDGWF_FUNC _pFunc, LOAD_DEPS _pLoadDeps, std::wstring _wstModule)
+{
+    m_wstName = _wstName;
+    m_pOldFunc = _pFunc;
+    m_wstModule = _wstModule;
+    m_pLoadDeps = _pLoadDeps;
+}
+
+WrapFortranFunction::WrapFortranFunction(WrapFortranFunction* _pWrapFunction)
+{
+    m_wstModule  = _pWrapFunction->getModule();
+    m_wstName    = _pWrapFunction->getName();
+    m_pOldFunc  = _pWrapFunction->getFunc();
+    m_pLoadDeps = _pWrapFunction->getDeps();
+}
+
+InternalType* WrapFortranFunction::clone()
+{
+    return new WrapFortranFunction(this);
+}
+
+Function::ReturnValue WrapFortranFunction::call(typed_list &in, int _iRetCount, typed_list &out, ast::ConstVisitor* execFunc)
+{
+    if (m_pLoadDeps != NULL)
+    {
+        m_pLoadDeps();
+    }
+
+    ReturnValue retVal = Callable::OK;
+
+    int iStackSize = MIN_STACKSIZE;
+    int piStackPtr = 0;
+    C2F(scimem)(&iStackSize, &piStackPtr);
+
+    *stk(1) = DEFAULTSTACKSIZE; //why DEFAULTSTACKSIZE and not iStackSize ???
+    *Lstk(1) = piStackPtr + 1;
+    C2F(vstk).isiz = isizt - 768;
+
+    //init bottoms ...
+    Bot = C2F(vstk).isiz - 1; //%eps
+    C2F(vstk).bbot = Bot;
+    C2F(vstk).bot0 = Bot;
+
+    int idx = Bot;//place new "protected" variables at the bottom of the stack
+    int iOffset = iStackSize - (sadr(3) + 1); //initial stack size - %eps stack size
+    *Lstk(idx) = *Lstk(1) - 1 + iOffset; //update address of next variable ( %eps in this case )
+    //
+    int iVarID[nsiz];
+
+    //create %eps
+    C2F(str2name)("%eps", iVarID, (int)strlen("%eps")); //convert string to "SergeSCII"
+    Double* pEps = (Double*)context_get(L"%eps");
+    int iComplex = 0, iRows = 1, iCols = 1;
+    //create a new named var %eps on stack with blas value
+    C2F(crematvar)(iVarID, &idx, &iComplex, &iRows, &iCols, pEps->get(), NULL);
+    C2F(vstk).leps = sadr(iadr(*Lstk(idx)) + 4); //+4 sizeof %eps + 1
+    idx++;
+    //
+    //        //create blank variable to ... do something I guess.
+    C2F(str2name)("blanc", iVarID, (int)strlen("blanc")); //convert string to "SergeCI"
+    double dblZero = 0;
+    C2F(crematvar)(iVarID, &idx, &iComplex, &iRows, &iCols, &dblZero, NULL);
+
+    /*set some stack configuration*/
+
+    //set mode lct(6)
+    C2F(iop).lct[5] = getFormatMode();
+    //set lines lct(7)
+    C2F(iop).lct[6] = getFormatSize();
+
+    //init stack information
+    Rhs = in.size();
+    Top = Rhs;
+    Lhs = _iRetCount;
+
+    //create input variables in temporaty stack
+    for (int i = 0 ; i < in.size() ; i++)
+    {
+        InternalType* pIT = in[i];
+        convertContextToStack(in[i], i + 1);
+    }
+
+    //printf("avant Top %d, Rhs %d, Lhs %d\n", Top, Rhs, Lhs);
+    char* pFunctionName = wide_string_to_UTF8(m_wstName.c_str());
+    m_pOldFunc(pFunctionName);
+
+    for (int i = 0 ; i < _iRetCount ; i++)
+    {
+        out.push_back(convertStackToContext(i+1));
+    }
+
+    //clear stack !
+    C2F(freemem)();
+    return retVal;
+}
+
 DynamicFunction::DynamicFunction(std::wstring _wstName, std::wstring _wstEntryPointName, std::wstring _wstLibName, FunctionType _iType, std::wstring _wstLoadDepsName, std::wstring _wstModule, bool _bCloseLibAfterCall)
 {
     m_wstName               = _wstName;
@@ -326,13 +441,13 @@ Callable::ReturnValue DynamicFunction::Init()
         char* pstError = GetLastDynLibError();
 
         /* Haven't been able to find the lib with dlopen...
-         * This can happen for two reasons:
-         * - the lib must be dynamically linked
-         * - Some silly issues under Suse (see bug #2875)
-         * Note that we are handling only the "source tree build"
-         * because libraries are split (they are in the same directory
-         * in the binary)
-         */
+        * This can happen for two reasons:
+        * - the lib must be dynamically linked
+        * - Some silly issues under Suse (see bug #2875)
+        * Note that we are handling only the "source tree build"
+        * because libraries are split (they are in the same directory
+        * in the binary)
+        */
         wchar_t* pwstScilabPath = getSCIW();
         wchar_t pwstModulesPath[] = L"/modules/";
         wchar_t pwstLTDir[] =  L".libs/";
@@ -379,13 +494,21 @@ Callable::ReturnValue DynamicFunction::Init()
             case EntryPointC :
                 m_pOldFunc = (OLDGW_FUNC)GetDynLibFuncPtr(m_hLib, _pstEntryPoint);
                 break;
-            case EntryPointMex :
+            case EntryPointFortran :
+                {
+                    //add '_' at the end of fortran function name like C2F
+                    std::string st = std::string(_pstEntryPoint) + "_";
+                    m_pFortranFunc = (OLDGWF_FUNC)GetDynLibFuncPtr(m_hLib, (char*)st.c_str());
+                    break;
+                }
+            case EntryPointCMex :
+            case EntryPointFortranMex :
                 m_pMexFunc = (MEXGW_FUNC)GetDynLibFuncPtr(m_hLib, _pstEntryPoint);
                 break;
         }
     }
 
-    if (m_pFunc == NULL && m_pOldFunc == NULL && m_pMexFunc == NULL)
+    if (m_pFunc == NULL && m_pOldFunc == NULL && m_pMexFunc == NULL && m_pFortranFunc == NULL)
     {
         ScierrorW(999, _W("Impossible to load %s function in %ls library: %ls\n"), m_wstEntryPoint.c_str(), m_wstLibName.c_str(), GetLastDynLibError());
         return Error;
@@ -399,8 +522,14 @@ Callable::ReturnValue DynamicFunction::Init()
         case EntryPointC :
             m_pFunction = new WrapFunction(m_wstName, m_pOldFunc, m_pLoadDeps, m_wstModule);
             break;
-        case EntryPointMex :
+        case EntryPointFortran :
+            m_pFunction = new WrapFortranFunction(m_wstName, m_pFortranFunc, m_pLoadDeps, m_wstModule);
+            break;
+        case EntryPointCMex :
             m_pFunction = new WrapMexFunction(m_wstName, m_pMexFunc, m_pLoadDeps, m_wstModule);
+            break;
+        case EntryPointFortranMex :
+            m_pFunction = new WrapMexFunction(m_wstName + L"_", m_pMexFunc, m_pLoadDeps, m_wstModule);
             break;
     }
 

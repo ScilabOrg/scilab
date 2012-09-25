@@ -1,0 +1,176 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2009 - DIGITEO - Antoine ELIAS
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ */
+
+#ifndef __POLY_STACKAPI__
+#define __POLY_STACKAPI__
+
+#if !defined(__INTERNAL_API_SCILAB__)
+#error Do not include api_poly.h. Include api_scilab.h instead.
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/*****************************/
+/*   poly matrix functions   */
+/*****************************/
+
+/**
+ * Get polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _pstVarName return variable name of polynomials
+ * @param[out] _piVarNameLen return length of _pstVarName
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+ 
+SciErr stackapi_getPolyVariableName(void* _pvCtx, int* _piAddress, char* _pstVarName, int* _piVarNameLen);
+
+/**
+ * Get polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbCoef return number of polynomial coefficients for each element
+ * @param[out] _pdblReal return real coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+ 
+SciErr stackapi_getMatrixOfPoly(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal);
+
+/**
+ * Get complex polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbCoef return number of polynomial coefficients for each element
+ * @param[out] _pdblReal return real coefficients
+ * @param[out] _pdblImg return imaginary coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+ 
+SciErr stackapi_getComplexMatrixOfPoly(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+
+/**
+ * Create a polynomial variable
+ * @param[in] _iVar variable number
+ * @param[in] _pstVarName polynomial variable name
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piNbCoef number of polynomial coefficients for each element
+ * @param[in] _pdblReal pointer to real coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+ 
+SciErr stackapi_createMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal);
+
+/**
+ * Create complex polynomial variable data
+ * @param[in] _iVar variable number
+ * @param[in] _pstVarName polynomial variable name
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piNbCoef number of polynomial coefficients for each element
+ * @param[in] _pdblReal pointer to real coefficients
+ * @param[in] _pdblImg pointer to imaginary coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+ 
+SciErr stackapi_createComplexMatrixOfPoly(void* _pvCtx, int _iVar, char* _pstVarName, int _iRows, int _iCols, const int* _piNbCoef, const double* const* _pdblReal, const double* const* _pdblImg);
+
+/* shortcut functions */
+
+/**
+ * Check if the variable type is polynomial
+ * @param[in] _piAddress variable address
+ * @return 1 for true and 0 for false
+ */
+int stackapi_isPolyType(void* _pvCtx, int* _piAddress);
+
+/**
+ * Get single polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piNbCoef return number of polynomial coefficients
+ * @param[out] _pdblReal pointer to real coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedSinglePoly(void* _pvCtx, int* _piAddress, int* _piNbCoef, double** _pdblReal);
+
+/**
+ * Get single complex polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piNbCoef return number of polynomial coefficients
+ * @param[out] _pdblReal pointer to real coefficients
+ * @param[out] _pdblImg pointer to imaginary coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedSingleComplexPoly(void* _pvCtx, int* _piAddress, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+
+/**
+ * Get matrix of polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbCoef return number of polynomial coefficients
+ * @param[out] _pdblReal return pointer to real coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedMatrixOfPoly(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int** _piNbCoef, double*** _pdblReal);
+
+/**
+ * Get matrix of complex polynomial variable data
+ * @param[in] _piAddress variable address
+ * @param[out] _piRows return number of rows
+ * @param[out] _piCols return number of columns
+ * @param[out] _piNbCoef return number of polynomial coefficients for each element
+ * @param[out] _pdblReal return pointer to real coefficients
+ * @param[out] _pdblImg return pointer to imaginary coefficients
+ * @return if the operation succeeded ( 0 ) or not ( !0 )
+ */
+int stackapi_getAllocatedMatrixOfComplexPoly(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, int** _piNbCoef, double*** _pdblReal, double*** _pdblImg);
+
+/**
+ * Free memory allocated for a single polynomial variable ( named or not )
+ * @param[in] _pdblReal pointer to real coefficients
+ */
+void stackapi_freeAllocatedSinglePoly(double* _pdblReal);
+
+/**
+ * Free memory allocated for a single complex polynomial variable ( named or not )
+ * @param[in] _pdblReal pointer to real coefficients
+ * @param[in] _pdblImg pointer to imaginary coefficients
+ */
+void stackapi_freeAllocatedSingleComplexPoly(double* _pdblReal, double* _pdblImg);
+
+/**
+ * Free memory allocated for a polynomial matrix ( named or not )
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piNbCoef number of polynomial coefficients for each element
+ * @param[in] _pdblReal pointer to real coefficients
+ */
+void stackapi_freeAllocatedMatrixOfPoly(int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal);
+
+/**
+ * Free memory allocated for a complex polynomial matrix ( named or not )
+ * @param[in] _iRows number of rows
+ * @param[in] _iCols number of columns
+ * @param[in] _piNbCoef number of polynomial coefficients for each element
+ * @param[in] _pdblReal pointer to real coefficients
+ * @param[in] _pdblImg pointer to imaginary coefficients
+ */
+void stackapi_freeAllocatedMatrixOfComplexPoly(int _iRows, int _iCols, int* _piNbCoef, double** _pdblReal, double** _pdblImg);
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* __POLY_STACKAPI__ */

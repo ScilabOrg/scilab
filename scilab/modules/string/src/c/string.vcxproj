@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -258,6 +258,7 @@ lib /DEF:"$(ProjectDir)System_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="code2str.c" />
     <ClCompile Include="convstr.c" />
     <ClCompile Include="cvstr.c" />
     <ClCompile Include="DllMainString.c" />
@@ -284,6 +285,7 @@ lib /DEF:"$(ProjectDir)System_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     <ClCompile Include="tokens.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\includes\code2str.h" />
     <ClInclude Include="..\..\includes\os_wcstok.h" />
     <ClInclude Include="convstr.h" />
     <ClInclude Include="..\..\includes\cvstr.h" />
