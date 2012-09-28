@@ -418,7 +418,7 @@ public class DataManager {
     private void fillVertexBuffer(ElementsBuffer vertexBuffer, String id, int coordinateMask) throws ObjectRemovedException, OutOfMemoryException {
         int logMask = MainDataLoader.getLogMask(id);
         int length = MainDataLoader.getDataSize(id);
-        FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
+        FloatBuffer data = getDataBuffer(vertexBuffer, length * 4);
         MainDataLoader.fillVertices(id, data, 4, coordinateMask, DEFAULT_SCALE, DEFAULT_TRANSLATE, logMask);
         vertexBuffer.setData(data, 4);
     }
@@ -432,14 +432,14 @@ public class DataManager {
 
     private void fillTextureCoordinatesBuffer(ElementsBuffer colorBuffer, String id) throws ObjectRemovedException, OutOfMemoryException {
         int length = MainDataLoader.getDataSize(id);
-        FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
+        FloatBuffer data = getDataBuffer(colorBuffer, length * 4);
         MainDataLoader.fillTextureCoordinates(id, data, length);
         colorBuffer.setData(data, 4);
     }
 
     private void fillColorBuffer(ElementsBuffer colorBuffer, String id) throws ObjectRemovedException, OutOfMemoryException {
         int length = MainDataLoader.getDataSize(id);
-        FloatBuffer data = BufferAllocation.newFloatBuffer(length * 4);
+        FloatBuffer data = getDataBuffer(colorBuffer, length * 4);
         MainDataLoader.fillColors(id, data, 4);
         colorBuffer.setData(data, 4);
     }
@@ -480,5 +480,28 @@ public class DataManager {
         data.limit(actualLength);
 
         indexBuffer.setData(data);
+    }
+
+    /**
+     * Method which reuse the same data-buffer if the same length is requested
+     *
+     * @param buffer
+     *            the original buffer
+     * @param length
+     *            the length to use
+     * @return the {@link ElementsBuffer#getData()} in case of the same length,
+     *         a new buffer otherwise
+     * @throws OutOfMemoryException
+     *             if we are unable to allocate a new buffer
+     */
+    private final FloatBuffer getDataBuffer(final ElementsBuffer buffer, final int length) throws OutOfMemoryException {
+        final FloatBuffer previousData = buffer.getData();
+        final FloatBuffer data;
+        if (previousData != null && length == previousData.limit()) {
+            data = previousData;
+        } else {
+            data = BufferAllocation.newFloatBuffer(length);
+        }
+        return data;
     }
 }
