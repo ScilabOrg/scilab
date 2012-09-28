@@ -1065,7 +1065,7 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         /*
          * Update the children ports
          */
-        if (children != null) {
+        if (getChildCount() > 0) {
             updateChildren(modifiedBlock);
         }
 
@@ -1204,6 +1204,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
             oldPorts.put(type, new LinkedList<mxICell>());
         }
 
+        if (getChildCount() <= 0) {
+            return oldPorts;
+        }
+
         // sort children according to the ordering parameter (useful on
         // scilab-5.2.x diagrams)
         sort(children);
@@ -1236,6 +1240,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * emit any event.
      */
     public void sortChildren() {
+        if (getChildCount() <= 0) {
+            return;
+        }
+
         sort(children);
     }
 
