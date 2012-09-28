@@ -110,11 +110,6 @@ void H5File::init()
     }
 }
 
-/*H5File::H5File(const char * _filename, const char * _path, const char * access) : H5Object(H5Object::getRoot()), filename(std::string(_filename)), path(std::string(_path)), flags(getFlags(std::string(access)))
-{
-    init();
-    }*/
-
 H5File::H5File(const std::string & _filename, const std::string & _path, const std::string & access) : H5Object(H5Object::getRoot()), filename(_filename), path(_path), flags(getFlags(access))
 {
     init();

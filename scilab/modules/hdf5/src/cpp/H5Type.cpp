@@ -43,6 +43,7 @@ H5Type::H5Type(H5Object & _parent, const std::string & _name) : H5Object(_parent
 
 H5Type::~H5Type()
 {
+    std::cout << "bordel de merde" << std::endl;
     if (type >= 0)
     {
         H5Tclose(type);
@@ -805,7 +806,9 @@ std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const 
     unsigned int ndims;
     hid_t strType;
     hid_t super;
+    hid_t native = -1;
     size_t size;
+    size_t dstSize;
     unsigned int nmembers;
     H5T_order_t order;
     H5T_str_t strpad;
@@ -813,6 +816,7 @@ std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const 
     htri_t isVariableLength;
     std::string indent;
     char * opaqueTag = 0;
+    char * value = 0;
 
     os << H5Object::getIndentString(indentLevel);
 
@@ -1496,6 +1500,7 @@ std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const 
             break;
         case H5T_COMPOUND:
             nmembers = H5Tget_nmembers(type);
+            indent = H5Object::getIndentString(indentLevel + 1);
             os << "H5T_COMPOUND {" << std::endl;
 
             for (unsigned int i = 0; i < nmembers; i++)
@@ -1503,8 +1508,7 @@ std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const 
                 char * mname = H5Tget_member_name(type, i);
                 hid_t mtype = H5Tget_member_type(type, i);
 
-                os << H5Object::getIndentString(indentLevel + 1)
-                   << H5Type(*const_cast<H5Type *>(this), mtype).getTypeName()
+                os << indent << H5Type(*const_cast<H5Type *>(this), mtype).getTypeName()
                    << " " << "\"" << mname << "\";" << std::endl;
 
                 free(mname);
@@ -1524,14 +1528,78 @@ std::string H5Type::dump(std::map<haddr_t, std::string> & alreadyVisited, const 
             }
             break;
         case H5T_ENUM:
-            // TODO : c'est pas bien ca: il faut print les key->values.
-            os << "H5T_ENUM { "
-               << H5Type(*const_cast<H5Type *>(this), H5Tget_super(type)).dump(alreadyVisited, 0) << std::endl
-               << H5Object::getIndentString(indentLevel) << "}";
+            nmembers = H5Tget_nmembers(type);
+            indent = H5Object::getIndentString(indentLevel + 1);
+            size = H5Tget_size(type);
+            super = H5Tget_super(type);
+
+            if (size <= sizeof(long long))
+            {
+                dstSize = sizeof(long long);
+                if (H5Tget_sign(type) == H5T_SGN_NONE)
+                {
+                    native = H5T_NATIVE_ULLONG;
+                }
+                else
+                {
+                    native = H5T_NATIVE_LLONG;
+                }
+            }
+            else
+            {
+                dstSize = size;
+            }
+
+            os << "H5T_ENUM { " << std::endl
+               << indent << H5Type(*const_cast<H5Type *>(this), H5Tcopy(super)).dump(alreadyVisited, 0);
+
+            value = new char[std::max(size, dstSize)]();
+
+            for (unsigned int i = 0; i < nmembers; i++)
+            {
+                char * mname = H5Tget_member_name(type, i);
+                std::string _mname = "\"" + std::string(mname) + "\"";
+                free(mname);
+
+                H5Tget_member_value(type, i, value);
+
+                if (_mname.length() < 16)
+                {
+                    _mname.resize(16, ' ');
+                }
+
+                os << indent << _mname;
+
+                if (native < 0)
+                {
+                    for (size_t j = 0; j < dstSize; j++)
+                    {
+                        os << "0x" << std::hex << std::setfill('0') << std::setw(2) << (int)value[j];
+                    }
+                }
+                else
+                {
+                    H5Tconvert(super, native, 1, value, 0, H5P_DEFAULT);
+                    if (H5Tget_sign(type) == H5T_SGN_NONE)
+                    {
+                        os << *reinterpret_cast<unsigned long long *>(value);
+                    }
+                    else
+                    {
+                        os << *reinterpret_cast<long long *>(value);
+                    }
+                }
+
+                os << ";" << std::endl;
+            }
+
+            delete[] value;
+            H5Tclose(super);
+            os << H5Object::getIndentString(indentLevel) << "}";
             break;
         case H5T_VLEN:
-            os << "H5T_VLEN { "
-               << H5Type(*const_cast<H5Type *>(this), H5Tget_super(type)).dump(alreadyVisited, 0) << std::endl
+            os << "H5T_VLEN { " << std::endl
+               << H5Type(*const_cast<H5Type *>(this), H5Tget_super(type)).dump(alreadyVisited, indentLevel + 1)
                << H5Object::getIndentString(indentLevel) << "}";
             break;
         case H5T_ARRAY:

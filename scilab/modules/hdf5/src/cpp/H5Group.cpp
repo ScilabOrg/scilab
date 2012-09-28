@@ -13,7 +13,6 @@
 #include "H5Group.hxx"
 #include "H5File.hxx"
 #include "H5SoftLinksList.hxx"
-#include "H5LinksList.hxx"
 #include "H5GroupsList.hxx"
 #include "H5DatasetsList.hxx"
 #include "H5TypesList.hxx"
@@ -47,11 +46,6 @@ H5Group::~H5Group()
     {
         H5Gclose(group);
     }
-}
-
-H5LinksList & H5Group::getLinks()
-{
-    return *new H5LinksList(*this);
 }
 
 H5NamedObjectsList<H5SoftLink> & H5Group::getSoftLinks()
