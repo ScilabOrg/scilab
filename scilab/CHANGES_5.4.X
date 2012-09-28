@@ -671,6 +671,9 @@ Xcos
 
 * Bug #11747 fixed - Modelica block text was visible under the block image.
 
+* Bug #11913 fixed - Unconnected CLSS block with empty matrix parameters made
+                     Scilab crash.
+
 
 Localization
 =============
