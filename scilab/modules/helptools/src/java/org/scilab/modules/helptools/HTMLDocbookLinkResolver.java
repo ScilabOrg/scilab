@@ -181,7 +181,7 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
             currentLeaf.add(leaf);
             currentLeaf = leaf;
         } else if (id != null && current != null) {
-            mapId.put(id, current + "#" +id);
+            mapId.put(id, current + "#" + id);
         }
     }
 
@@ -236,33 +236,33 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
             int save = start;
             for (int i = start; i < end; i++) {
                 switch (ch[i]) {
-                case '\'' :
-                    buffer.append(ch, save, i - save);
-                    buffer.append("&#0039;");
-                    save = i + 1;
-                    break;
-                case '\"' :
-                    buffer.append(ch, save, i - save);
-                    buffer.append("&#0034;");
-                    save = i + 1;
-                    break;
-                case '<' :
-                    buffer.append(ch, save, i - save);
-                    buffer.append("&lt;");
-                    save = i + 1;
-                    break;
-                case '>' :
-                    buffer.append(ch, save, i - save);
-                    buffer.append("&gt;");
-                    save = i + 1;
-                    break;
-                case '&' :
-                    buffer.append(ch, save, i - save);
-                    buffer.append("&amp;");
-                    save = i + 1;
-                    break;
-                default :
-                    break;
+                    case '\'' :
+                        buffer.append(ch, save, i - save);
+                        buffer.append("&#0039;");
+                        save = i + 1;
+                        break;
+                    case '\"' :
+                        buffer.append(ch, save, i - save);
+                        buffer.append("&#0034;");
+                        save = i + 1;
+                        break;
+                    case '<' :
+                        buffer.append(ch, save, i - save);
+                        buffer.append("&lt;");
+                        save = i + 1;
+                        break;
+                    case '>' :
+                        buffer.append(ch, save, i - save);
+                        buffer.append("&gt;");
+                        save = i + 1;
+                        break;
+                    case '&' :
+                        buffer.append(ch, save, i - save);
+                        buffer.append("&amp;");
+                        save = i + 1;
+                        break;
+                    default :
+                        break;
                 }
             }
 
@@ -286,7 +286,7 @@ public class HTMLDocbookLinkResolver extends DefaultHandler {
             SAXParser parser = factory.newSAXParser();
             parser.parse(in, this);
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
     }
 
