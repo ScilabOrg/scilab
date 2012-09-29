@@ -22,14 +22,24 @@
         SciErr err;                                                     \
         if (list)                                                       \
         {                                                               \
+            if (rows == 0 || cols == 0)                                 \
+            {                                                           \
+                createMatrixOfDoubleInList(pvApiCtx, position, list, listPosition, 0, 0, 0); \
+                return;                                                 \
+            }                                                           \
             err = createMatrixOf##NAME##InList(pvApiCtx, position, list, listPosition, rows, cols, ptr); \
         }                                                               \
         else                                                            \
         {                                                               \
+            if (rows == 0 || cols == 0)                                 \
+            {                                                           \
+                createEmptyMatrix(pvApiCtx, position);                  \
+                return;                                                 \
+            }                                                           \
             err = createMatrixOf##NAME(pvApiCtx, position, rows, cols, ptr); \
         }                                                               \
         if (err.iErr)                                                   \
-        {								\
+        {                                                               \
             throw H5Exception(__LINE__, __FILE__, "Cannot allocate memory"); \
         }                                                               \
     }
@@ -46,7 +56,7 @@
             err = allocMatrixOf##NAME(pvApiCtx, position, rows, cols, ptr); \
         }                                                               \
         if (err.iErr)                                                   \
-        {								\
+        {                                                               \
             throw H5Exception(__LINE__, __FILE__, "Cannot allocate memory"); \
         }                                                               \
     }
@@ -178,6 +188,23 @@ public:
     virtual std::string dump(std::map<haddr_t, std::string> & alreadyVisited, const unsigned int indentLevel) const
     {
         return H5DataConverter::dump(alreadyVisited, indentLevel, ndims, dims, *this);
+    }
+
+    static void putStringVectorOnStack(std::vector<std::string> & strs, const int rows, const int cols, const int pos, void * pvApiCtx)
+    {
+        if (rows * cols != strs.size())
+        {
+            throw H5Exception(__LINE__, __FILE__, _("Invalid dimensions."));
+        }
+
+        SciErr err;
+        std::vector<const char *> _strs;
+        _strs.reserve(strs.size());
+        for (unsigned int i = 0; i < strs.size(); i++)
+        {
+            _strs.push_back(strs[i].c_str());
+        }
+        create(pvApiCtx, pos, rows, cols, const_cast<char **>(&(_strs[0])), 0, 0);
     }
 
     __SCILAB_ALLOCATORS_CREATORS__(double, Double)
