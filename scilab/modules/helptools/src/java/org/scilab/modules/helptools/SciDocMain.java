@@ -168,7 +168,7 @@ public final class SciDocMain {
 
         } catch (Exception e) {
             System.err.println("An error occurred during the conversion:\n");
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
 
         return fileToExec;
