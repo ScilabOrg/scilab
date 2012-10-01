@@ -4,6 +4,11 @@
 Bug fixes
 ==========
 
+Xcos
+====
+
+* Bug #11919 fixed - DLSS block with empty matrix as parameters made scilab crash
+
 
 
                     Changes between version 5.3.3 and 5.4.0
