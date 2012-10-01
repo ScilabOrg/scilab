@@ -9,6 +9,8 @@ Bug fixes
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
 
+* Bug #11919 fixed - DLSS block with empty matrix as parameters made scilab crash
+
 
 
                     Changes between version 5.3.3 and 5.4.0
