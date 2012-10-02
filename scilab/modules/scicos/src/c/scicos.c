@@ -40,6 +40,7 @@
 
 /* Sundials includes */
 #include <cvode/cvode.h>           /* prototypes for CVODES fcts. and consts. */
+
 #include <cvode/cvode_dense.h>     /* prototype for CVDense */
 #include <ida/ida.h>
 #include <ida/ida_dense.h>
@@ -73,6 +74,8 @@
 #include "sciblk2.h"
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
+
+#include "RungeKutta45.h"           /* prototypes for RK fcts. and consts. */
 
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
@@ -815,6 +818,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1302,6 +1309,7 @@ static void cossim(double *told)
     realtype reltol = 0., abstol = 0.;
     N_Vector y = NULL;
     void *cvode_mem = NULL;
+    void *rkutta_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
     jroot = NULL;
@@ -1363,6 +1371,34 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 4:
+                cvode_mem = RKCreate(CV_ADAMS, CV_FUNCTIONAL);
+                if (check_flag((void *)cvode_mem, "RKCreate", 0)) {
+				  *ierr = 10000;
+				  N_VDestroy_Serial(y);
+				  FREE(jroot);
+				  FREE(zcros);
+				  return;
+			    }
+			    flag = RKMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+				if (check_flag(&flag, "RKMalloc", 1)) {
+				  *ierr = 300 + (-flag);
+				  freeall;
+				  return;
+				}
+				flag = RKRootInit(cvode_mem, ng, grblk, NULL);
+				if (check_flag(&flag, "RKRootInit", 1)) {
+				  *ierr = 300 + (-flag);
+				  freeall;
+				  return;
+				}
+				//flag = CRKDense(rkutta_mem, *neq); // Commenting to compile
+				if (check_flag(&flag, "RKDense", 1)) {
+				  *ierr = 300 + (-flag);
+				  freeall;
+				  return;
+				}
+				goto L10;
         }
 
         /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
@@ -1400,6 +1436,7 @@ static void cossim(double *told)
             freeall
             return;
         }
+        /* Call CVDense to specify the CVDENSE dense linear solver */
 
         if (hmax > 0)
         {
@@ -1416,6 +1453,8 @@ static void cossim(double *told)
         if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
 
     }/* testing if neq>0 */
+
+L10: // Finished initializing the RK problem
 
     /* Function Body */
     C2F(coshlt).halt = 0;
@@ -1566,6 +1605,23 @@ L30:
 
                 if (hot == 0) /* hot==0 : cold restart*/
                 {
+					if (C2F(cmsolver).solver == 4) {
+						flag = RKSetStopTime(cvode_mem, (realtype) tstop);  /* Setting the stop time*/
+						if (check_flag(&flag, "RKSetStopTime", 1))
+						{
+                          *ierr = 300 + (-flag);
+                          freeall;
+                          return;
+						}
+						flag = RKReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
+						if (check_flag(&flag, "RKReInit", 1))
+						{
+                          *ierr = 300 + (-flag);
+                          freeall;
+                          return;
+						}
+					}
+					else {
                     flag = CVodeSetStopTime(cvode_mem, (realtype)tstop);  /* Setting the stop time*/
                     if (check_flag(&flag, "CVodeSetStopTime", 1))
                     {
@@ -1581,6 +1637,7 @@ L30:
                         freeall;
                         return;
                     }
+					}
                 }
 
                 if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
@@ -1620,6 +1677,10 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
+                    printf("avt RK\n");
+                    if (C2F(cmsolver).solver == 4)
+                      flag = RK(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    else
                     flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
