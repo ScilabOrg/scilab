@@ -188,7 +188,11 @@
 loadScicos();
 loadXcosLibs();
 importXcosDiagram(SCI + "/modules/xcos/examples/solvers/ODE_Example.xcos");
+<<<<<<< HEAD
 try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+=======
+try xcos_simulate(scs_m); catch disp(lasterror()) end;
+>>>>>>> 81a327b... Xcos solvers : Sundials Dormand-Price 4(5) implementation, tests and doc
 ]]></scilab:image>
         </para>
         <para>
@@ -206,9 +210,15 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
       scs_m.props.tol(6) = 0;
 
       // Start the timer, launch the simulation and display time
+<<<<<<< HEAD
       tic();
       try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
       t = toc();
+=======
+      timer();
+      try xcos_simulate(scs_m, 4); catch disp(lasterror()) end;
+      t = timer();
+>>>>>>> 81a327b... Xcos solvers : Sundials Dormand-Price 4(5) implementation, tests and doc
       disp(t, "Time for BDF / Newton :");
       ]]></programlisting>
         </para>
