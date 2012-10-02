@@ -1,0 +1,93 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2008 - INRIA
+// Copyright (C) 2009 - DIGITEO
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- ENGLISH IMPOSED -->
+// Execute with exec("SCI/modules/xcos/tests/unit_tests/rk10-3.tst");
+for i=1:5	// n, order
+ for j=1:5
+// RK + modification du contexte + sauvegarde
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/demos/ABrk10-3.zcos"));
+scs_m.props.context = ["n = "+string(i)+";" "per = "+string(j)+";"];
+xcos_simulate(scs_m, 4);
+rkval = rk.values;
+time = rk.time;
+// CVode + modification du contexte + sauvegarde
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/demos/ABcv10-3.zcos"));
+scs_m.props.context = ["n = "+string(i)+";" "per = "+string(j)+";"];
+xcos_simulate(scs_m, 4);
+cvval = cv.values;
+compa = abs(rkval-cvval);
+// Moyenne, Ecart-type, Max
+moy = mean(compa);
+[maxi, indmaxi] = max(compa);
+ecarttype = st_deviation(compa);
+if (maxi >= 0.0001) then bugmes();quit;end
+vec = [moy, ecarttype];
+maxiT = [maxi time(indmaxi)];
+// Affichages
+//disp("[moyenne, ecart-type] : ");
+disp(vec);
+//disp("[ecart max, au temps]: ");
+//disp(maxiT);
+ end
+end
+ 
+    0.0000002    8.985D-09  
+ 
+ 10^(-8) *
+ 
+    0.6044905    0.2740424  
+ 
+ 10^(-10) *
+ 
+    0.1249161    0.0959608  
+ 
+ 10^(-13) *
+ 
+    0.1179945    0.1378635  
+ 
+    0.    0.  
+ 
+    0.0000005    9.394D-08  
+ 
+    0.0000003    0.0000002  
+ 
+    0.0000002    0.0000001  
+ 
+    0.0000002    9.181D-08  
+ 
+    0.0000001    6.277D-08  
+ 
+    0.0000008    6.128D-08  
+ 
+    0.0000007    2.805D-08  
+ 
+    0.0000007    0.0000002  
+ 
+    0.0000005    0.0000003  
+ 
+    0.0000005    0.0000003  
+ 
+    8.425D-08    6.289D-08  
+ 
+    0.0000002    0.0000001  
+ 
+    0.0000006    0.0000002  
+ 
+    0.0000009    0.0000001  
+ 
+    0.0000007    0.0000004  
+ 
+    0.0000003    8.423D-09  
+ 
+    0.0000008    0.0000001  
+ 
+    0.0000004    0.0000003  
+ 
+    0.0000004    0.0000002  
+ 
+    0.0000006    0.0000003  
