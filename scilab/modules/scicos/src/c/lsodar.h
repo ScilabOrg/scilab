@@ -1,0 +1,134 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) Scilab Enterprises - 2012 - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+#ifndef _LSODAR_H
+#define _LSODAR_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <math.h>
+
+#include <sundials_extension.h>
+#include <sundials/sundials_types.h> // Definition of types 'realtype' and 'booleantype'
+#include <sundials/sundials_math.h>  // Various operations (ABS, MIN, RPowerI,...)
+#include <nvector/nvector_serial.h>  // Type 'N_Vector'
+#include "../scicos_sundials/src/cvode/cvode_impl.h" // Type 'CVodeMem'
+
+typedef int (*CVRhsFnLSodar) (int * neq, realtype * t, realtype * y, realtype * rwork);
+typedef int (*CVRootFnLSodar) (int * neq, realtype * t, realtype * y, int * ng, realtype * rwork);
+
+/*enum iTask_t {
+    CV_NORMAL = 1;
+    CV_ONE_STEP = 2;
+    CV_NORMAL_TSTOP = 4;
+    CV_ONE_STEP_TSTOP = 5;
+};*/
+
+typedef struct rWorkRec
+{
+    realtype tcrit;
+    realtype rwork2;
+    realtype rwork3;
+    realtype rwork4;
+    realtype h0;
+    realtype hmax;
+    realtype hmin;
+    realtype rwork8;
+    realtype rwork9;
+    realtype rwork10;
+    realtype hu;
+    realtype hcur;
+    realtype tcur;
+    realtype tolsf;
+    realtype tsw;
+    realtype rwork16;
+    realtype rwork17;
+    realtype rwork18;
+    realtype rwork19;
+    realtype rwork20;
+    realtype * g0;
+    realtype * g1;
+    realtype * gx;
+    realtype * yh;
+    realtype * wm;
+    realtype * ewt;
+    realtype * savf;
+    realtype * acor;
+} *rWork;
+
+// LSodar problem memory structure
+typedef struct LSodarMemRec
+{
+    CVRhsFnLSodar func;
+    int * nEquations;
+    realtype * yVector;
+    realtype tStart;
+    realtype tEnd;
+    int iTol;
+    realtype relTol;
+    realtype absTol;
+    int iState;
+    int iOpt;
+    rWork rwork;
+    int lrw;
+    int * iwork;
+    int liw;
+    int Jac;
+    int Jactype;
+    CVRootFnLSodar g_fun;
+    int ng_fun;
+    int * jroot;
+    int lrn;
+    int lrs;
+} *LSodarMem;
+
+// Creating the problem
+void * LSodarCreate (int * neq, int ng);
+
+// Allocating the problem
+int LSodarMalloc (void * cvode_mem, CVRhsFnLSodar f, realtype t0, N_Vector y, int itol, realtype reltol, void * abstol);
+
+// Specifying the maximum step size
+int LSodarSetMaxStep (void * cvode_mem, realtype hmax);
+
+// Specifying the time beyond which the integration is not to proceed
+int LSodarSetStopTime (void * cvode_mem, realtype tcrit);
+
+// Reinitializing the problem
+int LSodarReInit (void * cvode_mem, CVRhsFnLSodar f, realtype tOld, N_Vector y, int itol, realtype reltol, void * abstol);
+
+// Initializing the root-finding problem
+int LSodarRootInit (void * cvode_mem, int ng, CVRootFnLSodar g, void *gdata);
+
+// Solving the problem
+int LSodar (void * cvode_mem, realtype tOut, N_Vector yVec, realtype * tOld, int itask);
+
+// Update rootsfound to the computed jroots
+int LSodarGetRootInfo (void * cvode_mem, int * rootsfound);
+
+// Freeing the problem memory allocated by lsodarMalloc
+void LSodarFree (void ** cvode_mem);
+
+// Freeing the lsodar vectors allocated in lsodarAllocVectors
+void LSFreeVectors (LSodarMem cvode_mem);
+
+// Specifying the time beyond which the integration is not to proceed
+int lsodarSetStopTime (LSodarMem cvode_mem, realtype itstop);
+
+// Error handling function
+void LSProcessError (LSodarMem cvode_mem, int error_code, const char *module, const char *fname, const char *msgfmt, ...);
+
+// Default error handling function
+void LSErrHandler (int error_code, const char *module, const char *function, char *msg, void *data);
+
+#endif
