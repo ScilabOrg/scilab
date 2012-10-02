@@ -13,13 +13,13 @@
     <refnamediv>
         <refname>LSodar</refname>
         <refpurpose>
-            LSODAR (short for Livermore Solver for Ordinary Differential equations, with Automatic method switching for stiff and nonstiff problems, and with Root-finding) is a numerical solver providing an efficient and stable method to solve Ordinary Differential Equations (ODEs) Initial Value Problems. Called by <link linkend="xcos">xcos</link>.
+            <emphasis>LSodar</emphasis> (short for Livermore Solver for Ordinary Differential equations, with Automatic method switching for stiff and nonstiff problems, and with Root-finding) is a numerical solver providing an efficient and stable method to solve Ordinary Differential Equations (ODEs) Initial Value Problems.
         </refpurpose>
     </refnamediv>
     <refsection>
         <title>Description</title>
         <para>
-            LSODAR (short for Livermore Solver for Ordinary Differential equations, with Automatic method switching for stiff and nonstiff problems, and with Root-finding) is a numerical solver providing an efficient and stable variable-size step method to solve Initial Value Problems of the form :
+            Called by <link linkend="xcos">xcos</link>, <emphasis>LSodar</emphasis> (short for Livermore Solver for Ordinary Differential equations, with Automatic method switching for stiff and nonstiff problems, and with Root-finding) is a numerical solver providing an efficient and stable variable-size step method to solve Initial Value Problems of the form :
         </para>
         <para>
             <latex>
@@ -166,6 +166,12 @@ Time for Adams / Newton :
             </member>
             <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="DoPri">Dormand-Price 4(5)</link>
+            </member>
+            <member>
+                <link linkend="Comparisons">Comparisons</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
