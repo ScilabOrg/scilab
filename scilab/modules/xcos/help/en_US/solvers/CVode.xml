@@ -33,7 +33,7 @@
             <emphasis>
                 y<subscript>0</subscript>
             </emphasis>
-            ,<emphasis>CVode</emphasis> approximates 
+            , <emphasis>CVode</emphasis> approximates 
             <emphasis>
                 y<subscript>n+1</subscript>
             </emphasis>
@@ -54,7 +54,7 @@
                 <emphasis>
                     y(t<subscript>n</subscript>)
                 </emphasis>
-                ,and 
+                , and 
                 <emphasis>
                     h<subscript>n</subscript>
                 </emphasis>
@@ -185,8 +185,10 @@
                 </inlinemediaobject>
             </link>
             <scilab:image><![CDATA[
+loadScicos();
+loadXcosLibs();
 importXcosDiagram(SCI + "/modules/xcos/examples/solvers/ODE_Example.xcos");
-xcos_simulate(scs_m, 4);
+try scicos_simulate(scs_m); catch end;
 ]]></scilab:image>
         </para>
         <para>
@@ -195,6 +197,8 @@ xcos_simulate(scs_m, 4);
         <para>
             <programlisting language="example"><![CDATA[
       // Import the diagram and set the ending time
+      loadScicos();
+      loadXcosLibs();
       importXcosDiagram("SCI/modules/xcos/examples/solvers/ODE_Example.xcos");
       scs_m.props.tf = 3500;
 
@@ -203,7 +207,7 @@ xcos_simulate(scs_m, 4);
 
       // Start the timer, launch the simulation and display time
       timer();
-      xcos_simulate(scs_m, 4);
+      try scicos_simulate(scs_m); catch end;
       t = timer();
       disp(t, "Time for BDF / Newton :");
       ]]></programlisting>
