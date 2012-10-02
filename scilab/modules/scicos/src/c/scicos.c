@@ -815,6 +815,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: Implicit Runge-Kutta, Nonlinear solver=  */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1362,6 +1366,9 @@ static void cossim(double *told)
                 break;
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
+                break;
+            case 4:
+                cvode_mem = CVodeCreate(CV_RK, CV_FUNCTIONAL);
                 break;
         }
 
