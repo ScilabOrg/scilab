@@ -34,6 +34,8 @@
 #include "api_scilab.h"
 #include "HandleManagement.h"
 /*--------------------------------------------------------------------------*/
+// callSetProperty get a stack pointer in input argument.
+/*--------------------------------------------------------------------------*/
 int sci_uimenu(char *fname, unsigned long fname_len)
 {
     int nbRow = 0, nbCol = 0, stkAdr = 0;
