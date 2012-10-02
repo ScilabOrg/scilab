@@ -299,6 +299,11 @@ function %cpr = xcos_simulate(scs_m, needcompile)
   // inform Xcos the simulator is going to run
   xcosSimulationStarted();
 
+// Forcing RK (solver 4) to replace ADAMS / Functional (solver 3)
+if tolerances(6)==3 then tolerances(6) = 4; end
+// Forcing RK
+//tolerances(6) = 4
+
   //** run scicosim via 'start' flag
   ierr = execstr('[state,t]=scicosim(%cpr.state,%tcur,tf,%cpr.sim,'+..
 	             '''run'',tolerances)','errcatch')
