@@ -74,6 +74,8 @@
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
 
+#include "RungeKutta45.h"           /* prototypes for RK fcts. and consts. */
+
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
@@ -815,6 +817,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: Runge-Kutta, Nonlinear solver= FUNCTIONAL */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1343,7 +1349,7 @@ static void cossim(double *told)
         }
 
         NV_DATA_S(y) = x;
-
+		
         cvode_mem = NULL;
 
         /* Set extension of Sundials for scicos */
@@ -1363,46 +1369,49 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 4:
+                cvode_mem = RKCreate(CV_FUNCTIONAL); /* Create the Runge-Kutta problem */
         }
+		
+          /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
-        /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
-
-        if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
-        {
+          if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
+          {
             *ierr = 10000;
             N_VDestroy_Serial(y);
             FREE(jroot);
             FREE(zcros);
             return;
-        }
+          }
 
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
-        {
+          flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+          if (check_flag(&flag, "CVodeMalloc", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
-        if (check_flag(&flag, "CVodeRootInit", 1))
-        {
+          flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+          if (check_flag(&flag, "CVodeRootInit", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        /* Call CVDense to specify the CVDENSE dense linear solver */
-        flag = CVDense(cvode_mem, *neq);
-        if (check_flag(&flag, "CVDense", 1))
-        {
+          /* Call CVDense to specify the CVDENSE dense linear solver */
+          flag = CVDense(cvode_mem, *neq);
+          if (check_flag(&flag, "CVDense", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
+          /* Call CVDense to specify the CVDENSE dense linear solver */
 
-        if (hmax > 0)
-        {
+          if (hmax > 0)
+          {
             flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
@@ -1410,11 +1419,11 @@ static void cossim(double *told)
                 freeall;
                 return;
             }
-        }
-        /* Set the Jacobian routine to Jac (user-supplied)
-        flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
-        if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
-
+          }
+          /* Set the Jacobian routine to Jac (user-supplied)
+          flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
+          if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
+		
     }/* testing if neq>0 */
 
     /* Function Body */
@@ -1620,7 +1629,10 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
-                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    if (C2F(cmsolver).solver == 4)
+                      flag = RK(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    else
+                      flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
                         freeall;
