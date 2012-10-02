@@ -21,45 +21,6 @@ function %cpr = xcos_simulate(scs_m, needcompile)
   funcprot(prot);
   [modelica_libs, scicos_pal_libs, %scicos_with_grid, %scs_wgrid] = initial_scicos_tables();
 
-    // Hook according to SEP066
-    function [ok]=invoke_pre_simulate(fun, scs_m, needcompile)
-        ok=%f;
-        ierr=execstr('[continueSimulation]='+fun+'(scs_m, needcompile);', 'errcatch');
-        if ierr<>0 then
-            disp(_("Error occurred in pre_xcos_simulate: Cancelling simulation."));
-            [str,n,line,func]=lasterror();
-            mprintf(' at line %d of function %s\n', line, func);
-            return
-        end
-        if ~continueSimulation then
-            return
-        end
-        ok=%t;
-        
-        // force update on the parent in case of scoped modification
-        scs_m=resume(scs_m);
-    endfunction
-    
-  if isdef("pre_xcos_simulate") then
-      if type(pre_xcos_simulate) == 15 then
-          // if has a multiple implementation (on a list)
-          for f=pre_xcos_simulate;
-              ok=invoke_pre_simulate(f, scs_m, needcompile);
-              if ~ok then
-                  %cpr=[];
-                  return;
-              end
-          end
-      else
-          // if has a unique implementation
-          ok=invoke_pre_simulate("pre_xcos_simulate", scs_m, needcompile);
-          if ~ok then
-            %cpr=[];
-            return;
-          end
-      end
-  end
-
   //**---- prepare from and to workspace stuff ( "From workspace" block )
   scicos_workspace_init()
 
@@ -119,6 +80,47 @@ function %cpr = xcos_simulate(scs_m, needcompile)
       msg = msprintf(gettext("%s: Error during block parameters evaluation.\n"), "Xcos");
       messagebox(msg, "Xcos", "error");
       error(msprintf(gettext("%s: Error during block parameters evaluation.\n"), "xcos_simulate"));
+  end
+
+pause,
+
+    // Hook according to SEP066
+    function [ok]=invoke_pre_simulate(fun, scs_m, needcompile)
+        ok=%f;
+        ierr=execstr('[continueSimulation]='+fun+'(scs_m, needcompile);', 'errcatch');
+        if ierr<>0 then
+            disp(_("Error occurred in pre_xcos_simulate: Cancelling simulation."));
+            [str,n,line,func]=lasterror();
+            mprintf(' at line %d of function %s\n', line, func);
+            return
+        end
+        if ~continueSimulation then
+            return
+        end
+        ok=%t;
+        
+        // force update on the parent in case of scoped modification
+        scs_m=resume(scs_m);
+    endfunction
+    
+  if isdef("pre_xcos_simulate") then
+      if type(pre_xcos_simulate) == 15 then
+          // if has a multiple implementation (on a list)
+          for f=pre_xcos_simulate;
+              ok=invoke_pre_simulate(f, scs_m, needcompile);
+              if ~ok then
+                  %cpr=[];
+                  return;
+              end
+          end
+      else
+          // if has a unique implementation
+          ok=invoke_pre_simulate("pre_xcos_simulate", scs_m, needcompile);
+          if ~ok then
+            %cpr=[];
+            return;
+          end
+      end
   end
 
   //** update parameters or compilation results
