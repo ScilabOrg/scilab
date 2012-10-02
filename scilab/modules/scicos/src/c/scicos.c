@@ -74,6 +74,8 @@
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
 
+#include "lsodar.h"           /* prototypes for lsodar fcts. and consts. */
+
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
@@ -799,19 +801,23 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     {
 
         /*     integration */
-        if (C2F(cmsolver).solver == 0)        /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
+        if (C2F(cmsolver).solver == 0)   /*  CVODE: Method: lsodar, Nonlinear solver=  */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 1)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
+        else if (C2F(cmsolver).solver == 1)        /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 3)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+        else if (C2F(cmsolver).solver == 3)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+        {
+            cossim(t0);
+        }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
@@ -1304,6 +1310,8 @@ static void cossim(double *told)
     void *cvode_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
+    realtype *yVec; int istate = 1; realtype *rwork; int *iwork;
+    yVec = NULL;
     jroot = NULL;
     if (ng != 0)
     {
@@ -1343,7 +1351,7 @@ static void cossim(double *told)
         }
 
         NV_DATA_S(y) = x;
-
+		
         cvode_mem = NULL;
 
         /* Set extension of Sundials for scicos */
@@ -1351,70 +1359,80 @@ static void cossim(double *told)
 
         switch (C2F(cmsolver).solver)
         {
-            case 0:
+			case 0:
+			    /* Create the lsodar problem */
+                yVec = NV_DATA_S(y);
+                lsodarCreate(simblk, neq, yVec, 0., 0., CV_SS, reltol, abstol, CV_NORMAL_TSTOP, istate, 76, rwork, 23, iwork, 0, Jacobians, 2, grblk, ng, jroot);
+            case 1:
                 cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
                 break;
-            case 1:
+            case 2:
                 cvode_mem = CVodeCreate(CV_BDF, CV_FUNCTIONAL);
                 break;
-            case 2:
+            case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_NEWTON);
                 break;
-            case 3:
+            case 4:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+           
         }
+		
+          /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
-        /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
-
-        if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
-        {
+          if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
+          {
             *ierr = 10000;
             N_VDestroy_Serial(y);
             FREE(jroot);
             FREE(zcros);
             return;
-        }
+          }
 
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
-        {
+          flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+          if (check_flag(&flag, "CVodeMalloc", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
-        if (check_flag(&flag, "CVodeRootInit", 1))
-        {
+          flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+          if (check_flag(&flag, "CVodeRootInit", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        /* Call CVDense to specify the CVDENSE dense linear solver */
-        flag = CVDense(cvode_mem, *neq);
-        if (check_flag(&flag, "CVDense", 1))
-        {
+          /* Call CVDense to specify the CVDENSE dense linear solver */
+          flag = CVDense(cvode_mem, *neq);
+          if (check_flag(&flag, "CVDense", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
+          /* Call CVDense to specify the CVDENSE dense linear solver */
 
-        if (hmax > 0)
-        {
-            flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
+          if (hmax > 0)
+          {
+			if (C2F(cmsolver).solver == 0)
+			  for (;;) break;
+              //flag = lsodarSetMaxStep(cvode_mem, (realtype) hmax);
+            else
+              flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
                 *ierr = 300 + (-flag);
                 freeall;
                 return;
             }
-        }
-        /* Set the Jacobian routine to Jac (user-supplied)
-        flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
-        if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
-
+          }
+          /* Set the Jacobian routine to Jac (user-supplied)
+          flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
+          if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
+		
     }/* testing if neq>0 */
 
     /* Function Body */
@@ -1620,7 +1638,10 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
-                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    if (C2F(cmsolver).solver == 0)
+                      lsodarSolve(simblk, neq, yVec, t, *told, CV_SS, reltol, abstol, CV_NORMAL_TSTOP, istate, 76, rwork, 23, iwork, 0, Jacobians, 2, grblk, ng, jroot);
+                    else
+                      flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
                         freeall;
