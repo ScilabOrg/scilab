@@ -7,7 +7,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-// Run with exec("SCI/modules/xcos/examples/solvers/integ.sce");
+// Run with exec("SCI/modules/xcos/examples/solvers/integRK.sce");
 
 // Import the diagram and augment the ending time
 loadScicos();
@@ -15,12 +15,15 @@ loadXcosLibs();
 importXcosDiagram("SCI/modules/xcos/examples/solvers/ODE_Example.xcos");
 scs_m.props.tf = 30000;
 
-solverName=["BDF/Newton", "BDF/Functional", "Adams/Newton", "Adams/Functional"];
+solverName=["BDF/Newton", "BDF/Functional", "Adams/Newton", "Adams/Functional", "implicit Runge-Kutta"];
 
-for solver=0:3
+for solver=0:4
 
  // Select the solver
  scs_m.props.tol(6) = solver;
+
+ // Set max step size if implicit Runge-Kutta
+ if (solver == 4) scs_m.props.tol(7) = 0.01;
 
  // Start the timer, launch the simulation and display time
  tic();
