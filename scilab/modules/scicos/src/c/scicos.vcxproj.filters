@@ -56,6 +56,9 @@
     <ClCompile Include="MlistGetFieldNumber.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RungeKutta45.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\sci_gateway\c\sci_buildouttb.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -209,6 +212,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MlistGetFieldNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RungeKutta45.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\scicos-def.h">
