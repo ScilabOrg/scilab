@@ -17,18 +17,18 @@ scs_m.props.tf = 30000;
 
 solverName=["BDF/Newton", "BDF/Functional", "Adams/Newton", "Adams/Functional", "Runge-Kutta"];
 
-for solver=0:4
+for solver=1:5
 
  // Select the solver
- scs_m.props.tol(6) = solver+1;
+ scs_m.props.tol(6) = solver;
 
  // Set max step size if Runge-Kutta
- if ((solver+1) == 5) scs_m.props.tol(7) = 0.01;
+ if (solver == 5) scs_m.props.tol(7) = 0.01;
 
  // Start the timer, launch the simulation and display time
  tic();
  try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end;
  t = toc();
- disp(t, "Time for " + solverName(solver+1) + " :");
+ disp(t, "Time for " + solverName(solver) + " :");
 
 end
