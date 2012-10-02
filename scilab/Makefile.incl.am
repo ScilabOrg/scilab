@@ -46,6 +46,13 @@ check-code:
 		$(SPLINT) $(SPLINT_OPTIONS) -I$(top_srcdir)/modules/core/includes/ -I$(top_srcdir)/libs/MALLOC/includes/ -I$(top_srcdir)/modules/localization/includes/ $(INCLUDE_FLAGS) $(CHECK_SRC); \
 	fi
 
+if NEED_JAVA
+if BUILD_HELP
+check-help: $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
+	find help -name "*.xml" |xargs $(JAVA) -jar $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
+endif
+endif
+
 ########################### JAVA ######################################
 #### We are delegating java compilation to ant... Thanks to that
 #### the procedure will be the same with Microsoft Windows (C)

@@ -234,17 +234,12 @@ else
 	@echo "Cannot buid help. Add --enable-build-help to the ./configure if you want to build it."
 endif
 
-check-help:$(top_builddir)/scilab-cli-bin $(top_builddir)/bin/scilab-cli
-	@if test -x $(top_builddir)/scilab-cli-bin; then \
-		for l in $(ALL_LINGUAS_DOC); do \
-			echo "-- Checking documentation ($$l) --"; \
-			COMMAND="try check_help();catch exit(-1);end;exit(0);";\
-			echo "$(top_builddir)/bin/scilab-cli -nb -l $$l -noatomsautoload -e \"$$COMMAND\"";\
-			$(top_builddir)/bin/scilab-cli -nb -l $$l -noatomsautoload -e "$$COMMAND" || exit 1;\
-		done; \
-	else \
-		echo "Cannot find Scilab binary"; \
-	fi
+if NEED_JAVA
+if BUILD_HELP
+check-help: $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
+	find modules/*/help -name "*.xml" |xargs $(JAVA) -jar $(top_builddir)/thirdparty/jing.jar $(top_builddir)/modules/helptools/schema/scilab.rng
+endif
+endif
 
 code-coverage:
 if CODE_COVERAGE
