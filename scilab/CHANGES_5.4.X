@@ -28,6 +28,8 @@ Xcos
 
 * Update the Palette icons and the rendering of some blocks.
 
+* New solver : ODEPACK's 'lsodar'. Added test
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
@@ -59,6 +61,7 @@ Documentation
 
 * Add the 'scilab:needs-examples="no"' tag to specify that the help page does not need any example.
 
+* Added the LSodar.xml page
 
 Bug fixes
 ==========
