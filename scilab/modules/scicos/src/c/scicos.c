@@ -74,6 +74,8 @@
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
 
+#include "RungeKutta45.h"           /* prototypes for RK fcts. and consts. */
+
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
@@ -95,26 +97,25 @@ typedef struct
 SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 /*--------------------------------------------------------------------------*/
 
-#define freeall					\
-	if (*neq>0) CVodeFree(&cvode_mem);		\
-	if (*neq>0) N_VDestroy_Serial(y);		\
-	if ( ng>0 ) FREE(jroot);			\
-	if ( ng>0 ) FREE(zcros);
-
+#define freeall							\
+	if (*neq>0) CVodeFree(&cvode_mem);	\
+	if (*neq>0) N_VDestroy_Serial(y);	\
+	if ( ng>0 ) FREE(jroot);				\
+	if ( ng>0 ) FREE(zcros);				\
 
 /* TJacque allocates by sundials */
-#define freeallx				\
-	if (*neq>0) free(TJacque);	\
-	if (*neq>0) FREE(data->rwork);		\
-	if (( ng>0 )&& (*neq>0)) FREE(data->gwork);	\
+#define freeallx									\
+	if (*neq>0) free(TJacque);					\
+	if (*neq>0) FREE(data->rwork);				\
+	if (( ng>0 )&& (*neq>0)) FREE(data->gwork);\
 	if (*neq>0) N_VDestroy_Serial(data->ewt);	\
-	if (*neq>0) FREE(data);			\
-	if (*neq>0) IDAFree(&ida_mem);		\
+	if (*neq>0) FREE(data);						\
+	if (*neq>0) IDAFree(&ida_mem);				\
 	if (*neq>0) N_VDestroy_Serial(IDx);		\
-	if (*neq>0) N_VDestroy_Serial(yp);		\
-	if (*neq>0) N_VDestroy_Serial(yy);		\
-	if ( ng>0 ) FREE(jroot);			\
-	if ( ng>0 ) FREE(zcros);			\
+	if (*neq>0) N_VDestroy_Serial(yp);			\
+	if (*neq>0) N_VDestroy_Serial(yy);			\
+	if ( ng>0 ) FREE(jroot);						\
+	if ( ng>0 ) FREE(zcros);						\
 	if (nmod>0) FREE(Mode_save);
 
 #define freeouttbptr				\
@@ -126,8 +127,8 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 	FREE(outtbus);				\
 	FREE(outtbul);
 
-#define freekinsol				\
-	FREE(Mode_save);				\
+#define freekinsol						\
+	FREE(Mode_save);						\
 	N_VDestroy_Serial(y);				\
 	N_VDestroy_Serial(fscale);			\
 	N_VDestroy_Serial(yscale);			\
@@ -815,6 +816,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: Runge-Kutta, Nonlinear solver= FUNCTIONAL */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1343,7 +1348,7 @@ static void cossim(double *told)
         }
 
         NV_DATA_S(y) = x;
-
+		
         cvode_mem = NULL;
 
         /* Set extension of Sundials for scicos */
@@ -1363,46 +1368,49 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 4:
+                cvode_mem = CVodeCreate(CV_RK, CV_FUNCTIONAL);
         }
+		
+          /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
-        /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
-
-        if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
-        {
+          if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
+          {
             *ierr = 10000;
             N_VDestroy_Serial(y);
             FREE(jroot);
             FREE(zcros);
             return;
-        }
+          }
 
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
-        {
+          flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+          if (check_flag(&flag, "CVodeMalloc", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
-        if (check_flag(&flag, "CVodeRootInit", 1))
-        {
+          flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+          if (check_flag(&flag, "CVodeRootInit", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        /* Call CVDense to specify the CVDENSE dense linear solver */
-        flag = CVDense(cvode_mem, *neq);
-        if (check_flag(&flag, "CVDense", 1))
-        {
+          /* Call CVDense to specify the CVDENSE dense linear solver */
+          flag = CVDense(cvode_mem, *neq);
+          if (check_flag(&flag, "CVDense", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
+          /* Call CVDense to specify the CVDENSE dense linear solver */
 
-        if (hmax > 0)
-        {
+          if (hmax > 0)
+          {
             flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
@@ -1410,11 +1418,11 @@ static void cossim(double *told)
                 freeall;
                 return;
             }
-        }
-        /* Set the Jacobian routine to Jac (user-supplied)
-        flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
-        if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
-
+          }
+          /* Set the Jacobian routine to Jac (user-supplied)
+          flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
+          if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
+		
     }/* testing if neq>0 */
 
     /* Function Body */
