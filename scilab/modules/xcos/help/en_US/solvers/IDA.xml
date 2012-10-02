@@ -127,6 +127,9 @@
         <para>
             Following the criticality of the event (its effect on the continuous problem), we either relaunch the solver with different start and final times as if nothing happened, or, if the system has been modified, we need to "cold-restart" the problem by reinitializing it anew and relaunching the solver.
         </para>
+        <para>
+            Averagely, <emphasis>IDA</emphasis> accepts tolerances up to 10<superscript>-11</superscript>. Beyond that, it returns a <emphasis>Too much accuracy</emphasis> requested error.
+        </para>
     </refsection>
     <refsection id="Example_IDA">
         <title>Example</title>
@@ -161,7 +164,13 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
                 <link linkend="CVode">CVode</link>
             </member>
             <member>
+                <link linkend="LSodar">LSodar</link>
+            </member>
+            <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="DoPri">Dormand-Price 4(5)</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
