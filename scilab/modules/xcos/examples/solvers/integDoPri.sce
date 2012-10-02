@@ -7,7 +7,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-// Run with exec("SCI/modules/xcos/help/en_US/solvers/integRK.sce");
+// Run with exec("SCI/modules/xcos/help/en_US/solvers/integDoPri.sce");
 
 // Import the diagram and augment the ending time
 importXcosDiagram("SCI/modules/xcos/examples/solvers/ODE_Example.xcos");
@@ -49,12 +49,12 @@ try xcos_simulate(scs_m, 4); catch end;
 t = toc();
 disp(t, "Time for Adams / Newton :");
 
-// Runge-Kutta
+// DoPri
 // Select the solver and set abstol to 10^-2
 scs_m.props.tol(6) = 4;
-scs_m.props.tol(1) = 0.01;
+scs_m.props.tol(7) = 0.01;
 // Start the timer, launch the simulation and display time
 tic();
 try xcos_simulate(scs_m, 4); catch end;
 t = toc();
-disp(t, "Time for Runge-Kutta :");
+disp(t, "Time for DoPri :");
