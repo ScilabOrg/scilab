@@ -1,5 +1,5 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2009 - Paul Bignier
+// Copyright (C) 2012 - Scilab Enterprises - Paul Bignier
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -15,14 +15,14 @@ loadXcosLibs();
 importXcosDiagram("SCI/modules/xcos/examples/solvers/ODE_Example.xcos");
 scs_m.props.tf = 30000;
 
-solverName=["BDF/Newton", "BDF/Functional", "Adams/Newton", "Adams/Functional", "Runge-Kutta"];
+solverName=["BDF/Newton", "BDF/Functional", "Adams/Newton", "Adams/Functional", "implicit Runge-Kutta"];
 
 for solver=0:4
 
  // Select the solver
  scs_m.props.tol(6) = solver;
 
- // Set max step size if Runge-Kutta
+ // Set max step size if implicit Runge-Kutta
  if (solver == 4) scs_m.props.tol(7) = 0.01;
 
  // Start the timer, launch the simulation and display time
