@@ -92,6 +92,8 @@ extern "C" {
   /* lmm */
 #define CV_ADAMS 1
 #define CV_BDF   2
+#define CV_ExpRK 3
+#define CV_ImpRK 4
 
   /* iter */
 #define CV_FUNCTIONAL 1
