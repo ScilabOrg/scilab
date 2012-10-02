@@ -257,6 +257,7 @@ lib /DEF:"$(ProjectDir)core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClCompile Include="il_state.c" />
     <ClCompile Include="import.c" />
     <ClCompile Include="MlistGetFieldNumber.c" />
+    <ClCompile Include="RungeKutta45.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_buildouttb.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_callblk.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_coserror.c" />
@@ -309,6 +310,7 @@ lib /DEF:"$(ProjectDir)core_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platform
     <ClInclude Include="il_state.h" />
     <ClInclude Include="..\..\includes\import.h" />
     <ClInclude Include="MlistGetFieldNumber.h" />
+    <ClCompile Include="RungeKutta45.h" />
     <ClInclude Include="..\..\includes\scicos-def.h" />
     <ClInclude Include="..\..\includes\scicos.h" />
     <ClInclude Include="..\..\includes\scicos_free.h" />
