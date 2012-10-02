@@ -252,7 +252,7 @@ Time for Adams / Newton :
                 <link linkend="IDA">IDA</link>
             </member>
             <member>
-                <link linkend="RK">Runge-Kutta 4(5)</link>
+                <link linkend="ImpRK">Implicit Runge-Kutta 4(5)</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
