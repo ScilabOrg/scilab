@@ -240,10 +240,12 @@ static int CVEwtSetSS(CVodeMem cv_mem, N_Vector ycur, N_Vector weight);
 static int CVEwtSetSV(CVodeMem cv_mem, N_Vector ycur, N_Vector weight);
 
 static int CVHin(CVodeMem cv_mem, realtype tout);
+static int CVHinDoPri(CVodeMem cv_mem, realtype tout, realtype *tret);
 static realtype CVUpperBoundH0(CVodeMem cv_mem, realtype tdist);
 static int CVYddNorm(CVodeMem cv_mem, realtype hg, realtype *yddnrm);
 
 static int CVStep(CVodeMem cv_mem);
+static int CVStepDopri(CVodeMem cv_mem);
 
 static int CVsldet(CVodeMem cv_mem);
 
@@ -333,7 +335,7 @@ void *CVodeCreate(int lmm, int iter)
 
   /* Test inputs */
 
-  if ((lmm != CV_ADAMS) && (lmm != CV_BDF)) {
+  if ((lmm != CV_ADAMS) && (lmm != CV_BDF) && (lmm != CV_DOPRI)) { /* Integration mode : ADAMS, BDF or DOPRI */
     CVProcessError(NULL, 0, "CVODE", "CVodeCreate", MSGCV_BAD_LMM);
     return(NULL);
   }
@@ -352,7 +354,10 @@ void *CVodeCreate(int lmm, int iter)
 
   maxord = (lmm == CV_ADAMS) ? ADAMS_Q_MAX : BDF_Q_MAX;
 
-  /* copy input parameters into cv_mem */
+  /* If Runge-Kutta is selected, then maxord = 9 to use the 7 extra vectors allocated (zn[2, 3, 4, 5, 6, 7, 8]) */
+  maxord = (lmm == DOPRI) ? 9 : maxord;
+
+  /* Copy input parameters into cv_mem */
   cv_mem->cv_lmm  = lmm;
   cv_mem->cv_iter = iter;
 
@@ -411,8 +416,8 @@ void *CVodeCreate(int lmm, int iter)
 
 /*-----------------------------------------------------------------*/
 
-#define iter (cv_mem->cv_iter)  
-#define lmm  (cv_mem->cv_lmm) 
+#define iter (cv_mem->cv_iter)
+#define lmm  (cv_mem->cv_lmm)
 #define lrw  (cv_mem->cv_lrw)
 #define liw  (cv_mem->cv_liw)
 
@@ -1273,7 +1278,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
        set initial h (from H0 or CVHin), and scale zn[1] by h.
        Also check for zeros of root function g at and near t0.    */
     
-    retval = f(tn, zn[0], zn[1], f_data); 
+    retval = f(tn, zn[0], zn[1], f_data);
     nfe++;
     if (retval < 0) {
       CVProcessError(cv_mem, CV_RHSFUNC_FAIL, "CVODE", "CVode", MSGCV_RHSFUNC_FAILED, tn);
@@ -1284,33 +1289,40 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       return(CV_FIRST_RHSFUNC_ERR);
     }
 
-    /* Set initial h (from H0 or CVHin). */
+    /* Set initial h (from H0 or CVHin). 
+       If Dormand-Price is selected, then we choose to set h to Sabstol. */
 
-    h = hin;
-    if ( (h != ZERO) && ((tout-tn)*h < ZERO) ) {
-      CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_H0);
+	if ((lmm == CV_ADAMS) || (lmm == CV_BDF)) {
+      h = hin;
+      if ( (h != ZERO) && ((tout-tn)*h < ZERO) ) {
+        CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_BAD_H0);
 
-	  /* SUNDIALS EXTENSION */
-	  if (is_sundials_with_extension())
-	  {
+	    /* SUNDIALS EXTENSION */
+	    if (is_sundials_with_extension())
+	    {
 		  return(CV_BAD_H0);
-	  }
-	  else
-	  {
+	    }
+	    else
+	    {
 		  return(CV_ILL_INPUT);
-	  }
+	    }
 
-    }
-    if (h == ZERO) {
-      hflag = CVHin(cv_mem, tout);
-      if (hflag != CV_SUCCESS) {
-        istate = CVHandleFailure(cv_mem, hflag);
-        return(istate);
       }
-    }
-    rh = ABS(h)*hmax_inv;
-    if (rh > ONE) h /= rh;
-    if (ABS(h) < hmin) h *= hmin/ABS(h);
+      if (h == ZERO) {
+        hflag = CVHin(cv_mem, tout);
+        if (hflag != CV_SUCCESS) {
+          istate = CVHandleFailure(cv_mem, hflag);
+          return(istate);
+        }
+      }
+      rh = ABS(h)*hmax_inv;
+      if (rh > ONE) h /= rh;
+      if (ABS(h) < hmin) h *= hmin/ABS(h);
+	}
+
+	else { /* Compute the fixed step size h, and set the max number of steps */
+	  mxstep = CVHinDOPRI(cv_mem, tout, tret);
+ 	}
 
     /* Check for approach to tstop */
 
@@ -1525,7 +1537,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       }
 
     } /* end of istop tests block */
-    
+    if (lmm==CV_DORPI) mxstep = CVHinDOPRI(cv_mem, tout, tret);
   } /* end stopping tests block */  
 
   /*
@@ -1557,9 +1569,9 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
 
       if (ewtsetOK != 0) {
 
-        if (itol == CV_WF) 
+        if (itol == CV_WF)
           CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_EWT_NOW_FAIL, tn);
-        else 
+        else
           CVProcessError(cv_mem, CV_ILL_INPUT, "CVODE", "CVode", MSGCV_EWT_NOW_BAD, tn);
 	
         istate = CV_ILL_INPUT;
@@ -1569,7 +1581,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
 
       }
     }
-    
+
     /* Check for too many steps */
     if (nstloc >= mxstep) {
       CVProcessError(cv_mem, CV_TOO_MUCH_WORK, "CVODE", "CVode", MSGCV_MAX_STEPS, tn);
@@ -1603,7 +1615,10 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
     }
 
     /* Call CVStep to take a step */
-    kflag = CVStep(cv_mem);
+    if (lmm == CV_DOPRI)
+      kflag = CVStepDOPRI(cv_mem);
+	else
+	  kflag = CVStep(cv_mem);
 
     /* Process failed step cases, and exit loop */
     if (kflag != CV_SUCCESS) {
@@ -1612,7 +1627,7 @@ int CVode(void *cvode_mem, realtype tout, N_Vector yout,
       N_VScale(ONE, zn[0], yout);
       break;
     }
-    
+
     nstloc++;
 
     /* Check for root in last step taken. */
@@ -2176,6 +2191,44 @@ static int CVHin(CVodeMem cv_mem, realtype tout)
 }
 
 /*
+ * CVHinDOPRI
+ *
+ * This routine computes the fixed step size h.
+ * The objective is to approach Sabstol with h by trying to split the time interval (t-*told) into Sabstol-long parts.
+ * - if t-*told is smaller than Sabstol, then set h = t-*told (one iteration)
+ * - if it is divisible by Sabstol, then set h = Sabstol.
+ * - if it is not, then "add an integration point" by setting h < Sabstol, just enough to fit the interval
+ *
+ * Dormand-Price being a fixed step size method, we know the maximum number of steps to take.
+ * This procedure returns that number (minus 2 because nstloc starts at 0).
+ */
+
+static int CVHinDOPRI(CVodeMem cv_mem, realtype tout, realtype *tret)
+{
+  long int n_points;
+  realtype interval_size;
+
+  interval_size = tout-*tret;
+  if (interval_size <= Sabstol) {  /* "Small" interval, h is the size of it */
+    n_points = 2;
+    h = interval_size;
+  }
+  else {
+    realtype test_div = interval_size/Sabstol;
+    realtype floor_test = FLOOR(test_div);
+    if (test_div-floor_test <= TINY) {  /* t-*told divisible by Sabstol, cutting the interval into Sabstol-long parts */
+      n_points = floor_test+1;
+      h = interval_size/(n_points-1);
+    }
+    else {  /* Adding a point and h < Sabstol to fit the interval */
+      n_points = floor_test+2;
+      h = interval_size/(n_points-1);
+    }
+  }
+  return(n_points-1);
+}
+
+/*
  * CVUpperBoundH0
  *
  * This routine sets an upper bound on abs(h0) based on
@@ -2325,6 +2378,116 @@ static int CVStep(CVodeMem cv_mem)
   N_VScale(ONE/tq[2], acor, acor);
   return(CV_SUCCESS);
       
+}
+
+/*
+ * CVStepDOPRI
+ *
+ * This routine performs one internal cvode step using the Dormand-Price method, from tn to tn + h.
+ * Proceed to computing the K[i] coefficients, build the final solution, increment tn and return CV_SUCCESS.
+ *
+ * In order to temporarily store the results, we use tempv and ftemp.
+ * While ftempv is just going be an accumulator, tempv will represent the "correction solution".
+ */
+
+static int CVStepDOPRI(CVodeMem cv_mem)
+{
+  int retval;
+
+  /* Constant coefficients */
+  a21 = 0.2;				c2 = 0.2;
+  a31 = 3/40;				c3 = 3/10;
+  a32 = 9/40;				c4 = 0.8;
+  a41 = 44/45;				c5 = 8/9;
+  a42 = -56/15;				b1 = 35/384;
+  a43 = 32/9;				b3 = 500/1113;
+  a51 = 19372/6561;			b4 = 125/192;
+  a52 = -25360/2781;		b5 = -2187/6784;
+  a53 = 64448/6561;			b6 = 11/84;
+  a54 = -212/729;			d1 = 5179/57600;
+  a61 = 9017/3168;			d3 = 7571/16695;
+  a62 = -355/33;			d4 = 393/640;
+  a63 = 46732/5247;			d5 = -92097/339200;
+  a64 = 49/176;				d6 = 187/2100;
+  a65 = -5103/18656;		d7 = 1/40;
+  a71 = 35/384;
+  a73 = 500/1113;
+  a74 = 125/192;
+  a75 = -2187/6784;
+  a76 = 11/84;
+
+  /* K1, K2 */
+  retval = f(tn, zn[0], zn[2], f_data);					/* zn[2] = K1 = f(Tn, Yn), */
+  N_VLinearSum_Serial (a21*h, zn[2], 1., zn[0], y);		/* y = K1*a21*h + Yn */
+  retval = f(tn + c2*h, y, zn[3], f_data);					/* zn[3] = K2 = f(Tn+c2*h, Yn + a21*h*K1), */
+  N_VScale(b1, zn[2], y); 									/* y = b1*K1 + 0*K2, */
+  N_VScale(d1, zn[2], y); 									/* y = b1*K1 + 0*K2, */
+
+  /* K3 */
+  N_VLinearSum_Serial (a31*h, zn[2], 1., zn[0], ftemp);	/* ftemp = Yn + K1*a31*h, */
+  N_VLinearSum_Serial (a32*h, zn[3], 1., ftemp, ftemp);	/* ftemp += K2*a32*h, */
+  retval = f(tn + c3*h, ftemp, zn[4], f_data);				/* zn[4] = K3 = f(Tn+c3*h, Yn + a31*h*K1 + a32*h*K2), */
+  N_VLinearSum_Serial (1, y, b3, zn[4], y);				/* y = b1*K1 + 0*K2 + b3*K3, */
+  N_VLinearSum_Serial (1, tempv, d3, nz[4], tempv);		/* tempv = d1*K1 + 0*K2 + d3*K3, */
+
+  /* K4 */
+  N_VLinearSum_Serial (a41*h, zn[2], 1., zn[0], ftemp);	/* ftemp = Yn + K1*a41*h, */
+  N_VLinearSum_Serial (a42*h, zn[3], 1., ftemp, ftemp); 	/* ftemp += K2*a42*h, */
+  N_VLinearSum_Serial (a43*h, zn[4], 1., ftemp, ftemp); 	/* ftemp += K3*a43*h, */
+  retval = f(tn + c4*h, ftemp, zn[5], f_data);				/* zn[5] = K4 = f(Tn+c4*h, Yn + a41*h*K1 + a42*h*K2 + a43*h*K3), */
+  N_VLinearSum_Serial (1., y, b4, zn[5], y);				/* y = b1*K1 + 0*K2 + b3*K3 + b4*K4, */
+  N_VLinearSum_Serial (1, tempv, d4, zn[5], tempv);		/* tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4, */
+
+  /* K5 */
+  N_VLinearSum_Serial (a51*h, zn[2], 1., zn[0], ftemp);	/* ftemp = Yn + K1*a51*h, */
+  N_VLinearSum_Serial (a52*h, zn[3], 1., ftemp, ftemp); 	/* ftemp += K2*a52*h, */
+  N_VLinearSum_Serial (a53*h, zn[4], 1., ftemp, ftemp); 	/* ftemp += K3*a53*h, */
+  N_VLinearSum_Serial (a54*h, zn[5], 1., ftemp, ftemp); 	/* ftemp += K4*a54*h, */
+  retval = f(tn + c5*h, ftemp, zn[6], f_data);				/* zn[6] = K5 = f(Tn+c5*h, Yn + a51*h*K1 + a52*h*K2 + a53*h*K3 + a54*h*K4), */
+  N_VLinearSum_Serial (1., y, b5, zn[6], y);				/* y = b1*K1 + 0*K2 + b3*K3 + b4*K4 + b5*K5, */
+  N_VLinearSum_Serial (1, tempv, d5, zn[6], tempv);		/* tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5, */
+
+  /* K6 */
+  N_VLinearSum_Serial (a61*h, zn[2], 1., zn[0], ftemp);	/* ftemp = Yn + K1*a61*h, */
+  N_VLinearSum_Serial (a62*h, zn[3], 1., ftemp, ftemp); 	/* ftemp += K2*a62*h, */
+  N_VLinearSum_Serial (a63*h, zn[4], 1., ftemp, ftemp); 	/* ftemp += K3*a63*h, */
+  N_VLinearSum_Serial (a64*h, zn[5], 1., ftemp, ftemp); 	/* ftemp += K3*a64*h, */
+  N_VLinearSum_Serial (a65*h, zn[6], 1., ftemp, ftemp); 	/* ftemp += K3*a65*h, */
+  retval = f(tn + h, ftemp, zn[7], f_data);				/* zn[7] = K6 = f(Tn+h, Yn + a61*h*K1 + a62*h*K2 + a63*h*K3 + a64*h*K4 + a65*h*K5), */
+  N_VLinearSum_Serial (1., y, b6, zn[7], y);				/* y = b1*K1 + 0*K2 + b3*K3 + b4*K4 + b5*K5 + b6*K6, */
+  N_VLinearSum_Serial (1, tempv, d6, zn[7], tempv);		/* tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5 + d6*K6, */
+
+  /* K7 */
+  N_VLinearSum_Serial (a71*h, zn[2], 1., zn[0], ftemp);	/* ftemp = Yn + K1*a71*h, */
+  N_VLinearSum_Serial (a73*h, zn[4], 1., ftemp, ftemp); 	/* ftemp += K3*a73*h, */
+  N_VLinearSum_Serial (a74*h, zn[5], 1., ftemp, ftemp); 	/* ftemp += K3*a74*h, */
+  N_VLinearSum_Serial (a75*h, zn[6], 1., ftemp, ftemp); 	/* ftemp += K3*a75*h, */
+  N_VLinearSum_Serial (a76*h, zn[7], 1., ftemp, ftemp); 	/* ftemp += K3*a76*h, */
+  retval = f(tn + h, ftemp, zn[8], f_data);				/* zn[8] = K7 = f(Tn+h, Yn + a71*h*K1 + 0*h*K2 + a73*h*K3 + a74*h*K4 + a75*h*K5 + a76*h*K6), */
+  N_VLinearSum_Serial (1., y, b7, zn[8], y);				/* y = b1*K1 + 0*K2 + b3*K3 + b4*K4 + b5*K5 + b6*K6 + b7*K7, */
+  N_VLinearSum_Serial (1, tempv, d7, zn[8], tempv);		/* tempv = d1*K1 + 0*K2 + d3*K3 + d4*K4 + d5*K5 + d6*K6 + d7*K7, */
+
+  /* Yn+1 */
+  N_VLinearSum_Serial(1., zn[0], h, y, zn[0]);				/* zn[0] = Yn+1 = Yn + h*y */
+
+  /* Check for errors in the evaluations of f thanks to retval */
+  if (retval < 0) {
+    CVProcessError(cv_mem, CV_RHSFUNC_FAIL, "Dormand-Price", "CVStepDOPRI", MSGCV_RHSFUNC_FAILED, tn);
+    return(CV_RHSFUNC_FAIL);
+  }
+  if (retval > 0) {
+    CVProcessError(cv_mem, CV_FIRST_RHSFUNC_ERR, "Dormand-Price", "CVStepDOPRI", MSGCV_RHSFUNC_FIRST);
+    return(CV_FIRST_RHSFUNC_ERR);
+  }
+
+  /* Increment tn => take a step. Increment solver calls as well */
+  tn += h;
+  nst++;
+
+  /* Update the Nordsieck history array */
+  retval = f(tn, zn[0], zn[1], f_data);	/* zn[1] = y'(tn) */
+
+  return(CV_SUCCESS);
 }
 
 /*
