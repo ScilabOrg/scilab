@@ -49,7 +49,7 @@ xcos_simulate(scs_m, 4);
 t = timer();
 disp(t, "Time for Adams / Newton :");
 
-// Runge-Kutta
+// Implicit Runge-Kutta
 // Select the solver and set abstol to 10^-2
 scs_m.props.tol(6) = 4;
 scs_m.props.tol(1) = 0.01;
@@ -57,4 +57,4 @@ scs_m.props.tol(1) = 0.01;
 timer();
 xcos_simulate(scs_m, 4);
 t = timer();
-disp(t, "Time for Runge-Kutta :");
+disp(t, "Time for implicit Runge-Kutta :");
