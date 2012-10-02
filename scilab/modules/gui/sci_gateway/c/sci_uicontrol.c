@@ -37,6 +37,8 @@
 #define NBPROPERTIES 28
 #define MAXPROPERTYNAMELENGTH 20
 /*--------------------------------------------------------------------------*/
+// callSetProperty get a stack pointer in input argument.
+/*--------------------------------------------------------------------------*/
 int sci_uicontrol(char *fname, unsigned long fname_len)
 {
     int nbRow = 0, nbCol = 0, stkAdr = 0, k = 0;
