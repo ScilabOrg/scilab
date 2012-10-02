@@ -40,6 +40,7 @@
 
 /* Sundials includes */
 #include <cvode/cvode.h>           /* prototypes for CVODES fcts. and consts. */
+
 #include <cvode/cvode_dense.h>     /* prototype for CVDense */
 #include <ida/ida.h>
 #include <ida/ida_dense.h>
@@ -73,6 +74,8 @@
 #include "sciblk2.h"
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
+
+#include <RungeKutta45.h>           /* prototypes for RK fcts. and consts. */
 
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
@@ -1302,6 +1305,7 @@ static void cossim(double *told)
     realtype reltol = 0., abstol = 0.;
     N_Vector y = NULL;
     void *cvode_mem = NULL;
+    void *rkutta_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
     jroot = NULL;
@@ -1363,11 +1367,21 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 101:
+                rkutta_mem = RKCreate(RK_ADAMS, RK_FUNCTIONAL);
         }
 
         /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
         if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
+        {
+            *ierr = 10000;
+            N_VDestroy_Serial(y);
+            FREE(jroot);
+            FREE(zcros);
+            return;
+        }
+        if (check_flag((void *)rkutta_mem, "RKCreate", 0))
         {
             *ierr = 10000;
             N_VDestroy_Serial(y);
@@ -1383,9 +1397,23 @@ static void cossim(double *told)
             freeall
             return;
         }
+        flag = RKMalloc(rkutta_mem, simblk, T0, y, RK_SS, reltol, &abstol);
+        if (check_flag(&flag, "RKMalloc", 1))
+        {
+            *ierr = 300 + (-flag);
+            freeall
+            return;
+        }
 
         flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
         if (check_flag(&flag, "CVodeRootInit", 1))
+        {
+            *ierr = 300 + (-flag);
+            freeall
+            return;
+        }
+        flag = RKRootInit(rkutta_mem, ng, grblk, NULL);
+        if (check_flag(&flag, "RKRootInit", 1))
         {
             *ierr = 300 + (-flag);
             freeall
@@ -1395,6 +1423,14 @@ static void cossim(double *told)
         /* Call CVDense to specify the CVDENSE dense linear solver */
         flag = CVDense(cvode_mem, *neq);
         if (check_flag(&flag, "CVDense", 1))
+        {
+            *ierr = 300 + (-flag);
+            freeall
+            return;
+        }
+        /* Call CVDense to specify the CVDENSE dense linear solver */
+        flag = CRKDense(rkutta_mem, *neq);
+        if (check_flag(&flag, "RKDense", 1))
         {
             *ierr = 300 + (-flag);
             freeall
