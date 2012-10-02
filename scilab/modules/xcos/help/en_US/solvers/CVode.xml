@@ -216,7 +216,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
             The Scilab console displays :
             <screen><![CDATA[
 Time for BDF / Newton :
- 27.549
+ 33.997
             ]]></screen>
         </para>
         <para>
@@ -229,16 +229,16 @@ Time for BDF / Newton :
             Results :
             <screen language="example"><![CDATA[
 Time for BDF / Newton :
- 25.457
+ 12.998
 
 Time for BDF / Functional :
- 24.893
-
-Time for Adams / Functional :
- 20.049
+ 12.256
 
 Time for Adams / Newton :
- 20.469
+ 8.577
+
+Time for Adams / Functional :
+ 8.002
             ]]></screen>
         </para>
         <para>
@@ -253,6 +253,9 @@ Time for Adams / Newton :
             </member>
             <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="LSodar">LSodar</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
