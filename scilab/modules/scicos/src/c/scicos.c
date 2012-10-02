@@ -98,7 +98,7 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 /*--------------------------------------------------------------------------*/
 
 #define freeall					\
-	if (*neq>0) if (C2F(cmsolver).solver) (CVodeFree(&cvode_mem)); else (LSodarFree(&cvode_mem)); 		\
+	if (*neq>0) CVodeFree(&cvode_mem);		\
 	if (*neq>0) N_VDestroy_Serial(y);		\
 	if ( ng>0 ) FREE(jroot);			\
 	if ( ng>0 ) FREE(zcros);
@@ -803,15 +803,15 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     {
 
         /*     integration */
-        if (C2F(cmsolver).solver == 0)        /*  LSODAR: Method: DYNAMIC, Nonlinear solver= DYNAMIC */
+        if (C2F(cmsolver).solver == 0)        /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 1)   /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
+        else if (C2F(cmsolver).solver == 1)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
+        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
         {
             cossim(t0);
         }
@@ -820,6 +820,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             cossim(t0);
         }
         else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+        {
+            cossim(t0);
+        }
+        else if (C2F(cmsolver).solver == 5)   /*  DOPRI: Method: Dormand-Price, Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
@@ -1365,14 +1369,17 @@ static void cossim(double *told)
             case 1:
                 cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
                 break;
-            case 2:
+            case 1:
                 cvode_mem = CVodeCreate(CV_BDF, CV_FUNCTIONAL);
                 break;
-            case 3:
+            case 2:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_NEWTON);
                 break;
-            case 4:
+            case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
+                break;
+            case 5:
+                cvode_mem = CVodeCreate(CV_DOPRI, CV_FUNCTIONAL);
                 break;
         }
 
@@ -3473,69 +3480,6 @@ static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data)
 
     return 0;
 } /* grblk */
-/*--------------------------------------------------------------------------*/
-/* simblklsodar */
-static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, realtype * res)
-{
-    double tx = 0.;
-    int i = 0, nantest = 0;
-
-    tx = (double) *tOld;
-
-    for (i = 0; i < *nequations; ++i) res[i] = 0; /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
-    C2F(ierode).iero = 0;
-    *ierr = 0;
-    odoit(&tx, actual, res, res);
-    C2F(ierode).iero = *ierr;
-
-    if (*ierr == 0)
-    {
-        nantest = 0;
-        for (i = 0; i < *nequations; i++) /* NaN checking */
-        {
-            if ((res[i] - res[i] != 0))
-            {
-                sciprint(_("\nWarning: The computing function #%d returns a NaN/Inf"), i);
-                nantest = 1;
-                break;
-            }
-        }
-        if (nantest == 1) return 349; /* recoverable error; */
-    }
-
-    return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
-
-} /* simblklsodar */
-/*--------------------------------------------------------------------------*/
-/* grblklsodar */
-static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int * ngc, realtype * res)
-{
-    double tx = 0.;
-    int jj = 0, nantest = 0;
-
-   tx = (double) *tOld;
-
-    C2F(ierode).iero = 0;
-    *ierr = 0;
-
-    zdoit(&tx, actual, actual, res);
-
-    if (*ierr == 0)
-    {
-        nantest = 0;
-        for (jj = 0; jj < *ngc; jj++)
-            if (res[jj] - res[jj] != 0)
-            {
-                sciprint(_("\nWarning: The zero_crossing function #%d returns a NaN/Inf"), jj);
-                nantest = 1;
-                break;
-            } /* NaN checking */
-        if (nantest == 1) return 350; /* recoverable error; */
-    }
-    C2F(ierode).iero = *ierr;
-
-    return 0;
-} /* grblklsodar */
 /*--------------------------------------------------------------------------*/
 /* simblkdaskr */
 static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *rdata)
