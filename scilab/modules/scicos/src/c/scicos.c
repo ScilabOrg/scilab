@@ -74,6 +74,8 @@
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
 
+#include "lsodar.h"           /* prototypes for lsodar fcts. and consts. */
+
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
@@ -227,6 +229,8 @@ static int CallKinsol(double *told);
 static int simblk(realtype t, N_Vector yy, N_Vector yp, void *f_data);
 static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void *g_data);
 static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
+static int simblklsodar(int *nequations, realtype tOld, realtype * actual, realtype *res);
+static int grblklsodar(int *nequations, realtype tOld, realtype * actual, int ngroot, realtype * res);
 static void addevs(double t, int *evtnb, int *ierr1);
 static int synchro_g_nev(ScicosImport *scs_imp, double *g, int kf, int *ierr);
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb);
@@ -799,19 +803,23 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     {
 
         /*     integration */
-        if (C2F(cmsolver).solver == 0)        /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
+        if (C2F(cmsolver).solver == 0)   /*  CVODE: Method: lsodar, Nonlinear solver=  */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 1)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
+        else if (C2F(cmsolver).solver == 1)        /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 3)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+        else if (C2F(cmsolver).solver == 3)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+        {
+            cossim(t0);
+        }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
         {
             cossim(t0);
         }
@@ -1304,6 +1312,17 @@ static void cossim(double *told)
     void *cvode_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
+    realtype *yVec; int istate = 1;
+    yVec = NULL;
+    int lrw = 20 + 16* (*neq) + 3*ng;
+    int liw = 20 + (*neq);
+    realtype *rwork = NULL; int *iwork = NULL;
+    rwork = MALLOC(sizeof(realtype) *lrw);
+    iwork = MALLOC(sizeof(int) *liw);
+    for (jj = 0; jj < lrw; ++jj)
+        rwork[jj] = 0;
+    for (jj = 0; jj < liw; ++jj)
+        iwork[jj] = 0;
     jroot = NULL;
     if (ng != 0)
     {
@@ -1343,7 +1362,7 @@ static void cossim(double *told)
         }
 
         NV_DATA_S(y) = x;
-
+		
         cvode_mem = NULL;
 
         /* Set extension of Sundials for scicos */
@@ -1351,70 +1370,81 @@ static void cossim(double *told)
 
         switch (C2F(cmsolver).solver)
         {
-            case 0:
+			case 0:
+			    /* Create the lsodar problem */
+                yVec = NV_DATA_S(y);
+                lsodarCreate(simblklsodar, neq, yVec, 0., 0.1, CV_SS, reltol, abstol, CV_NORMAL_TSTOP, istate, 0, rwork, lrw, iwork, liw, 0, 2, grblk, ng, jroot);
+                istate = 2;
+            case 1:
                 cvode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
                 break;
-            case 1:
+            case 2:
                 cvode_mem = CVodeCreate(CV_BDF, CV_FUNCTIONAL);
                 break;
-            case 2:
+            case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_NEWTON);
                 break;
-            case 3:
+            case 4:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+           
         }
+		
+          /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
 
-        /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
-
-        if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
-        {
+          if (check_flag((void *)cvode_mem, "CVodeCreate", 0))
+          {
             *ierr = 10000;
             N_VDestroy_Serial(y);
             FREE(jroot);
             FREE(zcros);
             return;
-        }
+          }
 
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
-        {
+          flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
+          if (check_flag(&flag, "CVodeMalloc", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
-        if (check_flag(&flag, "CVodeRootInit", 1))
-        {
+          flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+          if (check_flag(&flag, "CVodeRootInit", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
 
-        /* Call CVDense to specify the CVDENSE dense linear solver */
-        flag = CVDense(cvode_mem, *neq);
-        if (check_flag(&flag, "CVDense", 1))
-        {
+          /* Call CVDense to specify the CVDENSE dense linear solver */
+          flag = CVDense(cvode_mem, *neq);
+          if (check_flag(&flag, "CVDense", 1))
+          {
             *ierr = 300 + (-flag);
             freeall
             return;
-        }
+          }
+          /* Call CVDense to specify the CVDENSE dense linear solver */
 
-        if (hmax > 0)
-        {
-            flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
+          if (hmax > 0)
+          {
+			if (C2F(cmsolver).solver == 0)
+			  for (;;) break;
+              //flag = lsodarSetMaxStep(cvode_mem, (realtype) hmax);
+            else
+              flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
                 *ierr = 300 + (-flag);
                 freeall;
                 return;
             }
-        }
-        /* Set the Jacobian routine to Jac (user-supplied)
-        flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
-        if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
-
+          }
+          /* Set the Jacobian routine to Jac (user-supplied)
+          flag = CVDenseSetJacFn(cvode_mem, Jac, NULL);
+          if (check_flag(&flag, "CVDenseSetJacFn", 1)) return(1);  */
+		
     }/* testing if neq>0 */
 
     /* Function Body */
@@ -1620,6 +1650,11 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
+                    if (C2F(cmsolver).solver == 0) {
+                      lsodarSolve(simblklsodar, neq, yVec, *told, t, CV_SS, reltol, abstol, CV_NORMAL_TSTOP, istate, 0, rwork, lrw, iwork, liw, 0, 2, grblk, ng, jroot);
+                      *told = t;
+				  }
+                    else
                     flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
@@ -3426,6 +3461,71 @@ static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data)
 
     return 0;
 } /* grblk */
+/*--------------------------------------------------------------------------*/
+/* simblklsodar */
+static int simblklsodar(int *nequations, realtype tOld, realtype * actual, realtype *res)
+{
+	printf("simblklsodar\n");
+    double tx = 0.;
+    int i = 0, nantest = 0;
+
+    tx = (double) tOld;
+
+    for (i = 0; i < *nequations; ++i) res[i] = 0; /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
+    C2F(ierode).iero = 0;
+    *ierr = 0;
+    odoit(&tx, actual, res, res);
+    C2F(ierode).iero = *ierr;
+
+    if (*ierr == 0)
+    {
+        nantest = 0;
+        for (i = 0; i < *nequations; i++) /* NaN checking */
+        {
+            if ((res[i] - res[i] != 0))
+            {
+                sciprint(_("\nWarning: The computing function #%d returns a NaN/Inf"), i);
+                nantest = 1;
+                break;
+            }
+        }
+        if (nantest == 1) return 349; /* recoverable error; */
+    }
+
+    return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
+
+} /* simblklsodar */
+/*--------------------------------------------------------------------------*/
+/* grblklsodar */
+//static int grblklsodar(int *neq, realtype t, realtype * y, int ngc, realtype * g0)
+//{
+//    double tx = 0., *x = NULL;
+//    int jj = 0, nantest = 0;
+//
+//   tx = (double) t;
+//    x =  (double *) NV_DATA_S(yy);
+//
+//    C2F(ierode).iero = 0;
+//    *ierr = 0;
+//
+//    zdoit(&tx, x, x, (double*) gout);
+//
+//    if (*ierr == 0)
+//    {
+//        nantest = 0;
+//        for (jj = 0; jj < ng; jj++)
+//            if (gout[jj] - gout[jj] != 0)
+//            {
+//                sciprint(_("\nWarning: The zero_crossing function #%d returns a NaN/Inf"), jj);
+//                nantest = 1;
+//                break;
+//            } /* NaN checking */
+//        if (nantest == 1) return 350; /* recoverable error; */
+//    }
+//    C2F(ierode).iero = *ierr;
+//
+//    return 0;
+//} /* grblklsodar */
 /*--------------------------------------------------------------------------*/
 /* simblkdaskr */
 static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval, void *rdata)
