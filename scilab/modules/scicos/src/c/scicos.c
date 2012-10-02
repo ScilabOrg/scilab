@@ -74,6 +74,8 @@
 #include "sciblk4.h"
 #include "dynlib_scicos.h"
 
+#include "RungeKutta45.h"           /* prototypes for RK fcts. and consts. */
+
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
 #endif
@@ -815,6 +817,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: Runge-Kutta, Nonlinear solver= FUNCTIONAL */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1363,6 +1369,8 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 4:
+                cvode_mem = RKCreate(); /* Create the Runge-Kutta problem */
         }
 
         /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
@@ -1403,6 +1411,9 @@ static void cossim(double *told)
 
         if (hmax > 0)
         {
+            if (C2F(cmsolver).solver == 4)
+            flag = RKSetMaxStep(cvode_mem, (realtype) hmax);
+            else
             flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
@@ -1620,6 +1631,9 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
+                    if (C2F(cmsolver).solver == 4)
+                    flag = RK(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    else
                     flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
