@@ -16,9 +16,11 @@
 #include "freeArrayOfString.h"
 #include "mopen.h"
 #include "mgetl.h"
+#include "localization.h"
 #include "expandPathVariable.h"
 #include "FileExist.h"
 #include "mclose.h"
+#include "warningmode.h"
 #include "pcre_private.h"
 #include "splitLine.h"
 #include "csv_strsubst.h"
@@ -341,7 +343,7 @@ static int getNumbersOfColumnsInLines(const char **lines, int sizelines,
     {
         int i = 0;
         for (i = 0; i < sizelines; i++)
-        {
+        { 
             NbColumns = getNumbersOfColumnsInLine(lines[i], separator);
             if (firstLine)
             {
@@ -352,6 +354,11 @@ static int getNumbersOfColumnsInLines(const char **lines, int sizelines,
             {
                 if (previousNbColumns != NbColumns)
                 {
+                    if (getWarningMode())
+                    {
+                        fprintf(stdout, _("csvRead: Unconsistency found in the columns. At line %d, found %d columns while the previous had %d\n"), i+1, NbColumns, previousNbColumns);
+                    }
+
                     return 0;
                 }
             }
