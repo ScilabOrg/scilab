@@ -8,6 +8,8 @@ Xcos
 
 * Bug #11919 fixed - DLSS block with empty matrix as parameters made Scilab crash.
 
+* Bug #11821 fixed - Running XcosPalAdd example from help led to deadlock
+
 
 Bug fixes
 ==========
