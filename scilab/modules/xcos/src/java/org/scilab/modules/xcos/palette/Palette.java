@@ -35,6 +35,7 @@ import org.scilab.modules.localization.Messages;
 import org.scilab.modules.types.ScilabTList;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.block.BasicBlock;
+import org.scilab.modules.xcos.block.BlockFactory;
 import org.scilab.modules.xcos.graph.XcosDiagram;
 import org.scilab.modules.xcos.io.scicos.ScicosFormatException;
 import org.scilab.modules.xcos.io.scicos.ScilabDirectHandler;
@@ -427,21 +428,7 @@ public final class Palette {
     public static void generatePaletteIcon(final String blockName, final String iconPath) throws IOException {
         BasicBlock block;
 
-        final ScilabDirectHandler handler = ScilabDirectHandler.acquire();
-        if (handler == null) {
-            return;
-        }
-
-        try {
-            synchronousScilabExec(ScilabDirectHandler.BLK + " = " + buildCall(blockName, "define"));
-            block = handler.readBlock();
-        } catch (ScicosFormatException e) {
-            throw new IOException(e);
-        } catch (InterpreterException e) {
-            throw new IOException(e);
-        } finally {
-            handler.release();
-        }
+        block = BlockFactory.createBlock(blockName);
 
         generateIcon(block, iconPath);
 
