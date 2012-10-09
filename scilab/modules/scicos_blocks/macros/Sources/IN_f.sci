@@ -96,6 +96,7 @@ case 'set' then
       gettext("Regular input port")], "Port Number", ..
       list("vec",1),exprs);
 
+    if ~ok then break,end
     prt=int(prt)
     if prt <=0 then
         block_parameter_error(msprintf(gettext("Wrong value for ''Port Number'' parameter: %d."),prt), ..
