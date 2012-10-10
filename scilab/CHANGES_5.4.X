@@ -20,6 +20,8 @@ Bug fixes
 * Bug #11952 fixed - In SciNotes, a Java exception occured on selection of text
                     containing a \E.
 
+* Bug #11965 fixed - Export to SVG converted texts in shapes.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
