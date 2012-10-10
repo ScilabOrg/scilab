@@ -20,6 +20,8 @@ Bug fixes
 * Bug #11952 fixed - In SciNotes, a Java exception occured on selection of text
                     containing a \E.
 
+* Bug #11971 fixed - Cancel "Open File" via icon led to open SciNotes.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
