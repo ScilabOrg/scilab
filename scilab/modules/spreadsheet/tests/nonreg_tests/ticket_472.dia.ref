@@ -15,6 +15,7 @@ txt = ["my data 1";"";"my data 2"];
 ref_res = ["my data 1";"my data 2"];
 assert_checkequal(csvDefault('blank'), 'off');
 ierr = execstr("res = csvTextScan(txt, [] , [], ""string"")", "errcatch");
+csvRead: Unconsistency found in the columns. At line 2, found 0 columns while the previous had 1.
 assert_checkequal(ierr, 999);
 assert_checkequal(csvDefault('blank','on'), %t);
 ierr = execstr("res = csvTextScan(txt, [] , [], ""string"")", "errcatch");
