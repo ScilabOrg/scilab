@@ -129,3 +129,8 @@ int sci_h5isList(char * fname, unsigned long fname_len)
     return sci_h5isfoo(HDF5Scilab::H5LIST, fname, fname_len);
 }
 /*--------------------------------------------------------------------------*/
+int sci_h5isCompound(char * fname, unsigned long fname_len)
+{
+    return sci_h5isfoo(HDF5Scilab::H5COMPOUND, fname, fname_len);
+}
+/*--------------------------------------------------------------------------*/

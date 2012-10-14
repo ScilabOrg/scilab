@@ -15,14 +15,14 @@
 namespace org_modules_hdf5
 {
 
-H5ReferenceData::H5ReferenceData(H5Object & _parent, const bool _datasetReference, const hsize_t _totalSize, const hsize_t _dataSize, const hsize_t _ndims, const hsize_t * _dims, const hsize_t _arank, const hsize_t * _adims, char * _data, const hsize_t _stride, const size_t _offset, const bool _dataOwner) : H5BasicData(_parent, _totalSize, _dataSize, _ndims, _dims, _arank, _adims, _data, _stride, _offset, _dataOwner), datasetReference(_datasetReference)
+H5ReferenceData::H5ReferenceData(H5Object & _parent, const bool _datasetReference, const hsize_t _totalSize, const hsize_t _dataSize, const hsize_t _ndims, const hsize_t * _dims, char * _data, const hsize_t _stride, const size_t _offset, const bool _dataOwner) : H5BasicData(_parent, _totalSize, _dataSize, _ndims, _dims, _data, _stride, _offset, _dataOwner), datasetReference(_datasetReference), cumprod(H5Object::getCumProd(_ndims, dims))
 {
 
 }
 
 H5ReferenceData::~H5ReferenceData()
 {
-
+    delete[] cumprod;
 }
 
 const char ** H5ReferenceData::getReferencesName() const
@@ -49,29 +49,7 @@ const char ** H5ReferenceData::getReferencesName() const
     return names;
 }
 
-H5Object & H5ReferenceData::getReferencesObject(const unsigned int size, const double * index) const
-{
-    H5Object * obj = 0;
-    unsigned int * iindex = new unsigned int[size];
-    for (unsigned int i = 0; i < size; i++)
-    {
-        iindex[i] = (unsigned int)(index[i]);
-    }
-
-    try
-    {
-        obj = &getReferencesObject(size, iindex);
-        delete[] iindex;
-        return *obj;
-    }
-    catch (const H5Exception & e)
-    {
-        delete[] iindex;
-        throw;
-    }
-}
-
-H5Object & H5ReferenceData::getReferencesObject(const unsigned int size, const unsigned int * index) const
+H5Object & H5ReferenceData::getData(const unsigned int size, const unsigned int * index) const
 {
     char * cdata = static_cast<char *>(data) + offset;
     void ** ref = 0;
@@ -88,7 +66,6 @@ H5Object & H5ReferenceData::getReferencesObject(const unsigned int size, const u
     for (unsigned int i = 0; i < size; i++)
     {
         pos += cumprod * index[i];
-        cumprod *= dims[i];
     }
 
     if (pos >= totalSize)
@@ -223,17 +200,5 @@ void H5ReferenceData::printData(std::ostream & os, const unsigned int pos, const
 
     os << (haddr_t)(*ref) << " " << name;
     delete[] name;
-}
-
-void H5ReferenceData::toScilab(void * pvApiCtx, const int lhsPosition, int * parentList, const int listPosition) const
-{
-    if (parentList)
-    {
-        createInScilabList(parentList, lhsPosition, listPosition, pvApiCtx);
-    }
-    else
-    {
-        createOnScilabStack(lhsPosition, pvApiCtx);
-    }
 }
 }

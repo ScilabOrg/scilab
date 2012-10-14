@@ -138,7 +138,7 @@ void H5Dataset::getAccessibleAttribute(const std::string & _name, const int pos,
         const H5Data & data = const_cast<H5Dataset *>(this)->getData();
         data.toScilab(pvApiCtx, pos);
 
-        if (!data.isReference())
+        if (data.mustDelete())
         {
             delete &data;
         }

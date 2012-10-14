@@ -55,7 +55,9 @@ static gw_generic_table Tab[] =
     {sci_h5mv, "h5mv"},
     {sci_h5get, "h5get"},
     {sci_h5label, "h5label"},
-    {sci_h5exists, "h5exists"}
+    {sci_h5exists, "h5exists"},
+    {sci_h5isCompound, "h5isCompound"},
+    {sci_percent_H5Object_fieldnames, "%H5Object_fieldnames"},
 };
 /*--------------------------------------------------------------------------*/
 int gw_hdf5(void)
