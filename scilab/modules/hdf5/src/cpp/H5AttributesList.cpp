@@ -18,7 +18,7 @@ namespace org_modules_hdf5
 
 H5AttributesList::H5AttributesList(H5Object & _parent) : H5ListObject(_parent) { }
 
-H5AttributesList::H5AttributesList(H5Object & _parent, const unsigned int _size, const unsigned int * _index) : H5ListObject(_parent, _size, _index) { }
+H5AttributesList::H5AttributesList(H5Object & _parent, const unsigned int _size, const unsigned int * _index) : H5ListObject<H5Attribute>(_parent, _size, _index) { }
 
 H5AttributesList::~H5AttributesList() { }
 
