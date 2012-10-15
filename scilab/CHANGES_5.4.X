@@ -9,6 +9,7 @@ Bug fixes
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
 
+* Bug #11814 fixed - Fix a typo in one of the title of CACSD.
 
 
                     Changes between version 5.3.3 and 5.4.0
