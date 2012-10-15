@@ -326,8 +326,7 @@ int sci_eigs(char *fname, unsigned long fname_len)
         }
 
         SIGMA = (doublecomplex*)MALLOC(1 * sizeof(doublecomplex));
-        sciErr = getComplexZMatrixOfDouble(pvApiCtx, piAddressVarFour, &iRowsFour, &iColsFour, &SIGMA);
-        if (sciErr.iErr)
+        if (getScalarComplexDouble(pvApiCtx, piAddressVarFour, &SIGMA[0].r, &SIGMA[0].i))
         {
             printError(&sciErr, 0);
             Scierror(999, _("%s: Can not read input argument #%d.\n"), fname, 4);
@@ -517,7 +516,7 @@ int sci_eigs(char *fname, unsigned long fname_len)
     else
     {
         sciErr = getVarDimension(pvApiCtx, piAddressVarNine, &iRowsNine, &iColsNine);
-        if (iRowsNine*iColsNine == 1 || iRowsNine*iColsNine != N)
+        if (iRowsNine * iColsNine == 1 || iRowsNine * iColsNine != N)
         {
             Scierror(999, _("%s: Wrong dimension for input argument #%d: Start vector %s must be N by 1.\n"), "eigs", 9, "opts.resid");
             return 1;
