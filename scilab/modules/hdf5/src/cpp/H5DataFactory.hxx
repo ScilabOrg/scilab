@@ -12,6 +12,7 @@
 
 #ifndef __H5DATAFACTORY_HXX__
 #define __H5DATAFACTORY_HXX__
+#define H5_NO_DEPRECATED_SYMBOLS
 
 #include "HDF5Objects.h"
 #include "H5Object.hxx"

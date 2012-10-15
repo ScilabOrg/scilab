@@ -9,7 +9,7 @@
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
-
+#define H5_NO_DEPRECATED_SYMBOLS
 #include "H5Attribute.hxx"
 #include "H5DataFactory.hxx"
 
