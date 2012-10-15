@@ -36,12 +36,12 @@ static int getCommonNamedScalarDouble(void* _pvCtx, const char* _pstName, int _i
 
 SciErr getMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, double** _pdblReal)
 {
-    return getCommonMatrixOfDouble(_pvCtx, _piAddress, 0, _piRows, _piCols, _pdblReal, NULL);
+    return getCommonMatrixOfDouble(_pvCtx, _piAddress, '$', 0, _piRows, _piCols, _pdblReal, NULL);
 }
 
 SciErr getComplexMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, double** _pdblReal, double** _pdblImg)
 {
-    return getCommonMatrixOfDouble(_pvCtx, _piAddress, 1, _piRows, _piCols, _pdblReal, _pdblImg);
+    return getCommonMatrixOfDouble(_pvCtx, _piAddress, '$', 1, _piRows, _piCols, _pdblReal, _pdblImg);
 }
 
 SciErr getComplexZMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, int* _piCols, doublecomplex** _pdblZ)
@@ -52,7 +52,7 @@ SciErr getComplexZMatrixOfDouble(void* _pvCtx, int* _piAddress, int* _piRows, in
     double *pdblReal = NULL;
     double *pdblImg	 = NULL;
 
-    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, isVarComplex(_pvCtx, _piAddress), _piRows, _piCols, &pdblReal, &pdblImg);
+    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, '$', isVarComplex(_pvCtx, _piAddress), _piRows, _piCols, &pdblReal, &pdblImg);
     if (sciErr.iErr)
     {
         addErrorMessage(&sciErr, API_ERROR_GET_ZDOUBLE, _("%s: Unable to get argument #%d"), "getComplexZMatrixOfDouble", getRhsFromAddress(_pvCtx, _piAddress));
@@ -68,7 +68,7 @@ SciErr getMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _piRows, i
     SciErr sciErr;
     double* pdblReal = NULL;
     int iSize = 0;
-    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, 0, _piRows, _piCols, &pdblReal, NULL);
+    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, 'i', 0, _piRows, _piCols, &pdblReal, NULL);
     if (sciErr.iErr)
     {
         return sciErr;
@@ -79,6 +79,16 @@ SciErr getMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _piRows, i
 
     //Warning we overwrite double by int !!!!
     C2F(entier)(&iSize, pdblReal, *_piReal);
+
+
+    /*update to set view as integer*/
+    int iRhs = getRhsFromAddress(_pvCtx, _piAddress);
+    int iNewPos = Top - Rhs + iRhs;
+    int iAddr = *Lstk(iNewPos);
+    int iSCIAddress = sadr(iadr(iAddr) + 4);
+    iSCIAddress = iadr(iSCIAddress);
+    updateInterSCI(iRhs, 'i', iAddr, iSCIAddress);
+
     return sciErr;
 }
 
@@ -88,7 +98,7 @@ SciErr getComplexMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _pi
     double* pdblReal = NULL;
     double* pdblImg  = NULL;
     int iSize = 0;
-    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, 1, _piRows, _piCols, &pdblReal, &pdblImg);
+    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, 'i', 1, _piRows, _piCols, &pdblReal, &pdblImg);
     if (sciErr.iErr)
     {
         return sciErr;
@@ -104,7 +114,7 @@ SciErr getComplexMatrixOfDoubleAsInteger(void* _pvCtx, int* _piAddress, int* _pi
     return sciErr;
 }
 
-SciErr getCommonMatrixOfDouble(void* _pvCtx, int* _piAddress, int _iComplex, int* _piRows, int* _piCols, double** _pdblReal, double** _pdblImg)
+SciErr getCommonMatrixOfDouble(void* _pvCtx, int* _piAddress, char _cType, int _iComplex, int* _piRows, int* _piCols, double** _pdblReal, double** _pdblImg)
 {
     SciErr sciErr;
     sciErr.iErr = 0;
@@ -195,7 +205,6 @@ SciErr allocMatrixOfDoubleAsInteger(void* _pvCtx, int _iVar, int _iRows, int _iC
     }
 
     *_piReal = (int*)pdblReal;
-
     return sciErr;
 }
 
@@ -247,6 +256,28 @@ SciErr allocCommonMatrixOfDouble(void* _pvCtx, int _iVar, char _cType, int _iCom
 
     updateInterSCI(_iVar, _cType, iAddr, iSCIAddress);
     updateLstk(iNewPos, sadr(iadr(iAddr) + 4), _iRows * _iCols * (_iComplex + 1));
+    return sciErr;
+}
+
+SciErr allocComplexZMatrixOfDouble(void* _pvCtx, int _iVar, int _iRows, int _iCols, const doublecomplex** _pdblData)
+{
+    SciErr sciErr;
+    sciErr.iErr = 0;
+    sciErr.iMsgCount = 0;
+    double* pdblReal = NULL;
+    double* pdblImg = NULL;
+
+    sciErr = allocComplexMatrixOfDouble(_pvCtx, _iVar, _iRows, _iCols, &pdblReal, &pdblImg);
+    if (sciErr.iErr)
+    {
+        return sciErr;
+    }
+
+    //warning convert double* to doublecomplex*
+    *_pdblData = (doublecomplex*)pdblReal;
+
+    //strore storage information to putlhsvar
+    intersci_.ntypes[_iVar - 1] = 'z';
     return sciErr;
 }
 
@@ -518,7 +549,7 @@ SciErr readCommonNamedMatrixOfDouble(void* _pvCtx, const char* _pstName, int _iC
         return sciErr;
     }
 
-    sciErr = getCommonMatrixOfDouble(_pvCtx, piAddr, _iComplex, _piRows, _piCols, &pdblReal, &pdblImg);
+    sciErr = getCommonMatrixOfDouble(_pvCtx, piAddr, '$', _iComplex, _piRows, _piCols, &pdblReal, &pdblImg);
     if (sciErr.iErr)
     {
         addErrorMessage(&sciErr, API_ERROR_READ_NAMED_DOUBLE, _("%s: Unable to get variable \"%s\""), _iComplex ? "readNamedComplexMatrixOfDouble" : "readNamedMatrixOfDouble", _pstName);
@@ -574,7 +605,7 @@ static int getCommonScalarDouble(void* _pvCtx, int* _piAddress, int _iComplex, d
     double* pdblReal = NULL;
     double* pdblImg	 = NULL;
 
-    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, _iComplex, &iRows, &iCols, &pdblReal, &pdblImg);
+    sciErr = getCommonMatrixOfDouble(_pvCtx, _piAddress, '$', _iComplex, &iRows, &iCols, &pdblReal, &pdblImg);
     if (sciErr.iErr)
     {
         addErrorMessage(&sciErr, API_ERROR_GET_SCALAR_DOUBLE, _("%s: Unable to get argument #%d"), _iComplex ? "getScalarComplexDouble" : "getScalarDouble", getRhsFromAddress(_pvCtx, _piAddress));
