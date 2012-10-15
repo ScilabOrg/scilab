@@ -12,7 +12,6 @@
 // <-- Short Description -->
 // try to compile and link a superblock
 
-loadXcosLibs();
 assert_checktrue(importXcosDiagram(SCI+'/modules/xcos/demos/Controller.xcos'));
 
 // getting the SUPER_f (System) block
