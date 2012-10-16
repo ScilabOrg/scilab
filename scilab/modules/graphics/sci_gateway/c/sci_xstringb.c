@@ -41,19 +41,19 @@ int sci_xstringb(char *fname, unsigned long fname_len)
     char* l6 = NULL;
 
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0, m4 = 0, n4 = 0, m5 = 0, n5 = 0, m6 = 0, n6 = 0;
-    BOOL autoSize = TRUE ;
+    BOOL autoSize = TRUE;
     double x = 0., y = 0., w = 0., hx = 0.;
     char **Str = NULL;
     double rect[4], angle = 0.;
     long hdlstr = 0;
-    double userSize[2] ;
+    double userSize[2];
     int textBoxMode = 1; // 0 : off | 1 : centered | 2 : filled
 
-    if ( nbInputArgument(pvApiCtx) <= 0 )
+    if (nbInputArgument(pvApiCtx) <= 0)
     {
         /* demo */
         sci_demo(fname, fname_len);
-        return 0 ;
+        return 0;
     }
 
     CheckInputArgument(pvApiCtx, 5, 6);
@@ -121,7 +121,7 @@ int sci_xstringb(char *fname, unsigned long fname_len)
         return 1;
     }
 
-    if ( m3*n3 == 0 )
+    if (m3 * n3 == 0)
     {
         AssignOutputVariable(pvApiCtx, 1) = 0;
         ReturnArguments(pvApiCtx);
@@ -193,9 +193,9 @@ int sci_xstringb(char *fname, unsigned long fname_len)
             return 1;
         }
 
-        if ( m6*n6 != 0 && strcmp((l6), "fill") == 0 )
+        if (m6 * n6 != 0 && strcmp((l6), "fill") == 0)
         {
-            autoSize = FALSE ;
+            autoSize = FALSE;
             textBoxMode = 2;
         }
         else
@@ -207,8 +207,8 @@ int sci_xstringb(char *fname, unsigned long fname_len)
         freeAllocatedSingleString(l6);
     }
 
-    userSize[0] = w ;
-    userSize[1] = hx ;
+    userSize[0] = w;
+    userSize[1] = hx;
     Objstring (Str, m3, n3, x, y, &angle, rect, autoSize, userSize, &hdlstr, textBoxMode, NULL, NULL, FALSE, TRUE, FALSE, ALIGN_CENTER);
 
     freeArrayOfString(Str, m3 * n3);

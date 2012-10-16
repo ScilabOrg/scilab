@@ -44,7 +44,7 @@ int sci_plot2d1_4 (char *fname, unsigned long fname_len)
     return sci_plot2d1_G("plot2d4", 4, fname_len); /* NG */
 }
 /*--------------------------------------------------------------------------*/
-int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
+int sci_plot2d1_G(char * fname, int ptype, unsigned long fname_len)
 {
     SciErr sciErr;
 
@@ -72,13 +72,13 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
         { -1, NULL, NULL, 0, 0}
     };
 
-    int    * style    = NULL  ;
-    double * rect     = NULL  ;
-    int    * nax      = NULL  ;
-    BOOL     flagNax  = FALSE ;
-    char   * strf     = NULL  ;
-    char   * legend   = NULL  ;
-    char   * logFlags = NULL  ;
+    int    * style    = NULL ;
+    double* rect     = NULL ;
+    int    * nax      = NULL ;
+    BOOL     flagNax  = FALSE;
+    char   * strf     = NULL ;
+    char   * legend   = NULL ;
+    char   * logFlags = NULL ;
 
     if (nbInputArgument(pvApiCtx) <= 0)
     {
@@ -90,7 +90,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
 
 
     iskip = 0;
-    if ( get_optionals(fname, opts) == 0)
+    if (get_optionals(fname, opts) == 0)
     {
         ReturnArguments(pvApiCtx);
         return 0;
@@ -104,9 +104,9 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
     }
 
     /* added to support plot2dxx([logflags],y) */
-    if ( nbInputArgument(pvApiCtx) == 1 + iskip )
+    if (nbInputArgument(pvApiCtx) == 1 + iskip)
     {
-        if ( FirstOpt() <= nbInputArgument(pvApiCtx))
+        if (FirstOpt() <= nbInputArgument(pvApiCtx))
         {
             Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"), fname, 1, 3 + iskip);
             return(0);
@@ -157,7 +157,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
 
     if (nbInputArgument(pvApiCtx) >= 2 + iskip)
     {
-        if ( FirstOpt() < 3 + iskip)
+        if (FirstOpt() < 3 + iskip)
         {
             Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"),
                      fname, 1, 3 + iskip);
@@ -186,8 +186,8 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
         {
             if (logFlags[0] == 'e')
             {
-                m1 = 0 ;
-                n1 = 0 ;
+                m1 = 0;
+                n1 = 0;
             }
         }
 
@@ -210,9 +210,9 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
 
         /* if (m2 * n2 == 0) { m1 = 0; n1 = 0;}  */
 
-        test = (m1*n1 == 0) /* x = [] */
+        test = (m1 * n1 == 0) /* x = [] */
                /* x,y vectors of same length */
-               || ((m1 == 1 || n1 == 1) && (m2 == 1 || n2 == 1) && (m1*n1 == m2 * n2))
+               || ((m1 == 1 || n1 == 1) && (m2 == 1 || n2 == 1) && (m1 * n1 == m2 * n2))
                || ((m1 == m2) && (n1 == n2)) /* size(x) == size(y) */
                /* x vector size(y)==[size(x),.] */
                || ((m1 == 1 && n1 == m2) || (n1 == 1 && m1 == m2));
@@ -225,7 +225,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
         }
 
 
-        if (m1*n1 == 0)
+        if (m1 * n1 == 0)
         {
             /* default x=1:n */
             sciErr = allocMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m2, n2, &lt);
@@ -252,7 +252,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
             n1 = n2;
             l1 = lt;
         }
-        else if ((m1 == 1 || n1 == 1) && (m2 != 1 && n2 != 1) )
+        else if ((m1 == 1 || n1 == 1) && (m2 != 1 && n2 != 1))
         {
             /* a single x vector for mutiple columns for y */
             sciErr = allocMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m2, n2, &lt);
@@ -274,7 +274,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
             n1 = n2;
             l1 = lt;
         }
-        else if ((m1 == 1 && n1 == 1) && (n2 != 1) )
+        else if ((m1 == 1 && n1 == 1) && (n2 != 1))
         {
             /* a single y row vector  for a single x */
             sciErr = allocMatrixOfDouble(pvApiCtx, nbInputArgument(pvApiCtx) + 1, m1, n2, &lt);
@@ -317,17 +317,17 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
         GetLogflags(fname, 8, opts, &logFlags);
     }
 
-    if ( isDefStrf( strf ) )
+    if (isDefStrf(strf))
     {
         char strfl[4];
         strcpy(strfl, DEFSTRFN);
 
         strf = strfl;
-        if ( !isDefRect( rect ) )
+        if (!isDefRect(rect))
         {
             strfl[1] = '7';
         }
-        if ( !isDefLegend( legend ) )
+        if (!isDefLegend(legend))
         {
             strfl[0] = '1';
         }
@@ -345,7 +345,7 @@ int sci_plot2d1_G( char * fname, int ptype, unsigned long fname_len )
 
     if (ptype == 0)
     {
-        ptype = 1 ;
+        ptype = 1;
     }
 
     Objplot2d (ptype, logFlags, (l1), (l2), &n1, &m1, style, strf, legend, rect, nax, flagNax);

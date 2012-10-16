@@ -24,7 +24,7 @@
 //
 // FIXME: Remove GW after Scilab 5.4.0
 //
-int sci_show_pixmap(char *fname, unsigned long fname_len )
+int sci_show_pixmap(char *fname, unsigned long fname_len)
 {
     /* call show_pixmap */
 
