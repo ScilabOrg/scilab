@@ -26,6 +26,7 @@ import java.awt.Rectangle;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
@@ -137,10 +138,21 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
             }
 
             if ( property == __GO_AXES_SIZE__) {
-                Dimension d = new Dimension(figure.getAxesSize()[0], figure.getAxesSize()[1]);
-                comp.setPreferredSize(d);
-                comp.setSize(d);
-                canvas.setBounds(0, 0, figure.getAxesSize()[0], figure.getAxesSize()[1]);
+                final Dimension d = new Dimension(figure.getAxesSize()[0], figure.getAxesSize()[1]);
+                final Runnable doRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        comp.setPreferredSize(d);
+                        comp.setSize(d);
+                        canvas.setBounds(0, 0, figure.getAxesSize()[0], figure.getAxesSize()[1]);
+                    }
+                };
+
+                if (SwingUtilities.isEventDispatchThread()) {
+                    doRun.run();
+                } else {
+                    SwingUtilities.invokeLater(doRun);
+                }
             }
 
             if (property == __GO_BACKGROUND__) {

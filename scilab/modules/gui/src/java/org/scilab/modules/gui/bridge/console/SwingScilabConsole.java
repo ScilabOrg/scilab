@@ -215,8 +215,13 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
      * @param dataToDisplay the data to be displayed
      * @see fr.scilab.console.HelpBrowser#display(java.lang.String)
      */
-    public void display(String dataToDisplay) {
-        this.getConfiguration().getOutputView().append(dataToDisplay);
+    public void display(final String dataToDisplay) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                SwingScilabConsole.this.getConfiguration().getOutputView().append(dataToDisplay);
+            }
+        });
     }
 
     /**

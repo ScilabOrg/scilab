@@ -33,6 +33,9 @@ Bug fixes
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
 
+* Bug #11497 fixed - A lot of EDT violation was detected by the 
+                     ThreadCheckingRepaintManager tool.
+
 * Bug #11814 fixed - Fix a typo in one of the titles of CACSD.
 
 * Bug #11952 fixed - In SciNotes, a Java exception occured on selection of text

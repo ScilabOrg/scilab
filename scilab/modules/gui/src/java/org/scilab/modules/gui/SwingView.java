@@ -64,6 +64,7 @@ import static org.scilab.modules.gui.utils.Debug.DEBUG;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -316,7 +317,30 @@ public final class SwingView implements GraphicView {
         return null;
     }
 
-    private TypedObject CreateObjectFromType(int type, String id) {
+    private TypedObject CreateObjectFromType(final int type, final String id) {
+        final TypedObject[] ret = new TypedObject[] {null};
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ret[0] = CreateObjectFromTypeOnEDT(type, id);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            try {
+                SwingUtilities.invokeAndWait(doRun);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return ret[0];
+    }
+
+    private TypedObject CreateObjectFromTypeOnEDT(final int type, final String id) {
         UielementType enumType = StyleToEnum(type);
         return new TypedObject(enumType, CreateObjectFromType(enumType, id));
     }
@@ -572,7 +596,22 @@ public final class SwingView implements GraphicView {
     }
 
     @Override
-    public void updateObject(String id, int property) {
+    public void updateObject(final String id, final int property) {
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                updateObjectOnEDT(id, property);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
+    }
+
+    public void updateObjectOnEDT(final String id, final int property) {
         TypedObject registeredObject = allObjects.get(id);
         DEBUG("SwingView", "Update" + property);
 
@@ -593,7 +632,7 @@ public final class SwingView implements GraphicView {
         int type = (Integer) GraphicController.getController().getProperty(id, __GO_TYPE__);
         /* Children list update */
         if (registeredObject != null && property == __GO_CHILDREN__) {
-            String[] newChildren = (String[]) GraphicController.getController().getProperty(id, __GO_CHILDREN__);
+            final String[] newChildren = (String[]) GraphicController.getController().getProperty(id, __GO_CHILDREN__);
 
             switch (type) {
                     /*
@@ -698,9 +737,14 @@ public final class SwingView implements GraphicView {
         }
 
         if (registeredObject != null) {
-            SwingViewObject swingObject = registeredObject.getValue();
+            final SwingViewObject swingObject = registeredObject.getValue();
             if (swingObject != null) {
-                swingObject.update(property, GraphicController.getController().getProperty(id, property));
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        swingObject.update(property, GraphicController.getController().getProperty(id, property));
+                    }
+                });
             }
         }
     }

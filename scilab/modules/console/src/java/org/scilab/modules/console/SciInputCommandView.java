@@ -38,6 +38,7 @@ import javax.swing.BorderFactory;
 import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.DocumentEvent;
@@ -173,9 +174,14 @@ public class SciInputCommandView extends ConsoleTextPane implements InputCommand
             }
             command = queue.take();
             if (displayQueue.take()) {
-                OutputView outputView = console.getConfiguration().getOutputView();
-                PromptView promptView = console.getConfiguration().getPromptView();
-                outputView.append(StringConstants.NEW_LINE + promptView.getDefaultPrompt() + command + StringConstants.NEW_LINE);
+                final String localCommand = command;
+                final OutputView outputView = console.getConfiguration().getOutputView();
+                final PromptView promptView = console.getConfiguration().getPromptView();
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        outputView.append(StringConstants.NEW_LINE + promptView.getDefaultPrompt() + localCommand + StringConstants.NEW_LINE);
+                    }
+                });
             }
         } catch (InterruptedException e) {
             /*
