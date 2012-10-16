@@ -24,7 +24,7 @@
 //
 // FIXME: Remove GW after Scilab 5.4.0
 //
-int sci_clear_pixmap(char *fname, unsigned long fname_len )
+int sci_clear_pixmap(char *fname, unsigned long fname_len)
 {
     CheckRhs(0, 0);
     CheckLhs(0, 1);
