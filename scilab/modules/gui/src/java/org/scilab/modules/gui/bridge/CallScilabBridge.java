@@ -25,12 +25,18 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.imageio.ImageIO;
+import javax.management.timer.Timer;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -46,6 +52,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.html.HTMLDocument;
 
 import org.scilab.modules.commons.ScilabCommons;
 import org.scilab.modules.console.SciConsole;
@@ -126,10 +133,12 @@ import org.scilab.modules.gui.window.Window;
 import org.scilab.modules.localization.Messages;
 
 /**
- * This class is used to call Scilab GUIs objects from Scilab
+ * This class is used to call Scilab GUIs objects from Scilab.
+ *
+ * All class operation should perform on the EDT to conform to the Oracle guidelines.
  * @author Vincent COUVERT
  */
-public class CallScilabBridge {
+public class CallScilabBridge implements ActionListener {
 
     private static final int NB_COLORS = 3;
 
@@ -166,11 +175,29 @@ public class CallScilabBridge {
 
     private static final String CONSOLE = "Console";
 
-    /**
-     * Constructor
+    /*
+     * Data used to pass data into the EDT
      */
-    protected CallScilabBridge() {
-        throw new UnsupportedOperationException(); /* Prevents calls from subclass */
+    private final ArrayBlockingQueue<String> dataToDisplay = new ArrayBlockingQueue<String>(64);
+    private javax.swing.Timer dataToDisplayTimer = new javax.swing.Timer(0, this);
+
+    /*
+     * Singleton pattern without lazy creation
+     */
+    private static final CallScilabBridge instance = new CallScilabBridge();
+    private CallScilabBridge() {
+    }
+
+    /*
+     * Global Event dispatch on EDT
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == dataToDisplayTimer) {
+            for (String data = dataToDisplay.poll(); data != null; data = dataToDisplay.poll()) {
+                displayOnEDT(data);
+            }
+        }
     }
 
     /******************/
@@ -192,6 +219,16 @@ public class CallScilabBridge {
      * @param dataToDisplay the line to display
      */
     public static void display(String dataToDisplay) {
+        // using Timer coalesce to avoid performance hits
+        try {
+            instance.dataToDisplay.put(dataToDisplay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        instance.dataToDisplayTimer.start();
+    }
+
+    private void displayOnEDT(final String dataToDisplay) {
         ScilabConsole.getConsole().display(dataToDisplay);
     }
 
@@ -207,22 +244,55 @@ public class CallScilabBridge {
      * Update the number of lines and columns that Scilab use to format data to display
      */
     public static void scilabLinesUpdate() {
-        ScilabConsole.getConsole().scilabLinesUpdate();
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().scilabLinesUpdate();
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**
      * Clear the Console
      */
     public static void clear() {
-        ScilabConsole.getConsole().clear();
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().clear();
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**
      * Clear some lines in the Console
      * @param nbLines the number of lines to clear
      */
-    public static void clear(int nbLines) {
-        ScilabConsole.getConsole().clear(nbLines);
+    public static void clear(final int nbLines) {
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().clear(nbLines);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**
@@ -237,22 +307,55 @@ public class CallScilabBridge {
      * Put the prompt on the top left corner
      */
     public static void toHome() {
-        ScilabConsole.getConsole().toHome();
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().toHome();
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**
      * Set the contents of the prompt
      * @param prompt the content to set (default is -->)
      */
-    public static void setPrompt(String prompt) {
-        ScilabConsole.getConsole().setPrompt(prompt);
+    public static void setPrompt(final String prompt) {
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().setPrompt(prompt);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**
      * Clear the commands history
      */
     public static void clearHistory() {
-        ScilabConsole.getConsole().clearHistory();
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                ScilabConsole.getConsole().clearHistory();
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
     }
 
     /**************************/
@@ -693,8 +796,13 @@ public class CallScilabBridge {
      * @param width the width of the object
      * @param height the height of the object
      */
-    public static void setDims(int objID, int width, int height) {
-        UIElementMapper.getCorrespondingUIElement(objID).setDims(new Size(width, height));
+    public static void setDims(final int objID, final int width, final int height) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                UIElementMapper.getCorrespondingUIElement(objID).setDims(new Size(width, height));
+            }
+        });
     }
 
     /**********************/
@@ -1147,10 +1255,21 @@ public class CallScilabBridge {
      * @param menuName the name of the menu
      * @param status true to set the menu enabled
      */
-    public static void setMenuEnabled(String parentUID, String menuName, boolean status) {
-        SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
+    public static void setMenuEnabled(final String parentUID, final String menuName, final boolean status) {
+        final SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
         if (parentTab != null) { /** Parent must exist */
-            parentTab.getMenuBar().getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+            final Runnable doRun = new Runnable() {
+                @Override
+                public void run() {
+                    parentTab.getMenuBar().getAsSimpleMenuBar().setMenuEnabled(menuName, status);
+                }
+            };
+
+            if (SwingUtilities.isEventDispatchThread()) {
+                doRun.run();
+            } else {
+                SwingUtilities.invokeLater(doRun);
+            }
         }
     }
 
@@ -1161,10 +1280,21 @@ public class CallScilabBridge {
      * @param menuItemPosition the name of the parent menu
      * @param status true to set the menu enabled
      */
-    public static void setSubMenuEnabled(String parentUID, String parentMenuName, int menuItemPosition, boolean status) {
-        SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
+    public static void setSubMenuEnabled(final String parentUID, final String parentMenuName, final int menuItemPosition, final boolean status) {
+        final SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
         if (parentTab != null) { /** Parent must exist */
-            parentTab.getMenuBar().getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+            final Runnable doRun = new Runnable() {
+                @Override
+                public void run() {
+                    parentTab.getMenuBar().getAsSimpleMenuBar().setSubMenuEnabled(parentMenuName, menuItemPosition, status);
+                }
+            };
+
+            if (SwingUtilities.isEventDispatchThread()) {
+                doRun.run();
+            } else {
+                SwingUtilities.invokeLater(doRun);
+            }
         }
     }
 
@@ -1179,10 +1309,21 @@ public class CallScilabBridge {
      * @param parentUID the UID of the figure or console
      * @param menuName the name of the menu
      */
-    public static void removeMenu(String parentUID, String menuName) {
-        SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
+    public static void removeMenu(final String parentUID, final String menuName) {
+        final SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
         if (parentTab != null) { /** Parent must exist */
-            parentTab.getMenuBar().getAsSimpleMenuBar().removeMenu(menuName);
+            final Runnable doRun = new Runnable() {
+                @Override
+                public void run() {
+                    parentTab.getMenuBar().getAsSimpleMenuBar().removeMenu(menuName);
+                }
+            };
+
+            if (SwingUtilities.isEventDispatchThread()) {
+                doRun.run();
+            } else {
+                SwingUtilities.invokeLater(doRun);
+            }
         }
     }
 
@@ -1218,8 +1359,13 @@ public class CallScilabBridge {
      * @param id the id of the messageBox
      * @param title the title of the messageBox
      */
-    public static void setMessageBoxTitle(int id, String title) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setTitle(title);
+    public static void setMessageBoxTitle(final int id, final String title) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setTitle(title);
+            }
+        });
     }
 
     /**
@@ -1227,8 +1373,13 @@ public class CallScilabBridge {
      * @param id the id of the messageBox
      * @param message the message of the messageBox
      */
-    public static void setMessageBoxMessage(int id, String message) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setMessage(message);
+    public static void setMessageBoxMessage(final int id, final String message) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setMessage(message);
+            }
+        });
     }
 
     /**
@@ -1236,8 +1387,13 @@ public class CallScilabBridge {
      * @param id the id of the messageBox
      * @param message the message of the messageBox
      */
-    public static void setMessageBoxMessage(int id, String[] message) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setMessage(message);
+    public static void setMessageBoxMessage(final int id, final String[] message) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setMessage(message);
+            }
+        });
     }
 
     /**
@@ -1262,8 +1418,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param indices the indices of the default selected buttons
      */
-    public static void setMessageBoxDefaultSelectedButtons(int id, int[] indices) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setDefaultSelectedButtons(indices);
+    public static void setMessageBoxDefaultSelectedButtons(final int id, final int[] indices) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setDefaultSelectedButtons(indices);
+            }
+        });
     }
 
     /**
@@ -1280,8 +1441,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param labels the labels of the buttons
      */
-    public static void setMessageBoxButtonsLabels(int id, String[] labels) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setButtonsLabels(labels);
+    public static void setMessageBoxButtonsLabels(final int id, final String[] labels) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setButtonsLabels(labels);
+            }
+        });
     }
 
     /**
@@ -1289,8 +1455,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param value the initial value
      */
-    public static void setMessageBoxInitialValue(int id, String[] value) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setInitialValue(value);
+    public static void setMessageBoxInitialValue(final int id, final String[] value) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setInitialValue(value);
+            }
+        });
     }
 
     /**
@@ -1316,8 +1487,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param items the items to set
      */
-    public static void setMessageBoxListBoxItems(int id, String[] items) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setListBoxItems(items);
+    public static void setMessageBoxListBoxItems(final int id, final String[] items) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setListBoxItems(items);
+            }
+        });
     }
 
     /**
@@ -1334,8 +1510,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param labels the labels
      */
-    public static void setMessageBoxLineLabels(int id, String[] labels) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setLineLabels(labels);
+    public static void setMessageBoxLineLabels(final int id, final String[] labels) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setLineLabels(labels);
+            }
+        });
     }
 
     /**
@@ -1343,8 +1524,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param labels the labels
      */
-    public static void setMessageBoxColumnLabels(int id, String[] labels) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setColumnLabels(labels);
+    public static void setMessageBoxColumnLabels(final int id, final String[] labels) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setColumnLabels(labels);
+            }
+        });
     }
 
     /**
@@ -1352,8 +1538,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param values the values
      */
-    public static void setMessageBoxDefaultInput(int id, String[] values) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setDefaultInput(values);
+    public static void setMessageBoxDefaultInput(final int id, final String[] values) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setDefaultInput(values);
+            }
+        });
     }
 
     /**
@@ -1361,8 +1552,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param status true to set the MessageBox modal and false else
      */
-    public static void setMessageBoxModal(int id, boolean status) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setModal(status);
+    public static void setMessageBoxModal(final int id, final boolean status) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setModal(status);
+            }
+        });
     }
 
     /**
@@ -1370,8 +1566,13 @@ public class CallScilabBridge {
      * @param id the id of the MessageBox
      * @param name the name of the icon
      */
-    public static void setMessageBoxIcon(int id, String name) {
-        ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setIcon(name);
+    public static void setMessageBoxIcon(final int id, final String name) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ((MessageBox) UIElementMapper.getCorrespondingUIElement(id)).setIcon(name);
+            }
+        });
     }
 
     /************************/
@@ -2133,12 +2334,24 @@ public class CallScilabBridge {
      * @param parentUID the parent (figure or console) UID
      * @param status true to set the Toolbar visible
      */
-    public static void setToolbarVisible(String parentUID, boolean status) {
-        SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
+    public static void setToolbarVisible(final String parentUID, final boolean status) {
+        final SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
         if (parentTab != null) {
-            parentTab.getToolBar().getAsSimpleToolBar().setVisible(status);
-            BarUpdater.updateBars(parentTab.getParentWindowId(), parentTab.getMenuBar(),
-                                  parentTab.getToolBar(), parentTab.getInfoBar(), parentTab.getName(), parentTab.getWindowIcon());
+            final Runnable doRun = new Runnable() {
+                @Override
+                public void run() {
+                    parentTab.getToolBar().getAsSimpleToolBar().setVisible(status);
+                    BarUpdater.updateBars(parentTab.getParentWindowId(), parentTab.getMenuBar(),
+                                          parentTab.getToolBar(), parentTab.getInfoBar(), parentTab.getName(), parentTab.getWindowIcon());
+                }
+            };
+
+            if (SwingUtilities.isEventDispatchThread()) {
+                doRun.run();
+            } else {
+                SwingUtilities.invokeLater(doRun);
+            }
+
         }
     }
 
@@ -2240,11 +2453,11 @@ public class CallScilabBridge {
      */
     public static void launchHelpBrowser(final String[] helps, final String language) {
         SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    ScilabHelpBrowser.createHelpBrowser(helps, language);
-                    ScilabHelpBrowser.startHomePage();
-                }
-            });
+            public void run() {
+                ScilabHelpBrowser.createHelpBrowser(helps, language);
+                ScilabHelpBrowser.startHomePage();
+            }
+        });
     }
 
     /**
@@ -2254,57 +2467,81 @@ public class CallScilabBridge {
      * @param language Scilab current language
      * @param fullText true for a full-text search
      */
-    public static void searchKeyword(String[] helps, String keyword, String language, boolean fullText) {
-        if (fullText) {
-            HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(helps, language);
-            if (helpBrowser != null) {
-                helpBrowser.fullTextSearch(keyword);
+    public static void searchKeyword(final String[] helps, final String keyword, final String language, final boolean fullText) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                if (fullText) {
+                    HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(helps, language);
+                    if (helpBrowser != null) {
+                        helpBrowser.fullTextSearch(keyword);
+                    }
+                } else {
+                    HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(helps, language);
+                    if (helpBrowser != null) {
+                        helpBrowser.searchKeywork(keyword);
+                    }
+                }
             }
-        } else {
-            HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(helps, language);
-            if (helpBrowser != null) {
-                helpBrowser.searchKeywork(keyword);
-            }
-        }
+        });
     }
 
     /**
      * Open HelpBrowser on the page with the given xmlID
      * @param xmlID the xml id
      */
-    public static void openHelp(String xmlID) {
-        HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(null, ScilabCommons.getlanguage());
-        if (helpBrowser != null) {
-            helpBrowser.searchKeywork(xmlID);
-        }
+    public static void openHelp(final String xmlID) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                HelpBrowser helpBrowser = ScilabHelpBrowser.createHelpBrowser(null, ScilabCommons.getlanguage());
+                if (helpBrowser != null) {
+                    helpBrowser.searchKeywork(xmlID);
+                }
+            }
+        });
     }
 
     /**
      * Close Scilab Help Browser
      */
     public static void closeHelpBrowser() {
-        ScilabHelpBrowser.getHelpBrowser().close();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabHelpBrowser.getHelpBrowser().close();
+            }
+        });
     }
 
     /**
      * Show search field in Scilab Help Browser
      */
     public static void showSearchFieldInHelp() {
-        ScilabHelpBrowser.getHelpBrowser().showSearchField();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabHelpBrowser.getHelpBrowser().showSearchField();
+            }
+        });
     }
 
     /**
      * Increase the font in the help viewer
      */
     public static void increaseFontInHelpViewer() {
-        ScilabHelpBrowser.getHelpBrowser().increaseFont();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabHelpBrowser.getHelpBrowser().increaseFont();
+            }
+        });
     }
 
     /**
      * Decrease the font in the help viewer
      */
     public static void decreaseFontInHelpViewer() {
-        ScilabHelpBrowser.getHelpBrowser().decreaseFont();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabHelpBrowser.getHelpBrowser().decreaseFont();
+            }
+        });
     }
 
     /************/
@@ -2317,70 +2554,110 @@ public class CallScilabBridge {
      * Open a Browser on Scilab Web Site
      */
     public static void openScilabWebSite() {
-        WebBrowser.openUrl("http://www.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://www.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on Wiki Web Site
      */
     public static void openWiki() {
-        WebBrowser.openUrl("http://wiki.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://wiki.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on ATOMS Web Site
      */
     public static void openAtomsScilab() {
-        WebBrowser.openUrl("http://atoms.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://atoms.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on File Exchange Web Site
      */
     public static void openFileExchange() {
-        WebBrowser.openUrl("http://fileexchange.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://fileexchange.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on Bugzilla Web Site
      */
     public static void openBugzilla() {
-        WebBrowser.openUrl("http://bugzilla.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://bugzilla.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on Forge Web Site
      */
     public static void openForge() {
-        WebBrowser.openUrl("http://forge.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://forge.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on Scilab Online Help
      */
     public static void openOnlineHelp() {
-        WebBrowser.openUrl("http://help.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://help.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on Mailing List info
      */
     public static void openMailingList() {
-        WebBrowser.openUrl("http://www.scilab.org/communities/developer_zone/tools/mailing_list");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://www.scilab.org/communities/developer_zone/tools/mailing_list");
+            }
+        });
     }
 
     /**
      * Open a Browser on Mailing List Archives
      */
     public static void openMailingListArchives() {
-        WebBrowser.openUrl("http://mailinglists.scilab.org/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://mailinglists.scilab.org/");
+            }
+        });
     }
 
     /**
      * Open a Browser on S/E
      */
     public static void openSE() {
-        WebBrowser.openUrl("http://www.scilab-enterprises.com/");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                WebBrowser.openUrl("http://www.scilab-enterprises.com/");
+            }
+        });
     }
 
     /***************************/
@@ -2393,149 +2670,200 @@ public class CallScilabBridge {
      * Select all the console contents
      */
     public static void selectAllConsoleContents() {
-        ScilabConsole.getConsole().selectAll();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().selectAll();
+            }
+        });
     }
 
     /**
      * Select all the console contents
      */
     public static void helpOnTheKeyword() {
-        ScilabConsole.getConsole().helpOnTheKeyword();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().helpOnTheKeyword();
+            }
+        });
     }
 
     /**
      * Put the console selected text in the clipboard
      */
     public static void copyConsoleSelection() {
-        ScilabConsole.getConsole().copyToClipboard();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().copyToClipboard();
+            }
+        });
     }
 
     /**
      * Cut the console selected text in the clipboard
      */
     public static void cutConsoleSelection() {
-        ScilabConsole.getConsole().cutSelection();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().cutSelection();
+            }
+        });
     }
 
     /**
      * Paste clipboard contents in Console input line
      */
     public static void pasteClipboardIntoConsole() {
-        ScilabConsole.getConsole().pasteClipboard();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().pasteClipboard();
+            }
+        });
     }
 
     /**
      * Make the clipboard contents empty
      */
     public static void emptyClipboard() {
-        Transferable contents = new StringSelection("");
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(contents, null);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Transferable contents = new StringSelection("");
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(contents, null);
+            }
+        });
     }
 
     /**
      * Evaluate the selection with echo
      */
     public static void evaluateSelectionWithEcho() {
-        ScilabConsole.getConsole().evaluateSelectionWithEcho();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().evaluateSelectionWithEcho();
+            }
+        });
     }
 
     /**
      * Evaluate the selection with no echo
      */
     public static void evaluateSelectionWithNoEcho() {
-        ScilabConsole.getConsole().evaluateSelectionWithNoEcho();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ScilabConsole.getConsole().evaluateSelectionWithNoEcho();
+            }
+        });
     }
 
     /**
      * Opens a dialog to selected a new font for the console
      */
     public static void changeConsoleFont() {
-        FontChooser fontChooser = ScilabFontChooser.createFontChooser(ScilabConsole.getConsole().getFont());
-        fontChooser.displayAndWait();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                FontChooser fontChooser = ScilabFontChooser.createFontChooser(ScilabConsole.getConsole().getFont());
+                fontChooser.displayAndWait();
 
-        Font selectedFont = fontChooser.getSelectedFont();
+                Font selectedFont = fontChooser.getSelectedFont();
 
-        if (selectedFont != null) {
-            /* Change console font */
-            ScilabConsole.getConsole().setFont(selectedFont);
+                if (selectedFont != null) {
+                    /* Change console font */
+                    ScilabConsole.getConsole().setFont(selectedFont);
 
-            /* Save new settings */
-            ConfigManager.saveFont(selectedFont);
-        }
+                    /* Save new settings */
+                    ConfigManager.saveFont(selectedFont);
+                }
+            }
+        });
     }
 
     /**
      * Unblock the console if it is in "Continue display..." mode
      */
     public static void unblockConsole() {
-        SwingScilabConsole sciConsole = ((SwingScilabConsole) ScilabConsole.getConsole().getAsSimpleConsole());
-        sciConsole.unblock();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SwingScilabConsole sciConsole = ((SwingScilabConsole) ScilabConsole.getConsole().getAsSimpleConsole());
+                sciConsole.unblock();
+            }
+        });
     }
 
     /**
      * Opens a dialog to selected a new Foreground Color for the console
      */
     public static void changeConsoleForeground() {
-        ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getForeground());
-        colorChooser.setTitle(Messages.gettext("Console Font..."));
-        colorChooser.displayAndWait();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getForeground());
+                colorChooser.setTitle(Messages.gettext("Console Font..."));
+                colorChooser.displayAndWait();
 
-        Color selectedColor = colorChooser.getSelectedColor();
+                Color selectedColor = colorChooser.getSelectedColor();
 
-        if (selectedColor != null) {
-            /* Change console foreground */
-            ScilabConsole.getConsole().setForeground(selectedColor);
+                if (selectedColor != null) {
+                    /* Change console foreground */
+                    ScilabConsole.getConsole().setForeground(selectedColor);
 
-            /* Save new settings */
-            ConfigManager.saveConsoleForeground(selectedColor);
-        }
+                    /* Save new settings */
+                    ConfigManager.saveConsoleForeground(selectedColor);
+                }
+            }
+        });
     }
 
     /**
      * Opens a dialog to selected a new Background Color for the console
      */
     public static void changeConsoleBackground() {
-        ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getBackground());
-        colorChooser.setTitle(Messages.gettext("Console Background..."));
-        colorChooser.displayAndWait();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ColorChooser colorChooser = ScilabColorChooser.createColorChooser(ScilabConsole.getConsole().getBackground());
+                colorChooser.setTitle(Messages.gettext("Console Background..."));
+                colorChooser.displayAndWait();
 
-        Color selectedColor = colorChooser.getSelectedColor();
+                Color selectedColor = colorChooser.getSelectedColor();
 
-        if (selectedColor != null) {
-            /* Change console background */
-            ScilabConsole.getConsole().setBackground(selectedColor);
+                if (selectedColor != null) {
+                    /* Change console background */
+                    ScilabConsole.getConsole().setBackground(selectedColor);
 
-            /* Save new settings */
-            ConfigManager.saveConsoleBackground(selectedColor);
-        }
+                    /* Save new settings */
+                    ConfigManager.saveConsoleBackground(selectedColor);
+                }
+            }
+        });
     }
 
     /**
      * Display a dialog to print the console text contents
      */
     public static void printConsoleContents() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SciConsole scilabConsole = ((SciConsole) ScilabConsole.getConsole().getAsSimpleConsole());
+                Document doc = ((JEditorPane) scilabConsole.getConfiguration().getOutputView()).getDocument();
+                String textToPrint = null;
 
-        SciConsole scilabConsole = ((SciConsole) ScilabConsole.getConsole().getAsSimpleConsole());
-        Document doc = ((JEditorPane) scilabConsole.getConfiguration().getOutputView()).getDocument();
-        String textToPrint = null;
+                /* Text selected in the input */
+                String strInputSelected = ((JTextPane) scilabConsole.getConfiguration().getInputCommandView()).getSelectedText();
+                /* Text selected in the output */
+                String strOutputSelected = ((JEditorPane) scilabConsole.getConfiguration().getOutputView()).getSelectedText();
 
-        /* Text selected in the input */
-        String strInputSelected = ((JTextPane) scilabConsole.getConfiguration().getInputCommandView()).getSelectedText();
-        /* Text selected in the output */
-        String strOutputSelected = ((JEditorPane) scilabConsole.getConfiguration().getOutputView()).getSelectedText();
-
-        try {
-            textToPrint = doc.getText(0, doc.getLength());
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-        if (strInputSelected != null) {
-            printString(strInputSelected, new String(CONSOLE));
-        } else if (strOutputSelected != null) {
-            printString(strOutputSelected, new String(CONSOLE));
-        } else {
-            printString(textToPrint, new String(CONSOLE));
-        }
+                try {
+                    textToPrint = doc.getText(0, doc.getLength());
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+                if (strInputSelected != null) {
+                    printString(strInputSelected, new String(CONSOLE));
+                } else if (strOutputSelected != null) {
+                    printString(strOutputSelected, new String(CONSOLE));
+                } else {
+                    printString(textToPrint, new String(CONSOLE));
+                }
+            }
+        });
     }
 
     /**
@@ -2678,8 +3006,12 @@ public class CallScilabBridge {
      * @param id the id of the FileChooser
      * @param fontName the name of the font
      */
-    public static void setFontChooserFontName(int id, String fontName) {
-        ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultFontName(fontName);
+    public static void setFontChooserFontName(final int id, final String fontName) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultFontName(fontName);
+            }
+        });
     }
 
     /**
@@ -2687,8 +3019,12 @@ public class CallScilabBridge {
      * @param id the id of the FileChooser
      * @param fontSize the size of the font
      */
-    public static void setFontChooserFontSize(int id, int fontSize) {
-        ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultFontSize(fontSize);
+    public static void setFontChooserFontSize(final int id, final int fontSize) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultFontSize(fontSize);
+            }
+        });
     }
 
     /**
@@ -2696,8 +3032,12 @@ public class CallScilabBridge {
      * @param id the id of the FileChooser
      * @param bold the bold attribute of the font
      */
-    public static void setFontChooserBold(int id, boolean bold) {
-        ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultBold(bold);
+    public static void setFontChooserBold(final int id, final boolean bold) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultBold(bold);
+            }
+        });
     }
 
     /**
@@ -2705,8 +3045,12 @@ public class CallScilabBridge {
      * @param id the id of the FileChooser
      * @param italic the italic attribute of the font
      */
-    public static void setFontChooserItalic(int id, boolean italic) {
-        ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultItalic(italic);
+    public static void setFontChooserItalic(final int id, final boolean italic) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((FontChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultItalic(italic);
+            }
+        });
     }
 
     /**
@@ -2769,8 +3113,12 @@ public class CallScilabBridge {
      * @param id the id of the ColorChooser
      * @param title the title
      */
-    public static void setColorChooserTitle(int id, String title) {
-        ((ColorChooser) UIElementMapper.getCorrespondingUIElement(id)).setTitle(title);
+    public static void setColorChooserTitle(final int id, final String title) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((ColorChooser) UIElementMapper.getCorrespondingUIElement(id)).setTitle(title);
+            }
+        });
     }
 
     /**
@@ -2778,8 +3126,12 @@ public class CallScilabBridge {
      * @param id the id of the ColorChooser
      * @param rgb the default color
      */
-    public static void setColorChooserDefaultColor(int id, int[] rgb) {
-        ((ColorChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultColor(new Color(rgb[0], rgb[1], rgb[2]));
+    public static void setColorChooserDefaultColor(final int id, final int[] rgb) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ((ColorChooser) UIElementMapper.getCorrespondingUIElement(id)).setDefaultColor(new Color(rgb[0], rgb[1], rgb[2]));
+            }
+        });
     }
 
     /**
@@ -2982,19 +3334,27 @@ public class CallScilabBridge {
      * Set the contents of the clipboard
      * @param text the string to put in the clipboard
      */
-    public static void setClipboardContents(String text) {
-        Transferable contents = new StringSelection(text);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(contents, null);
+    public static void setClipboardContents(final String text) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Transferable contents = new StringSelection(text);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(contents, null);
+            }
+        });
     }
 
     /**
      * Copy figure to clipboard
      * @param figID the ID of the figure
      */
-    public static void copyFigureToClipBoard(int figID) {
-        Image figureImage = ImageExporter.imageExport(figID);
-        Transferable clipboardImage = new ClipboardImage(figureImage);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(clipboardImage, null);
+    public static void copyFigureToClipBoard(final int figID) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Image figureImage = ImageExporter.imageExport(figID);
+                Transferable clipboardImage = new ClipboardImage(figureImage);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(clipboardImage, null);
+            }
+        });
     }
 
     /**
@@ -3087,14 +3447,17 @@ public class CallScilabBridge {
      * Give the focus to a uicontrol
      * @param uicontrolUID the uicontrolUID of the Widget
      */
-    public static void requestFocus(String uicontrolUID) {
-        SwingViewObject uicontrol = SwingView.getFromId(uicontrolUID);
-        if (uicontrol instanceof SwingScilabFrame) {
-            ((SwingScilabFrame) uicontrol).requestFocus();
-        } else {
-            ((Widget) uicontrol).requestFocus();
-        }
-
+    public static void requestFocus(final String uicontrolUID) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SwingViewObject uicontrol = SwingView.getFromId(uicontrolUID);
+                if (uicontrol instanceof SwingScilabFrame) {
+                    ((SwingScilabFrame) uicontrol).requestFocus();
+                } else {
+                    ((Widget) uicontrol).requestFocus();
+                }
+            }
+        });
     }
 
     /**

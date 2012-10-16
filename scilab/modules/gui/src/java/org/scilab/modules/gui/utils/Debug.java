@@ -11,21 +11,29 @@
  */
 package org.scilab.modules.gui.utils;
 
+import org.scilab.modules.graphic_objects.graphicController.GraphicController;
+
 public class Debug {
 
     private static final boolean enableDebug = false;
     /**
      * DEBUG function
      */
+    public static void DEBUG(String callingClass, String id, String msg) {
+        if (enableDebug) {
+            System.err.println("[DEBUG] <" + callingClass + ">: " + id + " " + GraphicController.getController().getObjectFromId(id) + " " + msg);
+        }
+    }
+
     public static void DEBUG(String callingClass, String msg) {
         if (enableDebug) {
-            System.err.println("[DEBUG] <"+callingClass+">: "+msg);
+            System.err.println("[DEBUG] <" + callingClass + ">: " + msg);
         }
     }
 
     public static void DEBUG(String msg) {
         if (enableDebug) {
-            System.err.println("[DEBUG] __unknown_class__ "+Thread.currentThread().toString()+" : "+msg);
+            System.err.println("[DEBUG] __unknown_class__ " + Thread.currentThread().toString() + " : " + msg);
         }
     }
 

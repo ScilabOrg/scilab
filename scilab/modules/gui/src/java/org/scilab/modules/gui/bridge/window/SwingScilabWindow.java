@@ -441,7 +441,22 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      * @see org.scilab.modules.gui.window.Window#addMenuBar(org.scilab.modules.gui.menubar.MenuBar)
      */
     @Override
-    public void addMenuBar(MenuBar newMenuBar) {
+    public void addMenuBar(final MenuBar newMenuBar) {
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                addMenuBarOnEDT(newMenuBar);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
+    }
+
+    private void addMenuBarOnEDT(final MenuBar newMenuBar) {
         if (newMenuBar == null) {
             if (this.menuBar != null) {
                 this.menuBar = null;
@@ -463,7 +478,23 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      * @see org.scilab.modules.gui.window.Window#addToolBar(org.scilab.modules.gui.toolbar.ToolBar)
      */
     @Override
-    public void addToolBar(ToolBar newToolBar) {
+    public void addToolBar(final ToolBar newToolBar) {
+        final Runnable doRun = new Runnable() {
+            @Override
+            public void run() {
+                addToolBarOnEDT(newToolBar);
+            }
+        };
+
+        if (SwingUtilities.isEventDispatchThread()) {
+            doRun.run();
+        } else {
+            SwingUtilities.invokeLater(doRun);
+        }
+
+    }
+
+    public void addToolBarOnEDT(final ToolBar newToolBar) {
         if (newToolBar == null) {
             if (this.toolBar != null) {
                 // Remove old InfoBar if already set
