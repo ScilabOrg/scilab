@@ -74,7 +74,7 @@ int sci_get(char *fname, unsigned long fname_len)
     if (((checkInputArgumentType(pvApiCtx, 1, sci_mlist))) || ((checkInputArgumentType(pvApiCtx, 1, sci_tlist))))
     {
         lw = 1 + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
-        C2F(overload) (&lw, "get", 3);
+        OverLoad(lw);
         return 0;
     }
 
@@ -164,7 +164,7 @@ int sci_get(char *fname, unsigned long fname_len)
             else                    /* tclsci handle: should no more happen */
             {
                 lw = 1 + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
-                C2F(overload) (&lw, "get", 3);
+                OverLoad(lw);
             }
             return 0;
             break;
@@ -189,7 +189,7 @@ int sci_get(char *fname, unsigned long fname_len)
             if (m1 != 1 || n1 != 1)
             {
                 lw = 1 + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
-                C2F(overload) (&lw, "get", 3);
+                OverLoad(lw);
                 return 0;
             }
             sciErr = getVarAddressFromPosition(pvApiCtx, 2, &piAddrl2);
@@ -253,7 +253,7 @@ int sci_get(char *fname, unsigned long fname_len)
             break;
         default:
             lw = 1 + nbArgumentOnStack(pvApiCtx) - nbInputArgument(pvApiCtx);
-            C2F(overload) (&lw, "get", 3);
+            OverLoad(lw);
             return 0;
             break;
     }

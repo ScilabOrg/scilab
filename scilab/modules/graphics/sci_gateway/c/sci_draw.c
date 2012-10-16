@@ -24,11 +24,11 @@
 //
 // FIXME: Remove GW after Scilab 5.4.0
 //
-int sci_draw( char * fname, unsigned long fname_len )
+int sci_draw(char * fname, unsigned long fname_len)
 {
 
-    CheckRhs(0, 1) ;
-    CheckLhs(0, 1) ;
+    CheckRhs(0, 1);
+    CheckLhs(0, 1);
 
     if (getWarningMode())
     {
