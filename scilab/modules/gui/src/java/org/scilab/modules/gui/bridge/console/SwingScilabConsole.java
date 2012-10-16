@@ -19,12 +19,15 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.StringTokenizer;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -33,6 +36,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
@@ -215,28 +219,24 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
      * @param dataToDisplay the data to be displayed
      * @see fr.scilab.console.HelpBrowser#display(java.lang.String)
      */
-    public void display(String dataToDisplay) {
-        this.getConfiguration().getOutputView().append(dataToDisplay);
+    public void display(final String dataToDisplay) {
+        SwingScilabConsole.this.getConfiguration().getOutputView().append(dataToDisplay);
     }
 
     /**
      * This method is used to display the prompt
      */
     public void displayPrompt() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                InputCommandView inputCmdView = SwingScilabConsole.this.getConfiguration().getInputCommandView();
+        InputCommandView inputCmdView = SwingScilabConsole.this.getConfiguration().getInputCommandView();
 
-                // Show the prompt
-                SwingScilabConsole.this.getConfiguration().getPromptView().setVisible(true);
+        // Show the prompt
+        SwingScilabConsole.this.getConfiguration().getPromptView().setVisible(true);
 
-                // Show the input command view and its hidden components
-                inputCmdView.setEditable(true);
-                ((JTextPane) inputCmdView).setCaretColor(((JTextPane) inputCmdView).getForeground());
-                ((JTextPane) inputCmdView).getCaret().setVisible(true);
-                setToHome();
-            }
-        });
+        // Show the input command view and its hidden components
+        inputCmdView.setEditable(true);
+        ((JTextPane) inputCmdView).setCaretColor(((JTextPane) inputCmdView).getForeground());
+        ((JTextPane) inputCmdView).getCaret().setVisible(true);
+        setToHome();
 
         ((SciOutputView) this.getConfiguration().getOutputView()).resetLastEOL();
 
@@ -260,8 +260,6 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
     public int getCharWithoutOutput() {
         int retChar;
 
-        updateScrollPosition();
-
         // Avoids reading of an empty buffer
         try {
             ((SciConsole) this).getCanReadUserInputValue().acquire();
@@ -269,39 +267,67 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
             e.printStackTrace();
         }
 
-        this.getConfiguration().getPromptView().setVisible(false);
-        this.getConfiguration().getInputCommandView().setEditable(false);
+        final OneCharKeyEventListener keyListener = new OneCharKeyEventListener(this);
 
-        // Add a keylistener which will set the returned char
-        OneCharKeyEventListener keyListener = new OneCharKeyEventListener(this);
-        ((JTextPane) this.getConfiguration().getInputCommandView()).addKeyListener(keyListener);
-        ((JEditorPane) this.getConfiguration().getOutputView()).addKeyListener(keyListener);
+        /*
+         * Update console rendering to let the user be alerted
+         */
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    updateScrollPosition();
+
+                    getConfiguration().getPromptView().setVisible(false);
+                    getConfiguration().getInputCommandView().setEditable(false);
+
+                    // Add a keylistener which will set the returned char
+                    ((JTextPane) getConfiguration().getInputCommandView()).addKeyListener(keyListener);
+                    ((JEditorPane) getConfiguration().getOutputView()).addKeyListener(keyListener);
+                }
+            });
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Reads the buffer
         retChar = this.getUserInputValue();
         ((SciConsole) this).getCanReadUserInputValue().release();
 
-        // Remove the "more" message and replace it by an empty line
-        this.clear(-1);
-        this.display(StringConstants.NEW_LINE);
+        /*
+         * Update console rendering to go back to the previous state
+         */
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    // Remove the "more" message and replace it by an empty line
+                    clear(-1);
+                    display(StringConstants.NEW_LINE);
 
-        // Remove the key listener
-        ((JTextPane) this.getConfiguration().getInputCommandView()).removeKeyListener(keyListener);
-        ((JEditorPane) this.getConfiguration().getOutputView()).removeKeyListener(keyListener);
+                    // Remove the key listener
+                    ((JTextPane) getConfiguration().getInputCommandView()).removeKeyListener(keyListener);
+                    ((JEditorPane) getConfiguration().getOutputView()).removeKeyListener(keyListener);
 
-        this.getConfiguration().getPromptView().setVisible(true);
-        this.getConfiguration().getInputCommandView().setEditable(true);
 
-        // Send back the focus of the input view
-        this.getConfiguration().getInputCommandView().reset();
-        this.getConfiguration().getInputCommandView().requestFocus();
+                    getConfiguration().getPromptView().setVisible(true);
+                    getConfiguration().getInputCommandView().setEditable(true);
 
-        final JTextPane cmdView = (JTextPane) this.getConfiguration().getInputCommandView();
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                cmdView.getCaret().setVisible(true);
-            }
-        });
+                    // Send back the focus of the input view
+                    getConfiguration().getInputCommandView().reset();
+                    getConfiguration().getInputCommandView().requestFocus();
+
+                    final JTextPane cmdView = (JTextPane) getConfiguration().getInputCommandView();
+                    cmdView.getCaret().setVisible(true);
+                }
+            });
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return retChar;
     }
@@ -375,7 +401,7 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
                 }
             };
 
-            if (ScilabModalDialog.show(this, new String[] { CLEAR_CONFIRM }, CLEAR, IconType.WARNING_ICON, ButtonType.YES_NO, DONT_SHOW, action) == AnswerOption.NO_OPTION) {
+            if (ScilabModalDialog.show(SwingScilabConsole.this, new String[] { CLEAR_CONFIRM }, CLEAR, IconType.WARNING_ICON, ButtonType.YES_NO, DONT_SHOW, action) == AnswerOption.NO_OPTION) {
                 if (checked[0]) {
                     XConfiguration.set(XConfiguration.getXConfigurationDocument(), CONFIRMATION_PATH + "/@state", "unchecked");
                 }
@@ -385,17 +411,18 @@ public class SwingScilabConsole extends SciConsole implements SimpleConsole {
             if (checked[0]) {
                 XConfiguration.set(XConfiguration.getXConfigurationDocument(), CONFIRMATION_PATH + "/@state", "unchecked");
             }
-        }
 
-        super.clear();
+
+            SwingScilabConsole.super.clear();
+        }
     }
 
     /**
      * Sets the prompt displayed in the console
      * @param prompt the prompt to be displayed in the console
      */
-    public void setPrompt(String prompt) {
-        this.getConfiguration().getPromptView().setDefaultPrompt(prompt);
+    public void setPrompt(final String prompt) {
+        SwingScilabConsole.this.getConfiguration().getPromptView().setDefaultPrompt(prompt);
     }
 
     /**

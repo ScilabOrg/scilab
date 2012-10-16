@@ -23,9 +23,15 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import org.scilab.modules.graphic_objects.figure.Figure;
 import org.scilab.modules.graphic_objects.graphicController.GraphicController;
@@ -45,6 +51,29 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
     private SwingScilabCanvas canvas;
     private Figure figure;
     private Component comp;
+
+    private static final class UpdatedObjectPair {
+        final String id;
+        final int property;
+
+        public UpdatedObjectPair(final String id, final int property) {
+            this.id = id;
+            this.property = property;
+        }
+    }
+
+    private final LinkedBlockingQueue<UpdatedObjectPair> updatedObject = new LinkedBlockingQueue<UpdatedObjectPair>();
+    private final Timer updatedObjectTimer = new Timer(0, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final ArrayList<UpdatedObjectPair> c = new ArrayList<UpdatedObjectPair>(updatedObject.size());
+            updatedObject.drainTo(c);
+
+            for (UpdatedObjectPair data : c) {
+                updateObjectOnEDT(data.id, data.property);
+            }
+        }
+    });
 
     /**
      * Create a new Scroll pane around an axes.
@@ -121,6 +150,15 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
 
     @Override
     public void updateObject(String id, int property) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            updateObjectOnEDT(id, property);
+        } else {
+            updatedObject.add(new UpdatedObjectPair(id, property));
+            updatedObjectTimer.start();
+        }
+    }
+
+    public void updateObjectOnEDT(final String id, final int property) {
         // Watch figure.auto_resize = "on" | "off"
         if (figure.getIdentifier().equals(id)) {
             if (property == __GO_AUTORESIZE__) {
@@ -137,7 +175,7 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
             }
 
             if ( property == __GO_AXES_SIZE__) {
-                Dimension d = new Dimension(figure.getAxesSize()[0], figure.getAxesSize()[1]);
+                final Dimension d = new Dimension(figure.getAxesSize()[0], figure.getAxesSize()[1]);
                 comp.setPreferredSize(d);
                 comp.setSize(d);
                 canvas.setBounds(0, 0, figure.getAxesSize()[0], figure.getAxesSize()[1]);

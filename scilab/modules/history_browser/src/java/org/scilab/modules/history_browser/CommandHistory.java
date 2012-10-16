@@ -258,7 +258,16 @@ public final class CommandHistory extends SwingScilabTab implements SimpleTab {
      * @param lineToAppend the line to append
      * @param expand do we need to expand all session nodes?
      */
-    public static void appendLineAndExpand(String lineToAppend, boolean expand) {
+    public static void appendLineAndExpand(final String lineToAppend, final boolean expand) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                appendLineAndExpandOnEDT(lineToAppend, expand);
+            }
+        });
+    }
+
+    private static void appendLineAndExpandOnEDT(final String lineToAppend, final boolean expand) {
         if (isBeginSessionLine(lineToAppend)) {
             // Create a new session node
             currentSessionNode = new DefaultMutableTreeNode(new SessionString(lineToAppend));
@@ -293,7 +302,12 @@ public final class CommandHistory extends SwingScilabTab implements SimpleTab {
      */
     public static void reset() {
         scilabHistoryRootNode.removeAllChildren();
-        scilabHistoryTreeModel.reload();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                scilabHistoryTreeModel.reload();
+            }
+        });
         currentSessionNode = null;
     }
 

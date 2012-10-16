@@ -17,7 +17,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
@@ -29,12 +28,10 @@ import java.util.concurrent.Semaphore;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
-import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -199,13 +196,9 @@ public abstract class SciConsole extends JPanel {
         // Bug 8055 : update the lines/columns only when the console is resized
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        scilabLinesUpdate();
-                        jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
-                        jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
-                    }
-                });
+                scilabLinesUpdate();
+                jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
+                jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
             }
         });
 
@@ -367,11 +360,7 @@ public abstract class SciConsole extends JPanel {
         // Update the scrollbar properties
         jSP.getVerticalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().height);
         jSP.getHorizontalScrollBar().setBlockIncrement(jSP.getViewport().getExtentSize().width);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                jSP.getVerticalScrollBar().getModel().setValue(jSP.getVerticalScrollBar().getModel().getMaximum() - jSP.getVerticalScrollBar().getModel().getExtent());
-            }
-        });
+        jSP.getVerticalScrollBar().getModel().setValue(jSP.getVerticalScrollBar().getModel().getMaximum() - jSP.getVerticalScrollBar().getModel().getExtent());
     }
 
     /**
@@ -586,15 +575,26 @@ public abstract class SciConsole extends JPanel {
      * @return the command to execute
      */
     public String readLine() {
+        final InputCommandView inputCmdView = SciConsole.this.getConfiguration().getInputCommandView();
 
-        InputCommandView inputCmdView = this.getConfiguration().getInputCommandView();
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
 
-        getConfiguration().getOutputView().setCaretPositionToEnd();
+                @Override
+                public void run() {
+                    getConfiguration().getOutputView().setCaretPositionToEnd();
 
-        displayPrompt();
+                    displayPrompt();
 
-        // Display Cursor to show Scilab is available.
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    // Display Cursor to show Scilab is available.
+                    SciConsole.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                }
+            });
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Reads the buffer
         return ((SciInputCommandView) inputCmdView).getCmdBuffer();
