@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2009 - Digiteo - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2011 - DIGITEO - Vincent Couvert
@@ -37,7 +37,7 @@ int get_color_range_property(void* _pvCtx, char* pobjUID)
 
     if (range == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"),"color_range");
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "color_range");
         return -1;
     }
 

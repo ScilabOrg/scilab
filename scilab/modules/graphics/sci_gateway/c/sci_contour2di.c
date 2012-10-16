@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
@@ -24,7 +24,7 @@
 #include "localization.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_contour2di( char * fname, unsigned long fname_len )
+int sci_contour2di(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int flagx = 0, nz = 10; /* default number of level curves : 10 */

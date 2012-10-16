@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 1998 - 2001 - ENPC - Jean-Philippe Chancelier
  * Copyright (C) 2005-2008 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2001 -  Bruno Pincon (for gain in speed and added
@@ -54,7 +54,7 @@ static void coloutPatch(int colout[2]);
 /*------------------------------------------------------------
  *  Iso contour with grey level or colors
  *  for a function defined by finite elements
- *  ( f is linear on triangles )
+ *  (f is linear on triangles)
  *  we give two versions of the function :
  *     - a quick version wich only fill triangles according to the average
  *     value of f on a triangle (no more such version now ?)

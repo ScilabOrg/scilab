@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
@@ -41,27 +41,27 @@ int sci_matplot(char *fname, unsigned long fname_len)
         { -1, NULL, NULL, 0, 0}
     };
 
-    char   * strf    = NULL  ;
-    double * rect    = NULL  ;
-    int    * nax     = NULL  ;
-    BOOL     flagNax = FALSE ;
+    char   * strf    = NULL ;
+    double* rect    = NULL ;
+    int    * nax     = NULL ;
+    BOOL     flagNax = FALSE;
 
     int* piAddr1 = NULL;
     double* l1 = NULL;
 
-    if ( nbInputArgument(pvApiCtx) <= 0 )
+    if (nbInputArgument(pvApiCtx) <= 0)
     {
         sci_demo(fname, fname_len);
         return 0;
     }
     CheckInputArgument(pvApiCtx, 1, 5);
 
-    if ( get_optionals(fname, opts) == 0 )
+    if (get_optionals(fname, opts) == 0)
     {
         ReturnArguments(pvApiCtx);
-        return 0 ;
+        return 0;
     }
-    if ( FirstOpt() < 2)
+    if (FirstOpt() < 2)
     {
         Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"),
                  fname, 1, 2);
@@ -97,14 +97,14 @@ int sci_matplot(char *fname, unsigned long fname_len)
 
     getOrCreateDefaultSubwin();
 
-    if ( isDefStrf( strf ) )
+    if (isDefStrf(strf))
     {
         char strfl[4];
 
-        strcpy(strfl, DEFSTRFN) ;
+        strcpy(strfl, DEFSTRFN);
 
         strf = strfl;
-        if ( !isDefRect( rect ) )
+        if (!isDefRect(rect))
         {
             strfl[1] = '7';
         }
@@ -121,7 +121,7 @@ int sci_matplot(char *fname, unsigned long fname_len)
         }
     }
 
-    Objmatplot((l1), &m1, &n1, strf, rect, nax, flagNax ) ;
+    Objmatplot((l1), &m1, &n1, strf, rect, nax, flagNax);
 
     /* NG end */
     AssignOutputVariable(pvApiCtx, 1) = 0;

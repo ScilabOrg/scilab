@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2012 - DIGITEO - Manuel Juliachs
  *
@@ -42,7 +42,7 @@ void getTextBoundingBox(char ** text, int nbRow, int nbCol,
     /* first step, create a text object */
     char * parentSubwinUID = (char*)getCurrentSubWin();
     char * pTextUID = NULL;
-    double * textCorners = NULL;
+    double* textCorners = NULL;
     int defaultColor = 0; /* color does not matter */
     int visible = 0;
     double fontAngle = 0.;

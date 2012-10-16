@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -25,22 +25,22 @@
 #include "SetPropertyStatus.h"
 
 /*------------------------------------------------------------------------*/
-int set_old_style_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_old_style_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
-  int b = tryGetBooleanValueFromStack(stackPointer, valueType, nbRow, nbCol, "old_style");
-  if(b == NOT_A_BOOLEAN_VALUE)
-  {
-      return SET_PROPERTY_ERROR;
-  }
+    int b = tryGetBooleanValueFromStack(_pvData, valueType, nbRow, nbCol, "old_style");
+    if (b == NOT_A_BOOLEAN_VALUE)
+    {
+        return SET_PROPERTY_ERROR;
+    }
 
-  if(b)
-  {
-    Scierror(999, _("Old graphic mode is no longer available. Please refer to the set help page.\n")) ;
-    return SET_PROPERTY_ERROR ;
-  }
-  else
-  {
-    return SET_PROPERTY_UNCHANGED ;
-  }
+    if (b)
+    {
+        Scierror(999, _("Old graphic mode is no longer available. Please refer to the set help page.\n"));
+        return SET_PROPERTY_ERROR;
+    }
+    else
+    {
+        return SET_PROPERTY_UNCHANGED;
+    }
 }
 /*------------------------------------------------------------------------*/

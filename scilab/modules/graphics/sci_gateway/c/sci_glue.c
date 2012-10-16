@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
@@ -34,7 +34,7 @@
 #include "graphicObjectProperties.h"
 #include "CurrentObject.h"
 /*--------------------------------------------------------------------------*/
-int sci_glue( char * fname, unsigned long fname_len )
+int sci_glue(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
 
@@ -45,7 +45,7 @@ int sci_glue( char * fname, unsigned long fname_len )
     long long* outindex = NULL;
 
     int numrow = 0, numcol = 0, n = 0, cx1 = 1;
-    long *handelsvalue = NULL ;
+    long *handelsvalue = NULL;
     int i = 0;
 
     char *pstCompoundUID = NULL;

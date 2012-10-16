@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2011 - DIGITEO - Manuel Juliachs
@@ -32,7 +32,7 @@
 #include "CurrentObject.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_newaxes( char * fname, unsigned long fname_len )
+int sci_newaxes(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
 

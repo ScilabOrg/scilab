@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -34,20 +34,20 @@
 /*------------------------------------------------------------------------*/
 int get_figure_position_property(void* _pvCtx, char* pobjUID)
 {
-  double figurePos[2] ;
-  int* position = NULL;
-  getGraphicObjectProperty(pobjUID, __GO_POSITION__, jni_int_vector, (void **)&position);
+    double figurePos[2];
+    int* position = NULL;
+    getGraphicObjectProperty(pobjUID, __GO_POSITION__, jni_int_vector, (void **)&position);
 
-  if (position == NULL)
-  {
-      Scierror(999, _("'%s' property does not exist for this handle.\n"),"figure_position") ;
-      return -1;
-  }
+    if (position == NULL)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "figure_position");
+        return -1;
+    }
 
-  figurePos[0] = (double) position[0] ;
-  figurePos[1] = (double) position[1] ;
+    figurePos[0] = (double) position[0];
+    figurePos[1] = (double) position[1];
 
-  return sciReturnRowVector(_pvCtx, figurePos, 2);
+    return sciReturnRowVector(_pvCtx, figurePos, 2);
 
 }
 /*------------------------------------------------------------------------*/

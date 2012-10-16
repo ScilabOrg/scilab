@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2009 - Digiteo - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2011 - DIGITEO - Vincent Couvert
@@ -37,7 +37,7 @@ int get_outside_colors_property(void* _pvCtx, char* pobjUID)
 
     if (colors == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"),"outside_colors");
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "outside_colors");
         return -1;
     }
 

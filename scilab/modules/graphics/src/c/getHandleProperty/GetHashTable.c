@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -292,7 +292,9 @@ char **getDictionaryGetProperties(int *sizearray)
             char *propertyname = (char *)MALLOC(sizeof(char) * (strlen(propertyTable[i].key) + 1));
 
             if (propertyname)
+            {
                 strcpy(propertyname, propertyTable[i].key);
+            }
             dictionary[i] = propertyname;
         }
     }

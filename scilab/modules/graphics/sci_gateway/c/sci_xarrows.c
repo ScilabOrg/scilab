@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
@@ -150,19 +150,19 @@ int sci_xarrows(char *fname, unsigned long fname_len)
         }
         if (m4 * n4 != 1 && m2 * n2 / 2 != m4 * n4)
         {
-            Scierror(999, _("%s: Wrong size for input argument #%d: %d expected.\n"), fname, 4, m2 * n2 / 2 );
+            Scierror(999, _("%s: Wrong size for input argument #%d: %d expected.\n"), fname, 4, m2 * n2 / 2);
             return 0;
         }
     }
     /* NG beg */
     if (nbInputArgument(pvApiCtx) == 4 && m4 * n4 != 1)
     {
-        style = (int*)(l4) ;
-        flag = 1 ;
+        style = (int*)(l4);
+        flag = 1;
     }
     else
     {
-        style = &dstyle ;
+        style = &dstyle;
         flag = 0;
     }
 

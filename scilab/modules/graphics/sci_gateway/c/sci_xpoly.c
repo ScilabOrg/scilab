@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
@@ -35,7 +35,7 @@
 #include "BuildObjects.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_xpoly( char * fname, unsigned long fname_len )
+int sci_xpoly(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
 
@@ -119,7 +119,7 @@ int sci_xpoly( char * fname, unsigned long fname_len )
             return 1;
         }
 
-        if ( strcmp((l3), "lines") == 0)
+        if (strcmp((l3), "lines") == 0)
         {
             strcpy(C2F(cha1).buf, "xlines");
             mark = 1; /* NG */

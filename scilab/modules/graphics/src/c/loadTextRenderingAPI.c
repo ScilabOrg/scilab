@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2009 - DIGITEO - Sylvestre Ledru
  *
  * This file must be used under the terms of the CeCILL.
@@ -36,7 +36,7 @@ void loadTextRenderingAPI(char const* const* text, int nbRow, int nbCol)
      * '$' for latex
      * '<' for MathML
      */
-    for ( i = 0 ; i < nbRow * nbCol ; i++ )
+    for (i = 0 ; i < nbRow * nbCol ; i++)
     {
         if (text[i][0] == '$' && !loadedDepLatex) /* One of the string starts by a $. This might be a Latex expression */
         {

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -39,7 +39,7 @@ int get_fill_mode_property(void* _pvCtx, char* pobjUID)
 
     if (piFillMode == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"),"fill_mode");
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "fill_mode");
         return -1;
     }
 

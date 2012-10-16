@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -31,6 +31,6 @@ int get_bar_layout_property(void* _pvCtx, char* pobjUID)
     //
     // FIXME
     //
-    return -1 ;
+    return -1;
 }
 /*------------------------------------------------------------------------*/

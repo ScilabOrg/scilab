@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2011 - DIGITEO - Vincent Couvert
@@ -36,7 +36,7 @@ int get_filled_property(void* _pvCtx, char* pobjUID)
 
     if (piFilled == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"), "filled") ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "filled");
         return -1;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2012 - Scilab Enterprises - Vincent COUVERT
  *
  * This file must be used under the terms of the CeCILL.
@@ -21,17 +21,17 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int set_figure_closerequestfcn_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_figure_closerequestfcn_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
     BOOL status = FALSE;
 
-    if ( !( valueType == sci_strings ) )
+    if (valueType != sci_strings)
     {
         Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "closerequestfcn");
-        return SET_PROPERTY_ERROR ;
+        return SET_PROPERTY_ERROR;
     }
 
-    status = setGraphicObjectProperty(pobjUID, __GO_CLOSEREQUESTFCN__, getStringFromStack(stackPointer), jni_string, 1);
+    status = setGraphicObjectProperty(pobjUID, __GO_CLOSEREQUESTFCN__, (char*)_pvData, jni_string, 1);
 
     if (status == TRUE)
     {

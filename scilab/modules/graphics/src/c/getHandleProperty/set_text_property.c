@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -28,14 +28,14 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int set_text_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_text_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
-    if ( !( valueType == sci_strings ) )
+    if (valueType != sci_strings)
     {
         Scierror(999, _("Wrong type for '%s' property: String matrix expected.\n"), "text");
         return SET_PROPERTY_ERROR;
     }
 
-    return sciSetText(pobjUID, getStringMatrixFromStack(stackPointer), nbRow, nbCol);
+    return sciSetText(pobjUID, (char**)_pvData, nbRow, nbCol);
 }
 /*------------------------------------------------------------------------*/

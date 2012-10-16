@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -31,13 +31,13 @@ typedef enum
     SET_PROPERTY_ERROR     = -1,
     SET_PROPERTY_SUCCEED   =  0 ,
     SET_PROPERTY_UNCHANGED =  1
-} SetPropertyStatus ;
+} SetPropertyStatus;
 
 /**
  * when two properties are set at the same time
  * return only one which can be used after
  */
-SetPropertyStatus sciSetFinalStatus( SetPropertyStatus status1, SetPropertyStatus status2 ) ;
+SetPropertyStatus sciSetFinalStatus(SetPropertyStatus status1, SetPropertyStatus status2);
 
 /**
  * Some operation might not need a redraw. Use this function to transform

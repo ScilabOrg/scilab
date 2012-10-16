@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - ENPC - Jean-Philipe Chancelier
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -50,9 +50,9 @@ int sci_unzoom(char *fname, unsigned long fname_len)
     char** objectsId = NULL;
     char* objectUID = NULL;
 
-    CheckInputArgument(pvApiCtx, 0, 1) ;
-    CheckOutputArgument(pvApiCtx, 0, 1) ;
-    if ( nbInputArgument(pvApiCtx) == 0 )
+    CheckInputArgument(pvApiCtx, 0, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
+    if (nbInputArgument(pvApiCtx) == 0)
     {
         objectUID = (char*)getCurrentFigure();
         if (objectUID != NULL)
@@ -89,7 +89,7 @@ int sci_unzoom(char *fname, unsigned long fname_len)
 
         /* first pass, check that all the handles are subwindows or figures */
         /* and copy them into an array of objects */
-        for (i = 0; i < nbObjects; i++ )
+        for (i = 0; i < nbObjects; i++)
         {
             objectUID = (char*)getObjectFromHandle((long int)stackPointer[i]);
             getGraphicObjectProperty(objectUID, __GO_TYPE__, jni_string, (void **) &piType);

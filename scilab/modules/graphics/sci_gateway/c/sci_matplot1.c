@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2012 - DIGITEO - Manuel Juliachs
@@ -24,7 +24,7 @@
 #include "sciCall.h"
 
 /*--------------------------------------------------------------------------*/
-int sci_matplot1( char * fname, unsigned long fname_len )
+int sci_matplot1(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0;
@@ -35,7 +35,7 @@ int sci_matplot1( char * fname, unsigned long fname_len )
     double* l1 = NULL;
     double* l2 = NULL;
 
-    if ( nbInputArgument(pvApiCtx) <= 0 )
+    if (nbInputArgument(pvApiCtx) <= 0)
     {
         sci_demo(fname, fname_len);
         return 0;
@@ -83,7 +83,7 @@ int sci_matplot1( char * fname, unsigned long fname_len )
         return 1;
     }
 
-    if ( m1 * n1 == 0 )
+    if (m1 * n1 == 0)
     {
         AssignOutputVariable(pvApiCtx, 1) = 0;
         ReturnArguments(pvApiCtx);

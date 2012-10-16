@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2010 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2010 - DIGITEO - Bruno JOFRET
@@ -38,8 +38,8 @@ int get_viewport_property(void* _pvCtx, char* pobjUID)
 
     if (viewport == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"), "viewport") ;
-        return -1 ;
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "viewport");
+        return -1;
     }
 
     return sciReturnRowIntVector(_pvCtx, viewport , 2);

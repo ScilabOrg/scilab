@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2010-2012 - DIGITEO - Manuel Juliachs
  * Copyright (C) 2010-2012 - Scilab Enterprises - Bruno JOFRET

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -34,20 +34,20 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int set_format_n_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_format_n_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
     BOOL status = FALSE;
     char* format = NULL;
-    if ( !( valueType == sci_strings ) )
+    if (valueType != sci_strings)
     {
         Scierror(999, _("Wrong type for '%s' property: String expected.\n"), "format_n");
         return SET_PROPERTY_ERROR;
     }
 
-    format = getStringFromStack(stackPointer);
+    format = (char*)_pvData;
 
     status = setGraphicObjectProperty(pobjUID, __GO_FORMATN__, format, jni_string, 1);
-
+    FREE(_pvData);
     if (status == TRUE)
     {
         return SET_PROPERTY_SUCCEED;

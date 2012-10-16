@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2001 - 2002 - INRIA - Matthhieu Philippe
  * Copyright (C) 2002 - 2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004 - 2006 - INRIA - Fabrice Leray
@@ -34,14 +34,14 @@
 #include "dynlib_graphics.h"
 #include "BOOL.h"
 
-GRAPHICS_IMPEXP int sciSetLineWidth ( char* pobj, double linewidth ) ;  /* SET */
+GRAPHICS_IMPEXP int sciSetLineWidth (char* pobj, double linewidth) ;  /* SET */
 
-GRAPHICS_IMPEXP int sciSetLineStyle ( char* pobj, int linestyle ) ; /* SET */
+GRAPHICS_IMPEXP int sciSetLineStyle (char* pobj, int linestyle) ; /* SET */
 
 GRAPHICS_IMPEXP int sciSetMarkSize (char* pobj, int marksize); /* SET */
 
 /* Text Functions */
-GRAPHICS_IMPEXP int sciSetText (   char* pobj, char ** text, int nbRow, int nbCol ) ; /* SET */
+GRAPHICS_IMPEXP int sciSetText (  char* pobj, char ** text, int nbRow, int nbCol) ; /* SET */
 
 /* GMODE */
 GRAPHICS_IMPEXP int sciSetDefaultValues (void); /* SET */

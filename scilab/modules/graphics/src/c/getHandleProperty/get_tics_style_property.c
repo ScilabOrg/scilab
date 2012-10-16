@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -40,7 +40,7 @@ int get_tics_style_property(void* _pvCtx, char* pobjUID)
 
     if (piTicksStyle == NULL)
     {
-        Scierror(999, _("Wrong value for '%s' property.\n"),"tics_direction");
+        Scierror(999, _("Wrong value for '%s' property.\n"), "tics_direction");
         return -1;
     }
 
@@ -58,7 +58,7 @@ int get_tics_style_property(void* _pvCtx, char* pobjUID)
     }
     else
     {
-        Scierror(999, _("Wrong value for '%s' property.\n"),"tics_style");
+        Scierror(999, _("Wrong value for '%s' property.\n"), "tics_style");
         return -1;
     }
 

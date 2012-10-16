@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2001-2002 - INRIA - Mathieu Philipe
  * Copyright (C) 2002-2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
@@ -54,82 +54,82 @@
 //#include "../../../tclsci/includes/GedManagement.h"
 
 /* get the displayed bounds of an axis */
-void sciGetDisplayedBounds( char * pSubWinUID,
-                            double      * xmin   ,
-                            double      * xmax   ,
-                            double      * ymin   ,
-                            double      * ymax   ,
-                            double      * zmin   ,
-                            double      * zmax    )
+void sciGetDisplayedBounds(char * pSubWinUID,
+                           double      * xmin   ,
+                           double      * xmax   ,
+                           double      * ymin   ,
+                           double      * ymax   ,
+                           double      * zmin   ,
+                           double      * zmax)
 {
     /*****************************************************************
      * get initial bounds
-   *****************************************************************/
+    *****************************************************************/
 
-  int iZoomEnabled = 0;
-  int* piZoomEnabled = &iZoomEnabled;
-  double* bounds = NULL;
-  int iLogFlag = 0;
-  int *piLogFlag = &iLogFlag;
+    int iZoomEnabled = 0;
+    int* piZoomEnabled = &iZoomEnabled;
+    double* bounds = NULL;
+    int iLogFlag = 0;
+    int *piLogFlag = &iLogFlag;
 
-  getGraphicObjectProperty(pSubWinUID, __GO_ZOOM_ENABLED__, jni_bool, (void **)&piZoomEnabled);
+    getGraphicObjectProperty(pSubWinUID, __GO_ZOOM_ENABLED__, jni_bool, (void **)&piZoomEnabled);
 
-  if (iZoomEnabled)
-  {
-      getGraphicObjectProperty(pSubWinUID, __GO_ZOOM_BOX__, jni_double_vector, (void **)&bounds);
-  }
-  else
-  {
-      getGraphicObjectProperty(pSubWinUID, __GO_DATA_BOUNDS__, jni_double_vector, (void **)&bounds);
-  }
-
-  *xmin = bounds[0];
-  *xmax = bounds[1];
-  *ymin = bounds[2];
-  *ymax = bounds[3];
-  *zmin = bounds[4];
-  *zmax = bounds[5];
-
-  /*****************************************************************
-   * modify  bounds and aaint  if using log scaling X axis
-   *****************************************************************/
-
-  getGraphicObjectProperty(pSubWinUID, __GO_X_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
-
-  if (iLogFlag == 1)
-  {
-    if ( sciGetLogExponent( *xmin, *xmax, xmin, xmax ) != 0 )
+    if (iZoomEnabled)
     {
-      sciprint(_("Warning: Can't use Log on X-axis xmin is negative.\n"));
+        getGraphicObjectProperty(pSubWinUID, __GO_ZOOM_BOX__, jni_double_vector, (void **)&bounds);
     }
-  }
-
-  /*****************************************************************
-   * modify  bounds and aaint  if using log scaling Y axis
-   *****************************************************************/
-
-  getGraphicObjectProperty(pSubWinUID, __GO_Y_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
-
-  if (iLogFlag == 1)
-  {
-    if ( sciGetLogExponent( *ymin, *ymax, ymin, ymax ) != 0 )
+    else
     {
-      sciprint(_("Warning: Can't use Log on Y-axis ymin is negative.\n"));
+        getGraphicObjectProperty(pSubWinUID, __GO_DATA_BOUNDS__, jni_double_vector, (void **)&bounds);
     }
-  }
 
-  /*****************************************************************
-   * modify  bounds and aaint  if using log scaling Z axis
-   *****************************************************************/
+    *xmin = bounds[0];
+    *xmax = bounds[1];
+    *ymin = bounds[2];
+    *ymax = bounds[3];
+    *zmin = bounds[4];
+    *zmax = bounds[5];
 
-  getGraphicObjectProperty(pSubWinUID, __GO_Z_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
+    /*****************************************************************
+     * modify  bounds and aaint  if using log scaling X axis
+     *****************************************************************/
 
-  if (iLogFlag == 1)
-  {
-    if ( sciGetLogExponent( *zmin, *zmax, zmin, zmax ) != 0 )
+    getGraphicObjectProperty(pSubWinUID, __GO_X_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
+
+    if (iLogFlag == 1)
     {
-      sciprint(_("Warning: Can't use Log on Z-axis zmin is negative.\n"));
+        if (sciGetLogExponent(*xmin, *xmax, xmin, xmax) != 0)
+        {
+            sciprint(_("Warning: Can't use Log on X-axis xmin is negative.\n"));
+        }
     }
-  }
+
+    /*****************************************************************
+     * modify  bounds and aaint  if using log scaling Y axis
+     *****************************************************************/
+
+    getGraphicObjectProperty(pSubWinUID, __GO_Y_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
+
+    if (iLogFlag == 1)
+    {
+        if (sciGetLogExponent(*ymin, *ymax, ymin, ymax) != 0)
+        {
+            sciprint(_("Warning: Can't use Log on Y-axis ymin is negative.\n"));
+        }
+    }
+
+    /*****************************************************************
+     * modify  bounds and aaint  if using log scaling Z axis
+     *****************************************************************/
+
+    getGraphicObjectProperty(pSubWinUID, __GO_Z_AXIS_LOG_FLAG__, jni_bool, (void **)&piLogFlag);
+
+    if (iLogFlag == 1)
+    {
+        if (sciGetLogExponent(*zmin, *zmax, zmin, zmax) != 0)
+        {
+            sciprint(_("Warning: Can't use Log on Z-axis zmin is negative.\n"));
+        }
+    }
 
 }

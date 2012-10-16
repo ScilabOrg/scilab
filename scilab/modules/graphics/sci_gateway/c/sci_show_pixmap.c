@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2008 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -24,7 +24,7 @@
 //
 // FIXME: Remove GW after Scilab 5.4.0
 //
-int sci_show_pixmap(char *fname, unsigned long fname_len )
+int sci_show_pixmap(char *fname, unsigned long fname_len)
 {
     /* call show_pixmap */
 

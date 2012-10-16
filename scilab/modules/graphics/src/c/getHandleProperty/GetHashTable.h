@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -24,12 +24,12 @@
  * create the fill hash table already filled for get functions
  * this use the singleton pattern since only one hashtable is useful.
  */
-GetPropertyHashTable * createScilabGetHashTable( void ) ;
+GetPropertyHashTable * createScilabGetHashTable(void);
 
 /**
  * Delete the scilab get hashtable
  */
-void destroyScilabGetHashTable( void ) ;
+void destroyScilabGetHashTable(void);
 
 /**
  * call the function which the property propertyName of object pObj
@@ -37,6 +37,6 @@ void destroyScilabGetHashTable( void ) ;
  *         -1 if an error occurred in the get function
  *          1 if the property was not found
  */
-int callGetProperty(void* _pvCtx, char *pObjUID, char * propertyName ) ;
+int callGetProperty(void* _pvCtx, char *pObjUID, char * propertyName);
 
 #endif /* _GET_HASH_TABLE_H_ */

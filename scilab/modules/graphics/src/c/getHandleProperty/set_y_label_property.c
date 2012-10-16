@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -33,7 +33,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int set_y_label_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int valueType, int nbRow, int nbCol )
+int set_y_label_property(void* _pvCtx, char* pobjUID, void* _pvData, int valueType, int nbRow, int nbCol)
 {
     int iType = -1;
     int *piType = &iType;
@@ -42,7 +42,7 @@ int set_y_label_property(void* _pvCtx, char* pobjUID, size_t stackPointer, int v
 
     if (iType == __GO_AXES__)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"),"y_label");
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "y_label");
         return SET_PROPERTY_ERROR;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2011 - DIGITEO - Manuel Juliachs
@@ -39,7 +39,7 @@
 #define DEF_LEGEND_LOCATION "in_upper_right"
 
 /*--------------------------------------------------------------------------*/
-int sci_Legend( char * fname, unsigned long fname_len )
+int sci_Legend(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
 
@@ -86,7 +86,7 @@ int sci_Legend( char * fname, unsigned long fname_len )
     }
 
     GetMatrixdims(2, &m2, &n2);
-    if (m2*n2 != n)
+    if (m2 * n2 != n)
     {
         Scierror(999, _("%s: Wrong size for input arguments #%d and #%d: Incompatible length.\n"), fname, 1, 2);
         return 1;

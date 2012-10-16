@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
@@ -24,15 +24,15 @@
 #include "localization.h"
 #include "Scierror.h"
 /*------------------------------------------------------------------------*/
-int sci_param3d( char * fname, unsigned long fname_len )
+int sci_param3d(char * fname, unsigned long fname_len)
 {
     SciErr sciErr;
     int izcol = 0, isfac = 0;
     static double  ebox_def[6] = { 0, 1, 0, 1, 0, 1};
-    double *ebox = ebox_def ;
+    double *ebox = ebox_def;
     static int iflag_def[3] = {1, 2, 4};
     int iflag[3], *ifl = NULL, ix1 = 0, one = 1;
-    double  alpha_def = 35.0 , theta_def = 45.0 ;
+    double  alpha_def = 35.0 , theta_def = 45.0;
     double *alpha = &alpha_def, *theta = &theta_def;
     int m1 = 0, n1 = 0, m2 = 0, n2 = 0, m3 = 0, n3 = 0;
     int m3n = 0, n3n = 0; /* F.Leray 19.03.04*/
@@ -45,7 +45,7 @@ int sci_param3d( char * fname, unsigned long fname_len )
         { -1, NULL, NULL, 0, 0}
     };
 
-    char * labels = NULL ;
+    char * labels = NULL;
 
     int* piAddr1 = NULL;
     int* piAddr2 = NULL;
@@ -63,12 +63,12 @@ int sci_param3d( char * fname, unsigned long fname_len )
 
     CheckInputArgument(pvApiCtx, 3, 8);
 
-    if ( get_optionals(fname, opts) == 0)
+    if (get_optionals(fname, opts) == 0)
     {
         ReturnArguments(pvApiCtx);
         return 0;
     }
-    if ( FirstOpt() < 4)
+    if (FirstOpt() < 4)
     {
         Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"), fname, 1, 4);
         return(0);

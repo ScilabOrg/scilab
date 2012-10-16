@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
@@ -41,17 +41,17 @@ int sci_fec(char *fname, unsigned long fname_len)
         { -1, "strf", "?", 0, 0, 0},
         { -1, "zminmax", "?", 0, 0, 0},
         { -1, NULL, NULL, 0, 0}
-    } ;
+    };
 
-    char* strf      = NULL ;
-    char* legend    = NULL ;
-    double* rect    = NULL ;
-    double* zminmax = NULL ;
-    int* colminmax  = NULL ;
-    int* nax        = NULL ;
-    int* colOut     = NULL ;
-    BOOL flagNax    = FALSE ;
-    BOOL withMesh   = FALSE ;
+    char* strf      = NULL;
+    char* legend    = NULL;
+    double* rect    = NULL;
+    double* zminmax = NULL;
+    int* colminmax  = NULL;
+    int* nax        = NULL;
+    int* colOut     = NULL;
+    BOOL flagNax    = FALSE;
+    BOOL withMesh   = FALSE;
 
     int* piAddr1 = NULL;
     int* piAddr2 = NULL;
@@ -71,13 +71,13 @@ int sci_fec(char *fname, unsigned long fname_len)
 
     CheckInputArgument(pvApiCtx, 4, 12);
 
-    if ( get_optionals(fname, opts) == 0)
+    if (get_optionals(fname, opts) == 0)
     {
         ReturnArguments(pvApiCtx);
         return 0;
     }
 
-    if ( FirstOpt() < 5)
+    if (FirstOpt() < 5)
     {
         Scierror(999, _("%s: Misplaced optional argument: #%d must be at position %d.\n"), fname, 1, 5);
         return -1;
@@ -184,18 +184,18 @@ int sci_fec(char *fname, unsigned long fname_len)
 
     getOrCreateDefaultSubwin();
 
-    if ( isDefStrf ( strf ) )
+    if (isDefStrf (strf))
     {
         char strfl[4];
 
         strcpy(strfl, DEFSTRFN);
 
         strf = strfl;
-        if ( !isDefRect( rect ))
+        if (!isDefRect(rect))
         {
             strfl[1] = '7';
         }
-        if ( !isDefLegend( legend ) )
+        if (!isDefLegend(legend))
         {
             strfl[0] = '1';
         }

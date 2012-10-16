@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -35,21 +35,21 @@ int get_surface_mode_property(void* _pvCtx, char* pobjUID)
     int iSurfaceMode = 0;
     int *piSurfaceMode = &iSurfaceMode;
 
-  getGraphicObjectProperty(pobjUID, __GO_SURFACE_MODE__, jni_bool, (void **)&piSurfaceMode);
+    getGraphicObjectProperty(pobjUID, __GO_SURFACE_MODE__, jni_bool, (void **)&piSurfaceMode);
 
-  if (piSurfaceMode == NULL)
-  {
-      Scierror(999, _("'%s' property does not exist for this handle.\n"),"surface_mode");
-      return -1;
-  }
+    if (piSurfaceMode == NULL)
+    {
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "surface_mode");
+        return -1;
+    }
 
-  if (iSurfaceMode)
-  {
-      return sciReturnString(_pvCtx, "on");
-  }
-  else
-  {
-      return sciReturnString(_pvCtx, "off");
-  }
+    if (iSurfaceMode)
+    {
+        return sciReturnString(_pvCtx, "on");
+    }
+    else
+    {
+        return sciReturnString(_pvCtx, "off");
+    }
 }
 /*------------------------------------------------------------------------*/

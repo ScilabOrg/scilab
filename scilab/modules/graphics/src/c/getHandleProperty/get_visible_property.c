@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -37,7 +37,7 @@ int get_visible_property(void* _pvCtx, char* pobjUID)
 
     getGraphicObjectProperty(pobjUID, __GO_VISIBLE__, jni_bool, (void **)&piVisible);
 
-    if ( piVisible == NULL )
+    if (piVisible == NULL)
     {
         Scierror(999, _("'%s' property does not exist for this handle.\n"), "visible");
         return FALSE;

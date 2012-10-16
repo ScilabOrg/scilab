@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -24,18 +24,18 @@
 /**
  * return the number of different pixel drawing modes.
  */
-GRAPHICS_IMPEXP int getNbPixelModes( void ) ;
+GRAPHICS_IMPEXP int getNbPixelModes(void);
 
 /**
  * Get the name of pixel mode number index.
  */
-GRAPHICS_IMPEXP char * getPixelMode( int ind ) ;
+GRAPHICS_IMPEXP char * getPixelMode(int ind);
 
 /**
  * Look for a pixel mode of name modeName and return its index.
  * If none has been found, return -1. Another negative value is returned
  * if an error occurred.
  */
-GRAPHICS_IMPEXP int getPixelModeIndex( const char * modeName ) ;
+GRAPHICS_IMPEXP int getPixelModeIndex(const char * modeName);
 
 #endif

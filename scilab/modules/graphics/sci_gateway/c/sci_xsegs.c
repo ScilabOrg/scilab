@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  * Copyright (C) 2011 - DIGITEO - Bruno JOFRET
@@ -47,7 +47,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
     int *piColor = &color;
     int colorFlag;
     int* style = NULL;
-    double * zptr = NULL;
+    double* zptr = NULL;
     int mx = 0, nx = 0, my = 0, ny = 0, mz = 0, nz = 0, mc = 0, nc = 0;
     const double arsize = 0.0 ; // no arrow here
     char * psubwinUID = NULL;
@@ -93,7 +93,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
         return 1;
     }
 
-    if (my*ny == 0)
+    if (my * ny == 0)
     {
         /* Empty segs */
         AssignOutputVariable(pvApiCtx, 1) = 0;
@@ -104,7 +104,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
     if (nbInputArgument(pvApiCtx) == 3)
     {
         GetVarDimension(3, &mz, &nz);
-        if ( mz*nz == mx * nx)
+        if (mz * nz == mx * nx)
         {
             sciErr = getVarAddressFromPosition(pvApiCtx, 3, &piAddrlz);
             if (sciErr.iErr)
@@ -129,7 +129,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
             mc = mz;
             nc = nz;
 
-            if (mc * nc != 1 && mx*nx / 2 != mc * nc)
+            if (mc * nc != 1 && mx * nx / 2 != mc * nc)
             {
                 Scierror(999, _("%s: Wrong size for input argument #%d: %d, %d or %d expected.\n"), fname, 3, 1, mx * nx / 2, mx * nx);
                 return 0;
@@ -210,7 +210,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
         }
 
 
-        if (mc * nc != 1 && mx*nx / 2 != mc * nc)
+        if (mc * nc != 1 && mx * nx / 2 != mc * nc)
         {
             Scierror(999, _("%s: Wrong size for input argument #%d: %d or %d expected.\n"), fname, 4, 1, mx * nx / 2);
             return 0;
@@ -219,7 +219,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
 
     psubwinUID = (char*)getOrCreateDefaultSubwin();
 
-    if (mc*nc == 0)
+    if (mc * nc == 0)
     {
         /* no color specified, use current color (taken from axes parent) */
         getGraphicObjectProperty(psubwinUID, __GO_LINE_COLOR__, jni_int, (void**)&piColor);
@@ -230,7 +230,7 @@ int sci_xsegs(char *fname, unsigned long fname_len)
     else
     {
         style = lc;
-        colorFlag = (mc*nc == 1) ? 0 : 1;
+        colorFlag = (mc * nc == 1) ? 0 : 1;
     }
 
     Objsegs (style, colorFlag, mx * nx, (lx), (ly), zptr, arsize);

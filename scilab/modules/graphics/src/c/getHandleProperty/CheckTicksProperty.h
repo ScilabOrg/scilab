@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -27,6 +27,6 @@
  * contains the right properties.
  * @return the newly created list or NULL if an error occurred.
  */
-AssignedList * createTlistForTicks( void ) ;
+AssignedList * createTlistForTicks(void* _pvCtx);
 
 #endif /* _CHECK_TICKS_PROPERTY_C_ */

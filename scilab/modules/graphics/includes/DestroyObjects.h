@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2001 - 2002 - INRIA - Mathieu Philipe
  * Copyright (C) 2002 - 2004 - INRIA - Djalel Abdemouche
  * Copyright (C) 2004 - 2006 - INRIA - Fabrice Leray
@@ -28,8 +28,8 @@
 
 #include "dynlib_graphics.h"
 
-GRAPHICS_IMPEXP void AllGraphWinDelete( void ) ;
+GRAPHICS_IMPEXP void AllGraphWinDelete(void);
 
-GRAPHICS_IMPEXP void sciDeleteWindow( int winNum ) ;
+GRAPHICS_IMPEXP void sciDeleteWindow(int winNum);
 
 #endif /* __SCI_DESTROY__ */

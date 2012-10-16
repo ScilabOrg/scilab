@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
  *
  * This file must be used under the terms of the CeCILL.
@@ -13,7 +13,7 @@
 /*------------------------------------------------------------------------*/
 /* file: getHandleProperty.h                                              */
 /* desc : contains declarations of functions needed by sci_get            */
-/*        Each function has the same signature int (void*, char* ) and    */
+/*        Each function has the same signature int (void*, char*) and    */
 /*        return a value in the scilab console                            */
 /*------------------------------------------------------------------------*/
 

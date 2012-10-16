@@ -1,5 +1,5 @@
 /*
- * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Scilab (http://www.scilab.org/) - This file is part of Scilab
  * Copyright (C) 2004-2006 - INRIA - Fabrice Leray
  * Copyright (C) 2006 - INRIA - Allan Cornet
  * Copyright (C) 2006 - INRIA - Jean-Baptiste Silvy
@@ -42,19 +42,19 @@ int get_x_ticks_property(void* _pvCtx, char* pobjUID)
 
     if (piNbTicks == NULL)
     {
-        Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_ticks");
+        Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_ticks");
         return -1;
     }
 
     if (iNbTicks == 0)
     {
         /* return empty matrices */
-        buildTListForTicks( NULL, NULL, 0);
+        buildTListForTicks(NULL, NULL, 0);
     }
     else
     {
         char ** labels;
-        double * positions;
+        double* positions;
 
         getGraphicObjectProperty(pobjUID, __GO_X_AXIS_TICKS_LOCATIONS__, jni_double_vector, (void **) &positions);
 
@@ -62,11 +62,11 @@ int get_x_ticks_property(void* _pvCtx, char* pobjUID)
 
         if (positions == NULL || labels == NULL)
         {
-            Scierror(999, _("'%s' property does not exist for this handle.\n"),"x_ticks");
+            Scierror(999, _("'%s' property does not exist for this handle.\n"), "x_ticks");
             return -1;
         }
 
-        buildTListForTicks( positions, labels, iNbTicks );
+        buildTListForTicks(positions, labels, iNbTicks);
 
         /* free arrays */
 #if 0
