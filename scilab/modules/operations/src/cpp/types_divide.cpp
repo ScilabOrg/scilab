@@ -140,17 +140,17 @@ InternalType *GenericDotRDivide(InternalType *_pLeftOperand, InternalType *_pRig
 
 int RDivideDoubleByDouble(Double *_pDouble1, Double *_pDouble2, Double **_pDoubleOut)
 {
-    //check finite values of _pDouble1 and _pDouble2
-    if (isDoubleFinite(_pDouble1) == false || isDoubleFinite(_pDouble2) == false)
-    {
-        return 2;
-    }
-
     if (_pDouble1->isEmpty() || _pDouble2->isEmpty())
     {
         //return an empty matrix of double
         *_pDoubleOut = Double::Empty();
         return 0;
+    }
+
+    //check finite values of _pDouble1 and _pDouble2
+    if (isDoubleFinite(_pDouble1) == false || isDoubleFinite(_pDouble2) == false)
+    {
+        return 2;
     }
 
     if (_pDouble2->isScalar())
@@ -476,10 +476,10 @@ int DotRDivideDoubleByDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDo
     bool bScalar2   = _pDouble2->isScalar();
 
     //check finite values of _pDouble1 and _pDouble2
-    if (isDoubleFinite(_pDouble1) == false || isDoubleFinite(_pDouble2) == false)
-    {
-        return 2;
-    }
+    //    if (isDoubleFinite(_pDouble1) == false || isDoubleFinite(_pDouble2) == false)
+    //    {
+    //        return 2;
+    //    }
 
     if (_pDouble1->isEmpty() || _pDouble2->isEmpty())
     {
