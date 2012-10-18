@@ -198,7 +198,7 @@
                     
                     <para>Possible values are "on", "off".</para>
                     
-                    <para>by default, this value is "off".</para>
+                    <para>by default, this value is "on".</para>
                 </listitem>
             </itemizedlist>
         </para>
