@@ -192,8 +192,14 @@ bool FuncManager::AppendModules()
             }
         }
 
-        if (xpathObj) xmlXPathFreeObject(xpathObj);
-        if (xpathCtxt) xmlXPathFreeContext(xpathCtxt);
+        if (xpathObj)
+        {
+            xmlXPathFreeObject(xpathObj);
+        }
+        if (xpathCtxt)
+        {
+            xmlXPathFreeContext(xpathCtxt);
+        }
         xmlFreeDoc (doc);
     }
     else
@@ -313,6 +319,7 @@ bool FuncManager::CreateModuleList(void)
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"graphics", &GraphicsModule::Load));
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"interpolation", &InterpolationModule::Load));
     m_ModuleMap.insert(pair<wstring, GW_MOD>(L"cacsd", &CacsdModule::Load));
+    m_ModuleMap.insert(pair<wstring, GW_MOD>(L"umfpack", &UmfpackModule::Load));
 
     if (ConfigVariable::getScilabMode() != SCILAB_NWNI)
     {
