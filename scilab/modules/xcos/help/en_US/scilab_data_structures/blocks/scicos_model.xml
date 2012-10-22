@@ -523,7 +523,7 @@
                 <itemizedlist>
                     <listitem>
                         <para>
-                            <emphasis role="bold">dep_u</emphasis>
+                            <emphasis role="bold">dep_t</emphasis>
                         </para>
                         <para>
                             true if block is always active.
@@ -535,7 +535,7 @@
                     </listitem>
                     <listitem>
                         <para>
-                            <emphasis role="bold">dep_t</emphasis>
+                            <emphasis role="bold">dep_u</emphasis>
                         </para>
                         <para>
                             true if block has direct feed-through,
