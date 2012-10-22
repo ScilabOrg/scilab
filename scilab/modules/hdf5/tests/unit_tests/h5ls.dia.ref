@@ -1,0 +1,12 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+x = int8(matrix(1:80, 10, 8));
+save(TMPDIR + "/x.sod", "x");
+a = h5open(TMPDIR + "/x.sod");
+h5ls(a.root.x);
+h5close(a);

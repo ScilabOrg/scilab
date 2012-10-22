@@ -1,0 +1,32 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+x = matrix(1:20, 4, 5);
+save(TMPDIR + "/x.sod", "x");
+a = h5open(TMPDIR + "/x.sod");
+y = uint32(matrix(10:30, 7, 3));
+h5write(a, "y", y);
+assert_checkequal(a.root.y.Data,y');
+h5write(a, "z", y, "H5T_MIPS_U32");
+assert_checkequal(a.root.z.Data,y');
+
+x = uint32(matrix(1:(11*17), 11, 17));
+dx = cat(2,cat(1,x(1:3,2:3),x(6:8,2:3)),cat(1,x(1:3,5:6),x(6:8,5:6)),..
+           cat(1,x(1:3,8:9),x(6:8,8:9)),cat(1,x(1:3,11:12),x(6:8,11:12)));
+h5write(a, "t", x, [1 2], [2 4], [5 3], [3 2]);
+assert_checkequal(a.root.t.Data,dx');
+
+dx = x(2:6,4:6)';
+h5write(a,"t2",x, [2 4],[5 3]);
+assert_checkequal(a.root.t2.data,dx);
+
+msgerr = msprintf(gettext("%s: Invalid selection."), "h5write");
+assert_checkerror("h5write(a,""t3"",x, [22 22],[2 4],[5 3],[3 2])",msgerr,999);
+assert_checkerror("h5write(a,""t3"",x, [1 2],[12 44],[5 3],[3 2])",msgerr,999);
+h5close(a);
