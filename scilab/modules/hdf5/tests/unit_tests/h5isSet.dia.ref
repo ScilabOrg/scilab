@@ -1,0 +1,60 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+w = "testing";
+x = 1:10;
+y = [1 2;3 4];
+z = 1;
+save(TMPDIR + "/w.sod", "w");
+save(TMPDIR + "/x.sod", "x");
+save(TMPDIR + "/y.sod", "y");
+save(TMPDIR + "/z.sod", "z");
+a = h5open(TMPDIR + "/w.sod", "r");
+// Not a dataset
+assert_checkequal(h5isSet(a),%F);
+// Dataset
+assert_checkequal(h5isSet(a.root.w),%T);
+h5close(a);
+b = h5open(TMPDIR + "/x.sod", "r");
+// Not a dataset
+assert_checkequal(h5isSet(b),%F);
+// Dataset
+assert_checkequal(h5isSet(b.root.x),%T);
+h5close(b);
+c = h5open(TMPDIR + "/y.sod","r")
+ c  =
+ 
+HDF5 File
+   Filename: TMPDIR/y.sod
+   Version: 1.8.4
+   Size: 2176
+   Root: /
+
+// Not a dataset
+assert_checkequal(h5isSet(c),%F);
+assert_checkequal(h5isSet(c.root),%F);
+// Dataset
+assert_checkequal(h5isSet(c.root.y),%T);
+h5close(c);
+d = h5open(TMPDIR + "/z.sod","r")
+ d  =
+ 
+HDF5 File
+   Filename: TMPDIR/z.sod
+   Version: 1.8.4
+   Size: 2152
+   Root: /
+
+// Not a dataset
+assert_checkequal(h5isSet(d),%F);
+// Dataset
+assert_checkequal(h5isSet(d.root.z),%T);
+h5close(d);
+assert_checkequal(deletefile(TMPDIR+"/w.sod"),%T);
+assert_checkequal(deletefile(TMPDIR+"/x.sod"),%T);
+assert_checkequal(deletefile(TMPDIR+"/y.sod"),%T);
+assert_checkequal(deletefile(TMPDIR+"/z.sod"),%T);

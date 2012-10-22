@@ -1,0 +1,996 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - SCILAB ENTERPRISES - Simon GARESTE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- CLI SHELL MODE -->
+a = h5open(TMPDIR + "/test_group.h5", "a");
+gnames = "Group_" + string(1:10);
+sgnames = "SubGroup_" + string(1:10);
+names = gnames;
+for s=gnames
+    names = [names s + "/" + sgnames]
+end
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 20
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40
+ 
+!Group_3/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 50
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ 
+         column 61 to 63
+ 
+!Group_6/SubGroup_1  Group_6/SubGroup_2  Group_6/SubGroup_3  !
+ 
+         column 64 to 66
+ 
+!Group_6/SubGroup_4  Group_6/SubGroup_5  Group_6/SubGroup_6  !
+ 
+         column 67 to 69
+ 
+!Group_6/SubGroup_7  Group_6/SubGroup_8  Group_6/SubGroup_9  !
+ 
+         column 70
+ 
+!Group_6/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ 
+         column 61 to 63
+ 
+!Group_6/SubGroup_1  Group_6/SubGroup_2  Group_6/SubGroup_3  !
+ 
+         column 64 to 66
+ 
+!Group_6/SubGroup_4  Group_6/SubGroup_5  Group_6/SubGroup_6  !
+ 
+         column 67 to 69
+ 
+!Group_6/SubGroup_7  Group_6/SubGroup_8  Group_6/SubGroup_9  !
+ 
+         column 70 to 72
+ 
+!Group_6/SubGroup_10  Group_7/SubGroup_1  Group_7/SubGroup_2  !
+ 
+         column 73 to 75
+ 
+!Group_7/SubGroup_3  Group_7/SubGroup_4  Group_7/SubGroup_5  !
+ 
+         column 76 to 78
+ 
+!Group_7/SubGroup_6  Group_7/SubGroup_7  Group_7/SubGroup_8  !
+ 
+         column 79 to 80
+ 
+!Group_7/SubGroup_9  Group_7/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ 
+         column 61 to 63
+ 
+!Group_6/SubGroup_1  Group_6/SubGroup_2  Group_6/SubGroup_3  !
+ 
+         column 64 to 66
+ 
+!Group_6/SubGroup_4  Group_6/SubGroup_5  Group_6/SubGroup_6  !
+ 
+         column 67 to 69
+ 
+!Group_6/SubGroup_7  Group_6/SubGroup_8  Group_6/SubGroup_9  !
+ 
+         column 70 to 72
+ 
+!Group_6/SubGroup_10  Group_7/SubGroup_1  Group_7/SubGroup_2  !
+ 
+         column 73 to 75
+ 
+!Group_7/SubGroup_3  Group_7/SubGroup_4  Group_7/SubGroup_5  !
+ 
+         column 76 to 78
+ 
+!Group_7/SubGroup_6  Group_7/SubGroup_7  Group_7/SubGroup_8  !
+ 
+         column 79 to 81
+ 
+!Group_7/SubGroup_9  Group_7/SubGroup_10  Group_8/SubGroup_1  !
+ 
+         column 82 to 84
+ 
+!Group_8/SubGroup_2  Group_8/SubGroup_3  Group_8/SubGroup_4  !
+ 
+         column 85 to 87
+ 
+!Group_8/SubGroup_5  Group_8/SubGroup_6  Group_8/SubGroup_7  !
+ 
+         column 88 to 90
+ 
+!Group_8/SubGroup_8  Group_8/SubGroup_9  Group_8/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ 
+         column 61 to 63
+ 
+!Group_6/SubGroup_1  Group_6/SubGroup_2  Group_6/SubGroup_3  !
+ 
+         column 64 to 66
+ 
+!Group_6/SubGroup_4  Group_6/SubGroup_5  Group_6/SubGroup_6  !
+ 
+         column 67 to 69
+ 
+!Group_6/SubGroup_7  Group_6/SubGroup_8  Group_6/SubGroup_9  !
+ 
+         column 70 to 72
+ 
+!Group_6/SubGroup_10  Group_7/SubGroup_1  Group_7/SubGroup_2  !
+ 
+         column 73 to 75
+ 
+!Group_7/SubGroup_3  Group_7/SubGroup_4  Group_7/SubGroup_5  !
+ 
+         column 76 to 78
+ 
+!Group_7/SubGroup_6  Group_7/SubGroup_7  Group_7/SubGroup_8  !
+ 
+         column 79 to 81
+ 
+!Group_7/SubGroup_9  Group_7/SubGroup_10  Group_8/SubGroup_1  !
+ 
+         column 82 to 84
+ 
+!Group_8/SubGroup_2  Group_8/SubGroup_3  Group_8/SubGroup_4  !
+ 
+         column 85 to 87
+ 
+!Group_8/SubGroup_5  Group_8/SubGroup_6  Group_8/SubGroup_7  !
+ 
+         column 88 to 90
+ 
+!Group_8/SubGroup_8  Group_8/SubGroup_9  Group_8/SubGroup_10  !
+ 
+         column 91 to 93
+ 
+!Group_9/SubGroup_1  Group_9/SubGroup_2  Group_9/SubGroup_3  !
+ 
+         column 94 to 96
+ 
+!Group_9/SubGroup_4  Group_9/SubGroup_5  Group_9/SubGroup_6  !
+ 
+         column 97 to 99
+ 
+!Group_9/SubGroup_7  Group_9/SubGroup_8  Group_9/SubGroup_9  !
+ 
+         column 100
+ 
+!Group_9/SubGroup_10  !
+ names  =
+ 
+ 
+         column 1 to 7
+ 
+!Group_1  Group_2  Group_3  Group_4  Group_5  Group_6  Group_7  !
+ 
+         column  8 to 12
+ 
+!Group_8  Group_9  Group_10  Group_1/SubGroup_1  Group_1/SubGroup_2  !
+ 
+         column 13 to 15
+ 
+!Group_1/SubGroup_3  Group_1/SubGroup_4  Group_1/SubGroup_5  !
+ 
+         column 16 to 18
+ 
+!Group_1/SubGroup_6  Group_1/SubGroup_7  Group_1/SubGroup_8  !
+ 
+         column 19 to 21
+ 
+!Group_1/SubGroup_9  Group_1/SubGroup_10  Group_2/SubGroup_1  !
+ 
+         column 22 to 24
+ 
+!Group_2/SubGroup_2  Group_2/SubGroup_3  Group_2/SubGroup_4  !
+ 
+         column 25 to 27
+ 
+!Group_2/SubGroup_5  Group_2/SubGroup_6  Group_2/SubGroup_7  !
+ 
+         column 28 to 30
+ 
+!Group_2/SubGroup_8  Group_2/SubGroup_9  Group_2/SubGroup_10  !
+ 
+         column 31 to 33
+ 
+!Group_3/SubGroup_1  Group_3/SubGroup_2  Group_3/SubGroup_3  !
+ 
+         column 34 to 36
+ 
+!Group_3/SubGroup_4  Group_3/SubGroup_5  Group_3/SubGroup_6  !
+ 
+         column 37 to 39
+ 
+!Group_3/SubGroup_7  Group_3/SubGroup_8  Group_3/SubGroup_9  !
+ 
+         column 40 to 42
+ 
+!Group_3/SubGroup_10  Group_4/SubGroup_1  Group_4/SubGroup_2  !
+ 
+         column 43 to 45
+ 
+!Group_4/SubGroup_3  Group_4/SubGroup_4  Group_4/SubGroup_5  !
+ 
+         column 46 to 48
+ 
+!Group_4/SubGroup_6  Group_4/SubGroup_7  Group_4/SubGroup_8  !
+ 
+         column 49 to 51
+ 
+!Group_4/SubGroup_9  Group_4/SubGroup_10  Group_5/SubGroup_1  !
+ 
+         column 52 to 54
+ 
+!Group_5/SubGroup_2  Group_5/SubGroup_3  Group_5/SubGroup_4  !
+ 
+         column 55 to 57
+ 
+!Group_5/SubGroup_5  Group_5/SubGroup_6  Group_5/SubGroup_7  !
+ 
+         column 58 to 60
+ 
+!Group_5/SubGroup_8  Group_5/SubGroup_9  Group_5/SubGroup_10  !
+ 
+         column 61 to 63
+ 
+!Group_6/SubGroup_1  Group_6/SubGroup_2  Group_6/SubGroup_3  !
+ 
+         column 64 to 66
+ 
+!Group_6/SubGroup_4  Group_6/SubGroup_5  Group_6/SubGroup_6  !
+ 
+         column 67 to 69
+ 
+!Group_6/SubGroup_7  Group_6/SubGroup_8  Group_6/SubGroup_9  !
+ 
+         column 70 to 72
+ 
+!Group_6/SubGroup_10  Group_7/SubGroup_1  Group_7/SubGroup_2  !
+ 
+         column 73 to 75
+ 
+!Group_7/SubGroup_3  Group_7/SubGroup_4  Group_7/SubGroup_5  !
+ 
+         column 76 to 78
+ 
+!Group_7/SubGroup_6  Group_7/SubGroup_7  Group_7/SubGroup_8  !
+ 
+         column 79 to 81
+ 
+!Group_7/SubGroup_9  Group_7/SubGroup_10  Group_8/SubGroup_1  !
+ 
+         column 82 to 84
+ 
+!Group_8/SubGroup_2  Group_8/SubGroup_3  Group_8/SubGroup_4  !
+ 
+         column 85 to 87
+ 
+!Group_8/SubGroup_5  Group_8/SubGroup_6  Group_8/SubGroup_7  !
+ 
+         column 88 to 90
+ 
+!Group_8/SubGroup_8  Group_8/SubGroup_9  Group_8/SubGroup_10  !
+ 
+         column 91 to 93
+ 
+!Group_9/SubGroup_1  Group_9/SubGroup_2  Group_9/SubGroup_3  !
+ 
+         column 94 to 96
+ 
+!Group_9/SubGroup_4  Group_9/SubGroup_5  Group_9/SubGroup_6  !
+ 
+         column 97 to 99
+ 
+!Group_9/SubGroup_7  Group_9/SubGroup_8  Group_9/SubGroup_9  !
+ 
+         column 100 to 102
+ 
+!Group_9/SubGroup_10  Group_10/SubGroup_1  Group_10/SubGroup_2  !
+ 
+         column 103 to 105
+ 
+!Group_10/SubGroup_3  Group_10/SubGroup_4  Group_10/SubGroup_5  !
+ 
+         column 106 to 108
+ 
+!Group_10/SubGroup_6  Group_10/SubGroup_7  Group_10/SubGroup_8  !
+ 
+         column 109 to 110
+ 
+!Group_10/SubGroup_9  Group_10/SubGroup_10  !
+h5group(a, names);
+groups = cat(2,["Group_1" "Group_10"], "Group_"+string(2:9));
+assert_checkequal(a.root.Groups,groups');
+subgroups = cat(2,["SubGroup_1" "SubGroup_10"], "SubGroup_"+string(2:9));
+for i=groups
+    execstr("assert_checkequal(a.root."+i+".Groups,subgroups'')");
+end
+h5close(a);
+gnames2 = "Group_" + string(11:15);
+sgnames2 = "SubGroup_" + string(11:15);
+names2 = gnames2;
+for s=gnames2
+    names2 = [names2 s + "/" + sgnames2]
+end
+ names2  =
+ 
+ 
+         column 1 to 5
+ 
+!Group_11  Group_12  Group_13  Group_14  Group_15  !
+ 
+         column 6 to 8
+ 
+!Group_11/SubGroup_11  Group_11/SubGroup_12  Group_11/SubGroup_13  !
+ 
+         column  9 to 10
+ 
+!Group_11/SubGroup_14  Group_11/SubGroup_15  !
+ names2  =
+ 
+ 
+         column 1 to 5
+ 
+!Group_11  Group_12  Group_13  Group_14  Group_15  !
+ 
+         column 6 to 8
+ 
+!Group_11/SubGroup_11  Group_11/SubGroup_12  Group_11/SubGroup_13  !
+ 
+         column  9 to 11
+ 
+!Group_11/SubGroup_14  Group_11/SubGroup_15  Group_12/SubGroup_11  !
+ 
+         column 12 to 14
+ 
+!Group_12/SubGroup_12  Group_12/SubGroup_13  Group_12/SubGroup_14  !
+ 
+         column 15
+ 
+!Group_12/SubGroup_15  !
+ names2  =
+ 
+ 
+         column 1 to 5
+ 
+!Group_11  Group_12  Group_13  Group_14  Group_15  !
+ 
+         column 6 to 8
+ 
+!Group_11/SubGroup_11  Group_11/SubGroup_12  Group_11/SubGroup_13  !
+ 
+         column  9 to 11
+ 
+!Group_11/SubGroup_14  Group_11/SubGroup_15  Group_12/SubGroup_11  !
+ 
+         column 12 to 14
+ 
+!Group_12/SubGroup_12  Group_12/SubGroup_13  Group_12/SubGroup_14  !
+ 
+         column 15 to 17
+ 
+!Group_12/SubGroup_15  Group_13/SubGroup_11  Group_13/SubGroup_12  !
+ 
+         column 18 to 20
+ 
+!Group_13/SubGroup_13  Group_13/SubGroup_14  Group_13/SubGroup_15  !
+ names2  =
+ 
+ 
+         column 1 to 5
+ 
+!Group_11  Group_12  Group_13  Group_14  Group_15  !
+ 
+         column 6 to 8
+ 
+!Group_11/SubGroup_11  Group_11/SubGroup_12  Group_11/SubGroup_13  !
+ 
+         column  9 to 11
+ 
+!Group_11/SubGroup_14  Group_11/SubGroup_15  Group_12/SubGroup_11  !
+ 
+         column 12 to 14
+ 
+!Group_12/SubGroup_12  Group_12/SubGroup_13  Group_12/SubGroup_14  !
+ 
+         column 15 to 17
+ 
+!Group_12/SubGroup_15  Group_13/SubGroup_11  Group_13/SubGroup_12  !
+ 
+         column 18 to 20
+ 
+!Group_13/SubGroup_13  Group_13/SubGroup_14  Group_13/SubGroup_15  !
+ 
+         column 21 to 23
+ 
+!Group_14/SubGroup_11  Group_14/SubGroup_12  Group_14/SubGroup_13  !
+ 
+         column 24 to 25
+ 
+!Group_14/SubGroup_14  Group_14/SubGroup_15  !
+ names2  =
+ 
+ 
+         column 1 to 5
+ 
+!Group_11  Group_12  Group_13  Group_14  Group_15  !
+ 
+         column 6 to 8
+ 
+!Group_11/SubGroup_11  Group_11/SubGroup_12  Group_11/SubGroup_13  !
+ 
+         column  9 to 11
+ 
+!Group_11/SubGroup_14  Group_11/SubGroup_15  Group_12/SubGroup_11  !
+ 
+         column 12 to 14
+ 
+!Group_12/SubGroup_12  Group_12/SubGroup_13  Group_12/SubGroup_14  !
+ 
+         column 15 to 17
+ 
+!Group_12/SubGroup_15  Group_13/SubGroup_11  Group_13/SubGroup_12  !
+ 
+         column 18 to 20
+ 
+!Group_13/SubGroup_13  Group_13/SubGroup_14  Group_13/SubGroup_15  !
+ 
+         column 21 to 23
+ 
+!Group_14/SubGroup_11  Group_14/SubGroup_12  Group_14/SubGroup_13  !
+ 
+         column 24 to 26
+ 
+!Group_14/SubGroup_14  Group_14/SubGroup_15  Group_15/SubGroup_11  !
+ 
+         column 27 to 29
+ 
+!Group_15/SubGroup_12  Group_15/SubGroup_13  Group_15/SubGroup_14  !
+ 
+         column 30
+ 
+!Group_15/SubGroup_15  !
+h5group(TMPDIR+"/test_group.h5",names2);
+a = h5open(TMPDIR + "/test_group.h5", "a");
+groups = cat(2,["Group_1"],"Group_"+string(10:15), "Group_"+string(2:9));
+partgroups = "Group_"+string(11:15);
+assert_checkequal(a.root.Groups,groups');
+subgroups = "SubGroup_"+string(11:15);
+for i=partgroups
+    execstr("assert_checkequal(a.root."+i+".Groups,subgroups'')");
+end
+h5close(a);
