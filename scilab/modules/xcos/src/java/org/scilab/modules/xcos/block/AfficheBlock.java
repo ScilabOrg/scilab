@@ -45,7 +45,7 @@ import com.mxgraph.view.mxGraphView;
 /**
  * Implement the AFFICH_m block
  */
-public final class AfficheBlock extends BasicBlock {
+public final class AfficheBlock extends BasicBlock implements PropertyChangeListener {
 
     /**
      * Default refresh rate used on the simulation to update block.
@@ -85,6 +85,16 @@ public final class AfficheBlock extends BasicBlock {
         }
 
         /**
+         * Set the block field
+         *
+         * @param block
+         *            the current block
+         */
+        public void setBlock(AfficheBlock block) {
+            this.block = block;
+        }
+
+        /**
          * @param data
          *            the data to set
          */
@@ -101,6 +111,9 @@ public final class AfficheBlock extends BasicBlock {
          */
         @Override
         public synchronized void actionPerformed(ActionEvent e) {
+            // update UpdateValueListener object in case cell changes
+            block.getParametersPCS().firePropertyChange("updateBlock", "oldblock", "newblock");
+
             XcosDiagram graph = block.getParentDiagram();
             if (graph == null) {
                 block.setParentDiagram(Xcos.findParent(block));
@@ -299,8 +312,8 @@ public final class AfficheBlock extends BasicBlock {
         }
     }
 
-    private final Timer printTimer;
-    private final UpdateValueListener updateAction;
+    private Timer printTimer;
+    private UpdateValueListener updateAction;
 
     /** Default constructor */
     public AfficheBlock() {
@@ -310,6 +323,7 @@ public final class AfficheBlock extends BasicBlock {
         printTimer = new Timer(DEFAULT_TIMER_RATE, updateAction);
         printTimer.setRepeats(false);
 
+        getParametersPCS().addPropertyChangeListener(this);
         getParametersPCS().addPropertyChangeListener(EXPRS, UpdateStyle.getInstance());
     }
 
@@ -407,10 +421,27 @@ public final class AfficheBlock extends BasicBlock {
     public Object clone() throws CloneNotSupportedException {
         AfficheBlock clone = (AfficheBlock) super.clone();
 
-        // reassociate the update action data
-        clone.updateAction.block = clone;
+        // create the update action data
+        clone.updateAction = new UpdateValueListener(clone);
+
+        // create timer
+        clone.printTimer = new Timer(DEFAULT_TIMER_RATE, clone.updateAction);
+        clone.printTimer.setRepeats(false);
 
         return clone;
+    }
+
+    @Override
+    /**
+     * Update UpdateValueListener field of AfficheBlock class
+     * This is necessary when cell changes
+     *
+     * @param evt
+     *            the evnt
+     * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+     */
+    public void propertyChange(PropertyChangeEvent evt) {
+	    updateAction.setBlock(this);
     }
 
 }
