@@ -372,9 +372,8 @@ public final class ScicosParametersElement extends AbstractElement<ScicosParamet
         tolField[field++][0] = from.getRealTimeScaling();
         int solver = (int) from.getSolver();
         // FIXME: implement compat. with future values
-        solver--;
-        if (solver == -1 || solver == 4) {
-            solver = 0;
+        if (solver == 0 || solver == 5) {
+            solver = 1;
         }
         tolField[field++][0] = solver;
         tolField[field++][0] = from.getMaximumStepSize();

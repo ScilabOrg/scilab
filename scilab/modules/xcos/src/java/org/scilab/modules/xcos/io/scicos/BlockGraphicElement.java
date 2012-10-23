@@ -331,7 +331,7 @@ final class BlockGraphicElement extends BlockPartsElement {
         /*
          * Invert the y-axis value and translate it.
          */
-        y = -y - into.getGeometry().getHeight();
+        y = -y;
 
         /*
          * fill parameter
