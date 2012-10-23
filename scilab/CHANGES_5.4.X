@@ -36,6 +36,8 @@ Xcos
 
 * Bug #11963 fixed - input port in superblock was corrupted.
 
+* Bug #11987 fixed - When opening diagram by syntax xcos(scs_m) some properties were corrupted.
+
 * Bug #11988 fixed - Copying or dragging AFFICH_m block threw Java
                      NullPointerException.
 
