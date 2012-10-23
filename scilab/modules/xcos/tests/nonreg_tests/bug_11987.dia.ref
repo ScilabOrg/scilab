@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2012 - Scilab Enterprises - Alexandre HERISSE
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+// <-- XCOS TEST -->
+//
+// <-- Non-regression test for bug 11987 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11987
+//
+// <-- Short Description -->
+// When opening diagram by syntax xcos(scs_m) some properties were corrupted
+loadXcosLibs();
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/demos/Simple_Demo.xcos"));
+solver = scs_m.props.tol(6);
+xcos(scs_m);
+cpr = xcos_compile(scs_m);
+new_solver = scs_m.props.tol(6);
+assert_checkequal(solver, new_solver);
