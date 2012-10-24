@@ -24,6 +24,36 @@ extern "C"
 #include "os_swprintf.h"
 #include "elem_common.h" //dset
 }
+InternalType* GenericUnaryMinus(InternalType* _pRightOperand)
+{
+    if(_pRightOperand->isDouble())
+    {
+        Double *pR = dynamic_cast<Double*>(_pRightOperand->clone());
+        bool bComplex  = pR->isComplex();
+
+        double* pReal = pR->get();
+        for(int i = 0 ; i < pR->getSize() ; i++)
+        {
+            pReal[i] *= -1;
+        }
+
+        if(bComplex)
+        {
+            double* pImg = pR->getImg();
+            for(int i = 0 ; i < pR->getSize() ; i++)
+            {
+                pImg[i] *= -1;
+            }
+        }
+
+        return pR;
+    }
+
+    /*
+    ** Default case : Return NULL will Call Overloading.
+    */
+    return NULL;
+}
 
 InternalType* GenericMinus(InternalType* _pLeftOperand, InternalType* _pRightOperand)
 {
@@ -156,7 +186,7 @@ int SubstractDoubleToDouble(Double* _pDouble1, Double* _pDouble2, Double** _pDou
 
     if(_pDouble1->isEmpty())
     {
-        (*_pDoubleOut) = _pDouble2;
+        (*_pDoubleOut) = dynamic_cast<Double *>(_pDouble2->clone());
         double* pReal = (*_pDoubleOut)->get();
         for(int i = 0 ; i < (*_pDoubleOut)->getSize() ; i++)
         {
@@ -439,7 +469,7 @@ int SubstractPolyToDouble(Double *_pDouble, Polynom *_pPoly, Polynom** _pPolyOut
 
         return 0;
     }
-    
+
     if(_pPoly->isScalar())
     {//[] - %s
         int *piRank = new int[_pDouble->getSize()];
@@ -733,7 +763,7 @@ int SubstractPolyToPoly(Polynom *_pPoly1, Polynom *_pPoly2, Polynom **_pPolyOut)
         delete[] pRank2;
         return 0;
     }
-    
+
     if(_pPoly2->isScalar())
     {//size(p2) == 1
         int *pRankOut   = new int[_pPoly1->getSize()];
@@ -963,7 +993,7 @@ int SubstractSparseToSparse(Sparse* _pSparse1, Sparse* _pSparse2, GenericType **
 
 int SubstractSparseToDouble(Sparse* _pSparse, Double* _pDouble, GenericType **_pOut)
 {//D - SP
-    int iOne = 1; //fortran 
+    int iOne = 1; //fortran
     bool bComplex1 = _pSparse->isComplex();
     bool bComplex2 = _pDouble->isComplex();
 
@@ -1120,7 +1150,7 @@ int SubstractSparseToDouble(Sparse* _pSparse, Double* _pDouble, GenericType **_p
         {
             for(int i = 0 ; i < nonZeros ; i++)
             {
-                int iRow = static_cast<int>(pRows[i]) - 1; 
+                int iRow = static_cast<int>(pRows[i]) - 1;
                 int iCol = static_cast<int>(pCols[i]) - 1;
                 std::complex<double> dbl = _pSparse->getImg(iRow, iCol);
                 pRes->set(iRow, iCol, pRes->get(iRow, iCol) - dbl.real());
@@ -1131,7 +1161,7 @@ int SubstractSparseToDouble(Sparse* _pSparse, Double* _pDouble, GenericType **_p
         {
             for(int i = 0 ; i < nonZeros ; i++)
             {
-                int iRow = static_cast<int>(pRows[i]) - 1; 
+                int iRow = static_cast<int>(pRows[i]) - 1;
                 int iCol = static_cast<int>(pCols[i]) - 1;
                 pRes->set(iRow, iCol, pRes->get(iRow, iCol) - _pSparse->get(iRow, iCol));
             }
