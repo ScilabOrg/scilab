@@ -7,6 +7,9 @@ Improvements
 
 * A warning has been added for 1./x and 1.\x syntax clarification.
 
+* A new output argument to the function regexp has been added to retrieve
+  subpatterns matches. See SEP #86.
+
 
 Xcos
 =====
