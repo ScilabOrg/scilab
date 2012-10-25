@@ -72,6 +72,7 @@ Bug fixes
 
 * Bug #12003 fixed - Fix a typo in the spreadsheet module.
 
+* Bug #12033 fixed - assert_checkalmostequal was failing with two %inf values.
 
 
                     Changes between version 5.3.3 and 5.4.0
