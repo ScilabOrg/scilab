@@ -87,6 +87,7 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
 
         drawableComponent.setEnabled(true);
         drawableComponent.setVisible(true);
+        drawableComponent.setFocusable(true);
 
         add(drawableComponent, PanelLayout.GL_CANVAS);
 

@@ -138,7 +138,7 @@ public final class Jxgetmouse {
                 }
             }
             isControlDown = keyEvent.isControlDown();
-        } else if (keyEvent.getSource() instanceof SwingScilabAxes) {
+        } else if (keyEvent.getSource().getClass().getCanonicalName().contains("javax.media.opengl")) {
             /* Now we have have to be sure we are in a Canvas. */
             /*
              * If a RELEASED is seen use -keyChar
