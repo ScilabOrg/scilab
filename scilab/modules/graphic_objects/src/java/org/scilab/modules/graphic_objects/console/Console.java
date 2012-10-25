@@ -13,6 +13,7 @@
 package org.scilab.modules.graphic_objects.console;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_CONSOLE__;
 import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_SHOWHIDDENHANDLES__;
+import static org.scilab.modules.graphic_objects.graphicObject.GraphicObjectProperties.__GO_USEOSLOOKANDFEEL__;
 
 import org.scilab.modules.graphic_objects.graphicObject.GraphicObject;
 import org.scilab.modules.graphic_objects.graphicObject.Visitor;
@@ -32,11 +33,14 @@ public final class Console extends GraphicObject {
 
     private boolean showHiddenHandles;
 
+    private boolean useOsLookAndFeel = true;
+
     private ScilabMode scilabMode;
 
     /** Console properties names */
     private enum ConsoleProperty {
-        SHOWHIDDENHANDLES
+        SHOWHIDDENHANDLES,
+        USEOSLOOKANDFEEL
     };
 
     /**
@@ -56,7 +60,7 @@ public final class Console extends GraphicObject {
         }
 
         return me;
-        
+
     }
 
     /**
@@ -85,7 +89,7 @@ public final class Console extends GraphicObject {
     }
 
     /**
-     * Set the showHiddenHandles proeprty
+     * Set the showHiddenHandles property
      * @param showHiddenHandles the new value to set
      */
     public void setShowHiddenHandles(boolean showHiddenHandles) {
@@ -93,11 +97,27 @@ public final class Console extends GraphicObject {
     }
 
     /**
-     * Get the showHiddenHandles proeprty
+     * Get the showHiddenHandles property
      * @return showHiddenHandles
      */
     public boolean getShowHiddenHandles() {
         return this.showHiddenHandles;
+    }
+
+    /**
+     * Set the useOsLookAndFeel property
+     * @param useOsLookAndFeel the new value to set
+     */
+    public void setUseOsLookAndFeel(boolean useOsLookAndFeel) {
+        this.useOsLookAndFeel = useOsLookAndFeel;
+    }
+
+    /**
+     * Get the useOsLookAndFeel property
+     * @return useOsLookAndFeel
+     */
+    public boolean getUseOsLookAndFeel() {
+        return this.useOsLookAndFeel;
     }
 
     /**
@@ -108,7 +128,7 @@ public final class Console extends GraphicObject {
     public void accept(Visitor visitor) {
 
     }
-    
+
     /**
      * Returns the enum associated to a property name
      * @param propertyName the property name
@@ -117,6 +137,8 @@ public final class Console extends GraphicObject {
     public Object getPropertyFromName(int propertyName) {
         if (propertyName == __GO_SHOWHIDDENHANDLES__) {
             return ConsoleProperty.SHOWHIDDENHANDLES;
+        } else if (propertyName == __GO_USEOSLOOKANDFEEL__) {
+            return ConsoleProperty.USEOSLOOKANDFEEL;
         } else {
             return super.getPropertyFromName(propertyName);
         }
@@ -129,6 +151,8 @@ public final class Console extends GraphicObject {
     public Object getProperty(Object property) {
         if (property == ConsoleProperty.SHOWHIDDENHANDLES) {
             return getShowHiddenHandles();
+        } else if (property == ConsoleProperty.USEOSLOOKANDFEEL) {
+            return getUseOsLookAndFeel();
         } else {
             return super.getProperty(property);
         }
@@ -143,6 +167,8 @@ public final class Console extends GraphicObject {
     public UpdateStatus setProperty(Object property, Object value) {
         if (property == ConsoleProperty.SHOWHIDDENHANDLES) {
             setShowHiddenHandles((Boolean) value);
+        } else if (property == ConsoleProperty.USEOSLOOKANDFEEL) {
+            setUseOsLookAndFeel((Boolean) value);
         } else {
             return super.setProperty(property, value);
         }
