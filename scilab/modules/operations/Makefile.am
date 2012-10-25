@@ -29,12 +29,7 @@ pkglib_LTLIBRARIES = libscioperations.la
 
 libscioperations_la_LDFLAGS = -version-info $(SCILAB_LIBRARY_VERSION)
 
-libscioperations_la_CFLAGS = \
-    -I$(top_srcdir)/modules/operations/includes \
-    -I$(top_srcdir)/modules/elementary_functions/includes \
-    -I$(top_srcdir)/modules/output_stream/includes
-
-libscioperations_la_CXXFLAGS = \
+libscioperations_la_CPPFLAGS = \
     -I$(top_srcdir)/modules/operations/includes \
     -I$(top_srcdir)/modules/localization/includes \
     -I$(top_srcdir)/modules/types/includes \
@@ -43,6 +38,7 @@ libscioperations_la_CXXFLAGS = \
     -I$(top_srcdir)/modules/core/includes \
     -I$(top_srcdir)/modules/string/includes \
     -I$(top_srcdir)/modules/elementary_functions/includes \
+    -I$(top_srcdir)/modules/output_stream/includes \
     $(EIGEN_CPPFLAGS) \
 	$(AM_CPPFLAGS)
 
