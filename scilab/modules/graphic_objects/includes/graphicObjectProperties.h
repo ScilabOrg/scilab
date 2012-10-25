@@ -355,4 +355,5 @@
 #define __GO_UI_MESSAGE__                  295
 #define __GO_UI_MESSAGE_SIZE__             296
 
+#define __GO_USEOSLOOKANDFEEL__           297
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */
