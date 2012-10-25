@@ -11,6 +11,8 @@
  */
 
 #include "matrix_division.h"
+#include "sciprint.h"
+#include "localization.h"
 #include <string.h>
 
 /*iRightDivisionComplexMatrixByComplexMatrix*/
@@ -30,14 +32,18 @@ int iRightDivisionComplexMatrixByComplexMatrix(
     if (_iInc2 == 0)
     {
         if (dabss(_pdblReal2[iIndex2]) + dabss(_pdblImg2[iIndex2]) == 0)
+        {
             iErr2 = 1;
+        }
     }
 
     for (iIndex = 0 ; iIndex < _iSize ; iIndex++)
     {
         iErr3 = iRightDivisionComplexByComplex(_pdblReal1[iIndex1], _pdblImg1[iIndex1], _pdblReal2[iIndex2], _pdblImg2[iIndex2], &_pdblRealOut[iIndexOut], &_pdblImgOut[iIndexOut]);
         if (iErr3 != 0)
+        {
             iErr = iIndex + 1;
+        }
         iIndexOut	+= _iIncOut;
         iIndex1		+= _iInc1;
         iIndex2		+= _iInc2;
@@ -112,14 +118,18 @@ int iRightDivisionRealMatrixByComplexMatrix(
     if (_iInc2 == 0)
     {
         if (dabss(_pdblReal2[iIndex2]) + dabss(_pdblImg2[iIndex2]) == 0)
+        {
             iErr2 = 1;
+        }
     }
 
     for (iIndex = 0 ; iIndex < _iSize ; iIndex++)
     {
         iErr3 = iRightDivisionRealByComplex(_pdblReal1[iIndex1], _pdblReal2[iIndex2], _pdblImg2[iIndex2], &_pdblRealOut[iIndexOut], &_pdblImgOut[iIndexOut]);
         if (iErr3 != 0)
+        {
             iErr = iIndex + 1;
+        }
         iIndexOut	+= _iIncOut;
         iIndex1		+= _iInc1;
         iIndex2		+= _iInc2;
@@ -184,7 +194,9 @@ int iRightDivisionComplexMatrixByRealMatrix(
     {
         iErr2 = iRightDivisionComplexByReal(_pdblReal1[iIndex1], _pdblImg1[iIndex1], _pdblReal2[iIndex2], &_pdblRealOut[iIndexOut], &_pdblImgOut[iIndexOut]);
         if (iErr2 != 0)
-            iErr = iIndex;
+        {
+            iErr = iIndex + 1;
+        }
         iIndexOut	+= _iIncOut;
         iIndex1		+= _iInc1;
         iIndex2		+= _iInc2;
@@ -198,14 +210,22 @@ int iRightDivisionComplexByReal(
     double _dblReal2,
     double *_pdblRealOut, double *_pdblImgOut)
 {
-    int iErr = 0;
     if (_dblReal2 == 0)
-        iErr = 1;
+    {
+        if (getieee() == 0)
+        {
+            return 1;
+        }
+        else if (getieee() == 1)
+        {
+            sciprintW(_W("Warning : division by zero..."));
+        }
+    }
 
     *_pdblRealOut	= _dblReal1 / _dblReal2;
     *_pdblImgOut	= _dblImg1 / _dblReal2;
 
-    return iErr;
+    return 0;
 }
 
 /*iRightDivisionRealMatrixByRealMatrix*/
@@ -223,7 +243,18 @@ int iRightDivisionRealMatrixByRealMatrix(
     for (iIndex = 0 ; iIndex < _iSize ; iIndex++)
     {
         if (_pdblReal2[iIndex2] == 0)
-            iErr = iIndex + 1; //gné index a 0 en C donc iErr peut valoir 0 !!! Oo
+        {
+            if (getieee() == 0)
+            {
+                iErr = iIndex + 1;
+                return iErr;
+            }
+            else if (getieee() == 1)
+            {
+                sciprintW(_W("Warning : division by zero..."));
+            }
+        }
+
         _pdblRealOut[iIndexOut] = _pdblReal1[iIndex1] / _pdblReal2[iIndex2];
         iIndexOut				+= _iIncOut;
         iIndex1					+= _iInc1;
