@@ -215,11 +215,11 @@ assert_checkequal(cumsum(i,3,'double'), double(i));
 //with hypermatrices
 i=uint8([1 10;254 9]);i(1,1,2)=uint8(1);
 for typ=list(list(),list('native'));
-    assert_checkequal(cumsum(i,typ(:)), hypermat([2,2,2],[1;255;9;18;19;19;19;19]));
-    assert_checkequal(cumsum(i,'*',typ(:)), hypermat([2,2,2],[1;255;9;18;19;19;19;19]));
-    assert_checkequal(cumsum(i,1,typ(:)), hypermat([2,2,2],[1;255;10;19;1;1;0;0]));
-    assert_checkequal(cumsum(i,2,typ(:)), hypermat([2,2,2],[1;254;11;7;1;0;1;0]));
-    assert_checkequal(cumsum(i,3,typ(:)), hypermat([2,2,2],[1;254;10;9;2;254;10;9]));
+    assert_checkequal(cumsum(i,typ(:)), hypermat([2,2,2],uint8([1;255;9;18;19;19;19;19])));
+    assert_checkequal(cumsum(i,'*',typ(:)), hypermat([2,2,2],uint8([1;255;9;18;19;19;19;19])));
+    assert_checkequal(cumsum(i,1,typ(:)), hypermat([2,2,2],uint8([1;255;10;19;1;1;0;0])));
+    assert_checkequal(cumsum(i,2,typ(:)), hypermat([2,2,2],uint8([1;254;11;7;1;0;1;0])));
+    assert_checkequal(cumsum(i,3,typ(:)), hypermat([2,2,2],uint8([1;254;10;9;2;254;10;9])));
     assert_checkequal(cumsum(i,5,typ(:)), double(i));
 end
 
