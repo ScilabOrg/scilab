@@ -10,24 +10,26 @@ package org.scilab.modules.graphic_objects;
 
 public class PolylineDataJNI {
 
-    static {
-        try {
-            System.loadLibrary("scigraphic_objects");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println("Native library failed to load. \n" + e);
-            System.exit(1);
-        }
+  static {
+    try {
+        System.loadLibrary("scigraphic_objects");
+    } catch (UnsatisfiedLinkError e) {
+      System.err.println("Native library failed to load. \n" + e);
+      System.exit(1);
     }
+  }
 
-    public final static native Object getDataX(String jarg1);
-    public final static native Object getDataY(String jarg1);
-    public final static native Object getShiftX(String jarg1);
-    public final static native Object getShiftY(String jarg1);
-    public final static native int isXShiftSet(String jarg1);
-    public final static native int isYShiftSet(String jarg1);
-    public final static native String createPolylineData(String jarg1, String jarg2);
-    public final static native void translatePolyline(String jarg1, double jarg2, double jarg3);
-    public final static native void translatePoint(String jarg1, int jarg2, double jarg3, double jarg4);
-    public final static native void insertPoint(String jarg1, int jarg2, double jarg3, double jarg4);
-    public final static native void removePoint(String jarg1, int jarg2);
+  public final static native Object getDataX(String jarg1);
+  public final static native Object getDataY(String jarg1);
+  public final static native Object getDataZ(String jarg1);
+  public final static native Object getShiftX(String jarg1);
+  public final static native Object getShiftY(String jarg1);
+  public final static native Object getShiftZ(String jarg1);
+  public final static native int isXShiftSet(String jarg1);
+  public final static native int isYShiftSet(String jarg1);
+  public final static native String createPolylineData(String jarg1, String jarg2);
+  public final static native void translatePolyline(String jarg1, double jarg2, double jarg3);
+  public final static native void translatePoint(String jarg1, int jarg2, double jarg3, double jarg4);
+  public final static native void insertPoint(String jarg1, int jarg2, double jarg3, double jarg4);
+  public final static native void removePoint(String jarg1, int jarg2);
 }

@@ -9,48 +9,44 @@
 package org.scilab.modules.graphic_objects;
 
 public class PolylineData {
-    public static Object getDataX(String uid) {
-        return PolylineDataJNI.getDataX(uid);
-    }
+  public static Object getDataX(String uid) { return PolylineDataJNI.getDataX(uid); }
 
-    public static Object getDataY(String uid) {
-        return PolylineDataJNI.getDataY(uid);
-    }
+  public static Object getDataY(String uid) { return PolylineDataJNI.getDataY(uid); }
 
-    public static Object getShiftX(String uid) {
-        return PolylineDataJNI.getShiftX(uid);
-    }
+  public static Object getDataZ(String uid) { return PolylineDataJNI.getDataZ(uid); }
 
-    public static Object getShiftY(String uid) {
-        return PolylineDataJNI.getShiftY(uid);
-    }
+  public static Object getShiftX(String uid) { return PolylineDataJNI.getShiftX(uid); }
 
-    public static int isXShiftSet(String uid) {
-        return PolylineDataJNI.isXShiftSet(uid);
-    }
+  public static Object getShiftY(String uid) { return PolylineDataJNI.getShiftY(uid); }
 
-    public static int isYShiftSet(String uid) {
-        return PolylineDataJNI.isYShiftSet(uid);
-    }
+  public static Object getShiftZ(String uid) { return PolylineDataJNI.getShiftZ(uid); }
 
-    public static String createPolylineData(String uidFrom, String uidTo) {
-        return PolylineDataJNI.createPolylineData(uidFrom, uidTo);
-    }
+  public static int isXShiftSet(String uid) {
+    return PolylineDataJNI.isXShiftSet(uid);
+  }
 
-    public static void translatePolyline(String uid, double x, double y) {
-        PolylineDataJNI.translatePolyline(uid, x, y);
-    }
+  public static int isYShiftSet(String uid) {
+    return PolylineDataJNI.isYShiftSet(uid);
+  }
 
-    public static void translatePoint(String uid, int index, double x, double y) {
-        PolylineDataJNI.translatePoint(uid, index, x, y);
-    }
+  public static String createPolylineData(String uidFrom, String uidTo) {
+    return PolylineDataJNI.createPolylineData(uidFrom, uidTo);
+  }
 
-    public static void insertPoint(String uid, int index, double x, double y) {
-        PolylineDataJNI.insertPoint(uid, index, x, y);
-    }
+  public static void translatePolyline(String uid, double x, double y) {
+    PolylineDataJNI.translatePolyline(uid, x, y);
+  }
 
-    public static void removePoint(String uid, int index) {
-        PolylineDataJNI.removePoint(uid, index);
-    }
+  public static void translatePoint(String uid, int index, double x, double y) {
+    PolylineDataJNI.translatePoint(uid, index, x, y);
+  }
+
+  public static void insertPoint(String uid, int index, double x, double y) {
+    PolylineDataJNI.insertPoint(uid, index, x, y);
+  }
+
+  public static void removePoint(String uid, int index) {
+    PolylineDataJNI.removePoint(uid, index);
+  }
 
 }
