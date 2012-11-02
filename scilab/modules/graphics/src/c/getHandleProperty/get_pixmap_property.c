@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_pixmap_property(void* _pvCtx, char* pobjUID)
+void* get_pixmap_property(void* _pvCtx, char* pobjUID)
 {
     int iPixmap = 0;
     int *piPixmap = &iPixmap;
@@ -44,11 +44,11 @@ int get_pixmap_property(void* _pvCtx, char* pobjUID)
 
     if (iPixmap)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/

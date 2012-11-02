@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_info_message_property(void* _pvCtx, char* pobjUID)
+void* get_info_message_property(void* _pvCtx, char* pobjUID)
 {
     char *infoMessage = NULL;
     getGraphicObjectProperty(pobjUID, __GO_INFO_MESSAGE__, jni_string, (void **)&infoMessage);
@@ -41,6 +41,6 @@ int get_info_message_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, infoMessage);
+    return sciReturnString(infoMessage);
 }
 /*------------------------------------------------------------------------*/

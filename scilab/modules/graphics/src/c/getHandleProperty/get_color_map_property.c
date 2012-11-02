@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*--------------------------------------------------------------------------*/
-int get_color_map_property(void* _pvCtx, char* pobjUID)
+void* get_color_map_property(void* _pvCtx, char* pobjUID)
 {
     double *pdblColorMap = NULL;
 
@@ -45,6 +45,6 @@ int get_color_map_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnMatrix(_pvCtx, pdblColorMap, iCmapSize, 3);
+    return sciReturnMatrix(pdblColorMap, iCmapSize, 3);
 }
 /*--------------------------------------------------------------------------*/

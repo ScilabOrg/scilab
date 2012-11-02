@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_clip_state_property(void* _pvCtx, char* pobjUID)
+void* get_clip_state_property(void* _pvCtx, char* pobjUID)
 {
     int iClipState = 0;
     int* piClipState = &iClipState;
@@ -45,15 +45,15 @@ int get_clip_state_property(void* _pvCtx, char* pobjUID)
 
     if (iClipState == 0)
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
     else if (iClipState == 1)
     {
-        return sciReturnString(_pvCtx, "clipgrf");
+        return sciReturnString("clipgrf");
     }
     else if (iClipState == 2)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {

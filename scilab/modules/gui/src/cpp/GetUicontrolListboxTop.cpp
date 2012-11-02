@@ -15,7 +15,7 @@
 
 #include "GetUicontrolListboxTop.hxx"
 
-int GetUicontrolListboxTop(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolListboxTop(void* _pvCtx, char *sciObjUID)
 {
     int listboxTopSize = 0;
     int* piListboxTopSize = &listboxTopSize;
@@ -32,7 +32,7 @@ int GetUicontrolListboxTop(void* _pvCtx, char *sciObjUID)
     {
         if (listboxTopSize == 0)
         {
-          return sciReturnEmptyMatrix(_pvCtx);
+          return sciReturnEmptyMatrix();
         }
         else
         {
@@ -45,7 +45,7 @@ int GetUicontrolListboxTop(void* _pvCtx, char *sciObjUID)
             }
             else
             {
-                return sciReturnRowVectorFromInt(_pvCtx, piListboxTop, listboxTopSize);
+                return sciReturnRowVectorFromInt(piListboxTop, listboxTopSize);
             }
         }
     }

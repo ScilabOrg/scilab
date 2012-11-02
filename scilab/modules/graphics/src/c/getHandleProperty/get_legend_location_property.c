@@ -32,7 +32,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_legend_location_property(void* _pvCtx, char* pobjUID)
+void* get_legend_location_property(void* _pvCtx, char* pobjUID)
 {
     int iLegendLocation = 0;
     int* piLegendLocation = &iLegendLocation;
@@ -47,47 +47,47 @@ int get_legend_location_property(void* _pvCtx, char* pobjUID)
 
     if (iLegendLocation == 0)
     {
-        return sciReturnString(_pvCtx, "in_upper_right");
+        return sciReturnString("in_upper_right");
     }
     else if (iLegendLocation == 1)
     {
-        return sciReturnString(_pvCtx, "in_upper_left");
+        return sciReturnString("in_upper_left");
     }
     else if (iLegendLocation == 2)
     {
-        return sciReturnString(_pvCtx, "in_lower_right");
+        return sciReturnString("in_lower_right");
     }
     else if (iLegendLocation == 3)
     {
-        return sciReturnString(_pvCtx, "in_lower_left");
+        return sciReturnString("in_lower_left");
     }
     else if (iLegendLocation == 4)
     {
-        return sciReturnString(_pvCtx, "out_upper_right");
+        return sciReturnString("out_upper_right");
     }
     else if (iLegendLocation == 5)
     {
-        return sciReturnString(_pvCtx, "out_upper_left");
+        return sciReturnString("out_upper_left");
     }
     else if (iLegendLocation == 6)
     {
-        return sciReturnString(_pvCtx, "out_lower_right");
+        return sciReturnString("out_lower_right");
     }
     else if (iLegendLocation == 7)
     {
-        return sciReturnString(_pvCtx, "out_lower_left");
+        return sciReturnString("out_lower_left");
     }
     else if (iLegendLocation == 8)
     {
-        return sciReturnString(_pvCtx, "upper_caption");
+        return sciReturnString("upper_caption");
     }
     else if (iLegendLocation == 9)
     {
-        return sciReturnString(_pvCtx, "lower_caption");
+        return sciReturnString("lower_caption");
     }
     else if (iLegendLocation == 10)
     {
-        return sciReturnString(_pvCtx, "by_coordinates");
+        return sciReturnString("by_coordinates");
     }
     else
     {

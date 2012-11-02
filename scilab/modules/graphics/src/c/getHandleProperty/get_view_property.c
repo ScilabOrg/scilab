@@ -29,7 +29,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_view_property(void* _pvCtx, char* pobjUID)
+void* get_view_property(void* _pvCtx, char* pobjUID)
 {
     int iView = 0;
     int* piView = &iView;
@@ -44,11 +44,11 @@ int get_view_property(void* _pvCtx, char* pobjUID)
 
     if (iView == 0)
     {
-        return sciReturnString(_pvCtx, "2d");
+        return sciReturnString("2d");
     }
     else if (iView == 1)
     {
-        return sciReturnString(_pvCtx, "3d");
+        return sciReturnString("3d");
     }
 
     return -1;

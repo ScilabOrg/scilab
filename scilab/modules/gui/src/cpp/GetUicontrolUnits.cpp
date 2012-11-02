@@ -22,7 +22,7 @@ extern "C"
 
 using namespace org_scilab_modules_gui_bridge;
 
-int GetUicontrolUnits(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolUnits(void* _pvCtx, char *sciObjUID)
 {
     char* units = NULL;
     int type = -1;
@@ -37,5 +37,5 @@ int GetUicontrolUnits(void* _pvCtx, char *sciObjUID)
     }
 
     getGraphicObjectProperty(sciObjUID, __GO_UI_UNITS__, jni_string, (void**) &units);
-    return sciReturnString(_pvCtx, units);
+    return sciReturnString(units);
 }

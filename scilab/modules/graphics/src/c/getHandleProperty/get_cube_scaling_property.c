@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_cube_scaling_property(void* _pvCtx, char* pobjUID)
+void* get_cube_scaling_property(void* _pvCtx, char* pobjUID)
 {
     int iCubeScaling = 0;
     int* piCubeScaling = &iCubeScaling;
@@ -45,11 +45,11 @@ int get_cube_scaling_property(void* _pvCtx, char* pobjUID)
 
     if (iCubeScaling)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/
