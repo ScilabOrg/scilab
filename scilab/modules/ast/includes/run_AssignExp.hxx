@@ -290,7 +290,14 @@ void visitprivate(const AssignExp  &e)
             InternalType *pOut	= NULL;
 
             //fisrt extract implicit list
-            if (pITR->isImplicitList())
+            if(pITR->isColon())
+            {
+                //double* pdbl = NULL;
+                //pITR = new Double(-1, -1, &pdbl);
+                //pdbl[0] = 1;
+                pITR = Double::Identity(-1, -1);
+            }
+            else if (pITR->isImplicitList())
             {
                 InternalType *pIL = pITR->getAs<ImplicitList>()->extractFullMatrix();
                 pITR = pIL;
@@ -619,6 +626,32 @@ void visitprivate(const AssignExp  &e)
                 {
                     pRet = pIT->getAs<List>()->insert(pArgs, pInsert);
                 }
+                else if(pIT->isHandle())
+                {
+                    if(pArgs->size() == 1 && (*pArgs)[0]->isString())
+                    {//s(["x"])
+                        types::GraphicHandle* pH = pIT->getAs<types::GraphicHandle>();
+                        types::String *pS = (*pArgs)[0]->getAs<types::String>();
+                        typed_list in;
+                        typed_list out;
+                        optional_list opt;
+
+                        in.push_back(pH);
+                        in.push_back(pS);
+                        in.push_back(pInsert);
+
+                        Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
+                        Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, this);
+                        if(ret == Callable::OK)
+                        {
+                            pRet = pIT;
+                        }
+                    }
+                    else
+                    {
+                        pRet = pIT->getAs<types::GraphicHandle>()->extract(pArgs);
+                    }
+                }
                 else
                 {
                     //overloading
@@ -680,13 +713,13 @@ void visitprivate(const AssignExp  &e)
             {
                 if (bNew)
                 {
-                    if (pVar == NULL)
+                    if (pVar == NULL && pIT->isHandle() == false)
                     {
                         //is not a(x) = y but something like a.b(x) = y
                         //so we have to retrieve struct and children to assign new value
-                        InternalType *pHead = NULL;
-                        Struct* pMain       = NULL;
-                        Struct* pCurrent    = NULL;
+                        InternalType *pHead     = NULL;
+                        InternalType* pMain     = NULL;
+                        InternalType* pCurrent  = NULL;
                         bool bOK = getStructFromExp(&pCall->name_get(), &pMain, &pCurrent, NULL, pOut);
                         //change pOut only to toString call
                         pOut = pMain;
@@ -780,60 +813,10 @@ void visitprivate(const AssignExp  &e)
         if (pField)
         {
             //a.b = x
-            //a.b can be a struct or a tlist/mlist
-            InternalType *pHead = NULL;
-            Struct* pMain       = NULL;
-            Struct* pCurrent    = NULL;
-
+            //a.b can be a struct or a tlist/mlist or a handle
             /*getting what to assign*/
             expected_size_set(1);
             e.right_exp_get().accept(*this);
-
-            const wstring *pstName = getStructNameFromExp(pField);
-            if(pstName)
-            {
-                InternalType* pCurrentStr = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(*pstName));
-                InternalType* pHigherStr = symbol::Context::getInstance()->get(symbol::Symbol(*pstName));
-                if(pHigherStr && pCurrentStr == NULL)
-                {//struct come from higher scope, so we need to clone and put it in current scope
-                    InternalType *pITClone = pHigherStr->clone();
-                    symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pITClone);
-                }
-            }
-
-            bool bOK = getStructFromExp(pField, &pMain, &pCurrent, NULL, result_get());
-            if (pMain != NULL)
-            {
-                pHead = pMain;
-            }
-            else
-            {
-                //a is not a struct
-                const SimpleVar* pListVar =  dynamic_cast<const SimpleVar*>(pField->head_get());
-                if (pListVar == NULL)
-                {
-                    std::cout << "Houston ..." << std::endl;
-                }
-                pHead = symbol::Context::getInstance()->get(pListVar->name_get());
-            }
-
-            //if a is already assign, make a copy and replace it
-            if (pHead->isRef(1) == true)
-            {
-                pHead = pHead->clone();
-                pstName = getStructNameFromExp(pField);
-                symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pHead->clone());
-            }
-
-            //we can assign only one value
-            if (result_getSize() != 1)
-            {
-                std::wostringstream os;
-                os << L"Lhs != Rhs";
-                //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
-                throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
-            }
-
             InternalType *pIT = result_get();
             if (pIT->isImplicitList())
             {
@@ -852,32 +835,167 @@ void visitprivate(const AssignExp  &e)
                 //pIT = pIT->clone();
             }
 
-            //assign result to new field
-            const SimpleVar* pTail =  dynamic_cast<const SimpleVar*>(pField->tail_get());
-
-            if (pHead->isStruct())
+            //try to find struct or handle
             {
-                //@STRUCT
-                //fillStructFromExp(pField->tail_get(), pStr, 0, pIT);
-            }
-            else if (pHead->isTList())
-            {
-                TList* pT = pHead->getAs<TList>();
-                if (pT->exists(pTail->name_get().name_get()))
+                InternalType* pMain     = NULL;
+                InternalType* pCurrent  = NULL;
+                const Exp* pCurrentExp  = pField;
+  
+                const wstring *pstName  = getStructNameFromExp(pField);
+                if(pstName)
                 {
-                    pT->set(pTail->name_get().name_get(), pIT);
+                    InternalType* pCurrentStr = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(*pstName));
+                    InternalType* pHigherStr = symbol::Context::getInstance()->get(symbol::Symbol(*pstName));
+                    if(pHigherStr && pHigherStr->isStruct() && pCurrentStr == NULL)
+                    {//struct come from higher scope, so we need to clone and put it in current scope
+                        InternalType *pITClone = pHigherStr->clone();
+                        symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pITClone);
+                    }
+                }
+                
+                bool bOK = getStructFromExp(pCurrentExp, &pMain, &pCurrent, NULL, pIT);
+                if(bOK)
+                {
+                    //someting was done
                 }
                 else
                 {
-                    std::wostringstream os;
-                    os << L"Field must be exist";
-                    throw ScilabError(os.str(), 999, pVar->location_get());
+                    //not a struct/handle but it can be a MList ou TList
+                    pField->head_get()->accept(*this);
+                    InternalType *pHead = result_get();
+
+                    if(pHead->isMList())
+                    {
+                        //TODO:
+                    }
+                    else if(pHead->isTList())
+                    {
+                        //assign result to new field
+                        const SimpleVar* pTail =  dynamic_cast<const SimpleVar*>(pField->tail_get());
+                        TList* pT = pHead->getAs<TList>();
+                        if (pT->exists(pTail->name_get().name_get()))
+                        {
+                            pT->set(pTail->name_get().name_get(), pIT);
+                        }
+                        else
+                        {
+                            std::wostringstream os;
+                            os << L"Field must be exist";
+                            throw ScilabError(os.str(), 999, pVar->location_get());
+                        }
+                    }
+                    else
+                    {
+                        std::wostringstream os;
+                        os << L"invalid operation";
+                        throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+                    }
                 }
             }
-            else if (pHead->isMList())
-            {
-                //TODO:
-            }
+
+            //if(pHead->isStruct() || pHead == NULL)
+            //{
+            //    InternalType* pMain     = NULL;
+            //    InternalType* pCurrent  = NULL;
+            //    const Exp* pCurrentExp  = pField;
+            //    const wstring *pstName  = getStructNameFromExp(pField);
+            //    if(pstName)
+            //    {
+            //        InternalType* pCurrentStr = symbol::Context::getInstance()->getCurrentLevel(symbol::Symbol(*pstName));
+            //        InternalType* pHigherStr = symbol::Context::getInstance()->get(symbol::Symbol(*pstName));
+            //        if(pHigherStr && pCurrentStr == NULL)
+            //        {//struct come from higher scope, so we need to clone and put it in current scope
+            //            InternalType *pITClone = pHigherStr->clone();
+            //            symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pITClone);
+            //        }
+            //    }
+
+            //    if(pHead != NULL)
+            //    {
+            //        pMain = pHead->getAs<Struct>();
+            //        pCurrentExp = pField->tail_get();
+            //    }
+
+            //    bool bOK = getStructFromExp(pCurrentExp, &pMain, &pCurrent, NULL, pIT);
+            //    if (pMain != NULL)
+            //    {
+            //        pHead = pMain;
+            //    }
+  
+            //    //if a is already assign, make a copy and replace it
+            //    if (pHead->isRef(1) == true)
+            //    {
+            //        pHead = pHead->clone();
+            //        pstName = getStructNameFromExp(pField);
+            //        symbol::Context::getInstance()->put(symbol::Symbol(*pstName), *pHead->clone());
+            //    }
+            //}
+            //else if(pHead->isMList())
+            //{
+            //    //TODO:
+            //}
+            //else if(pHead->isTList())
+            //{
+            //    //assign result to new field
+            //    const SimpleVar* pTail =  dynamic_cast<const SimpleVar*>(pField->tail_get());
+            //    TList* pT = pHead->getAs<TList>();
+            //    if (pT->exists(pTail->name_get().name_get()))
+            //    {
+            //        pT->set(pTail->name_get().name_get(), pIT);
+            //    }
+            //    else
+            //    {
+            //        std::wostringstream os;
+            //        os << L"Field must be exist";
+            //        throw ScilabError(os.str(), 999, pVar->location_get());
+            //    }
+            //}
+            //else if(pHead->isHandle())
+            //{
+            //    //parse head exp to create a list of "index" to call %x_i_h macro
+            //    //List* pList = getPropertyTree((Exp*)pField->tail_get(), new List());
+            //    //typed_list arg;
+            //    //arg.push_back(new Double(1));
+            //    //ListDelete* pDel = new ListDelete();
+            //    //pList->insert(&arg, pDel);
+            //    //delete pDel;
+            //    //delete arg[0];
+
+            //    //call overload %x_i_h
+            //    String* pS = new String(((SimpleVar*)pField->tail_get())->name_get().name_get().c_str());
+            //    std::wstring str = L"%" + pIT->getShortTypeStr() + L"_i_h";
+
+            //    typed_list in;
+            //    typed_list out;
+            //    optional_list opt;
+
+            //    in.push_back(pS);
+            //    in.push_back(pIT);
+            //    in.push_back(pHead);
+            //    pS->IncreaseRef();
+            //    pIT->IncreaseRef();
+            //    pHead->IncreaseRef();
+
+            //    Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(str));
+            //    Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, this);
+            //    //delete pS;
+
+            //    pS->DecreaseRef();
+            //    pIT->DecreaseRef();
+            //    pHead->DecreaseRef();
+            //    if(ret != Callable::OK)
+            //    {
+            //        std::wostringstream os;
+            //        os << L"unable to update handle";
+            //        throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+            //    }
+            //}
+            //else
+            //{
+            //    std::wostringstream os;
+            //    os << L"invalid operation";
+            //    throw ScilabError(os.str(), 999, e.right_exp_get().location_get());
+            //}
 
             if (e.is_verbose() && ConfigVariable::isPromptShow())
             {

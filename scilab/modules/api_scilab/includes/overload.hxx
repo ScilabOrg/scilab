@@ -35,11 +35,18 @@ public:
     /**
      */
     static types::Function::ReturnValue generateNameAndCall(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
-                                             types::typed_list &out, ast::ConstVisitor *_execMe);
+        types::typed_list &out, ast::ConstVisitor *_execMe);
+
+    static types::Function::ReturnValue generateNameAndCall(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
+        types::typed_list &out);
     /**
      */
     static types::Function::ReturnValue call(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount,
-                                             types::typed_list &out, ast::ConstVisitor *_execMe);
+        types::typed_list &out, ast::ConstVisitor *_execMe);
+
+    static types::Function::ReturnValue call(std::wstring _stOverloadingFunctionName, types::typed_list &in, int _iRetCount, 
+        types::typed_list &out);
+
 
     static std::wstring getNameFromOper(ast::OpExp::Oper);
 

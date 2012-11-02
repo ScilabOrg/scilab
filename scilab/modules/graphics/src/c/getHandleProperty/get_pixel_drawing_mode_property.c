@@ -33,7 +33,7 @@
 
 /*------------------------------------------------------------------------*/
 
-int get_pixel_drawing_mode_property(void* _pvCtx, char* pobjUID)
+void* get_pixel_drawing_mode_property(void* _pvCtx, char* pobjUID)
 {
     int iPixelDrawingMode = 0;
     int* pixelDrawingMode = &iPixelDrawingMode;
@@ -45,7 +45,7 @@ int get_pixel_drawing_mode_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, getPixelMode (*pixelDrawingMode));
+    return sciReturnString(getPixelMode (*pixelDrawingMode));
 
 }
 

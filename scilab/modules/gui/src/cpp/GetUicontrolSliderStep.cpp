@@ -13,16 +13,16 @@
 
 #include "GetUicontrolSliderStep.hxx"
 
-int GetUicontrolSliderStep(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolSliderStep(void* _pvCtx, char *sciObjUID)
 {
   double *sliderStep = NULL;
-  int status = FALSE;
+  void* status = NULL;
 
   getGraphicObjectProperty(sciObjUID, __GO_UI_SLIDERSTEP__, jni_double_vector, (void**) &sliderStep);
 
   if (sliderStep != NULL)
   {
-      status = sciReturnRowVector(_pvCtx, sliderStep, 2);
+      status = sciReturnRowVector(sliderStep, 2);
       delete[] sliderStep;
       return status;
   }

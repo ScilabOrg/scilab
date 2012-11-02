@@ -14,10 +14,10 @@
 #include "GetUimenuLabel.hxx"
 
 /* Get the label of an uimenu */
-int GetUimenuLabel(void* _pvCtx, char *pobjUID)
+void* GetUimenuLabel(void* _pvCtx, char *pobjUID)
 {
     char *label = NULL;
-    int status = 0;
+    void* status = NULL;
 
     getGraphicObjectProperty(pobjUID, __GO_UI_LABEL__, jni_string, (void **)&label);
 
@@ -28,7 +28,7 @@ int GetUimenuLabel(void* _pvCtx, char *pobjUID)
     }
     else
     {
-        status = sciReturnString(_pvCtx, label);
+        status = sciReturnString(label);
         free(label);
         return status;
     }

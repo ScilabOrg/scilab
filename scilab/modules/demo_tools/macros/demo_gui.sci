@@ -151,6 +151,7 @@ function create_frame(my_fig_handle,fr_position,fr_title,fr_items)
   if ~isempty(curFrame) then
       delete_frame(my_fig_handle, fr_position);
   end
+
   uicontrol( ...
     "parent"        , my_fig_handle,...
     "relief"        , "groove",...
@@ -223,11 +224,13 @@ function script_path = demo_gui_update()
   
   my_selframe   = get(gcbo,"tag");
 
+
   // Suppression d'une figure précédemment dessinée, si figure il y a ...
   all_figs = winsid();
   all_figs = all_figs(all_figs >= 100001); // All Scilab graphic windows opened for demos
   for fig_index = 1:size(all_figs, "*")
     fig_to_del = get_figure_handle(all_figs(fig_index));
+    mprintf("fig_to_del : %d\n", fig_to_del);
     if ~isempty(fig_to_del) then
       delete(fig_to_del);
     end
@@ -244,9 +247,9 @@ function script_path = demo_gui_update()
   my_data  = get(findobj("tag",my_selframe), "user_data");
 
   script_path = my_data(my_index(1,1),2);
-
   if grep(script_path,"dem.gateway.sce") == 1 then
 
+    disp("update demo list");
     // On est dans le cas ou une nouvelle frame va être affichée
 
     // Mise à jour du nombre de frame
@@ -286,10 +289,15 @@ function resize_gui(my_fig_handle,frame_number)
   margin_x   = my_fig_handle.userdata.margin_x;    // Horizontal margin between each elements
   margin_y   = my_fig_handle.userdata.margin_y;    // Vertical margin between each elements
 
+    mprintf("fw : %d, fh : %d, mx : %d my : %d\n", frame_w, frame_h, margin_x, margin_y);
   // =========================================================================
 
   axes_w           = (frame_number+1)*margin_x + frame_number*frame_w; // axes width
-  my_fig_handle.axes_size(1) = axes_w;
+
+  //my_fig_handle.axes_size(1) = axes_w;
+  temp = my_fig_handle.axes_size;
+  temp(1) = axes_w;
+  my_fig_handle.axes_size = temp;
 
   for i=(frame_number+1):10
 

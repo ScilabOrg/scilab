@@ -29,7 +29,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_data_bounds_property(void* _pvCtx, char* pobjUID)
+void* get_data_bounds_property(void* _pvCtx, char* pobjUID)
 {
     double* dataBounds = NULL;
     int iView = 0;
@@ -48,11 +48,11 @@ int get_data_bounds_property(void* _pvCtx, char* pobjUID)
     /**DJ.Abdemouche 2003**/
     if (iView == 1)
     {
-        return sciReturnMatrix(_pvCtx, dataBounds, 2, 3);
+        return sciReturnMatrix(dataBounds, 2, 3);
     }
     else
     {
-        return sciReturnMatrix(_pvCtx, dataBounds, 2, 2);
+        return sciReturnMatrix(dataBounds, 2, 2);
     }
 }
 /*------------------------------------------------------------------------*/

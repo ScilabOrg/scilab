@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_alignment_property(void* _pvCtx, char* pobjUID)
+void* get_alignment_property(void* _pvCtx, char* pobjUID)
 {
     int iAlignment = 0;
     int* piAlignment = &iAlignment;
@@ -45,15 +45,15 @@ int get_alignment_property(void* _pvCtx, char* pobjUID)
 
     if (iAlignment == 0)
     {
-        return sciReturnString(_pvCtx, "left");
+        return sciReturnString("left");
     }
     else if (iAlignment == 1)
     {
-        return sciReturnString(_pvCtx, "center");
+        return sciReturnString("center");
     }
     else if (iAlignment == 2)
     {
-        return sciReturnString(_pvCtx, "right");
+        return sciReturnString("right");
     }
     else
     {

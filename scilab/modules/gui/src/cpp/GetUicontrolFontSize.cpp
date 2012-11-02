@@ -14,7 +14,7 @@
 
 #include "GetUicontrolFontSize.hxx"
 
-int GetUicontrolFontSize(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolFontSize(void* _pvCtx, char *sciObjUID)
 {
     double fontSize = 0;
     double* pdblFontSize = &fontSize;
@@ -28,6 +28,6 @@ int GetUicontrolFontSize(void* _pvCtx, char *sciObjUID)
     }
     else
     {
-        return sciReturnDouble(_pvCtx, fontSize);
+        return sciReturnDouble(fontSize);
     }
 }

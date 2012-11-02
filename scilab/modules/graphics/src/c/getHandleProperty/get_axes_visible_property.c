@@ -32,7 +32,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_axes_visible_property(void* _pvCtx, char* pobjUID)
+void* get_axes_visible_property(void* _pvCtx, char* pobjUID)
 {
     char * axes_visible[3]  = { NULL, NULL, NULL };
     int  const axesVisiblePropertiesNames[3] = {__GO_X_AXIS_VISIBLE__, __GO_Y_AXIS_VISIBLE__, __GO_Z_AXIS_VISIBLE__};
@@ -75,7 +75,7 @@ int get_axes_visible_property(void* _pvCtx, char* pobjUID)
 
     }
 
-    status = sciReturnRowStringVector(_pvCtx, axes_visible, 3);
+    status = sciReturnRowStringVector(axes_visible, 3);
 
     for (i = 0 ; i < 3 ; i++)
     {
