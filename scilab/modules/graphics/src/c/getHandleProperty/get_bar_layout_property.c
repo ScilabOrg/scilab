@@ -26,7 +26,7 @@
 #include "localization.h"
 
 /*------------------------------------------------------------------------*/
-int get_bar_layout_property(void* _pvCtx, char* pobjUID)
+void* get_bar_layout_property(void* _pvCtx, char* pobjUID)
 {
     //
     // FIXME

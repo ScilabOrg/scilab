@@ -15,6 +15,7 @@
 
 #include "internal.hxx"
 #include "struct.hxx"
+#include "list.hxx"
 #include "exp.hxx"
 
 #define bsiz	4096
@@ -44,5 +45,8 @@ EXTERN_AST bool getStructFromExp(const ast::Exp* _pExp, types::Struct** _pMain, 
 EXTERN_AST bool fillStructFromExp(const ast::Exp* _pExp, types::Struct* _pStr, int _iIndex, types::InternalType* _pIT);
 
 EXTERN_AST void callOnPrompt(void);
+
+EXTERN_AST types::List* getPropertyTree(ast::Exp* e, types::List* pList);
+
 
 #endif //!AST_VISITOR_COMMON_HXX

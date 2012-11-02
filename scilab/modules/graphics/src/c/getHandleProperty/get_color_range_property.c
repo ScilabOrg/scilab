@@ -29,7 +29,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_color_range_property(void* _pvCtx, char* pobjUID)
+void* get_color_range_property(void* _pvCtx, char* pobjUID)
 {
     int* range = NULL;
 
@@ -41,6 +41,6 @@ int get_color_range_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnRowVectorFromInt(_pvCtx, range, 2);
+    return sciReturnRowVectorFromInt(range, 2);
 }
 /*------------------------------------------------------------------------*/

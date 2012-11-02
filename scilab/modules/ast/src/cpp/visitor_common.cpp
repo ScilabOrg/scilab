@@ -298,6 +298,9 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
             case types::InternalType::RealImplicitList :
                 poResult = new types::ImplicitList();
                 break;
+            case types::GenericType::RealHandle :
+                poResult = new types::GraphicHandle(_iRows, _iCols);
+                break;
             default :
                 // FIXME What should we do here ...
                 break;
@@ -531,6 +534,9 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                 }
                 break;
             }
+            case types::GenericType::RealHandle :
+                poResult->getAs<types::GraphicHandle>()->append(iCurRow, iCurCol, _poSource->getAs<types::GraphicHandle>());
+                break;
             default:
                 break;
         }
@@ -737,7 +743,7 @@ bool getStructFromExp(const Exp* _pExp, types::Struct** _pMain, types::Struct** 
         //a.x : with x not only a SimpleVar
         types::Struct *pStr = NULL;
         types::InternalType *pIT = symbol::Context::getInstance()->get(pVar->name_get());
-        if (pIT == NULL || pIT->isStruct() == false)
+        if (pIT == NULL || (pIT->isStruct() == false && pIT->isHandle() == false))
         {
             //"a" doest not exist or it is another type, create it with size 1,1 and return it
             //create new structure variable
@@ -912,7 +918,57 @@ void callOnPrompt(void)
     {
         types::typed_list in;
         types::typed_list out;
+        types::optional_list opt;
         ExecVisitor execCall;
-        pOnPrompt->getAs<types::Callable>()->call(in, 1, out, &execCall);
+        pOnPrompt->getAs<types::Callable>()->call(in, opt, 1, out, &execCall);
     }
+}
+
+List* getPropertyTree(Exp* e, List* pList)
+{
+
+    //a.b
+    SimpleVar* pVar = dynamic_cast<SimpleVar*>(e);
+    if(pVar)
+    {
+        pList->append(new String(pVar->name_get().name_get().c_str()));
+        return pList;
+    }
+
+    //a(x).b
+    CallExp* pCall = dynamic_cast<CallExp*>(e);
+    if(pCall)
+    {
+        pList = getPropertyTree(&pCall->name_get(), pList);
+        ExecVisitor exec;
+        std::list<Exp*> l = pCall->args_get();
+        std::list<Exp*>::const_iterator it;
+        for(it = l.begin() ; it != l.end() ; it++)
+        {
+            Exp* pArg = (*it);
+            try
+            {
+                pArg->accept(exec);
+                pList->append(exec.result_get());
+                exec.result_clear();
+            }
+            catch(ScilabException e)
+            {
+                throw e;
+            }
+        }
+
+        return pList;
+    }
+
+    //a.b.c
+    FieldExp* pField = dynamic_cast<FieldExp*>(e);
+    if(pField)
+    {
+        pList = getPropertyTree(pField->head_get(), pList);
+        pList = getPropertyTree(pField->tail_get(), pList);
+        return pList;
+    }
+
+    return pList;
 }

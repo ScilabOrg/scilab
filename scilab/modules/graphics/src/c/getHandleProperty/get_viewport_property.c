@@ -31,7 +31,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_viewport_property(void* _pvCtx, char* pobjUID)
+void* get_viewport_property(void* _pvCtx, char* pobjUID)
 {
     int* viewport = NULL;
     getGraphicObjectProperty(pobjUID, __GO_VIEWPORT__, jni_int_vector, (void **)&viewport);
@@ -42,6 +42,6 @@ int get_viewport_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnRowIntVector(_pvCtx, viewport , 2);
+    return sciReturnRowIntVector(viewport , 2);
 }
 /*------------------------------------------------------------------------*/
