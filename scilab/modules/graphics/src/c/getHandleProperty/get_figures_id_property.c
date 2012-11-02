@@ -26,7 +26,7 @@
 #include "FigureList.h"
 
 /*------------------------------------------------------------------------*/
-int get_figures_id_property(void* _pvCtx, char* pobjUID)
+void* get_figures_id_property(void* _pvCtx, char* pobjUID)
 {
     int   nbFig  = 0   ;
     int * ids    = NULL;
@@ -50,7 +50,7 @@ int get_figures_id_property(void* _pvCtx, char* pobjUID)
 
     sciGetFiguresId(ids);
 
-    status = sciReturnRowIntVector(_pvCtx, ids, nbFig);
+    status = sciReturnRowIntVector(ids, nbFig);
 
     FREE(ids);
 

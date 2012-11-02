@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_style_property(void* _pvCtx, char* pobjUID)
+void* get_tics_style_property(void* _pvCtx, char* pobjUID)
 {
     int iTicksStyle = 0;
     int* piTicksStyle = &iTicksStyle;
@@ -62,6 +62,6 @@ int get_tics_style_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnChar(_pvCtx, ticksStyle);
+    return sciReturnChar(ticksStyle);
 }
 /*------------------------------------------------------------------------*/

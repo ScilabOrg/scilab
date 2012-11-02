@@ -22,7 +22,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_figure_resizefcn_property(void* _pvCtx, char* pobjUID)
+void* get_figure_resizefcn_property(void* _pvCtx, char* pobjUID)
 {
     char* resizeFcn = NULL;
     int iType = -1;
@@ -44,6 +44,6 @@ int get_figure_resizefcn_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, resizeFcn);
+    return sciReturnString(resizeFcn);
 }
 /*------------------------------------------------------------------------*/

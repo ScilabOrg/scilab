@@ -31,7 +31,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_segs_color_property(void* _pvCtx, char* pobjUID)
+void* get_segs_color_property(void* _pvCtx, char* pobjUID)
 {
     int* segsColors = NULL;
     int iNbSegs = 0;
@@ -48,7 +48,7 @@ int get_segs_color_property(void* _pvCtx, char* pobjUID)
 
     /* convert from int array to double one. */
     getGraphicObjectProperty(pobjUID, __GO_NUMBER_ARROWS__, jni_int, (void**)&piNbSegs);
-    status = sciReturnRowIntVector(_pvCtx, segsColors, iNbSegs);
+    status = sciReturnRowIntVector(segsColors, iNbSegs);
     return status;
 }
 /*------------------------------------------------------------------------*/

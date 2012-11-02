@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_interp_color_mode_property(void* _pvCtx, char* pobjUID)
+void* get_interp_color_mode_property(void* _pvCtx, char* pobjUID)
 {
     int iInterpColorMode = 0;
     int* piInterpColorMode = &iInterpColorMode;
@@ -45,11 +45,11 @@ int get_interp_color_mode_property(void* _pvCtx, char* pobjUID)
 
     if (iInterpColorMode)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/

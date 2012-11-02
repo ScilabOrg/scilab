@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_font_foreground_property(void* _pvCtx, char* pobjUID)
+void* get_font_foreground_property(void* _pvCtx, char* pobjUID)
 {
     int iFontColor = 0;
     int* fontColor = &iFontColor;
@@ -43,6 +43,6 @@ int get_font_foreground_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnInt(_pvCtx, *fontColor);
+    return sciReturnInt(*fontColor);
 }
 /*------------------------------------------------------------------------*/
