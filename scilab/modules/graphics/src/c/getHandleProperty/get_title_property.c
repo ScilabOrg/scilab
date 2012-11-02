@@ -32,7 +32,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_title_property(void* _pvCtx, char* pobjUID)
+void* get_title_property(void* _pvCtx, char* pobjUID)
 {
     char* labelUID = NULL;
     long labelHandle = 0;
@@ -58,6 +58,6 @@ int get_title_property(void* _pvCtx, char* pobjUID)
 
     labelHandle = getHandle(labelUID);
 
-    return sciReturnHandle(_pvCtx, labelHandle);
+    return sciReturnHandle(labelHandle);
 }
 /*------------------------------------------------------------------------*/

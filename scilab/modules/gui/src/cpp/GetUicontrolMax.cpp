@@ -14,7 +14,7 @@
 
 #include "GetUicontrolMax.hxx"
 
-int GetUicontrolMax(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolMax(void* _pvCtx, char *sciObjUID)
 {
     double maxValue = 0;
     double* pdblMaxValue = &maxValue;
@@ -28,6 +28,6 @@ int GetUicontrolMax(void* _pvCtx, char *sciObjUID)
     }
     else
     {
-        return sciReturnDouble(_pvCtx, maxValue);
+        return sciReturnDouble(maxValue);
     }
 }

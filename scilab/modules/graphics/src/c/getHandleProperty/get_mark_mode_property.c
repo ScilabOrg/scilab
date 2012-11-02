@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_mark_mode_property(void* _pvCtx, char* pobjUID)
+void* get_mark_mode_property(void* _pvCtx, char* pobjUID)
 {
     int iMarkMode = 0;
     int *piMarkMode = &iMarkMode;
@@ -45,11 +45,11 @@ int get_mark_mode_property(void* _pvCtx, char* pobjUID)
 
     if (iMarkMode)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/

@@ -9,6 +9,12 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+
+#pragma comment(lib,"../../bin/ast.lib")
+#pragma comment(lib,"../../bin/system_env.lib")
+#pragma comment(lib,"../../bin/typesmacro.lib")
+#pragma comment(lib,"../../bin/sciconsole.lib")
+
 extern "C"
 {
 #include "stdarg.h"
@@ -20,6 +26,7 @@ extern "C"
 #include "overload.hxx"
 #include "context.hxx"
 #include "scilabexception.hxx"
+#include "execvisitor.hxx"
 
 std::wstring Overload::buildOverloadName(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount)
 {
@@ -42,6 +49,18 @@ types::Function::ReturnValue Overload::generateNameAndCall(std::wstring _stFunct
     return call(buildOverloadName(_stFunctionName, in, _iRetCount), in, _iRetCount, out, _execMe);
 }
 
+types::Function::ReturnValue Overload::generateNameAndCall(std::wstring _stFunctionName, types::typed_list &in, int _iRetCount, types::typed_list &out)
+{
+    ast::ExecVisitor execMe;
+    return call(buildOverloadName(_stFunctionName, in, _iRetCount), in, _iRetCount, out, &execMe);
+}
+
+types::Function::ReturnValue Overload::call(std::wstring _stOverloadingFunctionName, types::typed_list &in, int _iRetCount, types::typed_list &out)
+{
+    ast::ExecVisitor execMe;
+    return call(_stOverloadingFunctionName, in, _iRetCount, out, &execMe);
+}
+
 types::Function::ReturnValue Overload::call(std::wstring _stOverloadingFunctionName, types::typed_list &in, int _iRetCount, types::typed_list &out, ast::ConstVisitor *_execMe)
 {
     types::InternalType *pIT = symbol::Context::getInstance()->get(symbol::Symbol(_stOverloadingFunctionName));
@@ -53,7 +72,8 @@ types::Function::ReturnValue Overload::call(std::wstring _stOverloadingFunctionN
     types::Callable *pCall = pIT->getAs<types::Callable>();
     try
     {
-        return pCall->call(in, _iRetCount, out, _execMe);
+        types::optional_list opt;
+        return pCall->call(in, opt, _iRetCount, out, _execMe);
     }
     catch (ScilabMessage sm)
     {
@@ -134,15 +154,4 @@ std::wstring Overload::getNameFromOper(ast::OpExp::Oper _oper)
     default :
         return std::wstring(L"???");
     }
-}
-
-wstring formatString(const wstring& wstFormat, ...)
-{
-    wchar_t pwstTemp[1024];
-    va_list arglist;
-    va_start(arglist, wstFormat);
-    int iLen = os_swprintf(pwstTemp, 1024, wstFormat.c_str(), arglist);
-    va_end(arglist);
-
-    return wstring(pwstTemp, iLen);
 }

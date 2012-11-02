@@ -14,7 +14,7 @@
 
 #include "GetUicontrolMin.hxx"
 
-int GetUicontrolMin(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolMin(void* _pvCtx, char *sciObjUID)
 {
     double minValue = 0;
     double* pdblMinValue = &minValue;
@@ -28,6 +28,6 @@ int GetUicontrolMin(void* _pvCtx, char *sciObjUID)
     }
     else
     {
-        return sciReturnDouble(_pvCtx, minValue);
+        return sciReturnDouble(minValue);
     }
 }

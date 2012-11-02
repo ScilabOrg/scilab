@@ -34,7 +34,7 @@
 #include <string.h>
 
 /*------------------------------------------------------------------------*/
-int get_text_property(void* _pvCtx, char* pobjUID)
+void* get_text_property(void* _pvCtx, char* pobjUID)
 {
     int* dimensions;
     char** textMatrix;
@@ -55,6 +55,6 @@ int get_text_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnStringMatrix(_pvCtx, textMatrix, dimensions[0], dimensions[1]);
+    return sciReturnStringMatrix(textMatrix, dimensions[0], dimensions[1]);
 }
 /*------------------------------------------------------------------------*/

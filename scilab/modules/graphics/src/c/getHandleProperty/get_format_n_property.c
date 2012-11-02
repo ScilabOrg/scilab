@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_format_n_property(void* _pvCtx, char* pobjUID)
+void* get_format_n_property(void* _pvCtx, char* pobjUID)
 {
     char* formatn = NULL;
 
@@ -42,6 +42,6 @@ int get_format_n_property(void* _pvCtx, char* pobjUID)
         return -1;
     }
 
-    return sciReturnString(_pvCtx, formatn);
+    return sciReturnString(formatn);
 }
 /*------------------------------------------------------------------------*/
