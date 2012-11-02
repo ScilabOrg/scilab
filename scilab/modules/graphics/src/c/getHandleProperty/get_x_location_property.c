@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_x_location_property(void* _pvCtx, char* pobjUID)
+void* get_x_location_property(void* _pvCtx, char* pobjUID)
 {
     int iLocation = 0;
     int* piLocation = &iLocation;
@@ -45,19 +45,19 @@ int get_x_location_property(void* _pvCtx, char* pobjUID)
 
     if (iLocation == 0)
     {
-        return sciReturnString(_pvCtx, "bottom");
+        return sciReturnString("bottom");
     }
     else if (iLocation == 1)
     {
-        return sciReturnString(_pvCtx, "top");
+        return sciReturnString("top");
     }
     else if (iLocation == 2)
     {
-        return sciReturnString(_pvCtx, "middle");
+        return sciReturnString("middle");
     }
     else if (iLocation == 3)
     {
-        return sciReturnString(_pvCtx, "origin");
+        return sciReturnString("origin");
     }
     else
     {

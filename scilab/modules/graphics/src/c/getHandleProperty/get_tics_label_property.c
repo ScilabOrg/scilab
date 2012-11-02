@@ -32,7 +32,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_tics_labels_property(void* _pvCtx, char* pobjUID)
+void* get_tics_labels_property(void* _pvCtx, char* pobjUID)
 {
     char** labels = NULL;
     int iNumberTicksLabels = 0;
@@ -54,6 +54,6 @@ int get_tics_labels_property(void* _pvCtx, char* pobjUID)
     }
 
     /* User-specified ticks labels */
-    return sciReturnRowStringVector(_pvCtx, labels, iNumberTicksLabels);
+    return sciReturnRowStringVector(labels, iNumberTicksLabels);
 }
 /*------------------------------------------------------------------------*/

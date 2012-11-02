@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_closed_property(void* _pvCtx, char* pobjUID)
+void* get_closed_property(void* _pvCtx, char* pobjUID)
 {
     int iClosed = 0;
     int* piClosed = &iClosed;
@@ -45,11 +45,11 @@ int get_closed_property(void* _pvCtx, char* pobjUID)
 
     if (iClosed)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/

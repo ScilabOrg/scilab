@@ -32,7 +32,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_auto_resize_property(void* _pvCtx, char* pobjUID)
+void* get_auto_resize_property(void* _pvCtx, char* pobjUID)
 {
     int iAutoResize = 0;
     int* piAutoResize =  &iAutoResize;
@@ -46,11 +46,11 @@ int get_auto_resize_property(void* _pvCtx, char* pobjUID)
 
     if (iAutoResize)
     {
-        return sciReturnString(_pvCtx, "on");
+        return sciReturnString("on");
     }
     else
     {
-        return sciReturnString(_pvCtx, "off");
+        return sciReturnString("off");
     }
 }
 /*------------------------------------------------------------------------*/

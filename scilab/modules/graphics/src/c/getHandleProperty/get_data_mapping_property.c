@@ -30,7 +30,7 @@
 #include "graphicObjectProperties.h"
 
 /*------------------------------------------------------------------------*/
-int get_data_mapping_property(void* _pvCtx, char* pobjUID)
+void* get_data_mapping_property(void* _pvCtx, char* pobjUID)
 {
     int iDataMapping = 0;
     int* piDataMapping = &iDataMapping;
@@ -45,11 +45,11 @@ int get_data_mapping_property(void* _pvCtx, char* pobjUID)
 
     if (iDataMapping == 0)
     {
-        return sciReturnString(_pvCtx, "scaled");
+        return sciReturnString("scaled");
     }
     else if (iDataMapping == 1)
     {
-        return sciReturnString(_pvCtx, "direct");
+        return sciReturnString("direct");
     }
     else
     {

@@ -54,7 +54,7 @@ char *IntToStyle(int _iStyle)
     return NULL;
 }
 
-int GetUicontrolStyle(void* _pvCtx, char *sciObjUID)
+void* GetUicontrolStyle(void* _pvCtx, char *sciObjUID)
 {
     int iStyle = -1;
     int *piStyle = &iStyle;
@@ -63,7 +63,7 @@ int GetUicontrolStyle(void* _pvCtx, char *sciObjUID)
 
     if (piStyle != NULL)
     {
-        return sciReturnString(_pvCtx, IntToStyle(iStyle));
+        return sciReturnString(IntToStyle(iStyle));
     }
     else
     {
