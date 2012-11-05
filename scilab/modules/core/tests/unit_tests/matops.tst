@@ -122,3 +122,4 @@ if or(v<>v_ref) then pause,end
 v = [(1) (2) (3)];
 if or(v <> [1 2 3]) then pause, end
 
+assert_checkequal([]-[],[]);

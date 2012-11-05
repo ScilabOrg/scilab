@@ -101,3 +101,4 @@ v([%f %f],[%f %f])=[];
 if or(v<>v_ref) then bugmes();quit;end
 v = [(1) (2) (3)];
 if or(v <> [1 2 3]) then bugmes();quit;end
+assert_checkequal([]-[],[]);
