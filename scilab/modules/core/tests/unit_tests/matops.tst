@@ -122,3 +122,13 @@ if or(v<>v_ref) then pause,end
 v = [(1) (2) (3)];
 if or(v <> [1 2 3]) then pause, end
 
+A = rand(6, 4, 2, 8);
+[S(:,:,1), k(:,:,1)] = (A(:,:,1), A(:,:,2));
+assert_checkequal(S(:,:,1), A(:,:,1));
+
+function [a,b]=toto()
+a=2;b=5;
+endfunction
+[t(1,3), g(2,1)] = toto();
+assert_checkequal(t,[0,0,2]);
+assert_checkequal(g,[0;5]);
