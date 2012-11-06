@@ -40,6 +40,12 @@ Xcos
 * Bug #11998 fixed - listvar_in_hdf5 did not close the hdf5 file.
 
 
+Documentation
+==============
+
+*  Add the 'scilab:has-examples="no"' tag to specify that the help page does not have any examples on purpose
+
+
 Bug fixes
 ==========
 
