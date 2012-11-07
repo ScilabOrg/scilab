@@ -33,14 +33,24 @@ function [x,but]=locate(n,flag)
   ax=gca()
   mark_style=ax.mark_style;mark_size=ax.mark_size;mark_size_unit=ax.mark_size_unit;
   ax.mark_style=2;ax.mark_size=0;ax.mark_size_unit = "tabulated"
-  deff( '[]=clearmode(flag)',[
-	'npt=size(x,2);'
-	'if npt>0&flag==1 then'
-	'  delete(ax.children(1:npt))'
-	'end'
-	'ax.mark_size_unit=mark_size_unit;'
-	'ax.mark_style=mark_style;'
-	'ax.mark_size=mark_size;']);
+  //deff( '[]=clearmode(flag)',[
+	//'npt=size(x,2);'
+	//'if npt>0&flag==1 then'
+	//'  delete(ax.children(1:npt))'
+	//'end'
+	//'ax.mark_size_unit=mark_size_unit;'
+	//'ax.mark_style=mark_style;'
+	//'ax.mark_size=mark_size;']);
+  function clearmode(flag)
+	npt=size(x,2);
+	if npt>0&flag==1 then
+	  delete(ax.children(1:npt))
+	end
+	ax.mark_size_unit=mark_size_unit;
+	ax.mark_style=mark_style;
+	ax.mark_size=mark_size;
+  endfunction
+
   x=[];
   if n >= 0 then 
     for i=1:n,

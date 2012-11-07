@@ -19,7 +19,11 @@ function demo_geom3d()
   x = r.*cos(10*r);
   y = r.*sin(10*r);
 
-  deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  //deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  function z = Surf(x,y)
+    z=sin(x)*cos(y);
+  endfunction
+
   t=%pi*(-10:10)/10;
 
   // Plot the surface'

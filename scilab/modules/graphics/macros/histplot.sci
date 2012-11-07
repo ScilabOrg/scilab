@@ -49,14 +49,17 @@ function histplot(n,data,style,strf,leg,rect,nax,logflag,frameflag,axesflag,norm
     if rhs == 0 then   // demo
         histplot([-4.5:0.25:4.5],rand(1,20000,'n'),style=2,axesflag=1,..
         frameflag=1,rect=[-4.5 0 4.5 0.47]);
-        deff("[y]=f(x)","y=exp(-x.*x/2)/sqrt(2*%pi);");
+        //deff("[y]=f(x)","y=exp(-x.*x/2)/sqrt(2*%pi);");
+        function y=f1(x)
+            y = exp(-x .* x / 2) / sqrt(2 * %pi);
+        endfunction
+
         x=-4.5:0.125:4.5;
         x=x';
-        plot2d(x,f(x),26,"000");
+        plot2d(x,f1(x),26,"000");
         titre= gettext("histplot() : (normalized) histogram plot");
         xtitle(titre,"C (Classes)","N(C) / (Nmax length(C))");  // Not clear
-        legend(gettext("Gaussian random sample histogram"), ..
-        gettext("Exact gaussian density"));
+        legend(gettext("Gaussian random sample histogram"), gettext("Exact gaussian density"));
         return
     end
 

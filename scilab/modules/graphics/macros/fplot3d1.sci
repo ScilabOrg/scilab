@@ -22,7 +22,11 @@ function []=fplot3d1(xr,yr,f,theta,alpha,leg,flag,ebox)
 	
 	[lhs,rhs]=argn(0)
 	if rhs <= 0 then   // demo
-		deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+		//deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+        function z = Surf(x,y)
+            z=sin(x)*cos(y);
+        endfunction
+
 		t=-%pi:0.3:%pi;
 		fplot3d1(t,t,Surf,35,45,"X@Y@Z");
 		return

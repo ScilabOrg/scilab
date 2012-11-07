@@ -456,7 +456,9 @@ function demo_custom()
     theta              = -110;
     alpha              = 75;
 
-    deff("Z=f(z)","Z="+my_fundef_val);
+    //deff("Z=f(z)","Z="+my_fundef_val);
+    execstr("function Z=f(z),Z=" + my_fundef_val + ";endfunction");
+
 
     demo_fig.immediate_drawing = "off";
     PlotCmplxFunc(my_radius,my_e,my_dt_val,my_typeCut,[40 20],"f",theta,alpha,[0;0]);
@@ -486,7 +488,8 @@ function update_fundef()
     theta              = -110;
     alpha              = 75;
 
-    deff("Z=f(z)","Z="+my_fundef_val);
+    //deff("Z=f(z)","Z="+my_fundef_val);
+    execstr("function Z=f(z), Z=" + my_fundef_val + ";endfunction");
 
     if my_dt_val == "Square" then
         PlotCmplxFunc(my_radius,my_e,my_dt_val,my_typeCut,41,"f",theta,alpha,[0;0]);
@@ -523,7 +526,8 @@ function update_domain_type()
     theta              = -110;
     alpha              = 75;
 
-    deff("Z=f(z)","Z="+my_fundef_val);
+    //deff("Z=f(z)","Z="+my_fundef_val);
+    execstr("function Z=f(z), Z=" + my_fundef_val + ";endfunction");
 
     if get(gcbo, "tag") == "square_radio" then
         my_dt_val = "Square";
@@ -563,7 +567,8 @@ function update_radius()
     theta              = -110;
     alpha              = 75;
 
-    deff("Z=f(z)","Z="+my_fundef_val);
+    //deff("Z=f(z)","Z="+my_fundef_val);
+    execstr("function Z=f(z), Z=" + my_fundef_val + ";endfunction");
 
     if my_dt_val == "Square" then
         PlotCmplxFunc(my_radius,my_e,my_dt_val,my_typeCut,41,"f",theta,alpha,[0;0]);
@@ -601,7 +606,8 @@ function update_cao()
     theta              = -110;
     alpha              = 75;
 
-    deff("Z=f(z)","Z="+my_fundef_val);
+    //deff("Z=f(z)","Z="+my_fundef_val);
+    execstr("function Z=f(z), Z=" + my_fundef_val + ";endfunction");
 
     if get(gcbo, "tag")     == "ox_radio" then
         my_typeCut = "Ox";

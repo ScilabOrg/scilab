@@ -16,7 +16,11 @@ function []=fplot2d(xr,f,style,strf,leg,rect,nax,void)
 	
 	[lhs,rhs]=argn(0)
 	if rhs <= 0 then   // demo
-		deff("[y]=f(x)","y=sin(x)+cos(x)");
+		//deff("[y]=f(x)","y=sin(x)+cos(x)");
+		function y=f(x)
+            y=sin(x)+cos(x);
+        endfunction
+
 		fplot2d(0:0.1:%pi,f);
 		return
 	end

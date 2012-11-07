@@ -19,17 +19,38 @@ delmenu(win,_("&Tools"));
 delmenu(win,_("&?"));
 
 //Event handler and menu definition
-deff('evh(gwin,x,y,ibut)',..
-     ['global pos done'
-      'if or(ibut==(0:5)) then '
-      '   [x,y]=xchange(x,y,''i2f'')'
-      '   pos=[x,y],done=0,'
-      'end'
-      'if ibut==-1000 then ,done=3,end'
-     ])
-deff('menu_ok(k,gwin)','global done;done=1')
-deff('menu_cancel(k,gwin)','global done;done=2')
+//deff('evh(gwin,x,y,ibut)',..
+//     ['global pos done'
+//      'if or(ibut==(0:5)) then '
+//      '   [x,y]=xchange(x,y,''i2f'')'
+//      '   pos=[x,y],done=0,'
+//      'end'
+//      'if ibut==-1000 then ,done=3,end'
+//     ])
+//deff('menu_ok(k,gwin)','global done;done=1')
+//deff('menu_cancel(k,gwin)','global done;done=2')
 
+function evh(gwin,x,y,ibut)
+    global pos done;
+    if or(ibut==(0:5)) then
+        [x,y]=xchange(x,y,'i2f');
+        pos=[x,y],done=0;
+    end
+
+    if ibut==-1000 then
+        done=3;
+    end
+endfunction
+
+function menu_ok(k,gwin)
+    global done;
+    done=1;
+endfunction
+
+function menu_cancel(k,gwin)
+    global done;
+    done=2;
+endfunction
 
 f=gcf();
 cur_draw_mode = f.immediate_drawing;

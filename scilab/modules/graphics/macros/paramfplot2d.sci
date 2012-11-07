@@ -26,7 +26,11 @@ function paramfplot2d(f,x,theta,flag,rect)
     [lhs,rhs]=argn(0)
 
     if ~rhs then
-        deff('y=f(x,t)','y=t*sin(x)')
+        //deff('y=f(x,t)','y=t*sin(x)')
+        function y=f(x,t)
+            y=t*sin(x);
+        endfunction
+
         x=linspace(0,2*%pi,50);theta=0:0.05:1;
         clf;
         paramfplot2d(f,x,theta);
