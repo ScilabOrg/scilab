@@ -87,16 +87,16 @@ function []=zgrid(varargin)
   end
   nc=size(axes.children,"*")
   if nc==0 then
-    axes.data_bounds=defaultbounds
+    axes.data_bounds=defaultbounds;
     axes.axes_visible="on";
     axes.box="on";
-    axes.title.text=msprintf(_("loci with constant damping and constant natural frequency\nin discrete plane"))
-    axes.x_label.text=_("Real Axis")
-    axes.y_label.text=_("Imaginary Axis")
+    axes.title.text=msprintf(_("loci with constant damping and constant natural frequency\nin discrete plane"));
+    axes.x_label.text=_("Real Axis");
+    axes.y_label.text=_("Imaginary Axis");
   end
-  axes.fractional_font="on"
-  axes.font_size=0.5
-  chart_handles=[]
+  axes.fractional_font="on";
+  axes.font_size=0.5;
+  chart_handles=[];
 
   //                           2                 2
   //roots of                  s  + 2*zeta*wn*s +wn

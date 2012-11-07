@@ -16,7 +16,11 @@ function demo_contour_3d_4()
   my_handle.figure_name = my_plot_desc;
 
   t    = %pi*(-10:10)/10;
-  deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  //deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  function z = Surf(x,y)
+    z=sin(x)*cos(y);
+  endfunction
+
   rect = [-%pi,%pi,-%pi,%pi,-1,1];
   z    = feval(t,t,Surf);
   plot3d(t,t,z,35,45,"X@Y@Z",[-20,1,3],rect);

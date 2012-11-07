@@ -27,6 +27,6 @@ function _h = eval(z)
     str = "%_h = " + z;
   end
   %_h = [];
-  deff("[%_h] = %eval();", str);
+  execstr("function [%_h] = %eval();" + strcat(str, ";") + ";endfunction");
   _h = %eval();
 endfunction

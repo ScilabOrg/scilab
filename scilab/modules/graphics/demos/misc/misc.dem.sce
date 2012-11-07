@@ -361,11 +361,16 @@ function demo_misc()
     my_plot_4_h     = 1/2;
     my_plot_4_axes.axes_bounds = [ my_plot_4_pos_x my_plot_4_pos_y my_plot_4_w my_plot_4_h ];
 
-    deff("[x,y,z]=knot(u,v)",["vv=ones(v)";"uu=ones(u);";
-        "x=(5.*cos(u)+cos(u).*cos(v))";
-        "y=(5.*sin(u)+sin(u).*cos(v))";
-        "z=(uu.*sin(v))";])
+    //deff("[x,y,z]=knot(u,v)",["vv=ones(v)";"uu=ones(u);";
+    //    "x=(5.*cos(u)+cos(u).*cos(v))";
+    //    "y=(5.*sin(u)+sin(u).*cos(v))";
+    //    "z=(uu.*sin(v))";])
 
+    function [x,y,z]=knot(u,v)
+        x = (5 .* cos(u) + cos(u) .* cos(v));
+        y = (5 .* sin(u) + sin(u) .* cos(v));
+        z = (uu .* sin(v));
+    endfunction
     nx=60;
     Nx=(0:nx)/nx;
     ny=20;

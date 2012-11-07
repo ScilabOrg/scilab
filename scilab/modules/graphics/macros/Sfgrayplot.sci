@@ -15,7 +15,11 @@ function []=Sfgrayplot(x, y, f, strf, rect, nax, zminmax, colminmax, mesh, colou
 
 	[lhs,rhs]=argn()
 	if rhs == 0 then   // demo
-		deff("[z]=Surf(x,y)","z=x.^3+y");
+		//deff("[z]=Surf(x,y)","z=x.^3+y");
+        function z = Surf(x,y)
+            z=x.^3+y;
+        endfunction
+
 		f=gcf();
 		f.color_map = jetcolormap(64);
 		f.immediate_drawing = "off";
