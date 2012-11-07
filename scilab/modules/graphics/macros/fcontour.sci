@@ -40,7 +40,11 @@ function fcontour(xr,yr,f,nz,teta,alpha,leg,flag,ebox,zlev)
 	[lhs,rhs]=argn(0)
 	
 	if rhs == 0 then   // demo
-		deff("[z]=Surf(x,y)","z=x**2+y**2");
+		//deff("[z]=Surf(x,y)","z=x**2+y**2");
+		function z=Surf(x,y)
+            z=x**2+y**2;
+        endfunction
+
 		fcontour(-1:0.1:1,-1:0.1:1,Surf,10);
 		return
 	end

@@ -1488,3 +1488,51 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName)
     return 1;
 }
 /*--------------------------------------------------------------------------*/
+int increaseValRef(void* _pvCtx, int* _piAddress)
+{
+    if(_piAddress)
+    {
+        types::InternalType* pIT = (types::InternalType*)_piAddress;
+        types::InternalType* pIT2 = dynamic_cast<types::InternalType*>(pIT);
+        if(pIT2)
+        {
+            pIT->IncreaseRef();
+            printf("increaseValRef(%p) : %ls(%d)\n", pIT, pIT->getTypeStr().c_str(), pIT->getRef());
+            std::wostringstream ostr;
+            pIT->toString(ostr);
+            printf("%ls\n", ostr.str().c_str());
+            return 1;
+        }
+    }
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
+int decreaseValRef(void* _pvCtx, int* _piAddress)
+{
+    if(_piAddress)
+    {
+        types::InternalType* pIT = (types::InternalType*)_piAddress;
+        types::InternalType* pIT2 = dynamic_cast<types::InternalType*>(pIT);
+        if(pIT2)
+        {
+            pIT->DecreaseRef();
+            printf("decreaseValRef(%p) : %ls(%d)\n", pIT, pIT->getTypeStr().c_str(), pIT->getRef());
+            std::wostringstream ostr;
+            pIT->toString(ostr);
+            printf("%ls\n", ostr.str().c_str());
+            if(pIT->isDeletable())
+            {
+                printf("delete it\n");
+                delete pIT;
+            }
+            return 1;
+        }
+        else
+        {
+            printf("invalid type pointer in \"decreaseValRef\"\n");
+            return -1;
+        }
+    }
+    return 0;
+}
+/*--------------------------------------------------------------------------*/

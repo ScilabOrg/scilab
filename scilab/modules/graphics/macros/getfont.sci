@@ -50,9 +50,18 @@ function [fontId,fontSize]=getfont(S,v1)
   
   done=%f;
   
-  deff('menu_ok(k,gwin)','done=%t;k=[-fontId,fontSize];')
-  deff('menu_cancel(k,gwin)','done=%t;k=[];')
-    
+//  deff('menu_ok(k,gwin)','done=%t;k=[-fontId,fontSize];')
+//  deff('menu_cancel(k,gwin)','done=%t;k=[];')
+    function menu_ok(k,gwin)
+        done=%t;
+        k=[-fontId,fontSize];
+    endfunction
+
+    function menu_cancel(k,gwin)
+        done=%t;
+        k=[];
+    endfunction
+
   if exists('font','local') then
     fontId=max(0,min(nf,font(1)))
     fontSize=max(0,min(5,font(2)))

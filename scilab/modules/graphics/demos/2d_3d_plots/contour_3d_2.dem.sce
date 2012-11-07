@@ -15,7 +15,10 @@ function demo_contour_3d_2()
   my_handle.figure_name = my_plot_desc;
 
   t = %pi*(-10:10)/10;
-  deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  //deff("[z]=Surf(x,y)","z=sin(x)*cos(y)");
+  function z=Surf(x,y)
+    z = sin(x) * cos(y);
+  endfunction
   rect = [-%pi,%pi,-%pi,%pi,-5,1];
   z    = feval(t,t,Surf);
   contour(t,t,z,10,35,45,"X@Y@Z",[1,1,0],rect,-5);

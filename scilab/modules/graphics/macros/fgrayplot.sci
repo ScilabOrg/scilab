@@ -25,8 +25,12 @@ function []=fgrayplot(x,y,f,strf,rect,nax,void)
 	if rhs <= 0 then   // demo
 	        f = gcf();
         	f.color_map = coolcolormap(100);
-		deff("[z]=Surf(x,y)","z=cos(x).^2+sin(y).^2");
-		fgrayplot(-%pi:0.1:%pi,-%pi:0.1:%pi, Surf); 
+		//deff("[z]=Surf(x,y)","z=cos(x).^2+sin(y).^2");
+		function z=Surf(x,y)
+            z=cos(x).^2+sin(y).^2;
+        endfunction
+
+		fgrayplot(-%pi:0.1:%pi,-%pi:0.1:%pi, Surf);
 		return
 	end
 

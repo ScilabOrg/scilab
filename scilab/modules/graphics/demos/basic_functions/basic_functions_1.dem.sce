@@ -27,7 +27,10 @@ function demo_basic_function1()
   a.clip_state = "clipgrf";
 
 
-  deff('[v]=transl(x,t)','v=x+t*ones(x)');
+  //deff('[v]=transl(x,t)','v=x+t*ones(x)');
+  function v = transl(x,t)
+    v=x+t*ones(x);
+  endfunction
 
   messagebox(["[I] function to plot a set of objects "],"modal");
 

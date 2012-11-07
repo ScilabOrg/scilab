@@ -23,9 +23,15 @@ function []=fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
 	
 	[lhs,rhs]=argn(0)
 	if rhs <= 0 then   // demo
-		deff("[xdot] = derpol(t,x)",["xd1 = x(2)"; ..
-			"xd2 = -x(1) + (1 - x(1)**2)*x(2)"; ..
-			"xdot = [ xd1 ; xd2 ]"]);
+//		deff("[xdot] = derpol(t,x)",["xd1 = x(2)"; ..
+//			"xd2 = -x(1) + (1 - x(1)**2)*x(2)"; ..
+//			"xdot = [ xd1 ; xd2 ]"]);
+		function xdot = derpol(t,x)
+            xd1 = x(2);
+			xd2 = -x(1) + (1 - x(1)**2)*x(2);
+			xdot = [ xd1 ; xd2 ];
+        endfunction
+
 		fchamp(derpol,0,-1:0.1:1,-1:0.1:1,1);
 		return
 	end
@@ -41,12 +47,20 @@ function []=fchamp(macr_f,fch_t,fch_xr,fch_yr,arfact,rect,strf)
 
   if type(macr_f) <> 15,
     if type(macr_f)==11 then comp(macr_f),end;
-    deff('[yy]=mmm(x1,x2)',['xx=macr_f(fch_t,[x1;x2])';'yy=xx(1)+%i*xx(2);']);
+    //deff('[yy]=mmm(x1,x2)',['xx=macr_f(fch_t,[x1;x2])';'yy=xx(1)+%i*xx(2);']);
+    function yy=mmm(x1,x2)
+        xx=macr_f(fch_t,[x1;x2])
+        yy=xx(1)+%i*xx(2);
+    endfunction
   else
     mmm1=macr_f(1)
     if type(mmm1)==11 then comp(mmm1),end;
-    deff('[yy]=mmm(x1,x2)',['xx=mmm1(fch_t,[x1;x2],macr_f(2));';
-		    'yy=xx(1)+%i*xx(2);']);
+    //deff('[yy]=mmm(x1,x2)',['xx=mmm1(fch_t,[x1;x2],macr_f(2));';
+	//	    'yy=xx(1)+%i*xx(2);']);
+    function yy=mmm(x1,x2)
+        xx=mmm1(fch_t,[x1;x2],macr_f(2));
+        yy=xx(1)+%i*xx(2);
+    endfunction
   end
   fch_v=feval(fch_xr,fch_yr,mmm);
 

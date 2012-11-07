@@ -17,8 +17,8 @@ function demo_plotyyy()
   y2 = exp(x/6).*(sin(x)+1.5);
   y3 = 1+x.^2;
 
-  drawlater()
-  demo_viewCode("plotyyy.dem.sce");
+  //drawlater()
+  //demo_viewCode("plotyyy.dem.sce");
 
   // Axis y1
   y1=sin(x/2);
@@ -34,8 +34,17 @@ function demo_plotyyy()
   plot2d(x,y3,logflag="nl",style=c)
   na.children(1).children(1).thickness=2;
   na.filled="off";
-  na.axes_visible(1)="off";
-  na.axes_reverse(2)="on";
+
+  //na.axes_visible(1)="off";
+  tmp = na.axes_visible;
+  tmp(1) = "off";
+  na.axes_visible = tmp;
+
+  //na.axes_reverse(2)="on";
+  tmp = na.axes_reverse;
+  tmp(2) = "on";
+  na.axes_reverse = tmp;
+
   na.y_location="middle";
 
   // Axis y3
@@ -46,7 +55,11 @@ function demo_plotyyy()
   plot2d(x,y2,style=c);
   ylabel("Scale n°3","color",[1 0 0])
   na.filled="off";                        // Transparent background, letting the first plot appearing
-  na.axes_visible(1)="off";               // MAsking the x axis (useless overlay)
+  //na.axes_visible(1)="off";               // MAsking the x axis (useless overlay)
+  tmp = na.axes_visible;
+  tmp(1) = "off";
+  na.axes_visible = tmp;
+
   na.y_location="right";                  // Y axis on the right side
   na.children(1).children(1).thickness=2; // Curve thickness
  

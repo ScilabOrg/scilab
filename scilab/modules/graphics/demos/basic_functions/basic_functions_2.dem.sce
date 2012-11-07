@@ -23,7 +23,10 @@ function demo_basic_function2()
   // clipping
   a.clip_state = "clipgrf";
 
-  deff('[v]=transl(x,t)','v=x+t*ones(x)');
+  //deff('[v]=transl(x,t)','v=x+t*ones(x)');
+  function v = transl(x,t)
+    v=x+t*ones(x);
+  endfunction
 
   messagebox(["[II] Basic Functions of drivers :"],"modal");
 

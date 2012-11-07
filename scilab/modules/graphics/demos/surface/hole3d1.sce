@@ -13,9 +13,15 @@ function hole3d1()
 
     exec("SCI/modules/graphics/demos/surface/Macros.sci",-1);
 
-    deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)";
-    "y=r*cos(alp).*sin(tet)+orig(2)*ones(tet)";
-    "z=r*sin(alp)+orig(3)*ones(tet)"]);
+    //deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)";
+    //"y=r*cos(alp).*sin(tet)+orig(2)*ones(tet)";
+    //"z=r*sin(alp)+orig(3)*ones(tet)"]);
+
+    function [x, y, z] = sph(alp, tet)
+        x = r * cos(alp) .* cos(tet) + orig(1) * ones(tet);
+        y = r * cos(alp) .* sin(tet) + orig(2) * ones(tet);
+        z = r * sin(alp) + orig(3) * ones(tet);
+    endfunction
 
     r=1;
     orig=[0 0 0];

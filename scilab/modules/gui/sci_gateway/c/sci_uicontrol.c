@@ -124,7 +124,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
         if ((!checkInputArgumentType(pvApiCtx, 1, sci_handles)))
         {
             OverLoad(1);
-            return FALSE;
+            return 1;
         }
         else /* Get parent ID */
         {
@@ -140,7 +140,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
             if (isScalar(pvApiCtx, piAddr) == 0)
             {
                 Scierror(999, _("%s: Wrong size for input argument #%d: A graphic handle expected.\n"), fname, 1);
-                return FALSE;
+                return 1;
             }
 
             if (getScalarHandle(pvApiCtx, piAddr, &hParent))
@@ -169,21 +169,21 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                     if (setStatus == SET_PROPERTY_ERROR)
                     {
                         Scierror(999, _("%s: Could not set property '%s'.\n"), fname, propertyName);
-                        return FALSE;
+                        return 1;
                     }
                 }
                 else
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A '%s', '%s' or '%s' handle expected.\n"), fname, 1, "Uicontrol",
                              "Figure", "Uimenu");
-                    return FALSE;
+                    return 1;
                 }
             }
             else
             {
                 Scierror(999, _("%s: Wrong type for input argument #%d: A '%s', '%s' or '%s' handle expected.\n"), fname, 1, "Uicontrol", "Figure",
                          "Uimenu");
-                return FALSE;
+                return 1;
             }
             pUicontrol = (char*)getObjectFromHandle(GraphicHandle);
         }
@@ -193,14 +193,14 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
         if (!checkInputArgumentType(pvApiCtx, 1, sci_handles) && !checkInputArgumentType(pvApiCtx, 1, sci_strings))
         {
             OverLoad(1);
-            return FALSE;
+            return 1;
         }
 
         /* Allocate memory to store the position of properties in uicontrol call */
         if ((propertiesValuesIndices = (int*)MALLOC(sizeof(int) * iPropertiesCount)) == NULL)
         {
             Scierror(999, _("%s: No more memory.\n"), fname);
-            return FALSE;
+            return 1;
         }
 
         /* Init all positions to NOT_FOUND */
@@ -234,7 +234,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                     if (isScalar(pvApiCtx, piAddr) == 0)
                     {
                         Scierror(999, _("%s: Wrong size for input argument #%d: A graphic handle expected.\n"), fname, 1);
-                        return FALSE;
+                        return 1;
                     }
 
                     if (getScalarDouble(pvApiCtx, piAddr, &dblValue))
@@ -249,7 +249,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                     {
                         Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                                  "Frame uicontrol");
-                        return FALSE;
+                        return 1;
                     }
 
                     getGraphicObjectProperty(pParentUID, __GO_TYPE__, jni_int, (void **)&piParentType);
@@ -260,7 +260,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                         {
                             Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                                      "Frame uicontrol");
-                            return FALSE;
+                            return 1;
                         }
                     }
                     /* First parameter is the parent */
@@ -270,7 +270,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                              "Frame uicontrol");
-                    return FALSE;
+                    return 1;
                 }
             }
             else /* Get parent ID */
@@ -288,7 +288,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                 {
                     Scierror(999, _("%s: Wrong size for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                              "Frame uicontrol");
-                    return FALSE;
+                    return 1;
                 }
 
                 if (getScalarHandle(pvApiCtx, piAddr, &hParent))
@@ -302,7 +302,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                 {
                     Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                              "Frame uicontrol");
-                    return FALSE;
+                    return 1;
                 }
                 getGraphicObjectProperty(pParentUID, __GO_TYPE__, jni_int, (void **)&piParentType);
                 if (iParentType != __GO_FIGURE__)
@@ -312,7 +312,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                     {
                         Scierror(999, _("%s: Wrong type for input argument #%d: A '%s' or a '%s' handle expected.\n"), fname, 1, "Figure",
                                  "Frame uicontrol");
-                        return FALSE;
+                        return 1;
                     }
                 }
                 /* First parameter is the parent */
@@ -340,7 +340,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
             if ((!checkInputArgumentType(pvApiCtx, inputIndex, sci_strings)))
             {
                 Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, inputIndex);
-                return FALSE;
+                return 1;
             }
             else
             {
@@ -379,7 +379,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                 if (found == 0)
                 {
                     Scierror(999, _("%s: Unknown property: %s for '%s' handles.\n"), fname, propertyName, "Uicontrol");
-                    return FALSE;
+                    return 1;
                 }
             }
         }
@@ -405,7 +405,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
             else
             {
                 Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), fname, propertiesValuesIndices[0]);
-                return FALSE;
+                return 1;
             }
         }
 
@@ -415,7 +415,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
         if (pUicontrol == NULL) /* Error in creation */
         {
             Scierror(999, _("%s: Could not create 'Uicontrol' handle.\n"), fname);
-            return FALSE;
+            return 1;
         }
         GraphicHandle = getHandle(pUicontrol);
 
@@ -523,7 +523,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
                 if (setStatus == SET_PROPERTY_ERROR)
                 {
                     Scierror(999, _("%s: Could not set property '%s'.\n"), fname, (char*)propertiesNames[inputIndex]);
-                    return FALSE;
+                    return 1;
                 }
             }
         }
@@ -565,7 +565,7 @@ int sci_uicontrol(char *fname, void* pvApiCtx)
 
     AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
     ReturnArguments(pvApiCtx);
-    return TRUE;
+    return 1;
 }
 
 /*--------------------------------------------------------------------------*/
