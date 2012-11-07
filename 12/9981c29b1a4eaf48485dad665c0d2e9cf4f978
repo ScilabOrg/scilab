@@ -1,0 +1,8 @@
+Change-Id: I505beeb4bd25e4202de7424fa5ac6ddca9b63f16
+Code-Review+2: Vincent COUVERT <vincent.couvert@scilab-enterprises.com>
+Verified+1: Vincent COUVERT <vincent.couvert@scilab-enterprises.com>
+Submitted-by: Vincent COUVERT <vincent.couvert@scilab-enterprises.com>
+Submitted-at: Wed, 07 Nov 2012 11:55:39 +0100
+Reviewed-on: http://codereview.scilab.org/9615
+Project: scilab
+Branch: refs/heads/5.4
