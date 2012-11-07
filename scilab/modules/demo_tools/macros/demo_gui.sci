@@ -124,8 +124,6 @@ function create_frame(my_fig_handle,fr_position,fr_title,fr_items)
   // =========================================================================
 
 
-mprintf("fr_items\n");
-disp(fr_items);
   // if no item, no display
   if fr_items == []  then
     my_visible = "off";
@@ -180,9 +178,8 @@ disp(fr_items);
     "visible"       , my_visible, ...
     "tag"         , "title_frame_"+string(fr_position));
 
-pause
   // List Box
-  uicontrol( ...
+  test = uicontrol( ...
     "parent"        , my_fig_handle,...
     "style"         , "listbox",...
     "string"        , " "+strcat(fr_items(:,1),"| "),...
@@ -196,9 +193,9 @@ pause
     "visible"       , my_visible, ...
     "user_data"       , fr_items, ...
     "tag"         , "listbox_"+string(fr_position));
-    mprintf("%s\n", "listbox_"+string(fr_position));
-    disp(fr_items);
 
+    disp(test.user_data);
+    disp(test.parent.tag);
   // Logo Scilab
   // =========================================================================
 
@@ -271,7 +268,10 @@ function script_path = demo_gui_update()
     clearglobal subdemolist
 
     create_frame(demo_fig,my_selframe_num+1,my_data(my_index(1,1),1), demo_fig.userdata.subdemolist);
+    disp(demo_fig.tag);
+    disp(demo_fig.children(1).userdata);
     demo_fig.userdata.subdemolist = previous_demolist;
+    disp(demo_fig.children(1).userdata);
 
   else
     // Mise à jour du nombre de frame

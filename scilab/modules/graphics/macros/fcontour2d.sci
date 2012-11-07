@@ -15,7 +15,11 @@ function fcontour2d(xr,yr,f,nz,style,strf,leg,rect,nax,void)
 	[lhs,rhs]=argn(0);
 	
 	if rhs == 0 then   // demo
-		deff("[z]=Surf(x,y)","z=x**3+y");
+		//deff("[z]=Surf(x,y)","z=x**3+y");
+		function z=Surf(x,y)
+            z=x**3+y;
+        endfunction
+
 		fcontour2d(-1:0.1:1,-1:0.1:1,Surf,10,style=1:10,rect=[-1,-1,1,1]*1.5,strf="011");
 		return
 	end

@@ -12,9 +12,15 @@ function fac3d(x,y,z,T,A,leg,flags,ebox)
 	
 	[lhs,rhs]=argn(0)
 	if rhs <= 0 then   // demo
-		deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)"; ..
-			"y=r*cos(alp).*sin(tet)+orig(2)*ones(tet)"; ..
-			"z=r*sin(alp)+orig(3)*ones(tet)"]);
+		//deff("[x,y,z]=sph(alp,tet)",["x=r*cos(alp).*cos(tet)+orig(1)*ones(tet)"; ..
+		//	"y=r*cos(alp).*sin(tet)+orig(2)*ones(tet)"; ..
+		//	"z=r*sin(alp)+orig(3)*ones(tet)"]);
+		function [x,y,z]=sph(alp,tet)
+            x=r*cos(alp).*cos(tet)+orig(1)*ones(tet);
+			y=r*cos(alp).*sin(tet)+orig(2)*ones(tet);
+			z=r*sin(alp)+orig(3)*ones(tet);
+        endfunction
+
 		r=1;
 		orig=[0 0 0];
 		[x1,y1,z1]=eval3dp(sph,linspace(-%pi/2,%pi/2,40),linspace(0,%pi*2,20));
