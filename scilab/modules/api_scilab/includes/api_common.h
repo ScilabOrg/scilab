@@ -435,6 +435,8 @@ extern "C" {
      */
     int deleteNamedVariable(void* _pvCtx, const char* _pstName);
 
+    int increaseValRef(void* _pvCtx, int* _piAddress);
+    int decreaseValRef(void* _pvCtx, int* _piAddress);
 #ifdef __cplusplus
 }
 #endif

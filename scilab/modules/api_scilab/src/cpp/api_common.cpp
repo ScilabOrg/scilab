@@ -1488,3 +1488,29 @@ int deleteNamedVariable(void* _pvCtx, const char* _pstName)
     return 1;
 }
 /*--------------------------------------------------------------------------*/
+int increaseValRef(void* _pvCtx, int* _piAddress)
+{
+    if(_piAddress)
+    {
+        types::InternalType* pIT = (types::InternalType*)_piAddress;
+        pIT->IncreaseRef();
+        return 1;
+    }
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
+int decreaseValRef(void* _pvCtx, int* _piAddress)
+{
+    if(_piAddress)
+    {
+        types::InternalType* pIT = (types::InternalType*)_piAddress;
+        pIT->DecreaseRef();
+        if(pIT->isRef() == false)
+        {
+            delete pIT;
+        }
+        return 1;
+    }
+    return 0;
+}
+/*--------------------------------------------------------------------------*/
