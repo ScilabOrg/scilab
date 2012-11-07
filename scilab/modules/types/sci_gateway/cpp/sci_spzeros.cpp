@@ -24,7 +24,7 @@ extern "C"
 types::Function::ReturnValue sci_spzeros(types::typed_list &in, int _iRetCount, types::typed_list &out)
 {
     types::Sparse *pSpOut = NULL;
-    if (in.size() > 2)
+    if (in.size() < 1 || in.size() > 2)
     {
         ScierrorW(999, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), L"spzeros", 1, 2);
         return types::Function::Error;
