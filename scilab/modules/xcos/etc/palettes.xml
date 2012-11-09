@@ -767,6 +767,9 @@
       <block name="VanneReglante">
         <icon variable="SCI" path="/modules/xcos/images/palettes/VanneReglante.png"/>
       </block>
+      <block name="Flowmeter">
+        <icon variable="SCI" path="/modules/xcos/images/palettes/Flowmeter.png"/>
+      </block>
     </node>
     <node xsi:type="PreLoaded" enable="true" name="Demonstrations Blocks">
       <block name="BOUNCE">
