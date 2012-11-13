@@ -65,13 +65,13 @@ Function::ReturnValue sci_setdefaultlanguage(typed_list &in, int _piRetCount, ty
 {
     if(in.size() != 1)
     {
-        ScierrorW(999, _W("%ls: Wrong number of input arguments: %d expected.\n"), L"setdefaultlanguage", 1);
+        Scierror(999, _("%s: Wrong number of input arguments: %d expected.\n"), "setdefaultlanguage", 1);
         return Function::Error;
     }
 
     if(_piRetCount != 1)
     {
-        ScierrorW(999, _W("%ls: Wrong number of output arguments: %d expected.\n"), L"setdefaultlanguage", 1);
+        Scierror(999, _("%s: Wrong number of output arguments: %d expected.\n"), "setdefaultlanguage", 1);
         return Function::Error;
     }
 
@@ -92,7 +92,7 @@ Function::ReturnValue sci_setdefaultlanguage(typed_list &in, int _piRetCount, ty
 #else
     if(in[0]->isString() == false || in[0]->getAs<types::String>()->getSize() != 1)
     {
-        ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A string expected.\n"), L"setdefaultlanguage" ,1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: A string expected.\n"), "setdefaultlanguage" ,1);
         return Function::Error;
     }
     wchar_t *newlang = getLanguageFromAlias(in[0]->getAs<types::String>()->get(0));

@@ -38,14 +38,14 @@ Function::ReturnValue sci_merror(types::typed_list &in, int _iRetCount, types::t
 
     if(in.size() > 1)
     {
-        ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), L"merror", 0, 1);
+        Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), "merror", 0, 1);
         return types::Function::Error;
     }
     if(in.size() == 1)
     {
         if(in[0]->isDouble() == false || in[0]->getAs<types::Double>()->isScalar() == false || in[0]->getAs<types::Double>()->isComplex())
         {
-            ScierrorW(999,_W("%ls: Wrong type for input argument #%d: A real expected.\n"), L"merror", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), "merror", 1);
             return types::Function::Error;
         }
 

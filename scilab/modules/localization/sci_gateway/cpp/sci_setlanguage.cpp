@@ -32,19 +32,19 @@ Function::ReturnValue sci_setlanguage(typed_list &in, int _piRetCount, typed_lis
 {
     if(in.size() != 1)
     {
-        ScierrorW(999, _W("%ls: Wrong number of input arguments: %d expected.\n"), L"setlanguage", 1);
+        Scierror(999, _("%s: Wrong number of input arguments: %d expected.\n"), "setlanguage", 1);
         return Function::Error;
     }
 
     if(_piRetCount != 1)
     {
-        ScierrorW(999, _W("%ls: Wrong number of output arguments: %d expected.\n"), L"setlanguage", 1);
+        Scierror(999, _("%s: Wrong number of output arguments: %d expected.\n"), "setlanguage", 1);
         return Function::Error;
     }
 
     if(in[0]->isString() == false || in[0]->getAs<types::String>()->getSize() != 1)
     {
-        ScierrorW(999,_W("%ls: Wrong type for input argument #%d: A String expected.\n"), L"setlanguage", 1);
+        Scierror(999, _("%s: Wrong type for input argument #%d: A String expected.\n"), "setlanguage", 1);
         return Function::Error;
     }
 

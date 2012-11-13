@@ -44,7 +44,7 @@ Function::ReturnValue sci_ascii(typed_list &in, int _iRetCount, typed_list &out)
 {
     if(in.size() != 1)
     {
-        ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d expected.\n"), L"ascii", 1);
+        Scierror(77, _("%s: Wrong number of input argument(s): %d expected.\n"), "ascii", 1);
         return Function::Error;
     }
 
@@ -74,7 +74,7 @@ Function::ReturnValue sci_ascii(typed_list &in, int _iRetCount, typed_list &out)
             break;
         }
     default :
-        ScierrorW(999, _W("%ls: Wrong type for argument #%d: Matrix of strings or Integer matrix expected.\n"), L"ascii", 1);
+        Scierror(999, _("%s: Wrong type for argument #%d: Matrix of strings or Integer matrix expected.\n"), "ascii", 1);
         return Function::Error;
     }
 
