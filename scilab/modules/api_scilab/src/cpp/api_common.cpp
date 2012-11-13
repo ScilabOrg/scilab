@@ -140,11 +140,11 @@ int checkInputArgument(void* _pvCtx, int _iMin, int _iMax)
     if (_iMin == _iMax)
     {
         /* No optional argument */
-        ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d expected.\n"), pStr->m_pstName, _iMax);
+        Scierror(77, _("%s: Wrong number of input argument(s): %d expected.\n"), pStr->m_pstName, _iMax);
     }
     else
     {
-        ScierrorW(77, _W("%ls: Wrong number of input argument(s): %d to %d expected.\n"), pStr->m_pstName, _iMin, _iMax);
+        Scierror(77, _("%s: Wrong number of input argument(s): %d to %d expected.\n"), pStr->m_pstName, _iMin, _iMax);
     }
     return 0;
 }
