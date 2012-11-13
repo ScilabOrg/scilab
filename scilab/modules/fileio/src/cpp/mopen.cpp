@@ -31,7 +31,9 @@ int mopen(wchar_t* _pstFilename, wchar_t* _pstMode, int _iSwap, int* _piID)
 {
     if(getWarningMode() && FileManager::isOpened(_pstFilename))
     {
-		sciprintW(_W("Warning: file '%ls' already opened in Scilab.\n"), _pstFilename);
+        char* pst = wide_string_to_UTF8(_pstFilename);
+		sciprint(_("Warning: file '%s' already opened in Scilab.\n"), pst);
+        FREE(pst);
     }
 	/* bug 4846 */
 	if (_pstFilename == NULL)

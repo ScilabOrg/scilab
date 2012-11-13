@@ -39,7 +39,7 @@ types::Function::ReturnValue sci_mclose(types::typed_list &in, int _iRetCount, t
             types::String *pS = in[0]->getAs<types::String>();
             if(pS->getSize() != 1)
             {
-                ScierrorW(999,_W("%ls: Wrong type for input argument #%d: A String expected.\n"), L"mclose", 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: A String expected.\n"), "mclose", 1);
                 return types::Function::Error;
             }
 
@@ -48,7 +48,9 @@ types::Function::ReturnValue sci_mclose(types::typed_list &in, int _iRetCount, t
                 int iFileID = FileManager::getFileID(pS->get(0));
                 if(iFileID == -1)
                 {
-                    ScierrorW(999, _W("%ls: File not found: '%ls'.\n"), L"mclose", pS->get(0));
+                    char* pst = wide_string_to_UTF8(pS->get(0));
+                    Scierror(999, _("%s: File not found: '%s'.\n"), "mclose", pst);
+                    FREE(pst);
                     return types::Function::Error;
                 }
                 iRet = mclose(iFileID);
@@ -59,7 +61,7 @@ types::Function::ReturnValue sci_mclose(types::typed_list &in, int _iRetCount, t
             }
             else
             {
-                ScierrorW(999, _W("%ls: Wrong input arguments: '%ls' expected.\n"), L"mclose", L"all");
+                Scierror(999, _("%s: Wrong input arguments: '%s' expected.\n"), "mclose", "all");
                 return types::Function::Error;
             }
         }
@@ -68,7 +70,7 @@ types::Function::ReturnValue sci_mclose(types::typed_list &in, int _iRetCount, t
             types::Double* pD = in[0]->getAs<types::Double>();
             if(pD->getSize() != 1 || pD->isComplex())
             {
-                ScierrorW(999,_W("%ls: Wrong type for input argument #%d: A real expected.\n"), L"mclose", 1);
+                Scierror(999, _("%s: Wrong type for input argument #%d: A real expected.\n"), "mclose", 1);
                 return types::Function::Error;
             }
 
@@ -78,20 +80,20 @@ types::Function::ReturnValue sci_mclose(types::typed_list &in, int _iRetCount, t
             case 0: // stderr
             case 5: // stdin
             case 6: // stdout
-                ScierrorW(999, _W("%ls: Wrong file descriptor: %d.\n"), L"mclose", iVal);
+                Scierror(999, _("%s: Wrong file descriptor: %d.\n"), "mclose", iVal);
                 return types::Function::Error;
             }
             iRet = mclose(iVal);
         }
         else
         {
-            ScierrorW(999, _W("%ls: Wrong type for input argument #%d: A integer or string expected.\n"), L"mclose", 1);
+            Scierror(999, _("%s: Wrong type for input argument #%d: A integer or string expected.\n"), "mclose", 1);
             return types::Function::Error;
         }
     }
     else
     {
-        ScierrorW(999, _W("%ls: Wrong number of input arguments: %d or %d expected.\n"), L"mclose", 0, 1);
+        Scierror(999, _("%s: Wrong number of input arguments: %d or %d expected.\n"), "mclose", 0, 1);
         return types::Function::Error;
     }
 
