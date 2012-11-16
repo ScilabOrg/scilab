@@ -1056,4 +1056,77 @@ namespace types
         }
         return true;
     }
+
+    void Double::convertToInteger()
+    {
+        if(isViewAsInteger())
+        {
+            //already done
+            return;
+        }
+        //convert in place double to integer
+        int* piR = (int*)get();
+        double *pdblR = get();
+        //convert in place integer to double
+
+        if(isComplex())
+        {
+            int* piI = (int*)getImg();
+            double *pdblI = getImg();
+
+            //normal way to prevent overlap
+            for(int i = 0 ; i < getSize() ; i--)
+            {
+                pdblR[i] = (double)piR[i];
+                pdblI[i] = (double)piI[i];
+            }
+        }
+        else
+        {
+            //normal way to prevent overlap
+            for(int i = 0 ; i < getSize() ; i--)
+            {
+                pdblR[i] = (double)piR[i];
+            }
+        }
+
+        setViewAsInteger(true);
+    }
+
+    void Double::convertFromInteger()
+    {
+        if(isViewAsInteger() == false)
+        {
+            //no need change
+            return;
+        }
+
+        int* piR = (int*)get();
+        double *pdblR = get();
+        //convert in place integer to double
+
+        if(isComplex())
+        {
+            int* piI = (int*)getImg();
+            double *pdblI = getImg();
+
+            //reverse way to prevent overlap
+            for(int i = getSize() - 1 ; i >= 0 ; i--)
+            {
+                pdblR[i] = (double)piR[i];
+                pdblI[i] = (double)piI[i];
+            }
+        }
+        else
+        {
+            //reverse way to prevent overlap
+            for(int i = getSize() - 1 ; i >= 0 ; i--)
+            {
+                pdblR[i] = (double)piR[i];
+            }
+        }
+
+        setViewAsInteger(false);
+    }
+
 }

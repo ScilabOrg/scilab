@@ -14,6 +14,7 @@
 #include <sstream>
 #include <vector>
 #include "function.hxx"
+#include "double.hxx"
 #include "gatewaystruct.hxx"
 
 extern "C"
@@ -206,11 +207,23 @@ Function::ReturnValue WrapFunction::call(typed_list &in, optional_list &opt, int
             if (outOrder[i] - 1 < in.size())
             {
                 std::size_t const iPos(outOrder[i] - 1);
+                if(in[iPos]->isDouble() && ((types::Double*)in[iPos])->isViewAsInteger())
+                {
+                    types::Double* pD = in[iPos]->getAs<types::Double>();
+                    pD->convertFromInteger();
+                }
+
                 out.push_back(in[iPos]);
             }
             else
             {
                 std::size_t const iPos(outOrder[i] - in.size() - 1);
+                if(tmpOut[iPos]->isDouble() && ((types::Double*)tmpOut[iPos])->isViewAsInteger())
+                {
+                    types::Double* pD = tmpOut[iPos]->getAs<types::Double>();
+                    pD->convertFromInteger();
+                }
+
                 out.push_back(tmpOut[iPos]);
                 tmpOut[iPos] = 0;
             }
