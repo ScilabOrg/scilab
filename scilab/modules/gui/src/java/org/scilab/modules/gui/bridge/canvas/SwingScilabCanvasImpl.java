@@ -243,7 +243,25 @@ public class SwingScilabCanvasImpl {
             //if (OS.get() == OS.MAC) {
             //    return new MacOSXGLJPanel();
             //} else {
-                return new GLJPanel();
+            return new GLJPanel();
+            //}
+        }
+    }
+
+    public Component createOpenGLComponent(boolean isCanvas) {
+        if (isCanvas) {
+            return new GLCanvas();
+        } else {
+            /*
+             * Even with the good Java 1.6 version
+             * MacOSX does not manage mixing ligthweight and heavyweight components
+             * Use MacOSXGLJPanel as OpenGL component for now since GLJPanel will
+             * lead to deadlock on deletion.
+             */
+            //if (OS.get() == OS.MAC) {
+            //    return new MacOSXGLJPanel();
+            //} else {
+            return new GLJPanel();
             //}
         }
     }
