@@ -28,6 +28,8 @@ Xcos
 
 * Update the Palette icons and the rendering of some blocks.
 
+* xcosPalGenerateAllIcons added as an Xcos palette utility function.
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
