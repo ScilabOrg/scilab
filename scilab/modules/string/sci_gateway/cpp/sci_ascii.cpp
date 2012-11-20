@@ -389,7 +389,7 @@ String* DoubleToString(Double* _pdbl)
             sciprint(_("%ls: Wrong value for input argument #%d: Must be between %d and %d.\n"), L"ascii", 1, 0, 255);
             bWarning = true;
         }
-        pst[i] = (char)toascii((int)pdbl[i]);
+        pst[i] = (char)pdbl[i];
     }
 
     wchar_t* pwst = to_wide_string(pst);
@@ -408,35 +408,36 @@ Double* StringToDouble(String* _pst)
 {
     Double* pOut = NULL;
     /*compute total length*/
-    for(int i = 0 ; i < _pst->getSize() ; i++)
+    int iTotalLen = 0;
+    int iSize = _pst->getSize();
+    char** pst = new char*[iSize];
+    int* pstLen = new int[iSize];
+    for(int i = 0 ; i < iSize ; i++)
     {
-        char* pst = wide_string_to_UTF8(_pst->get(i));
-        if(pOut == NULL)
-        {
-            pOut = new Double(1, (int)strlen(pst));
-            int iLen = (int)strlen(pst);
-            double* pD = pOut->getReal();
-            for(int j = 0 ; j < iLen ; j++)
-            {
-                pD[j] = pst[j];
-            }
-        }
-        else
-        {
-            int iLen = (int)strlen(pst);
-            Double *pIn = new Double(1, iLen);
-            double* pD = pIn->getReal();
-            for(int j = 0 ; j < iLen ; j++)
-            {
-                pD[j] = pst[j];
-            }
+        pst[i] = wide_string_to_UTF8(_pst->get(i));
+        pstLen[i] = strlen(pst[i]);
+        iTotalLen += pstLen[i];
+    }
 
-            int iOldCols = pOut->getCols();
-            pOut->resize(1, iOldCols + iLen);
-            pOut->append(0, iOldCols, pIn);
-            delete pIn;
+    pOut = new Double(1, iTotalLen);
+    double* pdbl = pOut->get();
+    int index = 0;
+
+    for(int i = 0 ; i < iSize ; i++)
+    {
+        for(int j = 0 ; j < pstLen[i] ; j++)
+        {
+            pdbl[index++] = pst[i][j];
         }
     }
+
+    delete[] pstLen;
+    for(int i = 0 ; i < iSize ; i++)
+    {
+        delete pst[i];
+    }
+
+    delete[] pst;
     return pOut;
 }
 /*--------------------------------------------------------------------------*/
