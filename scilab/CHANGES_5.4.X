@@ -18,6 +18,8 @@ Xcos
 
 * New Flowmeter block in the thermohydraulics palette.
 
+* Update the Palette icons and the rendering of some blocks.
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
