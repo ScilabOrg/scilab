@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WScilex", "modules\windows_tools\src\c\WScilex\WScilex.vcxproj", "{CCD80549-EB9C-42AA-9B86-D687377E94F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A9A2020D-5541-44F2-B080-DF3C9426C409} = {A9A2020D-5541-44F2-B080-DF3C9426C409}
@@ -1522,13 +1522,9 @@ Global
 		{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}.Release|Win32.ActiveCfg = Release|Win32
 		{F1D56B26-F11F-4ECE-AB82-127B5E1C58E0}.Release|x64.ActiveCfg = Release|x64
 		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|Win32.ActiveCfg = Debug|Win32
-		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|Win32.Build.0 = Debug|Win32
 		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|x64.ActiveCfg = Debug|x64
-		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Debug|x64.Build.0 = Debug|x64
 		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|Win32.ActiveCfg = Release|Win32
-		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|Win32.Build.0 = Release|Win32
 		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|x64.ActiveCfg = Release|x64
-		{56A2E2F3-26CF-45D5-BE7A-534C39CD7003}.Release|x64.Build.0 = Release|x64
 		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|Win32.ActiveCfg = Debug|Win32
 		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|Win32.Build.0 = Debug|Win32
 		{A9A2020D-5541-44F2-B080-DF3C9426C409}.Debug|x64.ActiveCfg = Debug|x64
