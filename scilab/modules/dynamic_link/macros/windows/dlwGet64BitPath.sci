@@ -25,6 +25,10 @@ function vcPath64 = dlwGet64BitPath();
       end
     else
       select MSCompiler,
+        // Microsoft Visual 2012 Studio Professional
+        case  'msvc110pro' then
+        vcPath64 = dlwGetVc11ProPath();
+
         // Microsoft Visual 2010 Studio Professional
         case  'msvc100pro' then
         vcPath64 = dlwGetVc10ProPath();
