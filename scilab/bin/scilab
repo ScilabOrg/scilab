@@ -141,6 +141,12 @@ detect_type_of_scilab(){
         DISABLE_JAVA_DETECTION=1
     fi
 
+    if (echo "$progname"|grep "scinotes$" 2>&1 > /dev/null;) || (echo "$@"|grep "\-nwni" 2>&1 > /dev/null;) then
+        SCILAB_MODE="scinotes"
+        SCILABBIN="scilab-bin"
+        extraarg=1
+    fi
+
     if test $SCIVERBOSE -ne 0; then
         echo "SCILABBIN : $SCILABBIN"
         echo "DISABLE_JAVA_DETECTION : $DISABLE_JAVA_DETECTION"
@@ -810,9 +816,31 @@ fi
 # Check if SELINUX is enable. If it is the case, disable it for Scilab
 check_and_disable_selinux
 
+do_scinotes()
+{
+    # scinotes is called. We process the arguments
+    ARGS="["
+    INDENT="%f"
+    for SCIARG in "$@"; do
+        if test "$SCIARG" = "-indent"; then
+            INDENT="%t"
+        else
+            ARGS="$ARGS '$SCIARG', "
+        fi
+    done
+    ARGS="$ARGS ]"
+    # Call scinotes with the arguments
+    "$SCILABBIN" -e "scinotes($ARGS)" #, $INDENT)"
+
+}
+
 do_scilex()
 {
-    "$SCILABBIN" "$@"
+    if test "$SCILAB_MODE" = "scinotes"; then
+        do_scinotes "$@"
+    else
+        "$SCILABBIN" "$@"
+    fi
 }
 
 do_help()
