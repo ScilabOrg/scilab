@@ -54,14 +54,11 @@ types::Function::ReturnValue sci_gsort(types::typed_list &in, int _iRetCount, ty
             return types::Function::Error;
         }
 
-        wchar_t* pwstWay = in[2]->getAs<types::String>()->get(0);
-        if (pwstWay[0] == L'i')
+        wstrWay = in[2]->getAs<types::String>()->get(0);
+        if (wstrWay != L"i" && wstrWay != L"d")
         {
-            wstrWay = L"i";
-        }
-        else
-        {
-            wstrWay = L"d";
+            Scierror(999, _("%s: Wrong value for input argument #%d: ['i' 'd'] expected.\n"), "gsort", 3);
+            return types::Function::Error;
         }
     }
 
@@ -73,36 +70,16 @@ types::Function::ReturnValue sci_gsort(types::typed_list &in, int _iRetCount, ty
             return types::Function::Error;
         }
 
-        std::wstring wstr = in[1]->getAs<types::String>()->get(0);
-        switch (wstr[0])
+        wstrProcess = in[1]->getAs<types::String>()->get(0);
+
+        if ( wstrProcess != L"c"  &&
+                wstrProcess != L"r"  &&
+                wstrProcess != L"g"  &&
+                wstrProcess != L"lc" &&
+                wstrProcess != L"lr")
         {
-            case 'c' :
-                wstrProcess = L"c";
-                break;
-            case 'r' :
-                wstrProcess = L"r";
-                break;
-            case 'g' :
-                wstrProcess = L"g";
-                break;
-            case 'l' :
-            {
-                if (wstr != L"l" && wstr[1] == 'c')
-                {
-                    wstrProcess = L"lc";
-                    break;
-                }
-                else if (wstr != L"l" && wstr[1] == 'r')
-                {
-                    wstrProcess = L"lr";
-                    break;
-                }
-            }
-            default :
-            {
-                Scierror(999, _("%s: Wrong value for input argument #%d: ['g' 'r' 'c' 'lc' 'lr'] expected.\n"), "gsort", 2);
-                return types::Function::Error;
-            }
+            Scierror(999, _("%s: Wrong value for input argument #%d: ['g' 'r' 'c' 'lc' 'lr'] expected.\n"), "gsort", 2);
+            return types::Function::Error;
         }
     }
 
