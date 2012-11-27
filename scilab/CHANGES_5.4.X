@@ -53,6 +53,8 @@ Xcos
 
 * Bug #12014 fixed - dep_ut help was wrongly detailed.
 
+* Bug #12057 fixed - Xcos simulation was slower under Scilab-5.4.0 than under Scilab-5.3.3
+
 
 Documentation
 ==============
