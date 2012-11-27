@@ -98,7 +98,7 @@ static void appendData(scicos_block * block, int input, double t, double *data);
  * \param pPolylineUID the polyline uid
  *
  */
-static BOOL pushData(scicos_block * block, int input, int row);
+static BOOL pushData(scicos_block * block, int input, int row, int flag);
 
 /*****************************************************************************
  * Graphics utils
@@ -204,7 +204,7 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
 
             for (i = 0; i < block->insz[0]; i++)
             {
-                result = pushData(block, 0, i);
+                result = pushData(block, 0, i, flag);
                 if (result == FALSE)
                 {
                     Coserror("%s: unable to push some data.", "cscope");
@@ -214,6 +214,15 @@ SCICOS_BLOCKS_IMPEXP void cscope(scicos_block * block, scicos_flag flag)
             break;
 
         case Ending:
+            for (i = 0; i < block->insz[0]; i++)
+            {
+                result = pushData(block, 0, i, flag);
+                if (result == FALSE)
+                {
+                    Coserror("%s: unable to push some data.", "cscope");
+                    break;
+                }
+            }
             freeScoData(block);
             break;
 
@@ -447,7 +456,7 @@ static void appendData(scicos_block * block, int input, double t, double *data)
     }
 }
 
-static BOOL pushData(scicos_block * block, int input, int row)
+static BOOL pushData(scicos_block * block, int input, int row, int flag)
 {
     char const* pFigureUID;
     char *pAxeUID;
@@ -466,11 +475,14 @@ static BOOL pushData(scicos_block * block, int input, int row)
     if (sco == NULL)
         return FALSE;
 
-    // select the right input and row
-    data = sco->internal.data[input][row];
+    if ((sco->internal.numberOfPoints % block->ipar[2] == 0) || (flag == Ending))
+    {
+        // select the right input and row
+        data = sco->internal.data[input][row];
 
-    result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_X__, sco->internal.time, jni_double_vector, sco->internal.maxNumberOfPoints);
-    result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_Y__, data, jni_double_vector, sco->internal.maxNumberOfPoints);
+        result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_X__, sco->internal.time, jni_double_vector, sco->internal.maxNumberOfPoints);
+        result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_Y__, data, jni_double_vector, sco->internal.maxNumberOfPoints);
+    }
 
     return result;
 }
