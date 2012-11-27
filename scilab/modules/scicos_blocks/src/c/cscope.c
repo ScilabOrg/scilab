@@ -466,11 +466,14 @@ static BOOL pushData(scicos_block * block, int input, int row)
     if (sco == NULL)
         return FALSE;
 
-    // select the right input and row
-    data = sco->internal.data[input][row];
+    if (sco->internal.numberOfPoints % block->ipar[2] == 0)
+    {
+        // select the right input and row
+        data = sco->internal.data[input][row];
 
-    result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_X__, sco->internal.time, jni_double_vector, sco->internal.maxNumberOfPoints);
-    result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_Y__, data, jni_double_vector, sco->internal.maxNumberOfPoints);
+        result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_X__, sco->internal.time, jni_double_vector, sco->internal.maxNumberOfPoints);
+        result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_Y__, data, jni_double_vector, sco->internal.maxNumberOfPoints);
+    }
 
     return result;
 }
