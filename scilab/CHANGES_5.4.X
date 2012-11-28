@@ -119,6 +119,8 @@ Bug fixes
 
 * Bug #12077 fixed - In help, attribute bgcolor was not handled in tables.
 
+* Bug #12097 fixed - Scilab wrongly detected DLL platform information.
+
 * Bug #12115 fixed - phaseplot(frq,db,phi) did not work.
 
 
