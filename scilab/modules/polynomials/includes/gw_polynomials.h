@@ -1,6 +1,7 @@
 /*
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2006-2008 - INRIA - Allan CORNET
+ * Copyright (C) 2012 - Scilab Enterprises - Cedric DELAMARRE
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -15,26 +16,12 @@
 #define __GW_POLYNOMIALS__
 /*--------------------------------------------------------------------------*/
 #include "dynlib_polynomials.h"
+#include "c_gateway_prototype.h"
 /*--------------------------------------------------------------------------*/
 POLYNOMIALS_IMPEXP int gw_polynomials(void);
 /*--------------------------------------------------------------------------*/
-POLYNOMIALS_IMPEXP int sci_poly_primitive(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_roots(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_degree(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_coeff(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_pppdiv(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_simp(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_psum(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_pprod(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_pdiag(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_ptriu(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_ptril(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_bezout(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_sfact(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_simp_mode(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_varn(char *fname,unsigned long fname_len);
-POLYNOMIALS_IMPEXP int sci_cleanp(char *fname,unsigned long fname_len);
+//C_GATEWAY_PROTOTYPE(sci_simp);
+//C_GATEWAY_PROTOTYPE(sci_sfact);
 /*--------------------------------------------------------------------------*/
 #endif /*  __GW_POLYNOMIALS__ */
 /*--------------------------------------------------------------------------*/
-
