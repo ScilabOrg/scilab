@@ -100,6 +100,9 @@ Bug fixes
 * Bug #8883 fixed - In some cases, Scilab build from sources was looking for
                    libraries at the wrong place.
 
+# Bug #8964 fixed - The optim_{ga, moga, nsga, nsga2} functions may not create
+                    pop_init.
+
 * Bug #9005 fixed - The bitset function did not have any tests.
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
