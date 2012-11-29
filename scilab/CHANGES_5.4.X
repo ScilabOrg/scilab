@@ -44,6 +44,12 @@ Removed functions
 * Function optimsimplex_tostring removed. Use string() instead.
 
 
+Deprecated functions
+=====================
+
+* fit_dat has been deprecated for datafit. See bug #9306.
+
+
 Xcos
 =====
 
