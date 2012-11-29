@@ -126,6 +126,8 @@ Bug fixes
 
 * Bug #12115 fixed - phaseplot(frq,db,phi) did not work.
 
+* Bug #12120 fixed - eigs iswas broken for complex sparse matrices.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
