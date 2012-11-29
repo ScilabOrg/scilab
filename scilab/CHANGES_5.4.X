@@ -100,8 +100,11 @@ Bug fixes
 * Bug #8883 fixed - In some cases, Scilab build from sources was looking for
                    libraries at the wrong place.
 
-# Bug #8964 fixed - The optim_{ga, moga, nsga, nsga2} functions may not create
+* Bug #8964 fixed - The optim_{ga, moga, nsga, nsga2} functions may not create
                     pop_init.
+
+* Bug #8901 fixed - The help page of interp2d iswas unclear about the size of
+                    the arguments.
 
 * Bug #9005 fixed - The bitset function did not have any tests.
 
