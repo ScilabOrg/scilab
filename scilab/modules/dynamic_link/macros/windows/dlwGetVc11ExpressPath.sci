@@ -12,7 +12,7 @@ function vcPath = dlwGetVc11ExpressPath()
   vcPath = [];
   try
     vcPath = winqueryreg('HKEY_LOCAL_MACHINE', ..
-                      'Software\Microsoft\VCExpress\11.0\Setup\VS', ..
+                      'Software\Microsoft\VCExpress\11.0\Setup\VC', ..
                       'ProductDir');
   catch
     // remove last error on 'winqueryreg' fails
@@ -20,9 +20,15 @@ function vcPath = dlwGetVc11ExpressPath()
     return;
   end
 
-  // remove last file separator if it exists
-  if vcPath <> [] then
-    vcPath = pathconvert(vcPath, %f, %t);
-  end
+  //remove VC in path
+  if isdir(vcPath) then
+      temp=pwd();cd(vcPath);cd("..");vcPath = pwd() + "\";cd(temp);   
+      // remove last file separator if it exists
+      if vcPath <> [] then
+        vcPath = pathconvert(vcPath, %f, %t);
+      end
+  else
+    vcPath = [];
+  end      
 endfunction
 //=============================================================================
