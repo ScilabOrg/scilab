@@ -174,6 +174,8 @@ Bug fixes
 
 * Bug #12119 fixed - bar and barh had wrong x/y bounds.
 
+* Bug #12120 fixed - eigs was broken for complex sparse matrices.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
