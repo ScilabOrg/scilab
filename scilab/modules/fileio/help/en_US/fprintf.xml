@@ -56,7 +56,7 @@
         <title>Description</title>
         <para>
             <caution>
-                This function is obsolete, use preferabily the <link
+                This function is obsolete and will be removed in Scilab 5.5.0, use preferabily the <link
         linkend="mfprintf">mfprintf</link> function which is much more
                 compatible with the C <function>fprintf</function> functionalities.
             </caution>
