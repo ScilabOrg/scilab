@@ -174,6 +174,8 @@ Bug fixes
 
 * Bug #12119 fixed - bar and barh had wrong x/y bounds.
 
+* Bug #12137 fixed - eigs(A,B) returned incorrect result for sparse matrices.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
