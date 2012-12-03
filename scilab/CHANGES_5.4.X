@@ -201,6 +201,8 @@ Bug fixes
 
 * Bug #12119 fixed - bar and barh had wrong x/y bounds.
 
+* Bug #12137 fixed - eigs(A,B) returned incorrect result for sparse matrices.
+
 * Bug #12166 fixed - There was a bad label with drawaxis.
 
 * Bug #12179 fixed - Fix an incompatibility with MPI version of HDF5.
