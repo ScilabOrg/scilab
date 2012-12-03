@@ -105,11 +105,13 @@
                 <listitem>
                     <para>a 1-by-4 matrix of floating point integers, the range of rows
                         and columns which must be read (default range=[], meaning that all
-                        the rows and columns). Specify range using the format <literal>[R1
-                            C1 R2 C2]
+                        the rows and columns). Specify range using the format <literal>[Row1 Column1 Row2 Column2]
                         </literal>
                         where (R1,C1) is the upper left corner of the
                         data to be read and (R2,C2) is the lower right corner.
+                    </para>
+                    <para>
+                        <note>Note that the file has to be correctly formated. The range read will be done in a memory on the parsed elements.</note>
                     </para>
                 </listitem>
             </varlistentry>
