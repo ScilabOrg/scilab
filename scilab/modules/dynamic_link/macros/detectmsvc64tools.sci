@@ -37,45 +37,52 @@ function bOK = detectmsvc64tools()
   //=============================================================================
 
 
-  // Load dynamic_link Internal lib if it's not already loaded
-  if ~ exists("dynamic_linkwindowslib") then
-    load("SCI/modules/dynamic_link/macros/windows/lib");
-  end
-
-  if win64() then
-    compiler = findmsvccompiler();
-    supported_compiler = ['msvc110pro', ..
-                          'msvc110express', ..
-                          'msvc100pro', ..
-                          'msvc100express', ..
-                          'msvc90pro', ..
-                          'msvc90std', ..
-                          'msvc90express'];
-
-    if (find(supported_compiler == compiler) <> []) then
-      MSVCBIN64PATH = dlwGet64BitPath() + filesep() + 'VC\bin\amd64';
-      if isdir(MSVCBIN64PATH) then
-        bOK = %T;
-      else
-        show = displayWarningMsVC();
-        if show then
-          TXT = gettext('Microsoft Visual Studio C 2008 or more x64 Compiler not installed.');
-          warning(TXT);
-          clear TXT;
-          disableWarningMsVC();
-        end
-        bOK = %F;
-      end
-    else
-      show = displayWarningMsVC();
-      if show then
-        TXT = gettext('Microsoft Visual Studio C 2008 or more Compiler not found.');
-        warning(TXT);
-        clear TXT;
-        disableWarningMsVC();
-      end
-      bOK = %F;
+    // Load dynamic_link Internal lib if it's not already loaded
+    if ~ exists("dynamic_linkwindowslib") then
+        load("SCI/modules/dynamic_link/macros/windows/lib");
     end
+
+    if win64() then
+        compiler = findmsvccompiler();
+        supported_compiler = ['msvc110pro', ..
+                            'msvc110express', ..
+                            'msvc100pro', ..
+                            'msvc100express', ..
+                            'msvc90pro', ..
+                            'msvc90std', ..
+                            'msvc90express'];
+
+        if (find(supported_compiler == compiler) <> []) then
+            if compiler == "msvc110express" then
+                MSVCBIN64PATH = dlwGet64BitPath() + filesep() + 'VC\bin\';
+            else
+                MSVCBIN64PATH = dlwGet64BitPath() + filesep() + 'VC\bin\amd64';
+            end
+            
+            if isdir(MSVCBIN64PATH) then
+                bOK = %T;
+            else
+                show = displayWarningMsVC();
+                if show then
+                    TXT = gettext('Microsoft Visual Studio C 2008 or more x64 Compiler not installed.');
+                    warning(TXT);
+                    clear TXT;
+                    disableWarningMsVC();
+                end
+            
+                bOK = %F;
+            end
+        else
+            show = displayWarningMsVC();
+            if show then
+                TXT = gettext('Microsoft Visual Studio C 2008 or more Compiler not found.');
+                warning(TXT);
+                clear TXT;
+                disableWarningMsVC();
+            end 
+        
+            bOK = %F;
+        end
   end
 
 endfunction
