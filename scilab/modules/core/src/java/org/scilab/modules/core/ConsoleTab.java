@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import javax.swing.JTextArea;
 
+import org.scilab.modules.commons.ScilabCommonsUtils;
 import org.scilab.modules.gui.ScilabTermination;
 import org.scilab.modules.gui.bridge.CallScilabBridge;
 import org.scilab.modules.gui.bridge.tab.SwingScilabTab;
@@ -86,10 +87,11 @@ public class ConsoleTab {
             /* CONSOLE */
             /* Create a tab to put console into */
             LoadClassPath.loadOnUse("Console");
+            String tabName = Messages.gettext("Scilab Console") + " " + ScilabCommonsUtils.getScilabVersion();
             if (uuid == null) {
-                consoleTab = ScilabTab.createTab(Messages.gettext("Scilab Console"), UUID.randomUUID().toString());
+                consoleTab = ScilabTab.createTab(tabName, UUID.randomUUID().toString());
             } else {
-                consoleTab = ScilabTab.createTab(Messages.gettext("Scilab Console"), uuid);
+                consoleTab = ScilabTab.createTab(tabName, uuid);
             }
 
             ClosingOperationsManager.registerClosingOperation(consoleTab, new ClosingOperationsManager.ClosingOperation() {
