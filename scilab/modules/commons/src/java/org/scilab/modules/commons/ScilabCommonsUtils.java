@@ -40,6 +40,10 @@ public final class ScilabCommonsUtils {
         }
     }
 
+    public int[] getScilabVersion() {
+        return new int[] {ScilabCommons.getScilabVersionMajor(), ScilabCommons.getScilabVersionMinor(), ScilabCommons.getScilabVersionMaintenance(), ScilabCommons.getScilabVersionTimestamp()};
+    }
+
     /**
      * Get a MD5 string of the input string
      * @param str the string to convert
