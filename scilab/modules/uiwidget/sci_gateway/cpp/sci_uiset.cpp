@@ -76,7 +76,7 @@ int sci_uiset(char *fname, unsigned long fname_len)
 
     if (uid == -1)
     {
-        Scierror(999, _("%s: Invalid UIWidget object.\n"), fname);
+        Scierror(999, _("%s: The handle is not valid.\n"), fname);
         return 0;
     }
 
