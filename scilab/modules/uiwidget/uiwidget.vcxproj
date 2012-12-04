@@ -202,13 +202,13 @@
   <ItemGroup>
     <ClInclude Include="includes\dynlib_uiwidget_scilab.h" />
     <ClInclude Include="includes\gw_uiwidget.h" />
+    <ClInclude Include="includes\UIWidget.h" />
     <ClInclude Include="src\cpp\UIWidgetTools.hxx" />
     <ClInclude Include="src\cpp\UserDataHandler.hxx" />
     <ClInclude Include="src\jni\UIWidget.hxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sci_gateway\cpp\sci_percent_foo_i_UIWidget.cpp" />
-    <ClCompile Include="sci_gateway\cpp\sci_percent_UIWidget_e.cpp" />
+    <ClCompile Include="sci_gateway\cpp\sci_createUIWidgetHandle.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_uiget.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_uiset.cpp" />
     <ClCompile Include="sci_gateway\cpp\sci_uiwidget.cpp" />

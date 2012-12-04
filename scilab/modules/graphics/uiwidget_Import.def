@@ -1,0 +1,12 @@
+LIBRARY    uiwidget.dll
+
+
+EXPORTS
+;--------------------------
+; GUI
+;--------------------------
+deleteUIWidget
+isValidUIWidget
+showWindowUIWidget
+sci_uiget
+sci_uiset

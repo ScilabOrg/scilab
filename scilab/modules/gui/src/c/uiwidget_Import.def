@@ -1,0 +1,6 @@
+LIBRARY    uiwidget.dll
+
+
+EXPORTS
+;
+sci_uiwidget
