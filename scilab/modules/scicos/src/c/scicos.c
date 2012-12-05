@@ -815,6 +815,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         {
             cossim(t0);
         }
+        else if (C2F(cmsolver).solver == 4)   /*  RUNGEKUTTA: Method: Runge-Kutta-Fehlberg, Nonlinear solver= */
+        {
+            cossim(t0);
+        }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
@@ -1363,6 +1367,9 @@ static void cossim(double *told)
             case 3:
                 cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
+            case 4:
+                cvode_mem = RKFCreate(CV_RKF, CV_FUNCTIONAL);
+                break;
         }
 
         /*    cvode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);*/
@@ -1376,6 +1383,11 @@ static void cossim(double *told)
             return;
         }
 
+        if (C2F(cmsolver).solver == 4)
+        {
+           flag = RKFMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol); 
+        }
+        else
         flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
         if (check_flag(&flag, "CVodeMalloc", 1))
         {
@@ -1384,6 +1396,11 @@ static void cossim(double *told)
             return;
         }
 
+        if (C2F(cmsolver).solver == 4)
+        {
+           flag = RKFRootInit(cvode_mem, ng, grblk, NULL);
+        }
+        else
         flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
         if (check_flag(&flag, "CVodeRootInit", 1))
         {
@@ -1393,6 +1410,7 @@ static void cossim(double *told)
         }
 
         /* Call CVDense to specify the CVDENSE dense linear solver */
+        if (C2F(cmsolver).solver != 4)
         flag = CVDense(cvode_mem, *neq);
         if (check_flag(&flag, "CVDense", 1))
         {
@@ -1403,6 +1421,11 @@ static void cossim(double *told)
 
         if (hmax > 0)
         {
+            if (C2F(cmsolver).solver == 4)
+            {
+                flag = RKFSetMaxStep(cvode_mem, (realtype) hmax);
+            }
+            else
             flag = CVodeSetMaxStep(cvode_mem, (realtype) hmax);
             if (check_flag(&flag, "CVodeSetMaxStep", 1))
             {
@@ -1566,6 +1589,11 @@ L30:
 
                 if (hot == 0) /* hot==0 : cold restart*/
                 {
+                    if (C2F(cmsolver).solver == 4)
+                    {
+                        flag = RKFSetStopTime(cvode_mem, (realtype)tstop);  /* Setting the stop time*/
+                    }
+                    else
                     flag = CVodeSetStopTime(cvode_mem, (realtype)tstop);  /* Setting the stop time*/
                     if (check_flag(&flag, "CVodeSetStopTime", 1))
                     {
@@ -1574,6 +1602,11 @@ L30:
                         return;
                     }
 
+                    if (C2F(cmsolver).solver == 4)
+                    {
+                        flag = RKFReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
+                    }
+                    else
                     flag = CVodeReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
                     if (check_flag(&flag, "CVodeReInit", 1))
                     {
@@ -1620,6 +1653,11 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
+                    if (C2F(cmsolver).solver == 4)
+                    {
+                        flag = RKF(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    }
+                    else
                     flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
                     if (*ierr != 0)
                     {
@@ -1682,6 +1720,11 @@ L30:
                     hot = 0;
                     if (Discrete_Jump == 0)
                     {
+                        if (C2F(cmsolver).solver == 4)
+                        {
+                            flag = RKFGetRootInfo(cvode_mem, jroot);
+                        }
+                        else
                         flagr = CVodeGetRootInfo(cvode_mem, jroot);
                         if (check_flag(&flagr, "CVodeGetRootInfo", 1))
                         {
