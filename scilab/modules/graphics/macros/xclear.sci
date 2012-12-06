@@ -14,6 +14,8 @@ function xclear(win_num)
 // win_num can also be a vector of window Id to clear a set of windows
 //!
 
+  warnobsolete('clf', '5.5.0');
+
 	
   [lhs,rhs]=argn(0);
   if (rhs == 0) then
