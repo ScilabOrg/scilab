@@ -88,6 +88,17 @@ xstring(5,5,"string")
 -->
         
     </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revdescription>Function tagged obsolete. Will be removed in 5.5
+                    Please use <link linkend="ged">ged</link>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
     <refsection role="see also">
         <title>See Also</title>
         <simplelist type="inline">
