@@ -11,7 +11,8 @@ function fcontour2d(xr,yr,f,nz,style,strf,leg,rect,nax,void)
 	// deff('[z]=Surf(x,y)','z=x**2+y**2');
 	// fcontour(Surf,-1:0.1:1,-1:0.1:1,10);
 	
-	
+	warnobsolete('fft', '5.5.0');
+
 	[lhs,rhs]=argn(0);
 	
 	if rhs == 0 then   // demo
