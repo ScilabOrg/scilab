@@ -171,6 +171,16 @@ plot2d1("oll",x,[exp(x) exp(x^2) exp(x^3)])
             plot2d1("oll",x,[exp(x) exp(x^2) exp(x^3)])
         </scilab:image>
     </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revdescription>Function tagged obsolete. Will be removed in 5.5.0.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
     <refsection role="see also">
         <title>See Also</title>
         <simplelist type="inline">
