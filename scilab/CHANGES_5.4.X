@@ -75,6 +75,12 @@ Obsolete functions
   Use ged()
 
 
+Obsolete functions
+===================
+
+* plot2d1 tagged as obsolete. Will be removed for Scilab 5.5.0.
+
+
 Xcos
 =====
 
