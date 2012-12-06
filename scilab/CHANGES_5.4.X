@@ -74,6 +74,9 @@ Obsolete functions
 * xclear() tagged as obsolete. Will be removed for Scilab 5.5.0.
   Use clf()
 
+* xsetm() tagged as obsolete. Will be removed for Scilab 5.5.0.
+  Use ged()
+
 
 Xcos
 =====
