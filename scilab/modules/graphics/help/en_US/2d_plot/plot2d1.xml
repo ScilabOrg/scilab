@@ -177,6 +177,7 @@ plot2d1("oll",x,[exp(x) exp(x^2) exp(x^3)])
             <revision>
                 <revnumber>5.4.1</revnumber>
                 <revdescription>Function tagged obsolete. Will be removed in 5.5.0.
+                    Please use <link linkend="plot2d">plot2d</link>
                 </revdescription>
             </revision>
         </revhistory>
