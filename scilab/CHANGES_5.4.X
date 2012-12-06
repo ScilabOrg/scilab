@@ -47,6 +47,8 @@ Removed functions
 
 * draw() removed. Automatically managed by Scilab now.
 
+* xbasr() removed. Automatically managed by Scilab now.
+
 
 Obsolete functions
 ===================
