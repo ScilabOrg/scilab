@@ -53,6 +53,8 @@ Obsolete functions
 
 * plot2d1 tagged as obsolete. Will be removed for Scilab 5.5.0.
 
+* fcontour2d tagged as obsolete. Will be removed for Scilab 5.5.0.
+
 
 Xcos
 =====
