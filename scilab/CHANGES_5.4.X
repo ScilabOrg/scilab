@@ -51,9 +51,14 @@ Removed functions
 Obsolete functions
 ===================
 
-* plot2d1 tagged as obsolete. Will be removed for Scilab 5.5.0.
+* plot2d1() tagged as obsolete. Will be removed for Scilab 5.5.0.
+  Use plot2d()
 
-* fcontour2d tagged as obsolete. Will be removed for Scilab 5.5.0.
+* fcontour2d() tagged as obsolete. Will be removed for Scilab 5.5.0.
+  Use contour2d()
+
+* getlinestyle() tagged as obsolete. Will be removed for Scilab 5.5.0.
+  Use ged()
 
 
 Xcos
