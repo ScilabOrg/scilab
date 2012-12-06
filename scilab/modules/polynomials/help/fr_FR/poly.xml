@@ -112,7 +112,7 @@ h=(1+2*%s)/poly(1:4,'s','coeff')
         <revhistory>
             <revision>
                 <revnumber>5.5.0</revnumber>
-                <revremark>Les seules valeurs autorisées pour le troisième argument sont "roots" et "coeff".</revremark>
+                <revremark>Les seules valeurs autorisées pour le troisième argument sont "roots", "coeff", "c" et "r".</revremark>
             </revision>
         </revhistory>
     </refsection>
