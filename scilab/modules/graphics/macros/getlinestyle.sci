@@ -12,6 +12,8 @@ function k=getlinestyle()
 win=max(winsid()+1)
 scf(win);
 
+	warnobsolete('ged', '5.5.0');
+
 toolbar(win, "off");
 delmenu(win,_("&File")); 
 delmenu(win,_("&Edit"));
