@@ -28,7 +28,7 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
   envFlag = "";
 
   if getenv('__USE_DEPRECATED_STACK_FUNCTIONS__', 'NO') == "YES" then
-    envFlag = " -D__USE_DEPRECATED_STACK_FUNCTIONS__ ";
+    envFlag = envFlag + " -D__USE_DEPRECATED_STACK_FUNCTIONS__ ";
   end
   
   if getenv("DEBUG_SCILAB_DYNAMIC_LINK","NO") == "YES" then
@@ -48,7 +48,7 @@ function cmd = gencompilationflags_unix(ldflags, cflags, fflags, cc, flagsType)
   // LDFLAGS
   // Do not set the LDFLAGS See bug #4787
   if ldflags <> '' & flagsType <> "configure" then
-    cmd = cmd +" LDFLAGS="""+ldflags+""""
+    cmd = cmd +" LDFLAGS="" -static-libgfortran -static-libstdc++ "+ldflags+""""
   end
 
   // FFLAGS
