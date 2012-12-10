@@ -258,6 +258,13 @@ public final class SuperBlock extends BasicBlock {
              * Update the cells from the context values.
              */
             getChild().updateCellsContext();
+
+            /*
+             * Regenerate the child diagram
+             */
+            invalidateRpar();
+            getRealParameters();
+
         } finally {
             setLocked(false);
         }
