@@ -258,6 +258,7 @@ public final class SuperBlock extends BasicBlock {
              * Update the cells from the context values.
              */
             getChild().updateCellsContext();
+
         } finally {
             setLocked(false);
         }
