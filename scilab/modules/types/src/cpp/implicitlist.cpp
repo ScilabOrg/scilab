@@ -569,12 +569,12 @@ std::wstring printInLinePoly(types::SinglePoly* _pPoly, std::wstring _stVar)
         if(dbl != 0)
         {
             DoubleFormat df;
-            getDoubleFormat(dbl, &df);
-            df.bPrintPoint = ostr.str().size() != 0;
-            df.bPrintPlusSign = true;
-            df.bPrintOne = i == 0;
-            df.bPaddSign = false;
-            addDoubleValue(&ostr, dbl, &df);
+            getDoubleFormat(dbl, 0, &df);
+            df.bPrintPointR = ostr.str().size() != 0;
+            df.bPrintPlusSignR = true;
+            df.bPrintOneR = i == 0;
+            df.bPaddSignR = false;
+            addDoubleValue(&ostr, dbl, 0, &df);
             if(i != 0)
             {
                 ostr <<_stVar;
@@ -592,9 +592,9 @@ std::wstring printDouble(types::Double* _pD)
 {
     std::wostringstream ostr;
     DoubleFormat df;
-    getDoubleFormat(_pD->get(0), &df);
-    df.bPaddSign = true;
-    addDoubleValue(&ostr, _pD->get(0), &df);
+    getDoubleFormat(_pD->get(0), 0, &df);
+    df.bPaddSignR = true;
+    addDoubleValue(&ostr, _pD->get(0), 0, &df);
     return ostr.str();
 }
 

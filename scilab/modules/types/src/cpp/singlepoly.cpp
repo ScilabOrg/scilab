@@ -386,9 +386,9 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
         if (isRealZero(_pdblVal[i]) == false)
         {
             DoubleFormat df;
-            getDoubleFormat(_pdblVal[i], &df);
+            getDoubleFormat(_pdblVal[i], 0, &df);
 
-            if (iLen + df.iWidth + 2 >= iLineLen)
+            if (iLen + df.iWidthR + 2 >= iLineLen)
             {
                 //flush
                 for (int j = iLastFlush ; j < i ; j++)
@@ -416,10 +416,10 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
 
             bool bFirst = ostemp.str().size() == 2;
 
-            df.bPrintPoint = false;
-            df.bPrintPlusSign = ostemp.str().size() != 2;
-            df.bPrintOne = i == 0;
-            addDoubleValue(&ostemp, _pdblVal[i], &df);
+            df.bPrintPointR = false;
+            df.bPrintPlusSignR = ostemp.str().size() != 2;
+            df.bPrintOneR = i == 0;
+            addDoubleValue(&ostemp, _pdblVal[i], 0, &df);
 
             if (i != 0)
             {

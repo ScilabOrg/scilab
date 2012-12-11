@@ -23,6 +23,8 @@ extern "C"
 #include "os_wcsdup.h"
 #include "Scierror.h"
 #include "localization.h"
+#include "formatmode.h"
+
 }
 
 using namespace types;
@@ -104,37 +106,60 @@ Function::ReturnValue sci_string(typed_list &in, int _iRetCount, typed_list &out
     switch(in[0]->getType())
     {
     case GenericType::RealDouble :
+    case GenericType::RealInt8 :
+    case GenericType::RealInt16 :
+    case GenericType::RealInt32 :
+    case GenericType::RealInt64 :
+    case GenericType::RealUInt8 :
+    case GenericType::RealUInt16 :
+    case GenericType::RealUInt32 :
+    case GenericType::RealUInt64 :
+    case GenericType::RealPoly :
+    case GenericType::RealBool :
         {
-            int iRows = in[0]->getAs<Double>()->getRows();
-            int iCols = in[0]->getAs<Double>()->getCols();
+            //int iRows = in[0]->getAs<Double>()->getRows();
+            //int iCols = in[0]->getAs<Double>()->getCols();
 
-            // Special case string([]) == []
-            if(iRows == 0 && iCols == 0)
-            {
-                out.push_back(Double::Empty());
-                return Function::OK;
-            }
-            else if(iRows == -1 && iCols == -1)
-            {
-                out.push_back(new String(L""));
-                return Function::OK;
-            }
+            //// Special case string([]) == []
+            //if(iRows == 0 && iCols == 0)
+            //{
+            //    out.push_back(Double::Empty());
+            //    return Function::OK;
+            //}
+            //else if(iRows == -1 && iCols == -1)
+            //{
+            //    out.push_back(new String(L""));
+            //    return Function::OK;
+            //}
 
 
-            String *pstOutput = new String(iRows, iCols);
-            for (int i = 0; i < iRows * iCols; ++i)
+            //String *pstOutput = new String(iRows, iCols);
+            //for (int i = 0; i < iRows * iCols; ++i)
+            //{
+            //    std::wostringstream ostr;
+            //    double dblReal = in[0]->getAs<Double>()->getReal()[i];
+            //    double dblImg  = 0.0;
+            //    if (in[0]->getAs<Double>()->isComplex() == true)
+            //    {
+            //        dblImg  = in[0]->getAs<Double>()->getImg()[i];
+            //    }
+            //    DoubleComplexMatrix2String(&ostr, dblReal, dblImg);
+            //    pstOutput->set(i, ostr.str().c_str());
+            //}
+            //out.push_back(pstOutput);
+
+            GenericType* pGT = in[0]->getAs<GenericType>();
+            String* pS = new String(pGT->getDims(), pGT->getDimsArray());
+
+            int oldLines = getConsoleLines();
+            setConsoleLines(0);
+            for(int i = 0 ; i <  pGT->getSize() ; i++)
             {
-                std::wostringstream ostr;
-                double dblReal = in[0]->getAs<Double>()->getReal()[i];
-                double dblImg  = 0.0;
-                if (in[0]->getAs<Double>()->isComplex() == true)
-                {
-                    dblImg  = in[0]->getAs<Double>()->getImg()[i];
-                }
-                DoubleComplexMatrix2String(&ostr, dblReal, dblImg);
-                pstOutput->set(i, ostr.str().c_str());
+                pS->set(i, pGT->toStringOne(i).c_str());
             }
-            out.push_back(pstOutput);
+
+            setConsoleLines(oldLines);
+            out.push_back(pS);
             break;
         }
     case GenericType::RealString :

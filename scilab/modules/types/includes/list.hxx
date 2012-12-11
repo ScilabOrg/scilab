@@ -55,7 +55,7 @@ namespace types
         bool                            isList() { return true; }
 
         InternalType*                   insert(typed_list* _pArgs, InternalType* _pSource);
-        std::vector<InternalType*>      extract(typed_list* _pArgs);
+        std::vector<InternalType*>      extractItem(typed_list* _pArgs);
         virtual InternalType*           get(const int _iIndex);
 
         /* return type as string ( double, int, cell, list, ... )*/

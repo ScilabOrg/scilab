@@ -145,7 +145,7 @@ namespace types
         return true;
     }
 
-    std::vector<InternalType*>	List::extract(typed_list* _pArgs)
+    std::vector<InternalType*>	List::extractItem(typed_list* _pArgs)
     {
         std::vector<InternalType*> outList;
         //check input param
