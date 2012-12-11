@@ -123,6 +123,13 @@ public :
         return false;
     }
 
+    virtual std::wstring toStringOne(int _iPos)
+    {
+        return L"";
+    }
+
+
+    virtual InternalType*       extract(typed_list* _pArgs) { return NULL; }
 };
 
 static bool isCoordIndex(int _iIndex, int* _piCoord, int _iCoordCount)

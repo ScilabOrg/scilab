@@ -267,7 +267,7 @@ void visitprivate(const CallExp &e)
                     break;
                 case types::InternalType::RealList :
                 {
-                    ResultList = pIT->getAs<types::List>()->extract(pArgs);
+                    ResultList = pIT->getAs<types::List>()->extractItem(pArgs);
 
                     switch (ResultList.size())
                     {
@@ -305,7 +305,7 @@ void visitprivate(const CallExp &e)
                             //call "normal" extract
                             typed_list iField;
                             iField.push_back(pArg);
-                            ResultList = pIT->getAs<TList>()->extract(&iField);
+                            ResultList = pIT->getAs<TList>()->extractItem(&iField);
                         }
                         else if (pArg->isString())
                         {

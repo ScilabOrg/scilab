@@ -90,8 +90,8 @@ std::wstring Printer::operator()(double const& d) const
 {
     std::wostringstream ostr;
     DoubleFormat df;
-    getDoubleFormat(d, &df);
-    addDoubleValue(&ostr, d, &df);
+    getDoubleFormat(d, 0, &df);
+    addDoubleValue(&ostr, d, 0, &df);
     return ostr.str();
 }
 
@@ -100,9 +100,9 @@ std::wstring Printer::operator()(std::complex<double > const& c) const
 {
     std::wostringstream ostr;
     int iLen = 0;
-    DoubleFormat dfR, dfI;
-    getComplexFormat(c.real(), c.imag(), &iLen, &dfR, &dfI);
-    addDoubleComplexValue(&ostr, c.real(), c.imag(), iLen, &dfR, &dfI);
+    DoubleFormat df;
+    getDoubleFormat(c.real(), c.imag(), &df);
+    addDoubleValue(&ostr, c.real(), c.imag(), &df);
     return ostr.str();
 }
 
