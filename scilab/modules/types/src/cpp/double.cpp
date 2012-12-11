@@ -286,16 +286,15 @@ namespace types
             if(isComplex() == false)
             {
                 DoubleFormat df;
-                getDoubleFormat((m_pRealData[0]), &df);
-                addDoubleValue(&ostr, (m_pRealData[0]), &df);
+                getDoubleFormat(ZeroIsZero(m_pRealData[0]), 0, &df);
+                addDoubleValue(&ostr, ZeroIsZero(m_pRealData[0]), 0, &df);
                 ostr << endl;
             }
             else
             {//complex value
-                DoubleFormat dfR, dfI;
-                getDoubleFormat(ZeroIsZero(m_pRealData[0]), &dfR);
-                getDoubleFormat(ZeroIsZero(m_pImgData[0]), &dfI);
-                addDoubleComplexValue(&ostr, ZeroIsZero(m_pRealData[0]), ZeroIsZero(m_pImgData[0]), dfR.iWidth + dfI.iWidth, &dfR, &dfI);
+                DoubleFormat df;
+                getDoubleFormat(ZeroIsZero(m_pRealData[0]), ZeroIsZero(m_pImgData[0]), &df);
+                addDoubleValue(&ostr, ZeroIsZero(m_pRealData[0]), ZeroIsZero(m_pImgData[0]), &df);
                 ostr << endl;
             }
             ostr << endl;
@@ -314,18 +313,17 @@ namespace types
             if(isComplex() == false)
             {
                 DoubleFormat df;
-                getDoubleFormat((m_pRealData[iPos]), &df);
-                ostr << SPACE_BETWEEN_TWO_VALUES;
-                addDoubleValue(&ostr, (m_pRealData[iPos]), &df);
+                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
+                addSpaces(&ostr, SIZE_BETWEEN_TWO_VALUES);
+                addDoubleValue(&ostr, ZeroIsZero(m_pRealData[iPos]), 0, &df);
                 ostr << endl;
             }
             else
             {//complex value
-                DoubleFormat dfR, dfI;
-                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &dfR);
-                getDoubleFormat(ZeroIsZero(m_pImgData[iPos]), &dfI);
-                ostr << SPACE_BETWEEN_TWO_VALUES;
-                addDoubleComplexValue(&ostr, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), dfR.iWidth + dfI.iWidth, &dfR, &dfI);
+                DoubleFormat df;
+                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
+                addSpaces(&ostr, SIZE_BETWEEN_TWO_VALUES);
+                addDoubleValue(&ostr, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
                 ostr << endl;
             }
         }
@@ -348,9 +346,9 @@ namespace types
                     int iPos = getIndex(_piDims);
 
                     DoubleFormat df;
-                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &df);
-                    ostr << SPACE_BETWEEN_TWO_VALUES;
-                    addDoubleValue(&ostr, ZeroIsZero(m_pRealData[iPos]), &df);
+                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
+                    addSpaces(&ostr, SIZE_BETWEEN_TWO_VALUES);
+                    addDoubleValue(&ostr, ZeroIsZero(m_pRealData[iPos]), 0, &df);
                     ostr << endl;
                 }
             }
@@ -369,12 +367,10 @@ namespace types
                     _piDims[0] = i;
                     int iPos = getIndex(_piDims);
 
-                    DoubleFormat dfR, dfI;
-                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &dfR);
-                    getDoubleFormat(ZeroIsZero(m_pImgData[iPos]), &dfI);
-
-                    ostr << SPACE_BETWEEN_TWO_VALUES;
-                    addDoubleComplexValue(&ostr, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), dfR.iWidth + dfI.iWidth, &dfR, &dfI);
+                    DoubleFormat df;
+                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
+                    addSpaces(&ostr, SIZE_BETWEEN_TWO_VALUES);
+                    addDoubleValue(&ostr, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
                     ostr << endl;
                 }
             }
@@ -394,8 +390,8 @@ namespace types
                     int iPos = getIndex(_piDims);
 
                     DoubleFormat df;
-                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &df);
-                    iLen = df.iWidth + static_cast<int>(ostemp.str().size());
+                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
+                    iLen = df.iWidthR + static_cast<int>(ostemp.str().size());
                     if(iLen > iLineLen)
                     {//Max length, new line
                         iCurrentLine += 4; //"column x to Y" + empty line + value + empty line
@@ -412,8 +408,8 @@ namespace types
                         iLastVal = i;
                     }
 
-                    ostemp << SPACE_BETWEEN_TWO_VALUES;
-                    addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), &df);
+                    addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                    addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), 0, &df);
                 }
 
                 if(iLastVal != 0)
@@ -433,8 +429,8 @@ namespace types
                     int iTotalLen = 0;
                     int iPos = getIndex(_piDims);
 
-                    DoubleFormat dfR, dfI;
-                    getComplexFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &iTotalLen, &dfR, &dfI);
+                    DoubleFormat df;
+                    getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
 
                     iLen = static_cast<int>(ostemp.str().size());
                     if(isRealZero(m_pImgData[iPos]))
@@ -445,22 +441,22 @@ namespace types
                         }
                         else
                         {
-                            iLen		+= dfR.iWidth;
-                            dfI.iWidth	= 0;
+                            iLen		+= df.iWidthR;
+                            df.iWidthI	= 0;
                         }
                     }
                     else
                     {
                         if(isRealZero(m_pRealData[iPos]))
                         {
-                            iLen		+= dfI.iWidth;
-                            dfR.iWidth	= 0;
+                            iLen		+= df.iWidthI;
+                            df.iWidthR	= 0;
                         }
                         else
                         {
-                            iLen += dfR.iWidth;
-                            iLen += SIZE_BETWEEN_REAL_COMPLEX;
-                            iLen += dfI.iWidth;
+                            iLen += df.iWidthR;
+                            iLen += df.iSpaceBetweenValues;
+                            iLen += df.iWidthI;
                         }
                     }
 
@@ -480,8 +476,8 @@ namespace types
                         iLastVal = i;
                     }
 
-                    ostemp << SPACE_BETWEEN_TWO_VALUES;
-                    addDoubleComplexValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), iLen, &dfR, &dfI);
+                    addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                    addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
                 }
 
                 if(iLastVal != 0)
@@ -509,18 +505,16 @@ namespace types
                 {
                     for(int iRows1 = 0 ; iRows1 < getRows() ; iRows1++)
                     {
-                        int iCurrentLen = 0;
                         _piDims[0] = iRows1;
                         _piDims[1] = iCols1;
                         int iPos = getIndex(_piDims);
 
                         DoubleFormat df;
-                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &df);
-                        iCurrentLen	= df.iWidth;
+                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
 
-                        if(iCurrentLen > piSize[iCols1])
+                        if(df.iTotalWidth > piSize[iCols1])
                         {
-                            piSize[iCols1] = iCurrentLen;
+                            piSize[iCols1] = df.iTotalWidth;
                         }
                     }
 
@@ -550,12 +544,11 @@ namespace types
                                 int iPos = getIndex(_piDims);
 
                                 DoubleFormat df;
-                                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &df);
+                                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
+                                df.iTotalWidth = piSize[iCols2];
 
-                                ostemp << SPACE_BETWEEN_TWO_VALUES;
-
-                                df.iWidth = piSize[iCols2];
-                                addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), &df);
+                                addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                                addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), 0, &df);
                             }
                             ostemp << endl;
                         }
@@ -601,11 +594,11 @@ namespace types
                         int iPos = getIndex(_piDims);
 
                         DoubleFormat df;
-                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), &df);
+                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), 0, &df);
 
-                        ostemp << SPACE_BETWEEN_TWO_VALUES;
-                        df.iWidth = piSize[iCols2];
-                        addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), &df);
+                        addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                        df.iTotalWidth = piSize[iCols2];
+                        addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), 0, &df);
                     }
                     ostemp << endl;
                 }
@@ -623,18 +616,17 @@ namespace types
                 {
                     for(int iRows1 = 0 ; iRows1 < getRows() ; iRows1++)
                     {
-                        int iTotalWidth = 0;
                         _piDims[0] = iRows1;
                         _piDims[1] = iCols1;
                         int iPos = getIndex(_piDims);
 
-                        DoubleFormat dfR, dfI;
-                        getComplexFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &iTotalWidth, &dfR, &dfI);
+                        DoubleFormat df;
+                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
 
-                        iTotalWidth += (dfR.iWidth == 0 ? 0 : SIGN_LENGTH) + (dfI.iWidth == 0 ? 0 : SIGN_LENGTH + 1);
-                        if(iTotalWidth > piSize[iCols1])
+                        //iTotalWidth += (df.iWidthR == 0 ? 0 : df.iSignLenR) + (df.iWidthI == 0 ? 0 : df.iSignLenI + 1);
+                        if(df.iTotalWidth > piSize[iCols1])
                         {
-                            piSize[iCols1] = iTotalWidth;
+                            piSize[iCols1] = df.iTotalWidth;
                         }
                     }
 
@@ -659,16 +651,15 @@ namespace types
 
                             for(int iCols2 = iLastCol ; iCols2 < iCols1 ; iCols2++)
                             {
-                                int iTotalWidth = 0;
                                 _piDims[0] = iRows2;
                                 _piDims[1] = iCols2;
                                 int iPos = getIndex(_piDims);
 
-                                DoubleFormat dfR, dfI;
-                                getComplexFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &iTotalWidth, &dfR, &dfI);
-
-                                ostemp << SPACE_BETWEEN_TWO_VALUES;
-                                addDoubleComplexValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), piSize[iCols2], &dfR, &dfI);
+                                DoubleFormat df;
+                                getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
+                                addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                                df.iTotalWidth = piSize[iCols2];
+                                addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
                             }
                             ostemp << endl;
                         }
@@ -709,16 +700,15 @@ namespace types
 
                     for(int iCols2 = iLastCol ; iCols2 < getCols() ; iCols2++)
                     {
-                        int iTotalWidth = 0;
                         _piDims[0] = iRows2;
                         _piDims[1] = iCols2;
                         int iPos = getIndex(_piDims);
 
-                        DoubleFormat dfR, dfI;
-                        getComplexFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &iTotalWidth, &dfR, &dfI);
-
-                        ostemp << SPACE_BETWEEN_TWO_VALUES;
-                        addDoubleComplexValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), piSize[iCols2], &dfR, &dfI);
+                        DoubleFormat df;
+                        getDoubleFormat(ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
+                        addSpaces(&ostemp, SIZE_BETWEEN_TWO_VALUES);
+                        df.iTotalWidth = piSize[iCols2];
+                        addDoubleValue(&ostemp, ZeroIsZero(m_pRealData[iPos]), ZeroIsZero(m_pImgData[iPos]), &df);
                     }
                     ostemp << endl;
                 }
@@ -1055,5 +1045,49 @@ namespace types
             }
         }
         return true;
+    }
+
+    std::wstring Double::toStringOne(int _iPos)
+    {
+        std::wostringstream ostr;
+        if(isIdentity())
+        {
+            return L"";
+        }
+        else if(isEmpty())
+        {
+            return L"[]";
+        }
+        else
+        {
+            if(isComplex() == false)
+            {
+                DoubleFormat df;
+                df.iSignLenR = 0;
+                df.bPaddSignR = false;
+                df.bPrintPointR = false;
+                getDoubleFormat((m_pRealData[_iPos]), 0, &df);
+                addDoubleValue(&ostr, (m_pRealData[_iPos]), 0, &df);
+            }
+            else
+            {//complex value
+                DoubleFormat df;
+                df.bPrintPointR = false;
+                df.iSignLenR = 0;
+                df.bPaddSignR = false;
+
+                df.bPrintPointI = false;
+                df.iSignLenI = 0;
+                df.bPrintPlusSignI = true;
+                df.bPrintOneI = false;
+                df.wstrSymbolI = SYMBOL_II;
+
+                getDoubleFormat(m_pRealData[_iPos], m_pImgData[_iPos], &df);
+                df.iTotalWidth = 0;
+                addDoubleValue(&ostr, m_pRealData[_iPos], m_pImgData[_iPos], &df);
+            }
+
+            return ostr.str();
+        }
     }
 }
