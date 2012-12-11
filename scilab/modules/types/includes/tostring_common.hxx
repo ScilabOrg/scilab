@@ -14,6 +14,7 @@
 #define __TOSTRING_COMMON_HXX__
 
 #include <sstream>
+#include <string>
 #include "dynlib_types.h"
 #include "os_swprintf.h"
 
@@ -24,12 +25,14 @@
 #define SIZE_BOOL                       1
 #define SIZE_BETWEEN_BOOL               1
 #define SPACE_BETWEEN_BOOL              L" "
-#define SIGN_LENGTH                     2
+#define SIGN_LENGTH                     1
 #define NO_SIGN                         L" "
 #define MINUS_STRING                    L"-"
+#define SIZE_MINUS_STRING               1
 #define PLUS_STRING                     L"+"
 #define MINUS_STRING_INT                L" -"
 #define SYMBOL_I                        L"i"
+#define SYMBOL_II                       L"%i*"
 
 
 #define MAX_LINES                       100
@@ -40,26 +43,40 @@
 
 typedef struct __DOUBLE_FORMAT__
 {
-    __DOUBLE_FORMAT__() : iWidth(0), iPrec(0), bExp(false), bPrintPoint(true), bPrintPlusSign(false), bPrintOne(true), bPaddSign(true), iSignLen(2) {}
-    int iWidth;
-    int iPrec;
-    bool bExp;
-    bool bPrintPoint;
-    bool bPrintPlusSign;
-    bool bPrintOne;
-    bool bPaddSign;
-    int iSignLen;
-}DoubleFormat;
+    __DOUBLE_FORMAT__() : wstrSymbolI(SYMBOL_I), iTotalWidth(0), iSpaceBetweenValues(1),
+        bExpR(false), bExpI(false),
+        iWidthR(0), iWidthI(0),
+        iPrecR(0), iPrecI(0),
+        bPrintPointR(true), bPrintPointI(true),
+        bPrintPlusSignR(false), bPrintPlusSignI(true),
+        bPrintOneR(true), bPrintOneI(false),
+        bPaddSignR(true), bPaddSignI(true),
+        iSignLenR(2), iSignLenI(2),  bSymbolIRight(true) {}
+    bool bExpR;
+    bool bExpI;
+    int iWidthR;
+    int iWidthI;
+    int iPrecR;
+    int iPrecI;
+    bool bPrintPointR;
+    bool bPrintPointI;
+    bool bPrintPlusSignR;
+    bool bPrintPlusSignI;
+    bool bPrintOneR;
+    bool bPrintOneI;
+    bool bPaddSignR;
+    bool bPaddSignI;
+    int iSignLenR;
+    int iSignLenI;
+    int iTotalWidth;
+    int iSpaceBetweenValues;
+    std::wstring wstrSymbolI;
+    bool bSymbolIRight;
+} DoubleFormat;
 
 /*double*/
-//TYPES_IMPEXP void getDoubleFormat(double _dblVal, int *_piWidth, int *_piPrec, bool* _pExp);
-TYPES_IMPEXP void getDoubleFormat(double _dblVal, DoubleFormat* _pDF);
-//TYPES_IMPEXP void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, int *_piWidthR, int *_piWidthI, int *_piPrecR, int *_piPrecI, bool* _pExpR, bool* _pExpI);
-TYPES_IMPEXP void getComplexFormat(double _dblR, double _dblI, int *_piTotalWidth, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
-
-//addDoubleValue(int _iWidth, int _iPrec, bool _bExp, bool _bPrintPoint = true, bool _bPrintPlusSign = false, bool _bPrintOne = true, bool _bPaddSign = true, int _iSignLen = 2);
-TYPES_IMPEXP void addDoubleValue(std::wostringstream *_postr, double _dblVal, DoubleFormat* _pDF);
-TYPES_IMPEXP void addDoubleComplexValue(std::wostringstream *_postr, double _dblR, double _dblI, int _iTotalLen, DoubleFormat* _pDFR, DoubleFormat* _pDFI);
+TYPES_IMPEXP void getDoubleFormat(double _dblR, double _dblI, DoubleFormat * _pDF);
+TYPES_IMPEXP void addDoubleValue(std::wostringstream * _postr, double _dblValR, double _dblValI, DoubleFormat * _pDF);
 
 /*Common*/
 TYPES_IMPEXP void configureStream(std::wostringstream *_postr, int _iWidth, int _iPrec, char _cFill);
@@ -73,7 +90,7 @@ TYPES_IMPEXP void addSpaces(std::wostringstream *_postr, int _iSpace);
 template <typename T>
 void getUnsignedIntFormat(T _TVal, int *_piWidth)
 {
-    if(_TVal == 0)
+    if (_TVal == 0)
     {
         *_piWidth = 0;
     }
@@ -87,7 +104,7 @@ void getUnsignedIntFormat(T _TVal, int *_piWidth)
 template <typename T>
 void getSignedIntFormat(T _TVal, int *_piWidth)
 {
-    if(_TVal == 0)
+    if (_TVal == 0)
     {
         *_piWidth = 0;
     }
@@ -104,21 +121,21 @@ void addUnsignedIntValue(std::wostringstream *_postr, T _TVal, int _iWidth, bool
     wchar_t* pwstSign = NULL;
     wchar_t pwstFormat[32];
     wchar_t pwstOutput[32];
-	if(bPrintPlusSign == true)
-	{
-		pwstSign = PLUS_STRING;
-	}
-	else
-	{
-		pwstSign = NO_SIGN;
-	}
+    if (bPrintPlusSign == true)
+    {
+        pwstSign = PLUS_STRING;
+    }
+    else
+    {
+        pwstSign = NO_SIGN;
+    }
 
-	if(bPrintOne == true || _TVal != 1)
-	{
+    if (bPrintOne == true || _TVal != 1)
+    {
         os_swprintf(pwstFormat, 32, L" %ls%ld", pwstSign, _abs64(_TVal));
         os_swprintf(pwstOutput, 32, L"%*ls", _iWidth + 1, pwstFormat);//+1 for blank
         *_postr << pwstOutput;
-	}
+    }
 }
 
 template <typename T>
@@ -127,21 +144,21 @@ void addSignedIntValue(std::wostringstream *_postr, T _TVal, int _iWidth, bool b
     const wchar_t* pwstSign = NULL;
     wchar_t pwstFormat[32];
     wchar_t pwstOutput[32];
-	if(bPrintPlusSign == true)
-	{
-		pwstSign = (_TVal < 0 ? L"-" : L"+");
-	}
-	else
-	{
-		pwstSign = (_TVal < 0 ? L"-" : L" ");
-	}
+    if (bPrintPlusSign == true)
+    {
+        pwstSign = (_TVal < 0 ? L"-" : L"+");
+    }
+    else
+    {
+        pwstSign = (_TVal < 0 ? L"-" : L" ");
+    }
 
-	if(bPrintOne == true || _TVal != 1)
-	{
+    if (bPrintOne == true || _TVal != 1)
+    {
         os_swprintf(pwstFormat, 32, L" %ls%ld", pwstSign, _abs64(_TVal));
         os_swprintf(pwstOutput, 32, L"%*ls", _iWidth + 1, pwstFormat);//+1 for blank
         *_postr << pwstOutput;
-	}
+    }
 }
 
 

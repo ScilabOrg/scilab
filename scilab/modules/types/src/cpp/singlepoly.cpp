@@ -383,12 +383,14 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
     for (int i = 0 ; i < m_iRank ; i++)
     {
         piIndexExp[i] = 0;
-        if (isRealZero(_pdblVal[i]) == false)
+        if (_pdblVal[i])
         {
             DoubleFormat df;
-            getDoubleFormat(_pdblVal[i], &df);
+            df.bPrintPointR = false;
+            df.bPrintOneR = i == 0;
+            getDoubleFormat(_pdblVal[i], 0, &df);
 
-            if (iLen + df.iWidth + 2 >= iLineLen)
+            if (iLen + df.iWidthR + 2 >= iLineLen)
             {
                 //flush
                 for (int j = iLastFlush ; j < i ; j++)
@@ -399,7 +401,7 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
                     }
 
                     addSpaces(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
-                    if (isRealZero(_pdblVal[j]) == false)
+                    if (_pdblVal[j] == false)
                     {
                         ostemp2 << j;
                     }
@@ -416,10 +418,11 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
 
             bool bFirst = ostemp.str().size() == 2;
 
-            df.bPrintPoint = false;
-            df.bPrintPlusSign = ostemp.str().size() != 2;
-            df.bPrintOne = i == 0;
-            addDoubleValue(&ostemp, _pdblVal[i], &df);
+            df.bPrintPointR = false;
+            df.bPaddSignR = !bFirst;
+            df.bPrintPlusSignR = !bFirst;
+            //df.iSignLenR = (bFirst ? df.iSignLenR : 0);
+            addDoubleValue(&ostemp, _pdblVal[i], 0, &df);
 
             if (i != 0)
             {
@@ -441,7 +444,7 @@ void SinglePoly::toStringInternal(double *_pdblVal, wstring _szVar, list<wstring
             }
 
             addSpaces(&ostemp2, piIndexExp[j] - static_cast<int>(ostemp2.str().size()));
-            if (isRealZero(_pdblVal[j]) == false)
+            if (_pdblVal[j])
             {
                 ostemp2 << j;
             }

@@ -73,6 +73,8 @@ namespace types
         virtual std::wstring        getTypeStr() {return L"constant";}
         /* return type as short string ( s, i, ce, l, ... )*/
         virtual std::wstring        getShortTypeStr() {return L"s";}
+
+        virtual std::wstring        toStringOne(int _iPos);
     protected :
         RealType                    getType(void);
 
@@ -85,8 +87,6 @@ namespace types
         virtual void                deleteAll();
         virtual void                deleteImg();
         virtual double*             allocData(int _iSize);
-
-
     };
 }
 
