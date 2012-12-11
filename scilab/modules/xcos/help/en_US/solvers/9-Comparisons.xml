@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) Scilab Enterprises - 2012 - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.
+ * The terms are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="Comparisons">
+    <refnamediv>
+        <refname>Comparisons</refname>
+        <refpurpose>
+            This page compares solvers to determine which one is best fitted for the studied problem.
+        </refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Introduction</title>
+        <para>
+            Following the type of problem studied, finding out which method to use is not always obvious, only genereal guidelines can be established. Those are and discussed in this page.
+        </para>
+        <title>Variable-size and Fixed-size</title>
+        <para>
+            The solvers can be divided into two distinct main families : the <emphasis>Variable</emphasis>-size and the <emphasis>Fixed</emphasis>-size step methods.
+        </para>
+        <para>
+            They both compute the next simulation time as the sum of the current simulation time and a quantity known as the step size, which is constant in the Fixed-size solvers and can change in the Variable-size ones, depending on the model dynamics and the input <link linkend="Simulatemenu_Menu_entries">tolerances</link>.
+        </para>
+        <para>
+            If looking for stable computation time, the user should select a Fixed-size step solver, because the computation overhead for a Variable-size step method cannot be properly foreseen.
+        </para>
+        <para>
+            Although for a simple problem (or loose tolerances) a Variable-size solver can significantly improve the simulation time by computing bigger step sizes, a Fixed-size method is preferable if the ideal step size is known and roughly constant (the user should then mention it in <link linkend="Simulatemenu_Menu_entries">max step size</link>).
+        </para>
+        <para>
+            <!--<informaltable border="1">
+                <tr>
+                <td align="center"><emphasis role="bold">Variable</emphasis></td>
+                <td align="center"><emphasis role="bold">Fixed</emphasis></td>
+                </tr>
+                <tr>
+                <td>LSodar</td>
+                <td>Runge-Kutta</td>
+                </tr>
+                <tr>
+                <td>CVode</td>
+                <td>Dormand-Prince</td>
+                </tr>
+                <tr>
+                <td>IDA</td>
+                <td>Implicit Runge-Kutta</td>
+                </tr>
+            </informaltable>-->
+            <emphasis role="bold">Variable</emphasis>-size step solvers :
+            <simplelist>
+                <member>LSodar</member>
+                <member>CVode</member>
+                <member>IDA</member>
+            </simplelist>
+            <emphasis role="bold">Fixed</emphasis>-size step solvers :
+            <simplelist>
+                <member>Runge-Kutta 4(5)</member>
+                <member>Dormand-Prince 4(5)</member>
+                <member>Implicit Runge-Kutta 4(5)</member>
+            </simplelist>
+        </para>
+        <para>
+            Variable step-size ODE solvers are not appropriate for deterministic real-time applications because the computational overhead of taking a time step varies over the course of an application.
+        </para>
+        <title>Explicit and Implicit - Stiffness</title>
+        <para>
+            Within these two families, we can distinguish <emphasis>Explicit</emphasis> solvers from <emphasis>Implicit</emphasis> ones.
+        </para>
+        <para>
+            While <emphasis>explicit</emphasis> methods only use data available on the current step, the <emphasis>implicit</emphasis> ones will attempt to compute derivatives at further times. In order to do this, they use nonlinear solvers such as fixed-point iterations, functional iterations (nonstiff) or modified Newton methods (stiff).
+        </para>
+        <para>
+            The family choice is usually determined by the <emphasis>stiffness</emphasis> of the problem, which is, when there is a big gap between the biggest and the smallest eigen values modules of the jacobian matrix (when it is ill-conditionned). It is generally a system that is sensitive to discontinuitues, meaning that the required precision is not constant.
+        </para>
+        <para>
+            <emphasis role="bold">Implicit</emphasis> solvers :
+            <simplelist>
+                <member>LSodar</member>
+                <member>CVode</member>
+                <member>IDA</member>
+                <member>Implicit Runge-Kutta 4(5)</member>
+            </simplelist>
+            <emphasis role="bold">Explicit</emphasis> solvers :
+            <simplelist>
+                <member>Runge-Kutta 4(5)</member>
+                <member>Dormand-Prince 4(5)</member>
+            </simplelist>
+        </para>
+        <para>
+            To put it simply, the <emphasis>Explicit</emphasis> go straight to a computation of the solution, whereas the <emphasis>Implicit</emphasis> concentrate on stability, involving more operations, following the tolerances.
+        </para>
+        <title>So how to choose ?</title>
+        <para>
+            Because it is not possible to know for sure wether a solver will be efficient for a given system or not, the best way is to run the most probable on it and to compare their results.
+        </para>
+        <para>
+            The user should first establish the complexity of his problem (stability / stiffness) and if he desires high precision, rapid simulation, predictable time or an automated program.
+            <para>
+                <emphasis role="bold">Precision :</emphasis> <emphasis>CVode</emphasis>,
+            </para>
+            <para>
+                <emphasis role="bold">Predictable time :</emphasis> Fixed-size step.
+            </para>
+            <para>
+                <emphasis role="bold">Simulation time :</emphasis> <emphasis>LSodar</emphasis>,
+            </para>
+            <para>
+                <emphasis role="bold">Automated :</emphasis> <emphasis>LSodar</emphasis>,
+            </para>
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <para>
+            We will begin with a simple nonstiff example : a Sinus integration.
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/solvers/ODE_Example.xcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../examples/solvers/ODE_Example.xcos" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+            <scilab:image><![CDATA[
+loadScicos();
+loadXcosLibs();
+importXcosDiagram(SCI + "/modules/xcos/examples/solvers/ODE_Example.xcos");
+scs_m.props.tol(6) = 0;
+try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+]]></scilab:image>
+        </para>
+        <para>
+            In the following script, we compare the time difference between the solvers by running the example with the six solvers in turn (<emphasis>IDA</emphasis> doesn't handle this kind of problem) :
+            <link type="scilab" linkend ="scilab.scinotes/xcos/examples/solvers/ODE_Example.sce">
+                Open the script
+            </link>
+        </para>
+        <para>
+            The Scilab console displays :
+            <screen><![CDATA[
+Time for LSodar :
+ 6.106
+
+Time for CVode BDF/Newton :
+ 19.259
+
+Time for CVode BDF/Functional :
+ 18.502
+
+Time for CVode Adams/Newton :
+ 10.456
+
+Time for CVode Adams/Functional :
+ 9.704
+
+Time for Dormand-Prince :
+ 7.643
+            ]]></screen>
+        </para>
+        <para>
+            These results show that on a nonstiff problem and for same precision required, LSodar is fastest.
+        </para>
+        <para>
+            In spite of the computational overhead of the step size, it beats Dormand-Prince because it is able to take long steps.
+        </para>
+        <para>
+            Next, the <emphasis>Inverted Pendulum</emphasis> is put to the test.
+            <link type="scilab" linkend="scilab.xcos/xcos/demos/Inveted_pendulum.xcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../demos/Inverted_pendulum.xcos" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+            <scilab:image><![CDATA[
+loadScicos();
+loadXcosLibs();
+importXcosDiagram(SCI + "/modules/xcos/demos/Inverted_pendulum.xcos");
+scs_m.props.tol(6) = 0;
+try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+]]></scilab:image>
+        </para>
+        <para>
+            In the following script, we compare the time difference between the solvers by running the example with the six solvers in turn (<emphasis>IDA</emphasis> doesn't handle this kind of problem) :
+            <link type="scilab" linkend ="scilab.scinotes/xcos/examples/solvers/ODE_Example.sce">
+                Open the script
+            </link>
+        </para>
+        <para>
+            The Scilab console displays :
+            <screen><![CDATA[
+Time for LSodar :
+ 9.102
+
+Time for CVode BDF/Newton :
+ 17.943
+
+Time for CVode BDF/Functional :
+ 16.901
+
+Time for CVode Adams/Newton :
+ 12.736
+
+Time for CVode Adams/Functional :
+ 12.253
+
+Time for Dormand-Prince :
+ 10.137
+            ]]></screen>
+        </para>
+        <para>
+            These results show that on a stressing problem and for same precision required, LSodar is still fastest. The gap between <emphasis>Adams/Functional</emphasis> and <emphasis>BDF/Newton</emphasis> is shorter because the stiffness starts kicking in.
+        </para>
+        <para>
+            Next, the <emphasis>Lorentz butterfly</emphasis> is put to the test.
+            <link type="scilab" linkend="scilab.xcos/xcos/demos/Lorentz.xcos">
+                <inlinemediaobject>
+                    <imageobject>
+                        <imagedata align="center" fileref="../../../demos/Lorentz.xcos" valign="middle"/>
+                    </imageobject>
+                </inlinemediaobject>
+            </link>
+            <scilab:image><![CDATA[
+loadScicos();
+loadXcosLibs();
+importXcosDiagram(SCI + "/modules/xcos/demos/Lorentz.xcos");
+scs_m.props.tol(6) = 0;
+scs_m.props.tf = 5;
+try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+]]></scilab:image>
+        </para>
+        <para>
+            In the following script, we compare the time difference between the solvers by running the example with the six solvers in turn (<emphasis>IDA</emphasis> doesn't handle this kind of problem) :
+            <link type="scilab" linkend ="scilab.scinotes/xcos/examples/solvers/benchLorentz.sce">
+                Open the script
+            </link>
+        </para>
+        <para>
+            The Scilab console displays :
+            <screen><![CDATA[
+Time for LSodar :
+ -
+
+Time for CVode BDF/Newton :
+ -
+
+Time for CVode BDF/Functional :
+ -
+
+Time for CVode Adams/Newton :
+ -
+
+Time for CVode Adams/Functional :
+ -
+
+Time for Dormand-Prince :
+ -
+            ]]></screen>
+        </para>
+        <para>
+            These results show that on a nonstiff problem, for same precision required and forcing the same step size, Runge-Kutta is faster.
+        </para>
+    </refsection>
+    <refsection>
+        <title>See Also</title>
+        <simplelist type="inline">
+            <member>
+                <link linkend="LSodar">LSodar</link>
+            </member>
+            <member>
+                <link linkend="CVode">CVode</link>
+            </member>
+            <member>
+                <link linkend="IDA">IDA</link>
+            </member>
+            <member>
+                <link linkend="RK">Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="DoPri">Dormand-Prince 4(5)</link>
+            </member>
+            <member>
+                <link linkend="ImpRK">Implicit Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="ode">ode</link>
+            </member>
+            <member>
+                <link linkend="ode_discrete">ode_discrete</link>
+            </member>
+            <member>
+                <link linkend="ode_root">ode_root</link>
+            </member>
+            <member>
+                <link linkend="odedc">odedc</link>
+            </member>
+            <member>
+                <link linkend="impl">impl</link>
+            </member>
+        </simplelist>
+    </refsection>
+</refentry>
