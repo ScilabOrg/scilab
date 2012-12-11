@@ -13,13 +13,13 @@
     <refnamediv>
         <refname>Runge-Kutta 4(5)</refname>
         <refpurpose>
-            Runge-Kutta is a numerical solver providing an efficient explicit method to solve Ordinary Differential Equations (ODEs) Initial Value Problems. Called by <link linkend="xcos">xcos</link>.
+            <emphasis>Runge-Kutta</emphasis> is a numerical solver providing an efficient explicit method to solve Ordinary Differential Equations (ODEs) Initial Value Problems.
         </refpurpose>
     </refnamediv>
     <refsection>
         <title>Description</title>
         <para>
-            Runge-Kutta is a numerical solver providing an efficient fixed-size step method to solve Initial Value Problems of the form :
+            Called by <link linkend="xcos">xcos</link>, <emphasis>Runge-Kutta</emphasis> is a numerical solver providing an efficient fixed-size step method to solve Initial Value Problems of the form :
         </para>
         <para>
             <latex>
@@ -175,14 +175,14 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
       ]]></programlisting>
         </para>
         <para>
-            The Scilab console displays :
+            The Scilab console displays (+-1 sec) :
             <screen><![CDATA[
 Time for Runge-Kutta :
  18.254
             ]]></screen>
         </para>
         <para>
-            Now, in the following script, we compare the time difference between Runge-Kutta and Sundials by running the example with the five solvers in turn :
+            Now, in the following script, we compare the time difference between Runge-Kutta and CVode by running the example with the five solvers in turn (+-1 sec) :
             <link type="scilab" linkend ="scilab.scinotes/xcos/examples/solvers/integRK.sce">
                 Open the script
             </link>
@@ -195,11 +195,11 @@ Time for BDF / Newton :
 Time for BDF / Functional :
  24.893
 
-Time for Adams / Functional :
- 20.049
-
 Time for Adams / Newton :
  20.469
+
+Time for Adams / Functional :
+ 20.049
 
 Time for Runge-Kutta :
  18.254
@@ -216,13 +216,13 @@ Time for Runge-Kutta :
         <title>See Also</title>
         <simplelist type="inline">
             <member>
+                <link linkend="LSodar">LSodar</link>
+            </member>
+            <member>
                 <link linkend="CVode">CVode</link>
             </member>
             <member>
                 <link linkend="IDA">IDA</link>
-            </member>
-            <member>
-                <link linkend="LSodar">LSodar</link>
             </member>
             <member>
                 <link linkend="DoPri">Dormand-Price 4(5)</link>
