@@ -1810,6 +1810,21 @@ public :
                 }
             }
 
+            if (piStart->isDouble() && piStart->getAs<Double>()->isComplex())
+            {
+                throw 1;
+            }
+
+            if (piStep->isDouble() && piStep->getAs<Double>()->isComplex())
+            {
+                throw 2;
+            }
+
+            if (piEnd->isDouble() && piEnd->getAs<Double>()->isComplex())
+            {
+                throw 3;
+            }
+
             ImplicitList *pIL = new ImplicitList(piStart, piStep, piEnd);
 
             result_set(pIL);
@@ -1832,7 +1847,7 @@ public :
         catch (int iPos)
         {
             wchar_t szError[bsiz];
-            os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Scalar expected.\n"), L":", iPos);
+            os_swprintf(szError, bsiz, _W("%ls: Wrong type for argument %d: Real scalar expected.\n"), L":", iPos);
             throw ScilabError(szError, 999, e.location_get());
         }
         catch (ScilabError error)
