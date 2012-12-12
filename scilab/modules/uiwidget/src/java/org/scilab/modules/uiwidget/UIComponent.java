@@ -41,6 +41,7 @@ import javax.swing.ScrollPaneConstants;
 
 import org.xml.sax.Attributes;
 
+import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.uiwidget.components.NoLayout;
 import org.scilab.modules.uiwidget.components.UIFocusListener;
 import org.scilab.modules.uiwidget.components.UIMouseListener;
@@ -70,6 +71,7 @@ public abstract class UIComponent {
     protected Map<String, String> constraint;
     protected Rectangle position = new Rectangle();
     protected String tabTitle;
+    protected CommonCallBack callback;
 
     protected UIComponent() { }
 
@@ -596,6 +598,26 @@ public abstract class UIComponent {
         if (c != null) {
             getModifiableJComponent().setBackground(c);
         }
+    }
+
+    public Color getForegroundColor() throws UIWidgetException {
+        return getModifiableJComponent().getForeground();
+    }
+
+    public Color getBackgroundColor() throws UIWidgetException {
+        return getModifiableJComponent().getBackground();
+    }
+
+    public void setCallback(CommonCallBack cb) {
+        this.callback = cb;
+    }
+
+    public String getCallback() {
+        if (callback != null) {
+            return callback.getCommand();
+        }
+
+        return null;
     }
 
     public void setScrollable(boolean b) {

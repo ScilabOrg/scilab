@@ -51,8 +51,8 @@ import org.scilab.modules.uiwidget.components.UISlider;
 import org.scilab.modules.uiwidget.components.UIProgressBar;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.graphic_objects.graphicObject.CallBack;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
-import org.scilab.modules.gui.events.callback.ScilabCallBack;
 import org.scilab.modules.gui.events.callback.CommonCallBack;
 import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.Size;
@@ -664,7 +664,7 @@ public final class StringConverters {
                     return null;
                 }
 
-                return ScilabCallBack.create(str);
+                return CommonCallBack.createCallback(str, CallBack.SCILAB_INSTRUCTION_WITHOUT_GCBO);
             }
         });
         converters.put(DecimalFormat.class, new StringConverter() {

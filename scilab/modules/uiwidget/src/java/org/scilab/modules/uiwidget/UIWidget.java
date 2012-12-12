@@ -68,13 +68,13 @@ public class UIWidget {
 
     public static void uiget(int uid, String property, int stackPos) throws Exception {
         if (property == null || property.isEmpty()) {
-            throw new Exception(String.format("Invalid argument: A property name expected"));
+            throw new Exception("Invalid argument: A valid property name expected");
         }
 
         final UIComponent comp = UILocator.get(uid);
 
         if (comp == null) {
-            throw new Exception("Invalid first argument: An uicontrol identifier expected");
+            throw new Exception("Invalid first argument: A valid uicontrol identifier expected");
         }
 
         String p = property.toLowerCase();
@@ -85,7 +85,7 @@ public class UIWidget {
             ObjectToScilabConverters.putOnScilabStack(comp.getPath(), stackPos);
         } else if (p.equals("parent")) {
             ObjectToScilabConverters.putOnScilabStack(comp.getParent(), stackPos);
-        } else if (p.equals("id")) {
+        } else if (p.equals("id") || p.equals("tag")) {
             ObjectToScilabConverters.putOnScilabStack(comp.getId(), stackPos);
         } else {
             Object o = comp.getProperty(property);

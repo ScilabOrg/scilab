@@ -72,7 +72,7 @@ int sci_uiwidget(char * fname, unsigned long fname_len)
         }
         catch (const GiwsException::JniException & e)
         {
-            Scierror(999, _("%s: Java exception arisen:\n%s\n"), fname, e.what());
+            Scierror(999, _("%s: %s\n"), fname, e.getJavaDescription().c_str());
             return 0;
         }
 
@@ -102,7 +102,7 @@ int sci_uiwidget(char * fname, unsigned long fname_len)
         }
         catch (const GiwsException::JniException & e)
         {
-            Scierror(999, _("%s: Java exception arisen:\n%s\n"), fname, e.what());
+            Scierror(999, _("%s: %s\n"), fname, e.getJavaDescription().c_str());
             return 0;
         }
 

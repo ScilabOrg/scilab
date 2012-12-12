@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.scilab.modules.action_binding.InterpreterManagement;
+import org.scilab.modules.gui.events.callback.CommonCallBack;
+import org.scilab.modules.gui.events.callback.ScilabCallBack;
 
 public final class UIWidgetTools {
 
@@ -69,5 +71,12 @@ public final class UIWidgetTools {
         if (command != null && !command.isEmpty()) {
             InterpreterManagement.requestScilabExec(getActionString(uicomp, command, args));
         }
+    }
+
+    public static CommonCallBack getDefaultCallback(final String command, final int uid) {
+        return ScilabCallBack.create("if exists(\"gcbo\") then %oldgcbo = gcbo; end;"
+                                     + "gcbo = createUIWidgetHandle(int32(" + Integer.toString(-uid - 1) + "));"
+                                     + command
+                                     + ";if exists(\"%oldgcbo\") then gcbo = %oldgcbo; else clear gcbo; end;");
     }
 }
