@@ -57,7 +57,7 @@ assert_checkalmostequal ( 1.23456 , 1.23457 , 1.e11*%eps );
             For example, consider the function <literal>assert_checktrue</literal>,
             which calling sequence is:
         </para>
-        <programlisting role="example"><![CDATA[
+        <programlisting role="no-scilab-exec"><![CDATA[
 flag = assert_checktrue ( condition )
 flag = assert_checktrue ( condition )
 [flag,errmsg] = assert_checktrue ( condition )
