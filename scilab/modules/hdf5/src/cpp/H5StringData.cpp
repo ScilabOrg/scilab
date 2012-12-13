@@ -57,7 +57,7 @@ H5StringData::~H5StringData()
         {
             if (_data[i])
             {
-                free(_data[i]);
+                //free(_data[i]);
             }
         }
     }

@@ -84,7 +84,7 @@ static int readIntAttribute(int _iDatasetId, const char *_pstName)
 
     if (H5Aiterate(_iDatasetId, H5_INDEX_NAME, H5_ITER_NATIVE, &n, find_attr_by_name, (void *)_pstName) > 0)
     {
-        iAttributeId = H5Aopen_name(_iDatasetId, _pstName);
+        iAttributeId = H5Aopen_by_name(_iDatasetId, ".", _pstName, H5P_DEFAULT, H5P_DEFAULT);
         if (iAttributeId < 0)
         {
             return -1;
@@ -373,12 +373,15 @@ int getVariableNames(int _iFile, char **pstNameList)
     herr_t status = 0;
     int iNbItem = 0;
     H5O_info_t oinfo;
+    H5G_info_t ginfo;
 
-    status = H5Gget_num_objs(_iFile, &iCount);
+    status = H5Gget_info(_iFile, &ginfo);
     if (status != 0)
     {
         return 0;
     }
+
+    iCount = ginfo.nlinks;
 
     for (i = 0; i < iCount; i++)
     {

@@ -13,6 +13,9 @@ assert_checkfalse(h5isRef("42"));
 assert_checkfalse(h5isRef(42));
 
 w = "testing";
+w = "un truc a la con, histoire de voir ce que ca donne";
+w = "abc";
+
 x = list(1, "hello");
 y = [1 2;3 4];
 z = 1;
