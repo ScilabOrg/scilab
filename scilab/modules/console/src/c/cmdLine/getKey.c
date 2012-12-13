@@ -285,6 +285,7 @@ static void getKey(wchar_t ** commandLine, unsigned int *cursorLocation)
             {
                 setCBreak(0);
                 setCharDisplay(DISP_FAINT);
+                setTokenInteruptExecution(SEND_COMMAND);
             }
             addChar(commandLine, key, cursorLocation);
 
