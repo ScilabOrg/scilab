@@ -65,6 +65,7 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
     /* for switch on number of '*' and type */
     #define  choosetype(num,type)  (5*(num)+(type))
 
+
     int retval = -1;
 
     switch (choosetype (asterisk_count, conversion_type))
@@ -101,7 +102,7 @@ static int call_printf(XXPRINTF xxprintf,char *target,char *p,char *sval,int *as
 
     case choosetype (0, PF_D):
         {
-            retval += (*xxprintf) ((VPTR) target, p, (long long)dval);
+            retval += (*xxprintf) ((VPTR) target, p, (int)dval);
         }
         break;
 
