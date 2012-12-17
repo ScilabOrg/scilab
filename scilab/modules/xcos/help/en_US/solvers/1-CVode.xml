@@ -192,7 +192,7 @@ loadScicos();
 loadXcosLibs();
 importXcosDiagram(SCI + "/modules/xcos/examples/solvers/ODE_Example.xcos");
 scs_m.props.tol(6) = 1;
-try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
 ]]></scilab:image>
         </para>
         <para>
@@ -211,7 +211,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
 
       // Start the timer, launch the simulation and display time
       tic();
-      try xcos_simulate(scs_m, 4); catch disp(lasterror()); end;
+      try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
       t = toc();
       disp(t, "Time for BDF / Newton :");
       ]]></programlisting>
@@ -263,6 +263,9 @@ Time for Adams / Functional :
             </member>
             <member>
                 <link linkend="DoPri">Dormand-Price 4(5)</link>
+            </member>
+            <member>
+                <link linkend="DoPri">Implicit Runge-Kutta 4(5)</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
