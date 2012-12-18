@@ -22,6 +22,14 @@ int checkIndexesArguments(InternalType* _pRef, typed_list* _pArgsIn, typed_list*
     int iSeqCount       = 1;
     bool bUndefine      = false;
 
+    if (iDims == 1 && ((*_pArgsIn)[0])->isColon() && _pRef)
+    {
+        //extaction or insertion with : on existing variables
+        //x = a(:);
+        //x(:) = a;
+        return -1;
+    }
+
     for (int i = 0 ; i < iDims ; i++)
     {
         bool bDeleteNeeded  = false;

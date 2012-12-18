@@ -341,6 +341,40 @@ public :
         {
             return this;
         }
+        else if (iSeqCount == -1)
+        {
+            //case of a(:)
+            if (pSource->getSize() != getSize())
+            {
+                return NULL;
+            }
+
+            //force dest to have the same complex flag as source
+            setComplex(pSource->isComplex());
+
+            T* pR =  get();
+            T* pSR = pSource->get();
+
+            if (isComplex() == true)
+            {
+                T* pI =  getImg();
+                T* pSI = pSource->getImg();
+                for (int i = 0 ; i < getSize(); i++)
+                {
+                    pR[i] = copyValue(pSR[i]);
+                    pI[i] = copyValue(pSI[i]);
+                }
+            }
+            else
+            {
+                for (int i = 0 ; i < getSize(); i++)
+                {
+                    pR[i] = copyValue(pSR[i]);
+                }
+            }
+
+            return this;
+        }
 
         if (iDims >= m_iDims)
         {
@@ -925,6 +959,13 @@ public :
         if (iSeqCount == 0)
         {
             return createEmptyDouble();
+        }
+        else if (iSeqCount == -1)
+        {
+            //case of a(:)
+            pOut = clone()->getAs<ArrayOf>();
+            pOut->reshape(getSize(), 1);
+            return pOut;
         }
 
         if (iDims < m_iDims)
