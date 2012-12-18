@@ -17,12 +17,11 @@ c     issue prompt with optional pause
       logical iflag,interruptible
 cDEC$ IF DEFINED (FORDLL)
 cDEC$ ATTRIBUTES DLLIMPORT:: /basbrk/
-cDEC$ ENDIF            
+cDEC$ ENDIF
       common /basbrk/ iflag,interruptible
 
       escape=0
       if (pause .ne. 1) then
-         call basout(io,wte,' ')
          call setprlev(paus)
       else
 C     version with pause ( mode(7) )
