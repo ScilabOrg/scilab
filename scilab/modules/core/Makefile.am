@@ -76,7 +76,8 @@ src/c/suspendProcess.c \
 src/c/windowsChangeManagement.c \
 src/c/setlines.c \
 src/c/setformat.c \
-src/c/InitializePreferences.c
+src/c/InitializePreferences.c \
+src/c/sci_tools.c
 
 CORE_CPP_SOURCES = \
 src/cpp/core_gw.cpp \
