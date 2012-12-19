@@ -851,6 +851,18 @@ Sparse* Sparse::insert(typed_list* _pArgs, InternalType* _pSource)
     {
         return this;
     }
+    else if (iSeqCount == -1)
+    {
+        //case of a(:)
+        if (pSource->getSize() != getSize())
+        {
+            return NULL;
+        }
+
+        Sparse* pOut = new Sparse(*pSource);
+        pOut->reshape(getDimsArray(), getDims());
+        return pOut;
+    }
 
     if (iDims < 2)
     {
@@ -1010,6 +1022,18 @@ Sparse* Sparse::insert(typed_list* _pArgs, Sparse* _pSource)
     if (iSeqCount == 0)
     {
         return this;
+    }
+    else if (iSeqCount == -1)
+    {
+        //case of a(:)
+        if (_pSource->getSize() != getSize())
+        {
+            return NULL;
+        }
+
+        Sparse* pOut = new Sparse(*_pSource);
+        pOut->reshape(getDimsArray(), getDims());
+        return pOut;
     }
 
     if (iDims < 2)
@@ -1200,6 +1224,12 @@ InternalType* Sparse::extract(typed_list* _pArgs)
             //a([])
             return Double::Empty();
         }
+    }
+    else if (iSeqCount == -1)
+    {
+        pOut = clone()->getAs<Sparse>();
+        pOut->reshape(getSize(), 1);
+        return pOut;
     }
 
     if (iDims < 2)
@@ -1540,7 +1570,7 @@ int* Sparse::getNbItemByRow(int* _piNbItemByRows)
         mycopy_n(matrixReal->outerIndexPtr(), getRows() + 1, piNbItemByRows);
     }
 
-    for(int i = 0 ; i < getRows() ; i++)
+    for (int i = 0 ; i < getRows() ; i++)
     {
         _piNbItemByRows[i] = piNbItemByRows[i + 1] - piNbItemByRows[i];
     }
@@ -1551,7 +1581,7 @@ int* Sparse::getNbItemByRow(int* _piNbItemByRows)
 
 int* Sparse::getColPos(int* _piColPos)
 {
-    if(isComplex())
+    if (isComplex())
     {
         mycopy_n(matrixCplx->innerIndexPtr(), nonZeros(), _piColPos);
     }
@@ -1908,6 +1938,18 @@ SparseBool* SparseBool::insert(typed_list* _pArgs, SparseBool* _pSource)
     {
         return this;
     }
+    else if (iSeqCount == -1)
+    {
+        //case of a(:)
+        if (_pSource->getSize() != getSize())
+        {
+            return NULL;
+        }
+
+        SparseBool* pOut = _pSource->clone();
+        pOut->reshape(getDimsArray(), getDims());
+        return pOut;
+    }
 
     if (iDims < 2)
     {
@@ -2035,6 +2077,18 @@ SparseBool* SparseBool::insert(typed_list* _pArgs, InternalType* _pSource)
     if (iSeqCount == 0)
     {
         return this;
+    }
+    else if (iSeqCount == -1)
+    {
+        //case of a(:)
+        if (pSource->getSize() != getSize())
+        {
+            return NULL;
+        }
+
+        SparseBool* pOut = new SparseBool(*pSource);
+        pOut->reshape(getDimsArray(), getDims());
+        return pOut;
     }
 
     if (iDims < 2)
@@ -2302,6 +2356,12 @@ InternalType* SparseBool::extract(typed_list* _pArgs)
             return Double::Empty();
         }
     }
+    else if (iSeqCount == -1)
+    {
+        pOut = clone()->getAs<SparseBool>();
+        pOut->reshape(getSize(), 1);
+        return pOut;
+    }
 
     if (iDims < 2)
     {
@@ -2393,7 +2453,7 @@ int* SparseBool::getNbItemByRow(int* _piNbItemByRows)
     int* piNbItemByRows = new int[getRows() + 1];
     mycopy_n(matrixBool->outerIndexPtr(), getRows() + 1, piNbItemByRows);
 
-    for(int i = 0 ; i < getRows() ; i++)
+    for (int i = 0 ; i < getRows() ; i++)
     {
         _piNbItemByRows[i] = piNbItemByRows[i + 1] - piNbItemByRows[i];
     }

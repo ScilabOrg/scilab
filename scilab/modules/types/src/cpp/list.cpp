@@ -162,9 +162,14 @@ std::vector<InternalType*>	List::extract(typed_list* _pArgs)
 
     //evaluate each argument and replace by appropriate value and compute the count of combinations
     int iSeqCount = checkIndexesArguments(this, _pArgs, &pArg, piMaxDim, piCountDim);
-    if (iSeqCount == 0)
+    if (iSeqCount == -1)
     {
-        //outList.push_back(Double::Empty());
+        for (int i = 0 ; i < getSize() ; i++)
+        {
+            outList.push_back(get(i));
+        }
+
+        return outList;
     }
 
     for (int i = 0 ; i < iSeqCount ; i++)
@@ -208,6 +213,12 @@ InternalType* List::insert(typed_list* _pArgs, InternalType* _pSource)
     {
         //do nothing
         return this;
+    }
+    else if (iSeqCount == -1)
+    {
+        std::wostringstream os;
+        os << _W("Not implemented in scilab...\n");
+        throw ast::ScilabError(os.str());
     }
     else if (iSeqCount > 1)
     {

@@ -349,31 +349,10 @@ public :
                 return NULL;
             }
 
-            //force dest to have the same complex flag as source
-            setComplex(pSource->isComplex());
-
-            T* pR =  get();
-            T* pSR = pSource->get();
-
-            if (isComplex() == true)
-            {
-                T* pI =  getImg();
-                T* pSI = pSource->getImg();
-                for (int i = 0 ; i < getSize(); i++)
-                {
-                    pR[i] = copyValue(pSR[i]);
-                    pI[i] = copyValue(pSI[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0 ; i < getSize(); i++)
-                {
-                    pR[i] = copyValue(pSR[i]);
-                }
-            }
-
-            return this;
+            InternalType* pIT = pSource->clone();
+            ArrayOf* pOut = pIT->getAs<ArrayOf>();
+            pOut->reshape(getDimsArray(), getDims());
+            return pOut;
         }
 
         if (iDims >= m_iDims)
