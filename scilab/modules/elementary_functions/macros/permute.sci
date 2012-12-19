@@ -1,3 +1,4 @@
+
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA - Farid BELAHCENE
 //
@@ -9,12 +10,12 @@
 
 function   y = permute(x,dims)
 
-  // This function returns an array y which results of the x permutation  
+  // This function returns an array y which results of the x permutation
   // Input :
-  // -x a (multi-dimensionnnal) array of cells, or doubles or strings, ... 
+  // -x a (multi-dimensionnnal) array of cells, or doubles or strings, ...
   // -dims a vector which contains the permutation order
   // Output :
-  // -y the result of the x permutation  
+  // -y the result of the x permutation
 
   // Verify input arguments number
   if argn(2)<>2 then
@@ -41,21 +42,21 @@ function   y = permute(x,dims)
 
   // xsize vector contains the size of x
   xsize=size(x)
-  // ysize vector contains the new size of x after the permutation 
+  // ysize vector contains the new size of x after the permutation
   ind1=find(dims<=ndims(x))
   ind2=find(dims>ndims(x))
   ysize(ind1)=xsize(dims(ind1))
   ysize(ind2)=1
   dims=dims(ind1)
 
-  // delete the last dimensions of ysize which are equal to 1, ex : [2,3,1,4,1,1,1] -> [2,3,1,4]  
+  // delete the last dimensions of ysize which are equal to 1, ex : [2,3,1,4,1,1,1] -> [2,3,1,4]
   i=prod(size(ysize))
   while i>2 & ysize(i)==1 & i>max(ind1)
     ysize(i)=[]
     i=i-1
   end
 
-  // index vector contains all indices of x 
+  // index vector contains all indices of x
   index=[]
   for k=1:size(xsize,"*")
     for j=1:size(x,"*")/prod(xsize(1:k))
@@ -78,7 +79,7 @@ function   y = permute(x,dims)
 
   // newindex contains the indices of x dimensions permutation
   for j=1:size(index,1)
-    indexj=index(j,:) 
+    indexj=index(j,:)
     newindexj=ones(1:prod(size(ysize)))
     newindexj(ind1)=indexj(dims)
     indexj(2:$)=indexj(2:$)-1
@@ -91,5 +92,35 @@ function   y = permute(x,dims)
   end
 
   y=matrix(y,ysize)
+endfunction
 
+function indexes = getIndex(index, origDims, dims)
+    iMul = 1;
+    indexes = list();
+
+    for i = 1 : size(origDims, "*")
+        //printf("origIndex : %d\n", modulo(int((index - 1) / iMul), origDims(i)) + 1);
+        indexes(dims(i)) = modulo(int((index - 1) / iMul), origDims(i)) + 1;
+        iMul = iMul * origDims(i);
+    end
+endfunction
+
+function y = newpermute(x, dims)
+    oldSize = size(x);
+    newSize = oldSize(dims);
+    l = list();
+    for i = 1:size(newSize, "*")
+        l(i) = newSize(i);
+    end
+
+    y = zeros(l(:));
+
+    for i = 1 : size(dims, "*")
+        newDims(dims(i)) = i
+    end
+
+    for i = 1:size(x, "*")
+        index = getIndex(i, oldSize, newDims)
+        y(index(:)) = x(i);
+    end
 endfunction

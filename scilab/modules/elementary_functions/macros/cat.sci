@@ -25,7 +25,7 @@ function  y = cat(dims, varargin)
     error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"),"cat", 1));
   end
 
-  // dims must be a positive real  
+  // dims must be a positive real
   if type(dims)==1 & dims>=0 & size(dims,"*")==1
     dims = max(1,round(dims));
   else
