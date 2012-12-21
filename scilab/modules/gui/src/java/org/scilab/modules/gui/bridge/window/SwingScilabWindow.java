@@ -24,6 +24,7 @@ import org.flexdock.docking.defaults.DefaultDockingPort;
 import org.flexdock.docking.defaults.DefaultDockingStrategy;
 import org.flexdock.docking.drag.effects.EffectsManager;
 import org.flexdock.docking.drag.preview.GhostPreview;
+import org.flexdock.docking.event.hierarchy.DockingPortTracker;
 import org.scilab.modules.action_binding.InterpreterManagement;
 import org.scilab.modules.commons.gui.ScilabKeyStroke;
 import org.scilab.modules.gui.bridge.menubar.SwingScilabMenuBar;
@@ -42,6 +43,7 @@ import org.scilab.modules.gui.utils.Position;
 import org.scilab.modules.gui.utils.SciDockingListener;
 import org.scilab.modules.gui.utils.ScilabSwingUtilities;
 import org.scilab.modules.gui.utils.Size;
+import org.scilab.modules.gui.utils.UIElementMapper;
 import org.scilab.modules.gui.window.SimpleWindow;
 
 import javax.swing.ImageIcon;
@@ -108,11 +110,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
 
         // By default ctrl+w close the window
         ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processWindowEvent(new WindowEvent(SwingScilabWindow.this, WindowEvent.WINDOW_CLOSING));
-            }
-        };
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    processWindowEvent(new WindowEvent(SwingScilabWindow.this, WindowEvent.WINDOW_CLOSING));
+                }
+            };
         getRootPane().registerKeyboardAction(listener, ScilabKeyStroke.getKeyStroke("OSSCKEY W"), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         // TODO : Only for testing : Must be removed
@@ -149,11 +151,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
         setLocationByPlatform(true);
 
         addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                ClosingOperationsManager.startClosingOperation(SwingScilabWindow.this);
-            }
-        });
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    ClosingOperationsManager.startClosingOperation(SwingScilabWindow.this);
+                }
+            });
 
         if (MAC_OS_X) {
             registerForMacOSXEvents();
@@ -267,11 +269,11 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
             /* javasci bug: See bug 9544 why we are doing this check */
             try {
                 SwingUtilities.invokeAndWait(new Runnable() {
-                    @Override
-                    public void run() {
-                        raiseToFront();
-                    }
-                });
+                        @Override
+                        public void run() {
+                            raiseToFront();
+                        }
+                    });
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -411,12 +413,6 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
             // clean all
             this.removeAll();
             close();
-
-            // disable docking port
-            ActiveDockableTracker.getTracker(this).setActive(null);
-            sciDockingPort.removeDockingListener(sciDockingListener);
-            sciDockingPort = null;
-            sciDockingListener = null;
         } else {
             /* Make sur a Tab is active */
             Set<SwingScilabTab> docks = sciDockingPort.getDockables();
@@ -431,7 +427,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      * @see org.scilab.modules.gui.window.Window#removeTab(org.scilab.modules.gui.tab.Tab)
      */
     @Override
-    public void removeTab(SimpleTab tab) {
+    public void removeTab(SimpleTab tab) {Thread.dumpStack();
         removeTabs(new SwingScilabTab[] {(SwingScilabTab) tab});
     }
 
@@ -525,7 +521,7 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
      * @param id the id of the corresponding window object
      */
     @Override
-    public void setElementId(int id) {
+    public void setElementId(int id) {System.out.println("Window="+id);
         this.elementId = id;
         //sciDockingListener.setAssociatedWindowId(id);
     }
@@ -538,6 +534,12 @@ public class SwingScilabWindow extends JFrame implements SimpleWindow {
     public void close() {
         try {
             dispose();
+            // disable docking port
+            ActiveDockableTracker.getTracker(this).setActive(null);
+            sciDockingPort.removeDockingListener(sciDockingListener);
+            sciDockingPort = null;
+            sciDockingListener = null;
+            DockingPortTracker.remove(this);
         } catch (IllegalStateException e) {
             enableInputMethods(false);
         }
