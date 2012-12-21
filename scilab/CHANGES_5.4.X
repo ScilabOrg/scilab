@@ -48,6 +48,12 @@ Removed functions
 * draw() removed. Automatically managed by Scilab now.
 
 
+Obsolete functions
+===================
+
+* fcontour2d tagged as obsolete. Will be removed for Scilab 5.5.0.
+
+
 Xcos
 =====
 

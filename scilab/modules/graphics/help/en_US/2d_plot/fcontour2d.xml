@@ -29,4 +29,16 @@
             <link linkend="contour2d">contour2d</link> function.
         </para>
     </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revdescription>Function tagged obsolete. Will be removed in 5.5.0.
+                    Please use <link linkend="contour2d">contour2d</link>.
+                </revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+    
 </refentry>
