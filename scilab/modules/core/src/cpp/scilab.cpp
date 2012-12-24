@@ -22,6 +22,8 @@ extern "C"
 #include <unistd.h>
 #include "initConsoleMode.h"
 #endif
+#include "LaunchScilabSignal.h"
+#include "signal_mgmt.h"
 
     //#include "SetScilabEnvironment.h"
 #include "prompt.h"
@@ -572,6 +574,18 @@ int main(int argc, char *argv[])
     /* This bug only occurs under Linux 32 bits
      * See: http://wiki.scilab.org/Scilab_precision
      */
+#if defined(linux) && defined(__i386__)
+    setFPUToDouble();
+#endif
+
+    InitializeLaunchScilabSignal();
+
+    /* Management of the signals (seg fault, floating point exception, etc) */
+    if (getenv("SCI_DISABLE_EXCEPTION_CATCHING") == NULL)
+    {
+        base_error_init();
+    }
+
 #if defined(netbsd) || defined(freebsd)
     /* floating point exceptions */
     fpsetmask(0);
