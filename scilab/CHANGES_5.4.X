@@ -235,6 +235,10 @@ Bug fixes
 
 * Bug #12120 fixed - eigs was broken for complex sparse matrices.
 
+* Bug #12138 fixed - eigs(A,B) returned incorrect eigenvectors for dense matrices.
+
+* Bug #12166 fixed - There was a bad label with drawaxis.
+
 * Bug #12135 fixed - stacksize('max') failed silently.
 
 * Bug #12137 fixed - eigs(A,B) returned incorrect result for sparse matrices.
