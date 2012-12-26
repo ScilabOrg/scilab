@@ -207,6 +207,8 @@ Bug fixes
 
 * Bug #11965 fixed - Export to SVG converted texts in shapes.
 
+* Bug #12145 fixed - Internal function demo_mdialog removed.
+
 * Bug #12184 fixed - Performances of the function 'derivat' improved.
 
 
