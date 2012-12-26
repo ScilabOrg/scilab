@@ -207,6 +207,8 @@ Bug fixes
 
 * Bug #11965 fixed - Export to SVG converted texts in shapes.
 
+* Bug #12184 fixed - Performances of the function 'derivat' improved.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
