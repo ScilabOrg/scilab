@@ -62,8 +62,7 @@ int MatPlotDecomposer::fillTextureData(char* id, unsigned char* buffer, int buff
     {
       for (int j = 0 ; j < textureHeight ; j++)
       {
-        ColorComputer::getDirectByteColor(value[j + i * textureHeight] - 1, colormap, colormapSize, &buffer[4 * (i + j * textureWidth)]);
-        buffer[4 * (i + j * textureWidth) + 3] = 255;
+	  ColorComputer::getDirectByteColor(value[j + i * textureHeight] - 1, colormap, colormapSize, &buffer[4 * (i + j * textureWidth)], false);
       }
     }
 

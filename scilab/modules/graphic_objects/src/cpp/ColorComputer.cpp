@@ -118,7 +118,7 @@ double ColorComputer::getIndex(double s, double smin, double srange, double inde
     return index;
 }
 
-void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize, float* returnedColor)
+void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize, float* returnedColor, bool clamped)
 {
     int index = 0;
 
@@ -140,8 +140,16 @@ void ColorComputer::getDirectColor(double s, double* colormap, int colormapSize,
     {
         if (s > (double)(colormapSize - 1))
         {
-            s = (double) (colormapSize - 1);
-        }
+	    if (clamped)
+	    {
+		s = (double) (colormapSize - 1);
+	    }
+	    else
+	    {
+		returnedColor[0] = -1;
+		return;
+	    }
+	}
 
         index = (int) s;
 
@@ -183,14 +191,23 @@ double ColorComputer::getDirectIndex(double s, int colormapSize)
     return index;
 }
 
-void ColorComputer::getDirectByteColor(double s, double* colormap, int colormapSize, unsigned char* returnedColor)
+void ColorComputer::getDirectByteColor(double s, double* colormap, int colormapSize, unsigned char* returnedColor, bool clamped)
 {
   float color[3];
-  getDirectColor(s, colormap, colormapSize, color);
+  getDirectColor(s, colormap, colormapSize, color, clamped);
 
   returnedColor[0] = (unsigned char)(color[0] * 255);
   returnedColor[1] = (unsigned char)(color[1] * 255);
   returnedColor[2] = (unsigned char)(color[2] * 255);
+
+  if (!clamped && color[0] == -1)
+  {
+      returnedColor[3] = 0;
+  }
+  else
+  {
+      returnedColor[3] = 255;
+  }
 }
 
 double ColorComputer::getClampedDirectIndex(double s, int colormapSize)
