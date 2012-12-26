@@ -104,6 +104,7 @@ int sci_isfile(char *fname, unsigned long fname_len)
             FREE(lenStVarOne);
             lenStVarOne = NULL;
         }
+        FREE(results);
         Scierror(999, _("%s: Memory allocation error.\n"), fname);
         return 0;
     }

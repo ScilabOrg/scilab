@@ -105,6 +105,7 @@ int sci_isdir(char *fname, unsigned long fname_len)
     if (pStVarOne == NULL)
     {
         FREE(lenStVarOne);
+        FREE(results);
         lenStVarOne = NULL;
         Scierror(999, _("%s: Memory allocation error.\n"), fname);
         return 0;
