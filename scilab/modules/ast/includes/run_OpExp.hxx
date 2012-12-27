@@ -52,7 +52,6 @@ void visitprivate(const OpExp &e)
             if (pIL->isComputable())
             {
                 pITL = pIL->extractFullMatrix();
-                TypeL = pITL->getType();
             }
         }
 
@@ -62,7 +61,6 @@ void visitprivate(const OpExp &e)
             if (pIR->isComputable())
             {
                 pITR = pIR->extractFullMatrix();
-                TypeR = pITR->getType();
             }
         }
 
