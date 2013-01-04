@@ -314,7 +314,7 @@ public class ContentLayout extends JPanel{
             */
             private void appendActionPerformed() throws ClassNotFoundException {
                 tableModel.addRow(new Object[]{0.0, 0.0});
-                PolylineData.insertPoint(objectID, tableModel.getRowCount(), 0, 0);
+                PolylineData.insertPoint(objectID, tableModel.getRowCount()-1, 0, 0, 0);
             }
         });
         gbc = new GridBagConstraints();
