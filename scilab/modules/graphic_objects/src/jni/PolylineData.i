@@ -66,6 +66,15 @@ int getDataSize_(char * uid)
 	return size;
 }
 
+BOOL isZCoordSet(char *uid)
+{
+	int result = 0;
+	int *pResult = &result;
+
+	getGraphicObjectProperty(uid, __GO_DATA_MODEL_Z_COORDINATES_SET__, jni_int, (void**)&pResult);
+	return (BOOL)result;
+}
+
 double * getDataX(char * uid)
 {
 	double *vec;
@@ -156,10 +165,12 @@ char * createPolylineData(char * uidFrom, char *uidTo)
 	
 }
 
-void translatePolyline(char *uid, double x, double y)
+void translatePolyline(char *uid, double x, double y, double z)
 {
     double *datax = NULL;
     double *datay = NULL;
+	double *dataz = NULL;
+
     int i = 0;
     if (x != 0.0)
     {
@@ -179,12 +190,23 @@ void translatePolyline(char *uid, double x, double y)
             datay[i]+= y;
         }
     }
+	if (z != 0 && isZCoordSet(uid))
+	{
+		dataz = getDataZ(uid);
+        if (dataz == NULL) return;
+        for (i = 0; i < getDataSize_(uid); ++i)
+        {
+            dataz[i]+= z;
+        }
+	}
 }
 
-void translatePoint(char * uid, int index, double x, double y)
+void translatePoint(char * uid, int index, double x, double y, double z)
 {
     double *datax = NULL;
     double *datay = NULL;
+    double *dataz = NULL;
+
     int size = getDataSize_(uid);
 
 	if (index >= 0 && index < size) 
@@ -196,12 +218,47 @@ void translatePoint(char * uid, int index, double x, double y)
 
 		datax[index] += x;
 		datay[index] += y;
+
+		if (z != 0 && isZCoordSet(uid))
+		{
+			dataz = getDataZ(uid);
+			dataz[index] += z;
+		}
 	}
 	/*update*/
 	setGraphicObjectProperty(uid, __GO_DATA_MODEL__, uid, jni_string, 1);
 }
 
-void insertPoint(char * uid, int index, double x, double y)
+void setPointValue(char * uid, int index, double x, double y, double z)
+{
+    double *datax = NULL;
+    double *datay = NULL;
+    double *dataz = NULL;
+
+    int size = getDataSize_(uid);
+
+
+	if (index >= 0 && index < size) 
+	{
+		datax = getDataX(uid);
+		if (datax == NULL) return;
+		datay = getDataY(uid);
+		if (datay == NULL) return;
+
+		datax[index] = x;
+		datay[index] = y;
+
+		if (z != 0 && isZCoordSet(uid))
+		{
+			dataz = getDataZ(uid);
+			dataz[index] = z;
+		}	
+	}
+	/*update*/
+	setGraphicObjectProperty(uid, __GO_DATA_MODEL__, uid, jni_string, 1);
+}
+
+void insertPoint(char * uid, int index, double x, double y, double z)
 {
     double *curData, *newData;
 	int size = getDataSize_(uid);
@@ -221,12 +278,21 @@ void insertPoint(char * uid, int index, double x, double y)
 	{
 		newData[j] = curData[i];
 		newData[(size+1)+j] = curData[size+i];
+		newData[(size+1)*2+j] = curData[size*2+i];
 		if (i == index)
 			++j;
 	}
 
 	newData[index+1] = x;
 	newData[size+index+2] = y;
+	if (isZCoordSet(uid))
+	{
+		newData[(size+1)*2+index+1] = z;
+	}
+	else
+	{
+		newData[(size+1)*2+index+1] = 0.0;
+	}
 
 	n[0] = 1; n[1] = size+1;
 	
@@ -256,6 +322,7 @@ void removePoint(char * uid, int index)
 	{
 		newData[j] = curData[i];
 		newData[(size-1)+j] = curData[size+i];
+		newData[(size-1)*2+j] = curData[size*2+i];
 		if (i == index)
 			--j;
 	}
@@ -275,12 +342,15 @@ double * getDataZ(char * uid);
 double * getShiftX(char * uid);
 double * getShiftY(char * uid);
 double * getShiftZ(char * uid);
+int isZCoordSet(char *uid);
 int isXShiftSet(char * uid);
 int isYShiftSet(char * uid);
+int isZShiftSet(char * uid);
 char * createPolylineData(char * uidFrom, char *uidTo);
-void translatePolyline(char *uid, double x, double y);
-void translatePoint(char * uid, int index, double x, double y);
-void insertPoint(char * uid, int index, double x, double y);
+void translatePolyline(char *uid, double x, double y, double z);
+void translatePoint(char * uid, int index, double x, double y, double z);
+void setPointValue(char * uid, int index, double x, double y, double z);
+void insertPoint(char * uid, int index, double x, double y, double z);
 void removePoint(char * uid, int index);
 
 
