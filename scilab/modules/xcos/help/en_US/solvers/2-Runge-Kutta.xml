@@ -178,7 +178,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
             The Scilab console displays :
             <screen><![CDATA[
 Time for Runge-Kutta :
- 15.624
+ 8.906
             ]]></screen>
         </para>
         <para>
@@ -190,19 +190,19 @@ Time for Runge-Kutta :
         <para>
             <screen><![CDATA[
 Time for BDF / Newton :
- 19.894
+ 18.894
 
 Time for BDF / Functional :
- 19.382
+ 18.382
 
 Time for Adams / Newton :
- 11.255
+ 10.368
 
 Time for Adams / Functional :
- 10.233
+ 9.815
 
 Time for Runge-Kutta :
- 5.502
+ 4.743
             ]]></screen>
         </para>
         <para>

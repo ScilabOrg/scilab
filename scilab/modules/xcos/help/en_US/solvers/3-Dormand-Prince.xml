@@ -162,7 +162,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
             The Scilab console displays :
             <screen><![CDATA[
 Time for Dormand-Prince :
- 17.226
+ 9.197
             ]]></screen>
         </para>
         <para>
@@ -174,19 +174,19 @@ Time for Dormand-Prince :
         <para>
             <screen><![CDATA[
 Time for BDF / Newton :
- 19.894
+ 18.894
 
 Time for BDF / Functional :
- 19.382
+ 18.382
 
 Time for Adams / Newton :
- 11.255
+ 10.368
 
 Time for Adams / Functional :
- 10.233
+ 9.815
 
-Time for DoPri :
- 8.654
+Time for Dormand-Prince :
+ 7.842
             ]]></screen>
         </para>
         <para>

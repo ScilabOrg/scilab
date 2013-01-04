@@ -221,7 +221,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
             The Scilab console displays :
             <screen><![CDATA[
 Time for implicit Runge-Kutta :
- 17.003
+ 8.911
             ]]></screen>
         </para>
         <para>
@@ -233,19 +233,19 @@ Time for implicit Runge-Kutta :
         <para>
             <screen><![CDATA[
 Time for BDF / Newton :
- 19.894
+ 18.894
 
 Time for BDF / Functional :
- 19.382
+ 18.382
 
 Time for Adams / Newton :
- 11.255
+ 10.368
 
 Time for Adams / Functional :
- 10.233
+ 9.815
 
 Time for implicit Runge-Kutta :
- 8.112
+ 6.652
             ]]></screen>
         </para>
         <para>
