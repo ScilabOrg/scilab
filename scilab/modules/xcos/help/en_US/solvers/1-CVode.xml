@@ -196,7 +196,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
 ]]></scilab:image>
         </para>
         <para>
-            The integral block returns its continuous state, we can evaluate it with BDF / Newton by running the example :
+            The integral block returns its continuous state, we can evaluate it with <emphasis>BDF / Newton</emphasis> by running the example :
         </para>
         <para>
             <programlisting language="example"><![CDATA[
@@ -220,7 +220,7 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
             The Scilab console displays :
             <screen><![CDATA[
 Time for BDF / Newton :
- 19.454
+ 13.438
             ]]></screen>
         </para>
         <para>
@@ -233,20 +233,20 @@ Time for BDF / Newton :
             Results :
             <screen language="example"><![CDATA[
 Time for BDF / Newton :
- 19.894
+ 18.894
 
 Time for BDF / Functional :
- 19.382
+ 18.382
 
 Time for Adams / Newton :
- 11.255
+ 10.368
 
 Time for Adams / Functional :
- 10.233
+ 9.815
             ]]></screen>
         </para>
         <para>
-            The results show that for a simple nonstiff continuous problem, Adams / Functional is fastest.
+            The results show that for a simple nonstiff continuous problem, <emphasis>Adams / Functional</emphasis> is fastest.
         </para>
     </refsection>
     <refsection>
