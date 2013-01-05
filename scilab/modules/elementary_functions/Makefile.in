@@ -186,19 +186,19 @@ am__objects_5 = psi.lo wasum.lo dexpm1.lo wwdiv.lo wdotcr.lo iset.lo \
 	wacos.lo wdpow1.lo dmsum.lo dlgama.lo exch.lo wsign.lo \
 	kronr.lo wrscal.lo pythag.lo dmmul1.lo dwpow.lo wmmul.lo \
 	dsearch.lo ddif.lo wdiv.lo wtan.lo ddpow.lo magic.lo wcerr.lo \
-	ivimp.lo cupro.lo dadd.lo calerf.lo isort.lo hilber.lo \
-	wdpowe.lo wmprod.lo wscal.lo dlblks.lo kronc.lo ddrdiv.lo \
-	dipow.lo wshrsl.lo wwrdiv.lo coshin.lo iwamax.lo dipowe.lo \
-	getorient.lo cusum.lo d1mach.lo wbdiag.lo ddpow1.lo vpythag.lo \
-	isova0.lo wswap.lo wwpow1.lo getdimfromvar.lo gdcp2i.lo \
-	drdiv.lo wmsum.lo corth.lo mtran.lo wwpow.lo dvmul.lo \
-	wclmat.lo dsort.lo cerr.lo rcopy.lo wdpow.lo orthes.lo \
-	waxpy.lo coef.lo dwdiv.lo arcosh.lo wasin.lo wexpm1.lo \
-	ddpowe.lo nearfloat.lo dmprod.lo wwpowe.lo wdotci.lo dmcopy.lo \
-	wexchn.lo isoval.lo dwrdiv.lo wipow.lo wlog.lo infinity.lo \
-	dwpow1.lo wmul.lo dad.lo dset.lo dtild.lo i1mach.lo dclmat.lo \
-	ortran.lo bdiag.lo wvmul.lo dmmul.lo wsqrt.lo israt.lo rat.lo
-am__objects_6 =
+	ivimp.lo cupro.lo dadd.lo isort.lo hilber.lo wdpowe.lo \
+	wmprod.lo wscal.lo dlblks.lo kronc.lo ddrdiv.lo dipow.lo \
+	wshrsl.lo wwrdiv.lo coshin.lo iwamax.lo dipowe.lo getorient.lo \
+	cusum.lo d1mach.lo wbdiag.lo ddpow1.lo vpythag.lo isova0.lo \
+	wswap.lo wwpow1.lo getdimfromvar.lo gdcp2i.lo drdiv.lo \
+	wmsum.lo corth.lo mtran.lo wwpow.lo dvmul.lo wclmat.lo \
+	dsort.lo cerr.lo rcopy.lo wdpow.lo orthes.lo waxpy.lo coef.lo \
+	dwdiv.lo arcosh.lo wasin.lo wexpm1.lo ddpowe.lo nearfloat.lo \
+	dmprod.lo wwpowe.lo wdotci.lo dmcopy.lo wexchn.lo isoval.lo \
+	dwrdiv.lo wipow.lo wlog.lo infinity.lo dwpow1.lo wmul.lo \
+	dad.lo dset.lo dtild.lo i1mach.lo dclmat.lo ortran.lo bdiag.lo \
+	wvmul.lo dmmul.lo wsqrt.lo israt.lo rat.lo
+am__objects_6 = libscielementary_functions_algo_la-faddeeva.lo
 am_libscielementary_functions_algo_la_OBJECTS = $(am__objects_1) \
 	$(am__objects_2) $(am__objects_3) $(am__objects_4) \
 	$(am__objects_5) $(am__objects_6)
@@ -293,6 +293,15 @@ LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+LTCXXCOMPILE = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+CXXLD = $(CXX)
+CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 F77COMPILE = $(F77) $(AM_FFLAGS) $(FFLAGS)
 LTF77COMPILE = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -596,7 +605,9 @@ src/c/convertbase.c
 
 
 # List of the cpp files
-ELEMENTARIES_FUNCTIONS_CXX_SOURCES = 
+ELEMENTARIES_FUNCTIONS_CXX_SOURCES = \
+src/cpp/faddeeva.cpp
+
 SLATEC_SOURCES = src/fortran/slatec/zwrsk.f \
 src/fortran/slatec/d9b0mp.f \
 src/fortran/slatec/d9b1mp.f \
@@ -749,7 +760,6 @@ src/fortran/wcerr.f \
 src/fortran/ivimp.f \
 src/fortran/cupro.f \
 src/fortran/dadd.f \
-src/fortran/calerf.f \
 src/fortran/isort.f \
 src/fortran/hilber.f \
 src/fortran/wdpowe.f \
@@ -1049,7 +1059,7 @@ HELP_CHAPTERLANG = en_US fr_FR pt_BR
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .sci .bin .c .f .lo .o .obj
+.SUFFIXES: .sci .bin .c .cpp .f .lo .o .obj
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(top_srcdir)/Makefile.incl.am $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -1125,7 +1135,7 @@ clean-pkglibLTLIBRARIES:
 libdummy-elementary_functions.la: $(libdummy_elementary_functions_la_OBJECTS) $(libdummy_elementary_functions_la_DEPENDENCIES) $(EXTRA_libdummy_elementary_functions_la_DEPENDENCIES) 
 	$(F77LINK)  $(libdummy_elementary_functions_la_OBJECTS) $(libdummy_elementary_functions_la_LIBADD) $(LIBS)
 libscielementary_functions-algo.la: $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_DEPENDENCIES) $(EXTRA_libscielementary_functions_algo_la_DEPENDENCIES) 
-	$(F77LINK) $(am_libscielementary_functions_algo_la_rpath) $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_LIBADD) $(LIBS)
+	$(CXXLINK) $(am_libscielementary_functions_algo_la_rpath) $(libscielementary_functions_algo_la_OBJECTS) $(libscielementary_functions_algo_la_LIBADD) $(LIBS)
 libscielementary_functions.la: $(libscielementary_functions_la_OBJECTS) $(libscielementary_functions_la_DEPENDENCIES) $(EXTRA_libscielementary_functions_la_DEPENDENCIES) 
 	$(F77LINK) $(am_libscielementary_functions_la_rpath) $(libscielementary_functions_la_OBJECTS) $(libscielementary_functions_la_LIBADD) $(LIBS)
 
@@ -1139,6 +1149,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-IsEqualVar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-cmp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-convertbase.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-faddeeva.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-finite.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-gsort.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscielementary_functions_algo_la-idmax.Plo@am__quote@
@@ -1742,6 +1753,34 @@ libscielementary_functions_la-sci_dec2base.lo: sci_gateway/c/sci_dec2base.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscielementary_functions_la-sci_dec2base.lo `test -f 'sci_gateway/c/sci_dec2base.c' || echo '$(srcdir)/'`sci_gateway/c/sci_dec2base.c
 
+.cpp.o:
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
+
+.cpp.obj:
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cpp.lo:
+@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
+
+libscielementary_functions_algo_la-faddeeva.lo: src/cpp/faddeeva.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libscielementary_functions_algo_la-faddeeva.lo -MD -MP -MF $(DEPDIR)/libscielementary_functions_algo_la-faddeeva.Tpo -c -o libscielementary_functions_algo_la-faddeeva.lo `test -f 'src/cpp/faddeeva.cpp' || echo '$(srcdir)/'`src/cpp/faddeeva.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libscielementary_functions_algo_la-faddeeva.Tpo $(DEPDIR)/libscielementary_functions_algo_la-faddeeva.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/cpp/faddeeva.cpp' object='libscielementary_functions_algo_la-faddeeva.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscielementary_functions_algo_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libscielementary_functions_algo_la-faddeeva.lo `test -f 'src/cpp/faddeeva.cpp' || echo '$(srcdir)/'`src/cpp/faddeeva.cpp
+
 .f.o:
 	$(F77COMPILE) -c -o $@ $<
 
@@ -2212,9 +2251,6 @@ cupro.lo: src/fortran/cupro.f
 
 dadd.lo: src/fortran/dadd.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o dadd.lo `test -f 'src/fortran/dadd.f' || echo '$(srcdir)/'`src/fortran/dadd.f
-
-calerf.lo: src/fortran/calerf.f
-	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o calerf.lo `test -f 'src/fortran/calerf.f' || echo '$(srcdir)/'`src/fortran/calerf.f
 
 isort.lo: src/fortran/isort.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o isort.lo `test -f 'src/fortran/isort.f' || echo '$(srcdir)/'`src/fortran/isort.f
