@@ -28,7 +28,9 @@ src/c/IsEqualVar.c \
 src/c/convertbase.c
 
 # List of the cpp files
-ELEMENTARIES_FUNCTIONS_CXX_SOURCES =
+ELEMENTARIES_FUNCTIONS_CXX_SOURCES = \
+src/cpp/Faddeeva.cc \
+src/cpp/Faddeeva.hh
 
 SLATEC_SOURCES = src/fortran/slatec/zwrsk.f \
 src/fortran/slatec/d9b0mp.f \
@@ -182,7 +184,6 @@ src/fortran/wcerr.f \
 src/fortran/ivimp.f \
 src/fortran/cupro.f \
 src/fortran/dadd.f \
-src/fortran/calerf.f \
 src/fortran/isort.f \
 src/fortran/hilber.f \
 src/fortran/wdpowe.f \
@@ -369,7 +370,6 @@ libdummy_elementary_functions_la_SOURCES = src/fortran/eispack/hqror2.f \
 libdummy_elementary_functions_la_CPPFLAGS = -I$(srcdir)/includes/ \
     -I$(top_srcdir)/modules/core/includes/ \
     $(AM_CPPFLAGS)
-	
 
 # Includes need for the compilation
 libscielementary_functions_la_CPPFLAGS = -I$(srcdir)/includes/ \
