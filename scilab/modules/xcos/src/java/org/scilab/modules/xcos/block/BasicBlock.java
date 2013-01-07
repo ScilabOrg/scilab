@@ -1175,18 +1175,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
                     mxICell previous = olds.poll();
                     mxICell modified = news.poll();
 
-                    final int previousIndex = children.indexOf(previous);
-
-                    // relink
-                    if (previous.getEdgeCount() != 0) {
-                        final mxICell edge = previous.getEdgeAt(0);
-                        final boolean isOutgoing = previous == edge.getTerminal(true);
-                        previous.removeEdge(edge, isOutgoing);
-                        modified.insertEdge(edge, isOutgoing);
-                    }
-
-                    getParentDiagram().removeCells(new Object[] { previous }, false);
-                    getParentDiagram().addCells(new Object[] { modified }, this, previousIndex);
+                    getParentDiagram().moveCells(new Object[] {modified}, modified.getGeometry().getX() - previous.getGeometry().getX(),
+                                                 modified.getGeometry().getY() - previous.getGeometry().getY());
 
                     // Clone the geometry to avoid empty geometry on new cells.
                     getParentDiagram().getModel().setGeometry(modified, (mxGeometry) previous.getGeometry().clone());

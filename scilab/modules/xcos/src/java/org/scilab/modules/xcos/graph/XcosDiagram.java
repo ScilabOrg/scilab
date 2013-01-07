@@ -520,6 +520,12 @@ public class XcosDiagram extends ScilabGraph {
                             current.updateFieldsFromStyle();
                         }
 
+                        // Update ports
+                        mxGeometry geom = current.getGeometry();
+                        BasicBlock block = (BasicBlock) model.getCell(current.getId());
+                        block.updateBlockSettings(current);
+                        model.setGeometry(current, geom);
+
                         // Update the block position
                         BlockPositioning.updateBlockView(current);
                     }
