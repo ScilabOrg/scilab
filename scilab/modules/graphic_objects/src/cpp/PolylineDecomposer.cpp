@@ -156,21 +156,32 @@ void PolylineDecomposer::fillVertices(char* id, float* buffer, int bufferLength,
 void PolylineDecomposer::fillSegmentsDecompositionVertices(char* id, float* buffer, int bufferLength, int elementsSize, int coordinateMask, double* scale, double* translation,
                                                            int logMask, double* coordinates, int nPoints, double* xshift, double* yshift, double* zshift)
 {
-
     int componentIndices[3];
+    const int bufferPoints = bufferLength / elementsSize;
+
+    float coordinatesIncrement;
+    if (nPoints > bufferPoints) {
+    	coordinatesIncrement = nPoints / (float) bufferPoints;
+    } else {
+    	coordinatesIncrement = 1.;
+    }
 
     // TODO Optimize ? (test if s = 1 and t = 0, coordinateMask = 0 ...)
-    for (int i = 0; i < nPoints; i++)
+    float fCoordinatesIndex = 0;
+    for (int bufferIndex = 0; bufferIndex < bufferPoints; bufferIndex++)
     {
         /* Offset of a polyline vertex */
-        int v0 = elementsSize*i;
+        int v0 = elementsSize*bufferIndex;
 
-        componentIndices[0] = i;
-        componentIndices[1] = i;
-        componentIndices[2] = i;
+    	int iCoordinatesIndex = int(fCoordinatesIndex);
+        componentIndices[0] = iCoordinatesIndex;
+        componentIndices[1] = iCoordinatesIndex;
+        componentIndices[2] = iCoordinatesIndex;
 
         getAndWriteVertexToBuffer(buffer, v0, coordinates, componentIndices, nPoints, elementsSize,
                                   xshift, yshift, zshift, coordinateMask, scale, translation, logMask);
+
+    	fCoordinatesIndex += coordinatesIncrement;
     }
 
 }
