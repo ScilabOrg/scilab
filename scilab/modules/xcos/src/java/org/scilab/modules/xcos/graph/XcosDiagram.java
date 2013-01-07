@@ -520,6 +520,9 @@ public class XcosDiagram extends ScilabGraph {
                             current.updateFieldsFromStyle();
                         }
 
+                        // Update ports
+                        current.updateBlockSettings(current);
+
                         // Update the block position
                         BlockPositioning.updateBlockView(current);
                     }
