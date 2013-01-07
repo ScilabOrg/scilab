@@ -79,6 +79,15 @@ static sco_data *getScoData(scicos_block * block);
 static void freeScoData(scicos_block * block);
 
 /**
+ * Realloc any internal data
+ *
+ * \param block the block
+ * \param input the selected input
+ * \param numberOfPoints realloc to store this number of points
+ */
+static sco_data *reallocScoData(scicos_block * block, int numberOfPoints);
+
+/**
  * Append the data to the current data
  *
  * \param block the block
@@ -131,15 +140,6 @@ static char *getAxe(char const* pFigureUID, scicos_block * block, int input);
 static char *getPolyline(char *pAxeUID, scicos_block * block, int row);
 
 /**
- * Set the polylines buffer size
- *
- * \param block the block
- * \param input the input port index
- * \param maxNumberOfPoints the size of the buffer
- */
-static BOOL setPolylinesBuffers(scicos_block * block, int input, int maxNumberOfPoints);
-
-/**
  * Set the polylines bounds
  *
  * \param block the block
@@ -160,6 +160,8 @@ static BOOL setPolylinesBounds(scicos_block * block, int input, int periodCounte
 SCICOS_BLOCKS_IMPEXP void cfscope(scicos_block * block, scicos_flag flag)
 {
     char const* pFigureUID;
+    char *pAxeUID;
+    char *pPolylineUID;
 
     double t;
     int links_count;
@@ -186,6 +188,24 @@ SCICOS_BLOCKS_IMPEXP void cfscope(scicos_block * block, scicos_flag flag)
                 // allocation error
                 set_block_error(-5);
                 break;
+            }
+            pAxeUID = getAxe(pFigureUID, block, 0);
+            if (pAxeUID == NULL)
+            {
+                // allocation error
+                set_block_error(-5);
+                break;
+            }
+            links_count = block->ipar[15];
+            for (i = 0; i < links_count; i++)
+            {
+                pPolylineUID = getPolyline(pAxeUID, block, i);
+                if (pPolylineUID == NULL)
+                {
+                    // allocation error
+                    set_block_error(-5);
+                    break;
+                }
             }
             break;
 
@@ -252,7 +272,7 @@ static sco_data *getScoData(scicos_block * block)
 {
     sco_data *sco = (sco_data *) * (block->work);
     int links_count = block->ipar[15];
-    int i, j, k, l;
+    int i, j;
 
     if (sco == NULL)
     {
@@ -283,18 +303,6 @@ static sco_data *getScoData(scicos_block * block)
                 goto error_handler_coordinates_i;
             }
         }
-        for (i = 0; i < 1; i++)
-        {
-            for (j = 0; j < links_count; j++)
-            {
-                sco->internal.coordinates[i][j] = (double *)CALLOC(3 * block->ipar[2], sizeof(double));
-
-                if (sco->internal.coordinates[i][j] == NULL)
-                {
-                    goto error_handler_coordinates_ij;
-                }
-            }
-        }
 
         sco->scope.periodCounter = 0;
         sco->scope.cachedFigureUID = NULL;
@@ -310,15 +318,6 @@ static sco_data *getScoData(scicos_block * block)
      * Error management (out of normal flow)
      */
 
-error_handler_coordinates_ij:
-    for (k = 0; k < i; k++)
-    {
-        for (l = 0; l < j; l++)
-        {
-            FREE(sco->internal.coordinates[k][l]);
-        }
-    }
-    i = 1;
 error_handler_coordinates_i:
     for (j = 0; j < i; j++)
     {
@@ -343,10 +342,6 @@ static void freeScoData(scicos_block * block)
     {
         for (i = 0; i < 1; i++)
         {
-            for (j = 0; j < links_count; j++)
-            {
-                FREE(sco->internal.coordinates[i][j]);
-            }
             FREE(sco->internal.coordinates[i]);
         }
         FREE(sco->internal.coordinates);
@@ -365,42 +360,56 @@ static void freeScoData(scicos_block * block)
 static sco_data *reallocScoData(scicos_block * block, int numberOfPoints)
 {
     sco_data *sco = (sco_data *) * (block->work);
-    int i, j;
+    int links_count = block->ipar[15];
+    int i = 0;
+    int j;
+
+    char const* pFigureUID;
+    char *pAxeUID;
+    char *pPolylineUID;
 
     double *ptr;
     int setLen;
-    int links_count = block->ipar[15];
     int previousNumberOfPoints = sco->internal.maxNumberOfPoints;
     int newPoints = numberOfPoints - previousNumberOfPoints;
 
-    for (i = 0; i < 1; i++)
+    pFigureUID = getFigure(block);
+    pAxeUID = getAxe(pFigureUID, block, i);
+    for (j = 0; j < links_count; j++)
     {
-        for (j = 0; j < links_count; j++)
+        pPolylineUID = getPolyline(pAxeUID, block, j);
+
+        ptr = (double *)CALLOC(3 * numberOfPoints, sizeof(double));
+        if (ptr == NULL)
         {
-            ptr = (double *)REALLOC(sco->internal.coordinates[i][j], 3 * numberOfPoints * sizeof(double));
-            if (ptr == NULL)
-            {
-                goto error_handler;
-            }
-
-            // clear the last points, the Z-axis values
-            memset(ptr + 2 * numberOfPoints, 0, numberOfPoints * sizeof(double));
-
-            // memcpy existing Y-axis values (use memmove to handle memory overlapping)
-            memmove(ptr + numberOfPoints, ptr + previousNumberOfPoints, previousNumberOfPoints * sizeof(double));
-
-            // then set the last points to the last values for Y-axis and X-axis values
-            for (setLen = newPoints - 1; setLen >= 0; setLen--)
-            {
-                ptr[numberOfPoints + previousNumberOfPoints + setLen] = ptr[numberOfPoints + previousNumberOfPoints - 1];
-            }
-            for (setLen = newPoints - 1; setLen >= 0; setLen--)
-            {
-                ptr[previousNumberOfPoints + setLen] = ptr[previousNumberOfPoints - 1];
-            }
-
-            sco->internal.coordinates[i][j] = ptr;
+            goto error_handler;
         }
+
+        // memcpy existing Y-axis values
+        memcpy(ptr + numberOfPoints, sco->internal.coordinates[i][j] + previousNumberOfPoints, previousNumberOfPoints * sizeof(double));
+
+        // memcpy existing X-axis values
+        memcpy(ptr, sco->internal.coordinates[i][j], previousNumberOfPoints * sizeof(double));
+
+        // then set the last points to the last values for Y-axis and X-axis values
+        for (setLen = newPoints - 1; setLen >= 0; setLen--)
+        {
+            ptr[numberOfPoints + previousNumberOfPoints + setLen] = ptr[numberOfPoints + previousNumberOfPoints - 1];
+        }
+        for (setLen = newPoints - 1; setLen >= 0; setLen--)
+        {
+            ptr[previousNumberOfPoints + setLen] = ptr[previousNumberOfPoints - 1];
+        }
+
+        // set coordinates number of elements, this will also free the coordinates buffer
+        int polylineSize[2] = { 1, numberOfPoints };
+        setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__, polylineSize, jni_int_vector, 2);
+
+        // store the coordinates into the Model and store a pointer to the model data into the coordinates store.
+        setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_COORDINATES__, ptr, jni_double_vector, numberOfPoints);
+        getGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_COORDINATES__, jni_double_vector, (void**) & (sco->internal.coordinates[i][j]));
+
+        FREE(ptr);
     }
 
     sco->internal.maxNumberOfPoints = numberOfPoints;
@@ -447,14 +456,6 @@ static void appendData(scicos_block * block, int input, double t, double *data)
         // on a full scope, re-alloc
         maxNumberOfPoints = maxNumberOfPoints + block->ipar[2];
         sco = reallocScoData(block, maxNumberOfPoints);
-
-        // reconfigure related graphic objects
-        if (setPolylinesBuffers(block, input, maxNumberOfPoints) == FALSE)
-        {
-            set_block_error(-5);
-            freeScoData(block);
-            sco = NULL;
-        }
     }
 
     /*
@@ -722,6 +723,7 @@ static char *getPolyline(char *pAxeUID, scicos_block * block, int row)
         {
             int polylineSize[2] = { 1, block->ipar[2] };
             setGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__, polylineSize, jni_int_vector, 2);
+            getGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_COORDINATES__, jni_double_vector, (void**) & (sco->internal.coordinates[0][row]));
         }
 
         color = block->ipar[3 + row];
@@ -752,30 +754,6 @@ static char *getPolyline(char *pAxeUID, scicos_block * block, int row)
         releaseGraphicObjectProperty(__GO_PARENT__, pPolyline, jni_string, 1);
     }
     return sco->scope.cachedPolylinesUIDs[row];
-}
-
-static BOOL setPolylinesBuffers(scicos_block * block, int input, int maxNumberOfPoints)
-{
-    int i;
-
-    char const* pFigureUID;
-    char *pAxeUID;
-    char *pPolylineUID;
-
-    BOOL result = TRUE;
-    int polylineSize[2] = { 1, maxNumberOfPoints };
-    int links_count = block->ipar[15];
-
-    pFigureUID = getFigure(block);
-    pAxeUID = getAxe(pFigureUID, block, input);
-
-    for (i = 0; i < links_count; i++)
-    {
-        pPolylineUID = getPolyline(pAxeUID, block, i);
-        result &= setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__, polylineSize, jni_int_vector, 2);
-    }
-
-    return result;
 }
 
 static BOOL setPolylinesBounds(scicos_block * block, int input, int periodCounter)

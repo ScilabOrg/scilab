@@ -143,9 +143,11 @@ static BOOL setPolylinesBounds(scicos_block * block);
 SCICOS_BLOCKS_IMPEXP void canimxy(scicos_block * block, scicos_flag flag)
 {
     char const* pFigureUID;
-    sco_data *sco;
+    char *pAxeUID;
+    char *pPolylineUID;
 
-    int j;
+    int i;
+    sco_data *sco;
     BOOL result;
 
     switch (flag)
@@ -162,6 +164,24 @@ SCICOS_BLOCKS_IMPEXP void canimxy(scicos_block * block, scicos_flag flag)
             {
                 // allocation error
                 set_block_error(-5);
+                break;
+            }
+            pAxeUID = getAxe(pFigureUID, block);
+            if (pAxeUID == NULL)
+            {
+                // allocation error
+                set_block_error(-5);
+                break;
+            }
+            for (i = 0; i < block->insz[0]; i++)
+            {
+                pPolylineUID = getPolyline(pAxeUID, block, i);
+                if (pPolylineUID == NULL)
+                {
+                    // allocation error
+                    set_block_error(-5);
+                    break;
+                }
             }
             break;
 
@@ -175,9 +195,9 @@ SCICOS_BLOCKS_IMPEXP void canimxy(scicos_block * block, scicos_flag flag)
             }
 
             appendData(block, block->inptr[0], block->inptr[1]);
-            for (j = 0; j < block->insz[0]; j++)
+            for (i = 0; i < block->insz[0]; i++)
             {
-                result = pushData(block, j);
+                result = pushData(block, i);
                 if (result == FALSE)
                 {
                     Coserror("%s: unable to push some data.", "cscopxy");
@@ -206,7 +226,6 @@ SCICOS_BLOCKS_IMPEXP void canimxy(scicos_block * block, scicos_flag flag)
 static sco_data *getScoData(scicos_block * block)
 {
     sco_data *sco = (sco_data *) * (block->work);
-    int i, j;
 
     if (sco == NULL)
     {
@@ -229,16 +248,6 @@ static sco_data *getScoData(scicos_block * block)
             goto error_handler_coordinates;
         }
 
-        for (i = 0; i < block->insz[0]; i++)
-        {
-            sco->internal.coordinates[i] = (double *)CALLOC(3 * block->ipar[2], sizeof(double));
-
-            if (sco->internal.coordinates[i] == NULL)
-            {
-                goto error_handler_coordinates_i;
-            }
-        }
-
         sco->scope.cachedFigureUID = NULL;
         sco->scope.cachedAxeUID = NULL;
 
@@ -253,12 +262,6 @@ static sco_data *getScoData(scicos_block * block)
      * Error management (out of normal flow)
      */
 
-error_handler_coordinates_i:
-    for (j = 0; j < i; j++)
-    {
-        FREE(sco->internal.coordinates[i]);
-    }
-    FREE(sco->internal.coordinates);
 error_handler_coordinates:
     FREE(sco);
 error_handler_sco:
@@ -274,12 +277,6 @@ static void freeScoData(scicos_block * block)
 
     if (sco != NULL)
     {
-        for (i = 0; i < block->insz[0]; i++)
-        {
-            FREE(sco->internal.coordinates[i]);
-        }
-        FREE(sco->internal.coordinates);
-
         for (i = 0; i < block->insz[0]; i++)
         {
             FREE(sco->scope.cachedPolylinesUIDs[i]);
@@ -371,7 +368,6 @@ static BOOL pushData(scicos_block * block, int row)
     coordinates = sco->internal.coordinates[row];
 
     return setGraphicObjectProperty(pPolylineUID, __GO_DATA_MODEL_COORDINATES__, coordinates, jni_double_vector, sco->internal.maxNumberOfPoints);
-    return result;
 }
 
 /*****************************************************************************
@@ -534,7 +530,6 @@ static char *getAxe(char const* pFigureUID, scicos_block * block)
 static char *getPolyline(char *pAxeUID, scicos_block * block, int row)
 {
     char *pPolyline;
-    double d__0 = 0.0;
     BOOL b__true = TRUE;
 
     int color;
@@ -568,7 +563,6 @@ static char *getPolyline(char *pAxeUID, scicos_block * block, int row)
         {
             createDataObject(pPolyline, __GO_POLYLINE__);
             setGraphicObjectRelationship(pAxeUID, pPolyline);
-
         }
     }
 
@@ -583,10 +577,8 @@ static char *getPolyline(char *pAxeUID, scicos_block * block, int row)
         {
             int polylineSize[2] = { 1, block->ipar[2] };
             setGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__, polylineSize, jni_int_vector, 2);
+            getGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_COORDINATES__, jni_double_vector, (void**) & (sco->internal.coordinates[row]));
         }
-
-        setGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_X__, &d__0, jni_double_vector, 1);
-        setGraphicObjectProperty(pPolyline, __GO_DATA_MODEL_Y__, &d__0, jni_double_vector, 1);
 
         color = block->ipar[3];
         markSize = block->ipar[4];

@@ -51,22 +51,22 @@ int NgonGeneralData::getPropertyFromName(int propertyName)
 {
     switch (propertyName)
     {
-    case __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__ :
-        return NUM_ELEMENTS_ARRAY;
-    case __GO_DATA_MODEL_COORDINATES__ :
-        return COORDINATES;
-    case __GO_DATA_MODEL_X__ :
-        return X_COORDINATES;
-    case __GO_DATA_MODEL_Y__ :
-        return Y_COORDINATES;
-    case __GO_DATA_MODEL_Z__ :
-        return Z_COORDINATES;
-    case __GO_DATA_MODEL_COLORS__ :
-        return COLORS;
-    case __GO_DATA_MODEL_NUM_COLORS__ :
-        return NUM_COLORS;
-    default :
-        return NgonData::getPropertyFromName(propertyName);
+        case __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__ :
+            return NUM_ELEMENTS_ARRAY;
+        case __GO_DATA_MODEL_COORDINATES__ :
+            return COORDINATES;
+        case __GO_DATA_MODEL_X__ :
+            return X_COORDINATES;
+        case __GO_DATA_MODEL_Y__ :
+            return Y_COORDINATES;
+        case __GO_DATA_MODEL_Z__ :
+            return Z_COORDINATES;
+        case __GO_DATA_MODEL_COLORS__ :
+            return COLORS;
+        case __GO_DATA_MODEL_NUM_COLORS__ :
+            return NUM_COLORS;
+        default :
+            return NgonData::getPropertyFromName(propertyName);
     }
 }
 
@@ -169,7 +169,8 @@ double* NgonGeneralData::getDataZ(void)
  */
 void NgonGeneralData::setData(double const* data, int numElements)
 {
-    if (numElements != numGons * numVerticesPerGon)
+    // only copy the coordinates when they have not been updated directly
+    if (data != coordinates)
     {
         delete [] coordinates;
 
@@ -222,7 +223,7 @@ int NgonGeneralData::setNumElementsArray(int const* numElementsArray)
         return 0;
     }
 
-    if (numGons*numVerticesPerGon != numElementsArray[0]*numElementsArray[1])
+    if (numGons * numVerticesPerGon != numElementsArray[0]*numElementsArray[1])
     {
         try
         {

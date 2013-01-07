@@ -115,8 +115,10 @@ Xcos
 * Bug #12031 fixed - Changes in context of superblock did not always have 
                      effect.
 
-* Bug #12162 fixed - tbx_build_blocks did not report errors.
+* Bug #12057 fixed - Scopes with big scope buffer size simulation was much 
+                     more slower.
 
+* Bug #12162 fixed - tbx_build_blocks did not report errors.
 
 Documentation
 ==============
