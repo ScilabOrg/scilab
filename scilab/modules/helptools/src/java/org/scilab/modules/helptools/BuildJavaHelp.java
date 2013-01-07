@@ -34,6 +34,7 @@ public final class BuildJavaHelp {
     private static final String JAR_EXT = ".jar";
     private static final String SLASH = "/";
     private static Indexer indexer = new Indexer();
+    private static int compressionLevel = 9;
 
     /**
      * Default constructor (must no be used)
@@ -70,7 +71,7 @@ public final class BuildJavaHelp {
     public static boolean buildJarImages(String inputDirectory, String outputDirectory) {
         JarOutputStream jarFile = null;
         FileOutputStream fileOutputStream = null;
-        final int compressionLevel = 5;
+
         /* Stored into SCI/modules/helptools/jar */
         String fileName = outputDirectory + SLASH + "scilab_images" + JAR_EXT;
         try {
@@ -125,7 +126,7 @@ public final class BuildJavaHelp {
         String baseName = Helpers.getBaseName(language);
         JarOutputStream jarFile = null;
         FileOutputStream fileOutputStream = null;
-        final int compressionLevel = 5;
+
         /* Stored into SCI/modules/helptools/jar */
         String fileName = outputDirectory + SLASH + baseName + JAR_EXT;
         /* bug 4407 */
