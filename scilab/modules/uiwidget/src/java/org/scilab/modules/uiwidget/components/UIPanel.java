@@ -23,11 +23,17 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.LayoutManager;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import org.scilab.modules.uiwidget.StringConverters;
 import org.scilab.modules.uiwidget.UIAccessTools;
@@ -42,6 +48,7 @@ public class UIPanel extends UIComponent {
     GridBagConstraints gbc;
     ImageIcon backgroundImage;
     ImageFill imageStyle;
+    List<JComponent> enabledComponents;
 
     public enum ImageFill {
         CENTER, FIT, REPEAT;
@@ -49,6 +56,7 @@ public class UIPanel extends UIComponent {
 
     public UIPanel(UIComponent parent) throws UIWidgetException {
         super(parent);
+        enabledComponents = new LinkedList<JComponent>();
     }
 
     public Object newInstance() {
@@ -96,6 +104,45 @@ public class UIPanel extends UIComponent {
         }
 
         return panel;
+    }
+
+    public void setEnable(boolean enable) {
+        if (panel.isEnabled() != enable) {
+            if (enable) {
+                for (JComponent c : enabledComponents) {
+                    c.setEnabled(true);
+                    changeBorderColor(c, (Color) UIManager.get("Label.enabledForeground"));
+                }
+                enabledComponents.clear();
+            } else {
+                changeBorderColor(panel, panel.getBackground().darker());
+                enabledComponents.add(panel);
+                disableDescendants(panel);
+            }
+            panel.setEnabled(enable);
+        }
+    }
+
+    private void disableDescendants(JComponent jc) {
+        for (Component c : jc.getComponents()) {
+            if (c instanceof JComponent) {
+                JComponent comp = (JComponent) c;
+                if (comp.isEnabled()) {
+                    enabledComponents.add(comp);
+                    comp.setEnabled(false);
+                    changeBorderColor(comp, comp.getBackground().darker());
+                }
+                disableDescendants(comp);
+            }
+        }
+    }
+
+    private static void changeBorderColor(JComponent comp, Color c) {
+        Border border = comp.getBorder();
+        if (border instanceof TitledBorder) {
+            TitledBorder titled = (TitledBorder) border;
+            titled.setTitleColor(c);
+        }
     }
 
     public ImageIcon getImage() {
