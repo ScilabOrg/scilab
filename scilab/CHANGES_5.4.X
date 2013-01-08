@@ -239,6 +239,9 @@ Bug fixes
 
 * Bug #12021 fixed - Improve the help page of eigs.
 
+* Bug #12023 fixed - Provide a more comprensible error message in some cases of
+                     of usage of eigs.
+
 * Bug #12135 fixed - stacksize('max') failed silently.
 
 * Bug #12137 fixed - eigs(A,B) returned incorrect result for sparse matrices.
