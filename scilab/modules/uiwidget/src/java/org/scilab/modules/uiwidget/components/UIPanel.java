@@ -23,9 +23,12 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.LayoutManager;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -42,6 +45,7 @@ public class UIPanel extends UIComponent {
     GridBagConstraints gbc;
     ImageIcon backgroundImage;
     ImageFill imageStyle;
+    List<JComponent> enabledComponents;
 
     public enum ImageFill {
         CENTER, FIT, REPEAT;
@@ -49,6 +53,7 @@ public class UIPanel extends UIComponent {
 
     public UIPanel(UIComponent parent) throws UIWidgetException {
         super(parent);
+        enabledComponents = new LinkedList<JComponent>();
     }
 
     public Object newInstance() {
@@ -96,6 +101,33 @@ public class UIPanel extends UIComponent {
         }
 
         return panel;
+    }
+
+    public void setEnable(boolean enable) {
+        if (panel.isEnabled() != enable) {
+            if (enable) {
+                for (JComponent c : enabledComponents) {
+                    c.setEnabled(true);
+                }
+                enabledComponents.clear();
+            } else {
+                disableDescendants(panel);
+            }
+            panel.setEnabled(enable);
+        }
+    }
+
+    private void disableDescendants(JComponent jc) {
+        for (Component c : jc.getComponents()) {
+            if (c instanceof JComponent) {
+                JComponent comp = (JComponent) c;
+                if (comp.isEnabled()) {
+                    enabledComponents.add(comp);
+                    comp.setEnabled(false);
+                }
+                disableDescendants(comp);
+            }
+        }
     }
 
     public ImageIcon getImage() {
