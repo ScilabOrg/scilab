@@ -1410,11 +1410,11 @@ static void cossim(double *told)
 
         if (!C2F(cmsolver).solver)
         {
-            flag = LSodarMalloc(cvode_mem, simblklsodar, T0, y, CV_SS, reltol, &abstol);
+            flag = LSodarInit(cvode_mem, simblklsodar, T0, y);
         }
         else
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
+        flag = CVodeInit(cvode_mem, simblk, T0, y);
+        if (check_flag(&flag, "CVodeInit", 1))
         {
             *ierr = 300 + (-flag);
             freeall
@@ -1423,10 +1423,23 @@ static void cossim(double *told)
 
         if (!C2F(cmsolver).solver)
         {
-            flag = LSodarRootInit(cvode_mem, ng, grblklsodar, NULL);
+            flag = LSodarSStolerances(cvode_mem, reltol, abstol);
         }
         else
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+        flag = CVodeSStolerances(cvode_mem, reltol, abstol);
+        if (check_flag(&flag, "CVodeSSTolerances", 1))
+        {
+            *ierr = 300 + (-flag);
+            freeall
+            return;
+        }
+
+        if (!C2F(cmsolver).solver)
+        {
+            flag = LSodarRootInit(cvode_mem, ng, grblklsodar);
+        }
+        else
+        flag = CVodeRootInit(cvode_mem, ng, grblk);
         if (check_flag(&flag, "CVodeRootInit", 1))
         {
             *ierr = 300 + (-flag);
@@ -1629,10 +1642,10 @@ L30:
 
                     if (!C2F(cmsolver).solver)
                     {
-                        flag = LSodarReInit(cvode_mem, simblklsodar, (realtype)(*told), y, CV_SS, reltol, &abstol);
+                        //flag = LSodarReInit(cvode_mem, (realtype)(*told), y);
                     }
                     else
-                    flag = CVodeReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
+                    flag = CVodeReInit(cvode_mem, (realtype)(*told), y);
                     if (check_flag(&flag, "CVodeReInit", 1))
                     {
                         *ierr = 300 + (-flag);
@@ -1683,7 +1696,7 @@ L30:
                         flag = LSodar(cvode_mem, t, y, told, LS_NORMAL);
                     }
                     else
-                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL);
                     if (*ierr != 0)
                     {
                         freeall;

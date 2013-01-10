@@ -12,7 +12,7 @@
 /* ------------------------------  
  * Define SUNDIALS version number
  * ------------------------------ */
-
+#define SUNDIALS_EXPORT 
 #define SUNDIALS_PACKAGE_VERSION "2.2.0"
  
 /* ------------------------------------------------- 
