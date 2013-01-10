@@ -101,6 +101,8 @@ Xcos
 
 * Improve block parameters errors (types and sizes) reporting.
 
+* Update Sundials to latest version "2.5.0"
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
@@ -140,12 +142,6 @@ Xcos
 
 * Bug #12213 fixed - lincos help page example produced undefined variable
                      warnings.
-
-* Bug #12265 fixed - xcos_simulate help example diagrams were badly rendered
-                     due to CLR blocks.
-
-* Bug #12266 fixed - Stopping "Papillon de lorentz" demonstration
-                     while simulation was on made CMSCOPE crash.
 
 
 Documentation
@@ -197,8 +193,6 @@ Bug fixes
 
 * Bug #9305 fixed - In the optimisation help page, new chapter "Least Squares functions"
                     created.
-
-* Bug #10606 fixed - unix_g did not return stdout in somes cases.
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
 
@@ -299,9 +293,6 @@ Bug fixes
 
 * Bug #12168 fixed - matfile_listvar crashed when listing variables of a closed MAT-file.
 
-* Bug #12174 fixed - The function "routh_t" gave incorrect output for all
-                     denominators that include gain value "k".
-
 * Bug #12179 fixed - Fix an incompatibility with MPI version of HDF5.
 
 * Bug #12184 fixed - Performances of the function 'derivat' improved.
@@ -315,8 +306,6 @@ Bug fixes
 * Bug #12204 fixed - Fix a typo in the French localization
 
 * Bug #12219 fixed - delete("all") does not recreate a basic axe within cleaned figure.
-
-* Bug #12221 fixed - fspec was not documented and there was an error message "undefined variable: Sl".
 
 * Bug #12232 fixed - There were several memleaks in various fillers.
 
