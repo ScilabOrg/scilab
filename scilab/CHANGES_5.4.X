@@ -99,6 +99,8 @@ Xcos
 
 * Add an implicit Fixed-size stop ODE solver : Implicit Runge-Kutta 4(5). Also benefits from the CVode rootfinding feature.
 
+* Update Sundials to latest version "2.5.0"
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
