@@ -18,6 +18,13 @@
 
 #include "lsodar.h"
 
+/*
+ * Control constant for tolerances
+ * --------------------------------
+ */
+
+#define CV_SS  1
+
 /* =============================
  *
  *            lsodar
@@ -37,7 +44,7 @@ extern void C2F(lsodar) (LSRhsFn f, int *neq, realtype *y, realtype *t, realtype
  *
  * LSodarCreate creates an internal memory block for a problem to be solved by LSODAR.
  * If successful, LSodarCreate returns a pointer to the problem memory.
- * This pointer should be passed to LSodarMalloc.
+ * This pointer should be passed to LSodarInit.
  * If an initialization error occurs,
  * LSodarCreate prints an error message to standard err and returns NULL.
  */
@@ -54,6 +61,9 @@ void * LSodarCreate (int * neq, int ng)
         LSProcessError(NULL, 0, "LSODAR", "LSodarCreate", MSGCV_CVMEM_FAIL);
         return (NULL);
     }
+
+    /* Zero out ls_mem */
+    memset(lsodar_mem, 0, sizeof(struct LSodarMemRec));
 
     /* Set the 'rwork' and 'iwork' workspaces lengths */
     lRn = 20 + 16 * (*neq) + 3 * ng;
@@ -101,46 +111,36 @@ void * LSodarCreate (int * neq, int ng)
 
 /* =============================
  *
- *         LSodarMalloc
+ *          LSodarInit
  *
  * =============================
  *
- * LSodarMalloc allocates and initializes memory for a problem.
+ * LSodarInit allocates and initializes memory for a problem.
  * All problem inputs are checked for errors. If any error occurs during initialization,
  * it is reported to the file whose file pointer is errfp and an error flag is returned.
  * Otherwise, it returns CV_SUCCESS.
  */
 
-int LSodarMalloc (void * lsodar_mem, LSRhsFn f, realtype t0, N_Vector y, int itol, realtype reltol, void * abstol)
+int LSodarInit (void * lsodar_mem, LSRhsFn f, realtype t0, N_Vector y)
 {
     /* Check the input arguments */
 
     LSodarMem ls_mem = NULL;
     if (lsodar_mem == NULL)
     {
-        LSProcessError(NULL, CV_MEM_NULL, "LSODAR", "LSodarMalloc", MSGCV_NO_MEM);
+        LSProcessError(NULL, CV_MEM_NULL, "LSODAR", "LSodarInit", MSGCV_NO_MEM);
         return (CV_MEM_NULL);
     }
     ls_mem = (LSodarMem) lsodar_mem;
 
     if (f == NULL)
     {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarMalloc", MSGCV_NULL_F);
+        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarInit", MSGCV_NULL_F);
         return (CV_ILL_INPUT);
     }
     if (y == NULL)
     {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarMalloc", MSGCV_NULL_Y0);
-        return (CV_ILL_INPUT);
-    }
-    if (reltol < 0.)
-    {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarMalloc", MSGCV_BAD_RELTOL);
-        return (CV_ILL_INPUT);
-    }
-    if (*((realtype *) abstol) < 0.)
-    {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarMalloc", MSGCV_BAD_ABSTOL);
+        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarInit", MSGCV_NULL_Y0);
         return (CV_ILL_INPUT);
     }
 
@@ -148,9 +148,6 @@ int LSodarMalloc (void * lsodar_mem, LSRhsFn f, realtype t0, N_Vector y, int ito
     func   =  f;
     yVec   =  NV_DATA_S(y);
     tStart =  t0;
-    iTol   =  itol;
-    relTol =  reltol;
-    absTol =  *((realtype *) abstol);
 
     /* Allocate rwork and iwork workspaces and set them to zero.
        Their size is lrw and liw, respectively */
@@ -167,13 +164,13 @@ int LSodarMalloc (void * lsodar_mem, LSRhsFn f, realtype t0, N_Vector y, int ito
  * =============================
  *
  * LSodarReInit re-initializes LSODAR's memory for a problem,
- * assuming it has already been allocated in a prior LSodarMalloc call.
+ * assuming it has already been allocated in a prior LSodarInit call.
  * All problem specification inputs are checked for errors.
  * If any error occurs during initialization, it is reported to the file whose file pointer is errfp.
  * The return value is CV_SUCCESS = 0 if no errors occurred, or a negative value otherwise.
  */
 
-int LSodarReInit (void * lsodar_mem, LSRhsFn f, realtype tOld, N_Vector y, int itol, realtype reltol, void * abstol)
+int LSodarReInit (void * lsodar_mem, realtype tOld, N_Vector y)
 {
     double rwork0, rwork5;
 
@@ -192,30 +189,11 @@ int LSodarReInit (void * lsodar_mem, LSRhsFn f, realtype tOld, N_Vector y, int i
         LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarReInit", MSGCV_NULL_Y0);
         return (CV_ILL_INPUT);
     }
-    if (f == NULL)
-    {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarReInit", MSGCV_NULL_F);
-        return (CV_ILL_INPUT);
-    }
-    if (reltol < 0.)
-    {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarReInit", MSGCV_BAD_RELTOL);
-        return (CV_ILL_INPUT);
-    }
-    if (*((realtype *) abstol) < 0.)
-    {
-        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarReInit", MSGCV_BAD_ABSTOL);
-        return (CV_ILL_INPUT);
-    }
 
     /* Reset the problem memory space variables to the arguments */
-    func   =  f;
     *nEq   =  NV_LENGTH_S(y);
     yVec   =  NV_DATA_S(y);
     tStart =  tOld;
-    iTol   =  itol;
-    relTol =  reltol;
-    absTol =  *((realtype *) abstol);
     iState =  1;
 
     /* Reinitialize rwork and iwork, leave rwork->tcrit and rwork->hmax unchanged, containing tcrit and hmax */
@@ -231,6 +209,50 @@ int LSodarReInit (void * lsodar_mem, LSRhsFn f, realtype tOld, N_Vector y, int i
 
 /* =============================
  *
+ *       LSodarSStolerances
+ *
+ * =============================
+ *
+ * This function specifies the scalar integration tolerances.
+ * It MUST be called before the first call to LSodar.
+ */
+
+int LSodarSStolerances(void * lsodar_mem, realtype reltol, realtype abstol)
+{
+    LSodarMem ls_mem;
+
+    if (lsodar_mem == NULL)
+    {
+        LSProcessError(NULL, CV_MEM_NULL, "LSodar", "LSodarSStolerances", MSGCV_NO_MEM);
+        return(CV_MEM_NULL);
+    }
+    ls_mem = (LSodarMem) lsodar_mem;
+
+    /* Check inputs */
+
+    if (reltol < 0.)
+    {
+        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarSStolerances", MSGCV_BAD_RELTOL);
+        return(CV_ILL_INPUT);
+    }
+
+    if (abstol < 0.)
+    {
+        LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodarSStolerances", MSGCV_BAD_ABSTOL);
+        return(CV_ILL_INPUT);
+    }
+
+    /* Copy tolerances into memory */
+
+    relTol = reltol;
+    absTol = abstol;
+    iTol = CV_SS;
+
+    return(CV_SUCCESS);
+}
+
+/* =============================
+ *
  *         LSodarRootInit
  *
  * =============================
@@ -240,7 +262,7 @@ int LSodarReInit (void * lsodar_mem, LSRhsFn f, realtype tOld, N_Vector y, int i
  * The return value is CV_SUCCESS = 0 if no errors occurred, or a negative value otherwise.
  */
 
-int LSodarRootInit (void * lsodar_mem, int ng, LSRootFn g, void *gdata)
+int LSodarRootInit (void * lsodar_mem, int ng, LSRootFn g)
 {
     LSodarMem ls_mem = NULL;
     if (lsodar_mem == NULL)
@@ -267,7 +289,6 @@ int LSodarRootInit (void * lsodar_mem, int ng, LSRootFn g, void *gdata)
 
     return (CV_SUCCESS);
 }
-
 
 /* =============================
  *
@@ -368,7 +389,7 @@ int LSodar (void * lsodar_mem, realtype tOut, N_Vector yOut, realtype * tOld, en
         return (CV_ILL_INPUT);
     }
     if ((itask != LS_NORMAL) && (itask != LS_ONE_STEP) && (itask != LS_MESH_STEP) &&
-            (itask != LS_NORMAL_TSTOP) && (itask != CV_ONE_STEP_TSTOP))
+            (itask != LS_NORMAL_TSTOP) && (itask != LS_ONE_STEP_TSTOP))
     {
         LSProcessError(ls_mem, CV_ILL_INPUT, "LSODAR", "LSodar", MSGCV_BAD_ITASK);
         return(CV_ILL_INPUT);
@@ -447,7 +468,7 @@ int LSodarGetRootInfo (void * lsodar_mem, int * rootsfound)
  *
  * =============================
  *
- * This routine frees the problem memory allocated by LSodarMalloc.
+ * This routine frees the problem memory allocated by LSodarInit.
  */
 
 void LSodarFree (void ** lsodar_mem)
