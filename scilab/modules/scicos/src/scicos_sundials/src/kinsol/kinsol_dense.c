@@ -56,7 +56,7 @@ static int KINDenseDQJac(long int n, DenseMat J,
 #define nni            (kin_mem->kin_nni)
 #define nnilset        (kin_mem->kin_nnilset)
 #define func           (kin_mem->kin_func)
-#define f_data         (kin_mem->kin_f_data)
+#define f_data         (kin_mem->kin_user_data)
 #define printfl        (kin_mem->kin_printfl)
 #define linit          (kin_mem->kin_linit)
 #define lsetup         (kin_mem->kin_lsetup)

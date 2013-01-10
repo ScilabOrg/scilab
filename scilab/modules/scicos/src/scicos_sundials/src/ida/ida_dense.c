@@ -50,7 +50,7 @@ static int IDADenseDQJac(long int Neq, realtype tt, N_Vector yy, N_Vector yp,
 /* Readability Replacements */
 
 #define res          (IDA_mem->ida_res)
-#define rdata        (IDA_mem->ida_rdata)
+#define rdata        (IDA_mem->ida_user_data)
 #define uround       (IDA_mem->ida_uround)
 #define tn           (IDA_mem->ida_tn)
 #define hh           (IDA_mem->ida_hh)
