@@ -1410,11 +1410,11 @@ static void cossim(double *told)
 
         if (!C2F(cmsolver).solver)
         {
-            flag = LSodarMalloc(cvode_mem, simblklsodar, T0, y, CV_SS, reltol, &abstol);
+            flag = LSodarInit(cvode_mem, simblklsodar, T0, y);
         }
         else
-        flag = CVodeMalloc(cvode_mem, simblk, T0, y, CV_SS, reltol, &abstol);
-        if (check_flag(&flag, "CVodeMalloc", 1))
+        flag = CVodeInit(cvode_mem, simblk, T0, y);
+        if (check_flag(&flag, "CVodeInit", 1))
         {
             *ierr = 300 + (-flag);
             freeall
@@ -1423,10 +1423,23 @@ static void cossim(double *told)
 
         if (!C2F(cmsolver).solver)
         {
-            flag = LSodarRootInit(cvode_mem, ng, grblklsodar, NULL);
+            flag = LSodarSStolerances(cvode_mem, reltol, abstol);
         }
         else
-        flag = CVodeRootInit(cvode_mem, ng, grblk, NULL);
+        flag = CVodeSStolerances(cvode_mem, reltol, abstol);
+        if (check_flag(&flag, "CVodeSStolerances", 1))
+        {
+            *ierr = 300 + (-flag);
+            freeall
+            return;
+        }
+
+        if (!C2F(cmsolver).solver)
+        {
+            flag = LSodarRootInit(cvode_mem, ng, grblklsodar);
+        }
+        else
+        flag = CVodeRootInit(cvode_mem, ng, grblk);
         if (check_flag(&flag, "CVodeRootInit", 1))
         {
             *ierr = 300 + (-flag);
@@ -1629,10 +1642,10 @@ L30:
 
                     if (!C2F(cmsolver).solver)
                     {
-                        flag = LSodarReInit(cvode_mem, simblklsodar, (realtype)(*told), y, CV_SS, reltol, &abstol);
+                        //flag = LSodarReInit(cvode_mem, (realtype)(*told), y);
                     }
                     else
-                    flag = CVodeReInit(cvode_mem, simblk, (realtype)(*told), y, CV_SS, reltol, &abstol);
+                    flag = CVodeReInit(cvode_mem, (realtype)(*told), y);
                     if (check_flag(&flag, "CVodeReInit", 1))
                     {
                         *ierr = 300 + (-flag);
@@ -1683,7 +1696,7 @@ L30:
                         flag = LSodar(cvode_mem, t, y, told, LS_NORMAL);
                     }
                     else
-                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL_TSTOP);
+                    flag = CVode(cvode_mem, t, y, told, CV_NORMAL);
                     if (*ierr != 0)
                     {
                         freeall;
@@ -2034,7 +2047,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        /* Call IDACreate and IDAMalloc to initialize IDA memory */
+        /* Call IDACreate and IDAInit to initialize IDA memory */
         ida_mem = NULL;
         ida_mem = IDACreate();
         if (check_flag((void *)ida_mem, "IDACreate", 0))
@@ -2049,8 +2062,8 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) ida_mem;
 
-        flag = IDAMalloc(ida_mem, simblkdaskr, T0, yy, yp, IDA_SS, reltol, &abstol);
-        if (check_flag(&flag, "IDAMalloc", 1))
+        flag = IDAInit(ida_mem, simblkdaskr, T0, yy, yp);
+        if (check_flag(&flag, "IDAInit", 1))
         {
             *ierr = 200 + (-flag);
             if (*neq > 0)IDAFree(&ida_mem);
@@ -2063,8 +2076,21 @@ static void cossimdaskr(double *told)
             return;
         }
 
+        flag = IDASStolerances(ida_mem, reltol, abstol);
+        if (check_flag(&flag, "IDASStolerances", 1))
+        {
+            *ierr = 200 + (-flag);
+            if (*neq > 0)IDAFree(&ida_mem);
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0) N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
+            if (ng != 0) FREE(jroot);
+            if (ng != 0) FREE(zcros);
+            if (nmod != 0) FREE(Mode_save);
+            return;
+        }
 
-        flag = IDARootInit(ida_mem, ng, grblkdaskr, NULL);
+        flag = IDARootInit(ida_mem, ng, grblkdaskr);
         if (check_flag(&flag, "IDARootInit", 1))
         {
             *ierr = 200 + (-flag);
@@ -2185,8 +2211,8 @@ static void cossimdaskr(double *told)
 
         TJacque = (DenseMat) DenseAllocMat(*neq, *neq);
 
-        flag = IDASetRdata(ida_mem, data);
-        if (check_flag(&flag, "IDASetRdata", 1))
+        flag = IDASetUserData(ida_mem, data);
+        if (check_flag(&flag, "IDASetUserData", 1))
         {
             *ierr = 200 + (-flag);
             freeallx
@@ -2488,7 +2514,7 @@ L30:
                         }
 
                         /* yy->PH */
-                        flag = IDAReInit(ida_mem, simblkdaskr, (realtype)(*told), yy, yp, IDA_SS, reltol, &abstol);
+                        flag = IDAReInit(ida_mem, (realtype)(*told), yy, yp);
                         if (check_flag(&flag, "CVodeReInit", 1))
                         {
                             *ierr = 200 + (-flag);
@@ -2633,7 +2659,7 @@ L30:
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
                 {
                     phase = 2;
-                    flagr = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL_TSTOP);
+                    flagr = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL);
                     phase = 1;
                     if (*ierr != 0)
                     {

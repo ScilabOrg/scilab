@@ -52,7 +52,7 @@ static int CVDenseDQJac(long int n, DenseMat J, realtype t,
 
 #define lmm       (cv_mem->cv_lmm)
 #define f         (cv_mem->cv_f)
-#define f_data    (cv_mem->cv_f_data)
+#define f_data    (cv_mem->cv_user_data)
 #define uround    (cv_mem->cv_uround)
 #define nst       (cv_mem->cv_nst)
 #define tn        (cv_mem->cv_tn)
