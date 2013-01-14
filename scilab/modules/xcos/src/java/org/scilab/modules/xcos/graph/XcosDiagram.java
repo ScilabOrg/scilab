@@ -520,6 +520,12 @@ public class XcosDiagram extends ScilabGraph {
                             current.updateFieldsFromStyle();
                         }
 
+                        XcosDiagram diagram = current.getParentDiagram();
+                        if (diagram instanceof SuperBlockDiagram) {
+                            diagram.fireEvent(new mxEventObject(XcosEvent.IO_PORT_VALUE_UPDATED, XcosConstants.EVENT_BLOCK_UPDATED, current));
+                            diagram.fireEvent(new mxEventObject(XcosEvent.ADD_PORTS, XcosConstants.EVENT_BLOCK_UPDATED, current));
+                        }
+
                         // Update the block position
                         BlockPositioning.updateBlockView(current);
                     }
