@@ -101,6 +101,7 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.util.mxUndoableEdit;
+import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxUndoableEdit.mxUndoableChange;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.mxgraph.view.mxMultiplicity;
@@ -569,6 +570,17 @@ public class XcosDiagram extends ScilabGraph {
             diagram.getModel().beginUpdate();
             try {
                 final BasicBlock updatedBlock = (BasicBlock) evt.getProperty(XcosConstants.EVENT_BLOCK_UPDATED);
+
+                mxCell identifier = diagram.getOrCreateCellIdentifier(updatedBlock);
+                final Object current = diagram.getModel().getValue(identifier);
+                String text = "";
+                if (current == null) {
+                    text = "";
+                } else {
+                    text = mxUtils.getBodyMarkup(current.toString(), false);
+                }
+                diagram.fireEvent(new mxEventObject(mxEvent.LABEL_CHANGED, "cell", identifier, "value", text, "parent", updatedBlock));
+
                 BlockPositioning.updateBlockView(updatedBlock);
 
                 diagram.getView().clear(updatedBlock, true, true);
