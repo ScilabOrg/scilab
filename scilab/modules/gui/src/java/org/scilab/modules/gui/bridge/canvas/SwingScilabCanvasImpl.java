@@ -15,6 +15,7 @@ package org.scilab.modules.gui.bridge.canvas;
 
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
@@ -202,21 +203,29 @@ public class SwingScilabCanvasImpl {
      * Wrap call to removeNotify to ensure we are not outside Swing Thread
      * and PBuffer is not locked.
      */
-    private final class MacOSXGLJPanel extends GLJPanel {
+    private final class SafeGLJPanel extends GLJPanel {
         private static final long serialVersionUID = -6166986369022555750L;
 
-        private void superRemoveNotify() {
-            super.removeNotify();
+        public void display() {
+            try {
+                super.display();
+            } catch (Exception e) {
+                // Catch JoGL Exceptions and hide it ...
+                // Make another try
+                System.err.println("[SafeGLJPanel.display] catching "+e.toString());
+                super.reshape(getX(),getY(),getWidth(),getHeight());
+                super.display();
+            }
         }
-
-        @Override
-        public void removeNotify() {
-            final MacOSXGLJPanel panel = this;
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    panel.superRemoveNotify();
-                }
-            });
+        
+        protected void paintComponent(final Graphics g) {
+            try {
+                super.paintComponent(g);
+            } catch (Exception e) {
+                // Catch JoGL Exceptions and hide it ...
+                // Make another try
+                System.err.println("[SafeGLJPanel.paintComponent] catching "+e.toString());
+            }
         }
     }
 
@@ -243,7 +252,7 @@ public class SwingScilabCanvasImpl {
             //if (OS.get() == OS.MAC) {
             //    return new MacOSXGLJPanel();
             //} else {
-                return new GLJPanel();
+                return new SafeGLJPanel();
             //}
         }
     }
