@@ -273,6 +273,8 @@ Bug fixes
 
 * Bug #12204 fixed - Fix a typo in the French localization
 
+* Bug #11477 fixed - There were memory leaks with textures.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
