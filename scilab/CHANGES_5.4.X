@@ -131,6 +131,9 @@ Xcos
 
 * Bug #12167 fixed - Text of ports in superblocks were not updated.
 
+* Bug #12213 fixed - Two Integral blocks in pendulum_anim45.xcos had initial
+                     condition with reference to undefined variables.
+
 
 Documentation
 ==============
