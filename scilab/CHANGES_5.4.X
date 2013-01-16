@@ -29,7 +29,6 @@ Improvements
    schema
    If the file does not exist, propose to create it.
 
-
 Removed functions
 ==================
 
@@ -140,6 +139,8 @@ Documentation
 
 Compilation
 ============
+
+* Autotools version updated to the latest (1.12.2) version.
 
 * Enforce a minimal version of Scirenderer (1.0.3).
 
