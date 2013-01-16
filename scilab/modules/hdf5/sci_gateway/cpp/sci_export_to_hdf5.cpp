@@ -69,14 +69,14 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
     char *pstFileName   = NULL;
     bool bExport        = false;
     bool bAppendMode    = false;
-
+    const int nbIn = nbInputArgument(pvApiCtx);
     SciErr sciErr;
 
     CheckInputArgumentAtLeast(pvApiCtx, 1);
-    CheckLhs(0, 1);
+    CheckOutputArgument(pvApiCtx, 0, 1);
 
-    pstNameList = (char**)MALLOC(sizeof(char*) * Rhs);
-    iNbVar = extractVarNameList(1, Rhs, pstNameList);
+    pstNameList = (char**)MALLOC(sizeof(char*) * nbIn);
+    iNbVar = extractVarNameList(1, nbIn, pstNameList);
     if (iNbVar == 0)
     {
         FREE(pstNameList);
@@ -84,7 +84,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
     }
 
     piAddrList = (int**)MALLOC(sizeof(int*) * (iNbVar));
-    for (int i = 1 ; i < Rhs ; i++)
+    for (int i = 1 ; i < nbIn ; i++)
     {
         if (strcmp(pstNameList[i], "-append") == 0)
         {
@@ -159,7 +159,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
             //import all data
             for (int i = 0 ; i < iNbItem ; i++)
             {
-                for (int j = 1 ; j < Rhs ; j++)
+                for (int j = 1 ; j < nbIn ; j++)
                 {
                     if (strcmp(pstNameList[i], "-append") == 0)
                     {
@@ -180,7 +180,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
     }
 
     // export data
-    for (int i = 1 ; i < Rhs ; i++)
+    for (int i = 1 ; i < nbIn ; i++)
     {
         if (strcmp(pstNameList[i], "-append") == 0)
         {
@@ -194,7 +194,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
         }
     }
 
-    if (bExport && Rhs != 1)
+    if (bExport && nbIn != 1)
     {
         //add or update scilab version and file version in hdf5 file
         if (updateScilabVersion(iH5File) < 0)
@@ -214,7 +214,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
     //close hdf5 file
     closeHDF5File(iH5File);
-    if (bExport == false && Rhs != 1)
+    if (bExport == false && nbIn != 1)
     {
         //remove file
         deleteafile(pstFileName);
@@ -223,14 +223,14 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
     //create boolean return value
     int *piReturn = NULL;
-    sciErr = allocMatrixOfBoolean(pvApiCtx, Rhs + 1, 1, 1, &piReturn);
+    sciErr = allocMatrixOfBoolean(pvApiCtx, nbIn + 1, 1, 1, &piReturn);
     if (sciErr.iErr)
     {
         printError(&sciErr, 0);
         return 1;
     }
 
-    if (bExport == true || Rhs == 1)
+    if (bExport == true || nbIn == 1)
     {
         piReturn[0] = 1;
     }
@@ -241,7 +241,7 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
 
     //free memory
-    for (int i = 0 ; i < Rhs ; i++)
+    for (int i = 0 ; i < nbIn ; i++)
     {
         FREE(pstNameList[i]);
     }
@@ -249,8 +249,8 @@ int sci_export_to_hdf5(char *fname, unsigned long fname_len)
 
     FREE(piAddrList);
 
-    LhsVar(1) = Rhs + 1;
-    PutLhsVar();
+    AssignOutputVariable(pvApiCtx, 1) = nbIn + 1;
+    ReturnArguments(pvApiCtx);
     return 0;
 }
 
