@@ -13,10 +13,10 @@
 // <-- Short Description -->
 // eval failed on some functions without output arguments.
 str = "realtimeinit(60)";
-r = eval(str);
+r = evstr(str);
 if r <> [] then bugmes();quit;end
 function o = blabla()
  o = 3;
 endfunction
-r = eval("blabla()");
+r = evstr("blabla()");
 if r <> 3 then bugmes();quit;end

@@ -1,6 +1,6 @@
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) INRIA -
-// Copyright (C) DIGITEO - 2010 - Allan CORENT
+// Copyright (C) DIGITEO - 2010 - Allan CORNET
 //
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
@@ -14,6 +14,8 @@ function _h = eval(z)
   // returns the evaluation of the matrix of character strings Z.
   // Example: a=1; b=2; Z=['a','b'] ; eval(Z) returns the matrix [1,2];
   //!
+
+  warnobsolete("evstr","6.0.0");
 
   _h = [];
   [mz, nz] = size(z);

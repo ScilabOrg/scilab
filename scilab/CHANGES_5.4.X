@@ -81,6 +81,9 @@ Obsolete functions
 * xsetm() tagged as obsolete. Will be removed for Scilab 5.5.0.
   Use set(), get() and ged() instead.
 
+* eval() tagged as obsolete. Will be removed for Scilab 6.0.0.
+  Use evstr() instead.
+
 
 Xcos
 =====
