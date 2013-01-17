@@ -190,8 +190,8 @@ function post_xcos_simulate(%cpr, scs_m, needcompile)
     // Retrieve exprs
     exprs = clrBlock.graphics.exprs;
     s = poly(0,'s');
-    num = eval(exprs(1));
-    den = eval(exprs(2));
+    num = evstr(exprs(1));
+    den = evstr(exprs(2));
     h = syslin('c', num/den);
     // Open new figure then plot Bode
     scf(max(winsid())+1);
@@ -238,8 +238,8 @@ function continueSimulation = pre_xcos_simulate(scs_m, needcompile)
     // Retrieve exprs
     exprs = clrBlock.graphics.exprs;
     s = poly(0,'s');
-    num = eval(exprs(1));
-    den = eval(exprs(2));
+    num = evstr(exprs(1));
+    den = evstr(exprs(2));
     h = syslin('c', num/den);
     // Open new figure then plot Bode
     scf(max(winsid())+1);

@@ -15,6 +15,8 @@ function _h = eval(z)
   // Example: a=1; b=2; Z=['a','b'] ; eval(Z) returns the matrix [1,2];
   //!
 
+  warnobsolete("evstr","6.0.0");
+
   _h = [];
   [mz, nz] = size(z);
   if mz * nz > 1 then
