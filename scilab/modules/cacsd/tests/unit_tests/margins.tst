@@ -33,7 +33,7 @@ z=poly(0,'z');
 //h:= rational fraction in z
 //M := solve(Im(h) = 0, w)
 //evalf(M/(2*Pi))
-//evalf(eval(20*log10(1/abs(h)), w = M[k]))
+//evalf(evstr(20*log10(1/abs(h)), w = M[k]))
 
 h = syslin(0.1,((29/625)+(2399/50000)*z)/((1131/1250)+(-181/100)*z+z^2));
 f_ref=atan(sqrt(9003479136639)/4963519)/(0.1*2*%pi);
@@ -66,7 +66,7 @@ s=poly(0,'s');
 //h:= rational fraction in z
 //M := solve(Im(h) = 0, w)
 //evalf(M/(2*Pi))
-//evalf(eval(20*log10(1/abs(h)), w = M[k]))
+//evalf(evstr(20*log10(1/abs(h)), w = M[k]))
 
 h=syslin('c',(-1+s)/(3+2*s+s^2));  
 f_ref=0;
@@ -113,7 +113,7 @@ endfunction
 //z:=exp(I*w):
 //assume(w, 'real', w > 0)
 //P := solve(abs(h) = 1, w)
-//evalf(-(eval(180-180*argument(h)/Pi, w = Re(P[k]))))+360
+//evalf(-(evstr(180-180*argument(h)/Pi, w = Re(P[k]))))+360
 
 h = syslin(0.1,((29/625)+(2399/50000)*z)/((1131/1250)+(-181/100)*z+z^2)); 
 f_ref=0.693016600315284442350578876;
@@ -137,7 +137,7 @@ if  ~check_pmargin(h,f_ref,p_ref) then pause,end
 //z:=I*w:
 //assume(w, 'real', w > 0)
 //P := solve(abs(h) = 1, w)
-//evalf(-(eval(180-180*argument(h)/Pi, w = Re(P[k]))))+360
+//evalf(-(evstr(180-180*argument(h)/Pi, w = Re(P[k]))))+360
 
 h=syslin('c',((11/10)+(12/5)*s+(7/10)*s^2)/(3+2*s+s^2));
 f_ref=(1/51)*sqrt(15861-204*sqrt(3562))/(2*%pi);
