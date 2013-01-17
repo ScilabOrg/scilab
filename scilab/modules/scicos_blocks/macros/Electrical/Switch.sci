@@ -53,7 +53,7 @@ case 'define' then
   Ron=0.01;
   Roff=1e5;
   S=['Ron';'Roff'];
-  Z=eval(S);
+  Z=evstr(S);
   model.sim='Switch'
   model.blocktype='c'
   model.dep_ut=[%t %f]
