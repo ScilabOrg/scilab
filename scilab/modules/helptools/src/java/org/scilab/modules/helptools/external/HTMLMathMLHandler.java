@@ -83,7 +83,7 @@ public class HTMLMathMLHandler extends ExternalXMLHandler {
     public String endExternalXML(String localName) {
         if (MATH.equals(localName)) {
             recreateTag(buffer, localName, null);
-            File f = new File(outputDir, BASENAME + (compt++) + ".png");
+            File f = new File(outputDir, BASENAME + ((HTMLDocbookTagConverter) getConverter()).getLanguage() + "_" + (compt++) + ".png");
             Map<String, String> attributes = new HashMap<String, String>();
             attributes.put("fontsize", "16");
             String baseImagePath = "";

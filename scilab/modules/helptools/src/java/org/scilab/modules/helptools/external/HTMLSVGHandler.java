@@ -83,7 +83,7 @@ public class HTMLSVGHandler extends ExternalXMLHandler {
     public String endExternalXML(String localName) {
         if (SVG.equals(localName)) {
             recreateTag(buffer, localName, null);
-            File f = new File(outputDir, BASENAME + (compt++) + ".png");
+            File f = new File(outputDir, BASENAME + ((HTMLDocbookTagConverter) getConverter()).getLanguage() + "_" + (compt++) + ".png");
             Map<String, String> attributes = new HashMap<String, String>();
             String baseImagePath = "";
             if (getConverter() instanceof HTMLDocbookTagConverter) {

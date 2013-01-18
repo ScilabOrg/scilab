@@ -132,27 +132,27 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
         this.type = type;
         if (isToolbox) {// we generate a toolbox's help
             HTMLScilabCodeHandler.setLinkWriter(new AbstractScilabCodeHandler.LinkWriter() {
-                public String getLink(String id) {
-                    if (id.length() > 0 && id.charAt(0) == '%') {
-                        id = id.replace("%", "percent");
+                    public String getLink(String id) {
+                        if (id.length() > 0 && id.charAt(0) == '%') {
+                            id = id.replace("%", "percent");
+                        }
+                        String link = mapId.get(id);
+                        if (link == null) {
+                            return HTMLDocbookTagConverter.this.urlBase + id;
+                        } else {
+                            return link;
+                        }
                     }
-                    String link = mapId.get(id);
-                    if (link == null) {
-                        return HTMLDocbookTagConverter.this.urlBase + id;
-                    } else {
-                        return link;
-                    }
-                }
-            });
+                });
         } else {// we generate Scilab's help
             HTMLScilabCodeHandler.setLinkWriter(new AbstractScilabCodeHandler.LinkWriter() {
-                public String getLink(String id) {
-                    if (id.length() > 0 && id.charAt(0) == '%') {
-                        id = id.replace("%", "percent");
+                    public String getLink(String id) {
+                        if (id.length() > 0 && id.charAt(0) == '%') {
+                            id = id.replace("%", "percent");
+                        }
+                        return mapId.get(id);
                     }
-                    return mapId.get(id);
-                }
-            });
+                });
         }
 
         xmlLexer = new XMLLexer();
@@ -1108,7 +1108,7 @@ public class HTMLDocbookTagConverter extends DocbookTagConverter implements Temp
      * @throws SAXEception if an error is encountered
      */
     public String handleLatex(final Map<String, String> attributes, final String contents) throws SAXException {
-        File f = new File(outImages + "/" + imageDir, LATEXBASENAME + (latexCompt++) + ".png");
+        File f = new File(outImages + "/" + imageDir, LATEXBASENAME + language + "_" + (latexCompt++) + ".png");
         String parent = getParentTagName();
         if (parent.equals("para") && !attributes.containsKey("style")) {
             attributes.put("style", "text");
