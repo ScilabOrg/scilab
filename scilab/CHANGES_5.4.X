@@ -284,6 +284,8 @@ Bug fixes
 
 * Bug #12219 fixed - delete("all") does not recreate a basic axe within cleaned figure.
 
+* Bug #12232 fixed - There were several memleaks in various fillers.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================

@@ -90,12 +90,14 @@ void TriangleMeshFecDataDecomposer::fillTextureCoordinates(char* id, float* buff
 
     if (colorRange[0] != 0 || colorRange[1] != 0)
     {
-      colorsNumber = (double) (1 + colorRange[1] - colorRange[0]);
+        colorsNumber = (double) (1 + colorRange[1] - colorRange[0]);
     }
     else
     {
-      colorsNumber = (double) colormapSize;
+        colorsNumber = (double) colormapSize;
     }
+
+    releaseGraphicObjectProperty(__GO_COLOR_RANGE__, colorRange, jni_int_vector, 0);
 
     /** To take into account the presence of exterior colors:
      *  - We add 2 to the number of colors.
@@ -118,6 +120,8 @@ void TriangleMeshFecDataDecomposer::fillTextureCoordinates(char* id, float* buff
     {
         computeMinMaxValues(values, numVertices, &minValue, &maxValue);
     }
+
+    releaseGraphicObjectProperty(__GO_Z_BOUNDS__, zBounds, jni_double_vector, 0);
 
     if (maxValue == minValue)
     {
@@ -221,6 +225,8 @@ void TriangleMeshFecDataDecomposer::fillColors(char* id, float* buffer, int buff
         maxColorIndex = colormapSize-1;
     }
 
+    releaseGraphicObjectProperty(__GO_COLOR_RANGE__, colorRange, jni_int_vector, 0);
+
     computeMinMaxValues(values, numVertices, &minValue, &maxValue);
 
     /* Z-bounds are not taken into account if either of them is invalid */
@@ -241,6 +247,8 @@ void TriangleMeshFecDataDecomposer::fillColors(char* id, float* buffer, int buff
             ColorComputer::getDirectColor((double) outsideColors[1] - 1.0, colormap, colormapSize, maxColor);
         }
     }
+
+    releaseGraphicObjectProperty(__GO_Z_BOUNDS__, zBounds, jni_double_vector, 0);
 
     /* To be verified (when reverse z bounds are specified) */
     if (DecompositionUtils::getAbsoluteValue(maxValue - minValue) < DecompositionUtils::getMinDoubleValue())
@@ -278,7 +286,7 @@ void TriangleMeshFecDataDecomposer::fillColors(char* id, float* buffer, int buff
         }
         else
         {
-                /* To do: replace 0.5 by a macro-definition */
+            /* To do: replace 0.5 by a macro-definition */
             ColorComputer::getColor(values[i], minValue, valueRange, 0.5, colormap, minColorIndex, maxColorIndex, colormapSize, &buffer[bufferOffset]);
         }
 
@@ -288,6 +296,7 @@ void TriangleMeshFecDataDecomposer::fillColors(char* id, float* buffer, int buff
         }
     }
 
+    releaseGraphicObjectProperty(__GO_COLORMAP__, colormap, jni_double_vector, colormapSize);
 }
 
 void TriangleMeshFecDataDecomposer::computeMinMaxValues(double* values, int numValues, double* valueMin, double* valueMax)
