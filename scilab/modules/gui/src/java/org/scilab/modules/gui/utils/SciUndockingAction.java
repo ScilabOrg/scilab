@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.Iterator;
 
 import javax.swing.AbstractAction;
+import javax.swing.SwingUtilities;
 
 import org.flexdock.docking.Dockable;
 import org.flexdock.docking.DockingConstants;
@@ -61,7 +62,7 @@ public class SciUndockingAction extends AbstractAction {
         /** Save the tab dimensions to set them back after docking */
         Size oldtabSize = associatedTab.getDims();
         /** Save the old parent Window position to use it to set the new Window position */
-        Position oldWindowPosition = SwingScilabWindow.allScilabWindows.get(associatedTab.getParentWindowId()).getPosition();
+        Position oldWindowPosition = ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, associatedTab)).getPosition();
         /* If we undock a tab contained in view with two elements, then
            the two elements will be alone, so we remove the actions. */
         DockingPort port = DockingManager.getMainDockingPort(associatedTab);
@@ -97,7 +98,7 @@ public class SciUndockingAction extends AbstractAction {
         Size windowSize = newWindow.getDims();
         Size newTabSize = associatedTab.getDims();
         newWindow.setDims(new Size((windowSize.getWidth() - newTabSize.getWidth()) + oldtabSize.getWidth(),
-                (windowSize.getHeight() - newTabSize.getHeight()) + oldtabSize.getHeight()));
+                                   (windowSize.getHeight() - newTabSize.getHeight()) + oldtabSize.getHeight()));
 
         associatedTab.setParentWindowId(newWindow.getId());
         associatedTab.requestFocus();
