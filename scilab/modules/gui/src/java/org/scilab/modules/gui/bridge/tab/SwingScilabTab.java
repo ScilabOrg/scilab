@@ -290,7 +290,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
 
             public void ancestorMoved(HierarchyEvent e) {
                 if (e.getChanged() instanceof SwingScilabWindow) {
-                    Position parentPosition =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getPosition();
+                    Position parentPosition =  ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).getPosition();
                     Integer[] newPosition = new Integer[] {parentPosition.getX(), parentPosition.getY()};
                     GraphicController.getController().setProperty(id, __GO_POSITION__, newPosition);
                 }
@@ -306,7 +306,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             public void componentResized(ComponentEvent arg0) {
 
                 /* Update the figure_size property */
-                Size parentSize =  SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
+                Size parentSize =  ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).getDims();
                 Integer[] newSize = new Integer[] {parentSize.getWidth(), parentSize.getHeight()};
                 GraphicController.getController().setProperty(id, __GO_SIZE__, newSize);
 
@@ -1420,7 +1420,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
 
             /** Update tool bar */
             setToolBar(ToolBarBuilder.buildToolBar(GRAPHICS_TOOLBAR_DESCRIPTOR, figureId));
-            SwingScilabWindow parentWindow = SwingScilabWindow.allScilabWindows.get(getParentWindowId());
+            SwingScilabWindow parentWindow = ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this));
             parentWindow.addToolBar(getToolBar());
 
             /* Update callback */
@@ -1438,10 +1438,10 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
             updateChildrenCallbacks(children, figureId);
         } else if (property == __GO_SIZE__) {
             Integer[] size = (Integer[]) value;
-            SwingScilabWindow.allScilabWindows.get(parentWindowId).setDims(new Size(size[0], size[1]));
+            ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).setDims(new Size(size[0], size[1]));
         } else if (property == __GO_POSITION__) {
             Integer[] position = (Integer[]) value;
-            SwingScilabWindow.allScilabWindows.get(parentWindowId).setPosition(new Position(position[0], position[1]));
+            ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).setPosition(new Position(position[0], position[1]));
         } else if (property == __GO_AXES_SIZE__) {
             Integer[] axesSize = (Integer[]) value;
             Dimension oldAxesSize = getContentPane().getSize();
@@ -1452,8 +1452,8 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
                 // TODO manage tabs when there are docked (do not change the window size if more than one tab docked)
                 int deltaX = axesSize[0] - (int) oldAxesSize.getWidth();
                 int deltaY = axesSize[1] - (int) oldAxesSize.getHeight();
-                Size parentWindowSize = SwingScilabWindow.allScilabWindows.get(parentWindowId).getDims();
-                SwingScilabWindow.allScilabWindows.get(parentWindowId).setDims(
+                Size parentWindowSize = ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).getDims();
+                ((SwingScilabWindow) SwingUtilities.getAncestorOfClass(SwingScilabWindow.class, SwingScilabTab.this)).setDims(
                     new Size(parentWindowSize.getWidth() + deltaX, parentWindowSize.getHeight() + deltaY));
             }
         } else if (property == __GO_INFO_MESSAGE__) {
