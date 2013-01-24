@@ -27,6 +27,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 import org.scilab.modules.uiwidget.UIComponent;
 import org.scilab.modules.uiwidget.UIWidgetException;
@@ -76,6 +77,8 @@ public class UIList extends UIComponent {
             }
         });
 
+        setMultiple(false);
+
         return list;
     }
 
@@ -113,6 +116,19 @@ public class UIList extends UIComponent {
         }
 
         return getSelectedItem();
+    }
+
+    public void setMultiple(boolean multiple) {
+        if (multiple) {
+            list.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        } else {
+            list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        }
+    }
+
+    public boolean getMultiple() {
+        int m = list.getSelectionModel().getSelectionMode();
+        return m == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
     }
 
     public void setSelectedItem(String item) {
@@ -172,6 +188,12 @@ public class UIList extends UIComponent {
 
     public int getSelectedIndex() {
         return list.getSelectedIndex();
+    }
+
+    public void setSelectedIndices(int[] indices) {
+        try {
+            list.setSelectedIndices(indices);
+        } catch (IllegalArgumentException e) { }
     }
 
     public int getValue() {
