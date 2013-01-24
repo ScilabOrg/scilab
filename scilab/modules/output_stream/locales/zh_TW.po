@@ -832,7 +832,7 @@ msgstr ""
 #
 # File: src/c/errmsg.c, line: 828
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "參數 %d 數值錯誤.\n"
 
 #
@@ -1217,19 +1217,19 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "此參數型態沒有對應之函數定義,\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 
 #
 # File: src/c/errmsg.c, line: 1364
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr "參數 %d 數值錯誤 : 應為合法之變數名稱.\n"
 
 #
 # File: src/c/errmsg.c, line: 1369
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "參數 %d 數值錯誤 : 應為空字串.\n"
 
 #
@@ -1304,7 +1304,7 @@ msgstr ""
 #
 # File: src/c/errmsg.c, line: 1440
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr "參數 %d 數值錯誤 : 應不含 NaN 或 Inf.\n"
 
 #
@@ -1335,14 +1335,14 @@ msgstr "由參數 %d 傳入之參數之傳回值不合法.\n"
 # File: src/c/errmsg.c, line: 1465
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr "參數 %d 數值錯誤 : 特徵值之實部應為負.\n"
 
 #
 # File: src/c/errmsg.c, line: 1470
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr "參數 %d 數值錯誤 : 特徵值之模 (modulus) 應小於 1.\n"
 
 #

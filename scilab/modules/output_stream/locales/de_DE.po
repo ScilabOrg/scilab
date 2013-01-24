@@ -642,7 +642,7 @@ msgstr ""
 "Erstellen Sie einen Fehlerbericht:\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Falscher Wert für Argument %d.\n"
 
 #, c-format
@@ -923,16 +923,16 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Funktion für gegebene Argumenten-Typ(en) nicht erlaubt.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Falscher Wert für Argument %d: die lu Handhabung ist nicht mehr gültig.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr "Falscher Wert für Argument %d: gültige Variablen-Name erwartet.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "Falscher Wert für Argument %d: leere Zeichenkette erwartet.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -986,7 +986,7 @@ msgstr ""
 "Fehler beim Schreiben in Datei: Festplatte voll oder gelöschte Datei.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Falscher Wert für Argument %d: darf keine \"Nicht Zahlen\" oder uendliche "
 "Werte enthalten.\n"
@@ -1009,13 +1009,13 @@ msgstr "Ungültige Rückgabe für Funktion übergeben im Argument %d.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Falscher Wert für Argument %d: Eigenwerte müssen negative Realteile haben.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Falscher Wert für Argument %d: Moden der Eigenwerte müssen weniger als Eins "
 "sein.\n"

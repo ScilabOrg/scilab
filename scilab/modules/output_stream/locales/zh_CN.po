@@ -598,7 +598,7 @@ msgstr ""
 "请报告该bug：\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "第%d个参数的值错误。\n"
 
 #, c-format
@@ -859,15 +859,15 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "给定参数类型的函数未定义。\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr "参数%d的值错误：句柄lu不再正确。\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr "参数%d的值错误：应该为正确的变量名。\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "参数%d的值错误：应该为空字符串。\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -920,7 +920,7 @@ msgid "Error while writing in file: disk full or deleted file.\n"
 msgstr ""
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr "参数%d的值错误：不能包含NaN和Inf。\n"
 
 #, c-format
@@ -941,12 +941,12 @@ msgstr "在参数%d处输入的函数的返回值错误。\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr "参数%d的值错误：特征值必须具有负实数部分。\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr "参数%d的值错误：特征值modulus必须少于一个。\n"
 
 #, c-format

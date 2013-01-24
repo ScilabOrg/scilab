@@ -648,7 +648,7 @@ msgstr ""
 "Por favor, reporte este bug.\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Valor errado para o argumento %d.\n"
 
 #, c-format
@@ -934,17 +934,17 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Função não definida para o(s) dado(s) tipo(s) do(s) argumentos,\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Valor errado para o argumento %d: O manipulador lu não é mais válido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Valor errado para o argumento %d: Esperava-se um nome de veriável válido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "Valor errado para o argumento %d: Esperava-se um string vazio.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -998,7 +998,7 @@ msgstr ""
 "Erro enquanto escrevendo no arquivo: disco cheio ou arquivo deletado.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr "Valor errado para o argumento %d: Não deve conteu NaN ou Inf.\n"
 
 #, c-format
@@ -1019,14 +1019,14 @@ msgstr "Valor de retorno inválido para a função passado no argumento %d.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Valor errado para o argumento %d: Os autovalores devem conter partes reais "
 "negativas.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Valor errado para o argumento %d: Os módulos dos autovalores devem ser "
 "menores do que um.\n"

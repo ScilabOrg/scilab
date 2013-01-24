@@ -1020,7 +1020,7 @@ msgstr ""
 #
 # File: src/c/errorTable.c, line: 854
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr ""
 
 #
@@ -1424,19 +1424,19 @@ msgstr ""
 #
 # File: src/c/errorTable.c, line: 1400
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 
 #
 # File: src/c/errorTable.c, line: 1405
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 
 #
 # File: src/c/errorTable.c, line: 1410
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr ""
 
 #
@@ -1517,7 +1517,7 @@ msgstr ""
 #
 # File: src/c/errorTable.c, line: 1482
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 
 #
@@ -1548,14 +1548,14 @@ msgstr ""
 # File: src/c/errorTable.c, line: 1507
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 
 #
 # File: src/c/errorTable.c, line: 1512
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 
 #

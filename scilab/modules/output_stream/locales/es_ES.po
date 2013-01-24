@@ -663,7 +663,7 @@ msgstr ""
 "Por favor informe este error :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Valor incorrecto para el argumento %d.\n"
 
 #, c-format
@@ -952,18 +952,18 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "La función no está definida para el tipo de argumento dado.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Valor incorrecto para el argumento %d: el manejador lu ya no es válido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Valor incorrecto para el argumento %d: Se esperaba un nombre de variable "
 "válido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr ""
 "Valor incorrecto para el argumento %d: Se esperaba una cadena de caracteres "
 "vacía.\n"
@@ -1018,7 +1018,7 @@ msgid "Error while writing in file: disk full or deleted file.\n"
 msgstr "Error escribiendo en el archivo: disco lleno o archivo eliminado.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Tipo incorrecto para el argumento %d: No debe contener NaN (Not a Number) o "
 "infinito.\n"
@@ -1042,14 +1042,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Valor incorrecto para el argumento %d: los valores propios deben tener "
 "partes reales negativas.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Valor incorrecto para el argumento %d: el módulo de los valores propios debe "
 "ser menor que uno.\n"

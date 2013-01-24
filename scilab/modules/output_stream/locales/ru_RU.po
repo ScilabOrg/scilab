@@ -637,7 +637,7 @@ msgstr ""
 "Пожалуйста, сообщите об этой проблеме :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Неверное значение параметра %d.\n"
 
 #, c-format
@@ -915,17 +915,17 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Функция не определена для заданных типов параметров,\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Неверное значение параметра %d: дескриптор LU более недействителен.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Неверное значение параметра %d: ожидалось корректное имя переменной.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "Неверное значение параметра %d: ожидалась пустая строка.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -979,7 +979,7 @@ msgid "Error while writing in file: disk full or deleted file.\n"
 msgstr "Ошибка при записи в файл: диск полный или файл удалён.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Неверное значение параметра %d: параметр не должен содержать NaN и Inf.\n"
 
@@ -1003,14 +1003,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Неверное значение параметра %d: собственные значения должны иметь "
 "отрицательные вещественные части.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Неверное значение параметра %d: модуль собственного значения должен быть "
 "меньше единицы.\n"

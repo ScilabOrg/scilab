@@ -636,7 +636,7 @@ msgstr ""
 "このバグを報告してください:\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "引数 %d の値が間違っています.\n"
 
 #, c-format
@@ -903,15 +903,15 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "関数は指定した引数型に関して定義されていません.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr "引数 %d の値が間違っています. luハンドルはもはや有効ではありません.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr "引数 %d の値が間違っています: 有効な変数名を指定してください.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "引数 %d の値が間違っています: 空の文字列を指定してください.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -964,7 +964,7 @@ msgid "Error while writing in file: disk full or deleted file.\n"
 msgstr "ファイル書き込み時にエラー発生: ディスクが一杯かファイルが削除されました.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr "引数 %d の値が間違っています: NaN または Inf を含むことはできません.\n"
 
 #, c-format
@@ -985,12 +985,12 @@ msgstr "引数 %d に渡された関数の戻り値が不正です.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr "引数 %d の値が間違っています: 固有値の実部は負である必要があります.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr "引数 %d の値が間違っています: 固有値率を 1未満とする必要があります.\n"
 
 #, c-format

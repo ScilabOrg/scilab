@@ -617,7 +617,7 @@ msgstr ""
 "Prosíme, nahlaste tuto chybu :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Špatná hodnota argumentu %d.\n"
 
 #, c-format
@@ -885,15 +885,15 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Funkce není určena pro zadané typy argumentů.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr "Špatná hodnota argumentu %d: Obslužná rutina lu již není platná.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr "Špatná hodnota argumentu %d: Očekáváno platný název proměnné.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "Špatná hodnota argumentu %d: Očekáván jeden řetězec.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -946,7 +946,7 @@ msgid "Error while writing in file: disk full or deleted file.\n"
 msgstr "Chyba při zápisu do souboru: disk zaplněn nebo soubor smazán.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr "Špatná hodnota argumentu %d: Nesmí obsahovat Nan nebo Inf.\n"
 
 #, c-format
@@ -967,13 +967,13 @@ msgstr "V argumentu %d předána neplatná návratová hodnota pro funkci.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Špatná hodnota argumentu %d: Vlastní čísla musí mít záporné reálné části.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Špatná hodnota argumentu %d: Modulus vlastních čísel musí být menší než "
 "jedna.\n"
