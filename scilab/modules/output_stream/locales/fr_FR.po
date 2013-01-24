@@ -657,7 +657,7 @@ msgstr ""
 "Veuillez rapporter ce bug :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Valeur erronée de l'argument %d.\n"
 
 #, c-format
@@ -947,16 +947,16 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Fonction non définie pour le type d'argument donné.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr "Valeur erronée de l'argument %d : Le handle lu n'est plus valide.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Valeur erronée de l'argument %d : Un nom de variable valide attendu.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr ""
 "Valeur erronée de l'argument %d : Une chaîne de caractères vide attendue.\n"
 
@@ -1011,7 +1011,7 @@ msgstr ""
 "Erreur à l'écriture dans le fichier : disque plein ou fichier supprimé.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Valeur erronée de l'argument %d : Ne doit pas contenir de NaN ou Inf.\n"
 
@@ -1033,14 +1033,14 @@ msgstr "Valeur de retour invalide pour la fonction passée en argument %d.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Valeur erronée de  l'argument %d : Les valeurs propres doivent avoir une "
 "partie réelle négative.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Valeur erronée de l'argument %d : Le module des valeurs propres doit être "
 "inférieur à un.\n"

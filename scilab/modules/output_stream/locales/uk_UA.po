@@ -658,7 +658,7 @@ msgstr ""
 "Будь ласка, повідомте про цю помилку:\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Помилкове значення параметра №%d.\n"
 
 #, c-format
@@ -945,19 +945,19 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "Функцію не визначено для вказаних типів параметрів,\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Помилкове значення параметра №%d: елемент керування LU-розкладом втратив "
 "чинність.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Помилкове значення вхідного параметра №%d: слід використовувати чинну назву "
 "змінної.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr "Помилкове значення параметра №%d: мав бути порожній рядок.\n"
 
 msgid "Recursive extraction is not valid in this context.\n"
@@ -1012,7 +1012,7 @@ msgstr ""
 "Помилка під час спроби запису до файла: диск переповнено або файл вилучено.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Помилкове значення вхідного параметра №%d: значення не повинно містити NaN "
 "та Inf.\n"
@@ -1036,14 +1036,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Помилкове значення параметра №%d: дійсні частини власних значень мають бути "
 "від’ємними.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Помилкове значення параметра №%d: модуль власного значення має бути меншим "
 "за одиницю.\n"

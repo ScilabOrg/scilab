@@ -561,7 +561,7 @@ msgstr ""
 #
 # File: macros/calerf.sci, line: 42
 #, c-format
-msgid "%s: Wrong value for argument %d: 0, 1 or 2 expected.\n"
+msgid "%s: Wrong value for argument #%d: 0, 1 or 2 expected.\n"
 msgstr ""
 
 #

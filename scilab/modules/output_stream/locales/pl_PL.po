@@ -652,7 +652,7 @@ msgstr ""
 "Proszę zgłosić ten błąd :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "Nieprawidłowa wartość dla argumentu %d.\n"
 
 #, c-format
@@ -940,18 +940,18 @@ msgstr ""
 ",\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: lu handle nie są już ważne.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: Oczekiwano aktualnej nazwy "
 "zmiennej.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: Oczekiwano pusty ciąg znaków.\n"
 
@@ -1006,7 +1006,7 @@ msgstr ""
 "Błąd podczas zapisu pliku. Dysk jest pełny lub plik został usunięty.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: Nie może zawierać NaN lub Inf.\n"
 
@@ -1028,14 +1028,14 @@ msgstr "Nieprawidłowy zwrot wartości funkcji przekazany w arg.%d.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: Wartości własne muszą mieć ujemną "
 "część rzeczywistą.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "Nieprawidłowa wartość dla argumentu %d: Moduł wartości własnych musi być "
 "mniejszy niż jeden.\n"

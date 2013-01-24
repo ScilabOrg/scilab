@@ -670,7 +670,7 @@ msgstr ""
 "Segnalare questo bug :\n"
 
 #, c-format
-msgid "Wrong value for argument %d.\n"
+msgid "Wrong value for argument #%d.\n"
 msgstr "L'argomento %d ha un valore sbagliato.\n"
 
 #, c-format
@@ -971,18 +971,18 @@ msgid "Function not defined for given argument type(s),\n"
 msgstr "La funzione non è definita per i tipi di argomento forniti.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: the lu handle is no more valid.\n"
+msgid "Wrong value for argument #%d: the lu handle is no more valid.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: il gestore lu non è più valido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Valid variable name expected.\n"
+msgid "Wrong value for argument #%d: Valid variable name expected.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: era atteso un nome di variabile "
 "valido.\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Empty string expected.\n"
+msgid "Wrong value for argument #%d: Empty string expected.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: era attesa una matrice vuota.\n"
 
@@ -1039,7 +1039,7 @@ msgstr ""
 "Gli\n"
 
 #, c-format
-msgid "Wrong value for argument %d: Must not contain NaN or Inf.\n"
+msgid "Wrong value for argument #%d: Must not contain NaN or Inf.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: non deve contenere un Nan o un Inf.\n"
 
@@ -1062,14 +1062,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues must have negative real parts.\n"
+"Wrong value for argument #%d: eigenvalues must have negative real parts.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: gli autovalori devono avere la parte "
 "reale negativa.\n"
 
 #, c-format
 msgid ""
-"Wrong value for argument %d: eigenvalues modulus must be less than one.\n"
+"Wrong value for argument #%d: eigenvalues modulus must be less than one.\n"
 msgstr ""
 "L'argomento %d ha un valore sbagliato: il modulo degli autovalori deve "
 "essere minore di uno.\n"
