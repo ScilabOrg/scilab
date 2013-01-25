@@ -46,7 +46,14 @@ public class DatatipDrag {
             double[] c2d = DatatipCommon.getTransformedPosition(figure, pos);
 
             DatatipCommon.Segment seg = DatatipCommon.getSegment(c2d[0], parentPolyline);
-            Double[] newPos = DatatipCommon.Interpolate(c2d[0], seg);
+
+            Boolean useInterp = (Boolean)GraphicController.getController().getProperty(datatipUid, __GO_DATATIP_INTERP_MODE__);
+            Double[] newPos;
+            if (useInterp) {
+                newPos = DatatipCommon.Interpolate(c2d[0], seg);
+            } else {
+                newPos = new Double[] {seg.x0, seg.y0, 0.0};
+            }
             GraphicController.getController().setProperty(datatipUid, __GO_DATATIP_DATA__, newPos);
 
             Boolean AutoOrientation = (Boolean)GraphicController.getController().getProperty(datatipUid, __GO_DATATIP_AUTOORIENTATION__);
