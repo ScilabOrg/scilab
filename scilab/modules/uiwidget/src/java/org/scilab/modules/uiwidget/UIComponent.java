@@ -373,6 +373,10 @@ public abstract class UIComponent {
         return id;
     }
 
+    public boolean isValidUIComponent() {
+        return component != null;
+    }
+
     public boolean isRootVisible() throws UIWidgetException {
         if (isRoot()) {
             if (component instanceof Component) {

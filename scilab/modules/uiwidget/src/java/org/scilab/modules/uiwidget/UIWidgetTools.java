@@ -66,7 +66,7 @@ public final class UIWidgetTools {
     }
 
     public static void execAction(final UIComponent uicomp, final String command, final Object ... args) {
-        if (command != null && !command.isEmpty()) {
+        if (uicomp.isValidUIComponent() && command != null && !command.isEmpty()) {
             InterpreterManagement.requestScilabExec(getActionString(uicomp, command, args));
         }
     }
