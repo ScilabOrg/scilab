@@ -23496,7 +23496,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_umfpack_umf_divcomplex" >&5
 $as_echo "$ac_cv_lib_umfpack_umf_divcomplex" >&6; }
 if test "x$ac_cv_lib_umfpack_umf_divcomplex" = xyes; then :
-  UMFPACK_LIB="-L$with_umfpack_library -lumfpack $UMFPACK_LIB"; UMFPACK_OK=yes
+  UMFPACK_LIB="-L$with_umfpack_library -lumfpack -lSuiteSparse $UMFPACK_LIB"; UMFPACK_OK=yes
 else
   as_fn_error $? "libumfpack : Library missing. (Cannot find umf_divcomplex). Check if libumfpack is installed and if the version is correct (also called lib suitesparse)" "$LINENO" 5
 
@@ -23612,7 +23612,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_umfpack_umf_divcomplex" >&5
 $as_echo "$ac_cv_lib_umfpack_umf_divcomplex" >&6; }
 if test "x$ac_cv_lib_umfpack_umf_divcomplex" = xyes; then :
-  UMFPACK_LIB="-lumfpack $UMFPACK_LIB"; UMFPACK_OK=yes
+  UMFPACK_LIB="-lumfpack -lSuiteSparse $UMFPACK_LIB"; UMFPACK_OK=yes
 else
   as_fn_error $? "libumfpack: Library missing. (Cannot find symbol umf_divcomplex). Check if libumfpack is installed and if the version is correct (also called lib suitesparse)" "$LINENO" 5
 

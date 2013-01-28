@@ -70,7 +70,7 @@ if test "x$with_umfpack_library" != "xyes"; then
             [AC_MSG_ERROR([libamd: Library missing (Cannot find symbol amd_info). Check if libamd (sparse matrix minimum degree ordering) is installed and if the version is correct])]
 			)
 	AC_CHECK_LIB([umfpack], [umf_divcomplex],
-			[UMFPACK_LIB="-L$with_umfpack_library -lumfpack $UMFPACK_LIB"; UMFPACK_OK=yes],
+			[UMFPACK_LIB="-L$with_umfpack_library -lumfpack -lSuiteSparse $UMFPACK_LIB"; UMFPACK_OK=yes],
             [AC_MSG_ERROR([libumfpack : Library missing. (Cannot find umf_divcomplex). Check if libumfpack is installed and if the version is correct (also called lib suitesparse)])]
 			)
 
@@ -91,7 +91,7 @@ if test $UMFPACK_OK = no; then
 			)
 	LIBS="$UMFPACK_LIB $LIBS"
 	AC_CHECK_LIB([umfpack], [umf_divcomplex],
-			[UMFPACK_LIB="-lumfpack $UMFPACK_LIB"; UMFPACK_OK=yes],
+			[UMFPACK_LIB="-lumfpack -lSuiteSparse $UMFPACK_LIB"; UMFPACK_OK=yes],
             [AC_MSG_ERROR([libumfpack: Library missing. (Cannot find symbol umf_divcomplex). Check if libumfpack is installed and if the version is correct (also called lib suitesparse)])]
 			)
 		LIBS="$save_LIBS"
