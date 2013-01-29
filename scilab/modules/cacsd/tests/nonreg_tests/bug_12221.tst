@@ -1,6 +1,6 @@
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
-// Copyright (C) 2012 - Scilab Enterprises - Charlotte HECQUET
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
 //
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
@@ -18,7 +18,7 @@ b=5;
 c=5;
 d=5;
 sl=syslin('c',a,b,c,d);
-res=fspec(sl)
+res=fspec(sl);
 ref=[-1000 5 2.2305056 2.236068 0];
 for i=1:5
 assert_checkalmostequal(ref(i),res(i+1));
