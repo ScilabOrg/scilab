@@ -2134,11 +2134,17 @@ public class CallScilabBridge {
      * @param status true to set the Toolbar visible
      */
     public static void setToolbarVisible(String parentUID, boolean status) {
-        SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
+        final SwingScilabTab parentTab = (SwingScilabTab) SwingView.getFromId(parentUID);
         if (parentTab != null) {
             parentTab.getToolBar().getAsSimpleToolBar().setVisible(status);
-            BarUpdater.updateBars(parentTab.getParentWindowId(), parentTab.getMenuBar(),
-                                  parentTab.getToolBar(), parentTab.getInfoBar(), parentTab.getName(), parentTab.getWindowIcon());
+
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    BarUpdater.updateBars(parentTab.getParentWindowId(), parentTab.getMenuBar(),
+                                          parentTab.getToolBar(), parentTab.getInfoBar(), parentTab.getName(), parentTab.getWindowIcon());
+                }
+            });
         }
     }
 
@@ -2240,11 +2246,11 @@ public class CallScilabBridge {
      */
     public static void launchHelpBrowser(final String[] helps, final String language) {
         SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    ScilabHelpBrowser.createHelpBrowser(helps, language);
-                    ScilabHelpBrowser.startHomePage();
-                }
-            });
+            public void run() {
+                ScilabHelpBrowser.createHelpBrowser(helps, language);
+                ScilabHelpBrowser.startHomePage();
+            }
+        });
     }
 
     /**

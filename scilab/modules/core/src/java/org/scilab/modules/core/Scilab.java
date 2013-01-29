@@ -19,6 +19,7 @@ package org.scilab.modules.core;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ import org.scilab.modules.gui.utils.ToolBarBuilder;
 public class Scilab {
 
     static {
-	System.setProperty("java.protocol.handler.pkgs", "org.scilab.modules.commons");
+        System.setProperty("java.protocol.handler.pkgs", "org.scilab.modules.commons");
     }
 
     /** Index of windows vista version */
@@ -186,22 +187,33 @@ public class Scilab {
             // Create a user config file if not already exists
             ConfigManager.createUserCopy();
 
-            String consoleId = GraphicController.getController().askObject(Type.JAVACONSOLE);
-            MenuBarBuilder.buildConsoleMenuBar(consoleId);
+            final String consoleId = GraphicController.getController().askObject(Type.JAVACONSOLE);
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        MenuBarBuilder.buildConsoleMenuBar(consoleId);
 
-            ToolBar toolBar = ToolBarBuilder.buildToolBar(MAINTOOLBARXMLFILE);
-            TextBox infoBar = ScilabTextBox.createTextBox();
+                        ToolBar toolBar = ToolBarBuilder.buildToolBar(MAINTOOLBARXMLFILE);
+                        TextBox infoBar = ScilabTextBox.createTextBox();
 
-            toolBar.setVisible(false); // Enabled in scilab.start
+                        toolBar.setVisible(false); // Enabled in scilab.start
 
-            SwingScilabConsole sciConsole = ((SwingScilabConsole) ScilabConsole.getConsole().getAsSimpleConsole());
-            SwingScilabTab consoleTab = (SwingScilabTab) sciConsole.getParent();
-            consoleTab.setToolBar(toolBar);
-            consoleTab.setInfoBar(infoBar);
-            ScilabConsole.getConsole().addMenuBar(consoleTab.getMenuBar());
-            ScilabConsole.getConsole().addToolBar(toolBar);
-            ScilabConsole.getConsole().addInfoBar(infoBar);
-            mainView = SwingScilabWindow.allScilabWindows.get(consoleTab.getParentWindowId());
+                        SwingScilabConsole sciConsole = ((SwingScilabConsole) ScilabConsole.getConsole().getAsSimpleConsole());
+                        SwingScilabTab consoleTab = (SwingScilabTab) sciConsole.getParent();
+                        consoleTab.setToolBar(toolBar);
+                        consoleTab.setInfoBar(infoBar);
+                        ScilabConsole.getConsole().addMenuBar(consoleTab.getMenuBar());
+                        ScilabConsole.getConsole().addToolBar(toolBar);
+                        ScilabConsole.getConsole().addInfoBar(infoBar);
+                        mainView = SwingScilabWindow.allScilabWindows.get(consoleTab.getParentWindowId());
+                    }
+                });
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             GraphicController.getController().askObject(Type.CONSOLE);
         }
