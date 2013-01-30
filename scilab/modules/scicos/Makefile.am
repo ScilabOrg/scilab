@@ -193,20 +193,19 @@ macros/scicos_utils
 
 #### scicos : SUNDIALS STUFF ####
 SUNDIALS_SOURCES = src/scicos_sundials/src/cvode/cvode.c \
-src/scicos_sundials/src/cvode/cvode_dense.c \
+src/scicos_sundials/src/cvode/cvode_lapack.c \
 src/scicos_sundials/src/cvode/cvode_direct.c \
 src/scicos_sundials/src/cvode/cvode_io.c \
 src/scicos_sundials/src/ida/ida.c \
-src/scicos_sundials/src/ida/ida_dense.c \
+src/scicos_sundials/src/ida/ida_lapack.c \
 src/scicos_sundials/src/ida/ida_direct.c \
 src/scicos_sundials/src/ida/ida_ic.c \
 src/scicos_sundials/src/ida/ida_io.c \
 src/scicos_sundials/src/kinsol/kinsol.c \
-src/scicos_sundials/src/kinsol/kinsol_dense.c \
+src/scicos_sundials/src/kinsol/kinsol_lapack.c \
 src/scicos_sundials/src/kinsol/kinsol_direct.c \
 src/scicos_sundials/src/kinsol/kinsol_io.c \
 src/scicos_sundials/src/nvec_ser/nvector_serial.c \
-src/scicos_sundials/src/sundials/sundials_dense.c \
 src/scicos_sundials/src/sundials/sundials_direct.c \
 src/scicos_sundials/src/sundials/sundials_math.c \
 src/scicos_sundials/src/sundials/sundials_nvector.c \
