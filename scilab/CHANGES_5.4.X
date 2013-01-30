@@ -137,6 +137,9 @@ Xcos
 * Bug #12213 fixed - lincos help page example produced undefined variable
                      warnings.
 
+* Bug #12264 fixed - ENDBLK block threw nullpointer exception
+                     when double-clicking on it.
+
 
 Documentation
 ==============
