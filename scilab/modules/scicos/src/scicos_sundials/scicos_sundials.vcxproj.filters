@@ -20,7 +20,7 @@
     <ClCompile Include="src\cvode\cvode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\cvode\cvode_dense.c">
+    <ClCompile Include="src\cvode\cvode_lapack.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\cvode\cvode_direct.c">
@@ -32,7 +32,7 @@
     <ClCompile Include="src\ida\ida.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ida\ida_dense.c">
+    <ClCompile Include="src\ida\ida_lapack.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ida\ida_direct.c">
@@ -47,7 +47,7 @@
     <ClCompile Include="src\kinsol\kinsol.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kinsol\kinsol_dense.c">
+    <ClCompile Include="src\kinsol\kinsol_lapack.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kinsol\kinsol_direct.c">
@@ -57,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\nvec_ser\nvector_serial.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sundials\sundials_dense.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sundials\sundials_direct.c">
@@ -79,7 +76,7 @@
     <ClInclude Include="include\cvode\cvode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cvode\cvode_dense.h">
+    <ClInclude Include="include\cvode\cvode_lapack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\cvode\cvode_direct.h">
@@ -94,7 +91,7 @@
     <ClInclude Include="include\ida\ida.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ida\ida_dense.h">
+    <ClInclude Include="include\ida\ida_lapack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ida\ida_direct.h">
@@ -109,7 +106,7 @@
     <ClInclude Include="include\kinsol\kinsol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kinsol\kinsol_dense.h">
+    <ClInclude Include="include\kinsol\kinsol_lapack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kinsol\kinsol_direct.h">
@@ -127,7 +124,7 @@
     <ClInclude Include="include\sundials\sundials_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\sundials\sundials_dense.h">
+    <ClInclude Include="include\sundials\sundials_lapack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\sundials\sundials_direct.h">

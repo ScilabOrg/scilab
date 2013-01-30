@@ -40,18 +40,18 @@
 
 /* Sundials includes */
 #include <cvode/cvode.h>            /* prototypes for CVODES fcts. and consts. */
-#include <cvode/cvode_dense.h>     /* prototype for CVDense */
+#include <cvode/cvode_lapack.h>    /* prototype for CVLapackDense */
 #include <cvode/cvode_direct.h>    /* prototypes for various DlsMat operations */
 #include <ida/ida.h>
-#include <ida/ida_dense.h>
+#include <ida/ida_lapack.h>
 #include <ida/ida_direct.h>
 #include <nvector/nvector_serial.h>   /* serial N_Vector types, fcts., and macros */
-#include <sundials/sundials_dense.h>  /* prototypes for various DlsMat operations */
-#include <sundials/sundials_direct.h> /* definitions of DlsMat and DENSE_ELEM */
+#include <sundials/sundials_lapack.h> /* prototypes for various DlsMat operations */
+#include <sundials/sundials_direct.h> /* definitions DlsMat and DENSE_ELEM */
 #include <sundials/sundials_types.h>  /* definition of type realtype */
 #include <sundials/sundials_math.h>
 #include <kinsol/kinsol.h>
-#include <kinsol/kinsol_dense.h>
+#include <kinsol/kinsol_lapack.h>
 #include <kinsol/kinsol_direct.h>
 #include <sundials/sundials_extension.h> /* uses extension for scicos */
 #include "ida_impl.h"
@@ -1592,11 +1592,11 @@ static void cossim(double *told)
             return;
         }
 
-        if (solver != LSodar_Dynamic) /* Call CVDense to specify the CVDENSE dense linear solver */
+        if (solver != LSodar_Dynamic) /* Call CVLapackDense to specify the CVLAPACKDENSE dense linear solver */
         {
-            flag = CVDense(ode_mem, *neq);
+            flag = CVLapackDense(ode_mem, *neq);
         }
-        if (check_flag(&flag, "CVDense", 1))
+        if (check_flag(&flag, "CVLapackDense", 1))
         {
             *ierr = 300 + (-flag);
             freeall
@@ -2506,9 +2506,9 @@ static void cossimdaskr(double *told)
 
         if (solver == IDA_BDF_Newton)
         {
-            flag = IDADense(dae_mem, *neq);
+            flag = IDALapackDense(dae_mem, *neq);
         }
-        if (check_flag(&flag, "IDADense", 1))
+        if (check_flag(&flag, "IDALapackDense", 1))
         {
             *ierr = 200 + (-flag);
             if (*neq > 0)if (solver == IDA_BDF_Newton)
@@ -6960,7 +6960,7 @@ static int CallKinsol(double *told)
 
     status = KINInit(kin_mem, simblkKinsol, y);
     strategy = KIN_NONE; /*without LineSearch */
-    status = KINDense(kin_mem, N);
+    status = KINLapackDense(kin_mem, N);
 
     status = KINSetNumMaxIters(kin_mem, 2000);  /* MaxNumIter=200->2000 */
     status = KINSetRelErrFunc(kin_mem, reltol); /* FuncRelErr=eps->RTOL */
