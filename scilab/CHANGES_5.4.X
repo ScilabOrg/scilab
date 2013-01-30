@@ -140,6 +140,9 @@ Xcos
 * Bug #12265 fixed - xcos_simulate help example diagrams were badly rendered
                      due to CLR blocks.
 
+* Bug #12266 fixed - Stopping "Papillon de lorentz" demonstration
+                     while simulation was on made CMSCOPE crash.
+
 
 Documentation
 ==============
