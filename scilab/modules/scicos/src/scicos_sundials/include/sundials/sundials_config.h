@@ -55,7 +55,7 @@
  * otherwise
  *     #define SUNDIALS_BLAS_LAPACK 0
  */
-#define SUNDIALS_BLAS_LAPACK 0
+#define SUNDIALS_BLAS_LAPACK 1
 
 /* FNVECTOR: Allow user to specify different MPI communicator
  * If it was found that the MPI implementation supports MPI_Comm_f2c, then
