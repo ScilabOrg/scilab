@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import org.scilab.modules.commons.ScilabCommons;
+
 import org.scilab.modules.gui.bridge.CallScilabBridge;
 import org.scilab.modules.gui.console.ScilabConsole;
+
 
 /**
  * @author Calixte DENIZET
@@ -39,7 +42,11 @@ public final class ScilabPrintStream extends PrintStream {
      * @return true if a stream is available
      */
     public static boolean isAvailable() {
-        return false;//ScilabConsole.isExistingConsole();
+        if (ScilabCommons.getScilabVersionAsString().indexOf("scilab-branch") == -1) {
+            return false;
+        } else {
+            return ScilabConsole.isExistingConsole();
+        }
     }
 
     /**
@@ -114,7 +121,7 @@ public final class ScilabPrintStream extends PrintStream {
          * {@inheritDoc}
          */
         public void write(int b) throws IOException {
-            CallScilabBridge.display(new String (new byte[]{(byte) b}));
+            CallScilabBridge.display(new String (new byte[] {(byte) b}));
             if (out != null) {
                 out.write(b);
             }
