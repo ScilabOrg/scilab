@@ -29,6 +29,8 @@ Improvements
    schema
    If the file does not exist, propose to create it.
 
+* editvar allows direct save to the CSV format.
+
 
 Removed functions
 ==================
