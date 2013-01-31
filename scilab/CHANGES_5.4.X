@@ -29,6 +29,9 @@ Improvements
    schema
    If the file does not exist, propose to create it.
 
+* editvar propose direct save to the CSV format of the whole variable or the
+  selection.
+
 
 Removed functions
 ==================
