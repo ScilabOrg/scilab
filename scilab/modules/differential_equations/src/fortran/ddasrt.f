@@ -1950,9 +1950,17 @@ C RETURN WITH X1 AS THE ROOT.  SET JROOT.  SET X = X1 AND GX = G1. -----
       DO 320 I = 1,NG
         JROOT(I) = 0
         IF (DABS(G1(I)) .GT. ZERO) GO TO 310
-          JROOT(I) = 1
+          IF (DSIGN(1.0D0,G0(I)) .GT. ZERO) GO TO 305
+            JROOT(I) = 1
+            GO TO 320
+ 305        JROOT(I) = -1
           GO TO 320
- 310    IF (DSIGN(1.0D0,G0(I)) .NE. DSIGN(1.0D0,G1(I))) JROOT(I) = 1
+ 310    IF (DSIGN(1.0D0,G0(I)) .NE. DSIGN(1.0D0,G1(I))) GO TO 312
+          GO TO 320
+ 312      IF (DSIGN(1.0D0,G0(I)) .GT. ZERO) GO TO 315
+            JROOT(I) = 1
+            GO TO 320
+ 315        JROOT(I) = -1
  320    CONTINUE
       RETURN
 C
