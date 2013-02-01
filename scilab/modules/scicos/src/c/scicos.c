@@ -79,6 +79,7 @@
 #include "dynlib_scicos.h"
 
 #include "lsodar.h"           /* prototypes for lsodar fcts. and consts. */
+#include "ddaskr.h"           /* prototypes for ddaskr fcts. and consts. */
 
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
@@ -102,7 +103,7 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 /*--------------------------------------------------------------------------*/
 
 #define freeall					\
-	if (*neq>0) {if (C2F(cmsolver).solver) CVodeFree(&ode_mem); else LSodarFree(&ode_mem);} 		\
+	if (*neq>0) ODEFree(&ode_mem); 		\
 	if (*neq>0) N_VDestroy_Serial(y);		\
 	if ( ng>0 ) FREE(jroot);			\
 	if ( ng>0 ) FREE(zcros);
@@ -115,7 +116,7 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 	if (( ng>0 )&& (*neq>0)) FREE(data->gwork);	\
 	if (*neq>0) N_VDestroy_Serial(data->ewt);	\
 	if (*neq>0) FREE(data);			\
-	if (*neq>0) {if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);} 	\
+	if (*neq>0) DAEFree(&dae_mem); 	\
 	if (*neq>0) N_VDestroy_Serial(IDx);		\
 	if (*neq>0) N_VDestroy_Serial(yp);		\
 	if (*neq>0) N_VDestroy_Serial(yy);		\
@@ -235,6 +236,8 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
 static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
 static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, realtype * res);
 static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int * ngroot, realtype * res);
+static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2);
+static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngroot, realtype *res, double *dummy1, int *dummy2);
 static void addevs(double t, int *evtnb, int *ierr1);
 static int synchro_g_nev(ScicosImport *scs_imp, double *g, int kf, int *ierr);
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb);
@@ -820,6 +823,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 cossim(t0);
                 break;
             case 100: // IDA
+            case 101: // DDaskr
                 cossimdaskr(t0);
                 break;
             default: // Unknown solver number
@@ -1307,7 +1311,8 @@ static void cossim(double *told)
     void *ode_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
-    // Defining function pointers, for more readability
+    /* Defining function pointers, for more readability */
+    void(* ODEFree) (void**);
     int (* ODE) (void*, realtype, N_Vector, realtype*, int);
     int (* ODEReInit) (void*, realtype, N_Vector);
     int (* ODESetMaxStep) (void*, realtype);
@@ -1319,6 +1324,7 @@ static void cossim(double *told)
     int ODE_ONE_STEP = 2;  /* ODE_ONE_STEP = CV_ONE_STEP = LS_ONE_STEP = 2 */
     switch (C2F(cmsolver).solver) {
         case 0: // LSodar
+            ODEFree = &LSodarFree;
             ODE = &LSodar;
             ODEReInit = &LSodarReInit;
             ODESetMaxStep = &LSodarSetMaxStep;
@@ -1333,6 +1339,7 @@ static void cossim(double *told)
         case 5: // Dormand-Prince
         case 6: // Runge-Kutta
         case 7: // Implicit Runge-Kutta
+            ODEFree = &CVodeFree;
             ODE = &CVode;
             ODEReInit = &CVodeReInit;
             ODESetMaxStep = &CVodeSetMaxStep;
@@ -1444,10 +1451,10 @@ static void cossim(double *told)
 
         if (C2F(cmsolver).solver == 0)
         {
-            flag = LSodarInit (ode_mem, simblklsodar, T0, y);
+            flag = LSodarInit(ode_mem, simblklsodar, T0, y);
         }
         else
-        flag = CVodeInit (ode_mem, simblk, T0, y);
+        flag = CVodeInit(ode_mem, simblk, T0, y);
         if (check_flag(&flag, "CVodeInit", 1))
         {
             *ierr = 300 + (-flag);
@@ -1969,33 +1976,70 @@ static void cossimdaskr(double *told)
     int  Jn = 0, Jnx = 0, Jno = 0, Jni = 0, Jactaille = 0;
     double uround = 0.;
     int cnt = 0, N_iters = 0;
-
-    // Defining function pointers, for more readability
+    /* Flags for initial values calculation */
+    int DAE_YA_YDP_INIT = 1;
+    int DAE_Y_INIT      = 2;
+    /* Defining function pointers, for more readability*/
+    void(* DAEFree) (void**);
     int (* DAESolve) (void*, realtype, realtype*, N_Vector, N_Vector, int);
     int (* DAEReInit) (void*, realtype, N_Vector, N_Vector);
+    int (* DAESetId) (void*, N_Vector);
+    int (* DAECalcIC) (void*, int, realtype);
     int (* DAESetMaxStep) (void*, realtype);
     int (* DAESetUserData) (void*, void*);
     int (* DAESetStopTime) (void*, realtype);
     int (* DAEGetRootInfo) (void*, int*);
     int (* DAESStolerances) (void*, realtype, realtype);
-    /* Generic flag for stop mode */
-    int DAE_NORMAL   = 1;  /* IDA_NORMAL   = 1 */
-    int DAE_ONE_STEP = 2;  /* IDA_ONE_STEP = 2 */
+    int (* DAEGetConsistentIC) (void*, N_Vector, N_Vector);
+    int (* DAESetMaxNumJacsIC) (void*, int);
+    int (* DAESetMaxNumItersIC) (void*, int);
+    int (* DAESetMaxNumStepsIC) (void*, int);
+    int (* DAESetLineSearchOffIC) (void*, int);
+    /* Generic flags for stop mode */
+    int DAE_NORMAL;
+    int DAE_ONE_STEP;
     switch (C2F(cmsolver).solver) {
         case 100: // IDA
+            DAEFree = &IDAFree;
             DAESolve = &IDASolve;
+            DAESetId = &IDASetId;
             DAEReInit = &IDAReInit;
+            DAECalcIC = &IDACalcIC;
             DAESetMaxStep = &IDASetMaxStep;
             DAESetUserData = &IDASetUserData;
             DAESetStopTime = &IDASetStopTime;
             DAEGetRootInfo = &IDAGetRootInfo;
             DAESStolerances = &IDASStolerances;
+            DAEGetConsistentIC = &IDAGetConsistentIC;
+            DAESetMaxNumJacsIC = &IDASetMaxNumJacsIC;
+            DAESetMaxNumItersIC = &IDASetMaxNumItersIC;
+            DAESetMaxNumStepsIC = &IDASetMaxNumStepsIC;
+            DAESetLineSearchOffIC = &IDASetLineSearchOffIC;
+            break;
+        case 101: // DDaskr
+            DAEFree = &DDaskrFree;
+            DAESolve = &DDaskrSolve;
+            DAESetId = &DDaskrSetId;
+            DAEReInit = &DDaskrReInit;
+            DAECalcIC = &DDaskrCalcIC;
+            DAESetMaxStep = &DDaskrSetMaxStep;
+            DAESetUserData = &DDaskrSetUserData;
+            DAESetStopTime = &DDaskrSetStopTime;
+            DAEGetRootInfo = &DDaskrGetRootInfo;
+            DAESStolerances = &DDaskrSStolerances;
+            DAEGetConsistentIC = &DDaskrGetConsistentIC;
+            DAESetMaxNumJacsIC = &DDaskrSetMaxNumJacsIC;
+            DAESetMaxNumItersIC = &DDaskrSetMaxNumItersIC;
+            DAESetMaxNumStepsIC = &DDaskrSetMaxNumStepsIC;
+            DAESetLineSearchOffIC = &DDaskrSetLineSearchOffIC;
             break;
         default: // Unknown solver number
             *ierr = 1000;
             return;
     }
-
+    /* For DAEs, the stop mode flag depends on the used solver */
+    DAE_NORMAL   = (C2F(cmsolver).solver == 100) ? 1 : 0;  /* IDA_NORMAL   = 1, DDAS_NORMAL   = 0 */
+    DAE_ONE_STEP = (C2F(cmsolver).solver == 100) ? 2 : 1;  /* IDA_ONE_STEP = 2, DDAS_ONE_STEP = 1 */
 
     /* Set extension of Sundials for scicos */
     set_sundials_with_extension(TRUE);
@@ -2077,6 +2121,11 @@ static void cossimdaskr(double *told)
 
         /* Call the Create and Init functions to initialize DAE memory */
         dae_mem = NULL;
+        if (C2F(cmsolver).solver == 101)
+        {
+            dae_mem = DDaskrCreate(neq, ng);
+        }
+        else
         dae_mem = IDACreate();
         if (check_flag((void *)dae_mem, "IDACreate", 0))
         {
@@ -2090,12 +2139,16 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) dae_mem;
 
-        if (C2F(cmsolver).solver == 100)
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDaskrSetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
+        }
+        else
         flag = IDASetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
         if (check_flag(&flag, "IDASetErrHandlerFn", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2105,12 +2158,16 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 100)
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDaskrInit(dae_mem, simblkddaskr, T0, yy, yp);
+        }
+        else
         flag = IDAInit(dae_mem, simblkdaskr, T0, yy, yp);
         if (check_flag(&flag, "IDAInit", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2124,7 +2181,7 @@ static void cossimdaskr(double *told)
         if (check_flag(&flag, "IDASStolerances", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2134,12 +2191,16 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 100)
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDaskrRootInit(dae_mem, ng, grblkddaskr);
+        }
+        else
         flag = IDARootInit(dae_mem, ng, grblkdaskr);
         if (check_flag(&flag, "IDARootInit", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2168,7 +2229,7 @@ static void cossimdaskr(double *told)
         if ((data = (UserData) MALLOC(sizeof(*data))) == NULL)
         {
             *ierr = 10000;
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2188,7 +2249,7 @@ static void cossimdaskr(double *told)
         {
             *ierr = 200 + (-flag);
             if (*neq > 0)FREE(data);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2203,7 +2264,7 @@ static void cossimdaskr(double *told)
             {
                 if (*neq > 0)N_VDestroy_Serial(data->ewt);
                 if (*neq > 0)FREE(data);
-                if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+                if (*neq > 0) DAEFree(&dae_mem);
                 if (*neq > 0)N_VDestroy_Serial(IDx);
                 if (*neq > 0)N_VDestroy_Serial(yp);
                 if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2235,7 +2296,7 @@ static void cossimdaskr(double *told)
             if ( ng > 0 )FREE(data->gwork);
             if (*neq > 0)N_VDestroy_Serial(data->ewt);
             if (*neq > 0)FREE(data);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0) DAEFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2246,7 +2307,11 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 100)
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDaskrDlsSetDenseJacFn(dae_mem, Jacobiansddaskr);
+        }
+		else
         flag = IDADlsSetDenseJacFn(dae_mem, Jacobians);
         if (check_flag(&flag, "IDADlsSetDenseJacFn", 1))
         {
@@ -2277,8 +2342,7 @@ static void cossimdaskr(double *told)
         }
 
         maxnj = 100; /* setting the maximum number of Jacobian evaluations during a Newton step */
-        if (C2F(cmsolver).solver == 100)
-        flag = IDASetMaxNumJacsIC(dae_mem, maxnj);
+        flag = DAESetMaxNumJacsIC(dae_mem, maxnj);
         if (check_flag(&flag, "IDASetMaxNumJacsIC", 1))
         {
             *ierr = 200 + (-flag);
@@ -2287,8 +2351,7 @@ static void cossimdaskr(double *told)
         }
 
         maxnit = 10; /* setting the maximum number of Newton iterations in any attempt to solve CIC */
-        if (C2F(cmsolver).solver == 100)
-        flag = IDASetMaxNumItersIC(dae_mem, maxnit);
+        flag = DAESetMaxNumItersIC(dae_mem, maxnit);
         if (check_flag(&flag, "IDASetMaxNumItersIC", 1))
         {
             *ierr = 200 + (-flag);
@@ -2507,8 +2570,7 @@ L30:
                     } */
                     /* printf("\n"); for(jj=0;jj<*neq;jj++) { printf("x%d=%g ",jj,scicos_xproperty[jj]); }*/
 
-                    if (C2F(cmsolver).solver == 100)
-                    flag = IDASetId(dae_mem, IDx);
+                    flag = DAESetId(dae_mem, IDx);
                     if (check_flag(&flag, "IDASetId", 1))
                     {
                         *ierr = 200 + (-flag);
@@ -2518,19 +2580,19 @@ L30:
                     // CI=1.0;  // for function Get_Jacobian_ci
                     /*--------------------------------------------*/
                     // maxnj=100; /* setting the maximum number of Jacobian evaluation during a Newton step */
-                    // flag=IDASetMaxNumJacsIC(dae_mem, maxnj);
-                    // if (check_flag(&flag, "IDASetMaxNumItersIC", 1)) {
+                    // flag=DAESetMaxNumJacsIC(dae_mem, maxnj);
+                    // if (check_flag(&flag, "IDASetMaxNumJacsIC", 1)) {
                     //   *ierr=200+(-flag);
                     //   freeallx;
                     //   return;
                     // };
-                    // flag=IDASetLineSearchOffIC(dae_mem,FALSE);  /* (def=false)  */
+                    // flag=DAESetLineSearchOffIC(dae_mem,FALSE);  /* (def=false)  */
                     // if (check_flag(&flag, "IDASetLineSearchOffIC", 1)) {
                     //   *ierr=200+(-flag);
                     //   freeallx;
                     //   return;
                     // };
-                    // flag=IDASetMaxNumItersIC(dae_mem, 10);/* (def=10) setting the maximum number of Newton iterations in any attempt to solve CIC */
+                    // flag=DAESetMaxNumItersIC(dae_mem, 10);/* (def=10) setting the maximum number of Newton iterations in any attempt to solve CIC */
                     // if (check_flag(&flag, "IDASetMaxNumItersIC", 1)) {
                     //   *ierr=200+(-flag);
                     //   freeallx;
@@ -2574,12 +2636,10 @@ L30:
                         copy_IDA_mem->ida_kk = 1;
 
                         // the initial conditons y0 and yp0 do not satisfy the DAE
-                        if (C2F(cmsolver).solver == 100)
-                        flagr = IDACalcIC(dae_mem, IDA_YA_YDP_INIT, (realtype)(t));
+                        flagr = DAECalcIC(dae_mem, DAE_YA_YDP_INIT, (realtype)(t));
 
                         phase = 1;
-                        if (C2F(cmsolver).solver == 100)
-                        flag = IDAGetConsistentIC(dae_mem, yy, yp); /* PHI->YY */
+                        flag = DAEGetConsistentIC(dae_mem, yy, yp); /* PHI->YY */
 
                         if (*ierr > 5)    /* *ierr>5 => singularity in block */
                         {
@@ -2632,15 +2692,12 @@ L30:
                             }
                             else if (j >= (int)( N_iters / 2))
                             {
-                                /* IDASetMaxNumStepsIC(mem,10); */     /* maxnh (def=5) */
-                                if (C2F(cmsolver).solver == 100)
-                                IDASetMaxNumJacsIC(dae_mem, 10);      /* maxnj 100 (def=4)*/
-                                /* IDASetMaxNumItersIC(mem,100000); */ /* maxnit in IDANewtonIC (def=10) */
-                                if (C2F(cmsolver).solver == 100)
-                                IDASetLineSearchOffIC(dae_mem, TRUE); /* (def=false)  */
-                                /* IDASetNonlinConvCoefIC(mem,1.01);*/ /* (def=0.01-0.33*/
-                                if (C2F(cmsolver).solver == 100)
-                                flag = IDASetMaxNumItersIC(dae_mem, 1000);
+                                /* DAESetMaxNumStepsIC(mem,10); */     /* maxnh (def=5) */
+                                DAESetMaxNumJacsIC(dae_mem, 10);      /* maxnj 100 (def=4)*/
+                                /* DAESetMaxNumItersIC(mem,100000); */ /* maxnit in IDANewtonIC (def=10) */
+                                DAESetLineSearchOffIC(dae_mem, TRUE); /* (def=false)  */
+                                /* DAESetNonlinConvCoefIC(mem,1.01);*/ /* (def=0.01-0.33*/
+                                flag = DAESetMaxNumItersIC(dae_mem, 1000);
                                 if (check_flag(&flag, "IDASetMaxNumItersIC", 1))
                                 {
                                     *ierr = 200 + (-flag);
@@ -2652,15 +2709,13 @@ L30:
                     }/* mode-CIC  counter*/
                     if (Mode_change == 1)
                     {
-                        /* In this case, we try again by relaxing all modes and calling IDA_calc again
+                        /* In this case, we try again by relaxing all modes and calling DAECalcIC again
                         /Masoud */
                         phase = 1;
                         copy_IDA_mem->ida_kk = 1;
-                        if (C2F(cmsolver).solver == 100)
-                        flagr = IDACalcIC(dae_mem, IDA_YA_YDP_INIT, (realtype)(t));
+                        flagr = DAECalcIC(dae_mem, DAE_YA_YDP_INIT, (realtype)(t));
                         phase = 1;
-                        if (C2F(cmsolver).solver == 100)
-                        flag = IDAGetConsistentIC(dae_mem, yy, yp); /* PHI->YY */
+                        flag = DAEGetConsistentIC(dae_mem, yy, yp); /* PHI->YY */
                         if ((flagr < 0) || (*ierr > 5)) /* *ierr>5 => singularity in block */
                         {
                             *ierr = 23;
@@ -3061,7 +3116,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     loc = block->funpt;
 
     /* continuous state */
-    if ((solver == 100) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3431,7 +3486,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     // sciprint("callf end  flag=%d\n",*flag);
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3478,7 +3533,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
     loc4 = (ScicosF4) loc;
 
     /* continuous state */
-    if ((solver == 100) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3488,7 +3543,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
 
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3659,7 +3714,7 @@ static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval,
         /* Just to update mode in a very special case, i.e., when initialization using modes fails.
         in this case, we relax all modes and try again one more time.
         */
-        zdoit(&tx, NV_DATA_S(yy), NV_DATA_S(yp), (double *)data->gwork);
+        zdoit(&tx, NV_DATA_S(yy), NV_DATA_S(yp), NULL);
     }
 
     hh = ZERO;
@@ -3686,8 +3741,8 @@ static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval,
         CJJ = -alpha / hh;
     else
     {
-        *ierr = 217;
-        return (*ierr);
+       *ierr = 217;
+       return (*ierr);
     }
     xc = (double *)  NV_DATA_S(yy);
     xcdot = (double *) NV_DATA_S(yp);
@@ -3748,6 +3803,115 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
     C2F(ierode).iero = *ierr;
     return (*ierr);
 }/* grblkdaskr */
+/*--------------------------------------------------------------------------*/
+/* simblkddaskr */
+//static int simblkddaskr(int *nequations, realtype *tOld, realtype *actual, realtype *actualP, realtype *res, void *rdata)
+static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2)
+{
+    double tx = 0.;
+    realtype alpha = 0.;
+
+//    UserData data;
+
+//    realtype hh = 0.;
+//    int qlast = 0;
+    int jj = 0, nantest = 0;
+
+//    data = (UserData) rdata;
+
+    if (get_phase_simulation() == 1)
+    {
+        /* Just to update mode in a very special case, i.e., when initialization using modes fails.
+        in this case, we relax all modes and try again one more time.
+        */
+        zdoit(&tx, actual, actualP, NULL);
+    }
+
+//    hh = ZERO;
+//    flag = IDAGetCurrentStep(data->dae_mem, &hh);
+//    if (flag < 0)
+//    {
+//       *ierr = 200 + (-flag);
+//        return (*ierr);
+//    };
+
+//    qlast = 0;
+//    flag = IDAGetCurrentOrder(data->dae_mem, &qlast);
+//    if (flag < 0)
+//    {
+//        *ierr = 200 + (-flag);
+//        return (*ierr);
+//    };
+
+//    alpha = ZERO;
+//    for (jj = 0; jj < qlast; jj++)
+//        alpha = alpha - ONE / (jj + 1);
+//    if (hh != 0)
+//        // CJ=-alpha/hh;  // For function Get_Jacobian_cj
+//        CJJ = -alpha / hh;
+//    else
+//    {
+//        *ierr = 217;
+//        return (*ierr);
+//    }
+    tx = (double) *tOld;
+
+    C2F(dcopy)(neq, actualP, &c__1, res, &c__1);
+    *ierr = 0;
+    C2F(ierode).iero = 0;
+    odoit(&tx, actual, actualP, res);
+
+    C2F(ierode).iero = *ierr;
+
+    if (*ierr == 0)
+    {
+        nantest = 0;
+        for (jj = 0; jj < *neq; jj++)
+            if (res[jj] - res[jj] != 0) /* NaN checking */
+            {
+                sciprint(_("\nWarning: The residual function #%d returns a NaN"),jj);
+                nantest = 1;
+                break;
+            }
+        if (nantest == 1) return 257; /* recoverable error; */
+    }
+
+    //*flag = 0; // To tell DDaskr that the function went well. Only touch flag if failure
+
+    return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
+}/* simblkddaskr */
+/*--------------------------------------------------------------------------*/
+/* grblkddaskr */
+static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngroot, realtype *res, double *dummy1, int *dummy2)
+{
+    double tx = 0.;
+    int jj = 0, nantest = 0;
+
+    tx = (double) *tOld;
+
+    *ierr = 0;
+    C2F(ierode).iero = 0;
+    zdoit(&tx, actual, actual, res);
+    if (*ierr == 0)
+    {
+        nantest = 0; /* NaN checking */
+        for (jj = 0; jj < ng; jj++)
+        {
+            if (res[jj] - res[jj] != 0)
+            {
+                sciprint(_("\nWarning: The zero-crossing function #%d returns a NaN"), jj);
+                nantest = 1;
+                break;
+            }
+        }
+        if (nantest == 1)
+        {
+            return 258; /* recoverable error; */
+        }
+    }
+    C2F(ierode).iero = *ierr;
+    return (*ierr);
+}/* grblkddaskr */
 /*--------------------------------------------------------------------------*/
 /* Subroutine addevs */
 static void addevs(double t, int *evtnb, int *ierr1)
