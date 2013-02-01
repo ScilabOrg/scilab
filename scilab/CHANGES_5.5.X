@@ -29,4 +29,6 @@ Obsolete
 Xcos
 ====
 
-* Update Sundials to lastest "2.5.0", keeping our modifications
+* Update Sundials to lastest "2.5.0", keeping our modifications.
+
+* Added a new DAE solver : DDaskr, which includes rootfinding.
