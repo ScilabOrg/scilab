@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
- * Copyright (C) Scilab Enterprises - 2012 - Paul Bignier
+ * Copyright (C) Scilab Enterprises - 2013 - Paul Bignier
  *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
@@ -9,17 +9,17 @@
  * The terms are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  -->
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="IDA">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en_US" xml:id="DDaskr">
     <refnamediv>
-        <refname>IDA</refname>
+        <refname>DDaskr</refname>
         <refpurpose>
-            <emphasis>IDA</emphasis> (short for Implicit Differential Algebraic solver) is a numerical solver providing an efficient and stable method to solve Differential Algebraic Equations (DAEs) Initial Value Problems.
+            <emphasis>DDaskr</emphasis> (short for Double-precision Differential Algebraic system Solver with Krylov method and Rootfinding) is a numerical solver providing an efficient and stable method to solve Differential Algebraic Equations (DAEs) Initial Value Problems.
         </refpurpose>
     </refnamediv>
     <refsection>
         <title>Description</title>
         <para>
-            Called by <link linkend="xcos">xcos</link>, <emphasis>IDA</emphasis> (short for Implicit Differential Algebraic solver) is a numerical solver providing an efficient and stable method to solve Initial Value Problems of the form:
+            Called by <link linkend="xcos">xcos</link>, <emphasis>DDaskr</emphasis> (short for Double-precision Differential Algebraic system Solver with Krylov method and Rootfinding) is a numerical solver providing an efficient and stable method to solve Initial Value Problems of the form:
         </para>
         <para>
             <latex>
@@ -30,7 +30,7 @@
         </para>
         <para>
         </para>
-        Before solving the problem, <emphasis>IDA</emphasis> runs an implemented routine to find consistent values for 
+        Before solving the problem, <emphasis>DDaskr</emphasis> runs an implemented routine to find consistent values for 
         <emphasis>
             y<subscript>0</subscript>
         </emphasis>
@@ -131,24 +131,27 @@
             Averagely, <emphasis>IDA</emphasis> accepts tolerances up to 10<superscript>-11</superscript>. Beyond that, it returns a <emphasis>Too much accuracy</emphasis> requested error.
         </para>
     </refsection>
-    <refsection id="Example_IDA">
+    <refsection id="Example_DDaskr">
         <title>Example</title>
         <para>
-            The 'Modelica Generic' block returns its continuous states, we can evaluate them with <emphasis>IDA</emphasis> by running the example:
+            The 'Modelica Generic' block returns its continuous states, we can evaluate them with <emphasis>DDaskr</emphasis> by running the example:
         </para>
         <para>
-            <link type="scilab" linkend="scilab.xcos/xcos/examples/solvers/IDA_Example.xcos">
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/solvers/DAE_Example.xcos">
                 <inlinemediaobject>
                     <imageobject>
-                        <imagedata align="center" fileref="../../../examples/solvers/IDA_Example.xcos" valign="middle"/>
+                        <imagedata align="center" fileref="../../../examples/solvers/DAE_Example.xcos" valign="middle"/>
                     </imageobject>
                 </inlinemediaobject>
             </link>
             <scilab:image><![CDATA[
 loadScicos();
 loadXcosLibs();
-importXcosDiagram(SCI + "/modules/xcos/examples/solvers/IDA_Example.xcos");
+importXcosDiagram(SCI + "/modules/xcos/examples/solvers/DAE_Example.xcos");
 // Redefining messagebox() to avoid popup
+----------
+// Here, set the solver to 101 somehow
+----------
 function messagebox(msg, title)
  disp(title);
  disp(msg);
@@ -167,6 +170,9 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
                 <link linkend="CVode">CVode</link>
             </member>
             <member>
+                <link linkend="IDA">IDA</link>
+            </member>
+            <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
             </member>
             <member>
@@ -177,6 +183,9 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
             </member>
             <member>
                 <link linkend="Comparisons">Comparisons</link>
+            </member>
+            <member>
+                <link linkend="daskr">daskr</link>
             </member>
             <member>
                 <link linkend="ode">ode</link>
@@ -198,7 +207,19 @@ try xcos_simulate(scs_m, 4); catch disp(lasterror()); end
     <refsection>
         <title>Bibliography</title>
         <para>
+            <ulink url="http://www.netlib.org/ode/">Netlib storage</ulink>, documentation inside the program files.
+        </para>
+        <para>
             <ulink url="https://computation.llnl.gov/casc/sundials/documentation/documentation.html">Sundials Documentation</ulink>
         </para>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.4.1</revnumber>
+                <revdescription>DDaskr solver added</revdescription>
+            </revision>
+        </revhistory>
     </refsection>
 </refentry>
