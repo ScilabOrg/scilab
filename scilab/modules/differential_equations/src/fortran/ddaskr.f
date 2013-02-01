@@ -909,7 +909,7 @@ C
 C RT --   This is the name of the subroutine for defining the vector
 C         R(T,Y,Y') of constraint functions Ri(T,Y,Y'), whose roots
 C         are desired during the integration.  It is to have the form
-C             SUBROUTINE RT(NEQ, T, Y NRT, RVAL, RPAR, IPAR)
+C             SUBROUTINE RT(NEQ, T, Y, NRT, RVAL, RPAR, IPAR)
 C             DIMENSION Y(NEQ), YP(NEQ), RVAL(NRT),
 C         where NEQ, T, Y and NRT are INPUT, and the array RVAL is
 C         output.  NEQ, T, Y, and YP have the same meaning as in the
