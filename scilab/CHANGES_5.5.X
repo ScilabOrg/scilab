@@ -37,11 +37,13 @@ Xcos
 
 * Update Sundials to lastest "2.5.0", keeping our modifications
 
+* Added a new DAE solver : DDaskr (BDF / Newton), which includes rootfinding.
+
 
 ODEPACK
 ========
 
-* New differential-algebraic system solver with rootfinding 'daskr', using BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPACK.
+* New differential-algebraic system solver with rootfinding 'daskr', using BDF methods with direct and preconditioned Krylov linear solvers.
 
 
 Bug fixes
