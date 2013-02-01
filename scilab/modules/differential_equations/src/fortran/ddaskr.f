@@ -909,7 +909,7 @@ C
 C RT --   This is the name of the subroutine for defining the vector
 C         R(T,Y,Y') of constraint functions Ri(T,Y,Y'), whose roots
 C         are desired during the integration.  It is to have the form
-C             SUBROUTINE RT(NEQ, T, Y NRT, RVAL, RPAR, IPAR)
+C             SUBROUTINE RT(NEQ, T, Y, YP, NRT, RVAL, RPAR, IPAR)
 C             DIMENSION Y(NEQ), YP(NEQ), RVAL(NRT),
 C         where NEQ, T, Y and NRT are INPUT, and the array RVAL is
 C         output.  NEQ, T, Y, and YP have the same meaning as in the
@@ -2575,7 +2575,7 @@ C
 C Evaluate R at initial T (= RWORK(LT0)); check for zero values.--------
  100  CONTINUE
       CALL DDATRP2(TN,RWORK(LT0),Y,YP,NEQ,KOLD,PHI,PSI)
-      CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
+      CALL RT (NEQ, RWORK(LT0), Y, YP, NRT, R0, RPAR, IPAR)
       IWORK(LNRTE) = 1
       ZROOT = .FALSE.
       DO 110 I = 1,NRT
@@ -2587,7 +2587,7 @@ C R has a zero at T.  Look at R at T + (small increment). --------------
       RWORK(LT0) = RWORK(LT0) + TEMP1
       DO 120 I = 1,NEQ
  120    Y(I) = Y(I) + TEMP2*PHI(I,2)
-      CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
+      CALL RT (NEQ, RWORK(LT0), Y, YP, NRT, R0, RPAR, IPAR)
       IWORK(LNRTE) = IWORK(LNRTE) + 1
       ZROOT = .FALSE.
       DO 130 I = 1,NRT
@@ -2604,7 +2604,7 @@ C
       IF (IWORK(LIRFND) .EQ. 0) GO TO 260
 C If a root was found on the previous step, evaluate R0 = R(T0). -------
       CALL DDATRP2 (TN, RWORK(LT0), Y, YP, NEQ, KOLD, PHI, PSI)
-      CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
+      CALL RT (NEQ, RWORK(LT0), Y, YP, NRT, R0, RPAR, IPAR)
       IWORK(LNRTE) = IWORK(LNRTE) + 1
       ZROOT = .FALSE.
       DO 210 I = 1,NRT
@@ -2623,7 +2623,7 @@ C R has a zero at T0.  Look at R at T0+ = T0 + (small increment). ------
  220    Y(I) = Y(I) + TEMP2*PHI(I,2)
       GO TO 240
  230  CALL DDATRP2 (TN, RWORK(LT0), Y, YP, NEQ, KOLD, PHI, PSI)
- 240  CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
+ 240  CALL RT (NEQ, RWORK(LT0), Y, YP, NRT, R0, RPAR, IPAR)
       IWORK(LNRTE) = IWORK(LNRTE) + 1
       DO 250 I = 1,NRT
         IF (ABS(R0(I)) .GT. ZERO) GO TO 250
@@ -2650,7 +2650,7 @@ C Set T1 to TN or TOUT, whichever comes first, and get R at T1. --------
       T1 = TOUT
       IF ((T1 - RWORK(LT0))*H .LE. ZERO) GO TO 390
  330  CALL DDATRP2 (TN, T1, Y, YP, NEQ, KOLD, PHI, PSI)
-      CALL RT (NEQ, T1, Y, NRT, R1, RPAR, IPAR)
+      CALL RT (NEQ, T1, Y, YP, NRT, R1, RPAR, IPAR)
       IWORK(LNRTE) = IWORK(LNRTE) + 1
 C Call DROOTS2 to search for root in interval from T0 to T1. -----------
       JFLAG = 0
@@ -2658,7 +2658,7 @@ C Call DROOTS2 to search for root in interval from T0 to T1. -----------
       CALL DROOTS2(NRT, HMINR, JFLAG, RWORK(LT0),T1, R0,R1,RX, X, JROOT)
       IF (JFLAG .GT. 1) GO TO 360
       CALL DDATRP2 (TN, X, Y, YP, NEQ, KOLD, PHI, PSI)
-      CALL RT (NEQ, X, Y, NRT, RX, RPAR, IPAR)
+      CALL RT (NEQ, X, Y, YP, NRT, RX, RPAR, IPAR)
       IWORK(LNRTE) = IWORK(LNRTE) + 1
       GO TO 350
  360  RWORK(LT0) = X
