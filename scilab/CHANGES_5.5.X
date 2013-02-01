@@ -1,6 +1,6 @@
                     Changes between version 5.4.X and 5.5.0
                     =======================================
-
+random
 New features
 =============
 
@@ -41,6 +41,8 @@ Xcos
 ====
 
 * Update Sundials to lastest "2.5.0", keeping our modifications
+
+* Added a new DAE solver : DDaskr (BDF / Newton), which includes rootfinding.
 
 
 Bug fixes
