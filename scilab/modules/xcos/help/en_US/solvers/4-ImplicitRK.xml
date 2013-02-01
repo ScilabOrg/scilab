@@ -265,10 +265,16 @@ Time for implicit Runge-Kutta:
                 <link linkend="CVode">CVode</link>
             </member>
             <member>
+                <link linkend="IDA">IDA</link>
+            </member>
+            <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
             </member>
             <member>
                 <link linkend="DoPri">Dormand-Prince 4(5)</link>
+            </member>
+            <member>
+                <link linkend="DDaskr">DDaskr</link>
             </member>
             <member>
                 <link linkend="Comparisons">Comparisons</link>
