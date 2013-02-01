@@ -303,8 +303,8 @@ cd ..
     <ClCompile Include="cfode.c" />
     <ClCompile Include="colnew.c" />
     <ClCompile Include="..\c\commons_f2c.c" />
-    <ClCompile Include="daux.c" />
     <ClCompile Include="dcutet.c" />
+    <ClCompile Include="daux.c" />
     <ClCompile Include="ddaskr.c" />
     <ClCompile Include="ddasrt.c" />
     <ClCompile Include="ddassl.c" />
