@@ -146,9 +146,6 @@ Xcos
 * Bug #12265 fixed - xcos_simulate help example diagrams were badly rendered
                      due to CLR blocks.
 
-* Bug #12266 fixed - Stopping "Papillon de lorentz" demonstration
-                     while simulation was on made CMSCOPE crash.
-
 
 Documentation
 ==============
@@ -247,6 +244,9 @@ Bug fixes
 
 * Bug #11976 fixed - Check csvTextScan 3rd parameter validity.
 
+* Bug #11980 fixed - csim returned an error message in some cases: "Submatrix
+                     incorrectly defined".
+
 * Bug #11981 fixed - Smooth french help page had a wrong declaration
                      (colonnes => lignes).
 
@@ -308,9 +308,6 @@ Bug fixes
 
 * Bug #12168 fixed - matfile_listvar crashed when listing variables of a closed MAT-file.
 
-* Bug #12174 fixed - The function "routh_t" gave incorrect output for all
-                     denominators that include gain value "k".
-
 * Bug #12179 fixed - Fix an incompatibility with MPI version of HDF5.
 
 * Bug #12184 fixed - Performances of the function 'derivat' improved.
@@ -324,8 +321,6 @@ Bug fixes
 * Bug #12204 fixed - Fix a typo in the French localization
 
 * Bug #12219 fixed - delete("all") does not recreate a basic axe within cleaned figure.
-
-* Bug #12221 fixed - fspec was not documented and there was an error message "undefined variable: Sl".
 
 * Bug #12232 fixed - There were several memleaks in various fillers.
 

@@ -1,0 +1,75 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 11980 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=11980
+//
+// <-- Short Description -->
+// Submatrix incorrectly defined.
+// at line     148 of function csim called by :  
+// y=csim('step',t,numerador/denominador).
+s=poly(0,'s'); funcprot(0);
+kp=96.770532;
+ki=42.568724;
+kd=18.711118;
+numerador=s^5*kd+s^4*(60*kd+kp)+s^3*(1500*kd-60*kp+ki)+s^2*(-15000*kd+1500*kp-60*ki)+s*(-15000*kp+1500*ki)-15000*ki;
+denominador=s^5*(kd)+s^4*(-1-60*kd+kp)+s^3*(-1500-60+1500*kd-60*kp+ki)+s^2*(-15000-1500-15000*kd+1500*kp-60*ki)+s*(-15000-15000*kp+1500*ki)-15000*ki;
+t=0:0.01:100;
+assert_checktrue(execstr("csim(""step"",t,numerador/denominador);","errcatch")==10000);
+WARNING: csim: Input argument 1 is assumed continuous time.
+WARNING: csim: Direct feedthrough set to zero.
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1073126984777D-14      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1073126984777D-14      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.6707043654857D-16      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.6707043654857D-16      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1676760913714D-16      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1047975571071D-17      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1047975571071D-17      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1047975571071D-17      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1047975571071D-17      
+lsode--  caution... t (=r1) and h (=r2) are
+     such that t + h = t at next step
+      (h = step).  integration continues
+      where r1 is :   0.2362240195191D+02   and r2 :   0.1047975571071D-17      
+lsode--  preceding message given i1 times
+     wiil not be repeated
+      where i1 is :         10                                                  
+lsode--  at t (=r1), mxstep (=i1) steps   
+necessary before reaching tout
+      where i1 is :        500                                                  
+      where r1 is :   0.2362240195191D+02                                       
+Warning:  Result may be inaccurate.
+
