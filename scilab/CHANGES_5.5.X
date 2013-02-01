@@ -42,6 +42,8 @@ Xcos
 
 * Update Sundials to lastest "2.5.0", keeping our modifications
 
+* Added a new DAE solver : DDaskr (BDF / Newton), which includes rootfinding.
+
 
 Bug fixes
 ==========
