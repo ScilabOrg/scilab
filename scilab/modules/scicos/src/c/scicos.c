@@ -79,6 +79,7 @@
 #include "dynlib_scicos.h"
 
 #include "lsodar.h"           /* prototypes for lsodar fcts. and consts. */
+#include "ddasrt.h"           /* prototypes for ddasrt fcts. and consts. */
 
 #if defined(linux) && defined(__i386__)
 #include "setPrecisionFPU.h"
@@ -115,7 +116,7 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 	if (( ng>0 )&& (*neq>0)) FREE(data->gwork);	\
 	if (*neq>0) N_VDestroy_Serial(data->ewt);	\
 	if (*neq>0) FREE(data);			\
-	if (*neq>0) IDAFree(&ida_mem);		\
+	if (*neq>0) if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem)); 	\
 	if (*neq>0) N_VDestroy_Serial(IDx);		\
 	if (*neq>0) N_VDestroy_Serial(yp);		\
 	if (*neq>0) N_VDestroy_Serial(yy);		\
@@ -235,6 +236,8 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
 static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
 static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, realtype * res);
 static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int * ngroot, realtype * res);
+static int simblkddasrt(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2);
+static int grblkddasrt(int *nequations, realtype *tOld, realtype *actual, int *ngroot, realtype *res, double *dummy1, int *dummy2);
 static void addevs(double t, int *evtnb, int *ierr1);
 static int synchro_g_nev(ScicosImport *scs_imp, double *g, int kf, int *ierr);
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb);
@@ -841,6 +844,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             cossim(t0);
         }
         else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
+        {
+            cossimdaskr(t0);
+        }
+        else if (C2F(cmsolver).solver == 101)  /* DDASRT  : Method:       , Nonlinear solver=  */
         {
             cossimdaskr(t0);
         }
@@ -2067,12 +2074,17 @@ static void cossimdaskr(double *told)
 
         /* Call IDACreate and IDAInit to initialize IDA memory */
         ida_mem = NULL;
+        if (C2F(cmsolver).solver == 101)
+        {
+            ida_mem = DDasrtCreate(neq, ng);
+        }
+		else
         ida_mem = IDACreate();
         if (check_flag((void *)ida_mem, "IDACreate", 0))
         {
-            if (*neq > 0) N_VDestroy_Serial(IDx);
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0) N_VDestroy_Serial(yy);
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0)N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
             if (ng != 0) FREE(jroot);
             if (ng != 0) FREE(zcros);
             if (nmod != 0)  FREE(Mode_save);
@@ -2080,53 +2092,16 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) ida_mem;
 
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDasrtSetErrHandlerFn(ida_mem, SundialsErrHandler, NULL);
+        }
+		else
         flag = IDASetErrHandlerFn(ida_mem, SundialsErrHandler, NULL);
         if (check_flag(&flag, "IDASetErrHandlerFn", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)IDAFree(&ida_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
-            return;
-        }
-
-        flag = IDAInit(ida_mem, simblkdaskr, T0, yy, yp);
-        if (check_flag(&flag, "IDAInit", 1))
-        {
-            *ierr = 200 + (-flag);
-            if (*neq > 0)IDAFree(&ida_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
-            return;
-        }
-
-        flag = IDASStolerances(ida_mem, reltol, abstol);
-        if (check_flag(&flag, "IDASStolerances", 1))
-        {
-            *ierr = 200 + (-flag);
-            if (*neq > 0)IDAFree(&ida_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
-            return;
-        }
-
-        flag = IDARootInit(ida_mem, ng, grblkdaskr);
-        if (check_flag(&flag, "IDARootInit", 1))
-        {
-            *ierr = 200 + (-flag);
-            if (*neq > 0)IDAFree(&ida_mem);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2136,12 +2111,73 @@ static void cossimdaskr(double *told)
             return;
         }
 
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDasrtInit(ida_mem, simblkddasrt, T0, yy, yp);
+        }
+		else
+        flag = IDAInit(ida_mem, simblkdaskr, T0, yy, yp);
+        if (check_flag(&flag, "IDAInit", 1))
+        {
+            *ierr = 200 + (-flag);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0)N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
+            if (ng != 0) FREE(jroot);
+            if (ng != 0) FREE(zcros);
+            if (nmod != 0) FREE(Mode_save);
+            return;
+        }
 
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDasrtSStolerances(ida_mem, reltol, abstol);
+        }
+		else
+        flag = IDASStolerances(ida_mem, reltol, abstol);
+        if (check_flag(&flag, "IDASStolerances", 1))
+        {
+            *ierr = 200 + (-flag);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0)N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
+            if (ng != 0) FREE(jroot);
+            if (ng != 0) FREE(zcros);
+            if (nmod != 0) FREE(Mode_save);
+            return;
+        }
+
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDasrtRootInit(ida_mem, ng, grblkddasrt);
+        }
+		else
+        flag = IDARootInit(ida_mem, ng, grblkdaskr);
+        if (check_flag(&flag, "IDARootInit", 1))
+        {
+            *ierr = 200 + (-flag);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0)N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
+            if (ng != 0) FREE(jroot);
+            if (ng != 0) FREE(zcros);
+            if (nmod != 0) FREE(Mode_save);
+            return;
+        }
+
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDasrtDense(ida_mem, *neq);
+        }
+		else
         flag = IDADense(ida_mem, *neq);
         if (check_flag(&flag, "IDADense", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)IDAFree(&ida_mem);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2155,7 +2191,7 @@ static void cossimdaskr(double *told)
         if ((data = (UserData) MALLOC(sizeof(*data))) == NULL)
         {
             *ierr = 10000;
-            if (*neq > 0)IDAFree(&ida_mem);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2175,10 +2211,10 @@ static void cossimdaskr(double *told)
         {
             *ierr = 200 + (-flag);
             if (*neq > 0)FREE(data);
-            if (*neq > 0)IDAFree(&ida_mem);
-            if (*neq > 0) N_VDestroy_Serial(IDx);
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0) N_VDestroy_Serial(yy);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
+            if (*neq > 0)N_VDestroy_Serial(IDx);
+            if (*neq > 0)N_VDestroy_Serial(yp);
+            if (*neq > 0)N_VDestroy_Serial(yy);
             if (ng != 0) FREE(jroot);
             if (ng != 0) FREE(zcros);
             if (nmod != 0) FREE(Mode_save);
@@ -2188,9 +2224,9 @@ static void cossimdaskr(double *told)
         {
             if ((data->gwork = (double *) MALLOC(ng * sizeof(double))) == NULL)
             {
-                if (*neq > 0) N_VDestroy_Serial(data->ewt);
+                if (*neq > 0)N_VDestroy_Serial(data->ewt);
                 if (*neq > 0)FREE(data);
-                if (*neq > 0)IDAFree(&ida_mem);
+                if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
                 if (*neq > 0)N_VDestroy_Serial(IDx);
                 if (*neq > 0)N_VDestroy_Serial(yp);
                 if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2219,10 +2255,10 @@ static void cossimdaskr(double *told)
 
         if ((data->rwork = (double *) MALLOC(Jactaille * sizeof(double))) == NULL)
         {
-            if ( ng > 0 ) FREE(data->gwork);
+            if ( ng > 0 )FREE(data->gwork);
             if (*neq > 0)N_VDestroy_Serial(data->ewt);
             if (*neq > 0)FREE(data);
-            if (*neq > 0)IDAFree(&ida_mem);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&ida_mem); else (DDasrtFree(&ida_mem));
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2233,6 +2269,11 @@ static void cossimdaskr(double *told)
             return;
         }
 
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDasrtDlsSetDenseJacFn(ida_mem, Jacobiansddasrt);
+        }
+		else
         flag = IDADlsSetDenseJacFn(ida_mem, Jacobians);
         if (check_flag(&flag, "IDADlsSetDenseJacFn", 1))
         {
@@ -2243,6 +2284,11 @@ static void cossimdaskr(double *told)
 
         TJacque = (DlsMat) NewDenseMat(*neq, *neq);
 
+        if (C2F(cmsolver).solver == 101)
+        {
+            flag = DDasrtSetUserData(ida_mem, data);
+        }
+		else
         flag = IDASetUserData(ida_mem, data);
         if (check_flag(&flag, "IDASetUserData", 1))
         {
@@ -2253,6 +2299,11 @@ static void cossimdaskr(double *told)
 
         if (hmax > 0)
         {
+            if (C2F(cmsolver).solver == 101)
+            {
+                flag = DDasrtSetMaxStep(ida_mem, (realtype) hmax);
+            }
+		    else
             flag = IDASetMaxStep(ida_mem, (realtype) hmax);
             if (check_flag(&flag, "IDASetMaxStep", 1))
             {
@@ -2263,6 +2314,11 @@ static void cossimdaskr(double *told)
         }
 
         maxnj = 100; /* setting the maximum number of Jacobian evaluation during a Newton step */
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDasrtSetMaxNumJacsIC(ida_mem, maxnj);
+        }
+		else
         flag = IDASetMaxNumJacsIC(ida_mem, maxnj);
         if (check_flag(&flag, "IDASetMaxNumJacsIC", 1))
         {
@@ -2272,6 +2328,11 @@ static void cossimdaskr(double *told)
         }
 
         maxnit = 10; /* setting the maximum number of Newton iterations in any one attemp to solve CIC */
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDasrtSetMaxNumItersIC(ida_mem, maxnit);
+        }
+		else
         flag = IDASetMaxNumItersIC(ida_mem, maxnit);
         if (check_flag(&flag, "IDASetMaxNumItersIC", 1))
         {
@@ -2281,6 +2342,11 @@ static void cossimdaskr(double *told)
         }
 
         /* setting the maximum number of steps in an integration interval */
+        if (C2F(cmsolver).solver == 101)
+        {
+            //flag = DDasrtSetMaxNumSteps(ida_mem, 2000);
+        }
+		else
         flag = IDASetMaxNumSteps(ida_mem, 2000);
         if (check_flag(&flag, "IDASetMaxNumSteps", 1))
         {
@@ -2439,6 +2505,11 @@ L30:
                 {
 
                     /* Setting the stop time*/
+                    if (C2F(cmsolver).solver == 101)
+                    {
+                        flag = DDasrtSetStopTime(ida_mem, (realtype)tstop);
+                    }
+		            else
                     flag = IDASetStopTime(ida_mem, (realtype)tstop);
                     if (check_flag(&flag, "IDASetStopTime", 1))
                     {
@@ -2492,6 +2563,11 @@ L30:
                     } */
                     /* printf("\n"); for(jj=0;jj<*neq;jj++) { printf("x%d=%g ",jj,scicos_xproperty[jj]); }*/
 
+                    if (C2F(cmsolver).solver == 101)
+                    {
+                        //flag = DDasrtSetId(ida_mem, IDx);
+                    }
+		            else
                     flag = IDASetId(ida_mem, IDx);
                     if (check_flag(&flag, "IDASetId", 1))
                     {
@@ -2546,6 +2622,11 @@ L30:
                         }
 
                         /* yy->PH */
+                        if (C2F(cmsolver).solver == 101)
+                        {
+                            flag = DDasrtReInit(ida_mem, (realtype)(*told), yy, yp);
+                        }
+		                else
                         flag = IDAReInit(ida_mem, (realtype)(*told), yy, yp);
                         if (check_flag(&flag, "CVodeReInit", 1))
                         {
@@ -2558,9 +2639,19 @@ L30:
                         copy_IDA_mem->ida_kk = 1;
 
                         // the initial conditons y0 and yp0 do not satisfy the DAE
+                        if (C2F(cmsolver).solver == 101)
+                        {
+                            //flag = DDasrtCalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
+                        }
+		                else
                         flagr = IDACalcIC(ida_mem, IDA_YA_YDP_INIT, (realtype)(t));
 
                         phase = 1;
+                        if (C2F(cmsolver).solver == 101)
+                        {
+                            //flag = DDasrtGetConsistentIC(ida_mem, yy, yp); /* PHI->YY */
+                        }
+		                else
                         flag = IDAGetConsistentIC(ida_mem, yy, yp); /* PHI->YY */
 
                         if (*ierr > 5)    /* *ierr>5 => singularity in block */
@@ -2689,9 +2780,15 @@ L30:
 
                 /*--discrete zero crossings----dzero--------------------*/
                 if (Discrete_Jump == 0) /* if there was a dzero, its event should be activated*/
-                {
+                {printf("y");N_VPrint_Serial(yy);printf("\n yp");N_VPrint_Serial(yp);
                     phase = 2;
+                    if (C2F(cmsolver).solver == 101)
+                    {
+                        flagr = DDasrtSolve(ida_mem, t, told, yy, yp, DDAS_NORMAL);
+                    }
+                    else
                     flagr = IDASolve(ida_mem, t, told, yy, yp, IDA_NORMAL);
+                     printf("apsolve flagr = %d\n", flagr);
                     phase = 1;
                     if (*ierr != 0)
                     {
@@ -2748,6 +2845,10 @@ L30:
                     hot = 0;
                     if (Discrete_Jump == 0)
                     {
+                        if (C2F(cmsolver).solver == 101)
+                        {
+                            flagr = DDasrtGetRootInfo(ida_mem, jroot);
+                        }
                         flagr = IDAGetRootInfo(ida_mem, jroot);
                         if (check_flag(&flagr, "IDAGetRootInfo", 1))
                         {
@@ -3725,6 +3826,115 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
     C2F(ierode).iero = *ierr;
     return (*ierr);
 }/* grblkdaskr */
+/*--------------------------------------------------------------------------*/
+/* simblkddasrt */
+//static int simblkddasrt(int *nequations, realtype *tOld, realtype *actual, realtype *actualP, realtype *res, void *rdata)
+static int simblkddasrt(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2)
+{
+    double tx = 0.;
+    realtype alpha = 0.;
+//
+//    UserData data;
+//
+//    realtype hh = 0.;
+//    int qlast = 0;
+    int jj = 0, nantest = 0;
+//
+//    data = (UserData) rdata;
+//
+//    if (get_phase_simulation() == 1)
+//    {
+//        /* Just to update mode in a very special case, i.e., when initialization using modes fails.
+//        in this case, we relax all modes and try again one more time.
+//        */
+//        zdoit(&tx, actual, actualP, (double *)data->gwork);
+//    }
+//
+//    hh = ZERO;
+//    flag = IDAGetCurrentStep(data->ida_mem, &hh);
+//    if (flag < 0)
+//    {
+//       *ierr = 200 + (-flag);
+//        return (*ierr);
+//    };
+//
+//    qlast = 0;
+//    flag = IDAGetCurrentOrder(data->ida_mem, &qlast);
+//    if (flag < 0)
+//    {
+//        *ierr = 200 + (-flag);
+//        return (*ierr);
+//    };
+//
+//    alpha = ZERO;
+//    for (jj = 0; jj < qlast; jj++)
+//        alpha = alpha - ONE / (jj + 1);
+//    if (hh != 0)
+//        // CJ=-alpha/hh;  // For function Get_Jacobian_cj
+//        CJJ = -alpha / hh;
+//    else
+//    {
+//        *ierr = 217;
+//        return (*ierr);
+//    }
+    tx = (double) *tOld;
+
+    C2F(dcopy)(neq, actualP, &c__1, res, &c__1);
+    *ierr = 0;
+    C2F(ierode).iero = 0;
+    odoit(&tx, actual, actualP, res);
+
+    C2F(ierode).iero = *ierr;
+
+    if (*ierr == 0)
+    {
+        nantest = 0;
+        for (jj = 0; jj < *neq; jj++)
+            if (res[jj] - res[jj] != 0) /* NaN checking */
+            {
+                sciprint(_("\nWarning: The residual function #%d returns a NaN"),jj);
+                nantest = 1;
+                break;
+            }
+        if (nantest == 1) return 257; /* recoverable error; */
+    }
+
+    //*flag = 0; // To tell DDasrt that the function went well. Only touch flag if failure
+
+    return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
+}/* simblkddasrt */
+/*--------------------------------------------------------------------------*/
+/* grblkddasrt */
+static int grblkddasrt(int *nequations, realtype *tOld, realtype *actual, int *ngroot, realtype *res, double *dummy1, int *dummy2)
+{
+    double tx = 0.;
+    int jj = 0, nantest = 0;
+
+    tx = (double) *tOld;
+
+    *ierr = 0;
+    C2F(ierode).iero = 0;
+    zdoit(&tx, actual, actual, res);
+    if (*ierr == 0)
+    {
+        nantest = 0; /* NaN checking */
+        for (jj = 0; jj < ng; jj++)
+        {
+            if (res[jj] - res[jj] != 0)
+            {
+                sciprint(_("\nWarning: The zero-crossing function #%d returns a NaN"), jj);
+                nantest = 1;
+                break;
+            }
+        }
+        if (nantest == 1)
+        {
+            return 258; /* recoverable error; */
+        }
+    }
+    C2F(ierode).iero = *ierr;
+    return (*ierr);
+}/* grblkddasrt */
 /*--------------------------------------------------------------------------*/
 /* Subroutine addevs */
 static void addevs(double t, int *evtnb, int *ierr1)
