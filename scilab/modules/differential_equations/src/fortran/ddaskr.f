@@ -1958,9 +1958,10 @@ C
      *   RWORK(LRX),JROOT,IRT,RWORK(LROUND),INFO(3),
      *   RWORK,IWORK,RPAR,IPAR)
       IF (IRT .LT. 0) GO TO 731
-      IF (IRT .NE. 1) GO TO 405
+      IF (IRT .NE. 1 .AND. IRT .NE. 2) GO TO 405
       IWORK(LIRFND) = 1
-      IDID = 5
+      IF (IRT .EQ. 1) IDID = 5
+      IF (IRT .EQ. 2) IDID = 6
       T = RWORK(LT0)
       DONE = .TRUE.
       GO TO 490
@@ -2185,9 +2186,10 @@ C
      *   RWORK(LPSI),IWORK(LKOLD),RWORK(LR0),RWORK(LR1),
      *   RWORK(LRX),JROOT,IRT,RWORK(LROUND),INFO(3),
      *   RWORK,IWORK,RPAR,IPAR)
-      IF(IRT .NE. 1) GO TO 530
+      IF (IRT .NE. 1 .AND. IRT .NE. 2) GO TO 530
       IWORK(LIRFND) = 1
-      IDID = 5
+      IF (IRT .EQ. 1) IDID = 5
+      IF (IRT .EQ. 2) IDID = 6
       T = RWORK(LT0)
       GO TO 580
 C
@@ -2569,36 +2571,43 @@ C-----------------------------------------------------------------------
 C     
       H = PSI(1)
       IRT = 0
-      DO 10 I = 1,NRT
- 10     JROOT(I) = 0
+c      DO 10 I = 1,NRT
+c 10     JROOT(I) = 0
       HMINR = (ABS(TN) + ABS(H))*UROUND*100.0D0
 C
       GO TO (100, 200, 300), JOB
 C
 C Evaluate R at initial T (= RWORK(LT0)); check for zero values.--------
  100  CONTINUE
+      DO 101 I = 1,NRT
+ 101     JROOT(I) = 0
       CALL DDATRP2(TN,RWORK(LT0),Y,YP,NEQ,KOLD,PHI,PSI)
       CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
       IWORK(LNRTE) = 1
       ZROOT = .FALSE.
       DO 110 I = 1,NRT
- 110    IF (ABS(R0(I)) .EQ. ZERO) ZROOT = .TRUE.
-      IF (.NOT. ZROOT) GO TO 190
+        IF (ABS(R0(I)) .EQ. ZERO) THEN
+           ZROOT = .TRUE.
+           JROOT(I) = 55
+        ENDIF
+ 110  CONTINUE
+       RWORK(LT0) = TN
+c      IF (.NOT. ZROOT) GO TO 190
 C R has a zero at T.  Look at R at T + (small increment). --------------
-      TEMP2 = MAX(HMINR/ABS(H), 0.1D0)
-      TEMP1 = TEMP2*H
-      RWORK(LT0) = RWORK(LT0) + TEMP1
-      DO 120 I = 1,NEQ
- 120    Y(I) = Y(I) + TEMP2*PHI(I,2)
-      CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
-      IWORK(LNRTE) = IWORK(LNRTE) + 1
-      ZROOT = .FALSE.
-      DO 130 I = 1,NRT
- 130    IF (ABS(R0(I)) .EQ. ZERO) ZROOT = .TRUE.
-      IF (.NOT. ZROOT) GO TO 190
+c      TEMP2 = MAX(HMINR/ABS(H), 0.1D0)
+c      TEMP1 = TEMP2*H
+c      RWORK(LT0) = RWORK(LT0) + TEMP1
+c      DO 120 I = 1,NEQ
+c 120    Y(I) = Y(I) + TEMP2*PHI(I,2)
+c      CALL RT (NEQ, RWORK(LT0), Y, NRT, R0, RPAR, IPAR)
+c      IWORK(LNRTE) = IWORK(LNRTE) + 1
+c      ZROOT = .FALSE.
+c      DO 130 I = 1,NRT
+c 130    IF (ABS(R0(I)) .EQ. ZERO) ZROOT = .TRUE.
+c      IF (.NOT. ZROOT) GO TO 190
 C R has a zero at T and also close to T.  Take error return. -----------
-      IRT = -1
-      RETURN
+c      IRT = -1
+c      RETURN
 C
  190  CONTINUE
       RETURN
@@ -2669,6 +2678,10 @@ C Call DROOTS2 to search for root in interval from T0 to T1. -----------
       IF (JFLAG .EQ. 4) GO TO 390
 C Found a root.  Interpolate to X and return. --------------------------
       CALL DDATRP2 (TN, X, Y, YP, NEQ, KOLD, PHI, PSI)
+      IF (JFLAG .EQ. 5) THEN
+        IRT = 2
+        RETURN
+      ENDIF
       IRT = 1
       RETURN
 C
@@ -2769,28 +2782,40 @@ C-----------------------------------------------------------------------
       INTEGER I, IMAX, IMXOLD, LAST, NXLAST
       DOUBLE PRECISION ALPHA, T2, TMAX, X2, FRACINT, FRACSUB,
      1                 ZERO, TENTH, HALF, FIVE
-      LOGICAL ZROOT, SGNCHG, XROOT
+      LOGICAL ZROOT, SGNCHG, XROOT, UMROOT
       SAVE ALPHA, X2, IMAX, LAST
       DATA ZERO/0.0D0/, TENTH/0.1D0/, HALF/0.5D0/, FIVE/5.0D0/
 C
       IF (JFLAG .EQ. 1) GO TO 200
 C JFLAG .ne. 1.  Check for change in sign of R or zero at X1. ----------
+      ISTUCK = 0
+      IUNSTUCK = 0
       IMAX = 0
       TMAX = ZERO
       ZROOT = .FALSE.
       DO 120 I = 1,NRT
         IF (ABS(R1(I)) .GT. ZERO) GO TO 110
-        ZROOT = .TRUE.
+        IF (ABS(R1(I)) .EQ. ZERO .AND. JROOT(I) .NE. 55) ISTUCK = I
+c        ZROOT = .TRUE.
         GO TO 120
 C At this point, R0(i) has been checked and cannot be zero. ------------
  110    IF (SIGN(1.0D0,R0(I)) .EQ. SIGN(1.0D0,R1(I))) GO TO 120
+          IF (JROOT(i).EQ.55) IUNSTUCK = I
           T2 = ABS(R1(I)/(R1(I)-R0(I)))
           IF (T2 .LE. TMAX) GO TO 120
             TMAX = T2
             IMAX = I
  120    CONTINUE
       IF (IMAX .GT. 0) GO TO 130
+         IF (ISTUCK .GT. 0) THEN
+            SGNCHG = .TRUE.
+            IMAX = ISTUCK
+         ELSEIF (IUNSTUCK .GT. 0) THEN
+            SGNCHG = .TRUE.
+            IMAX = IUNSTUCK
+         ELSE
       SGNCHG = .FALSE.
+         ENDIF
       GO TO 140
  130  SGNCHG = .TRUE.
  140  IF (.NOT. SGNCHG) GO TO 400
@@ -2835,22 +2860,34 @@ C Return to the calling routine to get a value of RX = R(X). -----------
 C Check to see in which interval R changes sign. -----------------------
  200  IMXOLD = IMAX
       IMAX = 0
+      ISTUCK = 0
+      IUNSTUCK = 0
       TMAX = ZERO
       ZROOT = .FALSE.
       DO 220 I = 1,NRT
         IF (ABS(RX(I)) .GT. ZERO) GO TO 210
-        ZROOT = .TRUE.
+        IF (ABS(RX(I)) .EQ. ZERO .AND. JROOT(i) .NE. 55) ISTUCK = I
+c        ZROOT = .TRUE.
         GO TO 220
 C Neither R0(i) nor RX(i) can be zero at this point. -------------------
  210    IF (SIGN(1.0D0,R0(I)) .EQ. SIGN(1.0D0,RX(I))) GO TO 220
+          IF (JROOT(i).EQ.55) IUNSTUCK = I
           T2 = ABS(RX(I)/(RX(I) - R0(I)))
           IF (T2 .LE. TMAX) GO TO 220
             TMAX = T2
             IMAX = I
  220    CONTINUE
       IF (IMAX .GT. 0) GO TO 230
+         IF (ISTUCK .GT. 0) THEN
+            SGNCHG = .TRUE.
+            IMAX = ISTUCK
+         ELSEIF (IUNSTUCK .GT. 0) THEN
+            SGNCHG = .TRUE.
+            IMAX = IUNSTUCK
+         ELSE
       SGNCHG = .FALSE.
       IMAX = IMXOLD
+         ENDIF
       GO TO 240
  230  SGNCHG = .TRUE.
  240  NXLAST = LAST
@@ -2879,16 +2916,39 @@ C
 C Return with X1 as the root.  Set JROOT.  Set X = X1 and RX = R1. -----
  300  JFLAG = 2
       X = X1
+      UMROOT = .FALSE.
       CALL DCOPY (NRT, R1, 1, RX, 1)
       DO 320 I = 1,NRT
-        JROOT(I) = 0
-        IF (ABS(R1(I)) .EQ. ZERO) THEN
-          JROOT(I) = -SIGN(1.0D0,R0(I))
-          GO TO 320
+c        JROOT(I) = 0
+        IF (JROOT(I) .NE. 55) THEN
+          IF (ABS(R1(I)) .EQ. ZERO) THEN
+            JROOT(I) = -SIGN(1.0D0,R0(I))
+            ZROOT = .TRUE.
+            GO TO 320
           ENDIF
-        IF (SIGN(1.0D0,R0(I)) .NE. SIGN(1.0D0,R1(I)))
-     1     JROOT(I) = SIGN(1.0D0,R1(I) - R0(I))
+          IF (SIGN(1.0D0,R0(I)) .NE. SIGN(1.0D0,R1(I))) THEN
+            JROOT(I) = SIGN(1.0D0,R1(I) - R0(I))
+          ELSE
+            JROOT(I) = 0
+            ZROOT = .FALSE.
+          ENDIF
+        ELSE
+          IF (ABS(R1(I)) .NE. ZERO) THEN
+            JROOT(I) = SIGN(2.0D0,R1(I))
+            UMROOT = .TRUE.
+            ZROOT = .FALSE.
+          ELSE
+            JROOT(I) = 0
+            ZROOT = .FALSE.
+          ENDIF
+        ENDIF
  320    CONTINUE
+      IF (ZROOT) THEN
+        DO 325 I = 1,NRT
+ 325      IF (JROOT(I) .EQ. 2 .OR. JROOT(I) .EQ. -2) JROOT(I) = 0
+      ELSEIF (UMROOT) THEN
+        JFLAG = 5
+      ENDIF
       RETURN
 C
 C No sign change in the interval.  Check for zero at right endpoint. ---
