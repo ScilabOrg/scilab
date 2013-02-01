@@ -433,6 +433,8 @@ void IDAErrHandler(int error_code, const char *module, const char *function,
 
 /* IDASolve error messages */
 
+#define MSG_BAD_INPUT      "One of the arguments is illegal."
+#define MSG_SINGULAR       "The matrix of partial derivatives is singular."
 #define MSG_YRET_NULL      "yret = NULL illegal."
 #define MSG_YPRET_NULL     "ypret = NULL illegal."
 #define MSG_TRET_NULL      "tret = NULL illegal."
