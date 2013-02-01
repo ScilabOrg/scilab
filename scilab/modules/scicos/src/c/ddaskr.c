@@ -1,0 +1,768 @@
+/*
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) Scilab Enterprises - 2013 - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <machine.h>
+
+#include "ddaskr.h"
+
+#define NO_FPRINTF_OUTPUT 1
+
+/*
+ * Control constant for tolerances
+ *
+ * Scicos only uses scalar tolerances, so we only need the scalar-scalar (SS) value for info[1].
+ * --------------------------------
+ */
+
+#define IDA_SS  0
+
+/* Stop mode flags */
+#define DDAS_NORMAL    0
+#define DDAS_ONE_STEP  1
+
+/* =============================
+ *
+ *           ddaskr
+ *
+ * =============================
+ *
+ * Actual solving function, from 'ODEPACK' in 'differential_equations' module
+ */
+
+extern void C2F(ddaskr) (DDASResFn res, int *neq, realtype *t, realtype *y, realtype *yp, realtype *tout, int *info, realtype *reltol, realtype *abstol, int *istate, struct DDrWork_t *rwork, int *lrw, int *iwork, int *liw, double *dummy1, int *dummy2, int *jacobian, DDASRootFn grblk, int *ng, int *jroot);
+
+/* =============================
+ *
+ *         DDaskrCreate
+ *
+ * =============================
+ *
+ * DDaskrCreate creates an internal memory block for a problem to be solved by DDASKR.
+ * If successful, DDaskrCreate returns a pointer to the problem memory.
+ * This pointer should be passed to DDaskrInit.
+ * If an initialization error occurs,
+ * DDaskrCreate prints an error message to standard err and returns NULL.
+ */
+
+void * DDaskrCreate (int * neq, int ng)
+{
+    int lRn, lRs, lIw, lRw;
+    DDaskrMem ddaskr_mem;
+
+    /* Allocate the problem memory space */
+    ddaskr_mem = NULL;
+    ddaskr_mem = (DDaskrMem) malloc(sizeof(struct DDaskrMemRec));
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, 0, "DDASKR", "DDaskrCreate", MSG_MEM_FAIL);
+        return (NULL);
+    }
+
+    /* Zero out ddas_mem */
+    memset(ddaskr_mem, 0, sizeof(struct DDaskrMemRec));
+
+    /* Set the 'rwork' and 'iwork' workspaces lengths by default */
+    lRw = 60 + (*neq) * max(MAXORD_DEFAULT + 4, 7) + (*neq) * (*neq) + 3 * ng;
+    lIw = 40 + (*neq);
+
+    /* Copy the variables into the problem memory space */
+    ddaskr_mem->nEquations = neq;
+    ddaskr_mem->user_data  = NULL;
+    ddaskr_mem->iState     = 0;
+    ddaskr_mem->info       = NULL;
+    ddaskr_mem->rwork      = NULL;
+    ddaskr_mem->lrw        = lRw;
+    ddaskr_mem->iwork      = NULL;
+    ddaskr_mem->liw        = lIw;
+    ddaskr_mem->jacobian   = NULL;
+    ddaskr_mem->ehfun      = NULL;
+    ddaskr_mem->g_fun      = NULL;
+    ddaskr_mem->ng_fun     = ng;
+    ddaskr_mem->jroot      = NULL;
+
+    return ((void *) ddaskr_mem);
+}
+
+/* Shortcuts to problem memory space parameters */
+# define res        ddas_mem->res
+# define nEq        ddas_mem->nEquations
+# define yVec       ddas_mem->yVector
+# define ypVec      ddas_mem->yPrimeVector
+# define tStart     ddas_mem->tStart
+# define info       ddas_mem->info
+# define relTol     ddas_mem->relTol
+# define absTol     ddas_mem->absTol
+# define iState     ddas_mem->iState
+# define rwork      ddas_mem->rwork
+# define lrw        ddas_mem->lrw
+# define iwork      ddas_mem->iwork
+# define liw        ddas_mem->liw
+# define jac        ddas_mem->jacobian
+# define g_fun      ddas_mem->g_fun
+# define ng_fun     ddas_mem->ng_fun
+# define jroot      ddas_mem->jroot
+# define user_data  ddas_mem->user_data
+
+/* =============================
+ *
+ *          DDaskrInit
+ *
+ * =============================
+ *
+ * DDaskrInit allocates and initializes memory for a problem.
+ * All problem inputs are checked for errors. If any error occurs during initialization,
+ * it is reported to the file whose file pointer is errfp and an error flag is returned.
+ * Otherwise, it returns IDA_SUCCESS.
+ */
+
+int DDaskrInit (void * ddaskr_mem, DDASResFn Res, realtype t0, N_Vector yy0, N_Vector yp0)
+{
+    DDaskrMem ddas_mem;
+
+    /* Check the input arguments */
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrInit", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (yy0 == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_Y0_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (yp0 == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_YP0_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (Res == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_RES_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    /* Copy the arguments into the problem memory space */
+    res    = Res;
+    yVec   = NV_DATA_S(yy0);
+    ypVec  = NV_DATA_S(yp0);
+    tStart = t0;
+
+    /* Allocate the info[20] tab to zero, used to store parameters (zero is default value for mostof them) */
+    info     = calloc(20, sizeof(int));
+    /* If the initial values are not consistent, there is a way to compute consistent ones, but it is not supported yet.
+       See ddaskr.f L 453 for further details */
+    /* Set maximum verbosity for more user-oriented utilization */
+    info[17] = 2;
+
+    /* Allocate rwork and iwork workspaces and set them to zero.
+       Their size is lrw and liw, respectively */
+    rwork = (struct DDrWork_t *) calloc(lrw, sizeof(realtype));
+    iwork = calloc(liw, sizeof(int));
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *         DDaskrReInit
+ *
+ * =============================
+ *
+ * DDaskrReInit re-initializes DDASKR's memory for a problem,
+ * assuming it has already been allocated in a prior DDaskrInit call.
+ * All problem specification inputs are checked for errors.
+ * If any error occurs during initialization, it is reported to the file whose file pointer is errfp.
+ * The return value is IDA_SUCCESS = 0 if no errors occurred, or a negative value otherwise.
+ */
+
+int DDaskrReInit (void * ddaskr_mem, realtype tOld, N_Vector yy0, N_Vector yp0)
+{
+    DDaskrMem ddas_mem;
+    double rwork0, rwork2;
+
+    /* Check the input arguments */
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrReInit", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (yy0 == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_Y0_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (yp0 == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_YP0_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    /* Reset the problem memory space variables to the arguments */
+    *nEq    = NV_LENGTH_S(yy0);
+    yVec    = NV_DATA_S(yy0);
+    ypVec   = NV_DATA_S(yp0);
+    tStart  = tOld;
+    info[0] = 0;
+
+    /* Tell DDaskr to get new consitent values */
+    /*info[10] = 1; This instruction can only be used if we implement a method to describe which components are
+      differential and which ones are algebraic. Again, see ddaskr.f L 453 for more details */
+
+    /* Reinitialize rwork and iwork, leave rwork->tcrit and rwork->hmax unchanged, containing tcrit and hmax */
+    rwork0 = rwork->tcrit;
+    rwork2 = rwork->hmax;
+    memset(rwork, 0, lrw);
+    memset(iwork, 0, liw);
+    rwork->tcrit = rwork0;
+    rwork->hmax  = rwork2;
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *       DDaskrSStolerances
+ *
+ * =============================
+ *
+ * This function specifies the scalar integration tolerances.
+ * It MUST be called before the first call to DDaskr.
+ */
+
+int DDaskrSStolerances (void * ddaskr_mem, realtype reltol, realtype abstol)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDaskr", "DDaskrSStolerances", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    /* Check inputs */
+
+    if (reltol < 0.)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSStolerances", MSG_BAD_RTOL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (abstol < 0.)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSStolerances", MSG_BAD_ATOL);
+        return (IDA_ILL_INPUT);
+    }
+
+    /* Copy tolerances into memory */
+
+    relTol  = reltol;
+    absTol  = abstol;
+    info[1] = IDA_SS;
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *         DDaskrRootInit
+ *
+ * =============================
+ *
+ * DDaskrRootInit initializes a rootfinding problem to be solved during the integration of the ODE system.
+ * It loads the root function pointer and the number of root functions, and allocates workspace memory.
+ * The return value is IDA_SUCCESS = 0 if no errors occurred, or a negative value otherwise.
+ */
+
+int DDaskrRootInit (void * ddaskr_mem, int ng, DDASRootFn g)
+{
+    DDaskrMem ddas_mem;
+    int nrt;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrRootInit", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (g == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrRootInit", MSG_ROOT_FUNC_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    g_fun  = g;
+    nrt    = (ng < 0) ? 0 : ng;
+    ng_fun = nrt;
+
+    /* Allocate jroot and set it to zero */
+    if (ng > 0)
+    {
+        jroot = calloc(ng, sizeof(int));
+    }
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *       DDaskrSetUserData
+ *
+ * =============================
+ *
+ * Sets a pointer to user_data that will be passed to the user's res function
+ * every time a user-supplied function is called.
+ */
+
+int DDaskrSetUserData (void * ddaskr_mem, void * User_data)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSetUserData", MSG_NO_MEM);
+        return(IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    user_data = User_data;
+
+    return(IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *       DDaskrSetMaxStep
+ *
+ * =============================
+ *
+ * Sets the maximum step size, stocked in rwork->hmax.
+ * Sets info[6] to 1 for rwork->hmax to be taken in consideration by ddaskr().
+ */
+
+int DDaskrSetMaxStep (void * ddaskr_mem, realtype hMax)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSetMaxStep", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (info[6] == 0)
+    {
+        info[6] = 1;
+    }
+    rwork->hmax = hMax;
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *       DDaskrSetStopTime
+ *
+ * =============================
+ *
+ * Specifies the time beyond which the integration is not to proceed, stocked in rwork->tcrit.
+ * Sets info[3] to 1 for rwork->tcrit to be taken in consideration by ddaskr().
+ */
+
+int DDaskrSetStopTime (void * ddaskr_mem, realtype tCrit)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSetStopTime", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (info[3] == 0)
+    {
+        info[3] = 1;
+    }
+
+    rwork->tcrit = tCrit;
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *          DDaskrSetID
+ *
+ * =============================
+ *
+ * Specifies which components are differential and which ones are algrebraic, in order to get consistent initial values.
+ * They are stocked in xproperty[neq] in the form:
+ *  - xproperty[i] = 1 => differential component
+ *  - xproperty[i] = 0 => algebraic component
+ */
+
+int DDaskrSetId (void * ddaskr_mem, N_Vector xproperty)
+{
+    DDaskrMem ddas_mem;
+    int i, LID;
+    realtype * temp;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSetID", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    /* Copy xproperty data */
+    temp = NULL;
+    temp = NV_DATA_S(xproperty);
+
+    /* Inform ddaskr that we are going to define components
+       This is also a signal to compute consistent values, so this function is called with each ReInit */
+    if (info[10] == 0)
+    {
+        info[10] = 1;
+    }
+
+    /* Since we don't use the non-negative constraints in scicos, LID = 40 (otherwise, LID = 40+neq) */
+    LID = 40;
+
+    for (i = 0; i < *nEq; ++i)
+    {
+        /* Stock xproperty in a segment of iwork */
+        iwork[i + LID] = (int) temp[i];
+    }
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *    DDaskrDlsSetDenseJacFn
+ *
+ * =============================
+ *
+ * Specifies the dense Jacobian function.
+ */
+/*
+int DDaskrDlsSetDenseJacFn (void * ddaskr_mem, DDaskrDlsDenseJacFn Jac)
+{
+  DDaskrMem ddas_mem;
+  DDaskrDlsMem ddaskrdls_mem;
+*/
+/* Return immediately if ddaskr_mem is NULL */
+/*  if (DDaskr_mem == NULL) {
+    DDASProcessError(NULL, IDADLS_MEM_NULL, "DDASKR", "DDaskrDlsSetDenseJacFn", MSGD_IDAMEM_NULL);
+    return(IDADLS_MEM_NULL);
+  }
+  ddas_mem = (DDaskrMem) ddaskr_mem;
+*//*
+  if (lmem == NULL) {
+    DDASProcessError(ddaskr_mem, IDADLS_LMEM_NULL, "DDASKR", "DDaskrDlsSetDenseJacFn", MSGD_LMEM_NULL);
+    return(IDADLS_LMEM_NULL);
+  }
+  ddaskrdls_mem = (DDaskrDlsMem) lmem;
+*/
+/*  if (jac != NULL) {
+    //jacDQ = FALSE;
+    jac = Jac;
+    info[4] = 1;
+  } else {
+    jacDQ = TRUE;
+  }
+
+  return(IDADLS_SUCCESS);
+}*/
+
+/* =============================
+ *
+ *            DDaskr
+ *
+ * =============================
+ *
+ * This routine is the main driver of DDASKR.
+ *
+ * It integrates and looks for roots over a time interval defined by the user.
+ *
+ * The first time that DDaskr is called for a successfully initialized problem,
+ * it computes a tentative initial step size h.
+ *
+ * DDaskr supports five modes, specified by itask: DDAS_NORMAL, DDAS_ONE_STEP, DDAS_MESH_STEP, DDAS_NORMAL_TSTOP, and DDAS_ONE_STEP_TSTOP.
+ *
+ * In the DDAS_NORMAL mode, the solver steps until it reaches or passes tout and then interpolates to obtain y(tOut).
+ * In the DDAS_ONE_STEP mode, it takes one internal step and returns.
+ * DDAS_MESH_STEP means stop at the first internal mesh point at or beyond t = tout and return.
+ * DDAS_NORMAL_TSTOP and DDAS_ONE_STEP_TSTOP are similar to DDAS_NORMAL and DDAS_ONE_STEP, respectively,
+ * but the integration never proceeds past tcrit (which must have been defined through a call to DDaskrSetStopTime).
+ *
+ * It returns IDA_ROOT_RETURN if a root was detected, IDA_SUCCESS if the integration went correctly,
+ * or a corresponding error flag.
+ */
+
+int DDaskrSolve (void * ddaskr_mem, realtype tOut, realtype * tOld, N_Vector yOut, N_Vector ypOut, int itask)
+{
+    DDaskrMem ddas_mem;
+
+    /* Check the input arguments */
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSolve", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    if (yOut == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_YRET_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (ypOut == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_YPRET_NULL);
+        return (IDA_ILL_INPUT);
+    }
+
+    if (tOld == NULL)
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_TRET_NULL);
+        return(IDA_ILL_INPUT);
+    }
+
+    if ((itask != DDAS_NORMAL) && (itask != DDAS_ONE_STEP))
+    {
+        DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_BAD_ITASK);
+        return (IDA_ILL_INPUT);
+    }
+
+    /* Retrieve nEq if it has changed, use a copy of the solution vector and stock the simulation times */
+    *nEq   = NV_LENGTH_S(yOut);
+    yVec   = NV_DATA_S(yOut);
+    ypVec  = NV_DATA_S(ypOut);
+    tStart = *tOld;
+
+    /* Save the task mode in info[2] */
+    info[2] = itask;
+
+    /* Dummy arguments (unused) */
+    double dummy1 = 0.;
+    int dummy2 = 0;
+
+    /* Launch the simulation with the memory space parameters.
+       ddaskr() will update yVec, iState, rwork, iwork and jroot */
+    C2F(ddaskr) (res, nEq, &tStart, yVec, ypVec, &tOut, info, &relTol, &absTol, &iState, rwork, &lrw, iwork, &liw, &dummy1, &dummy2, jac, g_fun, &ng_fun, jroot);
+
+    /* Increment the start time */
+    *tOld  = tStart;
+
+    /* For continuation calls, avoiding recomputation of consistent values (if info[10] used to be 1) */
+    info[10] = 0;
+
+    /* ddaskr() stocked the completion status in iState; return accordingly */
+    switch (iState)
+    {
+        case 4:
+            return (IDA_ROOT_RETURN);
+        case -1:
+            DDASProcessError(ddas_mem, IDA_TOO_MUCH_WORK, "DDASKR", "DDaskrSolve", MSG_MAX_STEPS, tStart);
+            return (IDA_TOO_MUCH_WORK);
+        case -2:
+            DDASProcessError(ddas_mem, IDA_TOO_MUCH_ACC, "DDASKR", "DDaskrSolve", MSG_TOO_MUCH_ACC, tStart);
+            return (IDA_TOO_MUCH_ACC);
+        case -3:
+            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_BAD_ATOL, tStart);
+            return (IDA_ILL_INPUT);
+        case -6:
+            DDASProcessError(ddas_mem, IDA_ERR_FAIL, "DDASKR", "DDaskrSolve", MSG_ERR_FAILS, tStart);
+            return (IDA_ERR_FAIL);
+        case -7:
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrSolve", MSG_CONV_FAILS, tStart);
+            return (IDA_CONV_FAIL);
+        case -8:
+            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_SINGULAR);
+            return (IDA_ILL_INPUT);
+        case -9:
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrSolve", MSG_CONV_FAILS, tStart);
+            return (IDA_CONV_FAIL);
+        case -10:
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrSolve", MSG_CONV_FAILS, tStart);
+            return (IDA_CONV_FAIL);
+        case -11:
+            DDASProcessError(ddas_mem, IDA_RES_FAIL, "DDASKR", "DDaskrSolve", MSG_RES_NONRECOV, tStart);
+            return (IDA_RES_FAIL);
+        case -12:
+            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_IC_FAIL_CONSTR);
+            return (IDA_ILL_INPUT);
+        case -33:
+            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrSolve", MSG_BAD_INPUT);
+            return (IDA_ILL_INPUT);
+        default:
+            return (IDA_SUCCESS);
+    }
+}
+
+/* =============================
+ *
+ *       DDaskrGetRootInfo
+ *
+ * =============================
+ *
+ * Updates rootsfound[] to the computed roots stocked in jroot[].
+ */
+
+int DDaskrGetRootInfo (void * ddaskr_mem, int * rootsfound)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrGetRootInfo", MSG_NO_MEM);
+        return (IDA_MEM_NULL);
+    }
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    /* Copy jroot to rootsfound */
+    memcpy(rootsfound, jroot, ng_fun * sizeof(int));
+
+    return (IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *            DDASFree
+ *
+ * =============================
+ *
+ * This routine frees the problem memory allocated by DDaskrInit.
+ */
+
+void DDaskrFree (void ** ddaskr_mem)
+{
+    DDaskrMem ddas_mem;
+
+    if (*ddaskr_mem == NULL)
+    {
+        return;
+    }
+    ddas_mem = (DDaskrMem) (*ddaskr_mem);
+
+    /* Free the inner vectors */
+    DDASFreeVectors (ddas_mem);
+
+    free (*ddaskr_mem);
+    *ddaskr_mem = NULL;
+}
+
+/* =============================
+ *
+ *         DDASFreeVectors
+ *
+ * =============================
+ *
+ * Frees the problem memory space vectors.
+ */
+
+void DDASFreeVectors (DDaskrMem ddas_mem)
+{
+    /* info, rwork, iwork and jroot have been allocated; free them */
+    free (info);
+    free (rwork);
+    free (iwork);
+    free (jroot);
+}
+
+#define ehfun    ddas_mem->ehfun
+
+/* =============================
+ *
+ *     DDaskrSetErrHandlerFn
+ *
+ * =============================
+ *
+ * Specifies the error handler function.
+ */
+
+int DDaskrSetErrHandlerFn (void * ddaskr_mem, DDASErrHandlerFn ehFun, void * eh_data)
+{
+    DDaskrMem ddas_mem;
+
+    if (ddaskr_mem == NULL)
+    {
+        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrSetErrHandlerFn", MSG_NO_MEM);
+        return(IDA_MEM_NULL);
+    }
+
+    ddas_mem = (DDaskrMem) ddaskr_mem;
+
+    ehfun = ehFun;
+
+    return(IDA_SUCCESS);
+}
+
+/* =============================
+ *
+ *         DDASProcessError
+ *
+ * =============================
+ *
+ * Error handling function.
+ */
+
+void DDASProcessError (DDaskrMem ddas_mem, int error_code, const char *module, const char *fname, const char *msgfmt, ...)
+{
+    va_list ap;
+    char msg[256];
+
+    /* Initialize the argument pointer variable
+       (msgfmt is the last required argument to DDASProcessError) */
+    va_start(ap, msgfmt);
+
+    if (ddas_mem == NULL)      /* We write to stderr */
+    {
+#ifndef NO_FPRINTF_OUTPUT
+        fprintf(stderr, "\n[%s ERROR]  %s\n  ", module, fname);
+        fprintf(stderr, msgfmt);
+        fprintf(stderr, "\n\n");
+#endif
+    }
+    else                     /* We can call ehfun */
+    {
+        /* Compose the message */
+        vsprintf(msg, msgfmt, ap);
+
+        /* Call ehfun */
+        ehfun(error_code, module, fname, msg, NULL);
+    }
+
+    /* Finalize argument processing */
+    va_end(ap);
+
+    return;
+}
