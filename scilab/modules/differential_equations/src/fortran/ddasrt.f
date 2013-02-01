@@ -543,7 +543,7 @@ C               set NG = 0, and pass a dummy name for G.
 C
 C JROOT -- This is an integer array of length NG.  It is used only for
 C               output.  On a return where one or more roots have been
-C               found, JROOT(I)=1 If G(I) has a root at T,
+C               found, JROOT(I)=1 If G(I) has a root at T (1 if -to+, -1 if +to-),
 C               or JROOT(I)=0 if not.
 C
 C
@@ -1843,7 +1843,7 @@ C
 C JROOT  = INTEGER ARRAY OF LENGTH NG.  OUTPUT ONLY.
 C          WHEN JFLAG = 2 OR 3, JROOT INDICATES WHICH COMPONENTS
 C          OF G(X) HAVE A ROOT AT X.  JROOT(I) IS 1 IF THE I-TH
-C          COMPONENT HAS A ROOT, AND JROOT(I) = 0 OTHERWISE.
+C          COMPONENT HAS A ROOT (1 IF -TO+, -1 IF +TO-), AND JROOT(I) = 0 OTHERWISE.
 C
 C IMAX, LAST, ALPHA, X2 =
 C          BOOKKEEPING VARIABLES WHICH MUST BE SAVED FROM CALL
@@ -1950,9 +1950,16 @@ C RETURN WITH X1 AS THE ROOT.  SET JROOT.  SET X = X1 AND GX = G1. -----
       DO 320 I = 1,NG
         JROOT(I) = 0
         IF (DABS(G1(I)) .GT. ZERO) GO TO 310
-          JROOT(I) = 1
+C G1(I) = ZERO: JROOT(I) = -1 * SIGN_OF_G0(I), increasing or decreasing root
+          JROOT(I) = -SIGN(1.0D0,G0(I))
           GO TO 320
- 310    IF (DSIGN(1.0D0,G0(I)) .NE. DSIGN(1.0D0,G1(I))) JROOT(I) = 1
+ 310    IF (DSIGN(1.0D0,G0(I)) .NE. DSIGN(1.0D0,G1(I))) GO TO 312
+          GO TO 320
+ 312      IF (DSIGN(1.0D0,G0(I)) .GT. ZERO) GO TO 315
+C G1(I) =/= ZERO: JROOT(I) = -1 * SIGN_OF(G0(I)) * SIGN_OF(G1(I)), increasing or decreasing root
+            JROOT(I) = 1
+            GO TO 320
+ 315        JROOT(I) = -1
  320    CONTINUE
       RETURN
 C
