@@ -256,9 +256,6 @@ Time for Adams / Functional:
                 <link linkend="LSodar">LSodar</link>
             </member>
             <member>
-                <link linkend="IDA">IDA</link>
-            </member>
-            <member>
                 <link linkend="RK">Runge-Kutta 4(5)</link>
             </member>
             <member>
@@ -266,6 +263,12 @@ Time for Adams / Functional:
             </member>
             <member>
                 <link linkend="ImpRK">Implicit Runge-Kutta 4(5)</link>
+            </member>
+            <member>
+                <link linkend="IDA">IDA</link>
+            </member>
+            <member>
+                <link linkend="DDaskr">DDaskr</link>
             </member>
             <member>
                 <link linkend="Comparisons">Comparisons</link>
