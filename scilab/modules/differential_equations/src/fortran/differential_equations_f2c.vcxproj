@@ -305,6 +305,7 @@ cd ..
     <ClCompile Include="..\c\commons_f2c.c" />
     <ClCompile Include="dcutet.c" />
     <ClCompile Include="ddaskr.c" />
+    <ClCompile Include="daux.c" />
     <ClCompile Include="ddasrt.c" />
     <ClCompile Include="ddassl.c" />
     <ClCompile Include="dgbsl.c" />
@@ -371,6 +372,7 @@ cd ..
   </ItemGroup>
   <ItemGroup>
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_bvode.f" />
+    <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_daskr.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_dasrt.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_dassl.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\sci_f_feval.f" />
@@ -400,6 +402,8 @@ cd ..
     <f2c_rule Include="cfode.f" />
     <f2c_rule Include="colnew.f" />
     <f2c_rule Include="dcutet.f" />
+    <f2c_rule Include="ddaskr.f" />
+    <f2c_rule Include="daux.f" />
     <f2c_rule Include="ddasrt.f" />
     <f2c_rule Include="ddassl.f" />
     <f2c_rule Include="dgbsl.f" />
@@ -408,6 +412,7 @@ cd ..
     <f2c_rule Include="epsalg.f" />
     <f2c_rule Include="ewset.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\Ex-bvode.f" />
+    <f2c_rule Include="..\..\sci_gateway\fortran\Ex-daskr.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\Ex-dasrt.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\Ex-dassl.f" />
     <f2c_rule Include="..\..\sci_gateway\fortran\Ex-impl.f" />
