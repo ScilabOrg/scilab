@@ -134,22 +134,25 @@ bool Struct::set(int _iIndex, SingleStruct* _pIT)
 {
     if (_iIndex < getSize())
     {
-        if (m_pRealData[_iIndex] != NULL)
+        if (m_bDisableCloneInCopyValue && m_pRealData[_iIndex] == _pIT)
         {
-            m_pRealData[_iIndex]->DecreaseRef();
-            if (m_pRealData[_iIndex]->isDeletable())
-            {
-                delete m_pRealData[_iIndex];
-            }
-            else
-            {
-                //std::wcout << L"Found singlestruct with more than one ref(" << m_pRealData[_iIndex]->getRef() << L")" << std::endl;
-            }
+            return true;
         }
+
+        InternalType* pOld = m_pRealData[_iIndex];
 
         m_pRealData[_iIndex] = copyValue(_pIT);
         m_pRealData[_iIndex]->IncreaseRef();
-        //std::wcout << L"set -> " << m_pRealData[_iIndex] << L" : " << m_pRealData[_iIndex]->getRef() << std::endl;
+
+        if (pOld != NULL)
+        {
+            pOld->DecreaseRef();
+            if (pOld->isDeletable())
+            {
+                delete pOld;
+            }
+        }
+
         return true;
     }
     return false;
@@ -159,16 +162,19 @@ bool Struct::set(int _iIndex, const SingleStruct* _pIT)
 {
     if (_iIndex < getSize())
     {
-        if (m_pRealData[_iIndex] != NULL)
+        InternalType* pOld = m_pRealData[_iIndex];
+
+        m_pRealData[_iIndex] = const_cast<SingleStruct*>(_pIT)->clone();
+
+        if (pOld != NULL)
         {
-            m_pRealData[_iIndex]->DecreaseRef();
-            if (m_pRealData[_iIndex]->isDeletable())
+            pOld->DecreaseRef();
+            if (pOld->isDeletable())
             {
-                delete m_pRealData[_iIndex];
+                delete pOld;
             }
         }
 
-        m_pRealData[_iIndex] = const_cast<SingleStruct*>(_pIT)->clone();
         return true;
     }
     return false;
@@ -250,7 +256,7 @@ SingleStruct* Struct::getNullValue()
 Struct* Struct::createEmpty(int _iDims, int* _piDims, bool _bComplex)
 {
     Struct* pStr = new Struct(_iDims, _piDims);
-    pStr->setCloneInCopyValue(m_bDisableCloneInCopyValue);
+    pStr->setCloneInCopyValue(!m_bDisableCloneInCopyValue);
     return pStr;
 }
 
@@ -379,6 +385,17 @@ bool Struct::toString(std::wostringstream& ostr)
     return true;
 }
 
+List* Struct::extractFieldWithoutClone(std::wstring _wstField)
+{
+    List* pL = new List();
+    for (int j = 0 ; j < getSize() ; j++)
+    {
+        pL->set(j, get(j)->get(_wstField));
+    }
+
+    return pL;
+}
+
 std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstFields)
 {
     std::vector<InternalType*> ResultList;
@@ -415,6 +432,7 @@ std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstF
     }
     return ResultList;
 }
+
 
 std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
 {
@@ -508,6 +526,30 @@ std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
     return ResultList;
 }
 
+bool Struct::resize(int _iNewRows, int _iNewCols)
+{
+    int piDims[2] = {_iNewRows, _iNewCols};
+    return resize(piDims, 2);
+}
+
+bool Struct::resize(int* _piDims, int _iDims)
+{
+    int iSize = getSize();
+    bool bRes = ArrayOf::resize(_piDims, _iDims);
+
+    // insert field(s) only in new element(s) of current struct
+    String* pFields = getFieldNames();
+    for (int iterField = 0; iterField < pFields->getSize(); iterField++)
+    {
+        for (int iterStruct = iSize; iterStruct < getSize(); iterStruct++)
+        {
+            get(iterStruct)->addField(pFields->get(iterField));
+        }
+    }
+
+    return bRes;
+}
+
 InternalType* Struct::insertWithoutClone(typed_list* _pArgs, InternalType* _pSource)
 {
     //std::wcout << L"insertWithoutClone start" << std::endl;
@@ -532,7 +574,7 @@ InternalType* Struct::extractWithoutClone(typed_list* _pArgs)
 
 void Struct::setCloneInCopyValue(bool _val)
 {
-    m_bDisableCloneInCopyValue = _val;
+    m_bDisableCloneInCopyValue = !_val;
 }
 
 }
