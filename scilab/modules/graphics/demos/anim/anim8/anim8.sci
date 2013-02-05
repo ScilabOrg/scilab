@@ -48,7 +48,6 @@ function demo_riemann()
 
   my_handle.axes_size  = [ 600 650 ];
 
-  my_handle.background = -1;                 // black
   my_axe.background    = -1;                 // gray
   my_axe.foreground    = 14;                 // white
   my_fac3d.color_mode  =  1;                 // no lines
@@ -103,7 +102,7 @@ function demo_riemann()
   
     if quit_var == 1 then
       if isHandleExistAndValid("my_handle") then
-        delete(my_handle);
+        close(my_handle);
       end
       return;
     end
