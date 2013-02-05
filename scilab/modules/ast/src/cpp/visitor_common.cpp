@@ -537,7 +537,7 @@ types::InternalType* AddElementToVariable(types::InternalType* _poDest, types::I
                     {
                         for (int j = 0; j < poSource->getCols(); j++)
                         {
-                            bool bValue = poSource->get(i, j) == 1;
+                            bool bValue = poSource->get(i, j) != 0;
                             if (bValue)
                             {
                                 spResult->set(i + iCurRow, j + iCurCol, true);
@@ -670,7 +670,352 @@ const std::wstring* getStructNameFromExp(const Exp* _pExp)
     return NULL;
 }
 
-bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::InternalType** _pCurrent, typed_list** _pArgs, types::InternalType* _pIT)
+static bool callStructOverload(std::wstring& _wstField, typed_list* _pArgs, InternalType* _pValue, InternalType** _pITStruct, InternalType** _pITRet, bool _bComplexForm)
+{
+    if ((*_pITStruct)->isTList() == false && (*_pITStruct)->isMList() == false && (*_pITStruct)->isStruct() == false && (*_pITStruct)->isHandle() == false)
+    {
+        //parent is not a complex type, so create it as struct
+        *_pITStruct = new Struct(1, 1);
+    }
+
+    if (_pValue)
+    {
+        if ((*_pITStruct)->isTList() || (*_pITStruct)->isMList())
+        {
+            TList* pTL = (*_pITStruct)->getAs<TList>();
+            //insertion
+            if (pTL->exists(_wstField))
+            {
+                //standard insertion
+                return pTL->set(_wstField, _pValue);
+            }
+            else
+            {
+                //overloaded insertion via %assigntype_i_listtype
+                String* pFieldStr = new String(_wstField.c_str());
+
+                typed_list in;
+                typed_list out;
+                optional_list opt;
+                ExecVisitor exec;
+
+                //assign value to field by callin overling insertion function %assigntype_i_listtype
+                in.push_back(pFieldStr);
+                in.push_back(_pValue);
+                in.push_back(pTL);
+
+
+                //protect data during overload call
+                for (int i = 0 ; i < in.size() ; i++)
+                {
+                    in[i]->IncreaseRef();
+                }
+
+                std::wstring stOverload = L"%" + _pValue->getShortTypeStr() +  L"_i_" + pTL->getShortTypeStr();
+                Callable::ReturnValue ret = Overload::call(stOverload, in, 1, out, &exec);
+
+                //unprotect inputs
+                for (int i = 0 ; i < in.size() ; i++)
+                {
+                    in[i]->DecreaseRef();
+                }
+
+                return ret == Function::OK;
+            }
+        }
+        else if ((*_pITStruct)->isStruct())
+        {
+            Struct* pS = (*_pITStruct)->getAs<Struct>();
+            if (_wstField != L"")
+            {
+                if (pS->exists(_wstField) == false)
+                {
+                    //add field
+                    if (pS->addField(_wstField) == false)
+                    {
+                        return false;
+                    }
+                }
+
+                if (_pArgs != NULL && _pArgs->size() != 0)
+                {
+                    //extract in new structure
+                    Struct *pStr = pS->extractWithoutClone(_pArgs)->getAs<Struct>();
+                    pStr->setCloneInCopyValue(false);
+                    for (int i = 0 ; i < pStr->getSize() ; i++)
+                    {
+                        //get sub structure
+                        SingleStruct* pSS = pStr->get(i);
+                        //set field value
+                        pSS->set(_wstField, _pValue);
+                    }
+
+                    delete pStr;
+                }
+                else if (pS->isScalar())
+                {
+                    pS->get(0)->set(_wstField, _pValue);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //standard insert
+                if (pS->insert(_pArgs, _pValue) == NULL)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        else if ((*_pITStruct)->isHandle())
+        {
+            GraphicHandle* pH = (*_pITStruct)->getAs<GraphicHandle>();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if ((*_pITStruct)->isTList() || (*_pITStruct)->isMList())
+        {
+            if (_pArgs != NULL && _pArgs->size() != 0)
+            {
+                //a(x, y, ...).b
+                //must extract a(x, y, ...) before extract b
+            }
+
+            TList* pTL = (*_pITStruct)->getAs<TList>();
+            //extraction
+            if (pTL->exists(_wstField))
+            {
+                *_pITRet = pTL->getField(_wstField);
+                return true;
+            }
+            else
+            {
+                types::typed_list in;
+                types::optional_list opt;
+                types::typed_list out;
+                ExecVisitor exec;
+
+                //firt argument: index
+                String* pFieldStr = new String(_wstField.c_str());
+                in.push_back(pFieldStr);
+
+                //last argument: me ( mlist or tlist )
+                in.push_back(pTL);
+
+                //protect data during overload call
+                for (int i = 0 ; i < in.size() ; i++)
+                {
+                    in[i]->IncreaseRef();
+                }
+
+                std::wstring wstOverload;
+                if (_bComplexForm)
+                {
+                    wstOverload = L"%" + pTL->getShortTypeStr() + L"_6";
+                }
+                else
+                {
+                    wstOverload = L"%" + pTL->getShortTypeStr() + L"_e";
+                }
+                Callable::ReturnValue Ret = Overload::call(wstOverload, in, 1, out, &exec);
+
+                //unprotect inputs
+                for (int i = 0 ; i < in.size() ; i++)
+                {
+                    in[i]->DecreaseRef();
+                }
+
+                delete pFieldStr;
+                out[0]->DecreaseRef();
+
+                if (out.size() == 0)
+                {
+                    return false;
+                }
+
+                *_pITRet = out[0];
+                return true;
+            }
+        }
+        else if ((*_pITStruct)->isStruct())
+        {
+            Struct* pS = (*_pITStruct)->getAs<Struct>();
+
+            if (pS->exists(_wstField) == false)
+            {
+                if (pS->addField(_wstField) == false)
+                {
+                    return false;
+                }
+            }
+
+            if (_pArgs != NULL && _pArgs->size() != 0)
+            {
+                //extract in new structure
+                Struct *pStr = pS->extractWithoutClone(_pArgs)->getAs<Struct>();
+                pStr->setCloneInCopyValue(false);
+                //get sub structure
+                SingleStruct* pSS = pStr->get(0);
+                //set field value
+                *_pITRet = pSS->get(_wstField);
+                //release new structure and protect extract data
+                (*_pITRet)->IncreaseRef();
+                delete pStr;
+                (*_pITRet)->DecreaseRef();
+            }
+            else if (pS->isScalar())
+            {
+                *_pITRet = pS->get(0)->get(_wstField);
+            }
+            else //do not allow a.b if a is not scalar
+            {
+                return false;
+            }
+
+            return true;
+        }
+        else if ((*_pITStruct)->isHandle())
+        {
+            GraphicHandle* pH = (*_pITStruct)->getAs<GraphicHandle>();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+bool updateStructHistory(std::list<std::vector<std::pair<int, types::InternalType*> > >& structHistory, std::list<const ast::Exp*>& fieldHistory, std::list<types::typed_list*>& argHistory, types::InternalType* _pAssignValue, const int _iLoop)
+{
+    std::vector<std::pair<int, InternalType*> > vectParent = structHistory.front();
+    std::list<std::vector<std::pair<int, InternalType*> > >::iterator iterStuctH = structHistory.begin();
+    std::list<typed_list*>::iterator iterArgH = argHistory.begin();
+    iterStuctH++;
+    iterArgH++;
+
+    // modify field wich contain pCurParent by a new struct
+    int iGrandParent = vectParent[_iLoop].first;
+    InternalType* pITGrandParent = (*iterStuctH)[iGrandParent].second;
+
+    if (pITGrandParent->isStruct())
+    {
+        Struct* pStruct = pITGrandParent->getAs<Struct>();
+
+        //if (*iterArgH)
+        //{
+        //    InternalType* pIT = pStruct->extractWithoutClone(*iterArgH);
+        //    pStruct = pIT->getAs<Struct>();
+        //}
+
+        pStruct->get(_iLoop)->set(((SimpleVar*)fieldHistory.front())->name_get().name_get(), _pAssignValue);
+        vectParent[_iLoop].second = _pAssignValue;
+    }
+    else if (pITGrandParent->isTList())
+    {
+        TList* pTL = pITGrandParent->getAs<TList>();
+        pTL->set(((SimpleVar*)fieldHistory.front())->name_get().name_get(), _pAssignValue);
+        vectParent[_iLoop].second = _pAssignValue;
+    }
+    else
+    {
+        return false;
+    }
+
+    structHistory.pop_front();
+    structHistory.push_front(vectParent);
+
+    return true;
+}
+
+/*** overload insertion                 ||         extraction       ***/
+//%x_i_x(i1, i2, ..., in, source, dest) || %x_e(i1, i2, ..., in, source)
+//i1, ..., in : indexes
+//dest : variable where insert data     || NULL
+//source : data to insert               || extract indexes from source
+types::InternalType* callOverload(const Exp& e, std::wstring _strType, types::typed_list* _pArgs, types::InternalType* _source, types::InternalType* _dest)
+{
+    types::InternalType* pITOut = NULL;
+    types::typed_list in;
+    types::typed_list out;
+
+    std::wstring function_name;
+    function_name = L"%" + _source->getAs<List>()->getShortTypeStr() + L"_" + _strType;
+
+    for (int i = 0; i < _pArgs->size(); i++)
+    {
+        (*_pArgs)[i]->IncreaseRef();
+        in.push_back((*_pArgs)[i]);
+    }
+
+    _source->IncreaseRef();
+    in.push_back(_source);
+
+    if (_dest)
+    {
+        _dest->IncreaseRef();
+        in.push_back(_dest);
+
+        function_name += L"_" + _dest->getAs<List>()->getShortTypeStr();
+    }
+
+    InternalType* pFunc = symbol::Context::getInstance()->get(symbol::Symbol(function_name));
+    // if %type_6 doesn't exist, call %l_6
+    if (_dest == NULL && pFunc == NULL)
+    {
+        function_name = L"%l_6";
+    }
+
+    // For insertion in TList, call normal insertion if overload doesn't exits
+    if ((_dest  && _dest->isTList() && pFunc == NULL) == false)
+    {
+        ExecVisitor exec;
+        if (Overload::call(function_name, in, 1, out, &exec))
+        {
+            //manage error
+            std::wostringstream os;
+            os << _W("Error in overload function: ") << function_name << std::endl;
+            throw ScilabError(os.str(), 999, e.location_get());
+        }
+    }
+
+    for (int i = 0; i < _pArgs->size(); i++)
+    {
+        (*_pArgs)[i]->DecreaseRef();
+    }
+
+    _source->DecreaseRef();
+    if (_dest)
+    {
+        _dest->DecreaseRef();
+    }
+
+    if (out.size() != 0)
+    {
+        pITOut = out[0];
+    }
+
+    return pITOut;
+}
+
+bool getStructFromExp(const ast::Exp* _pExp,
+                      std::list<std::vector<std::pair<int, types::InternalType*> > >& structHistory,
+                      std::list<const ast::Exp*>& fieldHistory,
+                      std::list<types::typed_list*>& argHistory,
+                      std::list<std::vector<std::pair<int, InternalType*> > >& reinsertHistory,
+                      types::InternalType* _pAssignValue,
+                      bool _bFromCallExp)
 {
     const FieldExp* pField      = dynamic_cast<const FieldExp*>(_pExp);
     const SimpleVar* pVar       = dynamic_cast<const SimpleVar*>(_pExp);
@@ -680,473 +1025,365 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
     if (pField)
     {
         //y.x
-
         //evaluate head "y"
-        typed_list *pArgs       = NULL;
-        InternalType* pMain     = *_pMain;
-        InternalType* pCurrent  = *_pCurrent;
-
-        bool bOK = getStructFromExp(pField->head_get(), &pMain, &pCurrent, &pArgs, NULL);
-        if (bOK)
+        if (getStructFromExp(pField->head_get(), structHistory, fieldHistory, argHistory, reinsertHistory, NULL, false))
         {
-            pVar    = dynamic_cast<const SimpleVar*>(pField->tail_get());
-
-            if (pCurrent->isStruct())
+            //evaluate tail "x"
+            if (getStructFromExp(pField->tail_get(), structHistory, fieldHistory, argHistory, reinsertHistory, _pAssignValue, _bFromCallExp))
             {
-                Struct* pCurStr = pCurrent->getAs<Struct>();
-                //clone _pIT BEFORE addField in case of st.b = st
-                types::InternalType* pIT = _pIT ? _pIT->clone() : NULL;
-
-                //create field "x"
-                std::wstring var = pVar->name_get().name_get();
-                pCurStr->addField(pVar->name_get().name_get());
-                if (*_pMain == NULL && _pIT != NULL)
-                {
-                    //first stack, assign value to field and return main structure
-
-                    if (pArgs != NULL && pArgs->size() != 0)
-                    {
-                        //args returned by "parent"
-                        //be careful, extract functions copy values
-
-                        Struct *pStr = pCurStr->extractWithoutClone(pArgs)->getAs<Struct>();
-                        pStr->setCloneInCopyValue(false);
-                        SingleStruct* pSS = pStr->get(0);
-                        pSS->set(pVar->name_get().name_get(), pIT);
-                        pSS->IncreaseRef();
-                        delete pStr;
-                        pSS->DecreaseRef();
-                    }
-                    else if (_pArgs == NULL || *_pArgs == NULL)
-                    {
-                        //std::wcout << var << L" <- " << pIT->getTypeStr() << std::endl;
-                        pCurStr->get(0)->set(pVar->name_get().name_get(), pIT);
-                    }
-                    else
-                    {
-                        Struct* pStr = new Struct(1, 1);
-                        pStr->addField(pVar->name_get().name_get());
-                        pStr->get(0)->set(pVar->name_get().name_get(), pIT);
-                        pCurStr->insertWithoutClone(*_pArgs, pStr->get(0));
-                        delete pStr;
-                    }
-                }
-                else
-                {
-                    //y.x.w
-                    //in this case, we are in the middle of expression
-                    //we know that "x" is a struct but we can't assign value yet
-                    //so assign empty struct and return new pCurrent
-                    Struct* pStr = NULL;
-
-                    /*try to extract field*/
-                    if (pArgs == NULL)
-                    {
-                        //without extract argument
-                        pStr = pCurStr->get(0)->get(pVar->name_get().name_get())->getAs<Struct>();
-                    }
-                    else
-                    {
-                        Struct* pStepStr = pCurStr->extractWithoutClone(pArgs)->getAs<Struct>();
-                        pStepStr->setCloneInCopyValue(false);
-                        SingleStruct* pSS = pStepStr->get(0);
-                        pStr = pSS->get(pVar->name_get().name_get())->getAs<Struct>();
-                        //we can delete pStepStr without deleted its fields
-                        pSS->IncreaseRef();
-                        delete pStepStr;
-                        pSS->DecreaseRef();
-                    }
-
-                    if (pStr == NULL)
-                    {
-                        //new field or not struct field
-                        if (_pArgs == NULL || *_pArgs == NULL)
-                        {
-                            pStr = new Struct(1, 1);
-                        }
-                        else
-                        {
-                            Struct* p = new Struct(1, 1);
-                            pStr = Struct::insertNew(*_pArgs, p)->getAs<Struct>();
-                            delete p;
-                        }
-
-                        if (pArgs != NULL)
-                        {
-                            Struct* pStepStr = pCurStr->extractWithoutClone(pArgs)->getAs<Struct>();
-                            pStepStr->setCloneInCopyValue(false);
-                            SingleStruct* pSS = pStepStr->get(0);
-                            pSS->set(pVar->name_get().name_get(), pStr);
-                            pSS->IncreaseRef();
-                            delete pStepStr;
-                            pSS->DecreaseRef();
-                        }
-                        else
-                        {
-                            pCurStr->get(0)->set(pVar->name_get().name_get(), pStr);
-                        }
-                    }
-
-                    pCurrent = pStr;
-                }
-
-                *_pMain = pMain;
-                *_pCurrent = pCurrent;
+                return true;
             }
-            else //handle
-            {
-                String* pTail = new String(pVar->name_get().name_get().c_str());
-                if (_pArgs != NULL && *_pArgs == NULL)
-                {
-                    *_pArgs = new typed_list;
-                    pArgs = *_pArgs;
-                }
-                else if (pArgs == NULL)
-                {
-                    pArgs = new typed_list;
-                }
-
-                if (pArgs)
-                {
-                    pArgs->push_back(pTail);
-                    if (_pIT == NULL)
-                    {
-                        //let caller work
-
-                        //try to extract, if extract work, clear args and flag we need set operation after.
-                        GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
-                        typed_list in;
-                        typed_list out;
-                        optional_list opt;
-                        ExecVisitor exec;
-
-                        if (pArgs->size() == 1)
-                        {
-                            in.push_back((*pArgs)[0]);
-                        }
-                        else
-                        {
-                            List* pList = new List();
-                            for (int i = 0 ; i < pArgs->size() ; i++)
-                            {
-                                pList->append((*pArgs)[i]);
-                            }
-                            in.push_back(pList);
-                        }
-
-                        in.push_back(pCurrent);
-                        in.front()->IncreaseRef();
-                        pCurrent->IncreaseRef();
-
-                        Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"%h_e"));
-                        Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
-
-                        in.front()->DecreaseRef();
-                        pCurrent->DecreaseRef();
-
-                        if (in.front()->isList())
-                        {
-                            //delete pList
-                            delete in.front();
-                        }
-
-                        if (ret != Callable::OK)
-                        {
-                            std::wostringstream os;
-                            os << _W("unable to update handle");
-                            throw ScilabError(os.str(), 999, pField->location_get());
-                        }
-
-                        if (out[0]->isHandle() || out[0]->isStruct())
-                        {
-                            *_pCurrent = out[0];
-                            (*_pCurrent)->IncreaseRef();
-
-                            //clean *_pArgs to do nt extract previons fields
-                            if (_pArgs && *_pArgs)
-                            {
-                                (*_pArgs)->clear();
-                            }
-
-                        }
-                        else
-                        {
-                            *_pCurrent = pCurrent;
-                        }
-
-                        *_pMain = pMain;
-                        return true;
-                    }
-
-                    //call %x_i_h
-                    GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
-                    typed_list in;
-                    typed_list out;
-                    optional_list opt;
-                    ExecVisitor exec;
-
-
-                    if (pArgs->size() == 1)
-                    {
-                        in.push_back((*pArgs)[0]);
-                    }
-                    else
-                    {
-                        List* pList = new List();
-                        for (int i = 0 ; i < pArgs->size() ; i++)
-                        {
-                            pList->append((*pArgs)[i]);
-                        }
-                        in.push_back(pList);
-                    }
-
-                    std::wstring str = L"%" + _pIT->getShortTypeStr() + L"_i_h";
-
-                    in.push_back(_pIT);
-                    in.push_back(pCurrent);
-                    in.front()->IncreaseRef();
-                    _pIT->IncreaseRef();
-                    pCurrent->IncreaseRef();
-
-                    Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(str));
-                    Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
-                    in.front()->DecreaseRef();
-                    //_pIT->DecreaseRef();
-                    pCurrent->DecreaseRef();
-
-                    if (in.front()->isList())
-                    {
-                        //delete pList
-                        delete in.front();
-                    }
-
-                    if (ret != Callable::OK)
-                    {
-                        std::wostringstream os;
-                        os << _W("unable to update handle");
-                        throw ScilabError(os.str(), 999, pField->location_get());
-                    }
-                }
-                else
-                {
-                    std::wostringstream os;
-                    os << _W("impossible !");
-                    throw ScilabError(os.str(), 999, pField->location_get());
-                }
-
-            }
-
-
-            //clean pArgs return by getStructFromExp
-            for (int iArg = 0 ; pArgs != NULL && iArg < pArgs->size() ; iArg++)
-            {
-                if ((*pArgs)[iArg]->isDeletable())
-                {
-                    delete (*pArgs)[iArg];
-                }
-            }
-            delete pArgs;
-            return true;
         }
-        else
-        {
-            return false;
-        }
+
+        //error
+        return false;
     }
     else if (pVar)
     {
         //a.x : with x not only a SimpleVar
-        types::InternalType *pStr = NULL;
-        types::InternalType *pIT = symbol::Context::getInstance()->get(pVar->name_get());
-        if (pIT == NULL ||
-                (   pIT->isStruct() == false &&
-                    pIT->isHandle() == false &&
-                    pIT->isMList() == false &&
-                    pIT->isTList() == false))
+        std::list<std::vector<std::pair<int, InternalType*> > >::iterator iterStuctH = structHistory.begin();
+        std::vector<std::pair<int, InternalType*> > pOut;
+        std::vector<std::pair<int, InternalType*> > vect;
+
+        // main variable
+        if (fieldHistory.size() == 0)
         {
-            //"a" doest not exist or it is another type, create it with size 1,1 and return it
-            //create new structure variable
-            if (_pArgs == NULL || *_pArgs == NULL)
+            InternalType* pIT = symbol::Context::getInstance()->get(pVar->name_get());
+            if (pIT == NULL)
             {
-                pStr = new types::Struct(1, 1);
+                //"a" does not exist or it is another type, create it with size 1,1 and return it
+                //create new structure variable
+                pIT = new Struct(1, 1);
+                symbol::Context::getInstance()->put(pVar->name_get(), *pIT);
             }
-            else
-            {
-                if ((**_pArgs)[0]->isString())
-                {
-                    pStr = new types::Struct(1, 1);
-                }
-                else
-                {
-                    Struct* p = new Struct(1, 1);
-                    pStr = Struct::insertNew(*_pArgs, p)->getAs<Struct>();
-                    delete p;
-                }
-            }
-            //Add variable to scope
-            symbol::Context::getInstance()->put(pVar->name_get(), *pStr);
-        }
-        else if (pIT->isHandle() || pIT->isStruct())
-        {
-            pStr = pIT;
+
+            pOut.push_back(std::pair<int, InternalType*>(1, pIT));
         }
         else
         {
-            //TList or MList, work will be done outside
-            return false;
+            // fields
+            std::vector<std::pair<int, InternalType*> > vectParent = structHistory.front();
+            // if a is a field of a matrix of struct, loop on all elements extracted.
+            for (int iLoop = 0; iLoop < vectParent.size(); iLoop++)
+            {
+                InternalType* pCurParent = vectParent[iLoop].second;
+                if (pCurParent->isStruct())
+                {
+                    Struct* pStructParent = pCurParent->getAs<Struct>();
+                    std::wstring pwcsFieldname = pVar->name_get().name_get();
+
+                    // create field in parent if it not exist
+                    if (pStructParent->exists(pwcsFieldname) == false)
+                    {
+                        pStructParent->addField(pwcsFieldname);
+                    }
+
+                    // insertion management of last field .x = something
+                    if (_pAssignValue)
+                    {
+                        // .x(arg) = something
+                        // insertrion will be done in pCall
+                        if (_bFromCallExp)
+                        {
+                            pOut.push_back(std::pair<int, InternalType*>(iLoop, pStructParent));
+                            continue;
+                        }
+
+                        // .x = something
+                        for (int iterStruct = 0; iterStruct < pStructParent->getSize(); iterStruct++)
+                        {
+                            pStructParent->get(iterStruct)->set(pwcsFieldname, _pAssignValue);
+                        }
+
+                        continue;
+                    }
+
+                    // create a new struct only instead of "undefined" element(s).
+                    for (int iterStruct = 0; iterStruct < pStructParent->getSize(); iterStruct++)
+                    {
+                        SingleStruct* pSS = pStructParent->get(iterStruct);
+                        InternalType* pIT = pSS->get(pwcsFieldname);
+                        if (pIT->isDouble() && pIT->getAs<Double>()->isEmpty())
+                        {
+                            pSS->set(pwcsFieldname, new Struct(1, 1));
+                        }
+                    }
+
+                    // extract field x and append it to elements for next recursion.
+                    List* pLOut = pStructParent->extractFieldWithoutClone(pwcsFieldname);
+                    for (int iterList = 0; iterList < pLOut->getSize(); iterList++)
+                    {
+                        InternalType* pIT = pLOut->get(iterList);
+                        if (pIT->getRef() > 1)
+                        {
+                            // clone element before modify it.
+                            pIT->DecreaseRef();
+                            pIT = pIT->clone();
+                            pStructParent->get(iterList)->set(pwcsFieldname, pIT);
+                        }
+
+                        pOut.push_back(std::pair<int, InternalType*>(iLoop, pIT));
+                    }
+                }
+                else if (pCurParent->isTList() || pCurParent->isMList())
+                {
+                    TList* pTL = pCurParent->getAs<TList>();
+                    if (_pAssignValue && _bFromCallExp)
+                    {
+                        pOut.push_back(std::pair<int, InternalType*>(iLoop, pTL));
+                        continue;
+                    }
+
+                    if (_bFromCallExp)
+                    {
+                        // a(x) managed in pCall case
+                        return true;
+                    }
+
+                    // a.x, get string "x"
+                    std::wstring pwcsFieldname = pVar->name_get().name_get();
+
+                    // check if field exists
+                    if (pTL->exists(pwcsFieldname) == false)
+                    {
+                        //call overload
+                        return false;
+                    }
+
+                    if (_pAssignValue)
+                    {
+                        pTL->set(pwcsFieldname, _pAssignValue);
+                        continue;
+                    }
+
+                    // extract field x and append it to elements for next recursion.
+                    InternalType* pITOut = pTL->getField(pwcsFieldname);
+                    pOut.push_back(std::pair<int, InternalType*>(iLoop, pITOut));
+                }
+                else
+                {
+                    if (_bFromCallExp)
+                    {
+                        // a(arg) => error
+                        std::wostringstream os;
+                        os << _W("Invalid index");
+                        throw ScilabError(os.str(), 999, _pExp->location_get());
+                    }
+
+                    // replace parent by a struct
+                    if (structHistory.size() == 1)
+                    {
+                        // modify "a" from context
+                        Struct* pNewStruct = new Struct(1, 1);
+                        symbol::Context::getInstance()->put(((SimpleVar*)fieldHistory.front())->name_get(), *pNewStruct);
+                        const ast::Exp* pExp = fieldHistory.front();
+
+                        // reset history
+                        structHistory.pop_front();
+                        fieldHistory.pop_front();
+                        argHistory.pop_front();
+                        reinsertHistory.pop_front();
+
+                        // reevaluate a
+                        if (getStructFromExp(pExp, structHistory, fieldHistory, argHistory, reinsertHistory, _pAssignValue, _bFromCallExp) == false)
+                        {
+                            return false;
+                        }
+
+                        // reevaluate x
+                        if (getStructFromExp(pVar, structHistory, fieldHistory, argHistory, reinsertHistory, _pAssignValue, _bFromCallExp) == false)
+                        {
+                            return false;
+                        }
+
+                        return true;
+                    }
+                    else
+                    {
+                        Struct* pNewStruct = new Struct(1, 1);
+                        vectParent[iLoop].second = pNewStruct;
+                        structHistory.pop_front();
+                        structHistory.push_front(vectParent);
+                        iLoop--;
+                    }
+                }
+            } // for
         }
 
-        if (*_pMain == NULL)
-        {
-            *_pMain = pStr;
-        }
-        *_pCurrent = pStr;
+        argHistory.push_front(NULL);
+        fieldHistory.push_front(_pExp);
+        structHistory.push_front(pOut);
+        reinsertHistory.push_front(std::vector<std::pair<int, InternalType*> >(vect));
+
         return true;
     }
     else if (pCall)
     {
-        //a(x,y)
+        //a.b(args)
+        bool bFromCallExp = true;
         ExecVisitor execMe;
-        InternalType* pCurrent = NULL;
-
         typed_list *pCurrentArgs = execMe.GetArgumentList(pCall->args_get());
-        typed_list *pReturnedArgs = NULL;
 
-        //Struct* pStruct = Struct::insertNew(pArgs, new Struct(1,1))->getAs<Struct>();
-        if (*_pMain == NULL)
+        // evaluate a.b
+        if (getStructFromExp(&pCall->name_get(), structHistory, fieldHistory, argHistory, reinsertHistory, _pAssignValue, bFromCallExp) == false)
         {
-            //a is the new main but can be a complex expression
-            //bool bOK = getStructFromExp(&pCall->name_get(), _pMain, &pCurrent, &pArgs, pStruct);
-            bool bOK = getStructFromExp(&pCall->name_get(), _pMain, &pCurrent, &pReturnedArgs, NULL);
-            if (bOK == false)
+            return false;
+        }
+
+        std::vector<std::pair<int, InternalType*> > vectParent = structHistory.front();
+
+        // set args in place of NULL inserted when we have evaluated "b"
+        argHistory.pop_front();
+        argHistory.push_front(pCurrentArgs);
+
+        int* piMaxDim = new int[pCurrentArgs->size()];
+        int* piCountDim = new int[pCurrentArgs->size()];
+
+        // a.b(args) = "something"
+        if (_pAssignValue)
+        {
+            for (int iLoop = 0; iLoop < vectParent.size(); iLoop++)
             {
-                return false;
-            }
-
-            if ((*pCurrentArgs)[0]->isString())
-            {
-                String* pS = (*pCurrentArgs)[0]->getAs<String>();
-                if (pCurrentArgs->size() != 1 || pS->isScalar() == false)
+                InternalType* pCurParent = vectParent[iLoop].second;
+                if (pCurParent->isStruct())
                 {
-                    //manage error
-                    std::wostringstream os;
-                    os << _W("Invalid Index.\n");
-                    throw ScilabError(os.str(), 999, (*(pCall->args_get().begin()))->location_get());
-                }
+                    // extract field b from struct a
+                    List* pLChildren = pCurParent->getAs<Struct>()->extractFieldWithoutClone(((SimpleVar*)fieldHistory.front())->name_get().name_get());
 
-                wchar_t* pFieldName = pS->get(0);
-
-
-                if (pCurrent->isStruct())
-                {
-                    Struct* pStr = NULL;
-                    Struct *pCurStr = pCurrent->getAs<Struct>();
-                    if (pReturnedArgs && (*pReturnedArgs)[0]->isString() == false)
+                    for (int j = 0; j < pLChildren->getSize(); j++)
                     {
-                        pStr = pCurStr->extractWithoutClone(pReturnedArgs)->getAs<Struct>();
-                        pStr->setCloneInCopyValue(false);
-                    }
-                    else
-                    {
-                        pStr = pCurStr;
-                    }
-
-                    SingleStruct* pSS = pStr->get(0);
-
-                    //check if field already exists
-                    if (pStr->exists(pFieldName))
-                    {
-                        InternalType* pField = pSS->get(pFieldName);
-                        if (pField->isStruct())
+                        // insert "something" in b(x,y)
+                        InternalType* pIT = insertionCall(*_pExp, pCurrentArgs, pLChildren->get(j), _pAssignValue);
+                        if (pIT == NULL)
                         {
-                            pStr = pField->getAs<Struct>();
+                            std::wostringstream os;
+                            os << _W("Error in insertion of Struct.");
+                            throw ScilabError(os.str(), 999, _pExp->location_get());
                         }
-                        else
-                        {
-                            //erase previous value by a struct(1,1)
-                            pSS->set(pFieldName, new Struct(1, 1));
-                            pStr = pSS->get(pFieldName)->getAs<Struct>();
-                        }
-                    }
-                    else
-                    {
-                        //field does not exist
-                        pCurStr->addField(pFieldName);
-                        pSS->set(pFieldName, new Struct(1, 1));
-                        pCurrent = pSS->get(pFieldName);
-                    }
 
-                    if (pReturnedArgs && (*pReturnedArgs)[0]->isString() == false)
-                    {
-                        pSS->IncreaseRef();
-                        delete pStr;
-                        pSS->DecreaseRef();
-
-                        //clean pReturnedArgs return by GetArgumentList
-                        for (int iArg = 0 ; iArg < pReturnedArgs->size() ; iArg++)
-                        {
-                            if ((*pReturnedArgs)[iArg]->isDeletable())
-                            {
-                                delete (*pReturnedArgs)[iArg];
-                            }
-                        }
-                        delete pReturnedArgs;
+                        // insert b(x,y) in a
+                        pCurParent->getAs<Struct>()->get(j)->set(((SimpleVar*)fieldHistory.front())->name_get().name_get(), pIT);
                     }
                 }
-                else
+                else if (pCurParent->isTList())
                 {
-                    //handle
-                    GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
-                }
-            }
-            else
-            {
-                /*try to extract sub struct, if it fails, resize the struct and try again*/
-                if (pCurrent->isStruct())
-                {
-                    Struct* pCurStr = pCurrent->getAs<Struct>();
-                    InternalType* pIT = pCurStr->extract(pCurrentArgs);
+                    // extract field b from List a
+                    InternalType* pITChildren = pCurParent->getAs<TList>()->getField(((SimpleVar*)fieldHistory.front())->name_get().name_get());
+
+                    // insert "something" in b(x,y)
+                    InternalType* pIT = insertionCall(*_pExp, pCurrentArgs, pITChildren, _pAssignValue);
                     if (pIT == NULL)
                     {
-                        //fail to extract, pCurrent is not enough big, resize it !
-                        Struct* p = new Struct(1, 1);
-                        pCurStr->insert(pCurrentArgs, p); //insert empty struct, caller will assign the good value
-                        delete p;
-                    }
-                    else
-                    {
-                        delete pIT;
-                    }
-
-                    *_pArgs = pCurrentArgs;
-                }
-                else
-                {
-                    //handle
-                    GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
-                    InternalType* pIT = pCurH->extract(pCurrentArgs);
-                    if (pIT == NULL)
-                    {
-                        //manage error
                         std::wostringstream os;
-                        os << _W("Invalid Index.\n");
-                        throw ScilabError(os.str(), 999, (*(pCall->args_get().begin()))->location_get());
-                    }
-                    else
-                    {
-                        delete pIT;
+                        os << _W("Error in insertion of TList.");
+                        throw ScilabError(os.str(), 999, _pExp->location_get());
                     }
 
-                    *_pArgs = pCurrentArgs;
+                    // insert b(x,y) in a
+                    pCurParent->getAs<TList>()->set(((SimpleVar*)fieldHistory.front())->name_get().name_get(), pIT);
+                }
+                else
+                {
+                    std::wostringstream os;
+                    os << _W("TO DO");
+                    throw ScilabError(os.str(), 999, _pExp->location_get());
                 }
             }
         }
         else
         {
-            //we have a parent, so assign "a" to this parent
-            //(*_pMain)->set(0, pStruct->get(0));
+            bool bRemoveArg = false;
+            for (int iLoop = 0; iLoop < vectParent.size(); iLoop++)
+            {
+                InternalType* pCurrent = vectParent[iLoop].second;
+                if (pCurrent->isStruct())
+                {
+                    /*try to extract sub struct, if it fails, resize the struct and try again*/
+                    Struct* pCurStr = pCurrent->getAs<Struct>();
+                    int iSizeStuct = pCurStr->getSize();
+
+                    // compute indexes
+                    typed_list pArgOut;
+                    int iCount = checkIndexesArguments(pCurStr, pCurrentArgs, &pArgOut, piMaxDim, piCountDim);
+
+                    if (iSizeStuct < *piMaxDim)
+                    {
+                        // resize current struct
+                        pCurStr->resize(*piMaxDim, 1);
+                    }
+
+                    InternalType* pIT = pCurStr->extractWithoutClone(pCurrentArgs);
+                    vectParent[iLoop].second = pIT;
+                    structHistory.pop_front();
+                    structHistory.push_front(vectParent);
+                }
+                else if (pCurrent->isTList() || pCurrent->isMList())
+                {
+                    std::vector<std::pair<int, InternalType*>
+                    > pOut;
+                    TList* pTL = pCurrent->getAs<TList>();
+
+                    // compute indexes
+                    typed_list pArgOut;
+                    int iCount = checkIndexesArguments(pTL, pCurrentArgs, &pArgOut, piMaxDim, piCountDim);
+
+                    if (pArgOut.size() > 1 || pCurrent->isMList())
+                    {
+                        // call overload
+                        InternalType* pExtract = callOverload(*_pExp, L"6", &pArgOut, pTL, NULL);
+                        reinsertHistory.front().push_back(std::pair<int, InternalType*>(iLoop, pTL));
+                        vectParent[iLoop].second = pExtract;
+                        structHistory.pop_front();
+                        structHistory.push_front(vectParent);
+                        continue;
+                    }
+                    else
+                    {
+                        // resize TList
+                        int iSize = pTL->getSize();
+                        if (iSize < *piMaxDim)
+                        {
+                            pTL->set((*piMaxDim) - 1, new ListUndefined());
+                        }
+
+                        // extract args
+                        std::vector<InternalType*> vectpIT = pTL->extract(&pArgOut);
+                        std::vector<InternalType*>::iterator iterVect;
+
+                        // for all undefined field, create a new struct
+                        int iPos = 0;
+                        for (iterVect = vectpIT.begin(); iterVect != vectpIT.end(); iterVect++, iPos++)
+                        {
+                            if ((*iterVect)->isListUndefined())
+                            {
+                                Struct* pNewStruct = new Struct(1, 1);
+                                int iTLPos = pArgOut[iPos]->getAs<Double>()->get(0) - 1;
+                                pTL->set(iTLPos, pNewStruct);
+                                pOut.push_back(std::pair<int, InternalType*>(iLoop, pNewStruct));
+                            }
+                            else
+                            {
+                                pOut.push_back(std::pair<int, InternalType*>(iLoop, *iterVect));
+                            }
+                        }
+
+                        structHistory.pop_front();
+                        structHistory.push_front(pOut);
+                    }
+                }
+                else if (pCurrent->isHandle())
+                {
+                    //GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
+                }
+                else
+                {
+                    return false;
+                }
+            } // for
         }
-        *_pCurrent = pCurrent;
+
+        delete[] piMaxDim;
+        delete[] piCountDim;
         return true;
     }
     else if (pCell)
@@ -1156,10 +1393,477 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
     {
         std::wostringstream os;
         os << _W("Unknown expression");
-        //os << ((Location)e.right_exp_get().location_get()).location_getString() << std::endl;
         throw ScilabError(os.str(), 999, _pExp->location_get());
     }
-    return false;
+    return NULL;
+}
+
+InternalType* insertionCall(const Exp& e, typed_list* _pArgs, InternalType* _pVar, InternalType* _pInsert)
+{
+    InternalType* pOut = NULL;
+    //fisrt extract implicit list
+    if (_pInsert->isColon())
+    {
+        //double* pdbl = NULL;
+        //_pInsert = new Double(-1, -1, &pdbl);
+        //pdbl[0] = 1;
+        _pInsert = Double::Identity(-1, -1);
+    }
+    else if (_pInsert->isImplicitList())
+    {
+        InternalType *pIL = _pInsert->getAs<ImplicitList>()->extractFullMatrix();
+        if (pIL)
+        {
+            _pInsert = pIL;
+        }
+    }
+    else if (_pInsert->isContainer() && _pInsert->isRef())
+    {
+        //std::cout << "assign container type during insertion" << std::endl;
+        //InternalType* pIL = _pInsert->clone();
+        //_pInsert = pIL;
+    }
+
+    if (_pInsert->isDouble() && _pInsert->getAs<Double>()->isEmpty() && _pVar == NULL)
+    {
+        // l(x) = [] when l is not defined => create l = []
+        pOut = Double::Empty();
+    }
+    else if (_pInsert->isDouble() && _pInsert->getAs<Double>()->isEmpty() && _pVar->isStruct() == false && _pVar->isList() == false)
+    {
+        //insert [] so deletion except for Struct and List which can insert []
+        if (_pVar->isDouble())
+        {
+            pOut = _pVar->getAs<Double>()->remove(_pArgs);
+        }
+        else if (_pVar->isString())
+        {
+            pOut = _pVar->getAs<String>()->remove(_pArgs);
+        }
+        else if (_pVar->isCell())
+        {
+            pOut = _pVar->getAs<Cell>()->remove(_pArgs);
+        }
+        else if (_pVar->isBool())
+        {
+            pOut = _pVar->getAs<Bool>()->remove(_pArgs);
+        }
+        else if (_pVar->isPoly())
+        {
+            pOut = _pVar->getAs<Polynom>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt8())
+        {
+            pOut = _pVar->getAs<Int8>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt8())
+        {
+            pOut = _pVar->getAs<UInt8>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt16())
+        {
+            pOut = _pVar->getAs<Int16>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt16())
+        {
+            pOut = _pVar->getAs<UInt16>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt32())
+        {
+            pOut = _pVar->getAs<Int32>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt32())
+        {
+            pOut = _pVar->getAs<UInt32>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt64())
+        {
+            pOut = _pVar->getAs<Int64>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt64())
+        {
+            pOut = _pVar->getAs<UInt64>()->remove(_pArgs);
+        }
+        else if (_pVar->isStruct())
+        {
+            // a("b") = [] is not a deletion !!
+            Struct* pStr = _pVar->getAs<Struct>();
+
+            pOut = _pVar->getAs<Struct>()->insert(_pArgs, _pInsert);
+        }
+    }
+    else if (_pVar == NULL || (_pVar->isDouble() && _pVar->getAs<Double>()->getSize() == 0))
+    {
+        //insert in a new variable or []
+        //call static insert function
+        //if _pVar == NULL and pArg is single string, it's a struct creation
+        if ((*_pArgs)[0]->isString())
+        {
+            String *pS = (*_pArgs)[0]->getAs<types::String>();
+            Struct* pStr = new Struct(1, 1);
+
+            if (_pArgs->size() != 1 || pS->isScalar() == false)
+            {
+                //manage error
+                std::wostringstream os;
+                os << _W("Invalid Index.\n");
+                throw ScilabError(os.str(), 999, e.location_get());
+            }
+
+            pStr->addField(pS->get(0));
+            pStr->get(0)->set(pS->get(0), _pInsert);
+            pOut = pStr;
+        }
+        else
+        {
+            switch (_pInsert->getType())
+            {
+                case InternalType::RealDouble :
+                    pOut = Double::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealString :
+                    pOut = String::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealCell :
+                    pOut = Cell::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealBool :
+                    pOut = Bool::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealPoly :
+                    pOut = Polynom::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt8 :
+                    pOut = Int8::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt8 :
+                    pOut = UInt8::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt16 :
+                    pOut = Int16::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt16 :
+                    pOut = UInt16::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt32 :
+                    pOut = Int32::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt32 :
+                    pOut = UInt32::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt64 :
+                    pOut = Int64::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt64 :
+                    pOut = UInt64::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealSparse :
+                    pOut = Sparse::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealSparseBool :
+                    pOut = SparseBool::insertNew(_pArgs, _pInsert);
+                    break;
+                default :
+                {
+                    // overload
+                    types::Double* pEmpty = types::Double::Empty();
+                    pOut = callOverload(e, L"i", _pArgs, _pInsert, pEmpty);
+                    delete pEmpty;
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        //call type insert function
+        InternalType* pRet = NULL;
+
+        //check types compatibilties
+        if (_pVar->isDouble() && _pInsert->isDouble())
+        {
+            pRet = _pVar->getAs<Double>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isDouble() && _pInsert->isSparse())
+        {
+            Sparse* pSp = _pInsert->getAs<Sparse>();
+            Double* pD = new Double(pSp->getRows(), pSp->getCols(), pSp->isComplex());
+            pSp->fill(*pD);
+            pRet = _pVar->getAs<Double>()->insert(_pArgs, pD);
+            free(pD);
+        }
+        else if (_pVar->isString() && _pInsert->isString())
+        {
+            pRet = _pVar->getAs<String>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isCell() && _pInsert->isCell())
+        {
+            pRet = _pVar->getAs<Cell>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isBool() && _pInsert->isBool())
+        {
+            pRet = _pVar->getAs<Bool>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isSparse() && _pInsert->isSparse())
+        {
+            pRet = _pVar->getAs<Sparse>()->insert(_pArgs, _pInsert->getAs<Sparse>());
+        }
+        else if (_pVar->isSparse() && _pInsert->isDouble())
+        {
+            pRet = _pVar->getAs<Sparse>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isSparseBool() && _pInsert->isSparseBool())
+        {
+            pRet = _pVar->getAs<SparseBool>()->insert(_pArgs, _pInsert->getAs<SparseBool>());
+        }
+        else if (_pVar->isSparseBool() && _pInsert->isBool())
+        {
+            pRet = _pVar->getAs<SparseBool>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isDouble() && _pInsert->isPoly())
+        {
+            Double* pDest = _pVar->getAs<Double>();
+            Polynom* pIns = _pInsert->getAs<Polynom>();
+            Polynom* pP = new Polynom(pIns->getVariableName(), pDest->getDims(), pDest->getDimsArray());
+            pP->setComplex(pDest->isComplex());
+
+            for (int idx = 0 ; idx < pP->getSize() ; idx++)
+            {
+                double* pR = NULL;
+                double* pI = NULL;
+                if (pP->isComplex())
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, &pI, 1);
+                    double dblR = pDest->get(idx);
+                    double dblI = pDest->getImg(idx);
+                    pS->setCoef(&dblR, &dblI);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+                else
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, 1);
+                    double dblR = pDest->get(idx);
+                    pS->setCoef(&dblR, NULL);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+            }
+
+            pRet = pP->insert(_pArgs, pIns);
+            pDest->DecreaseRef();
+        }
+        else if (_pVar->isPoly() && _pInsert->isDouble())
+        {
+            Polynom* pDest = _pVar->getAs<Polynom>();
+            Double* pIns = _pInsert->getAs<Double>();
+            Polynom* pP = new Polynom(pDest->getVariableName(), pIns->getDims(), pIns->getDimsArray());
+            pP->setComplex(pIns->isComplex());
+
+            for (int idx = 0 ; idx < pP->getSize() ; idx++)
+            {
+                double* pR = NULL;
+                double* pI = NULL;
+                if (pP->isComplex())
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, &pI, 1);
+                    double dblR = pIns->get(idx);
+                    double dblI = pIns->getImg(idx);
+                    pS->setCoef(&dblR, &dblI);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+                else
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, 1);
+                    double dblR = pIns->get(idx);
+                    pS->setCoef(&dblR, NULL);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+            }
+            pRet = pDest->insert(_pArgs, pP);
+            delete pP;
+        }
+        else if (_pVar->isPoly() && _pInsert->isPoly())
+        {
+            pRet = _pVar->getAs<Polynom>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt8() && _pInsert->isInt8())
+        {
+            pRet = _pVar->getAs<Int8>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt8() && _pInsert->isUInt8())
+        {
+            pRet = _pVar->getAs<UInt8>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt16() && _pInsert->isInt16())
+        {
+            pRet = _pVar->getAs<Int16>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt16() && _pInsert->isUInt16())
+        {
+            pRet = _pVar->getAs<UInt16>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt32() && _pInsert->isInt32())
+        {
+            pRet = _pVar->getAs<Int32>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt32() && _pInsert->isUInt32())
+        {
+            pRet = _pVar->getAs<UInt32>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt64() && _pInsert->isInt64())
+        {
+            pRet = _pVar->getAs<Int64>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt64() && _pInsert->isUInt64())
+        {
+            pRet = _pVar->getAs<UInt64>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isStruct())
+        {
+            Struct* pStr = _pVar->getAs<Struct>();
+            // insert something in a field of a struct
+            if (_pArgs->size() == 1 && (*_pArgs)[0]->isString())
+            {
+                //s("x") = y
+                String *pS = (*_pArgs)[0]->getAs<types::String>();
+                if (pS->isScalar() == false)
+                {
+                    //manage error
+                    std::wostringstream os;
+                    os << _W("Invalid Index.\n");
+                    throw ScilabError(os.str(), 999, e.location_get());
+                }
+
+                pStr->addField(pS->get(0));
+                for (int i = 0; i < pStr->getSize(); i++)
+                {
+                    pStr->get(i)->set(pS->get(0), _pInsert);
+                }
+
+                pRet = pStr;
+            }
+            else // insert something in a struct
+            {
+                pRet = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+                //pRet = pStr->insert(_pArgs, _pInsert);
+            }
+        }
+        else if (_pVar->isTList() || _pVar->isMList())
+        {
+            TList* pTL = _pVar->getAs<TList>();
+            if (_pArgs->size() == 1)
+            {
+                if ((*_pArgs)[0]->isString())
+                {
+                    //s("x") = y
+                    String *pS = (*_pArgs)[0]->getAs<types::String>();
+                    if (pS->isScalar() == false)
+                    {
+                        //manage error
+                        std::wostringstream os;
+                        os << _W("Invalid Index.\n");
+                        throw ScilabError(os.str(), 999, e.location_get());
+                    }
+
+                    if (pTL->exists(pS->get(0)))
+                    {
+                        pTL->set(pS->get(0), _pInsert);
+                        pRet = pTL;
+                    }
+                    else
+                    {
+                        ExecVisitor exec;
+                        types::typed_list in;
+                        types::typed_list out;
+                        std::wstring function_name = L"%l_e";
+
+                        _pInsert->IncreaseRef();
+                        in.push_back(_pInsert);
+
+                        Overload::call(function_name, in, 1, out, &exec);
+                        _pInsert->DecreaseRef();
+
+                        if (out.size() != 0)
+                        {
+                            pRet = in[0];
+                        }
+                    }
+                }
+                else
+                {
+                    // s(x)
+                    if (_pVar->isMList())
+                    {
+                        pRet = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+                    }
+                    else
+                    {
+                        pRet = pTL->insert(_pArgs, _pInsert);
+                    }
+                }
+            }
+            else
+            {
+                if (_pVar->isMList())
+                {
+                    pRet = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+                }
+                else
+                {
+                    // call the overload if it exists.
+                    pRet = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+                    if (pRet == NULL)
+                    {
+                        // else normal insert
+                        pRet = pTL->insert(_pArgs, _pInsert);
+                    }
+                }
+            }
+        }
+        else if (_pVar->isList())
+        {
+            pRet = _pVar->getAs<List>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isHandle())
+        {
+            if (_pArgs->size() == 1 && (*_pArgs)[0]->isString())
+            {
+                //s(["x"])
+                types::GraphicHandle* pH = _pVar->getAs<types::GraphicHandle>();
+                types::String *pS = (*_pArgs)[0]->getAs<types::String>();
+                typed_list in;
+                typed_list out;
+                optional_list opt;
+                ExecVisitor exec;
+
+                in.push_back(pH);
+                in.push_back(pS);
+                in.push_back(_pInsert);
+
+                Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
+                Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
+                if (ret == Callable::OK)
+                {
+                    pRet = _pVar;
+                }
+            }
+            else
+            {
+                pRet = _pVar->getAs<types::GraphicHandle>()->extract(_pArgs);
+            }
+        }
+        else
+        {
+            // overload
+            pRet = callOverload(e, L"i", _pArgs, _pInsert, _pVar);
+        }
+
+        pOut = pRet;
+    }
+    return pOut;
 }
 
 void callOnPrompt(void)
