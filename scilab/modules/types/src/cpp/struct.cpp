@@ -250,7 +250,7 @@ SingleStruct* Struct::getNullValue()
 Struct* Struct::createEmpty(int _iDims, int* _piDims, bool _bComplex)
 {
     Struct* pStr = new Struct(_iDims, _piDims);
-    pStr->setCloneInCopyValue(m_bDisableCloneInCopyValue);
+    pStr->setCloneInCopyValue(!m_bDisableCloneInCopyValue);
     return pStr;
 }
 
@@ -379,6 +379,46 @@ bool Struct::toString(std::wostringstream& ostr)
     return true;
 }
 
+InternalType* Struct::extractFieldWithoutClone(std::wstring _wstField)
+{
+    InternalType* Result = NULL;
+
+    if (_wstField == L"dims")
+    {
+        Int32* pDims = new Int32(1, getDims());
+        for (int j = 0 ; j < getDims() ; j++)
+        {
+            pDims->set(j, getDimsArray()[j]);
+        }
+
+        Result = pDims;
+    }
+    else
+    {
+        if (getSize() == 1)
+        {
+            InternalType* pIT = get(0)->get(_wstField);
+            if (pIT)
+            {
+                Result = pIT;
+            }
+        }
+        else
+        {
+            List* pL = new List();
+            for (int j = 0 ; j < getSize() ; j++)
+            {
+                InternalType* pIT = get(j)->get(_wstField);
+                pL->append(pIT);
+            }
+
+            Result = pL;
+        }
+    }
+
+    return Result;
+}
+
 std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstFields)
 {
     std::vector<InternalType*> ResultList;
@@ -415,6 +455,7 @@ std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstF
     }
     return ResultList;
 }
+
 
 std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
 {
@@ -532,7 +573,7 @@ InternalType* Struct::extractWithoutClone(typed_list* _pArgs)
 
 void Struct::setCloneInCopyValue(bool _val)
 {
-    m_bDisableCloneInCopyValue = _val;
+    m_bDisableCloneInCopyValue = !_val;
 }
 
 }

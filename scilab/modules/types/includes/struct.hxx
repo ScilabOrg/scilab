@@ -82,6 +82,7 @@ public :
     bool                        exists(const std::wstring& _sKey);
     bool                        addField(const std::wstring& _sKey);
     bool                        toString(std::wostringstream& ostr);
+    InternalType*               extractFieldWithoutClone(std::wstring _wstField);
     std::vector<InternalType*>  extractFields(std::vector<std::wstring> _wstFields);
     std::vector<InternalType*>  extractFields(typed_list* _pArgs);
 
