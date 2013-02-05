@@ -532,7 +532,7 @@ InternalType* Struct::extractWithoutClone(typed_list* _pArgs)
 
 void Struct::setCloneInCopyValue(bool _val)
 {
-    m_bDisableCloneInCopyValue = _val;
+    m_bDisableCloneInCopyValue = !_val;
 }
 
 }
