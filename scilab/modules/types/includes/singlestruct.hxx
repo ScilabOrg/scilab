@@ -30,7 +30,6 @@ public :
 
 private :
     SingleStruct(SingleStruct *_oListCopyMe);
-    int                                     getFieldIndex(const std::wstring& _field);
 
 public :
     SingleStruct*                           clone();
@@ -51,7 +50,7 @@ public :
     bool                                    addField(const std::wstring& _sKey);
     std::vector<InternalType *>             getData();
     std::vector<std::wstring>               getFields();
-
+    int                                     getFieldIndex(const std::wstring& _field);
 
     /* return type as string ( double, int, cell, list, ... )*/
     virtual std::wstring                    getTypeStr()
