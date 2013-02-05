@@ -60,7 +60,6 @@ public :
     virtual std::wstring            getShortTypeStr();
 
     String*                         getFieldNames();
-
 private :
 };
 }
