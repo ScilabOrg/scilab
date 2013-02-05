@@ -15,7 +15,7 @@ modulename=xml
 
 #### xml : Conf files ####
 libscixml_la_rootdir = $(mydatadir)
-libscixml_la_root_DATA =  license.txt 
+libscixml_la_root_DATA =  license.txt
 
 
 #### scinotes : init scripts & configuration files ####
@@ -25,7 +25,7 @@ libscixml_la_etc_DATA = etc/xml.quit \
 
 include $(top_srcdir)/Makefile.incl.am
 
-XML_JNI_SOURCES = 
+XML_JNI_SOURCES =
 
 XML_C_SOURCES = src/c/XMLMlistsManagement.c
 
@@ -98,6 +98,7 @@ libscixml_la_CPPFLAGS = -I$(srcdir)/includes/ \
     -I$(top_srcdir)/modules/fileio/includes/ \
 	-I$(top_srcdir)/modules/operations/includes/ \
 	-I$(top_srcdir)/modules/string/includes/ \
+	-I$(top_srcdir)/modules/types/includes/ \
     $(XML_FLAGS) \
     $(AM_CPPFLAGS)
 
