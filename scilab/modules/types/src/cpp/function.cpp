@@ -16,12 +16,14 @@
 #include "function.hxx"
 #include "double.hxx"
 #include "gatewaystruct.hxx"
+#include "lasterror.h"
 
 extern "C"
 {
 #include "core_math.h"
 #include "charEncoding.h"
 #include "Scierror.h"
+#include "sciprint.h"
 #include "localization.h"
 #include "sci_path.h"
 #include "MALLOC.h"
@@ -202,12 +204,14 @@ Function::ReturnValue WrapFunction::call(typed_list &in, optional_list &opt, int
 
     char* pFunctionName = wide_string_to_UTF8(m_wstName.c_str());
 
-    //call gateway (thoses cast should looks  suspicious)
+    //call gateway
+    sciprint("%ls\n", getName().c_str());
     iRet = m_pOldFunc(pFunctionName, reinterpret_cast<int*>(&gStr));
     FREE(pFunctionName);
-    if (iRet != 0)
+    if (iRet || isError())
     {
         retVal = Callable::Error;
+        resetError();
     }
     else
     {

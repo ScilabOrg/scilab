@@ -739,7 +739,7 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
                 *_pMain = pMain;
                 *_pCurrent = pCurrent;
             }
-            else //handle
+            else if (pCurrent->isHandle())
             {
                 String* pTail = new String(pVar->name_get().name_get().c_str());
                 if (_pArgs != NULL && *_pArgs == NULL)
@@ -808,7 +808,7 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
                             *_pCurrent = out[0];
                             (*_pCurrent)->IncreaseRef();
 
-                            //clean *_pArgs to do nt extract previons fields
+                            //clean *_pArgs to do not extract previons fields
                             if (_pArgs && *_pArgs)
                             {
                                 (*_pArgs)->clear();
@@ -881,6 +881,150 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
                 }
 
             }
+            else if (pCurrent->isTList() || pCurrent->isMList())
+            {
+                wstring wstField = pVar->name_get().name_get();
+
+                //try to extract
+                TList* pT = pCurrent->getAs<TList>();
+                if (pT->exists(wstField))
+                {
+                    if (_pIT)
+                    {
+                        //assign value and exit
+                        pT->set(wstField, _pIT);
+                    }
+                    else
+                    {
+                        //return field
+                        *_pCurrent = pT->get(wstField);
+                    }
+
+                    *_pMain = pMain;
+                    return true;
+                }
+                else //if field does not exist call overload "special extract function %listtype_6" and shake !
+                {
+                    if (_pArgs != NULL && *_pArgs == NULL)
+                    {
+                        *_pArgs = new typed_list;
+                        pArgs = *_pArgs;
+                    }
+                    else if (pArgs == NULL)
+                    {
+                        pArgs = new typed_list;
+                    }
+
+                    String* pFieldStr = new String(wstField.c_str());
+                    pArgs->push_back(pFieldStr);
+
+
+                    typed_list in;
+                    typed_list out;
+                    optional_list opt;
+                    ExecVisitor exec;
+
+                    if (_pIT)
+                    {
+                        //assign value to field by callin overling insertion function %assigntype_i_listtype
+                        in.push_back((*pArgs)[0]);
+                        in.push_back(_pIT);
+                        in.push_back(pT);
+
+                        //protect data during overload call
+                        (*pArgs)[0]->IncreaseRef();
+                        pT->IncreaseRef();
+
+                        std::wstring stOverload = L"%" + _pIT->getShortTypeStr() +  L"_i_" + pT->getShortTypeStr();
+                        Callable::ReturnValue ret = Overload::call(stOverload, in, 1, out, &exec);
+
+                        (*pArgs)[0]->DecreaseRef();
+                        _pIT->DecreaseRef();
+                        pT->DecreaseRef();
+
+                        if (ret != Callable::OK)
+                        {
+                            std::wostringstream os;
+                            if (pT->isMList())
+                            {
+                                os << L"unable to update mlist";
+                            }
+                            else
+                            {
+                                os << L"unable to update tlist";
+                            }
+                            throw ScilabError(os.str(), 999, pField->location_get());
+                        }
+
+                        *_pMain = pMain;
+                        return true;
+                    }
+                    else
+                    {
+                        in.push_back((*pArgs)[0]);
+                        in.push_back(pT);
+
+                        //protect data during overload call
+                        (*pArgs)[0]->IncreaseRef();
+                        pT->IncreaseRef();
+
+                        std::wstring stOverload = L"%" + pT->getShortTypeStr() +  L"_6";
+                        Callable::ReturnValue ret = Overload::call(stOverload, in, 1, out, &exec);
+
+                        (*pArgs)[0]->DecreaseRef();
+                        pT->DecreaseRef();
+
+                        if (ret != Callable::OK)
+                        {
+                            std::wostringstream os;
+                            if (pT->isMList())
+                            {
+                                os << L"unable to update mlist";
+                            }
+                            else
+                            {
+                                os << L"unable to update tlist";
+                            }
+                            throw ScilabError(os.str(), 999, pField->location_get());
+                        }
+
+                        if (out[0]->isHandle() || out[0]->isStruct() || out[0]->isTList() || out[0]->isMList())
+                        {
+                            *_pCurrent = out[0];
+                            (*_pCurrent)->IncreaseRef();
+
+                            //clean *_pArgs to do not extract previons fields
+                            if (_pArgs && *_pArgs)
+                            {
+                                (*_pArgs)->clear();
+                            }
+
+                        }
+                        else
+                        {
+                            *_pCurrent = pCurrent;
+                        }
+
+                        *_pMain = pMain;
+
+
+                        if (_pIT)
+                        {
+                            //assignation value by calling insertion mechanism
+                            InternalType* pOut = insertionCall(*_pExp, pArgs, pCurrent, _pIT);
+                            *_pMain = pMain;
+                        }
+
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                std::wostringstream os;
+                os << L"impossible !";
+                throw ScilabError(os.str(), 999, pField->location_get());
+            }
 
 
             //clean pArgs return by getStructFromExp
@@ -932,13 +1076,12 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
             //Add variable to scope
             symbol::Context::getInstance()->put(pVar->name_get(), *pStr);
         }
-        else if (pIT->isHandle() || pIT->isStruct())
+        else if (pIT->isHandle() || pIT->isStruct() || pIT->isTList() || pIT->isMList())
         {
             pStr = pIT;
         }
         else
         {
-            //TList or MList, work will be done outside
             return false;
         }
 
@@ -958,11 +1101,9 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
         typed_list *pCurrentArgs = execMe.GetArgumentList(pCall->args_get());
         typed_list *pReturnedArgs = NULL;
 
-        //Struct* pStruct = Struct::insertNew(pArgs, new Struct(1,1))->getAs<Struct>();
         if (*_pMain == NULL)
         {
             //a is the new main but can be a complex expression
-            //bool bOK = getStructFromExp(&pCall->name_get(), _pMain, &pCurrent, &pArgs, pStruct);
             bool bOK = getStructFromExp(&pCall->name_get(), _pMain, &pCurrent, &pReturnedArgs, NULL);
             if (bOK == false)
             {
@@ -1040,6 +1181,10 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
                         delete pReturnedArgs;
                     }
                 }
+                else if (pCurrent->isTList() || pCurrent->isMList())
+                {
+
+                }
                 else
                 {
                     //handle
@@ -1067,10 +1212,67 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
 
                     *_pArgs = pCurrentArgs;
                 }
-                else
+                else if (pCurrent->isTList() || pCurrent->isMList())
+                {
+                    if (_pIT)
+                    {
+                        //insert
+                        //*_pCurrent = insertionCall(*_pExp, pCurrentArgs, pCurrent, _pIT);
+
+                        //update parents with new child
+                        //return true;
+                    }
+                    else
+                    {
+                        //extract only
+                        types::typed_list in;
+                        types::optional_list opt;
+                        types::typed_list out;
+                        ExecVisitor exec;
+
+                        //firt argument: index
+                        for (int i = 0 ; i < pCurrentArgs->size() ; i++)
+                        {
+                            in.push_back((*pCurrentArgs)[i]);
+                        }
+
+                        //second argument: me ( mlist or tlist )
+                        pCurrent->IncreaseRef();
+                        in.push_back(pCurrent);
+
+                        Callable::ReturnValue Ret = Overload::call(L"%" + pCurrent->getShortTypeStr() + L"_e", in, 1, out, &exec);
+                        if (Ret != Callable::OK)
+                        {
+                            throw ScilabError(L"", 999, pCall->location_get());
+                        }
+
+                        if (out.size() == 0)
+                        {
+                            //hope never come here
+                            pCurrent = NULL;
+                        }
+
+                        out[0]->DecreaseRef();
+                        pCurrent = out[0];
+
+                        pCurrent->DecreaseRef();
+
+                        for (int i = 0 ; i < in.size() ; i++)
+                        {
+                            in[i]->DecreaseRef();
+                        }
+                    }
+
+                    *_pArgs = pCurrentArgs;
+                }
+                else if (pCurrent->isHandle())
                 {
                     //handle
                     GraphicHandle* pCurH = pCurrent->getAs<GraphicHandle>();
+                }
+                else
+                {
+                    return false;
                 }
             }
         }
@@ -1093,6 +1295,481 @@ bool getStructFromExp(const Exp* _pExp, types::InternalType** _pMain, types::Int
         throw ScilabError(os.str(), 999, _pExp->location_get());
     }
     return false;
+}
+
+InternalType* insertionCall(const Exp& e, typed_list* _pArgs, InternalType* _pVar, InternalType* _pInsert)
+{
+    InternalType* pOut = NULL;
+    //fisrt extract implicit list
+    if (_pInsert->isColon())
+    {
+        //double* pdbl = NULL;
+        //_pInsert = new Double(-1, -1, &pdbl);
+        //pdbl[0] = 1;
+        _pInsert = Double::Identity(-1, -1);
+    }
+    else if (_pInsert->isImplicitList())
+    {
+        InternalType *pIL = _pInsert->getAs<ImplicitList>()->extractFullMatrix();
+        if (pIL)
+        {
+            _pInsert = pIL;
+        }
+    }
+    else if (_pInsert->isContainer() && _pInsert->isRef())
+    {
+        //std::cout << "assign container type during insertion" << std::endl;
+        InternalType* pIL = _pInsert->clone();
+        _pInsert = pIL;
+    }
+
+    if (_pInsert->isDouble() && _pInsert->getAs<Double>()->isEmpty() && _pVar == NULL)
+    {
+        // l(x) = [] when l is not defined => create l = []
+        pOut = Double::Empty();
+    }
+    else if (_pInsert->isDouble() && _pInsert->getAs<Double>()->isEmpty() && _pVar->isStruct() == false && _pVar->isList() == false)
+    {
+        //insert [] so deletion except for Struct and List which can insert []
+        if (_pVar->isDouble())
+        {
+            pOut = _pVar->getAs<Double>()->remove(_pArgs);
+        }
+        else if (_pVar->isString())
+        {
+            pOut = _pVar->getAs<String>()->remove(_pArgs);
+        }
+        else if (_pVar->isCell())
+        {
+            pOut = _pVar->getAs<Cell>()->remove(_pArgs);
+        }
+        else if (_pVar->isBool())
+        {
+            pOut = _pVar->getAs<Bool>()->remove(_pArgs);
+        }
+        else if (_pVar->isPoly())
+        {
+            pOut = _pVar->getAs<Polynom>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt8())
+        {
+            pOut = _pVar->getAs<Int8>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt8())
+        {
+            pOut = _pVar->getAs<UInt8>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt16())
+        {
+            pOut = _pVar->getAs<Int16>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt16())
+        {
+            pOut = _pVar->getAs<UInt16>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt32())
+        {
+            pOut = _pVar->getAs<Int32>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt32())
+        {
+            pOut = _pVar->getAs<UInt32>()->remove(_pArgs);
+        }
+        else if (_pVar->isInt64())
+        {
+            pOut = _pVar->getAs<Int64>()->remove(_pArgs);
+        }
+        else if (_pVar->isUInt64())
+        {
+            pOut = _pVar->getAs<UInt64>()->remove(_pArgs);
+        }
+        else if (_pVar->isStruct())
+        {
+            // a("b") = [] is not a deletion !!
+            Struct* pStr = _pVar->getAs<Struct>();
+
+            pOut = _pVar->getAs<Struct>()->insert(_pArgs, _pInsert);
+        }
+    }
+    else if (_pVar == NULL || (_pVar->isDouble() && _pVar->getAs<Double>()->getSize() == 0))
+    {
+        //insert in a new variable or []
+        //call static insert function
+
+        //if _pVar == NULL and pArg is single string, it's a struct creation
+        if ((*_pArgs)[0]->isString())
+        {
+            String *pS = (*_pArgs)[0]->getAs<types::String>();
+            Struct* pStr = new Struct(1, 1);
+
+            if (_pArgs->size() != 1 || pS->isScalar() == false)
+            {
+                //manage error
+                std::wostringstream os;
+                os << _W("Invalid Index.\n");
+                throw ScilabError(os.str(), 999, e.location_get());
+            }
+
+            pStr->addField(pS->get(0));
+            pStr->get(0)->set(pS->get(0), _pInsert);
+            pOut = pStr;
+        }
+        else
+        {
+            switch (_pInsert->getType())
+            {
+                case InternalType::RealDouble :
+                    pOut = Double::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealString :
+                    pOut = String::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealCell :
+                    pOut = Cell::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealBool :
+                    pOut = Bool::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealPoly :
+                    pOut = Polynom::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt8 :
+                    pOut = Int8::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt8 :
+                    pOut = UInt8::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt16 :
+                    pOut = Int16::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt16 :
+                    pOut = UInt16::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt32 :
+                    pOut = Int32::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt32 :
+                    pOut = UInt32::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealInt64 :
+                    pOut = Int64::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealUInt64 :
+                    pOut = UInt64::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealSparse :
+                    pOut = Sparse::insertNew(_pArgs, _pInsert);
+                    break;
+                case InternalType::RealSparseBool :
+                    pOut = SparseBool::insertNew(_pArgs, _pInsert);
+                    break;
+                default :
+                {
+                    //manage error
+                    std::wostringstream os;
+                    os << _W("Operation not yet managed.\n");
+                    throw ScilabError(os.str(), 999, e.location_get());
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        //call type insert function
+        InternalType* pRet = NULL;
+
+        //check types compatibilties
+        if (_pVar->isDouble() && _pInsert->isDouble())
+        {
+            pRet = _pVar->getAs<Double>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isDouble() && _pInsert->isSparse())
+        {
+            Sparse* pSp = _pInsert->getAs<Sparse>();
+            Double* pD = new Double(pSp->getRows(), pSp->getCols(), pSp->isComplex());
+            pSp->fill(*pD);
+            pRet = _pVar->getAs<Double>()->insert(_pArgs, pD);
+            free(pD);
+        }
+        else if (_pVar->isString() && _pInsert->isString())
+        {
+            pRet = _pVar->getAs<String>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isCell() && _pInsert->isCell())
+        {
+            pRet = _pVar->getAs<Cell>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isBool() && _pInsert->isBool())
+        {
+            pRet = _pVar->getAs<Bool>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isSparse() && _pInsert->isSparse())
+        {
+            pRet = _pVar->getAs<Sparse>()->insert(_pArgs, _pInsert->getAs<Sparse>());
+        }
+        else if (_pVar->isSparse() && _pInsert->isDouble())
+        {
+            pRet = _pVar->getAs<Sparse>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isSparseBool() && _pInsert->isSparseBool())
+        {
+            pRet = _pVar->getAs<SparseBool>()->insert(_pArgs, _pInsert->getAs<SparseBool>());
+        }
+        else if (_pVar->isSparseBool() && _pInsert->isBool())
+        {
+            pRet = _pVar->getAs<SparseBool>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isPoly() && _pInsert->isDouble())
+        {
+            Polynom* pDest = _pVar->getAs<Polynom>();
+            Double* pIns = _pInsert->getAs<Double>();
+            Polynom* pP = new Polynom(pDest->getVariableName(), pIns->getDims(), pIns->getDimsArray());
+            pP->setComplex(pIns->isComplex());
+
+            for (int idx = 0 ; idx < pP->getSize() ; idx++)
+            {
+                double* pR = NULL;
+                double* pI = NULL;
+                if (pP->isComplex())
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, &pI, 1);
+                    double dblR = pIns->get(idx);
+                    double dblI = pIns->getImg(idx);
+                    pS->setCoef(&dblR, &dblI);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+                else
+                {
+                    SinglePoly* pS = new SinglePoly(&pR, 1);
+                    double dblR = pIns->get(idx);
+                    pS->setCoef(&dblR, NULL);
+                    pP->set(idx, pS);
+                    delete pS;
+                }
+            }
+            pRet = _pVar->getAs<Polynom>()->insert(_pArgs, pP);
+            delete pP;
+        }
+        else if (_pVar->isPoly() && _pInsert->isPoly())
+        {
+            pRet = _pVar->getAs<Polynom>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt8() && _pInsert->isInt8())
+        {
+            pRet = _pVar->getAs<Int8>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt8() && _pInsert->isUInt8())
+        {
+            pRet = _pVar->getAs<UInt8>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt16() && _pInsert->isInt16())
+        {
+            pRet = _pVar->getAs<Int16>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt16() && _pInsert->isUInt16())
+        {
+            pRet = _pVar->getAs<UInt16>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt32() && _pInsert->isInt32())
+        {
+            pRet = _pVar->getAs<Int32>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt32() && _pInsert->isUInt32())
+        {
+            pRet = _pVar->getAs<UInt32>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isInt64() && _pInsert->isInt64())
+        {
+            pRet = _pVar->getAs<Int64>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isUInt64() && _pInsert->isUInt64())
+        {
+            pRet = _pVar->getAs<UInt64>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isStruct())
+        {
+            Struct* pStr = _pVar->getAs<Struct>();
+            if (_pArgs->size() == 1 && (*_pArgs)[0]->isString())
+            {
+                //s("x") = y
+                String *pS = (*_pArgs)[0]->getAs<types::String>();
+                if (pS->isScalar() == false)
+                {
+                    //manage error
+                    std::wostringstream os;
+                    os << _W("Invalid Index.\n");
+                    throw ScilabError(os.str(), 999, e.location_get());
+                }
+
+                pStr->addField(pS->get(0));
+                pStr->get(0)->set(pS->get(0), _pInsert);
+                pRet = pStr;
+            }
+            else
+            {
+                pRet = pStr->insert(_pArgs, _pInsert);
+            }
+        }
+        else if (_pVar->isTList() || _pVar->isMList())
+        {
+            TList* pTL = _pVar->getAs<TList>();
+            if (_pArgs->size() == 1 && (*_pArgs)[0]->isString())
+            {
+                //s("x") = y
+                String *pS = (*_pArgs)[0]->getAs<types::String>();
+                if (pS->isScalar() == false)
+                {
+                    //manage error
+                    std::wostringstream os;
+                    os << _W("Invalid Index.\n");
+                    throw ScilabError(os.str(), 999, e.location_get());
+                }
+
+                if (pTL->exists(pS->get(0)))
+                {
+                    pTL->set(pS->get(0), _pInsert);
+                    pRet = pTL;
+                }
+                else
+                {
+                    //overload
+                }
+            }
+            else
+            {
+                if (_pVar->isTList())
+                {
+                    pRet = pTL->insert(_pArgs, _pInsert);
+                }
+                else //MList, call overload function
+                {
+                    //call overload function %typetoassign_i_mlisttype
+                    std::wstring stOverload = L"%" + _pInsert->getShortTypeStr() + L"_i_" +  pTL->getShortTypeStr();
+                    types::typed_list in;
+                    types::typed_list out;
+                    ExecVisitor exec;
+
+                    //firts argument: index
+                    for (int i = 0 ; i < _pArgs->size() ; i++)
+                    {
+                        (*_pArgs)[i]->IncreaseRef();
+                        in.push_back((*_pArgs)[i]);
+                    }
+
+                    //second argument: who ( var to insert )
+                    _pInsert->IncreaseRef();
+                    in.push_back(_pInsert);
+
+                    //third argument: me ( mlist or tlist )
+                    pTL->IncreaseRef();
+                    in.push_back(pTL);
+
+                    if (Overload::call(stOverload, in, 1, out, &exec) == Function::ReturnValue::Error)
+                    {
+                        //manage error
+                        std::wostringstream os;
+                        os << _W("Error in overload function: ") << stOverload << std::endl;
+                        throw ScilabError(os.str(), 999, e.location_get());
+                    }
+
+                    _pInsert->DecreaseRef();
+                    pTL->DecreaseRef();
+                    for (int i = 0 ; i < _pArgs->size() ; i++)
+                    {
+                        (*_pArgs)[i]->DecreaseRef();
+                    }
+
+                    pRet = out[0];
+                }
+            }
+        }
+        else if (_pVar->isList())
+        {
+            pRet = _pVar->getAs<List>()->insert(_pArgs, _pInsert);
+        }
+        else if (_pVar->isHandle())
+        {
+            if (_pArgs->size() == 1 && (*_pArgs)[0]->isString())
+            {
+                //s(["x"])
+                types::GraphicHandle* pH = _pVar->getAs<types::GraphicHandle>();
+                types::String *pS = (*_pArgs)[0]->getAs<types::String>();
+                typed_list in;
+                typed_list out;
+                optional_list opt;
+                ExecVisitor exec;
+
+                in.push_back(pH);
+                in.push_back(pS);
+                in.push_back(_pInsert);
+
+                Function* pCall = (Function*)symbol::Context::getInstance()->get(symbol::Symbol(L"set"));
+                Callable::ReturnValue ret =  pCall->call(in, opt, 1, out, &exec);
+                if (ret == Callable::OK)
+                {
+                    pRet = _pVar;
+                }
+            }
+            else
+            {
+                pRet = _pVar->getAs<types::GraphicHandle>()->extract(_pArgs);
+            }
+        }
+        else
+        {
+            //overloading
+            types::typed_list in;
+            types::typed_list out;
+            ExecVisitor exec;
+
+            //overload insertion
+            //%x_i_x(i1, i2, ..., in, source, dest)
+            //i1, ..., in : indexes
+            //dest : variable where to insert data
+            //source : data to insert
+
+            for (int i = 0 ; i < _pArgs->size() ; i++)
+            {
+                (*_pArgs)[i]->IncreaseRef();
+                in.push_back((*_pArgs)[i]);
+            }
+
+            _pInsert->IncreaseRef();
+            in.push_back(_pInsert);
+
+            _pVar->IncreaseRef();
+            in.push_back(_pVar);
+
+            //build function name
+            //a_i_b
+            //a : type to insert
+            //b : type that receive data
+            std::wstring function_name;
+            function_name = L"%" + _pInsert->getShortTypeStr() + L"_i_" + _pVar->getShortTypeStr();
+            Overload::call(function_name, in, 1, out, &exec);
+
+            _pVar->DecreaseRef();
+            _pInsert->DecreaseRef();
+            for (int i = 0 ; i < _pArgs->size() ; i++)
+            {
+                (*_pArgs)[i]->DecreaseRef();
+            }
+
+            if (out.size() != 0)
+            {
+                pRet = out[0];
+            }
+            else
+            {
+                pRet = NULL;
+            }
+        }
+
+        pOut = pRet;
+    }
+    return pOut;
 }
 
 void callOnPrompt(void)

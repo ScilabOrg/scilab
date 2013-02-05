@@ -25,19 +25,19 @@ EXTERN_AST bool bConditionState(types::InternalType *_pITResult);
 //EXTERN_AST void ExpandList(int ** _piList, int *_piListSize, int _iListSizeSize, int *_piResultList);
 
 EXTERN_AST types::InternalType* AddElementToVariable(
-						types::InternalType* _poDest,
-						types::InternalType* _poSource,
-						int _iRows, int _iCols);
+    types::InternalType* _poDest,
+    types::InternalType* _poSource,
+    int _iRows, int _iCols);
 
 EXTERN_AST types::InternalType* AddElementToVariableFromCol(
-                        types::InternalType* _poDest,
-                        types::InternalType* _poSource,
-                        int _iRows, int _iCols, int *_piCols);
+    types::InternalType* _poDest,
+    types::InternalType* _poSource,
+    int _iRows, int _iCols, int *_piCols);
 
 EXTERN_AST types::InternalType* AddElementToVariableFromRow(
-                        types::InternalType* _poDest,
-                        types::InternalType* _poSource,
-                        int _iRows, int _iCols, int *_piRows);
+    types::InternalType* _poDest,
+    types::InternalType* _poSource,
+    int _iRows, int _iCols, int *_piRows);
 
 EXTERN_AST const std::wstring* getStructNameFromExp(const ast::Exp* _pExp);
 
@@ -47,5 +47,6 @@ EXTERN_AST void callOnPrompt(void);
 
 EXTERN_AST types::List* getPropertyTree(ast::Exp* e, types::List* pList);
 
+EXTERN_AST types::InternalType* insertionCall(const ast::Exp& e, types::typed_list* _pArgs, types::InternalType* _pVar, types::InternalType* _pInsert);
 
 #endif //!AST_VISITOR_COMMON_HXX
