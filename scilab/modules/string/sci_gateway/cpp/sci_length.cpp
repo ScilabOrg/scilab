@@ -32,6 +32,8 @@
 #include "double.hxx"
 #include "funcmanager.hxx"
 #include "string_gw.hxx"
+#include "overload.hxx"
+#include "execvisitor.hxx"
 
 extern "C"
 {
@@ -54,21 +56,26 @@ Function::ReturnValue sci_length(typed_list &in, int _iRetCount, typed_list &out
 {
     Double* pOut = NULL;
 
-    if(in.size() != 1)
+    if (in.size() != 1)
     {
-        Scierror(999,_("%s: Wrong number of input arguments: %d expected.\n"), "length", 1);
+        Scierror(999, _("%s: Wrong number of input arguments: %d expected.\n"), "length", 1);
         return Function::Error;
     }
 
-    if(in[0]->isString())
+    if (in[0]->isString())
     {
         pOut = lengthStrings(in[0]->getAs<types::String>());
     }
-    else if(in[0]->isGenericType())
+    else if (in[0]->isTList() || in[0]->isMList())
+    {
+        std::wstring wstFuncName = L"%"  + in[0]->getShortTypeStr() + L"_length";
+        return Overload::call(wstFuncName, in, _iRetCount, out, new ExecVisitor());
+    }
+    else if (in[0]->isGenericType())
     {
         pOut = lengthMatrix(in[0]->getAs<GenericType>());
     }
-    else if(in[0]->isList())
+    else if (in[0]->isList())
     {
         pOut = lengthList(in[0]->getAs<List>());
     }
@@ -87,7 +94,7 @@ Function::ReturnValue sci_length(typed_list &in, int _iRetCount, typed_list &out
 /*--------------------------------------------------------------------------*/
 static Double* lengthStrings(String* _pS)
 {
-    if(_pS == NULL)
+    if (_pS == NULL)
     {
         return Double::Empty();
     }
@@ -95,16 +102,16 @@ static Double* lengthStrings(String* _pS)
     Double* pD = new Double(_pS->getRows(), _pS->getCols());
     double* pdblData = pD->getReal();
 
-    for(int i = 0 ; i < _pS->getSize() ; i++)
+    for (int i = 0 ; i < _pS->getSize() ; i++)
     {
         pdblData[i] = static_cast<double>(wcslen(_pS->get()[i]));
-   }
+    }
     return pD;
 }
 /*--------------------------------------------------------------------------*/
 static Double* lengthMatrix(GenericType* _pG)
 {
-    if(_pG == NULL)
+    if (_pG == NULL)
     {
         return Double::Empty();
     }
@@ -114,7 +121,7 @@ static Double* lengthMatrix(GenericType* _pG)
 /*--------------------------------------------------------------------------*/
 static Double* lengthList(List* _pL)
 {
-    if(_pL == NULL)
+    if (_pL == NULL)
     {
         return Double::Empty();
     }

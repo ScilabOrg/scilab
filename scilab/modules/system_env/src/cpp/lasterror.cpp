@@ -82,6 +82,21 @@ void setLastError(int _iError, const wchar_t* _pwstError, int _iLine, const wcha
     setLastErrorLine(_iLine);
     setLastErrorFunction(_pwstFunction);
 }
+
+void SetError()
+{
+    ConfigVariable::setError();
+}
+
+int isError()
+{
+    return ConfigVariable::isError() ? 1 : 0;
+}
+
+void resetError()
+{
+    ConfigVariable::resetError();
+}
 /*--------------------------------------------------------------------------*/
 void SetError()
 {
