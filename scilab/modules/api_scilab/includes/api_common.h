@@ -42,20 +42,20 @@ extern "C" {
     } StrCtx, *pStrCtx;
 #endif
 
-//#if SCI_VERSION_MAJOR < 6
-//    #ifdef _MSC_VER
-//     #ifndef API_SCILAB_EXPORTS
-//         __declspec( dllimport ) StrCtx* pvApiCtx;
-//        #else
-//        extern StrCtx* pvApiCtx;
-//     #endif
-//    #endif
-//#endif
+    //#if SCI_VERSION_MAJOR < 6
+    //    #ifdef _MSC_VER
+    //     #ifndef API_SCILAB_EXPORTS
+    //         __declspec( dllimport ) StrCtx* pvApiCtx;
+    //        #else
+    //        extern StrCtx* pvApiCtx;
+    //     #endif
+    //    #endif
+    //#endif
 
 #include "api_scilab.h"
     /* generics functions */
 
-/*Rhs*/
+    /*Rhs*/
     int* getNbInputArgument(void* _pvCtx);
 #define nbInputArgument(PVCTX) (*getNbInputArgument(PVCTX))
 
@@ -64,7 +64,7 @@ extern "C" {
 #endif
 #define Rhs (*getNbInputArgument(pvApiCtx))
 
-/*Lhs*/
+    /*Lhs*/
     int* getNbOutputArgument(void* _pvCtx);
 #define nbOutputArgument(PVCTX) (*getNbOutputArgument(PVCTX))
 #ifdef Lhs
@@ -72,7 +72,7 @@ extern "C" {
 #endif
 #define Lhs (*getNbOutputArgument(pvApiCtx))
 
-/*PutLhs*/
+    /*PutLhs*/
     int* assignOutputVariable(void* _pvCtx, int _iVal);
 #define AssignOutputVariable(PVCTX, x) (*assignOutputVariable(PVCTX, x))
 #ifdef LhsVar
@@ -80,7 +80,7 @@ extern "C" {
 #endif
 #define LhsVar(x) (*assignOutputVariable(pvApiCtx, x))
 
-/*PutLhsVar*/
+    /*PutLhsVar*/
     int returnArguments(void* _pvCtx);
 #define ReturnArguments(PVCTX) if (! returnArguments(PVCTX)) { return 0; }
 #ifdef PutLhsVar
@@ -183,6 +183,9 @@ extern "C" {
 #undef OverLoad
 #endif
 #define OverLoad(x) callOverloadFunction(pvApiCtx, x, fname, (unsigned int)strlen(fname))
+
+    int callScilabFunction(void* _pvCtx, char* _pstName, int _iStart, int _iLhs, int _iRhs);
+
     /**
      * Get the memory address of a variable from the variable position
      * @param[in] _iVar variable number
