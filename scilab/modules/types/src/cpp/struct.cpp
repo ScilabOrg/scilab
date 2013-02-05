@@ -250,7 +250,7 @@ SingleStruct* Struct::getNullValue()
 Struct* Struct::createEmpty(int _iDims, int* _piDims, bool _bComplex)
 {
     Struct* pStr = new Struct(_iDims, _piDims);
-    pStr->setCloneInCopyValue(m_bDisableCloneInCopyValue);
+    pStr->setCloneInCopyValue(!m_bDisableCloneInCopyValue);
     return pStr;
 }
 
@@ -379,6 +379,17 @@ bool Struct::toString(std::wostringstream& ostr)
     return true;
 }
 
+List* Struct::extractFieldWithoutClone(std::wstring _wstField)
+{
+    List* pL = new List();
+    for (int j = 0 ; j < getSize() ; j++)
+    {
+        pL->set(j, get(j)->get(_wstField));
+    }
+
+    return pL;
+}
+
 std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstFields)
 {
     std::vector<InternalType*> ResultList;
@@ -415,6 +426,7 @@ std::vector<InternalType*> Struct::extractFields(std::vector<std::wstring> _wstF
     }
     return ResultList;
 }
+
 
 std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
 {
@@ -508,6 +520,30 @@ std::vector<InternalType*> Struct::extractFields(typed_list* _pArgs)
     return ResultList;
 }
 
+bool Struct::resize(int _iNewRows, int _iNewCols)
+{
+    int piDims[2] = {_iNewRows, _iNewCols};
+    return resize(piDims, 2);
+}
+
+bool Struct::resize(int* _piDims, int _iDims)
+{
+    int iSize = getSize();
+    bool bRes = ArrayOf::resize(_piDims, _iDims);
+
+    // insert field(s) only in new element(s) of current struct
+    String* pFields = getFieldNames();
+    for (int iterField = 0; iterField < pFields->getSize(); iterField++)
+    {
+        for (int iterStruct = iSize; iterStruct < getSize(); iterStruct++)
+        {
+            get(iterStruct)->addField(pFields->get(iterField));
+        }
+    }
+
+    return bRes;
+}
+
 InternalType* Struct::insertWithoutClone(typed_list* _pArgs, InternalType* _pSource)
 {
     //std::wcout << L"insertWithoutClone start" << std::endl;
@@ -532,7 +568,7 @@ InternalType* Struct::extractWithoutClone(typed_list* _pArgs)
 
 void Struct::setCloneInCopyValue(bool _val)
 {
-    m_bDisableCloneInCopyValue = _val;
+    m_bDisableCloneInCopyValue = !_val;
 }
 
 }

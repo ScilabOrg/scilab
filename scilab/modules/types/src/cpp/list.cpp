@@ -107,6 +107,13 @@ void List::append(InternalType *_typedValue)
     m_iSize = static_cast<int>(m_plData->size());
 }
 
+void List::appendWithoutClone(InternalType *_typedValue)
+{
+    _typedValue->IncreaseRef();
+    m_plData->push_back(_typedValue);
+    m_iSize = static_cast<int>(m_plData->size());
+}
+
 /**
 ** Clone
 ** Create a new List and Copy all values.
@@ -318,6 +325,36 @@ InternalType* List::get(const int _iIndex)
         return (*m_plData)[_iIndex];
     }
     return NULL;
+}
+
+bool List::set(const int _iIndex, InternalType* _pIT)
+{
+    if (_iIndex < 0)
+    {
+        return false;
+    }
+
+    while (m_plData->size() <= _iIndex)
+    {
+        //incease list size and fill with "Undefined"
+        m_plData->push_back(new ListUndefined());
+        m_iSize = getSize();
+    }
+
+    //manage ref on the old value
+    InternalType* pOld = (*m_plData)[_iIndex];
+    if (pOld)
+    {
+        pOld->DecreaseRef();
+        if (pOld->isDeletable())
+        {
+            delete pOld;
+        }
+    }
+
+    _pIT->IncreaseRef();
+    (*m_plData)[_iIndex] = _pIT;
+    return true;
 }
 
 bool List::operator==(const InternalType& it)
