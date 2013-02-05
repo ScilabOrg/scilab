@@ -120,7 +120,6 @@ int TList::getIndexFromString(const std::wstring& _sKey)
 std::vector<InternalType*> TList::extractStrings(const std::list<std::wstring>& _stFields)
 {
     std::vector<InternalType*> Result;
-
     std::list<std::wstring>::const_iterator it;
     for (it = _stFields.begin() ; it != _stFields.end() ; it++)
     {
@@ -240,4 +239,4 @@ bool TList::toString(std::wostringstream& ostr)
     free(wcsVarName);
     return true;
 }
-}
+} // end namespace types

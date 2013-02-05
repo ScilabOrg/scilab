@@ -13,6 +13,7 @@
 #ifndef __STRUCT_HXX__
 #define __STRUCT_HXX__
 
+#include "list.hxx"
 #include "arrayof.hxx"
 #include "singlestruct.hxx"
 #include "dynlib_types.h"
@@ -82,6 +83,7 @@ public :
     bool                        exists(const std::wstring& _sKey);
     bool                        addField(const std::wstring& _sKey);
     bool                        toString(std::wostringstream& ostr);
+    List*                       extractFieldWithoutClone(std::wstring _wstField);
     std::vector<InternalType*>  extractFields(std::vector<std::wstring> _wstFields);
     std::vector<InternalType*>  extractFields(typed_list* _pArgs);
 

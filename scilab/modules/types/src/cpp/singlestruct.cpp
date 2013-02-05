@@ -87,24 +87,28 @@ bool SingleStruct::set(const std::wstring& _sKey, InternalType *_typedValue)
         return false;
     }
 
-    /* Look if we are replacing some existing value */
-    if (m_Data[index] != NULL)
+    InternalType* pOld = m_Data[index];
+    if (pOld != _typedValue)
     {
-        m_Data[index]->DecreaseRef();
-        if (m_Data[index]->isDeletable())
+        /* Look if we are replacing some existing value */
+        if (pOld != NULL)
         {
-            delete m_Data[index];
+            pOld->DecreaseRef();
+            if (pOld->isDeletable())
+            {
+                delete pOld;
+            }
         }
-    }
 
-    if (_typedValue)
-    {
-        _typedValue->IncreaseRef();
-        m_Data[index] = _typedValue;
-    }
-    else
-    {
-        m_Data[index] = NULL;
+        if (_typedValue)
+        {
+            _typedValue->IncreaseRef();
+            m_Data[index] = _typedValue;
+        }
+        else
+        {
+            m_Data[index] = NULL;
+        }
     }
     return true;
 }
