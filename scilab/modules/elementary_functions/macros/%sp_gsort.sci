@@ -41,7 +41,6 @@ function [A, k] = %sp_gsort(A, optsort, directionsort)
         error(999,msprintf(_("%s: Wrong size for input argument #%d: sparse vectors expected.\n"), 'gsort', 1));
     end
 
-
     if mn(1) == 1 then
         // if A is a row vector and optsort = 'r', the result is the 
         // first input argument
@@ -60,7 +59,9 @@ function [A, k] = %sp_gsort(A, optsort, directionsort)
             if lhs == 1 then
                 v = gsort(v', optsort, directionsort);
             else
-                [v, k] = gsort(v', optsort, directionsort);
+                Atemp=full(A);
+                [vfaux, k] =gsort(Atemp, optsort, directionsort);
+                [v, kfaux] = gsort(v', optsort, directionsort);
             end
 
             //Obtain the indices corresponding to positive values of v
