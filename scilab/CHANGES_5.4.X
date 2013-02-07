@@ -339,6 +339,8 @@ Bug fixes
 
 * Bug #12247 fixed - Fix a typo in some error messages.
 
+* Bug #12284 fixed - Completion in console could to a crash (or deadlock).
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
