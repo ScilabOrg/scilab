@@ -36,6 +36,8 @@
 #include "setGraphicObjectProperty.h"
 #include "getGraphicObjectProperty.h"
 
+#include "RaiseWindow.h"
+
 
 /*-------------------------------------------------------------------------------------*/
 static int moveObj(char* pobjUID, double displacement[], int displacementSize);
@@ -418,38 +420,38 @@ static int moveObj(char* pobjUID, double displacement[], int displacementSize)
     Scierror(999, _("This object can not be moved.\n"));
     return -1;
     /*
-        getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_X__, jni_int, (void**)&piNumX);
-        getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_Y__, jni_int, (void**)&piNumY);
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_X__, jni_int, (void**)&piNumX);
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_Y__, jni_int, (void**)&piNumY);
 
-        getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_X__, jni_double_vector, (void **)&dataX);
-        getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Y__, jni_double_vector, (void **)&dataY);
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_X__, jni_double_vector, (void **)&dataX);
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Y__, jni_double_vector, (void **)&dataY);
 
-        // X
-        for (i = 0 ; i < iNumX ; ++i)
-        {
-            dataX[i] += x;
-        }
-        setGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_X__, dataX, jni_double_vector, iNumX);
+      // X
+      for (i = 0 ; i < iNumX ; ++i)
+      {
+      dataX[i] += x;
+      }
+      setGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_X__, dataX, jni_double_vector, iNumX);
 
-        // Y
-        for (i = 0 ; i < iNumY ; ++i)
-        {
-            dataY[i] += y;
-        }
-        setGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Y__, dataY, jni_double_vector, iNumY);
+      // Y
+      for (i = 0 ; i < iNumY ; ++i)
+      {
+      dataY[i] += y;
+      }
+      setGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Y__, dataY, jni_double_vector, iNumY);
 
-        // Z if needed
-        if (displacementSize == 3)
-        {
-            getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_Z__, jni_int, (void**)&piNumZ);
-            getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Z__, jni_double_vector, (void **)&dataZ);
-            for (i = 0 ; i < iNumZ ; ++i)
-            {
-                dataZ[i] += z;
-            }
-        }
+      // Z if needed
+      if (displacementSize == 3)
+      {
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_NUM_Z__, jni_int, (void**)&piNumZ);
+      getGraphicObjectProperty(pobjUID, __GO_DATA_MODEL_Z__, jni_double_vector, (void **)&dataZ);
+      for (i = 0 ; i < iNumZ ; ++i)
+      {
+      dataZ[i] += z;
+      }
+      }
 
-        return 0;
+      return 0;
     */
 
     return 0;
@@ -463,6 +465,6 @@ int Objmove (char *pobjUID, double d[], int m, BOOL opt)
 /*---------------------------------------------------------------------------------*/
 void showWindow(char * pFigureUID)
 {
-    // @TODO: Call SwingView to raise window.
+    raiseWindow(pFigureUID);
 }
 
