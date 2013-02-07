@@ -17,6 +17,7 @@
 package org.scilab.modules.gui.bridge;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -48,6 +49,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.scilab.modules.commons.ScilabCommons;
+import org.scilab.modules.commons.gui.ScilabGUIUtilities;
 import org.scilab.modules.console.SciConsole;
 import org.scilab.modules.graphic_export.FileExporter;
 import org.scilab.modules.graphic_objects.figure.Figure;
@@ -3094,7 +3096,17 @@ public class CallScilabBridge {
         } else {
             ((Widget) uicontrol).requestFocus();
         }
+    }
 
+    /**
+     * Raise the window specified by the user
+     * @param id the id of the figure
+     */
+    public static void raiseWindow(String id) {
+        SwingViewObject c = SwingView.getFromId(id);
+        if (c instanceof Component) {
+            ScilabGUIUtilities.toFront((Component) c);
+        }
     }
 
     /**

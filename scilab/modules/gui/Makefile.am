@@ -130,7 +130,8 @@ src/jni/LookAndFeelManager.cpp \
 src/jni/Juigetfile.cpp \
 src/cpp/CallJuigetfile.cpp \
 src/cpp/displaytree.cpp \
-src/jni/ScilabDisplayTree.cpp
+src/jni/ScilabDisplayTree.cpp \
+src/cpp/RaiseWindow.cpp
 
 GIWS_WRAPPERS = \
 src/jni/SwingView.giws.xml \

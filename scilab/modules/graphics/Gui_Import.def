@@ -66,3 +66,4 @@ SetUicontrolString
 SetUicontrolTooltipString
 SetUimenuLabel
 SetUiobjectEnable
+raiseWindow

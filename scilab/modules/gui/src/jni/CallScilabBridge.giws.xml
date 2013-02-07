@@ -208,6 +208,9 @@
     <method name="raiseWindow" returnType="void" modifier="static">
       <parameter type="int" name="objID"/>
     </method>
+    <method name="raiseWindow" returnType="void" modifier="static">
+      <parameter type="String" name="id"/>
+    </method>
     <method name="useCanvasForDisplay" returnType="void" modifier="static">
       <parameter type="boolean" name="onOrOff"/>
     </method>
