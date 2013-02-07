@@ -337,6 +337,8 @@ Bug fixes
 
 * Bug #12240 fixed - Refactoring of the eigs function.
 
+* Bug #12246 fixed - Display an error message when reading invalid excel files (which have wrong colum or row count)
+
 * Bug #12247 fixed - Fix a typo in some error messages.
 
 
