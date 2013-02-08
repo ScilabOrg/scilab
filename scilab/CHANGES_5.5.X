@@ -35,4 +35,11 @@ Obsolete
 Xcos
 ====
 
-* Update Sundials to lastest "2.5.0", keeping our modifications
+* Updated Sundials to lastest "2.5.0", keeping our modifications
+
+
+ODEPACK
+========
+
+* New differential-algebraic system solver with rootfinding 'daskr', using BDF methods with direct and preconditioned Krylov linear solvers, based on ODEPACK.
+
