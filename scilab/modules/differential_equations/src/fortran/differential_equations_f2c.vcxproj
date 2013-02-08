@@ -273,6 +273,7 @@ cd ..
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_bvode.c" />
+    <ClCompile Include="..\..\sci_gateway\fortran\sci_f_daskr.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_dasrt.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_dassl.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\sci_f_feval.c" />
@@ -301,6 +302,7 @@ cd ..
     <ClCompile Include="colnew.c" />
     <ClCompile Include="..\c\commons_f2c.c" />
     <ClCompile Include="dcutet.c" />
+    <ClCompile Include="ddaskr.c" />
     <ClCompile Include="ddasrt.c" />
     <ClCompile Include="ddassl.c" />
     <ClCompile Include="dgbsl.c" />
@@ -309,6 +311,7 @@ cd ..
     <ClCompile Include="epsalg.c" />
     <ClCompile Include="ewset.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\Ex-bvode.c" />
+    <ClCompile Include="..\..\sci_gateway\fortran\Ex-daskr.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\Ex-dasrt.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\Ex-dassl.c" />
     <ClCompile Include="..\..\sci_gateway\fortran\Ex-impl.c" />
