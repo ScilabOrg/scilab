@@ -62,6 +62,8 @@ src/fortran/vmnorm.f \
 src/fortran/prepj.f \
 src/fortran/lsdisc.f \
 src/fortran/fnorm.f \
+src/fortran/ddaskr.f \
+src/fortran/daux.f \
 src/fortran/ddasrt.f \
 src/fortran/stodi.f \
 src/fortran/xsetun.f \
@@ -90,6 +92,7 @@ sci_gateway/c/sci_bvode.c \
 sci_gateway/c/gw_differential_equations6.c
 
 GATEWAY_FORTRAN_SOURCES = \
+sci_gateway/fortran/sci_f_daskr.f \
 sci_gateway/fortran/sci_f_dasrt.f \
 sci_gateway/fortran/sci_f_feval.f \
 sci_gateway/fortran/sci_f_odedc.f \
@@ -120,6 +123,7 @@ sci_gateway/fortran/Ex-impl.f \
 sci_gateway/fortran/Ex-int2d.f \
 sci_gateway/fortran/Ex-int3d.f \
 sci_gateway/fortran/Ex-intg.f \
+sci_gateway/fortran/Ex-daskr.f \
 sci_gateway/fortran/Ex-dasrt.f \
 sci_gateway/fortran/Ex-dassl.f \
 sci_gateway/fortran/Ex-bvode.f \
