@@ -216,6 +216,7 @@ lib /DEF:"$(ProjectDir)differential_equations_f_Import.def" /SUBSYSTEM:WINDOWS /
     <ClCompile Include="..\..\sci_gateway\c\sci_intg.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_odc.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_ode.c" />
+    <ClCompile Include="..\..\sci_gateway\c\sci_daskr.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arnol.h" />

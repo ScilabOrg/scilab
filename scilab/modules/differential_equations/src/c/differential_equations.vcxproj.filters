@@ -101,6 +101,9 @@
     <ClCompile Include="..\..\sci_gateway\c\sci_ode.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sci_gateway\c\sci_daskr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arnol.h">

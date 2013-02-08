@@ -144,6 +144,8 @@ lib /DEF:&quot;$(InputDir)core_f_Import.def&quot; /SUBSYSTEM:WINDOWS /MACHINE:X6
 			<FileConfiguration Name="Release|Win32">
 				<Tool Name="VFFortranCompilerTool" Optimization="optimizeDisabled"/></FileConfiguration></File>
 		<File RelativePath=".\dcutet.f"/>
+		<File RelativePath=".\ddaskr.f"/>
+		<File RelativePath=".\daux.f"/>
 		<File RelativePath=".\ddasrt.f"/>
 		<File RelativePath=".\ddassl.f"/>
 		<File RelativePath=".\dgbsl.f"/>
