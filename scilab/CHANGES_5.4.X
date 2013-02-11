@@ -206,6 +206,8 @@ Bug fixes
 
 * Bug #9934 fixed - clear([["A","B"]) returns a non standard error message.
 
+* Bug #9935 fixed - clear() does not clear all variables.
+
 * Bug #10278 fixed - clear(1) returns a wrong error message.
 
 * Bug #10606 fixed - unix_g did not return stdout in somes cases.
