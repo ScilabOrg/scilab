@@ -7,6 +7,8 @@
 // <-- CLI SHELL MODE -->
 //
 
+// <-- JVM NOT MANDATORY -->
+
 A = 2;
 B = 4;
 C = 6;
@@ -37,8 +39,13 @@ assert_checkequal (msg_err, msg_ref);
 
 ierr = execstr("clear(1)", "errcatch");
 assert_checkequal(ierr, 201);
-msg_ref = msprintf(gettext("%s: Wrong type for argument #%d: String matrix expected.\n"), "clear", 1);
+msg_ref = msprintf(gettext("%s: Wrong type for argument %d: Valid variable name expected.\n"), "clear", 1);
 assert_checkerror ("clear(1)", msg_ref);
 
 ierr = execstr("clear toto", "errcatch");
 assert_checkequal(ierr, 0);
+
+ierr = execstr("clear(""to+to"")", "errcatch");
+assert_checkequal(ierr, 201);
+msg_ref = msprintf(gettext("%s: Wrong value for argument %d: Valid variable name expected.\n"), "clear", 1);
+assert_checkerror ("clear(""to+to"")", msg_ref);
