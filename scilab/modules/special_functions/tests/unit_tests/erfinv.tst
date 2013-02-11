@@ -524,4 +524,3 @@ endfunction
 y=erfinv(Xr);
 k=find(abs(Yr)>0);
 if norm((Yr(k)-y(k))./Yr(k),1) >1d-12 then pause,end
-
