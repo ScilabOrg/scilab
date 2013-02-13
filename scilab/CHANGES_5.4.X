@@ -359,6 +359,9 @@ Bug fixes
 
 * Bug #12284 fixed - Completion in console could to a crash (or deadlock).
 
+* Bug #12296 fixed - Call to getenv with a big environment variable
+                     led to memory corruption.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
