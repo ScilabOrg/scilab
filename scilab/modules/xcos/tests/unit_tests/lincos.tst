@@ -7,8 +7,11 @@
 // =============================================================================
 
 // <-- ENGLISH IMPOSED -->
+// <-- XCOS TEST -->
+
 
 ilib_verbose(0);
+funcprot(0);
 
 exec("SCI/modules/xcos/tests/unit_tests/PENDULUM_ANIM.sci");
 exec("SCI/modules/xcos/tests/unit_tests/anim_pen.sci");
@@ -18,6 +21,8 @@ M  = 10;
 m  = 3;
 l  = 3;
 ph = 0.1;
+z0 = -4;
+th0 = .02;
 
 for i=1:length(scs_m.objs)
     if typeof(scs_m.objs(i))=="Block" & scs_m.objs(i).gui=="SUPER_f" then
@@ -28,7 +33,7 @@ end
 
 // scs_m is the top SUPER_f;
 [X,U,Y,XP] = steadycos(scs_m,[],[],[],[],1,1:$);
-sys        = lincos(scs_m,X,U);
+sys        = lincos(scs_m);
 
 // valid results
 A_ref = [..
