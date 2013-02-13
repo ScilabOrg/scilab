@@ -27,7 +27,7 @@ Improvements
  - xcos
    xcos modules/xcos/examples/integral.xcos will open the integral Xcos
    schema
-   If the file does not exist, propose to create it.
+   If the file does not exist, propose to create it.CHANGES_5.4.X
 
 
 Removed functions
@@ -362,6 +362,9 @@ Bug fixes
 * Bug #12284 fixed - Completion in console could to a crash (or deadlock).
 
 * Bug #12285 fixed - export_to_hdf5 function could not handle any matrix in append mode.
+
+* Bug #12296 fixed - Call to getenv with a big environment variable
+                     led to memory corruption.
 
 * Bug #12304 fixed - Undock, redock and undock led to an exception.
 
