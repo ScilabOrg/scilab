@@ -16,7 +16,6 @@ import org.scilab.forge.scirenderer.Drawer;
 import org.scilab.forge.scirenderer.DrawingTools;
 import org.scilab.forge.scirenderer.SciRendererException;
 import org.scilab.forge.scirenderer.buffers.ElementsBuffer;
-import org.scilab.forge.scirenderer.implementation.jogl.JoGLCanvas;
 import org.scilab.forge.scirenderer.shapes.appearance.Appearance;
 import org.scilab.forge.scirenderer.shapes.geometry.DefaultGeometry;
 import org.scilab.forge.scirenderer.shapes.geometry.Geometry;
@@ -116,12 +115,12 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
                                                                                           GraphicObjectProperties.__GO_ID__
                                                                                           ));
 
-    private static final boolean DEBUG_MODE = false;
+    private static final boolean DEBUG_MODE = true;
 
     private final Component component;
     private final Canvas canvas;
     private final Figure figure;
-    private final InteractionManager interactionManager;
+    private InteractionManager interactionManager;
 
     private final ColorMapTextureDataProvider colorMapTextureDataProvider;
 
@@ -153,6 +152,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private final List<PostRendered> postRenderedList = new LinkedList<PostRendered>();
 
     public DrawerVisitor(Component component, Canvas canvas, Figure figure) {
+        System.err.println("[DEBUG] Register DrawerVisitor for figure "+figure.getIdentifier());
         GraphicController.getController().register(this);
 
         this.component = component;
@@ -269,6 +269,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         figure.accept(this);
 
         for (PostRendered postRendered : postRenderedList) {
+            System.err.println("[DEBUG] postRendered: "+postRendered.toString());
             try {
                 postRendered.draw(drawingTools);
             } catch (SciRendererException e) {
@@ -932,6 +933,12 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
 
     @Override
     public void deleteObject(String id) {
+        //System.err.println("[DEBUG] DrawerVisitor figureUID="+figure.getIdentifier());
+        //System.err.println("[DEBUG] DrawerVisitor deleteObject id="+id);
+        if (!figure.getIdentifier().equals(id)) {
+            //System.err.println("[DEBUG] That's not me... go away...");
+            return;
+        }
         dataManager.dispose(id);
         markManager.dispose(id);
         textManager.dispose(id);
@@ -940,7 +947,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
         legendDrawer.dispose(id);
         fecDrawer.dispose(id);
         textureManager.dispose(id);
-
+        interactionManager = null;
         GraphicObject object = GraphicController.getController().getObjectFromId(id);
         if (object instanceof Figure && visitorMap.containsKey(id)) {
             visitorMap.remove(id);

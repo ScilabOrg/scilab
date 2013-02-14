@@ -83,7 +83,7 @@ public class SwingScilabCanvas extends JPanel implements SimpleCanvas {
         super(new PanelLayout());
         this.figure = figure;
 
-        drawableComponent = SwingScilabCanvasImpl.getInstance().createOpenGLComponent();
+        drawableComponent = SwingScilabCanvasImpl.getInstance().createOpenGLComponent(figure.getIdentifier());
 
         drawableComponent.setEnabled(true);
         drawableComponent.setVisible(true);

@@ -17,7 +17,6 @@ import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
 import java.awt.event.MouseEvent;
 
-import org.scilab.modules.gui.utils.Debug;
 import org.scilab.modules.gui.utils.SciTranslator;
 
 /**
@@ -46,7 +45,6 @@ public abstract class GlobalMouseEventWatcher implements AWTEventListener {
      */
     public GlobalMouseEventWatcher(long eventMask) {
         this.eventMask = eventMask;
-        //this.canvas = null;
         clickTranslator = new SciTranslator();
     }
 
@@ -59,7 +57,7 @@ public abstract class GlobalMouseEventWatcher implements AWTEventListener {
      */
     public void eventDispatched(AWTEvent mouseEvent) {
         // DEBUG
-        //Debug.DEBUG(this.getClass().getSimpleName(),((MouseEvent) mouseEvent).toString());
+        System.err.println("[DEBUG] global event:"+((MouseEvent) mouseEvent).toString());
         //if (this.axes != null) {
             //Debug.DEBUG("axes number " + this.axes.getFigureId());
         //}

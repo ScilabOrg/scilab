@@ -38,7 +38,7 @@ public class GraphicController {
 
     private static boolean MVCViewEnable = false;
     private static boolean debugEnable = true;
-    private static boolean infoEnable = false;
+    private static boolean infoEnable = true;
 
     private static void INFO(String message)
         {
@@ -75,7 +75,7 @@ public class GraphicController {
             register(FlattenTreeView.create());
         }
         if (infoEnable) {
-            register(LogView.createLogView());
+            //register(LogView.createLogView());
         }
     }
 
@@ -97,8 +97,9 @@ public class GraphicController {
      * @param view The view to register.
      */
     public void register(GraphicView view) {
-        INFO("Register view : " + view.toString());
+        INFO("Register view : " + view.getClass().getCanonicalName());
         allViews.add(view);
+        INFO("Register view : allViews = " + allViews.size());
     }
 
     /**
@@ -106,8 +107,12 @@ public class GraphicController {
      * @param view The view to unregister.
      */
     public void unregister(GraphicView view) {
-        INFO("Unregister view : " + view.toString());
+        INFO("Unregister view : " + view.getClass().getCanonicalName());
         allViews.remove(view);
+        INFO("Unregister view : allViews = " + allViews.size());
+        for (final GraphicView iview : allViews) {
+            INFO("Unregister view : allViews = "+iview.getClass().getCanonicalName());
+        }
     }
 
     /**

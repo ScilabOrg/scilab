@@ -15,7 +15,6 @@ package org.scilab.modules.gui.bridge.canvas;
 
 import java.awt.Component;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.StringTokenizer;
@@ -204,7 +203,13 @@ public class SwingScilabCanvasImpl {
      */
     private final class SafeGLJPanel extends GLJPanel {
         private static final long serialVersionUID = -6166986369022555750L;
-
+        private String figureUID;
+        
+        public SafeGLJPanel(String figureUID) {
+            super();
+            this.figureUID = figureUID;
+        }
+        
         public void display() {
             try {
                 super.display();
@@ -217,6 +222,17 @@ public class SwingScilabCanvasImpl {
             }
         }
 
+        protected void dispose() {
+            System.err.println("[DEBUG] Calling dispose on SafeGLJPanel: "+figureUID);
+            super.dispose();
+            //Thread.dumpStack();
+        }
+        
+        protected void finalize() throws Throwable {
+            System.err.println("[DEBUG] Calling finalize on SafeGLJPanel: "+figureUID);
+            super.finalize();
+        }
+        
         // protected void paintComponent(final Graphics g) {
         //     try {
         //         super.paintComponent(g);
@@ -246,11 +262,11 @@ public class SwingScilabCanvasImpl {
         return me;
     }
 
-    public Component createOpenGLComponent() {
+    public Component createOpenGLComponent(String figureUID) {
         if (enableGLCanvas) {
             return new SafeGLCanvas();
         } else {
-            return new SafeGLJPanel();
+            return new SafeGLJPanel(figureUID);
         }
     }
 
