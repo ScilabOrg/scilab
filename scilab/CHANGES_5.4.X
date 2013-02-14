@@ -359,6 +359,8 @@ Bug fixes
 
 * Bug #12284 fixed - Completion in console could to a crash (or deadlock).
 
+* Bug #12285 fixed - export_to_hdf5 function could not handle any matrix in append mode.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
