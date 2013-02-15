@@ -284,6 +284,8 @@ Bug fixes
 
 * Bug #12043 fixed - Fix a typo in the ATOMS module help pages.
 
+* Bug #12045 fixed - repmat returned wrong result if numbers of input matrix were note double.
+
 * Bug #12050 fixed - Fix a typo: dimensionnal => dimensional.
 
 * Bug #12062 fixed - getsystemmetrics() failed for some properties such as 'SM_CXMAXIMIZED'.
