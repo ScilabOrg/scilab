@@ -355,6 +355,8 @@ Bug fixes
 
 * Bug #12247 fixed - Fix a typo in some error messages.
 
+* Bug #12270 fixed - When the console lost the focus, the caret could be visible.
+
 * Bug #12272 fixed - Fix a presentation of Cyrillic letters on sample images of russian help page for grand function.
 
 * Bug #12284 fixed - Completion in console could to a crash (or deadlock).
