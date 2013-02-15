@@ -425,7 +425,9 @@ Bug fixes
 
 * Bug #12043 fixed - Typo in the ATOMS module help pages fixed.
 
-* Bug #12050 fixed - Typo dimensionnal => dimensional fixed.
+* Bug #12045 fixed - repmat returned wrong result if numbers of input matrix were not double.
+
+* Bug #12050 fixed - Fix a typo: dimensionnal => dimensional.
 
 * Bug #12059 fixed - Indices returned by gsort were wrong for sparse matrices.
 
