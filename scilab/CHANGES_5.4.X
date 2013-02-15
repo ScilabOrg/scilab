@@ -276,6 +276,8 @@ Bug fixes
 
 * Bug #12003 fixed - Fix a typo in the spreadsheet module.
 
+* Bug #12020 fixed - Default value of ncv in eigs  function was not documented.
+
 * Bug #12022 fixed - ftuneq had a bad example.
 
 * Bug #12028 fixed - The pair drawlater/drawnow did not work as expected.
