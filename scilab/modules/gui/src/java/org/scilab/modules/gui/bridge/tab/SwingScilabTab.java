@@ -1142,12 +1142,13 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      */
     @Override
     public void setMenuBar(MenuBar newMenuBar) {
-        if (this.menuBar != null) {
-            ((SwingScilabMenuBar) this.menuBar.getAsSimpleMenuBar()).close();
-        }
-        this.menuBar = newMenuBar;
+	if (this.menuBar != newMenuBar) {
+	    if (this.menuBar != null) {
+		((SwingScilabMenuBar) this.menuBar.getAsSimpleMenuBar()).close();
+	    }
+	    this.menuBar = newMenuBar;
+	}
     }
-
 
     /**
      * Getter for MenuBar
@@ -1166,10 +1167,12 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      */
     @Override
     public void setToolBar(ToolBar newToolBar) {
-        if (this.toolBar != null) {
-            ((SwingScilabToolBar) this.toolBar.getAsSimpleToolBar()).close();
-        }
-        this.toolBar = newToolBar;
+	if (this.toolBar != newToolBar) {
+	    if (this.toolBar != null) {
+		((SwingScilabToolBar) this.toolBar.getAsSimpleToolBar()).close();
+	    }
+	    this.toolBar = newToolBar;
+	}
     }
 
     /**
@@ -1188,7 +1191,7 @@ public class SwingScilabTab extends View implements SwingViewObject, SimpleTab, 
      */
     @Override
     public void setInfoBar(TextBox newInfoBar) {
-        this.infoBar = newInfoBar;
+	this.infoBar = newInfoBar;
     }
 
     /**
