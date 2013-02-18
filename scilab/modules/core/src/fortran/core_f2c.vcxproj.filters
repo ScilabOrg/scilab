@@ -165,9 +165,6 @@
     <ClCompile Include="isinstring.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="isnum.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="istrue.c">
       <Filter>Source Files</Filter>
     </ClCompile>
