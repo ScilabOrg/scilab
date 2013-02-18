@@ -13,7 +13,7 @@ c!purpose
 c
 c     dad compute the matrix product a=d*a or a=a*d
 c     where d is the matrix with ones on the anti-
-c     diagonal and a the input matrix. it also
+c     diagonal and the input matrix. it also
 c     multiplies each element of the product with
 c     the constant r
 c!calling sequence
