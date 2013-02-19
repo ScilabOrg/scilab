@@ -198,6 +198,8 @@ lib /DEF:"$(ProjectDir)slatec_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_faddeeva.cpp" />
+    <ClCompile Include="..\cpp\faddeeva.cpp" />
     <ClCompile Include="DllmainSpecial_functions.c" />
     <ClCompile Include="..\..\sci_gateway\c\gw_special_functions.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_besselh.c" />
@@ -206,7 +208,6 @@ lib /DEF:"$(ProjectDir)slatec_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
     <ClCompile Include="..\..\sci_gateway\c\sci_besselk.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_bessely.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_beta.c" />
-    <ClCompile Include="..\..\sci_gateway\c\sci_calerf.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_dlgamma.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_gamma.c" />
     <ClCompile Include="..\..\sci_gateway\c\sci_legendre.c" />
@@ -216,6 +217,8 @@ lib /DEF:"$(ProjectDir)slatec_f_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Platfo
   <ItemGroup>
     <ClInclude Include="..\..\includes\dynlib_special_functions.h" />
     <ClInclude Include="..\..\includes\gw_special_functions.h" />
+    <ClInclude Include="..\..\sci_gateway\cpp\sci_faddeeva.hxx" />
+    <ClInclude Include="..\cpp\faddeeva.h" />
     <ClInclude Include="zbeshv.h" />
   </ItemGroup>
   <ItemGroup>

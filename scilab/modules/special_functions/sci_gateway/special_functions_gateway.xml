@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <!DOCTYPE module SYSTEM "../../functions/xml/gateway.dtd">
 <!--
 /*
@@ -12,6 +13,13 @@
  *  http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
+=======
+
+<!DOCTYPE GATEWAY SYSTEM "../../functions/xml/gateway.dtd">
+<GATEWAY name="special_functions">
+    <!-- =================== -->
+    <!--
+>>>>>>> origin/master
  Scilab
  Interface description. In this file, we define the list of the function which
  will be available into Scilab and the link to the "native" function.
@@ -29,5 +37,9 @@
     <gateway name="sci_gamma"           function="gamma"        type="0" />
     <gateway name="sci_gammaln"         function="gammaln"      type="0" />
     <gateway name="sci_dlgamma"         function="dlgamma"      type="0" />
-    <gateway name="sci_calerf"          function="calerf"       type="0" />
+    <gateway name="sci_Faddeeva_erf"    function="dawson"       type="0" />
+    <gateway name="sci_Faddeeva_erfc"   function="dawson"       type="0" />
+    <gateway name="sci_Faddeeva_erfcx"  function="dawson"       type="0" />
+    <gateway name="sci_Faddeeva_erfi"   function="dawson"       type="0" />
+    <gateway name="sci_Faddeeva_dawson" function="dawson"       type="0" />
 </module>
