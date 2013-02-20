@@ -179,6 +179,8 @@ Bug fixes
 * Bug #6890 fixed - Strings were exported as shapes rather than Postscript
                     strings in EPS/PS export.
 
+* Bug #7058 fixed - There was an error in mathml formula in beta function help.
+
 * Bug #7190 fixed - is_absolute_path was not documented.
 
 * Bug #7583 fixed - binomial function moved in the distribution function
