@@ -368,8 +368,12 @@ function [AAeq,bbeq,cc,xx0,pinit,newposvars] = karmarkar_preprocess ( Aeq , beq 
         bbeq = [beq;b]
         cc = [c;-c;zeros(ni,1)]
         newposvars = %t
-        if ( x0 == [] ) then
-            xx0 = []
+        p=size(AAeq,2);
+        //Cases of x0==[] and x0==ones(:,1) are computed in the same way:
+        //In fact, the program (in find_StandardLP) which computes the xopt1
+        //starts with: x0=ones(:,1).
+        if ( x0 == [] | x0 ==ones(:,1)) then
+            xx0 = ones(p+1,1);
         else
             xx0 = zeros(2*pinit+ni,1)
             xx0(1:pinit) = max(x0,0)
@@ -380,6 +384,7 @@ function [AAeq,bbeq,cc,xx0,pinit,newposvars] = karmarkar_preprocess ( Aeq , beq 
             end
             xx0(2*pinit+1:2*pinit+ni) = s
         end
+    
     end
 endfunction
 
@@ -457,10 +462,11 @@ function [xopt,fopt,exitflag,iter,yopt] = karmarkar_findStandardLP ( Aeq , beq ,
     // Aeq*x = beq
     // x >= 0
     //
-    // If x0 is the empty matrix, compute a strictly feasible point.
+    // If x0 is the empty matrix or x0=ones(:,1), compute a strictly feasible point.
     //
     [ne,p]=size(Aeq)
-    if ( x0 == [] ) then
+       
+      if (x0 == ones(:,1) | x0 == []) then
         //
         // Compute a strictly feasible point.
         //
@@ -488,7 +494,10 @@ function [xopt,fopt,exitflag,iter,yopt] = karmarkar_findStandardLP ( Aeq , beq ,
         s = beq - Aeq*ones(p,1)
         AAeq = [Aeq,s]
         cc = [zeros(p,1);1]
-        xx0 = ones(p+1,1)
+        xx0=x0;
+        if x0 == [] then //case of Ax=B
+            xx0=ones(p+1,1);
+        end
         step = 1
         xfeasmax = %eps
         iterstart = 0
@@ -727,5 +736,3 @@ function stop = karmarkar_outfunDriver ( xopt , optimValues , state , outfun )
         stop = %f
     end
 endfunction
-
-

@@ -1,0 +1,54 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- Non-regression test for bug 12008 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=12008
+//
+// <-- Short Description -->
+// Karmarkar function fails when given initial guess.
+
+AA= [   
+   0.3627   0.1742   0.0618   0.0056  -0.59495  
+  -0.3174  -0.1805  -0.0681  -0.0119   0.57642  
+   1.       0.       0.       0.       0.       
+   0.       1.       0.       0.       0.       
+   0.       0.       1.       0.       0.       
+   0.       0.       0.       1.       0.       
+  -1.       0.       0.       0.       1.       
+   0.      -1.       0.       0.       1.       
+   0.       0.      -1.       0.       1.       
+   0.       0.       0.      -1.       1.       
+   0.       0.       0.       0.       1.       
+   0.       0.       0.       0.      -1.       
+];
+BB= [
+    0.0093501  
+  - 0.0014799  
+    1.0000002  
+    1.0000002  
+    1.0000002  
+    1.0000002  
+    1.000D-07  
+    1.000D-07  
+    1.000D-07  
+    1.000D-07  
+    1.0000002  
+    1.000D-07 
+];
+CC=[0;0;0;0;1];
+x0=ones(5,1);
+assert_checktrue(AA*x0 < BB);
+
+[Xopt,fopt,exitflag,iter,yopt]=karmarkar([],[],CC,x0,[],[],[],[],AA,BB);
+assert_checkequal(exitflag,1);
+Xalt=[0;0.05367;0;0;0];
+assert_checkfalse(CC'*Xalt<CC'*Xopt);
+[Xopt2,fopt,exitflag,iter,yopt]=karmarkar([],[],CC,[],[],[],[],[],AA,BB);
+assert_checkequal(exitflag,1);
+assert_checkfalse(CC'*Xopt2<CC'*Xopt);
