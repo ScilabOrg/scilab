@@ -169,10 +169,15 @@ Compilation
 Bug fixes
 ==========
 
+* Bug #2547 fixed - Too small marks were not correctly exported.
+
 * Bug #3313 fixed - In the documentation, the title of a link was using the
                     id instead of the title of the page.
 
 * Bug #6583 fixed - jmat() was poorly documented.
+
+* Bug #6890 fixed - Strings were exported as shapes rather than Postscript
+                    strings in EPS/PS export.
 
 * Bug #7190 fixed - is_absolute_path was not documented.
 
