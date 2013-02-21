@@ -178,6 +178,8 @@ Bug fixes
 * Bug #3313 fixed - In the documentation, the title of a link was using the
                     id instead of the title of the page.
 
+* Bug #6320 fixed - Completion in Scilab is case sensitive
+
 * Bug #6583 fixed - jmat() was poorly documented.
 
 * Bug #7058 fixed - There was an error in mathml formula in beta function help.
@@ -248,7 +250,7 @@ Bug fixes
 * Bug #11549 fixed - Prefs window changed its dimension when hitting Default.
 
 * Bug #11569 fixed - F5 to navigate in the dock was incompatible with SciNotes.
-                     So replace F5 by shift+F6 to go to the previous tab. 
+                     So replace F5 by shift+F6 to go to the previous tab.
 
 * Bug #11711 fixed - xclick and xgetmouse did not work under Mac OS X.
 
