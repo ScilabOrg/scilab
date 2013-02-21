@@ -68,10 +68,18 @@ public final class XConfigManager extends XCommonManager {
     private static final String SCILAB_CONFIG_XSL = System.getenv("SCI") + "/modules/preferences/src/xslt/XConfiguration.xsl";
 
     /** User configuration file.*/
-    private static final String USER_CONFIG_FILE = ScilabConstants.SCIHOME.toString() + "/XConfiguration.xml";
+    private static String USER_CONFIG_FILE;
+    private static boolean mustSave = true;
 
     static {
         //ScilabPreferences.addToolboxInfos("MyToolbox", System.getenv("SCI") + "/contrib/toolbox_skeleton/", System.getenv("SCI") + "/contrib/toolbox_skeleton/etc/toolbox_skeleton_preferences.xml");
+
+        if (ScilabConstants.SCIHOME != null && ScilabConstants.SCIHOME.canRead() && ScilabConstants.SCIHOME.canWrite()) {
+            USER_CONFIG_FILE = ScilabConstants.SCIHOME.toString() + "/XConfiguration.xml";
+        } else {
+            USER_CONFIG_FILE = SCILAB_CONFIG_FILE;
+            mustSave = false;
+        }
     }
 
     /**
@@ -360,5 +368,14 @@ public final class XConfigManager extends XCommonManager {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Save the modifications
+     */
+    protected static void writeDocument(String filename, Node written) {
+        if (!SCILAB_CONFIG_FILE.equals(filename)) {
+	    XCommonManager.writeDocument(filename, written);
+        }
     }
 }
