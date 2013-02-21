@@ -178,6 +178,9 @@ Bug fixes
 * Bug #3313 fixed - In the documentation, the title of a link was using the
                     id instead of the title of the page.
 
+* Bug #5478 fixed - Scilab could not be started with a non readable/writeable
+                    SCIHOME.
+
 * Bug #6583 fixed - jmat() was poorly documented.
 
 * Bug #7058 fixed - There was an error in mathml formula in beta function help.
