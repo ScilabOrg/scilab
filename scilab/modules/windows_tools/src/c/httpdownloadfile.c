@@ -2,11 +2,11 @@
 * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 * Copyright (C) INRIA - Allan CORNET
 * Copyright (C) DIGITEO - 2010 - Allan CORNET
-* 
+*
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
-* are also available at    
+* are also available at
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
@@ -23,7 +23,6 @@
 /*--------------------------------------------------------------------------*/
 #define MO 0x100000 /* Read 1 Mo by 1Mo. */
 #define OPENURL_MODE INTERNET_OPEN_TYPE_PRECONFIG
-static BOOL isValidURL(char * szURL);
 /*--------------------------------------------------------------------------*/
 static HINSTANCE WinINETDll = NULL;
 static HINSTANCE UrlmonDll = NULL;
@@ -120,25 +119,37 @@ void httpdownload(char * szURL,char * szSaveFilePath, double *ierr)
 /*--------------------------------------------------------------------------*/
 httpdownloadfile_error_code httpDownloadFile(char * szURL,char * szSaveFilePath)
 {
-	if (isValidURL(szURL))
+    HINTERNET hiConnex = NULL;
+	/* * / * : /*rfc 2616 protocole http.  all files type accepted*/
+	char szHeader[]="Accept: */*\r\n\r\n";
+	HINTERNET hiDownload;
+
+	hiConnex = dynlib_InternetOpen("Scilab_Download", OPENURL_MODE,NULL,NULL,0);
+	if(hiConnex == NULL) return HTTP_DOWNLOAD_ERROR_INTERNET_OPEN;
+
+    hiDownload = dynlib_InternetOpenUrl(hiConnex,szURL,szHeader,lstrlen(szHeader),INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE,0);
+	if(!hiDownload)
 	{
-		HINTERNET hiConnex = NULL;
-		/* * / * : /*rfc 2616 protocole http.  all files type accepted*/
-		char szHeader[]="Accept: */*\r\n\r\n"; 
-		HINTERNET hiDownload;
+		dynlib_InternetCloseHandle(hiConnex);
+		return HTTP_DOWNLOAD_ERROR_OPEN_URL;
+	}
+	else
+	{
+		DWORD dwStatus = 0;
+        DWORD dwStatusSize = sizeof(dwStatus);
+        DWORD dwIndex = 0;
 
-		hiConnex = dynlib_InternetOpen("Scilab_Download", OPENURL_MODE,NULL,NULL,0);
-		if(hiConnex == NULL) return HTTP_DOWNLOAD_ERROR_INTERNET_OPEN;
+        dynlib_HttpQueryInfo(hiDownload, HTTP_QUERY_STATUS_CODE | HTTP_QUERY_FLAG_NUMBER, &dwStatus, &dwStatusSize, &dwIndex);
 
-        hiDownload = dynlib_InternetOpenUrl(hiConnex,szURL,szHeader,lstrlen(szHeader),INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE,0);
-		if(!hiDownload)
-		{
-			dynlib_InternetCloseHandle(hiConnex);
-			return HTTP_DOWNLOAD_ERROR_OPEN_URL;
-		}
-		else
-		{
-			HANDLE haFile;
+        if (dwStatus != HTTP_STATUS_OK)
+        {
+            dynlib_InternetCloseHandle(hiConnex);
+            dynlib_InternetCloseHandle(hiDownload);
+            return HTTP_DOWNLOAD_ERROR_INVALID_URL;
+        }
+        else
+        {
+            HANDLE haFile;
 
 			haFile = CreateFile(szSaveFilePath,GENERIC_WRITE,FILE_SHARE_WRITE,0,CREATE_ALWAYS,0,0);
 			if(haFile == INVALID_HANDLE_VALUE)
@@ -239,7 +250,6 @@ httpdownloadfile_error_code httpDownloadFile(char * szURL,char * szSaveFilePath)
 			}
 		}
 	}
-	else return HTTP_DOWNLOAD_ERROR_INVALID_URL;
 }
 /*--------------------------------------------------------------------------*/
 httpdownloadfile_error_code urlDownloadFile(char * szURL,char * szSaveFilePath)
@@ -267,43 +277,13 @@ httpdownloadfile_error_code urlDownloadFile(char * szURL,char * szSaveFilePath)
 	}
 }
 /*--------------------------------------------------------------------------*/
-static BOOL isValidURL(char *szURL)
-{
-	HINTERNET hiConnex = NULL;
-	/* * / * : /*rfc 2616 protocole http.  all files type accepted*/
-	char szHeader[]="Accept: */*\r\n\r\n"; 
-	HINTERNET hiDownload;
-
-	DWORD dwStatus = 0;
-	DWORD dwStatusSize = sizeof(dwStatus);
-	DWORD dwIndex = 0;
-
-	hiConnex = dynlib_InternetOpen("Scilab_Download", OPENURL_MODE,NULL,NULL,0);
-	if(hiConnex == NULL) return HTTP_DOWNLOAD_ERROR_INTERNET_OPEN;
-
-    hiDownload = dynlib_InternetOpenUrl(hiConnex,szURL,szHeader,lstrlen(szHeader),INTERNET_FLAG_DONT_CACHE | INTERNET_FLAG_RELOAD | INTERNET_FLAG_PRAGMA_NOCACHE,0);
-	if(!hiDownload)
-	{
-		dynlib_InternetCloseHandle(hiConnex);
-		return FALSE;
-	}
-
-	dynlib_HttpQueryInfo(hiDownload, HTTP_QUERY_STATUS_CODE|HTTP_QUERY_FLAG_NUMBER, &dwStatus, &dwStatusSize, &dwIndex);
-	dynlib_InternetCloseHandle(hiConnex);
-	dynlib_InternetCloseHandle(hiDownload);
-
-	/* HTTP OK */
-	if (dwStatus == HTTP_STATUS_OK )  return TRUE; 	
-	return FALSE;
-}
-/*--------------------------------------------------------------------------*/
 static HRESULT dynlib_URLDownloadToFile(LPUNKNOWN pCaller,
 										LPCTSTR szURL,
 										LPCTSTR szFileName,
 										DWORD dwReserved,
 										LPBINDSTATUSCALLBACK lpfnCB)
 {
-	if (UrlmonDll == NULL) UrlmonDll = LoadLibrary ("urlmon.dll"); 
+	if (UrlmonDll == NULL) UrlmonDll = LoadLibrary ("urlmon.dll");
 	if (UrlmonDll)
 	{
 		URLDownloadToFilePROC dllURLDownloadToFile = (URLDownloadToFilePROC)GetProcAddress(UrlmonDll, "URLDownloadToFileA");
@@ -322,7 +302,7 @@ HINTERNET dynlib_InternetOpenUrl(HINTERNET hInternet,
 										DWORD dwFlags,
 										DWORD_PTR dwContext)
 {
-	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll"); 
+	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll");
 	if (WinINETDll)
 	{
 		InternetOpenUrlPROC dllInternetOpenUrl = (InternetOpenUrlPROC)GetProcAddress(WinINETDll,"InternetOpenUrlA");
@@ -345,7 +325,7 @@ HINTERNET dynlib_InternetOpen(LPCTSTR lpszAgent,
 							  LPCTSTR lpszProxyBypass,
 							  DWORD dwFlags)
 {
-	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll"); 
+	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll");
 	if (WinINETDll)
 	{
 		InternetOpenPROC dllInternetOpen = (InternetOpenPROC)GetProcAddress(WinINETDll,"InternetOpenA");
@@ -363,7 +343,7 @@ HINTERNET dynlib_InternetOpen(LPCTSTR lpszAgent,
 /*--------------------------------------------------------------------------*/
 BOOL dynlib_InternetCloseHandle(HINTERNET hInternet)
 {
-	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll"); 
+	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll");
 	if (WinINETDll)
 	{
 		InternetCloseHandlePROC dllInternetCloseHandle = (InternetCloseHandlePROC)
@@ -383,12 +363,12 @@ BOOL dynlib_HttpQueryInfo(HINTERNET hRequest,
 								 LPDWORD lpdwBufferLength,
 								 LPDWORD lpdwIndex)
 {
-	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll"); 
+	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll");
 	if (WinINETDll)
 	{
 		HttpQueryInfoPROC dllHttpQueryInfo = (HttpQueryInfoPROC)
 			GetProcAddress(WinINETDll,"HttpQueryInfoA");
-		if (dllHttpQueryInfo) 
+		if (dllHttpQueryInfo)
 		{
 			return (BOOL)(dllHttpQueryInfo)(hRequest,
 											dwInfoLevel,
@@ -405,7 +385,7 @@ BOOL dynlib_InternetReadFile(HINTERNET hFile,
 									DWORD dwNumberOfBytesToRead,
 									LPDWORD lpdwNumberOfBytesRead)
 {
-	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll"); 
+	if (WinINETDll == NULL) WinINETDll = LoadLibrary ("WININET.dll");
 	if (WinINETDll)
 	{
 		InternetReadFilePROC dllInternetReadFile = (InternetReadFilePROC)
