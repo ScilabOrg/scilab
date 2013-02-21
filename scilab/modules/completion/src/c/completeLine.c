@@ -3,11 +3,11 @@
 * Copyright (C) 2009-2010 - DIGITEO - Allan CORNET
 * Copyright (C) 2010 - DIGITEO - Vincent LEJEUNE
 * Copyright (C) 2011 - DIGITEO - Allan CORNET
-* 
+*
 * This file must be used under the terms of the CeCILL.
 * This source file is licensed as described in the file COPYING, which
 * you should have received as part of this distribution.  The terms
-* are also available at    
+* are also available at
 * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 *
 */
@@ -23,6 +23,36 @@
 #include "getPartLine.h"
 #include "splitpath.h"
 #include "PATH_MAX.h"
+
+#if _MSC_VER
+#define strnicmp _strnicmp
+#else
+#define strnicmp strncasecmp
+#endif
+
+char* strupper(char* s)
+{
+  char* p = s;
+  while (*p = toupper(*p))
+      p++;
+  return s;
+}
+
+char* stristr(const char *str, const char *sub)
+{
+  size_t len;
+  len = strlen(sub);
+  while (*str)
+  {
+    if (toupper(*str) == toupper(*sub) && strnicmp(str, sub, len) == 0)
+    {
+      return (char*)str;
+    }
+    ++str;
+  }
+  return NULL;
+}
+
 /*--------------------------------------------------------------------------*/
 /*!  Get the position of the longest suffix of string that match with a prefix of find
 *  @param[in] string  A string that has a suffix that match a prefix of find ; Assumed to be non null because of the first guard in completeLine
@@ -39,36 +69,19 @@ static int findMatchingPrefixSuffix(const char* string, const char* find, BOOL s
     size_t stringLength = 0;
 
     //get a working copy of find
-    pointerOnFindCopy = strdup(find);
+    pointerOnFindCopy = strupper(strdup(find));
     //last character of string
     lastchar = *(string+strlen(string)-1);
     stringLength = strlen(string);
 
     //Tips : no infinite loop there, tmpfind string length is always reduced at each iteration
 
-#ifdef _MSC_VER
-    movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar);
-    // On Windows paths are not case sensitive
-    if (movingPointerOnFindCopy == NULL && stringToAddIsPath)
-    {
-        movingPointerOnFindCopy = strrchr(pointerOnFindCopy, toupper(lastchar));
-    }
-#else
-    movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar);
-#endif
+    movingPointerOnFindCopy = strrchr(pointerOnFindCopy, toupper(lastchar));
+
     while( movingPointerOnFindCopy )
     {
         //find the last occurence of last char of string in tmpfind
-#ifdef _MSC_VER
-        movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar);
-        // On Windows paths are not case sensitive
-        if (movingPointerOnFindCopy == NULL && stringToAddIsPath)
-        {
-            movingPointerOnFindCopy = strrchr(pointerOnFindCopy, toupper(lastchar));
-        }
-#else
-        movingPointerOnFindCopy = strrchr(pointerOnFindCopy, lastchar);
-#endif
+        movingPointerOnFindCopy = strrchr(pointerOnFindCopy, toupper(lastchar));
         if(movingPointerOnFindCopy == NULL)
         {
             break;
@@ -77,7 +90,7 @@ static int findMatchingPrefixSuffix(const char* string, const char* find, BOOL s
         movingPointerOnFindCopy[0] = '\0';
         //Check if the cutted tmpfind match with the suffix of string that has adequat length
         pointerOnString = (char*)(string + stringLength - 1 - strlen(pointerOnFindCopy));
-        if( !strncmp(pointerOnFindCopy, pointerOnString, strlen(pointerOnFindCopy)) )
+        if( !strnicmp(pointerOnFindCopy, pointerOnString, strlen(pointerOnFindCopy)) )
         {
             FREE(pointerOnFindCopy);
             pointerOnFindCopy = NULL;
@@ -106,7 +119,7 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
 
     int iposInsert = 0;
 
-    if (currentline == NULL) 
+    if (currentline == NULL)
     {
         return  strdup("");
     }
@@ -199,7 +212,7 @@ char *completeLine(char *currentline,char *stringToAdd,char *filePattern,
     }
 
     iposInsert = findMatchingPrefixSuffix(currentline, stringToAdd, stringToAddIsPath);
-    res = strstr(stringToAdd, &currentline[iposInsert]);
+    res = stristr(stringToAdd, &currentline[iposInsert]);
 
     if (res == NULL)
     {
