@@ -13,8 +13,12 @@
 if (getos() == "Windows") then;
     r = completion('C:\Documents and');
     if r <> 'Documents and Settings\' then bugmes();quit;end
+    r = completion('c:\documents and');
+    if r <> 'Documents and Settings\' then bugmes();quit;end
 else;
     r = completion('/tm');
+    if r <> '/tmp' then bugmes();quit;end
+    r = completion('/TM');
     if r <> '/tmp' then bugmes();quit;end
 end;
 r = completion(SCI+'/t');
@@ -22,27 +26,53 @@ if r <> ['thirdparty\'; 'tools\'] then bugmes();quit;end
 // Predefined variables
 r = completion('ho', 'variables');
 if r <> 'home' then bugmes();quit;end
+r = completion('HO', 'variables');
+if r <> 'home' then bugmes();quit;end
 r = completion('%na');
 if r <> '%nan' then bugmes();quit;end
+r = completion('%Na');
+if r <> '%nan' then bugmes();quit;end
 r = completion('TMP');
+if r <> 'TMPDIR' then bugmes();quit;end
+r = completion('Tmp');
 if r <> 'TMPDIR' then bugmes();quit;end
 r = completion('%', 'variables');
 if r <> ['%F'; '%T'; '%e'; '%eps'; '%f'; '%fftw'; '%gui'; '%i'; '%inf'; '%io';'%modalWarning';'%nan';'%pi';'%s';'%t';'%tk';'%toolboxes';'%toolboxes_dir';'%z'] then bugmes();quit;end
 // User variables
-variable_completion1 = 1;
-variable_completion2 = 2;
-r = completion('variable_comp');
-if r <> ['variable_completion1'; 'variable_completion2'] then bugmes();quit;end
+variable1_completion1 = 1;
+variable1_completion2 = 2;
+r = completion('variable1_comp');
+if r <> ['variable1_completion1'; 'variable1_completion2'] then bugmes();quit;end
+r = completion('VARIABLE1_COMP');
+if r <> ['variable1_completion1'; 'variable1_completion2'] then bugmes();quit;end
+variable2_completion = 1;
+VARIABLE2_COMPLETION = 2;
+r = completion('variable2_comp');
+if r <> ['VARIABLE2_COMPLETION'; 'variable2_completion'] then bugmes();quit;end
+r = completion('VARIABLE2_COMP');
+if r <> ['VARIABLE2_COMPLETION'; 'variable2_completion'] then bugmes();quit;end
 // Predefined functions, macros and commands
 r = completion('floo');
 if r <> 'floor' then bugmes();quit;end
+r = completion('FLOO');
+if r <> 'floor' then bugmes();quit;end
 r = completion('abort');
+if r <> 'abort' then bugmes();quit;end
+r = completion('Abort');
 if r <> 'abort' then bugmes();quit;end
 // User functions, macros, commands
 function [] = function_completion(x);
 endfunction;
 r = completion('function_comp');
 if r <> 'function_completion' then bugmes();quit;end
+r = completion('FUNCTION_COMP');
+if r <> 'function_completion' then bugmes();quit;end
+function [] = FUNCTION_COMPLETION(x);
+endfunction;
+r = completion('function_comp');
+if r <> ['FUNCTION_COMP'; 'function_completion'] then bugmes();quit;end
+r = completion('FUNCTION_COMP');
+if r <> ['FUNCTION_COMP'; 'function_completion'] then bugmes();quit;end
 // Filter argument
 r = completion('ho');
 if r <> ['home'; 'horizontalalignment'; 'horner'; 'host'; 'householder'] then bugmes();quit;end
