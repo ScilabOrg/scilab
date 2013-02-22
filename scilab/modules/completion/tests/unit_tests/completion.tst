@@ -17,8 +17,14 @@
 if (getos() == "Windows") then;
     r = completion('C:\Documents and');
     if r <> 'Documents and Settings\' then pause,end
+
+    r = completion('c:\documents and');
+    if r <> 'Documents and Settings\' then pause,end
 else;
     r = completion('/tm');
+    if r <> '/tmp' then pause,end
+
+    r = completion('/TM');
     if r <> '/tmp' then pause,end
 end;
 
@@ -31,10 +37,19 @@ if r <> ['thirdparty\'; 'tools\'] then pause,end
 r = completion('ho', 'variables');
 if r <> 'home' then pause,end
 
+r = completion('HO', 'variables');
+if r <> 'home' then pause,end
+
 r = completion('%na');
 if r <> '%nan' then pause,end
 
+r = completion('%Na');
+if r <> '%nan' then pause,end
+
 r = completion('TMP');
+if r <> 'TMPDIR' then pause,end
+
+r = completion('Tmp');
 if r <> 'TMPDIR' then pause,end
 
 r = completion('%', 'variables');
@@ -43,10 +58,19 @@ if r <> ['%F'; '%T'; '%e'; '%eps'; '%f'; '%fftw'; '%gui'; '%i'; '%inf'; '%io';'%
 
 // User variables
 
-variable_completion1 = 1;
-variable_completion2 = 2;
-r = completion('variable_comp');
-if r <> ['variable_completion1'; 'variable_completion2'] then pause,end
+variable1_completion1 = 1;
+variable1_completion2 = 2;
+r = completion('variable1_comp');
+if r <> ['variable1_completion1'; 'variable1_completion2'] then pause,end
+r = completion('VARIABLE1_COMP');
+if r <> ['variable1_completion1'; 'variable1_completion2'] then pause,end
+
+variable2_completion = 1;
+VARIABLE2_COMPLETION = 2;
+r = completion('variable2_comp');
+if r <> ['VARIABLE2_COMPLETION'; 'variable2_completion'] then pause,end
+r = completion('VARIABLE2_COMP');
+if r <> ['VARIABLE2_COMPLETION'; 'variable2_completion'] then pause,end
 
 
 // Predefined functions, macros and commands
@@ -54,15 +78,31 @@ if r <> ['variable_completion1'; 'variable_completion2'] then pause,end
 r = completion('floo');
 if r <> 'floor' then pause,end
 
+r = completion('FLOO');
+if r <> 'floor' then pause,end
+
 r = completion('abort');
+if r <> 'abort' then pause,end
+
+r = completion('Abort');
 if r <> 'abort' then pause,end
 
 
 // User functions, macros, commands
+
 function [] = function_completion(x);
 endfunction;
 r = completion('function_comp');
 if r <> 'function_completion' then pause,end
+r = completion('FUNCTION_COMP');
+if r <> 'function_completion' then pause,end
+
+function [] = FUNCTION_COMPLETION(x);
+endfunction;
+r = completion('function_comp');
+if r <> ['FUNCTION_COMP'; 'function_completion'] then pause,end
+r = completion('FUNCTION_COMP');
+if r <> ['FUNCTION_COMP'; 'function_completion'] then pause,end
 
 
 // Filter argument

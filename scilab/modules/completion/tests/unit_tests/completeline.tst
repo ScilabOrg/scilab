@@ -18,8 +18,15 @@ currentline = 'cd /t';
 r = completeline(currentline,'/tmp',getfilepartlevel(currentline),getpartlevel(currentline),%t);
 if r <> 'cd /tmp' then pause,end
 
+currentline = 'cd /T';
+r = completeline(currentline,'/tmp',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'cd /tmp' then pause,end
+
 r = completeline('cd /home/sy','sylvestre',getfilepartlevel(currentline),getpartlevel(currentline),%t);
 if r <> 'cd /home/sylvestre' then pause,end
+
+r = completeline('cd /home/sci','Scilab',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'cd /home/Scilab' then pause,end
 
 r = completeline('cd d:\GIT-scilab-','d:\GIT-scilab-branch',getpartlevel(currentline),getfilepartlevel(currentline),%t);
 if r <> 'cd d:\GIT-scilab-branch' then pause,end
@@ -28,11 +35,23 @@ currentline = 'cd C:\ProgramD';
 r = completeline(currentline,'ProgramData',getpartlevel(currentline),getfilepartlevel(currentline),%t);
 if r <> 'cd C:\ProgramData' then pause,end
 
+currentline = 'cd C:\programd';
+r = completeline(currentline,'ProgramData',getpartlevel(currentline),getfilepartlevel(currentline),%t);
+if r <> 'cd C:\ProgramData' then pause,end
+
 currentline = 'cd C:\Program F';
 r = completeline(currentline,'Program Files',getpartlevel(currentline),getfilepartlevel(currentline),%t);
 if r <> 'cd C:\Program Files' then pause,end
 
+currentline = 'cd C:\program f';
+r = completeline(currentline,'Program Files',getpartlevel(currentline),getfilepartlevel(currentline),%t);
+if r <> 'cd C:\Program Files' then pause,end
+
 currentline = 'cd C:\Windows\Sys';
+r = completeline(currentline,'System32',getpartlevel(currentline),getfilepartlevel(currentline),%t);
+if r <> 'cd C:\Windows\System32' then pause,end
+
+currentline = 'cd C:\Windows\sys';
 r = completeline(currentline,'System32',getpartlevel(currentline),getfilepartlevel(currentline),%t);
 if r <> 'cd C:\Windows\System32' then pause,end
 
@@ -44,11 +63,23 @@ currentline = 'TMP';
 r = completeline(currentline,'TMPDIR',getfilepartlevel(currentline),getpartlevel(currentline),%t);
 if r <> 'TMPDIR' then pause,end
 
+currentline = 'tmp';
+r = completeline(currentline,'TMPDIR',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'TMPDIR' then pause,end
+
+currentline = 'Tmp';
+r = completeline(currentline,'TMPDIR',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> 'TMPDIR' then pause,end
+
 currentline = 'disp(TMP';
 r = completeline(currentline,'TMPDIR',getfilepartlevel(currentline),getpartlevel(currentline),%t);
 if r <> 'disp(TMPDIR' then pause,end
 
 currentline = '1 + ab';
+r = completeline(currentline,'abs',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+if r <> '1 + abs' then pause,end
+
+currentline = '1 + AB';
 r = completeline(currentline,'abs',getfilepartlevel(currentline),getpartlevel(currentline),%t);
 if r <> '1 + abs' then pause,end
 
@@ -65,4 +96,7 @@ r = completeline(currentline,'field1',getfilepartlevel(currentline),getpartlevel
 if r <> 't.field1' then pause,end
 
 currentline = 't.field1 = t.fie';
+r = completeline(currentline,'field2',getfilepartlevel(currentline),getpartlevel(currentline),%t);
+
+currentline = 't.field1 = t.Fie';
 r = completeline(currentline,'field2',getfilepartlevel(currentline),getpartlevel(currentline),%t);
