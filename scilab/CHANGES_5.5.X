@@ -1,5 +1,10 @@
 ﻿                     Changes between version 5.5.0 and 5.5.1
                      =======================================
+New Features
+=============
+
+* Add the possibility to make scatter plot with different mark colors.
+
 
 Obsolete & Removed Functions
 ============================
