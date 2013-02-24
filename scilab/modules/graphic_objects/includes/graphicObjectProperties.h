@@ -411,5 +411,6 @@
 #define __GO_UI_TITLE_SCROLL__ 388
 #define __GO_UI_FRAME_BORDER_TYPE__ 389
 #define __GO_UI_SCROLLABLE__ 390
+#define __GO_COLOR_SET__ 391
 
 #endif /* !__GRAPHIC_OBJECT_PROPERTIES_H__ */

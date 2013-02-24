@@ -69,7 +69,7 @@ public class JoGLTextureManager implements TextureManager {
     /**
      * Draw the given texture.
      * @param drawingTools used drawing tools.
-     * @param texture the texture too drawn.
+     * @param texture the texture to draw.
      * @throws org.scilab.forge.scirenderer.SciRendererException if the texture is invalid.
      */
     public void draw(JoGLDrawingTools drawingTools, Texture texture) throws SciRendererException {
@@ -82,12 +82,25 @@ public class JoGLTextureManager implements TextureManager {
         }
     }
 
-    public void draw(JoGLDrawingTools drawingTools, Texture texture, AnchorPosition anchor, ElementsBuffer positions, int offset, int stride, double rotationAngle) throws SciRendererException {
+    public void draw(JoGLDrawingTools drawingTools, Texture texture, AnchorPosition anchor, ElementsBuffer positions, int offset, int stride, double rotationAngle, ElementsBuffer colors) throws SciRendererException {
         if ((texture instanceof JoGLTexture) && (allTextures.contains((JoGLTexture) texture))) {
             if (positions != null) {
                 FloatBuffer data = positions.getData();
+                FloatBuffer dataColors = null;
+
+                if (colors != null) {
+                    dataColors = colors.getData();
+                    if (dataColors != null){
+                        dataColors.rewind();
+                    }
+                }
+
                 if (data != null) {
+                    data.rewind();
                     float[] position = {0, 0, 0, 1};
+                    float[] color = {0, 0, 0, 0};
+
+
                     final JoGLTexture jt = (JoGLTexture) texture;
                     if (jt.preDraw(drawingTools)) {
                         stride = stride < 1 ? 1 : stride;
@@ -96,7 +109,13 @@ public class JoGLTextureManager implements TextureManager {
                             data.position(4 * offset);
                             while (data.remaining() >= 4) {
                                 data.get(position);
-                                jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle);
+                                if (dataColors == null){
+                                    jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle, null);
+                                }
+                                else {
+                                    dataColors.get(color);
+                                    jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle, color);
+                                }
                             }
                         } else {
                             int mark = 4 * offset;
@@ -110,7 +129,13 @@ public class JoGLTextureManager implements TextureManager {
                                     } else {
                                         break;
                                     }
-                                    jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle);
+                                    if (dataColors == null){
+                                        jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle, null);
+                                    }
+                                    else {
+                                        dataColors.get(color);
+                                        jt.draw(drawingTools, anchor, new Vector3d(position), rotationAngle, color);
+                                    }
                                 }
                             }
                         }
@@ -125,7 +150,7 @@ public class JoGLTextureManager implements TextureManager {
         if ((texture instanceof JoGLTexture) && (allTextures.contains((JoGLTexture) texture))) {
             final JoGLTexture jt = (JoGLTexture) texture;
             jt.preDraw(drawingTools);
-            jt.draw(drawingTools, anchor, position, rotationAngle);
+            jt.draw(drawingTools, anchor, position, rotationAngle, null);
             jt.postDraw(drawingTools);
         }
     }
@@ -359,7 +384,8 @@ public class JoGLTextureManager implements TextureManager {
 
             gl.glPushAttrib(GL2.GL_ALL_ATTRIB_BITS);
 
-            gl.glTexEnvi(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_REPLACE);
+            gl.glColor4f(1f, 1f, 1f, 1f);
+            gl.glTexEnvi(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);
 
             for (int k = 0; k < wCuts * hCuts; k++) {
                 textures[k].enable(gl);
@@ -377,7 +403,7 @@ public class JoGLTextureManager implements TextureManager {
             return true;
         }
 
-        public void draw(JoGLDrawingTools drawingTools, AnchorPosition anchor, Vector3d position, double rotationAngle) throws SciRendererException {
+        public void draw(JoGLDrawingTools drawingTools, AnchorPosition anchor, Vector3d position, double rotationAngle, float[] color) throws SciRendererException {
             TransformationManager transformationManager = drawingTools.getTransformationManager();
             Transformation canvasProjection = transformationManager.getCanvasProjection();
             boolean sceneCoordinate = drawingTools.getTransformationManager().isUsingSceneCoordinate();
@@ -404,7 +430,7 @@ public class JoGLTextureManager implements TextureManager {
                 gl.glTranslated(Math.round(getAnchorDeltaX(anchor)), Math.round(getAnchorDeltaY(anchor)), 0);
             }
 
-            draw(drawingTools);
+            draw(drawingTools, color);
 
             gl.glMatrixMode(GL2.GL_MODELVIEW);
             gl.glPopMatrix();
@@ -429,12 +455,16 @@ public class JoGLTextureManager implements TextureManager {
             gl.glPopMatrix();
         }
 
+        public void draw(JoGLDrawingTools drawingTools) throws SciRendererException {
+            draw(drawingTools, null);
+        }
+
         /**
          * Draw the texture in XY plane.
          * @param drawingTools the drawing tools.
          * @throws SciRendererException if the texture is invalid.
          */
-        public void draw(JoGLDrawingTools drawingTools) throws SciRendererException {
+        public void draw(JoGLDrawingTools drawingTools, float[] color) throws SciRendererException {
             final int maxSize = drawingTools.getGLCapacity().getMaximumTextureSize();
             final Dimension textureSize = getDataProvider().getTextureSize();
             final GL2 gl = drawingTools.getGl().getGL2();
@@ -448,6 +478,10 @@ public class JoGLTextureManager implements TextureManager {
                         coords = textures[0].getSubImageTexCoords(0, 0, textureSize.height, textureSize.width);
                     }
                     textures[0].bind(gl);
+
+                    if (color != null) {
+                        gl.glColor4fv(color, 0);
+                    }
 
                     gl.glBegin(GL2.GL_QUADS);
                     gl.glTexCoord2f(coords.left(), coords.bottom());
@@ -484,6 +518,10 @@ public class JoGLTextureManager implements TextureManager {
                                 coords = textures[k].getSubImageTexCoords(0, 0, height, width);
                             }
                             textures[k].bind(gl);
+
+                            if (color != null) {
+                                gl.glColor4fv(color, 0);
+                            }
 
                             gl.glBegin(GL2.GL_QUADS);
                             gl.glTexCoord2f(coords.left(), coords.top());
