@@ -46,6 +46,7 @@ Improvements
 * In Scilab documentation, 'scilab:needs-examples="no"' tag has been added to specify
   that the help page does not need example.
 
+* Add the possibility to make scatter plot with different mark colors.
 
 
 Xcos
