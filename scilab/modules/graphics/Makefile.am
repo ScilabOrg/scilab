@@ -299,6 +299,8 @@ src/c/getHandleProperty/set_figure_resizefcn_property.c \
 src/c/getHandleProperty/get_figure_resizefcn_property.c \
 src/c/getHandleProperty/set_figure_closerequestfcn_property.c \
 src/c/getHandleProperty/get_figure_closerequestfcn_property.c \
+src/c/getHandleProperty/set_colors_property.c \
+src/c/getHandleProperty/get_colors_property.c \
 src/c/DefaultCommandArg.c \
 src/c/Axes.c \
 src/c/sciMatrix.c \

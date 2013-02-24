@@ -356,4 +356,6 @@ public class GraphicObjectProperties {
     public static final int __GO_UI_MESSAGE__ =             295;
     public static final int __GO_UI_MESSAGE_SIZE__ =        296;
 
+    public static final int __GO_COLOR_SET__ =        297;
+
 }

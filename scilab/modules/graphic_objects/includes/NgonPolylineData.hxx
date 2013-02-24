@@ -55,6 +55,11 @@ private :
     /** The coordinates shift array */
     double* coordinatesShift;
 
+    /** The colors array */
+    int* colors;
+
+    int numColors;
+
 public :
     /**
      * Constructor
@@ -208,6 +213,12 @@ public :
      * @param[in] numElementsNew the new array's number of elements
      */
     void copyShiftCoordinatesArray(double * newShift, double const* oldShift, int numElementsNew);
+
+    int setColors(int const* newColors, int numElements);
+
+    int * getColors();
+
+    int getNumColors();
 
     /**
      * Deletes the coordinates and shift arrays

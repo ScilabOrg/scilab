@@ -35,6 +35,8 @@ Improvements
 * editvar propose direct save to the CSV format of the whole variable or the
   selection.
 
+* Add the possibility to make scatter plot with different mark colors.
+
 
 Removed functions
 ==================
