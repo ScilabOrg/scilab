@@ -40,5 +40,9 @@ assert_checkequal(d, [1,2;3,4]);
 //===============================
 [d,s] = strtod("");
 assert_checkequal(s, "");
-assert_checkequal(d, 0);
+assert_checkequal(d, %nan);
+//===============================
+[d,s] = strtod("  ");
+assert_checkequal(s, "  ");
+assert_checkequal(d, %nan);
 //===============================

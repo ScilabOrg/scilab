@@ -30,7 +30,7 @@ int sci_strtod(char *fname, unsigned long fname_len)
     char keys[] = "1234567890";
     unsigned long long raw = 0x7ff8000000000000;
     double not_a_number = *( double* )&raw;
-    int flag = 0;
+    int flag = 0, flag2 = 0;
 
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 1, 2);
@@ -89,7 +89,8 @@ int sci_strtod(char *fname, unsigned long fname_len)
             //Check if there is a number in the string
             if (first_nb != 0)
             {
-                flag = 0;
+                flag = 0; flag2=0;
+
                 for ( y = 0; y < first_nb; y++)
                 {
                     if (Input_StringMatrix_1[x][y] != ' ')
@@ -99,11 +100,28 @@ int sci_strtod(char *fname, unsigned long fname_len)
                         stopstring = Input_StringMatrix_1[x];
                     }
                 }
+                for (y = 0; y < strlen(Input_StringMatrix_1[x]); y++) //case strtod("  ")
+                {
+                    if (Input_StringMatrix_1[x][y] != ' ' && flag == 0)
+                    {
+                        OutputDoubles[x] = (double)strtod(Input_StringMatrix_1[x], &stopstring);
+                    }
+                    else if (flag == 0)
+                    {
+                        OutputDoubles[x] = not_a_number;
 
-                if (flag == 0)
+                        stopstring = Input_StringMatrix_1[x];
+                        flag2=1;
+                    }
+                }  
+                if (flag == 0 && flag2 == 0) 
                 {
                     OutputDoubles[x] = (double)strtod(Input_StringMatrix_1[x], &stopstring);
                 }
+            }
+            else if (strlen(Input_StringMatrix_1[x]) == 0) //case strtod("")
+            {
+                    OutputDoubles[x] = not_a_number; 
             }
             else
             {
@@ -182,26 +200,44 @@ int sci_strtod(char *fname, unsigned long fname_len)
             //Check if there is a number in the string
             if (first_nb != 0)
             {
-                flag = 0;
-                for ( y = 0 ; y < first_nb ; y++)
+                flag = 0; flag2=0;
+
+                for ( y = 0; y < first_nb; y++)
                 {
                     if (Input_StringMatrix_1[x][y] != ' ')
                     {
                         pdblOutIndex[x] = not_a_number;
                         flag = 1;
+                        stopstring = Input_StringMatrix_1[x];
                     }
                 }
-
-                if (flag == 0)
+                for (y = 0; y < strlen(Input_StringMatrix_1[x]); y++) //case strtod("  ")
                 {
-                    pdblOutIndex[x] = (double)strtod( Input_StringMatrix_1[x], &stopstring);
+                    if (Input_StringMatrix_1[x][y] != ' ' && flag == 0)
+                    {
+                        pdblOutIndex[x] = (double)strtod(Input_StringMatrix_1[x], &stopstring);
+                    }
+                    else if (flag == 0)
+                    {
+                        pdblOutIndex[x] = not_a_number;
+
+                        stopstring = Input_StringMatrix_1[x];
+                        flag2=1;
+                    }
+                }  
+                if (flag == 0 && flag2 == 0)
+                {
+                    pdblOutIndex[x] = (double)strtod(Input_StringMatrix_1[x], &stopstring);
                 }
+            }
+            else if (strlen(Input_StringMatrix_1[x]) == 0) //case strtod("")
+            {
+                    pdblOutIndex[x] = not_a_number; 
             }
             else
             {
-                pdblOutIndex[x] = (double)strtod( Input_StringMatrix_1[x], &stopstring);
+                pdblOutIndex[x] = (double)strtod(Input_StringMatrix_1[x], &stopstring);
             }
-
         }
 
         AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1 ;
