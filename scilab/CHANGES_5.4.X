@@ -186,6 +186,8 @@ Bug fixes
 
 * Bug #5291 fixed - strtod returned 0 when no real number was detected.
 
+* Bug #6320 fixed - Completion in Scilab is case sensitive
+
 * Bug #6583 fixed - jmat() was poorly documented.
 
 * Bug #7058 fixed - There was an error in mathml formula in beta function help.
@@ -252,7 +254,7 @@ Bug fixes
 * Bug #11549 fixed - Prefs window changed its dimension when hitting Default.
 
 * Bug #11569 fixed - F5 to navigate in the dock was incompatible with SciNotes.
-                     So replace F5 by shift+F6 to go to the previous tab. 
+                     So replace F5 by shift+F6 to go to the previous tab.
 
 * Bug #11711 fixed - xclick and xgetmouse did not work under Mac OS X.
 
