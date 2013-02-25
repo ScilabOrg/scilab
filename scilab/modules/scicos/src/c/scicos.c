@@ -47,7 +47,7 @@
 #include <ida/ida_direct.h>
 #include <nvector/nvector_serial.h>  /* serial N_Vector types, fcts., and macros */
 #include <sundials/sundials_dense.h> /* prototypes for various DlsMat operations */
-#include <sundials/sundials_direct.h> /* definitions DlsMat and DENSE_ELEM */
+#include <sundials/sundials_direct.h> /* definitions of DlsMat and DENSE_ELEM */
 #include <sundials/sundials_types.h> /* definition of type realtype */
 #include <sundials/sundials_math.h>
 #include <kinsol/kinsol.h>
@@ -108,7 +108,7 @@ SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
 	if ( ng>0 ) FREE(zcros);
 
 
-/* TJacque allocates by sundials */
+/* TJacque allocated by sundials */
 #define freeallx				\
 	if (*neq>0) free(TJacque);	\
 	if (*neq>0) FREE(data->rwork);		\
@@ -788,7 +788,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
 
     if (*flag__ == 1)   /*start*/
     {
-        /*     initialisation des blocks */
+        /*      blocks initialization */
         for (kf = 0; kf < nblk; ++kf)
         {
             *(Blocks[kf].work) = NULL;
@@ -808,40 +808,21 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     {
 
         /*     integration */
-        if (C2F(cmsolver).solver == 0)        /*  LSODAR: Method: DYNAMIC, Nonlinear solver= DYNAMIC */
+        if (C2F(cmsolver).solver >= 0 && C2F(cmsolver).solver <= 7)
         {
+            /*  0 - LSODAR: Method: DYNAMIC, Nonlinear solver= DYNAMIC */
+            /*  1 - CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
+            /*  2 - CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
+            /*  3 - CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
+            /*  4 - CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
+            /*  5 - DOPRI: Method: Dormand-Prince, Nonlinear solver=  */
+            /*  6 - RK45: Method: Runge-Kutta, Nonlinear solver=  */
+            /*  7 - ImpRK45: Method: Runge-Kutta, Nonlinear solver= FIXED-POINT */
             cossim(t0);
         }
-        else if (C2F(cmsolver).solver == 1)   /*  CVODE: Method: BDF,   Nonlinear solver= NEWTON     */
+        else if (C2F(cmsolver).solver == 100)
         {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 2)   /*  CVODE: Method: BDF,   Nonlinear solver= FUNCTIONAL */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 3)   /*  CVODE: Method: ADAMS, Nonlinear solver= NEWTON     */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 4)   /*  CVODE: Method: ADAMS, Nonlinear solver= FUNCTIONAL */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 5)   /*  DOPRI: Method: Dormand-Prince, Nonlinear solver=  */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 6)   /*  RK45: Method: Runge-Kutta, Nonlinear solver=  */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 7)   /*  ImpRK45: Method: Runge-Kutta, Nonlinear solver= FIXED-POINT */
-        {
-            cossim(t0);
-        }
-        else if (C2F(cmsolver).solver == 100)  /* IDA  : Method:       , Nonlinear solver=  */
-        {
+            /* IDA  : Method:       , Nonlinear solver=  */
             cossimdaskr(t0);
         }
         else
@@ -860,7 +841,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     }
     else if (*flag__ == 3)     /*finish*/
     {
-        /*     fermeture des blocks */
+        /*     blocks closing */
         cosend(t0);
     }
     else if (*flag__ == 4)     /*linear*/
@@ -877,7 +858,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 return 0;
             }
 
-            /*---------à la place de old simblk--------*/
+            /*---------instead of old simblk--------*/
             /*  C2F(simblk)(&nx, t0, x, W);  */
 
             if (ng > 0 && nmod > 0)
@@ -1516,12 +1497,12 @@ static void cossim(double *told)
             ++jj;
         }
     }
-    /*     . Il faut:  ng >= jj */
+    /*     . ng >= jj required */
     if (jj != ng)
     {
         zcros[jj] = -1;
     }
-    /*     initialisation (propagation of constant blocks outputs) */
+    /*     initialization (propagation of constant blocks outputs) */
     idoit(told);
     if (*ierr != 0)
     {
@@ -1550,7 +1531,7 @@ static void cossim(double *told)
         while (ismenu()) //** if the user has done something, do the actions
         {
             int ierr2 = 0;
-            SeqSync = GetCommand(CommandToUnstack); //** get at the action
+            SeqSync = GetCommand(CommandToUnstack); //** get to the action
             CommandLength = (int)strlen(CommandToUnstack);
             syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
         }
@@ -1760,7 +1741,7 @@ L30:
                 }
                 else
                 {
-                    if (flag < 0) *ierr = 300 + (-flag); /* raising errors due to internal errors, other wise erros due to flagr*/
+                    if (flag < 0) *ierr = 300 + (-flag); /* raising errors due to internal errors, otherwise error due to flagr*/
                     freeall;
                     return;
                 }
@@ -2026,7 +2007,7 @@ static void cossimdaskr(double *told)
     }
 
     reltol = (realtype) rtol;
-    abstol = (realtype) Atol;  /*  Ith(abstol,1) = realtype) Atol;*/
+    abstol = (realtype) Atol;  /*  Ith(abstol,1) = (realtype) Atol;*/
 
     if (*neq > 0)
     {
@@ -2262,7 +2243,7 @@ static void cossimdaskr(double *told)
             }
         }
 
-        maxnj = 100; /* setting the maximum number of Jacobian evaluation during a Newton step */
+        maxnj = 100; /* setting the maximum number of Jacobian evaluations during a Newton step */
         flag = IDASetMaxNumJacsIC(ida_mem, maxnj);
         if (check_flag(&flag, "IDASetMaxNumJacsIC", 1))
         {
@@ -2271,7 +2252,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        maxnit = 10; /* setting the maximum number of Newton iterations in any one attemp to solve CIC */
+        maxnit = 10; /* setting the maximum number of Newton iterations in any attempt to solve CIC */
         flag = IDASetMaxNumItersIC(ida_mem, maxnit);
         if (check_flag(&flag, "IDASetMaxNumItersIC", 1))
         {
@@ -2324,12 +2305,12 @@ static void cossimdaskr(double *told)
             ++jj;
         }
     }
-    /*     . Il faut:  ng >= jj */
+    /*     . ng >= jj required */
     if (jj != ng)
     {
         zcros[jj] = -1;
     }
-    /*     initialisation (propagation of constant blocks outputs) */
+    /*     initialization (propagation of constant blocks outputs) */
     idoit(told);
     if (*ierr != 0)
     {
@@ -2356,7 +2337,7 @@ static void cossimdaskr(double *told)
         while (ismenu()) //** if the user has done something, do the actions
         {
             int ierr2 = 0;
-            SeqSync = GetCommand(CommandToUnstack); //** get at the action
+            SeqSync = GetCommand(CommandToUnstack); //** get to the action
             CommandLength = (int)strlen(CommandToUnstack);
             syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
         }
@@ -2429,7 +2410,7 @@ L20:
 L30:
                     if (rhotmp < tstop)
                     {
-                        hot = 0;/* Do cold-restart the solver:if the new TSTOP isn't beyong the previous one*/
+                        hot = 0;/* Cold-restart the solver if the new TSTOP isn't beyong the previous one*/
                     }
                 }
                 tstop = rhotmp;
@@ -2514,7 +2495,7 @@ L30:
                     //   freeallx;
                     //   return;
                     // };
-                    // flag=IDASetMaxNumItersIC(ida_mem, 10);/* (def=10) setting the maximum number of Newton iterations in any one attemp to solve CIC */
+                    // flag=IDASetMaxNumItersIC(ida_mem, 10);/* (def=10) setting the maximum number of Newton iterations in any attempt to solve CIC */
                     // if (check_flag(&flag, "IDASetMaxNumItersIC", 1)) {
                     //   *ierr=200+(-flag);
                     //   freeallx;
@@ -2533,7 +2514,7 @@ L30:
                         while (ismenu()) //** if the user has done something, do the actions
                         {
                             int ierr2 = 0;
-                            SeqSync = GetCommand(CommandToUnstack); //** get at the action
+                            SeqSync = GetCommand(CommandToUnstack); //** get to the action
                             CommandLength = (int)strlen(CommandToUnstack);
                             syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
                         }
@@ -2631,7 +2612,7 @@ L30:
                     }/* mode-CIC  counter*/
                     if (Mode_change == 1)
                     {
-                        /* In tghis case, we try again by relaxing all modes and calling IDA_calc again
+                        /* In this case, we try again by relaxing all modes and calling IDA_calc again
                         /Masoud */
                         phase = 1;
                         copy_IDA_mem->ida_kk = 1;
@@ -2725,7 +2706,7 @@ L30:
                 }
                 else
                 {
-                    if (flagr < 0) *ierr = 200 + (-flagr); /* raising errors due to internal errors, other wise erros due to flagr*/
+                    if (flagr < 0) *ierr = 200 + (-flagr); /* raising errors due to internal errors, otherwise error due to flagr*/
                     freeallx;
                     return;
                 }
@@ -2861,7 +2842,7 @@ L30:
                 while (ismenu()) //** if the user has done something, do the actions
                 {
                     int ierr2 = 0;
-                    SeqSync = GetCommand(CommandToUnstack); //** get at the action
+                    SeqSync = GetCommand(CommandToUnstack); //** get to the action
                     CommandLength = (int)strlen(CommandToUnstack);
                     syncexec(CommandToUnstack, &CommandLength, &ierr2, &one, CommandLength); //** execute it
                 }
