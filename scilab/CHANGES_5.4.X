@@ -419,6 +419,8 @@ Bug fixes
 
 * Bug #12307 fixed - ftp addresses were not handled in help browser.
 
+* Bug #12333 fixed - Cleaned command history is restored after reopening Scilab.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
