@@ -50,7 +50,6 @@ Source: bin\GNU_gettext.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\zlib1.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\GetWindowsVersion.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\hashtable.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
-Source: bin\doublylinkedlist.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\lapack.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\libf2c.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\scilab_windows.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
@@ -76,3 +75,6 @@ Source: bin\f2c.exe; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\szip.dll; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 Source: bin\hdf5dll.dll ; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
 ;
+; batch files
+Source: bin\scinotes.bat; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
+Source: bin\xcos.bat; DestDir: {app}\bin; Components: {#COMPN_SCILAB}
