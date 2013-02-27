@@ -22,7 +22,7 @@
 #include "ExportImport.h" /* IMPORT_EXPORT_MALLOC_DLL */
 
 
-IMPORT_EXPORT_MALLOC_DLL void *MyHeapRealloc(void *lpAddress, size_t dwSize,char *file,int line);
+IMPORT_EXPORT_MALLOC_DLL void *MyHeapRealloc(void *lpAddress, size_t dwSize, char *file, int line);
 IMPORT_EXPORT_MALLOC_DLL void *MyHeapAlloc(size_t dwSize, char *file, int line);
 IMPORT_EXPORT_MALLOC_DLL void MyHeapFree(void *lpAddress, char *file, int line);
 IMPORT_EXPORT_MALLOC_DLL void *MyVirtualAlloc(size_t dwSize, char *file, int line);
