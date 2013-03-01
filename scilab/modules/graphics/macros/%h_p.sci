@@ -23,7 +23,6 @@ function %h_p(h)
             t="Handle of type """+h.type+""" with properties:"
             t=[t;part('=',ones(1,length(t)))]
         end
-
         select h.type
 
         // Polyline
