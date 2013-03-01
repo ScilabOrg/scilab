@@ -121,6 +121,8 @@ Xcos
 
 * Bug #10660 fixed - model2blk and callblk crashed Scilab on 64-bit platforms.
 
+* Bug #10660 fixed - Uninstall removed all scilab reistry information.
+
 * Bug #11193 fixed - Lincos did not honor context values.
 
 * Bug #11775 fixed - xcos.tst crashed on Linux and MacOS X.
