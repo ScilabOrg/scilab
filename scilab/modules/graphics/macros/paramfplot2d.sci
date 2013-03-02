@@ -3,14 +3,14 @@
 // This file must be used under the terms of the CeCILL.
 // This source file is licensed as described in the file COPYING, which
 // you should have received as part of this distribution.  The terms
-// are also available at    
+// are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function paramfplot2d(f,x,theta,flag,rect)
     //animated plot of x-->f(x,t) for t=theta(1),theta(2),etc
-    //x=N-vector of x-values 
+    //x=N-vector of x-values
     //f(x,t)=N-vector of y-values.
-    //f: mapping x,t -> f(x,t) = R^N valued function for x= vector of R^N and t=real number. 
+    //f: mapping x,t -> f(x,t) = R^N valued function for x= vector of R^N and t=real number.
     //f can be a either Scilab function or a dynamically linked routine since
     // y=f(x,t) is evaluated as y=feval(x(:),t,f). See feval.
     // Here y should be a column vector.
@@ -38,6 +38,7 @@ function paramfplot2d(f,x,theta,flag,rect)
     end
 
     x=x(:);
+    theta=theta(:).'; // it should be a row-vector
     if rhs<5 then //compute the data bounds
         xmin=min(x);xmax=max(x);
         ymin=%inf;ymax=-%inf;
