@@ -436,6 +436,9 @@ Bug fixes
 
 * Bug #12317 fixed - eventhandler functions no more report keyboard events
 
+* Bug #12343 fixed - In the Scilab menu, Scinotes items were pointing to the
+                     editor() function instead of scinotes().
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
