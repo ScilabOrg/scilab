@@ -2,11 +2,11 @@
 <toolbar>
     <!-- scinotes -->
     <button icon="accessories-text-editor" tooltiptext="Launch SciNotes">
-        <callback instruction="editor()" type="0"/>
+        <callback instruction="scinotes()" type="0"/>
     </button>
     <!-- Open File -->
     <button icon="document-open" tooltiptext="Open a file">
-        <callback instruction="           %fileToOpen = uigetfile(&quot;*.sc*&quot;, pwd(), gettext(&quot;Select a file to open with SciNotes&quot;),%t);           if %fileToOpen ~= &quot;&quot; then             editor(%fileToOpen);           end           clear(&quot;%fileToOpen&quot;);" type="0"/>
+        <callback instruction="           %fileToOpen = uigetfile(&quot;*.sc*&quot;, pwd(), gettext(&quot;Select a file to open with SciNotes&quot;),%t);           if %fileToOpen ~= &quot;&quot; then             scinotes(%fileToOpen);           end           clear(&quot;%fileToOpen&quot;);" type="0"/>
     </button>
     <separator/>
     <!-- Copy -->

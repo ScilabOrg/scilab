@@ -1,0 +1,59 @@
+#!/bin/bash
+
+diff=0
+if [ "$1" = "-d" ]
+then
+    diff=1
+    shift
+fi
+
+if [ $# -eq 0 ]
+then
+    prevc=HEAD
+    images=$(git diff --stat | grep -E '(\.jpg|\.png|\.svg)' | awk '{print $1}')
+else
+    prevc=$1^
+    images=$(git diff --stat $1..$prevc | grep -E '(\.jpg|\.png|\.svg)' | awk '{print $1}')
+fi
+
+function get_git_dir () {
+    ls .git &> /dev/null || (cd .. && get_git_dir)
+    echo $PWD
+}
+
+for i in $images
+do
+    img=$(basename $i)
+    img1=/tmp/imgdiff.$img
+    img2=/tmp/imgdiff2.$img
+
+    gitdir=$(get_git_dir)
+    cd $gitdir
+
+    if [ -z $1 ]
+    then
+        cat $i > $img1
+    else
+        git show $1:$i > $img1
+    fi
+
+    git show $prevc:$i > $img2
+    output=/tmp/$img.diff.png
+    if [ $diff -eq 1 ]
+    then
+        composite $img2 $img1 -compose difference $output
+    else
+        convert -bordercolor "#ff0000" -border 5 $img2 $img2
+        convert -bordercolor "#00ff00" -border 5 $img1 $img1
+        montage -tile 2x1 -background "#000000" -geometry +4+4 $img2 $img1 $output
+    fi
+
+    size=$(identify $output | cut -d" " -f3)
+    width=$(echo $size|cut -d"x" -f1)
+    if [ $width -gt 1000 ]
+    then
+        convert -scale 1000 $output $output
+    fi
+    display $output
+done
+
