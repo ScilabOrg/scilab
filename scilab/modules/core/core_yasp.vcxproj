@@ -106,7 +106,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;..\parse\includes;..\ast\includes;..\symbol\includes;..\types\includes;..\functions_manager\includes;../console/includes;..\system_env\includes;..\elementary_functions\includes;../operations/includes;../localization/includes;..\windows_tools\includes;$(SolutionDir)libs\MALLOC\includes;../shell/includes;$(SolutionDir)libs\intl;../history_manager/includes;../fileio/includes;../output_stream/includes;../string/includes;../api_scilab/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;..\parse\includes;..\ast\includes;..\symbol\includes;..\types\includes;..\functions_manager\includes;../console/includes;..\system_env\includes;..\elementary_functions\includes;../operations/includes;../localization/includes;..\windows_tools\includes;$(SolutionDir)libs\MALLOC\includes;../shell/includes;$(SolutionDir)libs\intl;../history_manager/includes;../fileio/includes;../output_stream/includes;../string/includes;../api_scilab/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;../core/src/c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;__CORE_YASP__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
