@@ -117,6 +117,8 @@ Xcos
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
+* Bug #10411 fixed - Rotation of MUX block only concerned ports.
+
 * Bug #10434 fixed - loadXcosLibs changed the predef value.
 
 * Bug #10435 fixed - Undo in superdiagram did not update superblock ports
