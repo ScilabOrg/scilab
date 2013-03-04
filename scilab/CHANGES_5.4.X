@@ -463,6 +463,8 @@ Bug fixes
 
 * Bug #12304 fixed - Undock, redock and undock led to an exception.
 
+* Bug #12305 fixed - Legends could not be loaded from SOD file.
+
 * Bug #12307 fixed - ftp addresses were not handled in help browser.
 
 * Bug #12317 fixed - eventhandler functions no more report keyboard events
