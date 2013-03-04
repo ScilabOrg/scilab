@@ -736,7 +736,12 @@ public class XcosDiagram extends ScilabGraph {
                         // When we change the style property we have to update
                         // some BasiBlock fields
                         if (changes.get(0) instanceof mxStyleChange) {
-                            current.updateFieldsFromStyle();
+                            Object [] cellarray = new Object[1];
+                            cellarray[0] = current;
+                            mxStyleChange oldStyle = (mxStyleChange) changes.get(0);
+                            String oldStyleString = oldStyle.getPrevious();
+
+                            current.updateFieldsFromStyle(oldStyleString);
                         }
 
                         // update the superblock container ports if the block is

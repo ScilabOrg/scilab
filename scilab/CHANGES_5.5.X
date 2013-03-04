@@ -183,6 +183,8 @@ Scilab Bug Fixes
 
 * Bug #10273 fixed - spchol help page now displays an example showing how to use its output arguments.
 
+* Bug #10411 fixed - Rotation of MUX block did not work.
+
 * Bug #10645 fixed - File encoding could not be given as argument in xmlRead.
 
 * Bug #10816 fixed - Typo in part error message fixed.
