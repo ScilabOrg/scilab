@@ -212,6 +212,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     private static final PropertyChangeListener STYLE_UPDATER = new UpdateStyleFromInterfunction();
     private static final Logger LOG = Logger.getLogger(BasicBlock.class.getName());
 
+    private static final int PI = 180;
+
     /**
      * Sort the children list in place.
      *
@@ -1727,7 +1729,12 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         this.angle = angle;
 
         if (getParentDiagram() != null) {
-            mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            // when block requested angle is 90 degrees and 270 degrees, then we do not apply the rotation
+            if (angle % PI == 0) {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            } else {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, "0");
+            }
         }
     }
 
@@ -1735,12 +1742,19 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * Useful when we need to update local properties with mxCell style
      * properties
      */
-    public void updateFieldsFromStyle() {
+    public void updateFieldsFromStyle(String oldstyle) {
         StyleMap map = new StyleMap(getStyle());
 
-        if (map.get(mxConstants.STYLE_ROTATION) != null) {
-            angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
-        } else {
+        if (oldstyle != null)
+        {
+            StyleMap cellStyle = new StyleMap(this.getStyle());
+            String rotationString = cellStyle.get(mxConstants.STYLE_ROTATION);
+            if (rotationString != null)
+            {
+                angle = Integer.parseInt(rotationString);
+            }
+        } else
+        {
             angle = 0;
         }
 
