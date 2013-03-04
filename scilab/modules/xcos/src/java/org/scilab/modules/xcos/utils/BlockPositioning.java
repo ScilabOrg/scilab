@@ -504,6 +504,14 @@ public final class BlockPositioning {
      */
     public static void toggleAntiClockwiseRotation(BasicBlock block) {
         block.setAngle(getNextAntiClockwiseAngle(block));
+
+        // update block geometry
+        mxGeometry geometry = (mxGeometry) block.getGeometry().clone();
+        double width = geometry.getWidth();
+        geometry.setWidth(geometry.getHeight());
+        geometry.setHeight(width);
+        block.getParentDiagram().getModel().setGeometry(block, geometry);
+
         updateBlockView(block);
     }
 

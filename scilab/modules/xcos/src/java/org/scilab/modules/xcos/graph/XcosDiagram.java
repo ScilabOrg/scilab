@@ -104,6 +104,7 @@ import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxGraphModel.Filter;
 import com.mxgraph.model.mxGraphModel.mxChildChange;
 import com.mxgraph.model.mxGraphModel.mxStyleChange;
+import com.mxgraph.model.mxGraphModel.mxGeometryChange;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.model.mxIGraphModel.mxAtomicGraphModelChange;
@@ -736,7 +737,9 @@ public class XcosDiagram extends ScilabGraph {
                         // When we change the style property we have to update
                         // some BasiBlock fields
                         if (changes.get(0) instanceof mxStyleChange) {
-                            current.updateFieldsFromStyle();
+                            current.updateFieldsFromStyle(false);
+                        } else if (changes.get(0) instanceof mxGeometryChange) {
+                            current.updateFieldsFromStyle(true);
                         }
 
                         // update the superblock container ports if the block is

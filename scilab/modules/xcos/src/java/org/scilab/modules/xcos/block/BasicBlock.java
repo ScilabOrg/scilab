@@ -212,6 +212,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     private static final PropertyChangeListener STYLE_UPDATER = new UpdateStyleFromInterfunction();
     private static final Logger LOG = Logger.getLogger(BasicBlock.class.getName());
 
+    private static final int PI = 180;
+
     /**
      * Sort the children list in place.
      *
@@ -1163,10 +1165,10 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         setBlockType(modifiedBlock.getBlockType());
         setSimulationFunctionName(modifiedBlock.getSimulationFunctionName());
         setSimulationFunctionType(modifiedBlock.getSimulationFunctionType());
-        
+
         setNbZerosCrossing(modifiedBlock.getNbZerosCrossing());
         setNmode(modifiedBlock.getNmode());
-        
+
         setEquations(modifiedBlock.getEquations());
         setStyle(modifiedBlock.getStyle());
     }
@@ -1726,8 +1728,15 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     public void setAngle(int angle) {
         this.angle = angle;
 
+        mxGeometry geometry = (mxGeometry) this.getGeometry().clone();
+
         if (getParentDiagram() != null) {
-            mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            // when block requested angle is 90 degrees and 270 degrees, then we do not apply the rotation
+            if (angle % PI == 0 || (angle % PI == 90 && (geometry.getHeight() == geometry.getWidth()))) {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            } else {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, "0");
+            }
         }
     }
 
@@ -1735,13 +1744,22 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
      * Useful when we need to update local properties with mxCell style
      * properties
      */
-    public void updateFieldsFromStyle() {
+    public void updateFieldsFromStyle(boolean isUndoing) {
         StyleMap map = new StyleMap(getStyle());
+        String methodName = null;
 
-        if (map.get(mxConstants.STYLE_ROTATION) != null) {
-            angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
-        } else {
-            angle = 0;
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            methodName = e.getStackTrace()[1].getMethodName();
+        }
+
+        if (!methodName.equals("afterDecode")) {
+            if (isUndoing) {
+                this.angle = this.angle + 90;
+            } else {
+                this.angle = this.angle + 45;
+            }
         }
 
         isFlipped = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_FLIP));

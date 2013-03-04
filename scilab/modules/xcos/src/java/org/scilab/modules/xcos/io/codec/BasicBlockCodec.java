@@ -211,7 +211,7 @@ public class BasicBlockCodec extends XcosObjectCodec {
         StyleMap map = new StyleMap(((Element) node).getAttribute(STYLE));
         formatStyle(map, (BasicBlock) obj);
         block.setStyle(map.toString());
-        block.updateFieldsFromStyle();
+        block.updateFieldsFromStyle(false);
 
         /*
          * Compat. to remove old specific implementations
