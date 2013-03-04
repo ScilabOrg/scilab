@@ -212,6 +212,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     private static final PropertyChangeListener STYLE_UPDATER = new UpdateStyleFromInterfunction();
     private static final Logger LOG = Logger.getLogger(BasicBlock.class.getName());
 
+    private static final int PI = 180;
+
     /**
      * Sort the children list in place.
      *
@@ -1727,7 +1729,12 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         this.angle = angle;
 
         if (getParentDiagram() != null) {
-            mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            // when block requested angle is 90 degrees and 270 degrees, then we do not apply the rotation
+            if (angle % PI == 0) {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            } else {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, "0");
+            }
         }
     }
 
@@ -1738,10 +1745,32 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     public void updateFieldsFromStyle() {
         StyleMap map = new StyleMap(getStyle());
 
-        if (map.get(mxConstants.STYLE_ROTATION) != null) {
-            angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
-        } else {
-            angle = 0;
+        // when undoing a rotation, this function is called twice.
+        // 90 = 45 + 45
+        if (this.angle == 270)
+        {
+            this.angle = 315;
+        } else if (this.angle == 315)
+        {
+            this.angle = 0;
+        } else if (this.angle == 180)
+        {
+            this.angle = 225;
+        } else if (this.angle == 225)
+        {
+            this.angle = 270;
+        } else if (this.angle == 90)
+        {
+            this.angle = 135;
+        } else if (this.angle == 135)
+        {
+            this.angle = 180;
+        } else if (this.angle == 0)
+        {
+            this.angle = 45;
+        } else if (this.angle == 45)
+        {
+            this.angle = 90;
         }
 
         isFlipped = Boolean.parseBoolean(map.get(ScilabGraphConstants.STYLE_FLIP));
