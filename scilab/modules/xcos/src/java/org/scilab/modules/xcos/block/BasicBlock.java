@@ -210,6 +210,9 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     private static final PropertyChangeListener STYLE_UPDATER = new UpdateStyleFromInterfunction();
     private static final Logger LOG = Logger.getLogger(BasicBlock.class.getName());
 
+    private static final String ASKED_ROTATION = "asked_rotation";
+    private static final int PI = 180;
+
     /**
      * Sort the children list in place.
      *
@@ -1692,7 +1695,12 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
         this.angle = angle;
 
         if (getParentDiagram() != null) {
-            mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            if (angle % PI == 0) {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, Integer.toString(angle));
+            } else {
+                mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, mxConstants.STYLE_ROTATION, "0");
+            }
+            mxUtils.setCellStyles(getParentDiagram().getModel(), new Object[] { this }, ASKED_ROTATION, Integer.toString(angle));
         }
     }
 
@@ -1703,8 +1711,8 @@ public class BasicBlock extends ScilabGraphUniqueObject implements Serializable 
     public void updateFieldsFromStyle() {
         StyleMap map = new StyleMap(getStyle());
 
-        if (map.get(mxConstants.STYLE_ROTATION) != null) {
-            angle = Integer.parseInt(map.get(mxConstants.STYLE_ROTATION));
+        if (map.get(ASKED_ROTATION) != null) {
+            angle = Integer.parseInt(map.get(ASKED_ROTATION));
         } else {
             angle = 0;
         }
