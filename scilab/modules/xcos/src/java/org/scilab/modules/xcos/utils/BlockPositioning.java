@@ -484,7 +484,32 @@ public final class BlockPositioning {
      */
     public static void toggleAntiClockwiseRotation(BasicBlock block) {
         block.setAngle(getNextAntiClockwiseAngle(block));
+
+        // update block geometry
+        mxGeometry geometry = block.getGeometry();
+        double width = geometry.getWidth();
+        geometry.setWidth(geometry.getHeight());
+        geometry.setHeight(width);
+        block.setGeometry(geometry);
+
         updateBlockView(block);
+
+        // force a refresh of the block ports and links connected to these ports
+        final int childCount = block.getParentDiagram().getModel().getChildCount(block);
+        for (int i = 0; i < childCount; i++) {
+            final Object port = block.getParentDiagram().getModel().getChildAt(block, i);
+            block.getParentDiagram().getView().clear(port,  true,  true);
+            final int edgeCount = block.getParentDiagram().getModel().getEdgeCount(port);
+            for (int j = 0; j < edgeCount; j++) {
+                final Object edge = block.getParentDiagram().getModel().getEdgeAt(port, j);
+                block.getParentDiagram().getView().clear(edge,  true,  true);
+            }
+        }
+        // force a refresh of the block
+        block.getParentDiagram().getView().clear(block, true, true);
+
+        block.getParentDiagram().getView().validate();
+        block.getParentDiagram().repaint();
     }
 
     /**
