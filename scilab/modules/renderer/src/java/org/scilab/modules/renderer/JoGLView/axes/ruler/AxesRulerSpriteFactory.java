@@ -92,10 +92,15 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
             }
         } else {
             FormattedText formattedText = getTextAtValue(value);
-            FormattedTextSpriteDrawer textObjectSpriteDrawer = new FormattedTextSpriteDrawer(colorMap, formattedText);
-            Texture texture = textureManager.createTexture();
-            texture.setDrawer(textObjectSpriteDrawer);
-            return texture;
+            if (formattedText != null && formattedText.getText() != null && !formattedText.getText().isEmpty()) {
+                FormattedTextSpriteDrawer textObjectSpriteDrawer = new FormattedTextSpriteDrawer(colorMap, formattedText);
+                Texture texture = textureManager.createTexture();
+                texture.setDrawer(textObjectSpriteDrawer);
+
+                return texture;
+            }
+
+            return null;
         }
     }
 
@@ -154,25 +159,25 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
 
         texture.setDrawer(new TextureDrawer() {
 
-                @Override
-                public void draw(TextureDrawingTools drawingTools) {
-                    drawingTools.draw(mantissaTextEntity, 0, exponentSize.height);
-                    drawingTools.draw(exponentTextEntity, mantissaSize.width, 0);
-                }
+            @Override
+            public void draw(TextureDrawingTools drawingTools) {
+                drawingTools.draw(mantissaTextEntity, 0, exponentSize.height);
+                drawingTools.draw(exponentTextEntity, mantissaSize.width, 0);
+            }
 
-                @Override
-                public Dimension getTextureSize() {
-                    return new Dimension(
-                        exponentSize.width + mantissaSize.width,
-                        exponentSize.height + mantissaSize.height
-                        );
-                }
+            @Override
+            public Dimension getTextureSize() {
+                return new Dimension(
+                           exponentSize.width + mantissaSize.width,
+                           exponentSize.height + mantissaSize.height
+                       );
+            }
 
-                @Override
-                public TextureDrawer.OriginPosition getOriginPosition() {
-                    return TextureDrawer.OriginPosition.UPPER_LEFT;
-                }
-            });
+            @Override
+            public TextureDrawer.OriginPosition getOriginPosition() {
+                return TextureDrawer.OriginPosition.UPPER_LEFT;
+            }
+        });
 
         return texture;
     }
@@ -194,21 +199,21 @@ class AxesRulerSpriteFactory implements RulerSpriteFactory {
         Texture texture = textureManager.createTexture();
         texture.setDrawer(new TextureDrawer() {
 
-                @Override
-                public void draw(TextureDrawingTools drawingTools) {
-                    drawingTools.draw(textEntity, 0, 0);
-                }
+            @Override
+            public void draw(TextureDrawingTools drawingTools) {
+                drawingTools.draw(textEntity, 0, 0);
+            }
 
-                @Override
-                public Dimension getTextureSize() {
-                    return textEntity.getSize();
-                }
+            @Override
+            public Dimension getTextureSize() {
+                return textEntity.getSize();
+            }
 
-                @Override
-                public TextureDrawer.OriginPosition getOriginPosition() {
-                    return TextureDrawer.OriginPosition.UPPER_LEFT;
-                }
-            });
+            @Override
+            public TextureDrawer.OriginPosition getOriginPosition() {
+                return TextureDrawer.OriginPosition.UPPER_LEFT;
+            }
+        });
 
         return texture;
     }
