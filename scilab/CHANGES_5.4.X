@@ -443,6 +443,8 @@ Bug fixes
 
 * Bug #12317 fixed - eventhandler functions no more report keyboard events
 
+* Bug #12335 fixed - strtod didn't work with negative numbers.
+
 * Bug #12346 fixed - lsslist() help pages were mislocated. Moved now to CACSD.
 
 * Bug #12348 fixed - surf() disable lines(n) if there is no input variable.

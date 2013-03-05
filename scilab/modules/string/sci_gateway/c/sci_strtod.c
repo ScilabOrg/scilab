@@ -39,7 +39,6 @@ int sci_strtod(char *fname, unsigned long fname_len)
     double *OutputDoubles = NULL;
     char **OutputStrings = NULL;
 
-
     CheckInputArgument(pvApiCtx, 1, 1);
     CheckOutputArgument(pvApiCtx, 1, 2);
 
@@ -122,7 +121,7 @@ int sci_strtod(char *fname, unsigned long fname_len)
 
             for (y = 0 ; y < first_nb ; y++)
             {
-                if (Input_StringMatrix_1[x][y] != ' ') // spaces are accepted
+                if (Input_StringMatrix_1[x][y] != ' ' && Input_StringMatrix_1[x][first_nb-1]!='-') // spaces are accepted
                 {
                     OutputDoubles[x] = not_a_number;
                     flag = 1;
@@ -142,7 +141,14 @@ int sci_strtod(char *fname, unsigned long fname_len)
                 }
                 else // strtod("  000xxx")
                 {
-                    OutputDoubles[x] = (double)strtod(Input_StringMatrix_1[x] + first_nb, &stopstring);
+                    if (Input_StringMatrix_1[x][first_nb-1]=='-') //if negative number
+                    {
+                        OutputDoubles[x] = (double)strtod(Input_StringMatrix_1[x] + first_nb-1, &stopstring);
+                    }
+                    else
+                    {
+                        OutputDoubles[x] = (double)strtod(Input_StringMatrix_1[x] + first_nb, &stopstring);
+                    }
                 }
             }
         }
