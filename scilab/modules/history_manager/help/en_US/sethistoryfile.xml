@@ -36,12 +36,12 @@
         <title>Description</title>
         <para>set filename for scilab history.</para>
         <para>sethistoryfile() without parameters will use the default filename
-            (SCIHOME/history.scilab)
+            (SCIHOME/history)
         </para>
     </refsection>
     <refsection>
         <title>Examples</title>
-        <programlisting role="example"><![CDATA[ 
+        <programlisting role="example"><![CDATA[
 gethistoryfile()
 sethistoryfile(gethistoryfile())
  ]]></programlisting>
