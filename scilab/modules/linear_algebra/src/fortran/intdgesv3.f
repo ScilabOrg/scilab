@@ -1,5 +1,6 @@
 c Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 c Copyright (C) INRIA
+c Copyright (C) 2013 - Michael Baudin
 c$
 c This file must be used under the terms of the CeCILL.
 c This source file is licensed as described in the file COPYING, which
@@ -17,10 +18,12 @@ c     a\b
       character fname*(*)
       double precision ANORM, EPS, RCOND
       double precision dlamch, dlange
+      double precision RCONDthresh
       integer vfinite
       external dlamch, dlange, vfinite
       intrinsic sqrt
-c     
+
+c
       minrhs=2
       maxrhs=2
       minlhs=1
@@ -90,7 +93,7 @@ c     SUBROUTINE DGETRF( N, N, A, LDA, IPIV, INFO )
      $           istk(lIWORK), INFO )
 c     SUBROUTINE DGECON( NORM, N, A, LDA, ANORM, RCOND, WORK,
 c     $                        IWORK, INFO )
-            if(RCOND.gt.sqrt(EPS)) then
+            if(RCOND.gt.RCONDthresh) then
                call DGETRS( 'N', N, NRHS, stk(lAF), N, istk(lIPIV),
      $              stk(lB), N, INFO ) 
 c     SUBROUTINE DGETRS( TRANS, N, NRHS, A, LDA, IPIV,
@@ -107,7 +110,7 @@ c     SUBROUTINE DLACPY( UPLO, M, N, A, LDA, B, LDB )
 c     
 c     M.ne.N or A singular
 c     
-      RCOND = sqrt(EPS)
+      RCOND = RCONDthresh
       call DLACPY( 'F', M, NRHS, stk(lB), M, stk(lXB), max(M,N) )
 c     SUBROUTINE DLACPY( UPLO, M, N, A, LDA, B, LDB )
       do 10 i = 1, N
