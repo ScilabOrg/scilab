@@ -37,6 +37,9 @@ Improvements
 * editvar propose direct save to the CSV format of the whole variable or the
   selection.
 
+* Completion in Scilab is now case insensitive. See bug #6320.
+
+
 
 Removed functions
 ==================
@@ -111,10 +114,15 @@ Xcos
 
 * Avoid some scopes blink on simulation.
 
+* Bug #9074 fixed - Calling a function on the context gave a warning.
+
 * Bug #10040 fixed - VARIABLE_DELAY documentation does not fully describe the
                      initial value behavioral.
 
 * Bug #10434 fixed - loadXcosLibs changed the predef value.
+
+* Bug #10435 fixed - Undo in superdiagram did not update superblock ports
+                     and links.
 
 * Bug #10660 fixed - model2blk and callblk crashed Scilab on 64-bit platforms.
 
@@ -123,6 +131,8 @@ Xcos
 * Bug #11775 fixed - xcos.tst crashed on Linux and MacOS X.
 
 * Bug #11821 fixed - Running XcosPalAdd example from help led to deadlock
+
+* Bug #11871 fixed - Connectors were misaligned after Undo command.
 
 * Bug #11913 fixed - Unconnected CLSS block with empty matrix parameters made
                      Scilab crash.
@@ -227,6 +237,15 @@ Bug fixes
 * Bug #9305 fixed - In the optimisation help page, new chapter "Least Squares functions"
                     created.
 
+* Bug #9934 fixed - clear([["A","B"]) returns a non standard error message.
+
+* Bug #9935 fixed - clear() does not clear all variables.
+
+* Bug #10278 fixed - clear(1) returns a wrong error message.
+
+* Bug #10415 fixed - Remove a session line in history causes the removal
+                     of the session node in history browser
+
 * Bug #10606 fixed - unix_g did not return stdout in somes cases.
 
 * Bug #10661 fixed - xmltopdf & xmltopdf were failing in the binary version.
@@ -252,7 +271,7 @@ Bug fixes
 * Bug #11549 fixed - Prefs window changed its dimension when hitting Default.
 
 * Bug #11569 fixed - F5 to navigate in the dock was incompatible with SciNotes.
-                     So replace F5 by shift+F6 to go to the previous tab. 
+                     So replace F5 by shift+F6 to go to the previous tab.
 
 * Bug #11711 fixed - xclick and xgetmouse did not work under Mac OS X.
 
@@ -287,6 +306,9 @@ Bug fixes
 
 * Bug #11965 fixed - Export to SVG converted texts in shapes.
 
+* Bug #11969 fixed - Only the first line was executed when code was piped under
+                     Linux.
+
 * Bug #11971 fixed - Canceling "Open File" action launched from icon in the
                     toolbar opened SciNotes anyway.
 
@@ -294,6 +316,9 @@ Bug fixes
 
 * Bug #11980 fixed - csim returned an error message in some cases: "Submatrix
                      incorrectly defined".
+
+* Bug #11971 fixed - Canceling "Open File" action launched from icon in the
+                    toolbar opened SciNotes anyway.
 
 * Bug #11981 fixed - Smooth french help page had a wrong declaration
                      (colonnes => lignes).
@@ -323,6 +348,8 @@ Bug fixes
 * Bug #12043 fixed - Fix a typo in the ATOMS module help pages.
 
 * Bug #12050 fixed - Fix a typo: dimensionnal => dimensional.
+
+* Bug #12059 fixed - Index returned by gsort of sparse were wrong.
 
 * Bug #12062 fixed - getsystemmetrics() failed for some properties such as 'SM_CXMAXIMIZED'.
 
@@ -363,6 +390,9 @@ Bug fixes
 * Bug #12166 fixed - There was a bad label with drawaxis.
 
 * Bug #12168 fixed - matfile_listvar crashed when listing variables of a closed MAT-file.
+
+* Bug #12174 fixed - The function "routh_t" gave incorrect output for all denominators
+                     that include gain value "k".
 
 * Bug #12179 fixed - Fix an incompatibility with MPI version of HDF5.
 
@@ -412,6 +442,12 @@ Bug fixes
 * Bug #12304 fixed - Undock, redock and undock led to an exception.
 
 * Bug #12307 fixed - ftp addresses were not handled in help browser.
+
+* Bug #12317 fixed - eventhandler functions no more report keyboard events
+
+* Bug #12346 fixed - lsslist() help pages were mislocated. Moved now to CACSD.
+
+* Bug #12348 fixed - surf() disable lines(n) if there is no input variable.
 
 
                     Changes between version 5.3.3 and 5.4.0

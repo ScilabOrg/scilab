@@ -93,7 +93,6 @@ GATEWAY_CPP_SOURCES = \
 libscilinear_algebra_la_CPPFLAGS = -I$(srcdir)/includes/ \
 -I$(srcdir)/src/c/ \
 -I$(srcdir)/src/cpp/ \
--I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/symbol/includes \
 -I$(top_srcdir)/modules/types/includes \
 -I$(top_srcdir)/modules/ast/includes \

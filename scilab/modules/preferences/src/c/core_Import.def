@@ -5,3 +5,7 @@ EXPORTS
 ;
 callFunctionFromGateway
 com_
+getSCIHOME
+MyHeapAlloc
+MyHeapFree
+

@@ -50,7 +50,7 @@ public:
     * @param size of the array of string
     * @return TRUE or FALSE
     */
-    BOOL appendLines(char **_pstLines, int _iLines);
+    BOOL appendLines(char **lines, int nbrlines);
 
     /**
     * Display history
@@ -233,10 +233,16 @@ private:
     int m_iSavedLines;
 
     /**
-    * search if line is a beginning of a session
+    * indicates if command line is a beginning of a session
     * @return TRUE or FALSE
     */
-    BOOL isBeginningSessionLine(char* _pstLine);
+    BOOL isBeginningSessionLine(CommandLine& line);
+
+    /**
+    * indicates if a string has the pattern "beginning of a session"
+    * @return TRUE or FALSE
+    */
+    BOOL isBeginningSessionLine(const char *line);
 
     /**
     * add as first line  beginning session info

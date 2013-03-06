@@ -10,4 +10,10 @@ with_module
 setSCIpath
 InitializeLaunchScilabSignal
 sciquit
+getTMPDIR
+getTMPDIRW
 StoreCommand
+MyHeapAlloc
+MyHeapFree
+MyHeapRealloc
+

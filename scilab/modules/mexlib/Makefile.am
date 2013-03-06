@@ -10,7 +10,6 @@ MEXLIB_CPP_SOURCES = \
 
 MEXLIB_FLAGS = \
     -I$(srcdir)/includes/ \
-    -I$(top_srcdir)/libs/MALLOC/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
 	-I$(top_srcdir)/modules/call_scilab/includes/ \

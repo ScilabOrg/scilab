@@ -88,7 +88,6 @@ GATEWAY_C_SOURCES = sci_gateway/c/gw_statistics.c \
 
 libscistatistics_la_CPPFLAGS = -I$(srcdir)/includes/ \
 -I$(srcdir)/src/c/ \
--I$(top_srcdir)/libs/MALLOC/includes/ \
 -I$(top_srcdir)/modules/api_scilab/includes/ \
 -I$(top_srcdir)/modules/symbol/includes/ \
 -I$(top_srcdir)/modules/types/includes/ \
@@ -98,7 +97,6 @@ libscistatistics_la_CPPFLAGS = -I$(srcdir)/includes/ \
 -I$(top_srcdir)/modules/localization/includes/ \
 -I$(top_srcdir)/libs/dynamiclibrary/includes/ \
 $(AM_CPPFLAGS)
-
 
 pkglib_LTLIBRARIES = libscistatistics.la
 noinst_LTLIBRARIES = libscistatistics-algo.la

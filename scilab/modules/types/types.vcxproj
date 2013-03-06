@@ -76,10 +76,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+=======
+      <AdditionalIncludeDirectories>includes;src/c;src/cpp;../core/includes;../api_scilab/includes;../commons/src/jni;../jvm/includes;../output_stream/includes;../../libs/intl;../../java/jdk/include/win32;../../java/jdk/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FORDLL;_DEBUG;_WINDOWS;_USRDLL;XML_SCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+>>>>>>> origin/master
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -90,7 +95,7 @@
       <OutputFile>$(SolutionDir)bin\$(ProjectName).dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>../../bin/$(ProjectName).lib</ImportLibrary>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalDependencies>scilocalization.lib;system_env.lib</AdditionalDependencies>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
@@ -106,10 +111,15 @@ lib /DEF:"$(ProjectDir)system_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+<<<<<<< HEAD
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+=======
+      <AdditionalIncludeDirectories>includes;src/c;src/cpp;../core/includes;../api_scilab/includes;../commons/src/jni;../jvm/includes;../output_stream/includes;../../libs/intl;../../java/jdk/include/win32;../../java/jdk/include;../windows_tools/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FORDLL;_DEBUG;_WINDOWS;_USRDLL;TYPES_SCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+>>>>>>> origin/master
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -131,10 +141,18 @@ lib /DEF:"$(ProjectDir)system_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+<<<<<<< HEAD
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+=======
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>includes;src/c;src/cpp;../core/includes;../api_scilab/includes;../commons/src/jni;../jvm/includes;../output_stream/includes;../../libs/intl;../../java/jdk/include/win32;../../java/jdk/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FORDLL;NDEBUG;_WINDOWS;_USRDLL;TYPES_SCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+>>>>>>> origin/master
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -160,10 +178,18 @@ lib /DEF:"$(ProjectDir)system_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
+<<<<<<< HEAD
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../../libs/MALLOC/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;../elementary_functions/includes;../core/includes;../operations/includes;../symbol//includes;../ast/includes;../output_stream/includes;../localization/includes;../../libs/intl;../parse/includes;../system_env/includes;../windows_tools/includes;../functions_manager/includes;../string/includes;../threads/includes;../../libs/dynamiclibrary/includes;../../libs/Eigen/includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TYPES_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+=======
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>includes;src/c;src/cpp;../core/includes;../api_scilab/includes;../commons/src/jni;../jvm/includes;../output_stream/includes;../../libs/intl;../../java/jdk/include/win32;../../java/jdk/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FORDLL;NDEBUG;_WINDOWS;_USRDLL;TYPES_SCILAB_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+>>>>>>> origin/master
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -286,9 +312,6 @@ lib /DEF:"$(ProjectDir)system_env_Import.def" /SUBSYSTEM:WINDOWS /MACHINE:$(Plat
   <ItemGroup>
     <ProjectReference Include="..\..\libs\dynamiclibrary\dynamiclibrary.vcxproj">
       <Project>{77154919-8a20-4f35-b7c7-6b3b957bdca1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\MALLOC\MALLOC.vcxproj">
-      <Project>{6a84ad8c-ba18-4a3f-9c72-ec3df0939e9e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ast\ast-tools\ast-tools.vcxproj">
       <Project>{1f4a0344-99ed-461b-bd53-1593788fb34d}</Project>

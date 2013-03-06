@@ -44,7 +44,6 @@ RANDLIB_CPP_SOURCES = src/cpp/grand.cpp
 GATEWAY_CPP_SOURCES = sci_gateway/cpp/sci_grand.cpp
 
 libscirandlib_la_CPPFLAGS = -I$(srcdir)/includes/ \
-				-I$(top_srcdir)/libs/MALLOC/includes/ \
 				-I$(top_srcdir)/modules/output_stream/includes/ \
 				-I$(top_srcdir)/modules/api_scilab/includes/ \
 				-I$(top_srcdir)/modules/localization/includes/ \
