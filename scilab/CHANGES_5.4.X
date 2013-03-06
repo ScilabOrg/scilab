@@ -181,6 +181,8 @@ Documentation
 
 * xlabel(), ylabel, zlabel() macros are fully documented (See bug #6975).
 
+* Default stacksize is incorrect (See bug #12134).
+
 
 Compilation
 ============
@@ -266,7 +268,7 @@ Bug fixes
 
 * Bug #11134 fixed - xgetmouse() prevented callback menu execution.
 
-* Bug #11362 fixed - Doc of axes_properties did not explain that 
+* Bug #11362 fixed - Doc of axes_properties did not explain that
                      mark_style=mark_size=0 draw a single dot.
 
 * Bug #11436 fixed - With Matplot, color outside the colormap was replaced with
@@ -453,7 +455,7 @@ Bug fixes
 
 * Bug #12285 fixed - export_to_hdf5 function could not handle any matrix in append mode.
 
-* Bug #12291 fixed - Unable to display a list of handle as an handle userData. 
+* Bug #12291 fixed - Unable to display a list of handle as an handle userData.
 
 * Bug #12296 fixed - Call to getenv with a big environment variable
                      led to memory corruption.
