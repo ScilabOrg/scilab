@@ -1,0 +1,53 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Sylvestre Ledru
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- CLI SHELL MODE -->
+
+// <-- Non-regression test for bug 9196 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/show_bug.cgi?id=9196
+//
+// <-- Short Description -->
+//    The threshold level for conditioning in backslash is too small.
+// =============================================================================
+
+n=9;
+A = testmatrix("hilb",n);
+A=complex(A,zeros(A));
+b = ones(n,1);
+b=complex(b,zeros(b));
+x = A\b;
+xexpected=[
+2.82896825396825370e+000
+1.92896825396825400e+000
+1.51987734487734480e+000
+1.26987734487734480e+000
+1.09680042180042170e+000
+9.68228993228993360e-001
+8.68228993228993270e-001
+7.87871850371850480e-001
+7.21695379783615090e-001
+];
+xexpected=complex(xexpected,zeros(xexpected));
+assert_checkalmostequal(x, xexpected);
+
+// n=9;
+// A = testmatrix("hilb",n);
+// b = ones(n,1);
+// x = (b'/A')'
+// xexpected=[
+// 2.82896825396825370e+000
+// 1.92896825396825400e+000
+// 1.51987734487734480e+000
+// 1.26987734487734480e+000
+// 1.09680042180042170e+000
+// 9.68228993228993360e-001
+// 8.68228993228993270e-001
+// 7.87871850371850480e-001
+// 7.21695379783615090e-001
+// ];
