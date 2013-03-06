@@ -252,8 +252,16 @@ Bug fixes
 
 * Bug #10815 fixed - diff help page did not have a "See Also" section.
 
+* Bug #11209 fixed - variance returned wrong results for complex arguments.
+
 * Bug #11134 fixed - xgetmouse() prevented callback menu execution.
 
+<<<<<<< HEAD
+=======
+* Bug #11362 fixed - Doc of axes_properties did not explain that
+                     mark_style=mark_size=0 draw a single dot.
+
+>>>>>>> ac42cc4... * Bug #11209 fixed - variance returned wrong results for complex arguments.
 * Bug #11436 fixed - With Matplot, color outside the colormap was replaced with
                      the last color in colormap.
 
