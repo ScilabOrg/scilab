@@ -18,6 +18,7 @@ c     a\b
       character fname*(*)
       double precision ANORM, EPS, RCOND
       double precision dlamch, zlange
+      double precision RCOND_thresh
       integer vfinite
       external dlamch, zlange, vfinite
       intrinsic sqrt
@@ -26,6 +27,7 @@ c
       maxrhs=2
       minlhs=1
       maxlhs=1
+      RCOND_thresh=EPS*10
 c     
       if(.not.checkrhs(fname,minrhs,maxrhs)) return
       if(.not.checklhs(fname,minlhs,maxlhs)) return
@@ -92,7 +94,7 @@ c     SUBROUTINE ZGETRF( N, N, A, LDA, IPIV, INFO )
      $           zstk(lDWORK), stk(lRWORK), INFO )
 c     SUBROUTINE ZGECON( NORM, N, A, LDA, ANORM, RCOND, WORK,
 c     $                        RWORK, INFO )
-            if(RCOND.gt.sqrt(EPS)) then
+            if(RCOND.gt.RCOND_thresh) then
                call ZGETRS( 'N', N, NRHS, zstk(lAF), N, istk(lIPIV),
      $              zstk(lXB), N, INFO ) 
 c     SUBROUTINE ZGETRS( TRANS, N, NRHS, A, LDA, IPIV,
@@ -111,7 +113,7 @@ c     .        ill conditioned problem
 c     
 c     M.ne.N or A  singular
 c     
-      RCOND = sqrt(EPS)
+      RCOND = RCOND_thresh
       call ZLACPY( 'F', M, NRHS, zstk(lB), M, zstk(lXB), max(M,N) )
 c     SUBROUTINE ZLACPY( UPLO, M, N, A, LDA, B, LDB )
       do 10 i = 1, N
