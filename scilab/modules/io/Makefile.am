@@ -45,7 +45,6 @@ GATEWAY_CPP_SOURCES = \
 
 libsciio_la_CPPFLAGS = -I$(srcdir)/includes/ \
 			-I$(srcdir)/src/c/ \
-			-I$(top_srcdir)/libs/MALLOC/includes/ \
 			-I$(top_srcdir)/modules/core/includes/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/types/includes/ \

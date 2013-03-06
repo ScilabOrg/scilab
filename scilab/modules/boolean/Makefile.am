@@ -26,7 +26,6 @@ GATEWAY_FORTRAN_SOURCES =
 
 libsciboolean_la_CPPFLAGS = \
     -I$(srcdir)/includes/ \
-    -I$(top_srcdir)/libs/MALLOC/includes \
     -I$(top_srcdir)/libs/dynamiclibrary/includes \
     -I$(top_srcdir)/modules/functions_manager/includes \
     -I$(top_srcdir)/modules/types/includes \
