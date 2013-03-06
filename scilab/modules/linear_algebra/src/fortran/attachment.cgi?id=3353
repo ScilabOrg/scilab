@@ -1,0 +1,12 @@
+20a21
+>       double precision RCOND_thresh
+77a79
+>       RCOND_thresh=EPS*10
+95c97
+<             if(RCOND.gt.sqrt(EPS)) then
+---
+>             if(RCOND.gt.RCOND_thresh) then
+114c116
+<       RCOND = sqrt(EPS)
+---
+>       RCOND = RCOND_thresh

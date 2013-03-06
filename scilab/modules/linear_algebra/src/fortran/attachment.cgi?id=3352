@@ -1,0 +1,14 @@
+1a2
+> c Copyright (C) 2013 - Michael Baudin
+19a21
+>       double precision RCONDthresh
+76a79
+>       RCONDthresh=EPS*10
+93c96
+<             if(RCOND.gt.sqrt(EPS)) then
+---
+>             if(RCOND.gt.RCONDthresh) then
+110c113
+<       RCOND = sqrt(EPS)
+---
+>       RCOND = RCONDthresh
