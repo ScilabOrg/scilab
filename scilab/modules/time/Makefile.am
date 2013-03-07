@@ -20,7 +20,6 @@ GATEWAY_CPP_SOURCES = 	sci_gateway/cpp/time_gw.cpp \
 						sci_gateway/cpp/sci_tictoc.cpp
 
 libscitime_la_CPPFLAGS= -I$(srcdir)/includes/ \
-			-I$(top_srcdir)/libs/MALLOC/includes/ \
 			-I$(srcdir)/src/c/ \
 			-I$(top_srcdir)/modules/api_scilab/includes/ \
 			-I$(top_srcdir)/modules/operations/includes/ \

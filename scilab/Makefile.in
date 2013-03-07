@@ -650,8 +650,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 yacc_present = @yacc_present@
 AUTOMAKE_OPTIONS = 1.11 dist-zip dist-bzip2
-SUBDIRS = libs \
-	modules \
+SUBDIRS = modules \
 	contrib \
 	desktop
 
