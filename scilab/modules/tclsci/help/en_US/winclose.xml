@@ -38,6 +38,13 @@
         </para>
     </refsection>
     <refsection>
+        <title>Remark</title>
+        <para>
+            <literal>winclose</literal> is obsolete.
+            It is better to use <link linkend="close">close</link> instead of <literal>winclose</literal>.
+        </para>
+    </refsection>  
+    <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
 //CREATE SOME WINDOWS
