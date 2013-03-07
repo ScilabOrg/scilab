@@ -20,7 +20,7 @@ extern "C"
 #include "BOOL.h"
 }
 /*------------------------------------------------------------------------*/
-typedef enum 
+typedef enum
 {
     NO_ERROR_HISTORY_LOADED,
     ERROR_HISTORY_NOT_LOADED,
@@ -42,7 +42,6 @@ public:
 
     /**
     * set default filename used by history
-    * SCIHOME/history.scilab
     * @return TRUE or FALSE
     */
     BOOL setDefaultFilename(void);
