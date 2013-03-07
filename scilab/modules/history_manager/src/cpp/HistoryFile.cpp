@@ -36,7 +36,12 @@ extern "C"
 #include "mgetl.h"
 #include "mclose.h"
 #include "freeArrayOfString.h"
+<<<<<<< HEAD
 #include "os_wfopen.h"
+=======
+#include "getScilabPreference.h"
+#include "expandPathVariable.h"
+>>>>>>> origin/master
 };
 /*------------------------------------------------------------------------*/
 #define DEFAULT_HISTORY_FILE_MAX_LINES 20000
@@ -54,11 +59,19 @@ HistoryFile::~HistoryFile()
 /*------------------------------------------------------------------------*/
 std::string HistoryFile::getFilename(void)
 {
+<<<<<<< HEAD
     if(m_stFilename.empty())
     {
         setDefaultFilename();
     }
     return m_stFilename;
+=======
+    if (this->my_history_filename.empty())
+    {
+        this->setDefaultFilename();
+    }
+    return this->my_history_filename;
+>>>>>>> origin/master
 }
 /*------------------------------------------------------------------------*/
 void HistoryFile::setFilename(std::string _stFilename)
@@ -75,6 +88,7 @@ void HistoryFile::setFilename(std::string _stFilename)
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::setDefaultFilename(void)
 {
+<<<<<<< HEAD
     BOOL bOK = FALSE;
     char* SCIHOME = getSCIHOME();
     std::string stDefaultFilename;
@@ -85,21 +99,62 @@ BOOL HistoryFile::setDefaultFilename(void)
 
     setFilename(stDefaultFilename);
     return TRUE;
+=======
+    const ScilabPreferences* prefs = getScilabPreferences();
+    if (prefs != NULL && prefs->historyFile != NULL)
+    {
+        const char* prefHistoryFile = prefs->historyFile;
+        this->setFilename(expandPathVariable((char*)prefHistoryFile));
+        return TRUE;
+    }
+    else
+    {
+        std::string filename(DEFAULT_HISTORY_FILE);
+        char *SCIHOME = getSCIHOME();
+        if (SCIHOME)
+        {
+            std::string scihome(SCIHOME);
+            std::string sep(DIR_SEPARATOR);
+            this->setFilename(scihome + sep + filename);
+            return TRUE;
+        }
+        else
+        {
+            this->setFilename(filename);
+            return FALSE;
+        }
+    }
+>>>>>>> origin/master
 }
+
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::writeToFile(std::string _stFilename)
 {
+<<<<<<< HEAD
     if (m_Commands.empty())
     {
         return FALSE;
+=======
+    BOOL bOK = FALSE;
+
+    if (this->Commands.empty())
+    {
+        return bOK;
+>>>>>>> origin/master
     }
     else
     {
         std::ofstream fOut;
 
+<<<<<<< HEAD
         if(_stFilename.empty())
         {
             return FALSE;
+=======
+        if (filename.empty())
+        {
+            return bOK;
+>>>>>>> origin/master
         }
 
         fOut.open(_stFilename.c_str(), std::ios::trunc);
@@ -111,7 +166,22 @@ BOOL HistoryFile::writeToFile(std::string _stFilename)
         std::list<std::string>::const_iterator it;
         for(it = m_Commands.begin(); it != m_Commands.end(); it++)
         {
+<<<<<<< HEAD
             fOut << (*it).c_str() << std::endl;
+=======
+            list<CommandLine>::iterator it_commands;
+            for (it_commands = this->Commands.begin(); it_commands != this->Commands.end(); ++it_commands)
+            {
+                std::string line = (*it_commands).get();
+                if (!line.empty())
+                {
+                    fputs(line.c_str(), pFile);
+                    fputs("\n", pFile);
+                }
+            }
+            fclose(pFile);
+            bOK = TRUE;
+>>>>>>> origin/master
         }
         fOut.close();
     }
@@ -120,11 +190,20 @@ BOOL HistoryFile::writeToFile(std::string _stFilename)
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::writeToFile(void)
 {
+<<<<<<< HEAD
     if(m_stFilename.empty() == false)
     {
         return writeToFile(m_stFilename);
     }
     return FALSE;
+=======
+    BOOL bOK = FALSE;
+    if (!this->my_history_filename.empty())
+    {
+        bOK = this->writeToFile(my_history_filename);
+    }
+    return bOK;
+>>>>>>> origin/master
 }
 /*------------------------------------------------------------------------*/
 
@@ -223,9 +302,15 @@ errorLoadHistoryCode HistoryFile::loadFromFile(std::string _stFilename)
 errorLoadHistoryCode HistoryFile::loadFromFile(void)
 {
     errorLoadHistoryCode returnedError = ERROR_HISTORY_NOT_LOADED;
+<<<<<<< HEAD
     if (m_stFilename.empty() == false)
     {
         returnedError = loadFromFile(m_stFilename);
+=======
+    if (!this->my_history_filename.empty())
+    {
+        returnedError = this->loadFromFile(my_history_filename);
+>>>>>>> origin/master
     }
     return returnedError;
 }
@@ -240,12 +325,21 @@ BOOL HistoryFile::setHistory(std::list<std::string> _lstCommands)
     BOOL bOK = FALSE;
     std::list<std::string>::const_iterator it;
 
+<<<<<<< HEAD
     if(m_Commands.empty() == false)
     {
         m_Commands.clear();
     }
 
     for(it = _lstCommands.begin(); it != _lstCommands.end(); it++)
+=======
+    if (!this->Commands.empty())
+    {
+        this->Commands.clear();
+    }
+
+    for (it_commands = commands.begin(); it_commands != commands.end(); ++it_commands)
+>>>>>>> origin/master
     {
         m_Commands.push_back(*it);
     }
@@ -254,9 +348,33 @@ BOOL HistoryFile::setHistory(std::list<std::string> _lstCommands)
 /*------------------------------------------------------------------------*/
 BOOL HistoryFile::reset(void)
 {
+<<<<<<< HEAD
     m_Commands.clear();
     m_stFilename.erase();
     return TRUE;
+=======
+    BOOL bOK = FALSE;
+    BOOL check1 = FALSE, check2 = FALSE;
+
+    if (!this->Commands.empty())
+    {
+        this->Commands.clear();
+        check1 = TRUE;
+    }
+
+    if (!my_history_filename.empty())
+    {
+        my_history_filename.erase();
+        check2 = TRUE;
+    }
+
+    if (check1 && check2)
+    {
+        bOK = TRUE;
+    }
+
+    return bOK;
+>>>>>>> origin/master
 }
 /*------------------------------------------------------------------------*/
 int HistoryFile::getDefaultMaxNbLines(void)
