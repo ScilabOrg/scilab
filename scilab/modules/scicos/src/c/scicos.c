@@ -831,7 +831,8 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 cossim(t0);
                 break;
             case 100: // IDA
-            case 101: // DDaskr
+            case 101: // DDaskr - BDF / Newton
+            case 102: // DDaskr - BDF / GMRes
                 cossimdaskr(t0);
                 break;
             default: // Unknown solver number
@@ -2024,7 +2025,8 @@ static void cossimdaskr(double *told)
             DAESetMaxNumStepsIC = &IDASetMaxNumStepsIC;
             DAESetLineSearchOffIC = &IDASetLineSearchOffIC;
             break;
-        case 101: // DDaskr
+        case 101: // DDaskr - BDF - Newton
+        case 102: // DDaskr - BDF / GMRes
             DAEFree = &DDaskrFree;
             DAESolve = &DDaskrSolve;
             DAESetId = &DDaskrSetId;
@@ -2129,9 +2131,9 @@ static void cossimdaskr(double *told)
 
         /* Call the Create and Init functions to initialize DAE memory */
         dae_mem = NULL;
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
-            dae_mem = DDaskrCreate(neq, ng);
+            dae_mem = DDaskrCreate(neq, ng, C2F(cmsolver).solver);
         }
         else
         dae_mem = IDACreate();
@@ -2147,7 +2149,7 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) dae_mem;
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrSetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
         }
@@ -2166,7 +2168,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrInit(dae_mem, simblkddaskr, T0, yy, yp, jacpsol, psol);
         }
@@ -2199,7 +2201,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrRootInit(dae_mem, ng, grblkddaskr);
         }
@@ -2315,7 +2317,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrDlsSetDenseJacFn(dae_mem, Jacobiansddaskr);
         }
@@ -3124,7 +3126,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     loc = block->funpt;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3494,7 +3496,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     // sciprint("callf end  flag=%d\n",*flag);
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3541,7 +3543,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
     loc4 = (ScicosF4) loc;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3551,7 +3553,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
 
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
