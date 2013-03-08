@@ -306,7 +306,8 @@ public class ScicosParameters implements Serializable, Cloneable {
      * <li>6 : RK45 : Method: Runge-Kutta 4(5)
      * <li>7 : Implicit RK45 : Method: Runge-Kutta 4(5), Nonlinear solver= Fixed-point
      * <li>100 : Sundials/IDA
-     * <li>101 : DDaskr : Method: BDF
+     * <li>101 : DDaskr : Method: BDF, Nonlinear solver= NEWTON
+     * <li>102 : DDaskr : Method: BDF, Nonlinear solver= GMRES
      *
      *
      * @return solver value
@@ -326,7 +327,8 @@ public class ScicosParameters implements Serializable, Cloneable {
      * <li>6 : RK45 : Method: Runge-Kutta 4(5)
      * <li>7 : Implicit RK45 : Method: Runge-Kutta 4(5), Nonlinear solver= FIXED-POINT
      * <li>100 : Sundials/IDA
-     * <li>101 : DDaskr : Method: BDF
+     * <li>101 : DDaskr : Method: BDF, Nonlinear solver= NEWTON
+     * <li>102 : DDaskr : Method: BDF, Nonlinear solver= GMRES
      *
      *
      * @param solver
