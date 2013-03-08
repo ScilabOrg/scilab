@@ -7,13 +7,13 @@
 
 // <-- ENGLISH IMPOSED -->
 
-// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskr_Bouncing.tst");
-//  or test_run('scicos', 'DDaskr_Bouncing', ['no_check_error_output']);
+// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskrK_RLC.tst");
+//  or test_run('scicos', 'DDaskrK_RLC', ['no_check_error_output']);
 
 // Import diagram
 loadScicos();
 loadXcosLibs();
-assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/DDaskr_Bouncing_test.zcos"));
+assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/DDaskr_RLC_test.zcos"));
 
 // Redefining messagebox() to avoid popup
 function messagebox(msg, title)
@@ -22,12 +22,12 @@ function messagebox(msg, title)
 endfunction
 
 // Start by updating the clock block period (sampling)
-scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-3));"0"];
+//scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-3));"0"];
 
 // Modify solver + run DDaskr + save results
-scs_m.props.tol(6) = 101;           // Solver
-//scs_m.props.tol(1) = 1.0e-10;      // abstol
-//scs_m.props.tol(2) = 1.0e-10;      // reltol
+scs_m.props.tol(6) = 102;           // Solver
+//scs_m.props.tol(1) = 1.0e-6;      // abstol
+//scs_m.props.tol(2) = 1.0e-6;      // reltol
 try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // DDaskr
 ddaskrval = res.values;   // Results
 time = res.time;          // Time
@@ -46,6 +46,6 @@ mea = mean(compa);
 stdeviation = st_deviation(compa);
 
 // Verifying closeness of the results
-assert_checktrue(maxi <= 10^-(12));
-assert_checktrue(mea <= 10^-(12));
-assert_checktrue(stdeviation <= 10^-(12));
+assert_checktrue(maxi <= 10^-i);
+assert_checktrue(mea <= 10^-i);
+assert_checktrue(stdeviation <= 10^-i);
