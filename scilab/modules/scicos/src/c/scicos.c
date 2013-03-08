@@ -239,11 +239,11 @@ static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int
 static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2);
 static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngc, realtype *res, double *dummy1, int *dummy2);
 static int jacpsol(realtype *res, int *ires, int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
-                  realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp,
-                  int *iwp, int *ier, double *dummy1, int *dummy2);
+                   realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp,
+                   int *iwp, int *ier, double *dummy1, int *dummy2);
 static int psol(int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
-                  realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
-                  int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2);
+                realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
+                int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2);
 static void addevs(double t, int *evtnb, int *ierr1);
 static int synchro_g_nev(ScicosImport *scs_imp, double *g, int kf, int *ierr);
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb);
@@ -254,12 +254,13 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
                      N_Vector yp, N_Vector resvec, DlsMat Jacque, void *jdata,
                      N_Vector tempv1, N_Vector tempv2, N_Vector tempv3);
 static int Jacobiansddaskr(realtype *t, realtype *y, realtype *yp,
-                     realtype *pd, realtype cj, double *dummy1, int *dummy2);
+                           realtype *pd, realtype cj, double *dummy1, int *dummy2);
 static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi, int deb_blk);
 static int synchro_nev(ScicosImport *scs_imp, int kf, int *ierr);
 /*--------------------------------------------------------------------------*/
 extern int C2F(dset)(int *n, double *dx, double *dy, int *incy);
 extern int C2F(dcopy)(int *, double *, int *, double *, int *);
+extern int C2F(dgesv)(int *size, int *nColsB, double *A, int *lead_dim_A, int *ipivots, double *B, int *lead_dim_B, int *info);
 extern int C2F(msgs)();
 extern int C2F(getscsmax)();
 extern int C2F(makescicosimport)();
@@ -456,7 +457,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         if ((mod = MALLOC(sizeof(int) * nmod)) == NULL )
         {
             *ierr = 5;
-            if (nx > 0) FREE(xprop);
+            if (nx > 0)
+            {
+                FREE(xprop);
+            }
             return 0;
         }
     }
@@ -465,8 +469,14 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         if ((g = MALLOC(sizeof(double) * ng)) == NULL )
         {
             *ierr = 5;
-            if (nmod > 0) FREE(mod);
-            if (nx > 0) FREE(xprop);
+            if (nmod > 0)
+            {
+                FREE(mod);
+            }
+            if (nx > 0)
+            {
+                FREE(xprop);
+            }
             return 0;
         }
     }
@@ -478,9 +488,18 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     if ((Blocks = MALLOC(sizeof(scicos_block) * nblk)) == NULL )
     {
         *ierr = 5;
-        if (nx > 0) FREE(xprop);
-        if (nmod > 0) FREE(mod);
-        if (ng > 0) FREE(g);
+        if (nx > 0)
+        {
+            FREE(xprop);
+        }
+        if (nmod > 0)
+        {
+            FREE(mod);
+        }
+        if (ng > 0)
+        {
+            FREE(g);
+        }
         return 0;
     }
 
@@ -819,7 +838,8 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     {
 
         /*     integration */
-        switch (C2F(cmsolver).solver) {
+        switch (C2F(cmsolver).solver)
+        {
             case 0: // LSodar - Dynamic / Dynamic
             case 1: // CVode - BDF / Newton
             case 2: // CVode - BDF / Functional
@@ -831,7 +851,8 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 cossim(t0);
                 break;
             case 100: // IDA
-            case 101: // DDaskr
+            case 101: // DDaskr - BDF / Newton
+            case 102: // DDaskr - BDF / GMRes
                 cossimdaskr(t0);
                 break;
             default: // Unknown solver number
@@ -874,7 +895,10 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             {
                 zdoit(t0, x, x + nx, W); /* updating modes as a function of state values; this was necessary in iGUI*/
             }
-            for (jj = 0; jj < nx; jj++) W[jj] = 0.0;
+            for (jj = 0; jj < nx; jj++)
+            {
+                W[jj] = 0.0;
+            }
             C2F(ierode).iero = 0;
             *ierr = 0;
             if (C2F(cmsolver).solver < 100)
@@ -1047,7 +1071,10 @@ static void cosini(double *told)
                 *ierr = 5 - flag__;
                 kfune = C2F(curblk).kfun;
             }
-            if ((Jacobian_Flag == 1) && (AJacobian_block == 0)) AJacobian_block = C2F(curblk).kfun;
+            if ((Jacobian_Flag == 1) && (AJacobian_block == 0))
+            {
+                AJacobian_block = C2F(curblk).kfun;
+            }
         }
     }
     if (*ierr != 0)
@@ -1131,7 +1158,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbdptr[kk] != (SCSREAL_COP)outtbd[curouttbd + kk]) goto L30;
+                        if (outtbdptr[kk] != (SCSREAL_COP)outtbd[curouttbd + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbd += sszz;
                     break;
@@ -1141,7 +1171,10 @@ static void cosini(double *told)
                     sszz = 2 * outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbdptr[kk] != (SCSCOMPLEX_COP)outtbd[curouttbd + kk]) goto L30;
+                        if (outtbdptr[kk] != (SCSCOMPLEX_COP)outtbd[curouttbd + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbd += sszz;
                     break;
@@ -1151,7 +1184,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbcptr[kk] != (SCSINT8_COP)outtbc[curouttbc + kk]) goto L30;
+                        if (outtbcptr[kk] != (SCSINT8_COP)outtbc[curouttbc + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbc += sszz;
                     break;
@@ -1161,7 +1197,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbsptr[kk] != (SCSINT16_COP)outtbs[curouttbs + kk]) goto L30;
+                        if (outtbsptr[kk] != (SCSINT16_COP)outtbs[curouttbs + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbs += sszz;
                     break;
@@ -1171,7 +1210,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtblptr[kk] != (SCSINT32_COP)outtbl[curouttbl + kk]) goto L30;
+                        if (outtblptr[kk] != (SCSINT32_COP)outtbl[curouttbl + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbl += sszz;
                     break;
@@ -1181,7 +1223,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbucptr[kk] != (SCSUINT8_COP)outtbuc[curouttbuc + kk]) goto L30;
+                        if (outtbucptr[kk] != (SCSUINT8_COP)outtbuc[curouttbuc + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbuc += sszz;
                     break;
@@ -1191,7 +1236,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbusptr[kk] != (SCSUINT16_COP)outtbus[curouttbus + kk]) goto L30;
+                        if (outtbusptr[kk] != (SCSUINT16_COP)outtbus[curouttbus + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbus += sszz;
                     break;
@@ -1201,7 +1249,10 @@ static void cosini(double *told)
                     sszz = outtbsz[jj] * outtbsz[jj + nlnk];
                     for (kk = 0; kk < sszz; kk++)
                     {
-                        if (outtbulptr[kk] != (SCSUINT32_COP)outtbul[curouttbul + kk]) goto L30;
+                        if (outtbulptr[kk] != (SCSUINT32_COP)outtbul[curouttbul + kk])
+                        {
+                            goto L30;
+                        }
                     }
                     curouttbul += sszz;
                     break;
@@ -1243,42 +1294,60 @@ L30:
                 case SCSINT8_N    :
                     outtbcptr = (SCSINT8_COP *)outtbptr[ii];  /*int8*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbc[curouttbc + kk] = (SCSINT8_COP)outtbcptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbc[curouttbc + kk] = (SCSINT8_COP)outtbcptr[kk];
+                    }
                     curouttbc += sszz;
                     break;
 
                 case SCSINT16_N   :
                     outtbsptr = (SCSINT16_COP *)outtbptr[ii]; /*int16*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbs[curouttbs + kk] = (SCSINT16_COP)outtbsptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbs[curouttbs + kk] = (SCSINT16_COP)outtbsptr[kk];
+                    }
                     curouttbs += sszz;
                     break;
 
                 case SCSINT32_N   :
                     outtblptr = (SCSINT32_COP *)outtbptr[ii];  /*int32*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbl[curouttbl + kk] = (SCSINT32_COP)outtblptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbl[curouttbl + kk] = (SCSINT32_COP)outtblptr[kk];
+                    }
                     curouttbl += sszz;
                     break;
 
                 case SCSUINT8_N   :
                     outtbucptr = (SCSUINT8_COP *)outtbptr[ii]; /*uint8*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbuc[curouttbuc + kk] = (SCSUINT8_COP)outtbucptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbuc[curouttbuc + kk] = (SCSUINT8_COP)outtbucptr[kk];
+                    }
                     curouttbuc += sszz;
                     break;
 
                 case SCSUINT16_N  :
                     outtbusptr = (SCSUINT16_COP *)outtbptr[ii]; /*uint16*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbus[curouttbus + kk] = (SCSUINT16_COP)outtbusptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbus[curouttbus + kk] = (SCSUINT16_COP)outtbusptr[kk];
+                    }
                     curouttbus += sszz;
                     break;
 
                 case SCSUINT32_N  :
                     outtbulptr = (SCSUINT32_COP *)outtbptr[ii]; /*uint32*/
                     sszz = outtbsz[ii] * outtbsz[ii + nlnk];
-                    for (kk = 0; kk < sszz; kk++) outtbul[curouttbul + kk] = (SCSUINT32_COP)outtbulptr[kk];
+                    for (kk = 0; kk < sszz; kk++)
+                    {
+                        outtbul[curouttbul + kk] = (SCSUINT32_COP)outtbulptr[kk];
+                    }
                     curouttbul += sszz;
                     break;
 
@@ -1330,7 +1399,8 @@ static void cossim(double *told)
     /* Generic flags for stop mode */
     int ODE_NORMAL   = 1;  /* ODE_NORMAL   = CV_NORMAL   = LS_NORMAL   = 1 */
     int ODE_ONE_STEP = 2;  /* ODE_ONE_STEP = CV_ONE_STEP = LS_ONE_STEP = 2 */
-    switch (C2F(cmsolver).solver) {
+    switch (C2F(cmsolver).solver)
+    {
         case 0: // LSodar
             ODEFree = &LSodarFree;
             ODE = &LSodar;
@@ -1371,7 +1441,9 @@ static void cossim(double *told)
     }
 
     for ( jj = 0 ; jj < ng ; jj++ )
+    {
         jroot[jj] = 0 ;
+    }
 
     zcros = NULL;
     if (ng != 0)
@@ -1379,7 +1451,10 @@ static void cossim(double *told)
         if ((zcros = MALLOC(sizeof(int) * ng)) == NULL )
         {
             *ierr = 10000;
-            if (ng > 0) FREE(jroot);
+            if (ng > 0)
+            {
+                FREE(jroot);
+            }
             return;
         }
     }
@@ -1393,8 +1468,14 @@ static void cossim(double *told)
         if (check_flag((void *)y, "N_VNewEmpty_Serial", 0))
         {
             *ierr = 10000;
-            if (ng > 0) FREE(jroot);
-            if (ng > 0) FREE(zcros);
+            if (ng > 0)
+            {
+                FREE(jroot);
+            }
+            if (ng > 0)
+            {
+                FREE(zcros);
+            }
             return;
         }
 
@@ -1449,7 +1530,9 @@ static void cossim(double *told)
             flag = LSodarSetErrHandlerFn(ode_mem, SundialsErrHandler, NULL);
         }
         else
-        flag = CVodeSetErrHandlerFn(ode_mem, SundialsErrHandler, NULL);
+        {
+            flag = CVodeSetErrHandlerFn(ode_mem, SundialsErrHandler, NULL);
+        }
         if (check_flag(&flag, "CVodeSetErrHandlerFn", 1))
         {
             *ierr = 300 + (-flag);
@@ -1462,7 +1545,9 @@ static void cossim(double *told)
             flag = LSodarInit(ode_mem, simblklsodar, T0, y);
         }
         else
-        flag = CVodeInit(ode_mem, simblk, T0, y);
+        {
+            flag = CVodeInit(ode_mem, simblk, T0, y);
+        }
         if (check_flag(&flag, "CVodeInit", 1))
         {
             *ierr = 300 + (-flag);
@@ -1483,7 +1568,9 @@ static void cossim(double *told)
             flag = LSodarRootInit(ode_mem, ng, grblklsodar);
         }
         else
-        flag = CVodeRootInit(ode_mem, ng, grblk);
+        {
+            flag = CVodeRootInit(ode_mem, ng, grblk);
+        }
         if (check_flag(&flag, "CVodeRootInit", 1))
         {
             *ierr = 300 + (-flag);
@@ -1492,8 +1579,10 @@ static void cossim(double *told)
         }
 
         if (C2F(cmsolver).solver != 0)
-        /* Call CVDense to specify the CVDENSE dense linear solver */
-        flag = CVDense(ode_mem, *neq);
+            /* Call CVDense to specify the CVDENSE dense linear solver */
+        {
+            flag = CVDense(ode_mem, *neq);
+        }
         if (check_flag(&flag, "CVDense", 1))
         {
             *ierr = 300 + (-flag);
@@ -1560,8 +1649,14 @@ static void cossim(double *told)
             return;
         }
         for (jj = 0; jj < ng; ++jj)
-            if (g[jj] >= 0) jroot[jj] = 5;
-            else jroot[jj] = -5;
+            if (g[jj] >= 0)
+            {
+                jroot[jj] = 5;
+            }
+            else
+            {
+                jroot[jj] = -5;
+            }
     }
     /*--discrete zero crossings----dzero--------------------*/
 
@@ -1577,7 +1672,10 @@ static void cossim(double *told)
         }
         if (C2F(coshlt).halt != 0)
         {
-            if (C2F(coshlt).halt == 2) *told = *tf; /* end simulation */
+            if (C2F(coshlt).halt == 2)
+            {
+                *told = *tf;    /* end simulation */
+            }
             C2F(coshlt).halt = 0;
             freeall;
             return;
@@ -1712,7 +1810,10 @@ L30:
                             Discrete_Jump = 1;
                             jroot[jj] = -1;
                         }
-                        else jroot[jj] = 0;
+                        else
+                        {
+                            jroot[jj] = 0;
+                        }
                     }
                 }
                 /*--discrete zero crossings----dzero--------------------*/
@@ -1747,14 +1848,18 @@ L30:
                 if (flag >= 0)
                 {
                     if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+                    {
                         sciprint(_("****SUNDIALS.Cvode reached: %f\n"), *told);
+                    }
                     hot = 1;
                     cnt = 0;
                 }
                 else if ( flag == CV_TOO_MUCH_WORK ||  flag == CV_CONV_FAILURE || flag == CV_ERR_FAILURE)
                 {
                     if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+                    {
                         sciprint(_("****SUNDIALS.Cvode: too much work at time=%g (stiff region, change RTOL and ATOL)\n"), *told);
+                    }
                     hot = 0;
                     cnt++;
                     if (cnt > 5)
@@ -1766,7 +1871,10 @@ L30:
                 }
                 else
                 {
-                    if (flag < 0) *ierr = 300 + (-flag); /* raising errors due to internal errors, otherwise error due to flagr*/
+                    if (flag < 0)
+                    {
+                        *ierr = 300 + (-flag);    /* raising errors due to internal errors, otherwise error due to flagr*/
+                    }
                     freeall;
                     return;
                 }
@@ -2006,7 +2114,8 @@ static void cossimdaskr(double *told)
     /* Generic flags for stop mode */
     int DAE_NORMAL;
     int DAE_ONE_STEP;
-    switch (C2F(cmsolver).solver) {
+    switch (C2F(cmsolver).solver)
+    {
         case 100: // IDA
             DAEFree = &IDAFree;
             DAESolve = &IDASolve;
@@ -2024,7 +2133,8 @@ static void cossimdaskr(double *told)
             DAESetMaxNumStepsIC = &IDASetMaxNumStepsIC;
             DAESetLineSearchOffIC = &IDASetLineSearchOffIC;
             break;
-        case 101: // DDaskr
+        case 101: // DDaskr - BDF - Newton
+        case 102: // DDaskr - BDF / GMRes
             DAEFree = &DDaskrFree;
             DAESolve = &DDaskrSolve;
             DAESetId = &DDaskrSetId;
@@ -2062,7 +2172,10 @@ static void cossimdaskr(double *told)
             return;
         }
     }
-    for ( jj = 0 ; jj < ng ; jj++ )  jroot[jj] = 0 ;
+    for ( jj = 0 ; jj < ng ; jj++ )
+    {
+        jroot[jj] = 0 ;
+    }
 
     zcros = NULL;
     if (ng != 0)
@@ -2070,7 +2183,10 @@ static void cossimdaskr(double *told)
         if ((zcros = MALLOC(sizeof(int) * ng)) == NULL )
         {
             *ierr = 10000;
-            if (ng != 0) FREE(jroot);
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
             return;
         }
     }
@@ -2081,8 +2197,14 @@ static void cossimdaskr(double *told)
         if ((Mode_save = MALLOC(sizeof(int) * nmod)) == NULL )
         {
             *ierr = 10000;
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
             return;
         }
     }
@@ -2096,9 +2218,18 @@ static void cossimdaskr(double *told)
         yy = N_VNewEmpty_Serial(*neq);
         if (check_flag((void *)yy, "N_VNew_Serial", 0))
         {
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
         }
         NV_DATA_S(yy) = x;
 
@@ -2106,10 +2237,22 @@ static void cossimdaskr(double *told)
         yp = N_VNewEmpty_Serial(*neq);
         if (check_flag((void *)yp, "N_VNew_Serial", 0))
         {
-            if (*neq > 0) N_VDestroy_Serial(yy);
-            if (ng != 0)  FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
         NV_DATA_S(yp) = xd;
@@ -2119,69 +2262,150 @@ static void cossimdaskr(double *told)
         if (check_flag((void *)IDx, "N_VNew_Serial", 0))
         {
             *ierr = 10000;
-            if (*neq > 0) N_VDestroy_Serial(yp);
-            if (*neq > 0) N_VDestroy_Serial(yy);
-            if (ng != 0)  FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
         /* Call the Create and Init functions to initialize DAE memory */
         dae_mem = NULL;
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
-            dae_mem = DDaskrCreate(neq, ng);
+            dae_mem = DDaskrCreate(neq, ng, C2F(cmsolver).solver);
         }
         else
-        dae_mem = IDACreate();
+        {
+            dae_mem = IDACreate();
+        }
         if (check_flag((void *)dae_mem, "IDACreate", 0))
         {
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0)  FREE(Mode_save);
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
         copy_IDA_mem = (IDAMem) dae_mem;
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrSetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
         }
         else
-        flag = IDASetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
+        {
+            flag = IDASetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
+        }
         if (check_flag(&flag, "IDASetErrHandlerFn", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrInit(dae_mem, simblkddaskr, T0, yy, yp, jacpsol, psol);
         }
         else
-        flag = IDAInit(dae_mem, simblkdaskr, T0, yy, yp);
+        {
+            flag = IDAInit(dae_mem, simblkdaskr, T0, yy, yp);
+        }
         if (check_flag(&flag, "IDAInit", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
@@ -2189,47 +2413,114 @@ static void cossimdaskr(double *told)
         if (check_flag(&flag, "IDASStolerances", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrRootInit(dae_mem, ng, grblkddaskr);
         }
         else
-        flag = IDARootInit(dae_mem, ng, grblkdaskr);
+        {
+            flag = IDARootInit(dae_mem, ng, grblkdaskr);
+        }
         if (check_flag(&flag, "IDARootInit", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
         if (C2F(cmsolver).solver == 100)
-        flag = IDADense(dae_mem, *neq);
+        {
+            flag = IDADense(dae_mem, *neq);
+        }
         if (check_flag(&flag, "IDADense", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)if (C2F(cmsolver).solver == 100)
+                {
+                    IDAFree(&dae_mem);
+                }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
 
@@ -2237,13 +2528,34 @@ static void cossimdaskr(double *told)
         if ((data = (UserData) MALLOC(sizeof(*data))) == NULL)
         {
             *ierr = 10000;
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
         data->dae_mem = dae_mem;
@@ -2256,29 +2568,80 @@ static void cossimdaskr(double *told)
         if (check_flag((void *)data->ewt, "N_VNew_Serial", 0))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)FREE(data);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if (*neq > 0)
+            {
+                FREE(data);
+            }
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             return;
         }
         if ( ng > 0 )
         {
             if ((data->gwork = (double *) MALLOC(ng * sizeof(double))) == NULL)
             {
-                if (*neq > 0)N_VDestroy_Serial(data->ewt);
-                if (*neq > 0)FREE(data);
-                if (*neq > 0) DAEFree(&dae_mem);
-                if (*neq > 0)N_VDestroy_Serial(IDx);
-                if (*neq > 0)N_VDestroy_Serial(yp);
-                if (*neq > 0)N_VDestroy_Serial(yy);
-                if (ng != 0) FREE(jroot);
-                if (ng != 0) FREE(zcros);
-                if (nmod != 0) FREE(Mode_save);
+                if (*neq > 0)
+                {
+                    N_VDestroy_Serial(data->ewt);
+                }
+                if (*neq > 0)
+                {
+                    FREE(data);
+                }
+                if (*neq > 0)
+                {
+                    DAEFree(&dae_mem);
+                }
+                if (*neq > 0)
+                {
+                    N_VDestroy_Serial(IDx);
+                }
+                if (*neq > 0)
+                {
+                    N_VDestroy_Serial(yp);
+                }
+                if (*neq > 0)
+                {
+                    N_VDestroy_Serial(yy);
+                }
+                if (ng != 0)
+                {
+                    FREE(jroot);
+                }
+                if (ng != 0)
+                {
+                    FREE(zcros);
+                }
+                if (nmod != 0)
+                {
+                    FREE(Mode_save);
+                }
                 return;
             }
         }
@@ -2301,26 +2664,58 @@ static void cossimdaskr(double *told)
 
         if ((data->rwork = (double *) MALLOC(Jactaille * sizeof(double))) == NULL)
         {
-            if ( ng > 0 )FREE(data->gwork);
-            if (*neq > 0)N_VDestroy_Serial(data->ewt);
-            if (*neq > 0)FREE(data);
-            if (*neq > 0) DAEFree(&dae_mem);
-            if (*neq > 0)N_VDestroy_Serial(IDx);
-            if (*neq > 0)N_VDestroy_Serial(yp);
-            if (*neq > 0)N_VDestroy_Serial(yy);
-            if (ng != 0) FREE(jroot);
-            if (ng != 0) FREE(zcros);
-            if (nmod != 0) FREE(Mode_save);
+            if ( ng > 0 )
+            {
+                FREE(data->gwork);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(data->ewt);
+            }
+            if (*neq > 0)
+            {
+                FREE(data);
+            }
+            if (*neq > 0)
+            {
+                DAEFree(&dae_mem);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(IDx);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yp);
+            }
+            if (*neq > 0)
+            {
+                N_VDestroy_Serial(yy);
+            }
+            if (ng != 0)
+            {
+                FREE(jroot);
+            }
+            if (ng != 0)
+            {
+                FREE(zcros);
+            }
+            if (nmod != 0)
+            {
+                FREE(Mode_save);
+            }
             *ierr = 10000;
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrDlsSetDenseJacFn(dae_mem, Jacobiansddaskr);
         }
-		else
-        flag = IDADlsSetDenseJacFn(dae_mem, Jacobians);
+        else
+        {
+            flag = IDADlsSetDenseJacFn(dae_mem, Jacobians);
+        }
         if (check_flag(&flag, "IDADlsSetDenseJacFn", 1))
         {
             *ierr = 200 + (-flag);
@@ -2369,7 +2764,9 @@ static void cossimdaskr(double *told)
 
         /* setting the maximum number of steps in an integration interval */
         if (C2F(cmsolver).solver == 100)
-        flag = IDASetMaxNumSteps(dae_mem, 2000);
+        {
+            flag = IDASetMaxNumSteps(dae_mem, 2000);
+        }
         if (check_flag(&flag, "IDASetMaxNumSteps", 1))
         {
             *ierr = 200 + (-flag);
@@ -2433,8 +2830,14 @@ static void cossimdaskr(double *told)
             return;
         }
         for (jj = 0; jj < ng; ++jj)
-            if (g[jj] >= 0) jroot[jj] = 5;
-            else jroot[jj] = -5;
+            if (g[jj] >= 0)
+            {
+                jroot[jj] = 5;
+            }
+            else
+            {
+                jroot[jj] = -5;
+            }
     }
     /*     main loop on time */
     while (*told < *tf)
@@ -2448,7 +2851,10 @@ static void cossimdaskr(double *told)
         }
         if (C2F(coshlt).halt != 0)
         {
-            if (C2F(coshlt).halt == 2) *told = *tf; /* end simulation */
+            if (C2F(coshlt).halt == 2)
+            {
+                *told = *tf;    /* end simulation */
+            }
             C2F(coshlt).halt = 0;
             freeallx;
             return;
@@ -2555,8 +2961,14 @@ L30:
                     }
                     for (jj = 0; jj < *neq; jj++)
                     {
-                        if (xprop[jj] ==  1) scicos_xproperty[jj] = ONE;
-                        if (xprop[jj] == -1) scicos_xproperty[jj] = ZERO;
+                        if (xprop[jj] ==  1)
+                        {
+                            scicos_xproperty[jj] = ONE;
+                        }
+                        if (xprop[jj] == -1)
+                        {
+                            scicos_xproperty[jj] = ZERO;
+                        }
                     }
                     /* CI=0.0;CJ=100.0; // for functions Get_Jacobian_ci and Get_Jacobian_cj
                     Jacobians(*neq, (realtype) (*told), yy, yp,	bidon, (realtype) CJ, data, TJacque, tempv1, tempv2, tempv3);
@@ -2625,7 +3037,10 @@ L30:
                         }
                         if (C2F(coshlt).halt != 0)
                         {
-                            if (C2F(coshlt).halt == 2) *told = *tf; /* end simulation */
+                            if (C2F(coshlt).halt == 2)
+                            {
+                                *told = *tf;    /* end simulation */
+                            }
                             C2F(coshlt).halt = 0;
                             freeallx;
                             return;
@@ -2769,7 +3184,10 @@ L30:
                             Discrete_Jump = 1;
                             jroot[jj] = -1;
                         }
-                        else jroot[jj] = 0;
+                        else
+                        {
+                            jroot[jj] = 0;
+                        }
                     }
                 }
 
@@ -2792,14 +3210,18 @@ L30:
                 if (flagr >= 0)
                 {
                     if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+                    {
                         sciprint(_("****SUNDIALS.Ida reached: %f\n"), *told);
+                    }
                     hot = 1;
                     cnt = 0;
                 }
                 else if ( flagr == IDA_TOO_MUCH_WORK ||  flagr == IDA_CONV_FAIL || flagr == IDA_ERR_FAIL)
                 {
                     if ((C2F(cosdebug).cosd >= 1) && (C2F(cosdebug).cosd != 3))
+                    {
                         sciprint(_("**** SUNDIALS.Ida: too much work at time=%g (stiff region, change RTOL and ATOL)\n"), *told);
+                    }
                     hot = 0;
                     cnt++;
                     if (cnt > 5)
@@ -2811,7 +3233,10 @@ L30:
                 }
                 else
                 {
-                    if (flagr < 0) *ierr = 200 + (-flagr); /* raising errors due to internal errors, otherwise error due to flagr*/
+                    if (flagr < 0)
+                    {
+                        *ierr = 200 + (-flagr);    /* raising errors due to internal errors, otherwise error due to flagr*/
+                    }
                     freeallx;
                     return;
                 }
@@ -2935,8 +3360,14 @@ L30:
                                     }
                                     for (j = 0; j < *neq; j++) /* Adjust xprop for IDx */
                                     {
-                                        if (xprop[j] ==  1) scicos_xproperty[j] = ONE;
-                                        if (xprop[j] == -1) scicos_xproperty[j] = ZERO;
+                                        if (xprop[j] ==  1)
+                                        {
+                                            scicos_xproperty[j] = ONE;
+                                        }
+                                        if (xprop[j] == -1)
+                                        {
+                                            scicos_xproperty[j] = ZERO;
+                                        }
                                     }
                                 }
                             }
@@ -2954,7 +3385,10 @@ L30:
 
                 if (C2F(coshlt).halt != 0)
                 {
-                    if (C2F(coshlt).halt == 2) *told = *tf; /* end simulation */
+                    if (C2F(coshlt).halt == 2)
+                    {
+                        *told = *tf;    /* end simulation */
+                    }
                     C2F(coshlt).halt = 0;
                     freeallx;
                     return;
@@ -3091,7 +3525,10 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
 
     /* debug block is never called */
     /*if (kf==(debug_block+1)) return;*/
-    if (block->type == 99) return;
+    if (block->type == 99)
+    {
+        return;
+    }
 
     /* flag 7 implicit initialization */
     flagi = (int) * flag;
@@ -3112,9 +3549,15 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
         }
         if (debug_block > -1)
         {
-            if (cosd != 3) sciprint(_("Entering the block \n"));
+            if (cosd != 3)
+            {
+                sciprint(_("Entering the block \n"));
+            }
             call_debug_scicos(block, flag, flagi, debug_block);
-            if (*flag < 0) return; /* error in debug block */
+            if (*flag < 0)
+            {
+                return;    /* error in debug block */
+            }
         }
     }
 
@@ -3124,7 +3567,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     loc = block->funpt;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3494,7 +3937,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     // sciprint("callf end  flag=%d\n",*flag);
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3518,8 +3961,14 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     {
         if (debug_block > -1)
         {
-            if (*flag < 0) return; /* error in block */
-            if (cosd != 3) sciprint(_("Leaving block %d \n"), C2F(curblk).kfun);
+            if (*flag < 0)
+            {
+                return;    /* error in block */
+            }
+            if (cosd != 3)
+            {
+                sciprint(_("Leaving block %d \n"), C2F(curblk).kfun);
+            }
             call_debug_scicos(block, flag, flagi, debug_block);
             /*call_debug_scicos(flag,kf,flagi,debug_block);*/
         }
@@ -3541,7 +3990,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
     loc4 = (ScicosF4) loc;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3551,7 +4000,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
 
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3570,7 +4019,10 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
         }
     }
 
-    if (*flag < 0) sciprint(_("Error in the Debug block \n"));
+    if (*flag < 0)
+    {
+        sciprint(_("Error in the Debug block \n"));
+    }
 } /* call_debug_scicos */
 /*--------------------------------------------------------------------------*/
 /* simblk */
@@ -3583,7 +4035,10 @@ static int simblk(realtype t, N_Vector yy, N_Vector yp, void *f_data)
     x =  (double *) NV_DATA_S(yy);
     xd = (double *) NV_DATA_S(yp);
 
-    for (i = 0; i < *neq; i++)   xd[i] = 0; /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
+    for (i = 0; i < *neq; i++)
+    {
+        xd[i] = 0;    /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
+    }
     C2F(ierode).iero = 0;
     *ierr = 0;
     odoit(&tx, x, xd, xd);
@@ -3601,7 +4056,10 @@ static int simblk(realtype t, N_Vector yy, N_Vector yp, void *f_data)
                 break;
             }
         }
-        if (nantest == 1) return 349; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 349;    /* recoverable error; */
+        }
     }
 
     return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
@@ -3632,7 +4090,10 @@ static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data)
                 nantest = 1;
                 break;
             } /* NaN checking */
-        if (nantest == 1) return 350; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 350;    /* recoverable error; */
+        }
     }
     C2F(ierode).iero = *ierr;
 
@@ -3645,9 +4106,12 @@ static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, re
     double tx = 0.;
     int i = 0, nantest = 0;
 
-    tx = (double) *tOld;
+    tx = (double) * tOld;
 
-    for (i = 0; i < *nequations; ++i) res[i] = 0; /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
+    for (i = 0; i < *nequations; ++i)
+    {
+        res[i] = 0;    /* à la place de "C2F(dset)(neq, &c_b14,xcdot , &c__1);"*/
+    }
     C2F(ierode).iero = 0;
     *ierr = 0;
     odoit(&tx, actual, res, res);
@@ -3665,7 +4129,10 @@ static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, re
                 break;
             }
         }
-        if (nantest == 1) return 349; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 349;    /* recoverable error; */
+        }
     }
 
     return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
@@ -3678,7 +4145,7 @@ static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int
     double tx = 0.;
     int jj = 0, nantest = 0;
 
-   tx = (double) *tOld;
+    tx = (double) * tOld;
 
     C2F(ierode).iero = 0;
     *ierr = 0;
@@ -3695,7 +4162,10 @@ static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int
                 nantest = 1;
                 break;
             } /* NaN checking */
-        if (nantest == 1) return 350; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 350;    /* recoverable error; */
+        }
     }
     C2F(ierode).iero = *ierr;
 
@@ -3743,14 +4213,18 @@ static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval,
 
     alpha = ZERO;
     for (jj = 0; jj < qlast; jj++)
+    {
         alpha = alpha - ONE / (jj + 1);
+    }
     if (hh != 0)
         // CJ=-alpha/hh;  // For function Get_Jacobian_cj
+    {
         CJJ = -alpha / hh;
+    }
     else
     {
-       *ierr = 217;
-       return (*ierr);
+        *ierr = 217;
+        return (*ierr);
     }
     xc = (double *)  NV_DATA_S(yy);
     xcdot = (double *) NV_DATA_S(yp);
@@ -3774,7 +4248,10 @@ static int simblkdaskr(realtype tres, N_Vector yy, N_Vector yp, N_Vector resval,
                 nantest = 1;
                 break;
             }
-        if (nantest == 1) return 257; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 257;    /* recoverable error; */
+        }
     }
 
     return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
@@ -3828,7 +4305,7 @@ static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, rea
         zdoit(&tx, actual, actualP, NULL);
     }
 
-    tx = (double) *tOld;
+    tx = (double) * tOld;
 
     C2F(dcopy)(neq, actualP, &c__1, res, &c__1);
     *ierr = 0;
@@ -3843,11 +4320,14 @@ static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, rea
         for (jj = 0; jj < *neq; jj++)
             if (res[jj] - res[jj] != 0) /* NaN checking */
             {
-                sciprint(_("\nWarning: The residual function #%d returns a NaN"),jj);
+                sciprint(_("\nWarning: The residual function #%d returns a NaN"), jj);
                 nantest = 1;
                 break;
             }
-        if (nantest == 1) return 257; /* recoverable error; */
+        if (nantest == 1)
+        {
+            return 257;    /* recoverable error; */
+        }
     }
 
     return (abs(*ierr)); /* ierr>0 recoverable error; ierr>0 unrecoverable error; ierr=0: ok*/
@@ -3859,7 +4339,7 @@ static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *n
     double tx = 0.;
     int jj = 0, nantest = 0;
 
-    tx = (double) *tOld;
+    tx = (double) * tOld;
 
     *ierr = 0;
     C2F(ierode).iero = 0;
@@ -3887,22 +4367,85 @@ static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *n
 /*--------------------------------------------------------------------------*/
 /* jacpsol */
 static int jacpsol(realtype *res, int *ires, int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
-                  realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp, int *iwp,
-                  int *ier, double *dummy1, int *dummy2)
+                   realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp, int *iwp,
+                   int *ier, double *dummy1, int *dummy2)
 {
-    // Empty routine to satisfy the ddaskr() loader. @TODO: open the Krylov feature for DDaskr.
+    /* Here, we compute the system preconditioner matrix P, which is actually the jacobian matrix,
+       so P(i,j) = dres(i)/dactual(j) + cj*dres(i)/dactualP(j). */
+    int i, j, nrow = 0;
+    realtype tx, del, delinv, ysave, ypsave, * e;
+    tx = *tOld;
+
+    /* Work array used to evaluate res(*tOld, actual + small_increment, actualP + small_increment).
+       savr already contains res(*tOld, actual, actualP). */
+    e = calloc(*nequations, sizeof(realtype));
+
+    for (i = 0; i < *nequations; ++i)
+    {
+        del = max (SQuround * max(fabs(actual[i]), fabs(*h * actualP[i])), 1. / rewt[i]);
+        del *= (*h * actualP[i] >= 0) ? 1 : -1;
+        ysave   =  actual[i];
+        ypsave  =  actualP[i];
+        actual[i]  += del;
+        actualP[i] += *cj * del;
+        odoit(&tx, actual, actualP, e);
+        delinv = 1. / del;
+        for (j = 0; j < *nequations; ++j)
+        {
+            wp[nrow + j] = (e[j] - savr[j]) * delinv;
+            /* NaN test */
+            if (wp[nrow + j] - wp[nrow + j] != 0)
+            {
+                sciprint(_("\n Warning: The preconditioner evaluation function returns a NaN at index #%d."), nrow + j);
+                *ier = -1;
+            }
+        }
+        nrow       += *nequations;
+        actual[i]  =  ysave;
+        actualP[i] =  ypsave;
+        iwp[i] = i;
+        iwp[i + *nequations] = i;
+    }
+
+    free(e);
+
+    return (*ier);
 }/* jacpsol */
 /*--------------------------------------------------------------------------*/
 /* psol */
 static int psol(int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
-                  realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
-                  int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2)
+                realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
+                int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2)
 {
-    // Empty routine to satisfy the ddaskr() loader. @TODO: open the Krylov feature for DDaskr.
+    /* This function "applies" the inverse of the preconditioner to 'b' (computes P^-1*b).
+       It is done by solving P*x = b using the Lapack routine 'dgesv'. */
+    int i, nColB = 1, info, ipiv[*nequations];
+
+    C2F(dgesv) (nequations, &nColB, wp, nequations, ipiv, b, nequations, &info);
+
+    if (info == 0)
+    {
+        /* NaN test */
+        for (i = 0; i < *nequations; ++i)
+        {
+            if (b[i] - b[i] != 0)
+            {
+                sciprint(_("\n Warning: The preconditioner application function returns a NaN at index #%d."), i);
+                *ier = -1;
+            }
+        }
+        return 0;
+    }
+    else
+    {
+        sciprint(_("\n Error: The preconditioner application function failed to compute the solution of P*x = b.");
+                 *ier = -1;
+                 return 0;
+    }
 }/* psol */
-/*--------------------------------------------------------------------------*/
-/* Subroutine addevs */
-static void addevs(double t, int *evtnb, int *ierr1)
+         /*--------------------------------------------------------------------------*/
+         /* Subroutine addevs */
+         static void addevs(double t, int *evtnb, int *ierr1)
 {
     static int i = 0, j = 0;
 
@@ -5037,7 +5580,10 @@ void Jdoit(double *told, double *xt, double *xtd, double *residual, int *job)
             flag = 0;
             if (((*job == 1) && (scs_imp->oord[ii] == AJacobian_block)) || (*job != 1))
             {
-                if (*job == 1)  flag = 10;
+                if (*job == 1)
+                {
+                    flag = 10;
+                }
                 /* continuous state */
                 if (scs_imp->blocks[*kf - 1].nx > 0)
                 {
@@ -5071,7 +5617,10 @@ void Jdoit(double *told, double *xt, double *xtd, double *residual, int *job)
                 flag = 0;
                 if (((*job == 1) && (scs_imp->oord[ii - 1] == AJacobian_block)) || (*job != 1))
                 {
-                    if (*job == 1)  flag = 10;
+                    if (*job == 1)
+                    {
+                        flag = 10;
+                    }
                     /* continuous state */
                     if (scs_imp->blocks[*kf - 1].nx > 0)
                     {
@@ -5492,11 +6041,20 @@ static void FREE_blocks()
     }
     FREE(Blocks);
 
-    if (nx > 0) FREE(xprop);
+    if (nx > 0)
+    {
+        FREE(xprop);
+    }
 
-    if (nmod > 0) FREE(mod);
+    if (nmod > 0)
+    {
+        FREE(mod);
+    }
 
-    if (ng > 0) FREE(g);
+    if (ng > 0)
+    {
+        FREE(g);
+    }
 
     return;
 } /* FREE_blocks */
@@ -5508,13 +6066,19 @@ int C2F(funnum)(char * fname)
     int loc = -1;
     while ( tabsim[i].name != (char *) NULL)
     {
-        if ( strcmp(fname, tabsim[i].name) == 0 ) return(i + 1);
+        if ( strcmp(fname, tabsim[i].name) == 0 )
+        {
+            return(i + 1);
+        }
         i++;
     }
     ln = (int)strlen(fname);
     C2F(iislink)(fname, &loc);
     C2F(iislink)(fname, &loc);
-    if (loc >= 0) return(ntabsim + (int)loc + 1);
+    if (loc >= 0)
+    {
+        return(ntabsim + (int)loc + 1);
+    }
     return(0);
 }/* funnum */
 /*--------------------------------------------------------------------------*/
@@ -5761,21 +6325,29 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
     /* read residuals;*/
     job = 0;
     Jdoit(&ttx, xc, xcdot, residual, &job);
-    if (*ierr < 0) return -1;
+    if (*ierr < 0)
+    {
+        return -1;
+    }
 
     /* "residual" already contains the current residual,
     so the first call to Jdoit can be remoevd*/
 
     for (i = 0; i < m; i++)
         for (j = 0; j < ni; j++)
+        {
             Kx[j + i * ni] = u[j][0];
+        }
 
     for (i = 0; i < m; i++)
     {
         xi = xc[i];
         xpi = xcdot[i];
         inc = MAX( srur * MAX( ABS(xi), ABS(hh * xpi)), ONE / ewt_data[i] );
-        if (hh * xpi < ZERO) inc = -inc;
+        if (hh * xpi < ZERO)
+        {
+            inc = -inc;
+        }
         inc = (xi + inc) - xi;
 
         /* if (CI==0) {
@@ -5792,12 +6364,19 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
         del=SQUR[0]*Max(a,b);    */
         job = 0; /* read residuals */
         Jdoit(&ttx, xc, xcdot, ERR2, &job);
-        if (*ierr < 0) return -1;
+        if (*ierr < 0)
+        {
+            return -1;
+        }
         inc_inv = ONE / inc;
         for (j = 0; j < m; j++)
+        {
             Hx[m * i + j] = (ERR2[j] - residual[j]) * inc_inv;
+        }
         for (j = 0; j < ni; j++)
+        {
             Kx[j + i * ni] = (u[j][0] - Kx[j + i * ni]) * inc_inv;
+        }
         xc[i] = xi;
         xcdot[i] = xpi;
     }
@@ -5821,7 +6400,9 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
     Jdoit(&ttx, xc, xcdot, ERR1, &job);
     for (i = 0; i < no; i++)
         for (j = 0; j < ni; j++)
+        {
             Ku[j + i * ni] = u[j][0];
+        }
 
     for (i = 0; i < no; i++)
     {
@@ -5833,18 +6414,28 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
         y[i][0] += inc;
         job = 2; /* applying y[i][0] to the output of imp block*/
         Jdoit(&ttx, xc, xcdot, ERR2, &job);
-        if (*ierr < 0) return -1;
+        if (*ierr < 0)
+        {
+            return -1;
+        }
         inc_inv = ONE / inc;
         for (j = 0; j < m; j++)
+        {
             Hu[m * i + j] = (ERR2[j] - ERR1[j]) * inc_inv;
+        }
         for (j = 0; j < ni; j++)
+        {
             Ku[j + i * ni] = (u[j][0] - Ku[j + i * ni]) * inc_inv;
+        }
         y[i][0] = ysave;
     }
     /*----------------------------------------------*/
     job = 1; /* read jacobian through flag=10; */
     Jdoit(&ttx, xc, xcdot, &Fx[-m], &job);/* Filling up the FX:Fu:Gx:Gu*/
-    if (*block_error != 0) sciprint(_("\n error in Jacobian"));
+    if (*block_error != 0)
+    {
+        sciprint(_("\n error in Jacobian"));
+    }
     /*-------------------------------------------------*/
 
     Multp(Fu, Ku, RX, nx, ni, ni, no);
@@ -5901,19 +6492,10 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
 }
 /*--------------------------------------------------------------------------*/
 static int Jacobiansddaskr(realtype *t, realtype *y, realtype *yp,
-                     realtype *pd, realtype cj, double *dummy1, int *dummy2)
+                           realtype *pd, realtype cj, double *dummy1, int *dummy2)
 {
-    double tx;
-    int job;
-
-    tx = *t;
-    job = 0;
-
-    Jdoit(&tx, y, yp, pd, &job);
-
-    C2F(ierode).iero = *ierr;
-    return 0;
-
+    /* @TODO: find a way to compute the dense jacobian matrix without the parameters
+       h, res and ewt[] (cf ddaskr.f Line 4999) */
 }
 /*----------------------------------------------------*/
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb)
@@ -5925,7 +6507,9 @@ static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int c
         {
             R[i + ra * j] = 0.0;
             for (k = 0; k < ca; k++)
+            {
                 R[i + ra * j] += A[i + k * ra] * B[k + j * rb];
+            }
         }
     return;
 }
@@ -5936,7 +6520,10 @@ int read_xml_initial_states(int nvar, const char * xmlfile, char **ids, double *
     int result = 0, i = 0;
     double vr = 0.;
 
-    if (nvar == 0) return 0;
+    if (nvar == 0)
+    {
+        return 0;
+    }
     result = 0;
     for (i = 0; i < nvar; i++)
     {
@@ -5946,7 +6533,10 @@ int read_xml_initial_states(int nvar, const char * xmlfile, char **ids, double *
             break;
         }
     }
-    if (result == 0) return 0;
+    if (result == 0)
+    {
+        return 0;
+    }
 
     model = ezxml_parse_file(xmlfile);
 
@@ -5961,7 +6551,10 @@ int read_xml_initial_states(int nvar, const char * xmlfile, char **ids, double *
     {
         vr = 0.0;
         result = read_id(&elements, ids[i], &vr);
-        if (result == 1) svars[i] = vr;
+        if (result == 1)
+        {
+            svars[i] = vr;
+        }
     }
     ezxml_free(model);
     return 0;
@@ -5972,7 +6565,10 @@ static int read_id(ezxml_t *elements, char *id, double *value)
     char V1[100], V2[100];
     int ok = 0, i = 0, ln = 0;
 
-    if (strcmp(id, "") == 0) return 0;
+    if (strcmp(id, "") == 0)
+    {
+        return 0;
+    }
     ok = search_in_child(elements, id, V1);
     if (ok == 0 )
     {
@@ -5986,12 +6582,18 @@ static int read_id(ezxml_t *elements, char *id, double *value)
             ln = (int)(strlen(V1));
             if (ln > 2)
             {
-                for (i = 1; i <= ln - 2; i++) V2[i - 1] = V1[i];
+                for (i = 1; i <= ln - 2; i++)
+                {
+                    V2[i - 1] = V1[i];
+                }
                 V2[ln - 2] = '\0';
                 ok = read_id(elements, V2, value);
                 return ok;
             }
-            else return 0;
+            else
+            {
+                return 0;
+            }
         }
         else
         {
@@ -6038,7 +6640,10 @@ int write_xml_states(int nvar, const char * xmlfile, char **ids, double *x)
     char *s = NULL;
     char **xv = NULL;
 
-    if (nvar == 0) return 0;
+    if (nvar == 0)
+    {
+        return 0;
+    }
     result = 0;
     for (i = 0; i < nvar; i++)
     {
@@ -6048,7 +6653,10 @@ int write_xml_states(int nvar, const char * xmlfile, char **ids, double *x)
             break;
         }
     }
-    if (result == 0) return 0;
+    if (result == 0)
+    {
+        return 0;
+    }
 
     xv = MALLOC(nvar * sizeof(char*));
     for (i = 0; i < nvar; i++)
@@ -6073,7 +6681,10 @@ int write_xml_states(int nvar, const char * xmlfile, char **ids, double *x)
 
     for (i = 0; i < nvar; i++)
     {
-        if (strcmp(ids[i], "") == 0) continue;
+        if (strcmp(ids[i], "") == 0)
+        {
+            continue;
+        }
         result = write_in_child(&elements, ids[i], xv[i]);
         if (result == 0 )
         {
@@ -6123,7 +6734,9 @@ int rho_(double *a, double *L, double *x, double *rho, double *rpar, int *ipar) 
 
     fx_(x, rho);
     for (i = 0; i < N; i++)
+    {
         rho[i] += (-1 + *L) * a[i];
+    }
     return 0;
 }
 /*--------------------------------------------------------------------------*/
@@ -6137,7 +6750,9 @@ int rhojac_(double *a, double *lambda, double  *x, double  *jac, int *col, doubl
     if (*col == 1)
     {
         for (j = 0; j < N; j++)
+        {
             jac[j] = a[j];
+        }
     }
     else
     {
@@ -6157,7 +6772,9 @@ int rhojac_(double *a, double *lambda, double  *x, double  *jac, int *col, doubl
         inc_inv = 1.0 / inc;
 
         for (j = 0; j < N; j++)
+        {
             jac[j] = (jac[j] - work[j]) * inc_inv;
+        }
 
         x[*col - 2] = xi;
         FREE(work);
@@ -6198,7 +6815,9 @@ int C2F(hfjac)(double *x, double *jac, int *col)
     inc_inv = ONE / inc;
 
     for (j = 0; j < N; j++)
+    {
         jac[j] = (jac[j] - work[j]) * inc_inv;
+    }
 
     x[*col - 1] = xi;
 
@@ -6218,7 +6837,10 @@ int simblkKinsol(N_Vector yy, N_Vector resval, void *rdata)
     residual = (double *) NV_DATA_S(resval);
     data = (UserData) rdata;
     xcdot = xc;
-    if (phase == 1) if ( ng > 0 && nmod > 0 )  zdoit(&t, xc, xcdot, g);
+    if (phase == 1) if ( ng > 0 && nmod > 0 )
+        {
+            zdoit(&t, xc, xcdot, g);
+        }
 
     *ierr = 0;
     C2F(ierode).iero = 0;
@@ -6269,7 +6891,10 @@ static int CallKinsol(double *told)
     double ratio = 0.;
 
     N = *neq;
-    if (N <= 0) return 0;
+    if (N <= 0)
+    {
+        return 0;
+    }
 
     reltol = (realtype) rtol;
     abstol = (realtype) Atol;
@@ -6342,8 +6967,14 @@ static int CallKinsol(double *told)
         fsdata[j] = 1;
     }
     /*========================================================*/
-    if (PH == 2) PH = 1;
-    else PH = 2; /* remind that PH is a static variable*/
+    if (PH == 2)
+    {
+        PH = 1;
+    }
+    else
+    {
+        PH = 2;    /* remind that PH is a static variable*/
+    }
 
     status = -1;
     N_iters = 10 + nmod * 3;
@@ -6368,14 +6999,29 @@ static int CallKinsol(double *told)
             ratio = 0.3;
             for ( j = 0; j < N; j++)
             {
-                if (x[j] == 0)      ysdata[j] += 1 * ratio;
-                else ysdata[j] += ratio / fabs(x[j]);
-                if (fsdata[j] == 0) fsdata[j] = 1;
-                else fsdata[j] = 1 / fabs(fsdata[j]);
+                if (x[j] == 0)
+                {
+                    ysdata[j] += 1 * ratio;
+                }
+                else
+                {
+                    ysdata[j] += ratio / fabs(x[j]);
+                }
+                if (fsdata[j] == 0)
+                {
+                    fsdata[j] = 1;
+                }
+                else
+                {
+                    fsdata[j] = 1 / fabs(fsdata[j]);
+                }
                 ysdata[j] /= ratio + 1;
             }
             status = KINSol(kin_mem, y, strategy, yscale, fscale);/* Calling the Newton Solver */
-            if (status >= 0) break;
+            if (status >= 0)
+            {
+                break;
+            }
             /* Serge Steer 29/06/2009 */
             while (ismenu()) //** if the user has done something, do the actions
             {
@@ -6422,13 +7068,19 @@ static int CallKinsol(double *told)
                 }
             }
 
-            if (Mode_change == 0 && status >= 0 )  break; /*Successful termination*/
+            if (Mode_change == 0 && status >= 0 )
+            {
+                break;    /*Successful termination*/
+            }
 
         }
         else
         {
             /* calling with phase=1*/
-            if (status >= 0) break;
+            if (status >= 0)
+            {
+                break;
+            }
         }
 
     } /* end of the loop for mode fixing*/
