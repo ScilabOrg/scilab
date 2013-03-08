@@ -236,14 +236,14 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
 static int grblk(realtype t, N_Vector yy, realtype *gout, void *g_data);
 static int simblklsodar(int * nequations, realtype * tOld, realtype * actual, realtype * res);
 static int grblklsodar(int * nequations, realtype * tOld, realtype * actual, int * ngc, realtype * res);
-static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2);
-static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngc, realtype *res, double *dummy1, int *dummy2);
+static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, realtype *dummy1, int *dummy2);
+static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngc, realtype *res, realtype *dummy1, int *dummy2);
 static int jacpsol(realtype *res, int *ires, int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
                   realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp,
-                  int *iwp, int *ier, double *dummy1, int *dummy2);
+                  int *iwp, int *ier, realtype *dummy1, int *dummy2);
 static int psol(int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
                   realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
-                  int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2);
+                  int *iwp, realtype *b, realtype *eplin, int *ier, realtype *dummy1, int *dummy2);
 static void addevs(double t, int *evtnb, int *ierr1);
 static int synchro_g_nev(ScicosImport *scs_imp, double *g, int kf, int *ierr);
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb);
@@ -254,12 +254,13 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
                      N_Vector yp, N_Vector resvec, DlsMat Jacque, void *jdata,
                      N_Vector tempv1, N_Vector tempv2, N_Vector tempv3);
 static int Jacobiansddaskr(realtype *t, realtype *y, realtype *yp,
-                     realtype *pd, realtype cj, double *dummy1, int *dummy2);
+                     realtype *pd, realtype cj, realtype *dummy1, int *dummy2);
 static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi, int deb_blk);
 static int synchro_nev(ScicosImport *scs_imp, int kf, int *ierr);
 /*--------------------------------------------------------------------------*/
 extern int C2F(dset)(int *n, double *dx, double *dy, int *incy);
 extern int C2F(dcopy)(int *, double *, int *, double *, int *);
+extern int C2F(dgesv)(int *, int *, double *, int *, int *, double *, int *, int *);
 extern int C2F(msgs)();
 extern int C2F(getscsmax)();
 extern int C2F(makescicosimport)();
@@ -831,7 +832,8 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 cossim(t0);
                 break;
             case 100: // IDA
-            case 101: // DDaskr
+            case 101: // DDaskr - BDF / Newton
+            case 102: // DDaskr - BDF / GMRes
                 cossimdaskr(t0);
                 break;
             default: // Unknown solver number
@@ -2024,7 +2026,8 @@ static void cossimdaskr(double *told)
             DAESetMaxNumStepsIC = &IDASetMaxNumStepsIC;
             DAESetLineSearchOffIC = &IDASetLineSearchOffIC;
             break;
-        case 101: // DDaskr
+        case 101: // DDaskr - BDF - Newton
+        case 102: // DDaskr - BDF / GMRes
             DAEFree = &DDaskrFree;
             DAESolve = &DDaskrSolve;
             DAESetId = &DDaskrSetId;
@@ -2129,9 +2132,9 @@ static void cossimdaskr(double *told)
 
         /* Call the Create and Init functions to initialize DAE memory */
         dae_mem = NULL;
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
-            dae_mem = DDaskrCreate(neq, ng);
+            dae_mem = DDaskrCreate(neq, ng, C2F(cmsolver).solver);
         }
         else
         dae_mem = IDACreate();
@@ -2147,7 +2150,7 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) dae_mem;
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrSetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
         }
@@ -2166,7 +2169,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrInit(dae_mem, simblkddaskr, T0, yy, yp, jacpsol, psol);
         }
@@ -2199,7 +2202,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrRootInit(dae_mem, ng, grblkddaskr);
         }
@@ -2315,7 +2318,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101)
+        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
         {
             flag = DDaskrDlsSetDenseJacFn(dae_mem, Jacobiansddaskr);
         }
@@ -3124,7 +3127,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     loc = block->funpt;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3494,7 +3497,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     // sciprint("callf end  flag=%d\n",*flag);
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3541,7 +3544,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
     loc4 = (ScicosF4) loc;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3551,7 +3554,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
 
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101) && block->type < 10000 && *flag == 0)
+    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3813,7 +3816,7 @@ static int grblkdaskr(realtype t, N_Vector yy, N_Vector yp, realtype *gout, void
 }/* grblkdaskr */
 /*--------------------------------------------------------------------------*/
 /* simblkddaskr */
-static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, double *dummy1, int *dummy2)
+static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, realtype *res, int *flag, realtype *dummy1, int *dummy2)
 {
     double tx = 0.;
     realtype alpha = 0.;
@@ -3854,7 +3857,7 @@ static int simblkddaskr(realtype *tOld, realtype *actual, realtype *actualP, rea
 }/* simblkddaskr */
 /*--------------------------------------------------------------------------*/
 /* grblkddaskr */
-static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngc, realtype *res, double *dummy1, int *dummy2)
+static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *ngc, realtype *res, realtype *dummy1, int *dummy2)
 {
     double tx = 0.;
     int jj = 0, nantest = 0;
@@ -3888,17 +3891,76 @@ static int grblkddaskr(int *nequations, realtype *tOld, realtype *actual, int *n
 /* jacpsol */
 static int jacpsol(realtype *res, int *ires, int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
                   realtype *rewt, realtype *savr, realtype *wk, realtype *h, realtype *cj, realtype *wp, int *iwp,
-                  int *ier, double *dummy1, int *dummy2)
+                  int *ier, realtype *dummy1, int *dummy2)
 {
-    // Empty routine to satisfy the ddaskr() loader. @TODO: open the Krylov feature for DDaskr.
+    /* Here, we compute the system preconditioner matrix P, which is actually the jacobian matrix,
+       so P(i,j) = dres(i)/dactual(j) + cj*dres(i)/dactualP(j). */
+    int i, j, nrow = 0;
+    realtype tx, del, delinv, * ysave, * ypsave, * e;
+    tx = *tOld;
+
+    /* Work arrays used to store actual and actualP in order to
+       evaluate res(*tOld, actual + small_increment, actualP + small_increment).
+       savr already contains res(*tOld, actual, actualP). */
+    ysave  = calloc(*nequations, sizeof(realtype));
+    ypsave = calloc(*nequations, sizeof(realtype));
+    e = calloc(*nequations, sizeof(realtype));
+
+    for (i=0;i<*nequations;++i)
+    {
+        del = max (SQuround*max(fabs(actual[i]), fabs(*h * actualP[i])), 1./rewt[i]);
+        del *= (*h * actualP[i] >= 0) ? 1 : -1;
+        ysave[i]   =  actual[i];
+        ypsave[i]  =  actualP[i];
+        actual[i]  += del;
+        actualP[i] += *cj * del;
+        odoit(&tx, actual, actualP, e);
+        delinv = 1./del;
+        for (j=0;j<*nequations;++j)
+        {
+            wp[nrow+j] = (e[j]-savr[j])*delinv;
+            /* NaN test */
+            if (wp[nrow+j] - wp[nrow+j] != 0)
+            {
+                sciprint(_("\n Warning: The preconditioner evaluation function returns a NaN at index #%d."), nrow+j);
+                *ier = -1;
+            }
+        }
+        nrow       += *nequations;
+        actual[i]  =  ysave[i];
+        actualP[i] =  ypsave[i];
+        iwp[i] = i;
+        iwp[i+*nequations] = i;
+    }
+
+    free(ysave);
+    free(ypsave);
+    free(e);
+
+    return 0;
 }/* jacpsol */
 /*--------------------------------------------------------------------------*/
 /* psol */
 static int psol(int *nequations, realtype *tOld, realtype *actual, realtype *actualP,
                   realtype *savr, realtype *wk, realtype *cj, realtype *wght, realtype *wp,
-                  int *iwp, realtype *b, realtype *eplin, int *ier, double *dummy1, int *dummy2)
+                  int *iwp, realtype *b, realtype *eplin, int *ier, realtype *dummy1, int *dummy2)
 {
-    // Empty routine to satisfy the ddaskr() loader. @TODO: open the Krylov feature for DDaskr.
+    /* This function "applies" the inverse of the preconditioner to 'b' (computes P^-1*b).
+       It is done by solving P*x = b using the Lapack routine 'dgesv'. */
+    int i, nColB = 1, ipiv[*nequations];
+
+    C2F(dgesv) (nequations, &nColB, wp, nequations, ipiv, b, nequations, ier);
+
+    /* NaN test */
+    for (i=0; i<*nequations; ++i)
+    {
+        if (b[i] - b[i] != 0)
+        {
+            sciprint(_("\n Warning: The preconditioner application function returns a NaN at index #%d."), i);
+        }
+    }
+
+    return 0;
 }/* psol */
 /*--------------------------------------------------------------------------*/
 /* Subroutine addevs */
@@ -5901,19 +5963,10 @@ static int Jacobians(long int Neq, realtype tt, realtype cj, N_Vector yy,
 }
 /*--------------------------------------------------------------------------*/
 static int Jacobiansddaskr(realtype *t, realtype *y, realtype *yp,
-                     realtype *pd, realtype cj, double *dummy1, int *dummy2)
+                     realtype *pd, realtype cj, realtype *dummy1, int *dummy2)
 {
-    double tx;
-    int job;
-
-    tx = *t;
-    job = 0;
-
-    Jdoit(&tx, y, yp, pd, &job);
-
-    C2F(ierode).iero = *ierr;
-    return 0;
-
+    /* @TODO: find a way to compute the dense jacobian matrix without the parameters
+       h, res and ewt[] (cf ddaskr.f Line 4999) */
 }
 /*----------------------------------------------------*/
 static void Multp(double *A, double *B, double *R, int ra, int rb, int ca, int cb)
