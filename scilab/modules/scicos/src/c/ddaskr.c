@@ -69,9 +69,9 @@ extern void C2F(ddaskr) (DDASResFn res, int *neq, realtype *t, realtype *y, real
  * DDaskrCreate prints an error message to standard err and returns NULL.
  */
 
-void * DDaskrCreate (int * neq, int ng)
+void * DDaskrCreate (int * neq, int ng, int Solver)
 {
-    int lRn, lRs, lIw, lRw;
+    int lIw, lRw, LENWP, LENIWP;
     DDaskrMem ddaskr_mem;
 
     /* Allocate the problem memory space */
@@ -87,8 +87,17 @@ void * DDaskrCreate (int * neq, int ng)
     memset(ddaskr_mem, 0, sizeof(struct DDaskrMemRec));
 
     /* Set the 'rwork' and 'iwork' workspaces lengths by default */
-    lRw = 60 + (*neq) * max(MAXORD_DEFAULT + 4, 7) + (*neq) * (*neq) + 3 * ng;
-    lIw = 40 + 2 * (*neq);
+    LENWP  = 7 * (*neq);
+    LENIWP = 24 * (*neq) + 1;
+    lRw    = 60 + (*neq) * (max(MAXORD_DEFAULT + 4, 7) + (*neq)) + 3 * ng;
+    lIw    = 40 + 2 * (*neq);
+
+    /* If we are going to use the Krylov method, liw can just be incremented, but lrw is quite different */
+    if (Solver == 102)
+    {
+        lRw = 101 + 18 * (*neq) + 3 * ng + LENWP;
+        lIw += LENIWP;
+    }
 
     /* Copy the variables into the problem memory space */
     ddaskr_mem->nEquations = neq;
@@ -104,6 +113,7 @@ void * DDaskrCreate (int * neq, int ng)
     ddaskr_mem->g_fun      = NULL;
     ddaskr_mem->ng_fun     = ng;
     ddaskr_mem->jroot      = NULL;
+    ddaskr_mem->solver     = Solver;
     ddaskr_mem->jacpsol    = NULL;
     ddaskr_mem->psol       = NULL;
 
@@ -113,6 +123,7 @@ void * DDaskrCreate (int * neq, int ng)
 /* Shortcuts to problem memory space parameters */
 # define res        ddas_mem->res
 # define nEq        ddas_mem->nEquations
+# define user_data  ddas_mem->user_data
 # define yVec       ddas_mem->yVector
 # define ypVec      ddas_mem->yPrimeVector
 # define tStart     ddas_mem->tStart
@@ -128,7 +139,7 @@ void * DDaskrCreate (int * neq, int ng)
 # define g_fun      ddas_mem->g_fun
 # define ng_fun     ddas_mem->ng_fun
 # define jroot      ddas_mem->jroot
-# define user_data  ddas_mem->user_data
+# define solver     ddas_mem->solver
 # define jacpsol    ddas_mem->jacpsol
 # define psol       ddas_mem->psol
 
@@ -175,7 +186,15 @@ int DDaskrInit (void * ddaskr_mem, DDASResFn Res, realtype t0, N_Vector yy0, N_V
         return (IDA_ILL_INPUT);
     }
 
-    //@TODO: add error if jacpsol or psol NULL
+    /* Jacpsol = NULL or Psol = NULL is a problem only if the user decided to use the GMRes solver */
+    if (solver == 102)
+    {
+        if (Jacpsol == NULL || Psol == NULL)
+        {
+            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrInit", MSG_BAD_KRY_INPUT);
+            return (IDA_ILL_INPUT);
+        }
+    }
 
     /* Copy the arguments into the problem memory space */
     res     = Res;
@@ -187,6 +206,12 @@ int DDaskrInit (void * ddaskr_mem, DDASResFn Res, realtype t0, N_Vector yy0, N_V
 
     /* Allocate the info[20] tab to zero, used to store parameters (zero is default value for mostof them) */
     info = calloc(20, sizeof(int));
+
+    /* info[11] indicates if we use the Newton or the Newton-Krylov method */
+    if (solver == 102)
+    {
+        info[11] = 1;
+    }
 
     /* Allocate rwork and iwork workspaces and set them to zero.
        Their size is lrw and liw, respectively */

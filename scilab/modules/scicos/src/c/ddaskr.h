@@ -80,12 +80,13 @@ typedef struct DDaskrMemRec
     DDASRootFn g_fun;
     int ng_fun;
     int * jroot;
+    int solver;
     DDASJacPsolFn jacpsol;
     DDASPsolFn psol;
 } *DDaskrMem;
 
 // Creating the problem
-void * DDaskrCreate (int * neq, int ng);
+void * DDaskrCreate (int * neq, int ng, int Solver);
 
 // Allocating the problem
 int DDaskrInit (void * ddaskr_mem, DDASResFn Res, realtype t0, N_Vector yy0, N_Vector yp0, DDASJacPsolFn jacpsol, DDASPsolFn psol);
