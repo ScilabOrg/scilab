@@ -5,8 +5,7 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- ENGLISH IMPOSED -->
-// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskr_Bouncing.tst");
-//  or test_run('scicos', 'DDaskr_Bouncing', ['no_check_error_output']);
+// Run with test_run('scicos', 'DDaskrK_Bouncing', ['no_check_error_output']);
 // Import diagram
 loadScicos();
 loadXcosLibs();
@@ -19,11 +18,21 @@ endfunction
 Warning : redefining function: messagebox              . Use funcprot(0) to avoid this message
 
 // Start by updating the clock block period (sampling)
-scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-3));"0"];
+for j=1:length(scs_m.objs)
+    if (typeof(scs_m.objs(j))=="Block" & scs_m.objs(j).gui=="CLOCK_f") then
+        listClock = scs_m.objs(j).model.rpar.objs;
+        for k=1:length(listClock)
+            if (typeof(listClock(k))=="Block" & listClock(k).gui=="EVTDLY_f") then
+                listClock(k).graphics.exprs = [string(5*(10^-3));"0"];
+                break;
+            end
+        end
+    end
+end
 // Modify solver + run DDaskr + save results
-scs_m.props.tol(6) = 101;           // Solver
-//scs_m.props.tol(1) = 1.0e-6;      // abstol
-//scs_m.props.tol(2) = 1.0e-6;      // reltol
+scs_m.props.tol(6) = 102;            // Solver
+//scs_m.props.tol(1) = 1.0e-10;      // abstol
+//scs_m.props.tol(2) = 1.0e-10;      // reltol
 try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // DDaskr
  
  CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
@@ -138,6 +147,6 @@ mea = mean(compa);
 [maxi, indexMaxi] = max(compa);
 stdeviation = st_deviation(compa);
 // Verifying closeness of the results
-assert_checktrue(maxi <= 10^-(12));
-assert_checktrue(mea <= 10^-(12));
-assert_checktrue(stdeviation <= 10^-(12));
+assert_checktrue(maxi <= 10^-(4));
+assert_checktrue(mea <= 10^-(4));
+assert_checktrue(stdeviation <= 10^-(4));
