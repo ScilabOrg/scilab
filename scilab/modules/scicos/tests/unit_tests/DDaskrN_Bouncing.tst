@@ -7,8 +7,8 @@
 
 // <-- ENGLISH IMPOSED -->
 
-// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskr_Bouncing.tst");
-//  or test_run('scicos', 'DDaskr_Bouncing', ['no_check_error_output']);
+// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskrN_Bouncing.tst");
+//  or test_run('scicos', 'DDaskrN_Bouncing', ['no_check_error_output']);
 
 // Import diagram
 loadScicos();

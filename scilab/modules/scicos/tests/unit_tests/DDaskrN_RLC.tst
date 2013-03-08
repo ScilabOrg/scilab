@@ -7,7 +7,7 @@
 
 // <-- ENGLISH IMPOSED -->
 
-// Run with test_run('scicos', 'DDaskr_RLC', ['no_check_error_output']);
+// Run with test_run('scicos', 'DDaskrN_RLC', ['no_check_error_output']);
 
 // Import diagram
 loadScicos();
