@@ -7,8 +7,7 @@
 
 // <-- ENGLISH IMPOSED -->
 
-// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskr_Bouncing.tst");
-//  or test_run('scicos', 'DDaskr_Bouncing', ['no_check_error_output']);
+// Run with test_run('scicos', 'DDaskrN_Bouncing', ['no_check_error_output']);
 
 // Import diagram
 loadScicos();
@@ -22,10 +21,20 @@ function messagebox(msg, title)
 endfunction
 
 // Start by updating the clock block period (sampling)
-scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-3));"0"];
+for j=1:length(scs_m.objs)
+    if (typeof(scs_m.objs(j))=="Block" & scs_m.objs(j).gui=="CLOCK_f") then
+        listClock = scs_m.objs(j).model.rpar.objs;
+        for k=1:length(listClock)
+            if (typeof(listClock(k))=="Block" & listClock(k).gui=="EVTDLY_f") then
+                listClock(k).graphics.exprs = [string(5*(10^-3));"0"];
+                break;
+            end
+        end
+    end
+end
 
 // Modify solver + run DDaskr + save results
-scs_m.props.tol(6) = 101;           // Solver
+scs_m.props.tol(6) = 101;            // Solver
 //scs_m.props.tol(1) = 1.0e-10;      // abstol
 //scs_m.props.tol(2) = 1.0e-10;      // reltol
 try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // DDaskr
