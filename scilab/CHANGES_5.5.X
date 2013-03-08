@@ -35,9 +35,9 @@ Obsolete
 Xcos
 ====
 
-* Update Sundials to lastest "2.5.0", keeping our modifications
+* Updated Sundials to lastest "2.5.0", keeping our modifications
 
-* Added a new DAE solver : DDaskr (BDF / Newton), which includes rootfinding.
+* Added a new DAE solver : DDaskr, using BDF methods with direct Newton and preconditioned Krylov linear solvers, which includes rootfinding.
 
 
 ODEPACK
