@@ -5,26 +5,36 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- ENGLISH IMPOSED -->
-// Execute with exec("SCI/modules/scicos/tests/unit_tests/DDaskr_Bouncing.tst");
-//  or test_run('scicos', 'DDaskr_Bouncing', ['no_check_error_output']);
+// <-- XCOS TEST -->
 // Import diagram
-loadScicos();
-loadXcosLibs();
 assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/DDaskr_Bouncing_test.zcos"));
 // Redefining messagebox() to avoid popup
-function messagebox(msg, title)
- disp(title);
+prot = funcprot();
+funcprot(0);
+function messagebox(msg, msg_title)
  disp(msg);
 endfunction
-Warning : redefining function: messagebox              . Use funcprot(0) to avoid this message
-
+funcprot(prot);
+// looking for the CLOCK_f/EVTDLY_f to update period
+for path_1=1:length(scs_m.objs)
+    if typeof(scs_m.objs(path_1))=="Block" & scs_m.objs(path_1).gui=="CLOCK_f" then
+        CLOCK_f_scs_m = scs_m.objs(path_1).model.rpar;
+        break;
+    end
+end
+for path_2=1:length(CLOCK_f_scs_m)
+    if typeof(CLOCK_f_scs_m.objs(path_2))=="Block" & CLOCK_f_scs_m.objs(path_2).gui=="EVTDLY_f" then
+        EVTDLY_f_blk = CLOCK_f_scs_m.objs(path_2);
+        break;
+    end
+end
 // Start by updating the clock block period (sampling)
-scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-3));"0"];
+scs_m.objs(path_1).model.rpar.objs(path_2).graphics.exprs = [string(5*(10^-3));"0"];
 // Modify solver + run DDaskr + save results
-scs_m.props.tol(6) = 101;           // Solver
-//scs_m.props.tol(1) = 1.0e-6;      // abstol
-//scs_m.props.tol(2) = 1.0e-6;      // reltol
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // DDaskr
+scs_m.props.tol(6) = 101;      // Solver
+//scs_m.props.tol(1) = 1.0e-10; // abstol
+//scs_m.props.tol(2) = 1.0e-10; // reltol
+scicos_simulate(scs_m, 'nw');  // DDaskr
  
  CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
       ected, getting 50 50 50 50                                        
@@ -33,10 +43,6 @@ try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // DDaskr
 
  Flat Modelica : TMPDIR/DDaskr_test2_imf.mo
  Simulation C code :TMPDIR/DDaskr_test2_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -75,11 +81,11 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-ddaskrval = res.values;   // Results
-time = res.time;          // Time
+ddaskrval = res.values;         // Results
+time = res.time;                // Time
 // Modify solver + run IDA + save results
-scs_m.props.tol(6) = 100;         // Solver
-try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // IDA
+scs_m.props.tol(6) = 100;     // Solver
+scicos_simulate(scs_m, 'nw'); // IDA
  
  CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
       ected, getting 50 50 50 50                                        
@@ -88,10 +94,6 @@ try scicos_simulate(scs_m, 'nw'); catch disp(lasterror()); end  // IDA
 
  Flat Modelica : TMPDIR/DDaskr_test2_imf.mo
  Simulation C code :TMPDIR/DDaskr_test2_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -130,7 +132,7 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-idaval = res.values;  // Results
+idaval = res.values;          // Results
 // Compare results
 compa = abs(ddaskrval-idaval);
 // Extract mean, standard deviation, maximum

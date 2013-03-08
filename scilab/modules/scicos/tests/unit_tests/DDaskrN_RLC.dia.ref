@@ -5,30 +5,41 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 // <-- ENGLISH IMPOSED -->
-// Run with test_run('scicos', 'DDaskr_RLC', ['no_check_error_output']);
+// <-- XCOS TEST -->
 // Import diagram
-loadScicos();
-loadXcosLibs();
 assert_checktrue(importXcosDiagram("SCI/modules/xcos/tests/unit_tests/DDaskr_RLC_test.zcos"));
 // Redefining messagebox() to avoid popup
-function messagebox(msg, title)
- disp(title);
+prot = funcprot();
+funcprot(0);
+function messagebox(msg, msg_title)
  disp(msg);
 endfunction
-Warning : redefining function: messagebox              . Use funcprot(0) to avoid this message
-
+funcprot(prot);
+// looking for the CLOCK_f/EVTDLY_f to update period
+for path_1=1:length(scs_m.objs)
+    if typeof(scs_m.objs(path_1))=="Block" & scs_m.objs(path_1).gui=="CLOCK_f" then
+        CLOCK_f_scs_m = scs_m.objs(path_1).model.rpar;
+        break;
+    end
+end
+for path_2=1:length(CLOCK_f_scs_m)
+    if typeof(CLOCK_f_scs_m.objs(path_2))=="Block" & CLOCK_f_scs_m.objs(path_2).gui=="EVTDLY_f" then
+        EVTDLY_f_blk = CLOCK_f_scs_m.objs(path_2);
+        break;
+    end
+end
 for i=2:3
     // Start by updating the clock block period (sampling)
-    scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-i));"0"];
+    scs_m.objs(path_1).model.rpar.objs(path_2).graphics.exprs = [string(5*(10^-i));"0"];
     // Modify solver + run DDaskr + save results
-    scs_m.props.tol(6) = 101;           // Solver
-    try xcos_simulate(scs_m, 4); catch disp(lasterror()); end  // DDaskr
-    ddaskrval = res.values;   // Results
-    time = res.time;          // Time
+    scs_m.props.tol(6) = 101;     // Solver
+    scicos_simulate(scs_m, 'nw'); // DDaskr
+    ddaskrval = res.values;        // Results
+    time = res.time;               // Time
     // Modify solver + run IDA + save results
-    scs_m.props.tol(6) = 100;         // Solver
-    try xcos_simulate(scs_m, 4); catch disp(lasterror()); end  // IDA
-    idaval = res.values;  // Results
+    scs_m.props.tol(6) = 100;     // Solver
+    scicos_simulate(scs_m, 'nw'); // IDA
+    idaval = res.values;          // Results
     // Compare results
     compa = abs(ddaskrval-idaval);
     // Extract mean, standard deviation, maximum
@@ -40,15 +51,14 @@ for i=2:3
     assert_checktrue(mea <= 10^-(i+4));
     assert_checktrue(stdeviation <= 10^-(i+4));
 end
+ 
+ CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
+      ected, getting 2 2 2 2                                            
 --------------------------------------------\
  Main Modelica : TMPDIR/DDaskr_RLC_test_im.mo
 
  Flat Modelica : TMPDIR/DDaskr_RLC_test_imf.mo
  Simulation C code :TMPDIR/DDaskr_RLC_test_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -87,16 +97,14 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
+ 
+ CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
+      ected, getting 2 2 2 2                                            
 --------------------------------------------\
  Main Modelica : TMPDIR/DDaskr_RLC_test_im.mo
 
  Flat Modelica : TMPDIR/DDaskr_RLC_test_imf.mo
  Simulation C code :TMPDIR/DDaskr_RLC_test_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -135,16 +143,14 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
+ 
+ CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
+      ected, getting 2 2 2 2                                            
 --------------------------------------------\
  Main Modelica : TMPDIR/DDaskr_RLC_test_im.mo
 
  Flat Modelica : TMPDIR/DDaskr_RLC_test_imf.mo
  Simulation C code :TMPDIR/DDaskr_RLC_test_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -183,16 +189,14 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
+ 
+ CMSCOPE('set'): Wrong size for block parameter 'Refresh period': 2 exp 
+      ected, getting 2 2 2 2                                            
 --------------------------------------------\
  Main Modelica : TMPDIR/DDaskr_RLC_test_im.mo
 
  Flat Modelica : TMPDIR/DDaskr_RLC_test_imf.mo
  Simulation C code :TMPDIR/DDaskr_RLC_test_im.c
-Warning : redefining function: title                   . Use funcprot(0) to avoid this message
-
- 
- info   
  
 !Modelica blocks are reduced to a block with:             !
 !                                                         !
@@ -231,4 +235,3 @@ Warning : redefining function: title                   . Use funcprot(0) to avoi
    Generate a cleaner file
 Shared archive loaded.
 Link done.
-WARNING: Diagram contains implicit blocks, compiling for implicit Solver.
