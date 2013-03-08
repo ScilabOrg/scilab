@@ -7,7 +7,7 @@
 
 // <-- ENGLISH IMPOSED -->
 
-// Run with test_run('scicos', 'DDaskr_RLC', ['no_check_error_output']);
+// Run with test_run('scicos', 'DDaskrK_RLC', ['no_check_error_output']);
 
 // Import diagram
 loadScicos();
@@ -26,7 +26,7 @@ for i=2:3
     scs_m.objs(1).model.rpar.objs(2).graphics.exprs = [string(5*(10^-i));"0"];
 
     // Modify solver + run DDaskr + save results
-    scs_m.props.tol(6) = 101;           // Solver
+    scs_m.props.tol(6) = 102;           // Solver
     try xcos_simulate(scs_m, 4); catch disp(lasterror()); end  // DDaskr
     ddaskrval = res.values;   // Results
     time = res.time;          // Time
@@ -45,8 +45,8 @@ for i=2:3
     stdeviation = st_deviation(compa);
 
     // Verifying closeness of the results
-    assert_checktrue(maxi <= 10^-(i+4));
-    assert_checktrue(mea <= 10^-(i+4));
-    assert_checktrue(stdeviation <= 10^-(i+4));
+    assert_checktrue(maxi <= 10^-(i+3));
+    assert_checktrue(mea <= 10^-(i+3));
+    assert_checktrue(stdeviation <= 10^-(i+3));
 
 end
