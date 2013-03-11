@@ -100,6 +100,20 @@ typedef struct
 } *UserData;
 
 SCICOS_IMPEXP SCSPTR_struct C2F(scsptr);
+
+enum Solver {
+    LSodar_Dynamic = 0,
+    CVode_BDF_Newton,
+    CVode_BDF_Functional,
+    CVode_Adams_Newton,
+    CVode_Adams_Functional,
+    Dormand_Prince,
+    Runge_Kutta,
+    Implicit_Runge_Kutta,
+    IDA_BDF_Newton = 100,
+    DDaskr_BDF_Newton = 101,
+    DDaskr_BDF_GMRes = 102
+};
 /*--------------------------------------------------------------------------*/
 
 #define freeall					\
@@ -820,19 +834,19 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
 
         /*     integration */
         switch (C2F(cmsolver).solver) {
-            case 0: // LSodar - Dynamic / Dynamic
-            case 1: // CVode - BDF / Newton
-            case 2: // CVode - BDF / Functional
-            case 3: // CVode - Adams / Newton
-            case 4: // CVode - Adams / Functional
-            case 5: // Dormand-Prince
-            case 6: // Runge-Kutta
-            case 7: // Implicit Runge-Kutta - RK / Fixed-Point
+            case LSodar_Dynamic:
+            case CVode_BDF_Newton:
+            case CVode_BDF_Functional:
+            case CVode_Adams_Newton:
+            case CVode_Adams_Functional:
+            case Dormand_Prince:
+            case Runge_Kutta:
+            case Implicit_Runge_Kutta:
                 cossim(t0);
                 break;
-            case 100: // IDA
-            case 101: // DDaskr - BDF / Newton
-            case 102: // DDaskr - BDF / GMRes
+            case IDA_BDF_Newton:
+            case DDaskr_BDF_Newton:
+            case DDaskr_BDF_GMRes:
                 cossimdaskr(t0);
                 break;
             default: // Unknown solver number
@@ -1320,6 +1334,8 @@ static void cossim(double *told)
     void *ode_mem = NULL;
     int flag = 0, flagr = 0;
     int cnt = 0;
+    /* Saving solver number */
+    int solver = C2F(cmsolver).solver;
     /* Defining function pointers, for more readability */
     void(* ODEFree) (void**);
     int (* ODE) (void*, realtype, N_Vector, realtype*, int);
@@ -1331,8 +1347,8 @@ static void cossim(double *told)
     /* Generic flags for stop mode */
     int ODE_NORMAL   = 1;  /* ODE_NORMAL   = CV_NORMAL   = LS_NORMAL   = 1 */
     int ODE_ONE_STEP = 2;  /* ODE_ONE_STEP = CV_ONE_STEP = LS_ONE_STEP = 2 */
-    switch (C2F(cmsolver).solver) {
-        case 0: // LSodar
+    switch (solver) {
+        case LSodar_Dynamic:
             ODEFree = &LSodarFree;
             ODE = &LSodar;
             ODEReInit = &LSodarReInit;
@@ -1341,13 +1357,13 @@ static void cossim(double *told)
             ODEGetRootInfo = &LSodarGetRootInfo;
             ODESStolerances = &LSodarSStolerances;
             break;
-        case 1: // CVode BDF / Newton
-        case 2: // CVode BDF / Functional
-        case 3: // CVode Adams / Newton
-        case 4: // CVode Adams / Functional
-        case 5: // Dormand-Prince
-        case 6: // Runge-Kutta
-        case 7: // Implicit Runge-Kutta
+        case CVode_BDF_Newton:
+        case CVode_BDF_Functional:
+        case CVode_Adams_Newton:
+        case CVode_Adams_Functional:
+        case Dormand_Prince:
+        case Runge_Kutta:
+        case Implicit_Runge_Kutta:
             ODEFree = &CVodeFree;
             ODE = &CVode;
             ODEReInit = &CVodeReInit;
@@ -1406,30 +1422,30 @@ static void cossim(double *told)
         /* Set extension of Sundials for scicos */
         set_sundials_with_extension(TRUE);
 
-        switch (C2F(cmsolver).solver)
+        switch (solver)
         {
-            case 0:
+            case LSodar_Dynamic:
                 ode_mem = LSodarCreate(neq, ng); /* Create the lsodar problem */
                 break;
-            case 1:
+            case CVode_BDF_Newton:
                 ode_mem = CVodeCreate(CV_BDF, CV_NEWTON);
                 break;
-            case 2:
+            case CVode_BDF_Functional:
                 ode_mem = CVodeCreate(CV_BDF, CV_FUNCTIONAL);
                 break;
-            case 3:
+            case CVode_Adams_Newton:
                 ode_mem = CVodeCreate(CV_ADAMS, CV_NEWTON);
                 break;
-            case 4:
+            case CVode_Adams_Functional:
                 ode_mem = CVodeCreate(CV_ADAMS, CV_FUNCTIONAL);
                 break;
-            case 5:
+            case Dormand_Prince:
                 ode_mem = CVodeCreate(CV_DOPRI, CV_FUNCTIONAL);
                 break;
-            case 6:
+            case Runge_Kutta:
                 ode_mem = CVodeCreate(CV_ExpRK, CV_FUNCTIONAL);
                 break;
-            case 7:
+            case Implicit_Runge_Kutta:
                 ode_mem = CVodeCreate(CV_ImpRK, CV_FUNCTIONAL);
                 break;
         }
@@ -1445,7 +1461,7 @@ static void cossim(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 0)
+        if (solver == LSodar_Dynamic)
         {
             flag = LSodarSetErrHandlerFn(ode_mem, SundialsErrHandler, NULL);
         }
@@ -1458,7 +1474,7 @@ static void cossim(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 0)
+        if (solver == LSodar_Dynamic)
         {
             flag = LSodarInit(ode_mem, simblklsodar, T0, y);
         }
@@ -1479,7 +1495,7 @@ static void cossim(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 0)
+        if (solver == LSodar_Dynamic)
         {
             flag = LSodarRootInit(ode_mem, ng, grblklsodar);
         }
@@ -1492,7 +1508,7 @@ static void cossim(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver != 0)
+        if (solver != LSodar_Dynamic)
         /* Call CVDense to specify the CVDENSE dense linear solver */
         flag = CVDense(ode_mem, *neq);
         if (check_flag(&flag, "CVDense", 1))
@@ -1985,6 +2001,8 @@ static void cossimdaskr(double *told)
     int  Jn = 0, Jnx = 0, Jno = 0, Jni = 0, Jactaille = 0;
     double uround = 0.;
     int cnt = 0, N_iters = 0;
+    /* Saving solver number */
+    int solver = C2F(cmsolver).solver;
     /* Flags for initial values calculation */
     int DAE_YA_YDP_INIT = 1;
     int DAE_Y_INIT      = 2;
@@ -2007,8 +2025,8 @@ static void cossimdaskr(double *told)
     /* Generic flags for stop mode */
     int DAE_NORMAL;
     int DAE_ONE_STEP;
-    switch (C2F(cmsolver).solver) {
-        case 100: // IDA
+    switch (solver) {
+        case IDA_BDF_Newton:
             DAEFree = &IDAFree;
             DAESolve = &IDASolve;
             DAESetId = &IDASetId;
@@ -2025,8 +2043,8 @@ static void cossimdaskr(double *told)
             DAESetMaxNumStepsIC = &IDASetMaxNumStepsIC;
             DAESetLineSearchOffIC = &IDASetLineSearchOffIC;
             break;
-        case 101: // DDaskr - BDF - Newton
-        case 102: // DDaskr - BDF / GMRes
+        case DDaskr_BDF_Newton:
+        case DDaskr_BDF_GMRes:
             DAEFree = &DDaskrFree;
             DAESolve = &DDaskrSolve;
             DAESetId = &DDaskrSetId;
@@ -2048,8 +2066,8 @@ static void cossimdaskr(double *told)
             return;
     }
     /* For DAEs, the stop mode flag depends on the used solver */
-    DAE_NORMAL   = (C2F(cmsolver).solver == 100) ? 1 : 0;  /* IDA_NORMAL   = 1, DDAS_NORMAL   = 0 */
-    DAE_ONE_STEP = (C2F(cmsolver).solver == 100) ? 2 : 1;  /* IDA_ONE_STEP = 2, DDAS_ONE_STEP = 1 */
+    DAE_NORMAL   = (solver == IDA_BDF_Newton) ? 1 : 0;  /* IDA_NORMAL   = 1, DDAS_NORMAL   = 0 */
+    DAE_ONE_STEP = (solver == IDA_BDF_Newton) ? 2 : 1;  /* IDA_ONE_STEP = 2, DDAS_ONE_STEP = 1 */
 
     /* Set extension of Sundials for scicos */
     set_sundials_with_extension(TRUE);
@@ -2131,9 +2149,9 @@ static void cossimdaskr(double *told)
 
         /* Call the Create and Init functions to initialize DAE memory */
         dae_mem = NULL;
-        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
+        if (solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes)
         {
-            dae_mem = DDaskrCreate(neq, ng, C2F(cmsolver).solver);
+            dae_mem = DDaskrCreate(neq, ng, solver);
         }
         else
         dae_mem = IDACreate();
@@ -2149,7 +2167,7 @@ static void cossimdaskr(double *told)
         }
         copy_IDA_mem = (IDAMem) dae_mem;
 
-        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
+        if (solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes)
         {
             flag = DDaskrSetErrHandlerFn(dae_mem, SundialsErrHandler, NULL);
         }
@@ -2168,7 +2186,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
+        if (solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes)
         {
             flag = DDaskrInit(dae_mem, simblkddaskr, T0, yy, yp, jacpsol, psol);
         }
@@ -2201,7 +2219,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
+        if (solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes)
         {
             flag = DDaskrRootInit(dae_mem, ng, grblkddaskr);
         }
@@ -2220,12 +2238,12 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 100)
+        if (solver == IDA_BDF_Newton)
         flag = IDADense(dae_mem, *neq);
         if (check_flag(&flag, "IDADense", 1))
         {
             *ierr = 200 + (-flag);
-            if (*neq > 0)if (C2F(cmsolver).solver == 100) IDAFree(&dae_mem);
+            if (*neq > 0)if (solver == IDA_BDF_Newton) IDAFree(&dae_mem);
             if (*neq > 0)N_VDestroy_Serial(IDx);
             if (*neq > 0)N_VDestroy_Serial(yp);
             if (*neq > 0)N_VDestroy_Serial(yy);
@@ -2317,7 +2335,7 @@ static void cossimdaskr(double *told)
             return;
         }
 
-        if (C2F(cmsolver).solver == 101 || C2F(cmsolver).solver == 102)
+        if (solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes)
         {
             flag = DDaskrDlsSetDenseJacFn(dae_mem, Jacobiansddaskr);
         }
@@ -2370,7 +2388,7 @@ static void cossimdaskr(double *told)
         }
 
         /* setting the maximum number of steps in an integration interval */
-        if (C2F(cmsolver).solver == 100)
+        if (solver == IDA_BDF_Newton)
         flag = IDASetMaxNumSteps(dae_mem, 2000);
         if (check_flag(&flag, "IDASetMaxNumSteps", 1))
         {
@@ -3126,7 +3144,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     loc = block->funpt;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
+    if ((solver == IDA_BDF_Newton || solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3496,7 +3514,7 @@ void callf(double *t, scicos_block *block, scicos_flag *flag)
     // sciprint("callf end  flag=%d\n",*flag);
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
+    if ((solver == IDA_BDF_Newton || solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
@@ -3543,7 +3561,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
     loc4 = (ScicosF4) loc;
 
     /* continuous state */
-    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
+    if ((solver == IDA_BDF_Newton || solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes) && block->type < 10000 && *flag == 0)
     {
         ptr_d = block->xd;
         block->xd  = block->res;
@@ -3553,7 +3571,7 @@ static void call_debug_scicos(scicos_block *block, scicos_flag *flag, int flagi,
 
     /* Implicit Solver & explicit block & flag==0 */
     /* adjust continuous state vector after call */
-    if ((solver == 100 || solver == 101 || solver == 102) && block->type < 10000 && *flag == 0)
+    if ((solver == IDA_BDF_Newton || solver == DDaskr_BDF_Newton || solver == DDaskr_BDF_GMRes) && block->type < 10000 && *flag == 0)
     {
         block->xd  = ptr_d;
         if (flagi != 7)
