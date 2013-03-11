@@ -1,3 +1,4 @@
+test
 /*  Scicos
 *
 *  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
@@ -4378,31 +4379,31 @@ static int jacpsol(realtype *res, int *ires, int *nequations, realtype *tOld, re
        savr already contains res(*tOld, actual, actualP). */
     e = calloc(*nequations, sizeof(realtype));
 
-    for (i=0; i<*nequations; ++i)
+    for (i = 0; i < *nequations; ++i)
     {
-        del = max (SQuround*max(fabs(actual[i]), fabs(*h * actualP[i])), 1./rewt[i]);
+        del = max (SQuround * max(fabs(actual[i]), fabs(*h * actualP[i])), 1. / rewt[i]);
         del *= (*h * actualP[i] >= 0) ? 1 : -1;
         ysave   =  actual[i];
         ypsave  =  actualP[i];
         actual[i]  += del;
         actualP[i] += *cj * del;
         odoit(&tx, actual, actualP, e);
-        delinv = 1./del;
-        for (j=0;j<*nequations;++j)
+        delinv = 1. / del;
+        for (j = 0; j < *nequations; ++j)
         {
-             wp[nrow + j] = (e[j] - savr[j]) * delinv;
-             /* NaN test */
-             if (wp[nrow + j] - wp[nrow + j] != 0)
-             {
-                 sciprint(_("\n Warning: The preconditioner evaluation function returns a NaN at index #%d."), nrow + j);
-                 *ier = -1;
-             }
+            wp[nrow + j] = (e[j] - savr[j]) * delinv;
+            /* NaN test */
+            if (wp[nrow + j] - wp[nrow + j] != 0)
+            {
+                sciprint(_("\n Warning: The preconditioner evaluation function returns a NaN at index #%d."), nrow + j);
+                *ier = -1;
+            }
         }
         nrow       += *nequations;
         actual[i]  =  ysave;
         actualP[i] =  ypsave;
         iwp[i] = i;
-        iwp[i+*nequations] = i;
+        iwp[i + *nequations] = i;
     }
 
     free(e);
@@ -4426,13 +4427,13 @@ static int psol(int *nequations, realtype *tOld, realtype *actual, realtype *act
         /* NaN test */
         for (i = 0; i < *nequations; ++i)
         {
-           if (b[i] - b[i] != 0)
-           {
-               sciprint(_("\n Warning: The preconditioner application function returns a NaN at index #%d."), i);
-               *ier = -1;
-           }
+            if (b[i] - b[i] != 0)
+            {
+                sciprint(_("\n Warning: The preconditioner application function returns a NaN at index #%d."), i);
+                *ier = -1;
+            }
         }
-       return 0;
+        return 0;
     }
     else
     {
