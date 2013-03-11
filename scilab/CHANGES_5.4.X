@@ -515,6 +515,8 @@ Bug fixes
 * Bug #12354 fixed - In SciNotes, invalid function with a semicolon after args
                      declaration.
 
+* Bug #12378 fixed - sdf() crashed Scilab.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
