@@ -90,16 +90,16 @@ void * DDaskrCreate (int * neq, int ng, int solverIndex)
     /* Set the 'rwork' and 'iwork' workspaces lengths by default
        LENWP and LENIWP are lentghts of segments of rwork and iwork (respectively),
        that will contain preconditioner matrix information in compact sparse row format */
-    LENWP  = 7 * (*neq);
-    LENIWP = 24 * (*neq) + 1;
+    LENWP  = (*neq) * (*neq);
+    LENIWP = 2 * (*neq) * (*neq);
     lRw    = 60 + (*neq) * (max(MAXORD_DEFAULT + 4, 7) + (*neq)) + 3 * ng;
     lIw    = 40 + 2 * (*neq);
 
-    /* If we are going to use the Krylov method, liw can just be incremented, but lrw is quite different */
+    /* If we are going to use the Krylov method, resize the workspaces adequately */
     if (solverIndex == 102)
     {
         lRw = 101 + 18 * (*neq) + 3 * ng + LENWP;
-        lIw += LENIWP;
+        lIw = 40 + (*neq) + LENIWP;
     }
 
     /* Copy the variables into the problem memory space */
@@ -508,10 +508,10 @@ int DDaskrDlsSetDenseJacFn (void * ddaskr_mem, DDASJacFn J_fun)
 
     if (J_fun != NULL)
     {
-        j_fun   = J_fun;
+        j_fun = J_fun;
         /* Set info[4] = 1 for ddaskr to consider the jacobian function
            Comment that change until a working Jacobiansddaskr function is devised in scicos.c */
-        //info[4] = 1; @TODO: devise Jacobiansddaskr to enable that option.
+        //info[4] = 1; //@TODO: devise Jacobiansddaskr to enable that option.
     }
 
     return(IDA_SUCCESS);
@@ -917,8 +917,8 @@ int DDaskrCalcIC (void * ddaskr_mem, int icopt, realtype tout1)
         case 4:
             return (IDA_SUCCESS);
         default:
-            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrCalcIC", MSG_IC_FAIL_CONSTR);
-            return (IDA_ILL_INPUT);
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrCalcIC", MSG_IC_CONV_FAILED);
+            return (IDA_CONV_FAIL);
     }
 }
 
