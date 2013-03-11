@@ -293,28 +293,33 @@ csvWriteError csvWrite_complex(const char *filename,
 
     for (i = 0; i < m; i++)
     {
+        char StringValue[65535];
+        memset(&StringValue[0], 0, 65535);
         for (j = 0; j < n; j++)
         {
-            char StringValue[65535];
             if (ISNAN(pdValuesReal[i + m * j]))
             {
-                strcpy(StringValue, NanString);
+                strcat(StringValue, NanString);
             }
             else if (finite(pdValuesReal[i + m * j]))
             {
-                char buffer[65535];
-                char *result = NULL;
-                sprintf(buffer, precisionFormat, pdValuesReal[i + m * j]);
-                result = csv_strsubst(buffer, getCsvDefaultDecimal(), decimal);
-                if (result)
+                if ((pdValuesReal[i + m * j] != 0) || (pdValuesImag[i + m * j] == 0))
                 {
-                    strcpy(StringValue, result);
-                    FREE(result);
-                    result = NULL;
-                }
-                else
-                {
-                    sprintf(StringValue, DEFAULT_CSV_WRITE_DOUBLE_FORMAT, pdValuesReal[i + m * j]);
+                    char buffer[1024];
+                    char *result = NULL;
+
+                    sprintf(buffer, precisionFormat, pdValuesReal[i + m * j]);
+                    result = csv_strsubst(buffer, getCsvDefaultDecimal(), decimal);
+                    if (result)
+                    {
+                        strcat(StringValue, result);
+                        FREE(result);
+                        result = NULL;
+                    }
+                    else
+                    {
+                        sprintf(StringValue, DEFAULT_CSV_WRITE_DOUBLE_FORMAT, pdValuesReal[i + m * j]);
+                    }
                 }
             }
             else
@@ -322,12 +327,12 @@ csvWriteError csvWrite_complex(const char *filename,
                 if ( signbit(pdValuesReal[i + m * j]) )
                 {
                     // NegInfString
-                    strcpy(StringValue, NegInfString);
+                    strcat(StringValue, NegInfString);
                 }
                 else
                 {
                     // InfString
-                    strcpy(StringValue, InfString);
+                    strcat(StringValue, InfString);
                 }
             }
 
@@ -339,33 +344,36 @@ csvWriteError csvWrite_complex(const char *filename,
             }
             else if (finite(pdValuesImag[i + m * j]))
             {
-                char buffer[65535];
-                char *result = NULL;
+                if (pdValuesImag[i + m * j] != 0)
+                {
+                    char buffer[1024];
+                    char *result = NULL;
 
-                if (pdValuesImag[i + m * j] >= 0)
-                {
-                    strcat(StringValue, PlusStr);
-                }
-                else
-                {
-                    strcat(StringValue, LessStr);
-                }
+                    if ((pdValuesReal[i + m * j] != 0) && (pdValuesImag[i + m * j] > 0))
+                    {
+                        strcat(StringValue, PlusStr);
+                    }
+                    else if (pdValuesImag[i + m * j] < 0)
+                    {
+                        strcat(StringValue, LessStr);
+                    }
 
-                sprintf(buffer, precisionFormat, fabs(pdValuesImag[i + m * j]));
-                result = csv_strsubst(buffer, getCsvDefaultDecimal(), decimal);
+                    sprintf(buffer, precisionFormat, fabs(pdValuesImag[i + m * j]));
+                    result = csv_strsubst(buffer, getCsvDefaultDecimal(), decimal);
 
-                if (result)
-                {
-                    strcat(StringValue, result);
-                    FREE(result);
-                    result = NULL;
+                    if (result)
+                    {
+                        strcat(StringValue, result);
+                        FREE(result);
+                        result = NULL;
+                    }
+                    else
+                    {
+                        sprintf(buffer, DEFAULT_CSV_WRITE_DOUBLE_FORMAT, fabs(pdValuesImag[i + m * j]));
+                        strcat(StringValue, buffer);
+                    }
+                    strcat(StringValue, ComplexStr);
                 }
-                else
-                {
-                    sprintf(buffer, DEFAULT_CSV_WRITE_DOUBLE_FORMAT, fabs(pdValuesImag[i + m * j]));
-                    strcat(StringValue, buffer);
-                }
-                strcat(StringValue, ComplexStr);
             }
             else
             {
@@ -382,13 +390,13 @@ csvWriteError csvWrite_complex(const char *filename,
                 strcat(StringValue, InfString);
                 strcat(StringValue, ComplexStr);
             }
-            fprintf(fd, DEFAULT_CSV_WRITE_STRING_FORMAT, StringValue);
             if (j + 1 < n)
             {
-                fprintf(fd, "%s", separator);
+                strcat(StringValue, separator);
             }
         }
-        fprintf(fd, "%s", getCsvDefaultEOL());
+        strcat(StringValue, getCsvDefaultEOL());
+        fprintf(fd, DEFAULT_CSV_WRITE_STRING_FORMAT, StringValue);
     }
 
     fclose(fd);
