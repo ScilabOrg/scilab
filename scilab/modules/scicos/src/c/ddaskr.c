@@ -511,7 +511,7 @@ int DDaskrDlsSetDenseJacFn (void * ddaskr_mem, DDASJacFn J_fun)
         j_fun   = J_fun;
         /* Set info[4] = 1 for ddaskr to consider the jacobian function
            Comment that change until a working Jacobiansddaskr function is devised in scicos.c */
-        //info[4] = 1; @TODO: devise Jacobiansddaskr to enable that option.
+        //info[4] = 1; //@TODO: devise Jacobiansddaskr to enable that option.
     }
 
     return(IDA_SUCCESS);
@@ -917,8 +917,8 @@ int DDaskrCalcIC (void * ddaskr_mem, int icopt, realtype tout1)
         case 4:
             return (IDA_SUCCESS);
         default:
-            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrCalcIC", MSG_IC_FAIL_CONSTR);
-            return (IDA_ILL_INPUT);
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrCalcIC", MSG_IC_CONV_FAILED);
+            return (IDA_CONV_FAIL);
     }
 }
 
