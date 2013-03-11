@@ -16,6 +16,7 @@ package org.scilab.modules.gui.bridge.messagebox;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -24,10 +25,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -602,8 +606,13 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
             setContentPane(new JOptionPane(objs, messageType, JOptionPane.CANCEL_OPTION, messageIcon, buttons));
         }
         pack();
-        super.setModal(modal); /* Must call the JDialog class setModal */
-
+        if (System.getProperty("scilab.gui.screenshot") != null && System.getProperty("scilab.gui.screenshot").equals("enable"))
+        {
+            super.setModal(false);  
+        } else {
+            super.setModal(modal); /* Must call the JDialog class setModal */
+        }
+        
         if (parentWindow == null) {
             if (ScilabConsole.isExistingConsole()) {
                 setLocationRelativeTo((Component) ScilabConsole.getConsole().getAsSimpleConsole());
@@ -622,6 +631,24 @@ public class SwingScilabMessageBox extends JDialog implements SimpleMessageBox, 
         setVisible(true);
         doLayout();
 
+        if (System.getProperty("scilab.gui.screenshot") != null && System.getProperty("scilab.gui.screenshot").equals("enable"))
+        {
+            String fileName = System.getProperty("scilab.gui.screenshot.filename");
+            String fileType = System.getProperty("scilab.gui.screenshot.filetype");
+            BufferedImage bi = new BufferedImage(this.getRootPane().getSize().width, this.getRootPane().getSize().height, BufferedImage.TYPE_INT_ARGB); 
+            Graphics g = bi.createGraphics();
+            this.getRootPane().paint(g);  //this == JComponent
+            g.dispose();
+            try{
+                ImageIO.write(bi, fileType, new File(fileName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.setVisible(false);
+            selectedButton = 2;
+            return;
+        }
+        
         // If the dialog is not modal and Scilab waits for an answer, have to wait...
         if (!modal && scilabDialogType != X_MESSAGE_TYPE) {
             synchronized (btnOK) {
