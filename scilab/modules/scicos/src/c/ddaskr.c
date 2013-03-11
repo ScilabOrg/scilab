@@ -52,10 +52,10 @@
  * =============================
  *
  * Actual solving function, from 'ODEPACK' in 'differential_equations' module.
- * Set j_fun type to void*, since it can either be a DDasJacFn or a DDasJacPsolFn.
+ * Since we use ddaskr's built-in jacobian function, set jacpsol type to DDasJacPsolFn.
  */
 
-extern void C2F(ddaskr) (DDASResFn res, int *neq, realtype *t, realtype *y, realtype *yp, realtype *tout, int *info, realtype *reltol, realtype *abstol, int *istate, struct DDrWork_t *rwork, int *lrw, int *iwork, int *liw, double *dummy1, int *dummy2, void *j_fun, DDASPsolFn psol, DDASRootFn grblk, int *ng, int *jroot);
+extern void C2F(ddaskr) (DDASResFn res, int *neq, realtype *t, realtype *y, realtype *yp, realtype *tout, int *info, realtype *reltol, realtype *abstol, int *istate, struct DDrWork_t *rwork, int *lrw, int *iwork, int *liw, double *dummy1, int *dummy2, DDASJacPsolFn jacpsol, DDASPsolFn psol, DDASRootFn grblk, int *ng, int *jroot);
 
 /* =============================
  *
@@ -90,16 +90,16 @@ void * DDaskrCreate (int * neq, int ng, int solverIndex)
     /* Set the 'rwork' and 'iwork' workspaces lengths by default
        LENWP and LENIWP are lentghts of segments of rwork and iwork (respectively),
        that will contain preconditioner matrix information in compact sparse row format */
-    LENWP  = 7 * (*neq);
-    LENIWP = 24 * (*neq) + 1;
+    LENWP  = (*neq) * (*neq);
+    LENIWP = 2 * (*neq) * (*neq);
     lRw    = 60 + (*neq) * (max(MAXORD_DEFAULT + 4, 7) + (*neq)) + 3 * ng;
     lIw    = 40 + 2 * (*neq);
 
-    /* If we are going to use the Krylov method, liw can just be incremented, but lrw is quite different */
+    /* If we are going to use the Krylov method, resize the workspaces adequately */
     if (solverIndex == 102)
     {
         lRw = 101 + 18 * (*neq) + 3 * ng + LENWP;
-        lIw += LENIWP;
+        lIw = 40 + (*neq) + LENIWP;
     }
 
     /* Copy the variables into the problem memory space */
@@ -111,7 +111,6 @@ void * DDaskrCreate (int * neq, int ng, int solverIndex)
     ddaskr_mem->lrw        = lRw;
     ddaskr_mem->iwork      = NULL;
     ddaskr_mem->liw        = lIw;
-    ddaskr_mem->j_fun      = NULL;
     ddaskr_mem->ehfun      = NULL;
     ddaskr_mem->g_fun      = NULL;
     ddaskr_mem->ng_fun     = ng;
@@ -140,7 +139,6 @@ void * DDaskrCreate (int * neq, int ng, int solverIndex)
 # define lrw        ddas_mem->lrw
 # define iwork      ddas_mem->iwork
 # define liw        ddas_mem->liw
-# define j_fun      ddas_mem->j_fun
 # define g_fun      ddas_mem->g_fun
 # define ng_fun     ddas_mem->ng_fun
 # define jroot      ddas_mem->jroot
@@ -487,38 +485,6 @@ int DDaskrSetStopTime (void * ddaskr_mem, realtype tCrit)
 
 /* =============================
  *
- *    DDaskrDlsSetDenseJacFn
- *
- * =============================
- *
- * Specifies the dense Jacobian function.
- */
-
-int DDaskrDlsSetDenseJacFn (void * ddaskr_mem, DDASJacFn J_fun)
-{
-    DDaskrMem ddas_mem;
-
-    /* Return immediately if ddaskr_mem is NULL */
-    if (ddaskr_mem == NULL)
-    {
-        DDASProcessError(NULL, IDA_MEM_NULL, "DDASKR", "DDaskrDlsSetDenseJacFn", MSG_NO_MEM);
-        return(IDA_MEM_NULL);
-    }
-    ddas_mem = (DDaskrMem) ddaskr_mem;
-
-    if (J_fun != NULL)
-    {
-        j_fun   = J_fun;
-        /* Set info[4] = 1 for ddaskr to consider the jacobian function
-           Comment that change until a working Jacobiansddaskr function is devised in scicos.c */
-        //info[4] = 1; @TODO: devise Jacobiansddaskr to enable that option.
-    }
-
-    return(IDA_SUCCESS);
-}
-
-/* =============================
- *
  *     DDaskrSetMaxNumJacsIC
  *
  * =============================
@@ -740,7 +706,6 @@ int DDaskrSetId (void * ddaskr_mem, N_Vector xproperty)
 int DDaskrSolve (void * ddaskr_mem, realtype tOut, realtype * tOld, N_Vector yOut, N_Vector ypOut, int itask)
 {
     DDaskrMem ddas_mem;
-    void * jac_or_jacpsol;
 
     /* Check the input arguments */
 
@@ -784,18 +749,9 @@ int DDaskrSolve (void * ddaskr_mem, realtype tOut, realtype * tOld, N_Vector yOu
     /* Save the task mode in info[2] */
     info[2] = itask;
 
-    /* By default, set the jacobian function to j_fun, but if we are going for the Krylov method, then use the
-       preconditioner evaluation and factorization function 'jacpsol' */
-    jac_or_jacpsol = NULL;
-    jac_or_jacpsol = j_fun;
-    if (solver == 102 && info[14] == 1)
-    {
-        jac_or_jacpsol = jacpsol;
-    }
-
     /* Launch the simulation with the memory space parameters.
        ddaskr() will update yVec, iState, rwork, iwork and jroot */
-    C2F(ddaskr) (res, nEq, &tStart, yVec, ypVec, &tOut, info, &relTol, &absTol, &iState, rwork, &lrw, iwork, &liw, rpar, ipar, jac_or_jacpsol, psol, g_fun, &ng_fun, jroot);
+    C2F(ddaskr) (res, nEq, &tStart, yVec, ypVec, &tOut, info, &relTol, &absTol, &iState, rwork, &lrw, iwork, &liw, rpar, ipar, jacpsol, psol, g_fun, &ng_fun, jroot);
 
     /* Increment the start time */
     *tOld  = tStart;
@@ -864,7 +820,6 @@ int DDaskrCalcIC (void * ddaskr_mem, int icopt, realtype tout1)
     DDaskrMem ddas_mem;
     double tdist, troundoff, dummy1 = 0.;
     int dummy2 = 0;
-    void * jac_or_jacpsol;
 
     if (ddaskr_mem == NULL)
     {
@@ -899,16 +854,7 @@ int DDaskrCalcIC (void * ddaskr_mem, int icopt, realtype tout1)
         info[13] = 1;
     }
 
-    /* By default, set the jacobian function to j_fun, but if we are going for the Krylov method, then use the
-       preconditioner evaluation and factorization function 'jacpsol' */
-    jac_or_jacpsol = NULL;
-    jac_or_jacpsol = j_fun;
-    if (solver == 102 && info[14] == 1)
-    {
-        jac_or_jacpsol = jacpsol;
-    }
-
-    C2F(ddaskr) (res, nEq, &tStart, yVec, ypVec, &tout1, info, &relTol, &absTol, &iState, rwork, &lrw, iwork, &liw, rpar, ipar, jac_or_jacpsol, psol, g_fun, &ng_fun, jroot);
+    C2F(ddaskr) (res, nEq, &tStart, yVec, ypVec, &tout1, info, &relTol, &absTol, &iState, rwork, &lrw, iwork, &liw, rpar, ipar, jacpsol, psol, g_fun, &ng_fun, jroot);
 
     /* The continuation of the program will not need initial values computation again, unless ReInit */
     info[10] = 0;
@@ -919,8 +865,8 @@ int DDaskrCalcIC (void * ddaskr_mem, int icopt, realtype tout1)
         case 4:
             return (IDA_SUCCESS);
         default:
-            DDASProcessError(ddas_mem, IDA_ILL_INPUT, "DDASKR", "DDaskrCalcIC", MSG_IC_FAIL_CONSTR);
-            return (IDA_ILL_INPUT);
+            DDASProcessError(ddas_mem, IDA_CONV_FAIL, "DDASKR", "DDaskrCalcIC", MSG_IC_CONV_FAILED);
+            return (IDA_CONV_FAIL);
     }
 }
 
