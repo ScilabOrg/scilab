@@ -139,7 +139,6 @@ void * DDaskrCreate (int * neq, int ng, int solverIndex)
 # define lrw        ddas_mem->lrw
 # define iwork      ddas_mem->iwork
 # define liw        ddas_mem->liw
-# define j_fun      ddas_mem->j_fun
 # define g_fun      ddas_mem->g_fun
 # define ng_fun     ddas_mem->ng_fun
 # define jroot      ddas_mem->jroot
