@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+* Copyright (C) 2013 - Scilab Enterprises - Clement DAVID
+*
+* This file must be used under the terms of the CeCILL.
+* This source file is licensed as described in the file COPYING, which
+* you should have received as part of this distribution.  The terms
+* are also available at
+* http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+*
+-->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="DC_motor">
+    <refnamediv>
+        <refname>Application Note: DC motor</refname>
+        <refpurpose>A DC motor model with a PID controler.</refpurpose>
+    </refnamediv>
+    <refsection>
+        <title>Introduction</title>
+        <para>
+            <inlinemediaobject>
+                <imageobject>
+                    <imagedata align="center" fileref="../../../examples/application_notes/DC_motor.xcos" valign="middle"/>
+                </imageobject>
+            </inlinemediaobject>
+        </para>
+        <para>
+            <link type="scilab" linkend="scilab.xcos/xcos/examples/application_notes/DC_motor.xcos">
+                Open in Xcos
+            </link>
+        </para>
+        <para>
+            In this application note, a DC motor modelisation is being used to determine PID parameters for a real electrical machine. The modelisation use standard parameters specified into the context. These common parameters are usually available or easily identifiable on the motor datasheet.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Mathematical representation</title>
+    </refsection>
+    <refsection id="SeeAlso_DC_motor">
+        <title role="see also">See Also</title>
+        <itemizedlist>
+            <listitem>
+                <link linkend="PID">PID : PID controller block</link>
+            </listitem>
+            <listitem>
+                <link linkend="CLR">CLR : Continuous transfer function</link>
+            </listitem>
+            <listitem>
+                <ulink url="http://en.wikipedia.org/wiki/Brushed_DC_electric_motor">Wikipedia - Brushed DC electric motor</ulink>
+            </listitem>
+        </itemizedlist>
+    </refsection>
+</refentry>
+
