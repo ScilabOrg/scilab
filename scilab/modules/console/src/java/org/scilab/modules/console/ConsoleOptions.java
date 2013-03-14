@@ -74,7 +74,7 @@ public class ConsoleOptions {
             if (useSystemColor) {
                 this.background = Color.WHITE;
                 this.cursor = Color.BLACK;
-                this.foreground = Color.BLACK;
+                this.foreground = Color.BLUE;/*Setting the color in which commands are written to Blue*/
             } else {
                 this.background = background;
                 this.cursor = cursor;
