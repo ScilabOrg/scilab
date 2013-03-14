@@ -20,17 +20,17 @@
 //
 
 function [x,y,typ]=TOWS_c(job,arg1,arg2)
-    x=[];y=[];typ=[]
+    x=[];y=[];typ=[];
     select job
     case "plot" then
-        varnam=string(arg1.graphics.exprs(2))
-        standard_draw(arg1)
+        varnam=string(arg1.graphics.exprs(2));
+        standard_draw(arg1);
     case "getinputs" then
-        [x,y,typ]=standard_inputs(arg1)
+        [x,y,typ]=standard_inputs(arg1);
     case "getoutputs" then
-        [x,y,typ]=standard_outputs(arg1)
+        [x,y,typ]=standard_outputs(arg1);
     case "getorigin" then
-        [x,y]=standard_origin(arg1)
+        [x,y]=standard_origin(arg1);
     case "set" then
         x=arg1;
         graphics=arg1.graphics;model=arg1.model;
@@ -47,29 +47,29 @@ function [x,y,typ]=TOWS_c(job,arg1,arg2)
 
             if(nz<=0) then
                 message("Size of buffer must be positive");
-                ok=%f
+                ok=%f;
             end
 
             //check for valid name variable
             r=%f;
-            ierr=execstr("r=validvar(varnam)","errcatch")
-            if ~r then
-                message(["Invalid variable name.";
-                "Please choose another variable name."]);
-                ok=%f
+            ierr=execstr("r=validvar(varnam)","errcatch");
+            try execstr(varnam+" = 0;","errcatch"); catch r=%f; end
+            if ~r | ierr <> 0 then
+                message(["Protected variable name."; "Please choose another variable name."]);
+                ok = %f;
             end
 
             if ok then
                 [model,graphics,ok]=set_io(model,graphics,...
                 list([-1,-2],-1),list(),...
-                ones(1-herit,1),[])
+                ones(1-herit,1),[]);
                 if herit == 1 then
-                    model.blocktype="x"
+                    model.blocktype="x";
                 else
                     model.blocktype = "d";
                 end
-                model.ipar=[nz;length(varnam);_str2code(varnam)]
-                graphics.exprs=exprs
+                model.ipar=[nz;length(varnam);ascii(varnam)'];
+                graphics.exprs=exprs;
                 x.graphics=graphics;
                 x.model=model;
                 break
@@ -77,10 +77,10 @@ function [x,y,typ]=TOWS_c(job,arg1,arg2)
         end
 
     case "define" then
-        nu     = -1
-        nz     = 128
-        varnam = "A"
-        herit  = 0
+        nu     = -1;
+        nz     = 128;
+        varnam = "A";
+        herit  = 0;
 
         model           = scicos_model();
         model.sim       = list("tows_c",4);
@@ -91,7 +91,7 @@ function [x,y,typ]=TOWS_c(job,arg1,arg2)
         model.evtin     = [1];
         model.evtout    = [];
         model.rpar      = [];
-        model.ipar      = [nz;length(varnam);_str2code(varnam)];
+        model.ipar      = [nz;length(varnam);ascii(varnam)'];
         model.blocktype = "d";
         model.firing    = [];
         model.dep_ut    = [%f %f];
@@ -104,9 +104,9 @@ function [x,y,typ]=TOWS_c(job,arg1,arg2)
         "h=(rectstr(2,2)-rectstr(2,4))*%zoom;"
         "xstringb(orig(1)+sz(1)/2-w/2,orig(2)-h-4,txt,w,h,''fill'');"
         "e=gce();"
-        "e.font_style=style;"]
-        exprs=[string(nz);string(varnam);string(herit)]
-        x=standard_define([4 2],model,exprs,gr_i)
+        "e.font_style=style;"];
+        exprs=[string(nz);string(varnam);string(herit)];
+        x=standard_define([4 2],model,exprs,gr_i);
     end
 endfunction
 
