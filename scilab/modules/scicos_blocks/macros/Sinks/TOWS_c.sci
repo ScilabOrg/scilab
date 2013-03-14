@@ -53,10 +53,10 @@ function [x,y,typ]=TOWS_c(job,arg1,arg2)
             //check for valid name variable
             r=%f;
             ierr=execstr("r=validvar(varnam)","errcatch")
-            if ~r then
-                message(["Invalid variable name.";
-                "Please choose another variable name."]);
-                ok=%f
+            try execstr(varnam+" = 0;","errcatch"); catch r=%f; end
+            if ~r | ierr <> 0 then
+                message(["Protected variable name."; "Please choose another variable name."])
+                ok = %f
             end
 
             if ok then
