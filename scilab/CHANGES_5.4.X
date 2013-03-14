@@ -277,6 +277,8 @@ Bug fixes
 
 * Bug #9935 fixed - clear() does not clear all variables.
 
+* Bug #9958 fixed  - mprintf("%d\r", 12345) display 345.
+
 * Bug #10278 fixed - clear(1) returns a wrong error message.
 
 * Bug #10415 fixed - Remove a session line in history causes the removal
