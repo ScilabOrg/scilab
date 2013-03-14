@@ -1,6 +1,7 @@
 /*  Scicos
 *
 *  Copyright (C) INRIA - METALAU Project <scicos@inria.fr>
+*  Copyright (C) Scilab Enterprises - 2013 - Paul Bignier
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -22,6 +23,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> /* getenv */
+#include "api_scilab.h"
+#include "Scierror.h"
+#include "code2str.h"
 #include "stack-c.h"
 #include "MALLOC.h"
 #include "sciprint.h"
@@ -71,14 +75,6 @@ extern int C2F(namstr)();
 	ptr_i[39]  = nz;
 /*--------------------------------------------------------------------------*/
 static int id[nsiz];
-static char fmtd[3]  = {'d', 'l', '\000'};
-static char fmti[3]  = {'i', 'l', '\000'};
-static char fmtl[3]  = {'l', 'l', '\000'};
-static char fmts[3]  = {'s', 'l', '\000'};
-static char fmtc[3]  = {'c', 'l', '\000'};
-static char fmtul[3] = {'u', 'l', '\000'};
-static char fmtus[3] = {'u', 's', '\000'};
-static char fmtuc[3] = {'u', 'c', '\000'};
 /*--------------------------------------------------------------------------*/
 static char *str_hmlst[] = {"hm", "dims", "entries"};
 /*--------------------------------------------------------------------------*/
@@ -96,22 +92,15 @@ typedef struct
     void *workt;
 } towork_struct ;
 /*--------------------------------------------------------------------------*/
+SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag);
 SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag)
 /* Copyright INRIA */
-/* Put a typed vector in a scilab file.
+/* Put a typed vector in a Scilab file.
 * Independant platform.
 *
 * Author A.Layec - initial rev. 18/09/07
 */
 {
-    /* for mopen */
-    int fd;
-    char *status;
-    int swap = 1;
-    double res;
-    char *filename = NULL;
-    /* for name of file */
-    char str[100];
     /* generic pointer */
     SCSREAL_COP *u_d, *u_cd, *ptr_d, *sav_d;
     SCSINT8_COP *u_c, *ptr_c, *sav_c;
@@ -130,25 +119,30 @@ SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag)
     double t, t_old;
     /* local */
     int i, j, k, l;
-    int ierr;
 
-    int  ismat = 0;
+    int ismat = 0;
 
-    /* for path of TMPDIR/workspace */
-    char env[256];
-    char sep[2];
-#ifdef _MSC_VER
-    sep[0] = '\\';
-#else
-    sep[0] = '/';
-#endif
-    sep[1] = '\0';
+    SciErr sciErr;
+    int nRows, nCols, nCols2 = 1, varNameLen;
+    char * varName = NULL;
+    /* Matrices to be copies of the work array, to pass to Scilab */
+    double * MatDouble  = NULL;
+    double * MatComplexReal = NULL;
+    double * MatComplexImg  = NULL;
+    char  *  MatInt8  = NULL;
+    short *  MatInt16 = NULL;
+    int   *  MatInt32 = NULL;
+    unsigned char  *  MatUInt8  = NULL;
+    unsigned short *  MatUInt16 = NULL;
+    unsigned int   *  MatUInt32 = NULL;
+    double * Time = NULL;
 
     /* retrieve param of that block */
     nu  = GetInPortRows(block, 1); /* number of rows of inputs*/
     nu2 = GetInPortCols(block, 1); /* number of cols of inputs*/
     ut  = GetInType(block, 1);    /* input type */
     nz  = block->ipar[0];         /* buffer size */
+    varNameLen = block->ipar[1];
 
     /* check if u is a matrix */
     if (nu2 != 1)
@@ -662,42 +656,6 @@ SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag)
 
         if (ptr != NULL)
         {
-            /* Put file name in str */
-            C2F(cvstr)(&(block->ipar[1]), &(block->ipar[2]), str, (j = 1, &j), \
-                       (unsigned long)strlen(str));
-            str[block->ipar[1]] = '\0';
-
-            /* retrieve path of TMPDIR/workspace */
-            strcpy(env, getenv("TMPDIR"));
-            strcat(env, sep);
-            strcat(env, "Workspace");
-            strcat(env, sep);
-            strcat(env, str);
-
-            /* open tmp file */
-            status = "wb";
-            /* "w" : write */
-            /* "b" : binary (required for Windows) */
-
-            ierr = 1;
-            filename = expandPathVariable(env);
-            if (filename)
-            {
-                C2F(mopen)(&fd, filename, status, &swap, &res, &ierr);
-                FREE(filename);
-                filename = NULL;
-            }
-
-            if (ierr != 0)
-            {
-                Coserror(_("Error when opening file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
-
             /* check loop */
 
             /* we don't are at the end of the buffer :
@@ -1318,197 +1276,249 @@ SCICOS_BLOCKS_IMPEXP void tows_c(scicos_block *block, int flag)
 
             /* write x */
             ptr_i = (int*) ptr->work;
-            C2F(mputnc)(&fd, &ptr_i[0], (j = nsiz, &j), fmti, &ierr); /* write sci id */
-            if (ierr != 0)
+            if ((varName = scicos_malloc((varNameLen + 5) * sizeof(char))) == NULL)
             {
-                Coserror(_("Write error in file '%s'.\n"), str);
+                set_block_error(-16);
                 scicos_free(ptr->workt);
                 scicos_free(ptr);
                 *(block->work) = NULL;
-                /*set_block_error(-3);*/
                 return;
             }
-            C2F(mputnc)(&fd, &ptr_i[6], (j = 1, &j), fmti, &ierr); /* write sci type */
-            if (ierr != 0)
+            memset(varName, 0x0, (varNameLen + 5) * sizeof(char));
+            code2str(&varName, block->ipar + 2, varNameLen); /* save the Scilab name into varName */
+            if (ismat)
             {
-                Coserror(_("Write error in file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
-            if ((ptr->cnt == 0) && (ptr->loop == 0))
-            {
-                C2F(mputnc)(&fd, &ptr_i[7], (j = 3, &j), fmti, &ierr); /* write sci header */
+                nRows  = ptr_i[39]; /* nu  */
+                nCols  = ptr_i[37]; /* nu  */
+                nCols2 = ptr_i[38]; /* nu2 */
             }
             else
             {
-                if (ismat)
-                {
-                    C2F(mputnc)(&fd, &ptr_i[7], (j = 37, &j), fmti, &ierr); /* write sci header */
-                }
-                else
-                {
-                    C2F(mputnc)(&fd, &ptr_i[7], (j = 3, &j), fmti, &ierr); /* write sci header */
-                }
+                nRows = ptr_i[7]; /* nz */
+                nCols = ptr_i[8]; /* nu */
             }
-            if (ierr != 0)
-            {
-                Coserror(_("Write error in file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
+            ptr_d = (SCSREAL_COP *) ((ismat) ? &ptr_i[44] : &ptr_i[10]);
             if ((ptr->cnt != 0) || (ptr->loop != 0))
             {
-                /* write data */
+                /* The values will be stored in 'variableName'_val */
+                varName = strcat(varName, "_val");
                 switch (ut)
                 {
+                        // By default, nCols = 1, so should the input be a matrix, scalar or vector, perform the same operations
                     case SCSREAL_N    :
-                        if (ismat)
+                        if ((MatDouble = (double *) scicos_malloc(nRows * nCols * nCols2 * sizeof(double))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtd, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatDouble, ptr_d, nRows * nCols * nCols2 * sizeof(double));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfDouble(NULL, varName, nRows * nCols2, nCols, MatDouble);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtd, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatDouble);
                         break;
                     case SCSCOMPLEX_N :
-                        if (ismat)
+                        if (((MatComplexReal = (double *) scicos_malloc(nRows * nCols * nCols2 * sizeof(double))) == NULL)
+                                || ((MatComplexImg = (double *) scicos_malloc(nRows * nCols * nCols2 * sizeof(double))) == NULL))
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = 2 * ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtd, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatComplexReal, ptr_d, nRows * nCols * nCols2 * sizeof(double));
+                        memcpy(MatComplexImg, ptr_d + nRows * nCols, nRows * nCols * nCols2 * sizeof(double));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedComplexMatrixOfDouble(NULL, varName, nRows * nCols2, nCols, MatComplexReal, MatComplexImg);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = 2 * ptr_i[7] * ptr_i[8], &j), fmtd, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatComplexReal);
+                        scicos_free(MatComplexImg);
                         break;
                     case SCSINT8_N    :
-                        if (ismat)
+                        if ((MatInt8 = (char *) scicos_malloc(nRows * nCols * nCols2 * sizeof(char))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtc, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatInt8, ptr_d, nRows * nCols * nCols2 * sizeof(char));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfInteger8(NULL, varName, nRows * nCols2, nCols, MatInt8);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtc, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatInt8);
                         break;
                     case SCSINT16_N   :
-                        if (ismat)
+                        if ((MatInt16 = (short *) scicos_malloc(nRows * nCols * nCols2 * sizeof(short))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmts, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatInt16, ptr_d, nRows * nCols * nCols2 * sizeof(short));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfInteger16(NULL, varName, nRows * nCols2, nCols, MatInt16);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmts, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatInt16);
                         break;
                     case SCSINT32_N   :
-                        if (ismat)
+                        if ((MatInt32 = (int *) scicos_malloc(nRows * nCols * nCols2 * sizeof(int))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtl, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatInt32, ptr_d, nRows * nCols * nCols2 * sizeof(int));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfInteger32(NULL, varName, nRows * nCols2, nCols, MatInt32);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtl, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatInt32);
                         break;
                     case SCSUINT8_N   :
-                        if (ismat)
+                        if ((MatUInt8 = (unsigned char *) scicos_malloc(nRows * nCols * nCols2 * sizeof(unsigned char))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtuc, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatUInt8, ptr_d, nRows * nCols * nCols2 * sizeof(unsigned char));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfUnsignedInteger8(NULL, varName, nRows * nCols2, nCols, MatUInt8);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtuc, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatUInt8);
                         break;
                     case SCSUINT16_N  :
-                        if (ismat)
+                        if ((MatUInt16 = (unsigned short *) scicos_malloc(nRows * nCols * nCols2 * sizeof(unsigned short))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtus, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatUInt16, ptr_d, nRows * nCols * nCols2 * sizeof(unsigned short));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfUnsignedInteger16(NULL, varName, nRows * nCols2, nCols, MatUInt16);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtus, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatUInt16);
                         break;
                     case SCSUINT32_N  :
-                        if (ismat)
+                        if ((MatUInt32 = (unsigned int *) scicos_malloc(nRows * nCols * nCols2 * sizeof(unsigned int))) == NULL)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[44], (j = ptr_i[37] * ptr_i[38] * ptr_i[39], &j), fmtul, &ierr);
+                            set_block_error(-16);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            return;
                         }
-                        else
+                        memcpy(MatUInt32, ptr_d, nRows * nCols * nCols2 * sizeof(unsigned int));
+                        /* pass Matrix to Scilab */
+                        sciErr = createNamedMatrixOfUnsignedInteger32(NULL, varName, nRows * nCols2, nCols, MatUInt32);
+                        if (sciErr.iErr)
                         {
-                            C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7] * ptr_i[8], &j), fmtul, &ierr);
+                            scicos_free(ptr->workt);
+                            scicos_free(ptr);
+                            *(block->work) = NULL;
+                            printError(&sciErr, 0);
+                            return;
                         }
+                        scicos_free(MatUInt32);
                         break;
                     default  : /* Add a message here */
                         break;
-                }
-                if (ierr != 0)
-                {
-                    Coserror(_("Write error in file '%s'.\n"), str);
-                    scicos_free(ptr->workt);
-                    scicos_free(ptr);
-                    *(block->work) = NULL;
-                    /*set_block_error(-3);*/
-                    return;
                 }
             }
 
             /* write t */
             ptr_i = (int*) ptr->workt;
-            C2F(mputnc)(&fd, &ptr_i[0], (j = nsiz, &j), fmti, &ierr);
-            if (ierr != 0)
-            {
-                Coserror(_("Write error in file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
-            C2F(mputnc)(&fd, &ptr_i[6], (j = 1, &j), fmti, &ierr);
-            if (ierr != 0)
-            {
-                Coserror(_("Write error in file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
-            C2F(mputnc)(&fd, &ptr_i[7], (j = 3, &j), fmti, &ierr);
-            if (ierr != 0)
-            {
-                Coserror(_("Write error in file '%s'.\n"), str);
-                scicos_free(ptr->workt);
-                scicos_free(ptr);
-                *(block->work) = NULL;
-                /*set_block_error(-3);*/
-                return;
-            }
             if ((ptr->cnt != 0) || (ptr->loop != 0))
             {
-                C2F(mputnc)(&fd, &ptr_i[10], (j = ptr_i[7], &j), fmtd, &ierr);
-                if (ierr != 0)
+                ptr_d = (SCSREAL_COP *) &ptr_i[10];
+                /* The TIME values will be stored in 'variableName'_valt */
+                varName = strcat(varName, "t");
+                /* Using variable Time to hold time values */
+                if ((Time = (double *) scicos_malloc(nRows * sizeof(double))) == NULL)
                 {
-                    Coserror(_("Write error in file '%s'.\n"), str);
+                    set_block_error(-16);
                     scicos_free(ptr->workt);
                     scicos_free(ptr);
                     *(block->work) = NULL;
-                    /*set_block_error(-3);*/
                     return;
                 }
+                memcpy(Time, ptr_d, nRows * sizeof(double));
+                /* pass Matrix to Scilab */
+                sciErr = createNamedMatrixOfDouble(NULL, varName, nRows, 1, Time);
+                if (sciErr.iErr)
+                {
+                    scicos_free(ptr->workt);
+                    scicos_free(ptr);
+                    *(block->work) = NULL;
+                    printError(&sciErr, 0);
+                    return;
+                }
+                scicos_free(varName);
+                scicos_free(Time);
             }
-
-            /* close tmp file */
-            C2F(mclose)(&fd, &res);
 
             /* free */
             scicos_free(ptr->work);
