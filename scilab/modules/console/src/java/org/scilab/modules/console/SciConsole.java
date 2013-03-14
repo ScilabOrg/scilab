@@ -158,8 +158,8 @@ public abstract class SciConsole extends JPanel {
         setCaretColor(ConsoleOptions.getConsoleColor().cursor);
         sciConsole.setFont(ConsoleOptions.getConsoleFont().font);
         setKeyStrokeAction();
-
-        jSP = new JScrollPane(sciConsole);
+       	((JEditorPane) config.getOutputView()).setForeground(Color.RED);/*Setting the color of the printed text to Red*/
+	jSP = new JScrollPane(sciConsole);
 
         BoundedRangeModel model = jSP.getVerticalScrollBar().getModel();
         jSP.getVerticalScrollBar().setModel(new DefaultBoundedRangeModel(model.getValue(), model.getExtent(), model.getMinimum(), model.getMaximum()) {
@@ -227,6 +227,7 @@ public abstract class SciConsole extends JPanel {
     public void configurationChanged(org.scilab.modules.console.ConsoleConfiguration.Conf conf) {
         if (conf.color) {
             sciConsole.setForeground(ConsoleOptions.getConsoleColor().foreground);
+	    ((JEditorPane) config.getOutputView()).setForeground(Color.ORANGE);
             sciConsole.setBackground(ConsoleOptions.getConsoleColor().background);
             setCaretColor(ConsoleOptions.getConsoleColor().cursor);
         }
@@ -424,6 +425,7 @@ public abstract class SciConsole extends JPanel {
             sciConsole.setPreferredSize(null);
             sciConsole.invalidate();
             sciConsole.doLayout();
+	    ((JEditorPane) config.getOutputView()).setForeground(Color.YELLOW);
         }
 
         if (nbLines == 0) {
