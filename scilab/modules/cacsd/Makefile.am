@@ -169,7 +169,8 @@ sci_gateway/c/sci_rankqr.c \
 sci_gateway/c/sci_ltitr.c \
 sci_gateway/c/sci_ldiv.c \
 sci_gateway/c/gw_cacsd2.c \
-sci_gateway/c/gw_cacsd3.c
+sci_gateway/c/gw_cacsd3.c \
+sci_gateway/c/sci_sorder.c
 
 
 
@@ -184,7 +185,6 @@ sci_gateway/fortran/sci_f_ldiv.f \
 sci_gateway/fortran/sci_f_sident.f \
 sci_gateway/fortran/sci_f_lyap.f \
 sci_gateway/fortran/sci_f_rtitr.f \
-sci_gateway/fortran/sci_f_sorder.f \
 sci_gateway/fortran/sci_f_mucomp.f \
 sci_gateway/fortran/sci_f_ltitr.f \
 sci_gateway/fortran/sci_f_dhinf.f \

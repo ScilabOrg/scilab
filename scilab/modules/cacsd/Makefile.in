@@ -165,10 +165,9 @@ libscicacsd_la_DEPENDENCIES = libscicacsd-algo.la
 am__objects_3 = sci_f_hinf.lo sci_f_zrankqr.lo sci_f_tzer.lo \
 	sci_f_residu.lo sci_f_sylv.lo sci_f_ppol.lo sci_f_freq.lo \
 	sci_f_ldiv.lo sci_f_sident.lo sci_f_lyap.lo sci_f_rtitr.lo \
-	sci_f_sorder.lo sci_f_mucomp.lo sci_f_ltitr.lo sci_f_dhinf.lo \
-	sci_f_ricc2.lo sci_f_arl2.lo sci_f_gschur.lo sci_f_ereduc.lo \
-	sci_f_findbd.lo sci_f_fstair.lo sci_f_gspec.lo sci_f_linmeq.lo \
-	sci_f_rankqr.lo
+	sci_f_mucomp.lo sci_f_ltitr.lo sci_f_dhinf.lo sci_f_ricc2.lo \
+	sci_f_arl2.lo sci_f_gschur.lo sci_f_ereduc.lo sci_f_findbd.lo \
+	sci_f_fstair.lo sci_f_gspec.lo sci_f_linmeq.lo sci_f_rankqr.lo
 am__objects_4 = libscicacsd_la-sci_arl2.lo libscicacsd_la-sci_gspec.lo \
 	libscicacsd_la-sci_rtitr.lo libscicacsd_la-sci_ereduc.lo \
 	libscicacsd_la-sci_ppol.lo libscicacsd_la-sci_tzer.lo \
@@ -178,7 +177,7 @@ am__objects_4 = libscicacsd_la-sci_arl2.lo libscicacsd_la-sci_gspec.lo \
 	libscicacsd_la-sci_freq.lo libscicacsd_la-gw_cacsd1.lo \
 	libscicacsd_la-sci_rankqr.lo libscicacsd_la-sci_ltitr.lo \
 	libscicacsd_la-sci_ldiv.lo libscicacsd_la-gw_cacsd2.lo \
-	libscicacsd_la-gw_cacsd3.lo
+	libscicacsd_la-gw_cacsd3.lo libscicacsd_la-sci_sorder.lo
 am_libscicacsd_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscicacsd_la_OBJECTS = $(am_libscicacsd_la_OBJECTS)
 libscicacsd_la_LINK = $(LIBTOOL) --tag=F77 $(AM_LIBTOOLFLAGS) \
@@ -637,7 +636,8 @@ sci_gateway/c/sci_rankqr.c \
 sci_gateway/c/sci_ltitr.c \
 sci_gateway/c/sci_ldiv.c \
 sci_gateway/c/gw_cacsd2.c \
-sci_gateway/c/gw_cacsd3.c
+sci_gateway/c/gw_cacsd3.c \
+sci_gateway/c/sci_sorder.c
 
 GATEWAY_FORTRAN_SOURCES = sci_gateway/fortran/sci_f_hinf.f \
 sci_gateway/fortran/sci_f_zrankqr.f \
@@ -650,7 +650,6 @@ sci_gateway/fortran/sci_f_ldiv.f \
 sci_gateway/fortran/sci_f_sident.f \
 sci_gateway/fortran/sci_f_lyap.f \
 sci_gateway/fortran/sci_f_rtitr.f \
-sci_gateway/fortran/sci_f_sorder.f \
 sci_gateway/fortran/sci_f_mucomp.f \
 sci_gateway/fortran/sci_f_ltitr.f \
 sci_gateway/fortran/sci_f_dhinf.f \
@@ -875,6 +874,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_rankqr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_residu.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_rtitr.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_sorder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_tzer.Plo@am__quote@
 
 .c.o:
@@ -1030,6 +1030,13 @@ libscicacsd_la-gw_cacsd3.lo: sci_gateway/c/gw_cacsd3.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sci_gateway/c/gw_cacsd3.c' object='libscicacsd_la-gw_cacsd3.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-gw_cacsd3.lo `test -f 'sci_gateway/c/gw_cacsd3.c' || echo '$(srcdir)/'`sci_gateway/c/gw_cacsd3.c
+
+libscicacsd_la-sci_sorder.lo: sci_gateway/c/sci_sorder.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscicacsd_la-sci_sorder.lo -MD -MP -MF $(DEPDIR)/libscicacsd_la-sci_sorder.Tpo -c -o libscicacsd_la-sci_sorder.lo `test -f 'sci_gateway/c/sci_sorder.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sorder.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libscicacsd_la-sci_sorder.Tpo $(DEPDIR)/libscicacsd_la-sci_sorder.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='sci_gateway/c/sci_sorder.c' object='libscicacsd_la-sci_sorder.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-sci_sorder.lo `test -f 'sci_gateway/c/sci_sorder.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sorder.c
 
 .f.o:
 	$(F77COMPILE) -c -o $@ $<
@@ -1504,9 +1511,6 @@ sci_f_lyap.lo: sci_gateway/fortran/sci_f_lyap.f
 
 sci_f_rtitr.lo: sci_gateway/fortran/sci_f_rtitr.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_rtitr.lo `test -f 'sci_gateway/fortran/sci_f_rtitr.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_rtitr.f
-
-sci_f_sorder.lo: sci_gateway/fortran/sci_f_sorder.f
-	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_sorder.lo `test -f 'sci_gateway/fortran/sci_f_sorder.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_sorder.f
 
 sci_f_mucomp.lo: sci_gateway/fortran/sci_f_mucomp.f
 	$(LIBTOOL)  --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_mucomp.lo `test -f 'sci_gateway/fortran/sci_f_mucomp.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_mucomp.f
