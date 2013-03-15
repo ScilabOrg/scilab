@@ -77,9 +77,37 @@ BOOL setlanguage(wchar_t *lang)
                 /* Load the locale from the system */
 #if !defined(_MSC_VER) && !defined(__APPLE__)
                 //for mbstowcs
-                char *pstLang = wide_string_to_UTF8(lang);
-                char *pstRet = setlocale(LC_CTYPE, pstLang);
-                wchar_t *ret = (pstRet == NULL ? NULL : to_wide_string(pstRet));
+                char *newlang = NULL;
+                char *ret = setlocale(LC_CTYPE, lang);
+                if (ret == NULL)
+                {
+                    if (lang == NULL || *lang == 0)
+                    {
+                        lang = getenv("LANG");
+                    }
+
+                    ret = setlocale(LC_CTYPE, lang);
+                    if (ret == NULL)
+                    {
+                        // On some OSes we need to precise the charset (e.g. on Debian, fr_FR is not accepted but fr_FR.UTF-8 is)
+                        int i = 0;
+                        for (; i < NumberOfCharsets; i++)
+                        {
+                            newlang = (char*)MALLOC(strlen(lang) + strlen(CHARSETS[i]) + 1 + 1);
+                            sprintf(newlang, "%s.%s", lang, CHARSETS[i]);
+                            ret = setlocale(LC_CTYPE, newlang);
+                            if (ret == NULL)
+                            {
+                                FREE(newlang);
+                                newlang = NULL;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
 
                 if (ret == NULL)
                 {
@@ -89,8 +117,14 @@ BOOL setlanguage(wchar_t *lang)
                 }
 
                 //for gettext
-                pstRet =  setlocale(LC_MESSAGES, pstLang);
-                ret = (pstRet == NULL ? NULL : to_wide_string(pstRet));
+                if (newlang)
+                {
+                    ret = setlocale(LC_MESSAGES, newlang);
+                }
+                else
+                {
+                    ret = setlocale(LC_MESSAGES, lang);
+                }
 #else
                 /* Load the user locale from the system */
                 wchar_t *ret = getLocaleUserInfo();
@@ -111,27 +145,47 @@ BOOL setlanguage(wchar_t *lang)
                 if (wcscmp(lang, L"C") == 0 || ret == NULL || wcscmp(ret, L"C") == 0)
                 {
                     /* The lang is the default one... ie en_US */
-                    wcscpy(CURRENTLANGUAGESTRING, SCILABDEFAULTLANGUAGE);
+                    strcpy(CURRENTLANGUAGESTRING, SCILABDEFAULTLANGUAGE);
+                    exportLocaleToSystem(CURRENTLANGUAGESTRING);
                 }
                 else
                 {
-                    if (wcscmp(lang, L"") == 0 && ret != NULL && wcscmp(ret,  L"") != 0 )
+                    if (strcmp(lang, "") == 0)
                     {
                         /* The requested language is the one of the system ...
                          * which we don't really know which one is it
                          * but if setlocale worked, we get it from the return
                          */
-                        wcsncpy(CURRENTLANGUAGESTRING, ret, 5); /* 5 is the number of char in fr_FR for example */
+                        strncpy(CURRENTLANGUAGESTRING, ret, 5); /* 5 is the number of char in fr_FR for example */
+                        exportLocaleToSystem(ret);
                     }
                     else
                     {
-                        wcscpy(CURRENTLANGUAGESTRING, lang);
+#if !defined(_MSC_VER) && !defined(__APPLE__)
+                        if (newlang)
+                        {
+                            setenvc("LANG", newlang);
+                            strncpy(CURRENTLANGUAGESTRING, newlang, 5);
+                            exportLocaleToSystem(newlang);
+                        }
+                        else
+#endif
+                        {
+
+                            strcpy(CURRENTLANGUAGESTRING, lang);
+                            exportLocaleToSystem(lang);
+                        }
                     }
                 }
 #ifndef _MSC_VER
                 setlanguagecode(CURRENTLANGUAGESTRING);
+#ifndef __APPLE__
+                if (newlang)
+                {
+                    FREE(newlang);
+                }
 #endif
-                exportLocaleToSystem(CURRENTLANGUAGESTRING);
+#endif
                 return TRUE;
             }
 #ifndef _MSC_VER
