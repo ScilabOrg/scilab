@@ -275,5 +275,6 @@ int sci_mucomp(char *fname, unsigned long fname_len)
         AssignOutputVariable(pvApiCtx, 3) = 6;
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }

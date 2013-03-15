@@ -197,8 +197,8 @@ am__v_lt_1 =
 libscicacsd_la_DEPENDENCIES = libscicacsd-algo.la
 am__objects_3 = sci_f_tzer.lo sci_f_residu.lo sci_f_sylv.lo \
 	sci_f_ppol.lo sci_f_freq.lo sci_f_ldiv.lo sci_f_sident.lo \
-	sci_f_lyap.lo sci_f_rtitr.lo sci_f_sorder.lo sci_f_ltitr.lo \
-	sci_f_arl2.lo sci_f_gschur.lo sci_f_ereduc.lo sci_f_findbd.lo \
+	sci_f_lyap.lo sci_f_rtitr.lo sci_f_ltitr.lo sci_f_arl2.lo \
+	sci_f_gschur.lo sci_f_ereduc.lo sci_f_findbd.lo \
 	sci_f_fstair.lo sci_f_gspec.lo
 am__objects_4 = libscicacsd_la-sci_arl2.lo libscicacsd_la-sci_gspec.lo \
 	libscicacsd_la-sci_rtitr.lo libscicacsd_la-sci_ereduc.lo \
@@ -212,7 +212,9 @@ am__objects_4 = libscicacsd_la-sci_arl2.lo libscicacsd_la-sci_gspec.lo \
 	libscicacsd_la-sci_ldiv.lo libscicacsd_la-gw_cacsd2.lo \
 	libscicacsd_la-gw_cacsd3.lo libscicacsd_la-sci_dhinf.lo \
 	libscicacsd_la-sci_hinf.lo libscicacsd_la-sci_linmeq.lo \
-	libscicacsd_la-sci_mucomp.lo libscicacsd_la-sci_ricc2.lo
+	libscicacsd_la-sci_mucomp.lo libscicacsd_la-sci_ricc2.lo \
+	libscicacsd_la-sci_sorder.lo libscicacsd_la-sci_sident.lo \
+	libscicacsd_la-sci_findbd.lo
 am_libscicacsd_la_OBJECTS = $(am__objects_3) $(am__objects_4)
 libscicacsd_la_OBJECTS = $(am_libscicacsd_la_OBJECTS)
 libscicacsd_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=F77 \
@@ -734,7 +736,10 @@ sci_gateway/c/sci_dhinf.c \
 sci_gateway/c/sci_hinf.c \
 sci_gateway/c/sci_linmeq.c \
 sci_gateway/c/sci_mucomp.c \
-sci_gateway/c/sci_ricc2.c
+sci_gateway/c/sci_ricc2.c \
+sci_gateway/c/sci_sorder.c \
+sci_gateway/c/sci_sident.c \
+sci_gateway/c/sci_findbd.c
 
 GATEWAY_FORTRAN_SOURCES = \
 sci_gateway/fortran/sci_f_tzer.f \
@@ -746,7 +751,6 @@ sci_gateway/fortran/sci_f_ldiv.f \
 sci_gateway/fortran/sci_f_sident.f \
 sci_gateway/fortran/sci_f_lyap.f \
 sci_gateway/fortran/sci_f_rtitr.f \
-sci_gateway/fortran/sci_f_sorder.f \
 sci_gateway/fortran/sci_f_ltitr.f \
 sci_gateway/fortran/sci_f_arl2.f \
 sci_gateway/fortran/sci_f_gschur.f \
@@ -964,6 +968,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_contr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_dhinf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_ereduc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_findbd.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_freq.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_fstair.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_gschur.Plo@am__quote@
@@ -979,6 +984,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_ricc2.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_rrankqr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_rtitr.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_sident.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_sorder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_tzer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libscicacsd_la-sci_zrankqr.Plo@am__quote@
 
@@ -1184,6 +1191,27 @@ libscicacsd_la-sci_ricc2.lo: sci_gateway/c/sci_ricc2.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_ricc2.c' object='libscicacsd_la-sci_ricc2.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-sci_ricc2.lo `test -f 'sci_gateway/c/sci_ricc2.c' || echo '$(srcdir)/'`sci_gateway/c/sci_ricc2.c
+
+libscicacsd_la-sci_sorder.lo: sci_gateway/c/sci_sorder.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscicacsd_la-sci_sorder.lo -MD -MP -MF $(DEPDIR)/libscicacsd_la-sci_sorder.Tpo -c -o libscicacsd_la-sci_sorder.lo `test -f 'sci_gateway/c/sci_sorder.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sorder.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscicacsd_la-sci_sorder.Tpo $(DEPDIR)/libscicacsd_la-sci_sorder.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_sorder.c' object='libscicacsd_la-sci_sorder.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-sci_sorder.lo `test -f 'sci_gateway/c/sci_sorder.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sorder.c
+
+libscicacsd_la-sci_sident.lo: sci_gateway/c/sci_sident.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscicacsd_la-sci_sident.lo -MD -MP -MF $(DEPDIR)/libscicacsd_la-sci_sident.Tpo -c -o libscicacsd_la-sci_sident.lo `test -f 'sci_gateway/c/sci_sident.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sident.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscicacsd_la-sci_sident.Tpo $(DEPDIR)/libscicacsd_la-sci_sident.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_sident.c' object='libscicacsd_la-sci_sident.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-sci_sident.lo `test -f 'sci_gateway/c/sci_sident.c' || echo '$(srcdir)/'`sci_gateway/c/sci_sident.c
+
+libscicacsd_la-sci_findbd.lo: sci_gateway/c/sci_findbd.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libscicacsd_la-sci_findbd.lo -MD -MP -MF $(DEPDIR)/libscicacsd_la-sci_findbd.Tpo -c -o libscicacsd_la-sci_findbd.lo `test -f 'sci_gateway/c/sci_findbd.c' || echo '$(srcdir)/'`sci_gateway/c/sci_findbd.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libscicacsd_la-sci_findbd.Tpo $(DEPDIR)/libscicacsd_la-sci_findbd.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sci_gateway/c/sci_findbd.c' object='libscicacsd_la-sci_findbd.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libscicacsd_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libscicacsd_la-sci_findbd.lo `test -f 'sci_gateway/c/sci_findbd.c' || echo '$(srcdir)/'`sci_gateway/c/sci_findbd.c
 
 .f.o:
 	$(AM_V_F77)$(F77COMPILE) -c -o $@ $<
@@ -1652,9 +1680,6 @@ sci_f_lyap.lo: sci_gateway/fortran/sci_f_lyap.f
 
 sci_f_rtitr.lo: sci_gateway/fortran/sci_f_rtitr.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_rtitr.lo `test -f 'sci_gateway/fortran/sci_f_rtitr.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_rtitr.f
-
-sci_f_sorder.lo: sci_gateway/fortran/sci_f_sorder.f
-	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_sorder.lo `test -f 'sci_gateway/fortran/sci_f_sorder.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_sorder.f
 
 sci_f_ltitr.lo: sci_gateway/fortran/sci_f_ltitr.f
 	$(AM_V_F77)$(LIBTOOL) $(AM_V_lt) --tag=F77 $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS) -c -o sci_f_ltitr.lo `test -f 'sci_gateway/fortran/sci_f_ltitr.f' || echo '$(srcdir)/'`sci_gateway/fortran/sci_f_ltitr.f

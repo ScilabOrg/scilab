@@ -35,6 +35,7 @@
     
     <PRIMITIVE gatewayId="8" primitiveId="3" primitiveName="ereduc" />
     <PRIMITIVE gatewayId="8" primitiveId="4" primitiveName="fstair" />
+    <PRIMITIVE gatewayId="8" primitiveId="5" primitiveName="sorder" />
     <PRIMITIVE gatewayId="10" primitiveId="2" primitiveName="ppol" />
     <PRIMITIVE gatewayId="10" primitiveId="3" primitiveName="tr_zer" />
     <PRIMITIVE gatewayId="10" primitiveId="4" primitiveName="freq" />
@@ -44,7 +45,7 @@
     <PRIMITIVE gatewayId="20" primitiveId="2" primitiveName="residu" />
     <PRIMITIVE gatewayId="20" primitiveId="3" primitiveName="ldiv" />
     <PRIMITIVE gatewayId="28" primitiveId="1" primitiveName="sident" />
-    <PRIMITIVE gatewayId="28" primitiveId="2" primitiveName="sorder" />
+    <!--PRIMITIVE gatewayId="28" primitiveId="2" primitiveName="sorder" -->
     <PRIMITIVE gatewayId="28" primitiveId="3" primitiveName="findBD" />
     <PRIMITIVE gatewayId="28" primitiveId="4" primitiveName="rankqr" />
     <PRIMITIVE gatewayId="28" primitiveId="5" primitiveName="contr" />

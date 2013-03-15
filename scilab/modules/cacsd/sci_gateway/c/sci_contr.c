@@ -169,6 +169,7 @@ int intab01od(char* fname)
     LhsVar(4) = V;
     LhsVar(5) = A;
     LhsVar(6) = B;
+    PutLhsVar();
     return 0;
 }
 /*--------------------------------------------------------------------------*/

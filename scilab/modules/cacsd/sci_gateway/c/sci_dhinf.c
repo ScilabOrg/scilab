@@ -421,6 +421,7 @@ int sci_dhinf(char *fname, unsigned long fname_len)
         AssignOutputVariable(pvApiCtx, 5) = 14;
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }
 

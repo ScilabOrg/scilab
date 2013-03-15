@@ -180,8 +180,6 @@ int sci_linmeq(char *fname, unsigned long fname_len)
     double* lCC  = NULL;
     double* lSEP = NULL;
 
-    char* tmpbuf[bsiz];
-
     // .. Parameters ..
     double ONE  = 1.;
     double ZERO = 0.;
@@ -1061,7 +1059,7 @@ int sci_linmeq(char *fname, unsigned long fname_len)
     }
 
     // form output
-    PERTRB =  (TASK == 1 && (INFO == N + M + 1 || (FLAG[1] * FLAG[2] == 1 & INFO == 1))) ||
+    PERTRB =  (TASK == 1 && (INFO == N + M + 1 || (FLAG[1] * FLAG[2] == 1 && INFO == 1))) ||
               (TASK == 2 && INFO == N + 1) || (TASK == 3 && INFO == 1);
 
     if (INFO == 0 || PERTRB)
@@ -1230,5 +1228,6 @@ int sci_linmeq(char *fname, unsigned long fname_len)
         sciprint(_("%s: Warning: the equation is (almost) singular. Perturbed values have been used.\n"), fname);
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }

@@ -365,5 +365,6 @@ int sci_ricc2(char *fname, unsigned long fname_len)
         AssignOutputVariable(pvApiCtx, 3) = k + 4;
     }
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }

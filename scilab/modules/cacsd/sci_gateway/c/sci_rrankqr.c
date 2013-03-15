@@ -312,5 +312,6 @@ int sci_rrankqr(char *fname, unsigned long fname_len)
     AssignOutputVariable(pvApiCtx, 4) = RANK;
     AssignOutputVariable(pvApiCtx, 5) = SVAL;
 
+    ReturnArguments(pvApiCtx);
     return 0;
 }
