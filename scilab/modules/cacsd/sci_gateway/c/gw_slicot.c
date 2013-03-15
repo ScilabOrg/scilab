@@ -15,51 +15,25 @@
 #pragma warning(disable: 4113)
 #endif
 /*--------------------------------------------------------------------------*/
-#include <math.h>
 #include <string.h>
 /*--------------------------------------------------------------------------*/
-#ifdef _MSC_VER
-#include <Windows.h>
-#include "ExceptionMessage.h"
-#endif
-#include "machine.h"
-#include "../../../mexlib/includes/mex.h"
-#include "../../../mexlib/includes/sci_gateway.h"
-#include "sci_rankqr.h"
-#include "sci_contr.h"
 #include "gw_slicot.h"
+#include "callFunctionFromGateway.h"
 #include "api_scilab.h"
 #include "MALLOC.h"
 /*--------------------------------------------------------------------------*/
-#ifndef __DEF_MXARRAY__
-#define __DEF_MXARRAY__
-typedef int mxArray;
-typedef int Gatefunc (int nlhs, mxArray *plhs[], int nrhs, mxArray *prhs[]);
-#endif
-/* fortran subroutines */
-extern Gatefunc C2F(sident);
-extern Gatefunc C2F(sorder);
-extern Gatefunc C2F(findbd);
-extern Gatefunc sci_ricc2;
-extern Gatefunc sci_hinf;
-extern Gatefunc sci_dhinf;
-extern Gatefunc sci_linmeq;
-extern Gatefunc sci_mucomp;
-extern Gatefunc sci_rankqr;
-
-/*--------------------------------------------------------------------------*/
-static GenericTable Tab[] =
+static gw_generic_table Tab[] =
 {
-    {(Myinterfun) fortran_mex_gateway, C2F(sident), "sident"},
-    {(Myinterfun) fortran_mex_gateway, C2F(sorder), "sorder"},
-    {(Myinterfun) fortran_mex_gateway, C2F(findbd), "findbd"},
-    {(Myinterfun) sci_gateway, sci_rankqr, "rankqr"},
-    {(Myinterfun) sci_gateway, intab01od, "contr"},
-    {(Myinterfun) sci_gateway, sci_mucomp, "mucomp"},
-    {(Myinterfun) sci_gateway, sci_ricc2, "pet_ricc"},
-    {(Myinterfun) sci_gateway, sci_hinf, "hinf"},
-    {(Myinterfun) sci_gateway, sci_dhinf, "dhinf"},
-    {(Myinterfun) sci_gateway, sci_linmeq, "linmeq"}
+    {sci_sident, "sident"},
+    {sci_sorder, "sorder"},
+    {sci_findbd, "findbd"},
+    {sci_rankqr, "rankqr"},
+    {intab01od, "contr"},
+    {sci_mucomp, "mucomp"},
+    {sci_ricc2, "pet_ricc"},
+    {sci_hinf, "hinf"},
+    {sci_dhinf, "dhinf"},
+    {sci_linmeq, "linmeq"}
 };
 /*--------------------------------------------------------------------------*/
 int gw_slicot(void)
@@ -72,23 +46,7 @@ int gw_slicot(void)
     }
 
     pvApiCtx->pstName = (char*)Tab[Fin - 1].name;
-
-#ifdef _MSC_VER
-#ifndef _DEBUG
-    _try
-    {
-        (*(Tab[Fin - 1].f))((char*)Tab[Fin - 1].name, Tab[Fin - 1].F);
-    }
-    _except (EXCEPTION_EXECUTE_HANDLER)
-    {
-        ExceptionMessage(GetExceptionCode(), Tab[Fin - 1].name);
-    }
-#else
-    (*(Tab[Fin - 1].f))(Tab[Fin - 1].name, Tab[Fin - 1].F);
-#endif
-#else
-    (*(Tab[Fin - 1].f))(Tab[Fin - 1].name, Tab[Fin - 1].F);
-#endif
+    callFunctionFromGateway(Tab, SIZE_CURRENT_GENERIC_TABLE(Tab));
     return 0;
 }
 /*--------------------------------------------------------------------------*/

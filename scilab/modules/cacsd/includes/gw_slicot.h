@@ -19,6 +19,17 @@
 /*--------------------------------------------------------------------------*/
 CACSD_IMPEXP int gw_slicot(void);
 /*--------------------------------------------------------------------------*/
+int sci_sorder(char *fname, unsigned long fname_len);
+int sci_sident(char *fname, unsigned long fname_len);
+int sci_findbd(char *fname, unsigned long fname_len);
+int sci_ricc2(char *fname, unsigned long fname_len);
+int sci_dhinf(char *fname, unsigned long fname_len);
+int sci_linmeq(char *fname, unsigned long fname_len);
+int sci_mucomp(char *fname, unsigned long fname_len);
+int sci_hinf(char *fname, unsigned long fname_len);
+int sci_rankqr(char *fname, unsigned long fname_len);
+int intab01od(char *fname, unsigned long fname_len);
+/*--------------------------------------------------------------------------*/
 #endif /*  __GW_SLICOT_H__ */
 /*--------------------------------------------------------------------------*/
 

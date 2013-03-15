@@ -178,7 +178,10 @@ sci_gateway/c/sci_dhinf.c \
 sci_gateway/c/sci_hinf.c \
 sci_gateway/c/sci_linmeq.c \
 sci_gateway/c/sci_mucomp.c \
-sci_gateway/c/sci_ricc2.c
+sci_gateway/c/sci_ricc2.c \
+sci_gateway/c/sci_sorder.c \
+sci_gateway/c/sci_sident.c \
+sci_gateway/c/sci_findbd.c
 
 
 
@@ -192,7 +195,6 @@ sci_gateway/fortran/sci_f_ldiv.f \
 sci_gateway/fortran/sci_f_sident.f \
 sci_gateway/fortran/sci_f_lyap.f \
 sci_gateway/fortran/sci_f_rtitr.f \
-sci_gateway/fortran/sci_f_sorder.f \
 sci_gateway/fortran/sci_f_ltitr.f \
 sci_gateway/fortran/sci_f_arl2.f \
 sci_gateway/fortran/sci_f_gschur.f \
