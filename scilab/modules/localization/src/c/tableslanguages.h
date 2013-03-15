@@ -2,11 +2,12 @@
  * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
  * Copyright (C) 2007 - INRIA - Allan CORNET
  * Copyright (C) 2011 - 2011 - DIGITEO - Bruno JOFRET
- * 
+ *
+ *
  * This file must be used under the terms of the CeCILL.
  * This source file is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
- * are also available at    
+ * are also available at
  * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
  *
  */
@@ -20,7 +21,7 @@
 	http://inter-locale.com/ID/draft-ietf-ltru-registry-14.html
 */
 /*--------------------------------------------------------------------------*/
-#define LengthAlphacode 16
+#define LengthAlphacode 32
 #define LengthAlpha2code 3
 #define LengthLanguage 64
 typedef struct languages_struct
@@ -28,7 +29,6 @@ typedef struct languages_struct
 	int code;
 	wchar_t alphacode[LengthAlphacode];
 	wchar_t languagedescription[LengthLanguage];
-
 } LanguagesTable;
 /*--------------------------------------------------------------------------*/
 typedef struct languagesalias_struct
@@ -39,7 +39,7 @@ typedef struct languagesalias_struct
 } LanguagesTableAlias;
 /*--------------------------------------------------------------------------*/
 #define NumberLanguagesAlias 42
-static LanguagesTableAlias LANGUAGE_LOCALE_ALIAS[NumberLanguagesAlias]=
+static LanguagesTableAlias LANGUAGE_LOCALE_ALIAS[NumberLanguagesAlias] =
 {
 	{L"bg",L"bg_BG"},
 	{L"ca",L"ca_ES"},
@@ -86,7 +86,7 @@ static LanguagesTableAlias LANGUAGE_LOCALE_ALIAS[NumberLanguagesAlias]=
 };
 /*--------------------------------------------------------------------------*/
 #define NumberLanguages 220
-static LanguagesTable LANGUAGE_COUNTRY_TAB[NumberLanguages]=
+static LanguagesTable LANGUAGE_COUNTRY_TAB[NumberLanguages] =
 {
 	{  1,L"aa_DJ",L"Afar (Djibouti)"},
 	{  2,L"aa_ER",L"Afar (Eritrea)"},
@@ -308,6 +308,17 @@ static LanguagesTable LANGUAGE_COUNTRY_TAB[NumberLanguages]=
 	{ 218,L"wal_ET",L"Walamo (Ethiopia)"},
 	{ 219,L"cy_GB",L"Welsh (United Kingdom)"},
 	{ 220,L"C",L"English (Default)"}
+};
+/*--------------------------------------------------------------------------*/
+// Charsets to test when they are mandatory (e.g., on Debian fr_FR is not
+// accepted but fr_FR.UTF-8 is).
+// These two charsets are currently supported by Scilab, this is why there are
+// no other ones.
+#define NumberOfCharsets 2
+static char * CHARSETS[NumberOfCharsets] =
+{
+    "UTF-8",
+    "ISO-8859-1"
 };
 /*--------------------------------------------------------------------------*/
 #endif /* __TABLESLANGUAGES_H__ */
