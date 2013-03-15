@@ -17,6 +17,7 @@ stack_
 getrhsvar_
 checklhs_
 checkrhs_
+putlhsvar_
 GetData
 iIsComplex
 gettype_
