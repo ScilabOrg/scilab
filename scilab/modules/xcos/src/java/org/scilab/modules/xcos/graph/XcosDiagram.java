@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IllegalFormatException;
 import java.util.LinkedList;
@@ -51,7 +52,9 @@ import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.ButtonType;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
+import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabMList;
+import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.actions.SaveAsAction;
@@ -63,6 +66,7 @@ import org.scilab.modules.xcos.block.SplitBlock;
 import org.scilab.modules.xcos.block.SuperBlock;
 import org.scilab.modules.xcos.block.TextBlock;
 import org.scilab.modules.xcos.block.io.ContextUpdate;
+import org.scilab.modules.xcos.block.io.ContextUpdate.IOBlocks;
 import org.scilab.modules.xcos.configuration.ConfigurationManager;
 import org.scilab.modules.xcos.graph.swing.GraphComponent;
 import org.scilab.modules.xcos.io.XcosFileType;
@@ -224,6 +228,95 @@ public class XcosDiagram extends ScilabGraph {
         });
     }
 
+    /**
+     * Function to update IO block numbering
+     * @param block
+     * @param ioBlockClass
+     */
+    private void updateIOBlockByType(BasicBlock block, Class <? extends ContextUpdate > ioBlockClass) {
+        if (ioBlockClass.isInstance(block)) {
+            int newIndex = 0;
+
+            /*
+             *  Create a sorted list with all concerned IO blocks
+             *  sorted by their numbering
+             */
+            int numberofcells = getModel().getChildCount(getDefaultParent());
+            ArrayList<ContextUpdate> listOfIndex = new ArrayList<ContextUpdate> ();
+            for (int i = 0; i < numberofcells; i++) {
+                mxCell obj = (mxCell) getModel().getChildAt(getDefaultParent(), i);
+                if (ioBlockClass.isInstance(obj)) {
+                    ContextUpdate cell = (ContextUpdate) obj;
+                    listOfIndex.add(cell);
+                }
+            }
+            Comparator<ContextUpdate> ioBlockComparator = new Comparator<ContextUpdate>() {
+                @Override
+                public int compare(ContextUpdate o1, ContextUpdate o2) {
+                    final ScilabDouble data1 = (ScilabDouble) o1.getIntegerParameters();
+                    final ScilabDouble data2 = (ScilabDouble) o2.getIntegerParameters();
+
+                    int value1 = 0;
+                    int value2 = 0;
+
+                    if (data1.getWidth() >= 1 && data1.getHeight() >= 1) {
+                        value1 = (int) data1.getRealPart()[0][0];
+                    }
+                    if (data2.getWidth() >= 1 && data2.getHeight() >= 1) {
+                        value2 = (int) data2.getRealPart()[0][0];
+                    }
+
+                    return value1 - value2;
+                }
+            };
+            Collections.sort(listOfIndex, ioBlockComparator);
+
+            /*  Get an empty index :
+             *  The list should always have a size greater of equal to one
+             *  since new element with numbering "1" is always added to the list
+             */
+            if (listOfIndex.size() > 1) {
+                /*
+                 * The new element is the first element of the list
+                 */
+                if (listOfIndex.get(1).getOrdering() > 1) {
+                    newIndex = 1;
+                } else {
+                    for (int i = 0; i < listOfIndex.size() - 1; i++) {
+
+                        if (listOfIndex.get(i + 1).getOrdering() - listOfIndex.get(i).getOrdering() > 1) {
+                            newIndex = i + 1;
+                            break;
+                        }
+                    }
+                    if (newIndex == 0) {
+                        newIndex = listOfIndex.get(listOfIndex.size() - 1).getOrdering() + 1;
+                    }
+                }
+            } else {
+                newIndex = 1;
+            }
+
+            /*
+             * Update the IO block with this new index
+             */
+            block.setIntegerParameters(new ScilabDouble(newIndex));
+            block.setExprs(new ScilabString(Integer.toString(newIndex)));
+            block.setOrdering(newIndex);
+        }
+    }
+
+    /**
+     * If the block is a IO block, update its index to a free index
+     * @param block
+     */
+    private void updateIOBlocks(BasicBlock block) {
+        for (IOBlocks ioBlock : IOBlocks.values()) {
+            Class <? extends ContextUpdate > ioBlockClass = ioBlock.getReferencedClass();
+            updateIOBlockByType(block, ioBlockClass);
+        }
+    }
+
     /*
      * Static diagram listeners
      */
@@ -274,6 +367,9 @@ public class XcosDiagram extends ScilabGraph {
                         if (cell instanceof BasicBlock) {
                             // Update parent on cell addition
                             ((BasicBlock) cell).setParentDiagram(diagram);
+
+                            // update port numbering
+                            diagram.updateIOBlocks((BasicBlock) cell);
                         }
                         return false;
                     }
