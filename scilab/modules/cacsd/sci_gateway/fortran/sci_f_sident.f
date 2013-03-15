@@ -438,7 +438,7 @@ C
          IF (TASK.EQ.1 )LDWORK =MAX (LDWORK ,LDUNN +N +6*MNOBR ,LDUNN +
      $      N +MAX (L +MNOBR ,LNOBR +MAX (3*LNOBR ,M )))
       ELSE 
-         IF (TASK.NE.2 )THENIAW =N +NN 
+         IF (TASK.NE.2 )THEN IAW =N +NN 
       END IF 
 C
       IF (TASK.NE.1 .OR.NSMPL.GT.0 )THEN 
