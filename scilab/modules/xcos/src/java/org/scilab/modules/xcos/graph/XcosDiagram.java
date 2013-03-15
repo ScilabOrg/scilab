@@ -51,7 +51,9 @@ import org.scilab.modules.gui.messagebox.ScilabModalDialog.AnswerOption;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.ButtonType;
 import org.scilab.modules.gui.messagebox.ScilabModalDialog.IconType;
 import org.scilab.modules.gui.tabfactory.ScilabTabFactory;
+import org.scilab.modules.types.ScilabDouble;
 import org.scilab.modules.types.ScilabMList;
+import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.xcos.Xcos;
 import org.scilab.modules.xcos.XcosTab;
 import org.scilab.modules.xcos.actions.SaveAsAction;
@@ -224,6 +226,77 @@ public class XcosDiagram extends ScilabGraph {
         });
     }
 
+    /**
+     * Function to update port numbering
+     * @param block
+     * @param matching_interface_function
+     */
+    private void updatePortByInterfaceFunctionName(BasicBlock block, String matching_interface_function) {
+        String interface_function = block.getInterfaceFunctionName();
+
+        if (interface_function.equals(matching_interface_function)) {
+            int new_index = 0;
+
+            // create a sorted list with the numbering of all concerned ports
+            int numberofcells = getModel().getChildCount(getDefaultParent());
+            ArrayList<Integer> list_of_index = new ArrayList<Integer> ();
+            for (int i = 0; i < numberofcells; i++) {
+                mxCell obj = (mxCell) getModel().getChildAt(getDefaultParent(), i);
+                if (obj instanceof BasicBlock) {
+                    BasicBlock cell = (BasicBlock) obj;
+                    String interface_cell = cell.getInterfaceFunctionName();
+                    if (interface_cell.equals(matching_interface_function)) {
+                        list_of_index.add(cell.getOrdering());
+                    }
+                }
+            }
+            Collections.sort(list_of_index);
+
+            // get an empty index :
+            // The list should always have a size greater of equal to one
+            // since new element with id "1" is always added to the list
+            if (list_of_index.size() > 1) {
+                // The new element is the first element of the list.
+                // The second list element is the minimum numbering of
+                // concerned ports excluding the new element
+                if (list_of_index.get(1) > 1) {
+                    new_index = 1;
+                } else {
+                    for (int i = 0; i < list_of_index.size() - 1; i++) {
+
+                        if (list_of_index.get(i + 1) - list_of_index.get(i) > 1) {
+                            new_index = i + 1;
+                            break;
+                        }
+                    }
+                    if (new_index == 0) {
+                        new_index = list_of_index.get(list_of_index.size() - 1) + 1;
+                    }
+                }
+            } else {
+                new_index = 1;
+            }
+
+            // update the port with this new index
+            block.setIntegerParameters(new ScilabDouble(new_index));
+            block.setExprs(new ScilabString(Integer.toString(new_index)));
+            block.setOrdering(new_index);
+        }
+    }
+
+    /**
+     * If the block is a port, update its index to a free index
+     * @param block
+     */
+    private void updatePort(BasicBlock block) {
+        updatePortByInterfaceFunctionName(block, "IN_f");
+        updatePortByInterfaceFunctionName(block, "OUT_f");
+        updatePortByInterfaceFunctionName(block, "INIMPL_f");
+        updatePortByInterfaceFunctionName(block, "OUTIMPL_f");
+        updatePortByInterfaceFunctionName(block, "CLKINV_f");
+        updatePortByInterfaceFunctionName(block, "CLKOUTV_f");
+    }
+
     /*
      * Static diagram listeners
      */
@@ -274,6 +347,9 @@ public class XcosDiagram extends ScilabGraph {
                         if (cell instanceof BasicBlock) {
                             // Update parent on cell addition
                             ((BasicBlock) cell).setParentDiagram(diagram);
+
+                            // update port numbering
+                            diagram.updatePort((BasicBlock) cell);
                         }
                         return false;
                     }
