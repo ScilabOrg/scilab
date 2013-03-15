@@ -555,6 +555,9 @@ Bug fixes
 
 * Bug #12389 fixed - Axes sizes were not taken into account in offscreen export.
 
+* bug #12393 fixed - During completion replacment by common part of
+                     suggested words does not work.
+
 
 
                     Changes between version 5.3.3 and 5.4.0
