@@ -139,3 +139,5 @@ else
     [functions,commands,variables,macros,graphic_properties,files] = completion('/tm');
     assert_checkequal(files, ['tmp/']);
 end
+assert_checkerror("completion(2)",[], 999);
+assert_checkerror("completion([''aze'',''bze''])",[], 999);
