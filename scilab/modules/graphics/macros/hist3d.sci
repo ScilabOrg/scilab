@@ -20,8 +20,8 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
     def=list(theta,alpha,leg,flags);
     [lhs,rhs]=argn(0)
     if rhs<=0 then  //demo
-        towns = ["Agen" "Bastia" "Chamonix" "Cognac" "Hyères" "Le Mans" "Le Puy" ..
-        "Lille" "Lorient" "Mende" ]
+        towns = [_("Agen") _("Bastia") _("Chamonix") _("Cognac") _("Hyères") _("Le Mans") _("Le Puy") ..
+        _("Lille") _("Lorient") _("Mende") ]
         months = [_('January') _('Febuary') _('March') _('April') _('May') _('June')..
         _('July') _('August') _('September') _('October') _('November') ..
         _('December') _('Average') ]
@@ -92,4 +92,5 @@ function hist3d(f,theta,alpha,leg,flags,ebox)
     plot3d(xx,yy,zz,def(1),def(2),def(3),def(4),ebox)
 
 endfunction
-
+
+

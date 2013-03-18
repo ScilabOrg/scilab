@@ -555,6 +555,8 @@ Bug fixes
 
 * Bug #12389 fixed - Axes sizes were not taken into account in offscreen export.
 
+* Bug #12397 fixed - Demo for hist3d was not localized.
+
 
 
                     Changes between version 5.3.3 and 5.4.0
