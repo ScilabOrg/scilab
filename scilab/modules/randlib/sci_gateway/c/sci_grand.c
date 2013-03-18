@@ -484,6 +484,11 @@ int sci_Rand(char *fname,unsigned long fname_len)
         ResC= *istk(l2);
         GetRhsVar(3,STRING_DATATYPE, &ms, &ns, &ls);
         suite=4;
+        if ((ResL<0 || ResC < 0) && (ResL !=-1 || ResC!=-1)) //ResL=-1 & ResC=-1 => eye
+        {
+             ResL=0;
+             ResC=0;
+        }
     }
     else
     {
