@@ -484,6 +484,10 @@ int sci_Rand(char *fname,unsigned long fname_len)
         ResC= *istk(l2);
         GetRhsVar(3,STRING_DATATYPE, &ms, &ns, &ls);
         suite=4;
+        if (ResL < 0 && (ResL != -1 || ResC != -1)) //ResL=-1 & ResC=-1 => eye
+        { Scierror(999,_("%s: Wrong value for first input argument: Positive scalar expected.\n"),fname);return 0;}
+        if (ResC < 0 && (ResL != -1 || ResC != -1)) //ResL=-1 & ResC=-1 => eye
+        { Scierror(999,_("%s: Wrong value for second input argument: Positive scalar expected.\n"),fname);return 0;}
     }
     else
     {
