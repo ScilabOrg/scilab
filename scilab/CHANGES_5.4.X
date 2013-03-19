@@ -559,6 +559,7 @@ Bug fixes
 
 * Bug #12389 fixed - Axes sizes were not taken into account in offscreen export.
 
+* Bug #12399 fixed - Bad data bounds computation with %inf and log scale.
 
 
                     Changes between version 5.3.3 and 5.4.0
