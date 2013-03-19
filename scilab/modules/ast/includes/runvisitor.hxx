@@ -1336,6 +1336,40 @@ public :
                 }
             }
 
+
+            result_set(pReturn);
+        }
+        else if (result_get()->isInt())
+        {
+            InternalType* pReturn = NULL;
+            switch (result_get()->getType())
+            {
+                case InternalType::RealInt8 :
+                    pReturn = notInt<Int8, char>(result_get()->getAs<Int8>());
+                    break;
+                case InternalType::RealUInt8 :
+                    pReturn = notInt<UInt8, unsigned char>(result_get()->getAs<UInt8>());
+                    break;
+                case InternalType::RealInt16 :
+                    pReturn = notInt<Int16, short>(result_get()->getAs<Int16>());
+                    break;
+                case InternalType::RealUInt16 :
+                    pReturn = notInt<UInt16, unsigned short>(result_get()->getAs<UInt16>());
+                    break;
+                case InternalType::RealInt32 :
+                    pReturn = notInt<Int32, int>(result_get()->getAs<Int32>());
+                    break;
+                case InternalType::RealUInt32 :
+                    pReturn = notInt<UInt32, unsigned int>(result_get()->getAs<UInt32>());
+                    break;
+                case InternalType::RealInt64 :
+                    pReturn = notInt<Int64, long long>(result_get()->getAs<Int64>());
+                    break;
+                case InternalType::RealUInt64 :
+                    pReturn = notInt<UInt64, unsigned long long>(result_get()->getAs<UInt64>());
+                    break;
+            }
+
             if (result_get()->isDeletable())
             {
                 delete result_get();
@@ -1345,6 +1379,19 @@ public :
         }
     }
 
+    template <class T, typename Y>
+    InternalType* notInt(T* _pInt)
+    {
+        T* pOut = new T(_pInt->getCols(), _pInt->getRows());
+        Y* pDataIn = _pInt->get();
+        Y* pDataOut = pOut->get();
+        for (int i = 0 ; i < _pInt->getSize() ; i++)
+        {
+            pDataOut[i] = ~pDataIn[i];
+        }
+
+        return pOut;
+    }
 
     void visitprivate(const TransposeExp &e)
     {
