@@ -561,6 +561,7 @@ Bug fixes
 
 * Bug #12396 fixed - Example ("problem 2") in the help page of bvode was missing a variable.
 
+* bug #12415 fixed - PATH environment variable grows when using call_scilab in a loop
 
 
                     Changes between version 5.3.3 and 5.4.0
