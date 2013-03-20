@@ -163,6 +163,12 @@ void getDoubleFormat(double _dblVal, DoubleFormat * _pDF)
         dblScale /= 10;
     }
 
+    // display 2. instead of 2.0
+    if (iNbDec == 1 && dblDec == 0.)
+    {
+        iNbDec = 0;
+    }
+
     _pDF->iWidth = iTotalLen;
     _pDF->iPrec = iNbDec;
 }
