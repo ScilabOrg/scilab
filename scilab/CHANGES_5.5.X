@@ -71,6 +71,9 @@ Bug fixes
 
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
+* Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
+                    than 80 times in a loop.
+
 * Bug #8824 fixed - taucs_chfact returned a segfault (not the case in mode nwni)
 
 * Bug #10862 fixed - Add a without internet connection installation
