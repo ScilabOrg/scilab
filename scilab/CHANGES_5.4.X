@@ -260,6 +260,9 @@ Bug fixes
 
 * Bug #8638 fixed - Improved examples for gcd.
 
+* Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
+                    than 80 times in a loop.
+
 * Bug #8883 fixed - In some cases, Scilab build from sources was looking for
                    libraries at the wrong place.
 
