@@ -55,9 +55,7 @@ function [x,y,typ]=SWITCH2_m(job,arg1,arg2)
       end
       if ((ot<1)|(ot>8))&(ot<>-1) message("Datatype is not supported");ok=%f;end
       if ok then
-	it(1)=ot;
-	it(2)=1;
-	it(3)=ot;
+        it = [ot, 1, ot]
         in=[model.in model.in2]
         out=[model.out model.out2]
         [model,graphics,ok]=set_io(model,graphics,list(in,it),list(out,ot),[],[])

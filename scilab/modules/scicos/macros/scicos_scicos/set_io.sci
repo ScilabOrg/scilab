@@ -118,7 +118,7 @@ function [model,...
             'ierr=100,'
              'resume, end'
            'var=int(var#(1))'
-            'vart=int(var#(2)(:))'
+            'vart=int(var#(2))'
          'end'
        'end'
        'ko=%t'])

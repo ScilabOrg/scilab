@@ -184,6 +184,8 @@ Xcos
 * Bug #12352 fixed - Critical error when closing a scope windows during
                      simulation fixed.
 
+* Bug #12414 fixed - SWITCH_m block for different types of inputs.
+
 
 Documentation
 ==============
