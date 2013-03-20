@@ -327,6 +327,8 @@ Bug fixes
 
 * Bug #11639 fixed - Uninstall removed all scilab registry information.
 
+* Bug #11664 fixed - Help page of lev had no example.
+
 * Bug #11669 fixed - Help page of kalm and srkf functions had no example.
 
 * Bug #11711 fixed - xclick and xgetmouse did not work under Mac OS X.
