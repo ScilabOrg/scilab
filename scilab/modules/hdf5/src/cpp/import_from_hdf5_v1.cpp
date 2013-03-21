@@ -311,6 +311,10 @@ static bool import_double_v1(int _iDatasetId, int _iItemPos, int *_piAddress, ch
     int iComplex = 0;
     SciErr sciErr;
 
+    //build NaN
+    unsigned long long raw = 0x7FF8000000000000;
+    double dblNaN = *( double* )&raw;
+
 #ifdef TIME_DEBUG
     LARGE_INTEGER iStart, iEnd, iFreq;
 
@@ -351,6 +355,26 @@ static bool import_double_v1(int _iDatasetId, int _iItemPos, int *_piAddress, ch
         if (iRet)
         {
             return false;
+        }
+    }
+
+    //normalize data, replace NaN values by signaling NaN ( 0x7FF8 0000 0000 0000 )
+    for (int i = 0 ; i < iRows * iCols ; i++)
+    {
+        if (ISNAN(pdblReal[i]))
+        {
+            pdblReal[i] = dblNaN;
+        }
+    }
+
+    if (iComplex)
+    {
+        for (int i = 0 ; i < iRows * iCols ; i++)
+        {
+            if (ISNAN(pdblImg[i]))
+            {
+                pdblImg[i] = dblNaN;
+            }
         }
     }
 
@@ -797,6 +821,10 @@ static bool import_poly_v1(int _iDatasetId, int _iItemPos, int *_piAddress, char
     int *piNbCoef = NULL;
     SciErr sciErr;
 
+    //build NaN
+    unsigned long long raw = 0x7FF8000000000000;
+    double dblNaN = *( double* )&raw;
+
     iRet = getDatasetDims_v1(_iDatasetId, &iRows, &iCols);
     if (iRet)
     {
@@ -817,6 +845,32 @@ static bool import_poly_v1(int _iDatasetId, int _iItemPos, int *_piAddress, char
         piNbCoef = (int *)MALLOC(iRows * iCols * sizeof(int));
         pdblReal = (double **)MALLOC(iRows * iCols * sizeof(double *));
         iRet = readPolyMatrix_v1(_iDatasetId, pstVarName, iRows, iCols, piNbCoef, pdblReal);
+    }
+
+    //normalize data, replace NaN values by signaling NaN ( 0x7FF8 0000 0000 0000 )
+    for (int i = 0 ; i < iRows * iCols ; i++)
+    {
+        for (int j = 0 ; j < piNbCoef[i] ; j++)
+        {
+            if (ISNAN(pdblReal[i][j]))
+            {
+                pdblReal[i][j] = dblNaN;
+            }
+        }
+    }
+
+    if (iComplex)
+    {
+        for (int i = 0 ; i < iRows * iCols ; i++)
+        {
+            for (int j = 0 ; j < piNbCoef[i] ; j++)
+            {
+                if (ISNAN(pdblReal[i][j]))
+                {
+                    pdblImg[i][j] = dblNaN;
+                }
+            }
+        }
     }
 
     if (iRet)
