@@ -14,6 +14,7 @@
 #include "types_finite.hxx"
 
 #include "scilabexception.hxx"
+#include "configvariable.hxx"
 
 extern "C"
 {
@@ -88,7 +89,10 @@ InternalType *GenericRDivide(InternalType *_pLeftOperand, InternalType *_pRightO
             case 3 :
                 throw ast::ScilabError(_W("Division by zero...\n"));
             case 4 :
-                sciprint(_("Warning : Division by zero...\n"));
+                if (ConfigVariable::getWarningMode())
+                {
+                    sciprint(_("Warning : Division by zero...\n"));
+                }
                 break;
                 //            default : throw ast::ScilabError(_W("Operator / : Error %d not yet managed.\n"), iResult);
             default :
@@ -143,7 +147,10 @@ InternalType *GenericDotRDivide(InternalType *_pLeftOperand, InternalType *_pRig
             case 3 :
                 throw ast::ScilabError(_W("Division by zero...\n"));
             case 4 :
-                sciprint(_("Warning : Division by zero...\n"));
+                if (ConfigVariable::getWarningMode())
+                {
+                    sciprint(_("Warning : Division by zero...\n"));
+                }
                 break;
                 //            default : throw ast::ScilabError(_W("Operator / : Error %d not yet managed.\n"), iResult);
             default :

@@ -36,6 +36,7 @@ libscioperations_la_CPPFLAGS = \
 	-I$(top_srcdir)/modules/operations/includes \
 	-I$(top_srcdir)/modules/localization/includes \
 	-I$(top_srcdir)/modules/types/includes \
+	-I$(top_srcdir)/modules/threads/includes \
 	-I$(top_srcdir)/modules/symbol/includes \
 	-I$(top_srcdir)/modules/ast/includes \
 	-I$(top_srcdir)/modules/core/includes \
