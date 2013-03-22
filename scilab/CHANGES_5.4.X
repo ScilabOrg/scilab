@@ -647,6 +647,8 @@ Xcos
 
 
 
+* Bug #12426 fixed - By using addErrorMessage, random string error can be displayed.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
