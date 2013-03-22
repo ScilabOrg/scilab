@@ -91,31 +91,53 @@ types::Function::ReturnValue sci_imag(types::typed_list &in, int _iRetCount, typ
         types::Polynom* pPolyIn = in[0]->getAs<types::Polynom>();
         types::Polynom* pPolyOut = new types::Polynom(pPolyIn->getVariableName(), pPolyIn->getDims(), pPolyIn->getDimsArray());
 
-        if (pPolyIn->isComplex() == false)
-        {
-            types::Double* pDblOut = new types::Double(pPolyIn->getDims(), pPolyIn->getDimsArray());
-            memset(pDblOut->get(), 0x00, pDblOut->getSize() * sizeof(double));
-            out.push_back(pDblOut);
-            return types::Function::OK;
-        }
-
         double* dataReal = NULL;
 
-        for (int i = 0; i < pPolyIn->getSize(); i++)
+        if (pPolyIn->isComplex() == false)
         {
-            int rank = pPolyIn->get(i)->getRank();
-            types::SinglePoly* pSP = new types::SinglePoly(&dataReal, rank);
-
-            for (int j = 0; j < rank; j++)
+            for (int i = 0; i < pPolyIn->getSize(); i++)
             {
-                dataReal[j]  = pPolyIn->get(i)->getCoefImg()[j];
+                types::SinglePoly* pSP = new types::SinglePoly(&dataReal, 1);
+                dataReal[0]  = 0;
+                pPolyOut->set(i, pSP);
+                delete pSP;
+                pSP = NULL;
             }
-
-            pPolyOut->set(i, pSP);
-            delete pSP;
-            pSP = NULL;
         }
+        else
+        {
+            for (int i = 0; i < pPolyIn->getSize(); i++)
+            {
+                int rank = pPolyIn->get(i)->getRank();
+                int iNewRank = rank;
 
+                printf("rank : %d\n", rank);
+
+                for (int j = rank - 1 ; j > 0 ; j--)
+                {
+                    if (pPolyIn->get(i)->getCoefImg()[j] == 0.0)
+                    {
+                        iNewRank--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                printf("new rank : %d\n", iNewRank);
+
+                types::SinglePoly* pSP = new types::SinglePoly(&dataReal, iNewRank);
+
+                for (int j = 0; j < iNewRank; j++)
+                {
+                    dataReal[j]  = pPolyIn->get(i)->getCoefImg()[j];
+                }
+
+                pPolyOut->set(i, pSP);
+                delete pSP;
+                pSP = NULL;
+            }
+        }
         out.push_back(pPolyOut);
     }
     else
