@@ -586,6 +586,8 @@ Bug fixes
 
 * Bug #12396 fixed - Example ("problem 2") in the help page of bvode was missing a variable.
 
+* Bug #12426 fixed - By using addErrorMessage, random string error can be displayed.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
