@@ -12,6 +12,6 @@ function M1=%hm_j_s(M1,M2)
 if size(M2,'*')<>1 then
   error('inconsistent element-wise operation')
 else
-  M1('entries')=M1('entries')^M2
+  M1(:,:)=M1(:,:).^M2
 end
 endfunction
