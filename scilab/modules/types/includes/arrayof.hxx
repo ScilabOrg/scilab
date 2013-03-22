@@ -517,6 +517,12 @@ public :
                 }
             }
 
+            // insert a real in a complex
+            if (isComplex() && bComplex == false)
+            {
+                setImg(iPos, 0);
+            }
+
             //update index
             piIndex[0]++;
         }
