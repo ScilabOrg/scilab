@@ -82,9 +82,6 @@ function txt = help_skeleton(funname, path, language)
     _(" * Add some comments about XML file");
     "-->"
     "<refentry " + refs + " xml:lang="""+ language + """ xml:id=""" + funname + """>"
-    "  <info>"
-    "    <pubdate>$LastChangedDate: " + xml_date + " $</pubdate>"
-    "  </info>"
     "  <refnamediv>"
     "    <refname>"+ funname + "</refname>"
     "    <refpurpose>" + _("Add short description here.") + " </refpurpose>"
@@ -151,6 +148,9 @@ function txt = help_skeleton(funname, path, language)
     "    <programlisting role=""example""><![CDATA["
     _("        Add here scilab instructions and comments")
     "    ]]></programlisting>"
+    "    <scilab:image><![CDATA["
+    _("        Add here scilab instructions to generate a graphic")
+    "    ]]></scilab:image>"
     "  </refsection>"];
 
     //See Also
