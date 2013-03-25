@@ -144,6 +144,13 @@
         </para>
     </refsection>
     <refsection>
+        <title>Remarque</title>
+        <para>
+            <literal>[Q,R,rk,E] = qr(X,"e")</literal> peut être utilisée comme séquence d'appel, mais le paramètre "e" est ignoré.
+Cela revient donc à utiliser: <literal>[Q,R,rk,E] = qr(X)</literal>.
+        </para>
+    </refsection>
+    <refsection>
         <title>Exemples</title>
         <programlisting role="example"><![CDATA[ 
 // QR factorization, generic case
