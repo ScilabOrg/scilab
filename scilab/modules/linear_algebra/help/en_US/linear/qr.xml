@@ -130,6 +130,13 @@
         </variablelist>
     </refsection>
     <refsection>
+        <title>Remark</title>
+        <para>
+            <literal>[Q,R,rk,E] = qr(X,"e")</literal> can be used too, but "e" is silently ignored. So, this calling sequence is the same as
+<literal>[Q,R,rk,E] = qr(X)</literal>.
+        </para>
+    </refsection>
+    <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
 // QR factorization, generic case
