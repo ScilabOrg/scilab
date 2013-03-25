@@ -5,6 +5,8 @@
 //  This file is distributed under the same license as the Scilab package.
 // =============================================================================
 
+// <-- ENGLISH IMPOSED -->
+
 // <-- CLI SHELL MODE -->
 
 // <-- Non-regression test for bug 8351 -->
@@ -29,4 +31,5 @@ x = integrate('sin(x)','x',0,%pi,1.e-6,1);
 assert_checkalmostequal(x, 2, [], %eps);
 
 
-
+
+
