@@ -78,6 +78,12 @@
         </para>
     </refsection>
     <refsection>
+        <title>Remark</title>
+        <para>
+            If <varname>x</varname> has some NANs terms, the result will be the same if these terms were Inf.
+        </para>
+    </refsection>
+    <refsection>
         <title>Examples</title>
         <programlisting role="example"><![CDATA[ 
 A=[1,2,10;7,7.1,7.01];

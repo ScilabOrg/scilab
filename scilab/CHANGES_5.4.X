@@ -270,6 +270,8 @@ Bug fixes
 
 * Bug #8638 fixed - Improved examples for gcd.
 
+* Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
+
 * Bug #8883 fixed - In some cases, Scilab build from sources was looking for
                    libraries at the wrong place.
 
