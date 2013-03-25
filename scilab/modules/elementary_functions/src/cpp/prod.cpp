@@ -60,6 +60,7 @@ types::Double* prod(types::Double* pIn, int iOrientation)
         for (int i = 0 ; i < iDims ; i++)
         {
             piDims[i] = pIn->getDimsArray()[i];
+            printf("piDims[%d] : %d\n", i, piDims[i]);
         }
 
         piDims[iOrientation - 1] = 1;
@@ -71,9 +72,9 @@ types::Double* prod(types::Double* pIn, int iOrientation)
 
         // init output
         double* pdblOut = pOut->get();
-        double* pdblOutImg = pOut->get();
+        double* pdblOutImg = pOut->getImg();
 
-        if (pIn->isComplex())
+        if (pOut->isComplex())
         {
             for (int i = 0 ; i < pOut->getSize() ; i++)
             {
