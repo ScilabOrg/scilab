@@ -602,6 +602,8 @@ Bug fixes
 
 * Bug #12442 fixed - pathconvert() help page was not clear about input arguments.
 
+* Bug #12444 fixed - The fontname argument was buggy in the title function.
+
 * Bug #12450 fixed - xlfont() did not return font names as specified in the documentation.
 
 
