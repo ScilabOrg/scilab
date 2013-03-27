@@ -16,9 +16,9 @@
 //   set or get 'format_n' property from an axes crash scilab.
 
 
-plot2d(1:10,1:10,1,strf="020")
-drawaxis(x=2:7,y=4,dir='u',tics='v')
+plot2d(1:10,1:10,1,strf="020");
+drawaxis(x=2:7,y=4,dir='u',tics='v');
 e=gce();
-e.format_n
-e.format_n='%0.0fcm'
+e.format_n;
+e.format_n='%0.0fcm';
 
