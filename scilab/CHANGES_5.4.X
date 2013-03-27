@@ -583,6 +583,8 @@ Bug fixes
 
 * Bug #12418 fixed - Continuation was incorrectly supported in bvode.
 
+* Bug #12450 fixed - xlfont() did not return font names as specified in the doc.
+
 
                     Changes between version 5.3.3 and 5.4.0
                     =======================================
