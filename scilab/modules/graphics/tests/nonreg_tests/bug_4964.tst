@@ -7,6 +7,8 @@
 
 // <-- TEST WITH GRAPHIC -->
 //
+// <-- NOT FIXED -->
+//
 // <-- Non-regression test for bug 4964 -->
 //
 // <-- Bugzilla URL -->
