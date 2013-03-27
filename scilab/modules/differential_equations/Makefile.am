@@ -72,7 +72,6 @@ src/fortran/rkqc.f \
 src/fortran/writbufode.f
 
 GATEWAY_FORTRAN_SOURCES = \
-sci_gateway/fortran/Ex-odedc.f \
 sci_gateway/fortran/Ex-ode.f \
 sci_gateway/fortran/Ex-impl.f \
 sci_gateway/fortran/Ex-int2d.f \
@@ -81,6 +80,9 @@ sci_gateway/fortran/Ex-intg.f \
 sci_gateway/fortran/Ex-dasrt.f \
 sci_gateway/fortran/Ex-dassl.f \
 sci_gateway/fortran/Ex-bvode.f
+
+GATEWAY_C_SOURCES = \
+sci_gateway/c/Ex-odedc.c
 
 GATEWAY_CPP_SOURCES = \
 sci_gateway/cpp/sci_int2d.cpp \
@@ -125,7 +127,7 @@ endif
 
 
 libscidifferential_equations_algo_la_SOURCES = $(DIFFERENTIAL_EQUATIONS_C_SOURCES) $(DIFFERENTIAL_EQUATIONS_FORTRAN_SOURCES) $(DIFFERENTIAL_EQUATIONS_CPP_SOURCES)
-libscidifferential_equations_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES)
+libscidifferential_equations_la_SOURCES = $(GATEWAY_FORTRAN_SOURCES) $(GATEWAY_CPP_SOURCES) $(GATEWAY_C_SOURCES)
 libscidifferential_equations_algo_la_CPPFLAGS = $(libscidifferential_equations_la_CPPFLAGS)
 
 # For the code check (splint)
