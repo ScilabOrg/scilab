@@ -1,0 +1,22 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Allan Cornet
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+
+// <-- ENGLISH IMPOSED -->
+
+// Run with test_run('elementary_functions', 'unwrap', ['no_check_error_output']);
+
+t = [0:.2:3, 3.5:1:10]; // Time values vector
+v = [0 -1.5728 -1.5747 -1.5772 -1.5790 -1.5816 -1.5852 -1.5877 -1.5922 -1.5976 -1.6044 -1.6129 -1.6269 -1.6512, -1.6998 -1.8621 1.7252 1.6124 1.5930 1.5916 1.5708 1.5708 1.5708]; // Example vector
+
+v_ref = [0 -1.5728 -1.5747 -1.5772 -1.579 -1.5816 -1.5852 -1.5877 -1.5922 -1.5976 -1.6044 -1.6129 -1.6269 -1.6512 -1.6998 -1.8621 -4.5579853 -4.6707853 -4.6901853 -4.6915853 -4.7123853 -4.7123853 -4.7123853]; // Supposed result
+
+// Correct the radian phase angles of 'v' by adding multiples of ±2π when absolute jumps between consecutive elements of 'v' are greater than or equal to the default jump tolerance of π radians.
+v = unwrap(v);
+
+e = max(abs(v(:)-v_ref(:)));
+// The precision does not allow to compare beyond 10^-8.
+if e > 1.0D-8 then pause, end
