@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Samuel GOUGEON
+ * Copyright (C) 2013 - Allan CORNET
+ * 
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at    
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns5="http://www.w3.org/1999/xhtml" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:id="unwrap" xml:lang="en">
+    <refnamediv>
+        <refname>unwrap</refname>
+        <refpurpose>Corrects phase angles between consecutive elements</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>y = unwrap(A)</synopsis>
+        <synopsis>y = unwrap(A, tol)</synopsis>
+        <synopsis>y = unwrap(A, tol, dim)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>A</term>
+                <listitem>
+                    <para>real matrix</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>tol</term>
+                <listitem>
+                    <para>real</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>dim</term>
+                <listitem>
+                    <para>integer</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            Given a real matrix <literal>A</literal>, <literal>unwrap(A, tol, dim)</literal>
+            returns in a vector <literal>y</literal>  the correction of
+            <literal>A</literal> from all jumps greater than or equal to the default jump tolerance of
+            <literal>π</literal> radians between two consecutive elements.
+            If <literal>A</literal> is a matrix, <literal>unwrap</literal> operates columnwise.
+            If <literal>A</literal> is a multidimensional array, unwrap operates on the first nonsingleton dimension.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+// Example n° 1:
+t = [0:.2:3, 3.5:1:10]; // Time values
+v = [0 -1.5728 -1.5747 -1.5772 -1.5790 -1.5816 -1.5852 -1.5877 -1.5922 ..
+     -1.5976 -1.6044 -1.6129 -1.6269 -1.6512, -1.6998 -1.8621 1.7252 1.6124 ..
+     1.5930 1.5916 1.5708 1.5708 1.5708 ]; // Example vector
+clf
+subplot(2,1,1)
+plot(t, v);  // Graph with original 'v'
+title("original profile")
+subplot(2,1,2)
+plot(t, [v' unwrap(v)']); // Graph with unwrapped ‘v’
+title("The phase angle has been corrected, resulting in a 2.6959 jump")
+legend(["original" "unwrapped"])
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+t = [0:.2:3, 3.5:1:10]; // Time values
+v = [0 -1.5728 -1.5747 -1.5772 -1.5790 -1.5816 -1.5852 -1.5877 -1.5922 ..
+     -1.5976 -1.6044 -1.6129 -1.6269 -1.6512, -1.6998 -1.8621 1.7252 1.6124 ..
+     1.5930 1.5916 1.5708 1.5708 1.5708 ]; // Example vector
+clf
+subplot(2,1,1)
+plot(t, v);  // Graph with original 'v'
+title("original profile")
+subplot(2,1,2)
+plot(t, [v' unwrap(v)']); // Graph with unwrapped ‘v’
+title("The phase angle has been corrected, resulting in a 2.6959 jump")
+legend(["original" "unwrapped"])
+        ]]></scilab:image>
+        <programlisting role="example"><![CDATA[
+// Example n° 2.a in 1D:
+n = 400;
+tmax = 9.8;
+t = linspace(-tmax/2, tmax/2, n);
+y = t.^2;
+m = pmodulo(y,6);
+jump_max_in_data = max(abs(m(1:$-1)-m(2:$)))
+unwrap_jump = jump_max_in_data*0.97;
+u = unwrap(m, unwrap_jump);
+
+clf
+subplot(2,3,1)
+plot2d(t, y)
+title("Original profile y")
+subplot(2,3,2)
+plot2d(t, m)
+title("y modulo 6")
+subplot(2,3,3)
+plot2d(t, u)
+title(sprintf("(y modulo 6) unwrapped (jump_max=%4.2f)",unwrap_jump))
+
+// EXAMPLE n° 2.b in 2D:
+n = 300;
+rmax = 9.8;
+r = linspace(-rmax/2, rmax/2, n);
+[x, y] = meshgrid(r, r);
+z = x.^2 + y.^2;
+m = pmodulo(z, 6);
+u = unwrap(m, 5);
+
+f = gcf();
+f.color_map = hotcolormap(100);
+subplot(2,3,4)
+surf(r, r, z)
+title("Original profile Z")
+e = gce();
+e.thickness = 0; // removing the grid
+subplot(2,3,5)
+grayplot(r, r, m)
+title("Z modulo 6 (flat)")
+subplot(2,3,6)
+grayplot(r, r, u)
+title("(Z modulo 6) unwrapped (jump_max=5) (flat)")
+ ]]></programlisting>
+        <scilab:image><![CDATA[
+unwrap()
+        ]]></scilab:image>
+    </refsection>
+    <refsection role="bibliography">
+        <title>Bibliography</title>
+        <para>
+            <ulink url="http://siptoolbox.sourceforge.net/doc/sip-0.7.0-reference/unwrapl.html">SIP toolbox: unwrap linear</ulink>
+        </para>
+        <para>
+            <ulink url="http://siptoolbox.sourceforge.net/doc/sip-0.7.0-reference/unwrapp.html">SIP toolbox: unwrap along path</ulink>
+        </para>
+    </refsection>
+    <refsection role="history tag">
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>unwrap function added</revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
