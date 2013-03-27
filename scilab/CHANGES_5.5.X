@@ -10,13 +10,14 @@ New features
 
 * Functions erf, erfc, erfcx and calerf support complex arguments.
 
-* New Solver:
+* New solver:
  - daskr - differential-algebraic system solver with rootfinding 'daskr', using
 BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 
 * New functions introduced:
  - getURL - Download an URL (HTTP, HTTPS, FTP...)
  - splitURL - Split a URL (HTTP, HTTPS, FTP...)
+ - unwrap - Correct phase angles to produce smoother phase plots
 
 
 
