@@ -6,6 +6,7 @@
 // =============================================================================
 
 // <-- CLI SHELL MODE -->
+// <-- ENGLISH IMPOSED -->
 
 // <-- Non-regression test for bug 8351 -->
 //
@@ -16,7 +17,7 @@
 //    The integrate function does not manage the optional input arguments properly.
 
 assert_checkfalse(execstr("integrate(''sin(x)'',''x'',0)", "errcatch") == 0);
-refMsg = msprintf(_("%s: Wrong number of input argument(s): At least %d expected."), "integrate", 4); 
+refMsg = msprintf(_("%s: Wrong number of input argument(s): At least %d expected."), "integrate", 4);
 assert_checkerror("integrate(''sin(x)'',''x'',0)", refMsg);
 
 x = integrate('sin(x)','x',0,%pi);
