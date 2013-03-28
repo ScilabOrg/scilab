@@ -15,7 +15,7 @@
 // <-- Short Description -->
 // Argument location of function caption has no effect.
 //
- 
+
 legend_positions = ["in_upper_right", "in_upper_left", "in_lower_right",..
                     "in_lower_left", "out_upper_right", "out_upper_left",..
 					"out_lower_right", "out_lower_left", "upper_caption",..
@@ -27,7 +27,8 @@ curves = gce();
 
 // check all cases
 for loc = legend_positions,
-  captions(curves.children, ["x","x^2"], loc);
+  handles = curves.children($:-1:1);
+  captions(handles, ["x","x^2"], loc);
   leg = gce();
   if (leg.legend_location <> loc) then pause; end
 end

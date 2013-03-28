@@ -776,6 +776,8 @@ Graphics
 * Bug #10637 fixed - xs2svg crashed when the first input argument was not a figure handle.
                      An error message is now displayed.
 
+* Bug #12404 fixed - captions() plots legends in reverse order.
+
 
 GUI
 ====

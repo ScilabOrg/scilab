@@ -68,7 +68,7 @@ int sci_Legend( char * fname, unsigned long fname_len )
         return 0;
     }
     GetMatrixdims(2, &m2, &n2);
-    if (m2*n2 != n)
+    if (m2 * n2 != n)
     {
         Scierror(999, _("%s: Wrong size for input arguments #%d and #%d: Incompatible length.\n"), fname, 1, 2);
         return 0;
@@ -105,7 +105,7 @@ int sci_Legend( char * fname, unsigned long fname_len )
     {
         char* subwinUID;
 
-        handlesvalue = (unsigned long) (hstk(l1))[n - 1 - i];
+        handlesvalue = (unsigned long) (hstk(l1))[i];
         pobjUID = (char*)getObjectFromHandle(handlesvalue);
 
         if (pobjUID == NULL)
@@ -116,9 +116,9 @@ int sci_Legend( char * fname, unsigned long fname_len )
             return 0;
         }
 
-       /**
-         * We get the current pSubwin & pFigure from the first handle's parents.
-         */
+        /**
+          * We get the current pSubwin & pFigure from the first handle's parents.
+          */
         if (i == 0)
         {
             getGraphicObjectProperty(pobjUID, __GO_PARENT_FIGURE__, jni_string, (void **)&pFigureUID);

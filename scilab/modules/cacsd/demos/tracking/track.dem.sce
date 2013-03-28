@@ -14,7 +14,7 @@ J=rand(Plant(5));Plant(5)=0*J;
 // define state space model of the Signal to track
 nw=4;nuu=2;
 A=rand(nw,nw);
-A=A-max(real(spec(A)))*eye(A); 
+A=A-max(real(spec(A)))*eye(A);
 B=rand(nw,nuu);
 C=2*rand(ny,nw);
 D=0*rand(C*B);
@@ -43,7 +43,7 @@ clf(my_handle,"reset");
 //    Stabilizing the plant
 K=-ppol(F,G,-0.3*ones(1,nx));
 
-// Bigsyst= closed loop system: um --> [yplant;ymodel]. 
+// Bigsyst= closed loop system: um --> [yplant;ymodel].
 // full state gain is [K, L - K*T] * (xplant, xmodel) + M * umodel
 BigA=[F+G*K,G*(L-K*T);
       0*ones(nw,nx),A];
@@ -63,5 +63,6 @@ z=flts(uu(instants),Bigsyst);
 plot2d([instants',instants'],..
        [totrack(1,:)',z(1,:)'], axesflag=1);
 curves = gce();
-captions(curves.children,['Signal to track','Computed signal'],"upper_caption");
+handles = curves.children($:-1:1);
+captions(handles,['Signal to track','Computed signal'],"upper_caption");
 xtitle('tracking');

@@ -63,13 +63,12 @@ function c=legend(varargin)
   end
 
   while type(varargin(k0))==9 then //a handle that could be an Axes, Agreg. or Polyline handle.
-    tmpH=varargin(k0)
+    tmpH = varargin(k0)
     if tmpH.type=='Axes' then
-      A = tmpH;
+        A = tmpH;
     end
-    tmpH=tmpH($:-1:1);
-    H=[getvalidchildren(tmpH);H];
-    k0 = k0+1;
+    H = [H; getvalidchildren(tmpH)];
+    k0 = k0 + 1;
   end
 
   if H==[] then
@@ -90,7 +89,6 @@ function c=legend(varargin)
     leg=[leg; vk(:)]
   end
   nleg=size(leg,'*')
-
 
   //upper left coordinates
   if ~isempty(coords) then
@@ -142,19 +140,19 @@ function c=legend(varargin)
   if vis_on then drawnow(); end       // draw if figure status allows it (otherwise standbye)
 endfunction
 
-function h=getvalidchildren(A)
-  h=[]
-  for k=1:size(A,'*')
-    a=A(k)
+function h = getvalidchildren(A)
+  h = []
+  for k=1:size(A, '*')
+    a = A(k)
     select a.type
     case "Polyline" then
-      h=[h;a]
+      h = [h; a]
     case "Axes"
-      ax=a.children
-      h=[h;getvalidchildren(ax)]
+      ax = a.children
+      h = [h; getvalidchildren(ax)]
     case "Compound"
-      for k=1:1:size(a.children,'*')
-        h=[h;getvalidchildren(a.children(k))]
+      for k = size(a.children,'*'):-1:1
+        h = [getvalidchildren(a.children(k)); h]
       end
     end
   end
