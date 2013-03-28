@@ -156,7 +156,7 @@ int sci_Legend(char * fname, unsigned long fname_len)
     {
         char* subwinUID;
 
-        handlesvalue = (unsigned long) ((long long*)(l1))[n - 1 - i];
+        handlesvalue = (unsigned long) ((long long*)(l1))[i];
         pobjUID = (char*)getObjectFromHandle(handlesvalue);
 
         if (pobjUID == NULL)
