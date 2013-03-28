@@ -342,7 +342,7 @@ function [h,immediate_drawing] = load_graphichandle(fd)
 	y_ticks_labels=[];for ks=1:sz,y_ticks_labels(ks)=ascii(mget(lz(ks),characterFormat,fd));end
 	set(a,'y_ticks',tlist(ticks,y_ticks_locations,y_ticks_labels))
       end
-    
+
       sz=mget(1,'sl',fd) // z_ticks.locations
       if sz>0 then
 	z_ticks_locations=mget(sz,'dl',fd)'
@@ -489,27 +489,28 @@ function [h,immediate_drawing] = load_graphichandle(fd)
       //get handles from paths
       links=get_links_from_path(a,%LEG.paths)
       if links<>[] then
-	L=captions(links,%LEG.text)
-	L.visible         = %LEG.visible
-	L.font_style      = %LEG.font_style
-	L.font_size       = %LEG.font_size
-	L.font_color      = %LEG.font_color
-	L.fractional_font = %LEG.fractional_font
-	L.mark_mode       = 'off';
-	L.legend_location = %LEG.legend_location
-	L.position        = %LEG.position
-	L.line_mode       = %LEG.line_mode
-	L.thickness       = %LEG.thickness
-	L.foreground      = %LEG.foreground
-	L.fill_mode       = %LEG.fill_mode
-	L.background      = %LEG.background
-	L.clip_state      = %LEG.clip_state
-	if %LEG.clip_state=='on' then
-	  L.clip_box      = %LEG.clip_box
-	end
-	L.user_data       = %LEG.user_data
+        links = links($:-1:1);
+          L = captions(links,%LEG.text)
+          L.visible         = %LEG.visible
+          L.font_style      = %LEG.font_style
+          L.font_size       = %LEG.font_size
+          L.font_color      = %LEG.font_color
+          L.fractional_font = %LEG.fractional_font
+          L.mark_mode       = 'off';
+          L.legend_location = %LEG.legend_location
+          L.position        = %LEG.position
+          L.line_mode       = %LEG.line_mode
+          L.thickness       = %LEG.thickness
+          L.foreground      = %LEG.foreground
+          L.fill_mode       = %LEG.fill_mode
+          L.background      = %LEG.background
+          L.clip_state      = %LEG.clip_state
+          if %LEG.clip_state=='on' then
+          L.clip_box      = %LEG.clip_box
+	      end
+	      L.user_data = %LEG.user_data
       else
-	 warning(msprintf(_("%s: Legend does not fit with the current context. Skipped\n"),"load"));
+	      warning(msprintf(_("%s: Legend does not fit with the current context. Skipped\n"),"load"));
       end
     end
     clearglobal %LEG
@@ -1530,14 +1531,15 @@ function links=get_links_from_path(ax,paths)
     p(1)=p(1)-1// the caption does not exists yet
     for kp=1:size(p,'*'),
       if or(e.type==['Axes','Compound'])&p(kp)<=size(e.children,'*') then
-	e=e.children(p(kp)),
+        e = e.children(p(kp)),
+        e = e($:-1:1)
       else
-	ok=%f
-	break
+        ok=%f
+        break
       end
     end
     if ~ok then break,end
-    links=[links,e]
+    links = [links, e]
   end
   if ~ok then links=[],end
 endfunction
