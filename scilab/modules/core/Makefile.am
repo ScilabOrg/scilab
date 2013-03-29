@@ -29,7 +29,6 @@ src/c/csignal.c \
 src/c/callinterf.c \
 src/c/scimem.c \
 src/c/isanan.c \
-src/c/timer.c \
 src/c/stack2.c \
 src/c/xscion.c \
 src/c/returnanan.c \
