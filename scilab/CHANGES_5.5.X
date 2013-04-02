@@ -48,3 +48,6 @@ Bug fixes
 * Bug #10862 fixed - Add a without internet connection installation
                      global configuration on the installer
 
+* Bug #12443 fixed - Document behavior of mopen() in text file mode
+                     on Windows.
+
