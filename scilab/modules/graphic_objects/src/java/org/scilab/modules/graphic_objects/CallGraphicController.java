@@ -25,6 +25,10 @@ import org.scilab.modules.graphic_objects.utils.MenuBarBuilder;
  **/
 public final class CallGraphicController {
 
+    public static Object getObjectFromId(final String id) {
+        return GraphicController.getController().getObjectFromId(id);
+    }
+
     public static void setGraphicObjectRelationship(String parentId, String childId) {
         GraphicController.getController().setGraphicObjectRelationship(parentId, childId);
     }

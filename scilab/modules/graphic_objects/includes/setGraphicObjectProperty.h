@@ -22,5 +22,7 @@
 
 GRAPHIC_OBJECTS_IMPEXP void setGraphicObjectRelationship(char const* _parentId, char const* _childId);
 GRAPHIC_OBJECTS_IMPEXP BOOL setGraphicObjectProperty(char const* _psUID, const int _iPropertyName, void const* _pvValue, enum _ReturnType_ _valueTtype, int numElements);
+GRAPHIC_OBJECTS_IMPEXP void * synchronizedObject(char const* _pstID);
+GRAPHIC_OBJECTS_IMPEXP void endSynchronizedObject(void * lock);
 
 #endif /* !__SETGRAPHICOBJECTPROPERTY_H__ */

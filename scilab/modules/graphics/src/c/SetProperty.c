@@ -229,6 +229,7 @@ sciSetPoint(char * pthis, double *tab, int *numrow, int *numcol)
     int iType = -1;
     int *piType = &iType;
     int i = 0, n1 = 0;
+    void * lock = NULL;
 
     getGraphicObjectProperty(pthis, __GO_TYPE__, jni_int, (void **)&piType);
 
@@ -269,6 +270,9 @@ sciSetPoint(char * pthis, double *tab, int *numrow, int *numcol)
             numElementsArray[0] = 1;
             numElementsArray[1] = n1;
 
+            /* Synchronized */
+            lock = synchronizedObject(pthis);
+
             /* Resizes the data coordinates array if required */
             result = setGraphicObjectProperty(pthis, __GO_DATA_MODEL_NUM_ELEMENTS_ARRAY__, numElementsArray, jni_int_vector, 2);
 
@@ -279,6 +283,7 @@ sciSetPoint(char * pthis, double *tab, int *numrow, int *numcol)
              */
             if (result == FALSE)
             {
+                endSynchronizedObject(lock);
                 Scierror(999, _("%s: No more memory.\n"), "sciSetPoint");
                 return -1;
             }
@@ -301,6 +306,8 @@ sciSetPoint(char * pthis, double *tab, int *numrow, int *numcol)
                 /* Required for now to indicate that the z coordinates have been set or not */
                 setGraphicObjectProperty(pthis, __GO_DATA_MODEL_Z_COORDINATES_SET__, &zCoordinatesSet, jni_int, 1);
             }
+
+            endSynchronizedObject(lock);
 
             return 0;
         }
