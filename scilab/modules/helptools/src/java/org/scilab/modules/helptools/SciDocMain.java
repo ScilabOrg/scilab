@@ -124,6 +124,7 @@ public final class SciDocMain {
                     converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, isToolbox, urlBase, language, HTMLDocbookTagConverter.GenerationType.HTML);
                 } else if (format.equalsIgnoreCase("web")) {
                     converter = new HTMLDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, isToolbox, urlBase, language, HTMLDocbookTagConverter.GenerationType.WEB);
+                    ImageConverter.loadMD5s(ScilabConstants.SCI.getPath() + "/modules/helptools/etc");
                 } else if (format.equalsIgnoreCase("chm")) {
                     converter = new CHMDocbookTagConverter(sourceDoc, outputDirectory, sciprim, scimacro, template, version, imagedir, conf.getWebSiteURL(), isToolbox, urlBase, language);
                 }
