@@ -2,6 +2,7 @@
 # Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 # Copyright (C) DIGITEO - 2009-2010 - Allan CORNET <allan.cornet@scilab.org>
 # Copyright (C) DIGITEO - 2010-2010 - Clément DAVID <clement.david@scilab.org>
+# Copyright (C) Scilab Enterprises - 2013 - Clément DAVID
 #
 # This file must be used under the terms of the CeCILL.
 # This source file is licensed as described in the file COPYING, which
@@ -36,6 +37,8 @@ libscixcos_la_etc_DATA = \
 
 XCOS_CXX_SOURCES = 	src/jni/Xcos.cpp \
 			src/jni/Xcos.hxx \
+			src/jni/XcosInternals.cpp \
+			src/jni/XcosInternals.hxx \
 			src/jni/Palette.cpp \
 			src/jni/Palette.hxx \
 			src/jni/Modelica.cpp \
@@ -43,6 +46,7 @@ XCOS_CXX_SOURCES = 	src/jni/Xcos.cpp \
 			src/cpp/xcosUtilities.cpp
 
 GIWS_WRAPPERS = src/jni/Xcos.giws.xml \
+			src/jni/XcosInternals.giws.xml \
 			src/jni/Palette.giws.xml \
 			src/jni/Modelica.giws.xml
 
@@ -70,7 +74,8 @@ GATEWAY_CXX_SOURCES = \
 	sci_gateway/cpp/sci_xcosUpdateBlock.cpp \
 	sci_gateway/cpp/sci_loadXcos.cpp \
 	sci_gateway/cpp/sci_xcosSimulationStarted.cpp \
-	sci_gateway/cpp/sci_xcosPalGenerateAllIcons.cpp
+	sci_gateway/cpp/sci_xcosPalGenerateAllIcons.cpp \
+	sci_gateway/cpp/sci_xcosInternals_xcosToZcos.cpp
 
 libscixcos_la_CPPFLAGS = \
 			-I$(srcdir)/includes/ \

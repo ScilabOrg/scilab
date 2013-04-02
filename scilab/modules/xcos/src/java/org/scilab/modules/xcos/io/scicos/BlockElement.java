@@ -314,7 +314,7 @@ public final class BlockElement extends AbstractElement<BasicBlock> {
             graph = from.getParentDiagram();
             Logger.getLogger(BlockElement.class.getName()).finest("Parent diagram was null");
         }
-        if (graph.getAsComponent() != null) {
+        if (graph != null && graph.getAsComponent() != null) {
             graph.getAsComponent().removeCellOverlays(from);
         }
         return super.beforeEncode(from, element);
