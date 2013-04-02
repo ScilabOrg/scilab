@@ -39,6 +39,8 @@ int sci_xcosUpdateBlock(char *fname, unsigned long l);
 int sci_loadXcos(char *fname, unsigned long l);
 int sci_xcosSimulationStarted(char *fname, unsigned long l);
 int sci_xcosPalGenerateAllIcons(char *fname, unsigned long l);
+int sci_xcosPalGenerateAllIcons(char *fname, unsigned long l);
+int sci_xcosInternals_xcosToZcos(char *fname, unsigned long fname_len);
 
 /*--------------------------------------------------------------------------*/
 /**

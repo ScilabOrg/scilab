@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<package name="org.scilab.modules.xcos">
+    <object name="XcosInternals">
+        <method name="xcosToZcos" returnType="void" modifier="static" />
+    </object>
+</package>

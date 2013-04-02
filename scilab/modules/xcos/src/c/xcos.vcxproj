@@ -211,7 +211,9 @@
     <ClCompile Include="..\..\sci_gateway\cpp\sci_loadXcos.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_xcosSimulationStarted.cpp" />
     <ClCompile Include="..\..\sci_gateway\cpp\sci_xcosPalGenerateAllIcons.cpp" />
+    <ClCompile Include="..\..\sci_gateway\cpp\sci_xcosInternals_xcosToZcos.cpp" />
     <ClCompile Include="..\jni\Xcos.cpp" />
+    <ClCompile Include="..\jni\XcosInternals.cpp" />
     <ClCompile Include="..\cpp\xcosUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,7 @@
     <ClInclude Include="..\jni\Modelica.hxx" />
     <ClInclude Include="..\jni\Palette.hxx" />
     <ClInclude Include="..\jni\Xcos.hxx" />
+    <ClInclude Include="..\jni\XcosInternals.hxx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\locales\xcos.pot" />
