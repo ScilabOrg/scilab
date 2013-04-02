@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+ * Copyright (C) 2013 - Scilab Enterprises - Paul Bignier
+ *
+ * This file must be used under the terms of the CeCILL.
+ * This source file is licensed as described in the file COPYING, which
+ * you should have received as part of this distribution.  The terms
+ * are also available at
+ * http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+ *
+ -->
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:db="http://docbook.org/ns/docbook" xmlns:scilab="http://www.scilab.org" xml:lang="en" xml:id="examples">
+    <refnamediv>
+        <refname>examples</refname>
+        <refpurpose>Run a function's examples</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <title>Calling Sequence</title>
+        <synopsis>path = examples(function)</synopsis>
+        <synopsis>path = examples(function, exIndex)</synopsis>
+        <synopsis>path = examples(function, viewCode)</synopsis>
+        <synopsis>path = examples(function, exIndex, viewCode)</synopsis>
+        <synopsis>examples(function, exIndex, viewCode)</synopsis>
+    </refsynopsisdiv>
+    <refsection>
+        <title>Arguments</title>
+        <variablelist>
+            <varlistentry>
+                <term>function</term>
+                <listitem>
+                    <para>
+                        a character string, the function name
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>exIndex</term>
+                <listitem>
+                    <para>
+                        an integer, the index of the demo (optional)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>viewCode</term>
+                <listitem>
+                    <para>
+                        a boolean, allowing to view / edit the function's code (optional)
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>path</term>
+                <listitem>
+                    <para>
+                        a string, the path to the function.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </refsection>
+    <refsection>
+        <title>Description</title>
+        <para>
+            <literal>examples</literal> federates all the function examples (demos).
+            It launches the function's example number <literal>exIndex</literal> if it exists.
+        </para>
+    </refsection>
+    <refsection>
+        <title>Examples</title>
+        <programlisting role="example"><![CDATA[
+examples('xcos_simulate');
+examples('gsort', 2, %t);
+ ]]></programlisting>
+    </refsection>
+    <refsection>
+        <title>History</title>
+        <revhistory>
+            <revision>
+                <revnumber>5.5.0</revnumber>
+                <revdescription>examples() macro added</revdescription>
+            </revision>
+        </revhistory>
+    </refsection>
+</refentry>
