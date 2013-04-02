@@ -452,6 +452,13 @@ public final class Xcos {
     }
 
     /**
+     * Get the last logged error
+     */
+    public String getLastError() {
+        return lastError;
+    }
+
+    /**
      * Get an unmodifiable view of the diagrams for a specific file
      *
      * @param f
