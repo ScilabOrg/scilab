@@ -149,7 +149,7 @@ public class DrawerVisitor implements Visitor, Drawer, GraphicView {
     private final List<PostRendered> postRenderedList = new LinkedList<PostRendered>();
 
     public DrawerVisitor(Component component, Canvas canvas, Figure figure) {
-        GraphicController.getController().register(this);
+        //GraphicController.getController().register(this);
 
         this.component = component;
         this.canvas = canvas;

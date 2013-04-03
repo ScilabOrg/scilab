@@ -57,7 +57,7 @@ public class SwingScilabScrollPane extends JScrollPane implements ScilabScrollPa
         this.figure = figure;
         // use the axes background as default one
         setRealBackground(canvas.getBackground());
-        GraphicController.getController().register(this);
+        //GraphicController.getController().register(this);
 
         if (figure.getAutoResize()) {
             // hide scroll bars
