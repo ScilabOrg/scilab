@@ -89,7 +89,7 @@ public class ScilabTextureManager {
             if (isValid()) {
                 updateData();
             }
-            GraphicController.getController().register(this);
+            //GraphicController.getController().register(this);
         }
 
         private void updateData() {
