@@ -48,6 +48,8 @@ Xcos
 Bug fixes
 ==========
 
+* Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
+
 * Bug #10862 fixed - Add a without internet connection installation
                      global configuration on the installer
 
