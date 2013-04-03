@@ -9937,7 +9937,7 @@ save_LIBS="$LIBS"
 
 # --with-hdf5-library set then check in this dir
 if test "x$with_hdf5_library" != "xyes"; then
-    HDF5_LIBS="-L$with_hdf5_library -lhdf5"
+    HDF5_LIBS="-L$with_hdf5_library -lhdf5 -lhdf5_hl"
     LIBS="$LIBS $HDF5_LIBS"
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for H5Fopen in -lhdf5" >&5
 $as_echo_n "checking for H5Fopen in -lhdf5... " >&6; }
@@ -9989,7 +9989,7 @@ fi
 
 
 else
-    HDF5_LIBS="-lhdf5"
+    HDF5_LIBS="-lhdf5 -lhdf5_hl"
     LIBS="$LIBS $HDF5_LIBS"
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for H5Fopen in -lhdf5" >&5
 $as_echo_n "checking for H5Fopen in -lhdf5... " >&6; }
