@@ -48,6 +48,8 @@ Xcos
 Bug fixes
 ==========
 
+* Bug #5539  fixed - sylv() doc fix
+
 * Bug #10862 fixed - Add a without internet connection installation
                      global configuration on the installer
 
