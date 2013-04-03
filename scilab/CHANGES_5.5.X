@@ -47,6 +47,8 @@ Xcos
 Bug fixes
 ==========
 
+* Bug #7684 fixed - Introduction demo splitted in subsections.
+
 * Bug #10862 fixed - Add a without internet connection installation
                      global configuration on the installer
 
