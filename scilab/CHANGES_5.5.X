@@ -45,6 +45,10 @@ Xcos
 
 * Bug #12359 fixed - Xcos files has been converted to zcos to gain some space.
 
+Toolbox skeleton
+================
+
+* Add some Xcos specific content to xcos_toolbox_skeleton help pages.
 
 Bug fixes
 ==========
