@@ -63,6 +63,8 @@ Bug fixes
 
 * Bug #4731 fixed - lqr() failed when time domain of input was a number.
 
+* Bug #5073 fixed - New parameter added at strtod function (decimal separator).
+
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
