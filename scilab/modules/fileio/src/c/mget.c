@@ -32,25 +32,25 @@ int swap = 0;
 * reads data and store them without type conversion
 * =================================================*/
 /*--------------------------------------------------------------------------*/
-#define MGET_CHAR_NC(Type)				        \
-  {								\
+#define MGET_CHAR_NC(Type)				         \
+  {								                  \
     Type *val = (Type *) res ;					\
-    items=(int)fread(val,sizeof(Type),n,fa);			\
+    items=(int)fread(val,sizeof(Type),n,fa);	\
   }
 
 /*--------------------------------------------------------------------------*/
-#define MGET_NC(Type) {						\
-    Type *val = (Type *) res ;					\
-    if (swap) {							\
-      items=0;							\
-      for ( i=0; i< n; i++)  {					\
-	unsigned long long tmp;					\
-	items+=(int)fread(&tmp,sizeof(Type),1,fa);		\
-	swap_generic((char *)&tmp,(char *)val, sizeof(Type));	\
-	val++;							\
-      }								\
-    }								\
-    else items=(int)fread(val,sizeof(Type),n,fa);		\
+#define MGET_NC(Type) {					      	                  \
+    Type *val = (Type *) res ;					                  \
+    if (swap) {							                           \
+      items=0;							                              \
+      for ( i=0; i< n; i++)  {					                  \
+	      unsigned long long tmp;					                  \
+	      items+=(int)fread(&tmp,sizeof(Type),1,fa);		      \
+	      swap_generic((char *)&tmp,(char *)val, sizeof(Type));	\
+	      val++;							                           \
+      }								                                 \
+    }								                                    \
+    else items=(int)fread(val,sizeof(Type),n,fa);		         \
   }
 /*--------------------------------------------------------------------------*/
 #define MGET_GEN_NC(NumType,cf)			                \
@@ -90,49 +90,59 @@ void C2F(mgetnc) (int *fd, void *res, int *n1, char *type, int *ierr)
     {
         case 'i':
             MGET_GEN_NC(int, c1);
+            break;
 
+        case 'x':
+            MGET_GEN_NC(long, c1);
             break;
+        
         case 'l':
-            MGET_GEN_NC(int32_t, c1);
+            MGET_GEN_NC(long long, c1); 
             break;
+
         case 's':
             MGET_GEN_NC(short, c1);
-
             break;
+
         case 'c':
             MGET_CHAR_NC(char);
-
             break;
+
         case 'd':
             MGET_GEN_NC(double, c1);
-
             break;
+
         case 'f':
             MGET_GEN_NC(float, c1);
-
             break;
+
         case 'u':
             switch (c1)
             {
                 case 'i':
                     MGET_GEN_NC(unsigned int, c2);
+                    break;
 
-                    break;
                 case 'l':
-                    MGET_GEN_NC(uint32_t, c2);
+                    MGET_GEN_NC(unsigned int, c2);
                     break;
+
+                case 'x':
+                    MGET_GEN_NC(long long, c2);
+                    break;
+
                 case 's':
                     MGET_GEN_NC(unsigned short, c2);
-
                     break;
+
                 case ' ':
                     MGET_GEN_NC(unsigned int, ' ');
-
                     break;
+
                 case 'c':
                     MGET_CHAR_NC(unsigned char);
-
                     break;
+
                 default:
                     *ierr = 1;
                     return;
@@ -182,7 +192,10 @@ void mget2(FILE * fa, int swap2, double *res, int n, char *type, int *ierr)
 
             break;
         case 'l':
-            MGET_GEN(int32_t, c1);
+            MGET_GEN(long, c1);
+            break;
+        case 'x':
+            MGET_GEN(long long, c1);
             break;
         case 's':
             MGET_GEN(short, c1);
@@ -205,10 +218,12 @@ void mget2(FILE * fa, int swap2, double *res, int n, char *type, int *ierr)
             {
                 case 'i':
                     MGET_GEN(unsigned int, c2);
-
                     break;
                 case 'l':
-                    MGET_GEN(uint32_t, c2);
+                    MGET_GEN(unsigned long, c2);
+                    break;
+                case 'x':
+                    MGET_GEN(unsigned long long, c2);
                     break;
                 case 's':
                     MGET_GEN(unsigned short, c2);

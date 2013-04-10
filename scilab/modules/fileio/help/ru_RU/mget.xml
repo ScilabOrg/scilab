@@ -112,6 +112,12 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
+                <term>x</term>
+                <listitem>
+                    <para>long long</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
                 <term>i</term>
                 <listitem>
                     <para>целочисленное, int</para>

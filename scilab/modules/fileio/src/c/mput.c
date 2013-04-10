@@ -93,7 +93,10 @@ void C2F(mputnc) (int *fd, void * res, int *n1, char *type, int *ierr)
             MPUT_GEN_NC(int, c1);
             break;
         case 'l' :
-            MPUT_GEN_NC(int32_t, c1);
+            MPUT_GEN_NC(long, c1);
+            break;
+        case 'x' :
+            MPUT_GEN_NC(long long, c1);
             break;
         case 's' :
             MPUT_GEN_NC(short, c1);
@@ -114,7 +117,10 @@ void C2F(mputnc) (int *fd, void * res, int *n1, char *type, int *ierr)
                     MPUT_GEN_NC(unsigned int, c2);
                     break;
                 case 'l' :
-                    MPUT_GEN_NC(uint32_t, c2);
+                    MPUT_GEN_NC(unsigned long, c2);
+                    break;
+                case 'x' :
+                    MPUT_GEN_NC(unsigned long long, c2);
                     break;
                 case 's' :
                     MPUT_GEN_NC(unsigned short, c2);
@@ -197,6 +203,9 @@ void mput2 (FILE *fa, int swap2, double *res, int n, char *type, int *ierr)
         case 'l' :
             MPUT_GEN(int32_t, c1);
             break;
+        case 'x' :
+            MPUT_GEN(long long, c1);
+            break;
         case 's' :
             MPUT_GEN(short, c1);
             break;
@@ -217,6 +226,9 @@ void mput2 (FILE *fa, int swap2, double *res, int n, char *type, int *ierr)
                     break;
                 case 'l' :
                     MPUT_GEN(uint32_t, c2);
+                    break;
+                case 'x' :
+                    MPUT_GEN(unsigned long long, c2);
                     break;
                 case 's' :
                     MPUT_GEN(unsigned short, c2);
