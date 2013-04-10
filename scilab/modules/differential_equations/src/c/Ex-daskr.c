@@ -2,14 +2,11 @@
 #include <stdlib.h>
 #include "machine.h"
 #include "core_math.h"
+#include "Ex-daskr.h"
 
-extern int C2F(dgesv)(int*, int*, double*, int*, int*, double*, int*, int*);
-extern double C2F(dlamch)(char*);
-typedef void (*resfunc)(double*, double*, double*, double*, int*, double*, int*);
-
-int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *actual, double *actualP,
-               double *rewt, double *savr, double *wk, double *h, double *cj, double *wp, int *iwp,
-               int *ier, double *rpar, int *ipar)
+void pjac1( resfunc res, int *ires, int *nequations, double *tOld, double *actual, double *actualP,
+            double *rewt, double *savr, double *wk, double *h, double *cj, double *wp, int *iwp,
+            int *ier, double *rpar, int *ipar)
 {
     int i = 0;
     int j = 0;
@@ -21,7 +18,8 @@ int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *ac
     double ypsave = 0;
     double* e = NULL;
     int neq = *nequations;
-    double SQuround = sqrt(C2F(dlamch)("P"));
+    char cP[1] = "P";
+    double SQuround = sqrt(C2F(dlamch)(cP, 1L));
 
     tx = *tOld;
 
@@ -37,15 +35,25 @@ int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *ac
         actualP[i] += *cj * del;
         res(&tx, actual, actualP, e, ires, rpar, ipar);
 
-        if (ires < 0)
+        if (*ires < 0)
         {
-            return 0;
+            *ier = -1;
+            free(e);
+            return;
         }
 
         delinv = 1. / del;
         for (j = 0 ; j < neq ; j++)
         {
             wp[nrow + j] = (e[j] - savr[j]) * delinv;
+            // nan test
+            if (ISNAN(wp[nrow + j]))
+            {
+                *ier = -1;
+                free(e);
+                return;
+            }
+
             iwp[nrow + j] = i + 1;
             iwp[nrow + j + neq * neq] = j + 1;
         }
@@ -59,10 +67,11 @@ int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *ac
     return (*ier);
 }
 
-int C2F(psol1)(int *nequations, double *tOld, double *actual, double *actualP,
-               double *savr, double *wk, double *cj, double *wght, double *wp,
-               int *iwp, double *b, double *eplin, int *ier, double *dummy1, int *dummy2)
+void psol1( int *nequations, double *tOld, double *actual, double *actualP,
+            double *savr, double *wk, double *cj, double *wght, double *wp,
+            int *iwp, double *b, double *eplin, int *ier, double *dummy1, int *dummy2)
 {
+    int i = 0;
     int nColB = 1;
     int info = 0;
     int *ipiv = NULL;
@@ -71,7 +80,24 @@ int C2F(psol1)(int *nequations, double *tOld, double *actual, double *actualP,
 
     C2F(dgesv) (nequations, &nColB, wp, nequations, ipiv, b, nequations, &info);
 
+    if (info == 0)
+    {
+        for (i = 0; i < *nequations; i++)
+        {
+            // nan test
+            if (ISNAN(b[i]))
+            {
+                *ier = -1;
+                free(ipiv);
+                return;
+            }
+        }
+    }
+    else
+    {
+        *ier = -1;
+    }
+
     free(ipiv);
-    return 0;
 }
 
