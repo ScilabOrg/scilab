@@ -14,7 +14,7 @@
 
 extern "C"
 {
-    #include "scifunctions.h"
+#include "scifunctions.h"
 }
 
 // ode / odedc
@@ -23,7 +23,7 @@ int ode_f(int* n, double* t, double* y, double* ydot)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -31,12 +31,12 @@ int ode_f(int* n, double* t, double* y, double* ydot)
     return deFunction->execOdeF(n, t, y, ydot);
 }
 
-int ode_jac(int *n,double *t,double *y,int *ml,int *mu,double *J,int *nrpd)
+int ode_jac(int *n, double *t, double *y, int *ml, int *mu, double *J, int *nrpd)
 {
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -49,7 +49,7 @@ int ode_g(int* n, double* t, double* y, int* ng, double* gout)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -63,7 +63,7 @@ double intg_f(double* x)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -77,7 +77,7 @@ double int2d_f(double* x, double* y)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -91,7 +91,7 @@ double int3d_f(double* x, int* numfun, double* funvls)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -105,7 +105,7 @@ int bvode_gsub(int* i, double* z, double* g)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -116,7 +116,7 @@ int bvode_dgsub(int* i, double* z, double* g)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -127,7 +127,7 @@ int bvode_fsub(double* x, double* z, double* d)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -138,7 +138,7 @@ int bvode_dfsub(double* x, double* z, double* d)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -149,7 +149,7 @@ int bvode_guess(double* x, double* z, double* d)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -162,7 +162,7 @@ int impl_f(int* neq, double* t, double* y, double* s, double* r, int* ires)
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -173,7 +173,7 @@ int impl_g(int* neq, double* t, double* y, double* ml, double* mu, double* p, in
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -184,20 +184,20 @@ int impl_jac(int* neq, double* t, double* y, double* s, double* ml, double* mu, 
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
     return deFunction->execImplJac(neq, t, y, s, ml, mu, p, nrowp);
 }
 
-// dassl dasrt
+// dassl, dasrt, daskr
 int dassl_f(double* t, double* y, double* ydot, double* delta, int* ires, double* rpar, int* ipar)
 {
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -208,7 +208,7 @@ int dassl_jac(double* t, double* y, double* ydot, double* pd, double* cj, double
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
@@ -221,9 +221,39 @@ int dasrt_g(int* ny, double* t, double* y, int* ng, double* gout, double* rpar, 
     DifferentialEquationFunctions* deFunction = NULL;
     deFunction = DifferentialEquation::getDifferentialEquationFunctions();
 
-    if(deFunction == NULL)
+    if (deFunction == NULL)
     {
         return 0;
     }
     return deFunction->execDasrtG(ny, t, y, ng, gout, rpar, ipar);
+}
+
+//daskr
+int daskr_psol(int* neq, double* t, double* y, double* ydot, double* savr, double* wk,
+               double* cj, double* wght, double* wp, int* iwp, double* b, double* eplin,
+               int* ier, double* rpar, int* ipar)
+{
+    DifferentialEquationFunctions* deFunction = NULL;
+    deFunction = DifferentialEquation::getDifferentialEquationFunctions();
+
+    if (deFunction == NULL)
+    {
+        return 0;
+    }
+    return deFunction->execDaskrPsol(neq, t, y, ydot, savr, wk, cj, wght, wp, iwp,
+                                     b, eplin, ier, rpar, ipar);
+}
+int daskr_pjac(double* res, int* ires, int* neq, double* t, double* y, double* ydot,
+               double* rewt, double* savr, double* wk, double* h, double* cj,
+               double* wp, int* iwp, int* ier, double* rpar, int* ipar)
+{
+    DifferentialEquationFunctions* deFunction = NULL;
+    deFunction = DifferentialEquation::getDifferentialEquationFunctions();
+
+    if (deFunction == NULL)
+    {
+        return 0;
+    }
+    return deFunction->execDaskrPjac(res, ires, neq, t, y, ydot, rewt, savr, wk, h, cj,
+                                     wp, iwp, ier, rpar, ipar);
 }
