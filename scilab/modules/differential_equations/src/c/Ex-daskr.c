@@ -2,14 +2,11 @@
 #include <stdlib.h>
 #include "machine.h"
 #include "core_math.h"
+#include "Ex-daskr.h"
 
-extern int C2F(dgesv)(int*, int*, double*, int*, int*, double*, int*, int*);
-extern double C2F(dlamch)(char*);
-typedef void (*resfunc)(double*, double*, double*, double*, int*, double*, int*);
-
-int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *actual, double *actualP,
-               double *rewt, double *savr, double *wk, double *h, double *cj, double *wp, int *iwp,
-               int *ier, double *rpar, int *ipar)
+int pjac1( resfunc res, int *ires, int *nequations, double *tOld, double *actual, double *actualP,
+           double *rewt, double *savr, double *wk, double *h, double *cj, double *wp, int *iwp,
+           int *ier, double *rpar, int *ipar)
 {
     int i = 0;
     int j = 0;
@@ -21,7 +18,7 @@ int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *ac
     double ypsave = 0;
     double* e = NULL;
     int neq = *nequations;
-    double SQuround = sqrt(C2F(dlamch)("P"));
+    double SQuround = sqrt(C2F(dlamch)("P", 1L));
 
     tx = *tOld;
 
@@ -59,9 +56,9 @@ int C2F(pjac1)(resfunc res, int *ires, int *nequations, double *tOld, double *ac
     return (*ier);
 }
 
-int C2F(psol1)(int *nequations, double *tOld, double *actual, double *actualP,
-               double *savr, double *wk, double *cj, double *wght, double *wp,
-               int *iwp, double *b, double *eplin, int *ier, double *dummy1, int *dummy2)
+int psol1( int *nequations, double *tOld, double *actual, double *actualP,
+           double *savr, double *wk, double *cj, double *wght, double *wp,
+           int *iwp, double *b, double *eplin, int *ier, double *dummy1, int *dummy2)
 {
     int nColB = 1;
     int info = 0;
