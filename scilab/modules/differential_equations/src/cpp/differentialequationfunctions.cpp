@@ -20,6 +20,7 @@ extern "C"
 #include "elem_common.h"
 #include "scifunctions.h"
 #include "Ex-odedc.h"
+#include "Ex-daskr.h"
 }
 
 /*
@@ -75,16 +76,22 @@ DifferentialEquationFunctions::DifferentialEquationFunctions(std::wstring caller
     m_pCallFFunction      = NULL;
     m_pCallJacFunction    = NULL;
     m_pCallGFunction      = NULL;
+    m_pCallPjacFunction   = NULL;
+    m_pCallPsolFunction   = NULL;
 
     // function extern
-    m_pStringFFunctionDyn   = NULL;
-    m_pStringJacFunctionDyn = NULL;
-    m_pStringGFunctionDyn   = NULL;
+    m_pStringFFunctionDyn       = NULL;
+    m_pStringJacFunctionDyn     = NULL;
+    m_pStringGFunctionDyn       = NULL;
+    m_pStringPjacFunctionDyn    = NULL;
+    m_pStringPsolFunctionDyn    = NULL;
 
     // function static
-    m_pStringFFunctionStatic   = NULL;
-    m_pStringJacFunctionStatic = NULL;
-    m_pStringGFunctionStatic   = NULL;
+    m_pStringFFunctionStatic    = NULL;
+    m_pStringJacFunctionStatic  = NULL;
+    m_pStringGFunctionStatic    = NULL;
+    m_pStringPjacFunctionStatic = NULL;
+    m_pStringPsolFunctionStatic = NULL;
 
     // bvode
     m_pCallFsubFunction     = NULL;
@@ -160,7 +167,9 @@ DifferentialEquationFunctions::DifferentialEquationFunctions(std::wstring caller
         m_staticFunctionMap[L"aplusp"]  = (void*) C2F(aplusp); // adda
         m_staticFunctionMap[L"dgbydy"]  = (void*) C2F(dgbydy); // jac
     }
-    else if (callerName == L"dassl" || callerName == L"dasrt")
+    else if (callerName == L"dassl" ||
+             callerName == L"dasrt" ||
+             callerName == L"daskr")
     {
         //res
         m_staticFunctionMap[L"res1"]    = (void*) C2F(res1);
@@ -174,10 +183,17 @@ DifferentialEquationFunctions::DifferentialEquationFunctions(std::wstring caller
         m_staticFunctionMap[L"djac1"]  = (void*) C2F(djac1);
 
         //g
-        if (callerName == L"dasrt")
+        if (callerName == L"dasrt" || callerName == L"daskr")
         {
             m_staticFunctionMap[L"gr1"]  = (void*) C2F(gr1);
             m_staticFunctionMap[L"gr2"]  = (void*) C2F(gr2);
+        }
+
+        // pjac, psol
+        if (callerName == L"daskr")
+        {
+            m_staticFunctionMap[L"pjac1"]  = (void*) pjac1;
+            m_staticFunctionMap[L"psol1"]  = (void*) psol1;
         }
     }
 }
@@ -255,6 +271,64 @@ int DifferentialEquationFunctions::execDasslJac(double* t, double* y, double* yd
     else if (m_pStringJacFunctionStatic)
     {
         ((dassl_jac_t)m_staticFunctionMap[m_pStringJacFunctionStatic->get(0)])(t, y, ydot, pd, cj, rpar, ipar);
+        return 1;
+    }
+    return 1;
+}
+
+int DifferentialEquationFunctions::execDaskrPjac(double* res, int* ires, int* neq, double* t, double* y, double* ydot,
+        double* rewt, double* savr, double* wk, double* h, double* cj,
+        double* wp, int* iwp, int* ier, double* rpar, int* ipar)
+{
+    if (m_pCallPjacFunction)
+    {
+        return callDaskrMacroPjac(res, ires, neq, t, y, ydot, rewt, savr,
+                                  wk, h, cj, wp, iwp, ier, rpar, ipar);
+    }
+    else if (m_pStringPjacFunctionDyn)
+    {
+        ConfigVariable::EntryPointStr* func = ConfigVariable::getEntryPoint(m_pStringPjacFunctionDyn->get(0));
+        if (func == NULL)
+        {
+            return 0;
+        }
+        ((daskr_pjac_t)(func->functionPtr))(res, ires, neq, t, y, ydot, rewt, savr,
+                                            wk, h, cj, wp, iwp, ier, rpar, ipar);
+        return 1;
+    }
+    else if (m_pStringPjacFunctionStatic)
+    {
+        ((daskr_pjac_t)m_staticFunctionMap[m_pStringPjacFunctionStatic->get(0)])(res, ires, neq, t, y, ydot, rewt, savr,
+                wk, h, cj, wp, iwp, ier, rpar, ipar);
+        return 1;
+    }
+    return 1;
+}
+
+int DifferentialEquationFunctions::execDaskrPsol(int* neq, double* t, double* y, double* ydot, double* savr, double* wk,
+        double* cj, double* wght, double* wp, int* iwp, double* b, double* eplin,
+        int* ier, double* rpar, int* ipar)
+{
+    if (m_pCallPsolFunction)
+    {
+        return callDaskrMacroPsol(neq, t, y, ydot, savr, wk, cj, wght,
+                                  wp, iwp, b, eplin, ier, rpar, ipar);
+    }
+    else if (m_pStringPsolFunctionDyn)
+    {
+        ConfigVariable::EntryPointStr* func = ConfigVariable::getEntryPoint(m_pStringPsolFunctionDyn->get(0));
+        if (func == NULL)
+        {
+            return 0;
+        }
+        ((daskr_psol_t)(func->functionPtr))(neq, t, y, ydot, savr, wk, cj, wght,
+                                            wp, iwp, b, eplin, ier, rpar, ipar);
+        return 1;
+    }
+    else if (m_pStringPsolFunctionStatic)
+    {
+        ((daskr_psol_t)m_staticFunctionMap[m_pStringPsolFunctionStatic->get(0)])(neq, t, y, ydot, savr, wk, cj, wght,
+                wp, iwp, b, eplin, ier, rpar, ipar);
         return 1;
     }
     return 1;
@@ -647,7 +721,7 @@ void DifferentialEquationFunctions::setBvodeN(int _n)
     m_bvodeN = _n;
 }
 
-//set function f, jac, g as types::Callable
+//set function f, jac, g, psol, pjac as types::Callable
 void DifferentialEquationFunctions::setFFunction(types::Callable* _odeFFunc)
 {
     m_pCallFFunction = _odeFFunc;
@@ -663,7 +737,17 @@ void DifferentialEquationFunctions::setGFunction(types::Callable* _odeGFunc)
     m_pCallGFunction = _odeGFunc;
 }
 
-//set function f, jac, g as types::String
+void DifferentialEquationFunctions::setPsolFunction(types::Callable* _pSolFunc)
+{
+    m_pCallPsolFunction = _pSolFunc;
+}
+
+void DifferentialEquationFunctions::setPjacFunction(types::Callable* _pJacFunc)
+{
+    m_pCallPjacFunction = _pJacFunc;
+}
+
+//set function f, jac, g, psol, pjac as types::String
 bool DifferentialEquationFunctions::setFFunction(types::String* _odeFFunc)
 {
     if (ConfigVariable::getEntryPoint(_odeFFunc->get(0)))
@@ -718,7 +802,43 @@ bool DifferentialEquationFunctions::setGFunction(types::String* _odeGFunc)
     }
 }
 
-// set args for f, jac and g functions
+bool DifferentialEquationFunctions::setPsolFunction(types::String* _pSolFunc)
+{
+    if (ConfigVariable::getEntryPoint(_pSolFunc->get(0)))
+    {
+        m_pStringPsolFunctionDyn = _pSolFunc;
+        return true;
+    }
+    else
+    {
+        if (m_staticFunctionMap.find(_pSolFunc->get(0)) != m_staticFunctionMap.end())
+        {
+            m_pStringPsolFunctionStatic = _pSolFunc;
+            return true;
+        }
+        return false;
+    }
+}
+
+bool DifferentialEquationFunctions::setPjacFunction(types::String* _pJacFunc)
+{
+    if (ConfigVariable::getEntryPoint(_pJacFunc->get(0)))
+    {
+        m_pStringPjacFunctionDyn = _pJacFunc;
+        return true;
+    }
+    else
+    {
+        if (m_staticFunctionMap.find(_pJacFunc->get(0)) != m_staticFunctionMap.end())
+        {
+            m_pStringPjacFunctionStatic = _pJacFunc;
+            return true;
+        }
+        return false;
+    }
+}
+
+// set args for f, jac, g, pjac and psol functions
 void DifferentialEquationFunctions::setFArgs(types::InternalType* _odeFArg)
 {
     m_FArgs.push_back(_odeFArg);
@@ -732,6 +852,16 @@ void DifferentialEquationFunctions::setJacArgs(types::InternalType* _odeJacArg)
 void DifferentialEquationFunctions::setGArgs(types::InternalType* _odeGArg)
 {
     m_odeGArgs.push_back(_odeGArg);
+}
+
+void DifferentialEquationFunctions::setPsolArgs(types::InternalType* _pSolArg)
+{
+    m_pSolArgs.push_back(_pSolArg);
+}
+
+void DifferentialEquationFunctions::setPjacArgs(types::InternalType* _pJacArg)
+{
+    m_pJacArgs.push_back(_pJacArg);
 }
 
 // bvode set function as types::Callable gsub, dgsub, fsub, dfsub, guess
@@ -1975,9 +2105,9 @@ int DifferentialEquationFunctions::callImplMacroG(int* neq, double* t, double* y
         pDblP->IncreaseRef();
         in.push_back(pDblP);
 
-        for (int i = 0; i < m_FArgs.size(); i++)
+        for (int i = 0; i < m_odeGArgs.size(); i++)
         {
-            in.push_back(m_FArgs[i]);
+            in.push_back(m_odeGArgs[i]);
         }
 
         bool bOk = m_pCallGFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
@@ -2055,9 +2185,9 @@ int DifferentialEquationFunctions::callImplMacroJac(int* neq, double* t, double*
         pDblS->IncreaseRef();
         in.push_back(pDblS);
 
-        for (int i = 0; i < m_FArgs.size(); i++)
+        for (int i = 0; i < m_JacArgs.size(); i++)
         {
-            in.push_back(m_FArgs[i]);
+            in.push_back(m_JacArgs[i]);
         }
 
         bool bOk = m_pCallJacFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
@@ -2244,9 +2374,9 @@ int DifferentialEquationFunctions::callDasslMacroJac(double* t, double* y, doubl
         pDblCj->IncreaseRef();
         in.push_back(pDblCj);
 
-        for (int i = 0; i < m_FArgs.size(); i++)
+        for (int i = 0; i < m_JacArgs.size(); i++)
         {
-            in.push_back(m_FArgs[i]);
+            in.push_back(m_JacArgs[i]);
         }
 
         bool bOk = m_pCallJacFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
@@ -2333,9 +2463,9 @@ int DifferentialEquationFunctions::callDasrtMacroG(int* ny, double* t, double* y
         pDblY->IncreaseRef();
         in.push_back(pDblY);
 
-        for (int i = 0; i < m_FArgs.size(); i++)
+        for (int i = 0; i < m_odeGArgs.size(); i++)
         {
-            in.push_back(m_FArgs[i]);
+            in.push_back(m_odeGArgs[i]);
         }
 
         bool bOk = m_pCallGFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
@@ -2381,6 +2511,285 @@ int DifferentialEquationFunctions::callDasrtMacroG(int* ny, double* t, double* y
         {
             delete out[0];
         }
+        return 1;
+    }
+    return 0;
+}
+
+int DifferentialEquationFunctions::callDaskrMacroPjac(double* res, int* ires, int* neq, double* t, double* y, double* ydot,
+        double* rewt, double* savr, double* wk, double* h, double* cj,
+        double* wp, int* iwp, int* ier, double* rpar, int* ipar)
+{
+    if (m_pCallPjacFunction)
+    {
+        int one         = 1;
+        int iRetCount   = 1;
+
+        typed_list in;
+        typed_list out;
+        types::optional_list opt;
+        ast::ExecVisitor execFunc;
+
+        types::Double* pDblNeq = new types::Double((double)(*neq));
+        pDblNeq->IncreaseRef();
+        in.push_back(pDblNeq);
+
+        types::Double* pDblT = new types::Double(*t);
+        pDblT->IncreaseRef();
+        in.push_back(pDblT);
+
+        types::Double* pDblY = new types::Double(m_odeYRows, 1);
+        pDblY->set(y);
+        pDblY->IncreaseRef();
+        in.push_back(pDblY);
+
+        types::Double* pDblYdot = new types::Double(m_odeYRows, 1);
+        pDblYdot->set(ydot);
+        pDblYdot->IncreaseRef();
+        in.push_back(pDblYdot);
+
+        types::Double* pDblH = new types::Double(*h);
+        pDblH->IncreaseRef();
+        in.push_back(pDblH);
+
+        types::Double* pDblCj = new types::Double(*cj);
+        pDblCj->IncreaseRef();
+        in.push_back(pDblCj);
+
+        for (int i = 0; i < m_pJacArgs.size(); i++)
+        {
+            in.push_back(m_pJacArgs[i]);
+        }
+
+        bool bOk = m_pCallJacFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+
+        if (bOk == false)
+        {
+            return 0;
+        }
+
+        if (out.size() != 3)
+        {
+            return 0;
+        }
+
+        out[0]->IncreaseRef();
+
+        pDblNeq->DecreaseRef();
+        if (pDblNeq->isDeletable())
+        {
+            delete pDblNeq;
+        }
+
+        pDblT->DecreaseRef();
+        if (pDblT->isDeletable())
+        {
+            delete pDblT;
+        }
+
+        pDblY->DecreaseRef();
+        if (pDblY->isDeletable())
+        {
+            delete pDblY;
+        }
+
+        pDblYdot->DecreaseRef();
+        if (pDblYdot->isDeletable())
+        {
+            delete pDblYdot;
+        }
+
+        pDblH->DecreaseRef();
+        if (pDblH->isDeletable())
+        {
+            delete pDblH;
+        }
+
+        pDblCj->DecreaseRef();
+        if (pDblCj->isDeletable())
+        {
+            delete pDblCj;
+        }
+
+        // check type of output arguments
+        if (out[0]->isDouble() == false ||
+                out[1]->isDouble() == false ||
+                out[2]->isDouble() == false)
+        {
+            return 0;
+        }
+
+        //  return [R, iR, ier]
+        types::Double* pDblOutWp  = out[0]->getAs<types::Double>();
+        types::Double* pDblOutIwp = out[1]->getAs<types::Double>();
+        types::Double* pDblOutIer = out[2]->getAs<types::Double>();
+
+        // check size of output argument
+        if ((pDblOutWp->getRows() != 1)  || (pDblOutWp->getCols() != *neq * *neq) ||
+                (pDblOutIwp->getRows() != 1) || (pDblOutIwp->getCols() != *neq * *neq) ||
+                (pDblOutIer->isScalar() == false))
+        {
+            return 0;
+        }
+
+        // copy output macro results in output variables
+        int size = pDblOutWp->getSize();
+        C2F(dcopy)(&size, pDblOutWp->get(), &one, wp, &one);
+
+        double* pdblIwp = pDblOutIwp->get();
+        for (int i = 0; i < pDblOutIwp->getSize(); i++)
+        {
+            iwp[i] = (int)pdblIwp[i];
+        }
+
+        *ier = (int)(pDblOutIer->get(0));
+
+        // delete output macro result
+        out[0]->DecreaseRef();
+        if (out[0]->isDeletable())
+        {
+            delete out[0];
+        }
+
+        out[1]->DecreaseRef();
+        if (out[1]->isDeletable())
+        {
+            delete out[1];
+        }
+
+        out[2]->DecreaseRef();
+        if (out[2]->isDeletable())
+        {
+            delete out[2];
+        }
+
+        return 1;
+    }
+    return 0;
+}
+
+int DifferentialEquationFunctions::callDaskrMacroPsol(int* neq, double* t, double* y, double* ydot, double* savr, double* wk,
+        double* cj, double* wght, double* wp, int* iwp, double* b, double* eplin,
+        int* ier, double* rpar, int* ipar)
+{
+    // macro : [r, ier] = psol(neq, R, iR, b)
+    if (m_pCallPsolFunction)
+    {
+        int one         = 1;
+        int iRetCount   = 1;
+
+        typed_list in;
+        typed_list out;
+        types::optional_list opt;
+        ast::ExecVisitor execFunc;
+
+        // input arguments psol(neq, R, iR, b)
+        types::Double* pDblNeq = new types::Double((double)(*neq));
+        pDblNeq->IncreaseRef();
+        in.push_back(pDblNeq);
+
+        types::Double* pDblR = new types::Double(1, *neq * *neq);
+        pDblR->set(wp);
+        pDblR->IncreaseRef();
+        in.push_back(pDblR);
+
+        types::Double* pDblIR = new types::Double(1, *neq * *neq);
+        double* pdblIR = pDblIR->get();
+        for (int i = 0; i < pDblIR->getSize(); i++)
+        {
+            pdblIR[i] = (double)iwp[i];
+        }
+        pDblIR->IncreaseRef();
+        in.push_back(pDblIR);
+
+        types::Double* pDblB = new types::Double(1, *neq);
+        pDblIR->set(b);
+        pDblIR->IncreaseRef();
+        in.push_back(pDblIR);
+
+        // optional arguments
+        for (int i = 0; i < m_pSolArgs.size(); i++)
+        {
+            in.push_back(m_pSolArgs[i]);
+        }
+
+        // call macro
+        bool bOk = m_pCallJacFunction->call(in, opt, iRetCount, out, &execFunc) == types::Function::OK;
+        if (bOk == false)
+        {
+            return 0;
+        }
+
+        // get output
+        if (out.size() != 2)
+        {
+            return 0;
+        }
+
+        out[0]->IncreaseRef();
+
+        // free input arguments
+        pDblNeq->DecreaseRef();
+        if (pDblNeq->isDeletable())
+        {
+            delete pDblNeq;
+        }
+
+        pDblR->DecreaseRef();
+        if (pDblR->isDeletable())
+        {
+            delete pDblR;
+        }
+
+        pDblIR->DecreaseRef();
+        if (pDblIR->isDeletable())
+        {
+            delete pDblIR;
+        }
+
+        pDblB->DecreaseRef();
+        if (pDblB->isDeletable())
+        {
+            delete pDblB;
+        }
+
+        // check output result
+        if (out[0]->isDouble() == false || out[1]->isDouble() == false)
+        {
+            return 0;
+        }
+
+        // return arguments [r, ier] = psol()
+        types::Double* pDblOutR  = out[0]->getAs<types::Double>();
+        if (pDblR->getSize() != *neq) // size of r is neq
+        {
+            return 0;
+        }
+
+        // get scalar ier
+        types::Double* pDblOutIer = out[1]->getAs<types::Double>();
+        if (pDblOutIer->isScalar() == false)
+        {
+            return 0;
+        }
+
+        // copy output macro results in output variables
+        C2F(dcopy)(neq, pDblOutR->get(), &one, b, &one);
+        *ier = (int)(pDblOutIer->get(0));
+
+        // free output arguments
+        out[0]->DecreaseRef();
+        if (out[0]->isDeletable())
+        {
+            delete out[0];
+        }
+
+        out[1]->DecreaseRef();
+        if (out[1]->isDeletable())
+        {
+            delete out[1];
+        }
+
         return 1;
     }
     return 0;
