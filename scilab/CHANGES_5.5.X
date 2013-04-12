@@ -137,6 +137,8 @@ Bug fixes
 
 * Bug #7655 fixed - An example added in help page of type, for type(X)=11 and type(X)=13.
 
+* Bug #7080 fixed - Some graphics macros did not use standard error messages.
+
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #7828 fixed - Slight improvements in nicholschart.
