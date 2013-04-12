@@ -36,18 +36,30 @@ function  bar(varargin)
             sca(ListArg(1));
             ListArg(1) = null(); // remove this parameter from the list
         else
-            warning("Handle should be an Axes handle")
+            warning(msprintf(gettext("%s: Wrong type for input argument #%d: Axes handle expected.\n"),"bar",1));
             return;
         end
     end
 
+    if size(ListArg) == 4 then
+        COLOR=ListArg(4);
+        if type(COLOR) <> 10 then
+            error(msprintf(gettext("%s: Wrong type for input arguments #%d: A string expected.\n"),"bar",4));
+        end
+    end
+    if size(ListArg) == 5 then
+        STYLE=ListArg(5);
+        if type(STYLE) <> 10 then
+            error(msprintf(gettext("%s: Wrong type for input arguments #%d: A string expected.\n"),"bar",5));
+        end
+    end
     nv = size(ListArg)
 
     T=[];
 
     // Number of inputs arguments < 6
     if  size(ListArg)>5 then 
-        error("wrong number of arguments RHS")
+        error(msprintf(gettext("%s: Wrong number of input arguments: must be between %d and %d.\n"),"bar",1,5));
     end
 
     for k=1:nv
@@ -58,11 +70,11 @@ function  bar(varargin)
     argstr=find(T==10)
 
     if size(argdb,"*")<> argdb($) then
-        error("wrong argument type")
+        error(msprintf(gettext("%s: Wrong type for input arguments: x,y and width must be a constant.\n"),"bar"));
     end
 
     if size(argstr,"*") <> nv-argdb($) then
-        error("wrong argument type")
+        error(msprintf(gettext("%s: Wrong type for input arguments: color and style must be a string.\n"),"bar"));
     end
 
     //set the double argument : x,y,width
@@ -102,13 +114,13 @@ function  bar(varargin)
                         Y=Y(:)
                     end  
                     if size(X,"*")<>size(Y,1)
-                        error("x and y dims : no match")    
+                        error(msprintf(gettext("%s: Wrong size for input arguments #%d and #%d.\n"),"bar",1,2));
                     end
                 elseif size(Y,1)>1 then
-                    error("x and y dims : no match") 
+                    error(msprintf(gettext("%s: Wrong size for input arguments #%d and #%d.\n"),"bar",1,2));
                 end 
             else 
-                error("x must be a scalar or a vector")
+                error(msprintf(gettext("%s: Wrong type for input argument #%d: A scalar or a vector expected.\n"),"bar",1));
             end 
             WIDTH=0.8
         end    
@@ -120,20 +132,20 @@ function  bar(varargin)
         Y=ListArg(2)
         WIDTH=ListArg(3)
         if size(WIDTH,"*")<>1 then
-            error("width must be a scalar")
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A scalar expected.\n"),"bar",3));
         elseif or(size(X)==1) then  
             if size(X,"*")<>1 then // X is a vector  
                 if or(size(Y)==1) then // Y is a vector
                     Y=Y(:)
                 end  
                 if size(X,"*")<>size(Y,1)
-                    error("x and y dims : no match")    
+                    error(msprintf(gettext("%s: Wrong size for input arguments #%d and #%d.\n"),"bar",1,2));
                 end
             elseif size(Y,1)>1 then
-                error("x and y dims : no match") 
+                error(msprintf(gettext("%s: Wrong size for input arguments #%d and #%d.\n"),"bar",1,2));
             end 
         else 
-            error("x must be a scalar or a vector")
+            error(msprintf(gettext("%s: Wrong type for input argument #%d: A scalar or A vector expected.\n"),"bar",1));
         end 
     end
     X=X(:)
