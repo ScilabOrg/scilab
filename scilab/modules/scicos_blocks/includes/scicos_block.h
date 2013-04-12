@@ -70,6 +70,7 @@ typedef struct
     void **work;
     int nmode;
     int *mode;
+    char *uid;
 } scicos_block;
 
 
@@ -88,11 +89,10 @@ void Set_Jacobian_flag(int flag);
 int Convert_number (char *, double *);
 void homotopy(double *);
 int hfjac_(double *, double *, int *);
-int rhojac_(double *, double *, double *, double *, int *, double *, int *);
-int rho_( double *, double *, double *, double *, double *, int *);
+int rhojac_(double *, double *,double *,double *, int *, double *,int *);
+int rho_( double *, double *,double *,double *,double *, int *);
 int fx_( double *, double *);
-int read_xml_initial_states(int nvar, const char * xmlfile, char **ids, double *svars);
-int write_xml_states(int, const char *, char **, double *);
+int read_xml_initial_states(int nvar,const char * xmlfile, char **ids, double *svars);
+int write_xml_states(int,const char *, char **, double *);
 
 #endif /* __SCICOS_BLOCK_H__ */
-
