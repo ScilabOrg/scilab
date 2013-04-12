@@ -31,7 +31,7 @@ case 'colordata'
   /////////////////////////
   
   if (type(PropertyValue)<>1 | or(size(PropertyValue)==1))
-    warning("Color data  must be a matrix.");
+    warning(msprintf(gettext("%s: Wrong size or type for input argument #%d: real matrix expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -51,7 +51,7 @@ case 'colordatamapping'
   /////////////////////////
 
   if (type(PropertyValue)<>10)
-    warning("Color data mapping must be a string with value ''scaled'' or ''direct''.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -61,7 +61,7 @@ case 'colordatamapping'
   elseif (PropertyValue=='direct')
     Surface.cdata_mapping = 'direct';
   else
-    warning("Error : the cdatamapping property should be set exactly to ''scaled'' or ''direct''.")
+    warning(msprintf(gettext("%s: Wrong value for input argument #%d: ''scaled'' or ''direct'' expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -100,7 +100,7 @@ case 'foreground'         // <=> EdgeColor
       Surface.color_mode = 0; // <=> - colormap(1) and not black at all!!
       Surface.mark_foreground = -1; // <=> black
     else
-      warning("Color value must be a 3 element vector or an index in the colormap.");
+      warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
@@ -111,13 +111,13 @@ case 'foreground'         // <=> EdgeColor
       Surface.foreground = addcolor(PropertyValue);
       Surface.mark_foreground = addcolor(PropertyValue);
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
 
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -150,7 +150,7 @@ case 'facecolor'          // FaceColor
       Surface.surface_mode='on';
       Surface.color_flag = 3;
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
@@ -161,13 +161,13 @@ case 'facecolor'          // FaceColor
       Surface.foreground = addcolor(PropertyValue);
       Surface.mark_foreground = addcolor(PropertyValue);
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
 
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -193,7 +193,7 @@ case 'linestyle'          // LineStyle
       Surface.surface_mode = 'off';
     end
   else
-    warning("Bad value for property : LineStyle");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -225,12 +225,12 @@ case 'markstyle'        // <=> Marker
     k=find(part(Table,1:length(str))==str);
     
     if (k == [])
-      warning("Error in MarkStyle specification : bad argument specified");
+      warning(msprintf(gettext("%s: Error in MarkStyle specification: bad argument specified.\n"),"setSurfProperty"));
       PName=[];
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     elseif ( size(k,'*') > 1)
-      warning("Ambiguous MarkStyle value"); //unreachable case normally
+      warning(msprintf(gettext("%s: Ambiguous MarkStyle value.\n"),"setSurfProperty")); //unreachable case normally
       PName=[];
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
@@ -248,7 +248,7 @@ case 'markstyle'        // <=> Marker
     str = part(str,i:length(str));
     
     if (size(opt1,'*') > 1)
-      warning("Error in MarkStyle specification : too much MarkStyle properties specified");
+      warning(msprintf(gettext("%s: Error in MarkStyle specification : too much MarkStyle properties specified.\n"),"setSurfproperty"));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
@@ -263,7 +263,7 @@ case 'markstyle'        // <=> Marker
     end
     
   else
-    warning("Bad value for property : LineStyle");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -293,7 +293,7 @@ case 'markforeground'        // <=> MarkerEdgeColor
       end
     else
       if (index==-1)
-	warning("Bad value for markforeground property");
+	warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setSurfProperty",2));
 	ResetFigureDDM(current_figure, cur_draw_mode);
 	return;
       else
@@ -310,13 +310,13 @@ case 'markforeground'        // <=> MarkerEdgeColor
 	Surface(markmodeON).mark_foreground = addcolor(PropertyValue);
       end
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
     
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -347,7 +347,7 @@ case 'markbackground'        // <=> MarkerFaceColor
       end
     else
       if (index==-1)
-	warning("Bad value for markbackground property");
+	warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setSurfProperty",2));
 	ResetFigureDDM(current_figure, cur_draw_mode);
 	return;
       else
@@ -365,13 +365,13 @@ case 'markbackground'        // <=> MarkerFaceColor
 	Surface(markmodeON).mark_background = addcolor(PropertyValue);
       end
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setSurfProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
     
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -388,7 +388,7 @@ case 'marksize'        // <=> MarkerSize
       Surface(markmodeON).mark_size = PropertyValue;
     end
   else
-    warning("Color value must be an integer.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: integer expected.\n"),"setSurfProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -399,7 +399,7 @@ case 'visible'        // <=> Visible
   if (type(PropertyValue)==10 & (PropertyValue=='on' | PropertyValue=='off'))
     Surface.visible = PropertyValue;
   else
-    warning("Error : the visibility property should be set to on or off.");
+    warning(msprintf(gettext("%s: Wrong value for input argument #%d: %s or %s expected.\n"),"setSurfProperty",2,"on","off"));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end

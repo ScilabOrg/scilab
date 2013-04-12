@@ -43,7 +43,7 @@ case 'foreground'         // <=> Color
       Curves.foreground = color(ColorVal(index));
       Curves.mark_foreground = color(ColorVal(index));
     else  // 'none' selected
-      warning("Bad value for line color property : none can not be selected");
+      warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setPlotProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
@@ -54,13 +54,13 @@ case 'foreground'         // <=> Color
       Curves.foreground = addcolor(PropertyValue);
       Curves.mark_foreground = addcolor(PropertyValue);
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setPlotProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
 
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -72,7 +72,7 @@ case 'clipping'           // Clipping
   if (type(PropertyValue)==10 & (PropertyValue=='on' | PropertyValue=='off'))
     Curves.clip_state=PropertyValue;
   else
-    warning("Bad value for property : Clipping");
+    warning(msprintf(gettext("%s: Wrong value for input argument #%d: %s or %s expected.\n"),"setPlotProperty",2,"on","off"));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -98,7 +98,7 @@ case 'linestyle'          // LineStyle
       Curves.line_mode = 'off';
     end
   else
-    warning("Bad value for property : LineStyle");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -109,7 +109,7 @@ case 'thickness'        // <=> LineWidth
   if (type(PropertyValue)==1)
     Curves.thickness=PropertyValue;
   else
-    warning("Bad value for property : LineStyle");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: constant expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -130,12 +130,12 @@ case 'markstyle'        // <=> Marker
     k=find(part(Table,1:length(str))==str);
     
     if (k == [])
-      warning("Error in MarkStyle specification : bad argument specified");
+      warning(msprintf(gettext("%s: Error in MarkStyle specification : bad argument specified.\n"),"setPlotProperty"));
       PName=[];
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     elseif ( size(k,'*') > 1)
-      warning("Ambiguous MarkStyle value"); //unreachable case normally
+      warning(msprintf(gettext("%s: Ambiguous MarkStyle value.\n"),"setPlotProperty")); //unreachable case normally
       PName=[];
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
@@ -153,7 +153,7 @@ case 'markstyle'        // <=> Marker
     str = part(str,i:length(str));
     
     if (size(opt1,'*') > 1)
-      warning("Error in MarkStyle specification : too much MarkStyle properties specified");
+      warning(msprintf(gettext("%s: Error in MarkStyle specification : too much MarkStyle properties specified.\n"),"setPlotproperty"));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
@@ -168,7 +168,7 @@ case 'markstyle'        // <=> Marker
     end
     
   else
-    warning("Bad value for property : LineStyle");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: string expected.\n"),"setPlotProperty"));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -198,7 +198,7 @@ case 'markforeground'        // <=> MarkerEdgeColor
       end
     else
       if (index==-1)
-	warning("Bad value for markforeground property");
+	warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setPlotProperty",2));
 	ResetFigureDDM(current_figure, cur_draw_mode);
 	return;
       else
@@ -215,13 +215,13 @@ case 'markforeground'        // <=> MarkerEdgeColor
 	Curves(markmodeON).mark_foreground = addcolor(PropertyValue);
       end
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setPlotProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
     
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -252,7 +252,7 @@ case 'markbackground'        // <=> MarkerFaceColor
       end
     else
       if (index==-1)
-	warning("Bad value for markbackground property");
+	warning(msprintf(gettext("%s: Wrong value for input argument #%d: color can not be selected.\n"),"setPlotProperty",2));
 	ResetFigureDDM(current_figure, cur_draw_mode);
 	return;
       else
@@ -270,13 +270,13 @@ case 'markbackground'        // <=> MarkerFaceColor
 	Curves(markmodeON).mark_background = addcolor(PropertyValue);
       end
     else
-      warning("Incorrect input : Color vector should be a 3x1 or 1x3 vector");
+      warning(msprintf(gettext("%s: Wrong size for input argument #%d: 3x1 or 1x3 vector expected.\n"),"setPlotProperty",2));
       ResetFigureDDM(current_figure, cur_draw_mode);
       return;
     end
     
   else
-    warning("Color value must be a 3 element vector or an index in the colormap.")
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: 3 element vector or index in the colormap expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -293,7 +293,7 @@ case 'marksize'        // <=> MarkerSize
       Curves(markmodeON).mark_size = PropertyValue;
     end
   else
-    warning("Color value must be an integer.");
+    warning(msprintf(gettext("%s: Wrong type for input argument #%d: integer expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -304,7 +304,7 @@ case 'visible'        // <=> Visible
   if (type(PropertyValue)==10 & (PropertyValue=='on' | PropertyValue=='off'))
     Curves.visible = PropertyValue;
   else
-    warning("Error : the visibility property should be set to on or off.");
+    warning(msprintf(gettext("%s: Wrong value for input argument #%d: %s or %s expected.\n"),"setPlotProperty",2,"on","off"));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   end
@@ -327,7 +327,7 @@ case 'zdata'        // <=> Zdata is treated after the curve was created
   /////////////////////////
   
   if (type(PropertyValue)<>1 | and(size(PropertyValue)<>1))
-    warning("Zdata value must be a column or row vector.")
+    warning(msprintf(gettext("%s: Wrong size or type for input argument #%d: column or row vector expected.\n"),"setPlotProperty",2));
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
   else

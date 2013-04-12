@@ -35,7 +35,7 @@ opt1=[];
 k=find(part(Table,1:length(str))==str);
 
 if (k == [])
-  warning("Error in Property specification : bad argument specified");
+  warning(msprintf(gettext("%s: Error in Property specification : bad argument specified.\n"),"getSurfPropertyName"));
   PName=[];
   ResetFigureDDM(current_figure, cur_draw_mode);
   return;
@@ -45,7 +45,7 @@ elseif ( size(k,'*') > 1)
   elseif or(find(k==2)) // case PropertyName == 'colordata' // UPDATE K HERE IF TABLES MODIFIED
     k=2; // UPDATE K HERE IF TABLES MODIFIED
   else
-    warning("Ambiguous surface property: " + PropertyName);
+    warning(msprintf(gettext("%s: Ambiguous surface property: %s.\n"),"getSurfPropertyName","PropertyName"));
     PName=[];
     ResetFigureDDM(current_figure, cur_draw_mode);
     return;
@@ -64,7 +64,7 @@ opt1 = [opt1 k];
 str = part(str,i:length(str));
 
 if (size(opt1,'*') > 1)
-  warning("Error in Property specification : too much properties specified");
+  warning(msprintf(gettext("%s: Error in Property specification : too much properties specified.\n"),"getSurfPropertyName"));
   ResetFigureDDM(current_figure, cur_draw_mode);
   return;
 end

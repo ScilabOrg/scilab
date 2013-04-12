@@ -67,6 +67,8 @@ Bug fixes
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
 
+* Bug #7080 fixed - Some graphics macros did not use standard error messages.
+
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
