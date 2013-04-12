@@ -261,7 +261,7 @@ int simblkKinsol(N_Vector yy, N_Vector resval, void *rdata);
 int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 void **work, int *zptr, int *modptr_in,
                 void **oz, int *ozsz, int *oztyp, int *ozptr,
-                int *iz, int *izptr, double *t0_in,
+                int *iz, int *izptr, int* uid, int* uidptr, double *t0_in,
                 double *tf_in, double *tevts_in, int *evtspt_in,
                 int *nevts, int *pointi_in, void **outtbptr_in,
                 int *outtbsz_in, int *outtbtyp_in,
@@ -735,6 +735,17 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         }
         Blocks[kf].label[i1] = '\0';
         C2F(cvstr)(&i1, &(iz[izptr[kf + 1] - 1]), Blocks[kf].label, &job, i1);
+
+        /* block uid (uid) */
+        i1 = uidptr[kf + 1] - uidptr[kf];
+        if ((Blocks[kf].uid = MALLOC(sizeof(char) * (i1 + 1))) == NULL)
+        {
+            FREE_blocks();
+            *ierr = 5;
+            return 0;
+        }
+        Blocks[kf].uid[i1] = '\0';
+        C2F(cvstr)(&i1, &(uid[uidptr[kf + 1] - 1]), Blocks[kf].uid, &job, i1);
 
         /* 12 : block array of crossed surfaces (jroot) */
         Blocks[kf].jroot = NULL;
@@ -5822,6 +5833,14 @@ static void FREE_blocks()
         if (Blocks[kf].label != NULL)
         {
             FREE(Blocks[kf].label);
+        }
+        else
+        {
+            break;
+        }
+        if (Blocks[kf].uid != NULL)
+        {
+            FREE(Blocks[kf].uid);
         }
         else
         {
