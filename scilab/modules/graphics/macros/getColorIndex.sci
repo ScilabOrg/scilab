@@ -12,7 +12,7 @@ function opt1 = getColorIndex(ColorString)
 [lhs,rhs]=argn(0)
 
 if rhs<>1 then
-  error(msprintf(gettext("%s: Wrong number of input argument(s): %d expected.\n"), "getColorIndex", 1));
+  error(msprintf(gettext("%s: Wrong number of input arguments: %d expected.\n"), "getColorIndex", 1));
 end
 
 if type(ColorString)<>10 then
@@ -43,7 +43,7 @@ k=find(part(Table,1:length(str))==str);
 c1 = part(str,1); // We get the first character
 
 if (k == [] | (size(k,'*') > 1 & c1 <> 'b'))
-  warning("Error in Color property : bad argument specified");
+  warning(msprintf(gettext("%s: Error in Color property : bad argument specified.\n"),"getColorIndex"));
   return;
 end
 
@@ -73,7 +73,7 @@ opt1 = k;
 str = part(str,i:length(str));
 
 if (size(opt1,'*') > 1)  // unreachable case normally
-  warning("Error in Property specification : too much properties specified")
+  warning(msprintf(gettext("%s: Error in Property specification : too much properties specified.\n"),"getColorIndex"));
   return;
 end
 

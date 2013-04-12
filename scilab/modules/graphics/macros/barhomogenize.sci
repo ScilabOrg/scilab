@@ -17,7 +17,7 @@ function  barhomogenize(varargin)
 // width : a double, the bar width, it's the percentage (0<width<1) of the width max of one bar which is wanted (default: width=0.8).
 
 if and(size(varargin)<>[0:3]) then
-  error(msprintf(gettext("%s: Wrong number of input argument(s): %d to %d expected.\n"), "barhomogenize", 0, 3));
+  error(msprintf(gettext("%s: Wrong number of input arguments: %d to %d expected.\n"), "barhomogenize", 0, 3));
 end
 
 // Default values
@@ -40,7 +40,7 @@ if size(varlist) == 1
     if var1.type == "Axes"
       a=var1
     else
-      error("Handle should be an Axes handle")
+      error(msprintf(gettext("%s: Wrong type for input argument #%d: Axes handle expected.\n"),"barhomogenize",1));
     end
     varlist(1).type == "Axes"
     a=varlist(1)
@@ -49,7 +49,7 @@ if size(varlist) == 1
   elseif type(varlist(1)) == 1
     WIDTH=varlist(1)
   else 
-    error("wrong input argument(s)")
+    error(msprintf(gettext("%s: Wrong value(s) for input argument(s).\n"),"barhomogenize"));
   end
 elseif size(varlist) == 2 then  
   if type(varlist(1))==9  then 
@@ -61,13 +61,13 @@ elseif size(varlist) == 2 then
       a=var1
       WIDTH=varlist(2)
     else 
-      error("wrong input argument(s)")
+      error(msprintf(gettext("%s: Wrong value(s) for input argument(s).\n"),"barhomogenize"));
     end
   elseif or(varlist(1) == ["grouped","stacked"]) & (type(varlist(2)) == 1)
     STYLE=varlist(1)
     WIDTH=varlist(2)  
   else 
-    error("wrong input argument(s)")
+    error(msprintf(gettext("%s: Wrong value(s) for input argument(s).\n"),"barhomogenize"));
   end
 elseif size(varlist) == 3
   if type(varlist(1))==9  then
@@ -77,13 +77,13 @@ elseif size(varlist) == 3
       STYLE=varlist(2)
       WIDTH=varlist(3) 
     elseif  size(varlist) > 3 then
-      error("wrong number of input arguments")
+      error(msprintf(gettext("%s: Wrong number of input arguments: must be between %d and %d.\n"),"barhomogenize",0,3));
     end
   end
 end
 
 if ~isreal(WIDTH)
-  error("The width must be real")
+  error(msprintf(gettext("%s: Wrong type for input argument: width must be real.\n"),"barhomogenize"));
 end
 
 hbarlist=[];
@@ -99,11 +99,11 @@ if hbarlist<>[] then
  
   for i=2:nbarhandle
     if or(hbarlist(i).data(:,1) <> X)
-      error("The bars must have the same x data")
+      error(msprintf(gettext("%s: The bars must have the same x data.\n"),"barhomogenize"));
     end
   end
 else
-  error("Could not find any bar in the current graphic")
+  error(msprintf(gettext("%s: Could not find any bar in the current graphic.\n"),"barhomogenize"));
 end
 
 // Determinate the max width

@@ -41,16 +41,16 @@ function []=Sgrayplot(x,y,z, strf, rect, nax, zminmax, colminmax, mesh, colout)
 		return
 		
 	elseif rhs < 3 then
-		error("bad number of input arguments")
+		error(msprintf(gettext("%s: Wrong number of input arguments: Must be between %d and %d.\n"),"Sgrayplot",1,2));
 	end
 
    // some checks
    if ~(type(x)==1 & isreal(x) & type(y)==1 & isreal(y) & type(z)==1 & isreal(z)) then 
-      error("three first arguments must be real")
+      error(msprintf(gettext("%s: Wrong type for input(s) argument(s): arguments #%d, #%d and #%d must be real"), "Sgrayplot",1,2,3));
    end
    nx = length(x); ny = length(y); [p,q] = size(z)
    if p ~= nx | q ~= ny then
-      error("third argument has incompatible dimensions with the two first")
+      error(msprintf(gettext("%s: Wrong size for input argument #%d : incompatible dimensions with argument #%d and #%d"),"Sgrayplot",3,1,2));
    end
    
    // parsing the optionnal args

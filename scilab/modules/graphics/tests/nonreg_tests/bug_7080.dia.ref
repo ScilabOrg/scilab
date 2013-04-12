@@ -1,0 +1,64 @@
+// =============================================================================
+// Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
+// Copyright (C) 2013 - Scilab Enterprises - Charlotte HECQUET
+//
+//  This file is distributed under the same license as the Scilab package.
+// =============================================================================
+//
+// <-- TEST WITH GRAPHIC -->
+//
+// <-- Non-regression test for bug 7080 -->
+//
+// <-- Bugzilla URL -->
+// http://bugzilla.scilab.org/7080
+//
+// <-- Short Description -->
+// Some graphics macros do not use standard error messages
+f1="bar";
+f2="barh";
+f3="barhomogenize";
+f4="getColorIndex";
+f5="getPlotPropertyName";
+f6="getSurfPropertyName";
+f7="legends";
+f8="rgb2name";
+f9="setPlotProperty";
+f10="setSurfProperty";
+f11="setTitleLabelProperty";
+f12="ResetFigureDDM";
+f13="Sgrayplot";
+f14="TitleLabel";
+//bar
+msgerr11=msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),f1,1,5);
+assert_checkerror("bar(gca(),[1 2],[1 2],0.8,""blue"",""grouped"")", msgerr11);
+msgerr12=msprintf(_("%s: Wrong type for input arguments: type of x,y and width must be constant.\n"),f1);
+assert_checkerror("bar(gca(),[""s"" ""d""],[1 2 3])", msgerr12);
+msgerr13=msprintf(_("%s: Wrong type for input arguments: type of color and style must be string.\n"),f1);
+assert_checkerror("bar([1 2],[1 2],0.8,""blue"",gce())", msgerr13);
+msgerr14=msprintf(_("%s: Wrong size for input arguments #%d and #%d.\n"),f1,1,2);
+assert_checkerror("bar([1 2],[1 2 3],0.8,""blue"")", msgerr14);
+//barh
+msgerr21=msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),f2,1,5);
+assert_checkerror("barh(gca(),[1 2],[1 2],0.8,""blue"",""grouped"")", msgerr21);
+msgerr22=msprintf(_("%s: Wrong type for input arguments: type of x,y and width must be constant.\n"),f2);
+assert_checkerror("barh(gca(),[""s"" ""d""],[1 2 3])", msgerr22);
+msgerr23=msprintf(_("%s: Wrong type for input arguments: type of color and style must be string.\n"),f2);
+assert_checkerror("barh([1 2],[1 2],0.8,""blue"",gce())", msgerr23);
+msgerr24=msprintf(_("%s: Wrong size for input arguments #%d and #%d.\n"),f2,1,2);
+assert_checkerror("barh([1 2],[1 2 3],0.8,""blue"")", msgerr24);
+//barhomogenize
+msgerr31=msprintf(_("%s: Wrong number of input arguments: %d to %d expected.\n"),f3,0,3);
+assert_checkerror("barhomogenize(gca(),[1 2],[1 2],0.8,""blue"",""grouped"")", msgerr31);
+msgerr32=msprintf(_("%s: Wrong type for input argument: width must be real.\n"),f3);
+assert_checkerror("barhomogenize(gca(),""grouped"",3*%i)", msgerr32);
+//getColorIndex
+msgerr41=msprintf(_("%s: Wrong type for input argument #%d: A string expected.\n"), f4, 1);
+assert_checkerror("getColorIndex(1)", msgerr41);
+//Sgrayplot
+msgerr131=msprintf(_("%s: Wrong number of input arguments: Must be between %d and %d.\n"),f13,1,2);
+assert_checkerror("Sgrayplot(1)", msgerr131);
+msgerr132=msprintf(_("%s: Wrong type for input(s) argument(s): arguments #%d, #%d and #%d must be real"), f13,1,2,3);
+assert_checkerror("Sgrayplot(%i,%i,[%i,%i])", msgerr132);
+//TitleLabel
+msgerr141=msprintf(gettext("%s: Wrong size or type for input argument #%d.\n"),f14,1);
+assert_checkerror("TitleLabel(""Scale n°3"",1)",msgerr141);

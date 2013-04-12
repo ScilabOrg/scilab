@@ -19,14 +19,13 @@ function legends(leg, style, opt, with_box, font_size )
   rhs=argn(2)
  
   if rhs < 2 then
-    error(msprintf(gettext("%s: Wrong number of input argument(s): At least %d expected.\n"), "legends", 2));
+    error(msprintf(gettext("%s: Wrong number of input arguments: At least %d expected.\n"), "legends", 2));
   end
   if type(leg) ~= 10 then,
     error(msprintf(gettext("%s: Wrong type for input argument #%d: String array expected.\n"), "legends", 1));
   end
   nleg=size(leg,'*')
-  if type(style) ~= 1 & type(style) ~= 9 then,
-    error("second argument type may be 1 or 9  "),
+  if type(style) ~= 1 & type(style) ~= 9 then
     error(msprintf(gettext("%s: Wrong type for input argument #%d: Real array or graphic handle array expected.\n"), "legends", 2));
   end 
   if ~exists("opt","local") then
@@ -40,7 +39,7 @@ function legends(leg, style, opt, with_box, font_size )
       case "?"  then, opt=5,
       case "below" then, opt=6,
     else
-      error("bad value for argument opt")
+      error(msprintf(gettext("%s: Wrong value for input argument opt.\n"),"legends"));
     end
   end
   if ~exists("with_box","local") then, with_box=%t, end
@@ -97,7 +96,7 @@ function legends(leg, style, opt, with_box, font_size )
    // end bugfix
    opt=0 ;
   elseif opt<1 | opt>6 then
-     error('opt can take value in 1 2 3 4 6') // if opt is entered by a string by the user it is in the range
+     error(msprintf(gettext('%s: Wrong value for input argument opt: opt must be in [1,5]."),"legends")); // if opt is entered by a string by the user it is in the range
   end
   select opt
     case 1 then
@@ -168,7 +167,7 @@ function legends(leg, style, opt, with_box, font_size )
             end
           end
         else
-          error('Only handle on polyline,are allowed')
+          error(msprintf(gettext("%s: Wrong type for input argument #%d: Only handle on polyline are allowed.\n"),"legends",2));
         end
       else
         if style(1,k)<= 0 then
