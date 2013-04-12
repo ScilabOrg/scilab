@@ -44,6 +44,8 @@ Xcos
 
 * Update Sundials to lastest "2.5.0", keeping our modifications
 
+* Let the uid value be available inside simulation function.
+
 * Bug #12359 fixed - Xcos files has been converted to zcos to gain some space.
 
 * Bug #12384 fixed - Using a modelica part linked with explicit link to 

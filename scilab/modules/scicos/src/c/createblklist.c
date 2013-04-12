@@ -65,7 +65,7 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int funtyp)
                                   "rpar"        , "nipar"   , "ipar"  , "nopar" ,
                                   "oparsz"      , "opartyp" , "opar"  , "ng"    ,
                                   "g"           , "ztyp"    , "jroot" , "label" ,
-                                  "work"        , "nmode"   , "mode"  , "xprop"
+                                  "work"        , "nmode"   , "mode"  , "xprop" , "uid"
                                 };
 
     /* char ptr for str2sci - see below - */
@@ -503,6 +503,26 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int funtyp)
         return 0;
     }
 
+    /* 41 - uid */
+    if ((str1 = MALLOC(sizeof(char*))) == NULL )
+    {
+        return 0;
+    }
+    if ((str1[0] = MALLOC(sizeof(char) * (strlen(Blocks[0].uid) + 1))) == NULL )
+    {
+        FREE(str1);
+        return 0;
+    }
+    (str1[0])[strlen(Blocks[0].uid)] = '\0';
+    strncpy(str1[0], Blocks[0].uid, strlen(Blocks[0].uid));
+    str2sci(str1, 1, 1);
+    FREE(str1[0]);
+    FREE(str1);
+    if (C2F(scierr)() != 0)
+    {
+        return 0;
+    }
+
     C2F(mktlist)(&nblklst); /*create Blocks list*/
     if (C2F(scierr)() != 0)
     {
@@ -513,4 +533,3 @@ int createblklist(scicos_block *Blocks, int *ierr, int flag_imp, int funtyp)
     return 1;
 }
 /*--------------------------------------------------------------------------*/
-
