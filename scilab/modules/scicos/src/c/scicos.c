@@ -63,6 +63,7 @@
 #include "sciprint.h"
 #include "scicos.h"
 #include "import.h"
+#include "scicos_internal.h"
 #include "blocks.h"
 #include "core_math.h"
 #include "storeCommand.h"
@@ -249,9 +250,6 @@ static int synchro_nev(ScicosImport *scs_imp, int kf, int *ierr);
 extern int C2F(dset)(int *n, double *dx, double *dy, int *incy);
 extern int C2F(dcopy)(int *, double *, int *, double *, int *);
 extern int C2F(msgs)();
-extern int C2F(getscsmax)();
-extern int C2F(makescicosimport)();
-extern int C2F(clearscicosimport)();
 /*--------------------------------------------------------------------------*/
 void putevs(double *t, int *evtnb, int *ierr1);
 void Jdoit(double *told, double *xt, double *xtd, double *residual, int *job);
@@ -260,7 +258,7 @@ int simblkKinsol(N_Vector yy, N_Vector resval, void *rdata);
 int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                 void **work, int *zptr, int *modptr_in,
                 void **oz, int *ozsz, int *oztyp, int *ozptr,
-                int *iz, int *izptr, double *t0_in,
+                int *iz, int *izptr, int* uid, int* uidptr, double *t0_in,
                 double *tf_in, double *tevts_in, int *evtspt_in,
                 int *nevts, int *pointi_in, void **outtbptr_in,
                 int *outtbsz_in, int *outtbtyp_in,
@@ -503,7 +501,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
             switch (funtyp[kf + 1])
             {
                 case 0:
-                    Blocks[kf].funpt = F2C(sciblk);
+                    Blocks[kf].funpt = (voidg) F2C(sciblk);
                     break;
                 case 1:
                     sciprint(_("type 1 function not allowed for scilab blocks\n"));
@@ -516,21 +514,21 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
                     FREE_blocks();
                     return 0;
                 case 3:
-                    Blocks[kf].funpt = sciblk2;
+                    Blocks[kf].funpt = (voidg) sciblk2;
                     Blocks[kf].type = 2;
                     break;
                 case 5:
-                    Blocks[kf].funpt = sciblk4;
+                    Blocks[kf].funpt = (voidg) sciblk4;
                     Blocks[kf].type = 4;
                     break;
                 case 99: /* debugging block */
-                    Blocks[kf].funpt = sciblk4;
+                    Blocks[kf].funpt = (voidg) sciblk4;
                     /*Blocks[kf].type=4;*/
                     debug_block = kf;
                     break;
 
                 case 10005:
-                    Blocks[kf].funpt = sciblk4;
+                    Blocks[kf].funpt = (voidg) sciblk4;
                     Blocks[kf].type = 10004;
                     break;
                 default :
@@ -543,7 +541,7 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         }
         else if (i <= ntabsim)
         {
-            Blocks[kf].funpt = *(tabsim[i - 1].fonc);
+            Blocks[kf].funpt = (voidg) * (tabsim[i - 1].fonc);
             Blocks[kf].scsptr = 0;     /* this is done for being able to test if a block
 									 is a scilab block in the debugging phase when
 									 sciblk4 is called */
@@ -735,6 +733,17 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
         Blocks[kf].label[i1] = '\0';
         C2F(cvstr)(&i1, &(iz[izptr[kf + 1] - 1]), Blocks[kf].label, &job, i1);
 
+        /* block uid (uid) */
+        i1 = uidptr[kf + 1] - uidptr[kf];
+        if ((Blocks[kf].uid = MALLOC(sizeof(char) * (i1 + 1))) == NULL)
+        {
+            FREE_blocks();
+            *ierr = 5;
+            return 0;
+        }
+        Blocks[kf].uid[i1] = '\0';
+        C2F(cvstr)(&i1, &(uid[uidptr[kf] - 1]), Blocks[kf].uid, &job, i1);
+
         /* 12 : block array of crossed surfaces (jroot) */
         Blocks[kf].jroot = NULL;
         if (Blocks[kf].ng != 0)
@@ -786,22 +795,23 @@ int C2F(scicos)(double *x_in, int *xptr_in, double *z__,
     }
 
     /* save ptr of scicos in import structure */
-    C2F(makescicosimport)(x, &nx, &xptr[1], &zcptr[1], z__, &nz, &zptr[1],
-                          &noz, oz, ozsz, oztyp, &ozptr[1],
-                          g, &ng, mod, &nmod, &modptr[1], iz, &izptr[1],
-                          &inpptr[1], &inplnk[1], &outptr[1], &outlnk[1],
-                          outtbptr, outtbsz, outtbtyp,
-                          outtb_elem, &nelem,
-                          &nlnk, rpar, &rpptr[1], ipar, &ipptr[1],
-                          opar, oparsz, opartyp, &opptr[1],
-                          &nblk, subscr, nsubs,
-                          &tevts[1], &evtspt[1], nevts, pointi,
-                          &iord[1], &niord, &oord[1], &noord, &zord[1], &nzord,
-                          funptr, &funtyp[1], &ztyp[1],
-                          &cord[1], &ncord, &ordclk[1], &nordclk, &clkptr[1],
-                          &ordptr[1], &nordptr, &critev[1], iwa, Blocks,
-                          t0, tf, &Atol, &rtol, &ttol, &deltat, &hmax,
-                          xprop, xd);
+    makescicosimport(x, &nx, &xptr[1], &zcptr[1], z__, &nz, &zptr[1],
+                     &noz, oz, ozsz, oztyp, &ozptr[1],
+                     g, &ng, mod, &nmod, &modptr[1], iz, &izptr[1],
+                     uid, uidptr,
+                     &inpptr[1], &inplnk[1], &outptr[1], &outlnk[1],
+                     outtbptr, outtbsz, outtbtyp,
+                     outtb_elem, &nelem,
+                     &nlnk, rpar, &rpptr[1], ipar, &ipptr[1],
+                     opar, oparsz, opartyp, &opptr[1],
+                     &nblk, subscr, nsubs,
+                     &tevts[1], &evtspt[1], nevts, pointi,
+                     &iord[1], &niord, &oord[1], &noord, &zord[1], &nzord,
+                     funptr, &funtyp[1], &ztyp[1],
+                     &cord[1], &ncord, &ordclk[1], &nordclk, &clkptr[1],
+                     &ordptr[1], &nordptr, &critev[1], iwa, Blocks,
+                     t0, tf, &Atol, &rtol, &ttol, &deltat, &hmax,
+                     xprop, xd);
 
     if (*flag__ == 1)   /*start*/
     {
@@ -5821,6 +5831,14 @@ static void FREE_blocks()
         if (Blocks[kf].label != NULL)
         {
             FREE(Blocks[kf].label);
+        }
+        else
+        {
+            break;
+        }
+        if (Blocks[kf].uid != NULL)
+        {
+            FREE(Blocks[kf].uid);
         }
         else
         {

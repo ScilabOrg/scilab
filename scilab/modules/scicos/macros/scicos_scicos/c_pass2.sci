@@ -114,7 +114,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv,flag)
     //extract various info from bllst
     [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
     ozptr,typ_mod,rpptr,ipptr,opptr,xc0,xcd0,xd0,oxd0,rpar,..
-    ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,..
+    ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,uids,..
     bexe,boptr,blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l);
     typ_z0=typ_z;
 
@@ -180,7 +180,7 @@ function cpr=c_pass2(bllst,connectmat,clkconnect,cor,corinv,flag)
     ordclk=ordclk,cord=cord,oord=oord,zord=zord,..
     critev=critev(:),nb=nb,ztyp=ztyp,nblk=nblk,..
     ndcblk=ndcblk,subscr=subscr,funtyp=funtyp,..
-    iord=iord,labels=labels,modptr=modptr);
+    iord=iord,labels=labels,uids=uids,modptr=modptr);
 
     //initialize agenda
     [tevts,evtspt,pointi]=init_agenda(initexe,clkptr)
@@ -1154,7 +1154,7 @@ endfunction
 
 function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
     ozptr,typ_mod,rpptr,ipptr,opptr,xc0,xcd0,xd0,oxd0,rpar,..
-    ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,..
+    ipar,opar,typ_z,typ_x,typ_m,funs,funtyp,initexe,labels,uids,..
     bexe,boptr,blnk,blptr,ok]=extract_info(bllst,connectmat,clkconnect,typ_l)
 
     ok=%t
@@ -1176,6 +1176,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
     funs=list();
     funtyp=zeros(typ_z)
     labels=[]
+    uids=[]
     [ok,bllst]=adjust_inout(bllst,connectmat)
     if ok then
         [ok,bllst]=adjust_typ(bllst,connectmat)
@@ -1187,7 +1188,7 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
         xptr=[],zptr=[],ozptr=[],rpptr=[],ipptr=[],opptr=[],xc0=[],..
         xcd0=[],xd0=[],oxd0=list(),rpar=[],ipar=[],opar=list(),..
         typ_z=[],typ_x=[],typ_m=[],funs=[],funtyp=[],initexe=[],..
-        labels=[],bexe=[],boptr=[],blnk=[],blptr=[]
+        labels=[],uids=[],bexe=[],boptr=[],blnk=[],blptr=[]
         return;
     end
     for i=1:nbl
@@ -1333,6 +1334,12 @@ function [lnksz,lnktyp,inplnk,outlnk,clkptr,cliptr,inpptr,outptr,xptr,zptr,..
             labels=[labels;ll.label(1)]
         else
             labels=[labels;" "]
+        end
+
+        if type(ll.uid)==10 then
+            uids=[uids;ll.uid(1)]
+        else
+            uids=[uids;" "]
         end
     end
 
@@ -2605,5 +2612,4 @@ function [ok,bllst]=adjust_typ(bllst,connectmat)
         end
     end
 endfunction
-
 

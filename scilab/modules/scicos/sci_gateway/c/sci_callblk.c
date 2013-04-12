@@ -56,7 +56,7 @@ int sci_callblk(char *fname, unsigned long fname_len)
     int l_tmp = 0;
 
     /* length of the scilab list scicos struct */
-    int nblklst = 40;
+    int nblklst = 41;
 
     /* variable for callf */
     scicos_flag flag = 0;
@@ -134,29 +134,48 @@ int sci_callblk(char *fname, unsigned long fname_len)
         FREE(Block.z);
         FREE(Block.ozsz);
         FREE(Block.oztyp);
-        for (j = 0; j < Block.noz; j++) FREE(Block.ozptr[j]);
+        for (j = 0; j < Block.noz; j++)
+        {
+            FREE(Block.ozptr[j]);
+        }
         FREE(Block.ozptr);
         FREE(Block.x);
         FREE(Block.xd);
         FREE(Block.xprop);
         FREE(Block.res);
         FREE(Block.insz);
-        for (j = 0; j < Block.nin; j++) FREE(Block.inptr[j]);
+        for (j = 0; j < Block.nin; j++)
+        {
+            FREE(Block.inptr[j]);
+        }
         FREE(Block.inptr);
         FREE(Block.outsz);
-        for (j = 0; j < Block.nout; j++) FREE(Block.outptr[j]);
+        for (j = 0; j < Block.nout; j++)
+        {
+            FREE(Block.outptr[j]);
+        }
         FREE(Block.outptr);
         FREE(Block.evout);
         FREE(Block.rpar);
         FREE(Block.ipar);
         FREE(Block.oparsz);
         FREE(Block.opartyp);
-        for (j = 0; j < Block.nopar; j++) FREE(Block.oparptr[j]);
+        for (j = 0; j < Block.nopar; j++)
+        {
+            FREE(Block.oparptr[j]);
+        }
         FREE(Block.oparptr);
         FREE(Block.g);
         FREE(Block.jroot);
-        if (strlen(Block.label) != 0) FREE(Block.label);
+        if (strlen(Block.label) != 0)
+        {
+            FREE(Block.label);
+        }
         FREE(Block.mode);
+        if (strlen(Block.uid) != 0)
+        {
+            FREE(Block.uid);
+        }
         return 0;
     }
 
@@ -164,7 +183,7 @@ int sci_callblk(char *fname, unsigned long fname_len)
     il2 = (int *) GetData(2);
     m2  = il2[1];
     n2  = il2[2];
-    if ((il2[0] != 1) || (m2*n2 != 1))
+    if ((il2[0] != 1) || (m2 * n2 != 1))
     {
         Scierror(888, _("%s : Second argument must be scalar.\n"), fname);
         return 0;
@@ -176,7 +195,7 @@ int sci_callblk(char *fname, unsigned long fname_len)
     m3  = il3[1];
     n3  = il3[2];
 
-    if ((il3[0] != 1) || (m3*n3 != 1))
+    if ((il3[0] != 1) || (m3 * n3 != 1))
     {
         Scierror(888, _("%s : Third argument must be scalar.\n"), fname);
         return 0;
@@ -194,28 +213,47 @@ int sci_callblk(char *fname, unsigned long fname_len)
     FREE(Block.z);
     FREE(Block.ozsz);
     FREE(Block.oztyp);
-    for (j = 0; j < Block.noz; j++) FREE(Block.ozptr[j]);
+    for (j = 0; j < Block.noz; j++)
+    {
+        FREE(Block.ozptr[j]);
+    }
     FREE(Block.ozptr);
     FREE(Block.x);
     FREE(Block.xd);
     FREE(Block.res);
     FREE(Block.insz);
-    for (j = 0; j < Block.nin; j++) FREE(Block.inptr[j]);
+    for (j = 0; j < Block.nin; j++)
+    {
+        FREE(Block.inptr[j]);
+    }
     FREE(Block.inptr);
     FREE(Block.outsz);
-    for (j = 0; j < Block.nout; j++) FREE(Block.outptr[j]);
+    for (j = 0; j < Block.nout; j++)
+    {
+        FREE(Block.outptr[j]);
+    }
     FREE(Block.outptr);
     FREE(Block.evout);
     FREE(Block.rpar);
     FREE(Block.ipar);
     FREE(Block.oparsz);
     FREE(Block.opartyp);
-    for (j = 0; j < Block.nopar; j++) FREE(Block.oparptr[j]);
+    for (j = 0; j < Block.nopar; j++)
+    {
+        FREE(Block.oparptr[j]);
+    }
     FREE(Block.oparptr);
     FREE(Block.g);
     FREE(Block.jroot);
-    if (strlen(Block.label) != 0) FREE(Block.label);
+    if (strlen(Block.label) != 0)
+    {
+        FREE(Block.label);
+    }
     FREE(Block.mode);
+    if (strlen(Block.uid) != 0)
+    {
+        FREE(Block.uid);
+    }
 
     Top = TopSave;
 
