@@ -104,3 +104,5 @@ Bug fixes
 * Bug #12475 fixed - csvRead() does not support double quoted fields.
 
 * Bug #12506 fixed - In SciNotes, miscolorization when returned values list was broken.
+
+* Bug #12556 fixed - Fatal error occurred with a wrong set instruction.
