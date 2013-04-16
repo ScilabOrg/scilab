@@ -18,9 +18,9 @@
 extern "C" {
 #endif
 
-    BOOL csv_isNum(const char *pStr);
+    BOOL isNum(const char *pStr);
 
-    BOOL *csv_isNumMatrix(const char **pStrs, int nbRows, int nbCols);
+    BOOL *isNumMatrix(const char **pStrs, int nbRows, int nbCols);
 
 #ifdef __cplusplus
 }

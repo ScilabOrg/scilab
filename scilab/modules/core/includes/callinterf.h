@@ -77,7 +77,7 @@
 /* 53 */						#include "../../console/includes/gw_console.h"
 /* 54 */						#include "../../completion/includes/gw_completion.h"
 /* 55 */						#include "../../history_manager/includes/gw_history_manager.h"
-/* 56 */						#include "dynamic_gateways.h" /* spreadsheet */
+/* 56 */						#include "../../spreadsheet/includes/gw_spreadsheet.h" /* spreadsheet */
 /* 57 */						#include "dynamic_gateways.h" /* graphic_export */
 /* 58 */						#include "dynamic_gateways.h" /* UMFPACK */
 /* 59 */						#include "dynamic_gateways.h" /* matio */

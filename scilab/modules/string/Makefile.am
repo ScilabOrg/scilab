@@ -26,7 +26,8 @@ src/c/stringsCompare.c \
 src/c/isalphanum.c \
 src/c/StringConvert.c \
 src/c/scistrtostr.c \
-src/c/stringToDouble.c
+src/c/stringToDouble.c \
+src/c/isnum.c
 
 STRING_FORTRAN_SOURCES =
 
@@ -59,7 +60,8 @@ sci_gateway/c/sci_strspn.c \
 sci_gateway/c/sci_strstr.c \
 sci_gateway/c/sci_strtod.c \
 sci_gateway/c/sci_strtok.c \
-sci_gateway/c/sci_regexp.c
+sci_gateway/c/sci_regexp.c \
+sci_gateway/c/sci_isnum.c
 
 
 
@@ -71,6 +73,7 @@ libscistring_la_CPPFLAGS = -I$(srcdir)/src/c \
 	-I$(top_srcdir)/modules/functions/includes/ \
 	-I$(top_srcdir)/modules/api_scilab/includes/ \
 	-I$(top_srcdir)/modules/localization/includes/ \
+        -I$(top_srcdir)/modules/spreadsheet/src/c/ \
 	-I$(top_srcdir)/modules/output_stream/includes/ \
 	$(PCRE_CFLAGS) \
 	$(AM_CPPFLAGS)

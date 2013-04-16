@@ -172,6 +172,7 @@ ENGINE_LIBS =	$(top_builddir)/modules/fileio/libscifileio.la \
 	$(top_builddir)/modules/history_manager/libscihistory_manager.la \
 	$(top_builddir)/modules/output_stream/libscioutput_stream.la \
 	$(top_builddir)/modules/string/libscistring.la \
+	$(top_builddir)/modules/spreadsheet/libscispreadsheet.la \
 	$(top_builddir)/modules/hdf5/libscihdf5.la \
 	$(top_builddir)/modules/fftw/libscifftw.la \
 	$(top_builddir)/modules/statistics/libscistatistics.la \
@@ -192,7 +193,6 @@ ENGINE_LIBS_DYNAMIC_LOAD = \
 	$(top_builddir)/modules/scicos_blocks/libsciscicos_blocks.la \
 	$(top_builddir)/modules/scicos/libsciscicos.la \
 	$(top_builddir)/modules/sound/libscisound.la \
-	$(top_builddir)/modules/spreadsheet/libscispreadsheet.la \
 	$(top_builddir)/modules/umfpack/libsciumfpack.la \
 	$(top_builddir)/modules/matio/libscimatio.la \
 	$(top_builddir)/modules/helptools/libscihelptools.la \

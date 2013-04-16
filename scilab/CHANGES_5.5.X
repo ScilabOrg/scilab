@@ -27,6 +27,9 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 * The Variable Browser shows also the size of the integer.
   See bug #12523
 
+* isnum has been redesigned in native code. Up to 130x performance
+  improvements. See bug #10404
+
 
 Syntax changes
 ===============

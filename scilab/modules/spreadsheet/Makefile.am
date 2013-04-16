@@ -9,7 +9,6 @@ src/c/xls.c \
 src/c/checkCsvWriteFormat.c \
 src/c/csv_complex.c \
 src/c/csvDefault.c \
-src/c/csvIsnum.c \
 src/c/csvRead.c \
 src/c/csv_strsubst.c \
 src/c/csvWrite.c \
@@ -33,7 +32,6 @@ sci_gateway/c/sci_xls_read.c \
 sci_gateway/c/sci_xls_open.c \
 sci_gateway/c/gw_csv_helpers.c \
 sci_gateway/c/sci_csvDefault.c \
-sci_gateway/c/sci_csvIsnum.c \
 sci_gateway/c/sci_csvRead.c \
 sci_gateway/c/sci_csvStringToDouble.c \
 sci_gateway/c/sci_csvTextScan.c \

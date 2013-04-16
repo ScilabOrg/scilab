@@ -113,13 +113,6 @@ int gw_dynamic_matio(void);
 int gw_dynamic_umfpack(void);
 
 /**
-* spreadsheet gateway
-* spreadsheet is loaded dynamically at runtime
-* load gw_spreadsheet in SCI/modules/spreadsheet/sci_gateway/gw_spreadsheet.c
-*/
-int gw_dynamic_spreadsheet(void);
-
-/**
 * sound gateway
 * sound is loaded dynamically at runtime
 * load gw_sound in SCI/modules/sound/sci_gateway/gw_sound.c

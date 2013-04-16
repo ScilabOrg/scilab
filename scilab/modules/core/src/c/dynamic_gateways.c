@@ -97,22 +97,6 @@ int gw_dynamic_umfpack(void)
                               &ptr_gw_umfpack);
 }
 /*--------------------------------------------------------------------------*/
-/* spreadsheet module */
-#define SPREADSHEET_MODULE_NAME "spreadsheet"
-static DynLibHandle hSpreadsheetLib = NULL;
-static PROC_GATEWAY ptr_gw_spreadsheet = NULL;
-static char* dynlibname_spreadsheet = NULL;
-static char* gatewayname_spreadsheet = NULL;
-/*--------------------------------------------------------------------------*/
-int gw_dynamic_spreadsheet(void)
-{
-    return gw_dynamic_generic(SPREADSHEET_MODULE_NAME,
-                              &dynlibname_spreadsheet,
-                              &gatewayname_spreadsheet,
-                              &hSpreadsheetLib,
-                              &ptr_gw_spreadsheet);
-}
-/*--------------------------------------------------------------------------*/
 /* sound module */
 #define SOUND_MODULE_NAME "sound"
 static DynLibHandle hSoundLib = NULL;
@@ -474,11 +458,6 @@ void freeAllDynamicGateways(void)
                        &gatewayname_umfpack,
                        &hUmfpackLib,
                        &ptr_gw_umfpack);
-
-    freeDynamicGateway(&dynlibname_spreadsheet,
-                       &gatewayname_spreadsheet,
-                       &hSpreadsheetLib,
-                       &ptr_gw_spreadsheet);
 
     freeDynamicGateway(&dynlibname_sound,
                        &gatewayname_sound,
