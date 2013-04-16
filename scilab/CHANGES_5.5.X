@@ -24,6 +24,9 @@ BDF methods with direct and preconditioned Krylov linear solvers, from ODEPACK.
 * The deletion of variables from the Variable Browser is now possible.
   See bug #9447
 
+* The Variable Browser shows also the size of the integer.
+  See bug #12523
+
 
 Syntax changes
 ===============
