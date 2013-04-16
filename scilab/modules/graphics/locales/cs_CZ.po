@@ -1758,17 +1758,6 @@ msgstr ""
 "%d.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-"%s: Špatný typ vstupního argumentu %d: Očekávána obslužná rutina ''Axes''.\n"
-
-#, c-format
-msgid "%s: Wrong size for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-"%s: Špatná velikost vstupního argumentu %d: Očekávána obslužná rutina "
-"''Axes''.\n"
-
-#, c-format
 msgid "%s: Wrong number of input argument(s): %d or %d expected."
 msgstr "%s: Špatný počet vstupních argumentů: Očekáváno %d nebo %d."
 

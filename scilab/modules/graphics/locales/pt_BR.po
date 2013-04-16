@@ -1868,14 +1868,6 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-
-#, c-format
-msgid "%s: Wrong size for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-
-#, c-format
 msgid "%s: Wrong number of input argument(s): %d or %d expected."
 msgstr ""
 "%s: Quantidade incorreta de argumentos de entrada: esperava-se %d ou %d."

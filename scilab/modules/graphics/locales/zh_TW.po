@@ -1612,14 +1612,6 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "%s: Wrong type for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-
-#, c-format
-msgid "%s: Wrong size for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-
-#, c-format
 msgid "%s: Wrong number of input argument(s): %d or %d expected."
 msgstr "%s: 輸入參數數目錯誤: 應為 %d 或 %d 個."
 

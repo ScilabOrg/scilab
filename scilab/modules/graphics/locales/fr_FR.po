@@ -1875,18 +1875,6 @@ msgstr ""
 "%d attendu.\n"
 
 #, c-format
-msgid "%s: Wrong type for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-"%s : Type erroné de l'argument d'entrée n°%d : Un handle de type \"Axes\" "
-"attendu.\n"
-
-#, c-format
-msgid "%s: Wrong size for input argument %d: An ''Axes'' handle expected.\n"
-msgstr ""
-"%s : Dimension erronée de l'argument d'entrée n°%d : Un handle de type "
-"\"Axes\" attendu.\n"
-
-#, c-format
 msgid "%s: Wrong number of input argument(s): %d or %d expected."
 msgstr "%s : Nombre erroné d'argument(s) d'entrée : %d ou %d attendu(s)."
 
