@@ -47,5 +47,6 @@ int StringModule::Load()
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"strcspn", &sci_strcspn, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"strtok", &sci_strtok, MODULE_NAME));
     symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"strspn", &sci_strspn, MODULE_NAME));
+    symbol::Context::getInstance()->addFunction(types::Function::createFunction(L"isalphanum", &sci_isalphanum, MODULE_NAME));
     return 1;
 }
