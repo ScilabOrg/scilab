@@ -32,13 +32,6 @@ src/c/stringToDouble.c
 
 STRING_FORTRAN_SOURCES =
 
-GATEWAY_C_SOURCES = \
-    sci_gateway/c/gw_string.c \
-    sci_gateway/c/sci_strsplit.c \
-    sci_gateway/c/sci_isdigit.c \
-    sci_gateway/c/sci_isalphanum.c \
-    sci_gateway/c/sci_isascii.c
-
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_stripblanks.cpp \
     sci_gateway/cpp/sci_grep.cpp \
@@ -63,7 +56,9 @@ GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_isletter.cpp \
     sci_gateway/cpp/sci_strcspn.cpp \
     sci_gateway/cpp/sci_strtok.cpp \
-    sci_gateway/cpp/sci_strspn.cpp
+    sci_gateway/cpp/sci_strspn.cpp \
+    sci_gateway/cpp/sci_isalphanum.cpp \
+    sci_gateway/cpp/sci_isdigit.cpp
 
 GATEWAY_FORTRAN_SOURCES =  sci_gateway/fortran/sci_f_string.f \
 sci_gateway/fortran/strops.f
