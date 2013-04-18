@@ -203,6 +203,9 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
         column = table.getColumnModel().getColumn(BrowseVar.BYTES_COLUMN_INDEX);
         table.removeColumn(column);
 
+        column = table.getColumnModel().getColumn(BrowseVar.VISIBILITY_COLUMN_INDEX);
+        table.removeColumn(column);
+
         table.addMouseListener(new BrowseVarMouseListener());
         // Mouse selection mode
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -320,11 +323,12 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
          */
         public void mouseClicked(MouseEvent e) {
 
+            JTable table = (JTable)e.getSource();
             // Right click management
             if ((e.getClickCount() == 1 && SwingUtilities.isRightMouseButton(e)) || e.isPopupTrigger()) {
 
 
-                int clickedRow = ((JTable) e.getSource()).rowAtPoint(e.getPoint());
+                int clickedRow = table.rowAtPoint(e.getPoint());
                 // Does nothing if no variable selected
                 if (clickedRow != -1) {
                     displayContextMenu();
@@ -332,12 +336,11 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
             }
 
             if (e.getClickCount() >= 2) {
-                int clickedRow = ((JTable) e.getSource()).rowAtPoint(e.getPoint());
+                int clickedRow = table.rowAtPoint(e.getPoint());
                 if (clickedRow != -1) {
-                    String variableName = ((JTable) e.getSource()).getValueAt(clickedRow, 1).toString();
+                    String variableName = table.getValueAt(clickedRow, 1).toString();
 
-                    String variableVisibility = ((JTable) e.getSource())
-                                                .getValueAt(((JTable) e.getSource()).getSelectedRow(), BrowseVar.VISIBILITY_COLUMN_INDEX).toString();
+                    String variableVisibility = table.getModel().getValueAt(table.getSelectedRow(), BrowseVar.VISIBILITY_COLUMN_INDEX).toString();
 
                     // Global variables are not editable yet
                     if (variableVisibility.equals("global")) {
