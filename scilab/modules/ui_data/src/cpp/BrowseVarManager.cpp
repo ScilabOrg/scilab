@@ -23,7 +23,7 @@ using std::string;
 extern "C"
 {
 #include <string.h>
-#include "UpdateBrowseVar.h"
+#include "BrowseVarManager.h"
 #include "localization.h"
 #include "MALLOC.h"
 #include "BOOL.h"
@@ -42,7 +42,7 @@ using namespace org_scilab_modules_ui_data;
 static std::set < string > createScilabDefaultVariablesSet();
 
 /*--------------------------------------------------------------------------*/
-void UpdateBrowseVar(BOOL update)
+void OpenBrowseVar()
 {
     SciErr err;
     int iGlobalVariablesUsed = 0;
@@ -50,11 +50,7 @@ void UpdateBrowseVar(BOOL update)
     int iLocalVariablesUsed = 0;
     int iLocalVariablesTotal = 0;
     int i = 0;
-
-    if (update && !BrowseVar::isVariableBrowserOpened(getScilabJavaVM()))
-    {
-        return;
-    }
+    BOOL update;
 
     // First get how many global / local variable we have.
     C2F(getvariablesinfo) (&iLocalVariablesTotal, &iLocalVariablesUsed);
@@ -181,6 +177,7 @@ void UpdateBrowseVar(BOOL update)
             piAllVariableFromUser[i] = FALSE;
         }
     }
+    update = BrowseVar::isVariableBrowserOpened(getScilabJavaVM());
 
     // Launch Java Variable Browser through JNI
     BrowseVar::openVariableBrowser(getScilabJavaVM(),
@@ -224,6 +221,14 @@ void UpdateBrowseVar(BOOL update)
     {
         FREE(pstAllVariableSizes);
         pstAllVariableSizes = NULL;
+    }
+}
+
+void UpdateBrowseVar()
+{
+    if (BrowseVar::isVariableBrowserOpened(getScilabJavaVM()))
+    {
+        OpenBrowseVar();
     }
 }
 
