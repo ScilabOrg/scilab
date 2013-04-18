@@ -71,7 +71,7 @@ Bug fixes
 
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
-* Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear. 
+* Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
 
@@ -82,6 +82,9 @@ Bug fixes
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
 * Bug #8680 fixed - Output argument "end" of the regexp function has been changed.
+
+* Bug #8778 fixed - Call_ScilabOpen, TerminateScilab can not be called more
+                    than 80 times in a loop.
 
 * Bug #8824 fixed - taucs_chfact returned a segfault (not the case in mode nwni).
 
