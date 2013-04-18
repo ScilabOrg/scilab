@@ -112,14 +112,14 @@ public class BrowseVar {
     }
 
     /**
-     * Open variable Browser
+     * Open Variable Browser
      */
-    public static void openVariableBrowser(boolean update) {
-        ScilabVariableBrowser.getVariableBrowser(update);
+    public static void openVariableBrowser() {
+        ScilabVariableBrowser.openVariableBrowser();
     }
 
     /**
-     * Open variable Browser with information given by Scilab
+     * Set the Variable Browser data given by Scilab
      * @param dataNames : scilab variable name
      * @param dataBytes : scilab variable size in bytes
      * @param dataTypes : scilab variable type (as integer)
@@ -128,7 +128,8 @@ public class BrowseVar {
      * @param dataVisibility : local or global variable
      * @param dataFromUser : Scilab data or user data
      */
-    public static void openVariableBrowser(boolean update, String[] dataNames, int[] dataBytes, int[] dataTypes, int[] dataIntegerTypes, String[] dataSizes, String[] dataVisibility, boolean[] dataFromUser) {
+    public static void setVariableBrowserData(String[] dataNames, int[] dataBytes, int[] dataTypes, int[] dataIntegerTypes,
+            String[] dataSizes, String[] dataVisibility, boolean[] dataFromUser) {
         Object[][] data = new Object[dataNames.length][COLUMNNAMES.length];
         for (int i = 0; i < dataNames.length; ++i) {
             data[i][ICON_COLUMN_INDEX] = getIconFromType(dataTypes[i]);
@@ -144,7 +145,14 @@ public class BrowseVar {
             data[i][FROM_SCILAB_COLUMN_INDEX] = dataFromUser[i]; /* Tag if it is a variable from the user or from Scilab (%pi, %eps, etc) */
             data[i][TYPE_COLUMN_INDEX] = dataTypes[i];
         }
-        ScilabVariableBrowser.getVariableBrowser(update, data);
+        ScilabVariableBrowser.setVariableBrowserData(data);
+    }
+
+    /**
+     * Update Variable Browser
+     */
+    public static void updateVariableBrowserData() {
+        ScilabVariableBrowser.updateVariableBrowser();
     }
 
     /**

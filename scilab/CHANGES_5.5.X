@@ -71,7 +71,7 @@ Bug fixes
 
 * Bug #5539 fixed - sylv() help page was wrong in the discrete-time case.
 
-* Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear. 
+* Bug #6168 fixed - Help for zpbutt, zpch1, zpch2 and zpell were unclear.
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
 
@@ -112,6 +112,8 @@ Bug fixes
 
 * Bug #12463 fixed - Bad specification for rect=[x,y,w,h] argument in french help
                      page of xstringb.
+
+* Bug #12470 fixed - Variable browser is not refreshed after loading an environment.
 
 * Bug #12473 fixed - Problems with "é" in french help page of mkdir.
 
