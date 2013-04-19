@@ -83,6 +83,8 @@ Bug fixes
 
 * Bug #7927 fixed - Output "flag" in qmr function was not well documented.
 
+* Bug #8597 fixed - Uncontrolled message of grand/clcg4 should be displayed as warning.
+
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
 * Bug #8680 fixed - Output argument "end" of the regexp function has been changed.
