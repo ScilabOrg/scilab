@@ -18,17 +18,22 @@ function a=sprand(m,n,density,typ)
     end
 
     if ( rhs < 4 ) then
-        typ="uniform";
+        typ="def";
     end
 
     if type(typ)<>10 then
         error(msprintf(gettext("%s: Wrong type for input argument #%d: A string expected.\n"),"sprand",4));
     end
 
-    if and(typ<>["u";"n";"uniform";"normal"]) then
+    if and(typ<>["u";"n";"uniform";"normal";"def";"nor"]) then
         error(msprintf(gettext("%s: Wrong value for input argument #%d: ''%s'' or ''%s'' expected.\n"),"sprand",4,"uniform","normal"));
     end
-
+    if typ == "u" | typ == "uniform" then
+        typ = "def";
+    elseif typ == "n" | typ == "normal" then
+        typ = "nor";
+    end
+    
     density=max(min(density,1),0);
 
     nel=m*n*density; //the objective number of non zero elements
@@ -58,7 +63,12 @@ function a=sprand(m,n,density,typ)
 
     //----  generates the random non zeros elements --------------------
     //according to the requested law and create the sparse matrix
-    a=sparse(ij,rand(nel1,1,typ),[m,n]);
+    if typ == "nor" then
+        a=sparse(ij,grand(nel1,1,typ,0,1),[m,n]);
+    elseif typ == "def" then
+        a=sparse(ij,grand(nel1,1,typ),[m,n]);
+    end
+    
 
 endfunction
 
