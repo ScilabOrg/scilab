@@ -9,7 +9,7 @@
 
 function [phi,db]=phasemag(z,mod)
 //
-
+z_temp=z;
 mod_def='c'     //continuous representation
 //mod_def='m'   //representation modulo 360 degrees
 [lhs,rhs]=argn(0)
@@ -30,4 +30,11 @@ if part(mod,1)<>'c' then  // reset modulo 360
   phi=modulo(phi,2*%pi)
 end
 phi=phi*180/%pi //transform in degree
+
+if typeof(z_temp) == 'hypermat' & typeof(phi) <> 'hypermat' then
+    phi_temp=phi;
+    phi = mlist(['hm','dims','entries']);
+    phi('dims') = [size(phi_temp,1) size(phi_temp,2)];
+    phi('entries') = matrix(phi_temp,size(phi_temp,1)*size(phi_temp,2),1);
+end
 endfunction
