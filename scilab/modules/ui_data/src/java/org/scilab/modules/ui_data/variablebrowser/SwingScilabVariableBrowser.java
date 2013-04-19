@@ -82,6 +82,7 @@ import org.scilab.modules.ui_data.actions.TListFilteringAction;
 import org.scilab.modules.ui_data.actions.UncompiledFunctionFilteringAction;
 import org.scilab.modules.ui_data.datatable.SwingTableModel;
 import org.scilab.modules.ui_data.utils.UiDataMessages;
+import org.scilab.modules.ui_data.variableeditor.actions.ExportToCsvAction;
 import org.scilab.modules.ui_data.variablebrowser.actions.CloseAction;
 import org.scilab.modules.ui_data.variablebrowser.actions.DeleteAction;
 import org.scilab.modules.ui_data.variablebrowser.actions.RefreshAction;
@@ -338,7 +339,7 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
             if (e.getClickCount() >= 2) {
                 int clickedRow = table.rowAtPoint(e.getPoint());
                 if (clickedRow != -1) {
-                    String variableName = table.getValueAt(clickedRow, 1).toString();
+                    String variableName = table.getValueAt(clickedRow, BrowseVar.NAME_COLUMN_INDEX).toString();
 
                     String variableVisibility = table.getModel().getValueAt(table.getSelectedRow(), BrowseVar.VISIBILITY_COLUMN_INDEX).toString();
 
@@ -418,6 +419,8 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
             DeleteAction delete = new DeleteAction(SwingScilabVariableBrowser.this);
             menu.add(delete.createMenuItem());
 
+            ExportToCsvAction csvExport = new ExportToCsvAction((SwingScilabTab)SwingScilabVariableBrowser.this, UiDataMessages.EXPORTCSV);
+            menu.add(csvExport.createMenuItem(SwingScilabVariableBrowser.this, UiDataMessages.EXPORTCSV));
             menu.setVisible(true);
 
             ((SwingScilabContextMenu) menu.getAsSimpleContextMenu()).setLocation(
