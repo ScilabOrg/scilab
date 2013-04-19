@@ -220,6 +220,9 @@ public final class SwingScilabVariableBrowser extends SwingScilabTab implements 
             align(table, columnsName[i], aligment[i]);
         }
 
+        // Plug the shortcuts
+        ExportToCsvAction.registerAction(this, table);
+
         JScrollPane scrollPane = new JScrollPane(table);
         setContentPane(scrollPane);
         WindowsConfigurationManager.restorationFinished(this);
