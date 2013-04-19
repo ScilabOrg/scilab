@@ -75,6 +75,8 @@ Bug fixes
 
 * Bug #6693 fixed - modulo did not accept polynomial inputs. Help page was not updated.
 
+* Bug #6752 fixed - unit test scilab.tst has been split in different tests.
+
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #7927 fixed - Output "flag" in qmr function was not well documented.
