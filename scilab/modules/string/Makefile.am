@@ -29,7 +29,8 @@ src/c/os_wcsdup.c \
 src/c/os_wcstok.c \
 src/c/scistrtostr.c \
 src/c/stringToDouble.c \
-src/c/isascii.c
+src/c/isascii.c \
+src/c/isnum.c
 
 GATEWAY_CPP_SOURCES = \
     sci_gateway/cpp/sci_stripblanks.cpp \
