@@ -82,6 +82,7 @@ Bug fixes
 * Bug #7684 fixed - Introduction demo splitted in subsections.
 
 * Bug #7828 fixed - Slight improvements in nicholschart.
+                    + a new calling sequence allowed: nicholschart(gains, phases, colors).
 
 * Bug #7927 fixed - Output "flag" in qmr function was not well documented.
 
