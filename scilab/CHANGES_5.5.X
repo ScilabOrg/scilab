@@ -85,6 +85,8 @@ Bug fixes
 
 * Bug #7927 fixed - Output "flag" in qmr function was not well documented.
 
+* Bug #8607 fixed - Some error messages in modules/overloading/macros were not standard and not localized.
+
 * Bug #8667 fixed - Handling of %nan in functions min,max,median is not correctly documented.
 
 * Bug #8680 fixed - Output argument "end" of the regexp function has been changed.
