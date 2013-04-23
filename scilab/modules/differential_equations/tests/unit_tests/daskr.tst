@@ -1,4 +1,3 @@
-
 // =============================================================================
 // Scilab ( http://www.scilab.org/ ) - This file is part of Scilab
 // Copyright (C) Scilab Enterprises - 2013 - Paul Bignier
@@ -10,8 +9,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 // =============================================================================
 
-// Execute with exec("SCI/modules/differential_equations/tests/unit_tests/daskr.tst");
-//  or test_run('differential_equations', 'daskr', ['no_check_error_output']);
+// Run with test_run('differential_equations', 'daskr', ['no_check_error_output']);
 
 //C-----------------------------------------------------------------------
 //C First problem.
@@ -35,6 +33,7 @@ info=list([],0,[],[],[],0,[],0,[],0,0,[],[],1);
 [yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,'res1',ng,'gr1',info);
 if abs(nn(1)-2.53)>0.001 then pause,end
 
+// Same problem, but using macro for the derivative evaluation function 'res1'
 deff('[delta,ires]=res1(t,y,ydot)','ires=0;delta=ydot-((2*log(y)+8)/t-5)*y')
 deff('[rts]=gr1(t,y,yd)','rts=[((2*log(y)+8)/t-5)*y;log(y)-2.2491]')
 
@@ -48,6 +47,26 @@ if abs(nn(1)-2.5)>0.001 then pause,end
 y0=yy(2,1);y0d=yy(3,1);t0=nn(1);t=[3,4,5,6];
 [yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,res1,ng,gr1,info);
 if abs(nn(1)-2.53)>0.001 then pause,end
+
+// Same problem, but using macros for the preconditioner evaluation and application functions 'pjac' and 'psol'
+// pjac uses the macro res1 defined above.
+
+// Import example macros
+exec("SCI/modules/differential_equations/macros/pjac.sci");
+exec("SCI/modules/differential_equations/macros/psol.sci");
+
+y0=1;t=2:6;t0=1;y0d=3;
+info=list([],0,[],[],[],0,[],1,[],0,1,[],[],1);
+atol=1.d-6;rtol=0;ng=2;
+[yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,res1,ng,'gr1',info,psol,pjac);
+if abs(nn(1)-2.47)>0.001 then pause,end
+y0=yy(2,2);y0d=yy(3,2);t0=nn(1);t=[3,4,5,6];
+[yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,res1,ng,'gr1',info,psol,pjac);
+if abs(nn(1)-2.5)>0.001 then pause,end
+y0=yy(2,1);y0d=yy(3,1);t0=nn(1);t=[3,4,5,6];
+[yy,nn]=daskr([y0,y0d],t0,t,atol,rtol,res1,ng,'gr1',info,psol,pjac);
+if abs(nn(1)-2.53)>0.001 then pause,end
+info=list([],0,[],[],[],0,[],0,[],0,0,[],[],1);
 
 //C
 //C-----------------------------------------------------------------------
