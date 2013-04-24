@@ -13,6 +13,14 @@ For a high-level overview of the changes in this release, please consult the "Wh
         Changes between version 6.0.0-alpha-2 and 6.0.0-beta-1
         ======================================================
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example to the Demo gui.
+
+Bug Fixes
+=========
+
 * Bug #13298 fixed - Static analysis bugs detected by PVS-Studio fixed.
 
 * Bug #13986 fixed - setdefaultlanguage did not set value correctly in Windows registry.
