@@ -629,6 +629,12 @@ SciNotes
   (See bug #12712).
 
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example to the Demo gui as demo.
+
+
 Xcos
 ====
 
