@@ -69,7 +69,7 @@ taucs_chdel(Cp)
 // Example #2 a real example
 stacksize(3000000)  // the last PlotSparse need memory
 // first load a sparse matrix
-[A] = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
+[A] = ReadHBSparse(SCI+"/modules/umfpack/demos/bcsstk24.rsa");
 // compute the factorization
 Cptr = taucs_chfact(A);
 // retrieve the factor at scilab level
@@ -92,7 +92,7 @@ cnz_exact = nnz(Ct)
 taucs_chdel(Cptr)
  ]]></programlisting>
         <scilab:image>
-            [A] = ReadHBSparse(SCI+"/modules/umfpack/examples/bcsstk24.rsa");
+            [A] = ReadHBSparse(SCI+"/modules/umfpack/demos/bcsstk24.rsa");
             Cptr = taucs_chfact(A);
             [Ct, p] = taucs_chget(Cptr);
             PlotSparse(A) ; xtitle("Initial matrix A (bcsstk24.rsa)")
