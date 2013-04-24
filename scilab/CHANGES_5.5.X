@@ -47,6 +47,12 @@ Obsolete
                                               direction : "d" "i"
 
 
+Demos
+=====
+
+* Bug #8210 fixed - Added UMFPACK example in the Demo gui as demo.
+
+
 Xcos
 ====
 
